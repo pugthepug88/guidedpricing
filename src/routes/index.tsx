@@ -241,19 +241,12 @@ function HeroMock() {
         </div>
         <div className="mt-4 flex items-center gap-1.5 rounded-2xl bg-[#152336] p-2.5">
           {["Capture", "Manage", "Get paid", "Grow"].map((s, i, arr) => (
-            <>
-              <div
-                key={s}
-                className="flex-1 rounded-xl border border-white/10 bg-[#23354d] py-2.5 text-center text-[11.5px] font-black text-[#c9fbf2]"
-              >
+            <div key={s} className="flex flex-1 items-center gap-1.5">
+              <div className="flex-1 rounded-xl border border-white/10 bg-[#23354d] py-2.5 text-center text-[11.5px] font-black text-[#c9fbf2]">
                 {s}
               </div>
-              {i < arr.length - 1 && (
-                <span key={s + "arrow"} className="px-0.5 text-[#4a6b8e]">
-                  →
-                </span>
-              )}
-            </>
+              {i < arr.length - 1 && <span className="text-[#4a6b8e]">→</span>}
+            </div>
           ))}
         </div>
       </div>
