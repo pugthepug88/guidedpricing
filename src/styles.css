@@ -2,6 +2,57 @@
 @source "../src";
 @import "tw-animate-css";
 
+@theme {
+  --color-zapla-bg: #f6f8fc;
+  --color-zapla-paper: #ffffff;
+  --color-zapla-paper2: #f9fbff;
+  --color-zapla-ink: #071426;
+  --color-zapla-ink2: #17283f;
+  --color-zapla-muted: #5a687d;
+  --color-zapla-faint: #eef3f8;
+  --color-zapla-line: #dfe7f1;
+  --color-zapla-blue: #1769ff;
+  --color-zapla-blue2: #0b58ee;
+  --color-zapla-green: #18c5a7;
+  --color-zapla-amber: #ffb547;
+  --color-zapla-purple: #7c5cff;
+  --font-zapla: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shadow-zapla: 0 20px 55px rgba(23, 35, 57, 0.09);
+  --shadow-zapla-sm: 0 10px 28px rgba(23, 35, 57, 0.06);
+  --shadow-zapla-lift: 0 18px 45px rgba(23, 105, 255, 0.13);
+}
+
+@utility zapla-scroll-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes zapla-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility zapla-rise {
+  animation: zapla-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes zapla-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+@utility zapla-pulse-dot {
+  animation: zapla-pulse-dot 1.6s ease-in-out infinite;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /*
