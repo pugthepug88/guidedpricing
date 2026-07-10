@@ -1059,7 +1059,9 @@ function Customers() {
     const cards = el.querySelectorAll<HTMLElement>("[data-cust-card]");
     const target = cards[clamped];
     if (target) {
-      el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
+      const elRect = el.getBoundingClientRect();
+      const tRect = target.getBoundingClientRect();
+      el.scrollTo({ left: el.scrollLeft + (tRect.left - elRect.left), behavior: "smooth" });
       setActive(clamped);
     }
   };
@@ -1069,10 +1071,11 @@ function Customers() {
     if (!el) return;
     const onScroll = () => {
       const cards = el.querySelectorAll<HTMLElement>("[data-cust-card]");
+      const elLeft = el.getBoundingClientRect().left;
       let best = 0;
       let bestDist = Infinity;
       cards.forEach((card, i) => {
-        const dist = Math.abs(card.offsetLeft - el.offsetLeft - el.scrollLeft);
+        const dist = Math.abs(card.getBoundingClientRect().left - elLeft);
         if (dist < bestDist) { bestDist = dist; best = i; }
       });
       setActive(best);
@@ -1080,6 +1083,7 @@ function Customers() {
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
   }, []);
+
 
   return (
     <section id="customers" className="bg-white py-16 sm:py-24">
