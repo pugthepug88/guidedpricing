@@ -1095,7 +1095,7 @@ function Pillars() {
                     <span className="text-[14px] font-bold text-zapla-ink">Your stack today</span>
                   </div>
                   <span className="hidden sm:inline text-[11.5px] font-semibold text-zapla-muted2">
-                    12+ logins · A$1.5–2.5k/mo
+                    16+ logins · A$1.5–2.5k/mo
                   </span>
                 </div>
 
@@ -1126,7 +1126,7 @@ function Pillars() {
                 </div>
 
                 <div className="mt-5 flex items-center justify-between rounded-xl bg-[#FEF2F2] px-3 py-2 text-[11.5px] sm:hidden">
-                  <span className="font-bold text-[#B91C1C]">12+ logins</span>
+                  <span className="font-bold text-[#B91C1C]">16+ logins</span>
                   <span className="font-bold text-[#B91C1C]">A$1.5–2.5k/mo</span>
                 </div>
               </div>
