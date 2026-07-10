@@ -1056,10 +1056,12 @@ function Customers() {
     const el = scrollerRef.current;
     if (!el) return;
     const clamped = Math.max(0, Math.min(CUSTOMERS.length - 1, i));
-    const cards = el.querySelectorAll<HTMLElement>("[data-cust-card]");
+    const cards = Array.from(el.children) as HTMLElement[];
     const target = cards[clamped];
     if (target) {
-      el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
+      const elRect = el.getBoundingClientRect();
+      const tRect = target.getBoundingClientRect();
+      el.scrollTo({ left: el.scrollLeft + (tRect.left - elRect.left), behavior: "smooth" });
       setActive(clamped);
     }
   };
@@ -1068,11 +1070,12 @@ function Customers() {
     const el = scrollerRef.current;
     if (!el) return;
     const onScroll = () => {
-      const cards = el.querySelectorAll<HTMLElement>("[data-cust-card]");
+      const cards = Array.from(el.children) as HTMLElement[];
+      const elLeft = el.getBoundingClientRect().left;
       let best = 0;
       let bestDist = Infinity;
       cards.forEach((card, i) => {
-        const dist = Math.abs(card.offsetLeft - el.offsetLeft - el.scrollLeft);
+        const dist = Math.abs(card.getBoundingClientRect().left - elLeft);
         if (dist < bestDist) { bestDist = dist; best = i; }
       });
       setActive(best);
@@ -1080,6 +1083,7 @@ function Customers() {
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
   }, []);
+
 
   return (
     <section id="customers" className="bg-white py-16 sm:py-24">
@@ -1133,7 +1137,9 @@ function Customers() {
                 delay={Math.min(i, 3) * 80}
                 className="group snap-start shrink-0 basis-[86%] overflow-hidden rounded-[24px] border border-zapla-line bg-white shadow-zapla-sm transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/30 hover:shadow-zapla sm:basis-[70%] lg:basis-[calc((100%-2.5rem)/3)]"
               >
-                <article data-cust-card className="flex h-full flex-col">
+                <article className="flex h-full flex-col">
+
+
                   <div className="relative aspect-[16/10] overflow-hidden bg-zapla-faint">
                     <img
                       src={c.img}
