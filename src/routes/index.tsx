@@ -277,16 +277,17 @@ function Hero() {
 
 function GuidedStrip() {
   return (
-    <section className="relative bg-white py-16 sm:py-20">
+    <section className="relative bg-white py-10 sm:py-14">
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow>Guided Launch</Eyebrow>
-          <h2 className="mt-5 text-[clamp(28px,3.2vw,40px)] font-extrabold leading-[1.1] tracking-[-0.035em] text-zapla-ink">
+          <h2 className="mt-4 text-[clamp(24px,2.6vw,32px)] font-extrabold leading-[1.15] tracking-[-0.035em] text-zapla-ink">
             Zapla, <span className="zapla-gradient-text">launched properly</span> around how your business runs.
           </h2>
         </Reveal>
 
-        <div className="relative mt-12 grid gap-4 sm:grid-cols-3">
+        <div className="relative mt-8 grid gap-4 sm:grid-cols-3">
+
           {[
             { n: "01", b: "Mapped", s: "Your workflow, team and customer journey — captured in one session." },
             { n: "02", b: "Configured", s: "Pipelines, inbox, bookings, reviews and follow-up built in your system." },
