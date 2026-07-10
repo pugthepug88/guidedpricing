@@ -1276,7 +1276,7 @@ function Pillars() {
                       width: p.size,
                       height: p.size,
                       transform: `translate(-50%, -50%) rotate(${p.rot}deg)`,
-                      animation: `zapla-float ${5 + (i % 4)}s ease-in-out ${i * 0.2}s infinite alternate`,
+                      
                     }}
                   >
                     <div className="relative h-full w-full">
