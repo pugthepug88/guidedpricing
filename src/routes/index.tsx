@@ -1056,7 +1056,7 @@ function Customers() {
     const el = scrollerRef.current;
     if (!el) return;
     const clamped = Math.max(0, Math.min(CUSTOMERS.length - 1, i));
-    const cards = el.querySelectorAll<HTMLElement>("[data-cust-card]");
+    const cards = Array.from(el.children) as HTMLElement[];
     const target = cards[clamped];
     if (target) {
       const elRect = el.getBoundingClientRect();
@@ -1070,7 +1070,7 @@ function Customers() {
     const el = scrollerRef.current;
     if (!el) return;
     const onScroll = () => {
-      const cards = el.querySelectorAll<HTMLElement>("[data-cust-card]");
+      const cards = Array.from(el.children) as HTMLElement[];
       const elLeft = el.getBoundingClientRect().left;
       let best = 0;
       let bestDist = Infinity;
