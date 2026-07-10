@@ -1191,20 +1191,18 @@ function Customers() {
                 aria-label={`Go to slide ${i + 1}`}
                 className={`h-2 rounded-full transition-all ${
                   isActive
-                    ? "w-8 bg-gradient-to-r from-zapla-blue to-zapla-violet"
+                    ? "w-5 bg-gradient-to-r from-zapla-blue to-zapla-violet"
                     : "w-2 bg-zapla-line2 hover:bg-zapla-muted2"
                 }`}
               />
             );
           })}
         </div>
-        <p className="mt-4 text-center text-[11.5px] uppercase tracking-[0.12em] text-zapla-muted">
-          Illustrative examples — real case studies coming soon.
-        </p>
       </div>
     </section>
   );
 }
+
 
 
 /* ------------------------------------------------------------------ */
