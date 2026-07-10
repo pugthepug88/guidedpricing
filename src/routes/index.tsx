@@ -276,28 +276,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* lightweight pricing anchor */}
-        <div className="zapla-fade relative mx-auto mt-14 max-w-[720px]">
-          <div className="pointer-events-none absolute -inset-8 rounded-[32px] bg-gradient-to-br from-zapla-cyan/25 via-zapla-blue/15 to-zapla-magenta/20 blur-2xl" />
-          <div className="relative grid gap-px overflow-hidden rounded-[24px] border border-zapla-line bg-zapla-line shadow-zapla sm:grid-cols-3">
-            {[
-              { label: "Launch fee", value: "A$2,490", sub: "one-time setup" },
-              { label: "Growth plan", value: "A$497", sub: "/mo, unlimited users" },
-              { label: "ROI timeline", value: "30–60", sub: "days to payback" },
-            ].map((item, i) => (
-              <div
-                key={item.label}
-                className="group relative bg-white/95 p-6 text-center backdrop-blur-sm transition-colors hover:bg-white"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="text-[12px] font-extrabold uppercase tracking-[0.14em] text-zapla-muted">{item.label}</div>
-                <div className="mt-2 text-[28px] font-extrabold tracking-[-0.03em] text-zapla-ink sm:text-[32px]">{item.value}</div>
-                <div className="mt-1 text-[13px] font-semibold text-zapla-muted2">{item.sub}</div>
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-zapla-cyan via-zapla-blue to-zapla-magenta opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </header>
   );
