@@ -1210,130 +1210,144 @@ function Customers() {
 /* ------------------------------------------------------------------ */
 
 function Pillars() {
-  const scatteredTools = [
-    { n: "CRM", c: "text-[#2563FF]" },
-    { n: "Calendar", c: "text-[#7C3AED]" },
-    { n: "Stripe", c: "text-[#635BFF]" },
-    { n: "Mailchimp", c: "text-[#F59E0B]" },
-    { n: "Twilio", c: "text-[#EF4444]" },
-    { n: "Zapier", c: "text-[#F97316]" },
-    { n: "Docs", c: "text-[#0EA5E9]" },
-    { n: "Reviews", c: "text-[#10B981]" },
-    { n: "Forms", c: "text-[#8B5CF6]" },
-    { n: "SMS", c: "text-[#EC4899]" },
-    { n: "Website", c: "text-[#14B8A6]" },
-    { n: "POS", c: "text-[#F43F5E]" },
+  // Real tool logos via simple-icons CDN — the stack Zapla replaces
+  const tools = [
+    { n: "WordPress", slug: "wordpress", color: "21759B", bg: "#ffffff", role: "Website" },
+    { n: "ClickFunnels", slug: "clickfunnels", color: "1F32DE", bg: "#ffffff", role: "Funnels" },
+    { n: "HubSpot", slug: "hubspot", color: "FF7A59", bg: "#ffffff", role: "CRM" },
+    { n: "Pipedrive", slug: "pipedrive", color: "1A1A1A", bg: "#ffffff", role: "Pipeline" },
+    { n: "Mailchimp", slug: "mailchimp", color: "000000", bg: "#FFE01B", role: "Email" },
+    { n: "Twilio", slug: "twilio", color: "F22F46", bg: "#ffffff", role: "SMS" },
+    { n: "Calendly", slug: "calendly", color: "006BFF", bg: "#ffffff", role: "Bookings" },
+    { n: "Typeform", slug: "typeform", color: "262627", bg: "#ffffff", role: "Forms" },
+    { n: "Zapier", slug: "zapier", color: "FF4A00", bg: "#ffffff", role: "Automation" },
+    { n: "Sheets", slug: "googlesheets", color: "34A853", bg: "#ffffff", role: "Tracking" },
+    { n: "Jotform", slug: "jotform", color: "0099FF", bg: "#ffffff", role: "Forms" },
+    { n: "SMS", slug: null, color: "EC4899", bg: "#ffffff", role: "SimpleTexting" },
   ];
-  const scatterPos = [
-    "top-[4%] left-[6%] -rotate-6",
-    "top-[10%] right-[8%] rotate-3",
-    "top-[24%] left-[22%] rotate-2",
-    "top-[18%] right-[26%] -rotate-6",
-    "top-[38%] left-[4%] rotate-4",
-    "top-[36%] right-[6%] -rotate-3",
-    "top-[52%] left-[26%] -rotate-2",
-    "top-[50%] right-[24%] rotate-6",
-    "top-[68%] left-[8%] rotate-3",
-    "top-[70%] right-[10%] -rotate-4",
-    "bottom-[6%] left-[28%] rotate-5",
-    "bottom-[8%] right-[30%] -rotate-2",
+
+  const pos = [
+    { top: "4%",  left: "38%", size: 78,  rot: -6 },
+    { top: "10%", left: "72%", size: 86,  rot: 4  },
+    { top: "20%", left: "12%", size: 82,  rot: -4 },
+    { top: "24%", left: "54%", size: 74,  rot: 3  },
+    { top: "32%", left: "82%", size: 70,  rot: -8 },
+    { top: "42%", left: "26%", size: 90,  rot: 5  },
+    { top: "62%", left: "10%", size: 76,  rot: -3 },
+    { top: "66%", left: "70%", size: 84,  rot: 6  },
+    { top: "80%", left: "42%", size: 80,  rot: -5 },
+    { top: "86%", left: "14%", size: 68,  rot: 4  },
+    { top: "52%", left: "62%", size: 72,  rot: -7 },
+    { top: "84%", left: "76%", size: 74,  rot: 3  },
   ];
-  const pillars = [
-    { h: "Manage customers", p: "Records, pipelines, notes, tasks and documents.", tags: ["CRM", "Pipelines", "Documents"] },
-    { h: "Book & communicate", p: "Inbox, chat, SMS, email and calendars around the customer.", tags: ["Inbox", "Bookings", "SMS", "AI chat"] },
-    { h: "Get paid", p: "Invoices, payment links, recurring billing and mobile POS.", tags: ["Payments", "Invoices", "POS"] },
-    { h: "Grow & follow up", p: "Reviews, forms, funnels and automated reactivation.", tags: ["Reviews", "Forms", "Automation"] },
-  ];
+
   return (
     <section id="replaces" className="relative overflow-hidden bg-zapla-bg py-16 sm:py-24">
       <div className="pointer-events-none absolute -top-24 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-zapla-blue/8 blur-[140px]" />
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
-        <SectionHead
-          eyebrow="Operating stack"
-          title="One system"
-          accent="replaces the stack"
-          sub="Instead of disconnected tools, logins and customer records — one operating system."
-        />
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          {/* LEFT — scattered isometric logo cloud */}
+          <Reveal className="relative">
+            <div className="relative mx-auto aspect-square w-full max-w-[560px] overflow-hidden rounded-[36px] bg-gradient-to-br from-[#F3E8FF] via-[#EEF0FB] to-[#FCE7F3]">
+              <div className="pointer-events-none absolute inset-x-10 bottom-8 h-24 rounded-full bg-black/5 blur-2xl" />
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_auto_1.15fr] lg:items-stretch">
-          {/* LEFT — messy scattered stack */}
-          <Reveal className="relative min-h-[420px] overflow-hidden rounded-3xl border border-zapla-line bg-white/60 p-5 shadow-zapla-sm">
-            <div className="absolute inset-x-0 top-0 flex items-center justify-between px-5 pt-4">
-              <span className="text-[10.5px] font-extrabold uppercase tracking-[0.14em] text-zapla-muted">
-                Today's stack
-              </span>
-              <span className="rounded-full bg-red-50 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.1em] text-red-500">
-                12+ logins
-              </span>
-            </div>
-            <div className="pointer-events-none absolute inset-0">
-              {scatteredTools.map((t, i) => (
-                <span
-                  key={t.n}
-                  className={`absolute ${scatterPos[i]} rounded-xl border border-zapla-line bg-white px-3 py-2 text-[12px] font-extrabold shadow-zapla-sm ${t.c}`}
-                >
-                  {t.n}
-                </span>
-              ))}
-            </div>
-            <div className="absolute inset-x-0 bottom-0 px-5 pb-4">
-              <div className="rounded-xl border border-red-100 bg-red-50/70 px-3 py-2 text-center text-[12px] font-semibold text-red-600">
-                A$1,500–2,500+/mo · disconnected data · manual glue work
+              {/* center anchor — Zapla */}
+              <div
+                className="absolute left-1/2 top-1/2"
+                style={{ transform: "translate(-50%, -50%) rotate(-4deg)" }}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 translate-y-3 rounded-full bg-black/20 blur-lg" />
+                  <div className="relative grid h-[132px] w-[132px] place-items-center rounded-full bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta shadow-zapla-blue">
+                    <span className="text-[22px] font-black tracking-tight text-white">zapla</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </Reveal>
 
-          {/* MIDDLE — arrow */}
-          <Reveal delay={120} className="flex items-center justify-center lg:px-2">
-            <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-zapla-blue via-zapla-violet to-zapla-magenta px-4 py-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-white shadow-zapla-blue">
-              Zapla
-              <span className="text-white/80">→</span>
-            </div>
-          </Reveal>
-
-          {/* RIGHT — one unified system */}
-          <Reveal delay={200} className="relative overflow-hidden rounded-3xl border border-zapla-blue/25 bg-white p-6 shadow-zapla">
-            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-gradient-to-br from-zapla-blue/15 to-zapla-violet/15 blur-3xl" />
-            <div className="relative flex items-center justify-between">
-              <span className="text-[10.5px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue">
-                One operating system
-              </span>
-              <span className="rounded-full bg-gradient-to-r from-zapla-blue/10 to-zapla-violet/10 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.1em] text-zapla-blue">
-                1 login
-              </span>
-            </div>
-            <div className="relative mt-5 grid gap-3 sm:grid-cols-2">
-              {pillars.map((p, idx) => (
-                <div
-                  key={p.h}
-                  className="group rounded-2xl border border-zapla-line bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-zapla-blue/40 hover:shadow-zapla-sm"
-                  style={{ transitionDelay: `${idx * 40}ms` }}
-                >
-                  <div className="flex items-start gap-2">
-                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-md bg-gradient-to-br from-zapla-blue/12 to-zapla-violet/12 text-[11px] font-extrabold text-zapla-blue">
-                      {idx + 1}
-                    </span>
-                    <div className="min-w-0">
-                      <h3 className="text-[14.5px] font-extrabold tracking-[-0.01em] text-zapla-ink">{p.h}</h3>
-                      <p className="mt-1 text-[12.5px] leading-[1.5] text-zapla-muted">{p.p}</p>
-                      <div className="mt-2 flex flex-wrap gap-1">
-                        {p.tags.map((t) => (
-                          <span key={t} className="rounded-full bg-zapla-faint px-2 py-0.5 text-[10.5px] font-bold text-zapla-muted">
-                            {t}
+              {tools.map((t, i) => {
+                const p = pos[i];
+                return (
+                  <div
+                    key={t.n}
+                    className="group absolute"
+                    style={{
+                      top: p.top,
+                      left: p.left,
+                      width: p.size,
+                      height: p.size,
+                      transform: `translate(-50%, -50%) rotate(${p.rot}deg)`,
+                      animation: `zapla-float ${5 + (i % 4)}s ease-in-out ${i * 0.2}s infinite alternate`,
+                    }}
+                  >
+                    <div className="relative h-full w-full">
+                      <div className="absolute inset-0 translate-y-2 rounded-full bg-black/15 blur-md" />
+                      <div
+                        className="relative grid h-full w-full place-items-center rounded-full shadow-[0_10px_24px_-8px_rgba(15,23,42,0.25)] ring-1 ring-black/5 transition-transform duration-300 group-hover:-translate-y-1"
+                        style={{ background: t.bg }}
+                      >
+                        {t.slug ? (
+                          <img
+                            src={`https://cdn.simpleicons.org/${t.slug}/${t.color}`}
+                            alt={t.n}
+                            className="h-[46%] w-[46%] object-contain"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <span className="text-[11px] font-black tracking-tight text-zapla-ink">
+                            {t.role}
                           </span>
-                        ))}
+                        )}
                       </div>
                     </div>
                   </div>
-                </div>
+                );
+              })}
+            </div>
+          </Reveal>
+
+          {/* RIGHT — headline + CTA */}
+          <Reveal delay={120} className="max-w-[520px]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue shadow-zapla-sm">
+              Operating stack
+            </span>
+            <h2 className="mt-5 text-[44px] font-extrabold leading-[1.05] tracking-[-0.02em] text-zapla-ink sm:text-[54px]">
+              One system,{" "}
+              <span className="zapla-gradient-text">every tool you were juggling</span>.
+            </h2>
+            <p className="mt-5 text-[16.5px] leading-[1.55] text-zapla-muted">
+              Website, funnels, CRM, pipeline, email, SMS, bookings, forms, automations, payments and reviews — all connected to the same customer record, inside one login.
+            </p>
+
+            <ul className="mt-6 space-y-2.5 text-[14.5px] text-[#3a4560]">
+              {[
+                "1 login instead of 12+ tools and passwords",
+                "One customer record — no more manual glue work",
+                "Save A$1,500–2,500+/mo on disconnected subscriptions",
+              ].map((line) => (
+                <li key={line} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 grid h-5 w-5 place-items-center rounded-full bg-gradient-to-br from-zapla-blue to-zapla-violet text-[11px] font-black text-white">✓</span>
+                  <span>{line}</span>
+                </li>
               ))}
+            </ul>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="#pricing"
+                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-zapla-blue via-zapla-violet to-zapla-magenta px-6 py-3 text-[14px] font-extrabold text-white shadow-zapla-blue transition-transform duration-300 hover:-translate-y-0.5"
+              >
+                See what you replace
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </a>
+              <a
+                href="#roi"
+                className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-5 py-3 text-[14px] font-extrabold text-zapla-ink transition-colors hover:border-zapla-blue/40 hover:text-zapla-blue"
+              >
+                Calculate your savings
+              </a>
             </div>
           </Reveal>
         </div>
-
-        <Reveal className="mx-auto mt-8 max-w-[820px] rounded-2xl border border-zapla-blue/20 bg-zapla-blue-soft/60 p-5 text-center text-[14.5px] text-[#3a4560]">
-          Bought separately, a comparable stack reaches <b className="text-zapla-ink">A$1,500 to A$2,500+ a month</b> once seats, contacts, payments, messaging, reviews, websites, AI and extra tools add up.
-        </Reveal>
       </div>
     </section>
   );
