@@ -1060,16 +1060,20 @@ function Pillars() {
   // Real color logos via Google's favicon service (multi-color, always up-to-date).
   const tools: Array<{ n: string; role: string; domain: string }> = [
     { n: "WordPress",     role: "Website",     domain: "wordpress.org" },
+    { n: "Wix",           role: "Website",     domain: "wix.com" },
     { n: "ClickFunnels",  role: "Funnels",     domain: "clickfunnels.com" },
     { n: "HubSpot",       role: "CRM",         domain: "hubspot.com" },
     { n: "Pipedrive",     role: "Pipeline",    domain: "pipedrive.com" },
     { n: "Mailchimp",     role: "Email",       domain: "mailchimp.com" },
+    { n: "Klaviyo",       role: "Email",       domain: "klaviyo.com" },
     { n: "Twilio",        role: "SMS",         domain: "twilio.com" },
     { n: "Calendly",      role: "Bookings",    domain: "calendly.com" },
     { n: "Typeform",      role: "Forms",       domain: "typeform.com" },
-    { n: "Zapier",        role: "Automations", domain: "zapier.com" },
-    { n: "Google Sheets", role: "Tracking",    domain: "sheets.google.com" },
     { n: "Jotform",       role: "Forms",       domain: "jotform.com" },
+    { n: "Zapier",        role: "Automations", domain: "zapier.com" },
+    { n: "Hootsuite",     role: "Social",      domain: "hootsuite.com" },
+    { n: "NiceJob",       role: "Reviews",     domain: "nicejob.com" },
+    { n: "DocuSign",      role: "eSign",       domain: "docusign.com" },
     { n: "Stripe",        role: "Payments",    domain: "stripe.com" },
   ];
 
@@ -1091,7 +1095,7 @@ function Pillars() {
                     <span className="text-[14px] font-bold text-zapla-ink">Your stack today</span>
                   </div>
                   <span className="hidden sm:inline text-[11.5px] font-semibold text-zapla-muted2">
-                    12+ logins · A$1.5–2.5k/mo
+                    16+ logins · A$1.5–2.5k/mo
                   </span>
                 </div>
 
@@ -1101,11 +1105,11 @@ function Pillars() {
                       key={t.n + t.role}
                       className="group relative flex flex-col items-center gap-2 rounded-2xl border border-zapla-line/60 bg-gradient-to-b from-white to-[#FAFBFF] px-2 py-3 transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/30 hover:shadow-zapla"
                     >
-                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white shadow-[0_2px_8px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.04]">
+                      <span className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-white shadow-[0_2px_8px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.04]">
                         <img
-                          src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=128`}
+                          src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=256`}
                           alt=""
-                          className="h-6 w-6"
+                          className="h-10 w-10 object-contain"
                           loading="lazy"
                         />
                       </span>
@@ -1122,7 +1126,7 @@ function Pillars() {
                 </div>
 
                 <div className="mt-5 flex items-center justify-between rounded-xl bg-[#FEF2F2] px-3 py-2 text-[11.5px] sm:hidden">
-                  <span className="font-bold text-[#B91C1C]">12+ logins</span>
+                  <span className="font-bold text-[#B91C1C]">16+ logins</span>
                   <span className="font-bold text-[#B91C1C]">A$1.5–2.5k/mo</span>
                 </div>
               </div>
