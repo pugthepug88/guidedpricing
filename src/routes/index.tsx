@@ -1060,16 +1060,20 @@ function Pillars() {
   // Real color logos via Google's favicon service (multi-color, always up-to-date).
   const tools: Array<{ n: string; role: string; domain: string }> = [
     { n: "WordPress",     role: "Website",     domain: "wordpress.org" },
+    { n: "Wix",           role: "Website",     domain: "wix.com" },
     { n: "ClickFunnels",  role: "Funnels",     domain: "clickfunnels.com" },
     { n: "HubSpot",       role: "CRM",         domain: "hubspot.com" },
     { n: "Pipedrive",     role: "Pipeline",    domain: "pipedrive.com" },
     { n: "Mailchimp",     role: "Email",       domain: "mailchimp.com" },
+    { n: "Klaviyo",       role: "Email",       domain: "klaviyo.com" },
     { n: "Twilio",        role: "SMS",         domain: "twilio.com" },
     { n: "Calendly",      role: "Bookings",    domain: "calendly.com" },
     { n: "Typeform",      role: "Forms",       domain: "typeform.com" },
-    { n: "Zapier",        role: "Automations", domain: "zapier.com" },
-    { n: "Google Sheets", role: "Tracking",    domain: "sheets.google.com" },
     { n: "Jotform",       role: "Forms",       domain: "jotform.com" },
+    { n: "Zapier",        role: "Automations", domain: "zapier.com" },
+    { n: "Hootsuite",     role: "Social",      domain: "hootsuite.com" },
+    { n: "NiceJob",       role: "Reviews",     domain: "nicejob.com" },
+    { n: "DocuSign",      role: "eSign",       domain: "docusign.com" },
     { n: "Stripe",        role: "Payments",    domain: "stripe.com" },
   ];
 
