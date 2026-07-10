@@ -8,6 +8,7 @@ import customer05 from "@/assets/customer-05-peak.jpg";
 import customer06 from "@/assets/customer-06-complete.jpg";
 import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
+import zaplaIcon from "@/assets/zapla-icon.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: PricingPage,
