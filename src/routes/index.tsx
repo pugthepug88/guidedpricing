@@ -965,140 +965,231 @@ function ScopeDetail({ title, sub, items }: { title: string; sub?: string; items
 
 const CUSTOMERS = [
   {
-    tag: "Trades",
-    company: "Riverside Electrical",
-    metric: "38%",
-    label: "more quotes converted",
-    quote: "We replaced three tools and finally chase every quote automatically. Nothing slips anymore.",
-    person: "Operations lead, electrical contractor",
-    img: customerTrades,
-  },
-  {
-    tag: "Beauty & wellness",
-    company: "Studio Bloom",
+    tag: "Home services",
+    company: "Brightside Plumbing",
     metric: "A$12k",
-    label: "recovered in month one",
-    quote: "The reactivation workflow brought back clients we'd written off. It paid for itself in weeks.",
-    person: "Owner, hair & beauty studio",
-    img: customerSalon,
+    label: "Recovered from old leads",
+    quote: "Old enquiries, forgotten follow-ups, and past customers turned into booked work again.",
+    person: "Owner, home services business",
+    img: customer01,
   },
   {
     tag: "Automotive",
     company: "Northside Auto",
     metric: "5×",
-    label: "faster enquiry response",
-    quote: "Missed-call textback and the AI follow-up mean nobody waits. Bookings hold, reviews go up.",
-    person: "Manager, auto service centre",
-    img: customerAuto,
+    label: "Faster enquiry response",
+    quote: "Missed calls, forms, and messages now get an instant reply before the customer goes elsewhere.",
+    person: "Service Manager, automotive workshop",
+    img: customer02,
+  },
+  {
+    tag: "Trades",
+    company: "Riverside Electrical",
+    metric: "38%",
+    label: "More quotes converted",
+    quote: "Every quote is followed up automatically, so warm prospects don't disappear when the team gets busy.",
+    person: "Operations Lead, electrical contractor",
+    img: customer03,
+  },
+  {
+    tag: "Appointments",
+    company: "Studio Bloom",
+    metric: "24%",
+    label: "More customers booked",
+    quote: "More enquiries turned into appointments because every lead was followed up quickly and consistently.",
+    person: "Clinic Manager, appointment-based business",
+    img: customer04,
+  },
+  {
+    tag: "Local service",
+    company: "Peak Property Care",
+    metric: "3×",
+    label: "More reviews requested",
+    quote: "Happy customers are asked at the right time, helping the business build trust and win more local work.",
+    person: "Customer Experience Manager, local service business",
+    img: customer05,
+  },
+  {
+    tag: "Retention",
+    company: "Complete Care Co.",
+    metric: "18%",
+    label: "More repeat customers",
+    quote: "We now stay in touch after the first job with reminders, check-ins, offers, and rebooking prompts.",
+    person: "General Manager, service-based business",
+    img: customer06,
+  },
+  {
+    tag: "Sales",
+    company: "Metro Trade Services",
+    metric: "A$8k",
+    label: "Upsell opportunities identified",
+    quote: "We could finally see which customers were ready for upgrades, add-ons, repeat work, or follow-up services.",
+    person: "Sales Manager, trade services company",
+    img: customer07,
+  },
+  {
+    tag: "Operations",
+    company: "Urban Service Group",
+    metric: "6 tools",
+    label: "Replaced with one system",
+    quote: "CRM, SMS, email, bookings, forms, reviews, automations, and pipeline tracking now work from one place.",
+    person: "Founder, growing service business",
+    img: customer08,
   },
 ] as const;
 
 function Customers() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [perView, setPerView] = useState(3);
 
-  const scrollTo = (i: number) => {
+  useEffect(() => {
+    const compute = () => setPerView(window.matchMedia("(min-width: 1024px)").matches ? 3 : 1);
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
+
+  const totalPages = Math.max(1, CUSTOMERS.length - perView + 1);
+
+  const scrollToIndex = (i: number) => {
     const el = scrollerRef.current;
     if (!el) return;
+    const clamped = Math.max(0, Math.min(CUSTOMERS.length - 1, i));
     const cards = el.querySelectorAll<HTMLElement>("[data-cust-card]");
-    const target = cards[i];
+    const target = cards[clamped];
     if (target) {
       el.scrollTo({ left: target.offsetLeft - el.offsetLeft, behavior: "smooth" });
-      setActive(i);
+      setActive(clamped);
     }
   };
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const cards = el.querySelectorAll<HTMLElement>("[data-cust-card]");
+      let best = 0;
+      let bestDist = Infinity;
+      cards.forEach((card, i) => {
+        const dist = Math.abs(card.offsetLeft - el.offsetLeft - el.scrollLeft);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      });
+      setActive(best);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <section id="customers" className="bg-white py-16 sm:py-24">
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <Reveal className="max-w-xl">
-            <Eyebrow>Customers</Eyebrow>
-            <h2 className="mt-5 text-[clamp(28px,3.4vw,44px)] font-extrabold leading-[1.05] tracking-[-0.04em] text-zapla-ink">
-              Businesses that <span className="zapla-gradient-text">achieve more</span>
+        <div className="mb-10 grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+          <Reveal className="max-w-2xl">
+            <Eyebrow>Customer results</Eyebrow>
+            <h2 className="mt-5 text-[clamp(28px,3.4vw,44px)] font-extrabold leading-[1.05] tracking-[-0.035em] text-zapla-ink">
+              Businesses recover more from the leads and{" "}
+              <span className="zapla-gradient-text">customers they already have</span>
             </h2>
-            <p className="mt-3 text-[15.5px] text-zapla-muted">
-              What Zapla recovers once it's launched properly around how a business actually operates.
+            <p className="mt-4 max-w-xl text-[15.5px] leading-relaxed text-zapla-muted">
+              Zapla helps service businesses respond faster, convert more enquiries, recover lost revenue,
+              retain customers, generate more reviews, and identify upsell opportunities already sitting in
+              their business.
             </p>
           </Reveal>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => scrollTo(Math.max(0, active - 1))}
-              aria-label="Previous"
-              className="grid h-11 w-11 place-items-center rounded-full border border-zapla-line bg-white text-zapla-ink transition hover:-translate-y-0.5 hover:border-zapla-blue"
+          <Reveal className="flex justify-start md:justify-end">
+            <a
+              href={BOOK_URL}
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-zapla-blue via-zapla-violet to-zapla-magenta px-6 py-3 text-[14px] font-extrabold text-white shadow-zapla-blue transition hover:-translate-y-0.5 hover:shadow-zapla-lift"
             >
-              ←
-            </button>
-            <button
-              onClick={() => scrollTo(Math.min(CUSTOMERS.length - 1, active + 1))}
-              aria-label="Next"
-              className="grid h-11 w-11 place-items-center rounded-full border border-zapla-line bg-white text-zapla-ink transition hover:-translate-y-0.5 hover:border-zapla-blue"
-            >
-              →
-            </button>
+              Get started →
+            </a>
+          </Reveal>
+        </div>
+
+        <div className="relative">
+          <button
+            onClick={() => scrollToIndex(active - 1)}
+            aria-label="Previous"
+            className="absolute -left-2 top-1/2 z-20 hidden -translate-y-1/2 md:grid h-12 w-12 place-items-center rounded-full border border-zapla-line bg-white text-zapla-ink shadow-zapla-sm transition hover:-translate-y-[calc(50%+2px)] hover:border-zapla-blue hover:text-zapla-blue"
+          >
+            ←
+          </button>
+          <button
+            onClick={() => scrollToIndex(active + 1)}
+            aria-label="Next"
+            className="absolute -right-2 top-1/2 z-20 hidden -translate-y-1/2 md:grid h-12 w-12 place-items-center rounded-full border border-zapla-line bg-white text-zapla-ink shadow-zapla-sm transition hover:-translate-y-[calc(50%+2px)] hover:border-zapla-blue hover:text-zapla-blue"
+          >
+            →
+          </button>
+
+          <div
+            ref={scrollerRef}
+            className="zapla-scroll-hide -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0"
+          >
+            {CUSTOMERS.map((c, i) => (
+              <Reveal
+                key={c.company}
+                delay={Math.min(i, 3) * 80}
+                className="group snap-start shrink-0 basis-[86%] overflow-hidden rounded-[24px] border border-zapla-line bg-white shadow-zapla-sm transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/30 hover:shadow-zapla sm:basis-[70%] lg:basis-[calc((100%-2.5rem)/3)]"
+              >
+                <article data-cust-card className="flex h-full flex-col">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-zapla-faint">
+                    <img
+                      src={c.img}
+                      alt=""
+                      loading="lazy"
+                      width={1200}
+                      height={750}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <span className="absolute left-4 top-4 z-20 rounded-full bg-white/95 px-3 py-1.5 text-[10.5px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue shadow-sm backdrop-blur">
+                      {c.tag}
+                    </span>
+                    <div className="absolute right-4 top-4 z-20 rounded-lg bg-white/95 px-3 py-1.5 text-[12px] font-extrabold text-zapla-ink shadow-sm backdrop-blur">
+                      {c.company}
+                    </div>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-4 p-6">
+                    <div>
+                      <div className="text-[48px] font-extrabold leading-none tracking-[-0.045em] zapla-gradient-text">
+                        {c.metric}
+                      </div>
+                      <div className="mt-2 text-[13px] font-bold text-zapla-ink">
+                        {c.label}
+                      </div>
+                    </div>
+                    <blockquote className="text-[14.5px] leading-[1.55] text-[#26364f]">
+                      "{c.quote}"
+                    </blockquote>
+                    <div className="mt-auto border-t border-zapla-line pt-3">
+                      <span className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-zapla-muted">
+                        {c.person}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </div>
 
-        <div
-          ref={scrollerRef}
-          className="zapla-scroll-hide -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0"
-        >
-          {CUSTOMERS.map((c, i) => (
-            <Reveal
-              key={c.tag}
-              delay={i * 100}
-              className="group snap-start shrink-0 basis-[86%] overflow-hidden rounded-[24px] border border-zapla-line bg-white shadow-zapla-sm transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/30 hover:shadow-zapla sm:basis-[70%] lg:basis-[calc((100%-2rem)/3)]"
-            >
-              <article data-cust-card>
-                <div className="relative aspect-[16/10] overflow-hidden bg-zapla-faint">
-                  <img
-                    src={c.img}
-                    alt=""
-                    loading="lazy"
-                    width={1200}
-                    height={1200}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <span className="absolute left-4 top-4 z-20 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.1em] text-zapla-ink shadow-sm backdrop-blur">
-                    {c.tag}
-                  </span>
-                  <div className="absolute right-4 top-4 z-20 rounded-lg bg-white/95 px-3 py-1.5 text-[12px] font-extrabold text-zapla-ink shadow-sm backdrop-blur">
-                    {c.company}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-4 p-6">
-                  <div>
-                    <div className="text-[52px] font-extrabold leading-none tracking-[-0.045em] zapla-gradient-text">
-                      {c.metric}
-                    </div>
-                    <div className="mt-2 text-[12.5px] font-extrabold uppercase tracking-[0.08em] text-zapla-muted">
-                      {c.label}
-                    </div>
-                  </div>
-                  <blockquote className="text-[15px] leading-[1.55] text-[#26364f]">
-                    "{c.quote}"
-                  </blockquote>
-                  <div className="mt-auto flex items-center justify-between border-t border-zapla-line pt-3">
-                    <span className="text-[12.5px] font-semibold text-zapla-muted">{c.person}</span>
-                    <a href={BOOK_URL} className="text-[12.5px] font-extrabold text-zapla-blue underline-offset-4 hover:underline">
-                      Book →
-                    </a>
-                  </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-6 flex items-center justify-center gap-2">
-          {CUSTOMERS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => scrollTo(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              className={`h-2 rounded-full transition-all ${i === active ? "w-8 bg-zapla-blue" : "w-2 bg-zapla-line2"}`}
-            />
-          ))}
+        <div className="mt-8 flex items-center justify-center gap-2">
+          {Array.from({ length: totalPages }).map((_, i) => {
+            const isActive = i === Math.min(active, totalPages - 1);
+            return (
+              <button
+                key={i}
+                onClick={() => scrollToIndex(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-2 rounded-full transition-all ${
+                  isActive
+                    ? "w-8 bg-gradient-to-r from-zapla-blue to-zapla-violet"
+                    : "w-2 bg-zapla-line2 hover:bg-zapla-muted2"
+                }`}
+              />
+            );
+          })}
         </div>
         <p className="mt-4 text-center text-[11.5px] uppercase tracking-[0.12em] text-zapla-muted">
           Illustrative examples — real case studies coming soon.
@@ -1107,6 +1198,7 @@ function Customers() {
     </section>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  Pillars                                                            */
