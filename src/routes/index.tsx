@@ -1129,15 +1129,15 @@ function Pillars() {
                 {/* Footer stat row */}
                 <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-zapla-line/60 pt-3 text-[11px] font-semibold">
                   <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
+                    <span className="zapla-warn-pulse h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
                     16+ logins & passwords
                   </span>
                   <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
+                    <span className="zapla-warn-pulse h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
                     A$1.5–2.5k/mo in subscriptions
                   </span>
                   <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
+                    <span className="zapla-warn-pulse h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
                     Data scattered across silos
                   </span>
                 </div>
