@@ -93,6 +93,11 @@
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+@keyframes zapla-float {
+  0%   { transform: translate(-50%, -50%) rotate(var(--tw-rotate, 0deg)) translateY(0); }
+  100% { transform: translate(-50%, -50%) translateY(-8px); }
+}
 @utility zapla-gradient-shimmer {
   background: linear-gradient(90deg, #22d3ee 0%, #2563ff 25%, #8b5cf6 50%, #d946ef 75%, #22d3ee 100%);
   background-size: 200% 100%;
