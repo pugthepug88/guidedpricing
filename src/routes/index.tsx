@@ -277,7 +277,7 @@ function Hero() {
         </div>
 
         {/* lightweight pricing anchor */}
-        <div className="zapla-reveal relative mx-auto mt-14 max-w-[720px]">
+        <div className="zapla-fade relative mx-auto mt-14 max-w-[720px]">
           <div className="pointer-events-none absolute -inset-8 rounded-[32px] bg-gradient-to-br from-zapla-cyan/25 via-zapla-blue/15 to-zapla-magenta/20 blur-2xl" />
           <div className="relative grid gap-px overflow-hidden rounded-[24px] border border-zapla-line bg-zapla-line shadow-zapla sm:grid-cols-3">
             {[
