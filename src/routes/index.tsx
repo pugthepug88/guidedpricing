@@ -493,11 +493,11 @@ function Pricing() {
 
 function CompareTable() {
   const rows: [string, string, string, string, string][] = [
-    ["Monthly price", "A$299", "A$499", "A$899", "Custom quote"],
+    ["Monthly price", "A$299", "A$499", "A$899", "Custom"],
     ["Launch Pack", "A$995", "A$1,995", "A$3,500", "Custom"],
     ["Users", "Unlimited", "Unlimited", "Unlimited", "Unlimited"],
     ["Contacts", "2,500", "10,000", "25,000", "Custom"],
-    ["Locations", "1", "1", "2 included", "3+ or complex"],
+    ["Locations", "1", "1", "2+", "Custom"],
     ["SMS included", "250 seg/mo", "500 seg/mo", "1,000 seg/mo", "Custom"],
     ["AI chat", "—", "Where relevant", "Where relevant", "Custom"],
     ["AI Receptionist", "—", "Add-on", "Add-on", "Custom"],
