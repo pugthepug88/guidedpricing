@@ -132,7 +132,8 @@
 @utility zapla-warn-pulse {
   animation: zapla-warn-pulse 2s ease-out infinite;
 }
-}
+
+
 
 /* Reveal on scroll */
 @utility zapla-reveal {
