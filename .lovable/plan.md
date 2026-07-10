@@ -1,55 +1,54 @@
-
-# Hero rebuild — restore the OS story, match zapla.io exactly
-
-## What's wrong today
-- Headline was softened to "…from one system" — loses the category-owning "AI operating system" framing that pulled buyers in from the homepage.
-- Manrope 900 at hero size reads blocky/condensed; zapla.io hero feels lighter, more open, with tighter tracking and more line-height air.
-- The dashboard mock is abstract KPIs — doesn't prove anything and doesn't feel like a continuation of the homepage's product-forward hero.
+# Customer results section — rebuild with 8 cards + carousel
 
 ## What changes
+Replace the current "customers achieve more" section in `src/routes/index.tsx` with a new **Businesses recover more** section built to your spec. Everything else on the page stays untouched.
 
-### 1. Headline — restored + typeset like the homepage
-Copy returns to verbatim:
+## New section structure
 
-> **Run your whole business from one AI operating system.**
+**Header row** (grid, responsive)
+- Left: eyebrow pill `CUSTOMER RESULTS`, headline *"Businesses recover more from the leads and customers they already have"*, subhead as provided.
+- Right (top-right on desktop, below headline on mobile): `Get started` button — rounded pill with blue → violet gradient (`from-zapla-blue via-zapla-violet to-zapla-magenta`), soft blue shadow.
 
-Gradient (cyan → blue → violet → magenta, existing `zapla-gradient-shimmer` utility) applies only to **"AI operating system"** — single emphasized phrase, matching the zapla.io pattern of one gradient span per headline.
+**Carousel**
+- Desktop: 3 cards visible, snap-scroll horizontally.
+- Mobile: 1 card visible, snap per card.
+- Left/right arrow buttons (circular white, soft shadow, blue icon) positioned at the sides of the track.
+- Pagination dots below (8 dots, active dot wider + gradient fill). Dots reflect the current "page" (ceil(index / perView)).
+- Implementation: lightweight custom carousel using a scroll container + `scrollBy` on arrow click and an `IntersectionObserver` (or scroll listener) to update the active dot. No new dependency.
 
-Type treatment tuned to match the live site:
-- Weight **700** (not 900), size clamp `clamp(2.75rem, 6vw, 5.25rem)`, `line-height: 1.05`, `letter-spacing: -0.035em`.
-- Max width ~14ch so it breaks into 3 balanced lines on desktop.
-- Eyebrow pill above: `SIMPLE, TRANSPARENT PRICING` in blue on a soft blue chip — mirrors zapla.io/pricing exactly.
+**Card design** (white, rounded-3xl, `shadow-zapla`, hover lift)
+1. Image at top (rounded top corners, 16:10 ratio, `object-cover`).
+2. Industry tag pill overlaid top-left on the image — small uppercase, white/blur background, blue text.
+3. Business name pill overlaid top-right on the image — small, white background, ink text.
+4. Body padding (p-6):
+   - Large metric in `zapla-gradient-text` (text-5xl, weight 800).
+   - Result label directly under (ink, weight 600, text-base).
+   - Quote (muted, italic-off, text-sm, ~4 lines max).
+   - Divider hairline.
+   - Professional title (muted2, text-xs, uppercase tracking).
 
-### 2. Subhead + CTA row — homepage rhythm
-- One-line subhead in `--color-zapla-muted`, ~18px, max-width ~52ch.
-- Primary CTA: blue pill "Book a Call" (`bg-zapla-blue`, white text, `shadow-zapla-blue`, hover lift).
-- Secondary: ghost "See pricing" that smooth-scrolls to the pricing section.
-- Trust row below: 3 green-check items ("Unlimited users · One flat price · Launched with you").
+**Footer note under carousel**
+- Centered, muted, text-xs: *"Illustrative examples — real case studies coming soon."*
 
-### 3. Right column — replace generic dashboard with a product-feel moment
-A layered "live OS" composition instead of abstract KPI tiles:
-- Soft blue/violet glow orbs behind (existing `zapla-orb-drift` utility) — same visual language as zapla.io hero.
-- Foreground: a single tilted white "app window" card with a realistic Zapla-flavored surface — left rail with 4 module icons (Inbox, CRM, Bookings, Payments), main area showing a mini pipeline (3 deal cards) with one card animating in every few seconds.
-- A small floating "AI" chip in the corner that pulses gently, tying back to "AI operating system."
-- One live-counting metric badge overlaid ("A$12,480 collected this week") using the existing `useCountUp` hook — kept to ONE animated number, not four, so it feels intentional not busy.
+## Content
+All 8 cards use the exact copy you provided (industry tag, business pill, metric, label, quote, title).
 
-### 4. Type system correction (site-wide, small)
-- Load Manrope weights 400/500/600/700/800 only — drop 900.
-- Reduce global headline `letter-spacing` from `-0.045em` to `-0.035em`.
-- Body copy set to Manrope 500 at 16px, muted color for secondary text — matches zapla.io.
+## Images
+Generate 8 photo assets matching the image direction for each card. Style guide for consistency:
+- Natural lighting, shallow depth of field, real environment (no obvious stock look).
+- Muted cool color grade to sit against the lavender-white canvas.
+- 1200×750 JPG, saved to `src/assets/customer-*.jpg` and referenced as static imports.
 
-### 5. Motion
-- Single hero entrance: eyebrow → headline (word-by-word 40ms stagger via existing `zapla-rise`) → subhead → CTAs → dashboard card (300ms delayed fade+rise).
-- Gradient span uses the existing `zapla-gradient-shimmer` (slow 8s loop) — already in styles.
-- Orbs drift on the existing 16s/24s loops.
-- No new animation libs, no scroll-jacking.
+## Motion
+- Section reveals with existing `useReveal` hook (fade + rise).
+- Cards inside the visible track fade/rise on first mount with a small stagger.
+- Arrow buttons and dots have hover/active transitions only — no auto-play.
 
 ## Files touched
-- `src/routes/index.tsx` — Hero section only (headline copy, type classes, right-column composition, trust row). Rest of page untouched.
-- `src/styles.css` — small tokens: adjust display letter-spacing, register a hero-headline utility.
-- `src/routes/__root.tsx` — Manrope weight list (drop 900).
+- `src/routes/index.tsx` — replace existing customer proof section only.
+- `src/assets/` — 8 new generated images (via imagegen).
+- No style token changes needed; uses existing `zapla-blue`, `zapla-violet`, `zapla-gradient-text`, `shadow-zapla`, etc.
 
-## Out of scope this pass
-- Pricing card hierarchy, customer proof section, ROI calculator — you flagged Hero as the biggest lift; those come next if you want.
-- No copy changes anywhere except restoring the hero headline.
-- No new dependencies.
+## Out of scope
+- No changes to hero, pricing, ROI, FAQ, or any other section.
+- No new dependencies (no embla/swiper) — native scroll-snap carousel.
