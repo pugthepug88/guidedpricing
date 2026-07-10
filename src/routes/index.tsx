@@ -393,7 +393,7 @@ const PLANS = [
 function Pricing() {
   const [openCompare, setOpenCompare] = useState(false);
   return (
-    <section id="pricing" className="relative bg-zapla-bg py-16 sm:py-24">
+    <section id="pricing" className="relative bg-zapla-bg pt-10 pb-16 sm:pt-14 sm:pb-24">
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         <SectionHead
           eyebrow="Plans"
