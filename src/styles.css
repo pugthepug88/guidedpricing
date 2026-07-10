@@ -115,6 +115,25 @@
   animation: zapla-marquee 40s linear infinite;
 }
 
+/* Chip juggle — subtle drift + tilt to feel like a messy stack */
+@keyframes zapla-juggle {
+  0%, 100% { transform: translateY(0) rotate(-0.6deg); }
+  50%      { transform: translateY(-3px) rotate(0.8deg); }
+}
+@utility zapla-juggle {
+  animation: zapla-juggle 4.5s ease-in-out infinite;
+}
+
+/* Warning pulse for the stat dots */
+@keyframes zapla-warn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.55); }
+  70%      { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+}
+@utility zapla-warn-pulse {
+  animation: zapla-warn-pulse 2s ease-out infinite;
+}
+}
+
 /* Reveal on scroll */
 @utility zapla-reveal {
   opacity: 0;
