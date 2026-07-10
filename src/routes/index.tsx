@@ -1135,10 +1135,10 @@ function Customers() {
               <Reveal
                 key={c.company}
                 delay={Math.min(i, 3) * 80}
-                data-cust-card
                 className="group snap-start shrink-0 basis-[86%] overflow-hidden rounded-[24px] border border-zapla-line bg-white shadow-zapla-sm transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/30 hover:shadow-zapla sm:basis-[70%] lg:basis-[calc((100%-2.5rem)/3)]"
               >
                 <article className="flex h-full flex-col">
+
 
                   <div className="relative aspect-[16/10] overflow-hidden bg-zapla-faint">
                     <img
