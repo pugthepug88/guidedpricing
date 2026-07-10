@@ -1210,98 +1210,164 @@ function Customers() {
 /* ------------------------------------------------------------------ */
 
 function Pillars() {
-  // Real tool logos via simple-icons CDN — the stack Zapla replaces
-  const tools = [
-    { n: "WordPress", slug: "wordpress", color: "21759B", bg: "#ffffff", role: "Website" },
-    { n: "ClickFunnels", slug: "clickfunnels", color: "1F32DE", bg: "#ffffff", role: "Funnels" },
-    { n: "HubSpot", slug: "hubspot", color: "FF7A59", bg: "#ffffff", role: "CRM" },
-    { n: "Pipedrive", slug: "pipedrive", color: "1A1A1A", bg: "#ffffff", role: "Pipeline" },
-    { n: "Mailchimp", slug: "mailchimp", color: "000000", bg: "#FFE01B", role: "Email" },
-    { n: "Twilio", slug: "twilio", color: "F22F46", bg: "#ffffff", role: "SMS" },
-    { n: "Calendly", slug: "calendly", color: "006BFF", bg: "#ffffff", role: "Bookings" },
-    { n: "Typeform", slug: "typeform", color: "262627", bg: "#ffffff", role: "Forms" },
-    { n: "Zapier", slug: "zapier", color: "FF4A00", bg: "#ffffff", role: "Automation" },
-    { n: "Sheets", slug: "googlesheets", color: "34A853", bg: "#ffffff", role: "Tracking" },
-    { n: "Jotform", slug: "jotform", color: "0099FF", bg: "#ffffff", role: "Forms" },
-    { n: "SMS", slug: null, color: "EC4899", bg: "#ffffff", role: "SimpleTexting" },
-  ];
-
-  const pos = [
-    { top: "4%",  left: "38%", size: 78,  rot: -6 },
-    { top: "10%", left: "72%", size: 86,  rot: 4  },
-    { top: "20%", left: "12%", size: 82,  rot: -4 },
-    { top: "24%", left: "54%", size: 74,  rot: 3  },
-    { top: "32%", left: "82%", size: 70,  rot: -8 },
-    { top: "42%", left: "26%", size: 90,  rot: 5  },
-    { top: "62%", left: "10%", size: 76,  rot: -3 },
-    { top: "66%", left: "70%", size: 84,  rot: 6  },
-    { top: "80%", left: "42%", size: 80,  rot: -5 },
-    { top: "86%", left: "14%", size: 68,  rot: 4  },
-    { top: "52%", left: "62%", size: 72,  rot: -7 },
-    { top: "84%", left: "76%", size: 74,  rot: 3  },
+  // "Your stack today" — the mess Zapla replaces.
+  // Uses simple-icons where slugs exist; falls back to a branded letter mark otherwise.
+  const tools: Array<{ n: string; role: string; slug: string | null; brand: string; mark?: string }> = [
+    { n: "WordPress",     role: "Website",     slug: "wordpress",    brand: "#21759B" },
+    { n: "ClickFunnels",  role: "Funnels",     slug: null,           brand: "#1F32DE", mark: "CF" },
+    { n: "HubSpot",       role: "CRM",         slug: "hubspot",      brand: "#FF7A59" },
+    { n: "Pipedrive",     role: "Pipeline",    slug: "pipedrive",    brand: "#111827" },
+    { n: "Mailchimp",     role: "Email",       slug: "mailchimp",    brand: "#FFE01B" },
+    { n: "Twilio",        role: "SMS",         slug: "twilio",       brand: "#F22F46" },
+    { n: "Calendly",      role: "Bookings",    slug: "calendly",     brand: "#006BFF" },
+    { n: "Typeform",      role: "Forms",       slug: "typeform",     brand: "#262627" },
+    { n: "Zapier",        role: "Automations", slug: "zapier",       brand: "#FF4A00" },
+    { n: "Google Sheets", role: "Tracking",    slug: "googlesheets", brand: "#0F9D58" },
+    { n: "Jotform",       role: "Forms",       slug: "jotform",      brand: "#FF6100" },
+    { n: "SimpleTexting", role: "SMS",         slug: null,           brand: "#EC4899", mark: "ST" },
   ];
 
   return (
     <section id="replaces" className="relative overflow-hidden bg-zapla-bg py-16 sm:py-24">
-      <div className="pointer-events-none absolute -top-24 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-zapla-blue/8 blur-[140px]" />
+      <div className="pointer-events-none absolute -top-24 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-zapla-blue/10 blur-[140px]" />
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* LEFT — scattered isometric logo cloud */}
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16">
+          {/* LEFT — clean before → after comparison */}
           <Reveal className="relative">
-            <div className="relative mx-auto aspect-square w-full max-w-[560px] overflow-hidden rounded-[36px] bg-gradient-to-br from-[#F3E8FF] via-[#EEF0FB] to-[#FCE7F3]">
-              <div className="pointer-events-none absolute inset-x-10 bottom-8 h-24 rounded-full bg-black/5 blur-2xl" />
-
-              {/* center anchor — Zapla */}
-              <div
-                className="absolute left-1/2 top-1/2"
-                style={{ transform: "translate(-50%, -50%) rotate(-4deg)" }}
-              >
-                <div className="relative">
-                  <div className="absolute inset-0 translate-y-3 rounded-full bg-black/20 blur-lg" />
-                  <div className="relative grid h-[132px] w-[132px] place-items-center rounded-full bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta shadow-zapla-blue">
-                    <span className="text-[22px] font-black tracking-tight text-white">zapla</span>
+            <div className="relative">
+              {/* Panel A — Your stack today */}
+              <div className="relative rounded-[28px] border border-zapla-line/70 bg-white p-5 shadow-zapla sm:p-6">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex h-6 items-center rounded-full bg-[#FEE2E2] px-2.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#B91C1C]">
+                      Before
+                    </span>
+                    <span className="text-[13px] font-bold text-zapla-ink">Your stack today</span>
                   </div>
+                  <span className="hidden sm:inline text-[11px] font-semibold text-zapla-muted2">
+                    12+ logins · A$1.5–2.5k/mo
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
+                  {tools.map((t) => (
+                    <div
+                      key={t.n + t.role}
+                      className="group flex items-center gap-2 rounded-xl border border-zapla-line/70 bg-white px-2.5 py-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-zapla-blue/30 hover:shadow-zapla-sm"
+                    >
+                      {t.slug ? (
+                        <span
+                          className="grid h-8 w-8 shrink-0 place-items-center rounded-lg ring-1 ring-black/5"
+                          style={{ background: t.brand === "#FFE01B" ? "#FFE01B" : `${t.brand}12` }}
+                        >
+                          <img
+                            src={`https://cdn.simpleicons.org/${t.slug}/${t.brand.replace("#", "")}`}
+                            alt=""
+                            className="h-4 w-4"
+                            loading="lazy"
+                          />
+                        </span>
+                      ) : (
+                        <span
+                          className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-[10px] font-black text-white ring-1 ring-black/5"
+                          style={{ background: t.brand }}
+                        >
+                          {t.mark}
+                        </span>
+                      )}
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[11.5px] font-bold leading-tight text-zapla-ink">
+                          {t.n}
+                        </span>
+                        <span className="block truncate text-[10px] leading-tight text-zapla-muted2">
+                          {t.role}
+                        </span>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-4 flex items-center justify-between rounded-xl bg-[#FEF2F2] px-3 py-2 text-[11.5px] sm:hidden">
+                  <span className="font-bold text-[#B91C1C]">12+ logins</span>
+                  <span className="font-bold text-[#B91C1C]">A$1.5–2.5k/mo</span>
                 </div>
               </div>
 
-              {tools.map((t, i) => {
-                const p = pos[i];
-                return (
-                  <div
-                    key={t.n}
-                    className="group absolute"
-                    style={{
-                      top: p.top,
-                      left: p.left,
-                      width: p.size,
-                      height: p.size,
-                      transform: `translate(-50%, -50%) rotate(${p.rot}deg)`,
-                      
-                    }}
-                  >
-                    <div className="relative h-full w-full">
-                      <div className="absolute inset-0 translate-y-2 rounded-full bg-black/15 blur-md" />
-                      <div
-                        className="relative grid h-full w-full place-items-center rounded-full shadow-[0_10px_24px_-8px_rgba(15,23,42,0.25)] ring-1 ring-black/5 transition-transform duration-300 group-hover:-translate-y-1"
-                        style={{ background: t.bg }}
-                      >
-                        {t.slug ? (
-                          <img
-                            src={`https://cdn.simpleicons.org/${t.slug}/${t.color}`}
-                            alt={t.n}
-                            className="h-[46%] w-[46%] object-contain"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <span className="text-[11px] font-black tracking-tight text-zapla-ink">
-                            {t.role}
-                          </span>
-                        )}
+              {/* Connector arrow */}
+              <div className="relative z-10 -my-3 flex justify-center">
+                <div className="grid h-11 w-11 place-items-center rounded-full bg-white shadow-zapla ring-1 ring-zapla-line">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="url(#zg)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <defs>
+                      <linearGradient id="zg" x1="0" x2="1" y1="0" y2="1">
+                        <stop offset="0%" stopColor="#2563FF" />
+                        <stop offset="60%" stopColor="#7C3AED" />
+                        <stop offset="100%" stopColor="#EC4899" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M12 5v14M6 13l6 6 6-6" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Panel B — With Zapla */}
+              <div className="relative overflow-hidden rounded-[28px] p-[1.5px] shadow-zapla-blue">
+                <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta" />
+                <div className="relative rounded-[26.5px] bg-gradient-to-br from-[#0B1330] via-[#1E1B4B] to-[#3B0764] p-6">
+                  <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-zapla-cyan/20 blur-3xl" />
+                  <div className="pointer-events-none absolute -bottom-20 -left-16 h-52 w-52 rounded-full bg-zapla-magenta/25 blur-3xl" />
+
+                  <div className="relative flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex h-6 items-center rounded-full bg-white/15 px-2.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-white backdrop-blur">
+                        After
+                      </span>
+                      <span className="text-[13px] font-bold text-white">With Zapla</span>
+                    </div>
+                    <span className="hidden sm:inline text-[11px] font-semibold text-white/70">
+                      1 login · from A$497/mo
+                    </span>
+                  </div>
+
+                  <div className="relative mt-5 flex items-center gap-4">
+                    <div className="relative">
+                      <div className="absolute inset-0 rounded-2xl bg-white/30 blur-xl" />
+                      <div className="relative grid h-16 w-16 place-items-center rounded-2xl bg-white/95 shadow-2xl ring-1 ring-white/40">
+                        <span className="bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta bg-clip-text text-[18px] font-black tracking-tight text-transparent">
+                          zapla
+                        </span>
+                      </div>
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[20px] font-extrabold leading-tight text-white">
+                        One operating system
+                      </div>
+                      <div className="mt-0.5 text-[13px] text-white/70">
+                        Everything above — connected, on one bill.
                       </div>
                     </div>
                   </div>
-                );
-              })}
+
+                  <div className="relative mt-5 grid grid-cols-3 gap-2.5">
+                    {[
+                      { k: "1", l: "Login" },
+                      { k: "1", l: "Customer record" },
+                      { k: "1", l: "Monthly bill" },
+                    ].map((s) => (
+                      <div
+                        key={s.l}
+                        className="rounded-xl border border-white/15 bg-white/[0.06] px-3 py-2.5 text-center backdrop-blur"
+                      >
+                        <div className="bg-gradient-to-r from-zapla-cyan to-white bg-clip-text text-[22px] font-black leading-none text-transparent">
+                          {s.k}
+                        </div>
+                        <div className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.1em] text-white/70">
+                          {s.l}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </Reveal>
 
@@ -1343,6 +1409,7 @@ function Pillars() {
                 href="#roi"
                 className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-5 py-3 text-[14px] font-extrabold text-zapla-ink transition-colors hover:border-zapla-blue/40 hover:text-zapla-blue"
               >
+
                 Calculate your savings
               </a>
             </div>
