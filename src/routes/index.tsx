@@ -236,37 +236,26 @@ function Nav() {
 
 function Hero() {
   return (
-    <header id="top" className="relative overflow-hidden bg-zapla-bg pt-10 pb-16 sm:pt-16 sm:pb-24">
+    <header id="top" className="relative overflow-hidden bg-zapla-bg pt-8 pb-10 sm:pt-12 sm:pb-14">
       {/* soft brand orbs */}
-      <div className="pointer-events-none absolute -top-40 -right-24 h-[520px] w-[520px] rounded-full bg-zapla-violet/14 blur-[140px] zapla-orb-drift" />
-      <div className="pointer-events-none absolute -top-20 -left-32 h-[520px] w-[520px] rounded-full bg-zapla-cyan/18 blur-[140px] zapla-orb-drift-slow" />
-      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/10 blur-[120px]" />
-      <div className="pointer-events-none absolute inset-0 zapla-grid-bg-light opacity-60" />
+      <div className="pointer-events-none absolute -top-40 -right-24 h-[420px] w-[420px] rounded-full bg-zapla-violet/12 blur-[140px] zapla-orb-drift" />
+      <div className="pointer-events-none absolute -top-24 -left-32 h-[420px] w-[420px] rounded-full bg-zapla-cyan/16 blur-[140px] zapla-orb-drift-slow" />
+      <div className="pointer-events-none absolute inset-0 zapla-grid-bg-light opacity-50" />
 
       <div className="relative mx-auto max-w-[1100px] px-5 sm:px-8">
         <div className="zapla-fade text-center">
           <Eyebrow>Simple, transparent pricing</Eyebrow>
-          <h1 className="mx-auto mt-6 max-w-[920px] font-bold text-zapla-ink text-[clamp(40px,5.4vw,72px)] leading-[1.05] tracking-[-0.035em]">
+          <h1 className="mx-auto mt-5 max-w-[860px] font-bold text-zapla-ink text-[clamp(32px,4.2vw,54px)] leading-[1.06] tracking-[-0.035em]">
             Run your whole business from{" "}
             <span className="zapla-gradient-shimmer">one AI operating system</span>.
           </h1>
-          <p className="mx-auto mt-6 max-w-[640px] text-[18px] leading-[1.65] text-zapla-muted">
+          <p className="mx-auto mt-4 max-w-[620px] text-[16px] leading-[1.6] text-zapla-muted">
             One flat monthly price. Unlimited users. A dedicated launch team that configures your
             CRM, bookings, reviews, payments and AI follow-up — so you start seeing value in days,
             not months.
           </p>
 
-          <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <PrimaryButton href={BOOK_URL} track="hero_cta">
-              Book a Call
-              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round">
-                <path d="M4 10h12M11 5l5 5-5 5" />
-              </svg>
-            </PrimaryButton>
-            <SecondaryButton href="#pricing" track="hero_pricing">See pricing</SecondaryButton>
-          </div>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13.5px] font-semibold text-zapla-muted">
+          <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[13px] font-semibold text-zapla-muted">
             {["Unlimited users", "One flat price", "Launched with you"].map((t) => (
               <span key={t} className="inline-flex items-center gap-2">
                 <Check />
@@ -275,9 +264,9 @@ function Hero() {
             ))}
           </div>
         </div>
-
       </div>
     </header>
+
   );
 }
 
@@ -288,16 +277,17 @@ function Hero() {
 
 function GuidedStrip() {
   return (
-    <section className="relative bg-white py-16 sm:py-20">
+    <section className="relative bg-white py-10 sm:py-14">
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <Eyebrow>Guided Launch</Eyebrow>
-          <h2 className="mt-5 text-[clamp(28px,3.2vw,40px)] font-extrabold leading-[1.1] tracking-[-0.035em] text-zapla-ink">
+          <h2 className="mt-4 text-[clamp(24px,2.6vw,32px)] font-extrabold leading-[1.15] tracking-[-0.035em] text-zapla-ink">
             Zapla, <span className="zapla-gradient-text">launched properly</span> around how your business runs.
           </h2>
         </Reveal>
 
-        <div className="relative mt-12 grid gap-4 sm:grid-cols-3">
+        <div className="relative mt-8 grid gap-4 sm:grid-cols-3">
+
           {[
             { n: "01", b: "Mapped", s: "Your workflow, team and customer journey — captured in one session." },
             { n: "02", b: "Configured", s: "Pipelines, inbox, bookings, reviews and follow-up built in your system." },
@@ -403,7 +393,7 @@ const PLANS = [
 function Pricing() {
   const [openCompare, setOpenCompare] = useState(false);
   return (
-    <section id="pricing" className="relative bg-zapla-bg py-16 sm:py-24">
+    <section id="pricing" className="relative bg-zapla-bg pt-10 pb-16 sm:pt-14 sm:pb-24">
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         <SectionHead
           eyebrow="Plans"
