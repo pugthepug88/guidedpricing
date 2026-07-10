@@ -493,11 +493,11 @@ function Pricing() {
 
 function CompareTable() {
   const rows: [string, string, string, string, string][] = [
-    ["Monthly price", "A$299", "A$499", "A$899", "Custom quote"],
+    ["Monthly price", "A$299", "A$499", "A$899", "Custom"],
     ["Launch Pack", "A$995", "A$1,995", "A$3,500", "Custom"],
     ["Users", "Unlimited", "Unlimited", "Unlimited", "Unlimited"],
     ["Contacts", "2,500", "10,000", "25,000", "Custom"],
-    ["Locations", "1", "1", "2 included", "3+ or complex"],
+    ["Locations", "1", "1", "2+", "Custom"],
     ["SMS included", "250 seg/mo", "500 seg/mo", "1,000 seg/mo", "Custom"],
     ["AI chat", "—", "Where relevant", "Where relevant", "Custom"],
     ["AI Receptionist", "—", "Add-on", "Add-on", "Custom"],
@@ -1057,21 +1057,20 @@ function Customers() {
 /* ------------------------------------------------------------------ */
 
 function Pillars() {
-  // "Your stack today" — the mess Zapla replaces.
-  // Uses simple-icons where slugs exist; falls back to a branded letter mark otherwise.
-  const tools: Array<{ n: string; role: string; slug: string | null; brand: string; mark?: string }> = [
-    { n: "WordPress",     role: "Website",     slug: "wordpress",    brand: "#21759B" },
-    { n: "ClickFunnels",  role: "Funnels",     slug: null,           brand: "#1F32DE", mark: "CF" },
-    { n: "HubSpot",       role: "CRM",         slug: "hubspot",      brand: "#FF7A59" },
-    { n: "Pipedrive",     role: "Pipeline",    slug: "pipedrive",    brand: "#111827" },
-    { n: "Mailchimp",     role: "Email",       slug: "mailchimp",    brand: "#FFE01B" },
-    { n: "Twilio",        role: "SMS",         slug: "twilio",       brand: "#F22F46" },
-    { n: "Calendly",      role: "Bookings",    slug: "calendly",     brand: "#006BFF" },
-    { n: "Typeform",      role: "Forms",       slug: "typeform",     brand: "#262627" },
-    { n: "Zapier",        role: "Automations", slug: "zapier",       brand: "#FF4A00" },
-    { n: "Google Sheets", role: "Tracking",    slug: "googlesheets", brand: "#0F9D58" },
-    { n: "Jotform",       role: "Forms",       slug: "jotform",      brand: "#FF6100" },
-    { n: "SimpleTexting", role: "SMS",         slug: null,           brand: "#EC4899", mark: "ST" },
+  // Real color logos via Google's favicon service (multi-color, always up-to-date).
+  const tools: Array<{ n: string; role: string; domain: string }> = [
+    { n: "WordPress",     role: "Website",     domain: "wordpress.org" },
+    { n: "ClickFunnels",  role: "Funnels",     domain: "clickfunnels.com" },
+    { n: "HubSpot",       role: "CRM",         domain: "hubspot.com" },
+    { n: "Pipedrive",     role: "Pipeline",    domain: "pipedrive.com" },
+    { n: "Mailchimp",     role: "Email",       domain: "mailchimp.com" },
+    { n: "Twilio",        role: "SMS",         domain: "twilio.com" },
+    { n: "Calendly",      role: "Bookings",    domain: "calendly.com" },
+    { n: "Typeform",      role: "Forms",       domain: "typeform.com" },
+    { n: "Zapier",        role: "Automations", domain: "zapier.com" },
+    { n: "Google Sheets", role: "Tracking",    domain: "sheets.google.com" },
+    { n: "Jotform",       role: "Forms",       domain: "jotform.com" },
+    { n: "Stripe",        role: "Payments",    domain: "stripe.com" },
   ];
 
   return (
@@ -1083,50 +1082,38 @@ function Pillars() {
           <Reveal className="relative">
             <div className="relative">
               {/* Panel A — Your stack today */}
-              <div className="relative rounded-[28px] border border-zapla-line/70 bg-white p-5 shadow-zapla sm:p-6">
-                <div className="mb-4 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
+              <div className="relative rounded-[28px] border border-zapla-line/70 bg-white p-6 shadow-zapla sm:p-7">
+                <div className="mb-5 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
                     <span className="inline-flex h-6 items-center rounded-full bg-[#FEE2E2] px-2.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#B91C1C]">
                       Before
                     </span>
-                    <span className="text-[13px] font-bold text-zapla-ink">Your stack today</span>
+                    <span className="text-[14px] font-bold text-zapla-ink">Your stack today</span>
                   </div>
-                  <span className="hidden sm:inline text-[11px] font-semibold text-zapla-muted2">
+                  <span className="hidden sm:inline text-[11.5px] font-semibold text-zapla-muted2">
                     12+ logins · A$1.5–2.5k/mo
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4">
+                <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
                   {tools.map((t) => (
                     <div
                       key={t.n + t.role}
-                      className="group flex items-center gap-2 rounded-xl border border-zapla-line/70 bg-white px-2.5 py-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-zapla-blue/30 hover:shadow-zapla-sm"
+                      className="group relative flex flex-col items-center gap-2 rounded-2xl border border-zapla-line/60 bg-gradient-to-b from-white to-[#FAFBFF] px-2 py-3 transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/30 hover:shadow-zapla"
                     >
-                      {t.slug ? (
-                        <span
-                          className="grid h-8 w-8 shrink-0 place-items-center rounded-lg ring-1 ring-black/5"
-                          style={{ background: t.brand === "#FFE01B" ? "#FFE01B" : `${t.brand}12` }}
-                        >
-                          <img
-                            src={`https://cdn.simpleicons.org/${t.slug}/${t.brand.replace("#", "")}`}
-                            alt=""
-                            className="h-4 w-4"
-                            loading="lazy"
-                          />
-                        </span>
-                      ) : (
-                        <span
-                          className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-[10px] font-black text-white ring-1 ring-black/5"
-                          style={{ background: t.brand }}
-                        >
-                          {t.mark}
-                        </span>
-                      )}
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[11.5px] font-bold leading-tight text-zapla-ink">
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white shadow-[0_2px_8px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.04]">
+                        <img
+                          src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=128`}
+                          alt=""
+                          className="h-6 w-6"
+                          loading="lazy"
+                        />
+                      </span>
+                      <span className="min-w-0 text-center">
+                        <span className="block truncate text-[11.5px] font-extrabold leading-tight text-zapla-ink">
                           {t.n}
                         </span>
-                        <span className="block truncate text-[10px] leading-tight text-zapla-muted2">
+                        <span className="block truncate text-[10px] font-semibold uppercase tracking-[0.06em] leading-tight text-zapla-muted2">
                           {t.role}
                         </span>
                       </span>
@@ -1134,7 +1121,7 @@ function Pillars() {
                   ))}
                 </div>
 
-                <div className="mt-4 flex items-center justify-between rounded-xl bg-[#FEF2F2] px-3 py-2 text-[11.5px] sm:hidden">
+                <div className="mt-5 flex items-center justify-between rounded-xl bg-[#FEF2F2] px-3 py-2 text-[11.5px] sm:hidden">
                   <span className="font-bold text-[#B91C1C]">12+ logins</span>
                   <span className="font-bold text-[#B91C1C]">A$1.5–2.5k/mo</span>
                 </div>
@@ -1142,7 +1129,7 @@ function Pillars() {
 
               {/* Connector arrow */}
               <div className="relative z-10 -my-3 flex justify-center">
-                <div className="grid h-11 w-11 place-items-center rounded-full bg-white shadow-zapla ring-1 ring-zapla-line">
+                <div className="grid h-12 w-12 place-items-center rounded-full bg-white shadow-zapla ring-1 ring-zapla-line">
                   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="url(#zg)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <defs>
                       <linearGradient id="zg" x1="0" x2="1" y1="0" y2="1">
@@ -1159,42 +1146,46 @@ function Pillars() {
               {/* Panel B — With Zapla */}
               <div className="relative overflow-hidden rounded-[28px] p-[1.5px] shadow-zapla-blue">
                 <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta" />
-                <div className="relative rounded-[26.5px] bg-gradient-to-br from-[#0B1330] via-[#1E1B4B] to-[#3B0764] p-6">
-                  <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-zapla-cyan/20 blur-3xl" />
-                  <div className="pointer-events-none absolute -bottom-20 -left-16 h-52 w-52 rounded-full bg-zapla-magenta/25 blur-3xl" />
+                <div className="relative overflow-hidden rounded-[26.5px] bg-[#0A0F2C] p-7">
+                  {/* atmospheric glows */}
+                  <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-zapla-cyan/25 blur-3xl" />
+                  <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-zapla-magenta/30 blur-3xl" />
+                  <div className="pointer-events-none absolute inset-0 opacity-[0.35] [background:radial-gradient(1px_1px_at_20%_30%,rgba(255,255,255,0.5)_50%,transparent_51%),radial-gradient(1px_1px_at_70%_60%,rgba(255,255,255,0.4)_50%,transparent_51%),radial-gradient(1px_1px_at_45%_80%,rgba(255,255,255,0.35)_50%,transparent_51%)] [background-size:180px_180px,220px_220px,260px_260px]" />
 
                   <div className="relative flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2.5">
                       <span className="inline-flex h-6 items-center rounded-full bg-white/15 px-2.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-white backdrop-blur">
                         After
                       </span>
-                      <span className="text-[13px] font-bold text-white">With Zapla</span>
+                      <span className="text-[14px] font-bold text-white">With Zapla</span>
                     </div>
-                    <span className="hidden sm:inline text-[11px] font-semibold text-white/70">
+                    <span className="hidden sm:inline text-[11.5px] font-semibold text-white/70">
                       1 login · from A$497/mo
                     </span>
                   </div>
 
-                  <div className="relative mt-5 flex items-center gap-4">
-                    <div className="relative">
-                      <div className="absolute inset-0 rounded-2xl bg-white/30 blur-xl" />
-                      <div className="relative grid h-16 w-16 place-items-center rounded-2xl bg-white/95 shadow-2xl ring-1 ring-white/40">
-                        <span className="bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta bg-clip-text text-[18px] font-black tracking-tight text-transparent">
+                  {/* Hero row — big Zapla lockup */}
+                  <div className="relative mt-6 flex items-center gap-5">
+                    <div className="relative shrink-0">
+                      <div className="absolute -inset-2 rounded-[22px] bg-gradient-to-br from-zapla-cyan/60 via-zapla-violet/60 to-zapla-magenta/60 blur-xl" />
+                      <div className="relative grid h-[76px] w-[76px] place-items-center rounded-[20px] bg-white shadow-2xl ring-1 ring-white/40">
+                        <span className="bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta bg-clip-text text-[22px] font-black tracking-tight text-transparent">
                           zapla
                         </span>
                       </div>
                     </div>
                     <div className="min-w-0">
-                      <div className="text-[20px] font-extrabold leading-tight text-white">
+                      <div className="text-[22px] font-extrabold leading-tight text-white">
                         One operating system
                       </div>
-                      <div className="mt-0.5 text-[13px] text-white/70">
+                      <div className="mt-1 text-[13.5px] leading-snug text-white/70">
                         Everything above — connected, on one bill.
                       </div>
                     </div>
                   </div>
 
-                  <div className="relative mt-5 grid grid-cols-3 gap-2.5">
+                  {/* Stat tiles */}
+                  <div className="relative mt-6 grid grid-cols-3 gap-3">
                     {[
                       { k: "1", l: "Login" },
                       { k: "1", l: "Customer record" },
@@ -1202,12 +1193,13 @@ function Pillars() {
                     ].map((s) => (
                       <div
                         key={s.l}
-                        className="rounded-xl border border-white/15 bg-white/[0.06] px-3 py-2.5 text-center backdrop-blur"
+                        className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.06] px-3 py-3.5 text-center backdrop-blur transition hover:border-white/25 hover:bg-white/[0.09]"
                       >
-                        <div className="bg-gradient-to-r from-zapla-cyan to-white bg-clip-text text-[22px] font-black leading-none text-transparent">
+                        <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                        <div className="bg-gradient-to-b from-white to-zapla-cyan bg-clip-text text-[28px] font-black leading-none text-transparent">
                           {s.k}
                         </div>
-                        <div className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.1em] text-white/70">
+                        <div className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white/70">
                           {s.l}
                         </div>
                       </div>
@@ -1217,6 +1209,7 @@ function Pillars() {
               </div>
             </div>
           </Reveal>
+
 
           {/* RIGHT — headline + CTA */}
           <Reveal delay={120} className="max-w-[520px]">
