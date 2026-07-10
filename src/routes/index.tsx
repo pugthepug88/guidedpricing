@@ -1105,11 +1105,11 @@ function Pillars() {
                       key={t.n + t.role}
                       className="group relative flex flex-col items-center gap-2 rounded-2xl border border-zapla-line/60 bg-gradient-to-b from-white to-[#FAFBFF] px-2 py-3 transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/30 hover:shadow-zapla"
                     >
-                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white shadow-[0_2px_8px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.04]">
+                      <span className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-white shadow-[0_2px_8px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.04]">
                         <img
-                          src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=128`}
+                          src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=256`}
                           alt=""
-                          className="h-6 w-6"
+                          className="h-10 w-10 object-contain"
                           loading="lazy"
                         />
                       </span>
