@@ -1077,200 +1077,227 @@ function Pillars() {
     { n: "Stripe",        role: "Payments",    domain: "stripe.com" },
   ];
 
+  // Scattered positions for the "chaos" cloud (percent-based, hand-tuned to feel messy but readable)
+  const positions = [
+    { x: 6,  y: 4 },  { x: 26, y: 10 }, { x: 48, y: 2 },  { x: 68, y: 8 },  { x: 88, y: 6 },
+    { x: 14, y: 26 }, { x: 36, y: 22 }, { x: 58, y: 28 }, { x: 80, y: 24 },
+    { x: 4,  y: 48 }, { x: 24, y: 46 }, { x: 46, y: 52 }, { x: 66, y: 46 }, { x: 86, y: 50 },
+    { x: 18, y: 72 }, { x: 62, y: 72 },
+  ];
+
   return (
-    <section id="replaces" className="relative overflow-hidden bg-zapla-bg py-16 sm:py-24">
-      <div className="pointer-events-none absolute -top-24 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-zapla-blue/10 blur-[140px]" />
-      <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-16">
-          {/* LEFT — clean before → after comparison */}
-          <Reveal className="relative">
-            <div className="relative">
-              {/* Panel A — Your stack today */}
-              <div className="relative rounded-[24px] border border-zapla-line/70 bg-white p-5 shadow-zapla sm:p-6">
-                <div className="mb-4 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2.5">
-                    <span className="inline-flex h-5 items-center rounded-full bg-[#FEE2E2] px-2 text-[9.5px] font-extrabold uppercase tracking-[0.16em] text-[#B91C1C]">
-                      Before
-                    </span>
-                    <span className="text-[13px] font-bold text-zapla-ink">Your stack today</span>
-                  </div>
-                  <span className="text-[11px] font-semibold text-zapla-muted2">
-                    16+ tools
-                  </span>
-                </div>
+    <section id="replaces" className="relative overflow-hidden bg-zapla-bg py-20 sm:py-28">
+      {/* Ambient background glows */}
+      <div className="pointer-events-none absolute -top-32 left-[15%] h-[420px] w-[520px] rounded-full bg-[#EF4444]/10 blur-[140px]" />
+      <div className="pointer-events-none absolute -bottom-40 right-[10%] h-[520px] w-[620px] rounded-full bg-zapla-blue/15 blur-[160px]" />
 
-                {/* Compact chip grid — ClickUp-style, gently juggling */}
-                <div className="flex flex-wrap gap-1.5">
-                  {tools.map((t, i) => (
-                    <span
-                      key={t.n + t.role}
-                      title={`${t.n} · ${t.role}`}
-                      style={{
-                        animationDelay: `${(i % 8) * 0.35}s`,
-                        animationDuration: `${4 + (i % 5) * 0.6}s`,
-                      }}
-                      className="zapla-juggle group inline-flex items-center gap-1.5 rounded-full border border-zapla-line/70 bg-white py-1 pl-1 pr-2.5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:rotate-0 hover:border-zapla-blue/30 hover:shadow-zapla-sm"
-                    >
-                      <span className="grid h-6 w-6 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-black/[0.05]">
-                        <img
-                          src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=128`}
-                          alt=""
-                          className="h-5 w-5 object-contain"
-                          loading="lazy"
-                        />
-                      </span>
-                      <span className="text-[11.5px] font-semibold text-zapla-ink">
-                        {t.n}
-                      </span>
-                    </span>
-                  ))}
-                </div>
+      <div className="relative mx-auto max-w-[1240px] px-5 sm:px-8">
+        {/* Section heading — centered above the scene */}
+        <Reveal className="mx-auto max-w-[780px] text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue shadow-zapla-sm">
+            Operating stack
+          </span>
+          <h2 className="mt-5 text-[40px] font-extrabold leading-[1.05] tracking-[-0.02em] text-zapla-ink sm:text-[56px]">
+            From <span className="text-[#B91C1C]">16 tabs</span> to{" "}
+            <span className="zapla-gradient-text">one screen</span>.
+          </h2>
+          <p className="mx-auto mt-4 max-w-[620px] text-[16px] leading-[1.55] text-zapla-muted">
+            Website, funnels, CRM, email, SMS, bookings, forms, automations, payments and reviews — all collapsing into a single system, on one bill.
+          </p>
+        </Reveal>
 
-                {/* Footer stat row */}
-                <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-zapla-line/60 pt-3 text-[11px] font-semibold">
-                  <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
-                    <span className="zapla-warn-pulse h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
-                    16+ logins & passwords
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
-                    <span className="zapla-warn-pulse h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
-                    A$1.5–2.5k/mo in subscriptions
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
-                    <span className="zapla-warn-pulse h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
-                    Data scattered across silos
-                  </span>
-                </div>
-              </div>
-
-              {/* Connector arrow */}
-              <div className="relative z-10 -my-3 flex justify-center">
-                <div className="grid h-12 w-12 place-items-center rounded-full bg-white shadow-zapla ring-1 ring-zapla-line">
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="url(#zg)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <defs>
-                      <linearGradient id="zg" x1="0" x2="1" y1="0" y2="1">
-                        <stop offset="0%" stopColor="#2563FF" />
-                        <stop offset="60%" stopColor="#7C3AED" />
-                        <stop offset="100%" stopColor="#EC4899" />
-                      </linearGradient>
-                    </defs>
-                    <path d="M12 5v14M6 13l6 6 6-6" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Panel B — With Zapla */}
-              <div className="relative overflow-hidden rounded-[28px] p-[1.5px] shadow-zapla-blue">
-                <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta" />
-                <div className="relative overflow-hidden rounded-[26.5px] bg-[#0A0F2C] p-7">
-                  {/* atmospheric glows */}
-                  <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-zapla-cyan/25 blur-3xl" />
-                  <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-zapla-magenta/30 blur-3xl" />
-                  <div className="pointer-events-none absolute inset-0 opacity-[0.35] [background:radial-gradient(1px_1px_at_20%_30%,rgba(255,255,255,0.5)_50%,transparent_51%),radial-gradient(1px_1px_at_70%_60%,rgba(255,255,255,0.4)_50%,transparent_51%),radial-gradient(1px_1px_at_45%_80%,rgba(255,255,255,0.35)_50%,transparent_51%)] [background-size:180px_180px,220px_220px,260px_260px]" />
-
-                  <div className="relative flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2.5">
-                      <span className="inline-flex h-6 items-center rounded-full bg-white/15 px-2.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-white backdrop-blur">
-                        After
-                      </span>
-                      <span className="text-[14px] font-bold text-white">With Zapla</span>
-                    </div>
-                    <span className="hidden sm:inline text-[11.5px] font-semibold text-white/70">
-                      1 login · from A$497/mo
-                    </span>
-                  </div>
-
-                  {/* Hero row — big Zapla lockup */}
-                  <div className="relative mt-6 flex items-center gap-5">
-                    <div className="relative shrink-0">
-                      <div className="absolute -inset-2 rounded-[22px] bg-gradient-to-br from-zapla-cyan/60 via-zapla-violet/60 to-zapla-magenta/60 blur-xl" />
-                      <div className="relative grid h-[76px] w-[76px] place-items-center rounded-[20px] bg-white shadow-2xl ring-1 ring-white/40">
-                        <span className="bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta bg-clip-text text-[22px] font-black tracking-tight text-transparent">
-                          zapla
-                        </span>
-                      </div>
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[22px] font-extrabold leading-tight text-white">
-                        One operating system
-                      </div>
-                      <div className="mt-1 text-[13.5px] leading-snug text-white/70">
-                        Everything above — connected, on one bill.
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Stat tiles */}
-                  <div className="relative mt-6 grid grid-cols-3 gap-3">
-                    {[
-                      { k: "1", l: "Login" },
-                      { k: "1", l: "Customer record" },
-                      { k: "1", l: "Monthly bill" },
-                    ].map((s) => (
-                      <div
-                        key={s.l}
-                        className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.06] px-3 py-3.5 text-center backdrop-blur transition hover:border-white/25 hover:bg-white/[0.09]"
-                      >
-                        <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-                        <div className="bg-gradient-to-b from-white to-zapla-cyan bg-clip-text text-[28px] font-black leading-none text-transparent">
-                          {s.k}
-                        </div>
-                        <div className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white/70">
-                          {s.l}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-
-          {/* RIGHT — headline + CTA */}
-          <Reveal delay={120} className="max-w-[520px]">
-            <span className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue shadow-zapla-sm">
-              Operating stack
-            </span>
-            <h2 className="mt-5 text-[44px] font-extrabold leading-[1.05] tracking-[-0.02em] text-zapla-ink sm:text-[54px]">
-              One system,{" "}
-              <span className="zapla-gradient-text">every tool you were juggling</span>.
-            </h2>
-            <p className="mt-5 text-[16.5px] leading-[1.55] text-zapla-muted">
-              Website, funnels, CRM, pipeline, email, SMS, bookings, forms, automations, payments and reviews — all connected to the same customer record, inside one login.
-            </p>
-
-            <ul className="mt-6 space-y-2.5 text-[14.5px] text-[#3a4560]">
+        {/* THE SCENE — chaos cloud → singularity */}
+        <Reveal delay={120} className="relative mt-14">
+          {/* Chaos cloud — 16 tool chips scattered in open space with tangled dashed threads */}
+          <div className="relative mx-auto h-[440px] w-full max-w-[980px] sm:h-[480px]">
+            {/* Tangled connection lines (SVG behind) */}
+            <svg
+              className="absolute inset-0 h-full w-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden
+            >
+              <defs>
+                <linearGradient id="tangleGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#EF4444" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#B91C1C" stopOpacity="0.15" />
+                </linearGradient>
+              </defs>
               {[
-                "1 login instead of 12+ tools and passwords",
-                "One customer record — no more manual glue work",
-                "Save A$1,500–2,500+/mo on disconnected subscriptions",
-              ].map((line) => (
-                <li key={line} className="flex items-start gap-2.5">
-                  <span className="mt-0.5 grid h-5 w-5 place-items-center rounded-full bg-gradient-to-br from-zapla-blue to-zapla-violet text-[11px] font-black text-white">✓</span>
-                  <span>{line}</span>
-                </li>
+                "M6,6 C 30,40 60,10 88,8",
+                "M14,28 C 40,50 70,20 86,52",
+                "M26,12 C 20,40 55,60 66,48",
+                "M48,4 C 30,30 20,60 18,74",
+                "M46,54 C 60,30 80,50 62,74",
+                "M4,50 C 30,70 55,55 80,26",
+                "M68,10 C 40,25 30,50 24,48",
+                "M36,24 C 60,55 40,70 62,72",
+              ].map((d, i) => (
+                <path
+                  key={i}
+                  d={d}
+                  fill="none"
+                  stroke="url(#tangleGrad)"
+                  strokeWidth="0.35"
+                  strokeDasharray="0.8 1.2"
+                  vectorEffect="non-scaling-stroke"
+                />
               ))}
-            </ul>
+            </svg>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="#pricing"
-                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-zapla-blue via-zapla-violet to-zapla-magenta px-6 py-3 text-[14px] font-extrabold text-white shadow-zapla-blue transition-transform duration-300 hover:-translate-y-0.5"
-              >
-                See what you replace
-                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </a>
-              <a
-                href="#roi"
-                className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-5 py-3 text-[14px] font-extrabold text-zapla-ink transition-colors hover:border-zapla-blue/40 hover:text-zapla-blue"
-              >
-
-                Calculate your savings
-              </a>
+            {/* Floating "Before" tag */}
+            <div className="absolute left-0 top-0 z-10 flex items-center gap-2">
+              <span className="inline-flex h-6 items-center rounded-full bg-[#FEE2E2] px-2.5 text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#B91C1C]">
+                Before
+              </span>
+              <span className="hidden text-[12px] font-bold text-zapla-ink sm:inline">
+                Your stack today · <span className="text-[#B91C1C]">16+ tools</span>
+              </span>
             </div>
-          </Reveal>
-        </div>
+
+            {/* Tool chips scattered at absolute positions */}
+            {tools.map((t, i) => {
+              const p = positions[i] || { x: 50, y: 50 };
+              return (
+                <span
+                  key={t.n}
+                  title={`${t.n} · ${t.role}`}
+                  style={{
+                    left: `${p.x}%`,
+                    top: `${p.y}%`,
+                    animationDelay: `${(i % 8) * 0.4}s`,
+                    animationDuration: `${4.5 + (i % 5) * 0.7}s`,
+                  }}
+                  className="zapla-juggle group absolute z-10 inline-flex items-center gap-1.5 rounded-full border border-zapla-line/70 bg-white py-1 pl-1 pr-2.5 shadow-[0_6px_18px_rgba(15,23,42,0.08)] transition-all duration-200 hover:z-20 hover:-translate-y-1 hover:rotate-0 hover:border-zapla-blue/40 hover:shadow-zapla"
+                >
+                  <span className="grid h-6 w-6 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-black/[0.05]">
+                    <img
+                      src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=128`}
+                      alt=""
+                      className="h-5 w-5 object-contain"
+                      loading="lazy"
+                    />
+                  </span>
+                  <span className="text-[11.5px] font-semibold text-zapla-ink">
+                    {t.n}
+                  </span>
+                </span>
+              );
+            })}
+          </div>
+
+          {/* The funnel — SVG light beam pulling chaos into the singularity */}
+          <div className="relative -mt-2 mx-auto h-24 w-full max-w-[980px] sm:h-32">
+            <svg
+              className="absolute inset-0 h-full w-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden
+            >
+              <defs>
+                <linearGradient id="funnelGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#22D3EE" stopOpacity="0" />
+                  <stop offset="50%" stopColor="#2563FF" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.9" />
+                </linearGradient>
+              </defs>
+              <path d="M0,0 L100,0 L58,100 L42,100 Z" fill="url(#funnelGrad)" />
+            </svg>
+            {/* Downward gradient arrow */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="grid h-14 w-14 place-items-center rounded-full bg-white shadow-zapla-blue ring-1 ring-zapla-line">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="url(#zg2)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <defs>
+                    <linearGradient id="zg2" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0%" stopColor="#2563FF" />
+                      <stop offset="60%" stopColor="#7C3AED" />
+                      <stop offset="100%" stopColor="#EC4899" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M12 5v14M6 13l6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* THE SINGULARITY — one glowing orb, no box */}
+          <div className="relative mx-auto flex flex-col items-center">
+            {/* After tag */}
+            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.16em] text-zapla-blue shadow-zapla-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-zapla-green zapla-pulse-dot" />
+              After · With Zapla
+            </span>
+
+            {/* Orb with concentric rings */}
+            <div className="relative grid place-items-center">
+              {/* Outer soft glows */}
+              <div className="pointer-events-none absolute h-[360px] w-[360px] rounded-full bg-gradient-to-br from-zapla-cyan/25 via-zapla-blue/30 to-zapla-magenta/25 blur-3xl" />
+              {/* Concentric rings */}
+              <div className="pointer-events-none absolute h-[300px] w-[300px] rounded-full border border-zapla-blue/15" />
+              <div className="pointer-events-none absolute h-[240px] w-[240px] rounded-full border border-zapla-blue/25" />
+              <div className="pointer-events-none absolute h-[180px] w-[180px] rounded-full border border-zapla-blue/35" />
+              {/* Core orb */}
+              <div className="relative grid h-[140px] w-[140px] place-items-center rounded-full bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta shadow-[0_20px_60px_-10px_rgba(37,99,255,0.55)]">
+                <div className="absolute inset-2 rounded-full bg-white/95 shadow-inner" />
+                <span className="relative bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta bg-clip-text text-[30px] font-black tracking-tight text-transparent">
+                  zapla
+                </span>
+              </div>
+
+              {/* 3 orbiting stat pills — positioned absolutely around orb */}
+              {[
+                { k: "1", l: "Login",           pos: "left-1/2 top-0 -translate-x-[190px] -translate-y-2" },
+                { k: "1", l: "Customer record", pos: "left-1/2 top-1/2 translate-x-[80px] -translate-y-1/2" },
+                { k: "1", l: "Monthly bill",    pos: "left-1/2 bottom-0 -translate-x-[190px] translate-y-2" },
+              ].map((s, i) => (
+                <div
+                  key={s.l}
+                  style={{ animationDelay: `${i * 0.6}s` }}
+                  className={`zapla-juggle absolute ${s.pos} hidden sm:flex items-center gap-2.5 rounded-full border border-zapla-line/70 bg-white py-2 pl-2 pr-4 shadow-zapla`}
+                >
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-zapla-blue to-zapla-violet text-[14px] font-black text-white">
+                    {s.k}
+                  </span>
+                  <span className="text-[11.5px] font-extrabold uppercase tracking-[0.12em] text-zapla-ink">
+                    {s.l}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile stat row */}
+            <div className="mt-8 flex flex-wrap justify-center gap-2 sm:hidden">
+              {["1 Login", "1 Customer record", "1 Monthly bill"].map((s) => (
+                <span key={s} className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1.5 text-[11px] font-extrabold text-zapla-ink shadow-zapla-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-zapla-blue" />
+                  {s}
+                </span>
+              ))}
+            </div>
+
+            {/* Savings caption + CTAs */}
+            <div className="mt-12 text-center">
+              <p className="text-[14px] font-bold text-zapla-ink">
+                Save <span className="text-zapla-blue">A$1,500–2,500+/mo</span> on disconnected subscriptions.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href="#pricing"
+                  className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-zapla-blue via-zapla-violet to-zapla-magenta px-6 py-3 text-[14px] font-extrabold text-white shadow-zapla-blue transition-transform duration-300 hover:-translate-y-0.5"
+                >
+                  See what you replace
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </a>
+                <a
+                  href="#roi"
+                  className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-5 py-3 text-[14px] font-extrabold text-zapla-ink transition-colors hover:border-zapla-blue/40 hover:text-zapla-blue"
+                >
+                  Calculate your savings
+                </a>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
