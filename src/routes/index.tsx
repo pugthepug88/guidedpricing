@@ -1238,11 +1238,8 @@ function Pillars() {
               <div className="pointer-events-none absolute h-[240px] w-[240px] rounded-full border border-zapla-blue/25" />
               <div className="pointer-events-none absolute h-[180px] w-[180px] rounded-full border border-zapla-blue/35" />
               {/* Core orb */}
-              <div className="relative grid h-[140px] w-[140px] place-items-center rounded-full bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta shadow-[0_20px_60px_-10px_rgba(37,99,255,0.55)]">
-                <div className="absolute inset-2 rounded-full bg-white/95 shadow-inner" />
-                <span className="relative bg-gradient-to-br from-zapla-blue via-zapla-violet to-zapla-magenta bg-clip-text text-[30px] font-black tracking-tight text-transparent">
-                  zapla
-                </span>
+              <div className="relative grid h-[140px] w-[140px] place-items-center rounded-[38px] bg-white shadow-[0_20px_60px_-10px_rgba(37,99,255,0.55)] ring-1 ring-zapla-blue/20">
+                <img src={zaplaIcon.url} alt="Zapla" className="h-[104px] w-[104px]" />
               </div>
 
               {/* 3 orbiting stat pills — positioned absolutely around orb */}
