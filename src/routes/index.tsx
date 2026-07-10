@@ -256,38 +256,39 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0 zapla-grid-bg-light opacity-70" />
 
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
-        <div className="zapla-fade mx-auto max-w-[920px] text-center">
-          <Eyebrow>Guided Launch Pricing</Eyebrow>
-          <h1 className="mt-6 text-[clamp(44px,6.8vw,88px)] font-extrabold leading-[0.98] tracking-[-0.045em] text-zapla-ink">
-            Run your whole business
-            <br className="hidden sm:block" />{" "}
-            from <span className="zapla-gradient-shimmer">one system</span>.
-          </h1>
-          <p className="mx-auto mt-7 max-w-[640px] text-[18px] leading-[1.6] text-zapla-muted">
-            CRM, bookings, inbox, reviews, payments, mobile POS, documents, websites and AI follow-up
-            in one flat-price platform — <b className="text-zapla-ink">launched with you</b>,
-            unlimited users, no per-seat pricing.
-          </p>
-          <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <PrimaryButton href={BOOK_URL} track="hero_cta">
-              Book a Call
-              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round">
-                <path d="M4 10h12M11 5l5 5-5 5" />
-              </svg>
-            </PrimaryButton>
-            <SecondaryButton href="#pricing" track="hero_pricing">See pricing</SecondaryButton>
+        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+          <div className="zapla-fade text-center lg:text-left">
+            <Eyebrow>Simple, transparent pricing</Eyebrow>
+            <h1 className="mt-6 font-bold text-zapla-ink text-[clamp(44px,6vw,80px)] leading-[1.02] tracking-[-0.035em]">
+              Run your whole business from{" "}
+              <span className="zapla-gradient-shimmer">one AI operating system</span>.
+            </h1>
+            <p className="mx-auto mt-7 max-w-[560px] text-[18px] leading-[1.6] text-zapla-muted lg:mx-0">
+              CRM, bookings, inbox, reviews, payments, mobile POS, documents, websites and AI
+              follow-up — <b className="text-zapla-ink">launched with you</b>, one flat price,
+              unlimited users.
+            </p>
+            <div className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start">
+              <PrimaryButton href={BOOK_URL} track="hero_cta">
+                Book a Call
+                <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round">
+                  <path d="M4 10h12M11 5l5 5-5 5" />
+                </svg>
+              </PrimaryButton>
+              <SecondaryButton href="#pricing" track="hero_pricing">See pricing</SecondaryButton>
+            </div>
+            <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13.5px] font-semibold text-zapla-muted lg:justify-start">
+              {["Unlimited users", "One flat price", "Launched with you"].map((t) => (
+                <span key={t} className="inline-flex items-center gap-2">
+                  <Check />
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[13.5px] font-semibold text-zapla-muted">
-            {["Unlimited users", "No per-seat pricing", "Launched with you", "90-day rollout"].map((t) => (
-              <span key={t} className="inline-flex items-center gap-2">
-                <Check />
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
 
-        <HeroMock />
+          <HeroMock />
+        </div>
       </div>
     </header>
   );
@@ -307,58 +308,117 @@ function HeroMock() {
     return () => io.disconnect();
   }, [ref]);
 
-  const customers = useCountUp(1248, inView);
-  const bookings = useCountUp(36, inView);
-  const payments = useCountUp(18, inView);
-  const ai = useCountUp(24, inView);
+  const collected = useCountUp(12480, inView);
+  const [dealIndex, setDealIndex] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const id = setInterval(() => setDealIndex((i) => (i + 1) % 3), 2600);
+    return () => clearInterval(id);
+  }, [inView]);
+
+  const modules = [
+    { label: "Inbox", d: "M3 6h14v10H3z M3 6l7 5 7-5" },
+    { label: "CRM", d: "M4 17c0-3 3-5 6-5s6 2 6 5 M10 10a3 3 0 100-6 3 3 0 000 6z" },
+    { label: "Bookings", d: "M4 6h12v11H4z M4 9h12 M8 4v3 M12 4v3" },
+    { label: "Payments", d: "M3 7h14v9H3z M3 10h14 M6 14h3" },
+  ];
+  const deals = [
+    { name: "Harper & Co.", stage: "Proposal", amt: "A$4,800" },
+    { name: "Beacon Auto", stage: "Booked", amt: "A$2,150" },
+    { name: "Salon Nord", stage: "Won", amt: "A$5,530" },
+  ];
+  const stageTint: Record<string, string> = {
+    Proposal: "bg-zapla-cyan/15 text-zapla-blue2",
+    Booked: "bg-zapla-violet/15 text-zapla-violet",
+    Won: "bg-zapla-green-soft text-zapla-green",
+  };
 
   return (
-    <div ref={ref} className="zapla-reveal relative mx-auto mt-16 max-w-[1080px]">
-      <div className="pointer-events-none absolute -inset-6 rounded-[32px] bg-gradient-to-br from-zapla-cyan/25 via-zapla-blue/20 to-zapla-violet/25 blur-3xl" />
-      <div className="relative overflow-hidden rounded-[24px] border border-zapla-line bg-white p-5 shadow-zapla sm:p-7">
-        <div className="mb-6 flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.12em] text-zapla-muted">
-            <span className="h-2 w-2 rounded-full bg-zapla-green zapla-pulse-dot" />
-            Live system
-          </div>
+    <div ref={ref} className="zapla-reveal relative mx-auto w-full max-w-[560px]">
+      <div className="pointer-events-none absolute -inset-10 rounded-[40px] bg-gradient-to-br from-zapla-cyan/30 via-zapla-blue/20 to-zapla-magenta/25 blur-3xl" />
+
+      {/* app window */}
+      <div className="relative rotate-[-1.5deg] overflow-hidden rounded-[24px] border border-zapla-line bg-white shadow-zapla">
+        {/* window bar */}
+        <div className="flex items-center justify-between border-b border-zapla-line bg-zapla-faint px-4 py-2.5">
           <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-zapla-line" />
-            <span className="h-2.5 w-2.5 rounded-full bg-zapla-line" />
-            <span className="h-2.5 w-2.5 rounded-full bg-zapla-line" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#ff6058]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+          </div>
+          <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-muted">
+            <span className="h-1.5 w-1.5 rounded-full bg-zapla-green zapla-pulse-dot" />
+            zapla · live
+          </div>
+          <span className="w-10" />
+        </div>
+
+        <div className="flex">
+          {/* left rail */}
+          <div className="flex w-[68px] flex-col items-center gap-1 border-r border-zapla-line bg-white py-4">
+            {modules.map((m, i) => (
+              <div
+                key={m.label}
+                className={`flex h-11 w-11 items-center justify-center rounded-xl transition ${
+                  i === 1 ? "bg-zapla-blue text-white shadow-zapla-blue" : "text-zapla-muted2 hover:bg-zapla-faint"
+                }`}
+                title={m.label}
+              >
+                <svg viewBox="0 0 20 20" className="h-4.5 w-4.5" width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                  <path d={m.d} />
+                </svg>
+              </div>
+            ))}
+          </div>
+
+          {/* main content — mini pipeline */}
+          <div className="flex-1 p-5">
+            <div className="mb-3 flex items-center justify-between">
+              <b className="text-[13px] font-extrabold tracking-[-0.02em] text-zapla-ink">Pipeline · This week</b>
+              <span className="rounded-full bg-zapla-blue-soft px-2 py-0.5 text-[10.5px] font-bold text-zapla-blue">+3 new</span>
+            </div>
+            <div className="space-y-2">
+              {deals.map((d, i) => (
+                <div
+                  key={d.name}
+                  className={`flex items-center justify-between rounded-xl border p-3 transition-all duration-500 ${
+                    i === dealIndex
+                      ? "-translate-y-0.5 border-zapla-blue/40 bg-white shadow-zapla-sm"
+                      : "border-zapla-line bg-zapla-faint/60"
+                  }`}
+                >
+                  <div>
+                    <div className="text-[12.5px] font-bold text-zapla-ink">{d.name}</div>
+                    <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-bold ${stageTint[d.stage]}`}>
+                      {d.stage}
+                    </span>
+                  </div>
+                  <div className="text-[13px] font-extrabold tabular-nums tracking-[-0.02em] text-zapla-ink">{d.amt}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {[
-            { k: "Customers", v: customers.toLocaleString(), s: "records", tint: "bg-zapla-blue/8 border-zapla-blue/15" },
-            { k: "Bookings", v: bookings.toString(), s: "this week", tint: "bg-zapla-cyan/10 border-zapla-cyan/20" },
-            { k: "Payments", v: `A$${payments}k`, s: "this month", tint: "bg-zapla-green-soft border-zapla-green/25" },
-            { k: "AI follow-up", v: ai.toString(), s: "conversations", tint: "bg-zapla-violet/10 border-zapla-violet/20" },
-          ].map((t) => (
-            <div key={t.k} className={`group relative overflow-hidden rounded-2xl border p-4 transition hover:-translate-y-0.5 ${t.tint}`}>
-              <small className="block text-[10.5px] font-extrabold uppercase tracking-[0.12em] text-zapla-muted">
-                {t.k}
-              </small>
-              <b className="mt-2 block text-[28px] font-extrabold tracking-[-0.04em] text-zapla-ink">
-                {t.v}
-              </b>
-              <span className="text-[12px] text-zapla-muted">{t.s}</span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 flex items-center gap-2 rounded-2xl border border-zapla-line bg-zapla-faint p-2.5">
-          {["Capture", "Manage", "Get paid", "Grow"].map((s, i, arr) => (
-            <div key={s} className="flex flex-1 items-center gap-2">
-              <div className="flex-1 rounded-xl border border-zapla-line bg-white py-2.5 text-center text-[11.5px] font-extrabold uppercase tracking-[0.08em] text-zapla-ink">
-                {s}
-              </div>
-              {i < arr.length - 1 && <span className="text-zapla-blue text-[13px] font-black">→</span>}
-            </div>
-          ))}
+      </div>
+
+      {/* AI chip */}
+      <div className="absolute -top-4 -left-4 flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-2 shadow-zapla-sm">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-zapla-cyan via-zapla-blue to-zapla-violet text-[10px] font-black text-white">AI</span>
+        <span className="text-[11.5px] font-bold text-zapla-ink">Follow-up sent</span>
+        <span className="h-1.5 w-1.5 rounded-full bg-zapla-green zapla-pulse-dot" />
+      </div>
+
+      {/* live metric badge */}
+      <div className="absolute -bottom-5 -right-3 rounded-2xl border border-zapla-line bg-white p-3.5 shadow-zapla sm:-right-6">
+        <div className="text-[10.5px] font-extrabold uppercase tracking-[0.14em] text-zapla-muted">Collected this week</div>
+        <div className="mt-1 text-[22px] font-extrabold tabular-nums tracking-[-0.03em] text-zapla-ink">
+          A${collected.toLocaleString()}
         </div>
       </div>
     </div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  Guided Strip                                                       */
