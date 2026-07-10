@@ -1,8 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo, useRef, useEffect } from "react";
-import customerTrades from "@/assets/customer-trades.jpg";
-import customerSalon from "@/assets/customer-salon.jpg";
-import customerAuto from "@/assets/customer-auto.jpg";
+import customer01 from "@/assets/customer-01-brightside.jpg";
+import customer02 from "@/assets/customer-02-northside.jpg";
+import customer03 from "@/assets/customer-03-riverside.jpg";
+import customer04 from "@/assets/customer-04-bloom.jpg";
+import customer05 from "@/assets/customer-05-peak.jpg";
+import customer06 from "@/assets/customer-06-complete.jpg";
+import customer07 from "@/assets/customer-07-metro.jpg";
+import customer08 from "@/assets/customer-08-urban.jpg";
 
 export const Route = createFileRoute("/")({
   component: PricingPage,
