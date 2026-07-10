@@ -133,6 +133,35 @@
   animation: zapla-warn-pulse 2s ease-out infinite;
 }
 
+/* Tab close cascade — used in the "16 tabs → 1 tab" scene */
+@keyframes zapla-tab-close {
+  0%, 55%  { opacity: 1; transform: translateY(0) scaleX(1); filter: blur(0); }
+  75%      { opacity: 0.35; transform: translateY(-4px) scaleX(0.6); filter: blur(1px); }
+  85%, 100%{ opacity: 0; transform: translateY(-10px) scaleX(0); filter: blur(2px); }
+}
+@utility zapla-tab-close {
+  animation: zapla-tab-close 6s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+  transform-origin: left center;
+}
+
+@keyframes zapla-tab-appear {
+  0%, 60%   { opacity: 0; transform: translateY(4px) scale(0.96); }
+  75%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@utility zapla-tab-appear {
+  animation: zapla-tab-appear 6s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+
+@keyframes zapla-cursor-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-40px, 6px); }
+  50%      { transform: translate(30px, -8px); }
+  75%      { transform: translate(60px, 4px); }
+}
+@utility zapla-cursor-drift {
+  animation: zapla-cursor-drift 6s ease-in-out infinite;
+}
+
 
 
 /* Reveal on scroll */
