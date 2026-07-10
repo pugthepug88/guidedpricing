@@ -1169,10 +1169,11 @@ function Customers() {
                       "{c.quote}"
                     </blockquote>
                     <div className="mt-auto border-t border-zapla-line pt-3">
-                      <span className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-zapla-muted">
+                      <span className="block min-h-[2.4em] text-[11.5px] font-semibold uppercase leading-[1.2] tracking-[0.08em] text-zapla-muted">
                         {c.person}
                       </span>
                     </div>
+
                   </div>
                 </article>
               </Reveal>
