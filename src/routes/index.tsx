@@ -1099,13 +1099,17 @@ function Pillars() {
                   </span>
                 </div>
 
-                {/* Compact chip grid — ClickUp-style */}
+                {/* Compact chip grid — ClickUp-style, gently juggling */}
                 <div className="flex flex-wrap gap-1.5">
-                  {tools.map((t) => (
+                  {tools.map((t, i) => (
                     <span
                       key={t.n + t.role}
                       title={`${t.n} · ${t.role}`}
-                      className="group inline-flex items-center gap-1.5 rounded-full border border-zapla-line/70 bg-white py-1 pl-1 pr-2.5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-zapla-blue/30 hover:shadow-zapla-sm"
+                      style={{
+                        animationDelay: `${(i % 8) * 0.35}s`,
+                        animationDuration: `${4 + (i % 5) * 0.6}s`,
+                      }}
+                      className="zapla-juggle group inline-flex items-center gap-1.5 rounded-full border border-zapla-line/70 bg-white py-1 pl-1 pr-2.5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:rotate-0 hover:border-zapla-blue/30 hover:shadow-zapla-sm"
                     >
                       <span className="grid h-6 w-6 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-black/[0.05]">
                         <img
