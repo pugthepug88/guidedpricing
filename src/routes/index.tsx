@@ -1086,48 +1086,56 @@ function Pillars() {
           <Reveal className="relative">
             <div className="relative">
               {/* Panel A — Your stack today */}
-              <div className="relative rounded-[28px] border border-zapla-line/70 bg-white p-6 shadow-zapla sm:p-7">
-                <div className="mb-5 flex items-center justify-between gap-3">
+              <div className="relative rounded-[24px] border border-zapla-line/70 bg-white p-5 shadow-zapla sm:p-6">
+                <div className="mb-4 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2.5">
-                    <span className="inline-flex h-6 items-center rounded-full bg-[#FEE2E2] px-2.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#B91C1C]">
+                    <span className="inline-flex h-5 items-center rounded-full bg-[#FEE2E2] px-2 text-[9.5px] font-extrabold uppercase tracking-[0.16em] text-[#B91C1C]">
                       Before
                     </span>
-                    <span className="text-[14px] font-bold text-zapla-ink">Your stack today</span>
+                    <span className="text-[13px] font-bold text-zapla-ink">Your stack today</span>
                   </div>
-                  <span className="hidden sm:inline text-[11.5px] font-semibold text-zapla-muted2">
-                    16+ logins · A$1.5–2.5k/mo
+                  <span className="text-[11px] font-semibold text-zapla-muted2">
+                    16+ tools
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+                {/* Compact chip grid — ClickUp-style */}
+                <div className="flex flex-wrap gap-1.5">
                   {tools.map((t) => (
-                    <div
+                    <span
                       key={t.n + t.role}
-                      className="group relative flex flex-col items-center gap-2 rounded-2xl border border-zapla-line/60 bg-gradient-to-b from-white to-[#FAFBFF] px-2 py-3 transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/30 hover:shadow-zapla"
+                      title={`${t.n} · ${t.role}`}
+                      className="group inline-flex items-center gap-1.5 rounded-full border border-zapla-line/70 bg-white py-1 pl-1 pr-2.5 shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:border-zapla-blue/30 hover:shadow-zapla-sm"
                     >
-                      <span className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-white shadow-[0_2px_8px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.04]">
+                      <span className="grid h-6 w-6 shrink-0 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-black/[0.05]">
                         <img
-                          src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=256`}
+                          src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=128`}
                           alt=""
-                          className="h-10 w-10 object-contain"
+                          className="h-5 w-5 object-contain"
                           loading="lazy"
                         />
                       </span>
-                      <span className="min-w-0 text-center">
-                        <span className="block truncate text-[11.5px] font-extrabold leading-tight text-zapla-ink">
-                          {t.n}
-                        </span>
-                        <span className="block truncate text-[10px] font-semibold uppercase tracking-[0.06em] leading-tight text-zapla-muted2">
-                          {t.role}
-                        </span>
+                      <span className="text-[11.5px] font-semibold text-zapla-ink">
+                        {t.n}
                       </span>
-                    </div>
+                    </span>
                   ))}
                 </div>
 
-                <div className="mt-5 flex items-center justify-between rounded-xl bg-[#FEF2F2] px-3 py-2 text-[11.5px] sm:hidden">
-                  <span className="font-bold text-[#B91C1C]">16+ logins</span>
-                  <span className="font-bold text-[#B91C1C]">A$1.5–2.5k/mo</span>
+                {/* Footer stat row */}
+                <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-zapla-line/60 pt-3 text-[11px] font-semibold">
+                  <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
+                    16+ logins & passwords
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
+                    A$1.5–2.5k/mo in subscriptions
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-[#B91C1C]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
+                    Data scattered across silos
+                  </span>
                 </div>
               </div>
 
