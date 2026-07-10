@@ -1210,11 +1210,39 @@ function Customers() {
 /* ------------------------------------------------------------------ */
 
 function Pillars() {
+  const scatteredTools = [
+    { n: "CRM", c: "text-[#2563FF]" },
+    { n: "Calendar", c: "text-[#7C3AED]" },
+    { n: "Stripe", c: "text-[#635BFF]" },
+    { n: "Mailchimp", c: "text-[#F59E0B]" },
+    { n: "Twilio", c: "text-[#EF4444]" },
+    { n: "Zapier", c: "text-[#F97316]" },
+    { n: "Docs", c: "text-[#0EA5E9]" },
+    { n: "Reviews", c: "text-[#10B981]" },
+    { n: "Forms", c: "text-[#8B5CF6]" },
+    { n: "SMS", c: "text-[#EC4899]" },
+    { n: "Website", c: "text-[#14B8A6]" },
+    { n: "POS", c: "text-[#F43F5E]" },
+  ];
+  const scatterPos = [
+    "top-[4%] left-[6%] -rotate-6",
+    "top-[10%] right-[8%] rotate-3",
+    "top-[24%] left-[22%] rotate-2",
+    "top-[18%] right-[26%] -rotate-6",
+    "top-[38%] left-[4%] rotate-4",
+    "top-[36%] right-[6%] -rotate-3",
+    "top-[52%] left-[26%] -rotate-2",
+    "top-[50%] right-[24%] rotate-6",
+    "top-[68%] left-[8%] rotate-3",
+    "top-[70%] right-[10%] -rotate-4",
+    "bottom-[6%] left-[28%] rotate-5",
+    "bottom-[8%] right-[30%] -rotate-2",
+  ];
   const pillars = [
-    { h: "Manage customers", p: "Records, pipelines, notes, tasks and documents in one place.", tags: ["CRM", "Pipelines", "Documents", "Reporting"] },
-    { h: "Book & communicate", p: "Inbox, chat, SMS, email, calendars and reminders — around the customer.", tags: ["Inbox", "Bookings", "SMS", "Email", "AI chat"] },
-    { h: "Get paid", p: "Invoices, payment links, recurring payments and mobile POS.", tags: ["Payments", "Invoices", "Mobile POS", "Catalogue"] },
-    { h: "Grow & follow up", p: "Capture leads, request reviews, automate follow-up and reactivate.", tags: ["Reviews", "Forms", "Funnels", "Automation"] },
+    { h: "Manage customers", p: "Records, pipelines, notes, tasks and documents.", tags: ["CRM", "Pipelines", "Documents"] },
+    { h: "Book & communicate", p: "Inbox, chat, SMS, email and calendars around the customer.", tags: ["Inbox", "Bookings", "SMS", "AI chat"] },
+    { h: "Get paid", p: "Invoices, payment links, recurring billing and mobile POS.", tags: ["Payments", "Invoices", "POS"] },
+    { h: "Grow & follow up", p: "Reviews, forms, funnels and automated reactivation.", tags: ["Reviews", "Forms", "Automation"] },
   ];
   return (
     <section id="replaces" className="relative overflow-hidden bg-zapla-bg py-16 sm:py-24">
@@ -1226,25 +1254,83 @@ function Pillars() {
           accent="replaces the stack"
           sub="Instead of disconnected tools, logins and customer records — one operating system."
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {pillars.map((p, idx) => (
-            <Reveal
-              key={p.h}
-              delay={idx * 80}
-              className="group relative overflow-hidden rounded-2xl border border-zapla-line bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-zapla-blue/40 hover:shadow-zapla"
-            >
-              <h3 className="text-[19px] font-extrabold tracking-[-0.02em] text-zapla-ink">{p.h}</h3>
-              <p className="mt-2 text-[13.5px] leading-[1.55] text-zapla-muted">{p.p}</p>
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {p.tags.map((t) => (
-                  <span key={t} className="rounded-full border border-zapla-line bg-zapla-faint px-2.5 py-1 text-[11px] font-extrabold text-zapla-muted">
-                    {t}
-                  </span>
-                ))}
+
+        <div className="grid gap-6 lg:grid-cols-[1fr_auto_1.15fr] lg:items-stretch">
+          {/* LEFT — messy scattered stack */}
+          <Reveal className="relative min-h-[420px] overflow-hidden rounded-3xl border border-zapla-line bg-white/60 p-5 shadow-zapla-sm">
+            <div className="absolute inset-x-0 top-0 flex items-center justify-between px-5 pt-4">
+              <span className="text-[10.5px] font-extrabold uppercase tracking-[0.14em] text-zapla-muted">
+                Today's stack
+              </span>
+              <span className="rounded-full bg-red-50 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.1em] text-red-500">
+                12+ logins
+              </span>
+            </div>
+            <div className="pointer-events-none absolute inset-0">
+              {scatteredTools.map((t, i) => (
+                <span
+                  key={t.n}
+                  className={`absolute ${scatterPos[i]} rounded-xl border border-zapla-line bg-white px-3 py-2 text-[12px] font-extrabold shadow-zapla-sm ${t.c}`}
+                >
+                  {t.n}
+                </span>
+              ))}
+            </div>
+            <div className="absolute inset-x-0 bottom-0 px-5 pb-4">
+              <div className="rounded-xl border border-red-100 bg-red-50/70 px-3 py-2 text-center text-[12px] font-semibold text-red-600">
+                A$1,500–2,500+/mo · disconnected data · manual glue work
               </div>
-            </Reveal>
-          ))}
+            </div>
+          </Reveal>
+
+          {/* MIDDLE — arrow */}
+          <Reveal delay={120} className="flex items-center justify-center lg:px-2">
+            <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-zapla-blue via-zapla-violet to-zapla-magenta px-4 py-2 text-[12px] font-extrabold uppercase tracking-[0.14em] text-white shadow-zapla-blue">
+              Zapla
+              <span className="text-white/80">→</span>
+            </div>
+          </Reveal>
+
+          {/* RIGHT — one unified system */}
+          <Reveal delay={200} className="relative overflow-hidden rounded-3xl border border-zapla-blue/25 bg-white p-6 shadow-zapla">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-gradient-to-br from-zapla-blue/15 to-zapla-violet/15 blur-3xl" />
+            <div className="relative flex items-center justify-between">
+              <span className="text-[10.5px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue">
+                One operating system
+              </span>
+              <span className="rounded-full bg-gradient-to-r from-zapla-blue/10 to-zapla-violet/10 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.1em] text-zapla-blue">
+                1 login
+              </span>
+            </div>
+            <div className="relative mt-5 grid gap-3 sm:grid-cols-2">
+              {pillars.map((p, idx) => (
+                <div
+                  key={p.h}
+                  className="group rounded-2xl border border-zapla-line bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-zapla-blue/40 hover:shadow-zapla-sm"
+                  style={{ transitionDelay: `${idx * 40}ms` }}
+                >
+                  <div className="flex items-start gap-2">
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-md bg-gradient-to-br from-zapla-blue/12 to-zapla-violet/12 text-[11px] font-extrabold text-zapla-blue">
+                      {idx + 1}
+                    </span>
+                    <div className="min-w-0">
+                      <h3 className="text-[14.5px] font-extrabold tracking-[-0.01em] text-zapla-ink">{p.h}</h3>
+                      <p className="mt-1 text-[12.5px] leading-[1.5] text-zapla-muted">{p.p}</p>
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {p.tags.map((t) => (
+                          <span key={t} className="rounded-full bg-zapla-faint px-2 py-0.5 text-[10.5px] font-bold text-zapla-muted">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
+
         <Reveal className="mx-auto mt-8 max-w-[820px] rounded-2xl border border-zapla-blue/20 bg-zapla-blue-soft/60 p-5 text-center text-[14.5px] text-[#3a4560]">
           Bought separately, a comparable stack reaches <b className="text-zapla-ink">A$1,500 to A$2,500+ a month</b> once seats, contacts, payments, messaging, reviews, websites, AI and extra tools add up.
         </Reveal>
@@ -1252,6 +1338,7 @@ function Pillars() {
     </section>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  Add-ons                                                            */
