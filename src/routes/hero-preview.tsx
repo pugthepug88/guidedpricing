@@ -1279,8 +1279,8 @@ function ReviewCardStack() {
 
   const positions = [
     { top: "8%", left: "6%", right: "34%", rotate: -2 },
-    { top: "42%", left: "30%", right: "6%", rotate: 1.5 },
-    { top: "70%", left: "8%", right: "36%", rotate: -1 },
+    { top: "46%", left: "30%", right: "6%", rotate: 1.5 },
+    { top: "64%", left: "8%", right: "36%", rotate: -1 },
   ];
 
   return (
