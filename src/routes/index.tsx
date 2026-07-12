@@ -1089,7 +1089,7 @@ function Pillars() {
           </div>
         </Reveal>
 
-        <Reveal delay={100} className="relative mx-auto w-full max-w-[500px] pt-4 lg:mr-0 lg:pt-7">
+        <Reveal delay={100} className="relative mx-auto w-full max-w-[500px] pt-8 lg:mr-0 lg:pt-14">
           <div className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/20 blur-[90px]" />
           <img
             src={zaplaFunnel16Apps}
@@ -1097,7 +1097,7 @@ function Pillars() {
             width={1024}
             height={1024}
             loading="lazy"
-            className="relative mx-auto h-auto w-full max-w-[430px] drop-shadow-[0_28px_42px_rgba(37,99,255,0.18)] sm:max-w-[480px]"
+            className="relative mx-auto h-auto w-full max-w-[420px] drop-shadow-[0_28px_42px_rgba(37,99,255,0.18)] sm:max-w-[450px]"
           />
         </Reveal>
       </div>
