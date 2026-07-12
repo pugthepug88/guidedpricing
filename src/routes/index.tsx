@@ -1061,7 +1061,7 @@ function Pillars() {
   return (
     <section
       id="replaces"
-      className="relative overflow-hidden bg-zapla-bg py-10 sm:py-12"
+      className="relative scroll-mt-24 overflow-hidden bg-zapla-bg py-10 sm:py-12"
     >
       <div className="pointer-events-none absolute -top-20 left-[8%] h-[260px] w-[360px] rounded-full bg-[#EF4444]/7 blur-[120px]" />
       <div className="pointer-events-none absolute -bottom-24 right-[10%] h-[300px] w-[420px] rounded-full bg-zapla-blue/16 blur-[130px]" />
