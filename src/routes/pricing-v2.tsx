@@ -10,7 +10,7 @@ import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
 import zaplaFunnel16Apps from "@/assets/zapla-funnel-16-apps-final.png";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/pricing-v2")({
   component: PricingPage,
 });
 
