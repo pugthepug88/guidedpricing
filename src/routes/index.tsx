@@ -1201,15 +1201,6 @@ function FunnelWithTiles() {
 /* ------------------------------------------------------------------ */
 
 
-
-
-
-
-
-/* ------------------------------------------------------------------ */
-/*  Add-ons                                                            */
-/* ------------------------------------------------------------------ */
-
 function Addons() {
   const addons = [
     { h: "AI Receptionist", p: "AI answers calls, qualifies enquiries, takes details or routes calls where configured.", price: "From A$495/mo from Growth. Setup quoted." },
