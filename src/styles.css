@@ -162,7 +162,57 @@
   animation: zapla-cursor-drift 6s ease-in-out infinite;
 }
 
+/* Pillar ideas v2 — concept animations */
+@keyframes zapla-funnel-fall {
+  0%   { transform: translateY(-12px) rotate(0deg); opacity: 0.35; }
+  15%  { opacity: 1; }
+  60%  { transform: translateY(90px) rotate(18deg); opacity: 1; }
+  85%  { transform: translateY(150px) rotate(30deg) scale(0.65); opacity: 0.5; }
+  100% { transform: translateY(170px) rotate(35deg) scale(0.4); opacity: 0; }
+}
+@utility zapla-funnel-fall {
+  animation: zapla-funnel-fall 2.8s ease-in infinite;
+}
 
+@keyframes zapla-vortex-orbit {
+  0%   { transform: rotate(0deg) translateX(var(--orbit-radius, 110px)) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(var(--orbit-radius, 110px)) rotate(-360deg); }
+}
+@utility zapla-vortex-orbit {
+  animation: zapla-vortex-orbit 10s linear infinite;
+}
+
+@keyframes zapla-magnet-snap {
+  0%, 30% { transform: translate(var(--start-x, 80px), var(--start-y, 40px)) rotate(var(--start-r, 12deg)); }
+  100%    { transform: translate(0, 0) rotate(0deg); }
+}
+@utility zapla-magnet-snap {
+  animation: zapla-magnet-snap 2.2s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+}
+
+@keyframes zapla-blend-swirl {
+  0%   { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(18px) rotate(360deg); }
+}
+@utility zapla-blend-swirl {
+  animation: zapla-blend-swirl 1.4s linear infinite;
+}
+
+@keyframes zapla-shred-strips {
+  0%   { transform: translateY(0) scaleX(1); opacity: 1; }
+  100% { transform: translateY(40px) scaleX(0.05); opacity: 0; }
+}
+@utility zapla-shred-strips {
+  animation: zapla-shred-strips 1.6s ease-in infinite;
+}
+
+@keyframes zapla-satellite-beam {
+  0%, 100% { opacity: 0.25; transform: scaleX(0.9); }
+  50%      { opacity: 0.8; transform: scaleX(1); }
+}
+@utility zapla-satellite-beam {
+  animation: zapla-satellite-beam 2.4s ease-in-out infinite;
+}
 
 /* Reveal on scroll */
 @utility zapla-reveal {
