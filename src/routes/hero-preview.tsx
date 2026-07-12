@@ -1126,12 +1126,20 @@ function AISection() {
 
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-gradient-to-r from-violet-500/15 via-cyan-500/15 to-emerald-500/15 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur">
+          <div className="ai-badge relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold text-white/90 backdrop-blur">
+            <span className="ai-badge-glow absolute inset-0 -z-10 opacity-80" />
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
             </span>
-            Built with AI at the core
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-300">
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z" />
+              <path d="M20 3v4" />
+              <path d="M22 5h-4" />
+              <path d="M4 17v2" />
+              <path d="M5 18H3" />
+            </svg>
+            Powered by AI
           </div>
           <h2 className="mt-5 text-[clamp(2.2rem,4.5vw,4rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-white">
             The power of AI built into<br className="hidden sm:block" /> every workflow
@@ -1188,6 +1196,21 @@ function AISection() {
           </a>
         </div>
       </div>
+
+      <style>{`
+        .ai-badge {
+          box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 24px -8px rgba(99,102,241,0.35);
+        }
+        .ai-badge-glow {
+          background: linear-gradient(90deg, rgba(139,92,246,0.25), rgba(6,182,212,0.25), rgba(59,130,246,0.25), rgba(139,92,246,0.25));
+          background-size: 300% 100%;
+          animation: aiBadgeShimmer 5s linear infinite;
+        }
+        @keyframes aiBadgeShimmer {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+      `}</style>
     </section>
   );
 }
