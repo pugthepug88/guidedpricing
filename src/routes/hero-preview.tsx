@@ -1,6 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import type React from "react";
+import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
+import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
+import logoOrange from "@/assets/zapla-logo-orange.png.asset.json";
+import logoPurple from "@/assets/zapla-logo-purple.png.asset.json";
+import logoYellow from "@/assets/zapla-logo-yellow.png.asset.json";
+import logoTeal from "@/assets/zapla-logo-teal.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
@@ -244,12 +250,12 @@ function Hero() {
 /* -------- Card stack orchestrator ---------------------------------- */
 
 const HERO_CARDS = [
-  { title: "Pipeline Management", color: "#22c55e", Body: CardPipeline },
-  { title: "Control Dashboard", color: "#2563ff", Body: CardDashboard },
-  { title: "Intelligent Automation Workflow", color: "#f97316", Body: CardAutomation },
-  { title: "Performance Tracking & Analysis", color: "#8b5cf6", Body: CardPerformance },
-  { title: "Advanced Multi-Calendar Booking", color: "#eab308", Body: CardCalendar },
-  { title: "Dynamic Smart Tagging", color: "#14b8a6", Body: CardTagging },
+  { title: "Pipeline Management",              logo: logoGreen.url,  Body: CardPipeline },
+  { title: "Control Dashboard",                logo: logoBlue.url,   Body: CardDashboard },
+  { title: "Intelligent Automation Workflow",  logo: logoOrange.url, Body: CardAutomation },
+  { title: "Performance Tracking & Analysis",  logo: logoPurple.url, Body: CardPerformance },
+  { title: "Advanced Multi-Calendar Booking",  logo: logoYellow.url, Body: CardCalendar },
+  { title: "Dynamic Smart Tagging",            logo: logoTeal.url,   Body: CardTagging },
 ] as const;
 
 function HeroCardStack() {
@@ -263,7 +269,7 @@ function HeroCardStack() {
 
   return (
     <div className="hero-stack">
-      {HERO_CARDS.map(({ title, color, Body }, i) => {
+      {HERO_CARDS.map(({ title, logo, Body }, i) => {
         const pos = posOf(i);
         return (
           <div
@@ -274,12 +280,12 @@ function HeroCardStack() {
             aria-hidden={pos !== 0}
           >
             <div className="mb-5 flex items-center gap-3">
-              <span
-                className="flex h-11 w-11 items-center justify-center rounded-xl text-white font-black text-[20px] leading-none"
-                style={{ background: color }}
-              >
-                Z
-              </span>
+              <img
+                src={logo}
+                alt=""
+                className="h-11 w-11 object-contain drop-shadow-sm"
+                loading="lazy"
+              />
               <span className="text-[22px] font-extrabold tracking-[-0.02em] text-zapla-ink">
                 {title}
               </span>
