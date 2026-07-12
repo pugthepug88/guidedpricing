@@ -1278,9 +1278,9 @@ function ReviewCardStack() {
   }, []);
 
   const positions = [
-    { top: "6%", left: "4%", right: "18%", rotate: -2 },
-    { top: "34%", left: "2%", right: "22%", rotate: 1 },
-    { top: "62%", left: "18%", right: "4%", rotate: -1 },
+    { top: "8%", left: "6%", right: "30%", rotate: -2 },
+    { top: "38%", left: "30%", right: "6%", rotate: 1.5 },
+    { top: "66%", left: "8%", right: "32%", rotate: -1 },
   ];
 
   return (
@@ -1291,13 +1291,13 @@ function ReviewCardStack() {
         return (
           <div
             key={r.name}
-            className="review-scatter-card absolute rounded-2xl bg-white p-3.5 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
+            className="review-scatter-card absolute rounded-2xl bg-white p-3 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
             style={{
               top: pos.top,
               left: pos.left,
               right: pos.right,
-              transform: `rotate(${pos.rotate}deg) scale(${isActive ? 1 : 0.93})`,
-              opacity: isActive ? 1 : 0.55,
+              transform: `rotate(${pos.rotate}deg) scale(${isActive ? 1 : 0.94})`,
+              opacity: isActive ? 1 : 0.5,
               zIndex: isActive ? 10 : 3 - i,
             }}
           >
@@ -1313,12 +1313,12 @@ function ReviewCardStack() {
               </div>
             </div>
 
-            <p className="mt-2.5 text-[0.8rem] leading-[1.4] text-slate-700">
+            <p className="mt-2 text-[0.78rem] leading-[1.4] text-slate-700">
               &ldquo;{r.quote}&rdquo;
             </p>
 
-            <div className="mt-3 rounded-lg border-l-[3px] border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-violet-50/60 p-2.5">
-              <div className="flex items-center gap-1.5 text-[0.72rem] font-semibold">
+            <div className="mt-2.5 rounded-lg border-l-[3px] border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-violet-50/60 p-2">
+              <div className="flex items-center gap-1.5 text-[0.7rem] font-semibold">
                 <span className="grid h-4 w-4 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-[0.55rem] text-white">
                   ✦
                 </span>
@@ -1326,7 +1326,7 @@ function ReviewCardStack() {
                   AI Response
                 </span>
               </div>
-              <p className="mt-1 text-[0.72rem] leading-[1.45] text-slate-600">
+              <p className="mt-1 text-[0.7rem] leading-[1.45] text-slate-600">
                 {r.response}
               </p>
             </div>
