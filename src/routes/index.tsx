@@ -224,7 +224,7 @@ function SiteNav() {
   }, []);
 
   const linkCls =
-    "inline-flex items-center gap-1 text-[14px] font-semibold text-zapla-ink/85 transition hover:text-zapla-blue";
+    "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
 
   return (
     <nav
@@ -259,8 +259,8 @@ function SiteNav() {
             {openMenu === "products" && (
               <div className="absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-3">
                 <div className="rounded-2xl border border-zapla-line bg-white p-2 shadow-zapla">
-                  <a href="https://zapla.io/crm" className="block rounded-xl px-3 py-2 text-[14px] font-semibold text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Zapla CRM</a>
-                  <a href="https://zapla.io/vibe-studio" className="block rounded-xl px-3 py-2 text-[14px] font-semibold text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Zapla Vibe Studio</a>
+                  <a href="https://zapla.io/crm" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Zapla CRM</a>
+                  <a href="https://zapla.io/vibe-studio" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Zapla Vibe Studio</a>
                 </div>
               </div>
             )}
@@ -281,9 +281,9 @@ function SiteNav() {
             {openMenu === "resources" && (
               <div className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3">
                 <div className="rounded-2xl border border-zapla-line bg-white p-2 shadow-zapla">
-                  <a href="https://zapla.io/blog" className="block rounded-xl px-3 py-2 text-[14px] font-semibold text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Blog</a>
-                  <a href="https://zapla.canny.io/feature-request" className="block rounded-xl px-3 py-2 text-[14px] font-semibold text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Request feature</a>
-                  <a href="https://zapla.io/comparison/zapla-vs-hubspot" className="block rounded-xl px-3 py-2 text-[14px] font-semibold text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Compare</a>
+                  <a href="https://zapla.io/blog" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Blog</a>
+                  <a href="https://zapla.canny.io/feature-request" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Request feature</a>
+                  <a href="https://zapla.io/comparison/zapla-vs-hubspot" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Compare</a>
                 </div>
               </div>
             )}
@@ -297,13 +297,13 @@ function SiteNav() {
         <div className="hidden items-center gap-3 lg:flex">
           <a
             href="https://zapla.io/getstartedtrial"
-            className="inline-flex items-center justify-center rounded-full border border-zapla-line bg-white px-4 py-2 text-[13px] font-extrabold text-zapla-ink transition hover:border-zapla-blue hover:text-zapla-blue"
+            className="inline-flex items-center justify-center rounded-full border border-zapla-line bg-white px-4 py-2 text-[13px] font-bold text-zapla-ink transition hover:border-zapla-blue hover:text-zapla-blue"
           >
             Get Started Free
           </a>
           <a
             href="https://zapla.io/booking"
-            className="inline-flex items-center justify-center rounded-full bg-zapla-blue px-4 py-2 text-[13px] font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-zapla-blue2 hover:shadow-zapla-blue"
+            className="inline-flex items-center justify-center rounded-full bg-zapla-blue px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-zapla-blue2 hover:shadow-zapla-blue"
           >
             Book a Demo
           </a>
@@ -370,7 +370,7 @@ function SiteFooter() {
     { href: "https://linkedin.com/", icon: "https://stcdn.leadconnectorhq.com/funnel/icons/dark/linkedin-dark.svg", alt: "LinkedIn" },
     { href: "https://youtube.com/", icon: "https://stcdn.leadconnectorhq.com/funnel/icons/dark/youtube-dark.svg", alt: "YouTube" },
   ];
-  const link = "text-[14px] font-semibold text-zapla-muted transition hover:text-zapla-blue";
+  const link = "text-[14px] font-medium text-zapla-muted transition hover:text-zapla-blue";
   return (
     <footer className="border-t border-zapla-line bg-white">
       <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8">

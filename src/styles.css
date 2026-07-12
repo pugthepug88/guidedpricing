@@ -2,6 +2,12 @@
 @source "../src";
 @import "tw-animate-css";
 
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 @theme {
   /* Zapla brand — light-first, matching zapla.io */
   --color-zapla-bg: #eef0fb;         /* soft lavender-white canvas */
