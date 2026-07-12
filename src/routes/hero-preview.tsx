@@ -1123,6 +1123,7 @@ function AISection() {
     <section className="relative overflow-hidden bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] py-24 sm:py-32">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[160px]" />
       <div className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-cyan-500/10 blur-[140px]" />
+      <SparkleField />
 
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
         <div className="mx-auto max-w-3xl text-center">
