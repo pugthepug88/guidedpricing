@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PillarIdeasV2RouteImport } from './routes/pillar-ideas-v2'
 import { Route as PillarIdeasRouteImport } from './routes/pillar-ideas'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PillarIdeasV2Route = PillarIdeasV2RouteImport.update({
+  id: '/pillar-ideas-v2',
+  path: '/pillar-ideas-v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PillarIdeasRoute = PillarIdeasRouteImport.update({
   id: '/pillar-ideas',
   path: '/pillar-ideas',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/pillar-ideas': typeof PillarIdeasRoute
+  '/pillar-ideas-v2': typeof PillarIdeasV2Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/pillar-ideas': typeof PillarIdeasRoute
+  '/pillar-ideas-v2': typeof PillarIdeasV2Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/pillar-ideas': typeof PillarIdeasRoute
+  '/pillar-ideas-v2': typeof PillarIdeasV2Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pillar-ideas'
+  fullPaths: '/' | '/pillar-ideas' | '/pillar-ideas-v2'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pillar-ideas'
-  id: '__root__' | '/' | '/pillar-ideas'
+  to: '/' | '/pillar-ideas' | '/pillar-ideas-v2'
+  id: '__root__' | '/' | '/pillar-ideas' | '/pillar-ideas-v2'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PillarIdeasRoute: typeof PillarIdeasRoute
+  PillarIdeasV2Route: typeof PillarIdeasV2Route
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pillar-ideas-v2': {
+      id: '/pillar-ideas-v2'
+      path: '/pillar-ideas-v2'
+      fullPath: '/pillar-ideas-v2'
+      preLoaderRoute: typeof PillarIdeasV2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pillar-ideas': {
       id: '/pillar-ideas'
       path: '/pillar-ideas'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PillarIdeasRoute: PillarIdeasRoute,
+  PillarIdeasV2Route: PillarIdeasV2Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
