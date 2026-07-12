@@ -1008,7 +1008,7 @@ function Customers() {
               href={BOOK_URL}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-zapla-blue via-zapla-violet to-zapla-magenta px-6 py-3 text-[14px] font-extrabold text-white shadow-zapla-blue transition hover:-translate-y-0.5 hover:shadow-zapla-lift"
             >
-              Get started →
+              Book a Call →
             </a>
           </Reveal>
         </div>
