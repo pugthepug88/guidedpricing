@@ -1278,9 +1278,9 @@ function ReviewCardStack() {
   }, []);
 
   const positions = [
-    { top: "8%", left: "6%", right: "30%", rotate: -2 },
-    { top: "38%", left: "30%", right: "6%", rotate: 1.5 },
-    { top: "66%", left: "8%", right: "32%", rotate: -1 },
+    { top: "8%", left: "6%", right: "34%", rotate: -2 },
+    { top: "42%", left: "30%", right: "6%", rotate: 1.5 },
+    { top: "70%", left: "8%", right: "36%", rotate: -1 },
   ];
 
   return (
@@ -1291,7 +1291,7 @@ function ReviewCardStack() {
         return (
           <div
             key={r.name}
-            className="review-scatter-card absolute rounded-2xl bg-white p-3 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
+            className="review-scatter-card absolute rounded-2xl bg-white p-2.5 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
             style={{
               top: pos.top,
               left: pos.left,
@@ -1301,32 +1301,32 @@ function ReviewCardStack() {
               zIndex: isActive ? 10 : 3 - i,
             }}
           >
-            <div className="flex items-center gap-2.5">
-              <div className={`grid h-8 w-8 shrink-0 place-items-center rounded-full ${r.avatar} text-[0.7rem] font-semibold text-white`}>
+            <div className="flex items-center gap-2">
+              <div className={`grid h-7 w-7 shrink-0 place-items-center rounded-full ${r.avatar} text-[0.65rem] font-semibold text-white`}>
                 {r.initials}
               </div>
-              <span className="text-[0.85rem] font-semibold text-slate-900">{r.name}</span>
-              <div className="ml-auto flex gap-0.5 text-[0.75rem] text-amber-400">
+              <span className="text-[0.8rem] font-semibold text-slate-900">{r.name}</span>
+              <div className="ml-auto flex gap-0.5 text-[0.7rem] text-amber-400">
                 {Array.from({ length: 5 }).map((_, s) => (
                   <span key={s} className={s < r.stars ? "" : "text-slate-200"}>★</span>
                 ))}
               </div>
             </div>
 
-            <p className="mt-2 text-[0.78rem] leading-[1.4] text-slate-700">
+            <p className="mt-1.5 text-[0.72rem] leading-[1.4] text-slate-700">
               &ldquo;{r.quote}&rdquo;
             </p>
 
-            <div className="mt-2.5 rounded-lg border-l-[3px] border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-violet-50/60 p-2">
-              <div className="flex items-center gap-1.5 text-[0.7rem] font-semibold">
-                <span className="grid h-4 w-4 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-[0.55rem] text-white">
+            <div className="mt-2 rounded-lg border-l-[3px] border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-violet-50/60 p-1.5">
+              <div className="flex items-center gap-1.5 text-[0.65rem] font-semibold">
+                <span className="grid h-3.5 w-3.5 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-[0.5rem] text-white">
                   ✦
                 </span>
                 <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
                   AI Response
                 </span>
               </div>
-              <p className="mt-1 text-[0.7rem] leading-[1.45] text-slate-600">
+              <p className="mt-0.5 text-[0.65rem] leading-[1.45] text-slate-600">
                 {r.response}
               </p>
             </div>
