@@ -1,50 +1,47 @@
+# Plan: GHL-ready HTML export of the Zapla pricing page
 
-## Fair point
+## Goal
+Convert the current `/` pricing page into a single self-contained HTML file/block that can be pasted into a GoHighLevel funnel/page custom HTML element, keeping the visual design, pricing cards, calculator, FAQ, and CTA intact.
 
-A pricing page hero should orient the buyer on **price + value + next step** — not re-sell the product with a dashboard mockup. That belongs on the home page. Let's strip pricing-v2 back to a proper pricing hero and keep the other improvements (softer "messy" accent, Scale+ enterprise card, sticky mobile CTA, human testimonials).
+## Recommended approach
 
-## Revised hero for /pricing-v2
+### 1. Static HTML generation
+- Build the project and prerender the `/` route to raw HTML/CSS/JS.
+- Extract the rendered markup and the generated CSS.
+- Inline all styles into a `<style>` block so GHL does not depend on external stylesheets.
 
-Single centered column, tight and compact — no dashboard visual.
+### 2. Image handling
+- The funnel image and customer photos are currently local files in `src/assets/`.
+- Option A (recommended): upload them to a CDN or GHL file manager and use absolute URLs.
+- Option B: embed them as base64 data URIs inside the HTML for a truly single-file paste.
+- I will use whichever the user prefers; if no preference, I will use base64 for the funnel hero and customer thumbnails so the block works immediately after paste.
 
-```text
-                    [ ★★★★★  Trusted by 200+ AU businesses ]
+### 3. Interactivity conversion
+The page currently uses React state for:
+- Pricing comparison table show/hide
+- ROI calculator sliders and number input
+- FAQ accordions
+- Launch Pack scope accordions
+- Customer results carousel + dots
+- Sticky nav background on scroll
+- Reveal-on-scroll animations
 
-              Simple pricing. One operating system.
-                  Replace 16 tools. Save thousands.
+These will be rewritten as vanilla JS inside a `<script>` block so they continue to work inside GHL without React.
 
-     Pick a plan below — or book a 20-min call and we'll map the
-     right setup for your business (no pressure, no hard sell).
+### 4. Cleanup for GHL
+- Remove TanStack/router-specific markup and hydration comments.
+- Remove nav/footer if not needed (user previously removed them from the Lovable page; I will match that).
+- Keep the page width responsive so it fits GHL’s container.
+- Ensure all buttons link to `https://zapla.io/getstartedtrial`.
 
-              [ See plans ↓ ]   [ Book a strategy call ]
+### 5. Delivery
+- Output: `ghl-pricing-page.html` saved to `/mnt/documents/`.
+- Include a short README with paste instructions for GHL.
+- Verify by opening the file in a browser and checking that all sections render and interactions work.
 
-     ✓ Guided launch included    ✓ Cancel anytime    ✓ AU-based support
-```
+## What I need from you
+- **Image preference**: CDN URLs (you host) or base64 embedded (one big file, instant paste)?
+- **Scope**: Full page exactly as shown on `/`, or strip any sections before export?
 
-Then the page jumps straight into the pricing tiers (which is what a buyer clicked "Pricing" to see).
-
-### Structure changes on /pricing-v2
-
-1. **Hero** — compact, centered, pricing-first (above). Kills the two-column dashboard mockup.
-2. **Anchor jump** — "See plans" scrolls to the pricing grid immediately below.
-3. **Order of sections** (revised for a pricing-page narrative):
-   - Hero (compact)
-   - Pricing tiers (with Scale+ enterprise treatment — keep)
-   - Comparison table / what's included
-   - "Replace the messy stack" pillars + funnel (justifies the price)
-   - Human-face testimonials / customer results (keep — Monday-style)
-   - Savings calculator
-   - Launch pack / guided onboarding
-   - FAQ
-   - Sticky mobile CTA (keep)
-4. **Keep as-is**: softer coral "messy" color, Scale+ dark enterprise card, sticky mobile CTA, noindex meta.
-5. **Remove**: the dashboard mockup component and its imports.
-
-### Technical notes
-
-- Edit only `src/routes/pricing-v2.tsx`. `/` (home) stays untouched.
-- Replace the two-column hero JSX with the compact centered version.
-- Move the pricing section directly under the hero; keep other sections in the reordered flow above.
-- Trust bar (5 stars + count + AU support) stays but shrinks to a single pill above the headline.
-
-Approve and I'll make the swap.
+## Outcome
+A single HTML file you can paste into GHL’s Custom HTML / Code element and publish immediately.
