@@ -1191,7 +1191,7 @@ function Pillars() {
             16 TOOLS · ONE OPERATING SYSTEM&nbsp;
           </span>
           <h2 className="mt-4 text-[30px] font-extrabold leading-[1.04] tracking-[-0.02em] text-zapla-ink sm:text-[42px]">
-            Replace the&nbsp;<span className="text-[#B91C1C]">messy</span>&nbsp;stack
+            Replace the&nbsp;<span className="text-[#E4785A]">messy</span>&nbsp;stack
             <br className="hidden sm:block" /> running your business.
           </h2>
           <p className="mx-auto mt-3 max-w-[520px] text-[15px] leading-[1.55] text-zapla-muted lg:mx-0">
