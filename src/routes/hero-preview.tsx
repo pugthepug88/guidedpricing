@@ -1254,16 +1254,15 @@ function AICard({
 }) {
   return (
     <article className="ai-card group relative flex h-[520px] flex-col overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:h-[560px]">
-      <div className={`relative flex-1 w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
+      <div className={`relative flex-1 min-h-0 w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
         {children}
       </div>
 
-      <div className="ai-card-text relative z-10 mt-auto px-6 pb-6 pt-10">
-        <div className="ai-card-fade absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/60 to-transparent" />
+      <div className="ai-card-text relative z-10 shrink-0 px-6 pb-6 pt-4">
         <h3 className="text-[1.55rem] font-bold leading-tight tracking-[-0.02em] text-white">
           {title}
         </h3>
-        <p className="mt-2 line-clamp-2 text-[0.95rem] leading-[1.55] text-white/70">
+        <p className="mt-2 line-clamp-2 text-[0.95rem] leading-[1.55] text-white/65">
           {desc}
         </p>
       </div>
