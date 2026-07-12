@@ -1148,9 +1148,8 @@ function AISection() {
 
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           <AICard
-            tag="AI Employee"
             title="AI Employee"
-            desc="A 24/7 receptionist who answers, qualifies and books. Never misses a call, never takes a sick day."
+            desc="Hire an AI receptionist that takes calls, schedules bookings, and maybe even crack a dad joke or two."
           >
             <video
               src={aiEmployeeVideo.url}
@@ -1160,9 +1159,8 @@ function AISection() {
           </AICard>
 
           <AICard
-            tag="AI Workflow"
             title="AI-Powered Workflow"
-            desc="Every touchpoint automated: booking, follow-ups, invoicing, review requests. It all runs itself."
+            desc="Inject AI into every step - auto-replies, sentiment analysis, CRM triggers, and more. All connected, all automated, all inside your workflow and endless use cases."
           >
             <video
               src={aiWorkflowVideo.url}
@@ -1172,9 +1170,8 @@ function AISection() {
           </AICard>
 
           <AICard
-            tag="AI Reviews"
             title="AI Reputation Manager"
-            desc="Automatically asks happy customers for reviews and replies to every one of them in your voice."
+            desc="Automated review monitoring and intelligent response system that maintains your online reputation with personalized, contextual replies."
             lightPanel
           >
             <ReviewCardStack />
@@ -1251,26 +1248,23 @@ function SparkleField() {
 }
 
 function AICard({
-  tag, title, desc, children, lightPanel = false,
+  title, desc, children, lightPanel = false,
 }: {
-  tag: string; title: string; desc: string; children: React.ReactNode; lightPanel?: boolean;
+  title: string; desc: string; children: React.ReactNode; lightPanel?: boolean;
 }) {
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05]">
-      <div className="mb-5">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-wider text-white/70">
-          {tag}
-        </span>
-        <h3 className="mt-4 text-[1.4rem] font-semibold leading-tight tracking-[-0.01em] text-white">
-          {title}
-        </h3>
-        <p className="mt-2 text-[0.92rem] leading-[1.5] text-white/60">
-          {desc}
-        </p>
+      <div className={`relative flex-1 w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
+        {children}
       </div>
 
-      <div className={`relative aspect-[4/5] w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
-        {children}
+      <div className="mt-5">
+        <h3 className="text-[1.55rem] font-bold leading-tight tracking-[-0.02em] text-white">
+          {title}
+        </h3>
+        <p className="mt-2 text-[0.95rem] leading-[1.55] text-white/65">
+          {desc}
+        </p>
       </div>
     </article>
   );
