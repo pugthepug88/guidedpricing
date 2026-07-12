@@ -247,12 +247,12 @@ function Hero() {
         <div className="zapla-fade text-center">
           <Eyebrow>Simple, transparent pricing</Eyebrow>
           <h1 className="mx-auto mt-5 max-w-[860px] font-bold text-zapla-ink text-[clamp(32px,4.2vw,54px)] leading-[1.06] tracking-[-0.035em]">
-            Run your whole business from{" "}
+            Run your whole business from&nbsp;
             <span className="zapla-gradient-shimmer">one AI operating system</span>.
           </h1>
           <p className="mx-auto mt-4 max-w-[620px] text-[16px] leading-[1.6] text-zapla-muted">
-            One flat monthly price. Unlimited users. A dedicated launch team that configures your
-            CRM, bookings, reviews, payments and AI follow-up — so you start seeing value in days,
+            One flat monthly price. Unlimited users. Guided Launch connects your enquiries,
+            bookings, reviews, payments and AI follow-up — so you start seeing value in days,
             not months.
           </p>
 
@@ -1115,7 +1115,7 @@ function Pillars() {
 
 function Addons() {
   const addons = [
-    { h: "AI Receptionist", p: "AI answers calls, qualifies enquiries, takes details or routes calls where configured.", price: "From A$449/mo from Growth. Setup quoted." },
+    { h: "AI Receptionist", p: "AI answers calls, qualifies enquiries, takes details or routes calls where configured.", price: "From A$495/mo from Growth. Setup quoted." },
     { h: "Ghost-to-Gold Campaign", p: "Reactivate old leads, past customers or cold quote lists with a structured campaign.", price: "Campaign sprint from A$1,500 + usage." },
     { h: "Extra capacity or build", p: "Extra contacts, locations, integrations, reporting, workflows or custom pages.", price: "Quoted based on scope." },
   ];
