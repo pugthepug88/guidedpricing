@@ -1207,8 +1207,46 @@ function AISection() {
           0% { background-position: 0% 50%; }
           100% { background-position: 100% 50%; }
         }
+        @keyframes zapla-twinkle {
+          0%, 100% { opacity: 0.15; transform: rotate(0deg) scale(0.85); }
+          50% { opacity: 1; transform: rotate(180deg) scale(1); filter: drop-shadow(0 0 6px rgba(212,168,90,0.55)); }
+        }
       `}</style>
     </section>
+  );
+}
+
+function SparkleField() {
+  const sparkles = [
+    { top: "12%", left: "8%", size: 22, delay: "0s", duration: "3.2s" },
+    { top: "22%", right: "12%", size: 18, delay: "0.7s", duration: "2.8s" },
+    { top: "45%", left: "5%", size: 14, delay: "1.4s", duration: "3.5s" },
+    { top: "58%", right: "7%", size: 20, delay: "2.1s", duration: "3s" },
+    { top: "78%", left: "15%", size: 16, delay: "0.9s", duration: "3.3s" },
+    { top: "85%", right: "18%", size: 24, delay: "1.8s", duration: "2.6s" },
+    { top: "33%", left: "22%", size: 12, delay: "2.6s", duration: "3.8s" },
+    { top: "66%", right: "25%", size: 15, delay: "3.2s", duration: "3.1s" },
+  ];
+  return (
+    <>
+      {sparkles.map((s, i) => (
+        <svg
+          key={i}
+          className="pointer-events-none absolute text-[#d4a85a]"
+          style={{
+            top: s.top,
+            ...(s.left ? { left: s.left } : { right: s.right }),
+            width: s.size,
+            height: s.size,
+            animation: `zapla-twinkle ${s.duration} ease-in-out ${s.delay} infinite`,
+          }}
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" />
+        </svg>
+      ))}
+    </>
   );
 }
 
