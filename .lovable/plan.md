@@ -1,33 +1,40 @@
-## Why the text looks less sharp
 
-Two real differences vs zapla.io (not your eyes):
+# Replicate zapla.io homepage inside this project
 
-1. **Missing font weight 900.** The footer headings and G2 badge use `font-black` (900), but our Google Fonts `<link>` in `src/routes/__root.tsx` only loads Manrope weights `400;500;600;700;800`. The browser fakes 900 by synthetically bolding 800, which looks fuzzy/thick.
-2. **Nav uses heavier + smaller type than zapla.io.** Our `SiteNav` links are `text-[14px] font-semibold` (600). Zapla.io's live nav is `font-size:16px; font-weight:500`. Heavier weight at a smaller size on a light background reads as "less sharp / slightly muddier".
+## Scope (locked from your answers)
+- Source of truth: **HTML + assets ZIP you upload**
+- Hosting: **Lovable** (zapla.lovable.app or your custom domain later)
+- Blog: not now — homepage only
+- Route: new page at **`/home-v2`** so your current `/` (the pricing page work) stays untouched until you're happy to swap
 
-Footer body links (`text-[14px] font-semibold text-zapla-muted`) have the same issue — zapla.io footer uses ~14–15px at weight 400–500.
+## What you upload
+A ZIP containing:
+1. The homepage `.html` file (View Source → Save, or GHL export)
+2. Any linked CSS files
+3. The `/images/` (or equivalent) folder with all photos, icons, logos
+4. Any fonts if self-hosted (otherwise I'll load them via Google Fonts `<link>`)
 
-## Plan
+Upload it to this chat when you're ready. If you can't get a clean export from GHL, I can fetch zapla.io live as a fallback — just say so.
 
-Frontend / presentation only. No logic changes.
+## How I'll rebuild it
 
-1. **`src/routes/__root.tsx`** — extend the Manrope `<link>` to include weight 900:
-   `family=Manrope:wght@400;500;600;700;800;900`
-2. **`src/routes/index.tsx` → `SiteNav`**
-   - Top-level nav links: `text-[14px] font-semibold` → `text-[15px] font-medium` (matches zapla.io's 16/500 while staying compact).
-   - Dropdown item links: `font-semibold` → `font-medium`.
-   - "Log In" pill: `font-extrabold` → `font-bold`.
-3. **`src/routes/index.tsx` → `SiteFooter`**
-   - Column body links: `font-semibold` → `font-medium`.
-   - Column headings (`Company`, `Resources`, `Compare`): keep `font-black` (now that 900 actually loads it will render crisply instead of synthetic).
-   - Trustpilot / G2 pills: `font-bold` stays.
-4. **`src/styles.css`** — add explicit smoothing on `html, body` so both header and footer inherit consistent rendering across browsers:
-   ```
-   html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
-   ```
+1. **Extract & inventory** — unzip, list every section, image, font, and interactive element (sliders, accordions, forms, hover states, animations).
+2. **Create the route** — `src/routes/home-v2.tsx` (won't affect `/`).
+3. **Port structure section-by-section** — hero → features → social proof → CTA → footer, matching your HTML's DOM order and copy verbatim.
+4. **Port styling** — convert your CSS to Tailwind utilities where clean, keep raw CSS in a scoped stylesheet where it's complex (gradients, keyframes). Fonts loaded via `<link>` in `__root.tsx` head.
+5. **Migrate images to CDN** — every image goes through Lovable Assets (CDN-hosted, fast, no repo bloat) using the migrate-to-assets skill.
+6. **Rebuild interactions in React** — any GHL JS widgets (carousels, accordions, forms) rewritten as clean React components.
+7. **Responsive check** — verify mobile/tablet/desktop match your live site.
+8. **SEO metadata** — port your existing `<title>`, meta description, OG tags into the route's `head()`.
+9. **Visual QA via Playwright** — screenshot my rebuild side-by-side with a screenshot of zapla.io, iterate until they match.
 
-Nothing else on the page changes — pricing, funnel, hero, comparison table, CTAs, links all stay identical.
+## What I need clarified before uploading
 
-## Expected result
+- **Forms**: any contact/lead form on the homepage — should submissions go to your existing GHL webhook, an email, or Lovable Cloud? (Can decide after seeing the HTML.)
+- **Booking widget**: is the "Book a call" embed a GHL iframe or a Calendly-style script? I'll preserve whichever it is.
 
-Nav and footer text renders at the same weight/size rhythm as zapla.io, `font-black` headings stop being synthetically bolded, and overall header/footer type reads noticeably crisper on your Retina display.
+## Deliverable
+A `/home-v2` route that visually and functionally matches zapla.io, using your original images/fonts/copy, hosted on Lovable's edge CDN. When you're happy, we swap `/home-v2` → `/` in one edit.
+
+## Next step
+Upload the ZIP in your next message.
