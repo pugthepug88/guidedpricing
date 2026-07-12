@@ -9,7 +9,7 @@ import customer06 from "@/assets/customer-06-complete.jpg";
 import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
 import zaplaIcon from "@/assets/zapla-icon.png.asset.json";
-import funnelImg from "@/assets/pillar-funnel-render.png.asset.json";
+import funnelImg from "@/assets/pillar-funnel-v2.jpg";
 
 export const Route = createFileRoute("/")({
   component: PricingPage,
@@ -1104,7 +1104,7 @@ function Pillars() {
         <Reveal delay={100} className="relative mt-14">
           <div className="mx-auto max-w-[880px] overflow-hidden rounded-3xl border border-zapla-line bg-white p-6 shadow-zapla sm:p-10">
             <img
-              src={funnelImg.url}
+              src={funnelImg}
               alt="16 business apps pouring into the Zapla funnel, one system out"
               width={1024}
               height={1280}
