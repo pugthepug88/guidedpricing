@@ -524,7 +524,7 @@ function Pricing() {
         </div>
 
         <p className="mx-auto mt-8 max-w-[760px] text-center text-[12.5px] text-zapla-muted">
-          Prices are in AUD and exclude GST. SMS, AI voice, WhatsApp, domains, payment gateway/card
+          Prices are in AUD and exclude GST. SMS, Email, AI voice, WhatsApp, domains, payment gateway/card
           fees, ad spend, third-party tools, complex migrations and custom build work may be
           separate. No lock-in after launch. Thirty days notice.
         </p>
