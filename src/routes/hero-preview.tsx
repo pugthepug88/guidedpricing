@@ -10,6 +10,7 @@ import logoTeal from "@/assets/zapla-logo-teal.png.asset.json";
 import logoPink from "@/assets/zapla-logo-pink.png.asset.json";
 import logoRed from "@/assets/zapla-logo-red.png.asset.json";
 import logoRainbow from "@/assets/zapla-logo-rainbow.png.asset.json";
+import logoWhite from "@/assets/zapla-icon-white.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
