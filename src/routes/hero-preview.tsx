@@ -239,9 +239,26 @@ function Hero() {
           .hero-stack-card[data-pos="5"] { transform: translateX(-200px) translateY(75px) scale(0.80); }
         }
         @media (max-width: 640px) {
-          .hero-stack { height: 460px; }
+          .hero-stack { height: 440px; }
+          .hero-stack-card { padding: 16px 16px; border-radius: 16px; }
+          .hero-stack-card .hero-card-header-title { font-size: 16px; }
+          .hero-stack-card .hero-card-header-logo { height: 32px; width: 32px; }
+          /* Scale down the fixed-width inner content so it fits on phones */
+          .hero-card-body {
+            transform: scale(0.5);
+            transform-origin: top left;
+            width: 200%;
+            height: calc((100% - 56px) * 2);
+          }
+          /* Tighten the fanned peek so cards don't spill off-screen */
+          .hero-stack-card[data-pos="1"] { transform: translateX(-14px) translateY(10px) scale(0.96); clip-path: inset(0 60% 0 0 round 16px); }
+          .hero-stack-card[data-pos="2"] { transform: translateX(-28px) translateY(20px) scale(0.92); clip-path: inset(0 66% 0 0 round 16px); }
+          .hero-stack-card[data-pos="3"],
+          .hero-stack-card[data-pos="4"],
+          .hero-stack-card[data-pos="5"] { opacity: 0; pointer-events: none; }
           .hero-cta { width: 100%; max-width: 300px; }
         }
+
       `}</style>
     </header>
   );
