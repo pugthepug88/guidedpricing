@@ -11,6 +11,8 @@ import logoPink from "@/assets/zapla-logo-pink.png.asset.json";
 import logoRed from "@/assets/zapla-logo-red.png.asset.json";
 import logoRainbow from "@/assets/zapla-logo-rainbow.png.asset.json";
 import logoWhite from "@/assets/zapla-icon-white.png.asset.json";
+import aiWorkflowVideo from "@/assets/ai-workflow.mp4.asset.json";
+import aiEmployeeVideo from "@/assets/ai-employee.mp4.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
@@ -30,6 +32,7 @@ function HeroPreviewPage() {
     <main className="min-h-screen bg-zapla-bg">
       <Hero />
       <PlatformSlider />
+      <AISection />
     </main>
   );
 }
@@ -1082,3 +1085,162 @@ function PlatformCardTile({ card }: { card: PlatformCard }) {
     </article>
   );
 }
+
+
+/* ------------------------------------------------------------------ */
+/*  AI Section — 3 dark cards: Workflow / Employee / Reputation Mgr    */
+/* ------------------------------------------------------------------ */
+
+const REVIEW_POPUPS = [
+  { name: "Sarah M.", stars: 5, text: "Absolutely fantastic service! The team went above and beyond.", time: "2 min ago", avatar: "bg-gradient-to-br from-pink-400 to-rose-500" },
+  { name: "James L.", stars: 5, text: "Best experience I've had. Highly recommend to anyone!", time: "1 hour ago", avatar: "bg-gradient-to-br from-blue-400 to-indigo-500" },
+  { name: "Emma K.", stars: 5, text: "Professional, fast and truly caring. 10/10 every time.", time: "3 hours ago", avatar: "bg-gradient-to-br from-amber-400 to-orange-500" },
+  { name: "David R.", stars: 5, text: "They handled everything seamlessly. Couldn't be happier.", time: "yesterday", avatar: "bg-gradient-to-br from-emerald-400 to-teal-500" },
+  { name: "Olivia P.", stars: 5, text: "Amazing team. Real results, real fast. Will use again!", time: "2 days ago", avatar: "bg-gradient-to-br from-violet-400 to-purple-500" },
+];
+
+function AISection() {
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] py-24 sm:py-32">
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[160px]" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-cyan-500/10 blur-[140px]" />
+
+      <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70 backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            Powered by AI
+          </div>
+          <h2 className="mt-5 text-[2.2rem] font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:text-[3rem]">
+            The power of AI built into<br className="hidden sm:block" /> every workflow
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-[1.05rem] leading-[1.55] text-white/60">
+            From answering calls to sending review requests — AI runs the busywork so you can focus on the customer in front of you.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {/* Card 1 — AI-Powered Workflow (video) */}
+          <AICard
+            tag="AI Workflow"
+            title="AI-Powered Workflow"
+            desc="Every touchpoint automated — booking, follow-ups, invoicing, review requests. It all runs itself."
+          >
+            <video
+              src={aiWorkflowVideo.url}
+              autoPlay muted loop playsInline
+              className="h-full w-full rounded-[18px] object-cover"
+            />
+          </AICard>
+
+          {/* Card 2 — AI Employee (video) */}
+          <AICard
+            tag="AI Employee"
+            title="AI Employee"
+            desc="A 24/7 receptionist who answers, qualifies and books — never misses a call, never takes a sick day."
+          >
+            <video
+              src={aiEmployeeVideo.url}
+              autoPlay muted loop playsInline
+              className="h-full w-full rounded-[18px] object-cover"
+            />
+          </AICard>
+
+          {/* Card 3 — AI Reputation Manager (popups) */}
+          <AICard
+            tag="AI Reviews"
+            title="AI Reputation Manager"
+            desc="Automatically asks happy customers for reviews — and replies to every one of them in your voice."
+            lightPanel
+          >
+            <ReviewPopupStack />
+          </AICard>
+        </div>
+
+        <div className="mt-16 flex justify-center">
+          <a
+            href={BOOK_URL}
+            className="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-[0.95rem] font-semibold text-zapla-bg transition hover:bg-white/90"
+          >
+            Book a Call
+            <span className="grid h-7 w-7 place-items-center rounded-full bg-zapla-bg text-white transition group-hover:translate-x-0.5">
+              →
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AICard({
+  tag, title, desc, children, lightPanel = false,
+}: {
+  tag: string; title: string; desc: string; children: React.ReactNode; lightPanel?: boolean;
+}) {
+  return (
+    <article className="group relative flex flex-col overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05]">
+      <div className="mb-5">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[0.72rem] font-medium uppercase tracking-wider text-white/70">
+          {tag}
+        </span>
+        <h3 className="mt-4 text-[1.4rem] font-semibold leading-tight tracking-[-0.01em] text-white">
+          {title}
+        </h3>
+        <p className="mt-2 text-[0.92rem] leading-[1.5] text-white/60">
+          {desc}
+        </p>
+      </div>
+
+      <div className={`relative aspect-[4/5] w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-100 to-blue-200" : "bg-black/40"}`}>
+        {children}
+      </div>
+    </article>
+  );
+}
+
+function ReviewPopupStack() {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setActive((i) => (i + 1) % REVIEW_POPUPS.length), 3000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 flex items-center justify-center p-5">
+      {REVIEW_POPUPS.map((r, i) => {
+        const offset = (i - active + REVIEW_POPUPS.length) % REVIEW_POPUPS.length;
+        const isTop = offset === 0;
+        const isVisible = offset < 3;
+        return (
+          <div
+            key={r.name}
+            className="absolute left-4 right-4 rounded-2xl bg-white p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.25)] transition-all duration-700 ease-out"
+            style={{
+              transform: `translateY(${offset * 14}px) scale(${1 - offset * 0.05})`,
+              opacity: isVisible ? (isTop ? 1 : 0.7 - offset * 0.15) : 0,
+              zIndex: REVIEW_POPUPS.length - offset,
+            }}
+          >
+            <div className="flex items-start gap-3">
+              <div className={`h-10 w-10 shrink-0 rounded-full ${r.avatar}`} />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="truncate text-[0.9rem] font-semibold text-zapla-bg">{r.name}</span>
+                  <span className="shrink-0 text-[0.7rem] text-slate-400">{r.time}</span>
+                </div>
+                <div className="mt-0.5 flex gap-0.5 text-amber-400 text-[0.75rem]">
+                  {Array.from({ length: r.stars }).map((_, s) => <span key={s}>★</span>)}
+                </div>
+                <p className="mt-1.5 line-clamp-2 text-[0.8rem] leading-[1.4] text-slate-600">
+                  {r.text}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
