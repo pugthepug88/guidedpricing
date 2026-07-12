@@ -1149,7 +1149,7 @@ function AISection() {
         <div className="mt-14 grid auto-rows-fr gap-6 lg:grid-cols-3">
           <AICard
             title="AI Employee"
-            desc="Hire an AI receptionist that takes calls, schedules bookings, and maybe even crack a dad joke or two."
+            desc="Your 24/7 AI receptionist. Answers calls, books appointments, and handles customer questions — even when you're off the clock."
           >
             <video
               src={aiEmployeeVideo.url}
@@ -1160,7 +1160,7 @@ function AISection() {
 
           <AICard
             title="AI-Powered Workflow"
-            desc="Inject AI into every step - auto-replies, sentiment analysis, CRM triggers, and more. All connected, all automated, all inside your workflow and endless use cases."
+            desc="Let AI run your follow-ups, sentiment checks, and CRM actions. Every step connected, every outcome automatic."
           >
             <video
               src={aiWorkflowVideo.url}
@@ -1171,7 +1171,7 @@ function AISection() {
 
           <AICard
             title="AI Reputation Manager"
-            desc="Automated review monitoring and intelligent response system that maintains your online reputation with personalized, contextual replies."
+            desc="Turn reviews into replies. AI monitors your reputation and responds with context that sounds like you."
             lightPanel
           >
             <ReviewCardStack />
@@ -1253,16 +1253,16 @@ function AICard({
   title: string; desc: string; children: React.ReactNode; lightPanel?: boolean;
 }) {
   return (
-    <article className="ai-card group relative flex h-[520px] flex-col overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:h-[560px]">
-      <div className={`relative flex-1 min-h-0 w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
+    <article className="ai-card group relative flex h-[600px] flex-col overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:h-[640px]">
+      <div className={`relative flex-[1.35] min-h-0 w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
         {children}
       </div>
 
-      <div className="ai-card-text relative z-10 shrink-0 px-6 pb-6 pt-4">
+      <div className="ai-card-text relative z-10 shrink-0 px-6 pb-7 pt-5">
         <h3 className="text-[1.55rem] font-bold leading-tight tracking-[-0.02em] text-white">
           {title}
         </h3>
-        <p className="mt-2 line-clamp-2 text-[0.95rem] leading-[1.55] text-white/65">
+        <p className="mt-2 text-[0.95rem] leading-[1.6] text-white/65">
           {desc}
         </p>
       </div>
@@ -1278,9 +1278,9 @@ function ReviewCardStack() {
   }, []);
 
   const positions = [
-    { top: "8%", left: "6%", right: "34%", rotate: -2 },
-    { top: "46%", left: "30%", right: "6%", rotate: 1.5 },
-    { top: "64%", left: "8%", right: "36%", rotate: -1 },
+    { top: "10%", left: "6%", right: "34%", rotate: -2 },
+    { top: "42%", left: "30%", right: "6%", rotate: 1.5 },
+    { top: "66%", left: "8%", right: "36%", rotate: -1 },
   ];
 
   return (
