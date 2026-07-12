@@ -1196,6 +1196,21 @@ function AISection() {
           </a>
         </div>
       </div>
+
+      <style>{`
+        .ai-badge {
+          box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 8px 24px -8px rgba(99,102,241,0.35);
+        }
+        .ai-badge-glow {
+          background: linear-gradient(90deg, rgba(139,92,246,0.25), rgba(6,182,212,0.25), rgba(59,130,246,0.25), rgba(139,92,246,0.25));
+          background-size: 300% 100%;
+          animation: aiBadgeShimmer 5s linear infinite;
+        }
+        @keyframes aiBadgeShimmer {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+      `}</style>
     </section>
   );
 }
