@@ -1123,16 +1123,13 @@ function AISection() {
     <section className="relative overflow-hidden bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] py-24 sm:py-32">
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[160px]" />
       <div className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-cyan-500/10 blur-[140px]" />
+      <SparkleField />
 
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <div className="ai-badge relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold text-white/90 backdrop-blur">
             <span className="ai-badge-glow absolute inset-0 -z-10 opacity-80" />
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
-            </span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-300">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#d4a85a]">
               <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0z" />
               <path d="M20 3v4" />
               <path d="M22 5h-4" />
@@ -1210,8 +1207,46 @@ function AISection() {
           0% { background-position: 0% 50%; }
           100% { background-position: 100% 50%; }
         }
+        @keyframes zapla-twinkle {
+          0%, 100% { opacity: 0.15; transform: rotate(0deg) scale(0.85); }
+          50% { opacity: 1; transform: rotate(180deg) scale(1); filter: drop-shadow(0 0 6px rgba(212,168,90,0.55)); }
+        }
       `}</style>
     </section>
+  );
+}
+
+function SparkleField() {
+  const sparkles = [
+    { top: "12%", left: "8%", size: 22, delay: "0s", duration: "3.2s" },
+    { top: "22%", right: "12%", size: 18, delay: "0.7s", duration: "2.8s" },
+    { top: "45%", left: "5%", size: 14, delay: "1.4s", duration: "3.5s" },
+    { top: "58%", right: "7%", size: 20, delay: "2.1s", duration: "3s" },
+    { top: "78%", left: "15%", size: 16, delay: "0.9s", duration: "3.3s" },
+    { top: "85%", right: "18%", size: 24, delay: "1.8s", duration: "2.6s" },
+    { top: "33%", left: "22%", size: 12, delay: "2.6s", duration: "3.8s" },
+    { top: "66%", right: "25%", size: 15, delay: "3.2s", duration: "3.1s" },
+  ];
+  return (
+    <>
+      {sparkles.map((s, i) => (
+        <svg
+          key={i}
+          className="pointer-events-none absolute text-[#d4a85a]"
+          style={{
+            top: s.top,
+            ...(s.left ? { left: s.left } : { right: s.right }),
+            width: s.size,
+            height: s.size,
+            animation: `zapla-twinkle ${s.duration} ease-in-out ${s.delay} infinite`,
+          }}
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" />
+        </svg>
+      ))}
+    </>
   );
 }
 
