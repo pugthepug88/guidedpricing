@@ -35,7 +35,7 @@ function HeroPreviewPage() {
 
 function Hero() {
   return (
-    <header id="top" className="relative overflow-hidden bg-zapla-bg pt-10 pb-4 sm:pt-14 sm:pb-6">
+    <header id="top" className="relative overflow-hidden bg-zapla-bg pt-10 pb-20 sm:pt-14 sm:pb-24">
       {/* soft brand orbs */}
       <div className="pointer-events-none absolute -top-40 -right-24 h-[420px] w-[420px] rounded-full bg-zapla-violet/12 blur-[140px] zapla-orb-drift" />
       <div className="pointer-events-none absolute -top-24 -left-32 h-[420px] w-[420px] rounded-full bg-zapla-cyan/16 blur-[140px] zapla-orb-drift-slow" />
