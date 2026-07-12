@@ -362,39 +362,43 @@ function Idea5() {
 function Idea6() {
   return (
     <div className="relative flex min-h-[420px] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-[#0a0f24] via-[#10163a] to-[#0a0f24]">
-      {/* Orbits */}
-      <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
-      <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+      {/* Orbit rings */}
+      <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+      <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+      <div className="absolute left-1/2 top-1/2 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
 
       {/* Center hub */}
       <div className="relative z-10">
         <div className="absolute inset-0 -m-12 rounded-full bg-zapla-blue/20 blur-3xl zapla-pulse-dot" />
-        <div className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-white/10 shadow-zapla-lift backdrop-blur-md">
-          <img src={zaplaIcon.url} alt="Zapla" className="h-14 w-14 rounded-2xl" />
+        <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-white/10 shadow-zapla-lift backdrop-blur-md">
+          <img src={zaplaIcon.url} alt="Zapla" className="h-12 w-12 rounded-2xl" />
         </div>
       </div>
 
-      {/* Satellites */}
+      {/* Satellites distributed across 3 rings */}
       {TOOLS.map((t, i) => {
-        const angle = (i / TOOLS.length) * 360;
-        const radius = i % 2 === 0 ? 160 : 115;
-        const duration = 14 + (i % 4) * 3;
+        const ring = (i % 3);
+        const radius = [130, 180, 235][ring];
+        const angle = (i / TOOLS.length) * 360 + (ring * 40);
+        const rad = (angle * Math.PI) / 180;
+        const x = Math.cos(rad) * radius;
+        const y = Math.sin(rad) * radius;
         return (
           <div
             key={t.name}
             className="absolute left-1/2 top-1/2"
-            style={{
-              transform: `rotate(${angle}deg) translateX(${radius}px)`,
-              animation: `zapla-vortex-orbit ${duration}s linear infinite`,
-              ["--orbit-radius" as string]: `${radius}px`,
-            }}
+            style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
           >
-            <div className="relative flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
+            <div className="relative flex flex-col items-center">
+              {/* Beam to center */}
               <div
-                className="zapla-satellite-beam absolute top-1/2 h-px w-24 origin-left bg-gradient-to-r from-zapla-blue to-transparent"
-                style={{ transform: `rotate(${180 - angle}deg)` }}
+                className="zapla-satellite-beam absolute left-1/2 top-1/2 h-px w-24 origin-left bg-gradient-to-r from-zapla-blue/60 to-transparent"
+                style={{
+                  width: radius - 40,
+                  transform: `rotate(${Math.atan2(-y, -x) * (180 / Math.PI)}deg)`,
+                }}
               />
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-zapla-sm">
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-zapla-sm">
                 <ToolLogo tool={t} size={22} />
               </div>
             </div>
