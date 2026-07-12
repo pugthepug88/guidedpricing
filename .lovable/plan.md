@@ -1,46 +1,32 @@
-I owe you a straight answer: no, the previous step did not do the real-logo compositing I suggested. It only adjusted/padded the existing AI-generated image, so the icons are still not pixel-accurate and some are still visually wrong/cut off.
+# Fix the funnel image — 2 issues only
 
-Plan to fix it properly:
+## Scope (strict)
+Only fix these two things on `src/assets/zapla-funnel-16-apps-final.png`. Nothing else on the page changes.
 
-1. Preserve the funnel, Zapla icon, glass, lighting, and transparent background.
-   - No redesign.
-   - No new section layout.
-   - No change to copy or page structure.
+1. **Restore the 3D look on all 16 icon tiles** — chunky rounded-square tiles with real depth, soft drop shadow, subtle top highlight, slight per-tile rotation. Match the visual weight of the originally approved render.
+2. **Replace the bottom Zapla logo** with the new white-L-on-blue version from `user-uploads://zapla_logo_-_linkedIn_profile_picture-2.png` (currently it's the old black-Z version).
 
-2. Use deterministic compositing instead of AI image editing.
-   - Collect/download real logo assets for the agreed 16 brands.
-   - Prepare each as a transparent PNG/WebP with enough padding so no logo gets clipped.
-   - Place each logo onto the existing icon tile positions programmatically.
+## How (deterministic, no AI generation)
 
-3. Use exactly these 16 logos, with no duplicates:
-   - WordPress
-   - ClickFunnels
-   - HubSpot
-   - Pipedrive
-   - Mailchimp
-   - Twilio or SimpleTexting, depending which final SMS brand you want represented
-   - Calendly
-   - Typeform
-   - Jotform
-   - Zapier
-   - Google Sheets
-   - NiceJob
-   - DocuSign
-   - Wix
-   - Birdeye
-   - Hootsuite or ClickSend, if we need to keep the total at 16 from your longer list
+Rewrite the compositor script (`make_funnel_final.py`) to produce ONE image, in one pass:
 
-4. Fix the top-edge clipping properly.
-   - Add transparent canvas breathing room above the image.
-   - Ensure the two top icons are fully visible inside the image bounds.
-   - Keep the visual scale close to the current composition.
+- **Base:** clean glass funnel from `src/assets/pillar-funnel-render.png` desaturated to clear glass (proven working from v5), OR keep current base if funnel silhouette is already good — decide by visual check first, not by rebuilding.
+- **Icon tiles (16, real logos):** for each brand, render a **3D tile**:
+  - 148px rounded square (radius 32), brand background color
+  - Real logo PNG from `/tmp/funnel-fix/googlelogos/` centered at ~65% tile size
+  - Top inner highlight (white 25% alpha gradient, top third)
+  - Bottom inner shade (black 15% alpha, bottom third)
+  - Drop shadow: 3px offset, 12px gaussian blur, black 45%
+  - Per-tile rotation: −12° to +12° randomized but seeded (reproducible)
+- **Layout:** keep the exact 16 tile positions from the current approved composition (top cluster + interior). No new positions.
+- **Zapla logo:** composite the attached white-L logo at the bottom drop position (same coords as current), scaled to match.
+- **Output:** 1024×1126 transparent PNG → write once to `src/assets/zapla-funnel-16-apps-final.png`.
 
-5. Verify before saying it is done.
-   - Open the final image and visually check the top icons are not cropped.
-   - Confirm the final asset has a transparent background.
-   - Confirm every visible logo matches the final 16-brand list.
+## Guardrails
+- One render, one visual check, one file write. If it's not right, I fix the script and re-render — I do NOT try a different approach.
+- No changes to `src/routes/index.tsx`.
+- No changes to funnel silhouette, page layout, colors, or anything else.
+- If after 2 render attempts the 3D quality still isn't there, I stop and ask you rather than burning more credits.
 
-One clarification before implementation: your earlier list contains more than 16 names because some are alternatives and some are duplicates. Which exact 16 should I use?
-
-Recommended final 16:
-WordPress, ClickFunnels, HubSpot, Pipedrive, Mailchimp, SimpleTexting, Calendly, Typeform, Jotform, Zapier, Google Sheets, NiceJob, DocuSign, Wix, Birdeye, Hootsuite.
+## Deliverable
+Updated `src/assets/zapla-funnel-16-apps-final.png` — same 16 brands, same positions, but with proper 3D tiles and the correct white-L Zapla logo at the bottom.
