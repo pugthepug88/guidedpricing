@@ -1,47 +1,33 @@
-# Plan: GHL-ready HTML export of the Zapla pricing page
+## Why the text looks less sharp
 
-## Goal
-Convert the current `/` pricing page into a single self-contained HTML file/block that can be pasted into a GoHighLevel funnel/page custom HTML element, keeping the visual design, pricing cards, calculator, FAQ, and CTA intact.
+Two real differences vs zapla.io (not your eyes):
 
-## Recommended approach
+1. **Missing font weight 900.** The footer headings and G2 badge use `font-black` (900), but our Google Fonts `<link>` in `src/routes/__root.tsx` only loads Manrope weights `400;500;600;700;800`. The browser fakes 900 by synthetically bolding 800, which looks fuzzy/thick.
+2. **Nav uses heavier + smaller type than zapla.io.** Our `SiteNav` links are `text-[14px] font-semibold` (600). Zapla.io's live nav is `font-size:16px; font-weight:500`. Heavier weight at a smaller size on a light background reads as "less sharp / slightly muddier".
 
-### 1. Static HTML generation
-- Build the project and prerender the `/` route to raw HTML/CSS/JS.
-- Extract the rendered markup and the generated CSS.
-- Inline all styles into a `<style>` block so GHL does not depend on external stylesheets.
+Footer body links (`text-[14px] font-semibold text-zapla-muted`) have the same issue — zapla.io footer uses ~14–15px at weight 400–500.
 
-### 2. Image handling
-- The funnel image and customer photos are currently local files in `src/assets/`.
-- Option A (recommended): upload them to a CDN or GHL file manager and use absolute URLs.
-- Option B: embed them as base64 data URIs inside the HTML for a truly single-file paste.
-- I will use whichever the user prefers; if no preference, I will use base64 for the funnel hero and customer thumbnails so the block works immediately after paste.
+## Plan
 
-### 3. Interactivity conversion
-The page currently uses React state for:
-- Pricing comparison table show/hide
-- ROI calculator sliders and number input
-- FAQ accordions
-- Launch Pack scope accordions
-- Customer results carousel + dots
-- Sticky nav background on scroll
-- Reveal-on-scroll animations
+Frontend / presentation only. No logic changes.
 
-These will be rewritten as vanilla JS inside a `<script>` block so they continue to work inside GHL without React.
+1. **`src/routes/__root.tsx`** — extend the Manrope `<link>` to include weight 900:
+   `family=Manrope:wght@400;500;600;700;800;900`
+2. **`src/routes/index.tsx` → `SiteNav`**
+   - Top-level nav links: `text-[14px] font-semibold` → `text-[15px] font-medium` (matches zapla.io's 16/500 while staying compact).
+   - Dropdown item links: `font-semibold` → `font-medium`.
+   - "Log In" pill: `font-extrabold` → `font-bold`.
+3. **`src/routes/index.tsx` → `SiteFooter`**
+   - Column body links: `font-semibold` → `font-medium`.
+   - Column headings (`Company`, `Resources`, `Compare`): keep `font-black` (now that 900 actually loads it will render crisply instead of synthetic).
+   - Trustpilot / G2 pills: `font-bold` stays.
+4. **`src/styles.css`** — add explicit smoothing on `html, body` so both header and footer inherit consistent rendering across browsers:
+   ```
+   html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+   ```
 
-### 4. Cleanup for GHL
-- Remove TanStack/router-specific markup and hydration comments.
-- Remove nav/footer if not needed (user previously removed them from the Lovable page; I will match that).
-- Keep the page width responsive so it fits GHL’s container.
-- Ensure all buttons link to `https://zapla.io/getstartedtrial`.
+Nothing else on the page changes — pricing, funnel, hero, comparison table, CTAs, links all stay identical.
 
-### 5. Delivery
-- Output: `ghl-pricing-page.html` saved to `/mnt/documents/`.
-- Include a short README with paste instructions for GHL.
-- Verify by opening the file in a browser and checking that all sections render and interactions work.
+## Expected result
 
-## What I need from you
-- **Image preference**: CDN URLs (you host) or base64 embedded (one big file, instant paste)?
-- **Scope**: Full page exactly as shown on `/`, or strip any sections before export?
-
-## Outcome
-A single HTML file you can paste into GHL’s Custom HTML / Code element and publish immediately.
+Nav and footer text renders at the same weight/size rhythm as zapla.io, `font-black` headings stop being synthetically bolded, and overall header/footer type reads noticeably crisper on your Retina display.
