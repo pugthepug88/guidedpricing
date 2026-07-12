@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
   component: PricingPage,
 });
 
-const BOOK_URL = "https://zapla.io/getstartedtrial";
+const BOOK_URL = "https://zapla.io/booking";
 
 /* ------------------------------------------------------------------ */
 /*  Hooks & primitives                                                 */
