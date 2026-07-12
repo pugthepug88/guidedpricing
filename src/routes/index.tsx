@@ -1102,7 +1102,9 @@ function Pillars() {
             alt="Sixteen business apps funneling into one Zapla system"
             width={1024}
             height={1024}
-            loading="lazy"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
             className="relative mx-auto h-auto w-full max-w-[420px] drop-shadow-[0_28px_42px_rgba(37,99,255,0.18)] sm:max-w-[450px]"
           />
         </Reveal>
