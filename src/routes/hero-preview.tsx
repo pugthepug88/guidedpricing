@@ -1146,7 +1146,7 @@ function AISection() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="mt-14 grid auto-rows-fr gap-6 lg:grid-cols-3">
           <AICard
             title="AI Employee"
             desc="Hire an AI receptionist that takes calls, schedules bookings, and maybe even crack a dad joke or two."
@@ -1181,10 +1181,10 @@ function AISection() {
         <div className="mt-16 flex justify-center">
           <a
             href={BOOK_URL}
-            className="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-[0.95rem] font-semibold text-zapla-bg transition hover:bg-white/90"
+            className="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-[0.95rem] font-semibold text-zapla-ink transition hover:bg-white/90"
           >
             Book a Call
-            <span className="grid h-7 w-7 place-items-center rounded-full bg-zapla-bg text-white transition group-hover:translate-x-0.5">
+            <span className="grid h-7 w-7 place-items-center rounded-full bg-zapla-ink text-white transition group-hover:translate-x-0.5">
               →
             </span>
           </a>
@@ -1253,16 +1253,16 @@ function AICard({
   title: string; desc: string; children: React.ReactNode; lightPanel?: boolean;
 }) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05]">
-      <div className={`relative flex-1 w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
+    <article className="ai-card group relative flex h-[520px] flex-col overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] backdrop-blur-sm transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:h-[560px]">
+      <div className={`relative flex-1 min-h-0 w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
         {children}
       </div>
 
-      <div className="mt-5">
+      <div className="ai-card-text relative z-10 shrink-0 px-6 pb-6 pt-4">
         <h3 className="text-[1.55rem] font-bold leading-tight tracking-[-0.02em] text-white">
           {title}
         </h3>
-        <p className="mt-2 text-[0.95rem] leading-[1.55] text-white/65">
+        <p className="mt-2 line-clamp-2 text-[0.95rem] leading-[1.55] text-white/65">
           {desc}
         </p>
       </div>
@@ -1277,52 +1277,56 @@ function ReviewCardStack() {
     return () => clearInterval(id);
   }, []);
 
+  const positions = [
+    { top: "8%", left: "6%", right: "34%", rotate: -2 },
+    { top: "46%", left: "30%", right: "6%", rotate: 1.5 },
+    { top: "64%", left: "8%", right: "36%", rotate: -1 },
+  ];
+
   return (
-    <div className="absolute inset-0 p-4">
+    <div className="absolute inset-0">
       {REVIEW_CARDS.map((r, i) => {
-        const offset = (i - active + REVIEW_CARDS.length) % REVIEW_CARDS.length;
-        const isTop = offset === 0;
-        // Fanned stack: top card centered, others peek from bottom-right
-        const translateX = offset * 18;
-        const translateY = offset * 22;
-        const scale = 1 - offset * 0.04;
+        const isActive = i === active;
+        const pos = positions[i];
         return (
           <div
             key={r.name}
-            className="absolute left-3 right-3 rounded-2xl bg-white p-3.5 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
+            className="review-scatter-card absolute rounded-2xl bg-white p-2.5 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
             style={{
-              top: "8%",
-              transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-              opacity: offset < 3 ? (isTop ? 1 : 0.9 - offset * 0.15) : 0,
-              zIndex: REVIEW_CARDS.length - offset,
+              top: pos.top,
+              left: pos.left,
+              right: pos.right,
+              transform: `rotate(${pos.rotate}deg) scale(${isActive ? 1 : 0.94})`,
+              opacity: isActive ? 1 : 0.5,
+              zIndex: isActive ? 10 : 3 - i,
             }}
           >
-            <div className="flex items-center gap-2.5">
-              <div className={`grid h-8 w-8 shrink-0 place-items-center rounded-full ${r.avatar} text-[0.7rem] font-semibold text-white`}>
+            <div className="flex items-center gap-2">
+              <div className={`grid h-7 w-7 shrink-0 place-items-center rounded-full ${r.avatar} text-[0.65rem] font-semibold text-white`}>
                 {r.initials}
               </div>
-              <span className="text-[0.85rem] font-semibold text-slate-900">{r.name}</span>
-              <div className="ml-auto flex gap-0.5 text-[0.75rem] text-amber-400">
+              <span className="text-[0.8rem] font-semibold text-slate-900">{r.name}</span>
+              <div className="ml-auto flex gap-0.5 text-[0.7rem] text-amber-400">
                 {Array.from({ length: 5 }).map((_, s) => (
                   <span key={s} className={s < r.stars ? "" : "text-slate-200"}>★</span>
                 ))}
               </div>
             </div>
 
-            <p className="mt-2.5 text-[0.8rem] leading-[1.4] text-slate-700">
+            <p className="mt-1.5 text-[0.72rem] leading-[1.4] text-slate-700">
               &ldquo;{r.quote}&rdquo;
             </p>
 
-            <div className="mt-3 rounded-lg border-l-[3px] border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-violet-50/60 p-2.5">
-              <div className="flex items-center gap-1.5 text-[0.72rem] font-semibold">
-                <span className="grid h-4 w-4 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-[0.55rem] text-white">
+            <div className="mt-2 rounded-lg border-l-[3px] border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-violet-50/60 p-1.5">
+              <div className="flex items-center gap-1.5 text-[0.65rem] font-semibold">
+                <span className="grid h-3.5 w-3.5 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-[0.5rem] text-white">
                   ✦
                 </span>
                 <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
                   AI Response
                 </span>
               </div>
-              <p className="mt-1 text-[0.72rem] leading-[1.45] text-slate-600">
+              <p className="mt-0.5 text-[0.65rem] leading-[1.45] text-slate-600">
                 {r.response}
               </p>
             </div>
