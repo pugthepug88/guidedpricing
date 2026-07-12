@@ -1096,6 +1096,112 @@ function Pillars() {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/*  Funnel with real brand tiles overlaid                              */
+/* ------------------------------------------------------------------ */
+
+type BrandTile = {
+  name: string;
+  domain: string;
+  bg: string;
+  /** [leftPct, topPct] — position of tile CENTER inside the 1:1 stage */
+  pos: [number, number];
+  /** size in % of stage width */
+  size: number;
+  /** rotation in degrees */
+  rot: number;
+  /** z-index */
+  z: number;
+};
+
+// 16 unique brands, positioned to look like they're cascading into the funnel.
+// Funnel image occupies roughly y=32%–95% of the stage.
+// Tiles above (y<32%) look like they're falling in; tiles inside (y=42%–72%) sit in the bowl.
+const BRAND_TILES: BrandTile[] = [
+  // ---- cascading above the funnel mouth ----
+  { name: "WordPress",     domain: "wordpress.org",    bg: "#21759B", pos: [22, 8],  size: 12, rot: -14, z: 30 },
+  { name: "Mailchimp",     domain: "mailchimp.com",    bg: "#FFE01B", pos: [38, 4],  size: 13, rot:   6, z: 32 },
+  { name: "HubSpot",       domain: "hubspot.com",      bg: "#FFFFFF", pos: [30, 20], size: 12, rot:  10, z: 33 },
+  { name: "ClickFunnels",  domain: "clickfunnels.com", bg: "#1F76F2", pos: [52, 12], size: 13, rot:  -8, z: 34 },
+  { name: "Pipedrive",     domain: "pipedrive.com",    bg: "#1A1A1A", pos: [66, 6],  size: 13, rot:  12, z: 31 },
+  { name: "Calendly",      domain: "calendly.com",     bg: "#006BFF", pos: [76, 18], size: 12, rot:  -6, z: 32 },
+  { name: "Typeform",      domain: "typeform.com",     bg: "#262627", pos: [46, 24], size: 11, rot:  18, z: 35 },
+  { name: "Zapier",        domain: "zapier.com",       bg: "#FFFFFF", pos: [18, 24], size: 11, rot:   8, z: 33 },
+  // ---- inside the glass bowl ----
+  { name: "Google Sheets", domain: "sheets.google.com",bg: "#FFFFFF", pos: [36, 44], size: 11, rot:  -4, z: 20 },
+  { name: "Hootsuite",     domain: "hootsuite.com",    bg: "#143059", pos: [62, 44], size: 11, rot:   6, z: 21 },
+  { name: "Wix",           domain: "wix.com",          bg: "#0C1B33", pos: [30, 56], size: 10, rot:  -8, z: 22 },
+  { name: "DocuSign",      domain: "docusign.com",     bg: "#FFCC22", pos: [50, 52], size: 11, rot:   4, z: 23 },
+  { name: "Birdeye",       domain: "birdeye.com",      bg: "#F04E23", pos: [68, 55], size: 10, rot:  10, z: 22 },
+  { name: "NiceJob",       domain: "nicejob.com",      bg: "#00C389", pos: [40, 66], size: 10, rot:  -2, z: 24 },
+  { name: "SimpleTexting", domain: "simpletexting.com",bg: "#FFFFFF", pos: [58, 66], size: 10, rot:   8, z: 25 },
+  { name: "ClickSend",     domain: "clicksend.com",    bg: "#0067FF", pos: [49, 72], size:  9, rot:  -6, z: 26 },
+];
+
+function FunnelWithTiles() {
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[420px] sm:max-w-[450px]">
+      {/* Empty funnel + Zapla drop — sits in bottom portion of the stage */}
+      <img
+        src={zaplaFunnelEmpty}
+        alt=""
+        aria-hidden="true"
+        width={1024}
+        height={1024}
+        loading="lazy"
+        className="pointer-events-none absolute inset-0 h-full w-full object-contain drop-shadow-[0_28px_42px_rgba(37,99,255,0.18)]"
+      />
+
+      {/* 16 real brand tiles overlaid */}
+      {BRAND_TILES.map((t) => (
+        <div
+          key={t.name}
+          className="absolute -translate-x-1/2 -translate-y-1/2"
+          style={{
+            left: `${t.pos[0]}%`,
+            top: `${t.pos[1]}%`,
+            width: `${t.size}%`,
+            transform: `translate(-50%, -50%) rotate(${t.rot}deg)`,
+            zIndex: t.z,
+          }}
+        >
+          <div
+            className="relative aspect-square w-full overflow-hidden rounded-[22%]"
+            style={{
+              background: t.bg,
+              boxShadow:
+                "0 8px 14px rgba(15,23,42,0.22), 0 2px 4px rgba(15,23,42,0.14), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -3px 6px rgba(0,0,0,0.12)",
+            }}
+          >
+            {/* glossy top highlight */}
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[22%]"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 70%)",
+              }}
+            />
+            {/* brand logo */}
+            <img
+              src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=128`}
+              alt={t.name}
+              loading="lazy"
+              className="absolute inset-[18%] h-[64%] w-[64%] object-contain"
+              style={{ filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.15))" }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Add-ons                                                            */
+/* ------------------------------------------------------------------ */
+
+
+
 
 
 
