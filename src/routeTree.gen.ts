@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PillarIdeasV3RouteImport } from './routes/pillar-ideas-v3'
 import { Route as PillarIdeasV2RouteImport } from './routes/pillar-ideas-v2'
 import { Route as PillarIdeasRouteImport } from './routes/pillar-ideas'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PillarIdeasV3Route = PillarIdeasV3RouteImport.update({
+  id: '/pillar-ideas-v3',
+  path: '/pillar-ideas-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PillarIdeasV2Route = PillarIdeasV2RouteImport.update({
   id: '/pillar-ideas-v2',
   path: '/pillar-ideas-v2',
@@ -33,34 +39,50 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
+  '/pillar-ideas-v3': typeof PillarIdeasV3Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
+  '/pillar-ideas-v3': typeof PillarIdeasV3Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
+  '/pillar-ideas-v3': typeof PillarIdeasV3Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pillar-ideas' | '/pillar-ideas-v2'
+  fullPaths: '/' | '/pillar-ideas' | '/pillar-ideas-v2' | '/pillar-ideas-v3'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pillar-ideas' | '/pillar-ideas-v2'
-  id: '__root__' | '/' | '/pillar-ideas' | '/pillar-ideas-v2'
+  to: '/' | '/pillar-ideas' | '/pillar-ideas-v2' | '/pillar-ideas-v3'
+  id:
+    | '__root__'
+    | '/'
+    | '/pillar-ideas'
+    | '/pillar-ideas-v2'
+    | '/pillar-ideas-v3'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PillarIdeasRoute: typeof PillarIdeasRoute
   PillarIdeasV2Route: typeof PillarIdeasV2Route
+  PillarIdeasV3Route: typeof PillarIdeasV3Route
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pillar-ideas-v3': {
+      id: '/pillar-ideas-v3'
+      path: '/pillar-ideas-v3'
+      fullPath: '/pillar-ideas-v3'
+      preLoaderRoute: typeof PillarIdeasV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pillar-ideas-v2': {
       id: '/pillar-ideas-v2'
       path: '/pillar-ideas-v2'
@@ -89,6 +111,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PillarIdeasRoute: PillarIdeasRoute,
   PillarIdeasV2Route: PillarIdeasV2Route,
+  PillarIdeasV3Route: PillarIdeasV3Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
