@@ -1084,6 +1084,8 @@ function PlatformCardTile({ card }: { card: PlatformCard }) {
       `}</style>
     </article>
   );
+}
+
 
 /* ------------------------------------------------------------------ */
 /*  AI Section — 3 dark cards: Workflow / Employee / Reputation Mgr    */
