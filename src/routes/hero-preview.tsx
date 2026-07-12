@@ -11,6 +11,8 @@ import logoPink from "@/assets/zapla-logo-pink.png.asset.json";
 import logoRed from "@/assets/zapla-logo-red.png.asset.json";
 import logoRainbow from "@/assets/zapla-logo-rainbow.png.asset.json";
 import logoWhite from "@/assets/zapla-icon-white.png.asset.json";
+import aiWorkflowVideo from "@/assets/ai-workflow.mp4.asset.json";
+import aiEmployeeVideo from "@/assets/ai-employee.mp4.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
