@@ -283,8 +283,8 @@ function Hero() {
           <span className="text-[12px] text-zapla-muted">· Trusted by 200+ AU operators</span>
         </div>
 
-        <h1 className="zapla-fade mt-5 font-bold text-zapla-ink text-[clamp(36px,5vw,60px)] leading-[1.03] tracking-[-0.035em]">
-          Simple pricing. <span className="zapla-gradient-shimmer">One operating system.</span>
+        <h1 className="zapla-fade mt-5 font-bold text-zapla-ink text-[clamp(36px,5vw,60px)] leading-[1.03] tracking-[-0.035em] whitespace-pre-line">
+          Simple pricing. {"\n"}<span className="zapla-gradient-shimmer">One AI operating system.</span>
         </h1>
         <p className="zapla-fade mt-4 text-[17px] leading-[1.55] text-zapla-muted">
           Replace 16 tools with one platform. One flat monthly price, unlimited users,
@@ -298,7 +298,7 @@ function Hero() {
         </div>
 
         <div className="zapla-fade mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12.5px] font-semibold text-zapla-muted">
-          {["Guided launch included", "Cancel anytime", "AU-based support"].map((t) => (
+          {["Unlimited sers", "Cancel anytime", "Guided launch included"].map((t) => (
             <span key={t} className="inline-flex items-center gap-1.5">
               <Check />
               {t}
