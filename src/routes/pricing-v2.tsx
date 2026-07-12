@@ -11,6 +11,13 @@ import customer08 from "@/assets/customer-08-urban.jpg";
 import zaplaFunnel16Apps from "@/assets/zapla-funnel-16-apps-final.png";
 
 export const Route = createFileRoute("/pricing-v2")({
+  head: () => ({
+    meta: [
+      { title: "Pricing V2 — Zapla" },
+      { name: "description", content: "Alternate design of the Zapla pricing page for comparison." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: PricingPage,
 });
 
