@@ -1069,22 +1069,19 @@ function Pillars() {
       <div className="relative mx-auto grid max-w-[1080px] items-center gap-5 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr]">
         <Reveal className="mx-auto max-w-[560px] text-center lg:mx-0 lg:text-left">
           <span className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue shadow-zapla-sm">
-            16 tools in · 1 system out
+            16 TOOLS · ONE OPERATING SYSTEM&nbsp;
           </span>
           <h2 className="mt-4 text-[30px] font-extrabold leading-[1.04] tracking-[-0.02em] text-zapla-ink sm:text-[42px]">
-            Pour your <span className="text-[#B91C1C]">stack</span> in.
-            <br className="hidden sm:block" /> Get <span className="zapla-gradient-text">Zapla</span> out.
+            Replace the&nbsp;<span className="text-[#B91C1C]">messy</span>&nbsp;stack
+            <br className="hidden sm:block" /> running your business.
           </h2>
           <p className="mx-auto mt-3 max-w-[520px] text-[15px] leading-[1.55] text-zapla-muted lg:mx-0">
-            Website, funnels, CRM, email, SMS, bookings, forms, automations, payments and reviews — sixteen apps collapse into a single operating system, on one bill.
+            Zapla brings your website, funnels, CRM, pipelines, inbox, bookings, forms, payments, reviews and follow-up into one connected operating system, on one bill.
           </p>
 
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#FEE2E2] bg-[#FEF2F2] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#B91C1C] line-through">
-              A$1,847 / mo · 16 bills
-            </div>
             <div className="inline-flex items-center gap-2 rounded-full border border-zapla-blue/25 bg-gradient-to-r from-zapla-blue-soft to-white px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue">
-              One bill · Save A$1,500–2,500 / mo
+              ONE BILL · SAVE A$2000+/MONTH IN DISCONNECTED TOOLS
             </div>
           </div>
         </Reveal>
