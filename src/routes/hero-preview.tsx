@@ -32,6 +32,7 @@ function HeroPreviewPage() {
     <main className="min-h-screen bg-zapla-bg">
       <Hero />
       <PlatformSlider />
+      <AISection />
     </main>
   );
 }
