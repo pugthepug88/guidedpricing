@@ -1048,7 +1048,7 @@ function PlatformCardTile({ card }: { card: PlatformCard }) {
       </div>
 
       <div className="relative flex items-center gap-2 text-[0.82rem] font-medium opacity-90">
-        <img src={card.logo} alt="Zapla" className="h-6 w-6 rounded-md object-contain" />
+        <img src={logoWhite.url} alt="Zapla" className="h-6 w-6 object-contain" />
         <span>Zapla</span>
       </div>
 
