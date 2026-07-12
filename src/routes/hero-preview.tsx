@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
@@ -7,6 +7,9 @@ import logoOrange from "@/assets/zapla-logo-orange.png.asset.json";
 import logoPurple from "@/assets/zapla-logo-purple.png.asset.json";
 import logoYellow from "@/assets/zapla-logo-yellow.png.asset.json";
 import logoTeal from "@/assets/zapla-logo-teal.png.asset.json";
+import logoPink from "@/assets/zapla-logo-pink.png.asset.json";
+import logoRed from "@/assets/zapla-logo-red.png.asset.json";
+import logoRainbow from "@/assets/zapla-logo-rainbow.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
@@ -25,9 +28,11 @@ function HeroPreviewPage() {
   return (
     <main className="min-h-screen bg-zapla-bg">
       <Hero />
+      <PlatformSlider />
     </main>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  Hero — badge, gradient title, CTA, trust ticks, 6-card stack       */
