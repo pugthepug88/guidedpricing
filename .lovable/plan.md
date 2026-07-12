@@ -1,32 +1,26 @@
-# Fix the funnel image — 2 issues only
+## What's wrong with the current Pillars section
 
-## Scope (strict)
-Only fix these two things on `src/assets/zapla-funnel-16-apps-final.png`. Nothing else on the page changes.
+Scrolling through it top-to-bottom:
 
-1. **Restore the 3D look on all 16 icon tiles** — chunky rounded-square tiles with real depth, soft drop shadow, subtle top highlight, slight per-tile rotation. Match the visual weight of the originally approved render.
-2. **Replace the bottom Zapla logo** with the new white-L-on-blue version from `user-uploads://zapla_logo_-_linkedIn_profile_picture-2.png` (currently it's the old black-Z version).
+1. **It's a 900px-tall scroll stage** (`h-[820px] sm:h-[900px]`) with 24-32 units of vertical padding on top of that — the whole section is ~1,200px tall. On a pricing page that's absurd; it dominates like a hero.
+2. **I ignored the image you already approved.** `src/assets/pillar-option-a-funnel.jpg` — the v3 Option A render you picked — is sitting in the repo, already featuring the funnel + icons + Zapla drop baked in. Instead of using it, I re-imported a separate transparent `funnel-body.png` and rebuilt the whole scene with 16 favicon chips + motion transforms + a separate Zapla logo layer. That's why it never matches the image you liked — it's a re-creation, not the render.
+3. **The favicon chips look cheap.** `google/s2/favicons` returns low-res 64px favicons wrapped in white pills. The v3 render has photoreal 3D app icons. No amount of animation fixes that gap.
+4. **Two competing focal points.** The scroll animation asks the eye to track 16 falling chips *and* watch the Zapla drop *and* read the heading. On a pricing page the viewer just wants: "16 tools → 1 Zapla, got it, show me the price."
+5. **Redundant elements below.** Savings pills + two CTAs after the scene stretch it further, when the pricing table is literally the next section.
 
-## How (deterministic, no AI generation)
+## The plan — use the render, cut it in half
 
-Rewrite the compositor script (`make_funnel_final.py`) to produce ONE image, in one pass:
+**Replace the whole `Pillars()` scroll stage with the v3 Option A image, static.**
 
-- **Base:** clean glass funnel from `src/assets/pillar-funnel-render.png` desaturated to clear glass (proven working from v5), OR keep current base if funnel silhouette is already good — decide by visual check first, not by rebuilding.
-- **Icon tiles (16, real logos):** for each brand, render a **3D tile**:
-  - 148px rounded square (radius 32), brand background color
-  - Real logo PNG from `/tmp/funnel-fix/googlelogos/` centered at ~65% tile size
-  - Top inner highlight (white 25% alpha gradient, top third)
-  - Bottom inner shade (black 15% alpha, bottom third)
-  - Drop shadow: 3px offset, 12px gaussian blur, black 45%
-  - Per-tile rotation: −12° to +12° randomized but seeded (reproducible)
-- **Layout:** keep the exact 16 tile positions from the current approved composition (top cluster + interior). No new positions.
-- **Zapla logo:** composite the attached white-L logo at the bottom drop position (same coords as current), scaled to match.
-- **Output:** 1024×1126 transparent PNG → write once to `src/assets/zapla-funnel-16-apps-final.png`.
+Concretely, in `src/routes/index.tsx` `Pillars()`:
 
-## Guardrails
-- One render, one visual check, one file write. If it's not right, I fix the script and re-render — I do NOT try a different approach.
-- No changes to `src/routes/index.tsx`.
-- No changes to funnel silhouette, page layout, colors, or anything else.
-- If after 2 render attempts the 3D quality still isn't there, I stop and ask you rather than burning more credits.
+- Delete the icon cloud layer, funnel body layer, Zapla drop layer, all `useScroll` / `useTransform` / `spawns` / `tools` arrays.
+- Drop the `funnel-body.png` and `zaplaLogo3d` imports for this section. Import `pillar-option-a-funnel.jpg` instead.
+- Replace with a single centered `<img>` of the v3 render, ~460–520px wide, with a subtle blue glow behind it and one gentle `Reveal` fade-in on scroll (no scroll-linked transforms).
+- Shrink section padding: `py-24 sm:py-32` → `py-14 sm:py-20`.
+- Keep the heading ("Pour your stack in. Get Zapla out.") and the two savings pills — those earn their place.
+- Remove the two CTAs at the bottom (pricing table is right underneath).
 
-## Deliverable
-Updated `src/assets/zapla-funnel-16-apps-final.png` — same 16 brands, same positions, but with proper 3D tiles and the correct white-L Zapla logo at the bottom.
+**Expected height:** ~600px total instead of ~1,200px. Roughly half.
+
+**Nothing else on the page changes.**
