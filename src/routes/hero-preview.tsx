@@ -1091,12 +1091,31 @@ function PlatformCardTile({ card }: { card: PlatformCard }) {
 /*  AI Section — 3 dark cards: Workflow / Employee / Reputation Mgr    */
 /* ------------------------------------------------------------------ */
 
-const REVIEW_POPUPS = [
-  { name: "Sarah M.", stars: 5, text: "Absolutely fantastic service! The team went above and beyond.", time: "2 min ago", avatar: "bg-gradient-to-br from-pink-400 to-rose-500" },
-  { name: "James L.", stars: 5, text: "Best experience I've had. Highly recommend to anyone!", time: "1 hour ago", avatar: "bg-gradient-to-br from-blue-400 to-indigo-500" },
-  { name: "Emma K.", stars: 5, text: "Professional, fast and truly caring. 10/10 every time.", time: "3 hours ago", avatar: "bg-gradient-to-br from-amber-400 to-orange-500" },
-  { name: "David R.", stars: 5, text: "They handled everything seamlessly. Couldn't be happier.", time: "yesterday", avatar: "bg-gradient-to-br from-emerald-400 to-teal-500" },
-  { name: "Olivia P.", stars: 5, text: "Amazing team. Real results, real fast. Will use again!", time: "2 days ago", avatar: "bg-gradient-to-br from-violet-400 to-purple-500" },
+const REVIEW_CARDS = [
+  {
+    name: "Amy K.",
+    initials: "AK",
+    stars: 5,
+    quote: "Exceeded expectations! Will definitely use again.",
+    response: "Amy, we're so happy we exceeded your expectations! We can't wait to serve you again. Thank you for your trust in our service!",
+    avatar: "bg-gradient-to-br from-emerald-400 to-teal-500",
+  },
+  {
+    name: "John D.",
+    initials: "JD",
+    stars: 2,
+    quote: "Service was slower than expected. Waited 2 hours for response.",
+    response: "Hi John, we sincerely apologise for the delay. We've improved our process to make sure this doesn't happen again. Please reach out so we can make it right.",
+    avatar: "bg-gradient-to-br from-slate-400 to-slate-600",
+  },
+  {
+    name: "Robert P.",
+    initials: "RP",
+    stars: 3,
+    quote: "Good quality but pricing could be better. Staff was friendly though.",
+    response: "Thanks for the feedback, Robert! We're glad you found our staff friendly. We'd love to discuss value options that might work better for you.",
+    avatar: "bg-gradient-to-br from-indigo-400 to-blue-600",
+  },
 ];
 
 function AISection() {
@@ -1107,37 +1126,26 @@ function AISection() {
 
       <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70 backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            Powered by AI
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-gradient-to-r from-violet-500/15 via-cyan-500/15 to-emerald-500/15 px-4 py-1.5 text-xs font-medium text-white/80 backdrop-blur">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            Built with AI at the core
           </div>
-          <h2 className="mt-5 text-[2.2rem] font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:text-[3rem]">
+          <h2 className="mt-5 text-[clamp(2.2rem,4.5vw,4rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-white">
             The power of AI built into<br className="hidden sm:block" /> every workflow
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-[1.05rem] leading-[1.55] text-white/60">
-            From answering calls to sending review requests — AI runs the busywork so you can focus on the customer in front of you.
+            From answering calls to sending review requests, AI runs the busywork so you can focus on the customer in front of you.
           </p>
         </div>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {/* Card 1 — AI-Powered Workflow (video) */}
-          <AICard
-            tag="AI Workflow"
-            title="AI-Powered Workflow"
-            desc="Every touchpoint automated — booking, follow-ups, invoicing, review requests. It all runs itself."
-          >
-            <video
-              src={aiWorkflowVideo.url}
-              autoPlay muted loop playsInline
-              className="h-full w-full rounded-[18px] object-cover"
-            />
-          </AICard>
-
-          {/* Card 2 — AI Employee (video) */}
           <AICard
             tag="AI Employee"
             title="AI Employee"
-            desc="A 24/7 receptionist who answers, qualifies and books — never misses a call, never takes a sick day."
+            desc="A 24/7 receptionist who answers, qualifies and books. Never misses a call, never takes a sick day."
           >
             <video
               src={aiEmployeeVideo.url}
@@ -1146,14 +1154,25 @@ function AISection() {
             />
           </AICard>
 
-          {/* Card 3 — AI Reputation Manager (popups) */}
+          <AICard
+            tag="AI Workflow"
+            title="AI-Powered Workflow"
+            desc="Every touchpoint automated: booking, follow-ups, invoicing, review requests. It all runs itself."
+          >
+            <video
+              src={aiWorkflowVideo.url}
+              autoPlay muted loop playsInline
+              className="h-full w-full rounded-[18px] object-cover"
+            />
+          </AICard>
+
           <AICard
             tag="AI Reviews"
             title="AI Reputation Manager"
-            desc="Automatically asks happy customers for reviews — and replies to every one of them in your voice."
+            desc="Automatically asks happy customers for reviews and replies to every one of them in your voice."
             lightPanel
           >
-            <ReviewPopupStack />
+            <ReviewCardStack />
           </AICard>
         </div>
 
@@ -1192,50 +1211,68 @@ function AICard({
         </p>
       </div>
 
-      <div className={`relative aspect-[4/5] w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-100 to-blue-200" : "bg-black/40"}`}>
+      <div className={`relative aspect-[4/5] w-full overflow-hidden rounded-[18px] ${lightPanel ? "bg-gradient-to-br from-sky-50 via-sky-100 to-blue-100" : "bg-black/40"}`}>
         {children}
       </div>
     </article>
   );
 }
 
-function ReviewPopupStack() {
+function ReviewCardStack() {
   const [active, setActive] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setActive((i) => (i + 1) % REVIEW_POPUPS.length), 3000);
+    const id = setInterval(() => setActive((i) => (i + 1) % REVIEW_CARDS.length), 3500);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center p-5">
-      {REVIEW_POPUPS.map((r, i) => {
-        const offset = (i - active + REVIEW_POPUPS.length) % REVIEW_POPUPS.length;
+    <div className="absolute inset-0 p-4">
+      {REVIEW_CARDS.map((r, i) => {
+        const offset = (i - active + REVIEW_CARDS.length) % REVIEW_CARDS.length;
         const isTop = offset === 0;
-        const isVisible = offset < 3;
+        // Fanned stack: top card centered, others peek from bottom-right
+        const translateX = offset * 18;
+        const translateY = offset * 22;
+        const scale = 1 - offset * 0.04;
         return (
           <div
             key={r.name}
-            className="absolute left-4 right-4 rounded-2xl bg-white p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.25)] transition-all duration-700 ease-out"
+            className="absolute left-3 right-3 rounded-2xl bg-white p-3.5 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
             style={{
-              transform: `translateY(${offset * 14}px) scale(${1 - offset * 0.05})`,
-              opacity: isVisible ? (isTop ? 1 : 0.7 - offset * 0.15) : 0,
-              zIndex: REVIEW_POPUPS.length - offset,
+              top: "8%",
+              transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
+              opacity: offset < 3 ? (isTop ? 1 : 0.9 - offset * 0.15) : 0,
+              zIndex: REVIEW_CARDS.length - offset,
             }}
           >
-            <div className="flex items-start gap-3">
-              <div className={`h-10 w-10 shrink-0 rounded-full ${r.avatar}`} />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="truncate text-[0.9rem] font-semibold text-zapla-bg">{r.name}</span>
-                  <span className="shrink-0 text-[0.7rem] text-slate-400">{r.time}</span>
-                </div>
-                <div className="mt-0.5 flex gap-0.5 text-amber-400 text-[0.75rem]">
-                  {Array.from({ length: r.stars }).map((_, s) => <span key={s}>★</span>)}
-                </div>
-                <p className="mt-1.5 line-clamp-2 text-[0.8rem] leading-[1.4] text-slate-600">
-                  {r.text}
-                </p>
+            <div className="flex items-center gap-2.5">
+              <div className={`grid h-8 w-8 shrink-0 place-items-center rounded-full ${r.avatar} text-[0.7rem] font-semibold text-white`}>
+                {r.initials}
               </div>
+              <span className="text-[0.85rem] font-semibold text-slate-900">{r.name}</span>
+              <div className="ml-auto flex gap-0.5 text-[0.75rem] text-amber-400">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <span key={s} className={s < r.stars ? "" : "text-slate-200"}>★</span>
+                ))}
+              </div>
+            </div>
+
+            <p className="mt-2.5 text-[0.8rem] leading-[1.4] text-slate-700">
+              &ldquo;{r.quote}&rdquo;
+            </p>
+
+            <div className="mt-3 rounded-lg border-l-[3px] border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-violet-50/60 p-2.5">
+              <div className="flex items-center gap-1.5 text-[0.72rem] font-semibold">
+                <span className="grid h-4 w-4 place-items-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-[0.55rem] text-white">
+                  ✦
+                </span>
+                <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                  AI Response
+                </span>
+              </div>
+              <p className="mt-1 text-[0.72rem] leading-[1.45] text-slate-600">
+                {r.response}
+              </p>
             </div>
           </div>
         );
