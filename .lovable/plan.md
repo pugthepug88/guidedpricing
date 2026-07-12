@@ -1,14 +1,14 @@
 ## Problem
-The last AI image edit flattened the funnel image’s transparent background to white while changing the Zapla logo fill. We need to undo that and apply only the logo color change with pixel-precision.
+The transparent gaps inside the funnel were filled with a soft glass tint `rgba(232,236,246,170)`, but that tone reads slightly whiter/cooler than the page background `#EEF0FB` and the surrounding glass, so the patched areas are visibly a different shade from the environment.
 
-## Plan
-1. Inspect the current funnel asset (`src/assets/zapla-funnel-16-apps-final.png`) to confirm background state and locate the Zapla logo region.
-2. Use Python/PIL to:
-   - Restore full alpha transparency on all non-logo pixels.
-   - Identify the Zapla logo mark at the bottom of the funnel.
-   - Fill only the inner shape of that mark with white (`#FFFFFF`), leaving the outer blue square and every other pixel unchanged.
-3. Save the result back to the same file path, preserving the original resolution and color profile.
-4. Verify in the preview that the background is transparent and the Zapla logo inner mark is white.
+## Fix
+Re-tint only the previously patched pixels so they blend into the funnel's real glass — no other pixels touched, transparency of the true outside preserved.
 
-## Outcome
-A transparent-background funnel image with a white-filled Zapla logo and no other changes.
+1. Re-open `src/assets/zapla-funnel-16-apps-final.png`.
+2. Identify the patched pixels (they are the only pixels with the exact fill color `(232,236,246,170)` — unique in the image).
+3. Sample the average color of the nearby real glass interior (a ring of pixels just inside the funnel rim that were never patched) to get the true ambient glass tone.
+4. Replace the patched pixels with that sampled tone at a low alpha (~120–150) so the page's lavender shows through consistently, matching the rest of the funnel interior.
+5. No changes to icons, funnel rim, Zapla logo, or the transparent outside area.
+
+## Verify
+Composite the updated PNG onto the page's `#EEF0FB` background in a temp file and visually inspect that the patched regions are indistinguishable from the surrounding glass before handing back.
