@@ -995,6 +995,10 @@ function PlatformSlider() {
         {/* track */}
         <div
           ref={trackRef}
+          onMouseEnter={() => { pausedRef.current = true; }}
+          onMouseLeave={() => { pausedRef.current = false; }}
+          onTouchStart={() => { pausedRef.current = true; }}
+          onTouchEnd={() => { pausedRef.current = false; }}
           className="platform-track flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-[calc(50vw-160px)] pb-6 sm:px-[max(60px,calc(50vw-600px))]"
         >
           {PLATFORM_CARDS.map((c) => (
