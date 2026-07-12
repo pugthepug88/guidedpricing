@@ -8,22 +8,7 @@ import customer05 from "@/assets/customer-05-peak.jpg";
 import customer06 from "@/assets/customer-06-complete.jpg";
 import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
-import funnelBody from "@/assets/funnel-body.png.asset.json";
-import zaplaLogoMark from "@/assets/zapla-logo-linkedIn-profile-picture.png.asset.json";
-import {
-  siCalendly,
-  siHootsuite,
-  siHubspot,
-  siMailchimp,
-  siQuickbooks,
-  siStripe,
-  siTrello,
-  siTypeform,
-  siWix,
-  siWordpress,
-  siZapier,
-  siZoom,
-} from "simple-icons";
+import zaplaFunnel16Apps from "@/assets/zapla-funnel-16-apps-final.png";
 
 export const Route = createFileRoute("/")({
   component: PricingPage,
@@ -1072,151 +1057,48 @@ function Customers() {
 /*  Pillars                                                            */
 /* ------------------------------------------------------------------ */
 
-const PILLAR_TOOLS = [
-  { name: "WordPress", icon: siWordpress, x: "21%", y: "18%", r: -14, s: 1.02 },
-  { name: "Wix", icon: siWix, x: "35%", y: "11%", r: 10, s: 0.94 },
-  { name: "HubSpot", icon: siHubspot, x: "49%", y: "14%", r: -7, s: 1.04 },
-  { name: "Mailchimp", icon: siMailchimp, x: "63%", y: "11%", r: 11, s: 0.96 },
-  { name: "Calendly", icon: siCalendly, x: "77%", y: "18%", r: -9, s: 1.02 },
-  { name: "Stripe", icon: siStripe, x: "28%", y: "30%", r: 9, s: 0.96 },
-  { name: "QuickBooks", icon: siQuickbooks, x: "42%", y: "25%", r: -11, s: 0.98 },
-  { name: "Zoom", icon: siZoom, x: "56%", y: "26%", r: 8, s: 1.03 },
-  { name: "Slack", custom: "slack", x: "70%", y: "30%", r: -8, s: 0.98 },
-  { name: "Hootsuite", icon: siHootsuite, x: "34%", y: "40%", r: -7, s: 0.92 },
-  { name: "Typeform", icon: siTypeform, x: "47%", y: "37%", r: 12, s: 0.94 },
-  { name: "Zapier", icon: siZapier, x: "59%", y: "38%", r: -12, s: 0.94 },
-  { name: "Trello", icon: siTrello, x: "66%", y: "44%", r: 10, s: 0.86 },
-  { name: "Klaviyo", custom: "klaviyo", x: "41%", y: "47%", r: 8, s: 0.84 },
-  { name: "NiceJob", custom: "nicejob", x: "52%", y: "48%", r: -9, s: 0.82 },
-  { name: "DocuSign", custom: "docusign", x: "58%", y: "49%", r: 8, s: 0.8 },
-] as const;
-
-function BrandTile({ tool }: { tool: (typeof PILLAR_TOOLS)[number] }) {
-  return (
-    <div
-      className="absolute grid h-[48px] w-[48px] place-items-center rounded-[15px] bg-white shadow-[0_18px_34px_rgba(15,23,42,0.16),inset_0_1px_0_rgba(255,255,255,0.95)] ring-1 ring-white/80 sm:h-[58px] sm:w-[58px] sm:rounded-[18px]"
-      style={{
-        left: tool.x,
-        top: tool.y,
-        transform: `translate(-50%, -50%) rotate(${tool.r}deg) scale(${tool.s})`,
-      }}
-      title={tool.name}
-      aria-label={tool.name}
-    >
-      <div className="absolute inset-[3px] rounded-[12px] bg-gradient-to-br from-white via-white to-zapla-faint" />
-      <div className="absolute inset-x-2 top-1 h-2 rounded-full bg-white/75 blur-[2px]" />
-      <div className="relative grid h-[32px] w-[32px] place-items-center sm:h-[38px] sm:w-[38px]">
-        {"icon" in tool ? <SimpleBrand icon={tool.icon} /> : <CustomBrand type={tool.custom} />}
-      </div>
-    </div>
-  );
-}
-
-function SimpleBrand({ icon }: { icon: { title: string; hex: string; path: string } }) {
-  return (
-    <svg viewBox="0 0 24 24" role="img" aria-label={icon.title} className="h-full w-full drop-shadow-sm" fill={`#${icon.hex}`}>
-      <path d={icon.path} />
-    </svg>
-  );
-}
-
-function CustomBrand({ type }: { type: "slack" | "klaviyo" | "nicejob" | "docusign" }) {
-  if (type === "slack") {
-    return (
-      <svg viewBox="0 0 48 48" role="img" aria-label="Slack" className="h-full w-full">
-        <rect x="19" y="3" width="9" height="20" rx="4.5" fill="#36C5F0" />
-        <rect x="3" y="20" width="20" height="9" rx="4.5" fill="#36C5F0" />
-        <rect x="25" y="3" width="20" height="9" rx="4.5" fill="#2EB67D" />
-        <rect x="25" y="9" width="9" height="20" rx="4.5" fill="#2EB67D" />
-        <rect x="20" y="25" width="9" height="20" rx="4.5" fill="#ECB22E" />
-        <rect x="25" y="20" width="20" height="9" rx="4.5" fill="#ECB22E" />
-        <rect x="3" y="25" width="20" height="9" rx="4.5" fill="#E01E5A" />
-        <rect x="14" y="20" width="9" height="20" rx="4.5" fill="#E01E5A" />
-      </svg>
-    );
-  }
-  if (type === "klaviyo") {
-    return <span className="text-[24px] font-black leading-none tracking-[-0.08em] text-[#0A0A0A] sm:text-[29px]">K</span>;
-  }
-  if (type === "nicejob") {
-    return (
-      <svg viewBox="0 0 48 48" role="img" aria-label="NiceJob" className="h-full w-full">
-        <circle cx="24" cy="24" r="21" fill="#00B67A" />
-        <path d="M13 25.5c3.3 5.7 8 8.4 13.6 7.8 4.2-.4 7.1-2.6 8.8-6.4" fill="none" stroke="white" strokeWidth="4.2" strokeLinecap="round" />
-        <circle cx="17" cy="19" r="2.8" fill="white" />
-        <circle cx="31" cy="19" r="2.8" fill="white" />
-      </svg>
-    );
-  }
-  return <span className="text-[11px] font-black leading-none tracking-[-0.08em] text-[#005CB9] sm:text-[13px]">Docu<br />Sign</span>;
-}
-
 function Pillars() {
   return (
     <section
       id="replaces"
-      className="relative overflow-hidden bg-zapla-bg py-14 sm:py-20"
+      className="relative overflow-hidden bg-zapla-bg py-10 sm:py-12"
     >
-      {/* Ambient background glows */}
-      <div className="pointer-events-none absolute -top-24 left-[8%] h-[380px] w-[460px] rounded-full bg-[#EF4444]/8 blur-[140px]" />
-      <div className="pointer-events-none absolute -bottom-32 right-[6%] h-[440px] w-[540px] rounded-full bg-zapla-blue/18 blur-[160px]" />
+      <div className="pointer-events-none absolute -top-20 left-[8%] h-[260px] w-[360px] rounded-full bg-[#EF4444]/7 blur-[120px]" />
+      <div className="pointer-events-none absolute -bottom-24 right-[10%] h-[300px] w-[420px] rounded-full bg-zapla-blue/16 blur-[130px]" />
 
-      <div className="relative mx-auto max-w-[1100px] px-5 sm:px-8">
-        {/* Section heading */}
-        <Reveal className="mx-auto max-w-[820px] text-center">
+      <div className="relative mx-auto grid max-w-[1080px] items-center gap-5 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <Reveal className="mx-auto max-w-[560px] text-center lg:mx-0 lg:text-left">
           <span className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue shadow-zapla-sm">
             16 tools in · 1 system out
           </span>
-          <h2 className="mt-5 text-[32px] font-extrabold leading-[1.05] tracking-[-0.02em] text-zapla-ink sm:text-[44px]">
+          <h2 className="mt-4 text-[30px] font-extrabold leading-[1.04] tracking-[-0.02em] text-zapla-ink sm:text-[42px]">
             Pour your <span className="text-[#B91C1C]">stack</span> in.
             <br className="hidden sm:block" /> Get <span className="zapla-gradient-text">Zapla</span> out.
           </h2>
-          <p className="mx-auto mt-4 max-w-[620px] text-[15px] leading-[1.55] text-zapla-muted">
+          <p className="mx-auto mt-3 max-w-[520px] text-[15px] leading-[1.55] text-zapla-muted lg:mx-0">
             Website, funnels, CRM, email, SMS, bookings, forms, automations, payments and reviews — sixteen apps collapse into a single operating system, on one bill.
           </p>
-        </Reveal>
 
-        {/* Blended funnel composition — no boxed image background */}
-        <Reveal delay={100} className="relative mx-auto mt-7 w-full max-w-[760px]">
-          <div className="relative aspect-[1.62/1] overflow-visible">
-            <div className="pointer-events-none absolute left-1/2 top-[56%] h-[300px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/20 blur-[90px]" />
-            <div className="pointer-events-none absolute left-1/2 top-[73%] h-10 w-[300px] -translate-x-1/2 rounded-full bg-[#9FB7D4]/35 blur-2xl" />
-
-            {PILLAR_TOOLS.map((tool) => (
-              <BrandTile key={tool.name} tool={tool} />
-            ))}
-
-            <img
-              src={funnelBody.url}
-              alt="Glass funnel turning sixteen business apps into Zapla"
-              width={1100}
-              height={850}
-              loading="lazy"
-              className="pointer-events-none absolute left-1/2 top-[56%] z-10 h-auto w-[74%] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_34px_48px_rgba(37,99,255,0.20)]"
-            />
-
-            <div className="absolute left-1/2 top-[84%] z-20 -translate-x-1/2 -translate-y-1/2">
-              <div className="pointer-events-none absolute inset-0 scale-[1.75] rounded-[30%] bg-zapla-blue/35 blur-2xl" />
-              <img
-                src={zaplaLogoMark.url}
-                alt="Zapla"
-                width={96}
-                height={96}
-                loading="lazy"
-                className="relative h-[58px] w-[58px] object-contain shadow-[0_20px_34px_rgba(37,99,255,0.35)] sm:h-[68px] sm:w-[68px]"
-              />
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#FEE2E2] bg-[#FEF2F2] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#B91C1C] line-through">
+              A$1,847 / mo · 16 bills
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-zapla-blue/25 bg-gradient-to-r from-zapla-blue-soft to-white px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue">
+              One bill · Save A$1,500–2,500 / mo
             </div>
           </div>
         </Reveal>
 
-        {/* Savings pills */}
-        <Reveal delay={200} className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#FEE2E2] bg-[#FEF2F2] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#B91C1C] line-through">
-            A$1,847 / mo · 16 bills
-          </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-zapla-blue/25 bg-gradient-to-r from-zapla-blue-soft to-white px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue">
-            One bill · Save A$1,500–2,500 / mo
-          </div>
+        <Reveal delay={100} className="relative mx-auto w-full max-w-[500px] lg:mr-0">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/20 blur-[90px]" />
+          <img
+            src={zaplaFunnel16Apps}
+            alt="Sixteen business apps funneling into one Zapla system"
+            width={1024}
+            height={1024}
+            loading="lazy"
+            className="relative mx-auto h-auto w-full max-w-[430px] drop-shadow-[0_28px_42px_rgba(37,99,255,0.18)] sm:max-w-[480px]"
+          />
         </Reveal>
       </div>
     </section>
