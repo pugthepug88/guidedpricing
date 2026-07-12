@@ -1,26 +1,26 @@
-## Fix the funnel image — regenerate from scratch, kill the white container
+## What's wrong with the current Pillars section
 
-Two problems, both baked into `zapla-funnel-16-apps-final.png`:
+Scrolling through it top-to-bottom:
 
-1. **White square background** — that's what's reading as "a container." The section wrapper in `src/routes/index.tsx` has no border/card; the boxed look is inside the PNG itself.
-2. **Wrong icons** — current render has duplicates (multiple lightning bolts, multiple thumbs-ups) and is missing Calendly, Jotform, Birdeye, SimpleTexting, and a distinct ClickFunnels mark.
+1. **It's a 900px-tall scroll stage** (`h-[820px] sm:h-[900px]`) with 24-32 units of vertical padding on top of that — the whole section is ~1,200px tall. On a pricing page that's absurd; it dominates like a hero.
+2. **I ignored the image you already approved.** `src/assets/pillar-option-a-funnel.jpg` — the v3 Option A render you picked — is sitting in the repo, already featuring the funnel + icons + Zapla drop baked in. Instead of using it, I re-imported a separate transparent `funnel-body.png` and rebuilt the whole scene with 16 favicon chips + motion transforms + a separate Zapla logo layer. That's why it never matches the image you liked — it's a re-creation, not the render.
+3. **The favicon chips look cheap.** `google/s2/favicons` returns low-res 64px favicons wrapped in white pills. The v3 render has photoreal 3D app icons. No amount of animation fixes that gap.
+4. **Two competing focal points.** The scroll animation asks the eye to track 16 falling chips *and* watch the Zapla drop *and* read the heading. On a pricing page the viewer just wants: "16 tools → 1 Zapla, got it, show me the price."
+5. **Redundant elements below.** Savings pills + two CTAs after the scene stretch it further, when the pricing table is literally the next section.
 
-### The plan
+## The plan — use the render, cut it in half
 
-1. **Regenerate the funnel PNG from scratch** with `imagegen--generate_image`, model `google/gemini-3-pro-image` (best fidelity for real brand logos on 3D tiles), transparent background, so it blends into `bg-zapla-bg` with zero visible edge.
-   - Composition: same as the version you approved — clear glass funnel, ~16 glossy 3D app-icon tiles pouring in from above and settling inside, a single blue rounded-square Zapla logo dropping out the bottom.
-   - **Exact icon set, no duplicates**: WordPress, ClickFunnels, HubSpot, Pipedrive, Mailchimp, Twilio, SimpleTexting, Calendly, Typeform, Jotform, Zapier, Google Sheets, NiceJob, DocuSign, Wix, Birdeye.
-   - Zapla mark = blue rounded square with the black stylised Z (matches `src/assets/zapla-icon.png`).
-   - Prompt will explicitly forbid: white background, drop shadow plate, duplicate icons, unrequested brands.
+**Replace the whole `Pillars()` scroll stage with the v3 Option A image, static.**
 
-2. **Save** as a new asset `src/assets/pillar-funnel-transparent.png` (via `lovable-assets create`), so the old file stays around as a fallback until you approve the new one.
+Concretely, in `src/routes/index.tsx` `Pillars()`:
 
-3. **Swap the import** in `src/routes/index.tsx` (line 11) to the new asset. No other code changes — the Pillars section already has no container; once the PNG background is transparent it will visually blend into the page.
+- Delete the icon cloud layer, funnel body layer, Zapla drop layer, all `useScroll` / `useTransform` / `spawns` / `tools` arrays.
+- Drop the `funnel-body.png` and `zaplaLogo3d` imports for this section. Import `pillar-option-a-funnel.jpg` instead.
+- Replace with a single centered `<img>` of the v3 render, ~460–520px wide, with a subtle blue glow behind it and one gentle `Reveal` fade-in on scroll (no scroll-linked transforms).
+- Shrink section padding: `py-24 sm:py-32` → `py-14 sm:py-20`.
+- Keep the heading ("Pour your stack in. Get Zapla out.") and the two savings pills — those earn their place.
+- Remove the two CTAs at the bottom (pricing table is right underneath).
 
-4. **QA**: view the rendered PNG, verify (a) transparent background, (b) all 16 requested icons present, (c) no duplicates, (d) Zapla drop present. If any icon is wrong or duplicated, regenerate before swapping the import.
+**Expected height:** ~600px total instead of ~1,200px. Roughly half.
 
-### Risk
-
-Gemini 3 Pro is good but not perfect at rendering 16 specific brand logos legibly at small size. If a couple of icons come out ambiguous, I'll do one refinement pass rather than an endless loop — and flag which ones so you can decide whether to accept or iterate.
-
-Nothing else on the page changes.
+**Nothing else on the page changes.**
