@@ -1,26 +1,46 @@
-## What's wrong with the current Pillars section
+I owe you a straight answer: no, the previous step did not do the real-logo compositing I suggested. It only adjusted/padded the existing AI-generated image, so the icons are still not pixel-accurate and some are still visually wrong/cut off.
 
-Scrolling through it top-to-bottom:
+Plan to fix it properly:
 
-1. **It's a 900px-tall scroll stage** (`h-[820px] sm:h-[900px]`) with 24-32 units of vertical padding on top of that — the whole section is ~1,200px tall. On a pricing page that's absurd; it dominates like a hero.
-2. **I ignored the image you already approved.** `src/assets/pillar-option-a-funnel.jpg` — the v3 Option A render you picked — is sitting in the repo, already featuring the funnel + icons + Zapla drop baked in. Instead of using it, I re-imported a separate transparent `funnel-body.png` and rebuilt the whole scene with 16 favicon chips + motion transforms + a separate Zapla logo layer. That's why it never matches the image you liked — it's a re-creation, not the render.
-3. **The favicon chips look cheap.** `google/s2/favicons` returns low-res 64px favicons wrapped in white pills. The v3 render has photoreal 3D app icons. No amount of animation fixes that gap.
-4. **Two competing focal points.** The scroll animation asks the eye to track 16 falling chips *and* watch the Zapla drop *and* read the heading. On a pricing page the viewer just wants: "16 tools → 1 Zapla, got it, show me the price."
-5. **Redundant elements below.** Savings pills + two CTAs after the scene stretch it further, when the pricing table is literally the next section.
+1. Preserve the funnel, Zapla icon, glass, lighting, and transparent background.
+   - No redesign.
+   - No new section layout.
+   - No change to copy or page structure.
 
-## The plan — use the render, cut it in half
+2. Use deterministic compositing instead of AI image editing.
+   - Collect/download real logo assets for the agreed 16 brands.
+   - Prepare each as a transparent PNG/WebP with enough padding so no logo gets clipped.
+   - Place each logo onto the existing icon tile positions programmatically.
 
-**Replace the whole `Pillars()` scroll stage with the v3 Option A image, static.**
+3. Use exactly these 16 logos, with no duplicates:
+   - WordPress
+   - ClickFunnels
+   - HubSpot
+   - Pipedrive
+   - Mailchimp
+   - Twilio or SimpleTexting, depending which final SMS brand you want represented
+   - Calendly
+   - Typeform
+   - Jotform
+   - Zapier
+   - Google Sheets
+   - NiceJob
+   - DocuSign
+   - Wix
+   - Birdeye
+   - Hootsuite or ClickSend, if we need to keep the total at 16 from your longer list
 
-Concretely, in `src/routes/index.tsx` `Pillars()`:
+4. Fix the top-edge clipping properly.
+   - Add transparent canvas breathing room above the image.
+   - Ensure the two top icons are fully visible inside the image bounds.
+   - Keep the visual scale close to the current composition.
 
-- Delete the icon cloud layer, funnel body layer, Zapla drop layer, all `useScroll` / `useTransform` / `spawns` / `tools` arrays.
-- Drop the `funnel-body.png` and `zaplaLogo3d` imports for this section. Import `pillar-option-a-funnel.jpg` instead.
-- Replace with a single centered `<img>` of the v3 render, ~460–520px wide, with a subtle blue glow behind it and one gentle `Reveal` fade-in on scroll (no scroll-linked transforms).
-- Shrink section padding: `py-24 sm:py-32` → `py-14 sm:py-20`.
-- Keep the heading ("Pour your stack in. Get Zapla out.") and the two savings pills — those earn their place.
-- Remove the two CTAs at the bottom (pricing table is right underneath).
+5. Verify before saying it is done.
+   - Open the final image and visually check the top icons are not cropped.
+   - Confirm the final asset has a transparent background.
+   - Confirm every visible logo matches the final 16-brand list.
 
-**Expected height:** ~600px total instead of ~1,200px. Roughly half.
+One clarification before implementation: your earlier list contains more than 16 names because some are alternatives and some are duplicates. Which exact 16 should I use?
 
-**Nothing else on the page changes.**
+Recommended final 16:
+WordPress, ClickFunnels, HubSpot, Pipedrive, Mailchimp, SimpleTexting, Calendly, Typeform, Jotform, Zapier, Google Sheets, NiceJob, DocuSign, Wix, Birdeye, Hootsuite.
