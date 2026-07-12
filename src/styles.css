@@ -214,15 +214,10 @@
   animation: zapla-satellite-beam 2.4s ease-in-out infinite;
 }
 
-/* Reveal on scroll */
+/* Reveal on scroll — visible by default so SSR/no-JS renders content immediately.
+   The useReveal hook hides + animates client-side only when the element is out of view. */
 @utility zapla-reveal {
-  opacity: 0;
-  transform: translateY(24px);
   transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  &.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 @custom-variant dark (&:is(.dark *));

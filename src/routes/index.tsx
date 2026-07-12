@@ -24,13 +24,31 @@ function useReveal<T extends HTMLElement = HTMLElement>() {
   const ref = useRef<T>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (!el) return;
+    // If already in viewport at mount, show immediately with no animation flicker.
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.top < vh - 60) {
+      el.classList.add("is-visible");
+      return;
+    }
+    // Otherwise hide it and animate in when scrolled into view.
+    el.style.opacity = "0";
+    el.style.transform = "translateY(24px)";
+    if (typeof IntersectionObserver === "undefined") {
+      el.style.opacity = "";
+      el.style.transform = "";
+      return;
+    }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            e.target.classList.add("is-visible");
-            io.unobserve(e.target);
+            const t = e.target as HTMLElement;
+            t.style.opacity = "";
+            t.style.transform = "";
+            t.classList.add("is-visible");
+            io.unobserve(t);
           }
         });
       },
