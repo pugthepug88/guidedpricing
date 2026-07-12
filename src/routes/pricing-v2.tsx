@@ -188,6 +188,28 @@ function PricingPage() {
       <ValueGrid />
       <Faq />
       <FinalCta />
+      <StickyMobileCta />
+    </div>
+  );
+}
+
+function StickyMobileCta() {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-zapla-line bg-white/95 px-4 py-3 shadow-[0_-8px_24px_rgba(15,23,42,0.08)] backdrop-blur-md md:hidden">
+      <div className="flex items-center gap-2">
+        <a
+          href={BOOK_URL}
+          className="flex-1 rounded-full bg-zapla-blue px-4 py-3 text-center text-[14px] font-extrabold text-white shadow-zapla-blue"
+        >
+          Book a Call →
+        </a>
+        <a
+          href="#pricing"
+          className="rounded-full border border-zapla-line px-4 py-3 text-center text-[13px] font-extrabold text-zapla-ink"
+        >
+          Plans
+        </a>
+      </div>
     </div>
   );
 }
