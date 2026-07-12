@@ -266,130 +266,50 @@ function Nav() {
 
 function Hero() {
   return (
-    <header id="top" className="relative overflow-hidden bg-zapla-bg pt-10 pb-12 sm:pt-16 sm:pb-20">
-      <div className="pointer-events-none absolute -top-40 -right-24 h-[460px] w-[460px] rounded-full bg-zapla-violet/12 blur-[140px] zapla-orb-drift" />
-      <div className="pointer-events-none absolute -top-24 -left-32 h-[460px] w-[460px] rounded-full bg-zapla-cyan/16 blur-[140px] zapla-orb-drift-slow" />
-      <div className="pointer-events-none absolute inset-0 zapla-grid-bg-light opacity-50" />
+    <header id="top" className="relative overflow-hidden bg-zapla-bg pt-12 pb-10 sm:pt-16 sm:pb-14">
+      <div className="pointer-events-none absolute -top-40 -right-24 h-[420px] w-[420px] rounded-full bg-zapla-violet/12 blur-[140px] zapla-orb-drift" />
+      <div className="pointer-events-none absolute -top-24 -left-32 h-[420px] w-[420px] rounded-full bg-zapla-cyan/16 blur-[140px] zapla-orb-drift-slow" />
+      <div className="pointer-events-none absolute inset-0 zapla-grid-bg-light opacity-40" />
 
-      <div className="relative mx-auto grid max-w-[1200px] items-center gap-10 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr]">
-        {/* Left column: headline + trust bar */}
-        <div className="zapla-fade text-center lg:text-left">
-          <Eyebrow>Simple, transparent pricing</Eyebrow>
-          <h1 className="mt-5 font-bold text-zapla-ink text-[clamp(34px,4.4vw,58px)] leading-[1.04] tracking-[-0.035em]">
-            Run your whole business from{" "}
-            <span className="zapla-gradient-shimmer">one AI operating system</span>.
-          </h1>
-          <p className="mt-5 max-w-[560px] text-[16.5px] leading-[1.6] text-zapla-muted lg:mx-0 mx-auto">
-            One flat monthly price. Unlimited users. Guided Launch connects your enquiries,
-            bookings, reviews, payments and AI follow-up — so you start seeing value in days,
-            not months.
-          </p>
-
-          <div className="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
-            <PrimaryButton href={BOOK_URL} track="hero_cta">Book a Call →</PrimaryButton>
-            <SecondaryButton href="#pricing">See plans</SecondaryButton>
-          </div>
-
-          {/* Trust bar */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:justify-start">
-            <div className="flex items-center gap-2">
-              <div className="flex text-[#F5B301]">
-                {"★★★★★".split("").map((s, i) => (
-                  <span key={i} className="text-[16px] leading-none">{s}</span>
-                ))}
-              </div>
-              <span className="text-[13px] font-bold text-zapla-ink">4.9/5</span>
-              <span className="text-[12.5px] text-zapla-muted">· 200+ operators</span>
-            </div>
-            <span className="hidden h-4 w-px bg-zapla-line sm:block" />
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px] font-semibold text-zapla-muted">
-              {["Unlimited users", "No lock-in", "AU support"].map((t) => (
-                <span key={t} className="inline-flex items-center gap-1.5">
-                  <Check />
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
+      <div className="relative mx-auto max-w-[880px] px-5 text-center sm:px-8">
+        {/* Trust pill */}
+        <div className="zapla-fade inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white/80 px-3.5 py-1.5 shadow-zapla-sm backdrop-blur">
+          <span className="flex text-[#F5B301]">
+            {"★★★★★".split("").map((s, i) => (
+              <span key={i} className="text-[13px] leading-none">{s}</span>
+            ))}
+          </span>
+          <span className="text-[12px] font-bold text-zapla-ink">4.9/5</span>
+          <span className="text-[12px] text-zapla-muted">· Trusted by 200+ AU operators</span>
         </div>
 
-        {/* Right column: OS dashboard mock */}
-        <div className="relative mx-auto w-full max-w-[560px]">
-          <div className="pointer-events-none absolute -inset-6 rounded-[32px] bg-gradient-to-br from-zapla-blue/25 via-zapla-violet/15 to-zapla-cyan/25 blur-3xl" />
-          <div className="relative overflow-hidden rounded-[22px] border border-zapla-line bg-white shadow-zapla-lift">
-            {/* window chrome */}
-            <div className="flex items-center gap-2 border-b border-zapla-line bg-zapla-faint px-4 py-2.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
-              <span className="ml-3 rounded-md bg-white px-2.5 py-1 text-[11px] font-bold text-zapla-muted shadow-zapla-sm">
-                app.zapla.io
-              </span>
-            </div>
-            <div className="grid gap-3 p-4 sm:p-5">
-              {/* KPI row */}
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { l: "Enquiries today", v: "24", d: "+12%" },
-                  { l: "Booked", v: "18", d: "+8%" },
-                  { l: "Recovered", v: "A$4.2k", d: "+31%" },
-                ].map((k) => (
-                  <div key={k.l} className="rounded-xl border border-zapla-line bg-white p-3">
-                    <div className="text-[10.5px] font-extrabold uppercase tracking-[0.08em] text-zapla-muted">{k.l}</div>
-                    <div className="mt-1 text-[20px] font-extrabold tracking-[-0.03em] text-zapla-ink">{k.v}</div>
-                    <div className="text-[11px] font-bold text-zapla-green">{k.d}</div>
-                  </div>
-                ))}
-              </div>
-              {/* Pipeline row */}
-              <div className="rounded-xl border border-zapla-line bg-white p-3">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-zapla-blue">Pipeline</span>
-                  <span className="text-[11px] text-zapla-muted">Today</span>
-                </div>
-                <div className="grid grid-cols-4 gap-1.5">
-                  {[
-                    { l: "New", n: 8, c: "bg-zapla-blue" },
-                    { l: "Quote", n: 6, c: "bg-zapla-violet" },
-                    { l: "Booked", n: 5, c: "bg-zapla-cyan" },
-                    { l: "Won", n: 3, c: "bg-zapla-green" },
-                  ].map((s) => (
-                    <div key={s.l} className="rounded-md bg-zapla-faint p-2 text-center">
-                      <div className={`mx-auto mb-1 h-1.5 w-8 rounded-full ${s.c}`} />
-                      <div className="text-[13px] font-extrabold text-zapla-ink">{s.n}</div>
-                      <div className="text-[10px] font-semibold text-zapla-muted">{s.l}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Activity row */}
-              <div className="rounded-xl border border-zapla-line bg-white p-3">
-                <div className="mb-2 text-[11.5px] font-extrabold uppercase tracking-[0.1em] text-zapla-blue">
-                  Recent activity
-                </div>
-                <ul className="space-y-2 text-[12.5px]">
-                  {[
-                    { d: "AI replied to missed call", t: "2m", c: "text-zapla-green" },
-                    { d: "Quote follow-up sent", t: "14m", c: "text-zapla-blue" },
-                    { d: "Review request queued", t: "1h", c: "text-zapla-violet" },
-                  ].map((a) => (
-                    <li key={a.d} className="flex items-center justify-between">
-                      <span className="flex items-center gap-2 text-[#26364f]">
-                        <span className={`h-1.5 w-1.5 rounded-full ${a.c.replace("text-", "bg-")}`} />
-                        {a.d}
-                      </span>
-                      <span className="text-zapla-muted">{a.t}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+        <h1 className="zapla-fade mt-5 font-bold text-zapla-ink text-[clamp(36px,5vw,60px)] leading-[1.03] tracking-[-0.035em]">
+          Simple pricing. <span className="zapla-gradient-shimmer">One operating system.</span>
+        </h1>
+        <p className="zapla-fade mt-4 text-[17px] leading-[1.55] text-zapla-muted">
+          Replace 16 tools with one platform. One flat monthly price, unlimited users,
+          Guided Launch included — pick the plan that fits, or book a 20-min call and
+          we&rsquo;ll map the right setup for your business.
+        </p>
+
+        <div className="zapla-fade mt-7 flex flex-wrap items-center justify-center gap-3">
+          <PrimaryButton href="#pricing" track="hero_see_plans">See plans ↓</PrimaryButton>
+          <SecondaryButton href={BOOK_URL}>Book a strategy call</SecondaryButton>
+        </div>
+
+        <div className="zapla-fade mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12.5px] font-semibold text-zapla-muted">
+          {["Guided launch included", "Cancel anytime", "AU-based support"].map((t) => (
+            <span key={t} className="inline-flex items-center gap-1.5">
+              <Check />
+              {t}
+            </span>
+          ))}
         </div>
       </div>
     </header>
   );
 }
+
 
 
 
