@@ -1,23 +1,20 @@
 ## Goal
-Remove the pricing anchor/snapshot card I added to the hero, and restore a cleaner hero that matches the Zapla homepage tone while still feeling appropriate for a pricing page.
+Replace the homepage funnel image with a high-fidelity render that uses your actual 16 apps pouring in and your Zapla logo dropping out — matching the quality of the v3 image, but with the correct brand assets.
 
-## What I’ll change
-1. **Strip the hero price snapshot** — remove the 3-column card showing Launch Fee / Growth Plan / ROI Timeline from the `Hero` component in `src/routes/index.tsx`.
-2. **Rebuild the hero as a lightweight, pricing-intent headline section:**
-   - Keep the original headline: *“Run your whole business from one AI operating system.”*
-   - Keep or tighten the subheadline around value/ROI, without inventing specific price callouts.
-   - Restore the primary CTA row (*Get started* / *Book a call*) and a small trust row (checkmarks or rating).
-   - Keep the light, airy Zapla styling (lavender-white background, electric blue accents, Manrope typography).
-3. **Verify the page still builds and the hero no longer contains the fabricated price snapshot.**
+## Steps
 
-## Out of scope
-- No changes to the actual pricing cards/tiers below.
-- No changes to the customer carousel, pillars, FAQ, or other sections unless they visually break from the hero change.
+1. **Generate a new funnel render** using premium image generation. Prompt will specify:
+   - 3D photoreal glass/blue funnel (same style as v3 Option A)
+   - Falling into it: WordPress, HubSpot, Mailchimp, ClickFunnels, Calendly, Zapier, Typeform, Stripe, QuickBooks, Slack, Zoom, DocuSign, Trello, Google Analytics, Facebook Ads, Instagram — recognizable brand-color icons
+   - Emerging from the spout: your Zapla logo (blue rounded-square icon with white Z)
+   - Clean white/light background, soft shadow pool
+   - Saved to `src/assets/pillar-funnel-v2.jpg` (or as a Lovable Asset pointer)
 
-## Files touched
-- `src/routes/index.tsx` — Hero component only.
-- Possibly `src/styles.css` if any hero-specific utility classes need cleanup.
+2. **Swap the image in `src/routes/index.tsx`** — update the `funnelImg` import to the new file. No layout, animation, or copy changes. Everything around it (headline, subhead, savings pill, tool list) stays exactly as-is.
 
-## Verification
-- Run the production build (`bun run build`) to confirm no syntax or type errors.
-- Take a preview screenshot of the hero to confirm the price snapshot is gone and the layout feels balanced.
+3. **Verify** the homepage renders the new image cleanly at desktop width.
+
+## Notes
+- No animation. Static image only, matching the v3 treatment.
+- Because AI image generation can't perfectly reproduce brand logos, some icons may render as close-approximations rather than pixel-exact (same tradeoff as the v3 image you approved).
+- If the first render has wrong icons or a distorted Zapla logo, I'll regenerate before wiring it in.
