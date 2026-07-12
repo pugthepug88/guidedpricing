@@ -998,6 +998,7 @@ function Customers() {
                       src={c.img}
                       alt=""
                       loading="lazy"
+                      decoding="async"
                       width={1200}
                       height={750}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
