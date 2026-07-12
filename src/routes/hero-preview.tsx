@@ -1152,7 +1152,7 @@ function AISection() {
             desc="Let AI run your follow-ups, sentiment checks, and CRM actions. Every step connected, every outcome automatic."
           >
             <video
-              src={aiWorkflowVideo.url}
+              src={aiEmployeeVideo.url}
               autoPlay muted loop playsInline
               className="h-full w-full rounded-[18px] object-cover"
             />
@@ -1163,7 +1163,7 @@ function AISection() {
             desc="Your 24/7 AI receptionist. Answers calls, books appointments, and handles customer questions — even when you're off the clock."
           >
             <video
-              src={aiEmployeeVideo.url}
+              src={aiWorkflowVideo.url}
               autoPlay muted loop playsInline
               className="h-full w-full rounded-[18px] object-cover"
             />
