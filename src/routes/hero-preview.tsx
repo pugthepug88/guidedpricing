@@ -1299,7 +1299,6 @@ function ReviewCardStack() {
               transform: `rotate(${pos.rotate}deg) scale(${isActive ? 1 : 0.93})`,
               opacity: isActive ? 1 : 0.55,
               zIndex: isActive ? 10 : 3 - i,
-              animation: `reviewFloat${i} 5s ease-in-out ${i * 0.7}s infinite`,
             }}
           >
             <div className="flex items-center gap-2.5">
@@ -1334,12 +1333,6 @@ function ReviewCardStack() {
           </div>
         );
       })}
-
-      <style>{`
-        @keyframes reviewFloat0 { 0%, 100% { transform: rotate(-2deg) translateY(0) scale(var(--active-scale-0, 1)); } 50% { transform: rotate(-2deg) translateY(-6px) scale(var(--active-scale-0, 1)); } }
-        @keyframes reviewFloat1 { 0%, 100% { transform: rotate(1deg) translateY(0) scale(var(--active-scale-1, 0.93)); } 50% { transform: rotate(1deg) translateY(-8px) scale(var(--active-scale-1, 0.93)); } }
-        @keyframes reviewFloat2 { 0%, 100% { transform: rotate(-1deg) translateY(0) scale(var(--active-scale-2, 0.93)); } 50% { transform: rotate(-1deg) translateY(-5px) scale(var(--active-scale-2, 0.93)); } }
-      `}</style>
     </div>
   );
 }
