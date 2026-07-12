@@ -246,7 +246,7 @@ function Hero() {
           <Eyebrow>Simple, transparent pricing</Eyebrow>
           <h1 className="mx-auto mt-5 max-w-[860px] font-bold text-zapla-ink text-[clamp(32px,4.2vw,54px)] leading-[1.06] tracking-[-0.035em]">
             Run your whole business from&nbsp;
-            <span className="zapla-gradient-shimmer">one AI operating system</span>.
+            <span className="zapla-gradient-shimmer whitespace-pre-line">{"\n"}one AI operating system</span>.
           </h1>
           <p className="mx-auto mt-4 max-w-[620px] text-[16px] leading-[1.6] text-zapla-muted">
             One flat monthly price. Unlimited users. Guided Launch connects your enquiries,
