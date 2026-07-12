@@ -256,7 +256,10 @@ function Hero() {
           .hero-stack-card[data-pos="3"],
           .hero-stack-card[data-pos="4"],
           .hero-stack-card[data-pos="5"] { opacity: 0; pointer-events: none; }
-          .hero-cta { width: 100%; max-width: 300px; }
+          .hero-cta { width: auto; height: 52px; padding: 0 22px; font-size: 0.95rem; }
+          .hero-cta-text { margin-right: 40px; }
+          .hero-cta-circle { width: 38px; height: 38px; right: 7px; }
+          .hero-cta-circle svg { width: 15px; height: 15px; }
         }
 
       `}</style>
