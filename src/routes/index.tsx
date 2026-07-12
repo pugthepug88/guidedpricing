@@ -10,7 +10,6 @@ import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
 import funnelBody from "@/assets/funnel-body.png.asset.json";
 import zaplaLogoMark from "@/assets/zapla-logo-linkedIn-profile-picture.png.asset.json";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import {
   siCalendly,
   siHootsuite,
