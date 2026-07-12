@@ -1146,7 +1146,7 @@ function AISection() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="mt-14 grid auto-rows-fr gap-6 lg:grid-cols-3">
           <AICard
             title="AI Employee"
             desc="Hire an AI receptionist that takes calls, schedules bookings, and maybe even crack a dad joke or two."
@@ -1181,10 +1181,10 @@ function AISection() {
         <div className="mt-16 flex justify-center">
           <a
             href={BOOK_URL}
-            className="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-[0.95rem] font-semibold text-zapla-bg transition hover:bg-white/90"
+            className="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-[0.95rem] font-semibold text-zapla-ink transition hover:bg-white/90"
           >
             Book a Call
-            <span className="grid h-7 w-7 place-items-center rounded-full bg-zapla-bg text-white transition group-hover:translate-x-0.5">
+            <span className="grid h-7 w-7 place-items-center rounded-full bg-zapla-ink text-white transition group-hover:translate-x-0.5">
               →
             </span>
           </a>
