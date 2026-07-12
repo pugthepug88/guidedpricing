@@ -243,7 +243,15 @@ function Hero() {
 
       <div className="relative mx-auto max-w-[1100px] px-5 sm:px-8">
         <div className="zapla-fade text-center">
-          <Eyebrow>Simple, transparent pricing</Eyebrow>
+          <div className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white/80 px-3.5 py-1.5 shadow-zapla-sm backdrop-blur">
+            <span className="flex text-[#F5B301]">
+              {"★★★★★".split("").map((s, i) => (
+                <span key={i} className="text-[13px] leading-none">{s}</span>
+              ))}
+            </span>
+            <span className="text-[12px] font-bold text-zapla-ink">4.9/5</span>
+            <span className="text-[12px] text-zapla-muted">· Trusted by 200+ AU operators</span>
+          </div>
           <h1 className="mx-auto mt-5 max-w-[860px] font-bold text-zapla-ink text-[clamp(32px,4.2vw,54px)] leading-[1.06] tracking-[-0.035em]">
             Run your whole business from&nbsp;
             <span className="zapla-gradient-shimmer whitespace-pre-line">{"\n"}one AI operating system</span>.
