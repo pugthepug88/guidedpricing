@@ -10,6 +10,7 @@ import logoTeal from "@/assets/zapla-logo-teal.png.asset.json";
 import logoPink from "@/assets/zapla-logo-pink.png.asset.json";
 import logoRed from "@/assets/zapla-logo-red.png.asset.json";
 import logoRainbow from "@/assets/zapla-logo-rainbow.png.asset.json";
+import logoWhite from "@/assets/zapla-icon-white.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
@@ -923,6 +924,7 @@ const PLATFORM_LOGOS = [
 
 function PlatformSlider() {
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const pausedRef = useRef(false);
 
   const scrollByCards = (dir: 1 | -1) => {
     const el = trackRef.current;
@@ -931,6 +933,24 @@ function PlatformSlider() {
     const step = card ? card.offsetWidth + 24 : 340;
     el.scrollBy({ left: dir * step * 1.2, behavior: "smooth" });
   };
+
+  // Auto-advance every 3.5s; pause on hover/touch. Loops back to the start when reaching the end.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const id = window.setInterval(() => {
+      if (pausedRef.current) return;
+      const card = el.querySelector<HTMLElement>("[data-card]");
+      const step = card ? card.offsetWidth + 24 : 340;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      if (atEnd) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: step, behavior: "smooth" });
+      }
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, []);
 
   return (
     <section className="relative bg-white py-20 sm:py-28">
@@ -975,6 +995,10 @@ function PlatformSlider() {
         {/* track */}
         <div
           ref={trackRef}
+          onMouseEnter={() => { pausedRef.current = true; }}
+          onMouseLeave={() => { pausedRef.current = false; }}
+          onTouchStart={() => { pausedRef.current = true; }}
+          onTouchEnd={() => { pausedRef.current = false; }}
           className="platform-track flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-[calc(50vw-160px)] pb-6 sm:px-[max(60px,calc(50vw-600px))]"
         >
           {PLATFORM_CARDS.map((c) => (
@@ -1047,7 +1071,7 @@ function PlatformCardTile({ card }: { card: PlatformCard }) {
       </div>
 
       <div className="relative flex items-center gap-2 text-[0.82rem] font-medium opacity-90">
-        <img src={card.logo} alt="Zapla" className="h-6 w-6 rounded-md object-contain" />
+        <img src={logoWhite.url} alt="Zapla" className="h-6 w-6 object-contain" />
         <span>Zapla</span>
       </div>
 
