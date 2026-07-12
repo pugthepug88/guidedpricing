@@ -290,7 +290,7 @@ function HeroCardStack() {
                 {title}
               </span>
             </div>
-            <div className="h-[calc(100%-72px)] w-full overflow-hidden">
+            <div className="hero-card-body h-[calc(100%-72px)] w-full overflow-hidden">
               <Body />
             </div>
           </div>
