@@ -84,15 +84,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Zapla is the AI operating system for growing businesses. Unlimited users, one flat platform price, launched with you. See Guided Launch pricing.",
       },
       { name: "author", content: "Zapla" },
-      { property: "og:title", content: "Zapla Guided Launch Pricing" },
+      { property: "og:title", content: "Zapla Guided Launch Pricing — One flat price, launched with you" },
       {
         property: "og:description",
         content:
-          "One flat platform price. Unlimited users. Launched with you. CRM, inbox, bookings, payments and AI follow-up in one system.",
+          "Zapla is the AI operating system for growing businesses. Unlimited users, one flat platform price, launched with you. See Guided Launch pricing.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Zapla" },
+      { name: "twitter:title", content: "Zapla Guided Launch Pricing — One flat price, launched with you" },
+      { name: "twitter:description", content: "Zapla is the AI operating system for growing businesses. Unlimited users, one flat platform price, launched with you. See Guided Launch pricing." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/WVOw0apWNMOB0CvYuvbXcppr97q2/social-images/social-1783863902686-Screenshot_2026-07-12_234444.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/WVOw0apWNMOB0CvYuvbXcppr97q2/social-images/social-1783863902686-Screenshot_2026-07-12_234444.webp" },
     ],
     links: [
       {
