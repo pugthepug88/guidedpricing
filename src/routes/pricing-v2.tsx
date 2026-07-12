@@ -178,12 +178,13 @@ function PricingPage() {
   return (
     <div className="min-h-screen bg-zapla-bg font-zapla text-zapla-ink antialiased">
       <Hero />
-      <GuidedStrip />
       <Pricing />
+      <CompareTable />
+      <Pillars />
+      <Customers />
       <Calculator />
       <LaunchPack />
-      <Customers />
-      <Pillars />
+      <GuidedStrip />
       <Addons />
       <ValueGrid />
       <Faq />
@@ -192,6 +193,7 @@ function PricingPage() {
     </div>
   );
 }
+
 
 function StickyMobileCta() {
   return (
