@@ -8,9 +8,7 @@ import customer05 from "@/assets/customer-05-peak.jpg";
 import customer06 from "@/assets/customer-06-complete.jpg";
 import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
-import zaplaIcon from "@/assets/zapla-icon.png.asset.json";
-import pillarFunnel from "@/assets/pillar-option-a-funnel.jpg";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
+import zaplaFunnel16Apps from "@/assets/zapla-funnel-16-apps-final.png";
 
 export const Route = createFileRoute("/")({
   component: PricingPage,
@@ -1063,48 +1061,44 @@ function Pillars() {
   return (
     <section
       id="replaces"
-      className="relative overflow-hidden bg-zapla-bg py-14 sm:py-20"
+      className="relative scroll-mt-24 overflow-hidden bg-zapla-bg py-10 sm:py-12"
     >
-      {/* Ambient background glows */}
-      <div className="pointer-events-none absolute -top-24 left-[8%] h-[380px] w-[460px] rounded-full bg-[#EF4444]/8 blur-[140px]" />
-      <div className="pointer-events-none absolute -bottom-32 right-[6%] h-[440px] w-[540px] rounded-full bg-zapla-blue/18 blur-[160px]" />
+      <div className="pointer-events-none absolute -top-20 left-[8%] h-[260px] w-[360px] rounded-full bg-[#EF4444]/7 blur-[120px]" />
+      <div className="pointer-events-none absolute -bottom-24 right-[10%] h-[300px] w-[420px] rounded-full bg-zapla-blue/16 blur-[130px]" />
 
-      <div className="relative mx-auto max-w-[1100px] px-5 sm:px-8">
-        {/* Section heading */}
-        <Reveal className="mx-auto max-w-[820px] text-center">
+      <div className="relative mx-auto grid max-w-[1080px] items-center gap-5 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <Reveal className="mx-auto max-w-[560px] text-center lg:mx-0 lg:text-left">
           <span className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue shadow-zapla-sm">
             16 tools in · 1 system out
           </span>
-          <h2 className="mt-5 text-[32px] font-extrabold leading-[1.05] tracking-[-0.02em] text-zapla-ink sm:text-[44px]">
+          <h2 className="mt-4 text-[30px] font-extrabold leading-[1.04] tracking-[-0.02em] text-zapla-ink sm:text-[42px]">
             Pour your <span className="text-[#B91C1C]">stack</span> in.
             <br className="hidden sm:block" /> Get <span className="zapla-gradient-text">Zapla</span> out.
           </h2>
-          <p className="mx-auto mt-4 max-w-[620px] text-[15px] leading-[1.55] text-zapla-muted">
+          <p className="mx-auto mt-3 max-w-[520px] text-[15px] leading-[1.55] text-zapla-muted lg:mx-0">
             Website, funnels, CRM, email, SMS, bookings, forms, automations, payments and reviews — sixteen apps collapse into a single operating system, on one bill.
           </p>
+
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#FEE2E2] bg-[#FEF2F2] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#B91C1C] line-through">
+              A$1,847 / mo · 16 bills
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-zapla-blue/25 bg-gradient-to-r from-zapla-blue-soft to-white px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue">
+              One bill · Save A$1,500–2,500 / mo
+            </div>
+          </div>
         </Reveal>
 
-        {/* Static hero render */}
-        <Reveal delay={100} className="relative mx-auto mt-10 w-full max-w-[520px]">
-          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/25 blur-[90px]" />
+        <Reveal delay={100} className="relative mx-auto w-full max-w-[500px] pt-8 lg:mr-0 lg:pt-14">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/20 blur-[90px]" />
           <img
-            src={pillarFunnel}
-            alt="Sixteen tools funneling into one Zapla operating system"
+            src={zaplaFunnel16Apps}
+            alt="Sixteen business apps funneling into one Zapla system"
             width={1024}
             height={1024}
             loading="lazy"
-            className="relative mx-auto h-auto w-full drop-shadow-[0_30px_50px_rgba(37,99,255,0.22)]"
+            className="relative mx-auto h-auto w-full max-w-[420px] drop-shadow-[0_28px_42px_rgba(37,99,255,0.18)] sm:max-w-[450px]"
           />
-        </Reveal>
-
-        {/* Savings pills */}
-        <Reveal delay={200} className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#FEE2E2] bg-[#FEF2F2] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#B91C1C] line-through">
-            A$1,847 / mo · 16 bills
-          </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-zapla-blue/25 bg-gradient-to-r from-zapla-blue-soft to-white px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue">
-            One bill · Save A$1,500–2,500 / mo
-          </div>
         </Reveal>
       </div>
     </section>
