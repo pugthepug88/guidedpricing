@@ -300,13 +300,14 @@ function HeroCardStack() {
               <img
                 src={logo}
                 alt=""
-                className="h-11 w-11 object-contain drop-shadow-sm"
+                className="hero-card-header-logo h-11 w-11 object-contain drop-shadow-sm"
                 loading="lazy"
               />
-              <span className="text-[22px] font-extrabold tracking-[-0.02em] text-zapla-ink">
+              <span className="hero-card-header-title text-[22px] font-extrabold tracking-[-0.02em] text-zapla-ink">
                 {title}
               </span>
             </div>
+
             <div className="hero-card-body h-[calc(100%-72px)] w-full overflow-hidden">
               <Body />
             </div>
