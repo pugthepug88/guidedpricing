@@ -75,7 +75,7 @@ function Hero() {
           </div>
 
           {/* Trust ticks */}
-          <div className="mt-6 flex flex-wrap justify-center gap-x-7 gap-y-3 text-[13.5px] text-zapla-muted">
+          <div className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] sm:gap-x-7 sm:gap-y-3 sm:text-[13.5px] text-zapla-muted">
             {["14 Day Free Trial", "No Credit Card Required", "Cancel Anytime"].map((t) => (
               <span key={t} className="inline-flex items-center gap-2">
                 <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-zapla-green text-white">
