@@ -33,7 +33,195 @@ function HeroPreviewPage() {
       <Hero />
       <PlatformSlider />
       <AISection />
+      <DifferenceHeading />
+      <BlobSections />
     </main>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  "Feel the Zapla difference" — big centered heading                 */
+/* ------------------------------------------------------------------ */
+function DifferenceHeading() {
+  return (
+    <section className="bg-white py-24 md:py-32 px-6">
+      <h2 className="mx-auto max-w-6xl text-center font-black tracking-tight text-neutral-900 text-[44px] leading-[1.05] sm:text-6xl md:text-7xl">
+        Feel the Zapla difference
+      </h2>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Blob Sections — 4 alternating half-blob feature panels             */
+/* ------------------------------------------------------------------ */
+type Blob = {
+  side: "left" | "right";
+  gradient: string;
+  highlightGradient: string;
+  mainTitle: React.ReactNode;
+  mainDesc: string;
+  blobTitle: string;
+  blobDesc: string;
+  extras?: React.ReactNode;
+};
+
+const BLOBS: Blob[] = [
+  {
+    side: "left",
+    gradient: "linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%)",
+    highlightGradient: "linear-gradient(135deg,#6d28d9 0%,#7c3aed 30%,#f59e0b 100%)",
+    mainTitle: (
+      <>
+        YOUR STORY <span className="highlight">COMES FIRST</span>, ALWAYS.
+      </>
+    ),
+    mainDesc:
+      "The more deeply we understand your business, your market, and your challenges, the more precisely we can engineer results. It is not just attention to detail. It is an obsession with clarity. Because when your story leads, meaningful results follow.",
+    blobTitle: "STORY-LED STRATEGY",
+    blobDesc:
+      "Every rollout starts with your goals, your customers, and your voice, never a generic template.",
+  },
+  {
+    side: "right",
+    gradient: "linear-gradient(135deg,#ec4899 0%,#f97316 100%)",
+    highlightGradient: "linear-gradient(135deg,#ec4899 0%,#f97316 100%)",
+    mainTitle: (
+      <>
+        PRODUCTS TEAMS <span className="highlight">FALL IN LOVE</span> WITH.
+      </>
+    ),
+    mainDesc:
+      "Give your team tools that feel built just for them. Every click, every flow, every feature is designed to delight and drive results.",
+    blobTitle: "BUILT FOR HUMANS",
+    blobDesc:
+      "Fast, intuitive, and refreshingly simple, the kind of software people actually want to open.",
+  },
+  {
+    side: "left",
+    gradient: "linear-gradient(135deg,#10b981 0%,#06b6d4 100%)",
+    highlightGradient: "linear-gradient(135deg,#ef476f 0%,#00e5a3 100%)",
+    mainTitle: (
+      <>
+        FEEL THE <span className="highlight">DIFFERENCE</span> FAST.
+      </>
+    ),
+    mainDesc:
+      "From the very first click, you will experience the clarity, confidence, and momentum that have been missing. This is not just another tool. This is something that finally works, for you.",
+    blobTitle: "MOMENTUM FROM DAY ONE",
+    blobDesc:
+      "Guided launch, real training, and a system tuned to your business so results show up in weeks, not quarters.",
+  },
+  {
+    side: "right",
+    gradient: "linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%)",
+    highlightGradient: "linear-gradient(to right,#60a5fa,#1e40af)",
+    mainTitle: (
+      <>
+        THE COMPLETE <span className="highlight">INTEGRATION</span> STACK.
+      </>
+    ),
+    mainDesc:
+      "Full stack integration ensures you are not missing an opportunity or being held back by one platform. We have built seamless connections with all the tools you already use.",
+    blobTitle: "PLUGS INTO EVERYTHING",
+    blobDesc:
+      "CRM, calendar, ads, reviews, payments, telephony, connected out of the box.",
+    extras: (
+      <div className="mt-6 grid grid-cols-4 gap-3 max-w-xs mx-auto">
+        {["Google", "Meta", "Stripe", "Xero", "Gmail", "Outlook", "Zoom", "WhatsApp"].map((n) => (
+          <div
+            key={n}
+            className="h-12 rounded-lg bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center text-[10px] font-semibold text-white/90 uppercase tracking-wide"
+          >
+            {n}
+          </div>
+        ))}
+      </div>
+    ),
+  },
+];
+
+function BlobSections() {
+  return (
+    <section className="bg-[#f5f5f5]">
+      {BLOBS.map((b, i) => (
+        <BlobPanel key={i} blob={b} />
+      ))}
+    </section>
+  );
+}
+
+function BlobPanel({ blob }: { blob: Blob }) {
+  const isLeft = blob.side === "left";
+  return (
+    <div className="relative min-h-[70vh] overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center">
+      {/* Blob shape */}
+      <div
+        aria-hidden
+        className={[
+          "absolute top-0 h-full w-[70%] z-0 hidden lg:block",
+          isLeft ? "left-[-10%] rounded-r-[50%]" : "right-[-10%] rounded-l-[50%]",
+        ].join(" ")}
+        style={{ background: blob.gradient }}
+      />
+      {/* Mobile blob top band */}
+      <div
+        aria-hidden
+        className="lg:hidden h-56 w-full rounded-b-[50%]"
+        style={{ background: blob.gradient }}
+      />
+
+      {/* Blob-side content (colored side) */}
+      <div
+        className={[
+          "relative z-10 px-8 py-14 text-white text-center flex flex-col items-center justify-center",
+          isLeft ? "lg:order-1" : "lg:order-2",
+        ].join(" ")}
+      >
+        <h3 className="text-2xl sm:text-3xl md:text-[38px] font-extrabold uppercase leading-tight tracking-tight max-w-md">
+          {blob.blobTitle}
+        </h3>
+        <p className="mt-4 text-sm md:text-[15px] leading-relaxed text-white/90 max-w-sm">
+          {blob.blobDesc}
+        </p>
+        {blob.extras}
+        <a
+          href={BOOK_URL}
+          className="mt-8 inline-flex items-center gap-3 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/25 hover:-translate-y-0.5"
+        >
+          Book a Call
+          <span className="grid place-items-center w-8 h-8 rounded-full bg-white text-neutral-900">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      {/* Text-side glass card */}
+      <div
+        className={[
+          "relative z-10 m-6 lg:m-10 rounded-3xl bg-white/80 lg:bg-white/15 backdrop-blur-xl border border-white/40 shadow-xl p-8 md:p-10",
+          isLeft ? "lg:order-2" : "lg:order-1",
+        ].join(" ")}
+      >
+        <h2 className="blob-heading text-[32px] sm:text-4xl md:text-[52px] font-extrabold uppercase leading-[0.95] tracking-tight text-neutral-900">
+          {blob.mainTitle}
+        </h2>
+        <p className="mt-5 text-[15px] md:text-base leading-relaxed text-neutral-700 max-w-lg">
+          {blob.mainDesc}
+        </p>
+        <style>{`
+          .blob-heading .highlight{
+            background: ${blob.highlightGradient};
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+          }
+        `}</style>
+      </div>
+    </div>
   );
 }
 
