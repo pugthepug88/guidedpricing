@@ -782,7 +782,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "AI follow-ups via SMS and Email",
       "Real-time opportunity tracking",
     ],
-    gradient: "linear-gradient(135deg,#0ea570 0%,#22c55e 100%)",
+    gradient: "linear-gradient(135deg,#667eea 0%,#764ba2 100%)",
     logo: logoGreen.url,
   },
   {
@@ -794,7 +794,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Lead source & campaign tagging",
       "Manage bookings & edits on the go",
     ],
-    gradient: "linear-gradient(135deg,#f59e0b 0%,#fbbf24 100%)",
+    gradient: "linear-gradient(135deg,#11998e 0%,#38ef7d 100%)",
     logo: logoYellow.url,
   },
   {
@@ -806,7 +806,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Bulk review request blast",
       "Embeddable review badges",
     ],
-    gradient: "linear-gradient(135deg,#ea580c 0%,#fb923c 100%)",
+    gradient: "linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)",
     logo: logoOrange.url,
   },
   {
@@ -818,7 +818,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Email + SMS history in one thread",
       "Mobile-friendly for those on the go",
     ],
-    gradient: "linear-gradient(135deg,#0d9488 0%,#2dd4bf 100%)",
+    gradient: "linear-gradient(135deg,#fa709a 0%,#fee140 100%)",
     logo: logoTeal.url,
   },
   {
@@ -830,7 +830,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Payment reminders on autopilot",
       "Track invoice status in your pipeline",
     ],
-    gradient: "linear-gradient(135deg,#1d4ed8 0%,#3b82f6 100%)",
+    gradient: "linear-gradient(135deg,#a8edea 0%,#fed6e3 100%)",
     logo: logoBlue.url,
   },
   {
@@ -842,7 +842,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Missed-call follow-ups to recover leads",
       "Automated DMs, campaigns & review requests",
     ],
-    gradient: "linear-gradient(135deg,#7c3aed 0%,#a855f7 100%)",
+    gradient: "linear-gradient(135deg,#667eea 0%,#764ba2 100%)",
     logo: logoPurple.url,
   },
   {
@@ -854,7 +854,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Webhook & API support",
       "Real-time data push & pull",
     ],
-    gradient: "linear-gradient(135deg,#db2777 0%,#f472b6 100%)",
+    gradient: "linear-gradient(135deg,#11998e 0%,#38ef7d 100%)",
     logo: logoPink.url,
   },
   {
@@ -866,7 +866,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Export as PDF or share as live link",
       "AI detects what's underperforming",
     ],
-    gradient: "linear-gradient(135deg,#dc2626 0%,#f87171 100%)",
+    gradient: "linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)",
     logo: logoRed.url,
   },
   {
@@ -878,7 +878,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Approvals & team collaboration built in",
       "Post once, publish everywhere",
     ],
-    gradient: "linear-gradient(135deg,#ff6a3d 0%,#ffb347 40%,#3ecf8e 100%)",
+    gradient: "linear-gradient(135deg,#fa709a 0%,#fee140 100%)",
     logo: logoRainbow.url,
   },
   {
@@ -890,7 +890,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Hooks & creatives from $2B ROAS data",
       "Rigorous split testing & optimization",
     ],
-    gradient: "linear-gradient(135deg,#166534 0%,#16a34a 100%)",
+    gradient: "linear-gradient(135deg,#a8edea 0%,#fed6e3 100%)",
     logo: logoGreen.url,
   },
   {
@@ -902,7 +902,7 @@ const PLATFORM_CARDS: PlatformCard[] = [
       "Ride the wave of what's hot",
       "Get published in 3000+ media outlets",
     ],
-    gradient: "linear-gradient(135deg,#0b1e4a 0%,#1e40af 100%)",
+    gradient: "linear-gradient(135deg,#667eea 0%,#764ba2 100%)",
     logo: logoBlue.url,
   },
 ];
