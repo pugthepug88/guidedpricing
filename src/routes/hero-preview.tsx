@@ -924,6 +924,7 @@ const PLATFORM_LOGOS = [
 
 function PlatformSlider() {
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const pausedRef = useRef(false);
 
   const scrollByCards = (dir: 1 | -1) => {
     const el = trackRef.current;
@@ -932,6 +933,24 @@ function PlatformSlider() {
     const step = card ? card.offsetWidth + 24 : 340;
     el.scrollBy({ left: dir * step * 1.2, behavior: "smooth" });
   };
+
+  // Auto-advance every 3.5s; pause on hover/touch. Loops back to the start when reaching the end.
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const id = window.setInterval(() => {
+      if (pausedRef.current) return;
+      const card = el.querySelector<HTMLElement>("[data-card]");
+      const step = card ? card.offsetWidth + 24 : 340;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      if (atEnd) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        el.scrollBy({ left: step, behavior: "smooth" });
+      }
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, []);
 
   return (
     <section className="relative bg-white py-20 sm:py-28">
