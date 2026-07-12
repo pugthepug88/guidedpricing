@@ -1,49 +1,50 @@
 
-# Pricing Page V2 — Side-by-Side Comparison
+## Fair point
 
-Create a new route `/pricing-v2` that clones the current pricing page and applies all 5 proposed improvements. The existing `/` page stays untouched so you can flip between the two URLs and compare.
+A pricing page hero should orient the buyer on **price + value + next step** — not re-sell the product with a dashboard mockup. That belongs on the home page. Let's strip pricing-v2 back to a proper pricing hero and keep the other improvements (softer "messy" accent, Scale+ enterprise card, sticky mobile CTA, human testimonials).
 
-## New route
+## Revised hero for /pricing-v2
 
-- `src/routes/pricing-v2.tsx` — duplicates the current index composition, then diverges section-by-section with the changes below.
-- Reuses existing section components where unchanged; new/variant sections live in `src/components/pricing-v2/` so nothing on the live page is disturbed.
+Single centered column, tight and compact — no dashboard visual.
 
-## Changes applied in V2
+```text
+                    [ ★★★★★  Trusted by 200+ AU businesses ]
 
-1. **Hero redesign**
-   - Two-column hero: headline + trust bar (star rating, user count, "Backed by…" logos) on the left; a product/OS dashboard mock on the right.
-   - Keep the "16 tools · one AI operating system" line but demoted to a supporting eyebrow.
-   - Move the 3D funnel out of hero — it stays as the pillars section anchor.
+              Simple pricing. One operating system.
+                  Replace 16 tools. Save thousands.
 
-2. **Human-centric social proof (Monday-style)**
-   - Replace current testimonial strip with large portrait cards: big human photo, name, role, company logo, one-line result metric, quote.
-   - Horizontal scroll on mobile, 3-up grid on desktop.
-   - Placeholder portraits generated as assets (or Unsplash-style neutral portraits) — you can swap in real customer photos later.
+     Pick a plan below — or book a 20-min call and we'll map the
+     right setup for your business (no pressure, no hard sell).
 
-3. **Pricing table polish**
-   - Standard tiers keep current card style but tightened spacing + clearer "Most popular" ribbon.
-   - **Scale+** gets a distinct dark "Enterprise" card treatment (different background, "Talk to sales" CTA, no price — "Custom").
-   - Comparison table below with sticky header, zebra rows, category grouping.
+              [ See plans ↓ ]   [ Book a strategy call ]
 
-4. **Visual rhythm**
-   - Soften the red "messy stack" copy to a muted coral/orange.
-   - Alternate section backgrounds (white → soft tint → white) so sections feel distinct instead of one long scroll.
-   - Add subtle section dividers/eyebrows.
+     ✓ Guided launch included    ✓ Cancel anytime    ✓ AU-based support
+```
 
-5. **Conversion**
-   - Sticky bottom CTA bar on mobile ("Start free trial · Talk to sales").
-   - Trust badges row under hero and above final CTA (stars, review count, security/compliance marks if applicable).
+Then the page jumps straight into the pricing tiers (which is what a buyer clicked "Pricing" to see).
 
-## Out of scope
+### Structure changes on /pricing-v2
 
-- No content/copy rewrites beyond the "messy stack" color softening.
-- No changes to `/` (current page).
-- No new backend, no auth, no data model changes.
-- Real customer photos — placeholders only; you swap them in later.
+1. **Hero** — compact, centered, pricing-first (above). Kills the two-column dashboard mockup.
+2. **Anchor jump** — "See plans" scrolls to the pricing grid immediately below.
+3. **Order of sections** (revised for a pricing-page narrative):
+   - Hero (compact)
+   - Pricing tiers (with Scale+ enterprise treatment — keep)
+   - Comparison table / what's included
+   - "Replace the messy stack" pillars + funnel (justifies the price)
+   - Human-face testimonials / customer results (keep — Monday-style)
+   - Savings calculator
+   - Launch pack / guided onboarding
+   - FAQ
+   - Sticky mobile CTA (keep)
+4. **Keep as-is**: softer coral "messy" color, Scale+ dark enterprise card, sticky mobile CTA, noindex meta.
+5. **Remove**: the dashboard mockup component and its imports.
 
-## How to compare
+### Technical notes
 
-- Current: `/`
-- New: `/pricing-v2`
+- Edit only `src/routes/pricing-v2.tsx`. `/` (home) stays untouched.
+- Replace the two-column hero JSX with the compact centered version.
+- Move the pricing section directly under the hero; keep other sections in the reordered flow above.
+- Trust bar (5 stars + count + AU support) stays but shrinks to a single pill above the headline.
 
-After you review, tell me which sections to promote back to `/` (or keep both and A/B).
+Approve and I'll make the swap.
