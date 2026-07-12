@@ -1149,26 +1149,21 @@ function Pillars() {
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px]">
             {tools.map((t, i) => {
               const s = spawns[i];
-              const y = reduce
-                ? 0
-                : useTransform(scrollYProgress, [0.05 + s.d, 0.55 + s.d], [0, 380]);
-              const opacity = reduce
-                ? 1
-                : useTransform(
-                    scrollYProgress,
-                    [0.05 + s.d, 0.15 + s.d, 0.4 + s.d, 0.5 + s.d],
-                    [0, 1, 1, 0],
-                  );
-              const scale = reduce
-                ? 1
-                : useTransform(scrollYProgress, [0.05 + s.d, 0.5 + s.d], [1, 0.4]);
+              // Hooks must run every render — gate the effect via `reduce`, not the call.
+              const yMv = useTransform(scrollYProgress, [0.05 + s.d, 0.55 + s.d], [0, 380]);
+              const oMv = useTransform(
+                scrollYProgress,
+                [0.05 + s.d, 0.15 + s.d, 0.4 + s.d, 0.5 + s.d],
+                [0, 1, 1, 0],
+              );
+              const scMv = useTransform(scrollYProgress, [0.05 + s.d, 0.5 + s.d], [1, 0.4]);
               return (
                 <motion.div
                   key={t.n}
                   style={{
-                    y,
-                    opacity,
-                    scale,
+                    y: reduce ? 0 : yMv,
+                    opacity: reduce ? 1 : oMv,
+                    scale: reduce ? 1 : scMv,
                     rotate: s.r,
                     left: `calc(50% + ${s.x * 3.2}px)`,
                     top: `${140 + s.y}px`,
