@@ -8,14 +8,9 @@ import customer05 from "@/assets/customer-05-peak.jpg";
 import customer06 from "@/assets/customer-06-complete.jpg";
 import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
-import zaplaFunnel16Apps from "@/assets/pillar-option-a-funnel.jpg";
+import zaplaFunnel16Apps from "@/assets/zapla-funnel-16-apps-final.png";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    links: [
-      { rel: "preload", as: "image", href: zaplaFunnel16Apps },
-    ],
-  }),
   component: PricingPage,
 });
 
@@ -998,7 +993,6 @@ function Customers() {
                       src={c.img}
                       alt=""
                       loading="lazy"
-                      decoding="async"
                       width={1200}
                       height={750}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -1102,9 +1096,7 @@ function Pillars() {
             alt="Sixteen business apps funneling into one Zapla system"
             width={1024}
             height={1024}
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
+            loading="lazy"
             className="relative mx-auto h-auto w-full max-w-[420px] drop-shadow-[0_28px_42px_rgba(37,99,255,0.18)] sm:max-w-[450px]"
           />
         </Reveal>
