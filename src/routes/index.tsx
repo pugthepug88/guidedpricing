@@ -188,6 +188,7 @@ function SectionHead({
 function PricingPage() {
   return (
     <div className="min-h-screen bg-zapla-bg font-zapla text-zapla-ink antialiased">
+      <SiteNav />
       <Hero />
       <GuidedStrip />
       <Pricing />
@@ -199,6 +200,7 @@ function PricingPage() {
       <ValueGrid />
       <Faq />
       <FinalCta />
+      <SiteFooter />
     </div>
   );
 }
