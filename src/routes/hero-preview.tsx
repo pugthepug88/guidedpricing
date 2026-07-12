@@ -1148,22 +1148,22 @@ function AISection() {
 
         <div className="mt-14 grid auto-rows-fr gap-6 lg:grid-cols-3">
           <AICard
-            title="AI Employee"
-            desc="Your 24/7 AI receptionist. Answers calls, books appointments, and handles customer questions — even when you're off the clock."
+            title="AI-Powered Workflow"
+            desc="Let AI run your follow-ups, sentiment checks, and CRM actions. Every step connected, every outcome automatic."
           >
             <video
-              src={aiEmployeeVideo.url}
+              src={aiWorkflowVideo.url}
               autoPlay muted loop playsInline
               className="h-full w-full rounded-[18px] object-cover"
             />
           </AICard>
 
           <AICard
-            title="AI-Powered Workflow"
-            desc="Let AI run your follow-ups, sentiment checks, and CRM actions. Every step connected, every outcome automatic."
+            title="AI Employee"
+            desc="Your 24/7 AI receptionist. Answers calls, books appointments, and handles customer questions — even when you're off the clock."
           >
             <video
-              src={aiWorkflowVideo.url}
+              src={aiEmployeeVideo.url}
               autoPlay muted loop playsInline
               className="h-full w-full rounded-[18px] object-cover"
             />
