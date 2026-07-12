@@ -1104,7 +1104,7 @@ function Pillars() {
         <Reveal delay={100} className="relative mt-14">
           <div className="mx-auto max-w-[880px] overflow-hidden rounded-3xl border border-zapla-line bg-white p-6 shadow-zapla sm:p-10">
             <img
-              src={funnelImg.url}
+              src={funnelImg}
               alt="16 business apps pouring into the Zapla funnel, one system out"
               width={1024}
               height={1280}
