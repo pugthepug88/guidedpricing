@@ -1,33 +1,26 @@
-## Current rating: 6.5/10
+## What's wrong with the current Pillars section
 
-The v3 Option A funnel image itself is strong, but the section around it undercuts it: a white card frame, a redundant strip of 16 favicon chips below it (the icons are already baked into the render), and a hard rectangular boundary make the graphic look pasted-in rather than part of the page. No scroll payoff — it's a static block.
+Scrolling through it top-to-bottom:
 
-## Goal
-Make the funnel feel native to the page, remove the duplicate icon strip, and add a scroll-driven "pour → drop" animation so scrolling down physically pushes icons through the funnel and reveals the Zapla logo at the bottom.
+1. **It's a 900px-tall scroll stage** (`h-[820px] sm:h-[900px]`) with 24-32 units of vertical padding on top of that — the whole section is ~1,200px tall. On a pricing page that's absurd; it dominates like a hero.
+2. **I ignored the image you already approved.** `src/assets/pillar-option-a-funnel.jpg` — the v3 Option A render you picked — is sitting in the repo, already featuring the funnel + icons + Zapla drop baked in. Instead of using it, I re-imported a separate transparent `funnel-body.png` and rebuilt the whole scene with 16 favicon chips + motion transforms + a separate Zapla logo layer. That's why it never matches the image you liked — it's a re-creation, not the render.
+3. **The favicon chips look cheap.** `google/s2/favicons` returns low-res 64px favicons wrapped in white pills. The v3 render has photoreal 3D app icons. No amount of animation fixes that gap.
+4. **Two competing focal points.** The scroll animation asks the eye to track 16 falling chips *and* watch the Zapla drop *and* read the heading. On a pricing page the viewer just wants: "16 tools → 1 Zapla, got it, show me the price."
+5. **Redundant elements below.** Savings pills + two CTAs after the scene stretch it further, when the pricing table is literally the next section.
 
-## Steps
+## The plan — use the render, cut it in half
 
-1. **Regenerate the funnel graphic to layered pieces** (so we can animate parts independently):
-   - `pillar-funnel-body.png` — just the 3D blue glass funnel + soft shadow, transparent background, no icons.
-   - `pillar-funnel-icons.png` — the 16 brand icons (WordPress, Wix, ClickFunnels, HubSpot, Pipedrive, Mailchimp, Klaviyo, Twilio, Calendly, Typeform, Jotform, Zapier, Hootsuite, NiceJob, DocuSign, Stripe) as a floating cluster above the funnel mouth, transparent background.
-   - `zapla-logo-3d.png` — regenerate the Zapla icon to match the attached logo (rounded-square blue tile, white "Z"), with the white "Z" fully filled solid white as requested, matte 3D drop-shadow, transparent background.
+**Replace the whole `Pillars()` scroll stage with the v3 Option A image, static.**
 
-2. **Rebuild the Pillars section** in `src/routes/index.tsx`:
-   - Remove the white card frame, border, and the entire duplicate favicon chip row underneath. Section becomes a tall, blended canvas that flows with the page background (soft ambient glows only).
-   - Compose the graphic as three stacked absolutely-positioned layers inside a tall (~ 900px) scroll stage: icon cluster on top, funnel body in the middle, Zapla logo below the spout.
-   - Keep the savings pills (A$1,847 crossed out / One bill · Save…) but float them cleanly under the whole scene, not inside a card.
+Concretely, in `src/routes/index.tsx` `Pillars()`:
 
-3. **Scroll-driven animation** (using `useScroll` + `useTransform` from framer-motion, already in the project):
-   - As the section enters and progresses through the viewport (0 → 1):
-     - Icon cluster: translateY from -60px → +180px and fade out near the funnel mouth (pouring in).
-     - Individual icons stagger slightly (varying speeds) for a "raining into funnel" feel.
-     - Funnel body: gentle scale/glow pulse peaks at mid-scroll.
-     - Zapla logo: starts hidden below spout (opacity 0, translateY +40px, scale 0.7) → at ~65% scroll snaps up to full opacity + scale 1 with a soft blue glow bloom (the "drop out" moment).
-   - Respect `prefers-reduced-motion`: fall back to a static composed layout.
+- Delete the icon cloud layer, funnel body layer, Zapla drop layer, all `useScroll` / `useTransform` / `spawns` / `tools` arrays.
+- Drop the `funnel-body.png` and `zaplaLogo3d` imports for this section. Import `pillar-option-a-funnel.jpg` instead.
+- Replace with a single centered `<img>` of the v3 render, ~460–520px wide, with a subtle blue glow behind it and one gentle `Reveal` fade-in on scroll (no scroll-linked transforms).
+- Shrink section padding: `py-24 sm:py-32` → `py-14 sm:py-20`.
+- Keep the heading ("Pour your stack in. Get Zapla out.") and the two savings pills — those earn their place.
+- Remove the two CTAs at the bottom (pricing table is right underneath).
 
-4. **Verify** at desktop and mobile widths — the scene should feel tall and cinematic on desktop, and compress cleanly on mobile without the icons overlapping the funnel awkwardly.
+**Expected height:** ~600px total instead of ~1,200px. Roughly half.
 
-## Notes
-- No copy changes (heading, sub, CTAs, savings pills stay identical).
-- No changes outside the Pillars section.
-- The `pillar-funnel-v2.jpg` composite stays in the repo as a fallback but is no longer imported.
+**Nothing else on the page changes.**

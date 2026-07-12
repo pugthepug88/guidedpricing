@@ -9,8 +9,7 @@ import customer06 from "@/assets/customer-06-complete.jpg";
 import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
 import zaplaIcon from "@/assets/zapla-icon.png.asset.json";
-import funnelBody from "@/assets/funnel-body.png.asset.json";
-import zaplaLogo3d from "@/assets/zapla-logo-3d.png.asset.json";
+import pillarFunnel from "@/assets/pillar-option-a-funnel.jpg";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 
 export const Route = createFileRoute("/")({
@@ -1061,175 +1060,45 @@ function Customers() {
 /* ------------------------------------------------------------------ */
 
 function Pillars() {
-  const tools: Array<{ n: string; domain: string }> = [
-    { n: "WordPress",    domain: "wordpress.org" },
-    { n: "Wix",          domain: "wix.com" },
-    { n: "ClickFunnels", domain: "clickfunnels.com" },
-    { n: "HubSpot",      domain: "hubspot.com" },
-    { n: "Pipedrive",    domain: "pipedrive.com" },
-    { n: "Mailchimp",    domain: "mailchimp.com" },
-    { n: "Klaviyo",      domain: "klaviyo.com" },
-    { n: "Twilio",       domain: "twilio.com" },
-    { n: "Calendly",     domain: "calendly.com" },
-    { n: "Typeform",     domain: "typeform.com" },
-    { n: "Jotform",      domain: "jotform.com" },
-    { n: "Zapier",       domain: "zapier.com" },
-    { n: "Hootsuite",    domain: "hootsuite.com" },
-    { n: "NiceJob",      domain: "nicejob.com" },
-    { n: "DocuSign",     domain: "docusign.com" },
-    { n: "Stripe",       domain: "stripe.com" },
-  ];
-
-  // Scattered spawn positions (x % from center, y px above funnel mouth) for each icon.
-  // Tuned so icons rain from a wide cloud into the funnel mouth.
-  const spawns: Array<{ x: number; y: number; d: number; r: number }> = [
-    { x: -38, y: -40,  d: 0.00, r: -12 },
-    { x: -22, y: -80,  d: 0.05, r:  8  },
-    { x: -6,  y: -30,  d: 0.10, r: -6  },
-    { x:  12, y: -70,  d: 0.02, r:  14 },
-    { x:  28, y: -20,  d: 0.08, r: -10 },
-    { x:  40, y: -60,  d: 0.12, r:  4  },
-    { x: -46, y: -10,  d: 0.15, r:  10 },
-    { x: -30, y:  10,  d: 0.18, r: -8  },
-    { x: -14, y: -110, d: 0.06, r:  6  },
-    { x:   4, y: -100, d: 0.09, r: -14 },
-    { x:  20, y:  10,  d: 0.16, r:  8  },
-    { x:  36, y:  20,  d: 0.20, r: -4  },
-    { x: -40, y: -140, d: 0.04, r:  12 },
-    { x:  -2, y: -160, d: 0.07, r: -6  },
-    { x:  30, y: -130, d: 0.11, r:  4  },
-    { x:  46, y:  -90, d: 0.14, r: -10 },
-  ];
-
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Funnel body: gentle scale/glow bloom peaks mid-scroll.
-  const funnelScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.96, 1.04, 1]);
-  const glowOpacity = useTransform(scrollYProgress, [0.2, 0.55, 0.9], [0.2, 0.8, 0.35]);
-
-  // Zapla drop reveal.
-  const zaplaOpacity = useTransform(scrollYProgress, [0.45, 0.68, 0.75], [0, 1, 1]);
-  const zaplaY = useTransform(scrollYProgress, [0.45, 0.72], [50, 0]);
-  const zaplaScale = useTransform(scrollYProgress, [0.45, 0.68, 0.78], [0.65, 1.1, 1]);
-  const zaplaGlow = useTransform(scrollYProgress, [0.55, 0.72, 0.95], [0, 1, 0.75]);
-
   return (
     <section
       id="replaces"
-      ref={sectionRef}
-      className="relative overflow-hidden bg-zapla-bg py-24 sm:py-32"
+      className="relative overflow-hidden bg-zapla-bg py-14 sm:py-20"
     >
-      {/* Ambient background glows — page-blended, no card frame */}
-      <div className="pointer-events-none absolute -top-40 left-[8%] h-[480px] w-[560px] rounded-full bg-[#EF4444]/8 blur-[160px]" />
-      <div className="pointer-events-none absolute -bottom-48 right-[6%] h-[560px] w-[660px] rounded-full bg-zapla-blue/18 blur-[180px]" />
+      {/* Ambient background glows */}
+      <div className="pointer-events-none absolute -top-24 left-[8%] h-[380px] w-[460px] rounded-full bg-[#EF4444]/8 blur-[140px]" />
+      <div className="pointer-events-none absolute -bottom-32 right-[6%] h-[440px] w-[540px] rounded-full bg-zapla-blue/18 blur-[160px]" />
 
-      <div className="relative mx-auto max-w-[1240px] px-5 sm:px-8">
+      <div className="relative mx-auto max-w-[1100px] px-5 sm:px-8">
         {/* Section heading */}
         <Reveal className="mx-auto max-w-[820px] text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue shadow-zapla-sm">
             16 tools in · 1 system out
           </span>
-          <h2 className="mt-5 text-[40px] font-extrabold leading-[1.05] tracking-[-0.02em] text-zapla-ink sm:text-[56px]">
+          <h2 className="mt-5 text-[32px] font-extrabold leading-[1.05] tracking-[-0.02em] text-zapla-ink sm:text-[44px]">
             Pour your <span className="text-[#B91C1C]">stack</span> in.
             <br className="hidden sm:block" /> Get <span className="zapla-gradient-text">Zapla</span> out.
           </h2>
-          <p className="mx-auto mt-4 max-w-[640px] text-[16px] leading-[1.55] text-zapla-muted">
+          <p className="mx-auto mt-4 max-w-[620px] text-[15px] leading-[1.55] text-zapla-muted">
             Website, funnels, CRM, email, SMS, bookings, forms, automations, payments and reviews — sixteen apps collapse into a single operating system, on one bill.
           </p>
         </Reveal>
 
-        {/* ============ SCROLL STAGE ============ */}
-        <div className="relative mx-auto mt-16 h-[820px] w-full max-w-[720px] sm:h-[900px]">
-          {/* Layer 1 — icon cloud (top of stage) */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px]">
-            {tools.map((t, i) => {
-              const s = spawns[i];
-              // Hooks must run every render — gate the effect via `reduce`, not the call.
-              const yMv = useTransform(scrollYProgress, [0.05 + s.d, 0.55 + s.d], [0, 380]);
-              const oMv = useTransform(
-                scrollYProgress,
-                [0.05 + s.d, 0.15 + s.d, 0.4 + s.d, 0.5 + s.d],
-                [0, 1, 1, 0],
-              );
-              const scMv = useTransform(scrollYProgress, [0.05 + s.d, 0.5 + s.d], [1, 0.4]);
-              return (
-                <motion.div
-                  key={t.n}
-                  style={{
-                    y: reduce ? 0 : yMv,
-                    opacity: reduce ? 1 : oMv,
-                    scale: reduce ? 1 : scMv,
-                    rotate: s.r,
-                    left: `calc(50% + ${s.x * 3.2}px)`,
-                    top: `${140 + s.y}px`,
-                  }}
-                  className="absolute -translate-x-1/2 will-change-transform"
-                >
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-zapla-line bg-white/95 px-2.5 py-1.5 shadow-zapla backdrop-blur-sm">
-                    <img
-                      src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=64`}
-                      alt=""
-                      className="h-4 w-4 shrink-0"
-                      loading="lazy"
-                    />
-                    <span className="text-[11px] font-bold text-zapla-ink">{t.n}</span>
-                  </span>
-                </motion.div>
-              );
-            })}
-          </div>
+        {/* Static hero render */}
+        <Reveal delay={100} className="relative mx-auto mt-10 w-full max-w-[520px]">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/25 blur-[90px]" />
+          <img
+            src={pillarFunnel}
+            alt="Sixteen tools funneling into one Zapla operating system"
+            width={1024}
+            height={1024}
+            loading="lazy"
+            className="relative mx-auto h-auto w-full drop-shadow-[0_30px_50px_rgba(37,99,255,0.22)]"
+          />
+        </Reveal>
 
-          {/* Layer 2 — funnel body (centered) */}
-          <motion.div
-            style={{ scale: reduce ? 1 : funnelScale }}
-            className="absolute left-1/2 top-[240px] -translate-x-1/2 will-change-transform"
-          >
-            {/* soft blue bloom behind funnel */}
-            <motion.div
-              style={{ opacity: reduce ? 0.4 : glowOpacity }}
-              className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/35 blur-[80px]"
-            />
-            <img
-              src={funnelBody.url}
-              alt="Zapla funnel"
-              width={1024}
-              height={1280}
-              loading="lazy"
-              className="relative mx-auto h-auto w-[360px] sm:w-[420px] drop-shadow-[0_30px_50px_rgba(37,99,255,0.25)]"
-            />
-          </motion.div>
-
-          {/* Layer 3 — Zapla logo drop (below spout) */}
-          <motion.div
-            style={{
-              opacity: reduce ? 1 : zaplaOpacity,
-              y: reduce ? 0 : zaplaY,
-              scale: reduce ? 1 : zaplaScale,
-            }}
-            className="absolute left-1/2 bottom-8 -translate-x-1/2 will-change-transform"
-          >
-            <motion.div
-              style={{ opacity: reduce ? 0.6 : zaplaGlow }}
-              className="pointer-events-none absolute left-1/2 top-1/2 h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zapla-blue/55 blur-[70px]"
-            />
-            <img
-              src={zaplaLogo3d.url}
-              alt="Zapla"
-              width={512}
-              height={512}
-              loading="lazy"
-              className="relative h-[120px] w-[120px] sm:h-[140px] sm:w-[140px] drop-shadow-[0_20px_35px_rgba(37,99,255,0.5)]"
-            />
-          </motion.div>
-        </div>
-
-        {/* Savings pills — floating cleanly under the scene */}
-        <Reveal delay={150} className="mt-4 flex flex-wrap items-center justify-center gap-3">
+        {/* Savings pills */}
+        <Reveal delay={200} className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#FEE2E2] bg-[#FEF2F2] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#B91C1C] line-through">
             A$1,847 / mo · 16 bills
           </div>
@@ -1237,27 +1106,11 @@ function Pillars() {
             One bill · Save A$1,500–2,500 / mo
           </div>
         </Reveal>
-
-        {/* CTAs */}
-        <Reveal delay={250} className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="#pricing"
-            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-zapla-blue via-zapla-violet to-zapla-magenta px-6 py-3 text-[14px] font-extrabold text-white shadow-zapla-blue transition-transform duration-300 hover:-translate-y-0.5"
-          >
-            See what you replace
-            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </a>
-          <a
-            href="#roi"
-            className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-5 py-3 text-[14px] font-extrabold text-zapla-ink transition-colors hover:border-zapla-blue/40 hover:text-zapla-blue"
-          >
-            Calculate your savings
-          </a>
-        </Reveal>
       </div>
     </section>
   );
 }
+
 
 
 
