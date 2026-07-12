@@ -553,7 +553,8 @@ function CompareTable() {
     ["Contacts", "2,500", "10,000", "25,000", "Custom"],
     ["Locations", "1", "1", "2+", "Custom"],
     ["SMS included", "250 seg/mo", "500 seg/mo", "1,000 seg/mo", "Custom"],
-    ["AI chat", "—", "Where relevant", "Where relevant", "Custom"],
+    ["Email included", "2,500", "10,000", "25,000", "Custom"],
+    ["AI chat", "Where relevant", "Where relevant", "Where relevant", "Custom"],
     ["AI Receptionist", "—", "Add-on", "Add-on", "Custom"],
     ["Rollout support", "Training session", "Training + check-ins", "Training + extended check-ins", "Custom"],
   ];
