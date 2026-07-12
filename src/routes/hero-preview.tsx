@@ -1277,24 +1277,29 @@ function ReviewCardStack() {
     return () => clearInterval(id);
   }, []);
 
+  const positions = [
+    { top: "6%", left: "4%", right: "18%", rotate: -2 },
+    { top: "34%", left: "2%", right: "22%", rotate: 1 },
+    { top: "62%", left: "18%", right: "4%", rotate: -1 },
+  ];
+
   return (
-    <div className="absolute inset-0 p-4">
+    <div className="absolute inset-0">
       {REVIEW_CARDS.map((r, i) => {
-        const offset = (i - active + REVIEW_CARDS.length) % REVIEW_CARDS.length;
-        const isTop = offset === 0;
-        // Fanned stack: top card centered, others peek from bottom-right
-        const translateX = offset * 18;
-        const translateY = offset * 22;
-        const scale = 1 - offset * 0.04;
+        const isActive = i === active;
+        const pos = positions[i];
         return (
           <div
             key={r.name}
-            className="absolute left-3 right-3 rounded-2xl bg-white p-3.5 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
+            className="review-scatter-card absolute rounded-2xl bg-white p-3.5 shadow-[0_20px_40px_-15px_rgba(15,23,42,0.25)] ring-1 ring-slate-900/5 transition-all duration-700 ease-out"
             style={{
-              top: "8%",
-              transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-              opacity: offset < 3 ? (isTop ? 1 : 0.9 - offset * 0.15) : 0,
-              zIndex: REVIEW_CARDS.length - offset,
+              top: pos.top,
+              left: pos.left,
+              right: pos.right,
+              transform: `rotate(${pos.rotate}deg) scale(${isActive ? 1 : 0.93})`,
+              opacity: isActive ? 1 : 0.55,
+              zIndex: isActive ? 10 : 3 - i,
+              animation: `reviewFloat${i} 5s ease-in-out ${i * 0.7}s infinite`,
             }}
           >
             <div className="flex items-center gap-2.5">
@@ -1329,6 +1334,12 @@ function ReviewCardStack() {
           </div>
         );
       })}
+
+      <style>{`
+        @keyframes reviewFloat0 { 0%, 100% { transform: rotate(-2deg) translateY(0) scale(var(--active-scale-0, 1)); } 50% { transform: rotate(-2deg) translateY(-6px) scale(var(--active-scale-0, 1)); } }
+        @keyframes reviewFloat1 { 0%, 100% { transform: rotate(1deg) translateY(0) scale(var(--active-scale-1, 0.93)); } 50% { transform: rotate(1deg) translateY(-8px) scale(var(--active-scale-1, 0.93)); } }
+        @keyframes reviewFloat2 { 0%, 100% { transform: rotate(-1deg) translateY(0) scale(var(--active-scale-2, 0.93)); } 50% { transform: rotate(-1deg) translateY(-5px) scale(var(--active-scale-2, 0.93)); } }
+      `}</style>
     </div>
   );
 }
