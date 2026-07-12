@@ -523,43 +523,58 @@ function Pricing() {
         />
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {PLANS.map((p, idx) => (
+          {PLANS.map((p, idx) => {
+            const isEnt = p.name === "Scale+";
+            return (
             <Reveal
               key={p.name}
               delay={idx * 80}
-              className={`group relative flex flex-col overflow-hidden rounded-[22px] bg-white p-6 transition-all duration-300 hover:-translate-y-1 ${
-                p.recommended
-                  ? "border-2 border-zapla-blue shadow-zapla-lift md:-translate-y-3"
-                  : "border border-zapla-line shadow-zapla-sm hover:border-zapla-line2 hover:shadow-zapla"
+              className={`group relative flex flex-col overflow-hidden rounded-[22px] p-6 transition-all duration-300 hover:-translate-y-1 ${
+                isEnt
+                  ? "border border-white/10 bg-gradient-to-br from-[#0B1220] via-[#111a2e] to-[#0B1220] text-white shadow-zapla-lift"
+                  : p.recommended
+                  ? "border-2 border-zapla-blue bg-white shadow-zapla-lift md:-translate-y-3"
+                  : "border border-zapla-line bg-white shadow-zapla-sm hover:border-zapla-line2 hover:shadow-zapla"
               }`}
             >
-              {p.recommended && (
+              {isEnt && (
+                <>
+                  <div className="pointer-events-none absolute -top-24 -right-16 h-48 w-48 rounded-full bg-zapla-violet/40 blur-3xl" />
+                  <div className="pointer-events-none absolute -bottom-24 -left-16 h-48 w-48 rounded-full bg-zapla-blue/30 blur-3xl" />
+                  <div className="absolute -top-px left-1/2 -translate-x-1/2 rounded-b-lg bg-gradient-to-r from-zapla-violet to-zapla-blue px-4 py-1.5 text-[10.5px] font-extrabold uppercase tracking-[0.12em] text-white">
+                    Enterprise
+                  </div>
+                </>
+              )}
+              {p.recommended && !isEnt && (
                 <div className="absolute -top-px left-1/2 -translate-x-1/2 rounded-b-lg bg-zapla-blue px-4 py-1.5 text-[10.5px] font-extrabold uppercase tracking-[0.12em] text-white shadow-zapla-blue">
                   Most Popular
                 </div>
               )}
               <div className="relative flex h-full flex-col">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-[24px] font-extrabold tracking-[-0.03em] text-zapla-ink">
+                  <h3 className={`text-[24px] font-extrabold tracking-[-0.03em] ${isEnt ? "text-white" : "text-zapla-ink"}`}>
                     {p.name}
                   </h3>
                 </div>
-                <p className="mt-2 min-h-[80px] text-[13.5px] leading-[1.55] text-zapla-muted lg:min-h-[96px]">
+                <p className={`mt-2 min-h-[80px] text-[13.5px] leading-[1.55] lg:min-h-[96px] ${isEnt ? "text-white/70" : "text-zapla-muted"}`}>
                   {p.fit}
                 </p>
-                <div className="mt-4 border-b border-zapla-line pb-5">
+                <div className={`mt-4 border-b pb-5 ${isEnt ? "border-white/10" : "border-zapla-line"}`}>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-[44px] font-extrabold tracking-[-0.055em] text-zapla-ink">
+                    <span className={`text-[44px] font-extrabold tracking-[-0.055em] ${isEnt ? "text-white" : "text-zapla-ink"}`}>
                       {p.price}
                     </span>
-                    <span className="text-[13px] font-semibold text-zapla-muted">
+                    <span className={`text-[13px] font-semibold ${isEnt ? "text-white/60" : "text-zapla-muted"}`}>
                       {p.priceLabel}
                     </span>
                   </div>
-                  <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-zapla-blue-soft px-3 py-1.5 text-[12.5px] font-semibold text-zapla-blue2">
-                    <span className="text-zapla-blue">+</span>
+                  <div className={`mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-semibold ${
+                    isEnt ? "bg-white/10 text-white/85" : "bg-zapla-blue-soft text-zapla-blue2"
+                  }`}>
+                    <span className={isEnt ? "text-white" : "text-zapla-blue"}>+</span>
                     <b>{p.launch}</b>
-                    <span className="text-zapla-blue2/70">Launch Pack</span>
+                    <span className={isEnt ? "text-white/60" : "text-zapla-blue2/70"}>Launch Pack</span>
                   </div>
                 </div>
                 <ul className="mt-5 grid gap-3">
@@ -568,7 +583,11 @@ function Pricing() {
                     return (
                       <li key={f} className="flex items-start gap-2.5 text-[13.5px] leading-[1.5]">
                         <Check />
-                        <span className={isStack ? "font-extrabold text-zapla-ink" : "text-[#3a4560]"}>
+                        <span className={
+                          isEnt
+                            ? (isStack ? "font-extrabold text-white" : "text-white/80")
+                            : (isStack ? "font-extrabold text-zapla-ink" : "text-[#3a4560]")
+                        }>
                           {f}
                         </span>
                       </li>
@@ -576,7 +595,15 @@ function Pricing() {
                   })}
                 </ul>
                 <div className="mt-6 flex-1" />
-                {p.recommended ? (
+                {isEnt ? (
+                  <a
+                    href={BOOK_URL}
+                    data-track={p.track}
+                    className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-[15px] font-extrabold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white hover:text-zapla-ink"
+                  >
+                    Talk to sales →
+                  </a>
+                ) : p.recommended ? (
                   <PrimaryButton href={BOOK_URL} track={p.track} className="w-full mt-2">
                     Book a Call →
                   </PrimaryButton>
@@ -587,8 +614,10 @@ function Pricing() {
                 )}
               </div>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
+
 
         <p className="mx-auto mt-8 max-w-[760px] text-center text-[12.5px] text-zapla-muted">
           Prices are in AUD and exclude GST. SMS, AI voice, WhatsApp, domains, payment gateway/card
