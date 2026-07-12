@@ -179,7 +179,7 @@ function PricingPage() {
     <div className="min-h-screen bg-zapla-bg font-zapla text-zapla-ink antialiased">
       <Hero />
       <Pricing />
-      <CompareTable />
+
       <Pillars />
       <Customers />
       <Calculator />
