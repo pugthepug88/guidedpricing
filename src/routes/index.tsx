@@ -9,7 +9,9 @@ import customer06 from "@/assets/customer-06-complete.jpg";
 import customer07 from "@/assets/customer-07-metro.jpg";
 import customer08 from "@/assets/customer-08-urban.jpg";
 import zaplaIcon from "@/assets/zapla-icon.png.asset.json";
-import funnelImg from "@/assets/pillar-funnel-v2.jpg";
+import funnelBody from "@/assets/funnel-body.png.asset.json";
+import zaplaLogo3d from "@/assets/zapla-logo-3d.png.asset.json";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 
 export const Route = createFileRoute("/")({
   component: PricingPage,
