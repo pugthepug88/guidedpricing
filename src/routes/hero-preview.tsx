@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
@@ -7,6 +7,9 @@ import logoOrange from "@/assets/zapla-logo-orange.png.asset.json";
 import logoPurple from "@/assets/zapla-logo-purple.png.asset.json";
 import logoYellow from "@/assets/zapla-logo-yellow.png.asset.json";
 import logoTeal from "@/assets/zapla-logo-teal.png.asset.json";
+import logoPink from "@/assets/zapla-logo-pink.png.asset.json";
+import logoRed from "@/assets/zapla-logo-red.png.asset.json";
+import logoRainbow from "@/assets/zapla-logo-rainbow.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
@@ -25,9 +28,11 @@ function HeroPreviewPage() {
   return (
     <main className="min-h-screen bg-zapla-bg">
       <Hero />
+      <PlatformSlider />
     </main>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  Hero — badge, gradient title, CTA, trust ticks, 6-card stack       */
@@ -752,3 +757,304 @@ function CardTagging() {
 }
 
 
+
+/* ------------------------------------------------------------------ */
+/*  Platform Slider — "One Powerful Platform"                          */
+/* ------------------------------------------------------------------ */
+
+type PlatformCard = {
+  title: string;
+  tagline: string;
+  features: string[];
+  gradient: string;
+  logo: string;
+  dark?: boolean;
+};
+
+const PLATFORM_CARDS: PlatformCard[] = [
+  {
+    title: "CRM & Sales",
+    tagline: "Turn leads into loyal clients",
+    features: [
+      "Smart Pipelines & Contact tagging",
+      "Auto lead assignment & nurturing",
+      "AI follow-ups via SMS and Email",
+      "Real-time opportunity tracking",
+    ],
+    gradient: "linear-gradient(135deg,#0ea570 0%,#22c55e 100%)",
+    logo: logoGreen.url,
+  },
+  {
+    title: "Bookings & Appointments",
+    tagline: "Never miss a meeting again",
+    features: [
+      "Smart Calendar with buffer logic",
+      "Multi-location & timezone support",
+      "Lead source & campaign tagging",
+      "Manage bookings & edits on the go",
+    ],
+    gradient: "linear-gradient(135deg,#f59e0b 0%,#fbbf24 100%)",
+    logo: logoYellow.url,
+  },
+  {
+    title: "Reviews & Reputation",
+    tagline: "Turn clients into supporters",
+    features: [
+      "Auto-sends review invites post-sale",
+      "AI-powered auto review response",
+      "Bulk review request blast",
+      "Embeddable review badges",
+    ],
+    gradient: "linear-gradient(135deg,#ea580c 0%,#fb923c 100%)",
+    logo: logoOrange.url,
+  },
+  {
+    title: "Team Collaboration",
+    tagline: "Keep everyone aligned",
+    features: [
+      "Assign tasks & leads across team",
+      "Internal notes + @mentions",
+      "Email + SMS history in one thread",
+      "Mobile-friendly for those on the go",
+    ],
+    gradient: "linear-gradient(135deg,#0d9488 0%,#2dd4bf 100%)",
+    logo: logoTeal.url,
+  },
+  {
+    title: "Payments & Invoicing",
+    tagline: "Close deals, get paid faster",
+    features: [
+      "Send quotes & invoices in 1 click",
+      "Accept Stripe, PayPal, direct debit",
+      "Payment reminders on autopilot",
+      "Track invoice status in your pipeline",
+    ],
+    gradient: "linear-gradient(135deg,#1d4ed8 0%,#3b82f6 100%)",
+    logo: logoBlue.url,
+  },
+  {
+    title: "Automations",
+    tagline: "Let boring stuff handle itself",
+    features: [
+      "IF/THEN logic for emails, tasks, messages",
+      "Automate entire lead journeys",
+      "Missed-call follow-ups to recover leads",
+      "Automated DMs, campaigns & review requests",
+    ],
+    gradient: "linear-gradient(135deg,#7c3aed 0%,#a855f7 100%)",
+    logo: logoPurple.url,
+  },
+  {
+    title: "Integrations",
+    tagline: "Connects with your tools",
+    features: [
+      "1000+ integrations (Meta, Google, Zapier)",
+      "Syncs with calendars, forms, and ads",
+      "Webhook & API support",
+      "Real-time data push & pull",
+    ],
+    gradient: "linear-gradient(135deg,#db2777 0%,#f472b6 100%)",
+    logo: logoPink.url,
+  },
+  {
+    title: "Dashboards & Reporting",
+    tagline: "Clarity kills chaos",
+    features: [
+      "Live campaign ROI tracker",
+      "Pipeline health & conversion stats",
+      "Export as PDF or share as live link",
+      "AI detects what's underperforming",
+    ],
+    gradient: "linear-gradient(135deg,#dc2626 0%,#f87171 100%)",
+    logo: logoRed.url,
+  },
+  {
+    title: "Social Media & Content",
+    tagline: "Schedule posts everywhere",
+    features: [
+      "Plan & schedule across all platforms",
+      "Native AI content creation",
+      "Approvals & team collaboration built in",
+      "Post once, publish everywhere",
+    ],
+    gradient: "linear-gradient(135deg,#ff6a3d 0%,#ffb347 40%,#3ecf8e 100%)",
+    logo: logoRainbow.url,
+  },
+  {
+    title: "Marketing & Ads Creatives",
+    tagline: "Ads that feel unfair",
+    features: [
+      "Psychographic buyer persona reports",
+      "Psychographic targeting on every ad",
+      "Hooks & creatives from $2B ROAS data",
+      "Rigorous split testing & optimization",
+    ],
+    gradient: "linear-gradient(135deg,#166534 0%,#16a34a 100%)",
+    logo: logoGreen.url,
+  },
+  {
+    title: "Media & Press Engine",
+    tagline: "From no name to known name",
+    features: [
+      "Real-time news trend detection",
+      "AI press releases in your tone",
+      "Ride the wave of what's hot",
+      "Get published in 3000+ media outlets",
+    ],
+    gradient: "linear-gradient(135deg,#0b1e4a 0%,#1e40af 100%)",
+    logo: logoBlue.url,
+  },
+];
+
+const PLATFORM_STATS = [
+  { n: "99.9%",  l: "Uptime Guarantee" },
+  { n: "<2sec",  l: "Average Load Time" },
+  { n: "1000+",  l: "Integrations Available" },
+  { n: "24/7",   l: "Technical Support" },
+  { n: "256-Bit", l: "SSL Encryption" },
+  { n: "<1min",  l: "Live Technical Response" },
+];
+
+const PLATFORM_LOGOS = [
+  "Zapier", "Stripe", "Mailchimp", "Calendly", "Slack", "Twilio",
+  "Google Calendar", "Google Business", "PayPal", "Square",
+  "Facebook", "Instagram", "Mailgun", "WordPress",
+];
+
+function PlatformSlider() {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollByCards = (dir: 1 | -1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>("[data-card]");
+    const step = card ? card.offsetWidth + 24 : 340;
+    el.scrollBy({ left: dir * step * 1.2, behavior: "smooth" });
+  };
+
+  return (
+    <section className="relative bg-white py-20 sm:py-28">
+      {/* Header */}
+      <div className="mx-auto max-w-[1200px] px-5 text-center sm:px-8">
+        <h2 className="text-[clamp(2.2rem,4.5vw,4rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-zapla-ink">
+          One Powerful Platform
+        </h2>
+        <p className="mx-auto mt-5 max-w-[700px] text-[clamp(15px,1.4vw,18px)] leading-[1.55] text-zapla-muted">
+          Every tool your business needs — finally connected in one place, so nothing slips through the cracks.
+        </p>
+      </div>
+
+      {/* Slider */}
+      <div className="relative mt-14">
+        {/* edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[80px] bg-gradient-to-r from-white via-white/80 to-transparent sm:w-[120px]" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[80px] bg-gradient-to-l from-white via-white/80 to-transparent sm:w-[120px]" />
+
+        {/* arrows */}
+        <button
+          type="button"
+          aria-label="Previous"
+          onClick={() => scrollByCards(-1)}
+          className="absolute left-4 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-zapla-ink/90 text-white shadow-lg backdrop-blur transition hover:scale-110 hover:bg-zapla-ink sm:h-12 sm:w-12"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 6l-6 6 6 6" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          aria-label="Next"
+          onClick={() => scrollByCards(1)}
+          className="absolute right-4 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-zapla-ink/90 text-white shadow-lg backdrop-blur transition hover:scale-110 hover:bg-zapla-ink sm:h-12 sm:w-12"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </button>
+
+        {/* track */}
+        <div
+          ref={trackRef}
+          className="platform-track flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-[calc(50vw-160px)] pb-6 sm:px-[max(60px,calc(50vw-600px))]"
+        >
+          {PLATFORM_CARDS.map((c) => (
+            <PlatformCardTile key={c.title} card={c} />
+          ))}
+        </div>
+      </div>
+
+      {/* Trust line + stats */}
+      <div className="mx-auto mt-8 max-w-[1200px] px-5 text-center sm:px-8">
+        <p className="text-[1.05rem] text-zapla-muted">
+          Built for businesses ready to scale and succeed
+        </p>
+
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-6">
+          {PLATFORM_STATS.map((s) => (
+            <div
+              key={s.l}
+              className="rounded-2xl border border-zapla-line bg-zapla-faint px-4 py-6 text-center transition hover:-translate-y-1 hover:border-zapla-blue/40 hover:bg-white hover:shadow-zapla"
+            >
+              <div className="text-[clamp(1.5rem,2vw,2rem)] font-bold leading-none text-zapla-ink">{s.n}</div>
+              <div className="mt-2 text-[13px] font-medium text-zapla-muted">{s.l}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* logo strip */}
+        <div className="mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-60">
+          {PLATFORM_LOGOS.map((l) => (
+            <span key={l} className="text-[13px] font-bold uppercase tracking-[0.14em] text-zapla-muted2">
+              {l}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        .platform-track { scrollbar-width: none; }
+        .platform-track::-webkit-scrollbar { display: none; }
+      `}</style>
+    </section>
+  );
+}
+
+function PlatformCardTile({ card }: { card: PlatformCard }) {
+  return (
+    <article
+      data-card
+      className="platform-card group relative flex h-[380px] w-[320px] shrink-0 snap-center flex-col justify-between overflow-hidden rounded-[22px] p-8 text-white shadow-[0_18px_40px_-20px_rgba(15,23,42,0.35)] transition duration-300 hover:-translate-y-3 hover:shadow-[0_28px_60px_-20px_rgba(15,23,42,0.45)]"
+      style={{ background: card.gradient }}
+    >
+      {/* soft light overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_0%_0%,rgba(255,255,255,0.28),transparent_55%)]" />
+
+      <div className="relative flex-1">
+        <h3 className="text-[1.65rem] font-semibold leading-[1.15] tracking-[-0.01em]">
+          {card.title}
+        </h3>
+        <p className="mt-3 text-[0.98rem] leading-[1.5] opacity-95 transition group-hover:mb-1">
+          {card.tagline} <span aria-hidden>✨</span>
+        </p>
+
+        <ul className="platform-features mt-3 space-y-1.5 overflow-hidden opacity-0 transition-all duration-300 group-hover:opacity-100">
+          {card.features.map((f) => (
+            <li key={f} className="relative pl-5 text-[0.86rem] leading-[1.4] opacity-95 before:absolute before:left-0 before:top-[2px] before:text-[0.78rem] before:content-['✨']">
+              {f}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="relative flex items-center gap-2 text-[0.82rem] font-medium opacity-90">
+        <img src={card.logo} alt="Zapla" className="h-6 w-6 rounded-md object-contain" />
+        <span>Zapla</span>
+      </div>
+
+      <style>{`
+        .platform-card .platform-features { max-height: 0; }
+        .platform-card:hover .platform-features { max-height: 220px; }
+      `}</style>
+    </article>
+  );
+}
