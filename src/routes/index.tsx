@@ -1100,97 +1100,39 @@ function Pillars() {
           </p>
         </Reveal>
 
-        {/* ============ THE FUNNEL SCENE ============ */}
-        <Reveal delay={100} className="relative mt-16">
-          <div className="relative mx-auto h-[720px] w-full max-w-[880px] sm:h-[820px]">
-
-            {/* Falling tool chips — layered above funnel opening */}
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-[280px]">
-              {tools.map((t, i) => {
-                // Spread horizontally across the funnel mouth
-                const cols = 8;
-                const col = i % cols;
-                const row = Math.floor(i / cols);
-                const leftPct = 8 + col * (84 / (cols - 1));
-                const topPx = row * 46;
-                const delay = (i * 0.28) % 3.2;
-                return (
-                  <div
-                    key={t.n}
-                    className="zapla-funnel-fall absolute"
-                    style={{
-                      left: `${leftPct}%`,
-                      top: `${topPx}px`,
-                      animationDelay: `${delay}s`,
-                      transform: "translateX(-50%)",
-                    }}
-                  >
-                    <div className="flex items-center gap-1.5 rounded-full border border-zapla-line bg-white/95 px-2.5 py-1.5 shadow-zapla-sm backdrop-blur">
-                      <img
-                        src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=64`}
-                        alt=""
-                        className="h-4 w-4 shrink-0"
-                        loading="lazy"
-                      />
-                      <span className="text-[10.5px] font-bold text-zapla-ink">
-                        {t.n}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* The funnel itself */}
-            <div className="absolute left-1/2 top-[180px] z-10 w-[460px] max-w-[80%] -translate-x-1/2 sm:w-[520px]">
-              <img
-                src={funnelImg.url}
-                alt="Zapla funnel"
-                width={1024}
-                height={1280}
-                loading="lazy"
-                className="w-full drop-shadow-[0_40px_60px_rgba(37,99,255,0.35)]"
-              />
-              {/* Inner glow at the funnel mouth */}
-              <div className="pointer-events-none absolute left-1/2 top-[8%] h-[60px] w-[80%] -translate-x-1/2 rounded-full bg-zapla-blue/30 blur-2xl" />
-            </div>
-
-            {/* Light pool + Zapla logo drop */}
-            <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center">
-              {/* radial glow pool */}
-              <div className="pointer-events-none absolute bottom-[70px] left-1/2 h-[220px] w-[520px] -translate-x-1/2 rounded-full bg-gradient-to-t from-zapla-blue/40 via-zapla-violet/25 to-transparent blur-3xl" />
-
-              {/* single drop trail */}
-              <div className="relative mb-4 h-16 w-[3px] overflow-hidden">
-                <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-zapla-blue/70 via-zapla-violet/50 to-transparent" />
-              </div>
-
-              {/* Zapla logo tile */}
-              <div className="zapla-tab-appear relative flex items-center gap-3 rounded-2xl border border-zapla-line bg-white px-6 py-4 shadow-zapla-lift">
-                <div className="pointer-events-none absolute -inset-3 rounded-3xl bg-gradient-to-br from-zapla-blue/25 via-zapla-violet/15 to-zapla-magenta/25 blur-2xl" />
-                <img src={zaplaIcon.url} alt="Zapla" className="relative h-10 w-10" />
-                <div className="relative">
-                  <div className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue">
-                    One system
-                  </div>
-                  <div className="text-[18px] font-black leading-tight text-zapla-ink">
-                    Zapla · All-in-one OS
-                  </div>
-                </div>
-                <span className="relative ml-2 inline-flex items-center gap-1.5 rounded-full bg-zapla-blue-soft px-2.5 py-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-zapla-green zapla-pulse-dot" />
-                  <span className="text-[10.5px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue">Live</span>
+        {/* ============ THE FUNNEL (static rendered image) ============ */}
+        <Reveal delay={100} className="relative mt-14">
+          <div className="mx-auto max-w-[880px] overflow-hidden rounded-3xl border border-zapla-line bg-white p-6 shadow-zapla sm:p-10">
+            <img
+              src={funnelImg.url}
+              alt="16 business apps pouring into the Zapla funnel, one system out"
+              width={1024}
+              height={1280}
+              loading="lazy"
+              className="mx-auto w-full max-w-[560px] h-auto"
+            />
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+              {tools.map((t) => (
+                <span
+                  key={t.n}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-zapla-line bg-white px-2.5 py-1.5 shadow-zapla-sm"
+                >
+                  <img
+                    src={`https://www.google.com/s2/favicons?domain=${t.domain}&sz=64`}
+                    alt=""
+                    className="h-4 w-4 shrink-0"
+                    loading="lazy"
+                  />
+                  <span className="text-[11px] font-bold text-zapla-ink">{t.n}</span>
                 </span>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#FEE2E2] bg-[#FEF2F2] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#B91C1C] line-through">
+                A$1,847 / mo · 16 bills
               </div>
-
-              {/* Savings pill */}
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#FEE2E2] bg-[#FEF2F2] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#B91C1C] line-through">
-                  A$1,847 / mo · 16 bills
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-zapla-blue/25 bg-gradient-to-r from-zapla-blue-soft to-white px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue">
-                  One bill · Save A$1,500–2,500 / mo
-                </div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-zapla-blue/25 bg-gradient-to-r from-zapla-blue-soft to-white px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-zapla-blue">
+                One bill · Save A$1,500–2,500 / mo
               </div>
             </div>
           </div>
