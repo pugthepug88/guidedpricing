@@ -13,6 +13,7 @@ import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as PillarIdeasV3RouteImport } from './routes/pillar-ideas-v3'
 import { Route as PillarIdeasV2RouteImport } from './routes/pillar-ideas-v2'
 import { Route as PillarIdeasRouteImport } from './routes/pillar-ideas'
+import { Route as HeroPreviewRouteImport } from './routes/hero-preview'
 import { Route as IndexRouteImport } from './routes/index'
 
 const PricingV2Route = PricingV2RouteImport.update({
@@ -35,6 +36,11 @@ const PillarIdeasRoute = PillarIdeasRouteImport.update({
   path: '/pillar-ideas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HeroPreviewRoute = HeroPreviewRouteImport.update({
+  id: '/hero-preview',
+  path: '/hero-preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/hero-preview': typeof HeroPreviewRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/hero-preview': typeof HeroPreviewRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/hero-preview': typeof HeroPreviewRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
@@ -67,6 +76,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/hero-preview'
     | '/pillar-ideas'
     | '/pillar-ideas-v2'
     | '/pillar-ideas-v3'
@@ -74,6 +84,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/hero-preview'
     | '/pillar-ideas'
     | '/pillar-ideas-v2'
     | '/pillar-ideas-v3'
@@ -81,6 +92,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/hero-preview'
     | '/pillar-ideas'
     | '/pillar-ideas-v2'
     | '/pillar-ideas-v3'
@@ -89,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HeroPreviewRoute: typeof HeroPreviewRoute
   PillarIdeasRoute: typeof PillarIdeasRoute
   PillarIdeasV2Route: typeof PillarIdeasV2Route
   PillarIdeasV3Route: typeof PillarIdeasV3Route
@@ -125,6 +138,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PillarIdeasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hero-preview': {
+      id: '/hero-preview'
+      path: '/hero-preview'
+      fullPath: '/hero-preview'
+      preLoaderRoute: typeof HeroPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -137,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HeroPreviewRoute: HeroPreviewRoute,
   PillarIdeasRoute: PillarIdeasRoute,
   PillarIdeasV2Route: PillarIdeasV2Route,
   PillarIdeasV3Route: PillarIdeasV3Route,
