@@ -78,7 +78,7 @@ function Hero() {
           <div className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] sm:gap-x-7 sm:gap-y-3 sm:text-[13.5px] text-zapla-muted">
             {["14 Day Free Trial", "No Credit Card Required", "Cancel Anytime"].map((t) => (
               <span key={t} className="inline-flex items-center gap-2">
-                <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-zapla-green text-white">
+                <span className="flex h-[15px] w-[15px] sm:h-[18px] sm:w-[18px] items-center justify-center rounded-full bg-zapla-green text-white">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 13l4 4L19 7" />
                   </svg>
