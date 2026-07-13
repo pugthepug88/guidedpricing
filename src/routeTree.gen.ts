@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as PillarIdeasV3RouteImport } from './routes/pillar-ideas-v3'
 import { Route as PillarIdeasV2RouteImport } from './routes/pillar-ideas-v2'
@@ -16,6 +17,11 @@ import { Route as PillarIdeasRouteImport } from './routes/pillar-ideas'
 import { Route as HeroPreviewRouteImport } from './routes/hero-preview'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingV2Route = PricingV2RouteImport.update({
   id: '/pricing-v2',
   path: '/pricing-v2',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
+  '/products': typeof ProductsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
+  '/products': typeof ProductsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
+  '/products': typeof ProductsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/pillar-ideas-v2'
     | '/pillar-ideas-v3'
     | '/pricing-v2'
+    | '/products'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/pillar-ideas-v2'
     | '/pillar-ideas-v3'
     | '/pricing-v2'
+    | '/products'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/pillar-ideas-v2'
     | '/pillar-ideas-v3'
     | '/pricing-v2'
+    | '/products'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,10 +118,18 @@ export interface RootRouteChildren {
   PillarIdeasV2Route: typeof PillarIdeasV2Route
   PillarIdeasV3Route: typeof PillarIdeasV3Route
   PricingV2Route: typeof PricingV2Route
+  ProductsRoute: typeof ProductsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing-v2': {
       id: '/pricing-v2'
       path: '/pricing-v2'
@@ -162,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   PillarIdeasV2Route: PillarIdeasV2Route,
   PillarIdeasV3Route: PillarIdeasV3Route,
   PricingV2Route: PricingV2Route,
+  ProductsRoute: ProductsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

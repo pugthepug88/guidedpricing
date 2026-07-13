@@ -40,7 +40,7 @@ type Product = {
   brand: string;
   line: string;
   desc: string;
-  Icon: React.ComponentType<{ className?: string }>;
+  Icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   logo: string;
   accent: string;
   accentSoft: string;
