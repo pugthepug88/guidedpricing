@@ -340,7 +340,7 @@ function IntegrationLogos() {
                 alt=""
                 aria-hidden="true"
                 loading="lazy"
-                className={`${className} object-contain brightness-0 invert`}
+                className={`${className} object-contain`}
                 onError={(event) => {
                   event.currentTarget.style.display = "none";
                 }}
