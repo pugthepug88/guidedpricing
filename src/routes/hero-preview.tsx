@@ -131,15 +131,16 @@ function BlobSections() {
   return (
     <section className="bg-[#f5f5f5]">
       {BLOBS.map((b, i) => (
-        <BlobPanel key={i} blob={b} />
+        <BlobPanel key={i} blob={b} index={i} />
       ))}
     </section>
   );
 }
 
-function BlobPanel({ blob }: { blob: Blob }) {
+function BlobPanel({ blob, index }: { blob: Blob; index: number }) {
   const isLeft = blob.side === "left";
   const hasBlobContent = blob.blobTitle.length > 0;
+  const uid = `blob-hl-${index}`;
   return (
     <div className="relative min-h-[50vh] lg:min-h-[420px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center">
       {/* Blob shape */}
@@ -190,19 +191,20 @@ function BlobPanel({ blob }: { blob: Blob }) {
       {/* Text-side glass card */}
       <div
         className={[
+          uid,
           "relative z-10 m-5 lg:m-8 rounded-3xl bg-white/80 lg:bg-white/15 backdrop-blur-xl border border-white/40 shadow-xl p-7 md:p-9",
           isLeft ? "lg:order-2" : "lg:order-1",
           !hasBlobContent && isLeft ? "lg:col-start-2" : "",
         ].join(" ")}
       >
-        <h2 className="blob-heading text-[30px] sm:text-[38px] md:text-[46px] font-semibold uppercase leading-[0.95] tracking-tight text-neutral-900">
+        <h2 className="text-[30px] sm:text-[38px] md:text-[46px] font-semibold uppercase leading-[0.95] tracking-tight text-neutral-900">
           {blob.mainTitle}
         </h2>
         <p className="mt-4 text-[15px] md:text-base leading-relaxed text-neutral-700 max-w-lg">
           {blob.mainDesc}
         </p>
         <style>{`
-          .blob-heading .highlight{
+          .${uid} .highlight{
             background: ${blob.highlightGradient};
             -webkit-background-clip: text;
             background-clip: text;
