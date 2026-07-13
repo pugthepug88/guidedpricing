@@ -78,9 +78,8 @@ const BLOBS: Blob[] = [
     ),
     mainDesc:
       "The more deeply we understand your business, your market, and your challenges, the more precisely we can engineer results. It is not just attention to detail. It is an obsession with clarity. Because when your story leads, meaningful results follow.",
-    blobTitle: "STORY-LED STRATEGY",
-    blobDesc:
-      "Every rollout starts with your goals, your customers, and your voice, never a generic template.",
+    blobTitle: "",
+    blobDesc: "",
   },
   {
     side: "right",
@@ -93,9 +92,8 @@ const BLOBS: Blob[] = [
     ),
     mainDesc:
       "Give your team tools that feel built just for them. Every click, every flow, every feature is designed to delight and drive results.",
-    blobTitle: "BUILT FOR HUMANS",
-    blobDesc:
-      "Fast, intuitive, and refreshingly simple, the kind of software people actually want to open.",
+    blobTitle: "",
+    blobDesc: "",
   },
   {
     side: "left",
@@ -108,9 +106,8 @@ const BLOBS: Blob[] = [
     ),
     mainDesc:
       "From the very first click, you will experience the clarity, confidence, and momentum that have been missing. This is not just another tool. This is something that finally works, for you.",
-    blobTitle: "MOMENTUM FROM DAY ONE",
-    blobDesc:
-      "Guided launch, real training, and a system tuned to your business so results show up in weeks, not quarters.",
+    blobTitle: "",
+    blobDesc: "",
   },
   {
     side: "right",
@@ -126,18 +123,7 @@ const BLOBS: Blob[] = [
     blobTitle: "PLUGS INTO EVERYTHING",
     blobDesc:
       "CRM, calendar, ads, reviews, payments, telephony, connected out of the box.",
-    extras: (
-      <div className="mt-6 grid grid-cols-4 gap-3 max-w-xs mx-auto">
-        {["Google", "Meta", "Stripe", "Xero", "Gmail", "Outlook", "Zoom", "WhatsApp"].map((n) => (
-          <div
-            key={n}
-            className="h-12 rounded-lg bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center text-[10px] font-semibold text-white/90 uppercase tracking-wide"
-          >
-            {n}
-          </div>
-        ))}
-      </div>
-    ),
+    extras: <IntegrationLogos />,
   },
 ];
 
@@ -153,8 +139,9 @@ function BlobSections() {
 
 function BlobPanel({ blob }: { blob: Blob }) {
   const isLeft = blob.side === "left";
+  const hasBlobContent = blob.blobTitle.length > 0;
   return (
-    <div className="relative min-h-[70vh] overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center">
+    <div className="relative min-h-[50vh] lg:min-h-[420px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center">
       {/* Blob shape */}
       <div
         aria-hidden
@@ -167,48 +154,51 @@ function BlobPanel({ blob }: { blob: Blob }) {
       {/* Mobile blob top band */}
       <div
         aria-hidden
-        className="lg:hidden h-56 w-full rounded-b-[50%]"
+        className="lg:hidden h-48 w-full rounded-b-[50%]"
         style={{ background: blob.gradient }}
       />
 
-      {/* Blob-side content (colored side) */}
-      <div
-        className={[
-          "relative z-10 px-8 py-14 text-white text-center flex flex-col items-center justify-center",
-          isLeft ? "lg:order-1" : "lg:order-2",
-        ].join(" ")}
-      >
-        <h3 className="text-2xl sm:text-3xl md:text-[38px] font-extrabold uppercase leading-tight tracking-tight max-w-md">
-          {blob.blobTitle}
-        </h3>
-        <p className="mt-4 text-sm md:text-[15px] leading-relaxed text-white/90 max-w-sm">
-          {blob.blobDesc}
-        </p>
-        {blob.extras}
-        <a
-          href={BOOK_URL}
-          className="mt-8 inline-flex items-center gap-3 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/25 hover:-translate-y-0.5"
+      {/* Blob-side content (colored side) — only on the blue blob */}
+      {hasBlobContent && (
+        <div
+          className={[
+            "relative z-10 px-8 py-10 text-white text-center flex flex-col items-center justify-center",
+            isLeft ? "lg:order-1" : "lg:order-2",
+          ].join(" ")}
         >
-          Book a Call
-          <span className="grid place-items-center w-8 h-8 rounded-full bg-white text-neutral-900">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
-          </span>
-        </a>
-      </div>
+          <h3 className="text-2xl sm:text-3xl md:text-[34px] font-semibold uppercase leading-tight tracking-tight max-w-md">
+            {blob.blobTitle}
+          </h3>
+          <p className="mt-3 text-sm md:text-[15px] leading-relaxed text-white/90 max-w-sm">
+            {blob.blobDesc}
+          </p>
+          {blob.extras}
+          <a
+            href={BOOK_URL}
+            className="mt-6 inline-flex items-center gap-3 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/25 hover:-translate-y-0.5"
+          >
+            Book a Call
+            <span className="grid place-items-center w-8 h-8 rounded-full bg-white text-neutral-900">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
+        </div>
+      )}
 
       {/* Text-side glass card */}
       <div
         className={[
-          "relative z-10 m-6 lg:m-10 rounded-3xl bg-white/80 lg:bg-white/15 backdrop-blur-xl border border-white/40 shadow-xl p-8 md:p-10",
+          "relative z-10 m-5 lg:m-8 rounded-3xl bg-white/80 lg:bg-white/15 backdrop-blur-xl border border-white/40 shadow-xl p-7 md:p-9",
           isLeft ? "lg:order-2" : "lg:order-1",
+          !hasBlobContent && isLeft ? "lg:col-start-2" : "",
         ].join(" ")}
       >
-        <h2 className="blob-heading text-[32px] sm:text-4xl md:text-[52px] font-extrabold uppercase leading-[0.95] tracking-tight text-neutral-900">
+        <h2 className="blob-heading text-[30px] sm:text-[38px] md:text-[46px] font-semibold uppercase leading-[0.95] tracking-tight text-neutral-900">
           {blob.mainTitle}
         </h2>
-        <p className="mt-5 text-[15px] md:text-base leading-relaxed text-neutral-700 max-w-lg">
+        <p className="mt-4 text-[15px] md:text-base leading-relaxed text-neutral-700 max-w-lg">
           {blob.mainDesc}
         </p>
         <style>{`
@@ -221,6 +211,122 @@ function BlobPanel({ blob }: { blob: Blob }) {
           }
         `}</style>
       </div>
+    </div>
+  );
+}
+
+function IntegrationLogos() {
+  const logos = [
+    {
+      name: "Facebook",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+      ),
+    },
+    {
+      name: "Instagram",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg>
+      ),
+    },
+    {
+      name: "YouTube",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+        </svg>
+      ),
+    },
+    {
+      name: "LinkedIn",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      ),
+    },
+    {
+      name: "TikTok",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+        </svg>
+      ),
+    },
+    {
+      name: "Pinterest",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.668.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.187.605 2.153 1.792 2.153 2.151 0 3.805-2.268 3.805-5.543 0-2.897-2.082-4.925-5.062-4.925-3.449 0-5.472 2.588-5.472 5.267 0 1.044.402 2.164.905 2.772.099.12.114.224.084.347l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.848c-.269 1.045-.994 2.352-1.478 3.15 1.112.345 2.284.533 3.495.533 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z" />
+        </svg>
+      ),
+    },
+    {
+      name: "Google Business",
+      svg: (
+        <svg viewBox="0 0 32 32" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M16.48 8.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.777-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C22.747 1.44 20.133 0 16.48 0 9.867 0 4.307 5.387 4.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H16.48z" />
+          <text x="16" y="25" textAnchor="middle" fontSize="5.5" fontWeight="600" fill="currentColor" fontFamily="sans-serif">BUSINESS</text>
+        </svg>
+      ),
+    },
+    {
+      name: "Slack",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.165 0a2.528 2.528 0 012.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 012.523 2.52A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 01-2.52-2.523 2.526 2.526 0 012.52-2.52h6.313A2.527 2.527 0 0124 15.165a2.528 2.528 0 01-2.522 2.523h-6.313z" />
+        </svg>
+      ),
+    },
+    {
+      name: "WhatsApp",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      ),
+    },
+    {
+      name: "Shopify",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.09-.058-.131-.058h-.062l-.92 2.36s-1.565-.358-3.19-.358c-2.658 0-3.51 1.206-3.51 2.206 0 1.146.512 1.84.512 1.84s-1.732.756-2.732 1.756c-.997.998-.997 2.37-.997 2.87 0 .498.249.747.249.747s-1.246 3.49-1.496 4.24c-.25.748-.25 1.247-.25 1.247l8.532 1.997zM12.49 5.21c-.62 0-1.12.5-1.12 1.12 0 .62.5 1.12 1.12 1.12.62 0 1.12-.5 1.12-1.12 0-.62-.5-1.12-1.12-1.12zm.62 4.36c-.62 0-1.12.5-1.12 1.12 0 .62.5 1.12 1.12 1.12.62 0 1.12-.5 1.12-1.12 0-.62-.5-1.12-1.12-1.12z" />
+        </svg>
+      ),
+    },
+    {
+      name: "Stripe",
+      svg: (
+        <svg viewBox="0 0 32 32" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
+          <text x="16" y="21" textAnchor="middle" fontSize="13" fontWeight="600" fill="currentColor" fontFamily="sans-serif" letterSpacing="-0.5">stripe</text>
+        </svg>
+      ),
+    },
+    {
+      name: "Integrations",
+      svg: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 md:w-8 md:h-8">
+          <path d="M17 4.12A9 9 0 003.34 8.34M21 12a9 9 0 01-3.88 7.38M21 12h-6M3 12a9 9 0 013.88-7.38M3 12h6M17 19.88A9 9 0 003.34 15.66" />
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <div className="mt-6 grid grid-cols-4 gap-x-6 gap-y-5 max-w-[320px] mx-auto">
+      {logos.map((logo) => (
+        <div
+          key={logo.name}
+          className="flex items-center justify-center text-white/90 hover:text-white transition hover:scale-110"
+          title={logo.name}
+        >
+          {logo.svg}
+        </div>
+      ))}
     </div>
   );
 }
