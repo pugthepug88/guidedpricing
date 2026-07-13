@@ -403,12 +403,11 @@ function IntegrationLogos() {
     { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 78, y: 69, w: 31, h: 31 },
     { name: "Monday.com", svg: <WordmarkLogo label="monday" weight={800} size={12} />, x: 93, y: 69, w: 56, h: 18 },
 
-    { name: "Sync", svg: <SyncArrowsIcon />, x: 13, y: 84, w: 31, h: 31 },
-    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 28, y: 84, w: 30, h: 30 },
-    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 43, y: 84, w: 30, h: 30 },
-    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 58, y: 84, w: 31, h: 31 },
-    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 73, y: 84, w: 31, h: 31 },
-    { name: "Manus", svg: <WordmarkLogo label="Manus" weight={800} size={12} />, x: 88, y: 84, w: 52, h: 18 },
+    { name: "Sync", svg: <SyncArrowsIcon />, x: 18, y: 84, w: 31, h: 31 },
+    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 37, y: 84, w: 30, h: 30 },
+    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 56, y: 84, w: 31, h: 31 },
+    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 74, y: 84, w: 31, h: 31 },
+    { name: "Manus", svg: <WordmarkLogo label="Manus" weight={800} size={12} />, x: 91, y: 84, w: 52, h: 18 },
 
     { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 28, y: 97, w: 28, h: 28 },
     { name: "Clio", svg: <WordmarkLogo label="Clio" weight={700} size={13} />, x: 45, y: 97, w: 42, h: 18 },
