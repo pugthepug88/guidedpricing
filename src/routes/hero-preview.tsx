@@ -362,10 +362,6 @@ function IntegrationLogos() {
     { name: "Linear", svg: <SimpleIconPath path={siLinear.path} /> },
     { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} /> },
     { name: "Cal.com", svg: <SimpleIconPath path={siCaldotcom.path} /> },
-    { name: "HubSpot", svg: <SimpleIconPath path={siHubspot.path} /> },
-    { name: "Calendly", svg: <SimpleIconPath path={siCalendly.path} /> },
-    { name: "Klaviyo", svg: <TextTile label="Klaviyo" /> },
-    { name: "Zapier", svg: <SimpleIconPath path={siZapier.path} /> },
     { name: "Jira", svg: <SimpleIconPath path={siJira.path} /> },
   ];
 
