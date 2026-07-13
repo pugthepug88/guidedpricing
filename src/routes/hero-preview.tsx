@@ -454,6 +454,86 @@ function IntegrationLogos() {
   );
 }
 
+/* ------------------------------------------------------------------ */
+/*  Industries strip — compact chips with inline expand on hover/tap   */
+/* ------------------------------------------------------------------ */
+type Industry = {
+  name: string;
+  category: string;
+  blurb: string;
+  Icon: React.ComponentType<{ className?: string }>;
+};
+
+function IndustriesStrip() {
+  const industries: Industry[] = [
+    { name: "Real Estate", category: "Property", blurb: "Streamline listings, automate follow-ups, and close more deals with intelligent CRM tools.", Icon: HomeIcon },
+    { name: "Mortgage & Finance", category: "Financial", blurb: "Simplify loan processing, automate document collection, and improve client communication.", Icon: LandmarkIcon },
+    { name: "Trades & Home Improvement", category: "Services", blurb: "Manage projects, schedule appointments, and invoice seamlessly from one platform.", Icon: WrenchIcon },
+    { name: "Healthcare & Clinic", category: "Medical", blurb: "Streamline patient scheduling, automate reminders, and manage records efficiently.", Icon: StethoscopeIcon },
+    { name: "Airbnb Host", category: "Hospitality", blurb: "Automate guest communication, manage bookings, and optimise pricing strategies.", Icon: BedIcon },
+    { name: "Legal", category: "Law Practice", blurb: "Manage cases, automate document generation, and streamline client intake.", Icon: ScaleIcon },
+    { name: "Event & Entertainment", category: "Events", blurb: "Coordinate venues, manage ticketing, and automate event marketing campaigns.", Icon: TicketIcon },
+    { name: "Fitness & Wellness", category: "Health", blurb: "Manage memberships, schedule classes, and automate client fitness journeys.", Icon: DumbbellIcon },
+    { name: "Ecommerce", category: "Retail", blurb: "Optimise sales funnels, automate cart recovery, and boost customer retention.", Icon: ShoppingBagIcon },
+    { name: "Restaurants & Bars", category: "Hospitality", blurb: "Manage reservations, automate marketing, and build loyalty programs.", Icon: UtensilsIcon },
+    { name: "Hire & Rental", category: "Rentals", blurb: "Track inventory, automate bookings, and manage rental agreements seamlessly.", Icon: PackageIcon },
+    { name: "Automotive", category: "Auto", blurb: "Manage inventory, automate service reminders, and streamline sales.", Icon: CarIcon },
+  ];
+
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section className="bg-white py-16 md:py-20 px-6">
+      <div className="mx-auto max-w-6xl">
+        <h2 className="text-center font-zapla font-semibold tracking-tight text-neutral-900 text-3xl sm:text-4xl md:text-5xl leading-[1.1]">
+          Built for the industries we actually serve
+        </h2>
+        <p className="mt-4 text-center text-neutral-600 text-base md:text-lg max-w-2xl mx-auto">
+          Tap any tile to see how Zapla fits.
+        </p>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-2 sm:gap-3">
+          {industries.map((ind, i) => {
+            const isOpen = open === i;
+            return (
+              <button
+                key={ind.name}
+                type="button"
+                onClick={() => setOpen(isOpen ? null : i)}
+                onMouseEnter={() => setOpen(i)}
+                onMouseLeave={() => setOpen((prev) => (prev === i ? null : prev))}
+                className={[
+                  "group relative flex items-center gap-2.5 rounded-2xl border transition-all duration-300 ease-out",
+                  "px-4 py-2.5 text-sm font-semibold",
+                  isOpen
+                    ? "bg-neutral-900 text-white border-neutral-900 shadow-lg"
+                    : "bg-white text-neutral-800 border-neutral-200 hover:border-neutral-400",
+                ].join(" ")}
+                aria-expanded={isOpen}
+              >
+                <ind.Icon className={isOpen ? "h-4 w-4 text-white" : "h-4 w-4 text-neutral-500"} />
+                <span className="whitespace-nowrap">{ind.name}</span>
+                <span
+                  className="grid overflow-hidden transition-[grid-template-columns] duration-300 ease-out"
+                  style={{ gridTemplateColumns: isOpen ? "1fr" : "0fr" }}
+                >
+                  <span className="min-w-0 overflow-hidden">
+                    <span className="block whitespace-nowrap pl-1 pr-1 text-xs font-normal text-white/80">
+                      {ind.blurb}
+                    </span>
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
 
 
 /* ------------------------------------------------------------------ */
