@@ -12,21 +12,17 @@ import {
   siGoogleads,
   siXero,
   siQuickbooks,
-  siWoocommerce,
   siClickup,
   siNotion,
   siAirtable,
   siBasecamp,
-  siTypeform,
   siAsana,
   siGoogleforms,
   siLinear,
   siTodoist,
   siJira,
   siGooglecalendar,
-  siGmail,
   siCaldotcom,
-  siFathom,
   siMistralai,
   siOpenrouter,
 } from "simple-icons";
@@ -308,95 +304,131 @@ function StripeWordmarkIcon() {
   );
 }
 
-function TextTile({ label }: { label: string }) {
+function SyncArrowsIcon() {
   return (
-    <span
-      className="text-white font-semibold tracking-tight leading-none text-center"
-      style={{ fontSize: label.length > 6 ? "8px" : "9px" }}
-      aria-hidden="true"
-    >
-      {label}
-    </span>
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <path d="M31.6 9.2 42 18.3 31.6 27.5v-6.3H17.2c-3.9 0-7.1 2-9 5.3l-3.7-6.4c3-4.4 7.3-6.9 12.7-6.9h14.4v-4Z" />
+      <path d="M16.4 38.8 6 29.7l10.4-9.2v6.3h14.4c3.9 0 7.1-2 9-5.3l3.7 6.4c-3 4.4-7.3 6.9-12.7 6.9H16.4v4Z" />
+    </svg>
+  );
+}
+
+function WordmarkLogo({
+  label,
+  weight = 700,
+  italic = false,
+  family = "Arial, Helvetica, sans-serif",
+  size = 12,
+}: {
+  label: string;
+  weight?: number;
+  italic?: boolean;
+  family?: string;
+  size?: number;
+}) {
+  return (
+    <svg viewBox="0 0 80 24" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <text
+        x="40"
+        y="16"
+        textAnchor="middle"
+        fontSize={size}
+        fontWeight={weight}
+        fontStyle={italic ? "italic" : "normal"}
+        fontFamily={family}
+        fill="currentColor"
+      >
+        {label}
+      </text>
+    </svg>
+  );
+}
+
+function FathomLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <circle cx="24" cy="24" r="22" />
+      <text x="24" y="31" textAnchor="middle" fontSize="20" fontWeight="800" fontFamily="Arial, Helvetica, sans-serif" fill="#2563eb">
+        fa/
+      </text>
+    </svg>
+  );
+}
+
+function WooCommerceWordmark() {
+  return (
+    <svg viewBox="0 0 108 24" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <text x="24" y="14" textAnchor="middle" fontSize="10" fontWeight="900" fontFamily="Arial, Helvetica, sans-serif" fill="currentColor">
+        WOO
+      </text>
+      <text x="70" y="14" textAnchor="middle" fontSize="9" fontWeight="800" fontFamily="Arial, Helvetica, sans-serif" fill="currentColor">
+        COMMERCE
+      </text>
+    </svg>
   );
 }
 
 function IntegrationLogos() {
-  const logos: { name: string; svg: React.ReactNode }[] = [
-    { name: "Facebook", svg: <FacebookCircleIcon /> },
-    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} /> },
-    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} /> },
-    { name: "LinkedIn", svg: <LinkedInIcon /> },
-    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} /> },
-    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} /> },
-    { name: "Google Business", svg: <GoogleBusinessIcon /> },
-    { name: "Slack", svg: <SlackIcon /> },
-    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} /> },
-    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} /> },
-    { name: "Stripe", svg: <StripeWordmarkIcon /> },
-    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} /> },
-    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} /> },
-    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} /> },
-    { name: "Gmail", svg: <SimpleIconPath path={siGmail.path} /> },
-    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} /> },
-    { name: "Xero", svg: <SimpleIconPath path={siXero.path} /> },
-    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} /> },
-    { name: "Wave", svg: <TextTile label="WAVE" /> },
-    { name: "WooCommerce", svg: <SimpleIconPath path={siWoocommerce.path} /> },
-    { name: "Canva", svg: <TextTile label="Canva" /> },
-    { name: "Clio", svg: <TextTile label="Clio" /> },
-    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} /> },
-    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} /> },
-    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} /> },
-    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} /> },
-    { name: "Typeform", svg: <SimpleIconPath path={siTypeform.path} /> },
-    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} /> },
-    { name: "Monday.com", svg: <TextTile label="monday" /> },
-    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} /> },
-    { name: "Manus", svg: <TextTile label="Manus" /> },
-    { name: "Fathom", svg: <SimpleIconPath path={siFathom.path} /> },
-    { name: "Apify", svg: <TextTile label="Apify" /> },
-    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} /> },
-    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} /> },
-    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} /> },
-    { name: "Cal.com", svg: <SimpleIconPath path={siCaldotcom.path} /> },
-    { name: "Jira", svg: <SimpleIconPath path={siJira.path} /> },
+  const logos: { name: string; svg: React.ReactNode; x: number; y: number; w: number; h: number }[] = [
+    { name: "Fathom", svg: <FathomLogo />, x: 20, y: 10, w: 30, h: 30 },
+    { name: "WooCommerce", svg: <WooCommerceWordmark />, x: 41, y: 10, w: 58, h: 18 },
+    { name: "Canva", svg: <WordmarkLogo label="Canva" family="Georgia, serif" italic size={13} />, x: 60, y: 10, w: 52, h: 20 },
+    { name: "Apify", svg: <WordmarkLogo label="Apify" weight={800} size={13} />, x: 79, y: 10, w: 52, h: 20 },
+
+    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, x: 14, y: 24, w: 30, h: 30 },
+    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, x: 31, y: 24, w: 32, h: 32 },
+    { name: "Slack", svg: <SlackIcon />, x: 48, y: 24, w: 31, h: 31 },
+    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} />, x: 65, y: 24, w: 32, h: 32 },
+    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, x: 82, y: 24, w: 32, h: 32 },
+
+    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, x: 9, y: 39, w: 30, h: 30 },
+    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, x: 25, y: 39, w: 31, h: 31 },
+    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, x: 41, y: 39, w: 31, h: 31 },
+    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, x: 57, y: 39, w: 32, h: 32 },
+    { name: "Stripe", svg: <StripeWordmarkIcon />, x: 74, y: 39, w: 46, h: 20 },
+    { name: "Typeform", svg: <WordmarkLogo label="Typeform" weight={500} size={11} />, x: 91, y: 39, w: 56, h: 18 },
+
+    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, x: 8, y: 54, w: 30, h: 30 },
+    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, x: 23, y: 54, w: 31, h: 31 },
+    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, x: 38, y: 54, w: 31, h: 31 },
+    { name: "Google Contacts", svg: <WordmarkLogo label="G" weight={700} size={20} />, x: 53, y: 54, w: 30, h: 30 },
+    { name: "Google Business", svg: <GoogleBusinessIcon />, x: 67, y: 54, w: 32, h: 32 },
+    { name: "Wave", svg: <WordmarkLogo label="WAVE" weight={900} size={13} />, x: 82, y: 54, w: 48, h: 18 },
+    { name: "Cal.com", svg: <WordmarkLogo label="Cal.com" weight={800} size={12} />, x: 96, y: 54, w: 54, h: 18 },
+
+    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, x: 15, y: 69, w: 30, h: 30 },
+    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, x: 31, y: 69, w: 31, h: 31 },
+    { name: "LinkedIn", svg: <LinkedInIcon />, x: 47, y: 69, w: 31, h: 31 },
+    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, x: 63, y: 69, w: 31, h: 31 },
+    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 78, y: 69, w: 31, h: 31 },
+    { name: "Monday.com", svg: <WordmarkLogo label="monday" weight={800} size={12} />, x: 93, y: 69, w: 56, h: 18 },
+
+    { name: "Sync", svg: <SyncArrowsIcon />, x: 18, y: 84, w: 31, h: 31 },
+    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 37, y: 84, w: 30, h: 30 },
+    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 56, y: 84, w: 31, h: 31 },
+    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 74, y: 84, w: 31, h: 31 },
+    { name: "Manus", svg: <WordmarkLogo label="Manus" weight={800} size={12} />, x: 91, y: 84, w: 52, h: 18 },
+
+    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 28, y: 97, w: 28, h: 28 },
+    { name: "Clio", svg: <WordmarkLogo label="Clio" weight={700} size={13} />, x: 45, y: 97, w: 42, h: 18 },
+    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 62, y: 97, w: 30, h: 30 },
+    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 79, y: 97, w: 30, h: 30 },
+    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 94, y: 97, w: 28, h: 28 },
   ];
 
-  // Evenly spaced hex-packed positions clipped to a circular area
-  const spacing = 15; // percent units between neighbors
-  const rowH = (spacing * Math.sqrt(3)) / 2;
-  const maxR = 48;
-  const candidates: { x: number; y: number; d: number }[] = [];
-  for (let row = -6; row <= 6; row++) {
-    for (let col = -6; col <= 6; col++) {
-      const x = col * spacing + (row % 2 === 0 ? 0 : spacing / 2);
-      const y = row * rowH;
-      const d = Math.sqrt(x * x + y * y);
-      if (d <= maxR) candidates.push({ x: 50 + x, y: 50 + y, d });
-    }
-  }
-  candidates.sort((a, b) => a.d - b.d);
-  const slots = candidates.slice(0, logos.length);
-
-  const positioned = logos.map((logo, i) => ({
-    ...logo,
-    x: slots[i]?.x ?? 50,
-    y: slots[i]?.y ?? 50,
-  }));
-
   return (
-    <div className="relative mx-auto w-full max-w-[340px] aspect-square">
-      {positioned.map((logo) => (
+    <div className="relative mx-auto h-[300px] w-full max-w-[410px] sm:h-[320px]">
+      {logos.map((logo) => (
         <div
-          key={logo.name}
+          key={`${logo.name}-${logo.x}-${logo.y}`}
           className="absolute flex items-center justify-center text-white transition hover:scale-125 hover:z-50"
           style={{
             left: `${logo.x}%`,
             top: `${logo.y}%`,
-            width: `30px`,
-            height: `30px`,
+            width: `${logo.w}px`,
+            height: `${logo.h}px`,
             transform: `translate(-50%, -50%)`,
-            opacity: 0.92,
+            opacity: 0.94,
           }}
           title={logo.name}
         >
