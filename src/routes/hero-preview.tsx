@@ -179,12 +179,81 @@ const BLOBS: Blob[] = [
   },
 ];
 
+const PILL_LABELS = ["Story", "Love", "Speed", "Integrations"] as const;
+const AUTO_CYCLE_MS = 6000;
+
 function BlobSections() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = window.setInterval(() => {
+      setActive((a) => (a + 1) % BLOBS.length);
+    }, AUTO_CYCLE_MS);
+    return () => window.clearInterval(id);
+  }, [paused]);
+
+  const blob = BLOBS[active];
+
   return (
-    <section className="bg-[#f5f5f5]">
-      {BLOBS.map((b, i) => (
-        <BlobPanel key={i} blob={b} index={i} />
-      ))}
+    <section
+      className="bg-white py-14 md:py-16"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Pills */}
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+          {BLOBS.map((b, i) => {
+            const isActive = active === i;
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => {
+                  setActive(i);
+                  setPaused(true);
+                  window.setTimeout(() => setPaused(false), 10000);
+                }}
+                className={[
+                  "relative overflow-hidden rounded-full px-5 py-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wide transition",
+                  isActive
+                    ? "text-white shadow-lg"
+                    : "text-neutral-700 bg-neutral-100 hover:bg-neutral-200",
+                ].join(" ")}
+                style={isActive ? { background: b.gradient } : undefined}
+                aria-pressed={isActive}
+              >
+                <span className="relative z-10">{PILL_LABELS[i]}</span>
+                {isActive && !paused && (
+                  <span
+                    key={`prog-${i}-${active}`}
+                    className="absolute bottom-0 left-0 h-[3px] bg-white/70"
+                    style={{
+                      animation: `zaplaPillProgress ${AUTO_CYCLE_MS}ms linear forwards`,
+                    }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Blob panel — crossfades on change */}
+        <div key={active} className="zapla-blob-fade">
+          <BlobPanel blob={blob} index={active} />
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes zaplaPillProgress { from { width: 0; } to { width: 100%; } }
+        @keyframes zaplaBlobFade {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: none; }
+        }
+        .zapla-blob-fade { animation: zaplaBlobFade 320ms ease-out; }
+      `}</style>
     </section>
   );
 }
