@@ -1,28 +1,47 @@
-I’m sorry, you’re right to be frustrated. I removed brands too aggressively after the fake-logo issue, and the manual placement made the spacing uneven.
+# Tighten the difference section + rework industries
 
-Plan:
+Goal: cut scroll length and repetition without losing the brand feel. Two focused changes, nothing else touched.
 
-1. **Restore missing brands only with verified real logos**
-   - Re-add Monday.com if the installed logo library has the real official icon.
-   - Check the other removed brands one by one before adding them back.
-   - No fake initials, no generic letters, no made-up marks.
-   - If a brand does not have a verified icon available, I will leave it out rather than fake it.
+## 1. Tighten the 4 colored blobs (the "difference" section)
 
-2. **Fix the uneven spacing**
-   - Replace the current manual scattered coordinates with a clean structured layout inside the blue blob.
-   - Use a balanced grid or soft staggered grid so rows and gaps look intentional.
-   - Keep the icons small enough to avoid crowding, but enlarge wordmark-style logos enough to be readable.
+Current: 4 full-viewport colored blobs stacked, one idea per blob, feels dragged out.
 
-3. **Keep all icons visually consistent**
-   - White logos only.
-   - No text labels pretending to be logos.
-   - Wordmark logos like WooCommerce, Cal.com, Typeform, OpenRouter, and Fathom get proportional sizing so they do not look tiny next to icon marks.
+Change to a single compact section with 4 tabs (pills) that swap content in place:
 
-4. **Do not touch unrelated sections**
-   - Only update the blue integration blob icon list, sizing, and placement.
-   - No changes to headings, copy, fonts, pills, CTAs, or other sections.
+- One section, ~one viewport tall instead of four.
+- Row of 4 color pills at the top: Green / Orange / Purple / Blue, using the existing highlight colors already in the code.
+- Clicking a pill swaps the blob color, the highlighted phrase ("comes first", "fall in love", "difference", "integration"), and the blob's contents in place.
+- Blue pill keeps the integration ring of logos we just finished.
+- Other three pills keep only the blob shape + the colored highlight phrase (headings, subheadings and CTAs already removed per your earlier request).
+- Auto-cycles every 5s with a subtle progress bar under the active pill; pauses on hover; clicking a pill takes over.
+- Motion: color and content crossfade (~250ms) so the blob feels like it's morphing between moods, not slideshow-jumping.
+- Mobile: pills wrap or become a horizontal scroll strip; blob scales down; same crossfade.
 
-5. **Verify visually before calling it done**
-   - Check the `/hero-preview` blue blob after the change.
-   - Confirm Monday.com and any restored brands are real logos, not placeholders.
-   - Confirm the spacing looks even and clean in the current desktop preview.
+Result: same 4 ideas, same brand language, ~75% less scroll.
+
+## 2. Rework the 12-card industries grid (zarc-2024)
+
+Current: 12 flip cards, each with a heading, a category tag, and a filler line ("automate reminders, manage medical records..."). Reads as one idea 12 times.
+
+Change to a compact, skimmable industries strip:
+
+- Single row (desktop) / 2-row wrap (mobile) of small industry chips: icon + industry name only. No category tag, no description line.
+- 12 industries, all visible at once, styled like small pill/tiles matching the site's rounded-square brand shape.
+- On hover (desktop) / tap (mobile), the chip expands inline to reveal the one-liner ("Streamline listings, automate follow-ups..."). Only one expanded at a time.
+- Optional: a single sentence above the strip like "Built for the industries we actually serve." (final copy from you — no double dashes, no em dashes, per project rule).
+- Removes the flip-card animation entirely. Flip cards are the reason the section feels heavy; the content itself is thin.
+
+Result: 12 industries fit in roughly the height of 2 of the current flip cards. Skimmable, still complete.
+
+## Out of scope for this pass
+
+- Hero, platform slider, AI section, integration blob internals, footer, CTA copy — not touched.
+- Fonts, brand colors, logo assets — not touched.
+- No new sections added (proof section and full IA pass can be a follow-up if you want after seeing these two land).
+
+## Technical notes
+
+- Difference section lives in `src/routes/hero-preview.tsx` in `BlobSections`. Refactor to a single `<DifferenceTabs />` component holding `activePill` state, with the 4 panel bodies as a lookup keyed by pill id. Reuse existing highlight color tokens and the `IntegrationLogos` component verbatim for the blue panel.
+- Industries grid (`#zarc-2024`) — locate the current component, replace the flip-card markup and CSS with a chip strip. Keep the 12 industry entries and their one-liners as data; render icon + name always, description on expand. Remove the `.zarc-card` / flip-related CSS.
+- Both changes stay in presentation code. No data model, no routing, no backend changes.
+- Verify with a Playwright screenshot at desktop (1280) and mobile (390) before finishing.
