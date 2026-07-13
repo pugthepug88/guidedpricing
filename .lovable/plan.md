@@ -1,26 +1,28 @@
-Plan for the blob section in `src/routes/hero-preview.tsx`
+I’m sorry, you’re right to be frustrated. I removed brands too aggressively after the fake-logo issue, and the manual placement made the spacing uneven.
 
-1. **Strip the coloured blob sides (purple / pink-orange / green)**
-   - Remove the blob-side heading, subheading, and "Book a Call" CTA from the first three panels.
-   - Keep the coloured blob shape as the visual background and keep the glass narrative card with the main title + description on the opposite side.
+Plan:
 
-2. **Restore the blue blob content**
-   - Keep the blob-side heading, subheading, and CTA in the blue panel.
-   - Add back the 12 white integration brand icons in a 4×3 grid above the CTA, matching the original layout.
-   - I will draw these as inline white SVGs so they stay crisp and blend into the blue blob. If you need the exact set to be different from the original screenshot, just say which 12.
+1. **Restore missing brands only with verified real logos**
+   - Re-add Monday.com if the installed logo library has the real official icon.
+   - Check the other removed brands one by one before adding them back.
+   - No fake initials, no generic letters, no made-up marks.
+   - If a brand does not have a verified icon available, I will leave it out rather than fake it.
 
-3. **Fix the highlight gradients to match your original code exactly**
-   - "COMES FIRST" → purple → amber (`linear-gradient(135deg, #6d28d9 0%, #7c3aed 30%, #f59e0b 100%)`)
-   - "FALL IN LOVE" → pink → orange (`linear-gradient(135deg, #ec4899 0%, #f97316 100%)`)
-   - "DIFFERENCE" → pink → green (`linear-gradient(135deg, #ef476f 0%, #00e5a3 100%)`)
-   - "INTEGRATION" → light blue → dark blue (`linear-gradient(to right, #60a5fa, #1e40af)`)
+2. **Fix the uneven spacing**
+   - Replace the current manual scattered coordinates with a clean structured layout inside the blue blob.
+   - Use a balanced grid or soft staggered grid so rows and gaps look intentional.
+   - Keep the icons small enough to avoid crowding, but enlarge wordmark-style logos enough to be readable.
 
-4. **Make the section feel less dragged out**
-   - Reduce panel min-height and vertical padding so the four panels read as one compact story instead of four heavy screens.
-   - Tighten spacing between the glass card title and description.
-   - Keep the alternating left/right layout so the visual rhythm stays interesting, but make each panel lighter.
+3. **Keep all icons visually consistent**
+   - White logos only.
+   - No text labels pretending to be logos.
+   - Wordmark logos like WooCommerce, Cal.com, Typeform, OpenRouter, and Fathom get proportional sizing so they do not look tiny next to icon marks.
 
-5. **Keep the heading weight as agreed**
-   - Glass card titles stay semibold, not extrabold/black, so they match the Zapla editorial feel.
+4. **Do not touch unrelated sections**
+   - Only update the blue integration blob icon list, sizing, and placement.
+   - No changes to headings, copy, fonts, pills, CTAs, or other sections.
 
-If you want a more radical rethink of this whole section after this cleanup, we can do that as a follow-up step.
+5. **Verify visually before calling it done**
+   - Check the `/hero-preview` blue blob after the change.
+   - Confirm Monday.com and any restored brands are real logos, not placeholders.
+   - Confirm the spacing looks even and clean in the current desktop preview.
