@@ -424,10 +424,9 @@ function FathomLogo() {
 function IntegrationLogos() {
   const S = 30; // uniform icon size
   const logos: { name: string; svg: React.ReactNode; x: number; y: number }[] = [
-    { name: "Fathom", svg: <FathomLogo />, x: 20, y: 10 },
-    { name: "WooCommerce", svg: <WooCommerceLogo />, x: 40, y: 10 },
-    { name: "Canva", svg: <CanvaLogo />, x: 60, y: 10 },
-    { name: "Apify", svg: <ApifyLogo />, x: 80, y: 10 },
+    { name: "Fathom", svg: <FathomLogo />, x: 30, y: 10 },
+    { name: "WooCommerce", svg: <SimpleIconPath path={siWoocommerce.path} />, x: 50, y: 10 },
+    { name: "Cal.com", svg: <SimpleIconPath path={siCaldotcom.path} />, x: 70, y: 10 },
 
     { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, x: 14, y: 24 },
     { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, x: 31, y: 24 },
@@ -440,34 +439,28 @@ function IntegrationLogos() {
     { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, x: 41, y: 39 },
     { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, x: 57, y: 39 },
     { name: "Stripe", svg: <StripeWordmarkIcon />, x: 74, y: 39 },
-    { name: "Typeform", svg: <TypeformLogo />, x: 90, y: 39 },
+    { name: "Typeform", svg: <SimpleIconPath path={siTypeform.path} />, x: 90, y: 39 },
 
     { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, x: 8, y: 54 },
     { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, x: 23, y: 54 },
     { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, x: 38, y: 54 },
-    { name: "Google Contacts", svg: <GoogleContactsLogo />, x: 53, y: 54 },
-    { name: "Google Business", svg: <GoogleBusinessIcon />, x: 68, y: 54 },
-    { name: "Wave", svg: <WaveLogo />, x: 83, y: 54 },
-    { name: "Cal.com", svg: <CalcomLogo />, x: 96, y: 54 },
+    { name: "Google Business", svg: <GoogleBusinessIcon />, x: 55, y: 54 },
+    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 72, y: 54 },
+    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, x: 89, y: 54 },
 
-    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, x: 15, y: 69 },
-    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, x: 31, y: 69 },
-    { name: "LinkedIn", svg: <LinkedInIcon />, x: 47, y: 69 },
-    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, x: 63, y: 69 },
-    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 78, y: 69 },
-    { name: "Monday.com", svg: <MondayLogo />, x: 93, y: 69 },
+    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, x: 20, y: 69 },
+    { name: "LinkedIn", svg: <LinkedInIcon />, x: 38, y: 69 },
+    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, x: 56, y: 69 },
+    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 74, y: 69 },
+    { name: "Sync", svg: <SyncArrowsIcon />, x: 92, y: 69 },
 
-    { name: "Sync", svg: <SyncArrowsIcon />, x: 18, y: 84 },
-    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 37, y: 84 },
-    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 56, y: 84 },
-    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 74, y: 84 },
-    { name: "Manus", svg: <ManusLogo />, x: 91, y: 84 },
+    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 28, y: 84 },
+    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 46, y: 84 },
+    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 64, y: 84 },
+    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 82, y: 84 },
 
-    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 28, y: 97 },
-    { name: "Clio", svg: <ClioLogo />, x: 45, y: 97 },
-    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 62, y: 97 },
-    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 79, y: 97 },
-    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 94, y: 97 },
+    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 40, y: 97 },
+    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 60, y: 97 },
   ];
 
 
