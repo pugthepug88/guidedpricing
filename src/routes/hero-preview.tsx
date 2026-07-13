@@ -304,6 +304,15 @@ function StripeWordmarkIcon() {
   );
 }
 
+function SyncArrowsIcon() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <path d="M31.6 9.2 42 18.3 31.6 27.5v-6.3H17.2c-3.9 0-7.1 2-9 5.3l-3.7-6.4c3-4.4 7.3-6.9 12.7-6.9h14.4v-4Z" />
+      <path d="M16.4 38.8 6 29.7l10.4-9.2v6.3h14.4c3.9 0 7.1-2 9-5.3l3.7 6.4c-3 4.4-7.3 6.9-12.7 6.9H16.4v4Z" />
+    </svg>
+  );
+}
+
 function WordmarkLogo({
   label,
   weight = 700,
@@ -382,7 +391,7 @@ function IntegrationLogos() {
     { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, x: 8, y: 54, w: 30, h: 30 },
     { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, x: 23, y: 54, w: 31, h: 31 },
     { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, x: 38, y: 54, w: 31, h: 31 },
-    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 53, y: 54, w: 30, h: 30 },
+    { name: "Google Contacts", svg: <WordmarkLogo label="G" weight={700} size={20} />, x: 53, y: 54, w: 30, h: 30 },
     { name: "Google Business", svg: <GoogleBusinessIcon />, x: 67, y: 54, w: 32, h: 32 },
     { name: "Wave", svg: <WordmarkLogo label="WAVE" weight={900} size={13} />, x: 82, y: 54, w: 48, h: 18 },
     { name: "Cal.com", svg: <WordmarkLogo label="Cal.com" weight={800} size={12} />, x: 96, y: 54, w: 54, h: 18 },
@@ -394,7 +403,7 @@ function IntegrationLogos() {
     { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 78, y: 69, w: 31, h: 31 },
     { name: "Monday.com", svg: <WordmarkLogo label="monday" weight={800} size={12} />, x: 93, y: 69, w: 56, h: 18 },
 
-    { name: "Facebook", svg: <FacebookCircleIcon />, x: 13, y: 84, w: 30, h: 30 },
+    { name: "Sync", svg: <SyncArrowsIcon />, x: 13, y: 84, w: 31, h: 31 },
     { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 28, y: 84, w: 30, h: 30 },
     { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 43, y: 84, w: 30, h: 30 },
     { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 58, y: 84, w: 31, h: 31 },
@@ -404,7 +413,7 @@ function IntegrationLogos() {
     { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 28, y: 97, w: 28, h: 28 },
     { name: "Clio", svg: <WordmarkLogo label="Clio" weight={700} size={13} />, x: 45, y: 97, w: 42, h: 18 },
     { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 62, y: 97, w: 30, h: 30 },
-    { name: "Cal.com", svg: <SimpleIconPath path={siCaldotcom.path} />, x: 79, y: 97, w: 30, h: 30 },
+    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 79, y: 97, w: 30, h: 30 },
     { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 94, y: 97, w: 28, h: 28 },
   ];
 
