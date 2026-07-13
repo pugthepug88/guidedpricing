@@ -410,54 +410,64 @@ function TypeformLogo() {
   );
 }
 
+function FathomLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <circle cx="24" cy="24" r="22" />
+      <text x="24" y="30" textAnchor="middle" fontSize="18" fontWeight="800" fontFamily="Georgia, serif" fontStyle="italic" fill="#2563eb">fa/</text>
+    </svg>
+  );
+}
 
 function IntegrationLogos() {
-  const logos: { name: string; svg: React.ReactNode; x: number; y: number; w: number; h: number }[] = [
-    { name: "Fathom", svg: <FathomLogo />, x: 20, y: 10, w: 30, h: 30 },
-    { name: "WooCommerce", svg: <WooCommerceWordmark />, x: 41, y: 10, w: 58, h: 18 },
-    { name: "Canva", svg: <WordmarkLogo label="Canva" family="Georgia, serif" italic size={13} />, x: 60, y: 10, w: 52, h: 20 },
-    { name: "Apify", svg: <WordmarkLogo label="Apify" weight={800} size={13} />, x: 79, y: 10, w: 52, h: 20 },
+  const S = 30; // uniform icon size
+  const logos: { name: string; svg: React.ReactNode; x: number; y: number }[] = [
+    { name: "Fathom", svg: <FathomLogo />, x: 20, y: 10 },
+    { name: "WooCommerce", svg: <WooCommerceLogo />, x: 40, y: 10 },
+    { name: "Canva", svg: <CanvaLogo />, x: 60, y: 10 },
+    { name: "Apify", svg: <ApifyLogo />, x: 80, y: 10 },
 
-    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, x: 14, y: 24, w: 30, h: 30 },
-    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, x: 31, y: 24, w: 32, h: 32 },
-    { name: "Slack", svg: <SlackIcon />, x: 48, y: 24, w: 31, h: 31 },
-    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} />, x: 65, y: 24, w: 32, h: 32 },
-    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, x: 82, y: 24, w: 32, h: 32 },
+    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, x: 14, y: 24 },
+    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, x: 31, y: 24 },
+    { name: "Slack", svg: <SlackIcon />, x: 48, y: 24 },
+    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} />, x: 65, y: 24 },
+    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, x: 82, y: 24 },
 
-    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, x: 9, y: 39, w: 30, h: 30 },
-    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, x: 25, y: 39, w: 31, h: 31 },
-    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, x: 41, y: 39, w: 31, h: 31 },
-    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, x: 57, y: 39, w: 32, h: 32 },
-    { name: "Stripe", svg: <StripeWordmarkIcon />, x: 74, y: 39, w: 46, h: 20 },
-    { name: "Typeform", svg: <WordmarkLogo label="Typeform" weight={500} size={11} />, x: 91, y: 39, w: 56, h: 18 },
+    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, x: 9, y: 39 },
+    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, x: 25, y: 39 },
+    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, x: 41, y: 39 },
+    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, x: 57, y: 39 },
+    { name: "Stripe", svg: <StripeWordmarkIcon />, x: 74, y: 39 },
+    { name: "Typeform", svg: <TypeformLogo />, x: 90, y: 39 },
 
-    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, x: 8, y: 54, w: 30, h: 30 },
-    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, x: 23, y: 54, w: 31, h: 31 },
-    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, x: 38, y: 54, w: 31, h: 31 },
-    { name: "Google Contacts", svg: <WordmarkLogo label="G" weight={700} size={20} />, x: 53, y: 54, w: 30, h: 30 },
-    { name: "Google Business", svg: <GoogleBusinessIcon />, x: 67, y: 54, w: 32, h: 32 },
-    { name: "Wave", svg: <WordmarkLogo label="WAVE" weight={900} size={13} />, x: 82, y: 54, w: 48, h: 18 },
-    { name: "Cal.com", svg: <WordmarkLogo label="Cal.com" weight={800} size={12} />, x: 96, y: 54, w: 54, h: 18 },
+    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, x: 8, y: 54 },
+    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, x: 23, y: 54 },
+    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, x: 38, y: 54 },
+    { name: "Google Contacts", svg: <GoogleContactsLogo />, x: 53, y: 54 },
+    { name: "Google Business", svg: <GoogleBusinessIcon />, x: 68, y: 54 },
+    { name: "Wave", svg: <WaveLogo />, x: 83, y: 54 },
+    { name: "Cal.com", svg: <CalcomLogo />, x: 96, y: 54 },
 
-    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, x: 15, y: 69, w: 30, h: 30 },
-    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, x: 31, y: 69, w: 31, h: 31 },
-    { name: "LinkedIn", svg: <LinkedInIcon />, x: 47, y: 69, w: 31, h: 31 },
-    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, x: 63, y: 69, w: 31, h: 31 },
-    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 78, y: 69, w: 31, h: 31 },
-    { name: "Monday.com", svg: <WordmarkLogo label="monday" weight={800} size={12} />, x: 93, y: 69, w: 56, h: 18 },
+    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, x: 15, y: 69 },
+    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, x: 31, y: 69 },
+    { name: "LinkedIn", svg: <LinkedInIcon />, x: 47, y: 69 },
+    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, x: 63, y: 69 },
+    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 78, y: 69 },
+    { name: "Monday.com", svg: <MondayLogo />, x: 93, y: 69 },
 
-    { name: "Sync", svg: <SyncArrowsIcon />, x: 18, y: 84, w: 31, h: 31 },
-    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 37, y: 84, w: 30, h: 30 },
-    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 56, y: 84, w: 31, h: 31 },
-    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 74, y: 84, w: 31, h: 31 },
-    { name: "Manus", svg: <WordmarkLogo label="Manus" weight={800} size={12} />, x: 91, y: 84, w: 52, h: 18 },
+    { name: "Sync", svg: <SyncArrowsIcon />, x: 18, y: 84 },
+    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 37, y: 84 },
+    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 56, y: 84 },
+    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 74, y: 84 },
+    { name: "Manus", svg: <ManusLogo />, x: 91, y: 84 },
 
-    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 28, y: 97, w: 28, h: 28 },
-    { name: "Clio", svg: <WordmarkLogo label="Clio" weight={700} size={13} />, x: 45, y: 97, w: 42, h: 18 },
-    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 62, y: 97, w: 30, h: 30 },
-    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 79, y: 97, w: 30, h: 30 },
-    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 94, y: 97, w: 28, h: 28 },
+    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 28, y: 97 },
+    { name: "Clio", svg: <ClioLogo />, x: 45, y: 97 },
+    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 62, y: 97 },
+    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 79, y: 97 },
+    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 94, y: 97 },
   ];
+
 
   return (
     <div className="relative mx-auto h-[300px] w-full max-w-[410px] sm:h-[320px]">
