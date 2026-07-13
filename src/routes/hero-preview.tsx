@@ -138,9 +138,8 @@ const BLOBS: Blob[] = [
     ),
     mainDesc:
       "Full stack integration ensures you are not missing an opportunity or being held back by one platform. We have built seamless connections with all the tools you already use.",
-    blobTitle: "PLUGS INTO EVERYTHING",
-    blobDesc:
-      "CRM, calendar, ads, reviews, payments, telephony, connected out of the box.",
+    blobTitle: "",
+    blobDesc: "",
     extras: <IntegrationLogos />,
   },
 ];
