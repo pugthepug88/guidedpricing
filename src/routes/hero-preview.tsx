@@ -77,6 +77,14 @@ type Blob = {
   extras?: React.ReactNode;
 };
 
+const highlightTextStyle = (background: string): React.CSSProperties => ({
+  background,
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  color: "transparent",
+});
+
 const BLOBS: Blob[] = [
   {
     side: "left",
