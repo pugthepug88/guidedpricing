@@ -478,8 +478,9 @@ function IntegrationLogos() {
           style={{
             left: `${logo.x}%`,
             top: `${logo.y}%`,
-            width: `${logo.w}px`,
-            height: `${logo.h}px`,
+            width: `${S}px`,
+            height: `${S}px`,
+
             transform: `translate(-50%, -50%)`,
             opacity: 0.94,
           }}
