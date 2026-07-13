@@ -1,26 +1,26 @@
-## Plan: Refine "Feel the Zapla difference" heading
+Plan for the blob section in `src/routes/hero-preview.tsx`
 
-### Current state
-In `src/routes/hero-preview.tsx` line 48, the selected heading is:
-- `font-black`
-- `text-[44px] sm:text-6xl md:text-7xl`
-- `tracking-tight`
+1. **Strip the coloured blob sides (purple / pink-orange / green)**
+   - Remove the blob-side heading, subheading, and "Book a Call" CTA from the first three panels.
+   - Keep the coloured blob shape as the visual background and keep the glass narrative card with the main title + description on the opposite side.
 
-This makes it very heavy and large compared to the cleaner reference style.
+2. **Restore the blue blob content**
+   - Keep the blob-side heading, subheading, and CTA in the blue panel.
+   - Add back the 12 white integration brand icons in a 4×3 grid above the CTA, matching the original layout.
+   - I will draw these as inline white SVGs so they stay crisp and blend into the blue blob. If you need the exact set to be different from the original screenshot, just say which 12.
 
-### Proposed change
-Update the `DifferenceHeading` component so the `h2` is lighter and more refined:
-- Drop weight from `font-black` to `font-semibold` (or `font-bold` if you want slightly more presence).
-- Reduce size to a more editorial scale, e.g. `text-3xl sm:text-4xl md:text-5xl`.
-- Keep `tracking-tight` and center alignment.
-- Use the Zapla brand font stack (`font-zapla`) so it matches the rest of the page.
+3. **Fix the highlight gradients to match your original code exactly**
+   - "COMES FIRST" → purple → amber (`linear-gradient(135deg, #6d28d9 0%, #7c3aed 30%, #f59e0b 100%)`)
+   - "FALL IN LOVE" → pink → orange (`linear-gradient(135deg, #ec4899 0%, #f97316 100%)`)
+   - "DIFFERENCE" → pink → green (`linear-gradient(135deg, #ef476f 0%, #00e5a3 100%)`)
+   - "INTEGRATION" → light blue → dark blue (`linear-gradient(to right, #60a5fa, #1e40af)`)
 
-### Example target class string
-```
-mx-auto max-w-6xl text-center font-zapla font-semibold tracking-tight text-neutral-900 text-3xl sm:text-4xl md:text-5xl
-```
+4. **Make the section feel less dragged out**
+   - Reduce panel min-height and vertical padding so the four panels read as one compact story instead of four heavy screens.
+   - Tighten spacing between the glass card title and description.
+   - Keep the alternating left/right layout so the visual rhythm stays interesting, but make each panel lighter.
 
-### Scope
-Only the `DifferenceHeading` `h2` in `src/routes/hero-preview.tsx` will be changed. No other sections or logic are affected.
+5. **Keep the heading weight as agreed**
+   - Glass card titles stay semibold, not extrabold/black, so they match the Zapla editorial feel.
 
-If you want me to match the exact size/weight from the original screenshot, please confirm whether the target is closer to `font-semibold text-4xl/5xl` or `font-bold text-5xl/6xl`, and I will adjust accordingly.
+If you want a more radical rethink of this whole section after this cleanup, we can do that as a follow-up step.
