@@ -25,6 +25,8 @@ import {
   siCaldotcom,
   siMistralai,
   siOpenrouter,
+  siTypeform,
+  siWoocommerce,
 } from "simple-icons";
 import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
