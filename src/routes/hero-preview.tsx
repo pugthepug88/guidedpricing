@@ -195,17 +195,19 @@ function BlobPanel({ blob, index }: { blob: Blob; index: number }) {
             </p>
           )}
           {blob.extras}
-          <a
-            href={BOOK_URL}
-            className="mt-6 inline-flex items-center gap-3 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/25 hover:-translate-y-0.5"
-          >
-            Book a Call
-            <span className="grid place-items-center w-8 h-8 rounded-full bg-white text-neutral-900">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </span>
-          </a>
+          {blob.blobTitle && (
+            <a
+              href={BOOK_URL}
+              className="mt-6 inline-flex items-center gap-3 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/25 hover:-translate-y-0.5"
+            >
+              Book a Call
+              <span className="grid place-items-center w-8 h-8 rounded-full bg-white text-neutral-900">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
+          )}
         </div>
       )}
 
