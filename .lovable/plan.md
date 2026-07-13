@@ -1,62 +1,84 @@
-## Redesign the industries section: synced list + card carousel
 
-Reference: your uploaded image (list on the left where the active item is expanded, single big card on the right with an image, arrows + dots). Applies to the industries strip on `/hero-preview` (`IndustriesStrip` in `src/routes/hero-preview.tsx`).
+# Homepage refocus: kill the 4-card section, ship one signature video
 
-### Layout
+## The strategic move
 
-Two-column section, single viewport, no big empty pad.
+The current 4-card "AI Marketing" section repeats what the dark section above already says and re-inflates the page we've been trying to trim. Move it off the homepage, replace the slot with **one signature moment** that carries the pitch visually.
+
+## Part 1 — Move the products section to /products
+
+Create a new route `src/routes/products.tsx` with its own SEO metadata. Move the four product pillars (Zapla Marketing, Zapla Reputation, Zapla+ Ads, Zapla+ PR) there in a clean 2x2 grid restyled to the light Zapla palette (no dark neon, no competing animations). Add a link from the main nav.
+
+The homepage no longer tries to explain all four products in detail. It teases the outcome; /products carries the depth.
+
+## Part 2 — Replace the homepage slot with the Chaos-to-Calm video
+
+An 8-second Remotion motion graphic, rendered to MP4, embedded on the homepage. Autoplays once when scrolled into view (with a replay button). Not scroll-scrubbed on the first pass — autoplay is more reliable across devices and doesn't hijack scroll.
+
+### Storyboard (8 seconds @ 30fps = 240 frames)
 
 ```text
-+------------------------------------------------------------+
-|  Feel the Zapla difference                                 |
-|                                                            |
-|  +---------------------+  +-----------------------------+  |
-|  | Real Estate         |  |  [ 3D character image ]     |  |
-|  |  Streamline listi.. |  |                             |  |
-|  |                     |  |  Real Estate                |  |
-|  | + Trades & Services |  |  Streamline listings, aut.. |  |
-|  | + Medical & Health  |  |                             |  |
-|  | + Legal & Accounting|  |  <  o o o o o o o o o o o > |  |
-|  | + ...9 more         |  +-----------------------------+  |
-|  +---------------------+                                   |
-+------------------------------------------------------------+
+0.0s ──────── 2.5s ──────── 5.5s ──────── 8.0s
+CHAOS         PULL           REVEAL        HOLD
 ```
 
-- Left: vertical list of all 12 industries. Active row is a rounded white card with title + one-line description. Other rows are compact pill rows with `+` and industry name, matching your reference styling.
-- Right: one large rounded card. Contains the 3D character image, the industry name overlaid as a small pill, and the one-liner below. Chevron arrows on the sides and dot indicators at the bottom.
-- Both sides driven by one `activeIndex` state. Any change (auto-cycle, click a list row, click an arrow, click a dot) updates both simultaneously and crossfades.
+**Scene 1 — Chaos (0.0–2.5s):** ~14 grayscale UI cards scattered across the frame at random rotations. Each card is a real thing your ICP juggles today: a Meta Ads notification, a Google Review, a Xero invoice, a missed call, a Calendly booking, a Mailchimp draft, a spreadsheet row, a WhatsApp DM, a Stripe payout, a GHL contact, a Canva design, a TikTok comment. Subtle idle drift on each. Muted lavender-gray background.
 
-### Motion
+**Scene 2 — Pull (2.5–5.5s):** All cards accelerate inward toward a single point. As each card reaches the center it colorizes for a single frame and vanishes into a growing Zapla mark. Staggered arrivals so it feels like consolidation, not implosion.
 
-- Auto-advance every 4s, pauses on hover of either column.
-- Left list: active row grows to show description; previous active shrinks back to a pill. ~250ms ease.
-- Right card: image + text crossfade to the next industry (~300ms). No slide, no flip — a soft crossfade so it feels like the same card morphing.
-- Thin progress bar under the active list row, resets on each advance.
+**Scene 3 — Reveal (5.5–7.0s):** The Zapla mark scales up, one clean dashboard card materializes in full brand color showing a live-feeling summary (lead count, review score, ROAS). Single line of copy fades in: **"One system. Everything runs."**
 
-### Imagery — 3D character illustrations (your pick)
+**Scene 4 — Hold (7.0–8.0s):** Hold on the calm final frame. Small "Book a Call" CTA appears beneath the video.
 
-12 stylized 3D-rendered characters, one per industry, all sharing one art style so they read as a set:
+### Design commitments
 
-- Consistent style prompt: soft studio lighting, matte plastic/clay finish, subtle rim light, transparent or off-white background, waist-up 3/4 view, expressive but not cartoony. Same lens, same lighting, same background across all 12.
-- Each character holds or is near one small prop that signals the industry (e.g. Real Estate → house key; Medical → stethoscope; Legal → folder; Home Services → wrench; Beauty → hair dryer; Fitness → dumbbell; Retail → shopping bag; Automotive → wrench + car key; Hospitality → coffee cup; Education → book; Creative → tablet; Finance → laptop).
-- Generated via `imagegen--generate_image` (standard quality, transparent background PNG, ~1024x1024). Saved to `src/assets/industry-<slug>.png` then uploaded as `.asset.json` pointers so they're served from the CDN.
-- Loading is lazy: only the active image and its two neighbours are preloaded to keep the section light.
+- Palette locked to the Zapla lavender + white + accent stack already in the site — no new colors.
+- Font locked to the site's `font-zapla` for the payoff line.
+- One motion system: spring-based ease on all card motion, one accent spring on the payoff line. No mixed easings.
+- No sound. Never autoplay audio.
 
-If any single render doesn't match the set, I'll re-run just that one until the 12 feel like siblings, not strangers.
+### Technical shape
 
-### What gets removed
+- Remotion project scaffolded at `remotion/` per the video-creator skill.
+- Composition: 1920x1080, 30fps, 240 frames.
+- Render to `public/videos/chaos-to-calm.mp4` (and a `.webm` fallback) so it ships with the site.
+- Homepage embeds via a `<video>` element with `autoPlay muted playsInline` and an IntersectionObserver that triggers playback on scroll-into-view. Replay button beneath.
+- Poster image = final frame (rendered as a still via `bunx remotion still`) so the page never shows a black box before the video loads.
 
-- The current large spotlight card + tall right-hand list from the last pass.
-- The old tooltip/hover-expand chip strip is already gone; nothing else in the file changes.
+### What we're NOT doing (guardrails)
 
-### Out of scope
+- No live scroll-scrubbed animation. Rendered MP4 only.
+- No custom illustrated character. The cards are the character.
+- No sound design in v1.
+- No parallel animations on the same page section — this video is the moment; the rest of that band stays still.
 
-- Hero, blob tabs, integration ring, footer, copy elsewhere — not touched.
-- No new routes, no data model, no backend.
-- Font sizes and heading style stay as they are now.
+## Part 3 — Motion diet on the surrounding sections
 
-### Technical notes
+Ship this video AND calm the neighbors, or the video won't land. Concurrent with the above:
 
-- `IndustriesStrip` in `src/routes/hero-preview.tsx` becomes a two-column component with `activeIndex` state, `useEffect` interval for auto-cycle, hover-pause, and a `crossfade` CSS class driven by a keyed inner `<div>` per side.
-- 12 image pointers imported at the top of the file the same way `zaplaIcon` is imported now.
-- Verify with a Playwright screenshot at 1280 desktop and 390 mobile before finishing. On mobile the two columns stack: card on top, list below (list becomes horizontal-scroll pills, active one expanded).
+- Blob tabs: keep click-only (already done). No auto-cycle.
+- Industries carousel: kill the auto-cycle timer. Click/arrow only.
+- Hero orbs and floating chips: reduce loop count or remove — pick during implementation.
+
+## Build order
+
+1. Scaffold `/products` route, move the 4 cards there, restyle to light palette, wire nav link.
+2. Remove the 4-card section from the homepage; leave an empty slot.
+3. Scaffold Remotion project, build the 4 scenes, render MP4 + poster still.
+4. Add `<VideoBlock />` component to the homepage in the freed slot, wired to autoplay-on-view.
+5. Apply the motion diet to blobs / industries / hero.
+6. Verify on mobile — video must not blow the layout, must be tap-to-replay friendly.
+
+## Technical notes
+
+- Remotion renders inside the sandbox via `code--exec`; MP4 goes into `public/videos/` and ships with the deploy.
+- Autoplay requires `muted` + `playsInline` on iOS. Non-negotiable.
+- Poster image (final frame PNG) prevents CLS.
+- If the MP4 comes in over ~2MB, re-encode with `--crf=23` or drop to 24fps.
+- One iteration cycle: if scene 1 or scene 2 doesn't land after render, we tune timing/spring configs and re-render — cheap.
+
+## Open decisions to lock before I start building
+
+1. Which 12–14 tools/notifications should appear as the scattered cards? I'll propose a list based on your ICP; you approve or swap.
+2. Payoff copy: "One system. Everything runs." — approve or rewrite.
+3. Do we ship the /products page in the same session, or homepage-only first and /products next session?

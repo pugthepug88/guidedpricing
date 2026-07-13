@@ -210,15 +210,9 @@ const AUTO_CYCLE_MS = 6000;
 
 function BlobSections() {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [, setPaused] = useState(false);
+  // Motion diet: click-only, no auto-cycle.
 
-  useEffect(() => {
-    if (paused) return;
-    const id = window.setInterval(() => {
-      setActive((a) => (a + 1) % BLOBS.length);
-    }, AUTO_CYCLE_MS);
-    return () => window.clearInterval(id);
-  }, [paused]);
 
   const blob = BLOBS[active];
 
@@ -252,15 +246,8 @@ function BlobSections() {
                 aria-pressed={isActive}
               >
                 <span className="relative z-10">{PILL_LABELS[i]}</span>
-                {isActive && !paused && (
-                  <span
-                    key={`prog-${i}-${active}`}
-                    className="absolute bottom-0 left-0 h-[3px] bg-white/70"
-                    style={{
-                      animation: `zaplaPillProgress ${AUTO_CYCLE_MS}ms linear forwards`,
-                    }}
-                  />
-                )}
+                {/* progress bar removed with auto-cycle */}
+
               </button>
             );
           })}
@@ -507,14 +494,10 @@ function IndustriesStrip() {
   ];
 
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [, setPaused] = useState(false);
   const current = industries[active];
+  // Motion diet: click/arrow only, no auto-cycle.
 
-  useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => setActive((i) => (i + 1) % industries.length), 4000);
-    return () => clearInterval(id);
-  }, [paused, industries.length]);
 
   const goPrev = () => setActive((i) => (i - 1 + industries.length) % industries.length);
   const goNext = () => setActive((i) => (i + 1) % industries.length);
@@ -584,13 +567,8 @@ function IndustriesStrip() {
                           <p className="mt-2 ml-10 text-sm text-neutral-600 leading-relaxed animate-fade-in">
                             {ind.blurb}
                           </p>
-                          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-neutral-100 overflow-hidden">
-                            <div
-                              key={`${active}-${paused ? "p" : "r"}`}
-                              className="h-full bg-neutral-900"
-                              style={{ animation: paused ? "none" : "zaplaPillProgress 4s linear forwards" }}
-                            />
-                          </div>
+                          {/* progress bar removed with auto-cycle */}
+
                         </>
                       )}
                     </button>
