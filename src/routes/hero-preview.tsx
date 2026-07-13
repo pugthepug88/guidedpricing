@@ -1,6 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
+import {
+  siFacebook,
+  siInstagram,
+  siMailchimp,
+  siPinterest,
+  siShopify,
+  siStripe,
+  siTiktok,
+  siWhatsapp,
+  siYoutube,
+} from "simple-icons";
 import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
 import logoOrange from "@/assets/zapla-logo-orange.png.asset.json";
