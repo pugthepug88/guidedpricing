@@ -45,7 +45,7 @@ function HeroPreviewPage() {
 function DifferenceHeading() {
   return (
     <section className="bg-white py-24 md:py-32 px-6">
-      <h2 className="mx-auto max-w-6xl text-center font-black tracking-tight text-neutral-900 text-[44px] leading-[1.05] sm:text-6xl md:text-7xl">
+      <h2 className="mx-auto max-w-6xl text-center font-zapla font-semibold tracking-tight text-neutral-900 text-3xl sm:text-4xl md:text-5xl leading-[1.1]">
         Feel the Zapla difference
       </h2>
     </section>
