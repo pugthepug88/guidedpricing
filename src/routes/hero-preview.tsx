@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import {
-  siFacebook,
   siInstagram,
   siMailchimp,
   siPinterest,
@@ -10,6 +9,29 @@ import {
   siTiktok,
   siWhatsapp,
   siYoutube,
+  siGoogleads,
+  siXero,
+  siQuickbooks,
+  siWoocommerce,
+  siClickup,
+  siNotion,
+  siAirtable,
+  siBasecamp,
+  siTypeform,
+  siAsana,
+  siGoogleforms,
+  siLinear,
+  siTodoist,
+  siJira,
+  siHubspot,
+  siCalendly,
+  siGooglecalendar,
+  siGmail,
+  siZapier,
+  siCaldotcom,
+  siFathom,
+  siMistralai,
+  siOpenrouter,
 } from "simple-icons";
 import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
@@ -289,8 +311,20 @@ function StripeWordmarkIcon() {
   );
 }
 
+function TextTile({ label }: { label: string }) {
+  return (
+    <span
+      className="text-white font-semibold tracking-tight leading-none text-center"
+      style={{ fontSize: label.length > 6 ? "8px" : "9px" }}
+      aria-hidden="true"
+    >
+      {label}
+    </span>
+  );
+}
+
 function IntegrationLogos() {
-  const logos = [
+  const logos: { name: string; svg: React.ReactNode }[] = [
     { name: "Facebook", svg: <FacebookCircleIcon /> },
     { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} /> },
     { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} /> },
@@ -303,14 +337,44 @@ function IntegrationLogos() {
     { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} /> },
     { name: "Stripe", svg: <StripeWordmarkIcon /> },
     { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} /> },
+    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} /> },
+    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} /> },
+    { name: "Gmail", svg: <SimpleIconPath path={siGmail.path} /> },
+    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} /> },
+    { name: "Xero", svg: <SimpleIconPath path={siXero.path} /> },
+    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} /> },
+    { name: "Wave", svg: <TextTile label="WAVE" /> },
+    { name: "WooCommerce", svg: <SimpleIconPath path={siWoocommerce.path} /> },
+    { name: "Canva", svg: <TextTile label="Canva" /> },
+    { name: "Clio", svg: <TextTile label="Clio" /> },
+    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} /> },
+    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} /> },
+    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} /> },
+    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} /> },
+    { name: "Typeform", svg: <SimpleIconPath path={siTypeform.path} /> },
+    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} /> },
+    { name: "Monday.com", svg: <TextTile label="monday" /> },
+    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} /> },
+    { name: "Manus", svg: <TextTile label="Manus" /> },
+    { name: "Fathom", svg: <SimpleIconPath path={siFathom.path} /> },
+    { name: "Apify", svg: <TextTile label="Apify" /> },
+    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} /> },
+    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} /> },
+    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} /> },
+    { name: "Cal.com", svg: <SimpleIconPath path={siCaldotcom.path} /> },
+    { name: "HubSpot", svg: <SimpleIconPath path={siHubspot.path} /> },
+    { name: "Calendly", svg: <SimpleIconPath path={siCalendly.path} /> },
+    { name: "Klaviyo", svg: <TextTile label="Klaviyo" /> },
+    { name: "Zapier", svg: <SimpleIconPath path={siZapier.path} /> },
+    { name: "Jira", svg: <SimpleIconPath path={siJira.path} /> },
   ];
 
   return (
-    <div className="mx-auto mt-8 grid max-w-[330px] grid-cols-4 gap-x-8 gap-y-7">
+    <div className="mx-auto mt-6 grid w-full max-w-[420px] grid-cols-7 gap-x-3 gap-y-3 sm:grid-cols-8 sm:gap-x-4">
       {logos.map((logo) => (
         <div
           key={logo.name}
-          className="flex h-9 w-9 items-center justify-center text-white/90 transition hover:scale-110 hover:text-white"
+          className="flex h-8 w-8 items-center justify-center text-white/90 transition hover:scale-110 hover:text-white"
           title={logo.name}
         >
           {logo.svg}
