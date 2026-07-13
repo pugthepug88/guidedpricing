@@ -106,9 +106,43 @@ function HeroPreviewPage() {
       <DifferenceHeading />
       <BlobSections />
       <IndustriesStrip />
+      <ChaosToCalmVideo />
     </main>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/*  Signature moment video: chaos-to-calm                              */
+/* ------------------------------------------------------------------ */
+function ChaosToCalmVideo() {
+  return (
+    <section className="bg-zapla-bg py-24 md:py-32 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-3xl text-center mb-12 md:mb-16">
+          <h2 className="font-zapla font-semibold tracking-tight text-neutral-900 text-3xl sm:text-4xl md:text-5xl leading-[1.1]">
+            Every tool. One brain.
+          </h2>
+          <p className="mt-5 text-neutral-600 text-lg md:text-xl leading-relaxed">
+            Stop juggling twelve dashboards. Zapla pulls it all into one calm, running system.
+          </p>
+        </div>
+        <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-[0_30px_80px_-40px_rgba(10,10,20,0.35)]">
+          <video
+            className="block w-full h-auto"
+            src="/videos/chaos-to-calm.mp4"
+            poster="/videos/chaos-to-calm-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 /* ------------------------------------------------------------------ */
 /*  "Feel the Zapla difference" — big centered heading                 */
