@@ -1,47 +1,62 @@
-# Tighten the difference section + rework industries
+## Redesign the industries section: synced list + card carousel
 
-Goal: cut scroll length and repetition without losing the brand feel. Two focused changes, nothing else touched.
+Reference: your uploaded image (list on the left where the active item is expanded, single big card on the right with an image, arrows + dots). Applies to the industries strip on `/hero-preview` (`IndustriesStrip` in `src/routes/hero-preview.tsx`).
 
-## 1. Tighten the 4 colored blobs (the "difference" section)
+### Layout
 
-Current: 4 full-viewport colored blobs stacked, one idea per blob, feels dragged out.
+Two-column section, single viewport, no big empty pad.
 
-Change to a single compact section with 4 tabs (pills) that swap content in place:
+```text
++------------------------------------------------------------+
+|  Feel the Zapla difference                                 |
+|                                                            |
+|  +---------------------+  +-----------------------------+  |
+|  | Real Estate         |  |  [ 3D character image ]     |  |
+|  |  Streamline listi.. |  |                             |  |
+|  |                     |  |  Real Estate                |  |
+|  | + Trades & Services |  |  Streamline listings, aut.. |  |
+|  | + Medical & Health  |  |                             |  |
+|  | + Legal & Accounting|  |  <  o o o o o o o o o o o > |  |
+|  | + ...9 more         |  +-----------------------------+  |
+|  +---------------------+                                   |
++------------------------------------------------------------+
+```
 
-- One section, ~one viewport tall instead of four.
-- Row of 4 color pills at the top: Green / Orange / Purple / Blue, using the existing highlight colors already in the code.
-- Clicking a pill swaps the blob color, the highlighted phrase ("comes first", "fall in love", "difference", "integration"), and the blob's contents in place.
-- Blue pill keeps the integration ring of logos we just finished.
-- Other three pills keep only the blob shape + the colored highlight phrase (headings, subheadings and CTAs already removed per your earlier request).
-- Auto-cycles every 5s with a subtle progress bar under the active pill; pauses on hover; clicking a pill takes over.
-- Motion: color and content crossfade (~250ms) so the blob feels like it's morphing between moods, not slideshow-jumping.
-- Mobile: pills wrap or become a horizontal scroll strip; blob scales down; same crossfade.
+- Left: vertical list of all 12 industries. Active row is a rounded white card with title + one-line description. Other rows are compact pill rows with `+` and industry name, matching your reference styling.
+- Right: one large rounded card. Contains the 3D character image, the industry name overlaid as a small pill, and the one-liner below. Chevron arrows on the sides and dot indicators at the bottom.
+- Both sides driven by one `activeIndex` state. Any change (auto-cycle, click a list row, click an arrow, click a dot) updates both simultaneously and crossfades.
 
-Result: same 4 ideas, same brand language, ~75% less scroll.
+### Motion
 
-## 2. Rework the 12-card industries grid (zarc-2024)
+- Auto-advance every 4s, pauses on hover of either column.
+- Left list: active row grows to show description; previous active shrinks back to a pill. ~250ms ease.
+- Right card: image + text crossfade to the next industry (~300ms). No slide, no flip — a soft crossfade so it feels like the same card morphing.
+- Thin progress bar under the active list row, resets on each advance.
 
-Current: 12 flip cards, each with a heading, a category tag, and a filler line ("automate reminders, manage medical records..."). Reads as one idea 12 times.
+### Imagery — 3D character illustrations (your pick)
 
-Change to a compact, skimmable industries strip:
+12 stylized 3D-rendered characters, one per industry, all sharing one art style so they read as a set:
 
-- Single row (desktop) / 2-row wrap (mobile) of small industry chips: icon + industry name only. No category tag, no description line.
-- 12 industries, all visible at once, styled like small pill/tiles matching the site's rounded-square brand shape.
-- On hover (desktop) / tap (mobile), the chip expands inline to reveal the one-liner ("Streamline listings, automate follow-ups..."). Only one expanded at a time.
-- Optional: a single sentence above the strip like "Built for the industries we actually serve." (final copy from you — no double dashes, no em dashes, per project rule).
-- Removes the flip-card animation entirely. Flip cards are the reason the section feels heavy; the content itself is thin.
+- Consistent style prompt: soft studio lighting, matte plastic/clay finish, subtle rim light, transparent or off-white background, waist-up 3/4 view, expressive but not cartoony. Same lens, same lighting, same background across all 12.
+- Each character holds or is near one small prop that signals the industry (e.g. Real Estate → house key; Medical → stethoscope; Legal → folder; Home Services → wrench; Beauty → hair dryer; Fitness → dumbbell; Retail → shopping bag; Automotive → wrench + car key; Hospitality → coffee cup; Education → book; Creative → tablet; Finance → laptop).
+- Generated via `imagegen--generate_image` (standard quality, transparent background PNG, ~1024x1024). Saved to `src/assets/industry-<slug>.png` then uploaded as `.asset.json` pointers so they're served from the CDN.
+- Loading is lazy: only the active image and its two neighbours are preloaded to keep the section light.
 
-Result: 12 industries fit in roughly the height of 2 of the current flip cards. Skimmable, still complete.
+If any single render doesn't match the set, I'll re-run just that one until the 12 feel like siblings, not strangers.
 
-## Out of scope for this pass
+### What gets removed
 
-- Hero, platform slider, AI section, integration blob internals, footer, CTA copy — not touched.
-- Fonts, brand colors, logo assets — not touched.
-- No new sections added (proof section and full IA pass can be a follow-up if you want after seeing these two land).
+- The current large spotlight card + tall right-hand list from the last pass.
+- The old tooltip/hover-expand chip strip is already gone; nothing else in the file changes.
 
-## Technical notes
+### Out of scope
 
-- Difference section lives in `src/routes/hero-preview.tsx` in `BlobSections`. Refactor to a single `<DifferenceTabs />` component holding `activePill` state, with the 4 panel bodies as a lookup keyed by pill id. Reuse existing highlight color tokens and the `IntegrationLogos` component verbatim for the blue panel.
-- Industries grid (`#zarc-2024`) — locate the current component, replace the flip-card markup and CSS with a chip strip. Keep the 12 industry entries and their one-liners as data; render icon + name always, description on expand. Remove the `.zarc-card` / flip-related CSS.
-- Both changes stay in presentation code. No data model, no routing, no backend changes.
-- Verify with a Playwright screenshot at desktop (1280) and mobile (390) before finishing.
+- Hero, blob tabs, integration ring, footer, copy elsewhere — not touched.
+- No new routes, no data model, no backend.
+- Font sizes and heading style stay as they are now.
+
+### Technical notes
+
+- `IndustriesStrip` in `src/routes/hero-preview.tsx` becomes a two-column component with `activeIndex` state, `useEffect` interval for auto-cycle, hover-pause, and a `crossfade` CSS class driven by a keyed inner `<div>` per side.
+- 12 image pointers imported at the top of the file the same way `zaplaIcon` is imported now.
+- Verify with a Playwright screenshot at 1280 desktop and 390 mobile before finishing. On mobile the two columns stack: card on top, list below (list becomes horizontal-scroll pills, active one expanded).
