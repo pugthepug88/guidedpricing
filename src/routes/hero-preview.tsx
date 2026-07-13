@@ -210,15 +210,9 @@ const AUTO_CYCLE_MS = 6000;
 
 function BlobSections() {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [, setPaused] = useState(false);
+  // Motion diet: click-only, no auto-cycle.
 
-  useEffect(() => {
-    if (paused) return;
-    const id = window.setInterval(() => {
-      setActive((a) => (a + 1) % BLOBS.length);
-    }, AUTO_CYCLE_MS);
-    return () => window.clearInterval(id);
-  }, [paused]);
 
   const blob = BLOBS[active];
 
