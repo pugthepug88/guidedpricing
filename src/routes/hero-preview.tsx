@@ -557,7 +557,7 @@ function IndustriesStrip() {
                 key={`${active}-${paused ? "p" : "r"}`}
                 className="h-full bg-white/70"
                 style={{
-                  animation: paused ? "none" : "zaplaSpotlightProgress 4s linear forwards",
+                  animation: paused ? "none" : "zaplaPillProgress 4s linear forwards",
                 }}
               />
             </div>
