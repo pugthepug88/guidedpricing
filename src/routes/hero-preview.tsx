@@ -369,15 +369,43 @@ function IntegrationLogos() {
     { name: "Jira", svg: <SimpleIconPath path={siJira.path} /> },
   ];
 
+  // Deterministic scattered positions inside a circular area
+  const positioned = logos.map((logo, i) => {
+    const seed = Math.sin(i * 12.9898) * 43758.5453;
+    const r1 = seed - Math.floor(seed);
+    const seed2 = Math.sin(i * 78.233) * 43758.5453;
+    const r2 = seed2 - Math.floor(seed2);
+    const seed3 = Math.sin(i * 39.425) * 43758.5453;
+    const r3 = seed3 - Math.floor(seed3);
+    const angle = r1 * Math.PI * 2;
+    const radius = Math.sqrt(r2) * 46; // % from center
+    const x = 50 + radius * Math.cos(angle);
+    const y = 50 + radius * Math.sin(angle);
+    const size = 22 + Math.floor(r3 * 20); // 22-42px
+    const rot = (r1 - 0.5) * 14;
+    const opacity = 0.7 + r3 * 0.3;
+    return { ...logo, x, y, size, rot, opacity };
+  });
+
   return (
-    <div className="mx-auto mt-6 grid w-full max-w-[420px] grid-cols-7 gap-x-3 gap-y-3 sm:grid-cols-8 sm:gap-x-4">
-      {logos.map((logo) => (
+    <div className="relative mx-auto w-full max-w-[560px] h-[360px] sm:h-[440px] lg:h-[500px]">
+      {positioned.map((logo) => (
         <div
           key={logo.name}
-          className="flex h-8 w-8 items-center justify-center text-white/90 transition hover:scale-110 hover:text-white"
+          className="absolute flex items-center justify-center text-white transition hover:scale-125 hover:!opacity-100"
+          style={{
+            left: `${logo.x}%`,
+            top: `${logo.y}%`,
+            width: `${logo.size}px`,
+            height: `${logo.size}px`,
+            transform: `translate(-50%, -50%) rotate(${logo.rot}deg)`,
+            opacity: logo.opacity,
+          }}
           title={logo.name}
         >
-          {logo.svg}
+          <div className="w-full h-full flex items-center justify-center [&>svg]:w-full [&>svg]:h-full">
+            {logo.svg}
+          </div>
         </div>
       ))}
     </div>
