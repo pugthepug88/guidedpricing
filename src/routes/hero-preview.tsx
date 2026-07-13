@@ -71,6 +71,18 @@ import logoRainbow from "@/assets/zapla-logo-rainbow.png.asset.json";
 import logoWhite from "@/assets/zapla-icon-white.png.asset.json";
 import aiWorkflowVideo from "@/assets/ai-workflow.mp4.asset.json";
 import aiEmployeeVideo from "@/assets/ai-employee.mp4.asset.json";
+import industryRealEstate from "@/assets/industry-real-estate.png.asset.json";
+import industryMortgage from "@/assets/industry-mortgage.png.asset.json";
+import industryTrades from "@/assets/industry-trades.png.asset.json";
+import industryHealthcare from "@/assets/industry-healthcare.png.asset.json";
+import industryAirbnb from "@/assets/industry-airbnb.png.asset.json";
+import industryLegal from "@/assets/industry-legal.png.asset.json";
+import industryEvents from "@/assets/industry-events.png.asset.json";
+import industryFitness from "@/assets/industry-fitness.png.asset.json";
+import industryEcommerce from "@/assets/industry-ecommerce.png.asset.json";
+import industryRestaurants from "@/assets/industry-restaurants.png.asset.json";
+import industryRental from "@/assets/industry-rental.png.asset.json";
+import industryAutomotive from "@/assets/industry-automotive.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
@@ -479,19 +491,19 @@ type Industry = {
 };
 
 function IndustriesStrip() {
-  const industries: (Industry & { stat: string; statLabel: string })[] = [
-    { name: "Real Estate", category: "Property", blurb: "Streamline listings, automate follow-ups, and close more deals with intelligent CRM tools.", Icon: HomeIcon, stat: "3.2x", statLabel: "faster lead response" },
-    { name: "Mortgage & Finance", category: "Financial", blurb: "Simplify loan processing, automate document collection, and improve client communication.", Icon: LandmarkIcon, stat: "60%", statLabel: "less admin time" },
-    { name: "Trades & Home Improvement", category: "Services", blurb: "Manage projects, schedule appointments, and invoice seamlessly from one platform.", Icon: WrenchIcon, stat: "24/7", statLabel: "quote follow-ups" },
-    { name: "Healthcare & Clinic", category: "Medical", blurb: "Streamline patient scheduling, automate reminders, and manage records efficiently.", Icon: StethoscopeIcon, stat: "42%", statLabel: "fewer no-shows" },
-    { name: "Airbnb Host", category: "Hospitality", blurb: "Automate guest communication, manage bookings, and optimise pricing strategies.", Icon: BedIcon, stat: "5★", statLabel: "guest response rate" },
-    { name: "Legal", category: "Law Practice", blurb: "Manage cases, automate document generation, and streamline client intake.", Icon: ScaleIcon, stat: "2x", statLabel: "intake conversion" },
-    { name: "Event & Entertainment", category: "Events", blurb: "Coordinate venues, manage ticketing, and automate event marketing campaigns.", Icon: TicketIcon, stat: "1 hub", statLabel: "for every touchpoint" },
-    { name: "Fitness & Wellness", category: "Health", blurb: "Manage memberships, schedule classes, and automate client fitness journeys.", Icon: DumbbellIcon, stat: "88%", statLabel: "member retention" },
-    { name: "Ecommerce", category: "Retail", blurb: "Optimise sales funnels, automate cart recovery, and boost customer retention.", Icon: ShoppingBagIcon, stat: "3x", statLabel: "cart recovery" },
-    { name: "Restaurants & Bars", category: "Hospitality", blurb: "Manage reservations, automate marketing, and build loyalty programs.", Icon: UtensilsIcon, stat: "40%", statLabel: "repeat visits" },
-    { name: "Hire & Rental", category: "Rentals", blurb: "Track inventory, automate bookings, and manage rental agreements seamlessly.", Icon: PackageIcon, stat: "0", statLabel: "double-bookings" },
-    { name: "Automotive", category: "Auto", blurb: "Manage inventory, automate service reminders, and streamline sales.", Icon: CarIcon, stat: "2.5x", statLabel: "service bookings" },
+  const industries: (Industry & { image: string })[] = [
+    { name: "Real Estate", category: "Property", blurb: "Streamline listings, automate follow-ups, and close more deals with intelligent CRM tools.", Icon: HomeIcon, image: industryRealEstate.url },
+    { name: "Mortgage & Finance", category: "Financial", blurb: "Simplify loan processing, automate document collection, and improve client communication.", Icon: LandmarkIcon, image: industryMortgage.url },
+    { name: "Trades & Home Improvement", category: "Services", blurb: "Manage projects, schedule appointments, and invoice seamlessly from one platform.", Icon: WrenchIcon, image: industryTrades.url },
+    { name: "Healthcare & Clinic", category: "Medical", blurb: "Streamline patient scheduling, automate reminders, and manage records efficiently.", Icon: StethoscopeIcon, image: industryHealthcare.url },
+    { name: "Airbnb Host", category: "Hospitality", blurb: "Automate guest communication, manage bookings, and optimise pricing strategies.", Icon: BedIcon, image: industryAirbnb.url },
+    { name: "Legal", category: "Law Practice", blurb: "Manage cases, automate document generation, and streamline client intake.", Icon: ScaleIcon, image: industryLegal.url },
+    { name: "Event & Entertainment", category: "Events", blurb: "Coordinate venues, manage ticketing, and automate event marketing campaigns.", Icon: TicketIcon, image: industryEvents.url },
+    { name: "Fitness & Wellness", category: "Health", blurb: "Manage memberships, schedule classes, and automate client fitness journeys.", Icon: DumbbellIcon, image: industryFitness.url },
+    { name: "Ecommerce", category: "Retail", blurb: "Optimise sales funnels, automate cart recovery, and boost customer retention.", Icon: ShoppingBagIcon, image: industryEcommerce.url },
+    { name: "Restaurants & Bars", category: "Hospitality", blurb: "Manage reservations, automate marketing, and build loyalty programs.", Icon: UtensilsIcon, image: industryRestaurants.url },
+    { name: "Hire & Rental", category: "Rentals", blurb: "Track inventory, automate bookings, and manage rental agreements seamlessly.", Icon: PackageIcon, image: industryRental.url },
+    { name: "Automotive", category: "Auto", blurb: "Manage inventory, automate service reminders, and streamline sales.", Icon: CarIcon, image: industryAutomotive.url },
   ];
 
   const [active, setActive] = useState(0);
@@ -503,6 +515,9 @@ function IndustriesStrip() {
     const id = setInterval(() => setActive((i) => (i + 1) % industries.length), 4000);
     return () => clearInterval(id);
   }, [paused, industries.length]);
+
+  const goPrev = () => setActive((i) => (i - 1 + industries.length) % industries.length);
+  const goNext = () => setActive((i) => (i + 1) % industries.length);
 
   return (
     <section
@@ -520,96 +535,154 @@ function IndustriesStrip() {
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-[1.15fr_1fr] md:gap-12 items-stretch">
-          {/* Spotlight card */}
-          <div className="relative overflow-hidden rounded-3xl bg-neutral-950 text-white p-8 sm:p-10 min-h-[340px] shadow-xl">
-            <div className="pointer-events-none absolute -top-20 -right-16 h-64 w-64 rounded-full bg-zapla-blue2/40 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-zapla-violet/30 blur-3xl" />
+        <div className="mt-12 rounded-3xl bg-neutral-100/70 p-4 sm:p-6 md:p-8">
+          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-8 items-stretch">
+            {/* Left: list */}
+            <ul className="flex flex-col gap-2">
+              {industries.map((ind, i) => {
+                const isActive = i === active;
+                return (
+                  <li key={ind.name}>
+                    <button
+                      type="button"
+                      onClick={() => setActive(i)}
+                      onMouseEnter={() => setActive(i)}
+                      aria-current={isActive}
+                      className={[
+                        "group relative w-full overflow-hidden rounded-2xl text-left transition-all duration-300",
+                        isActive
+                          ? "bg-white shadow-sm px-5 py-4"
+                          : "bg-transparent hover:bg-white/60 px-5 py-2.5",
+                      ].join(" ")}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={[
+                            "inline-flex shrink-0 items-center justify-center rounded-full transition-all",
+                            isActive
+                              ? "h-7 w-7 bg-neutral-900 text-white"
+                              : "h-6 w-6 border border-neutral-300 text-neutral-500 group-hover:border-neutral-500 group-hover:text-neutral-800",
+                          ].join(" ")}
+                        >
+                          {isActive ? (
+                            <ind.Icon className="h-3.5 w-3.5" />
+                          ) : (
+                            <span className="text-base leading-none font-light">+</span>
+                          )}
+                        </span>
+                        <span
+                          className={[
+                            "flex-1 font-semibold transition-all",
+                            isActive ? "text-neutral-900 text-base" : "text-neutral-600 text-sm group-hover:text-neutral-900",
+                          ].join(" ")}
+                        >
+                          {ind.name}
+                        </span>
+                      </div>
+                      {isActive && (
+                        <>
+                          <p className="mt-2 ml-10 text-sm text-neutral-600 leading-relaxed animate-fade-in">
+                            {ind.blurb}
+                          </p>
+                          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-neutral-100 overflow-hidden">
+                            <div
+                              key={`${active}-${paused ? "p" : "r"}`}
+                              className="h-full bg-neutral-900"
+                              style={{ animation: paused ? "none" : "zaplaPillProgress 4s linear forwards" }}
+                            />
+                          </div>
+                        </>
+                      )}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
 
-            <div key={active} className="relative animate-fade-in">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm ring-1 ring-white/15">
-                  <current.Icon className="h-5 w-5 text-white" />
-                </span>
-                <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/60">
-                  {current.category}
-                </span>
-              </div>
-
-              <h3 className="mt-6 font-zapla font-semibold text-3xl sm:text-4xl leading-[1.05] tracking-tight">
-                {current.name}
-              </h3>
-              <p className="mt-4 max-w-md text-white/75 text-base leading-relaxed">
-                {current.blurb}
-              </p>
-
-              <div className="mt-8 flex items-end gap-4">
-                <div className="text-4xl sm:text-5xl font-zapla font-semibold tracking-tight text-white">
-                  {current.stat}
+            {/* Right: card carousel */}
+            <div className="relative">
+              <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm min-h-[420px] sm:min-h-[480px]">
+                {/* Image area */}
+                <div className="relative h-[300px] sm:h-[360px] overflow-hidden bg-gradient-to-b from-neutral-50 to-neutral-100">
+                  {industries.map((ind, i) => (
+                    <img
+                      key={ind.name}
+                      src={ind.image}
+                      alt={ind.name}
+                      loading="lazy"
+                      width={1024}
+                      height={1024}
+                      className={[
+                        "absolute inset-0 mx-auto h-full w-auto object-contain transition-all duration-500",
+                        i === active ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none",
+                      ].join(" ")}
+                    />
+                  ))}
+                  {/* Category pill overlay */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span
+                      key={`cat-${active}`}
+                      className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-neutral-700 shadow-sm animate-fade-in"
+                    >
+                      <current.Icon className="h-3.5 w-3.5" />
+                      {current.category}
+                    </span>
+                  </div>
                 </div>
-                <div className="pb-1.5 text-sm text-white/70">{current.statLabel}</div>
-              </div>
-            </div>
 
-            {/* Progress bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
-              <div
-                key={`${active}-${paused ? "p" : "r"}`}
-                className="h-full bg-white/70"
-                style={{
-                  animation: paused ? "none" : "zaplaPillProgress 4s linear forwards",
-                }}
-              />
+                {/* Text area */}
+                <div key={`text-${active}`} className="p-6 sm:p-8 animate-fade-in">
+                  <h3 className="font-zapla font-semibold text-2xl sm:text-3xl leading-tight tracking-tight text-neutral-900">
+                    {current.name}
+                  </h3>
+                  <p className="mt-3 text-sm sm:text-base text-neutral-600 leading-relaxed">
+                    {current.blurb}
+                  </p>
+                </div>
+
+                {/* Arrows */}
+                <button
+                  type="button"
+                  onClick={goPrev}
+                  aria-label="Previous industry"
+                  className="absolute left-3 top-[150px] sm:top-[180px] z-10 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-md text-neutral-700 hover:text-neutral-900 hover:scale-110 transition"
+                >
+                  <span className="text-lg leading-none">‹</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={goNext}
+                  aria-label="Next industry"
+                  className="absolute right-3 top-[150px] sm:top-[180px] z-10 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/95 shadow-md text-neutral-700 hover:text-neutral-900 hover:scale-110 transition"
+                >
+                  <span className="text-lg leading-none">›</span>
+                </button>
+              </div>
+
+              {/* Dots */}
+              <div className="mt-4 flex justify-center gap-1.5">
+                {industries.map((ind, i) => (
+                  <button
+                    key={ind.name}
+                    type="button"
+                    onClick={() => setActive(i)}
+                    aria-label={`Show ${ind.name}`}
+                    aria-current={i === active}
+                    className={[
+                      "h-1.5 rounded-full transition-all",
+                      i === active ? "w-6 bg-neutral-900" : "w-1.5 bg-neutral-300 hover:bg-neutral-500",
+                    ].join(" ")}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-
-          {/* Industry list */}
-          <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-1.5 content-start">
-            {industries.map((ind, i) => {
-              const isActive = i === active;
-              return (
-                <li key={ind.name}>
-                  <button
-                    type="button"
-                    onMouseEnter={() => setActive(i)}
-                    onClick={() => setActive(i)}
-                    aria-current={isActive}
-                    className={[
-                      "group flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition-colors duration-200",
-                      isActive
-                        ? "bg-neutral-100 text-neutral-900"
-                        : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50",
-                    ].join(" ")}
-                  >
-                    <span
-                      className={[
-                        "inline-flex h-8 w-8 items-center justify-center rounded-lg transition-colors",
-                        isActive ? "bg-neutral-900 text-white" : "bg-neutral-100 text-neutral-500 group-hover:bg-neutral-200",
-                      ].join(" ")}
-                    >
-                      <ind.Icon className="h-4 w-4" />
-                    </span>
-                    <span className="flex-1 text-sm font-semibold whitespace-nowrap">
-                      {ind.name}
-                    </span>
-                    <span
-                      className={[
-                        "text-lg leading-none transition-all",
-                        isActive ? "text-neutral-900 translate-x-0 opacity-100" : "text-neutral-300 -translate-x-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0",
-                      ].join(" ")}
-                    >
-                      →
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
         </div>
       </div>
     </section>
   );
 }
+
 
 
 
