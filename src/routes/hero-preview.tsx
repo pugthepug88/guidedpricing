@@ -79,6 +79,7 @@ function HeroPreviewPage() {
       <AISection />
       <DifferenceHeading />
       <BlobSections />
+      <IndustriesStrip />
     </main>
   );
 }
