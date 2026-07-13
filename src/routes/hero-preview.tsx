@@ -313,33 +313,99 @@ function SyncArrowsIcon() {
   );
 }
 
-function WordmarkLogo({
-  label,
-  weight = 700,
-  italic = false,
-  family = "Arial, Helvetica, sans-serif",
-  size = 12,
-}: {
-  label: string;
-  weight?: number;
-  italic?: boolean;
-  family?: string;
-  size?: number;
-}) {
+function CanvaLogo() {
   return (
-    <svg viewBox="0 0 80 24" fill="currentColor" className="h-full w-full" aria-hidden="true">
-      <text
-        x="40"
-        y="16"
-        textAnchor="middle"
-        fontSize={size}
-        fontWeight={weight}
-        fontStyle={italic ? "italic" : "normal"}
-        fontFamily={family}
-        fill="currentColor"
-      >
-        {label}
-      </text>
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <circle cx="24" cy="24" r="22" />
+      <path d="M31 29.5c-1.6 2.4-4.2 3.9-7.3 3.9-5.4 0-9.2-4.2-9.2-9.6s3.8-9.6 9.2-9.6c3.1 0 5.6 1.4 7.2 3.7l-3.4 2.1c-.9-1.3-2.2-2.1-3.8-2.1-3 0-5.1 2.5-5.1 5.9s2.1 5.9 5.1 5.9c1.7 0 3-.8 3.9-2.2l3.4 2Z" fill="#2563eb" />
+    </svg>
+  );
+}
+
+function ApifyLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="10" />
+      <path d="M24 12 13 34h4.2l2.1-4.6h9.4L30.8 34H35L24 12Zm-3.2 14.2L24 19l3.2 7.2h-6.4Z" fill="#2563eb" />
+    </svg>
+  );
+}
+
+function WaveLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="10" />
+      <path d="M7 28c3-6 6-6 9 0s6 6 9 0 6-6 9 0 6 6 7 3" stroke="#2563eb" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function MondayLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="3" y="12" width="42" height="6" rx="3" />
+      <rect x="3" y="22" width="42" height="6" rx="3" />
+      <rect x="3" y="32" width="28" height="6" rx="3" />
+      <circle cx="39" cy="35" r="4" />
+    </svg>
+  );
+}
+
+function ManusLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="10" />
+      <path d="M10 34V14h4.6l7 12.4L28.6 14H33v20h-3.6V20.6l-6.4 10.8h-1.6l-6.4-10.8V34H10Z" fill="#2563eb" />
+    </svg>
+  );
+}
+
+function ClioLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <path d="M24 4a20 20 0 1 0 14.1 34.1l-3.5-3.5A15 15 0 1 1 24 9c4.1 0 7.9 1.7 10.6 4.4l3.5-3.5A19.9 19.9 0 0 0 24 4Z" />
+      <circle cx="37" cy="11" r="4.5" />
+    </svg>
+  );
+}
+
+function GoogleContactsLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <circle cx="24" cy="24" r="22" />
+      <circle cx="24" cy="19" r="6" fill="#2563eb" />
+      <path d="M12 38c1.8-6.4 6.6-10 12-10s10.2 3.6 12 10H12Z" fill="#2563eb" />
+    </svg>
+  );
+}
+
+function WooCommerceLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <path d="M6 10h36a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-6 6v-6H6a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4Z" />
+      <path d="M10 17c.6 5 2 8 3.4 8 1 0 1.7-1.4 2.4-4 .3 2.6 1.2 4 2.4 4 1.4 0 2.8-3 3.4-8" stroke="#2563eb" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="27" cy="22" r="3.2" stroke="#2563eb" strokeWidth="1.8" fill="none" />
+      <circle cx="35" cy="22" r="3.2" stroke="#2563eb" strokeWidth="1.8" fill="none" />
+    </svg>
+  );
+}
+
+function CalcomLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="10" width="44" height="28" rx="8" />
+      <path d="M18 23.5c-.7-1-1.7-1.5-3-1.5-2.2 0-3.8 1.6-3.8 4s1.6 4 3.8 4c1.3 0 2.3-.5 3-1.5l2.2 1.5c-1.2 1.7-3 2.6-5.2 2.6-3.7 0-6.4-2.7-6.4-6.6s2.7-6.6 6.4-6.6c2.2 0 4 .9 5.2 2.6l-2.2 1.5Z" fill="#2563eb" />
+      <path d="M24 32V16h2.6v16H24Z" fill="#2563eb" />
+      <circle cx="34" cy="28" r="4" fill="none" stroke="#2563eb" strokeWidth="2.2" />
+    </svg>
+  );
+}
+
+function TypeformLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="10" />
+      <path d="M13 15h22v4H26v18h-4V19h-9v-4Z" fill="#2563eb" />
     </svg>
   );
 }
@@ -348,73 +414,60 @@ function FathomLogo() {
   return (
     <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
       <circle cx="24" cy="24" r="22" />
-      <text x="24" y="31" textAnchor="middle" fontSize="20" fontWeight="800" fontFamily="Arial, Helvetica, sans-serif" fill="#2563eb">
-        fa/
-      </text>
-    </svg>
-  );
-}
-
-function WooCommerceWordmark() {
-  return (
-    <svg viewBox="0 0 108 24" fill="currentColor" className="h-full w-full" aria-hidden="true">
-      <text x="24" y="14" textAnchor="middle" fontSize="10" fontWeight="900" fontFamily="Arial, Helvetica, sans-serif" fill="currentColor">
-        WOO
-      </text>
-      <text x="70" y="14" textAnchor="middle" fontSize="9" fontWeight="800" fontFamily="Arial, Helvetica, sans-serif" fill="currentColor">
-        COMMERCE
-      </text>
+      <text x="24" y="30" textAnchor="middle" fontSize="18" fontWeight="800" fontFamily="Georgia, serif" fontStyle="italic" fill="#2563eb">fa/</text>
     </svg>
   );
 }
 
 function IntegrationLogos() {
-  const logos: { name: string; svg: React.ReactNode; x: number; y: number; w: number; h: number }[] = [
-    { name: "Fathom", svg: <FathomLogo />, x: 20, y: 10, w: 30, h: 30 },
-    { name: "WooCommerce", svg: <WooCommerceWordmark />, x: 41, y: 10, w: 58, h: 18 },
-    { name: "Canva", svg: <WordmarkLogo label="Canva" family="Georgia, serif" italic size={13} />, x: 60, y: 10, w: 52, h: 20 },
-    { name: "Apify", svg: <WordmarkLogo label="Apify" weight={800} size={13} />, x: 79, y: 10, w: 52, h: 20 },
+  const S = 30; // uniform icon size
+  const logos: { name: string; svg: React.ReactNode; x: number; y: number }[] = [
+    { name: "Fathom", svg: <FathomLogo />, x: 20, y: 10 },
+    { name: "WooCommerce", svg: <WooCommerceLogo />, x: 40, y: 10 },
+    { name: "Canva", svg: <CanvaLogo />, x: 60, y: 10 },
+    { name: "Apify", svg: <ApifyLogo />, x: 80, y: 10 },
 
-    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, x: 14, y: 24, w: 30, h: 30 },
-    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, x: 31, y: 24, w: 32, h: 32 },
-    { name: "Slack", svg: <SlackIcon />, x: 48, y: 24, w: 31, h: 31 },
-    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} />, x: 65, y: 24, w: 32, h: 32 },
-    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, x: 82, y: 24, w: 32, h: 32 },
+    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, x: 14, y: 24 },
+    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, x: 31, y: 24 },
+    { name: "Slack", svg: <SlackIcon />, x: 48, y: 24 },
+    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} />, x: 65, y: 24 },
+    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, x: 82, y: 24 },
 
-    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, x: 9, y: 39, w: 30, h: 30 },
-    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, x: 25, y: 39, w: 31, h: 31 },
-    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, x: 41, y: 39, w: 31, h: 31 },
-    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, x: 57, y: 39, w: 32, h: 32 },
-    { name: "Stripe", svg: <StripeWordmarkIcon />, x: 74, y: 39, w: 46, h: 20 },
-    { name: "Typeform", svg: <WordmarkLogo label="Typeform" weight={500} size={11} />, x: 91, y: 39, w: 56, h: 18 },
+    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, x: 9, y: 39 },
+    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, x: 25, y: 39 },
+    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, x: 41, y: 39 },
+    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, x: 57, y: 39 },
+    { name: "Stripe", svg: <StripeWordmarkIcon />, x: 74, y: 39 },
+    { name: "Typeform", svg: <TypeformLogo />, x: 90, y: 39 },
 
-    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, x: 8, y: 54, w: 30, h: 30 },
-    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, x: 23, y: 54, w: 31, h: 31 },
-    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, x: 38, y: 54, w: 31, h: 31 },
-    { name: "Google Contacts", svg: <WordmarkLogo label="G" weight={700} size={20} />, x: 53, y: 54, w: 30, h: 30 },
-    { name: "Google Business", svg: <GoogleBusinessIcon />, x: 67, y: 54, w: 32, h: 32 },
-    { name: "Wave", svg: <WordmarkLogo label="WAVE" weight={900} size={13} />, x: 82, y: 54, w: 48, h: 18 },
-    { name: "Cal.com", svg: <WordmarkLogo label="Cal.com" weight={800} size={12} />, x: 96, y: 54, w: 54, h: 18 },
+    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, x: 8, y: 54 },
+    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, x: 23, y: 54 },
+    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, x: 38, y: 54 },
+    { name: "Google Contacts", svg: <GoogleContactsLogo />, x: 53, y: 54 },
+    { name: "Google Business", svg: <GoogleBusinessIcon />, x: 68, y: 54 },
+    { name: "Wave", svg: <WaveLogo />, x: 83, y: 54 },
+    { name: "Cal.com", svg: <CalcomLogo />, x: 96, y: 54 },
 
-    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, x: 15, y: 69, w: 30, h: 30 },
-    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, x: 31, y: 69, w: 31, h: 31 },
-    { name: "LinkedIn", svg: <LinkedInIcon />, x: 47, y: 69, w: 31, h: 31 },
-    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, x: 63, y: 69, w: 31, h: 31 },
-    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 78, y: 69, w: 31, h: 31 },
-    { name: "Monday.com", svg: <WordmarkLogo label="monday" weight={800} size={12} />, x: 93, y: 69, w: 56, h: 18 },
+    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, x: 15, y: 69 },
+    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, x: 31, y: 69 },
+    { name: "LinkedIn", svg: <LinkedInIcon />, x: 47, y: 69 },
+    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, x: 63, y: 69 },
+    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 78, y: 69 },
+    { name: "Monday.com", svg: <MondayLogo />, x: 93, y: 69 },
 
-    { name: "Sync", svg: <SyncArrowsIcon />, x: 18, y: 84, w: 31, h: 31 },
-    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 37, y: 84, w: 30, h: 30 },
-    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 56, y: 84, w: 31, h: 31 },
-    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 74, y: 84, w: 31, h: 31 },
-    { name: "Manus", svg: <WordmarkLogo label="Manus" weight={800} size={12} />, x: 91, y: 84, w: 52, h: 18 },
+    { name: "Sync", svg: <SyncArrowsIcon />, x: 18, y: 84 },
+    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 37, y: 84 },
+    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 56, y: 84 },
+    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 74, y: 84 },
+    { name: "Manus", svg: <ManusLogo />, x: 91, y: 84 },
 
-    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 28, y: 97, w: 28, h: 28 },
-    { name: "Clio", svg: <WordmarkLogo label="Clio" weight={700} size={13} />, x: 45, y: 97, w: 42, h: 18 },
-    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 62, y: 97, w: 30, h: 30 },
-    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 79, y: 97, w: 30, h: 30 },
-    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 94, y: 97, w: 28, h: 28 },
+    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 28, y: 97 },
+    { name: "Clio", svg: <ClioLogo />, x: 45, y: 97 },
+    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 62, y: 97 },
+    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 79, y: 97 },
+    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 94, y: 97 },
   ];
+
 
   return (
     <div className="relative mx-auto h-[300px] w-full max-w-[410px] sm:h-[320px]">
@@ -425,8 +478,9 @@ function IntegrationLogos() {
           style={{
             left: `${logo.x}%`,
             top: `${logo.y}%`,
-            width: `${logo.w}px`,
-            height: `${logo.h}px`,
+            width: `${S}px`,
+            height: `${S}px`,
+
             transform: `translate(-50%, -50%)`,
             opacity: 0.94,
           }}
