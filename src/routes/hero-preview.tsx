@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import {
-  siFacebook,
   siInstagram,
   siMailchimp,
   siPinterest,
@@ -10,6 +9,29 @@ import {
   siTiktok,
   siWhatsapp,
   siYoutube,
+  siGoogleads,
+  siXero,
+  siQuickbooks,
+  siWoocommerce,
+  siClickup,
+  siNotion,
+  siAirtable,
+  siBasecamp,
+  siTypeform,
+  siAsana,
+  siGoogleforms,
+  siLinear,
+  siTodoist,
+  siJira,
+  siHubspot,
+  siCalendly,
+  siGooglecalendar,
+  siGmail,
+  siZapier,
+  siCaldotcom,
+  siFathom,
+  siMistralai,
+  siOpenrouter,
 } from "simple-icons";
 import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
