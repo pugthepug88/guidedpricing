@@ -494,14 +494,10 @@ function IndustriesStrip() {
   ];
 
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [, setPaused] = useState(false);
   const current = industries[active];
+  // Motion diet: click/arrow only, no auto-cycle.
 
-  useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => setActive((i) => (i + 1) % industries.length), 4000);
-    return () => clearInterval(id);
-  }, [paused, industries.length]);
 
   const goPrev = () => setActive((i) => (i - 1 + industries.length) % industries.length);
   const goNext = () => setActive((i) => (i + 1) % industries.length);
