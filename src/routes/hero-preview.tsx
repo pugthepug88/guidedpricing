@@ -296,7 +296,7 @@ function IntegrationLogos() {
       name: "Shopify",
       svg: (
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
-          <path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.09-.058-.131-.058h-.062l-.92 2.36s-1.565-.358-3.19-.358c-2.658 0-3.51 1.206-3.51 2.206 0 1.146.512 1.84.512 1.84s-1.732.756-2.732 1.756c-.997.998-.997 2.37-.997 2.87 0 .498.249.747.249.747s-1.246 3.49-1.496 4.24c-.25.748-.25 1.247-.25 1.247l8.532 1.997zM12.49 5.21c-.62 0-1.12.5-1.12 1.12 0 .62.5 1.12 1.12 1.12.62 0 1.12-.5 1.12-1.12 0-.62-.5-1.12-1.12-1.12zm.62 4.36c-.62 0-1.12.5-1.12 1.12 0 .62.5 1.12 1.12 1.12.62 0 1.12-.5 1.12-1.12 0-.62-.5-1.12-1.12-1.12z" />
+          <path d="M6 7h2a4 4 0 018 0h2l1.2 13.2a1 1 0 01-1 1.1H5.8a1 1 0 01-1-1.1L6 7zm3 0h6a3 3 0 00-6 0z" />
         </svg>
       ),
     },
@@ -304,15 +304,17 @@ function IntegrationLogos() {
       name: "Stripe",
       svg: (
         <svg viewBox="0 0 32 32" fill="currentColor" className="w-7 h-7 md:w-8 md:h-8">
-          <text x="16" y="21" textAnchor="middle" fontSize="13" fontWeight="600" fill="currentColor" fontFamily="sans-serif" letterSpacing="-0.5">stripe</text>
+          <text x="16" y="21" textAnchor="middle" fontSize="13" fontWeight="700" fill="currentColor" fontFamily="sans-serif" letterSpacing="-0.5">stripe</text>
         </svg>
       ),
     },
     {
-      name: "Integrations",
+      name: "Sync",
       svg: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 md:w-8 md:h-8">
-          <path d="M17 4.12A9 9 0 003.34 8.34M21 12a9 9 0 01-3.88 7.38M21 12h-6M3 12a9 9 0 013.88-7.38M3 12h6M17 19.88A9 9 0 003.34 15.66" />
+          <path d="M20 12a8 8 0 01-14.5 4.7M4 12a8 8 0 0114.5-4.7" />
+          <polyline points="20 4 20 8 16 8" />
+          <polyline points="4 20 4 16 8 16" />
         </svg>
       ),
     },
