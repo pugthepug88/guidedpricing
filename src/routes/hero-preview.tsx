@@ -2,6 +2,20 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import {
+  Home as HomeIcon,
+  Landmark as LandmarkIcon,
+  Wrench as WrenchIcon,
+  Stethoscope as StethoscopeIcon,
+  BedDouble as BedIcon,
+  Scale as ScaleIcon,
+  Ticket as TicketIcon,
+  Dumbbell as DumbbellIcon,
+  ShoppingBag as ShoppingBagIcon,
+  Utensils as UtensilsIcon,
+  Package as PackageIcon,
+  Car as CarIcon,
+} from "lucide-react";
+import {
   siInstagram,
   siMailchimp,
   siPinterest,
