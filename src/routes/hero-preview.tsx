@@ -184,12 +184,16 @@ function BlobPanel({ blob, index }: { blob: Blob; index: number }) {
             isLeft ? "lg:order-1" : "lg:order-2",
           ].join(" ")}
         >
-          <h3 className="text-2xl sm:text-3xl md:text-[34px] font-semibold uppercase leading-tight tracking-tight max-w-md">
-            {blob.blobTitle}
-          </h3>
-          <p className="mt-3 text-sm md:text-[15px] leading-relaxed text-white/90 max-w-sm">
-            {blob.blobDesc}
-          </p>
+          {blob.blobTitle && (
+            <h3 className="text-2xl sm:text-3xl md:text-[34px] font-semibold uppercase leading-tight tracking-tight max-w-md">
+              {blob.blobTitle}
+            </h3>
+          )}
+          {blob.blobDesc && (
+            <p className="mt-3 text-sm md:text-[15px] leading-relaxed text-white/90 max-w-sm">
+              {blob.blobDesc}
+            </p>
+          )}
           {blob.extras}
           <a
             href={BOOK_URL}
