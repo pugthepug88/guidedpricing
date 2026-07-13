@@ -156,7 +156,7 @@ function BlobSections() {
 
 function BlobPanel({ blob, index }: { blob: Blob; index: number }) {
   const isLeft = blob.side === "left";
-  const hasBlobContent = blob.blobTitle.length > 0;
+  const hasBlobContent = !!blob.extras;
   const uid = `blob-hl-${index}`;
   return (
     <div className="relative min-h-[50vh] lg:min-h-[420px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center">
