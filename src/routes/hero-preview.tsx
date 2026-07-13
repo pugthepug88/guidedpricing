@@ -246,15 +246,8 @@ function BlobSections() {
                 aria-pressed={isActive}
               >
                 <span className="relative z-10">{PILL_LABELS[i]}</span>
-                {isActive && !paused && (
-                  <span
-                    key={`prog-${i}-${active}`}
-                    className="absolute bottom-0 left-0 h-[3px] bg-white/70"
-                    style={{
-                      animation: `zaplaPillProgress ${AUTO_CYCLE_MS}ms linear forwards`,
-                    }}
-                  />
-                )}
+                {/* progress bar removed with auto-cycle */}
+
               </button>
             );
           })}
