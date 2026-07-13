@@ -71,6 +71,18 @@ import logoRainbow from "@/assets/zapla-logo-rainbow.png.asset.json";
 import logoWhite from "@/assets/zapla-icon-white.png.asset.json";
 import aiWorkflowVideo from "@/assets/ai-workflow.mp4.asset.json";
 import aiEmployeeVideo from "@/assets/ai-employee.mp4.asset.json";
+import industryRealEstate from "@/assets/industry-real-estate.png.asset.json";
+import industryMortgage from "@/assets/industry-mortgage.png.asset.json";
+import industryTrades from "@/assets/industry-trades.png.asset.json";
+import industryHealthcare from "@/assets/industry-healthcare.png.asset.json";
+import industryAirbnb from "@/assets/industry-airbnb.png.asset.json";
+import industryLegal from "@/assets/industry-legal.png.asset.json";
+import industryEvents from "@/assets/industry-events.png.asset.json";
+import industryFitness from "@/assets/industry-fitness.png.asset.json";
+import industryEcommerce from "@/assets/industry-ecommerce.png.asset.json";
+import industryRestaurants from "@/assets/industry-restaurants.png.asset.json";
+import industryRental from "@/assets/industry-rental.png.asset.json";
+import industryAutomotive from "@/assets/industry-automotive.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview")({
   head: () => ({
