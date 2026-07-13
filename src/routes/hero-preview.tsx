@@ -510,34 +510,33 @@ function IndustriesStrip() {
           {industries.map((ind, i) => {
             const isOpen = open === i;
             return (
-              <button
-                key={ind.name}
-                type="button"
-                onClick={() => setOpen(isOpen ? null : i)}
-                onMouseEnter={() => setOpen(i)}
-                onMouseLeave={() => setOpen((prev) => (prev === i ? null : prev))}
-                className={[
-                  "group relative flex items-center gap-2.5 rounded-2xl border transition-all duration-300 ease-out",
-                  "px-4 py-2.5 text-sm font-semibold",
-                  isOpen
-                    ? "bg-neutral-900 text-white border-neutral-900 shadow-lg"
-                    : "bg-white text-neutral-800 border-neutral-200 hover:border-neutral-400",
-                ].join(" ")}
-                aria-expanded={isOpen}
-              >
-                <ind.Icon className={isOpen ? "h-4 w-4 text-white" : "h-4 w-4 text-neutral-500"} />
-                <span className="whitespace-nowrap">{ind.name}</span>
-                <span
-                  className="grid overflow-hidden transition-[grid-template-columns] duration-300 ease-out"
-                  style={{ gridTemplateColumns: isOpen ? "1fr" : "0fr" }}
+              <div key={ind.name} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  onMouseEnter={() => setOpen(i)}
+                  onMouseLeave={() => setOpen((prev) => (prev === i ? null : prev))}
+                  className={[
+                    "group flex items-center gap-2.5 rounded-2xl border transition-colors duration-200 ease-out",
+                    "px-4 py-2.5 text-sm font-semibold",
+                    isOpen
+                      ? "bg-neutral-900 text-white border-neutral-900 shadow-lg"
+                      : "bg-white text-neutral-800 border-neutral-200 hover:border-neutral-400",
+                  ].join(" ")}
+                  aria-expanded={isOpen}
                 >
-                  <span className="min-w-0 overflow-hidden">
-                    <span className="block whitespace-nowrap pl-1 pr-1 text-xs font-normal text-white/80">
-                      {ind.blurb}
-                    </span>
-                  </span>
-                </span>
-              </button>
+                  <ind.Icon className={isOpen ? "h-4 w-4 text-white" : "h-4 w-4 text-neutral-500"} />
+                  <span className="whitespace-nowrap">{ind.name}</span>
+                </button>
+                {isOpen && (
+                  <div
+                    role="tooltip"
+                    className="pointer-events-none absolute left-1/2 top-full z-20 mt-2 w-64 -translate-x-1/2 rounded-xl bg-neutral-900 px-3 py-2 text-xs font-normal leading-snug text-white/90 shadow-xl animate-fade-in"
+                  >
+                    {ind.blurb}
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
