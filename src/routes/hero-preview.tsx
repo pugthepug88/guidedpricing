@@ -138,9 +138,8 @@ const BLOBS: Blob[] = [
     ),
     mainDesc:
       "Full stack integration ensures you are not missing an opportunity or being held back by one platform. We have built seamless connections with all the tools you already use.",
-    blobTitle: "PLUGS INTO EVERYTHING",
-    blobDesc:
-      "CRM, calendar, ads, reviews, payments, telephony, connected out of the box.",
+    blobTitle: "",
+    blobDesc: "",
     extras: <IntegrationLogos />,
   },
 ];
@@ -157,7 +156,7 @@ function BlobSections() {
 
 function BlobPanel({ blob, index }: { blob: Blob; index: number }) {
   const isLeft = blob.side === "left";
-  const hasBlobContent = blob.blobTitle.length > 0;
+  const hasBlobContent = !!blob.extras;
   const uid = `blob-hl-${index}`;
   return (
     <div className="relative min-h-[50vh] lg:min-h-[420px] overflow-hidden grid grid-cols-1 lg:grid-cols-2 items-center">
@@ -185,24 +184,30 @@ function BlobPanel({ blob, index }: { blob: Blob; index: number }) {
             isLeft ? "lg:order-1" : "lg:order-2",
           ].join(" ")}
         >
-          <h3 className="text-2xl sm:text-3xl md:text-[34px] font-semibold uppercase leading-tight tracking-tight max-w-md">
-            {blob.blobTitle}
-          </h3>
-          <p className="mt-3 text-sm md:text-[15px] leading-relaxed text-white/90 max-w-sm">
-            {blob.blobDesc}
-          </p>
+          {blob.blobTitle && (
+            <h3 className="text-2xl sm:text-3xl md:text-[34px] font-semibold uppercase leading-tight tracking-tight max-w-md">
+              {blob.blobTitle}
+            </h3>
+          )}
+          {blob.blobDesc && (
+            <p className="mt-3 text-sm md:text-[15px] leading-relaxed text-white/90 max-w-sm">
+              {blob.blobDesc}
+            </p>
+          )}
           {blob.extras}
-          <a
-            href={BOOK_URL}
-            className="mt-6 inline-flex items-center gap-3 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/25 hover:-translate-y-0.5"
-          >
-            Book a Call
-            <span className="grid place-items-center w-8 h-8 rounded-full bg-white text-neutral-900">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M13 5l7 7-7 7" />
-              </svg>
-            </span>
-          </a>
+          {blob.blobTitle && (
+            <a
+              href={BOOK_URL}
+              className="mt-6 inline-flex items-center gap-3 rounded-full bg-white/15 backdrop-blur-md border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-white/25 hover:-translate-y-0.5"
+            >
+              Book a Call
+              <span className="grid place-items-center w-8 h-8 rounded-full bg-white text-neutral-900">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              </span>
+            </a>
+          )}
         </div>
       )}
 
