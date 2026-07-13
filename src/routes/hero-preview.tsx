@@ -285,72 +285,96 @@ function SimpleIconPath({ path, className = "h-8 w-8" }: { path: string; classNa
 function IntegrationLogos() {
   type LogoItem = { name: string; svg: React.ReactNode; size?: "sm" | "md" | "lg" | "wide" };
   const logoClass = {
-    sm: "h-7 w-7",
-    md: "h-8 w-8",
-    lg: "h-10 w-10",
-    wide: "h-9 w-[68px]",
+    sm: "h-5 w-5",
+    md: "h-6 w-6",
+    lg: "h-7 w-7",
+    wide: "h-5 w-[46px]",
   };
   const logos: LogoItem[] = [
+    { name: "Zapier", svg: <SimpleIconPath path={siZapier.path} />, size: "lg" },
+
+    { name: "HubSpot", svg: <SimpleIconPath path={siHubspot.path} />, size: "md" },
+    { name: "Stripe", svg: <SimpleIconPath path={siStripe.path} />, size: "md" },
+    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, size: "md" },
+    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, size: "md" },
+    { name: "Gmail", svg: <SimpleIconPath path={siGmail.path} />, size: "md" },
+    { name: "Anthropic", svg: <SimpleIconPath path={siAnthropic.path} />, size: "md" },
+    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, size: "md" },
+
+    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, size: "md" },
+    { name: "Facebook", svg: <SimpleIconPath path={siFacebook.path} />, size: "md" },
+    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, size: "md" },
+    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, size: "md" },
+    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, size: "md" },
+    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, size: "md" },
+    { name: "Google Analytics", svg: <SimpleIconPath path={siGoogleanalytics.path} />, size: "md" },
+    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, size: "md" },
+    { name: "Calendly", svg: <SimpleIconPath path={siCalendly.path} />, size: "md" },
+    { name: "Google Meet", svg: <SimpleIconPath path={siGooglemeet.path} />, size: "md" },
+    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, size: "md" },
+    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, size: "md" },
+
+    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, size: "md" },
+    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, size: "md" },
+    { name: "PayPal", svg: <SimpleIconPath path={siPaypal.path} />, size: "md" },
+    { name: "Square", svg: <SimpleIconPath path={siSquare.path} />, size: "md" },
+    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, size: "md" },
+    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, size: "md" },
+    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, size: "md" },
+    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, size: "md" },
+    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, size: "md" },
+    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, size: "md" },
+    { name: "Discord", svg: <SimpleIconPath path={siDiscord.path} />, size: "md" },
+    { name: "Brevo", svg: <SimpleIconPath path={siBrevo.path} />, size: "md" },
+    { name: "WordPress", svg: <SimpleIconPath path={siWordpress.path} />, size: "md" },
+    { name: "Wix", svg: <SimpleIconPath path={siWix.path} />, size: "md" },
+    { name: "Zoho", svg: <SimpleIconPath path={siZoho.path} />, size: "md" },
+    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, size: "md" },
     { name: "WooCommerce", svg: <SimpleIconPath path={siWoocommerce.path} />, size: "wide" },
     { name: "Cal.com", svg: <SimpleIconPath path={siCaldotcom.path} />, size: "wide" },
     { name: "Typeform", svg: <SimpleIconPath path={siTypeform.path} />, size: "wide" },
     { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} />, size: "wide" },
     { name: "Fathom", svg: <SimpleIconPath path={siFathom.path} />, size: "wide" },
-    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, size: "lg" },
-    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, size: "lg" },
-
-    { name: "Facebook", svg: <SimpleIconPath path={siFacebook.path} />, size: "lg" },
-    { name: "HubSpot", svg: <SimpleIconPath path={siHubspot.path} />, size: "lg" },
-    { name: "Zapier", svg: <SimpleIconPath path={siZapier.path} />, size: "lg" },
-    { name: "Google Analytics", svg: <SimpleIconPath path={siGoogleanalytics.path} />, size: "lg" },
-    { name: "Gmail", svg: <SimpleIconPath path={siGmail.path} />, size: "lg" },
-    { name: "Google Meet", svg: <SimpleIconPath path={siGooglemeet.path} />, size: "lg" },
-    { name: "Calendly", svg: <SimpleIconPath path={siCalendly.path} />, size: "lg" },
-
-    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, size: "lg" },
-    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, size: "lg" },
-    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, size: "lg" },
-    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, size: "lg" },
-    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, size: "lg" },
-    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, size: "lg" },
-    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, size: "lg" },
-
-    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, size: "lg" },
-    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, size: "lg" },
-    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, size: "lg" },
-    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, size: "lg" },
-    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, size: "lg" },
-    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, size: "lg" },
-    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, size: "lg" },
-
-    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, size: "lg" },
-    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, size: "lg" },
-    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, size: "lg" },
-    { name: "Square", svg: <SimpleIconPath path={siSquare.path} />, size: "lg" },
-    { name: "PayPal", svg: <SimpleIconPath path={siPaypal.path} />, size: "lg" },
-    { name: "Discord", svg: <SimpleIconPath path={siDiscord.path} />, size: "lg" },
-    { name: "Brevo", svg: <SimpleIconPath path={siBrevo.path} />, size: "lg" },
-
-    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, size: "lg" },
-    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, size: "lg" },
-    { name: "Stripe", svg: <SimpleIconPath path={siStripe.path} />, size: "lg" },
-    { name: "WordPress", svg: <SimpleIconPath path={siWordpress.path} />, size: "lg" },
-    { name: "Wix", svg: <SimpleIconPath path={siWix.path} />, size: "lg" },
-    { name: "Zoho", svg: <SimpleIconPath path={siZoho.path} />, size: "lg" },
-    { name: "Anthropic", svg: <SimpleIconPath path={siAnthropic.path} />, size: "lg" },
+    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, size: "md" },
   ];
 
+  // Blob-shaped layout: concentric elliptical rings so icons hug the blob's rounded form.
+  const rings: { count: number; rx: number; ry: number; offset?: number }[] = [
+    { count: 1, rx: 0, ry: 0 },
+    { count: 7, rx: 17, ry: 14, offset: 0 },
+    { count: 13, rx: 32, ry: 27, offset: Math.PI / 13 },
+    { count: 20, rx: 46, ry: 39, offset: 0 },
+  ];
+
+  const positioned: { logo: LogoItem; top: number; left: number }[] = [];
+  let idx = 0;
+  for (const ring of rings) {
+    for (let i = 0; i < ring.count && idx < logos.length; i++, idx++) {
+      if (ring.count === 1) {
+        positioned.push({ logo: logos[idx], top: 50, left: 50 });
+      } else {
+        const angle = (i / ring.count) * Math.PI * 2 + (ring.offset ?? 0) - Math.PI / 2;
+        positioned.push({
+          logo: logos[idx],
+          left: 50 + Math.cos(angle) * ring.rx,
+          top: 50 + Math.sin(angle) * ring.ry,
+        });
+      }
+    }
+  }
+
   return (
-    <div className="mx-auto grid w-full max-w-[520px] grid-cols-5 items-center justify-items-center gap-x-5 gap-y-4 px-2 py-2 text-white sm:grid-cols-7 sm:gap-x-5 sm:gap-y-4">
-      {logos.map((logo) => {
+    <div className="relative mx-auto aspect-[6/5] w-full max-w-[560px] text-white">
+      {positioned.map(({ logo, top, left }) => {
         const className = logoClass[logo.size ?? "md"];
         return (
           <div
             key={logo.name}
-            className="flex h-12 w-16 items-center justify-center text-white transition hover:scale-125 hover:z-50"
+            className="absolute -translate-x-1/2 -translate-y-1/2 transition duration-200 hover:scale-150 hover:z-50"
+            style={{ top: `${top}%`, left: `${left}%` }}
             title={logo.name}
           >
-            <div className={`${className} flex items-center justify-center [&>svg]:h-full [&>svg]:w-full`}>
+            <div className={`${className} flex items-center justify-center text-white [&>svg]:h-full [&>svg]:w-full`}>
               {logo.svg}
             </div>
           </div>
