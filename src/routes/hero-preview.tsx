@@ -269,6 +269,15 @@ function SimpleIconPath({ path, className = "h-8 w-8" }: { path: string; classNa
 
 function IntegrationLogos() {
   const S = 30; // uniform icon size
+  // Wordmark-style logos (mostly horizontal text) need a size boost so their
+  // text reads at roughly the same visual weight as icon-only marks.
+  const wordmarks = new Set([
+    "Fathom",
+    "WooCommerce",
+    "Cal.com",
+    "OpenRouter",
+    "Mistral",
+  ]);
   const logos: { name: string; svg: React.ReactNode; x: number; y: number }[] = [
     { name: "Fathom", svg: <SimpleIconPath path={siFathom.path} />, x: 30, y: 10 },
     { name: "WooCommerce", svg: <SimpleIconPath path={siWoocommerce.path} />, x: 50, y: 10 },
@@ -308,29 +317,32 @@ function IntegrationLogos() {
 
   return (
     <div className="relative mx-auto h-[300px] w-full max-w-[410px] sm:h-[320px]">
-      {logos.map((logo) => (
-        <div
-          key={`${logo.name}-${logo.x}-${logo.y}`}
-          className="absolute flex items-center justify-center text-white transition hover:scale-125 hover:z-50"
-          style={{
-            left: `${logo.x}%`,
-            top: `${logo.y}%`,
-            width: `${S}px`,
-            height: `${S}px`,
-
-            transform: `translate(-50%, -50%)`,
-            opacity: 0.94,
-          }}
-          title={logo.name}
-        >
-          <div className="w-full h-full flex items-center justify-center [&>svg]:w-full [&>svg]:h-full">
-            {logo.svg}
+      {logos.map((logo) => {
+        const size = wordmarks.has(logo.name) ? Math.round(S * 1.7) : S;
+        return (
+          <div
+            key={`${logo.name}-${logo.x}-${logo.y}`}
+            className="absolute flex items-center justify-center text-white transition hover:scale-125 hover:z-50"
+            style={{
+              left: `${logo.x}%`,
+              top: `${logo.y}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              transform: `translate(-50%, -50%)`,
+              opacity: 0.94,
+            }}
+            title={logo.name}
+          >
+            <div className="w-full h-full flex items-center justify-center [&>svg]:w-full [&>svg]:h-full">
+              {logo.svg}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
+
 
 
 /* ------------------------------------------------------------------ */
