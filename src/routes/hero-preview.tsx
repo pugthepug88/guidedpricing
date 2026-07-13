@@ -567,13 +567,8 @@ function IndustriesStrip() {
                           <p className="mt-2 ml-10 text-sm text-neutral-600 leading-relaxed animate-fade-in">
                             {ind.blurb}
                           </p>
-                          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-neutral-100 overflow-hidden">
-                            <div
-                              key={`${active}-${paused ? "p" : "r"}`}
-                              className="h-full bg-neutral-900"
-                              style={{ animation: paused ? "none" : "zaplaPillProgress 4s linear forwards" }}
-                            />
-                          </div>
+                          {/* progress bar removed with auto-cycle */}
+
                         </>
                       )}
                     </button>
