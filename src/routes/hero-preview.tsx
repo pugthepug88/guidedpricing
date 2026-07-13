@@ -369,7 +369,7 @@ function IntegrationLogos() {
     { name: "Jira", svg: <SimpleIconPath path={siJira.path} /> },
   ];
 
-  // Deterministic scattered positions inside a circular area
+  // Deterministic scattered positions with intentional overlap
   const positioned = logos.map((logo, i) => {
     const seed = Math.sin(i * 12.9898) * 43758.5453;
     const r1 = seed - Math.floor(seed);
@@ -377,22 +377,23 @@ function IntegrationLogos() {
     const r2 = seed2 - Math.floor(seed2);
     const seed3 = Math.sin(i * 39.425) * 43758.5453;
     const r3 = seed3 - Math.floor(seed3);
-    const angle = r1 * Math.PI * 2;
-    const radius = Math.sqrt(r2) * 46; // % from center
+    // Golden-angle spiral for even-but-organic packing, then jitter
+    const angle = i * 2.399 + r1 * 0.8;
+    const radius = Math.sqrt((i + 1) / logos.length) * 48 + (r2 - 0.5) * 6;
     const x = 50 + radius * Math.cos(angle);
     const y = 50 + radius * Math.sin(angle);
-    const size = 22 + Math.floor(r3 * 20); // 22-42px
-    const rot = (r1 - 0.5) * 14;
-    const opacity = 0.7 + r3 * 0.3;
-    return { ...logo, x, y, size, rot, opacity };
+    const size = 24 + Math.floor(r3 * 16); // 24-40px
+    const rot = (r1 - 0.5) * 10;
+    const opacity = 0.78 + r3 * 0.22;
+    return { ...logo, x, y, size, rot, opacity, z: Math.floor(r3 * 20) };
   });
 
   return (
-    <div className="relative mx-auto w-full max-w-[560px] h-[360px] sm:h-[440px] lg:h-[500px]">
+    <div className="relative mx-auto w-full max-w-[340px] aspect-square">
       {positioned.map((logo) => (
         <div
           key={logo.name}
-          className="absolute flex items-center justify-center text-white transition hover:scale-125 hover:!opacity-100"
+          className="absolute flex items-center justify-center text-white transition hover:scale-125 hover:!opacity-100 hover:z-50"
           style={{
             left: `${logo.x}%`,
             top: `${logo.y}%`,
@@ -400,6 +401,7 @@ function IntegrationLogos() {
             height: `${logo.size}px`,
             transform: `translate(-50%, -50%) rotate(${logo.rot}deg)`,
             opacity: logo.opacity,
+            zIndex: logo.z,
           }}
           title={logo.name}
         >
