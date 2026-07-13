@@ -313,60 +313,103 @@ function SyncArrowsIcon() {
   );
 }
 
-function WordmarkLogo({
-  label,
-  weight = 700,
-  italic = false,
-  family = "Arial, Helvetica, sans-serif",
-  size = 12,
-}: {
-  label: string;
-  weight?: number;
-  italic?: boolean;
-  family?: string;
-  size?: number;
-}) {
-  return (
-    <svg viewBox="0 0 80 24" fill="currentColor" className="h-full w-full" aria-hidden="true">
-      <text
-        x="40"
-        y="16"
-        textAnchor="middle"
-        fontSize={size}
-        fontWeight={weight}
-        fontStyle={italic ? "italic" : "normal"}
-        fontFamily={family}
-        fill="currentColor"
-      >
-        {label}
-      </text>
-    </svg>
-  );
-}
-
-function FathomLogo() {
+function CanvaLogo() {
   return (
     <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
       <circle cx="24" cy="24" r="22" />
-      <text x="24" y="31" textAnchor="middle" fontSize="20" fontWeight="800" fontFamily="Arial, Helvetica, sans-serif" fill="#2563eb">
-        fa/
-      </text>
+      <path d="M31 29.5c-1.6 2.4-4.2 3.9-7.3 3.9-5.4 0-9.2-4.2-9.2-9.6s3.8-9.6 9.2-9.6c3.1 0 5.6 1.4 7.2 3.7l-3.4 2.1c-.9-1.3-2.2-2.1-3.8-2.1-3 0-5.1 2.5-5.1 5.9s2.1 5.9 5.1 5.9c1.7 0 3-.8 3.9-2.2l3.4 2Z" fill="#2563eb" />
     </svg>
   );
 }
 
-function WooCommerceWordmark() {
+function ApifyLogo() {
   return (
-    <svg viewBox="0 0 108 24" fill="currentColor" className="h-full w-full" aria-hidden="true">
-      <text x="24" y="14" textAnchor="middle" fontSize="10" fontWeight="900" fontFamily="Arial, Helvetica, sans-serif" fill="currentColor">
-        WOO
-      </text>
-      <text x="70" y="14" textAnchor="middle" fontSize="9" fontWeight="800" fontFamily="Arial, Helvetica, sans-serif" fill="currentColor">
-        COMMERCE
-      </text>
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="10" />
+      <path d="M24 12 13 34h4.2l2.1-4.6h9.4L30.8 34H35L24 12Zm-3.2 14.2L24 19l3.2 7.2h-6.4Z" fill="#2563eb" />
     </svg>
   );
 }
+
+function WaveLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="10" />
+      <path d="M7 28c3-6 6-6 9 0s6 6 9 0 6-6 9 0 6 6 7 3" stroke="#2563eb" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function MondayLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="3" y="12" width="42" height="6" rx="3" />
+      <rect x="3" y="22" width="42" height="6" rx="3" />
+      <rect x="3" y="32" width="28" height="6" rx="3" />
+      <circle cx="39" cy="35" r="4" />
+    </svg>
+  );
+}
+
+function ManusLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="10" />
+      <path d="M10 34V14h4.6l7 12.4L28.6 14H33v20h-3.6V20.6l-6.4 10.8h-1.6l-6.4-10.8V34H10Z" fill="#2563eb" />
+    </svg>
+  );
+}
+
+function ClioLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <path d="M24 4a20 20 0 1 0 14.1 34.1l-3.5-3.5A15 15 0 1 1 24 9c4.1 0 7.9 1.7 10.6 4.4l3.5-3.5A19.9 19.9 0 0 0 24 4Z" />
+      <circle cx="37" cy="11" r="4.5" />
+    </svg>
+  );
+}
+
+function GoogleContactsLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <circle cx="24" cy="24" r="22" />
+      <circle cx="24" cy="19" r="6" fill="#2563eb" />
+      <path d="M12 38c1.8-6.4 6.6-10 12-10s10.2 3.6 12 10H12Z" fill="#2563eb" />
+    </svg>
+  );
+}
+
+function WooCommerceLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <path d="M6 10h36a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H22l-6 6v-6H6a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4Z" />
+      <path d="M10 17c.6 5 2 8 3.4 8 1 0 1.7-1.4 2.4-4 .3 2.6 1.2 4 2.4 4 1.4 0 2.8-3 3.4-8" stroke="#2563eb" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="27" cy="22" r="3.2" stroke="#2563eb" strokeWidth="1.8" fill="none" />
+      <circle cx="35" cy="22" r="3.2" stroke="#2563eb" strokeWidth="1.8" fill="none" />
+    </svg>
+  );
+}
+
+function CalcomLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="10" width="44" height="28" rx="8" />
+      <path d="M18 23.5c-.7-1-1.7-1.5-3-1.5-2.2 0-3.8 1.6-3.8 4s1.6 4 3.8 4c1.3 0 2.3-.5 3-1.5l2.2 1.5c-1.2 1.7-3 2.6-5.2 2.6-3.7 0-6.4-2.7-6.4-6.6s2.7-6.6 6.4-6.6c2.2 0 4 .9 5.2 2.6l-2.2 1.5Z" fill="#2563eb" />
+      <path d="M24 32V16h2.6v16H24Z" fill="#2563eb" />
+      <circle cx="34" cy="28" r="4" fill="none" stroke="#2563eb" strokeWidth="2.2" />
+    </svg>
+  );
+}
+
+function TypeformLogo() {
+  return (
+    <svg viewBox="0 0 48 48" fill="currentColor" className="h-full w-full" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="10" />
+      <path d="M13 15h22v4H26v18h-4V19h-9v-4Z" fill="#2563eb" />
+    </svg>
+  );
+}
+
 
 function IntegrationLogos() {
   const logos: { name: string; svg: React.ReactNode; x: number; y: number; w: number; h: number }[] = [
