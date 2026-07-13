@@ -29,6 +29,21 @@ import {
   siWoocommerce,
   siFathom,
   siStripe,
+  siFacebook,
+  siHubspot,
+  siZapier,
+  siGoogleanalytics,
+  siGmail,
+  siGooglemeet,
+  siCalendly,
+  siSquare,
+  siPaypal,
+  siDiscord,
+  siBrevo,
+  siWordpress,
+  siWix,
+  siZoho,
+  siAnthropic,
 } from "simple-icons";
 import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
@@ -268,72 +283,74 @@ function SimpleIconPath({ path, className = "h-8 w-8" }: { path: string; classNa
 }
 
 function IntegrationLogos() {
-  const S = 30; // uniform icon size
-  // Wordmark-style logos (mostly horizontal text) need a size boost so their
-  // text reads at roughly the same visual weight as icon-only marks.
-  const wordmarks = new Set([
-    "Fathom",
-    "WooCommerce",
-    "Cal.com",
-    "OpenRouter",
-    "Mistral",
-  ]);
-  const logos: { name: string; svg: React.ReactNode; x: number; y: number }[] = [
-    { name: "Fathom", svg: <SimpleIconPath path={siFathom.path} />, x: 30, y: 10 },
-    { name: "WooCommerce", svg: <SimpleIconPath path={siWoocommerce.path} />, x: 50, y: 10 },
-    { name: "Cal.com", svg: <SimpleIconPath path={siCaldotcom.path} />, x: 70, y: 10 },
+  type LogoItem = { name: string; svg: React.ReactNode; size?: "sm" | "md" | "lg" | "wide" };
+  const logoClass = {
+    sm: "h-7 w-7",
+    md: "h-8 w-8",
+    lg: "h-10 w-10",
+    wide: "h-9 w-[68px]",
+  };
+  const logos: LogoItem[] = [
+    { name: "WooCommerce", svg: <SimpleIconPath path={siWoocommerce.path} />, size: "wide" },
+    { name: "Cal.com", svg: <SimpleIconPath path={siCaldotcom.path} />, size: "wide" },
+    { name: "Typeform", svg: <SimpleIconPath path={siTypeform.path} />, size: "wide" },
+    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} />, size: "wide" },
+    { name: "Fathom", svg: <SimpleIconPath path={siFathom.path} />, size: "wide" },
+    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, size: "lg" },
+    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, size: "lg" },
 
-    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, x: 14, y: 24 },
-    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, x: 31, y: 24 },
-    { name: "OpenRouter", svg: <SimpleIconPath path={siOpenrouter.path} />, x: 65, y: 24 },
-    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, x: 82, y: 24 },
+    { name: "Facebook", svg: <SimpleIconPath path={siFacebook.path} />, size: "lg" },
+    { name: "HubSpot", svg: <SimpleIconPath path={siHubspot.path} />, size: "lg" },
+    { name: "Zapier", svg: <SimpleIconPath path={siZapier.path} />, size: "lg" },
+    { name: "Google Analytics", svg: <SimpleIconPath path={siGoogleanalytics.path} />, size: "lg" },
+    { name: "Gmail", svg: <SimpleIconPath path={siGmail.path} />, size: "lg" },
+    { name: "Google Meet", svg: <SimpleIconPath path={siGooglemeet.path} />, size: "lg" },
+    { name: "Calendly", svg: <SimpleIconPath path={siCalendly.path} />, size: "lg" },
 
-    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, x: 9, y: 39 },
-    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, x: 25, y: 39 },
-    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, x: 41, y: 39 },
-    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, x: 57, y: 39 },
-    { name: "Stripe", svg: <SimpleIconPath path={siStripe.path} />, x: 74, y: 39 },
-    { name: "Typeform", svg: <SimpleIconPath path={siTypeform.path} />, x: 90, y: 39 },
+    { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} />, size: "lg" },
+    { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} />, size: "lg" },
+    { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} />, size: "lg" },
+    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, size: "lg" },
+    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, size: "lg" },
+    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, size: "lg" },
+    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, size: "lg" },
 
-    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, x: 8, y: 54 },
-    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, x: 23, y: 54 },
-    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, x: 38, y: 54 },
-    { name: "Xero", svg: <SimpleIconPath path={siXero.path} />, x: 72, y: 54 },
-    { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} />, x: 89, y: 54 },
+    { name: "QuickBooks", svg: <SimpleIconPath path={siQuickbooks.path} />, size: "lg" },
+    { name: "ClickUp", svg: <SimpleIconPath path={siClickup.path} />, size: "lg" },
+    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, size: "lg" },
+    { name: "Airtable", svg: <SimpleIconPath path={siAirtable.path} />, size: "lg" },
+    { name: "Basecamp", svg: <SimpleIconPath path={siBasecamp.path} />, size: "lg" },
+    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, size: "lg" },
+    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, size: "lg" },
 
-    { name: "Asana", svg: <SimpleIconPath path={siAsana.path} />, x: 20, y: 69 },
-    { name: "TikTok", svg: <SimpleIconPath path={siTiktok.path} />, x: 56, y: 69 },
-    { name: "Google Ads", svg: <SimpleIconPath path={siGoogleads.path} />, x: 74, y: 69 },
+    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, size: "lg" },
+    { name: "Todoist", svg: <SimpleIconPath path={siTodoist.path} />, size: "lg" },
+    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, size: "lg" },
+    { name: "Square", svg: <SimpleIconPath path={siSquare.path} />, size: "lg" },
+    { name: "PayPal", svg: <SimpleIconPath path={siPaypal.path} />, size: "lg" },
+    { name: "Discord", svg: <SimpleIconPath path={siDiscord.path} />, size: "lg" },
+    { name: "Brevo", svg: <SimpleIconPath path={siBrevo.path} />, size: "lg" },
 
-    { name: "Google Forms", svg: <SimpleIconPath path={siGoogleforms.path} />, x: 28, y: 84 },
-    { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} />, x: 46, y: 84 },
-    { name: "Mistral", svg: <SimpleIconPath path={siMistralai.path} />, x: 64, y: 84 },
-    { name: "Notion", svg: <SimpleIconPath path={siNotion.path} />, x: 82, y: 84 },
-
-    { name: "Linear", svg: <SimpleIconPath path={siLinear.path} />, x: 40, y: 97 },
-    { name: "Jira", svg: <SimpleIconPath path={siJira.path} />, x: 60, y: 97 },
+    { name: "Google Calendar", svg: <SimpleIconPath path={siGooglecalendar.path} />, size: "lg" },
+    { name: "Pinterest", svg: <SimpleIconPath path={siPinterest.path} />, size: "lg" },
+    { name: "Stripe", svg: <SimpleIconPath path={siStripe.path} />, size: "lg" },
+    { name: "WordPress", svg: <SimpleIconPath path={siWordpress.path} />, size: "lg" },
+    { name: "Wix", svg: <SimpleIconPath path={siWix.path} />, size: "lg" },
+    { name: "Zoho", svg: <SimpleIconPath path={siZoho.path} />, size: "lg" },
+    { name: "Anthropic", svg: <SimpleIconPath path={siAnthropic.path} />, size: "lg" },
   ];
 
-
   return (
-    <div className="relative mx-auto h-[300px] w-full max-w-[410px] sm:h-[320px]">
+    <div className="mx-auto grid w-full max-w-[520px] grid-cols-5 items-center justify-items-center gap-x-5 gap-y-4 px-2 py-2 text-white sm:grid-cols-7 sm:gap-x-5 sm:gap-y-4">
       {logos.map((logo) => {
-        const size = wordmarks.has(logo.name) ? Math.round(S * 1.7) : S;
+        const className = logoClass[logo.size ?? "md"];
         return (
           <div
-            key={`${logo.name}-${logo.x}-${logo.y}`}
-            className="absolute flex items-center justify-center text-white transition hover:scale-125 hover:z-50"
-            style={{
-              left: `${logo.x}%`,
-              top: `${logo.y}%`,
-              width: `${size}px`,
-              height: `${size}px`,
-              transform: `translate(-50%, -50%)`,
-              opacity: 0.94,
-            }}
+            key={logo.name}
+            className="flex h-12 w-16 items-center justify-center text-white transition hover:scale-125 hover:z-50"
             title={logo.name}
           >
-            <div className="w-full h-full flex items-center justify-center [&>svg]:w-full [&>svg]:h-full">
+            <div className={`${className} flex items-center justify-center [&>svg]:h-full [&>svg]:w-full`}>
               {logo.svg}
             </div>
           </div>
