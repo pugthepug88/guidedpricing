@@ -43,8 +43,6 @@ import {
   siWordpress,
   siWix,
   siZoho,
-  siGooglesheets,
-  siGoogledocs,
   siAnthropic,
 } from "simple-icons";
 import logoGreen from "@/assets/zapla-logo-green.png.asset.json";
