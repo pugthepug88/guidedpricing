@@ -92,7 +92,7 @@ const BLOBS: Blob[] = [
     highlightGradient: "linear-gradient(135deg,#6d28d9 0%,#7c3aed 30%,#f59e0b 100%)",
     mainTitle: (
       <>
-        YOUR STORY <span className="highlight">COMES FIRST</span>, ALWAYS.
+        YOUR STORY <span style={highlightTextStyle("linear-gradient(135deg, #6d28d9 0%, #7c3aed 30%, #f59e0b 100%)")}>COMES FIRST</span>, ALWAYS.
       </>
     ),
     mainDesc:
@@ -106,7 +106,7 @@ const BLOBS: Blob[] = [
     highlightGradient: "linear-gradient(135deg,#ec4899 0%,#f97316 100%)",
     mainTitle: (
       <>
-        PRODUCTS TEAMS <span className="highlight">FALL IN LOVE</span> WITH.
+        PRODUCTS TEAMS <span style={highlightTextStyle("linear-gradient(135deg, #ec4899 0%, #f97316 100%)")}>FALL IN LOVE</span> WITH.
       </>
     ),
     mainDesc:
@@ -120,7 +120,7 @@ const BLOBS: Blob[] = [
     highlightGradient: "linear-gradient(135deg,#ef476f 0%,#00e5a3 100%)",
     mainTitle: (
       <>
-        FEEL THE <span className="highlight">DIFFERENCE</span> FAST.
+        FEEL THE <span style={highlightTextStyle("linear-gradient(135deg, #ef476f 0%, #00e5a3 100%)")}>DIFFERENCE</span> FAST.
       </>
     ),
     mainDesc:
@@ -134,7 +134,7 @@ const BLOBS: Blob[] = [
     highlightGradient: "linear-gradient(to right,#60a5fa,#1e40af)",
     mainTitle: (
       <>
-        THE COMPLETE <span className="highlight">INTEGRATION</span> STACK.
+        THE COMPLETE <span style={highlightTextStyle("linear-gradient(to right, #60a5fa, #1e40af)")}>INTEGRATION</span> STACK.
       </>
     ),
     mainDesc:
