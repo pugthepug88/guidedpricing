@@ -7,7 +7,6 @@ import {
   siMailchimp,
   siPinterest,
   siShopify,
-  siStripe,
   siTiktok,
   siWhatsapp,
   siYoutube,
@@ -252,6 +251,14 @@ function LinkedInIcon() {
   );
 }
 
+function FacebookCircleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8" aria-hidden="true">
+      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.412c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971H15.83c-1.491 0-1.956.931-1.956 1.884v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
+    </svg>
+  );
+}
+
 function GoogleBusinessIcon() {
   return (
     <svg viewBox="0 0 32 32" fill="currentColor" className="h-9 w-9" aria-hidden="true">
@@ -269,9 +276,17 @@ function SlackIcon() {
   );
 }
 
+function StripeWordmarkIcon() {
+  return (
+    <svg viewBox="0 0 64 24" fill="currentColor" className="h-8 w-12" aria-hidden="true">
+      <text x="32" y="16.5" textAnchor="middle" fontSize="15" fontWeight="700" fill="currentColor" fontFamily="Arial, Helvetica, sans-serif">stripe</text>
+    </svg>
+  );
+}
+
 function IntegrationLogos() {
   const logos = [
-    { name: "Facebook", svg: <SimpleIconPath path={siFacebook.path} /> },
+    { name: "Facebook", svg: <FacebookCircleIcon /> },
     { name: "Instagram", svg: <SimpleIconPath path={siInstagram.path} /> },
     { name: "YouTube", svg: <SimpleIconPath path={siYoutube.path} /> },
     { name: "LinkedIn", svg: <LinkedInIcon /> },
@@ -281,7 +296,7 @@ function IntegrationLogos() {
     { name: "Slack", svg: <SlackIcon /> },
     { name: "WhatsApp", svg: <SimpleIconPath path={siWhatsapp.path} /> },
     { name: "Shopify", svg: <SimpleIconPath path={siShopify.path} /> },
-    { name: "Stripe", svg: <SimpleIconPath path={siStripe.path} className="h-10 w-10" /> },
+    { name: "Stripe", svg: <StripeWordmarkIcon /> },
     { name: "Mailchimp", svg: <SimpleIconPath path={siMailchimp.path} /> },
   ];
 
