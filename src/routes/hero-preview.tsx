@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
+import { ChaosToCalmScrollScrub } from "@/components/ChaosToCalmScrollScrub";
 import {
   Home as HomeIcon,
   Landmark as LandmarkIcon,
