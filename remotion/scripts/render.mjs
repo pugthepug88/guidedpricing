@@ -43,7 +43,7 @@ await renderStill({
   composition,
   serveUrl: bundled,
   output: OUT_POSTER,
-  frame: 225,
+  frame: 350,
   puppeteerInstance: browser,
   imageFormat: "jpeg",
   jpegQuality: 88,
