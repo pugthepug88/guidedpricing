@@ -1,84 +1,84 @@
 
-# Homepage refocus: kill the 4-card section, ship one signature video
+# Chaos-to-Calm v2: substantial cards + mascot + sticky scroll-scrub
 
-## The strategic move
+We rebuild the Remotion video from a Z-mark montage into a monday-style piece: 7 large, believable UI cards drift in chaos, then pull into an illustrated Zapla character in the middle. The section on the homepage pins while you scroll — scroll progress scrubs the video frame-by-frame.
 
-The current 4-card "AI Marketing" section repeats what the dark section above already says and re-inflates the page we've been trying to trim. Move it off the homepage, replace the slot with **one signature moment** that carries the pitch visually.
+## Part 1 — The mascot (central figure)
 
-## Part 1 — Move the products section to /products
+Replace the "Z" mark with an illustrated character. Because we can't hand-draw one in-session and monday's astronaut is instantly recognisable, we generate a bespoke Zapla mascot as a transparent PNG once and reuse it in the video.
 
-Create a new route `src/routes/products.tsx` with its own SEO metadata. Move the four product pillars (Zapla Marketing, Zapla Reputation, Zapla+ Ads, Zapla+ PR) there in a clean 2x2 grid restyled to the light Zapla palette (no dark neon, no competing animations). Add a link from the main nav.
+Mascot brief:
+- Line-art style, warm ink strokes, minimal fill (matches monday's aesthetic energy without copying the astronaut).
+- Concept: **"The Zapla Operator"** — a calm, modern human figure (unisex, ambiguous, friendly) wearing a lightweight headset, one hand relaxed, standing three-quarter view. Not sci-fi, not a robot. Reads as "the person Zapla becomes for you."
+- Transparent background, front-lit, on a solid white backdrop for the prompt.
+- Generated once with `imagegen` (premium) at ~1200x1600, saved to `remotion/public/mascot.png`.
 
-The homepage no longer tries to explain all four products in detail. It teases the outcome; /products carries the depth.
+If you'd rather go non-human (glowing orb, phone, dashboard), say so before I generate — swapping the centerpiece later means re-rendering.
 
-## Part 2 — Replace the homepage slot with the Chaos-to-Calm video
+## Part 2 — The 7 cards (substantial, monday-scale)
 
-An 8-second Remotion motion graphic, rendered to MP4, embedded on the homepage. Autoplays once when scrolled into view (with a replay button). Not scroll-scrubbed on the first pass — autoplay is more reliable across devices and doesn't hijack scroll.
+Each card is a mini-UI, not a tiny chip. ~360–460px wide with real content, borders, and micro-details so it reads as "a real product surface":
 
-### Storyboard (8 seconds @ 30fps = 240 frames)
+1. **Conversations** — unified inbox: WhatsApp + Instagram DM + SMS + Email rows, one message preview each, unread dot.
+2. **Reviews** — 5-star card with a real-looking review paragraph, Google/Facebook logo, reviewer initial + name.
+3. **Bookings** — mini calendar week strip with 3 booked slots highlighted, "Next: Tue 2:30pm — Consult".
+4. **Invoicing** — Xero-style invoice row: invoice #, client, amount, "Paid" pill; small mini-chart of monthly cash below.
+5. **Documents & Contacts** — file list (Proposal.pdf, Contract.docx) + a contact card below with avatar + phone.
+6. **NFC Payments** — phone-tap illustration: card icon + phone icon with a ripple, "$240 tapped — 2s ago".
+7. **Workflow Automations** — node graph: 3 connected pills (Trigger → AI reply → Book) with a small "Live" indicator.
+
+All cards are grayscale + slightly muted during chaos, then colorize into brand tones one-by-one as they reach the mascot.
+
+## Part 3 — The motion
+
+8 seconds → **12 seconds** (360 frames @ 30fps) so 7 substantial cards have room to breathe.
 
 ```text
-0.0s ──────── 2.5s ──────── 5.5s ──────── 8.0s
-CHAOS         PULL           REVEAL        HOLD
+0.0s ──── 3.0s ──────── 8.5s ──────── 12.0s
+CHAOS     PULL           REVEAL         HOLD
 ```
 
-**Scene 1 — Chaos (0.0–2.5s):** ~14 grayscale UI cards scattered across the frame at random rotations. Each card is a real thing your ICP juggles today: a Meta Ads notification, a Google Review, a Xero invoice, a missed call, a Calendly booking, a Mailchimp draft, a spreadsheet row, a WhatsApp DM, a Stripe payout, a GHL contact, a Canva design, a TikTok comment. Subtle idle drift on each. Muted lavender-gray background.
+- **Chaos (0–3s):** Mascot faintly visible in center from frame 0 (so scroll-scrub feels anchored). 7 cards float at edges with slow drift + micro-rotation. Muted lavender-gray background, faint grid.
+- **Pull (3–8.5s):** Cards accelerate inward, staggered ~15 frames apart. As each card reaches the mascot it colorizes for ~8 frames then absorbs (scales to 0 behind the mascot). Mascot brightens with each absorption — subtle glow ramp.
+- **Reveal (8.5–11s):** Final card lands. Mascot is now full color, calm, one clean dashboard chip floats up beside them showing 3 KPIs (Leads / Reviews / ROAS). Payoff line fades in: **"One system. Everything runs."**
+- **Hold (11–12s):** Static composure frame — this is the frame the scroll-pin releases on and the poster image.
 
-**Scene 2 — Pull (2.5–5.5s):** All cards accelerate inward toward a single point. As each card reaches the center it colorizes for a single frame and vanishes into a growing Zapla mark. Staggered arrivals so it feels like consolidation, not implosion.
+Spring-based ease on all card motion. One accent spring on the payoff line. No competing curves.
 
-**Scene 3 — Reveal (5.5–7.0s):** The Zapla mark scales up, one clean dashboard card materializes in full brand color showing a live-feeling summary (lead count, review score, ROAS). Single line of copy fades in: **"One system. Everything runs."**
+## Part 4 — Sticky scroll-scrub on the homepage
 
-**Scene 4 — Hold (7.0–8.0s):** Hold on the calm final frame. Small "Book a Call" CTA appears beneath the video.
+New component `src/components/ChaosToCalmScrollScrub.tsx`:
 
-### Design commitments
+- Outer wrapper is `h-[250vh]` (2.5× viewport). Inside, a `sticky top-0 h-screen` container holds the `<video>`.
+- The `<video>` has `muted playsInline preload="auto"`, no `autoplay`, no `controls`, no `loop`.
+- On mount, `video.pause()`. A scroll handler (rAF-throttled, IntersectionObserver-gated so it only runs when the sticky section is visible) maps scroll progress `0 → 1` across the wrapper's bounding rect to `video.currentTime = progress * video.duration`.
+- iOS Safari: setting `currentTime` on a paused `muted playsInline` MP4 works reliably; no autoplay needed. We keep the video muted and never play() it.
+- Reduced-motion (`prefers-reduced-motion`): skip the scrub, show poster image + copy statically.
+- Mobile fallback: on `<640px` the sticky wrapper still works, but we reduce the outer height to `h-[180vh]` so it doesn't feel endless.
 
-- Palette locked to the Zapla lavender + white + accent stack already in the site — no new colors.
-- Font locked to the site's `font-zapla` for the payoff line.
-- One motion system: spring-based ease on all card motion, one accent spring on the payoff line. No mixed easings.
-- No sound. Never autoplay audio.
+Wired into `src/routes/hero-preview.tsx` in the same slot where `ChaosToCalmVideo` currently sits. The old autoplay component is removed.
 
-### Technical shape
+## Part 5 — Re-render pipeline
 
-- Remotion project scaffolded at `remotion/` per the video-creator skill.
-- Composition: 1920x1080, 30fps, 240 frames.
-- Render to `public/videos/chaos-to-calm.mp4` (and a `.webm` fallback) so it ships with the site.
-- Homepage embeds via a `<video>` element with `autoPlay muted playsInline` and an IntersectionObserver that triggers playback on scroll-into-view. Replay button beneath.
-- Poster image = final frame (rendered as a still via `bunx remotion still`) so the page never shows a black box before the video loads.
+1. Generate mascot PNG once via `imagegen` (premium, transparent bg) → `remotion/public/mascot.png`.
+2. Rebuild `remotion/src/ChaosToCalm.tsx`:
+   - Bump composition duration to 360 frames.
+   - Load mascot with `staticFile("mascot.png")` and `<Img>`.
+   - Replace 12 small chips with 7 substantial card components in their own file `remotion/src/Cards.tsx` (one component per card with real content).
+   - Rewrite pull arithmetic for 7 arrivals + longer runway.
+3. Re-render MP4 + poster still via existing `remotion/scripts/render.mjs`.
+4. Also render a `.webm` (VP9) alongside for smaller file size on Chromium browsers — `<video>` gets both `<source>` tags.
+5. Verify final MP4 ≤ ~2.5MB; if larger, bump CRF to 24 or drop to 24fps.
 
-### What we're NOT doing (guardrails)
+## What we're NOT doing
 
-- No live scroll-scrubbed animation. Rendered MP4 only.
-- No custom illustrated character. The cards are the character.
-- No sound design in v1.
-- No parallel animations on the same page section — this video is the moment; the rest of that band stays still.
+- Not autoplay. Scroll-scrub only, with reduced-motion fallback to poster.
+- Not adding sound.
+- Not touching `/products`, blob tabs, or the motion diet — that's already shipped.
+- Not iterating on the mascot's face/pose beyond one generation pass this session — if you hate v1 we regenerate before rendering, not after.
 
-## Part 3 — Motion diet on the surrounding sections
+## Open items before I build
 
-Ship this video AND calm the neighbors, or the video won't land. Concurrent with the above:
-
-- Blob tabs: keep click-only (already done). No auto-cycle.
-- Industries carousel: kill the auto-cycle timer. Click/arrow only.
-- Hero orbs and floating chips: reduce loop count or remove — pick during implementation.
-
-## Build order
-
-1. Scaffold `/products` route, move the 4 cards there, restyle to light palette, wire nav link.
-2. Remove the 4-card section from the homepage; leave an empty slot.
-3. Scaffold Remotion project, build the 4 scenes, render MP4 + poster still.
-4. Add `<VideoBlock />` component to the homepage in the freed slot, wired to autoplay-on-view.
-5. Apply the motion diet to blobs / industries / hero.
-6. Verify on mobile — video must not blow the layout, must be tap-to-replay friendly.
-
-## Technical notes
-
-- Remotion renders inside the sandbox via `code--exec`; MP4 goes into `public/videos/` and ships with the deploy.
-- Autoplay requires `muted` + `playsInline` on iOS. Non-negotiable.
-- Poster image (final frame PNG) prevents CLS.
-- If the MP4 comes in over ~2MB, re-encode with `--crf=23` or drop to 24fps.
-- One iteration cycle: if scene 1 or scene 2 doesn't land after render, we tune timing/spring configs and re-render — cheap.
-
-## Open decisions to lock before I start building
-
-1. Which 12–14 tools/notifications should appear as the scattered cards? I'll propose a list based on your ICP; you approve or swap.
-2. Payoff copy: "One system. Everything runs." — approve or rewrite.
-3. Do we ship the /products page in the same session, or homepage-only first and /products next session?
+1. **Mascot vibe** — human operator with headset (my recommendation), or would you rather I try: (a) a friendly abstract character (blob with eyes), (b) a stylized hand/glove holding everything, or (c) skip mascot and use a phone showing the Zapla app after all? Same session cost either way.
+2. **Payoff copy** — keep "One system. Everything runs." or swap.
+3. **Section height on desktop** — 250vh (my default) means users scroll ~1.5 extra screens through the pinned section. Fine, or should it be tighter (180vh)?
