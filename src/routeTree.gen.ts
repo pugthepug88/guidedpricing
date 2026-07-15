@@ -9,60 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SectionLabRouteImport } from './routes/section-lab'
-import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
-import { Route as PillarIdeasV3RouteImport } from './routes/pillar-ideas-v3'
-import { Route as PillarIdeasV2RouteImport } from './routes/pillar-ideas-v2'
-import { Route as PillarIdeasRouteImport } from './routes/pillar-ideas'
 import { Route as HeroPreviewRouteImport } from './routes/hero-preview'
-import { Route as CharacterLabV3RouteImport } from './routes/character-lab-v3'
-import { Route as CharacterLabRouteImport } from './routes/character-lab'
 import { Route as IndexRouteImport } from './routes/index'
 
-const SectionLabRoute = SectionLabRouteImport.update({
-  id: '/section-lab',
-  path: '/section-lab',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsRoute = ProductsRouteImport.update({
-  id: '/products',
-  path: '/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PricingV2Route = PricingV2RouteImport.update({
   id: '/pricing-v2',
   path: '/pricing-v2',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PillarIdeasV3Route = PillarIdeasV3RouteImport.update({
-  id: '/pillar-ideas-v3',
-  path: '/pillar-ideas-v3',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PillarIdeasV2Route = PillarIdeasV2RouteImport.update({
-  id: '/pillar-ideas-v2',
-  path: '/pillar-ideas-v2',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PillarIdeasRoute = PillarIdeasRouteImport.update({
-  id: '/pillar-ideas',
-  path: '/pillar-ideas',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const HeroPreviewRoute = HeroPreviewRouteImport.update({
   id: '/hero-preview',
   path: '/hero-preview',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CharacterLabV3Route = CharacterLabV3RouteImport.update({
-  id: '/character-lab-v3',
-  path: '/character-lab-v3',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CharacterLabRoute = CharacterLabRouteImport.update({
-  id: '/character-lab',
-  path: '/character-lab',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -73,109 +31,36 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/character-lab': typeof CharacterLabRoute
-  '/character-lab-v3': typeof CharacterLabV3Route
   '/hero-preview': typeof HeroPreviewRoute
-  '/pillar-ideas': typeof PillarIdeasRoute
-  '/pillar-ideas-v2': typeof PillarIdeasV2Route
-  '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
-  '/products': typeof ProductsRoute
-  '/section-lab': typeof SectionLabRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/character-lab': typeof CharacterLabRoute
-  '/character-lab-v3': typeof CharacterLabV3Route
   '/hero-preview': typeof HeroPreviewRoute
-  '/pillar-ideas': typeof PillarIdeasRoute
-  '/pillar-ideas-v2': typeof PillarIdeasV2Route
-  '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
-  '/products': typeof ProductsRoute
-  '/section-lab': typeof SectionLabRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/character-lab': typeof CharacterLabRoute
-  '/character-lab-v3': typeof CharacterLabV3Route
   '/hero-preview': typeof HeroPreviewRoute
-  '/pillar-ideas': typeof PillarIdeasRoute
-  '/pillar-ideas-v2': typeof PillarIdeasV2Route
-  '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
-  '/products': typeof ProductsRoute
-  '/section-lab': typeof SectionLabRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/character-lab'
-    | '/character-lab-v3'
-    | '/hero-preview'
-    | '/pillar-ideas'
-    | '/pillar-ideas-v2'
-    | '/pillar-ideas-v3'
-    | '/pricing-v2'
-    | '/products'
-    | '/section-lab'
+  fullPaths: '/' | '/hero-preview' | '/pricing-v2'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/character-lab'
-    | '/character-lab-v3'
-    | '/hero-preview'
-    | '/pillar-ideas'
-    | '/pillar-ideas-v2'
-    | '/pillar-ideas-v3'
-    | '/pricing-v2'
-    | '/products'
-    | '/section-lab'
-  id:
-    | '__root__'
-    | '/'
-    | '/character-lab'
-    | '/character-lab-v3'
-    | '/hero-preview'
-    | '/pillar-ideas'
-    | '/pillar-ideas-v2'
-    | '/pillar-ideas-v3'
-    | '/pricing-v2'
-    | '/products'
-    | '/section-lab'
+  to: '/' | '/hero-preview' | '/pricing-v2'
+  id: '__root__' | '/' | '/hero-preview' | '/pricing-v2'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CharacterLabRoute: typeof CharacterLabRoute
-  CharacterLabV3Route: typeof CharacterLabV3Route
   HeroPreviewRoute: typeof HeroPreviewRoute
-  PillarIdeasRoute: typeof PillarIdeasRoute
-  PillarIdeasV2Route: typeof PillarIdeasV2Route
-  PillarIdeasV3Route: typeof PillarIdeasV3Route
   PricingV2Route: typeof PricingV2Route
-  ProductsRoute: typeof ProductsRoute
-  SectionLabRoute: typeof SectionLabRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/section-lab': {
-      id: '/section-lab'
-      path: '/section-lab'
-      fullPath: '/section-lab'
-      preLoaderRoute: typeof SectionLabRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products': {
-      id: '/products'
-      path: '/products'
-      fullPath: '/products'
-      preLoaderRoute: typeof ProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/pricing-v2': {
       id: '/pricing-v2'
       path: '/pricing-v2'
@@ -183,46 +68,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingV2RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pillar-ideas-v3': {
-      id: '/pillar-ideas-v3'
-      path: '/pillar-ideas-v3'
-      fullPath: '/pillar-ideas-v3'
-      preLoaderRoute: typeof PillarIdeasV3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pillar-ideas-v2': {
-      id: '/pillar-ideas-v2'
-      path: '/pillar-ideas-v2'
-      fullPath: '/pillar-ideas-v2'
-      preLoaderRoute: typeof PillarIdeasV2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pillar-ideas': {
-      id: '/pillar-ideas'
-      path: '/pillar-ideas'
-      fullPath: '/pillar-ideas'
-      preLoaderRoute: typeof PillarIdeasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/hero-preview': {
       id: '/hero-preview'
       path: '/hero-preview'
       fullPath: '/hero-preview'
       preLoaderRoute: typeof HeroPreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/character-lab-v3': {
-      id: '/character-lab-v3'
-      path: '/character-lab-v3'
-      fullPath: '/character-lab-v3'
-      preLoaderRoute: typeof CharacterLabV3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/character-lab': {
-      id: '/character-lab'
-      path: '/character-lab'
-      fullPath: '/character-lab'
-      preLoaderRoute: typeof CharacterLabRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -237,16 +87,19 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CharacterLabRoute: CharacterLabRoute,
-  CharacterLabV3Route: CharacterLabV3Route,
   HeroPreviewRoute: HeroPreviewRoute,
-  PillarIdeasRoute: PillarIdeasRoute,
-  PillarIdeasV2Route: PillarIdeasV2Route,
-  PillarIdeasV3Route: PillarIdeasV3Route,
   PricingV2Route: PricingV2Route,
-  ProductsRoute: ProductsRoute,
-  SectionLabRoute: SectionLabRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
