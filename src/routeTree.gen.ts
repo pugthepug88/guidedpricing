@@ -16,6 +16,7 @@ import { Route as PillarIdeasV3RouteImport } from './routes/pillar-ideas-v3'
 import { Route as PillarIdeasV2RouteImport } from './routes/pillar-ideas-v2'
 import { Route as PillarIdeasRouteImport } from './routes/pillar-ideas'
 import { Route as HeroPreviewRouteImport } from './routes/hero-preview'
+import { Route as CharacterLabV3RouteImport } from './routes/character-lab-v3'
 import { Route as CharacterLabRouteImport } from './routes/character-lab'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -54,6 +55,11 @@ const HeroPreviewRoute = HeroPreviewRouteImport.update({
   path: '/hero-preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CharacterLabV3Route = CharacterLabV3RouteImport.update({
+  id: '/character-lab-v3',
+  path: '/character-lab-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CharacterLabRoute = CharacterLabRouteImport.update({
   id: '/character-lab',
   path: '/character-lab',
@@ -68,6 +74,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/character-lab': typeof CharacterLabRoute
+  '/character-lab-v3': typeof CharacterLabV3Route
   '/hero-preview': typeof HeroPreviewRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/character-lab': typeof CharacterLabRoute
+  '/character-lab-v3': typeof CharacterLabV3Route
   '/hero-preview': typeof HeroPreviewRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/character-lab': typeof CharacterLabRoute
+  '/character-lab-v3': typeof CharacterLabV3Route
   '/hero-preview': typeof HeroPreviewRoute
   '/pillar-ideas': typeof PillarIdeasRoute
   '/pillar-ideas-v2': typeof PillarIdeasV2Route
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/character-lab'
+    | '/character-lab-v3'
     | '/hero-preview'
     | '/pillar-ideas'
     | '/pillar-ideas-v2'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/character-lab'
+    | '/character-lab-v3'
     | '/hero-preview'
     | '/pillar-ideas'
     | '/pillar-ideas-v2'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/character-lab'
+    | '/character-lab-v3'
     | '/hero-preview'
     | '/pillar-ideas'
     | '/pillar-ideas-v2'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CharacterLabRoute: typeof CharacterLabRoute
+  CharacterLabV3Route: typeof CharacterLabV3Route
   HeroPreviewRoute: typeof HeroPreviewRoute
   PillarIdeasRoute: typeof PillarIdeasRoute
   PillarIdeasV2Route: typeof PillarIdeasV2Route
@@ -198,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HeroPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/character-lab-v3': {
+      id: '/character-lab-v3'
+      path: '/character-lab-v3'
+      fullPath: '/character-lab-v3'
+      preLoaderRoute: typeof CharacterLabV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/character-lab': {
       id: '/character-lab'
       path: '/character-lab'
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CharacterLabRoute: CharacterLabRoute,
+  CharacterLabV3Route: CharacterLabV3Route,
   HeroPreviewRoute: HeroPreviewRoute,
   PillarIdeasRoute: PillarIdeasRoute,
   PillarIdeasV2Route: PillarIdeasV2Route,
