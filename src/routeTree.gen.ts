@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SectionLabRouteImport } from './routes/section-lab'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as PillarIdeasV3RouteImport } from './routes/pillar-ideas-v3'
@@ -18,6 +19,11 @@ import { Route as HeroPreviewRouteImport } from './routes/hero-preview'
 import { Route as CharacterLabRouteImport } from './routes/character-lab'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SectionLabRoute = SectionLabRouteImport.update({
+  id: '/section-lab',
+  path: '/section-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
   '/products': typeof ProductsRoute
+  '/section-lab': typeof SectionLabRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
   '/products': typeof ProductsRoute
+  '/section-lab': typeof SectionLabRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/pillar-ideas-v3': typeof PillarIdeasV3Route
   '/pricing-v2': typeof PricingV2Route
   '/products': typeof ProductsRoute
+  '/section-lab': typeof SectionLabRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/pillar-ideas-v3'
     | '/pricing-v2'
     | '/products'
+    | '/section-lab'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/pillar-ideas-v3'
     | '/pricing-v2'
     | '/products'
+    | '/section-lab'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/pillar-ideas-v3'
     | '/pricing-v2'
     | '/products'
+    | '/section-lab'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,10 +144,18 @@ export interface RootRouteChildren {
   PillarIdeasV3Route: typeof PillarIdeasV3Route
   PricingV2Route: typeof PricingV2Route
   ProductsRoute: typeof ProductsRoute
+  SectionLabRoute: typeof SectionLabRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/section-lab': {
+      id: '/section-lab'
+      path: '/section-lab'
+      fullPath: '/section-lab'
+      preLoaderRoute: typeof SectionLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   PillarIdeasV3Route: PillarIdeasV3Route,
   PricingV2Route: PricingV2Route,
   ProductsRoute: ProductsRoute,
+  SectionLabRoute: SectionLabRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
