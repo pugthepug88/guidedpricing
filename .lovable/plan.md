@@ -1,84 +1,79 @@
+## Goal
 
-# Chaos-to-Calm v2: substantial cards + mascot + sticky scroll-scrub
+Give you a real page to see all 4 character concepts rendered together, then pick one to build into the actual homepage scroll story. No commitment on the homepage yet — this is a decision-making artifact.
 
-We rebuild the Remotion video from a Z-mark montage into a monday-style piece: 7 large, believable UI cards drift in chaos, then pull into an illustrated Zapla character in the middle. The section on the homepage pins while you scroll — scroll progress scrubs the video frame-by-frame.
+## What I'll build
 
-## Part 1 — The mascot (central figure)
+A new route at `/character-lab` (not linked from anywhere public) containing four full-bleed sections stacked vertically — one per concept. Each section shows the character rendered at hero-scale on the left, and on the right: the concept name, one-line pitch, the scroll mechanic it enables, and a "why this works for Zapla" note.
 
-Replace the "Z" mark with an illustrated character. Because we can't hand-draw one in-session and monday's astronaut is instantly recognisable, we generate a bespoke Zapla mascot as a transparent PNG once and reuse it in the video.
+### The four concepts I'll render
 
-Mascot brief:
-- Line-art style, warm ink strokes, minimal fill (matches monday's aesthetic energy without copying the astronaut).
-- Concept: **"The Zapla Operator"** — a calm, modern human figure (unisex, ambiguous, friendly) wearing a lightweight headset, one hand relaxed, standing three-quarter view. Not sci-fi, not a robot. Reads as "the person Zapla becomes for you."
-- Transparent background, front-lit, on a solid white backdrop for the prompt.
-- Generated once with `imagegen` (premium) at ~1200x1600, saved to `remotion/public/mascot.png`.
+**1. The Faceless Operator**
+- A stylized 3D figure in a Zapla-blue jumpsuit and headset. No visible face features, no skin tone, no gender/age signals — the same silhouette-avatar language Apple and Meta use for universal representation.
+- Scroll mechanic: figure stays centered, category cards (Bookings, Reviews, Invoicing, Conversations, Ads, Automations) orbit into place around them as you scroll. Reads as "one operator running everything."
+- Why: Neutral, premium, ageless. Works for any business owner.
 
-If you'd rather go non-human (glowing orb, phone, dashboard), say so before I generate — swapping the centerpiece later means re-rendering.
+**2. The Zapla Companion**
+- A small round soft-3D "bead" character with two eyes and a subtle Zapla-blue gradient. Not a human. Think: a friendlier Cortana orb, or Intercom's Fin, but with Zapla brand identity.
+- Scroll mechanic: the companion floats beside a phone/laptop and hands off tasks. Cards slide out of it as if it's presenting them.
+- Why: The AI *is* the character, not the user. Universal because it's not human. Very "AI assistant" positioning — matches Zapla's "one system runs your business" pitch.
 
-## Part 2 — The 7 cards (substantial, monday-scale)
+**3. The Everyperson Doodle**
+- One warm hand-drawn illustrated cartoon person: big head, small body, oversized smile, deliberately ambiguous features. Notion/Slack illustration style. Wears a small item that changes as you scroll (headset → apron → clipboard → phone) to signal universality across trades.
+- Scroll mechanic: doodle sits at a desk in the center. As you scroll, thought-bubble cards pop out of their head showing what Zapla just handled for them.
+- Why: Approachable, warm, human — the antithesis of cold enterprise SaaS. Duolingo/Mailchimp energy but adult.
 
-Each card is a mini-UI, not a tiny chip. ~360–460px wide with real content, borders, and micro-details so it reads as "a real product surface":
+**4. The Living Logo**
+- Zapla's own rounded-square logo mark gets two dots for eyes. It tilts, leans, blinks, "catches" cards. Pure geometric personality, like Pixar's Luxo lamp.
+- Scroll mechanic: logo sits center-frame. Cards fly toward it and it leans/tilts to receive each one. Final frame: the logo is smiling with all category cards docked around it.
+- Why: The character IS your brand mark. Every impression doubles as logo recall. Ownable IP forever.
 
-1. **Conversations** — unified inbox: WhatsApp + Instagram DM + SMS + Email rows, one message preview each, unread dot.
-2. **Reviews** — 5-star card with a real-looking review paragraph, Google/Facebook logo, reviewer initial + name.
-3. **Bookings** — mini calendar week strip with 3 booked slots highlighted, "Next: Tue 2:30pm — Consult".
-4. **Invoicing** — Xero-style invoice row: invoice #, client, amount, "Paid" pill; small mini-chart of monthly cash below.
-5. **Documents & Contacts** — file list (Proposal.pdf, Contract.docx) + a contact card below with avatar + phone.
-6. **NFC Payments** — phone-tap illustration: card icon + phone icon with a ripple, "$240 tapped — 2s ago".
-7. **Workflow Automations** — node graph: 3 connected pills (Trigger → AI reply → Book) with a small "Live" indicator.
+### Image generation
 
-All cards are grayscale + slightly muted during chaos, then colorize into brand tones one-by-one as they reach the mascot.
+I'll generate a hero character image for each concept using the image tool, saved into `src/assets/character-lab/`. Rendered at ~1024×1024 each, styled to feel like they belong to the same brand family (Zapla blues, off-white background, clean, no photographic clutter).
 
-## Part 3 — The motion
-
-8 seconds → **12 seconds** (360 frames @ 30fps) so 7 substantial cards have room to breathe.
+### Layout of the page
 
 ```text
-0.0s ──── 3.0s ──────── 8.5s ──────── 12.0s
-CHAOS     PULL           REVEAL         HOLD
++--------------------------------------------------+
+|  /character-lab                                  |
+|--------------------------------------------------|
+|  "Pick a character direction"                    |
+|  (short intro paragraph)                         |
+|--------------------------------------------------|
+|  [ Concept 1: Faceless Operator ]                |
+|  [ character image ] | [ name, pitch, mechanic ] |
+|--------------------------------------------------|
+|  [ Concept 2: Zapla Companion ]                  |
+|  [ character image ] | [ name, pitch, mechanic ] |
+|--------------------------------------------------|
+|  [ Concept 3: Everyperson Doodle ]               |
+|  [ character image ] | [ name, pitch, mechanic ] |
+|--------------------------------------------------|
+|  [ Concept 4: Living Logo ]                      |
+|  [ character image ] | [ name, pitch, mechanic ] |
++--------------------------------------------------+
 ```
 
-- **Chaos (0–3s):** Mascot faintly visible in center from frame 0 (so scroll-scrub feels anchored). 7 cards float at edges with slow drift + micro-rotation. Muted lavender-gray background, faint grid.
-- **Pull (3–8.5s):** Cards accelerate inward, staggered ~15 frames apart. As each card reaches the mascot it colorizes for ~8 frames then absorbs (scales to 0 behind the mascot). Mascot brightens with each absorption — subtle glow ramp.
-- **Reveal (8.5–11s):** Final card lands. Mascot is now full color, calm, one clean dashboard chip floats up beside them showing 3 KPIs (Leads / Reviews / ROAS). Payoff line fades in: **"One system. Everything runs."**
-- **Hold (11–12s):** Static composure frame — this is the frame the scroll-pin releases on and the poster image.
+Each section is 90vh, alternating background subtly (white / light Zapla tint) so they read as distinct.
 
-Spring-based ease on all card motion. One accent spring on the payoff line. No competing curves.
+### After you pick
 
-## Part 4 — Sticky scroll-scrub on the homepage
+Once you tell me which concept wins, I'll:
+1. Kill the current mascot + Remotion video from `/hero-preview`.
+2. Rebuild the scroll section using the chosen character and its specific scroll mechanic.
+3. Full color, no chaos-to-calm framing — just "one system, everything runs" told the concept's way.
 
-New component `src/components/ChaosToCalmScrollScrub.tsx`:
+## Technical notes
 
-- Outer wrapper is `h-[250vh]` (2.5× viewport). Inside, a `sticky top-0 h-screen` container holds the `<video>`.
-- The `<video>` has `muted playsInline preload="auto"`, no `autoplay`, no `controls`, no `loop`.
-- On mount, `video.pause()`. A scroll handler (rAF-throttled, IntersectionObserver-gated so it only runs when the sticky section is visible) maps scroll progress `0 → 1` across the wrapper's bounding rect to `video.currentTime = progress * video.duration`.
-- iOS Safari: setting `currentTime` on a paused `muted playsInline` MP4 works reliably; no autoplay needed. We keep the video muted and never play() it.
-- Reduced-motion (`prefers-reduced-motion`): skip the scrub, show poster image + copy statically.
-- Mobile fallback: on `<640px` the sticky wrapper still works, but we reduce the outer height to `h-[180vh]` so it doesn't feel endless.
+- New route: `src/routes/character-lab.tsx`. Not added to any nav — you access it directly at `/character-lab`.
+- Four character images generated via `imagegen` into `src/assets/character-lab/{operator,companion,doodle,logo}.png`.
+- No changes to `hero-preview.tsx`, `products.tsx`, or the Remotion project in this step.
+- No new dependencies.
 
-Wired into `src/routes/hero-preview.tsx` in the same slot where `ChaosToCalmVideo` currently sits. The old autoplay component is removed.
+## Out of scope for this step
 
-## Part 5 — Re-render pipeline
-
-1. Generate mascot PNG once via `imagegen` (premium, transparent bg) → `remotion/public/mascot.png`.
-2. Rebuild `remotion/src/ChaosToCalm.tsx`:
-   - Bump composition duration to 360 frames.
-   - Load mascot with `staticFile("mascot.png")` and `<Img>`.
-   - Replace 12 small chips with 7 substantial card components in their own file `remotion/src/Cards.tsx` (one component per card with real content).
-   - Rewrite pull arithmetic for 7 arrivals + longer runway.
-3. Re-render MP4 + poster still via existing `remotion/scripts/render.mjs`.
-4. Also render a `.webm` (VP9) alongside for smaller file size on Chromium browsers — `<video>` gets both `<source>` tags.
-5. Verify final MP4 ≤ ~2.5MB; if larger, bump CRF to 24 or drop to 24fps.
-
-## What we're NOT doing
-
-- Not autoplay. Scroll-scrub only, with reduced-motion fallback to poster.
-- Not adding sound.
-- Not touching `/products`, blob tabs, or the motion diet — that's already shipped.
-- Not iterating on the mascot's face/pose beyond one generation pass this session — if you hate v1 we regenerate before rendering, not after.
-
-## Open items before I build
-
-1. **Mascot vibe** — human operator with headset (my recommendation), or would you rather I try: (a) a friendly abstract character (blob with eyes), (b) a stylized hand/glove holding everything, or (c) skip mascot and use a phone showing the Zapla app after all? Same session cost either way.
-2. **Payoff copy** — keep "One system. Everything runs." or swap.
-3. **Section height on desktop** — 250vh (my default) means users scroll ~1.5 extra screens through the pinned section. Fine, or should it be tighter (180vh)?
+- Building any of the actual scroll animations.
+- Touching the current homepage / hero-preview.
+- Rendering new video.
+- Removing the existing mascot or chaos-to-calm assets. Those stay put until you pick.
