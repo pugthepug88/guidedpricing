@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as HeroPreviewRouteImport } from './routes/hero-preview'
+import { Route as CharacterLabRouteImport } from './routes/character-lab'
 import { Route as IndexRouteImport } from './routes/index'
 
 const PricingV2Route = PricingV2RouteImport.update({
@@ -23,6 +24,11 @@ const HeroPreviewRoute = HeroPreviewRouteImport.update({
   path: '/hero-preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CharacterLabRoute = CharacterLabRouteImport.update({
+  id: '/character-lab',
+  path: '/character-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/character-lab': typeof CharacterLabRoute
   '/hero-preview': typeof HeroPreviewRoute
   '/pricing-v2': typeof PricingV2Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/character-lab': typeof CharacterLabRoute
   '/hero-preview': typeof HeroPreviewRoute
   '/pricing-v2': typeof PricingV2Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/character-lab': typeof CharacterLabRoute
   '/hero-preview': typeof HeroPreviewRoute
   '/pricing-v2': typeof PricingV2Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/hero-preview' | '/pricing-v2'
+  fullPaths: '/' | '/character-lab' | '/hero-preview' | '/pricing-v2'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/hero-preview' | '/pricing-v2'
-  id: '__root__' | '/' | '/hero-preview' | '/pricing-v2'
+  to: '/' | '/character-lab' | '/hero-preview' | '/pricing-v2'
+  id: '__root__' | '/' | '/character-lab' | '/hero-preview' | '/pricing-v2'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CharacterLabRoute: typeof CharacterLabRoute
   HeroPreviewRoute: typeof HeroPreviewRoute
   PricingV2Route: typeof PricingV2Route
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HeroPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/character-lab': {
+      id: '/character-lab'
+      path: '/character-lab'
+      fullPath: '/character-lab'
+      preLoaderRoute: typeof CharacterLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CharacterLabRoute: CharacterLabRoute,
   HeroPreviewRoute: HeroPreviewRoute,
   PricingV2Route: PricingV2Route,
 }
