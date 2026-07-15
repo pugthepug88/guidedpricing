@@ -9,6 +9,16 @@ import char07 from "@/assets/char-07.png.asset.json";
 import char08 from "@/assets/char-08.png.asset.json";
 import char09 from "@/assets/char-09.png.asset.json";
 import char10 from "@/assets/char-10.png.asset.json";
+import char11 from "@/assets/char-11.png.asset.json";
+import char12 from "@/assets/char-12.png.asset.json";
+import char13 from "@/assets/char-13.png.asset.json";
+import char14 from "@/assets/char-14.png.asset.json";
+import char15 from "@/assets/char-15.png.asset.json";
+import char16 from "@/assets/char-16.png.asset.json";
+import char17 from "@/assets/char-17.png.asset.json";
+import char18 from "@/assets/char-18.png.asset.json";
+import char19 from "@/assets/char-19.png.asset.json";
+import char20 from "@/assets/char-20.png.asset.json";
 
 export const Route = createFileRoute("/character-lab")({
   component: CharacterLab,
@@ -28,7 +38,18 @@ const chars = [
   { n: "08", src: char08.url, note: "Pixie, goggles on forehead, cargo jacket" },
   { n: "09", src: char09.url, note: "Wavy hair, round glasses, cardigan (thoughtful)" },
   { n: "10", src: char10.url, note: "Beret, sunglasses, trench coat (fashion editorial)" },
+  { n: "11", src: char11.url, note: "Cafe owner, apron, coffee cup (hospitality)" },
+  { n: "12", src: char12.url, note: "Salon owner, scissors + comb (beauty / services)" },
+  { n: "13", src: char13.url, note: "Tradie, cap + tool belt + phone (trades)" },
+  { n: "14", src: char14.url, note: "Chef / restaurant owner with tablet (food)" },
+  { n: "15", src: char15.url, note: "Boutique retail owner, shopping bag (retail)" },
+  { n: "16", src: char16.url, note: "Personal trainer, headphones + bottle (fitness)" },
+  { n: "17", src: char17.url, note: "Real estate agent + For Sale sign (property)" },
+  { n: "18", src: char18.url, note: "Healthcare / dental clinic owner in scrubs (health)" },
+  { n: "19", src: char19.url, note: "Florist with bouquet (local retail)" },
+  { n: "20", src: char20.url, note: "Multitasking founder, laptop + phone + headphones (universal)" },
 ];
+
 
 function CharacterLab() {
   return (
