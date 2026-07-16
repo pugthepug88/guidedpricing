@@ -65,16 +65,16 @@ function ConnectedLab() {
     };
   }, []);
 
-  // Sketch resolves into color and both stay visible — nothing fades back out
-  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 1], [1, 0.25, 0.25]);
+  // Sketch resolves into color and then fades out — no ghost container left behind
+  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 0.55, 1], [1, 0.35, 0, 0]);
   const colorOpacity = useTransform(scrollYProgress, [0.15, 0.55, 1], [0, 1, 1]);
 
   // Orbit ring fade
-  const orbitOpacity = useTransform(scrollYProgress, [0.08, 0.3], [0, 0.6]);
+  const orbitOpacity = useTransform(scrollYProgress, [0.08, 0.3], [0, 0.5]);
 
   return (
     <main className="bg-white text-neutral-900">
-      <section ref={ref} className="relative h-[420vh]">
+      <section ref={ref} className="relative h-[460vh]">
         <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_center,#f6f8fc_0%,#ffffff_65%)]">
           {/* Dotted grid backdrop */}
           <div
@@ -86,20 +86,22 @@ function ConnectedLab() {
             }}
           />
 
-          <div className="relative mx-auto h-full w-full max-w-7xl px-6">
-            {/* Centered stage — no container box */}
+          <div className="relative mx-auto h-full w-full max-w-[1400px] px-6">
             <div className="relative mx-auto flex h-full items-center justify-center">
-              <div className="relative mx-auto h-[88vh] w-[88vh] max-w-[96vw]">
-                {/* Dotted orbit ring */}
+              {/* Wider stage so cards breathe away from the character */}
+              <div className="relative mx-auto h-[86vh] w-[min(148vh,96vw)]">
+                {/* Dotted orbit ring — elliptical to match wider stage */}
                 <motion.svg
-                  viewBox="0 0 600 600"
+                  viewBox="0 0 1000 600"
+                  preserveAspectRatio="none"
                   className="absolute inset-0 h-full w-full"
                   style={{ opacity: orbitOpacity }}
                 >
-                  <circle
-                    cx="300"
+                  <ellipse
+                    cx="500"
                     cy="300"
-                    r="270"
+                    rx="470"
+                    ry="270"
                     fill="none"
                     stroke="#a5b4d4"
                     strokeWidth="1.2"
@@ -107,13 +109,13 @@ function ConnectedLab() {
                   />
                 </motion.svg>
 
-                {/* Character — sketch layer */}
+                {/* Character — sketch layer (fades away once color settles) */}
                 <motion.img
                   src={heroSketch.url}
                   alt=""
                   draggable={false}
                   style={{ opacity: sketchOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
                 />
                 {/* Character — color layer */}
                 <motion.img
@@ -121,36 +123,40 @@ function ConnectedLab() {
                   alt=""
                   draggable={false}
                   style={{ opacity: colorOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
                 />
 
-                {/* Cards, in story order */}
-                <OrbitCard progress={progress} appearAt={0.18} pos="left-[-10%] top-[6%]">
+                {/* Cards — spaced so nothing overlaps and nothing hugs the character */}
+                <OrbitCard progress={progress} appearAt={0.18} pos="left-[-6%] top-[2%]">
                   <ConversationsCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.26} pos="right-[-8%] top-[10%]">
+                <OrbitCard progress={progress} appearAt={0.26} pos="right-[-6%] top-[2%]">
                   <NewLeadCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.38} pos="right-[-12%] top-[44%]">
+                <OrbitCard progress={progress} appearAt={0.36} pos="right-[-10%] top-[38%]">
                   <BookingCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.5} pos="right-[-2%] bottom-[8%]">
+                <OrbitCard progress={progress} appearAt={0.46} pos="right-[-3%] top-[72%]">
                   <WorkflowCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.6} pos="left-[34%] bottom-[-4%]">
+                <OrbitCard progress={progress} appearAt={0.56} pos="right-[22%] bottom-[-10%]">
                   <OpportunityCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.7} pos="left-[-12%] bottom-[14%]">
+                <OrbitCard progress={progress} appearAt={0.66} pos="left-[22%] bottom-[-10%]">
                   <InvoiceCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.82} pos="left-[-8%] top-[42%]">
+                <OrbitCard progress={progress} appearAt={0.76} pos="left-[-3%] top-[72%]">
                   <ReviewCard />
+                </OrbitCard>
+
+                <OrbitCard progress={progress} appearAt={0.86} pos="left-[-10%] top-[38%]">
+                  <WinBackCard />
                 </OrbitCard>
               </div>
             </div>
@@ -160,6 +166,7 @@ function ConnectedLab() {
     </main>
   );
 }
+
 
 function OrbitCard({
   progress,
