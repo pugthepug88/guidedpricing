@@ -43,10 +43,18 @@ export function ConnectedSystemSection() {
 
   return (
     <section ref={ref} className="relative h-[460vh] bg-white text-neutral-900">
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-white">
-        <div className="relative mx-auto h-full w-full max-w-[1400px] px-6">
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
+        <div className="relative z-30 pt-12 md:pt-16 px-6 text-center max-w-3xl mx-auto">
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
+            Every customer moment. One connected system.
+          </h2>
+          <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
+            Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
+          </p>
+        </div>
+        <div className="relative mx-auto w-full max-w-[1400px] flex-1 px-6">
           <div className="relative mx-auto flex h-full items-center justify-center">
-            <div className="relative mx-auto h-[86vh] w-[min(148vh,96vw)]">
+            <div className="relative mx-auto h-[74vh] w-[min(148vh,96vw)]">
               <motion.svg
                 viewBox="0 0 1000 600"
                 preserveAspectRatio="none"
