@@ -221,22 +221,66 @@ function InstagramIcon({ size = 32 }: { size?: number }) {
 
 /* ---------- Cards ---------- */
 function ConversationsCard() {
+  const threads = [
+    {
+      icon: <SmsIcon size={36} />,
+      name: "Sarah Mitchell",
+      time: "2m",
+      preview: "Can I move my 3pm to Thursday?",
+      unread: true,
+    },
+    {
+      icon: <GmailIcon size={36} />,
+      name: "James — new enquiry",
+      time: "8m",
+      preview: "Hi, wanted to get a quote for…",
+      unread: true,
+    },
+    {
+      icon: <InstagramIcon size={36} />,
+      name: "@mia.k",
+      time: "1h",
+      preview: "Do you take bookings via DM?",
+      unread: false,
+    },
+    {
+      icon: <MessengerIcon size={36} />,
+      name: "David Chen",
+      time: "3h",
+      preview: "Thanks — see you tomorrow ",
+      unread: false,
+    },
+  ];
+
   return (
-    <Shell className="w-[240px] p-3.5">
-      <div className="flex items-center gap-2.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white">
-          <MessageCircle className="h-4 w-4" />
+    <Shell className="w-[320px] p-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white">
+            <MessageCircle className="h-[18px] w-[18px]" />
+          </div>
+          <div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Conversations</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">All channels, one inbox</div>
+          </div>
         </div>
-        <div>
-          <div className="text-[13px] font-semibold text-neutral-900 leading-tight">Conversations</div>
-          <div className="text-[11px] text-neutral-500 leading-tight">3 new replies waiting</div>
-        </div>
+        <div className="rounded-full bg-red-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">3</div>
       </div>
-      <div className="mt-3 flex items-center gap-1.5">
-        <SmsIcon />
-        <GmailIcon />
-        <MessengerIcon />
-        <InstagramIcon />
+
+      <div className="mt-3.5 space-y-2.5">
+        {threads.map((t, i) => (
+          <div key={i} className="flex items-center gap-2.5">
+            {t.icon}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-2">
+                <div className="truncate text-[12px] font-semibold text-neutral-900">{t.name}</div>
+                <div className="shrink-0 text-[10px] text-neutral-400">{t.time}</div>
+              </div>
+              <div className="truncate text-[11px] text-neutral-500">{t.preview}</div>
+            </div>
+            {t.unread && <div className="h-2 w-2 shrink-0 rounded-full bg-blue-600" />}
+          </div>
+        ))}
       </div>
     </Shell>
   );
