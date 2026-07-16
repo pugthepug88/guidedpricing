@@ -1,9 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle } from "lucide-react";
+import { Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle, Sparkles, RefreshCw } from "lucide-react";
 import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
+
+// Real face avatars (pravatar keeps a stable image per `img` id)
+const face = (n: number) => `https://i.pravatar.cc/80?img=${n}`;
+
 
 export const Route = createFileRoute("/connected-lab")({
   component: ConnectedLab,
@@ -61,16 +65,16 @@ function ConnectedLab() {
     };
   }, []);
 
-  // Sketch resolves into color and both stay visible — nothing fades back out
-  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 1], [1, 0.25, 0.25]);
+  // Sketch resolves into color and then fades out — no ghost container left behind
+  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 0.55, 1], [1, 0.35, 0, 0]);
   const colorOpacity = useTransform(scrollYProgress, [0.15, 0.55, 1], [0, 1, 1]);
 
   // Orbit ring fade
-  const orbitOpacity = useTransform(scrollYProgress, [0.08, 0.3], [0, 0.6]);
+  const orbitOpacity = useTransform(scrollYProgress, [0.08, 0.3], [0, 0.5]);
 
   return (
     <main className="bg-white text-neutral-900">
-      <section ref={ref} className="relative h-[420vh]">
+      <section ref={ref} className="relative h-[460vh]">
         <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_center,#f6f8fc_0%,#ffffff_65%)]">
           {/* Dotted grid backdrop */}
           <div
@@ -82,20 +86,22 @@ function ConnectedLab() {
             }}
           />
 
-          <div className="relative mx-auto h-full w-full max-w-7xl px-6">
-            {/* Centered stage — no container box */}
+          <div className="relative mx-auto h-full w-full max-w-[1400px] px-6">
             <div className="relative mx-auto flex h-full items-center justify-center">
-              <div className="relative mx-auto h-[88vh] w-[88vh] max-w-[96vw]">
-                {/* Dotted orbit ring */}
+              {/* Wider stage so cards breathe away from the character */}
+              <div className="relative mx-auto h-[86vh] w-[min(148vh,96vw)]">
+                {/* Dotted orbit ring — elliptical to match wider stage */}
                 <motion.svg
-                  viewBox="0 0 600 600"
+                  viewBox="0 0 1000 600"
+                  preserveAspectRatio="none"
                   className="absolute inset-0 h-full w-full"
                   style={{ opacity: orbitOpacity }}
                 >
-                  <circle
-                    cx="300"
+                  <ellipse
+                    cx="500"
                     cy="300"
-                    r="270"
+                    rx="470"
+                    ry="270"
                     fill="none"
                     stroke="#a5b4d4"
                     strokeWidth="1.2"
@@ -103,13 +109,13 @@ function ConnectedLab() {
                   />
                 </motion.svg>
 
-                {/* Character — sketch layer */}
+                {/* Character — sketch layer (fades away once color settles) */}
                 <motion.img
                   src={heroSketch.url}
                   alt=""
                   draggable={false}
                   style={{ opacity: sketchOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
                 />
                 {/* Character — color layer */}
                 <motion.img
@@ -117,36 +123,40 @@ function ConnectedLab() {
                   alt=""
                   draggable={false}
                   style={{ opacity: colorOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
                 />
 
-                {/* Cards, in story order */}
-                <OrbitCard progress={progress} appearAt={0.18} pos="left-[-10%] top-[6%]">
+                {/* Cards — spaced so nothing overlaps and nothing hugs the character */}
+                <OrbitCard progress={progress} appearAt={0.18} pos="left-[-6%] top-[2%]">
                   <ConversationsCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.26} pos="right-[-8%] top-[10%]">
+                <OrbitCard progress={progress} appearAt={0.26} pos="right-[-6%] top-[2%]">
                   <NewLeadCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.38} pos="right-[-12%] top-[44%]">
+                <OrbitCard progress={progress} appearAt={0.36} pos="right-[-10%] top-[38%]">
                   <BookingCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.5} pos="right-[-2%] bottom-[8%]">
+                <OrbitCard progress={progress} appearAt={0.46} pos="right-[-3%] top-[72%]">
                   <WorkflowCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.6} pos="left-[34%] bottom-[-4%]">
+                <OrbitCard progress={progress} appearAt={0.56} pos="right-[22%] bottom-[-10%]">
                   <OpportunityCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.7} pos="left-[-12%] bottom-[14%]">
+                <OrbitCard progress={progress} appearAt={0.66} pos="left-[22%] bottom-[-10%]">
                   <InvoiceCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.82} pos="left-[-8%] top-[42%]">
+                <OrbitCard progress={progress} appearAt={0.76} pos="left-[-3%] top-[72%]">
                   <ReviewCard />
+                </OrbitCard>
+
+                <OrbitCard progress={progress} appearAt={0.86} pos="left-[-10%] top-[38%]">
+                  <WinBackCard />
                 </OrbitCard>
               </div>
             </div>
@@ -156,6 +166,7 @@ function ConnectedLab() {
     </main>
   );
 }
+
 
 function OrbitCard({
   progress,
@@ -322,20 +333,25 @@ function NewLeadCard() {
     <Shell className="w-[300px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500 text-white">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-sm">
             <Phone className="h-[18px] w-[18px]" />
+            <div className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white ring-1 ring-violet-200">
+              <Sparkles className="h-2.5 w-2.5 text-violet-600" />
+            </div>
           </div>
           <div>
             <div className="text-[14px] font-semibold text-neutral-900 leading-tight">New Lead</div>
             <div className="text-[11px] text-neutral-500 leading-tight">AI receptionist captured a call</div>
           </div>
         </div>
-        <div className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200">LIVE</div>
+        <div className="flex items-center gap-1 rounded-full bg-violet-50 px-2 py-0.5 text-[10px] font-semibold text-violet-700 ring-1 ring-violet-200">
+          <Sparkles className="h-3 w-3" /> AI · LIVE
+        </div>
       </div>
 
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 text-[11px] font-semibold text-white">EM</div>
+          <img src={face(47)} alt="" className="h-8 w-8 rounded-full object-cover ring-1 ring-white" />
           <div className="min-w-0 flex-1">
             <div className="truncate text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
             <div className="truncate text-[11px] text-neutral-500">+61 400 812 559 · 0:42s</div>
@@ -348,12 +364,13 @@ function NewLeadCard() {
       </div>
 
       <div className="mt-2.5 flex items-center justify-between text-[11px]">
-        <span className="text-neutral-500">Transcribed and added to CRM</span>
+        <span className="flex items-center gap-1 text-violet-600 font-medium"><Sparkles className="h-3 w-3" /> AI transcribed · added to CRM</span>
         <span className="font-semibold text-emerald-600">✓ synced</span>
       </div>
     </Shell>
   );
 }
+
 
 function BookingCard() {
   return (
@@ -388,7 +405,8 @@ function BookingCard() {
       </div>
 
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-[10px] font-semibold text-white">SM</div>
+        <img src={face(32)} alt="" className="h-7 w-7 rounded-full object-cover" />
+
         <div className="min-w-0 flex-1">
           <div className="truncate text-[11px] font-semibold text-neutral-900">Sarah Mitchell</div>
           <div className="truncate text-[10px] text-neutral-500">Consultation · 45 min</div>
@@ -490,7 +508,7 @@ function OpportunityCard() {
 
       <div className="mt-3 flex items-center justify-between rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-orange-500 text-[10px] font-semibold text-white">JC</div>
+          <img src={face(59)} alt="" className="h-7 w-7 rounded-full object-cover" />
           <div>
             <div className="text-[11px] font-semibold text-neutral-900">Jordan Clarke</div>
             <div className="text-[10px] text-neutral-500">Kitchen renovation</div>
@@ -554,7 +572,7 @@ function ReviewCard() {
 
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-[10px] font-semibold text-white">SM</div>
+          <img src={face(32)} alt="" className="h-7 w-7 rounded-full object-cover" />
           <div className="flex-1">
             <div className="text-[12px] font-semibold text-neutral-900">Sarah Mitchell</div>
             <div className="flex items-center gap-0.5">
@@ -571,3 +589,51 @@ function ReviewCard() {
     </Shell>
   );
 }
+
+function WinBackCard() {
+  const avatars = [12, 5, 33, 47, 15];
+  return (
+    <Shell className="w-[300px] p-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500 text-white">
+            <RefreshCw className="h-[18px] w-[18px]" />
+          </div>
+          <div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Customers Won Back</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">Reactivation campaign · this month</div>
+          </div>
+        </div>
+        <div className="rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-semibold text-teal-700 ring-1 ring-teal-200">+42</div>
+      </div>
+
+      <div className="mt-3 rounded-xl bg-gradient-to-br from-teal-50 to-white p-3 ring-1 ring-teal-100">
+        <div className="flex items-baseline justify-between">
+          <div className="text-[11px] text-neutral-500">Re-engaged and purchased</div>
+          <div className="text-[10px] font-semibold text-emerald-600">↑ 3.4×</div>
+        </div>
+        <div className="mt-1 flex items-baseline gap-1.5">
+          <div className="text-[22px] font-bold text-neutral-900">42</div>
+          <div className="text-[11px] text-neutral-500">past customers</div>
+        </div>
+        <div className="mt-2 flex items-center justify-between border-t border-teal-100 pt-2">
+          <div className="flex -space-x-2">
+            {avatars.map((n) => (
+              <img
+                key={n}
+                src={face(n)}
+                alt=""
+                className="h-6 w-6 rounded-full object-cover ring-2 ring-white"
+              />
+            ))}
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-teal-600 text-[9px] font-semibold text-white ring-2 ring-white">
+              +37
+            </div>
+          </div>
+          <div className="text-[10px] font-semibold text-teal-700">$18,240 recovered</div>
+        </div>
+      </div>
+    </Shell>
+  );
+}
+
