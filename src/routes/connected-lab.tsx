@@ -589,3 +589,51 @@ function ReviewCard() {
     </Shell>
   );
 }
+
+function WinBackCard() {
+  const avatars = [12, 5, 33, 47, 15];
+  return (
+    <Shell className="w-[300px] p-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500 text-white">
+            <RefreshCw className="h-[18px] w-[18px]" />
+          </div>
+          <div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Customers Won Back</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">Reactivation campaign · this month</div>
+          </div>
+        </div>
+        <div className="rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-semibold text-teal-700 ring-1 ring-teal-200">+42</div>
+      </div>
+
+      <div className="mt-3 rounded-xl bg-gradient-to-br from-teal-50 to-white p-3 ring-1 ring-teal-100">
+        <div className="flex items-baseline justify-between">
+          <div className="text-[11px] text-neutral-500">Re-engaged and purchased</div>
+          <div className="text-[10px] font-semibold text-emerald-600">↑ 3.4×</div>
+        </div>
+        <div className="mt-1 flex items-baseline gap-1.5">
+          <div className="text-[22px] font-bold text-neutral-900">42</div>
+          <div className="text-[11px] text-neutral-500">past customers</div>
+        </div>
+        <div className="mt-2 flex items-center justify-between border-t border-teal-100 pt-2">
+          <div className="flex -space-x-2">
+            {avatars.map((n) => (
+              <img
+                key={n}
+                src={face(n)}
+                alt=""
+                className="h-6 w-6 rounded-full object-cover ring-2 ring-white"
+              />
+            ))}
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-teal-600 text-[9px] font-semibold text-white ring-2 ring-white">
+              +37
+            </div>
+          </div>
+          <div className="text-[10px] font-semibold text-teal-700">$18,240 recovered</div>
+        </div>
+      </div>
+    </Shell>
+  );
+}
+
