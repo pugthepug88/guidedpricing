@@ -36,8 +36,8 @@ function ConnectedLab() {
     offset: ["start start", "end end"],
   });
 
-  // Sketch fades out as color fades in
-  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35], [1, 0]);
+  // Sketch resolves into color and both stay visible — nothing fades back out
+  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35], [1, 0.25]);
   const colorOpacity = useTransform(scrollYProgress, [0.15, 0.55], [0, 1]);
 
   // Orbit ring fade
