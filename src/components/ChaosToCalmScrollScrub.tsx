@@ -81,11 +81,11 @@ export function ChaosToCalmScrollScrub() {
       {/* Intro copy above the pin */}
       <div className="px-6 pt-24 md:pt-32 pb-10 md:pb-14">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-zapla font-semibold tracking-tight text-neutral-900 text-3xl sm:text-4xl md:text-5xl leading-[1.1]">
-            Every tool. One brain.
+          <h2 className="font-zapla font-semibold tracking-tight text-neutral-900 text-3xl sm:text-4xl md:text-5xl leading-[1.1] whitespace-pre-line">
+            Every customer moment.&nbsp;{"\n"}One connected system.
           </h2>
-          <p className="mt-5 text-neutral-600 text-lg md:text-xl leading-relaxed">
-            Stop juggling twelve dashboards. Scroll and watch it come together.
+          <p className="mt-5 text-neutral-600 text-lg md:text-xl leading-relaxed whitespace-pre-line">
+            Calls, messages, bookings, payments, follow-ups and reviews&nbsp;{"\n"}moving together automatically.&nbsp;
           </p>
         </div>
       </div>
