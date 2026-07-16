@@ -508,7 +508,7 @@ function OpportunityCard() {
 
       <div className="mt-3 flex items-center justify-between rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-orange-500 text-[10px] font-semibold text-white">JC</div>
+          <img src={face(59)} alt="" className="h-7 w-7 rounded-full object-cover" />
           <div>
             <div className="text-[11px] font-semibold text-neutral-900">Jordan Clarke</div>
             <div className="text-[10px] text-neutral-500">Kitchen renovation</div>
