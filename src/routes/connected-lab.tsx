@@ -405,7 +405,8 @@ function BookingCard() {
       </div>
 
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-[10px] font-semibold text-white">SM</div>
+        <img src={face(32)} alt="" className="h-7 w-7 rounded-full object-cover" />
+
         <div className="min-w-0 flex-1">
           <div className="truncate text-[11px] font-semibold text-neutral-900">Sarah Mitchell</div>
           <div className="truncate text-[10px] text-neutral-500">Consultation · 45 min</div>
