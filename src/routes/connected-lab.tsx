@@ -1,9 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle } from "lucide-react";
+import { Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle, Sparkles, RefreshCw } from "lucide-react";
 import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
+
+// Real face avatars (pravatar keeps a stable image per `img` id)
+const face = (n: number) => `https://i.pravatar.cc/80?img=${n}`;
+
 
 export const Route = createFileRoute("/connected-lab")({
   component: ConnectedLab,
