@@ -75,16 +75,7 @@ function ConnectedLab() {
   return (
     <main className="bg-white text-neutral-900">
       <section ref={ref} className="relative h-[460vh]">
-        <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_center,#f6f8fc_0%,#ffffff_65%)]">
-          {/* Dotted grid backdrop */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-40"
-            style={{
-              backgroundImage: "radial-gradient(#dfe4f2 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
-              maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-            }}
-          />
+        <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden bg-white">
 
           <div className="relative mx-auto h-full w-full max-w-[1400px] px-6">
             <div className="relative mx-auto flex h-full items-center justify-center">
