@@ -100,22 +100,62 @@ function ConnectedLab() {
                   />
                 </motion.svg>
 
-                {/* Character — sketch layer (fades away once color settles) */}
-                <motion.img
-                  src={heroSketch.url}
-                  alt=""
-                  draggable={false}
-                  style={{ opacity: sketchOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
-                />
-                {/* Character — color layer */}
-                <motion.img
-                  src={heroColor.url}
-                  alt=""
-                  draggable={false}
-                  style={{ opacity: colorOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
-                />
+                {/* Character tilt — subtle "look toward the newest card" sway.
+                    Rotates the whole figure with the pivot at the feet so the head
+                    travels the most, giving the impression of gaze-tracking. */}
+                {(() => {
+                  const tiltKeys: [number, number][] = [
+                    [0.00, 0],
+                    [0.18, -5],  // Conversations (top-left)
+                    [0.26, 5],   // New Lead (top-right)
+                    [0.36, 6],   // Booking (right-mid)
+                    [0.46, 4],   // Workflow (bottom-right)
+                    [0.56, 2],   // Opportunity (bottom-center-right)
+                    [0.66, -2],  // Invoice (bottom-center-left)
+                    [0.76, -5],  // Review (left-mid)
+                    [0.86, -4],  // Win-Back (left-upper)
+                    [1.00, 0],
+                  ];
+                  let tilt = 0;
+                  for (let i = 0; i < tiltKeys.length - 1; i++) {
+                    const [p0, v0] = tiltKeys[i];
+                    const [p1, v1] = tiltKeys[i + 1];
+                    if (progress >= p0 && progress <= p1) {
+                      const t = (progress - p0) / (p1 - p0);
+                      // ease in/out
+                      const e = t * t * (3 - 2 * t);
+                      tilt = v0 + (v1 - v0) * e;
+                      break;
+                    }
+                  }
+                  return (
+                    <div
+                      className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] -translate-x-1/2 -translate-y-1/2"
+                      style={{
+                        transform: `translate(-50%, -50%) rotate(${tilt}deg)`,
+                        transformOrigin: "50% 100%",
+                        transition: "transform 260ms cubic-bezier(0.22, 1, 0.36, 1)",
+                      }}
+                    >
+                      {/* Character — sketch layer */}
+                      <motion.img
+                        src={heroSketch.url}
+                        alt=""
+                        draggable={false}
+                        style={{ opacity: sketchOpacity }}
+                        className="pointer-events-none h-full w-auto select-none object-contain"
+                      />
+                      {/* Character — color layer */}
+                      <motion.img
+                        src={heroColor.url}
+                        alt=""
+                        draggable={false}
+                        style={{ opacity: colorOpacity }}
+                        className="pointer-events-none absolute inset-0 h-full w-auto select-none object-contain"
+                      />
+                    </div>
+                  );
+                })()}
 
                 {/* Cards — spaced so nothing overlaps and nothing hugs the character */}
                 <OrbitCard progress={progress} appearAt={0.18} pos="left-[-6%] top-[2%]">
@@ -134,11 +174,13 @@ function ConnectedLab() {
                   <WorkflowCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.56} pos="right-[22%] bottom-[-10%]">
+                {/* Opportunity + Invoice pulled slightly inward and up so they
+                    overlap the character's feet — hides the base of the figure. */}
+                <OrbitCard progress={progress} appearAt={0.56} pos="right-[30%] bottom-[-4%]">
                   <OpportunityCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.66} pos="left-[22%] bottom-[-10%]">
+                <OrbitCard progress={progress} appearAt={0.66} pos="left-[30%] bottom-[-4%]">
                   <InvoiceCard />
                 </OrbitCard>
 
