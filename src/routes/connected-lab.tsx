@@ -60,12 +60,11 @@ function ConnectedLab() {
           <div className="relative mx-auto h-full w-full max-w-7xl px-6">
             {/* Centered stage — no container box */}
             <div className="relative mx-auto flex h-full items-center justify-center">
-              <div className="relative h-[92vh] w-full">
+              <div className="relative mx-auto h-[88vh] w-[88vh] max-w-[96vw]">
                 {/* Dotted orbit ring */}
                 <motion.svg
                   viewBox="0 0 600 600"
-                  preserveAspectRatio="xMidYMid meet"
-                  className="absolute left-1/2 top-1/2 h-[88vh] w-[88vh] -translate-x-1/2 -translate-y-1/2"
+                  className="absolute inset-0 h-full w-full"
                   style={{ opacity: orbitOpacity }}
                 >
                   <circle
@@ -85,7 +84,7 @@ function ConnectedLab() {
                   alt=""
                   draggable={false}
                   style={{ opacity: sketchOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[88%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
                 />
                 {/* Character — color layer */}
                 <motion.img
@@ -93,35 +92,35 @@ function ConnectedLab() {
                   alt=""
                   draggable={false}
                   style={{ opacity: colorOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[88%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
                 />
 
                 {/* Cards, in story order */}
-                <OrbitCard progress={scrollYProgress} appearAt={0.18} pos="left-[-4%] top-[8%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.18} pos="left-[-10%] top-[6%]">
                   <ConversationsCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.26} pos="right-[-4%] top-[14%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.26} pos="right-[-8%] top-[10%]">
                   <NewLeadCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.38} pos="right-[-8%] top-[44%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.38} pos="right-[-12%] top-[44%]">
                   <BookingCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.5} pos="right-[2%] bottom-[10%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.5} pos="right-[-2%] bottom-[8%]">
                   <WorkflowCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.6} pos="left-[30%] bottom-[-2%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.6} pos="left-[34%] bottom-[-4%]">
                   <OpportunityCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.7} pos="left-[-6%] bottom-[16%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.7} pos="left-[-12%] bottom-[14%]">
                   <InvoiceCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.82} pos="left-[4%] top-[42%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.82} pos="left-[-8%] top-[42%]">
                   <ReviewCard />
                 </OrbitCard>
               </div>
