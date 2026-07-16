@@ -143,9 +143,10 @@ function OrbitCard({
   pos: string;
   children: React.ReactNode;
 }) {
-  const opacity = useTransform(progress, [appearAt, appearAt + 0.05], [0, 1]);
-  const y = useTransform(progress, [appearAt, appearAt + 0.08], [16, 0]);
-  const scale = useTransform(progress, [appearAt, appearAt + 0.08], [0.9, 1]);
+  // Cards pop in with slide + scale, then stay put (no fade out).
+  const opacity = useTransform(progress, [appearAt - 0.001, appearAt], [0, 1]);
+  const y = useTransform(progress, [appearAt, appearAt + 0.06], [24, 0]);
+  const scale = useTransform(progress, [appearAt, appearAt + 0.06], [0.92, 1]);
   return (
     <motion.div style={{ opacity, y, scale }} className={`absolute z-20 ${pos}`}>
       {children}
