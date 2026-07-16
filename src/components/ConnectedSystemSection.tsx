@@ -46,7 +46,7 @@ export function ConnectedSystemSection() {
       <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
         <div className="relative z-30 pt-12 md:pt-16 px-6 text-center max-w-3xl mx-auto">
           <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
-            Every customer moment. One connected system.
+            Every customer moment. One <span className="text-zapla-blue">connected</span> system.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
             Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
