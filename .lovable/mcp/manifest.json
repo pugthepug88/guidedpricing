@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "sdk_version": "0.22.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "zapla-mcp",
+      "version": "0.1.0",
+      "title": "Zapla"
+    },
+    "tools": [
+      {
+        "name": "get_company_info",
+        "title": "Get Zapla company info",
+        "description": "Return a short overview of Zapla: what it is, who it's for, and key links (home, pricing, blog, login).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_products",
+        "title": "List Zapla products",
+        "description": "List Zapla's products with a short description and URL for each.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_pricing_plans",
+        "title": "Get Zapla pricing plans",
+        "description": "Return Zapla's Guided Launch pricing plans (Core, Growth, Scale, Scale+) with monthly price, launch fee, and what each plan includes. Prices in AUD, exclude GST.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_booking_link",
+        "title": "Get Zapla booking link",
+        "description": "Return the URL where a prospect can book a call with the Zapla team to discuss Guided Launch pricing and onboarding.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
