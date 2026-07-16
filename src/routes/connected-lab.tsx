@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle } from "lucide-react";
 import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
@@ -35,6 +35,31 @@ function ConnectedLab() {
     target: ref,
     offset: ["start start", "end end"],
   });
+
+  // Plain-number progress for the cards — avoids Motion animation lag/fade issues.
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const section = ref.current;
+    if (!section) return;
+
+    let rafId: number | null = null;
+    const update = () => {
+      const total = section.scrollHeight - window.innerHeight;
+      const p = total > 0 ? (window.scrollY - section.offsetTop) / total : 0;
+      setProgress(Math.max(0, Math.min(1, p)));
+      rafId = null;
+    };
+    const onScroll = () => {
+      if (rafId === null) rafId = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   // Sketch resolves into color and both stay visible — nothing fades back out
   const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 1], [1, 0.25, 0.25]);
@@ -96,31 +121,31 @@ function ConnectedLab() {
                 />
 
                 {/* Cards, in story order */}
-                <OrbitCard progress={scrollYProgress} appearAt={0.18} pos="left-[-10%] top-[6%]">
+                <OrbitCard progress={progress} appearAt={0.18} pos="left-[-10%] top-[6%]">
                   <ConversationsCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.26} pos="right-[-8%] top-[10%]">
+                <OrbitCard progress={progress} appearAt={0.26} pos="right-[-8%] top-[10%]">
                   <NewLeadCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.38} pos="right-[-12%] top-[44%]">
+                <OrbitCard progress={progress} appearAt={0.38} pos="right-[-12%] top-[44%]">
                   <BookingCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.5} pos="right-[-2%] bottom-[8%]">
+                <OrbitCard progress={progress} appearAt={0.5} pos="right-[-2%] bottom-[8%]">
                   <WorkflowCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.6} pos="left-[34%] bottom-[-4%]">
+                <OrbitCard progress={progress} appearAt={0.6} pos="left-[34%] bottom-[-4%]">
                   <OpportunityCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.7} pos="left-[-12%] bottom-[14%]">
+                <OrbitCard progress={progress} appearAt={0.7} pos="left-[-12%] bottom-[14%]">
                   <InvoiceCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.82} pos="left-[-8%] top-[42%]">
+                <OrbitCard progress={progress} appearAt={0.82} pos="left-[-8%] top-[42%]">
                   <ReviewCard />
                 </OrbitCard>
               </div>
@@ -138,19 +163,25 @@ function OrbitCard({
   pos,
   children,
 }: {
-  progress: MotionValue<number>;
+  progress: number;
   appearAt: number;
   pos: string;
   children: React.ReactNode;
 }) {
   // Cards pop in with slide + scale, then hold steady — no fade out, no drift.
-  const opacity = useTransform(progress, [appearAt - 0.03, appearAt], [0, 1], { clamp: true });
-  const y = useTransform(progress, [appearAt, appearAt + 0.06], [24, 0], { clamp: true });
-  const scale = useTransform(progress, [appearAt, appearAt + 0.06], [0.92, 1], { clamp: true });
+  const fadeProgress = Math.min(1, Math.max(0, (progress - (appearAt - 0.03)) / 0.03));
+  const moveProgress = progress <= appearAt ? 0 : progress >= appearAt + 0.06 ? 1 : (progress - appearAt) / 0.06;
+  const opacity = fadeProgress;
+  const y = 24 * (1 - moveProgress);
+  const scale = 0.92 + 0.08 * moveProgress;
+
   return (
-    <motion.div style={{ opacity, y, scale }} className={`absolute z-20 ${pos}`}>
+    <div
+      style={{ opacity, transform: `translateY(${y}px) scale(${scale})` }}
+      className={`absolute z-20 ${pos}`}
+    >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
