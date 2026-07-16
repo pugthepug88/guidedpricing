@@ -57,10 +57,10 @@ function ConnectedLab() {
             }}
           />
 
-          <div className="relative mx-auto h-full w-full max-w-6xl">
-            {/* Centered stage */}
+          <div className="relative mx-auto h-full w-full max-w-7xl px-6">
+            {/* Centered stage — no container box */}
             <div className="relative mx-auto flex h-full items-center justify-center">
-              <div className="relative h-[92vh] w-[92vh] max-w-full">
+              <div className="relative mx-auto h-[88vh] w-[88vh] max-w-[96vw]">
                 {/* Dotted orbit ring */}
                 <motion.svg
                   viewBox="0 0 600 600"
@@ -84,7 +84,7 @@ function ConnectedLab() {
                   alt=""
                   draggable={false}
                   style={{ opacity: sketchOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[88%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
                 />
                 {/* Character — color layer */}
                 <motion.img
@@ -92,35 +92,35 @@ function ConnectedLab() {
                   alt=""
                   draggable={false}
                   style={{ opacity: colorOpacity }}
-                  className="pointer-events-none absolute left-1/2 top-1/2 h-[88%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                  className="pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
                 />
 
                 {/* Cards, in story order */}
-                <OrbitCard progress={scrollYProgress} appearAt={0.18} pos="left-[-4%] top-[8%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.18} pos="left-[-10%] top-[6%]">
                   <ConversationsCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.26} pos="right-[-4%] top-[14%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.26} pos="right-[-8%] top-[10%]">
                   <NewLeadCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.38} pos="right-[-8%] top-[44%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.38} pos="right-[-12%] top-[44%]">
                   <BookingCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.5} pos="right-[2%] bottom-[10%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.5} pos="right-[-2%] bottom-[8%]">
                   <WorkflowCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.6} pos="left-[30%] bottom-[-2%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.6} pos="left-[34%] bottom-[-4%]">
                   <OpportunityCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.7} pos="left-[-6%] bottom-[16%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.7} pos="left-[-12%] bottom-[14%]">
                   <InvoiceCard />
                 </OrbitCard>
 
-                <OrbitCard progress={scrollYProgress} appearAt={0.82} pos="left-[4%] top-[42%]">
+                <OrbitCard progress={scrollYProgress} appearAt={0.82} pos="left-[-8%] top-[42%]">
                   <ReviewCard />
                 </OrbitCard>
               </div>
@@ -143,9 +143,10 @@ function OrbitCard({
   pos: string;
   children: React.ReactNode;
 }) {
-  const opacity = useTransform(progress, [appearAt, appearAt + 0.05], [0, 1]);
-  const y = useTransform(progress, [appearAt, appearAt + 0.08], [16, 0]);
-  const scale = useTransform(progress, [appearAt, appearAt + 0.08], [0.9, 1]);
+  // Cards pop in with slide + scale, then stay put (no fade out).
+  const opacity = useTransform(progress, [appearAt - 0.001, appearAt], [0, 1]);
+  const y = useTransform(progress, [appearAt, appearAt + 0.06], [24, 0]);
+  const scale = useTransform(progress, [appearAt, appearAt + 0.06], [0.92, 1]);
   return (
     <motion.div style={{ opacity, y, scale }} className={`absolute z-20 ${pos}`}>
       {children}
@@ -164,39 +165,52 @@ function Shell({ children, className = "" }: { children: React.ReactNode; classN
 }
 
 /* ---------- Channel icons for Conversations ---------- */
-function SmsIcon() {
+function SmsIcon({ size = 32 }: { size?: number }) {
   return (
-    <div className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-500 text-white">
-      <MessageCircle className="h-3.5 w-3.5" />
+    <div
+      className="flex items-center justify-center rounded-lg bg-emerald-500 text-white shadow-sm"
+      style={{ width: size, height: size }}
+    >
+      <MessageCircle style={{ width: size * 0.55, height: size * 0.55 }} />
     </div>
   );
 }
-function GmailIcon() {
+function GmailIcon({ size = 32 }: { size?: number }) {
   return (
-    <div className="flex h-6 w-6 items-center justify-center rounded-md bg-white ring-1 ring-neutral-200">
-      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5">
+    <div
+      className="flex items-center justify-center rounded-lg bg-white ring-1 ring-neutral-200 shadow-sm"
+      style={{ width: size, height: size }}
+    >
+      <svg viewBox="0 0 24 24" style={{ width: size * 0.55, height: size * 0.55 }}>
         <path fill="#4285F4" d="M22 6.5v11a2 2 0 0 1-2 2h-2V9.2l-6 4.3-6-4.3v10.3H4a2 2 0 0 1-2-2v-11L12 13z" />
         <path fill="#EA4335" d="M2 6.5 12 13 22 6.5A2 2 0 0 0 20 4.5H4a2 2 0 0 0-2 2z" />
       </svg>
     </div>
   );
 }
-function MessengerIcon() {
+function MessengerIcon({ size = 32 }: { size?: number }) {
   return (
-    <div className="flex h-6 w-6 items-center justify-center rounded-md" style={{ background: "#0084FF" }}>
-      <svg viewBox="0 0 24 24" fill="white" className="h-3.5 w-3.5">
+    <div
+      className="flex items-center justify-center rounded-lg shadow-sm"
+      style={{ width: size, height: size, background: "#0084FF" }}
+    >
+      <svg viewBox="0 0 24 24" fill="white" style={{ width: size * 0.55, height: size * 0.55 }}>
         <path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.4 5.4 3.7 7.1V22l3.4-1.9c.9.3 1.9.4 2.9.4 5.5 0 10-4.1 10-9.3S17.5 2 12 2zm1 12.5-2.5-2.7-4.9 2.7 5.4-5.7 2.6 2.7 4.8-2.7-5.4 5.7z" />
       </svg>
     </div>
   );
 }
-function InstagramIcon() {
+function InstagramIcon({ size = 32 }: { size?: number }) {
   return (
     <div
-      className="flex h-6 w-6 items-center justify-center rounded-md text-white"
-      style={{ background: "linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)" }}
+      className="flex items-center justify-center rounded-lg text-white shadow-sm"
+      style={{
+        width: size,
+        height: size,
+        background: "linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)",
+      }}
     >
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="h-3.5 w-3.5">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" style={{ width: size * 0.55, height: size * 0.55 }}>
         <rect x="3" y="3" width="18" height="18" rx="5" />
         <circle cx="12" cy="12" r="4" />
         <circle cx="17.5" cy="6.5" r="1" fill="white" />
@@ -207,22 +221,66 @@ function InstagramIcon() {
 
 /* ---------- Cards ---------- */
 function ConversationsCard() {
+  const threads = [
+    {
+      icon: <SmsIcon size={36} />,
+      name: "Sarah Mitchell",
+      time: "2m",
+      preview: "Can I move my 3pm to Thursday?",
+      unread: true,
+    },
+    {
+      icon: <GmailIcon size={36} />,
+      name: "James — new enquiry",
+      time: "8m",
+      preview: "Hi, wanted to get a quote for…",
+      unread: true,
+    },
+    {
+      icon: <InstagramIcon size={36} />,
+      name: "@mia.k",
+      time: "1h",
+      preview: "Do you take bookings via DM?",
+      unread: false,
+    },
+    {
+      icon: <MessengerIcon size={36} />,
+      name: "David Chen",
+      time: "3h",
+      preview: "Thanks — see you tomorrow ",
+      unread: false,
+    },
+  ];
+
   return (
-    <Shell className="w-[240px] p-3.5">
-      <div className="flex items-center gap-2.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white">
-          <MessageCircle className="h-4 w-4" />
+    <Shell className="w-[320px] p-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white">
+            <MessageCircle className="h-[18px] w-[18px]" />
+          </div>
+          <div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Conversations</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">All channels, one inbox</div>
+          </div>
         </div>
-        <div>
-          <div className="text-[13px] font-semibold text-neutral-900 leading-tight">Conversations</div>
-          <div className="text-[11px] text-neutral-500 leading-tight">3 new replies waiting</div>
-        </div>
+        <div className="rounded-full bg-red-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">3</div>
       </div>
-      <div className="mt-3 flex items-center gap-1.5">
-        <SmsIcon />
-        <GmailIcon />
-        <MessengerIcon />
-        <InstagramIcon />
+
+      <div className="mt-3.5 space-y-2.5">
+        {threads.map((t, i) => (
+          <div key={i} className="flex items-center gap-2.5">
+            {t.icon}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-2">
+                <div className="truncate text-[12px] font-semibold text-neutral-900">{t.name}</div>
+                <div className="shrink-0 text-[10px] text-neutral-400">{t.time}</div>
+              </div>
+              <div className="truncate text-[11px] text-neutral-500">{t.preview}</div>
+            </div>
+            {t.unread && <div className="h-2 w-2 shrink-0 rounded-full bg-blue-600" />}
+          </div>
+        ))}
       </div>
     </Shell>
   );
