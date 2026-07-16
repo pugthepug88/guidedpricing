@@ -57,14 +57,15 @@ function ConnectedLab() {
             }}
           />
 
-          <div className="relative mx-auto h-full w-full max-w-6xl">
-            {/* Centered stage */}
+          <div className="relative mx-auto h-full w-full max-w-7xl px-6">
+            {/* Centered stage — no container box */}
             <div className="relative mx-auto flex h-full items-center justify-center">
-              <div className="relative h-[92vh] w-[92vh] max-w-full">
+              <div className="relative h-[92vh] w-full">
                 {/* Dotted orbit ring */}
                 <motion.svg
                   viewBox="0 0 600 600"
-                  className="absolute inset-0 h-full w-full"
+                  preserveAspectRatio="xMidYMid meet"
+                  className="absolute left-1/2 top-1/2 h-[88vh] w-[88vh] -translate-x-1/2 -translate-y-1/2"
                   style={{ opacity: orbitOpacity }}
                 >
                   <circle
