@@ -333,20 +333,25 @@ function NewLeadCard() {
     <Shell className="w-[300px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500 text-white">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-sm">
             <Phone className="h-[18px] w-[18px]" />
+            <div className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white ring-1 ring-violet-200">
+              <Sparkles className="h-2.5 w-2.5 text-violet-600" />
+            </div>
           </div>
           <div>
             <div className="text-[14px] font-semibold text-neutral-900 leading-tight">New Lead</div>
             <div className="text-[11px] text-neutral-500 leading-tight">AI receptionist captured a call</div>
           </div>
         </div>
-        <div className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200">LIVE</div>
+        <div className="flex items-center gap-1 rounded-full bg-violet-50 px-2 py-0.5 text-[10px] font-semibold text-violet-700 ring-1 ring-violet-200">
+          <Sparkles className="h-3 w-3" /> AI · LIVE
+        </div>
       </div>
 
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 text-[11px] font-semibold text-white">EM</div>
+          <img src={face(47)} alt="" className="h-8 w-8 rounded-full object-cover ring-1 ring-white" />
           <div className="min-w-0 flex-1">
             <div className="truncate text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
             <div className="truncate text-[11px] text-neutral-500">+61 400 812 559 · 0:42s</div>
@@ -359,12 +364,13 @@ function NewLeadCard() {
       </div>
 
       <div className="mt-2.5 flex items-center justify-between text-[11px]">
-        <span className="text-neutral-500">Transcribed and added to CRM</span>
+        <span className="flex items-center gap-1 text-violet-600 font-medium"><Sparkles className="h-3 w-3" /> AI transcribed · added to CRM</span>
         <span className="font-semibold text-emerald-600">✓ synced</span>
       </div>
     </Shell>
   );
 }
+
 
 function BookingCard() {
   return (
