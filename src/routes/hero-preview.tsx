@@ -107,7 +107,7 @@ function HeroPreviewPage() {
       <DifferenceHeading />
       <BlobSections />
       <IndustriesStrip />
-      <ChaosToCalmScrollScrub />
+      <ConnectedSystemSection />
     </main>
   );
 }
