@@ -165,39 +165,52 @@ function Shell({ children, className = "" }: { children: React.ReactNode; classN
 }
 
 /* ---------- Channel icons for Conversations ---------- */
-function SmsIcon() {
+function SmsIcon({ size = 32 }: { size?: number }) {
   return (
-    <div className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-500 text-white">
-      <MessageCircle className="h-3.5 w-3.5" />
+    <div
+      className="flex items-center justify-center rounded-lg bg-emerald-500 text-white shadow-sm"
+      style={{ width: size, height: size }}
+    >
+      <MessageCircle style={{ width: size * 0.55, height: size * 0.55 }} />
     </div>
   );
 }
-function GmailIcon() {
+function GmailIcon({ size = 32 }: { size?: number }) {
   return (
-    <div className="flex h-6 w-6 items-center justify-center rounded-md bg-white ring-1 ring-neutral-200">
-      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5">
+    <div
+      className="flex items-center justify-center rounded-lg bg-white ring-1 ring-neutral-200 shadow-sm"
+      style={{ width: size, height: size }}
+    >
+      <svg viewBox="0 0 24 24" style={{ width: size * 0.55, height: size * 0.55 }}>
         <path fill="#4285F4" d="M22 6.5v11a2 2 0 0 1-2 2h-2V9.2l-6 4.3-6-4.3v10.3H4a2 2 0 0 1-2-2v-11L12 13z" />
         <path fill="#EA4335" d="M2 6.5 12 13 22 6.5A2 2 0 0 0 20 4.5H4a2 2 0 0 0-2 2z" />
       </svg>
     </div>
   );
 }
-function MessengerIcon() {
+function MessengerIcon({ size = 32 }: { size?: number }) {
   return (
-    <div className="flex h-6 w-6 items-center justify-center rounded-md" style={{ background: "#0084FF" }}>
-      <svg viewBox="0 0 24 24" fill="white" className="h-3.5 w-3.5">
+    <div
+      className="flex items-center justify-center rounded-lg shadow-sm"
+      style={{ width: size, height: size, background: "#0084FF" }}
+    >
+      <svg viewBox="0 0 24 24" fill="white" style={{ width: size * 0.55, height: size * 0.55 }}>
         <path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.4 5.4 3.7 7.1V22l3.4-1.9c.9.3 1.9.4 2.9.4 5.5 0 10-4.1 10-9.3S17.5 2 12 2zm1 12.5-2.5-2.7-4.9 2.7 5.4-5.7 2.6 2.7 4.8-2.7-5.4 5.7z" />
       </svg>
     </div>
   );
 }
-function InstagramIcon() {
+function InstagramIcon({ size = 32 }: { size?: number }) {
   return (
     <div
-      className="flex h-6 w-6 items-center justify-center rounded-md text-white"
-      style={{ background: "linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)" }}
+      className="flex items-center justify-center rounded-lg text-white shadow-sm"
+      style={{
+        width: size,
+        height: size,
+        background: "linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)",
+      }}
     >
-      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="h-3.5 w-3.5">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" style={{ width: size * 0.55, height: size * 0.55 }}>
         <rect x="3" y="3" width="18" height="18" rx="5" />
         <circle cx="12" cy="12" r="4" />
         <circle cx="17.5" cy="6.5" r="1" fill="white" />
