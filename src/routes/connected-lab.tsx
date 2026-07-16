@@ -134,11 +134,11 @@ function ConnectedLab() {
                   <WorkflowCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.56} pos="right-[22%] bottom-[-10%]">
+                <OrbitCard progress={progress} appearAt={0.56} pos="right-[24%] bottom-[2%]">
                   <OpportunityCard />
                 </OrbitCard>
 
-                <OrbitCard progress={progress} appearAt={0.66} pos="left-[22%] bottom-[-10%]">
+                <OrbitCard progress={progress} appearAt={0.66} pos="left-[24%] bottom-[2%]">
                   <InvoiceCard />
                 </OrbitCard>
 
