@@ -102,12 +102,18 @@ function HeroPreviewV2Page() {
   return (
     <main className="min-h-screen bg-zapla-bg">
       <Hero />
-      <PlatformSlider />
-      <AISection />
-      <DifferenceHeading />
-      <BlobSections />
-      <IndustriesStrip />
-      <ConnectedSystemSection />
+      <LifecycleStripV2 />
+      <ConnectedSystemSectionV2 />
+      <OutcomesV2 />
+      <PlatformLifecycleV2 />
+      <WorkflowStoriesV2 />
+      <FocusedAIV2 />
+      <IndustriesV2 />
+      <ToolStackV2 />
+      <ProofV2 />
+      <PricingPreviewV2 />
+      <FaqV2 />
+      <FinalCtaV2 />
     </main>
   );
 }
