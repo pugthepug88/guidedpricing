@@ -686,7 +686,7 @@ function Hero() {
         <div className="zapla-fade">
           {/* Badge */}
           <span className="hero-badge inline-block rounded-full border border-white/70 bg-white/50 px-6 py-2.5 text-[11.5px] font-bold uppercase tracking-[0.12em] text-zapla-blue2 shadow-zapla-sm backdrop-blur">
-            Beyond CRM · Beyond Marketing · Beyond Limits
+            THE AI OPERATING SYSTEM FOR SMALL BUSINESSES
           </span>
 
           {/* Title */}
@@ -717,7 +717,7 @@ function Hero() {
 
           {/* Trust ticks */}
           <div className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] sm:gap-x-7 sm:gap-y-3 sm:text-[13.5px] text-zapla-muted">
-            {["14 Day Free Trial", "No Credit Card Required", "Cancel Anytime"].map((t) => (
+            {["Unlimited users", "Guided launch", "Cancel Anytime"].map((t) => (
               <span key={t} className="inline-flex items-center gap-2">
                 <span className="flex h-[15px] w-[15px] sm:h-[18px] sm:w-[18px] items-center justify-center rounded-full bg-zapla-green text-white">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
@@ -1595,7 +1595,7 @@ function PlatformSlider() {
           One Powerful Platform
         </h2>
         <p className="mx-auto mt-5 max-w-[700px] text-[clamp(15px,1.4vw,18px)] leading-[1.55] text-zapla-muted">
-          Every tool your business needs — finally connected in one place, so nothing slips through the cracks.
+          Every tool your business needs - finally connected in one place, so nothing slips through the cracks.
         </p>
       </div>
 
