@@ -699,8 +699,8 @@ function Hero() {
 
           {/* Subtitle */}
           <p className="mx-auto mt-6 max-w-[680px] text-[clamp(15px,1.6vw,18px)] leading-[1.6] text-zapla-muted">
-            Replace your CRM, marketing, SMS, and sales tools with one AI-powered platform
-            built for AU &amp; SG businesses. No tool juggling. No per-seat surprises.
+            Capture every enquiry, automate the follow-up, manage the work and keep customers
+            coming back from one connected operating system.
           </p>
 
           {/* CTA */}
