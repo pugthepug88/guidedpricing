@@ -927,10 +927,17 @@ const HERO_CARDS = [
 
 function HeroCardStack() {
   const [front, setFront] = useState(0);
+  const [paused, setPaused] = useState(false);
   useEffect(() => {
+    if (paused) return;
     const id = window.setInterval(() => setFront((f) => (f + 1) % HERO_CARDS.length), 6500);
     return () => window.clearInterval(id);
-  }, []);
+  }, [paused]);
+
+  const select = (i: number) => {
+    setFront(i);
+    setPaused(true);
+  };
 
   const posOf = (idx: number) => (idx - front + HERO_CARDS.length) % HERO_CARDS.length;
 
@@ -943,7 +950,7 @@ function HeroCardStack() {
             key={title}
             className="hero-stack-card"
             data-pos={pos}
-            onClick={() => setFront(i)}
+            onClick={() => select(i)}
             aria-hidden={pos !== 0}
           >
             <div className="mb-5 flex items-center gap-3">
@@ -971,7 +978,7 @@ function HeroCardStack() {
             key={i}
             type="button"
             className={`hero-stack-dot ${i === front ? "active" : ""}`}
-            onClick={() => setFront(i)}
+            onClick={() => select(i)}
             aria-label={`Show card ${i + 1}`}
             aria-selected={i === front}
             role="tab"
