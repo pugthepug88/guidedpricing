@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
-import { ConnectedSystemSection } from "@/components/ConnectedSystemSection";
+import { ConnectedSystemSectionV2 } from "@/components/ConnectedSystemSectionV2";
 import {
   Home as HomeIcon,
   Landmark as LandmarkIcon,
@@ -88,17 +88,17 @@ import industryAutomotive from "@/assets/industry-automotive.png.asset.json";
 export const Route = createFileRoute("/hero-preview-v2")({
   head: () => ({
     meta: [
-      { title: "Hero Preview — Zapla" },
+      { title: "Hero Preview V2 — Zapla" },
       { name: "robots", content: "noindex" },
       { name: "description", content: "Preview of the new hero section with rotating feature cards." },
     ],
   }),
-  component: HeroPreviewPage,
+  component: HeroPreviewV2Page,
 });
 
 const BOOK_URL = "https://zapla.io/booking";
 
-function HeroPreviewPage() {
+function HeroPreviewV2Page() {
   return (
     <main className="min-h-screen bg-zapla-bg">
       <Hero />
@@ -686,7 +686,7 @@ function Hero() {
         <div className="zapla-fade">
           {/* Badge */}
           <span className="hero-badge inline-block rounded-full border border-white/70 bg-white/50 px-6 py-2.5 text-[11.5px] font-bold uppercase tracking-[0.12em] text-zapla-blue2 shadow-zapla-sm backdrop-blur">
-            THE AI OPERATING SYSTEM FOR SMALL BUSINESSES
+            THE AI OPERATING SYSTEM FOR SERVICE BUSINESSES
           </span>
 
           {/* Title */}
@@ -717,7 +717,7 @@ function Hero() {
 
           {/* Trust ticks */}
           <div className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] sm:gap-x-7 sm:gap-y-3 sm:text-[13.5px] text-zapla-muted">
-            {["Unlimited users", "Guided launch", "Cancel Anytime"].map((t) => (
+            {["Unlimited users", "No per-seat fees", "Cancel anytime"].map((t) => (
               <span key={t} className="inline-flex items-center gap-2">
                 <span className="flex h-[15px] w-[15px] sm:h-[18px] sm:w-[18px] items-center justify-center rounded-full bg-zapla-green text-white">
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
@@ -737,7 +737,7 @@ function Hero() {
       {/* Scoped hero styles */}
       <style>{`
         .hero-title-highlight {
-          background: linear-gradient(135deg, #00d4ff 0%, #091eff 50%, #9500ff 100%);
+          background: linear-gradient(135deg, #22d3ee 0%, #2563ff 55%, #1e3a8a 100%);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -749,7 +749,7 @@ function Hero() {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, #00d4ff 0%, #091eff 50%, #9500ff 100%);
+          background: linear-gradient(135deg, #22d3ee 0%, #2563ff 55%, #1e3a8a 100%);
           filter: blur(22px);
           opacity: 0.28;
           z-index: -1;
@@ -911,18 +911,18 @@ function Hero() {
 /* -------- Card stack orchestrator ---------------------------------- */
 
 const HERO_CARDS = [
-  { title: "Pipeline Management",              logo: logoGreen.url,  Body: CardPipeline },
+  { title: "Sales Pipeline",              logo: logoGreen.url,  Body: CardPipeline },
   { title: "Control Dashboard",                logo: logoBlue.url,   Body: CardDashboard },
-  { title: "Intelligent Automation Workflow",  logo: logoOrange.url, Body: CardAutomation },
-  { title: "Performance Tracking & Analysis",  logo: logoPurple.url, Body: CardPerformance },
-  { title: "Advanced Multi-Calendar Booking",  logo: logoYellow.url, Body: CardCalendar },
-  { title: "Dynamic Smart Tagging",            logo: logoTeal.url,   Body: CardTagging },
+  { title: "Automations",  logo: logoOrange.url, Body: CardAutomation },
+  { title: "Reporting",  logo: logoPurple.url, Body: CardPerformance },
+  { title: "Bookings",  logo: logoYellow.url, Body: CardCalendar },
+  { title: "Contacts",            logo: logoTeal.url,   Body: CardTagging },
 ] as const;
 
 function HeroCardStack() {
   const [front, setFront] = useState(0);
   useEffect(() => {
-    const id = window.setInterval(() => setFront((f) => (f + 1) % HERO_CARDS.length), 4200);
+    const id = window.setInterval(() => setFront((f) => (f + 1) % HERO_CARDS.length), 6500);
     return () => window.clearInterval(id);
   }, []);
 
