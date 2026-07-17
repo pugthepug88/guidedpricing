@@ -849,3 +849,601 @@ function CardTagging() {
 
 
 
+
+/* =================================================================== */
+/*  V2 SECTIONS                                                        */
+/* =================================================================== */
+
+const LIFECYCLE_STAGES = [
+  { key: "capture",     label: "Capture",     blurb: "Forms, chat, calls, ads — every enquiry lands in one place." },
+  { key: "communicate", label: "Communicate", blurb: "SMS, email, DMs and calls in a unified inbox." },
+  { key: "convert",     label: "Convert",     blurb: "CRM, pipelines, bookings, quotes and payments." },
+  { key: "operate",     label: "Operate",     blurb: "Tasks, team routing, calendars and reporting." },
+  { key: "retain",      label: "Retain",      blurb: "Reviews, reminders, rebooking and reputation." },
+  { key: "grow",        label: "Grow",        blurb: "Reactivation, campaigns and upsell opportunities." },
+] as const;
+
+function LifecycleStripV2() {
+  return (
+    <section className="bg-white py-14 sm:py-20 px-6">
+      <div className="mx-auto max-w-5xl">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3 text-[13px] sm:text-sm font-semibold uppercase tracking-[0.14em] text-zapla-muted">
+          {LIFECYCLE_STAGES.map((s, i) => (
+            <span key={s.key} className="inline-flex items-center gap-3">
+              <span className="text-zapla-ink">{s.label}</span>
+              {i < LIFECYCLE_STAGES.length - 1 && <span className="text-zapla-blue">→</span>}
+            </span>
+          ))}
+        </div>
+        <p className="mx-auto mt-5 max-w-2xl text-center text-[15px] leading-relaxed text-zapla-muted">
+          One system carries the customer from first enquiry to repeat purchase.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Outcomes ------------------------------------------------- */
+function OutcomesV2() {
+  const items = [
+    {
+      k: "01",
+      title: "Respond before the competition",
+      body: "Missed calls become SMS replies. New enquiries get a first response in seconds, not hours.",
+    },
+    {
+      k: "02",
+      title: "Keep every opportunity moving",
+      body: "Quotes, bookings and follow-ups run on their own so nothing goes silent in a spreadsheet.",
+    },
+    {
+      k: "03",
+      title: "Turn completed work into cash and trust",
+      body: "Invoices, payments and review requests fire the moment a job is done.",
+    },
+    {
+      k: "04",
+      title: "Create more value from customers you already have",
+      body: "Win-back campaigns and reminders re-engage past customers without you lifting a finger.",
+    },
+  ];
+  return (
+    <section className="bg-neutral-50 py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <span className="inline-block rounded-full border border-neutral-200 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">
+            Outcomes
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            What changes when nothing falls through.
+          </h2>
+        </div>
+        <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-2">
+          {items.map((it) => (
+            <article key={it.k} className="border-t border-neutral-300 pt-6">
+              <div className="flex items-baseline gap-4">
+                <span className="text-[13px] font-bold tracking-[0.14em] text-zapla-blue">{it.k}</span>
+                <h3 className="font-zapla text-[22px] sm:text-[26px] font-semibold text-neutral-900 leading-tight">
+                  {it.title}
+                </h3>
+              </div>
+              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-neutral-600">{it.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Platform Lifecycle (6 tabs) ------------------------------ */
+type LifecycleTab = {
+  key: string;
+  label: string;
+  headline: string;
+  body: string;
+  capabilities: string[];
+  Body: React.ComponentType;
+};
+
+const LIFECYCLE_TABS: LifecycleTab[] = [
+  {
+    key: "capture",
+    label: "Capture",
+    headline: "Every enquiry captured, from any channel.",
+    body: "Forms, chat, calls and ad leads flow into one place with the source attached.",
+    capabilities: ["Web forms & chat", "Missed-call capture", "Meta, Google & TikTok leads", "Attribution by source"],
+    Body: CardPipeline,
+  },
+  {
+    key: "communicate",
+    label: "Communicate",
+    headline: "One inbox for every channel.",
+    body: "SMS, email, Instagram, Messenger and WhatsApp threaded against the contact.",
+    capabilities: ["Unified inbox", "SMS & email templates", "Social DMs", "Team assignments"],
+    Body: CardTagging,
+  },
+  {
+    key: "convert",
+    label: "Convert",
+    headline: "Bookings, quotes and payments in one flow.",
+    body: "Move opportunities through the pipeline without switching tools.",
+    capabilities: ["Pipelines & stages", "Online bookings", "Quotes & invoices", "Stripe & Square payments"],
+    Body: CardDashboard,
+  },
+  {
+    key: "operate",
+    label: "Operate",
+    headline: "Run the work without the whiteboard.",
+    body: "Tasks, routing, calendars and reporting stay in the same system as the customer.",
+    capabilities: ["Team calendars", "Task routing", "Reporting", "Mobile app"],
+    Body: CardCalendar,
+  },
+  {
+    key: "retain",
+    label: "Retain",
+    headline: "Keep customers coming back.",
+    body: "Automated reviews, reminders and rebooking build reputation and repeat revenue.",
+    capabilities: ["Review requests", "Reminders", "Rebooking flows", "Reputation monitoring"],
+    Body: CardAutomation,
+  },
+  {
+    key: "grow",
+    label: "Grow",
+    headline: "Turn your database into a growth channel.",
+    body: "Reactivate past customers and identify upsell opportunities from the same record.",
+    capabilities: ["Win-back campaigns", "Segments & lists", "Broadcasts", "Upsell triggers"],
+    Body: CardPerformance,
+  },
+];
+
+function PlatformLifecycleV2() {
+  const [active, setActive] = useState(0);
+  const tab = LIFECYCLE_TABS[active];
+  const Body = tab.Body;
+  return (
+    <section className="bg-white py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="text-center max-w-3xl mx-auto">
+          <span className="inline-block rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">
+            The platform
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            One system for every stage of the customer lifecycle.
+          </h2>
+        </div>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-2">
+          {LIFECYCLE_TABS.map((t, i) => {
+            const isActive = i === active;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-pressed={isActive}
+                className={[
+                  "rounded-full px-4 py-2 text-[13px] font-semibold transition",
+                  isActive
+                    ? "bg-zapla-ink text-white shadow-sm"
+                    : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+                ].join(" ")}
+              >
+                {t.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-10 grid gap-8 rounded-3xl border border-neutral-200 bg-neutral-50 p-4 sm:p-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] md:gap-10 md:p-8">
+          <div className="flex flex-col justify-center px-2 md:px-4">
+            <h3 className="font-zapla text-2xl sm:text-3xl md:text-[34px] font-semibold text-neutral-900 leading-tight">
+              {tab.headline}
+            </h3>
+            <p className="mt-4 text-[15px] leading-relaxed text-neutral-600 max-w-md">{tab.body}</p>
+            <ul className="mt-6 grid grid-cols-2 gap-2">
+              {tab.capabilities.map((c) => (
+                <li key={c} className="flex items-center gap-2 text-[13px] text-neutral-700">
+                  <span className="grid h-4 w-4 place-items-center rounded-full bg-zapla-blue text-white text-[9px]">✓</span>
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="relative min-h-[420px] rounded-2xl bg-white p-5 shadow-[0_20px_50px_-20px_rgba(15,23,42,0.15)] ring-1 ring-neutral-200 overflow-hidden">
+            <div key={tab.key} className="h-full w-full animate-fade-in">
+              <Body />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Real Workflow Stories ------------------------------------ */
+function WorkflowStoriesV2() {
+  const stories = [
+    {
+      tag: "Never miss the phone",
+      title: "Missed call → SMS reply → new lead created",
+      steps: [
+        { t: "12:04", label: "Missed call from +61 400 812 559" },
+        { t: "12:04", label: "SMS auto-reply: “Sorry we missed you — how can we help?”" },
+        { t: "12:06", label: "Reply received, contact created in CRM" },
+      ],
+    },
+    {
+      tag: "Quotes never go cold",
+      title: "Quote sent → no response → auto follow-up → owner alerted",
+      steps: [
+        { t: "Day 0", label: "Quote $4,800 emailed to Jordan Clarke" },
+        { t: "Day 3", label: "Automated nudge sent by SMS" },
+        { t: "Day 5", label: "Reply received, owner notified in inbox" },
+      ],
+    },
+    {
+      tag: "Cash in, review out",
+      title: "Job completed → invoice sent → payment confirmed → review requested",
+      steps: [
+        { t: "3:00 PM", label: "Job marked complete on mobile" },
+        { t: "3:01 PM", label: "Invoice $1,250 sent via Stripe link" },
+        { t: "3:12 PM", label: "Payment received, review request scheduled" },
+      ],
+    },
+    {
+      tag: "Bring them back",
+      title: "Past customer inactive → win-back campaign → new booking",
+      steps: [
+        { t: "Day 0", label: "Segment flagged: no visit in 6 months" },
+        { t: "Day 1", label: "Personalised SMS + email sent" },
+        { t: "Day 4", label: "New booking created from reply" },
+      ],
+    },
+  ];
+  return (
+    <section className="bg-neutral-50 py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <span className="inline-block rounded-full border border-neutral-200 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">
+            In practice
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            The workflows that quietly run your business.
+          </h2>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {stories.map((s) => (
+            <article key={s.title} className="rounded-2xl bg-white ring-1 ring-neutral-200 shadow-sm p-6">
+              <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">{s.tag}</div>
+              <h3 className="mt-2 font-zapla text-[20px] font-semibold text-neutral-900 leading-tight">
+                {s.title}
+              </h3>
+              <ol className="mt-5 space-y-3">
+                {s.steps.map((st, i) => (
+                  <li key={i} className="flex gap-3">
+                    <span className="w-14 shrink-0 text-[11px] font-semibold uppercase tracking-wide text-neutral-400">{st.t}</span>
+                    <span className="flex-1 text-[13px] text-neutral-700">
+                      <span className="mr-2 inline-block h-2 w-2 rounded-full bg-zapla-blue align-middle" />
+                      {st.label}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Focused AI --------------------------------------------- */
+function FocusedAIV2() {
+  const steps = ["Answer", "Qualify", "Follow up", "Book", "Route"];
+  return (
+    <section className="relative overflow-hidden bg-[#0a0a0a] py-24 sm:py-32 px-6">
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[160px]" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[140px]" />
+      <div className="relative mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-cyan-200">
+            AI, focused
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-white leading-[1.05]">
+            AI does the chasing. Your team handles the customer.
+          </h2>
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-white/60">
+            One AI worker across your enquiries — answering calls, qualifying leads, sending follow-ups, booking jobs and routing the right person to the right customer.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/40 aspect-video">
+            <video
+              src={aiEmployeeVideo.url}
+              autoPlay muted loop playsInline
+              className="h-full w-full object-cover"
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5">
+              <div className="flex flex-wrap items-center gap-2">
+                {steps.map((s, i) => (
+                  <span key={s} className="inline-flex items-center gap-2 text-[12px] text-white/80">
+                    <span className="rounded-full bg-white/10 px-3 py-1 font-semibold ring-1 ring-white/15">{s}</span>
+                    {i < steps.length - 1 && <span className="text-cyan-300">→</span>}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4 content-start">
+            <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <h3 className="text-[16px] font-semibold text-white">AI Workflows</h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-white/60">
+                Trigger-based automations for follow-ups, sentiment checks and CRM updates.
+              </p>
+            </article>
+            <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+              <h3 className="text-[16px] font-semibold text-white">AI Reputation Manager</h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-white/60">
+                Monitors reviews across channels and drafts replies that sound like you.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Industries (6 groups) ---------------------------------- */
+function IndustriesV2() {
+  const groups = [
+    { name: "Automotive & trades",       Icon: WrenchIcon,     image: industryTrades.url },
+    { name: "Real estate & property",    Icon: HomeIcon,       image: industryRealEstate.url },
+    { name: "Mortgage & professional",   Icon: LandmarkIcon,   image: industryMortgage.url },
+    { name: "Allied health & clinics",   Icon: StethoscopeIcon,image: industryHealthcare.url },
+    { name: "Fitness & appointments",    Icon: DumbbellIcon,   image: industryFitness.url },
+    { name: "Other local services",      Icon: ScaleIcon,      image: industryLegal.url },
+  ];
+  return (
+    <section className="bg-white py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <span className="inline-block rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">
+            Industries
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            Built for the service businesses we actually serve.
+          </h2>
+        </div>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {groups.map((g) => (
+            <article key={g.name} className="group overflow-hidden rounded-2xl bg-neutral-50 ring-1 ring-neutral-200 transition hover:-translate-y-1 hover:shadow-md">
+              <div className="relative h-40 overflow-hidden bg-gradient-to-b from-neutral-100 to-neutral-200">
+                <img src={g.image} alt="" loading="lazy" className="h-full w-full object-contain" />
+              </div>
+              <div className="flex items-center gap-3 p-5">
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-zapla-blue text-white">
+                  <g.Icon className="h-4 w-4" />
+                </span>
+                <span className="text-[15px] font-semibold text-neutral-900">{g.name}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Tool Stack / Commercial difference --------------------- */
+function ToolStackV2() {
+  const before = [
+    "Multiple subscriptions",
+    "Per-user fees",
+    "Fragmented customer history",
+    "Manual handoffs between apps",
+    "Separate support desks",
+  ];
+  const after = [
+    "One operating system",
+    "Unlimited users",
+    "One connected customer record",
+    "Automated workflows across the journey",
+    "One place to manage the customer",
+  ];
+  return (
+    <section className="bg-neutral-50 py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <span className="inline-block rounded-full border border-neutral-200 bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">
+            Commercial difference
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            One system without the per-seat tax.
+          </h2>
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-neutral-600">
+            Most teams pay by the seat, per app. Zapla replaces the stack with one operating system and unlimited users.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <article className="rounded-2xl bg-white p-7 ring-1 ring-neutral-200">
+            <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-neutral-500">Disconnected setup</div>
+            <h3 className="mt-2 font-zapla text-[22px] font-semibold text-neutral-900">Your current stack</h3>
+            <ul className="mt-5 space-y-3">
+              {before.map((b) => (
+                <li key={b} className="flex items-center gap-3 text-[14px] text-neutral-700">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-neutral-200 text-neutral-500 text-[11px]">×</span>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </article>
+          <article className="rounded-2xl bg-zapla-ink p-7 text-white ring-1 ring-zapla-ink">
+            <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-cyan-300">With Zapla</div>
+            <h3 className="mt-2 font-zapla text-[22px] font-semibold">One operating system</h3>
+            <ul className="mt-5 space-y-3">
+              {after.map((a) => (
+                <li key={a} className="flex items-center gap-3 text-[14px] text-white/85">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-zapla-blue text-white text-[11px]">✓</span>
+                  {a}
+                </li>
+              ))}
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Proof (qualitative) ------------------------------------ */
+function ProofV2() {
+  const points = [
+    { title: "Faster enquiry response", body: "Missed calls trigger SMS replies within seconds, so leads hear back before the competition." },
+    { title: "More consistent quote follow-up", body: "Quotes stop going silent — automated nudges keep every opportunity moving." },
+    { title: "Fewer missed bookings", body: "Automated reminders and rebooking reduce no-shows and gaps in the calendar." },
+    { title: "Review requests, sent every time", body: "Completed jobs automatically trigger a review request while the experience is fresh." },
+    { title: "Past customers re-engaged", body: "Win-back segments and personalised sends turn cold contacts back into revenue." },
+  ];
+  return (
+    <section className="bg-white py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <span className="inline-block rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">
+            What operators tell us
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            Operational outcomes we hear about most often.
+          </h2>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {points.map((p) => (
+            <article key={p.title} className="rounded-2xl bg-neutral-50 ring-1 ring-neutral-200 p-6">
+              <h3 className="font-zapla text-[18px] font-semibold text-neutral-900 leading-snug">{p.title}</h3>
+              <p className="mt-2 text-[14px] leading-relaxed text-neutral-600">{p.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Pricing preview --------------------------------------- */
+function PricingPreviewV2() {
+  const included = [
+    "Unlimited users",
+    "CRM, pipelines & inbox",
+    "Bookings, quotes & invoices",
+    "Automations & reporting",
+    "Reviews & reputation",
+    "AI workflows",
+  ];
+  return (
+    <section className="bg-neutral-50 py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-5xl">
+        <div className="rounded-3xl bg-white ring-1 ring-neutral-200 shadow-sm p-8 sm:p-12 grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center">
+          <div>
+            <span className="inline-block rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">
+              Pricing
+            </span>
+            <h2 className="mt-4 font-zapla text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+              One flat platform fee. Unlimited users.
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-neutral-600 max-w-md">
+              No per-seat billing, no surprise upgrades. Add your whole team on day one.
+            </p>
+            <a
+              href="/pricing-v2"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-zapla-ink px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-neutral-800 transition"
+            >
+              See full pricing
+              <span aria-hidden>→</span>
+            </a>
+          </div>
+          <ul className="grid grid-cols-1 gap-2">
+            {included.map((it) => (
+              <li key={it} className="flex items-center gap-3 rounded-xl bg-neutral-50 px-4 py-3 text-[14px] text-neutral-800">
+                <span className="grid h-5 w-5 place-items-center rounded-full bg-zapla-blue text-white text-[11px]">✓</span>
+                {it}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- FAQ --------------------------------------------------- */
+function FaqV2() {
+  const faqs = [
+    { q: "Is Zapla really priced without per-seat fees?", a: "Yes — one platform fee covers unlimited users. Add your entire team without worrying about tier upgrades." },
+    { q: "How does the AI actually help my team?", a: "AI answers calls, qualifies enquiries, sends follow-ups and books jobs. Your team steps in when a real conversation is needed." },
+    { q: "Will Zapla replace all my current tools?", a: "For most service businesses, yes — CRM, inbox, bookings, invoicing, reviews and automations sit in one system." },
+    { q: "Can I bring my existing data across?", a: "Contacts, pipelines and appointments can be imported. Popular tools connect directly for ongoing sync." },
+    { q: "Can I cancel at any time?", a: "Yes. Zapla is month-to-month with no lock-in contracts." },
+  ];
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <section className="bg-white py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-3xl">
+        <div className="text-center">
+          <span className="inline-block rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue2">
+            Questions
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[44px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            Common questions.
+          </h2>
+        </div>
+        <div className="mt-10 divide-y divide-neutral-200 border-y border-neutral-200">
+          {faqs.map((f, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={f.q}>
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                >
+                  <span className="text-[16px] font-semibold text-neutral-900">{f.q}</span>
+                  <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-neutral-300 text-neutral-500 transition ${isOpen ? "rotate-45" : ""}`}>+</span>
+                </button>
+                {isOpen && <p className="pb-6 pr-10 text-[14.5px] leading-relaxed text-neutral-600">{f.a}</p>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Final CTA -------------------------------------------- */
+function FinalCtaV2() {
+  return (
+    <section className="bg-zapla-ink py-24 sm:py-32 px-6 text-white">
+      <div className="mx-auto max-w-3xl text-center">
+        <h2 className="font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight leading-[1.05]">
+          One system. Everything runs.
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-white/70">
+          See Zapla with a guided walkthrough tailored to your business.
+        </p>
+        <div className="mt-8 flex justify-center">
+          <a
+            href={BOOK_URL}
+            className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-zapla-ink hover:bg-neutral-100 transition"
+          >
+            Book a Call
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-zapla-ink text-white">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
