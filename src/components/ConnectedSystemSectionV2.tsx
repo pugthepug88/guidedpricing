@@ -6,7 +6,7 @@ import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
 
 const face = (n: number) => `https://i.pravatar.cc/80?img=${n}`;
 
-export function ConnectedSystemSection() {
+export function ConnectedSystemSectionV2() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -46,7 +46,7 @@ export function ConnectedSystemSection() {
       <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
         <div className="relative z-30 pt-12 md:pt-16 px-6 text-center max-w-3xl mx-auto">
           <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
-            Every customer moment. One <span className="text-zapla-blue">connected</span> system.
+            Every customer moment. One <span className="text-[#2563ff]">connected</span> system.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
             Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
@@ -197,10 +197,10 @@ function NewLeadCard() {
     <Shell className="w-[300px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-sm">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-sm">
             <Phone className="h-[18px] w-[18px]" />
-            <div className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white ring-1 ring-violet-200">
-              <Sparkles className="h-2.5 w-2.5 text-violet-600" />
+            <div className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white ring-1 ring-sky-200">
+              <Sparkles className="h-2.5 w-2.5 text-sky-700" />
             </div>
           </div>
           <div>
@@ -208,7 +208,7 @@ function NewLeadCard() {
             <div className="text-[11px] text-neutral-500 leading-tight">AI receptionist captured a call</div>
           </div>
         </div>
-        <div className="flex items-center gap-1 rounded-full bg-violet-50 px-2 py-0.5 text-[10px] font-semibold text-violet-700 ring-1 ring-violet-200">
+        <div className="flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-200">
           <Sparkles className="h-3 w-3" /> AI · LIVE
         </div>
       </div>
@@ -226,7 +226,7 @@ function NewLeadCard() {
         </div>
       </div>
       <div className="mt-2.5 flex items-center justify-between text-[11px]">
-        <span className="flex items-center gap-1 text-violet-600 font-medium"><Sparkles className="h-3 w-3" /> AI transcribed · added to CRM</span>
+        <span className="flex items-center gap-1 text-sky-700 font-medium"><Sparkles className="h-3 w-3" /> AI transcribed · added to CRM</span>
         <span className="font-semibold text-emerald-600">✓ synced</span>
       </div>
     </Shell>
@@ -275,22 +275,22 @@ function WorkflowCard() {
     <Shell className="w-[290px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-600 text-white"><Zap className="h-[18px] w-[18px]" /></div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-600 text-white"><Zap className="h-[18px] w-[18px]" /></div>
           <div>
             <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Workflow Running</div>
             <div className="text-[11px] text-neutral-500 leading-tight">New Lead → Nurture</div>
           </div>
         </div>
-        <div className="rounded-full bg-violet-50 px-2 py-0.5 text-[10px] font-semibold text-violet-700 ring-1 ring-violet-200">AUTO</div>
+        <div className="rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-200">AUTO</div>
       </div>
       <div className="mt-3 space-y-2">
         {steps.map((s, i) => (
           <div key={i} className="flex items-center gap-2.5">
-            <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${s.done ? "bg-emerald-500 text-white" : s.active ? "bg-violet-100 text-violet-700 ring-2 ring-violet-500" : "bg-neutral-100 text-neutral-400"}`}>
+            <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${s.done ? "bg-emerald-500 text-white" : s.active ? "bg-sky-100 text-sky-700 ring-2 ring-sky-500" : "bg-neutral-100 text-neutral-400"}`}>
               {s.done ? "✓" : i + 1}
             </div>
             <div className={`flex-1 text-[12px] ${s.done ? "text-neutral-500 line-through" : s.active ? "font-semibold text-neutral-900" : "text-neutral-500"}`}>{s.label}</div>
-            {s.active && <span className="rounded-full bg-violet-100 px-1.5 py-0.5 text-[9px] font-semibold text-violet-700">running</span>}
+            {s.active && <span className="rounded-full bg-sky-100 px-1.5 py-0.5 text-[9px] font-semibold text-sky-700">running</span>}
           </div>
         ))}
       </div>
@@ -305,10 +305,10 @@ function OpportunityCard() {
     <Shell className="w-[310px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-orange-500 text-white"><Target className="h-[18px] w-[18px]" /></div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white"><Target className="h-[18px] w-[18px]" /></div>
           <div>
-            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Opportunity Updated</div>
-            <div className="text-[11px] text-neutral-500 leading-tight">Quote sent to client</div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Quote Sent</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">Sent to Jordan Clarke</div>
           </div>
         </div>
         <div className="text-[13px] font-bold text-neutral-900">$4,800</div>
@@ -316,7 +316,7 @@ function OpportunityCard() {
       <div className="mt-3 flex items-center gap-1">
         {stages.map((s, i) => (
           <div key={s} className="flex flex-1 items-center gap-1">
-            <div className={`flex-1 rounded-full py-1 text-center text-[10px] font-semibold ${i < activeIdx ? "bg-emerald-100 text-emerald-700" : i === activeIdx ? "bg-orange-500 text-white shadow-sm" : "bg-neutral-100 text-neutral-400"}`}>{s}</div>
+            <div className={`flex-1 rounded-full py-1 text-center text-[10px] font-semibold ${i < activeIdx ? "bg-emerald-100 text-emerald-700" : i === activeIdx ? "bg-blue-600 text-white shadow-sm" : "bg-neutral-100 text-neutral-400"}`}>{s}</div>
           </div>
         ))}
       </div>
@@ -328,7 +328,7 @@ function OpportunityCard() {
             <div className="text-[10px] text-neutral-500">Kitchen renovation</div>
           </div>
         </div>
-        <div className="text-[10px] font-semibold text-orange-600">75%</div>
+        <div className="text-[10px] font-semibold text-blue-700">75%</div>
       </div>
     </Shell>
   );
