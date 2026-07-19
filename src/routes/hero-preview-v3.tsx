@@ -97,31 +97,31 @@ import {
 export const Route = createFileRoute("/hero-preview-v3")({
   head: () => ({
     meta: [
-      { title: "Hero Preview V2 — Zapla" },
+      { title: "Hero Preview V3 — Zapla" },
       { name: "robots", content: "noindex" },
-      { name: "description", content: "Preview of the new hero section with rotating feature cards." },
+      { name: "description", content: "V3 preview — premium editorial rebuild of everything after the connected system." },
     ],
   }),
-  component: HeroPreviewV2Page,
+  component: HeroPreviewV3Page,
 });
 
 const BOOK_URL = "https://zapla.io/booking";
 
-function HeroPreviewV2Page() {
+function HeroPreviewV3Page() {
   return (
     <main className="min-h-screen bg-zapla-bg">
       <Hero />
       <LifecycleStripV2 />
-      <ConnectedSystemSectionV2 />
-      <OutcomesV2 />
-      <PlatformLifecycleV2 />
-      <WorkflowTheatreV2 />
-      <FocusedAIV2 />
-      <IndustriesV2 />
-      <ToolStackV2 />
-      <PricingPreviewV2 />
-      <FaqV2 />
-      <FinalCtaV2 />
+      <ConnectedSystemSectionV3 />
+      <OutcomesV3 />
+      <PlatformLifecycleV3 />
+      <WorkflowTheatreV3 />
+      <FocusedAIV3 />
+      <IndustriesV3 />
+      <ToolStackV3 />
+      <PricingPreviewV3 />
+      <FaqV3 />
+      <FinalCtaV3 />
     </main>
   );
 }
