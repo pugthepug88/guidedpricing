@@ -858,19 +858,6 @@ function CardTagging() {
 
 
 
-/* =================================================================== */
-/*  V2 SECTIONS                                                        */
-/* =================================================================== */
-
-const LIFECYCLE_STAGES = [
-  { key: "capture",     label: "Capture",     blurb: "Forms, chat, calls, ads — every enquiry lands in one place." },
-  { key: "communicate", label: "Communicate", blurb: "SMS, email, DMs and calls in a unified inbox." },
-  { key: "convert",     label: "Convert",     blurb: "CRM, pipelines, bookings, quotes and payments." },
-  { key: "operate",     label: "Operate",     blurb: "Tasks, team routing, calendars and reporting." },
-  { key: "retain",      label: "Retain",      blurb: "Reviews, reminders, rebooking and reputation." },
-  { key: "grow",        label: "Grow",        blurb: "Reactivation, campaigns and upsell opportunities." },
-] as const;
-
 
 /* =================================================================== */
 /*  V2 SECTIONS                                                        */
