@@ -106,11 +106,10 @@ function HeroPreviewV2Page() {
       <ConnectedSystemSectionV2 />
       <OutcomesV2 />
       <PlatformLifecycleV2 />
-      <WorkflowStoriesV2 />
+      <WorkflowTheatreV2 />
       <FocusedAIV2 />
       <IndustriesV2 />
       <ToolStackV2 />
-      <ProofV2 />
       <PricingPreviewV2 />
       <FaqV2 />
       <FinalCtaV2 />
