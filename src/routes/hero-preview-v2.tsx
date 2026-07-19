@@ -84,6 +84,15 @@ import industryEcommerce from "@/assets/industry-ecommerce.png.asset.json";
 import industryRestaurants from "@/assets/industry-restaurants.png.asset.json";
 import industryRental from "@/assets/industry-rental.png.asset.json";
 import industryAutomotive from "@/assets/industry-automotive.png.asset.json";
+import type { ComponentType, ReactNode } from "react";
+import funnelAsset from "@/assets/zapla-funnel-16-apps-final.png.asset.json";
+import {
+  Phone, PhoneMissed, Mail, MessageSquare, Instagram, Facebook, MessageCircle,
+  Calendar as CalendarIcon, CreditCard, Star as StarIcon, RefreshCw, Users, Bell,
+  ClipboardList, FileText, Send, CheckCircle2, ArrowRight, Sparkles, Zap, Globe,
+  Briefcase, HeartPulse,
+} from "lucide-react";
+
 
 export const Route = createFileRoute("/hero-preview-v2")({
   head: () => ({
@@ -867,14 +876,6 @@ const LIFECYCLE_STAGES = [
 /*  V2 SECTIONS                                                        */
 /* =================================================================== */
 
-import type { ComponentType, ReactNode } from "react";
-import funnelAsset from "@/assets/zapla-funnel-16-apps-final.png.asset.json";
-import {
-  Phone, PhoneMissed, Mail, MessageSquare, Instagram, Facebook, MessageCircle,
-  Calendar as CalendarIcon, CreditCard, Star as StarIcon, RefreshCw, Users, Bell,
-  ClipboardList, FileText, Send, CheckCircle2, ArrowRight, Sparkles, Zap, Globe,
-  Briefcase, HeartPulse,
-} from "lucide-react";
 
 const LIFECYCLE_STAGES = [
   { key: "capture",     label: "Capture" },
