@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
-import { ConnectedSystemSectionV2 } from "@/components/ConnectedSystemSectionV2";
+import { ConnectedSystemSectionV3 } from "@/components/ConnectedSystemSectionV3";
 import {
   Home as HomeIcon,
   Landmark as LandmarkIcon,
