@@ -4,7 +4,7 @@ import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
 
 /* ------------------------------------------------------------------ */
-/*  ConnectedSystemSectionV2                                          */
+/*  ConnectedSystemSectionV3                                          */
 /*  Asymmetrical, cinematic. No dotted ellipse. No fake metrics.      */
 /*  Shortened to ~260vh. Respects prefers-reduced-motion.             */
 /* ------------------------------------------------------------------ */
@@ -43,7 +43,7 @@ function Avatar({ name, tone = "blue", size = 28 }: { name: string; tone?: "blue
   );
 }
 
-export function ConnectedSystemSectionV2() {
+export function ConnectedSystemSectionV3() {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const [progress, setProgress] = useState(reduced ? 1 : 0);
