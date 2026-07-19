@@ -862,3 +862,832 @@ const LIFECYCLE_STAGES = [
   { key: "grow",        label: "Grow",        blurb: "Reactivation, campaigns and upsell opportunities." },
 ] as const;
 
+
+/* =================================================================== */
+/*  V2 SECTIONS                                                        */
+/* =================================================================== */
+
+import type { ComponentType, ReactNode } from "react";
+import funnelAsset from "@/assets/zapla-funnel-16-apps-final.png.asset.json";
+import {
+  Phone, PhoneMissed, Mail, MessageSquare, Instagram, Facebook, MessageCircle,
+  Calendar as CalendarIcon, CreditCard, Star as StarIcon, RefreshCw, Users, Bell,
+  ClipboardList, FileText, Send, CheckCircle2, ArrowRight, Sparkles, Zap, Globe,
+  Briefcase, HeartPulse,
+} from "lucide-react";
+
+const LIFECYCLE_STAGES = [
+  { key: "capture",     label: "Capture" },
+  { key: "communicate", label: "Communicate" },
+  { key: "convert",     label: "Convert" },
+  { key: "operate",     label: "Operate" },
+  { key: "retain",      label: "Retain" },
+  { key: "grow",        label: "Grow" },
+] as const;
+
+/* -------- Lifecycle strip ----------------------------------------- */
+function LifecycleStripV2() {
+  return (
+    <section className="bg-white py-12 sm:py-16 px-6 border-y border-neutral-100">
+      <div className="mx-auto max-w-5xl">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3 text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.18em] text-neutral-500">
+          {LIFECYCLE_STAGES.map((s, i) => (
+            <span key={s.key} className="inline-flex items-center gap-3">
+              <span className="text-neutral-900">{s.label}</span>
+              {i < LIFECYCLE_STAGES.length - 1 && <span className="text-zapla-blue">→</span>}
+            </span>
+          ))}
+        </div>
+        <p className="mx-auto mt-4 max-w-2xl text-center text-[14px] leading-relaxed text-neutral-500">
+          One system carries the customer from first enquiry to repeat purchase.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Outcomes (editorial) ------------------------------------- */
+function OutcomesV2() {
+  const items = [
+    {
+      k: "01",
+      title: "Respond before the competition",
+      body: "Missed calls become SMS replies. First response in seconds, not hours.",
+      chip: { icon: <PhoneMissed className="h-3.5 w-3.5" />, label: "Auto-reply sent · 00:03" },
+    },
+    {
+      k: "02",
+      title: "Keep every opportunity moving",
+      body: "Quotes, bookings and follow-ups run on their own. Nothing goes silent.",
+      chip: { icon: <Send className="h-3.5 w-3.5" />, label: "Follow-up · Day 3" },
+    },
+    {
+      k: "03",
+      title: "Turn completed work into cash and trust",
+      body: "Invoices, payments and reviews fire the moment a job is done.",
+      chip: { icon: <StarIcon className="h-3.5 w-3.5" />, label: "Review requested" },
+    },
+    {
+      k: "04",
+      title: "Create more value from customers you already have",
+      body: "Reactivation campaigns re-engage past customers automatically.",
+      chip: { icon: <RefreshCw className="h-3.5 w-3.5" />, label: "Win-back · sending" },
+    },
+  ];
+  return (
+    <section className="bg-white py-20 sm:py-24 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            What changes when nothing falls through.
+          </h2>
+        </div>
+        <div className="mt-14 grid gap-x-14 gap-y-12 md:grid-cols-2">
+          {items.map((it) => (
+            <article key={it.k} className="border-t border-neutral-900/10 pt-6">
+              <div className="flex items-baseline gap-5">
+                <span className="font-zapla text-[40px] font-semibold leading-none text-zapla-blue tabular-nums">{it.k}</span>
+                <h3 className="font-zapla text-[24px] sm:text-[28px] font-semibold text-neutral-900 leading-tight">
+                  {it.title}
+                </h3>
+              </div>
+              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-neutral-600">{it.body}</p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-sky-50 px-3 py-1.5 text-[12px] font-semibold text-sky-700 ring-1 ring-sky-100">
+                {it.chip.icon} {it.chip.label}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Platform Lifecycle (6 purpose-built scenes) -------------- */
+
+function ChipRow({ items }: { items: { icon: ReactNode; label: string; tone?: string }[] }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {items.map((c, i) => (
+        <span key={i} className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1 ${c.tone ?? "bg-neutral-50 text-neutral-700 ring-neutral-200"}`}>
+          {c.icon} {c.label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function SceneShell({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
+  return (
+    <div className="flex h-full flex-col">
+      <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+        <div>
+          <div className="text-[13px] font-semibold text-neutral-900">{title}</div>
+          <div className="text-[11px] text-neutral-500">{subtitle}</div>
+        </div>
+        <div className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Live
+        </div>
+      </div>
+      <div className="flex-1 pt-4">{children}</div>
+    </div>
+  );
+}
+
+function CaptureScene() {
+  const sources = [
+    { icon: <PhoneMissed className="h-4 w-4" />, label: "Missed call", detail: "+61 400 812 559", color: "bg-red-500" },
+    { icon: <Globe className="h-4 w-4" />,       label: "Web form",    detail: "quote-bathroom.zapla",  color: "bg-blue-500" },
+    { icon: <Facebook className="h-4 w-4" />,    label: "Facebook lead", detail: "Meta Lead Ad · Renovation", color: "bg-[#1877F2]" },
+    { icon: <Instagram className="h-4 w-4" />,   label: "Instagram DM", detail: "@mia.k", color: "bg-gradient-to-br from-[#F58529] to-[#DD2A7B]" },
+    { icon: <Users className="h-4 w-4" />,       label: "Referral",     detail: "From Sarah Mitchell", color: "bg-emerald-500" },
+  ];
+  return (
+    <SceneShell title="New enquiries" subtitle="5 sources · 1 contact record">
+      <div className="grid gap-2.5">
+        {sources.map((s, i) => (
+          <div key={i} className="flex items-center gap-3 rounded-xl bg-neutral-50 p-2.5 ring-1 ring-neutral-100">
+            <span className={`grid h-8 w-8 place-items-center rounded-lg text-white ${s.color}`}>{s.icon}</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[12px] font-semibold text-neutral-900">{s.label}</div>
+              <div className="truncate text-[11px] text-neutral-500">{s.detail}</div>
+            </div>
+            <ArrowRight className="h-3.5 w-3.5 text-neutral-300" />
+          </div>
+        ))}
+        <div className="mt-2 flex items-center gap-3 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 p-3 text-white shadow-sm">
+          <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/20"><Users className="h-4 w-4" /></div>
+          <div className="flex-1">
+            <div className="text-[12px] font-semibold">1 unified contact created</div>
+            <div className="text-[11px] text-white/80">All sources attributed automatically</div>
+          </div>
+          <CheckCircle2 className="h-5 w-5" />
+        </div>
+      </div>
+    </SceneShell>
+  );
+}
+
+function CommunicateScene() {
+  const threads = [
+    { icon: <MessageCircle className="h-3.5 w-3.5" />, chan: "SMS",       name: "Sarah M.",   msg: "Can I move my 3pm?",      time: "2m", unread: true, tone: "bg-emerald-500" },
+    { icon: <Mail className="h-3.5 w-3.5" />,          chan: "Email",     name: "James O.",   msg: "Following up on the quote…", time: "8m", unread: true, tone: "bg-red-500" },
+    { icon: <MessageSquare className="h-3.5 w-3.5" />, chan: "Messenger", name: "David C.",   msg: "Thanks — all confirmed",  time: "1h", unread: false, tone: "bg-[#0084FF]" },
+    { icon: <Instagram className="h-3.5 w-3.5" />,     chan: "Instagram", name: "@mia.k",     msg: "Do you take DMs?",         time: "1h", unread: false, tone: "bg-gradient-to-br from-[#F58529] to-[#DD2A7B]" },
+    { icon: <Phone className="h-3.5 w-3.5" />,         chan: "WhatsApp",  name: "Emma W.",    msg: "New booking request",     time: "3h", unread: false, tone: "bg-[#25D366]" },
+  ];
+  return (
+    <SceneShell title="Unified inbox" subtitle="Every channel, one thread per customer">
+      <div className="space-y-2">
+        {threads.map((t, i) => (
+          <div key={i} className="flex items-center gap-3 rounded-xl bg-neutral-50 p-2.5 ring-1 ring-neutral-100">
+            <span className={`grid h-8 w-8 place-items-center rounded-lg text-white ${t.tone}`}>{t.icon}</span>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <span className="text-[12px] font-semibold text-neutral-900">{t.name}</span>
+                <span className="rounded bg-white px-1.5 py-0.5 text-[9px] font-semibold text-neutral-500 ring-1 ring-neutral-200">{t.chan}</span>
+              </div>
+              <div className="truncate text-[11px] text-neutral-500">{t.msg}</div>
+            </div>
+            <span className="text-[10px] text-neutral-400">{t.time}</span>
+            {t.unread && <span className="h-2 w-2 rounded-full bg-blue-600" />}
+          </div>
+        ))}
+      </div>
+    </SceneShell>
+  );
+}
+
+function ConvertScene() {
+  const stages = [
+    { label: "Enquiry", done: true,  icon: <Mail className="h-3.5 w-3.5" /> },
+    { label: "Booking", done: true,  icon: <CalendarIcon className="h-3.5 w-3.5" /> },
+    { label: "Quote",   done: true,  icon: <FileText className="h-3.5 w-3.5" /> },
+    { label: "Payment", done: false, active: true, icon: <CreditCard className="h-3.5 w-3.5" /> },
+  ];
+  return (
+    <SceneShell title="Opportunity · Jordan Clarke" subtitle="Kitchen renovation · $4,800">
+      <div className="space-y-3">
+        <div className="relative">
+          <div className="absolute left-4 top-0 h-full w-px bg-neutral-200" />
+          {stages.map((s, i) => (
+            <div key={i} className="relative flex items-center gap-3 py-2">
+              <div className={`z-10 grid h-8 w-8 place-items-center rounded-full ring-4 ring-white ${s.done ? "bg-emerald-500 text-white" : s.active ? "bg-blue-600 text-white shadow-md" : "bg-neutral-100 text-neutral-400"}`}>
+                {s.done ? <CheckCircle2 className="h-4 w-4" /> : s.icon}
+              </div>
+              <div className="flex-1">
+                <div className={`text-[13px] font-semibold ${s.done ? "text-neutral-500 line-through" : s.active ? "text-neutral-900" : "text-neutral-400"}`}>{s.label}</div>
+                {s.active && <div className="text-[11px] text-blue-700 font-medium">Stripe link sent · awaiting payment</div>}
+                {s.done && <div className="text-[11px] text-neutral-400">Complete</div>}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl bg-gradient-to-r from-emerald-50 to-white p-3 ring-1 ring-emerald-100">
+          <div className="flex items-center justify-between">
+            <div className="text-[11px] font-semibold text-emerald-800">Auto-invoice ready on payment</div>
+            <div className="text-[13px] font-bold text-emerald-800">$4,800</div>
+          </div>
+        </div>
+      </div>
+    </SceneShell>
+  );
+}
+
+function OperateScene() {
+  const rows = [
+    { time: "09:00", cust: "Sarah M.",  job: "Consultation",     who: "Alex",  tone: "bg-emerald-100 text-emerald-700" },
+    { time: "10:30", cust: "James O.",  job: "Site measure",     who: "Priya", tone: "bg-sky-100 text-sky-700" },
+    { time: "13:00", cust: "Emma W.",   job: "Install visit",    who: "Alex",  tone: "bg-amber-100 text-amber-700" },
+    { time: "15:30", cust: "David C.",  job: "Follow-up call",   who: "You",   tone: "bg-blue-100 text-blue-700" },
+  ];
+  return (
+    <SceneShell title="Today · Thu 14 Nov" subtitle="Team schedule · 4 jobs">
+      <div className="space-y-2">
+        {rows.map((r, i) => (
+          <div key={i} className="flex items-center gap-3 rounded-xl bg-neutral-50 p-2.5 ring-1 ring-neutral-100">
+            <div className="w-14 shrink-0 text-[11px] font-semibold text-neutral-500 tabular-nums">{r.time}</div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[12px] font-semibold text-neutral-900 truncate">{r.job}</div>
+              <div className="text-[11px] text-neutral-500 truncate">{r.cust}</div>
+            </div>
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.tone}`}>{r.who}</span>
+          </div>
+        ))}
+        <div className="mt-1 grid grid-cols-3 gap-2 pt-1">
+          <div className="rounded-lg bg-white p-2 ring-1 ring-neutral-200">
+            <div className="text-[10px] text-neutral-500">Assigned</div>
+            <div className="text-[15px] font-bold text-neutral-900">4</div>
+          </div>
+          <div className="rounded-lg bg-white p-2 ring-1 ring-neutral-200">
+            <div className="text-[10px] text-neutral-500">In progress</div>
+            <div className="text-[15px] font-bold text-blue-600">2</div>
+          </div>
+          <div className="rounded-lg bg-white p-2 ring-1 ring-neutral-200">
+            <div className="text-[10px] text-neutral-500">Complete</div>
+            <div className="text-[15px] font-bold text-emerald-600">1</div>
+          </div>
+        </div>
+      </div>
+    </SceneShell>
+  );
+}
+
+function RetainScene() {
+  const steps = [
+    { icon: <CheckCircle2 className="h-4 w-4" />, label: "Job complete", detail: "Marked done by Alex · 3:00 PM", tone: "bg-emerald-500", done: true },
+    { icon: <StarIcon className="h-4 w-4" />,     label: "Review request sent",  detail: "Google · SMS with link",       tone: "bg-amber-500", done: true },
+    { icon: <Bell className="h-4 w-4" />,         label: "Service reminder scheduled", detail: "In 6 months · Nov 2026", tone: "bg-blue-500", active: true },
+    { icon: <CalendarIcon className="h-4 w-4" />, label: "Rebooking link ready", detail: "One-tap in customer portal",    tone: "bg-neutral-300" },
+  ];
+  return (
+    <SceneShell title="After the job · Sarah Mitchell" subtitle="Reputation, reminders, rebooking">
+      <div className="space-y-2.5">
+        {steps.map((s, i) => (
+          <div key={i} className={`flex items-center gap-3 rounded-xl p-2.5 ring-1 ${s.active ? "bg-blue-50 ring-blue-200" : "bg-neutral-50 ring-neutral-100"}`}>
+            <span className={`grid h-9 w-9 place-items-center rounded-lg text-white ${s.tone}`}>{s.icon}</span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[12px] font-semibold text-neutral-900">{s.label}</div>
+              <div className="text-[11px] text-neutral-500 truncate">{s.detail}</div>
+            </div>
+            {s.done && <CheckCircle2 className="h-4 w-4 text-emerald-500" />}
+            {s.active && <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-semibold text-blue-700">Scheduled</span>}
+          </div>
+        ))}
+      </div>
+    </SceneShell>
+  );
+}
+
+function GrowScene() {
+  const flow = [
+    { icon: <Users className="h-4 w-4" />, label: "Segment: no visit in 6mo",  detail: "Past customers", tone: "bg-neutral-800" },
+    { icon: <Send className="h-4 w-4" />, label: "Win-back sent",              detail: "SMS + email with offer", tone: "bg-teal-500" },
+    { icon: <MessageCircle className="h-4 w-4" />, label: "Replies coming in", detail: "Interested customers",   tone: "bg-emerald-500" },
+    { icon: <CalendarIcon className="h-4 w-4" />, label: "New bookings",       detail: "Directly from reply",    tone: "bg-blue-600" },
+  ];
+  return (
+    <SceneShell title="Reactivation campaign" subtitle="Segment → send → reply → booking">
+      <div className="space-y-3">
+        {flow.map((f, i) => (
+          <div key={i} className="relative flex items-start gap-3">
+            <span className={`z-10 grid h-9 w-9 shrink-0 place-items-center rounded-lg text-white ${f.tone}`}>{f.icon}</span>
+            {i < flow.length - 1 && <span className="absolute left-4 top-9 h-6 w-px bg-neutral-200" />}
+            <div className="flex-1 pt-1">
+              <div className="text-[12px] font-semibold text-neutral-900">{f.label}</div>
+              <div className="text-[11px] text-neutral-500">{f.detail}</div>
+            </div>
+          </div>
+        ))}
+        <div className="mt-2 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-100">
+          <ChipRow items={[
+            { icon: <MessageCircle className="h-3 w-3" />, label: "SMS" },
+            { icon: <Mail className="h-3 w-3" />,          label: "Email" },
+            { icon: <Sparkles className="h-3 w-3" />,      label: "AI drafted copy", tone: "bg-sky-50 text-sky-700 ring-sky-200" },
+          ]} />
+        </div>
+      </div>
+    </SceneShell>
+  );
+}
+
+type LifecycleTab = {
+  key: string;
+  label: string;
+  headline: string;
+  body: string;
+  capabilities: string[];
+  Scene: ComponentType;
+};
+
+const LIFECYCLE_TABS: LifecycleTab[] = [
+  { key: "capture",     label: "Capture",     headline: "Every enquiry, from every channel.", body: "Calls, forms, ads and DMs land on one contact record.", capabilities: ["Missed calls", "Web forms", "Meta & Google leads", "Referrals"], Scene: CaptureScene },
+  { key: "communicate", label: "Communicate", headline: "One inbox for every channel.",       body: "SMS, email, Messenger, Instagram and WhatsApp in one thread.", capabilities: ["Unified inbox", "Templates", "Team assignments", "Read receipts"], Scene: CommunicateScene },
+  { key: "convert",     label: "Convert",     headline: "Enquiry to payment in one flow.",   body: "Bookings, quotes and payments move together on the pipeline.", capabilities: ["Pipelines", "Bookings", "Quotes", "Stripe & Square"], Scene: ConvertScene },
+  { key: "operate",     label: "Operate",     headline: "Run the day without the whiteboard.", body: "Calendar, tasks, routing and status in the same system.", capabilities: ["Team calendars", "Task routing", "Mobile app", "Reporting"], Scene: OperateScene },
+  { key: "retain",      label: "Retain",      headline: "Turn great work into reputation.",   body: "Review requests, reminders and rebooking fire automatically.", capabilities: ["Review requests", "Reminders", "Rebooking", "Reputation"], Scene: RetainScene },
+  { key: "grow",        label: "Grow",        headline: "Your database is a growth channel.", body: "Reactivate quiet customers and surface upsell moments.", capabilities: ["Win-back", "Segments", "Broadcasts", "Upsell triggers"], Scene: GrowScene },
+];
+
+function PlatformLifecycleV2() {
+  const [active, setActive] = useState(0);
+  const tab = LIFECYCLE_TABS[active];
+  const Scene = tab.Scene;
+  return (
+    <section className="bg-neutral-50 py-20 sm:py-24 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            One system for every stage of the customer lifecycle.
+          </h2>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-2">
+          {LIFECYCLE_TABS.map((t, i) => {
+            const isActive = i === active;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-pressed={isActive}
+                className={[
+                  "rounded-full px-4 py-2 text-[13px] font-semibold transition",
+                  isActive ? "bg-zapla-ink text-white shadow-sm" : "bg-white text-neutral-700 ring-1 ring-neutral-200 hover:bg-neutral-100",
+                ].join(" ")}
+              >
+                {t.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-8 grid gap-6 rounded-3xl bg-white p-4 ring-1 ring-neutral-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] sm:p-6 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.5fr)] md:gap-10 md:p-8">
+          <div className="flex flex-col justify-center px-1 md:px-3">
+            <h3 className="font-zapla text-2xl sm:text-3xl md:text-[34px] font-semibold text-neutral-900 leading-tight">
+              {tab.headline}
+            </h3>
+            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-neutral-600">{tab.body}</p>
+            <ul className="mt-6 grid grid-cols-2 gap-2">
+              {tab.capabilities.map((c) => (
+                <li key={c} className="flex items-center gap-2 text-[13px] text-neutral-700">
+                  <span className="grid h-4 w-4 place-items-center rounded-full bg-zapla-blue text-white text-[9px]">✓</span>
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div key={tab.key} className="relative min-h-[460px] rounded-2xl bg-gradient-to-b from-white to-neutral-50 p-5 ring-1 ring-neutral-200 shadow-inner animate-fade-in">
+            <Scene />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Workflow Theatre (one flow at a time) -------------------- */
+
+type FlowStep = { icon: ReactNode; title: string; detail: string; tone: string };
+
+type Flow = { key: string; label: string; headline: string; steps: FlowStep[] };
+
+const FLOWS: Flow[] = [
+  {
+    key: "missed",
+    label: "Missed call",
+    headline: "A missed call becomes a lead, in seconds.",
+    steps: [
+      { icon: <PhoneMissed className="h-5 w-5" />, title: "Missed call",          detail: "+61 400 812 559 · 12:04", tone: "bg-red-500" },
+      { icon: <MessageCircle className="h-5 w-5" />, title: "SMS auto-reply sent", detail: "\"Sorry we missed you — how can we help?\"", tone: "bg-emerald-500" },
+      { icon: <MessageCircle className="h-5 w-5" />, title: "Customer replies",   detail: "\"Looking for a quote on a bathroom reno.\"", tone: "bg-blue-500" },
+      { icon: <Users className="h-5 w-5" />, title: "Lead created in CRM",         detail: "Emma Wilson · assigned to Alex", tone: "bg-zapla-ink" },
+    ],
+  },
+  {
+    key: "quote",
+    label: "Quote follow-up",
+    headline: "Quotes stop going cold.",
+    steps: [
+      { icon: <FileText className="h-5 w-5" />, title: "Quote sent",          detail: "$4,800 emailed to Jordan Clarke", tone: "bg-blue-500" },
+      { icon: <Zap className="h-5 w-5" />,      title: "No response · 3 days", detail: "Automation triggers", tone: "bg-amber-500" },
+      { icon: <MessageCircle className="h-5 w-5" />, title: "SMS nudge sent",  detail: "\"Just checking in on the quote…\"", tone: "bg-emerald-500" },
+      { icon: <Bell className="h-5 w-5" />, title: "Owner alerted on reply",   detail: "Notification in unified inbox", tone: "bg-zapla-ink" },
+    ],
+  },
+  {
+    key: "pay",
+    label: "Payment & review",
+    headline: "Cash in, review out.",
+    steps: [
+      { icon: <CheckCircle2 className="h-5 w-5" />, title: "Job marked complete", detail: "By Alex on mobile · 3:00 PM", tone: "bg-emerald-500" },
+      { icon: <CreditCard className="h-5 w-5" />,   title: "Invoice sent",        detail: "$1,250 · Stripe link", tone: "bg-blue-500" },
+      { icon: <CheckCircle2 className="h-5 w-5" />, title: "Payment received",    detail: "Visa ending 4242 · 3:12 PM", tone: "bg-emerald-600" },
+      { icon: <StarIcon className="h-5 w-5" />,     title: "Review request queued", detail: "Google review link · SMS + email", tone: "bg-amber-500" },
+    ],
+  },
+  {
+    key: "winback",
+    label: "Customer win-back",
+    headline: "Bring customers back without lifting a finger.",
+    steps: [
+      { icon: <Users className="h-5 w-5" />,        title: "Inactive segment flagged", detail: "No visit in 6 months · 128 customers", tone: "bg-neutral-800" },
+      { icon: <Send className="h-5 w-5" />,         title: "Win-back campaign sent",   detail: "Personalised SMS + email", tone: "bg-teal-500" },
+      { icon: <MessageCircle className="h-5 w-5" />, title: "Replies routed to inbox", detail: "Interested customers surface", tone: "bg-emerald-500" },
+      { icon: <CalendarIcon className="h-5 w-5" />, title: "New bookings created",     detail: "Directly from customer replies", tone: "bg-blue-600" },
+    ],
+  },
+];
+
+function WorkflowTheatreV2() {
+  const [active, setActive] = useState(0);
+  const flow = FLOWS[active];
+  return (
+    <section className="bg-white py-20 sm:py-24 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            Workflows that quietly run your business.
+          </h2>
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-neutral-600">
+            Pick a flow and watch how one system handles it end-to-end.
+          </p>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-2">
+          {FLOWS.map((f, i) => {
+            const isActive = i === active;
+            return (
+              <button
+                key={f.key}
+                type="button"
+                onClick={() => setActive(i)}
+                className={[
+                  "rounded-full px-4 py-2 text-[13px] font-semibold transition",
+                  isActive ? "bg-zapla-blue text-white shadow-sm" : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+                ].join(" ")}
+              >
+                {f.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div key={flow.key} className="mt-8 rounded-3xl bg-gradient-to-b from-neutral-50 to-white p-6 sm:p-10 ring-1 ring-neutral-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] animate-fade-in">
+          <h3 className="font-zapla text-2xl sm:text-3xl font-semibold text-neutral-900 leading-tight">{flow.headline}</h3>
+          <div className="mt-8 grid gap-4 md:grid-cols-4">
+            {flow.steps.map((s, i) => (
+              <div key={i} className="relative">
+                <div className="rounded-2xl bg-white p-5 ring-1 ring-neutral-200 shadow-sm h-full">
+                  <div className="flex items-center justify-between">
+                    <span className={`grid h-10 w-10 place-items-center rounded-xl text-white ${s.tone}`}>{s.icon}</span>
+                    <span className="text-[10px] font-bold tabular-nums text-neutral-400">0{i + 1}</span>
+                  </div>
+                  <div className="mt-4 text-[14px] font-semibold text-neutral-900 leading-snug">{s.title}</div>
+                  <div className="mt-1.5 text-[12px] leading-relaxed text-neutral-500">{s.detail}</div>
+                </div>
+                {i < flow.steps.length - 1 && (
+                  <div className="pointer-events-none hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 z-10">
+                    <ArrowRight className="h-5 w-5 text-zapla-blue" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Focused AI receptionist story --------------------------- */
+function FocusedAIV2() {
+  const companion = [
+    { icon: <Phone className="h-4 w-4" />,       t: "Customer calls",       d: "Any hour, any channel", tone: "bg-blue-500" },
+    { icon: <Sparkles className="h-4 w-4" />,    t: "AI answers",            d: "Natural conversation, on-brand", tone: "bg-cyan-500" },
+    { icon: <ClipboardList className="h-4 w-4" />,t: "Details captured",     d: "Name, need, timing, contact", tone: "bg-sky-500" },
+    { icon: <CalendarIcon className="h-4 w-4" />,t: "Booking confirmed",     d: "Slot placed in your calendar", tone: "bg-blue-600" },
+    { icon: <Bell className="h-4 w-4" />,        t: "Team notified",         d: "Full transcript in the inbox", tone: "bg-emerald-500" },
+  ];
+  return (
+    <section className="relative overflow-hidden bg-[#050914] py-20 sm:py-28 px-6">
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-cyan-500/12 blur-[160px]" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-blue-500/12 blur-[140px]" />
+      <div className="relative mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-cyan-200">
+            AI receptionist
+          </span>
+          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-white leading-[1.05]">
+            Every enquiry handled, even when your team is busy.
+          </h2>
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-white/60">
+            AI answers, gathers details, books the appointment and hands the full context to your team.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-8 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] md:items-stretch">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/40 aspect-video shadow-[0_40px_120px_-40px_rgba(6,182,212,0.35)]">
+            <video src={aiEmployeeVideo.url} autoPlay muted loop playsInline className="h-full w-full object-cover" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/50 via-transparent to-transparent" />
+          </div>
+
+          <ol className="relative flex flex-col justify-center gap-3">
+            {companion.map((s, i) => (
+              <li key={i} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3 backdrop-blur">
+                <span className={`grid h-10 w-10 place-items-center rounded-xl text-white ${s.tone}`}>{s.icon}</span>
+                <div className="flex-1">
+                  <div className="text-[13px] font-semibold text-white">{s.t}</div>
+                  <div className="text-[11px] text-white/60">{s.d}</div>
+                </div>
+                <span className="text-[10px] font-bold tabular-nums text-white/40">0{i + 1}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-white/50">
+          <span className="uppercase tracking-widest text-white/40">Also included</span>
+          <a href="#" className="inline-flex items-center gap-1.5 text-cyan-300 hover:text-cyan-200">
+            <Zap className="h-3.5 w-3.5" /> AI workflows for follow-ups <ArrowRight className="h-3 w-3" />
+          </a>
+          <a href="#" className="inline-flex items-center gap-1.5 text-cyan-300 hover:text-cyan-200">
+            <StarIcon className="h-3.5 w-3.5" /> AI reputation management <ArrowRight className="h-3 w-3" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Industries — 3 featured + compact list ------------------ */
+function IndustriesV2() {
+  const featured = [
+    {
+      icon: <WrenchIconLocal />, tag: "Automotive & trades",
+      image: industryTrades.url,
+      workflow: "Recover missed calls, book jobs and follow up every quote automatically.",
+      caps: ["Missed-call SMS reply", "Job scheduling", "Quote follow-ups"],
+      accent: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: <BriefcaseIconLocal />, tag: "Property & professional services",
+      image: industryRealEstate.url,
+      workflow: "Capture enquiries, nurture opportunities and keep every client conversation together.",
+      caps: ["Enquiry capture", "Pipeline nurture", "Unified client history"],
+      accent: "from-sky-500 to-indigo-500",
+    },
+    {
+      icon: <HeartIconLocal />, tag: "Health, fitness & appointments",
+      image: industryHealthcare.url,
+      workflow: "Fill calendars, cut no-shows and bring customers back with reminders and rebooking.",
+      caps: ["Online bookings", "Automated reminders", "Rebooking flows"],
+      accent: "from-cyan-500 to-teal-500",
+    },
+  ];
+
+  const others = [
+    "Real estate & mortgage", "Legal & accounting", "Beauty & wellness",
+    "Restaurants & hospitality", "E-commerce & retail", "Events & rentals",
+    "Automotive service", "Home services & trades",
+  ];
+
+  return (
+    <section className="bg-white py-20 sm:py-24 px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="max-w-3xl">
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            Built around three service business shapes.
+          </h2>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {featured.map((f) => (
+            <article key={f.tag} className="group relative overflow-hidden rounded-3xl bg-neutral-50 ring-1 ring-neutral-200 transition hover:-translate-y-1 hover:shadow-lg">
+              <div className={`relative h-40 overflow-hidden bg-gradient-to-br ${f.accent}`}>
+                <img src={f.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-contain opacity-90 mix-blend-luminosity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
+                <div className="absolute left-4 top-4 grid h-9 w-9 place-items-center rounded-xl bg-white/95 text-neutral-900 shadow ring-1 ring-white/40">
+                  {f.icon}
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue">Featured</div>
+                <h3 className="mt-1.5 font-zapla text-[20px] font-semibold text-neutral-900 leading-snug">
+                  {f.tag}
+                </h3>
+                <p className="mt-3 text-[13.5px] leading-relaxed text-neutral-600">{f.workflow}</p>
+                <ul className="mt-4 space-y-1.5">
+                  {f.caps.map((c) => (
+                    <li key={c} className="flex items-center gap-2 text-[12.5px] text-neutral-700">
+                      <span className="grid h-4 w-4 place-items-center rounded-full bg-zapla-blue text-white text-[9px]">✓</span>
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#" className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-zapla-blue hover:text-blue-700">
+                  Explore solution <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-neutral-200 pt-6">
+          <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-neutral-500">Also serving</span>
+          {others.map((o) => (
+            <span key={o} className="text-[13px] text-neutral-600">{o}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WrenchIconLocal()   { return <Zap className="h-4 w-4" />; }
+function BriefcaseIconLocal(){ return <Briefcase className="h-4 w-4" />; }
+function HeartIconLocal()    { return <HeartPulse className="h-4 w-4" />; }
+
+/* -------- Tool Stack — funnel dominant ---------------------------- */
+function ToolStackV2() {
+  const wins = [
+    "One operating system",
+    "Unlimited users",
+    "One connected customer record",
+    "Automated workflows across the journey",
+  ];
+  return (
+    <section className="relative overflow-hidden bg-neutral-50 py-20 sm:py-24 px-6">
+      <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
+      <div className="relative mx-auto max-w-6xl">
+        <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:items-center">
+          <div className="relative">
+            <img
+              src={funnelAsset.url}
+              alt="16 disconnected apps funneling into one Zapla system"
+              className="mx-auto w-full max-w-xl object-contain drop-shadow-[0_30px_60px_rgba(15,23,42,0.15)]"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <h2 className="font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+              One system without the per-seat tax.
+            </h2>
+            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-neutral-600">
+              Most teams pay by the seat, per app. Zapla replaces the stack with one operating system and unlimited users.
+            </p>
+            <ul className="mt-6 space-y-2.5">
+              {wins.map((w) => (
+                <li key={w} className="flex items-center gap-3 text-[14px] text-neutral-800">
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-zapla-blue text-white text-[11px] shadow-sm">✓</span>
+                  {w}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[12px] font-semibold text-neutral-700 ring-1 ring-neutral-200 shadow-sm">
+              <span className="rounded-full bg-red-100 px-2 py-0.5 text-red-700">16 apps</span>
+              <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
+              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700">1 system</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Pricing preview (polished) ------------------------------ */
+function PricingPreviewV2() {
+  const included = [
+    "Unlimited users",
+    "CRM, pipelines & inbox",
+    "Bookings, quotes & invoices",
+    "Automations & reporting",
+    "Reviews & reputation",
+    "AI workflows",
+  ];
+  return (
+    <section className="bg-white py-20 sm:py-24 px-6">
+      <div className="mx-auto max-w-5xl">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-white to-sky-50 ring-1 ring-neutral-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.2)] p-8 sm:p-12">
+          <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+          <div className="relative grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center">
+            <div>
+              <span className="inline-block rounded-full bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zapla-blue ring-1 ring-neutral-200">
+                Pricing
+              </span>
+              <h2 className="mt-4 font-zapla text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+                One flat platform fee. Unlimited users.
+              </h2>
+              <p className="mt-4 text-[15px] leading-relaxed text-neutral-600 max-w-md">
+                No per-seat billing, no surprise upgrades. Add your whole team on day one.
+              </p>
+              <a
+                href="/pricing-v2"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-zapla-ink px-5 py-2.5 text-[13px] font-semibold text-white hover:bg-neutral-800 transition"
+              >
+                See full pricing <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+            <ul className="grid grid-cols-1 gap-2">
+              {included.map((it) => (
+                <li key={it} className="flex items-center gap-3 rounded-xl bg-white/70 backdrop-blur px-4 py-3 text-[14px] text-neutral-800 ring-1 ring-neutral-200">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-zapla-blue text-white text-[11px]">✓</span>
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- FAQ ----------------------------------------------------- */
+function FaqV2() {
+  const faqs = [
+    { q: "Is Zapla really priced without per-seat fees?", a: "Yes. One platform fee covers unlimited users. Add your entire team without worrying about tier upgrades." },
+    { q: "How does the AI actually help my team?", a: "AI answers calls, qualifies enquiries, sends follow-ups and books jobs. Your team steps in when a real conversation is needed." },
+    { q: "Will Zapla replace all my current tools?", a: "For most service businesses, yes. CRM, inbox, bookings, invoicing, reviews and automations sit in one system." },
+    { q: "Can I bring my existing data across?", a: "Contacts, pipelines and appointments can be imported. Popular tools connect directly for ongoing sync." },
+    { q: "Can I cancel at any time?", a: "Yes. Zapla is month-to-month with no lock-in contracts." },
+  ];
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <section className="bg-neutral-50 py-20 sm:py-24 px-6">
+      <div className="mx-auto max-w-3xl">
+        <div className="text-center">
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-[44px] font-semibold tracking-tight text-neutral-900 leading-[1.05]">
+            Common questions.
+          </h2>
+        </div>
+        <div className="mt-10 divide-y divide-neutral-200 border-y border-neutral-200 bg-white rounded-2xl ring-1 ring-neutral-200 px-2">
+          {faqs.map((f, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={f.q} className="px-4">
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                >
+                  <span className="text-[16px] font-semibold text-neutral-900">{f.q}</span>
+                  <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-neutral-300 text-neutral-500 transition ${isOpen ? "rotate-45" : ""}`}>+</span>
+                </button>
+                {isOpen && <p className="pb-6 pr-10 text-[14.5px] leading-relaxed text-neutral-600">{f.a}</p>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------- Final CTA ----------------------------------------------- */
+function FinalCtaV2() {
+  return (
+    <section className="relative overflow-hidden bg-zapla-ink py-20 sm:py-28 px-6 text-white">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_20%,rgba(37,99,255,0.25),transparent_65%)]" />
+      <div className="relative mx-auto max-w-3xl text-center">
+        <h2 className="font-zapla text-3xl sm:text-4xl md:text-[56px] font-semibold tracking-tight leading-[1.02]">
+          One system. Everything runs.
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-white/70">
+          See Zapla with a guided walkthrough tailored to your business.
+        </p>
+        <div className="mt-8 flex justify-center">
+          <a
+            href={BOOK_URL}
+            className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-zapla-ink hover:bg-neutral-100 transition"
+          >
+            Book a Call
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-zapla-ink text-white">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
