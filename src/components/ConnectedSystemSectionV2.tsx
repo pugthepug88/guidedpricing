@@ -1,20 +1,58 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
 import { Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle, Sparkles, RefreshCw } from "lucide-react";
 import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
 
-const face = (n: number) => `https://i.pravatar.cc/80?img=${n}`;
+/* ------------------------------------------------------------------ */
+/*  ConnectedSystemSectionV2                                          */
+/*  Asymmetrical, cinematic. No dotted ellipse. No fake metrics.      */
+/*  Shortened to ~260vh. Respects prefers-reduced-motion.             */
+/* ------------------------------------------------------------------ */
+
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const on = () => setReduced(mq.matches);
+    mq.addEventListener?.("change", on);
+    return () => mq.removeEventListener?.("change", on);
+  }, []);
+  return reduced;
+}
+
+/** Neutral CSS initials avatar — no third-party image URLs. */
+function Avatar({ name, tone = "blue", size = 28 }: { name: string; tone?: "blue" | "cyan" | "slate" | "amber" | "emerald" | "teal"; size?: number }) {
+  const initials = name.split(" ").map((p) => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+  const tones: Record<string, string> = {
+    blue: "bg-gradient-to-br from-blue-500 to-blue-700 text-white",
+    cyan: "bg-gradient-to-br from-cyan-400 to-sky-600 text-white",
+    slate: "bg-gradient-to-br from-slate-400 to-slate-600 text-white",
+    amber: "bg-gradient-to-br from-amber-400 to-orange-500 text-white",
+    emerald: "bg-gradient-to-br from-emerald-400 to-emerald-600 text-white",
+    teal: "bg-gradient-to-br from-teal-400 to-cyan-600 text-white",
+  };
+  return (
+    <span
+      className={`inline-flex items-center justify-center rounded-full font-semibold ring-2 ring-white shadow-sm ${tones[tone]}`}
+      style={{ width: size, height: size, fontSize: Math.max(9, Math.floor(size * 0.36)) }}
+      aria-hidden
+    >
+      {initials}
+    </span>
+  );
+}
 
 export function ConnectedSystemSectionV2() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
+  const reduced = useReducedMotion();
+  const [progress, setProgress] = useState(reduced ? 1 : 0);
 
-  const [progress, setProgress] = useState(0);
   useEffect(() => {
+    if (reduced) {
+      setProgress(1);
+      return;
+    }
     const section = ref.current;
     if (!section) return;
 
@@ -28,66 +66,76 @@ export function ConnectedSystemSectionV2() {
     const onScroll = () => {
       if (rafId === null) rafId = requestAnimationFrame(update);
     };
-
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [reduced]);
 
-  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 0.55, 1], [1, 0.35, 0, 0]);
-  const colorOpacity = useTransform(scrollYProgress, [0.15, 0.55, 1], [0, 1, 1]);
-  const orbitOpacity = useTransform(scrollYProgress, [0.08, 0.3], [0, 0.5]);
+  // sketch fades from full to 0 as character "colors in"
+  const sketchOpacity = progress < 0.05 ? 1 : progress > 0.35 ? 0 : 1 - (progress - 0.05) / 0.3;
+  const colorOpacity = progress < 0.1 ? 0 : progress > 0.4 ? 1 : (progress - 0.1) / 0.3;
 
   return (
-    <section ref={ref} className="relative h-[460vh] bg-white text-neutral-900">
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
-        <div className="relative z-30 pt-12 md:pt-16 px-6 text-center max-w-3xl mx-auto">
-          <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
+    <section
+      ref={ref}
+      className="relative bg-gradient-to-b from-white via-white to-sky-50/40 text-neutral-900"
+      style={{ height: "260vh" }}
+    >
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden">
+        {/* ambient depth wash — no container ring */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_60%,rgba(37,99,255,0.05),transparent_70%)]" />
+
+        <div className="relative z-30 pt-10 md:pt-14 px-6 text-center max-w-3xl mx-auto">
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.08]">
             Every customer moment. One <span className="text-[#2563ff]">connected</span> system.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
             Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
           </p>
         </div>
-        <div className="relative mx-auto w-full max-w-[1400px] flex-1 px-6">
-          <div className="relative mx-auto flex h-full items-center justify-center">
-            <div className="relative mx-auto h-[74vh] w-[min(148vh,96vw)]">
-              <motion.svg
-                viewBox="0 0 1000 600"
-                preserveAspectRatio="none"
-                className="absolute inset-0 h-full w-full"
-                style={{ opacity: orbitOpacity }}
-              >
-                <ellipse cx="500" cy="300" rx="470" ry="270" fill="none" stroke="#a5b4d4" strokeWidth="1.2" strokeDasharray="2 8" />
-              </motion.svg>
 
-              <motion.img
+        {/* Desktop / tablet composition */}
+        <div className="relative mx-auto hidden w-full max-w-[1400px] flex-1 md:block">
+          <div className="relative mx-auto h-full">
+            <div className="relative mx-auto h-[74vh] w-[min(150vh,96vw)]">
+              {/* character stack (no bounding container) */}
+              <img
                 src={heroSketch.url}
                 alt=""
                 draggable={false}
                 style={{ opacity: sketchOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[80%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain transition-opacity"
               />
-              <motion.img
+              <img
                 src={heroColor.url}
                 alt=""
                 draggable={false}
                 style={{ opacity: colorOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[80%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain transition-opacity"
               />
 
-              <OrbitCard progress={progress} appearAt={0.18} pos="left-[-6%] top-[2%]"><ConversationsCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.26} pos="right-[-6%] top-[2%]"><NewLeadCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.36} pos="right-[-10%] top-[38%]"><BookingCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.46} pos="right-[-3%] top-[72%]"><WorkflowCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.56} pos="right-[24%] bottom-[2%]"><OpportunityCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.66} pos="left-[24%] bottom-[2%]"><InvoiceCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.76} pos="left-[-3%] top-[72%]"><ReviewCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.86} pos="left-[-10%] top-[38%]"><WinBackCard /></OrbitCard>
+              {/* Asymmetrical card placement — varied scale, depth, edges */}
+              <OrbitCard progress={progress} appearAt={0.14} pos="left-[-8%] top-[6%]"     scale={1.02} rot={-1.2}><ConversationsCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.22} pos="right-[-4%] top-[-2%]"    scale={0.96} rot={1.5}><NewLeadCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.32} pos="right-[-10%] top-[36%]"   scale={0.92} rot={-0.6}><BookingCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.42} pos="left-[-11%] top-[38%]"    scale={0.88} rot={0.8}><WorkflowCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.52} pos="right-[-2%] top-[70%]"    scale={1.0}  rot={0.4}><OpportunityCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.62} pos="left-[22%] bottom-[-2%]"  scale={0.94} rot={-0.8}><InvoiceCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.74} pos="right-[26%] bottom-[2%]"  scale={0.9}  rot={1.1}><ReviewCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.86} pos="left-[-4%] top-[70%]"     scale={0.98} rot={-1.4}><WinBackCard /></OrbitCard>
             </div>
+          </div>
+        </div>
+
+        {/* Mobile fallback — stacked, no scroll scrub */}
+        <div className="relative z-20 flex-1 w-full overflow-y-auto px-4 pb-16 pt-8 md:hidden">
+          <div className="mx-auto grid max-w-md grid-cols-1 gap-4">
+            <img src={heroColor.url} alt="" className="mx-auto h-40 w-auto object-contain" />
+            <ConversationsCard /><NewLeadCard /><BookingCard /><WorkflowCard />
+            <OpportunityCard /><InvoiceCard /><ReviewCard /><WinBackCard />
           </div>
         </div>
       </div>
@@ -95,14 +143,17 @@ export function ConnectedSystemSectionV2() {
   );
 }
 
-function OrbitCard({ progress, appearAt, pos, children }: { progress: number; appearAt: number; pos: string; children: React.ReactNode }) {
-  const fadeProgress = Math.min(1, Math.max(0, (progress - (appearAt - 0.03)) / 0.03));
-  const moveProgress = progress <= appearAt ? 0 : progress >= appearAt + 0.06 ? 1 : (progress - appearAt) / 0.06;
-  const opacity = fadeProgress;
-  const y = 24 * (1 - moveProgress);
-  const scale = 0.92 + 0.08 * moveProgress;
+function OrbitCard({
+  progress, appearAt, pos, scale = 1, rot = 0, children,
+}: { progress: number; appearAt: number; pos: string; scale?: number; rot?: number; children: React.ReactNode }) {
+  const enter = Math.min(1, Math.max(0, (progress - appearAt) / 0.05));
+  const y = 28 * (1 - enter);
+  const s = (0.9 + 0.1 * enter) * scale;
   return (
-    <div style={{ opacity, transform: `translateY(${y}px) scale(${scale})` }} className={`absolute z-20 ${pos}`}>
+    <div
+      style={{ opacity: enter, transform: `translateY(${y}px) rotate(${rot}deg) scale(${s})` }}
+      className={`absolute z-20 ${pos}`}
+    >
       {children}
     </div>
   );
@@ -116,6 +167,7 @@ function Shell({ children, className = "" }: { children: React.ReactNode; classN
   );
 }
 
+/* ----- Channel icons ----- */
 function SmsIcon({ size = 32 }: { size?: number }) {
   return (
     <div className="flex items-center justify-center rounded-lg bg-emerald-500 text-white shadow-sm" style={{ width: size, height: size }}>
@@ -154,12 +206,14 @@ function InstagramIcon({ size = 32 }: { size?: number }) {
   );
 }
 
+/* ----- Cards ----- */
+
 function ConversationsCard() {
   const threads = [
-    { icon: <SmsIcon size={36} />, name: "Sarah Mitchell", time: "2m", preview: "Can I move my 3pm to Thursday?", unread: true },
-    { icon: <GmailIcon size={36} />, name: "James — new enquiry", time: "8m", preview: "Hi, wanted to get a quote for…", unread: true },
-    { icon: <InstagramIcon size={36} />, name: "@mia.k", time: "1h", preview: "Do you take bookings via DM?", unread: false },
-    { icon: <MessengerIcon size={36} />, name: "David Chen", time: "3h", preview: "Thanks — see you tomorrow ", unread: false },
+    { icon: <SmsIcon size={34} />,       name: "Sarah Mitchell",     time: "2m", preview: "Can I move my 3pm to Thursday?", unread: true },
+    { icon: <GmailIcon size={34} />,     name: "James — new enquiry", time: "8m", preview: "Hi, wanted to get a quote for…",  unread: true },
+    { icon: <InstagramIcon size={34} />, name: "@mia.k",              time: "1h", preview: "Do you take bookings via DM?",    unread: false },
+    { icon: <MessengerIcon size={34} />, name: "David Chen",          time: "3h", preview: "Thanks — see you tomorrow",        unread: false },
   ];
   return (
     <Shell className="w-[320px] p-4">
@@ -214,7 +268,7 @@ function NewLeadCard() {
       </div>
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2.5">
-          <img src={face(47)} alt="" className="h-8 w-8 rounded-full object-cover ring-1 ring-white" />
+          <Avatar name="Emma Wilson" tone="cyan" size={32} />
           <div className="min-w-0 flex-1">
             <div className="truncate text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
             <div className="truncate text-[11px] text-neutral-500">+61 400 812 559 · 0:42s</div>
@@ -249,11 +303,11 @@ function BookingCard() {
       <div className="mt-3 grid grid-cols-7 gap-1 text-center">
         {["M","T","W","T","F","S","S"].map((d, i) => (<div key={i} className="text-[9px] font-medium text-neutral-400">{d}</div>))}
         {[11,12,13,14,15,16,17].map((d) => (
-          <div key={d} className={`rounded-md py-1 text-[11px] font-semibold ${d === 14 ? "bg-blue-600 text-white shadow-sm" : "text-neutral-600 hover:bg-neutral-50"}`}>{d}</div>
+          <div key={d} className={`rounded-md py-1 text-[11px] font-semibold ${d === 14 ? "bg-blue-600 text-white shadow-sm" : "text-neutral-600"}`}>{d}</div>
         ))}
       </div>
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
-        <img src={face(32)} alt="" className="h-7 w-7 rounded-full object-cover" />
+        <Avatar name="Sarah Mitchell" tone="blue" size={28} />
         <div className="min-w-0 flex-1">
           <div className="truncate text-[11px] font-semibold text-neutral-900">Sarah Mitchell</div>
           <div className="truncate text-[10px] text-neutral-500">Consultation · 45 min</div>
@@ -322,13 +376,13 @@ function OpportunityCard() {
       </div>
       <div className="mt-3 flex items-center justify-between rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2">
-          <img src={face(59)} alt="" className="h-7 w-7 rounded-full object-cover" />
+          <Avatar name="Jordan Clarke" tone="slate" size={28} />
           <div>
             <div className="text-[11px] font-semibold text-neutral-900">Jordan Clarke</div>
             <div className="text-[10px] text-neutral-500">Kitchen renovation</div>
           </div>
         </div>
-        <div className="text-[10px] font-semibold text-blue-700">75%</div>
+        <div className="text-[10px] font-semibold text-blue-700">Proposal</div>
       </div>
     </Shell>
   );
@@ -380,7 +434,7 @@ function ReviewCard() {
       </div>
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2">
-          <img src={face(32)} alt="" className="h-7 w-7 rounded-full object-cover" />
+          <Avatar name="Sarah Mitchell" tone="blue" size={28} />
           <div className="flex-1">
             <div className="text-[12px] font-semibold text-neutral-900">Sarah Mitchell</div>
             <div className="flex items-center gap-0.5">
@@ -397,36 +451,31 @@ function ReviewCard() {
 }
 
 function WinBackCard() {
-  const avatars = [12, 5, 33, 47, 15];
   return (
     <Shell className="w-[300px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500 text-white"><RefreshCw className="h-[18px] w-[18px]" /></div>
           <div>
-            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Customers Won Back</div>
-            <div className="text-[11px] text-neutral-500 leading-tight">Reactivation campaign · this month</div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Win-back Campaign</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">Inactive customers · 6mo+</div>
           </div>
         </div>
-        <div className="rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-semibold text-teal-700 ring-1 ring-teal-200">+42</div>
+        <div className="rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-semibold text-teal-700 ring-1 ring-teal-200">SENDING</div>
       </div>
       <div className="mt-3 rounded-xl bg-gradient-to-br from-teal-50 to-white p-3 ring-1 ring-teal-100">
-        <div className="flex items-baseline justify-between">
-          <div className="text-[11px] text-neutral-500">Re-engaged and purchased</div>
-          <div className="text-[10px] font-semibold text-emerald-600">↑ 3.4×</div>
+        <div className="text-[11px] font-semibold text-neutral-700">"We miss you — book again"</div>
+        <div className="mt-1.5 text-[11px] text-neutral-500 leading-snug">
+          Personalised SMS + email to past customers with an easy rebooking link.
         </div>
-        <div className="mt-1 flex items-baseline gap-1.5">
-          <div className="text-[22px] font-bold text-neutral-900">42</div>
-          <div className="text-[11px] text-neutral-500">past customers</div>
-        </div>
-        <div className="mt-2 flex items-center justify-between border-t border-teal-100 pt-2">
+        <div className="mt-2.5 flex items-center justify-between border-t border-teal-100 pt-2">
           <div className="flex -space-x-2">
-            {avatars.map((n) => (
-              <img key={n} src={face(n)} alt="" className="h-6 w-6 rounded-full object-cover ring-2 ring-white" />
-            ))}
-            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-teal-600 text-[9px] font-semibold text-white ring-2 ring-white">+37</div>
+            <Avatar name="AL" tone="teal" size={22} />
+            <Avatar name="MJ" tone="cyan" size={22} />
+            <Avatar name="SR" tone="blue" size={22} />
+            <Avatar name="KN" tone="slate" size={22} />
           </div>
-          <div className="text-[10px] font-semibold text-teal-700">$18,240 recovered</div>
+          <div className="text-[10px] font-semibold text-teal-700">SMS · Email</div>
         </div>
       </div>
     </Shell>
