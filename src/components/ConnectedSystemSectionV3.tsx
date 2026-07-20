@@ -46,10 +46,19 @@ function Avatar({ name, tone = "blue", size = 28 }: { name: string; tone?: "blue
 export function ConnectedSystemSectionV3() {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const [isDesktop, setIsDesktop] = useState(false);
   const [progress, setProgress] = useState(reduced ? 1 : 0);
 
   useEffect(() => {
-    if (reduced) {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const on = () => setIsDesktop(mq.matches);
+    on();
+    mq.addEventListener?.("change", on);
+    return () => mq.removeEventListener?.("change", on);
+  }, []);
+
+  useEffect(() => {
+    if (reduced || !isDesktop) {
       setProgress(1);
       return;
     }
@@ -72,70 +81,70 @@ export function ConnectedSystemSectionV3() {
       window.removeEventListener("scroll", onScroll);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, [reduced]);
+  }, [reduced, isDesktop]);
 
-  // sketch fades from full to 0 as character "colors in"
   const sketchOpacity = progress < 0.05 ? 1 : progress > 0.35 ? 0 : 1 - (progress - 0.05) / 0.3;
   const colorOpacity = progress < 0.1 ? 0 : progress > 0.4 ? 1 : (progress - 0.1) / 0.3;
 
   return (
     <section
       ref={ref}
-      className="relative bg-gradient-to-b from-white via-white to-sky-50/40 text-neutral-900"
-      style={{ height: "260vh" }}
+      className="relative bg-gradient-to-b from-white via-white to-sky-50/40 text-neutral-900 lg:[height:220vh]"
     >
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden">
-        {/* ambient depth wash — no container ring */}
+      <div className="lg:sticky lg:top-0 flex lg:h-screen w-full flex-col items-center overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_60%,rgba(37,99,255,0.05),transparent_70%)]" />
 
-        <div className="relative z-30 pt-10 md:pt-14 px-6 text-center max-w-3xl mx-auto">
+        <div className="relative z-30 pt-12 md:pt-16 px-6 text-center max-w-3xl mx-auto">
           <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.08]">
             Every customer moment. One <span className="text-[#2563ff]">connected</span> system.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
-            Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
+            Enquiry, conversation, booking, service, follow-up and review — moving together automatically.
           </p>
         </div>
 
-        {/* Desktop / tablet composition */}
-        <div className="relative mx-auto hidden w-full max-w-[1400px] flex-1 md:block">
+        {/* Desktop composition (lg+) — controlled scroll */}
+        <div className="relative mx-auto hidden w-full max-w-[1400px] flex-1 lg:block">
           <div className="relative mx-auto h-full">
-            <div className="relative mx-auto h-[74vh] w-[min(150vh,96vw)]">
-              {/* character stack (no bounding container) */}
+            <div className="relative mx-auto h-[70vh] w-[min(140vh,94vw)]">
               <img
                 src={heroSketch.url}
                 alt=""
                 draggable={false}
                 style={{ opacity: sketchOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[80%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain transition-opacity"
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain transition-opacity"
               />
               <img
                 src={heroColor.url}
                 alt=""
                 draggable={false}
                 style={{ opacity: colorOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[80%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain transition-opacity"
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain transition-opacity"
               />
 
-              {/* Asymmetrical card placement — varied scale, depth, edges */}
-              <OrbitCard progress={progress} appearAt={0.14} pos="left-[-8%] top-[6%]"     scale={1.02} rot={-1.2}><ConversationsCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.22} pos="right-[-4%] top-[-2%]"    scale={0.96} rot={1.5}><NewLeadCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.32} pos="right-[-10%] top-[36%]"   scale={0.92} rot={-0.6}><BookingCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.42} pos="left-[-11%] top-[38%]"    scale={0.88} rot={0.8}><WorkflowCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.52} pos="right-[-2%] top-[70%]"    scale={1.0}  rot={0.4}><OpportunityCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.62} pos="left-[22%] bottom-[-2%]"  scale={0.94} rot={-0.8}><InvoiceCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.74} pos="right-[26%] bottom-[2%]"  scale={0.9}  rot={1.1}><ReviewCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.86} pos="left-[-4%] top-[70%]"     scale={0.98} rot={-1.4}><WinBackCard /></OrbitCard>
+              {/* Six moments — asymmetrical scatter, no orbit */}
+              <MomentCard progress={progress} appearAt={0.14} pos="left-[-6%] top-[4%]"     scale={1.0}  rot={-1.2}><ConversationsCard /></MomentCard>
+              <MomentCard progress={progress} appearAt={0.24} pos="right-[-6%] top-[-2%]"    scale={0.96} rot={1.4}><NewLeadCard /></MomentCard>
+              <MomentCard progress={progress} appearAt={0.36} pos="right-[-10%] top-[40%]"   scale={0.92} rot={-0.6}><BookingCard /></MomentCard>
+              <MomentCard progress={progress} appearAt={0.5}  pos="left-[-10%] top-[42%]"    scale={0.9}  rot={0.9}><WorkflowCard /></MomentCard>
+              <MomentCard progress={progress} appearAt={0.66} pos="right-[8%] bottom-[-2%]"  scale={0.94} rot={0.4}><ReviewCard /></MomentCard>
+              <MomentCard progress={progress} appearAt={0.82} pos="left-[6%] bottom-[-2%]"   scale={0.96} rot={-1.0}><WinBackCard /></MomentCard>
             </div>
           </div>
         </div>
 
-        {/* Mobile fallback — stacked, no scroll scrub */}
-        <div className="relative z-20 flex-1 w-full overflow-y-auto px-4 pb-16 pt-8 md:hidden">
-          <div className="mx-auto grid max-w-md grid-cols-1 gap-4">
-            <img src={heroColor.url} alt="" className="mx-auto h-40 w-auto object-contain" />
-            <ConversationsCard /><NewLeadCard /><BookingCard /><WorkflowCard />
-            <OpportunityCard /><InvoiceCard /><ReviewCard /><WinBackCard />
+        {/* Tablet + mobile: normal document flow, no sticky */}
+        <div className="relative z-20 w-full px-4 pb-16 pt-8 lg:hidden">
+          <div className="mx-auto max-w-4xl">
+            <img src={heroColor.url} alt="" className="mx-auto h-40 sm:h-56 w-auto object-contain" />
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <ConversationsCard />
+              <NewLeadCard />
+              <BookingCard />
+              <WorkflowCard />
+              <ReviewCard />
+              <WinBackCard />
+            </div>
           </div>
         </div>
       </div>
@@ -143,7 +152,7 @@ export function ConnectedSystemSectionV3() {
   );
 }
 
-function OrbitCard({
+function MomentCard({
   progress, appearAt, pos, scale = 1, rot = 0, children,
 }: { progress: number; appearAt: number; pos: string; scale?: number; rot?: number; children: React.ReactNode }) {
   const enter = Math.min(1, Math.max(0, (progress - appearAt) / 0.05));
