@@ -374,18 +374,23 @@ export function JourneyV3() {
                   <img src={logoBlue.url} alt="" className="h-6 w-6 rounded-md" />
                   <span className="text-[13px] font-semibold text-slate-900">Zapla</span>
                 </div>
-                {[
-                  { icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
-                  { icon: <Users className="h-3.5 w-3.5" />, label: "Contacts", active: true },
-                  { icon: <CalendarIcon className="h-3.5 w-3.5" />, label: "Calendar" },
-                  { icon: <FileText className="h-3.5 w-3.5" />, label: "Quotes" },
-                  { icon: <CreditCard className="h-3.5 w-3.5" />, label: "Payments" },
-                  { icon: <StarIcon className="h-3.5 w-3.5" />, label: "Reviews" },
-                ].map((n) => (
-                  <div key={n.label} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] ${n.active ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
-                    {n.icon}{n.label}
-                  </div>
-                ))}
+                {([
+                  { key: "inbox",       icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
+                  { key: "contacts",    icon: <Users className="h-3.5 w-3.5" />,         label: "Contacts" },
+                  { key: "calendar",    icon: <CalendarIcon className="h-3.5 w-3.5" />,  label: "Calendar" },
+                  { key: "quotes",      icon: <FileText className="h-3.5 w-3.5" />,      label: "Quotes" },
+                  { key: "reviews",     icon: <StarIcon className="h-3.5 w-3.5" />,      label: "Reviews" },
+                  { key: "automations", icon: <Sparkles className="h-3.5 w-3.5" />,      label: "Automations" },
+                  { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
+                ] as { key: NavKey; icon: ReactNode; label: string }[]).map((n) => {
+                  const isActive = n.key === stage.nav;
+                  return (
+                    <div key={n.key} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-colors ${isActive ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
+                      {n.icon}{n.label}
+                    </div>
+                  );
+                })}
+
               </aside>
 
               <div className="flex-1 min-w-0 bg-white">
