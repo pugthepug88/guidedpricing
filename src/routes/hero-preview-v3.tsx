@@ -1691,9 +1691,9 @@ const WF_SCENARIOS: WfScenario[] = [
     ],
     edges: [{ from: "n1", to: "n2" }, { from: "n2", to: "n3" }, { from: "n3", to: "n4" }, { from: "n3", to: "n5" }],
     log: [
-      { t: "12:04", text: "Missed call from +61 400 812 559", tone: "amber" },
+      { t: "12:04", text: "Missed call captured on business line", tone: "amber" },
       { t: "12:04", text: "SMS auto-reply sent", tone: "emerald" },
-      { t: "12:06", text: "AI captured: bathroom reno · Bondi", tone: "blue" },
+      { t: "12:06", text: "AI captured request · bathroom reno · Bondi", tone: "blue" },
       { t: "12:06", text: "Booking placed · Thu 2:00 PM", tone: "emerald" },
     ],
   },
@@ -2275,18 +2275,18 @@ function ToolStackV3() {
         <div>
           <SectionEyebrow>The stack</SectionEyebrow>
           <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[46px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            One system without the per-seat tax.
+            Consolidate a stack of disconnected tools into one customer record.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            Replace a stack of tools bought per user with a single connected platform. Add your whole team without watching the bill climb.
+            Inbox, CRM, bookings, quotes, payments and workflows live in one place. Every call, message and job stays attached to the same contact.
           </p>
           <ul className="mt-6 space-y-2.5">
             {[
-              "One platform subscription",
-              "Unlimited users",
               "One connected customer record",
-              "Automations across the journey",
-              "Usage-based services billed separately",
+              "One inbox for every channel",
+              "Bookings, quotes and payments linked to the contact",
+              "Automations that move work between stages",
+              "No more copy-pasting between apps",
             ].map((c) => (
               <li key={c} className="flex items-start gap-2.5 text-[14px] text-slate-800">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 text-blue-600 shrink-0" />
@@ -2294,10 +2294,6 @@ function ToolStackV3() {
               </li>
             ))}
           </ul>
-          <div className="mt-6 rounded-xl bg-white px-4 py-3 ring-1 ring-slate-200 text-[12px] text-slate-600">
-            <span className="font-semibold text-slate-800">Note · </span>
-            SMS, email and AI usage are billed separately based on consumption.
-          </div>
         </div>
         <div className="relative">
           <div className="absolute -inset-4 rounded-[28px] bg-gradient-to-br from-blue-100/60 via-white to-cyan-100/50 blur-2xl" aria-hidden />
@@ -2320,13 +2316,13 @@ function PricingPreviewV3() {
       <div className="mx-auto max-w-5xl text-center">
         <SectionEyebrow>Pricing</SectionEyebrow>
         <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[46px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-          One platform subscription. Unlimited users.
+          One platform subscription. Unlimited users. No per-seat pricing.
         </h2>
         <p className="mt-4 text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-          No per-seat billing. Add your whole team, then pay separately only for usage-based services such as SMS, email and AI.
+          Add your whole team on one subscription. Grow the team without watching the bill climb.
         </p>
         <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-[12px] font-medium text-slate-700 ring-1 ring-slate-200">
-          <StatusDot tone="blue" pulse={false} /> SMS, email and AI usage billed separately
+          <StatusDot tone="blue" pulse={false} /> SMS, email and AI usage are billed separately based on consumption
         </div>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-3 text-left">
