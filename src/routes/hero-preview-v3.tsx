@@ -186,8 +186,12 @@ function Hero() {
           </div>
         </div>
 
-        {/* 6-card rotating stack */}
-        <HeroCardStack />
+        {/* Mobile: single readable product tile */}
+        <HeroMobileTile />
+        {/* Desktop / tablet: 4-card rotating stack */}
+        <div className="hidden sm:block">
+          <HeroCardStack />
+        </div>
       </div>
 
       {/* Scoped hero styles */}
