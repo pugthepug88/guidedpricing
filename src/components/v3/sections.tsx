@@ -51,6 +51,8 @@ function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: str
     >{initials}</div>
   );
 }
+const EmmaAvatar = CustomerAvatar;
+
 
 
 function useReducedMotion() {
