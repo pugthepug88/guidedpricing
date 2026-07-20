@@ -1827,61 +1827,81 @@ function WorkflowCanvasV3() {
             </div>
 
             {/* Desktop canvas */}
-            <div className="relative hidden md:block h-[380px] bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.06)_1px,transparent_0)] [background-size:20px_20px]">
-              {/* Connectors */}
+            <div className="relative hidden md:block h-[420px] bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.06)_1px,transparent_0)] [background-size:22px_22px]">
+              {/* Connectors — cable style */}
               <svg className="absolute inset-0 h-full w-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
                 <defs>
-                  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                    <path d="M0,0 L10,5 L0,10 z" fill="#3b82f6" />
-                  </marker>
+                  <linearGradient id="wfWire" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#93c5fd" />
+                    <stop offset="100%" stopColor="#3b82f6" />
+                  </linearGradient>
                 </defs>
                 {s.edges.map((e, i) => {
                   const a = nodeById[e.from]; const b = nodeById[e.to];
                   if (!a || !b) return null;
-                  const x1 = a.x + 10, y1 = a.y + 10, x2 = b.x + 4, y2 = b.y + 10;
+                  const x1 = a.x + 18, y1 = a.y + 8, x2 = b.x, y2 = b.y + 8;
                   const cx = (x1 + x2) / 2;
                   return (
-                    <g key={i}>
-                      <path d={`M ${x1} ${y1} C ${cx} ${y1}, ${cx} ${y2}, ${x2} ${y2}`} fill="none" stroke="#93c5fd" strokeWidth="0.45" strokeDasharray="1 1" markerEnd="url(#arr)" />
-                    </g>
+                    <path key={i} d={`M ${x1} ${y1} C ${cx} ${y1}, ${cx} ${y2}, ${x2} ${y2}`} fill="none" stroke="url(#wfWire)" strokeWidth="0.5" strokeLinecap="round" />
                   );
                 })}
               </svg>
               {/* Nodes */}
-              {s.nodes.map((n) => (
-                <div
-                  key={n.id}
-                  className="absolute w-[190px]"
-                  style={{ left: `${n.x}%`, top: `${n.y}%` }}
-                >
-                  <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200 shadow-[0_10px_24px_-16px_rgba(15,23,42,0.35)]">
-                    <div className="flex items-center gap-2">
-                      <span className={`grid h-8 w-8 place-items-center rounded-lg ring-1 ${toneRing[n.tone]}`}>{n.icon}</span>
-                      <div className="min-w-0">
-                        <div className="text-[12px] font-semibold text-slate-900 truncate">{n.title}</div>
-                        <div className="text-[10px] text-slate-500 truncate">{n.detail}</div>
+              {s.nodes.map((n, idx) => {
+                const kind = idx === 0
+                  ? { l: "Trigger", cls: "bg-rose-50 text-rose-700 ring-rose-100" }
+                  : /^(Wait|If|Condition)/i.test(n.title)
+                  ? { l: "Condition", cls: "bg-amber-50 text-amber-700 ring-amber-100" }
+                  : { l: "Action", cls: "bg-slate-100 text-slate-700 ring-slate-200" };
+                return (
+                  <div
+                    key={n.id}
+                    className="absolute w-[210px]"
+                    style={{ left: `${n.x}%`, top: `${n.y}%` }}
+                  >
+                    <div className="group relative rounded-2xl bg-white ring-1 ring-slate-200 shadow-[0_14px_30px_-18px_rgba(15,23,42,0.35)] transition hover:ring-blue-300 hover:shadow-[0_18px_40px_-18px_rgba(59,130,246,0.35)]">
+                      {/* Left/right ports */}
+                      <span aria-hidden className="absolute -left-1.5 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-white ring-2 ring-blue-400" />
+                      <span aria-hidden className="absolute -right-1.5 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-white ring-2 ring-blue-400" />
+                      <div className="flex items-center justify-between px-3 pt-2.5 pb-1">
+                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ring-1 ${kind.cls}`}>{kind.l}</span>
+                        <span className="text-[9px] font-mono text-slate-300">#{idx + 1}</span>
+                      </div>
+                      <div className="flex items-center gap-2.5 px-3 pb-3">
+                        <span className={`grid h-9 w-9 place-items-center rounded-lg ring-1 ${toneRing[n.tone]}`}>{n.icon}</span>
+                        <div className="min-w-0">
+                          <div className="text-[12.5px] font-semibold text-slate-900 truncate leading-tight">{n.title}</div>
+                          <div className="text-[10.5px] text-slate-500 truncate">{n.detail}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Mobile vertical stepper */}
             <div className="md:hidden p-4 space-y-3">
-              {s.nodes.map((n, i) => (
-                <div key={n.id} className="relative">
-                  <div className="flex items-start gap-3">
-                    <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg ring-1 ${toneRing[n.tone]}`}>{n.icon}</span>
-                    <div className="flex-1 rounded-xl bg-white p-3 ring-1 ring-slate-200">
-                      <div className="text-[13px] font-semibold text-slate-900">{n.title}</div>
-                      <div className="text-[11px] text-slate-500">{n.detail}</div>
+              {s.nodes.map((n, i) => {
+                const kind = i === 0 ? "Trigger" : /^(Wait|If|Condition)/i.test(n.title) ? "Condition" : "Action";
+                return (
+                  <div key={n.id} className="relative">
+                    <div className="flex items-start gap-3">
+                      <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ring-1 ${toneRing[n.tone]}`}>{n.icon}</span>
+                      <div className="flex-1 rounded-xl bg-white p-3 ring-1 ring-slate-200">
+                        <div className="flex items-center justify-between">
+                          <div className="text-[13px] font-semibold text-slate-900">{n.title}</div>
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400">{kind}</span>
+                        </div>
+                        <div className="text-[11px] text-slate-500 mt-0.5">{n.detail}</div>
+                      </div>
                     </div>
+                    {i < s.nodes.length - 1 && <div className="ml-[19px] my-1 h-4 w-px bg-slate-200" />}
                   </div>
-                  {i < s.nodes.length - 1 && <div className="ml-[18px] my-1 h-4 w-px bg-slate-200" />}
-                </div>
-              ))}
+                );
+              })}
             </div>
+
           </div>
 
           {/* Activity log */}
