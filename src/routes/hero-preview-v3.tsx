@@ -1017,7 +1017,50 @@ function GoogleGlyph({ size = 22 }: { size?: number }) {
   );
 }
 
-/* -------- 1. OutcomesV3 — editorial, one lead + three supporting --- */
+/* =================================================================== */
+/*  Shared V3 primitives for the lower page                             */
+/* =================================================================== */
+
+function StatusDot({ tone = "emerald", pulse = true }: { tone?: "emerald" | "amber" | "blue" | "red" | "slate"; pulse?: boolean }) {
+  const map: Record<string, string> = {
+    emerald: "bg-emerald-500",
+    amber: "bg-amber-500",
+    blue: "bg-blue-500",
+    red: "bg-rose-500",
+    slate: "bg-slate-400",
+  };
+  return (
+    <span className="relative inline-flex h-2 w-2">
+      {pulse && <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 ${map[tone]}`} />}
+      <span className={`relative inline-flex h-2 w-2 rounded-full ${map[tone]}`} />
+    </span>
+  );
+}
+
+function DemoBadge() {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500 ring-1 ring-slate-200">
+      <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+      Demo workspace
+    </span>
+  );
+}
+
+function SectionEyebrow({ children, tone = "blue" }: { children: ReactNode; tone?: "blue" | "cyan" | "slate" | "amber" }) {
+  const map: Record<string, string> = {
+    blue: "text-zapla-blue",
+    cyan: "text-cyan-600",
+    slate: "text-slate-500",
+    amber: "text-amber-600",
+  };
+  return (
+    <span className={`text-[11px] font-bold uppercase tracking-[0.2em] ${map[tone]}`}>{children}</span>
+  );
+}
+
+/* =================================================================== */
+/*  1. OutcomesV3 — editorial bridge                                     */
+/* =================================================================== */
 
 function OutcomesV3() {
   const supporting = [
@@ -1026,21 +1069,21 @@ function OutcomesV3() {
       title: "Every opportunity keeps moving",
       body: "Quotes, bookings and follow-ups run on their own. Nothing goes silent.",
       chip: (
-        <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-700 ring-1 ring-slate-200 shadow-sm">
-          <span className="grid h-4 w-4 place-items-center rounded-full bg-blue-100 text-blue-700"><Send className="h-2.5 w-2.5" /></span>
-          Follow-up · Day 3
+        <div className="inline-flex items-center gap-2 rounded-lg bg-white px-2.5 py-1.5 text-[11px] font-medium text-slate-700 ring-1 ring-slate-200">
+          <Send className="h-3 w-3 text-blue-600" />
+          Follow-up scheduled
         </div>
       ),
     },
     {
       k: "03",
-      title: "Finished jobs turn into cash & trust",
+      title: "Finished jobs turn into cash and trust",
       body: "Invoices, payments and reviews fire the moment a job is done.",
       chip: (
-        <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-700 ring-1 ring-slate-200 shadow-sm">
-          <StripeGlyph size={14} /> Paid · $4,800
-          <span className="mx-1 text-slate-300">·</span>
-          <GoogleGlyph size={14} /> Review sent
+        <div className="inline-flex items-center gap-2 rounded-lg bg-white px-2.5 py-1.5 text-[11px] font-medium text-slate-700 ring-1 ring-slate-200">
+          <StripeGlyph size={12} /> Payment received
+          <span className="mx-0.5 text-slate-300">·</span>
+          <GoogleGlyph size={12} /> Review request sent
         </div>
       ),
     },
@@ -1049,92 +1092,128 @@ function OutcomesV3() {
       title: "Old customers become new revenue",
       body: "Reactivation campaigns re-engage past customers automatically.",
       chip: (
-        <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-700 ring-1 ring-slate-200 shadow-sm">
-          <span className="grid h-4 w-4 place-items-center rounded-full bg-teal-100 text-teal-700"><RefreshCw className="h-2.5 w-2.5" /></span>
-          42 customers re-engaged
+        <div className="inline-flex items-center gap-2 rounded-lg bg-white px-2.5 py-1.5 text-[11px] font-medium text-slate-700 ring-1 ring-slate-200">
+          <RefreshCw className="h-3 w-3 text-teal-600" />
+          Win-back campaign running
         </div>
       ),
     },
   ];
 
   return (
-    <section className="bg-white py-20 sm:py-28 px-6">
+    <section className="bg-white py-24 sm:py-32 px-6">
       <div className="mx-auto max-w-6xl">
-        <div className="max-w-2xl">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zapla-blue">The outcome</span>
-          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            What changes when nothing falls through.
-          </h2>
+        <div className="flex items-end justify-between gap-8 flex-wrap">
+          <div className="max-w-2xl">
+            <SectionEyebrow>The outcome</SectionEyebrow>
+            <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+              What changes when nothing falls through.
+            </h2>
+          </div>
+          <p className="max-w-sm text-[15px] leading-relaxed text-slate-600">
+            Four small changes across the customer journey. Together they compound into a business that runs itself.
+          </p>
         </div>
 
-        {/* Lead outcome — dominant */}
-        <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center">
-          <div className="border-t border-slate-900/10 pt-8">
-            <div className="flex items-baseline gap-5">
-              <span className="font-zapla text-[64px] font-semibold leading-none text-zapla-blue tabular-nums">01</span>
-              <div className="min-w-0">
-                <h3 className="font-zapla text-[28px] sm:text-[36px] font-semibold text-slate-950 leading-[1.1]">
-                  Respond before the competition does.
-                </h3>
-                <p className="mt-4 max-w-lg text-[16px] leading-relaxed text-slate-600">
-                  Missed calls become SMS replies within seconds. AI handles overflow. Your team steps in when it matters.
-                </p>
-              </div>
+        {/* Lead outcome — editorial split */}
+        <div className="mt-14 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16 items-center">
+          <div>
+            <div className="text-[13px] font-mono text-slate-400">01 / 04</div>
+            <h3 className="mt-2 font-zapla text-[28px] sm:text-[38px] font-semibold tracking-tight text-slate-950 leading-[1.1]">
+              Respond before the competition even sees the enquiry.
+            </h3>
+            <p className="mt-5 text-lg text-slate-600 leading-relaxed max-w-lg">
+              The instant a call is missed or a message lands, Zapla replies, captures the request and offers a time.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+                <PhoneMissed className="h-3 w-3 text-rose-500" /> Missed call
+              </span>
+              <ArrowRight className="h-3 w-3 text-slate-400" />
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+                <MessageCircle className="h-3 w-3 text-emerald-600" /> Auto SMS
+              </span>
+              <ArrowRight className="h-3 w-3 text-slate-400" />
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+                <CalendarIcon className="h-3 w-3 text-blue-600" /> Booked
+              </span>
             </div>
           </div>
 
-          {/* Live UI fragment — missed call to booked in 03s */}
-          <V3Card className="p-5">
+          {/* Compact live UI moment */}
+          <V3Card className="p-5 sm:p-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <V3IconTile tone="red" size={36}><PhoneMissed className="h-4 w-4" /></V3IconTile>
-                <div>
-                  <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-                  <div className="text-[11px] text-slate-500">+61 400 812 559 · Emma Wilson</div>
-                </div>
+              <div className="flex items-center gap-2 text-[13px] font-semibold text-slate-800">
+                <StatusDot tone="emerald" /> Live inbox
               </div>
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Auto
-              </span>
+              <DemoBadge />
             </div>
-            <div className="mt-3 space-y-2">
-              <div className="flex items-start gap-2.5 rounded-xl bg-slate-50 p-2.5 ring-1 ring-slate-100">
-                <V3IconTile tone="emerald" size={28}><MessageCircle className="h-3.5 w-3.5" /></V3IconTile>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[11.5px] font-semibold text-slate-900">SMS sent · 12:04 PM · 3s later</div>
-                  <div className="text-[11.5px] text-slate-600">"Sorry we missed you — reply here and we'll book you in."</div>
+            <div className="mt-5 space-y-3">
+              {/* Missed call */}
+              <div className="flex items-start gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-rose-50 text-rose-600 ring-1 ring-rose-100">
+                  <PhoneMissed className="h-4 w-4" />
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-semibold text-slate-900">Missed call · +61 400 812 559</span>
+                    <span className="text-[11px] text-slate-400">12:04 PM</span>
+                  </div>
+                  <div className="text-[12px] text-slate-500">Unknown caller</div>
                 </div>
               </div>
-              <div className="flex items-start gap-2.5 rounded-xl bg-slate-50 p-2.5 ring-1 ring-slate-100">
-                <V3Avatar name="Emma Wilson" tone="cyan" size={28} />
-                <div className="min-w-0 flex-1">
-                  <div className="text-[11.5px] font-semibold text-slate-900">Emma · 12:06 PM</div>
-                  <div className="text-[11.5px] text-slate-600">"Yes please — quote for a bathroom reno."</div>
+              {/* Auto SMS */}
+              <div className="flex items-start gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
+                  <MessageCircle className="h-4 w-4" />
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-semibold text-slate-900">SMS auto-reply sent</span>
+                    <span className="text-[11px] text-slate-400">12:04 PM</span>
+                  </div>
+                  <div className="mt-1 rounded-xl rounded-tl-sm bg-slate-50 px-3 py-2 text-[12px] text-slate-700 ring-1 ring-slate-100">
+                    Sorry we missed you — reply here with what you need and we'll get back within the hour.
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-sky-500 p-2.5 text-white">
-                <V3IconTile tone="white" size={28}><CalendarIcon className="h-3.5 w-3.5" /></V3IconTile>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[11.5px] font-semibold">Booked · Thu 14 Nov, 2:00 PM</div>
-                  <div className="text-[11px] text-white/85">Assigned to Alex · added to pipeline</div>
+              {/* Customer reply */}
+              <div className="flex items-start gap-3">
+                <V3Avatar name="Emma R" tone="cyan" size={36} />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-semibold text-slate-900">Emma Reid</span>
+                    <span className="text-[11px] text-slate-400">12:06 PM</span>
+                  </div>
+                  <div className="mt-1 rounded-xl rounded-tl-sm bg-blue-50 px-3 py-2 text-[12px] text-slate-800 ring-1 ring-blue-100">
+                    Hi — after a quote for a bathroom reno in Bondi. Can I book a site visit this week?
+                  </div>
                 </div>
-                <CheckCircle2 className="h-4 w-4" />
+              </div>
+              {/* Booking */}
+              <div className="flex items-center gap-3 rounded-xl bg-slate-950 px-3 py-2.5 text-white">
+                <span className="grid h-7 w-7 place-items-center rounded-lg bg-white/10">
+                  <CalendarIcon className="h-3.5 w-3.5" />
+                </span>
+                <div className="flex-1 text-[12px]">
+                  <div className="font-semibold">Booking placed · Thu 2:00 PM</div>
+                  <div className="text-white/60 text-[11px]">Assigned to Alex · confirmation sent</div>
+                </div>
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
               </div>
             </div>
           </V3Card>
         </div>
 
-        {/* Supporting outcomes — three, thin dividers, small chips */}
-        <div className="mt-16 grid gap-x-12 gap-y-10 md:grid-cols-3">
-          {supporting.map((it) => (
-            <article key={it.k} className="border-t border-slate-900/10 pt-6">
-              <div className="flex items-baseline gap-3">
-                <span className="font-zapla text-[32px] font-semibold leading-none text-slate-300 tabular-nums">{it.k}</span>
-                <h3 className="font-zapla text-[20px] font-semibold text-slate-950 leading-tight">{it.title}</h3>
-              </div>
-              <p className="mt-3 max-w-sm text-[14.5px] leading-relaxed text-slate-600">{it.body}</p>
-              <div className="mt-4">{it.chip}</div>
-            </article>
+        {/* Supporting outcomes — thin dividers */}
+        <div className="mt-20 grid divide-y divide-slate-200 border-y border-slate-200 md:grid-cols-3 md:divide-y-0 md:divide-x">
+          {supporting.map((s) => (
+            <div key={s.k} className="p-6 md:p-8">
+              <div className="text-[12px] font-mono text-slate-400">{s.k} / 04</div>
+              <h4 className="mt-2 font-zapla text-xl font-semibold text-slate-950 leading-snug">{s.title}</h4>
+              <p className="mt-2 text-[14px] text-slate-600 leading-relaxed">{s.body}</p>
+              <div className="mt-4">{s.chip}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -1142,637 +1221,854 @@ function OutcomesV3() {
   );
 }
 
-/* -------- 2. PlatformLifecycleV3 — 6 fresh product scenes ---------- */
+/* =================================================================== */
+/*  2. PlatformLifecycleV3 — unified app shell, six stages               */
+/* =================================================================== */
 
-function V3SceneHeader({ app, title, subtitle, right }: { app: string; title: string; subtitle: string; right?: ReactNode }) {
-  return (
-    <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-      <div className="flex items-center gap-2.5">
-        <span className="rounded-md bg-slate-900 px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wider text-white">{app}</span>
-        <div>
-          <div className="text-[13px] font-semibold text-slate-900 leading-tight">{title}</div>
-          <div className="text-[11px] text-slate-500 leading-tight">{subtitle}</div>
-        </div>
-      </div>
-      {right ?? (
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live
-        </span>
-      )}
-    </div>
-  );
-}
+type V3Stage = { key: string; label: string; sub: string; headline: string; body: string; caps: string[]; scene: ReactNode };
 
-function CaptureSceneV3() {
-  const sources = [
-    { g: <PhoneMissed className="h-4 w-4" />, tone: "red" as const,  label: "Missed call",     detail: "+61 400 812 559 · 12:04 PM",  badge: "Voice" },
-    { g: <FbGlyph size={18} />,               tone: "white" as const, label: "Meta Lead Ad",    detail: "Bathroom Reno Campaign · Sydney", badge: "Facebook" },
-    { g: <InstaGlyph size={18} />,            tone: "white" as const, label: "Instagram DM",    detail: "@mia.k · quick question",     badge: "Instagram" },
-    { g: <GmailGlyph size={18} />,            tone: "white" as const, label: "Contact form",    detail: "james@acme.com · 08:42 AM",   badge: "Email" },
-    { g: <Users className="h-4 w-4" />,       tone: "emerald" as const, label: "Referral",       detail: "From Sarah Mitchell",         badge: "Contact" },
+function AppShell({ view, children }: { view: string; children: ReactNode }) {
+  const nav = [
+    { icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
+    { icon: <Users className="h-3.5 w-3.5" />, label: "Contacts" },
+    { icon: <ClipboardList className="h-3.5 w-3.5" />, label: "Pipeline" },
+    { icon: <CalendarIcon className="h-3.5 w-3.5" />, label: "Calendar" },
+    { icon: <Zap className="h-3.5 w-3.5" />, label: "Workflows" },
+    { icon: <StarIcon className="h-3.5 w-3.5" />, label: "Reviews" },
   ];
   return (
-    <div className="flex h-full flex-col">
-      <V3SceneHeader app="Inbox" title="Today's new enquiries" subtitle="5 sources · 1 unified contact record" />
-      <div className="flex-1 space-y-2 pt-4">
-        {sources.map((s, i) => (
-          <div key={i} className="flex items-center gap-3 rounded-2xl bg-slate-50 p-2.5 ring-1 ring-slate-100">
-            <V3IconTile tone={s.tone} size={34}>{s.g}</V3IconTile>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <span className="text-[12.5px] font-semibold text-slate-900">{s.label}</span>
-                <span className="rounded bg-white px-1.5 py-0.5 text-[9.5px] font-semibold text-slate-500 ring-1 ring-slate-200">{s.badge}</span>
-              </div>
-              <div className="truncate text-[11.5px] text-slate-500">{s.detail}</div>
-            </div>
-            <span className="text-[10px] tabular-nums text-slate-400">now</span>
-          </div>
-        ))}
-        <div className="mt-2 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-sky-500 p-3 text-white shadow-sm">
-          <V3IconTile tone="white" size={30}><Users className="h-4 w-4" /></V3IconTile>
-          <div className="flex-1">
-            <div className="text-[12.5px] font-semibold">One contact record created</div>
-            <div className="text-[11px] text-white/85">Sources attributed · owner assigned</div>
-          </div>
-          <CheckCircle2 className="h-5 w-5" />
+    <div className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35),0_2px_6px_-2px_rgba(15,23,42,0.06)]">
+      {/* Top browser chrome */}
+      <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
+        <div className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+          <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+          <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
         </div>
+        <div className="mx-auto flex items-center gap-2 rounded-md bg-white px-3 py-1 text-[11px] text-slate-500 ring-1 ring-slate-200">
+          <Globe className="h-3 w-3" />
+          app.zapla.io / <span className="text-slate-900 font-medium">{view}</span>
+        </div>
+        <DemoBadge />
+      </div>
+      {/* Body: rail + content */}
+      <div className="flex min-h-[420px]">
+        <aside className="hidden sm:flex w-[168px] flex-col gap-0.5 border-r border-slate-100 bg-white p-3">
+          <div className="mb-3 flex items-center gap-2 px-1">
+            <img src={logoBlue.url} alt="" className="h-6 w-6 rounded-md" />
+            <span className="text-[13px] font-semibold text-slate-900">Zapla</span>
+          </div>
+          {nav.map((n) => {
+            const active = n.label.toLowerCase() === view.toLowerCase() || (view === "Grow" && n.label === "Workflows");
+            return (
+              <div
+                key={n.label}
+                className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] ${active ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600 hover:bg-slate-50"}`}
+              >
+                {n.icon}
+                {n.label}
+              </div>
+            );
+          })}
+          <div className="mt-auto flex items-center gap-2 rounded-md px-2 py-1.5 text-[11px] text-slate-500">
+            <span className="h-6 w-6 grid place-items-center rounded-full bg-slate-900 text-white text-[10px] font-semibold">SM</span>
+            Sam Miller
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0 bg-white">{children}</div>
       </div>
     </div>
   );
 }
 
+/* --- Scene: Capture --- */
+function CaptureSceneV3() {
+  const rows = [
+    { ch: <PhoneMissed className="h-3.5 w-3.5 text-rose-500" />, src: "Missed call", who: "+61 400 812 559", when: "12:04", tag: "New" },
+    { ch: <GmailGlyph size={14} />, src: "Web form", who: "Jordan Clarke", when: "11:52", tag: "New" },
+    { ch: <FbGlyph size={14} />, src: "Meta Lead Ad", who: "Priya Shah", when: "11:40", tag: "New" },
+    { ch: <InstaGlyph size={14} />, src: "Instagram DM", who: "@bondi_baths", when: "10:22", tag: "" },
+    { ch: <Users className="h-3.5 w-3.5 text-slate-500" />, src: "Referral", who: "Karen (from Alex)", when: "Yesterday", tag: "" },
+  ];
+  return (
+    <div className="p-5 sm:p-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Contacts · New this week</div>
+          <div className="mt-0.5 text-[15px] font-semibold text-slate-900">All channels · unified</div>
+        </div>
+        <div className="flex items-center gap-1">
+          {[<GmailGlyph key="g" size={16} />, <InstaGlyph key="i" size={16} />, <FbGlyph key="f" size={16} />, <MessengerGlyph key="m" size={16} />, <WhatsAppGlyph key="w" size={16} />].map((el, i) => (
+            <span key={i} className="grid h-7 w-7 place-items-center rounded-lg bg-white ring-1 ring-slate-200">{el}</span>
+          ))}
+        </div>
+      </div>
+      <div className="mt-4 overflow-hidden rounded-xl ring-1 ring-slate-200">
+        <div className="grid grid-cols-[1fr_1fr_auto_auto] gap-3 border-b border-slate-100 bg-slate-50 px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+          <span>Source</span><span>Contact</span><span>When</span><span></span>
+        </div>
+        {rows.map((r, i) => (
+          <div key={i} className={`grid grid-cols-[1fr_1fr_auto_auto] items-center gap-3 px-3 py-2.5 text-[12px] ${i > 0 ? "border-t border-slate-100" : ""}`}>
+            <span className="flex items-center gap-2 text-slate-700">{r.ch} {r.src}</span>
+            <span className="font-medium text-slate-900 truncate">{r.who}</span>
+            <span className="text-slate-500">{r.when}</span>
+            <span className={`justify-self-end rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.tag === "New" ? "bg-blue-50 text-blue-700 ring-1 ring-blue-100" : "text-transparent"}`}>{r.tag || "·"}</span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex items-center gap-2 text-[11px] text-slate-500">
+        <Sparkles className="h-3 w-3 text-blue-600" /> Duplicates merged automatically across 5 channels
+      </div>
+    </div>
+  );
+}
+
+/* --- Scene: Communicate --- */
 function CommunicateSceneV3() {
   const threads = [
-    { g: <WhatsAppGlyph />,   name: "Sarah Mitchell", chan: "WhatsApp",  msg: "Can we shift my 3pm to Thursday?", time: "2m",  unread: true,  owner: "Alex" },
-    { g: <GmailGlyph />,      name: "James O'Neill",  chan: "Gmail",     msg: "Following up on the quote for the reno…", time: "8m",  unread: true,  owner: "Priya" },
-    { g: <MessengerGlyph />,  name: "David Chen",     chan: "Messenger", msg: "Thanks — all confirmed for tomorrow", time: "1h",  unread: false, owner: "Alex" },
-    { g: <InstaGlyph />,      name: "@mia.k",         chan: "Instagram", msg: "Do you take DMs for bookings?",     time: "1h",  unread: false, owner: "AI" },
-    { g: <FbGlyph />,         name: "Emma Wilson",    chan: "Messenger", msg: "New booking request just came in.", time: "3h",  unread: false, owner: "Alex" },
+    { name: "Emma Reid", tone: "cyan" as const, ch: <MessageCircle className="h-3 w-3 text-emerald-600" />, preview: "Thanks — see you Thu 2pm.", when: "12:07", unread: true },
+    { name: "Jordan Clarke", tone: "blue" as const, ch: <GmailGlyph size={12} />, preview: "Quote looks great, quick question…", when: "11:44", unread: true },
+    { name: "Priya Shah", tone: "amber" as const, ch: <InstaGlyph size={12} />, preview: "Do you cover Marrickville?", when: "10:22", unread: false },
+    { name: "Karen Ng", tone: "emerald" as const, ch: <WhatsAppGlyph size={12} />, preview: "Perfect, please book it in.", when: "Yest", unread: false },
+    { name: "Tom Bailey", tone: "slate" as const, ch: <MessengerGlyph size={12} />, preview: "Cheers!", when: "Yest", unread: false },
   ];
   return (
-    <div className="flex h-full flex-col">
-      <V3SceneHeader app="Inbox" title="Unified inbox" subtitle="One thread per customer · every channel" right={
-        <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-200">2 unread</span>
-      } />
-      <div className="flex-1 space-y-2 pt-4">
+    <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] min-h-[420px]">
+      <div className="border-b md:border-b-0 md:border-r border-slate-100 bg-slate-50/60">
+        <div className="px-3 pt-4 pb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">Unified inbox</div>
         {threads.map((t, i) => (
-          <div key={i} className="flex items-center gap-3 rounded-2xl bg-slate-50 p-2.5 ring-1 ring-slate-100">
-            <span className="grid h-9 w-9 place-items-center rounded-[10px] bg-white ring-1 ring-slate-200">{t.g}</span>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <span className="text-[12.5px] font-semibold text-slate-900">{t.name}</span>
-                <span className="rounded bg-white px-1.5 py-0.5 text-[9.5px] font-semibold text-slate-500 ring-1 ring-slate-200">{t.chan}</span>
+          <div key={i} className={`flex items-start gap-2.5 px-3 py-2.5 ${i === 0 ? "bg-white ring-1 ring-blue-100" : "hover:bg-white/70"}`}>
+            <V3Avatar name={t.name} tone={t.tone} size={30} />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between">
+                <span className="text-[12px] font-semibold text-slate-900 truncate">{t.name}</span>
+                <span className="text-[10px] text-slate-400">{t.when}</span>
               </div>
-              <div className="truncate text-[11.5px] text-slate-500">{t.msg}</div>
+              <div className="flex items-center gap-1.5 text-[11px] text-slate-500 truncate">
+                {t.ch} <span className="truncate">{t.preview}</span>
+              </div>
             </div>
-            <div className="flex flex-col items-end gap-1">
-              <span className="text-[10px] tabular-nums text-slate-400">{t.time}</span>
-              <span className={`rounded px-1.5 py-0.5 text-[9px] font-semibold ${t.owner === "AI" ? "bg-sky-100 text-sky-700" : "bg-slate-200 text-slate-700"}`}>{t.owner}</span>
-            </div>
-            {t.unread && <span className="h-2 w-2 rounded-full bg-blue-600" />}
+            {t.unread && <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-500" />}
           </div>
         ))}
+      </div>
+      <div className="flex flex-col">
+        <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
+          <div className="flex items-center gap-2.5">
+            <V3Avatar name="Emma Reid" tone="cyan" size={32} />
+            <div>
+              <div className="text-[13px] font-semibold text-slate-900">Emma Reid</div>
+              <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                <StatusDot tone="emerald" pulse={false} /> Bondi · Bathroom reno
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="grid h-7 w-7 place-items-center rounded-md ring-1 ring-slate-200 bg-white"><MessageCircle className="h-3.5 w-3.5 text-slate-500" /></span>
+            <span className="grid h-7 w-7 place-items-center rounded-md ring-1 ring-slate-200 bg-white"><GmailGlyph size={14} /></span>
+            <span className="grid h-7 w-7 place-items-center rounded-md ring-1 ring-slate-200 bg-white"><WhatsAppGlyph size={14} /></span>
+          </div>
+        </div>
+        <div className="flex-1 space-y-3 p-4 bg-gradient-to-b from-white to-slate-50">
+          <div className="flex justify-start">
+            <div className="max-w-[75%] rounded-2xl rounded-tl-sm bg-white px-3 py-2 text-[12px] text-slate-800 ring-1 ring-slate-200">
+              Hi Emma — sending a quote for the Bondi reno now.
+              <div className="mt-1 text-[10px] text-slate-400">via SMS · 11:20</div>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <div className="max-w-[75%] rounded-2xl rounded-tr-sm bg-blue-600 px-3 py-2 text-[12px] text-white">
+              Amazing, thank you!
+              <div className="mt-1 text-[10px] text-white/70">via WhatsApp · 11:44</div>
+            </div>
+          </div>
+          <div className="flex justify-start">
+            <div className="max-w-[75%] rounded-2xl rounded-tl-sm bg-white px-3 py-2 text-[12px] text-slate-800 ring-1 ring-slate-200">
+              Would Thu 2pm work for the on-site?
+              <div className="mt-1 text-[10px] text-slate-400">via SMS · 11:47</div>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-slate-100 p-3 flex items-center gap-2">
+          <div className="flex-1 rounded-lg bg-slate-50 px-3 py-2 text-[12px] text-slate-400 ring-1 ring-slate-200">Reply on any channel…</div>
+          <button className="grid h-8 w-8 place-items-center rounded-lg bg-blue-600 text-white"><Send className="h-3.5 w-3.5" /></button>
+        </div>
       </div>
     </div>
   );
 }
 
+/* --- Scene: Convert --- */
 function ConvertSceneV3() {
   const stages = [
-    { label: "Enquiry", done: true,  detail: "Emma Wilson · WhatsApp" },
-    { label: "Booking", done: true,  detail: "Site visit · Thu 14 Nov" },
-    { label: "Quote",   done: true,  detail: "$4,800 · sent 08:12 AM" },
-    { label: "Payment", done: false, active: true, detail: "Stripe link · awaiting" },
+    { label: "New enquiry", count: 4, tone: "bg-slate-100 text-slate-700", card: { name: "Emma Reid", meta: "Bondi · Bathroom", amt: "" } },
+    { label: "Quoted", count: 3, tone: "bg-blue-50 text-blue-700", card: { name: "Jordan Clarke", meta: "Kitchen reno", amt: "$4,800" } },
+    { label: "Booked", count: 2, tone: "bg-cyan-50 text-cyan-700", card: { name: "Karen Ng", meta: "Thu 2:00 PM", amt: "$1,250" } },
+    { label: "Paid", count: 5, tone: "bg-emerald-50 text-emerald-700", card: { name: "Tom Bailey", meta: "Paid via Stripe", amt: "$2,100" } },
   ];
   return (
-    <div className="flex h-full flex-col">
-      <V3SceneHeader app="Deals" title="Opportunity · Jordan Clarke" subtitle="Kitchen renovation · $4,800" right={
-        <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-200">75% won</span>
-      } />
-      <div className="flex-1 pt-5">
-        <div className="relative">
-          <div className="absolute left-[15px] top-1 h-[calc(100%-8px)] w-px bg-slate-200" />
-          {stages.map((s, i) => (
-            <div key={i} className="relative flex items-start gap-3 py-2.5">
-              <div className={`z-10 grid h-8 w-8 place-items-center rounded-full ring-4 ring-white ${s.done ? "bg-emerald-500 text-white" : s.active ? "bg-blue-600 text-white shadow" : "bg-slate-100 text-slate-400"}`}>
-                {s.done ? <CheckCircle2 className="h-4 w-4" /> : <span className="text-[11px] font-bold">{i + 1}</span>}
-              </div>
-              <div className="flex-1 pt-1">
-                <div className={`text-[13px] font-semibold ${s.done ? "text-slate-500 line-through" : s.active ? "text-slate-900" : "text-slate-400"}`}>{s.label}</div>
-                <div className={`text-[11.5px] ${s.active ? "text-blue-700 font-semibold" : "text-slate-500"}`}>{s.detail}</div>
-              </div>
-              {s.active && <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-semibold text-blue-700">Awaiting</span>}
+    <div className="p-5 sm:p-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Pipeline · This week</div>
+          <div className="mt-0.5 text-[15px] font-semibold text-slate-900">Enquiry → Payment</div>
+        </div>
+        <div className="text-[11px] text-slate-500">Next action <span className="ml-1 font-semibold text-blue-700">Send quote to Jordan</span></div>
+      </div>
+      <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {stages.map((s, i) => (
+          <div key={i} className="rounded-xl bg-slate-50/60 p-3 ring-1 ring-slate-100">
+            <div className="flex items-center justify-between">
+              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold ${s.tone}`}>{s.label}</span>
+              <span className="text-[11px] text-slate-500">{s.count}</span>
             </div>
-          ))}
-        </div>
-        <div className="mt-3 flex items-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-50 to-white p-3 ring-1 ring-emerald-100">
-          <StripeGlyph size={26} />
-          <div className="flex-1">
-            <div className="text-[12px] font-semibold text-emerald-900">Auto-invoice ready on payment</div>
-            <div className="text-[11px] text-emerald-700/80">Stripe · card, tap, transfer</div>
+            <div className="mt-3 rounded-lg bg-white p-2.5 ring-1 ring-slate-200 shadow-sm">
+              <div className="flex items-center gap-2">
+                <V3Avatar name={s.card.name} tone={(["blue","cyan","amber","emerald"] as const)[i]} size={26} />
+                <div className="min-w-0">
+                  <div className="text-[12px] font-semibold text-slate-900 truncate">{s.card.name}</div>
+                  <div className="text-[10px] text-slate-500 truncate">{s.card.meta}</div>
+                </div>
+              </div>
+              {s.card.amt && (
+                <div className="mt-2 flex items-center justify-between border-t border-slate-100 pt-2 text-[11px]">
+                  <span className="text-slate-500">Value</span>
+                  <span className="font-semibold text-slate-900">{s.card.amt}</span>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="text-[15px] font-bold text-emerald-900">$4,800</div>
-        </div>
+        ))}
       </div>
     </div>
   );
 }
 
+/* --- Scene: Operate --- */
 function OperateSceneV3() {
-  const rows = [
-    { time: "09:00", job: "Consultation",  cust: "Sarah Mitchell", who: "Alex",  tone: "bg-emerald-100 text-emerald-700", status: "In progress" },
-    { time: "10:30", job: "Site measure",  cust: "James O'Neill",  who: "Priya", tone: "bg-sky-100 text-sky-700",         status: "En route" },
-    { time: "13:00", job: "Install visit", cust: "Emma Wilson",    who: "Alex",  tone: "bg-amber-100 text-amber-700",     status: "Scheduled" },
-    { time: "15:30", job: "Follow-up",     cust: "David Chen",     who: "You",   tone: "bg-blue-100 text-blue-700",       status: "Prep" },
+  const jobs = [
+    { time: "09:00", who: "Alex", task: "Site visit · Bondi", status: "En route", tone: "amber" as const },
+    { time: "11:30", who: "Priya", task: "Install · Marrickville", status: "In progress", tone: "blue" as const },
+    { time: "14:00", who: "Alex", task: "Quote walk-through · Emma", status: "Scheduled", tone: "slate" as const },
+    { time: "16:00", who: "Sam", task: "Follow-up call · Karen", status: "Scheduled", tone: "slate" as const },
   ];
   return (
-    <div className="flex h-full flex-col">
-      <V3SceneHeader app="Ops" title="Today · Thu 14 Nov" subtitle="Team schedule · 4 jobs" right={
-        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-700">Week ▾</span>
-      } />
-      <div className="flex-1 space-y-2 pt-4">
-        {rows.map((r, i) => (
-          <div key={i} className="flex items-center gap-3 rounded-2xl bg-slate-50 p-2.5 ring-1 ring-slate-100">
-            <div className="w-14 shrink-0 rounded-lg bg-white py-1 text-center text-[11px] font-semibold text-slate-600 ring-1 ring-slate-200 tabular-nums">{r.time}</div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[12.5px] font-semibold text-slate-900 truncate">{r.job}</div>
-              <div className="text-[11px] text-slate-500 truncate">{r.cust}</div>
-            </div>
-            <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-600 ring-1 ring-slate-200">{r.status}</span>
-            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${r.tone}`}>{r.who}</span>
-          </div>
-        ))}
-        <div className="grid grid-cols-3 gap-2 pt-2">
-          <div className="rounded-xl bg-white p-2.5 ring-1 ring-slate-200"><div className="text-[10px] text-slate-500">Assigned</div><div className="text-[16px] font-bold text-slate-900">4</div></div>
-          <div className="rounded-xl bg-white p-2.5 ring-1 ring-slate-200"><div className="text-[10px] text-slate-500">In progress</div><div className="text-[16px] font-bold text-blue-600">2</div></div>
-          <div className="rounded-xl bg-white p-2.5 ring-1 ring-slate-200"><div className="text-[10px] text-slate-500">Complete</div><div className="text-[16px] font-bold text-emerald-600">1</div></div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function RetainSceneV3() {
-  const steps = [
-    { icon: <CheckCircle2 className="h-4 w-4" />, tone: "emerald" as const, t: "Job complete",           d: "Marked done by Alex · 3:00 PM",    done: true },
-    { icon: <GoogleGlyph size={16} />,            tone: "white" as const,   t: "Google review request",  d: "SMS with review link · 3:02 PM",   done: true },
-    { icon: <Bell className="h-4 w-4" />,         tone: "sky" as const,     t: "Service reminder",       d: "Scheduled for May 2026",           active: true },
-    { icon: <CalendarIcon className="h-4 w-4" />, tone: "blue" as const,    t: "One-tap rebooking",      d: "Portal link in customer profile" },
-  ];
-  return (
-    <div className="flex h-full flex-col">
-      <V3SceneHeader app="Retain" title="After the job · Sarah Mitchell" subtitle="Reputation, reminders, rebooking" />
-      <div className="flex-1 space-y-2.5 pt-4">
-        {steps.map((s, i) => (
-          <div key={i} className={`flex items-center gap-3 rounded-2xl p-2.5 ring-1 ${s.active ? "bg-sky-50 ring-sky-200" : "bg-slate-50 ring-slate-100"}`}>
-            <V3IconTile tone={s.tone} size={36}>{s.icon}</V3IconTile>
-            <div className="flex-1 min-w-0">
-              <div className="text-[12.5px] font-semibold text-slate-900">{s.t}</div>
-              <div className="text-[11.5px] text-slate-500 truncate">{s.d}</div>
-            </div>
-            {s.done && <CheckCircle2 className="h-4 w-4 text-emerald-500" />}
-            {s.active && <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-semibold text-sky-700">Scheduled</span>}
-          </div>
-        ))}
-        <div className="mt-1 flex items-center gap-2 rounded-2xl bg-white p-3 ring-1 ring-slate-200">
-          <div className="flex -space-x-1">
-            {[1,2,3,4,5].map((n) => <StarIcon key={n} className="h-4 w-4 fill-amber-400 text-amber-400" />)}
-          </div>
-          <div className="text-[11.5px] text-slate-600"><span className="font-semibold text-slate-900">4.9</span> from 128 reviews · +14 this month</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function GrowSceneV3() {
-  const flow = [
-    { icon: <Users className="h-4 w-4" />,        tone: "ink" as const,     t: "Segment: no visit in 6 months", d: "128 past customers" },
-    { icon: <Sparkles className="h-4 w-4" />,     tone: "cyan" as const,    t: "AI-drafted win-back copy",       d: "Personalised by service history" },
-    { icon: <Send className="h-4 w-4" />,         tone: "sky" as const,     t: "SMS + email sent",                d: "Sent 08:00 AM · scheduled" },
-    { icon: <MessageCircle className="h-4 w-4" />,tone: "emerald" as const, t: "42 replies in the inbox",         d: "Routed to available owners" },
-    { icon: <CalendarIcon className="h-4 w-4" />, tone: "blue" as const,    t: "18 new bookings created",         d: "Directly from customer replies" },
-  ];
-  return (
-    <div className="flex h-full flex-col">
-      <V3SceneHeader app="Grow" title="Reactivation campaign" subtitle="Segment → send → reply → booking" />
-      <div className="flex-1 pt-4">
-        <div className="relative">
-          {flow.map((f, i) => (
-            <div key={i} className="relative flex items-start gap-3 pb-3 last:pb-0">
-              <V3IconTile tone={f.tone} size={36}>{f.icon}</V3IconTile>
-              {i < flow.length - 1 && <span className="absolute left-[17px] top-[38px] h-[calc(100%-38px)] w-px bg-slate-200" />}
-              <div className="flex-1 pt-1">
-                <div className="text-[12.5px] font-semibold text-slate-900">{f.t}</div>
-                <div className="text-[11.5px] text-slate-500">{f.d}</div>
-              </div>
-              {i === flow.length - 1 && <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">+18</span>}
+    <div className="p-5 sm:p-6 grid gap-4 md:grid-cols-[1fr_240px]">
+      <div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Today · Thu 14 Nov</div>
+        <div className="mt-0.5 text-[15px] font-semibold text-slate-900">Team schedule</div>
+        <div className="mt-3 overflow-hidden rounded-xl ring-1 ring-slate-200">
+          {jobs.map((j, i) => (
+            <div key={i} className={`grid grid-cols-[64px_28px_1fr_auto] items-center gap-3 px-3 py-2.5 ${i > 0 ? "border-t border-slate-100" : ""}`}>
+              <span className="font-mono text-[12px] text-slate-500">{j.time}</span>
+              <V3Avatar name={j.who} tone={j.tone === "amber" ? "amber" : j.tone === "blue" ? "blue" : "slate"} size={26} />
+              <span className="text-[12px] text-slate-800 truncate">{j.task}</span>
+              <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ${j.status === "En route" ? "bg-amber-50 text-amber-700 ring-1 ring-amber-100" : j.status === "In progress" ? "bg-blue-50 text-blue-700 ring-1 ring-blue-100" : "bg-slate-100 text-slate-600"}`}>
+                {(j.status === "En route" || j.status === "In progress") && <StatusDot tone={j.status === "En route" ? "amber" : "blue"} />}
+                {j.status}
+              </span>
             </div>
           ))}
         </div>
       </div>
+      <div className="rounded-xl bg-slate-950 p-4 text-white">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-white/60">Auto-routing</div>
+        <div className="mt-2 text-[13px] font-semibold">New enquiry from Bondi</div>
+        <div className="mt-1 text-[11px] text-white/60">Postcode 2026 · Alex is closest</div>
+        <div className="mt-3 flex items-center gap-2 rounded-lg bg-white/10 px-2.5 py-2">
+          <V3Avatar name="Alex" tone="amber" size={26} />
+          <div className="flex-1 text-[11px]">
+            <div className="font-semibold">Assigned to Alex</div>
+            <div className="text-white/60">Notified · ETA 2:00 PM</div>
+          </div>
+          <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+        </div>
+      </div>
     </div>
   );
 }
 
-type V3Tab = { key: string; label: string; headline: string; body: string; capabilities: string[]; Scene: ComponentType };
+/* --- Scene: Retain --- */
+function RetainSceneV3() {
+  return (
+    <div className="p-5 sm:p-6 grid gap-4 md:grid-cols-2">
+      <div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">After every job</div>
+        <div className="mt-0.5 text-[15px] font-semibold text-slate-900">Complete → review → rebook</div>
+        <div className="mt-3 space-y-2">
+          {[
+            { i: <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />, t: "Job marked complete", m: "By Alex · 3:00 PM" },
+            { i: <GoogleGlyph size={14} />, t: "Google review request sent", m: "SMS + email" },
+            { i: <Bell className="h-3.5 w-3.5 text-blue-600" />, t: "Service reminder scheduled", m: "In 6 months" },
+            { i: <CalendarIcon className="h-3.5 w-3.5 text-cyan-600" />, t: "Rebooking link sent", m: "One-click booking" },
+          ].map((r, i) => (
+            <div key={i} className="flex items-center gap-3 rounded-lg bg-white px-3 py-2.5 ring-1 ring-slate-200">
+              <span className="grid h-7 w-7 place-items-center rounded-lg bg-slate-50 ring-1 ring-slate-100">{r.i}</span>
+              <div className="flex-1">
+                <div className="text-[12px] font-semibold text-slate-900">{r.t}</div>
+                <div className="text-[11px] text-slate-500">{r.m}</div>
+              </div>
+              <span className="text-[10px] text-emerald-600 font-semibold">Sent</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="rounded-xl bg-gradient-to-br from-slate-50 to-white p-4 ring-1 ring-slate-200">
+        <div className="flex items-center gap-2 text-[12px] font-semibold text-slate-800">
+          <GoogleGlyph size={16} /> Review request
+        </div>
+        <div className="mt-3 rounded-lg bg-white p-3 ring-1 ring-slate-200">
+          <div className="flex items-center gap-2">
+            <V3Avatar name="Tom Bailey" tone="emerald" size={30} />
+            <div className="text-[12px]">
+              <div className="font-semibold text-slate-900">Tom Bailey</div>
+              <div className="text-[10px] text-slate-500">via SMS · just now</div>
+            </div>
+          </div>
+          <div className="mt-2 rounded-lg bg-slate-50 px-2.5 py-2 text-[11px] text-slate-700 ring-1 ring-slate-100">
+            Thanks Tom! Would you mind leaving us a Google review?
+            <div className="mt-1 text-blue-700 underline">review.zapla.io/…</div>
+          </div>
+        </div>
+        <div className="mt-3 flex items-center gap-1 text-[11px] text-slate-500">
+          <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400" />
+          <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400" />
+          <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400" />
+          <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400" />
+          <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400" />
+          <span className="ml-2">Sample review preview</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-const V3_TABS: V3Tab[] = [
-  { key: "capture",     label: "Capture",     headline: "Every enquiry, from every channel.",  body: "Calls, forms, ads and DMs land on one contact record with source attribution.", capabilities: ["Missed-call SMS", "Meta & Google leads", "Web forms", "Referral capture"], Scene: CaptureSceneV3 },
-  { key: "communicate", label: "Communicate", headline: "One inbox for every channel.",         body: "WhatsApp, SMS, Gmail, Messenger and Instagram in one thread per customer.",     capabilities: ["Unified inbox", "AI drafts", "Team assignments", "Templates"],  Scene: CommunicateSceneV3 },
-  { key: "convert",     label: "Convert",     headline: "Enquiry to payment in one flow.",      body: "Bookings, quotes and payments move together on the pipeline.",                capabilities: ["Pipelines", "Quotes", "Stripe & Square", "Auto invoices"],       Scene: ConvertSceneV3 },
-  { key: "operate",     label: "Operate",     headline: "Run the day without the whiteboard.",  body: "Calendar, tasks, routing and status in the same system.",                     capabilities: ["Team calendars", "Task routing", "Mobile app", "Reporting"],    Scene: OperateSceneV3 },
-  { key: "retain",      label: "Retain",      headline: "Turn great work into reputation.",     body: "Review requests, reminders and rebooking fire automatically.",                capabilities: ["Google reviews", "Reminders", "Rebooking", "Reputation"],       Scene: RetainSceneV3 },
-  { key: "grow",        label: "Grow",        headline: "Your database is a growth channel.",   body: "Reactivate quiet customers and surface upsell moments.",                      capabilities: ["Win-back", "Segments", "Broadcasts", "AI copy"],                Scene: GrowSceneV3 },
+/* --- Scene: Grow --- */
+function GrowSceneV3() {
+  return (
+    <div className="p-5 sm:p-6 grid gap-4 md:grid-cols-[1fr_1fr]">
+      <div className="rounded-xl bg-slate-50/60 p-4 ring-1 ring-slate-100">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Segment</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Inactive · no visit in 6 months</div>
+        <div className="mt-3 flex -space-x-2">
+          {["Anna", "Ben", "Cindy", "Dan", "Eli"].map((n, i) => (
+            <V3Avatar key={i} name={n} tone={(["blue","cyan","amber","emerald","teal"] as const)[i]} size={30} />
+          ))}
+          <span className="ml-3 grid h-[30px] w-[30px] place-items-center rounded-full bg-slate-200 text-[10px] font-semibold text-slate-700 ring-2 ring-white">…</span>
+        </div>
+        <div className="mt-4 flex items-center gap-2 rounded-lg bg-white p-2.5 ring-1 ring-slate-200">
+          <Sparkles className="h-4 w-4 text-blue-600" />
+          <div className="flex-1 text-[12px] font-medium text-slate-800">AI-drafted message</div>
+          <span className="text-[10px] text-slate-500">Editable</span>
+        </div>
+        <div className="mt-2 rounded-lg bg-white p-3 text-[11px] text-slate-700 ring-1 ring-slate-200">
+          Hey {`{first_name}`} — it's been a while. We'd love to have you back. Book online in 30 seconds ↗
+        </div>
+      </div>
+      <div className="flex flex-col gap-3">
+        <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
+          <div className="flex items-center justify-between text-[11px] text-slate-500">
+            <span className="font-semibold uppercase tracking-wider">Send</span>
+            <span>Draft ready</span>
+          </div>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-2.5 py-2 ring-1 ring-emerald-100 text-[11px] font-semibold text-emerald-800">
+              <MessageCircle className="h-3.5 w-3.5" /> SMS
+            </div>
+            <div className="flex items-center gap-2 rounded-lg bg-blue-50 px-2.5 py-2 ring-1 ring-blue-100 text-[11px] font-semibold text-blue-800">
+              <GmailGlyph size={14} /> Email
+            </div>
+          </div>
+        </div>
+        <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200 flex-1">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Replies flow into inbox</span>
+            <StatusDot tone="emerald" />
+          </div>
+          <div className="mt-2 space-y-2">
+            {[{ n: "Cindy L", m: "Yes please, Saturday?" }, { n: "Ben P", m: "Book me in for a tune-up." }].map((r, i) => (
+              <div key={i} className="flex items-center gap-2 rounded-lg bg-slate-50 px-2.5 py-2 ring-1 ring-slate-100">
+                <V3Avatar name={r.n} tone={i === 0 ? "cyan" : "amber"} size={24} />
+                <div className="flex-1 text-[11px]">
+                  <div className="font-semibold text-slate-900">{r.n}</div>
+                  <div className="text-slate-600 truncate">{r.m}</div>
+                </div>
+                <span className="text-[10px] font-semibold text-blue-700">Reply</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const V3_STAGES: V3Stage[] = [
+  { key: "capture", label: "Capture", sub: "01", headline: "Every enquiry lands in one place.", body: "Calls, forms, DMs, ads and referrals become one clean contact record.", caps: ["Missed-call capture", "Web & form intake", "Meta / Instagram DMs", "De-duplicated contacts"], scene: <CaptureSceneV3 /> },
+  { key: "communicate", label: "Communicate", sub: "02", headline: "One inbox for every channel.", body: "SMS, email, Messenger, Instagram and WhatsApp in one thread per customer.", caps: ["Unified inbox", "Full history per contact", "Reply on any channel", "Team assignments"], scene: <CommunicateSceneV3 /> },
+  { key: "convert", label: "Convert", sub: "03", headline: "Enquiry to payment in one pipeline.", body: "Quotes, bookings and payments move together with a clear next action.", caps: ["Visual pipeline", "Quotes & bookings", "Stripe payments", "Next-action nudges"], scene: <ConvertSceneV3 /> },
+  { key: "operate", label: "Operate", sub: "04", headline: "The daily view your team actually uses.", body: "Schedule, routing, tasks and job status in one operations view.", caps: ["Team calendar", "Smart routing", "Task assignments", "Mobile-first"], scene: <OperateSceneV3 /> },
+  { key: "retain", label: "Retain", sub: "05", headline: "Every finished job becomes trust.", body: "Reviews, reminders and rebookings run the moment a job wraps up.", caps: ["Review requests", "Service reminders", "One-click rebooking", "Loyalty flows"], scene: <RetainSceneV3 /> },
+  { key: "grow", label: "Grow", sub: "06", headline: "Wake up inactive customers.", body: "AI drafts the message, sends it, and routes replies back into the inbox.", caps: ["Smart segments", "AI drafting", "Multi-channel send", "Replies in inbox"], scene: <GrowSceneV3 /> },
 ];
 
 function PlatformLifecycleV3() {
   const [active, setActive] = useState(0);
-  const tab = V3_TABS[active];
-  const Scene = tab.Scene;
+  const stage = V3_STAGES[active];
   return (
-    <section className="bg-gradient-to-b from-slate-50 to-white py-20 sm:py-28 px-6">
+    <section className="bg-slate-50 py-24 sm:py-32 px-6">
       <div className="mx-auto max-w-6xl">
-        <div className="max-w-3xl">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zapla-blue">The platform</span>
-          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            One system for every stage of the customer lifecycle.
+        <div className="max-w-2xl">
+          <SectionEyebrow tone="slate">The platform</SectionEyebrow>
+          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+            One product, six stages of the customer journey.
           </h2>
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+            The same connected workspace, from first enquiry to lifelong customer.
+          </p>
         </div>
 
-        {/* Desktop tabbed stage */}
-        <div className="mt-10 hidden md:block">
-          <div className="flex flex-wrap gap-2">
-            {V3_TABS.map((t, i) => {
+        {/* Stage selector — refined */}
+        <div className="mt-10 -mx-6 px-6 overflow-x-auto sm:overflow-visible">
+          <div className="flex min-w-max sm:min-w-0 items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-sm sm:justify-center">
+            {V3_STAGES.map((s, i) => {
               const isActive = i === active;
               return (
                 <button
-                  key={t.key}
-                  type="button"
+                  key={s.key}
                   onClick={() => setActive(i)}
-                  aria-pressed={isActive}
-                  className={[
-                    "rounded-full px-4 py-2 text-[13px] font-semibold transition",
-                    isActive ? "bg-slate-950 text-white shadow-sm" : "bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-100",
-                  ].join(" ")}
+                  className={`relative flex items-center gap-2 rounded-full px-3.5 sm:px-4 py-2 text-[12px] sm:text-[13px] font-semibold transition ${isActive ? "bg-slate-950 text-white shadow" : "text-slate-500 hover:text-slate-800"}`}
                 >
-                  {t.label}
+                  <span className={`font-mono text-[10px] ${isActive ? "text-white/60" : "text-slate-400"}`}>{s.sub}</span>
+                  {s.label}
                 </button>
               );
             })}
           </div>
-          <div className="mt-8 grid gap-6 rounded-[28px] bg-white p-6 ring-1 ring-slate-200 shadow-[0_40px_100px_-40px_rgba(15,23,42,0.28)] md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)] md:gap-10 md:p-10">
-            <div className="flex flex-col justify-center">
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zapla-blue">{tab.label}</span>
-              <h3 className="mt-3 font-zapla text-2xl sm:text-3xl md:text-[34px] font-semibold text-slate-950 leading-tight">{tab.headline}</h3>
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-slate-600">{tab.body}</p>
-              <ul className="mt-6 grid grid-cols-2 gap-2">
-                {tab.capabilities.map((c) => (
-                  <li key={c} className="flex items-center gap-2 text-[13px] text-slate-700">
-                    <span className="grid h-4 w-4 place-items-center rounded-full bg-zapla-blue text-white text-[9px]">✓</span>
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div key={tab.key} className="relative min-h-[500px] rounded-[22px] bg-gradient-to-b from-slate-50 to-white p-5 ring-1 ring-slate-200 animate-fade-in">
-              <Scene />
-            </div>
-          </div>
         </div>
 
-        {/* Mobile: one scene per stack, no tabs */}
-        <div className="mt-8 space-y-6 md:hidden">
-          {V3_TABS.map((t) => {
-            const S = t.Scene;
-            return (
-              <div key={t.key}>
-                <span className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-zapla-blue">{t.label}</span>
-                <h3 className="mt-1.5 font-zapla text-xl font-semibold text-slate-950 leading-snug">{t.headline}</h3>
-                <p className="mt-2 text-[13.5px] text-slate-600">{t.body}</p>
-                <div className="mt-3 rounded-2xl bg-white p-4 ring-1 ring-slate-200 shadow-sm">
-                  <div className="min-h-[420px]"><S /></div>
-                </div>
-              </div>
-            );
-          })}
+        {/* Stage content */}
+        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-14 items-start">
+          <div className="lg:sticky lg:top-24">
+            <div className="text-[11px] font-mono text-slate-400">{stage.sub} / 06</div>
+            <h3 className="mt-2 font-zapla text-2xl sm:text-[30px] font-semibold text-slate-950 leading-[1.15]">{stage.headline}</h3>
+            <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{stage.body}</p>
+            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4">
+              {stage.caps.map((c) => (
+                <li key={c} className="flex items-start gap-2 text-[13px] text-slate-700">
+                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 text-blue-600 shrink-0" />
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <AppShell view={stage.label}>{stage.scene}</AppShell>
         </div>
       </div>
     </section>
   );
 }
 
-/* -------- 3. WorkflowTheatreV3 — central hub + connectors ---------- */
+/* =================================================================== */
+/*  3. WorkflowCanvasV3 — light, realistic automation builder            */
+/* =================================================================== */
 
-type V3FlowStep = { icon: ReactNode; title: string; detail: string; tone: "blue" | "cyan" | "ink" | "emerald" | "amber" | "red" | "sky" };
-type V3Flow = { key: string; label: string; headline: string; body: string; steps: V3FlowStep[] };
+type WfNode = { id: string; x: number; y: number; icon: ReactNode; title: string; detail: string; tone: "blue" | "emerald" | "amber" | "cyan" | "red" | "ink" | "sky" };
+type WfEdge = { from: string; to: string };
+type WfScenario = {
+  key: string; label: string; icon: ReactNode;
+  headline: string; body: string;
+  nodes: WfNode[]; edges: WfEdge[];
+  log: { t: string; text: string; tone: "blue" | "emerald" | "amber" | "slate" }[];
+};
 
-const V3_FLOWS: V3Flow[] = [
+const WF_SCENARIOS: WfScenario[] = [
   {
-    key: "missed",
-    label: "Missed call",
+    key: "missed", label: "Missed call", icon: <PhoneMissed className="h-3.5 w-3.5" />,
     headline: "A missed call becomes a booked job.",
-    body: "Auto-reply, capture, route, book — all in seconds.",
-    steps: [
-      { icon: <PhoneMissed className="h-4 w-4" />,   title: "Missed call",          detail: "+61 400 812 559 · 12:04 PM",                tone: "red" },
-      { icon: <MessageCircle className="h-4 w-4" />, title: "SMS auto-reply",        detail: "3s later · from your business number",       tone: "emerald" },
-      { icon: <Sparkles className="h-4 w-4" />,      title: "AI qualifies reply",     detail: "Emma · bathroom reno · Sydney",              tone: "cyan" },
-      { icon: <CalendarIcon className="h-4 w-4" />,  title: "Booking placed",        detail: "Thu 14 Nov, 2:00 PM · assigned to Alex",      tone: "blue" },
+    body: "SMS reply, AI captures the request, and a booking lands in the calendar.",
+    nodes: [
+      { id: "n1", x: 4, y: 30, icon: <PhoneMissed className="h-4 w-4" />, title: "Missed call", detail: "Trigger · business line", tone: "red" },
+      { id: "n2", x: 28, y: 12, icon: <MessageCircle className="h-4 w-4" />, title: "SMS auto-reply", detail: "3s delay", tone: "emerald" },
+      { id: "n3", x: 52, y: 30, icon: <Sparkles className="h-4 w-4" />, title: "AI captures request", detail: "Name · service · suburb", tone: "cyan" },
+      { id: "n4", x: 76, y: 12, icon: <CalendarIcon className="h-4 w-4" />, title: "Booking created", detail: "Next available slot", tone: "blue" },
+      { id: "n5", x: 76, y: 55, icon: <ClipboardList className="h-4 w-4" />, title: "Opportunity added", detail: "Stage · New enquiry", tone: "ink" },
+    ],
+    edges: [{ from: "n1", to: "n2" }, { from: "n2", to: "n3" }, { from: "n3", to: "n4" }, { from: "n3", to: "n5" }],
+    log: [
+      { t: "12:04", text: "Missed call from +61 400 812 559", tone: "amber" },
+      { t: "12:04", text: "SMS auto-reply sent", tone: "emerald" },
+      { t: "12:06", text: "AI captured: bathroom reno · Bondi", tone: "blue" },
+      { t: "12:06", text: "Booking placed · Thu 2:00 PM", tone: "emerald" },
     ],
   },
   {
-    key: "quote",
-    label: "Quote follow-up",
+    key: "quote", label: "Quote follow-up", icon: <FileText className="h-3.5 w-3.5" />,
     headline: "Quotes stop going cold.",
     body: "Automatic nudges keep the conversation alive without chasing.",
-    steps: [
-      { icon: <FileText className="h-4 w-4" />,      title: "Quote sent",            detail: "$4,800 · emailed to Jordan Clarke",           tone: "blue" },
-      { icon: <Zap className="h-4 w-4" />,           title: "No reply · Day 3",      detail: "Workflow triggers",                            tone: "amber" },
-      { icon: <MessageCircle className="h-4 w-4" />, title: "SMS nudge sent",        detail: "\"Just checking in on the quote…\"",           tone: "emerald" },
-      { icon: <Bell className="h-4 w-4" />,          title: "Owner alerted on reply",detail: "Notification in unified inbox",                 tone: "ink" },
+    nodes: [
+      { id: "n1", x: 4, y: 32, icon: <FileText className="h-4 w-4" />, title: "Quote sent", detail: "$4,800 · to Jordan", tone: "blue" },
+      { id: "n2", x: 28, y: 32, icon: <Zap className="h-4 w-4" />, title: "Wait 3 days", detail: "If no reply", tone: "amber" },
+      { id: "n3", x: 52, y: 12, icon: <MessageCircle className="h-4 w-4" />, title: "SMS nudge", detail: "\"Just checking in…\"", tone: "emerald" },
+      { id: "n4", x: 52, y: 55, icon: <GmailGlyph size={16} />, title: "Email follow-up", detail: "Personalised copy", tone: "sky" },
+      { id: "n5", x: 78, y: 32, icon: <Bell className="h-4 w-4" />, title: "Owner alerted on reply", detail: "Push + inbox", tone: "ink" },
+    ],
+    edges: [{ from: "n1", to: "n2" }, { from: "n2", to: "n3" }, { from: "n2", to: "n4" }, { from: "n3", to: "n5" }, { from: "n4", to: "n5" }],
+    log: [
+      { t: "Mon", text: "Quote sent to Jordan Clarke", tone: "blue" },
+      { t: "Thu", text: "No reply · workflow waited 3 days", tone: "amber" },
+      { t: "Thu", text: "SMS + email nudge sent", tone: "emerald" },
+      { t: "Thu", text: "Owner alerted · reply received", tone: "slate" },
     ],
   },
   {
-    key: "pay",
-    label: "Payment & review",
+    key: "pay", label: "Payment & review", icon: <CreditCard className="h-3.5 w-3.5" />,
     headline: "Cash in, review out.",
-    body: "Every completed job triggers invoice, payment, receipt and review.",
-    steps: [
-      { icon: <CheckCircle2 className="h-4 w-4" />,  title: "Job marked complete",   detail: "By Alex on mobile · 3:00 PM",                 tone: "emerald" },
-      { icon: <StripeGlyph size={16} />,             title: "Invoice sent",          detail: "$1,250 · Stripe link",                        tone: "sky" },
-      { icon: <CheckCircle2 className="h-4 w-4" />,  title: "Payment received",      detail: "Visa •• 4242 · 3:12 PM",                       tone: "emerald" },
-      { icon: <GoogleGlyph size={16} />,             title: "Review request queued", detail: "Google review · SMS + email",                  tone: "amber" },
+    body: "Every completed job triggers invoice, payment, receipt and review request.",
+    nodes: [
+      { id: "n1", x: 4, y: 32, icon: <CheckCircle2 className="h-4 w-4" />, title: "Job complete", detail: "Marked on mobile", tone: "emerald" },
+      { id: "n2", x: 28, y: 32, icon: <StripeGlyph size={16} />, title: "Invoice sent", detail: "Stripe link", tone: "sky" },
+      { id: "n3", x: 52, y: 32, icon: <CheckCircle2 className="h-4 w-4" />, title: "Payment received", detail: "Card · Stripe", tone: "emerald" },
+      { id: "n4", x: 76, y: 12, icon: <GoogleGlyph size={16} />, title: "Review request", detail: "SMS + email", tone: "amber" },
+      { id: "n5", x: 76, y: 55, icon: <Bell className="h-4 w-4" />, title: "Service reminder", detail: "Scheduled · 6 months", tone: "blue" },
+    ],
+    edges: [{ from: "n1", to: "n2" }, { from: "n2", to: "n3" }, { from: "n3", to: "n4" }, { from: "n3", to: "n5" }],
+    log: [
+      { t: "3:00 PM", text: "Job marked complete by Alex", tone: "emerald" },
+      { t: "3:00 PM", text: "Invoice sent · $1,250", tone: "blue" },
+      { t: "3:12 PM", text: "Payment received via Stripe", tone: "emerald" },
+      { t: "3:12 PM", text: "Review request queued", tone: "amber" },
     ],
   },
   {
-    key: "winback",
-    label: "Customer win-back",
-    headline: "Bring customers back on autopilot.",
-    body: "Reactivate quiet customers with AI-drafted campaigns.",
-    steps: [
-      { icon: <Users className="h-4 w-4" />,         title: "Inactive segment",       detail: "No visit in 6 months · 128 customers",         tone: "ink" },
-      { icon: <Sparkles className="h-4 w-4" />,      title: "AI-drafted copy",        detail: "Personalised by service history",              tone: "cyan" },
-      { icon: <Send className="h-4 w-4" />,          title: "SMS + email sent",       detail: "42 replies in inbox · 18 bookings",            tone: "emerald" },
-      { icon: <CalendarIcon className="h-4 w-4" />,  title: "New bookings",           detail: "Straight from customer replies",               tone: "blue" },
+    key: "winback", label: "Customer win-back", icon: <RefreshCw className="h-3.5 w-3.5" />,
+    headline: "Bring quiet customers back on autopilot.",
+    body: "Reactivate inactive customers with AI-assisted messages and route replies.",
+    nodes: [
+      { id: "n1", x: 4, y: 32, icon: <Users className="h-4 w-4" />, title: "Inactive segment", detail: "No visit · 6 months", tone: "ink" },
+      { id: "n2", x: 28, y: 32, icon: <Sparkles className="h-4 w-4" />, title: "AI drafts message", detail: "Personalised", tone: "cyan" },
+      { id: "n3", x: 52, y: 12, icon: <MessageCircle className="h-4 w-4" />, title: "SMS sent", detail: "From business number", tone: "emerald" },
+      { id: "n4", x: 52, y: 55, icon: <GmailGlyph size={16} />, title: "Email sent", detail: "Branded template", tone: "sky" },
+      { id: "n5", x: 78, y: 32, icon: <CalendarIcon className="h-4 w-4" />, title: "Booking link", detail: "One-click", tone: "blue" },
+    ],
+    edges: [{ from: "n1", to: "n2" }, { from: "n2", to: "n3" }, { from: "n2", to: "n4" }, { from: "n3", to: "n5" }, { from: "n4", to: "n5" }],
+    log: [
+      { t: "9:00", text: "Segment refreshed · inactive customers", tone: "slate" },
+      { t: "9:01", text: "AI drafted 4 message variants", tone: "blue" },
+      { t: "9:02", text: "SMS + email sent", tone: "emerald" },
+      { t: "10:14", text: "Reply from Cindy · routed to inbox", tone: "amber" },
     ],
   },
 ];
 
-function WorkflowTheatreV3() {
+function WorkflowCanvasV3() {
   const [active, setActive] = useState(0);
-  const flow = V3_FLOWS[active];
-
-  const toneBg: Record<string, string> = {
-    blue: "bg-gradient-to-br from-blue-500 to-blue-700",
-    cyan: "bg-gradient-to-br from-cyan-400 to-sky-600",
-    ink:  "bg-gradient-to-br from-slate-800 to-slate-950",
-    emerald: "bg-gradient-to-br from-emerald-400 to-emerald-600",
-    amber:   "bg-gradient-to-br from-amber-400 to-orange-500",
-    red:     "bg-gradient-to-br from-rose-500 to-red-600",
-    sky:     "bg-gradient-to-br from-sky-400 to-blue-600",
+  const s = WF_SCENARIOS[active];
+  const toneRing: Record<string, string> = {
+    blue: "ring-blue-200 bg-blue-50 text-blue-700",
+    emerald: "ring-emerald-200 bg-emerald-50 text-emerald-700",
+    amber: "ring-amber-200 bg-amber-50 text-amber-700",
+    cyan: "ring-cyan-200 bg-cyan-50 text-cyan-700",
+    red: "ring-rose-200 bg-rose-50 text-rose-700",
+    ink: "ring-slate-200 bg-slate-50 text-slate-700",
+    sky: "ring-sky-200 bg-sky-50 text-sky-700",
   };
+  const nodeById = Object.fromEntries(s.nodes.map((n) => [n.id, n]));
 
   return (
-    <section className="bg-white py-20 sm:py-28 px-6">
+    <section className="bg-gradient-to-b from-white to-slate-50 py-24 sm:py-32 px-6">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zapla-blue">The workflows</span>
-          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            Workflows that quietly run your business.
+          <SectionEyebrow tone="cyan">Workflows</SectionEyebrow>
+          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+            Automations that keep every opportunity moving.
           </h2>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-slate-600">Pick a flow. Watch Zapla handle it end-to-end.</p>
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+            Choose a scenario and see how Zapla handles the next step automatically.
+          </p>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-2">
-          {V3_FLOWS.map((f, i) => {
+        {/* Scenario selector */}
+        <div className="mt-10 flex flex-wrap gap-2">
+          {WF_SCENARIOS.map((sc, i) => {
             const isActive = i === active;
             return (
               <button
-                key={f.key}
-                type="button"
+                key={sc.key}
                 onClick={() => setActive(i)}
-                className={[
-                  "rounded-full px-4 py-2 text-[13px] font-semibold transition",
-                  isActive ? "bg-zapla-blue text-white shadow-sm" : "bg-slate-100 text-slate-700 hover:bg-slate-200",
-                ].join(" ")}
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold transition ring-1 ${isActive ? "bg-slate-950 text-white ring-slate-950" : "bg-white text-slate-700 ring-slate-200 hover:ring-slate-300"}`}
               >
-                {f.label}
+                <span className={`grid h-5 w-5 place-items-center rounded-full ${isActive ? "bg-white/15" : "bg-slate-100 text-slate-700"}`}>{sc.icon}</span>
+                {sc.label}
               </button>
             );
           })}
         </div>
 
-        <div key={flow.key} className="mt-8 overflow-hidden rounded-[28px] bg-gradient-to-b from-slate-950 to-slate-900 p-6 sm:p-10 text-white shadow-[0_40px_100px_-40px_rgba(15,23,42,0.45)] animate-fade-in">
-          <h3 className="font-zapla text-2xl sm:text-3xl font-semibold leading-tight">{flow.headline}</h3>
-          <p className="mt-2 max-w-xl text-[14px] text-white/60">{flow.body}</p>
-
-          {/* Desktop theatre — central Zapla hub with orbiting events */}
-          <div className="relative mt-10 hidden min-h-[420px] md:block">
-            {/* Connector rings */}
-            <svg className="pointer-events-none absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-              <defs>
-                <linearGradient id="v3-conn" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0" stopColor="#22d3ee" stopOpacity="0.6" />
-                  <stop offset="1" stopColor="#3b82f6" stopOpacity="0.6" />
-                </linearGradient>
-              </defs>
-              <ellipse cx="50" cy="50" rx="38" ry="30" fill="none" stroke="url(#v3-conn)" strokeWidth="0.15" strokeDasharray="0.6 0.8" />
-              <ellipse cx="50" cy="50" rx="28" ry="22" fill="none" stroke="url(#v3-conn)" strokeWidth="0.1" strokeDasharray="0.4 0.6" opacity="0.6" />
-            </svg>
-
-            {/* Central hub */}
-            <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-              <div className="grid h-24 w-24 place-items-center rounded-[22px] bg-gradient-to-br from-blue-500 to-cyan-400 shadow-[0_20px_60px_-10px_rgba(34,211,238,0.55)] ring-1 ring-white/20">
-                <img src={logoWhite.url} alt="Zapla" className="h-10 w-10 object-contain" />
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_300px]">
+          {/* Canvas */}
+          <div className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)]">
+            {/* App-frame chrome */}
+            <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
+              <div className="flex items-center gap-2 text-[12px] text-slate-700">
+                <img src={logoBlue.url} alt="" className="h-5 w-5 rounded" />
+                <span className="font-semibold">{s.label} workflow</span>
+                <span className="mx-1 text-slate-300">·</span>
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100">
+                  <StatusDot tone="emerald" pulse={false} /> Published
+                </span>
+                <span className="hidden sm:inline text-[11px] text-slate-400">· saved 2 min ago</span>
               </div>
-              <div className="mt-3 text-center text-[11px] font-semibold uppercase tracking-widest text-white/70">Zapla · running</div>
+              <div className="flex items-center gap-1.5">
+                <button className="rounded-md bg-white px-2.5 py-1 text-[11px] font-semibold text-slate-700 ring-1 ring-slate-200">Test</button>
+                <button className="rounded-md bg-blue-600 px-2.5 py-1 text-[11px] font-semibold text-white">Run</button>
+              </div>
             </div>
 
-            {/* 4 event cards positioned around */}
-            {flow.steps.map((s, i) => {
-              const positions = [
-                "top-0 left-4 sm:left-8",
-                "top-0 right-4 sm:right-8",
-                "bottom-0 left-4 sm:left-8",
-                "bottom-0 right-4 sm:right-8",
-              ];
-              return (
-                <div key={i} className={`absolute z-20 w-[260px] ${positions[i]}`}>
-                  <div className="rounded-[18px] bg-white/[0.06] p-3 ring-1 ring-white/10 backdrop-blur">
-                    <div className="flex items-center gap-2.5">
-                      <span className={`grid h-9 w-9 place-items-center rounded-[10px] text-white ${toneBg[s.tone]}`}>{s.icon}</span>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] font-bold tabular-nums text-white/40">0{i + 1}</span>
-                          <span className="text-[12.5px] font-semibold text-white">{s.title}</span>
-                        </div>
-                        <div className="truncate text-[11px] text-white/60">{s.detail}</div>
+            {/* Headline strip */}
+            <div className="border-b border-slate-100 px-5 py-4">
+              <h3 className="font-zapla text-xl font-semibold text-slate-950 leading-snug">{s.headline}</h3>
+              <p className="mt-1 text-[13px] text-slate-600">{s.body}</p>
+            </div>
+
+            {/* Desktop canvas */}
+            <div className="relative hidden md:block h-[380px] bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.06)_1px,transparent_0)] [background-size:20px_20px]">
+              {/* Connectors */}
+              <svg className="absolute inset-0 h-full w-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
+                <defs>
+                  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#3b82f6" />
+                  </marker>
+                </defs>
+                {s.edges.map((e, i) => {
+                  const a = nodeById[e.from]; const b = nodeById[e.to];
+                  if (!a || !b) return null;
+                  const x1 = a.x + 10, y1 = a.y + 10, x2 = b.x + 4, y2 = b.y + 10;
+                  const cx = (x1 + x2) / 2;
+                  return (
+                    <g key={i}>
+                      <path d={`M ${x1} ${y1} C ${cx} ${y1}, ${cx} ${y2}, ${x2} ${y2}`} fill="none" stroke="#93c5fd" strokeWidth="0.45" strokeDasharray="1 1" markerEnd="url(#arr)" />
+                    </g>
+                  );
+                })}
+              </svg>
+              {/* Nodes */}
+              {s.nodes.map((n) => (
+                <div
+                  key={n.id}
+                  className="absolute w-[190px]"
+                  style={{ left: `${n.x}%`, top: `${n.y}%` }}
+                >
+                  <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200 shadow-[0_10px_24px_-16px_rgba(15,23,42,0.35)]">
+                    <div className="flex items-center gap-2">
+                      <span className={`grid h-8 w-8 place-items-center rounded-lg ring-1 ${toneRing[n.tone]}`}>{n.icon}</span>
+                      <div className="min-w-0">
+                        <div className="text-[12px] font-semibold text-slate-900 truncate">{n.title}</div>
+                        <div className="text-[10px] text-slate-500 truncate">{n.detail}</div>
                       </div>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
+
+            {/* Mobile vertical stepper */}
+            <div className="md:hidden p-4 space-y-3">
+              {s.nodes.map((n, i) => (
+                <div key={n.id} className="relative">
+                  <div className="flex items-start gap-3">
+                    <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg ring-1 ${toneRing[n.tone]}`}>{n.icon}</span>
+                    <div className="flex-1 rounded-xl bg-white p-3 ring-1 ring-slate-200">
+                      <div className="text-[13px] font-semibold text-slate-900">{n.title}</div>
+                      <div className="text-[11px] text-slate-500">{n.detail}</div>
+                    </div>
+                  </div>
+                  {i < s.nodes.length - 1 && <div className="ml-[18px] my-1 h-4 w-px bg-slate-200" />}
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Mobile: vertical connected stepper */}
-          <ol className="mt-8 space-y-3 md:hidden">
-            {flow.steps.map((s, i) => (
-              <li key={i} className="relative flex items-start gap-3 rounded-2xl bg-white/[0.06] p-3 ring-1 ring-white/10">
-                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-[10px] text-white ${toneBg[s.tone]}`}>{s.icon}</span>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] font-bold tabular-nums text-white/40">0{i + 1}</span>
-                    <span className="text-[13px] font-semibold text-white">{s.title}</span>
+          {/* Activity log */}
+          <div className="rounded-[22px] bg-white ring-1 ring-slate-200 p-4 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.20)]">
+            <div className="flex items-center justify-between">
+              <div className="text-[12px] font-semibold text-slate-800">Latest run</div>
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100">
+                <StatusDot tone="emerald" pulse={false} /> Success
+              </div>
+            </div>
+            <ol className="mt-4 space-y-3">
+              {s.log.map((l, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <span className="mt-1"><StatusDot tone={l.tone === "slate" ? "slate" : l.tone} pulse={false} /></span>
+                  <div className="flex-1">
+                    <div className="text-[12px] text-slate-800 leading-snug">{l.text}</div>
+                    <div className="text-[10px] text-slate-400">{l.t}</div>
                   </div>
-                  <div className="text-[11.5px] text-white/60">{s.detail}</div>
-                </div>
-                {i < flow.steps.length - 1 && <span className="absolute left-[27px] top-[52px] h-3 w-px bg-white/20" />}
-              </li>
-            ))}
-          </ol>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-4 border-t border-slate-100 pt-3 text-[11px] text-slate-500">
+              Trigger fires whenever this scenario matches in your workspace.
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-/* -------- 4. FocusedAIV3 — ai-employee.mp4 dominant motion --------- */
+/* Kept name for backwards ref in page — now uses new canvas */
+function WorkflowTheatreV3() { return <WorkflowCanvasV3 />; }
+
+/* =================================================================== */
+/*  4. FocusedAIV3 — cinematic black, talking character                  */
+/* =================================================================== */
 
 function FocusedAIV3() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const on = () => setReduced(mq.matches);
-    mq.addEventListener?.("change", on);
-    return () => mq.removeEventListener?.("change", on);
-  }, []);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [muted, setMuted] = useState(true);
+  const [captions] = useState(true);
 
   const transcript = [
-    { who: "ai",   text: "Thanks for calling Zapla Plumbing — how can I help?" },
-    { who: "cust", text: "Hi, I need a quote for a bathroom renovation." },
-    { who: "ai",   text: "No problem. Are you in Sydney? I can pencil in Alex for a site visit this Thursday." },
-    { who: "cust", text: "Thursday at 2pm works." },
-    { who: "ai",   text: "Booked — you'll get a confirmation SMS in a second." },
+    { who: "ai", t: "Hi, thanks for calling Northside Plumbing — this is your AI receptionist. How can I help?" },
+    { who: "caller", t: "Hey, I've got a leaking hot water system. Can someone come out today?" },
+    { who: "ai", t: "Absolutely. Can I grab your name and suburb?" },
+    { who: "caller", t: "Emma Reid, Bondi." },
+    { who: "ai", t: "Perfect Emma. We have a 2:00 PM slot with Alex today. Shall I lock that in?" },
+    { who: "caller", t: "Yes please." },
+    { who: "ai", t: "Booked. I'll text you the confirmation now." },
   ];
 
   return (
     <section className="relative overflow-hidden bg-slate-950 py-24 sm:py-32 px-6 text-white">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-cyan-500/12 blur-[160px]" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-blue-500/12 blur-[140px]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(37,99,255,0.12),transparent_70%)]" />
+      {/* Ambient glow */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70">
+        <div className="absolute -top-32 left-1/4 h-[520px] w-[520px] rounded-full bg-blue-600/20 blur-3xl" />
+        <div className="absolute -bottom-40 right-1/4 h-[520px] w-[520px] rounded-full bg-cyan-500/15 blur-3xl" />
+      </div>
 
       <div className="relative mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-200">
-            <Sparkles className="h-3 w-3" /> AI receptionist
-          </span>
-          <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight leading-[1.05]">
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-300">The AI receptionist</span>
+          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight leading-[1.05]">
             Every enquiry handled, even when your team is busy.
           </h2>
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-white/60">
+          <p className="mt-4 text-lg text-white/70 leading-relaxed max-w-2xl">
             AI answers, gathers details, books the appointment and hands the full context to your team.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] md:gap-8">
-          {/* Dominant motion — ai-employee.mp4 */}
-          <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-black/40 shadow-[0_60px_140px_-40px_rgba(6,182,212,0.35)]">
-            <div className="aspect-[16/10] relative">
-              <video
-                src={aiEmployeeVideo.url}
-                autoPlay={!reduced}
-                muted
-                loop
-                playsInline
-                className="h-full w-full object-cover"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-              {/* Live call overlay */}
-              <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-black/60 px-3 py-1.5 text-[11px] font-semibold backdrop-blur ring-1 ring-white/10">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
-                </span>
-                LIVE CALL · 00:42
+        <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] items-start">
+          {/* Live-call frame with talking character */}
+          <div className="overflow-hidden rounded-[26px] bg-white/[0.04] ring-1 ring-white/10 backdrop-blur">
+            <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+              <div className="flex items-center gap-2 text-[12px]">
+                <StatusDot tone="emerald" />
+                <span className="font-semibold">Live call</span>
+                <span className="text-white/50">· +61 400 812 559</span>
               </div>
-
-              {/* Waveform */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 rounded-2xl bg-black/50 p-3 backdrop-blur ring-1 ring-white/10">
-                <V3IconTile tone="cyan" size={32}><Sparkles className="h-4 w-4" /></V3IconTile>
-                <div className="flex-1 flex items-center gap-[3px] h-8">
-                  {Array.from({ length: 44 }).map((_, i) => {
-                    const h = 20 + Math.sin(i * 0.6) * 12 + (i % 5) * 4;
-                    return <span key={i} className="w-[3px] rounded-full bg-cyan-300/70" style={{ height: `${Math.max(6, Math.min(28, h))}px` }} />;
-                  })}
-                </div>
-                <div className="text-[10px] font-semibold text-white/70 tabular-nums">AI · speaking</div>
-              </div>
+              <div className="font-mono text-[12px] text-white/60">00:42</div>
             </div>
+            <div className="relative aspect-[4/5] sm:aspect-[16/11] bg-slate-900">
+              <video
+                ref={videoRef}
+                className="absolute inset-0 h-full w-full object-cover"
+                src={aiWorkflowVideo.url}
+                autoPlay
+                loop
+                muted={muted}
+                playsInline
+                preload="auto"
+              />
+              {/* Caller overlay */}
+              <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-black/50 px-2.5 py-1 text-[11px] backdrop-blur ring-1 ring-white/10">
+                <V3Avatar name="Emma Reid" tone="cyan" size={22} />
+                Emma Reid · caller
+              </div>
+              {/* Waveform */}
+              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-black/45 backdrop-blur ring-1 ring-white/10 px-3 py-2.5 flex items-center gap-3">
+                <span className="text-[11px] font-semibold text-white/80 shrink-0">AI speaking</span>
+                <div className="flex-1 flex items-center gap-[3px] h-6">
+                  {Array.from({ length: 40 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className="w-[3px] rounded-full bg-cyan-300/80"
+                      style={{
+                        height: `${20 + Math.abs(Math.sin(i * 0.7)) * 70}%`,
+                        animation: "wave 1.2s ease-in-out infinite",
+                        animationDelay: `${(i % 10) * 60}ms`,
+                      }}
+                    />
+                  ))}
+                </div>
+                <button
+                  onClick={() => { setMuted((m) => !m); if (videoRef.current) videoRef.current.muted = !videoRef.current.muted; }}
+                  className="rounded-full bg-white text-slate-900 px-3 py-1 text-[11px] font-semibold hover:bg-white/90"
+                >
+                  {muted ? "Play demo" : "Mute"}
+                </button>
+              </div>
+              <style>{`@keyframes wave { 0%,100% { transform: scaleY(0.4);} 50% { transform: scaleY(1);} }`}</style>
+            </div>
+            {captions && (
+              <div className="border-t border-white/10 px-4 py-2 text-[12px] text-white/75">
+                <span className="text-cyan-300 font-semibold">AI:</span> Perfect Emma. We have a 2:00 PM slot with Alex today…
+              </div>
+            )}
           </div>
 
-          {/* Supporting UI: transcript + booking confirmation + handoff */}
-          <div className="flex flex-col gap-4">
-            {/* Transcript */}
-            <div className="rounded-[22px] border border-white/10 bg-white/[0.03] p-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="rounded-md bg-white/10 px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wider text-white/70">Transcript</span>
-                  <span className="text-[12px] font-semibold">Emma Wilson · +61 400 812 559</span>
-                </div>
-                <span className="text-[10px] tabular-nums text-white/40">00:42</span>
+          {/* Transcript + booking handoff */}
+          <div className="space-y-4">
+            <div className="rounded-[22px] bg-white/[0.04] ring-1 ring-white/10 p-4">
+              <div className="flex items-center justify-between">
+                <div className="text-[12px] font-semibold">Live transcript</div>
+                <div className="text-[11px] text-white/50">Auto-captured</div>
               </div>
-              <div className="mt-3 space-y-2">
-                {transcript.map((t, i) => (
-                  <div key={i} className={`flex gap-2 ${t.who === "ai" ? "" : "flex-row-reverse"}`}>
-                    <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[9px] font-bold ${t.who === "ai" ? "bg-cyan-500/20 text-cyan-200" : "bg-white/10 text-white/80"}`}>
-                      {t.who === "ai" ? "AI" : "E"}
-                    </span>
-                    <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-[11.5px] leading-snug ${t.who === "ai" ? "bg-white/[0.06] text-white/85" : "bg-blue-500/20 text-white ring-1 ring-blue-400/20"}`}>
-                      {t.text}
+              <div className="mt-3 max-h-[280px] overflow-hidden space-y-2.5 pr-1">
+                {transcript.map((m, i) => (
+                  <div key={i} className={`flex ${m.who === "ai" ? "justify-start" : "justify-end"}`}>
+                    <div className={`max-w-[85%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${m.who === "ai" ? "bg-cyan-500/15 text-cyan-50 rounded-tl-sm ring-1 ring-cyan-400/20" : "bg-white/10 text-white rounded-tr-sm ring-1 ring-white/10"}`}>
+                      <span className={`mr-2 text-[10px] font-semibold uppercase tracking-wider ${m.who === "ai" ? "text-cyan-300" : "text-white/60"}`}>{m.who === "ai" ? "AI" : "Emma"}</span>
+                      {m.t}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Booking confirmation */}
-            <div className="rounded-[22px] border border-emerald-400/20 bg-emerald-400/[0.06] p-4">
-              <div className="flex items-center gap-3">
-                <V3IconTile tone="emerald" size={36}><CheckCircle2 className="h-4 w-4" /></V3IconTile>
-                <div className="flex-1">
-                  <div className="text-[12.5px] font-semibold">Booking confirmed · Thu 14 Nov, 2:00 PM</div>
-                  <div className="text-[11px] text-white/60">Emma Wilson · assigned to Alex · SMS sent</div>
-                </div>
+            <div className="rounded-[22px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] ring-1 ring-white/10 p-4">
+              <div className="flex items-center gap-2 text-[12px] font-semibold">
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Booking confirmed
               </div>
-            </div>
-
-            {/* Team handoff */}
-            <div className="rounded-[22px] border border-white/10 bg-white/[0.03] p-4">
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  <V3Avatar name="Alex Ryan" tone="blue" size={30} />
-                  <V3Avatar name="Priya Shah" tone="cyan" size={30} />
+              <div className="mt-3 grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
+                <span className="grid h-9 w-9 place-items-center rounded-lg bg-blue-500/25 text-blue-200"><CalendarIcon className="h-4 w-4" /></span>
+                <div className="text-[12px]">
+                  <div className="font-semibold">Thu 14 Nov · 2:00 PM</div>
+                  <div className="text-white/60 text-[11px]">Hot water repair · Bondi</div>
                 </div>
-                <div className="flex-1">
-                  <div className="text-[12.5px] font-semibold">Handoff to Alex</div>
-                  <div className="text-[11px] text-white/60">Full transcript + notes attached in CRM</div>
+                <span className="text-[10px] font-semibold text-emerald-300">Sent to Emma</span>
+              </div>
+              <div className="mt-3 flex items-center gap-2 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
+                <V3Avatar name="Alex" tone="amber" size={30} />
+                <div className="flex-1 text-[12px]">
+                  <div className="font-semibold">Assigned to Alex</div>
+                  <div className="text-white/60 text-[11px]">Full context handed off · notes attached</div>
                 </div>
-                <ArrowRight className="h-4 w-4 text-white/40" />
+                <ArrowRight className="h-4 w-4 text-white/60" />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-white/50">
-          <span className="uppercase tracking-widest text-white/40">Also included</span>
-          <a href="#" className="inline-flex items-center gap-1.5 text-cyan-300 hover:text-cyan-200">
-            <Zap className="h-3.5 w-3.5" /> AI workflows for follow-ups <ArrowRight className="h-3 w-3" />
+        {/* Supporting links */}
+        <div className="mt-10 flex flex-wrap items-center gap-3 text-[13px] text-white/70">
+          <span className="text-white/50">Also included:</span>
+          <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 ring-1 ring-white/10 hover:bg-white/10">
+            <Zap className="h-3.5 w-3.5 text-cyan-300" /> AI-assisted workflows
           </a>
-          <a href="#" className="inline-flex items-center gap-1.5 text-cyan-300 hover:text-cyan-200">
-            <StarIcon className="h-3.5 w-3.5" /> AI reputation management <ArrowRight className="h-3 w-3" />
+          <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 ring-1 ring-white/10 hover:bg-white/10">
+            <StarIcon className="h-3.5 w-3.5 text-amber-300" /> AI reputation replies
           </a>
         </div>
       </div>
@@ -1780,199 +2076,202 @@ function FocusedAIV3() {
   );
 }
 
-/* -------- 5. IndustriesV3 — 3 editorial solution stories ----------- */
+/* =================================================================== */
+/*  5. IndustriesV3 — three distinct editorial stories                   */
+/* =================================================================== */
 
 function IndustriesV3() {
-  const stories = [
-    {
-      tag: "Automotive & trades",
-      image: industryTrades.url,
-      accent: "from-blue-500 to-cyan-500",
-      outcome: "First response in seconds · 40% more booked jobs",
-      caps: [
-        { icon: <PhoneMissed className="h-3.5 w-3.5" />, label: "Missed-call SMS reply" },
-        { icon: <CalendarIcon className="h-3.5 w-3.5" />, label: "Job scheduling & routing" },
-        { icon: <FileText className="h-3.5 w-3.5" />, label: "Quote follow-ups on autopilot" },
-      ],
-      overlay: (
-        <div className="rounded-[14px] bg-white p-2.5 shadow-lg ring-1 ring-slate-200">
-          <div className="flex items-center gap-2">
-            <V3IconTile tone="red" size={24}><PhoneMissed className="h-3 w-3" /></V3IconTile>
-            <div className="flex-1">
-              <div className="text-[10.5px] font-semibold text-slate-900">Missed · booked in 3s</div>
-              <div className="text-[9px] text-slate-500">Emma · site visit Thu 2pm</div>
-            </div>
-            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-          </div>
-        </div>
-      ),
-    },
-    {
-      tag: "Property & professional services",
-      image: industryRealEstate.url,
-      accent: "from-sky-500 to-blue-600",
-      outcome: "Every enquiry captured · one client history",
-      caps: [
-        { icon: <Mail className="h-3.5 w-3.5" />,       label: "Enquiry capture from every channel" },
-        { icon: <Users className="h-3.5 w-3.5" />,      label: "Pipeline nurture with reminders" },
-        { icon: <MessageCircle className="h-3.5 w-3.5" />, label: "Unified client conversation history" },
-      ],
-      overlay: (
-        <div className="rounded-[14px] bg-white p-2.5 shadow-lg ring-1 ring-slate-200">
-          <div className="flex items-center gap-2">
-            <V3Avatar name="Jordan Clarke" tone="sky" size={24} />
-            <div className="flex-1">
-              <div className="text-[10.5px] font-semibold text-slate-900">Jordan Clarke · Buyer</div>
-              <div className="text-[9px] text-slate-500">Last touch · 08:42 AM</div>
-            </div>
-            <span className="rounded-full bg-blue-100 px-1.5 py-0.5 text-[9px] font-semibold text-blue-700">Hot</span>
-          </div>
-        </div>
-      ),
-    },
-    {
-      tag: "Health, fitness & appointments",
-      image: industryHealthcare.url,
-      accent: "from-cyan-500 to-teal-500",
-      outcome: "No-shows halved · rebookings up 32%",
-      caps: [
-        { icon: <CalendarIcon className="h-3.5 w-3.5" />, label: "Online bookings with confirmations" },
-        { icon: <Bell className="h-3.5 w-3.5" />,         label: "Automated SMS reminders" },
-        { icon: <RefreshCw className="h-3.5 w-3.5" />,    label: "One-tap rebooking flows" },
-      ],
-      overlay: (
-        <div className="rounded-[14px] bg-white p-2.5 shadow-lg ring-1 ring-slate-200">
-          <div className="flex items-center gap-2">
-            <V3IconTile tone="cyan" size={24}><CalendarIcon className="h-3 w-3" /></V3IconTile>
-            <div className="flex-1">
-              <div className="text-[10.5px] font-semibold text-slate-900">3 rebookings · this week</div>
-              <div className="text-[9px] text-slate-500">Auto from reminder</div>
-            </div>
-            <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-700">+3</span>
-          </div>
-        </div>
-      ),
-    },
-  ];
-
-  const others = [
-    "Real estate & mortgage", "Legal & accounting", "Beauty & wellness",
-    "Restaurants & hospitality", "E-commerce & retail", "Events & rentals",
-    "Automotive service", "Home services",
-  ];
-
   return (
-    <section className="bg-white py-20 sm:py-28 px-6">
+    <section className="bg-white py-24 sm:py-32 px-6">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zapla-blue">Solutions</span>
-          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            Built around three service business shapes.
+          <SectionEyebrow>Solutions</SectionEyebrow>
+          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+            Built for the way service businesses actually work.
           </h2>
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+            Different industries. The same challenge: respond faster, stay organised and keep customers moving.
+          </p>
         </div>
 
-        <div className="mt-12 space-y-6">
-          {stories.map((s, i) => (
-            <article
-              key={s.tag}
-              className={`group relative overflow-hidden rounded-[28px] bg-white ring-1 ring-slate-200 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.18)] transition hover:shadow-[0_30px_80px_-30px_rgba(15,23,42,0.22)]`}
-            >
-              <div className={`grid gap-0 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
-                {/* Visual scene */}
-                <div className={`relative min-h-[260px] overflow-hidden bg-gradient-to-br ${s.accent}`}>
-                  <img src={s.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-contain opacity-30 mix-blend-luminosity" />
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(255,255,255,0.15),transparent_70%)]" />
-                  <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                    <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white/95 px-3 py-1 text-[10.5px] font-bold uppercase tracking-widest text-slate-900 shadow ring-1 ring-white/50">
-                      Featured
-                    </div>
-                    <div className="max-w-[260px]">{s.overlay}</div>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8 md:p-10">
-                  <h3 className="font-zapla text-[22px] md:text-[26px] font-semibold text-slate-950 leading-snug">{s.tag}</h3>
-                  <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-[11.5px] font-semibold text-emerald-700 ring-1 ring-emerald-100">
-                    <CheckCircle2 className="h-3.5 w-3.5" /> {s.outcome}
-                  </div>
-                  <ul className="mt-5 space-y-2.5">
-                    {s.caps.map((c) => (
-                      <li key={c.label} className="flex items-center gap-2.5 text-[13.5px] text-slate-700">
-                        <span className="grid h-6 w-6 place-items-center rounded-[8px] bg-slate-100 text-slate-700">{c.icon}</span>
-                        {c.label}
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="#" className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-zapla-blue hover:text-blue-700">
-                    Explore solution <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
-                </div>
+        {/* Lead story: Automotive & trades */}
+        <article className="mt-14 grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12 items-center rounded-[26px] bg-gradient-to-br from-stone-100 via-white to-amber-50/40 ring-1 ring-stone-200 p-6 sm:p-10 overflow-hidden">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-stone-900/5 px-3 py-1 text-[11px] font-semibold text-stone-700 ring-1 ring-stone-200">
+              <WrenchIcon className="h-3.5 w-3.5 text-amber-600" /> Automotive & trades
+            </div>
+            <h3 className="mt-4 font-zapla text-2xl sm:text-[32px] font-semibold text-slate-950 leading-tight">
+              Missed call → instant reply → booked job.
+            </h3>
+            <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">
+              Field teams live on the phone. Zapla catches every missed call, replies from your business number and books the job while you're still on-site.
+            </p>
+            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-[13px] text-slate-700">
+              {["Missed-call SMS", "Job scheduling", "Quote follow-up", "Payment on completion"].map((c) => (
+                <li key={c} className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-amber-600" />{c}</li>
+              ))}
+            </ul>
+            <a href={BOOK_URL} className="mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold text-stone-900 hover:text-blue-700">
+              Explore solution <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+          <div className="relative">
+            <div className="relative overflow-hidden rounded-2xl ring-1 ring-stone-200 aspect-[4/3] bg-stone-100">
+              <img src={industryTrades.url} alt="Trades" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent" />
+            </div>
+            {/* Floating UI overlay */}
+            <div className="absolute -bottom-4 -left-4 sm:-left-6 w-[86%] rounded-2xl bg-white p-3.5 ring-1 ring-stone-200 shadow-[0_18px_40px_-20px_rgba(0,0,0,0.35)]">
+              <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-500">
+                <StatusDot tone="amber" /> New booking · via missed-call flow
               </div>
-            </article>
-          ))}
+              <div className="mt-2 flex items-center gap-2.5">
+                <V3Avatar name="Ryan T" tone="amber" size={30} />
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-semibold text-slate-900">Ryan Thomas · brake service</div>
+                  <div className="text-[11px] text-slate-500">Thu 3:30 PM · assigned to Alex</div>
+                </div>
+                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+              </div>
+            </div>
+          </div>
+        </article>
+
+        {/* Two supporting stories with distinct palettes */}
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {/* Property & professional services — sage */}
+          <article className="rounded-[26px] bg-gradient-to-br from-emerald-50/60 via-white to-white ring-1 ring-emerald-100/70 p-6 sm:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-900/5 px-3 py-1 text-[11px] font-semibold text-emerald-800 ring-1 ring-emerald-200">
+              <Briefcase className="h-3.5 w-3.5" /> Property & professional services
+            </div>
+            <h3 className="mt-4 font-zapla text-xl sm:text-2xl font-semibold text-slate-950 leading-tight">
+              Enquiry → nurture → consultation.
+            </h3>
+            <div className="mt-4 rounded-xl bg-white p-3 ring-1 ring-emerald-100">
+              <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-500">
+                <GmailGlyph size={14} /> Enquiry captured
+                <span className="mx-1 text-slate-300">·</span>
+                <StatusDot tone="emerald" pulse={false} /> Nurture running
+              </div>
+              <div className="mt-2 space-y-1.5">
+                {[{ w: "Instagram DM", t: "Received" }, { w: "Auto-reply sent", t: "0s" }, { w: "Booking link", t: "Sent" }].map((r, i) => (
+                  <div key={i} className="flex items-center justify-between text-[12px]">
+                    <span className="text-slate-700">{r.w}</span>
+                    <span className="text-emerald-700 font-semibold">{r.t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <ul className="mt-5 grid grid-cols-1 gap-y-1.5 text-[13px] text-slate-700">
+              {["Multi-channel enquiry capture", "Pipeline nurture", "Unified client history"].map((c) => (
+                <li key={c} className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />{c}</li>
+              ))}
+            </ul>
+            <a href={BOOK_URL} className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-emerald-900 hover:text-blue-700">
+              Explore solution <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </article>
+
+          {/* Health, fitness & appointments — mint/teal */}
+          <article className="rounded-[26px] bg-gradient-to-br from-teal-50/70 via-white to-stone-50 ring-1 ring-teal-100/70 p-6 sm:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-teal-900/5 px-3 py-1 text-[11px] font-semibold text-teal-800 ring-1 ring-teal-200">
+              <HeartPulse className="h-3.5 w-3.5" /> Health, fitness & appointments
+            </div>
+            <h3 className="mt-4 font-zapla text-xl sm:text-2xl font-semibold text-slate-950 leading-tight">
+              Reminder → appointment → rebooking.
+            </h3>
+            <div className="mt-4 rounded-xl bg-white p-3 ring-1 ring-teal-100">
+              <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
+                <span className="inline-flex items-center gap-1.5"><CalendarIcon className="h-3 w-3 text-teal-600" /> This week</span>
+                <span className="inline-flex items-center gap-1.5"><StatusDot tone="emerald" pulse={false} /> Reminders sent</span>
+              </div>
+              <div className="mt-2 grid grid-cols-7 gap-1">
+                {[0,1,2,3,4,5,6].map((d) => (
+                  <div key={d} className="h-8 rounded-md bg-teal-50 ring-1 ring-teal-100 flex items-end p-1">
+                    <div className="w-full rounded-sm bg-teal-500/70" style={{ height: `${20 + d * 10}%` }} />
+                  </div>
+                ))}
+              </div>
+              <div className="mt-2 text-[11px] text-slate-500">Sample bookings · demo workspace</div>
+            </div>
+            <ul className="mt-5 grid grid-cols-1 gap-y-1.5 text-[13px] text-slate-700">
+              {["Online booking", "Automatic reminders", "One-click rebooking"].map((c) => (
+                <li key={c} className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-teal-600" />{c}</li>
+              ))}
+            </ul>
+            <a href={BOOK_URL} className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-teal-900 hover:text-blue-700">
+              Explore solution <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </article>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-slate-200 pt-6">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500">Also serving</span>
-          {others.map((o) => (
-            <span key={o} className="text-[13px] text-slate-600">{o}</span>
-          ))}
+        {/* Compact list of remaining industries */}
+        <div className="mt-10 rounded-2xl bg-slate-50 ring-1 ring-slate-200 px-5 py-4 sm:px-6 sm:py-5">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] text-slate-700">
+            <span className="text-slate-500 font-semibold">Also built for</span>
+            {[
+              { i: <HomeIcon className="h-3.5 w-3.5" />, l: "Real estate" },
+              { i: <LandmarkIcon className="h-3.5 w-3.5" />, l: "Mortgage" },
+              { i: <BedIcon className="h-3.5 w-3.5" />, l: "Short-stay" },
+              { i: <ScaleIcon className="h-3.5 w-3.5" />, l: "Legal" },
+              { i: <TicketIcon className="h-3.5 w-3.5" />, l: "Events" },
+              { i: <DumbbellIcon className="h-3.5 w-3.5" />, l: "Fitness" },
+              { i: <ShoppingBagIcon className="h-3.5 w-3.5" />, l: "E-commerce" },
+              { i: <UtensilsIcon className="h-3.5 w-3.5" />, l: "Restaurants" },
+              { i: <PackageIcon className="h-3.5 w-3.5" />, l: "Rentals" },
+              { i: <CarIcon className="h-3.5 w-3.5" />, l: "Automotive" },
+              { i: <StethoscopeIcon className="h-3.5 w-3.5" />, l: "Healthcare" },
+            ].map((x) => (
+              <span key={x.l} className="inline-flex items-center gap-1.5 text-slate-700">
+                <span className="text-slate-400">{x.i}</span>{x.l}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-/* -------- 6. ToolStackV3 — funnel dominant, premium composition ---- */
+/* =================================================================== */
+/*  6. ToolStackV3 — funnel-led composition                              */
+/* =================================================================== */
 
 function ToolStackV3() {
-  const wins = [
-    { icon: <Users className="h-3.5 w-3.5" />,    label: "Unlimited users on day one" },
-    { icon: <Zap className="h-3.5 w-3.5" />,      label: "One connected customer record" },
-    { icon: <Sparkles className="h-3.5 w-3.5" />, label: "Automations across the journey" },
-    { icon: <CheckCircle2 className="h-3.5 w-3.5" />, label: "One flat platform fee" },
-  ];
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white py-20 sm:py-28 px-6">
-      <div className="pointer-events-none absolute -top-24 -right-24 h-[420px] w-[420px] rounded-full bg-blue-500/5 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-24 -left-24 h-[420px] w-[420px] rounded-full bg-cyan-500/5 blur-3xl" />
-
-      <div className="relative mx-auto max-w-6xl">
-        <div className="grid gap-12 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-center">
-          <div className="relative">
-            <div className="pointer-events-none absolute -inset-6 rounded-[36px] bg-gradient-to-br from-white to-slate-50 ring-1 ring-slate-200 shadow-[0_40px_100px_-40px_rgba(15,23,42,0.2)]" />
-            <img
-              src={funnelAsset.url}
-              alt="16 disconnected apps funneling into one Zapla system"
-              className="relative mx-auto w-full max-w-xl object-contain"
-              loading="lazy"
-            />
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-slate-950 px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-white shadow-lg">
-              16 → 1
-            </div>
+    <section className="bg-slate-50 py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16 items-center">
+        <div>
+          <SectionEyebrow>The stack</SectionEyebrow>
+          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[46px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+            One system without the per-seat tax.
+          </h2>
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+            Replace a stack of tools bought per user with a single connected platform. Add your whole team without watching the bill climb.
+          </p>
+          <ul className="mt-6 space-y-2.5">
+            {[
+              "One platform subscription",
+              "Unlimited users",
+              "One connected customer record",
+              "Automations across the journey",
+              "Usage-based services billed separately",
+            ].map((c) => (
+              <li key={c} className="flex items-start gap-2.5 text-[14px] text-slate-800">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 text-blue-600 shrink-0" />
+                {c}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 rounded-xl bg-white px-4 py-3 ring-1 ring-slate-200 text-[12px] text-slate-600">
+            <span className="font-semibold text-slate-800">Note · </span>
+            SMS, email and AI usage are billed separately based on consumption.
           </div>
-          <div>
-            <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zapla-blue">Cost structure</span>
-            <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[48px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-              One system without the per-seat tax.
-            </h2>
-            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-slate-600">
-              Most teams pay by the seat, per app. Zapla replaces the stack with one operating system and unlimited users.
-            </p>
-            <ul className="mt-6 space-y-2.5">
-              {wins.map((w) => (
-                <li key={w.label} className="flex items-center gap-3 rounded-2xl bg-white p-3 text-[13.5px] text-slate-800 ring-1 ring-slate-200 shadow-sm">
-                  <V3IconTile tone="blue" size={28}>{w.icon}</V3IconTile>
-                  {w.label}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 inline-flex items-center gap-3 rounded-full bg-white px-4 py-2.5 text-[12px] font-semibold text-slate-700 ring-1 ring-slate-200 shadow-sm">
-              <span className="rounded-full bg-rose-100 px-2 py-0.5 text-rose-700">16 apps · per seat</span>
-              <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
-              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700">1 system · flat</span>
-            </div>
+        </div>
+        <div className="relative">
+          <div className="absolute -inset-4 rounded-[28px] bg-gradient-to-br from-blue-100/60 via-white to-cyan-100/50 blur-2xl" aria-hidden />
+          <div className="relative overflow-hidden rounded-[26px] bg-white ring-1 ring-slate-200 p-4 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
+            <img src={funnelAsset.url} alt="16 disconnected apps replaced by one Zapla system" className="w-full h-auto rounded-[18px]" />
           </div>
         </div>
       </div>
@@ -1980,138 +2279,117 @@ function ToolStackV3() {
   );
 }
 
-/* -------- 7. PricingPreviewV3 — unified premium composition ------- */
+/* =================================================================== */
+/*  7. PricingPreviewV3                                                  */
+/* =================================================================== */
 
 function PricingPreviewV3() {
-  const included = [
-    "Unlimited users",
-    "CRM, pipelines & inbox",
-    "Bookings, quotes & invoices",
-    "Automations & reporting",
-    "Reviews & reputation",
-    "AI workflows & receptionist",
-  ];
   return (
-    <section className="bg-white py-20 sm:py-28 px-6">
-      <div className="mx-auto max-w-5xl">
-        <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-8 sm:p-12 text-white shadow-[0_60px_140px_-40px_rgba(15,23,42,0.5)]">
-          <div className="pointer-events-none absolute -top-40 right-0 h-[420px] w-[420px] rounded-full bg-cyan-500/15 blur-[140px]" />
-          <div className="pointer-events-none absolute bottom-0 left-0 h-[320px] w-[320px] rounded-full bg-blue-500/12 blur-[120px]" />
-          <div className="relative grid gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] items-center">
-            <div>
-              <span className="inline-block rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-200 ring-1 ring-white/15">
-                Pricing
-              </span>
-              <h2 className="mt-4 font-zapla text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.05]">
-                One flat platform fee.<br />Unlimited users.
-              </h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-white/70 max-w-md">
-                No per-seat billing, no surprise upgrades. Add your whole team on day one.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="/pricing-v2"
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-slate-950 hover:bg-slate-100 transition"
-                >
-                  See full pricing <ArrowRight className="h-4 w-4" />
-                </a>
-                <a
-                  href={BOOK_URL}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-[13px] font-semibold text-white ring-1 ring-white/15 hover:bg-white/15 transition"
-                >
-                  Book a Call
-                </a>
-              </div>
+    <section className="bg-white py-24 sm:py-32 px-6">
+      <div className="mx-auto max-w-5xl text-center">
+        <SectionEyebrow>Pricing</SectionEyebrow>
+        <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[46px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+          One platform subscription. Unlimited users.
+        </h2>
+        <p className="mt-4 text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+          No per-seat billing. Add your whole team, then pay separately only for usage-based services such as SMS, email and AI.
+        </p>
+        <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-[12px] font-medium text-slate-700 ring-1 ring-slate-200">
+          <StatusDot tone="blue" pulse={false} /> SMS, email and AI usage billed separately
+        </div>
+
+        <div className="mt-12 grid gap-4 sm:grid-cols-3 text-left">
+          {[
+            { name: "Core", tag: "Get started", note: "For small teams launching the essentials." },
+            { name: "Growth", tag: "Most popular", note: "For businesses running follow-ups and reactivation.", primary: true },
+            { name: "Scale", tag: "Multi-location", note: "For larger teams with routing and reporting." },
+          ].map((p) => (
+            <div key={p.name} className={`rounded-2xl p-6 ring-1 ${p.primary ? "bg-slate-950 text-white ring-slate-900 shadow-[0_30px_60px_-30px_rgba(15,23,42,0.5)]" : "bg-white ring-slate-200"}`}>
+              <div className={`text-[11px] font-semibold uppercase tracking-wider ${p.primary ? "text-cyan-300" : "text-slate-400"}`}>{p.tag}</div>
+              <div className={`mt-1 font-zapla text-2xl font-semibold ${p.primary ? "text-white" : "text-slate-950"}`}>{p.name}</div>
+              <p className={`mt-2 text-[13px] leading-relaxed ${p.primary ? "text-white/70" : "text-slate-600"}`}>{p.note}</p>
+              <div className={`mt-4 text-[12px] ${p.primary ? "text-white/60" : "text-slate-500"}`}>Unlimited users included</div>
             </div>
-            <ul className="grid grid-cols-1 gap-2">
-              {included.map((it) => (
-                <li key={it} className="flex items-center gap-3 rounded-2xl bg-white/[0.06] px-4 py-3 text-[13.5px] text-white ring-1 ring-white/10 backdrop-blur">
-                  <span className="grid h-5 w-5 place-items-center rounded-full bg-cyan-400 text-slate-950 text-[11px] font-bold">✓</span>
-                  {it}
-                </li>
-              ))}
-            </ul>
-          </div>
+          ))}
+        </div>
+        <div className="mt-8">
+          <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-[14px] font-semibold text-white shadow-sm hover:bg-blue-700">
+            Book a Call <ArrowRight className="h-4 w-4" />
+          </a>
         </div>
       </div>
     </section>
   );
 }
 
-/* -------- 8. FaqV3 ------------------------------------------------ */
+/* =================================================================== */
+/*  8. FaqV3                                                             */
+/* =================================================================== */
 
 function FaqV3() {
-  const faqs = [
-    { q: "Is Zapla really priced without per-seat fees?", a: "Yes. One platform fee covers unlimited users. Add your entire team without worrying about tier upgrades." },
-    { q: "How does the AI actually help my team?",         a: "AI answers calls, qualifies enquiries, sends follow-ups and books jobs. Your team steps in when a real conversation is needed." },
-    { q: "Will Zapla replace all my current tools?",       a: "For most service businesses, yes. CRM, inbox, bookings, invoicing, reviews and automations sit in one system." },
-    { q: "Can I bring my existing data across?",           a: "Contacts, pipelines and appointments can be imported. Popular tools connect directly for ongoing sync." },
-    { q: "Can I cancel at any time?",                      a: "Yes. Zapla is month-to-month with no lock-in contracts." },
+  const items = [
+    { q: "Do you charge per user?", a: "No. Your Zapla subscription includes unlimited users. SMS, email and AI usage are charged separately based on consumption." },
+    { q: "How long does launch take?", a: "Most workspaces are live in 2–3 weeks with our Guided Launch. Data migration, workflows and integrations are set up for you." },
+    { q: "Do you replace my existing tools?", a: "In most cases yes — Zapla consolidates CRM, inbox, bookings, quotes, payments and workflows into one place." },
+    { q: "What about SMS, email and AI limits?", a: "Included in your plan is generous baseline usage. Anything above that is billed transparently by consumption — no surprises." },
+    { q: "Can I keep my phone number?", a: "Yes. Missed-call capture and SMS work with your existing business number." },
   ];
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="bg-slate-50 py-20 sm:py-28 px-6">
+    <section className="bg-slate-50 py-24 sm:py-32 px-6">
       <div className="mx-auto max-w-3xl">
-        <div className="text-center">
-          <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-zapla-blue">Answers</span>
-          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[44px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            Common questions.
-          </h2>
-        </div>
-        <div className="mt-10 divide-y divide-slate-200 border border-slate-200 bg-white rounded-[22px] shadow-sm">
-          {faqs.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={f.q} className="px-5">
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
-                >
-                  <span className="text-[15.5px] font-semibold text-slate-950">{f.q}</span>
-                  <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-slate-300 text-slate-500 transition ${isOpen ? "rotate-45 border-zapla-blue text-zapla-blue" : ""}`}>+</span>
-                </button>
-                {isOpen && <p className="pb-6 pr-10 text-[14px] leading-relaxed text-slate-600">{f.a}</p>}
-              </div>
-            );
-          })}
+        <SectionEyebrow>FAQ</SectionEyebrow>
+        <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[42px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+          Straight answers.
+        </h2>
+        <div className="mt-10 divide-y divide-slate-200 rounded-2xl bg-white ring-1 ring-slate-200">
+          {items.map((it, i) => (
+            <div key={i}>
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+              >
+                <span className="text-[15px] font-semibold text-slate-900">{it.q}</span>
+                <span className={`grid h-6 w-6 place-items-center rounded-full bg-slate-100 text-slate-600 transition ${open === i ? "rotate-45" : ""}`}>+</span>
+              </button>
+              {open === i && (
+                <div className="px-5 pb-5 text-[14px] text-slate-600 leading-relaxed">{it.a}</div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-/* -------- 9. FinalCtaV3 ------------------------------------------ */
+/* =================================================================== */
+/*  9. FinalCtaV3                                                        */
+/* =================================================================== */
 
 function FinalCtaV3() {
   return (
     <section className="relative overflow-hidden bg-slate-950 py-24 sm:py-32 px-6 text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_20%,rgba(37,99,255,0.28),transparent_65%)]" />
-      <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[420px] w-[520px] -translate-x-1/2 rounded-full bg-cyan-500/12 blur-[140px]" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70">
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 h-[420px] w-[820px] rounded-full bg-blue-600/25 blur-3xl" />
+      </div>
       <div className="relative mx-auto max-w-3xl text-center">
-        <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-200">
-          Ready when you are
-        </span>
-        <h2 className="mt-5 font-zapla text-3xl sm:text-4xl md:text-[56px] font-semibold tracking-tight leading-[1.02]">
-          One system. Everything runs.
+        <SectionEyebrow tone="cyan">Get started</SectionEyebrow>
+        <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight leading-[1.05]">
+          See Zapla running on your business in one call.
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-white/70">
-          See Zapla with a guided walkthrough tailored to your business.
+        <p className="mt-4 text-lg text-white/70 leading-relaxed">
+          We'll walk through your customer journey and show exactly how Zapla removes what's leaking today.
         </p>
-        <div className="mt-8 flex justify-center">
-          <a
-            href={BOOK_URL}
-            className="inline-flex items-center gap-3 rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-slate-950 hover:bg-slate-100 transition shadow-[0_20px_60px_-20px_rgba(255,255,255,0.4)]"
-          >
-            Book a Call
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-slate-950 text-white">
-              <ArrowRight className="h-4 w-4" />
-            </span>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[14px] font-semibold text-slate-950 shadow-sm hover:bg-white/90">
+            Book a Call <ArrowRight className="h-4 w-4" />
           </a>
+          <span className="text-[12px] text-white/50">Guided launch included</span>
         </div>
       </div>
     </section>
   );
 }
+
 
