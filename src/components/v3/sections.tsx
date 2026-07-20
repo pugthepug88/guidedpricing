@@ -30,16 +30,16 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-function EmmaAvatar({ size = 44 }: { size?: number }) {
+function CustomerAvatar({ size = 44 }: { size?: number }) {
   return (
     <div
       className="grid shrink-0 place-items-center rounded-full text-white font-semibold ring-2 ring-white"
       style={{
-        width: size, height: size, fontSize: Math.round(size * 0.36),
+        width: size, height: size, fontSize: Math.round(size * 0.34),
         background: "linear-gradient(135deg,#2563eb 0%,#22d3ee 100%)",
       }}
       aria-hidden
-    >ER</div>
+    >SC</div>
   );
 }
 function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: string; size?: number }) {
@@ -51,6 +51,7 @@ function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: str
     >{initials}</div>
   );
 }
+
 
 function useReducedMotion() {
   const [r, setR] = useState(false);
