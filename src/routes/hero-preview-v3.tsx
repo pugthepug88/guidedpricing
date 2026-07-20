@@ -1980,33 +1980,42 @@ function WorkflowTheatreV3() { return <WorkflowCanvasV3 />; }
 
 function FocusedAIV3() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [reduced, setReduced] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [step, setStep] = useState(0);
+  const [mode, setMode] = useState<"receptionist" | "workflows">("receptionist");
 
   const transcript = [
-    { who: "ai", t: "Hi, thanks for reaching Northside Plumbing — this is your AI receptionist. How can I help?" },
-    { who: "caller", t: "Hey, I've got a leaking hot water system. Can someone come out today?" },
-    { who: "ai", t: "Absolutely. Can I grab your name and suburb?" },
-    { who: "caller", t: "Emma Reid, Bondi." },
-    { who: "ai", t: "Perfect Emma. We have a 2:00 PM slot with Alex today. Shall I lock that in?" },
-    { who: "caller", t: "Yes please." },
-    { who: "ai", t: "Booked. I'll send the confirmation now." },
+    { who: "caller", t: "Hi, can I book a service for Thursday?" },
+    { who: "ai",     t: "Absolutely. I have 2 pm available. Shall I lock that in?" },
+    { who: "caller", t: "Yes, please." },
+    { who: "ai",     t: "Done. You'll receive a confirmation text now." },
   ];
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const on = () => setReduced(mq.matches);
+    on();
+    mq.addEventListener?.("change", on);
+    return () => mq.removeEventListener?.("change", on);
+  }, []);
+
+  useEffect(() => {
+    if (reduced) { setStep(transcript.length); return; }
     if (!playing) return;
     const id = window.setInterval(() => {
       setStep((s) => (s + 1) % (transcript.length + 2));
-    }, 1800);
+    }, 2000);
     return () => window.clearInterval(id);
-  }, [playing, transcript.length]);
+  }, [playing, reduced, transcript.length]);
 
-  const shown = transcript.slice(0, Math.min(step + 1, transcript.length));
-  const bookingConfirmed = step >= transcript.length - 1;
+  const shown = reduced ? transcript : transcript.slice(0, Math.min(step + 1, transcript.length));
+  const bookingConfirmed = reduced || step >= transcript.length - 1;
+
+  const videoSrc = mode === "receptionist" ? aiWorkflowVideo.url : aiEmployeeVideo.url;
 
   return (
     <section className="relative overflow-hidden bg-[#05060a] py-24 sm:py-32 px-6 text-white">
-      {/* Ambient glow */}
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70">
         <div className="absolute -top-32 left-1/4 h-[520px] w-[520px] rounded-full bg-blue-600/20 blur-3xl" />
         <div className="absolute -bottom-40 right-1/4 h-[520px] w-[520px] rounded-full bg-cyan-500/15 blur-3xl" />
@@ -2021,72 +2030,89 @@ function FocusedAIV3() {
           <p className="mt-4 text-lg text-white/70 leading-relaxed max-w-2xl">
             AI answers, gathers details, books the appointment and hands the full context to your team.
           </p>
+
+          {/* Mode toggle: receptionist (primary) / AI workflows (secondary) */}
+          <div className="mt-6 inline-flex items-center gap-1 rounded-full bg-white/5 p-1 ring-1 ring-white/10">
+            <button
+              onClick={() => setMode("receptionist")}
+              className={`rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold transition ${mode === "receptionist" ? "bg-white text-slate-900" : "text-white/70 hover:text-white"}`}
+            >
+              AI receptionist
+            </button>
+            <button
+              onClick={() => setMode("workflows")}
+              className={`rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold transition ${mode === "workflows" ? "bg-white text-slate-900" : "text-white/70 hover:text-white"}`}
+            >
+              AI workflows
+            </button>
+          </div>
         </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-stretch">
-          {/* Character portrait — cinematic, no fake call chrome */}
+        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-stretch">
+          {/* Character portrait — cinematic, no audio pretence */}
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-b from-[#0b1220] to-[#05060a] ring-1 ring-white/10 shadow-[0_40px_120px_-40px_rgba(3,7,18,0.9)]">
             <div className="relative aspect-[4/5] sm:aspect-[5/6] w-full">
               <video
                 ref={videoRef}
+                key={mode}
                 className="absolute inset-0 h-full w-full object-contain"
-                src={aiWorkflowVideo.url}
-                autoPlay
+                src={videoSrc}
+                autoPlay={!reduced}
                 loop
                 muted
                 playsInline
-                preload="auto"
-                aria-label="Illustration of Zapla's AI receptionist"
+                preload="metadata"
+                aria-label={mode === "receptionist" ? "Illustration of Zapla's AI receptionist" : "Illustration of an AI workflow inside Zapla"}
               />
-              {/* Subtle vignette */}
               <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
 
-              {/* Top identifier — presented as an illustration, not a live phone call */}
+              {/* Top identifier — presented as an illustration */}
               <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/85 backdrop-blur ring-1 ring-white/15">
                 <Sparkles className="h-3 w-3 text-cyan-300" />
-                Zapla AI receptionist
+                {mode === "receptionist" ? "Zapla AI receptionist" : "Zapla AI workflows"}
               </div>
 
-              {/* Bottom demo control (no audio pretence) */}
+              {/* Bottom controls — no audio, no fake caller */}
               <div className="absolute inset-x-5 bottom-5 flex items-center justify-between gap-3 rounded-2xl bg-black/50 px-3 py-2.5 backdrop-blur ring-1 ring-white/10">
-                <div className="min-w-0">
-                  <div className="text-[11px] font-semibold uppercase tracking-wider text-cyan-300">Currently answering</div>
-                  <div className="truncate text-[13px] text-white/85">{shown[shown.length - 1]?.who === "ai" ? shown[shown.length - 1]?.t : "Listening…"}</div>
+                <div className="min-w-0 text-[11px] font-mono uppercase tracking-wider text-white/60">
+                  Illustrative demo · no audio
                 </div>
-                <button
-                  onClick={() => {
-                    setPlaying((p) => !p);
-                    const v = videoRef.current;
-                    if (v) { if (playing) v.pause(); else v.play().catch(() => {}); }
-                  }}
-                  className="shrink-0 rounded-full bg-white text-slate-900 px-3.5 py-1.5 text-[11px] font-semibold hover:bg-white/90"
-                >
-                  {playing ? "Pause demo" : "Play demo"}
-                </button>
+                {!reduced && (
+                  <button
+                    onClick={() => {
+                      setPlaying((p) => !p);
+                      const v = videoRef.current;
+                      if (v) { if (playing) v.pause(); else v.play().catch(() => {}); }
+                    }}
+                    className="shrink-0 rounded-full bg-white text-slate-900 px-3.5 py-1.5 text-[11px] font-semibold hover:bg-white/90"
+                  >
+                    {playing ? "Pause demo" : "Play demo"}
+                  </button>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Transcript + handoff — improved hierarchy */}
+          {/* Transcript + handoff */}
           <div className="flex flex-col gap-5">
             <div className="rounded-[22px] bg-white/[0.035] ring-1 ring-white/10 p-5 backdrop-blur">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <StatusDot tone="emerald" />
-                  <div className="text-[13px] font-semibold">Conversation</div>
+                  <StatusDot tone="emerald" pulse={!reduced} />
+                  <div className="text-[13px] font-semibold">Illustrative transcript</div>
                 </div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-white/40">Illustrative</div>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-white/40">Not a real recording</div>
               </div>
               <div className="mt-4 space-y-2.5">
                 {shown.map((m, i) => (
                   <div key={i} className={`flex ${m.who === "ai" ? "justify-start" : "justify-end"}`}>
                     <div className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-snug ${m.who === "ai" ? "bg-cyan-500/15 text-cyan-50 rounded-tl-sm ring-1 ring-cyan-400/20" : "bg-white/[0.08] text-white rounded-tr-sm ring-1 ring-white/10"}`}>
-                      <div className={`mb-0.5 text-[10px] font-semibold uppercase tracking-wider ${m.who === "ai" ? "text-cyan-300" : "text-white/60"}`}>{m.who === "ai" ? "AI receptionist" : "Emma"}</div>
+                      <div className={`mb-0.5 text-[10px] font-semibold uppercase tracking-wider ${m.who === "ai" ? "text-cyan-300" : "text-white/60"}`}>{m.who === "ai" ? "AI receptionist" : "Customer"}</div>
                       {m.t}
                     </div>
                   </div>
                 ))}
-                {shown.length < transcript.length && (
+                {!reduced && shown.length < transcript.length && (
                   <div className="flex justify-start">
                     <div className="rounded-2xl rounded-tl-sm bg-white/[0.04] px-3 py-2 text-[12px] text-white/40 ring-1 ring-white/10">
                       <span className="inline-flex gap-1">
@@ -2100,7 +2126,6 @@ function FocusedAIV3() {
               </div>
             </div>
 
-            {/* Booking + handoff, only after conversation resolves */}
             <div className={`rounded-[22px] p-5 ring-1 transition-all duration-500 ${bookingConfirmed ? "bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 ring-emerald-400/25" : "bg-white/[0.03] ring-white/10"}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-[13px] font-semibold">
@@ -2112,8 +2137,8 @@ function FocusedAIV3() {
               <div className="mt-4 grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
                 <span className="grid h-10 w-10 place-items-center rounded-lg bg-blue-500/25 text-blue-200"><CalendarIcon className="h-4 w-4" /></span>
                 <div className="text-[12px] min-w-0">
-                  <div className="font-semibold text-[13px]">Thu 14 Nov · 2:00 PM</div>
-                  <div className="text-white/60 text-[11px] truncate">Hot water repair · Bondi · Emma Reid</div>
+                  <div className="font-semibold text-[13px]">Thursday · 2:00 PM</div>
+                  <div className="text-white/60 text-[11px] truncate">Confirmation text sent · assigned to team</div>
                 </div>
                 <span className={`shrink-0 text-[10px] font-semibold uppercase tracking-wider ${bookingConfirmed ? "text-emerald-300" : "text-white/40"}`}>{bookingConfirmed ? "Sent" : "Draft"}</span>
               </div>
@@ -2128,21 +2153,11 @@ function FocusedAIV3() {
             </div>
           </div>
         </div>
-
-        {/* Supporting links */}
-        <div className="mt-10 flex flex-wrap items-center gap-3 text-[13px] text-white/70">
-          <span className="text-white/50">Also included:</span>
-          <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 ring-1 ring-white/10 hover:bg-white/10">
-            <Zap className="h-3.5 w-3.5 text-cyan-300" /> AI-assisted workflows
-          </a>
-          <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 ring-1 ring-white/10 hover:bg-white/10">
-            <StarIcon className="h-3.5 w-3.5 text-amber-300" /> AI reputation replies
-          </a>
-        </div>
       </div>
     </section>
   );
 }
+
 
 
 /* =================================================================== */
