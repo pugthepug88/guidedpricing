@@ -69,7 +69,7 @@ function useReducedMotion() {
 
 /* =====================================================================
  *  SECTION 1 — JourneyV3
- *  One stable workspace. One customer (Emma Reid). Six stages.
+ *  One stable workspace. One sample customer. Six stages.
  * ===================================================================== */
 
 type NavKey = "inbox" | "contacts" | "calendar" | "quotes" | "reviews" | "automations" | "campaigns";
@@ -114,7 +114,7 @@ function PanelCapture() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma Reid.</div>
+            <div className="text-[12px] text-slate-600">Number matched. One contact record created for the customer.</div>
           </div>
           <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">New</span>
         </div>
@@ -131,7 +131,7 @@ function PanelCapture() {
 }
 function PanelCommunicate() {
   const msgs = [
-    { from: "z", t: "Hi Emma, we saw you called. Can we help book a service?", when: "12:04" },
+    { from: "z", t: "Hi, we saw you called. Can we help book a service?", when: "12:04" },
     { from: "e", t: "Yes please, dripping tap in the kitchen.", when: "12:07" },
     { from: "z", t: "We can send someone Thursday 2pm. Works for you?", when: "12:08" },
     { from: "e", t: "Perfect, thanks!", when: "12:09" },
@@ -139,7 +139,7 @@ function PanelCommunicate() {
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
       <div className="mb-2 flex items-center justify-between px-1">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">SMS · thread in Emma's record</div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">SMS · thread in the customer record</div>
         <div className="text-[11px] text-slate-400">Today</div>
       </div>
       <div className="space-y-2">
@@ -161,7 +161,7 @@ function PanelConvert() {
       <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><FileText className="h-3 w-3" />Quote #Q-2841</div>
         <div className="mt-2 text-[13px] font-semibold text-slate-900">Kitchen tap repair + parts</div>
-        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma Reid</div>
+        <div className="mt-1 text-[12px] text-slate-500">Attached to sample customer</div>
         <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
           <div className="text-[18px] font-semibold text-slate-900">$180.00</div>
           <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Accepted</span>
@@ -292,7 +292,7 @@ function PanelRetain() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-amber-50 text-amber-500 ring-1 ring-amber-100"><StarIcon className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Review request · queued</div>
-            <div className="text-[12px] text-slate-500">Sends to Emma 1 hour after job completion</div>
+            <div className="text-[12px] text-slate-500">Sends 1 hour after job completion</div>
           </div>
           <span className="text-[11px] font-semibold text-slate-500">Pending</span>
         </div>
@@ -302,7 +302,7 @@ function PanelRetain() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-50 text-blue-600 ring-1 ring-blue-100"><Bell className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Service reminder · scheduled</div>
-            <div className="text-[12px] text-slate-500">6-month check-in for Emma Reid</div>
+            <div className="text-[12px] text-slate-500">6-month check-in queued</div>
           </div>
           <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Auto</span>
         </div>
@@ -324,7 +324,7 @@ function PanelGrow() {
         ))}
       </div>
       <div className="mt-3 flex items-center gap-2 text-[11px] text-slate-500">
-        <Sparkles className="h-3 w-3 text-blue-600" /> Replies land back in Emma's inbox thread
+        <Sparkles className="h-3 w-3 text-blue-600" /> Replies land back in the same inbox thread
       </div>
     </div>
   );
@@ -372,7 +372,7 @@ export function JourneyV3() {
             One product, six stages of the customer journey.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            The same connected workspace, from first enquiry to repeat customer. Follow Emma Reid through every stage.
+            The same connected workspace, from first enquiry to repeat customer. Follow one sample customer through every stage.
           </p>
         </div>
 
