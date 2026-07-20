@@ -367,12 +367,10 @@ function Hero() {
 /* -------- Card stack orchestrator ---------------------------------- */
 
 const HERO_CARDS = [
-  { title: "Sales Pipeline",              logo: logoGreen.url,  Body: CardPipeline },
-  { title: "Control Dashboard",                logo: logoBlue.url,   Body: CardDashboard },
-  { title: "Automations",  logo: logoOrange.url, Body: CardAutomation },
-  { title: "Reporting",  logo: logoPurple.url, Body: CardPerformance },
-  { title: "Bookings",  logo: logoYellow.url, Body: CardCalendar },
-  { title: "Contacts",            logo: logoTeal.url,   Body: CardTagging },
+  { title: "Sales Pipeline",     logo: logoGreen.url,  Body: CardPipeline },
+  { title: "Control Dashboard",  logo: logoBlue.url,   Body: CardDashboard },
+  { title: "Automations",        logo: logoOrange.url, Body: CardAutomation },
+  { title: "Bookings",           logo: logoYellow.url, Body: CardCalendar },
 ] as const;
 
 function HeroCardStack() {
