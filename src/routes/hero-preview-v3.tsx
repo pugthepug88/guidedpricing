@@ -300,11 +300,9 @@ function Hero() {
           cursor: pointer;
         }
         .hero-stack-card[data-pos="0"] { transform: translateX(0) translateY(0) scale(1); z-index: 6; opacity: 1; clip-path: none; }
-        .hero-stack-card[data-pos="1"] { transform: translateX(-58px) translateY(20px) scale(0.96); z-index: 5; opacity: 0.9; clip-path: inset(0 34% 0 0 round 20px); }
-        .hero-stack-card[data-pos="2"] { transform: translateX(-116px) translateY(40px) scale(0.92); z-index: 4; opacity: 0.75; clip-path: inset(0 40% 0 0 round 20px); }
-        .hero-stack-card[data-pos="3"] { transform: translateX(-174px) translateY(60px) scale(0.88); z-index: 3; opacity: 0.6; clip-path: inset(0 46% 0 0 round 20px); }
-        .hero-stack-card[data-pos="4"] { transform: translateX(-232px) translateY(80px) scale(0.84); z-index: 2; opacity: 0.45; clip-path: inset(0 52% 0 0 round 20px); }
-        .hero-stack-card[data-pos="5"] { transform: translateX(-290px) translateY(100px) scale(0.80); z-index: 1; opacity: 0.3;  clip-path: inset(0 58% 0 0 round 20px); }
+        .hero-stack-card[data-pos="1"] { transform: translateX(-72px) translateY(24px) scale(0.95); z-index: 5; opacity: 0.85; clip-path: inset(0 36% 0 0 round 20px); }
+        .hero-stack-card[data-pos="2"] { transform: translateX(-144px) translateY(48px) scale(0.90); z-index: 4; opacity: 0.65; clip-path: inset(0 44% 0 0 round 20px); }
+        .hero-stack-card[data-pos="3"] { transform: translateX(-216px) translateY(72px) scale(0.85); z-index: 3; opacity: 0.45; clip-path: inset(0 52% 0 0 round 20px); }
         .hero-stack-nav {
           position: absolute;
           bottom: -44px;
@@ -327,40 +325,75 @@ function Hero() {
         }
 
         @media (max-width: 900px) {
-          .hero-stack { height: 520px; }
+          .hero-stack { height: 540px; }
           .hero-stack-card { padding: 22px 22px; }
-          .hero-stack-card[data-pos="1"] { transform: translateX(-40px) translateY(15px) scale(0.96); }
-          .hero-stack-card[data-pos="2"] { transform: translateX(-80px) translateY(30px) scale(0.92); }
-          .hero-stack-card[data-pos="3"] { transform: translateX(-120px) translateY(45px) scale(0.88); }
-          .hero-stack-card[data-pos="4"] { transform: translateX(-160px) translateY(60px) scale(0.84); }
-          .hero-stack-card[data-pos="5"] { transform: translateX(-200px) translateY(75px) scale(0.80); }
+          .hero-stack-card[data-pos="1"] { transform: translateX(-48px) translateY(18px) scale(0.95); }
+          .hero-stack-card[data-pos="2"] { transform: translateX(-96px) translateY(36px) scale(0.90); }
+          .hero-stack-card[data-pos="3"] { transform: translateX(-144px) translateY(54px) scale(0.85); }
         }
+
+        /* Mobile: replace stack entirely with a single readable hero tile */
         @media (max-width: 640px) {
-          .hero-stack { height: 440px; }
-          .hero-stack-card { padding: 16px 16px; border-radius: 16px; }
-          .hero-stack-card .hero-card-header-title { font-size: 16px; }
-          .hero-stack-card .hero-card-header-logo { height: 32px; width: 32px; }
-          /* Scale down the fixed-width inner content so it fits on phones */
-          .hero-card-body {
-            transform: scale(0.5);
-            transform-origin: top left;
-            width: 200%;
-            height: calc((100% - 56px) * 2);
-          }
-          /* Tighten the fanned peek so cards don't spill off-screen */
-          .hero-stack-card[data-pos="1"] { transform: translateX(-14px) translateY(10px) scale(0.96); clip-path: inset(0 60% 0 0 round 16px); }
-          .hero-stack-card[data-pos="2"] { transform: translateX(-28px) translateY(20px) scale(0.92); clip-path: inset(0 66% 0 0 round 16px); }
-          .hero-stack-card[data-pos="3"],
-          .hero-stack-card[data-pos="4"],
-          .hero-stack-card[data-pos="5"] { opacity: 0; pointer-events: none; }
+          .hero-stack { display: none; }
           .hero-cta { width: auto; height: 52px; padding: 0 22px; font-size: 0.95rem; }
           .hero-cta-text { margin-right: 40px; }
           .hero-cta-circle { width: 38px; height: 38px; right: 7px; }
           .hero-cta-circle svg { width: 15px; height: 15px; }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-stack-card { transition: none; }
+        }
 
       `}</style>
     </header>
+  );
+}
+
+/* -------- Mobile hero product tile — single focused moment ----------- */
+function HeroMobileTile() {
+  return (
+    <div className="mt-10 sm:hidden">
+      <div className="mx-auto max-w-sm overflow-hidden rounded-2xl bg-white ring-1 ring-slate-200 shadow-[0_20px_50px_-24px_rgba(15,23,42,0.25)]">
+        <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/70 px-3.5 py-2.5">
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="ml-2 text-[11px] text-slate-500">app.zapla.io / inbox</span>
+        </div>
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="text-[13px] font-semibold text-slate-900">Live inbox</div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Connected
+            </span>
+          </div>
+          <div className="mt-3 space-y-2.5">
+            <div className="flex items-start gap-2.5 rounded-xl bg-slate-50 p-2.5 ring-1 ring-slate-100">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-rose-50 text-rose-600 ring-1 ring-rose-100 shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72l1 6-2.5 2.5a16 16 0 006 6l2.5-2.5 6 1a2 2 0 011.72 2z"/><line x1="22" y1="2" x2="18" y2="6"/><line x1="18" y1="2" x2="22" y2="6"/></svg>
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="text-[12.5px] font-semibold text-slate-900">Missed call · Emma Reid</div>
+                <div className="text-[11px] text-slate-500">Auto-reply sent · 12:04 PM</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-2.5 rounded-xl bg-blue-50/60 p-2.5 ring-1 ring-blue-100">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-blue-600 ring-1 ring-blue-100 shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="text-[12.5px] font-semibold text-slate-900">Booking placed · Thu 2:00 PM</div>
+                <div className="text-[11px] text-slate-500">Assigned to Alex · confirmation sent</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-500">
+            <span>One inbox for every channel</span>
+            <span className="font-semibold text-blue-700">Explore →</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
