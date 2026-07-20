@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import { ConnectedSystemSectionV3 } from "@/components/ConnectedSystemSectionV3";
+import { JourneyV3, AutomationStoryV3, ProfessionCarouselV3, OneRecordV3 } from "@/components/v3/sections";
 import {
   Home as HomeIcon,
   Landmark as LandmarkIcon,
@@ -362,7 +363,7 @@ function HeroMobileTile() {
           <span className="h-2 w-2 rounded-full bg-slate-300" />
           <span className="h-2 w-2 rounded-full bg-slate-300" />
           <span className="h-2 w-2 rounded-full bg-slate-300" />
-          <span className="ml-2 text-[11px] text-slate-500">app.zapla.io / inbox</span>
+          <span className="ml-2 text-[11px] text-slate-500">my.zapla.io</span>
         </div>
         <div className="p-4">
           <div className="flex items-center justify-between">
@@ -1275,7 +1276,7 @@ function AppShell({ view, children }: { view: string; children: ReactNode }) {
         </div>
         <div className="mx-auto flex items-center gap-2 rounded-md bg-white px-3 py-1 text-[11px] text-slate-500 ring-1 ring-slate-200">
           <Globe className="h-3 w-3" />
-          app.zapla.io / <span className="text-slate-900 font-medium">{view}</span>
+          my.zapla.io
         </div>
         <div className="flex items-center gap-1.5">
           <span className="h-6 w-6 grid place-items-center rounded-full bg-slate-900 text-white text-[10px] font-semibold">SM</span>
@@ -1642,62 +1643,7 @@ const V3_STAGES: V3Stage[] = [
   { key: "grow", label: "Grow", sub: "06", headline: "Wake up inactive customers.", body: "AI drafts the message, sends it, and routes replies back into the inbox.", caps: ["Smart segments", "AI drafting", "Multi-channel send", "Replies in inbox"], scene: <GrowSceneV3 /> },
 ];
 
-function PlatformLifecycleV3() {
-  const [active, setActive] = useState(0);
-  const stage = V3_STAGES[active];
-  return (
-    <section className="bg-slate-50 py-24 sm:py-32 px-6">
-      <div className="mx-auto max-w-6xl">
-        <div className="max-w-2xl">
-          <SectionEyebrow tone="slate">The platform</SectionEyebrow>
-          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            One product, six stages of the customer journey.
-          </h2>
-          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            The same connected workspace, from first enquiry to lifelong customer.
-          </p>
-        </div>
-
-        {/* Stage selector — refined */}
-        <div className="mt-10 -mx-6 px-6 overflow-x-auto sm:overflow-visible">
-          <div className="flex min-w-max sm:min-w-0 items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-sm sm:justify-center">
-            {V3_STAGES.map((s, i) => {
-              const isActive = i === active;
-              return (
-                <button
-                  key={s.key}
-                  onClick={() => setActive(i)}
-                  className={`relative flex items-center gap-2 rounded-full px-3.5 sm:px-4 py-2 text-[12px] sm:text-[13px] font-semibold transition ${isActive ? "bg-slate-950 text-white shadow" : "text-slate-500 hover:text-slate-800"}`}
-                >
-                  <span className={`font-mono text-[10px] ${isActive ? "text-white/60" : "text-slate-400"}`}>{s.sub}</span>
-                  {s.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Stage content */}
-        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-14 items-start">
-          <div className="lg:sticky lg:top-24">
-            <div className="text-[11px] font-mono text-slate-400">{stage.sub} / 06</div>
-            <h3 className="mt-2 font-zapla text-2xl sm:text-[30px] font-semibold text-slate-950 leading-[1.15]">{stage.headline}</h3>
-            <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{stage.body}</p>
-            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4">
-              {stage.caps.map((c) => (
-                <li key={c} className="flex items-start gap-2 text-[13px] text-slate-700">
-                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 text-blue-600 shrink-0" />
-                  {c}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <AppShell view={stage.label}>{stage.scene}</AppShell>
-        </div>
-      </div>
-    </section>
-  );
-}
+function PlatformLifecycleV3() { return <JourneyV3 />; }
 
 /* =================================================================== */
 /*  3. WorkflowCanvasV3 — light, realistic automation builder            */
@@ -1972,7 +1918,7 @@ function WorkflowCanvasV3() {
 }
 
 /* Kept name for backwards ref in page — now uses new canvas */
-function WorkflowTheatreV3() { return <WorkflowCanvasV3 />; }
+function WorkflowTheatreV3() { return <AutomationStoryV3 />; }
 
 /* =================================================================== */
 /*  4. FocusedAIV3 — cinematic black, talking character                  */
@@ -2164,200 +2110,13 @@ function FocusedAIV3() {
 /*  5. IndustriesV3 — three distinct editorial stories                   */
 /* =================================================================== */
 
-function IndustriesV3() {
-  return (
-    <section className="bg-white py-24 sm:py-32 px-6">
-      <div className="mx-auto max-w-6xl">
-        <div className="max-w-3xl">
-          <SectionEyebrow>Solutions</SectionEyebrow>
-          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            Built for the way service businesses actually work.
-          </h2>
-          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            Different industries. The same challenge: respond faster, stay organised and keep customers moving.
-          </p>
-        </div>
-
-        {/* Lead story: Automotive & trades */}
-        <article className="mt-14 grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12 items-center rounded-[26px] bg-gradient-to-br from-stone-100 via-white to-amber-50/40 ring-1 ring-stone-200 p-6 sm:p-10 overflow-hidden">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-stone-900/5 px-3 py-1 text-[11px] font-semibold text-stone-700 ring-1 ring-stone-200">
-              <WrenchIcon className="h-3.5 w-3.5 text-amber-600" /> Automotive & trades
-            </div>
-            <h3 className="mt-4 font-zapla text-2xl sm:text-[32px] font-semibold text-slate-950 leading-tight">
-              Missed call → instant reply → booked job.
-            </h3>
-            <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">
-              Field teams live on the phone. Zapla catches every missed call, replies from your business number and books the job while you're still on-site.
-            </p>
-            <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-[13px] text-slate-700">
-              {["Missed-call SMS", "Job scheduling", "Quote follow-up", "Payment on completion"].map((c) => (
-                <li key={c} className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-amber-600" />{c}</li>
-              ))}
-            </ul>
-            <a href={BOOK_URL} className="mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold text-stone-900 hover:text-blue-700">
-              Explore solution <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-          </div>
-          <div className="relative">
-            <div className="relative overflow-hidden rounded-2xl ring-1 ring-stone-200 aspect-[4/3] bg-stone-100">
-              <img src={industryTrades.url} alt="Trades" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/30 to-transparent" />
-            </div>
-            {/* Floating UI overlay */}
-            <div className="absolute -bottom-4 -left-4 sm:-left-6 w-[86%] rounded-2xl bg-white p-3.5 ring-1 ring-stone-200 shadow-[0_18px_40px_-20px_rgba(0,0,0,0.35)]">
-              <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-500">
-                <StatusDot tone="amber" /> New booking · via missed-call flow
-              </div>
-              <div className="mt-2 flex items-center gap-2.5">
-                <V3Avatar name="Ryan T" tone="amber" size={30} />
-                <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-semibold text-slate-900">Ryan Thomas · brake service</div>
-                  <div className="text-[11px] text-slate-500">Thu 3:30 PM · assigned to Alex</div>
-                </div>
-                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-              </div>
-            </div>
-          </div>
-        </article>
-
-        {/* Two supporting stories with distinct palettes */}
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {/* Property & professional services — sage */}
-          <article className="rounded-[26px] bg-gradient-to-br from-emerald-50/60 via-white to-white ring-1 ring-emerald-100/70 p-6 sm:p-8">
-            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-900/5 px-3 py-1 text-[11px] font-semibold text-emerald-800 ring-1 ring-emerald-200">
-              <Briefcase className="h-3.5 w-3.5" /> Property & professional services
-            </div>
-            <h3 className="mt-4 font-zapla text-xl sm:text-2xl font-semibold text-slate-950 leading-tight">
-              Enquiry → nurture → consultation.
-            </h3>
-            <div className="mt-4 rounded-xl bg-white p-3 ring-1 ring-emerald-100">
-              <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-500">
-                <GmailGlyph size={14} /> Enquiry captured
-                <span className="mx-1 text-slate-300">·</span>
-                <StatusDot tone="emerald" pulse={false} /> Nurture running
-              </div>
-              <div className="mt-2 space-y-1.5">
-                {[{ w: "Instagram DM", t: "Received" }, { w: "Auto-reply sent", t: "0s" }, { w: "Booking link", t: "Sent" }].map((r, i) => (
-                  <div key={i} className="flex items-center justify-between text-[12px]">
-                    <span className="text-slate-700">{r.w}</span>
-                    <span className="text-emerald-700 font-semibold">{r.t}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <ul className="mt-5 grid grid-cols-1 gap-y-1.5 text-[13px] text-slate-700">
-              {["Multi-channel enquiry capture", "Pipeline nurture", "Unified client history"].map((c) => (
-                <li key={c} className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />{c}</li>
-              ))}
-            </ul>
-            <a href={BOOK_URL} className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-emerald-900 hover:text-blue-700">
-              Explore solution <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-          </article>
-
-          {/* Health, fitness & appointments — mint/teal */}
-          <article className="rounded-[26px] bg-gradient-to-br from-teal-50/70 via-white to-stone-50 ring-1 ring-teal-100/70 p-6 sm:p-8">
-            <div className="inline-flex items-center gap-2 rounded-full bg-teal-900/5 px-3 py-1 text-[11px] font-semibold text-teal-800 ring-1 ring-teal-200">
-              <HeartPulse className="h-3.5 w-3.5" /> Health, fitness & appointments
-            </div>
-            <h3 className="mt-4 font-zapla text-xl sm:text-2xl font-semibold text-slate-950 leading-tight">
-              Reminder → appointment → rebooking.
-            </h3>
-            <div className="mt-4 rounded-xl bg-white p-3 ring-1 ring-teal-100">
-              <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
-                <span className="inline-flex items-center gap-1.5"><CalendarIcon className="h-3 w-3 text-teal-600" /> This week</span>
-                <span className="inline-flex items-center gap-1.5"><StatusDot tone="emerald" pulse={false} /> Reminders sent</span>
-              </div>
-              <div className="mt-2 grid grid-cols-7 gap-1">
-                {[0,1,2,3,4,5,6].map((d) => (
-                  <div key={d} className="h-8 rounded-md bg-teal-50 ring-1 ring-teal-100 flex items-end p-1">
-                    <div className="w-full rounded-sm bg-teal-500/70" style={{ height: `${20 + d * 10}%` }} />
-                  </div>
-                ))}
-              </div>
-              <div className="mt-2 text-[11px] text-slate-500">Weekly booking view</div>
-            </div>
-            <ul className="mt-5 grid grid-cols-1 gap-y-1.5 text-[13px] text-slate-700">
-              {["Online booking", "Automatic reminders", "One-click rebooking"].map((c) => (
-                <li key={c} className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-teal-600" />{c}</li>
-              ))}
-            </ul>
-            <a href={BOOK_URL} className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-teal-900 hover:text-blue-700">
-              Explore solution <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-          </article>
-        </div>
-
-        {/* Compact list of remaining industries */}
-        <div className="mt-10 rounded-2xl bg-slate-50 ring-1 ring-slate-200 px-5 py-4 sm:px-6 sm:py-5">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] text-slate-700">
-            <span className="text-slate-500 font-semibold">Also built for</span>
-            {[
-              { i: <HomeIcon className="h-3.5 w-3.5" />, l: "Real estate" },
-              { i: <LandmarkIcon className="h-3.5 w-3.5" />, l: "Mortgage" },
-              { i: <BedIcon className="h-3.5 w-3.5" />, l: "Short-stay" },
-              { i: <ScaleIcon className="h-3.5 w-3.5" />, l: "Legal" },
-              { i: <TicketIcon className="h-3.5 w-3.5" />, l: "Events" },
-              { i: <DumbbellIcon className="h-3.5 w-3.5" />, l: "Fitness" },
-              { i: <ShoppingBagIcon className="h-3.5 w-3.5" />, l: "E-commerce" },
-              { i: <UtensilsIcon className="h-3.5 w-3.5" />, l: "Restaurants" },
-              { i: <PackageIcon className="h-3.5 w-3.5" />, l: "Rentals" },
-              { i: <CarIcon className="h-3.5 w-3.5" />, l: "Automotive" },
-              { i: <StethoscopeIcon className="h-3.5 w-3.5" />, l: "Healthcare" },
-            ].map((x) => (
-              <span key={x.l} className="inline-flex items-center gap-1.5 text-slate-700">
-                <span className="text-slate-400">{x.i}</span>{x.l}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+function IndustriesV3() { return <ProfessionCarouselV3 />; }
 
 /* =================================================================== */
 /*  6. ToolStackV3 — funnel-led composition                              */
 /* =================================================================== */
 
-function ToolStackV3() {
-  return (
-    <section className="bg-slate-50 py-24 sm:py-32 px-6">
-      <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16 items-center">
-        <div>
-          <SectionEyebrow>The stack</SectionEyebrow>
-          <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[46px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            Consolidate a stack of disconnected tools into one customer record.
-          </h2>
-          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            Inbox, CRM, bookings, quotes, payments and workflows live in one place. Every call, message and job stays attached to the same contact.
-          </p>
-          <ul className="mt-6 space-y-2.5">
-            {[
-              "One connected customer record",
-              "One inbox for every channel",
-              "Bookings, quotes and payments linked to the contact",
-              "Automations that move work between stages",
-              "No more copy-pasting between apps",
-            ].map((c) => (
-              <li key={c} className="flex items-start gap-2.5 text-[14px] text-slate-800">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 text-blue-600 shrink-0" />
-                {c}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="relative">
-          <div className="absolute -inset-4 rounded-[28px] bg-gradient-to-br from-blue-100/60 via-white to-cyan-100/50 blur-2xl" aria-hidden />
-          <div className="relative overflow-hidden rounded-[26px] bg-white ring-1 ring-slate-200 p-4 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
-            <img src={funnelAsset.url} alt="16 disconnected apps replaced by one Zapla system" className="w-full h-auto rounded-[18px]" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+function ToolStackV3() { return <OneRecordV3 />; }
 
 /* =================================================================== */
 /*  7. PricingPreviewV3                                                  */
