@@ -731,7 +731,7 @@ export function ProfessionCarouselV3() {
   const go = (n: number) => setI(((n % SLIDES.length) + SLIDES.length) % SLIDES.length);
 
   return (
-    <section className="bg-slate-50 py-24 sm:py-32 px-6">
+    <section className="bg-slate-50 py-24 sm:py-32 px-6 overflow-hidden">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">
           <Eyebrow>Solutions</Eyebrow>
