@@ -103,6 +103,7 @@ function CustomerRecordHeader() {
     </div>
   );
 }
+const EmmaRecordHeader = CustomerRecordHeader;
 
 
 function PanelCapture() {
