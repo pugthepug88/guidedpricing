@@ -1037,14 +1037,7 @@ function StatusDot({ tone = "emerald", pulse = true }: { tone?: "emerald" | "amb
   );
 }
 
-function DemoBadge() {
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500 ring-1 ring-slate-200">
-      <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
-      Demo workspace
-    </span>
-  );
-}
+/* DemoBadge removed — product mockups should read as self-evidently illustrative. */
 
 function SectionEyebrow({ children, tone = "blue" }: { children: ReactNode; tone?: "blue" | "cyan" | "slate" | "amber" }) {
   const map: Record<string, string> = {
@@ -1146,7 +1139,7 @@ function OutcomesV3() {
               <div className="flex items-center gap-2 text-[13px] font-semibold text-slate-800">
                 <StatusDot tone="emerald" /> Live inbox
               </div>
-              <DemoBadge />
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Inbox · today</span>
             </div>
             <div className="mt-5 space-y-3">
               {/* Missed call */}
@@ -1249,7 +1242,9 @@ function AppShell({ view, children }: { view: string; children: ReactNode }) {
           <Globe className="h-3 w-3" />
           app.zapla.io / <span className="text-slate-900 font-medium">{view}</span>
         </div>
-        <DemoBadge />
+        <div className="flex items-center gap-1.5">
+          <span className="h-6 w-6 grid place-items-center rounded-full bg-slate-900 text-white text-[10px] font-semibold">SM</span>
+        </div>
       </div>
       {/* Body: rail + content */}
       <div className="flex min-h-[420px]">
@@ -2192,7 +2187,7 @@ function IndustriesV3() {
                   </div>
                 ))}
               </div>
-              <div className="mt-2 text-[11px] text-slate-500">Sample bookings · demo workspace</div>
+              <div className="mt-2 text-[11px] text-slate-500">Weekly booking view</div>
             </div>
             <ul className="mt-5 grid grid-cols-1 gap-y-1.5 text-[13px] text-slate-700">
               {["Online booking", "Automatic reminders", "One-click rebooking"].map((c) => (
@@ -2328,10 +2323,10 @@ function PricingPreviewV3() {
 
 function FaqV3() {
   const items = [
-    { q: "Do you charge per user?", a: "No. Your Zapla subscription includes unlimited users. SMS, email and AI usage are charged separately based on consumption." },
-    { q: "How long does launch take?", a: "Most workspaces are live in 2–3 weeks with our Guided Launch. Data migration, workflows and integrations are set up for you." },
-    { q: "Do you replace my existing tools?", a: "In most cases yes — Zapla consolidates CRM, inbox, bookings, quotes, payments and workflows into one place." },
-    { q: "What about SMS, email and AI limits?", a: "Included in your plan is generous baseline usage. Anything above that is billed transparently by consumption — no surprises." },
+    { q: "Do you charge per user?", a: "No. Your Zapla subscription includes unlimited users. SMS, email and AI usage are billed separately based on consumption." },
+    { q: "How long does launch take?", a: "We scope the timeline with you on a discovery call based on your integrations, data and workflows. Guided Launch is included so you're not setting it up alone." },
+    { q: "Does Zapla replace my existing tools?", a: "Many customers use Zapla to consolidate CRM, inbox, bookings, quotes, payments and workflows. What you keep or retire is something we walk through together on the call." },
+    { q: "What about SMS, email and AI costs?", a: "SMS, email and AI are usage-based and billed separately based on consumption, at cost-transparent rates." },
     { q: "Can I keep my phone number?", a: "Yes. Missed-call capture and SMS work with your existing business number." },
   ];
   const [open, setOpen] = useState<number | null>(0);
