@@ -272,7 +272,7 @@ function NewLeadCard() {
           </div>
         </div>
         <div className="flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-200">
-          <Sparkles className="h-3 w-3" /> AI · LIVE
+          <Sparkles className="h-3 w-3" /> AI
         </div>
       </div>
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
