@@ -1922,21 +1922,32 @@ function WorkflowTheatreV3() { return <WorkflowCanvasV3 />; }
 
 function FocusedAIV3() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [muted, setMuted] = useState(true);
-  const [captions] = useState(true);
+  const [playing, setPlaying] = useState(true);
+  const [step, setStep] = useState(0);
 
   const transcript = [
-    { who: "ai", t: "Hi, thanks for calling Northside Plumbing — this is your AI receptionist. How can I help?" },
+    { who: "ai", t: "Hi, thanks for reaching Northside Plumbing — this is your AI receptionist. How can I help?" },
     { who: "caller", t: "Hey, I've got a leaking hot water system. Can someone come out today?" },
     { who: "ai", t: "Absolutely. Can I grab your name and suburb?" },
     { who: "caller", t: "Emma Reid, Bondi." },
     { who: "ai", t: "Perfect Emma. We have a 2:00 PM slot with Alex today. Shall I lock that in?" },
     { who: "caller", t: "Yes please." },
-    { who: "ai", t: "Booked. I'll text you the confirmation now." },
+    { who: "ai", t: "Booked. I'll send the confirmation now." },
   ];
 
+  useEffect(() => {
+    if (!playing) return;
+    const id = window.setInterval(() => {
+      setStep((s) => (s + 1) % (transcript.length + 2));
+    }, 1800);
+    return () => window.clearInterval(id);
+  }, [playing, transcript.length]);
+
+  const shown = transcript.slice(0, Math.min(step + 1, transcript.length));
+  const bookingConfirmed = step >= transcript.length - 1;
+
   return (
-    <section className="relative overflow-hidden bg-slate-950 py-24 sm:py-32 px-6 text-white">
+    <section className="relative overflow-hidden bg-[#05060a] py-24 sm:py-32 px-6 text-white">
       {/* Ambient glow */}
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70">
         <div className="absolute -top-32 left-1/4 h-[520px] w-[520px] rounded-full bg-blue-600/20 blur-3xl" />
@@ -1954,101 +1965,105 @@ function FocusedAIV3() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] items-start">
-          {/* Live-call frame with talking character */}
-          <div className="overflow-hidden rounded-[26px] bg-white/[0.04] ring-1 ring-white/10 backdrop-blur">
-            <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-              <div className="flex items-center gap-2 text-[12px]">
-                <StatusDot tone="emerald" />
-                <span className="font-semibold">Live call</span>
-                <span className="text-white/50">· +61 400 812 559</span>
-              </div>
-              <div className="font-mono text-[12px] text-white/60">00:42</div>
-            </div>
-            <div className="relative aspect-[4/5] sm:aspect-[16/11] bg-slate-900">
+        <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-stretch">
+          {/* Character portrait — cinematic, no fake call chrome */}
+          <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-b from-[#0b1220] to-[#05060a] ring-1 ring-white/10 shadow-[0_40px_120px_-40px_rgba(3,7,18,0.9)]">
+            <div className="relative aspect-[4/5] sm:aspect-[5/6] w-full">
               <video
                 ref={videoRef}
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-contain"
                 src={aiWorkflowVideo.url}
                 autoPlay
                 loop
-                muted={muted}
+                muted
                 playsInline
                 preload="auto"
+                aria-label="Illustration of Zapla's AI receptionist"
               />
-              {/* Caller overlay */}
-              <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-black/50 px-2.5 py-1 text-[11px] backdrop-blur ring-1 ring-white/10">
-                <V3Avatar name="Emma Reid" tone="cyan" size={22} />
-                Emma Reid · caller
+              {/* Subtle vignette */}
+              <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
+
+              {/* Top identifier — presented as an illustration, not a live phone call */}
+              <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/85 backdrop-blur ring-1 ring-white/15">
+                <Sparkles className="h-3 w-3 text-cyan-300" />
+                Zapla AI receptionist
               </div>
-              {/* Waveform */}
-              <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-black/45 backdrop-blur ring-1 ring-white/10 px-3 py-2.5 flex items-center gap-3">
-                <span className="text-[11px] font-semibold text-white/80 shrink-0">AI speaking</span>
-                <div className="flex-1 flex items-center gap-[3px] h-6">
-                  {Array.from({ length: 40 }).map((_, i) => (
-                    <span
-                      key={i}
-                      className="w-[3px] rounded-full bg-cyan-300/80"
-                      style={{
-                        height: `${20 + Math.abs(Math.sin(i * 0.7)) * 70}%`,
-                        animation: "wave 1.2s ease-in-out infinite",
-                        animationDelay: `${(i % 10) * 60}ms`,
-                      }}
-                    />
-                  ))}
+
+              {/* Bottom demo control (no audio pretence) */}
+              <div className="absolute inset-x-5 bottom-5 flex items-center justify-between gap-3 rounded-2xl bg-black/50 px-3 py-2.5 backdrop-blur ring-1 ring-white/10">
+                <div className="min-w-0">
+                  <div className="text-[11px] font-semibold uppercase tracking-wider text-cyan-300">Currently answering</div>
+                  <div className="truncate text-[13px] text-white/85">{shown[shown.length - 1]?.who === "ai" ? shown[shown.length - 1]?.t : "Listening…"}</div>
                 </div>
                 <button
-                  onClick={() => { setMuted((m) => !m); if (videoRef.current) videoRef.current.muted = !videoRef.current.muted; }}
-                  className="rounded-full bg-white text-slate-900 px-3 py-1 text-[11px] font-semibold hover:bg-white/90"
+                  onClick={() => {
+                    setPlaying((p) => !p);
+                    const v = videoRef.current;
+                    if (v) { if (playing) v.pause(); else v.play().catch(() => {}); }
+                  }}
+                  className="shrink-0 rounded-full bg-white text-slate-900 px-3.5 py-1.5 text-[11px] font-semibold hover:bg-white/90"
                 >
-                  {muted ? "Play demo" : "Mute"}
+                  {playing ? "Pause demo" : "Play demo"}
                 </button>
               </div>
-              <style>{`@keyframes wave { 0%,100% { transform: scaleY(0.4);} 50% { transform: scaleY(1);} }`}</style>
             </div>
-            {captions && (
-              <div className="border-t border-white/10 px-4 py-2 text-[12px] text-white/75">
-                <span className="text-cyan-300 font-semibold">AI:</span> Perfect Emma. We have a 2:00 PM slot with Alex today…
-              </div>
-            )}
           </div>
 
-          {/* Transcript + booking handoff */}
-          <div className="space-y-4">
-            <div className="rounded-[22px] bg-white/[0.04] ring-1 ring-white/10 p-4">
+          {/* Transcript + handoff — improved hierarchy */}
+          <div className="flex flex-col gap-5">
+            <div className="rounded-[22px] bg-white/[0.035] ring-1 ring-white/10 p-5 backdrop-blur">
               <div className="flex items-center justify-between">
-                <div className="text-[12px] font-semibold">Live transcript</div>
-                <div className="text-[11px] text-white/50">Auto-captured</div>
+                <div className="flex items-center gap-2">
+                  <StatusDot tone="emerald" />
+                  <div className="text-[13px] font-semibold">Conversation</div>
+                </div>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-white/40">Illustrative</div>
               </div>
-              <div className="mt-3 max-h-[280px] overflow-hidden space-y-2.5 pr-1">
-                {transcript.map((m, i) => (
+              <div className="mt-4 space-y-2.5">
+                {shown.map((m, i) => (
                   <div key={i} className={`flex ${m.who === "ai" ? "justify-start" : "justify-end"}`}>
-                    <div className={`max-w-[85%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${m.who === "ai" ? "bg-cyan-500/15 text-cyan-50 rounded-tl-sm ring-1 ring-cyan-400/20" : "bg-white/10 text-white rounded-tr-sm ring-1 ring-white/10"}`}>
-                      <span className={`mr-2 text-[10px] font-semibold uppercase tracking-wider ${m.who === "ai" ? "text-cyan-300" : "text-white/60"}`}>{m.who === "ai" ? "AI" : "Emma"}</span>
+                    <div className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-snug ${m.who === "ai" ? "bg-cyan-500/15 text-cyan-50 rounded-tl-sm ring-1 ring-cyan-400/20" : "bg-white/[0.08] text-white rounded-tr-sm ring-1 ring-white/10"}`}>
+                      <div className={`mb-0.5 text-[10px] font-semibold uppercase tracking-wider ${m.who === "ai" ? "text-cyan-300" : "text-white/60"}`}>{m.who === "ai" ? "AI receptionist" : "Emma"}</div>
                       {m.t}
                     </div>
                   </div>
                 ))}
+                {shown.length < transcript.length && (
+                  <div className="flex justify-start">
+                    <div className="rounded-2xl rounded-tl-sm bg-white/[0.04] px-3 py-2 text-[12px] text-white/40 ring-1 ring-white/10">
+                      <span className="inline-flex gap-1">
+                        <span className="h-1.5 w-1.5 rounded-full bg-white/40 animate-pulse" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-white/40 animate-pulse" style={{ animationDelay: "120ms" }} />
+                        <span className="h-1.5 w-1.5 rounded-full bg-white/40 animate-pulse" style={{ animationDelay: "240ms" }} />
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className="rounded-[22px] bg-gradient-to-br from-white/[0.06] to-white/[0.02] ring-1 ring-white/10 p-4">
-              <div className="flex items-center gap-2 text-[12px] font-semibold">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Booking confirmed
-              </div>
-              <div className="mt-3 grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
-                <span className="grid h-9 w-9 place-items-center rounded-lg bg-blue-500/25 text-blue-200"><CalendarIcon className="h-4 w-4" /></span>
-                <div className="text-[12px]">
-                  <div className="font-semibold">Thu 14 Nov · 2:00 PM</div>
-                  <div className="text-white/60 text-[11px]">Hot water repair · Bondi</div>
+            {/* Booking + handoff, only after conversation resolves */}
+            <div className={`rounded-[22px] p-5 ring-1 transition-all duration-500 ${bookingConfirmed ? "bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 ring-emerald-400/25" : "bg-white/[0.03] ring-white/10"}`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-[13px] font-semibold">
+                  <CheckCircle2 className={`h-4 w-4 ${bookingConfirmed ? "text-emerald-400" : "text-white/40"}`} />
+                  {bookingConfirmed ? "Booking confirmed" : "Awaiting confirmation"}
                 </div>
-                <span className="text-[10px] font-semibold text-emerald-300">Sent to Emma</span>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-white/40">CRM handoff</div>
               </div>
-              <div className="mt-3 flex items-center gap-2 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
-                <V3Avatar name="Alex" tone="amber" size={30} />
-                <div className="flex-1 text-[12px]">
-                  <div className="font-semibold">Assigned to Alex</div>
-                  <div className="text-white/60 text-[11px]">Full context handed off · notes attached</div>
+              <div className="mt-4 grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
+                <span className="grid h-10 w-10 place-items-center rounded-lg bg-blue-500/25 text-blue-200"><CalendarIcon className="h-4 w-4" /></span>
+                <div className="text-[12px] min-w-0">
+                  <div className="font-semibold text-[13px]">Thu 14 Nov · 2:00 PM</div>
+                  <div className="text-white/60 text-[11px] truncate">Hot water repair · Bondi · Emma Reid</div>
+                </div>
+                <span className={`shrink-0 text-[10px] font-semibold uppercase tracking-wider ${bookingConfirmed ? "text-emerald-300" : "text-white/40"}`}>{bookingConfirmed ? "Sent" : "Draft"}</span>
+              </div>
+              <div className="mt-3 flex items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
+                <V3Avatar name="Alex" tone="amber" size={34} />
+                <div className="flex-1 text-[12px] min-w-0">
+                  <div className="font-semibold text-[13px]">Assigned to Alex</div>
+                  <div className="text-white/60 text-[11px] truncate">Full context handed off — notes, address, urgency</div>
                 </div>
                 <ArrowRight className="h-4 w-4 text-white/60" />
               </div>
@@ -2070,6 +2085,7 @@ function FocusedAIV3() {
     </section>
   );
 }
+
 
 /* =================================================================== */
 /*  5. IndustriesV3 — three distinct editorial stories                   */
