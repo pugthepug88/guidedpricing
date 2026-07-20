@@ -186,8 +186,12 @@ function Hero() {
           </div>
         </div>
 
-        {/* 6-card rotating stack */}
-        <HeroCardStack />
+        {/* Mobile: single readable product tile */}
+        <HeroMobileTile />
+        {/* Desktop / tablet: 4-card rotating stack */}
+        <div className="hidden sm:block">
+          <HeroCardStack />
+        </div>
       </div>
 
       {/* Scoped hero styles */}
@@ -300,11 +304,9 @@ function Hero() {
           cursor: pointer;
         }
         .hero-stack-card[data-pos="0"] { transform: translateX(0) translateY(0) scale(1); z-index: 6; opacity: 1; clip-path: none; }
-        .hero-stack-card[data-pos="1"] { transform: translateX(-58px) translateY(20px) scale(0.96); z-index: 5; opacity: 0.9; clip-path: inset(0 34% 0 0 round 20px); }
-        .hero-stack-card[data-pos="2"] { transform: translateX(-116px) translateY(40px) scale(0.92); z-index: 4; opacity: 0.75; clip-path: inset(0 40% 0 0 round 20px); }
-        .hero-stack-card[data-pos="3"] { transform: translateX(-174px) translateY(60px) scale(0.88); z-index: 3; opacity: 0.6; clip-path: inset(0 46% 0 0 round 20px); }
-        .hero-stack-card[data-pos="4"] { transform: translateX(-232px) translateY(80px) scale(0.84); z-index: 2; opacity: 0.45; clip-path: inset(0 52% 0 0 round 20px); }
-        .hero-stack-card[data-pos="5"] { transform: translateX(-290px) translateY(100px) scale(0.80); z-index: 1; opacity: 0.3;  clip-path: inset(0 58% 0 0 round 20px); }
+        .hero-stack-card[data-pos="1"] { transform: translateX(-72px) translateY(24px) scale(0.95); z-index: 5; opacity: 0.85; clip-path: inset(0 36% 0 0 round 20px); }
+        .hero-stack-card[data-pos="2"] { transform: translateX(-144px) translateY(48px) scale(0.90); z-index: 4; opacity: 0.65; clip-path: inset(0 44% 0 0 round 20px); }
+        .hero-stack-card[data-pos="3"] { transform: translateX(-216px) translateY(72px) scale(0.85); z-index: 3; opacity: 0.45; clip-path: inset(0 52% 0 0 round 20px); }
         .hero-stack-nav {
           position: absolute;
           bottom: -44px;
@@ -327,36 +329,23 @@ function Hero() {
         }
 
         @media (max-width: 900px) {
-          .hero-stack { height: 520px; }
+          .hero-stack { height: 540px; }
           .hero-stack-card { padding: 22px 22px; }
-          .hero-stack-card[data-pos="1"] { transform: translateX(-40px) translateY(15px) scale(0.96); }
-          .hero-stack-card[data-pos="2"] { transform: translateX(-80px) translateY(30px) scale(0.92); }
-          .hero-stack-card[data-pos="3"] { transform: translateX(-120px) translateY(45px) scale(0.88); }
-          .hero-stack-card[data-pos="4"] { transform: translateX(-160px) translateY(60px) scale(0.84); }
-          .hero-stack-card[data-pos="5"] { transform: translateX(-200px) translateY(75px) scale(0.80); }
+          .hero-stack-card[data-pos="1"] { transform: translateX(-48px) translateY(18px) scale(0.95); }
+          .hero-stack-card[data-pos="2"] { transform: translateX(-96px) translateY(36px) scale(0.90); }
+          .hero-stack-card[data-pos="3"] { transform: translateX(-144px) translateY(54px) scale(0.85); }
         }
+
+        /* Mobile: replace stack entirely with a single readable hero tile */
         @media (max-width: 640px) {
-          .hero-stack { height: 440px; }
-          .hero-stack-card { padding: 16px 16px; border-radius: 16px; }
-          .hero-stack-card .hero-card-header-title { font-size: 16px; }
-          .hero-stack-card .hero-card-header-logo { height: 32px; width: 32px; }
-          /* Scale down the fixed-width inner content so it fits on phones */
-          .hero-card-body {
-            transform: scale(0.5);
-            transform-origin: top left;
-            width: 200%;
-            height: calc((100% - 56px) * 2);
-          }
-          /* Tighten the fanned peek so cards don't spill off-screen */
-          .hero-stack-card[data-pos="1"] { transform: translateX(-14px) translateY(10px) scale(0.96); clip-path: inset(0 60% 0 0 round 16px); }
-          .hero-stack-card[data-pos="2"] { transform: translateX(-28px) translateY(20px) scale(0.92); clip-path: inset(0 66% 0 0 round 16px); }
-          .hero-stack-card[data-pos="3"],
-          .hero-stack-card[data-pos="4"],
-          .hero-stack-card[data-pos="5"] { opacity: 0; pointer-events: none; }
+          .hero-stack { display: none; }
           .hero-cta { width: auto; height: 52px; padding: 0 22px; font-size: 0.95rem; }
           .hero-cta-text { margin-right: 40px; }
           .hero-cta-circle { width: 38px; height: 38px; right: 7px; }
           .hero-cta-circle svg { width: 15px; height: 15px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-stack-card { transition: none; }
         }
 
       `}</style>
@@ -364,15 +353,61 @@ function Hero() {
   );
 }
 
+/* -------- Mobile hero product tile — single focused moment ----------- */
+function HeroMobileTile() {
+  return (
+    <div className="mt-10 sm:hidden">
+      <div className="mx-auto max-w-sm overflow-hidden rounded-2xl bg-white ring-1 ring-slate-200 shadow-[0_20px_50px_-24px_rgba(15,23,42,0.25)]">
+        <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/70 px-3.5 py-2.5">
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="ml-2 text-[11px] text-slate-500">app.zapla.io / inbox</span>
+        </div>
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="text-[13px] font-semibold text-slate-900">Live inbox</div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Connected
+            </span>
+          </div>
+          <div className="mt-3 space-y-2.5">
+            <div className="flex items-start gap-2.5 rounded-xl bg-slate-50 p-2.5 ring-1 ring-slate-100">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-rose-50 text-rose-600 ring-1 ring-rose-100 shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72l1 6-2.5 2.5a16 16 0 006 6l2.5-2.5 6 1a2 2 0 011.72 2z"/><line x1="22" y1="2" x2="18" y2="6"/><line x1="18" y1="2" x2="22" y2="6"/></svg>
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="text-[12.5px] font-semibold text-slate-900">Missed call · Emma Reid</div>
+                <div className="text-[11px] text-slate-500">Auto-reply sent · 12:04 PM</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-2.5 rounded-xl bg-blue-50/60 p-2.5 ring-1 ring-blue-100">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-white text-blue-600 ring-1 ring-blue-100 shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="text-[12.5px] font-semibold text-slate-900">Booking placed · Thu 2:00 PM</div>
+                <div className="text-[11px] text-slate-500">Assigned to Alex · confirmation sent</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-500">
+            <span>One inbox for every channel</span>
+            <span className="font-semibold text-blue-700">Explore →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* -------- Card stack orchestrator ---------------------------------- */
 
 const HERO_CARDS = [
-  { title: "Sales Pipeline",              logo: logoGreen.url,  Body: CardPipeline },
-  { title: "Control Dashboard",                logo: logoBlue.url,   Body: CardDashboard },
-  { title: "Automations",  logo: logoOrange.url, Body: CardAutomation },
-  { title: "Reporting",  logo: logoPurple.url, Body: CardPerformance },
-  { title: "Bookings",  logo: logoYellow.url, Body: CardCalendar },
-  { title: "Contacts",            logo: logoTeal.url,   Body: CardTagging },
+  { title: "Sales Pipeline",     logo: logoGreen.url,  Body: CardPipeline },
+  { title: "Control Dashboard",  logo: logoBlue.url,   Body: CardDashboard },
+  { title: "Automations",        logo: logoOrange.url, Body: CardAutomation },
+  { title: "Bookings",           logo: logoYellow.url, Body: CardCalendar },
 ] as const;
 
 function HeroCardStack() {
@@ -1681,20 +1716,23 @@ const WF_SCENARIOS: WfScenario[] = [
   {
     key: "missed", label: "Missed call", icon: <PhoneMissed className="h-3.5 w-3.5" />,
     headline: "A missed call becomes a booked job.",
-    body: "SMS reply, AI captures the request, and a booking lands in the calendar.",
+    body: "SMS reply, customer confirms, AI captures the request and a booking lands in the calendar.",
     nodes: [
-      { id: "n1", x: 4, y: 30, icon: <PhoneMissed className="h-4 w-4" />, title: "Missed call", detail: "Trigger · business line", tone: "red" },
-      { id: "n2", x: 28, y: 12, icon: <MessageCircle className="h-4 w-4" />, title: "SMS auto-reply", detail: "3s delay", tone: "emerald" },
-      { id: "n3", x: 52, y: 30, icon: <Sparkles className="h-4 w-4" />, title: "AI captures request", detail: "Name · service · suburb", tone: "cyan" },
-      { id: "n4", x: 76, y: 12, icon: <CalendarIcon className="h-4 w-4" />, title: "Booking created", detail: "Next available slot", tone: "blue" },
-      { id: "n5", x: 76, y: 55, icon: <ClipboardList className="h-4 w-4" />, title: "Opportunity added", detail: "Stage · New enquiry", tone: "ink" },
+      { id: "n1", x: 3, y: 32, icon: <PhoneMissed className="h-4 w-4" />, title: "Missed call", detail: "12:04 · business line", tone: "red" },
+      { id: "n2", x: 22, y: 12, icon: <MessageCircle className="h-4 w-4" />, title: "Automatic SMS", detail: "12:04 · sent 3s later", tone: "emerald" },
+      { id: "n3", x: 42, y: 32, icon: <MessageSquare className="h-4 w-4" />, title: "Customer reply", detail: "12:06 · \"bathroom reno, Bondi\"", tone: "sky" },
+      { id: "n4", x: 62, y: 12, icon: <Sparkles className="h-4 w-4" />, title: "AI captures intent", detail: "12:06 · name · service · suburb", tone: "cyan" },
+      { id: "n5", x: 80, y: 32, icon: <CalendarIcon className="h-4 w-4" />, title: "Calendar slot booked", detail: "12:07 · Thu 2:00 PM", tone: "blue" },
+      { id: "n6", x: 62, y: 55, icon: <Bell className="h-4 w-4" />, title: "Opportunity & alert", detail: "12:07 · assigned to Alex", tone: "ink" },
     ],
-    edges: [{ from: "n1", to: "n2" }, { from: "n2", to: "n3" }, { from: "n3", to: "n4" }, { from: "n3", to: "n5" }],
+    edges: [{ from: "n1", to: "n2" }, { from: "n2", to: "n3" }, { from: "n3", to: "n4" }, { from: "n4", to: "n5" }, { from: "n4", to: "n6" }],
     log: [
       { t: "12:04", text: "Missed call captured on business line", tone: "amber" },
-      { t: "12:04", text: "SMS auto-reply sent", tone: "emerald" },
-      { t: "12:06", text: "AI captured request · bathroom reno · Bondi", tone: "blue" },
-      { t: "12:06", text: "Booking placed · Thu 2:00 PM", tone: "emerald" },
+      { t: "12:04", text: "Automatic SMS sent", tone: "emerald" },
+      { t: "12:06", text: "Customer replied · bathroom reno · Bondi", tone: "blue" },
+      { t: "12:06", text: "AI captured intent · Emma Reid", tone: "blue" },
+      { t: "12:07", text: "Calendar slot booked · Thu 2:00 PM", tone: "emerald" },
+      { t: "12:07", text: "Opportunity created · Alex alerted", tone: "slate" },
     ],
   },
   {
@@ -1942,33 +1980,42 @@ function WorkflowTheatreV3() { return <WorkflowCanvasV3 />; }
 
 function FocusedAIV3() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [reduced, setReduced] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [step, setStep] = useState(0);
+  const [mode, setMode] = useState<"receptionist" | "workflows">("receptionist");
 
   const transcript = [
-    { who: "ai", t: "Hi, thanks for reaching Northside Plumbing — this is your AI receptionist. How can I help?" },
-    { who: "caller", t: "Hey, I've got a leaking hot water system. Can someone come out today?" },
-    { who: "ai", t: "Absolutely. Can I grab your name and suburb?" },
-    { who: "caller", t: "Emma Reid, Bondi." },
-    { who: "ai", t: "Perfect Emma. We have a 2:00 PM slot with Alex today. Shall I lock that in?" },
-    { who: "caller", t: "Yes please." },
-    { who: "ai", t: "Booked. I'll send the confirmation now." },
+    { who: "caller", t: "Hi, can I book a service for Thursday?" },
+    { who: "ai",     t: "Absolutely. I have 2 pm available. Shall I lock that in?" },
+    { who: "caller", t: "Yes, please." },
+    { who: "ai",     t: "Done. You'll receive a confirmation text now." },
   ];
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const on = () => setReduced(mq.matches);
+    on();
+    mq.addEventListener?.("change", on);
+    return () => mq.removeEventListener?.("change", on);
+  }, []);
+
+  useEffect(() => {
+    if (reduced) { setStep(transcript.length); return; }
     if (!playing) return;
     const id = window.setInterval(() => {
       setStep((s) => (s + 1) % (transcript.length + 2));
-    }, 1800);
+    }, 2000);
     return () => window.clearInterval(id);
-  }, [playing, transcript.length]);
+  }, [playing, reduced, transcript.length]);
 
-  const shown = transcript.slice(0, Math.min(step + 1, transcript.length));
-  const bookingConfirmed = step >= transcript.length - 1;
+  const shown = reduced ? transcript : transcript.slice(0, Math.min(step + 1, transcript.length));
+  const bookingConfirmed = reduced || step >= transcript.length - 1;
+
+  const videoSrc = mode === "receptionist" ? aiWorkflowVideo.url : aiEmployeeVideo.url;
 
   return (
     <section className="relative overflow-hidden bg-[#05060a] py-24 sm:py-32 px-6 text-white">
-      {/* Ambient glow */}
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70">
         <div className="absolute -top-32 left-1/4 h-[520px] w-[520px] rounded-full bg-blue-600/20 blur-3xl" />
         <div className="absolute -bottom-40 right-1/4 h-[520px] w-[520px] rounded-full bg-cyan-500/15 blur-3xl" />
@@ -1983,72 +2030,89 @@ function FocusedAIV3() {
           <p className="mt-4 text-lg text-white/70 leading-relaxed max-w-2xl">
             AI answers, gathers details, books the appointment and hands the full context to your team.
           </p>
+
+          {/* Mode toggle: receptionist (primary) / AI workflows (secondary) */}
+          <div className="mt-6 inline-flex items-center gap-1 rounded-full bg-white/5 p-1 ring-1 ring-white/10">
+            <button
+              onClick={() => setMode("receptionist")}
+              className={`rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold transition ${mode === "receptionist" ? "bg-white text-slate-900" : "text-white/70 hover:text-white"}`}
+            >
+              AI receptionist
+            </button>
+            <button
+              onClick={() => setMode("workflows")}
+              className={`rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold transition ${mode === "workflows" ? "bg-white text-slate-900" : "text-white/70 hover:text-white"}`}
+            >
+              AI workflows
+            </button>
+          </div>
         </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-stretch">
-          {/* Character portrait — cinematic, no fake call chrome */}
+        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-stretch">
+          {/* Character portrait — cinematic, no audio pretence */}
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-b from-[#0b1220] to-[#05060a] ring-1 ring-white/10 shadow-[0_40px_120px_-40px_rgba(3,7,18,0.9)]">
             <div className="relative aspect-[4/5] sm:aspect-[5/6] w-full">
               <video
                 ref={videoRef}
+                key={mode}
                 className="absolute inset-0 h-full w-full object-contain"
-                src={aiWorkflowVideo.url}
-                autoPlay
+                src={videoSrc}
+                autoPlay={!reduced}
                 loop
                 muted
                 playsInline
-                preload="auto"
-                aria-label="Illustration of Zapla's AI receptionist"
+                preload="metadata"
+                aria-label={mode === "receptionist" ? "Illustration of Zapla's AI receptionist" : "Illustration of an AI workflow inside Zapla"}
               />
-              {/* Subtle vignette */}
               <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
 
-              {/* Top identifier — presented as an illustration, not a live phone call */}
+              {/* Top identifier — presented as an illustration */}
               <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/85 backdrop-blur ring-1 ring-white/15">
                 <Sparkles className="h-3 w-3 text-cyan-300" />
-                Zapla AI receptionist
+                {mode === "receptionist" ? "Zapla AI receptionist" : "Zapla AI workflows"}
               </div>
 
-              {/* Bottom demo control (no audio pretence) */}
+              {/* Bottom controls — no audio, no fake caller */}
               <div className="absolute inset-x-5 bottom-5 flex items-center justify-between gap-3 rounded-2xl bg-black/50 px-3 py-2.5 backdrop-blur ring-1 ring-white/10">
-                <div className="min-w-0">
-                  <div className="text-[11px] font-semibold uppercase tracking-wider text-cyan-300">Currently answering</div>
-                  <div className="truncate text-[13px] text-white/85">{shown[shown.length - 1]?.who === "ai" ? shown[shown.length - 1]?.t : "Listening…"}</div>
+                <div className="min-w-0 text-[11px] font-mono uppercase tracking-wider text-white/60">
+                  Illustrative demo · no audio
                 </div>
-                <button
-                  onClick={() => {
-                    setPlaying((p) => !p);
-                    const v = videoRef.current;
-                    if (v) { if (playing) v.pause(); else v.play().catch(() => {}); }
-                  }}
-                  className="shrink-0 rounded-full bg-white text-slate-900 px-3.5 py-1.5 text-[11px] font-semibold hover:bg-white/90"
-                >
-                  {playing ? "Pause demo" : "Play demo"}
-                </button>
+                {!reduced && (
+                  <button
+                    onClick={() => {
+                      setPlaying((p) => !p);
+                      const v = videoRef.current;
+                      if (v) { if (playing) v.pause(); else v.play().catch(() => {}); }
+                    }}
+                    className="shrink-0 rounded-full bg-white text-slate-900 px-3.5 py-1.5 text-[11px] font-semibold hover:bg-white/90"
+                  >
+                    {playing ? "Pause demo" : "Play demo"}
+                  </button>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Transcript + handoff — improved hierarchy */}
+          {/* Transcript + handoff */}
           <div className="flex flex-col gap-5">
             <div className="rounded-[22px] bg-white/[0.035] ring-1 ring-white/10 p-5 backdrop-blur">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <StatusDot tone="emerald" />
-                  <div className="text-[13px] font-semibold">Conversation</div>
+                  <StatusDot tone="emerald" pulse={!reduced} />
+                  <div className="text-[13px] font-semibold">Illustrative transcript</div>
                 </div>
-                <div className="text-[10px] font-mono uppercase tracking-wider text-white/40">Illustrative</div>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-white/40">Not a real recording</div>
               </div>
               <div className="mt-4 space-y-2.5">
                 {shown.map((m, i) => (
                   <div key={i} className={`flex ${m.who === "ai" ? "justify-start" : "justify-end"}`}>
                     <div className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-snug ${m.who === "ai" ? "bg-cyan-500/15 text-cyan-50 rounded-tl-sm ring-1 ring-cyan-400/20" : "bg-white/[0.08] text-white rounded-tr-sm ring-1 ring-white/10"}`}>
-                      <div className={`mb-0.5 text-[10px] font-semibold uppercase tracking-wider ${m.who === "ai" ? "text-cyan-300" : "text-white/60"}`}>{m.who === "ai" ? "AI receptionist" : "Emma"}</div>
+                      <div className={`mb-0.5 text-[10px] font-semibold uppercase tracking-wider ${m.who === "ai" ? "text-cyan-300" : "text-white/60"}`}>{m.who === "ai" ? "AI receptionist" : "Customer"}</div>
                       {m.t}
                     </div>
                   </div>
                 ))}
-                {shown.length < transcript.length && (
+                {!reduced && shown.length < transcript.length && (
                   <div className="flex justify-start">
                     <div className="rounded-2xl rounded-tl-sm bg-white/[0.04] px-3 py-2 text-[12px] text-white/40 ring-1 ring-white/10">
                       <span className="inline-flex gap-1">
@@ -2062,7 +2126,6 @@ function FocusedAIV3() {
               </div>
             </div>
 
-            {/* Booking + handoff, only after conversation resolves */}
             <div className={`rounded-[22px] p-5 ring-1 transition-all duration-500 ${bookingConfirmed ? "bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 ring-emerald-400/25" : "bg-white/[0.03] ring-white/10"}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-[13px] font-semibold">
@@ -2074,8 +2137,8 @@ function FocusedAIV3() {
               <div className="mt-4 grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
                 <span className="grid h-10 w-10 place-items-center rounded-lg bg-blue-500/25 text-blue-200"><CalendarIcon className="h-4 w-4" /></span>
                 <div className="text-[12px] min-w-0">
-                  <div className="font-semibold text-[13px]">Thu 14 Nov · 2:00 PM</div>
-                  <div className="text-white/60 text-[11px] truncate">Hot water repair · Bondi · Emma Reid</div>
+                  <div className="font-semibold text-[13px]">Thursday · 2:00 PM</div>
+                  <div className="text-white/60 text-[11px] truncate">Confirmation text sent · assigned to team</div>
                 </div>
                 <span className={`shrink-0 text-[10px] font-semibold uppercase tracking-wider ${bookingConfirmed ? "text-emerald-300" : "text-white/40"}`}>{bookingConfirmed ? "Sent" : "Draft"}</span>
               </div>
@@ -2090,21 +2153,11 @@ function FocusedAIV3() {
             </div>
           </div>
         </div>
-
-        {/* Supporting links */}
-        <div className="mt-10 flex flex-wrap items-center gap-3 text-[13px] text-white/70">
-          <span className="text-white/50">Also included:</span>
-          <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 ring-1 ring-white/10 hover:bg-white/10">
-            <Zap className="h-3.5 w-3.5 text-cyan-300" /> AI-assisted workflows
-          </a>
-          <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 ring-1 ring-white/10 hover:bg-white/10">
-            <StarIcon className="h-3.5 w-3.5 text-amber-300" /> AI reputation replies
-          </a>
-        </div>
       </div>
     </section>
   );
 }
+
 
 
 /* =================================================================== */
