@@ -265,31 +265,32 @@ function PanelGrow() {
 }
 
 const STAGES: Stage[] = [
-  { key: "capture", sub: "01", label: "Capture",
+  { key: "capture", sub: "01", label: "Capture", nav: "contacts",
     headline: "Every enquiry becomes one contact record.",
-    body: "Emma's missed call creates one contact. No duplicate, no lost detail.",
+    body: "A missed call creates one contact. No duplicate, no lost detail.",
     panel: <PanelCapture /> },
-  { key: "communicate", sub: "02", label: "Communicate",
-    headline: "The reply lives inside Emma's record.",
-    body: "SMS, email, DMs — the whole conversation stays attached to one customer.",
+  { key: "communicate", sub: "02", label: "Communicate", nav: "inbox",
+    headline: "The reply lives inside the customer record.",
+    body: "SMS, email and DMs all stay attached to the same customer.",
     panel: <PanelCommunicate /> },
-  { key: "convert", sub: "03", label: "Convert",
+  { key: "convert", sub: "03", label: "Convert", nav: "quotes",
     headline: "Quote and booking attach to the same record.",
-    body: "Emma accepts the quote and books a time. Both are linked to her contact.",
+    body: "The customer accepts a quote and books a time. Both link back to the contact.",
     panel: <PanelConvert /> },
-  { key: "operate", sub: "04", label: "Operate",
+  { key: "operate", sub: "04", label: "Operate", nav: "calendar",
     headline: "The job is scheduled and assigned.",
-    body: "Alex sees Emma's booking on the team calendar with full context.",
+    body: "The team sees the booking on a shared calendar with full context.",
     panel: <PanelOperate /> },
-  { key: "retain", sub: "05", label: "Retain",
+  { key: "retain", sub: "05", label: "Retain", nav: "reviews",
     headline: "Review request and reminder go out on their own.",
     body: "After the job wraps, Zapla queues the review ask and the next check-in.",
     panel: <PanelRetain /> },
-  { key: "grow", sub: "06", label: "Grow",
-    headline: "Emma re-enters a repeat-service journey.",
+  { key: "grow", sub: "06", label: "Grow", nav: "campaigns",
+    headline: "Customers re-enter a repeat-service journey.",
     body: "Months later, AI drafts the reactivation. Replies come back to the same thread.",
     panel: <PanelGrow /> },
 ];
+
 
 export function JourneyV3() {
   const [active, setActive] = useState(0);
