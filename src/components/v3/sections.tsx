@@ -30,16 +30,16 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
-function EmmaAvatar({ size = 44 }: { size?: number }) {
+function CustomerAvatar({ size = 44 }: { size?: number }) {
   return (
     <div
       className="grid shrink-0 place-items-center rounded-full text-white font-semibold ring-2 ring-white"
       style={{
-        width: size, height: size, fontSize: Math.round(size * 0.36),
+        width: size, height: size, fontSize: Math.round(size * 0.34),
         background: "linear-gradient(135deg,#2563eb 0%,#22d3ee 100%)",
       }}
       aria-hidden
-    >ER</div>
+    >SC</div>
   );
 }
 function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: string; size?: number }) {
@@ -51,6 +51,9 @@ function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: str
     >{initials}</div>
   );
 }
+const EmmaAvatar = CustomerAvatar;
+
+
 
 function useReducedMotion() {
   const [r, setR] = useState(false);
@@ -66,28 +69,30 @@ function useReducedMotion() {
 
 /* =====================================================================
  *  SECTION 1 — JourneyV3
- *  One stable workspace. One customer (Emma Reid). Six stages.
+ *  One stable workspace. One sample customer. Six stages.
  * ===================================================================== */
 
+type NavKey = "inbox" | "contacts" | "calendar" | "quotes" | "reviews" | "automations" | "campaigns";
 type Stage = {
   key: string; sub: string; label: string;
+  nav: NavKey;
   headline: string; body: string;
   panel: ReactNode;
 };
 
-function EmmaRecordHeader() {
+function CustomerRecordHeader() {
   return (
     <div className="flex items-center gap-4 border-b border-slate-100 px-5 py-4 sm:px-6">
-      <EmmaAvatar size={48} />
+      <CustomerAvatar size={44} />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <div className="text-[15px] font-semibold text-slate-900">Emma Reid</div>
+          <div className="text-[14px] font-semibold text-slate-900">Sample customer</div>
           <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100">Lead</span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Bondi, NSW</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Local area</span>
         </div>
         <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
-          <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />+61 400 812 559</span>
-          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.reid@icloud.com</span>
+          <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />+61 4•• ••• •••</span>
+          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />customer@example.com</span>
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
@@ -98,6 +103,8 @@ function EmmaRecordHeader() {
     </div>
   );
 }
+const EmmaRecordHeader = CustomerRecordHeader;
+
 
 function PanelCapture() {
   return (
@@ -107,7 +114,7 @@ function PanelCapture() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma Reid.</div>
+            <div className="text-[12px] text-slate-600">Number matched. One contact record created for the customer.</div>
           </div>
           <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">New</span>
         </div>
@@ -124,7 +131,7 @@ function PanelCapture() {
 }
 function PanelCommunicate() {
   const msgs = [
-    { from: "z", t: "Hi Emma, we saw you called. Can we help book a service?", when: "12:04" },
+    { from: "z", t: "Hi, we saw you called. Can we help book a service?", when: "12:04" },
     { from: "e", t: "Yes please, dripping tap in the kitchen.", when: "12:07" },
     { from: "z", t: "We can send someone Thursday 2pm. Works for you?", when: "12:08" },
     { from: "e", t: "Perfect, thanks!", when: "12:09" },
@@ -132,7 +139,7 @@ function PanelCommunicate() {
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
       <div className="mb-2 flex items-center justify-between px-1">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">SMS · thread in Emma's record</div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">SMS · thread in the customer record</div>
         <div className="text-[11px] text-slate-400">Today</div>
       </div>
       <div className="space-y-2">
@@ -154,7 +161,7 @@ function PanelConvert() {
       <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><FileText className="h-3 w-3" />Quote #Q-2841</div>
         <div className="mt-2 text-[13px] font-semibold text-slate-900">Kitchen tap repair + parts</div>
-        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma Reid</div>
+        <div className="mt-1 text-[12px] text-slate-500">Attached to sample customer</div>
         <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
           <div className="text-[18px] font-semibold text-slate-900">$180.00</div>
           <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Accepted</span>
@@ -173,31 +180,91 @@ function PanelConvert() {
   );
 }
 function PanelOperate() {
-  const slots = ["8", "9", "10", "11", "12", "1", "2", "3", "4"];
+  // 8am → 5pm = 9 columns; "now" marker sits at 1pm (col index 5)
+  const hours = ["8a","9a","10a","11a","12p","1p","2p","3p","4p"];
+  const nowCol = 5; // 1pm
+  type Job = { start: number; span: number; tone: string; ring: string; label: string; sub?: string; highlight?: boolean };
+  const rows: { who: string; role: string; initials: string; tone: string; jobs: Job[] }[] = [
+    { who: "Alex", role: "Plumber", initials: "AL", tone: "#0ea5e9", jobs: [
+      { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Hot water install", sub: "42 Ocean Dr" },
+      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Sample customer · tap repair", sub: "Bondi", highlight: true },
+    ]},
+    { who: "Mia", role: "Tech", initials: "MI", tone: "#10b981", jobs: [
+      { start: 1, span: 2, tone: "#d1fae5", ring: "#34d399", label: "K. Nguyen · install", sub: "2h · parts kit" },
+      { start: 4, span: 1, tone: "#d1fae5", ring: "#34d399", label: "Quote walk-through", sub: "Video call" },
+      { start: 7, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Site inspection", sub: "Rose Bay" },
+    ]},
+    { who: "Sam", role: "Tech", initials: "SM", tone: "#f59e0b", jobs: [
+      { start: 2, span: 1, tone: "#fef3c7", ring: "#fbbf24", label: "R. Thomas · quote", sub: "New lead" },
+      { start: 5, span: 2, tone: "#fef3c7", ring: "#fbbf24", label: "Warranty callback", sub: "45 min" },
+    ]},
+    { who: "Jess", role: "Coordinator", initials: "JS", tone: "#a855f7", jobs: [
+      { start: 3, span: 2, tone: "#f3e8ff", ring: "#c084fc", label: "Route planning", sub: "Thu run sheet" },
+      { start: 8, span: 1, tone: "#f3e8ff", ring: "#c084fc", label: "End-of-day sync", sub: "Team" },
+    ]},
+  ];
   return (
     <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
       <div className="flex items-center justify-between">
-        <div className="text-[13px] font-semibold text-slate-900">Thursday</div>
-        <div className="text-[11px] text-slate-500">Team schedule</div>
+        <div className="flex items-baseline gap-2">
+          <div className="text-[13px] font-semibold text-slate-900">Thursday</div>
+          <div className="text-[11px] text-slate-500">Team schedule · 4 staff · 8 jobs</div>
+        </div>
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
+          <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> Now 1:00 PM
+        </div>
       </div>
-      <div className="mt-3 grid grid-cols-9 gap-1 text-[10px] text-slate-400">
-        {slots.map((s) => <div key={s} className="text-center">{s}</div>)}
+
+      {/* header row: staff column + hour columns */}
+      <div className="mt-3 grid gap-1 text-[10px] text-slate-400" style={{ gridTemplateColumns: "84px repeat(9, minmax(0,1fr))" }}>
+        <div />
+        {hours.map((h, i) => (
+          <div key={h} className={`text-center ${i === nowCol ? "text-blue-600 font-semibold" : ""}`}>{h}</div>
+        ))}
       </div>
-      <div className="mt-1 space-y-1.5">
-        {[
-          { who: "Alex", tone: "#0ea5e9", start: 6, span: 1, label: "Emma Reid · tap repair" },
-          { who: "Mia",  tone: "#10b981", start: 2, span: 2, label: "K. Nguyen · install" },
-          { who: "Sam",  tone: "#f59e0b", start: 4, span: 1, label: "R. Thomas · quote" },
-        ].map((r) => (
-          <div key={r.who} className="grid grid-cols-9 items-center gap-1">
+
+      <div className="relative mt-1 space-y-1.5">
+        {/* current-time vertical marker */}
+        <div
+          className="pointer-events-none absolute top-0 bottom-0 z-10"
+          style={{ left: `calc(84px + (100% - 84px) * ${(nowCol + 0.5) / 9})` }}
+          aria-hidden
+        >
+          <div className="h-full w-px bg-blue-500/70" />
+          <div className="absolute -top-1 -left-[3px] h-1.5 w-1.5 rounded-full bg-blue-500" />
+        </div>
+
+        {rows.map((r) => (
+          <div key={r.who} className="grid items-center gap-1" style={{ gridTemplateColumns: "84px repeat(9, minmax(0,1fr))" }}>
+            <div className="flex items-center gap-2 pr-2">
+              <TeamAvatar initials={r.initials} tone={r.tone} size={22} />
+              <div className="min-w-0">
+                <div className="text-[11.5px] font-semibold text-slate-800 leading-none truncate">{r.who}</div>
+                <div className="text-[9.5px] text-slate-400 leading-none mt-0.5 truncate">{r.role}</div>
+              </div>
+            </div>
             {Array.from({ length: 9 }).map((_, i) => {
-              const inBlock = i >= r.start && i < r.start + r.span;
-              const isEmma = r.who === "Alex" && i === r.start;
+              const job = r.jobs.find((j) => i >= j.start && i < j.start + j.span);
+              const isJobStart = job && i === job.start;
+              if (job && !isJobStart) return <div key={i} />; // spanned cell absorbed
+              if (!job) {
+                return <div key={i} className="h-9 rounded-md bg-slate-50 ring-1 ring-slate-100" />;
+              }
               return (
-                <div key={i} className={`h-8 rounded ${inBlock ? "" : "bg-slate-50 ring-1 ring-slate-100"}`}
-                  style={inBlock ? { background: r.tone, boxShadow: isEmma ? "0 0 0 2px rgba(37,99,235,0.35)" : undefined } : undefined}>
-                  {inBlock && i === r.start && (
-                    <div className="flex h-full items-center px-1.5 text-[10px] font-semibold text-white truncate">{r.label}</div>
+                <div
+                  key={i}
+                  className="h-9 rounded-md px-1.5 flex flex-col justify-center overflow-hidden"
+                  style={{
+                    gridColumn: `span ${job.span} / span ${job.span}`,
+                    background: job.tone,
+                    boxShadow: job.highlight
+                      ? "inset 0 0 0 1.5px #2563eb, 0 4px 12px -6px rgba(37,99,235,0.55)"
+                      : `inset 0 0 0 1px ${job.ring}55`,
+                  }}
+                >
+                  <div className={`text-[10.5px] font-semibold truncate ${job.highlight ? "text-blue-900" : "text-slate-800"}`}>{job.label}</div>
+                  {job.sub && (
+                    <div className={`text-[9.5px] truncate ${job.highlight ? "text-blue-700/80" : "text-slate-500"}`}>{job.sub}</div>
                   )}
                 </div>
               );
@@ -205,12 +272,18 @@ function PanelOperate() {
           </div>
         ))}
       </div>
-      <div className="mt-3 flex items-center gap-2 text-[11px] text-slate-500">
-        <TeamAvatar initials="AL" tone="#0ea5e9" size={18} /> Alex · assigned to Emma's job
+
+      <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
+        <div className="flex items-center gap-2 text-[11px] text-slate-500">
+          <span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "#dbeafe", boxShadow: "inset 0 0 0 1.5px #2563eb" }} />
+          Sample customer job · assigned to Alex
+        </div>
+        <div className="text-[11px] text-slate-400">Drag to reschedule</div>
       </div>
     </div>
   );
 }
+
 function PanelRetain() {
   return (
     <div className="space-y-3">
@@ -219,7 +292,7 @@ function PanelRetain() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-amber-50 text-amber-500 ring-1 ring-amber-100"><StarIcon className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Review request · queued</div>
-            <div className="text-[12px] text-slate-500">Sends to Emma 1 hour after job completion</div>
+            <div className="text-[12px] text-slate-500">Sends 1 hour after job completion</div>
           </div>
           <span className="text-[11px] font-semibold text-slate-500">Pending</span>
         </div>
@@ -229,7 +302,7 @@ function PanelRetain() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-50 text-blue-600 ring-1 ring-blue-100"><Bell className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Service reminder · scheduled</div>
-            <div className="text-[12px] text-slate-500">6-month check-in for Emma Reid</div>
+            <div className="text-[12px] text-slate-500">6-month check-in queued</div>
           </div>
           <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Auto</span>
         </div>
@@ -251,38 +324,39 @@ function PanelGrow() {
         ))}
       </div>
       <div className="mt-3 flex items-center gap-2 text-[11px] text-slate-500">
-        <Sparkles className="h-3 w-3 text-blue-600" /> Replies land back in Emma's inbox thread
+        <Sparkles className="h-3 w-3 text-blue-600" /> Replies land back in the same inbox thread
       </div>
     </div>
   );
 }
 
 const STAGES: Stage[] = [
-  { key: "capture", sub: "01", label: "Capture",
+  { key: "capture", sub: "01", label: "Capture", nav: "contacts",
     headline: "Every enquiry becomes one contact record.",
-    body: "Emma's missed call creates one contact. No duplicate, no lost detail.",
+    body: "A missed call creates one contact. No duplicate, no lost detail.",
     panel: <PanelCapture /> },
-  { key: "communicate", sub: "02", label: "Communicate",
-    headline: "The reply lives inside Emma's record.",
-    body: "SMS, email, DMs — the whole conversation stays attached to one customer.",
+  { key: "communicate", sub: "02", label: "Communicate", nav: "inbox",
+    headline: "The reply lives inside the customer record.",
+    body: "SMS, email and DMs all stay attached to the same customer.",
     panel: <PanelCommunicate /> },
-  { key: "convert", sub: "03", label: "Convert",
+  { key: "convert", sub: "03", label: "Convert", nav: "quotes",
     headline: "Quote and booking attach to the same record.",
-    body: "Emma accepts the quote and books a time. Both are linked to her contact.",
+    body: "The customer accepts a quote and books a time. Both link back to the contact.",
     panel: <PanelConvert /> },
-  { key: "operate", sub: "04", label: "Operate",
+  { key: "operate", sub: "04", label: "Operate", nav: "calendar",
     headline: "The job is scheduled and assigned.",
-    body: "Alex sees Emma's booking on the team calendar with full context.",
+    body: "The team sees the booking on a shared calendar with full context.",
     panel: <PanelOperate /> },
-  { key: "retain", sub: "05", label: "Retain",
+  { key: "retain", sub: "05", label: "Retain", nav: "reviews",
     headline: "Review request and reminder go out on their own.",
     body: "After the job wraps, Zapla queues the review ask and the next check-in.",
     panel: <PanelRetain /> },
-  { key: "grow", sub: "06", label: "Grow",
-    headline: "Emma re-enters a repeat-service journey.",
+  { key: "grow", sub: "06", label: "Grow", nav: "campaigns",
+    headline: "Customers re-enter a repeat-service journey.",
     body: "Months later, AI drafts the reactivation. Replies come back to the same thread.",
     panel: <PanelGrow /> },
 ];
+
 
 export function JourneyV3() {
   const [active, setActive] = useState(0);
@@ -298,7 +372,7 @@ export function JourneyV3() {
             One product, six stages of the customer journey.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            The same connected workspace, from first enquiry to repeat customer. Follow Emma Reid through every stage.
+            The same connected workspace, from first enquiry to repeat customer. Follow one sample customer through every stage.
           </p>
         </div>
 
@@ -366,18 +440,23 @@ export function JourneyV3() {
                   <img src={logoBlue.url} alt="" className="h-6 w-6 rounded-md" />
                   <span className="text-[13px] font-semibold text-slate-900">Zapla</span>
                 </div>
-                {[
-                  { icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
-                  { icon: <Users className="h-3.5 w-3.5" />, label: "Contacts", active: true },
-                  { icon: <CalendarIcon className="h-3.5 w-3.5" />, label: "Calendar" },
-                  { icon: <FileText className="h-3.5 w-3.5" />, label: "Quotes" },
-                  { icon: <CreditCard className="h-3.5 w-3.5" />, label: "Payments" },
-                  { icon: <StarIcon className="h-3.5 w-3.5" />, label: "Reviews" },
-                ].map((n) => (
-                  <div key={n.label} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] ${n.active ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
-                    {n.icon}{n.label}
-                  </div>
-                ))}
+                {([
+                  { key: "inbox",       icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
+                  { key: "contacts",    icon: <Users className="h-3.5 w-3.5" />,         label: "Contacts" },
+                  { key: "calendar",    icon: <CalendarIcon className="h-3.5 w-3.5" />,  label: "Calendar" },
+                  { key: "quotes",      icon: <FileText className="h-3.5 w-3.5" />,      label: "Quotes" },
+                  { key: "reviews",     icon: <StarIcon className="h-3.5 w-3.5" />,      label: "Reviews" },
+                  { key: "automations", icon: <Sparkles className="h-3.5 w-3.5" />,      label: "Automations" },
+                  { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
+                ] as { key: NavKey; icon: ReactNode; label: string }[]).map((n) => {
+                  const isActive = n.key === stage.nav;
+                  return (
+                    <div key={n.key} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-colors ${isActive ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
+                      {n.icon}{n.label}
+                    </div>
+                  );
+                })}
+
               </aside>
 
               <div className="flex-1 min-w-0 bg-white">
