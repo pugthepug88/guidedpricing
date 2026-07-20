@@ -363,7 +363,7 @@ function HeroMobileTile() {
           <span className="h-2 w-2 rounded-full bg-slate-300" />
           <span className="h-2 w-2 rounded-full bg-slate-300" />
           <span className="h-2 w-2 rounded-full bg-slate-300" />
-          <span className="ml-2 text-[11px] text-slate-500">app.zapla.io / inbox</span>
+          <span className="ml-2 text-[11px] text-slate-500">my.zapla.io</span>
         </div>
         <div className="p-4">
           <div className="flex items-center justify-between">
@@ -1276,7 +1276,7 @@ function AppShell({ view, children }: { view: string; children: ReactNode }) {
         </div>
         <div className="mx-auto flex items-center gap-2 rounded-md bg-white px-3 py-1 text-[11px] text-slate-500 ring-1 ring-slate-200">
           <Globe className="h-3 w-3" />
-          app.zapla.io / <span className="text-slate-900 font-medium">{view}</span>
+          my.zapla.io
         </div>
         <div className="flex items-center gap-1.5">
           <span className="h-6 w-6 grid place-items-center rounded-full bg-slate-900 text-white text-[10px] font-semibold">SM</span>
