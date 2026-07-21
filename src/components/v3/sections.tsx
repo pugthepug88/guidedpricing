@@ -135,13 +135,13 @@ function CustomerRecordHeader() {
       <CustomerAvatar size={44} />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <div className="text-[14px] font-semibold text-slate-900">Sample customer</div>
+          <div className="text-[14px] font-semibold text-slate-900">Emma W.</div>
           <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100">Lead</span>
           <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Local area</span>
         </div>
         <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
           <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />+61 4•• ••• •••</span>
-          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />customer@example.com</span>
+          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma@example.com</span>
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
@@ -163,7 +163,7 @@ function PanelCapture() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-            <div className="text-[12px] text-slate-600">Number matched. One contact record created for the customer.</div>
+            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma W.</div>
           </div>
           <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">New</span>
         </div>
@@ -179,36 +179,64 @@ function PanelCapture() {
   );
 }
 function PanelCommunicate() {
-  const msgs = [
-    { from: "z", t: "Hi, we saw you called. Can we help book a service?", when: "12:04", via: "SMS" },
-    { from: "e", t: "Yes please, dripping tap in the kitchen.", when: "12:07", via: "SMS" },
-    { from: "e", t: "Also sent a photo via DM earlier.", when: "12:07", via: "Instagram" },
-    { from: "z", t: "Got the photo. Thursday 2pm works?", when: "12:08", via: "SMS" },
-    { from: "e", t: "Perfect, thanks!", when: "12:09", via: "SMS" },
+  type Ev =
+    | { kind: "event"; via: "Form" | "Instagram" | "Email"; title: string; detail: string; when: string }
+    | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
+  const events: Ev[] = [
+    { kind: "event", via: "Form",      title: "Website form submitted", detail: "Service: kitchen tap repair · Preferred: Thursday", when: "11:52" },
+    { kind: "event", via: "Instagram", title: "Instagram DM · photo",    detail: "Emma sent a photo of the leaking tap",             when: "11:58" },
+    { kind: "msg",   from: "z", via: "SMS", t: "Hi Emma, we saw your form and photo. Thursday 2pm work?", when: "12:04" },
+    { kind: "msg",   from: "e", via: "SMS", t: "Yes please, that's perfect.",                             when: "12:06" },
+    { kind: "event", via: "Email",     title: "Email · booking details",  detail: "Confirmation, address on file and prep notes sent", when: "12:08" },
+    { kind: "msg",   from: "e", via: "SMS", t: "Got the email, all good. Thanks!",                        when: "12:09" },
   ];
+  const chip = (via: string) => {
+    if (via === "SMS")       return "bg-emerald-50 text-emerald-700 ring-emerald-100";
+    if (via === "Instagram") return "bg-fuchsia-50 text-fuchsia-700 ring-fuchsia-100";
+    if (via === "Email")     return "bg-blue-50 text-blue-700 ring-blue-100";
+    return "bg-slate-100 text-slate-600 ring-slate-200";
+  };
+  const icon = (via: string) => {
+    if (via === "SMS")       return <MessageSquare className="h-2.5 w-2.5" />;
+    if (via === "Instagram") return <Instagram className="h-2.5 w-2.5" />;
+    if (via === "Email")     return <Mail className="h-2.5 w-2.5" />;
+    return <FileText className="h-2.5 w-2.5" />;
+  };
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
       <div className="mb-2 flex flex-wrap items-center gap-2 px-1">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">One thread · every channel</div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" />SMS</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-fuchsia-50 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><Instagram className="h-2.5 w-2.5" />Instagram</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><Mail className="h-2.5 w-2.5" />Email</span>
         <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" />Form</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-fuchsia-50 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><Instagram className="h-2.5 w-2.5" />Instagram</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" />SMS</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><Mail className="h-2.5 w-2.5" />Email</span>
       </div>
       <div className="space-y-2">
-        {msgs.map((m, i) => (
-          <div key={i} className={`flex items-end gap-1.5 ${m.from === "z" ? "justify-start" : "justify-end"}`}>
-            {m.from === "e" && <CustomerAvatar size={20} />}
-            <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${m.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
-              {m.t}
-              <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${m.from === "z" ? "text-slate-500" : "text-white/70"}`}>
-                <span>{m.when}</span>
-                <span>·</span>
-                <span>{m.via}</span>
+        {events.map((e, i) => {
+          if (e.kind === "event") {
+            return (
+              <div key={i} className="flex items-start gap-2 rounded-lg bg-slate-50 px-2.5 py-2 ring-1 ring-slate-100">
+                <span className={`mt-0.5 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ring-1 ${chip(e.via)}`}>{icon(e.via)}{e.via}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[12px] font-semibold text-slate-800">{e.title}</div>
+                  <div className="truncate text-[11.5px] text-slate-500">{e.detail}</div>
+                </div>
+                <span className="text-[10px] text-slate-400">{e.when}</span>
+              </div>
+            );
+          }
+          return (
+            <div key={i} className={`flex items-end gap-1.5 ${e.from === "z" ? "justify-start" : "justify-end"}`}>
+              {e.from === "e" && <CustomerAvatar size={20} />}
+              <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${e.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
+                {e.t}
+                <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${e.from === "z" ? "text-slate-500" : "text-white/70"}`}>
+                  <span>{e.when}</span><span>·</span><span>{e.via}</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
