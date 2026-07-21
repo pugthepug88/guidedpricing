@@ -797,12 +797,12 @@ const SLIDES: Slide[] = [
     image: industryLegal.url,
     headline: "New enquiry to qualified consultation.",
     body: "Capture the enquiry, screen it in one thread, and get the right lead on the calendar with context.",
-    journey: ["New enquiry", "Qualified", "Consultation booked"],
+    journey: ["Enquiry", "Qualified", "Consultation booked"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Consultation</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Emma Reid · Tue 10:00 AM</div>
-        <div className="mt-1 text-[12px] text-slate-500">Notes and intake form attached</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample enquiry · Tue 10:00 AM</div>
+        <div className="mt-1 text-[12px] text-slate-500">Intake notes attached, advisor assigned</div>
       </div>
     ),
   },
@@ -812,65 +812,116 @@ const SLIDES: Slide[] = [
     Icon: HomeIcon,
     accent: { chip: "bg-emerald-50 text-emerald-700 ring-emerald-100", bg: "from-emerald-50/70 via-white to-white", ring: "ring-emerald-100", text: "text-emerald-800", dot: "bg-emerald-500" },
     image: industryRealEstate.url,
-    headline: "Lead to nurture to appraisal.",
-    body: "New leads enter a nurture sequence and land on an appraisal booking without dropping context.",
-    journey: ["Lead", "Nurture", "Appraisal booked"],
+    headline: "Lead to nurture to appraisal or inspection.",
+    body: "New leads enter a nurture sequence and land on an appraisal or inspection without dropping context.",
+    journey: ["Lead", "Nurture", "Appraisal or inspection"],
     outcome: (
       <div>
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Appraisal</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">12 Ocean Rd · Thu 4:30 PM</div>
-        <div className="mt-1 text-[12px] text-slate-500">Agent assigned · reminders queued</div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Inspection booked</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample listing · Thu 4:30 PM</div>
+        <div className="mt-1 text-[12px] text-slate-500">Agent assigned, reminders queued</div>
+      </div>
+    ),
+  },
+  {
+    key: "mortgage",
+    label: "Mortgage brokers & finance",
+    Icon: Building2,
+    accent: { chip: "bg-indigo-50 text-indigo-700 ring-indigo-100", bg: "from-indigo-50/70 via-white to-white", ring: "ring-indigo-100", text: "text-indigo-800", dot: "bg-indigo-500" },
+    image: industryMortgage.url,
+    headline: "Enquiry to documents to appointment.",
+    body: "Enquiries turn into a guided document request and land on the broker's calendar, fully prepped.",
+    journey: ["Enquiry", "Documents collected", "Appointment booked"],
+    outcome: (
+      <div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Appointment</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample enquiry · Wed 2:00 PM</div>
+        <div className="mt-1 text-[12px] text-slate-500">Payslips and ID uploaded, checklist complete</div>
       </div>
     ),
   },
   {
     key: "health",
-    label: "Health & appointments",
+    label: "Allied health & clinics",
     Icon: HeartPulse,
     accent: { chip: "bg-teal-50 text-teal-700 ring-teal-100", bg: "from-teal-50/70 via-white to-white", ring: "ring-teal-100", text: "text-teal-800", dot: "bg-teal-500" },
     image: industryHealthcare.url,
     headline: "Booking to reminder to rebooking.",
-    body: "Patients book online, get reminded, and rebook with one tap. Every touch stays on file.",
+    body: "Patients book online, get reminded and rebook with one tap. Every touch stays on file.",
     journey: ["Booking", "Reminder", "Rebooking"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Reminder sent</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Emma Reid · 24h check-in</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample patient · 24h check-in</div>
         <div className="mt-1 text-[12px] text-slate-500">One-tap rebook enabled</div>
       </div>
     ),
   },
   {
-    key: "trades",
-    label: "Trades & automotive",
-    Icon: Wrench,
-    accent: { chip: "bg-amber-50 text-amber-700 ring-amber-100", bg: "from-amber-50/70 via-white to-white", ring: "ring-amber-100", text: "text-amber-800", dot: "bg-amber-500" },
-    image: industryTrades.url,
-    headline: "Missed call to quote to booked job.",
-    body: "Field teams live on the phone. Zapla replies, sends the quote and books the job in one thread.",
-    journey: ["Missed call", "Quote sent", "Job booked"],
+    key: "fitness",
+    label: "Fitness & studios",
+    Icon: Dumbbell,
+    accent: { chip: "bg-violet-50 text-violet-700 ring-violet-100", bg: "from-violet-50/70 via-white to-white", ring: "ring-violet-100", text: "text-violet-800", dot: "bg-violet-500" },
+    image: industryFitness.url,
+    headline: "Trial enquiry to the right class to follow-up.",
+    body: "Trial enquiries route to the nearest location or class, get an intro reply and a follow-up on the calendar.",
+    journey: ["Trial enquiry", "Location or class routed", "Follow-up scheduled"],
     outcome: (
       <div>
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Job booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Emma Reid · Thu 2:00 PM</div>
-        <div className="mt-1 text-[12px] text-slate-500">Assigned to Alex · quote $180</div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Trial booked</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample studio · Sat 8:00 AM class</div>
+        <div className="mt-1 text-[12px] text-slate-500">Follow-up scheduled in 3 days</div>
       </div>
     ),
   },
   {
-    key: "fitness",
-    label: "Fitness & multi-location",
-    Icon: Dumbbell,
-    accent: { chip: "bg-indigo-50 text-indigo-700 ring-indigo-100", bg: "from-indigo-50/70 via-white to-white", ring: "ring-indigo-100", text: "text-indigo-800", dot: "bg-indigo-500" },
-    image: industryFitness.url,
-    headline: "Enquiry to the right location to follow-up.",
-    body: "New enquiries route to the nearest location, get an intro reply and a follow-up on the calendar.",
-    journey: ["Enquiry", "Location routed", "Follow-up scheduled"],
+    key: "trades",
+    label: "Trades & home services",
+    Icon: Wrench,
+    accent: { chip: "bg-amber-50 text-amber-700 ring-amber-100", bg: "from-amber-50/70 via-white to-white", ring: "ring-amber-100", text: "text-amber-800", dot: "bg-amber-500" },
+    image: industryTrades.url,
+    headline: "Missed call to site visit to quote follow-up.",
+    body: "Field teams live on the phone. Zapla replies, books the site visit and chases the quote in one thread.",
+    journey: ["Missed call", "Site visit booked", "Quote follow-up"],
     outcome: (
       <div>
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Location routed</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Bondi studio · trial booked</div>
-        <div className="mt-1 text-[12px] text-slate-500">Follow-up in 3 days</div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Site visit</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample job · Thu 2:00 PM</div>
+        <div className="mt-1 text-[12px] text-slate-500">Assigned to on-call tech, quote pending</div>
+      </div>
+    ),
+  },
+  {
+    key: "automotive",
+    label: "Automotive & workshops",
+    Icon: Car,
+    accent: { chip: "bg-rose-50 text-rose-700 ring-rose-100", bg: "from-rose-50/70 via-white to-white", ring: "ring-rose-100", text: "text-rose-800", dot: "bg-rose-500" },
+    image: industryAutomotive.url,
+    headline: "Booking request to job details to service reminder.",
+    body: "Bookings capture the vehicle and job in one form, then a service reminder brings the customer back.",
+    journey: ["Booking request", "Vehicle & job details", "Service reminder"],
+    outcome: (
+      <div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Service booked</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample vehicle · Mon 9:00 AM</div>
+        <div className="mt-1 text-[12px] text-slate-500">Log book service, reminder set for 6 months</div>
+      </div>
+    ),
+  },
+  {
+    key: "hospitality",
+    label: "Hospitality & short-stay",
+    Icon: BedDouble,
+    accent: { chip: "bg-cyan-50 text-cyan-700 ring-cyan-100", bg: "from-cyan-50/70 via-white to-white", ring: "ring-cyan-100", text: "text-cyan-800", dot: "bg-cyan-500" },
+    image: industryAirbnb.url,
+    headline: "Guest enquiry to stay comms to return offer.",
+    body: "Enquiries turn into a confirmed stay with automatic check-in messages and a return offer after checkout.",
+    journey: ["Guest enquiry", "Stay communications", "Review or return offer"],
+    outcome: (
+      <div>
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Return offer sent</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample stay · 2-night booking</div>
+        <div className="mt-1 text-[12px] text-slate-500">Review request queued, repeat-guest discount</div>
       </div>
     ),
   },
