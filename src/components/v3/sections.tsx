@@ -1013,7 +1013,16 @@ export function ProfessionCarouselV3() {
   const s = SLIDES[i];
   const prev = SLIDES[(i - 1 + SLIDES.length) % SLIDES.length];
   const next = SLIDES[(i + 1) % SLIDES.length];
-  const go = (n: number) => setI(((n % SLIDES.length) + SLIDES.length) % SLIDES.length);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const go = (n: number) => {
+    const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
+    setI(nextIdx);
+    // Bring the newly-active tab into view on narrow screens
+    const el = tabRefs.current[nextIdx];
+    if (el && typeof el.scrollIntoView === "function") {
+      el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  };
 
   return (
     <section className="bg-slate-50 py-24 sm:py-32 px-6 overflow-hidden">
@@ -1042,6 +1051,7 @@ export function ProfessionCarouselV3() {
               return (
                 <button
                   key={sl.key}
+                  ref={(el) => { tabRefs.current[idx] = el; }}
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => go(idx)}
@@ -1054,6 +1064,7 @@ export function ProfessionCarouselV3() {
             })}
           </div>
         </div>
+
 
         {/* Carousel stage */}
         <div className="relative mt-10">
