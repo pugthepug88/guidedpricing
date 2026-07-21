@@ -20,6 +20,11 @@ import industryAutomotive from "@/assets/industry-automotive.png.asset.json";
 import industryAirbnb from "@/assets/industry-airbnb.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
 import callerPortrait from "@/assets/caller-portrait.jpg.asset.json";
+import portraitCustomer from "@/assets/portrait-customer.jpg.asset.json";
+import portraitTeam1 from "@/assets/portrait-team-1.jpg.asset.json";
+import portraitTeam2 from "@/assets/portrait-team-2.jpg.asset.json";
+import portraitTeam3 from "@/assets/portrait-team-3.jpg.asset.json";
+import portraitTeam4 from "@/assets/portrait-team-4.jpg.asset.json";
 
 const BOOK_URL = "https://zapla.io/booking";
 
@@ -36,21 +41,46 @@ function Eyebrow({ children }: { children: ReactNode }) {
 
 function CustomerAvatar({ size = 44 }: { size?: number }) {
   return (
-    <div
-      className="grid shrink-0 place-items-center rounded-full text-white font-semibold ring-2 ring-white"
-      style={{
-        width: size, height: size, fontSize: Math.round(size * 0.34),
-        background: "linear-gradient(135deg,#2563eb 0%,#22d3ee 100%)",
-      }}
-      aria-hidden
-    >SC</div>
+    <img
+      src={portraitCustomer.url}
+      alt=""
+      width={size}
+      height={size}
+      loading="lazy"
+      className="shrink-0 rounded-full object-cover ring-2 ring-white shadow-[0_4px_12px_-4px_rgba(15,23,42,0.25)]"
+      style={{ width: size, height: size }}
+    />
   );
 }
-function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: string; size?: number }) {
+const TEAM_FACES: Record<string, string> = {
+  AL: portraitTeam1.url,
+  MI: portraitTeam2.url,
+  SM: portraitTeam3.url,
+  JS: portraitTeam4.url,
+  T1: portraitTeam1.url,
+  T2: portraitTeam2.url,
+  T3: portraitTeam3.url,
+  T4: portraitTeam4.url,
+};
+function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone?: string; size?: number }) {
+  const src = TEAM_FACES[initials];
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt=""
+        width={size}
+        height={size}
+        loading="lazy"
+        className="shrink-0 rounded-full object-cover ring-2 ring-white"
+        style={{ width: size, height: size }}
+      />
+    );
+  }
   return (
     <div
       className="grid shrink-0 place-items-center rounded-full text-white text-[11px] font-semibold ring-2 ring-white"
-      style={{ width: size, height: size, background: tone }}
+      style={{ width: size, height: size, background: tone ?? "#64748b" }}
       aria-hidden
     >{initials}</div>
   );
@@ -150,23 +180,32 @@ function PanelCapture() {
 }
 function PanelCommunicate() {
   const msgs = [
-    { from: "z", t: "Hi, we saw you called. Can we help book a service?", when: "12:04" },
-    { from: "e", t: "Yes please, dripping tap in the kitchen.", when: "12:07" },
-    { from: "z", t: "We can send someone Thursday 2pm. Works for you?", when: "12:08" },
-    { from: "e", t: "Perfect, thanks!", when: "12:09" },
+    { from: "z", t: "Hi, we saw you called. Can we help book a service?", when: "12:04", via: "SMS" },
+    { from: "e", t: "Yes please, dripping tap in the kitchen.", when: "12:07", via: "SMS" },
+    { from: "e", t: "Also sent a photo via DM earlier.", when: "12:07", via: "Instagram" },
+    { from: "z", t: "Got the photo. Thursday 2pm works?", when: "12:08", via: "SMS" },
+    { from: "e", t: "Perfect, thanks!", when: "12:09", via: "SMS" },
   ];
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
-      <div className="mb-2 flex items-center justify-between px-1">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">SMS · thread in the customer record</div>
-        <div className="text-[11px] text-slate-400">Today</div>
+      <div className="mb-2 flex flex-wrap items-center gap-2 px-1">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">One thread · every channel</div>
+        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" />SMS</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-fuchsia-50 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><Instagram className="h-2.5 w-2.5" />Instagram</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><Mail className="h-2.5 w-2.5" />Email</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" />Form</span>
       </div>
       <div className="space-y-2">
         {msgs.map((m, i) => (
-          <div key={i} className={`flex ${m.from === "z" ? "justify-start" : "justify-end"}`}>
-            <div className={`max-w-[78%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${m.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
+          <div key={i} className={`flex items-end gap-1.5 ${m.from === "z" ? "justify-start" : "justify-end"}`}>
+            {m.from === "e" && <CustomerAvatar size={20} />}
+            <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${m.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
               {m.t}
-              <div className={`mt-0.5 text-[10px] ${m.from === "z" ? "text-slate-500" : "text-white/70"}`}>{m.when}</div>
+              <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${m.from === "z" ? "text-slate-500" : "text-white/70"}`}>
+                <span>{m.when}</span>
+                <span>·</span>
+                <span>{m.via}</span>
+              </div>
             </div>
           </div>
         ))}
@@ -192,7 +231,7 @@ function PanelConvert() {
         <div className="mt-1 text-[12px] text-slate-500">Reminders queued for 24h and 2h before</div>
         <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 text-[12px]">
           <TeamAvatar initials="AL" tone="#0ea5e9" size={22} />
-          <span className="text-slate-700">Assigned to <span className="font-semibold text-slate-900">Alex</span></span>
+          <span className="text-slate-700">Assigned to <span className="font-semibold text-slate-900">team member</span></span>
         </div>
       </div>
     </div>
@@ -396,29 +435,33 @@ export function JourneyV3() {
         </div>
 
         {/* Stage selector */}
-        <div
-          className="mt-10 -mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0"
-          role="tablist"
-          aria-label="Customer journey stage"
-        >
-          <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0 sm:justify-center">
-            {STAGES.map((s, i) => {
-              const isActive = i === active;
-              return (
-                <button
-                  key={s.key}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActive(i)}
-                  className={`relative flex items-center gap-2 rounded-full px-3.5 sm:px-5 py-2 text-[12px] sm:text-[13px] font-semibold transition-colors ${isActive ? "bg-slate-950 text-white shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
-                >
-                  <span className={`font-mono text-[10px] ${isActive ? "text-white/70" : "text-slate-400"}`}>{s.sub}</span>
-                  {s.label}
-                </button>
-              );
-            })}
+        <div className="relative mt-10">
+          <div
+            className="-mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
+            role="tablist"
+            aria-label="Customer journey stage"
+            style={{ WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)", maskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)" }}
+          >
+            <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0 sm:justify-center">
+              {STAGES.map((s, i) => {
+                const isActive = i === active;
+                return (
+                  <button
+                    key={s.key}
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setActive(i)}
+                    className={`relative flex items-center gap-2 rounded-full px-3.5 sm:px-5 py-2 text-[12px] sm:text-[13px] font-semibold transition-colors ${isActive ? "bg-slate-950 text-white shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+                  >
+                    <span className={`font-mono text-[10px] ${isActive ? "text-white/70" : "text-slate-400"}`}>{s.sub}</span>
+                    {s.label}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
+
 
         {/* Progress path */}
         <div className="mt-6 hidden sm:flex mx-auto max-w-3xl items-center gap-2">
@@ -607,18 +650,24 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
           </NodeBox>
 
           <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={260}>
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Routed to available team member</div>
-            <div className="mt-0.5 text-[11.5px] text-slate-500">Answered in seconds</div>
+            <div className="flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-semibold text-white">
+                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />Live human
+              </span>
+            </div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Transferred to available team member</div>
+            <div className="mt-0.5 text-[11.5px] text-slate-500">Call Transfer action · on-call destination</div>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex -space-x-2">
                 <TeamAvatar initials="T1" tone="#0ea5e9" />
                 <TeamAvatar initials="T2" tone="#10b981" />
                 <TeamAvatar initials="T3" tone="#6366f1" />
               </div>
-              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Live</span>
+              <span className="rounded-full bg-white px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-200">Answered</span>
             </div>
           </NodeBox>
+
 
           <NodeBox active={activePath === "B"} style={{ left: "76%", top: "68%", transform: "translateX(-50%)" }} tone="blue" w={260}>
             <div className="flex items-center justify-between">
@@ -662,14 +711,20 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
         <Connector />
         <div className="grid grid-cols-2 gap-3">
           <NodeBoxMobile active={activePath === "A"} tone="emerald">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Team member answers</div>
+            <div className="flex items-center justify-between">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-1.5 py-0.5 text-[9px] font-semibold text-white">
+                <span className="h-1 w-1 rounded-full bg-white" />Live
+              </span>
+            </div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Transferred to team</div>
             <div className="mt-2 flex -space-x-2">
               <TeamAvatar initials="T1" tone="#0ea5e9" size={22} />
               <TeamAvatar initials="T2" tone="#10b981" size={22} />
               <TeamAvatar initials="T3" tone="#6366f1" size={22} />
             </div>
           </NodeBoxMobile>
+
           <NodeBoxMobile active={activePath === "B"} tone="blue">
             <div className="text-[10px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
             <div className="mt-1 text-[12.5px] font-semibold text-slate-900">AI answers &amp; books</div>
@@ -952,6 +1007,7 @@ export function ProfessionCarouselV3() {
           className="mt-10 -mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0"
           role="tablist"
           aria-label="Profession"
+          style={{ WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)", maskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)" }}
         >
           <div className="flex min-w-max items-center gap-2 zapla-scroll-hide">
             {SLIDES.map((sl, idx) => {

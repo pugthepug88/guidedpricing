@@ -1,70 +1,91 @@
+/* =====================================================================
+ *  ConnectedSystemSectionV3 — V3 scroll-scrub port of the V1 8-card scene.
+ *  Scope: /hero-preview-v3 only.
+ *  8 cards revealed one-by-one, sketch→color hero, cards stay visible.
+ *  Real face portraits for every avatar. Neutral sample copy only.
+ * ===================================================================== */
 import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle, Sparkles, RefreshCw } from "lucide-react";
 import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
-
-/* ------------------------------------------------------------------ */
-/*  ConnectedSystemSectionV3                                          */
-/*  Asymmetrical, cinematic. No dotted ellipse. No fake metrics.      */
-/*  Shortened to ~260vh. Respects prefers-reduced-motion.             */
-/* ------------------------------------------------------------------ */
+import pCustomer from "@/assets/portrait-customer.jpg.asset.json";
+import pCust2 from "@/assets/portrait-cust-2.jpg.asset.json";
+import pCust3 from "@/assets/portrait-cust-3.jpg.asset.json";
+import pCust4 from "@/assets/portrait-cust-4.jpg.asset.json";
+import pTeam1 from "@/assets/portrait-team-1.jpg.asset.json";
+import pTeam2 from "@/assets/portrait-team-2.jpg.asset.json";
+import pTeam3 from "@/assets/portrait-team-3.jpg.asset.json";
+import pTeam4 from "@/assets/portrait-team-4.jpg.asset.json";
 
 function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
+  const [r, setR] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const on = () => setReduced(mq.matches);
-    mq.addEventListener?.("change", on);
-    return () => mq.removeEventListener?.("change", on);
-  }, []);
-  return reduced;
-}
-
-/** Neutral CSS initials avatar — no third-party image URLs. */
-function Avatar({ name, tone = "blue", size = 28 }: { name: string; tone?: "blue" | "cyan" | "slate" | "amber" | "emerald" | "teal"; size?: number }) {
-  const initials = name.split(" ").map((p) => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
-  const tones: Record<string, string> = {
-    blue: "bg-gradient-to-br from-blue-500 to-blue-700 text-white",
-    cyan: "bg-gradient-to-br from-cyan-400 to-sky-600 text-white",
-    slate: "bg-gradient-to-br from-slate-400 to-slate-600 text-white",
-    amber: "bg-gradient-to-br from-amber-400 to-orange-500 text-white",
-    emerald: "bg-gradient-to-br from-emerald-400 to-emerald-600 text-white",
-    teal: "bg-gradient-to-br from-teal-400 to-cyan-600 text-white",
-  };
-  return (
-    <span
-      className={`inline-flex items-center justify-center rounded-full font-semibold ring-2 ring-white shadow-sm ${tones[tone]}`}
-      style={{ width: size, height: size, fontSize: Math.max(9, Math.floor(size * 0.36)) }}
-      aria-hidden
-    >
-      {initials}
-    </span>
-  );
-}
-
-export function ConnectedSystemSectionV3() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [progress, setProgress] = useState(reduced ? 1 : 0);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const on = () => setIsDesktop(mq.matches);
+    const on = () => setR(mq.matches);
     on();
     mq.addEventListener?.("change", on);
     return () => mq.removeEventListener?.("change", on);
   }, []);
+  return r;
+}
 
+function useIsDesktop() {
+  const [d, setD] = useState(false);
   useEffect(() => {
-    if (reduced || !isDesktop) {
-      setProgress(1);
-      return;
-    }
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const on = () => setD(mq.matches);
+    on();
+    mq.addEventListener?.("change", on);
+    return () => mq.removeEventListener?.("change", on);
+  }, []);
+  return d;
+}
+
+export function ConnectedSystemSectionV3() {
+  const isDesktop = useIsDesktop();
+  const reduced = useReducedMotion();
+
+  // On tablet/mobile OR reduced-motion: use a clean normal-flow grid, no sticky scroll.
+  if (!isDesktop || reduced) {
+    return (
+      <section className="relative bg-white text-neutral-900 py-20 sm:py-24 px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
+            Every customer moment. One <span className="text-zapla-blue">connected</span> system.
+          </h2>
+          <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
+            Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
+          </p>
+        </div>
+        <div className="mx-auto mt-10 grid max-w-6xl gap-4 sm:grid-cols-2">
+          <ConversationsCard />
+          <NewLeadCard />
+          <BookingCard />
+          <WorkflowCard />
+          <OpportunityCard />
+          <InvoiceCard />
+          <ReviewCard />
+          <WinBackCard />
+        </div>
+      </section>
+    );
+  }
+
+  return <DesktopScrollScene />;
+}
+
+function DesktopScrollScene() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
     const section = ref.current;
     if (!section) return;
-
     let rafId: number | null = null;
     const update = () => {
       const total = section.scrollHeight - window.innerHeight;
@@ -81,69 +102,48 @@ export function ConnectedSystemSectionV3() {
       window.removeEventListener("scroll", onScroll);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, [reduced, isDesktop]);
+  }, []);
 
-  const sketchOpacity = progress < 0.05 ? 1 : progress > 0.35 ? 0 : 1 - (progress - 0.05) / 0.3;
-  const colorOpacity = progress < 0.1 ? 0 : progress > 0.4 ? 1 : (progress - 0.1) / 0.3;
+  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 0.55, 1], [1, 0.35, 0, 0]);
+  const colorOpacity = useTransform(scrollYProgress, [0.15, 0.55, 1], [0, 1, 1]);
 
   return (
-    <section
-      ref={ref}
-      className="relative bg-gradient-to-b from-white via-white to-sky-50/40 text-neutral-900 lg:[height:220vh]"
-    >
-      <div className="lg:sticky lg:top-0 flex lg:h-screen w-full flex-col items-center overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_60%,rgba(37,99,255,0.05),transparent_70%)]" />
-
+    <section ref={ref} className="relative h-[460vh] bg-white text-neutral-900">
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
         <div className="relative z-30 pt-12 md:pt-16 px-6 text-center max-w-3xl mx-auto">
-          <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.08]">
-            Every customer moment. One <span className="text-[#2563ff]">connected</span> system.
+          <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
+            Every customer moment. One <span className="text-zapla-blue">connected</span> system.
           </h2>
           <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
-            Enquiry, conversation, booking, service, follow-up and review — moving together automatically.
+            Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
           </p>
         </div>
-
-        {/* Desktop composition (lg+) — controlled scroll */}
-        <div className="relative mx-auto hidden w-full max-w-[1400px] flex-1 lg:block">
-          <div className="relative mx-auto h-full">
-            <div className="relative mx-auto h-[70vh] w-[min(140vh,94vw)]">
-              <img
+        <div className="relative mx-auto w-full max-w-[1400px] flex-1 px-6">
+          <div className="relative mx-auto flex h-full items-center justify-center">
+            <div className="relative mx-auto h-[74vh] w-[min(148vh,96vw)]">
+              <motion.img
                 src={heroSketch.url}
                 alt=""
                 draggable={false}
                 style={{ opacity: sketchOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain transition-opacity"
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
               />
-              <img
+              <motion.img
                 src={heroColor.url}
                 alt=""
                 draggable={false}
                 style={{ opacity: colorOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain transition-opacity"
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
               />
 
-              {/* Six moments — asymmetrical scatter, no orbit */}
-              <MomentCard progress={progress} appearAt={0.14} pos="left-[-6%] top-[4%]"     scale={1.0}  rot={-1.2}><ConversationsCard /></MomentCard>
-              <MomentCard progress={progress} appearAt={0.24} pos="right-[-6%] top-[-2%]"    scale={0.96} rot={1.4}><NewLeadCard /></MomentCard>
-              <MomentCard progress={progress} appearAt={0.36} pos="right-[-10%] top-[40%]"   scale={0.92} rot={-0.6}><BookingCard /></MomentCard>
-              <MomentCard progress={progress} appearAt={0.5}  pos="left-[-10%] top-[42%]"    scale={0.9}  rot={0.9}><WorkflowCard /></MomentCard>
-              <MomentCard progress={progress} appearAt={0.66} pos="right-[8%] bottom-[-2%]"  scale={0.94} rot={0.4}><ReviewCard /></MomentCard>
-              <MomentCard progress={progress} appearAt={0.82} pos="left-[6%] bottom-[-2%]"   scale={0.96} rot={-1.0}><WinBackCard /></MomentCard>
-            </div>
-          </div>
-        </div>
-
-        {/* Tablet + mobile: normal document flow, no sticky */}
-        <div className="relative z-20 w-full px-4 pb-16 pt-8 lg:hidden">
-          <div className="mx-auto max-w-4xl">
-            <img src={heroColor.url} alt="" className="mx-auto h-40 sm:h-56 w-auto object-contain" />
-            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <ConversationsCard />
-              <NewLeadCard />
-              <BookingCard />
-              <WorkflowCard />
-              <ReviewCard />
-              <WinBackCard />
+              <OrbitCard progress={progress} appearAt={0.18} pos="left-[-6%] top-[2%]"><ConversationsCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.26} pos="right-[-6%] top-[2%]"><NewLeadCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.36} pos="right-[-10%] top-[38%]"><BookingCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.46} pos="right-[-3%] top-[72%]"><WorkflowCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.56} pos="right-[24%] bottom-[2%]"><OpportunityCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.66} pos="left-[24%] bottom-[2%]"><InvoiceCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.76} pos="left-[-3%] top-[72%]"><ReviewCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.86} pos="left-[-10%] top-[38%]"><WinBackCard /></OrbitCard>
             </div>
           </div>
         </div>
@@ -152,17 +152,14 @@ export function ConnectedSystemSectionV3() {
   );
 }
 
-function MomentCard({
-  progress, appearAt, pos, scale = 1, rot = 0, children,
-}: { progress: number; appearAt: number; pos: string; scale?: number; rot?: number; children: React.ReactNode }) {
-  const enter = Math.min(1, Math.max(0, (progress - appearAt) / 0.05));
-  const y = 28 * (1 - enter);
-  const s = (0.9 + 0.1 * enter) * scale;
+function OrbitCard({ progress, appearAt, pos, children }: { progress: number; appearAt: number; pos: string; children: React.ReactNode }) {
+  const fadeProgress = Math.min(1, Math.max(0, (progress - (appearAt - 0.03)) / 0.03));
+  const moveProgress = progress <= appearAt ? 0 : progress >= appearAt + 0.06 ? 1 : (progress - appearAt) / 0.06;
+  const opacity = fadeProgress;
+  const y = 24 * (1 - moveProgress);
+  const scale = 0.92 + 0.08 * moveProgress;
   return (
-    <div
-      style={{ opacity: enter, transform: `translateY(${y}px) rotate(${rot}deg) scale(${s})` }}
-      className={`absolute z-20 ${pos}`}
-    >
+    <div style={{ opacity, transform: `translateY(${y}px) scale(${scale})` }} className={`absolute z-20 ${pos}`}>
       {children}
     </div>
   );
@@ -176,7 +173,20 @@ function Shell({ children, className = "" }: { children: React.ReactNode; classN
   );
 }
 
-/* ----- Channel icons ----- */
+function Face({ src, size = 32 }: { src: string; size?: number }) {
+  return (
+    <img
+      src={src}
+      alt=""
+      width={size}
+      height={size}
+      loading="lazy"
+      className="shrink-0 rounded-full object-cover ring-2 ring-white"
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
 function SmsIcon({ size = 32 }: { size?: number }) {
   return (
     <div className="flex items-center justify-center rounded-lg bg-emerald-500 text-white shadow-sm" style={{ width: size, height: size }}>
@@ -215,14 +225,12 @@ function InstagramIcon({ size = 32 }: { size?: number }) {
   );
 }
 
-/* ----- Cards ----- */
-
 function ConversationsCard() {
   const threads = [
-    { icon: <SmsIcon size={34} />,       name: "Sarah Mitchell",     time: "2m", preview: "Can I move my 3pm to Thursday?", unread: true },
-    { icon: <GmailIcon size={34} />,     name: "James — new enquiry", time: "8m", preview: "Hi, wanted to get a quote for…",  unread: true },
-    { icon: <InstagramIcon size={34} />, name: "@mia.k",              time: "1h", preview: "Do you take bookings via DM?",    unread: false },
-    { icon: <MessengerIcon size={34} />, name: "David Chen",          time: "3h", preview: "Thanks — see you tomorrow",        unread: false },
+    { icon: <SmsIcon size={36} />, name: "Sample customer", time: "2m", preview: "Can I move my 3pm to Thursday?", unread: true },
+    { icon: <GmailIcon size={36} />, name: "New enquiry", time: "8m", preview: "Hi, wanted to get a quote for…", unread: true },
+    { icon: <InstagramIcon size={36} />, name: "Instagram DM", time: "1h", preview: "Do you take bookings via DM?", unread: false },
+    { icon: <MessengerIcon size={36} />, name: "Messenger reply", time: "3h", preview: "Thanks, see you tomorrow", unread: false },
   ];
   return (
     <Shell className="w-[320px] p-4">
@@ -260,10 +268,10 @@ function NewLeadCard() {
     <Shell className="w-[300px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-sm">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 text-white shadow-sm">
             <Phone className="h-[18px] w-[18px]" />
-            <div className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white ring-1 ring-sky-200">
-              <Sparkles className="h-2.5 w-2.5 text-sky-700" />
+            <div className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white ring-1 ring-blue-200">
+              <Sparkles className="h-2.5 w-2.5 text-blue-600" />
             </div>
           </div>
           <div>
@@ -271,16 +279,16 @@ function NewLeadCard() {
             <div className="text-[11px] text-neutral-500 leading-tight">AI receptionist captured a call</div>
           </div>
         </div>
-        <div className="flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-200">
-          <Sparkles className="h-3 w-3" /> AI
+        <div className="flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-200">
+          <Sparkles className="h-3 w-3" /> AI · LIVE
         </div>
       </div>
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2.5">
-          <Avatar name="Emma Wilson" tone="cyan" size={32} />
+          <Face src={pCust3.url} size={32} />
           <div className="min-w-0 flex-1">
-            <div className="truncate text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
-            <div className="truncate text-[11px] text-neutral-500">+61 400 812 559 · 0:42s</div>
+            <div className="truncate text-[12px] font-semibold text-neutral-900">Sample caller</div>
+            <div className="truncate text-[11px] text-neutral-500">04•• ••• ••• · 0:42s</div>
           </div>
           <div className="text-[10px] text-neutral-400">just now</div>
         </div>
@@ -289,7 +297,7 @@ function NewLeadCard() {
         </div>
       </div>
       <div className="mt-2.5 flex items-center justify-between text-[11px]">
-        <span className="flex items-center gap-1 text-sky-700 font-medium"><Sparkles className="h-3 w-3" /> AI transcribed · added to CRM</span>
+        <span className="flex items-center gap-1 text-blue-600 font-medium"><Sparkles className="h-3 w-3" /> AI transcribed · added to CRM</span>
         <span className="font-semibold text-emerald-600">✓ synced</span>
       </div>
     </Shell>
@@ -312,13 +320,13 @@ function BookingCard() {
       <div className="mt-3 grid grid-cols-7 gap-1 text-center">
         {["M","T","W","T","F","S","S"].map((d, i) => (<div key={i} className="text-[9px] font-medium text-neutral-400">{d}</div>))}
         {[11,12,13,14,15,16,17].map((d) => (
-          <div key={d} className={`rounded-md py-1 text-[11px] font-semibold ${d === 14 ? "bg-blue-600 text-white shadow-sm" : "text-neutral-600"}`}>{d}</div>
+          <div key={d} className={`rounded-md py-1 text-[11px] font-semibold ${d === 14 ? "bg-blue-600 text-white shadow-sm" : "text-neutral-600 hover:bg-neutral-50"}`}>{d}</div>
         ))}
       </div>
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
-        <Avatar name="Sarah Mitchell" tone="blue" size={28} />
+        <Face src={pCustomer.url} size={28} />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[11px] font-semibold text-neutral-900">Sarah Mitchell</div>
+          <div className="truncate text-[11px] font-semibold text-neutral-900">Sample customer</div>
           <div className="truncate text-[10px] text-neutral-500">Consultation · 45 min</div>
         </div>
         <CheckCircle2 className="h-4 w-4 text-emerald-500" />
@@ -338,22 +346,22 @@ function WorkflowCard() {
     <Shell className="w-[290px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-600 text-white"><Zap className="h-[18px] w-[18px]" /></div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-600 text-white"><Zap className="h-[18px] w-[18px]" /></div>
           <div>
             <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Workflow Running</div>
             <div className="text-[11px] text-neutral-500 leading-tight">New Lead → Nurture</div>
           </div>
         </div>
-        <div className="rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-200">AUTO</div>
+        <div className="rounded-full bg-cyan-50 px-2 py-0.5 text-[10px] font-semibold text-cyan-700 ring-1 ring-cyan-200">AUTO</div>
       </div>
       <div className="mt-3 space-y-2">
         {steps.map((s, i) => (
           <div key={i} className="flex items-center gap-2.5">
-            <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${s.done ? "bg-emerald-500 text-white" : s.active ? "bg-sky-100 text-sky-700 ring-2 ring-sky-500" : "bg-neutral-100 text-neutral-400"}`}>
+            <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${s.done ? "bg-emerald-500 text-white" : s.active ? "bg-cyan-100 text-cyan-700 ring-2 ring-cyan-500" : "bg-neutral-100 text-neutral-400"}`}>
               {s.done ? "✓" : i + 1}
             </div>
             <div className={`flex-1 text-[12px] ${s.done ? "text-neutral-500 line-through" : s.active ? "font-semibold text-neutral-900" : "text-neutral-500"}`}>{s.label}</div>
-            {s.active && <span className="rounded-full bg-sky-100 px-1.5 py-0.5 text-[9px] font-semibold text-sky-700">running</span>}
+            {s.active && <span className="rounded-full bg-cyan-100 px-1.5 py-0.5 text-[9px] font-semibold text-cyan-700">running</span>}
           </div>
         ))}
       </div>
@@ -370,8 +378,8 @@ function OpportunityCard() {
         <div className="flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white"><Target className="h-[18px] w-[18px]" /></div>
           <div>
-            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Quote Sent</div>
-            <div className="text-[11px] text-neutral-500 leading-tight">Sent to Jordan Clarke</div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Opportunity Updated</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">Quote sent to customer</div>
           </div>
         </div>
         <div className="text-[13px] font-bold text-neutral-900">$4,800</div>
@@ -385,13 +393,13 @@ function OpportunityCard() {
       </div>
       <div className="mt-3 flex items-center justify-between rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2">
-          <Avatar name="Jordan Clarke" tone="slate" size={28} />
+          <Face src={pCust4.url} size={28} />
           <div>
-            <div className="text-[11px] font-semibold text-neutral-900">Jordan Clarke</div>
+            <div className="text-[11px] font-semibold text-neutral-900">Sample customer</div>
             <div className="text-[10px] text-neutral-500">Kitchen renovation</div>
           </div>
         </div>
-        <div className="text-[10px] font-semibold text-blue-700">Proposal</div>
+        <div className="text-[10px] font-semibold text-blue-600">75%</div>
       </div>
     </Shell>
   );
@@ -405,7 +413,7 @@ function InvoiceCard() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500 text-white"><CheckCircle2 className="h-[18px] w-[18px]" /></div>
           <div>
             <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Invoice Paid</div>
-            <div className="text-[11px] text-neutral-500 leading-tight">INV-2841 · Sarah Mitchell</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">INV-2841 · Sample customer</div>
           </div>
         </div>
         <div className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200">PAID</div>
@@ -443,9 +451,9 @@ function ReviewCard() {
       </div>
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2">
-          <Avatar name="Sarah Mitchell" tone="blue" size={28} />
+          <Face src={pCustomer.url} size={28} />
           <div className="flex-1">
-            <div className="text-[12px] font-semibold text-neutral-900">Sarah Mitchell</div>
+            <div className="text-[12px] font-semibold text-neutral-900">Sample customer</div>
             <div className="flex items-center gap-0.5">
               {[0,1,2,3,4].map((i) => (<Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />))}
             </div>
@@ -460,31 +468,36 @@ function ReviewCard() {
 }
 
 function WinBackCard() {
+  const avatars = [pCust2.url, pTeam1.url, pTeam2.url, pTeam3.url, pTeam4.url];
   return (
     <Shell className="w-[300px] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500 text-white"><RefreshCw className="h-[18px] w-[18px]" /></div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500 text-white"><RefreshCw className="h-[18px] w-[18px]" /></div>
           <div>
-            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Win-back Campaign</div>
-            <div className="text-[11px] text-neutral-500 leading-tight">Inactive customers · 6mo+</div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Customers Won Back</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">Reactivation campaign · this month</div>
           </div>
         </div>
-        <div className="rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-semibold text-teal-700 ring-1 ring-teal-200">SENDING</div>
+        <div className="rounded-full bg-cyan-50 px-2 py-0.5 text-[10px] font-semibold text-cyan-700 ring-1 ring-cyan-200">+42</div>
       </div>
-      <div className="mt-3 rounded-xl bg-gradient-to-br from-teal-50 to-white p-3 ring-1 ring-teal-100">
-        <div className="text-[11px] font-semibold text-neutral-700">"We miss you — book again"</div>
-        <div className="mt-1.5 text-[11px] text-neutral-500 leading-snug">
-          Personalised SMS + email to past customers with an easy rebooking link.
+      <div className="mt-3 rounded-xl bg-gradient-to-br from-cyan-50 to-white p-3 ring-1 ring-cyan-100">
+        <div className="flex items-baseline justify-between">
+          <div className="text-[11px] text-neutral-500">Re-engaged and purchased</div>
+          <div className="text-[10px] font-semibold text-emerald-600">↑ 3.4×</div>
         </div>
-        <div className="mt-2.5 flex items-center justify-between border-t border-teal-100 pt-2">
+        <div className="mt-1 flex items-baseline gap-1.5">
+          <div className="text-[22px] font-bold text-neutral-900">42</div>
+          <div className="text-[11px] text-neutral-500">past customers</div>
+        </div>
+        <div className="mt-2 flex items-center justify-between border-t border-cyan-100 pt-2">
           <div className="flex -space-x-2">
-            <Avatar name="AL" tone="teal" size={22} />
-            <Avatar name="MJ" tone="cyan" size={22} />
-            <Avatar name="SR" tone="blue" size={22} />
-            <Avatar name="KN" tone="slate" size={22} />
+            {avatars.map((u) => (
+              <Face key={u} src={u} size={24} />
+            ))}
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-600 text-[9px] font-semibold text-white ring-2 ring-white">+37</div>
           </div>
-          <div className="text-[10px] font-semibold text-teal-700">SMS · Email</div>
+          <div className="text-[10px] font-semibold text-cyan-700">$18,240 recovered</div>
         </div>
       </div>
     </Shell>
