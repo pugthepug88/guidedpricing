@@ -646,18 +646,24 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
           </NodeBox>
 
           <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={260}>
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Routed to available team member</div>
-            <div className="mt-0.5 text-[11.5px] text-slate-500">Answered in seconds</div>
+            <div className="flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-semibold text-white">
+                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />Live human
+              </span>
+            </div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Transferred to available team member</div>
+            <div className="mt-0.5 text-[11.5px] text-slate-500">Call Transfer action · on-call destination</div>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex -space-x-2">
                 <TeamAvatar initials="T1" tone="#0ea5e9" />
                 <TeamAvatar initials="T2" tone="#10b981" />
                 <TeamAvatar initials="T3" tone="#6366f1" />
               </div>
-              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Live</span>
+              <span className="rounded-full bg-white px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-200">Answered</span>
             </div>
           </NodeBox>
+
 
           <NodeBox active={activePath === "B"} style={{ left: "76%", top: "68%", transform: "translateX(-50%)" }} tone="blue" w={260}>
             <div className="flex items-center justify-between">
