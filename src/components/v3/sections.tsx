@@ -953,7 +953,7 @@ export function ProfessionCarouselV3() {
           role="tablist"
           aria-label="Profession"
         >
-          <div className="flex min-w-max items-center gap-2 sm:min-w-0 sm:flex-wrap">
+          <div className="flex min-w-max items-center gap-2 zapla-scroll-hide">
             {SLIDES.map((sl, idx) => {
               const isActive = idx === i;
               const Icon = sl.Icon;
