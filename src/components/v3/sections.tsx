@@ -8,13 +8,16 @@ import {
   Phone, PhoneMissed, MessageSquare, Instagram, Users, Calendar as CalendarIcon,
   CreditCard, Star as StarIcon, RefreshCw, CheckCircle2, ArrowRight, ArrowLeft,
   FileText, Send, Bell, Globe, Briefcase, HeartPulse, Home as HomeIcon, Wrench,
-  Dumbbell, Sparkles, Mail, ChevronRight,
+  Dumbbell, Sparkles, Mail, ChevronRight, Car, Building2, BedDouble,
 } from "lucide-react";
 import industryRealEstate from "@/assets/industry-real-estate.png.asset.json";
 import industryHealthcare from "@/assets/industry-healthcare.png.asset.json";
 import industryTrades from "@/assets/industry-trades.png.asset.json";
 import industryFitness from "@/assets/industry-fitness.png.asset.json";
 import industryLegal from "@/assets/industry-legal.png.asset.json";
+import industryMortgage from "@/assets/industry-mortgage.png.asset.json";
+import industryAutomotive from "@/assets/industry-automotive.png.asset.json";
+import industryAirbnb from "@/assets/industry-airbnb.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
 import callerPortrait from "@/assets/caller-portrait.jpg.asset.json";
 
