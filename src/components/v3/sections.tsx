@@ -608,13 +608,13 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
 
           <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={260}>
             <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Routed to Ava Lin</div>
-            <div className="mt-0.5 text-[11.5px] text-slate-500">Senior advisor · answered in 8s</div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Routed to available team member</div>
+            <div className="mt-0.5 text-[11.5px] text-slate-500">Answered in seconds</div>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex -space-x-2">
-                <TeamAvatar initials="AL" tone="#0ea5e9" />
-                <TeamAvatar initials="MK" tone="#10b981" />
-                <TeamAvatar initials="SM" tone="#6366f1" />
+                <TeamAvatar initials="T1" tone="#0ea5e9" />
+                <TeamAvatar initials="T2" tone="#10b981" />
+                <TeamAvatar initials="T3" tone="#6366f1" />
               </div>
               <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Live</span>
             </div>
@@ -627,8 +627,8 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
             </div>
             <div className="mt-1 text-[13.5px] font-semibold text-slate-900">AI answers &amp; books</div>
             <div className="mt-2 space-y-1.5">
-              <TranscriptLine who="ai">Hi, this is Zapla for Northline Plumbing.</TranscriptLine>
-              <TranscriptLine who="caller">Hi — I've got a leaking pipe under the sink.</TranscriptLine>
+              <TranscriptLine who="ai">Hi, this is Zapla for your business.</TranscriptLine>
+              <TranscriptLine who="caller">Hi, I need help with a job today.</TranscriptLine>
               <TranscriptLine who="ai">Understood. First slot is Wed 9:00 AM. Book it?</TranscriptLine>
             </div>
           </NodeBox>
@@ -663,11 +663,11 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
         <div className="grid grid-cols-2 gap-3">
           <NodeBoxMobile active={activePath === "A"} tone="emerald">
             <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Ava Lin answers</div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Team member answers</div>
             <div className="mt-2 flex -space-x-2">
-              <TeamAvatar initials="AL" tone="#0ea5e9" size={22} />
-              <TeamAvatar initials="MK" tone="#10b981" size={22} />
-              <TeamAvatar initials="SM" tone="#6366f1" size={22} />
+              <TeamAvatar initials="T1" tone="#0ea5e9" size={22} />
+              <TeamAvatar initials="T2" tone="#10b981" size={22} />
+              <TeamAvatar initials="T3" tone="#6366f1" size={22} />
             </div>
           </NodeBoxMobile>
           <NodeBoxMobile active={activePath === "B"} tone="blue">
@@ -717,15 +717,15 @@ function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobil
         <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider text-blue-700 ring-1 ring-blue-100">
           <Phone className="h-3 w-3" /> Incoming call
         </div>
-        <div className="text-[11px] text-slate-400">+61 400 812 559</div>
+        <div className="text-[11px] text-slate-400">04•• ••• •••</div>
       </div>
       <div className="mt-3 flex items-center gap-3">
         <div className={`relative ${reduced ? "" : "v3-ring"}`} style={{ width: 56, height: 56 }}>
           <PortraitAvatar size={56} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[14px] font-semibold text-slate-900">Sample customer</div>
-          <div className="text-[11.5px] text-slate-500">Northline Plumbing · Sydney NSW</div>
+          <div className="text-[14px] font-semibold text-slate-900">Sample caller</div>
+          <div className="text-[11.5px] text-slate-500">Calling your business</div>
         </div>
         {!reduced && (
           <div className="v3-wave flex items-end" aria-hidden>
@@ -734,7 +734,7 @@ function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobil
         )}
       </div>
       <div className="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-[12px] text-slate-600 ring-1 ring-slate-100">
-        <span className="font-semibold text-slate-800">Reason:</span> Leaking pipe under the sink — needs a plumber today.
+        <span className="font-semibold text-slate-800">Reason:</span> Needs help with a job today.
       </div>
     </div>
   );
@@ -1076,6 +1076,72 @@ export function OneRecordV3() {
     { Icon: RefreshCw,     label: "Repeat service" },
   ];
 
+  const reduced = useReducedMotion();
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const inputPortRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const outputPortRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const recordLeftPortRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const recordRightPortRefs = useRef<Array<HTMLSpanElement | null>>([]);
+
+  const [box, setBox] = useState<{ w: number; h: number } | null>(null);
+  const [inPaths, setInPaths] = useState<string[]>([]);
+  const [outPaths, setOutPaths] = useState<string[]>([]);
+  const [pulsePath, setPulsePath] = useState<string>("");
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+
+    const compute = () => {
+      const wrap = wrapRef.current;
+      if (!wrap) return;
+      const cRect = wrap.getBoundingClientRect();
+      const w = cRect.width, h = cRect.height;
+      if (w < 1024) { setBox(null); setInPaths([]); setOutPaths([]); setPulsePath(""); return; }
+      const center = (el: Element | null) => {
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return { x: r.left - cRect.left + r.width / 2, y: r.top - cRect.top + r.height / 2 };
+      };
+      const smooth = (a: { x: number; y: number }, b: { x: number; y: number }) => {
+        const mx = (a.x + b.x) / 2;
+        return `M ${a.x} ${a.y} C ${mx} ${a.y}, ${mx} ${b.y}, ${b.x} ${b.y}`;
+      };
+      const nextIn: string[] = [];
+      const nextOut: string[] = [];
+      inputPortRefs.current.forEach((el, i) => {
+        const a = center(el); const b = center(recordLeftPortRefs.current[i]);
+        if (a && b) nextIn.push(smooth(a, b));
+      });
+      outputPortRefs.current.forEach((el, i) => {
+        const a = center(recordRightPortRefs.current[i]); const b = center(el);
+        if (a && b) nextOut.push(smooth(a, b));
+      });
+      setBox({ w, h });
+      setInPaths(nextIn);
+      setOutPaths(nextOut);
+      // pulse path: input[0] -> left port[0], then across record (aligned pair), then right port[0] -> output[0]
+      const p1a = center(inputPortRefs.current[0]);
+      const p1b = center(recordLeftPortRefs.current[0]);
+      const p2a = center(recordRightPortRefs.current[0]);
+      const p2b = center(outputPortRefs.current[0]);
+      if (p1a && p1b && p2a && p2b) {
+        setPulsePath(`${smooth(p1a, p1b)} L ${p2a.x} ${p2a.y} ${smooth(p2a, p2b).replace(/^M[^C]+/, "")}`);
+      }
+    };
+
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(wrap);
+    window.addEventListener("resize", compute);
+    // recompute after fonts load
+    (document as any).fonts?.ready?.then?.(compute).catch?.(() => {});
+    const t = window.setTimeout(compute, 250);
+    return () => { ro.disconnect(); window.removeEventListener("resize", compute); window.clearTimeout(t); };
+  }, []);
+
+  const port = "inline-block h-2.5 w-2.5 rounded-full bg-white ring-2 ring-blue-500 shadow-[0_0_0_2px_rgba(255,255,255,0.9)]";
+
   return (
     <section className="bg-white py-24 sm:py-32 px-6">
       <div className="mx-auto max-w-6xl">
@@ -1089,35 +1155,94 @@ export function OneRecordV3() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,220px)_minmax(0,1fr)_minmax(0,220px)] lg:gap-10 items-center">
+        {/* Desktop layout with SVG connectors */}
+        <div
+          ref={wrapRef}
+          className="relative mt-14 hidden lg:grid gap-10 lg:grid-cols-[minmax(0,220px)_minmax(0,1fr)_minmax(0,220px)] items-center"
+        >
+          {/* SVG connector layer — behind cards (z-0), cards sit at z-10 */}
+          {box && (
+            <svg
+              className="pointer-events-none absolute inset-0 z-0"
+              width={box.w}
+              height={box.h}
+              viewBox={`0 0 ${box.w} ${box.h}`}
+              aria-hidden
+            >
+              <defs>
+                <linearGradient id="v3lineIn" x1="0" x2="1">
+                  <stop offset="0" stopColor="#93c5fd" stopOpacity="0.6" />
+                  <stop offset="1" stopColor="#2563eb" />
+                </linearGradient>
+                <linearGradient id="v3lineOut" x1="0" x2="1">
+                  <stop offset="0" stopColor="#2563eb" />
+                  <stop offset="1" stopColor="#93c5fd" stopOpacity="0.6" />
+                </linearGradient>
+              </defs>
+              {inPaths.map((d, i) => (
+                <path key={`i${i}`} d={d} stroke="url(#v3lineIn)" strokeWidth="1.6" fill="none" />
+              ))}
+              {outPaths.map((d, i) => (
+                <path key={`o${i}`} d={d} stroke="url(#v3lineOut)" strokeWidth="1.6" fill="none" />
+              ))}
+              {pulsePath && !reduced && (
+                <path
+                  d={pulsePath}
+                  stroke="#2563eb"
+                  strokeWidth="2.4"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeDasharray="60 9999"
+                  className="v3-onepath-pulse"
+                />
+              )}
+            </svg>
+          )}
+
           {/* Inputs */}
-          <div className="grid gap-3">
+          <div className="relative z-10 grid gap-3">
             <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 lg:text-right">Inputs</div>
-            {inputs.map((n) => (
-              <div key={n.label} className="v3-reveal flex items-center gap-3 rounded-2xl bg-white p-3.5 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.15)]">
+            {inputs.map((n, i) => (
+              <div key={n.label} className="v3-reveal relative flex items-center gap-3 rounded-2xl bg-white p-3.5 pr-5 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.15)]">
                 <span className={`grid h-9 w-9 place-items-center rounded-xl ring-1 ${n.tone}`}><n.Icon className="h-4 w-4" /></span>
                 <span className="text-[13px] font-medium text-slate-800">{n.label}</span>
+                <span
+                  ref={(el) => { inputPortRefs.current[i] = el; }}
+                  className={`${port} absolute right-[-5px] top-1/2 -translate-y-1/2`}
+                  aria-hidden
+                />
               </div>
             ))}
           </div>
 
           {/* Central record */}
-          <div className="relative">
-            {/* connector lines — desktop only */}
-            <svg className="pointer-events-none absolute -left-10 -right-10 top-0 hidden h-full w-[calc(100%+80px)] lg:block" viewBox="0 0 800 380" preserveAspectRatio="none" aria-hidden>
-              <defs>
-                <linearGradient id="lineIn" x1="0" x2="1"><stop offset="0" stopColor="#c7d2fe" /><stop offset="1" stopColor="#2563eb" /></linearGradient>
-                <linearGradient id="lineOut" x1="0" x2="1"><stop offset="0" stopColor="#2563eb" /><stop offset="1" stopColor="#c7d2fe" /></linearGradient>
-              </defs>
-              {[60, 140, 220, 300].map((y, idx) => (
-                <path key={`i${idx}`} d={`M0 ${y} C 180 ${y}, 200 190, 380 190`} stroke="url(#lineIn)" strokeWidth="1.5" fill="none" opacity="0.8" />
-              ))}
-              {[40, 110, 180, 250, 320, 360].map((y, idx) => (
-                <path key={`o${idx}`} d={`M420 190 C 600 190, 620 ${y}, 800 ${y}`} stroke="url(#lineOut)" strokeWidth="1.5" fill="none" opacity="0.7" />
-              ))}
-            </svg>
-
+          <div className="relative z-10">
             <div className="relative rounded-[24px] bg-white p-5 ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
+              {/* left ports (4, aligned to inputs) */}
+              <div className="pointer-events-none absolute left-0 top-0 h-full">
+                {[0, 1, 2, 3].map((i) => (
+                  <span
+                    key={i}
+                    ref={(el) => { recordLeftPortRefs.current[i] = el; }}
+                    className={`${port} absolute -left-[5px]`}
+                    style={{ top: `${18 + i * (64 / 3)}%`, transform: "translateY(-50%)" }}
+                    aria-hidden
+                  />
+                ))}
+              </div>
+              {/* right ports (6, aligned to outputs) */}
+              <div className="pointer-events-none absolute right-0 top-0 h-full">
+                {[0, 1, 2, 3, 4, 5].map((i) => (
+                  <span
+                    key={i}
+                    ref={(el) => { recordRightPortRefs.current[i] = el; }}
+                    className={`${port} absolute -right-[5px]`}
+                    style={{ top: `${12 + i * (76 / 5)}%`, transform: "translateY(-50%)" }}
+                    aria-hidden
+                  />
+                ))}
+              </div>
+
               <EmmaRecordHeader />
               <div className="grid gap-3 p-4 sm:grid-cols-2">
                 <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-100">
@@ -1138,14 +1263,65 @@ export function OneRecordV3() {
           </div>
 
           {/* Outputs */}
-          <div className="grid gap-2.5">
+          <div className="relative z-10 grid gap-2.5">
             <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Connected to</div>
-            {outputs.map((n) => (
-              <div key={n.label} className="v3-reveal flex items-center gap-3 rounded-2xl bg-slate-50 p-3 ring-1 ring-slate-200">
+            {outputs.map((n, i) => (
+              <div key={n.label} className="v3-reveal relative flex items-center gap-3 rounded-2xl bg-slate-50 p-3 pl-5 ring-1 ring-slate-200">
+                <span
+                  ref={(el) => { outputPortRefs.current[i] = el; }}
+                  className={`${port} absolute left-[-5px] top-1/2 -translate-y-1/2`}
+                  aria-hidden
+                />
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-white text-slate-700 ring-1 ring-slate-200"><n.Icon className="h-4 w-4" /></span>
                 <span className="text-[13px] font-medium text-slate-800">{n.label}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Sub-desktop: clean vertical sequence with short local connectors */}
+        <div className="mt-12 grid gap-6 lg:hidden">
+          <div>
+            <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Inputs</div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {inputs.map((n) => (
+                <div key={n.label} className="flex items-center gap-3 rounded-2xl bg-white p-3.5 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.15)]">
+                  <span className={`grid h-9 w-9 place-items-center rounded-xl ring-1 ${n.tone}`}><n.Icon className="h-4 w-4" /></span>
+                  <span className="text-[13px] font-medium text-slate-800">{n.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mx-auto h-8 w-px bg-slate-200" aria-hidden />
+          <div className="rounded-[24px] bg-white p-5 ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
+            <EmmaRecordHeader />
+            <div className="grid gap-3 p-4 sm:grid-cols-2">
+              <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-100">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Activity</div>
+                <div className="mt-2 space-y-1.5 text-[12.5px] text-slate-700">
+                  <div className="flex items-center gap-2"><PhoneMissed className="h-3 w-3 text-rose-500" /> Missed call · 12:04</div>
+                  <div className="flex items-center gap-2"><MessageSquare className="h-3 w-3 text-blue-600" /> SMS reply sent</div>
+                  <div className="flex items-center gap-2"><CalendarIcon className="h-3 w-3 text-emerald-600" /> Booking · Thu 2:00 PM</div>
+                </div>
+              </div>
+              <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-100">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Next action</div>
+                <div className="mt-2 flex items-center gap-2 text-[13px] font-semibold text-slate-900"><Send className="h-3.5 w-3.5 text-blue-600" />Send confirmation</div>
+                <div className="mt-1 text-[12px] text-slate-500">Auto-scheduled 30 min before job</div>
+              </div>
+            </div>
+          </div>
+          <div className="mx-auto h-8 w-px bg-slate-200" aria-hidden />
+          <div>
+            <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Connected to</div>
+            <div className="grid gap-2.5 sm:grid-cols-2">
+              {outputs.map((n) => (
+                <div key={n.label} className="flex items-center gap-3 rounded-2xl bg-slate-50 p-3 ring-1 ring-slate-200">
+                  <span className="grid h-8 w-8 place-items-center rounded-lg bg-white text-slate-700 ring-1 ring-slate-200"><n.Icon className="h-4 w-4" /></span>
+                  <span className="text-[13px] font-medium text-slate-800">{n.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -1153,7 +1329,12 @@ export function OneRecordV3() {
       <style>{`
         .v3-reveal { animation: v3reveal 500ms ease-out both; }
         @keyframes v3reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-        @media (prefers-reduced-motion: reduce) { .v3-reveal { animation: none; } }
+        @keyframes v3OnePathDash { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -600; } }
+        .v3-onepath-pulse { animation: v3OnePathDash 3.2s linear infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .v3-reveal { animation: none; }
+          .v3-onepath-pulse { animation: none; display: none; }
+        }
       `}</style>
     </section>
   );
