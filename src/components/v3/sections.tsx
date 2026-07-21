@@ -41,21 +41,46 @@ function Eyebrow({ children }: { children: ReactNode }) {
 
 function CustomerAvatar({ size = 44 }: { size?: number }) {
   return (
-    <div
-      className="grid shrink-0 place-items-center rounded-full text-white font-semibold ring-2 ring-white"
-      style={{
-        width: size, height: size, fontSize: Math.round(size * 0.34),
-        background: "linear-gradient(135deg,#2563eb 0%,#22d3ee 100%)",
-      }}
-      aria-hidden
-    >SC</div>
+    <img
+      src={portraitCustomer.url}
+      alt=""
+      width={size}
+      height={size}
+      loading="lazy"
+      className="shrink-0 rounded-full object-cover ring-2 ring-white shadow-[0_4px_12px_-4px_rgba(15,23,42,0.25)]"
+      style={{ width: size, height: size }}
+    />
   );
 }
-function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: string; size?: number }) {
+const TEAM_FACES: Record<string, string> = {
+  AL: portraitTeam1.url,
+  MI: portraitTeam2.url,
+  SM: portraitTeam3.url,
+  JS: portraitTeam4.url,
+  T1: portraitTeam1.url,
+  T2: portraitTeam2.url,
+  T3: portraitTeam3.url,
+  T4: portraitTeam4.url,
+};
+function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone?: string; size?: number }) {
+  const src = TEAM_FACES[initials];
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt=""
+        width={size}
+        height={size}
+        loading="lazy"
+        className="shrink-0 rounded-full object-cover ring-2 ring-white"
+        style={{ width: size, height: size }}
+      />
+    );
+  }
   return (
     <div
       className="grid shrink-0 place-items-center rounded-full text-white text-[11px] font-semibold ring-2 ring-white"
-      style={{ width: size, height: size, background: tone }}
+      style={{ width: size, height: size, background: tone ?? "#64748b" }}
       aria-hidden
     >{initials}</div>
   );
