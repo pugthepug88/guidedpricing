@@ -247,7 +247,7 @@ function PanelConvert() {
       <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><FileText className="h-3 w-3" />Quote #Q-2841</div>
         <div className="mt-2 text-[13px] font-semibold text-slate-900">Kitchen tap repair + parts</div>
-        <div className="mt-1 text-[12px] text-slate-500">Attached to sample customer</div>
+        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma W.</div>
         <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
           <div className="text-[18px] font-semibold text-slate-900">$180.00</div>
           <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Accepted</span>
@@ -272,13 +272,13 @@ function PanelOperate() {
   type Job = { start: number; span: number; tone: string; ring: string; label: string; sub?: string; highlight?: boolean };
   const rows: { who: string; role: string; initials: string; tone: string; jobs: Job[] }[] = [
     { who: "Alex", role: "Plumber", initials: "AL", tone: "#0ea5e9", jobs: [
-      { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Hot water install", sub: "42 Ocean Dr" },
-      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Sample customer · tap repair", sub: "Bondi", highlight: true },
+      { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Hot water install", sub: "Local area" },
+      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Emma W. · tap repair", sub: "Service visit", highlight: true },
     ]},
     { who: "Mia", role: "Tech", initials: "MI", tone: "#10b981", jobs: [
       { start: 1, span: 2, tone: "#d1fae5", ring: "#34d399", label: "K. Nguyen · install", sub: "2h · parts kit" },
       { start: 4, span: 1, tone: "#d1fae5", ring: "#34d399", label: "Quote walk-through", sub: "Video call" },
-      { start: 7, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Site inspection", sub: "Rose Bay" },
+      { start: 7, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Site inspection", sub: "Local area" },
     ]},
     { who: "Sam", role: "Tech", initials: "SM", tone: "#f59e0b", jobs: [
       { start: 2, span: 1, tone: "#fef3c7", ring: "#fbbf24", label: "R. Thomas · quote", sub: "New lead" },
@@ -362,7 +362,7 @@ function PanelOperate() {
       <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
         <div className="flex items-center gap-2 text-[11px] text-slate-500">
           <span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "#dbeafe", boxShadow: "inset 0 0 0 1.5px #2563eb" }} />
-          Sample customer job · assigned to Alex
+          Emma W. job · assigned to Alex
         </div>
         <div className="text-[11px] text-slate-400">Drag to reschedule</div>
       </div>
@@ -458,7 +458,7 @@ export function JourneyV3() {
             One product, six stages of the customer journey.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            The same connected workspace, from first enquiry to repeat customer. Follow one sample customer through every stage.
+            The same connected workspace, from first enquiry to repeat customer. Follow Emma W. through every stage.
           </p>
         </div>
 
@@ -714,7 +714,7 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
             <div className="flex items-center gap-3">
               <PortraitAvatar size={38} />
               <div className="min-w-0">
-                <div className="text-[13px] font-semibold text-slate-900">Sample customer · record updated</div>
+                <div className="text-[13px] font-semibold text-slate-900">Emma W. · record updated</div>
                 <div className="text-[11.5px] text-slate-500 truncate">Booking attached · team notified · call logged</div>
               </div>
               <span className="ml-auto grid h-8 w-8 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-200"><CheckCircle2 className="h-4 w-4" /></span>
@@ -807,7 +807,7 @@ function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobil
           <PortraitAvatar size={56} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[14px] font-semibold text-slate-900">Sample caller</div>
+          <div className="text-[14px] font-semibold text-slate-900">Emma W.</div>
           <div className="text-[11.5px] text-slate-500">Calling your business</div>
         </div>
         {!reduced && (
