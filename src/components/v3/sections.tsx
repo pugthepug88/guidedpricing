@@ -16,6 +16,7 @@ import industryTrades from "@/assets/industry-trades.png.asset.json";
 import industryFitness from "@/assets/industry-fitness.png.asset.json";
 import industryLegal from "@/assets/industry-legal.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
+import callerPortrait from "@/assets/caller-portrait.jpg.asset.json";
 
 const BOOK_URL = "https://zapla.io/booking";
 
@@ -52,6 +53,21 @@ function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: str
   );
 }
 const EmmaAvatar = CustomerAvatar;
+
+function PortraitAvatar({ size = 56, ring = true }: { size?: number; ring?: boolean }) {
+  return (
+    <img
+      src={callerPortrait.url}
+      alt=""
+      width={size}
+      height={size}
+      loading="lazy"
+      className={`shrink-0 rounded-full object-cover ${ring ? "ring-2 ring-white shadow-[0_6px_20px_-6px_rgba(15,23,42,0.35)]" : ""}`}
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
 
 
 
@@ -549,8 +565,7 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
     <>
       {/* Desktop diagram */}
       <div className="relative hidden md:block">
-        <svg viewBox="0 0 900 540" className="w-full h-auto">
-          {/* connectors */}
+        <svg viewBox="0 0 900 620" className="w-full h-auto">
           <defs>
             <linearGradient id="v3wire" x1="0" x2="1">
               <stop offset="0" stopColor="#2563eb" />
@@ -558,60 +573,71 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
             </linearGradient>
           </defs>
           {/* incoming */}
-          <path d="M450 90 L450 160" stroke="#cbd5e1" strokeWidth="2" fill="none" />
+          <path d="M450 130 L450 210" stroke="#cbd5e1" strokeWidth="2" fill="none" />
           {/* split */}
-          <path d="M450 240 C 450 300, 240 300, 240 350" stroke={activePath === "A" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "A" ? 3 : 2} fill="none" />
-          <path d="M450 240 C 450 300, 660 300, 660 350" stroke={activePath === "B" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "B" ? 3 : 2} fill="none" />
+          <path d="M450 300 C 450 370, 220 370, 220 420" stroke={activePath === "A" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "A" ? 3 : 2} fill="none" />
+          <path d="M450 300 C 450 370, 680 370, 680 420" stroke={activePath === "B" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "B" ? 3 : 2} fill="none" />
           {/* merge */}
-          <path d="M240 430 C 240 490, 450 490, 450 500" stroke={activePath === "A" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "A" ? 3 : 2} fill="none" />
-          <path d="M660 430 C 660 490, 450 490, 450 500" stroke={activePath === "B" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "B" ? 3 : 2} fill="none" />
+          <path d="M220 540 C 220 590, 450 590, 450 585" stroke={activePath === "A" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "A" ? 3 : 2} fill="none" />
+          <path d="M680 540 C 680 590, 450 590, 450 585" stroke={activePath === "B" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "B" ? 3 : 2} fill="none" />
         </svg>
 
         {/* Nodes overlay */}
         <div className="absolute inset-0">
-          <NodeBox style={{ left: "50%", top: "0%", transform: "translateX(-50%)" }} tone="blue">
-            <div className="flex items-center gap-3">
-              <EmmaAvatar size={38} />
-              <div>
-                <div className="text-[13px] font-semibold text-slate-900">Emma Reid is calling</div>
-                <div className="text-[11.5px] text-slate-500">+61 400 812 559</div>
-              </div>
-            </div>
-          </NodeBox>
+          {/* Incoming call — human-first card */}
+          <div className="absolute" style={{ left: "50%", top: "0%", transform: "translateX(-50%)", width: 340 }}>
+            <IncomingCallCard reduced={reduced} />
+          </div>
 
-          <NodeBox style={{ left: "50%", top: "28%", transform: "translateX(-50%)" }}>
+          <NodeBox style={{ left: "50%", top: "34%", transform: "translateX(-50%)" }}>
             <div className="flex items-center gap-3">
               <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><CalendarIcon className="h-4 w-4" /></span>
               <div>
-                <div className="text-[13px] font-semibold text-slate-900">Check hours & availability</div>
+                <div className="text-[13px] font-semibold text-slate-900">Check hours &amp; availability</div>
                 <div className="text-[11.5px] text-slate-500">Mon–Fri · 8:00–17:00 AEST</div>
               </div>
             </div>
-          </NodeBox>
-
-          <NodeBox active={activePath === "A"} style={{ left: "27%", top: "58%", transform: "translateX(-50%)" }} tone="emerald">
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[13px] font-semibold text-slate-900">Route to available team</div>
-            <div className="mt-2 flex -space-x-2">
-              <TeamAvatar initials="AL" tone="#0ea5e9" />
-              <TeamAvatar initials="MK" tone="#10b981" />
-              <TeamAvatar initials="SM" tone="#6366f1" />
+            <div className="mt-3 flex items-center gap-2 rounded-lg bg-slate-50 px-2.5 py-1.5 text-[11.5px] text-slate-600 ring-1 ring-slate-100">
+              <span className={`h-1.5 w-1.5 rounded-full ${mode === "in" ? "bg-emerald-500" : "bg-blue-500"}`} />
+              {mode === "in" ? "Now: Tue 10:42 AM — team available" : "Now: Tue 8:14 PM — outside hours"}
             </div>
           </NodeBox>
 
-          <NodeBox active={activePath === "B"} style={{ left: "73%", top: "58%", transform: "translateX(-50%)" }} tone="violet">
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
-            <div className="mt-1 text-[13px] font-semibold text-slate-900">Zapla AI answers</div>
-            <div className="mt-2 text-[12px] text-slate-600">Captures name, need, preferred time — then books.</div>
+          <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={260}>
+            <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Routed to Ava Lin</div>
+            <div className="mt-0.5 text-[11.5px] text-slate-500">Senior advisor · answered in 8s</div>
+            <div className="mt-3 flex items-center justify-between">
+              <div className="flex -space-x-2">
+                <TeamAvatar initials="AL" tone="#0ea5e9" />
+                <TeamAvatar initials="MK" tone="#10b981" />
+                <TeamAvatar initials="SM" tone="#6366f1" />
+              </div>
+              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Live</span>
+            </div>
           </NodeBox>
 
-          <NodeBox style={{ left: "50%", top: "88%", transform: "translateX(-50%)" }} tone="blue">
+          <NodeBox active={activePath === "B"} style={{ left: "76%", top: "68%", transform: "translateX(-50%)" }} tone="blue" w={260}>
+            <div className="flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
+              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10.5px] font-semibold text-blue-700 ring-1 ring-blue-100">Zapla AI</span>
+            </div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">AI answers &amp; books</div>
+            <div className="mt-2 space-y-1.5">
+              <TranscriptLine who="ai">Hi, this is Zapla for Northline Plumbing.</TranscriptLine>
+              <TranscriptLine who="caller">Hi — I've got a leaking pipe under the sink.</TranscriptLine>
+              <TranscriptLine who="ai">Understood. First slot is Wed 9:00 AM. Book it?</TranscriptLine>
+            </div>
+          </NodeBox>
+
+          <NodeBox style={{ left: "50%", top: "94%", transform: "translateX(-50%)" }} tone="blue" w={300}>
             <div className="flex items-center gap-3">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-blue-600 text-white"><CheckCircle2 className="h-4 w-4" /></span>
-              <div>
-                <div className="text-[13px] font-semibold text-slate-900">Emma's record updated</div>
-                <div className="text-[11.5px] text-slate-500">Team notified · booking attached</div>
+              <PortraitAvatar size={38} />
+              <div className="min-w-0">
+                <div className="text-[13px] font-semibold text-slate-900">Sample customer · record updated</div>
+                <div className="text-[11.5px] text-slate-500 truncate">Booking attached · team notified · call logged</div>
               </div>
+              <span className="ml-auto grid h-8 w-8 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-200"><CheckCircle2 className="h-4 w-4" /></span>
             </div>
           </NodeBox>
         </div>
@@ -619,22 +645,14 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
 
       {/* Mobile stack */}
       <div className="grid gap-3 md:hidden">
-        <NodeBoxMobile tone="blue">
-          <div className="flex items-center gap-3">
-            <EmmaAvatar size={34} />
-            <div>
-              <div className="text-[13px] font-semibold text-slate-900">Emma Reid is calling</div>
-              <div className="text-[11px] text-slate-500">+61 400 812 559</div>
-            </div>
-          </div>
-        </NodeBoxMobile>
+        <IncomingCallCard reduced={reduced} mobile />
         <Connector />
         <NodeBoxMobile>
           <div className="flex items-center gap-3">
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><CalendarIcon className="h-4 w-4" /></span>
             <div>
-              <div className="text-[13px] font-semibold text-slate-900">Check hours & availability</div>
-              <div className="text-[11px] text-slate-500">Mon–Fri · 8:00–17:00</div>
+              <div className="text-[13px] font-semibold text-slate-900">Check hours &amp; availability</div>
+              <div className="text-[11px] text-slate-500">{mode === "in" ? "Tue 10:42 AM · team available" : "Tue 8:14 PM · outside hours"}</div>
             </div>
           </div>
         </NodeBoxMobile>
@@ -642,27 +660,28 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
         <div className="grid grid-cols-2 gap-3">
           <NodeBoxMobile active={activePath === "A"} tone="emerald">
             <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Route to team</div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Ava Lin answers</div>
             <div className="mt-2 flex -space-x-2">
               <TeamAvatar initials="AL" tone="#0ea5e9" size={22} />
               <TeamAvatar initials="MK" tone="#10b981" size={22} />
               <TeamAvatar initials="SM" tone="#6366f1" size={22} />
             </div>
           </NodeBoxMobile>
-          <NodeBoxMobile active={activePath === "B"} tone="violet">
+          <NodeBoxMobile active={activePath === "B"} tone="blue">
             <div className="text-[10px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">AI answers & books</div>
-            <div className="mt-2 text-[11px] text-slate-600">Captures the details.</div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">AI answers &amp; books</div>
+            <div className="mt-2 text-[11px] text-slate-600">"First slot is Wed 9:00 AM."</div>
           </NodeBoxMobile>
         </div>
         <Connector />
         <NodeBoxMobile tone="blue">
           <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-blue-600 text-white"><CheckCircle2 className="h-4 w-4" /></span>
-            <div>
-              <div className="text-[13px] font-semibold text-slate-900">Emma's record updated</div>
-              <div className="text-[11px] text-slate-500">Team notified · booking attached</div>
+            <PortraitAvatar size={34} />
+            <div className="min-w-0">
+              <div className="text-[13px] font-semibold text-slate-900">Record updated</div>
+              <div className="text-[11px] text-slate-500 truncate">Booking attached · team notified</div>
             </div>
+            <CheckCircle2 className="ml-auto h-4 w-4 text-emerald-600" />
           </div>
         </NodeBoxMobile>
       </div>
@@ -671,16 +690,67 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
         <style>{`
           @keyframes v3pulse { 0%,100%{ box-shadow: 0 0 0 0 rgba(37,99,235,0.35);} 50%{ box-shadow: 0 0 0 10px rgba(37,99,235,0);} }
           .v3-node-active { animation: v3pulse 2.2s ease-out infinite; }
+          @keyframes v3ring { 0%{ transform: scale(0.9); opacity: 0.7;} 80%{ transform: scale(1.6); opacity: 0;} 100%{ transform: scale(1.6); opacity: 0;} }
+          .v3-ring::before, .v3-ring::after { content: ""; position: absolute; inset: 0; border-radius: 9999px; border: 2px solid rgba(37,99,235,0.45); animation: v3ring 1.8s ease-out infinite; }
+          .v3-ring::after { animation-delay: 0.9s; }
+          @keyframes v3wave { 0%,100%{ transform: scaleY(0.4);} 50%{ transform: scaleY(1);} }
+          .v3-wave > span { display:inline-block; width: 2px; height: 14px; margin-right: 2px; background: linear-gradient(180deg,#2563eb,#22d3ee); border-radius: 2px; transform-origin: bottom; animation: v3wave 1s ease-in-out infinite; }
+          .v3-wave > span:nth-child(2){ animation-delay: 0.1s; height: 18px; }
+          .v3-wave > span:nth-child(3){ animation-delay: 0.2s; height: 10px; }
+          .v3-wave > span:nth-child(4){ animation-delay: 0.15s; height: 20px; }
+          .v3-wave > span:nth-child(5){ animation-delay: 0.05s; height: 12px; }
+          .v3-wave > span:nth-child(6){ animation-delay: 0.25s; height: 16px; }
+          .v3-wave > span:nth-child(7){ animation-delay: 0.3s; height: 8px; }
         `}</style>
       )}
     </>
   );
 }
 
-function NodeBox({ children, style, active = false, tone = "slate" }: { children: ReactNode; style?: React.CSSProperties; active?: boolean; tone?: "slate" | "blue" | "emerald" | "violet" }) {
+function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobile?: boolean }) {
+  return (
+    <div className={`relative rounded-2xl bg-white p-4 ring-1 ring-blue-200 shadow-[0_24px_50px_-24px_rgba(37,99,235,0.35)] ${mobile ? "" : ""}`}>
+      <div className="flex items-center justify-between">
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider text-blue-700 ring-1 ring-blue-100">
+          <Phone className="h-3 w-3" /> Incoming call
+        </div>
+        <div className="text-[11px] text-slate-400">+61 400 812 559</div>
+      </div>
+      <div className="mt-3 flex items-center gap-3">
+        <div className={`relative ${reduced ? "" : "v3-ring"}`} style={{ width: 56, height: 56 }}>
+          <PortraitAvatar size={56} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="text-[14px] font-semibold text-slate-900">Sample customer</div>
+          <div className="text-[11.5px] text-slate-500">Northline Plumbing · Sydney NSW</div>
+        </div>
+        {!reduced && (
+          <div className="v3-wave flex items-end" aria-hidden>
+            <span /><span /><span /><span /><span /><span /><span />
+          </div>
+        )}
+      </div>
+      <div className="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-[12px] text-slate-600 ring-1 ring-slate-100">
+        <span className="font-semibold text-slate-800">Reason:</span> Leaking pipe under the sink — needs a plumber today.
+      </div>
+    </div>
+  );
+}
+
+function TranscriptLine({ who, children }: { who: "ai" | "caller"; children: ReactNode }) {
+  const isAI = who === "ai";
+  return (
+    <div className={`flex items-start gap-1.5 text-[11.5px] leading-snug ${isAI ? "text-slate-900" : "text-slate-600"}`}>
+      <span className={`mt-0.5 shrink-0 rounded px-1 py-px text-[9.5px] font-semibold uppercase tracking-wider ${isAI ? "bg-blue-600 text-white" : "bg-slate-200 text-slate-700"}`}>{isAI ? "AI" : "Caller"}</span>
+      <span className="min-w-0">{children}</span>
+    </div>
+  );
+}
+
+function NodeBox({ children, style, active = false, tone = "slate", w = 260 }: { children: ReactNode; style?: React.CSSProperties; active?: boolean; tone?: "slate" | "blue" | "emerald" | "violet"; w?: number }) {
   const ring = tone === "blue" ? "ring-blue-200" : tone === "emerald" ? "ring-emerald-200" : tone === "violet" ? "ring-blue-200" : "ring-slate-200";
   return (
-    <div style={style} className={`absolute w-[260px] rounded-2xl bg-white p-4 ring-1 ${ring} shadow-[0_18px_40px_-24px_rgba(15,23,42,0.35)] ${active ? "v3-node-active" : ""}`}>
+    <div style={{ width: w, ...style }} className={`absolute rounded-2xl bg-white p-4 ring-1 ${ring} shadow-[0_18px_40px_-24px_rgba(15,23,42,0.35)] ${active ? "v3-node-active" : ""}`}>
       {children}
     </div>
   );
@@ -696,6 +766,7 @@ function NodeBoxMobile({ children, active = false, tone = "slate" }: { children:
 function Connector() {
   return <div className="mx-auto h-6 w-px bg-gradient-to-b from-slate-300 to-transparent" aria-hidden />;
 }
+
 
 /* =====================================================================
  *  SECTION 3 — ProfessionCarouselV3
