@@ -20,6 +20,11 @@ import industryAutomotive from "@/assets/industry-automotive.png.asset.json";
 import industryAirbnb from "@/assets/industry-airbnb.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
 import callerPortrait from "@/assets/caller-portrait.jpg.asset.json";
+import portraitCustomer from "@/assets/portrait-customer.jpg.asset.json";
+import portraitTeam1 from "@/assets/portrait-team-1.jpg.asset.json";
+import portraitTeam2 from "@/assets/portrait-team-2.jpg.asset.json";
+import portraitTeam3 from "@/assets/portrait-team-3.jpg.asset.json";
+import portraitTeam4 from "@/assets/portrait-team-4.jpg.asset.json";
 
 const BOOK_URL = "https://zapla.io/booking";
 
