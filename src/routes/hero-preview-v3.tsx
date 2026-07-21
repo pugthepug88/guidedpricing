@@ -1215,7 +1215,7 @@ function OutcomesV3() {
                     <span className="text-[11px] text-slate-400">12:06 PM</span>
                   </div>
                   <div className="mt-1 rounded-xl rounded-tl-sm bg-blue-50 px-3 py-2 text-[12px] text-slate-800 ring-1 ring-blue-100">
-                    Hi — after a quote for a bathroom reno in Bondi. Can I book a site visit this week?
+                    Hi — after a quote for a bathroom reno in the local area. Can I book a site visit this week?
                   </div>
                 </div>
               </div>
@@ -1403,7 +1403,7 @@ function CommunicateSceneV3() {
         <div className="flex-1 space-y-3 p-4 bg-gradient-to-b from-white to-slate-50">
           <div className="flex justify-start">
             <div className="max-w-[75%] rounded-2xl rounded-tl-sm bg-white px-3 py-2 text-[12px] text-slate-800 ring-1 ring-slate-200">
-              Hi Emma — sending a quote for the Bondi reno now.
+              Hi Emma — sending a quote for the local reno now.
               <div className="mt-1 text-[10px] text-slate-400">via SMS · 11:20</div>
             </div>
           </div>
@@ -1478,7 +1478,7 @@ function ConvertSceneV3() {
 /* --- Scene: Operate --- */
 function OperateSceneV3() {
   const jobs = [
-    { time: "09:00", who: "Alex", task: "Site visit · Bondi", status: "En route", tone: "amber" as const },
+    { time: "09:00", who: "Alex", task: "Site visit · local area", status: "En route", tone: "amber" as const },
     { time: "11:30", who: "Priya", task: "Install · Marrickville", status: "In progress", tone: "blue" as const },
     { time: "14:00", who: "Alex", task: "Quote walk-through · Emma", status: "Scheduled", tone: "slate" as const },
     { time: "16:00", who: "Sam", task: "Follow-up call · Karen", status: "Scheduled", tone: "slate" as const },
@@ -1504,7 +1504,7 @@ function OperateSceneV3() {
       </div>
       <div className="rounded-xl bg-slate-950 p-4 text-white">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-white/60">Auto-routing</div>
-        <div className="mt-2 text-[13px] font-semibold">New enquiry from Bondi</div>
+        <div className="mt-2 text-[13px] font-semibold">New enquiry from a local suburb</div>
         <div className="mt-1 text-[11px] text-white/60">Postcode 2026 · Alex is closest</div>
         <div className="mt-3 flex items-center gap-2 rounded-lg bg-white/10 px-2.5 py-2">
           <V3Avatar name="Alex" tone="amber" size={26} />
@@ -1666,7 +1666,7 @@ const WF_SCENARIOS: WfScenario[] = [
     nodes: [
       { id: "n1", x: 3, y: 32, icon: <PhoneMissed className="h-4 w-4" />, title: "Missed call", detail: "12:04 · business line", tone: "red" },
       { id: "n2", x: 22, y: 12, icon: <MessageCircle className="h-4 w-4" />, title: "Automatic SMS", detail: "12:04 · sent 3s later", tone: "emerald" },
-      { id: "n3", x: 42, y: 32, icon: <MessageSquare className="h-4 w-4" />, title: "Customer reply", detail: "12:06 · \"bathroom reno, Bondi\"", tone: "sky" },
+      { id: "n3", x: 42, y: 32, icon: <MessageSquare className="h-4 w-4" />, title: "Customer reply", detail: "12:06 · \"bathroom reno, local area\"", tone: "sky" },
       { id: "n4", x: 62, y: 12, icon: <Sparkles className="h-4 w-4" />, title: "AI captures intent", detail: "12:06 · name · service · suburb", tone: "cyan" },
       { id: "n5", x: 80, y: 32, icon: <CalendarIcon className="h-4 w-4" />, title: "Calendar slot booked", detail: "12:07 · Thu 2:00 PM", tone: "blue" },
       { id: "n6", x: 62, y: 55, icon: <Bell className="h-4 w-4" />, title: "Opportunity & alert", detail: "12:07 · assigned to Alex", tone: "ink" },
@@ -1675,7 +1675,7 @@ const WF_SCENARIOS: WfScenario[] = [
     log: [
       { t: "12:04", text: "Missed call captured on business line", tone: "amber" },
       { t: "12:04", text: "Automatic SMS sent", tone: "emerald" },
-      { t: "12:06", text: "Customer replied · bathroom reno · Bondi", tone: "blue" },
+      { t: "12:06", text: "Customer replied · bathroom reno · local area", tone: "blue" },
       { t: "12:06", text: "AI captured intent · Sample caller", tone: "blue" },
       { t: "12:07", text: "Calendar slot booked · Thu 2:00 PM", tone: "emerald" },
       { t: "12:07", text: "Opportunity created · Alex alerted", tone: "slate" },
