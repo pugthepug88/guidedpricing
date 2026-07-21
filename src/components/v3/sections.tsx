@@ -16,6 +16,7 @@ import industryTrades from "@/assets/industry-trades.png.asset.json";
 import industryFitness from "@/assets/industry-fitness.png.asset.json";
 import industryLegal from "@/assets/industry-legal.png.asset.json";
 import logoBlue from "@/assets/zapla-logo-blue.png.asset.json";
+import callerPortrait from "@/assets/caller-portrait.jpg.asset.json";
 
 const BOOK_URL = "https://zapla.io/booking";
 
