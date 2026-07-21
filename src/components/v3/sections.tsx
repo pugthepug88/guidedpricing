@@ -608,13 +608,13 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
 
           <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={260}>
             <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Routed to Ava Lin</div>
-            <div className="mt-0.5 text-[11.5px] text-slate-500">Senior advisor · answered in 8s</div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Routed to available team member</div>
+            <div className="mt-0.5 text-[11.5px] text-slate-500">Answered in seconds</div>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex -space-x-2">
-                <TeamAvatar initials="AL" tone="#0ea5e9" />
-                <TeamAvatar initials="MK" tone="#10b981" />
-                <TeamAvatar initials="SM" tone="#6366f1" />
+                <TeamAvatar initials="T1" tone="#0ea5e9" />
+                <TeamAvatar initials="T2" tone="#10b981" />
+                <TeamAvatar initials="T3" tone="#6366f1" />
               </div>
               <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Live</span>
             </div>
@@ -627,8 +627,8 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
             </div>
             <div className="mt-1 text-[13.5px] font-semibold text-slate-900">AI answers &amp; books</div>
             <div className="mt-2 space-y-1.5">
-              <TranscriptLine who="ai">Hi, this is Zapla for Northline Plumbing.</TranscriptLine>
-              <TranscriptLine who="caller">Hi — I've got a leaking pipe under the sink.</TranscriptLine>
+              <TranscriptLine who="ai">Hi, this is Zapla for your business.</TranscriptLine>
+              <TranscriptLine who="caller">Hi, I need help with a job today.</TranscriptLine>
               <TranscriptLine who="ai">Understood. First slot is Wed 9:00 AM. Book it?</TranscriptLine>
             </div>
           </NodeBox>
