@@ -54,6 +54,21 @@ function TeamAvatar({ initials, tone, size = 32 }: { initials: string; tone: str
 }
 const EmmaAvatar = CustomerAvatar;
 
+function PortraitAvatar({ size = 56, ring = true }: { size?: number; ring?: boolean }) {
+  return (
+    <img
+      src={callerPortrait.url}
+      alt=""
+      width={size}
+      height={size}
+      loading="lazy"
+      className={`shrink-0 rounded-full object-cover ${ring ? "ring-2 ring-white shadow-[0_6px_20px_-6px_rgba(15,23,42,0.35)]" : ""}`}
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
+
 
 
 function useReducedMotion() {
