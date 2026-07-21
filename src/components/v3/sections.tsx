@@ -135,13 +135,13 @@ function CustomerRecordHeader() {
       <CustomerAvatar size={44} />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <div className="text-[14px] font-semibold text-slate-900">Sample customer</div>
+          <div className="text-[14px] font-semibold text-slate-900">Emma W.</div>
           <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100">Lead</span>
           <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Local area</span>
         </div>
         <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
           <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />+61 4•• ••• •••</span>
-          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />customer@example.com</span>
+          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma@example.com</span>
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
@@ -163,7 +163,7 @@ function PanelCapture() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-            <div className="text-[12px] text-slate-600">Number matched. One contact record created for the customer.</div>
+            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma W.</div>
           </div>
           <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">New</span>
         </div>
@@ -179,36 +179,64 @@ function PanelCapture() {
   );
 }
 function PanelCommunicate() {
-  const msgs = [
-    { from: "z", t: "Hi, we saw you called. Can we help book a service?", when: "12:04", via: "SMS" },
-    { from: "e", t: "Yes please, dripping tap in the kitchen.", when: "12:07", via: "SMS" },
-    { from: "e", t: "Also sent a photo via DM earlier.", when: "12:07", via: "Instagram" },
-    { from: "z", t: "Got the photo. Thursday 2pm works?", when: "12:08", via: "SMS" },
-    { from: "e", t: "Perfect, thanks!", when: "12:09", via: "SMS" },
+  type Ev =
+    | { kind: "event"; via: "Form" | "Instagram" | "Email"; title: string; detail: string; when: string }
+    | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
+  const events: Ev[] = [
+    { kind: "event", via: "Form",      title: "Website form submitted", detail: "Service: kitchen tap repair · Preferred: Thursday", when: "11:52" },
+    { kind: "event", via: "Instagram", title: "Instagram DM · photo",    detail: "Emma sent a photo of the leaking tap",             when: "11:58" },
+    { kind: "msg",   from: "z", via: "SMS", t: "Hi Emma, we saw your form and photo. Thursday 2pm work?", when: "12:04" },
+    { kind: "msg",   from: "e", via: "SMS", t: "Yes please, that's perfect.",                             when: "12:06" },
+    { kind: "event", via: "Email",     title: "Email · booking details",  detail: "Confirmation, address on file and prep notes sent", when: "12:08" },
+    { kind: "msg",   from: "e", via: "SMS", t: "Got the email, all good. Thanks!",                        when: "12:09" },
   ];
+  const chip = (via: string) => {
+    if (via === "SMS")       return "bg-emerald-50 text-emerald-700 ring-emerald-100";
+    if (via === "Instagram") return "bg-fuchsia-50 text-fuchsia-700 ring-fuchsia-100";
+    if (via === "Email")     return "bg-blue-50 text-blue-700 ring-blue-100";
+    return "bg-slate-100 text-slate-600 ring-slate-200";
+  };
+  const icon = (via: string) => {
+    if (via === "SMS")       return <MessageSquare className="h-2.5 w-2.5" />;
+    if (via === "Instagram") return <Instagram className="h-2.5 w-2.5" />;
+    if (via === "Email")     return <Mail className="h-2.5 w-2.5" />;
+    return <FileText className="h-2.5 w-2.5" />;
+  };
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
       <div className="mb-2 flex flex-wrap items-center gap-2 px-1">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">One thread · every channel</div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" />SMS</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-fuchsia-50 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><Instagram className="h-2.5 w-2.5" />Instagram</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><Mail className="h-2.5 w-2.5" />Email</span>
         <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" />Form</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-fuchsia-50 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><Instagram className="h-2.5 w-2.5" />Instagram</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" />SMS</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><Mail className="h-2.5 w-2.5" />Email</span>
       </div>
       <div className="space-y-2">
-        {msgs.map((m, i) => (
-          <div key={i} className={`flex items-end gap-1.5 ${m.from === "z" ? "justify-start" : "justify-end"}`}>
-            {m.from === "e" && <CustomerAvatar size={20} />}
-            <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${m.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
-              {m.t}
-              <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${m.from === "z" ? "text-slate-500" : "text-white/70"}`}>
-                <span>{m.when}</span>
-                <span>·</span>
-                <span>{m.via}</span>
+        {events.map((e, i) => {
+          if (e.kind === "event") {
+            return (
+              <div key={i} className="flex items-start gap-2 rounded-lg bg-slate-50 px-2.5 py-2 ring-1 ring-slate-100">
+                <span className={`mt-0.5 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ring-1 ${chip(e.via)}`}>{icon(e.via)}{e.via}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[12px] font-semibold text-slate-800">{e.title}</div>
+                  <div className="truncate text-[11.5px] text-slate-500">{e.detail}</div>
+                </div>
+                <span className="text-[10px] text-slate-400">{e.when}</span>
+              </div>
+            );
+          }
+          return (
+            <div key={i} className={`flex items-end gap-1.5 ${e.from === "z" ? "justify-start" : "justify-end"}`}>
+              {e.from === "e" && <CustomerAvatar size={20} />}
+              <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${e.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
+                {e.t}
+                <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${e.from === "z" ? "text-slate-500" : "text-white/70"}`}>
+                  <span>{e.when}</span><span>·</span><span>{e.via}</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -219,7 +247,7 @@ function PanelConvert() {
       <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><FileText className="h-3 w-3" />Quote #Q-2841</div>
         <div className="mt-2 text-[13px] font-semibold text-slate-900">Kitchen tap repair + parts</div>
-        <div className="mt-1 text-[12px] text-slate-500">Attached to sample customer</div>
+        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma W.</div>
         <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
           <div className="text-[18px] font-semibold text-slate-900">$180.00</div>
           <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Accepted</span>
@@ -244,13 +272,13 @@ function PanelOperate() {
   type Job = { start: number; span: number; tone: string; ring: string; label: string; sub?: string; highlight?: boolean };
   const rows: { who: string; role: string; initials: string; tone: string; jobs: Job[] }[] = [
     { who: "Alex", role: "Plumber", initials: "AL", tone: "#0ea5e9", jobs: [
-      { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Hot water install", sub: "42 Ocean Dr" },
-      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Sample customer · tap repair", sub: "Bondi", highlight: true },
+      { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Hot water install", sub: "Local area" },
+      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Emma W. · tap repair", sub: "Service visit", highlight: true },
     ]},
     { who: "Mia", role: "Tech", initials: "MI", tone: "#10b981", jobs: [
       { start: 1, span: 2, tone: "#d1fae5", ring: "#34d399", label: "K. Nguyen · install", sub: "2h · parts kit" },
       { start: 4, span: 1, tone: "#d1fae5", ring: "#34d399", label: "Quote walk-through", sub: "Video call" },
-      { start: 7, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Site inspection", sub: "Rose Bay" },
+      { start: 7, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Site inspection", sub: "Local area" },
     ]},
     { who: "Sam", role: "Tech", initials: "SM", tone: "#f59e0b", jobs: [
       { start: 2, span: 1, tone: "#fef3c7", ring: "#fbbf24", label: "R. Thomas · quote", sub: "New lead" },
@@ -334,7 +362,7 @@ function PanelOperate() {
       <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
         <div className="flex items-center gap-2 text-[11px] text-slate-500">
           <span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "#dbeafe", boxShadow: "inset 0 0 0 1.5px #2563eb" }} />
-          Sample customer job · assigned to Alex
+          Emma W. job · assigned to Alex
         </div>
         <div className="text-[11px] text-slate-400">Drag to reschedule</div>
       </div>
@@ -430,7 +458,7 @@ export function JourneyV3() {
             One product, six stages of the customer journey.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            The same connected workspace, from first enquiry to repeat customer. Follow one sample customer through every stage.
+            The same connected workspace, from first enquiry to repeat customer. Follow Emma W. through every stage.
           </p>
         </div>
 
@@ -557,7 +585,7 @@ export function JourneyV3() {
  * ===================================================================== */
 
 export function AutomationStoryV3() {
-  const [mode, setMode] = useState<"in" | "after">("in");
+  const [mode, setMode] = useState<"routine" | "urgent">("routine");
   const reduced = useReducedMotion();
 
   return (
@@ -566,18 +594,18 @@ export function AutomationStoryV3() {
         <div className="max-w-2xl">
           <Eyebrow>Automation</Eyebrow>
           <h2 className="mt-4 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            Every call reaches the right person, even after hours.
+            Every call answered by intent, not by the clock.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            Zapla checks availability, routes the call and keeps the full customer context connected.
+            Voice AI identifies what the caller needs. Routine calls are handled and booked. Urgent or human-requested calls transfer to a live person on your configured on-call destination.
           </p>
         </div>
 
-        {/* Path toggle */}
-        <div className="mt-8 inline-flex rounded-full bg-slate-100 p-1 text-[13px] font-semibold" role="tablist" aria-label="Call scenario">
+        {/* Intent toggle */}
+        <div className="mt-8 inline-flex rounded-full bg-slate-100 p-1 text-[13px] font-semibold" role="tablist" aria-label="Call intent">
           {[
-            { k: "in", label: "Business hours" },
-            { k: "after", label: "After hours" },
+            { k: "routine", label: "Routine call" },
+            { k: "urgent",  label: "Urgent / human requested" },
           ].map((o) => {
             const isActive = mode === o.k;
             return (
@@ -585,28 +613,27 @@ export function AutomationStoryV3() {
                 key={o.k}
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setMode(o.k as "in" | "after")}
+                onClick={() => setMode(o.k as "routine" | "urgent")}
                 className={`rounded-full px-4 py-1.5 transition ${isActive ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-200" : "text-slate-500"}`}
               >{o.label}</button>
             );
           })}
         </div>
 
-        {/* Stage */}
         <div className="mt-10 rounded-[28px] bg-gradient-to-br from-blue-50/60 via-white to-slate-50 ring-1 ring-slate-200 p-6 sm:p-10">
           <AutomationDiagram mode={mode} reduced={reduced} />
         </div>
 
         <p className="mt-6 max-w-2xl text-[13.5px] text-slate-500">
-          Illustrative flow. Availability rules, business hours and routing are configurable per team.
+          Optional backup mode: team rings first; AI answers after the configured timeout. Intents, destinations and routing are configurable per team. Not confused with Agent Transfer, this is HighLevel Call Transfer to a real phone destination.
         </p>
       </div>
     </section>
   );
 }
 
-function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: boolean }) {
-  const activePath = mode === "in" ? "A" : "B";
+function AutomationDiagram({ mode, reduced }: { mode: "routine" | "urgent"; reduced: boolean }) {
+  const activePath = mode === "routine" ? "A" : "B";
   return (
     <>
       {/* Desktop diagram */}
@@ -618,76 +645,74 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
               <stop offset="1" stopColor="#22d3ee" />
             </linearGradient>
           </defs>
-          {/* incoming */}
           <path d="M450 130 L450 210" stroke="#cbd5e1" strokeWidth="2" fill="none" />
-          {/* split */}
           <path d="M450 300 C 450 370, 220 370, 220 420" stroke={activePath === "A" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "A" ? 3 : 2} fill="none" />
           <path d="M450 300 C 450 370, 680 370, 680 420" stroke={activePath === "B" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "B" ? 3 : 2} fill="none" />
-          {/* merge */}
           <path d="M220 540 C 220 590, 450 590, 450 585" stroke={activePath === "A" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "A" ? 3 : 2} fill="none" />
           <path d="M680 540 C 680 590, 450 590, 450 585" stroke={activePath === "B" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "B" ? 3 : 2} fill="none" />
         </svg>
 
-        {/* Nodes overlay */}
         <div className="absolute inset-0">
-          {/* Incoming call — human-first card */}
           <div className="absolute" style={{ left: "50%", top: "0%", transform: "translateX(-50%)", width: 340 }}>
             <IncomingCallCard reduced={reduced} />
           </div>
 
           <NodeBox style={{ left: "50%", top: "34%", transform: "translateX(-50%)" }}>
             <div className="flex items-center gap-3">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><CalendarIcon className="h-4 w-4" /></span>
+              <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><Sparkles className="h-4 w-4" /></span>
               <div>
-                <div className="text-[13px] font-semibold text-slate-900">Check hours &amp; availability</div>
-                <div className="text-[11.5px] text-slate-500">Mon–Fri · 8:00–17:00 AEST</div>
+                <div className="text-[13px] font-semibold text-slate-900">Voice AI identifies intent</div>
+                <div className="text-[11.5px] text-slate-500">Listens, understands and routes on intent</div>
               </div>
             </div>
             <div className="mt-3 flex items-center gap-2 rounded-lg bg-slate-50 px-2.5 py-1.5 text-[11.5px] text-slate-600 ring-1 ring-slate-100">
-              <span className={`h-1.5 w-1.5 rounded-full ${mode === "in" ? "bg-emerald-500" : "bg-blue-500"}`} />
-              {mode === "in" ? "Now: Tue 10:42 AM — team available" : "Now: Tue 8:14 PM — outside hours"}
+              <span className={`h-1.5 w-1.5 rounded-full ${mode === "routine" ? "bg-emerald-500" : "bg-rose-500"}`} />
+              {mode === "routine"
+                ? "Detected: routine enquiry — AI handles"
+                : "Detected: urgent / human requested — transfer"}
             </div>
           </NodeBox>
 
-          <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={260}>
+          {/* Routine — AI handles */}
+          <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="blue" w={280}>
             <div className="flex items-center justify-between">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-blue-700">Routine call</div>
+              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10.5px] font-semibold text-blue-700 ring-1 ring-blue-100">Zapla AI</span>
+            </div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">AI answers, captures details, can book</div>
+            <div className="mt-2 space-y-1.5">
+              <TranscriptLine who="ai">Hi, this is Zapla for your business.</TranscriptLine>
+              <TranscriptLine who="caller">I'd like to book a tap repair.</TranscriptLine>
+              <TranscriptLine who="ai">Understood. Thursday 2pm works — shall I book it?</TranscriptLine>
+            </div>
+          </NodeBox>
+
+          {/* Urgent — live human transfer */}
+          <NodeBox active={activePath === "B"} style={{ left: "76%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={280}>
+            <div className="flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">Urgent / human requested</div>
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-semibold text-white">
                 <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />Live human
               </span>
             </div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Transferred to available team member</div>
-            <div className="mt-0.5 text-[11.5px] text-slate-500">Call Transfer action · on-call destination</div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Call Transfer to on-call destination</div>
+            <div className="mt-0.5 text-[11.5px] text-slate-500">Configured on-call/team destination · real phone number</div>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex -space-x-2">
                 <TeamAvatar initials="T1" tone="#0ea5e9" />
                 <TeamAvatar initials="T2" tone="#10b981" />
                 <TeamAvatar initials="T3" tone="#6366f1" />
               </div>
-              <span className="rounded-full bg-white px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-200">Answered</span>
+              <span className="rounded-full bg-white px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-200">Ringing team</span>
             </div>
           </NodeBox>
 
-
-          <NodeBox active={activePath === "B"} style={{ left: "76%", top: "68%", transform: "translateX(-50%)" }} tone="blue" w={260}>
-            <div className="flex items-center justify-between">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
-              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10.5px] font-semibold text-blue-700 ring-1 ring-blue-100">Zapla AI</span>
-            </div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">AI answers &amp; books</div>
-            <div className="mt-2 space-y-1.5">
-              <TranscriptLine who="ai">Hi, this is Zapla for your business.</TranscriptLine>
-              <TranscriptLine who="caller">Hi, I need help with a job today.</TranscriptLine>
-              <TranscriptLine who="ai">Understood. First slot is Wed 9:00 AM. Book it?</TranscriptLine>
-            </div>
-          </NodeBox>
-
-          <NodeBox style={{ left: "50%", top: "94%", transform: "translateX(-50%)" }} tone="blue" w={300}>
+          <NodeBox style={{ left: "50%", top: "94%", transform: "translateX(-50%)" }} tone="blue" w={320}>
             <div className="flex items-center gap-3">
               <PortraitAvatar size={38} />
               <div className="min-w-0">
-                <div className="text-[13px] font-semibold text-slate-900">Sample customer · record updated</div>
-                <div className="text-[11.5px] text-slate-500 truncate">Booking attached · team notified · call logged</div>
+                <div className="text-[13px] font-semibold text-slate-900">Emma W. · one contact record</div>
+                <div className="text-[11.5px] text-slate-500 truncate">Transcript + summary saved · team notified</div>
               </div>
               <span className="ml-auto grid h-8 w-8 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-200"><CheckCircle2 className="h-4 w-4" /></span>
             </div>
@@ -701,34 +726,34 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
         <Connector />
         <NodeBoxMobile>
           <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><CalendarIcon className="h-4 w-4" /></span>
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><Sparkles className="h-4 w-4" /></span>
             <div>
-              <div className="text-[13px] font-semibold text-slate-900">Check hours &amp; availability</div>
-              <div className="text-[11px] text-slate-500">{mode === "in" ? "Tue 10:42 AM · team available" : "Tue 8:14 PM · outside hours"}</div>
+              <div className="text-[13px] font-semibold text-slate-900">Voice AI identifies intent</div>
+              <div className="text-[11px] text-slate-500">{mode === "routine" ? "Detected: routine enquiry" : "Detected: urgent / human requested"}</div>
             </div>
           </div>
         </NodeBoxMobile>
         <Connector />
         <div className="grid grid-cols-2 gap-3">
-          <NodeBoxMobile active={activePath === "A"} tone="emerald">
+          <NodeBoxMobile active={activePath === "A"} tone="blue">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-blue-700">Routine call</div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">AI answers &amp; books</div>
+            <div className="mt-2 text-[11px] text-slate-600">"Thursday 2pm — shall I book it?"</div>
+          </NodeBoxMobile>
+
+          <NodeBoxMobile active={activePath === "B"} tone="emerald">
             <div className="flex items-center justify-between">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">Urgent · human</div>
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-1.5 py-0.5 text-[9px] font-semibold text-white">
                 <span className="h-1 w-1 rounded-full bg-white" />Live
               </span>
             </div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Transferred to team</div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Call Transfer to on-call</div>
             <div className="mt-2 flex -space-x-2">
               <TeamAvatar initials="T1" tone="#0ea5e9" size={22} />
               <TeamAvatar initials="T2" tone="#10b981" size={22} />
               <TeamAvatar initials="T3" tone="#6366f1" size={22} />
             </div>
-          </NodeBoxMobile>
-
-          <NodeBoxMobile active={activePath === "B"} tone="blue">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">AI answers &amp; books</div>
-            <div className="mt-2 text-[11px] text-slate-600">"First slot is Wed 9:00 AM."</div>
           </NodeBoxMobile>
         </div>
         <Connector />
@@ -736,8 +761,8 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
           <div className="flex items-center gap-3">
             <PortraitAvatar size={34} />
             <div className="min-w-0">
-              <div className="text-[13px] font-semibold text-slate-900">Record updated</div>
-              <div className="text-[11px] text-slate-500 truncate">Booking attached · team notified</div>
+              <div className="text-[13px] font-semibold text-slate-900">One contact record</div>
+              <div className="text-[11px] text-slate-500 truncate">Transcript saved · team notified</div>
             </div>
             <CheckCircle2 className="ml-auto h-4 w-4 text-emerald-600" />
           </div>
@@ -765,6 +790,7 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
   );
 }
 
+
 function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobile?: boolean }) {
   return (
     <div className={`relative rounded-2xl bg-white p-4 ring-1 ring-blue-200 shadow-[0_24px_50px_-24px_rgba(37,99,235,0.35)] ${mobile ? "" : ""}`}>
@@ -779,7 +805,7 @@ function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobil
           <PortraitAvatar size={56} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[14px] font-semibold text-slate-900">Sample caller</div>
+          <div className="text-[14px] font-semibold text-slate-900">Emma W.</div>
           <div className="text-[11.5px] text-slate-500">Calling your business</div>
         </div>
         {!reduced && (
@@ -987,7 +1013,16 @@ export function ProfessionCarouselV3() {
   const s = SLIDES[i];
   const prev = SLIDES[(i - 1 + SLIDES.length) % SLIDES.length];
   const next = SLIDES[(i + 1) % SLIDES.length];
-  const go = (n: number) => setI(((n % SLIDES.length) + SLIDES.length) % SLIDES.length);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const go = (n: number) => {
+    const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
+    setI(nextIdx);
+    // Bring the newly-active tab into view on narrow screens
+    const el = tabRefs.current[nextIdx];
+    if (el && typeof el.scrollIntoView === "function") {
+      el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  };
 
   return (
     <section className="bg-slate-50 py-24 sm:py-32 px-6 overflow-hidden">
@@ -1016,6 +1051,7 @@ export function ProfessionCarouselV3() {
               return (
                 <button
                   key={sl.key}
+                  ref={(el) => { tabRefs.current[idx] = el; }}
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => go(idx)}
@@ -1028,6 +1064,7 @@ export function ProfessionCarouselV3() {
             })}
           </div>
         </div>
+
 
         {/* Carousel stage */}
         <div className="relative mt-10">
