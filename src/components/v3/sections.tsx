@@ -717,15 +717,15 @@ function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobil
         <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider text-blue-700 ring-1 ring-blue-100">
           <Phone className="h-3 w-3" /> Incoming call
         </div>
-        <div className="text-[11px] text-slate-400">+61 400 812 559</div>
+        <div className="text-[11px] text-slate-400">04•• ••• •••</div>
       </div>
       <div className="mt-3 flex items-center gap-3">
         <div className={`relative ${reduced ? "" : "v3-ring"}`} style={{ width: 56, height: 56 }}>
           <PortraitAvatar size={56} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[14px] font-semibold text-slate-900">Sample customer</div>
-          <div className="text-[11.5px] text-slate-500">Northline Plumbing · Sydney NSW</div>
+          <div className="text-[14px] font-semibold text-slate-900">Sample caller</div>
+          <div className="text-[11.5px] text-slate-500">Calling your business</div>
         </div>
         {!reduced && (
           <div className="v3-wave flex items-end" aria-hidden>
@@ -734,7 +734,7 @@ function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobil
         )}
       </div>
       <div className="mt-3 rounded-lg bg-slate-50 px-3 py-2 text-[12px] text-slate-600 ring-1 ring-slate-100">
-        <span className="font-semibold text-slate-800">Reason:</span> Leaking pipe under the sink — needs a plumber today.
+        <span className="font-semibold text-slate-800">Reason:</span> Needs help with a job today.
       </div>
     </div>
   );
