@@ -585,7 +585,7 @@ export function JourneyV3() {
  * ===================================================================== */
 
 export function AutomationStoryV3() {
-  const [mode, setMode] = useState<"in" | "after">("in");
+  const [mode, setMode] = useState<"routine" | "urgent">("routine");
   const reduced = useReducedMotion();
 
   return (
@@ -594,18 +594,18 @@ export function AutomationStoryV3() {
         <div className="max-w-2xl">
           <Eyebrow>Automation</Eyebrow>
           <h2 className="mt-4 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            Every call reaches the right person, even after hours.
+            Every call answered by intent, not by the clock.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            Zapla checks availability, routes the call and keeps the full customer context connected.
+            Voice AI identifies what the caller needs. Routine calls are handled and booked. Urgent or human-requested calls transfer to a live person on your configured on-call destination.
           </p>
         </div>
 
-        {/* Path toggle */}
-        <div className="mt-8 inline-flex rounded-full bg-slate-100 p-1 text-[13px] font-semibold" role="tablist" aria-label="Call scenario">
+        {/* Intent toggle */}
+        <div className="mt-8 inline-flex rounded-full bg-slate-100 p-1 text-[13px] font-semibold" role="tablist" aria-label="Call intent">
           {[
-            { k: "in", label: "Business hours" },
-            { k: "after", label: "After hours" },
+            { k: "routine", label: "Routine call" },
+            { k: "urgent",  label: "Urgent / human requested" },
           ].map((o) => {
             const isActive = mode === o.k;
             return (
@@ -613,28 +613,27 @@ export function AutomationStoryV3() {
                 key={o.k}
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setMode(o.k as "in" | "after")}
+                onClick={() => setMode(o.k as "routine" | "urgent")}
                 className={`rounded-full px-4 py-1.5 transition ${isActive ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-200" : "text-slate-500"}`}
               >{o.label}</button>
             );
           })}
         </div>
 
-        {/* Stage */}
         <div className="mt-10 rounded-[28px] bg-gradient-to-br from-blue-50/60 via-white to-slate-50 ring-1 ring-slate-200 p-6 sm:p-10">
           <AutomationDiagram mode={mode} reduced={reduced} />
         </div>
 
         <p className="mt-6 max-w-2xl text-[13.5px] text-slate-500">
-          Illustrative flow. Availability rules, business hours and routing are configurable per team.
+          Optional backup mode: team rings first; AI answers after the configured timeout. Intents, destinations and routing are configurable per team. Not confused with Agent Transfer, this is HighLevel Call Transfer to a real phone destination.
         </p>
       </div>
     </section>
   );
 }
 
-function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: boolean }) {
-  const activePath = mode === "in" ? "A" : "B";
+function AutomationDiagram({ mode, reduced }: { mode: "routine" | "urgent"; reduced: boolean }) {
+  const activePath = mode === "routine" ? "A" : "B";
   return (
     <>
       {/* Desktop diagram */}
@@ -646,76 +645,74 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
               <stop offset="1" stopColor="#22d3ee" />
             </linearGradient>
           </defs>
-          {/* incoming */}
           <path d="M450 130 L450 210" stroke="#cbd5e1" strokeWidth="2" fill="none" />
-          {/* split */}
           <path d="M450 300 C 450 370, 220 370, 220 420" stroke={activePath === "A" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "A" ? 3 : 2} fill="none" />
           <path d="M450 300 C 450 370, 680 370, 680 420" stroke={activePath === "B" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "B" ? 3 : 2} fill="none" />
-          {/* merge */}
           <path d="M220 540 C 220 590, 450 590, 450 585" stroke={activePath === "A" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "A" ? 3 : 2} fill="none" />
           <path d="M680 540 C 680 590, 450 590, 450 585" stroke={activePath === "B" ? "url(#v3wire)" : "#e2e8f0"} strokeWidth={activePath === "B" ? 3 : 2} fill="none" />
         </svg>
 
-        {/* Nodes overlay */}
         <div className="absolute inset-0">
-          {/* Incoming call — human-first card */}
           <div className="absolute" style={{ left: "50%", top: "0%", transform: "translateX(-50%)", width: 340 }}>
             <IncomingCallCard reduced={reduced} />
           </div>
 
           <NodeBox style={{ left: "50%", top: "34%", transform: "translateX(-50%)" }}>
             <div className="flex items-center gap-3">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><CalendarIcon className="h-4 w-4" /></span>
+              <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><Sparkles className="h-4 w-4" /></span>
               <div>
-                <div className="text-[13px] font-semibold text-slate-900">Check hours &amp; availability</div>
-                <div className="text-[11.5px] text-slate-500">Mon–Fri · 8:00–17:00 AEST</div>
+                <div className="text-[13px] font-semibold text-slate-900">Voice AI identifies intent</div>
+                <div className="text-[11.5px] text-slate-500">Listens, understands and routes on intent</div>
               </div>
             </div>
             <div className="mt-3 flex items-center gap-2 rounded-lg bg-slate-50 px-2.5 py-1.5 text-[11.5px] text-slate-600 ring-1 ring-slate-100">
-              <span className={`h-1.5 w-1.5 rounded-full ${mode === "in" ? "bg-emerald-500" : "bg-blue-500"}`} />
-              {mode === "in" ? "Now: Tue 10:42 AM — team available" : "Now: Tue 8:14 PM — outside hours"}
+              <span className={`h-1.5 w-1.5 rounded-full ${mode === "routine" ? "bg-emerald-500" : "bg-rose-500"}`} />
+              {mode === "routine"
+                ? "Detected: routine enquiry — AI handles"
+                : "Detected: urgent / human requested — transfer"}
             </div>
           </NodeBox>
 
-          <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={260}>
+          {/* Routine — AI handles */}
+          <NodeBox active={activePath === "A"} style={{ left: "24%", top: "68%", transform: "translateX(-50%)" }} tone="blue" w={280}>
             <div className="flex items-center justify-between">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-blue-700">Routine call</div>
+              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10.5px] font-semibold text-blue-700 ring-1 ring-blue-100">Zapla AI</span>
+            </div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">AI answers, captures details, can book</div>
+            <div className="mt-2 space-y-1.5">
+              <TranscriptLine who="ai">Hi, this is Zapla for your business.</TranscriptLine>
+              <TranscriptLine who="caller">I'd like to book a tap repair.</TranscriptLine>
+              <TranscriptLine who="ai">Understood. Thursday 2pm works — shall I book it?</TranscriptLine>
+            </div>
+          </NodeBox>
+
+          {/* Urgent — live human transfer */}
+          <NodeBox active={activePath === "B"} style={{ left: "76%", top: "68%", transform: "translateX(-50%)" }} tone="emerald" w={280}>
+            <div className="flex items-center justify-between">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700">Urgent / human requested</div>
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-semibold text-white">
                 <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />Live human
               </span>
             </div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Transferred to available team member</div>
-            <div className="mt-0.5 text-[11.5px] text-slate-500">Call Transfer action · on-call destination</div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Call Transfer to on-call destination</div>
+            <div className="mt-0.5 text-[11.5px] text-slate-500">Configured on-call/team destination · real phone number</div>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex -space-x-2">
                 <TeamAvatar initials="T1" tone="#0ea5e9" />
                 <TeamAvatar initials="T2" tone="#10b981" />
                 <TeamAvatar initials="T3" tone="#6366f1" />
               </div>
-              <span className="rounded-full bg-white px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-200">Answered</span>
+              <span className="rounded-full bg-white px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-200">Ringing team</span>
             </div>
           </NodeBox>
 
-
-          <NodeBox active={activePath === "B"} style={{ left: "76%", top: "68%", transform: "translateX(-50%)" }} tone="blue" w={260}>
-            <div className="flex items-center justify-between">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
-              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10.5px] font-semibold text-blue-700 ring-1 ring-blue-100">Zapla AI</span>
-            </div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">AI answers &amp; books</div>
-            <div className="mt-2 space-y-1.5">
-              <TranscriptLine who="ai">Hi, this is Zapla for your business.</TranscriptLine>
-              <TranscriptLine who="caller">Hi, I need help with a job today.</TranscriptLine>
-              <TranscriptLine who="ai">Understood. First slot is Wed 9:00 AM. Book it?</TranscriptLine>
-            </div>
-          </NodeBox>
-
-          <NodeBox style={{ left: "50%", top: "94%", transform: "translateX(-50%)" }} tone="blue" w={300}>
+          <NodeBox style={{ left: "50%", top: "94%", transform: "translateX(-50%)" }} tone="blue" w={320}>
             <div className="flex items-center gap-3">
               <PortraitAvatar size={38} />
               <div className="min-w-0">
-                <div className="text-[13px] font-semibold text-slate-900">Emma W. · record updated</div>
-                <div className="text-[11.5px] text-slate-500 truncate">Booking attached · team notified · call logged</div>
+                <div className="text-[13px] font-semibold text-slate-900">Emma W. · one contact record</div>
+                <div className="text-[11.5px] text-slate-500 truncate">Transcript + summary saved · team notified</div>
               </div>
               <span className="ml-auto grid h-8 w-8 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-200"><CheckCircle2 className="h-4 w-4" /></span>
             </div>
@@ -729,34 +726,34 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
         <Connector />
         <NodeBoxMobile>
           <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><CalendarIcon className="h-4 w-4" /></span>
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-slate-900 text-white"><Sparkles className="h-4 w-4" /></span>
             <div>
-              <div className="text-[13px] font-semibold text-slate-900">Check hours &amp; availability</div>
-              <div className="text-[11px] text-slate-500">{mode === "in" ? "Tue 10:42 AM · team available" : "Tue 8:14 PM · outside hours"}</div>
+              <div className="text-[13px] font-semibold text-slate-900">Voice AI identifies intent</div>
+              <div className="text-[11px] text-slate-500">{mode === "routine" ? "Detected: routine enquiry" : "Detected: urgent / human requested"}</div>
             </div>
           </div>
         </NodeBoxMobile>
         <Connector />
         <div className="grid grid-cols-2 gap-3">
-          <NodeBoxMobile active={activePath === "A"} tone="emerald">
+          <NodeBoxMobile active={activePath === "A"} tone="blue">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-blue-700">Routine call</div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">AI answers &amp; books</div>
+            <div className="mt-2 text-[11px] text-slate-600">"Thursday 2pm — shall I book it?"</div>
+          </NodeBoxMobile>
+
+          <NodeBoxMobile active={activePath === "B"} tone="emerald">
             <div className="flex items-center justify-between">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">Urgent · human</div>
               <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-1.5 py-0.5 text-[9px] font-semibold text-white">
                 <span className="h-1 w-1 rounded-full bg-white" />Live
               </span>
             </div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Transferred to team</div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Call Transfer to on-call</div>
             <div className="mt-2 flex -space-x-2">
               <TeamAvatar initials="T1" tone="#0ea5e9" size={22} />
               <TeamAvatar initials="T2" tone="#10b981" size={22} />
               <TeamAvatar initials="T3" tone="#6366f1" size={22} />
             </div>
-          </NodeBoxMobile>
-
-          <NodeBoxMobile active={activePath === "B"} tone="blue">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">AI answers &amp; books</div>
-            <div className="mt-2 text-[11px] text-slate-600">"First slot is Wed 9:00 AM."</div>
           </NodeBoxMobile>
         </div>
         <Connector />
@@ -764,8 +761,8 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
           <div className="flex items-center gap-3">
             <PortraitAvatar size={34} />
             <div className="min-w-0">
-              <div className="text-[13px] font-semibold text-slate-900">Record updated</div>
-              <div className="text-[11px] text-slate-500 truncate">Booking attached · team notified</div>
+              <div className="text-[13px] font-semibold text-slate-900">One contact record</div>
+              <div className="text-[11px] text-slate-500 truncate">Transcript saved · team notified</div>
             </div>
             <CheckCircle2 className="ml-auto h-4 w-4 text-emerald-600" />
           </div>
@@ -792,6 +789,7 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
     </>
   );
 }
+
 
 function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobile?: boolean }) {
   return (
