@@ -707,14 +707,20 @@ function AutomationDiagram({ mode, reduced }: { mode: "in" | "after"; reduced: b
         <Connector />
         <div className="grid grid-cols-2 gap-3">
           <NodeBoxMobile active={activePath === "A"} tone="emerald">
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Team member answers</div>
+            <div className="flex items-center justify-between">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">In hours</div>
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-1.5 py-0.5 text-[9px] font-semibold text-white">
+                <span className="h-1 w-1 rounded-full bg-white" />Live
+              </span>
+            </div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Transferred to team</div>
             <div className="mt-2 flex -space-x-2">
               <TeamAvatar initials="T1" tone="#0ea5e9" size={22} />
               <TeamAvatar initials="T2" tone="#10b981" size={22} />
               <TeamAvatar initials="T3" tone="#6366f1" size={22} />
             </div>
           </NodeBoxMobile>
+
           <NodeBoxMobile active={activePath === "B"} tone="blue">
             <div className="text-[10px] font-semibold uppercase tracking-wider text-blue-700">After hours</div>
             <div className="mt-1 text-[12.5px] font-semibold text-slate-900">AI answers &amp; books</div>
