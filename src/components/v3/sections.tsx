@@ -180,23 +180,32 @@ function PanelCapture() {
 }
 function PanelCommunicate() {
   const msgs = [
-    { from: "z", t: "Hi, we saw you called. Can we help book a service?", when: "12:04" },
-    { from: "e", t: "Yes please, dripping tap in the kitchen.", when: "12:07" },
-    { from: "z", t: "We can send someone Thursday 2pm. Works for you?", when: "12:08" },
-    { from: "e", t: "Perfect, thanks!", when: "12:09" },
+    { from: "z", t: "Hi, we saw you called. Can we help book a service?", when: "12:04", via: "SMS" },
+    { from: "e", t: "Yes please, dripping tap in the kitchen.", when: "12:07", via: "SMS" },
+    { from: "e", t: "Also sent a photo via DM earlier.", when: "12:07", via: "Instagram" },
+    { from: "z", t: "Got the photo. Thursday 2pm works?", when: "12:08", via: "SMS" },
+    { from: "e", t: "Perfect, thanks!", when: "12:09", via: "SMS" },
   ];
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
-      <div className="mb-2 flex items-center justify-between px-1">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">SMS · thread in the customer record</div>
-        <div className="text-[11px] text-slate-400">Today</div>
+      <div className="mb-2 flex flex-wrap items-center gap-2 px-1">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">One thread · every channel</div>
+        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" />SMS</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-fuchsia-50 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><Instagram className="h-2.5 w-2.5" />Instagram</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><Mail className="h-2.5 w-2.5" />Email</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" />Form</span>
       </div>
       <div className="space-y-2">
         {msgs.map((m, i) => (
-          <div key={i} className={`flex ${m.from === "z" ? "justify-start" : "justify-end"}`}>
-            <div className={`max-w-[78%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${m.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
+          <div key={i} className={`flex items-end gap-1.5 ${m.from === "z" ? "justify-start" : "justify-end"}`}>
+            {m.from === "e" && <CustomerAvatar size={20} />}
+            <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${m.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
               {m.t}
-              <div className={`mt-0.5 text-[10px] ${m.from === "z" ? "text-slate-500" : "text-white/70"}`}>{m.when}</div>
+              <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${m.from === "z" ? "text-slate-500" : "text-white/70"}`}>
+                <span>{m.when}</span>
+                <span>·</span>
+                <span>{m.via}</span>
+              </div>
             </div>
           </div>
         ))}
@@ -222,7 +231,7 @@ function PanelConvert() {
         <div className="mt-1 text-[12px] text-slate-500">Reminders queued for 24h and 2h before</div>
         <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 text-[12px]">
           <TeamAvatar initials="AL" tone="#0ea5e9" size={22} />
-          <span className="text-slate-700">Assigned to <span className="font-semibold text-slate-900">Alex</span></span>
+          <span className="text-slate-700">Assigned to <span className="font-semibold text-slate-900">team member</span></span>
         </div>
       </div>
     </div>
