@@ -964,7 +964,7 @@ export function JourneyV3() {
           </div>
 
           <div>
-            <div className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
+            <div ref={frameRef} className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
               {/* Product chrome */}
               <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
                 <div className="flex items-center gap-1.5" aria-hidden>
