@@ -1098,7 +1098,7 @@ export function ProfessionCarouselV3() {
         <div className="relative mt-10">
           <article
             key={s.key}
-            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[720px] sm:min-h-[970px] lg:min-h-[520px]`}
+            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[800px] sm:min-h-[970px] lg:min-h-[520px]`}
           >
             <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-stretch h-full">
               {/* Visual */}
