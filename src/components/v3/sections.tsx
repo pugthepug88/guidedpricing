@@ -172,7 +172,7 @@ function PanelCapture() {
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Activity</div>
         <div className="mt-2 space-y-2 text-[12.5px] text-slate-700">
           <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-500" />Contact created from inbound call</div>
-          <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Tagged as <span className="font-medium">New lead</span> · source <span className="font-medium">Phone</span></div>
+          <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Tagged as <span className="font-medium">Enquiry</span> · source <span className="font-medium">Phone</span></div>
         </div>
       </div>
     </div>
@@ -317,7 +317,7 @@ function PanelOperate() {
       { start: 7, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Site inspection", sub: "Local area" },
     ]},
     { who: "Sam", role: "Tech", initials: "SM", tone: "#f59e0b", jobs: [
-      { start: 2, span: 1, tone: "#fef3c7", ring: "#fbbf24", label: "R. Thomas · quote", sub: "New lead" },
+      { start: 2, span: 1, tone: "#fef3c7", ring: "#fbbf24", label: "R. Thomas · quote", sub: "Enquiry" },
       { start: 5, span: 2, tone: "#fef3c7", ring: "#fbbf24", label: "Warranty callback", sub: "45 min" },
     ]},
     { who: "Jess", role: "Coordinator", initials: "JS", tone: "#a855f7", jobs: [
@@ -501,10 +501,9 @@ export function JourneyV3() {
         {/* Stage selector */}
         <div className="relative mt-10">
           <div
-            className="-mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
+            className="v3-journey-tabs -mx-6 overflow-x-auto px-8 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
             role="tablist"
             aria-label="Customer journey stage"
-            style={{ WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)", maskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)" }}
           >
             <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0 sm:justify-center">
               {STAGES.map((s, i) => {
@@ -907,7 +906,7 @@ const SLIDES: Slide[] = [
     Icon: Briefcase,
     accent: { chip: "bg-blue-50 text-blue-700 ring-blue-100", bg: "from-blue-50/70 via-white to-white", ring: "ring-blue-100", text: "text-blue-800", dot: "bg-blue-500" },
     image: industryLegal.url,
-    headline: "New enquiry to qualified consultation.",
+    headline: "Enquiry to qualified consultation.",
     body: "Capture the enquiry, screen it in one thread, and get the right lead on the calendar with context.",
     journey: ["Enquiry", "Qualified", "Consultation booked"],
     outcome: (
@@ -925,7 +924,7 @@ const SLIDES: Slide[] = [
     accent: { chip: "bg-emerald-50 text-emerald-700 ring-emerald-100", bg: "from-emerald-50/70 via-white to-white", ring: "ring-emerald-100", text: "text-emerald-800", dot: "bg-emerald-500" },
     image: industryRealEstate.url,
     headline: "Lead to nurture to appraisal or inspection.",
-    body: "New leads enter a nurture sequence and land on an appraisal or inspection without dropping context.",
+    body: "Enquiries enter a nurture sequence and land on an appraisal or inspection without dropping context.",
     journey: ["Lead", "Nurture", "Appraisal or inspection"],
     outcome: (
       <div>
@@ -1098,7 +1097,7 @@ export function ProfessionCarouselV3() {
         <div className="relative mt-10">
           <article
             key={s.key}
-            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[800px] sm:min-h-[970px] lg:min-h-[520px]`}
+            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[800px] sm:min-h-[970px] lg:min-h-[470px]`}
           >
             <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-stretch h-full">
               {/* Visual */}
