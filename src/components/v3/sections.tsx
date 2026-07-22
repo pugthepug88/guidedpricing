@@ -1008,21 +1008,26 @@ export function JourneyV3() {
                   {/* Stage-aware customer record header */}
                   <CustomerRecordHeader stageKey={stage.key as StageKey} step={step} finalStep={stage.steps} />
                   {/* Stage-varying panel — sequenced reveal inside, restarts on runToken change.
-                       AnimatePresence swaps stages with a fast premium transition
-                       (subtle 10px lift, 0.99→1 scale, ~320ms) and cancels any
-                       in-flight event animations immediately when active changes. */}
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.div
-                      key={`${stage.key}-${runToken}`}
-                      className="p-5 sm:p-6"
-                      initial={reduced ? { opacity: 1 } : { opacity: 0, y: 10, scale: 0.99 }}
-                      animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-                      exit={reduced ? { opacity: 1 } : { opacity: 0, y: -6, scale: 0.99 }}
-                      transition={reduced ? { duration: 0 } : { duration: 0.28, ease: V3_EASE }}
-                    >
-                      {stage.panel(step)}
-                    </motion.div>
-                  </AnimatePresence>
+                       AnimatePresence uses mode="popLayout": the exiting panel is
+                       popped out of layout flow (position: absolute, inset:0) so the
+                       entering panel mounts in the same frame cell immediately.
+                       Both crossfade concurrently (~320ms) with no blank beat and
+                       no layout shift; clicks (including active-tab replay) show the
+                       new sequence instantly. */}
+                  <div className="relative">
+                    <AnimatePresence mode="popLayout" initial={false}>
+                      <motion.div
+                        key={`${stage.key}-${runToken}`}
+                        className="p-5 sm:p-6"
+                        initial={reduced ? { opacity: 1 } : { opacity: 0, y: 8, scale: 0.99 }}
+                        animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+                        exit={reduced ? { opacity: 1 } : { opacity: 0, y: -6, scale: 0.99, position: "absolute", inset: 0 }}
+                        transition={reduced ? { duration: 0 } : { duration: 0.32, ease: V3_EASE }}
+                      >
+                        {stage.panel(step)}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
             </div>
