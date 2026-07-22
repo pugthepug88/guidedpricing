@@ -285,7 +285,7 @@ function NewLeadCard() {
       </div>
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2.5">
-          <Face src={pCust3.url} size={32} />
+          <Face src={pCustomer.url} size={32} />
           <div className="min-w-0 flex-1">
             <div className="truncate text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
             <div className="truncate text-[11px] text-neutral-500">04•• ••• ••• · 0:42s</div>
