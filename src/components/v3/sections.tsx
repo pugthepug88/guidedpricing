@@ -2,13 +2,14 @@
  *  V3 rebuilt sections — Journey, Automation, Professions, One Record
  *  Scope: /hero-preview-v3 only. Do NOT reuse on other routes.
  * ===================================================================== */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import type { ReactNode } from "react";
 import {
   Phone, PhoneMissed, MessageSquare, Instagram, Users, Calendar as CalendarIcon,
   CreditCard, Star as StarIcon, RefreshCw, CheckCircle2, ArrowRight, ArrowLeft,
   FileText, Send, Bell, Globe, Briefcase, HeartPulse, Home as HomeIcon, Wrench,
-  Dumbbell, Sparkles, Mail, ChevronRight, Car, Building2, BedDouble,
+  Dumbbell, Sparkles, Mail, ChevronRight, ChevronLeft, Car, Building2, BedDouble,
+  Play, Pause, RotateCcw, Facebook,
 } from "lucide-react";
 import industryRealEstate from "@/assets/industry-real-estate.png.asset.json";
 import industryHealthcare from "@/assets/industry-healthcare.png.asset.json";
