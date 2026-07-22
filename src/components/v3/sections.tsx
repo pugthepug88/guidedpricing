@@ -1037,14 +1037,14 @@ export function ProfessionCarouselV3() {
           </p>
         </div>
 
-        {/* Profession tabs */}
+        {/* Profession tabs — mobile: horizontal rail with edge fade; desktop: centered wrap */}
         <div
-          className="mt-10 -mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0"
+          className="mt-10 -mx-6 overflow-x-auto px-6 md:overflow-visible md:mx-0 md:px-0 zapla-scroll-hide"
           role="tablist"
           aria-label="Profession"
           style={{ WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)", maskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)" }}
         >
-          <div className="flex min-w-max items-center gap-2 zapla-scroll-hide">
+          <div className="flex min-w-max items-center justify-start gap-2 md:min-w-0 md:flex-wrap md:justify-center">
             {SLIDES.map((sl, idx) => {
               const isActive = idx === i;
               const Icon = sl.Icon;
@@ -1055,7 +1055,7 @@ export function ProfessionCarouselV3() {
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => go(idx)}
-                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-semibold transition ${isActive ? "bg-slate-950 text-white shadow-sm" : "bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900"}`}
+                  className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-semibold transition ${isActive ? "bg-slate-950 text-white shadow-sm" : "bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900"}`}
                 >
                   <Icon className="h-3.5 w-3.5" />
                   {sl.label}
