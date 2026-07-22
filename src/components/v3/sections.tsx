@@ -1315,7 +1315,7 @@ export function JourneyV3() {
                     internal choreography to replay when a chapter is clicked. */}
                 <div className="flex-1 min-w-0 bg-white">
                   <div className="relative" style={{ height: STAGE_H + 40 }}>
-                    <UnifiedActivity active={active} step={step} runToken={runToken} />
+                    <UnifiedActivity active={active} step={step} />
                   </div>
                 </div>
               </div>
