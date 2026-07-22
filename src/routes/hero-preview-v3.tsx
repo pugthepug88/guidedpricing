@@ -590,7 +590,7 @@ function CardDashboard() {
           <span className="text-[9px] text-zapla-muted">Sales Pipeline ▾</span>
         </div>
         {[
-          { l: "New Lead",        v: "A$80.8K", pct: 100, c: "#2563ff" },
+          { l: "Enquiry",         v: "A$80.8K", pct: 100, c: "#2563ff" },
           { l: "Lead Engaged",    v: "A$40K",   pct: 66,  c: "#22c55e" },
           { l: "Demo Scheduled",  v: "A$37.5K", pct: 55,  c: "#f59e0b" },
           { l: "Negotiation",     v: "A$30K",   pct: 40,  c: "#a855f7" },
@@ -611,7 +611,7 @@ function CardDashboard() {
         <div className="text-[10.5px] text-zapla-muted mb-1">Stage Distribution</div>
         <Donut value="15" label="" color="#2563ff" pct={78} />
         <div className="mt-2 grid grid-cols-2 gap-x-2 gap-y-0.5 text-[9px]">
-          {[["#2563ff","New Lead"],["#22c55e","Engaged"],["#f59e0b","Demo"],["#a855f7","Negotiation"]].map(([c,l]) => (
+          {[["#2563ff","Enquiry"],["#22c55e","Engaged"],["#f59e0b","Demo"],["#a855f7","Negotiation"]].map(([c,l]) => (
             <span key={l} className="flex items-center gap-1"><span className="h-2 w-2 rounded-sm" style={{ background: c }} />{l}</span>
           ))}
         </div>
@@ -966,20 +966,51 @@ function V3Card({ children, className = "" }: { children: ReactNode; className?:
   );
 }
 
-function V3Avatar({ name, tone = "blue", size = 30 }: { name: string; tone?: "blue" | "cyan" | "slate" | "amber" | "emerald" | "teal" | "sky"; size?: number }) {
+/* Central identity map — same person always gets the same face.
+   Customers, past customers, and team members all pull from here. */
+import pCust2 from "@/assets/portrait-cust-2.jpg.asset.json";
+import pCust3 from "@/assets/portrait-cust-3.jpg.asset.json";
+import pCust4 from "@/assets/portrait-cust-4.jpg.asset.json";
+import pTeam1 from "@/assets/portrait-team-1.jpg.asset.json";
+import pTeam2 from "@/assets/portrait-team-2.jpg.asset.json";
+import pTeam3 from "@/assets/portrait-team-3.jpg.asset.json";
+import pTeam4 from "@/assets/portrait-team-4.jpg.asset.json";
+import callerPortrait from "@/assets/caller-portrait.jpg.asset.json";
+
+const FACES: Record<string, string> = {
+  // Customers (real people the story follows)
+  "Emma Wilson": pCustomer.url,
+  "Jordan Clarke": pCust2.url,
+  "Priya Shah": pCust3.url,
+  "Karen Ng": pCust4.url,
+  "Tom Bailey": callerPortrait.url,
+  // Team members — distinct from any customer face
+  "Alex": pTeam1.url,
+  "Mia": pTeam2.url,
+  "Sam": pTeam3.url,
+  "Jess": pTeam4.url,
+};
+
+function V3Avatar({ name, size = 30 }: { name: string; tone?: string; size?: number }) {
+  const src = FACES[name];
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt=""
+        width={size}
+        height={size}
+        loading="lazy"
+        className="shrink-0 rounded-full object-cover ring-2 ring-white"
+        style={{ width: size, height: size }}
+      />
+    );
+  }
+  // Neutral fallback for unrecognised names — no gradient chip
   const initials = name.split(" ").map((p) => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
-  const tones: Record<string, string> = {
-    blue: "bg-gradient-to-br from-blue-500 to-blue-700 text-white",
-    cyan: "bg-gradient-to-br from-cyan-400 to-sky-600 text-white",
-    slate: "bg-gradient-to-br from-slate-500 to-slate-700 text-white",
-    amber: "bg-gradient-to-br from-amber-400 to-orange-500 text-white",
-    emerald: "bg-gradient-to-br from-emerald-400 to-emerald-600 text-white",
-    teal: "bg-gradient-to-br from-teal-400 to-cyan-600 text-white",
-    sky: "bg-gradient-to-br from-sky-400 to-blue-600 text-white",
-  };
   return (
     <span
-      className={`inline-flex shrink-0 items-center justify-center rounded-full font-semibold ring-2 ring-white ${tones[tone]}`}
+      className="inline-flex shrink-0 items-center justify-center rounded-full bg-slate-200 text-slate-600 font-semibold ring-2 ring-white"
       style={{ width: size, height: size, fontSize: Math.max(9, Math.floor(size * 0.36)) }}
       aria-hidden
     >
@@ -1433,7 +1464,7 @@ function CommunicateSceneV3() {
 /* --- Scene: Convert --- */
 function ConvertSceneV3() {
   const stages = [
-    { label: "New enquiry", count: 4, tone: "bg-slate-100 text-slate-700", card: { name: "Emma Wilson", meta: "Local area", amt: "" } },
+    { label: "Enquiry", count: 4, tone: "bg-slate-100 text-slate-700", card: { name: "Emma Wilson", meta: "Local area", amt: "" } },
     { label: "Quoted", count: 3, tone: "bg-blue-50 text-blue-700", card: { name: "Jordan Clarke", meta: "Kitchen reno", amt: "$4,800" } },
     { label: "Booked", count: 2, tone: "bg-cyan-50 text-cyan-700", card: { name: "Karen Ng", meta: "Thu 2:00 PM", amt: "$1,250" } },
     { label: "Paid", count: 5, tone: "bg-emerald-50 text-emerald-700", card: { name: "Tom Bailey", meta: "Paid via Stripe", amt: "$2,100" } },
@@ -1480,7 +1511,7 @@ function ConvertSceneV3() {
 function OperateSceneV3() {
   const jobs = [
     { time: "09:00", who: "Alex", task: "Site visit · local area", status: "En route", tone: "amber" as const },
-    { time: "11:30", who: "Priya", task: "Install · Marrickville", status: "In progress", tone: "blue" as const },
+    { time: "11:30", who: "Mia", task: "Install · Marrickville", status: "In progress", tone: "blue" as const },
     { time: "14:00", who: "Alex", task: "Quote walk-through · Emma", status: "Scheduled", tone: "slate" as const },
     { time: "16:00", who: "Sam", task: "Follow-up call · Karen", status: "Scheduled", tone: "slate" as const },
   ];
@@ -1583,7 +1614,7 @@ function GrowSceneV3() {
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Segment</div>
         <div className="mt-1 text-[14px] font-semibold text-slate-900">Inactive · no visit in 6 months</div>
         <div className="mt-3 flex -space-x-2">
-          {["Anna", "Ben", "Cindy", "Dan", "Eli"].map((n, i) => (
+          {["Emma Wilson", "Jordan Clarke", "Priya Shah", "Karen Ng", "Tom Bailey"].map((n, i) => (
             <V3Avatar key={i} name={n} tone={(["blue","cyan","amber","emerald","teal"] as const)[i]} size={30} />
           ))}
           <span className="ml-3 grid h-[30px] w-[30px] place-items-center rounded-full bg-slate-200 text-[10px] font-semibold text-slate-700 ring-2 ring-white">…</span>
@@ -1618,7 +1649,7 @@ function GrowSceneV3() {
             <StatusDot tone="emerald" />
           </div>
           <div className="mt-2 space-y-2">
-            {[{ n: "Cindy L", m: "Yes please, Saturday?" }, { n: "Ben P", m: "Book me in for a tune-up." }].map((r, i) => (
+            {[{ n: "Karen Ng", m: "Yes please, Saturday?" }, { n: "Jordan Clarke", m: "Book me in for a tune-up." }].map((r, i) => (
               <div key={i} className="flex items-center gap-2 rounded-lg bg-slate-50 px-2.5 py-2 ring-1 ring-slate-100">
                 <V3Avatar name={r.n} tone={i === 0 ? "cyan" : "amber"} size={24} />
                 <div className="flex-1 text-[11px]">
@@ -1736,7 +1767,7 @@ const WF_SCENARIOS: WfScenario[] = [
       { t: "9:00", text: "Segment refreshed · inactive customers", tone: "slate" },
       { t: "9:01", text: "AI drafted 4 message variants", tone: "blue" },
       { t: "9:02", text: "SMS + email sent", tone: "emerald" },
-      { t: "10:14", text: "Reply from Cindy · routed to inbox", tone: "amber" },
+      { t: "10:14", text: "Reply from Karen Ng · routed to inbox", tone: "amber" },
     ],
   },
 ];

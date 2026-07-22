@@ -275,7 +275,7 @@ function NewLeadCard() {
             </div>
           </div>
           <div>
-            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">New Lead</div>
+            <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Enquiry captured</div>
             <div className="text-[11px] text-neutral-500 leading-tight">AI receptionist captured a call</div>
           </div>
         </div>
@@ -349,7 +349,7 @@ function WorkflowCard() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-600 text-white"><Zap className="h-[18px] w-[18px]" /></div>
           <div>
             <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Workflow Running</div>
-            <div className="text-[11px] text-neutral-500 leading-tight">New Lead → Nurture</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">Enquiry → Nurture</div>
           </div>
         </div>
         <div className="rounded-full bg-cyan-50 px-2 py-0.5 text-[10px] font-semibold text-cyan-700 ring-1 ring-cyan-200">AUTO</div>
