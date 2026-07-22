@@ -526,13 +526,22 @@ export function JourneyV3() {
         </div>
 
 
-        {/* Progress path */}
-        <div className="mt-6 hidden sm:flex mx-auto max-w-3xl items-center gap-2">
-          {STAGES.map((_, i) => (
-            <div key={i} className="flex-1">
-              <div className={`h-[3px] rounded-full transition-all ${i <= active ? "bg-blue-600" : "bg-slate-200"}`} />
-            </div>
-          ))}
+        {/* External six-stage progress track — outside the browser shell */}
+        <div className="mt-6 mx-auto max-w-3xl flex items-center gap-1.5 sm:gap-2" aria-hidden>
+          {STAGES.map((_, i) => {
+            const done = i < active;
+            const now = i === active;
+            return (
+              <div key={i} className="flex flex-1 items-center gap-1.5 sm:gap-2 last:flex-none">
+                <span
+                  className={`grid h-2.5 w-2.5 shrink-0 place-items-center rounded-full transition-all ${now ? "bg-blue-600 ring-4 ring-blue-100" : done ? "bg-blue-600" : "bg-slate-300"}`}
+                />
+                {i < STAGES.length - 1 && (
+                  <div className={`h-[3px] flex-1 rounded-full transition-all ${done ? "bg-blue-600" : "bg-slate-200"}`} />
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Stable workspace card */}
@@ -1097,15 +1106,15 @@ export function ProfessionCarouselV3() {
         <div className="relative mt-10">
           <article
             key={s.key}
-            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[800px] sm:min-h-[970px] lg:min-h-[470px]`}
+            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[664px] sm:min-h-[620px] lg:min-h-[460px]`}
           >
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-stretch h-full">
-              {/* Visual */}
-              <div className="relative aspect-[5/4] min-h-[320px] w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none">
+            <div className="grid gap-0 lg:grid-cols-[1.1fr_1fr] items-stretch h-full">
+              {/* Visual — fixed compact height so different slides never resize the card */}
+              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none">
                 <img src={s.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
                 {/* small outcome overlay */}
-                <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:w-[300px] rounded-2xl bg-white/95 p-3.5 ring-1 ring-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur">
+                <div className="absolute bottom-3 left-3 right-3 sm:right-auto sm:w-[280px] rounded-2xl bg-white/95 p-3 ring-1 ring-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur">
                   {s.outcome}
                 </div>
               </div>
