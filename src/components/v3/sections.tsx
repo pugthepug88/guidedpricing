@@ -701,19 +701,20 @@ const STAGES: StageDef[] = [
 
 /* ---------- Sequenced auto-play hook ------------------------------- */
 function useJourneySequence({
-  active, steps, setActive, reduced, paused, stageCount,
+  active, runToken, steps, setActive, reduced, paused, stageCount,
 }: {
-  active: number; steps: number; setActive: (i: number) => void;
+  active: number; runToken: number; steps: number; setActive: (i: number) => void;
   reduced: boolean; paused: boolean; stageCount: number;
 }) {
   const [step, setStep] = useState(reduced ? steps : 0);
   const activeRef = useRef(active);
 
-  // Reset when active changes or reduced-motion toggles.
+  // Reset when active OR runToken changes (runToken re-triggers on same-stage clicks),
+  // or when reduced-motion toggles.
   useEffect(() => {
     activeRef.current = active;
     setStep(reduced ? steps : 0);
-  }, [active, reduced, steps]);
+  }, [active, runToken, reduced, steps]);
 
   useEffect(() => {
     if (reduced || paused) return;
@@ -727,18 +728,19 @@ function useJourneySequence({
     }
     const t = window.setTimeout(() => setStep((s) => s + 1), step === 0 ? 250 : 900);
     return () => window.clearTimeout(t);
-  }, [step, steps, reduced, paused, active, setActive, stageCount]);
+  }, [step, steps, reduced, paused, active, setActive, stageCount, runToken]);
 
   return step;
 }
 
 export function JourneyV3() {
   const [active, setActive] = useState(0);
+  const [runToken, setRunToken] = useState(0);
   const [paused, setPaused] = useState(false);
   const stage = STAGES[active];
   const reduced = useReducedMotion();
   const step = useJourneySequence({
-    active, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
+    active, runToken, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
   });
   const tabsRef = useRef<HTMLDivElement | null>(null);
 
@@ -748,9 +750,12 @@ export function JourneyV3() {
     el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
   }, [active, reduced]);
 
+  // Clicking any chapter — including the currently active one — restarts its sequence.
   const handleSelect = (i: number) => {
-    setActive(i); // step resets via effect
+    if (i !== active) setActive(i);
+    setRunToken((t) => t + 1);
   };
+
 
   return (
     <section
