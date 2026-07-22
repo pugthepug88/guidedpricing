@@ -1066,21 +1066,14 @@ export function ProfessionCarouselV3() {
         </div>
 
 
-        {/* Carousel stage */}
+        {/* Carousel stage — stable height, no clipping neighbors */}
         <div className="relative mt-10">
-          {/* Peek slides — desktop only */}
-          <div className="pointer-events-none absolute inset-y-6 left-[-8%] hidden w-[22%] rounded-[24px] bg-white opacity-40 ring-1 ring-slate-200 lg:block" aria-hidden>
-            <div className="h-full w-full rounded-[24px] bg-cover bg-center opacity-70" style={{ backgroundImage: `url(${prev.image})` }} />
-          </div>
-          <div className="pointer-events-none absolute inset-y-6 right-[-8%] hidden w-[22%] rounded-[24px] bg-white opacity-40 ring-1 ring-slate-200 lg:block" aria-hidden>
-            <div className="h-full w-full rounded-[24px] bg-cover bg-center opacity-70" style={{ backgroundImage: `url(${next.image})` }} />
-          </div>
-
           <article
             key={s.key}
-            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)]`}
+            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade`}
+            style={{ minHeight: "var(--v3-industry-min-h, 520px)" }}
           >
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-stretch">
+            <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-stretch h-full">
               {/* Visual */}
               <div className="relative aspect-[5/4] min-h-[320px] w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none">
                 <img src={s.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
