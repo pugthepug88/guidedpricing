@@ -124,12 +124,7 @@ function useReducedMotion() {
  * ===================================================================== */
 
 type NavKey = "inbox" | "contacts" | "calendar" | "quotes" | "reviews" | "automations" | "campaigns";
-type Stage = {
-  key: string; sub: string; label: string;
-  nav: NavKey;
-  headline: string; body: string;
-  panel: ReactNode;
-};
+// (Stage type is defined below alongside STAGES.)
 
 type StageKey = "capture" | "communicate" | "convert" | "operate" | "retain" | "grow";
 
