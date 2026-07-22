@@ -784,35 +784,44 @@ export function JourneyV3() {
   const stage = STAGES[active];
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
+  const frameRef = useRef<HTMLDivElement | null>(null);
   const tabsRef = useRef<HTMLDivElement | null>(null);
   const hasEnteredRef = useRef(false);
 
-  // Autoplay only while (a) the section is visibly in view, (b) user hasn't
-  // explicitly paused. Merely hovering the section does NOT pause.
+  // Autoplay only while (a) the product frame itself is ~40% visible, and
+  // (b) the user has not explicitly paused. Merely hovering does NOT pause.
+  // Manual controls remain functional even while autoplay is out of view.
   const paused = !inView || userPaused;
 
   const step = useJourneySequence({
     active, runToken, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
   });
 
-  // IntersectionObserver: gate autoplay on visibility. Fires as soon as any
-  // part of the section enters the viewport. First entry always starts at
-  // Capture (state already initialises there); afterwards this just toggles
-  // paused so timers freeze when the section scrolls away.
+  // IntersectionObserver on the product/browser frame (not the whole section):
+  // we consider the story "in view" only when >=~40% of the animation frame
+  // is visible, using the actual intersectionRatio. On the first qualifying
+  // entry we explicitly reset to Capture step 0 and start. When the frame
+  // drops below the threshold, timers pause; when it re-enters afterwards,
+  // autoplay resumes from the current stage without jumping back.
   useEffect(() => {
-    const el = sectionRef.current;
+    const el = frameRef.current;
     if (!el || typeof IntersectionObserver === "undefined") {
       setInView(true);
       hasEnteredRef.current = true;
       return;
     }
+    const VISIBLE = 0.4;
     const io = new IntersectionObserver(
       ([e]) => {
-        const visible = e.isIntersecting;
-        if (visible && !hasEnteredRef.current) hasEnteredRef.current = true;
+        const visible = e.intersectionRatio >= VISIBLE;
+        if (visible && !hasEnteredRef.current) {
+          hasEnteredRef.current = true;
+          setActive(0);
+          setRunToken((t) => t + 1);
+        }
         setInView(visible);
       },
-      { threshold: 0.01, rootMargin: "-10% 0px -10% 0px" },
+      { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -955,7 +964,7 @@ export function JourneyV3() {
           </div>
 
           <div>
-            <div className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
+            <div ref={frameRef} className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
               {/* Product chrome */}
               <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
                 <div className="flex items-center gap-1.5" aria-hidden>
@@ -999,21 +1008,26 @@ export function JourneyV3() {
                   {/* Stage-aware customer record header */}
                   <CustomerRecordHeader stageKey={stage.key as StageKey} step={step} finalStep={stage.steps} />
                   {/* Stage-varying panel — sequenced reveal inside, restarts on runToken change.
-                       AnimatePresence swaps stages with a fast premium transition
-                       (subtle 10px lift, 0.99→1 scale, ~320ms) and cancels any
-                       in-flight event animations immediately when active changes. */}
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.div
-                      key={`${stage.key}-${runToken}`}
-                      className="p-5 sm:p-6"
-                      initial={reduced ? { opacity: 1 } : { opacity: 0, y: 10, scale: 0.99 }}
-                      animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-                      exit={reduced ? { opacity: 1 } : { opacity: 0, y: -6, scale: 0.99 }}
-                      transition={reduced ? { duration: 0 } : { duration: 0.28, ease: V3_EASE }}
-                    >
-                      {stage.panel(step)}
-                    </motion.div>
-                  </AnimatePresence>
+                       AnimatePresence uses mode="popLayout": the exiting panel is
+                       popped out of layout flow (position: absolute, inset:0) so the
+                       entering panel mounts in the same frame cell immediately.
+                       Both crossfade concurrently (~320ms) with no blank beat and
+                       no layout shift; clicks (including active-tab replay) show the
+                       new sequence instantly. */}
+                  <div className="relative">
+                    <AnimatePresence mode="popLayout" initial={false}>
+                      <motion.div
+                        key={`${stage.key}-${runToken}`}
+                        className="p-5 sm:p-6"
+                        initial={reduced ? { opacity: 1 } : { opacity: 0, y: 8, scale: 0.99 }}
+                        animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+                        exit={reduced ? { opacity: 1 } : { opacity: 0, y: -6, scale: 0.99, position: "absolute", inset: 0 }}
+                        transition={reduced ? { duration: 0 } : { duration: 0.32, ease: V3_EASE }}
+                      >
+                        {stage.panel(step)}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
             </div>
