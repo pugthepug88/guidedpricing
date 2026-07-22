@@ -501,10 +501,9 @@ export function JourneyV3() {
         {/* Stage selector */}
         <div className="relative mt-10">
           <div
-            className="-mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
+            className="v3-journey-tabs -mx-6 overflow-x-auto px-8 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
             role="tablist"
             aria-label="Customer journey stage"
-            style={{ WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)", maskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)" }}
           >
             <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0 sm:justify-center">
               {STAGES.map((s, i) => {
