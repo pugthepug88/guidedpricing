@@ -118,7 +118,7 @@ function useReducedMotion() {
 
 /* =====================================================================
  *  SECTION 1 — JourneyV3
- *  One stable workspace. One sample customer. Six stages.
+ *  One stable workspace. Emma Wilson, one continuous story. Six stages.
  * ===================================================================== */
 
 type NavKey = "inbox" | "contacts" | "calendar" | "quotes" | "reviews" | "automations" | "campaigns";
@@ -135,7 +135,7 @@ function CustomerRecordHeader() {
       <CustomerAvatar size={44} />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <div className="text-[14px] font-semibold text-slate-900">Emma W.</div>
+          <div className="text-[14px] font-semibold text-slate-900">Emma Wilson</div>
           <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100">Lead</span>
           <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Local area</span>
         </div>
@@ -163,7 +163,7 @@ function PanelCapture() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma W.</div>
+            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma Wilson</div>
           </div>
           <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">New</span>
         </div>
@@ -247,7 +247,7 @@ function PanelConvert() {
       <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><FileText className="h-3 w-3" />Quote #Q-2841</div>
         <div className="mt-2 text-[13px] font-semibold text-slate-900">Kitchen tap repair + parts</div>
-        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma W.</div>
+        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma Wilson</div>
         <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
           <div className="text-[18px] font-semibold text-slate-900">$180.00</div>
           <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Accepted</span>
@@ -273,7 +273,7 @@ function PanelOperate() {
   const rows: { who: string; role: string; initials: string; tone: string; jobs: Job[] }[] = [
     { who: "Alex", role: "Plumber", initials: "AL", tone: "#0ea5e9", jobs: [
       { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Hot water install", sub: "Local area" },
-      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Emma W. · tap repair", sub: "Service visit", highlight: true },
+      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Emma Wilson · tap repair", sub: "Service visit", highlight: true },
     ]},
     { who: "Mia", role: "Tech", initials: "MI", tone: "#10b981", jobs: [
       { start: 1, span: 2, tone: "#d1fae5", ring: "#34d399", label: "K. Nguyen · install", sub: "2h · parts kit" },
@@ -362,7 +362,7 @@ function PanelOperate() {
       <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
         <div className="flex items-center gap-2 text-[11px] text-slate-500">
           <span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "#dbeafe", boxShadow: "inset 0 0 0 1.5px #2563eb" }} />
-          Emma W. job · assigned to Alex
+          Emma Wilson job · assigned to Alex
         </div>
         <div className="text-[11px] text-slate-400">Drag to reschedule</div>
       </div>
@@ -458,7 +458,7 @@ export function JourneyV3() {
             One product, six stages of the customer journey.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            The same connected workspace, from first enquiry to repeat customer. Follow Emma W. through every stage.
+            The same connected workspace, from first enquiry to repeat customer. Follow Emma Wilson through every stage.
           </p>
         </div>
 
@@ -706,7 +706,7 @@ function AutomationDiagram({ mode, reduced }: { mode: "routine" | "urgent"; redu
             <div className="flex items-center gap-3">
               <PortraitAvatar size={38} />
               <div className="min-w-0">
-                <div className="text-[13px] font-semibold text-slate-900">Emma W. · one contact record</div>
+                <div className="text-[13px] font-semibold text-slate-900">Emma Wilson · one contact record</div>
                 <div className="text-[11.5px] text-slate-500 truncate">Transcript + summary saved · team notified</div>
               </div>
               <span className="ml-auto grid h-8 w-8 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-200"><CheckCircle2 className="h-4 w-4" /></span>
@@ -800,7 +800,7 @@ function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobil
           <PortraitAvatar size={56} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[14px] font-semibold text-slate-900">Emma W.</div>
+          <div className="text-[14px] font-semibold text-slate-900">Emma Wilson</div>
           <div className="text-[11.5px] text-slate-500">Calling your business</div>
         </div>
         {!reduced && (

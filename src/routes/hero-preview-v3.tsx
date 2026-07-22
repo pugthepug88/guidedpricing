@@ -1,3 +1,4 @@
+import pCustomer from "@/assets/portrait-customer.jpg.asset.json";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
@@ -1208,7 +1209,7 @@ function OutcomesV3() {
               </div>
               {/* Customer reply */}
               <div className="flex items-start gap-3">
-                <V3Avatar name="Emma R" tone="cyan" size={36} />
+                <img src={pCustomer.url} alt="" width={36} height={36} className="shrink-0 rounded-full object-cover ring-2 ring-white" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <span className="text-[13px] font-semibold text-slate-900">Emma Wilson</span>
@@ -1504,7 +1505,7 @@ function OperateSceneV3() {
       </div>
       <div className="rounded-xl bg-slate-950 p-4 text-white">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-white/60">Auto-routing</div>
-        <div className="mt-2 text-[13px] font-semibold">New enquiry from a local suburb</div>
+        <div className="mt-2 text-[13px] font-semibold">Emma Wilson · site visit request</div>
         <div className="mt-1 text-[11px] text-white/60">Postcode 2026 · Alex is closest</div>
         <div className="mt-3 flex items-center gap-2 rounded-lg bg-white/10 px-2.5 py-2">
           <V3Avatar name="Alex" tone="amber" size={26} />
