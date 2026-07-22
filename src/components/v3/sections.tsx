@@ -1065,16 +1065,15 @@ export function JourneyV3() {
     }
     const VISIBLE = 0.4;
     const io = new IntersectionObserver((entries) => {
+      if (hasEnteredRef.current) return; // once entered, never toggle
       const e = entries[entries.length - 1];
-      const visible = e.intersectionRatio >= VISIBLE;
-      if (visible && !hasEnteredRef.current) {
+      if (e.intersectionRatio >= VISIBLE) {
         hasEnteredRef.current = true;
         setActive(0);
         setRunToken((t) => t + 1);
+        setInView(true);
       }
-      // Never pause the sequence once mounted — autoplay must keep looping
-      // even when the frame briefly scrolls out of view.
-      setInView(true);
+      // Below-threshold callbacks before first entry: do nothing.
     }, { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
     io.observe(el);
     return () => io.disconnect();
