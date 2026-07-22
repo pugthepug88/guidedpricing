@@ -1082,10 +1082,12 @@ const STAGES: StageDef[] = [
  *   grow        : 300 + 2×1000 + 2500 = 4800
  *   total       ≈ 28.3s
  * ------------------------------------------------------------------ */
-const STEP_FIRST_MS   = 300;
-const STEP_BETWEEN_MS = 1000;
-const STAGE_LINGER_MS = 1800;
-const LOOP_LINGER_MS  = 2500;
+// Tuned so the full six-stage cycle lands ~24s and loops smoothly to Capture.
+// steps: 2+7+3+3+3+3 = 21. Total ≈ 24.1s.
+const STEP_FIRST_MS   = 280;
+const STEP_BETWEEN_MS = 900;
+const STAGE_LINGER_MS = 1300;
+const LOOP_LINGER_MS  = 2400;
 
 function useJourneySequence({
   active, runToken, steps, setActive, reduced, paused, stageCount,
@@ -1127,6 +1129,68 @@ function useJourneySequence({
   return step;
 }
 
+/* ---------- Persistent record helpers ----------------------------- */
+
+type StatusTone = "slate" | "blue" | "amber" | "emerald" | "violet";
+function statusFor(stageIdx: number, step: number): { label: string; tone: StatusTone } {
+  if (stageIdx === 0 && step < 1) return { label: "New lead",      tone: "slate"   };
+  if (stageIdx === 0)             return { label: "Enquiry",       tone: "blue"    };
+  if (stageIdx === 1)             return { label: "In conversation", tone: "blue"  };
+  if (stageIdx === 2) {
+    if (step >= 3)                return { label: "Booked",        tone: "emerald" };
+    if (step >= 1)                return { label: "Quote sent",    tone: "amber"   };
+    return                             { label: "Enquiry",       tone: "blue"    };
+  }
+  if (stageIdx === 3) {
+    if (step >= 3)                return { label: "Paid",          tone: "emerald" };
+    if (step >= 2)                return { label: "Completed",     tone: "emerald" };
+    return                             { label: "Scheduled",     tone: "blue"    };
+  }
+  if (stageIdx === 4)             return { label: "Customer",      tone: "violet"  };
+  if (stageIdx === 5) {
+    if (step >= 3)                return { label: "Returning customer", tone: "violet" };
+    return                             { label: "Customer",      tone: "violet"  };
+  }
+  return { label: "Customer", tone: "slate" };
+}
+
+type HistoryItem = { id: string; icon: ReactNode; label: string; when: string };
+const HISTORY_ITEMS: HistoryItem[] = [
+  { id: "e1", icon: <Facebook className="h-3 w-3" />,       label: "Facebook lead captured",   when: "12:03" },
+  { id: "e2", icon: <MessageSquare className="h-3 w-3" />,  label: "Conversation started",     when: "12:12" },
+  { id: "e3", icon: <FileText className="h-3 w-3" />,       label: "Quote sent",               when: "12:22" },
+  { id: "e4", icon: <CalendarIcon className="h-3 w-3" />,   label: "Booked · Thu 2:00 PM",     when: "12:30" },
+  { id: "e5", icon: <CheckCircle2 className="h-3 w-3" />,   label: "Job completed · Alex",     when: "Thu 3:15" },
+  { id: "e6", icon: <CreditCard className="h-3 w-3" />,     label: "Payment received",         when: "Thu 3:22" },
+  { id: "e7", icon: <StarIcon className="h-3 w-3" />,       label: "5-star review received",   when: "Thu 5:40" },
+  { id: "e8", icon: <Bell className="h-3 w-3" />,           label: "12-month reminder sent",   when: "+12 mo" },
+  { id: "e9", icon: <RefreshCw className="h-3 w-3" />,      label: "Rebooked · returning",     when: "+12 mo" },
+];
+
+function historyCountFor(active: number, step: number): number {
+  let n = 0;
+  if (active > 0 || (active === 0 && step >= 2)) n = 1;
+  if (active > 1 || (active === 1 && step >= 2)) n = 2;
+  if (active > 2 || (active === 2 && step >= 1)) n = 3;
+  if (active > 2 || (active === 2 && step >= 3)) n = 4;
+  if (active > 3 || (active === 3 && step >= 2)) n = 5;
+  if (active > 3 || (active === 3 && step >= 3)) n = 6;
+  if (active > 4 || (active === 4 && step >= 2)) n = 7;
+  if (active > 5 || (active === 5 && step >= 1)) n = 8;
+  if (active === 5 && step >= 3)                  n = 9;
+  return n;
+}
+
+const NAV_ITEMS: { key: NavKey; icon: ReactNode; label: string }[] = [
+  { key: "inbox",       icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
+  { key: "contacts",    icon: <Users className="h-3.5 w-3.5" />,         label: "Contacts" },
+  { key: "calendar",    icon: <CalendarIcon className="h-3.5 w-3.5" />,  label: "Calendar" },
+  { key: "quotes",      icon: <FileText className="h-3.5 w-3.5" />,      label: "Quotes" },
+  { key: "reviews",     icon: <StarIcon className="h-3.5 w-3.5" />,      label: "Reviews" },
+  { key: "automations", icon: <Sparkles className="h-3.5 w-3.5" />,      label: "Automations" },
+  { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
+];
+
 export function JourneyV3() {
   const [active, setActive] = useState(0);
   const [runToken, setRunToken] = useState(0);
@@ -1139,46 +1203,34 @@ export function JourneyV3() {
   const tabsRef = useRef<HTMLDivElement | null>(null);
   const hasEnteredRef = useRef(false);
 
-  // Autoplay only while (a) the product frame itself is ~40% visible, and
-  // (b) the user has not explicitly paused. Merely hovering does NOT pause.
-  // Manual controls remain functional even while autoplay is out of view.
   const paused = !inView || userPaused;
 
   const step = useJourneySequence({
     active, runToken, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
   });
 
-  // IntersectionObserver on the product/browser frame (not the whole section):
-  // we consider the story "in view" only when >=~40% of the animation frame
-  // is visible, using the actual intersectionRatio. On the first qualifying
-  // entry we explicitly reset to Capture step 0 and start. When the frame
-  // drops below the threshold, timers pause; when it re-enters afterwards,
-  // autoplay resumes from the current stage without jumping back.
+  // Start autoplay only once ~40% of the product frame is visible. Hover /
+  // focus inside the section does NOT pause; only explicit play/pause does.
   useEffect(() => {
     const el = frameRef.current;
     if (!el || typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      hasEnteredRef.current = true;
-      return;
+      setInView(true); hasEnteredRef.current = true; return;
     }
     const VISIBLE = 0.4;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        const visible = e.intersectionRatio >= VISIBLE;
-        if (visible && !hasEnteredRef.current) {
-          hasEnteredRef.current = true;
-          setActive(0);
-          setRunToken((t) => t + 1);
-        }
-        setInView(visible);
-      },
-      { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] },
-    );
+    const io = new IntersectionObserver(([e]) => {
+      const visible = e.intersectionRatio >= VISIBLE;
+      if (visible && !hasEnteredRef.current) {
+        hasEnteredRef.current = true;
+        setActive(0);
+        setRunToken((t) => t + 1);
+      }
+      setInView(visible);
+    }, { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  // Bring active chapter into view (only within the tabs strip, never the page).
+  // Keep active chapter in view within the tabs strip.
   useEffect(() => {
     const container = tabsRef.current;
     const el = container?.querySelector<HTMLButtonElement>(`[data-stage="${active}"]`);
@@ -1191,25 +1243,37 @@ export function JourneyV3() {
     }
   }, [active, reduced]);
 
-  // Clicking any chapter — active or not — resets its sequence to step 0.
   const handleSelect = useCallback((i: number) => {
     const clamped = ((i % STAGES.length) + STAGES.length) % STAGES.length;
     if (clamped !== active) setActive(clamped);
     setRunToken((t) => t + 1);
   }, [active]);
 
-  const handlePrev    = () => handleSelect(active - 1);
-  const handleNext    = () => handleSelect(active + 1);
-  const handleReplay  = () => { setUserPaused(false); handleSelect(0); };
-  const togglePlay    = () => setUserPaused((p) => !p);
+  const togglePlay = () => setUserPaused((p) => !p);
+
+  // Keyboard left/right navigates chapters while the section is on-screen.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable)) return;
+      const sec = sectionRef.current;
+      if (!sec) return;
+      const r = sec.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      if (e.key === "ArrowRight") { e.preventDefault(); handleSelect(active + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); handleSelect(active - 1); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active, handleSelect]);
 
   const growComplete = active === STAGES.length - 1 && (reduced || step >= stage.steps);
 
+  const status = statusFor(active, step);
+  const historyVisible = historyCountFor(active, step);
+
   return (
-    <section
-      ref={sectionRef}
-      className="bg-slate-50 py-24 sm:py-32 px-6"
-    >
+    <section ref={sectionRef} className="bg-slate-50 py-24 sm:py-32 px-6">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <Eyebrow>The platform</Eyebrow>
@@ -1221,8 +1285,8 @@ export function JourneyV3() {
           </p>
         </div>
 
-        {/* Chapter selector + transport controls */}
-        <div className="relative mt-10 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        {/* Chapter selector + single play/pause */}
+        <div className="relative mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div
             ref={tabsRef}
             className="v3-journey-tabs -mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
@@ -1241,7 +1305,7 @@ export function JourneyV3() {
                     aria-selected={isActive}
                     aria-label={`Stage ${s.sub}: ${s.label}`}
                     onClick={() => handleSelect(i)}
-                    className={`relative flex items-center gap-2 rounded-full px-3.5 sm:px-5 py-2 text-[12px] sm:text-[13px] font-semibold transition-colors ${
+                    className={`relative flex items-center gap-1.5 rounded-full px-3.5 sm:px-5 py-2 text-[12px] sm:text-[13px] font-semibold transition-colors ${
                       isActive
                         ? "bg-slate-950 text-white shadow-sm"
                         : isDone
@@ -1251,51 +1315,27 @@ export function JourneyV3() {
                   >
                     <span className={`font-mono text-[10px] ${isActive ? "text-white/70" : isDone ? "text-blue-600" : "text-slate-400"}`}>{s.sub}</span>
                     {s.label}
+                    {isDone && <CheckCircle2 className="h-3 w-3 text-blue-600" aria-hidden />}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Compact transport: Prev · Play/Pause · Next · Replay */}
-          <div className="flex items-center gap-1.5 self-start lg:self-auto">
-            <button
-              type="button"
-              onClick={handlePrev}
-              aria-label="Previous stage"
-              className="grid h-8 w-8 place-items-center rounded-full bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 transition-colors"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={togglePlay}
-              aria-label={userPaused ? "Play journey" : "Pause journey"}
-              aria-pressed={userPaused}
-              className="grid h-8 w-8 place-items-center rounded-full bg-slate-950 text-white ring-1 ring-slate-950 hover:bg-slate-800 transition-colors"
-            >
-              {userPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
-            </button>
-            <button
-              type="button"
-              onClick={handleNext}
-              aria-label="Next stage"
-              className="grid h-8 w-8 place-items-center rounded-full bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 transition-colors"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={handleReplay}
-              aria-label="Replay from Capture"
-              className="ml-1 inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-slate-700 ring-1 ring-slate-200 hover:text-slate-950 hover:ring-slate-300 transition-colors"
-            >
-              <RotateCcw className="h-3.5 w-3.5" />Replay
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={togglePlay}
+            aria-label={userPaused ? "Play journey" : "Pause journey"}
+            aria-pressed={userPaused}
+            className="inline-flex items-center gap-1.5 self-start rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-slate-700 ring-1 ring-slate-200 hover:text-slate-950 hover:ring-slate-300 transition-colors sm:self-auto"
+          >
+            {userPaused
+              ? <><Play className="h-3.5 w-3.5" />Play</>
+              : <><Pause className="h-3.5 w-3.5" />Pause</>}
+          </button>
         </div>
 
-        {/* Single subtle progress cue — one continuous bar across all stages */}
+        {/* One continuous progress bar across all stages */}
         <div className="mt-5 mx-auto max-w-3xl h-[3px] overflow-hidden rounded-full bg-slate-200" aria-hidden>
           <div
             className="h-full rounded-full bg-blue-600 transition-[width] duration-500 ease-out"
@@ -1305,13 +1345,22 @@ export function JourneyV3() {
           />
         </div>
 
-
-        {/* Workspace card */}
-        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-14 items-start">
+        {/* Side copy + persistent workspace */}
+        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-12 items-start">
           <div className="lg:sticky lg:top-24">
             <div className="text-[11px] font-mono text-slate-400">{stage.sub} / 06 · {stage.label}</div>
-            <h3 className="mt-2 font-zapla text-2xl sm:text-[28px] font-semibold text-slate-950 leading-[1.15]">{stage.headline}</h3>
-            <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{stage.body}</p>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={stage.key}
+                initial={reduced ? { opacity: 1 } : { opacity: 0, y: 6 }}
+                animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                exit={reduced ? { opacity: 1 } : { opacity: 0, y: -4 }}
+                transition={reduced ? { duration: 0 } : { duration: 0.28, ease: V3_EASE }}
+              >
+                <h3 className="mt-2 font-zapla text-2xl sm:text-[28px] font-semibold text-slate-950 leading-[1.15]">{stage.headline}</h3>
+                <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{stage.body}</p>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           <div>
@@ -1330,22 +1379,14 @@ export function JourneyV3() {
                 <span className="grid h-6 w-6 place-items-center rounded-full bg-slate-900 text-[10px] font-semibold text-white">SM</span>
               </div>
 
-              <div className="flex min-h-[520px]">
+              <div className="flex min-h-[560px]">
                 {/* Persistent left nav — active area matches stage */}
-                <aside className="hidden sm:flex w-[168px] flex-col gap-0.5 border-r border-slate-100 bg-white p-3">
+                <aside className="hidden sm:flex w-[152px] flex-col gap-0.5 border-r border-slate-100 bg-white p-3">
                   <div className="mb-3 flex items-center gap-2 px-1">
                     <img src={logoBlue.url} alt="" className="h-6 w-6 rounded-md" />
                     <span className="text-[13px] font-semibold text-slate-900">Zapla</span>
                   </div>
-                  {([
-                    { key: "inbox",       icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
-                    { key: "contacts",    icon: <Users className="h-3.5 w-3.5" />,         label: "Contacts" },
-                    { key: "calendar",    icon: <CalendarIcon className="h-3.5 w-3.5" />,  label: "Calendar" },
-                    { key: "quotes",      icon: <FileText className="h-3.5 w-3.5" />,      label: "Quotes" },
-                    { key: "reviews",     icon: <StarIcon className="h-3.5 w-3.5" />,      label: "Reviews" },
-                    { key: "automations", icon: <Sparkles className="h-3.5 w-3.5" />,      label: "Automations" },
-                    { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
-                  ] as { key: NavKey; icon: ReactNode; label: string }[]).map((n) => {
+                  {NAV_ITEMS.map((n) => {
                     const isActive = n.key === stage.nav;
                     return (
                       <div key={n.key} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-colors ${isActive ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
@@ -1355,16 +1396,67 @@ export function JourneyV3() {
                   })}
                 </aside>
 
+                {/* Persistent Emma Wilson record — never unmounts, status + history grow in place */}
+                <aside className="hidden md:flex w-[240px] shrink-0 flex-col border-r border-slate-100 bg-slate-50/40">
+                  <div className="border-b border-slate-100 bg-white px-4 py-4">
+                    <div className="flex items-center gap-3">
+                      <CustomerAvatar size={40} />
+                      <div className="min-w-0">
+                        <div className="text-[13.5px] font-semibold text-slate-900 truncate">Emma Wilson</div>
+                        <div className="text-[11px] text-slate-500 truncate">Local area</div>
+                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <AnimatePresence mode="wait" initial={false}>
+                        <motion.span
+                          key={status.label}
+                          initial={reduced ? { opacity: 1 } : { opacity: 0, y: 4 }}
+                          animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                          exit={reduced ? { opacity: 1 } : { opacity: 0, y: -4 }}
+                          transition={reduced ? { duration: 0 } : { duration: 0.3, ease: V3_EASE }}
+                          className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10.5px] font-semibold ring-1 ${toneClasses(status.tone)}`}
+                        >
+                          <span className="h-1.5 w-1.5 rounded-full bg-current opacity-70" />
+                          {status.label}
+                        </motion.span>
+                      </AnimatePresence>
+                    </div>
+                    <div className="mt-3 space-y-1 text-[11px] text-slate-500">
+                      <div className="flex items-center gap-1.5"><Phone className="h-3 w-3" />+61 4•• ••• •••</div>
+                      <div className="flex items-center gap-1.5"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</div>
+                      <div className="flex items-center gap-1.5"><Wrench className="h-3 w-3" />Annual A/C service</div>
+                    </div>
+                  </div>
+                  <div className="flex-1 overflow-hidden px-4 py-4">
+                    <div className="flex items-center justify-between">
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.1em] text-slate-400">History</div>
+                      <div className="text-[10px] text-slate-400">{historyVisible} event{historyVisible === 1 ? "" : "s"}</div>
+                    </div>
+                    <ol className="mt-3 space-y-2">
+                      <AnimatePresence initial={false}>
+                        {HISTORY_ITEMS.slice(0, historyVisible).map((h) => (
+                          <motion.li
+                            key={h.id}
+                            layout
+                            initial={reduced ? { opacity: 1 } : { opacity: 0, x: -6 }}
+                            animate={reduced ? { opacity: 1 } : { opacity: 1, x: 0 }}
+                            transition={reduced ? { duration: 0 } : { duration: 0.36, ease: V3_EASE }}
+                            className="flex items-start gap-2 text-[11.5px] text-slate-700"
+                          >
+                            <span className="mt-0.5 grid h-5 w-5 place-items-center rounded-full bg-white text-slate-500 ring-1 ring-slate-200">{h.icon}</span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block truncate">{h.label}</span>
+                              <span className="block text-[10px] text-slate-400">{h.when}</span>
+                            </span>
+                          </motion.li>
+                        ))}
+                      </AnimatePresence>
+                    </ol>
+                  </div>
+                </aside>
+
+                {/* Activity area — the workspace transforms per stage while Emma persists */}
                 <div className="flex-1 min-w-0 bg-white">
-                  {/* Stage-aware customer record header */}
-                  <CustomerRecordHeader stageKey={stage.key as StageKey} step={step} finalStep={stage.steps} />
-                  {/* Stage-varying panel — sequenced reveal inside, restarts on runToken change.
-                       AnimatePresence uses mode="popLayout": the exiting panel is
-                       popped out of layout flow (position: absolute, inset:0) so the
-                       entering panel mounts in the same frame cell immediately.
-                       Both crossfade concurrently (~320ms) with no blank beat and
-                       no layout shift; clicks (including active-tab replay) show the
-                       new sequence instantly. */}
                   <div className="relative" style={{ height: STAGE_H + 40 }}>
                     <AnimatePresence mode="popLayout" initial={false}>
                       <motion.div
@@ -1373,18 +1465,17 @@ export function JourneyV3() {
                         initial={reduced ? { opacity: 1 } : { opacity: 0, y: 8, scale: 0.99 }}
                         animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
                         exit={reduced ? { opacity: 1 } : { opacity: 0, y: -6, scale: 0.99 }}
-                        transition={reduced ? { duration: 0 } : { duration: 0.32, ease: V3_EASE }}
+                        transition={reduced ? { duration: 0 } : { duration: 0.36, ease: V3_EASE }}
                       >
                         {stage.panel(step)}
                       </motion.div>
                     </AnimatePresence>
                   </div>
-
                 </div>
               </div>
             </div>
 
-            {/* Payoff line — only after Grow completes */}
+            {/* Payoff + CTA — reveal only after Grow completes; loops back to Capture underneath */}
             <div
               className={`mt-6 transition-all duration-500 ease-out ${
                 growComplete
@@ -1393,9 +1484,22 @@ export function JourneyV3() {
               } motion-reduce:transition-none`}
               aria-live="polite"
             >
-              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 ring-1 ring-slate-200 shadow-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
-                <span className="text-[13px] font-semibold text-slate-900">One customer. Every interaction connected.</span>
+              <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.35)]">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] font-semibold text-slate-900">
+                  <span>Enquiry</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+                  <span>booked</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+                  <span>completed</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+                  <span>paid</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+                  <span>reviewed</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+                  <span>returned</span>
+                </div>
+                <a
+                  href={BOOK_URL}
+                  className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-blue-700 hover:text-blue-900"
+                >
+                  See how Zapla would connect your customer journey
+                  <ArrowRight className="h-4 w-4" />
+                </a>
               </div>
             </div>
           </div>
@@ -1410,6 +1514,7 @@ export function JourneyV3() {
     </section>
   );
 }
+
 
 /* =====================================================================
  *  SECTION 2 — AutomationStoryV3
