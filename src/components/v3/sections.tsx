@@ -1164,6 +1164,11 @@ export function ProfessionCarouselV3() {
           </div>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 767px) {
+          .v3-industry-tabs { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%); }
+        }
+      `}</style>
     </section>
   );
 }
