@@ -118,7 +118,7 @@ function useReducedMotion() {
 
 /* =====================================================================
  *  SECTION 1 — JourneyV3
- *  One stable workspace. One sample customer. Six stages.
+ *  One stable workspace. Emma Wilson, one continuous story. Six stages.
  * ===================================================================== */
 
 type NavKey = "inbox" | "contacts" | "calendar" | "quotes" | "reviews" | "automations" | "campaigns";
@@ -135,7 +135,7 @@ function CustomerRecordHeader() {
       <CustomerAvatar size={44} />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <div className="text-[14px] font-semibold text-slate-900">Emma W.</div>
+          <div className="text-[14px] font-semibold text-slate-900">Emma Wilson</div>
           <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100">Lead</span>
           <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Local area</span>
         </div>
@@ -163,7 +163,7 @@ function PanelCapture() {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma W.</div>
+            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma Wilson</div>
           </div>
           <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">New</span>
         </div>
@@ -178,13 +178,46 @@ function PanelCapture() {
     </div>
   );
 }
+function IgGlyph({ size = 10 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" role="img" aria-label="Instagram">
+      <defs>
+        <linearGradient id="v3-ig-g" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stopColor="#f9ce34" />
+          <stop offset="0.5" stopColor="#ee2a7b" />
+          <stop offset="1" stopColor="#6228d7" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#v3-ig-g)" />
+      <circle cx="12" cy="12" r="4.2" fill="none" stroke="#fff" strokeWidth="1.8" />
+      <circle cx="17.4" cy="6.6" r="1.15" fill="#fff" />
+    </svg>
+  );
+}
+function MessengerGlyph({ size = 10 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" role="img" aria-label="Facebook Messenger">
+      <defs>
+        <radialGradient id="v3-msg-g" cx="0.25" cy="1" r="1.1">
+          <stop offset="0" stopColor="#00b2ff" />
+          <stop offset="0.6" stopColor="#006aff" />
+          <stop offset="1" stopColor="#0057ff" />
+        </radialGradient>
+      </defs>
+      <path d="M12 1.6C5.9 1.6 1.2 6.2 1.2 12.1c0 3.2 1.4 6 3.7 8v3.6l3.4-1.9c1.1.3 2.3.5 3.7.5 6.1 0 10.8-4.6 10.8-10.4S18.1 1.6 12 1.6z" fill="url(#v3-msg-g)" />
+      <path d="M5.7 14.9l3.2-5.1 2.9 2.4 2.9-2.4 2.9 5.1-2.9-2.4-2.9 2.4-2.9-2.4z" fill="#fff" />
+    </svg>
+  );
+}
+
 function PanelCommunicate() {
   type Ev =
-    | { kind: "event"; via: "Form" | "Instagram" | "Email"; title: string; detail: string; when: string }
+    | { kind: "event"; via: "Form" | "Instagram" | "Messenger" | "Email"; title: string; detail: string; when: string }
     | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
   const events: Ev[] = [
     { kind: "event", via: "Form",      title: "Website form submitted", detail: "Service: kitchen tap repair · Preferred: Thursday", when: "11:52" },
     { kind: "event", via: "Instagram", title: "Instagram DM · photo",    detail: "Emma sent a photo of the leaking tap",             when: "11:58" },
+    { kind: "event", via: "Messenger", title: "Messenger reply",         detail: "Confirmed the address and gate code",              when: "12:01" },
     { kind: "msg",   from: "z", via: "SMS", t: "Hi Emma, we saw your form and photo. Thursday 2pm work?", when: "12:04" },
     { kind: "msg",   from: "e", via: "SMS", t: "Yes please, that's perfect.",                             when: "12:06" },
     { kind: "event", via: "Email",     title: "Email · booking details",  detail: "Confirmation, address on file and prep notes sent", when: "12:08" },
@@ -193,23 +226,26 @@ function PanelCommunicate() {
   const chip = (via: string) => {
     if (via === "SMS")       return "bg-emerald-50 text-emerald-700 ring-emerald-100";
     if (via === "Instagram") return "bg-fuchsia-50 text-fuchsia-700 ring-fuchsia-100";
-    if (via === "Email")     return "bg-blue-50 text-blue-700 ring-blue-100";
+    if (via === "Messenger") return "bg-blue-50 text-blue-700 ring-blue-100";
+    if (via === "Email")     return "bg-sky-50 text-sky-700 ring-sky-100";
     return "bg-slate-100 text-slate-600 ring-slate-200";
   };
   const icon = (via: string) => {
-    if (via === "SMS")       return <MessageSquare className="h-2.5 w-2.5" />;
-    if (via === "Instagram") return <Instagram className="h-2.5 w-2.5" />;
-    if (via === "Email")     return <Mail className="h-2.5 w-2.5" />;
-    return <FileText className="h-2.5 w-2.5" />;
+    if (via === "SMS")       return <MessageSquare className="h-2.5 w-2.5" aria-hidden />;
+    if (via === "Instagram") return <IgGlyph size={11} />;
+    if (via === "Messenger") return <MessengerGlyph size={11} />;
+    if (via === "Email")     return <Mail className="h-2.5 w-2.5" aria-hidden />;
+    return <FileText className="h-2.5 w-2.5" aria-hidden />;
   };
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
       <div className="mb-2 flex flex-wrap items-center gap-2 px-1">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">One thread · every channel</div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" />Form</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-fuchsia-50 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><Instagram className="h-2.5 w-2.5" />Instagram</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" />SMS</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><Mail className="h-2.5 w-2.5" />Email</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" aria-hidden />Form</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><IgGlyph size={11} />Instagram</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><MessengerGlyph size={11} />Messenger</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" aria-hidden />SMS</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-1.5 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-100"><Mail className="h-2.5 w-2.5" aria-hidden />Email</span>
       </div>
       <div className="space-y-2">
         {events.map((e, i) => {
@@ -247,7 +283,7 @@ function PanelConvert() {
       <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><FileText className="h-3 w-3" />Quote #Q-2841</div>
         <div className="mt-2 text-[13px] font-semibold text-slate-900">Kitchen tap repair + parts</div>
-        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma W.</div>
+        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma Wilson</div>
         <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
           <div className="text-[18px] font-semibold text-slate-900">$180.00</div>
           <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Accepted</span>
@@ -273,7 +309,7 @@ function PanelOperate() {
   const rows: { who: string; role: string; initials: string; tone: string; jobs: Job[] }[] = [
     { who: "Alex", role: "Plumber", initials: "AL", tone: "#0ea5e9", jobs: [
       { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Hot water install", sub: "Local area" },
-      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Emma W. · tap repair", sub: "Service visit", highlight: true },
+      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Emma Wilson · tap repair", sub: "Service visit", highlight: true },
     ]},
     { who: "Mia", role: "Tech", initials: "MI", tone: "#10b981", jobs: [
       { start: 1, span: 2, tone: "#d1fae5", ring: "#34d399", label: "K. Nguyen · install", sub: "2h · parts kit" },
@@ -362,7 +398,7 @@ function PanelOperate() {
       <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
         <div className="flex items-center gap-2 text-[11px] text-slate-500">
           <span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "#dbeafe", boxShadow: "inset 0 0 0 1.5px #2563eb" }} />
-          Emma W. job · assigned to Alex
+          Emma Wilson job · assigned to Alex
         </div>
         <div className="text-[11px] text-slate-400">Drag to reschedule</div>
       </div>
@@ -458,7 +494,7 @@ export function JourneyV3() {
             One product, six stages of the customer journey.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
-            The same connected workspace, from first enquiry to repeat customer. Follow Emma W. through every stage.
+            The same connected workspace, from first enquiry to repeat customer. Follow Emma Wilson through every stage.
           </p>
         </div>
 
@@ -706,7 +742,7 @@ function AutomationDiagram({ mode, reduced }: { mode: "routine" | "urgent"; redu
             <div className="flex items-center gap-3">
               <PortraitAvatar size={38} />
               <div className="min-w-0">
-                <div className="text-[13px] font-semibold text-slate-900">Emma W. · one contact record</div>
+                <div className="text-[13px] font-semibold text-slate-900">Emma Wilson · one contact record</div>
                 <div className="text-[11.5px] text-slate-500 truncate">Transcript + summary saved · team notified</div>
               </div>
               <span className="ml-auto grid h-8 w-8 place-items-center rounded-lg bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-200"><CheckCircle2 className="h-4 w-4" /></span>
@@ -800,7 +836,7 @@ function IncomingCallCard({ reduced, mobile = false }: { reduced: boolean; mobil
           <PortraitAvatar size={56} />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="text-[14px] font-semibold text-slate-900">Emma W.</div>
+          <div className="text-[14px] font-semibold text-slate-900">Emma Wilson</div>
           <div className="text-[11.5px] text-slate-500">Calling your business</div>
         </div>
         {!reduced && (
@@ -1030,12 +1066,11 @@ export function ProfessionCarouselV3() {
           </p>
         </div>
 
-        {/* Profession tabs — mobile: horizontal rail with edge fade; desktop: centered wrap */}
+        {/* Profession tabs — mobile: horizontal rail with soft edge fade; desktop: centered wrap, no mask */}
         <div
-          className="mt-10 -mx-6 overflow-x-auto px-6 md:overflow-visible md:mx-0 md:px-0 zapla-scroll-hide"
+          className="v3-industry-tabs mt-10 -mx-6 overflow-x-auto px-8 md:overflow-visible md:mx-0 md:px-0 zapla-scroll-hide"
           role="tablist"
           aria-label="Profession"
-          style={{ WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)", maskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)" }}
         >
           <div className="flex min-w-max items-center justify-start gap-2 md:min-w-0 md:flex-wrap md:justify-center">
             {SLIDES.map((sl, idx) => {
@@ -1063,7 +1098,7 @@ export function ProfessionCarouselV3() {
         <div className="relative mt-10">
           <article
             key={s.key}
-            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[720px] sm:min-h-[970px] lg:min-h-[520px]`}
+            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[800px] sm:min-h-[970px] lg:min-h-[520px]`}
           >
             <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-stretch h-full">
               {/* Visual */}
@@ -1129,6 +1164,11 @@ export function ProfessionCarouselV3() {
           </div>
         </div>
       </div>
+      <style>{`
+        @media (max-width: 767px) {
+          .v3-industry-tabs { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%); }
+        }
+      `}</style>
     </section>
   );
 }
