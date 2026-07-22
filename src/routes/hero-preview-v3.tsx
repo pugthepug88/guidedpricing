@@ -971,6 +971,7 @@ function V3Card({ children, className = "" }: { children: ReactNode; className?:
 import pCust2 from "@/assets/portrait-cust-2.jpg.asset.json";
 import pCust3 from "@/assets/portrait-cust-3.jpg.asset.json";
 import pCust4 from "@/assets/portrait-cust-4.jpg.asset.json";
+import pMarcus from "@/assets/portrait-marcus-lee.jpg.asset.json";
 import pTeam1 from "@/assets/portrait-team-1.jpg.asset.json";
 import pTeam2 from "@/assets/portrait-team-2.jpg.asset.json";
 import pTeam3 from "@/assets/portrait-team-3.jpg.asset.json";
@@ -978,13 +979,14 @@ import pTeam4 from "@/assets/portrait-team-4.jpg.asset.json";
 import callerPortrait from "@/assets/caller-portrait.jpg.asset.json";
 
 const FACES: Record<string, string> = {
-  // Customers (real people the story follows)
+  // Customers (real people the story follows) — same name always same photo.
   "Emma Wilson": pCustomer.url,
   "Jordan Clarke": pCust2.url,
   "Priya Shah": pCust3.url,
   "Karen Ng": pCust4.url,
   "Tom Bailey": callerPortrait.url,
-  // Team members — distinct from any customer face
+  "Marcus Lee": pMarcus.url,
+  // Team members — distinct from any customer face.
   "Alex": pTeam1.url,
   "Mia": pTeam2.url,
   "Sam": pTeam3.url,
