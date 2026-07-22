@@ -245,24 +245,34 @@ function EmmaRecordHeader() {
 }
 
 /* ---------- Sequenced-reveal helper ------------------------------- */
+// Motion easing tuned to feel premium — same curve for stage swaps and events.
+const V3_EASE = [0.22, 1, 0.36, 1] as const;
+
 function StepReveal({
   show, children, delay = 0, from = "up",
 }: { show: boolean; children: ReactNode; delay?: number; from?: "up" | "right" | "none" }) {
-  const translate =
-    from === "up"    ? "translate-y-1.5" :
-    from === "right" ? "translate-x-1.5" : "";
+  const reduced = useReducedMotion();
+  const offX = from === "right" ? 10 : 0;
+  const offY = from === "up" ? 10 : 0;
   return (
-    <div
-      className={`transition-all duration-[420ms] ease-out will-change-transform ${
-        show ? "opacity-100 translate-x-0 translate-y-0 scale-100" : `opacity-0 ${translate} scale-[0.985]`
-      } motion-reduce:transition-none motion-reduce:transform-none`}
-      style={{ transitionDelay: show ? `${delay}ms` : "0ms" }}
-      aria-hidden={!show}
-    >
-      {children}
-    </div>
+    <AnimatePresence initial={false}>
+      {show && (
+        <motion.div
+          initial={reduced ? { opacity: 1 } : { opacity: 0, x: offX, y: offY, scale: 0.99 }}
+          animate={reduced ? { opacity: 1 } : { opacity: 1, x: 0, y: 0, scale: 1 }}
+          exit={reduced ? { opacity: 1 } : { opacity: 0, y: -4, scale: 0.99 }}
+          transition={reduced
+            ? { duration: 0 }
+            : { duration: 0.36, ease: V3_EASE, delay: delay / 1000 }}
+          style={{ willChange: "transform, opacity" }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
+
 
 /* ---------- Story constants (single source of truth) -------------- */
 const STORY = {
