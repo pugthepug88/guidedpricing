@@ -888,10 +888,10 @@ export function JourneyV3() {
                 </aside>
 
                 <div className="flex-1 min-w-0 bg-white">
-                  {/* Persistent customer record header */}
-                  <CustomerRecordHeader />
-                  {/* Stage-varying panel — sequenced reveal inside */}
-                  <div className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`} key={reduced ? undefined : stage.key}>
+                  {/* Stage-aware customer record header */}
+                  <CustomerRecordHeader stageKey={stage.key as StageKey} step={step} finalStep={stage.steps} />
+                  {/* Stage-varying panel — sequenced reveal inside, restarts on runToken change */}
+                  <div className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`} key={reduced ? undefined : `${stage.key}-${runToken}`}>
                     {stage.panel(step)}
                   </div>
                 </div>
