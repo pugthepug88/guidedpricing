@@ -394,7 +394,7 @@ function OpportunityCard() {
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <Face src={pCust4.url} size={28} />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[11px] font-semibold text-neutral-900">Emma Wilson</div>
+          <div className="truncate text-[11px] font-semibold text-neutral-900">Daniel Nguyen</div>
           <div className="truncate text-[10px] text-neutral-500">Kitchen renovation</div>
         </div>
         <span className="rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-200">Proposal</span>
