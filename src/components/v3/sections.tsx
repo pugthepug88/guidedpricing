@@ -682,11 +682,11 @@ type StageDef = {
 const STAGES: StageDef[] = [
   { key: "capture", sub: "01", label: "Capture", nav: "contacts", steps: 2,
     headline: "Every enquiry becomes one contact record.",
-    body: "A missed call matches Emma's number and updates one contact — no duplicate, no lost detail.",
+    body: "Emma submits a Facebook lead form for the annual A/C service. Her name, phone, email and service need create one contact record in Zapla — no manual entry, no duplicate.",
     panel: (s) => <PanelCapture step={s} /> },
   { key: "communicate", sub: "02", label: "Communicate", nav: "inbox", steps: 7,
     headline: "Every channel. One conversation.",
-    body: "SMS, email, forms and social messages stay connected to the same customer.",
+    body: "SMS, email, forms and social messages all stay connected to Emma's one record.",
     panel: (s) => <PanelCommunicate step={s} /> },
   { key: "convert", sub: "03", label: "Convert", nav: "quotes", steps: 3,
     headline: "Quote accepted, time chosen, booking confirmed.",
