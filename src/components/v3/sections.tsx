@@ -784,35 +784,44 @@ export function JourneyV3() {
   const stage = STAGES[active];
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
+  const frameRef = useRef<HTMLDivElement | null>(null);
   const tabsRef = useRef<HTMLDivElement | null>(null);
   const hasEnteredRef = useRef(false);
 
-  // Autoplay only while (a) the section is visibly in view, (b) user hasn't
-  // explicitly paused. Merely hovering the section does NOT pause.
+  // Autoplay only while (a) the product frame itself is ~40% visible, and
+  // (b) the user has not explicitly paused. Merely hovering does NOT pause.
+  // Manual controls remain functional even while autoplay is out of view.
   const paused = !inView || userPaused;
 
   const step = useJourneySequence({
     active, runToken, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
   });
 
-  // IntersectionObserver: gate autoplay on visibility. Fires as soon as any
-  // part of the section enters the viewport. First entry always starts at
-  // Capture (state already initialises there); afterwards this just toggles
-  // paused so timers freeze when the section scrolls away.
+  // IntersectionObserver on the product/browser frame (not the whole section):
+  // we consider the story "in view" only when >=~40% of the animation frame
+  // is visible, using the actual intersectionRatio. On the first qualifying
+  // entry we explicitly reset to Capture step 0 and start. When the frame
+  // drops below the threshold, timers pause; when it re-enters afterwards,
+  // autoplay resumes from the current stage without jumping back.
   useEffect(() => {
-    const el = sectionRef.current;
+    const el = frameRef.current;
     if (!el || typeof IntersectionObserver === "undefined") {
       setInView(true);
       hasEnteredRef.current = true;
       return;
     }
+    const VISIBLE = 0.4;
     const io = new IntersectionObserver(
       ([e]) => {
-        const visible = e.isIntersecting;
-        if (visible && !hasEnteredRef.current) hasEnteredRef.current = true;
+        const visible = e.intersectionRatio >= VISIBLE;
+        if (visible && !hasEnteredRef.current) {
+          hasEnteredRef.current = true;
+          setActive(0);
+          setRunToken((t) => t + 1);
+        }
         setInView(visible);
       },
-      { threshold: 0.01, rootMargin: "-10% 0px -10% 0px" },
+      { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] },
     );
     io.observe(el);
     return () => io.disconnect();
