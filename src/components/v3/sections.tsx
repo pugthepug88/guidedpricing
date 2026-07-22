@@ -1289,7 +1289,7 @@ export function JourneyV3() {
         <div className="relative mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div
             ref={tabsRef}
-            className="v3-journey-tabs -mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
+            className="v3-journey-tabs min-w-0 flex-1 -mx-6 overflow-x-auto px-6 sm:overflow-x-auto sm:mx-0 sm:px-0 zapla-scroll-hide"
             role="tablist"
             aria-label="Customer journey stage"
           >
