@@ -998,10 +998,22 @@ export function JourneyV3() {
                 <div className="flex-1 min-w-0 bg-white">
                   {/* Stage-aware customer record header */}
                   <CustomerRecordHeader stageKey={stage.key as StageKey} step={step} finalStep={stage.steps} />
-                  {/* Stage-varying panel — sequenced reveal inside, restarts on runToken change */}
-                  <div className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`} key={reduced ? undefined : `${stage.key}-${runToken}`}>
-                    {stage.panel(step)}
-                  </div>
+                  {/* Stage-varying panel — sequenced reveal inside, restarts on runToken change.
+                       AnimatePresence swaps stages with a fast premium transition
+                       (subtle 10px lift, 0.99→1 scale, ~320ms) and cancels any
+                       in-flight event animations immediately when active changes. */}
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                      key={`${stage.key}-${runToken}`}
+                      className="p-5 sm:p-6"
+                      initial={reduced ? { opacity: 1 } : { opacity: 0, y: 10, scale: 0.99 }}
+                      animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+                      exit={reduced ? { opacity: 1 } : { opacity: 0, y: -8, scale: 0.99 }}
+                      transition={reduced ? { duration: 0 } : { duration: 0.32, ease: V3_EASE }}
+                    >
+                      {stage.panel(step)}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
             </div>
