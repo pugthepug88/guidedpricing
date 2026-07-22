@@ -354,7 +354,7 @@ function PanelCommunicate({ step }: { step: number }) {
     | { kind: "event"; via: "Form" | "Instagram" | "Messenger" | "Email"; title: string; detail: string; when: string }
     | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
   const events: Ev[] = [
-    { kind: "msg",   from: "z", via: "SMS",       t: "Sorry we missed your call. What can we help you with?",     when: "12:05" },
+    { kind: "msg",   from: "z", via: "SMS",       t: "Hi Emma — thanks for your enquiry. When suits you this week?",     when: "12:05" },
     { kind: "msg",   from: "e", via: "SMS",       t: "I need my annual A/C service.",                              when: "12:06" },
     { kind: "event", via: "Form",      title: "Website form submitted", detail: `Service details · Preferred day ${STORY.day}`, when: "12:10" },
     { kind: "event", via: "Instagram", title: "Instagram DM · photo",   detail: "Emma sent a photo of the split system",        when: "12:18" },
