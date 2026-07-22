@@ -4,6 +4,7 @@
  * ===================================================================== */
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { ReactNode } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   Phone, PhoneMissed, MessageSquare, Instagram, Users, Calendar as CalendarIcon,
   CreditCard, Star as StarIcon, RefreshCw, CheckCircle2, ArrowRight, ArrowLeft,
