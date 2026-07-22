@@ -227,10 +227,10 @@ function InstagramIcon({ size = 32 }: { size?: number }) {
 
 function ConversationsCard() {
   const threads = [
-    { icon: <SmsIcon size={36} />, name: "Sample customer", time: "2m", preview: "Can I move my 3pm to Thursday?", unread: true },
-    { icon: <GmailIcon size={36} />, name: "New enquiry", time: "8m", preview: "Hi, wanted to get a quote for…", unread: true },
-    { icon: <InstagramIcon size={36} />, name: "Instagram DM", time: "1h", preview: "Do you take bookings via DM?", unread: false },
-    { icon: <MessengerIcon size={36} />, name: "Messenger reply", time: "3h", preview: "Thanks, see you tomorrow", unread: false },
+    { icon: <SmsIcon size={36} />, name: "Emma Wilson", time: "2m", preview: "Can I move my 3pm to Thursday?", unread: true },
+    { icon: <GmailIcon size={36} />, name: "Marcus Lee", time: "8m", preview: "Hi, wanted to get a quote for…", unread: true },
+    { icon: <InstagramIcon size={36} />, name: "Priya Shah", time: "1h", preview: "Do you take bookings via DM?", unread: false },
+    { icon: <MessengerIcon size={36} />, name: "Daniel Nguyen", time: "3h", preview: "Thanks, see you tomorrow", unread: false },
   ];
   return (
     <Shell className="w-[320px] p-4">
@@ -411,7 +411,7 @@ function InvoiceCard() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500 text-white"><CheckCircle2 className="h-[18px] w-[18px]" /></div>
           <div>
             <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Invoice Paid</div>
-            <div className="text-[11px] text-neutral-500 leading-tight">INV-2841 · Sample customer</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">INV-2841 · Emma Wilson</div>
           </div>
         </div>
         <div className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200">PAID</div>

@@ -141,7 +141,7 @@ function CustomerRecordHeader() {
         </div>
         <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
           <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />+61 4•• ••• •••</span>
-          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma@example.com</span>
+          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</span>
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
@@ -877,7 +877,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Consultation</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample enquiry · Tue 10:00 AM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Marcus Lee · Tue 10:00 AM</div>
         <div className="mt-1 text-[12px] text-slate-500">Intake notes attached, advisor assigned</div>
       </div>
     ),
@@ -894,7 +894,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Inspection booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample listing · Thu 4:30 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">12 Harbour Lane · Thu 4:30 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Agent assigned, reminders queued</div>
       </div>
     ),
@@ -911,7 +911,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Appointment</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample enquiry · Wed 2:00 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Priya Shah · Wed 2:00 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Payslips and ID uploaded, checklist complete</div>
       </div>
     ),
@@ -928,7 +928,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Reminder sent</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample patient · 24h check-in</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Olivia Chen · 24h check-in</div>
         <div className="mt-1 text-[12px] text-slate-500">One-tap rebook enabled</div>
       </div>
     ),
@@ -945,7 +945,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Trial booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample studio · Sat 8:00 AM class</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Daniel Nguyen · Sat 8:00 AM class</div>
         <div className="mt-1 text-[12px] text-slate-500">Follow-up scheduled in 3 days</div>
       </div>
     ),
@@ -962,7 +962,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Site visit</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample job · Thu 2:00 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Emma Wilson · Thu 2:00 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Assigned to on-call tech, quote pending</div>
       </div>
     ),
@@ -979,7 +979,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Service booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample vehicle · Mon 9:00 AM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Marcus Lee · Mon 9:00 AM</div>
         <div className="mt-1 text-[12px] text-slate-500">Log book service, reminder set for 6 months</div>
       </div>
     ),
@@ -996,7 +996,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Return offer sent</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample stay · 2-night booking</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Priya Shah · 2-night booking</div>
         <div className="mt-1 text-[12px] text-slate-500">Review request queued, repeat-guest discount</div>
       </div>
     ),
