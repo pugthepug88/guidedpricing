@@ -1168,18 +1168,14 @@ function OutcomesV3() {
       <div className="mx-auto max-w-6xl">
         <div className="flex items-end justify-between gap-8 flex-wrap">
           <div className="max-w-2xl">
-            <SectionEyebrow>The outcome</SectionEyebrow>
-            <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+            <h2 className="font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
               What changes when nothing falls through.
             </h2>
           </div>
-          <p className="max-w-sm text-[15px] leading-relaxed text-slate-600">
-            Four small changes across the customer journey. Together they compound into a business that runs itself.
-          </p>
         </div>
 
         {/* Lead outcome — editorial split */}
-        <div className="mt-14 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16 items-center">
+        <div className="mt-10 grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16 items-center">
           <div>
             <div className="text-[13px] font-mono text-slate-400">01 / 04</div>
             <h3 className="mt-2 font-zapla text-[28px] sm:text-[38px] font-semibold tracking-tight text-slate-950 leading-[1.1]">
@@ -1194,7 +1190,7 @@ function OutcomesV3() {
               </span>
               <ArrowRight className="h-3 w-3 text-slate-400" />
               <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
-                <MessageCircle className="h-3 w-3 text-emerald-600" /> Auto SMS
+                <MessageCircle className="h-3 w-3 text-emerald-600" /> Instantly
               </span>
               <ArrowRight className="h-3 w-3 text-slate-400" />
               <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
@@ -1209,47 +1205,63 @@ function OutcomesV3() {
               <div className="flex items-center gap-2 text-[13px] font-semibold text-slate-800">
                 <StatusDot tone="emerald" /> Live inbox
               </div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Inbox · today</span>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">Today</span>
             </div>
             <div className="mt-5 space-y-3">
-              {/* Missed call */}
+              {/* Missed call from Emma */}
               <div className="flex items-start gap-3">
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-rose-50 text-rose-600 ring-1 ring-rose-100">
                   <PhoneMissed className="h-4 w-4" />
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-semibold text-slate-900">Missed call · 04•• ••• •••</span>
+                    <span className="text-[13px] font-semibold text-slate-900">Missed call · Emma Wilson</span>
                     <span className="text-[11px] text-slate-400">12:04 PM</span>
                   </div>
-                  <div className="text-[12px] text-slate-500">Unknown caller</div>
+                  <div className="text-[12px] text-slate-500">Rang for 18 seconds</div>
                 </div>
               </div>
-              {/* Auto SMS */}
+              {/* Instant reply */}
               <div className="flex items-start gap-3">
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
                   <MessageCircle className="h-4 w-4" />
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-semibold text-slate-900">SMS auto-reply sent</span>
+                    <span className="text-[13px] font-semibold text-slate-900">Instant reply sent</span>
                     <span className="text-[11px] text-slate-400">12:04 PM</span>
                   </div>
                   <div className="mt-1 rounded-xl rounded-tl-sm bg-slate-50 px-3 py-2 text-[12px] text-slate-700 ring-1 ring-slate-100">
-                    Sorry we missed you — reply here with what you need and we'll get back within the hour.
+                    Sorry we missed your call. What can we help you with? I can also show you our next available times.
                   </div>
                 </div>
               </div>
-              {/* Customer reply */}
+              {/* Emma reply */}
               <div className="flex items-start gap-3">
                 <img src={pCustomer.url} alt="" width={36} height={36} className="shrink-0 rounded-full object-cover ring-2 ring-white" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <span className="text-[13px] font-semibold text-slate-900">Emma Wilson</span>
-                    <span className="text-[11px] text-slate-400">12:06 PM</span>
+                    <span className="text-[11px] text-slate-400">12:05 PM</span>
                   </div>
                   <div className="mt-1 rounded-xl rounded-tl-sm bg-blue-50 px-3 py-2 text-[12px] text-slate-800 ring-1 ring-blue-100">
-                    Hi — after a quote for a bathroom reno in the local area. Can I book a site visit this week?
+                    Hi, can I book a service for Thursday?
+                  </div>
+                </div>
+              </div>
+              {/* Zapla offers times */}
+              <div className="flex items-start gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
+                  <CalendarIcon className="h-4 w-4" />
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-semibold text-slate-900">Available Thursday</span>
+                    <span className="text-[11px] text-slate-400">12:05 PM</span>
+                  </div>
+                  <div className="mt-1 flex flex-wrap gap-1.5">
+                    <span className="inline-flex items-center rounded-lg bg-white px-2.5 py-1 text-[12px] font-medium text-slate-700 ring-1 ring-slate-200">11:00 AM</span>
+                    <span className="inline-flex items-center rounded-lg bg-slate-950 px-2.5 py-1 text-[12px] font-medium text-white ring-1 ring-slate-900">2:00 PM ✓</span>
                   </div>
                 </div>
               </div>
@@ -1259,7 +1271,7 @@ function OutcomesV3() {
                   <CalendarIcon className="h-3.5 w-3.5" />
                 </span>
                 <div className="flex-1 text-[12px]">
-                  <div className="font-semibold">Booking placed · Thu 2:00 PM</div>
+                  <div className="font-semibold">Booking confirmed · Thu 2:00 PM</div>
                   <div className="text-white/60 text-[11px]">Assigned to Alex · confirmation sent</div>
                 </div>
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
@@ -1267,6 +1279,7 @@ function OutcomesV3() {
             </div>
           </V3Card>
         </div>
+
 
         {/* Supporting outcomes — thin dividers */}
         <div className="mt-20 grid divide-y divide-slate-200 border-y border-slate-200 md:grid-cols-3 md:divide-y-0 md:divide-x">
