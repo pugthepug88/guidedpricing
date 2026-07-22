@@ -893,7 +893,7 @@ export function JourneyV3() {
           </div>
 
           {/* Compact transport: Prev · Play/Pause · Next · Replay */}
-          <div className="flex items-center gap-1.5 self-start sm:self-auto">
+          <div className="flex items-center gap-1.5 self-start lg:self-auto">
             <button
               type="button"
               onClick={handlePrev}
