@@ -129,7 +129,94 @@ type Stage = {
   panel: ReactNode;
 };
 
-function CustomerRecordHeader() {
+type StageKey = "capture" | "communicate" | "convert" | "operate" | "retain" | "grow";
+
+function headerStatus(stageKey: StageKey, step: number, finalStep: number): {
+  label: string; tone: "slate" | "blue" | "amber" | "emerald" | "violet";
+} {
+  switch (stageKey) {
+    case "capture":     return { label: "Enquiry",             tone: "blue"    };
+    case "communicate": return { label: "Enquiry",             tone: "blue"    };
+    case "convert":
+      if (step >= 3)    return { label: "Booked",              tone: "emerald" };
+      if (step >= 1)    return { label: "Quote sent",          tone: "amber"   };
+      return              { label: "Enquiry",                  tone: "blue"    };
+    case "operate":     return { label: "Scheduled",           tone: "emerald" };
+    case "retain":      return { label: "Customer",            tone: "violet"  };
+    case "grow":
+      if (step >= finalStep) return { label: "Returning customer", tone: "violet" };
+      return              { label: "Customer",                 tone: "violet"  };
+  }
+}
+const toneClasses = (t: "slate" | "blue" | "amber" | "emerald" | "violet") => {
+  switch (t) {
+    case "emerald": return "bg-emerald-50 text-emerald-700 ring-emerald-100";
+    case "amber":   return "bg-amber-50 text-amber-700 ring-amber-100";
+    case "violet":  return "bg-violet-50 text-violet-700 ring-violet-100";
+    case "blue":    return "bg-blue-50 text-blue-700 ring-blue-100";
+    case "slate":   return "bg-slate-100 text-slate-600 ring-slate-200";
+  }
+};
+
+function CustomerRecordHeader({ stageKey, step, finalStep }: { stageKey: StageKey; step: number; finalStep: number }) {
+  // Capture is the only place the identity has not resolved yet.
+  const unknown = stageKey === "capture" && step < 2;
+  const status = headerStatus(stageKey, step, finalStep);
+  return (
+    <div className="flex items-center gap-4 border-b border-slate-100 px-5 py-4 sm:px-6 transition-colors">
+      {unknown ? (
+        <span
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-slate-100 text-slate-500 ring-2 ring-white"
+          aria-hidden
+        >
+          <Phone className="h-4 w-4" />
+        </span>
+      ) : (
+        <CustomerAvatar size={44} />
+      )}
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <div className={`text-[14px] font-semibold transition-colors ${unknown ? "text-slate-500 italic" : "text-slate-900"}`}>
+            {unknown ? "Unknown caller" : "Emma Wilson"}
+          </div>
+          <span
+            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ring-1 transition-colors ${
+              unknown ? toneClasses("slate") : toneClasses(status.tone)
+            }`}
+          >
+            {unknown ? "Captured" : status.label}
+          </span>
+        </div>
+        <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
+          <span className="inline-flex items-center gap-1">
+            <Phone className="h-3 w-3" />
+            {unknown ? "+61 4•• ••• •••" : "+61 4•• ••• •••"}
+          </span>
+          {!unknown && (
+            <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</span>
+          )}
+          {unknown && (
+            <span className="hidden sm:inline-flex items-center gap-1 text-slate-400">Identifying…</span>
+          )}
+        </div>
+      </div>
+      <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
+        <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-semibold ring-1 transition-colors ${
+          unknown
+            ? "bg-slate-100 text-slate-500 ring-slate-200"
+            : "bg-emerald-50 text-emerald-700 ring-emerald-100"
+        }`}>
+          <span className={`h-1.5 w-1.5 rounded-full ${unknown ? "bg-slate-400" : "bg-emerald-500"}`} />
+          {unknown ? "New" : "Active"}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+
+/* Legacy static header used by OneRecordV3 only (Journey uses the stage-aware header above). */
+function EmmaRecordHeader() {
   return (
     <div className="flex items-center gap-4 border-b border-slate-100 px-5 py-4 sm:px-6">
       <CustomerAvatar size={44} />
@@ -152,8 +239,6 @@ function CustomerRecordHeader() {
     </div>
   );
 }
-const EmmaRecordHeader = CustomerRecordHeader;
-
 
 /* ---------- Sequenced-reveal helper ------------------------------- */
 function StepReveal({
@@ -189,26 +274,35 @@ const STORY = {
 
 function PanelCapture({ step }: { step: number }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" data-testid="panel-capture">
       <StepReveal show={step >= 1}>
-        <div className="rounded-xl bg-rose-50/60 p-3.5 ring-1 ring-rose-100">
+        <div className="rounded-xl bg-rose-50/60 p-3.5 ring-1 ring-rose-100" data-testid="capture-step-1">
           <div className="flex items-center gap-3">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
             <div className="flex-1 min-w-0">
               <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-              <div className="text-[12px] text-slate-600">Number matched to Emma Wilson · contact updated</div>
+              <div className="text-[12px] text-slate-600">Unknown phone number · no matching contact yet</div>
             </div>
-            <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">Matched</span>
+            <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 ring-1 ring-slate-200 rounded-full px-2 py-0.5">Captured</span>
           </div>
         </div>
       </StepReveal>
       <StepReveal show={step >= 2}>
-        <div className="rounded-xl bg-white p-3.5 ring-1 ring-slate-200">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Activity</div>
-          <div className="mt-2 space-y-2 text-[12.5px] text-slate-700">
-            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-500" />Contact updated from inbound call</div>
-            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Tagged <span className="font-medium">Enquiry</span> · source <span className="font-medium">Phone</span></div>
-            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Interest: <span className="font-medium">{STORY.service}</span></div>
+        <div className="rounded-xl bg-white p-3.5 ring-1 ring-slate-200" data-testid="capture-step-2">
+          <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+            <Users className="h-3 w-3" />New contact created
+          </div>
+          <div className="mt-2 flex items-center gap-3">
+            <CustomerAvatar size={32} />
+            <div className="min-w-0 flex-1">
+              <div className="text-[13px] font-semibold text-slate-900">Emma Wilson · identified</div>
+              <div className="text-[12px] text-slate-500">One contact record created from inbound call</div>
+            </div>
+            <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Enquiry</span>
+          </div>
+          <div className="mt-3 space-y-1.5 text-[12.5px] text-slate-700">
+            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Source <span className="font-medium">Phone</span></div>
+            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Interest <span className="font-medium">{STORY.service}</span></div>
           </div>
         </div>
       </StepReveal>
@@ -253,13 +347,13 @@ function PanelCommunicate({ step }: { step: number }) {
     | { kind: "event"; via: "Form" | "Instagram" | "Messenger" | "Email"; title: string; detail: string; when: string }
     | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
   const events: Ev[] = [
-    { kind: "event", via: "Form",      title: "Website form submitted", detail: `Service: ${STORY.serviceShort} · Preferred: ${STORY.day}`, when: "11:52" },
-    { kind: "event", via: "Instagram", title: "Instagram DM",           detail: "Asked if the service covers split systems",            when: "11:58" },
-    { kind: "event", via: "Messenger", title: "Messenger reply",        detail: "Confirmed the address and gate code",                  when: "12:01" },
-    { kind: "msg",   from: "z", via: "SMS", t: `Hi Emma, ${STORY.day} ${STORY.time} for your ${STORY.serviceShort}?`,  when: "12:04" },
-    { kind: "msg",   from: "e", via: "SMS", t: "Yes please, that works.",                                              when: "12:06" },
-    { kind: "event", via: "Email",     title: "Email · booking details", detail: "Confirmation, address on file and prep notes sent",   when: "12:08" },
-    { kind: "msg",   from: "e", via: "SMS", t: "Got the email, all good. Thanks!",                                     when: "12:09" },
+    { kind: "msg",   from: "z", via: "SMS",       t: "Sorry we missed your call. What can we help you with?",     when: "12:05" },
+    { kind: "msg",   from: "e", via: "SMS",       t: "I need my annual A/C service.",                              when: "12:06" },
+    { kind: "event", via: "Form",      title: "Website form submitted", detail: `Service details · Preferred day ${STORY.day}`, when: "12:10" },
+    { kind: "event", via: "Instagram", title: "Instagram DM · photo",   detail: "Emma sent a photo of the split system",        when: "12:18" },
+    { kind: "event", via: "Messenger", title: "Messenger reply",        detail: "Confirmed the address and access details",     when: "12:22" },
+    { kind: "msg",   from: "z", via: "SMS",       t: "Thanks Emma — I'll send your quote and available times next.", when: "12:24" },
+    { kind: "event", via: "Email",     title: "Email · quote and times", detail: "Quote and available times sent",              when: "12:30" },
   ];
   const chip = (via: string) => {
     if (via === "SMS")       return "bg-emerald-50 text-emerald-700 ring-emerald-100";
@@ -607,19 +701,25 @@ const STAGES: StageDef[] = [
 
 /* ---------- Sequenced auto-play hook ------------------------------- */
 function useJourneySequence({
-  active, steps, setActive, reduced, paused, stageCount,
+  active, runToken, steps, setActive, reduced, paused, stageCount,
 }: {
-  active: number; steps: number; setActive: (i: number) => void;
+  active: number; runToken: number; steps: number; setActive: (i: number) => void;
   reduced: boolean; paused: boolean; stageCount: number;
 }) {
   const [step, setStep] = useState(reduced ? steps : 0);
   const activeRef = useRef(active);
 
-  // Reset when active changes or reduced-motion toggles.
-  useEffect(() => {
+  // Render-time reset: when active, runToken, reduced-motion, or step count changes,
+  // synchronously drop step back to 0 (or final for reduced motion) so the panel that
+  // mounts on this same render already sees the reset value.
+  const lastKeyRef = useRef({ active, runToken, reduced, steps });
+  const lastKey = lastKeyRef.current;
+  if (lastKey.active !== active || lastKey.runToken !== runToken || lastKey.reduced !== reduced || lastKey.steps !== steps) {
+    lastKeyRef.current = { active, runToken, reduced, steps };
     activeRef.current = active;
     setStep(reduced ? steps : 0);
-  }, [active, reduced, steps]);
+  }
+
 
   useEffect(() => {
     if (reduced || paused) return;
@@ -633,18 +733,19 @@ function useJourneySequence({
     }
     const t = window.setTimeout(() => setStep((s) => s + 1), step === 0 ? 250 : 900);
     return () => window.clearTimeout(t);
-  }, [step, steps, reduced, paused, active, setActive, stageCount]);
+  }, [step, steps, reduced, paused, active, setActive, stageCount, runToken]);
 
   return step;
 }
 
 export function JourneyV3() {
   const [active, setActive] = useState(0);
+  const [runToken, setRunToken] = useState(0);
   const [paused, setPaused] = useState(false);
   const stage = STAGES[active];
   const reduced = useReducedMotion();
   const step = useJourneySequence({
-    active, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
+    active, runToken, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
   });
   const tabsRef = useRef<HTMLDivElement | null>(null);
 
@@ -654,9 +755,12 @@ export function JourneyV3() {
     el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
   }, [active, reduced]);
 
+  // Clicking any chapter — including the currently active one — restarts its sequence.
   const handleSelect = (i: number) => {
-    setActive(i); // step resets via effect
+    if (i !== active) setActive(i);
+    setRunToken((t) => t + 1);
   };
+
 
   return (
     <section
@@ -794,10 +898,10 @@ export function JourneyV3() {
                 </aside>
 
                 <div className="flex-1 min-w-0 bg-white">
-                  {/* Persistent customer record header */}
-                  <CustomerRecordHeader />
-                  {/* Stage-varying panel — sequenced reveal inside */}
-                  <div className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`} key={reduced ? undefined : stage.key}>
+                  {/* Stage-aware customer record header */}
+                  <CustomerRecordHeader stageKey={stage.key as StageKey} step={step} finalStep={stage.steps} />
+                  {/* Stage-varying panel — sequenced reveal inside, restarts on runToken change */}
+                  <div className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`} key={reduced ? undefined : `${stage.key}-${runToken}`}>
                     {stage.panel(step)}
                   </div>
                 </div>
