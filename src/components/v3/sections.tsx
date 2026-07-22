@@ -557,11 +557,6 @@ export function JourneyV3() {
                   key={reduced ? undefined : stage.key}
                   className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`}
                 >
-                  <div className="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                    <span className="font-mono text-slate-400">{stage.sub}</span>
-                    <span>·</span>
-                    <span className="text-slate-500">{stage.label}</span>
-                  </div>
                   {stage.panel}
                 </div>
               </div>
