@@ -2,13 +2,14 @@
  *  V3 rebuilt sections — Journey, Automation, Professions, One Record
  *  Scope: /hero-preview-v3 only. Do NOT reuse on other routes.
  * ===================================================================== */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import type { ReactNode } from "react";
 import {
   Phone, PhoneMissed, MessageSquare, Instagram, Users, Calendar as CalendarIcon,
   CreditCard, Star as StarIcon, RefreshCw, CheckCircle2, ArrowRight, ArrowLeft,
   FileText, Send, Bell, Globe, Briefcase, HeartPulse, Home as HomeIcon, Wrench,
-  Dumbbell, Sparkles, Mail, ChevronRight, Car, Building2, BedDouble,
+  Dumbbell, Sparkles, Mail, ChevronRight, ChevronLeft, Car, Building2, BedDouble,
+  Play, Pause, RotateCcw, Facebook,
 } from "lucide-react";
 import industryRealEstate from "@/assets/industry-real-estate.png.asset.json";
 import industryHealthcare from "@/assets/industry-healthcare.png.asset.json";
@@ -159,55 +160,57 @@ const toneClasses = (t: "slate" | "blue" | "amber" | "emerald" | "violet") => {
 };
 
 function CustomerRecordHeader({ stageKey, step, finalStep }: { stageKey: StageKey; step: number; finalStep: number }) {
-  // Capture is the only place the identity has not resolved yet.
-  const unknown = stageKey === "capture" && step < 2;
+  // Identity resolves at Capture step 1 (Facebook / website lead form contains
+  // Emma's name, phone, email and service need). Before step 1 we show the
+  // pending state — an inbound lead is landing.
+  const pending = stageKey === "capture" && step < 1;
   const status = headerStatus(stageKey, step, finalStep);
   return (
     <div className="flex items-center gap-4 border-b border-slate-100 px-5 py-4 sm:px-6 transition-colors">
-      {unknown ? (
+      {pending ? (
         <span
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-slate-100 text-slate-500 ring-2 ring-white"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-slate-100 text-slate-400 ring-2 ring-white"
           aria-hidden
         >
-          <Phone className="h-4 w-4" />
+          <Users className="h-4 w-4" />
         </span>
       ) : (
         <CustomerAvatar size={44} />
       )}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <div className={`text-[14px] font-semibold transition-colors ${unknown ? "text-slate-500 italic" : "text-slate-900"}`}>
-            {unknown ? "Unknown caller" : "Emma Wilson"}
+          <div className={`text-[14px] font-semibold transition-colors ${pending ? "text-slate-400 italic" : "text-slate-900"}`}>
+            {pending ? "New lead arriving…" : "Emma Wilson"}
           </div>
           <span
             className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ring-1 transition-colors ${
-              unknown ? toneClasses("slate") : toneClasses(status.tone)
+              pending ? toneClasses("slate") : toneClasses(status.tone)
             }`}
           >
-            {unknown ? "Captured" : status.label}
+            {pending ? "Incoming" : status.label}
           </span>
         </div>
         <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
           <span className="inline-flex items-center gap-1">
             <Phone className="h-3 w-3" />
-            {unknown ? "+61 4•• ••• •••" : "+61 4•• ••• •••"}
+            +61 4•• ••• •••
           </span>
-          {!unknown && (
+          {!pending && (
             <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</span>
           )}
-          {unknown && (
-            <span className="hidden sm:inline-flex items-center gap-1 text-slate-400">Identifying…</span>
+          {pending && (
+            <span className="hidden sm:inline-flex items-center gap-1 text-slate-400">Awaiting lead form…</span>
           )}
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
         <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-semibold ring-1 transition-colors ${
-          unknown
+          pending
             ? "bg-slate-100 text-slate-500 ring-slate-200"
             : "bg-emerald-50 text-emerald-700 ring-emerald-100"
         }`}>
-          <span className={`h-1.5 w-1.5 rounded-full ${unknown ? "bg-slate-400" : "bg-emerald-500"}`} />
-          {unknown ? "New" : "Active"}
+          <span className={`h-1.5 w-1.5 rounded-full ${pending ? "bg-slate-400" : "bg-emerald-500"}`} />
+          {pending ? "New" : "Active"}
         </span>
       </div>
     </div>
@@ -276,33 +279,37 @@ function PanelCapture({ step }: { step: number }) {
   return (
     <div className="space-y-3" data-testid="panel-capture">
       <StepReveal show={step >= 1}>
-        <div className="rounded-xl bg-rose-50/60 p-3.5 ring-1 ring-rose-100" data-testid="capture-step-1">
+        <div className="rounded-xl bg-white p-3.5 ring-1 ring-slate-200" data-testid="capture-step-1">
           <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-[#1877F2]/10 text-[#1877F2] ring-1 ring-[#1877F2]/20">
+              <Facebook className="h-4 w-4" />
+            </span>
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-              <div className="text-[12px] text-slate-600">Unknown phone number · no matching contact yet</div>
+              <div className="text-[13px] font-semibold text-slate-900">Facebook lead form submitted · 12:04 PM</div>
+              <div className="text-[12px] text-slate-500">Campaign · Annual A/C service — Local area</div>
             </div>
-            <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 ring-1 ring-slate-200 rounded-full px-2 py-0.5">Captured</span>
+            <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Captured</span>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 text-[12px] text-slate-700 sm:text-[12.5px]">
+            <div className="flex items-center gap-1.5"><span className="text-slate-400">Name</span><span className="font-medium">Emma Wilson</span></div>
+            <div className="flex items-center gap-1.5"><span className="text-slate-400">Phone</span><span className="font-medium">+61 4•• ••• •••</span></div>
+            <div className="flex items-center gap-1.5 col-span-2 sm:col-span-1"><span className="text-slate-400">Email</span><span className="font-medium truncate">emma.wilson@northline.com.au</span></div>
+            <div className="flex items-center gap-1.5"><span className="text-slate-400">Service</span><span className="font-medium">{STORY.service}</span></div>
           </div>
         </div>
       </StepReveal>
       <StepReveal show={step >= 2}>
-        <div className="rounded-xl bg-white p-3.5 ring-1 ring-slate-200" data-testid="capture-step-2">
-          <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-            <Users className="h-3 w-3" />New contact created
+        <div className="rounded-xl bg-emerald-50/50 p-3.5 ring-1 ring-emerald-100" data-testid="capture-step-2">
+          <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-emerald-700">
+            <CheckCircle2 className="h-3 w-3" />Contact created in Zapla
           </div>
           <div className="mt-2 flex items-center gap-3">
             <CustomerAvatar size={32} />
             <div className="min-w-0 flex-1">
-              <div className="text-[13px] font-semibold text-slate-900">Emma Wilson · identified</div>
-              <div className="text-[12px] text-slate-500">One contact record created from inbound call</div>
+              <div className="text-[13px] font-semibold text-slate-900">Emma Wilson · one connected record</div>
+              <div className="text-[12px] text-slate-500">Source Facebook Lead Ads · Enquiry opened</div>
             </div>
             <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Enquiry</span>
-          </div>
-          <div className="mt-3 space-y-1.5 text-[12.5px] text-slate-700">
-            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Source <span className="font-medium">Phone</span></div>
-            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Interest <span className="font-medium">{STORY.service}</span></div>
           </div>
         </div>
       </StepReveal>
@@ -347,7 +354,7 @@ function PanelCommunicate({ step }: { step: number }) {
     | { kind: "event"; via: "Form" | "Instagram" | "Messenger" | "Email"; title: string; detail: string; when: string }
     | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
   const events: Ev[] = [
-    { kind: "msg",   from: "z", via: "SMS",       t: "Sorry we missed your call. What can we help you with?",     when: "12:05" },
+    { kind: "msg",   from: "z", via: "SMS",       t: "Hi Emma — thanks for your enquiry. When suits you this week?",     when: "12:05" },
     { kind: "msg",   from: "e", via: "SMS",       t: "I need my annual A/C service.",                              when: "12:06" },
     { kind: "event", via: "Form",      title: "Website form submitted", detail: `Service details · Preferred day ${STORY.day}`, when: "12:10" },
     { kind: "event", via: "Instagram", title: "Instagram DM · photo",   detail: "Emma sent a photo of the split system",        when: "12:18" },
@@ -675,11 +682,11 @@ type StageDef = {
 const STAGES: StageDef[] = [
   { key: "capture", sub: "01", label: "Capture", nav: "contacts", steps: 2,
     headline: "Every enquiry becomes one contact record.",
-    body: "A missed call matches Emma's number and updates one contact — no duplicate, no lost detail.",
+    body: "Emma submits a Facebook lead form for the annual A/C service. Her name, phone, email and service need create one contact record in Zapla — no manual entry, no duplicate.",
     panel: (s) => <PanelCapture step={s} /> },
   { key: "communicate", sub: "02", label: "Communicate", nav: "inbox", steps: 7,
     headline: "Every channel. One conversation.",
-    body: "SMS, email, forms and social messages stay connected to the same customer.",
+    body: "SMS, email, forms and social messages all stay connected to Emma's one record.",
     panel: (s) => <PanelCommunicate step={s} /> },
   { key: "convert", sub: "03", label: "Convert", nav: "quotes", steps: 3,
     headline: "Quote accepted, time chosen, booking confirmed.",
@@ -699,7 +706,25 @@ const STAGES: StageDef[] = [
     panel: (s) => <PanelGrow step={s} /> },
 ];
 
-/* ---------- Sequenced auto-play hook ------------------------------- */
+/* ---------- Sequenced auto-play hook -------------------------------
+ * Timing target: complete six-stage journey in ~28–30s.
+ *   - first-step reveal: 300ms after stage enters
+ *   - subsequent events:  1000ms
+ *   - stage linger:       1800ms (last stage: 2500ms before looping to Capture)
+ * Cycle math (steps: 2+7+3+3+3+3 = 21):
+ *   capture     : 300 + 1×1000 + 1800 = 3100
+ *   communicate : 300 + 6×1000 + 1800 = 8100
+ *   convert     : 300 + 2×1000 + 1800 = 4100
+ *   operate     : 4100
+ *   retain      : 4100
+ *   grow        : 300 + 2×1000 + 2500 = 4800
+ *   total       ≈ 28.3s
+ * ------------------------------------------------------------------ */
+const STEP_FIRST_MS   = 300;
+const STEP_BETWEEN_MS = 1000;
+const STAGE_LINGER_MS = 1800;
+const LOOP_LINGER_MS  = 2500;
+
 function useJourneySequence({
   active, runToken, steps, setActive, reduced, paused, stageCount,
 }: {
@@ -709,9 +734,8 @@ function useJourneySequence({
   const [step, setStep] = useState(reduced ? steps : 0);
   const activeRef = useRef(active);
 
-  // Render-time reset: when active, runToken, reduced-motion, or step count changes,
-  // synchronously drop step back to 0 (or final for reduced motion) so the panel that
-  // mounts on this same render already sees the reset value.
+  // Render-time reset when active/runToken/reduced/steps change — the panel
+  // that mounts on this same render already sees the fresh step value.
   const lastKeyRef = useRef({ active, runToken, reduced, steps });
   const lastKey = lastKeyRef.current;
   if (lastKey.active !== active || lastKey.runToken !== runToken || lastKey.reduced !== reduced || lastKey.steps !== steps) {
@@ -720,18 +744,21 @@ function useJourneySequence({
     setStep(reduced ? steps : 0);
   }
 
-
   useEffect(() => {
     if (reduced || paused) return;
     if (step >= steps) {
-      const linger = 1600;
+      const isLast = active === stageCount - 1;
+      const linger = isLast ? LOOP_LINGER_MS : STAGE_LINGER_MS;
       const t = window.setTimeout(() => {
         if (activeRef.current !== active) return;
         setActive((active + 1) % stageCount);
       }, linger);
       return () => window.clearTimeout(t);
     }
-    const t = window.setTimeout(() => setStep((s) => s + 1), step === 0 ? 250 : 900);
+    const t = window.setTimeout(
+      () => setStep((s) => s + 1),
+      step === 0 ? STEP_FIRST_MS : STEP_BETWEEN_MS,
+    );
     return () => window.clearTimeout(t);
   }, [step, steps, reduced, paused, active, setActive, stageCount, runToken]);
 
@@ -741,36 +768,76 @@ function useJourneySequence({
 export function JourneyV3() {
   const [active, setActive] = useState(0);
   const [runToken, setRunToken] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
+  const [inView, setInView] = useState(false);
   const stage = STAGES[active];
   const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
+  const hasEnteredRef = useRef(false);
+
+  // Autoplay only while (a) the section is visibly in view, (b) user hasn't
+  // explicitly paused. Merely hovering the section does NOT pause.
+  const paused = !inView || userPaused;
+
   const step = useJourneySequence({
     active, runToken, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
   });
-  const tabsRef = useRef<HTMLDivElement | null>(null);
 
-  // Bring active chapter into view on mobile.
+  // IntersectionObserver: gate autoplay on visibility. Fires as soon as any
+  // part of the section enters the viewport. First entry always starts at
+  // Capture (state already initialises there); afterwards this just toggles
+  // paused so timers freeze when the section scrolls away.
   useEffect(() => {
-    const el = tabsRef.current?.querySelector<HTMLButtonElement>(`[data-stage="${active}"]`);
-    el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      hasEnteredRef.current = true;
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([e]) => {
+        const visible = e.isIntersecting;
+        if (visible && !hasEnteredRef.current) hasEnteredRef.current = true;
+        setInView(visible);
+      },
+      { threshold: 0.01, rootMargin: "-10% 0px -10% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Bring active chapter into view (only within the tabs strip, never the page).
+  useEffect(() => {
+    const container = tabsRef.current;
+    const el = container?.querySelector<HTMLButtonElement>(`[data-stage="${active}"]`);
+    if (!container || !el) return;
+    const cRect = container.getBoundingClientRect();
+    const eRect = el.getBoundingClientRect();
+    if (eRect.left < cRect.left || eRect.right > cRect.right) {
+      const target = el.offsetLeft - (container.clientWidth - el.clientWidth) / 2;
+      container.scrollTo({ left: Math.max(0, target), behavior: reduced ? "auto" : "smooth" });
+    }
   }, [active, reduced]);
 
-  // Clicking any chapter — including the currently active one — restarts its sequence.
-  const handleSelect = (i: number) => {
-    if (i !== active) setActive(i);
+  // Clicking any chapter — active or not — resets its sequence to step 0.
+  const handleSelect = useCallback((i: number) => {
+    const clamped = ((i % STAGES.length) + STAGES.length) % STAGES.length;
+    if (clamped !== active) setActive(clamped);
     setRunToken((t) => t + 1);
-  };
+  }, [active]);
 
+  const handlePrev    = () => handleSelect(active - 1);
+  const handleNext    = () => handleSelect(active + 1);
+  const handleReplay  = () => { setUserPaused(false); handleSelect(0); };
+  const togglePlay    = () => setUserPaused((p) => !p);
+
+  const growComplete = active === STAGES.length - 1 && (reduced || step >= stage.steps);
 
   return (
     <section
+      ref={sectionRef}
       className="bg-slate-50 py-24 sm:py-32 px-6"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) setPaused(false);
-      }}
     >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
@@ -783,15 +850,15 @@ export function JourneyV3() {
           </p>
         </div>
 
-        {/* Chapter selector */}
-        <div className="relative mt-10">
+        {/* Chapter selector + transport controls */}
+        <div className="relative mt-10 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div
             ref={tabsRef}
-            className="v3-journey-tabs -mx-6 overflow-x-auto px-8 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
+            className="v3-journey-tabs -mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
             role="tablist"
             aria-label="Customer journey stage"
           >
-            <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0 sm:justify-center">
+            <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0">
               {STAGES.map((s, i) => {
                 const isActive = i === active;
                 const isDone = i < active;
@@ -818,35 +885,55 @@ export function JourneyV3() {
               })}
             </div>
           </div>
+
+          {/* Compact transport: Prev · Play/Pause · Next · Replay */}
+          <div className="flex items-center gap-1.5 self-start lg:self-auto">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous stage"
+              className="grid h-8 w-8 place-items-center rounded-full bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 transition-colors"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={userPaused ? "Play journey" : "Pause journey"}
+              aria-pressed={userPaused}
+              className="grid h-8 w-8 place-items-center rounded-full bg-slate-950 text-white ring-1 ring-slate-950 hover:bg-slate-800 transition-colors"
+            >
+              {userPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next stage"
+              className="grid h-8 w-8 place-items-center rounded-full bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 transition-colors"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={handleReplay}
+              aria-label="Replay from Capture"
+              className="ml-1 inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-slate-700 ring-1 ring-slate-200 hover:text-slate-950 hover:ring-slate-300 transition-colors"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />Replay
+            </button>
+          </div>
         </div>
 
-        {/* One continuous progress line with pulse toward next stage */}
-        <div className="mt-6 mx-auto max-w-3xl flex items-center gap-1.5 sm:gap-2" aria-hidden>
-          {STAGES.map((_, i) => {
-            const done = i < active;
-            const now = i === active;
-            const stageProgress = now ? Math.min(1, step / Math.max(1, stage.steps)) : done ? 1 : 0;
-            return (
-              <div key={i} className="flex flex-1 items-center gap-1.5 sm:gap-2 last:flex-none">
-                <span
-                  className={`relative grid h-2.5 w-2.5 shrink-0 place-items-center rounded-full transition-all ${now ? "bg-blue-600 ring-4 ring-blue-100" : done ? "bg-blue-600" : "bg-slate-300"}`}
-                >
-                  {now && !reduced && (
-                    <span className="absolute inset-0 rounded-full bg-blue-500/40 motion-safe:animate-ping" />
-                  )}
-                </span>
-                {i < STAGES.length - 1 && (
-                  <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-slate-200">
-                    <div
-                      className="absolute inset-y-0 left-0 rounded-full bg-blue-600 transition-[width] duration-500 ease-out"
-                      style={{ width: `${stageProgress * 100}%` }}
-                    />
-                  </div>
-                )}
-              </div>
-            );
-          })}
+        {/* Single subtle progress cue — one continuous bar across all stages */}
+        <div className="mt-5 mx-auto max-w-3xl h-[3px] overflow-hidden rounded-full bg-slate-200" aria-hidden>
+          <div
+            className="h-full rounded-full bg-blue-600 transition-[width] duration-500 ease-out"
+            style={{
+              width: `${(((active + Math.min(1, step / Math.max(1, stage.steps))) / STAGES.length) * 100).toFixed(2)}%`,
+            }}
+          />
         </div>
+
 
         {/* Workspace card */}
         <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-14 items-start">
@@ -911,7 +998,7 @@ export function JourneyV3() {
             {/* Payoff line — only after Grow completes */}
             <div
               className={`mt-6 transition-all duration-500 ease-out ${
-                active === STAGES.length - 1 && (reduced || step >= stage.steps)
+                growComplete
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-2 pointer-events-none"
               } motion-reduce:transition-none`}
