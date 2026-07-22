@@ -244,35 +244,8 @@ function EmmaRecordHeader() {
   );
 }
 
-/* ---------- Sequenced-reveal helper ------------------------------- */
-// Motion easing tuned to feel premium — same curve for stage swaps and events.
+/* ---------- Motion easing --------------------------------------- */
 const V3_EASE = [0.22, 1, 0.36, 1] as const;
-
-function StepReveal({
-  show, children, delay = 0, from = "up",
-}: { show: boolean; children: ReactNode; delay?: number; from?: "up" | "right" | "none" }) {
-  const reduced = useReducedMotion();
-  const offX = from === "right" ? 10 : 0;
-  const offY = from === "up" ? 10 : 0;
-  return (
-    <AnimatePresence initial={false}>
-      {show && (
-        <motion.div
-          initial={reduced ? { opacity: 1 } : { opacity: 0, x: offX, y: offY, scale: 0.99 }}
-          animate={reduced ? { opacity: 1 } : { opacity: 1, x: 0, y: 0, scale: 1 }}
-          exit={reduced ? { opacity: 1 } : { opacity: 0, y: -4, scale: 0.99 }}
-          transition={reduced
-            ? { duration: 0 }
-            : { duration: 0.36, ease: V3_EASE, delay: delay / 1000 }}
-          style={{ willChange: "transform, opacity" }}
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
 
 /* ---------- Story constants (single source of truth) -------------- */
 const STORY = {
@@ -286,797 +259,593 @@ const STORY = {
   reminderMonths: 12,
 } as const;
 
-/* ---------- Stage canvas — fixed size, all panels use this ---------- */
+/* ---------- Unified workspace dimensions ------------------------- */
 const STAGE_H = 440;
-function StageCanvas({ children, className = "" }: { children: ReactNode; className?: string }) {
+
+/* =====================================================================
+ *  UnifiedActivity — ONE persistent DOM tree.
+ *
+ *  Four named regions stay mounted for the ENTIRE journey. Their content,
+ *  position and emphasis animate off (active, step). One shared hero
+ *  object uses layoutId so the same visual element morphs across stages.
+ *
+ *    TimelineRail        — top: milestone dots that accumulate
+ *    ContextSurface      — center back: shifts context (inbox scaffold /
+ *                          calendar grid / timeline) via opacity crossfade
+ *                          WITHIN the same wrapper element — no whole-scene
+ *                          swap, no conditional canvas per stage
+ *    HeroObject          — one motion element (layoutId="journey-hero")
+ *                          whose inner content changes but whose identity
+ *                          persists — this is the shared object that
+ *                          carries Emma's story forward
+ *    StatusActionStrip   — bottom: status + action pill, derived from state
+ *
+ *  Stage-specific small sub-content only ever renders INSIDE these
+ *  persistent regions. There is no `if (active===X) return <FullCanvas/>`.
+ * ===================================================================== */
+
+// The hero object's visual states — one continuous life, not six scenes.
+type HeroKind =
+  | "arriving"       // capture step 0: inbound pending state
+  | "leadForm"       // capture step 1: filled Facebook lead form
+  | "contactChip"    // capture step 2 → communicate start: attached record
+  | "conversation"   // communicate mid → end: merged conversation
+  | "quote"          // convert step 1
+  | "timePicker"     // convert step 2
+  | "booking"        // convert step 3 → operate start: confirmed booking
+  | "scheduled"      // operate step 1: booking docked into schedule slot
+  | "completed"      // operate step 2
+  | "paid"           // operate step 3
+  | "reviewAsk"      // retain step 1
+  | "reviewed"       // retain step 2
+  | "reminderQueued" // retain step 3
+  | "reminderSent"   // grow step 1
+  | "rebookReply"    // grow step 2
+  | "returning";     // grow step 3
+
+function heroKindFor(active: number, step: number): HeroKind {
+  if (active === 0) {
+    if (step < 1) return "arriving";
+    if (step < 2) return "leadForm";
+    return "contactChip";
+  }
+  if (active === 1) {
+    if (step < 1) return "contactChip";
+    return "conversation";
+  }
+  if (active === 2) {
+    if (step < 1) return "conversation";
+    if (step < 2) return "quote";
+    if (step < 3) return "timePicker";
+    return "booking";
+  }
+  if (active === 3) {
+    if (step < 1) return "booking";
+    if (step < 2) return "scheduled";
+    if (step < 3) return "completed";
+    return "paid";
+  }
+  if (active === 4) {
+    if (step < 1) return "paid";
+    if (step < 2) return "reviewAsk";
+    if (step < 3) return "reviewed";
+    return "reminderQueued";
+  }
+  if (step < 1) return "reminderQueued";
+  if (step < 2) return "reminderSent";
+  if (step < 3) return "rebookReply";
+  return "returning";
+}
+
+/* ------- Context surface — always mounted, opacity-driven only ---- */
+function ContextSurface({ active, step }: { active: number; step: number }) {
+  return (
+    <div className="absolute inset-0 pointer-events-none">
+      <SurfaceLayer visible={active === 0}>
+        <div className="h-full w-full grid place-items-center">
+          <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-slate-300">
+            Contacts · new record
+          </div>
+        </div>
+      </SurfaceLayer>
+      <SurfaceLayer visible={active === 1}>
+        <InboxScaffold step={step} />
+      </SurfaceLayer>
+      <SurfaceLayer visible={active === 2}>
+        <div className="h-full w-full grid place-items-center">
+          <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-slate-300">
+            Quotes · Q-2041
+          </div>
+        </div>
+      </SurfaceLayer>
+      <SurfaceLayer visible={active === 3}>
+        <CalendarScaffold active={active} step={step} />
+      </SurfaceLayer>
+      <SurfaceLayer visible={active === 4}>
+        <div className="h-full w-full grid place-items-center">
+          <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-slate-300">
+            Automations · retention
+          </div>
+        </div>
+      </SurfaceLayer>
+      <SurfaceLayer visible={active === 5}>
+        <TimelineAdvance step={step} />
+      </SurfaceLayer>
+    </div>
+  );
+}
+
+function SurfaceLayer({ visible, children }: { visible: boolean; children: ReactNode }) {
   return (
     <div
-      className={`relative w-full overflow-hidden ${className}`}
-      style={{ height: STAGE_H }}
-      data-testid="stage-canvas"
+      aria-hidden={!visible}
+      className={`absolute inset-0 transition-opacity duration-500 ease-out ${visible ? "opacity-100" : "opacity-0"}`}
     >
       {children}
     </div>
   );
 }
 
-/* ---------- 1. CAPTURE — form fills, then morphs into contact record ----- */
-function SceneCapture({ step }: { step: number }) {
-  const reduced = useReducedMotion();
-  // step 0: blank (arriving);
-  // step 1: form centered, fields fill in;
-  // step 2: same card morphs (shrinks + shifts up) into a compact contact record row.
-  const morphed = step >= 2;
-  const ease = V3_EASE;
-  const fields = [
-    { label: "Name",    value: "Emma Wilson" },
-    { label: "Phone",   value: "+61 4•• ••• •••" },
-    { label: "Email",   value: "emma.wilson@northline.com.au" },
-    { label: "Service", value: STORY.service },
+function InboxScaffold({ step }: { step: number }) {
+  const channels: { key: string; label: string; icon: ReactNode }[] = [
+    { key: "form",  label: "Form",  icon: <FileText className="h-3 w-3" /> },
+    { key: "sms",   label: "SMS",   icon: <MessageSquare className="h-3 w-3" /> },
+    { key: "email", label: "Email", icon: <Mail className="h-3 w-3" /> },
+    { key: "ig",    label: "IG",    icon: <Instagram className="h-3 w-3" /> },
   ];
+  const revealed = Math.min(Math.max(0, step - 1), channels.length);
   return (
-    <StageCanvas>
-      {/* soft workspace background so the traveling card reads as spatial */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,#eff6ff_0%,transparent_60%),radial-gradient(circle_at_80%_80%,#f5f3ff_0%,transparent_55%)]" aria-hidden />
-
-      {/* Persistent "record slot" where the form will land — subtle placeholder */}
-      <div className="absolute left-4 right-4 top-4 rounded-xl border border-dashed border-slate-200/80 bg-white/40 p-3">
-        <div className="flex items-center gap-3 opacity-40">
-          <div className="h-8 w-8 rounded-full bg-slate-200" />
-          <div className="h-3 w-32 rounded-full bg-slate-200" />
-          <div className="ml-auto h-4 w-16 rounded-full bg-slate-200" />
-        </div>
+    <div className="h-full w-full p-5">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+        Inbox · all channels
       </div>
-
-      {/* The single hero card — its layout, size and content morph in place */}
-      <motion.div
-        layout
-        initial={false}
-        animate={
-          reduced
-            ? { opacity: 1 }
-            : morphed
-            ? { top: 16, left: 16, right: 16, width: "auto", scale: 1 }
-            : { top: 84, left: "50%", x: "-50%", width: 380, scale: 1 }
-        }
-        transition={reduced ? { duration: 0 } : { duration: 0.55, ease }}
-        className="absolute rounded-2xl bg-white shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)] ring-1 ring-slate-200"
-        style={{ willChange: "transform" }}
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          {!morphed ? (
-            <motion.div
-              key="form"
-              initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={reduced ? { opacity: 0 } : { opacity: 0 }}
-              transition={{ duration: 0.22, ease }}
-              className="p-4"
-            >
-              <div className="flex items-center gap-2">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-[#1877F2]/10 text-[#1877F2] ring-1 ring-[#1877F2]/20">
-                  <Facebook className="h-4 w-4" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[13px] font-semibold text-slate-900">Facebook lead form</div>
-                  <div className="text-[11px] text-slate-500">Campaign · Annual A/C service</div>
-                </div>
-                <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Live</span>
-              </div>
-              <div className="mt-3 space-y-2">
-                {fields.map((f, i) => {
-                  const show = step >= 1;
-                  return (
-                    <motion.div
-                      key={f.label}
-                      initial={reduced ? { opacity: 1 } : { opacity: 0, y: 6 }}
-                      animate={show ? { opacity: 1, y: 0 } : { opacity: 0.35, y: 0 }}
-                      transition={reduced ? { duration: 0 } : { duration: 0.35, delay: 0.08 * i, ease }}
-                      className="rounded-lg bg-slate-50 px-3 py-2 ring-1 ring-slate-100"
-                    >
-                      <div className="text-[10px] uppercase tracking-wider text-slate-400">{f.label}</div>
-                      <div className="text-[12.5px] font-medium text-slate-800 truncate">{f.value}</div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-              <motion.div
-                initial={reduced ? { opacity: 1 } : { opacity: 0, y: 6 }}
-                animate={step >= 1 ? { opacity: 1, y: 0 } : { opacity: 0 }}
-                transition={reduced ? { duration: 0 } : { duration: 0.3, delay: 0.4, ease }}
-                className="mt-3 flex items-center justify-between rounded-lg bg-blue-600 px-3 py-2 text-white"
-              >
-                <span className="text-[12px] font-semibold">Submit lead</span>
-                <CheckCircle2 className="h-4 w-4 text-white" />
-              </motion.div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="record"
-              initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.22, delay: 0.15, ease }}
-              className="flex items-center gap-3 p-3.5"
-            >
-              <CustomerAvatar size={38} />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <div className="text-[13px] font-semibold text-slate-900 truncate">Emma Wilson</div>
-                  <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Enquiry</span>
-                </div>
-                <div className="mt-0.5 flex items-center gap-2 text-[11.5px] text-slate-500">
-                  <Facebook className="h-3 w-3 text-[#1877F2]" />
-                  <span>Facebook lead · {STORY.service}</span>
-                </div>
-              </div>
-              <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10.5px] font-semibold text-emerald-700 ring-1 ring-emerald-100">
-                <CheckCircle2 className="h-3 w-3" />One record
-              </span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-
-      {/* Sub-caption anchored to bottom so canvas height never grows */}
-      <div className="absolute bottom-4 left-4 right-4 text-center text-[11px] text-slate-400">
-        {morphed ? "Contact created in Zapla · attached to Emma's record" : "Facebook lead form · fields captured live"}
-      </div>
-    </StageCanvas>
-  );
-}
-
-/* ---------- 2. COMMUNICATE — channels converge into one thread ----------- */
-function IgGlyph({ size = 10 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" role="img" aria-label="Instagram">
-      <defs>
-        <linearGradient id="v3-ig-g" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0" stopColor="#f9ce34" />
-          <stop offset="0.5" stopColor="#ee2a7b" />
-          <stop offset="1" stopColor="#6228d7" />
-        </linearGradient>
-      </defs>
-      <rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#v3-ig-g)" />
-      <circle cx="12" cy="12" r="4.2" fill="none" stroke="#fff" strokeWidth="1.8" />
-      <circle cx="17.4" cy="6.6" r="1.15" fill="#fff" />
-    </svg>
-  );
-}
-function MessengerGlyph({ size = 10 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" role="img" aria-label="Facebook Messenger">
-      <defs>
-        <radialGradient id="v3-msg-g" cx="0.25" cy="1" r="1.1">
-          <stop offset="0" stopColor="#00b2ff" />
-          <stop offset="0.6" stopColor="#006aff" />
-          <stop offset="1" stopColor="#0057ff" />
-        </radialGradient>
-      </defs>
-      <path d="M12 1.6C5.9 1.6 1.2 6.2 1.2 12.1c0 3.2 1.4 6 3.7 8v3.6l3.4-1.9c1.1.3 2.3.5 3.7.5 6.1 0 10.8-4.6 10.8-10.4S18.1 1.6 12 1.6z" fill="url(#v3-msg-g)" />
-      <path d="M5.7 14.9l3.2-5.1 2.9 2.4 2.9-2.4 2.9 5.1-2.9-2.4-2.9 2.4-2.9-2.4z" fill="#fff" />
-    </svg>
-  );
-}
-
-type CommEv =
-  | { kind: "event"; via: "Form" | "Instagram" | "Messenger" | "Email"; title: string; detail: string; when: string }
-  | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
-const COMM_EVENTS: CommEv[] = [
-  { kind: "msg",   from: "z", via: "SMS",       t: "Hi Emma — thanks for your enquiry. When suits you this week?",     when: "12:05" },
-  { kind: "msg",   from: "e", via: "SMS",       t: "I need my annual A/C service.",                              when: "12:06" },
-  { kind: "event", via: "Form",      title: "Website form submitted", detail: `Service details · Preferred day ${STORY.day}`, when: "12:10" },
-  { kind: "event", via: "Instagram", title: "Instagram DM · photo",   detail: "Emma sent a photo of the split system",        when: "12:18" },
-  { kind: "event", via: "Messenger", title: "Messenger reply",        detail: "Confirmed the address and access details",     when: "12:22" },
-  { kind: "msg",   from: "z", via: "SMS",       t: "Thanks Emma — I'll send your quote and available times next.", when: "12:24" },
-  { kind: "event", via: "Email",     title: "Email · quote and times", detail: "Quote and available times sent",              when: "12:30" },
-];
-function chipCls(via: string) {
-  if (via === "SMS")       return "bg-emerald-50 text-emerald-700 ring-emerald-100";
-  if (via === "Instagram") return "bg-fuchsia-50 text-fuchsia-700 ring-fuchsia-100";
-  if (via === "Messenger") return "bg-blue-50 text-blue-700 ring-blue-100";
-  if (via === "Email")     return "bg-sky-50 text-sky-700 ring-sky-100";
-  if (via === "Form")      return "bg-slate-100 text-slate-700 ring-slate-200";
-  return "bg-slate-100 text-slate-600 ring-slate-200";
-}
-function chipIcon(via: string) {
-  if (via === "SMS")       return <MessageSquare className="h-2.5 w-2.5" aria-hidden />;
-  if (via === "Instagram") return <IgGlyph size={11} />;
-  if (via === "Messenger") return <MessengerGlyph size={11} />;
-  if (via === "Email")     return <Mail className="h-2.5 w-2.5" aria-hidden />;
-  return <FileText className="h-2.5 w-2.5" aria-hidden />;
-}
-
-function SceneCommunicate({ step }: { step: number }) {
-  const reduced = useReducedMotion();
-  const listRef = useRef<HTMLDivElement | null>(null);
-  const visible = COMM_EVENTS.slice(0, Math.max(0, Math.min(step, COMM_EVENTS.length)));
-  useEffect(() => {
-    if (reduced) return;
-    const el = listRef.current;
-    if (!el) return;
-    // Scroll thread's own internal viewport to bottom — outer frame never grows.
-    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
-  }, [step, reduced]);
-
-  const orbitChannels: { key: string; label: string; pos: string }[] = [
-    { key: "SMS",       label: "SMS",       pos: "left-3 top-4" },
-    { key: "Form",      label: "Form",      pos: "left-3 top-24" },
-    { key: "Instagram", label: "Instagram", pos: "right-3 top-4" },
-    { key: "Messenger", label: "Messenger", pos: "right-3 top-24" },
-    { key: "Email",     label: "Email",     pos: "right-3 bottom-4" },
-  ];
-
-  // Which orbit channel is "firing" right now — highlight the source that produced the last visible event.
-  const lastEv = visible[visible.length - 1];
-  const activeChannel = lastEv?.via;
-
-  return (
-    <StageCanvas>
-      {/* Orbiting source tokens — highlight when their event fires */}
-      {orbitChannels.map((c) => {
-        const isActive = activeChannel === c.key;
-        return (
-          <motion.div
+      <div className="mt-3 flex flex-wrap gap-1.5">
+        {channels.map((c, i) => (
+          <motion.span
             key={c.key}
-            animate={reduced ? {} : { scale: isActive ? 1.08 : 1 }}
-            transition={{ duration: 0.35, ease: V3_EASE }}
-            className={`absolute z-10 ${c.pos} hidden sm:flex`}
+            initial={false}
+            animate={{ opacity: i < revealed ? 1 : 0.18, y: 0 }}
+            transition={{ duration: 0.36, ease: V3_EASE }}
+            className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold text-slate-700 ring-1 ring-slate-200"
           >
-            <span className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[10.5px] font-semibold ring-1 shadow-sm transition-shadow ${chipCls(c.key)} ${isActive ? "shadow-[0_0_0_3px_rgba(59,130,246,0.15)]" : ""}`}>
-              {chipIcon(c.key)}{c.label}
-            </span>
-          </motion.div>
+            {c.icon}{c.label}
+          </motion.span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CalendarScaffold({ active, step }: { active: number; step: number }) {
+  const highlight = active === 3 && step >= 1;
+  return (
+    <div className="h-full w-full p-4">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+        {STORY.day} · schedule
+      </div>
+      <div className="mt-2 grid grid-cols-[56px_repeat(5,1fr)] gap-1">
+        {["", "10a", "11a", "12p", "1p", "2p"].map((h) => (
+          <div key={h} className="text-[9.5px] text-slate-400 text-center py-1 border-b border-slate-100">{h}</div>
+        ))}
+        {["Alex", "Priya", "Marcus", "Sam"].map((who, ri) => (
+          <CalRow key={who} staff={who} highlight={highlight && who === STORY.staff} rowIdx={ri} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CalRow({ staff, highlight, rowIdx }: { staff: string; highlight: boolean; rowIdx: number }) {
+  return (
+    <>
+      <div className="text-[10.5px] font-medium text-slate-600 py-1.5">{staff}</div>
+      {[0, 1, 2, 3, 4].map((c) => {
+        const isTarget = rowIdx === 0 && c === 4;
+        const filled = !isTarget && (rowIdx * 3 + c) % 4 === 1;
+        return (
+          <div
+            key={c}
+            className={`h-7 rounded transition-colors ${
+              isTarget
+                ? highlight
+                  ? "bg-blue-100 ring-2 ring-blue-500"
+                  : "bg-slate-100 ring-1 ring-dashed ring-slate-300"
+                : filled
+                ? "bg-slate-200"
+                : "bg-slate-50"
+            }`}
+          />
         );
       })}
-
-      {/* Central thread — fixed height, scrolls internally */}
-      <div className="absolute inset-y-0 left-0 right-0 sm:left-24 sm:right-24 flex flex-col rounded-xl bg-white ring-1 ring-slate-200 overflow-hidden">
-        <div className="flex items-center justify-between border-b border-slate-100 px-3 py-2">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">One conversation · all channels</div>
-          <div className="text-[10px] text-slate-400">Today</div>
-        </div>
-        <div ref={listRef} className="relative flex-1 space-y-2 overflow-y-auto px-3 py-3">
-          <AnimatePresence initial={false}>
-            {visible.map((e, i) => (
-              <motion.div
-                key={i}
-                layout
-                initial={reduced ? { opacity: 1 } : { opacity: 0, x: e.kind === "msg" && e.from === "e" ? 24 : -24, scale: 0.98 }}
-                animate={reduced ? { opacity: 1 } : { opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 280, damping: 28 }}
-              >
-                {e.kind === "event" ? (
-                  <div className="flex items-start gap-2 rounded-lg bg-slate-50 px-2.5 py-2 ring-1 ring-slate-100">
-                    <span className={`mt-0.5 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ring-1 ${chipCls(e.via)}`}>
-                      {chipIcon(e.via)}{e.via}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="text-[12px] font-semibold text-slate-800">{e.title}</div>
-                      <div className="truncate text-[11.5px] text-slate-500">{e.detail}</div>
-                    </div>
-                    <span className="text-[10px] text-slate-400">{e.when}</span>
-                  </div>
-                ) : (
-                  <div className={`flex items-end gap-1.5 ${e.from === "z" ? "justify-start" : "justify-end"}`}>
-                    {e.from === "e" && <CustomerAvatar size={20} />}
-                    <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${e.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
-                      {e.t}
-                      <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${e.from === "z" ? "text-slate-500" : "text-white/70"}`}>
-                        <span>{e.when}</span><span>·</span>
-                        <span className="inline-flex items-center gap-1">{chipIcon(e.via)}{e.via}</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-      </div>
-    </StageCanvas>
+    </>
   );
 }
 
-/* ---------- 3. CONVERT — one surface morphs quote → booking → confirmed ------ */
-function SceneConvert({ step }: { step: number }) {
-  const reduced = useReducedMotion();
-  // step 1: Quote sent (amber)
-  // step 2: Quote accepted + time chips reveal, 2pm gets selected
-  // step 3: Same card morphs into dark "Appointment confirmed"
-  const confirmed = step >= 3;
-  const accepted = step >= 2;
-
-  const bgAnim = reduced ? {} : {
-    backgroundColor: confirmed ? "#0f172a" : "#ffffff",
-    color: confirmed ? "#ffffff" : "#0f172a",
-  };
-
+function TimelineAdvance({ step }: { step: number }) {
+  const pct = Math.min(1, step / 2) * 100;
   return (
-    <StageCanvas>
-      <div className="absolute inset-0 flex items-center justify-center px-2">
-        <motion.div
-          layout
-          animate={bgAnim}
-          transition={reduced ? { duration: 0 } : { duration: 0.5, ease: V3_EASE }}
-          className="w-full max-w-md rounded-2xl ring-1 ring-slate-200 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)] p-5"
-          style={{ willChange: "background-color" }}
-        >
-          <div className="flex items-center justify-between">
-            <div className={`flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider ${confirmed ? "text-white/60" : "text-slate-400"}`}>
-              <FileText className="h-3 w-3" />Quote · Q-2841
-            </div>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={confirmed ? "confirmed" : accepted ? "accepted" : "sent"}
-                initial={reduced ? { opacity: 1 } : { opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduced ? { opacity: 0 } : { opacity: 0, y: 6 }}
-                transition={{ duration: 0.28, ease: V3_EASE }}
-                className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ring-1 ${
-                  confirmed ? "bg-emerald-500/20 text-emerald-200 ring-emerald-400/30"
-                  : accepted ? "bg-emerald-50 text-emerald-700 ring-emerald-100"
-                  : "bg-amber-50 text-amber-700 ring-amber-100"
-                }`}
-              >
-                {confirmed ? "Appointment confirmed" : accepted ? "Quote accepted" : "Quote sent"}
-              </motion.span>
-            </AnimatePresence>
-          </div>
-
-          <div className="mt-3 flex items-center gap-3">
-            <CustomerAvatar size={36} />
-            <div className="min-w-0 flex-1">
-              <div className={`text-[13.5px] font-semibold ${confirmed ? "text-white" : "text-slate-900"}`}>{STORY.service}</div>
-              <div className={`text-[11.5px] ${confirmed ? "text-white/60" : "text-slate-500"}`}>Attached to Emma Wilson</div>
-            </div>
-            <div className={`text-[16px] font-semibold ${confirmed ? "text-white" : "text-slate-900"}`}>$240</div>
-          </div>
-
-          {/* Time chips area — appears at step 2, morphs away at step 3 */}
-          <div className="mt-4 min-h-[64px]">
-            <AnimatePresence mode="wait" initial={false}>
-              {!confirmed && accepted && (
-                <motion.div
-                  key="times"
-                  initial={reduced ? { opacity: 1 } : { opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={reduced ? { opacity: 0 } : { opacity: 0, y: -10 }}
-                  transition={{ duration: 0.32, ease: V3_EASE }}
-                >
-                  <div className="text-[10.5px] font-semibold uppercase tracking-wider text-slate-400">Emma chose a time</div>
-                  <div className="mt-1.5 flex flex-wrap gap-1.5">
-                    <span className="inline-flex items-center rounded-lg bg-slate-50 px-2.5 py-1 text-[12px] font-medium text-slate-500 ring-1 ring-slate-200">11:00 AM</span>
-                    <motion.span
-                      layoutId="convert-chosen-time"
-                      className="inline-flex items-center rounded-lg bg-blue-600 px-2.5 py-1 text-[12px] font-semibold text-white ring-1 ring-blue-600 shadow-sm"
-                    >{STORY.time}</motion.span>
-                    <span className="inline-flex items-center rounded-lg bg-slate-50 px-2.5 py-1 text-[12px] font-medium text-slate-500 ring-1 ring-slate-200">4:00 PM</span>
-                  </div>
-                </motion.div>
-              )}
-              {confirmed && (
-                <motion.div
-                  key="confirmed"
-                  initial={reduced ? { opacity: 1 } : { opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.32, ease: V3_EASE }}
-                  className="flex items-center gap-3"
-                >
-                  <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/10">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[13px] font-semibold text-white">{STORY.day} · <motion.span layoutId="convert-chosen-time" className="inline-block">{STORY.time}</motion.span></div>
-                    <div className="text-[11px] text-white/60">Assigned to {STORY.staff} · reminders queued</div>
-                  </div>
-                </motion.div>
-              )}
-              {!accepted && !confirmed && (
-                <motion.div
-                  key="sent"
-                  initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-[12px] text-slate-500"
-                >
-                  Emailed to Emma · awaiting response
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
+    <div className="h-full w-full p-5">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+        Timeline · service due
       </div>
-    </StageCanvas>
-  );
-}
-
-/* ---------- 4. OPERATE — schedule grid, job token flies in to Alex ------- */
-function SceneOperate({ step }: { step: number }) {
-  const reduced = useReducedMotion();
-  const hours = ["8a","9a","10a","11a","12p","1p","2p","3p","4p"];
-  const nowCol = 5;
-
-  type Job = { start: number; span: number; tone: string; ring: string; label: string; sub?: string };
-  const staticRows: { who: string; role: string; initials: string; tone: string; jobs: Job[] }[] = [
-    { who: STORY.staff, role: STORY.staffRole, initials: STORY.staffInitials, tone: "#0ea5e9", jobs: [
-      { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Split system install", sub: "Local area" },
-    ]},
-    { who: "Mia", role: "Technician", initials: "MI", tone: "#10b981", jobs: [
-      { start: 1, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Ducted service", sub: "2h · parts kit" },
-      { start: 4, span: 1, tone: "#d1fae5", ring: "#34d399", label: "Quote walk-through", sub: "Video call" },
-      { start: 7, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Site inspection", sub: "Local area" },
-    ]},
-    { who: "Sam", role: "Technician", initials: "SM", tone: "#f59e0b", jobs: [
-      { start: 2, span: 1, tone: "#fef3c7", ring: "#fbbf24", label: "Warranty callback", sub: "45 min" },
-      { start: 5, span: 2, tone: "#fef3c7", ring: "#fbbf24", label: "Filter replacement", sub: "Enquiry" },
-    ]},
-    { who: "Jess", role: "Coordinator", initials: "JS", tone: "#a855f7", jobs: [
-      { start: 3, span: 2, tone: "#f3e8ff", ring: "#c084fc", label: "Route planning", sub: `${STORY.day} run sheet` },
-      { start: 8, span: 1, tone: "#f3e8ff", ring: "#c084fc", label: "End-of-day sync", sub: "Team" },
-    ]},
-  ];
-
-  const highlightAlex = step >= 2;
-  const landed = step >= 2;
-  const assigned = step >= 3;
-
-  return (
-    <StageCanvas>
-      <div className="absolute inset-0 rounded-xl bg-white ring-1 ring-slate-200 p-3.5 flex flex-col">
-        <div className="flex items-center justify-between">
-          <div className="flex items-baseline gap-2">
-            <div className="text-[13px] font-semibold text-slate-900">{STORY.day}</div>
-            <div className="text-[11px] text-slate-500">Team schedule</div>
-          </div>
-          <div className="flex items-center gap-2">
-            <AnimatePresence>
-              {assigned && (
-                <motion.span
-                  key="assigned-pill"
-                  initial={{ opacity: 0, x: 8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, ease: V3_EASE }}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />Scheduled · Assigned
-                </motion.span>
-              )}
-            </AnimatePresence>
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
-              Now 1:00 PM
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-3 grid gap-1 text-[10px] text-slate-400 shrink-0" style={{ gridTemplateColumns: "84px repeat(9, minmax(0,1fr))" }}>
-          <div />
-          {hours.map((h, i) => (
-            <div key={h} className={`text-center ${i === nowCol ? "text-blue-600 font-semibold" : ""}`}>{h}</div>
-          ))}
-        </div>
-
-        <div className="relative mt-1 flex-1 space-y-1.5">
-          <div className="pointer-events-none absolute top-0 bottom-0 z-10" style={{ left: `calc(84px + (100% - 84px) * ${(nowCol + 0.5) / 9})` }} aria-hidden>
-            <div className="h-full w-px bg-blue-500/70" />
-            <div className="absolute -top-1 -left-[3px] h-1.5 w-1.5 rounded-full bg-blue-500" />
-          </div>
-
-          {staticRows.map((r, ri) => {
-            const isAlex = ri === 0;
-            return (
-              <motion.div
-                key={r.who}
-                animate={reduced ? {} : { backgroundColor: isAlex && highlightAlex ? "rgba(219,234,254,0.4)" : "rgba(255,255,255,0)" }}
-                transition={{ duration: 0.4, ease: V3_EASE }}
-                className="grid items-center gap-1 rounded-md"
-                style={{ gridTemplateColumns: "84px repeat(9, minmax(0,1fr))" }}
-              >
-                <div className="flex items-center gap-2 pr-2">
-                  <TeamAvatar initials={r.initials} tone={r.tone} size={22} />
-                  <div className="min-w-0">
-                    <div className="text-[11.5px] font-semibold text-slate-800 leading-none truncate">{r.who}</div>
-                    <div className="text-[9.5px] text-slate-400 leading-none mt-0.5 truncate">{r.role}</div>
-                  </div>
-                </div>
-                {Array.from({ length: 9 }).map((_, i) => {
-                  const job = r.jobs.find((j) => i >= j.start && i < j.start + j.span);
-                  const isJobStart = job && i === job.start;
-                  const isEmmaSlot = isAlex && i === 6; // 2pm column
-                  if (job && !isJobStart) return <div key={i} />;
-                  if (isEmmaSlot && landed) {
-                    return (
-                      <motion.div
-                        key={i}
-                        layoutId="emma-job-token"
-                        initial={reduced ? false : { opacity: 0, y: -60, scale: 0.6 }}
-                        animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-                        transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 22 }}
-                        className="h-9 rounded-md px-1.5 flex flex-col justify-center overflow-hidden"
-                        style={{
-                          gridColumn: `span 1 / span 1`,
-                          background: "#dbeafe",
-                          boxShadow: "inset 0 0 0 1.5px #2563eb, 0 8px 20px -8px rgba(37,99,235,0.55)",
-                        }}
-                      >
-                        <div className="text-[10.5px] font-semibold truncate text-blue-900">Emma Wilson · {STORY.serviceShort}</div>
-                        <div className="text-[9.5px] truncate text-blue-700/80">2:00 PM · {STORY.staff}</div>
-                      </motion.div>
-                    );
-                  }
-                  if (!job) {
-                    return <div key={i} className="h-9 rounded-md bg-slate-50 ring-1 ring-slate-100" />;
-                  }
-                  return (
-                    <div
-                      key={i}
-                      className="h-9 rounded-md px-1.5 flex flex-col justify-center overflow-hidden"
-                      style={{
-                        gridColumn: `span ${job.span} / span ${job.span}`,
-                        background: job.tone,
-                        boxShadow: `inset 0 0 0 1px ${job.ring}55`,
-                      }}
-                    >
-                      <div className="text-[10.5px] font-semibold truncate text-slate-800">{job.label}</div>
-                      {job.sub && <div className="text-[9.5px] truncate text-slate-500">{job.sub}</div>}
-                    </div>
-                  );
-                })}
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Floating token (pre-land state) — visible only at step 1, hovering above Alex row */}
-        <AnimatePresence>
-          {step === 1 && !reduced && (
-            <motion.div
-              key="pre-token"
-              initial={{ opacity: 0, y: -20, x: 60 }}
-              animate={{ opacity: 1, y: 0, x: 60 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: V3_EASE }}
-              className="pointer-events-none absolute left-1/2 top-14 z-20 rounded-lg bg-blue-600 px-2.5 py-1.5 text-[11px] font-semibold text-white shadow-lg"
-            >
-              Emma Wilson · 2:00 PM
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </StageCanvas>
-  );
-}
-
-/* ---------- 5. RETAIN — horizontal workflow, connector draws, nodes activate --- */
-function SceneRetain({ step }: { step: number }) {
-  const reduced = useReducedMotion();
-  const nodes = [
-    { icon: <CheckCircle2 className="h-5 w-5" />, label: "Job completed", sub: `${STORY.staff} · 3:15 PM`, doneAt: 1, tone: { on: "bg-emerald-500 text-white ring-emerald-500", off: "bg-white text-slate-400 ring-slate-200" }, status: "Completed" },
-    { icon: <StarIcon className="h-5 w-5" />,    label: "Review request",  sub: "Sent to Emma · 1h later",   doneAt: 2, tone: { on: "bg-amber-500 text-white ring-amber-500", off: "bg-white text-slate-400 ring-slate-200" }, status: "Sent" },
-    { icon: <Bell className="h-5 w-5" />,        label: "12-month reminder", sub: "Scheduled for next year",  doneAt: 3, tone: { on: "bg-blue-600 text-white ring-blue-600", off: "bg-white text-slate-400 ring-slate-200" }, status: "Scheduled" },
-  ];
-
-  // Connector fill progresses left→right based on step.
-  const fillPct = reduced ? 100 : Math.min(100, Math.max(0, ((step - 1) / (nodes.length - 1)) * 100));
-
-  return (
-    <StageCanvas>
-      <div className="absolute inset-0 rounded-xl bg-white ring-1 ring-slate-200 p-6 flex flex-col justify-center">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 text-center">Post-job automation</div>
-
-        <div className="mt-6 relative">
-          {/* Base track */}
-          <div className="absolute left-[8%] right-[8%] top-8 h-[3px] rounded-full bg-slate-200" aria-hidden />
-          {/* Fill */}
+      <div className="mt-4 flex items-center gap-3">
+        <span className="text-[10px] font-mono text-slate-500">Today</span>
+        <div className="relative flex-1 h-1 rounded-full bg-slate-100">
           <motion.div
-            className="absolute left-[8%] top-8 h-[3px] rounded-full bg-blue-500"
+            className="absolute inset-y-0 left-0 rounded-full bg-blue-600"
             initial={false}
-            animate={{ width: `${(fillPct / 100) * 84}%` }}
-            transition={reduced ? { duration: 0 } : { duration: 0.6, ease: V3_EASE }}
-            aria-hidden
+            animate={{ width: `${pct}%` }}
+            transition={{ duration: 0.9, ease: V3_EASE }}
           />
-          {/* Travelling pulse */}
-          {!reduced && step >= 1 && step < nodes.length && (
-            <motion.div
-              key={`pulse-${step}`}
-              className="absolute top-[26px] h-3 w-3 rounded-full bg-blue-500 shadow-[0_0_0_6px_rgba(59,130,246,0.15)]"
-              initial={{ left: `${8 + ((step - 1) / (nodes.length - 1)) * 84}%` }}
-              animate={{ left: `${8 + (step / (nodes.length - 1)) * 84}%` }}
-              transition={{ duration: 0.5, ease: V3_EASE }}
-              aria-hidden
-            />
-          )}
+        </div>
+        <span className="text-[10px] font-mono text-slate-500">+12 mo</span>
+      </div>
+    </div>
+  );
+}
 
-          <div className="grid grid-cols-3 relative">
-            {nodes.map((n, i) => {
-              const isDone = step >= n.doneAt;
+/* ------- Hero object — SINGLE morphing artefact (layoutId) -------- */
+function HeroObject({ kind }: { kind: HeroKind }) {
+  const reduced = useReducedMotion();
+  return (
+    <motion.div
+      layout
+      layoutId="journey-hero"
+      transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 220, damping: 28 }}
+      className="relative z-10 mx-auto w-[92%] max-w-[420px] rounded-xl bg-white ring-1 ring-slate-200 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.4)] overflow-hidden"
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={kind}
+          initial={reduced ? { opacity: 1 } : { opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduced ? { opacity: 1 } : { opacity: 0, y: -6 }}
+          transition={{ duration: 0.24, ease: V3_EASE }}
+        >
+          <HeroBody kind={kind} />
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+function HeroBody({ kind }: { kind: HeroKind }) {
+  switch (kind) {
+    case "arriving":
+      return (
+        <div className="p-4 flex items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-50 text-blue-600 ring-1 ring-blue-100">
+            <Facebook className="h-4 w-4" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="text-[12.5px] font-semibold text-slate-900">Facebook lead form</div>
+            <div className="text-[11px] text-slate-500">Incoming…</div>
+          </div>
+          <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" aria-hidden />
+        </div>
+      );
+    case "leadForm":
+      return (
+        <div className="p-4">
+          <div className="flex items-center gap-2">
+            <Facebook className="h-3.5 w-3.5 text-blue-600" />
+            <div className="text-[11px] font-semibold text-slate-700">Facebook lead form</div>
+          </div>
+          <div className="mt-2 space-y-1.5">
+            <FormRow k="Name"    v="Emma Wilson" />
+            <FormRow k="Phone"   v="+61 4•• ••• •••" />
+            <FormRow k="Email"   v="emma.wilson@northline.com.au" />
+            <FormRow k="Service" v={STORY.service} />
+          </div>
+        </div>
+      );
+    case "contactChip":
+      return (
+        <div className="p-3.5 flex items-center gap-3">
+          <CustomerAvatar size={32} />
+          <div className="min-w-0 flex-1">
+            <div className="text-[12.5px] font-semibold text-slate-900 truncate">Emma Wilson</div>
+            <div className="text-[11px] text-slate-500 truncate">{STORY.service}</div>
+          </div>
+          <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100">
+            Enquiry
+          </span>
+        </div>
+      );
+    case "conversation":
+      return (
+        <div className="p-3 space-y-1.5">
+          <ChatBubble who="cust">Hi, need to book my {STORY.serviceShort}.</ChatBubble>
+          <ChatBubble who="ai">Happy to help — what day works?</ChatBubble>
+          <ChatBubble who="cust">{STORY.day} afternoon?</ChatBubble>
+          <ChatBubble who="ai">{STORY.time} with {STORY.staff} — shall I book it?</ChatBubble>
+        </div>
+      );
+    case "quote":
+      return (
+        <div className="p-4">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Quote · Q-2041</div>
+          <div className="mt-2 flex items-center justify-between">
+            <div className="text-[13px] font-semibold text-slate-900">{STORY.service}</div>
+            <div className="text-[13px] font-semibold text-slate-900">$189</div>
+          </div>
+          <div className="mt-3 w-full rounded-md bg-slate-900 py-1.5 text-center text-[11px] font-semibold text-white">
+            Accept &amp; book
+          </div>
+        </div>
+      );
+    case "timePicker":
+      return (
+        <div className="p-4">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+            Pick a time · {STORY.day}
+          </div>
+          <div className="mt-2 grid grid-cols-3 gap-1.5">
+            {["11:00", "1:00", "2:00", "3:00", "4:00", "5:00"].map((t) => {
+              const sel = t === "2:00";
               return (
-                <div key={i} className="flex flex-col items-center text-center px-2">
-                  <motion.div
-                    className={`grid h-16 w-16 place-items-center rounded-full ring-2 shadow-sm transition-colors ${isDone ? n.tone.on : n.tone.off}`}
-                    animate={reduced ? {} : { scale: isDone ? 1 : 0.9 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                  >
-                    {n.icon}
-                  </motion.div>
-                  <div className={`mt-3 text-[13px] font-semibold transition-colors ${isDone ? "text-slate-900" : "text-slate-400"}`}>{n.label}</div>
-                  <div className={`mt-0.5 text-[11.5px] transition-colors ${isDone ? "text-slate-500" : "text-slate-300"}`}>{n.sub}</div>
-                  <AnimatePresence>
-                    {isDone && (
-                      <motion.span
-                        initial={reduced ? { opacity: 1 } : { opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.28, ease: V3_EASE }}
-                        className="mt-2 inline-flex items-center gap-1 rounded-full bg-slate-900 px-2 py-0.5 text-[10px] font-semibold text-white"
-                      >
-                        <CheckCircle2 className="h-3 w-3" />{n.status}
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <div
+                  key={t}
+                  className={`rounded-md py-1 text-center text-[11px] font-semibold ring-1 ${
+                    sel ? "bg-blue-600 text-white ring-blue-600" : "bg-white text-slate-600 ring-slate-200"
+                  }`}
+                >{t}</div>
               );
             })}
           </div>
         </div>
-
-        <div className="mt-6 text-center text-[12px] text-slate-500">
-          One completion triggers the whole retention flow — no manual follow-up.
-        </div>
-      </div>
-    </StageCanvas>
-  );
-}
-
-/* ---------- 6. GROW — same record, timeline jumps +12mo, becomes returning ---- */
-function SceneGrow({ step }: { step: number }) {
-  const reduced = useReducedMotion();
-  // step 1: timeline marker jumps to +12 months; reminder message arrives in thread
-  // step 2: Emma reply appears in same thread
-  // step 3: record header morphs to "Returning customer" + new booking chip
-  const returning = step >= 3;
-
-  return (
-    <StageCanvas>
-      <div className="absolute inset-0 rounded-xl bg-white ring-1 ring-slate-200 flex flex-col overflow-hidden">
-        {/* Persistent timeline marker */}
-        <div className="flex items-center justify-between border-b border-slate-100 px-4 py-2.5">
-          <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Emma Wilson · timeline</div>
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span
-              key={step >= 1 ? "future" : "now"}
-              initial={reduced ? { opacity: 1 } : { opacity: 0, x: 8 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={reduced ? { opacity: 0 } : { opacity: 0, x: -8 }}
-              transition={{ duration: 0.32, ease: V3_EASE }}
-              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10.5px] font-semibold ring-1 ${
-                step >= 1 ? "bg-blue-50 text-blue-700 ring-blue-100" : "bg-slate-100 text-slate-500 ring-slate-200"
-              }`}
-            >
-              <RefreshCw className="h-3 w-3" />{step >= 1 ? "+12 months later" : "Today"}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-
-        {/* Same conversation thread as Communicate — one record continues */}
-        <div className="flex-1 space-y-2 overflow-hidden px-3 py-3">
-          <div className="flex items-end gap-1.5 opacity-60">
-            <div className="max-w-[74%] rounded-2xl rounded-bl-sm bg-slate-100 px-3 py-2 text-[12px] leading-snug text-slate-700">
-              Thanks Emma — job's all wrapped. Enjoy the cool air!
-              <div className="mt-0.5 text-[10px] text-slate-400">Last year</div>
-            </div>
+      );
+    case "booking":
+      return (
+        <div className="p-4 flex items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
+            <CheckCircle2 className="h-4 w-4" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="text-[12.5px] font-semibold text-slate-900">Booking confirmed</div>
+            <div className="text-[11px] text-slate-500">{STORY.day} {STORY.time} · {STORY.staff}</div>
           </div>
-
-          <AnimatePresence initial={false}>
-            {step >= 1 && (
-              <motion.div
-                key="reminder"
-                layout
-                initial={reduced ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 24 }}
-                className="flex items-end gap-1.5"
-              >
-                <div className="max-w-[74%] rounded-2xl rounded-bl-sm bg-blue-50 px-3 py-2 text-[12.5px] leading-snug text-blue-900 ring-1 ring-blue-100">
-                  Hi Emma — your {STORY.serviceShort} is due. Want to book a time?
-                  <div className="mt-0.5 flex items-center gap-1 text-[10px] text-blue-700/70">
-                    <Send className="h-2.5 w-2.5" />Automated reminder
-                  </div>
-                </div>
-              </motion.div>
-            )}
-            {step >= 2 && (
-              <motion.div
-                key="reply"
-                layout
-                initial={reduced ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 260, damping: 24, delay: 0.05 }}
-                className="flex items-end justify-end gap-1.5"
-              >
-                <div className="max-w-[74%] rounded-2xl rounded-br-sm bg-blue-600 px-3 py-2 text-[12.5px] leading-snug text-white">
-                  Yes please — {STORY.day} {STORY.time} works.
-                </div>
-                <CustomerAvatar size={20} />
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
+      );
+    case "scheduled":
+      return (
+        <div className="p-3 flex items-center gap-2">
+          <CalendarIcon className="h-3.5 w-3.5 text-blue-600" />
+          <div className="text-[12px] font-semibold text-slate-900">
+            Scheduled · {STORY.staff} · {STORY.time}
+          </div>
+        </div>
+      );
+    case "completed":
+      return (
+        <div className="p-4 flex items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
+            <CheckCircle2 className="h-4 w-4" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="text-[12.5px] font-semibold text-slate-900">Job completed</div>
+            <div className="text-[11px] text-slate-500">{STORY.staff} · notes attached</div>
+          </div>
+        </div>
+      );
+    case "paid":
+      return (
+        <div className="p-4 flex items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100">
+            <CreditCard className="h-4 w-4" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="text-[12.5px] font-semibold text-slate-900">Payment received</div>
+            <div className="text-[11px] text-slate-500">$189 · card on file</div>
+          </div>
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100">
+            Paid
+          </span>
+        </div>
+      );
+    case "reviewAsk":
+      return (
+        <div className="p-4">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+            Automation · review ask
+          </div>
+          <div className="mt-2 rounded-md bg-slate-50 p-2 text-[11.5px] text-slate-700 ring-1 ring-slate-200">
+            &ldquo;Hi Emma, thanks for having us today. Mind leaving a quick review?&rdquo;
+          </div>
+        </div>
+      );
+    case "reviewed":
+      return (
+        <div className="p-4 flex items-center gap-3">
+          <span className="inline-flex items-center gap-0.5 text-amber-500" aria-label="5 stars">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <StarIcon key={i} className="h-3.5 w-3.5 fill-current" />
+            ))}
+          </span>
+          <div className="text-[12px] text-slate-700">&ldquo;{STORY.staff} was quick and tidy.&rdquo;</div>
+        </div>
+      );
+    case "reminderQueued":
+      return (
+        <div className="p-4 flex items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-violet-50 text-violet-600 ring-1 ring-violet-100">
+            <Bell className="h-4 w-4" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="text-[12.5px] font-semibold text-slate-900">12-month reminder queued</div>
+            <div className="text-[11px] text-slate-500">Fires next year, same date</div>
+          </div>
+        </div>
+      );
+    case "reminderSent":
+      return (
+        <div className="p-4">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+            Reminder sent · +12 mo
+          </div>
+          <div className="mt-2 rounded-md bg-slate-50 p-2 text-[11.5px] text-slate-700 ring-1 ring-slate-200">
+            &ldquo;Hi Emma, your {STORY.serviceShort} is due again. Would {STORY.day} suit?&rdquo;
+          </div>
+        </div>
+      );
+    case "rebookReply":
+      return (
+        <div className="p-3 space-y-1.5">
+          <ChatBubble who="ai">Your service is due — {STORY.day} again?</ChatBubble>
+          <ChatBubble who="cust">Yes please, same time works.</ChatBubble>
+        </div>
+      );
+    case "returning":
+      return (
+        <div className="p-4 flex items-center gap-3">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-violet-50 text-violet-700 ring-1 ring-violet-100">
+            <RefreshCw className="h-4 w-4" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="text-[12.5px] font-semibold text-slate-900">Emma Wilson · rebooked</div>
+            <div className="text-[11px] text-slate-500">Same record · returning customer</div>
+          </div>
+          <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-0.5 text-[10px] font-semibold text-violet-700 ring-1 ring-violet-100">
+            Returning
+          </span>
+        </div>
+      );
+  }
+}
 
-        {/* Returning-customer state pinned to bottom — morphs same record */}
-        <AnimatePresence>
-          {returning && (
-            <motion.div
-              key="returning-strip"
-              initial={reduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={reduced ? { duration: 0 } : { type: "spring", stiffness: 280, damping: 26 }}
-              className="flex items-center gap-3 border-t border-slate-100 bg-slate-950 px-4 py-3 text-white"
-            >
-              <CustomerAvatar size={32} />
-              <div className="min-w-0 flex-1">
-                <div className="text-[13px] font-semibold">Emma Wilson</div>
-                <div className="text-[11px] text-white/60">Same record · rebooking attached</div>
-              </div>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-semibold ring-1 ring-white/15">
-                <RefreshCw className="h-3 w-3" />Returning customer
-              </span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </StageCanvas>
+function FormRow({ k, v }: { k: string; v: string }) {
+  return (
+    <div className="flex items-center gap-2 text-[11.5px]">
+      <span className="w-14 shrink-0 text-slate-400">{k}</span>
+      <span className="min-w-0 flex-1 truncate text-slate-800">{v}</span>
+    </div>
   );
 }
 
-/* ---------- Stage config with step counts ------------------------- */
-type StageDef = {
-  key: string; sub: string; label: string;
-  nav: NavKey;
-  headline: string; body: string;
-  steps: number;
-};
+function ChatBubble({ who, children }: { who: "ai" | "cust"; children: ReactNode }) {
+  const isAI = who === "ai";
+  return (
+    <div className={`flex ${isAI ? "justify-start" : "justify-end"}`}>
+      <div
+        className={`max-w-[80%] rounded-2xl px-3 py-1.5 text-[11.5px] leading-snug ${
+          isAI ? "bg-slate-100 text-slate-800" : "bg-blue-600 text-white"
+        }`}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
 
-const STAGES: StageDef[] = [
-  { key: "capture", sub: "01", label: "Capture", nav: "contacts", steps: 2,
-    headline: "Every enquiry becomes one contact record.",
-    body: "Emma submits a Facebook lead form for the annual A/C service. Her name, phone, email and service need create one contact record in Zapla — no manual entry, no duplicate." },
-  { key: "communicate", sub: "02", label: "Communicate", nav: "inbox", steps: 7,
-    headline: "Every channel. One conversation.",
-    body: "SMS, email, forms and social messages all stay connected to Emma's one record." },
-  { key: "convert", sub: "03", label: "Convert", nav: "quotes", steps: 3,
-    headline: "Quote accepted, time chosen, booking confirmed.",
-    body: "Emma accepts the quote for the annual A/C service and picks a time. Both attach to her record." },
-  { key: "operate", sub: "04", label: "Operate", nav: "calendar", steps: 3,
-    headline: "The job is scheduled and assigned.",
-    body: `The booking lands on ${STORY.day}, ${STORY.staff} is assigned, and the job moves to Scheduled.` },
-  { key: "retain", sub: "05", label: "Retain", nav: "reviews", steps: 3,
-    headline: "Completion triggers the follow-up.",
-    body: `Once the job wraps, Zapla sends the review ask and schedules the ${STORY.reminderMonths}-month reminder.` },
-  { key: "grow", sub: "06", label: "Grow", nav: "campaigns", steps: 3,
-    headline: "Twelve months later, Emma comes back.",
-    body: "The service-due reminder goes out, Emma rebooks, and she returns as the same record." },
+/* ------- Timeline rail — always mounted, accumulating dots -------- */
+const RAIL_MILESTONES: { id: string; label: string }[] = [
+  { id: "m0", label: "Enquiry"   },
+  { id: "m1", label: "Chat"      },
+  { id: "m2", label: "Booked"    },
+  { id: "m3", label: "Completed" },
+  { id: "m4", label: "Paid"      },
+  { id: "m5", label: "Reviewed"  },
+  { id: "m6", label: "Returned"  },
 ];
 
-/* ---------- Unified activity workspace ---------------------------
- * One persistent container. The correct scene renders inside based on
- * (active, step). No whole-screen crossfade and no stage.panel callback:
- * the outer DOM (product chrome, nav, Emma record) never unmounts.
- * `runToken` is used only as the inner key so clicking the active chapter
- * re-runs its internal choreography without touching the outer workspace.
- * ------------------------------------------------------------------ */
-function UnifiedActivity({ active, step, runToken }: { active: number; step: number; runToken: number }) {
+function railProgress(active: number, step: number): number {
+  if (active === 0 && step < 1) return -1;
+  if (active === 0) return 0;
+  if (active === 1) return 1;
+  if (active === 2) return step >= 3 ? 2 : 1;
+  if (active === 3) {
+    if (step >= 3) return 4;
+    if (step >= 2) return 3;
+    return 2;
+  }
+  if (active === 4) return step >= 2 ? 5 : 4;
+  return step >= 3 ? 6 : 5;
+}
+
+function TimelineRail({ active, step }: { active: number; step: number }) {
+  const reached = railProgress(active, step);
   return (
-    <div key={runToken} className="absolute inset-0 p-4 sm:p-5">
-      {active === 0 && <SceneCapture step={step} />}
-      {active === 1 && <SceneCommunicate step={step} />}
-      {active === 2 && <SceneConvert step={step} />}
-      {active === 3 && <SceneOperate step={step} />}
-      {active === 4 && <SceneRetain step={step} />}
-      {active === 5 && <SceneGrow step={step} />}
+    <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50/60">
+      <div className="flex items-center gap-1">
+        {RAIL_MILESTONES.map((m, i) => {
+          const done = i <= reached;
+          const nextDone = i < reached;
+          return (
+            <div key={m.id} className="flex items-center gap-1 flex-1 last:flex-none">
+              <span
+                className={`grid h-4 w-4 place-items-center rounded-full text-[9px] font-semibold transition-colors ${
+                  done ? "bg-blue-600 text-white" : "bg-white text-slate-400 ring-1 ring-slate-200"
+                }`}
+              >
+                {done ? <CheckCircle2 className="h-2.5 w-2.5" /> : i + 1}
+              </span>
+              <span
+                className={`hidden md:inline text-[10px] font-semibold ${
+                  done ? "text-slate-800" : "text-slate-400"
+                }`}
+              >
+                {m.label}
+              </span>
+              {i < RAIL_MILESTONES.length - 1 && (
+                <span
+                  className={`flex-1 h-px ml-1 transition-colors ${nextDone ? "bg-blue-600" : "bg-slate-200"}`}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ------- Status + action strip — always mounted, morphs by state -- */
+function statusAction(active: number, step: number): [string, string] {
+  if (active === 0 && step < 1) return ["Waiting for lead", "Listening"];
+  if (active === 0)              return ["Contact created", "Saved"];
+  if (active === 1)              return ["Conversation live · channels merged", "Connected"];
+  if (active === 2 && step < 1)  return ["Preparing quote", "Draft"];
+  if (active === 2 && step < 2)  return ["Quote sent", "Sent"];
+  if (active === 2 && step < 3)  return ["Time selected · 2:00 PM", "Chosen"];
+  if (active === 2)              return ["Booking confirmed", "Booked"];
+  if (active === 3 && step < 1)  return [`Job routed to ${STORY.staff}`, "Routing"];
+  if (active === 3 && step < 2)  return [`On schedule · ${STORY.day} ${STORY.time}`, "Scheduled"];
+  if (active === 3 && step < 3)  return ["Job completed on-site", "Done"];
+  if (active === 3)              return ["Payment attached", "Paid"];
+  if (active === 4 && step < 1)  return ["Post-job automations start", "Running"];
+  if (active === 4 && step < 2)  return ["Review requested", "Sent"];
+  if (active === 4 && step < 3)  return ["5★ review captured", "Reviewed"];
+  if (active === 4)              return ["Reminder scheduled · 12 months", "Queued"];
+  if (active === 5 && step < 1)  return ["Reminder scheduled", "Waiting"];
+  if (active === 5 && step < 2)  return ["Reminder sent", "Sent"];
+  if (active === 5 && step < 3)  return ["Emma replied — rebook", "Reply"];
+  return                              ["Rebooked · returning customer", "Loop"];
+}
+
+function StatusActionStrip({ active, step }: { active: number; step: number }) {
+  const [label, action] = statusAction(active, step);
+  return (
+    <div className="border-t border-slate-100 bg-white px-4 py-2.5 flex items-center justify-between gap-3">
+      <div className="text-[11px] text-slate-500 truncate">{label}</div>
+      <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10.5px] font-semibold text-slate-700">
+        {action}
+      </span>
+    </div>
+  );
+}
+
+/* ------- The single UnifiedActivity canvas ----------------------- */
+function UnifiedActivity({ active, step }: { active: number; step: number }) {
+  return (
+    <div className="absolute inset-0 flex flex-col">
+      <TimelineRail active={active} step={step} />
+      <div className="relative flex-1 min-h-0">
+        <ContextSurface active={active} step={step} />
+        <div className="absolute inset-0 flex items-center justify-center px-3">
+          <HeroObject kind={heroKindFor(active, step)} />
+        </div>
+      </div>
+      <StatusActionStrip active={active} step={step} />
     </div>
   );
 }
