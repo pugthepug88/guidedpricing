@@ -279,33 +279,37 @@ function PanelCapture({ step }: { step: number }) {
   return (
     <div className="space-y-3" data-testid="panel-capture">
       <StepReveal show={step >= 1}>
-        <div className="rounded-xl bg-rose-50/60 p-3.5 ring-1 ring-rose-100" data-testid="capture-step-1">
+        <div className="rounded-xl bg-white p-3.5 ring-1 ring-slate-200" data-testid="capture-step-1">
           <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-[#1877F2]/10 text-[#1877F2] ring-1 ring-[#1877F2]/20">
+              <Facebook className="h-4 w-4" />
+            </span>
             <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-              <div className="text-[12px] text-slate-600">Unknown phone number · no matching contact yet</div>
+              <div className="text-[13px] font-semibold text-slate-900">Facebook lead form submitted · 12:04 PM</div>
+              <div className="text-[12px] text-slate-500">Campaign · Annual A/C service — Local area</div>
             </div>
-            <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 ring-1 ring-slate-200 rounded-full px-2 py-0.5">Captured</span>
+            <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Captured</span>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 text-[12px] text-slate-700 sm:text-[12.5px]">
+            <div className="flex items-center gap-1.5"><span className="text-slate-400">Name</span><span className="font-medium">Emma Wilson</span></div>
+            <div className="flex items-center gap-1.5"><span className="text-slate-400">Phone</span><span className="font-medium">+61 4•• ••• •••</span></div>
+            <div className="flex items-center gap-1.5 col-span-2 sm:col-span-1"><span className="text-slate-400">Email</span><span className="font-medium truncate">emma.wilson@northline.com.au</span></div>
+            <div className="flex items-center gap-1.5"><span className="text-slate-400">Service</span><span className="font-medium">{STORY.service}</span></div>
           </div>
         </div>
       </StepReveal>
       <StepReveal show={step >= 2}>
-        <div className="rounded-xl bg-white p-3.5 ring-1 ring-slate-200" data-testid="capture-step-2">
-          <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-            <Users className="h-3 w-3" />New contact created
+        <div className="rounded-xl bg-emerald-50/50 p-3.5 ring-1 ring-emerald-100" data-testid="capture-step-2">
+          <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-emerald-700">
+            <CheckCircle2 className="h-3 w-3" />Contact created in Zapla
           </div>
           <div className="mt-2 flex items-center gap-3">
             <CustomerAvatar size={32} />
             <div className="min-w-0 flex-1">
-              <div className="text-[13px] font-semibold text-slate-900">Emma Wilson · identified</div>
-              <div className="text-[12px] text-slate-500">One contact record created from inbound call</div>
+              <div className="text-[13px] font-semibold text-slate-900">Emma Wilson · one connected record</div>
+              <div className="text-[12px] text-slate-500">Source Facebook Lead Ads · Enquiry opened</div>
             </div>
             <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Enquiry</span>
-          </div>
-          <div className="mt-3 space-y-1.5 text-[12.5px] text-slate-700">
-            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Source <span className="font-medium">Phone</span></div>
-            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Interest <span className="font-medium">{STORY.service}</span></div>
           </div>
         </div>
       </StepReveal>
