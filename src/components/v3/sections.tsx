@@ -1011,8 +1011,6 @@ const SLIDES: Slide[] = [
 export function ProfessionCarouselV3() {
   const [i, setI] = useState(0); // Professional services default
   const s = SLIDES[i];
-  const prev = SLIDES[(i - 1 + SLIDES.length) % SLIDES.length];
-  const next = SLIDES[(i + 1) % SLIDES.length];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const go = (n: number) => {
     const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
