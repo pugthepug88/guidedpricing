@@ -2151,9 +2151,16 @@ function PricingPreviewV3() {
             </div>
           ))}
         </div>
-        <div className="mt-8">
+        <div className="mt-10 flex flex-col items-center gap-3">
           <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-[14px] font-semibold text-white shadow-sm hover:bg-blue-700">
             Book a Call <ArrowRight className="h-4 w-4" />
+          </a>
+          <a
+            href="#"
+            onClick={(e) => e.preventDefault()}
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-slate-600 hover:text-slate-900"
+          >
+            View full pricing <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
       </div>
