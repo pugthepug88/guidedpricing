@@ -843,6 +843,10 @@ export function JourneyV3() {
   return (
     <section
       ref={sectionRef}
+      data-inview={inView ? "1" : "0"}
+      data-paused={paused ? "1" : "0"}
+      data-active={active}
+      data-step={step}
       className="bg-slate-50 py-24 sm:py-32 px-6"
     >
       <div className="mx-auto max-w-6xl">
