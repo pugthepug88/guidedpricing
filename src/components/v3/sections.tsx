@@ -833,8 +833,7 @@ export function JourneyV3() {
   const handleReplay  = () => { setUserPaused(false); handleSelect(0); };
   const togglePlay    = () => setUserPaused((p) => !p);
 
-  const atGrow = active === STAGES.length - 1;
-  const growComplete = atGrow && (reduced || step >= stage.steps);
+  const growComplete = active === STAGES.length - 1 && (reduced || step >= stage.steps);
 
   return (
     <section
