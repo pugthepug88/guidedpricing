@@ -176,7 +176,7 @@ function CustomerRecordHeader({ stageKey, step, finalStep }: { stageKey: StageKe
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <div className={`text-[14px] font-semibold transition-colors ${pending ? "text-slate-400 italic" : "text-slate-900"}`}>
-            {pending ? "New lead arriving…" : "Emma Wilson"}
+            {pending ? "Facebook enquiry arriving…" : "Emma Wilson"}
           </div>
           <span
             className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ring-1 transition-colors ${
