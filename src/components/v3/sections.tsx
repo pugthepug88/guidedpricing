@@ -215,6 +215,31 @@ function CustomerRecordHeader({ stageKey, step, finalStep }: { stageKey: StageKe
 }
 
 
+/* Legacy static header used by OneRecordV3 only (Journey uses the stage-aware header above). */
+function EmmaRecordHeader() {
+  return (
+    <div className="flex items-center gap-4 border-b border-slate-100 px-5 py-4 sm:px-6">
+      <CustomerAvatar size={44} />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <div className="text-[14px] font-semibold text-slate-900">Emma Wilson</div>
+          <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100">Lead</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">Local area</span>
+        </div>
+        <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
+          <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />+61 4•• ••• •••</span>
+          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</span>
+        </div>
+      </div>
+      <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 font-semibold text-emerald-700 ring-1 ring-emerald-100">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />Active
+        </span>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- Sequenced-reveal helper ------------------------------- */
 function StepReveal({
   show, children, delay = 0, from = "up",
