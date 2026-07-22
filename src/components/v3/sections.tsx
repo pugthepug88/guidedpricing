@@ -1040,7 +1040,7 @@ export function JourneyV3() {
   const [active, setActive] = useState(0);
   const [runToken, setRunToken] = useState(0);
   const [userPaused, setUserPaused] = useState(false);
-  const [inView, setInView] = useState(true);
+  const [inView, setInView] = useState(false);
   const stage = STAGES[active];
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
