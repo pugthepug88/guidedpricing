@@ -155,29 +155,67 @@ function CustomerRecordHeader() {
 const EmmaRecordHeader = CustomerRecordHeader;
 
 
-function PanelCapture() {
+/* ---------- Sequenced-reveal helper ------------------------------- */
+function StepReveal({
+  show, children, delay = 0, from = "up",
+}: { show: boolean; children: ReactNode; delay?: number; from?: "up" | "right" | "none" }) {
+  const translate =
+    from === "up"    ? "translate-y-1.5" :
+    from === "right" ? "translate-x-1.5" : "";
   return (
-    <div className="space-y-3">
-      <div className="rounded-xl bg-rose-50/60 p-3.5 ring-1 ring-rose-100">
-        <div className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
-          <div className="flex-1 min-w-0">
-            <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
-            <div className="text-[12px] text-slate-600">Number matched. One contact record created for Emma Wilson</div>
-          </div>
-          <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">New</span>
-        </div>
-      </div>
-      <div className="rounded-xl bg-white p-3.5 ring-1 ring-slate-200">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Activity</div>
-        <div className="mt-2 space-y-2 text-[12.5px] text-slate-700">
-          <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-500" />Contact created from inbound call</div>
-          <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Tagged as <span className="font-medium">Enquiry</span> · source <span className="font-medium">Phone</span></div>
-        </div>
-      </div>
+    <div
+      className={`transition-all duration-[420ms] ease-out will-change-transform ${
+        show ? "opacity-100 translate-x-0 translate-y-0 scale-100" : `opacity-0 ${translate} scale-[0.985]`
+      } motion-reduce:transition-none motion-reduce:transform-none`}
+      style={{ transitionDelay: show ? `${delay}ms` : "0ms" }}
+      aria-hidden={!show}
+    >
+      {children}
     </div>
   );
 }
+
+/* ---------- Story constants (single source of truth) -------------- */
+const STORY = {
+  service: "Annual air-conditioning service",
+  serviceShort: "annual A/C service",
+  day: "Thursday",
+  time: "2:00 PM",
+  staff: "Alex",
+  staffInitials: "AL",
+  staffRole: "Technician",
+  reminderMonths: 12,
+} as const;
+
+function PanelCapture({ step }: { step: number }) {
+  return (
+    <div className="space-y-3">
+      <StepReveal show={step >= 1}>
+        <div className="rounded-xl bg-rose-50/60 p-3.5 ring-1 ring-rose-100">
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-rose-500 ring-1 ring-rose-200"><PhoneMissed className="h-4 w-4" /></span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-slate-900">Missed call · 12:04 PM</div>
+              <div className="text-[12px] text-slate-600">Number matched to Emma Wilson · contact updated</div>
+            </div>
+            <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">Matched</span>
+          </div>
+        </div>
+      </StepReveal>
+      <StepReveal show={step >= 2}>
+        <div className="rounded-xl bg-white p-3.5 ring-1 ring-slate-200">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Activity</div>
+          <div className="mt-2 space-y-2 text-[12.5px] text-slate-700">
+            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-blue-500" />Contact updated from inbound call</div>
+            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Tagged <span className="font-medium">Enquiry</span> · source <span className="font-medium">Phone</span></div>
+            <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-slate-300" />Interest: <span className="font-medium">{STORY.service}</span></div>
+          </div>
+        </div>
+      </StepReveal>
+    </div>
+  );
+}
+
 function IgGlyph({ size = 10 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" role="img" aria-label="Instagram">
@@ -210,18 +248,18 @@ function MessengerGlyph({ size = 10 }: { size?: number }) {
   );
 }
 
-function PanelCommunicate() {
+function PanelCommunicate({ step }: { step: number }) {
   type Ev =
     | { kind: "event"; via: "Form" | "Instagram" | "Messenger" | "Email"; title: string; detail: string; when: string }
     | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
   const events: Ev[] = [
-    { kind: "event", via: "Form",      title: "Website form submitted", detail: "Service: kitchen tap repair · Preferred: Thursday", when: "11:52" },
-    { kind: "event", via: "Instagram", title: "Instagram DM · photo",    detail: "Emma sent a photo of the leaking tap",             when: "11:58" },
-    { kind: "event", via: "Messenger", title: "Messenger reply",         detail: "Confirmed the address and gate code",              when: "12:01" },
-    { kind: "msg",   from: "z", via: "SMS", t: "Hi Emma, we saw your form and photo. Thursday 2pm work?", when: "12:04" },
-    { kind: "msg",   from: "e", via: "SMS", t: "Yes please, that's perfect.",                             when: "12:06" },
-    { kind: "event", via: "Email",     title: "Email · booking details",  detail: "Confirmation, address on file and prep notes sent", when: "12:08" },
-    { kind: "msg",   from: "e", via: "SMS", t: "Got the email, all good. Thanks!",                        when: "12:09" },
+    { kind: "event", via: "Form",      title: "Website form submitted", detail: `Service: ${STORY.serviceShort} · Preferred: ${STORY.day}`, when: "11:52" },
+    { kind: "event", via: "Instagram", title: "Instagram DM",           detail: "Asked if the service covers split systems",            when: "11:58" },
+    { kind: "event", via: "Messenger", title: "Messenger reply",        detail: "Confirmed the address and gate code",                  when: "12:01" },
+    { kind: "msg",   from: "z", via: "SMS", t: `Hi Emma, ${STORY.day} ${STORY.time} for your ${STORY.serviceShort}?`,  when: "12:04" },
+    { kind: "msg",   from: "e", via: "SMS", t: "Yes please, that works.",                                              when: "12:06" },
+    { kind: "event", via: "Email",     title: "Email · booking details", detail: "Confirmation, address on file and prep notes sent",   when: "12:08" },
+    { kind: "msg",   from: "e", via: "SMS", t: "Got the email, all good. Thanks!",                                     when: "12:09" },
   ];
   const chip = (via: string) => {
     if (via === "SMS")       return "bg-emerald-50 text-emerald-700 ring-emerald-100";
@@ -239,89 +277,114 @@ function PanelCommunicate() {
   };
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
-      <div className="mb-2 flex flex-wrap items-center gap-2 px-1">
-        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">One thread · every channel</div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" aria-hidden />Form</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><IgGlyph size={11} />Instagram</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><MessengerGlyph size={11} />Messenger</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" aria-hidden />SMS</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-1.5 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-100"><Mail className="h-2.5 w-2.5" aria-hidden />Email</span>
+      <div className="mb-2 flex items-center justify-between px-1">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Conversation history</div>
+        <div className="text-[10px] text-slate-400">Today</div>
       </div>
       <div className="space-y-2">
         {events.map((e, i) => {
+          const show = step >= i + 1;
           if (e.kind === "event") {
             return (
-              <div key={i} className="flex items-start gap-2 rounded-lg bg-slate-50 px-2.5 py-2 ring-1 ring-slate-100">
-                <span className={`mt-0.5 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ring-1 ${chip(e.via)}`}>{icon(e.via)}{e.via}</span>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[12px] font-semibold text-slate-800">{e.title}</div>
-                  <div className="truncate text-[11.5px] text-slate-500">{e.detail}</div>
+              <StepReveal key={i} show={show}>
+                <div className="flex items-start gap-2 rounded-lg bg-slate-50 px-2.5 py-2 ring-1 ring-slate-100">
+                  <span className={`mt-0.5 inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-semibold ring-1 ${chip(e.via)}`}>{icon(e.via)}{e.via}</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[12px] font-semibold text-slate-800">{e.title}</div>
+                    <div className="truncate text-[11.5px] text-slate-500">{e.detail}</div>
+                  </div>
+                  <span className="text-[10px] text-slate-400">{e.when}</span>
                 </div>
-                <span className="text-[10px] text-slate-400">{e.when}</span>
-              </div>
+              </StepReveal>
             );
           }
           return (
-            <div key={i} className={`flex items-end gap-1.5 ${e.from === "z" ? "justify-start" : "justify-end"}`}>
-              {e.from === "e" && <CustomerAvatar size={20} />}
-              <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${e.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
-                {e.t}
-                <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${e.from === "z" ? "text-slate-500" : "text-white/70"}`}>
-                  <span>{e.when}</span><span>·</span><span>{e.via}</span>
+            <StepReveal key={i} show={show}>
+              <div className={`flex items-end gap-1.5 ${e.from === "z" ? "justify-start" : "justify-end"}`}>
+                {e.from === "e" && <CustomerAvatar size={20} />}
+                <div className={`max-w-[74%] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${e.from === "z" ? "bg-slate-100 text-slate-800 rounded-bl-sm" : "bg-blue-600 text-white rounded-br-sm"}`}>
+                  {e.t}
+                  <div className={`mt-0.5 flex items-center gap-1 text-[10px] ${e.from === "z" ? "text-slate-500" : "text-white/70"}`}>
+                    <span>{e.when}</span><span>·</span>
+                    <span className="inline-flex items-center gap-1">{icon(e.via)}{e.via}</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </StepReveal>
           );
         })}
       </div>
     </div>
   );
 }
-function PanelConvert() {
+
+function PanelConvert({ step }: { step: number }) {
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><FileText className="h-3 w-3" />Quote #Q-2841</div>
-        <div className="mt-2 text-[13px] font-semibold text-slate-900">Kitchen tap repair + parts</div>
-        <div className="mt-1 text-[12px] text-slate-500">Attached to Emma Wilson</div>
-        <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
-          <div className="text-[18px] font-semibold text-slate-900">$180.00</div>
-          <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Accepted</span>
+    <div className="space-y-3">
+      <StepReveal show={step >= 1}>
+        <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><FileText className="h-3 w-3" />Quote · Q-2841</div>
+            <span
+              className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ring-1 transition-colors ${
+                step >= 1 ? "bg-emerald-50 text-emerald-700 ring-emerald-100" : "bg-slate-50 text-slate-500 ring-slate-200"
+              }`}
+            >Quote accepted</span>
+          </div>
+          <div className="mt-2 text-[13px] font-semibold text-slate-900">{STORY.service}</div>
+          <div className="mt-1 text-[12px] text-slate-500">Attached to Emma Wilson</div>
+          <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
+            <div className="text-[18px] font-semibold text-slate-900">$240.00</div>
+            <div className="text-[11px] text-slate-500">Accepted 12:07 PM</div>
+          </div>
         </div>
-      </div>
-      <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><CalendarIcon className="h-3 w-3" />Booking</div>
-        <div className="mt-2 text-[13px] font-semibold text-slate-900">Thursday · 2:00 PM</div>
-        <div className="mt-1 text-[12px] text-slate-500">Reminders queued for 24h and 2h before</div>
-        <div className="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3 text-[12px]">
-          <TeamAvatar initials="AL" tone="#0ea5e9" size={22} />
-          <span className="text-slate-700">Assigned to <span className="font-semibold text-slate-900">team member</span></span>
+      </StepReveal>
+      <StepReveal show={step >= 2}>
+        <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
+          <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><CalendarIcon className="h-3 w-3" />Time selected</div>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            <span className="inline-flex items-center rounded-lg bg-slate-50 px-2.5 py-1 text-[12px] font-medium text-slate-500 ring-1 ring-slate-200">11:00 AM</span>
+            <span className="inline-flex items-center rounded-lg bg-blue-600 px-2.5 py-1 text-[12px] font-semibold text-white ring-1 ring-blue-600 shadow-sm">{STORY.time}</span>
+          </div>
+          <div className="mt-2 text-[12px] text-slate-500">Emma chose {STORY.day} {STORY.time}</div>
         </div>
-      </div>
+      </StepReveal>
+      <StepReveal show={step >= 3}>
+        <div className="rounded-xl bg-slate-950 p-4 text-white">
+          <div className="flex items-center gap-3">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-white/10"><CheckCircle2 className="h-4 w-4 text-emerald-300" /></span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold">Appointment confirmed · {STORY.day} {STORY.time}</div>
+              <div className="text-[11px] text-white/60">Assigned to {STORY.staff} · reminders queued</div>
+            </div>
+          </div>
+        </div>
+      </StepReveal>
     </div>
   );
 }
-function PanelOperate() {
+
+function PanelOperate({ step }: { step: number }) {
   // 8am → 5pm = 9 columns; "now" marker sits at 1pm (col index 5)
   const hours = ["8a","9a","10a","11a","12p","1p","2p","3p","4p"];
   const nowCol = 5; // 1pm
-  type Job = { start: number; span: number; tone: string; ring: string; label: string; sub?: string; highlight?: boolean };
+  type Job = { start: number; span: number; tone: string; ring: string; label: string; sub?: string; highlight?: boolean; appearAt?: number };
   const rows: { who: string; role: string; initials: string; tone: string; jobs: Job[] }[] = [
-    { who: "Alex", role: "Plumber", initials: "AL", tone: "#0ea5e9", jobs: [
-      { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Hot water install", sub: "Local area" },
-      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: "Emma Wilson · tap repair", sub: "Service visit", highlight: true },
+    { who: STORY.staff, role: STORY.staffRole, initials: STORY.staffInitials, tone: "#0ea5e9", jobs: [
+      { start: 0, span: 2, tone: "#e0f2fe", ring: "#7dd3fc", label: "Split system install", sub: "Local area" },
+      { start: 6, span: 1, tone: "#dbeafe", ring: "#2563eb", label: `Emma Wilson · ${STORY.serviceShort}`, sub: "Service visit", highlight: true, appearAt: 1 },
     ]},
-    { who: "Mia", role: "Tech", initials: "MI", tone: "#10b981", jobs: [
-      { start: 1, span: 2, tone: "#d1fae5", ring: "#34d399", label: "K. Nguyen · install", sub: "2h · parts kit" },
+    { who: "Mia", role: "Technician", initials: "MI", tone: "#10b981", jobs: [
+      { start: 1, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Ducted service", sub: "2h · parts kit" },
       { start: 4, span: 1, tone: "#d1fae5", ring: "#34d399", label: "Quote walk-through", sub: "Video call" },
       { start: 7, span: 2, tone: "#d1fae5", ring: "#34d399", label: "Site inspection", sub: "Local area" },
     ]},
-    { who: "Sam", role: "Tech", initials: "SM", tone: "#f59e0b", jobs: [
-      { start: 2, span: 1, tone: "#fef3c7", ring: "#fbbf24", label: "R. Thomas · quote", sub: "Enquiry" },
-      { start: 5, span: 2, tone: "#fef3c7", ring: "#fbbf24", label: "Warranty callback", sub: "45 min" },
+    { who: "Sam", role: "Technician", initials: "SM", tone: "#f59e0b", jobs: [
+      { start: 2, span: 1, tone: "#fef3c7", ring: "#fbbf24", label: "Warranty callback", sub: "45 min" },
+      { start: 5, span: 2, tone: "#fef3c7", ring: "#fbbf24", label: "Filter replacement", sub: "Enquiry" },
     ]},
     { who: "Jess", role: "Coordinator", initials: "JS", tone: "#a855f7", jobs: [
-      { start: 3, span: 2, tone: "#f3e8ff", ring: "#c084fc", label: "Route planning", sub: "Thu run sheet" },
+      { start: 3, span: 2, tone: "#f3e8ff", ring: "#c084fc", label: "Route planning", sub: `${STORY.day} run sheet` },
       { start: 8, span: 1, tone: "#f3e8ff", ring: "#c084fc", label: "End-of-day sync", sub: "Team" },
     ]},
   ];
@@ -329,15 +392,21 @@ function PanelOperate() {
     <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
       <div className="flex items-center justify-between">
         <div className="flex items-baseline gap-2">
-          <div className="text-[13px] font-semibold text-slate-900">Thursday</div>
-          <div className="text-[11px] text-slate-500">Team schedule · 4 staff · 8 jobs</div>
+          <div className="text-[13px] font-semibold text-slate-900">{STORY.day}</div>
+          <div className="text-[11px] text-slate-500">Team schedule</div>
         </div>
-        <div className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
-          <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> Now 1:00 PM
+        <div className="flex items-center gap-2">
+          <StepReveal show={step >= 3} from="right">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />Scheduled · Assigned
+            </span>
+          </StepReveal>
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
+            Now 1:00 PM
+          </div>
         </div>
       </div>
 
-      {/* header row: staff column + hour columns */}
       <div className="mt-3 grid gap-1 text-[10px] text-slate-400" style={{ gridTemplateColumns: "84px repeat(9, minmax(0,1fr))" }}>
         <div />
         {hours.map((h, i) => (
@@ -346,7 +415,6 @@ function PanelOperate() {
       </div>
 
       <div className="relative mt-1 space-y-1.5">
-        {/* current-time vertical marker */}
         <div
           className="pointer-events-none absolute top-0 bottom-0 z-10"
           style={{ left: `calc(84px + (100% - 84px) * ${(nowCol + 0.5) / 9})` }}
@@ -368,14 +436,18 @@ function PanelOperate() {
             {Array.from({ length: 9 }).map((_, i) => {
               const job = r.jobs.find((j) => i >= j.start && i < j.start + j.span);
               const isJobStart = job && i === job.start;
-              if (job && !isJobStart) return <div key={i} />; // spanned cell absorbed
+              if (job && !isJobStart) return <div key={i} />;
               if (!job) {
                 return <div key={i} className="h-9 rounded-md bg-slate-50 ring-1 ring-slate-100" />;
               }
+              const gated = (job.appearAt ?? 0) > 0;
+              const visible = !gated || step >= (job.appearAt ?? 0);
               return (
                 <div
                   key={i}
-                  className="h-9 rounded-md px-1.5 flex flex-col justify-center overflow-hidden"
+                  className={`h-9 rounded-md px-1.5 flex flex-col justify-center overflow-hidden transition-all duration-[420ms] ${
+                    visible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+                  } motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:scale-100`}
                   style={{
                     gridColumn: `span ${job.span} / span ${job.span}`,
                     background: job.tone,
@@ -398,95 +470,204 @@ function PanelOperate() {
       <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
         <div className="flex items-center gap-2 text-[11px] text-slate-500">
           <span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "#dbeafe", boxShadow: "inset 0 0 0 1.5px #2563eb" }} />
-          Emma Wilson job · assigned to Alex
+          Emma Wilson · assigned to {STORY.staff}
         </div>
-        <div className="text-[11px] text-slate-400">Drag to reschedule</div>
+        <StepReveal show={step >= 2}>
+          <div className="inline-flex items-center gap-1.5 text-[11px] text-slate-600">
+            <TeamAvatar initials={STORY.staffInitials} tone="#0ea5e9" size={16} />
+            <span>Assignment: <span className="font-semibold text-slate-900">{STORY.staff}</span></span>
+          </div>
+        </StepReveal>
       </div>
     </div>
   );
 }
 
-function PanelRetain() {
+function PanelRetain({ step }: { step: number }) {
   return (
     <div className="space-y-3">
-      <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
-        <div className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-amber-50 text-amber-500 ring-1 ring-amber-100"><StarIcon className="h-4 w-4" /></span>
-          <div className="flex-1 min-w-0">
-            <div className="text-[13px] font-semibold text-slate-900">Review request · queued</div>
-            <div className="text-[12px] text-slate-500">Sends 1 hour after job completion</div>
+      <StepReveal show={step >= 1}>
+        <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100"><CheckCircle2 className="h-4 w-4" /></span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-slate-900">Job completed · Emma Wilson</div>
+              <div className="text-[12px] text-slate-500">{STORY.service} · finished 3:15 PM by {STORY.staff}</div>
+            </div>
+            <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 ring-1 ring-emerald-100 rounded-full px-2 py-0.5">Done</span>
           </div>
-          <span className="text-[11px] font-semibold text-slate-500">Pending</span>
         </div>
-      </div>
-      <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
-        <div className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-50 text-blue-600 ring-1 ring-blue-100"><Bell className="h-4 w-4" /></span>
-          <div className="flex-1 min-w-0">
-            <div className="text-[13px] font-semibold text-slate-900">Service reminder · scheduled</div>
-            <div className="text-[12px] text-slate-500">6-month check-in queued</div>
+      </StepReveal>
+      <StepReveal show={step >= 2}>
+        <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-amber-50 text-amber-500 ring-1 ring-amber-100"><StarIcon className="h-4 w-4" /></span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-slate-900">Review request sent</div>
+              <div className="text-[12px] text-slate-500">Sent to Emma Wilson · 1 hour after completion</div>
+            </div>
+            <span className="text-[11px] font-semibold text-slate-500">Sent</span>
           </div>
-          <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Auto</span>
         </div>
-      </div>
-    </div>
-  );
-}
-function PanelGrow() {
-  return (
-    <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
-      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400"><RefreshCw className="h-3 w-3" />Repeat-service journey</div>
-      <div className="mt-3 grid gap-2">
-        {[
-          { t: "Day 0 · reactivation SMS drafted by AI", tone: "bg-blue-50 text-blue-700 ring-blue-100" },
-          { t: "Day 3 · follow-up email if no reply", tone: "bg-slate-50 text-slate-700 ring-slate-200" },
-          { t: "Day 7 · booking link with saved details", tone: "bg-slate-50 text-slate-700 ring-slate-200" },
-        ].map((r, i) => (
-          <div key={i} className={`rounded-lg px-3 py-2 text-[12.5px] font-medium ring-1 ${r.tone}`}>{r.t}</div>
-        ))}
-      </div>
-      <div className="mt-3 flex items-center gap-2 text-[11px] text-slate-500">
-        <Sparkles className="h-3 w-3 text-blue-600" /> Replies land back in the same inbox thread
-      </div>
+      </StepReveal>
+      <StepReveal show={step >= 3}>
+        <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-50 text-blue-600 ring-1 ring-blue-100"><Bell className="h-4 w-4" /></span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-slate-900">Service reminder scheduled</div>
+              <div className="text-[12px] text-slate-500">{STORY.reminderMonths}-month check-in queued for Emma Wilson</div>
+            </div>
+            <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 ring-1 ring-blue-100 rounded-full px-2 py-0.5">Auto</span>
+          </div>
+        </div>
+      </StepReveal>
     </div>
   );
 }
 
-const STAGES: Stage[] = [
-  { key: "capture", sub: "01", label: "Capture", nav: "contacts",
+function PanelGrow({ step }: { step: number }) {
+  return (
+    <div className="space-y-3">
+      <StepReveal show={step >= 1}>
+        <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
+          <div className="flex items-center gap-3">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-50 text-blue-600 ring-1 ring-blue-100"><Send className="h-4 w-4" /></span>
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold text-slate-900">Service due reminder sent</div>
+              <div className="text-[12px] text-slate-500">"Hi Emma, your {STORY.serviceShort} is due. Book a time?"</div>
+            </div>
+            <span className="text-[11px] font-semibold text-slate-500">+{STORY.reminderMonths} months</span>
+          </div>
+        </div>
+      </StepReveal>
+      <StepReveal show={step >= 2}>
+        <div className="rounded-xl bg-white p-4 ring-1 ring-slate-200">
+          <div className="flex items-center gap-3">
+            <CustomerAvatar size={32} />
+            <div className="flex-1 min-w-0">
+              <div className="text-[12px] text-slate-500">Emma Wilson replied</div>
+              <div className="text-[13px] font-semibold text-slate-900">Selected {STORY.day} {STORY.time}</div>
+            </div>
+            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><CheckCircle2 className="h-3 w-3" />Rebooked</span>
+          </div>
+        </div>
+      </StepReveal>
+      <StepReveal show={step >= 3}>
+        <div className="rounded-xl bg-slate-950 p-4 text-white">
+          <div className="flex items-center gap-3">
+            <CustomerAvatar size={32} />
+            <div className="flex-1 min-w-0">
+              <div className="text-[13px] font-semibold">Emma Wilson</div>
+              <div className="text-[11px] text-white/60">One record · full history preserved</div>
+            </div>
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[11px] font-semibold text-white ring-1 ring-white/15"><RefreshCw className="h-3 w-3" />Returning customer</span>
+          </div>
+        </div>
+      </StepReveal>
+    </div>
+  );
+}
+
+/* ---------- Stage config with step counts ------------------------- */
+type StageDef = {
+  key: string; sub: string; label: string;
+  nav: NavKey;
+  headline: string; body: string;
+  steps: number;
+  panel: (step: number) => ReactNode;
+};
+
+const STAGES: StageDef[] = [
+  { key: "capture", sub: "01", label: "Capture", nav: "contacts", steps: 2,
     headline: "Every enquiry becomes one contact record.",
-    body: "A missed call creates one contact. No duplicate, no lost detail.",
-    panel: <PanelCapture /> },
-  { key: "communicate", sub: "02", label: "Communicate", nav: "inbox",
-    headline: "The reply lives inside the customer record.",
-    body: "SMS, email and DMs all stay attached to the same customer.",
-    panel: <PanelCommunicate /> },
-  { key: "convert", sub: "03", label: "Convert", nav: "quotes",
-    headline: "Quote and booking attach to the same record.",
-    body: "The customer accepts a quote and books a time. Both link back to the contact.",
-    panel: <PanelConvert /> },
-  { key: "operate", sub: "04", label: "Operate", nav: "calendar",
+    body: "A missed call matches Emma's number and updates one contact — no duplicate, no lost detail.",
+    panel: (s) => <PanelCapture step={s} /> },
+  { key: "communicate", sub: "02", label: "Communicate", nav: "inbox", steps: 7,
+    headline: "Every channel. One conversation.",
+    body: "SMS, email, forms and social messages stay connected to the same customer.",
+    panel: (s) => <PanelCommunicate step={s} /> },
+  { key: "convert", sub: "03", label: "Convert", nav: "quotes", steps: 3,
+    headline: "Quote accepted, time chosen, booking confirmed.",
+    body: "Emma accepts the quote for the annual A/C service and picks a time. Both attach to her record.",
+    panel: (s) => <PanelConvert step={s} /> },
+  { key: "operate", sub: "04", label: "Operate", nav: "calendar", steps: 3,
     headline: "The job is scheduled and assigned.",
-    body: "The team sees the booking on a shared calendar with full context.",
-    panel: <PanelOperate /> },
-  { key: "retain", sub: "05", label: "Retain", nav: "reviews",
-    headline: "Review request and reminder go out on their own.",
-    body: "After the job wraps, Zapla queues the review ask and the next check-in.",
-    panel: <PanelRetain /> },
-  { key: "grow", sub: "06", label: "Grow", nav: "campaigns",
-    headline: "Customers re-enter a repeat-service journey.",
-    body: "Months later, AI drafts the reactivation. Replies come back to the same thread.",
-    panel: <PanelGrow /> },
+    body: `The booking lands on ${STORY.day}, ${STORY.staff} is assigned, and the job moves to Scheduled.`,
+    panel: (s) => <PanelOperate step={s} /> },
+  { key: "retain", sub: "05", label: "Retain", nav: "reviews", steps: 3,
+    headline: "Completion triggers the follow-up.",
+    body: `Once the job wraps, Zapla sends the review ask and schedules the ${STORY.reminderMonths}-month reminder.`,
+    panel: (s) => <PanelRetain step={s} /> },
+  { key: "grow", sub: "06", label: "Grow", nav: "campaigns", steps: 3,
+    headline: "Twelve months later, Emma comes back.",
+    body: "The service-due reminder goes out, Emma rebooks, and she returns as the same record.",
+    panel: (s) => <PanelGrow step={s} /> },
 ];
 
+/* ---------- Sequenced auto-play hook ------------------------------- */
+function useJourneySequence({
+  active, steps, setActive, reduced, paused, stageCount,
+}: {
+  active: number; steps: number; setActive: (i: number) => void;
+  reduced: boolean; paused: boolean; stageCount: number;
+}) {
+  const [step, setStep] = useState(reduced ? steps : 0);
+  const activeRef = useRef(active);
+
+  // Reset when active changes or reduced-motion toggles.
+  useEffect(() => {
+    activeRef.current = active;
+    setStep(reduced ? steps : 0);
+  }, [active, reduced, steps]);
+
+  useEffect(() => {
+    if (reduced || paused) return;
+    if (step >= steps) {
+      const linger = 1600;
+      const t = window.setTimeout(() => {
+        if (activeRef.current !== active) return;
+        setActive((active + 1) % stageCount);
+      }, linger);
+      return () => window.clearTimeout(t);
+    }
+    const t = window.setTimeout(() => setStep((s) => s + 1), step === 0 ? 250 : 900);
+    return () => window.clearTimeout(t);
+  }, [step, steps, reduced, paused, active, setActive, stageCount]);
+
+  return step;
+}
 
 export function JourneyV3() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   const stage = STAGES[active];
   const reduced = useReducedMotion();
+  const step = useJourneySequence({
+    active, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
+  });
+  const tabsRef = useRef<HTMLDivElement | null>(null);
+
+  // Bring active chapter into view on mobile.
+  useEffect(() => {
+    const el = tabsRef.current?.querySelector<HTMLButtonElement>(`[data-stage="${active}"]`);
+    el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
+  }, [active, reduced]);
+
+  const handleSelect = (i: number) => {
+    setActive(i); // step resets via effect
+  };
 
   return (
-    <section className="bg-slate-50 py-24 sm:py-32 px-6">
+    <section
+      className="bg-slate-50 py-24 sm:py-32 px-6"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setPaused(false);
+      }}
+    >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <Eyebrow>The platform</Eyebrow>
@@ -498,9 +679,10 @@ export function JourneyV3() {
           </p>
         </div>
 
-        {/* Stage selector */}
+        {/* Chapter selector */}
         <div className="relative mt-10">
           <div
+            ref={tabsRef}
             className="v3-journey-tabs -mx-6 overflow-x-auto px-8 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
             role="tablist"
             aria-label="Customer journey stage"
@@ -508,15 +690,24 @@ export function JourneyV3() {
             <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0 sm:justify-center">
               {STAGES.map((s, i) => {
                 const isActive = i === active;
+                const isDone = i < active;
                 return (
                   <button
                     key={s.key}
+                    data-stage={i}
                     role="tab"
                     aria-selected={isActive}
-                    onClick={() => setActive(i)}
-                    className={`relative flex items-center gap-2 rounded-full px-3.5 sm:px-5 py-2 text-[12px] sm:text-[13px] font-semibold transition-colors ${isActive ? "bg-slate-950 text-white shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+                    aria-label={`Stage ${s.sub}: ${s.label}`}
+                    onClick={() => handleSelect(i)}
+                    className={`relative flex items-center gap-2 rounded-full px-3.5 sm:px-5 py-2 text-[12px] sm:text-[13px] font-semibold transition-colors ${
+                      isActive
+                        ? "bg-slate-950 text-white shadow-sm"
+                        : isDone
+                        ? "text-slate-800 hover:text-slate-950"
+                        : "text-slate-500 hover:text-slate-800"
+                    }`}
                   >
-                    <span className={`font-mono text-[10px] ${isActive ? "text-white/70" : "text-slate-400"}`}>{s.sub}</span>
+                    <span className={`font-mono text-[10px] ${isActive ? "text-white/70" : isDone ? "text-blue-600" : "text-slate-400"}`}>{s.sub}</span>
                     {s.label}
                   </button>
                 );
@@ -525,26 +716,35 @@ export function JourneyV3() {
           </div>
         </div>
 
-
-        {/* External six-stage progress track — outside the browser shell */}
+        {/* One continuous progress line with pulse toward next stage */}
         <div className="mt-6 mx-auto max-w-3xl flex items-center gap-1.5 sm:gap-2" aria-hidden>
           {STAGES.map((_, i) => {
             const done = i < active;
             const now = i === active;
+            const stageProgress = now ? Math.min(1, step / Math.max(1, stage.steps)) : done ? 1 : 0;
             return (
               <div key={i} className="flex flex-1 items-center gap-1.5 sm:gap-2 last:flex-none">
                 <span
-                  className={`grid h-2.5 w-2.5 shrink-0 place-items-center rounded-full transition-all ${now ? "bg-blue-600 ring-4 ring-blue-100" : done ? "bg-blue-600" : "bg-slate-300"}`}
-                />
+                  className={`relative grid h-2.5 w-2.5 shrink-0 place-items-center rounded-full transition-all ${now ? "bg-blue-600 ring-4 ring-blue-100" : done ? "bg-blue-600" : "bg-slate-300"}`}
+                >
+                  {now && !reduced && (
+                    <span className="absolute inset-0 rounded-full bg-blue-500/40 motion-safe:animate-ping" />
+                  )}
+                </span>
                 {i < STAGES.length - 1 && (
-                  <div className={`h-[3px] flex-1 rounded-full transition-all ${done ? "bg-blue-600" : "bg-slate-200"}`} />
+                  <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-slate-200">
+                    <div
+                      className="absolute inset-y-0 left-0 rounded-full bg-blue-600 transition-[width] duration-500 ease-out"
+                      style={{ width: `${stageProgress * 100}%` }}
+                    />
+                  </div>
                 )}
               </div>
             );
           })}
         </div>
 
-        {/* Stable workspace card */}
+        {/* Workspace card */}
         <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-14 items-start">
           <div className="lg:sticky lg:top-24">
             <div className="text-[11px] font-mono text-slate-400">{stage.sub} / 06 · {stage.label}</div>
@@ -552,57 +752,70 @@ export function JourneyV3() {
             <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{stage.body}</p>
           </div>
 
-          <div className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
-            {/* Product chrome — subtle, credible */}
-            <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
-              <div className="flex items-center gap-1.5" aria-hidden>
-                <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
-                <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
-                <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+          <div>
+            <div className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
+              {/* Product chrome */}
+              <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
+                <div className="flex items-center gap-1.5" aria-hidden>
+                  <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+                </div>
+                <div className="mx-auto inline-flex items-center gap-1.5 rounded-md bg-white px-3 py-1 text-[11px] text-slate-500 ring-1 ring-slate-200">
+                  <Globe className="h-3 w-3" />
+                  my.zapla.io
+                </div>
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-slate-900 text-[10px] font-semibold text-white">SM</span>
               </div>
-              <div className="mx-auto inline-flex items-center gap-1.5 rounded-md bg-white px-3 py-1 text-[11px] text-slate-500 ring-1 ring-slate-200">
-                <Globe className="h-3 w-3" />
-                my.zapla.io
+
+              <div className="flex min-h-[520px]">
+                {/* Persistent left nav — active area matches stage */}
+                <aside className="hidden sm:flex w-[168px] flex-col gap-0.5 border-r border-slate-100 bg-white p-3">
+                  <div className="mb-3 flex items-center gap-2 px-1">
+                    <img src={logoBlue.url} alt="" className="h-6 w-6 rounded-md" />
+                    <span className="text-[13px] font-semibold text-slate-900">Zapla</span>
+                  </div>
+                  {([
+                    { key: "inbox",       icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
+                    { key: "contacts",    icon: <Users className="h-3.5 w-3.5" />,         label: "Contacts" },
+                    { key: "calendar",    icon: <CalendarIcon className="h-3.5 w-3.5" />,  label: "Calendar" },
+                    { key: "quotes",      icon: <FileText className="h-3.5 w-3.5" />,      label: "Quotes" },
+                    { key: "reviews",     icon: <StarIcon className="h-3.5 w-3.5" />,      label: "Reviews" },
+                    { key: "automations", icon: <Sparkles className="h-3.5 w-3.5" />,      label: "Automations" },
+                    { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
+                  ] as { key: NavKey; icon: ReactNode; label: string }[]).map((n) => {
+                    const isActive = n.key === stage.nav;
+                    return (
+                      <div key={n.key} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-colors ${isActive ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
+                        {n.icon}{n.label}
+                      </div>
+                    );
+                  })}
+                </aside>
+
+                <div className="flex-1 min-w-0 bg-white">
+                  {/* Persistent customer record header */}
+                  <CustomerRecordHeader />
+                  {/* Stage-varying panel — sequenced reveal inside */}
+                  <div className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`} key={reduced ? undefined : stage.key}>
+                    {stage.panel(step)}
+                  </div>
+                </div>
               </div>
-              <span className="grid h-6 w-6 place-items-center rounded-full bg-slate-900 text-[10px] font-semibold text-white">SM</span>
             </div>
 
-            <div className="flex min-h-[520px]">
-              {/* Persistent left rail */}
-              <aside className="hidden sm:flex w-[168px] flex-col gap-0.5 border-r border-slate-100 bg-white p-3">
-                <div className="mb-3 flex items-center gap-2 px-1">
-                  <img src={logoBlue.url} alt="" className="h-6 w-6 rounded-md" />
-                  <span className="text-[13px] font-semibold text-slate-900">Zapla</span>
-                </div>
-                {([
-                  { key: "inbox",       icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
-                  { key: "contacts",    icon: <Users className="h-3.5 w-3.5" />,         label: "Contacts" },
-                  { key: "calendar",    icon: <CalendarIcon className="h-3.5 w-3.5" />,  label: "Calendar" },
-                  { key: "quotes",      icon: <FileText className="h-3.5 w-3.5" />,      label: "Quotes" },
-                  { key: "reviews",     icon: <StarIcon className="h-3.5 w-3.5" />,      label: "Reviews" },
-                  { key: "automations", icon: <Sparkles className="h-3.5 w-3.5" />,      label: "Automations" },
-                  { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
-                ] as { key: NavKey; icon: ReactNode; label: string }[]).map((n) => {
-                  const isActive = n.key === stage.nav;
-                  return (
-                    <div key={n.key} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-colors ${isActive ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
-                      {n.icon}{n.label}
-                    </div>
-                  );
-                })}
-
-              </aside>
-
-              <div className="flex-1 min-w-0 bg-white">
-                {/* Stable customer record header — persistent across stages */}
-                <EmmaRecordHeader />
-                {/* Stage-varying inner panel */}
-                <div
-                  key={reduced ? undefined : stage.key}
-                  className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`}
-                >
-                  {stage.panel}
-                </div>
+            {/* Payoff line — only after Grow completes */}
+            <div
+              className={`mt-6 transition-all duration-500 ease-out ${
+                active === STAGES.length - 1 && (reduced || step >= stage.steps)
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-2 pointer-events-none"
+              } motion-reduce:transition-none`}
+              aria-live="polite"
+            >
+              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 ring-1 ring-slate-200 shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+                <span className="text-[13px] font-semibold text-slate-900">One customer. Every interaction connected.</span>
               </div>
             </div>
           </div>
