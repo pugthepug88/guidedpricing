@@ -160,55 +160,57 @@ const toneClasses = (t: "slate" | "blue" | "amber" | "emerald" | "violet") => {
 };
 
 function CustomerRecordHeader({ stageKey, step, finalStep }: { stageKey: StageKey; step: number; finalStep: number }) {
-  // Capture is the only place the identity has not resolved yet.
-  const unknown = stageKey === "capture" && step < 2;
+  // Identity resolves at Capture step 1 (Facebook / website lead form contains
+  // Emma's name, phone, email and service need). Before step 1 we show the
+  // pending state — an inbound lead is landing.
+  const pending = stageKey === "capture" && step < 1;
   const status = headerStatus(stageKey, step, finalStep);
   return (
     <div className="flex items-center gap-4 border-b border-slate-100 px-5 py-4 sm:px-6 transition-colors">
-      {unknown ? (
+      {pending ? (
         <span
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-slate-100 text-slate-500 ring-2 ring-white"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-slate-100 text-slate-400 ring-2 ring-white"
           aria-hidden
         >
-          <Phone className="h-4 w-4" />
+          <Users className="h-4 w-4" />
         </span>
       ) : (
         <CustomerAvatar size={44} />
       )}
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-          <div className={`text-[14px] font-semibold transition-colors ${unknown ? "text-slate-500 italic" : "text-slate-900"}`}>
-            {unknown ? "Unknown caller" : "Emma Wilson"}
+          <div className={`text-[14px] font-semibold transition-colors ${pending ? "text-slate-400 italic" : "text-slate-900"}`}>
+            {pending ? "New lead arriving…" : "Emma Wilson"}
           </div>
           <span
             className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ring-1 transition-colors ${
-              unknown ? toneClasses("slate") : toneClasses(status.tone)
+              pending ? toneClasses("slate") : toneClasses(status.tone)
             }`}
           >
-            {unknown ? "Captured" : status.label}
+            {pending ? "Incoming" : status.label}
           </span>
         </div>
         <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
           <span className="inline-flex items-center gap-1">
             <Phone className="h-3 w-3" />
-            {unknown ? "+61 4•• ••• •••" : "+61 4•• ••• •••"}
+            +61 4•• ••• •••
           </span>
-          {!unknown && (
+          {!pending && (
             <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</span>
           )}
-          {unknown && (
-            <span className="hidden sm:inline-flex items-center gap-1 text-slate-400">Identifying…</span>
+          {pending && (
+            <span className="hidden sm:inline-flex items-center gap-1 text-slate-400">Awaiting lead form…</span>
           )}
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
         <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-semibold ring-1 transition-colors ${
-          unknown
+          pending
             ? "bg-slate-100 text-slate-500 ring-slate-200"
             : "bg-emerald-50 text-emerald-700 ring-emerald-100"
         }`}>
-          <span className={`h-1.5 w-1.5 rounded-full ${unknown ? "bg-slate-400" : "bg-emerald-500"}`} />
-          {unknown ? "New" : "Active"}
+          <span className={`h-1.5 w-1.5 rounded-full ${pending ? "bg-slate-400" : "bg-emerald-500"}`} />
+          {pending ? "New" : "Active"}
         </span>
       </div>
     </div>
