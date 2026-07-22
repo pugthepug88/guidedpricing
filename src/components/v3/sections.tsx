@@ -706,7 +706,25 @@ const STAGES: StageDef[] = [
     panel: (s) => <PanelGrow step={s} /> },
 ];
 
-/* ---------- Sequenced auto-play hook ------------------------------- */
+/* ---------- Sequenced auto-play hook -------------------------------
+ * Timing target: complete six-stage journey in ~28–30s.
+ *   - first-step reveal: 300ms after stage enters
+ *   - subsequent events:  1000ms
+ *   - stage linger:       1800ms (last stage: 2500ms before looping to Capture)
+ * Cycle math (steps: 2+7+3+3+3+3 = 21):
+ *   capture     : 300 + 1×1000 + 1800 = 3100
+ *   communicate : 300 + 6×1000 + 1800 = 8100
+ *   convert     : 300 + 2×1000 + 1800 = 4100
+ *   operate     : 4100
+ *   retain      : 4100
+ *   grow        : 300 + 2×1000 + 2500 = 4800
+ *   total       ≈ 28.3s
+ * ------------------------------------------------------------------ */
+const STEP_FIRST_MS   = 300;
+const STEP_BETWEEN_MS = 1000;
+const STAGE_LINGER_MS = 1800;
+const LOOP_LINGER_MS  = 2500;
+
 function useJourneySequence({
   active, runToken, steps, setActive, reduced, paused, stageCount,
 }: {
@@ -716,9 +734,8 @@ function useJourneySequence({
   const [step, setStep] = useState(reduced ? steps : 0);
   const activeRef = useRef(active);
 
-  // Render-time reset: when active, runToken, reduced-motion, or step count changes,
-  // synchronously drop step back to 0 (or final for reduced motion) so the panel that
-  // mounts on this same render already sees the reset value.
+  // Render-time reset when active/runToken/reduced/steps change — the panel
+  // that mounts on this same render already sees the fresh step value.
   const lastKeyRef = useRef({ active, runToken, reduced, steps });
   const lastKey = lastKeyRef.current;
   if (lastKey.active !== active || lastKey.runToken !== runToken || lastKey.reduced !== reduced || lastKey.steps !== steps) {
@@ -727,18 +744,21 @@ function useJourneySequence({
     setStep(reduced ? steps : 0);
   }
 
-
   useEffect(() => {
     if (reduced || paused) return;
     if (step >= steps) {
-      const linger = 1600;
+      const isLast = active === stageCount - 1;
+      const linger = isLast ? LOOP_LINGER_MS : STAGE_LINGER_MS;
       const t = window.setTimeout(() => {
         if (activeRef.current !== active) return;
         setActive((active + 1) % stageCount);
       }, linger);
       return () => window.clearTimeout(t);
     }
-    const t = window.setTimeout(() => setStep((s) => s + 1), step === 0 ? 250 : 900);
+    const t = window.setTimeout(
+      () => setStep((s) => s + 1),
+      step === 0 ? STEP_FIRST_MS : STEP_BETWEEN_MS,
+    );
     return () => window.clearTimeout(t);
   }, [step, steps, reduced, paused, active, setActive, stageCount, runToken]);
 
@@ -748,36 +768,78 @@ function useJourneySequence({
 export function JourneyV3() {
   const [active, setActive] = useState(0);
   const [runToken, setRunToken] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
+  const [inView, setInView] = useState(false);
   const stage = STAGES[active];
   const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
+  const hasEnteredRef = useRef(false);
+
+  // Autoplay only while (a) the section is visibly in view, (b) user hasn't
+  // explicitly paused. Merely hovering the section does NOT pause.
+  const paused = !inView || userPaused;
+
   const step = useJourneySequence({
     active, runToken, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
   });
-  const tabsRef = useRef<HTMLDivElement | null>(null);
 
-  // Bring active chapter into view on mobile.
+  // IntersectionObserver: gate autoplay on visibility. First entry always
+  // starts at Capture (state already initialises there); after that the
+  // observer just toggles paused.
   useEffect(() => {
-    const el = tabsRef.current?.querySelector<HTMLButtonElement>(`[data-stage="${active}"]`);
-    el?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", inline: "center", block: "nearest" });
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      hasEnteredRef.current = true;
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const visible = e.isIntersecting && e.intersectionRatio >= 0.35;
+          if (visible && !hasEnteredRef.current) hasEnteredRef.current = true;
+          setInView(visible);
+        }
+      },
+      { threshold: [0, 0.35, 0.5, 0.75] },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Bring active chapter into view (only within the tabs strip, never the page).
+  useEffect(() => {
+    const container = tabsRef.current;
+    const el = container?.querySelector<HTMLButtonElement>(`[data-stage="${active}"]`);
+    if (!container || !el) return;
+    const cRect = container.getBoundingClientRect();
+    const eRect = el.getBoundingClientRect();
+    if (eRect.left < cRect.left || eRect.right > cRect.right) {
+      const target = el.offsetLeft - (container.clientWidth - el.clientWidth) / 2;
+      container.scrollTo({ left: Math.max(0, target), behavior: reduced ? "auto" : "smooth" });
+    }
   }, [active, reduced]);
 
-  // Clicking any chapter — including the currently active one — restarts its sequence.
-  const handleSelect = (i: number) => {
-    if (i !== active) setActive(i);
+  // Clicking any chapter — active or not — resets its sequence to step 0.
+  const handleSelect = useCallback((i: number) => {
+    const clamped = ((i % STAGES.length) + STAGES.length) % STAGES.length;
+    if (clamped !== active) setActive(clamped);
     setRunToken((t) => t + 1);
-  };
+  }, [active]);
 
+  const handlePrev    = () => handleSelect(active - 1);
+  const handleNext    = () => handleSelect(active + 1);
+  const handleReplay  = () => { setUserPaused(false); handleSelect(0); };
+  const togglePlay    = () => setUserPaused((p) => !p);
+
+  const atGrow = active === STAGES.length - 1;
+  const growComplete = atGrow && (reduced || step >= stage.steps);
 
   return (
     <section
+      ref={sectionRef}
       className="bg-slate-50 py-24 sm:py-32 px-6"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) setPaused(false);
-      }}
     >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
@@ -790,15 +852,15 @@ export function JourneyV3() {
           </p>
         </div>
 
-        {/* Chapter selector */}
-        <div className="relative mt-10">
+        {/* Chapter selector + transport controls */}
+        <div className="relative mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div
             ref={tabsRef}
-            className="v3-journey-tabs -mx-6 overflow-x-auto px-8 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
+            className="v3-journey-tabs -mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0 zapla-scroll-hide"
             role="tablist"
             aria-label="Customer journey stage"
           >
-            <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0 sm:justify-center">
+            <div className="flex min-w-max items-center gap-1 rounded-full bg-white p-1 ring-1 ring-slate-200 shadow-[0_2px_10px_-4px_rgba(15,23,42,0.08)] sm:min-w-0">
               {STAGES.map((s, i) => {
                 const isActive = i === active;
                 const isDone = i < active;
@@ -825,35 +887,55 @@ export function JourneyV3() {
               })}
             </div>
           </div>
+
+          {/* Compact transport: Prev · Play/Pause · Next · Replay */}
+          <div className="flex items-center gap-1.5 self-start sm:self-auto">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous stage"
+              className="grid h-8 w-8 place-items-center rounded-full bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 transition-colors"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={userPaused ? "Play journey" : "Pause journey"}
+              aria-pressed={userPaused}
+              className="grid h-8 w-8 place-items-center rounded-full bg-slate-950 text-white ring-1 ring-slate-950 hover:bg-slate-800 transition-colors"
+            >
+              {userPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next stage"
+              className="grid h-8 w-8 place-items-center rounded-full bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 transition-colors"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={handleReplay}
+              aria-label="Replay from Capture"
+              className="ml-1 inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-slate-700 ring-1 ring-slate-200 hover:text-slate-950 hover:ring-slate-300 transition-colors"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />Replay
+            </button>
+          </div>
         </div>
 
-        {/* One continuous progress line with pulse toward next stage */}
-        <div className="mt-6 mx-auto max-w-3xl flex items-center gap-1.5 sm:gap-2" aria-hidden>
-          {STAGES.map((_, i) => {
-            const done = i < active;
-            const now = i === active;
-            const stageProgress = now ? Math.min(1, step / Math.max(1, stage.steps)) : done ? 1 : 0;
-            return (
-              <div key={i} className="flex flex-1 items-center gap-1.5 sm:gap-2 last:flex-none">
-                <span
-                  className={`relative grid h-2.5 w-2.5 shrink-0 place-items-center rounded-full transition-all ${now ? "bg-blue-600 ring-4 ring-blue-100" : done ? "bg-blue-600" : "bg-slate-300"}`}
-                >
-                  {now && !reduced && (
-                    <span className="absolute inset-0 rounded-full bg-blue-500/40 motion-safe:animate-ping" />
-                  )}
-                </span>
-                {i < STAGES.length - 1 && (
-                  <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-slate-200">
-                    <div
-                      className="absolute inset-y-0 left-0 rounded-full bg-blue-600 transition-[width] duration-500 ease-out"
-                      style={{ width: `${stageProgress * 100}%` }}
-                    />
-                  </div>
-                )}
-              </div>
-            );
-          })}
+        {/* Single subtle progress cue — one continuous bar across all stages */}
+        <div className="mt-5 mx-auto max-w-3xl h-[3px] overflow-hidden rounded-full bg-slate-200" aria-hidden>
+          <div
+            className="h-full rounded-full bg-blue-600 transition-[width] duration-500 ease-out"
+            style={{
+              width: `${(((active + Math.min(1, step / Math.max(1, stage.steps))) / STAGES.length) * 100).toFixed(2)}%`,
+            }}
+          />
         </div>
+
 
         {/* Workspace card */}
         <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-14 items-start">
