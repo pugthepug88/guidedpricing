@@ -287,7 +287,7 @@ function NewLeadCard() {
         <div className="flex items-center gap-2.5">
           <Face src={pCust3.url} size={32} />
           <div className="min-w-0 flex-1">
-            <div className="truncate text-[12px] font-semibold text-neutral-900">Sample caller</div>
+            <div className="truncate text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
             <div className="truncate text-[11px] text-neutral-500">04•• ••• ••• · 0:42s</div>
           </div>
           <div className="text-[10px] text-neutral-400">just now</div>
@@ -326,7 +326,7 @@ function BookingCard() {
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <Face src={pCustomer.url} size={28} />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[11px] font-semibold text-neutral-900">Sample customer</div>
+          <div className="truncate text-[11px] font-semibold text-neutral-900">Emma Wilson</div>
           <div className="truncate text-[10px] text-neutral-500">Consultation · 45 min</div>
         </div>
         <CheckCircle2 className="h-4 w-4 text-emerald-500" />
@@ -394,7 +394,7 @@ function OpportunityCard() {
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <Face src={pCust4.url} size={28} />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[11px] font-semibold text-neutral-900">Sample customer</div>
+          <div className="truncate text-[11px] font-semibold text-neutral-900">Emma Wilson</div>
           <div className="truncate text-[10px] text-neutral-500">Kitchen renovation</div>
         </div>
         <span className="rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-200">Proposal</span>
@@ -451,7 +451,7 @@ function ReviewCard() {
         <div className="flex items-center gap-2">
           <Face src={pCustomer.url} size={28} />
           <div className="flex-1">
-            <div className="text-[12px] font-semibold text-neutral-900">Sample customer</div>
+            <div className="text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
             <div className="flex items-center gap-0.5">
               {[0,1,2,3,4].map((i) => (<Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />))}
             </div>

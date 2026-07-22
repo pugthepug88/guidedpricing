@@ -1211,7 +1211,7 @@ function OutcomesV3() {
                 <V3Avatar name="Emma R" tone="cyan" size={36} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-semibold text-slate-900">Sample customer</span>
+                    <span className="text-[13px] font-semibold text-slate-900">Emma Wilson</span>
                     <span className="text-[11px] text-slate-400">12:06 PM</span>
                   </div>
                   <div className="mt-1 rounded-xl rounded-tl-sm bg-blue-50 px-3 py-2 text-[12px] text-slate-800 ring-1 ring-blue-100">
@@ -1388,7 +1388,7 @@ function CommunicateSceneV3() {
           <div className="flex items-center gap-2.5">
             <V3Avatar name="Emma Wilson" tone="cyan" size={32} />
             <div>
-              <div className="text-[13px] font-semibold text-slate-900">Sample customer</div>
+              <div className="text-[13px] font-semibold text-slate-900">Emma Wilson</div>
               <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
                 <StatusDot tone="emerald" pulse={false} /> Local area reno
               </div>
