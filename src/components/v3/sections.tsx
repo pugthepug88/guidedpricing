@@ -178,13 +178,46 @@ function PanelCapture() {
     </div>
   );
 }
+function IgGlyph({ size = 10 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" role="img" aria-label="Instagram">
+      <defs>
+        <linearGradient id="v3-ig-g" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stopColor="#f9ce34" />
+          <stop offset="0.5" stopColor="#ee2a7b" />
+          <stop offset="1" stopColor="#6228d7" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="20" height="20" rx="5.5" fill="url(#v3-ig-g)" />
+      <circle cx="12" cy="12" r="4.2" fill="none" stroke="#fff" strokeWidth="1.8" />
+      <circle cx="17.4" cy="6.6" r="1.15" fill="#fff" />
+    </svg>
+  );
+}
+function MessengerGlyph({ size = 10 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" role="img" aria-label="Facebook Messenger">
+      <defs>
+        <radialGradient id="v3-msg-g" cx="0.25" cy="1" r="1.1">
+          <stop offset="0" stopColor="#00b2ff" />
+          <stop offset="0.6" stopColor="#006aff" />
+          <stop offset="1" stopColor="#0057ff" />
+        </radialGradient>
+      </defs>
+      <path d="M12 1.6C5.9 1.6 1.2 6.2 1.2 12.1c0 3.2 1.4 6 3.7 8v3.6l3.4-1.9c1.1.3 2.3.5 3.7.5 6.1 0 10.8-4.6 10.8-10.4S18.1 1.6 12 1.6z" fill="url(#v3-msg-g)" />
+      <path d="M5.7 14.9l3.2-5.1 2.9 2.4 2.9-2.4 2.9 5.1-2.9-2.4-2.9 2.4-2.9-2.4z" fill="#fff" />
+    </svg>
+  );
+}
+
 function PanelCommunicate() {
   type Ev =
-    | { kind: "event"; via: "Form" | "Instagram" | "Email"; title: string; detail: string; when: string }
+    | { kind: "event"; via: "Form" | "Instagram" | "Messenger" | "Email"; title: string; detail: string; when: string }
     | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
   const events: Ev[] = [
     { kind: "event", via: "Form",      title: "Website form submitted", detail: "Service: kitchen tap repair · Preferred: Thursday", when: "11:52" },
     { kind: "event", via: "Instagram", title: "Instagram DM · photo",    detail: "Emma sent a photo of the leaking tap",             when: "11:58" },
+    { kind: "event", via: "Messenger", title: "Messenger reply",         detail: "Confirmed the address and gate code",              when: "12:01" },
     { kind: "msg",   from: "z", via: "SMS", t: "Hi Emma, we saw your form and photo. Thursday 2pm work?", when: "12:04" },
     { kind: "msg",   from: "e", via: "SMS", t: "Yes please, that's perfect.",                             when: "12:06" },
     { kind: "event", via: "Email",     title: "Email · booking details",  detail: "Confirmation, address on file and prep notes sent", when: "12:08" },
@@ -193,23 +226,26 @@ function PanelCommunicate() {
   const chip = (via: string) => {
     if (via === "SMS")       return "bg-emerald-50 text-emerald-700 ring-emerald-100";
     if (via === "Instagram") return "bg-fuchsia-50 text-fuchsia-700 ring-fuchsia-100";
-    if (via === "Email")     return "bg-blue-50 text-blue-700 ring-blue-100";
+    if (via === "Messenger") return "bg-blue-50 text-blue-700 ring-blue-100";
+    if (via === "Email")     return "bg-sky-50 text-sky-700 ring-sky-100";
     return "bg-slate-100 text-slate-600 ring-slate-200";
   };
   const icon = (via: string) => {
-    if (via === "SMS")       return <MessageSquare className="h-2.5 w-2.5" />;
-    if (via === "Instagram") return <Instagram className="h-2.5 w-2.5" />;
-    if (via === "Email")     return <Mail className="h-2.5 w-2.5" />;
-    return <FileText className="h-2.5 w-2.5" />;
+    if (via === "SMS")       return <MessageSquare className="h-2.5 w-2.5" aria-hidden />;
+    if (via === "Instagram") return <IgGlyph size={11} />;
+    if (via === "Messenger") return <MessengerGlyph size={11} />;
+    if (via === "Email")     return <Mail className="h-2.5 w-2.5" aria-hidden />;
+    return <FileText className="h-2.5 w-2.5" aria-hidden />;
   };
   return (
     <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200">
       <div className="mb-2 flex flex-wrap items-center gap-2 px-1">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">One thread · every channel</div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" />Form</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-fuchsia-50 px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><Instagram className="h-2.5 w-2.5" />Instagram</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" />SMS</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><Mail className="h-2.5 w-2.5" />Email</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600"><FileText className="h-2.5 w-2.5" aria-hidden />Form</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[10px] font-semibold text-fuchsia-700 ring-1 ring-fuchsia-100"><IgGlyph size={11} />Instagram</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"><MessengerGlyph size={11} />Messenger</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100"><MessageSquare className="h-2.5 w-2.5" aria-hidden />SMS</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-1.5 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-100"><Mail className="h-2.5 w-2.5" aria-hidden />Email</span>
       </div>
       <div className="space-y-2">
         {events.map((e, i) => {
