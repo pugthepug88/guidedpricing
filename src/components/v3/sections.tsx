@@ -1000,7 +1000,7 @@ export function JourneyV3() {
             {/* Payoff line — only after Grow completes */}
             <div
               className={`mt-6 transition-all duration-500 ease-out ${
-                active === STAGES.length - 1 && (reduced || step >= stage.steps)
+                growComplete
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-2 pointer-events-none"
               } motion-reduce:transition-none`}
