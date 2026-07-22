@@ -1256,12 +1256,25 @@ function OutcomesV3() {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-semibold text-slate-900">Available Thursday</span>
+                    <span className="text-[13px] font-semibold text-slate-900">What time works?</span>
                     <span className="text-[11px] text-slate-400">12:05 PM</span>
                   </div>
                   <div className="mt-1 flex flex-wrap gap-1.5">
                     <span className="inline-flex items-center rounded-lg bg-white px-2.5 py-1 text-[12px] font-medium text-slate-700 ring-1 ring-slate-200">11:00 AM</span>
-                    <span className="inline-flex items-center rounded-lg bg-slate-950 px-2.5 py-1 text-[12px] font-medium text-white ring-1 ring-slate-900">2:00 PM ✓</span>
+                    <span className="inline-flex items-center rounded-lg bg-white px-2.5 py-1 text-[12px] font-medium text-slate-700 ring-1 ring-slate-200">2:00 PM</span>
+                  </div>
+                </div>
+              </div>
+              {/* Emma chooses a time */}
+              <div className="flex items-start gap-3">
+                <img src={pCustomer.url} alt="" width={36} height={36} className="shrink-0 rounded-full object-cover ring-2 ring-white" />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-semibold text-slate-900">Emma Wilson</span>
+                    <span className="text-[11px] text-slate-400">12:06 PM</span>
+                  </div>
+                  <div className="mt-1 rounded-xl rounded-tl-sm bg-blue-50 px-3 py-2 text-[12px] text-slate-800 ring-1 ring-blue-100">
+                    2:00 PM works.
                   </div>
                 </div>
               </div>
