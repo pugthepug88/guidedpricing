@@ -11,7 +11,7 @@ import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
 import pCustomer from "@/assets/portrait-customer.jpg.asset.json";
 import pCust2 from "@/assets/portrait-cust-2.jpg.asset.json";
-import pCust3 from "@/assets/portrait-cust-3.jpg.asset.json";
+// pCust3 unused; keep import removed to satisfy strict TS.
 import pCust4 from "@/assets/portrait-cust-4.jpg.asset.json";
 import pTeam1 from "@/assets/portrait-team-1.jpg.asset.json";
 import pTeam2 from "@/assets/portrait-team-2.jpg.asset.json";
