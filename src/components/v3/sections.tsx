@@ -974,6 +974,73 @@ const NAV_ITEMS: { key: NavKey; icon: ReactNode; label: string }[] = [
   { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
 ];
 
+type Stage = {
+  key: string;
+  sub: string;
+  label: string;
+  headline: string;
+  body: string;
+  steps: number;
+  nav: NavKey;
+};
+
+const STAGES: Stage[] = [
+  {
+    key: "capture",
+    sub: "01",
+    label: "Capture",
+    headline: "Every enquiry becomes a record.",
+    body: "A Facebook lead form arrives and lands as one clean contact — Emma Wilson, ready for the rest of the story.",
+    steps: 3,
+    nav: "contacts",
+  },
+  {
+    key: "communicate",
+    sub: "02",
+    label: "Communicate",
+    headline: "One conversation, every channel.",
+    body: "Form, SMS, email and Instagram merge into a single thread on Emma's record — no tabs, no lost context.",
+    steps: 5,
+    nav: "inbox",
+  },
+  {
+    key: "convert",
+    sub: "03",
+    label: "Convert",
+    headline: "Quote to booking, in place.",
+    body: "The same surface goes from quote to time selection to a confirmed booking for Thursday, 2:00 PM.",
+    steps: 4,
+    nav: "quotes",
+  },
+  {
+    key: "operate",
+    sub: "04",
+    label: "Operate",
+    headline: "Booking lands on the schedule.",
+    body: "Emma's job docks into Alex's 2:00 PM slot, gets completed on-site, and payment attaches back to the record.",
+    steps: 4,
+    nav: "calendar",
+  },
+  {
+    key: "retain",
+    sub: "05",
+    label: "Retain",
+    headline: "Post-job, automatically.",
+    body: "Job completed → review request → 12-month reminder queued. A short, linear automation Emma actually appreciates.",
+    steps: 4,
+    nav: "automations",
+  },
+  {
+    key: "grow",
+    sub: "06",
+    label: "Grow",
+    headline: "Loop the customer back.",
+    body: "Twelve months later, the reminder fires, Emma replies, and the same record marks her as a returning customer.",
+    steps: 4,
+    nav: "campaigns",
+  },
+];
+
 export function JourneyV3() {
   const [active, setActive] = useState(0);
   const [runToken, setRunToken] = useState(0);
