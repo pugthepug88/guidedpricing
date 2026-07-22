@@ -301,7 +301,7 @@ function StageCanvas({ children, className = "" }: { children: ReactNode; classN
 }
 
 /* ---------- 1. CAPTURE — form fills, then morphs into contact record ----- */
-function PanelCapture({ step }: { step: number }) {
+function SceneCapture({ step }: { step: number }) {
   const reduced = useReducedMotion();
   // step 0: blank (arriving);
   // step 1: form centered, fields fill in;
@@ -486,7 +486,7 @@ function chipIcon(via: string) {
   return <FileText className="h-2.5 w-2.5" aria-hidden />;
 }
 
-function PanelCommunicate({ step }: { step: number }) {
+function SceneCommunicate({ step }: { step: number }) {
   const reduced = useReducedMotion();
   const listRef = useRef<HTMLDivElement | null>(null);
   const visible = COMM_EVENTS.slice(0, Math.max(0, Math.min(step, COMM_EVENTS.length)));
@@ -579,7 +579,7 @@ function PanelCommunicate({ step }: { step: number }) {
 }
 
 /* ---------- 3. CONVERT — one surface morphs quote → booking → confirmed ------ */
-function PanelConvert({ step }: { step: number }) {
+function SceneConvert({ step }: { step: number }) {
   const reduced = useReducedMotion();
   // step 1: Quote sent (amber)
   // step 2: Quote accepted + time chips reveal, 2pm gets selected
@@ -693,7 +693,7 @@ function PanelConvert({ step }: { step: number }) {
 }
 
 /* ---------- 4. OPERATE — schedule grid, job token flies in to Alex ------- */
-function PanelOperate({ step }: { step: number }) {
+function SceneOperate({ step }: { step: number }) {
   const reduced = useReducedMotion();
   const hours = ["8a","9a","10a","11a","12p","1p","2p","3p","4p"];
   const nowCol = 5;
@@ -850,7 +850,7 @@ function PanelOperate({ step }: { step: number }) {
 }
 
 /* ---------- 5. RETAIN — horizontal workflow, connector draws, nodes activate --- */
-function PanelRetain({ step }: { step: number }) {
+function SceneRetain({ step }: { step: number }) {
   const reduced = useReducedMotion();
   const nodes = [
     { icon: <CheckCircle2 className="h-5 w-5" />, label: "Job completed", sub: `${STORY.staff} · 3:15 PM`, doneAt: 1, tone: { on: "bg-emerald-500 text-white ring-emerald-500", off: "bg-white text-slate-400 ring-slate-200" }, status: "Completed" },
@@ -931,7 +931,7 @@ function PanelRetain({ step }: { step: number }) {
 }
 
 /* ---------- 6. GROW — same record, timeline jumps +12mo, becomes returning ---- */
-function PanelGrow({ step }: { step: number }) {
+function SceneGrow({ step }: { step: number }) {
   const reduced = useReducedMotion();
   // step 1: timeline marker jumps to +12 months; reminder message arrives in thread
   // step 2: Emma reply appears in same thread
@@ -1038,35 +1038,49 @@ type StageDef = {
   nav: NavKey;
   headline: string; body: string;
   steps: number;
-  panel: (step: number) => ReactNode;
 };
 
 const STAGES: StageDef[] = [
   { key: "capture", sub: "01", label: "Capture", nav: "contacts", steps: 2,
     headline: "Every enquiry becomes one contact record.",
-    body: "Emma submits a Facebook lead form for the annual A/C service. Her name, phone, email and service need create one contact record in Zapla — no manual entry, no duplicate.",
-    panel: (s) => <PanelCapture step={s} /> },
+    body: "Emma submits a Facebook lead form for the annual A/C service. Her name, phone, email and service need create one contact record in Zapla — no manual entry, no duplicate." },
   { key: "communicate", sub: "02", label: "Communicate", nav: "inbox", steps: 7,
     headline: "Every channel. One conversation.",
-    body: "SMS, email, forms and social messages all stay connected to Emma's one record.",
-    panel: (s) => <PanelCommunicate step={s} /> },
+    body: "SMS, email, forms and social messages all stay connected to Emma's one record." },
   { key: "convert", sub: "03", label: "Convert", nav: "quotes", steps: 3,
     headline: "Quote accepted, time chosen, booking confirmed.",
-    body: "Emma accepts the quote for the annual A/C service and picks a time. Both attach to her record.",
-    panel: (s) => <PanelConvert step={s} /> },
+    body: "Emma accepts the quote for the annual A/C service and picks a time. Both attach to her record." },
   { key: "operate", sub: "04", label: "Operate", nav: "calendar", steps: 3,
     headline: "The job is scheduled and assigned.",
-    body: `The booking lands on ${STORY.day}, ${STORY.staff} is assigned, and the job moves to Scheduled.`,
-    panel: (s) => <PanelOperate step={s} /> },
+    body: `The booking lands on ${STORY.day}, ${STORY.staff} is assigned, and the job moves to Scheduled.` },
   { key: "retain", sub: "05", label: "Retain", nav: "reviews", steps: 3,
     headline: "Completion triggers the follow-up.",
-    body: `Once the job wraps, Zapla sends the review ask and schedules the ${STORY.reminderMonths}-month reminder.`,
-    panel: (s) => <PanelRetain step={s} /> },
+    body: `Once the job wraps, Zapla sends the review ask and schedules the ${STORY.reminderMonths}-month reminder.` },
   { key: "grow", sub: "06", label: "Grow", nav: "campaigns", steps: 3,
     headline: "Twelve months later, Emma comes back.",
-    body: "The service-due reminder goes out, Emma rebooks, and she returns as the same record.",
-    panel: (s) => <PanelGrow step={s} /> },
+    body: "The service-due reminder goes out, Emma rebooks, and she returns as the same record." },
 ];
+
+/* ---------- Unified activity workspace ---------------------------
+ * One persistent container. The correct scene renders inside based on
+ * (active, step). No whole-screen crossfade and no stage.panel callback:
+ * the outer DOM (product chrome, nav, Emma record) never unmounts.
+ * `runToken` is used only as the inner key so clicking the active chapter
+ * re-runs its internal choreography without touching the outer workspace.
+ * ------------------------------------------------------------------ */
+function UnifiedActivity({ active, step, runToken }: { active: number; step: number; runToken: number }) {
+  return (
+    <div key={runToken} className="absolute inset-0 p-4 sm:p-5">
+      {active === 0 && <SceneCapture step={step} />}
+      {active === 1 && <SceneCommunicate step={step} />}
+      {active === 2 && <SceneConvert step={step} />}
+      {active === 3 && <SceneOperate step={step} />}
+      {active === 4 && <SceneRetain step={step} />}
+      {active === 5 && <SceneGrow step={step} />}
+    </div>
+  );
+}
+
 
 /* ---------- Sequenced auto-play hook -------------------------------
  * Timing target: complete six-stage journey in ~28–30s.
@@ -1133,7 +1147,7 @@ function useJourneySequence({
 
 type StatusTone = "slate" | "blue" | "amber" | "emerald" | "violet";
 function statusFor(stageIdx: number, step: number): { label: string; tone: StatusTone } {
-  if (stageIdx === 0 && step < 1) return { label: "New lead",      tone: "slate"   };
+  if (stageIdx === 0 && step < 1) return { label: "Facebook enquiry", tone: "blue"    };
   if (stageIdx === 0)             return { label: "Enquiry",       tone: "blue"    };
   if (stageIdx === 1)             return { label: "In conversation", tone: "blue"  };
   if (stageIdx === 2) {
@@ -1195,7 +1209,7 @@ export function JourneyV3() {
   const [active, setActive] = useState(0);
   const [runToken, setRunToken] = useState(0);
   const [userPaused, setUserPaused] = useState(false);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
   const stage = STAGES[active];
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -1211,20 +1225,25 @@ export function JourneyV3() {
 
   // Start autoplay only once ~40% of the product frame is visible. Hover /
   // focus inside the section does NOT pause; only explicit play/pause does.
+  // Once the frame has been in view once, keep autoplay running continuously
+  // so the Grow → Capture loop never dead-ends offscreen.
   useEffect(() => {
     const el = frameRef.current;
     if (!el || typeof IntersectionObserver === "undefined") {
       setInView(true); hasEnteredRef.current = true; return;
     }
     const VISIBLE = 0.4;
-    const io = new IntersectionObserver(([e]) => {
+    const io = new IntersectionObserver((entries) => {
+      const e = entries[entries.length - 1];
       const visible = e.intersectionRatio >= VISIBLE;
       if (visible && !hasEnteredRef.current) {
         hasEnteredRef.current = true;
         setActive(0);
         setRunToken((t) => t + 1);
       }
-      setInView(visible);
+      // Never pause the sequence once mounted — autoplay must keep looping
+      // even when the frame briefly scrolls out of view.
+      setInView(true);
     }, { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1] });
     io.observe(el);
     return () => io.disconnect();
@@ -1347,20 +1366,12 @@ export function JourneyV3() {
 
         {/* Side copy + persistent workspace */}
         <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-12 items-start">
+          {/* Left copy — derived directly from active state so chapter, copy, status
+              and workspace can never disagree. Small text transition without swap keys. */}
           <div className="lg:sticky lg:top-24">
-            <div className="text-[11px] font-mono text-slate-400">{stage.sub} / 06 · {stage.label}</div>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={stage.key}
-                initial={reduced ? { opacity: 1 } : { opacity: 0, y: 6 }}
-                animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                exit={reduced ? { opacity: 1 } : { opacity: 0, y: -4 }}
-                transition={reduced ? { duration: 0 } : { duration: 0.28, ease: V3_EASE }}
-              >
-                <h3 className="mt-2 font-zapla text-2xl sm:text-[28px] font-semibold text-slate-950 leading-[1.15]">{stage.headline}</h3>
-                <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{stage.body}</p>
-              </motion.div>
-            </AnimatePresence>
+            <div className="text-[11px] font-mono text-slate-400 transition-colors">{stage.sub} / 06 · {stage.label}</div>
+            <h3 className="mt-2 font-zapla text-2xl sm:text-[28px] font-semibold text-slate-950 leading-[1.15] transition-opacity">{stage.headline}</h3>
+            <p className="mt-3 text-[15px] text-slate-600 leading-relaxed transition-opacity">{stage.body}</p>
           </div>
 
           <div>
@@ -1377,6 +1388,24 @@ export function JourneyV3() {
                   my.zapla.io
                 </div>
                 <span className="grid h-6 w-6 place-items-center rounded-full bg-slate-900 text-[10px] font-semibold text-white">SM</span>
+              </div>
+
+              {/* Persistent compact Emma bar — visible on tablet and mobile (< lg).
+                  Same identity, status pill and history count as the desktop
+                  sidebar, so Emma is never absent at any breakpoint. */}
+              <div className="lg:hidden flex items-center gap-2.5 border-b border-slate-100 bg-slate-50/60 px-3 py-2">
+                <CustomerAvatar size={28} />
+                <div className="min-w-0 flex-1">
+                  <div className="text-[12px] font-semibold text-slate-900 truncate">Emma Wilson</div>
+                  <div className="text-[10px] text-slate-500 truncate">Annual A/C service</div>
+                </div>
+                <span
+                  className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ring-1 transition-colors ${toneClasses(status.tone)}`}
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-current opacity-70" />
+                  {status.label}
+                </span>
+                <span className="hidden sm:inline text-[10px] text-slate-400 tabular-nums">{historyVisible}/{HISTORY_ITEMS.length}</span>
               </div>
 
               <div className="flex min-h-[560px]">
@@ -1396,7 +1425,9 @@ export function JourneyV3() {
                   })}
                 </aside>
 
-                {/* Persistent Emma Wilson record — never unmounts, status + history grow in place */}
+                {/* Persistent Emma Wilson record — desktop sidebar. Same customer
+                    at every stage; status and history grow in place. Mirrored by
+                    the compact bar above at < lg so Emma is always visible. */}
                 <aside className="hidden lg:flex w-[240px] shrink-0 flex-col border-r border-slate-100 bg-slate-50/40">
                   <div className="border-b border-slate-100 bg-white px-4 py-4">
                     <div className="flex items-center gap-3">
@@ -1407,19 +1438,12 @@ export function JourneyV3() {
                       </div>
                     </div>
                     <div className="mt-3">
-                      <AnimatePresence mode="wait" initial={false}>
-                        <motion.span
-                          key={status.label}
-                          initial={reduced ? { opacity: 1 } : { opacity: 0, y: 4 }}
-                          animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
-                          exit={reduced ? { opacity: 1 } : { opacity: 0, y: -4 }}
-                          transition={reduced ? { duration: 0 } : { duration: 0.3, ease: V3_EASE }}
-                          className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10.5px] font-semibold ring-1 ${toneClasses(status.tone)}`}
-                        >
-                          <span className="h-1.5 w-1.5 rounded-full bg-current opacity-70" />
-                          {status.label}
-                        </motion.span>
-                      </AnimatePresence>
+                      <span
+                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10.5px] font-semibold ring-1 transition-colors ${toneClasses(status.tone)}`}
+                      >
+                        <span className="h-1.5 w-1.5 rounded-full bg-current opacity-70" />
+                        {status.label}
+                      </span>
                     </div>
                     <div className="mt-3 space-y-1 text-[11px] text-slate-500">
                       <div className="flex items-center gap-1.5"><Phone className="h-3 w-3" />+61 4•• ••• •••</div>
@@ -1455,27 +1479,19 @@ export function JourneyV3() {
                   </div>
                 </aside>
 
-                {/* Activity area — the workspace transforms per stage while Emma persists */}
+                {/* Unified activity workspace — one component, no whole-scene
+                    crossfade, no keying by stage.key. runToken forces the
+                    internal choreography to replay when a chapter is clicked. */}
                 <div className="flex-1 min-w-0 bg-white">
                   <div className="relative" style={{ height: STAGE_H + 40 }}>
-                    <AnimatePresence mode="popLayout" initial={false}>
-                      <motion.div
-                        key={`${stage.key}-${runToken}`}
-                        className="absolute inset-0 p-4 sm:p-5"
-                        initial={reduced ? { opacity: 1 } : { opacity: 0, y: 8, scale: 0.99 }}
-                        animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-                        exit={reduced ? { opacity: 1 } : { opacity: 0, y: -6, scale: 0.99 }}
-                        transition={reduced ? { duration: 0 } : { duration: 0.36, ease: V3_EASE }}
-                      >
-                        {stage.panel(step)}
-                      </motion.div>
-                    </AnimatePresence>
+                    <UnifiedActivity active={active} step={step} runToken={runToken} />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Payoff + CTA — reveal only after Grow completes; loops back to Capture underneath */}
+            {/* Payoff — reveals only after Grow completes; loops underneath.
+                CTA is intentionally unlinked (design-only, no href, no action). */}
             <div
               className={`mt-6 transition-all duration-500 ease-out ${
                 growComplete
@@ -1493,15 +1509,17 @@ export function JourneyV3() {
                   <span>reviewed</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
                   <span>returned</span>
                 </div>
-                <a
-                  href={BOOK_URL}
-                  className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-blue-700 hover:text-blue-900"
+                <div
+                  role="text"
+                  aria-label="See how Zapla would connect your customer journey"
+                  className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-blue-700 select-none"
                 >
                   See how Zapla would connect your customer journey
                   <ArrowRight className="h-4 w-4" />
-                </a>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
