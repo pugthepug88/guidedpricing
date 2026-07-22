@@ -709,12 +709,17 @@ function useJourneySequence({
   const [step, setStep] = useState(reduced ? steps : 0);
   const activeRef = useRef(active);
 
-  // Reset when active OR runToken changes (runToken re-triggers on same-stage clicks),
-  // or when reduced-motion toggles.
-  useEffect(() => {
+  // Render-time reset: when active, runToken, reduced-motion, or step count changes,
+  // synchronously drop step back to 0 (or final for reduced motion) so the panel that
+  // mounts on this same render already sees the reset value.
+  const lastKeyRef = useRef({ active, runToken, reduced, steps });
+  const lastKey = lastKeyRef.current;
+  if (lastKey.active !== active || lastKey.runToken !== runToken || lastKey.reduced !== reduced || lastKey.steps !== steps) {
+    lastKeyRef.current = { active, runToken, reduced, steps };
     activeRef.current = active;
     setStep(reduced ? steps : 0);
-  }, [active, runToken, reduced, steps]);
+  }
+
 
   useEffect(() => {
     if (reduced || paused) return;
