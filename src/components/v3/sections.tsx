@@ -141,7 +141,7 @@ function CustomerRecordHeader() {
         </div>
         <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
           <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />+61 4•• ••• •••</span>
-          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma@example.com</span>
+          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</span>
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
@@ -557,11 +557,6 @@ export function JourneyV3() {
                   key={reduced ? undefined : stage.key}
                   className={`p-5 sm:p-6 ${reduced ? "" : "v3-crossfade"}`}
                 >
-                  <div className="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                    <span className="font-mono text-slate-400">{stage.sub}</span>
-                    <span>·</span>
-                    <span className="text-slate-500">{stage.label}</span>
-                  </div>
                   {stage.panel}
                 </div>
               </div>
@@ -882,7 +877,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Consultation</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample enquiry · Tue 10:00 AM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Marcus Lee · Tue 10:00 AM</div>
         <div className="mt-1 text-[12px] text-slate-500">Intake notes attached, advisor assigned</div>
       </div>
     ),
@@ -899,7 +894,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Inspection booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample listing · Thu 4:30 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">12 Harbour Lane · Thu 4:30 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Agent assigned, reminders queued</div>
       </div>
     ),
@@ -916,7 +911,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Appointment</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample enquiry · Wed 2:00 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Priya Shah · Wed 2:00 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Payslips and ID uploaded, checklist complete</div>
       </div>
     ),
@@ -933,7 +928,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Reminder sent</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample patient · 24h check-in</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Olivia Chen · 24h check-in</div>
         <div className="mt-1 text-[12px] text-slate-500">One-tap rebook enabled</div>
       </div>
     ),
@@ -950,7 +945,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Trial booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample studio · Sat 8:00 AM class</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Daniel Nguyen · Sat 8:00 AM class</div>
         <div className="mt-1 text-[12px] text-slate-500">Follow-up scheduled in 3 days</div>
       </div>
     ),
@@ -967,7 +962,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Site visit</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample job · Thu 2:00 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Emma Wilson · Thu 2:00 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Assigned to on-call tech, quote pending</div>
       </div>
     ),
@@ -984,7 +979,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Service booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample vehicle · Mon 9:00 AM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Marcus Lee · Mon 9:00 AM</div>
         <div className="mt-1 text-[12px] text-slate-500">Log book service, reminder set for 6 months</div>
       </div>
     ),
@@ -1001,7 +996,7 @@ const SLIDES: Slide[] = [
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Return offer sent</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sample stay · 2-night booking</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Priya Shah · 2-night booking</div>
         <div className="mt-1 text-[12px] text-slate-500">Review request queued, repeat-guest discount</div>
       </div>
     ),
@@ -1011,8 +1006,6 @@ const SLIDES: Slide[] = [
 export function ProfessionCarouselV3() {
   const [i, setI] = useState(0); // Professional services default
   const s = SLIDES[i];
-  const prev = SLIDES[(i - 1 + SLIDES.length) % SLIDES.length];
-  const next = SLIDES[(i + 1) % SLIDES.length];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const go = (n: number) => {
     const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
@@ -1037,14 +1030,14 @@ export function ProfessionCarouselV3() {
           </p>
         </div>
 
-        {/* Profession tabs */}
+        {/* Profession tabs — mobile: horizontal rail with edge fade; desktop: centered wrap */}
         <div
-          className="mt-10 -mx-6 overflow-x-auto px-6 sm:overflow-visible sm:mx-0 sm:px-0"
+          className="mt-10 -mx-6 overflow-x-auto px-6 md:overflow-visible md:mx-0 md:px-0 zapla-scroll-hide"
           role="tablist"
           aria-label="Profession"
           style={{ WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)", maskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)" }}
         >
-          <div className="flex min-w-max items-center gap-2 zapla-scroll-hide">
+          <div className="flex min-w-max items-center justify-start gap-2 md:min-w-0 md:flex-wrap md:justify-center">
             {SLIDES.map((sl, idx) => {
               const isActive = idx === i;
               const Icon = sl.Icon;
@@ -1055,7 +1048,7 @@ export function ProfessionCarouselV3() {
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => go(idx)}
-                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-semibold transition ${isActive ? "bg-slate-950 text-white shadow-sm" : "bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900"}`}
+                  className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-semibold transition ${isActive ? "bg-slate-950 text-white shadow-sm" : "bg-white text-slate-600 ring-1 ring-slate-200 hover:text-slate-900"}`}
                 >
                   <Icon className="h-3.5 w-3.5" />
                   {sl.label}
@@ -1066,21 +1059,13 @@ export function ProfessionCarouselV3() {
         </div>
 
 
-        {/* Carousel stage */}
+        {/* Carousel stage — stable height, no clipping neighbors */}
         <div className="relative mt-10">
-          {/* Peek slides — desktop only */}
-          <div className="pointer-events-none absolute inset-y-6 left-[-8%] hidden w-[22%] rounded-[24px] bg-white opacity-40 ring-1 ring-slate-200 lg:block" aria-hidden>
-            <div className="h-full w-full rounded-[24px] bg-cover bg-center opacity-70" style={{ backgroundImage: `url(${prev.image})` }} />
-          </div>
-          <div className="pointer-events-none absolute inset-y-6 right-[-8%] hidden w-[22%] rounded-[24px] bg-white opacity-40 ring-1 ring-slate-200 lg:block" aria-hidden>
-            <div className="h-full w-full rounded-[24px] bg-cover bg-center opacity-70" style={{ backgroundImage: `url(${next.image})` }} />
-          </div>
-
           <article
             key={s.key}
-            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)]`}
+            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[720px] sm:min-h-[970px] lg:min-h-[520px]`}
           >
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-stretch">
+            <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-stretch h-full">
               {/* Visual */}
               <div className="relative aspect-[5/4] min-h-[320px] w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none">
                 <img src={s.image} alt="" className="absolute inset-0 h-full w-full object-cover" />

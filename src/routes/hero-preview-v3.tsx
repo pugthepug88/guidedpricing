@@ -378,7 +378,7 @@ function HeroMobileTile() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72l1 6-2.5 2.5a16 16 0 006 6l2.5-2.5 6 1a2 2 0 011.72 2z"/><line x1="22" y1="2" x2="18" y2="6"/><line x1="18" y1="2" x2="22" y2="6"/></svg>
               </span>
               <div className="min-w-0 flex-1">
-                <div className="text-[12.5px] font-semibold text-slate-900">Missed call · Sample caller</div>
+                <div className="text-[12.5px] font-semibold text-slate-900">Missed call · Emma Wilson</div>
                 <div className="text-[11px] text-slate-500">Auto-reply sent · 12:04 PM</div>
               </div>
             </div>
@@ -1211,7 +1211,7 @@ function OutcomesV3() {
                 <V3Avatar name="Emma R" tone="cyan" size={36} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <span className="text-[13px] font-semibold text-slate-900">Sample customer</span>
+                    <span className="text-[13px] font-semibold text-slate-900">Emma Wilson</span>
                     <span className="text-[11px] text-slate-400">12:06 PM</span>
                   </div>
                   <div className="mt-1 rounded-xl rounded-tl-sm bg-blue-50 px-3 py-2 text-[12px] text-slate-800 ring-1 ring-blue-100">
@@ -1357,7 +1357,7 @@ function CaptureSceneV3() {
 /* --- Scene: Communicate --- */
 function CommunicateSceneV3() {
   const threads = [
-    { name: "Sample customer", tone: "cyan" as const, ch: <MessageCircle className="h-3 w-3 text-emerald-600" />, preview: "Thanks — see you Thu 2pm.", when: "12:07", unread: true },
+    { name: "Emma Wilson", tone: "cyan" as const, ch: <MessageCircle className="h-3 w-3 text-emerald-600" />, preview: "Thanks — see you Thu 2pm.", when: "12:07", unread: true },
     { name: "Jordan Clarke", tone: "blue" as const, ch: <GmailGlyph size={12} />, preview: "Quote looks great, quick question…", when: "11:44", unread: true },
     { name: "Priya Shah", tone: "amber" as const, ch: <InstaGlyph size={12} />, preview: "Do you cover Marrickville?", when: "10:22", unread: false },
     { name: "Karen Ng", tone: "emerald" as const, ch: <WhatsAppGlyph size={12} />, preview: "Perfect, please book it in.", when: "Yest", unread: false },
@@ -1386,9 +1386,9 @@ function CommunicateSceneV3() {
       <div className="flex flex-col">
         <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
           <div className="flex items-center gap-2.5">
-            <V3Avatar name="Sample customer" tone="cyan" size={32} />
+            <V3Avatar name="Emma Wilson" tone="cyan" size={32} />
             <div>
-              <div className="text-[13px] font-semibold text-slate-900">Sample customer</div>
+              <div className="text-[13px] font-semibold text-slate-900">Emma Wilson</div>
               <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
                 <StatusDot tone="emerald" pulse={false} /> Local area reno
               </div>
@@ -1432,7 +1432,7 @@ function CommunicateSceneV3() {
 /* --- Scene: Convert --- */
 function ConvertSceneV3() {
   const stages = [
-    { label: "New enquiry", count: 4, tone: "bg-slate-100 text-slate-700", card: { name: "Sample customer", meta: "Local area", amt: "" } },
+    { label: "New enquiry", count: 4, tone: "bg-slate-100 text-slate-700", card: { name: "Emma Wilson", meta: "Local area", amt: "" } },
     { label: "Quoted", count: 3, tone: "bg-blue-50 text-blue-700", card: { name: "Jordan Clarke", meta: "Kitchen reno", amt: "$4,800" } },
     { label: "Booked", count: 2, tone: "bg-cyan-50 text-cyan-700", card: { name: "Karen Ng", meta: "Thu 2:00 PM", amt: "$1,250" } },
     { label: "Paid", count: 5, tone: "bg-emerald-50 text-emerald-700", card: { name: "Tom Bailey", meta: "Paid via Stripe", amt: "$2,100" } },
@@ -1567,7 +1567,7 @@ function RetainSceneV3() {
           <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400" />
           <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400" />
           <StarIcon className="h-3 w-3 fill-amber-400 text-amber-400" />
-          <span className="ml-2">Sample review preview</span>
+          <span className="ml-2">Recent review</span>
         </div>
       </div>
     </div>
@@ -1676,7 +1676,7 @@ const WF_SCENARIOS: WfScenario[] = [
       { t: "12:04", text: "Missed call captured on business line", tone: "amber" },
       { t: "12:04", text: "Automatic SMS sent", tone: "emerald" },
       { t: "12:06", text: "Customer replied · bathroom reno · local area", tone: "blue" },
-      { t: "12:06", text: "AI captured intent · Sample caller", tone: "blue" },
+      { t: "12:06", text: "AI captured intent · Emma Wilson", tone: "blue" },
       { t: "12:07", text: "Calendar slot booked · Thu 2:00 PM", tone: "emerald" },
       { t: "12:07", text: "Opportunity created · Alex alerted", tone: "slate" },
     ],
@@ -2151,9 +2151,16 @@ function PricingPreviewV3() {
             </div>
           ))}
         </div>
-        <div className="mt-8">
+        <div className="mt-10 flex flex-col items-center gap-3">
           <a href={BOOK_URL} className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-[14px] font-semibold text-white shadow-sm hover:bg-blue-700">
             Book a Call <ArrowRight className="h-4 w-4" />
+          </a>
+          <a
+            href="#"
+            onClick={(e) => e.preventDefault()}
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-slate-600 hover:text-slate-900"
+          >
+            View full pricing <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
       </div>

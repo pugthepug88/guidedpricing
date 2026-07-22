@@ -11,7 +11,7 @@ import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
 import pCustomer from "@/assets/portrait-customer.jpg.asset.json";
 import pCust2 from "@/assets/portrait-cust-2.jpg.asset.json";
-import pCust3 from "@/assets/portrait-cust-3.jpg.asset.json";
+// pCust3 unused; keep import removed to satisfy strict TS.
 import pCust4 from "@/assets/portrait-cust-4.jpg.asset.json";
 import pTeam1 from "@/assets/portrait-team-1.jpg.asset.json";
 import pTeam2 from "@/assets/portrait-team-2.jpg.asset.json";
@@ -227,10 +227,10 @@ function InstagramIcon({ size = 32 }: { size?: number }) {
 
 function ConversationsCard() {
   const threads = [
-    { icon: <SmsIcon size={36} />, name: "Sample customer", time: "2m", preview: "Can I move my 3pm to Thursday?", unread: true },
-    { icon: <GmailIcon size={36} />, name: "New enquiry", time: "8m", preview: "Hi, wanted to get a quote for…", unread: true },
-    { icon: <InstagramIcon size={36} />, name: "Instagram DM", time: "1h", preview: "Do you take bookings via DM?", unread: false },
-    { icon: <MessengerIcon size={36} />, name: "Messenger reply", time: "3h", preview: "Thanks, see you tomorrow", unread: false },
+    { icon: <SmsIcon size={36} />, name: "Emma Wilson", time: "2m", preview: "Can I move my 3pm to Thursday?", unread: true },
+    { icon: <GmailIcon size={36} />, name: "Marcus Lee", time: "8m", preview: "Hi, wanted to get a quote for…", unread: true },
+    { icon: <InstagramIcon size={36} />, name: "Priya Shah", time: "1h", preview: "Do you take bookings via DM?", unread: false },
+    { icon: <MessengerIcon size={36} />, name: "Daniel Nguyen", time: "3h", preview: "Thanks, see you tomorrow", unread: false },
   ];
   return (
     <Shell className="w-[320px] p-4">
@@ -285,9 +285,9 @@ function NewLeadCard() {
       </div>
       <div className="mt-3 rounded-xl bg-neutral-50 p-3 ring-1 ring-neutral-200/70">
         <div className="flex items-center gap-2.5">
-          <Face src={pCust3.url} size={32} />
+          <Face src={pCustomer.url} size={32} />
           <div className="min-w-0 flex-1">
-            <div className="truncate text-[12px] font-semibold text-neutral-900">Sample caller</div>
+            <div className="truncate text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
             <div className="truncate text-[11px] text-neutral-500">04•• ••• ••• · 0:42s</div>
           </div>
           <div className="text-[10px] text-neutral-400">just now</div>
@@ -326,7 +326,7 @@ function BookingCard() {
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <Face src={pCustomer.url} size={28} />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[11px] font-semibold text-neutral-900">Sample customer</div>
+          <div className="truncate text-[11px] font-semibold text-neutral-900">Emma Wilson</div>
           <div className="truncate text-[10px] text-neutral-500">Consultation · 45 min</div>
         </div>
         <CheckCircle2 className="h-4 w-4 text-emerald-500" />
@@ -394,7 +394,7 @@ function OpportunityCard() {
       <div className="mt-3 flex items-center gap-2 rounded-lg bg-neutral-50 p-2 ring-1 ring-neutral-200/70">
         <Face src={pCust4.url} size={28} />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[11px] font-semibold text-neutral-900">Sample customer</div>
+          <div className="truncate text-[11px] font-semibold text-neutral-900">Daniel Nguyen</div>
           <div className="truncate text-[10px] text-neutral-500">Kitchen renovation</div>
         </div>
         <span className="rounded-full bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-200">Proposal</span>
@@ -411,7 +411,7 @@ function InvoiceCard() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500 text-white"><CheckCircle2 className="h-[18px] w-[18px]" /></div>
           <div>
             <div className="text-[14px] font-semibold text-neutral-900 leading-tight">Invoice Paid</div>
-            <div className="text-[11px] text-neutral-500 leading-tight">INV-2841 · Sample customer</div>
+            <div className="text-[11px] text-neutral-500 leading-tight">INV-2841 · Emma Wilson</div>
           </div>
         </div>
         <div className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200">PAID</div>
@@ -451,7 +451,7 @@ function ReviewCard() {
         <div className="flex items-center gap-2">
           <Face src={pCustomer.url} size={28} />
           <div className="flex-1">
-            <div className="text-[12px] font-semibold text-neutral-900">Sample customer</div>
+            <div className="text-[12px] font-semibold text-neutral-900">Emma Wilson</div>
             <div className="flex items-center gap-0.5">
               {[0,1,2,3,4].map((i) => (<Star key={i} className="h-3 w-3 fill-amber-400 text-amber-400" />))}
             </div>
