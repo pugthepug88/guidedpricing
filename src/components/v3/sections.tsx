@@ -1397,7 +1397,7 @@ export function JourneyV3() {
                 </aside>
 
                 {/* Persistent Emma Wilson record — never unmounts, status + history grow in place */}
-                <aside className="hidden md:flex w-[240px] shrink-0 flex-col border-r border-slate-100 bg-slate-50/40">
+                <aside className="hidden lg:flex w-[240px] shrink-0 flex-col border-r border-slate-100 bg-slate-50/40">
                   <div className="border-b border-slate-100 bg-white px-4 py-4">
                     <div className="flex items-center gap-3">
                       <CustomerAvatar size={40} />
