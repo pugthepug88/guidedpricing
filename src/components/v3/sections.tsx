@@ -1008,8 +1008,10 @@ export function JourneyV3() {
                       className="p-5 sm:p-6"
                       initial={reduced ? { opacity: 1 } : { opacity: 0, y: 10, scale: 0.99 }}
                       animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-                      exit={reduced ? { opacity: 1 } : { opacity: 0, y: -8, scale: 0.99 }}
-                      transition={reduced ? { duration: 0 } : { duration: 0.32, ease: V3_EASE }}
+                      exit={reduced ? { opacity: 1 } : { opacity: 0, y: -6, scale: 0.99 }}
+                      transition={reduced
+                        ? { duration: 0 }
+                        : { duration: 0.28, ease: V3_EASE, exit: { duration: 0.14, ease: V3_EASE } }}
                     >
                       {stage.panel(step)}
                     </motion.div>
