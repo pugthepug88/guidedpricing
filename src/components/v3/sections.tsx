@@ -1066,12 +1066,11 @@ export function ProfessionCarouselV3() {
           </p>
         </div>
 
-        {/* Profession tabs — mobile: horizontal rail with edge fade; desktop: centered wrap */}
+        {/* Profession tabs — mobile: horizontal rail with soft edge fade; desktop: centered wrap, no mask */}
         <div
-          className="mt-10 -mx-6 overflow-x-auto px-6 md:overflow-visible md:mx-0 md:px-0 zapla-scroll-hide"
+          className="v3-industry-tabs mt-10 -mx-6 overflow-x-auto px-8 md:overflow-visible md:mx-0 md:px-0 zapla-scroll-hide"
           role="tablist"
           aria-label="Profession"
-          style={{ WebkitMaskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)", maskImage: "linear-gradient(90deg, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%)" }}
         >
           <div className="flex min-w-max items-center justify-start gap-2 md:min-w-0 md:flex-wrap md:justify-center">
             {SLIDES.map((sl, idx) => {
