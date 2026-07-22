@@ -347,13 +347,13 @@ function PanelCommunicate({ step }: { step: number }) {
     | { kind: "event"; via: "Form" | "Instagram" | "Messenger" | "Email"; title: string; detail: string; when: string }
     | { kind: "msg"; from: "z" | "e"; via: "SMS"; t: string; when: string };
   const events: Ev[] = [
-    { kind: "event", via: "Form",      title: "Website form submitted", detail: `Service: ${STORY.serviceShort} · Preferred: ${STORY.day}`, when: "11:52" },
-    { kind: "event", via: "Instagram", title: "Instagram DM",           detail: "Asked if the service covers split systems",            when: "11:58" },
-    { kind: "event", via: "Messenger", title: "Messenger reply",        detail: "Confirmed the address and gate code",                  when: "12:01" },
-    { kind: "msg",   from: "z", via: "SMS", t: `Hi Emma, ${STORY.day} ${STORY.time} for your ${STORY.serviceShort}?`,  when: "12:04" },
-    { kind: "msg",   from: "e", via: "SMS", t: "Yes please, that works.",                                              when: "12:06" },
-    { kind: "event", via: "Email",     title: "Email · booking details", detail: "Confirmation, address on file and prep notes sent",   when: "12:08" },
-    { kind: "msg",   from: "e", via: "SMS", t: "Got the email, all good. Thanks!",                                     when: "12:09" },
+    { kind: "msg",   from: "z", via: "SMS",       t: "Sorry we missed your call. What can we help you with?",     when: "12:05" },
+    { kind: "msg",   from: "e", via: "SMS",       t: "I need my annual A/C service.",                              when: "12:06" },
+    { kind: "event", via: "Form",      title: "Website form submitted", detail: `Service details · Preferred day ${STORY.day}`, when: "12:10" },
+    { kind: "event", via: "Instagram", title: "Instagram DM · photo",   detail: "Emma sent a photo of the split system",        when: "12:18" },
+    { kind: "event", via: "Messenger", title: "Messenger reply",        detail: "Confirmed the address and access details",     when: "12:22" },
+    { kind: "msg",   from: "z", via: "SMS",       t: "Thanks Emma — I'll send your quote and available times next.", when: "12:24" },
+    { kind: "event", via: "Email",     title: "Email · quote and times", detail: "Quote and available times sent",              when: "12:30" },
   ];
   const chip = (via: string) => {
     if (via === "SMS")       return "bg-emerald-50 text-emerald-700 ring-emerald-100";
