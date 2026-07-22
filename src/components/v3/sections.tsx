@@ -784,9 +784,10 @@ export function JourneyV3() {
     active, runToken, steps: stage.steps, setActive, reduced, paused, stageCount: STAGES.length,
   });
 
-  // IntersectionObserver: gate autoplay on visibility. First entry always
-  // starts at Capture (state already initialises there); after that the
-  // observer just toggles paused.
+  // IntersectionObserver: gate autoplay on visibility. A "large enough slice"
+  // of the section (≥35% of the viewport, or the whole section for shorter
+  // heights) counts as in-view. First entry always starts at Capture (state
+  // already initialises there); afterwards this just toggles paused.
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || typeof IntersectionObserver === "undefined") {
@@ -797,12 +798,16 @@ export function JourneyV3() {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          const visible = e.isIntersecting && e.intersectionRatio >= 0.35;
+          const vh = window.innerHeight || 1;
+          const rectH = e.intersectionRect.height;
+          const viewportCoverage = rectH / vh;
+          const sectionCoverage  = e.intersectionRatio;
+          const visible = e.isIntersecting && (viewportCoverage >= 0.35 || sectionCoverage >= 0.9);
           if (visible && !hasEnteredRef.current) hasEnteredRef.current = true;
           setInView(visible);
         }
       },
-      { threshold: [0, 0.35, 0.5, 0.75] },
+      { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] },
     );
     io.observe(el);
     return () => io.disconnect();
