@@ -43,112 +43,157 @@ function useIsDesktop() {
 }
 
 export function ConnectedSystemSectionV3() {
-  const isDesktop = useIsDesktop();
-  const reduced = useReducedMotion();
-
-  // On tablet/mobile OR reduced-motion: use a clean normal-flow grid, no sticky scroll.
-  if (!isDesktop || reduced) {
-    return (
-      <section className="relative bg-white text-neutral-900 py-20 sm:py-24 px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
-            Every customer moment. One <span className="text-zapla-blue">connected</span> system.
-          </h2>
-          <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
-            Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
-          </p>
-        </div>
-        <div className="mx-auto mt-10 grid max-w-6xl gap-4 sm:grid-cols-2">
-          <ConversationsCard />
-          <NewLeadCard />
-          <BookingCard />
-          <WorkflowCard />
-          <OpportunityCard />
-          <InvoiceCard />
-          <ReviewCard />
-          <WinBackCard />
-        </div>
-      </section>
-    );
-  }
-
-  return <DesktopScrollScene />;
-}
-
-function DesktopScrollScene() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    const section = ref.current;
-    if (!section) return;
-    let rafId: number | null = null;
-    const update = () => {
-      const total = section.scrollHeight - window.innerHeight;
-      const p = total > 0 ? (window.scrollY - section.offsetTop) / total : 0;
-      setProgress(Math.max(0, Math.min(1, p)));
-      rafId = null;
-    };
-    const onScroll = () => {
-      if (rafId === null) rafId = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (rafId !== null) cancelAnimationFrame(rafId);
-    };
-  }, []);
-
-  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 0.55, 1], [1, 0.35, 0, 0]);
-  const colorOpacity = useTransform(scrollYProgress, [0.15, 0.55, 1], [0, 1, 1]);
+  const [view, setView] = useState<"before" | "after">("before");
 
   return (
-    <section ref={ref} className="relative h-[460vh] bg-white text-neutral-900">
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
-        <div className="relative z-30 pt-12 md:pt-16 px-6 text-center max-w-3xl mx-auto">
-          <h2 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
-            Every customer moment. One <span className="text-zapla-blue">connected</span> system.
-          </h2>
-          <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
-            Calls, messages, bookings, payments, follow-ups and reviews moving together automatically.
-          </p>
-        </div>
-        <div className="relative mx-auto w-full max-w-[1400px] flex-1 px-6">
-          <div className="relative mx-auto flex h-full items-center justify-center">
-            <div className="relative mx-auto h-[74vh] w-[min(148vh,96vw)]">
-              <motion.img
-                src={heroSketch.url}
-                alt=""
-                draggable={false}
-                style={{ opacity: sketchOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
-              />
-              <motion.img
-                src={heroColor.url}
-                alt=""
-                draggable={false}
-                style={{ opacity: colorOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
-              />
+    <section className="relative bg-white text-neutral-900 py-20 sm:py-24 px-6 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_60%_at_50%_0%,#F5F9FF_0%,#ffffff_60%)]" />
 
-              <OrbitCard progress={progress} appearAt={0.18} pos="left-[-6%] top-[2%]"><ConversationsCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.26} pos="right-[-6%] top-[2%]"><NewLeadCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.36} pos="right-[-10%] top-[38%]"><BookingCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.46} pos="right-[-3%] top-[72%]"><WorkflowCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.56} pos="right-[24%] bottom-[2%]"><OpportunityCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.66} pos="left-[24%] bottom-[2%]"><InvoiceCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.76} pos="left-[-3%] top-[72%]"><ReviewCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.86} pos="left-[-10%] top-[38%]"><WinBackCard /></OrbitCard>
-            </div>
-          </div>
+      <div className="mx-auto max-w-3xl text-center">
+        <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-600 ring-1 ring-slate-200">
+          Before &amp; after
+        </span>
+        <h2 className="mt-4 font-zapla text-3xl sm:text-4xl md:text-[46px] font-semibold tracking-tight text-neutral-900 leading-[1.08]">
+          Scattered tools, or one <span className="text-zapla-blue">connected</span> system.
+        </h2>
+        <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
+          Most service businesses run on a stack of disconnected apps. Zapla brings every customer touchpoint into one place, working together.
+        </p>
+
+        {/* Compact controlled transition */}
+        <div className="mt-8 inline-flex items-center gap-1 rounded-full bg-slate-100 p-1 ring-1 ring-slate-200">
+          <button
+            onClick={() => setView("before")}
+            aria-pressed={view === "before"}
+            className={`rounded-full px-4 py-1.5 text-[12.5px] font-semibold transition ${view === "before" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+          >
+            Before Zapla
+          </button>
+          <button
+            onClick={() => setView("after")}
+            aria-pressed={view === "after"}
+            className={`rounded-full px-4 py-1.5 text-[12.5px] font-semibold transition ${view === "after" ? "bg-slate-900 text-white shadow-sm" : "text-slate-500 hover:text-slate-800"}`}
+          >
+            With Zapla
+          </button>
+        </div>
+      </div>
+
+      <div className="relative mx-auto mt-10 max-w-6xl">
+        <div className="relative min-h-[520px] sm:min-h-[500px]">
+          <BeforeCanvas active={view === "before"} />
+          <AfterCanvas active={view === "after"} />
         </div>
       </div>
     </section>
+  );
+}
+
+function BeforeCanvas({ active }: { active: boolean }) {
+  const chips = [
+    { label: "Missed call", tone: "bg-rose-50 text-rose-700 ring-rose-100" },
+    { label: "Instagram DM", tone: "bg-pink-50 text-pink-700 ring-pink-100" },
+    { label: "Voicemail", tone: "bg-amber-50 text-amber-700 ring-amber-100" },
+    { label: "Email thread", tone: "bg-slate-50 text-slate-700 ring-slate-200" },
+    { label: "Spreadsheet", tone: "bg-emerald-50 text-emerald-700 ring-emerald-100" },
+    { label: "Sticky notes", tone: "bg-yellow-50 text-yellow-800 ring-yellow-100" },
+    { label: "Booking app", tone: "bg-blue-50 text-blue-700 ring-blue-100" },
+    { label: "Invoicing app", tone: "bg-indigo-50 text-indigo-700 ring-indigo-100" },
+  ];
+  const positions = [
+    "top-[6%] left-[8%] -rotate-6",
+    "top-[10%] right-[10%] rotate-3",
+    "top-[36%] left-[3%] rotate-2",
+    "top-[42%] right-[4%] -rotate-3",
+    "bottom-[10%] left-[14%] rotate-6",
+    "bottom-[6%] right-[18%] -rotate-2",
+    "top-[62%] left-[42%] rotate-1",
+    "top-[18%] left-[42%] -rotate-2",
+  ];
+  return (
+    <div
+      aria-hidden={!active}
+      className={`absolute inset-0 transition-opacity duration-500 ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
+    >
+      <div className="relative h-full min-h-[520px] rounded-[28px] bg-slate-50 ring-1 ring-slate-200 overflow-hidden">
+        {/* dashed disconnect lines */}
+        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 800 500" preserveAspectRatio="none" aria-hidden>
+          <g stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4 6" fill="none">
+            <path d="M120 90 L 380 240" />
+            <path d="M660 100 L 420 260" />
+            <path d="M60 260 L 380 260" />
+            <path d="M740 260 L 420 260" />
+            <path d="M180 430 L 380 280" />
+            <path d="M600 440 L 420 280" />
+            <path d="M420 380 L 400 280" />
+            <path d="M400 140 L 400 240" />
+          </g>
+          {/* dead-end dot in centre */}
+          <circle cx="400" cy="260" r="6" fill="#94a3b8" />
+        </svg>
+
+        {chips.map((c, i) => (
+          <div key={c.label} className={`absolute ${positions[i]} rounded-xl bg-white px-3 py-2 text-[12px] font-semibold shadow-sm ring-1 ${c.tone}`}>
+            {c.label}
+          </div>
+        ))}
+
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white px-4 py-3 text-center ring-1 ring-slate-200 shadow-[0_20px_50px_-30px_rgba(15,23,42,0.35)]">
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Where did the lead go?</div>
+          <div className="mt-1 text-[13px] font-semibold text-slate-800">Context lost between tools</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AfterCanvas({ active }: { active: boolean }) {
+  return (
+    <div
+      aria-hidden={!active}
+      className={`absolute inset-0 transition-opacity duration-500 ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
+    >
+      <div className="relative h-full min-h-[520px] rounded-[28px] bg-gradient-to-br from-blue-50/60 via-white to-white ring-1 ring-blue-100/70 overflow-hidden p-5 sm:p-8">
+        {/* Zapla one-flow diagram: enquiry → conversation → booking → workflow */}
+        <div className="grid h-full grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
+          <FlowStep step="Enquiry" body="Call, DM or form" />
+          <FlowStep step="Conversation" body="Unified inbox" />
+          <FlowStep step="Booking" body="On the calendar" />
+          <FlowStep step="Follow-up" body="Automated" />
+        </div>
+        <div className="pointer-events-none absolute inset-x-8 top-1/2 hidden md:block">
+          <svg viewBox="0 0 800 40" className="h-10 w-full" aria-hidden>
+            <defs>
+              <linearGradient id="v3flowline" x1="0" x2="1">
+                <stop offset="0" stopColor="#60a5fa" />
+                <stop offset="1" stopColor="#22d3ee" />
+              </linearGradient>
+            </defs>
+            <path d="M40 20 L 760 20" stroke="url(#v3flowline)" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <NewLeadCard />
+          <BookingCard />
+          <WorkflowCard />
+        </div>
+
+        <div className="mt-6 flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-[12px] font-semibold text-slate-700 ring-1 ring-slate-200 mx-auto w-fit">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          One connected customer record
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FlowStep({ step, body }: { step: string; body: string }) {
+  return (
+    <div className="relative rounded-2xl bg-white p-4 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.2)]">
+      <div className="text-[10.5px] font-bold uppercase tracking-wider text-zapla-blue">{step}</div>
+      <div className="mt-1 text-[13px] font-semibold text-slate-800">{body}</div>
+    </div>
   );
 }
 
