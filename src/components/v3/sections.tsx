@@ -1427,35 +1427,7 @@ export function JourneyV3() {
               </div>
             </div>
 
-            {/* Payoff — reveals only after Grow completes; loops underneath.
-                CTA is intentionally unlinked (design-only, no href, no action). */}
-            <div
-              className={`mt-6 transition-all duration-500 ease-out ${
-                growComplete
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-2 pointer-events-none"
-              } motion-reduce:transition-none`}
-              aria-live="polite"
-            >
-              <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.35)]">
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] font-semibold text-slate-900">
-                  <span>Enquiry</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
-                  <span>booked</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
-                  <span>completed</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
-                  <span>paid</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
-                  <span>reviewed</span><ArrowRight className="h-3.5 w-3.5 text-slate-400" />
-                  <span>returned</span>
-                </div>
-                <div
-                  role="text"
-                  aria-label="See how Zapla would connect your customer journey"
-                  className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-blue-700 select-none"
-                >
-                  See how Zapla would connect your customer journey
-                  <ArrowRight className="h-4 w-4" />
-                </div>
-              </div>
-            </div>
+
 
           </div>
         </div>
