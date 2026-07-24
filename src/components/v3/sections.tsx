@@ -1842,18 +1842,25 @@ const SLIDES: Slide[] = [
 ];
 
 export function ProfessionCarouselV3() {
-  const [i, setI] = useState(0); // Professional services default
+  const [i, setI] = useState(0); // requested/selected slide (drives copy)
+  const [displayed, setDisplayed] = useState(0); // currently displayed image layer
+  const [loaded, setLoaded] = useState<boolean[]>(() => SLIDES.map(() => false));
   const s = SLIDES[i];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  // Preload every slide image once so switching tabs never shows a blank frame.
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    SLIDES.forEach((sl) => {
-      const img = new window.Image();
-      img.src = sl.image;
+  const markLoaded = (idx: number) => {
+    setLoaded((prev) => {
+      if (prev[idx]) return prev;
+      const next = prev.slice();
+      next[idx] = true;
+      return next;
     });
-  }, []);
+  };
+
+  // When the requested slide's image is loaded, promote it to displayed.
+  useEffect(() => {
+    if (loaded[i]) setDisplayed(i);
+  }, [i, loaded]);
 
   const go = (n: number) => {
     const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
