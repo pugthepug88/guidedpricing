@@ -2272,11 +2272,6 @@ function FocusedAIV3() {
 
 function IndustriesV3() { return <ProfessionCarouselV3 />; }
 
-/* =================================================================== */
-/*  6. ToolStackV3 — funnel-led composition                              */
-/* =================================================================== */
-
-function ToolStackV3() { return <OneRecordV3 />; }
 
 /* =================================================================== */
 /*  7. PricingPreviewV3                                                  */
