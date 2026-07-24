@@ -1843,8 +1843,9 @@ const SLIDES: Slide[] = [
 
 export function ProfessionCarouselV3() {
   const [i, setI] = useState(0); // requested/selected slide (drives copy)
-  const [displayed, setDisplayed] = useState(0); // currently displayed image layer
+  const [displayed, setDisplayed] = useState<number | null>(null); // currently displayed layer; null before first load
   const [loaded, setLoaded] = useState<boolean[]>(() => SLIDES.map(() => false));
+  const [failed, setFailed] = useState<boolean[]>(() => SLIDES.map(() => false));
   const s = SLIDES[i];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -1857,10 +1858,24 @@ export function ProfessionCarouselV3() {
     });
   };
 
-  // When the requested slide's image is loaded, promote it to displayed.
+  const markFailed = (idx: number) => {
+    // A failed image has naturalWidth === 0 and must never be promoted to
+    // `displayed`. Record the failure and leave `loaded[idx]` false so the
+    // previously successful layer (if any) stays visible; otherwise the
+    // neutral gradient fallback in the container shows through.
+    setFailed((prev) => {
+      if (prev[idx]) return prev;
+      const next = prev.slice();
+      next[idx] = true;
+      return next;
+    });
+  };
+
+  // Only promote the requested slide to `displayed` when it has genuinely
+  // loaded (onLoad fired) AND has not been marked failed.
   useEffect(() => {
-    if (loaded[i]) setDisplayed(i);
-  }, [i, loaded]);
+    if (loaded[i] && !failed[i]) setDisplayed(i);
+  }, [i, loaded, failed]);
 
   const go = (n: number) => {
     const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
