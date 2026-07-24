@@ -118,10 +118,8 @@ function HeroPreviewV3Page() {
       <OutcomesV3 />
       <CustomerProofPlaceholder />
       <PlatformLifecycleV3 />
-      <WorkflowTheatreV3 />
       <FocusedAIV3 />
       <IndustriesV3 />
-      <ToolStackV3 />
       <PricingPreviewV3 />
       <FaqV3 />
       <FinalCtaV3 />
