@@ -80,9 +80,9 @@ export function ConnectedSystemSectionV3() {
       </div>
 
       <div className="relative mx-auto mt-10 max-w-6xl">
-        <div className="relative min-h-[520px] sm:min-h-[500px]">
-          <BeforeCanvas active={view === "before"} />
-          <AfterCanvas active={view === "after"} />
+        <div className="grid [grid-template-areas:'stack']">
+          <div className="[grid-area:stack]"><BeforeCanvas active={view === "before"} /></div>
+          <div className="[grid-area:stack]"><AfterCanvas active={view === "after"} /></div>
         </div>
       </div>
     </section>
