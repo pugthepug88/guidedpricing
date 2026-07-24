@@ -1180,13 +1180,20 @@ export function JourneyV3() {
     return () => window.removeEventListener("keydown", onKey);
   }, [active, handleSelect]);
 
-  const growComplete = active === STAGES.length - 1 && (reduced || step >= stage.steps);
+  
 
   const status = statusFor(active, step);
   const historyVisible = historyCountFor(active, step);
 
   return (
-    <section ref={sectionRef} className="bg-slate-50 py-24 sm:py-32 px-6">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden py-24 sm:py-32 px-6"
+      style={{
+        background:
+          "radial-gradient(ellipse at 50% 0%, #FBFDFF 0%, #F1F6FF 55%, #E8EFFB 100%)",
+      }}
+    >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
           <Eyebrow>The platform</Eyebrow>
@@ -1268,8 +1275,19 @@ export function JourneyV3() {
             <p className="mt-3 text-[15px] text-slate-600 leading-relaxed transition-opacity">{stage.body}</p>
           </div>
 
-          <div>
-            <div ref={frameRef} className="overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
+          <div className="relative">
+            {/* Ambient lighting behind the product frame — clipped, no overlay on UI */}
+            <div aria-hidden className="pointer-events-none absolute -inset-16 sm:-inset-24 overflow-hidden">
+              <div
+                className="absolute -top-16 -left-10 h-[420px] w-[420px] rounded-full motion-reduce:hidden"
+                style={{ background: "radial-gradient(closest-side, rgba(37,99,255,0.10), transparent 70%)", filter: "blur(60px)" }}
+              />
+              <div
+                className="absolute -bottom-20 -right-10 h-[380px] w-[380px] rounded-full motion-reduce:hidden"
+                style={{ background: "radial-gradient(closest-side, rgba(217,70,239,0.06), transparent 70%)", filter: "blur(70px)" }}
+              />
+            </div>
+            <div ref={frameRef} className="relative overflow-hidden rounded-[22px] bg-white ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.35)]">
               {/* Product chrome */}
               <div className="flex items-center gap-3 border-b border-slate-100 bg-slate-50/70 px-4 py-2.5">
                 <div className="flex items-center gap-1.5" aria-hidden>
