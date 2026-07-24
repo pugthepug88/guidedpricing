@@ -1954,6 +1954,15 @@ export function ProfessionCarouselV3() {
                       loading="eager"
                       decoding="async"
                       fetchPriority={idx === 0 ? "high" : "auto"}
+                      ref={(el) => {
+                        // Cover the case where the image finished loading
+                        // before React attached onLoad (SSR + fast cache).
+                        if (!el) return;
+                        if (el.complete) {
+                          if (el.naturalWidth > 0) markLoaded(idx);
+                          else markFailed(idx);
+                        }
+                      }}
                       onLoad={() => markLoaded(idx)}
                       onError={() => markFailed(idx)}
                       className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out"
