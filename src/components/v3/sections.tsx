@@ -1938,13 +1938,14 @@ export function ProfessionCarouselV3() {
               {/* Visual — all slide images mounted as an absolute layered stack.
                   We keep the previously-displayed image visible until the requested
                   image has actually completed loading, then crossfade. */}
-              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none bg-slate-200">
+              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200">
                 {SLIDES.map((sl, idx) => {
                   const isDisplayed = idx === displayed;
-                  const isRequestedAndReady = idx === i && loaded[i];
-                  // Show a layer if it is the current displayed one, or if it is the
-                  // newly-requested one and it has finished loading (to crossfade in).
-                  const visible = isDisplayed || isRequestedAndReady;
+                  const isRequestedAndReady = idx === i && loaded[i] && !failed[i];
+                  // Never show a failed layer. Show a layer only if it is the
+                  // current displayed one, or if it is the newly-requested one
+                  // that finished loading successfully (to crossfade in).
+                  const visible = !failed[idx] && (isDisplayed || isRequestedAndReady);
                   return (
                     <img
                       key={sl.key}
@@ -1954,7 +1955,7 @@ export function ProfessionCarouselV3() {
                       decoding="async"
                       fetchPriority={idx === 0 ? "high" : "auto"}
                       onLoad={() => markLoaded(idx)}
-                      onError={() => markLoaded(idx)}
+                      onError={() => markFailed(idx)}
                       className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out"
                       style={{ opacity: visible ? 1 : 0, zIndex: idx === i ? 2 : 1 }}
                     />
