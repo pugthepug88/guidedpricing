@@ -1920,12 +1920,34 @@ export function ProfessionCarouselV3() {
             className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] transition-colors duration-300 ease-out min-h-[664px] sm:min-h-[620px] lg:min-h-[460px]`}
           >
             <div className="grid gap-0 lg:grid-cols-[1.1fr_1fr] items-stretch h-full">
-              {/* Visual — fixed compact height so different slides never resize the card */}
-              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none">
-                <img src={s.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+              {/* Visual — all slide images mounted as an absolute layered stack.
+                  We keep the previously-displayed image visible until the requested
+                  image has actually completed loading, then crossfade. */}
+              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none bg-slate-200">
+                {SLIDES.map((sl, idx) => {
+                  const isDisplayed = idx === displayed;
+                  const isRequestedAndReady = idx === i && loaded[i];
+                  // Show a layer if it is the current displayed one, or if it is the
+                  // newly-requested one and it has finished loading (to crossfade in).
+                  const visible = isDisplayed || isRequestedAndReady;
+                  return (
+                    <img
+                      key={sl.key}
+                      src={sl.image}
+                      alt=""
+                      loading="eager"
+                      decoding="async"
+                      fetchPriority={idx === 0 ? "high" : "auto"}
+                      onLoad={() => markLoaded(idx)}
+                      onError={() => markLoaded(idx)}
+                      className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out"
+                      style={{ opacity: visible ? 1 : 0, zIndex: idx === i ? 2 : 1 }}
+                    />
+                  );
+                })}
+                <div className="absolute inset-0 z-[3] bg-gradient-to-t from-black/25 via-transparent to-transparent" />
                 {/* small outcome overlay */}
-                <div className="absolute bottom-3 left-3 right-3 sm:right-auto sm:w-[280px] rounded-2xl bg-white/95 p-3 ring-1 ring-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur">
+                <div className="absolute z-[4] bottom-3 left-3 right-3 sm:right-auto sm:w-[280px] rounded-2xl bg-white/95 p-3 ring-1 ring-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur">
                   {s.outcome}
                 </div>
               </div>
