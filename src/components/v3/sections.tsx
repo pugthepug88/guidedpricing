@@ -763,7 +763,10 @@ function TimelineRail({ active, step }: { active: number; step: number }) {
   const currentLabel =
     reached >= 0 && reached < n ? RAIL_MILESTONES[reached].label : RAIL_MILESTONES[0].label;
   return (
-    <div className="px-3 py-2.5 border-b border-slate-100 bg-slate-50/60">
+    <div className="px-3 pt-2 pb-2.5 border-b border-slate-100 bg-slate-50/60">
+      <div className="mb-1.5 hidden sm:block text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+        Customer lifecycle
+      </div>
       {/* Compact 7-column stepper — visible sm+ */}
       <div
         className="hidden sm:grid relative"
@@ -1003,14 +1006,27 @@ function historyCountFor(active: number, step: number): number {
 }
 
 const NAV_ITEMS: { key: NavKey; icon: ReactNode; label: string }[] = [
-  { key: "inbox",       icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
-  { key: "contacts",    icon: <Users className="h-3.5 w-3.5" />,         label: "Contacts" },
-  { key: "calendar",    icon: <CalendarIcon className="h-3.5 w-3.5" />,  label: "Calendar" },
-  { key: "quotes",      icon: <FileText className="h-3.5 w-3.5" />,      label: "Quotes" },
-  { key: "reviews",     icon: <StarIcon className="h-3.5 w-3.5" />,      label: "Reviews" },
-  { key: "automations", icon: <Sparkles className="h-3.5 w-3.5" />,      label: "Automations" },
-  { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
+  { key: "inbox",       icon: <MessageSquare className="h-4 w-4" />, label: "Conversations" },
+  { key: "contacts",    icon: <Users className="h-4 w-4" />,         label: "Contacts" },
+  { key: "calendar",    icon: <CalendarIcon className="h-4 w-4" />,  label: "Calendars" },
+  { key: "quotes",      icon: <FileText className="h-4 w-4" />,      label: "Quotes" },
+  { key: "reviews",     icon: <StarIcon className="h-4 w-4" />,      label: "Reviews" },
+  { key: "automations", icon: <Sparkles className="h-4 w-4" />,      label: "Automations" },
+  { key: "campaigns",   icon: <Send className="h-4 w-4" />,          label: "Campaigns" },
 ];
+
+/* Concise, scene-appropriate module label displayed in the content header. */
+function moduleLabelFor(active: number): string {
+  switch (active) {
+    case 0: return "Contacts · New enquiry";
+    case 1: return "Conversations · Emma Wilson";
+    case 2: return "Quotes · Booking confirmation";
+    case 3: return "Calendars · Thursday schedule";
+    case 4: return "Automations · Retention";
+    case 5: return "Campaigns · Win-back";
+    default: return "";
+  }
+}
 
 type Stage = {
   key: string;
@@ -1175,7 +1191,7 @@ export function JourneyV3() {
         <div className="max-w-2xl">
           <Eyebrow>The platform</Eyebrow>
           <h2 className="mt-4 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            One product, six stages of the customer journey.
+            One product. Every stage of the customer journey.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
             The same connected workspace, from first enquiry to repeat customer. Follow Emma Wilson through every stage.
@@ -1270,12 +1286,15 @@ export function JourneyV3() {
 
               {/* Persistent compact Emma bar — visible on tablet and mobile (< lg).
                   Same identity, status pill and history count as the desktop
-                  sidebar, so Emma is never absent at any breakpoint. */}
+                  sidebar, so Emma is never absent at any breakpoint. Also
+                  carries the active module label on mobile where the icon
+                  rail is hidden. */}
               <div className="lg:hidden flex items-center gap-2.5 border-b border-slate-100 bg-slate-50/60 px-3 py-2">
                 <CustomerAvatar size={28} />
                 <div className="min-w-0 flex-1">
                   <div className="text-[12px] font-semibold text-slate-900 truncate">Emma Wilson</div>
-                  <div className="text-[10px] text-slate-500 truncate">Annual A/C service</div>
+                  <div className="text-[10px] text-slate-500 truncate sm:hidden">{moduleLabelFor(active)}</div>
+                  <div className="hidden sm:block text-[10px] text-slate-500 truncate">Annual A/C service</div>
                 </div>
                 <span
                   className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ring-1 transition-colors ${toneClasses(status.tone)}`}
@@ -1287,17 +1306,32 @@ export function JourneyV3() {
               </div>
 
               <div className="flex min-h-[560px]">
-                {/* Persistent left nav — active area matches stage */}
-                <aside className="hidden sm:flex w-[152px] flex-col gap-0.5 border-r border-slate-100 bg-white p-3">
-                  <div className="mb-3 flex items-center gap-2 px-1">
-                    <img src={logoBlue.url} alt="" className="h-6 w-6 rounded-md" />
-                    <span className="text-[13px] font-semibold text-slate-900">Zapla</span>
-                  </div>
+                {/* Persistent compact icon-only nav rail. Desktop 60px,
+                    tablet ~48px, hidden on mobile (its module label lives
+                    in the compact Emma bar above). */}
+                <aside
+                  className="hidden sm:flex w-12 md:w-[60px] shrink-0 flex-col items-center gap-1 border-r border-slate-100 bg-white py-3"
+                  aria-label="Zapla modules"
+                >
+                  <img src={logoBlue.url} alt="Zapla" className="mb-2 h-7 w-7 rounded-md" />
                   {NAV_ITEMS.map((n) => {
                     const isActive = n.key === stage.nav;
                     return (
-                      <div key={n.key} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-colors ${isActive ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
-                        {n.icon}{n.label}
+                      <div
+                        key={n.key}
+                        title={n.label}
+                        aria-label={n.label}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`relative grid h-9 w-9 place-items-center rounded-lg transition-colors ${
+                          isActive
+                            ? "bg-blue-50 text-blue-700"
+                            : "text-slate-500 hover:text-slate-800"
+                        }`}
+                      >
+                        {isActive && (
+                          <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-blue-600" aria-hidden />
+                        )}
+                        {n.icon}
                       </div>
                     );
                   })}
@@ -1361,6 +1395,13 @@ export function JourneyV3() {
                     crossfade, no keying by stage.key. runToken forces the
                     internal choreography to replay when a chapter is clicked. */}
                 <div className="flex-1 min-w-0 bg-white">
+                  {/* Content header: active module label (visible sm+; on
+                      mobile it lives inside the compact Emma bar above). */}
+                  <div className="hidden sm:flex items-center gap-2 border-b border-slate-100 bg-white px-4 py-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500 transition-colors">
+                      {moduleLabelFor(active)}
+                    </span>
+                  </div>
                   <div className="relative" style={{ height: STAGE_H + 40 }}>
                     <UnifiedActivity active={active} step={step} />
                   </div>
