@@ -1843,7 +1843,7 @@ const SLIDES: Slide[] = [
 
 export function ProfessionCarouselV3() {
   const [i, setI] = useState(0); // requested/selected slide (drives copy)
-  const [displayed, setDisplayed] = useState<number | null>(null); // currently displayed layer; null before first load
+  const [displayed, setDisplayed] = useState<number>(0); // start showing layer 0 immediately; failed[0] gating still hides it if it errors
   const [loaded, setLoaded] = useState<boolean[]>(() => SLIDES.map(() => false));
   const [failed, setFailed] = useState<boolean[]>(() => SLIDES.map(() => false));
   const s = SLIDES[i];
