@@ -2000,7 +2000,7 @@ export function ProfessionCarouselV3() {
 
                 <div className="mt-auto pt-6">
                   <a href={BOOK_URL} className={`inline-flex items-center gap-1.5 text-[13px] font-semibold ${s.accent.text} hover:text-slate-950`}>
-                    See how it works <ArrowRight className="h-3.5 w-3.5" />
+                    Book a Call <ArrowRight className="h-3.5 w-3.5" />
                   </a>
                 </div>
               </div>
