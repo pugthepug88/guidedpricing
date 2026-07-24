@@ -43,8 +43,7 @@ export function SiteFooter() {
           <div>
             <h4 className="mb-4 text-[12px] font-black uppercase tracking-[0.14em] text-zapla-ink">Company</h4>
             <ul className="grid gap-2.5">
-              <li><a className={link} href="https://zapla.io/getstartedtrial">Get Started Free</a></li>
-              <li><a className={link} href="https://zapla.io/booking">Book a Demo</a></li>
+              <li><a className={link} href="https://zapla.io/booking">Book a Call</a></li>
               <li><a className={link} href="https://zapla.io/pricing">Pricing</a></li>
             </ul>
           </div>
