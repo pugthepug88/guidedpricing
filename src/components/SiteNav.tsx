@@ -82,16 +82,10 @@ export function SiteNav() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <a
-            href="https://zapla.io/getstartedtrial"
-            className="inline-flex items-center justify-center rounded-full border border-zapla-line bg-white px-4 py-2 text-[13px] font-bold text-zapla-ink transition hover:border-zapla-blue hover:text-zapla-blue"
-          >
-            Get Started Free
-          </a>
-          <a
             href="https://zapla.io/booking"
             className="inline-flex items-center justify-center rounded-full bg-zapla-blue px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-zapla-blue2 hover:shadow-zapla-blue"
           >
-            Book a Demo
+            Book a Call
           </a>
         </div>
 
