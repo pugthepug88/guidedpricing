@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import { ConnectedSystemSectionV3 } from "@/components/ConnectedSystemSectionV3";
-import { JourneyV3, AutomationStoryV3, ProfessionCarouselV3, OneRecordV3 } from "@/components/v3/sections";
+import { JourneyV3, ProfessionCarouselV3 } from "@/components/v3/sections";
 import {
   Home as HomeIcon,
   Landmark as LandmarkIcon,
@@ -118,10 +118,8 @@ function HeroPreviewV3Page() {
       <OutcomesV3 />
       <CustomerProofPlaceholder />
       <PlatformLifecycleV3 />
-      <WorkflowTheatreV3 />
       <FocusedAIV3 />
       <IndustriesV3 />
-      <ToolStackV3 />
       <PricingPreviewV3 />
       <FaqV3 />
       <FinalCtaV3 />
@@ -2081,8 +2079,6 @@ function WorkflowCanvasV3() {
   );
 }
 
-/* Kept name for backwards ref in page — now uses new canvas */
-function WorkflowTheatreV3() { return <AutomationStoryV3 />; }
 
 /* =================================================================== */
 /*  4. FocusedAIV3 — cinematic black, talking character                  */
@@ -2156,7 +2152,23 @@ function FocusedAIV3() {
               AI workflows
             </button>
           </div>
+
+          {/* Three capability modes — merged from the former routing section. */}
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {[
+              { title: "Answer the enquiry", body: "AI greets the caller, captures the reason and gets the details you need." },
+              { title: "Resolve or book", body: "For routine questions and bookings, AI wraps it up and updates the record." },
+              { title: "Transfer to the team", body: "For urgent or judgement calls, AI hands off to your team with full context." },
+            ].map((c) => (
+              <div key={c.title} className="rounded-2xl bg-white/[0.035] ring-1 ring-white/10 p-4 backdrop-blur">
+                <div className="text-[13px] font-semibold text-white">{c.title}</div>
+                <div className="mt-1 text-[12.5px] text-white/60 leading-snug">{c.body}</div>
+              </div>
+            ))}
+          </div>
         </div>
+
+
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-stretch">
           {/* Character portrait — cinematic, no audio pretence */}
@@ -2276,11 +2288,6 @@ function FocusedAIV3() {
 
 function IndustriesV3() { return <ProfessionCarouselV3 />; }
 
-/* =================================================================== */
-/*  6. ToolStackV3 — funnel-led composition                              */
-/* =================================================================== */
-
-function ToolStackV3() { return <OneRecordV3 />; }
 
 /* =================================================================== */
 /*  7. PricingPreviewV3                                                  */

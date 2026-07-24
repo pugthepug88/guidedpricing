@@ -1721,32 +1721,49 @@ function Connector() {
  *  Editorial 5-slide carousel. Default: Professional services.
  * ===================================================================== */
 
+type SceneRow = {
+  icon: ReactNode;
+  title: string;
+  meta: string;
+  status?: string;
+  highlight?: boolean;
+};
+
 type Slide = {
   key: string;
   label: string;
   Icon: React.ComponentType<{ className?: string }>;
-  accent: { chip: string; bg: string; ring: string; text: string; dot: string };
-  image: string;
+  accent: { chip: string; bg: string; ring: string; text: string; dot: string; scene: string };
+  scene: { module: string; rows: SceneRow[] };
   headline: string;
   body: string;
   journey: string[];
   outcome: ReactNode;
 };
 
+const dot = (cls: string) => <span className={`inline-block h-2 w-2 rounded-full ${cls}`} />;
+
 const SLIDES: Slide[] = [
   {
     key: "pro",
     label: "Professional services",
     Icon: Briefcase,
-    accent: { chip: "bg-blue-50 text-blue-700 ring-blue-100", bg: "from-blue-50/70 via-white to-white", ring: "ring-blue-100", text: "text-blue-800", dot: "bg-blue-500" },
-    image: industryLegal.url,
+    accent: { chip: "bg-blue-50 text-blue-700 ring-blue-100", bg: "from-blue-50/70 via-white to-white", ring: "ring-blue-100", text: "text-blue-800", dot: "bg-blue-500", scene: "from-blue-100/70 to-white" },
+    scene: {
+      module: "Contacts · New enquiry",
+      rows: [
+        { icon: dot("bg-blue-500"), title: "New enquiry — corporate advisory", meta: "Web form · 2 min ago", status: "New" },
+        { icon: dot("bg-emerald-500"), title: "Qualified — decision maker", meta: "Notes attached", status: "Qualified", highlight: true },
+        { icon: dot("bg-slate-400"), title: "Consultation booked — Tue 10:00 AM", meta: "Advisor: Alex" },
+      ],
+    },
     headline: "Enquiry to qualified consultation.",
     body: "Capture the enquiry, screen it in one thread, and get the right lead on the calendar with context.",
     journey: ["Enquiry", "Qualified", "Consultation booked"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Consultation</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Marcus Lee · Tue 10:00 AM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Tue 10:00 AM</div>
         <div className="mt-1 text-[12px] text-slate-500">Intake notes attached, advisor assigned</div>
       </div>
     ),
@@ -1755,15 +1772,22 @@ const SLIDES: Slide[] = [
     key: "property",
     label: "Property & real estate",
     Icon: HomeIcon,
-    accent: { chip: "bg-emerald-50 text-emerald-700 ring-emerald-100", bg: "from-emerald-50/70 via-white to-white", ring: "ring-emerald-100", text: "text-emerald-800", dot: "bg-emerald-500" },
-    image: industryRealEstate.url,
+    accent: { chip: "bg-emerald-50 text-emerald-700 ring-emerald-100", bg: "from-emerald-50/70 via-white to-white", ring: "ring-emerald-100", text: "text-emerald-800", dot: "bg-emerald-500", scene: "from-emerald-100/70 to-white" },
+    scene: {
+      module: "Contacts · Property enquiry",
+      rows: [
+        { icon: dot("bg-emerald-500"), title: "Enquiry — 12 Harbour Lane", meta: "Web form · 4 min ago", status: "New" },
+        { icon: dot("bg-blue-500"), title: "Inspection booked — Thu 4:30 PM", meta: "Agent assigned", status: "Booked", highlight: true },
+        { icon: dot("bg-slate-400"), title: "Post-inspection follow-up", meta: "Automated · 24h after" },
+      ],
+    },
     headline: "Lead to nurture to appraisal or inspection.",
     body: "Enquiries enter a nurture sequence and land on an appraisal or inspection without dropping context.",
     journey: ["Lead", "Nurture", "Appraisal or inspection"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Inspection booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">12 Harbour Lane · Thu 4:30 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Thu 4:30 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Agent assigned, reminders queued</div>
       </div>
     ),
@@ -1772,15 +1796,22 @@ const SLIDES: Slide[] = [
     key: "mortgage",
     label: "Mortgage brokers & finance",
     Icon: Building2,
-    accent: { chip: "bg-indigo-50 text-indigo-700 ring-indigo-100", bg: "from-indigo-50/70 via-white to-white", ring: "ring-indigo-100", text: "text-indigo-800", dot: "bg-indigo-500" },
-    image: industryMortgage.url,
+    accent: { chip: "bg-indigo-50 text-indigo-700 ring-indigo-100", bg: "from-indigo-50/70 via-white to-white", ring: "ring-indigo-100", text: "text-indigo-800", dot: "bg-indigo-500", scene: "from-indigo-100/70 to-white" },
+    scene: {
+      module: "Pipeline · Refinance lead",
+      rows: [
+        { icon: dot("bg-indigo-500"), title: "Lead — refinance enquiry", meta: "Ad campaign · 8 min ago", status: "New" },
+        { icon: dot("bg-emerald-500"), title: "Documents collected", meta: "Payslips ✓ · ID ✓ · Statements ✓", status: "Ready", highlight: true },
+        { icon: dot("bg-slate-400"), title: "Broker call — Wed 2:00 PM", meta: "Checklist attached" },
+      ],
+    },
     headline: "Enquiry to documents to appointment.",
     body: "Enquiries turn into a guided document request and land on the broker's calendar, fully prepped.",
     journey: ["Enquiry", "Documents collected", "Appointment booked"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Appointment</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Priya Shah · Wed 2:00 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Wed 2:00 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Payslips and ID uploaded, checklist complete</div>
       </div>
     ),
@@ -1789,15 +1820,22 @@ const SLIDES: Slide[] = [
     key: "health",
     label: "Allied health & clinics",
     Icon: HeartPulse,
-    accent: { chip: "bg-teal-50 text-teal-700 ring-teal-100", bg: "from-teal-50/70 via-white to-white", ring: "ring-teal-100", text: "text-teal-800", dot: "bg-teal-500" },
-    image: industryHealthcare.url,
+    accent: { chip: "bg-teal-50 text-teal-700 ring-teal-100", bg: "from-teal-50/70 via-white to-white", ring: "ring-teal-100", text: "text-teal-800", dot: "bg-teal-500", scene: "from-teal-100/70 to-white" },
+    scene: {
+      module: "Calendars · Patient booking",
+      rows: [
+        { icon: dot("bg-teal-500"), title: "New patient enquiry", meta: "Online form · 1 min ago", status: "New" },
+        { icon: dot("bg-blue-500"), title: "Appointment — Tue 10:00 AM", meta: "Practitioner: Dr Chen", status: "Booked", highlight: true },
+        { icon: dot("bg-slate-400"), title: "24h reminder + one-tap rebook", meta: "Automated" },
+      ],
+    },
     headline: "Booking to reminder to rebooking.",
     body: "Patients book online, get reminded and rebook with one tap. Every touch stays on file.",
     journey: ["Booking", "Reminder", "Rebooking"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Reminder sent</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Olivia Chen · 24h check-in</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">24h check-in</div>
         <div className="mt-1 text-[12px] text-slate-500">One-tap rebook enabled</div>
       </div>
     ),
@@ -1806,15 +1844,22 @@ const SLIDES: Slide[] = [
     key: "fitness",
     label: "Fitness & studios",
     Icon: Dumbbell,
-    accent: { chip: "bg-violet-50 text-violet-700 ring-violet-100", bg: "from-violet-50/70 via-white to-white", ring: "ring-violet-100", text: "text-violet-800", dot: "bg-violet-500" },
-    image: industryFitness.url,
+    accent: { chip: "bg-violet-50 text-violet-700 ring-violet-100", bg: "from-violet-50/70 via-white to-white", ring: "ring-violet-100", text: "text-violet-800", dot: "bg-violet-500", scene: "from-violet-100/70 to-white" },
+    scene: {
+      module: "Contacts · Trial enquiry",
+      rows: [
+        { icon: dot("bg-violet-500"), title: "Trial enquiry — CBD studio", meta: "Instagram DM · 5 min ago", status: "New" },
+        { icon: dot("bg-emerald-500"), title: "Trial booked — Sat 8:00 AM class", meta: "Class capacity: 12/15", status: "Booked", highlight: true },
+        { icon: dot("bg-slate-400"), title: "Follow-up — 3 days after trial", meta: "Automated membership offer" },
+      ],
+    },
     headline: "Trial enquiry to the right class to follow-up.",
     body: "Trial enquiries route to the nearest location or class, get an intro reply and a follow-up on the calendar.",
     journey: ["Trial enquiry", "Location or class routed", "Follow-up scheduled"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Trial booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Daniel Nguyen · Sat 8:00 AM class</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Sat 8:00 AM class</div>
         <div className="mt-1 text-[12px] text-slate-500">Follow-up scheduled in 3 days</div>
       </div>
     ),
@@ -1823,15 +1868,22 @@ const SLIDES: Slide[] = [
     key: "trades",
     label: "Trades & home services",
     Icon: Wrench,
-    accent: { chip: "bg-amber-50 text-amber-700 ring-amber-100", bg: "from-amber-50/70 via-white to-white", ring: "ring-amber-100", text: "text-amber-800", dot: "bg-amber-500" },
-    image: industryTrades.url,
+    accent: { chip: "bg-amber-50 text-amber-700 ring-amber-100", bg: "from-amber-50/70 via-white to-white", ring: "ring-amber-100", text: "text-amber-800", dot: "bg-amber-500", scene: "from-amber-100/70 to-white" },
+    scene: {
+      module: "Conversations · Missed call",
+      rows: [
+        { icon: dot("bg-amber-500"), title: "Missed call · instant reply sent", meta: "AI receptionist · 2 min ago", status: "Handled" },
+        { icon: dot("bg-blue-500"), title: "Site visit — Thu 2:00 PM", meta: "Assigned: on-call tech", status: "Booked", highlight: true },
+        { icon: dot("bg-slate-400"), title: "Quote follow-up in 24h", meta: "Automated reminder" },
+      ],
+    },
     headline: "Missed call to site visit to quote follow-up.",
     body: "Field teams live on the phone. Zapla replies, books the site visit and chases the quote in one thread.",
     journey: ["Missed call", "Site visit booked", "Quote follow-up"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Site visit</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Emma Wilson · Thu 2:00 PM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Thu 2:00 PM</div>
         <div className="mt-1 text-[12px] text-slate-500">Assigned to on-call tech, quote pending</div>
       </div>
     ),
@@ -1840,15 +1892,22 @@ const SLIDES: Slide[] = [
     key: "automotive",
     label: "Automotive & workshops",
     Icon: Car,
-    accent: { chip: "bg-rose-50 text-rose-700 ring-rose-100", bg: "from-rose-50/70 via-white to-white", ring: "ring-rose-100", text: "text-rose-800", dot: "bg-rose-500" },
-    image: industryAutomotive.url,
+    accent: { chip: "bg-rose-50 text-rose-700 ring-rose-100", bg: "from-rose-50/70 via-white to-white", ring: "ring-rose-100", text: "text-rose-800", dot: "bg-rose-500", scene: "from-rose-100/70 to-white" },
+    scene: {
+      module: "Bookings · Workshop",
+      rows: [
+        { icon: dot("bg-rose-500"), title: "Booking request — Toyota Corolla", meta: "Log book service · 6 min ago", status: "New" },
+        { icon: dot("bg-blue-500"), title: "Job card #A2418 — Mon 9:00 AM", meta: "Tech: Alex · Bay 2", status: "Booked", highlight: true },
+        { icon: dot("bg-slate-400"), title: "6-month service reminder", meta: "Scheduled" },
+      ],
+    },
     headline: "Booking request to job details to service reminder.",
     body: "Bookings capture the vehicle and job in one form, then a service reminder brings the customer back.",
     journey: ["Booking request", "Vehicle & job details", "Service reminder"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Service booked</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Marcus Lee · Mon 9:00 AM</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">Mon 9:00 AM</div>
         <div className="mt-1 text-[12px] text-slate-500">Log book service, reminder set for 6 months</div>
       </div>
     ),
@@ -1857,56 +1916,77 @@ const SLIDES: Slide[] = [
     key: "hospitality",
     label: "Hospitality & short-stay",
     Icon: BedDouble,
-    accent: { chip: "bg-cyan-50 text-cyan-700 ring-cyan-100", bg: "from-cyan-50/70 via-white to-white", ring: "ring-cyan-100", text: "text-cyan-800", dot: "bg-cyan-500" },
-    image: industryAirbnb.url,
+    accent: { chip: "bg-cyan-50 text-cyan-700 ring-cyan-100", bg: "from-cyan-50/70 via-white to-white", ring: "ring-cyan-100", text: "text-cyan-800", dot: "bg-cyan-500", scene: "from-cyan-100/70 to-white" },
+    scene: {
+      module: "Conversations · Guest enquiry",
+      rows: [
+        { icon: dot("bg-cyan-500"), title: "Guest enquiry — 2 nights", meta: "Direct message · 3 min ago", status: "New" },
+        { icon: dot("bg-emerald-500"), title: "Booking confirmed · check-in Fri", meta: "Auto check-in note sent", status: "Confirmed", highlight: true },
+        { icon: dot("bg-slate-400"), title: "Post-stay review request", meta: "Scheduled · day after checkout" },
+      ],
+    },
     headline: "Guest enquiry to stay comms to return offer.",
     body: "Enquiries turn into a confirmed stay with automatic check-in messages and a return offer after checkout.",
     journey: ["Guest enquiry", "Stay communications", "Review or return offer"],
     outcome: (
       <div>
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Return offer sent</div>
-        <div className="mt-1 text-[14px] font-semibold text-slate-900">Priya Shah · 2-night booking</div>
+        <div className="mt-1 text-[14px] font-semibold text-slate-900">2-night booking</div>
         <div className="mt-1 text-[12px] text-slate-500">Review request queued, repeat-guest discount</div>
       </div>
     ),
   },
 ];
 
+function ProductScene({ slide }: { slide: Slide }) {
+  return (
+    <div className={`relative h-full w-full overflow-hidden bg-gradient-to-br ${slide.accent.scene}`}>
+      {/* Product frame */}
+      <div className="absolute inset-4 sm:inset-6 rounded-2xl bg-white ring-1 ring-slate-200 shadow-[0_24px_60px_-30px_rgba(15,23,42,0.25)] overflow-hidden flex flex-col">
+        {/* Browser dots + module label */}
+        <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/60 px-3 py-2">
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="h-2 w-2 rounded-full bg-slate-300" />
+          <span className="ml-2 text-[10.5px] font-semibold uppercase tracking-wider text-slate-500 truncate">
+            {slide.scene.module}
+          </span>
+          <span className={`ml-auto inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[9.5px] font-semibold ring-1 ${slide.accent.chip}`}>
+            <slide.Icon className="h-3 w-3" /> {slide.label}
+          </span>
+        </div>
+        {/* Rows */}
+        <div className="flex-1 divide-y divide-slate-100">
+          {slide.scene.rows.map((r, idx) => (
+            <div
+              key={idx}
+              className={`flex items-center gap-3 px-4 py-3 ${r.highlight ? "bg-slate-50/70" : ""}`}
+            >
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-slate-100 ring-1 ring-slate-200">
+                {r.icon}
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-[12.5px] font-semibold text-slate-900">{r.title}</div>
+                <div className="truncate text-[11px] text-slate-500">{r.meta}</div>
+              </div>
+              {r.status && (
+                <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ring-1 ${slide.accent.chip}`}>
+                  {r.status}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 export function ProfessionCarouselV3() {
-  const [i, setI] = useState(0); // requested/selected slide (drives copy)
-  const [displayed, setDisplayed] = useState<number>(0); // start showing layer 0 immediately; failed[0] gating still hides it if it errors
-  const [loaded, setLoaded] = useState<boolean[]>(() => SLIDES.map(() => false));
-  const [failed, setFailed] = useState<boolean[]>(() => SLIDES.map(() => false));
+  const [i, setI] = useState(0);
   const s = SLIDES[i];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-
-  const markLoaded = (idx: number) => {
-    setLoaded((prev) => {
-      if (prev[idx]) return prev;
-      const next = prev.slice();
-      next[idx] = true;
-      return next;
-    });
-  };
-
-  const markFailed = (idx: number) => {
-    // A failed image has naturalWidth === 0 and must never be promoted to
-    // `displayed`. Record the failure and leave `loaded[idx]` false so the
-    // previously successful layer (if any) stays visible; otherwise the
-    // neutral gradient fallback in the container shows through.
-    setFailed((prev) => {
-      if (prev[idx]) return prev;
-      const next = prev.slice();
-      next[idx] = true;
-      return next;
-    });
-  };
-
-  // Only promote the requested slide to `displayed` when it has genuinely
-  // loaded (onLoad fired) AND has not been marked failed.
-  useEffect(() => {
-    if (loaded[i] && !failed[i]) setDisplayed(i);
-  }, [i, loaded, failed]);
 
   const go = (n: number) => {
     const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
@@ -1930,7 +2010,7 @@ export function ProfessionCarouselV3() {
           </p>
         </div>
 
-        {/* Profession tabs — mobile: horizontal rail with soft edge fade; desktop: centered wrap, no mask */}
+        {/* Profession tabs */}
         <div
           className="v3-industry-tabs mt-10 -mx-6 overflow-x-auto px-8 md:overflow-visible md:mx-0 md:px-0 zapla-scroll-hide"
           role="tablist"
@@ -1957,51 +2037,24 @@ export function ProfessionCarouselV3() {
           </div>
         </div>
 
-
-        {/* Carousel stage — stable height, no clipping neighbors */}
+        {/* Carousel stage */}
         <div className="relative mt-10">
-          {/* No `key` remount — images are preloaded and swap in place so the
-              visual never flashes blank. Content changes atomically with `i`. */}
           <article
             className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] transition-colors duration-300 ease-out min-h-[664px] sm:min-h-[620px] lg:min-h-[460px]`}
           >
             <div className="grid gap-0 lg:grid-cols-[1.1fr_1fr] items-stretch h-full">
-              {/* Visual — all slide images mounted as an absolute layered stack.
-                  We keep the previously-displayed image visible until the requested
-                  image has actually completed loading, then crossfade. */}
-              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200">
-                {SLIDES.map((sl, idx) => {
-                  const isDisplayed = idx === displayed;
-                  const isRequestedAndReady = idx === i && loaded[i] && !failed[i];
-                  // Never show a failed layer. Show a layer only if it is the
-                  // current displayed one, or if it is the newly-requested one
-                  // that finished loading successfully (to crossfade in).
-                  const visible = !failed[idx] && (isDisplayed || isRequestedAndReady);
-                  return (
-                    <img
-                      key={sl.key}
-                      src={sl.image}
-                      alt=""
-                      loading="eager"
-                      decoding="async"
-                      fetchPriority={idx === 0 ? "high" : "auto"}
-                      ref={(el) => {
-                        // Cover the case where the image finished loading
-                        // before React attached onLoad (SSR + fast cache).
-                        if (!el) return;
-                        if (el.complete) {
-                          if (el.naturalWidth > 0) markLoaded(idx);
-                          else markFailed(idx);
-                        }
-                      }}
-                      onLoad={() => markLoaded(idx)}
-                      onError={() => markFailed(idx)}
-                      className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out"
-                      style={{ opacity: visible ? 1 : 0, zIndex: idx === i ? 2 : 1 }}
-                    />
-                  );
-                })}
-                <div className="absolute inset-0 z-[3] bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+              {/* Visual — all scenes mounted as absolute layers, crossfade on switch. */}
+              <div className="relative h-[280px] sm:h-[320px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none">
+                {SLIDES.map((sl, idx) => (
+                  <div
+                    key={sl.key}
+                    aria-hidden={idx !== i}
+                    className="absolute inset-0 transition-opacity duration-300 ease-out"
+                    style={{ opacity: idx === i ? 1 : 0, zIndex: idx === i ? 2 : 1 }}
+                  >
+                    <ProductScene slide={sl} />
+                  </div>
+                ))}
                 {/* small outcome overlay */}
                 <div className="absolute z-[4] bottom-3 left-3 right-3 sm:right-auto sm:w-[280px] rounded-2xl bg-white/95 p-3 ring-1 ring-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur">
                   {s.outcome}
@@ -2016,6 +2069,8 @@ export function ProfessionCarouselV3() {
                   {s.headline}
                 </h3>
                 <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{s.body}</p>
+
+
 
                 {/* Journey pills */}
                 <ol className="mt-6 flex flex-wrap items-center gap-2">
