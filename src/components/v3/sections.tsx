@@ -759,36 +759,79 @@ function railProgress(active: number, step: number): number {
 
 function TimelineRail({ active, step }: { active: number; step: number }) {
   const reached = railProgress(active, step);
+  const n = RAIL_MILESTONES.length;
+  const currentLabel =
+    reached >= 0 && reached < n ? RAIL_MILESTONES[reached].label : RAIL_MILESTONES[0].label;
   return (
-    <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50/60 overflow-hidden">
-      <div className="flex items-center gap-1 min-w-0">
+    <div className="px-3 py-2.5 border-b border-slate-100 bg-slate-50/60">
+      {/* Compact 7-column stepper — visible sm+ */}
+      <div
+        className="hidden sm:grid relative"
+        style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
+      >
+        {/* Connector track behind dots (row 1) */}
+        <div
+          className="pointer-events-none absolute top-2 h-px bg-slate-200"
+          style={{ left: `calc(${100 / (n * 2)}% )`, right: `calc(${100 / (n * 2)}% )` }}
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute top-2 h-px bg-blue-600 transition-all"
+          style={{
+            left: `calc(${100 / (n * 2)}% )`,
+            width:
+              reached <= 0
+                ? "0%"
+                : `calc(${(Math.min(reached, n - 1) / (n - 1)) * (100 - 100 / n)}% )`,
+          }}
+          aria-hidden
+        />
         {RAIL_MILESTONES.map((m, i) => {
           const done = i <= reached;
-          const nextDone = i < reached;
           return (
-            <div key={m.id} className="flex items-center gap-1 flex-1 last:flex-none">
+            <div key={m.id} className="relative flex flex-col items-center gap-1 min-w-0">
               <span
-                className={`grid h-4 w-4 place-items-center rounded-full text-[9px] font-semibold transition-colors ${
+                className={`relative z-10 grid h-4 w-4 place-items-center rounded-full text-[8px] font-semibold transition-colors ${
                   done ? "bg-blue-600 text-white" : "bg-white text-slate-400 ring-1 ring-slate-200"
                 }`}
               >
                 {done ? <CheckCircle2 className="h-2.5 w-2.5" /> : i + 1}
               </span>
               <span
-                className={`hidden xl:inline min-w-0 truncate text-[10px] font-semibold ${
+                className={`block w-full text-center text-[9px] leading-tight font-semibold tracking-tight ${
                   done ? "text-slate-800" : "text-slate-400"
                 }`}
               >
                 {m.label}
               </span>
-              {i < RAIL_MILESTONES.length - 1 && (
-                <span
-                  className={`flex-1 h-px ml-1 transition-colors ${nextDone ? "bg-blue-600" : "bg-slate-200"}`}
-                />
-              )}
             </div>
           );
         })}
+      </div>
+
+      {/* Narrow layout (< sm): dots only + current label */}
+      <div className="sm:hidden">
+        <div className="flex items-center gap-1">
+          {RAIL_MILESTONES.map((m, i) => {
+            const done = i <= reached;
+            const nextDone = i < reached;
+            return (
+              <div key={m.id} className="flex items-center gap-1 flex-1 last:flex-none min-w-0">
+                <span
+                  className={`grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full text-[8px] font-semibold ${
+                    done ? "bg-blue-600 text-white" : "bg-white text-slate-400 ring-1 ring-slate-200"
+                  }`}
+                >
+                  {done ? <CheckCircle2 className="h-2 w-2" /> : i + 1}
+                </span>
+                {i < n - 1 && (
+                  <span className={`flex-1 h-px ${nextDone ? "bg-blue-600" : "bg-slate-200"}`} />
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-1.5 text-[10px] font-semibold text-slate-800">{currentLabel}</div>
       </div>
     </div>
   );
