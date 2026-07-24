@@ -1003,14 +1003,27 @@ function historyCountFor(active: number, step: number): number {
 }
 
 const NAV_ITEMS: { key: NavKey; icon: ReactNode; label: string }[] = [
-  { key: "inbox",       icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Inbox" },
-  { key: "contacts",    icon: <Users className="h-3.5 w-3.5" />,         label: "Contacts" },
-  { key: "calendar",    icon: <CalendarIcon className="h-3.5 w-3.5" />,  label: "Calendar" },
-  { key: "quotes",      icon: <FileText className="h-3.5 w-3.5" />,      label: "Quotes" },
-  { key: "reviews",     icon: <StarIcon className="h-3.5 w-3.5" />,      label: "Reviews" },
-  { key: "automations", icon: <Sparkles className="h-3.5 w-3.5" />,      label: "Automations" },
-  { key: "campaigns",   icon: <Send className="h-3.5 w-3.5" />,          label: "Campaigns" },
+  { key: "inbox",       icon: <MessageSquare className="h-4 w-4" />, label: "Conversations" },
+  { key: "contacts",    icon: <Users className="h-4 w-4" />,         label: "Contacts" },
+  { key: "calendar",    icon: <CalendarIcon className="h-4 w-4" />,  label: "Calendars" },
+  { key: "quotes",      icon: <FileText className="h-4 w-4" />,      label: "Quotes" },
+  { key: "reviews",     icon: <StarIcon className="h-4 w-4" />,      label: "Reviews" },
+  { key: "automations", icon: <Sparkles className="h-4 w-4" />,      label: "Automations" },
+  { key: "campaigns",   icon: <Send className="h-4 w-4" />,          label: "Campaigns" },
 ];
+
+/* Concise, scene-appropriate module label displayed in the content header. */
+function moduleLabelFor(active: number): string {
+  switch (active) {
+    case 0: return "Contacts · New enquiry";
+    case 1: return "Conversations · Emma Wilson";
+    case 2: return "Quotes · Booking confirmation";
+    case 3: return "Calendars · Thursday schedule";
+    case 4: return "Automations · Retention";
+    case 5: return "Campaigns · Win-back";
+    default: return "";
+  }
+}
 
 type Stage = {
   key: string;
