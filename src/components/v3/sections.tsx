@@ -1283,12 +1283,15 @@ export function JourneyV3() {
 
               {/* Persistent compact Emma bar — visible on tablet and mobile (< lg).
                   Same identity, status pill and history count as the desktop
-                  sidebar, so Emma is never absent at any breakpoint. */}
+                  sidebar, so Emma is never absent at any breakpoint. Also
+                  carries the active module label on mobile where the icon
+                  rail is hidden. */}
               <div className="lg:hidden flex items-center gap-2.5 border-b border-slate-100 bg-slate-50/60 px-3 py-2">
                 <CustomerAvatar size={28} />
                 <div className="min-w-0 flex-1">
                   <div className="text-[12px] font-semibold text-slate-900 truncate">Emma Wilson</div>
-                  <div className="text-[10px] text-slate-500 truncate">Annual A/C service</div>
+                  <div className="text-[10px] text-slate-500 truncate sm:hidden">{moduleLabelFor(active)}</div>
+                  <div className="hidden sm:block text-[10px] text-slate-500 truncate">Annual A/C service</div>
                 </div>
                 <span
                   className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold ring-1 transition-colors ${toneClasses(status.tone)}`}
@@ -1300,17 +1303,32 @@ export function JourneyV3() {
               </div>
 
               <div className="flex min-h-[560px]">
-                {/* Persistent left nav — active area matches stage */}
-                <aside className="hidden sm:flex w-[152px] flex-col gap-0.5 border-r border-slate-100 bg-white p-3">
-                  <div className="mb-3 flex items-center gap-2 px-1">
-                    <img src={logoBlue.url} alt="" className="h-6 w-6 rounded-md" />
-                    <span className="text-[13px] font-semibold text-slate-900">Zapla</span>
-                  </div>
+                {/* Persistent compact icon-only nav rail. Desktop 60px,
+                    tablet ~48px, hidden on mobile (its module label lives
+                    in the compact Emma bar above). */}
+                <aside
+                  className="hidden sm:flex w-12 md:w-[60px] shrink-0 flex-col items-center gap-1 border-r border-slate-100 bg-white py-3"
+                  aria-label="Zapla modules"
+                >
+                  <img src={logoBlue.url} alt="Zapla" className="mb-2 h-7 w-7 rounded-md" />
                   {NAV_ITEMS.map((n) => {
                     const isActive = n.key === stage.nav;
                     return (
-                      <div key={n.key} className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-[12px] transition-colors ${isActive ? "bg-blue-50 text-blue-700 font-semibold" : "text-slate-600"}`}>
-                        {n.icon}{n.label}
+                      <div
+                        key={n.key}
+                        title={n.label}
+                        aria-label={n.label}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`relative grid h-9 w-9 place-items-center rounded-lg transition-colors ${
+                          isActive
+                            ? "bg-blue-50 text-blue-700"
+                            : "text-slate-500 hover:text-slate-800"
+                        }`}
+                      >
+                        {isActive && (
+                          <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full bg-blue-600" aria-hidden />
+                        )}
+                        {n.icon}
                       </div>
                     );
                   })}
@@ -1374,10 +1392,18 @@ export function JourneyV3() {
                     crossfade, no keying by stage.key. runToken forces the
                     internal choreography to replay when a chapter is clicked. */}
                 <div className="flex-1 min-w-0 bg-white">
+                  {/* Content header: active module label (visible sm+; on
+                      mobile it lives inside the compact Emma bar above). */}
+                  <div className="hidden sm:flex items-center gap-2 border-b border-slate-100 bg-white px-4 py-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500 transition-colors">
+                      {moduleLabelFor(active)}
+                    </span>
+                  </div>
                   <div className="relative" style={{ height: STAGE_H + 40 }}>
                     <UnifiedActivity active={active} step={step} />
                   </div>
                 </div>
+              </div>
               </div>
             </div>
 
