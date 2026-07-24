@@ -2157,6 +2157,16 @@ function FocusedAIV3() {
   const [scenarioKey, setScenarioKey] = useState<AiScenarioKey>("auto");
   const scenario = AI_SCENARIOS.find((s) => s.key === scenarioKey)!;
   const totalSteps = scenario.transcript.length + scenario.flow.length;
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const selectScenario = (key: AiScenarioKey, focusIndex?: number) => {
+    setScenarioKey(key);
+    if (focusIndex !== undefined) {
+      window.requestAnimationFrame(() => {
+        tabRefs.current[focusIndex]?.focus();
+      });
+    }
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -2218,16 +2228,37 @@ function FocusedAIV3() {
             role="tablist"
             aria-label="Call scenarios"
             className="mt-6 inline-flex items-center gap-1 rounded-full bg-white/5 p-1 ring-1 ring-white/10"
+            onKeyDown={(e) => {
+              const idx = AI_SCENARIOS.findIndex((s) => s.key === scenarioKey);
+              if (idx === -1) return;
+              let nextIdx = idx;
+              if (e.key === "ArrowLeft") {
+                nextIdx = idx === 0 ? AI_SCENARIOS.length - 1 : idx - 1;
+              } else if (e.key === "ArrowRight") {
+                nextIdx = idx === AI_SCENARIOS.length - 1 ? 0 : idx + 1;
+              } else if (e.key === "Home") {
+                nextIdx = 0;
+              } else if (e.key === "End") {
+                nextIdx = AI_SCENARIOS.length - 1;
+              } else {
+                return;
+              }
+              e.preventDefault();
+              selectScenario(AI_SCENARIOS[nextIdx].key, nextIdx);
+            }}
           >
-            {AI_SCENARIOS.map((s) => {
+            {AI_SCENARIOS.map((s, i) => {
               const active = scenarioKey === s.key;
               return (
                 <button
                   key={s.key}
+                  ref={(el) => {
+                    tabRefs.current[i] = el;
+                  }}
                   role="tab"
                   aria-selected={active}
                   tabIndex={active ? 0 : -1}
-                  onClick={() => setScenarioKey(s.key)}
+                  onClick={() => selectScenario(s.key)}
                   className={`rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold transition ${active ? "bg-white text-slate-900" : "text-white/70 hover:text-white"}`}
                 >
                   {s.label}
