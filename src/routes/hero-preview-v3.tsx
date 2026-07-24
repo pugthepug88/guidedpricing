@@ -2088,19 +2088,75 @@ function WorkflowTheatreV3() { return <AutomationStoryV3 />; }
 /*  4. FocusedAIV3 — cinematic black, talking character                  */
 /* =================================================================== */
 
+type AiScenarioKey = "auto" | "team";
+
+type AiScenario = {
+  key: AiScenarioKey;
+  label: string;
+  transcript: { who: "caller" | "ai"; t: string }[];
+  flow: { icon: React.ReactNode; label: string }[];
+  proof: { icon: React.ReactNode; title: string; sub: string }[];
+  status: { label: string; tone: "emerald" | "amber" };
+  handoffLabel: string;
+};
+
+const AI_SCENARIOS: AiScenario[] = [
+  {
+    key: "auto",
+    label: "Handled automatically",
+    transcript: [
+      { who: "caller", t: "Hi, can I book a service for Thursday?" },
+      { who: "ai",     t: "Absolutely. I have 2 pm available. Shall I lock that in?" },
+      { who: "caller", t: "Yes, please." },
+      { who: "ai",     t: "Done. You'll receive a confirmation text now." },
+    ],
+    flow: [
+      { icon: <ClipboardList className="h-3.5 w-3.5" />, label: "Details captured" },
+      { icon: <CalendarIcon className="h-3.5 w-3.5" />, label: "Booking created" },
+      { icon: <Send className="h-3.5 w-3.5" />,         label: "Confirmation sent" },
+      { icon: <Bell className="h-3.5 w-3.5" />,         label: "Follow-up scheduled" },
+    ],
+    proof: [
+      { icon: <Users className="h-3.5 w-3.5" />,        title: "Customer record updated", sub: "New enquiry synced to pipeline" },
+      { icon: <CalendarIcon className="h-3.5 w-3.5" />, title: "Thursday · 2:00 PM",       sub: "Confirmed with the customer" },
+      { icon: <MessageSquare className="h-3.5 w-3.5" />, title: "SMS delivered",           sub: "Confirmation text to caller" },
+      { icon: <StarIcon className="h-3.5 w-3.5" />,     title: "Review request after service", sub: "Scheduled automatically" },
+    ],
+    status: { label: "Booking confirmed", tone: "emerald" },
+    handoffLabel: "Automated resolution",
+  },
+  {
+    key: "team",
+    label: "Needs your team",
+    transcript: [
+      { who: "caller", t: "My system has stopped working and there is water leaking." },
+      { who: "ai",     t: "I understand. I'll get the right person to help and pass on everything you've told me." },
+    ],
+    flow: [
+      { icon: <Sparkles className="h-3.5 w-3.5" />,     label: "Intent detected" },
+      { icon: <Bell className="h-3.5 w-3.5" />,         label: "Team alerted" },
+      { icon: <Phone className="h-3.5 w-3.5" />,        label: "Call transferred" },
+      { icon: <FileText className="h-3.5 w-3.5" />,     label: "Summary saved" },
+    ],
+    proof: [
+      { icon: <Zap className="h-3.5 w-3.5" />,          title: "Urgent service request",  sub: "Prioritised for immediate response" },
+      { icon: <Users className="h-3.5 w-3.5" />,        title: "Alex notified",           sub: "Push + inbox with caller details" },
+      { icon: <ClipboardList className="h-3.5 w-3.5" />, title: "Context included",       sub: "Address, symptoms, urgency" },
+      { icon: <FileText className="h-3.5 w-3.5" />,     title: "Notes added to record",   sub: "Full transcript attached" },
+    ],
+    status: { label: "Transferred to your team", tone: "amber" },
+    handoffLabel: "Human handoff",
+  },
+];
+
 function FocusedAIV3() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [reduced, setReduced] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [step, setStep] = useState(0);
-  const [mode, setMode] = useState<"receptionist" | "workflows">("receptionist");
-
-  const transcript = [
-    { who: "caller", t: "Hi, can I book a service for Thursday?" },
-    { who: "ai",     t: "Absolutely. I have 2 pm available. Shall I lock that in?" },
-    { who: "caller", t: "Yes, please." },
-    { who: "ai",     t: "Done. You'll receive a confirmation text now." },
-  ];
+  const [scenarioKey, setScenarioKey] = useState<AiScenarioKey>("auto");
+  const scenario = AI_SCENARIOS.find((s) => s.key === scenarioKey)!;
+  const totalSteps = scenario.transcript.length + scenario.flow.length;
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -2110,19 +2166,35 @@ function FocusedAIV3() {
     return () => mq.removeEventListener?.("change", on);
   }, []);
 
+  // Reset when scenario changes
   useEffect(() => {
-    if (reduced) { setStep(transcript.length); return; }
+    setStep(0);
+  }, [scenarioKey]);
+
+  useEffect(() => {
+    if (reduced) { setStep(totalSteps); return; }
     if (!playing) return;
     const id = window.setInterval(() => {
-      setStep((s) => (s + 1) % (transcript.length + 2));
-    }, 2000);
+      setStep((s) => (s + 1) % (totalSteps + 2));
+    }, 1600);
     return () => window.clearInterval(id);
-  }, [playing, reduced, transcript.length]);
+  }, [playing, reduced, totalSteps, scenarioKey]);
 
-  const shown = reduced ? transcript : transcript.slice(0, Math.min(step + 1, transcript.length));
-  const bookingConfirmed = reduced || step >= transcript.length - 1;
+  // Sync video play/pause with the demo playing state
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (playing && !reduced) v.play().catch(() => {});
+    else v.pause();
+  }, [playing, reduced]);
 
-  const videoSrc = mode === "receptionist" ? aiWorkflowVideo.url : aiEmployeeVideo.url;
+  const transcriptShown = reduced
+    ? scenario.transcript
+    : scenario.transcript.slice(0, Math.min(step + 1, scenario.transcript.length));
+  const flowProgress = reduced
+    ? scenario.flow.length
+    : Math.max(0, Math.min(scenario.flow.length, step - scenario.transcript.length + 1));
+  const complete = reduced || step >= totalSteps - 1;
 
   return (
     <section className="relative overflow-hidden bg-[#05060a] py-24 sm:py-32 px-6 text-white">
@@ -2133,68 +2205,69 @@ function FocusedAIV3() {
 
       <div className="relative mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-300">The AI receptionist</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-300">AI RECEPTIONIST + AUTOMATION</span>
           <h2 className="mt-3 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight leading-[1.05]">
-            Every enquiry handled, even when your team is busy.
+            Answers the call. Handles what comes next.
           </h2>
           <p className="mt-4 text-lg text-white/70 leading-relaxed max-w-2xl">
-            AI answers, gathers details, books the appointment and hands the full context to your team.
+            Zapla understands why they called, takes the right action and keeps your team informed.
           </p>
 
-          {/* Mode toggle: receptionist (primary) / AI workflows (secondary) */}
-          <div className="mt-6 inline-flex items-center gap-1 rounded-full bg-white/5 p-1 ring-1 ring-white/10">
-            <button
-              onClick={() => setMode("receptionist")}
-              className={`rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold transition ${mode === "receptionist" ? "bg-white text-slate-900" : "text-white/70 hover:text-white"}`}
-            >
-              AI receptionist
-            </button>
-            <button
-              onClick={() => setMode("workflows")}
-              className={`rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold transition ${mode === "workflows" ? "bg-white text-slate-900" : "text-white/70 hover:text-white"}`}
-            >
-              AI workflows
-            </button>
+          {/* Scenario tabs */}
+          <div
+            role="tablist"
+            aria-label="Call scenarios"
+            className="mt-6 inline-flex items-center gap-1 rounded-full bg-white/5 p-1 ring-1 ring-white/10"
+          >
+            {AI_SCENARIOS.map((s) => {
+              const active = scenarioKey === s.key;
+              return (
+                <button
+                  key={s.key}
+                  role="tab"
+                  aria-selected={active}
+                  tabIndex={active ? 0 : -1}
+                  onClick={() => setScenarioKey(s.key)}
+                  className={`rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold transition ${active ? "bg-white text-slate-900" : "text-white/70 hover:text-white"}`}
+                >
+                  {s.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-stretch">
-          {/* Character portrait — cinematic, no audio pretence */}
+          {/* AI receptionist — persistent for both scenarios */}
           <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-b from-[#0b1220] to-[#05060a] ring-1 ring-white/10 shadow-[0_40px_120px_-40px_rgba(3,7,18,0.9)]">
             <div className="relative aspect-[4/5] sm:aspect-[5/6] w-full">
               <video
                 ref={videoRef}
-                key={mode}
                 className="absolute inset-0 h-full w-full object-contain"
-                src={videoSrc}
+                src={aiWorkflowVideo.url}
                 autoPlay={!reduced}
                 loop
                 muted
                 playsInline
                 preload="metadata"
-                aria-label={mode === "receptionist" ? "Illustration of Zapla's AI receptionist" : "Illustration of an AI workflow inside Zapla"}
+                aria-label="Illustration of Zapla's AI receptionist"
               />
               <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
 
-              {/* Top identifier — presented as an illustration */}
               <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-white/85 backdrop-blur ring-1 ring-white/15">
                 <Sparkles className="h-3 w-3 text-cyan-300" />
-                {mode === "receptionist" ? "Zapla AI receptionist" : "Zapla AI workflows"}
+                Zapla AI receptionist
               </div>
 
-              {/* Bottom controls — no audio, no fake caller */}
               <div className="absolute inset-x-5 bottom-5 flex items-center justify-between gap-3 rounded-2xl bg-black/50 px-3 py-2.5 backdrop-blur ring-1 ring-white/10">
                 <div className="min-w-0 text-[11px] font-mono uppercase tracking-wider text-white/60">
                   Illustrative demo · no audio
                 </div>
                 {!reduced && (
                   <button
-                    onClick={() => {
-                      setPlaying((p) => !p);
-                      const v = videoRef.current;
-                      if (v) { if (playing) v.pause(); else v.play().catch(() => {}); }
-                    }}
+                    onClick={() => setPlaying((p) => !p)}
                     className="shrink-0 rounded-full bg-white text-slate-900 px-3.5 py-1.5 text-[11px] font-semibold hover:bg-white/90"
+                    aria-label={playing ? "Pause demo" : "Play demo"}
                   >
                     {playing ? "Pause demo" : "Play demo"}
                   </button>
@@ -2203,7 +2276,7 @@ function FocusedAIV3() {
             </div>
           </div>
 
-          {/* Transcript + handoff */}
+          {/* Transcript + connected workflow */}
           <div className="flex flex-col gap-5">
             <div className="rounded-[22px] bg-white/[0.035] ring-1 ring-white/10 p-5 backdrop-blur">
               <div className="flex items-center justify-between">
@@ -2214,15 +2287,15 @@ function FocusedAIV3() {
                 <div className="text-[10px] font-mono uppercase tracking-wider text-white/40">Not a real recording</div>
               </div>
               <div className="mt-4 space-y-2.5">
-                {shown.map((m, i) => (
-                  <div key={i} className={`flex ${m.who === "ai" ? "justify-start" : "justify-end"}`}>
+                {transcriptShown.map((m, i) => (
+                  <div key={`${scenarioKey}-${i}`} className={`flex ${m.who === "ai" ? "justify-start" : "justify-end"}`}>
                     <div className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-[13px] leading-snug ${m.who === "ai" ? "bg-cyan-500/15 text-cyan-50 rounded-tl-sm ring-1 ring-cyan-400/20" : "bg-white/[0.08] text-white rounded-tr-sm ring-1 ring-white/10"}`}>
                       <div className={`mb-0.5 text-[10px] font-semibold uppercase tracking-wider ${m.who === "ai" ? "text-cyan-300" : "text-white/60"}`}>{m.who === "ai" ? "AI receptionist" : "Customer"}</div>
                       {m.t}
                     </div>
                   </div>
                 ))}
-                {!reduced && shown.length < transcript.length && (
+                {!reduced && transcriptShown.length < scenario.transcript.length && (
                   <div className="flex justify-start">
                     <div className="rounded-2xl rounded-tl-sm bg-white/[0.04] px-3 py-2 text-[12px] text-white/40 ring-1 ring-white/10">
                       <span className="inline-flex gap-1">
@@ -2234,33 +2307,63 @@ function FocusedAIV3() {
                   </div>
                 )}
               </div>
+
+              {/* Connector: transcript → workflow */}
+              <div aria-hidden className="mt-4 flex justify-center">
+                <div className="h-6 w-px bg-gradient-to-b from-cyan-400/50 to-emerald-400/40" />
+              </div>
+
+              {/* What Zapla does next — compact flow timeline */}
+              <div className="mt-2 rounded-2xl bg-black/30 ring-1 ring-white/10 p-4">
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] font-semibold uppercase tracking-wider text-white/70">What Zapla does next</div>
+                  <div className={`text-[10px] font-mono uppercase tracking-wider ${scenario.status.tone === "emerald" ? "text-emerald-300/80" : "text-amber-300/80"}`}>{scenario.handoffLabel}</div>
+                </div>
+
+                <ol className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2.5 relative">
+                  {scenario.flow.map((f, i) => {
+                    const done = i < flowProgress;
+                    const active = i === flowProgress - 1;
+                    return (
+                      <li key={`${scenarioKey}-flow-${i}`} className="relative">
+                        <div className={`flex items-center gap-2 rounded-xl px-2.5 py-2 ring-1 transition-all duration-500 ${done ? (active ? "bg-cyan-500/15 ring-cyan-400/40 text-white" : "bg-emerald-500/10 ring-emerald-400/25 text-white") : "bg-white/[0.03] ring-white/10 text-white/40"}`}>
+                          <span className={`grid h-6 w-6 place-items-center rounded-md ${done ? (active ? "bg-cyan-400/25 text-cyan-100" : "bg-emerald-400/20 text-emerald-100") : "bg-white/5 text-white/40"}`}>
+                            {done && !active ? <CheckCircle2 className="h-3.5 w-3.5" /> : f.icon}
+                          </span>
+                          <span className="text-[11.5px] font-semibold leading-tight">{f.label}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
             </div>
 
-            <div className={`rounded-[22px] p-5 ring-1 transition-all duration-500 ${bookingConfirmed ? "bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 ring-emerald-400/25" : "bg-white/[0.03] ring-white/10"}`}>
+            {/* Proof panel */}
+            <div className={`rounded-[22px] p-5 ring-1 transition-all duration-500 ${complete ? (scenario.status.tone === "emerald" ? "bg-gradient-to-br from-emerald-500/10 to-cyan-500/5 ring-emerald-400/25" : "bg-gradient-to-br from-amber-500/10 to-cyan-500/5 ring-amber-400/25") : "bg-white/[0.03] ring-white/10"}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-[13px] font-semibold">
-                  <CheckCircle2 className={`h-4 w-4 ${bookingConfirmed ? "text-emerald-400" : "text-white/40"}`} />
-                  {bookingConfirmed ? "Booking confirmed" : "Awaiting confirmation"}
+                  <CheckCircle2 className={`h-4 w-4 ${complete ? (scenario.status.tone === "emerald" ? "text-emerald-400" : "text-amber-400") : "text-white/40"}`} />
+                  {complete ? scenario.status.label : "Working…"}
                 </div>
                 <div className="text-[10px] font-mono uppercase tracking-wider text-white/40">CRM handoff</div>
               </div>
-              <div className="mt-4 grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
-                <span className="grid h-10 w-10 place-items-center rounded-lg bg-blue-500/25 text-blue-200"><CalendarIcon className="h-4 w-4" /></span>
-                <div className="text-[12px] min-w-0">
-                  <div className="font-semibold text-[13px]">Thursday · 2:00 PM</div>
-                  <div className="text-white/60 text-[11px] truncate">Confirmation text sent · assigned to team</div>
-                </div>
-                <span className={`shrink-0 text-[10px] font-semibold uppercase tracking-wider ${bookingConfirmed ? "text-emerald-300" : "text-white/40"}`}>{bookingConfirmed ? "Sent" : "Draft"}</span>
-              </div>
-              <div className="mt-3 flex items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
-                <V3Avatar name="Alex" tone="amber" size={34} />
-                <div className="flex-1 text-[12px] min-w-0">
-                  <div className="font-semibold text-[13px]">Assigned to Alex</div>
-                  <div className="text-white/60 text-[11px] truncate">Full context handed off — notes, address, urgency</div>
-                </div>
-                <ArrowRight className="h-4 w-4 text-white/60" />
+              <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                {scenario.proof.map((p, i) => (
+                  <div key={`${scenarioKey}-proof-${i}`} className="flex items-center gap-3 rounded-xl bg-black/30 p-3 ring-1 ring-white/10">
+                    <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${scenario.status.tone === "emerald" ? "bg-emerald-500/20 text-emerald-200" : "bg-amber-500/20 text-amber-200"}`}>{p.icon}</span>
+                    <div className="min-w-0 text-[12px]">
+                      <div className="font-semibold text-[12.5px] truncate">{p.title}</div>
+                      <div className="text-white/55 text-[11px] truncate">{p.sub}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
+
+            <p className="text-[12.5px] text-white/50 leading-relaxed">
+              The same workflows continue across SMS, email, forms and your customer pipeline.
+            </p>
           </div>
         </div>
       </div>
