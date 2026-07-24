@@ -2157,6 +2157,16 @@ function FocusedAIV3() {
   const [scenarioKey, setScenarioKey] = useState<AiScenarioKey>("auto");
   const scenario = AI_SCENARIOS.find((s) => s.key === scenarioKey)!;
   const totalSteps = scenario.transcript.length + scenario.flow.length;
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const selectScenario = (key: AiScenarioKey, focusIndex?: number) => {
+    setScenarioKey(key);
+    if (focusIndex !== undefined) {
+      window.requestAnimationFrame(() => {
+        tabRefs.current[focusIndex]?.focus();
+      });
+    }
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
