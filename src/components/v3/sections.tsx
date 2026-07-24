@@ -1843,8 +1843,9 @@ const SLIDES: Slide[] = [
 
 export function ProfessionCarouselV3() {
   const [i, setI] = useState(0); // requested/selected slide (drives copy)
-  const [displayed, setDisplayed] = useState(0); // currently displayed image layer
+  const [displayed, setDisplayed] = useState<number | null>(null); // currently displayed layer; null before first load
   const [loaded, setLoaded] = useState<boolean[]>(() => SLIDES.map(() => false));
+  const [failed, setFailed] = useState<boolean[]>(() => SLIDES.map(() => false));
   const s = SLIDES[i];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -1857,10 +1858,24 @@ export function ProfessionCarouselV3() {
     });
   };
 
-  // When the requested slide's image is loaded, promote it to displayed.
+  const markFailed = (idx: number) => {
+    // A failed image has naturalWidth === 0 and must never be promoted to
+    // `displayed`. Record the failure and leave `loaded[idx]` false so the
+    // previously successful layer (if any) stays visible; otherwise the
+    // neutral gradient fallback in the container shows through.
+    setFailed((prev) => {
+      if (prev[idx]) return prev;
+      const next = prev.slice();
+      next[idx] = true;
+      return next;
+    });
+  };
+
+  // Only promote the requested slide to `displayed` when it has genuinely
+  // loaded (onLoad fired) AND has not been marked failed.
   useEffect(() => {
-    if (loaded[i]) setDisplayed(i);
-  }, [i, loaded]);
+    if (loaded[i] && !failed[i]) setDisplayed(i);
+  }, [i, loaded, failed]);
 
   const go = (n: number) => {
     const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
@@ -1923,13 +1938,14 @@ export function ProfessionCarouselV3() {
               {/* Visual — all slide images mounted as an absolute layered stack.
                   We keep the previously-displayed image visible until the requested
                   image has actually completed loading, then crossfade. */}
-              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none bg-slate-200">
+              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200">
                 {SLIDES.map((sl, idx) => {
                   const isDisplayed = idx === displayed;
-                  const isRequestedAndReady = idx === i && loaded[i];
-                  // Show a layer if it is the current displayed one, or if it is the
-                  // newly-requested one and it has finished loading (to crossfade in).
-                  const visible = isDisplayed || isRequestedAndReady;
+                  const isRequestedAndReady = idx === i && loaded[i] && !failed[i];
+                  // Never show a failed layer. Show a layer only if it is the
+                  // current displayed one, or if it is the newly-requested one
+                  // that finished loading successfully (to crossfade in).
+                  const visible = !failed[idx] && (isDisplayed || isRequestedAndReady);
                   return (
                     <img
                       key={sl.key}
@@ -1938,8 +1954,17 @@ export function ProfessionCarouselV3() {
                       loading="eager"
                       decoding="async"
                       fetchPriority={idx === 0 ? "high" : "auto"}
+                      ref={(el) => {
+                        // Cover the case where the image finished loading
+                        // before React attached onLoad (SSR + fast cache).
+                        if (!el) return;
+                        if (el.complete) {
+                          if (el.naturalWidth > 0) markLoaded(idx);
+                          else markFailed(idx);
+                        }
+                      }}
                       onLoad={() => markLoaded(idx)}
-                      onError={() => markLoaded(idx)}
+                      onError={() => markFailed(idx)}
                       className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out"
                       style={{ opacity: visible ? 1 : 0, zIndex: idx === i ? 2 : 1 }}
                     />
