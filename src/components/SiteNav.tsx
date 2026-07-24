@@ -127,8 +127,7 @@ export function SiteNav() {
             <a href="https://zapla.io/pricing" className="py-2">Pricing</a>
             <a href="https://my.zapla.io/" className="py-2">Log In</a>
             <div className="mt-2 grid gap-2">
-              <a href="https://zapla.io/getstartedtrial" className="inline-flex items-center justify-center rounded-full border border-zapla-line bg-white px-4 py-2.5 text-[13px] font-extrabold text-zapla-ink">Get Started Free</a>
-              <a href="https://zapla.io/booking" className="inline-flex items-center justify-center rounded-full bg-zapla-blue px-4 py-2.5 text-[13px] font-extrabold text-white">Book a Demo</a>
+              <a href="https://zapla.io/booking" className="inline-flex items-center justify-center rounded-full bg-zapla-blue px-4 py-2.5 text-[13px] font-extrabold text-white">Book a Call</a>
             </div>
           </div>
         </div>
