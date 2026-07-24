@@ -116,6 +116,7 @@ function HeroPreviewV3Page() {
       <LifecycleStripV2 />
       <ConnectedSystemSectionV3 />
       <OutcomesV3 />
+      <CustomerProofPlaceholder />
       <PlatformLifecycleV3 />
       <WorkflowTheatreV3 />
       <FocusedAIV3 />
@@ -1309,6 +1310,109 @@ function OutcomesV3() {
     </section>
   );
 }
+
+/* =================================================================== */
+/*  1b. CustomerProofPlaceholder — premium proof block                   */
+/*                                                                       */
+/*  DO NOT SHIP PUBLICLY. Placeholder-only design so the section reads   */
+/*  as intentionally unset until real verified customer evidence is      */
+/*  supplied. All strings deliberately use XX / X.X× / "Customer name"   */
+/*  style tokens so nothing here is mistaken for a real result. Replace  */
+/*  the PROOF object below with a verified customer quote + metrics      */
+/*  before making the page public.                                       */
+/* =================================================================== */
+
+// Placeholder-only data. Replace with verified customer evidence before ship.
+const PROOF = {
+  quote:
+    "Add a verified customer quote here. Keep it specific, first-person, and outcome-focused so it complements the metrics on the right.",
+  attribution: {
+    name: "Customer name",
+    role: "Role, Business type",
+    logo: "Customer logo",
+  },
+  metrics: [
+    { value: "XX%", label: "Add verified customer result", sub: "e.g. faster response" },
+    { value: "X.X×", label: "Add verified customer result", sub: "e.g. more bookings" },
+    { value: "XX hrs", label: "Add verified customer result", sub: "e.g. saved per week" },
+  ],
+} as const;
+
+function CustomerProofPlaceholder() {
+  return (
+    <section className="bg-slate-50 py-24 sm:py-32 px-6" aria-label="Customer proof (placeholder)">
+      <div className="mx-auto max-w-6xl">
+        {/* Visible placeholder ribbon so nobody mistakes this for shipped copy */}
+        <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1 text-[11px] font-semibold text-amber-800 ring-1 ring-amber-200">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+          Placeholder · replace with verified customer evidence before publishing
+        </div>
+
+        <div className="max-w-2xl">
+          <div className="text-[13px] font-mono text-slate-400">Proof</div>
+          <h2 className="mt-2 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
+            The results, in their words.
+          </h2>
+          <p className="mt-4 text-lg text-slate-600 leading-relaxed">
+            This section is a design placeholder. Values below are intentionally non-factual until a real customer result is verified.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1.35fr_1fr]">
+          {/* Large editorial quote card */}
+          <figure className="relative overflow-hidden rounded-[28px] bg-white p-8 sm:p-10 ring-1 ring-slate-200 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)]">
+            <div className="flex items-center justify-between">
+              <div className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">
+                <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                Verified customer quote
+              </div>
+              <div className="flex items-center gap-0.5 text-amber-500">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <StarIcon key={i} className="h-4 w-4 fill-current" />
+                ))}
+              </div>
+            </div>
+
+            <blockquote className="mt-6 font-zapla text-[22px] sm:text-[28px] font-semibold text-slate-950 leading-[1.25] tracking-tight">
+              &ldquo;{PROOF.quote}&rdquo;
+            </blockquote>
+
+            <figcaption className="mt-8 flex items-center gap-4 border-t border-slate-100 pt-6">
+              <div className="grid h-12 w-12 place-items-center rounded-full bg-slate-100 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">
+                Photo
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-[14px] font-semibold text-slate-900 truncate">{PROOF.attribution.name}</div>
+                <div className="text-[12px] text-slate-500 truncate">{PROOF.attribution.role}</div>
+              </div>
+              <div className="hidden sm:grid h-10 place-items-center rounded-lg bg-slate-50 px-4 text-[11px] font-semibold text-slate-500 ring-1 ring-slate-200">
+                {PROOF.attribution.logo}
+              </div>
+            </figcaption>
+          </figure>
+
+          {/* 3 compact metric cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4">
+            {PROOF.metrics.map((m, idx) => (
+              <div
+                key={idx}
+                className="relative overflow-hidden rounded-2xl bg-white p-5 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.25)]"
+              >
+                <div className="text-[11px] font-mono text-slate-400">0{idx + 1} / 03</div>
+                <div className="mt-1 font-zapla text-4xl font-semibold tracking-tight text-slate-950 tabular-nums">
+                  {m.value}
+                </div>
+                <div className="mt-1 text-[13px] font-semibold text-slate-800">{m.label}</div>
+                <div className="mt-0.5 text-[11.5px] text-slate-500">{m.sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 /* =================================================================== */
 /*  2. PlatformLifecycleV3 — unified app shell, six stages               */
