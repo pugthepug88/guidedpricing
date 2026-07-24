@@ -1404,7 +1404,6 @@ export function JourneyV3() {
                   </div>
                 </div>
               </div>
-              </div>
             </div>
 
             {/* Payoff — reveals only after Grow completes; loops underneath.
