@@ -1188,7 +1188,7 @@ export function JourneyV3() {
         <div className="max-w-2xl">
           <Eyebrow>The platform</Eyebrow>
           <h2 className="mt-4 font-zapla text-3xl sm:text-4xl md:text-[52px] font-semibold tracking-tight text-slate-950 leading-[1.05]">
-            One product, six stages of the customer journey.
+            One product. Every stage of the customer journey.
           </h2>
           <p className="mt-4 text-lg text-slate-600 leading-relaxed">
             The same connected workspace, from first enquiry to repeat customer. Follow Emma Wilson through every stage.
