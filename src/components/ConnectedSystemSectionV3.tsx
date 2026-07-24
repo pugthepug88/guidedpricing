@@ -113,9 +113,9 @@ function BeforeCanvas({ active }: { active: boolean }) {
   return (
     <div
       aria-hidden={!active}
-      className={`absolute inset-0 transition-opacity duration-500 ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
+      className={`transition-opacity duration-500 motion-reduce:transition-none ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
     >
-      <div className="relative h-full min-h-[520px] rounded-[28px] bg-slate-50 ring-1 ring-slate-200 overflow-hidden">
+      <div className="relative min-h-[520px] rounded-[28px] bg-slate-50 ring-1 ring-slate-200 overflow-hidden">
         {/* dashed disconnect lines */}
         <svg className="absolute inset-0 h-full w-full" viewBox="0 0 800 500" preserveAspectRatio="none" aria-hidden>
           <g stroke="#cbd5e1" strokeWidth="1" strokeDasharray="4 6" fill="none">
@@ -128,7 +128,6 @@ function BeforeCanvas({ active }: { active: boolean }) {
             <path d="M420 380 L 400 280" />
             <path d="M400 140 L 400 240" />
           </g>
-          {/* dead-end dot in centre */}
           <circle cx="400" cy="260" r="6" fill="#94a3b8" />
         </svg>
 
