@@ -760,8 +760,8 @@ function railProgress(active: number, step: number): number {
 function TimelineRail({ active, step }: { active: number; step: number }) {
   const reached = railProgress(active, step);
   return (
-    <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50/60">
-      <div className="flex items-center gap-1">
+    <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50/60 overflow-hidden">
+      <div className="flex items-center gap-1 min-w-0">
         {RAIL_MILESTONES.map((m, i) => {
           const done = i <= reached;
           const nextDone = i < reached;
@@ -775,7 +775,7 @@ function TimelineRail({ active, step }: { active: number; step: number }) {
                 {done ? <CheckCircle2 className="h-2.5 w-2.5" /> : i + 1}
               </span>
               <span
-                className={`hidden md:inline text-[10px] font-semibold ${
+                className={`hidden xl:inline min-w-0 truncate text-[10px] font-semibold ${
                   done ? "text-slate-800" : "text-slate-400"
                 }`}
               >
@@ -1094,9 +1094,14 @@ export function JourneyV3() {
 
   const handleSelect = useCallback((i: number) => {
     const clamped = ((i % STAGES.length) + STAGES.length) % STAGES.length;
-    if (clamped !== active) setActive(clamped);
+    // Always update: setActive + runToken bump batch in the same render, so
+    // tab, copy, nav, workspace and status all derive from the new active/step
+    // on the very next commit. runToken forces useJourneySequence to reset
+    // step→0 at render time and cancel any stale timeout on re-render.
+    setActive(clamped);
     setRunToken((t) => t + 1);
-  }, [active]);
+    setUserPaused(false);
+  }, []);
 
   const togglePlay = () => setUserPaused((p) => !p);
 
@@ -1410,7 +1415,7 @@ export function AutomationStoryV3() {
         </div>
 
         <p className="mt-6 max-w-2xl text-[13.5px] text-slate-500">
-          Optional backup mode: team rings first; AI answers after the configured timeout. Intents, destinations and routing are configurable per team. Not confused with Agent Transfer, this is HighLevel Call Transfer to a real phone destination.
+          Transfer to your team when human judgement is needed. Intents, destinations and routing are configurable per team.
         </p>
       </div>
     </section>
@@ -1480,8 +1485,8 @@ function AutomationDiagram({ mode, reduced }: { mode: "routine" | "urgent"; redu
                 <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />Live human
               </span>
             </div>
-            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Call Transfer to on-call destination</div>
-            <div className="mt-0.5 text-[11.5px] text-slate-500">Configured on-call/team destination · real phone number</div>
+            <div className="mt-1 text-[13.5px] font-semibold text-slate-900">Transfer to your team when human judgement is needed</div>
+            <div className="mt-0.5 text-[11.5px] text-slate-500">Routed to your on-call destination · real phone number</div>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex -space-x-2">
                 <TeamAvatar initials="T1" tone="#0ea5e9" />
@@ -1533,7 +1538,7 @@ function AutomationDiagram({ mode, reduced }: { mode: "routine" | "urgent"; redu
                 <span className="h-1 w-1 rounded-full bg-white" />Live
               </span>
             </div>
-            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Call Transfer to on-call</div>
+            <div className="mt-1 text-[12.5px] font-semibold text-slate-900">Transfer to your team</div>
             <div className="mt-2 flex -space-x-2">
               <TeamAvatar initials="T1" tone="#0ea5e9" size={22} />
               <TeamAvatar initials="T2" tone="#10b981" size={22} />
@@ -1797,10 +1802,19 @@ export function ProfessionCarouselV3() {
   const [i, setI] = useState(0); // Professional services default
   const s = SLIDES[i];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  // Preload every slide image once so switching tabs never shows a blank frame.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    SLIDES.forEach((sl) => {
+      const img = new window.Image();
+      img.src = sl.image;
+    });
+  }, []);
+
   const go = (n: number) => {
     const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
     setI(nextIdx);
-    // Bring the newly-active tab into view on narrow screens
     const el = tabRefs.current[nextIdx];
     if (el && typeof el.scrollIntoView === "function") {
       el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
@@ -1850,9 +1864,10 @@ export function ProfessionCarouselV3() {
 
         {/* Carousel stage — stable height, no clipping neighbors */}
         <div className="relative mt-10">
+          {/* No `key` remount — images are preloaded and swap in place so the
+              visual never flashes blank. Content changes atomically with `i`. */}
           <article
-            key={s.key}
-            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] v3-crossfade min-h-[664px] sm:min-h-[620px] lg:min-h-[460px]`}
+            className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] transition-colors duration-300 ease-out min-h-[664px] sm:min-h-[620px] lg:min-h-[460px]`}
           >
             <div className="grid gap-0 lg:grid-cols-[1.1fr_1fr] items-stretch h-full">
               {/* Visual — fixed compact height so different slides never resize the card */}
