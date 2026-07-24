@@ -2079,8 +2079,6 @@ function WorkflowCanvasV3() {
   );
 }
 
-/* Kept name for backwards ref in page — now uses new canvas */
-function WorkflowTheatreV3() { return <AutomationStoryV3 />; }
 
 /* =================================================================== */
 /*  4. FocusedAIV3 — cinematic black, talking character                  */
