@@ -763,7 +763,10 @@ function TimelineRail({ active, step }: { active: number; step: number }) {
   const currentLabel =
     reached >= 0 && reached < n ? RAIL_MILESTONES[reached].label : RAIL_MILESTONES[0].label;
   return (
-    <div className="px-3 py-2.5 border-b border-slate-100 bg-slate-50/60">
+    <div className="px-3 pt-2 pb-2.5 border-b border-slate-100 bg-slate-50/60">
+      <div className="mb-1.5 hidden sm:block text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">
+        Customer lifecycle
+      </div>
       {/* Compact 7-column stepper — visible sm+ */}
       <div
         className="hidden sm:grid relative"
