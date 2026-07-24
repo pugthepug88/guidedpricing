@@ -1984,40 +1984,9 @@ function ProductScene({ slide }: { slide: Slide }) {
 
 
 export function ProfessionCarouselV3() {
-  const [i, setI] = useState(0); // requested/selected slide (drives copy)
-  const [displayed, setDisplayed] = useState<number>(0); // start showing layer 0 immediately; failed[0] gating still hides it if it errors
-  const [loaded, setLoaded] = useState<boolean[]>(() => SLIDES.map(() => false));
-  const [failed, setFailed] = useState<boolean[]>(() => SLIDES.map(() => false));
+  const [i, setI] = useState(0);
   const s = SLIDES[i];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-
-  const markLoaded = (idx: number) => {
-    setLoaded((prev) => {
-      if (prev[idx]) return prev;
-      const next = prev.slice();
-      next[idx] = true;
-      return next;
-    });
-  };
-
-  const markFailed = (idx: number) => {
-    // A failed image has naturalWidth === 0 and must never be promoted to
-    // `displayed`. Record the failure and leave `loaded[idx]` false so the
-    // previously successful layer (if any) stays visible; otherwise the
-    // neutral gradient fallback in the container shows through.
-    setFailed((prev) => {
-      if (prev[idx]) return prev;
-      const next = prev.slice();
-      next[idx] = true;
-      return next;
-    });
-  };
-
-  // Only promote the requested slide to `displayed` when it has genuinely
-  // loaded (onLoad fired) AND has not been marked failed.
-  useEffect(() => {
-    if (loaded[i] && !failed[i]) setDisplayed(i);
-  }, [i, loaded, failed]);
 
   const go = (n: number) => {
     const nextIdx = ((n % SLIDES.length) + SLIDES.length) % SLIDES.length;
@@ -2041,7 +2010,7 @@ export function ProfessionCarouselV3() {
           </p>
         </div>
 
-        {/* Profession tabs — mobile: horizontal rail with soft edge fade; desktop: centered wrap, no mask */}
+        {/* Profession tabs */}
         <div
           className="v3-industry-tabs mt-10 -mx-6 overflow-x-auto px-8 md:overflow-visible md:mx-0 md:px-0 zapla-scroll-hide"
           role="tablist"
@@ -2068,51 +2037,24 @@ export function ProfessionCarouselV3() {
           </div>
         </div>
 
-
-        {/* Carousel stage — stable height, no clipping neighbors */}
+        {/* Carousel stage */}
         <div className="relative mt-10">
-          {/* No `key` remount — images are preloaded and swap in place so the
-              visual never flashes blank. Content changes atomically with `i`. */}
           <article
             className={`relative overflow-hidden rounded-[28px] bg-gradient-to-br ${s.accent.bg} ring-1 ${s.accent.ring} shadow-[0_30px_80px_-40px_rgba(15,23,42,0.25)] transition-colors duration-300 ease-out min-h-[664px] sm:min-h-[620px] lg:min-h-[460px]`}
           >
             <div className="grid gap-0 lg:grid-cols-[1.1fr_1fr] items-stretch h-full">
-              {/* Visual — all slide images mounted as an absolute layered stack.
-                  We keep the previously-displayed image visible until the requested
-                  image has actually completed loading, then crossfade. */}
-              <div className="relative h-[220px] sm:h-[260px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200">
-                {SLIDES.map((sl, idx) => {
-                  const isDisplayed = idx === displayed;
-                  const isRequestedAndReady = idx === i && loaded[i] && !failed[i];
-                  // Never show a failed layer. Show a layer only if it is the
-                  // current displayed one, or if it is the newly-requested one
-                  // that finished loading successfully (to crossfade in).
-                  const visible = !failed[idx] && (isDisplayed || isRequestedAndReady);
-                  return (
-                    <img
-                      key={sl.key}
-                      src={sl.image}
-                      alt=""
-                      loading="eager"
-                      decoding="async"
-                      fetchPriority={idx === 0 ? "high" : "auto"}
-                      ref={(el) => {
-                        // Cover the case where the image finished loading
-                        // before React attached onLoad (SSR + fast cache).
-                        if (!el) return;
-                        if (el.complete) {
-                          if (el.naturalWidth > 0) markLoaded(idx);
-                          else markFailed(idx);
-                        }
-                      }}
-                      onLoad={() => markLoaded(idx)}
-                      onError={() => markFailed(idx)}
-                      className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out"
-                      style={{ opacity: visible ? 1 : 0, zIndex: idx === i ? 2 : 1 }}
-                    />
-                  );
-                })}
-                <div className="absolute inset-0 z-[3] bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+              {/* Visual — all scenes mounted as absolute layers, crossfade on switch. */}
+              <div className="relative h-[280px] sm:h-[320px] lg:h-auto w-full overflow-hidden lg:rounded-l-[28px] rounded-t-[28px] lg:rounded-tr-none">
+                {SLIDES.map((sl, idx) => (
+                  <div
+                    key={sl.key}
+                    aria-hidden={idx !== i}
+                    className="absolute inset-0 transition-opacity duration-300 ease-out"
+                    style={{ opacity: idx === i ? 1 : 0, zIndex: idx === i ? 2 : 1 }}
+                  >
+                    <ProductScene slide={sl} />
+                  </div>
+                ))}
                 {/* small outcome overlay */}
                 <div className="absolute z-[4] bottom-3 left-3 right-3 sm:right-auto sm:w-[280px] rounded-2xl bg-white/95 p-3 ring-1 ring-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur">
                   {s.outcome}
@@ -2127,6 +2069,8 @@ export function ProfessionCarouselV3() {
                   {s.headline}
                 </h3>
                 <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{s.body}</p>
+
+
 
                 {/* Journey pills */}
                 <ol className="mt-6 flex flex-wrap items-center gap-2">
