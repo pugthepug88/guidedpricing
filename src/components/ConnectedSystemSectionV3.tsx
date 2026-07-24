@@ -150,37 +150,34 @@ function AfterCanvas({ active }: { active: boolean }) {
   return (
     <div
       aria-hidden={!active}
-      className={`absolute inset-0 transition-opacity duration-500 ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
+      className={`transition-opacity duration-500 motion-reduce:transition-none ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
     >
-      <div className="relative h-full min-h-[520px] rounded-[28px] bg-gradient-to-br from-blue-50/60 via-white to-white ring-1 ring-blue-100/70 overflow-hidden p-5 sm:p-8">
-        {/* Zapla one-flow diagram: enquiry → conversation → booking → workflow */}
-        <div className="grid h-full grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
-          <FlowStep step="Enquiry" body="Call, DM or form" />
-          <FlowStep step="Conversation" body="Unified inbox" />
-          <FlowStep step="Booking" body="On the calendar" />
-          <FlowStep step="Follow-up" body="Automated" />
-        </div>
-        <div className="pointer-events-none absolute inset-x-8 top-1/2 hidden md:block">
-          <svg viewBox="0 0 800 40" className="h-10 w-full" aria-hidden>
-            <defs>
-              <linearGradient id="v3flowline" x1="0" x2="1">
-                <stop offset="0" stopColor="#60a5fa" />
-                <stop offset="1" stopColor="#22d3ee" />
-              </linearGradient>
-            </defs>
-            <path d="M40 20 L 760 20" stroke="url(#v3flowline)" strokeWidth="2" strokeLinecap="round" />
-          </svg>
+      <div className="relative rounded-[28px] bg-gradient-to-br from-blue-50/60 via-white to-white ring-1 ring-blue-100/70 p-5 sm:p-8">
+        {/* Compact horizontal flow with connecting line behind */}
+        <div className="relative">
+          <div className="pointer-events-none absolute left-6 right-6 top-1/2 hidden -translate-y-1/2 md:block" aria-hidden>
+            <svg viewBox="0 0 800 4" preserveAspectRatio="none" className="h-1 w-full">
+              <defs>
+                <linearGradient id="v3flowline" x1="0" x2="1">
+                  <stop offset="0" stopColor="#60a5fa" />
+                  <stop offset="1" stopColor="#22d3ee" />
+                </linearGradient>
+              </defs>
+              <path d="M0 2 L 800 2" stroke="url(#v3flowline)" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </div>
+          <div className="relative grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+            <FlowStep step="Enquiry" body="Call, DM or form" />
+            <FlowStep step="Conversation" body="Unified inbox" />
+            <FlowStep step="Booking" body="On the calendar" />
+            <FlowStep step="Follow-up" body="Automated" />
+          </div>
         </div>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-3 md:items-start justify-items-center">
           <NewLeadCard />
           <BookingCard />
           <WorkflowCard />
-        </div>
-
-        <div className="mt-6 flex items-center justify-center gap-2 rounded-full bg-white px-4 py-2 text-[12px] font-semibold text-slate-700 ring-1 ring-slate-200 mx-auto w-fit">
-          <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          One connected customer record
         </div>
       </div>
     </div>
@@ -189,9 +186,9 @@ function AfterCanvas({ active }: { active: boolean }) {
 
 function FlowStep({ step, body }: { step: string; body: string }) {
   return (
-    <div className="relative rounded-2xl bg-white p-4 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.2)]">
+    <div className="relative rounded-2xl bg-white px-4 py-3 ring-1 ring-slate-200 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.2)]">
       <div className="text-[10.5px] font-bold uppercase tracking-wider text-zapla-blue">{step}</div>
-      <div className="mt-1 text-[13px] font-semibold text-slate-800">{body}</div>
+      <div className="mt-1 text-[13px] font-semibold text-slate-800 leading-snug">{body}</div>
     </div>
   );
 }
