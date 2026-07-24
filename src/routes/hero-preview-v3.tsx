@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import type React from "react";
 import { ConnectedSystemSectionV3 } from "@/components/ConnectedSystemSectionV3";
-import { JourneyV3, AutomationStoryV3, ProfessionCarouselV3, OneRecordV3 } from "@/components/v3/sections";
+import { JourneyV3, ProfessionCarouselV3 } from "@/components/v3/sections";
 import {
   Home as HomeIcon,
   Landmark as LandmarkIcon,
