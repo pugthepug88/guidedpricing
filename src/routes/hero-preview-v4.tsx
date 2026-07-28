@@ -233,7 +233,7 @@ const T = {
 function HeroV4Page() {
   return (
     <main className="min-h-screen bg-white text-slate-900">
-      <TopBar />
+      
       <section className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 px-6 pb-16 pt-10 lg:grid-cols-[minmax(0,42%)_minmax(0,58%)] lg:gap-6 lg:pt-16">
         <div className="max-w-xl">
           <p className="text-sm font-medium text-slate-500">AI work platform</p>
