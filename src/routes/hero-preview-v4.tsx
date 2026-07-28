@@ -479,7 +479,7 @@ function AgentCursor({ scene, phase }: { scene: Scene; phase: number }) {
     <div
       className={`pointer-events-none absolute z-20 transition-all duration-[900ms] ease-in-out ${
         visible ? "opacity-100" : "opacity-0"
-      } ${moved ? "left-[46%] top-[10%]" : "left-[30%] top-[42%]"}`}
+      } ${moved ? "left-[34%] top-[6%]" : "left-[26%] top-[42%]"}`}
     >
       <div className="flex items-center gap-2">
         <div
