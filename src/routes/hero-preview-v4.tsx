@@ -505,12 +505,13 @@ function AgentPanel({ scene, phase }: { scene: Scene; phase: number }) {
   const tiles = useMemo(() => [0, 1, 2, 3], []);
   return (
     <div
-      className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-[62%] transition-all duration-700 ease-out ${
+      className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-[58%] transition-all duration-700 ease-out ${
         open ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0"
       }`}
     >
       {/* white veil so the board fades under the panel */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/90 to-white" />
+      <div className="absolute -left-16 inset-y-0 right-0 bg-gradient-to-r from-white/0 via-white to-white" />
+
 
       <div className="relative flex h-full flex-col gap-5 px-7 pt-8">
         <p className="text-sm text-slate-400">
