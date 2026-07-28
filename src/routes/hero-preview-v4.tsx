@@ -265,22 +265,8 @@ function HeroV4Page() {
   );
 }
 
-function TopBar() {
-  return (
-    <header className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-6">
-      <div className="flex items-center gap-3">
-        <img src={logoGreen.url} alt="Zapla" className="h-8 w-8 rounded-[10px]" />
-        <span className="text-lg font-bold tracking-tight">Zapla</span>
-      </div>
-      <a
-        href="https://zapla.io/booking"
-        className="hidden rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700 sm:inline-flex"
-      >
-        Book a Call
-      </a>
-    </header>
-  );
-}
+
+
 
 /* ------------------------------------------------------------------ */
 /* The animated scene                                                  */
