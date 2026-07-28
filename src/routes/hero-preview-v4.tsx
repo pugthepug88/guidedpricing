@@ -337,7 +337,7 @@ function AgentBoardScene() {
         </div>
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+      <div className="mt-6 flex flex-nowrap items-center justify-center gap-x-4 overflow-x-auto px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:gap-x-5">
         {SCENES.map((s, i) => {
           const on = i === index;
           return (
