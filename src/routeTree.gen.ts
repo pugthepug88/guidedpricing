@@ -12,10 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
-import { Route as HeroPreviewV2RouteImport } from './routes/hero-preview-v2'
-import { Route as HeroPreviewRouteImport } from './routes/hero-preview'
-import { Route as ConnectedLabRouteImport } from './routes/connected-lab'
-import { Route as CharacterLabRouteImport } from './routes/character-lab'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -34,26 +30,6 @@ const McpRoute = McpRouteImport.update({
 const HeroPreviewV3Route = HeroPreviewV3RouteImport.update({
   id: '/hero-preview-v3',
   path: '/hero-preview-v3',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HeroPreviewV2Route = HeroPreviewV2RouteImport.update({
-  id: '/hero-preview-v2',
-  path: '/hero-preview-v2',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HeroPreviewRoute = HeroPreviewRouteImport.update({
-  id: '/hero-preview',
-  path: '/hero-preview',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConnectedLabRoute = ConnectedLabRouteImport.update({
-  id: '/connected-lab',
-  path: '/connected-lab',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CharacterLabRoute = CharacterLabRouteImport.update({
-  id: '/character-lab',
-  path: '/character-lab',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -82,10 +58,6 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/character-lab': typeof CharacterLabRoute
-  '/connected-lab': typeof ConnectedLabRoute
-  '/hero-preview': typeof HeroPreviewRoute
-  '/hero-preview-v2': typeof HeroPreviewV2Route
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -95,10 +67,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/character-lab': typeof CharacterLabRoute
-  '/connected-lab': typeof ConnectedLabRoute
-  '/hero-preview': typeof HeroPreviewRoute
-  '/hero-preview-v2': typeof HeroPreviewV2Route
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -109,10 +77,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/character-lab': typeof CharacterLabRoute
-  '/connected-lab': typeof ConnectedLabRoute
-  '/hero-preview': typeof HeroPreviewRoute
-  '/hero-preview-v2': typeof HeroPreviewV2Route
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -124,10 +88,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/character-lab'
-    | '/connected-lab'
-    | '/hero-preview'
-    | '/hero-preview-v2'
     | '/hero-preview-v3'
     | '/mcp'
     | '/pricing-v2'
@@ -137,10 +97,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/character-lab'
-    | '/connected-lab'
-    | '/hero-preview'
-    | '/hero-preview-v2'
     | '/hero-preview-v3'
     | '/mcp'
     | '/pricing-v2'
@@ -150,10 +106,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/character-lab'
-    | '/connected-lab'
-    | '/hero-preview'
-    | '/hero-preview-v2'
     | '/hero-preview-v3'
     | '/mcp'
     | '/pricing-v2'
@@ -164,10 +116,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CharacterLabRoute: typeof CharacterLabRoute
-  ConnectedLabRoute: typeof ConnectedLabRoute
-  HeroPreviewRoute: typeof HeroPreviewRoute
-  HeroPreviewV2Route: typeof HeroPreviewV2Route
   HeroPreviewV3Route: typeof HeroPreviewV3Route
   McpRoute: typeof McpRoute
   PricingV2Route: typeof PricingV2Route
@@ -197,34 +145,6 @@ declare module '@tanstack/react-router' {
       path: '/hero-preview-v3'
       fullPath: '/hero-preview-v3'
       preLoaderRoute: typeof HeroPreviewV3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hero-preview-v2': {
-      id: '/hero-preview-v2'
-      path: '/hero-preview-v2'
-      fullPath: '/hero-preview-v2'
-      preLoaderRoute: typeof HeroPreviewV2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hero-preview': {
-      id: '/hero-preview'
-      path: '/hero-preview'
-      fullPath: '/hero-preview'
-      preLoaderRoute: typeof HeroPreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/connected-lab': {
-      id: '/connected-lab'
-      path: '/connected-lab'
-      fullPath: '/connected-lab'
-      preLoaderRoute: typeof ConnectedLabRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/character-lab': {
-      id: '/character-lab'
-      path: '/character-lab'
-      fullPath: '/character-lab'
-      preLoaderRoute: typeof CharacterLabRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -260,10 +180,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CharacterLabRoute: CharacterLabRoute,
-  ConnectedLabRoute: ConnectedLabRoute,
-  HeroPreviewRoute: HeroPreviewRoute,
-  HeroPreviewV2Route: HeroPreviewV2Route,
   HeroPreviewV3Route: HeroPreviewV3Route,
   McpRoute: McpRoute,
   PricingV2Route: PricingV2Route,
