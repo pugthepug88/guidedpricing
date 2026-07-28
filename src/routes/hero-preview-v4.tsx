@@ -513,7 +513,7 @@ function AgentPanel({ scene, phase }: { scene: Scene; phase: number }) {
       <div className="absolute -left-16 inset-y-0 right-0 bg-gradient-to-r from-white/0 via-white to-white" />
 
 
-      <div className="relative flex h-full flex-col gap-5 px-7 pt-8">
+      <div className="relative flex h-full flex-col gap-5 pl-14 pr-7 pt-8">
         <p className="text-sm text-slate-400">
           {phase >= 8 ? "Done" : "Processing…"}
         </p>
