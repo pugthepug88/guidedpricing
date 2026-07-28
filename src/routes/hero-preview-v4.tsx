@@ -350,7 +350,7 @@ function AgentBoardScene() {
                 setPaused(false);
                 setIndex(i);
               }}
-              className="group flex items-center gap-2 text-lg transition"
+              className="group flex shrink-0 items-center gap-2 whitespace-nowrap text-base transition lg:text-lg"
             >
               <span
                 className={`h-2 w-2 rounded-full transition ${
