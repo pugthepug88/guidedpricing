@@ -281,7 +281,7 @@ function Hero() {
             ))}
           </span>
           <span className="text-[12px] font-bold text-zapla-ink">4.9/5</span>
-          <span className="text-[12px] text-zapla-muted">· Trusted by 200+ AU operators</span>
+          <span className="text-[12px] text-zapla-muted">· Trusted by Australian business operators</span>
         </div>
 
         <h1 className="zapla-fade mt-5 font-bold text-zapla-ink text-[clamp(36px,5vw,60px)] leading-[1.03] tracking-[-0.035em] whitespace-pre-line">
@@ -295,11 +295,11 @@ function Hero() {
 
         <div className="zapla-fade mt-7 flex flex-wrap items-center justify-center gap-3">
           <PrimaryButton href="#pricing" track="hero_see_plans">See plans ↓</PrimaryButton>
-          <SecondaryButton href={BOOK_URL}>Book a strategy call</SecondaryButton>
+          <SecondaryButton href={BOOK_URL}>Book a call</SecondaryButton>
         </div>
 
         <div className="zapla-fade mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12.5px] font-semibold text-zapla-muted">
-          {["Unlimited sers", "Cancel anytime", "Guided launch included"].map((t) => (
+          {["Unlimited users", "Cancel anytime", "Guided launch included"].map((t) => (
             <span key={t} className="inline-flex items-center gap-1.5">
               <Check />
               {t}
@@ -1140,7 +1140,7 @@ function Pillars() {
       <div className="relative mx-auto grid max-w-[1080px] items-center gap-5 px-5 sm:px-8 lg:grid-cols-[0.95fr_1.05fr]">
         <Reveal className="mx-auto max-w-[560px] text-center lg:mx-0 lg:text-left">
           <span className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zapla-blue shadow-zapla-sm">
-            16 TOOLS · ONE OPERATING SYSTEM&nbsp;
+            16+ TOOLS · ONE OPERATING SYSTEM&nbsp;
           </span>
           <h2 className="mt-4 text-[30px] font-extrabold leading-[1.04] tracking-[-0.02em] text-zapla-ink sm:text-[42px]">
             Replace the&nbsp;<span className="text-[#E4785A]">messy</span>&nbsp;stack
