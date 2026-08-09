@@ -1145,7 +1145,7 @@ function Addons() {
           <ScopeDetail
             title="Usage and add-on details"
             items={[
-              "SMS: included credits reset monthly. Extra SMS is 15c per segment, or prepaid packs from 10c per segment for planned volume.",
+              "SMS: usage is charged separately from your Zapla plan, so you only pay for what you use. Standard SMS is charged at 15c per segment, with lower rates available for higher-volume prepaid packs.",
               "Contact-only expansion: available when extra database capacity is genuinely all you need.",
               "Extra locations: available on Scale and Scale+ where routing, calendars, reviews and reporting justify the setup.",
               "Extra implementation: additional workflows, migrations, integrations, custom reporting, website rebuilds or campaign builds are quoted before work starts.",
@@ -1227,8 +1227,9 @@ const FAQS = [
     "Training and check-ins are included based on your plan, so adoption is part of the rollout.",
   ]},
   { q: "What about SMS usage?", a: [
-    "Each plan includes monthly SMS credits for everyday follow-up. Extra SMS is 15c per segment, or prepaid packs from 10c per segment for planned volume.",
-    "One SMS segment is up to 160 standard characters. Longer messages or special characters may use multiple segments.",
+    "SMS usage is charged separately from your Zapla plan, so you only pay for what you use.",
+    "Standard SMS is charged at 15c per segment, with lower rates available for higher-volume prepaid packs.",
+    "Most standard SMS messages use one segment. Longer messages or certain special characters may be split across multiple segments.",
   ]},
   { q: "Can I upgrade later?", a: [
     "Yes. If you outgrow your plan, we recommend the simplest path.",
