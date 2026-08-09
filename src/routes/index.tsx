@@ -432,12 +432,13 @@ function Pricing() {
                       {p.priceLabel}
                     </span>
                   </div>
-                  <div className={`mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-semibold ${
+                  <div className={`mt-3 inline-flex flex-col items-start gap-1 rounded-2xl px-3 py-2 text-[12.5px] font-semibold ${
                     isEnt ? "bg-white/10 text-white/85" : "bg-zapla-blue-soft text-zapla-blue2"
                   }`}>
-                    <span className={isEnt ? "text-white" : "text-zapla-blue"}>+</span>
-                    <b>{p.launch}</b>
-                    <span className={isEnt ? "text-white/60" : "text-zapla-blue2/70"}>Launch Pack</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className={isEnt ? "text-white" : "text-zapla-blue"}>+</span>
+                      <b>{p.launch}</b>
+                    </div>
                   </div>
                 </div>
                 <ul className="mt-5 grid gap-3">
