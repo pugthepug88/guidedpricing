@@ -306,7 +306,7 @@ const PLANS = [
     name: "Core",
     fit: "For solo operators and small teams that need the essential operating system launched.",
     price: "A$299",
-    launch: "A$995",
+    launch: "One-time Guided Launch from $995 +GST",
     features: [
       "Unlimited users",
       "2,500 contacts",
