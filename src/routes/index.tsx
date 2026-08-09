@@ -304,7 +304,6 @@ const PLANS = [
       "CRM, inbox and bookings",
       "Reviews, payments and mobile POS where configured",
       "Missed-call textback",
-      "250 SMS segments/month",
     ],
     track: "core_cta",
     recommended: false,
