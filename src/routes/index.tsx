@@ -321,7 +321,6 @@ const PLANS = [
       "Ghost-to-Gold standard workflow",
       "AI chat where relevant",
       "Funnels, pages and extra capture points",
-      "500 SMS segments/month",
     ],
     track: "growth_cta",
     recommended: true,
