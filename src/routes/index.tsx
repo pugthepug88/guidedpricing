@@ -338,7 +338,6 @@ const PLANS = [
       "Team routing and staff access controls",
       "Advanced reporting dashboard",
       "Scheduled rollout check-ins",
-      "1,000 SMS segments/month",
     ],
     track: "scale_cta",
     recommended: false,
