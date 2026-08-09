@@ -341,7 +341,7 @@ const PLANS = [
     name: "Scale",
     fit: "For larger teams, higher volume or multi-location businesses that need routing and reporting.",
     price: "A$899",
-    launch: "A$3,500",
+    launch: "One-time Guided Launch from $3495 +GST",
     features: [
       "Everything in Growth",
       "25,000 contacts",
