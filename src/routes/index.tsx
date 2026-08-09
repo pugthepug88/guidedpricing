@@ -323,7 +323,7 @@ const PLANS = [
     name: "Growth",
     fit: "For most businesses that want quote follow-up, reactivation and growth workflows.",
     price: "A$499",
-    launch: "A$1,995",
+    launch: "One-time Guided Launch from $1995 +GST",
     features: [
       "Everything in Core",
       "10,000 contacts",
