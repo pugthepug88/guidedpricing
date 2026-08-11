@@ -11,11 +11,7 @@ import {
   SceneInbox,
   type SceneProps,
 } from "@/components/v5/scenes-a";
-import {
-  SceneMarketing,
-  SceneProposals,
-  SceneWinBack,
-} from "@/components/v5/scenes-b";
+import { SceneMarketing, SceneProposals, SceneWinBack } from "@/components/v5/scenes-b";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview-v5")({
@@ -137,7 +133,7 @@ function HeroV5Page() {
           setStep((s) => s + 1);
         }
       },
-      last ? SCENE_GAP_MS : STEP_MS
+      last ? SCENE_GAP_MS : STEP_MS,
     );
     return () => window.clearTimeout(id);
   }, [step, sceneIndex, paused, reduced, scene.steps]);
@@ -195,8 +191,8 @@ function HeroV5Page() {
               Zapla follows through.
             </h1>
             <p className="mt-5 text-[15.5px] leading-relaxed text-zapla-muted">
-              Capture every enquiry, keep every conversation in one place, and move
-              customers from first message to booked, paid and returning.
+              Capture every enquiry, keep every conversation in one place, and move customers from
+              first message to booked, paid and returning.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-5">
               <a
@@ -228,14 +224,8 @@ function HeroV5Page() {
           >
             <div className="rounded-[22px] border border-slate-200/80 bg-white p-1.5 shadow-[0_40px_90px_-40px_rgba(15,23,42,0.35)]">
               <div className="h-[430px] sm:h-[500px] lg:h-[540px]">
-                <AppShell
-                  activeKey={scene.key}
-                  title={scene.title}
-                  subtitle={scene.subtitle}
-                >
-                  <div className="absolute inset-0">
-                    {scene.render({ step, reduced })}
-                  </div>
+                <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
+                  <div className="absolute inset-0">{scene.render({ step, reduced })}</div>
                 </AppShell>
               </div>
             </div>
@@ -283,7 +273,7 @@ function HeroV5Page() {
                       "shrink-0 rounded-full border px-3.5 py-1.5 text-[12px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zapla-blue",
                       on
                         ? "border-transparent bg-zapla-ink text-white"
-                        : "border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700"
+                        : "border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700",
                     )}
                   >
                     {s.label}

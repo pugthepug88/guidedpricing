@@ -16,16 +16,7 @@ import {
   UserCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  Avatar,
-  Card,
-  ChannelMark,
-  Cursor,
-  EASE,
-  Pill,
-  StepIn,
-  Toast,
-} from "./kit";
+import { Avatar, Card, ChannelMark, Cursor, EASE, Pill, StepIn, Toast } from "./kit";
 
 export type SceneProps = { step: number; reduced: boolean };
 
@@ -58,9 +49,7 @@ export function SceneEnquiries({ step, reduced }: SceneProps) {
           <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
             <Avatar name="Maya Chen" tone="bg-fuchsia-100 text-fuchsia-700" />
             <div className="min-w-0">
-              <div className="text-[11.5px] font-semibold text-slate-900">
-                Maya Chen
-              </div>
+              <div className="text-[11.5px] font-semibold text-slate-900">Maya Chen</div>
               <div className="flex items-center gap-1 text-[9.5px] text-slate-400">
                 <ChannelMark channel="instagram" size={11} /> Instagram DM
                 <span className="text-slate-300">·</span> North &amp; Pine Studio
@@ -95,8 +84,7 @@ export function SceneEnquiries({ step, reduced }: SceneProps) {
                     </Pill>
                   </div>
                   <p className="text-[11px] leading-snug text-slate-700">
-                    Hi Maya, yes we have Friday open. Would 2:30 PM suit? I can hold
-                    it for you.
+                    Hi Maya, yes we have Friday open. Would 2:30 PM suit? I can hold it for you.
                   </p>
                   <div className="mt-2 flex items-center gap-1.5">
                     <span className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-2 py-[3px] text-[9.5px] font-semibold text-white">
@@ -115,8 +103,7 @@ export function SceneEnquiries({ step, reduced }: SceneProps) {
               className="ml-auto max-w-[80%] rounded-2xl rounded-tr-md bg-blue-600 px-3 py-2 text-[11px] leading-snug text-white"
             >
               <div>
-                Hi Maya, yes we have Friday open. Would 2:30 PM suit? I can hold it
-                for you.
+                Hi Maya, yes we have Friday open. Would 2:30 PM suit? I can hold it for you.
               </div>
               <div className="mt-1 flex items-center gap-1 text-[9px] text-blue-100">
                 <Check className="h-2.5 w-2.5" /> Approved and sent
@@ -156,16 +143,10 @@ export function SceneEnquiries({ step, reduced }: SceneProps) {
                   <span
                     className={cn(
                       "h-1.5 w-1.5 rounded-full",
-                      i === 0
-                        ? "bg-blue-500"
-                        : i === 1
-                          ? "bg-amber-500"
-                          : "bg-emerald-500"
+                      i === 0 ? "bg-blue-500" : i === 1 ? "bg-amber-500" : "bg-emerald-500",
                     )}
                   />
-                  <span className="truncate text-[9.5px] font-semibold text-slate-600">
-                    {name}
-                  </span>
+                  <span className="truncate text-[9.5px] font-semibold text-slate-600">{name}</span>
                 </div>
                 <div className="min-h-0 flex-1 rounded-lg border border-dashed border-slate-200 bg-slate-50/60 p-1.5">
                   {col === i && step >= 4 ? (
@@ -179,18 +160,12 @@ export function SceneEnquiries({ step, reduced }: SceneProps) {
                         North &amp; Pine Studio
                       </div>
                       <div className="mt-1 flex items-center gap-1 text-[9px] text-slate-400">
-                        <Avatar
-                          name="Maya Chen"
-                          size={13}
-                          tone="bg-fuchsia-100 text-fuchsia-700"
-                        />
+                        <Avatar name="Maya Chen" size={13} tone="bg-fuchsia-100 text-fuchsia-700" />
                         Maya Chen
                       </div>
                       <div className="mt-1.5 flex items-center gap-1">
                         <ChannelMark channel="instagram" size={11} />
-                        <span className="text-[9px] text-slate-400">
-                          Enquiry
-                        </span>
+                        <span className="text-[9px] text-slate-400">Enquiry</span>
                       </div>
                     </motion.div>
                   ) : null}
@@ -282,13 +257,12 @@ export function SceneInbox({ step, reduced }: SceneProps) {
                 key={t.name}
                 initial={false}
                 animate={{
-                  backgroundColor:
-                    i === 0 && step >= 1 ? "rgb(239 246 255)" : "rgba(0,0,0,0)",
+                  backgroundColor: i === 0 && step >= 1 ? "rgb(239 246 255)" : "rgba(0,0,0,0)",
                 }}
                 transition={{ duration: 0.4 }}
                 className={cn(
                   "flex items-start gap-2 rounded-lg px-2 py-2",
-                  i === 0 && step >= 1 && "ring-1 ring-blue-200"
+                  i === 0 && step >= 1 && "ring-1 ring-blue-200",
                 )}
               >
                 <div className="relative">
@@ -302,13 +276,9 @@ export function SceneInbox({ step, reduced }: SceneProps) {
                     <span className="truncate text-[10.5px] font-semibold text-slate-800">
                       {t.name}
                     </span>
-                    <span className="ml-auto shrink-0 text-[9px] text-slate-400">
-                      {t.time}
-                    </span>
+                    <span className="ml-auto shrink-0 text-[9px] text-slate-400">{t.time}</span>
                   </div>
-                  <div className="truncate text-[9.5px] text-slate-400">
-                    {t.preview}
-                  </div>
+                  <div className="truncate text-[9.5px] text-slate-400">{t.preview}</div>
                 </div>
               </motion.div>
             ))}
@@ -319,9 +289,7 @@ export function SceneInbox({ step, reduced }: SceneProps) {
         <Card className="flex min-h-0 flex-col overflow-hidden">
           <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
             <Avatar name="Maya Chen" tone="bg-fuchsia-100 text-fuchsia-700" size={22} />
-            <div className="text-[11.5px] font-semibold text-slate-900">
-              Maya Chen
-            </div>
+            <div className="text-[11.5px] font-semibold text-slate-900">Maya Chen</div>
             <StepIn show={step >= 2} className="ml-auto">
               <Pill tone="green">One customer, every channel</Pill>
             </StepIn>
@@ -337,7 +305,10 @@ export function SceneInbox({ step, reduced }: SceneProps) {
               Friday 2:30 PM is open, shall I hold it?
             </div>
 
-            <StepIn show={step >= 2} className="mx-auto flex items-center gap-1 text-[9px] font-medium text-slate-400">
+            <StepIn
+              show={step >= 2}
+              className="mx-auto flex items-center gap-1 text-[9px] font-medium text-slate-400"
+            >
               <span className="flex items-center gap-1">
                 <ChannelMark channel="sms" size={11} /> Continued over SMS
                 <ArrowRight className="h-2.5 w-2.5" /> same record
@@ -372,21 +343,15 @@ export function SceneInbox({ step, reduced }: SceneProps) {
             <div className="flex items-center gap-2">
               <Avatar name="Maya Chen" tone="bg-fuchsia-100 text-fuchsia-700" size={26} />
               <div>
-                <div className="text-[11px] font-semibold text-slate-900">
-                  Maya Chen
-                </div>
-                <div className="text-[9.5px] text-slate-400">
-                  North &amp; Pine Studio
-                </div>
+                <div className="text-[11px] font-semibold text-slate-900">Maya Chen</div>
+                <div className="text-[9.5px] text-slate-400">North &amp; Pine Studio</div>
               </div>
             </div>
             <Field label="Email" value="maya@northpine.example" />
             <Field label="Mobile" value="04·· ··· 118" />
             <Field label="Source" value="Instagram DM" />
             <div>
-              <div className="mb-1 text-[9px] uppercase tracking-wide text-slate-400">
-                Tags
-              </div>
+              <div className="mb-1 text-[9px] uppercase tracking-wide text-slate-400">Tags</div>
               <StepIn show={step >= 4} className="flex flex-wrap gap-1">
                 <Pill tone="blue">
                   <Tag className="h-2.5 w-2.5" /> New Enquiry
@@ -411,9 +376,7 @@ export function SceneInbox({ step, reduced }: SceneProps) {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-[9px] uppercase tracking-wide text-slate-400">
-        {label}
-      </div>
+      <div className="text-[9px] uppercase tracking-wide text-slate-400">{label}</div>
       <div className="text-[10.5px] text-slate-700">{value}</div>
     </div>
   );
@@ -461,14 +424,11 @@ export function SceneBookings({ step, reduced }: SceneProps) {
       <div className="grid h-full grid-cols-1 gap-3 lg:grid-cols-[1.55fr_0.85fr]">
         <Card className="flex min-h-0 flex-col overflow-hidden">
           <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-            <span className="text-[10.5px] font-semibold text-slate-600">
-              Week view
-            </span>
+            <span className="text-[10.5px] font-semibold text-slate-600">Week view</span>
             <Pill tone="slate">Team calendar</Pill>
             <StepIn show={step >= 0} className="ml-auto">
               <div className="flex items-center gap-1.5 rounded-full bg-slate-100 px-2 py-1 text-[9.5px] text-slate-600">
-                <ChannelMark channel="sms" size={11} /> &ldquo;Friday afternoon
-                works&rdquo;
+                <ChannelMark channel="sms" size={11} /> &ldquo;Friday afternoon works&rdquo;
               </div>
             </StepIn>
           </div>
@@ -481,7 +441,7 @@ export function SceneBookings({ step, reduced }: SceneProps) {
                   key={d}
                   className={cn(
                     "text-center text-[9px] font-semibold",
-                    i === 4 ? "text-blue-600" : "text-slate-400"
+                    i === 4 ? "text-blue-600" : "text-slate-400",
                   )}
                 >
                   {d}
@@ -489,9 +449,7 @@ export function SceneBookings({ step, reduced }: SceneProps) {
               ))}
               {HOURS.map((h, r) => (
                 <Fragment key={h}>
-                  <div
-                    className="pr-1 text-right text-[8.5px] leading-none text-slate-300"
-                  >
+                  <div className="pr-1 text-right text-[8.5px] leading-none text-slate-300">
                     {h}
                   </div>
                   {DAYS.map((d, c) => {
@@ -502,7 +460,7 @@ export function SceneBookings({ step, reduced }: SceneProps) {
                       <div
                         key={d + h}
                         className={cn(
-                          "relative rounded-[5px] border border-slate-100 bg-slate-50/50"
+                          "relative rounded-[5px] border border-slate-100 bg-slate-50/50",
                         )}
                       >
                         {ev ? (
@@ -551,11 +509,7 @@ export function SceneBookings({ step, reduced }: SceneProps) {
         <div className="hidden min-h-0 lg:block">
           <motion.div
             initial={false}
-            animate={
-              showPanel
-                ? { opacity: 1, x: 0 }
-                : { opacity: 0, x: reduced ? 0 : 24 }
-            }
+            animate={showPanel ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : 24 }}
             transition={{ duration: 0.5, ease: EASE }}
             className="h-full"
           >
@@ -578,9 +532,7 @@ export function SceneBookings({ step, reduced }: SceneProps) {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Avatar name="Sam Ortiz" size={20} tone="bg-blue-100 text-blue-700" />
-                    <div className="text-[10px] font-semibold text-slate-700">
-                      Sam Ortiz
-                    </div>
+                    <div className="text-[10px] font-semibold text-slate-700">Sam Ortiz</div>
                     <Pill tone="green" className="ml-auto">
                       Assigned
                     </Pill>
@@ -700,25 +652,20 @@ export function SceneAutomations({ step, reduced }: SceneProps) {
               <div className="flex items-center gap-2">
                 <Avatar name="Jordan Lee" size={24} tone="bg-emerald-100 text-emerald-700" />
                 <div>
-                  <div className="text-[10.5px] font-semibold text-slate-900">
-                    Jordan Lee
-                  </div>
+                  <div className="text-[10.5px] font-semibold text-slate-900">Jordan Lee</div>
                   <div className="text-[9px] text-slate-400">
                     Harbour Dental &middot; Google review
                   </div>
                 </div>
                 <span className="ml-auto flex gap-[1px]">
                   {[0, 1, 2, 3, 4].map((s) => (
-                    <Star
-                      key={s}
-                      className="h-3 w-3 fill-amber-400 text-amber-400"
-                    />
+                    <Star key={s} className="h-3 w-3 fill-amber-400 text-amber-400" />
                   ))}
                 </span>
               </div>
               <p className="mt-2 text-[10.5px] leading-snug text-slate-600">
-                &ldquo;Booked in easily and everything was explained clearly.
-                Genuinely the smoothest experience we&rsquo;ve had.&rdquo;
+                &ldquo;Booked in easily and everything was explained clearly. Genuinely the
+                smoothest experience we&rsquo;ve had.&rdquo;
               </p>
             </Card>
           </StepIn>
@@ -727,17 +674,14 @@ export function SceneAutomations({ step, reduced }: SceneProps) {
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-50 text-blue-600">
                 <Bell className="h-3 w-3" />
               </span>
-              <div className="text-[10px] text-slate-600">
-                Team notified in Zapla
-              </div>
+              <div className="text-[10px] text-slate-600">Team notified in Zapla</div>
               <Pill tone="violet" className="ml-auto">
                 <ThumbsUp className="h-2.5 w-2.5" /> Advocate
               </Pill>
             </Card>
           </StepIn>
           <div className="mt-auto rounded-xl border border-dashed border-slate-200 p-2.5 text-[9.5px] leading-snug text-slate-400">
-            Every completed job receives the same request. No filtering of who gets
-            asked.
+            Every completed job receives the same request. No filtering of who gets asked.
           </div>
         </div>
       </div>
@@ -772,29 +716,20 @@ function Node({
       <div
         className={cn(
           "flex items-center gap-2 rounded-xl border bg-white px-2.5 py-2 transition-colors duration-500",
-          active
-            ? "border-blue-300 shadow-[0_0_0_3px_rgba(37,99,255,0.08)]"
-            : "border-slate-200"
+          active ? "border-blue-300 shadow-[0_0_0_3px_rgba(37,99,255,0.08)]" : "border-slate-200",
         )}
       >
-        <span
-          className={cn(
-            "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg",
-            tone
-          )}
-        >
+        <span className={cn("flex h-6 w-6 shrink-0 items-center justify-center rounded-lg", tone)}>
           <Icon className="h-3 w-3" />
         </span>
         <div className="min-w-0">
-          <div className="truncate text-[10.5px] font-semibold text-slate-800">
-            {title}
-          </div>
+          <div className="truncate text-[10.5px] font-semibold text-slate-800">{title}</div>
           <div className="truncate text-[9px] text-slate-400">{sub}</div>
         </div>
         <span
           className={cn(
             "ml-auto flex h-4 w-4 items-center justify-center rounded-full transition-colors duration-500",
-            done ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-300"
+            done ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-300",
           )}
         >
           <Check className="h-2.5 w-2.5" strokeWidth={3} />
@@ -805,31 +740,19 @@ function Node({
   );
 }
 
-function Connector({
-  done,
-  reduced,
-  top,
-}: {
-  done: boolean;
-  reduced: boolean;
-  top?: boolean;
-}) {
+function Connector({ done, reduced, top }: { done: boolean; reduced: boolean; top?: boolean }) {
   return (
     <div
       className={cn(
         "absolute left-[19px] h-4 w-[2px] overflow-hidden rounded bg-slate-200",
-        top ? "-top-4" : "-bottom-4"
+        top ? "-top-4" : "-bottom-4",
       )}
     >
       <motion.span
         className="absolute inset-x-0 h-2 rounded bg-blue-500"
         initial={false}
         animate={done ? { y: [-8, 16] } : { y: -10 }}
-        transition={
-          done && !reduced
-            ? { duration: 0.7, ease: "easeInOut" }
-            : { duration: 0 }
-        }
+        transition={done && !reduced ? { duration: 0.7, ease: "easeInOut" } : { duration: 0 }}
       />
     </div>
   );
@@ -852,20 +775,18 @@ function BranchCard({
     <div
       className={cn(
         "rounded-xl border bg-white px-2.5 py-2 transition-colors duration-500",
-        active ? "border-blue-300" : "border-slate-200"
+        active ? "border-blue-300" : "border-slate-200",
       )}
     >
       <div className="flex items-center gap-1.5">
         <span
           className={cn(
             "h-1.5 w-1.5 rounded-full",
-            tone === "emerald" ? "bg-emerald-500" : "bg-slate-400"
+            tone === "emerald" ? "bg-emerald-500" : "bg-slate-400",
           )}
         />
         <span className="text-[10px] font-semibold text-slate-800">{label}</span>
-        {done ? (
-          <Check className="ml-auto h-3 w-3 text-emerald-500" strokeWidth={3} />
-        ) : null}
+        {done ? <Check className="ml-auto h-3 w-3 text-emerald-500" strokeWidth={3} /> : null}
       </div>
       <div className="mt-0.5 text-[9px] leading-snug text-slate-400">{detail}</div>
     </div>

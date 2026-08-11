@@ -97,9 +97,7 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
         <Card className="flex min-h-0 flex-col overflow-hidden">
           <div className="flex items-center gap-1.5 border-b border-slate-100 px-3 py-2">
             <Filter className="h-3 w-3 text-slate-400" />
-            <span className="text-[10.5px] font-semibold text-slate-600">
-              Contacts
-            </span>
+            <span className="text-[10.5px] font-semibold text-slate-600">Contacts</span>
             <div className="ml-2 flex gap-1">
               <FilterChip label="VIP" on={step >= 1} />
               <FilterChip label="Inactive 6+ Months" on={step >= 2} />
@@ -129,7 +127,7 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
                   <div
                     className={cn(
                       "grid grid-cols-[16px_1.3fr_1fr_1.4fr_44px] items-center gap-2 border-b border-slate-50 px-3 py-2 transition-colors duration-500",
-                      selected && c.match && "bg-blue-50/60"
+                      selected && c.match && "bg-blue-50/60",
                     )}
                   >
                     <span
@@ -137,12 +135,10 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
                         "flex h-3 w-3 items-center justify-center rounded-[3px] border transition-colors duration-500",
                         selected && c.match
                           ? "border-blue-600 bg-blue-600 text-white"
-                          : "border-slate-300"
+                          : "border-slate-300",
                       )}
                     >
-                      {selected && c.match ? (
-                        <Check className="h-2 w-2" strokeWidth={4} />
-                      ) : null}
+                      {selected && c.match ? <Check className="h-2 w-2" strokeWidth={4} /> : null}
                     </span>
                     <div className="flex min-w-0 items-center gap-1.5">
                       <Avatar name={c.name} tone={c.tone} size={18} />
@@ -150,9 +146,7 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
                         <div className="truncate text-[10px] font-semibold text-slate-800">
                           {c.name}
                         </div>
-                        <div className="truncate text-[8.5px] text-slate-400">
-                          {c.business}
-                        </div>
+                        <div className="truncate text-[8.5px] text-slate-400">{c.business}</div>
                       </div>
                     </div>
                     <span className="text-[9.5px] text-slate-500">{c.last}</span>
@@ -195,9 +189,7 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
         {/* composer */}
         <motion.div
           initial={false}
-          animate={
-            step >= 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : 20 }
-          }
+          animate={step >= 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : 20 }}
           transition={{ duration: 0.5, ease: EASE }}
           className="hidden min-h-0 lg:block"
         >
@@ -207,9 +199,8 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
             </div>
             <div className="flex min-h-0 flex-1 flex-col gap-2.5 p-3">
               <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-2.5 text-[10.5px] leading-snug text-slate-700">
-                Hi {"{{first_name}}"}, it&rsquo;s been a while! We&rsquo;ve saved you
-                a returning-customer offer for this month. Want me to find you a
-                time?
+                Hi {"{{first_name}}"}, it&rsquo;s been a while! We&rsquo;ve saved you a
+                returning-customer offer for this month. Want me to find you a time?
               </div>
               <div className="space-y-1.5">
                 <StatusRow label="Queued" active={step >= 3} />
@@ -242,9 +233,7 @@ function FilterChip({ label, on }: { label: string; on: boolean }) {
       transition={{ duration: 0.35, ease: EASE }}
       className={cn(
         "rounded-full border px-2 py-[2px] text-[9px] font-medium",
-        on
-          ? "border-blue-200 bg-blue-50 text-blue-700"
-          : "border-slate-200 text-slate-400"
+        on ? "border-blue-200 bg-blue-50 text-blue-700" : "border-slate-200 text-slate-400",
       )}
     >
       {label}
@@ -258,7 +247,7 @@ function StatusRow({ label, active }: { label: string; active: boolean }) {
       <span
         className={cn(
           "flex h-3.5 w-3.5 items-center justify-center rounded-full transition-colors duration-500",
-          active ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-300"
+          active ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-300",
         )}
       >
         <Check className="h-2 w-2" strokeWidth={3} />
@@ -273,8 +262,7 @@ function StatusRow({ label, active }: { label: string; active: boolean }) {
 /* ================================================================== */
 
 const CHANNEL_CHIPS = ["Facebook", "Instagram", "LinkedIn", "Google Business"];
-const CAPTION =
-  "Autumn openings are live. Book a consultation and we'll take it from there.";
+const CAPTION = "Autumn openings are live. Book a consultation and we'll take it from there.";
 
 const MK_CURSOR: Array<[number, number]> = [
   [30, 20],
@@ -296,9 +284,7 @@ export function SceneMarketing({ step, reduced }: SceneProps) {
         {/* social */}
         <Card className="flex min-h-0 flex-col overflow-hidden">
           <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-            <span className="text-[10.5px] font-semibold text-slate-600">
-              Social planner
-            </span>
+            <span className="text-[10.5px] font-semibold text-slate-600">Social planner</span>
             <span className="ml-auto inline-flex items-center gap-1 rounded-md bg-blue-600 px-2 py-[3px] text-[9px] font-semibold text-white">
               <Plus className="h-2.5 w-2.5" /> New post
             </span>
@@ -322,7 +308,7 @@ export function SceneMarketing({ step, reduced }: SceneProps) {
                       "rounded-full border px-2 py-[2px] text-[9px] font-medium",
                       step >= 2
                         ? "border-blue-200 bg-blue-50 text-blue-700"
-                        : "border-slate-200 text-slate-400"
+                        : "border-slate-200 text-slate-400",
                     )}
                   >
                     {c}
@@ -334,9 +320,7 @@ export function SceneMarketing({ step, reduced }: SceneProps) {
                 <span
                   className={cn(
                     "ml-auto rounded-md px-2 py-[2px] text-[9px] font-semibold transition-colors duration-500",
-                    step >= 3
-                      ? "bg-emerald-50 text-emerald-700"
-                      : "bg-slate-100 text-slate-500"
+                    step >= 3 ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500",
                   )}
                 >
                   {step >= 3 ? "Scheduled" : "Draft"}
@@ -357,16 +341,12 @@ export function SceneMarketing({ step, reduced }: SceneProps) {
                     className="rounded-lg border border-slate-200 bg-white p-2"
                   >
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[9.5px] font-semibold text-slate-800">
-                        Thu 9:00 AM
-                      </span>
+                      <span className="text-[9.5px] font-semibold text-slate-800">Thu 9:00 AM</span>
                       <Pill tone="green" className="ml-auto">
                         Scheduled
                       </Pill>
                     </div>
-                    <div className="mt-1 truncate text-[9px] text-slate-500">
-                      {CAPTION}
-                    </div>
+                    <div className="mt-1 truncate text-[9px] text-slate-500">{CAPTION}</div>
                     <div className="mt-1.5 flex gap-1">
                       {CHANNEL_CHIPS.map((c) => (
                         <span
@@ -412,7 +392,7 @@ export function SceneMarketing({ step, reduced }: SceneProps) {
                   transition={{ duration: 0.4, delay: cancelled ? i * 0.06 : 0 }}
                   className={cn(
                     "flex items-center gap-2 rounded-lg border bg-white px-2.5 py-1.5 transition-colors duration-500",
-                    step === i + 1 ? "border-blue-300" : "border-slate-200"
+                    step === i + 1 ? "border-blue-300" : "border-slate-200",
                   )}
                 >
                   <span className="flex h-5 w-5 items-center justify-center rounded-md bg-slate-100 text-slate-500">
@@ -426,7 +406,7 @@ export function SceneMarketing({ step, reduced }: SceneProps) {
                     <div
                       className={cn(
                         "truncate text-[10px] font-semibold text-slate-800",
-                        cancelled && "line-through decoration-slate-300"
+                        cancelled && "line-through decoration-slate-300",
                       )}
                     >
                       {n.t}
@@ -505,7 +485,15 @@ const PR_CURSOR: Array<[number, number]> = [
 export function SceneProposals({ step, reduced }: SceneProps) {
   const [cx, cy] = PR_CURSOR[Math.min(step, PR_CURSOR.length - 1)];
   const liveStatus =
-    step >= 5 ? "Completed" : step >= 4 ? "Signed" : step >= 3 ? "Viewed" : step >= 2 ? "Sent" : "Draft";
+    step >= 5
+      ? "Completed"
+      : step >= 4
+        ? "Signed"
+        : step >= 3
+          ? "Viewed"
+          : step >= 2
+            ? "Sent"
+            : "Draft";
   return (
     <div className="relative h-full p-3 sm:p-4">
       <div className="grid h-full grid-cols-1 gap-3 lg:grid-cols-[1.3fr_1fr]">
@@ -535,15 +523,9 @@ export function SceneProposals({ step, reduced }: SceneProps) {
               <span className="truncate text-[10px] font-semibold text-slate-800">
                 Consultation Proposal
               </span>
-              <span className="truncate text-[9.5px] text-slate-500">
-                North &amp; Pine Studio
-              </span>
-              <span className="text-[9.5px] text-slate-500">
-                {step >= 3 ? "Just now" : "—"}
-              </span>
-              <span className="text-[9.5px] font-semibold text-slate-700">
-                A$4,750
-              </span>
+              <span className="truncate text-[9.5px] text-slate-500">North &amp; Pine Studio</span>
+              <span className="text-[9.5px] text-slate-500">{step >= 3 ? "Just now" : "—"}</span>
+              <span className="text-[9.5px] font-semibold text-slate-700">A$4,750</span>
               <span className="flex items-center gap-1 text-[9.5px] text-slate-500">
                 <Avatar name="Sam Ortiz" size={16} tone="bg-blue-100 text-blue-700" />
                 Sam O.
@@ -554,12 +536,8 @@ export function SceneProposals({ step, reduced }: SceneProps) {
                 key={d.title}
                 className="grid grid-cols-[1.5fr_1.1fr_0.9fr_0.8fr_0.9fr] items-center gap-2 border-b border-slate-50 px-3 py-2"
               >
-                <span className="truncate text-[10px] font-medium text-slate-700">
-                  {d.title}
-                </span>
-                <span className="truncate text-[9.5px] text-slate-500">
-                  {d.customer}
-                </span>
+                <span className="truncate text-[10px] font-medium text-slate-700">{d.title}</span>
+                <span className="truncate text-[9.5px] text-slate-500">{d.customer}</span>
                 <span className="text-[9.5px] text-slate-500">{d.viewed}</span>
                 <span className="text-[9.5px] text-slate-600">{d.value}</span>
                 <span className="flex items-center gap-1 text-[9.5px] text-slate-500">
@@ -594,9 +572,7 @@ export function SceneProposals({ step, reduced }: SceneProps) {
           </div>
           <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
             <div className="rounded-lg border border-slate-200 p-2.5">
-              <div className="text-[9px] uppercase tracking-wide text-slate-400">
-                Prepared for
-              </div>
+              <div className="text-[9px] uppercase tracking-wide text-slate-400">Prepared for</div>
               <div className="text-[10.5px] font-semibold text-slate-800">
                 Maya Chen &middot; North &amp; Pine Studio
               </div>
@@ -658,15 +634,7 @@ export function SceneProposals({ step, reduced }: SceneProps) {
   );
 }
 
-function LineItem({
-  label,
-  value,
-  show,
-}: {
-  label: string;
-  value: string;
-  show: boolean;
-}) {
+function LineItem({ label, value, show }: { label: string; value: string; show: boolean }) {
   return (
     <StepIn show={show} className="flex items-center text-[9.5px] text-slate-600">
       {label}

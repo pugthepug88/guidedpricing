@@ -59,9 +59,7 @@ export function AppShell({
               key={key}
               className={cn(
                 "flex h-8 w-8 items-center justify-center rounded-[9px] transition-colors duration-500",
-                on
-                  ? "bg-blue-600/10 text-blue-600"
-                  : "text-slate-400"
+                on ? "bg-blue-600/10 text-blue-600" : "text-slate-400",
               )}
             >
               <Icon className="h-[15px] w-[15px]" strokeWidth={2} />
@@ -139,7 +137,7 @@ export function Pill({
       className={cn(
         "inline-flex items-center gap-1 rounded-full px-2 py-[2px] text-[9.5px] font-medium leading-none",
         tones[tone],
-        className
+        className,
       )}
     >
       {children}
@@ -166,7 +164,7 @@ export function Avatar({
       style={{ width: size, height: size, fontSize: size * 0.38 }}
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-full font-semibold",
-        tone
+        tone,
       )}
     >
       {initials}
@@ -202,18 +200,12 @@ export function ChannelMark({
   );
 }
 
-export function Card({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+export function Card({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div
       className={cn(
         "rounded-xl border border-slate-200/90 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.04)]",
-        className
+        className,
       )}
     >
       {children}
@@ -294,9 +286,7 @@ export function Toast({
           <span
             className={cn(
               "mt-[1px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
-              tone === "green"
-                ? "bg-emerald-100 text-emerald-600"
-                : "bg-blue-100 text-blue-600"
+              tone === "green" ? "bg-emerald-100 text-emerald-600" : "bg-blue-100 text-blue-600",
             )}
           >
             {icon ?? <Check className="h-3 w-3" strokeWidth={3} />}
@@ -304,9 +294,7 @@ export function Toast({
           <div className="min-w-0">
             <div className="text-[11px] font-semibold text-slate-900">{title}</div>
             {body ? (
-              <div className="mt-0.5 text-[10px] leading-snug text-slate-500">
-                {body}
-              </div>
+              <div className="mt-0.5 text-[10px] leading-snug text-slate-500">{body}</div>
             ) : null}
           </div>
         </motion.div>
