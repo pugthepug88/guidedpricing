@@ -215,14 +215,14 @@ function HeroV5Page() {
           </div>
 
           {/* product stage */}
-          <div
-            id="zapla-stage"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onFocus={() => setPaused(true)}
-            onBlur={() => setPaused(false)}
-          >
-            <div className="rounded-[22px] border border-slate-200/80 bg-white p-1.5 shadow-[0_40px_90px_-40px_rgba(15,23,42,0.35)]">
+          <div id="zapla-stage">
+            <div
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+              onFocus={() => setPaused(true)}
+              onBlur={() => setPaused(false)}
+              className="rounded-[22px] border border-slate-200/80 bg-white p-1.5 shadow-[0_40px_90px_-40px_rgba(15,23,42,0.35)]"
+            >
               <div className="h-[430px] sm:h-[500px] lg:h-[540px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
                   <div className="absolute inset-0">{scene.render({ step, reduced })}</div>

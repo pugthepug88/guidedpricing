@@ -647,6 +647,9 @@ export function SceneAutomations({ step, reduced }: SceneProps) {
         </Card>
 
         <div className="flex min-h-0 flex-col gap-3">
+          <div className="rounded-xl border border-dashed border-slate-200 p-2.5 text-[9.5px] leading-snug text-slate-400">
+            Every completed job receives the same request. No filtering of who gets asked.
+          </div>
           <StepIn show={step >= 5} className="min-h-0">
             <Card className="p-3">
               <div className="flex items-center gap-2">
@@ -680,9 +683,6 @@ export function SceneAutomations({ step, reduced }: SceneProps) {
               </Pill>
             </Card>
           </StepIn>
-          <div className="mt-auto rounded-xl border border-dashed border-slate-200 p-2.5 text-[9.5px] leading-snug text-slate-400">
-            Every completed job receives the same request. No filtering of who gets asked.
-          </div>
         </div>
       </div>
     </div>
