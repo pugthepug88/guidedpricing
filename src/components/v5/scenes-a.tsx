@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight,
@@ -487,9 +488,8 @@ export function SceneBookings({ step, reduced }: SceneProps) {
                 </div>
               ))}
               {HOURS.map((h, r) => (
-                <>
+                <Fragment key={h}>
                   <div
-                    key={h}
                     className="pr-1 text-right text-[8.5px] leading-none text-slate-300"
                   >
                     {h}
@@ -542,7 +542,7 @@ export function SceneBookings({ step, reduced }: SceneProps) {
                       </div>
                     );
                   })}
-                </>
+                </Fragment>
               ))}
             </div>
           </div>
