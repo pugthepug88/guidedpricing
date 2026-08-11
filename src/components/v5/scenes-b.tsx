@@ -35,7 +35,7 @@ const CONTACTS: Contact[] = [
     name: "Priya Nair",
     business: "Field & Form",
     last: "8 months ago",
-    tags: ["VIP", "Inactive 6+ Months"],
+    tags: ["VIP", "Inactive 6m+"],
     channel: "sms",
     match: true,
     tone: "bg-blue-100 text-blue-700",
@@ -53,7 +53,7 @@ const CONTACTS: Contact[] = [
     name: "Amara Okafor",
     business: "Okafor Physio",
     last: "11 months ago",
-    tags: ["VIP", "Big Spender", "Inactive 6+ Months"],
+    tags: ["VIP", "Big Spender", "Inactive 6m+"],
     channel: "sms",
     match: true,
     tone: "bg-violet-100 text-violet-700",
@@ -71,7 +71,7 @@ const CONTACTS: Contact[] = [
     name: "Nina Halvorsen",
     business: "Halvorsen Bakehouse",
     last: "9 months ago",
-    tags: ["VIP", "Inactive 6+ Months"],
+    tags: ["VIP", "Inactive 6m+"],
     channel: "sms",
     match: true,
     tone: "bg-emerald-100 text-emerald-700",
@@ -100,11 +100,11 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
             <span className="text-[10.5px] font-semibold text-slate-600">Contacts</span>
             <div className="ml-2 flex gap-1">
               <FilterChip label="VIP" on={step >= 1} />
-              <FilterChip label="Inactive 6+ Months" on={step >= 2} />
+              <FilterChip label="Inactive 6m+" on={step >= 2} />
             </div>
           </div>
           <div className="min-h-0 flex-1 overflow-hidden">
-            <div className="grid grid-cols-[16px_1.3fr_1fr_1.4fr_44px] gap-2 border-b border-slate-100 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wide text-slate-400">
+            <div className="grid grid-cols-[16px_1.15fr_0.8fr_1.6fr_36px] gap-2 border-b border-slate-100 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wide text-slate-400">
               <span />
               <span>Name</span>
               <span>Last activity</span>
@@ -126,7 +126,7 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
                 >
                   <div
                     className={cn(
-                      "grid grid-cols-[16px_1.3fr_1fr_1.4fr_44px] items-center gap-2 border-b border-slate-50 px-3 py-2 transition-colors duration-500",
+                      "grid grid-cols-[16px_1.15fr_0.8fr_1.6fr_36px] items-center gap-2 border-b border-slate-50 px-3 py-2 transition-colors duration-500",
                       selected && c.match && "bg-blue-50/60",
                     )}
                   >
@@ -149,7 +149,7 @@ export function SceneWinBack({ step, reduced }: SceneProps) {
                         <div className="truncate text-[8.5px] text-slate-400">{c.business}</div>
                       </div>
                     </div>
-                    <span className="text-[9.5px] text-slate-500">{c.last}</span>
+                    <span className="whitespace-nowrap text-[9px] text-slate-500">{c.last}</span>
                     <span className="flex flex-wrap gap-1">
                       {c.tags.map((t) => (
                         <Pill
