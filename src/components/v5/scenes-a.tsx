@@ -50,7 +50,7 @@ export function SceneEnquiries({ step, reduced }: SceneProps) {
             <Avatar name="Maya Chen" tone="bg-fuchsia-100 text-fuchsia-700" />
             <div className="min-w-0">
               <div className="text-[11.5px] font-semibold text-slate-900">Maya Chen</div>
-              <div className="flex items-center gap-1 text-[9.5px] text-slate-400">
+              <div className="flex items-center gap-1 whitespace-nowrap text-[9.5px] text-slate-400">
                 <ChannelMark channel="instagram" size={11} /> Instagram DM
                 <span className="text-slate-300">·</span> North &amp; Pine Studio
               </div>
