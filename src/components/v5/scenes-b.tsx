@@ -672,7 +672,14 @@ const DOC_CURSOR: Array<[number, number]> = [
 export function SceneDocuments({ step, reduced }: SceneProps) {
   const [cx, cy] = DOC_CURSOR[Math.min(step, DOC_CURSOR.length - 1)];
   const status = step >= 4 ? "Signed" : step >= 3 ? "Viewed" : step >= 2 ? "Sent" : "Draft";
-  const tone = status === "Signed" ? "green" : status === "Viewed" ? "violet" : status === "Sent" ? "blue" : "slate";
+  const tone =
+    status === "Signed"
+      ? "green"
+      : status === "Viewed"
+        ? "violet"
+        : status === "Sent"
+          ? "blue"
+          : "slate";
 
   return (
     <div className="relative h-full">
@@ -783,7 +790,8 @@ export function SceneDocuments({ step, reduced }: SceneProps) {
                 ))}
               </div>
               <div className="flex items-center gap-1.5 text-[10.5px] text-slate-400">
-                <Eye className="h-3.5 w-3.5" /> {step >= 3 ? "Viewed by customer" : "Not yet viewed"}
+                <Eye className="h-3.5 w-3.5" />{" "}
+                {step >= 3 ? "Viewed by customer" : "Not yet viewed"}
               </div>
               <div>
                 <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
@@ -820,7 +828,11 @@ export function SceneDocuments({ step, reduced }: SceneProps) {
       </div>
 
       <Cursor x={cx} y={cy} clicking={step === 1 || step === 2} reduced={reduced} />
-      <Toast show={step >= 5} title="Contract signed" body="Opportunity marked Won automatically." />
+      <Toast
+        show={step >= 5}
+        title="Contract signed"
+        body="Opportunity marked Won automatically."
+      />
     </div>
   );
 }

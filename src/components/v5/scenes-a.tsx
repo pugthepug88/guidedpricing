@@ -592,11 +592,7 @@ export function SceneInbox({ step, reduced }: SceneProps) {
                 f.on ? "bg-blue-50 font-semibold text-blue-700" : "text-slate-500",
               )}
             >
-              {f.label === "Starred" ? (
-                <Star className="h-3 w-3" />
-              ) : (
-                <Mail className="h-3 w-3" />
-              )}
+              {f.label === "Starred" ? <Star className="h-3 w-3" /> : <Mail className="h-3 w-3" />}
               {f.label}
               <span className="ml-auto text-[10px] text-slate-400">{f.count}</span>
             </div>
