@@ -1,644 +1,838 @@
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
-  ArrowRight,
+  Calendar,
   Check,
+  ChevronDown,
   Clock,
-  FileSignature,
-  Filter,
+  Eye,
+  FileText,
+  Globe,
+  Image as ImageIcon,
+  Instagram,
+  Facebook,
+  Linkedin,
   Mail,
-  MessageSquare,
+  MapPin,
   Plus,
+  Search,
   Send,
-  Trophy,
-  Users,
+  Video,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Avatar, Card, ChannelMark, Cursor, EASE, Pill, StepIn, Toast } from "./kit";
+import { Avatar, Btn, Card, Cursor, EASE, Pill, StepIn, Toast, Toolbar } from "./kit";
 import type { SceneProps } from "./scenes-a";
 
 /* ================================================================== */
-/* 5. WIN BACK                                                         */
+/* 5. SOCIAL PLANNER                                                   */
 /* ================================================================== */
 
-type Contact = {
-  name: string;
-  business: string;
-  last: string;
-  tags: string[];
-  channel: "sms" | "email" | "instagram" | "messenger";
-  match: boolean;
-  tone: string;
-};
+type Post = { day: number; time: string; title: string; channels: string[]; tone: string };
 
-const CONTACTS: Contact[] = [
+const PLANNED: Post[] = [
   {
-    name: "Priya Nair",
-    business: "Field & Form",
-    last: "8 months ago",
-    tags: ["VIP", "Inactive 6m+"],
-    channel: "sms",
-    match: true,
-    tone: "bg-blue-100 text-blue-700",
+    day: 1,
+    time: "9:00 am",
+    title: "Behind the scenes reel",
+    channels: ["ig"],
+    tone: "border-fuchsia-200 bg-fuchsia-50/70",
   },
   {
-    name: "Dylan Brooks",
-    business: "Brooks Joinery",
-    last: "3 weeks ago",
-    tags: ["Upsell Opportunity"],
-    channel: "email",
-    match: false,
-    tone: "bg-amber-100 text-amber-700",
+    day: 2,
+    time: "11:30 am",
+    title: "Customer spotlight",
+    channels: ["fb", "ig"],
+    tone: "border-blue-200 bg-blue-50/70",
   },
   {
-    name: "Amara Okafor",
-    business: "Okafor Physio",
-    last: "11 months ago",
-    tags: ["VIP", "Big Spender", "Inactive 6m+"],
-    channel: "sms",
-    match: true,
-    tone: "bg-violet-100 text-violet-700",
+    day: 3,
+    time: "8:15 am",
+    title: "Team hiring update",
+    channels: ["li"],
+    tone: "border-cyan-200 bg-cyan-50/70",
   },
   {
-    name: "Leo Marchetti",
-    business: "Marchetti Autos",
-    last: "2 days ago",
-    tags: ["Big Spender"],
-    channel: "instagram",
-    match: false,
-    tone: "bg-fuchsia-100 text-fuchsia-700",
+    day: 4,
+    time: "4:00 pm",
+    title: "Weekend availability",
+    channels: ["gb", "fb"],
+    tone: "border-emerald-200 bg-emerald-50/70",
   },
   {
-    name: "Nina Halvorsen",
-    business: "Halvorsen Bakehouse",
-    last: "9 months ago",
-    tags: ["VIP", "Inactive 6m+"],
-    channel: "sms",
-    match: true,
-    tone: "bg-emerald-100 text-emerald-700",
+    day: 0,
+    time: "1:00 pm",
+    title: "Studio walkthrough",
+    channels: ["ig", "fb"],
+    tone: "border-violet-200 bg-violet-50/70",
   },
 ];
 
-const WIN_CURSOR: Array<[number, number]> = [
-  [16, 18],
-  [24, 18],
-  [10, 46],
-  [58, 22],
-  [82, 74],
-  [82, 74],
-];
+const DAYS = ["Mon 4", "Tue 5", "Wed 6", "Thu 7", "Fri 8"];
 
-export function SceneWinBack({ step, reduced }: SceneProps) {
-  const [cx, cy] = WIN_CURSOR[Math.min(step, WIN_CURSOR.length - 1)];
-  const filtered = step >= 2;
-  const selected = step >= 3;
-  return (
-    <div className="relative h-full p-3 sm:p-4">
-      <div className="grid h-full grid-cols-1 gap-3 lg:grid-cols-[1.4fr_1fr]">
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex items-center gap-1.5 border-b border-slate-100 px-3 py-2">
-            <Filter className="h-3 w-3 text-slate-400" />
-            <span className="text-[10.5px] font-semibold text-slate-600">Contacts</span>
-            <div className="ml-2 flex gap-1">
-              <FilterChip label="VIP" on={step >= 1} />
-              <FilterChip label="Inactive 6m+" on={step >= 2} />
-            </div>
-          </div>
-          <div className="min-h-0 flex-1 overflow-hidden">
-            <div className="grid grid-cols-[16px_1.15fr_0.8fr_1.6fr_36px] gap-2 border-b border-slate-100 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wide text-slate-400">
-              <span />
-              <span>Name</span>
-              <span>Last activity</span>
-              <span>Tags</span>
-              <span>Channel</span>
-            </div>
-            {CONTACTS.map((c) => {
-              const hidden = filtered && !c.match;
-              return (
-                <motion.div
-                  key={c.name}
-                  initial={false}
-                  animate={{
-                    opacity: hidden ? 0.25 : 1,
-                    height: hidden && !reduced ? 0 : "auto",
-                  }}
-                  transition={{ duration: 0.45, ease: EASE }}
-                  className="overflow-hidden"
-                >
-                  <div
-                    className={cn(
-                      "grid grid-cols-[16px_1.15fr_0.8fr_1.6fr_36px] items-center gap-2 border-b border-slate-50 px-3 py-2 transition-colors duration-500",
-                      selected && c.match && "bg-blue-50/60",
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "flex h-3 w-3 items-center justify-center rounded-[3px] border transition-colors duration-500",
-                        selected && c.match
-                          ? "border-blue-600 bg-blue-600 text-white"
-                          : "border-slate-300",
-                      )}
-                    >
-                      {selected && c.match ? <Check className="h-2 w-2" strokeWidth={4} /> : null}
-                    </span>
-                    <div className="flex min-w-0 items-center gap-1.5">
-                      <Avatar name={c.name} tone={c.tone} size={18} />
-                      <div className="min-w-0">
-                        <div className="truncate text-[10px] font-semibold text-slate-800">
-                          {c.name}
-                        </div>
-                        <div className="truncate text-[8.5px] text-slate-400">{c.business}</div>
-                      </div>
-                    </div>
-                    <span className="whitespace-nowrap text-[9px] text-slate-500">{c.last}</span>
-                    <span className="flex flex-wrap gap-1">
-                      {c.tags.map((t) => (
-                        <Pill
-                          key={t}
-                          tone={
-                            t === "VIP"
-                              ? "violet"
-                              : t === "Big Spender"
-                                ? "amber"
-                                : t === "Upsell Opportunity"
-                                  ? "cyan"
-                                  : "rose"
-                          }
-                        >
-                          {t}
-                        </Pill>
-                      ))}
-                    </span>
-                    <span>
-                      <ChannelMark channel={c.channel} size={13} />
-                    </span>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-          <StepIn show={step >= 3} className="border-t border-slate-100 px-3 py-2">
-            <div className="flex items-center gap-2 text-[9.5px] text-slate-500">
-              <Users className="h-3 w-3" /> 3 contacts selected
-              <span className="ml-auto inline-flex items-center gap-1 rounded-md bg-blue-600 px-2 py-[3px] text-[9.5px] font-semibold text-white">
-                <MessageSquare className="h-2.5 w-2.5" /> Bulk SMS
-              </span>
-            </div>
-          </StepIn>
-        </Card>
-
-        {/* composer */}
-        <motion.div
-          initial={false}
-          animate={step >= 3 ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : 20 }}
-          transition={{ duration: 0.5, ease: EASE }}
-          className="hidden min-h-0 lg:block"
-        >
-          <Card className="flex h-full flex-col overflow-hidden">
-            <div className="border-b border-slate-100 px-3 py-2 text-[10.5px] font-semibold text-slate-500">
-              Bulk SMS composer
-            </div>
-            <div className="flex min-h-0 flex-1 flex-col gap-2.5 p-3">
-              <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-2.5 text-[10.5px] leading-snug text-slate-700">
-                Hi {"{{first_name}}"}, it&rsquo;s been a while! We&rsquo;ve saved you a
-                returning-customer offer for this month. Want me to find you a time?
-              </div>
-              <div className="space-y-1.5">
-                <StatusRow label="Queued" active={step >= 3} />
-                <StatusRow label="Sent" active={step >= 4} />
-              </div>
-              <StepIn show={step >= 5} className="mt-1">
-                <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-slate-100 px-3 py-2 text-[10.5px] text-slate-700">
-                  Yes, I&rsquo;d love to book.
-                </div>
-              </StepIn>
-              <StepIn show={step >= 5} delay={0.15} className="mt-auto">
-                <div className="flex items-center gap-1.5 rounded-lg bg-emerald-50 px-2.5 py-2 text-[10px] font-semibold text-emerald-800">
-                  <Check className="h-3 w-3" /> Customer re-engaged
-                </div>
-              </StepIn>
-            </div>
-          </Card>
-        </motion.div>
-      </div>
-      <Cursor x={cx} y={cy} clicking={step === 1 || step === 3} reduced={reduced} />
-    </div>
-  );
+function ChannelIcon({ id, size = 12 }: { id: string; size?: number }) {
+  const cls = "text-slate-500";
+  const style = { width: size, height: size };
+  if (id === "ig") return <Instagram style={style} className="text-fuchsia-600" />;
+  if (id === "fb") return <Facebook style={style} className="text-blue-600" />;
+  if (id === "li") return <Linkedin style={style} className="text-cyan-700" />;
+  return <Globe style={style} className={cls} />;
 }
 
-function FilterChip({ label, on }: { label: string; on: boolean }) {
-  return (
-    <motion.span
-      initial={false}
-      animate={{ opacity: on ? 1 : 0.45, scale: on ? 1 : 0.97 }}
-      transition={{ duration: 0.35, ease: EASE }}
-      className={cn(
-        "rounded-full border px-2 py-[2px] text-[9px] font-medium",
-        on ? "border-blue-200 bg-blue-50 text-blue-700" : "border-slate-200 text-slate-400",
-      )}
-    >
-      {label}
-    </motion.span>
-  );
-}
-
-function StatusRow({ label, active }: { label: string; active: boolean }) {
-  return (
-    <div className="flex items-center gap-1.5 text-[9.5px] text-slate-500">
-      <span
-        className={cn(
-          "flex h-3.5 w-3.5 items-center justify-center rounded-full transition-colors duration-500",
-          active ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-300",
-        )}
-      >
-        <Check className="h-2 w-2" strokeWidth={3} />
-      </span>
-      {label}
-    </div>
-  );
-}
-
-/* ================================================================== */
-/* 6. MARKETING                                                        */
-/* ================================================================== */
-
-const CHANNEL_CHIPS = ["Facebook", "Instagram", "LinkedIn", "Google Business"];
-const CAPTION = "Autumn openings are live. Book a consultation and we'll take it from there.";
-
-const MK_CURSOR: Array<[number, number]> = [
-  [30, 20],
-  [30, 40],
-  [24, 62],
-  [36, 72],
-  [78, 46],
-  [78, 66],
+const SOCIAL_CURSOR: Array<[number, number]> = [
+  [86, 12],
+  [70, 40],
+  [70, 56],
+  [70, 70],
+  [70, 84],
+  [40, 60],
 ];
 
-export function SceneMarketing({ step, reduced }: SceneProps) {
-  const [cx, cy] = MK_CURSOR[Math.min(step, MK_CURSOR.length - 1)];
-  const typed = reduced
-    ? CAPTION
-    : CAPTION.slice(0, step >= 2 ? CAPTION.length : step >= 1 ? 34 : 0);
+export function SceneSocial({ step, reduced }: SceneProps) {
+  const [cx, cy] = SOCIAL_CURSOR[Math.min(step, SOCIAL_CURSOR.length - 1)];
+  const composer = step >= 1;
+  const posted = step >= 5;
+
+  const posts = posted
+    ? [
+        ...PLANNED,
+        {
+          day: 4,
+          time: "10:00 am",
+          title: "New season openings",
+          channels: ["ig", "fb", "li", "gb"],
+          tone: "border-blue-300 bg-white ring-2 ring-blue-200",
+        },
+      ]
+    : PLANNED;
+
   return (
-    <div className="relative h-full p-3 sm:p-4">
-      <div className="grid h-full grid-cols-1 gap-3 lg:grid-cols-2">
-        {/* social */}
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-            <span className="text-[10.5px] font-semibold text-slate-600">Social planner</span>
-            <span className="ml-auto inline-flex items-center gap-1 rounded-md bg-blue-600 px-2 py-[3px] text-[9px] font-semibold text-white">
-              <Plus className="h-2.5 w-2.5" /> New post
-            </span>
-          </div>
-          <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
-            <div className="rounded-lg border border-slate-200 p-2.5">
-              <div className="min-h-[34px] text-[10.5px] leading-snug text-slate-700">
-                {typed}
-                {!reduced && step >= 1 && step < 2 ? (
-                  <span className="ml-[1px] inline-block h-3 w-[1.5px] animate-pulse bg-blue-500 align-middle" />
-                ) : null}
-              </div>
-              <div className="mt-2 flex flex-wrap gap-1">
-                {CHANNEL_CHIPS.map((c, i) => (
-                  <motion.span
-                    key={c}
-                    initial={false}
-                    animate={{ opacity: step >= 2 ? 1 : 0.4 }}
-                    transition={{ duration: 0.3, delay: step >= 2 ? i * 0.07 : 0 }}
-                    className={cn(
-                      "rounded-full border px-2 py-[2px] text-[9px] font-medium",
-                      step >= 2
-                        ? "border-blue-200 bg-blue-50 text-blue-700"
-                        : "border-slate-200 text-slate-400",
-                    )}
-                  >
-                    {c}
-                  </motion.span>
-                ))}
-              </div>
-              <div className="mt-2 flex items-center gap-1.5 text-[9.5px] text-slate-400">
-                <Clock className="h-3 w-3" /> Schedule Thu 9:00 AM
-                <span
-                  className={cn(
-                    "ml-auto rounded-md px-2 py-[2px] text-[9px] font-semibold transition-colors duration-500",
-                    step >= 3 ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500",
-                  )}
-                >
-                  {step >= 3 ? "Scheduled" : "Draft"}
-                </span>
-              </div>
-            </div>
-
-            <div className="min-h-0 flex-1 rounded-lg border border-dashed border-slate-200 bg-slate-50/60 p-2">
-              <div className="mb-1.5 text-[9px] uppercase tracking-wide text-slate-400">
-                Planner &middot; This week
-              </div>
-              <AnimatePresence>
-                {step >= 3 ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: -12, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.5, ease: EASE }}
-                    className="rounded-lg border border-slate-200 bg-white p-2"
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[9.5px] font-semibold text-slate-800">Thu 9:00 AM</span>
-                      <Pill tone="green" className="ml-auto">
-                        Scheduled
-                      </Pill>
-                    </div>
-                    <div className="mt-1 truncate text-[9px] text-slate-500">{CAPTION}</div>
-                    <div className="mt-1.5 flex gap-1">
-                      {CHANNEL_CHIPS.map((c) => (
-                        <span
-                          key={c}
-                          className="rounded bg-slate-100 px-1.5 py-[1px] text-[8px] text-slate-500"
-                        >
-                          {c}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
-            </div>
-          </div>
-        </Card>
-
-        {/* email sequence */}
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-            <span className="text-[10.5px] font-semibold text-slate-600">
-              Quote Follow-Up sequence
-            </span>
-            <Pill tone="blue" className="ml-auto">
-              Audience: Open Quotes
-            </Pill>
-          </div>
-          <div className="flex min-h-0 flex-1 flex-col gap-1.5 p-3">
-            {[
-              { t: "Quote sent", s: "Trigger" },
-              { t: "Email 1 · Your quote", s: "Immediately" },
-              { t: "Wait 2 days", s: "Delay" },
-              { t: "Email 2 · Common questions", s: "Cancels on reply" },
-              { t: "Wait 3 days", s: "Delay" },
-              { t: "Email 3 · Ready when you are", s: "Cancels on reply" },
-            ].map((n, i) => {
-              const cancelled = step >= 5 && i >= 3;
-              return (
-                <motion.div
-                  key={n.t}
-                  initial={false}
-                  animate={{ opacity: cancelled ? 0.4 : 1 }}
-                  transition={{ duration: 0.4, delay: cancelled ? i * 0.06 : 0 }}
-                  className={cn(
-                    "flex items-center gap-2 rounded-lg border bg-white px-2.5 py-1.5 transition-colors duration-500",
-                    step === i + 1 ? "border-blue-300" : "border-slate-200",
-                  )}
-                >
-                  <span className="flex h-5 w-5 items-center justify-center rounded-md bg-slate-100 text-slate-500">
-                    {n.s === "Delay" ? (
-                      <Clock className="h-2.5 w-2.5" />
-                    ) : (
-                      <Mail className="h-2.5 w-2.5" />
-                    )}
-                  </span>
-                  <div className="min-w-0">
-                    <div
-                      className={cn(
-                        "truncate text-[10px] font-semibold text-slate-800",
-                        cancelled && "line-through decoration-slate-300",
-                      )}
-                    >
-                      {n.t}
-                    </div>
-                    <div className="truncate text-[8.5px] text-slate-400">{n.s}</div>
-                  </div>
-                  {cancelled ? (
-                    <span className="ml-auto shrink-0 text-[8.5px] font-semibold text-slate-400">
-                      Cancelled
-                    </span>
-                  ) : null}
-                </motion.div>
-              );
-            })}
-            <div className="mt-auto flex items-center gap-1.5 text-[9.5px] text-slate-500">
-              <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                <Check className="h-2 w-2" strokeWidth={3} />
-              </span>
-              Stop on reply enabled
-            </div>
-          </div>
-        </Card>
-      </div>
-      <Toast
-        show={step >= 5}
-        tone="blue"
-        icon={<MessageSquare className="h-3 w-3" />}
-        title="Reply received"
-        body="Remaining emails cancelled for this customer."
-      />
-      <Cursor x={cx} y={cy} clicking={step === 2 || step === 3} reduced={reduced} />
-    </div>
-  );
-}
-
-/* ================================================================== */
-/* 7. PROPOSALS                                                        */
-/* ================================================================== */
-
-const DOCS = [
-  {
-    title: "Studio Fit-out Proposal",
-    customer: "North & Pine Studio",
-    viewed: "2 hours ago",
-    value: "A$8,400",
-    owner: "Sam Ortiz",
-    status: "Sent",
-  },
-  {
-    title: "Annual Service Agreement",
-    customer: "Harbour Dental",
-    viewed: "Yesterday",
-    value: "A$3,250",
-    owner: "Ivy Roshan",
-    status: "Viewed",
-  },
-  {
-    title: "Brand Refresh Scope",
-    customer: "Field & Form",
-    viewed: "3 days ago",
-    value: "A$5,900",
-    owner: "Sam Ortiz",
-    status: "Completed",
-  },
-];
-
-const PR_CURSOR: Array<[number, number]> = [
-  [42, 16],
-  [42, 30],
-  [46, 46],
-  [80, 66],
-  [80, 76],
-  [80, 82],
-];
-
-export function SceneProposals({ step, reduced }: SceneProps) {
-  const [cx, cy] = PR_CURSOR[Math.min(step, PR_CURSOR.length - 1)];
-  const liveStatus =
-    step >= 5
-      ? "Completed"
-      : step >= 4
-        ? "Signed"
-        : step >= 3
-          ? "Viewed"
-          : step >= 2
-            ? "Sent"
-            : "Draft";
-  return (
-    <div className="relative h-full p-3 sm:p-4">
-      <div className="grid h-full grid-cols-1 gap-3 lg:grid-cols-[1.3fr_1fr]">
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-            <span className="text-[10.5px] font-semibold text-slate-600">
-              Documents &amp; contracts
-            </span>
-            <span className="ml-auto inline-flex items-center gap-1 rounded-md bg-blue-600 px-2 py-[3px] text-[9px] font-semibold text-white">
-              <Plus className="h-2.5 w-2.5" /> New
-            </span>
-          </div>
-          <div className="min-h-0 flex-1 overflow-hidden">
-            <div className="grid grid-cols-[1.5fr_1.1fr_0.9fr_0.8fr_0.9fr] gap-2 border-b border-slate-100 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-wide text-slate-400">
-              <span>Title</span>
-              <span>Customer</span>
-              <span>Last viewed</span>
-              <span>Value</span>
-              <span>Owner</span>
-            </div>
-            <motion.div
-              initial={false}
-              animate={{ opacity: step >= 1 ? 1 : 0, y: step >= 1 ? 0 : -8 }}
-              transition={{ duration: 0.45, ease: EASE }}
-              className="grid grid-cols-[1.5fr_1.1fr_0.9fr_0.8fr_0.9fr] items-center gap-2 border-b border-slate-50 bg-blue-50/50 px-3 py-2"
+    <div className="relative h-full">
+      <Toolbar>
+        <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-[3px] text-[11px] text-slate-500">
+          Week of 4 Aug <ChevronDown className="h-3 w-3" />
+        </span>
+        <span className="text-[10.5px] text-slate-400">Connected:</span>
+        <span className="ml-1 flex items-center gap-1.5">
+          {["ig", "fb", "li", "gb"].map((c) => (
+            <span
+              key={c}
+              className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-[3px] text-[10.5px] text-slate-500"
             >
-              <span className="truncate text-[10px] font-semibold text-slate-800">
-                Consultation Proposal
-              </span>
-              <span className="truncate text-[9.5px] text-slate-500">North &amp; Pine Studio</span>
-              <span className="text-[9.5px] text-slate-500">{step >= 3 ? "Just now" : "—"}</span>
-              <span className="text-[9.5px] font-semibold text-slate-700">A$4,750</span>
-              <span className="flex items-center gap-1 text-[9.5px] text-slate-500">
-                <Avatar name="Sam Ortiz" size={16} tone="bg-blue-100 text-blue-700" />
-                Sam O.
-              </span>
-            </motion.div>
-            {DOCS.map((d) => (
+              <ChannelIcon id={c} />
+              {c === "ig"
+                ? "Instagram"
+                : c === "fb"
+                  ? "Facebook"
+                  : c === "li"
+                    ? "LinkedIn"
+                    : "Google"}
+            </span>
+          ))}
+        </span>
+        <span className="ml-auto">
+          <Btn>
+            <Plus className="h-3 w-3" /> New post
+          </Btn>
+        </span>
+      </Toolbar>
+
+      <div className="grid h-[calc(100%-42px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[minmax(0,1fr)_262px]">
+        <Card className="flex min-h-0 flex-col overflow-hidden">
+          <div className="grid shrink-0 grid-cols-5 border-b border-slate-200/80 bg-slate-50/70">
+            {DAYS.map((d) => (
               <div
-                key={d.title}
-                className="grid grid-cols-[1.5fr_1.1fr_0.9fr_0.8fr_0.9fr] items-center gap-2 border-b border-slate-50 px-3 py-2"
+                key={d}
+                className="px-2 py-1.5 text-[10.5px] font-semibold uppercase tracking-wide text-slate-400"
               >
-                <span className="truncate text-[10px] font-medium text-slate-700">{d.title}</span>
-                <span className="truncate text-[9.5px] text-slate-500">{d.customer}</span>
-                <span className="text-[9.5px] text-slate-500">{d.viewed}</span>
-                <span className="text-[9.5px] text-slate-600">{d.value}</span>
-                <span className="flex items-center gap-1 text-[9.5px] text-slate-500">
-                  <Avatar name={d.owner} size={16} tone="bg-slate-100 text-slate-500" />
-                  {d.owner.split(" ")[0]}
-                </span>
+                {d}
+              </div>
+            ))}
+          </div>
+          <div className="grid min-h-0 flex-1 grid-cols-5 divide-x divide-slate-100">
+            {DAYS.map((d, di) => (
+              <div key={d} className="space-y-1.5 p-1.5">
+                {posts
+                  .filter((p) => p.day === di)
+                  .map((p) => (
+                    <motion.div
+                      key={p.title}
+                      layout
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+                      className={cn("rounded-lg border px-2 py-1.5", p.tone)}
+                    >
+                      <div className="text-[10px] text-slate-400">{p.time}</div>
+                      <div className="mt-0.5 text-[11px] font-semibold leading-snug text-slate-800">
+                        {p.title}
+                      </div>
+                      <div className="mt-1 flex items-center gap-1">
+                        {p.channels.map((c) => (
+                          <ChannelIcon key={c} id={c} size={11} />
+                        ))}
+                      </div>
+                    </motion.div>
+                  ))}
               </div>
             ))}
           </div>
         </Card>
 
-        {/* document preview */}
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-            <span className="text-[10.5px] font-semibold text-slate-600">
-              Consultation Proposal
-            </span>
-            <Pill
-              tone={
-                liveStatus === "Completed" || liveStatus === "Signed"
-                  ? "green"
-                  : liveStatus === "Viewed"
-                    ? "amber"
-                    : liveStatus === "Sent"
-                      ? "blue"
-                      : "slate"
-              }
-              className="ml-auto"
-            >
-              {liveStatus}
-            </Pill>
-          </div>
-          <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
-            <div className="rounded-lg border border-slate-200 p-2.5">
-              <div className="text-[9px] uppercase tracking-wide text-slate-400">Prepared for</div>
-              <div className="text-[10.5px] font-semibold text-slate-800">
-                Maya Chen &middot; North &amp; Pine Studio
+        {/* composer */}
+        <motion.div
+          className="hidden min-h-0 lg:block"
+          initial={false}
+          animate={{ opacity: composer ? 1 : 0, x: composer ? 0 : 22 }}
+          transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+        >
+          <Card className="flex h-full flex-col overflow-hidden">
+            <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
+              <span className="text-[12px] font-semibold text-slate-900">Create post</span>
+              <Pill tone={posted ? "green" : "slate"} className="ml-auto">
+                {posted ? "Scheduled" : "Draft"}
+              </Pill>
+            </div>
+            <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
+              <div className="flex h-12 items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 text-slate-300">
+                <ImageIcon className="h-5 w-5" />
               </div>
-              <div className="mt-2 space-y-1">
-                <LineItem label="Discovery and planning" value="A$1,250" show={step >= 1} />
-                <LineItem label="Design and build" value="A$2,900" show={step >= 1} />
-                <LineItem label="Handover and training" value="A$600" show={step >= 1} />
+              <div className="min-h-[52px] rounded-lg border border-slate-200 p-2 text-[11px] leading-relaxed text-slate-600">
+                {step >= 2 ? "New season openings are live. " : ""}
+                {step >= 3 ? "Book your spot for August and we will hold your usual time." : ""}
+                {step < 2 ? <span className="text-slate-300">Write a caption…</span> : null}
               </div>
-              <div className="mt-2 flex items-center border-t border-slate-100 pt-1.5 text-[10px] font-semibold text-slate-800">
-                Total
-                <span className="ml-auto">A$4,750</span>
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+                  Channels
+                </div>
+                <div className="mt-1 flex flex-wrap gap-1.5">
+                  {["ig", "fb", "li", "gb"].map((c) => (
+                    <span
+                      key={c}
+                      className={cn(
+                        "inline-flex items-center gap-1 rounded-full border px-2 py-[3px] text-[10.5px] transition-colors duration-500",
+                        step >= 3
+                          ? "border-blue-400 bg-blue-50 text-blue-700"
+                          : "border-slate-200 text-slate-500",
+                      )}
+                    >
+                      <ChannelIcon id={c} />
+                      {c === "ig"
+                        ? "Instagram"
+                        : c === "fb"
+                          ? "Facebook"
+                          : c === "li"
+                            ? "LinkedIn"
+                            : "Google"}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 rounded-lg border border-slate-200 px-2 py-1.5 text-[11px] text-slate-600">
+                <Calendar className="h-3.5 w-3.5 text-slate-400" />
+                {step >= 4 ? "Fri 8 Aug · 10:00 am" : "Choose date and time"}
+              </div>
+              <div className="mt-auto flex items-center gap-2">
+                <Btn>
+                  <Send className="h-3 w-3" /> Schedule
+                </Btn>
+                <Btn tone="ghost">Save draft</Btn>
               </div>
             </div>
-
-            <div className="rounded-lg border border-slate-200 p-2.5">
-              <div className="mb-1.5 flex items-center gap-1 text-[9px] uppercase tracking-wide text-slate-400">
-                <FileSignature className="h-3 w-3" /> Signature
-              </div>
-              <div className="h-9 rounded-md bg-slate-50">
-                <svg viewBox="0 0 200 36" className="h-full w-full">
-                  <motion.path
-                    d="M10 26 C 26 6, 38 30, 52 16 S 74 4, 88 22 C 100 34, 112 10, 128 18 S 156 30, 186 12"
-                    fill="none"
-                    stroke="#1d4ed8"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    initial={false}
-                    animate={{ pathLength: step >= 4 ? 1 : 0 }}
-                    transition={{ duration: reduced ? 0 : 1.1, ease: "easeInOut" }}
-                  />
-                </svg>
-              </div>
-            </div>
-
-            <StepIn show={step >= 2 && step < 4}>
-              <div className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-2.5 py-[4px] text-[9.5px] font-semibold text-white">
-                <Send className="h-2.5 w-2.5" /> Send for signature
-              </div>
-            </StepIn>
-
-            <StepIn show={step >= 5} className="mt-auto">
-              <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-2.5 py-2 text-[10px] font-semibold text-emerald-800">
-                <Trophy className="h-3.5 w-3.5" />
-                Opportunity: Decision Pending
-                <ArrowRight className="h-3 w-3" />
-                Won
-              </div>
-            </StepIn>
-          </div>
-        </Card>
+          </Card>
+        </motion.div>
       </div>
+
+      <Cursor x={cx} y={cy} clicking={step === 0 || step === 4} reduced={reduced} />
       <Toast
-        show={step >= 4}
-        title="Proposal signed"
-        body="Consultation Proposal completed and filed to the customer record."
+        show={posted}
+        title="Post scheduled"
+        body="Friday 8 Aug, 10:00 am across four channels."
       />
-      <Cursor x={cx} y={cy} clicking={step === 1 || step === 2} reduced={reduced} />
     </div>
   );
 }
 
-function LineItem({ label, value, show }: { label: string; value: string; show: boolean }) {
+/* ================================================================== */
+/* 6. EMAIL MARKETING                                                  */
+/* ================================================================== */
+
+const CAMPAIGNS = [
+  { name: "Winter service reminder", status: "Published", updated: "2 Aug" },
+  { name: "Quote follow-up", status: "Published", updated: "29 Jul" },
+  { name: "New Customer Welcome", status: "Draft", updated: "Today" },
+  { name: "Referral thank you", status: "Draft", updated: "24 Jul" },
+];
+
+const EMAIL_CURSOR: Array<[number, number]> = [
+  [88, 12],
+  [60, 40],
+  [60, 56],
+  [60, 74],
+  [40, 86],
+  [40, 86],
+];
+
+export function SceneEmail({ step, reduced }: SceneProps) {
+  const [cx, cy] = EMAIL_CURSOR[Math.min(step, EMAIL_CURSOR.length - 1)];
+  const editor = step >= 1;
+  const published = step >= 5;
+
   return (
-    <StepIn show={show} className="flex items-center text-[9.5px] text-slate-600">
-      {label}
-      <span className="ml-auto text-slate-500">{value}</span>
-    </StepIn>
+    <div className="relative h-full">
+      <Toolbar>
+        <span className="text-[12px] font-semibold text-slate-900">Email Marketing</span>
+        <div className="flex h-7 items-center gap-1.5 rounded-md border border-slate-200 px-2 text-[11px] text-slate-400">
+          <Search className="h-3.5 w-3.5" /> Search
+        </div>
+        <span className="flex items-center gap-1">
+          {["All", "Draft", "Published", "Archived"].map((t, i) => (
+            <span
+              key={t}
+              className={cn(
+                "rounded-md px-2 py-[3px] text-[11px]",
+                i === 0 ? "bg-slate-900 font-semibold text-white" : "text-slate-500",
+              )}
+            >
+              {t}
+            </span>
+          ))}
+        </span>
+        <span className="ml-auto">
+          <Btn>
+            <Plus className="h-3 w-3" /> New email
+          </Btn>
+        </span>
+      </Toolbar>
+
+      <div className="grid h-[calc(100%-42px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[290px_minmax(0,1fr)]">
+        <Card className="flex min-h-0 flex-col overflow-hidden">
+          <div className="grid shrink-0 grid-cols-[1.6fr_0.9fr_0.7fr] gap-2 border-b border-slate-200/80 bg-slate-50/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+            <span>Campaign</span>
+            <span>Status</span>
+            <span>Updated</span>
+          </div>
+          <div className="divide-y divide-slate-100">
+            {CAMPAIGNS.map((c) => {
+              const active = c.name === "New Customer Welcome" && editor;
+              const status = active && published ? "Published" : c.status;
+              return (
+                <div
+                  key={c.name}
+                  className={cn(
+                    "grid grid-cols-[1.6fr_0.9fr_0.7fr] items-center gap-2 px-3 py-2.5 transition-colors duration-500",
+                    active ? "bg-blue-50/60" : "bg-white",
+                  )}
+                >
+                  <div className="flex min-w-0 items-center gap-1.5">
+                    <Mail className="h-3.5 w-3.5 shrink-0 text-slate-300" />
+                    <span className="truncate text-[11.5px] font-medium text-slate-800">
+                      {c.name}
+                    </span>
+                  </div>
+                  <Pill tone={status === "Published" ? "green" : "slate"}>{status}</Pill>
+                  <span className="text-[10.5px] text-slate-400">{c.updated}</span>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+
+        <motion.div
+          className="min-h-0"
+          initial={false}
+          animate={{ opacity: editor ? 1 : 0.25, y: editor ? 0 : 10 }}
+          transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+        >
+          <Card className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden">
+            <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
+              <span className="text-[12px] font-semibold text-slate-900">Edit email</span>
+              <Pill tone={published ? "green" : "slate"}>{published ? "Published" : "Draft"}</Pill>
+              <span className="ml-auto flex items-center gap-1.5">
+                <Btn tone="ghost">Save draft</Btn>
+                <Btn>Publish</Btn>
+              </span>
+            </div>
+            <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 p-3 lg:grid-cols-[190px_minmax(0,1fr)]">
+              <div className="space-y-2">
+                <LabeledInput label="Campaign name" value="New Customer Welcome" />
+                <LabeledInput label="Subject" value="Welcome to our studio" />
+                <div>
+                  <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+                    Editor mode
+                  </div>
+                  <div className="mt-1 flex items-center gap-1">
+                    <span className="rounded-md bg-slate-900 px-2 py-[3px] text-[10.5px] font-semibold text-white">
+                      Manual
+                    </span>
+                    <span className="rounded-md border border-slate-200 px-2 py-[3px] text-[10.5px] text-slate-500">
+                      HTML
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+                    Audience
+                  </div>
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    <Pill tone="blue">New customers</Pill>
+                    <Pill tone="slate">Stop on reply</Pill>
+                  </div>
+                </div>
+              </div>
+
+              <div className="min-h-0 min-w-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-3">
+                <div className="mx-auto flex h-full max-w-[320px] flex-col rounded-lg border border-slate-200 bg-white p-3">
+                  <div className="h-1.5 w-full rounded-full bg-blue-600" />
+                  <StepIn show={step >= 2} className="mt-2.5">
+                    <div className="text-[12px] font-semibold text-slate-900">
+                      Hi {"{{contact.first_name}}"},
+                    </div>
+                  </StepIn>
+                  <StepIn show={step >= 3} delay={0.05} className="mt-1.5">
+                    <p className="text-[11px] leading-relaxed text-slate-600">
+                      Welcome aboard. Your booking details are saved, and your regular time is easy
+                      to rebook whenever you need it. Reply to this email any time and a real person
+                      will answer.
+                    </p>
+                  </StepIn>
+                  <StepIn show={step >= 4} delay={0.05} className="mt-2.5">
+                    <span className="inline-flex rounded-md bg-blue-600 px-3 py-1.5 text-[11px] font-semibold text-white">
+                      Book your next visit
+                    </span>
+                  </StepIn>
+                  <div className="mt-auto pt-2 text-[9.5px] text-slate-400">
+                    You are receiving this because you booked with us. Unsubscribe any time.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+      </div>
+
+      <Cursor x={cx} y={cy} clicking={step === 0 || step === 4} reduced={reduced} />
+      <Toast show={published} title="Campaign published" body="New Customer Welcome is now live." />
+    </div>
+  );
+}
+
+function LabeledInput({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+        {label}
+      </div>
+      <div className="mt-1 truncate rounded-md border border-slate-200 px-2 py-1.5 text-[11.5px] text-slate-700">
+        {value}
+      </div>
+    </div>
+  );
+}
+
+/* ================================================================== */
+/* 7. BOOKINGS                                                         */
+/* ================================================================== */
+
+const SLOTS = ["9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "1:30 PM"];
+const BOOK_CURSOR: Array<[number, number]> = [
+  [48, 46],
+  [78, 30],
+  [78, 84],
+  [78, 60],
+  [78, 84],
+  [78, 88],
+];
+
+export function SceneBookings({ step, reduced }: SceneProps) {
+  const [cx, cy] = BOOK_CURSOR[Math.min(step, BOOK_CURSOR.length - 1)];
+  const dateChosen = step >= 1;
+  const slotChosen = step >= 2;
+  const form = step >= 3;
+  const done = step >= 5;
+
+  return (
+    <div className="relative h-full p-3">
+      <Card className="grid h-full min-h-0 grid-cols-1 divide-y divide-slate-100 overflow-hidden lg:grid-cols-[230px_1fr_240px] lg:divide-x lg:divide-y-0">
+        {/* meeting details */}
+        <div className="flex flex-col gap-2.5 p-3.5">
+          <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+            Zapla Digital
+          </div>
+          <div className="text-[15px] font-semibold leading-snug text-slate-900">
+            Discovery walkthrough
+          </div>
+          <div className="space-y-1.5 text-[11.5px] text-slate-600">
+            <Row icon={<Clock className="h-3.5 w-3.5 text-slate-400" />}>45 min</Row>
+            <Row icon={<Video className="h-3.5 w-3.5 text-slate-400" />}>Online meeting</Row>
+            <Row icon={<MapPin className="h-3.5 w-3.5 text-slate-400" />}>
+              Sydney, Australian Eastern Time
+            </Row>
+          </div>
+          <p className="text-[11px] leading-relaxed text-slate-500">
+            A short walkthrough of how Zapla would fit around your current process.
+          </p>
+          <StepIn show={done} className="mt-auto">
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50/70 px-2.5 py-2">
+              <div className="text-[11px] font-semibold text-emerald-800">Meeting confirmed</div>
+              <div className="mt-0.5 text-[10.5px] text-emerald-700">
+                Thu 14 Aug · 10:00 AM AEST
+              </div>
+            </div>
+          </StepIn>
+        </div>
+
+        {/* date picker */}
+        <div className="flex min-h-0 flex-col p-3.5">
+          <div className="flex items-center gap-2">
+            <span className="text-[12.5px] font-semibold text-slate-900">August 2026</span>
+            <span className="ml-auto text-[10.5px] text-slate-400">Select a date</span>
+          </div>
+          <div className="mt-2 grid grid-cols-7 gap-1 text-center text-[10px] text-slate-400">
+            {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+              <span key={i}>{d}</span>
+            ))}
+          </div>
+          <div className="mt-1 grid grid-cols-7 gap-1">
+            {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => {
+              const available = [5, 6, 7, 12, 13, 14, 19, 20, 21, 26, 27].includes(d);
+              const active = d === 14 && dateChosen;
+              return (
+                <span
+                  key={d}
+                  className={cn(
+                    "flex h-[26px] items-center justify-center rounded-md text-[11px] transition-colors duration-400",
+                    active
+                      ? "bg-blue-600 font-semibold text-white"
+                      : available
+                        ? "bg-blue-50 font-medium text-blue-700"
+                        : "text-slate-300",
+                  )}
+                >
+                  {d}
+                </span>
+              );
+            })}
+          </div>
+          <div className="mt-auto flex items-center gap-2 pt-2 text-[10.5px] text-slate-400">
+            <span className="inline-flex h-2.5 w-2.5 rounded-[3px] bg-blue-50" /> Available
+            <span className="ml-2 inline-flex h-2.5 w-2.5 rounded-[3px] bg-blue-600" /> Selected
+          </div>
+        </div>
+
+        {/* slots / form */}
+        <div className="flex min-h-0 flex-col p-3.5">
+          {!form ? (
+            <>
+              <div className="text-[12px] font-semibold text-slate-900">Thu 14 Aug</div>
+              <div className="mt-2 space-y-1.5">
+                {SLOTS.map((s) => {
+                  const active = s === "10:00 AM" && slotChosen;
+                  return (
+                    <div
+                      key={s}
+                      className={cn(
+                        "rounded-md border px-2.5 py-1.5 text-center text-[11.5px] font-medium transition-colors duration-400",
+                        active
+                          ? "border-blue-600 bg-blue-600 text-white"
+                          : "border-slate-200 text-slate-600",
+                      )}
+                    >
+                      {s}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="mt-auto pt-2">
+                <span
+                  className={cn(
+                    "flex items-center justify-center rounded-md py-2 text-[11.5px] font-semibold transition-colors duration-400",
+                    slotChosen ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-400",
+                  )}
+                >
+                  Continue
+                </span>
+              </div>
+            </>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, x: 14 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
+              className="flex min-h-0 flex-1 flex-col"
+            >
+              <div className="text-[12px] font-semibold text-slate-900">Your details</div>
+              <div className="mt-2 space-y-1.5">
+                <MiniField label="Email" value={step >= 4 ? "maya@northpine.example" : ""} />
+                <MiniField label="First name" value={step >= 4 ? "Maya" : ""} />
+                <MiniField label="Last name" value={step >= 4 ? "Chen" : ""} />
+                <MiniField label="Phone" value={step >= 4 ? "0400 111 222" : ""} />
+                <MiniField label="Notes" value={step >= 4 ? "Keen to start in August" : ""} />
+              </div>
+              <div className="mt-auto pt-2">
+                <span
+                  className={cn(
+                    "flex items-center justify-center gap-1.5 rounded-md py-2 text-[11.5px] font-semibold",
+                    done ? "bg-emerald-600 text-white" : "bg-slate-900 text-white",
+                  )}
+                >
+                  {done ? (
+                    <>
+                      <Check className="h-3.5 w-3.5" /> Scheduled
+                    </>
+                  ) : (
+                    "Schedule meeting"
+                  )}
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </Card>
+
+      <Cursor x={cx} y={cy} clicking={step === 1 || step === 2 || step === 5} reduced={reduced} />
+      <Toast
+        show={done}
+        title="Booking confirmed"
+        body="Calendar invite and SMS reminder sent automatically."
+      />
+    </div>
+  );
+}
+
+function Row({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-1.5">
+      {icon}
+      <span>{children}</span>
+    </div>
+  );
+}
+
+function MiniField({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div className="text-[9.5px] font-semibold uppercase tracking-wide text-slate-400">
+        {label}
+      </div>
+      <div className="mt-0.5 h-[26px] truncate rounded-md border border-slate-200 px-2 py-1 text-[11px] text-slate-700">
+        {value || <span className="text-slate-300">—</span>}
+      </div>
+    </div>
+  );
+}
+
+/* ================================================================== */
+/* 8. DOCUMENTS / CONTRACTS                                            */
+/* ================================================================== */
+
+const DOCS = [
+  {
+    title: "Service agreement",
+    customer: "Riverstone Dental",
+    seen: "2 hours ago",
+    value: "A$9,800",
+    owner: "Alex T.",
+    status: "Sent",
+  },
+  {
+    title: "Maintenance retainer",
+    customer: "Brightline Electrical",
+    seen: "Yesterday",
+    value: "A$20,200",
+    owner: "Priya S.",
+    status: "Viewed",
+  },
+  {
+    title: "Campaign proposal",
+    customer: "North & Pine Studio",
+    seen: "just now",
+    value: "A$8,600",
+    owner: "Alex T.",
+    status: "Draft",
+  },
+  {
+    title: "Onboarding contract",
+    customer: "Atlas Finance",
+    seen: "3 days ago",
+    value: "A$14,500",
+    owner: "Dana K.",
+    status: "Signed",
+  },
+];
+
+const DOC_CURSOR: Array<[number, number]> = [
+  [34, 60],
+  [80, 26],
+  [80, 40],
+  [80, 62],
+  [80, 74],
+  [80, 84],
+];
+
+export function SceneDocuments({ step, reduced }: SceneProps) {
+  const [cx, cy] = DOC_CURSOR[Math.min(step, DOC_CURSOR.length - 1)];
+  const status = step >= 4 ? "Signed" : step >= 3 ? "Viewed" : step >= 2 ? "Sent" : "Draft";
+  const tone =
+    status === "Signed"
+      ? "green"
+      : status === "Viewed"
+        ? "violet"
+        : status === "Sent"
+          ? "blue"
+          : "slate";
+
+  return (
+    <div className="relative h-full">
+      <Toolbar>
+        <div className="flex h-7 items-center gap-1.5 rounded-md border border-slate-200 px-2 text-[11px] text-slate-400">
+          <Search className="h-3.5 w-3.5" /> Search documents
+        </div>
+        <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-[3px] text-[11px] text-slate-500">
+          Owner: All <ChevronDown className="h-3 w-3" />
+        </span>
+        <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-[3px] text-[11px] text-slate-500">
+          Tags <ChevronDown className="h-3 w-3" />
+        </span>
+        <span className="ml-auto">
+          <Btn>
+            <Plus className="h-3 w-3" /> New contract
+          </Btn>
+        </span>
+      </Toolbar>
+
+      <div className="grid h-[calc(100%-42px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[minmax(0,1fr)_262px]">
+        <Card className="flex min-h-0 flex-col overflow-hidden">
+          <div className="grid shrink-0 grid-cols-[1.9fr_1.25fr_0.95fr_0.8fr_0.85fr] gap-2 border-b border-slate-200/80 bg-slate-50/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+            <span>Document</span>
+            <span>Customer</span>
+            <span>Last viewed</span>
+            <span>Value</span>
+            <span>Owner</span>
+          </div>
+          <div className="divide-y divide-slate-100">
+            {DOCS.map((d) => {
+              const active = d.title === "Campaign proposal";
+              return (
+                <div
+                  key={d.title}
+                  className={cn(
+                    "grid grid-cols-[1.9fr_1.25fr_0.95fr_0.8fr_0.85fr] items-center gap-2 px-3 py-2.5 transition-colors duration-500",
+                    active && step >= 1 ? "bg-blue-50/60" : "bg-white",
+                  )}
+                >
+                  <div className="flex min-w-0 items-center gap-1.5">
+                    <FileText className="h-3.5 w-3.5 shrink-0 text-slate-300" />
+                    <div className="min-w-0">
+                      <div className="truncate text-[11.5px] font-semibold text-slate-800">
+                        {d.title}
+                      </div>
+                      <Pill
+                        tone={
+                          active
+                            ? (tone as "green" | "violet" | "blue" | "slate")
+                            : d.status === "Signed"
+                              ? "green"
+                              : d.status === "Viewed"
+                                ? "violet"
+                                : d.status === "Sent"
+                                  ? "blue"
+                                  : "slate"
+                        }
+                        className="mt-1"
+                      >
+                        {active ? status : d.status}
+                      </Pill>
+                    </div>
+                  </div>
+                  <span className="truncate text-[11px] text-slate-600">{d.customer}</span>
+                  <span className="truncate whitespace-nowrap text-[11px] text-slate-500">
+                    {active && step >= 3 ? "just now" : d.seen}
+                  </span>
+                  <span className="text-[11px] font-semibold text-slate-800">{d.value}</span>
+                  <div className="flex items-center gap-1.5">
+                    <Avatar name={d.owner} tone="bg-slate-100 text-slate-600" size={18} />
+                    <span className="truncate text-[10.5px] text-slate-500">{d.owner}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+
+        {/* detail panel */}
+        <motion.div
+          className="hidden min-h-0 lg:block"
+          initial={false}
+          animate={{ opacity: step >= 1 ? 1 : 0, x: step >= 1 ? 0 : 20 }}
+          transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+        >
+          <Card className="flex h-full flex-col overflow-hidden">
+            <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
+              <span className="text-[12px] font-semibold text-slate-900">Campaign proposal</span>
+              <Pill tone={tone as "green" | "violet" | "blue" | "slate"} className="ml-auto">
+                {status}
+              </Pill>
+            </div>
+            <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
+              <div className="text-[11px] text-slate-500">North &amp; Pine Studio · A$8,600</div>
+              <div className="space-y-1">
+                {[
+                  ["Setup and guided launch", "A$3,600"],
+                  ["Monthly platform", "A$5,000"],
+                ].map(([l, v]) => (
+                  <div
+                    key={l}
+                    className="flex items-center justify-between rounded-md bg-slate-50 px-2 py-1.5 text-[11px]"
+                  >
+                    <span className="text-slate-600">{l}</span>
+                    <span className="font-semibold text-slate-800">{v}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-1.5 text-[10.5px] text-slate-400">
+                <Eye className="h-3.5 w-3.5" />{" "}
+                {step >= 3 ? "Viewed by customer" : "Not yet viewed"}
+              </div>
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+                  Signature
+                </div>
+                <div className="mt-1 h-10 rounded-md border border-slate-200 bg-slate-50">
+                  <svg viewBox="0 0 200 40" className="h-full w-full">
+                    <motion.path
+                      d="M12 28 C 28 8, 40 32, 54 18 S 76 6, 90 24 C 102 36, 114 12, 130 20 S 158 32, 188 14"
+                      fill="none"
+                      stroke="#1d4ed8"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      initial={false}
+                      animate={{ pathLength: step >= 4 ? 1 : 0 }}
+                      transition={{ duration: reduced ? 0 : 1, ease: "easeInOut" }}
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="mt-auto space-y-1.5">
+                <Btn className="w-full justify-center">
+                  <Send className="h-3 w-3" /> Send for signature
+                </Btn>
+                <StepIn show={step >= 5}>
+                  <div className="rounded-lg border border-emerald-200 bg-emerald-50/70 px-2.5 py-2 text-[11px] text-emerald-800">
+                    Opportunity updated: Negotiation → <span className="font-semibold">Won</span>
+                  </div>
+                </StepIn>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+      </div>
+
+      <Cursor x={cx} y={cy} clicking={step === 1 || step === 2} reduced={reduced} />
+      <Toast
+        show={step >= 5}
+        title="Contract signed"
+        body="Opportunity marked Won automatically."
+      />
+    </div>
   );
 }

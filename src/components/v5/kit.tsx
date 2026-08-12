@@ -7,15 +7,15 @@ import {
   CircleDollarSign,
   FileText,
   Inbox,
-  LayoutGrid,
   Mail,
   MessageSquare,
+  Megaphone,
   Phone,
   Search,
   Settings,
+  Target,
   Users,
   Workflow,
-  Zap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
@@ -27,13 +27,14 @@ export const EASE = [0.22, 1, 0.36, 1] as const;
 /* ------------------------------------------------------------------ */
 
 const RAIL = [
-  { icon: LayoutGrid, key: "enquiries" },
-  { icon: Inbox, key: "inbox" },
-  { icon: CalendarDays, key: "bookings" },
-  { icon: Workflow, key: "automations" },
-  { icon: Users, key: "winback" },
-  { icon: Zap, key: "marketing" },
-  { icon: FileText, key: "proposals" },
+  { icon: Users, key: "contacts", label: "Contacts" },
+  { icon: Target, key: "opportunities", label: "Opportunities" },
+  { icon: Inbox, key: "inbox", label: "Inbox" },
+  { icon: Workflow, key: "automations", label: "Automations" },
+  { icon: Megaphone, key: "social", label: "Social" },
+  { icon: Mail, key: "email", label: "Email" },
+  { icon: CalendarDays, key: "bookings", label: "Bookings" },
+  { icon: FileText, key: "documents", label: "Documents" },
 ];
 
 export function AppShell({
@@ -48,43 +49,44 @@ export function AppShell({
   children: ReactNode;
 }) {
   return (
-    <div className="flex h-full w-full overflow-hidden rounded-[18px] bg-white">
-      {/* icon rail */}
-      <div className="hidden w-[52px] shrink-0 flex-col items-center gap-1 border-r border-slate-200/80 bg-slate-50/80 py-3 sm:flex">
-        <img src={logo.url} alt="Zapla" className="mb-2 h-6 w-6 rounded-[7px]" />
-        {RAIL.map(({ icon: Icon, key }) => {
+    <div className="flex h-full w-full overflow-hidden rounded-[16px] bg-white">
+      {/* dark navigation rail */}
+      <div className="hidden w-[64px] shrink-0 flex-col items-center gap-1 bg-[#0B1526] py-3 sm:flex">
+        <img src={logo.url} alt="Zapla" className="mb-3 h-7 w-7 rounded-[8px]" />
+        {RAIL.map(({ icon: Icon, key, label }) => {
           const on = key === activeKey;
           return (
             <div
               key={key}
               className={cn(
-                "flex h-8 w-8 items-center justify-center rounded-[9px] transition-colors duration-500",
-                on ? "bg-blue-600/10 text-blue-600" : "text-slate-400",
+                "flex w-[52px] flex-col items-center gap-[3px] rounded-[10px] py-1.5 transition-colors duration-500",
+                on ? "bg-white/10 text-white" : "text-slate-400/70",
               )}
             >
-              <Icon className="h-[15px] w-[15px]" strokeWidth={2} />
+              <Icon className="h-[16px] w-[16px]" strokeWidth={1.9} />
+              <span className="text-[8px] font-medium leading-none">{label}</span>
             </div>
           );
         })}
-        <div className="mt-auto flex h-7 w-7 items-center justify-center rounded-full bg-slate-200 text-[9px] font-semibold text-slate-500">
+        <div className="mt-auto flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-[9px] font-semibold text-white/80">
           AZ
         </div>
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col">
         {/* top bar */}
-        <div className="flex h-[46px] shrink-0 items-center gap-3 border-b border-slate-200/80 px-3 sm:px-4">
+        <div className="flex h-[50px] shrink-0 items-center gap-3 border-b border-slate-200/80 px-3 sm:px-4">
           <div className="min-w-0">
-            <div className="truncate text-[13px] font-semibold tracking-tight text-slate-900">
+            <div className="truncate text-[14px] font-semibold tracking-tight text-slate-900">
               {title}
             </div>
             {subtitle ? (
-              <div className="truncate text-[10px] text-slate-400">{subtitle}</div>
+              <div className="truncate text-[11px] text-slate-400">{subtitle}</div>
             ) : null}
           </div>
           <div className="ml-auto flex items-center gap-1.5">
-            <div className="hidden h-6 items-center gap-1.5 rounded-md border border-slate-200 px-2 text-[10px] text-slate-400 md:flex">
-              <Search className="h-3 w-3" />
+            <div className="hidden h-7 items-center gap-1.5 rounded-md border border-slate-200 px-2.5 text-[11px] text-slate-400 md:flex">
+              <Search className="h-3.5 w-3.5" />
               Search
             </div>
             <IconBtn>
@@ -96,7 +98,7 @@ export function AppShell({
           </div>
         </div>
 
-        <div className="relative min-h-0 flex-1 bg-[#FAFBFF]">{children}</div>
+        <div className="relative min-h-0 flex-1 bg-[#F7F9FC]">{children}</div>
       </div>
     </div>
   );
@@ -104,7 +106,7 @@ export function AppShell({
 
 function IconBtn({ children }: { children: ReactNode }) {
   return (
-    <div className="flex h-6 w-6 items-center justify-center rounded-md border border-slate-200 text-slate-400">
+    <div className="flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 text-slate-400">
       {children}
     </div>
   );
@@ -135,7 +137,7 @@ export function Pill({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full px-2 py-[2px] text-[9.5px] font-medium leading-none",
+        "inline-flex items-center gap-1 rounded-full px-2 py-[3px] text-[10.5px] font-medium leading-none",
         tones[tone],
         className,
       )}
@@ -148,7 +150,7 @@ export function Pill({
 export function Avatar({
   name,
   tone = "bg-blue-100 text-blue-700",
-  size = 24,
+  size = 26,
 }: {
   name: string;
   tone?: string;
@@ -174,7 +176,7 @@ export function Avatar({
 
 export function ChannelMark({
   channel,
-  size = 16,
+  size = 18,
 }: {
   channel: "instagram" | "sms" | "email" | "messenger" | "phone";
   size?: number;
@@ -281,7 +283,7 @@ export function Toast({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10 }}
           transition={{ duration: 0.45, ease: EASE }}
-          className="absolute bottom-3 right-3 z-30 flex max-w-[260px] items-start gap-2.5 rounded-xl border border-slate-200 bg-white/95 px-3 py-2.5 shadow-[0_12px_30px_-12px_rgba(15,23,42,0.28)] backdrop-blur"
+          className="absolute bottom-3 right-3 z-30 flex max-w-[280px] items-start gap-2.5 rounded-xl border border-slate-200 bg-white/95 px-3 py-2.5 shadow-[0_12px_30px_-12px_rgba(15,23,42,0.28)] backdrop-blur"
         >
           <span
             className={cn(
@@ -292,9 +294,9 @@ export function Toast({
             {icon ?? <Check className="h-3 w-3" strokeWidth={3} />}
           </span>
           <div className="min-w-0">
-            <div className="text-[11px] font-semibold text-slate-900">{title}</div>
+            <div className="text-[12px] font-semibold text-slate-900">{title}</div>
             {body ? (
-              <div className="mt-0.5 text-[10px] leading-snug text-slate-500">{body}</div>
+              <div className="mt-0.5 text-[11px] leading-snug text-slate-500">{body}</div>
             ) : null}
           </div>
         </motion.div>
@@ -330,4 +332,61 @@ export function StepIn({
 
 export function MoneyIcon() {
   return <CircleDollarSign className="h-3 w-3" />;
+}
+
+/* Small shared workspace toolbar used inside scenes */
+export function Toolbar({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2 border-b border-slate-200/80 bg-white px-3 py-2">
+      {children}
+    </div>
+  );
+}
+
+export function FilterChip({
+  children,
+  active,
+  icon,
+}: {
+  children: ReactNode;
+  active?: boolean;
+  icon?: ReactNode;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-[4px] text-[11px] font-medium transition-colors duration-400",
+        active
+          ? "border-blue-500/40 bg-blue-50 text-blue-700"
+          : "border-slate-200 bg-white text-slate-500",
+      )}
+    >
+      {icon}
+      {children}
+    </span>
+  );
+}
+
+export function Btn({
+  children,
+  tone = "primary",
+  className,
+}: {
+  children: ReactNode;
+  tone?: "primary" | "ghost";
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-md px-2.5 py-[5px] text-[11px] font-semibold",
+        tone === "primary"
+          ? "bg-blue-600 text-white shadow-[0_6px_14px_-8px_rgba(37,99,235,0.9)]"
+          : "border border-slate-200 bg-white text-slate-600",
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
 }
