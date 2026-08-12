@@ -176,7 +176,7 @@ export function SceneContacts({ step, reduced }: SceneProps) {
       <div className="flex h-[calc(100%-42px)] min-h-0 gap-3 p-3">
         <Card className="flex min-w-0 flex-1 flex-col overflow-hidden">
           {/* table head */}
-          <div className="grid shrink-0 grid-cols-[24px_1.5fr_1.4fr_1fr_1.6fr] items-center gap-2 border-b border-slate-200/80 bg-slate-50/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+          <div className="grid shrink-0 grid-cols-[24px_1.6fr_1.5fr_1.05fr_1.5fr] items-center gap-2 border-b border-slate-200/80 bg-slate-50/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
             <span />
             <span>Contact</span>
             <span className="hidden sm:block">Phone / Email</span>
@@ -193,7 +193,7 @@ export function SceneContacts({ step, reduced }: SceneProps) {
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
                   className={cn(
-                    "grid grid-cols-[24px_1.5fr_1.4fr_1fr_1.6fr] items-center gap-2 px-3 py-2.5 transition-colors duration-500",
+                    "grid grid-cols-[24px_1.6fr_1.5fr_1.05fr_1.5fr] items-center gap-2 px-3 py-2.5 transition-colors duration-500",
                     selected && c.match ? "bg-blue-50/60" : "bg-white",
                   )}
                 >
@@ -224,7 +224,7 @@ export function SceneContacts({ step, reduced }: SceneProps) {
                     <ChannelMark channel={c.channel} size={14} />
                     <span
                       className={cn(
-                        "rounded-md px-1.5 py-[2px] text-[11px] transition-colors duration-500",
+                        "whitespace-nowrap rounded-md px-1.5 py-[2px] text-[11px] transition-colors duration-500",
                         c.stale && filtered
                           ? "bg-rose-50 font-semibold text-rose-600"
                           : "text-slate-500",
@@ -264,7 +264,7 @@ export function SceneContacts({ step, reduced }: SceneProps) {
 
         {/* composer panel */}
         <motion.div
-          className="hidden w-[264px] shrink-0 lg:block"
+          className="pointer-events-none absolute bottom-3 right-3 top-3 hidden w-[272px] lg:block"
           initial={false}
           animate={{ opacity: composer ? 1 : 0, x: composer ? 0 : 24 }}
           transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
@@ -488,7 +488,9 @@ export function SceneOpportunities({ step, reduced }: SceneProps) {
                         <span className="text-[11.5px] font-semibold text-slate-800">
                           {o.value}
                         </span>
-                        <span className="text-[10px] text-slate-400">· {o.age}</span>
+                        <span className="whitespace-nowrap text-[10px] text-slate-400">
+                          · {o.age}
+                        </span>
                         <Avatar name={o.name} tone={o.tone} size={18} />
                       </div>
                     </motion.div>
@@ -573,9 +575,9 @@ export function SceneInbox({ step, reduced }: SceneProps) {
 
   return (
     <div className="relative h-full p-3">
-      <div className="grid h-full min-h-0 grid-cols-1 gap-2.5 lg:grid-cols-[120px_1fr_1.25fr_240px]">
+      <div className="grid h-full min-h-0 grid-cols-1 gap-2.5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_215px] xl:grid-cols-[112px_minmax(0,1fr)_minmax(0,1.35fr)_225px]">
         {/* folders */}
-        <Card className="hidden flex-col gap-1 p-2 lg:flex">
+        <Card className="hidden flex-col gap-1 p-2 xl:flex">
           <div className="px-1 pb-1 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
             Messages
           </div>

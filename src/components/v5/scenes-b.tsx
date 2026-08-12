@@ -107,10 +107,10 @@ export function SceneSocial({ step, reduced }: SceneProps) {
   return (
     <div className="relative h-full">
       <Toolbar>
-        <span className="text-[12px] font-semibold text-slate-900">Social planner</span>
         <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-[3px] text-[11px] text-slate-500">
           Week of 4 Aug <ChevronDown className="h-3 w-3" />
         </span>
+        <span className="text-[10.5px] text-slate-400">Connected:</span>
         <span className="ml-1 flex items-center gap-1.5">
           {["ig", "fb", "li", "gb"].map((c) => (
             <span
@@ -124,7 +124,7 @@ export function SceneSocial({ step, reduced }: SceneProps) {
                   ? "Facebook"
                   : c === "li"
                     ? "LinkedIn"
-                    : "Google Business"}
+                    : "Google"}
             </span>
           ))}
         </span>
@@ -135,7 +135,7 @@ export function SceneSocial({ step, reduced }: SceneProps) {
         </span>
       </Toolbar>
 
-      <div className="grid h-[calc(100%-46px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[1fr_270px]">
+      <div className="grid h-[calc(100%-42px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[minmax(0,1fr)_262px]">
         <Card className="flex min-h-0 flex-col overflow-hidden">
           <div className="grid shrink-0 grid-cols-5 border-b border-slate-200/80 bg-slate-50/70">
             {DAYS.map((d) => (
@@ -192,7 +192,7 @@ export function SceneSocial({ step, reduced }: SceneProps) {
               </Pill>
             </div>
             <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
-              <div className="flex h-16 items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 text-slate-300">
+              <div className="flex h-12 items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 text-slate-300">
                 <ImageIcon className="h-5 w-5" />
               </div>
               <div className="min-h-[52px] rounded-lg border border-slate-200 p-2 text-[11px] leading-relaxed text-slate-600">
@@ -304,7 +304,7 @@ export function SceneEmail({ step, reduced }: SceneProps) {
         </span>
       </Toolbar>
 
-      <div className="grid h-[calc(100%-46px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[300px_1fr]">
+      <div className="grid h-[calc(100%-42px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[290px_minmax(0,1fr)]">
         <Card className="flex min-h-0 flex-col overflow-hidden">
           <div className="grid shrink-0 grid-cols-[1.6fr_0.9fr_0.7fr] gap-2 border-b border-slate-200/80 bg-slate-50/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
             <span>Campaign</span>
@@ -343,7 +343,7 @@ export function SceneEmail({ step, reduced }: SceneProps) {
           animate={{ opacity: editor ? 1 : 0.25, y: editor ? 0 : 10 }}
           transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
         >
-          <Card className="flex h-full min-h-0 flex-col overflow-hidden">
+          <Card className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden">
             <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
               <span className="text-[12px] font-semibold text-slate-900">Edit email</span>
               <Pill tone={published ? "green" : "slate"}>{published ? "Published" : "Draft"}</Pill>
@@ -352,7 +352,7 @@ export function SceneEmail({ step, reduced }: SceneProps) {
                 <Btn>Publish</Btn>
               </span>
             </div>
-            <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 p-3 lg:grid-cols-[210px_1fr]">
+            <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 p-3 lg:grid-cols-[190px_minmax(0,1fr)]">
               <div className="space-y-2">
                 <LabeledInput label="Campaign name" value="New Customer Welcome" />
                 <LabeledInput label="Subject" value="Welcome to our studio" />
@@ -380,7 +380,7 @@ export function SceneEmail({ step, reduced }: SceneProps) {
                 </div>
               </div>
 
-              <div className="min-h-0 rounded-lg border border-slate-200 bg-slate-50 p-3">
+              <div className="min-h-0 min-w-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-3">
                 <div className="mx-auto flex h-full max-w-[320px] flex-col rounded-lg border border-slate-200 bg-white p-3">
                   <div className="h-1.5 w-full rounded-full bg-blue-600" />
                   <StepIn show={step >= 2} className="mt-2.5">
@@ -700,9 +700,9 @@ export function SceneDocuments({ step, reduced }: SceneProps) {
         </span>
       </Toolbar>
 
-      <div className="grid h-[calc(100%-46px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[1fr_268px]">
+      <div className="grid h-[calc(100%-42px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[minmax(0,1fr)_262px]">
         <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="grid shrink-0 grid-cols-[1.5fr_1.2fr_0.9fr_0.8fr_0.7fr] gap-2 border-b border-slate-200/80 bg-slate-50/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+          <div className="grid shrink-0 grid-cols-[1.9fr_1.25fr_0.95fr_0.8fr_0.85fr] gap-2 border-b border-slate-200/80 bg-slate-50/70 px-3 py-2 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
             <span>Document</span>
             <span>Customer</span>
             <span>Last viewed</span>
@@ -716,7 +716,7 @@ export function SceneDocuments({ step, reduced }: SceneProps) {
                 <div
                   key={d.title}
                   className={cn(
-                    "grid grid-cols-[1.5fr_1.2fr_0.9fr_0.8fr_0.7fr] items-center gap-2 px-3 py-2.5 transition-colors duration-500",
+                    "grid grid-cols-[1.9fr_1.25fr_0.95fr_0.8fr_0.85fr] items-center gap-2 px-3 py-2.5 transition-colors duration-500",
                     active && step >= 1 ? "bg-blue-50/60" : "bg-white",
                   )}
                 >
@@ -745,7 +745,7 @@ export function SceneDocuments({ step, reduced }: SceneProps) {
                     </div>
                   </div>
                   <span className="truncate text-[11px] text-slate-600">{d.customer}</span>
-                  <span className="truncate text-[11px] text-slate-500">
+                  <span className="truncate whitespace-nowrap text-[11px] text-slate-500">
                     {active && step >= 3 ? "just now" : d.seen}
                   </span>
                   <span className="text-[11px] font-semibold text-slate-800">{d.value}</span>

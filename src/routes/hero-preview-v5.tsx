@@ -168,7 +168,7 @@ function HeroV5Page() {
   return (
     <div className="min-h-screen bg-white font-zapla text-zapla-ink">
       {/* preview header */}
-      <header className="mx-auto flex max-w-[1240px] items-center gap-3 px-5 py-5 sm:px-8">
+      <header className="mx-auto flex max-w-[1360px] items-center gap-3 px-5 py-5 sm:px-8">
         <img src={logo.url} alt="Zapla" className="h-8 w-8 rounded-[10px]" />
         <span className="text-[15px] font-semibold tracking-tight">Zapla</span>
         <span className="ml-2 rounded-full border border-slate-200 px-2 py-[2px] text-[10px] font-medium text-slate-400">
@@ -187,13 +187,13 @@ function HeroV5Page() {
           }}
         />
 
-        <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 pb-16 pt-4 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-8 lg:pb-20">
+        <div className="mx-auto grid max-w-[1360px] items-center gap-10 px-5 pb-16 pt-4 sm:px-8 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:gap-10 lg:pb-20">
           {/* copy */}
-          <div className="max-w-[520px]">
+          <div className="max-w-[420px]">
             <p className="text-[12.5px] font-semibold uppercase tracking-[0.14em] text-zapla-blue">
               AI-powered business platform
             </p>
-            <h1 className="mt-4 text-[42px] font-extrabold leading-[1.02] tracking-[-0.03em] text-zapla-ink sm:text-[56px]">
+            <h1 className="mt-4 text-[40px] font-extrabold leading-[1.03] tracking-[-0.03em] text-zapla-ink sm:text-[50px]">
               You lead.
               <br />
               Zapla follows through.
