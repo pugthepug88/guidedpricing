@@ -6,12 +6,17 @@ import { cn } from "@/lib/utils";
 import { AppShell, EASE } from "@/components/v5/kit";
 import {
   SceneAutomations,
-  SceneBookings,
-  SceneEnquiries,
+  SceneContacts,
   SceneInbox,
+  SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
-import { SceneMarketing, SceneProposals, SceneWinBack } from "@/components/v5/scenes-b";
+import {
+  SceneBookings,
+  SceneDocuments,
+  SceneEmail,
+  SceneSocial,
+} from "@/components/v5/scenes-b";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview-v5")({
@@ -47,28 +52,28 @@ type SceneDef = {
 
 const SCENES: SceneDef[] = [
   {
-    key: "enquiries",
-    label: "Enquiries",
-    title: "Enquiries",
-    subtitle: "New message to booked appointment",
-    steps: 8,
-    render: (p) => <SceneEnquiries {...p} />,
+    key: "contacts",
+    label: "Contacts",
+    title: "Contacts",
+    subtitle: "Tags and last activity show who to re-engage",
+    steps: 7,
+    render: (p) => <SceneContacts {...p} />,
+  },
+  {
+    key: "opportunities",
+    label: "Opportunities",
+    title: "Opportunities",
+    subtitle: "Pipeline from first enquiry to negotiation",
+    steps: 6,
+    render: (p) => <SceneOpportunities {...p} />,
   },
   {
     key: "inbox",
     label: "Inbox",
-    title: "Conversations",
-    subtitle: "One thread across every channel",
+    title: "Unified inbox",
+    subtitle: "SMS, email, Facebook and Instagram in one thread",
     steps: 6,
     render: (p) => <SceneInbox {...p} />,
-  },
-  {
-    key: "bookings",
-    label: "Bookings",
-    title: "Calendars",
-    subtitle: "Availability, assignment and reminders",
-    steps: 6,
-    render: (p) => <SceneBookings {...p} />,
   },
   {
     key: "automations",
@@ -79,28 +84,36 @@ const SCENES: SceneDef[] = [
     render: (p) => <SceneAutomations {...p} />,
   },
   {
-    key: "winback",
-    label: "Win Back",
-    title: "Contacts",
-    subtitle: "Bring past customers back",
+    key: "social",
+    label: "Social Planner",
+    title: "Social planner",
+    subtitle: "Plan and schedule across connected accounts",
     steps: 6,
-    render: (p) => <SceneWinBack {...p} />,
+    render: (p) => <SceneSocial {...p} />,
   },
   {
-    key: "marketing",
-    label: "Marketing",
-    title: "Marketing",
-    subtitle: "Social planning and quote follow-up",
+    key: "email",
+    label: "Email Marketing",
+    title: "Email marketing",
+    subtitle: "Campaigns, drafts and published sends",
     steps: 6,
-    render: (p) => <SceneMarketing {...p} />,
+    render: (p) => <SceneEmail {...p} />,
   },
   {
-    key: "proposals",
-    label: "Proposals",
+    key: "bookings",
+    label: "Bookings",
+    title: "Bookings",
+    subtitle: "Customer facing scheduling page",
+    steps: 6,
+    render: (p) => <SceneBookings {...p} />,
+  },
+  {
+    key: "documents",
+    label: "Documents",
     title: "Documents & contracts",
-    subtitle: "Quote, sign and close",
+    subtitle: "Quote, send, sign and close",
     steps: 6,
-    render: (p) => <SceneProposals {...p} />,
+    render: (p) => <SceneDocuments {...p} />,
   },
 ];
 
@@ -179,7 +192,7 @@ function HeroV5Page() {
           }}
         />
 
-        <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 pb-16 pt-4 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-8 lg:pb-20">
+        <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 pb-16 pt-4 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-8 lg:pb-20">
           {/* copy */}
           <div className="max-w-[520px]">
             <p className="text-[12.5px] font-semibold uppercase tracking-[0.14em] text-zapla-blue">
@@ -223,7 +236,7 @@ function HeroV5Page() {
               onBlur={() => setPaused(false)}
               className="rounded-[22px] border border-slate-200/80 bg-white p-1.5 shadow-[0_40px_90px_-40px_rgba(15,23,42,0.35)]"
             >
-              <div className="h-[430px] sm:h-[500px] lg:h-[540px]">
+              <div className="h-[460px] sm:h-[520px] lg:h-[580px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
                   <div className="absolute inset-0">{scene.render({ step, reduced })}</div>
                 </AppShell>
