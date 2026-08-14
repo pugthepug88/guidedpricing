@@ -307,7 +307,9 @@ export function SceneEmail({ step, reduced }: SceneProps) {
                 <div className="truncate text-[12px] font-semibold text-slate-800">{c.name}</div>
                 <div className="mt-1 flex items-center gap-1.5">
                   <Pill
-                    tone={c.status === "Active" ? "blue" : c.status === "Published" ? "green" : "slate"}
+                    tone={
+                      c.status === "Active" ? "blue" : c.status === "Published" ? "green" : "slate"
+                    }
                   >
                     {c.status}
                   </Pill>
@@ -713,7 +715,7 @@ export function SceneContracts({ step, reduced }: SceneProps) {
             <div className="flex items-center gap-2 text-[11px] text-slate-400">
               {["Draft", "Sent", "Viewed", "Signed", "Completed"].map((s, i) => {
                 const on =
-                  (i === 0) ||
+                  i === 0 ||
                   (i === 1 && step >= 1) ||
                   (i === 2 && step >= 2) ||
                   (i === 3 && sign2Done) ||

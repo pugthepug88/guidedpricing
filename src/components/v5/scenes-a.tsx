@@ -724,7 +724,9 @@ export function SceneInbox({ step, reduced }: SceneProps) {
                     <motion.div
                       key={c.name}
                       initial={false}
-                      animate={{ backgroundColor: active ? "rgb(239 246 255)" : "rgb(255,255,255)" }}
+                      animate={{
+                        backgroundColor: active ? "rgb(239 246 255)" : "rgb(255,255,255)",
+                      }}
                       transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
                       className="flex items-center gap-2 border-b border-slate-100 px-3 py-2.5"
                     >
@@ -851,7 +853,9 @@ export function SceneInbox({ step, reduced }: SceneProps) {
               <div className="flex items-center gap-1.5 text-[11.5px] font-semibold text-emerald-700">
                 <Check className="h-3 w-3" strokeWidth={3} /> Opportunity created
               </div>
-              <div className="mt-0.5 text-[10.5px] text-emerald-700/80">Studio refresh · $2,400</div>
+              <div className="mt-0.5 text-[10.5px] text-emerald-700/80">
+                Studio refresh · $2,400
+              </div>
             </div>
           </StepIn>
         </Card>

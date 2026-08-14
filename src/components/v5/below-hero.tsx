@@ -43,7 +43,7 @@ function ReputationCard({ reduced }: { reduced: boolean }) {
   const reviews = step >= 3;
 
   return (
-    <Card className="overflow-hidden" >
+    <Card className="overflow-hidden">
       <div className="flex items-center gap-2 border-b border-slate-200/80 px-4 py-3">
         <Star className="h-4 w-4 text-amber-500" />
         <span className="text-[13px] font-semibold text-slate-900">Reviews</span>
@@ -73,7 +73,11 @@ function ReputationCard({ reduced }: { reduced: boolean }) {
               <div className="truncate text-[12.5px] font-semibold text-slate-800">{c.name}</div>
               <div className="truncate text-[10.5px] text-slate-400">{c.job} · completed</div>
             </div>
-            {sent ? <Pill tone="blue" className="ml-auto">Requested</Pill> : null}
+            {sent ? (
+              <Pill tone="blue" className="ml-auto">
+                Requested
+              </Pill>
+            ) : null}
           </motion.div>
         ))}
 
@@ -81,7 +85,9 @@ function ReputationCard({ reduced }: { reduced: boolean }) {
           <Btn>
             <Send className="h-3 w-3" /> Request reviews
           </Btn>
-          <span className="text-[11px] text-slate-400">Every completed customer, no filtering.</span>
+          <span className="text-[11px] text-slate-400">
+            Every completed customer, no filtering.
+          </span>
         </div>
 
         <AnimatePresence>
