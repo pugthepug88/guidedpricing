@@ -496,15 +496,16 @@ export function SceneOpportunities({ step, reduced }: SceneProps) {
                       </Pill>
                       <span className="ml-auto text-[10.5px] text-slate-400">now</span>
                     </div>
-                    <div className="mt-1.5 flex items-center gap-2">
+                    <div className="mt-1.5 flex items-start gap-2">
                       <Face src={FACE.nina} size={22} />
                       <div className="min-w-0">
-                        <div className="truncate text-[11.5px] font-semibold text-slate-800">
+                        <div className="text-[11.5px] font-semibold leading-tight text-slate-800">
                           Website enquiry
                         </div>
                         <div className="truncate text-[10.5px] text-slate-400">Alto Fitout Co</div>
                       </div>
                     </div>
+
                   </motion.div>
                 ) : null}
 
