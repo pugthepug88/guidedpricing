@@ -298,6 +298,8 @@ function HeroV5Page() {
           </div>
         </div>
       </main>
+
+      <BelowHeroV5 />
     </div>
   );
 }
