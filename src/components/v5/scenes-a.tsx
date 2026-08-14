@@ -505,7 +505,6 @@ export function SceneOpportunities({ step, reduced }: SceneProps) {
                         <div className="truncate text-[10.5px] text-slate-400">Alto Fitout Co</div>
                       </div>
                     </div>
-
                   </motion.div>
                 ) : null}
 
@@ -548,7 +547,6 @@ export function SceneOpportunities({ step, reduced }: SceneProps) {
                             <span className="ml-auto text-[10.5px] text-slate-400">{d.age}</span>
                           )}
                         </div>
-
                       </motion.div>
                     );
                   })}
