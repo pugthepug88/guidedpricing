@@ -11,7 +11,13 @@ import {
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
-import { SceneBookings, SceneDocuments, SceneEmail, SceneSocial } from "@/components/v5/scenes-b";
+import {
+  SceneCalendar,
+  SceneContent,
+  SceneContracts,
+  SceneEmail,
+} from "@/components/v5/scenes-b";
+import { BelowHeroV5 } from "@/components/v5/below-hero";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview-v5")({
