@@ -560,7 +560,7 @@ export function SceneOpportunities({ step, reduced }: SceneProps) {
           initial={false}
           animate={{ opacity: won ? 1 : 0, x: won ? 0 : 24 }}
           transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-          className="hidden w-[228px] shrink-0 lg:block"
+          className="hidden w-[196px] shrink-0 lg:block"
         >
           <Card className="flex h-full flex-col overflow-hidden">
             <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
