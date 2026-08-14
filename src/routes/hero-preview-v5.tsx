@@ -11,7 +11,8 @@ import {
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
-import { SceneBookings, SceneDocuments, SceneEmail, SceneSocial } from "@/components/v5/scenes-b";
+import { SceneCalendar, SceneContent, SceneContracts, SceneEmail } from "@/components/v5/scenes-b";
+import { BelowHeroV5 } from "@/components/v5/below-hero";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview-v5")({
@@ -58,57 +59,57 @@ const SCENES: SceneDef[] = [
     key: "opportunities",
     label: "Opportunities",
     title: "Opportunities",
-    subtitle: "Pipeline from first enquiry to negotiation",
-    steps: 6,
+    subtitle: "Won deals start the next work automatically",
+    steps: 8,
     render: (p) => <SceneOpportunities {...p} />,
   },
   {
     key: "inbox",
     label: "Inbox",
-    title: "Unified inbox",
+    title: "Inbox",
     subtitle: "SMS, email, Facebook and Instagram in one thread",
-    steps: 6,
+    steps: 5,
     render: (p) => <SceneInbox {...p} />,
   },
   {
     key: "automations",
     label: "Automations",
-    title: "Workflows",
-    subtitle: "Review requests after every completed job",
+    title: "Automations",
+    subtitle: "Lead follow-up that stops the moment they reply",
     steps: 6,
     render: (p) => <SceneAutomations {...p} />,
   },
   {
-    key: "social",
-    label: "Social Planner",
-    title: "Social planner",
-    subtitle: "Plan and schedule across connected accounts",
+    key: "content",
+    label: "Content Planner",
+    title: "Content Planner",
+    subtitle: "Plan and schedule across connected channels",
     steps: 6,
-    render: (p) => <SceneSocial {...p} />,
+    render: (p) => <SceneContent {...p} />,
   },
   {
     key: "email",
     label: "Email Marketing",
-    title: "Email marketing",
-    subtitle: "Campaigns, drafts and published sends",
-    steps: 6,
+    title: "Email Marketing",
+    subtitle: "Sequences that pause when a customer answers",
+    steps: 5,
     render: (p) => <SceneEmail {...p} />,
   },
   {
-    key: "bookings",
-    label: "Bookings",
-    title: "Bookings",
-    subtitle: "Customer facing scheduling page",
-    steps: 6,
-    render: (p) => <SceneBookings {...p} />,
+    key: "calendar",
+    label: "Calendar",
+    title: "Calendar",
+    subtitle: "Team week with automatic confirmations",
+    steps: 5,
+    render: (p) => <SceneCalendar {...p} />,
   },
   {
-    key: "documents",
-    label: "Documents",
-    title: "Documents & contracts",
-    subtitle: "Quote, send, sign and close",
+    key: "contracts",
+    label: "Contracts",
+    title: "Contracts",
+    subtitle: "Send, sign in order and close",
     steps: 6,
-    render: (p) => <SceneDocuments {...p} />,
+    render: (p) => <SceneContracts {...p} />,
   },
 ];
 
@@ -292,6 +293,8 @@ function HeroV5Page() {
           </div>
         </div>
       </main>
+
+      <BelowHeroV5 />
     </div>
   );
 }

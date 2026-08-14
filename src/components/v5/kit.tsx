@@ -5,11 +5,15 @@ import {
   CalendarDays,
   Check,
   CircleDollarSign,
-  FileText,
+  FileSignature,
   Inbox,
+  Instagram,
+  Facebook,
+  Linkedin,
+  LayoutGrid,
+  Globe,
   Mail,
   MessageSquare,
-  Megaphone,
   Phone,
   Search,
   Settings,
@@ -19,11 +23,12 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
+import { FACE } from "./faces";
 
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
 /* ------------------------------------------------------------------ */
-/* App shell                                                           */
+/* App shell — white, icon only rail                                   */
 /* ------------------------------------------------------------------ */
 
 const RAIL = [
@@ -31,10 +36,10 @@ const RAIL = [
   { icon: Target, key: "opportunities", label: "Opportunities" },
   { icon: Inbox, key: "inbox", label: "Inbox" },
   { icon: Workflow, key: "automations", label: "Automations" },
-  { icon: Megaphone, key: "social", label: "Social" },
-  { icon: Mail, key: "email", label: "Email" },
-  { icon: CalendarDays, key: "bookings", label: "Bookings" },
-  { icon: FileText, key: "documents", label: "Documents" },
+  { icon: LayoutGrid, key: "content", label: "Content Planner" },
+  { icon: Mail, key: "email", label: "Email Marketing" },
+  { icon: CalendarDays, key: "calendar", label: "Calendar" },
+  { icon: FileSignature, key: "contracts", label: "Contracts" },
 ];
 
 export function AppShell({
@@ -50,34 +55,36 @@ export function AppShell({
 }) {
   return (
     <div className="flex h-full w-full overflow-hidden rounded-[16px] bg-white">
-      {/* dark navigation rail */}
-      <div className="hidden w-[64px] shrink-0 flex-col items-center gap-1 bg-[#0B1526] py-3 sm:flex">
-        <img src={logo.url} alt="Zapla" className="mb-3 h-7 w-7 rounded-[8px]" />
+      {/* light icon-only rail */}
+      <div className="hidden w-[56px] shrink-0 flex-col items-center gap-1.5 border-r border-slate-200/80 bg-[#FBFCFF] py-3 shadow-[1px_0_0_rgba(15,23,42,0.02)] sm:flex">
+        <img src={logo.url} alt="Zapla" className="mb-2.5 h-7 w-7 rounded-[9px]" />
         {RAIL.map(({ icon: Icon, key, label }) => {
           const on = key === activeKey;
           return (
             <div
               key={key}
+              aria-label={label}
               className={cn(
-                "flex w-[52px] flex-col items-center gap-[3px] rounded-[10px] py-1.5 transition-colors duration-500",
-                on ? "bg-white/10 text-white" : "text-slate-400/70",
+                "flex h-9 w-9 items-center justify-center rounded-[11px] transition-colors duration-500",
+                on ? "bg-blue-50 text-blue-600 ring-1 ring-blue-100" : "text-slate-300",
               )}
             >
-              <Icon className="h-[16px] w-[16px]" strokeWidth={1.9} />
-              <span className="text-[8px] font-medium leading-none">{label}</span>
+              <Icon className="h-[18px] w-[18px]" strokeWidth={1.9} />
             </div>
           );
         })}
-        <div className="mt-auto flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-[9px] font-semibold text-white/80">
-          AZ
-        </div>
+        <img
+          src={FACE.alex}
+          alt=""
+          className="mt-auto h-7 w-7 rounded-full object-cover ring-1 ring-slate-200"
+        />
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col">
         {/* top bar */}
         <div className="flex h-[50px] shrink-0 items-center gap-3 border-b border-slate-200/80 px-3 sm:px-4">
           <div className="min-w-0">
-            <div className="truncate text-[14px] font-semibold tracking-tight text-slate-900">
+            <div className="truncate text-[14.5px] font-semibold tracking-tight text-slate-900">
               {title}
             </div>
             {subtitle ? (
@@ -98,7 +105,7 @@ export function AppShell({
           </div>
         </div>
 
-        <div className="relative min-h-0 flex-1 bg-[#F7F9FC]">{children}</div>
+        <div className="relative min-h-0 flex-1 bg-[#F8FAFF]">{children}</div>
       </div>
     </div>
   );
@@ -147,30 +154,30 @@ export function Pill({
   );
 }
 
-export function Avatar({
-  name,
-  tone = "bg-blue-100 text-blue-700",
-  size = 26,
+/* Human face avatar (fictional demo portraits) */
+export function Face({
+  src,
+  size = 28,
+  className,
+  ring = true,
 }: {
-  name: string;
-  tone?: string;
+  src: string;
   size?: number;
+  className?: string;
+  ring?: boolean;
 }) {
-  const initials = name
-    .split(" ")
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join("");
   return (
-    <span
-      style={{ width: size, height: size, fontSize: size * 0.38 }}
+    <img
+      src={src}
+      alt=""
+      aria-hidden
+      style={{ width: size, height: size }}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full font-semibold",
-        tone,
+        "shrink-0 rounded-full object-cover",
+        ring && "ring-1 ring-slate-200",
+        className,
       )}
-    >
-      {initials}
-    </span>
+    />
   );
 }
 
@@ -184,9 +191,9 @@ export function ChannelMark({
   const map = {
     instagram: {
       cls: "bg-gradient-to-br from-fuchsia-500 to-orange-400 text-white",
-      icon: MessageSquare,
+      icon: Instagram,
     },
-    messenger: { cls: "bg-blue-500 text-white", icon: MessageSquare },
+    messenger: { cls: "bg-blue-500 text-white", icon: Facebook },
     sms: { cls: "bg-emerald-500 text-white", icon: MessageSquare },
     email: { cls: "bg-slate-700 text-white", icon: Mail },
     phone: { cls: "bg-indigo-500 text-white", icon: Phone },
@@ -202,6 +209,21 @@ export function ChannelMark({
   );
 }
 
+export function SocialMark({ id, size = 13 }: { id: string; size?: number }) {
+  const style = { width: size, height: size };
+  if (id === "ig") return <Instagram style={style} className="text-fuchsia-600" />;
+  if (id === "fb") return <Facebook style={style} className="text-blue-600" />;
+  if (id === "li") return <Linkedin style={style} className="text-cyan-700" />;
+  return <Globe style={style} className="text-emerald-600" />;
+}
+
+export const SOCIAL_LABEL: Record<string, string> = {
+  ig: "Instagram",
+  fb: "Facebook",
+  li: "LinkedIn",
+  gb: "Google Business",
+};
+
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div
@@ -215,16 +237,16 @@ export function Card({ children, className }: { children: ReactNode; className?:
   );
 }
 
-/* Animated cursor pointer */
-export function Cursor({
+/* Soft interaction indicator — ring + inner dot, gentle ripple on action */
+export function Pointer({
   x,
   y,
-  clicking,
+  active,
   reduced,
 }: {
   x: number;
   y: number;
-  clicking?: boolean;
+  active?: boolean;
   reduced?: boolean;
 }) {
   return (
@@ -233,26 +255,20 @@ export function Cursor({
       className="pointer-events-none absolute z-40 hidden sm:block"
       initial={false}
       animate={{ left: `${x}%`, top: `${y}%` }}
-      transition={{ duration: reduced ? 0 : 0.85, ease: EASE }}
+      transition={{ duration: reduced ? 0 : 0.9, ease: EASE }}
     >
-      <div className="relative -translate-x-1 -translate-y-1">
-        <svg width="18" height="18" viewBox="0 0 18 18" className="drop-shadow-sm">
-          <path
-            d="M2 1.5 L14.5 9 L9 10 L7.5 16 Z"
-            fill="white"
-            stroke="#0f172a"
-            strokeWidth="1.2"
-            strokeLinejoin="round"
-          />
-        </svg>
+      <div className="relative -translate-x-1/2 -translate-y-1/2">
+        <span className="absolute left-1/2 top-1/2 h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-500/45 bg-white/50 shadow-[0_0_16px_rgba(99,102,241,0.35)] backdrop-blur-[1px]" />
+        <span className="absolute left-1/2 top-1/2 h-[6px] w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,255,0.7)]" />
         <AnimatePresence>
-          {clicking && !reduced ? (
+          {active && !reduced ? (
             <motion.span
-              className="absolute -left-2 -top-2 h-7 w-7 rounded-full border-2 border-blue-500/60"
-              initial={{ scale: 0.3, opacity: 0.9 }}
-              animate={{ scale: 1.15, opacity: 0 }}
+              key="ripple"
+              className="absolute left-1/2 top-1/2 h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-400/70"
+              initial={{ scale: 0.6, opacity: 0.8 }}
+              animate={{ scale: 2.1, opacity: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             />
           ) : null}
         </AnimatePresence>
@@ -355,7 +371,7 @@ export function FilterChip({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-[4px] text-[11px] font-medium transition-colors duration-400",
+        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-[4px] text-[11.5px] font-medium transition-colors duration-500",
         active
           ? "border-blue-500/40 bg-blue-50 text-blue-700"
           : "border-slate-200 bg-white text-slate-500",
@@ -379,7 +395,7 @@ export function Btn({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md px-2.5 py-[5px] text-[11px] font-semibold",
+        "inline-flex items-center gap-1.5 rounded-md px-2.5 py-[5px] text-[11.5px] font-semibold",
         tone === "primary"
           ? "bg-blue-600 text-white shadow-[0_6px_14px_-8px_rgba(37,99,235,0.9)]"
           : "border border-slate-200 bg-white text-slate-600",
@@ -389,4 +405,21 @@ export function Btn({
       {children}
     </span>
   );
+}
+
+/* Node used in workflow / sequence canvases */
+export function NodeState({ state }: { state: "idle" | "active" | "done" }) {
+  if (state === "done")
+    return (
+      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+        <Check className="h-3 w-3" strokeWidth={3} />
+      </span>
+    );
+  if (state === "active")
+    return (
+      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-100">
+        <span className="h-2 w-2 rounded-full bg-blue-600" />
+      </span>
+    );
+  return <span className="h-5 w-5 rounded-full border border-slate-200 bg-slate-50" />;
 }
