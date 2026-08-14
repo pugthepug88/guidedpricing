@@ -525,15 +525,16 @@ export function SceneOpportunities({ step, reduced }: SceneProps) {
                             : "border-slate-200",
                         )}
                       >
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-start gap-2">
                           <Face src={d.face} size={22} />
                           <div className="min-w-0">
-                            <div className="truncate text-[11.5px] font-semibold text-slate-800">
+                            <div className="text-[11.5px] font-semibold leading-tight text-slate-800">
                               {d.business}
                             </div>
                             <div className="truncate text-[10.5px] text-slate-400">{d.name}</div>
                           </div>
                         </div>
+
                         <div className="mt-1.5 flex flex-wrap items-center gap-1">
                           <Pill tone={focus && won ? "green" : "slate"}>
                             <MoneyIcon /> {d.value}
