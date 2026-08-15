@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ import {
 } from "@/components/v5/scenes-a";
 import { SceneCalendar, SceneContent, SceneContracts, SceneEmail } from "@/components/v5/scenes-b";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
+import { useSceneClock } from "@/components/v5/use-scene-clock";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview-v5")({
@@ -219,7 +220,7 @@ function HeroV5Page() {
             >
               <div className="h-[460px] sm:h-[520px] lg:h-[580px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
-                  <div className="absolute inset-0">{scene.render({ phase, reduced })}</div>
+                  <div className="absolute inset-0">{scene.render({ phase, elapsedMs, reduced })}</div>
                 </AppShell>
               </div>
             </div>
