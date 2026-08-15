@@ -337,22 +337,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
             </motion.span>
           </AnimatePresence>
           <div className="ml-auto flex items-center gap-1.5">
-            {filtered ? (
-              <>
-                {["VIP", "Inactive 6m+"].map((t, i) => (
-                  <motion.span
-                    key={t}
-                    initial={reduced ? false : { opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : i * 0.09 }}
-                    className="inline-flex items-center gap-1 rounded-md border border-zapla-blue/25 bg-blue-50 px-2 py-[4px] text-[10.5px] font-semibold text-blue-700"
-                  >
-                    <Filter className="h-[10px] w-[10px]" />
-                    {t}
-                  </motion.span>
-                ))}
-              </>
-            ) : null}
+
             <span
               className={cn(
                 "inline-flex items-center gap-1 rounded-md border px-2 py-[4px] text-[10.5px] font-medium transition-colors duration-300",
