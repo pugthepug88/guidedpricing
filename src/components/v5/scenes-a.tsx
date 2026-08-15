@@ -53,6 +53,7 @@ const CONTACTS: ContactRow[] = [
     phone: "+44 7700 900321",
     face: FACE.maya,
     tags: ["VIP", "Big Spender"],
+
     last: "7 months ago",
     source: "Referral",
     status: "Dormant",
