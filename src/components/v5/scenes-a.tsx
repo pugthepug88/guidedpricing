@@ -49,8 +49,8 @@ type ContactRow = {
 const CONTACTS: ContactRow[] = [
   {
     name: "Maya Chen",
-    email: "maya.chen@northlightco.com.au",
-    phone: "+61 412 908 321",
+    email: "maya.chen@northlight.com.au",
+    phone: "0412 483 721",
     face: FACE.maya,
     tags: ["VIP", "Big Spender"],
     last: "7 months ago",
@@ -60,8 +60,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Daniel Ross",
-    email: "d.ross@rossbuildworks.com.au",
-    phone: "+61 413 770 184",
+    email: "daniel.ross@rossbuild.com.au",
+    phone: "0423 691 284",
     face: FACE.daniel,
     tags: ["VIP", "Upsell Opportunity"],
     last: "8 months ago",
@@ -72,7 +72,7 @@ const CONTACTS: ContactRow[] = [
   {
     name: "Priya Nair",
     email: "priya@nairstudio.com.au",
-    phone: "+61 421 556 112",
+    phone: "0431 572 116",
     face: FACE.priya,
     tags: ["VIP", "Repeat Customer"],
     last: "6 months ago",
@@ -82,8 +82,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Tom Whyte",
-    email: "tom.whyte@whytefitness.com.au",
-    phone: "+61 438 210 076",
+    email: "tom@whytefit.com.au",
+    phone: "0408 334 906",
     face: FACE.tom,
     tags: ["VIP", "Repeat Customer"],
     last: "9 months ago",
@@ -93,8 +93,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Sophie Bell",
-    email: "sophie.bell@bigpond.com.au",
-    phone: "+61 402 664 540",
+    email: "sophie.bell@example.com.au",
+    phone: "0417 825 540",
     face: FACE.sophie,
     tags: ["Client"],
     last: "3 days ago",
@@ -104,7 +104,7 @@ const CONTACTS: ContactRow[] = [
   {
     name: "Leo Marsh",
     email: "leo@marshjoinery.com.au",
-    phone: "+61 419 338 218",
+    phone: "0428 614 218",
     face: FACE.leo,
     tags: ["Client"],
     last: "Yesterday",
@@ -113,8 +113,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Ava Dunn",
-    email: "ava.dunn@brightcoastal.com.au",
-    phone: "+61 407 125 461",
+    email: "ava.dunn@brightco.com.au",
+    phone: "0403 765 461",
     face: FACE.jordan,
     tags: ["Client", "Upsell Opportunity"],
     last: "4 days ago",
@@ -123,8 +123,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Noah Reid",
-    email: "noah.reid@outlook.com.au",
-    phone: "+61 434 902 733",
+    email: "noah.reid@example.com.au",
+    phone: "0438 220 733",
     face: FACE.sam,
     tags: ["Big Spender", "Client"],
     last: "1 week ago",
