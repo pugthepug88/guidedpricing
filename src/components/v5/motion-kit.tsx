@@ -14,7 +14,8 @@ export const T = (duration: number, delay = 0): Transition => ({
   ease: EASE_OUT,
 });
 
-export type SceneProps = { phase: number; reduced: boolean };
+/** Scenes are driven by a real elapsed-time clock, not a global step counter. */
+export type SceneProps = { phase: number; elapsedMs: number; reduced: boolean };
 
 /* ---------------------------------------------------------------- */
 /* Scene frame: background scenery + foreground marketing layer      */
