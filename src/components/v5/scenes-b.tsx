@@ -145,7 +145,7 @@ export function SceneContent({ phase, reduced }: SceneProps) {
               reduced={reduced}
               delay={i * 0.08}
               from={{ x: 0, y: 0 }}
-              to={payoff ? { x: c.x * 0.45, y: c.y * 0.4 } : { x: c.x, y: c.y }}
+              to={payoff ? { x: c.x * 0.82, y: c.y * 0.75 } : { x: c.x, y: c.y }}
               rotate={i % 2 ? 4 : -4}
               className="left-[52%] top-[52%] h-9 w-9 justify-center p-0"
             >
