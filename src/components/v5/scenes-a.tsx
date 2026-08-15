@@ -589,8 +589,8 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
             </div>
             <div className="mt-1.5 rounded-xl rounded-tl-sm bg-slate-50 p-2.5 text-[11.5px] leading-[1.5] text-slate-600">
               Hi {"{{"}first_name{"}}"}, it&rsquo;s been a while. We&rsquo;re offering a special VIP
-              comeback offer this month. Reply YES and we&rsquo;ll send you the details and available
-              times.
+              comeback offer this month. Reply YES and we&rsquo;ll send you the details and
+              available times.
             </div>
 
             <div className="mt-auto">
