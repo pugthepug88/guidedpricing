@@ -53,7 +53,6 @@ const CONTACTS: ContactRow[] = [
     phone: "+44 7700 900321",
     face: FACE.maya,
     tags: ["VIP", "Big Spender"],
-
     last: "7 months ago",
     source: "Referral",
     status: "Dormant",
@@ -64,7 +63,7 @@ const CONTACTS: ContactRow[] = [
     email: "d.ross@rossbuild.co.uk",
     phone: "+44 7700 900184",
     face: FACE.daniel,
-    tags: ["VIP", "Upsell"],
+    tags: ["VIP", "Upsell Opportunity"],
     last: "8 months ago",
     source: "Website",
     status: "Dormant",
@@ -75,7 +74,7 @@ const CONTACTS: ContactRow[] = [
     email: "priya@nairstudio.com",
     phone: "+44 7700 900112",
     face: FACE.priya,
-    tags: ["VIP", "Client"],
+    tags: ["VIP", "Repeat Customer"],
     last: "6 months ago",
     source: "Instagram",
     status: "Dormant",
@@ -86,7 +85,7 @@ const CONTACTS: ContactRow[] = [
     email: "tom.whyte@whytefit.com",
     phone: "+44 7700 900076",
     face: FACE.tom,
-    tags: ["VIP", "Big Spender"],
+    tags: ["VIP", "Repeat Customer"],
     last: "9 months ago",
     source: "Google Ads",
     status: "Dormant",
@@ -117,7 +116,7 @@ const CONTACTS: ContactRow[] = [
     email: "ava.dunn@brightco.io",
     phone: "+44 7700 900461",
     face: FACE.jordan,
-    tags: ["Client", "Upsell"],
+    tags: ["Client", "Upsell Opportunity"],
     last: "4 days ago",
     source: "Instagram",
     status: "Active",
@@ -139,7 +138,7 @@ const MATCH_ORDER = CONTACTS.reduce<number[]>((acc, c, i) => {
   return acc;
 }, []);
 
-const COLS = "26px minmax(0,2.1fr) minmax(0,1.25fr) minmax(0,1.35fr) 96px 84px 118px";
+const COLS = "26px minmax(0,2fr) minmax(0,1.15fr) minmax(0,1.7fr) 92px 82px 112px";
 
 function HeaderCheckbox({ on }: { on: boolean }) {
   return (
