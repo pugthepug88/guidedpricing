@@ -928,7 +928,7 @@ export function SceneAutomations({ step, reduced }: SceneProps) {
       </Toolbar>
 
       <div className="flex h-[calc(100%-43px)] min-h-0 items-center justify-center p-4">
-        <div className="w-full max-w-[520px] space-y-1">
+        <div className="w-full max-w-[520px] space-y-0.5">
           {FLOW.map((n, i) => {
             const cancelled = replied && i === cancelledIdx;
             const isDone = step > i && !cancelled;
@@ -943,7 +943,7 @@ export function SceneAutomations({ step, reduced }: SceneProps) {
                   }}
                   transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
                   className={cn(
-                    "flex items-center gap-3 rounded-xl border bg-white px-3 py-2.5",
+                    "flex items-center gap-3 rounded-xl border bg-white px-3 py-2",
                     cancelled
                       ? "border-slate-200"
                       : isActive
@@ -992,7 +992,7 @@ export function SceneAutomations({ step, reduced }: SceneProps) {
                 </motion.div>
 
                 {i < FLOW.length - 1 ? (
-                  <div className="relative ml-[27px] h-4 w-[2px] overflow-hidden rounded-full bg-slate-200">
+                  <div className="relative ml-[27px] h-3 w-[2px] overflow-hidden rounded-full bg-slate-200">
                     {/* single data token travels once when the event moves on */}
                     {!reduced && step === i + 1 ? (
                       <motion.span
