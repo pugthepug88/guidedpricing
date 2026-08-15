@@ -4,6 +4,7 @@ import {
   CalendarCheck,
   Check,
   FileText,
+  Filter,
   Instagram,
   Mail,
   MessageSquare,
@@ -12,6 +13,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { FACE } from "./faces";
 import {
   Avatar,
