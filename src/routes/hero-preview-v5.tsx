@@ -42,7 +42,8 @@ type SceneDef = {
   label: string;
   title: string;
   subtitle: string;
-  steps: number;
+  /** variable-duration local timeline, one entry per visual phase (ms) */
+  phases: number[];
   render: (p: SceneProps) => React.ReactNode;
 };
 
@@ -51,105 +52,101 @@ const SCENES: SceneDef[] = [
     key: "contacts",
     label: "Contacts",
     title: "Contacts",
-    subtitle: "Tags and last activity turn old records into work",
-    steps: 6,
+    subtitle: "Dormant customers wake up",
+    phases: [820, 560, 900, 780, 900, 1650, 620],
     render: (p) => <SceneContacts {...p} />,
   },
   {
     key: "opportunities",
     label: "Opportunities",
     title: "Opportunities",
-    subtitle: "One deal moves stage by stage, then starts the next work",
-    steps: 7,
+    subtitle: "One deal creates downstream work",
+    phases: [760, 620, 540, 560, 700, 900, 1600, 620],
     render: (p) => <SceneOpportunities {...p} />,
   },
   {
     key: "inbox",
     label: "Inbox",
     title: "Inbox",
-    subtitle: "SMS, email, Facebook and Instagram in one thread",
-    steps: 5,
+    subtitle: "One customer, every channel",
+    phases: [800, 640, 820, 780, 1600, 600],
     render: (p) => <SceneInbox {...p} />,
   },
   {
     key: "automations",
     label: "Automations",
     title: "Automations",
-    subtitle: "Lead follow-up that stops the moment they reply",
-    steps: 7,
+    subtitle: "A reply makes future work disappear",
+    phases: [780, 600, 700, 880, 950, 1650, 600],
     render: (p) => <SceneAutomations {...p} />,
   },
   {
     key: "content",
     label: "Content Planner",
     title: "Content Planner",
-    subtitle: "Plan and schedule across connected channels",
-    steps: 7,
+    subtitle: "One post becomes multi-channel distribution",
+    phases: [780, 660, 620, 900, 1600, 640],
     render: (p) => <SceneContent {...p} />,
   },
   {
     key: "email",
     label: "Email Marketing",
     title: "Email Marketing",
-    subtitle: "Personalised sequences that pause when a customer answers",
-    steps: 6,
+    subtitle: "Personalisation becomes real",
+    phases: [760, 640, 720, 700, 900, 1600, 620],
     render: (p) => <SceneEmail {...p} />,
   },
   {
     key: "calendar",
     label: "Calendar",
     title: "Calendar",
-    subtitle: "Team week with automatic confirmations",
-    steps: 6,
+    subtitle: "A selected time becomes a real appointment",
+    phases: [780, 620, 700, 860, 1600, 620],
     render: (p) => <SceneCalendar {...p} />,
   },
   {
     key: "contracts",
     label: "Contracts",
     title: "Contracts",
-    subtitle: "Signed in order, deal closed",
-    steps: 6,
+    subtitle: "One signature changes the deal",
+    phases: [780, 700, 1000, 620, 820, 1650, 620],
     render: (p) => <SceneContracts {...p} />,
   },
 ];
-
-const STEP_MS = 1200;
-const SCENE_GAP_MS = 1700;
 
 function HeroV5Page() {
   const prefersReduced = useReducedMotion();
   const reduced = !!prefersReduced;
 
   const [sceneIndex, setSceneIndex] = useState(0);
-  const [step, setStep] = useState(0);
+  const [phase, setPhase] = useState(0);
   const [paused, setPaused] = useState(false);
   const scene = SCENES[sceneIndex];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
+  /* scene-local timeline: variable holds, no global metronome */
   useEffect(() => {
     if (reduced) {
-      setStep(scene.steps - 1);
+      // resolved payoff composition instead of choreography
+      setPhase(Math.max(scene.phases.length - 2, 0));
       return;
     }
     if (paused) return;
-    const last = step >= scene.steps - 1;
-    const id = window.setTimeout(
-      () => {
-        if (last) {
-          setStep(0);
-          setSceneIndex((i) => (i + 1) % SCENES.length);
-        } else {
-          setStep((s) => s + 1);
-        }
-      },
-      last ? SCENE_GAP_MS : STEP_MS,
-    );
+    const last = phase >= scene.phases.length - 1;
+    const id = window.setTimeout(() => {
+      if (last) {
+        setPhase(0);
+        setSceneIndex((i) => (i + 1) % SCENES.length);
+      } else {
+        setPhase((p) => p + 1);
+      }
+    }, scene.phases[phase]);
     return () => window.clearTimeout(id);
-  }, [step, sceneIndex, paused, reduced, scene.steps]);
+  }, [phase, sceneIndex, paused, reduced, scene.phases]);
 
   const selectScene = useCallback((i: number) => {
     setSceneIndex(i);
-    setStep(0);
+    setPhase(0);
   }, []);
 
   const onTabKeyDown = (e: React.KeyboardEvent, i: number) => {
@@ -163,6 +160,7 @@ function HeroV5Page() {
     selectScene(next);
     tabRefs.current[next]?.focus();
   };
+
 
   return (
     <div className="min-h-screen bg-white font-zapla text-zapla-ink">
