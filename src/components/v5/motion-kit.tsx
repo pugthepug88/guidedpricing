@@ -120,11 +120,13 @@ export function Payoff({
   show,
   children,
   className,
+  style,
   reduced,
 }: {
   show: boolean;
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
   reduced: boolean;
 }) {
   return (
@@ -135,6 +137,7 @@ export function Payoff({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, scale: 0.97, y: -8 }}
           transition={{ duration: reduced ? 0 : 0.55, ease: EASE_OUT }}
+          style={style}
           className={cn(
             "absolute rounded-[20px] border border-white/70 bg-white/95 px-5 py-4 shadow-[0_40px_110px_-30px_rgba(15,23,42,0.5)] backdrop-blur-[2px]",
             className,
