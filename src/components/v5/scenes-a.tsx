@@ -4,6 +4,7 @@ import {
   CalendarCheck,
   Check,
   FileText,
+  Filter,
   Instagram,
   Mail,
   MessageSquare,
@@ -12,6 +13,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { FACE } from "./faces";
 import {
   Avatar,
@@ -29,253 +31,401 @@ import {
 export type { SceneProps };
 
 /* ================================================================= */
-/* 1 — CONTACTS : dormant customers wake up                           */
+/* 1 — CONTACTS : dormant VIPs re-engaged, inside the real table       */
 /* ================================================================= */
 
-const CONTACTS = [
-  { name: "Maya Chen", face: FACE.maya, tag: "VIP", last: "7 months ago", match: true },
-  { name: "Daniel Ross", face: FACE.daniel, tag: "VIP", last: "8 months ago", match: true },
-  { name: "Priya Nair", face: FACE.priya, tag: "VIP", last: "6 months ago", match: true },
-  { name: "Tom Whyte", face: FACE.tom, tag: "VIP", last: "9 months ago", match: true },
-  { name: "Sophie Bell", face: FACE.sophie, tag: "Lead", last: "3 days ago" },
-  { name: "Leo Marsh", face: FACE.leo, tag: "Client", last: "yesterday" },
-  { name: "Ava Dunn", face: FACE.jordan, tag: "Lead", last: "1 week ago" },
-  { name: "Noah Reid", face: FACE.sam, tag: "Client", last: "2 weeks ago" },
-  { name: "Iris Kaye", face: FACE.nina, tag: "Client", last: "4 days ago" },
-  { name: "Ben Foley", face: FACE.alex, tag: "Lead", last: "5 days ago" },
+type ContactRow = {
+  name: string;
+  email: string;
+  phone: string;
+  face: string;
+  tags: string[];
+  last: string;
+  source: string;
+  status: string;
+  match?: boolean;
+};
+
+const CONTACTS: ContactRow[] = [
+  {
+    name: "Maya Chen",
+    email: "maya.chen@northlight.co",
+    phone: "+44 7700 900321",
+    face: FACE.maya,
+    tags: ["VIP", "Big Spender"],
+    last: "7 months ago",
+    source: "Referral",
+    status: "Dormant",
+    match: true,
+  },
+  {
+    name: "Daniel Ross",
+    email: "d.ross@rossbuild.co.uk",
+    phone: "+44 7700 900184",
+    face: FACE.daniel,
+    tags: ["VIP", "Upsell"],
+    last: "8 months ago",
+    source: "Website",
+    status: "Dormant",
+    match: true,
+  },
+  {
+    name: "Priya Nair",
+    email: "priya@nairstudio.com",
+    phone: "+44 7700 900112",
+    face: FACE.priya,
+    tags: ["VIP", "Client"],
+    last: "6 months ago",
+    source: "Instagram",
+    status: "Dormant",
+    match: true,
+  },
+  {
+    name: "Tom Whyte",
+    email: "tom.whyte@whytefit.com",
+    phone: "+44 7700 900076",
+    face: FACE.tom,
+    tags: ["VIP", "Big Spender"],
+    last: "9 months ago",
+    source: "Google Ads",
+    status: "Dormant",
+    match: true,
+  },
+  {
+    name: "Sophie Bell",
+    email: "sophie.bell@gmail.com",
+    phone: "+44 7700 900540",
+    face: FACE.sophie,
+    tags: ["Lead"],
+    last: "3 days ago",
+    source: "Website",
+    status: "Active",
+  },
+  {
+    name: "Leo Marsh",
+    email: "leo@marshjoinery.co.uk",
+    phone: "+44 7700 900218",
+    face: FACE.leo,
+    tags: ["Client"],
+    last: "Yesterday",
+    source: "Referral",
+    status: "Active",
+  },
+  {
+    name: "Ava Dunn",
+    email: "ava.dunn@brightco.io",
+    phone: "+44 7700 900461",
+    face: FACE.jordan,
+    tags: ["Client", "Upsell"],
+    last: "4 days ago",
+    source: "Instagram",
+    status: "Active",
+  },
+  {
+    name: "Noah Reid",
+    email: "noah.reid@outlook.com",
+    phone: "+44 7700 900733",
+    face: FACE.sam,
+    tags: ["Lead"],
+    last: "1 week ago",
+    source: "Facebook",
+    status: "Active",
+  },
 ];
 
-function ContactsBackground() {
+const MATCH_ORDER = CONTACTS.reduce<number[]>((acc, c, i) => {
+  if (c.match) acc.push(i);
+  return acc;
+}, []);
+
+const COLS = "26px minmax(0,2.1fr) minmax(0,1.25fr) minmax(0,1.35fr) 96px 84px 118px";
+
+function HeaderCheckbox({ on }: { on: boolean }) {
   return (
-    <div className="absolute inset-0 px-4 pt-3">
-      <div className="mb-2 flex items-center gap-2">
-        <GhostRow w="88px" h={9} />
-        <div className="ml-auto flex gap-1.5">
-          <GhostRow w="52px" h={16} className="rounded-md" />
-          <GhostRow w="42px" h={16} className="rounded-md" />
-        </div>
-      </div>
-      <div className="divide-y divide-slate-100 rounded-xl border border-slate-200/80 bg-white">
-        {CONTACTS.map((c) => (
-          <div key={c.name} className="flex items-center gap-3 px-3 py-[9px]">
-            <img
-              src={c.face}
-              alt=""
-              aria-hidden
-              className="h-6 w-6 shrink-0 rounded-full object-cover"
-            />
-            <span className="w-[110px] truncate text-[11.5px] font-medium text-slate-500">
-              {c.name}
-            </span>
-            <GhostRow w="34px" h={10} className="rounded" />
-            <span className="ml-auto text-[10.5px] text-slate-300">{c.last}</span>
-          </div>
-        ))}
-      </div>
-    </div>
+    <span
+      className={cn(
+        "flex h-[13px] w-[13px] items-center justify-center rounded-[3px] border transition-colors duration-300",
+        on ? "border-zapla-blue bg-zapla-blue text-white" : "border-slate-300 bg-white",
+      )}
+    >
+      {on ? <Check className="h-[9px] w-[9px]" strokeWidth={3.5} /> : null}
+    </span>
+  );
+}
+
+function TagChip({ label }: { label: string }) {
+  const tone =
+    label === "VIP"
+      ? "bg-amber-50 text-amber-700"
+      : label === "Big Spender"
+        ? "bg-violet-50 text-violet-700"
+        : label === "Upsell"
+          ? "bg-sky-50 text-sky-700"
+          : "bg-slate-100 text-slate-600";
+  return (
+    <span
+      className={cn(
+        "rounded-full px-2 py-[2px] text-[10px] font-semibold leading-none whitespace-nowrap",
+        tone,
+      )}
+    >
+      {label}
+    </span>
+  );
+}
+
+function StatusCell({ status }: { status: string }) {
+  const tone =
+    status === "Sent"
+      ? "bg-blue-50 text-blue-700"
+      : status === "Replied"
+        ? "bg-emerald-50 text-emerald-700"
+        : status === "Dormant"
+          ? "bg-slate-100 text-slate-500"
+          : "bg-slate-50 text-slate-500";
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.span
+        key={status}
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -5 }}
+        transition={{ duration: 0.28, ease: EASE_OUT }}
+        className={cn(
+          "inline-flex items-center gap-1 rounded-full px-2 py-[3px] text-[10.5px] font-semibold leading-none",
+          tone,
+        )}
+      >
+        {status === "Sent" ? <Send className="h-[10px] w-[10px]" /> : null}
+        {status === "Replied" ? <MessageSquare className="h-[10px] w-[10px]" /> : null}
+        {status}
+      </motion.span>
+    </AnimatePresence>
   );
 }
 
 export function SceneContacts({ phase, reduced }: SceneProps) {
-  const chips = phase >= 1;
-  const cohort = phase >= 2;
-  const action = phase >= 3;
-  const burst = phase >= 3;
-  const maya = phase >= 4;
-  const payoff = phase >= 5;
-  const collapse = phase >= 6;
+  /* timeline
+     0 still · 1 filter · 2-5 select rows 1-4 · 6 action bar
+     7 sending → Sent · 8 Maya replies · 9 hold */
+  const filtered = phase >= 1;
+  const selectedCount = Math.max(0, Math.min(phase - 1, 4));
+  const bar = phase >= 6;
+  const sent = phase >= 7;
+  const replied = phase >= 8;
+
+  const isSelected = (i: number) => {
+    const pos = MATCH_ORDER.indexOf(i);
+    return pos > -1 && pos < selectedCount;
+  };
+
+  const statusFor = (c: ContactRow, i: number) => {
+    if (!c.match) return c.status;
+    if (replied && i === 0) return "Replied";
+    if (sent) return "Sent";
+    return c.status;
+  };
+
+  const lastFor = (c: ContactRow, i: number) => (replied && i === 0 ? "Just now" : c.last);
 
   return (
-    <Scene
-      reduced={reduced}
-      recede={collapse ? 0.15 : cohort ? 0.75 : chips ? 0.3 : 0}
-      background={<ContactsBackground />}
-      foreground={
-        <>
-          <Glow show={cohort && !collapse} className="left-[8%] top-[14%] h-56 w-72" />
-
-          {/* A — filter chips land like physical objects */}
-          <AnimatePresence>
-            {chips && !payoff ? (
-              <motion.div
-                className="absolute left-5 top-4 flex gap-2"
-                initial={reduced ? false : { opacity: 0, y: -34, scale: 1.25, rotate: -4 }}
-                animate={{ opacity: 1, y: 0, scale: 1, rotate: -1.5 }}
-                exit={{ opacity: 0, y: -14, scale: 0.9 }}
-                transition={{ duration: reduced ? 0 : 0.55, ease: EASE_OUT }}
-              >
-                {["VIP", "Inactive 6m+"].map((t, i) => (
+    <div className="absolute inset-0 flex flex-col px-4 pb-3 pt-3">
+      {/* toolbar */}
+      <div className="mb-2 flex items-center gap-2">
+        <div className="text-[12.5px] font-bold tracking-tight text-slate-800">All contacts</div>
+        <span className="rounded-full bg-slate-100 px-2 py-[2px] text-[10px] font-semibold text-slate-500">
+          {CONTACTS.length}
+        </span>
+        <div className="ml-auto flex items-center gap-1.5">
+          <AnimatePresence initial={false}>
+            {filtered
+              ? ["VIP", "Inactive 6m+"].map((t, i) => (
                   <motion.span
                     key={t}
-                    initial={reduced ? false : { opacity: 0, y: -26 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: i * 0.09, ease: EASE_OUT }}
-                    className="rounded-full bg-zapla-ink px-4 py-2 text-[13px] font-bold text-white shadow-[0_22px_44px_-18px_rgba(15,23,42,0.6)]"
+                    initial={reduced ? false : { opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : i * 0.09 }}
+                    className="inline-flex items-center gap-1 rounded-md border border-zapla-blue/25 bg-blue-50 px-2 py-[4px] text-[10.5px] font-semibold text-blue-700"
                   >
+                    <Filter className="h-[10px] w-[10px]" />
                     {t}
                   </motion.span>
-                ))}
-              </motion.div>
-            ) : null}
+                ))
+              : null}
           </AnimatePresence>
+          <span className="rounded-md border border-slate-200 bg-white px-2 py-[4px] text-[10.5px] font-medium text-slate-400">
+            Filter
+          </span>
+          <span className="rounded-md border border-slate-200 bg-white px-2 py-[4px] text-[10.5px] font-medium text-slate-400">
+            Sort
+          </span>
+        </div>
+      </div>
 
-          {/* B — matching cohort gathers as a raised stack */}
-          <AnimatePresence>
-            {cohort && !payoff ? (
-              <motion.div
-                className="absolute left-[6%] top-[22%] w-[62%] max-w-[420px]"
-                initial={reduced ? false : { opacity: 0, y: 26, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
-              >
-                {CONTACTS.filter((c) => c.match).map((c, i) => {
-                  const isMaya = i === 0;
-                  return (
-                    <motion.div
-                      key={c.name}
-                      layout
-                      initial={reduced ? false : { opacity: 0, x: -18, rotate: i % 2 ? 1.5 : -1.5 }}
-                      animate={{
-                        opacity: 1,
-                        x: 0,
-                        rotate: i % 2 ? 0.8 : -0.8,
-                        y: maya && !isMaya ? 8 : 0,
-                        scale: maya ? (isMaya ? 1 : 0.94) : 1,
-                        filter: maya && !isMaya ? "blur(1.5px)" : "blur(0px)",
-                      }}
-                      transition={{
-                        duration: reduced ? 0 : 0.6,
-                        delay: reduced ? 0 : i * 0.08,
-                        ease: EASE_OUT,
-                      }}
-                      className="relative -mt-1 flex items-center gap-3 rounded-2xl border border-white/80 bg-white px-3.5 py-3 shadow-[0_26px_50px_-26px_rgba(15,23,42,0.4)]"
-                      style={{ zIndex: 10 - i }}
-                    >
-                      <Avatar src={c.face} size={isMaya ? 40 : 34} />
-                      <div className="min-w-0">
-                        <div className="truncate text-[13.5px] font-bold tracking-tight text-slate-900">
-                          {c.name}
-                        </div>
-                        <div className="text-[11px] text-slate-400">Last order {c.last}</div>
-                      </div>
-                      <div className="ml-auto flex items-center gap-1.5">
-                        <Tag tone="amber">VIP</Tag>
-                        <AnimatePresence>
-                          {burst ? (
-                            <motion.span
-                              initial={reduced ? false : { opacity: 0, scale: 0.6 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: 0.4, delay: reduced ? 0 : 0.18 + i * 0.1 }}
-                            >
-                              <Tag tone="blue">
-                                <Send className="h-3 w-3" /> Sent
-                              </Tag>
-                            </motion.span>
-                          ) : null}
-                        </AnimatePresence>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
+      {/* table */}
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+        <div
+          className="grid items-center gap-2 border-b border-slate-200 bg-slate-50/80 px-3 py-[7px] text-[10px] font-semibold uppercase tracking-wide text-slate-400"
+          style={{ gridTemplateColumns: COLS }}
+        >
+          <HeaderCheckbox on={selectedCount === 4} />
+          <span>Contact</span>
+          <span>Phone</span>
+          <span>Tags</span>
+          <span>Last activity</span>
+          <span>Source</span>
+          <span>Status</span>
+        </div>
 
-          {/* C/D — one oversized action object + signal burst */}
-          <AnimatePresence>
-            {action && !maya ? (
+        <div className="divide-y divide-slate-100">
+          {CONTACTS.map((c, i) => {
+            const dim = filtered && !c.match;
+            const sel = isSelected(i);
+            const focus = replied && i === 0;
+            return (
               <motion.div
-                className="absolute bottom-[12%] left-[10%] z-40"
-                initial={reduced ? false : { opacity: 0, y: 40, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -18, scale: 0.92 }}
-                transition={{ duration: reduced ? 0 : 0.55, ease: EASE_OUT }}
+                key={c.name}
+                animate={{
+                  opacity: dim ? 0.42 : 1,
+                  backgroundColor: focus
+                    ? "rgba(236,253,245,0.9)"
+                    : sel
+                      ? "rgba(239,246,255,0.85)"
+                      : "rgba(255,255,255,1)",
+                }}
+                transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT }}
+                className="relative"
               >
-                <div className="flex items-center gap-3 rounded-[18px] bg-zapla-blue px-5 py-4 text-white shadow-[0_34px_70px_-24px_rgba(37,99,255,0.7)]">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20">
-                    <MessageSquare className="h-4.5 w-4.5" />
+                <div
+                  className="grid items-center gap-2 px-3 py-[9px]"
+                  style={{ gridTemplateColumns: COLS }}
+                >
+                  <span
+                    className={cn(
+                      "flex h-[13px] w-[13px] items-center justify-center rounded-[3px] border transition-colors duration-300",
+                      sel
+                        ? "border-zapla-blue bg-zapla-blue text-white"
+                        : "border-slate-300 bg-white",
+                    )}
+                  >
+                    <AnimatePresence>
+                      {sel ? (
+                        <motion.span
+                          initial={reduced ? false : { scale: 0.4, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: reduced ? 0 : 0.24, ease: EASE_OUT }}
+                        >
+                          <Check className="h-[9px] w-[9px]" strokeWidth={3.5} />
+                        </motion.span>
+                      ) : null}
+                    </AnimatePresence>
                   </span>
-                  <div>
-                    <div className="text-[15px] font-bold leading-tight">Re-engage 4 customers</div>
-                    <div className="text-[11.5px] text-white/75">SMS · personalised offer</div>
-                  </div>
-                </div>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
 
-          {/* E/F/G — Maya expands, reply grows out of the same object */}
-          <AnimatePresence>
-            {maya && !collapse ? (
-              <motion.div
-                className="absolute right-[6%] top-[16%] w-[46%] max-w-[330px]"
-                initial={reduced ? false : { opacity: 0, x: 40, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9, x: -30 }}
-                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
-              >
-                <Hero className="p-4">
-                  <div className="flex items-center gap-3">
-                    <Avatar src={FACE.maya} size={52} />
-                    <div>
-                      <div className="text-[16px] font-extrabold tracking-tight text-slate-900">
-                        Maya Chen
+                  <div className="flex min-w-0 items-center gap-2">
+                    <Avatar src={c.face} size={26} className="ring-1 ring-slate-100" />
+                    <div className="min-w-0">
+                      <div className="truncate text-[12px] font-semibold leading-tight text-slate-800">
+                        {c.name}
                       </div>
-                      <div className="text-[11.5px] text-slate-400">Dormant 7 months</div>
+                      <div className="truncate text-[10.5px] leading-tight text-slate-400">
+                        {c.email}
+                      </div>
                     </div>
                   </div>
-                  <motion.div
-                    initial={reduced ? false : { opacity: 0, scaleY: 0.4, y: -10 }}
-                    animate={{ opacity: 1, scaleY: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: reduced ? 0 : 0.22, ease: EASE_OUT }}
-                    style={{ originY: 0 }}
-                    className="mt-3 rounded-2xl rounded-tl-sm bg-blue-50 px-3.5 py-3 text-[13px] font-medium leading-snug text-blue-900"
-                  >
-                    Yes please, Thursday works.
-                  </motion.div>
-                </Hero>
+
+                  <span className="truncate text-[11px] tabular-nums text-slate-500">
+                    {c.phone}
+                  </span>
+
+                  <div className="flex min-w-0 flex-wrap items-center gap-1">
+                    {c.tags.map((t) => (
+                      <TagChip key={t} label={t} />
+                    ))}
+                  </div>
+
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={lastFor(c, i)}
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.26, ease: EASE_OUT }}
+                      className={cn(
+                        "truncate text-[11px]",
+                        focus ? "font-semibold text-emerald-700" : "text-slate-400",
+                      )}
+                    >
+                      {lastFor(c, i)}
+                    </motion.span>
+                  </AnimatePresence>
+
+                  <span className="truncate text-[11px] text-slate-400">{c.source}</span>
+
+                  <div className="flex items-center gap-1.5">
+                    <StatusCell status={statusFor(c, i)} />
+                  </div>
+                </div>
+
+                {/* Maya's reply stays attached to her row */}
+                <AnimatePresence initial={false}>
+                  {focus ? (
+                    <motion.div
+                      initial={reduced ? false : { opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: reduced ? 0 : 0.42, ease: EASE_OUT }}
+                      className="overflow-hidden"
+                    >
+                      <div className="flex items-center gap-2 border-t border-emerald-100/70 px-3 pb-[9px] pt-[7px] pl-[54px]">
+                        <span className="rounded-lg rounded-tl-sm bg-emerald-50 px-2.5 py-1 text-[11.5px] font-medium text-emerald-900">
+                          &ldquo;Thursday works&rdquo;
+                        </span>
+                        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-[3px] text-[10px] font-semibold text-blue-700">
+                          <CalendarCheck className="h-[10px] w-[10px]" /> Booking requested
+                        </span>
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
               </motion.div>
-            ) : null}
-          </AnimatePresence>
+            );
+          })}
+        </div>
+      </div>
 
-          <Signal
-            show={maya && !payoff}
-            reduced={reduced}
-            delay={0.45}
-            from={{ x: 20, y: -14 }}
-            rotate={-3}
-            className="right-[10%] top-[calc(16%+150px)] text-emerald-700"
-          >
-            <CalendarCheck className="h-3.5 w-3.5" /> Booking requested
-          </Signal>
-
-          {/* PAYOFF */}
-          <Payoff
-            show={payoff && !collapse}
-            reduced={reduced}
-            className="left-1/2 top-[38%] w-[76%] max-w-[440px] -translate-x-1/2"
-          >
-            <div className="flex items-center gap-4">
-              <Avatar src={FACE.maya} size={56} />
-              <div>
-                <div className="text-[18px] font-extrabold tracking-tight text-slate-900">
-                  Maya Chen
-                </div>
-                <div className="mt-1.5 flex flex-wrap gap-1.5">
-                  <Tag tone="green">
-                    <Zap className="h-3 w-3" /> Re-engaged
-                  </Tag>
-                  <Tag tone="blue">
-                    <CalendarCheck className="h-3 w-3" /> Booking requested
-                  </Tag>
-                </div>
-              </div>
-            </div>
-          </Payoff>
-        </>
-      }
-    />
+      {/* native selection action bar */}
+      <div className={cn("relative mt-auto", replied ? "h-0" : "h-[46px]")}>
+        <AnimatePresence initial={false}>
+          {bar && !replied ? (
+            <motion.div
+              initial={reduced ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT }}
+              className="absolute inset-x-0 bottom-0 flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-[0_10px_28px_-18px_rgba(15,23,42,0.35)]"
+            >
+              <span className="flex h-5 w-5 items-center justify-center rounded-[5px] bg-zapla-blue text-white">
+                <Check className="h-3 w-3" strokeWidth={3} />
+              </span>
+              <span className="text-[12px] font-semibold text-slate-700">
+                {selectedCount} contacts selected
+              </span>
+              <span className="text-[11px] text-slate-400">VIP · Inactive 6m+</span>
+              <span
+                className={cn(
+                  "ml-auto inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11.5px] font-semibold text-white transition-colors duration-300",
+                  sent ? "bg-zapla-ink" : "bg-zapla-blue",
+                )}
+              >
+                <MessageSquare className="h-3 w-3" />
+                {sent ? "Sending campaign" : "Send SMS campaign"}
+              </span>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
+    </div>
   );
 }
 
