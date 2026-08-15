@@ -230,7 +230,7 @@ function HeroV5Page() {
             >
               <div className="h-[460px] sm:h-[520px] lg:h-[580px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
-                  <div className="absolute inset-0">{scene.render({ step, reduced })}</div>
+                  <div className="absolute inset-0">{scene.render({ phase, reduced })}</div>
                 </AppShell>
               </div>
             </div>
