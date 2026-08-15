@@ -244,7 +244,7 @@ export function SceneContacts({ step, reduced }: SceneProps) {
 
                     {/* outreach signal leaves the row, then resolves to Sent */}
                     <AnimatePresence>
-                      {sent && c.match && !hero ? (
+                      {sent && c.match ? (
                         <motion.span
                           key="sent"
                           initial={{ opacity: 0, x: -10 }}
