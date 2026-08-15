@@ -395,7 +395,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
       </div>
 
       {/* native selection action bar */}
-      <div className="relative mt-auto h-[46px]">
+      <div className={cn("relative mt-auto", replied ? "h-0" : "h-[46px]")}>
         <AnimatePresence initial={false}>
           {bar && !replied ? (
             <motion.div
