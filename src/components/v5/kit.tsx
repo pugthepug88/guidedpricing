@@ -237,43 +237,48 @@ export function Card({ children, className }: { children: ReactNode; className?:
   );
 }
 
-/* Soft interaction indicator — ring + inner dot, gentle ripple on action */
+/* Soft interaction indicator — appears only for a single purposeful action */
 export function Pointer({
   x,
   y,
+  show,
   active,
   reduced,
 }: {
   x: number;
   y: number;
+  show?: boolean;
   active?: boolean;
   reduced?: boolean;
 }) {
   return (
-    <motion.div
-      aria-hidden
-      className="pointer-events-none absolute z-40 hidden sm:block"
-      initial={false}
-      animate={{ left: `${x}%`, top: `${y}%` }}
-      transition={{ duration: reduced ? 0 : 0.9, ease: EASE }}
-    >
-      <div className="relative -translate-x-1/2 -translate-y-1/2">
-        <span className="absolute left-1/2 top-1/2 h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-500/45 bg-white/50 shadow-[0_0_16px_rgba(99,102,241,0.35)] backdrop-blur-[1px]" />
-        <span className="absolute left-1/2 top-1/2 h-[6px] w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,255,0.7)]" />
-        <AnimatePresence>
-          {active && !reduced ? (
-            <motion.span
-              key="ripple"
-              className="absolute left-1/2 top-1/2 h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-400/70"
-              initial={{ scale: 0.6, opacity: 0.8 }}
-              animate={{ scale: 2.1, opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            />
-          ) : null}
-        </AnimatePresence>
-      </div>
-    </motion.div>
+    <AnimatePresence>
+      {show ? (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute z-40 hidden sm:block"
+          style={{ left: `${x}%`, top: `${y}%` }}
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.85 }}
+          transition={{ duration: reduced ? 0 : 0.35, ease: EASE }}
+        >
+          <div className="relative -translate-x-1/2 -translate-y-1/2">
+            <span className="absolute left-1/2 top-1/2 h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-500/45 bg-white/50 shadow-[0_0_16px_rgba(99,102,241,0.35)] backdrop-blur-[1px]" />
+            <span className="absolute left-1/2 top-1/2 h-[6px] w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,255,0.7)]" />
+            {active && !reduced ? (
+              <motion.span
+                key="ripple"
+                className="absolute left-1/2 top-1/2 h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-400/70"
+                initial={{ scale: 0.6, opacity: 0.85 }}
+                animate={{ scale: 2.2, opacity: 0 }}
+                transition={{ duration: 0.85, ease: "easeOut" }}
+              />
+            ) : null}
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
   );
 }
 

@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Activity } from "lucide-react";
+import { useReducedMotion } from "motion/react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { AppShell, EASE } from "@/components/v5/kit";
+import { AppShell } from "@/components/v5/kit";
 import {
   SceneAutomations,
   SceneContacts,
@@ -51,16 +51,16 @@ const SCENES: SceneDef[] = [
     key: "contacts",
     label: "Contacts",
     title: "Contacts",
-    subtitle: "Tags and last activity show who to re-engage",
-    steps: 7,
+    subtitle: "Tags and last activity turn old records into work",
+    steps: 6,
     render: (p) => <SceneContacts {...p} />,
   },
   {
     key: "opportunities",
     label: "Opportunities",
     title: "Opportunities",
-    subtitle: "Won deals start the next work automatically",
-    steps: 8,
+    subtitle: "One deal moves stage by stage, then starts the next work",
+    steps: 7,
     render: (p) => <SceneOpportunities {...p} />,
   },
   {
@@ -76,7 +76,7 @@ const SCENES: SceneDef[] = [
     label: "Automations",
     title: "Automations",
     subtitle: "Lead follow-up that stops the moment they reply",
-    steps: 6,
+    steps: 7,
     render: (p) => <SceneAutomations {...p} />,
   },
   {
@@ -84,15 +84,15 @@ const SCENES: SceneDef[] = [
     label: "Content Planner",
     title: "Content Planner",
     subtitle: "Plan and schedule across connected channels",
-    steps: 6,
+    steps: 7,
     render: (p) => <SceneContent {...p} />,
   },
   {
     key: "email",
     label: "Email Marketing",
     title: "Email Marketing",
-    subtitle: "Sequences that pause when a customer answers",
-    steps: 5,
+    subtitle: "Personalised sequences that pause when a customer answers",
+    steps: 6,
     render: (p) => <SceneEmail {...p} />,
   },
   {
@@ -100,21 +100,21 @@ const SCENES: SceneDef[] = [
     label: "Calendar",
     title: "Calendar",
     subtitle: "Team week with automatic confirmations",
-    steps: 5,
+    steps: 6,
     render: (p) => <SceneCalendar {...p} />,
   },
   {
     key: "contracts",
     label: "Contracts",
     title: "Contracts",
-    subtitle: "Send, sign in order and close",
+    subtitle: "Signed in order, deal closed",
     steps: 6,
     render: (p) => <SceneContracts {...p} />,
   },
 ];
 
-const STEP_MS = 1500;
-const SCENE_GAP_MS = 1600;
+const STEP_MS = 1200;
+const SCENE_GAP_MS = 1700;
 
 function HeroV5Page() {
   const prefersReduced = useReducedMotion();
@@ -163,8 +163,6 @@ function HeroV5Page() {
     selectScene(next);
     tabRefs.current[next]?.focus();
   };
-
-  const progress = ((step + 1) / scene.steps) * 100;
 
   return (
     <div className="min-h-screen bg-white font-zapla text-zapla-ink">
@@ -237,23 +235,6 @@ function HeroV5Page() {
                   <div className="absolute inset-0">{scene.render({ step, reduced })}</div>
                 </AppShell>
               </div>
-            </div>
-
-            {/* progress */}
-            <div className="mt-3 flex items-center gap-2.5 px-1">
-              <span className="inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-slate-400">
-                <Activity className="h-3 w-3 text-zapla-blue" />
-                Live workflow
-              </span>
-              <div className="h-[3px] flex-1 overflow-hidden rounded-full bg-slate-100">
-                <motion.div
-                  className="h-full rounded-full bg-zapla-blue/70"
-                  initial={false}
-                  animate={{ width: `${reduced ? 100 : progress}%` }}
-                  transition={{ duration: 0.5, ease: EASE }}
-                />
-              </div>
-              <span className="text-[10.5px] text-slate-400">{scene.label}</span>
             </div>
 
             {/* tabs */}
