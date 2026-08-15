@@ -55,8 +55,9 @@ const SCENES: SceneDef[] = [
     title: "Contacts",
     subtitle: "Dormant customers wake up",
     phases: [
-      1300, 520, 780, 700, 700, 320, 320, 320, 380, 620, 620, 1900, 620, 300, 240, 240, 240, 2000,
+      1400, 520, 780, 900, 780, 420, 420, 420, 420, 760, 660, 1750, 640, 400, 340, 340, 340, 1600,
     ],
+
     render: (p) => <SceneContacts {...p} />,
   },
   {

@@ -49,8 +49,8 @@ type ContactRow = {
 const CONTACTS: ContactRow[] = [
   {
     name: "Maya Chen",
-    email: "maya.chen@northlight.co",
-    phone: "+44 7700 900321",
+    email: "maya.chen@northlightco.com.au",
+    phone: "+61 412 908 321",
     face: FACE.maya,
     tags: ["VIP", "Big Spender"],
     last: "7 months ago",
@@ -60,8 +60,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Daniel Ross",
-    email: "d.ross@rossbuild.co.uk",
-    phone: "+44 7700 900184",
+    email: "d.ross@rossbuildworks.com.au",
+    phone: "+61 413 770 184",
     face: FACE.daniel,
     tags: ["VIP", "Upsell Opportunity"],
     last: "8 months ago",
@@ -71,8 +71,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Priya Nair",
-    email: "priya@nairstudio.com",
-    phone: "+44 7700 900112",
+    email: "priya@nairstudio.com.au",
+    phone: "+61 421 556 112",
     face: FACE.priya,
     tags: ["VIP", "Repeat Customer"],
     last: "6 months ago",
@@ -82,8 +82,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Tom Whyte",
-    email: "tom.whyte@whytefit.com",
-    phone: "+44 7700 900076",
+    email: "tom.whyte@whytefitness.com.au",
+    phone: "+61 438 210 076",
     face: FACE.tom,
     tags: ["VIP", "Repeat Customer"],
     last: "9 months ago",
@@ -93,18 +93,18 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Sophie Bell",
-    email: "sophie.bell@gmail.com",
-    phone: "+44 7700 900540",
+    email: "sophie.bell@bigpond.com.au",
+    phone: "+61 402 664 540",
     face: FACE.sophie,
-    tags: ["Lead"],
+    tags: ["Client"],
     last: "3 days ago",
     source: "Website",
     status: "Active",
   },
   {
     name: "Leo Marsh",
-    email: "leo@marshjoinery.co.uk",
-    phone: "+44 7700 900218",
+    email: "leo@marshjoinery.com.au",
+    phone: "+61 419 338 218",
     face: FACE.leo,
     tags: ["Client"],
     last: "Yesterday",
@@ -113,8 +113,8 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Ava Dunn",
-    email: "ava.dunn@brightco.io",
-    phone: "+44 7700 900461",
+    email: "ava.dunn@brightcoastal.com.au",
+    phone: "+61 407 125 461",
     face: FACE.jordan,
     tags: ["Client", "Upsell Opportunity"],
     last: "4 days ago",
@@ -123,10 +123,10 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Noah Reid",
-    email: "noah.reid@outlook.com",
-    phone: "+44 7700 900733",
+    email: "noah.reid@outlook.com.au",
+    phone: "+61 434 902 733",
     face: FACE.sam,
-    tags: ["Lead"],
+    tags: ["Big Spender", "Client"],
     last: "1 week ago",
     source: "Facebook",
     status: "Active",
@@ -336,22 +336,6 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
             </motion.span>
           </AnimatePresence>
           <div className="ml-auto flex items-center gap-1.5">
-            {filtered ? (
-              <>
-                {["VIP", "Inactive 6m+"].map((t, i) => (
-                  <motion.span
-                    key={t}
-                    initial={reduced ? false : { opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : i * 0.09 }}
-                    className="inline-flex items-center gap-1 rounded-md border border-zapla-blue/25 bg-blue-50 px-2 py-[4px] text-[10.5px] font-semibold text-blue-700"
-                  >
-                    <Filter className="h-[10px] w-[10px]" />
-                    {t}
-                  </motion.span>
-                ))}
-              </>
-            ) : null}
             <span
               className={cn(
                 "inline-flex items-center gap-1 rounded-md border px-2 py-[4px] text-[10.5px] font-medium transition-colors duration-300",
