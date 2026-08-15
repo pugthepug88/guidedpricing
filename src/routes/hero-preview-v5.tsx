@@ -119,34 +119,24 @@ function HeroV5Page() {
   const reduced = !!prefersReduced;
 
   const [sceneIndex, setSceneIndex] = useState(0);
-  const [phase, setPhase] = useState(0);
   const [paused, setPaused] = useState(false);
   const scene = SCENES[sceneIndex];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  /* scene-local timeline: variable holds, no global metronome */
-  useEffect(() => {
-    if (reduced) {
-      // resolved payoff composition instead of choreography
-      setPhase(Math.max(scene.phases.length - 2, 0));
-      return;
-    }
-    if (paused) return;
-    const last = phase >= scene.phases.length - 1;
-    const id = window.setTimeout(() => {
-      if (last) {
-        setPhase(0);
-        setSceneIndex((i) => (i + 1) % SCENES.length);
-      } else {
-        setPhase((p) => p + 1);
-      }
-    }, scene.phases[phase]);
-    return () => window.clearTimeout(id);
-  }, [phase, sceneIndex, paused, reduced, scene.phases]);
+  const advance = useCallback(() => {
+    setSceneIndex((i) => (i + 1) % SCENES.length);
+  }, []);
+
+  /* real elapsed-time clock per scene: no global metronome, pause freezes it */
+  const { phase, elapsedMs } = useSceneClock({
+    durations: scene.phases,
+    paused,
+    reduced,
+    onComplete: advance,
+  });
 
   const selectScene = useCallback((i: number) => {
     setSceneIndex(i);
-    setPhase(0);
   }, []);
 
   const onTabKeyDown = (e: React.KeyboardEvent, i: number) => {
