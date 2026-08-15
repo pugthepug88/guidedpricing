@@ -138,7 +138,7 @@ const MATCH_ORDER = CONTACTS.reduce<number[]>((acc, c, i) => {
   return acc;
 }, []);
 
-const COLS = "26px minmax(0,2fr) minmax(0,1.15fr) minmax(0,1.7fr) 92px 82px 112px";
+const COLS = "26px minmax(0,1.85fr) 128px minmax(0,1.55fr) 92px 82px 112px";
 
 function HeaderCheckbox({ on }: { on: boolean }) {
   return (
