@@ -133,7 +133,6 @@ const CONTACTS: ContactRow[] = [
   },
 ];
 
-
 const MATCH_ORDER = CONTACTS.reduce<number[]>((acc, c, i) => {
   if (c.match) acc.push(i);
   return acc;
@@ -337,7 +336,6 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
             </motion.span>
           </AnimatePresence>
           <div className="ml-auto flex items-center gap-1.5">
-
             <span
               className={cn(
                 "inline-flex items-center gap-1 rounded-md border px-2 py-[4px] text-[10.5px] font-medium transition-colors duration-300",
