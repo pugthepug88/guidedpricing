@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ import {
 } from "@/components/v5/scenes-a";
 import { SceneCalendar, SceneContent, SceneContracts, SceneEmail } from "@/components/v5/scenes-b";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
+import { useSceneClock } from "@/components/v5/use-scene-clock";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
 
 export const Route = createFileRoute("/hero-preview-v5")({
@@ -42,7 +43,7 @@ type SceneDef = {
   label: string;
   title: string;
   subtitle: string;
-  /** variable-duration local timeline, one entry per visual phase (ms) */
+  /** scene-local timeline: variable-duration beats (ms), total differs per scene */
   phases: number[];
   render: (p: SceneProps) => React.ReactNode;
 };
@@ -119,34 +120,24 @@ function HeroV5Page() {
   const reduced = !!prefersReduced;
 
   const [sceneIndex, setSceneIndex] = useState(0);
-  const [phase, setPhase] = useState(0);
   const [paused, setPaused] = useState(false);
   const scene = SCENES[sceneIndex];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  /* scene-local timeline: variable holds, no global metronome */
-  useEffect(() => {
-    if (reduced) {
-      // resolved payoff composition instead of choreography
-      setPhase(Math.max(scene.phases.length - 2, 0));
-      return;
-    }
-    if (paused) return;
-    const last = phase >= scene.phases.length - 1;
-    const id = window.setTimeout(() => {
-      if (last) {
-        setPhase(0);
-        setSceneIndex((i) => (i + 1) % SCENES.length);
-      } else {
-        setPhase((p) => p + 1);
-      }
-    }, scene.phases[phase]);
-    return () => window.clearTimeout(id);
-  }, [phase, sceneIndex, paused, reduced, scene.phases]);
+  const advance = useCallback(() => {
+    setSceneIndex((i) => (i + 1) % SCENES.length);
+  }, []);
+
+  /* real elapsed-time clock per scene: no global metronome, pause freezes it */
+  const { phase, elapsedMs } = useSceneClock({
+    durations: scene.phases,
+    paused,
+    reduced,
+    onComplete: advance,
+  });
 
   const selectScene = useCallback((i: number) => {
     setSceneIndex(i);
-    setPhase(0);
   }, []);
 
   const onTabKeyDown = (e: React.KeyboardEvent, i: number) => {
@@ -229,7 +220,9 @@ function HeroV5Page() {
             >
               <div className="h-[460px] sm:h-[520px] lg:h-[580px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
-                  <div className="absolute inset-0">{scene.render({ phase, reduced })}</div>
+                  <div className="absolute inset-0">
+                    {scene.render({ phase, elapsedMs, reduced })}
+                  </div>
                 </AppShell>
               </div>
             </div>
