@@ -206,15 +206,98 @@ function StatusCell({ status }: { status: string }) {
   );
 }
 
+/* soft interaction indicator: ring + inner dot, only on real controls */
+function SoftCursor({
+  show,
+  x,
+  y,
+  press,
+  reduced,
+}: {
+  show: boolean;
+  x: number;
+  y: number;
+  press?: boolean;
+  reduced: boolean;
+}) {
+  if (reduced) return null;
+  return (
+    <AnimatePresence>
+      {show ? (
+        <motion.div
+          className="pointer-events-none absolute z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, left: `${x}%`, top: `${y}%` }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.52, ease: EASE_OUT }}
+          style={{ left: `${x}%`, top: `${y}%` }}
+        >
+          <motion.span
+            animate={{ scale: press ? 0.78 : 1 }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
+            className="flex h-[18px] w-[18px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-slate-400/60 bg-white/70 shadow-[0_2px_8px_-2px_rgba(15,23,42,0.35)] backdrop-blur-[1px]"
+          >
+            <span className="h-[5px] w-[5px] rounded-full bg-slate-700" />
+          </motion.span>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
+function FilterRow({ label, value, on }: { label: string; value: string; on: boolean }) {
+  return (
+    <div className="flex items-center justify-between gap-2 py-[5px]">
+      <span className="text-[10.5px] font-medium text-slate-400">{label}</span>
+      <span
+        className={cn(
+          "rounded-md border px-2 py-[3px] text-[10.5px] font-semibold transition-colors duration-300",
+          on
+            ? "border-zapla-blue/30 bg-blue-50 text-blue-700"
+            : "border-slate-200 bg-white text-slate-400",
+        )}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function DrawerField({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3 border-b border-slate-100 py-[6px]">
+      <span className="text-[10.5px] font-medium text-slate-400">{label}</span>
+      <span className="text-right text-[11.5px] font-semibold text-slate-700">{value}</span>
+    </div>
+  );
+}
+
 export function SceneContacts({ phase, reduced }: SceneProps) {
   /* timeline
-     0 still · 1 filter · 2-5 select rows 1-4 · 6 action bar
-     7 sending → Sent · 8 Maya replies · 9 hold */
-  const filtered = phase >= 1;
-  const selectedCount = Math.max(0, Math.min(phase - 1, 4));
-  const bar = phase >= 6;
-  const sent = phase >= 7;
-  const replied = phase >= 8;
+     0 still · 1 cursor to Filter · 2 popover opens · 3 criteria set
+     4 apply → filtered + result line · 5-8 select rows 1-4 · 9 action bar
+     10 drawer opens · 11 drawer read · 12 send pressed
+     13-16 Sent pills one by one (drawer closed) · 17 Maya replies + hold */
+  const popover = phase >= 2 && phase <= 4;
+  const criteria = phase >= 3;
+  const filtered = phase >= 4;
+  const selectedCount = Math.max(0, Math.min(phase - 4, 4));
+  const bar = phase >= 9 && phase <= 12;
+  const drawer = phase >= 10 && phase <= 12;
+  const drawerSent = phase >= 12;
+  const sentCount = phase >= 13 ? Math.min(phase - 12, 4) : 0;
+  const replied = phase >= 17;
+
+  const cursor =
+    phase >= 1 && phase <= 3
+      ? { x: 88, y: 6, press: phase === 2 }
+      : phase === 4
+        ? { x: 81, y: 30, press: true }
+        : phase === 9 || phase === 10
+          ? { x: 90, y: 93, press: phase === 10 }
+          : phase === 11 || phase === 12
+            ? { x: 82, y: 84, press: phase === 12 }
+            : null;
 
   const isSelected = (i: number) => {
     const pos = MATCH_ORDER.indexOf(i);
@@ -224,209 +307,328 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
   const statusFor = (c: ContactRow, i: number) => {
     if (!c.match) return c.status;
     if (replied && i === 0) return "Replied";
-    if (sent) return "Sent";
+    const pos = MATCH_ORDER.indexOf(i);
+    if (pos > -1 && pos < sentCount) return "Sent";
     return c.status;
   };
 
   const lastFor = (c: ContactRow, i: number) => (replied && i === 0 ? "Just now" : c.last);
 
   return (
-    <div className="absolute inset-0 flex flex-col px-4 pb-3 pt-3">
-      {/* toolbar */}
-      <div className="mb-2 flex items-center gap-2">
-        <div className="text-[12.5px] font-bold tracking-tight text-slate-800">All contacts</div>
-        <span className="rounded-full bg-slate-100 px-2 py-[2px] text-[10px] font-semibold text-slate-500">
-          {CONTACTS.length}
-        </span>
-        <div className="ml-auto flex items-center gap-1.5">
-          <AnimatePresence initial={false}>
-            {filtered
-              ? ["VIP", "Inactive 6m+"].map((t, i) => (
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 flex flex-col px-4 pb-3 pt-3">
+        {/* toolbar */}
+        <div className="mb-2 flex items-center gap-2">
+          <div className="text-[12.5px] font-bold tracking-tight text-slate-800">All contacts</div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={filtered ? "found" : "all"}
+              initial={reduced ? false : { opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: reduced ? 0 : 0.3, ease: EASE_OUT }}
+              className={cn(
+                "rounded-full px-2 py-[2px] text-[10px] font-semibold",
+                filtered ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-500",
+              )}
+            >
+              {filtered ? "4 contacts found" : `${CONTACTS.length} contacts`}
+            </motion.span>
+          </AnimatePresence>
+          <div className="ml-auto flex items-center gap-1.5">
+            {filtered ? (
+              <>
+                {["VIP", "Inactive 6m+"].map((t, i) => (
                   <motion.span
                     key={t}
-                    initial={reduced ? false : { opacity: 0, scale: 0.9 }}
+                    initial={reduced ? false : { opacity: 0, scale: 0.92 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : i * 0.09 }}
                     className="inline-flex items-center gap-1 rounded-md border border-zapla-blue/25 bg-blue-50 px-2 py-[4px] text-[10.5px] font-semibold text-blue-700"
                   >
                     <Filter className="h-[10px] w-[10px]" />
                     {t}
                   </motion.span>
-                ))
-              : null}
-          </AnimatePresence>
-          <span className="rounded-md border border-slate-200 bg-white px-2 py-[4px] text-[10.5px] font-medium text-slate-400">
-            Filter
-          </span>
-          <span className="rounded-md border border-slate-200 bg-white px-2 py-[4px] text-[10.5px] font-medium text-slate-400">
-            Sort
-          </span>
-        </div>
-      </div>
-
-      {/* table */}
-      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-        <div
-          className="grid items-center gap-2 border-b border-slate-200 bg-slate-50/80 px-3 py-[7px] text-[10px] font-semibold uppercase tracking-wide text-slate-400"
-          style={{ gridTemplateColumns: COLS }}
-        >
-          <HeaderCheckbox on={selectedCount === 4} />
-          <span>Contact</span>
-          <span>Phone</span>
-          <span>Tags</span>
-          <span>Last activity</span>
-          <span>Source</span>
-          <span>Status</span>
+                ))}
+              </>
+            ) : null}
+            <span
+              className={cn(
+                "inline-flex items-center gap-1 rounded-md border px-2 py-[4px] text-[10.5px] font-medium transition-colors duration-300",
+                popover
+                  ? "border-zapla-blue/40 bg-blue-50 text-blue-700"
+                  : "border-slate-200 bg-white text-slate-400",
+              )}
+            >
+              <Filter className="h-[10px] w-[10px]" />
+              Filter
+            </span>
+            <span className="rounded-md border border-slate-200 bg-white px-2 py-[4px] text-[10.5px] font-medium text-slate-400">
+              Sort
+            </span>
+          </div>
         </div>
 
-        <div className="divide-y divide-slate-100">
-          {CONTACTS.map((c, i) => {
-            const dim = filtered && !c.match;
-            const sel = isSelected(i);
-            const focus = replied && i === 0;
-            return (
-              <motion.div
-                key={c.name}
-                animate={{
-                  opacity: dim ? 0.42 : 1,
-                  backgroundColor: focus
-                    ? "rgba(236,253,245,0.9)"
-                    : sel
-                      ? "rgba(239,246,255,0.85)"
-                      : "rgba(255,255,255,1)",
-                }}
-                transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT }}
-                className="relative"
-              >
-                <div
-                  className="grid items-center gap-2 px-3 py-[9px]"
-                  style={{ gridTemplateColumns: COLS }}
+        {/* table */}
+        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+          <div
+            className="grid items-center gap-2 border-b border-slate-200 bg-slate-50/80 px-3 py-[7px] text-[10px] font-semibold uppercase tracking-wide text-slate-400"
+            style={{ gridTemplateColumns: COLS }}
+          >
+            <HeaderCheckbox on={selectedCount === 4} />
+            <span>Contact</span>
+            <span>Phone</span>
+            <span>Tags</span>
+            <span>Last activity</span>
+            <span>Source</span>
+            <span>Status</span>
+          </div>
+
+          <div className="divide-y divide-slate-100">
+            {CONTACTS.map((c, i) => {
+              const dim = filtered && !c.match;
+              const sel = isSelected(i);
+              const focus = replied && i === 0;
+              return (
+                <motion.div
+                  key={c.name}
+                  animate={{
+                    opacity: dim ? 0.4 : 1,
+                    backgroundColor: focus
+                      ? "rgba(236,253,245,0.9)"
+                      : sel
+                        ? "rgba(239,246,255,0.85)"
+                        : "rgba(255,255,255,1)",
+                  }}
+                  transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT }}
+                  className="relative"
                 >
-                  <span
-                    className={cn(
-                      "flex h-[13px] w-[13px] items-center justify-center rounded-[3px] border transition-colors duration-300",
-                      sel
-                        ? "border-zapla-blue bg-zapla-blue text-white"
-                        : "border-slate-300 bg-white",
-                    )}
+                  <div
+                    className="grid items-center gap-2 px-3 py-[9px]"
+                    style={{ gridTemplateColumns: COLS }}
                   >
-                    <AnimatePresence>
-                      {sel ? (
-                        <motion.span
-                          initial={reduced ? false : { scale: 0.4, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ duration: reduced ? 0 : 0.24, ease: EASE_OUT }}
-                        >
-                          <Check className="h-[9px] w-[9px]" strokeWidth={3.5} />
-                        </motion.span>
-                      ) : null}
-                    </AnimatePresence>
-                  </span>
+                    <span
+                      className={cn(
+                        "flex h-[13px] w-[13px] items-center justify-center rounded-[3px] border transition-colors duration-300",
+                        sel
+                          ? "border-zapla-blue bg-zapla-blue text-white"
+                          : "border-slate-300 bg-white",
+                      )}
+                    >
+                      <AnimatePresence>
+                        {sel ? (
+                          <motion.span
+                            initial={reduced ? false : { scale: 0.4, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: reduced ? 0 : 0.24, ease: EASE_OUT }}
+                          >
+                            <Check className="h-[9px] w-[9px]" strokeWidth={3.5} />
+                          </motion.span>
+                        ) : null}
+                      </AnimatePresence>
+                    </span>
 
-                  <div className="flex min-w-0 items-center gap-2">
-                    <Avatar src={c.face} size={26} className="ring-1 ring-slate-100" />
-                    <div className="min-w-0">
-                      <div className="truncate text-[12px] font-semibold leading-tight text-slate-800">
-                        {c.name}
+                    <div className="flex min-w-0 items-center gap-2">
+                      <Avatar src={c.face} size={26} className="ring-1 ring-slate-100" />
+                      <div className="min-w-0">
+                        <div className="truncate text-[12px] font-semibold leading-tight text-slate-800">
+                          {c.name}
+                        </div>
+                        <div className="truncate text-[10.5px] leading-tight text-slate-400">
+                          {c.email}
+                        </div>
                       </div>
-                      <div className="truncate text-[10.5px] leading-tight text-slate-400">
-                        {c.email}
-                      </div>
+                    </div>
+
+                    <span className="truncate text-[11px] tabular-nums text-slate-500">
+                      {c.phone}
+                    </span>
+
+                    <div className="flex min-w-0 flex-wrap items-center gap-1">
+                      {c.tags.map((t) => (
+                        <TagChip key={t} label={t} />
+                      ))}
+                    </div>
+
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={lastFor(c, i)}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.26, ease: EASE_OUT }}
+                        className={cn(
+                          "truncate text-[11px]",
+                          focus ? "font-semibold text-emerald-700" : "text-slate-400",
+                        )}
+                      >
+                        {lastFor(c, i)}
+                      </motion.span>
+                    </AnimatePresence>
+
+                    <span className="truncate text-[11px] text-slate-400">{c.source}</span>
+
+                    <div className="flex items-center gap-1.5">
+                      <StatusCell status={statusFor(c, i)} />
                     </div>
                   </div>
 
-                  <span className="truncate text-[11px] tabular-nums text-slate-500">
-                    {c.phone}
-                  </span>
-
-                  <div className="flex min-w-0 flex-wrap items-center gap-1">
-                    {c.tags.map((t) => (
-                      <TagChip key={t} label={t} />
-                    ))}
-                  </div>
-
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.span
-                      key={lastFor(c, i)}
-                      initial={{ opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.26, ease: EASE_OUT }}
-                      className={cn(
-                        "truncate text-[11px]",
-                        focus ? "font-semibold text-emerald-700" : "text-slate-400",
-                      )}
-                    >
-                      {lastFor(c, i)}
-                    </motion.span>
+                  {/* Maya's reply stays attached to her row */}
+                  <AnimatePresence initial={false}>
+                    {focus ? (
+                      <motion.div
+                        initial={reduced ? false : { opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: reduced ? 0 : 0.42, ease: EASE_OUT }}
+                        className="overflow-hidden"
+                      >
+                        <div className="flex flex-wrap items-center gap-2 border-t border-emerald-100/70 px-3 pb-[9px] pl-[54px] pt-[7px]">
+                          <span className="rounded-lg rounded-tl-sm bg-emerald-50 px-2.5 py-1 text-[11.5px] font-medium text-emerald-900">
+                            &ldquo;Yes please. What times do you have Thursday?&rdquo;
+                          </span>
+                          <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-[3px] text-[10px] font-semibold text-blue-700">
+                            <CalendarCheck className="h-[10px] w-[10px]" /> Booking opportunity
+                          </span>
+                        </div>
+                      </motion.div>
+                    ) : null}
                   </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
 
-                  <span className="truncate text-[11px] text-slate-400">{c.source}</span>
-
-                  <div className="flex items-center gap-1.5">
-                    <StatusCell status={statusFor(c, i)} />
-                  </div>
-                </div>
-
-                {/* Maya's reply stays attached to her row */}
-                <AnimatePresence initial={false}>
-                  {focus ? (
-                    <motion.div
-                      initial={reduced ? false : { opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: reduced ? 0 : 0.42, ease: EASE_OUT }}
-                      className="overflow-hidden"
-                    >
-                      <div className="flex items-center gap-2 border-t border-emerald-100/70 px-3 pb-[9px] pt-[7px] pl-[54px]">
-                        <span className="rounded-lg rounded-tl-sm bg-emerald-50 px-2.5 py-1 text-[11.5px] font-medium text-emerald-900">
-                          &ldquo;Thursday works&rdquo;
-                        </span>
-                        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-[3px] text-[10px] font-semibold text-blue-700">
-                          <CalendarCheck className="h-[10px] w-[10px]" /> Booking requested
-                        </span>
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
+        {/* native selection action bar */}
+        <div className={cn("relative mt-auto", replied || sentCount > 0 ? "h-0" : "h-[46px]")}>
+          <AnimatePresence initial={false}>
+            {bar ? (
+              <motion.div
+                initial={reduced ? false : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT }}
+                className="absolute inset-x-0 bottom-0 flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-[0_10px_28px_-18px_rgba(15,23,42,0.35)]"
+              >
+                <span className="flex h-5 w-5 items-center justify-center rounded-[5px] bg-zapla-blue text-white">
+                  <Check className="h-3 w-3" strokeWidth={3} />
+                </span>
+                <span className="text-[12px] font-semibold text-slate-700">
+                  4 contacts selected
+                </span>
+                <span className="text-[11px] text-slate-400">VIP · Inactive 6m+</span>
+                <span className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-zapla-blue px-3 py-1.5 text-[11.5px] font-semibold text-white">
+                  <MessageSquare className="h-3 w-3" />
+                  Send SMS campaign
+                </span>
               </motion.div>
-            );
-          })}
+            ) : null}
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* native selection action bar */}
-      <div className={cn("relative mt-auto", replied ? "h-0" : "h-[46px]")}>
-        <AnimatePresence initial={false}>
-          {bar && !replied ? (
-            <motion.div
-              initial={reduced ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT }}
-              className="absolute inset-x-0 bottom-0 flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-[0_10px_28px_-18px_rgba(15,23,42,0.35)]"
+      {/* native filter popover, anchored under the Filter control */}
+      <AnimatePresence initial={false}>
+        {popover ? (
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: -8, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: reduced ? 0 : 0.34, ease: EASE_OUT }}
+            className="absolute right-[54px] top-[38px] z-40 w-[236px] origin-top rounded-xl border border-slate-200 bg-white p-3 shadow-[0_24px_50px_-24px_rgba(15,23,42,0.4)]"
+          >
+            <div className="mb-1 flex items-center gap-1.5 text-[11px] font-bold text-slate-700">
+              <Filter className="h-[11px] w-[11px] text-zapla-blue" /> Filter contacts
+            </div>
+            <FilterRow label="Tag" value="VIP" on={criteria} />
+            <FilterRow label="Last activity" value="More than 6 months ago" on={criteria} />
+            <FilterRow label="Sort" value="Oldest first" on={criteria} />
+            <div
+              className={cn(
+                "mt-2 rounded-lg px-3 py-1.5 text-center text-[11.5px] font-semibold text-white transition-colors duration-300",
+                criteria ? "bg-zapla-blue" : "bg-slate-300",
+              )}
             >
-              <span className="flex h-5 w-5 items-center justify-center rounded-[5px] bg-zapla-blue text-white">
-                <Check className="h-3 w-3" strokeWidth={3} />
+              Apply filter
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
+      {/* native right-side SMS drawer */}
+      <AnimatePresence initial={false}>
+        {drawer ? (
+          <motion.div
+            initial={reduced ? false : { x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: reduced ? 0 : 0.5, ease: EASE_OUT }}
+            className="absolute bottom-0 right-0 top-0 z-40 flex w-[292px] flex-col border-l border-slate-200 bg-white px-3.5 py-3 shadow-[-24px_0_60px_-32px_rgba(15,23,42,0.4)]"
+          >
+            <div className="flex items-center gap-2">
+              <MessageSquare className="h-[13px] w-[13px] text-zapla-blue" />
+              <span className="text-[12.5px] font-bold tracking-tight text-slate-800">
+                SMS Campaign
               </span>
-              <span className="text-[12px] font-semibold text-slate-700">
-                {selectedCount} contacts selected
+              <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-slate-100 px-1.5 py-[2px] pr-2 text-[10px] font-semibold text-slate-500">
+                <Avatar src={FACE.alex} size={14} />
+                You
               </span>
-              <span className="text-[11px] text-slate-400">VIP · Inactive 6m+</span>
-              <span
-                className={cn(
-                  "ml-auto inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11.5px] font-semibold text-white transition-colors duration-300",
-                  sent ? "bg-zapla-ink" : "bg-zapla-blue",
-                )}
-              >
-                <MessageSquare className="h-3 w-3" />
-                {sent ? "Sending campaign" : "Send SMS campaign"}
-              </span>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </div>
+            </div>
+
+            <div className="mt-2.5">
+              <DrawerField label="Audience" value="VIP · Inactive 6m+" />
+              <DrawerField label="Recipients" value="4 contacts" />
+              <DrawerField label="Offer" value="VIP comeback offer" />
+              <DrawerField label="Channel" value="SMS" />
+            </div>
+
+            <div className="mt-2.5 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+              Message preview
+            </div>
+            <div className="mt-1.5 rounded-xl rounded-tl-sm bg-slate-50 p-2.5 text-[11.5px] leading-[1.5] text-slate-600">
+              Hi {"{{"}first_name{"}}"}, it&rsquo;s been a while. We&rsquo;re offering a special VIP
+              comeback offer this month. Reply YES and we&rsquo;ll send you the details and available
+              times.
+            </div>
+
+            <div className="mt-auto">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={drawerSent ? "sent" : "send"}
+                  initial={reduced ? false : { opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: reduced ? 0 : 0.28, ease: EASE_OUT }}
+                  className={cn(
+                    "flex items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-[12px] font-semibold text-white",
+                    drawerSent ? "bg-emerald-600" : "bg-zapla-blue",
+                  )}
+                >
+                  {drawerSent ? (
+                    <>
+                      <Check className="h-3.5 w-3.5" strokeWidth={3} /> Campaign sent
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-3.5 w-3.5" /> Send to 4 contacts
+                    </>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
+      <SoftCursor
+        show={!!cursor}
+        x={cursor?.x ?? 88}
+        y={cursor?.y ?? 6}
+        press={cursor?.press}
+        reduced={reduced}
+      />
     </div>
   );
 }
