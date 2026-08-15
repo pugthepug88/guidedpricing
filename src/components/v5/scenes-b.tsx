@@ -693,7 +693,7 @@ export function SceneCalendar({ step, reduced }: SceneProps) {
                                 initial={{ opacity: 0, y: -6 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-                                className="absolute -bottom-1 right-1 z-20 flex items-center gap-1"
+                                className="absolute -bottom-5 right-1 z-20 flex items-center gap-1"
                               >
                                 {[
                                   { icon: MessageSquare, label: "SMS" },
