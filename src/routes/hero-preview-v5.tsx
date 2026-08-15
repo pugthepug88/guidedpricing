@@ -161,7 +161,6 @@ function HeroV5Page() {
     tabRefs.current[next]?.focus();
   };
 
-
   return (
     <div className="min-h-screen bg-white font-zapla text-zapla-ink">
       {/* preview header */}

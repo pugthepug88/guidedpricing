@@ -83,7 +83,11 @@ export function SceneContent({ phase, reduced }: SceneProps) {
       background={<PlannerBackground landed={payoff || collapse} />}
       foreground={
         <>
-          <Glow show={compose && !collapse} tone="violet" className="left-[18%] top-[18%] h-56 w-72" />
+          <Glow
+            show={compose && !collapse}
+            tone="violet"
+            className="left-[18%] top-[18%] h-56 w-72"
+          />
           <AnimatePresence>
             {compose && !collapse ? (
               <motion.div
@@ -420,7 +424,11 @@ export function SceneCalendar({ phase, reduced }: SceneProps) {
       background={<CalendarBackground docked={collapse} />}
       foreground={
         <>
-          <Glow show={token && !collapse} tone="green" className="left-1/2 top-[20%] h-56 w-72 -translate-x-1/2" />
+          <Glow
+            show={token && !collapse}
+            tone="green"
+            className="left-1/2 top-[20%] h-56 w-72 -translate-x-1/2"
+          />
           <AnimatePresence>
             {token && !payoff ? (
               <motion.div
@@ -529,7 +537,10 @@ function ContractsBackground() {
     <div className="absolute inset-0 flex">
       <div className="w-[34%] space-y-2 border-r border-slate-200/80 bg-white p-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="flex items-center gap-2 rounded-lg border border-slate-200/70 p-2">
+          <div
+            key={i}
+            className="flex items-center gap-2 rounded-lg border border-slate-200/70 p-2"
+          >
             <FileSignature className="h-3.5 w-3.5 text-slate-300" />
             <div className="flex-1 space-y-1.5">
               <GhostRow w="72%" h={7} />
@@ -655,9 +666,7 @@ export function SceneContracts({ phase, reduced }: SceneProps) {
                           transition={{ duration: reduced ? 0 : 0.4 }}
                           className="mt-1"
                         >
-                          <Tag tone={dock ? "green" : "slate"}>
-                            {dock ? "Won" : "Negotiation"}
-                          </Tag>
+                          <Tag tone={dock ? "green" : "slate"}>{dock ? "Won" : "Negotiation"}</Tag>
                         </motion.div>
                       </AnimatePresence>
                     </div>

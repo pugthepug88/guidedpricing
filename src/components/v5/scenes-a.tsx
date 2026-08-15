@@ -9,7 +9,6 @@ import {
   MessageSquare,
   Send,
   Sparkles,
-  Users,
   X,
   Zap,
 } from "lucide-react";
@@ -339,7 +338,11 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
       background={<BoardBackground />}
       foreground={
         <>
-          <Glow show={won && !collapse} tone="green" className="left-1/2 top-[18%] h-64 w-80 -translate-x-1/2" />
+          <Glow
+            show={won && !collapse}
+            tone="green"
+            className="left-1/2 top-[18%] h-64 w-80 -translate-x-1/2"
+          />
           <AnimatePresence>
             {lifted && !payoff ? (
               <motion.div
@@ -459,11 +462,7 @@ function InboxBackground() {
       </div>
       <div className="flex-1 space-y-3 p-4">
         {[68, 52, 74, 44].map((w, i) => (
-          <div
-            key={i}
-            className={i % 2 ? "flex justify-end" : ""}
-            style={{ width: "100%" }}
-          >
+          <div key={i} className={i % 2 ? "flex justify-end" : ""} style={{ width: "100%" }}>
             <div
               style={{ width: `${w}%` }}
               className="h-9 rounded-2xl border border-slate-200/70 bg-white"
@@ -637,8 +636,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
             aria-hidden
             className="absolute inset-0 opacity-[0.55]"
             style={{
-              backgroundImage:
-                "radial-gradient(rgba(148,163,184,0.35) 1px, transparent 1px)",
+              backgroundImage: "radial-gradient(rgba(148,163,184,0.35) 1px, transparent 1px)",
               backgroundSize: "18px 18px",
             }}
           />
@@ -656,7 +654,10 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
       }
       foreground={
         <>
-          <Glow show={reply && !collapse} className="left-1/2 top-[24%] h-60 w-[420px] -translate-x-1/2" />
+          <Glow
+            show={reply && !collapse}
+            className="left-1/2 top-[24%] h-60 w-[420px] -translate-x-1/2"
+          />
 
           {/* A — lead token triggers a large SMS action card */}
           <AnimatePresence>
@@ -752,7 +753,11 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
                 initial={reduced ? false : { opacity: 0, y: -18, scale: 0.8 }}
                 animate={{ opacity: 1, y: 0, scale: 1, rotate: 1.5 }}
                 exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.16, ease: EASE_OUT }}
+                transition={{
+                  duration: reduced ? 0 : 0.55,
+                  delay: reduced ? 0 : 0.16,
+                  ease: EASE_OUT,
+                }}
               >
                 <Hero className="p-3.5">
                   <div className="flex items-center gap-2.5">
@@ -799,5 +804,3 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
     />
   );
 }
-
-export const ScenesAIcons = { Users };
