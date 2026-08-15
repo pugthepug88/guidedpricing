@@ -159,9 +159,11 @@ function TagChip({ label }: { label: string }) {
       ? "bg-amber-50 text-amber-700"
       : label === "Big Spender"
         ? "bg-violet-50 text-violet-700"
-        : label === "Upsell"
+        : label === "Upsell Opportunity"
           ? "bg-sky-50 text-sky-700"
-          : "bg-slate-100 text-slate-600";
+          : label === "Repeat Customer"
+            ? "bg-emerald-50 text-emerald-700"
+            : "bg-slate-100 text-slate-600";
   return (
     <span
       className={cn(
