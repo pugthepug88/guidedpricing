@@ -156,7 +156,8 @@ export function SceneContent({ phase, reduced }: SceneProps) {
           <Payoff
             show={payoff && !collapse}
             reduced={reduced}
-            className="left-1/2 top-[58%] w-[70%] max-w-[400px] -translate-x-1/2"
+            style={{ top: "58%" }}
+            className="left-1/2 w-[70%] max-w-[400px] -translate-x-1/2"
           >
             <div className="flex items-center gap-3.5">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-500 text-white">
