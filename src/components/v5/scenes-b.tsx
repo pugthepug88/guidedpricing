@@ -8,7 +8,7 @@ import {
   Image as ImageIcon,
   Mail,
   MailCheck,
-  MousePointerClick,
+  MessageSquare,
   Plus,
   Search,
   Send,
@@ -28,14 +28,15 @@ import {
   SOCIAL_LABEL,
   SocialMark,
   StepIn,
-  Toast,
   Toolbar,
 } from "./kit";
 import { FACE } from "./faces";
 import type { SceneProps } from "./scenes-a";
 
 /* ================================================================== */
-/* 5. CONTENT PLANNER                                                  */
+/* 5. CONTENT PLANNER — one post becomes scheduled distribution        */
+/*    0 planner · 1 composer · 2 caption · 3 channels                  */
+/*    4 date · 5 one Schedule click · 6 card lands in the slot         */
 /* ================================================================== */
 
 type Post = {
@@ -83,34 +84,13 @@ const PLANNED: Post[] = [
 ];
 
 const DAYS = ["Mon 4", "Tue 5", "Wed 6", "Thu 7", "Fri 8"];
-
-const CONTENT_POINTER: Array<[number, number]> = [
-  [50, 30],
-  [88, 12],
-  [82, 40],
-  [82, 58],
-  [82, 74],
-  [66, 46],
-];
+const NEW_CHANNELS = ["ig", "fb", "li", "gb"];
 
 export function SceneContent({ step, reduced }: SceneProps) {
-  const [px, py] = CONTENT_POINTER[Math.min(step, CONTENT_POINTER.length - 1)];
   const composer = step >= 1;
-  const scheduled = step >= 5;
-
-  const posts: Post[] = scheduled
-    ? [
-        ...PLANNED,
-        {
-          day: 4,
-          time: "10:00 am",
-          title: "New season openings",
-          channels: ["ig", "fb", "li", "gb"],
-          tone: "border-blue-300 bg-white ring-2 ring-blue-200",
-          status: "Scheduled",
-        },
-      ]
-    : PLANNED;
+  const channelsOn = step >= 3;
+  const dated = step >= 4;
+  const scheduled = step >= 6;
 
   return (
     <div className="relative h-full">
@@ -119,7 +99,7 @@ export function SceneContent({ step, reduced }: SceneProps) {
           Week of 4 Aug <ChevronDown className="h-3 w-3" />
         </span>
         <span className="hidden items-center gap-1.5 md:flex">
-          {["ig", "fb", "li", "gb"].map((c) => (
+          {NEW_CHANNELS.map((c) => (
             <span
               key={c}
               className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-[3px] text-[10.5px] text-slate-500"
@@ -150,31 +130,62 @@ export function SceneContent({ step, reduced }: SceneProps) {
           <div className="grid min-h-0 flex-1 grid-cols-5 divide-x divide-slate-100">
             {DAYS.map((d, di) => (
               <div key={d} className="space-y-1.5 p-1.5">
-                {posts
-                  .filter((p) => p.day === di)
-                  .map((p) => (
-                    <motion.div
-                      key={p.title}
-                      layout
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-                      className={cn("rounded-lg border px-2 py-2", p.tone)}
-                    >
-                      <div className="text-[10px] text-slate-400">{p.time}</div>
-                      <div className="mt-1 text-[11.5px] font-semibold leading-snug text-slate-800">
-                        {p.title}
-                      </div>
-                      <div className="mt-1.5 flex items-center gap-1">
-                        {p.channels.map((c) => (
-                          <SocialMark key={c} id={c} size={12} />
-                        ))}
-                        {p.status === "Published" ? (
-                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                        ) : null}
-                      </div>
-                    </motion.div>
-                  ))}
+                {PLANNED.filter((p) => p.day === di).map((p) => (
+                  <div key={p.title} className={cn("rounded-lg border px-2 py-2", p.tone)}>
+                    <div className="text-[10px] text-slate-400">{p.time}</div>
+                    <div className="mt-1 text-[11.5px] font-semibold leading-snug text-slate-800">
+                      {p.title}
+                    </div>
+                    <div className="mt-1.5 flex items-center gap-1">
+                      {p.channels.map((c) => (
+                        <SocialMark key={c} id={c} size={12} />
+                      ))}
+                      {p.status === "Published" ? (
+                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                      ) : null}
+                    </div>
+                  </div>
+                ))}
+
+                {/* target slot — the composed post docks here */}
+                {di === 4 ? (
+                  <div
+                    className={cn(
+                      "rounded-lg border border-dashed transition-colors duration-500",
+                      dated && !scheduled ? "border-blue-300 bg-blue-50/40" : "border-transparent",
+                      scheduled ? "border-transparent p-0" : "h-[62px]",
+                    )}
+                  >
+                    {scheduled ? (
+                      <motion.div
+                        layoutId="new-post"
+                        transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
+                        className="rounded-lg border border-blue-300 bg-white px-2 py-2 ring-2 ring-blue-100"
+                      >
+                        <div className="text-[10px] text-slate-400">10:00 am</div>
+                        <div className="mt-1 text-[11.5px] font-semibold leading-snug text-slate-800">
+                          New season openings
+                        </div>
+                        <div className="mt-1.5 flex items-center gap-1">
+                          {NEW_CHANNELS.map((c, i) => (
+                            <motion.span
+                              key={c}
+                              initial={{ opacity: 0, scale: 0.6, y: -6 }}
+                              animate={{ opacity: 1, scale: 1, y: 0 }}
+                              transition={{
+                                duration: reduced ? 0 : 0.35,
+                                ease: EASE,
+                                delay: reduced ? 0 : 0.25 + i * 0.1,
+                              }}
+                            >
+                              <SocialMark id={c} size={12} />
+                            </motion.span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>
@@ -184,32 +195,37 @@ export function SceneContent({ step, reduced }: SceneProps) {
         <motion.div
           className="hidden min-h-0 lg:block"
           initial={false}
-          animate={{ opacity: composer ? 1 : 0, x: composer ? 0 : 22 }}
+          animate={{ opacity: composer && !scheduled ? 1 : 0, x: composer && !scheduled ? 0 : 22 }}
           transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
         >
           <Card className="flex h-full flex-col overflow-hidden">
             <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
               <span className="text-[12.5px] font-semibold text-slate-900">New post</span>
-              <Pill tone={scheduled ? "green" : "slate"} className="ml-auto">
-                {scheduled ? "Scheduled" : "Draft"}
+              <Pill tone="slate" className="ml-auto">
+                Draft
               </Pill>
             </div>
             <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
-              <div className="flex h-14 items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 text-slate-300">
-                <ImageIcon className="h-5 w-5" />
-              </div>
-              <div className="min-h-[54px] rounded-lg border border-slate-200 p-2 text-[11.5px] leading-relaxed text-slate-600">
-                {step >= 2 ? "New season openings are live. " : ""}
-                {step >= 3 ? "Book your spot for August and we will hold your usual time." : ""}
-                {step < 2 ? <span className="text-slate-300">Write a caption…</span> : null}
-              </div>
+              {!scheduled ? (
+                <motion.div layoutId="new-post" className="space-y-2">
+                  <div className="flex h-14 items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 text-slate-300">
+                    <ImageIcon className="h-5 w-5" />
+                  </div>
+                  <div className="min-h-[54px] rounded-lg border border-slate-200 p-2 text-[11.5px] leading-relaxed text-slate-600">
+                    {step >= 2
+                      ? "New season openings are live. Book your spot for August and we will hold your usual time."
+                      : null}
+                    {step < 2 ? <span className="text-slate-300">Write a caption…</span> : null}
+                  </div>
+                </motion.div>
+              ) : null}
               <div className="flex flex-wrap gap-1.5">
-                {["ig", "fb", "li", "gb"].map((c) => (
+                {NEW_CHANNELS.map((c) => (
                   <span
                     key={c}
                     className={cn(
                       "inline-flex items-center gap-1 rounded-full border px-2 py-[3px] text-[10.5px] transition-colors duration-500",
-                      step >= 3
+                      channelsOn
                         ? "border-blue-400 bg-blue-50 text-blue-700"
                         : "border-slate-200 text-slate-500",
                     )}
@@ -218,9 +234,16 @@ export function SceneContent({ step, reduced }: SceneProps) {
                   </span>
                 ))}
               </div>
-              <div className="flex items-center gap-2 rounded-lg border border-slate-200 px-2 py-1.5 text-[11.5px] text-slate-600">
+              <div
+                className={cn(
+                  "flex items-center gap-2 rounded-lg border px-2 py-1.5 text-[11.5px] transition-colors duration-500",
+                  dated
+                    ? "border-blue-300 bg-blue-50/50 text-blue-700"
+                    : "border-slate-200 text-slate-600",
+                )}
+              >
                 <Calendar className="h-3.5 w-3.5 text-slate-400" />
-                {step >= 4 ? "Fri 8 Aug · 10:00 am" : "Choose date and time"}
+                {dated ? "Fri 8 Aug · 10:00 am" : "Choose date and time"}
               </div>
               <div className="mt-auto flex items-center gap-2">
                 <Btn>
@@ -233,22 +256,26 @@ export function SceneContent({ step, reduced }: SceneProps) {
         </motion.div>
       </div>
 
-      <Pointer x={px} y={py} active={step === 1 || step === 4} reduced={reduced} />
-      <Toast
-        show={scheduled}
-        title="Scheduled across four channels"
-        body="Friday 8 Aug, 10:00 am."
+      {/* one purposeful click: Schedule */}
+      <Pointer
+        x={81}
+        y={88}
+        show={step === 4 || step === 5}
+        active={step === 5}
+        reduced={reduced}
       />
     </div>
   );
 }
 
 /* ================================================================== */
-/* 6. EMAIL MARKETING — sequence progression                           */
+/* 6. EMAIL MARKETING — personalisation becomes real, then published   */
+/*    0 draft · 1 merge field resolves · 2 one Publish click           */
+/*    3 published, sequence live · 4 reply cancels the rest · 5 hold   */
 /* ================================================================== */
 
 const CAMPAIGNS = [
-  { name: "Quote Follow-Up", status: "Active", updated: "Today" },
+  { name: "Quote Follow-Up", updated: "Today" },
   { name: "New Customer Welcome", status: "Published", updated: "2 Aug" },
   { name: "Winter service reminder", status: "Published", updated: "29 Jul" },
   { name: "Referral thank you", status: "Draft", updated: "24 Jul" },
@@ -258,13 +285,15 @@ const SEQ = [
   { label: "Email 1 · Quote recap", icon: Mail },
   { label: "Wait 2 days", icon: Timer },
   { label: "Email 2 · Any questions?", icon: Mail },
-  { label: "Wait 3 days", icon: Timer },
   { label: "Email 3 · Last check-in", icon: Mail },
 ];
 
 export function SceneEmail({ step, reduced }: SceneProps) {
+  const personalised = step >= 1;
+  const published = step >= 3;
   const replied = step >= 4;
-  const activeIdx = Math.min(step, SEQ.length - 1);
+  const heroStatus = replied ? "Replied" : published ? "Published" : "Draft";
+  const activeIdx = published ? Math.min(step - 2, SEQ.length - 1) : -1;
 
   return (
     <div className="relative h-full">
@@ -296,55 +325,101 @@ export function SceneEmail({ step, reduced }: SceneProps) {
             <Search className="h-3.5 w-3.5" /> Search campaigns
           </div>
           <div className="divide-y divide-slate-100">
-            {CAMPAIGNS.map((c, i) => (
-              <div
-                key={c.name}
-                className={cn(
-                  "px-3 py-2.5 transition-colors duration-500",
-                  i === 0 ? "bg-blue-50/60" : "bg-white",
-                )}
-              >
-                <div className="truncate text-[12px] font-semibold text-slate-800">{c.name}</div>
-                <div className="mt-1 flex items-center gap-1.5">
-                  <Pill
-                    tone={
-                      c.status === "Active" ? "blue" : c.status === "Published" ? "green" : "slate"
-                    }
-                  >
-                    {c.status}
-                  </Pill>
-                  <span className="ml-auto text-[10.5px] text-slate-400">{c.updated}</span>
+            {CAMPAIGNS.map((c, i) => {
+              const hero = i === 0;
+              const status = hero ? heroStatus : c.status;
+              return (
+                <div
+                  key={c.name}
+                  className={cn(
+                    "px-3 py-2.5 transition-colors duration-500",
+                    hero && "bg-blue-50/60",
+                  )}
+                >
+                  <div className="truncate text-[12px] font-semibold text-slate-800">{c.name}</div>
+                  <div className="mt-1 flex items-center gap-1.5">
+                    <motion.span
+                      key={status}
+                      initial={hero ? { opacity: 0, y: -6 } : false}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
+                    >
+                      <Pill
+                        tone={
+                          status === "Replied" ? "green" : status === "Published" ? "blue" : "slate"
+                        }
+                      >
+                        {status}
+                      </Pill>
+                    </motion.span>
+                    <span className="ml-auto text-[10.5px] text-slate-400">{c.updated}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Card>
 
-        {/* sequence */}
         <Card className="flex min-h-0 flex-col overflow-hidden">
           <div className="flex shrink-0 items-center gap-2 border-b border-slate-200/80 px-3 py-2">
             <span className="text-[12.5px] font-semibold text-slate-900">Quote Follow-Up</span>
             <Pill tone="slate">Stop on reply · On</Pill>
-            <Pill tone={replied ? "green" : "blue"} className="ml-auto">
-              {replied ? "Replied" : "Active"}
+            <Pill tone={replied ? "green" : published ? "blue" : "slate"} className="ml-auto">
+              {heroStatus}
             </Pill>
           </div>
 
-          <div className="min-h-0 flex-1 space-y-1 p-3">
+          <div className="min-h-0 flex-1 space-y-2 p-3">
+            {/* editor + live preview: merge field becomes a real name */}
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-2.5">
+                <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+                  Editor
+                </div>
+                <div className="mt-1 text-[11.5px] leading-relaxed text-slate-600">
+                  Subject: Still keen on your quote?
+                  <br />
+                  Hi <span className="font-semibold text-blue-700">{"{{contact.first_name}}"}</span>
+                  ,
+                </div>
+              </div>
+              <div className="rounded-lg border border-slate-200 bg-white p-2.5">
+                <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+                  Preview
+                </div>
+                <div className="mt-1 flex items-baseline gap-1 text-[11.5px] leading-relaxed text-slate-600">
+                  Hi
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    <motion.span
+                      key={personalised ? "maya" : "merge"}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
+                      className={cn(
+                        "font-semibold",
+                        personalised ? "text-emerald-700" : "text-blue-700",
+                      )}
+                    >
+                      {personalised ? "Maya," : "{{contact.first_name}},"}
+                    </motion.span>
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+
             {SEQ.map((s, i) => {
-              const done = step > i && !(replied && i > 2);
-              const active = i === activeIdx && !replied;
               const cancelled = replied && i > 2;
+              const done = published && activeIdx > i && !cancelled;
+              const active = published && i === activeIdx && !cancelled;
               return (
                 <div key={s.label}>
                   <motion.div
                     initial={false}
-                    animate={{
-                      opacity: cancelled ? 0.28 : done || active ? 1 : 0.5,
-                    }}
+                    animate={{ opacity: cancelled ? 0.28 : done || active ? 1 : 0.5 }}
                     transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
                     className={cn(
-                      "flex items-center gap-3 rounded-xl border bg-white px-3 py-2.5",
+                      "flex items-center gap-3 rounded-xl border bg-white px-3 py-2",
                       active
                         ? "border-blue-300 shadow-[0_10px_26px_-18px_rgba(37,99,235,0.7)]"
                         : done
@@ -354,7 +429,7 @@ export function SceneEmail({ step, reduced }: SceneProps) {
                   >
                     <span
                       className={cn(
-                        "flex h-8 w-8 items-center justify-center rounded-[10px]",
+                        "flex h-7 w-7 items-center justify-center rounded-[9px]",
                         done
                           ? "bg-emerald-50 text-emerald-600"
                           : active
@@ -362,20 +437,27 @@ export function SceneEmail({ step, reduced }: SceneProps) {
                             : "bg-slate-50 text-slate-400",
                       )}
                     >
-                      <s.icon className="h-4 w-4" />
+                      <s.icon className="h-3.5 w-3.5" />
                     </span>
                     <div className="min-w-0">
-                      <div className="truncate text-[12.5px] font-semibold text-slate-800">
+                      <div
+                        className={cn(
+                          "truncate text-[12px] font-semibold text-slate-800",
+                          cancelled && "line-through",
+                        )}
+                      >
                         {s.label}
                       </div>
-                      <div className="truncate text-[11px] text-slate-400">
+                      <div className="truncate text-[10.5px] text-slate-400">
                         {cancelled
                           ? "Cancelled after reply"
                           : done
                             ? "Delivered"
                             : active
-                              ? "In progress"
-                              : "Waiting"}
+                              ? "Sending"
+                              : published
+                                ? "Waiting"
+                                : "Not published"}
                       </div>
                     </div>
                     <span className="ml-auto">
@@ -383,7 +465,7 @@ export function SceneEmail({ step, reduced }: SceneProps) {
                     </span>
                   </motion.div>
                   {i < SEQ.length - 1 ? (
-                    <div className="ml-[27px] h-3.5 w-[2px] rounded-full bg-slate-200" />
+                    <div className="ml-[26px] h-3 w-[2px] rounded-full bg-slate-200" />
                   ) : null}
                 </div>
               );
@@ -394,16 +476,16 @@ export function SceneEmail({ step, reduced }: SceneProps) {
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-                  className="mt-2 flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5"
+                  transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+                  className="flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5"
                 >
-                  <Face src={FACE.priya} size={26} />
+                  <Face src={FACE.maya} size={26} />
                   <div className="min-w-0">
                     <div className="text-[12px] font-semibold text-emerald-800">
-                      Priya replied: “Happy to go ahead.”
+                      Maya replied: “Happy to go ahead.”
                     </div>
                     <div className="text-[10.5px] text-emerald-700/80">
-                      Status changed to Engaged. Remaining emails cancelled.
+                      Remaining emails cancelled.
                     </div>
                   </div>
                   <MailCheck className="ml-auto h-4 w-4 text-emerald-600" />
@@ -411,27 +493,34 @@ export function SceneEmail({ step, reduced }: SceneProps) {
               ) : null}
             </AnimatePresence>
 
-            <StepIn show={step === 2 && !replied} className="pt-1">
-              <div className="rounded-lg border border-slate-200 bg-slate-50/70 px-2.5 py-2 text-[11.5px] text-slate-600">
-                Subject: Still keen on your quote? · Hi{" "}
-                <span className="font-semibold text-blue-700">{"{{contact.first_name}}"}</span>,
+            {!published ? (
+              <div className="flex items-center gap-2 pt-1">
+                <Btn>
+                  <Send className="h-3 w-3" /> Publish
+                </Btn>
+                <Btn tone="ghost">Save draft</Btn>
               </div>
-            </StepIn>
+            ) : null}
           </div>
         </Card>
       </div>
 
-      <Toast
-        show={replied}
-        title="Sequence stopped on reply"
-        body="No duplicate chasing once a customer answers."
+      {/* one purposeful click: Publish */}
+      <Pointer
+        x={40}
+        y={84}
+        show={step === 1 || step === 2}
+        active={step === 2}
+        reduced={reduced}
       />
     </div>
   );
 }
 
 /* ================================================================== */
-/* 7. CALENDAR — internal team week view                               */
+/* 7. CALENDAR — a chosen time becomes a booking and confirmations     */
+/*    0 week · 1 slot chosen · 2 appointment forms · 3 confirmations   */
+/*    4 another appointment moves · 5 hold                             */
 /* ================================================================== */
 
 type Appt = {
@@ -442,14 +531,18 @@ type Appt = {
   who: string;
   face: string;
   tone: string;
-  confirmed?: boolean;
 };
 
 const SLOTS = ["9:00", "10:30", "12:00", "1:30", "3:00"];
 const CAL_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
 export function SceneCalendar({ step, reduced }: SceneProps) {
-  const base: Appt[] = [
+  const chosen = step >= 1;
+  const booked = step >= 2;
+  const confirmed = step >= 3;
+  const moved = step >= 4;
+
+  const appts: Appt[] = [
     {
       id: "a1",
       day: 0,
@@ -458,7 +551,6 @@ export function SceneCalendar({ step, reduced }: SceneProps) {
       who: "Tom Bennett",
       face: FACE.tom,
       tone: "border-blue-200 bg-blue-50",
-      confirmed: true,
     },
     {
       id: "a2",
@@ -468,7 +560,6 @@ export function SceneCalendar({ step, reduced }: SceneProps) {
       who: "Priya Raman",
       face: FACE.priya,
       tone: "border-violet-200 bg-violet-50",
-      confirmed: true,
     },
     {
       id: "a3",
@@ -478,33 +569,18 @@ export function SceneCalendar({ step, reduced }: SceneProps) {
       who: "Daniel Okafor",
       face: FACE.daniel,
       tone: "border-cyan-200 bg-cyan-50",
-      confirmed: true,
     },
     {
       id: "a4",
-      day: 4,
-      slot: 3,
-      title: "Follow-up",
-      who: "Leo Marchetti",
-      face: FACE.leo,
-      tone: "border-amber-200 bg-amber-50",
-      confirmed: true,
-    },
-    {
-      id: "a5",
       // reschedules from Thu 10:30 to Thu 3:00
       day: 3,
-      slot: step >= 3 ? 4 : 1,
+      slot: moved ? 4 : 1,
       title: "Studio refresh",
       who: "Sophie Nguyen",
       face: FACE.sophie,
       tone: "border-emerald-200 bg-emerald-50",
-      confirmed: true,
     },
   ];
-
-  const appts = step >= 1 ? base : base.filter((a) => a.id !== "a5");
-  const newOne = step >= 1;
 
   return (
     <div className="relative h-full">
@@ -542,15 +618,14 @@ export function SceneCalendar({ step, reduced }: SceneProps) {
                 <div className="px-2 py-1 text-[10px] text-slate-400">{s}</div>
                 {CAL_DAYS.map((d, di) => {
                   const a = appts.find((x) => x.day === di && x.slot === si);
+                  const isTarget = di === 4 && si === 2;
                   return (
-                    <div key={d} className="border-l border-slate-100 p-1">
+                    <div key={d} className="relative border-l border-slate-100 p-1">
                       {a ? (
                         <motion.div
-                          layout
+                          layout={!reduced}
                           layoutId={a.id}
-                          initial={{ opacity: 0, scale: 0.94 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
+                          transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
                           className={cn(
                             "flex h-full items-center gap-1.5 rounded-lg border px-1.5",
                             a.tone,
@@ -563,21 +638,85 @@ export function SceneCalendar({ step, reduced }: SceneProps) {
                             </div>
                             <div className="truncate text-[10px] text-slate-500">{a.who}</div>
                           </div>
-                          {a.confirmed ? (
-                            <motion.span
-                              className="ml-auto flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/80 text-emerald-600"
-                              initial={false}
-                              animate={
-                                step === 2 && a.id === "a5" && !reduced
-                                  ? { scale: [1, 1.25, 1] }
-                                  : { scale: 1 }
-                              }
-                              transition={{ duration: 0.9, ease: EASE }}
-                            >
-                              <Check className="h-2.5 w-2.5" strokeWidth={4} />
-                            </motion.span>
-                          ) : null}
+                          <span className="ml-auto flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/80 text-emerald-600">
+                            <Check className="h-2.5 w-2.5" strokeWidth={4} />
+                          </span>
                         </motion.div>
+                      ) : null}
+
+                      {/* chosen slot becomes the appointment */}
+                      {isTarget ? (
+                        <>
+                          {chosen && !booked ? (
+                            <motion.div
+                              layoutId="new-appt"
+                              initial={{ opacity: 0, scale: 0.94 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
+                              className="flex h-full items-center justify-center rounded-lg border-2 border-dashed border-blue-400 bg-blue-50/60 text-[10.5px] font-semibold text-blue-700"
+                            >
+                              Fri 12:00
+                            </motion.div>
+                          ) : null}
+                          {booked ? (
+                            <motion.div
+                              layoutId="new-appt"
+                              transition={{ duration: reduced ? 0 : 0.6, ease: EASE }}
+                              className="flex h-full items-center gap-1.5 rounded-lg border border-blue-300 bg-white px-1.5 ring-2 ring-blue-100"
+                            >
+                              <Face src={FACE.nina} size={20} ring={false} />
+                              <div className="min-w-0">
+                                <div className="truncate text-[11px] font-semibold text-slate-800">
+                                  Fitout consult
+                                </div>
+                                <div className="truncate text-[10px] text-slate-500">
+                                  Nina Patel
+                                </div>
+                              </div>
+                              {confirmed ? (
+                                <motion.span
+                                  initial={{ scale: 0.6, opacity: 0 }}
+                                  animate={{ scale: 1, opacity: 1 }}
+                                  transition={{ duration: reduced ? 0 : 0.35, ease: EASE }}
+                                  className="ml-auto flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600"
+                                >
+                                  <Check className="h-2.5 w-2.5" strokeWidth={4} />
+                                </motion.span>
+                              ) : null}
+                            </motion.div>
+                          ) : null}
+
+                          {/* confirmations fan out from the appointment */}
+                          <AnimatePresence>
+                            {confirmed ? (
+                              <motion.div
+                                initial={{ opacity: 0, y: -6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
+                                className="absolute -bottom-1 right-1 z-20 flex items-center gap-1"
+                              >
+                                {[
+                                  { icon: MessageSquare, label: "SMS" },
+                                  { icon: Mail, label: "Email" },
+                                ].map((c, i) => (
+                                  <motion.span
+                                    key={c.label}
+                                    initial={{ opacity: 0, y: -8, scale: 0.8 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{
+                                      duration: reduced ? 0 : 0.4,
+                                      ease: EASE,
+                                      delay: reduced ? 0 : i * 0.15,
+                                    }}
+                                    className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-white px-1.5 py-[2px] text-[9.5px] font-semibold text-emerald-700 shadow-sm"
+                                  >
+                                    <c.icon className="h-2.5 w-2.5" /> {c.label} sent
+                                  </motion.span>
+                                ))}
+                              </motion.div>
+                            ) : null}
+                          </AnimatePresence>
+                        </>
                       ) : null}
                     </div>
                   );
@@ -588,17 +727,22 @@ export function SceneCalendar({ step, reduced }: SceneProps) {
         </Card>
       </div>
 
-      <Toast
-        show={step >= 4}
-        title="Week stays organised"
-        body={newOne ? "New booking added, one appointment moved, all confirmed." : undefined}
+      {/* one purposeful click: choose the free Friday slot */}
+      <Pointer
+        x={88}
+        y={55}
+        show={step === 0 || step === 1}
+        active={step === 1}
+        reduced={reduced}
       />
     </div>
   );
 }
 
 /* ================================================================== */
-/* 8. CONTRACTS — sequential signatures                                */
+/* 8. CONTRACTS — one signature changes the deal state                 */
+/*    0 draft · 1 sent · 2 viewed · 3 customer signs                   */
+/*    4 one signature click · 5 completed, opportunity won             */
 /* ================================================================== */
 
 const CONTRACTS = [
@@ -607,7 +751,7 @@ const CONTRACTS = [
     customer: "Alto Fitout Co",
     face: FACE.nina,
     value: "$18,600",
-    activity: "Viewed 2h ago",
+    activity: "Draft",
   },
   {
     name: "Service plan 2026",
@@ -648,11 +792,18 @@ const SignPath = ({ show, reduced }: { show: boolean; reduced: boolean }) => (
 );
 
 export function SceneContracts({ step, reduced }: SceneProps) {
-  const status = step >= 5 ? "Completed" : step >= 2 ? "Viewed" : step >= 1 ? "Sent" : "Draft";
-  const sign1 = step >= 2;
-  const sign1Done = step >= 3;
-  const sign2 = step >= 3;
-  const sign2Done = step >= 4;
+  const status =
+    step >= 5
+      ? "Completed"
+      : step >= 4
+        ? "Signed"
+        : step >= 2
+          ? "Viewed"
+          : step >= 1
+            ? "Sent"
+            : "Draft";
+  const sign1 = step >= 3;
+  const sign2 = step >= 4;
 
   return (
     <div className="relative h-full">
@@ -703,12 +854,25 @@ export function SceneContracts({ step, reduced }: SceneProps) {
             <Pill tone="slate">
               <MoneyIcon /> $18,600
             </Pill>
-            <Pill
-              tone={status === "Completed" ? "green" : status === "Viewed" ? "blue" : "slate"}
+            <motion.span
+              key={status}
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
               className="ml-auto"
             >
-              {status}
-            </Pill>
+              <Pill
+                tone={
+                  status === "Completed" || status === "Signed"
+                    ? "green"
+                    : status === "Viewed"
+                      ? "blue"
+                      : "slate"
+                }
+              >
+                {status}
+              </Pill>
+            </motion.span>
           </div>
 
           <div className="min-h-0 flex-1 space-y-2 p-3">
@@ -718,7 +882,7 @@ export function SceneContracts({ step, reduced }: SceneProps) {
                   i === 0 ||
                   (i === 1 && step >= 1) ||
                   (i === 2 && step >= 2) ||
-                  (i === 3 && sign2Done) ||
+                  (i === 3 && step >= 4) ||
                   (i === 4 && step >= 5);
                 return (
                   <span key={s} className="flex items-center gap-2">
@@ -743,7 +907,6 @@ export function SceneContracts({ step, reduced }: SceneProps) {
                 role: "Alto Fitout Co · Director",
                 face: FACE.nina,
                 show: sign1,
-                done: sign1Done,
               },
               {
                 key: "s2",
@@ -751,21 +914,16 @@ export function SceneContracts({ step, reduced }: SceneProps) {
                 role: "Your business · Owner",
                 face: FACE.alex,
                 show: sign2,
-                done: sign2Done,
               },
             ].map((s) => (
               <motion.div
                 key={s.key}
                 initial={false}
-                animate={{ opacity: s.show ? 1 : 0.45 }}
+                animate={{ opacity: s.show ? 1 : 0.5 }}
                 transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
                 className={cn(
                   "rounded-xl border bg-white px-3 py-2.5",
-                  s.done
-                    ? "border-emerald-200"
-                    : s.show
-                      ? "border-blue-300 shadow-[0_10px_26px_-18px_rgba(37,99,235,0.7)]"
-                      : "border-slate-200",
+                  s.show ? "border-emerald-200" : "border-slate-200",
                 )}
               >
                 <div className="flex items-center gap-2">
@@ -777,13 +935,9 @@ export function SceneContracts({ step, reduced }: SceneProps) {
                     <div className="truncate text-[10.5px] text-slate-400">{s.role}</div>
                   </div>
                   <span className="ml-auto flex items-center gap-1.5">
-                    {s.done ? (
+                    {s.show ? (
                       <Pill tone="green">
                         <Check className="h-2.5 w-2.5" strokeWidth={3} /> Signed
-                      </Pill>
-                    ) : s.show ? (
-                      <Pill tone="blue">
-                        <MousePointerClick className="h-2.5 w-2.5" /> Signing
                       </Pill>
                     ) : (
                       <Pill tone="slate">
@@ -810,7 +964,14 @@ export function SceneContracts({ step, reduced }: SceneProps) {
         </Card>
       </div>
 
-      <Toast show={step >= 5} title="Signed and stored" body="Both signatures captured in order." />
+      {/* one purposeful signature interaction on the owner block */}
+      <Pointer
+        x={68}
+        y={72}
+        show={step === 3 || step === 4}
+        active={step === 4}
+        reduced={reduced}
+      />
     </div>
   );
 }
