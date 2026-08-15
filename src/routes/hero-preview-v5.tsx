@@ -42,7 +42,7 @@ type SceneDef = {
   label: string;
   title: string;
   subtitle: string;
-  /** variable-duration local timeline, one entry per visual phase (ms) */
+  /** scene-local timeline: variable-duration beats (ms), total differs per scene */
   phases: number[];
   render: (p: SceneProps) => React.ReactNode;
 };
