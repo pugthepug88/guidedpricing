@@ -226,8 +226,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
     return c.status;
   };
 
-  const lastFor = (c: ContactRow, i: number) =>
-    replied && i === 0 ? "Just now" : c.last;
+  const lastFor = (c: ContactRow, i: number) => (replied && i === 0 ? "Just now" : c.last);
 
   return (
     <div className="absolute inset-0 flex flex-col px-4 pb-3 pt-3">
@@ -305,7 +304,9 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
                   <span
                     className={cn(
                       "flex h-[13px] w-[13px] items-center justify-center rounded-[3px] border transition-colors duration-300",
-                      sel ? "border-zapla-blue bg-zapla-blue text-white" : "border-slate-300 bg-white",
+                      sel
+                        ? "border-zapla-blue bg-zapla-blue text-white"
+                        : "border-slate-300 bg-white",
                     )}
                   >
                     <AnimatePresence>
@@ -427,7 +428,6 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
     </div>
   );
 }
-
 
 /* ================================================================= */
 /* 2 — OPPORTUNITIES : one deal creates downstream work               */
