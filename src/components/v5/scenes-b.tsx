@@ -1,977 +1,715 @@
 import { motion, AnimatePresence } from "motion/react";
 import {
-  Calendar,
+  Bell,
+  CalendarCheck,
   Check,
-  ChevronDown,
-  Clock,
+  Facebook,
   FileSignature,
-  Image as ImageIcon,
+  Globe,
+  Instagram,
+  Linkedin,
   Mail,
-  MailCheck,
   MessageSquare,
-  Plus,
-  Search,
   Send,
-  Sparkles,
-  Timer,
+  Trophy,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import {
-  Btn,
-  Card,
-  EASE,
-  Face,
-  MoneyIcon,
-  NodeState,
-  Pill,
-  Pointer,
-  SOCIAL_LABEL,
-  SocialMark,
-  StepIn,
-  Toolbar,
-} from "./kit";
 import { FACE } from "./faces";
-import type { SceneProps } from "./scenes-a";
+import {
+  Avatar,
+  EASE_OUT,
+  GhostRow,
+  Glow,
+  Hero,
+  Payoff,
+  Scene,
+  Signal,
+  Tag,
+  type SceneProps,
+} from "./motion-kit";
 
-/* ================================================================== */
-/* 5. CONTENT PLANNER — one post becomes scheduled distribution        */
-/*    0 planner · 1 composer · 2 caption · 3 channels                  */
-/*    4 date · 5 one Schedule click · 6 card lands in the slot         */
-/* ================================================================== */
+const DAYS = ["Mon 4", "Tue 5", "Wed 6", "Thu 7", "Fri 8", "Sat 9", "Sun 10"];
 
-type Post = {
-  day: number;
-  time: string;
-  title: string;
-  channels: string[];
-  tone: string;
-  status?: "Scheduled" | "Published";
-};
+/* ================================================================= */
+/* 5 — CONTENT PLANNER : one post becomes multi-channel distribution   */
+/* ================================================================= */
 
-const PLANNED: Post[] = [
-  {
-    day: 0,
-    time: "9:00 am",
-    title: "Behind the scenes reel",
-    channels: ["ig"],
-    tone: "border-fuchsia-200 bg-fuchsia-50/70",
-    status: "Published",
-  },
-  {
-    day: 1,
-    time: "11:30 am",
-    title: "Customer spotlight",
-    channels: ["fb", "ig"],
-    tone: "border-blue-200 bg-blue-50/70",
-    status: "Scheduled",
-  },
-  {
-    day: 2,
-    time: "8:15 am",
-    title: "Team hiring update",
-    channels: ["li"],
-    tone: "border-cyan-200 bg-cyan-50/70",
-    status: "Scheduled",
-  },
-  {
-    day: 3,
-    time: "4:00 pm",
-    title: "Weekend availability",
-    channels: ["gb", "fb"],
-    tone: "border-emerald-200 bg-emerald-50/70",
-    status: "Scheduled",
-  },
-];
-
-const DAYS = ["Mon 4", "Tue 5", "Wed 6", "Thu 7", "Fri 8"];
-const NEW_CHANNELS = ["ig", "fb", "li", "gb"];
-
-export function SceneContent({ step, reduced }: SceneProps) {
-  const composer = step >= 1;
-  const channelsOn = step >= 3;
-  const dated = step >= 4;
-  const scheduled = step >= 6;
-
+function PlannerBackground({ landed }: { landed: boolean }) {
   return (
-    <div className="relative h-full">
-      <Toolbar>
-        <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-[3px] text-[11.5px] text-slate-500">
-          Week of 4 Aug <ChevronDown className="h-3 w-3" />
-        </span>
-        <span className="hidden items-center gap-1.5 md:flex">
-          {NEW_CHANNELS.map((c) => (
-            <span
-              key={c}
-              className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2 py-[3px] text-[10.5px] text-slate-500"
-            >
-              <SocialMark id={c} /> {SOCIAL_LABEL[c]}
-            </span>
-          ))}
-        </span>
-        <span className="ml-auto">
-          <Btn>
-            <Plus className="h-3 w-3" /> New post
-          </Btn>
-        </span>
-      </Toolbar>
-
-      <div className="grid h-[calc(100%-43px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[minmax(0,1fr)_252px]">
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="grid shrink-0 grid-cols-5 border-b border-slate-200/80 bg-slate-50/70">
-            {DAYS.map((d) => (
+    <div className="absolute inset-0 grid grid-cols-7 gap-1.5 px-3 py-3">
+      {DAYS.map((d, i) => (
+        <div key={d} className="min-w-0">
+          <div className="mb-1.5 truncate text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+            {d}
+          </div>
+          <motion.div
+            className="space-y-1.5"
+            animate={{ y: landed && i === 4 ? 44 : 0 }}
+            transition={{ duration: 0.55, ease: EASE_OUT }}
+          >
+            {Array.from({ length: i % 3 === 0 ? 2 : 1 }).map((_, j) => (
               <div
-                key={d}
-                className="px-2 py-1.5 text-[10.5px] font-semibold uppercase tracking-wide text-slate-400"
+                key={j}
+                className="space-y-1.5 rounded-lg border border-slate-200/80 bg-white p-2"
               >
-                {d}
+                <GhostRow w="80%" h={7} />
+                <GhostRow w="52%" h={6} />
               </div>
             ))}
-          </div>
-          <div className="grid min-h-0 flex-1 grid-cols-5 divide-x divide-slate-100">
-            {DAYS.map((d, di) => (
-              <div key={d} className="space-y-1.5 p-1.5">
-                {PLANNED.filter((p) => p.day === di).map((p) => (
-                  <div key={p.title} className={cn("rounded-lg border px-2 py-2", p.tone)}>
-                    <div className="text-[10px] text-slate-400">{p.time}</div>
-                    <div className="mt-1 text-[11.5px] font-semibold leading-snug text-slate-800">
-                      {p.title}
-                    </div>
-                    <div className="mt-1.5 flex items-center gap-1">
-                      {p.channels.map((c) => (
-                        <SocialMark key={c} id={c} size={12} />
-                      ))}
-                      {p.status === "Published" ? (
-                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                      ) : null}
-                    </div>
-                  </div>
-                ))}
-
-                {/* target slot — the composed post docks here */}
-                {di === 4 ? (
-                  <div
-                    className={cn(
-                      "rounded-lg border border-dashed transition-colors duration-500",
-                      dated && !scheduled ? "border-blue-300 bg-blue-50/40" : "border-transparent",
-                      scheduled ? "border-transparent p-0" : "h-[62px]",
-                    )}
-                  >
-                    {scheduled ? (
-                      <motion.div
-                        layoutId="new-post"
-                        transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
-                        className="rounded-lg border border-blue-300 bg-white px-2 py-2 ring-2 ring-blue-100"
-                      >
-                        <div className="text-[10px] text-slate-400">10:00 am</div>
-                        <div className="mt-1 text-[11.5px] font-semibold leading-snug text-slate-800">
-                          New season openings
-                        </div>
-                        <div className="mt-1.5 flex items-center gap-1">
-                          {NEW_CHANNELS.map((c, i) => (
-                            <motion.span
-                              key={c}
-                              initial={{ opacity: 0, scale: 0.6, y: -6 }}
-                              animate={{ opacity: 1, scale: 1, y: 0 }}
-                              transition={{
-                                duration: reduced ? 0 : 0.35,
-                                ease: EASE,
-                                delay: reduced ? 0 : 0.25 + i * 0.1,
-                              }}
-                            >
-                              <SocialMark id={c} size={12} />
-                            </motion.span>
-                          ))}
-                        </div>
-                      </motion.div>
-                    ) : null}
-                  </div>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* composer */}
-        <motion.div
-          className="hidden min-h-0 lg:block"
-          initial={false}
-          animate={{ opacity: composer && !scheduled ? 1 : 0, x: composer && !scheduled ? 0 : 22 }}
-          transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-        >
-          <Card className="flex h-full flex-col overflow-hidden">
-            <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-              <span className="text-[12.5px] font-semibold text-slate-900">New post</span>
-              <Pill tone="slate" className="ml-auto">
-                Draft
-              </Pill>
-            </div>
-            <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
-              {!scheduled ? (
-                <motion.div layoutId="new-post" className="space-y-2">
-                  <div className="flex h-14 items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 text-slate-300">
-                    <ImageIcon className="h-5 w-5" />
-                  </div>
-                  <div className="min-h-[54px] rounded-lg border border-slate-200 p-2 text-[11.5px] leading-relaxed text-slate-600">
-                    {step >= 2
-                      ? "New season openings are live. Book your spot for August and we will hold your usual time."
-                      : null}
-                    {step < 2 ? <span className="text-slate-300">Write a caption…</span> : null}
-                  </div>
-                </motion.div>
-              ) : null}
-              <div className="flex flex-wrap gap-1.5">
-                {NEW_CHANNELS.map((c) => (
-                  <span
-                    key={c}
-                    className={cn(
-                      "inline-flex items-center gap-1 rounded-full border px-2 py-[3px] text-[10.5px] transition-colors duration-500",
-                      channelsOn
-                        ? "border-blue-400 bg-blue-50 text-blue-700"
-                        : "border-slate-200 text-slate-500",
-                    )}
-                  >
-                    <SocialMark id={c} /> {SOCIAL_LABEL[c]}
-                  </span>
-                ))}
-              </div>
-              <div
-                className={cn(
-                  "flex items-center gap-2 rounded-lg border px-2 py-1.5 text-[11.5px] transition-colors duration-500",
-                  dated
-                    ? "border-blue-300 bg-blue-50/50 text-blue-700"
-                    : "border-slate-200 text-slate-600",
-                )}
-              >
-                <Calendar className="h-3.5 w-3.5 text-slate-400" />
-                {dated ? "Fri 8 Aug · 10:00 am" : "Choose date and time"}
-              </div>
-              <div className="mt-auto flex items-center gap-2">
-                <Btn>
-                  <Send className="h-3 w-3" /> Schedule
-                </Btn>
-                <Btn tone="ghost">Save draft</Btn>
-              </div>
-            </div>
-          </Card>
-        </motion.div>
-      </div>
-
-      {/* one purposeful click: Schedule */}
-      <Pointer
-        x={81}
-        y={88}
-        show={step === 4 || step === 5}
-        active={step === 5}
-        reduced={reduced}
-      />
+          </motion.div>
+        </div>
+      ))}
     </div>
   );
 }
 
-/* ================================================================== */
-/* 6. EMAIL MARKETING — personalisation becomes real, then published   */
-/*    0 draft · 1 merge field resolves · 2 one Publish click           */
-/*    3 published, sequence live · 4 reply cancels the rest · 5 hold   */
-/* ================================================================== */
+export function SceneContent({ phase, reduced }: SceneProps) {
+  const compose = phase >= 1;
+  const scheduled = phase >= 2;
+  const travel = phase >= 3;
+  const payoff = phase >= 4;
+  const collapse = phase >= 5;
 
-const CAMPAIGNS = [
-  { name: "Quote Follow-Up", updated: "Today" },
-  { name: "New Customer Welcome", status: "Published", updated: "2 Aug" },
-  { name: "Winter service reminder", status: "Published", updated: "29 Jul" },
-  { name: "Referral thank you", status: "Draft", updated: "24 Jul" },
-];
-
-const SEQ = [
-  { label: "Email 1 · Quote recap", icon: Mail },
-  { label: "Wait 2 days", icon: Timer },
-  { label: "Email 2 · Any questions?", icon: Mail },
-  { label: "Email 3 · Last check-in", icon: Mail },
-];
-
-export function SceneEmail({ step, reduced }: SceneProps) {
-  const personalised = step >= 1;
-  const published = step >= 3;
-  const replied = step >= 4;
-  const heroStatus = replied ? "Replied" : published ? "Published" : "Draft";
-  const activeIdx = published ? Math.min(step - 2, SEQ.length - 1) : -1;
-
-  return (
-    <div className="relative h-full">
-      <Toolbar>
-        <span className="text-[12.5px] font-semibold text-slate-900">Email Marketing</span>
-        <span className="hidden items-center gap-1 md:flex">
-          {["All", "Draft", "Published", "Archived"].map((t, i) => (
-            <span
-              key={t}
-              className={cn(
-                "rounded-md px-2 py-[3px] text-[11px]",
-                i === 0 ? "bg-slate-900 font-semibold text-white" : "text-slate-500",
-              )}
-            >
-              {t}
-            </span>
-          ))}
-        </span>
-        <span className="ml-auto">
-          <Btn tone="ghost">
-            <Plus className="h-3 w-3" /> New email
-          </Btn>
-        </span>
-      </Toolbar>
-
-      <div className="grid h-[calc(100%-43px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[248px_minmax(0,1fr)]">
-        <Card className="hidden min-h-0 flex-col overflow-hidden lg:flex">
-          <div className="flex shrink-0 items-center gap-1.5 border-b border-slate-200/80 px-3 py-2 text-[11px] text-slate-400">
-            <Search className="h-3.5 w-3.5" /> Search campaigns
-          </div>
-          <div className="divide-y divide-slate-100">
-            {CAMPAIGNS.map((c, i) => {
-              const hero = i === 0;
-              const status = hero ? heroStatus : c.status;
-              return (
-                <div
-                  key={c.name}
-                  className={cn(
-                    "px-3 py-2.5 transition-colors duration-500",
-                    hero && "bg-blue-50/60",
-                  )}
-                >
-                  <div className="truncate text-[12px] font-semibold text-slate-800">{c.name}</div>
-                  <div className="mt-1 flex items-center gap-1.5">
-                    <motion.span
-                      key={status}
-                      initial={hero ? { opacity: 0, y: -6 } : false}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
-                    >
-                      <Pill
-                        tone={
-                          status === "Replied" ? "green" : status === "Published" ? "blue" : "slate"
-                        }
-                      >
-                        {status}
-                      </Pill>
-                    </motion.span>
-                    <span className="ml-auto text-[10.5px] text-slate-400">{c.updated}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Card>
-
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex shrink-0 items-center gap-2 border-b border-slate-200/80 px-3 py-2">
-            <span className="text-[12.5px] font-semibold text-slate-900">Quote Follow-Up</span>
-            <Pill tone="slate">Stop on reply · On</Pill>
-            <Pill tone={replied ? "green" : published ? "blue" : "slate"} className="ml-auto">
-              {heroStatus}
-            </Pill>
-          </div>
-
-          <div className="min-h-0 flex-1 space-y-2 p-3">
-            {/* editor + live preview: merge field becomes a real name */}
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-2.5">
-                <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
-                  Editor
-                </div>
-                <div className="mt-1 text-[11.5px] leading-relaxed text-slate-600">
-                  Subject: Still keen on your quote?
-                  <br />
-                  Hi <span className="font-semibold text-blue-700">{"{{contact.first_name}}"}</span>
-                  ,
-                </div>
-              </div>
-              <div className="rounded-lg border border-slate-200 bg-white p-2.5">
-                <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
-                  Preview
-                </div>
-                <div className="mt-1 flex items-baseline gap-1 text-[11.5px] leading-relaxed text-slate-600">
-                  Hi
-                  <AnimatePresence mode="popLayout" initial={false}>
-                    <motion.span
-                      key={personalised ? "maya" : "merge"}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -8 }}
-                      transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
-                      className={cn(
-                        "font-semibold",
-                        personalised ? "text-emerald-700" : "text-blue-700",
-                      )}
-                    >
-                      {personalised ? "Maya," : "{{contact.first_name}},"}
-                    </motion.span>
-                  </AnimatePresence>
-                </div>
-              </div>
-            </div>
-
-            {SEQ.map((s, i) => {
-              const cancelled = replied && i > 2;
-              const done = published && activeIdx > i && !cancelled;
-              const active = published && i === activeIdx && !cancelled;
-              return (
-                <div key={s.label}>
-                  <motion.div
-                    initial={false}
-                    animate={{ opacity: cancelled ? 0.28 : done || active ? 1 : 0.5 }}
-                    transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-                    className={cn(
-                      "flex items-center gap-3 rounded-xl border bg-white px-3 py-2",
-                      active
-                        ? "border-blue-300 shadow-[0_10px_26px_-18px_rgba(37,99,235,0.7)]"
-                        : done
-                          ? "border-emerald-200"
-                          : "border-slate-200",
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "flex h-7 w-7 items-center justify-center rounded-[9px]",
-                        done
-                          ? "bg-emerald-50 text-emerald-600"
-                          : active
-                            ? "bg-blue-50 text-blue-600"
-                            : "bg-slate-50 text-slate-400",
-                      )}
-                    >
-                      <s.icon className="h-3.5 w-3.5" />
-                    </span>
-                    <div className="min-w-0">
-                      <div
-                        className={cn(
-                          "truncate text-[12px] font-semibold text-slate-800",
-                          cancelled && "line-through",
-                        )}
-                      >
-                        {s.label}
-                      </div>
-                      <div className="truncate text-[10.5px] text-slate-400">
-                        {cancelled
-                          ? "Cancelled after reply"
-                          : done
-                            ? "Delivered"
-                            : active
-                              ? "Sending"
-                              : published
-                                ? "Waiting"
-                                : "Not published"}
-                      </div>
-                    </div>
-                    <span className="ml-auto">
-                      <NodeState state={done ? "done" : active ? "active" : "idle"} />
-                    </span>
-                  </motion.div>
-                  {i < SEQ.length - 1 ? (
-                    <div className="ml-[26px] h-3 w-[2px] rounded-full bg-slate-200" />
-                  ) : null}
-                </div>
-              );
-            })}
-
-            <AnimatePresence>
-              {replied ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-                  className="flex items-center gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5"
-                >
-                  <Face src={FACE.maya} size={26} />
-                  <div className="min-w-0">
-                    <div className="text-[12px] font-semibold text-emerald-800">
-                      Maya replied: “Happy to go ahead.”
-                    </div>
-                    <div className="text-[10.5px] text-emerald-700/80">
-                      Remaining emails cancelled.
-                    </div>
-                  </div>
-                  <MailCheck className="ml-auto h-4 w-4 text-emerald-600" />
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-
-            {!published ? (
-              <div className="flex items-center gap-2 pt-1">
-                <Btn>
-                  <Send className="h-3 w-3" /> Publish
-                </Btn>
-                <Btn tone="ghost">Save draft</Btn>
-              </div>
-            ) : null}
-          </div>
-        </Card>
-      </div>
-
-      {/* one purposeful click: Publish */}
-      <Pointer
-        x={40}
-        y={84}
-        show={step === 1 || step === 2}
-        active={step === 2}
-        reduced={reduced}
-      />
-    </div>
-  );
-}
-
-/* ================================================================== */
-/* 7. CALENDAR — a chosen time becomes a booking and confirmations     */
-/*    0 week · 1 slot chosen · 2 appointment forms · 3 confirmations   */
-/*    4 another appointment moves · 5 hold                             */
-/* ================================================================== */
-
-type Appt = {
-  id: string;
-  day: number;
-  slot: number;
-  title: string;
-  who: string;
-  face: string;
-  tone: string;
-};
-
-const SLOTS = ["9:00", "10:30", "12:00", "1:30", "3:00"];
-const CAL_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-
-export function SceneCalendar({ step, reduced }: SceneProps) {
-  const chosen = step >= 1;
-  const booked = step >= 2;
-  const confirmed = step >= 3;
-  const moved = step >= 4;
-
-  const appts: Appt[] = [
-    {
-      id: "a1",
-      day: 0,
-      slot: 0,
-      title: "Site visit",
-      who: "Tom Bennett",
-      face: FACE.tom,
-      tone: "border-blue-200 bg-blue-50",
-    },
-    {
-      id: "a2",
-      day: 1,
-      slot: 2,
-      title: "Consult",
-      who: "Priya Raman",
-      face: FACE.priya,
-      tone: "border-violet-200 bg-violet-50",
-    },
-    {
-      id: "a3",
-      day: 2,
-      slot: 1,
-      title: "Install quote",
-      who: "Daniel Okafor",
-      face: FACE.daniel,
-      tone: "border-cyan-200 bg-cyan-50",
-    },
-    {
-      id: "a4",
-      // reschedules from Thu 10:30 to Thu 3:00
-      day: 3,
-      slot: moved ? 4 : 1,
-      title: "Studio refresh",
-      who: "Sophie Nguyen",
-      face: FACE.sophie,
-      tone: "border-emerald-200 bg-emerald-50",
-    },
+  const channels = [
+    { Icon: Instagram, cls: "text-fuchsia-600", x: -186, y: -18 },
+    { Icon: Facebook, cls: "text-blue-600", x: -108, y: -120 },
+    { Icon: Linkedin, cls: "text-cyan-700", x: 96, y: -120 },
+    { Icon: Globe, cls: "text-emerald-600", x: 176, y: -18 },
   ];
 
   return (
-    <div className="relative h-full">
-      <Toolbar>
-        <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-[3px] text-[11.5px] text-slate-500">
-          Team week · 4 Aug <ChevronDown className="h-3 w-3" />
-        </span>
-        <Pill tone="blue">Auto confirmations on</Pill>
-        <span className="ml-auto">
-          <Btn tone="ghost">
-            <Plus className="h-3 w-3" /> New appointment
-          </Btn>
-        </span>
-      </Toolbar>
-
-      <div className="h-[calc(100%-43px)] min-h-0 p-3">
-        <Card className="flex h-full min-h-0 flex-col overflow-hidden">
-          <div className="grid shrink-0 grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-200/80 bg-slate-50/70">
-            <span />
-            {CAL_DAYS.map((d) => (
-              <div
-                key={d}
-                className="px-2 py-1.5 text-[10.5px] font-semibold uppercase tracking-wide text-slate-400"
+    <Scene
+      reduced={reduced}
+      recede={collapse ? 0.08 : compose ? 0.68 : 0}
+      background={<PlannerBackground landed={payoff || collapse} />}
+      foreground={
+        <>
+          <Glow
+            show={compose && !collapse}
+            tone="violet"
+            className="left-[18%] top-[18%] h-56 w-72"
+          />
+          <AnimatePresence>
+            {compose && !collapse ? (
+              <motion.div
+                className="absolute left-[10%] top-[16%] w-[58%] max-w-[360px]"
+                initial={reduced ? false : { opacity: 0, y: 40, scale: 0.86 }}
+                animate={{
+                  opacity: 1,
+                  y: travel ? -34 : 0,
+                  x: travel ? 190 : 0,
+                  scale: payoff ? 0.62 : travel ? 0.8 : 1,
+                  rotate: travel ? 2.5 : -1.2,
+                }}
+                exit={{ opacity: 0, scale: 0.5, y: -60 }}
+                transition={{ duration: reduced ? 0 : 0.7, ease: EASE_OUT }}
               >
-                {d}
-              </div>
-            ))}
-          </div>
-          <div className="min-h-0 flex-1">
-            {SLOTS.map((s, si) => (
-              <div
-                key={s}
-                className="grid h-1/5 grid-cols-[52px_repeat(5,minmax(0,1fr))] border-b border-slate-100 last:border-0"
-              >
-                <div className="px-2 py-1 text-[10px] text-slate-400">{s}</div>
-                {CAL_DAYS.map((d, di) => {
-                  const a = appts.find((x) => x.day === di && x.slot === si);
-                  const isTarget = di === 4 && si === 2;
-                  return (
-                    <div key={d} className="relative border-l border-slate-100 p-1">
-                      {a ? (
-                        <motion.div
-                          layout={!reduced}
-                          layoutId={a.id}
-                          transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
-                          className={cn(
-                            "flex h-full items-center gap-1.5 rounded-lg border px-1.5",
-                            a.tone,
-                          )}
-                        >
-                          <Face src={a.face} size={20} ring={false} />
-                          <div className="min-w-0">
-                            <div className="truncate text-[11px] font-semibold text-slate-800">
-                              {a.title}
-                            </div>
-                            <div className="truncate text-[10px] text-slate-500">{a.who}</div>
-                          </div>
-                          <span className="ml-auto flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/80 text-emerald-600">
-                            <Check className="h-2.5 w-2.5" strokeWidth={4} />
-                          </span>
-                        </motion.div>
-                      ) : null}
-
-                      {/* chosen slot becomes the appointment */}
-                      {isTarget ? (
-                        <>
-                          {chosen && !booked ? (
-                            <motion.div
-                              layoutId="new-appt"
-                              initial={{ opacity: 0, scale: 0.94 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
-                              className="flex h-full items-center justify-center rounded-lg border-2 border-dashed border-blue-400 bg-blue-50/60 text-[10.5px] font-semibold text-blue-700"
-                            >
-                              Fri 12:00
-                            </motion.div>
-                          ) : null}
-                          {booked ? (
-                            <motion.div
-                              layoutId="new-appt"
-                              transition={{ duration: reduced ? 0 : 0.6, ease: EASE }}
-                              className="flex h-full items-center gap-1.5 rounded-lg border border-blue-300 bg-white px-1.5 ring-2 ring-blue-100"
-                            >
-                              <Face src={FACE.nina} size={20} ring={false} />
-                              <div className="min-w-0">
-                                <div className="truncate text-[11px] font-semibold text-slate-800">
-                                  Fitout consult
-                                </div>
-                                <div className="truncate text-[10px] text-slate-500">
-                                  Nina Patel
-                                </div>
-                              </div>
-                              {confirmed ? (
-                                <motion.span
-                                  initial={{ scale: 0.6, opacity: 0 }}
-                                  animate={{ scale: 1, opacity: 1 }}
-                                  transition={{ duration: reduced ? 0 : 0.35, ease: EASE }}
-                                  className="ml-auto flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600"
-                                >
-                                  <Check className="h-2.5 w-2.5" strokeWidth={4} />
-                                </motion.span>
-                              ) : null}
-                            </motion.div>
-                          ) : null}
-
-                          {/* confirmations fan out from the appointment */}
-                          <AnimatePresence>
-                            {confirmed ? (
-                              <motion.div
-                                initial={{ opacity: 0, y: -6 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-                                className="absolute -bottom-5 right-1 z-20 flex items-center gap-1"
-                              >
-                                {[
-                                  { icon: MessageSquare, label: "SMS" },
-                                  { icon: Mail, label: "Email" },
-                                ].map((c, i) => (
-                                  <motion.span
-                                    key={c.label}
-                                    initial={{ opacity: 0, y: -8, scale: 0.8 }}
-                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                    transition={{
-                                      duration: reduced ? 0 : 0.4,
-                                      ease: EASE,
-                                      delay: reduced ? 0 : i * 0.15,
-                                    }}
-                                    className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-white px-1.5 py-[2px] text-[9.5px] font-semibold text-emerald-700 shadow-sm"
-                                  >
-                                    <c.icon className="h-2.5 w-2.5" /> {c.label} sent
-                                  </motion.span>
-                                ))}
-                              </motion.div>
-                            ) : null}
-                          </AnimatePresence>
-                        </>
-                      ) : null}
+                <Hero className="overflow-hidden">
+                  <div className="h-[74px] bg-gradient-to-br from-emerald-200 via-blue-200 to-violet-200" />
+                  <div className="p-3.5">
+                    <div className="text-[14.5px] font-bold leading-snug tracking-tight text-slate-900">
+                      Summer garden refresh, 3 slots left this week.
                     </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </Card>
-      </div>
+                    <div className="mt-2.5 flex items-center gap-2">
+                      <AnimatePresence>
+                        {scheduled ? (
+                          <motion.span
+                            initial={reduced ? false : { opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4, ease: EASE_OUT }}
+                          >
+                            <Tag tone="green">
+                              <CalendarCheck className="h-3 w-3" /> Fri 8 · 09:00
+                            </Tag>
+                          </motion.span>
+                        ) : (
+                          <motion.span
+                            key="draft"
+                            exit={{ opacity: 0 }}
+                            className="rounded-full bg-zapla-blue px-3 py-1.5 text-[12px] font-bold text-white"
+                          >
+                            Schedule
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
 
-      {/* one purposeful click: choose the free Friday slot */}
-      <Pointer
-        x={88}
-        y={55}
-        show={step === 0 || step === 1}
-        active={step === 1}
-        reduced={reduced}
-      />
+          {channels.map((c, i) => (
+            <Signal
+              key={i}
+              show={travel && !collapse}
+              reduced={reduced}
+              delay={i * 0.08}
+              from={{ x: 0, y: 0 }}
+              to={payoff ? { x: c.x * 0.82, y: c.y * 0.75 } : { x: c.x, y: c.y }}
+              rotate={i % 2 ? 4 : -4}
+              className="left-[52%] top-[52%] h-9 w-9 justify-center p-0"
+            >
+              <c.Icon className={`h-4 w-4 ${c.cls}`} />
+            </Signal>
+          ))}
+
+          <Payoff
+            show={payoff && !collapse}
+            reduced={reduced}
+            style={{ top: "58%" }}
+            className="left-1/2 w-[70%] max-w-[400px] -translate-x-1/2"
+          >
+            <div className="flex items-center gap-3.5">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-500 text-white">
+                <Send className="h-5 w-5" />
+              </span>
+              <div>
+                <div className="text-[17px] font-extrabold tracking-tight text-slate-900">
+                  Scheduled for Friday
+                </div>
+                <div className="text-[12.5px] font-medium text-slate-500">
+                  Instagram, Facebook, LinkedIn, Google
+                </div>
+              </div>
+            </div>
+          </Payoff>
+        </>
+      }
+    />
+  );
+}
+
+/* ================================================================= */
+/* 6 — EMAIL MARKETING : personalisation becomes real                  */
+/* ================================================================= */
+
+function EmailBackground() {
+  return (
+    <div className="absolute inset-0 flex">
+      <div className="w-[34%] space-y-2 border-r border-slate-200/80 bg-white p-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="space-y-1.5 rounded-lg border border-slate-200/70 p-2">
+            <GhostRow w="72%" h={8} />
+            <GhostRow w="44%" h={6} />
+          </div>
+        ))}
+      </div>
+      <div className="flex-1 space-y-2.5 p-4">
+        {[92, 78, 86, 60, 70].map((w, i) => (
+          <GhostRow key={i} w={`${w}%`} h={9} />
+        ))}
+      </div>
     </div>
   );
 }
 
-/* ================================================================== */
-/* 8. CONTRACTS — one signature changes the deal state                 */
-/*    0 draft · 1 sent · 2 viewed · 3 customer signs                   */
-/*    4 one signature click · 5 completed, opportunity won             */
-/* ================================================================== */
-
-const CONTRACTS = [
-  {
-    name: "Fitout agreement",
-    customer: "Alto Fitout Co",
-    face: FACE.nina,
-    value: "$18,600",
-    activity: "Draft",
-  },
-  {
-    name: "Service plan 2026",
-    customer: "Harbourline Physio",
-    face: FACE.sophie,
-    value: "$4,800",
-    activity: "Signed Tue",
-  },
-  {
-    name: "Landscape proposal",
-    customer: "Bennett Landscapes",
-    face: FACE.tom,
-    value: "$12,400",
-    activity: "Sent Mon",
-  },
-  {
-    name: "Maintenance retainer",
-    customer: "Marchetti Motors",
-    face: FACE.leo,
-    value: "$9,200",
-    activity: "Draft",
-  },
-];
-
-const SignPath = ({ show, reduced }: { show: boolean; reduced: boolean }) => (
-  <svg viewBox="0 0 200 44" className="h-9 w-full">
-    <motion.path
-      d="M6 32 C24 6, 40 40, 58 22 S86 4, 104 26 S132 40, 150 16 S180 12, 194 24"
-      fill="none"
-      stroke="#1e293b"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      initial={false}
-      animate={{ pathLength: show ? 1 : 0, opacity: show ? 1 : 0 }}
-      transition={{ duration: reduced ? 0 : 1.1, ease: EASE }}
-    />
-  </svg>
-);
-
-export function SceneContracts({ step, reduced }: SceneProps) {
-  const status =
-    step >= 5
-      ? "Completed"
-      : step >= 4
-        ? "Signed"
-        : step >= 2
-          ? "Viewed"
-          : step >= 1
-            ? "Sent"
-            : "Draft";
-  const sign1 = step >= 3;
-  const sign2 = step >= 4;
+export function SceneEmail({ phase, reduced }: SceneProps) {
+  const sheet = phase >= 1;
+  const merged = phase >= 2;
+  const published = phase >= 3;
+  const reply = phase >= 4;
+  const payoff = phase >= 5;
+  const collapse = phase >= 6;
 
   return (
-    <div className="relative h-full">
-      <Toolbar>
-        <span className="flex h-7 items-center gap-1.5 rounded-md border border-slate-200 px-2 text-[11px] text-slate-400">
-          <Search className="h-3.5 w-3.5" /> Search contracts
-        </span>
-        <Pill tone="slate">Owner · Alex</Pill>
-        <Pill tone="slate">Tags · Fitout</Pill>
-        <span className="ml-auto">
-          <Btn tone="ghost">
-            <Plus className="h-3 w-3" /> New contract
-          </Btn>
-        </span>
-      </Toolbar>
-
-      <div className="grid h-[calc(100%-43px)] min-h-0 grid-cols-1 gap-2.5 p-3 lg:grid-cols-[268px_minmax(0,1fr)]">
-        <Card className="hidden min-h-0 flex-col overflow-hidden lg:flex">
-          <div className="divide-y divide-slate-100">
-            {CONTRACTS.map((c, i) => (
-              <div
-                key={c.name}
-                className={cn(
-                  "flex items-center gap-2 px-3 py-2.5 transition-colors duration-500",
-                  i === 0 ? "bg-blue-50/60" : "bg-white",
-                )}
-              >
-                <Face src={c.face} size={26} />
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-[12px] font-semibold text-slate-800">{c.name}</div>
-                  <div className="truncate text-[10.5px] text-slate-400">{c.customer}</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-[11px] font-semibold text-slate-700">{c.value}</div>
-                  <div className="whitespace-nowrap text-[10px] text-slate-400">
-                    {i === 0 ? status : c.activity}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex shrink-0 items-center gap-2 border-b border-slate-200/80 px-3 py-2">
-            <FileSignature className="h-4 w-4 text-slate-400" />
-            <span className="text-[12.5px] font-semibold text-slate-900">Fitout agreement</span>
-            <Pill tone="slate">
-              <MoneyIcon /> $18,600
-            </Pill>
-            <motion.span
-              key={status}
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
-              className="ml-auto"
-            >
-              <Pill
-                tone={
-                  status === "Completed" || status === "Signed"
-                    ? "green"
-                    : status === "Viewed"
-                      ? "blue"
-                      : "slate"
-                }
-              >
-                {status}
-              </Pill>
-            </motion.span>
-          </div>
-
-          <div className="min-h-0 flex-1 space-y-2 p-3">
-            <div className="flex items-center gap-2 text-[11px] text-slate-400">
-              {["Draft", "Sent", "Viewed", "Signed", "Completed"].map((s, i) => {
-                const on =
-                  i === 0 ||
-                  (i === 1 && step >= 1) ||
-                  (i === 2 && step >= 2) ||
-                  (i === 3 && step >= 4) ||
-                  (i === 4 && step >= 5);
-                return (
-                  <span key={s} className="flex items-center gap-2">
-                    <span
-                      className={cn(
-                        "rounded-full px-2 py-[3px] text-[10.5px] font-medium transition-colors duration-500",
-                        on ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-400",
-                      )}
-                    >
-                      {s}
-                    </span>
-                    {i < 4 ? <span className="h-px w-3 bg-slate-200" /> : null}
-                  </span>
-                );
-              })}
-            </div>
-
-            {[
-              {
-                key: "s1",
-                name: "Nina Patel",
-                role: "Alto Fitout Co · Director",
-                face: FACE.nina,
-                show: sign1,
-              },
-              {
-                key: "s2",
-                name: "Alex Turner",
-                role: "Your business · Owner",
-                face: FACE.alex,
-                show: sign2,
-              },
-            ].map((s) => (
+    <Scene
+      reduced={reduced}
+      recede={collapse ? 0.08 : sheet ? 0.72 : 0}
+      background={<EmailBackground />}
+      foreground={
+        <>
+          <Glow show={sheet && !collapse} className="left-[14%] top-[16%] h-60 w-80" />
+          <AnimatePresence>
+            {sheet && !payoff ? (
               <motion.div
-                key={s.key}
-                initial={false}
-                animate={{ opacity: s.show ? 1 : 0.5 }}
-                transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
-                className={cn(
-                  "rounded-xl border bg-white px-3 py-2.5",
-                  s.show ? "border-emerald-200" : "border-slate-200",
-                )}
+                className="absolute left-[8%] top-[14%] w-[60%] max-w-[380px]"
+                initial={reduced ? false : { opacity: 0, y: 44, scale: 0.84 }}
+                animate={{
+                  opacity: reply ? 0.4 : 1,
+                  y: published ? 14 : 0,
+                  scale: published ? 0.84 : 1,
+                  rotate: published ? -3 : -1,
+                  filter: reply ? "blur(2px)" : "blur(0px)",
+                }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: reduced ? 0 : 0.65, ease: EASE_OUT }}
               >
-                <div className="flex items-center gap-2">
-                  <Face src={s.face} size={28} />
-                  <div className="min-w-0">
-                    <div className="truncate text-[12px] font-semibold text-slate-800">
-                      {s.name}
-                    </div>
-                    <div className="truncate text-[10.5px] text-slate-400">{s.role}</div>
+                <Hero className="p-5">
+                  <div className="flex flex-wrap items-baseline gap-2 text-[22px] font-extrabold tracking-tight text-slate-900">
+                    <span>Hi</span>
+                    <span className="relative inline-flex h-[30px] items-center overflow-hidden">
+                      <AnimatePresence mode="popLayout" initial={false}>
+                        {merged ? (
+                          <motion.span
+                            key="maya"
+                            initial={reduced ? false : { y: 26, opacity: 0, scale: 0.86 }}
+                            animate={{ y: 0, opacity: 1, scale: 1 }}
+                            transition={{ duration: reduced ? 0 : 0.5, ease: EASE_OUT }}
+                            className="text-zapla-blue"
+                          >
+                            Maya
+                          </motion.span>
+                        ) : (
+                          <motion.span
+                            key="merge"
+                            initial={false}
+                            exit={{ y: -26, opacity: 0, scale: 0.86, filter: "blur(3px)" }}
+                            transition={{ duration: reduced ? 0 : 0.45, ease: EASE_OUT }}
+                            className="rounded-md bg-slate-100 px-2 font-mono text-[15px] text-slate-500"
+                          >
+                            {"{{contact.first_name}}"}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </span>
                   </div>
-                  <span className="ml-auto flex items-center gap-1.5">
-                    {s.show ? (
-                      <Pill tone="green">
-                        <Check className="h-2.5 w-2.5" strokeWidth={3} /> Signed
-                      </Pill>
-                    ) : (
-                      <Pill tone="slate">
-                        <Clock className="h-2.5 w-2.5" /> Waiting
-                      </Pill>
-                    )}
-                  </span>
-                </div>
-                <div className="mt-1 border-b border-dashed border-slate-200">
-                  <SignPath show={s.show} reduced={reduced} />
+                  <div className="mt-3 space-y-2">
+                    <GhostRow w="94%" h={8} />
+                    <GhostRow w="82%" h={8} />
+                    <GhostRow w="60%" h={8} />
+                  </div>
+                  <div className="mt-4">
+                    <AnimatePresence mode="popLayout">
+                      <motion.span
+                        key={published ? "pub" : "draft"}
+                        initial={reduced ? false : { opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -12 }}
+                        transition={{ duration: 0.4 }}
+                        className={
+                          published
+                            ? "inline-flex rounded-full bg-emerald-500 px-3.5 py-1.5 text-[12px] font-bold text-white"
+                            : "inline-flex rounded-full bg-zapla-blue px-3.5 py-1.5 text-[12px] font-bold text-white"
+                        }
+                      >
+                        {published ? "Published" : "Publish"}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/* future sequence emails collapse when Maya replies */}
+          <AnimatePresence>
+            {published && !payoff ? (
+              <motion.div
+                className="absolute right-[8%] top-[18%] w-[32%] max-w-[210px] space-y-2"
+                initial={reduced ? false : { opacity: 0, x: 30 }}
+                animate={{
+                  opacity: reply ? 0 : 1,
+                  x: reply ? 26 : 0,
+                  scale: reply ? 0.8 : 1,
+                  rotate: reply ? 6 : 0,
+                }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
+              >
+                {["Email 2 · day 3", "Email 3 · day 7"].map((e, i) => (
+                  <motion.div
+                    key={e}
+                    initial={reduced ? false : { opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: reply ? i * 8 : 0 }}
+                    transition={{ duration: 0.45, delay: reduced ? 0 : i * 0.08 }}
+                    className="rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-[11.5px] font-semibold text-slate-500 shadow-[0_10px_24px_-16px_rgba(15,23,42,0.4)]"
+                  >
+                    {e}
+                  </motion.div>
+                ))}
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {reply && !payoff ? (
+              <motion.div
+                className="absolute bottom-[16%] left-[16%] w-[62%] max-w-[380px]"
+                initial={reduced ? false : { opacity: 0, x: -70, y: 24, scale: 0.82, rotate: -4 }}
+                animate={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: -1 }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
+              >
+                <div className="flex items-end gap-3">
+                  <Avatar src={FACE.maya} size={42} />
+                  <div className="rounded-[22px] rounded-bl-md bg-zapla-ink px-5 py-3.5 text-[14.5px] font-semibold text-white shadow-[0_30px_60px_-26px_rgba(15,23,42,0.7)]">
+                    Interested, can you call me?
+                  </div>
                 </div>
               </motion.div>
-            ))}
+            ) : null}
+          </AnimatePresence>
 
-            <StepIn show={step >= 5}>
-              <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5">
-                <Sparkles className="h-4 w-4 text-emerald-600" />
-                <div className="text-[11.5px] font-semibold text-emerald-800">
-                  Contract completed · linked opportunity moved to Won
+          <Payoff
+            show={payoff && !collapse}
+            reduced={reduced}
+            className="left-1/2 top-[32%] w-[74%] max-w-[420px] -translate-x-1/2"
+          >
+            <div className="flex items-center gap-4">
+              <Avatar src={FACE.maya} size={52} />
+              <div>
+                <div className="text-[17px] font-extrabold tracking-tight text-slate-900">
+                  Maya replied
+                </div>
+                <div className="text-[12.5px] font-medium text-slate-500">
+                  Remaining emails stopped
                 </div>
               </div>
-            </StepIn>
-          </div>
-        </Card>
-      </div>
+              <Mail className="ml-auto h-5 w-5 text-slate-300" />
+            </div>
+          </Payoff>
+        </>
+      }
+    />
+  );
+}
 
-      {/* one purposeful signature interaction on the owner block */}
-      <Pointer
-        x={68}
-        y={72}
-        show={step === 3 || step === 4}
-        active={step === 4}
-        reduced={reduced}
-      />
+/* ================================================================= */
+/* 7 — CALENDAR : a selected time becomes a real appointment           */
+/* ================================================================= */
+
+function CalendarBackground({ docked }: { docked: boolean }) {
+  return (
+    <div className="absolute inset-0 grid grid-cols-5 gap-1.5 px-3 py-3">
+      {["Mon", "Tue", "Wed", "Thu", "Fri"].map((d, i) => (
+        <div key={d} className="min-w-0">
+          <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+            {d}
+          </div>
+          <div className="space-y-1.5">
+            {Array.from({ length: 4 }).map((_, j) => {
+              const target = i === 4 && j === 2;
+              if (target)
+                return (
+                  <motion.div
+                    key={j}
+                    animate={{
+                      opacity: 1,
+                      borderColor: docked ? "rgba(16,185,129,0.6)" : "rgba(148,163,184,0.5)",
+                      backgroundColor: docked ? "rgba(209,250,229,0.9)" : "rgba(255,255,255,1)",
+                    }}
+                    transition={{ duration: 0.5 }}
+                    className="h-[42px] rounded-lg border border-dashed p-2 text-[10px] font-semibold text-slate-400"
+                  >
+                    {docked ? "Nina · 12:00" : "12:00"}
+                  </motion.div>
+                );
+              return (
+                <div
+                  key={j}
+                  className="h-[42px] space-y-1.5 rounded-lg border border-slate-200/80 bg-white p-2"
+                >
+                  <GhostRow w="70%" h={6} />
+                  <GhostRow w="46%" h={5} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
     </div>
+  );
+}
+
+export function SceneCalendar({ phase, reduced }: SceneProps) {
+  const token = phase >= 1;
+  const appt = phase >= 2;
+  const confirm = phase >= 3;
+  const payoff = phase >= 4;
+  const collapse = phase >= 5;
+
+  return (
+    <Scene
+      reduced={reduced}
+      recede={collapse ? 0.08 : token ? 0.7 : 0}
+      background={<CalendarBackground docked={collapse} />}
+      foreground={
+        <>
+          <Glow
+            show={token && !collapse}
+            tone="green"
+            className="left-1/2 top-[20%] h-56 w-72 -translate-x-1/2"
+          />
+          <AnimatePresence>
+            {token && !payoff ? (
+              <motion.div
+                className="absolute left-1/2 top-[24%] w-[46%] max-w-[300px]"
+                initial={reduced ? false : { opacity: 0, y: 40, scale: 0.7, x: "-50%" }}
+                animate={{
+                  opacity: 1,
+                  x: "-50%",
+                  y: confirm ? 26 : 0,
+                  scale: confirm ? 0.9 : 1,
+                  rotate: -1.5,
+                }}
+                exit={{ opacity: 0, scale: 0.9, x: "-50%" }}
+                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
+              >
+                <Hero className="p-4">
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    {appt ? (
+                      <motion.div
+                        key="appt"
+                        initial={reduced ? false : { opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: reduced ? 0 : 0.5, ease: EASE_OUT }}
+                        className="flex items-center gap-3"
+                      >
+                        <Avatar src={FACE.nina} size={46} />
+                        <div>
+                          <div className="text-[15.5px] font-extrabold tracking-tight text-slate-900">
+                            Nina Alvarez
+                          </div>
+                          <div className="text-[11.5px] text-slate-400">
+                            Consultation · Fri 12:00
+                          </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="slot"
+                        initial={false}
+                        exit={{ opacity: 0, scale: 0.94, filter: "blur(3px)" }}
+                        transition={{ duration: reduced ? 0 : 0.4 }}
+                        className="py-1.5 text-center text-[20px] font-extrabold tracking-tight text-slate-400"
+                      >
+                        Fri 12:00 available
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          <Signal
+            show={confirm && !payoff}
+            reduced={reduced}
+            from={{ x: 0, y: 0 }}
+            to={{ x: -130, y: -34 }}
+            rotate={-5}
+            className="left-1/2 top-[36%] px-3 py-2 text-[12px]"
+          >
+            <MessageSquare className="h-3.5 w-3.5 text-emerald-600" /> SMS confirmed
+          </Signal>
+          <Signal
+            show={confirm && !payoff}
+            reduced={reduced}
+            delay={0.12}
+            from={{ x: 0, y: 0 }}
+            to={{ x: 120, y: -34 }}
+            rotate={5}
+            className="left-1/2 top-[36%] px-3 py-2 text-[12px]"
+          >
+            <Mail className="h-3.5 w-3.5 text-blue-600" /> Email sent
+          </Signal>
+
+          <Payoff
+            show={payoff && !collapse}
+            reduced={reduced}
+            className="left-1/2 top-[32%] w-[62%] max-w-[350px] -translate-x-1/2"
+          >
+            <div className="flex items-center gap-3.5">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white">
+                <CalendarCheck className="h-6 w-6" />
+              </span>
+              <div>
+                <div className="text-[19px] font-extrabold tracking-tight text-slate-900">
+                  Booked
+                </div>
+                <div className="text-[12.5px] font-medium text-slate-500">
+                  Nina Alvarez · Friday 12:00
+                </div>
+              </div>
+            </div>
+          </Payoff>
+        </>
+      }
+    />
+  );
+}
+
+/* ================================================================= */
+/* 8 — CONTRACTS : one signature changes the deal                      */
+/* ================================================================= */
+
+function ContractsBackground() {
+  return (
+    <div className="absolute inset-0 flex">
+      <div className="w-[34%] space-y-2 border-r border-slate-200/80 bg-white p-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-2 rounded-lg border border-slate-200/70 p-2"
+          >
+            <FileSignature className="h-3.5 w-3.5 text-slate-300" />
+            <div className="flex-1 space-y-1.5">
+              <GhostRow w="72%" h={7} />
+              <GhostRow w="40%" h={5} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex-1 space-y-2.5 p-4">
+        <div className="flex gap-1.5">
+          {["Draft", "Sent", "Viewed", "Signed"].map((s) => (
+            <span key={s} className="text-[9.5px] font-medium text-slate-300">
+              {s}
+            </span>
+          ))}
+        </div>
+        {[94, 88, 76, 92, 64].map((w, i) => (
+          <GhostRow key={i} w={`${w}%`} h={8} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function SceneContracts({ phase, reduced }: SceneProps) {
+  const sheet = phase >= 1;
+  const sign = phase >= 2;
+  const sealed = phase >= 3;
+  const dock = phase >= 4;
+  const payoff = phase >= 5;
+  const collapse = phase >= 6;
+
+  return (
+    <Scene
+      reduced={reduced}
+      recede={collapse ? 0.08 : sheet ? 0.74 : 0}
+      background={<ContractsBackground />}
+      foreground={
+        <>
+          <Glow show={sheet && !collapse} className="left-[12%] top-[16%] h-60 w-80" />
+          <AnimatePresence>
+            {sheet && !payoff ? (
+              <motion.div
+                className="absolute left-[9%] top-[16%] w-[58%] max-w-[370px]"
+                initial={reduced ? false : { opacity: 0, y: 46, scale: 0.84, rotate: -3 }}
+                animate={{
+                  opacity: 1,
+                  y: dock ? 10 : 0,
+                  x: dock ? 210 : 0,
+                  scale: sealed ? (dock ? 0.6 : 0.78) : 1,
+                  rotate: sealed ? 2 : -1.5,
+                }}
+                exit={{ opacity: 0, scale: 0.6, x: 250 }}
+                transition={{ duration: reduced ? 0 : 0.68, ease: EASE_OUT }}
+              >
+                <Hero className="p-5">
+                  <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                    Garden design agreement
+                  </div>
+                  <div className="mt-3 space-y-2">
+                    <GhostRow w="92%" h={7} />
+                    <GhostRow w="70%" h={7} />
+                  </div>
+                  <div className="relative mt-4 h-[74px] rounded-xl border border-dashed border-slate-300 bg-slate-50/70">
+                    <svg viewBox="0 0 240 60" className="absolute inset-0 h-full w-full">
+                      <motion.path
+                        d="M18 44 C40 6, 62 54, 86 24 C104 2, 118 50, 142 30 C162 14, 186 46, 220 20"
+                        fill="none"
+                        stroke="#0f172a"
+                        strokeWidth={3}
+                        strokeLinecap="round"
+                        initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                        animate={{ pathLength: sign ? 1 : 0 }}
+                        transition={{ duration: reduced ? 0 : 0.95, ease: [0.4, 0, 0.3, 1] }}
+                      />
+                    </svg>
+                    <AnimatePresence>
+                      {sealed ? (
+                        <motion.span
+                          initial={reduced ? false : { opacity: 0, scale: 0.7, rotate: -8 }}
+                          animate={{ opacity: 1, scale: 1, rotate: -6 }}
+                          transition={{ duration: 0.45, ease: EASE_OUT }}
+                          className="absolute -right-3 -top-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1.5 text-[11.5px] font-bold text-white shadow-[0_16px_30px_-14px_rgba(16,185,129,0.9)]"
+                        >
+                          <Check className="h-3.5 w-3.5" strokeWidth={3} /> Signed
+                        </motion.span>
+                      ) : null}
+                    </AnimatePresence>
+                  </div>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/* the deal object receiving the signed document */}
+          <AnimatePresence>
+            {sheet && !payoff ? (
+              <motion.div
+                className="absolute bottom-[16%] right-[9%] w-[38%] max-w-[240px]"
+                initial={reduced ? false : { opacity: 0, y: 24, scale: 0.9 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: dock ? 1.08 : 0.96,
+                  rotate: dock ? 0 : 2,
+                }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: reduced ? 0 : 0.55, ease: EASE_OUT }}
+              >
+                <Hero className="p-3.5">
+                  <div className="flex items-center gap-2.5">
+                    <Avatar src={FACE.tom} size={38} />
+                    <div className="min-w-0">
+                      <div className="truncate text-[13.5px] font-bold tracking-tight text-slate-900">
+                        Bennett Landscapes
+                      </div>
+                      <AnimatePresence mode="popLayout" initial={false}>
+                        <motion.div
+                          key={dock ? "won" : "neg"}
+                          initial={reduced ? false : { opacity: 0, rotateX: -70 }}
+                          animate={{ opacity: 1, rotateX: 0 }}
+                          exit={{ opacity: 0, rotateX: 70 }}
+                          transition={{ duration: reduced ? 0 : 0.4 }}
+                          className="mt-1"
+                        >
+                          <Tag tone={dock ? "green" : "slate"}>{dock ? "Won" : "Negotiation"}</Tag>
+                        </motion.div>
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          <Signal
+            show={dock && !payoff}
+            reduced={reduced}
+            delay={0.2}
+            from={{ x: -30, y: 10 }}
+            to={{ x: 0, y: 0 }}
+            rotate={-3}
+            className="right-[12%] top-[26%] px-3 py-2 text-[12px]"
+          >
+            <Bell className="h-3.5 w-3.5 text-blue-600" /> Team notified
+          </Signal>
+
+          <Payoff
+            show={payoff && !collapse}
+            reduced={reduced}
+            className="left-1/2 top-[32%] w-[72%] max-w-[410px] -translate-x-1/2"
+          >
+            <div className="flex items-center gap-3.5">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-zapla-ink text-white">
+                <Trophy className="h-5 w-5" />
+              </span>
+              <div>
+                <div className="text-[18px] font-extrabold tracking-tight text-slate-900">
+                  Signed · Deal won
+                </div>
+                <div className="text-[12.5px] font-medium text-slate-500">
+                  Bennett Landscapes · £8,400
+                </div>
+              </div>
+            </div>
+          </Payoff>
+        </>
+      }
+    />
   );
 }

@@ -1,1017 +1,806 @@
 import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight,
-  BellRing,
   CalendarCheck,
   Check,
-  ChevronDown,
-  Clock,
-  Filter,
+  FileText,
+  Instagram,
   Mail,
   MessageSquare,
-  Plus,
-  Receipt,
-  Search,
   Send,
   Sparkles,
-  Tag,
-  Target,
-  Users,
   X,
   Zap,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import {
-  Btn,
-  Card,
-  ChannelMark,
-  EASE,
-  Face,
-  FilterChip,
-  MoneyIcon,
-  NodeState,
-  Pill,
-  Pointer,
-  StepIn,
-  Toolbar,
-} from "./kit";
 import { FACE } from "./faces";
+import {
+  Avatar,
+  EASE_OUT,
+  GhostRow,
+  Glow,
+  Hero,
+  Payoff,
+  Scene,
+  Signal,
+  Tag,
+  type SceneProps,
+} from "./motion-kit";
 
-export type SceneProps = { step: number; reduced: boolean };
+export type { SceneProps };
 
-/* ================================================================== */
-/* 1. CONTACTS — dormant cohort becomes a live opportunity              */
-/*    0 table · 1 criteria · 2 cohort selected · 3 one click            */
-/*    4 outreach fans out · 5 reply returns as opportunity              */
-/* ================================================================== */
+/* ================================================================= */
+/* 1 — CONTACTS : dormant customers wake up                           */
+/* ================================================================= */
 
-type TagTone = "blue" | "violet" | "amber" | "rose" | "green" | "slate";
-
-type ContactRow = {
-  name: string;
-  business: string;
-  phone: string;
-  last: string;
-  face: string;
-  tags: Array<{ label: string; tone: TagTone }>;
-  channel: "sms" | "email" | "instagram" | "messenger" | "phone";
-  match: boolean;
-};
-
-const CONTACTS: ContactRow[] = [
-  {
-    name: "Maya Chen",
-    business: "North & Pine Studio",
-    phone: "0400 118 224",
-    last: "8 months ago",
-    face: FACE.maya,
-    tags: [
-      { label: "VIP", tone: "amber" },
-      { label: "Inactive 6m+", tone: "rose" },
-    ],
-    channel: "sms",
-    match: true,
-  },
-  {
-    name: "Priya Raman",
-    business: "Raman Dental Co",
-    phone: "0421 336 118",
-    last: "3 days ago",
-    face: FACE.priya,
-    tags: [{ label: "Upsell", tone: "blue" }],
-    channel: "instagram",
-    match: false,
-  },
-  {
-    name: "Daniel Okafor",
-    business: "Okafor Electrical",
-    phone: "0413 902 771",
-    last: "7 months ago",
-    face: FACE.daniel,
-    tags: [
-      { label: "VIP", tone: "amber" },
-      { label: "Inactive 6m+", tone: "rose" },
-    ],
-    channel: "email",
-    match: true,
-  },
-  {
-    name: "Sophie Nguyen",
-    business: "Harbourline Physio",
-    phone: "0402 551 690",
-    last: "Yesterday",
-    face: FACE.sophie,
-    tags: [{ label: "Upsell", tone: "blue" }],
-    channel: "messenger",
-    match: false,
-  },
-  {
-    name: "Tom Bennett",
-    business: "Bennett Landscapes",
-    phone: "0408 774 015",
-    last: "11 months ago",
-    face: FACE.tom,
-    tags: [
-      { label: "VIP", tone: "amber" },
-      { label: "Inactive 6m+", tone: "rose" },
-    ],
-    channel: "phone",
-    match: true,
-  },
-  {
-    name: "Leo Marchetti",
-    business: "Marchetti Motors",
-    phone: "0417 208 443",
-    last: "9 months ago",
-    face: FACE.leo,
-    tags: [
-      { label: "Big Spender", tone: "violet" },
-      { label: "Inactive 6m+", tone: "rose" },
-    ],
-    channel: "sms",
-    match: true,
-  },
+const CONTACTS = [
+  { name: "Maya Chen", face: FACE.maya, tag: "VIP", last: "7 months ago", match: true },
+  { name: "Daniel Ross", face: FACE.daniel, tag: "VIP", last: "8 months ago", match: true },
+  { name: "Priya Nair", face: FACE.priya, tag: "VIP", last: "6 months ago", match: true },
+  { name: "Tom Whyte", face: FACE.tom, tag: "VIP", last: "9 months ago", match: true },
+  { name: "Sophie Bell", face: FACE.sophie, tag: "Lead", last: "3 days ago" },
+  { name: "Leo Marsh", face: FACE.leo, tag: "Client", last: "yesterday" },
+  { name: "Ava Dunn", face: FACE.jordan, tag: "Lead", last: "1 week ago" },
+  { name: "Noah Reid", face: FACE.sam, tag: "Client", last: "2 weeks ago" },
+  { name: "Iris Kaye", face: FACE.nina, tag: "Client", last: "4 days ago" },
+  { name: "Ben Foley", face: FACE.alex, tag: "Lead", last: "5 days ago" },
 ];
 
-export function SceneContacts({ step, reduced }: SceneProps) {
-  const filtered = step >= 1;
-  const selected = step >= 2;
-  const composer = step >= 3;
-  const sent = step >= 4;
-  const replied = step >= 5;
+function ContactsBackground() {
+  return (
+    <div className="absolute inset-0 px-4 pt-3">
+      <div className="mb-2 flex items-center gap-2">
+        <GhostRow w="88px" h={9} />
+        <div className="ml-auto flex gap-1.5">
+          <GhostRow w="52px" h={16} className="rounded-md" />
+          <GhostRow w="42px" h={16} className="rounded-md" />
+        </div>
+      </div>
+      <div className="divide-y divide-slate-100 rounded-xl border border-slate-200/80 bg-white">
+        {CONTACTS.map((c) => (
+          <div key={c.name} className="flex items-center gap-3 px-3 py-[9px]">
+            <img
+              src={c.face}
+              alt=""
+              aria-hidden
+              className="h-6 w-6 shrink-0 rounded-full object-cover"
+            />
+            <span className="w-[110px] truncate text-[11.5px] font-medium text-slate-500">
+              {c.name}
+            </span>
+            <GhostRow w="34px" h={10} className="rounded" />
+            <span className="ml-auto text-[10.5px] text-slate-300">{c.last}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-  // the cohort visually gathers to the top of the table once criteria apply
-  const rows = filtered
-    ? [...CONTACTS].sort((a, b) => Number(b.match) - Number(a.match))
-    : CONTACTS;
-
-  const matchIndex = (name: string) =>
-    rows.filter((r) => r.match).findIndex((r) => r.name === name);
+export function SceneContacts({ phase, reduced }: SceneProps) {
+  const chips = phase >= 1;
+  const cohort = phase >= 2;
+  const action = phase >= 3;
+  const burst = phase >= 3;
+  const maya = phase >= 4;
+  const payoff = phase >= 5;
+  const collapse = phase >= 6;
 
   return (
-    <div className="relative h-full">
-      <Toolbar>
-        <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-slate-500">
-          <Filter className="h-3.5 w-3.5 text-slate-400" /> Segment
-        </span>
-        <FilterChip active={filtered} icon={<Tag className="h-3 w-3" />}>
-          VIP
-        </FilterChip>
-        <FilterChip active={filtered} icon={<Clock className="h-3 w-3" />}>
-          Inactive 6m+
-        </FilterChip>
-        <FilterChip icon={<Search className="h-3 w-3" />}>Search contacts</FilterChip>
-        <span className="ml-auto">
-          <Btn tone="ghost">
-            <Plus className="h-3 w-3" /> New contact
-          </Btn>
-        </span>
-      </Toolbar>
+    <Scene
+      reduced={reduced}
+      recede={collapse ? 0.15 : cohort ? 0.75 : chips ? 0.3 : 0}
+      background={<ContactsBackground />}
+      foreground={
+        <>
+          <Glow show={cohort && !collapse} className="left-[8%] top-[14%] h-56 w-72" />
 
-      <div className="flex h-[calc(100%-43px)] min-h-0 gap-3 p-3">
-        <Card className="relative flex min-w-0 flex-1 flex-col overflow-hidden">
-          <div className="grid shrink-0 grid-cols-[22px_1.5fr_1fr_0.95fr_1.6fr] items-center gap-2 border-b border-slate-200/80 bg-slate-50/70 px-3 py-2 text-[10.5px] font-semibold uppercase tracking-wide text-slate-400">
-            <span />
-            <span>Contact</span>
-            <span className="hidden sm:block">Phone</span>
-            <span className={cn("transition-colors duration-500", filtered && "text-blue-600")}>
-              Last activity
-            </span>
-            <span>Tags</span>
-          </div>
-
-          <div className="min-h-0 flex-1 divide-y divide-slate-100 overflow-hidden">
-            {rows.map((c) => {
-              const dim = filtered && !c.match;
-              const pick = selected && c.match;
-              const hero = replied && c.name === "Maya Chen";
-              return (
-                <motion.div
-                  key={c.name}
-                  layout={!reduced}
-                  initial={false}
-                  animate={{
-                    opacity: dim ? 0.24 : 1,
-                    filter: dim ? "grayscale(1)" : "grayscale(0)",
-                    backgroundColor: hero
-                      ? "rgb(236 253 245)"
-                      : pick
-                        ? "rgb(239 246 255)"
-                        : "rgb(255 255 255)",
-                  }}
-                  transition={{
-                    duration: reduced ? 0 : 0.55,
-                    ease: EASE,
-                    delay: reduced ? 0 : (c.match ? matchIndex(c.name) : 3) * 0.06,
-                  }}
-                  className="grid grid-cols-[22px_1.5fr_1fr_0.95fr_1.6fr] items-center gap-2 px-3 py-[11px]"
-                >
-                  <span
-                    className={cn(
-                      "flex h-[15px] w-[15px] items-center justify-center rounded-[4px] border transition-colors duration-500",
-                      pick ? "border-blue-600 bg-blue-600 text-white" : "border-slate-300 bg-white",
-                    )}
-                  >
-                    {pick ? <Check className="h-2.5 w-2.5" strokeWidth={4} /> : null}
-                  </span>
-                  <div className="flex min-w-0 items-center gap-2">
-                    <Face src={c.face} size={26} />
-                    <div className="min-w-0">
-                      <div className="truncate text-[12.5px] font-semibold text-slate-800">
-                        {c.name}
-                      </div>
-                      <div className="truncate text-[10.5px] text-slate-400">{c.business}</div>
-                    </div>
-                  </div>
-                  <div className="hidden items-center gap-1.5 sm:flex">
-                    <ChannelMark channel={c.channel} size={15} />
-                    <span className="whitespace-nowrap text-[11px] text-slate-500">{c.phone}</span>
-                  </div>
-                  <span
-                    className={cn(
-                      "whitespace-nowrap text-[11px] transition-colors duration-500",
-                      filtered && c.match ? "font-semibold text-slate-800" : "text-slate-400",
-                    )}
-                  >
-                    {c.last}
-                  </span>
-                  <div className="flex flex-wrap items-center gap-1">
-                    {c.tags.map((t) => (
-                      <Pill key={t.label} tone={t.tone}>
-                        {t.label}
-                      </Pill>
-                    ))}
-
-                    {/* outreach signal leaves the row, then resolves to Sent */}
-                    <AnimatePresence>
-                      {sent && c.match ? (
-                        <motion.span
-                          key="sent"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{
-                            duration: reduced ? 0 : 0.45,
-                            ease: EASE,
-                            delay: reduced ? 0 : matchIndex(c.name) * 0.14,
-                          }}
-                        >
-                          <Pill tone="blue">
-                            <Send className="h-2.5 w-2.5" /> Sent
-                          </Pill>
-                        </motion.span>
-                      ) : null}
-                    </AnimatePresence>
-
-                    <AnimatePresence>
-                      {hero ? (
-                        <motion.span
-                          key="won"
-                          initial={{ opacity: 0, scale: 0.8, y: 6 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-                        >
-                          <Pill tone="green">
-                            <Check className="h-2.5 w-2.5" strokeWidth={3} /> Booking requested
-                          </Pill>
-                        </motion.span>
-                      ) : null}
-                    </AnimatePresence>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* one purposeful action on the selected cohort */}
+          {/* A — filter chips land like physical objects */}
           <AnimatePresence>
-            {selected && !replied ? (
+            {chips && !payoff ? (
               <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-                className="absolute bottom-3 left-3 z-20 flex items-center gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 shadow-[0_16px_36px_-18px_rgba(15,23,42,0.35)] backdrop-blur"
+                className="absolute left-5 top-4 flex gap-2"
+                initial={reduced ? false : { opacity: 0, y: -34, scale: 1.25, rotate: -4 }}
+                animate={{ opacity: 1, y: 0, scale: 1, rotate: -1.5 }}
+                exit={{ opacity: 0, y: -14, scale: 0.9 }}
+                transition={{ duration: reduced ? 0 : 0.55, ease: EASE_OUT }}
               >
-                <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-slate-700">
-                  <Users className="h-3.5 w-3.5 text-blue-600" /> 12 contacts selected
-                </span>
-                <span className="h-4 w-px bg-slate-200" />
-                <Btn>
-                  <MessageSquare className="h-3 w-3" /> Start campaign
-                </Btn>
+                {["VIP", "Inactive 6m+"].map((t, i) => (
+                  <motion.span
+                    key={t}
+                    initial={reduced ? false : { opacity: 0, y: -26 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: i * 0.09, ease: EASE_OUT }}
+                    className="rounded-full bg-zapla-ink px-4 py-2 text-[13px] font-bold text-white shadow-[0_22px_44px_-18px_rgba(15,23,42,0.6)]"
+                  >
+                    {t}
+                  </motion.span>
+                ))}
               </motion.div>
             ) : null}
           </AnimatePresence>
-        </Card>
 
-        {/* composer opens as a direct result of the click */}
-        <AnimatePresence>
-          {composer ? (
-            <motion.div
-              initial={{ opacity: 0, x: 26 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
-              className="hidden w-[248px] shrink-0 lg:block"
-            >
-              <Card className="flex h-full flex-col overflow-hidden">
-                <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-                  <span className="text-[12.5px] font-semibold text-slate-900">
-                    Reactivation SMS
-                  </span>
-                  <Pill tone={sent ? "green" : "blue"} className="ml-auto">
-                    {sent ? "Sent" : "Queued"}
-                  </Pill>
-                </div>
-                <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
-                  <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-2.5 text-[11.5px] leading-relaxed text-slate-600">
-                    Hi <span className="font-semibold text-blue-700">{"{{first_name}}"}</span>, it
-                    has been a while. We have new times opening next week if you would like your
-                    usual spot held.
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[10.5px] text-slate-400">
-                    <Sparkles className="h-3 w-3 text-violet-500" /> Personalised per contact
-                  </div>
-
-                  <AnimatePresence>
-                    {replied ? (
-                      <motion.div
-                        initial={{ opacity: 0, y: 14 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-                        className="space-y-1.5"
-                      >
-                        <div className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
-                          Reply
-                        </div>
-                        <div className="flex items-start gap-1.5">
-                          <Face src={FACE.maya} size={20} />
-                          <div className="rounded-lg rounded-tl-sm bg-slate-100 px-2 py-1.5 text-[11px] text-slate-700">
-                            Yes please, Thursday works.
-                          </div>
-                        </div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-
-                  <div className="mt-auto flex items-center gap-2">
-                    <Btn>
-                      <Send className="h-3 w-3" /> {sent ? "Sent" : "Send now"}
-                    </Btn>
-                    <Btn tone="ghost">Schedule</Btn>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </div>
-
-      {/* one purposeful click: Start campaign */}
-      <Pointer
-        x={35}
-        y={88}
-        show={step === 2 || step === 3}
-        active={step === 3}
-        reduced={reduced}
-      />
-    </div>
-  );
-}
-
-/* ================================================================== */
-/* 2. OPPORTUNITIES — one deal card physically progresses               */
-/*    0 board · 1 hero card lands · 2 qualified · 3 proposal            */
-/*    4 negotiation · 5 won · 6 next work starts                        */
-/* ================================================================== */
-
-type Deal = {
-  id: string;
-  name: string;
-  business: string;
-  value: string;
-  age: string;
-  face: string;
-  col: number;
-};
-
-const COLUMNS = [
-  { label: "New Enquiry", accent: "bg-blue-500" },
-  { label: "Qualified", accent: "bg-indigo-500" },
-  { label: "Proposal Sent", accent: "bg-violet-500" },
-  { label: "Negotiation", accent: "bg-amber-500" },
-];
-
-const OUTCOMES = [
-  { label: "Team notified", icon: BellRing },
-  { label: "Welcome email sent", icon: Mail },
-  { label: "Deposit request created", icon: Receipt },
-  { label: "Onboarding call booked", icon: CalendarCheck },
-];
-
-export function SceneOpportunities({ step, reduced }: SceneProps) {
-  const heroCol = step >= 4 ? 3 : step >= 3 ? 2 : step >= 2 ? 1 : 0;
-  const won = step >= 5;
-  const outcomes = step >= 6;
-
-  const deals: Deal[] = [
-    {
-      id: "hero",
-      name: "Tom Bennett",
-      business: "Bennett Landscapes",
-      value: "$12,400",
-      age: "now",
-      face: FACE.tom,
-      col: heroCol,
-    },
-    {
-      id: "d1",
-      name: "Sophie Nguyen",
-      business: "Harbourline Physio",
-      value: "$4,800",
-      age: "2h",
-      face: FACE.sophie,
-      col: 0,
-    },
-    {
-      id: "d3",
-      name: "Priya Raman",
-      business: "Raman Dental Co",
-      value: "$7,950",
-      age: "3d",
-      face: FACE.priya,
-      col: 1,
-    },
-    {
-      id: "d5",
-      name: "Leo Marchetti",
-      business: "Marchetti Motors",
-      value: "$9,200",
-      age: "6d",
-      face: FACE.leo,
-      col: 2,
-    },
-    {
-      id: "d6",
-      name: "Maya Chen",
-      business: "North & Pine Studio",
-      value: "$26,500",
-      age: "9d",
-      face: FACE.maya,
-      col: 3,
-    },
-  ];
-
-  const heroChip =
-    step >= 4
-      ? { label: "Negotiating", tone: "amber" as const }
-      : step >= 3
-        ? { label: "Proposal sent", tone: "violet" as const }
-        : step >= 2
-          ? { label: "Qualified", tone: "blue" as const }
-          : step >= 1
-            ? { label: "Budget confirmed", tone: "blue" as const }
-            : null;
-
-  return (
-    <div className="relative h-full">
-      <Toolbar>
-        <span className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-[3px] text-[11.5px] text-slate-500">
-          Sales pipeline <ChevronDown className="h-3 w-3" />
-        </span>
-        <Pill tone="slate">5 open</Pill>
-        <span className="ml-auto">
-          <Btn tone="ghost">
-            <Plus className="h-3 w-3" /> New opportunity
-          </Btn>
-        </span>
-      </Toolbar>
-
-      <div className="flex h-[calc(100%-43px)] min-h-0 gap-2.5 p-3">
-        <div className="grid min-w-0 flex-1 grid-cols-2 gap-2.5 lg:grid-cols-4">
-          {COLUMNS.map((c, ci) => (
-            <div
-              key={c.label}
-              className={cn("flex min-h-0 flex-col", ci >= 2 ? "hidden lg:flex" : "flex")}
-            >
-              <div className="mb-1.5 flex items-center gap-1.5">
-                <span className={cn("h-1.5 w-1.5 rounded-full", c.accent)} />
-                <span className="text-[11px] font-semibold text-slate-600">{c.label}</span>
-                <span className="text-[10.5px] text-slate-400">
-                  {deals.filter((d) => d.col === ci).length}
-                </span>
-              </div>
-              <div className="min-h-0 flex-1 space-y-2 rounded-xl bg-white/70 p-1.5 ring-1 ring-slate-200/70">
-                {deals
-                  .filter((d) => d.col === ci)
-                  .map((d) => {
-                    const isHero = d.id === "hero";
-                    return (
-                      <motion.div
-                        key={d.id}
-                        layout={!reduced}
-                        layoutId={d.id}
-                        initial={isHero ? { opacity: 0, y: -16 } : false}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: reduced ? 0 : 0.6, ease: EASE }}
-                        className={cn(
-                          "rounded-lg border bg-white px-2.5 py-2 shadow-[0_1px_2px_rgba(15,23,42,0.04)]",
-                          isHero && won
-                            ? "border-emerald-300 ring-1 ring-emerald-200"
-                            : isHero
-                              ? "border-blue-300 shadow-[0_10px_26px_-18px_rgba(37,99,235,0.8)]"
-                              : "border-slate-200",
-                        )}
-                      >
-                        <div className="flex items-start gap-2">
-                          <Face src={d.face} size={22} />
-                          <div className="min-w-0">
-                            <div className="text-[11.5px] font-semibold leading-tight text-slate-800">
-                              {d.business}
-                            </div>
-                            <div className="truncate text-[10.5px] text-slate-400">{d.name}</div>
-                          </div>
-                        </div>
-
-                        <div className="mt-1.5 flex flex-wrap items-center gap-1">
-                          <Pill tone={isHero && won ? "green" : "slate"}>
-                            <MoneyIcon /> {d.value}
-                          </Pill>
-                          {isHero && won ? (
-                            <Pill tone="green">
-                              <Check className="h-2.5 w-2.5" strokeWidth={3} /> Won
-                            </Pill>
-                          ) : isHero && heroChip ? (
-                            <motion.span
-                              key={heroChip.label}
-                              initial={{ opacity: 0, scale: 0.85 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
-                            >
-                              <Pill tone={heroChip.tone}>
-                                <Zap className="h-2.5 w-2.5" /> {heroChip.label}
-                              </Pill>
-                            </motion.span>
-                          ) : (
-                            <span className="ml-auto text-[10.5px] text-slate-400">{d.age}</span>
-                          )}
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* the win starts the next work */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: won ? 1 : 0, x: won ? 0 : 24 }}
-          transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-          className="hidden w-[196px] shrink-0 lg:block"
-        >
-          <Card className="flex h-full flex-col overflow-hidden">
-            <div className="flex items-center gap-2 border-b border-slate-100 px-3 py-2">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                <Check className="h-3 w-3" strokeWidth={3} />
-              </span>
-              <span className="text-[12.5px] font-semibold text-slate-900">Deal won</span>
-            </div>
-            <div className="flex min-h-0 flex-1 flex-col gap-2 p-3">
-              <div className="flex items-center gap-2 rounded-lg bg-slate-50 px-2 py-1.5">
-                <Face src={FACE.tom} size={22} />
-                <div className="min-w-0">
-                  <div className="truncate text-[11.5px] font-semibold text-slate-800">
-                    Bennett Landscapes
-                  </div>
-                  <div className="text-[10.5px] text-slate-400">$12,400</div>
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                {OUTCOMES.map((o, i) => (
-                  <motion.div
-                    key={o.label}
-                    initial={false}
-                    animate={{ opacity: outcomes ? 1 : 0.4 }}
-                    transition={{
-                      duration: reduced ? 0 : 0.35,
-                      ease: EASE,
-                      delay: reduced || !outcomes ? 0 : i * 0.16,
-                    }}
-                    className="flex items-center gap-2 rounded-lg border border-slate-200 px-2 py-1.5"
-                  >
-                    <NodeState state={outcomes ? "done" : "idle"} />
-                    <o.icon className="h-3.5 w-3.5 text-slate-400" />
-                    <span className="text-[11px] font-medium text-slate-700">{o.label}</span>
-                  </motion.div>
-                ))}
-              </div>
-              <StepIn show={outcomes} delay={reduced ? 0 : 0.72} className="mt-auto">
-                <div className="rounded-lg bg-emerald-50 px-2.5 py-2 text-[11.5px] font-semibold text-emerald-700">
-                  Next steps started automatically
-                </div>
-              </StepIn>
-            </div>
-          </Card>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-/* ================================================================== */
-/* 3. INBOX — one customer, channel changes, conversation continues     */
-/*    0 thread open · 1 reply · 2 continues on SMS · 3 tag              */
-/*    4 opportunity chip docks into the record                          */
-/* ================================================================== */
-
-const FOLDERS = [
-  { label: "Inbox", count: 8 },
-  { label: "All", count: 42 },
-  { label: "Unread", count: 3 },
-  { label: "Starred", count: 5 },
-];
-
-type Convo = {
-  name: string;
-  face: string;
-  channel: "instagram" | "sms" | "email" | "messenger";
-  preview: string;
-  time: string;
-  group: "Today" | "Earlier";
-};
-
-const CONVOS: Convo[] = [
-  {
-    name: "Maya Chen",
-    face: FACE.maya,
-    channel: "instagram",
-    preview: "Do you have space this week?",
-    time: "9:41 am",
-    group: "Today",
-  },
-  {
-    name: "Sophie Nguyen",
-    face: FACE.sophie,
-    channel: "sms",
-    preview: "Thanks, see you Thursday.",
-    time: "9:02 am",
-    group: "Today",
-  },
-  {
-    name: "Daniel Okafor",
-    face: FACE.daniel,
-    channel: "email",
-    preview: "Sending through the site plans",
-    time: "8:15 am",
-    group: "Today",
-  },
-  {
-    name: "Tom Bennett",
-    face: FACE.tom,
-    channel: "messenger",
-    preview: "Is the Saturday quote still ok?",
-    time: "Yesterday",
-    group: "Earlier",
-  },
-  {
-    name: "Leo Marchetti",
-    face: FACE.leo,
-    channel: "sms",
-    preview: "Booked in, thanks team.",
-    time: "Tue",
-    group: "Earlier",
-  },
-];
-
-export function SceneInbox({ step, reduced }: SceneProps) {
-  const answered = step >= 1;
-  const sms = step >= 2;
-  const tagged = step >= 3;
-  const opp = step >= 4;
-
-  return (
-    <div className="relative h-full p-3">
-      <div className="grid h-full min-h-0 grid-cols-1 gap-2.5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] xl:grid-cols-[104px_minmax(0,1fr)_minmax(0,1.35fr)_212px]">
-        <Card className="hidden flex-col gap-1 p-2 xl:flex">
-          {FOLDERS.map((f, i) => (
-            <div
-              key={f.label}
-              className={cn(
-                "flex items-center justify-between rounded-md px-2 py-1.5 text-[11.5px]",
-                i === 0 ? "bg-blue-50 font-semibold text-blue-700" : "text-slate-500",
-              )}
-            >
-              {f.label}
-              <span className="text-[10px] text-slate-400">{f.count}</span>
-            </div>
-          ))}
-        </Card>
-
-        {/* conversation list */}
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex shrink-0 items-center gap-1.5 border-b border-slate-200/80 px-3 py-2 text-[11px] text-slate-400">
-            <Search className="h-3.5 w-3.5" /> Search conversations
-          </div>
-          <div className="min-h-0 flex-1 overflow-hidden">
-            {(["Today", "Earlier"] as const).map((g) => (
-              <div key={g}>
-                <div className="bg-slate-50/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-slate-400">
-                  {g}
-                </div>
-                {CONVOS.filter((c) => c.group === g).map((c) => {
-                  const isHero = c.name === "Maya Chen";
+          {/* B — matching cohort gathers as a raised stack */}
+          <AnimatePresence>
+            {cohort && !payoff ? (
+              <motion.div
+                className="absolute left-[6%] top-[22%] w-[62%] max-w-[420px]"
+                initial={reduced ? false : { opacity: 0, y: 26, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
+              >
+                {CONTACTS.filter((c) => c.match).map((c, i) => {
+                  const isMaya = i === 0;
                   return (
-                    <div
+                    <motion.div
                       key={c.name}
-                      className={cn(
-                        "flex items-center gap-2 border-b border-slate-100 px-3 py-2.5",
-                        isHero ? "bg-blue-50/70" : "bg-white",
-                      )}
+                      layout
+                      initial={reduced ? false : { opacity: 0, x: -18, rotate: i % 2 ? 1.5 : -1.5 }}
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                        rotate: i % 2 ? 0.8 : -0.8,
+                        y: maya && !isMaya ? 8 : 0,
+                        scale: maya ? (isMaya ? 1 : 0.94) : 1,
+                        filter: maya && !isMaya ? "blur(1.5px)" : "blur(0px)",
+                      }}
+                      transition={{
+                        duration: reduced ? 0 : 0.6,
+                        delay: reduced ? 0 : i * 0.08,
+                        ease: EASE_OUT,
+                      }}
+                      className="relative -mt-1 flex items-center gap-3 rounded-2xl border border-white/80 bg-white px-3.5 py-3 shadow-[0_26px_50px_-26px_rgba(15,23,42,0.4)]"
+                      style={{ zIndex: 10 - i }}
                     >
-                      <div className="relative">
-                        <Face src={c.face} size={28} />
-                        <span className="absolute -bottom-1 -right-1">
-                          {isHero ? (
+                      <Avatar src={c.face} size={isMaya ? 40 : 34} />
+                      <div className="min-w-0">
+                        <div className="truncate text-[13.5px] font-bold tracking-tight text-slate-900">
+                          {c.name}
+                        </div>
+                        <div className="text-[11px] text-slate-400">Last order {c.last}</div>
+                      </div>
+                      <div className="ml-auto flex items-center gap-1.5">
+                        <Tag tone="amber">VIP</Tag>
+                        <AnimatePresence>
+                          {burst ? (
                             <motion.span
-                              key={sms ? "sms" : "ig"}
-                              initial={{ opacity: 0, scale: 0.7 }}
+                              initial={reduced ? false : { opacity: 0, scale: 0.6 }}
                               animate={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
-                              className="block"
+                              transition={{ duration: 0.4, delay: reduced ? 0 : 0.18 + i * 0.1 }}
                             >
-                              <ChannelMark channel={sms ? "sms" : "instagram"} size={14} />
+                              <Tag tone="blue">
+                                <Send className="h-3 w-3" /> Sent
+                              </Tag>
                             </motion.span>
-                          ) : (
-                            <ChannelMark channel={c.channel} size={14} />
-                          )}
-                        </span>
+                          ) : null}
+                        </AnimatePresence>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="truncate text-[12px] font-semibold text-slate-800">
-                            {c.name}
-                          </span>
-                          <span className="ml-auto whitespace-nowrap text-[10px] text-slate-400">
-                            {c.time}
-                          </span>
-                        </div>
-                        <div className="truncate text-[11px] text-slate-500">
-                          {isHero && sms ? "Thursday 2pm works. Same address?" : c.preview}
-                        </div>
-                      </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/* C/D — one oversized action object + signal burst */}
+          <AnimatePresence>
+            {action && !maya ? (
+              <motion.div
+                className="absolute bottom-[12%] left-[10%] z-40"
+                initial={reduced ? false : { opacity: 0, y: 40, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -18, scale: 0.92 }}
+                transition={{ duration: reduced ? 0 : 0.55, ease: EASE_OUT }}
+              >
+                <div className="flex items-center gap-3 rounded-[18px] bg-zapla-blue px-5 py-4 text-white shadow-[0_34px_70px_-24px_rgba(37,99,255,0.7)]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20">
+                    <MessageSquare className="h-4.5 w-4.5" />
+                  </span>
+                  <div>
+                    <div className="text-[15px] font-bold leading-tight">Re-engage 4 customers</div>
+                    <div className="text-[11.5px] text-white/75">SMS · personalised offer</div>
+                  </div>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/* E/F/G — Maya expands, reply grows out of the same object */}
+          <AnimatePresence>
+            {maya && !collapse ? (
+              <motion.div
+                className="absolute right-[6%] top-[16%] w-[46%] max-w-[330px]"
+                initial={reduced ? false : { opacity: 0, x: 40, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9, x: -30 }}
+                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
+              >
+                <Hero className="p-4">
+                  <div className="flex items-center gap-3">
+                    <Avatar src={FACE.maya} size={52} />
+                    <div>
+                      <div className="text-[16px] font-extrabold tracking-tight text-slate-900">
+                        Maya Chen
+                      </div>
+                      <div className="text-[11.5px] text-slate-400">Dormant 7 months</div>
+                    </div>
+                  </div>
+                  <motion.div
+                    initial={reduced ? false : { opacity: 0, scaleY: 0.4, y: -10 }}
+                    animate={{ opacity: 1, scaleY: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: reduced ? 0 : 0.22, ease: EASE_OUT }}
+                    style={{ originY: 0 }}
+                    className="mt-3 rounded-2xl rounded-tl-sm bg-blue-50 px-3.5 py-3 text-[13px] font-medium leading-snug text-blue-900"
+                  >
+                    Yes please, Thursday works.
+                  </motion.div>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          <Signal
+            show={maya && !payoff}
+            reduced={reduced}
+            delay={0.45}
+            from={{ x: 20, y: -14 }}
+            rotate={-3}
+            className="right-[10%] top-[calc(16%+150px)] text-emerald-700"
+          >
+            <CalendarCheck className="h-3.5 w-3.5" /> Booking requested
+          </Signal>
+
+          {/* PAYOFF */}
+          <Payoff
+            show={payoff && !collapse}
+            reduced={reduced}
+            className="left-1/2 top-[38%] w-[76%] max-w-[440px] -translate-x-1/2"
+          >
+            <div className="flex items-center gap-4">
+              <Avatar src={FACE.maya} size={56} />
+              <div>
+                <div className="text-[18px] font-extrabold tracking-tight text-slate-900">
+                  Maya Chen
+                </div>
+                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                  <Tag tone="green">
+                    <Zap className="h-3 w-3" /> Re-engaged
+                  </Tag>
+                  <Tag tone="blue">
+                    <CalendarCheck className="h-3 w-3" /> Booking requested
+                  </Tag>
+                </div>
+              </div>
+            </div>
+          </Payoff>
+        </>
+      }
+    />
+  );
+}
+
+/* ================================================================= */
+/* 2 — OPPORTUNITIES : one deal creates downstream work               */
+/* ================================================================= */
+
+const BOARD = [
+  { col: "New enquiry", n: 3 },
+  { col: "Qualified", n: 2 },
+  { col: "Proposal sent", n: 3 },
+  { col: "Negotiation", n: 2 },
+];
+
+function BoardBackground() {
+  return (
+    <div className="absolute inset-0 grid grid-cols-4 gap-2.5 px-4 py-3">
+      {BOARD.map((c) => (
+        <div key={c.col} className="min-w-0">
+          <div className="mb-2 truncate text-[10.5px] font-semibold uppercase tracking-wide text-slate-400">
+            {c.col}
+          </div>
+          <div className="space-y-2">
+            {Array.from({ length: c.n }).map((_, i) => (
+              <div
+                key={i}
+                className="space-y-1.5 rounded-lg border border-slate-200/80 bg-white p-2.5"
+              >
+                <GhostRow w="76%" h={8} />
+                <GhostRow w="48%" h={7} />
               </div>
             ))}
           </div>
-        </Card>
+        </div>
+      ))}
+    </div>
+  );
+}
 
-        {/* thread */}
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex shrink-0 items-center gap-2 border-b border-slate-200/80 px-3 py-2">
-            <Face src={FACE.maya} size={26} />
-            <div className="min-w-0">
-              <div className="truncate text-[12.5px] font-semibold text-slate-900">Maya Chen</div>
-              <div className="text-[10.5px] text-slate-400">North &amp; Pine Studio</div>
-            </div>
-            <div className="ml-auto flex items-center gap-1">
-              <ChannelMark channel="instagram" size={16} />
-              <ChannelMark channel="sms" size={16} />
-              <ChannelMark channel="email" size={16} />
-              <ChannelMark channel="messenger" size={16} />
-            </div>
-          </div>
+const STAGES = ["Qualified", "Proposal sent", "Negotiation", "Won"] as const;
 
-          <div className="min-h-0 flex-1 space-y-2 overflow-hidden p-3">
-            <div className="text-center text-[10px] font-semibold uppercase tracking-wide text-slate-400">
-              Instagram DM
-            </div>
-            <div className="flex items-end gap-1.5">
-              <Face src={FACE.maya} size={20} />
-              <div className="max-w-[78%] rounded-xl rounded-bl-sm bg-slate-100 px-2.5 py-1.5 text-[11.5px] text-slate-700">
-                Hi, do you have space this week?
-              </div>
-            </div>
-            <StepIn show={answered} className="flex justify-end">
-              <div className="max-w-[78%] rounded-xl rounded-br-sm bg-blue-600 px-2.5 py-1.5 text-[11.5px] text-white">
-                We do. Thursday 2pm or Friday 10am?
-              </div>
-            </StepIn>
+export function SceneOpportunities({ phase, reduced }: SceneProps) {
+  const lifted = phase >= 1;
+  const stageIndex = Math.min(Math.max(phase - 1, 0), 3);
+  const won = phase >= 4;
+  const fan = phase >= 5;
+  const payoff = phase >= 6;
+  const collapse = phase >= 7;
 
-            <AnimatePresence>
-              {sms ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
-                  className="space-y-2"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="h-px flex-1 bg-slate-200" />
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-600">
-                      <ArrowRight className="h-3 w-3" /> continued via SMS
-                    </span>
-                    <span className="h-px flex-1 bg-slate-200" />
-                  </div>
-                  <div className="flex items-end gap-1.5">
-                    <Face src={FACE.maya} size={20} />
-                    <div className="max-w-[78%] rounded-xl rounded-bl-sm bg-slate-100 px-2.5 py-1.5 text-[11.5px] text-slate-700">
-                      Thursday 2pm works. Same address?
+  const work = [
+    { label: "Deposit request", icon: FileText, rot: -7, x: -150, y: 22 },
+    { label: "Welcome email", icon: Mail, rot: 0, x: 0, y: 44 },
+    { label: "Onboarding call", icon: CalendarCheck, rot: 7, x: 150, y: 22 },
+  ];
+
+  return (
+    <Scene
+      reduced={reduced}
+      recede={collapse ? 0.1 : won ? 0.8 : lifted ? 0.45 : 0}
+      background={<BoardBackground />}
+      foreground={
+        <>
+          <Glow
+            show={won && !collapse}
+            tone="green"
+            className="left-1/2 top-[18%] h-64 w-80 -translate-x-1/2"
+          />
+          <AnimatePresence>
+            {lifted && !payoff ? (
+              <motion.div
+                className="absolute left-1/2 top-[16%] w-[54%] max-w-[360px]"
+                initial={reduced ? false : { opacity: 0, y: 46, scale: 0.86, x: "-50%" }}
+                animate={{
+                  opacity: 1,
+                  x: "-50%",
+                  y: won ? -6 : 0,
+                  scale: won ? 1.06 : 1,
+                  rotate: won ? 0 : -1.2,
+                }}
+                exit={{ opacity: 0, scale: 0.94, x: "-50%" }}
+                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
+              >
+                <Hero className="p-4">
+                  <div className="flex items-start gap-3">
+                    <Avatar src={FACE.tom} size={44} />
+                    <div className="min-w-0">
+                      <div className="text-[16.5px] font-extrabold leading-tight tracking-tight text-slate-900">
+                        Bennett Landscapes
+                      </div>
+                      <div className="text-[11.5px] text-slate-400">Garden design · £8,400</div>
+                    </div>
+                    <div className="ml-auto text-right">
+                      <AnimatePresence mode="popLayout">
+                        <motion.div
+                          key={STAGES[stageIndex]}
+                          initial={reduced ? false : { opacity: 0, y: 14, scale: 0.9 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -14, scale: 0.9 }}
+                          transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT }}
+                          className={
+                            won
+                              ? "rounded-full bg-emerald-500 px-3 py-1.5 text-[12px] font-bold text-white"
+                              : "rounded-full bg-slate-900 px-3 py-1.5 text-[12px] font-bold text-white"
+                          }
+                        >
+                          {STAGES[stageIndex]}
+                        </motion.div>
+                      </AnimatePresence>
                     </div>
                   </div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-
-            {/* opportunity grows out of the thread, then docks into the record */}
-            <AnimatePresence>
-              {tagged && !opp ? (
-                <motion.div
-                  layoutId="inbox-opp"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-                  className="ml-7 inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1.5 text-[11px] font-semibold text-emerald-700"
-                >
-                  <Target className="h-3 w-3" /> Studio refresh · $2,400
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-          </div>
-        </Card>
-
-        {/* customer record */}
-        <Card className="hidden min-h-0 flex-col gap-2 overflow-hidden p-3 xl:flex">
-          <Face src={FACE.maya} size={44} className="mx-auto" />
-          <div className="text-center">
-            <div className="text-[12.5px] font-semibold text-slate-900">Maya Chen</div>
-            <div className="text-[10.5px] text-slate-400">Customer since 2024</div>
-          </div>
-          <div className="flex flex-wrap justify-center gap-1">
-            <Pill tone="amber">VIP</Pill>
-            <AnimatePresence>
-              {tagged ? (
-                <motion.span
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: reduced ? 0 : 0.35, ease: EASE }}
-                >
-                  <Pill tone="blue">Upsell</Pill>
-                </motion.span>
-              ) : null}
-            </AnimatePresence>
-          </div>
-          <div className="mt-1 space-y-1.5 text-[11px] text-slate-500">
-            <div className="flex items-center gap-1.5">
-              <MessageSquare className="h-3 w-3 text-slate-400" /> 4 channels linked
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Clock className="h-3 w-3 text-slate-400" /> Last job 8 months ago
-            </div>
-          </div>
-          <div className="mt-auto">
-            <AnimatePresence>
-              {opp ? (
-                <motion.div
-                  layoutId="inbox-opp"
-                  transition={{ duration: reduced ? 0 : 0.6, ease: EASE }}
-                  className="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-2"
-                >
-                  <div className="flex items-center gap-1.5 text-[11.5px] font-semibold text-emerald-700">
-                    <Check className="h-3 w-3" strokeWidth={3} /> Opportunity created
+                  <div className="mt-3 flex items-center gap-1.5">
+                    {STAGES.slice(0, 3).map((s, i) => (
+                      <motion.span
+                        key={s}
+                        initial={false}
+                        animate={{ opacity: i <= stageIndex ? 1 : 0.25 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <Tag tone={i <= stageIndex ? "blue" : "slate"}>{s}</Tag>
+                      </motion.span>
+                    ))}
                   </div>
-                  <div className="mt-0.5 text-[10.5px] text-emerald-700/80">
-                    Studio refresh · $2,400
-                  </div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/* downstream work fans out from behind the same deal card */}
+          {work.map((w, i) => (
+            <Signal
+              key={w.label}
+              show={fan && !collapse}
+              reduced={reduced}
+              delay={i * 0.11}
+              from={{ x: 0, y: -30 }}
+              to={{ x: w.x, y: w.y }}
+              rotate={w.rot}
+              className="left-1/2 top-[46%] -translate-x-1/2 px-3 py-2 text-[12px]"
+            >
+              <w.icon className="h-3.5 w-3.5 text-blue-600" /> {w.label}
+            </Signal>
+          ))}
+
+          <Payoff
+            show={payoff && !collapse}
+            reduced={reduced}
+            className="left-1/2 top-[34%] w-[74%] max-w-[420px] -translate-x-1/2"
+          >
+            <div className="flex items-center gap-3.5">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white shadow-[0_18px_34px_-14px_rgba(16,185,129,0.8)]">
+                <Check className="h-6 w-6" strokeWidth={3} />
+              </span>
+              <div>
+                <div className="text-[18px] font-extrabold tracking-tight text-slate-900">Won</div>
+                <div className="text-[12.5px] font-medium text-slate-500">
+                  Next steps started automatically
+                </div>
+              </div>
+            </div>
+          </Payoff>
+        </>
+      }
+    />
+  );
+}
+
+/* ================================================================= */
+/* 3 — INBOX : one customer, every channel                            */
+/* ================================================================= */
+
+function InboxBackground() {
+  return (
+    <div className="absolute inset-0 flex">
+      <div className="w-[38%] space-y-2 border-r border-slate-200/80 bg-white p-3">
+        {[FACE.maya, FACE.sophie, FACE.leo, FACE.priya, FACE.daniel, FACE.nina].map((f, i) => (
+          <div key={i} className="flex items-center gap-2.5 rounded-lg px-1.5 py-2">
+            <img src={f} alt="" aria-hidden className="h-7 w-7 rounded-full object-cover" />
+            <div className="min-w-0 flex-1 space-y-1.5">
+              <GhostRow w="62%" h={8} />
+              <GhostRow w="84%" h={6} />
+            </div>
           </div>
-        </Card>
+        ))}
+      </div>
+      <div className="flex-1 space-y-3 p-4">
+        {[68, 52, 74, 44].map((w, i) => (
+          <div key={i} className={i % 2 ? "flex justify-end" : ""} style={{ width: "100%" }}>
+            <div
+              style={{ width: `${w}%` }}
+              className="h-9 rounded-2xl border border-slate-200/70 bg-white"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-/* ================================================================== */
-/* 4. AUTOMATIONS — an event travels through the workflow               */
-/*    no timebar, no elapsed time, no roaming cursor                    */
-/* ================================================================== */
-
-const FLOW = [
-  { label: "New lead", sub: "Facebook lead form", icon: Zap },
-  { label: "Instant SMS", sub: "Sent in seconds", icon: MessageSquare },
-  { label: "Wait 2h", sub: "If no reply", icon: Clock },
-  { label: "Follow-up email", sub: "Quote reminder", icon: Mail },
-  { label: "Second reminder", sub: "Queued", icon: Send },
-  { label: "Reply received", sub: "Nurture stopped", icon: MessageSquare },
-  { label: "Appointment booked", sub: "Thursday 2:00 pm", icon: CalendarCheck },
-];
-
-export function SceneAutomations({ step, reduced }: SceneProps) {
-  const cancelledIdx = 4;
-  const replied = step >= 5;
-  const activeIdx = Math.min(step, FLOW.length - 1);
+export function SceneInbox({ phase, reduced }: SceneProps) {
+  const lift = phase >= 1;
+  const sms = phase >= 2;
+  const token = phase >= 3;
+  const payoff = phase >= 4;
+  const collapse = phase >= 5;
 
   return (
-    <div className="relative h-full">
-      <Toolbar>
-        <span className="text-[12.5px] font-semibold text-slate-900">Lead follow-up</span>
-        <Pill tone={step >= 6 ? "green" : "blue"}>{step >= 6 ? "Booked" : "Running"}</Pill>
-        <span className="ml-auto flex items-center gap-1.5">
-          <Pill tone="slate">Stop on reply</Pill>
-          <Btn tone="ghost">Edit</Btn>
-        </span>
-      </Toolbar>
-
-      <div className="flex h-[calc(100%-43px)] min-h-0 items-center justify-center p-4">
-        <div className="w-full max-w-[520px] space-y-0.5">
-          {FLOW.map((n, i) => {
-            const cancelled = replied && i === cancelledIdx;
-            const isDone = step > i && !cancelled;
-            const isActive = i === activeIdx && !cancelled;
-            return (
-              <div key={n.label}>
-                <motion.div
-                  initial={false}
-                  animate={{
-                    opacity: cancelled ? 0.3 : isDone || isActive ? 1 : 0.45,
-                    scale: isActive && !reduced ? 1.015 : 1,
-                  }}
-                  transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-                  className={cn(
-                    "flex items-center gap-3 rounded-xl border bg-white px-3 py-2",
-                    cancelled
-                      ? "border-slate-200"
-                      : isActive
-                        ? "border-blue-300 shadow-[0_10px_26px_-16px_rgba(37,99,235,0.75)]"
-                        : isDone
-                          ? "border-emerald-200"
-                          : "border-slate-200",
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "flex h-8 w-8 items-center justify-center rounded-[10px]",
-                      cancelled
-                        ? "bg-slate-50 text-slate-400"
-                        : isDone
-                          ? "bg-emerald-50 text-emerald-600"
-                          : isActive
-                            ? "bg-blue-50 text-blue-600"
-                            : "bg-slate-50 text-slate-400",
-                    )}
-                  >
-                    <n.icon className="h-4 w-4" />
-                  </span>
-                  <div className="min-w-0">
-                    <div
-                      className={cn(
-                        "truncate text-[12.5px] font-semibold text-slate-800",
-                        cancelled && "line-through",
-                      )}
-                    >
-                      {n.label}
+    <Scene
+      reduced={reduced}
+      recede={collapse ? 0.1 : lift ? 0.7 : 0}
+      background={<InboxBackground />}
+      foreground={
+        <>
+          <Glow show={lift && !collapse} className="left-[16%] top-[20%] h-56 w-72" />
+          <AnimatePresence>
+            {lift && !payoff ? (
+              <motion.div
+                className="absolute top-[18%] w-[58%] max-w-[380px]"
+                initial={reduced ? false : { opacity: 0, x: -60, y: 30, scale: 0.86 }}
+                animate={{
+                  opacity: 1,
+                  x: sms ? 46 : 0,
+                  y: 0,
+                  scale: 1,
+                  rotate: sms ? 0 : -1.5,
+                  left: "8%",
+                }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: reduced ? 0 : 0.62, ease: EASE_OUT }}
+              >
+                <Hero className="p-4">
+                  <div className="flex items-center gap-3">
+                    <Avatar src={FACE.maya} size={46} />
+                    <div>
+                      <div className="text-[16px] font-extrabold tracking-tight text-slate-900">
+                        Maya Chen
+                      </div>
+                      <div className="text-[11.5px] text-slate-400">One conversation</div>
                     </div>
-                    <div className="truncate text-[11px] text-slate-400">
-                      {cancelled ? "Cancelled after reply" : n.sub}
+                    <div className="ml-auto flex items-center gap-1.5">
+                      <ChannelMorph sms={sms} reduced={reduced} />
                     </div>
                   </div>
-                  <span className="ml-auto">
-                    {cancelled ? (
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100 text-slate-400">
-                        <X className="h-3 w-3" strokeWidth={3} />
-                      </span>
-                    ) : (
-                      <NodeState state={isDone ? "done" : isActive ? "active" : "idle"} />
-                    )}
-                  </span>
-                </motion.div>
-
-                {i < FLOW.length - 1 ? (
-                  <div className="relative ml-[27px] h-3 w-[2px] overflow-hidden rounded-full bg-slate-200">
-                    {/* single data token travels once when the event moves on */}
-                    {!reduced && step === i + 1 ? (
-                      <motion.span
-                        className="absolute inset-x-0 top-0 h-2 rounded-full bg-blue-500"
-                        initial={{ y: -8 }}
-                        animate={{ y: 16 }}
-                        transition={{ duration: 0.5, ease: EASE }}
-                      />
-                    ) : null}
-                    {step > i + 1 ? (
-                      <span className="absolute inset-0 rounded-full bg-emerald-200" />
-                    ) : null}
+                  <div className="mt-3.5 space-y-2">
+                    <div className="max-w-[86%] rounded-2xl rounded-tl-sm bg-slate-100 px-3.5 py-2.5 text-[12.5px] font-medium text-slate-700">
+                      Do you have Thursday free?
+                    </div>
+                    <AnimatePresence>
+                      {sms ? (
+                        <motion.div
+                          initial={reduced ? false : { opacity: 0, y: 16, scale: 0.94 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{ duration: 0.5, ease: EASE_OUT }}
+                          className="ml-auto max-w-[86%] rounded-2xl rounded-br-sm bg-zapla-blue px-3.5 py-2.5 text-[12.5px] font-medium text-white"
+                        >
+                          Thursday 2pm is yours, Maya.
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
                   </div>
-                ) : null}
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          <Signal
+            show={token && !payoff}
+            reduced={reduced}
+            from={{ x: -70, y: 0 }}
+            to={{ x: 0, y: 0 }}
+            rotate={-2}
+            className="right-[7%] top-[42%] px-3 py-2 text-[12px]"
+          >
+            <Sparkles className="h-3.5 w-3.5 text-blue-600" /> Opportunity created
+          </Signal>
+
+          <Payoff
+            show={payoff && !collapse}
+            reduced={reduced}
+            className="left-1/2 top-[32%] w-[78%] max-w-[440px] -translate-x-1/2"
+          >
+            <div className="flex items-center gap-4">
+              <Avatar src={FACE.maya} size={58} />
+              <div>
+                <div className="text-[18px] font-extrabold tracking-tight text-slate-900">
+                  Maya Chen
+                </div>
+                <div className="mt-2 flex items-center gap-2">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-gradient-to-br from-fuchsia-500 to-orange-400 text-white">
+                    <Instagram className="h-4 w-4" />
+                  </span>
+                  <span className="-ml-4 flex h-7 w-7 items-center justify-center rounded-[8px] bg-emerald-500 text-white ring-2 ring-white">
+                    <MessageSquare className="h-4 w-4" />
+                  </span>
+                  <Tag tone="blue" className="ml-1.5">
+                    Opportunity created
+                  </Tag>
+                </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
+            </div>
+          </Payoff>
+        </>
+      }
+    />
+  );
+}
+
+function ChannelMorph({ sms, reduced }: { sms: boolean; reduced: boolean }) {
+  return (
+    <div className="relative h-8 w-8">
+      <AnimatePresence initial={false} mode="popLayout">
+        {sms ? (
+          <motion.span
+            key="sms"
+            initial={reduced ? false : { opacity: 0, rotateY: -90, scale: 0.7 }}
+            animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+            exit={{ opacity: 0, rotateY: 90, scale: 0.7 }}
+            transition={{ duration: reduced ? 0 : 0.5, ease: EASE_OUT }}
+            className="absolute inset-0 flex items-center justify-center rounded-[9px] bg-emerald-500 text-white"
+          >
+            <MessageSquare className="h-4 w-4" />
+          </motion.span>
+        ) : (
+          <motion.span
+            key="ig"
+            initial={false}
+            exit={{ opacity: 0, rotateY: 90, scale: 0.7 }}
+            transition={{ duration: reduced ? 0 : 0.4 }}
+            className="absolute inset-0 flex items-center justify-center rounded-[9px] bg-gradient-to-br from-fuchsia-500 to-orange-400 text-white"
+          >
+            <Instagram className="h-4 w-4" />
+          </motion.span>
+        )}
+      </AnimatePresence>
     </div>
+  );
+}
+
+/* ================================================================= */
+/* 4 — AUTOMATIONS : reply makes future work disappear                */
+/* ================================================================= */
+
+export function SceneAutomations({ phase, reduced }: SceneProps) {
+  const lead = phase >= 1;
+  const branch = phase >= 2;
+  const reply = phase >= 3;
+  const cancel = phase >= 4;
+  const booking = phase >= 4;
+  const payoff = phase >= 5;
+  const collapse = phase >= 6;
+
+  return (
+    <Scene
+      reduced={reduced}
+      recede={collapse ? 0.1 : reply ? 0.85 : lead ? 0.5 : 0}
+      background={
+        <div className="absolute inset-0 p-5">
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-[0.55]"
+            style={{
+              backgroundImage: "radial-gradient(rgba(148,163,184,0.35) 1px, transparent 1px)",
+              backgroundSize: "18px 18px",
+            }}
+          />
+          <div className="relative flex h-full items-center gap-6">
+            {["New lead", "Send SMS", "Wait 2 days"].map((n) => (
+              <div
+                key={n}
+                className="rounded-xl border border-slate-200/80 bg-white px-3 py-2.5 text-[11px] font-medium text-slate-400"
+              >
+                {n}
+              </div>
+            ))}
+          </div>
+        </div>
+      }
+      foreground={
+        <>
+          <Glow
+            show={reply && !collapse}
+            className="left-1/2 top-[24%] h-60 w-[420px] -translate-x-1/2"
+          />
+
+          {/* A — lead token triggers a large SMS action card */}
+          <AnimatePresence>
+            {lead && !payoff ? (
+              <motion.div
+                className="absolute left-[5%] top-[24%] w-[42%] max-w-[280px]"
+                initial={reduced ? false : { opacity: 0, x: -50, scale: 0.86 }}
+                animate={{
+                  opacity: reply ? 0.35 : 1,
+                  x: 0,
+                  scale: reply ? 0.92 : 1,
+                  rotate: -1.5,
+                  filter: reply ? "blur(1.5px)" : "blur(0px)",
+                }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: reduced ? 0 : 0.55, ease: EASE_OUT }}
+              >
+                <Hero className="p-3.5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+                      <MessageSquare className="h-4.5 w-4.5" />
+                    </span>
+                    <div>
+                      <div className="text-[14px] font-extrabold tracking-tight text-slate-900">
+                        Instant SMS
+                      </div>
+                      <div className="text-[11px] text-slate-400">New lead · Maya Chen</div>
+                    </div>
+                  </div>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/* B — lighter future branch to the right */}
+          <AnimatePresence>
+            {branch && !payoff ? (
+              <motion.div
+                className="absolute right-[7%] top-[16%] w-[34%] max-w-[220px] space-y-2"
+                initial={reduced ? false : { opacity: 0, x: 36 }}
+                animate={{
+                  opacity: cancel ? 0 : 0.95,
+                  x: cancel ? 34 : 0,
+                  scale: cancel ? 0.82 : 1,
+                  rotate: cancel ? 5 : 0,
+                }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduced ? 0 : 0.6, ease: EASE_OUT }}
+              >
+                {["Wait 2 days", "Follow-up email", "Second reminder"].map((n, i) => (
+                  <motion.div
+                    key={n}
+                    initial={reduced ? false : { opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: cancel ? i * 6 : 0 }}
+                    transition={{ duration: 0.45, delay: reduced ? 0 : i * 0.08 }}
+                    className="relative rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-[11.5px] font-semibold text-slate-500 shadow-[0_10px_24px_-16px_rgba(15,23,42,0.4)]"
+                  >
+                    {n}
+                    {cancel ? (
+                      <span className="absolute left-2.5 right-2.5 top-1/2 h-[1.5px] bg-rose-400" />
+                    ) : null}
+                  </motion.div>
+                ))}
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/* C/D — huge reply sweeps in and overrides the branch */}
+          <AnimatePresence>
+            {reply && !payoff ? (
+              <motion.div
+                className="absolute left-[14%] top-[30%] w-[64%] max-w-[400px]"
+                initial={reduced ? false : { opacity: 0, x: -90, y: 24, scale: 0.8, rotate: -4 }}
+                animate={{ opacity: 1, x: 0, y: 0, scale: 1, rotate: -1 }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                transition={{ duration: reduced ? 0 : 0.65, ease: EASE_OUT }}
+              >
+                <div className="flex items-end gap-3">
+                  <Avatar src={FACE.maya} size={44} />
+                  <div className="rounded-[22px] rounded-bl-md bg-zapla-ink px-5 py-4 text-[15px] font-semibold leading-snug text-white shadow-[0_34px_70px_-26px_rgba(15,23,42,0.7)]">
+                    Thursday 2pm works, book me in.
+                  </div>
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {/* E — booking card expands out of the reply */}
+          <AnimatePresence>
+            {booking && !payoff ? (
+              <motion.div
+                className="absolute bottom-[12%] right-[10%] w-[44%] max-w-[280px]"
+                initial={reduced ? false : { opacity: 0, y: -18, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1, rotate: 1.5 }}
+                exit={{ opacity: 0, scale: 0.92 }}
+                transition={{
+                  duration: reduced ? 0 : 0.55,
+                  delay: reduced ? 0 : 0.16,
+                  ease: EASE_OUT,
+                }}
+              >
+                <Hero className="p-3.5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                      <CalendarCheck className="h-4.5 w-4.5" />
+                    </span>
+                    <div>
+                      <div className="text-[14px] font-extrabold tracking-tight text-slate-900">
+                        Thu 2:00pm
+                      </div>
+                      <div className="text-[11px] text-slate-400">Appointment booked</div>
+                    </div>
+                  </div>
+                </Hero>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          <Payoff
+            show={payoff && !collapse}
+            reduced={reduced}
+            className="left-1/2 top-[34%] w-[82%] max-w-[470px] -translate-x-1/2"
+          >
+            <div className="flex items-center gap-4">
+              <span className="relative flex h-12 w-12 items-center justify-center rounded-full bg-zapla-blue text-white">
+                <MessageSquare className="h-5 w-5" />
+                <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-white ring-2 ring-white">
+                  <X className="h-3 w-3" strokeWidth={3} />
+                </span>
+              </span>
+              <div>
+                <div className="text-[17px] font-extrabold leading-tight tracking-tight text-slate-900">
+                  Reply received
+                </div>
+                <div className="text-[12.5px] font-medium text-slate-500">
+                  Follow-ups stopped, appointment booked
+                </div>
+              </div>
+              <ArrowRight className="ml-auto h-5 w-5 text-slate-300" />
+            </div>
+          </Payoff>
+        </>
+      }
+    />
   );
 }
