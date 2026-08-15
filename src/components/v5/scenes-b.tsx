@@ -70,10 +70,10 @@ export function SceneContent({ phase, reduced }: SceneProps) {
   const collapse = phase >= 5;
 
   const channels = [
-    { Icon: Instagram, cls: "text-fuchsia-600", x: -120, y: -40 },
-    { Icon: Facebook, cls: "text-blue-600", x: -46, y: -74 },
-    { Icon: Linkedin, cls: "text-cyan-700", x: 46, y: -74 },
-    { Icon: Globe, cls: "text-emerald-600", x: 120, y: -40 },
+    { Icon: Instagram, cls: "text-fuchsia-600", x: -186, y: -18 },
+    { Icon: Facebook, cls: "text-blue-600", x: -108, y: -120 },
+    { Icon: Linkedin, cls: "text-cyan-700", x: 96, y: -120 },
+    { Icon: Globe, cls: "text-emerald-600", x: 176, y: -18 },
   ];
 
   return (
@@ -147,7 +147,7 @@ export function SceneContent({ phase, reduced }: SceneProps) {
               from={{ x: 0, y: 0 }}
               to={payoff ? { x: c.x * 0.45, y: c.y * 0.4 } : { x: c.x, y: c.y }}
               rotate={i % 2 ? 4 : -4}
-              className="left-[52%] top-[42%] h-9 w-9 justify-center p-0"
+              className="left-[52%] top-[52%] h-9 w-9 justify-center p-0"
             >
               <c.Icon className={`h-4 w-4 ${c.cls}`} />
             </Signal>
