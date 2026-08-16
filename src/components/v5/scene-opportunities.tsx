@@ -123,7 +123,6 @@ const STAGE_META: Record<StageKey, { label: string; dot: string; bar: string }> 
   won: { label: "Won", dot: "bg-emerald-500", bar: "bg-emerald-500/70" },
 };
 
-
 const DEALS: Record<StageKey, Deal[]> = {
   new: [
     {
@@ -208,7 +207,6 @@ const DEALS: Record<StageKey, Deal[]> = {
     },
   ],
 };
-
 
 const MAYA: Deal = {
   id: "maya",
@@ -711,4 +709,3 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
     </div>
   );
 }
-
