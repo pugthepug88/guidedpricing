@@ -698,13 +698,18 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
               <div className="mt-1.5 space-y-1.5">
                 <div className="flex items-center gap-1.5 text-[9.5px] font-medium text-slate-500">
                   <Phone className="h-3 w-3 shrink-0 text-slate-400" />
-                  <span className="truncate">0417 825 540</span>
+                  <span className="truncate">
+                    {sophieSelected ? "0417 825 540" : "0423 691 284"}
+                  </span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[9.5px] font-medium text-slate-500">
                   <AtSign className="h-3 w-3 shrink-0 text-slate-400" />
-                  <span className="truncate">sophie.bell@…</span>
+                  <span className="truncate">
+                    {sophieSelected ? "sophie.bell@…" : "daniel.ross@…"}
+                  </span>
                 </div>
               </div>
+
 
               <div className="mt-3 flex items-center justify-between">
                 <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-400">
