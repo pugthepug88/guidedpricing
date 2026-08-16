@@ -37,7 +37,7 @@ export function ConnectAccountsModal({
   show: boolean;
   connected: PlatformId[];
   reduced: boolean;
-  registerTile?: (id: PlatformId, el: HTMLDivElement | null) => void;
+  registerTile?: (id: string, el: HTMLElement | null) => void;
 }) {
   return (
     <AnimatePresence>
@@ -124,7 +124,10 @@ export function ConnectAccountsModal({
               <span className="text-[11.5px] font-medium text-slate-400">
                 {connected.length} of {PLATFORMS.length} connected
               </span>
-              <span className="rounded-full bg-zapla-blue px-4 py-2 text-[12px] font-bold text-white">
+              <span
+                ref={(el) => registerTile?.("done", el)}
+                className="rounded-full bg-zapla-blue px-4 py-2 text-[12px] font-bold text-white"
+              >
                 Done
               </span>
             </div>
