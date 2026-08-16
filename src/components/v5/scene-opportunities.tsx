@@ -592,7 +592,7 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
 
       <div className="zapla-scroll-hide min-h-0 flex-1 overflow-x-auto overflow-y-hidden">
         <LayoutGroup id="opportunities">
-          <div className="flex h-full min-w-[640px] gap-2 px-3 py-3">
+          <div className="flex h-full min-w-[560px] gap-1.5 px-2.5 py-3">
             {columns.map(({ key, deals }) => {
               const meta = STAGE_META[key];
               const active =
