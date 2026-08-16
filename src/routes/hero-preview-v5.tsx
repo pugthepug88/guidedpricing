@@ -269,7 +269,6 @@ function HeroV5Page() {
                 );
               })}
             </div>
-
           </div>
         </div>
       </main>

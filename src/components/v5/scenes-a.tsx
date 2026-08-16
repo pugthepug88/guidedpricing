@@ -241,8 +241,7 @@ function ArrowCursor({
           <span
             className="pointer-events-none absolute left-0 top-0 h-9 w-9 -translate-x-1/3 -translate-y-1/3 rounded-full"
             style={{
-              background:
-                "radial-gradient(circle, rgba(37,99,255,0.28), rgba(37,99,255,0) 68%)",
+              background: "radial-gradient(circle, rgba(37,99,255,0.28), rgba(37,99,255,0) 68%)",
             }}
           />
 
