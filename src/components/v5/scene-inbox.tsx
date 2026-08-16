@@ -9,14 +9,17 @@ import {
   Facebook,
   Inbox as InboxIcon,
   Instagram,
+  Linkedin,
   Mail,
   MessageSquare,
+  Music2,
   Phone,
   Plus,
   UserCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FACE } from "./faces";
+import { FacebookMark, InstagramMark, LinkedInMark, TikTokMark } from "./social-brands";
 import { EASE_OUT, type SceneProps } from "./motion-kit";
 
 /* ---------------------------------------------------------------- */
@@ -114,11 +117,17 @@ function DemoCursor({
 /* Channels                                                          */
 /* ---------------------------------------------------------------- */
 
-type Channel = "sms" | "email" | "instagram" | "facebook";
+type Channel = "sms" | "email" | "instagram" | "facebook" | "linkedin" | "tiktok";
 
 const CHANNEL_META: Record<
   Channel,
-  { label: string; tile: string; chip: string; Icon: typeof MessageSquare }
+  {
+    label: string;
+    tile: string;
+    chip: string;
+    Icon: typeof MessageSquare;
+    Mark?: (p: { size?: number; className?: string }) => React.ReactElement;
+  }
 > = {
   sms: {
     label: "SMS",
@@ -137,20 +146,46 @@ const CHANNEL_META: Record<
     tile: "bg-gradient-to-br from-fuchsia-500 to-orange-400",
     chip: "bg-pink-50 text-pink-700",
     Icon: Instagram,
+    Mark: InstagramMark,
   },
   facebook: {
     label: "Facebook",
     tile: "bg-blue-600",
     chip: "bg-blue-50 text-blue-700",
     Icon: Facebook,
+    Mark: FacebookMark,
+  },
+  linkedin: {
+    label: "LinkedIn",
+    tile: "bg-[#0A66C2]",
+    chip: "bg-sky-50 text-sky-700",
+    Icon: Linkedin,
+    Mark: LinkedInMark,
+  },
+  tiktok: {
+    label: "TikTok",
+    tile: "bg-slate-900",
+    chip: "bg-slate-100 text-slate-700",
+    Icon: Music2,
+    Mark: TikTokMark,
   },
 };
 
 function ChannelTile({ channel, size = 16 }: { channel: Channel; size?: number }) {
-  const { tile, Icon } = CHANNEL_META[channel];
+  const { tile, Icon, Mark } = CHANNEL_META[channel];
+  if (Mark) {
+    return (
+      <span
+        className="inline-flex shrink-0 items-center justify-center"
+        style={{ width: size, height: size }}
+      >
+        <Mark size={size} className="rounded-[5px]" />
+      </span>
+    );
+  }
   return (
     <span
-      className={cn("flex items-center justify-center rounded-[5px] text-white", tile)}
+      className={cn("flex shrink-0 items-center justify-center rounded-[5px] text-white", tile)}
       style={{ width: size, height: size }}
     >
       <Icon style={{ width: size * 0.62, height: size * 0.62 }} />
@@ -224,21 +259,23 @@ const CONVOS: Convo[] = [
     unread: true,
   },
   {
-    id: "ava",
-    name: "Ava Dunn",
-    face: FACE.jordan,
-    channel: "instagram",
-    preview: "Loved the before and after photos.",
+    id: "marcus",
+    name: "Marcus Lee",
+    face: FACE.alex,
+    channel: "linkedin",
+    preview: "Saw your post on LinkedIn. Can we talk next week?",
     time: "2h",
+    unread: true,
   },
   {
-    id: "noah",
-    name: "Noah Reid",
-    face: FACE.sam,
-    channel: "email",
-    preview: "Invoice received, paid this morning.",
+    id: "emily",
+    name: "Emily Tran",
+    face: FACE.nina,
+    channel: "tiktok",
+    preview: "Found you through TikTok. Do you service the Inner West?",
     time: "3h",
   },
+
   {
     id: "leo",
     name: "Leo Marsh",
@@ -299,16 +336,18 @@ function LeftNav() {
       <div className="mt-3 px-1 pb-1 text-[9.5px] font-bold uppercase tracking-[0.1em] text-slate-400">
         Channels
       </div>
-      <div className="space-y-[3px]">
+      <div className="space-y-[2px]">
         {(
           [
-            ["sms", 5],
-            ["email", 4],
+            ["sms", 4],
+            ["email", 3],
             ["instagram", 2],
             ["facebook", 1],
+            ["linkedin", 1],
+            ["tiktok", 1],
           ] as Array<[Channel, number]>
         ).map(([c, n]) => (
-          <div key={c} className="flex items-center gap-2 rounded-lg px-2 py-[5px]">
+          <div key={c} className="flex items-center gap-2 rounded-lg px-2 py-[3.5px]">
             <ChannelTile channel={c} size={14} />
             <span className="truncate text-[10.5px] font-medium text-slate-500">
               {CHANNEL_META[c].label}
@@ -540,7 +579,7 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
       <div className="flex items-center gap-2 border-b border-slate-200/80 bg-white/85 px-3.5 py-2">
         <span className="text-[12px] font-bold tracking-tight text-slate-700">Unified Inbox</span>
         <span className="rounded-full bg-slate-100 px-2 py-[2px] text-[9.5px] font-bold text-slate-500">
-          4 channels
+          6 channels
         </span>
         <span className="ml-auto text-[10px] font-medium text-slate-400">
           {igArrived ? "3 unread" : "3 unread"}
