@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, CalendarCheck, Check, Filter, MessageSquare, Send, X } from "lucide-react";
+import { CalendarCheck, Check, Filter, MessageSquare, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FACE } from "./faces";
 import { CampaignSentCard } from "./campaign-cards";
-import { Avatar, EASE_OUT, Glow, Hero, Payoff, Scene, type SceneProps } from "./motion-kit";
+import { Avatar, EASE_OUT, type SceneProps } from "./motion-kit";
 
 export type { SceneProps };
 
