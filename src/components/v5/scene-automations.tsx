@@ -598,30 +598,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
                 state={condState}
                 doneLabel="Yes"
                 reduced={reduced}
-              >
-                <div className="mt-1 flex gap-1.5">
-                  <span
-                    className={cn(
-                      "rounded-full px-1.5 py-[2px] text-[9px] font-bold transition-colors",
-                      phase >= 6
-                        ? "bg-emerald-50 text-emerald-700"
-                        : "bg-slate-100 text-slate-400",
-                    )}
-                  >
-                    Yes
-                  </span>
-                  <span
-                    className={cn(
-                      "rounded-full px-1.5 py-[2px] text-[9px] font-bold transition-colors",
-                      phase >= 4 && phase <= 5
-                        ? "bg-blue-50 text-blue-700"
-                        : "bg-slate-100 text-slate-400",
-                    )}
-                  >
-                    No
-                  </span>
-                </div>
-              </WorkflowNode>
+              />
 
               {/* branches */}
               <div className="mt-0 grid grid-cols-2 gap-2.5">
@@ -664,7 +641,6 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
                     icon={Bell}
                     kind="Action"
                     title="Notify team"
-                    detail="New review received"
                     state={notifyState}
                     doneLabel="Notified"
                     reduced={reduced}
