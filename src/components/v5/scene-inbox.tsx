@@ -114,11 +114,17 @@ function DemoCursor({
 /* Channels                                                          */
 /* ---------------------------------------------------------------- */
 
-type Channel = "sms" | "email" | "instagram" | "facebook";
+type Channel = "sms" | "email" | "instagram" | "facebook" | "linkedin" | "tiktok";
 
 const CHANNEL_META: Record<
   Channel,
-  { label: string; tile: string; chip: string; Icon: typeof MessageSquare }
+  {
+    label: string;
+    tile: string;
+    chip: string;
+    Icon: typeof MessageSquare;
+    Mark?: (p: { size?: number; className?: string }) => React.ReactElement;
+  }
 > = {
   sms: {
     label: "SMS",
@@ -137,26 +143,50 @@ const CHANNEL_META: Record<
     tile: "bg-gradient-to-br from-fuchsia-500 to-orange-400",
     chip: "bg-pink-50 text-pink-700",
     Icon: Instagram,
+    Mark: InstagramMark,
   },
   facebook: {
     label: "Facebook",
     tile: "bg-blue-600",
     chip: "bg-blue-50 text-blue-700",
     Icon: Facebook,
+    Mark: FacebookMark,
+  },
+  linkedin: {
+    label: "LinkedIn",
+    tile: "bg-[#0A66C2]",
+    chip: "bg-sky-50 text-sky-700",
+    Icon: Linkedin,
+    Mark: LinkedInMark,
+  },
+  tiktok: {
+    label: "TikTok",
+    tile: "bg-slate-900",
+    chip: "bg-slate-100 text-slate-700",
+    Icon: Music2,
+    Mark: TikTokMark,
   },
 };
 
 function ChannelTile({ channel, size = 16 }: { channel: Channel; size?: number }) {
-  const { tile, Icon } = CHANNEL_META[channel];
+  const { tile, Icon, Mark } = CHANNEL_META[channel];
+  if (Mark) {
+    return (
+      <span className="inline-flex shrink-0 items-center justify-center" style={{ width: size, height: size }}>
+        <Mark size={size} className="rounded-[5px]" />
+      </span>
+    );
+  }
   return (
     <span
-      className={cn("flex items-center justify-center rounded-[5px] text-white", tile)}
+      className={cn("flex shrink-0 items-center justify-center rounded-[5px] text-white", tile)}
       style={{ width: size, height: size }}
     >
       <Icon style={{ width: size * 0.62, height: size * 0.62 }} />
     </span>
   );
 }
+
 
 function ChannelChip({ channel }: { channel: Channel }) {
   const { chip, label, Icon } = CHANNEL_META[channel];
