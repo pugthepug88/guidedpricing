@@ -82,8 +82,8 @@ const SCENES: SceneDef[] = [
     key: "automations",
     label: "Automations",
     title: "Automations",
-    subtitle: "A reply makes future work disappear",
-    phases: [780, 600, 700, 880, 950, 1650, 600],
+    subtitle: "Follow-up happens without anyone remembering",
+    phases: [1150, 850, 780, 1300, 850, 1150, 1000, 900, 1300, 1750],
     render: (p) => <SceneAutomations {...p} />,
   },
   {
@@ -93,7 +93,6 @@ const SCENES: SceneDef[] = [
     subtitle: "One post becomes multi-channel distribution",
     phases: [780, 660, 620, 900, 1600, 640],
     render: (p) => <SceneContent {...p} />,
-
   },
   {
     key: "email",
