@@ -307,6 +307,7 @@ function CampaignSentCard({ show, reduced }: { show: boolean; reduced: boolean }
             </motion.span>
           </div>
         </motion.div>
+        </div>
       ) : null}
     </AnimatePresence>
   );
