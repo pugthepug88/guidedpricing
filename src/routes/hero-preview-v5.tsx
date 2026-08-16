@@ -55,7 +55,7 @@ const SCENES: SceneDef[] = [
     title: "Contacts",
     subtitle: "Dormant customers wake up",
     phases: [
-      1400, 520, 780, 900, 780, 420, 420, 420, 420, 760, 660, 1750, 640, 2000, 400, 340, 340, 340,
+      1400, 520, 780, 900, 780, 420, 420, 420, 420, 760, 660, 1750, 640, 3500, 400, 340, 340, 340,
       2600,
     ],
 
@@ -269,7 +269,6 @@ function HeroV5Page() {
                 );
               })}
             </div>
-
           </div>
         </div>
       </main>
