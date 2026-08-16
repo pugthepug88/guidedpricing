@@ -297,16 +297,63 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
   const sentCount = phase >= 13 ? Math.min(phase - 12, 4) : 0;
   const replied = phase >= 17;
 
-  const cursor =
-    phase >= 1 && phase <= 3
-      ? { x: 88, y: 6, press: phase === 2 }
-      : phase === 4
-        ? { x: 81, y: 30, press: true }
+  /* cursor is anchored to real controls via refs, never guessed coordinates */
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const filterRef = useRef<HTMLSpanElement | null>(null);
+  const applyRef = useRef<HTMLDivElement | null>(null);
+  const campaignRef = useRef<HTMLSpanElement | null>(null);
+  const drawerSendRef = useRef<HTMLDivElement | null>(null);
+
+  const target: "filter" | "apply" | "campaign" | "drawerSend" | null =
+    phase >= 1 && phase <= 2
+      ? "filter"
+      : phase >= 3 && phase <= 4
+        ? "apply"
         : phase === 9 || phase === 10
-          ? { x: 90, y: 93, press: phase === 10 }
+          ? "campaign"
           : phase === 11 || phase === 12
-            ? { x: 82, y: 84, press: phase === 12 }
+            ? "drawerSend"
             : null;
+
+  const press =
+    (target === "filter" && phase === 2) ||
+    (target === "apply" && phase === 4) ||
+    (target === "campaign" && phase === 10) ||
+    (target === "drawerSend" && phase === 12);
+
+  const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (reduced || !target) {
+      setPoint(null);
+      return;
+    }
+    const measure = () => {
+      const root = rootRef.current;
+      const el =
+        target === "filter"
+          ? filterRef.current
+          : target === "apply"
+            ? applyRef.current
+            : target === "campaign"
+              ? campaignRef.current
+              : drawerSendRef.current;
+      if (!root || !el) return;
+      const r = root.getBoundingClientRect();
+      const b = el.getBoundingClientRect();
+      setPoint({
+        x: b.left - r.left + b.width * 0.55,
+        y: b.top - r.top + b.height * 0.6,
+      });
+    };
+    const raf = requestAnimationFrame(measure);
+    window.addEventListener("resize", measure);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", measure);
+    };
+  }, [target, phase, reduced]);
+
 
   const isSelected = (i: number) => {
     const pos = MATCH_ORDER.indexOf(i);
