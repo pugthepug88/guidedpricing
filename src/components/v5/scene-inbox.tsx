@@ -506,7 +506,8 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
     };
   }, [target, reduced, phase]);
 
-  const thread: Bubble[] = [
+  const thread: Bubble[] = sophieSelected
+    ? [
     ...BASE_THREAD,
     ...(igArrived
       ? [
