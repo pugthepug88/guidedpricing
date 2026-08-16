@@ -343,7 +343,8 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
      0 still · 1 cursor to Filter · 2 popover opens · 3 criteria set
      4 apply → filtered + result line · 5-8 select rows 1-4 · 9 action bar
      10 drawer opens · 11 drawer read · 12 send pressed
-     13-16 Sent pills one by one (drawer closed) · 17 Maya replies + hold */
+     13 large campaign-sent card · 14-17 Sent pills one by one
+     18 Maya replies + hold */
   const popover = phase >= 2 && phase <= 4;
   const criteria = phase >= 3;
   const filtered = phase >= 4;
@@ -351,8 +352,10 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
   const bar = phase >= 9 && phase <= 12;
   const drawer = phase >= 10 && phase <= 12;
   const drawerSent = phase >= 12;
-  const sentCount = phase >= 13 ? Math.min(phase - 12, 4) : 0;
-  const replied = phase >= 17;
+  const success = phase === 13;
+  const sentCount = phase >= 14 ? Math.min(phase - 13, 4) : 0;
+  const replied = phase >= 18;
+
 
   /* cursor is anchored to real controls via refs, never guessed coordinates */
   const rootRef = useRef<HTMLDivElement | null>(null);
