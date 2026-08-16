@@ -34,31 +34,46 @@ export function useSceneClock({
   const completeRef = useRef(onComplete);
   completeRef.current = onComplete;
 
+  /* token identifying the current run; changing it forces a hard restart */
+  const runToken = useRef<unknown>(null);
+  const runId = `${restartKey}`;
+
   const reset = useCallback(() => {
     accumulated.current = 0;
-    /* keep the running loop alive: re-baseline instead of nulling the start */
-    startedAt.current = frame.current != null ? performance.now() : null;
     completed.current = false;
+    startedAt.current = frame.current != null ? performance.now() : null;
     setElapsedMs(0);
   }, []);
 
-  /* restart the clock whenever the scene timeline changes or a restart is requested */
+  /* one RAF loop. restartKey / durations are lifecycle deps, so a restart
+     always tears down any live frame and starts a fresh baseline at 0. */
   useEffect(() => {
-    reset();
-  }, [durations, restartKey, reset]);
+    const isRestart = runToken.current !== runId;
+    if (isRestart) {
+      runToken.current = runId;
+      accumulated.current = 0;
+      completed.current = false;
+      startedAt.current = null;
+      setElapsedMs(0);
+    }
 
-  useEffect(() => {
+    if (frame.current != null) {
+      cancelAnimationFrame(frame.current);
+      frame.current = null;
+    }
+
     if (reduced) return;
+
     if (paused) {
       /* freeze: bank the time already spent, keep it on resume */
       if (startedAt.current != null) {
         accumulated.current += performance.now() - startedAt.current;
         startedAt.current = null;
       }
-      if (frame.current != null) cancelAnimationFrame(frame.current);
-      frame.current = null;
       return;
     }
+
+    if (completed.current) return;
 
     startedAt.current = performance.now();
     const tick = () => {
@@ -67,6 +82,7 @@ export function useSceneClock({
       const next = base + live;
       setElapsedMs(next);
       if (next >= total) {
+        frame.current = null;
         if (!completed.current) {
           completed.current = true;
           completeRef.current?.();
@@ -85,7 +101,7 @@ export function useSceneClock({
       if (frame.current != null) cancelAnimationFrame(frame.current);
       frame.current = null;
     };
-  }, [paused, reduced, total]);
+  }, [runId, durations, total, paused, reduced]);
 
   /* derive the current beat from real elapsed time */
   let phase = 0;

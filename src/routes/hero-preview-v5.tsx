@@ -134,13 +134,16 @@ function HeroV5Page() {
     setSceneIndex((i) => (i + 1) % SCENES.length);
   }, []);
 
+  /* one identity per playback run: scene + run counter */
+  const runId = `${scene.key}-${runKey}`;
+
   /* real elapsed-time clock per scene: no global metronome, pause freezes it */
   const { phase, elapsedMs } = useSceneClock({
     durations: scene.phases,
     paused,
     reduced,
     onComplete: advance,
-    restartKey: runKey,
+    restartKey: runId,
   });
 
   /* every tab selection restarts that scene from phase 0, even if already active */
@@ -229,7 +232,7 @@ function HeroV5Page() {
             >
               <div className="h-[460px] sm:h-[520px] lg:h-[580px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
-                  <div className="absolute inset-0">
+                  <div key={runId} className="absolute inset-0">
                     {scene.render({ phase, elapsedMs, reduced })}
                   </div>
                 </AppShell>
