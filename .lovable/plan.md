@@ -1,21 +1,27 @@
-# Contacts campaign card: icon polish (receipt stack only)
+# Contacts campaign card: brighter, more colourful (receipt stack only)
 
-Keep the receipt-stack card. Drop the other two variants and the preview picker. Only the icon-level details change: the SMS tile, the four row ticks, and the SENT block. Layout, copy, card size, gradient keyline and timing stay exactly as they are.
+Keep the receipt-stack card. Layout, copy, card size, gradient keyline and timing stay as they are. Only the icon tile, the SENT button and the row ticks change, plus a small restrained colour accent.
 
-## What changes
+## SENT button
 
-**SMS tile (top left)**
-- Blue to cyan gradient fill instead of flat blue, with a faint white inner top highlight and a soft blue-tinted shadow beneath, so it reads as a raised app tile.
-- Glyph gets slightly heavier stroke so it stays crisp at hero scale.
+- Becomes a solid, bright green button (vivid green fill, white bold text) instead of a pale mint pill with a tick.
+- Remove the tick entirely. Text only, reading "Sent".
+- Larger, confident button proportions with a soft green-tinted shadow beneath, so it reads as the payoff at hero scale.
+- Motion: springs in with a slight scale and settles, no tick animation.
 
-**Contact rows**
-- Each avatar keeps its face but gains a cleaner 2px white ring plus a light slate outer ring, so faces separate from the white card.
-- The tick badge becomes a filled emerald circle with a white tick (instead of pale mint with green tick) and pops in per row with a short spring, keeping the existing stagger.
-- Slightly more row height and a hairline divider rhythm so the 2x2 grid feels deliberate rather than cramped.
+## Row ticks
 
-**SENT block**
-- Emerald pill stays, but the tick moves into a small filled emerald circle and scales in just before the word SENT settles.
-- Marginally larger, tighter letter-spacing so it stays the clear focal point.
+- The four contact ticks become solid bright green circles with a white tick inside (currently pale mint with a green glyph).
+- Each pops in with a short spring on the existing per-row stagger, so the receipt still fills top to bottom.
+
+## SMS tile and avatars
+
+- SMS tile gets a blue to cyan gradient fill with a faint inner top highlight and a soft blue-tinted shadow, so it looks like a raised app tile rather than a flat square.
+- Avatars gain a crisp white ring plus a light outer ring so the faces separate cleanly from the white card.
+
+## Small colour accent
+
+- A few tiny multi-colour confetti dots (blue, cyan, violet, amber, green) scatter briefly around the SENT button as it lands, then fade. Restrained, roughly 6 to 8 dots, no bursts or streamers.
 
 ## Cleanup
 
