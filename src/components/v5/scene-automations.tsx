@@ -401,7 +401,7 @@ function AutomationPayoff({ show, reduced }: { show: boolean; reduced: boolean }
                 src={FACE.sophie}
                 alt=""
                 aria-hidden
-                className="h-13 w-13 h-[52px] w-[52px] shrink-0 rounded-full object-cover outline outline-1 outline-slate-200"
+                className="h-[52px] w-[52px] shrink-0 rounded-full object-cover outline outline-1 outline-slate-200"
               />
               <div className="min-w-0">
                 <div className="flex gap-[2px]">
