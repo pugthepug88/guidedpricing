@@ -243,13 +243,7 @@ function Connector({
 /* Right activity / config panel                                     */
 /* ---------------------------------------------------------------- */
 
-function ActivityPanel({
-  mode,
-  reduced,
-}: {
-  mode: "config" | "review";
-  reduced: boolean;
-}) {
+function ActivityPanel({ mode, reduced }: { mode: "config" | "review"; reduced: boolean }) {
   return (
     <motion.div
       initial={reduced ? false : { opacity: 0, x: 18 }}
@@ -651,7 +645,9 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
           </div>
 
           {/* right panel */}
-          <AnimatePresence>{panel ? <ActivityPanel mode={panelMode} reduced={reduced} /> : null}</AnimatePresence>
+          <AnimatePresence>
+            {panel ? <ActivityPanel mode={panelMode} reduced={reduced} /> : null}
+          </AnimatePresence>
         </div>
 
         {/* team notification toast */}

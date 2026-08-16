@@ -93,7 +93,6 @@ const SCENES: SceneDef[] = [
     subtitle: "One post becomes multi-channel distribution",
     phases: [780, 660, 620, 900, 1600, 640],
     render: (p) => <SceneContent {...p} />,
-
   },
   {
     key: "email",
