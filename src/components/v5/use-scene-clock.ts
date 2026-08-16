@@ -34,65 +34,45 @@ export function useSceneClock({
   const completeRef = useRef(onComplete);
   completeRef.current = onComplete;
 
+  /* token identifying the current run; changing it forces a hard restart */
+  const runToken = useRef<unknown>(null);
+  const runId = `${restartKey}`;
+
   const reset = useCallback(() => {
     accumulated.current = 0;
-    startedAt.current = frame.current != null ? performance.now() : null;
     completed.current = false;
+    startedAt.current = frame.current != null ? performance.now() : null;
     setElapsedMs(0);
   }, []);
 
-  /* single running-loop effect: restartKey is part of its lifecycle, so any
-     restart tears down the previous RAF loop and starts a fresh baseline */
+  /* one RAF loop. restartKey / durations are lifecycle deps, so a restart
+     always tears down any live frame and starts a fresh baseline at 0. */
   useEffect(() => {
-    accumulated.current = 0;
-    completed.current = false;
-    startedAt.current = null;
-    setElapsedMs(0);
+    const isRestart = runToken.current !== runId;
+    if (isRestart) {
+      runToken.current = runId;
+      accumulated.current = 0;
+      completed.current = false;
+      startedAt.current = null;
+      setElapsedMs(0);
+    }
+
     if (frame.current != null) {
       cancelAnimationFrame(frame.current);
       frame.current = null;
     }
 
     if (reduced) return;
-    if (paused) return;
 
-    startedAt.current = performance.now();
-    const tick = () => {
-      const base = accumulated.current;
-      const live = startedAt.current == null ? 0 : performance.now() - startedAt.current;
-      const next = base + live;
-      setElapsedMs(next);
-      if (next >= total) {
-        frame.current = null;
-        if (!completed.current) {
-          completed.current = true;
-          completeRef.current?.();
-        }
-        return;
-      }
-      frame.current = requestAnimationFrame(tick);
-    };
-    frame.current = requestAnimationFrame(tick);
-
-    return () => {
-      startedAt.current = null;
-      if (frame.current != null) cancelAnimationFrame(frame.current);
-      frame.current = null;
-    };
-  }, [restartKey, durations, total, reduced]);
-
-  /* pause/resume without losing accumulated time */
-  useEffect(() => {
-    if (reduced) return;
     if (paused) {
+      /* freeze: bank the time already spent, keep it on resume */
       if (startedAt.current != null) {
         accumulated.current += performance.now() - startedAt.current;
         startedAt.current = null;
       }
-      if (frame.current != null) cancelAnimationFrame(frame.current);
-      frame.current = null;
       return;
     }
+
     if (completed.current) return;
 
     startedAt.current = performance.now();
@@ -121,8 +101,7 @@ export function useSceneClock({
       if (frame.current != null) cancelAnimationFrame(frame.current);
       frame.current = null;
     };
-  }, [paused, reduced, total]);
-
+  }, [runId, durations, total, paused, reduced]);
 
   /* derive the current beat from real elapsed time */
   let phase = 0;
@@ -147,3 +126,4 @@ export function useSceneClock({
     reset,
   };
 }
+
