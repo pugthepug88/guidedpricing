@@ -175,7 +175,7 @@ const DEALS: Record<StageKey, Deal[]> = {
       name: "Eastside Property Group",
       value: "$9,800",
       source: "Email",
-      touch: "Yesterday",
+      touch: "Proposal viewed 2h ago",
       face: FACE.priya,
     },
   ],
@@ -193,11 +193,22 @@ const DEALS: Record<StageKey, Deal[]> = {
       name: "Summit Advisory",
       value: "$12,500",
       source: "Referral",
-      touch: "3 days ago",
+      touch: "Follow up today",
       face: FACE.tom,
     },
   ],
+  won: [
+    {
+      id: "coastal",
+      name: "Coastal Dental",
+      value: "$6,800",
+      source: "Referral",
+      touch: "Yesterday",
+      face: FACE.leo,
+    },
+  ],
 };
+
 
 const MAYA: Deal = {
   id: "maya",
