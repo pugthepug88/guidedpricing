@@ -207,7 +207,7 @@ function StatusCell({ status }: { status: string }) {
   );
 }
 
-/* conventional arrow pointer, anchored to real DOM controls */
+/* Zapla demo pointer: bold faceted arrow, anchored to real DOM controls */
 function ArrowCursor({
   point,
   press,
@@ -223,32 +223,41 @@ function ArrowCursor({
       {point ? (
         <motion.div
           className="pointer-events-none absolute left-0 top-0 z-50"
-          initial={{ opacity: 0, x: point.x, y: point.y }}
-          animate={{ opacity: 1, x: point.x, y: point.y }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0, scale: 0.8, x: point.x, y: point.y }}
+          animate={{ opacity: 1, scale: 1, x: point.x, y: point.y }}
+          exit={{ opacity: 0, scale: 0.85 }}
           transition={{
-            opacity: { duration: 0.25, ease: EASE_OUT },
-            x: { duration: 0.62, ease: [0.32, 0.72, 0.24, 1] },
-            y: { duration: 0.62, ease: [0.32, 0.72, 0.24, 1] },
+            opacity: { duration: 0.22, ease: EASE_OUT },
+            scale: { duration: 0.28, ease: EASE_OUT },
+            x: { type: "spring", stiffness: 170, damping: 20, mass: 0.9 },
+            y: { type: "spring", stiffness: 170, damping: 20, mass: 0.9 },
           }}
         >
           <motion.svg
-            width="22"
-            height="22"
+            width="34"
+            height="34"
             viewBox="0 0 24 24"
-            animate={{ scale: press ? 0.86 : 1 }}
-            transition={{ duration: 0.18, ease: EASE_OUT }}
+            animate={{ scale: press ? 0.84 : 1, rotate: press ? -6 : 0 }}
+            transition={{ type: "spring", stiffness: 420, damping: 22 }}
             style={{
-              originX: 0.15,
+              originX: 0.2,
               originY: 0.1,
-              filter: "drop-shadow(0 2px 3px rgba(15,23,42,0.3))",
+              filter:
+                "drop-shadow(0 3px 5px rgba(15,23,42,0.32)) drop-shadow(0 0 6px rgba(37,99,255,0.35))",
             }}
           >
+            {/* electric offset accent edge */}
             <path
-              d="M5 2.5 L5 19.2 L9.35 14.9 L12.1 21.4 L14.9 20.2 L12.2 13.9 L18.2 13.9 Z"
-              fill="#ffffff"
-              stroke="#0f172a"
-              strokeWidth="1.5"
+              d="M5 2.2 L5 19.6 L9.5 15.1 L12.3 21.8 L15.4 20.5 L12.5 13.9 L18.8 13.9 Z"
+              fill="rgba(37,99,255,0.9)"
+              transform="translate(1.4,1.2)"
+            />
+            {/* white keyline + ink body */}
+            <path
+              d="M5 2.2 L5 19.6 L9.5 15.1 L12.3 21.8 L15.4 20.5 L12.5 13.9 L18.8 13.9 Z"
+              fill="#0f172a"
+              stroke="#ffffff"
+              strokeWidth="1.7"
               strokeLinejoin="round"
             />
           </motion.svg>
@@ -257,6 +266,50 @@ function ArrowCursor({
     </AnimatePresence>
   );
 }
+
+/* large branded campaign-success payoff over the still-crisp table */
+function CampaignSentCard({ show, reduced }: { show: boolean; reduced: boolean }) {
+  return (
+    <AnimatePresence>
+      {show ? (
+        <motion.div
+          initial={reduced ? false : { opacity: 0, x: 90, scale: 0.94 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: EASE_OUT } }}
+          transition={{ type: "spring", stiffness: 190, damping: 22, mass: 0.9 }}
+          className="pointer-events-none absolute left-1/2 top-[38%] z-50 w-[64%] -translate-x-1/2 -translate-y-1/2 rounded-[19px] p-[2px]"
+          style={{
+            background:
+              "linear-gradient(105deg, rgba(37,99,255,1), rgba(34,211,238,1) 52%, rgba(139,92,246,1))",
+            boxShadow: "0 28px 60px -26px rgba(15,23,42,0.45)",
+          }}
+        >
+          <div className="flex items-center gap-4 rounded-[17px] bg-white px-5 py-4">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-zapla-blue text-white">
+              <MessageSquare className="h-5 w-5" />
+            </span>
+            <div className="min-w-0">
+              <div className="truncate text-[19px] font-extrabold leading-tight tracking-[-0.02em] text-zapla-ink">
+                VIP comeback campaign
+              </div>
+              <div className="mt-0.5 text-[12.5px] font-medium text-slate-400">4 contacts</div>
+            </div>
+            <motion.span
+              initial={reduced ? false : { scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: reduced ? 0 : 0.14, type: "spring", stiffness: 320, damping: 20 }}
+              className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-[13px] bg-emerald-50 px-4 py-2.5 text-[20px] font-extrabold uppercase tracking-[0.04em] text-emerald-700"
+            >
+              <Check className="h-5 w-5" strokeWidth={3.5} />
+              Sent
+            </motion.span>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
 
 function FilterRow({ label, value, on }: { label: string; value: string; on: boolean }) {
   return (
