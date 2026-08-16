@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FACE } from "./faces";
-import { CampaignSentCard, type CampaignVariant } from "./campaign-cards";
+import { CampaignSentCard } from "./campaign-cards";
 import {
   Avatar,
   EASE_OUT,
@@ -295,11 +295,7 @@ function DrawerField({ label, value }: { label: string; value: string }) {
   );
 }
 
-export function SceneContacts({
-  phase,
-  reduced,
-  campaignVariant = "receipt",
-}: SceneProps & { campaignVariant?: CampaignVariant }) {
+export function SceneContacts({ phase, reduced }: SceneProps) {
   /* timeline
      0 still · 1 cursor to Filter · 2 popover opens · 3 criteria set
      4 apply → filtered + result line · 5-8 select rows 1-4 · 9 action bar
@@ -691,7 +687,7 @@ export function SceneContacts({
         ) : null}
       </AnimatePresence>
 
-      <CampaignSentCard show={success} reduced={reduced} variant={campaignVariant} />
+      <CampaignSentCard show={success} reduced={reduced} />
 
       <ArrowCursor point={point} press={press} reduced={reduced} />
     </div>
