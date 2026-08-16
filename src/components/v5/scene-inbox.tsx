@@ -531,7 +531,8 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
           },
         ]
       : []),
-  ];
+      ]
+    : DANIEL_THREAD;
 
   return (
     <div ref={rootRef} className="absolute inset-0 flex flex-col overflow-hidden bg-slate-50/70">
