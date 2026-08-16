@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Bell,
@@ -11,6 +12,7 @@ import {
   Mail,
   MessageSquare,
   Send,
+  Share2,
   Trophy,
 } from "lucide-react";
 import { FACE } from "./faces";
@@ -26,6 +28,14 @@ import {
   Tag,
   type SceneProps,
 } from "./motion-kit";
+import { DemoCursor } from "./demo-cursor";
+import { ConnectAccountsModal, type PlatformId } from "./connect-accounts-modal";
+import {
+  FacebookMark,
+  GoogleBusinessMark,
+  InstagramMark,
+  LinkedInMark,
+} from "./social-brands";
 
 const DAYS = ["Mon 4", "Tue 5", "Wed 6", "Thu 7", "Fri 8", "Sat 9", "Sun 10"];
 
@@ -178,7 +188,7 @@ export function SceneContent({ phase, reduced }: SceneProps) {
               show={modalOpen}
               connected={connected}
               reduced={reduced}
-              registerTile={(id, el) => {
+              registerTile={(id: string, el: HTMLElement | null) => {
                 tiles.current[id] = el;
               }}
             />
@@ -274,7 +284,7 @@ export function SceneContent({ phase, reduced }: SceneProps) {
               </div>
             </Payoff>
 
-            <PlannerCursor point={point} press={!!target} reduced={reduced} />
+            <DemoCursor gradientId="zaplaPlannerPointerFill" point={point} press={!!target} reduced={reduced} />
           </>
         }
       />
