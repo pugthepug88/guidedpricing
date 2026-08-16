@@ -272,18 +272,20 @@ function CampaignSentCard({ show, reduced }: { show: boolean; reduced: boolean }
   return (
     <AnimatePresence>
       {show ? (
+        <div className="pointer-events-none absolute inset-0 z-50 flex items-start justify-center pt-[20%]">
         <motion.div
           initial={reduced ? false : { opacity: 0, x: 90, scale: 0.94 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: EASE_OUT } }}
           transition={{ type: "spring", stiffness: 190, damping: 22, mass: 0.9 }}
-          className="pointer-events-none absolute left-1/2 top-[38%] z-50 w-[64%] -translate-x-1/2 -translate-y-1/2 rounded-[19px] p-[2px]"
+          className="w-[64%] rounded-[19px] p-[2px]"
           style={{
             background:
               "linear-gradient(105deg, rgba(37,99,255,1), rgba(34,211,238,1) 52%, rgba(139,92,246,1))",
             boxShadow: "0 28px 60px -26px rgba(15,23,42,0.45)",
           }}
         >
+
           <div className="flex items-center gap-4 rounded-[17px] bg-white px-5 py-4">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-zapla-blue text-white">
               <MessageSquare className="h-5 w-5" />
