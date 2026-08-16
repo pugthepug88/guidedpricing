@@ -36,7 +36,8 @@ export function useSceneClock({
 
   const reset = useCallback(() => {
     accumulated.current = 0;
-    startedAt.current = null;
+    /* keep the running loop alive: re-baseline instead of nulling the start */
+    startedAt.current = frame.current != null ? performance.now() : null;
     completed.current = false;
     setElapsedMs(0);
   }, []);
