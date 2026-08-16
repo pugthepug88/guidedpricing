@@ -18,7 +18,7 @@ export type PlatformId = "facebook" | "instagram" | "linkedin" | "tiktok" | "pin
 export const PLATFORMS: {
   id: PlatformId;
   name: string;
-  Mark: (p: { size?: number; className?: string }) => JSX.Element;
+  Mark: (p: { size?: number; className?: string }) => React.ReactElement;
 }[] = [
   { id: "facebook", name: "Facebook", Mark: FacebookMark },
   { id: "instagram", name: "Instagram", Mark: InstagramMark },
