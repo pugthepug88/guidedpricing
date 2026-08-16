@@ -167,7 +167,7 @@ function WorkflowNode({
         backgroundColor: state === "done" ? "rgba(255,255,255,1)" : "rgba(255,255,255,1)",
       }}
       transition={{ duration: reduced ? 0 : 0.35, ease: EASE_OUT }}
-      className={cn("relative rounded-xl px-2.5 py-2", className)}
+      className={cn("relative rounded-xl px-2.5 py-[6px]", className)}
     >
       <div className="flex items-start gap-2">
         <span
@@ -207,7 +207,7 @@ function WorkflowNode({
 function Connector({
   on,
   label,
-  height = 22,
+  height = 16,
   reduced,
 }: {
   on: boolean;
@@ -529,7 +529,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
           }}
         />
 
-        <div className="relative flex h-full gap-3 px-3 py-3">
+        <div className="relative flex h-full gap-3 px-3 py-2">
           {/* workflow column */}
           <div className="flex min-w-0 flex-1 flex-col items-center justify-center">
             <div className="w-full max-w-[330px]">
@@ -549,7 +549,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
                       animate={{ opacity: 1, x: 0, scale: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: reduced ? 0 : 0.5, ease: EASE_OUT }}
-                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50/80 py-[2px] pl-[2px] pr-2"
+                      className="mt-1 inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50/80 py-[2px] pl-[2px] pr-2"
                     >
                       <img
                         src={FACE.sophie}
@@ -599,7 +599,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
                 doneLabel="Yes"
                 reduced={reduced}
               >
-                <div className="mt-1.5 flex gap-1.5">
+                <div className="mt-1 flex gap-1.5">
                   <span
                     className={cn(
                       "rounded-full px-1.5 py-[2px] text-[9px] font-bold transition-colors",
@@ -627,7 +627,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               <div className="mt-0 grid grid-cols-2 gap-2.5">
                 {/* No branch */}
                 <div>
-                  <Connector on={phase >= 4} label="No" height={20} reduced={reduced} />
+                  <Connector on={phase >= 4} label="No" height={16} reduced={reduced} />
                   <WorkflowNode
                     icon={Clock}
                     kind="Wait"
@@ -636,7 +636,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
                     dim={phase >= 7}
                     reduced={reduced}
                   />
-                  <Connector on={phase >= 5} height={16} reduced={reduced} />
+                  <Connector on={phase >= 5} height={14} reduced={reduced} />
                   <WorkflowNode
                     icon={MessageSquare}
                     kind="Action · SMS"
@@ -650,7 +650,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
 
                 {/* Yes branch */}
                 <div>
-                  <Connector on={phase >= 6} label="Yes" height={20} reduced={reduced} />
+                  <Connector on={phase >= 6} label="Yes" height={16} reduced={reduced} />
                   <WorkflowNode
                     icon={Tag}
                     kind="Action"
@@ -659,7 +659,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
                     doneLabel="Tagged"
                     reduced={reduced}
                   />
-                  <Connector on={phase >= 7} height={16} reduced={reduced} />
+                  <Connector on={phase >= 7} height={14} reduced={reduced} />
                   <WorkflowNode
                     icon={Bell}
                     kind="Action"
