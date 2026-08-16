@@ -252,7 +252,7 @@ function DealCard({
 }: {
   deal: Deal;
   cardRef?: (el: HTMLDivElement | null) => void;
-  highlight?: "blue" | "cyan" | null;
+  highlight?: "blue" | "violet" | "won" | null;
   dragging?: boolean;
   reduced: boolean;
 }) {
@@ -277,9 +277,13 @@ function DealCard({
         "relative rounded-xl border bg-white p-2.5 transition-shadow duration-300",
         dragging
           ? "border-zapla-blue/50 shadow-[0_22px_40px_-16px_rgba(15,23,42,0.45)]"
-          : highlight
-            ? "border-zapla-blue/60 shadow-[0_0_0_3px_rgba(37,99,255,0.14)]"
-            : "border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.05)]",
+          : highlight === "won"
+            ? "border-emerald-400/70 shadow-[0_0_0_3px_rgba(16,185,129,0.16),0_0_0_5px_rgba(37,99,255,0.10)]"
+            : highlight === "violet"
+              ? "border-violet-400/70 shadow-[0_0_0_3px_rgba(139,92,246,0.16)]"
+              : highlight
+                ? "border-zapla-blue/60 shadow-[0_0_0_3px_rgba(37,99,255,0.14)]"
+                : "border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.05)]",
       )}
     >
       <div className="flex items-center gap-2">
@@ -467,7 +471,7 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
   const summitWon = phase >= 10;
   const wonActive = phase === 10;
   const wonPayoff = phase === 11;
-  const summitHighlight = phase >= 10;
+  const summitHighlight = phase >= 10 && phase <= 11;
 
   const openPipeline = summitWon ? 37100 : mayaVisible ? 49600 : 47200;
 
@@ -686,17 +690,20 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
                             (deal.id === "summit" && summitDragging)
                           }
                           highlight={
-                            (deal.id === "maya" && mayaFresh) ||
-                            (deal.id === "eastside" && eastHighlight) ||
-                            (deal.id === "summit" && summitHighlight)
-                              ? "blue"
-                              : null
+                            deal.id === "summit" && summitHighlight
+                              ? "won"
+                              : deal.id === "eastside" && eastHighlight
+                                ? "violet"
+                                : deal.id === "maya" && mayaFresh
+                                  ? "blue"
+                                  : null
                           }
                         />
                       ))}
                     </AnimatePresence>
                   </div>
                 </motion.div>
+
               );
             })}
           </div>
