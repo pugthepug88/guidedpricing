@@ -508,29 +508,29 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
 
   const thread: Bubble[] = sophieSelected
     ? [
-    ...BASE_THREAD,
-    ...(igArrived
-      ? [
-          {
-            id: "ig-new",
-            from: "them" as const,
-            channel: "instagram" as const,
-            text: "Hey, do you have any availability Thursday afternoon?",
-            time: "Just now",
-          },
-        ]
-      : []),
-    ...(smsArrived
-      ? [
-          {
-            id: "sms-new",
-            from: "them" as const,
-            channel: "sms" as const,
-            text: "Actually SMS might be easier. Could I do around 3pm?",
-            time: "Just now",
-          },
-        ]
-      : []),
+        ...BASE_THREAD,
+        ...(igArrived
+          ? [
+              {
+                id: "ig-new",
+                from: "them" as const,
+                channel: "instagram" as const,
+                text: "Hey, do you have any availability Thursday afternoon?",
+                time: "Just now",
+              },
+            ]
+          : []),
+        ...(smsArrived
+          ? [
+              {
+                id: "sms-new",
+                from: "them" as const,
+                channel: "sms" as const,
+                text: "Actually SMS might be easier. Could I do around 3pm?",
+                time: "Just now",
+              },
+            ]
+          : []),
       ]
     : DANIEL_THREAD;
 
@@ -709,7 +709,6 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
                   </span>
                 </div>
               </div>
-
 
               <div className="mt-3 flex items-center justify-between">
                 <span className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-400">
