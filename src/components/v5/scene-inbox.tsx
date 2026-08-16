@@ -422,6 +422,30 @@ const BASE_THREAD: Bubble[] = [
   },
 ];
 
+const DANIEL_THREAD: Bubble[] = [
+  {
+    id: "d1",
+    from: "them",
+    channel: "email",
+    text: "Morning, are you free to review the scope before Friday?",
+    time: "Yesterday 8:40am",
+  },
+  {
+    id: "d2",
+    from: "us",
+    channel: "email",
+    text: "Sure Daniel, send it across and I will mark up the changes.",
+    time: "Yesterday 9:05am",
+  },
+  {
+    id: "d3",
+    from: "them",
+    channel: "email",
+    text: "Sending through the updated scope now.",
+    time: "9m ago",
+  },
+];
+
 export function SceneInbox({ phase, reduced }: SceneProps) {
   /* timeline
      0 populated inbox hold · 1 cursor selects Sophie
