@@ -19,14 +19,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FACE } from "./faces";
-import {
-  FacebookMark,
-  InstagramMark,
-  LinkedInMark,
-  TikTokMark,
-} from "./social-brands";
+import { FacebookMark, InstagramMark, LinkedInMark, TikTokMark } from "./social-brands";
 import { EASE_OUT, type SceneProps } from "./motion-kit";
-
 
 /* ---------------------------------------------------------------- */
 /* Zapla demo pointer (same visual language as Contacts/Opportunities) */
@@ -181,7 +175,10 @@ function ChannelTile({ channel, size = 16 }: { channel: Channel; size?: number }
   const { tile, Icon, Mark } = CHANNEL_META[channel];
   if (Mark) {
     return (
-      <span className="inline-flex shrink-0 items-center justify-center" style={{ width: size, height: size }}>
+      <span
+        className="inline-flex shrink-0 items-center justify-center"
+        style={{ width: size, height: size }}
+      >
         <Mark size={size} className="rounded-[5px]" />
       </span>
     );
@@ -195,7 +192,6 @@ function ChannelTile({ channel, size = 16 }: { channel: Channel; size?: number }
     </span>
   );
 }
-
 
 function ChannelChip({ channel }: { channel: Channel }) {
   const { chip, label, Icon } = CHANNEL_META[channel];
@@ -359,7 +355,6 @@ function LeftNav() {
             <span className="ml-auto text-[9.5px] font-bold text-slate-400">{n}</span>
           </div>
         ))}
-
       </div>
     </div>
   );
