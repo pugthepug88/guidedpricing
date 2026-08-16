@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight,
@@ -371,7 +372,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
   const lastFor = (c: ContactRow, i: number) => (replied && i === 0 ? "Just now" : c.last);
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div ref={rootRef} className="absolute inset-0 overflow-hidden">
       <div className="absolute inset-0 flex flex-col px-4 pb-3 pt-3">
         {/* toolbar */}
         <div className="mb-2 flex items-center gap-2">
@@ -393,6 +394,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
           </AnimatePresence>
           <div className="ml-auto flex items-center gap-1.5">
             <span
+              ref={filterRef}
               className={cn(
                 "inline-flex items-center gap-1 rounded-md border px-2 py-[4px] text-[10.5px] font-medium transition-colors duration-300",
                 popover
@@ -558,7 +560,10 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
                   4 contacts selected
                 </span>
                 <span className="text-[11px] text-slate-400">VIP · Inactive 6m+</span>
-                <span className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-zapla-blue px-3 py-1.5 text-[11.5px] font-semibold text-white">
+                <span
+                  ref={campaignRef}
+                  className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-zapla-blue px-3 py-1.5 text-[11.5px] font-semibold text-white"
+                >
                   <MessageSquare className="h-3 w-3" />
                   Send SMS campaign
                 </span>
@@ -585,6 +590,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
             <FilterRow label="Last activity" value="More than 6 months ago" on={criteria} />
             <FilterRow label="Sort" value="Oldest first" on={criteria} />
             <div
+              ref={applyRef}
               className={cn(
                 "mt-2 rounded-lg px-3 py-1.5 text-center text-[11.5px] font-semibold text-white transition-colors duration-300",
                 criteria ? "bg-zapla-blue" : "bg-slate-300",
@@ -633,7 +639,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
               available times.
             </div>
 
-            <div className="mt-auto">
+            <div ref={drawerSendRef} className="mt-auto">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={drawerSent ? "sent" : "send"}
@@ -662,13 +668,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
         ) : null}
       </AnimatePresence>
 
-      <SoftCursor
-        show={!!cursor}
-        x={cursor?.x ?? 88}
-        y={cursor?.y ?? 6}
-        press={cursor?.press}
-        reduced={reduced}
-      />
+      <ArrowCursor point={point} press={press} reduced={reduced} />
     </div>
   );
 }
