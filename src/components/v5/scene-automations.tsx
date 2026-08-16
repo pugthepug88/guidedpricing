@@ -451,7 +451,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
      9 final complete workflow hold */
   const triggerState: NodeState = phase >= 1 ? "done" : "idle";
   const waitState: NodeState = phase >= 2 ? "done" : phase === 1 ? "active" : "idle";
-  const sendState: NodeState = phase >= 4 ? "done" : phase >= 2 ? "active" : "idle";
+  const sendState: NodeState = phase >= 3 ? "done" : phase === 2 ? "active" : "idle";
   const condState: NodeState = phase >= 6 ? "done" : phase >= 4 ? "active" : "idle";
   const wait2dState: NodeState = phase >= 5 ? "done" : phase === 4 ? "active" : "idle";
   const reminderState: NodeState = phase >= 6 ? "done" : phase === 5 ? "active" : "idle";
