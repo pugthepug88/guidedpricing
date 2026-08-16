@@ -551,7 +551,7 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
         <LeftNav />
 
         {/* conversation list */}
-        <div className="zapla-scroll-hide min-w-[150px] flex-[0_0_31%] overflow-hidden border-r border-slate-200/80 bg-white/90 px-1.5 py-2">
+        <div className="zapla-scroll-hide min-w-[150px] flex-[0_0_25%] overflow-hidden border-r border-slate-200/80 bg-white/90 px-1.5 py-2 xl:flex-[0_0_29%]">
           {CONVOS.map((c) => {
             const on = c.id === selectedId;
             const isSophie = c.id === "sophie";
