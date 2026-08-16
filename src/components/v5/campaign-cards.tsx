@@ -95,10 +95,24 @@ export function CampaignSentCard({ show, reduced }: { show: boolean; reduced: bo
                 ? { duration: 0.2 }
                 : { type: "spring", stiffness: 190, damping: 22, mass: 0.9 }
             }
-            className="w-[86%] rounded-[19px] p-[2px] xl:w-[70%]"
+            className="relative w-[86%] overflow-hidden rounded-[19px] p-[2px] xl:w-[70%]"
             style={{ background: KEYLINE, boxShadow: "0 28px 60px -26px rgba(15,23,42,0.45)" }}
           >
-            <div className="overflow-hidden rounded-[17px] bg-white">
+            {!reduced ? (
+              <motion.span
+                aria-hidden
+                className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[150%]"
+                style={{
+                  translateX: "-50%",
+                  translateY: "-50%",
+                  background:
+                    "conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(255,255,255,0) 200deg, rgba(34,211,238,0.55) 290deg, rgba(255,255,255,0.95) 340deg, rgba(139,92,246,0.6) 358deg, rgba(255,255,255,0) 360deg)",
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 3, ease: "linear", repeat: Infinity }}
+              />
+            ) : null}
+            <div className="relative overflow-hidden rounded-[17px] bg-white">
               <div className="px-5 pb-4 pt-4">
                 <div className="flex items-center gap-4">
                   <IconTile />
