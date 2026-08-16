@@ -372,13 +372,11 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
      8 compact "Stage updated" confirmation · 9 final board hold */
   const mayaVisible = phase >= 1;
   const mayaNew = phase >= 1 && phase <= 2;
-  const mayaGrab = phase === 2;
   const mayaDragging = phase === 2 || phase === 3;
   const qualifiedActive = phase === 3;
   const payoff = phase === 4;
   const mayaFresh = phase >= 1 && phase <= 4;
 
-  const eastGrab = phase === 6;
   const eastDragging = phase === 6 || phase === 7;
   const eastMoved = phase >= 7;
   const negotiationActive = phase === 7;
@@ -547,8 +545,6 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
 
       <QualifiedPayoff show={payoff} reduced={reduced} />
       <DemoCursor point={point} press={press} reduced={reduced} />
-      {/* keeps grab state referenced for clarity */}
-      <span className="hidden">{mayaGrab || eastGrab ? "" : ""}</span>
     </div>
   );
 }
