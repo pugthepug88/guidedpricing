@@ -238,7 +238,11 @@ function ArrowCursor({
             viewBox="0 0 24 24"
             animate={{ scale: press ? 0.86 : 1 }}
             transition={{ duration: 0.18, ease: EASE_OUT }}
-            style={{ originX: 0.15, originY: 0.1, filter: "drop-shadow(0 2px 3px rgba(15,23,42,0.3))" }}
+            style={{
+              originX: 0.15,
+              originY: 0.1,
+              filter: "drop-shadow(0 2px 3px rgba(15,23,42,0.3))",
+            }}
           >
             <path
               d="M5 2.5 L5 19.2 L9.35 14.9 L12.1 21.4 L14.9 20.2 L12.2 13.9 L18.2 13.9 Z"
@@ -253,7 +257,6 @@ function ArrowCursor({
     </AnimatePresence>
   );
 }
-
 
 function FilterRow({ label, value, on }: { label: string; value: string; on: boolean }) {
   return (
@@ -354,7 +357,6 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
       window.removeEventListener("resize", measure);
     };
   }, [target, phase, reduced]);
-
 
   const isSelected = (i: number) => {
     const pos = MATCH_ORDER.indexOf(i);
