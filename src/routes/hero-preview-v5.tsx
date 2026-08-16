@@ -65,8 +65,8 @@ const SCENES: SceneDef[] = [
     key: "opportunities",
     label: "Opportunities",
     title: "Opportunities",
-    subtitle: "One deal creates downstream work",
-    phases: [760, 620, 540, 560, 700, 900, 1600, 620],
+    subtitle: "Every enquiry visible, every deal moving",
+    phases: [1300, 700, 420, 1150, 1050, 600, 380, 900, 850, 1700],
     render: (p) => <SceneOpportunities {...p} />,
   },
   {
