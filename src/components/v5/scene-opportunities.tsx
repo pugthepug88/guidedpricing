@@ -624,7 +624,7 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
                       : "rgba(255,255,255,0.7)",
                   }}
                   transition={{ duration: reduced ? 0 : 0.35, ease: EASE_OUT }}
-                  className="relative flex min-w-[120px] flex-1 flex-col rounded-2xl px-2 pb-2 pt-2.5"
+                  className="relative flex min-w-[104px] flex-1 flex-col rounded-2xl px-1.5 pb-2 pt-2.5"
                 >
                   <div className="mb-2 flex items-center gap-1.5 px-0.5">
                     <span className={cn("h-1.5 w-1.5 rounded-full", meta.dot)} />
