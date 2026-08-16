@@ -55,7 +55,7 @@ const SCENES: SceneDef[] = [
     title: "Contacts",
     subtitle: "Dormant customers wake up",
     phases: [
-      1400, 520, 780, 900, 780, 420, 420, 420, 420, 760, 660, 1750, 640, 400, 340, 340, 340, 1600,
+      1400, 520, 780, 900, 780, 420, 420, 420, 420, 760, 660, 1750, 640, 400, 340, 340, 340, 2600,
     ],
 
     render: (p) => <SceneContacts {...p} />,
@@ -124,6 +124,7 @@ function HeroV5Page() {
 
   const [sceneIndex, setSceneIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [runKey, setRunKey] = useState(0);
   const scene = SCENES[sceneIndex];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -137,10 +138,13 @@ function HeroV5Page() {
     paused,
     reduced,
     onComplete: advance,
+    restartKey: runKey,
   });
 
+  /* every tab selection restarts that scene from phase 0, even if already active */
   const selectScene = useCallback((i: number) => {
     setSceneIndex(i);
+    setRunKey((k) => k + 1);
   }, []);
 
   const onTabKeyDown = (e: React.KeyboardEvent, i: number) => {
