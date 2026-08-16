@@ -312,9 +312,7 @@ function QualifiedPayoff({ show, reduced }: { show: boolean; reduced: boolean })
           animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
           exit={{ opacity: 0, x: "-50%", scale: 0.96 }}
           transition={
-            reduced
-              ? { duration: 0 }
-              : { type: "spring", stiffness: 210, damping: 22, mass: 0.85 }
+            reduced ? { duration: 0 } : { type: "spring", stiffness: 210, damping: 22, mass: 0.85 }
           }
         >
           <div
@@ -390,7 +388,15 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
   const negotiationRef = useRef<HTMLDivElement | null>(null);
 
   const target: "maya" | "qualified" | "east" | "negotiation" | null =
-    phase === 2 ? "maya" : phase === 3 ? "qualified" : phase === 6 ? "east" : phase === 7 ? "negotiation" : null;
+    phase === 2
+      ? "maya"
+      : phase === 3
+        ? "qualified"
+        : phase === 6
+          ? "east"
+          : phase === 7
+            ? "negotiation"
+            : null;
   const press = phase === 2 || phase === 6;
 
   const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
