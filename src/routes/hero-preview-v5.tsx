@@ -11,6 +11,7 @@ import {
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
+import type { CampaignVariant } from "@/components/v5/campaign-cards";
 import { SceneCalendar, SceneContent, SceneContracts, SceneEmail } from "@/components/v5/scenes-b";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
 import { useSceneClock } from "@/components/v5/use-scene-clock";
@@ -45,7 +46,7 @@ type SceneDef = {
   subtitle: string;
   /** scene-local timeline: variable-duration beats (ms), total differs per scene */
   phases: number[];
-  render: (p: SceneProps) => React.ReactNode;
+  render: (p: SceneProps, o: { campaignVariant: CampaignVariant }) => React.ReactNode;
 };
 
 const SCENES: SceneDef[] = [
@@ -55,11 +56,11 @@ const SCENES: SceneDef[] = [
     title: "Contacts",
     subtitle: "Dormant customers wake up",
     phases: [
-      1400, 520, 780, 900, 780, 420, 420, 420, 420, 760, 660, 1750, 640, 1000, 400, 340, 340, 340,
+      1400, 520, 780, 900, 780, 420, 420, 420, 420, 760, 660, 1750, 640, 2000, 400, 340, 340, 340,
       2600,
     ],
 
-    render: (p) => <SceneContacts {...p} />,
+    render: (p, o) => <SceneContacts {...p} campaignVariant={o.campaignVariant} />,
   },
   {
     key: "opportunities",
@@ -126,6 +127,7 @@ function HeroV5Page() {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [runKey, setRunKey] = useState(0);
+  const [campaignVariant, setCampaignVariant] = useState<CampaignVariant>("receipt");
   const scene = SCENES[sceneIndex];
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -229,7 +231,7 @@ function HeroV5Page() {
               <div className="h-[460px] sm:h-[520px] lg:h-[580px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
                   <div className="absolute inset-0">
-                    {scene.render({ phase, elapsedMs, reduced })}
+                    {scene.render({ phase, elapsedMs, reduced }, { campaignVariant })}
                   </div>
                 </AppShell>
               </div>
@@ -268,6 +270,37 @@ function HeroV5Page() {
                   </button>
                 );
               })}
+            </div>
+
+            {/* preview-only: campaign card variant picker for the Contacts scene */}
+            <div className="mt-3 flex flex-wrap items-center gap-1.5 px-1">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-400">
+                Campaign card
+              </span>
+              {(
+                [
+                  ["receipt", "A · Receipt stack"],
+                  ["launch", "B · Message launch"],
+                  ["counter", "C · Counter roll"],
+                ] as Array<[CampaignVariant, string]>
+              ).map(([key, label]) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => {
+                    setCampaignVariant(key);
+                    selectScene(0);
+                  }}
+                  className={cn(
+                    "shrink-0 rounded-full border px-3 py-1 text-[11.5px] font-semibold transition-colors",
+                    campaignVariant === key
+                      ? "border-zapla-blue bg-blue-50 text-blue-700"
+                      : "border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700",
+                  )}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
           </div>
         </div>
