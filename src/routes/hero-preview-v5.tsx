@@ -90,8 +90,8 @@ const SCENES: SceneDef[] = [
     key: "content",
     label: "Content Planner",
     title: "Content Planner",
-    subtitle: "One post becomes multi-channel distribution",
-    phases: [780, 660, 620, 900, 1600, 640],
+    subtitle: "Connect once, publish everywhere",
+    phases: [1100, 950, 700, 620, 700, 800, 900, 700, 700, 1700, 620],
     render: (p) => <SceneContent {...p} />,
   },
   {

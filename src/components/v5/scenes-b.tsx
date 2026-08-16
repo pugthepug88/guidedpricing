@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Bell,
@@ -11,6 +12,7 @@ import {
   Mail,
   MessageSquare,
   Send,
+  Share2,
   Trophy,
 } from "lucide-react";
 import { FACE } from "./faces";
@@ -26,6 +28,14 @@ import {
   Tag,
   type SceneProps,
 } from "./motion-kit";
+import { DemoCursor } from "./demo-cursor";
+import { ConnectAccountsModal, type PlatformId } from "./connect-accounts-modal";
+import {
+  FacebookMark,
+  GoogleBusinessMark,
+  InstagramMark,
+  LinkedInMark,
+} from "./social-brands";
 
 const DAYS = ["Mon 4", "Tue 5", "Wed 6", "Thu 7", "Fri 8", "Sat 9", "Sun 10"];
 
@@ -33,149 +43,252 @@ const DAYS = ["Mon 4", "Tue 5", "Wed 6", "Thu 7", "Fri 8", "Sat 9", "Sun 10"];
 /* 5 — CONTENT PLANNER : one post becomes multi-channel distribution   */
 /* ================================================================= */
 
-function PlannerBackground({ landed }: { landed: boolean }) {
+function PlannerBackground({
+  landed,
+  connectBtnRef,
+  connectedCount,
+}: {
+  landed: boolean;
+  connectBtnRef: React.Ref<HTMLDivElement>;
+  connectedCount: number;
+}) {
   return (
-    <div className="absolute inset-0 grid grid-cols-7 gap-1.5 px-3 py-3">
-      {DAYS.map((d, i) => (
-        <div key={d} className="min-w-0">
-          <div className="mb-1.5 truncate text-[10px] font-semibold uppercase tracking-wide text-slate-400">
-            {d}
-          </div>
-          <motion.div
-            className="space-y-1.5"
-            animate={{ y: landed && i === 4 ? 44 : 0 }}
-            transition={{ duration: 0.55, ease: EASE_OUT }}
-          >
-            {Array.from({ length: i % 3 === 0 ? 2 : 1 }).map((_, j) => (
-              <div
-                key={j}
-                className="space-y-1.5 rounded-lg border border-slate-200/80 bg-white p-2"
-              >
-                <GhostRow w="80%" h={7} />
-                <GhostRow w="52%" h={6} />
-              </div>
-            ))}
-          </motion.div>
+    <div className="absolute inset-0 flex flex-col">
+      {/* native planner toolbar */}
+      <div className="flex items-center justify-between gap-3 border-b border-slate-200/80 bg-white px-3 py-2">
+        <div className="flex items-center gap-2">
+          <span className="rounded-lg bg-slate-100 px-2.5 py-1 text-[11px] font-bold text-slate-600">
+            Week
+          </span>
+          <span className="text-[11.5px] font-semibold text-slate-400">4 - 10 August</span>
         </div>
-      ))}
+        <div
+          ref={connectBtnRef}
+          className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[11px] font-bold text-slate-700 shadow-[0_1px_2px_rgba(15,23,42,0.06)]"
+        >
+          <Share2 className="h-3.5 w-3.5 text-zapla-blue" />
+          Connect accounts
+          {connectedCount > 0 ? (
+            <span className="rounded-full bg-emerald-100 px-1.5 text-[10px] font-bold text-emerald-700">
+              {connectedCount}
+            </span>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="grid flex-1 grid-cols-7 gap-1.5 px-3 py-3">
+        {DAYS.map((d, i) => (
+          <div key={d} className="min-w-0">
+            <div className="mb-1.5 truncate text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+              {d}
+            </div>
+            <motion.div
+              className="space-y-1.5"
+              animate={{ y: landed && i === 4 ? 44 : 0 }}
+              transition={{ duration: 0.55, ease: EASE_OUT }}
+            >
+              {Array.from({ length: i % 3 === 0 ? 2 : 1 }).map((_, j) => (
+                <div
+                  key={j}
+                  className="space-y-1.5 rounded-lg border border-slate-200/80 bg-white p-2"
+                >
+                  <GhostRow w="80%" h={7} />
+                  <GhostRow w="52%" h={6} />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
+const CONNECT_ORDER: PlatformId[] = ["instagram", "facebook", "linkedin"];
+
 export function SceneContent({ phase, reduced }: SceneProps) {
-  const compose = phase >= 1;
-  const scheduled = phase >= 2;
-  const travel = phase >= 3;
-  const payoff = phase >= 4;
-  const collapse = phase >= 5;
+  /* timeline
+     0 populated planner hold
+     1 cursor opens Connect social accounts
+     2 Instagram connected · 3 Facebook connected · 4 LinkedIn connected
+     5 Done, modal closes
+     6 compose · 7 scheduled · 8 travel · 9 payoff · 10 collapse */
+  const modalOpen = phase >= 1 && phase <= 5;
+  const connected = CONNECT_ORDER.slice(0, Math.max(0, Math.min(3, phase - 1)));
+  const compose = phase >= 6;
+  const scheduled = phase >= 7;
+  const travel = phase >= 8;
+  const payoff = phase >= 9;
+  const collapse = phase >= 10;
+
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const connectBtnRef = useRef<HTMLDivElement | null>(null);
+  const tiles = useRef<Record<string, HTMLElement | null>>({});
+  const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
+
+  const target =
+    phase === 1
+      ? "button"
+      : phase === 2
+        ? "instagram"
+        : phase === 3
+          ? "facebook"
+          : phase === 4
+            ? "linkedin"
+            : phase === 5
+              ? "done"
+              : null;
+
+  useEffect(() => {
+    if (!target || reduced) {
+      setPoint(null);
+      return;
+    }
+    let frame = 0;
+    const measure = () => {
+      const root = rootRef.current;
+      const el = target === "button" ? connectBtnRef.current : tiles.current[target];
+      if (!root || !el) {
+        frame = requestAnimationFrame(measure);
+        return;
+      }
+      const r = root.getBoundingClientRect();
+      const b = el.getBoundingClientRect();
+      setPoint({
+        x: b.left - r.left + b.width * 0.5,
+        y: b.top - r.top + b.height * (target === "button" || target === "done" ? 0.55 : 0.78),
+      });
+    };
+    frame = requestAnimationFrame(measure);
+    return () => cancelAnimationFrame(frame);
+  }, [target, reduced]);
 
   const channels = [
-    { Icon: Instagram, cls: "text-fuchsia-600", x: -186, y: -18 },
-    { Icon: Facebook, cls: "text-blue-600", x: -108, y: -120 },
-    { Icon: Linkedin, cls: "text-cyan-700", x: 96, y: -120 },
-    { Icon: Globe, cls: "text-emerald-600", x: 176, y: -18 },
+    { Mark: InstagramMark, x: -186, y: -18 },
+    { Mark: FacebookMark, x: -108, y: -120 },
+    { Mark: LinkedInMark, x: 96, y: -120 },
+    { Mark: GoogleBusinessMark, x: 176, y: -18 },
   ];
 
   return (
-    <Scene
-      reduced={reduced}
-      recede={collapse ? 0.08 : compose ? 0.68 : 0}
-      background={<PlannerBackground landed={payoff || collapse} />}
-      foreground={
-        <>
-          <Glow
-            show={compose && !collapse}
-            tone="violet"
-            className="left-[18%] top-[18%] h-56 w-72"
+    <div ref={rootRef} className="absolute inset-0">
+      <Scene
+        reduced={reduced}
+        recede={collapse ? 0.08 : compose ? 0.68 : 0}
+        background={
+          <PlannerBackground
+            landed={payoff || collapse}
+            connectBtnRef={connectBtnRef}
+            connectedCount={connected.length}
           />
-          <AnimatePresence>
-            {compose && !collapse ? (
-              <motion.div
-                className="absolute left-[10%] top-[16%] w-[58%] max-w-[360px]"
-                initial={reduced ? false : { opacity: 0, y: 40, scale: 0.86 }}
-                animate={{
-                  opacity: 1,
-                  y: travel ? -34 : 0,
-                  x: travel ? 190 : 0,
-                  scale: payoff ? 0.62 : travel ? 0.8 : 1,
-                  rotate: travel ? 2.5 : -1.2,
-                }}
-                exit={{ opacity: 0, scale: 0.5, y: -60 }}
-                transition={{ duration: reduced ? 0 : 0.7, ease: EASE_OUT }}
-              >
-                <Hero className="overflow-hidden">
-                  <div className="h-[74px] bg-gradient-to-br from-emerald-200 via-blue-200 to-violet-200" />
-                  <div className="p-3.5">
-                    <div className="text-[14.5px] font-bold leading-snug tracking-tight text-slate-900">
-                      Summer garden refresh, 3 slots left this week.
-                    </div>
-                    <div className="mt-2.5 flex items-center gap-2">
-                      <AnimatePresence>
-                        {scheduled ? (
-                          <motion.span
-                            initial={reduced ? false : { opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4, ease: EASE_OUT }}
-                          >
-                            <Tag tone="green">
-                              <CalendarCheck className="h-3 w-3" /> Fri 8 · 09:00
-                            </Tag>
-                          </motion.span>
-                        ) : (
-                          <motion.span
-                            key="draft"
-                            exit={{ opacity: 0 }}
-                            className="rounded-full bg-zapla-blue px-3 py-1.5 text-[12px] font-bold text-white"
-                          >
-                            Schedule
-                          </motion.span>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
-                </Hero>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
-
-          {channels.map((c, i) => (
-            <Signal
-              key={i}
-              show={travel && !collapse}
+        }
+        foreground={
+          <>
+            <ConnectAccountsModal
+              show={modalOpen}
+              connected={connected}
               reduced={reduced}
-              delay={i * 0.08}
-              from={{ x: 0, y: 0 }}
-              to={payoff ? { x: c.x * 0.82, y: c.y * 0.75 } : { x: c.x, y: c.y }}
-              rotate={i % 2 ? 4 : -4}
-              className="left-[52%] top-[52%] h-9 w-9 justify-center p-0"
-            >
-              <c.Icon className={`h-4 w-4 ${c.cls}`} />
-            </Signal>
-          ))}
+              registerTile={(id: string, el: HTMLElement | null) => {
+                tiles.current[id] = el;
+              }}
+            />
 
-          <Payoff
-            show={payoff && !collapse}
-            reduced={reduced}
-            style={{ top: "58%" }}
-            className="left-1/2 w-[70%] max-w-[400px] -translate-x-1/2"
-          >
-            <div className="flex items-center gap-3.5">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-500 text-white">
-                <Send className="h-5 w-5" />
-              </span>
-              <div>
-                <div className="text-[17px] font-extrabold tracking-tight text-slate-900">
-                  Scheduled for Friday
-                </div>
-                <div className="text-[12.5px] font-medium text-slate-500">
-                  Instagram, Facebook, LinkedIn, Google
+            <Glow
+              show={compose && !collapse}
+              tone="violet"
+              className="left-[18%] top-[18%] h-56 w-72"
+            />
+            <AnimatePresence>
+              {compose && !collapse ? (
+                <motion.div
+                  className="absolute left-[10%] top-[16%] w-[58%] max-w-[360px]"
+                  initial={reduced ? false : { opacity: 0, y: 40, scale: 0.86 }}
+                  animate={{
+                    opacity: 1,
+                    y: travel ? -34 : 0,
+                    x: travel ? 190 : 0,
+                    scale: payoff ? 0.62 : travel ? 0.8 : 1,
+                    rotate: travel ? 2.5 : -1.2,
+                  }}
+                  exit={{ opacity: 0, scale: 0.5, y: -60 }}
+                  transition={{ duration: reduced ? 0 : 0.7, ease: EASE_OUT }}
+                >
+                  <Hero className="overflow-hidden">
+                    <div className="h-[74px] bg-gradient-to-br from-emerald-200 via-blue-200 to-violet-200" />
+                    <div className="p-3.5">
+                      <div className="text-[14.5px] font-bold leading-snug tracking-tight text-slate-900">
+                        Summer garden refresh, 3 slots left this week.
+                      </div>
+                      <div className="mt-2.5 flex items-center gap-2">
+                        <AnimatePresence>
+                          {scheduled ? (
+                            <motion.span
+                              initial={reduced ? false : { opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.4, ease: EASE_OUT }}
+                            >
+                              <Tag tone="green">
+                                <CalendarCheck className="h-3 w-3" /> Fri 8 · 09:00
+                              </Tag>
+                            </motion.span>
+                          ) : (
+                            <motion.span
+                              key="draft"
+                              exit={{ opacity: 0 }}
+                              className="rounded-full bg-zapla-blue px-3 py-1.5 text-[12px] font-bold text-white"
+                            >
+                              Schedule
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </div>
+                  </Hero>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+
+            {channels.map((c, i) => (
+              <Signal
+                key={i}
+                show={travel && !collapse}
+                reduced={reduced}
+                delay={i * 0.08}
+                from={{ x: 0, y: 0 }}
+                to={payoff ? { x: c.x * 0.82, y: c.y * 0.75 } : { x: c.x, y: c.y }}
+                rotate={i % 2 ? 4 : -4}
+                className="left-[52%] top-[52%] h-9 w-9 justify-center p-0"
+              >
+                <c.Mark size={22} />
+              </Signal>
+            ))}
+
+            <Payoff
+              show={payoff && !collapse}
+              reduced={reduced}
+              style={{ top: "58%" }}
+              className="left-1/2 w-[70%] max-w-[400px] -translate-x-1/2"
+            >
+              <div className="flex items-center gap-3.5">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-500 text-white">
+                  <Send className="h-5 w-5" />
+                </span>
+                <div>
+                  <div className="text-[17px] font-extrabold tracking-tight text-slate-900">
+                    Scheduled for Friday
+                  </div>
+                  <div className="text-[12.5px] font-medium text-slate-500">
+                    Instagram, Facebook, LinkedIn, Google Business
+                  </div>
                 </div>
               </div>
-            </div>
-          </Payoff>
-        </>
-      }
-    />
+            </Payoff>
+
+            <DemoCursor gradientId="zaplaPlannerPointerFill" point={point} press={!!target} reduced={reduced} />
+          </>
+        }
+      />
+    </div>
   );
 }
 
