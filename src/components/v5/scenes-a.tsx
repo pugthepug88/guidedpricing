@@ -726,7 +726,10 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
         ) : null}
       </AnimatePresence>
 
+      <CampaignSentCard show={success} reduced={reduced} />
+
       <ArrowCursor point={point} press={press} reduced={reduced} />
+
     </div>
   );
 }
