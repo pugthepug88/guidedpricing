@@ -14,11 +14,14 @@ export function useSceneClock({
   paused,
   reduced,
   onComplete,
+  restartKey = 0,
 }: {
   durations: number[];
   paused: boolean;
   reduced: boolean;
   onComplete?: () => void;
+  /** any change forces a true reset to elapsed 0 / phase 0 */
+  restartKey?: number | string;
 }) {
   const total = durations.reduce((a, b) => a + b, 0);
   const payoffPhase = Math.max(durations.length - 2, 0);
@@ -33,15 +36,16 @@ export function useSceneClock({
 
   const reset = useCallback(() => {
     accumulated.current = 0;
-    startedAt.current = null;
+    /* keep the running loop alive: re-baseline instead of nulling the start */
+    startedAt.current = frame.current != null ? performance.now() : null;
     completed.current = false;
     setElapsedMs(0);
   }, []);
 
-  /* restart the clock whenever the scene timeline itself changes */
+  /* restart the clock whenever the scene timeline changes or a restart is requested */
   useEffect(() => {
     reset();
-  }, [durations, reset]);
+  }, [durations, restartKey, reset]);
 
   useEffect(() => {
     if (reduced) return;

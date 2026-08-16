@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight,
@@ -206,39 +207,51 @@ function StatusCell({ status }: { status: string }) {
   );
 }
 
-/* soft interaction indicator: ring + inner dot, only on real controls */
-function SoftCursor({
-  show,
-  x,
-  y,
+/* conventional arrow pointer, anchored to real DOM controls */
+function ArrowCursor({
+  point,
   press,
   reduced,
 }: {
-  show: boolean;
-  x: number;
-  y: number;
+  point: { x: number; y: number } | null;
   press?: boolean;
   reduced: boolean;
 }) {
   if (reduced) return null;
   return (
     <AnimatePresence>
-      {show ? (
+      {point ? (
         <motion.div
-          className="pointer-events-none absolute z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, left: `${x}%`, top: `${y}%` }}
+          className="pointer-events-none absolute left-0 top-0 z-50"
+          initial={{ opacity: 0, x: point.x, y: point.y }}
+          animate={{ opacity: 1, x: point.x, y: point.y }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.52, ease: EASE_OUT }}
-          style={{ left: `${x}%`, top: `${y}%` }}
+          transition={{
+            opacity: { duration: 0.25, ease: EASE_OUT },
+            x: { duration: 0.62, ease: [0.32, 0.72, 0.24, 1] },
+            y: { duration: 0.62, ease: [0.32, 0.72, 0.24, 1] },
+          }}
         >
-          <motion.span
-            animate={{ scale: press ? 0.78 : 1 }}
-            transition={{ duration: 0.22, ease: EASE_OUT }}
-            className="flex h-[18px] w-[18px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-slate-400/60 bg-white/70 shadow-[0_2px_8px_-2px_rgba(15,23,42,0.35)] backdrop-blur-[1px]"
+          <motion.svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            animate={{ scale: press ? 0.86 : 1 }}
+            transition={{ duration: 0.18, ease: EASE_OUT }}
+            style={{
+              originX: 0.15,
+              originY: 0.1,
+              filter: "drop-shadow(0 2px 3px rgba(15,23,42,0.3))",
+            }}
           >
-            <span className="h-[5px] w-[5px] rounded-full bg-slate-700" />
-          </motion.span>
+            <path
+              d="M5 2.5 L5 19.2 L9.35 14.9 L12.1 21.4 L14.9 20.2 L12.2 13.9 L18.2 13.9 Z"
+              fill="#ffffff"
+              stroke="#0f172a"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+          </motion.svg>
         </motion.div>
       ) : null}
     </AnimatePresence>
@@ -288,16 +301,62 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
   const sentCount = phase >= 13 ? Math.min(phase - 12, 4) : 0;
   const replied = phase >= 17;
 
-  const cursor =
-    phase >= 1 && phase <= 3
-      ? { x: 88, y: 6, press: phase === 2 }
-      : phase === 4
-        ? { x: 81, y: 30, press: true }
+  /* cursor is anchored to real controls via refs, never guessed coordinates */
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const filterRef = useRef<HTMLSpanElement | null>(null);
+  const applyRef = useRef<HTMLDivElement | null>(null);
+  const campaignRef = useRef<HTMLSpanElement | null>(null);
+  const drawerSendRef = useRef<HTMLDivElement | null>(null);
+
+  const target: "filter" | "apply" | "campaign" | "drawerSend" | null =
+    phase >= 1 && phase <= 2
+      ? "filter"
+      : phase >= 3 && phase <= 4
+        ? "apply"
         : phase === 9 || phase === 10
-          ? { x: 90, y: 93, press: phase === 10 }
+          ? "campaign"
           : phase === 11 || phase === 12
-            ? { x: 82, y: 84, press: phase === 12 }
+            ? "drawerSend"
             : null;
+
+  const press =
+    (target === "filter" && phase === 2) ||
+    (target === "apply" && phase === 4) ||
+    (target === "campaign" && phase === 10) ||
+    (target === "drawerSend" && phase === 12);
+
+  const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (reduced || !target) {
+      setPoint(null);
+      return;
+    }
+    const measure = () => {
+      const root = rootRef.current;
+      const el =
+        target === "filter"
+          ? filterRef.current
+          : target === "apply"
+            ? applyRef.current
+            : target === "campaign"
+              ? campaignRef.current
+              : drawerSendRef.current;
+      if (!root || !el) return;
+      const r = root.getBoundingClientRect();
+      const b = el.getBoundingClientRect();
+      setPoint({
+        x: b.left - r.left + b.width * 0.55,
+        y: b.top - r.top + b.height * 0.6,
+      });
+    };
+    const raf = requestAnimationFrame(measure);
+    window.addEventListener("resize", measure);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", measure);
+    };
+  }, [target, phase, reduced]);
 
   const isSelected = (i: number) => {
     const pos = MATCH_ORDER.indexOf(i);
@@ -315,7 +374,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
   const lastFor = (c: ContactRow, i: number) => (replied && i === 0 ? "Just now" : c.last);
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div ref={rootRef} className="absolute inset-0 overflow-hidden">
       <div className="absolute inset-0 flex flex-col px-4 pb-3 pt-3">
         {/* toolbar */}
         <div className="mb-2 flex items-center gap-2">
@@ -337,6 +396,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
           </AnimatePresence>
           <div className="ml-auto flex items-center gap-1.5">
             <span
+              ref={filterRef}
               className={cn(
                 "inline-flex items-center gap-1 rounded-md border px-2 py-[4px] text-[10.5px] font-medium transition-colors duration-300",
                 popover
@@ -502,7 +562,10 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
                   4 contacts selected
                 </span>
                 <span className="text-[11px] text-slate-400">VIP · Inactive 6m+</span>
-                <span className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-zapla-blue px-3 py-1.5 text-[11.5px] font-semibold text-white">
+                <span
+                  ref={campaignRef}
+                  className="ml-auto inline-flex items-center gap-1.5 rounded-lg bg-zapla-blue px-3 py-1.5 text-[11.5px] font-semibold text-white"
+                >
                   <MessageSquare className="h-3 w-3" />
                   Send SMS campaign
                 </span>
@@ -529,6 +592,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
             <FilterRow label="Last activity" value="More than 6 months ago" on={criteria} />
             <FilterRow label="Sort" value="Oldest first" on={criteria} />
             <div
+              ref={applyRef}
               className={cn(
                 "mt-2 rounded-lg px-3 py-1.5 text-center text-[11.5px] font-semibold text-white transition-colors duration-300",
                 criteria ? "bg-zapla-blue" : "bg-slate-300",
@@ -577,7 +641,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
               available times.
             </div>
 
-            <div className="mt-auto">
+            <div ref={drawerSendRef} className="mt-auto">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={drawerSent ? "sent" : "send"}
@@ -606,13 +670,7 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
         ) : null}
       </AnimatePresence>
 
-      <SoftCursor
-        show={!!cursor}
-        x={cursor?.x ?? 88}
-        y={cursor?.y ?? 6}
-        press={cursor?.press}
-        reduced={reduced}
-      />
+      <ArrowCursor point={point} press={press} reduced={reduced} />
     </div>
   );
 }
