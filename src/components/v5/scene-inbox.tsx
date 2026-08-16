@@ -9,15 +9,24 @@ import {
   Facebook,
   Inbox as InboxIcon,
   Instagram,
+  Linkedin,
   Mail,
   MessageSquare,
+  Music2,
   Phone,
   Plus,
   UserCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FACE } from "./faces";
+import {
+  FacebookMark,
+  InstagramMark,
+  LinkedInMark,
+  TikTokMark,
+} from "./social-brands";
 import { EASE_OUT, type SceneProps } from "./motion-kit";
+
 
 /* ---------------------------------------------------------------- */
 /* Zapla demo pointer (same visual language as Contacts/Opportunities) */
