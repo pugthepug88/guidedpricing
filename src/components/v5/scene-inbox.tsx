@@ -584,7 +584,7 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
       <div className="flex items-center gap-2 border-b border-slate-200/80 bg-white/85 px-3.5 py-2">
         <span className="text-[12px] font-bold tracking-tight text-slate-700">Unified Inbox</span>
         <span className="rounded-full bg-slate-100 px-2 py-[2px] text-[9.5px] font-bold text-slate-500">
-          4 channels
+          6 channels
         </span>
         <span className="ml-auto text-[10px] font-medium text-slate-400">
           {igArrived ? "3 unread" : "3 unread"}
