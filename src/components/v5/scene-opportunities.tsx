@@ -271,7 +271,7 @@ function DealCard({
             : "border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.05)]",
       )}
     >
-      <div className="flex items-start gap-2">
+      <div className="flex items-center gap-2">
         <img
           src={deal.face}
           alt=""
@@ -286,13 +286,13 @@ function DealCard({
             <div className="truncate text-[10px] font-medium text-slate-400">{deal.detail}</div>
           ) : null}
         </div>
-        <span className="shrink-0 text-[11.5px] font-bold tracking-tight text-slate-900">
-          {deal.value}
-        </span>
       </div>
-      <div className="mt-2 flex items-center justify-between gap-1.5">
-        <SourceChip source={deal.source} />
+      <div className="mt-1.5 flex items-center justify-between gap-1.5">
+        <span className="text-[12.5px] font-bold tracking-tight text-slate-900">{deal.value}</span>
         <span className="truncate text-[9.5px] font-medium text-slate-400">{deal.touch}</span>
+      </div>
+      <div className="mt-1.5">
+        <SourceChip source={deal.source} />
       </div>
     </motion.div>
   );
@@ -451,7 +451,7 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
     <div ref={rootRef} className="absolute inset-0 overflow-hidden bg-slate-50/70">
       <div className="zapla-scroll-hide h-full overflow-x-auto overflow-y-hidden">
         <LayoutGroup id="opportunities">
-          <div className="flex h-full min-w-[620px] gap-2.5 px-3.5 py-3">
+          <div className="flex h-full min-w-[520px] gap-2.5 px-3.5 py-3">
             {columns.map(({ key, deals }) => {
               const meta = STAGE_META[key];
               const active =
@@ -474,7 +474,7 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
                     backgroundColor: active ? "rgba(240,249,255,0.9)" : "rgba(255,255,255,0.7)",
                   }}
                   transition={{ duration: reduced ? 0 : 0.35, ease: EASE_OUT }}
-                  className="relative flex min-w-[148px] flex-1 flex-col rounded-2xl px-2 pb-2 pt-2.5"
+                  className="relative flex min-w-[124px] flex-1 flex-col rounded-2xl px-2 pb-2 pt-2.5"
                 >
                   <div className="mb-2 flex items-center gap-1.5 px-0.5">
                     <span className={cn("h-1.5 w-1.5 rounded-full", meta.dot)} />
