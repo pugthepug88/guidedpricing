@@ -1,79 +1,35 @@
-## Goal
+# Contacts campaign card: three variants + longer hold
 
-Give you a real page to see all 4 character concepts rendered together, then pick one to build into the actual homepage scroll story. No commitment on the homepage yet — this is a decision-making artifact.
+Rework only the VIP campaign success moment in the Contacts scene of `/hero-preview-v5`. Everything else in Contacts (table, filter popover, row selection, SMS drawer, Maya's reply payoff) stays exactly as it is, and the other seven scenes are untouched.
 
-## What I'll build
+## What you'll see
 
-A new route at `/character-lab` (not linked from anywhere public) containing four full-bleed sections stacked vertically — one per concept. Each section shows the character rendered at hero-scale on the left, and on the right: the concept name, one-line pitch, the scroll mechanic it enables, and a "why this works for Zapla" note.
+Three distinct versions of the "VIP comeback campaign / SENT" card, switchable from a small variant selector on the preview page so you can watch each one in place and pick a winner.
 
-### The four concepts I'll render
+**A. Receipt stack**
+Card springs in compact, then widens as four tiny contact avatar rows stagger in beneath the title like a send receipt (Maya, Daniel, Priya, Tom), each ticking green in sequence. Once the fourth ticks, the right side locks into the large emerald SENT block and the card settles, then exits.
 
-**1. The Faceless Operator**
-- A stylized 3D figure in a Zapla-blue jumpsuit and headset. No visible face features, no skin tone, no gender/age signals — the same silhouette-avatar language Apple and Meta use for universal representation.
-- Scroll mechanic: figure stays centered, category cards (Bookings, Reviews, Invoicing, Conversations, Ads, Automations) orbit into place around them as you scroll. Reads as "one operator running everything."
-- Why: Neutral, premium, ageless. Works for any business owner.
+**B. Message launch**
+An SMS bubble flies from the drawer's edge into the blue icon tile, the card unfolds around it from that point, one restrained light sweep travels around the gradient keyline, and SENT stamps in with a single soft ring pulse.
 
-**2. The Zapla Companion**
-- A small round soft-3D "bead" character with two eyes and a subtle Zapla-blue gradient. Not a human. Think: a friendlier Cortana orb, or Intercom's Fin, but with Zapla brand identity.
-- Scroll mechanic: the companion floats beside a phone/laptop and hands off tasks. Cards slide out of it as if it's presenting them.
-- Why: The AI *is* the character, not the user. Universal because it's not human. Very "AI assistant" positioning — matches Zapla's "one system runs your business" pitch.
+**C. Counter roll**
+Card springs in reading "0 of 4 sent", the number rolls up to "4 of 4" while a thin progress line fills along the gradient border, then the right side flips from progress to the large emerald SENT.
 
-**3. The Everyperson Doodle**
-- One warm hand-drawn illustrated cartoon person: big head, small body, oversized smile, deliberately ambiguous features. Notion/Slack illustration style. Wears a small item that changes as you scroll (headset → apron → clipboard → phone) to signal universality across trades.
-- Scroll mechanic: doodle sits at a desk in the center. As you scroll, thought-bubble cards pop out of their head showing what Zapla just handled for them.
-- Why: Approachable, warm, human — the antithesis of cold enterprise SaaS. Duolingo/Mailchimp energy but adult.
+All three keep the current design language: white card around 58 to 68 percent of stage width, 2px blue → cyan → violet keyline, rounded corners, confident shadow, no blur of the table underneath, oversized success typography.
 
-**4. The Living Logo**
-- Zapla's own rounded-square logo mark gets two dots for eyes. It tilts, leans, blinks, "catches" cards. Pure geometric personality, like Pixar's Luxo lamp.
-- Scroll mechanic: logo sits center-frame. Cards fly toward it and it leans/tilts to receive each one. Final frame: the logo is smiling with all category cards docked around it.
-- Why: The character IS your brand mark. Every impression doubles as logo recall. Ownable IP forever.
+## Timing
 
-### Image generation
+The card beat goes from 1000ms to 2000ms, so the payoff holds a full second longer before the row-by-row Sent pills begin. Earlier beats (filter, selection, drawer) and Maya's final 2600ms hold are unchanged, so the Contacts scene simply runs about a second longer before auto-advancing to Opportunities.
 
-I'll generate a hero character image for each concept using the image tool, saved into `src/assets/character-lab/`. Rendered at ~1024×1024 each, styled to feel like they belong to the same brand family (Zapla blues, off-white background, clean, no photographic clutter).
+## Reduced motion
 
-### Layout of the page
-
-```text
-+--------------------------------------------------+
-|  /character-lab                                  |
-|--------------------------------------------------|
-|  "Pick a character direction"                    |
-|  (short intro paragraph)                         |
-|--------------------------------------------------|
-|  [ Concept 1: Faceless Operator ]                |
-|  [ character image ] | [ name, pitch, mechanic ] |
-|--------------------------------------------------|
-|  [ Concept 2: Zapla Companion ]                  |
-|  [ character image ] | [ name, pitch, mechanic ] |
-|--------------------------------------------------|
-|  [ Concept 3: Everyperson Doodle ]               |
-|  [ character image ] | [ name, pitch, mechanic ] |
-|--------------------------------------------------|
-|  [ Concept 4: Living Logo ]                      |
-|  [ character image ] | [ name, pitch, mechanic ] |
-+--------------------------------------------------+
-```
-
-Each section is 90vh, alternating background subtly (white / light Zapla tint) so they read as distinct.
-
-### After you pick
-
-Once you tell me which concept wins, I'll:
-1. Kill the current mascot + Remotion video from `/hero-preview`.
-2. Rebuild the scroll section using the chosen character and its specific scroll mechanic.
-3. Full color, no chaos-to-calm framing — just "one system, everything runs" told the concept's way.
+With reduced motion on, each variant renders its final composed state with a plain fade, no staggered rows, sweep, flight, or counter.
 
 ## Technical notes
 
-- New route: `src/routes/character-lab.tsx`. Not added to any nav — you access it directly at `/character-lab`.
-- Four character images generated via `imagegen` into `src/assets/character-lab/{operator,companion,doodle,logo}.png`.
-- No changes to `hero-preview.tsx`, `products.tsx`, or the Remotion project in this step.
-- No new dependencies.
+- New file `src/components/v5/campaign-cards.tsx` holding the three card components and a shared shell (keyline, shadow, sizing) so the variants differ only in choreography and inner content.
+- `src/components/v5/scenes-a.tsx`: `SceneContacts` accepts a `campaignVariant` prop ("receipt" | "launch" | "counter"), renders the chosen card at phase 13 instead of the inline `CampaignSentCard`, which is removed. Phase mapping, refs, cursor and every other beat are unchanged.
+- `src/routes/hero-preview-v5.tsx`: Contacts `phases` index 13 changes from 1000 to 2000; a small variant toggle (three pills near the scene tabs, preview-only) drives the prop and restarts the Contacts timeline on change.
+- Validation: play Contacts start to finish for each variant at 1440 and ~1180 wide, confirm no horizontal overflow, tab-click restart still works, then lint and typecheck.
 
-## Out of scope for this step
-
-- Building any of the actual scroll animations.
-- Touching the current homepage / hero-preview.
-- Rendering new video.
-- Removing the existing mascot or chaos-to-calm assets. Those stay put until you pick.
+Once you pick a variant, the toggle and the two unused card components get deleted so only the chosen card ships.
