@@ -74,8 +74,8 @@ const SCENES: SceneDef[] = [
     key: "inbox",
     label: "Inbox",
     title: "Inbox",
-    subtitle: "One customer, every channel",
-    phases: [800, 640, 820, 780, 1600, 600],
+    subtitle: "Every channel, one conversation",
+    phases: [1200, 650, 900, 1000, 1250, 550, 1200, 950, 1800],
     render: (p) => <SceneInbox {...p} />,
   },
   {
