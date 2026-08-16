@@ -273,46 +273,49 @@ function CampaignSentCard({ show, reduced }: { show: boolean; reduced: boolean }
     <AnimatePresence>
       {show ? (
         <div className="pointer-events-none absolute inset-0 z-50 flex items-start justify-center pt-[20%]">
-        <motion.div
-          initial={reduced ? false : { opacity: 0, x: 90, scale: 0.94 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: EASE_OUT } }}
-          transition={{ type: "spring", stiffness: 190, damping: 22, mass: 0.9 }}
-          className="w-[64%] rounded-[19px] p-[2px]"
-          style={{
-            background:
-              "linear-gradient(105deg, rgba(37,99,255,1), rgba(34,211,238,1) 52%, rgba(139,92,246,1))",
-            boxShadow: "0 28px 60px -26px rgba(15,23,42,0.45)",
-          }}
-        >
-
-          <div className="flex items-center gap-4 rounded-[17px] bg-white px-5 py-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-zapla-blue text-white">
-              <MessageSquare className="h-5 w-5" />
-            </span>
-            <div className="min-w-0">
-              <div className="truncate text-[19px] font-extrabold leading-tight tracking-[-0.02em] text-zapla-ink">
-                VIP comeback campaign
+          <motion.div
+            initial={reduced ? false : { opacity: 0, x: 90, scale: 0.94 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.28, ease: EASE_OUT } }}
+            transition={{ type: "spring", stiffness: 190, damping: 22, mass: 0.9 }}
+            className="w-[64%] rounded-[19px] p-[2px]"
+            style={{
+              background:
+                "linear-gradient(105deg, rgba(37,99,255,1), rgba(34,211,238,1) 52%, rgba(139,92,246,1))",
+              boxShadow: "0 28px 60px -26px rgba(15,23,42,0.45)",
+            }}
+          >
+            <div className="flex items-center gap-4 rounded-[17px] bg-white px-5 py-4">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-zapla-blue text-white">
+                <MessageSquare className="h-5 w-5" />
+              </span>
+              <div className="min-w-0">
+                <div className="truncate text-[19px] font-extrabold leading-tight tracking-[-0.02em] text-zapla-ink">
+                  VIP comeback campaign
+                </div>
+                <div className="mt-0.5 text-[12.5px] font-medium text-slate-400">4 contacts</div>
               </div>
-              <div className="mt-0.5 text-[12.5px] font-medium text-slate-400">4 contacts</div>
+              <motion.span
+                initial={reduced ? false : { scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  delay: reduced ? 0 : 0.14,
+                  type: "spring",
+                  stiffness: 320,
+                  damping: 20,
+                }}
+                className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-[13px] bg-emerald-50 px-4 py-2.5 text-[20px] font-extrabold uppercase tracking-[0.04em] text-emerald-700"
+              >
+                <Check className="h-5 w-5" strokeWidth={3.5} />
+                Sent
+              </motion.span>
             </div>
-            <motion.span
-              initial={reduced ? false : { scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: reduced ? 0 : 0.14, type: "spring", stiffness: 320, damping: 20 }}
-              className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-[13px] bg-emerald-50 px-4 py-2.5 text-[20px] font-extrabold uppercase tracking-[0.04em] text-emerald-700"
-            >
-              <Check className="h-5 w-5" strokeWidth={3.5} />
-              Sent
-            </motion.span>
-          </div>
-        </motion.div>
+          </motion.div>
         </div>
       ) : null}
     </AnimatePresence>
   );
 }
-
 
 function FilterRow({ label, value, on }: { label: string; value: string; on: boolean }) {
   return (
@@ -358,7 +361,6 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
   const success = phase === 13;
   const sentCount = phase >= 14 ? Math.min(phase - 13, 4) : 0;
   const replied = phase >= 18;
-
 
   /* cursor is anchored to real controls via refs, never guessed coordinates */
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -737,7 +739,6 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
       <CampaignSentCard show={success} reduced={reduced} />
 
       <ArrowCursor point={point} press={press} reduced={reduced} />
-
     </div>
   );
 }
