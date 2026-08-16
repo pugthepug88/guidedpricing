@@ -235,7 +235,6 @@ function HeroV5Page() {
                   <div key={runId} className="absolute inset-0">
                     {scene.render({ phase, elapsedMs, reduced })}
                   </div>
-
                 </AppShell>
               </div>
             </div>

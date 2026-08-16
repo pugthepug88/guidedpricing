@@ -703,7 +703,6 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
                     </AnimatePresence>
                   </div>
                 </motion.div>
-
               );
             })}
           </div>
