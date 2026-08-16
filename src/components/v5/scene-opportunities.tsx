@@ -279,7 +279,7 @@ function DealCard({
           className="h-6 w-6 shrink-0 rounded-full object-cover ring-2 ring-white"
         />
         <div className="min-w-0 flex-1">
-          <div className="truncate text-[11.5px] font-semibold leading-tight text-slate-800">
+          <div className="text-[11.5px] font-semibold leading-[1.2] text-slate-800">
             {deal.name}
           </div>
           {deal.detail ? (
