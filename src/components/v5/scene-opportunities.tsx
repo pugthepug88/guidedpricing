@@ -112,7 +112,7 @@ type Deal = {
   face: string;
 };
 
-const STAGE_KEYS = ["new", "qualified", "proposal", "negotiation"] as const;
+const STAGE_KEYS = ["new", "qualified", "proposal", "negotiation", "won"] as const;
 type StageKey = (typeof STAGE_KEYS)[number];
 
 const STAGE_META: Record<StageKey, { label: string; dot: string; bar: string }> = {
@@ -120,6 +120,7 @@ const STAGE_META: Record<StageKey, { label: string; dot: string; bar: string }> 
   qualified: { label: "Qualified", dot: "bg-teal-500", bar: "bg-teal-500/70" },
   proposal: { label: "Proposal Sent", dot: "bg-amber-500", bar: "bg-amber-500/70" },
   negotiation: { label: "Negotiation", dot: "bg-violet-500", bar: "bg-violet-500/70" },
+  won: { label: "Won", dot: "bg-emerald-500", bar: "bg-emerald-500/70" },
 };
 
 const DEALS: Record<StageKey, Deal[]> = {
@@ -173,7 +174,7 @@ const DEALS: Record<StageKey, Deal[]> = {
       name: "Eastside Property Group",
       value: "$9,800",
       source: "Email",
-      touch: "Yesterday",
+      touch: "Proposal viewed 2h ago",
       face: FACE.priya,
     },
   ],
@@ -191,8 +192,18 @@ const DEALS: Record<StageKey, Deal[]> = {
       name: "Summit Advisory",
       value: "$12,500",
       source: "Referral",
-      touch: "3 days ago",
+      touch: "Follow up today",
       face: FACE.tom,
+    },
+  ],
+  won: [
+    {
+      id: "coastal",
+      name: "Coastal Dental",
+      value: "$6,800",
+      source: "Referral",
+      touch: "Yesterday",
+      face: FACE.leo,
     },
   ],
 };
@@ -359,6 +370,76 @@ function QualifiedPayoff({ show, reduced }: { show: boolean; reduced: boolean })
 }
 
 /* ---------------------------------------------------------------- */
+/* Deal Won payoff                                                   */
+/* ---------------------------------------------------------------- */
+
+function WonPayoff({ show, reduced }: { show: boolean; reduced: boolean }) {
+  return (
+    <AnimatePresence>
+      {show ? (
+        <motion.div
+          className="pointer-events-none absolute left-1/2 top-[28%] z-50 w-[66%] min-w-[320px] max-w-[560px]"
+          initial={reduced ? false : { opacity: 0, x: "-50%", y: 14, scale: 0.9 }}
+          animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
+          exit={{ opacity: 0, x: "-50%", scale: 0.96 }}
+          transition={
+            reduced ? { duration: 0 } : { type: "spring", stiffness: 200, damping: 21, mass: 0.9 }
+          }
+        >
+          <div
+            className="rounded-[20px] p-[2px] shadow-[0_44px_84px_-30px_rgba(15,23,42,0.5)]"
+            style={{
+              background:
+                "linear-gradient(120deg, #2563ff 0%, #22d3ee 40%, #7c5cf6 76%, #2563ff 100%)",
+            }}
+          >
+            <div className="flex items-center gap-4 rounded-[18px] bg-white px-5 py-4">
+              <div className="min-w-0">
+                <div className="truncate text-[19px] font-extrabold leading-tight tracking-tight text-slate-900">
+                  Summit Advisory
+                </div>
+                <div className="mt-0.5 text-[11.5px] font-semibold uppercase tracking-[0.08em] text-slate-400">
+                  Negotiation → Won
+                </div>
+              </div>
+              <motion.div
+                className="ml-auto shrink-0 text-right"
+                initial={reduced ? false : { opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={
+                  reduced
+                    ? { duration: 0 }
+                    : { type: "spring", stiffness: 300, damping: 18, delay: 0.1 }
+                }
+              >
+                <div className="text-[34px] font-extrabold leading-none tracking-[-0.03em] text-slate-900 sm:text-[40px]">
+                  $12,500
+                </div>
+              </motion.div>
+              <motion.div
+                className="shrink-0 rounded-2xl bg-emerald-500 px-4 py-3 text-[15px] font-extrabold uppercase tracking-tight text-white shadow-[0_16px_30px_-12px_rgba(16,185,129,0.85)]"
+                initial={reduced ? false : { scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={
+                  reduced
+                    ? { duration: 0 }
+                    : { type: "spring", stiffness: 320, damping: 16, delay: 0.18 }
+                }
+              >
+                <span className="flex items-center gap-1.5 whitespace-nowrap">
+                  <Check className="h-4 w-4" strokeWidth={3.5} />
+                  Deal Won
+                </span>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
+/* ---------------------------------------------------------------- */
 /* Scene                                                             */
 /* ---------------------------------------------------------------- */
 
@@ -367,7 +448,8 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
      0 populated board hold · 1 Maya arrives in New Enquiry
      2 cursor grabs Maya · 3 drag to Qualified · 4 large QUALIFIED payoff
      5 board hold · 6 cursor grabs Eastside · 7 drag to Negotiation
-     8 compact "Stage updated" confirmation · 9 final board hold */
+     8 compact "Stage updated" confirmation · 9 cursor grabs Summit
+     10 drag Summit to Won · 11 large DEAL WON payoff · 12 final board hold */
   const mayaVisible = phase >= 1;
   const mayaNew = phase >= 1 && phase <= 2;
   const mayaDragging = phase === 2 || phase === 3;
@@ -381,13 +463,23 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
   const confirm = phase === 8;
   const eastHighlight = phase >= 7 && phase <= 8;
 
+  const summitDragging = phase === 9 || phase === 10;
+  const summitWon = phase >= 10;
+  const wonActive = phase === 10;
+  const wonPayoff = phase === 11;
+  const summitHighlight = phase >= 10;
+
+  const openPipeline = summitWon ? 37100 : mayaVisible ? 49600 : 47200;
+
   const rootRef = useRef<HTMLDivElement | null>(null);
   const mayaRef = useRef<HTMLDivElement | null>(null);
   const eastRef = useRef<HTMLDivElement | null>(null);
+  const summitRef = useRef<HTMLDivElement | null>(null);
   const qualifiedRef = useRef<HTMLDivElement | null>(null);
   const negotiationRef = useRef<HTMLDivElement | null>(null);
+  const wonRef = useRef<HTMLDivElement | null>(null);
 
-  const target: "maya" | "qualified" | "east" | "negotiation" | null =
+  const target: "maya" | "qualified" | "east" | "negotiation" | "summit" | "won" | null =
     phase === 2
       ? "maya"
       : phase === 3
@@ -396,8 +488,12 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
           ? "east"
           : phase === 7
             ? "negotiation"
-            : null;
-  const press = phase === 2 || phase === 6;
+            : phase === 9
+              ? "summit"
+              : phase === 10
+                ? "won"
+                : null;
+  const press = phase === 2 || phase === 6 || phase === 9;
 
   const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
 
@@ -413,13 +509,17 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
           ? mayaRef.current
           : target === "east"
             ? eastRef.current
-            : target === "qualified"
-              ? qualifiedRef.current
-              : negotiationRef.current;
+            : target === "summit"
+              ? summitRef.current
+              : target === "qualified"
+                ? qualifiedRef.current
+                : target === "won"
+                  ? wonRef.current
+                  : negotiationRef.current;
       if (!root || !el) return;
       const r = root.getBoundingClientRect();
       const b = el.getBoundingClientRect();
-      const onCard = target === "maya" || target === "east";
+      const onCard = target === "maya" || target === "east" || target === "summit";
       setPoint({
         x: b.left - r.left + b.width * (onCard ? 0.42 : 0.5),
         y: b.top - r.top + (onCard ? b.height * 0.5 : 78),
@@ -440,23 +540,63 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
     if (key === "new") deals = mayaNew ? [MAYA, ...deals] : deals;
     if (key === "qualified") deals = phase >= 3 && mayaVisible ? [MAYA, ...deals] : deals;
     if (key === "proposal" && eastMoved) deals = deals.filter((d) => d.id !== "eastside");
-    if (key === "negotiation" && eastMoved) {
-      const east = DEALS.proposal.find((d) => d.id === "eastside")!;
-      deals = [east, ...deals];
+    if (key === "negotiation") {
+      if (summitWon) deals = deals.filter((d) => d.id !== "summit");
+      if (eastMoved) {
+        const east = DEALS.proposal.find((d) => d.id === "eastside")!;
+        deals = [east, ...deals];
+      }
+    }
+    if (key === "won" && summitWon) {
+      const summit = DEALS.negotiation.find((d) => d.id === "summit")!;
+      deals = [summit, ...deals];
     }
     return { key, deals };
   });
 
   return (
-    <div ref={rootRef} className="absolute inset-0 overflow-hidden bg-slate-50/70">
-      <div className="zapla-scroll-hide h-full overflow-x-auto overflow-y-hidden">
+    <div ref={rootRef} className="absolute inset-0 flex flex-col overflow-hidden bg-slate-50/70">
+      {/* native pipeline bar */}
+      <div className="flex items-center gap-3 border-b border-slate-200/80 bg-white/85 px-3.5 py-2">
+        <span className="text-[12px] font-bold tracking-tight text-slate-700">Sales Pipeline</span>
+        <div className="ml-auto flex items-center gap-2">
+          <AnimatePresence>
+            {phase >= 11 ? (
+              <motion.span
+                initial={reduced ? false : { opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: reduced ? 0 : 0.3, ease: EASE_OUT }}
+                className="rounded-full bg-emerald-50 px-2 py-[2px] text-[10px] font-bold text-emerald-700"
+              >
+                Won +$12,500
+              </motion.span>
+            ) : null}
+          </AnimatePresence>
+          <span className="text-[10px] font-medium uppercase tracking-[0.08em] text-slate-400">
+            Open pipeline
+          </span>
+          <motion.span
+            key={openPipeline}
+            initial={reduced ? false : { opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.35, ease: EASE_OUT }}
+            className="text-[13px] font-extrabold tracking-tight text-slate-900"
+          >
+            ${openPipeline.toLocaleString("en-AU")}
+          </motion.span>
+        </div>
+      </div>
+
+      <div className="zapla-scroll-hide min-h-0 flex-1 overflow-x-auto overflow-y-hidden">
         <LayoutGroup id="opportunities">
-          <div className="flex h-full min-w-[520px] gap-2.5 px-3.5 py-3">
+          <div className="flex h-full min-w-[560px] gap-1.5 px-2.5 py-3">
             {columns.map(({ key, deals }) => {
               const meta = STAGE_META[key];
               const active =
                 (key === "qualified" && qualifiedActive) ||
-                (key === "negotiation" && negotiationActive);
+                (key === "negotiation" && negotiationActive) ||
+                (key === "won" && wonActive);
               return (
                 <motion.div
                   key={key}
@@ -465,16 +605,24 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
                       ? qualifiedRef
                       : key === "negotiation"
                         ? negotiationRef
-                        : undefined
+                        : key === "won"
+                          ? wonRef
+                          : undefined
                   }
                   animate={{
                     boxShadow: active
-                      ? "0 0 0 2px rgba(34,211,238,0.55), 0 18px 34px -22px rgba(37,99,255,0.5)"
+                      ? key === "won"
+                        ? "0 0 0 2px rgba(16,185,129,0.55), 0 18px 34px -22px rgba(37,99,255,0.5)"
+                        : "0 0 0 2px rgba(34,211,238,0.55), 0 18px 34px -22px rgba(37,99,255,0.5)"
                       : "0 0 0 1px rgba(226,232,240,0.9)",
-                    backgroundColor: active ? "rgba(240,249,255,0.9)" : "rgba(255,255,255,0.7)",
+                    backgroundColor: active
+                      ? key === "won"
+                        ? "rgba(236,253,245,0.92)"
+                        : "rgba(240,249,255,0.9)"
+                      : "rgba(255,255,255,0.7)",
                   }}
                   transition={{ duration: reduced ? 0 : 0.35, ease: EASE_OUT }}
-                  className="relative flex min-w-[124px] flex-1 flex-col rounded-2xl px-2 pb-2 pt-2.5"
+                  className="relative flex min-w-[104px] flex-1 flex-col rounded-2xl px-1.5 pb-2 pt-2.5"
                 >
                   <div className="mb-2 flex items-center gap-1.5 px-0.5">
                     <span className={cn("h-1.5 w-1.5 rounded-full", meta.dot)} />
@@ -526,15 +674,21 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
                                 ? (el) => {
                                     eastRef.current = el;
                                   }
-                                : undefined
+                                : deal.id === "summit"
+                                  ? (el) => {
+                                      summitRef.current = el;
+                                    }
+                                  : undefined
                           }
                           dragging={
                             (deal.id === "maya" && mayaDragging) ||
-                            (deal.id === "eastside" && eastDragging)
+                            (deal.id === "eastside" && eastDragging) ||
+                            (deal.id === "summit" && summitDragging)
                           }
                           highlight={
                             (deal.id === "maya" && mayaFresh) ||
-                            (deal.id === "eastside" && eastHighlight)
+                            (deal.id === "eastside" && eastHighlight) ||
+                            (deal.id === "summit" && summitHighlight)
                               ? "blue"
                               : null
                           }
@@ -550,6 +704,7 @@ export function SceneOpportunities({ phase, reduced }: SceneProps) {
       </div>
 
       <QualifiedPayoff show={payoff} reduced={reduced} />
+      <WonPayoff show={wonPayoff} reduced={reduced} />
       <DemoCursor point={point} press={press} reduced={reduced} />
     </div>
   );
