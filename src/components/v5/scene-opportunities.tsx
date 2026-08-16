@@ -112,7 +112,7 @@ type Deal = {
   face: string;
 };
 
-const STAGE_KEYS = ["new", "qualified", "proposal", "negotiation"] as const;
+const STAGE_KEYS = ["new", "qualified", "proposal", "negotiation", "won"] as const;
 type StageKey = (typeof STAGE_KEYS)[number];
 
 const STAGE_META: Record<StageKey, { label: string; dot: string; bar: string }> = {
@@ -120,7 +120,9 @@ const STAGE_META: Record<StageKey, { label: string; dot: string; bar: string }> 
   qualified: { label: "Qualified", dot: "bg-teal-500", bar: "bg-teal-500/70" },
   proposal: { label: "Proposal Sent", dot: "bg-amber-500", bar: "bg-amber-500/70" },
   negotiation: { label: "Negotiation", dot: "bg-violet-500", bar: "bg-violet-500/70" },
+  won: { label: "Won", dot: "bg-emerald-500", bar: "bg-emerald-500/70" },
 };
+
 
 const DEALS: Record<StageKey, Deal[]> = {
   new: [
