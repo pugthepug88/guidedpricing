@@ -877,7 +877,11 @@ export function SceneInbox({ phase, reduced }: SceneProps) {
                 Last activity
               </div>
               <div className="mt-1 text-[9.5px] font-medium text-slate-500">
-                {smsArrived ? "SMS · Just now" : "Instagram · 14m ago"}
+                {smsArrived
+                  ? "SMS · Just now"
+                  : sophieSelected
+                    ? "Instagram · 14m ago"
+                    : "Email · 9m ago"}
               </div>
             </div>
           </div>
