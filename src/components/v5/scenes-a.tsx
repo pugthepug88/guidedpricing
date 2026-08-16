@@ -206,44 +206,53 @@ function StatusCell({ status }: { status: string }) {
   );
 }
 
-/* soft interaction indicator: ring + inner dot, only on real controls */
-function SoftCursor({
-  show,
-  x,
-  y,
+/* conventional arrow pointer, anchored to real DOM controls */
+function ArrowCursor({
+  point,
   press,
   reduced,
 }: {
-  show: boolean;
-  x: number;
-  y: number;
+  point: { x: number; y: number } | null;
   press?: boolean;
   reduced: boolean;
 }) {
   if (reduced) return null;
   return (
     <AnimatePresence>
-      {show ? (
+      {point ? (
         <motion.div
-          className="pointer-events-none absolute z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, left: `${x}%`, top: `${y}%` }}
+          className="pointer-events-none absolute left-0 top-0 z-50"
+          initial={{ opacity: 0, x: point.x, y: point.y }}
+          animate={{ opacity: 1, x: point.x, y: point.y }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.52, ease: EASE_OUT }}
-          style={{ left: `${x}%`, top: `${y}%` }}
+          transition={{
+            opacity: { duration: 0.25, ease: EASE_OUT },
+            x: { duration: 0.62, ease: [0.32, 0.72, 0.24, 1] },
+            y: { duration: 0.62, ease: [0.32, 0.72, 0.24, 1] },
+          }}
         >
-          <motion.span
-            animate={{ scale: press ? 0.78 : 1 }}
-            transition={{ duration: 0.22, ease: EASE_OUT }}
-            className="flex h-[18px] w-[18px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-slate-400/60 bg-white/70 shadow-[0_2px_8px_-2px_rgba(15,23,42,0.35)] backdrop-blur-[1px]"
+          <motion.svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            animate={{ scale: press ? 0.86 : 1 }}
+            transition={{ duration: 0.18, ease: EASE_OUT }}
+            style={{ originX: 0.15, originY: 0.1, filter: "drop-shadow(0 2px 3px rgba(15,23,42,0.3))" }}
           >
-            <span className="h-[5px] w-[5px] rounded-full bg-slate-700" />
-          </motion.span>
+            <path
+              d="M5 2.5 L5 19.2 L9.35 14.9 L12.1 21.4 L14.9 20.2 L12.2 13.9 L18.2 13.9 Z"
+              fill="#ffffff"
+              stroke="#0f172a"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+          </motion.svg>
         </motion.div>
       ) : null}
     </AnimatePresence>
   );
 }
+
 
 function FilterRow({ label, value, on }: { label: string; value: string; on: boolean }) {
   return (
