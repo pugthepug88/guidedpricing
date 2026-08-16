@@ -59,7 +59,6 @@ const SCENES: SceneDef[] = [
       2600,
     ],
 
-
     render: (p) => <SceneContacts {...p} />,
   },
   {
