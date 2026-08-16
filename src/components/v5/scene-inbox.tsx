@@ -338,16 +338,18 @@ function LeftNav() {
       <div className="mt-3 px-1 pb-1 text-[9.5px] font-bold uppercase tracking-[0.1em] text-slate-400">
         Channels
       </div>
-      <div className="space-y-[3px]">
+      <div className="space-y-[2px]">
         {(
           [
-            ["sms", 5],
-            ["email", 4],
+            ["sms", 4],
+            ["email", 3],
             ["instagram", 2],
             ["facebook", 1],
+            ["linkedin", 1],
+            ["tiktok", 1],
           ] as Array<[Channel, number]>
         ).map(([c, n]) => (
-          <div key={c} className="flex items-center gap-2 rounded-lg px-2 py-[5px]">
+          <div key={c} className="flex items-center gap-2 rounded-lg px-2 py-[3.5px]">
             <ChannelTile channel={c} size={14} />
             <span className="truncate text-[10.5px] font-medium text-slate-500">
               {CHANNEL_META[c].label}
@@ -355,6 +357,7 @@ function LeftNav() {
             <span className="ml-auto text-[9.5px] font-bold text-slate-400">{n}</span>
           </div>
         ))}
+
       </div>
     </div>
   );
