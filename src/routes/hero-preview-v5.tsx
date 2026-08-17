@@ -90,7 +90,7 @@ const SCENES: SceneDef[] = [
     label: "Content Planner",
     title: "Content Planner",
     subtitle: "One post becomes multi-channel distribution",
-    phases: [1400, 1700, 3000, 2800, 2400, 3600, 2600, 3200],
+    phases: [1000, 1100, 2200, 2100, 1600, 2300, 2600],
     render: (p) => <SceneContentLive {...p} />,
   },
   {
@@ -162,6 +162,12 @@ function HeroV5Page() {
 
   return (
     <div className="min-h-screen bg-white font-zapla text-zapla-ink">
+      <style>{`
+        [data-scene="content"] div[class*="ml-3 hidden rounded-[9px] border border-slate-200 bg-slate-50 p-[2px] sm:flex"] {
+          display: none !important;
+        }
+      `}</style>
+
       <header className="mx-auto flex max-w-[1360px] items-center gap-3 px-5 py-5 sm:px-8">
         <img src={logo.url} alt="Zapla" className="h-8 w-8 rounded-[10px]" />
         <span className="text-[15px] font-semibold tracking-tight">Zapla</span>
@@ -224,7 +230,7 @@ function HeroV5Page() {
             >
               <div className="h-[460px] sm:h-[520px] lg:h-[580px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
-                  <div key={runId} className="absolute inset-0">
+                  <div key={runId} data-scene={scene.key} className="absolute inset-0">
                     {scene.render({ phase, elapsedMs, reduced })}
                   </div>
                 </AppShell>
