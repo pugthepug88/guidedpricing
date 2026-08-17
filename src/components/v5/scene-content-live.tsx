@@ -7,8 +7,6 @@ export function SceneContentLive(props: SceneProps) {
 
   const points: Record<number, CursorPoint> = {
     1: { left: "92%", top: "5%" },
-    2: { left: "24%", top: "24%" },
-    3: { left: "49%", top: "47%" },
     4: { left: "51%", top: "44%" },
     5: { left: "57%", top: "86%" },
   };
