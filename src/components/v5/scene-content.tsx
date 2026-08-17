@@ -14,9 +14,10 @@ import { cn } from "@/lib/utils";
 import { EASE_OUT, type SceneProps } from "./motion-kit";
 import {
   FacebookMark,
-  GoogleBusinessMark,
   InstagramMark,
   LinkedInMark,
+  PinterestMark,
+  ThreadsMark,
   TikTokMark,
 } from "./social-brands";
 import photoA from "@/assets/customer-02-northside.jpg";
@@ -26,9 +27,10 @@ import photoC from "@/assets/customer-05-peak.jpg";
 const CHANNELS = [
   { key: "instagram", Mark: InstagramMark },
   { key: "facebook", Mark: FacebookMark },
-  { key: "linkedin", Mark: LinkedInMark },
-  { key: "google", Mark: GoogleBusinessMark },
   { key: "tiktok", Mark: TikTokMark },
+  { key: "linkedin", Mark: LinkedInMark },
+  { key: "pinterest", Mark: PinterestMark },
+  { key: "threads", Mark: ThreadsMark },
 ] as const;
 
 const DAYS = [
@@ -113,7 +115,7 @@ function ScheduledTile({ reduced }: { reduced: boolean }) {
           <span className="rounded-full bg-emerald-50 px-1 py-[1px] text-[6px] font-black text-emerald-700">SCHEDULED</span>
         </div>
         <div className="truncate text-[7.5px] font-black text-slate-800">Only 3 spots left Friday</div>
-        <div className="mt-0.5"><PlatformStack count={5} /></div>
+        <div className="mt-0.5"><PlatformStack count={6} /></div>
       </div>
       <motion.span
         className="pointer-events-none absolute inset-0 rounded-[8px] ring-2 ring-blue-400"
@@ -281,11 +283,11 @@ function CreativeCard({ variant, selected = false }: { variant: 0 | 1 | 2; selec
 function BriefCard({ phase, reduced }: { phase: number; reduced: boolean }) {
   return (
     <AnimatePresence>
-      {phase >= 2 && phase <= 5 ? (
+      {phase >= 1 && phase <= 3 ? (
         <motion.div
           className="absolute left-[7%] top-[12%] z-40 w-[225px] rounded-[18px] border border-white/80 bg-white/76 p-3.5 shadow-[0_28px_70px_-34px_rgba(15,23,42,.48)] backdrop-blur-[26px]"
           initial={reduced ? false : { opacity: 0, x: -32, y: 12, scale: 0.92 }}
-          animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+          animate={{ opacity: phase === 3 ? 0.7 : 1, x: 0, y: 0, scale: phase === 3 ? 0.94 : 1 }}
           exit={{ opacity: 0, x: -20, scale: 0.95 }}
           transition={{ type: "spring", stiffness: 220, damping: 24 }}
         >
@@ -309,7 +311,37 @@ function BriefCard({ phase, reduced }: { phase: number; reduced: boolean }) {
           </div>
 
           <div className="mt-2 flex items-center gap-1.5 text-[7.5px] font-extrabold text-slate-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> 5 channels · Sydney audience
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> 6 channels · Sydney audience
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
+function PostDraftCard({ phase, reduced }: { phase: number; reduced: boolean }) {
+  return (
+    <AnimatePresence>
+      {phase === 2 ? (
+        <motion.div
+          className="absolute left-1/2 top-[47%] z-50 w-[330px] max-w-[54%] -translate-x-1/2 -translate-y-1/2 rounded-[20px] border border-white/85 bg-white/94 p-4 shadow-[0_32px_80px_-34px_rgba(15,23,42,.55)] backdrop-blur-2xl"
+          initial={reduced ? false : { opacity: 0, y: 24, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -12, scale: 0.96 }}
+          transition={{ type: "spring", stiffness: 235, damping: 23 }}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div className="text-[8px] font-black uppercase tracking-[.16em] text-blue-600">POST DRAFT</div>
+            <span className="rounded-full bg-violet-50 px-2 py-1 text-[7px] font-black text-violet-600">AI written</span>
+          </div>
+          <div className="mt-3 text-[18px] font-black leading-[1.02] tracking-[-.035em] text-slate-900">Only 3 spots left this Friday</div>
+          <div className="mt-2.5 text-[10px] font-semibold leading-[1.55] text-slate-600">A few Friday appointments just opened up. Book your spot before they’re gone.</div>
+          <div className="mt-3 flex items-center justify-between gap-2 border-t border-slate-100 pt-3">
+            <span className="rounded-full bg-slate-950 px-3 py-1.5 text-[8px] font-black text-white">Book now</span>
+            <div className="flex items-center gap-2 text-[7.5px] font-bold text-slate-400">
+              Ready for creative
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-50 text-emerald-600"><Check className="h-3 w-3" strokeWidth={3} /></span>
+            </div>
           </div>
         </motion.div>
       ) : null}
@@ -320,24 +352,22 @@ function BriefCard({ phase, reduced }: { phase: number; reduced: boolean }) {
 function GeneratingSeed({ phase, reduced }: { phase: number; reduced: boolean }) {
   return (
     <AnimatePresence>
-      {phase === 2 ? (
+      {phase === 3 ? (
         <motion.div
-          className="absolute left-1/2 top-[47%] z-40 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+          className="absolute left-1/2 top-[47%] z-[48] flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
           initial={reduced ? false : { opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.3 }}
+          animate={reduced ? { opacity: 0 } : { opacity: [0, 1, 1, 0], scale: [0.65, 1, 1, 1.15] }}
+          transition={{ duration: reduced ? 0 : 0.62, times: [0, 0.18, 0.62, 1] }}
         >
-          <div className="relative flex h-24 w-24 items-center justify-center rounded-[28px] border border-violet-100 bg-white/90 shadow-[0_28px_70px_-30px_rgba(109,40,217,.4)] backdrop-blur-xl">
+          <div className="relative flex h-24 w-24 items-center justify-center rounded-[28px] border border-violet-100 bg-white/95 shadow-[0_28px_70px_-30px_rgba(109,40,217,.4)] backdrop-blur-xl">
             <motion.span
               className="absolute inset-0 rounded-[28px] border-2 border-violet-300"
               animate={reduced ? {} : { scale: [0.8, 1.35], opacity: [0.7, 0] }}
-              transition={{ duration: 1.1, repeat: Infinity, ease: "easeOut" }}
+              transition={{ duration: 0.72, repeat: Infinity, ease: "easeOut" }}
             />
-            <motion.div animate={reduced ? {} : { rotate: [0, 12, -10, 0], scale: [1, 1.08, 1] }} transition={{ duration: 1.2, repeat: Infinity }}>
-              <Sparkles className="h-8 w-8 text-violet-600" />
-            </motion.div>
+            <Sparkles className="h-8 w-8 text-violet-600" />
           </div>
-          <div className="mt-3 rounded-full bg-white/90 px-3 py-1.5 text-[8px] font-black text-violet-700 shadow-sm">Creating 3 concepts…</div>
+          <div className="mt-3 rounded-full bg-white/95 px-3 py-1.5 text-[8px] font-black text-violet-700 shadow-sm">Creating 3 concepts…</div>
         </motion.div>
       ) : null}
     </AnimatePresence>
@@ -345,18 +375,18 @@ function GeneratingSeed({ phase, reduced }: { phase: number; reduced: boolean })
 }
 
 function ConceptDeck({ phase, reduced }: { phase: number; reduced: boolean }) {
-  const generated = phase >= 3;
-  const selected = phase >= 4;
+  if (phase < 3 || phase > 5) return null;
 
-  if (!generated) return null;
+  const selected = phase >= 4;
+  const delay = phase === 3 && !reduced ? 0.48 : 0;
 
   return (
-    <div className="absolute left-1/2 top-[48%] z-40 h-[260px] w-[510px] -translate-x-1/2 -translate-y-1/2">
+    <div className="absolute left-1/2 top-[48%] z-40 h-[260px] w-[510px] max-w-[78%] -translate-x-1/2 -translate-y-1/2">
       <motion.div
         className="absolute left-[18px] top-[24px]"
         initial={reduced ? false : { opacity: 0, x: 152, y: 0, scale: 0.5, rotate: 0 }}
         animate={selected ? { opacity: 0.34, x: -16, y: 4, scale: 0.86, rotate: -11, filter: "blur(1px)" } : { opacity: 1, x: 0, y: 0, scale: 1, rotate: -8, filter: "blur(0px)" }}
-        transition={{ type: "spring", stiffness: 230, damping: 22, delay: reduced ? 0 : 0.05 }}
+        transition={{ type: "spring", stiffness: 230, damping: 22, delay }}
       >
         <CreativeCard variant={1} />
       </motion.div>
@@ -365,7 +395,7 @@ function ConceptDeck({ phase, reduced }: { phase: number; reduced: boolean }) {
         className="absolute right-[18px] top-[24px]"
         initial={reduced ? false : { opacity: 0, x: -152, y: 0, scale: 0.5, rotate: 0 }}
         animate={selected ? { opacity: 0.34, x: 16, y: 4, scale: 0.86, rotate: 11, filter: "blur(1px)" } : { opacity: 1, x: 0, y: 0, scale: 1, rotate: 8, filter: "blur(0px)" }}
-        transition={{ type: "spring", stiffness: 230, damping: 22, delay: reduced ? 0 : 0.12 }}
+        transition={{ type: "spring", stiffness: 230, damping: 22, delay: delay + 0.07 }}
       >
         <CreativeCard variant={2} />
       </motion.div>
@@ -374,7 +404,7 @@ function ConceptDeck({ phase, reduced }: { phase: number; reduced: boolean }) {
         className="absolute left-1/2 top-0 -translate-x-1/2"
         initial={reduced ? false : { opacity: 0, y: 52, scale: 0.55 }}
         animate={selected ? { opacity: 1, y: -10, scale: 1.13 } : { opacity: 1, y: 0, scale: 1 }}
-        transition={{ type: "spring", stiffness: 245, damping: 21, delay: reduced ? 0 : 0.18 }}
+        transition={{ type: "spring", stiffness: 245, damping: 21, delay: delay + 0.12 }}
       >
         <CreativeCard variant={0} selected={selected} />
       </motion.div>
@@ -384,6 +414,7 @@ function ConceptDeck({ phase, reduced }: { phase: number; reduced: boolean }) {
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: reduced ? 0 : 0.62 }}
             exit={{ opacity: 0 }}
             className="absolute bottom-[-4px] left-1/2 -translate-x-1/2 rounded-full bg-white/92 px-3 py-1.5 text-[8px] font-black text-slate-700 shadow-[0_10px_28px_-18px_rgba(15,23,42,.55)]"
           >
@@ -399,11 +430,12 @@ function ChannelBurst({ phase, reduced }: { phase: number; reduced: boolean }) {
   if (phase < 4 || phase > 5) return null;
 
   const positions = [
-    { x: -150, y: -112 },
-    { x: 150, y: -104 },
-    { x: -175, y: 34 },
-    { x: 170, y: 48 },
-    { x: 18, y: 151 },
+    { x: -152, y: -106 },
+    { x: 0, y: -132 },
+    { x: 152, y: -106 },
+    { x: -164, y: 48 },
+    { x: 164, y: 48 },
+    { x: 0, y: 142 },
   ];
 
   return (
@@ -413,10 +445,10 @@ function ChannelBurst({ phase, reduced }: { phase: number; reduced: boolean }) {
         return (
           <motion.div
             key={key}
-            className="absolute flex h-10 w-10 items-center justify-center rounded-[12px] border border-white/85 bg-white/92 shadow-[0_15px_34px_-17px_rgba(15,23,42,.55)] backdrop-blur-xl"
+            className="absolute flex h-10 w-10 items-center justify-center rounded-[12px] border border-white/85 bg-white/94 shadow-[0_15px_34px_-17px_rgba(15,23,42,.55)] backdrop-blur-xl"
             initial={reduced ? false : { opacity: 0, x: 0, y: 0, scale: 0.2, rotate: 20 }}
             animate={{ opacity: 1, x: p.x, y: p.y, scale: 1, rotate: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 18, delay: reduced ? 0 : index * 0.08 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18, delay: reduced ? 0 : index * 0.07 }}
             style={{ marginLeft: -20, marginTop: -20 }}
           >
             <Mark size={23} />
@@ -424,7 +456,7 @@ function ChannelBurst({ phase, reduced }: { phase: number; reduced: boolean }) {
               className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ type: "spring", delay: reduced ? 0 : 0.2 + index * 0.08 }}
+              transition={{ type: "spring", delay: reduced ? 0 : 0.18 + index * 0.07 }}
             >
               <Check className="h-2.5 w-2.5 text-white" strokeWidth={3.5} />
             </motion.span>
@@ -433,13 +465,12 @@ function ChannelBurst({ phase, reduced }: { phase: number; reduced: boolean }) {
       })}
 
       <motion.div
-        className="absolute left-0 top-0 -translate-x-1/2 translate-y-[102px] rounded-[12px] border border-white/80 bg-white/92 px-3 py-2 shadow-[0_15px_34px_-20px_rgba(15,23,42,.45)] backdrop-blur-xl"
-        initial={reduced ? false : { opacity: 0, y: 116, scale: 0.9 }}
-        animate={{ opacity: 1, y: 102, scale: 1 }}
-        transition={{ delay: reduced ? 0 : 0.42, type: "spring", stiffness: 240, damping: 22 }}
+        className="absolute left-0 top-0 -translate-x-1/2 translate-y-[92px] rounded-full border border-white/80 bg-white/94 px-3 py-1.5 shadow-[0_15px_34px_-20px_rgba(15,23,42,.45)] backdrop-blur-xl"
+        initial={reduced ? false : { opacity: 0, y: 106, scale: 0.9 }}
+        animate={{ opacity: 1, y: 92, scale: 1 }}
+        transition={{ delay: reduced ? 0 : 0.4, type: "spring", stiffness: 240, damping: 22 }}
       >
-        <div className="whitespace-nowrap text-[8px] font-black text-slate-800">A fresh week, a few spots left.</div>
-        <div className="mt-0.5 whitespace-nowrap text-[7px] font-semibold text-slate-400">Caption optimised for each channel</div>
+        <div className="whitespace-nowrap text-[7.5px] font-black text-slate-700">Optimised for 6 channels</div>
       </motion.div>
     </div>
   );
@@ -450,7 +481,7 @@ function ScheduleDock({ phase, reduced }: { phase: number; reduced: boolean }) {
     <AnimatePresence>
       {phase === 5 ? (
         <motion.div
-          className="absolute bottom-[8%] left-1/2 z-[58] flex -translate-x-1/2 items-center gap-2 rounded-[16px] border border-white/80 bg-white/92 px-3 py-2.5 shadow-[0_24px_60px_-26px_rgba(15,23,42,.52)] backdrop-blur-2xl"
+          className="absolute bottom-[8%] left-1/2 z-[58] flex -translate-x-1/2 items-center gap-2 rounded-[16px] border border-white/80 bg-white/94 px-3 py-2.5 shadow-[0_24px_60px_-26px_rgba(15,23,42,.52)] backdrop-blur-2xl"
           initial={reduced ? false : { opacity: 0, y: 30, scale: 0.92 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 14, scale: 0.96 }}
@@ -470,29 +501,6 @@ function ScheduleDock({ phase, reduced }: { phase: number; reduced: boolean }) {
           >
             <Send className="h-3 w-3" /> Schedule post
           </motion.span>
-        </motion.div>
-      ) : null}
-    </AnimatePresence>
-  );
-}
-
-function FlightToCalendar({ phase, reduced }: { phase: number; reduced: boolean }) {
-  return (
-    <AnimatePresence>
-      {phase === 5 ? (
-        <motion.div
-          className="pointer-events-none absolute left-1/2 top-[48%] z-[65] h-[220px] w-[176px] -translate-x-1/2 -translate-y-1/2"
-          initial={false}
-          animate={reduced ? {} : {
-            x: [0, 40, 115],
-            y: [0, -48, -155],
-            scale: [1.13, 0.72, 0.22],
-            rotate: [0, -3, -7],
-            opacity: [0, 0, 1],
-          }}
-          transition={{ duration: 0.01 }}
-        >
-          <CreativeCard variant={0} selected />
         </motion.div>
       ) : null}
     </AnimatePresence>
@@ -533,11 +541,11 @@ function MotionStory({ phase, reduced }: SceneProps) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_48%,rgba(255,255,255,.98),rgba(255,255,255,.74)_34%,rgba(255,255,255,.26)_66%,transparent_80%)]" />
 
           <BriefCard phase={phase} reduced={reduced} />
+          <PostDraftCard phase={phase} reduced={reduced} />
           <GeneratingSeed phase={phase} reduced={reduced} />
           <ConceptDeck phase={phase} reduced={reduced} />
           <ChannelBurst phase={phase} reduced={reduced} />
           <ScheduleDock phase={phase} reduced={reduced} />
-          <FlightToCalendar phase={phase} reduced={reduced} />
           <LandingFlight phase={phase} reduced={reduced} />
         </motion.div>
       ) : null}
@@ -557,7 +565,7 @@ function SuccessToast({ phase, reduced }: { phase: number; reduced: boolean }) {
         >
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50 text-emerald-600"><Check className="h-4 w-4" strokeWidth={3} /></span>
           <div>
-            <div className="text-[9px] font-black text-slate-800">Scheduled across 5 channels</div>
+            <div className="text-[9px] font-black text-slate-800">Scheduled across 6 channels</div>
             <div className="text-[7.5px] font-semibold text-slate-400">Friday 21 Aug · 9:00 AM</div>
           </div>
         </motion.div>
