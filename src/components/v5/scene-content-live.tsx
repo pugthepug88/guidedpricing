@@ -232,6 +232,72 @@ function CreativeFrame({ variant, selected = false }: { variant: 0 | 1 | 2; sele
   );
 }
 
+function MiniImagePost({
+  left,
+  top,
+  src,
+  title,
+  time,
+  marks = 2,
+}: {
+  left: string;
+  top: string;
+  src: string;
+  title: string;
+  time: string;
+  marks?: number;
+}) {
+  return (
+    <div
+      className="absolute z-[65] w-[10.2%] min-w-[62px] max-w-[80px] overflow-hidden rounded-[7px] border border-slate-200 bg-white shadow-[0_8px_18px_-15px_rgba(15,23,42,.45)]"
+      style={{ left, top }}
+    >
+      <div className="h-[19px] overflow-hidden bg-slate-100">
+        <img src={src} alt="" className="h-full w-full object-cover" />
+      </div>
+      <div className="px-1.5 py-1">
+        <div className="flex items-center justify-between gap-1">
+          <span className="text-[6px] font-black text-slate-400">{time}</span>
+          <span className="flex items-center">
+            {CHANNELS.slice(0, marks).map(({ key, Mark }, index) => (
+              <span key={key} className={index > 0 ? "-ml-[2px]" : ""}><Mark size={8} /></span>
+            ))}
+          </span>
+        </div>
+        <div className="mt-0.5 truncate text-[6.5px] font-black text-slate-700">{title}</div>
+      </div>
+    </div>
+  );
+}
+
+function CalendarPolishOverlay({ phase, reduced }: { phase: number; reduced: boolean }) {
+  return (
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[48px] z-[64] overflow-hidden">
+      <MiniImagePost left="15.6%" top="15.2%" src={photoA} title="Behind the scenes" time="12:00" marks={2} />
+      <MiniImagePost left="15.6%" top="45.5%" src={photoC} title="Staff spotlight" time="9:00" marks={3} />
+      <MiniImagePost left="72.8%" top="75.1%" src={photoA} title="Weekend story" time="12:00" marks={2} />
+
+      <div className="absolute left-[58.05%] top-[6.2%] h-[29.2%] w-[12.45%] overflow-hidden rounded-[9px] border border-blue-200 bg-[#f7fbff] p-1.5">
+        <div className="flex items-center gap-1">
+          <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-zapla-ink px-1 text-[7.5px] font-black text-white">21</span>
+          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-blue-500" />
+        </div>
+
+        {phase === 6 ? (
+          <motion.div
+            className="absolute inset-x-1.5 top-[28px] h-[54px] rounded-[7px] border border-dashed border-blue-300 bg-blue-50/60"
+            initial={reduced ? false : { opacity: 0, scale: 0.96 }}
+            animate={{ opacity: [0, 1, 0.72], scale: [0.96, 1, 1] }}
+            transition={{ duration: reduced ? 0 : 0.68, times: [0, 0.35, 1] }}
+          >
+            <span className="absolute left-1.5 top-1 text-[6px] font-black text-blue-600">9:00</span>
+          </motion.div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 function PublishingPanel({ phase, reduced }: { phase: number; reduced: boolean }) {
   const visible = phase === 5;
   return (
@@ -288,41 +354,46 @@ function ScheduleDock({ phase, reduced }: { phase: number; reduced: boolean }) {
   );
 }
 
-function TargetSlot({ phase, reduced }: { phase: number; reduced: boolean }) {
-  if (phase !== 6) return null;
-  return (
-    <motion.div
-      className="absolute left-[58.1%] top-[17.6%] z-[68] h-[14%] w-[12.2%] rounded-[8px] border border-dashed border-blue-300 bg-blue-50/55"
-      initial={reduced ? false : { opacity: 0, scale: 0.96 }}
-      animate={{ opacity: [0, 1, 1, 0], scale: [0.96, 1, 1, 1] }}
-      transition={{ duration: reduced ? 0 : 1.4, times: [0, 0.15, 0.72, 1] }}
-    >
-      <span className="absolute left-1.5 top-1 text-[6.5px] font-black text-blue-600">9:00</span>
-    </motion.div>
-  );
-}
-
 function FinalScheduledTile({ phase, reduced }: { phase: number; reduced: boolean }) {
   if (phase !== 6) return null;
   return (
     <motion.div
-      className="absolute left-[58.7%] top-[18.2%] z-[91] w-[10.9%] min-w-[70px] max-w-[88px] overflow-hidden rounded-[7px] border-2 border-blue-400 bg-white shadow-[0_10px_24px_-14px_rgba(37,99,255,.75)]"
-      initial={reduced ? false : { opacity: 0, scale: 0.92 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: reduced ? 0 : 0.26, delay: reduced ? 0 : 1.18, ease: [0.2, 0.82, 0.24, 1] }}
+      className="absolute left-[59.3%] top-[17.2%] z-[91] w-[9.7%] min-w-[62px] max-w-[76px]"
+      initial={reduced ? false : { opacity: 0, scale: 0.9, y: 3 }}
+      animate={reduced ? { opacity: 1, scale: 1, y: 0 } : { opacity: 1, scale: [0.9, 1.035, 1], y: [3, -1, 0] }}
+      transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : 1.08, times: [0, 0.58, 1], ease: [0.2, 0.82, 0.24, 1] }}
     >
-      <div className="h-[26px] overflow-hidden">
-        <img src={photoB} alt="" className="h-full w-full object-cover object-[50%_42%]" />
-      </div>
-      <div className="px-1.5 py-1">
-        <div className="flex items-center justify-between gap-1">
-          <span className="text-[6.5px] font-black text-blue-700">9:00</span>
-          <span className="rounded-full bg-emerald-50 px-1 py-[1px] text-[5.5px] font-black text-emerald-700">SCHEDULED</span>
+      <motion.span
+        className="pointer-events-none absolute -inset-[3px] rounded-[10px]"
+        style={{
+          background: "conic-gradient(from 0deg, transparent 0deg, transparent 274deg, rgba(37,99,255,.16) 300deg, rgba(37,99,255,.95) 330deg, rgba(16,185,129,.95) 350deg, transparent 360deg)",
+        }}
+        initial={reduced ? false : { opacity: 0, rotate: 0 }}
+        animate={reduced ? { opacity: 0 } : { opacity: [0, 1, 1, 0], rotate: [0, 0, 360, 360] }}
+        transition={{ duration: 1.08, delay: 1.18, times: [0, 0.08, 0.82, 1], ease: "linear" }}
+      />
+
+      <div className="relative z-10 overflow-hidden rounded-[7px] border border-blue-300 bg-white shadow-[0_10px_24px_-16px_rgba(37,99,255,.7)]">
+        <div className="h-[22px] overflow-hidden">
+          <img src={photoB} alt="" className="h-full w-full object-cover object-[50%_42%]" />
         </div>
-        <div className="truncate text-[7px] font-black text-slate-800">3 spots left Friday</div>
-        <div className="mt-0.5 flex items-center gap-[1px]">
-          {CHANNELS.slice(0, 3).map(({ key, Mark }) => <span key={key}><Mark size={8} /></span>)}
-          <span className="ml-0.5 text-[5.5px] font-black text-slate-400">+3</span>
+        <div className="px-1 py-1">
+          <div className="flex items-center justify-between gap-1">
+            <span className="text-[5.5px] font-black text-blue-700">9:00</span>
+            <motion.span
+              className="rounded-full bg-emerald-50 px-1 py-[1px] text-[5px] font-black text-emerald-700"
+              initial={reduced ? false : { opacity: 0, scale: 0.75 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: reduced ? 0 : 1.42, duration: reduced ? 0 : 0.22 }}
+            >
+              SCHEDULED
+            </motion.span>
+          </div>
+          <div className="truncate text-[6px] font-black text-slate-800">3 spots left Friday</div>
+          <div className="mt-0.5 flex items-center gap-[1px]">
+            {CHANNELS.slice(0, 3).map(({ key, Mark }) => <span key={key}><Mark size={7} /></span>)}
+            <span className="ml-0.5 text-[5px] font-black text-slate-400">+3</span>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -336,7 +407,7 @@ function SuccessToast({ phase, reduced }: { phase: number; reduced: boolean }) {
       className="absolute bottom-3 right-3 z-[92] flex items-center gap-2 rounded-[12px] border border-emerald-100 bg-white px-3 py-2 shadow-[0_18px_45px_-24px_rgba(15,23,42,.46)]"
       initial={reduced ? false : { opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 1.38 }}
+      transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 1.58 }}
     >
       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50 text-emerald-600"><Check className="h-4 w-4" strokeWidth={3} /></span>
       <div>
@@ -357,10 +428,10 @@ function CreativeStory({ phase, reduced }: { phase: number; reduced: boolean }) 
 
   const centreMotion = flying
     ? {
-        left: ["34%", "44%", "56%", "64.15%"],
-        top: ["44%", "37%", "29%", "24.2%"],
-        scale: [1.03, 0.82, 0.58, 0.36],
-        rotate: [0, -1.5, -3.5, -2],
+        left: ["34%", "43%", "54.5%", "63.95%"],
+        top: ["44%", "37%", "29%", "22.2%"],
+        scale: [1.03, 0.82, 0.56, 0.3],
+        rotate: [0, -1.5, -3, -1],
         opacity: [1, 1, 1, 0],
       }
     : publishing
@@ -419,7 +490,7 @@ function CreativeStory({ phase, reduced }: { phase: number; reduced: boolean }) 
         animate={centreMotion}
         transition={
           flying
-            ? { duration: reduced ? 0 : 1.35, times: [0, 0.32, 0.72, 1], ease: [0.18, 0.78, 0.2, 1] }
+            ? { duration: reduced ? 0 : 1.28, times: [0, 0.34, 0.72, 1], ease: [0.18, 0.78, 0.2, 1] }
             : { type: "spring", stiffness: 205, damping: 25, delay: concepts && !reduced ? 0.18 : 0 }
         }
       >
@@ -428,7 +499,6 @@ function CreativeStory({ phase, reduced }: { phase: number; reduced: boolean }) 
 
       <PublishingPanel phase={phase} reduced={reduced} />
       <ScheduleDock phase={phase} reduced={reduced} />
-      <TargetSlot phase={phase} reduced={reduced} />
       <FinalScheduledTile phase={phase} reduced={reduced} />
       <SuccessToast phase={phase} reduced={reduced} />
     </motion.div>
@@ -437,9 +507,6 @@ function CreativeStory({ phase, reduced }: { phase: number; reduced: boolean }) 
 
 export function SceneContentLive(props: SceneProps) {
   const { phase, reduced } = props;
-
-  // Keep the underlying planner in its clean calendar state. This prevents the
-  // older AI-brief / card sequence from appearing underneath the v5 story.
   const basePhase = 0;
 
   const points: Record<number, CursorPoint> = {
@@ -455,6 +522,7 @@ export function SceneContentLive(props: SceneProps) {
     <div className="absolute inset-0 overflow-hidden">
       <AssetPreload />
       <ContentPlannerScene {...props} phase={basePhase} />
+      <CalendarPolishOverlay phase={phase} reduced={reduced} />
       <ViewModeControl />
       <ComposerPanel phase={phase} reduced={reduced} />
       <CreativeStory phase={phase} reduced={reduced} />
