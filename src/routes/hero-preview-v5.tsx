@@ -10,8 +10,9 @@ import {
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
-import { SceneCalendar, SceneContracts, SceneEmail } from "@/components/v5/scenes-b";
+import { SceneCalendar, SceneContracts } from "@/components/v5/scenes-b";
 import { SceneContentLive } from "@/components/v5/scene-content-live";
+import { SceneEmailLive } from "@/components/v5/scene-email-live";
 import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
 import { useSceneClock } from "@/components/v5/use-scene-clock";
@@ -98,8 +99,8 @@ const SCENES: SceneDef[] = [
     label: "Email Marketing",
     title: "Email Marketing",
     subtitle: "Personalisation becomes real",
-    phases: [760, 640, 720, 700, 900, 1600, 620],
-    render: (p) => <SceneEmail {...p} />,
+    phases: [900, 850, 1300, 1500, 900, 900, 1900],
+    render: (p) => <SceneEmailLive {...p} />,
   },
   {
     key: "calendar",
