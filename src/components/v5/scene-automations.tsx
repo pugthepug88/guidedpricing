@@ -41,6 +41,7 @@ const N = {
   notify: { x: 656, y: 398, w: 176, h: 50 },
 } satisfies Record<string, Box>;
 
+const MERGE = { x: 536, y: 385 };
 const c = (b: Box) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 });
 
 /* connector paths, orthogonal with clean radii */
@@ -52,8 +53,9 @@ const SEG = {
   no: "M440 266 H208 A12 12 0 0 0 196 278 V282",
   no2: "M196 324 V338",
   no3: "M196 380 V386",
-  merge: "M284 423 H448",
-  yes: "M440 266 H548 A12 12 0 0 1 560 278 V398",
+  merge: "M284 422 H420 A10 10 0 0 1 430 412 V395 A10 10 0 0 1 440 385 H536",
+  yes: "M440 266 H524 A12 12 0 0 1 536 278 V385",
+  intoSuccess: "M536 385 V398",
   succ: "M624 423 H656",
 } as const;
 
@@ -193,7 +195,16 @@ const DOT_ROUTE: Record<number, Array<{ x: number; y: number }>> = {
   5: [c(N.cond), { x: 440, y: 266 }, { x: 196, y: 266 }, c(N.wait2d)],
   6: [c(N.wait2d), { x: 196, y: 331 }, c(N.reminder)],
   7: [c(N.reminder), { x: 196, y: 383 }, c(N.review)],
-  8: [c(N.review), { x: 366, y: 423 }, c(N.tag), { x: 640, y: 423 }, c(N.notify)],
+  8: [
+    c(N.review),
+    { x: 420, y: 422 },
+    { x: 420, y: 405 },
+    { x: 440, y: 385 },
+    MERGE,
+    c(N.tag),
+    { x: 640, y: 423 },
+    c(N.notify),
+  ],
 };
 
 function Token({ phase, reduced }: { phase: number; reduced: boolean }) {
@@ -346,9 +357,21 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               <Wire d={SEG.no} on={phase >= 5} reduced={reduced} arrow />
               <Wire d={SEG.no2} on={phase >= 6} reduced={reduced} arrow />
               <Wire d={SEG.no3} on={phase >= 7} reduced={reduced} arrow />
-              <Wire d={SEG.merge} on={phase >= 8} reduced={reduced} arrow />
-              <Wire d={SEG.yes} on={false} reduced={reduced} arrow />
+              <Wire d={SEG.merge} on={phase >= 8} reduced={reduced} />
+              <Wire d={SEG.yes} on={false} reduced={reduced} />
+              <Wire d={SEG.intoSuccess} on={phase >= 8} reduced={reduced} arrow />
               <Wire d={SEG.succ} on={phase >= 8} reduced={reduced} arrow />
+
+              <circle cx={MERGE.x} cy={MERGE.y} r="4.5" fill="rgba(148,163,184,0.85)" />
+              <motion.circle
+                cx={MERGE.x}
+                cy={MERGE.y}
+                r="5.5"
+                fill="#2563ff"
+                initial={false}
+                animate={{ opacity: phase >= 8 ? 1 : 0, scale: phase >= 8 ? 1 : 0.7 }}
+                transition={{ duration: reduced ? 0 : 0.3, ease: EASE_OUT }}
+              />
             </svg>
 
             {/* branch labels */}
