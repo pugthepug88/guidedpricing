@@ -90,7 +90,7 @@ const SCENES: SceneDef[] = [
     label: "Content Planner",
     title: "Content Planner",
     subtitle: "One post becomes multi-channel distribution",
-    phases: [900, 800, 1200, 1000, 900, 1000, 1800],
+    phases: [1100, 1100, 1700, 1500, 1700, 1700, 2100],
     render: (p) => <SceneContentLive {...p} />,
   },
   {
