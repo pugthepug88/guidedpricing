@@ -11,7 +11,8 @@ import {
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
-import { SceneCalendar, SceneContent, SceneContracts, SceneEmail } from "@/components/v5/scenes-b";
+import { SceneCalendar, SceneContracts, SceneEmail } from "@/components/v5/scenes-b";
+import { SceneContent } from "@/components/v5/scene-content";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
 import { useSceneClock } from "@/components/v5/use-scene-clock";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
@@ -91,7 +92,7 @@ const SCENES: SceneDef[] = [
     label: "Content Planner",
     title: "Content Planner",
     subtitle: "One post becomes multi-channel distribution",
-    phases: [780, 660, 620, 900, 1600, 640],
+    phases: [900, 800, 1200, 1000, 900, 1000, 1800],
     render: (p) => <SceneContent {...p} />,
   },
   {
