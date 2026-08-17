@@ -9,40 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PricingV2RouteImport } from './routes/pricing-v2'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as MaskLabRouteImport } from './routes/mask-lab'
-import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
-import { Route as HeroPreviewV4RouteImport } from './routes/hero-preview-v4'
-import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
+import { Route as HeroPreviewV4RouteImport } from './routes/hero-preview-v4'
+import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
+import { Route as MaskLabRouteImport } from './routes/mask-lab'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
-const PricingV2Route = PricingV2RouteImport.update({
-  id: '/pricing-v2',
-  path: '/pricing-v2',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MaskLabRoute = MaskLabRouteImport.update({
-  id: '/mask-lab',
-  path: '/mask-lab',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HeroPreviewV5Route = HeroPreviewV5RouteImport.update({
-  id: '/hero-preview-v5',
-  path: '/hero-preview-v5',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HeroPreviewV4Route = HeroPreviewV4RouteImport.update({
-  id: '/hero-preview-v4',
-  path: '/hero-preview-v4',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HeroPreviewV3Route = HeroPreviewV3RouteImport.update({
@@ -50,21 +30,41 @@ const HeroPreviewV3Route = HeroPreviewV3RouteImport.update({
   path: '/hero-preview-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const HeroPreviewV4Route = HeroPreviewV4RouteImport.update({
+  id: '/hero-preview-v4',
+  path: '/hero-preview-v4',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+const HeroPreviewV5Route = HeroPreviewV5RouteImport.update({
+  id: '/hero-preview-v5',
+  path: '/hero-preview-v5',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaskLabRoute = MaskLabRouteImport.update({
+  id: '/mask-lab',
+  path: '/mask-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingV2Route = PricingV2RouteImport.update({
+  id: '/pricing-v2',
+  path: '/pricing-v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotmcpChar93ListToolsRoute =
   Char91DotmcpChar93ListToolsRouteImport.update({
     id: '/.mcp/list-tools',
     path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
@@ -165,39 +165,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/pricing-v2': {
-      id: '/pricing-v2'
-      path: '/pricing-v2'
-      fullPath: '/pricing-v2'
-      preLoaderRoute: typeof PricingV2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mask-lab': {
-      id: '/mask-lab'
-      path: '/mask-lab'
-      fullPath: '/mask-lab'
-      preLoaderRoute: typeof MaskLabRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hero-preview-v5': {
-      id: '/hero-preview-v5'
-      path: '/hero-preview-v5'
-      fullPath: '/hero-preview-v5'
-      preLoaderRoute: typeof HeroPreviewV5RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/hero-preview-v4': {
-      id: '/hero-preview-v4'
-      path: '/hero-preview-v4'
-      fullPath: '/hero-preview-v4'
-      preLoaderRoute: typeof HeroPreviewV4RouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hero-preview-v3': {
@@ -207,18 +179,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HeroPreviewV3RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/hero-preview-v4': {
+      id: '/hero-preview-v4'
+      path: '/hero-preview-v4'
+      fullPath: '/hero-preview-v4'
+      preLoaderRoute: typeof HeroPreviewV4RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/hero-preview-v5': {
+      id: '/hero-preview-v5'
+      path: '/hero-preview-v5'
+      fullPath: '/hero-preview-v5'
+      preLoaderRoute: typeof HeroPreviewV5RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mask-lab': {
+      id: '/mask-lab'
+      path: '/mask-lab'
+      fullPath: '/mask-lab'
+      preLoaderRoute: typeof MaskLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing-v2': {
+      id: '/pricing-v2'
+      path: '/pricing-v2'
+      fullPath: '/pricing-v2'
+      preLoaderRoute: typeof PricingV2RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -226,6 +219,13 @@ declare module '@tanstack/react-router' {
       path: '/.mcp/list-tools'
       fullPath: '/.mcp/list-tools'
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {

@@ -2,15 +2,18 @@ import { AnimatePresence, motion } from "motion/react";
 import { Check, Clock3, LayoutTemplate, Mail, Megaphone, Play, Users } from "lucide-react";
 import { type SceneProps } from "./motion-kit";
 import { ZaplaDemoCursor, type CursorPoint } from "./zapla-demo-cursor";
-import automotiveVisual from "@/assets/industry-automotive.png.asset.json";
-import healthcareVisual from "@/assets/industry-healthcare.png.asset.json";
-import realEstateVisual from "@/assets/industry-real-estate.png.asset.json";
-import fitnessVisual from "@/assets/industry-fitness.png.asset.json";
+
+const TPL = {
+  winback: "/email-templates/tpl-winback.png",
+  service: "/email-templates/tpl-service.png",
+  followup: "/email-templates/tpl-followup.png",
+  market: "/email-templates/tpl-market.png",
+} as const;
 
 const TEMPLATES = [
   {
     name: "Customer Win-back",
-    image: fitnessVisual.url,
+    image: TPL.winback,
     eyebrow: "WELCOME BACK",
     headline: "Ready when you are",
     body: "A warm reactivation email with one clear reason to return.",
@@ -21,7 +24,7 @@ const TEMPLATES = [
   },
   {
     name: "Service Reminder",
-    image: automotiveVisual.url,
+    image: TPL.service,
     eyebrow: "TIME FOR A CHECK-IN",
     headline: "Keep things running smoothly",
     body: "A practical reminder designed to turn due service into a booking.",
@@ -32,7 +35,7 @@ const TEMPLATES = [
   },
   {
     name: "Appointment Follow-up",
-    image: healthcareVisual.url,
+    image: TPL.followup,
     eyebrow: "A QUICK CHECK-IN",
     headline: "How are you feeling?",
     body: "A calm follow-up that makes the next appointment easy to book.",
@@ -43,7 +46,7 @@ const TEMPLATES = [
   },
   {
     name: "Premium Update",
-    image: realEstateVisual.url,
+    image: TPL.market,
     eyebrow: "JUST IN",
     headline: "Your latest market update",
     body: "A polished update for clients who want useful news, not inbox noise.",
