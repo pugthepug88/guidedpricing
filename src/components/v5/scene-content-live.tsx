@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { CalendarDays, Check, MoreHorizontal, Send, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SceneContent as ContentPlannerScene } from "./scene-content";
@@ -24,6 +24,9 @@ const CHANNELS = [
   { key: "pinterest", label: "Pinterest", Mark: PinterestMark },
   { key: "threads", label: "Threads", Mark: ThreadsMark },
 ] as const;
+
+const POST_LAYOUT_ID = "content-planner-selected-post";
+const POST_IMAGE_LAYOUT_ID = "content-planner-selected-post-image";
 
 function ViewModePatch() {
   return (
@@ -231,6 +234,76 @@ function CreativeFrame({ variant, selected = false }: { variant: 0 | 1 | 2; sele
   );
 }
 
+function FlightPost({ compact, selected, reduced }: { compact: boolean; selected: boolean; reduced: boolean }) {
+  const layoutTransition = reduced
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness: 118, damping: 23, mass: 0.92 };
+
+  if (compact) {
+    return (
+      <motion.div
+        layoutId={POST_LAYOUT_ID}
+        transition={{ layout: layoutTransition }}
+        className="relative w-full overflow-hidden rounded-[8px] border-2 border-blue-400 bg-white shadow-[0_12px_28px_-16px_rgba(37,99,255,.9)]"
+      >
+        <motion.div layoutId={POST_IMAGE_LAYOUT_ID} transition={{ layout: layoutTransition }} className="h-8 overflow-hidden">
+          <img src={photoB} alt="" className="h-full w-full object-cover object-[50%_42%]" />
+        </motion.div>
+        <div className="px-1.5 py-1">
+          <div className="flex items-center justify-between gap-1">
+            <span className="text-[7px] font-black text-blue-700">9:00</span>
+            <span className="rounded-full bg-emerald-50 px-1 py-[1px] text-[6px] font-black text-emerald-700">SCHEDULED</span>
+          </div>
+          <div className="truncate text-[7.5px] font-black text-slate-800">Only 3 spots left Friday</div>
+          <div className="mt-0.5 flex items-center gap-[2px]">
+            {CHANNELS.map(({ key, Mark }) => (
+              <span key={key} className="inline-flex"><Mark size={9} /></span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      layoutId={POST_LAYOUT_ID}
+      transition={{ layout: layoutTransition }}
+      className={cn(
+        "h-[220px] w-[176px] overflow-hidden rounded-[20px] bg-white p-[3px] shadow-[0_26px_58px_-30px_rgba(15,23,42,.52)]",
+        selected && "ring-4 ring-blue-500/15",
+      )}
+    >
+      <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-slate-950">
+        <motion.div layoutId={POST_IMAGE_LAYOUT_ID} transition={{ layout: layoutTransition }} className="absolute inset-0 overflow-hidden">
+          <img src={photoB} alt="" className="h-full w-full object-cover object-[50%_42%]" />
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-700/85 via-indigo-500/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-white/10" />
+        <div className="absolute left-3.5 top-3.5 rounded-full border border-white/25 bg-black/15 px-2 py-1 text-[6.5px] font-black uppercase tracking-[.14em] text-white backdrop-blur-md">North & Pine</div>
+        {selected ? (
+          <motion.span
+            className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-white text-blue-600 shadow-lg"
+            initial={reduced ? false : { opacity: 0, scale: 0.65 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18 }}
+          >
+            <Check className="h-4 w-4" strokeWidth={3} />
+          </motion.span>
+        ) : null}
+        <div className="absolute inset-x-0 bottom-0 p-3.5 text-white">
+          <div className="text-[7px] font-black uppercase tracking-[.18em] text-white/65">FRIDAY FEELS</div>
+          <div className="mt-1 text-[23px] font-black leading-[.86] tracking-[-.065em]">3 SPOTS<br />LEFT</div>
+          <div className="mt-3 flex items-center justify-between gap-2">
+            <span className="rounded-full bg-white px-2 py-1 text-[6.5px] font-black uppercase tracking-[.08em] text-slate-950">Book now</span>
+            <span className="text-[6px] font-bold text-white/65">Fri 21 Aug</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function PublishingRail({ phase, reduced }: { phase: number; reduced: boolean }) {
   const visible = phase === 5;
 
@@ -293,37 +366,30 @@ function ScheduleDock({ phase, reduced }: { phase: number; reduced: boolean }) {
 }
 
 function CreativeStory({ phase, reduced }: { phase: number; reduced: boolean }) {
-  if (phase < 3 || phase > 6) return null;
+  if (phase < 3 || phase > 7) return null;
 
+  const concepts = phase === 3;
   const selecting = phase === 4;
   const publishing = phase === 5;
-  const flying = phase === 6;
-
-  const centerPosition = flying
-    ? { left: "64.2%", top: "24%", scale: 0.34, rotate: -4, opacity: 0.98 }
-    : publishing
-      ? { left: "34%", top: "44%", scale: 1.03, rotate: 0, opacity: 1 }
-      : selecting
-        ? { left: "42%", top: "45%", scale: 1.08, rotate: 0, opacity: 1 }
-        : { left: "50%", top: "47%", scale: 1, rotate: 0, opacity: 1 };
+  const landed = phase >= 6;
 
   return (
-    <motion.div className="absolute inset-x-0 bottom-0 top-[48px] z-[70] overflow-hidden">
+    <motion.div className="pointer-events-none absolute inset-x-0 bottom-0 top-[48px] z-[70] overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-white"
         initial={false}
-        animate={{ opacity: flying ? 0 : 0.93 }}
-        transition={{ duration: reduced ? 0 : flying ? 0.62 : 0.3 }}
+        animate={{ opacity: landed ? 0 : 0.93 }}
+        transition={{ duration: reduced ? 0 : landed ? 0.48 : 0.3 }}
       />
       <motion.div
         className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(255,255,255,1),rgba(255,255,255,.88)_40%,rgba(255,255,255,.36)_76%,transparent_100%)]"
         initial={false}
-        animate={{ opacity: flying ? 0 : 1 }}
-        transition={{ duration: reduced ? 0 : 0.62 }}
+        animate={{ opacity: landed ? 0 : 1 }}
+        transition={{ duration: reduced ? 0 : 0.48 }}
       />
 
       <AnimatePresence>
-        {phase === 3 ? (
+        {concepts ? (
           <motion.div
             className="absolute left-1/2 top-[11%] z-[74] -translate-x-1/2 rounded-full bg-violet-50 px-3 py-1.5 text-[8px] font-black text-violet-700"
             initial={reduced ? false : { opacity: 0, y: 6 }}
@@ -340,13 +406,13 @@ function CreativeStory({ phase, reduced }: { phase: number; reduced: boolean }) 
         className="absolute left-1/2 top-[47%] z-[72] -translate-x-1/2 -translate-y-1/2"
         initial={reduced ? false : { opacity: 0, x: -105, y: 14, scale: 0.82, rotate: -3 }}
         animate={{
-          opacity: phase === 3 ? 1 : 0,
-          x: phase === 3 ? -188 : -232,
-          y: phase === 3 ? 14 : 24,
-          scale: phase === 3 ? 0.94 : 0.86,
+          opacity: concepts ? 1 : 0,
+          x: concepts ? -188 : -232,
+          y: concepts ? 14 : 24,
+          scale: concepts ? 0.94 : 0.86,
           rotate: -7,
         }}
-        transition={{ type: "spring", stiffness: 190, damping: 24, delay: phase === 3 && !reduced ? 0.36 : 0 }}
+        transition={{ type: "spring", stiffness: 190, damping: 24, delay: concepts && !reduced ? 0.36 : 0 }}
       >
         <CreativeFrame variant={1} />
       </motion.div>
@@ -355,48 +421,61 @@ function CreativeStory({ phase, reduced }: { phase: number; reduced: boolean }) 
         className="absolute left-1/2 top-[47%] z-[72] -translate-x-1/2 -translate-y-1/2"
         initial={reduced ? false : { opacity: 0, x: 105, y: 14, scale: 0.82, rotate: 3 }}
         animate={{
-          opacity: phase === 3 ? 1 : 0,
-          x: phase === 3 ? 188 : 232,
-          y: phase === 3 ? 14 : 24,
-          scale: phase === 3 ? 0.94 : 0.86,
+          opacity: concepts ? 1 : 0,
+          x: concepts ? 188 : 232,
+          y: concepts ? 14 : 24,
+          scale: concepts ? 0.94 : 0.86,
           rotate: 7,
         }}
-        transition={{ type: "spring", stiffness: 190, damping: 24, delay: phase === 3 && !reduced ? 0.5 : 0 }}
+        transition={{ type: "spring", stiffness: 190, damping: 24, delay: concepts && !reduced ? 0.5 : 0 }}
       >
         <CreativeFrame variant={2} />
       </motion.div>
 
-      <motion.div
-        className="absolute z-[75] -translate-x-1/2 -translate-y-1/2"
-        initial={reduced ? false : { opacity: 0, left: "50%", top: "51%", scale: 0.82 }}
-        animate={centerPosition}
-        transition={
-          flying
-            ? { duration: reduced ? 0 : 1.45, delay: reduced ? 0 : 0.42, ease: [0.18, 0.78, 0.2, 1] }
-            : { type: "spring", stiffness: 185, damping: 25, delay: phase === 3 && !reduced ? 0.62 : 0 }
-        }
-      >
-        <CreativeFrame variant={0} selected={phase >= 4} />
-      </motion.div>
+      {!landed ? (
+        <motion.div
+          className="absolute z-[75] -translate-x-1/2 -translate-y-1/2"
+          initial={reduced ? false : { opacity: 0, left: "50%", top: "51%", scale: 0.82 }}
+          animate={
+            publishing
+              ? { left: "34%", top: "44%", scale: 1.03, rotate: 0, opacity: 1 }
+              : selecting
+                ? { left: "42%", top: "45%", scale: 1.08, rotate: 0, opacity: 1 }
+                : { left: "50%", top: "47%", scale: 1, rotate: 0, opacity: 1 }
+          }
+          transition={{ type: "spring", stiffness: 185, damping: 25, delay: concepts && !reduced ? 0.62 : 0 }}
+        >
+          <FlightPost compact={false} selected={phase >= 4} reduced={reduced} />
+        </motion.div>
+      ) : null}
+
+      {landed ? (
+        <motion.div
+          className="absolute z-[92] w-[13.25%] min-w-[76px] sm:min-w-[92px]"
+          style={{ left: "58.05%", top: "18.8%" }}
+          initial={false}
+        >
+          <FlightPost compact selected reduced={reduced} />
+          {phase === 6 ? (
+            <motion.span
+              className="pointer-events-none absolute -inset-1 rounded-[10px] ring-2 ring-blue-400"
+              initial={reduced ? false : { opacity: 0, scale: 0.92 }}
+              animate={reduced ? { opacity: 0 } : { opacity: [0, 1, 0], scale: [0.92, 1.04, 1.1] }}
+              transition={{ duration: 1.35, delay: 0.9, times: [0, 0.35, 1] }}
+            />
+          ) : null}
+        </motion.div>
+      ) : null}
 
       <PublishingRail phase={phase} reduced={reduced} />
       <ScheduleDock phase={phase} reduced={reduced} />
-
-      {flying ? (
-        <motion.div
-          className="absolute left-[57.4%] top-[10%] z-[71] h-[31%] w-[14%] rounded-[10px] border-2 border-blue-300/0"
-          initial={reduced ? false : { boxShadow: "0 0 0 0 rgba(37,99,255,0)" }}
-          animate={reduced ? undefined : { boxShadow: ["0 0 0 0 rgba(37,99,255,0)", "0 0 0 5px rgba(37,99,255,.14)", "0 0 0 0 rgba(37,99,255,0)"] }}
-          transition={{ duration: 0.85, delay: 1.2 }}
-        />
-      ) : null}
     </motion.div>
   );
 }
 
 export function SceneContentLive(props: SceneProps) {
   const { phase, reduced } = props;
-  const basePhase = phase >= 3 && phase <= 5 ? 2 : phase === 6 ? 1 : phase;
+  const basePhase = phase >= 3 && phase <= 5 ? 2 : phase === 6 ? 0 : phase >= 7 ? 6 : phase;
 
   const points: Record<number, CursorPoint> = {
     1: { left: "92%", top: "5%" },
@@ -408,12 +487,14 @@ export function SceneContentLive(props: SceneProps) {
   const press = phase === 1 || phase === 4 || phase === 5;
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      <ContentPlannerScene {...props} phase={basePhase} />
-      <ViewModePatch />
-      <ComposerOverlay phase={phase} reduced={reduced} />
-      <CreativeStory phase={phase} reduced={reduced} />
-      <ZaplaDemoCursor point={point} press={press} reduced={reduced} />
-    </div>
+    <LayoutGroup id="content-planner-flight">
+      <div className="absolute inset-0 overflow-hidden">
+        <ContentPlannerScene {...props} phase={basePhase} />
+        <ViewModePatch />
+        <ComposerOverlay phase={phase} reduced={reduced} />
+        <CreativeStory phase={phase} reduced={reduced} />
+        <ZaplaDemoCursor point={point} press={press} reduced={reduced} />
+      </div>
+    </LayoutGroup>
   );
 }
