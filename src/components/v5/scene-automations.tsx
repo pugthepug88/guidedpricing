@@ -304,8 +304,8 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
             style={{
               width: W,
               height: H,
-              transform: `translate(-50%, -50%) scale(${scale})`,
-              transformOrigin: "center",
+              transform: `scale(${scale}) translate(-50%, -50%)`,
+              transformOrigin: "0 0",
             }}
           >
             {/* connectors */}
