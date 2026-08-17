@@ -298,10 +298,15 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
           }}
         />
 
-        <div ref={wrapRef} className="absolute inset-0 flex items-center justify-center px-2 py-2">
+        <div ref={wrapRef} className="absolute inset-0 px-2 py-2">
           <div
-            className="relative"
-            style={{ width: W, height: H, transform: `scale(${scale})`, transformOrigin: "center" }}
+            className="absolute left-1/2 top-1/2"
+            style={{
+              width: W,
+              height: H,
+              transform: `translate(-50%, -50%) scale(${scale})`,
+              transformOrigin: "center",
+            }}
           >
             {/* connectors */}
             <svg className="absolute inset-0 h-full w-full" viewBox={`0 0 ${W} ${H}`} aria-hidden>
