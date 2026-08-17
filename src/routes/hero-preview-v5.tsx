@@ -83,7 +83,7 @@ const SCENES: SceneDef[] = [
     label: "Automations",
     title: "Automations",
     subtitle: "Follow-up happens without anyone remembering",
-    phases: [1200, 900, 900, 1100, 950, 1700, 1150, 1250, 1800],
+    phases: [1200, 900, 900, 1100, 900, 900, 1000, 1400, 1250, 1800],
     render: (p) => <SceneAutomations {...p} />,
   },
   {

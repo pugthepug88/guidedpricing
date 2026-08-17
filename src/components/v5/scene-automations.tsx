@@ -190,21 +190,15 @@ const DOT_ROUTE: Record<number, Array<{ x: number; y: number }>> = {
   2: [c(N.trigger), { x: 440, y: 78 }, c(N.wait)],
   3: [c(N.wait), { x: 440, y: 132 }, c(N.send)],
   4: [c(N.send), { x: 440, y: 196 }, c(N.cond)],
-  5: [
-    c(N.cond),
-    { x: 440, y: 266 },
-    { x: 196, y: 266 },
-    c(N.wait2d),
-    { x: 196, y: 331 },
-    c(N.reminder),
-  ],
-  6: [c(N.reminder), { x: 196, y: 383 }, c(N.review)],
-  7: [c(N.review), { x: 366, y: 423 }, c(N.tag), { x: 640, y: 423 }, c(N.notify)],
+  5: [c(N.cond), { x: 440, y: 266 }, { x: 196, y: 266 }, c(N.wait2d)],
+  6: [c(N.wait2d), { x: 196, y: 331 }, c(N.reminder)],
+  7: [c(N.reminder), { x: 196, y: 383 }, c(N.review)],
+  8: [c(N.review), { x: 366, y: 423 }, c(N.tag), { x: 640, y: 423 }, c(N.notify)],
 };
 
 function Token({ phase, reduced }: { phase: number; reduced: boolean }) {
   const route = DOT_ROUTE[phase];
-  const visible = phase >= 1 && phase <= 7 && !!route;
+  const visible = phase >= 1 && phase <= 8 && !!route;
   if (reduced || !visible) return null;
   return (
     <motion.span
@@ -236,8 +230,8 @@ function Token({ phase, reduced }: { phase: number; reduced: boolean }) {
 
 export function SceneAutomations({ phase, reduced }: SceneProps) {
   /* 0 hold · 1 trigger · 2 wait 2h · 3 send review request · 4 condition (No)
-     5 wait 2 days + reminder · 6 review received event
-     7 merge: tag + notify · 8 final hold */
+     5 wait 2 days · 6 send reminder · 7 review received event
+     8 merge: tag + notify · 9 final hold */
   const st = (active: number, doneFrom: number): NodeState =>
     phase >= doneFrom ? "done" : phase === active ? "active" : "idle";
 
@@ -245,11 +239,11 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
   const waitState = st(2, 3);
   const sendState = st(3, 4);
   const condState = st(4, 5);
-  const wait2dState: NodeState = phase >= 5 ? (phase === 5 ? "active" : "done") : "idle";
-  const reminderState = st(5, 6);
-  const reviewState = st(6, 7);
-  const tagState = st(7, 8);
-  const notifyState = st(7, 8);
+  const wait2dState = st(5, 6);
+  const reminderState = st(6, 7);
+  const reviewState = st(7, 8);
+  const tagState = st(8, 9);
+  const notifyState = st(8, 9);
 
   /* scale the fixed graph to the stage without reflowing it */
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -345,11 +339,11 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               <Wire d={SEG.s3} on={phase >= 4} reduced={reduced} arrow />
               <Wire d={SEG.fork} on={phase >= 5} reduced={reduced} />
               <Wire d={SEG.no} on={phase >= 5} reduced={reduced} arrow />
-              <Wire d={SEG.no2} on={phase >= 5} reduced={reduced} arrow />
-              <Wire d={SEG.no3} on={phase >= 6} reduced={reduced} arrow />
-              <Wire d={SEG.merge} on={phase >= 7} reduced={reduced} arrow />
+              <Wire d={SEG.no2} on={phase >= 6} reduced={reduced} arrow />
+              <Wire d={SEG.no3} on={phase >= 7} reduced={reduced} arrow />
+              <Wire d={SEG.merge} on={phase >= 8} reduced={reduced} arrow />
               <Wire d={SEG.yes} on={false} reduced={reduced} arrow />
-              <Wire d={SEG.succ} on={phase >= 7} reduced={reduced} arrow />
+              <Wire d={SEG.succ} on={phase >= 8} reduced={reduced} arrow />
             </svg>
 
             {/* branch labels */}
@@ -479,7 +473,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               reduced={reduced}
             >
               <AnimatePresence>
-                {phase >= 6 ? (
+                {phase >= 8 ? (
                   <motion.div
                     initial={reduced ? false : { opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -518,7 +512,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               reduced={reduced}
             >
               <AnimatePresence>
-                {phase >= 7 ? (
+                {phase >= 8 ? (
                   <motion.span
                     initial={reduced ? false : { opacity: 0, scale: 0.85 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -545,7 +539,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               reduced={reduced}
             >
               <AnimatePresence>
-                {phase >= 7 ? (
+                {phase >= 8 ? (
                   <motion.span
                     initial={reduced ? false : { opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
