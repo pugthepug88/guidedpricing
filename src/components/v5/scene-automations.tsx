@@ -30,31 +30,31 @@ type NodeState = "idle" | "active" | "done";
 type Box = { x: number; y: number; w: number; h: number };
 
 const N = {
-  trigger: { x: 340, y: 2, w: 200, h: 42 },
-  wait: { x: 340, y: 56, w: 200, h: 42 },
-  send: { x: 340, y: 110, w: 200, h: 50 },
-  cond: { x: 340, y: 176, w: 200, h: 42 },
-  wait2d: { x: 110, y: 254, w: 180, h: 42 },
-  reminder: { x: 110, y: 310, w: 180, h: 42 },
-  review: { x: 110, y: 366, w: 180, h: 58 },
-  tag: { x: 450, y: 372, w: 180, h: 50 },
-  notify: { x: 660, y: 372, w: 180, h: 50 },
+  trigger: { x: 340, y: 0, w: 200, h: 58 },
+  wait: { x: 340, y: 70, w: 200, h: 42 },
+  send: { x: 340, y: 124, w: 200, h: 50 },
+  cond: { x: 340, y: 190, w: 200, h: 42 },
+  wait2d: { x: 108, y: 268, w: 176, h: 42 },
+  reminder: { x: 108, y: 324, w: 176, h: 42 },
+  review: { x: 108, y: 380, w: 176, h: 58 },
+  tag: { x: 448, y: 386, w: 176, h: 50 },
+  notify: { x: 656, y: 386, w: 176, h: 50 },
 } satisfies Record<string, Box>;
 
 const c = (b: Box) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 });
 
 /* connector paths, orthogonal with clean radii */
 const SEG = {
-  s1: "M440 44 V56",
-  s2: "M440 98 V110",
-  s3: "M440 160 V176",
-  fork: "M440 218 V238",
-  no: "M440 238 H212 A12 12 0 0 0 200 250 V254",
-  no2: "M200 296 V310",
-  no3: "M200 352 V366",
-  merge: "M290 397 H450",
-  yes: "M440 238 H548 A12 12 0 0 1 560 250 V372",
-  succ: "M630 397 H660",
+  s1: "M440 58 V70",
+  s2: "M440 112 V124",
+  s3: "M440 174 V190",
+  fork: "M440 232 V252",
+  no: "M440 252 H208 A12 12 0 0 0 196 264 V268",
+  no2: "M196 310 V324",
+  no3: "M196 366 V380",
+  merge: "M284 411 H448",
+  yes: "M440 252 H548 A12 12 0 0 1 560 264 V386",
+  succ: "M624 411 H656",
 } as const;
 
 function Wire({
@@ -187,19 +187,19 @@ function Node({
 
 const DOT_ROUTE: Record<number, Array<{ x: number; y: number }>> = {
   1: [c(N.trigger)],
-  2: [c(N.trigger), { x: 440, y: 50 }, c(N.wait)],
-  3: [c(N.wait), { x: 440, y: 104 }, c(N.send)],
-  4: [c(N.send), { x: 440, y: 168 }, c(N.cond)],
+  2: [c(N.trigger), { x: 440, y: 64 }, c(N.wait)],
+  3: [c(N.wait), { x: 440, y: 118 }, c(N.send)],
+  4: [c(N.send), { x: 440, y: 182 }, c(N.cond)],
   5: [
     c(N.cond),
-    { x: 440, y: 238 },
-    { x: 200, y: 238 },
+    { x: 440, y: 252 },
+    { x: 196, y: 252 },
     c(N.wait2d),
-    { x: 200, y: 303 },
+    { x: 196, y: 317 },
     c(N.reminder),
   ],
-  6: [c(N.reminder), { x: 200, y: 359 }, c(N.review)],
-  7: [c(N.review), { x: 370, y: 397 }, c(N.tag), { x: 645, y: 397 }, c(N.notify)],
+  6: [c(N.reminder), { x: 196, y: 373 }, c(N.review)],
+  7: [c(N.review), { x: 366, y: 411 }, c(N.tag), { x: 640, y: 411 }, c(N.notify)],
 };
 
 function Token({ phase, reduced }: { phase: number; reduced: boolean }) {
@@ -260,7 +260,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
     const measure = () => {
       const r = el.getBoundingClientRect();
       if (!r.width || !r.height) return;
-      setScale(Math.min(r.width / W, r.height / H, 1.15));
+      setScale(Math.min(r.width / W, r.height / H, 1.12) * 0.98);
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -358,13 +358,13 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
                 "absolute rounded-full px-1.5 py-[1px] text-[9px] font-bold leading-none transition-colors",
                 phase >= 5 ? "bg-blue-50 text-blue-700" : "bg-slate-100 text-slate-500",
               )}
-              style={{ left: 214, top: 222 }}
+              style={{ left: 210, top: 236 }}
             >
               No
             </span>
             <span
               className="absolute rounded-full bg-slate-100 px-1.5 py-[1px] text-[9px] font-bold leading-none text-slate-400"
-              style={{ left: 500, top: 222 }}
+              style={{ left: 500, top: 236 }}
             >
               Yes
             </span>
