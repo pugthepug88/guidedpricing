@@ -1,16 +1,17 @@
-import { SceneContent as ContentPlannerScene } from "./scene-content";
+import { SceneContentPolished as ContentPlannerScene } from "./scene-content-polished";
 import { type SceneProps } from "./motion-kit";
 import { ZaplaDemoCursor, type CursorPoint } from "./zapla-demo-cursor";
 
 export function SceneContentLive(props: SceneProps) {
   const { phase, reduced } = props;
 
+  // Keep the cursor intentional: click New Post, disappear while AI works,
+  // return for concept selection, then move directly to scheduling.
   const points: Record<number, CursorPoint> = {
-    1: { left: "92%", top: "5%" },
-    2: { left: "24%", top: "24%" },
-    3: { left: "49%", top: "47%" },
-    4: { left: "51%", top: "44%" },
-    5: { left: "57%", top: "86%" },
+    1: { left: "90%", top: "6%" },
+    3: { left: "50%", top: "47%" },
+    4: { left: "50%", top: "43%" },
+    5: { left: "50%", top: "83%" },
   };
 
   const point = points[phase] ?? null;
