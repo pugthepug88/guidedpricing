@@ -11,8 +11,8 @@ import {
   type SceneProps,
 } from "@/components/v5/scenes-a";
 import { SceneCalendar, SceneContracts } from "@/components/v5/scenes-b";
-import { SceneContentLive } from "@/components/v5/scene-content-live";
 import { SceneEmailLive } from "@/components/v5/scene-email-live";
+import { SceneContentLive } from "@/components/v5/scene-content-live";
 import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
 import { useSceneClock } from "@/components/v5/use-scene-clock";
@@ -98,8 +98,8 @@ const SCENES: SceneDef[] = [
     key: "email",
     label: "Email Marketing",
     title: "Email Marketing",
-    subtitle: "Personalisation becomes real",
-    phases: [650, 700, 1100, 850, 950, 1500, 1700],
+    subtitle: "From template to multi-step campaign",
+    phases: [650, 900, 1500, 1200, 1100, 1900, 1900],
     render: (p) => <SceneEmailLive {...p} />,
   },
   {
@@ -163,12 +163,6 @@ function HeroV5Page() {
 
   return (
     <div className="min-h-screen bg-white font-zapla text-zapla-ink">
-      <style>{`
-        [data-scene="content"] div[class*="ml-3 hidden rounded-[9px] border border-slate-200 bg-slate-50 p-[2px] sm:flex"] {
-          display: none !important;
-        }
-      `}</style>
-
       <header className="mx-auto flex max-w-[1360px] items-center gap-3 px-5 py-5 sm:px-8">
         <img src={logo.url} alt="Zapla" className="h-8 w-8 rounded-[10px]" />
         <span className="text-[15px] font-semibold tracking-tight">Zapla</span>
@@ -231,7 +225,7 @@ function HeroV5Page() {
             >
               <div className="h-[460px] sm:h-[520px] lg:h-[580px]">
                 <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
-                  <div key={runId} data-scene={scene.key} className="absolute inset-0">
+                  <div key={runId} className="absolute inset-0">
                     {scene.render({ phase, elapsedMs, reduced })}
                   </div>
                 </AppShell>
