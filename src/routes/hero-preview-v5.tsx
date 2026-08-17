@@ -98,8 +98,8 @@ const SCENES: SceneDef[] = [
     key: "email",
     label: "Email Marketing",
     title: "Email Marketing",
-    subtitle: "From template to multi-step campaign",
-    phases: [650, 900, 1200, 1050, 1100, 700, 1100, 700, 1100, 1200, 2100],
+    subtitle: "From one ask to a campaign that pays for itself",
+    phases: [1600, 1400, 900, 1100, 800, 1000, 700, 1000, 700, 1000, 1300, 1600, 3200],
     render: (p) => <SceneEmailLive {...p} />,
   },
   {
