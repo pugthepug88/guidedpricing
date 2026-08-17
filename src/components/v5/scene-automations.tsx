@@ -473,7 +473,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               reduced={reduced}
             >
               <AnimatePresence>
-                {phase >= 8 ? (
+                {phase >= 7 ? (
                   <motion.div
                     initial={reduced ? false : { opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
