@@ -338,7 +338,7 @@ export function SceneEmailLive({ phase, reduced }: SceneProps) {
     1: { left: "42%", top: "64%" },
     2: { left: "76%", top: "43%" },
     3: { left: "68%", top: "38%" },
-    6: { left: "15%", top: "91%" },
+    5: { left: "15%", top: "91%" },
   };
 
   return (
@@ -358,7 +358,7 @@ export function SceneEmailLive({ phase, reduced }: SceneProps) {
 
       <ZaplaDemoCursor
         point={points[phase] ?? null}
-        press={phase === 0 || phase === 1 || phase === 3 || phase === 6}
+        press={phase === 0 || phase === 1 || phase === 3 || phase === 5}
         reduced={reduced}
       />
     </div>
