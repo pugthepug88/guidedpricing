@@ -78,6 +78,8 @@ const FLOW = [
   },
 ] as const;
 
+const LANDED_PHASES = [5, 7, 9] as const;
+
 function TemplatePreview({
   template,
   compact = false,
@@ -128,20 +130,31 @@ function WaitChip({ label }: { label: string }) {
   );
 }
 
+function targetEmailForPhase(phase: number) {
+  if (phase <= 4) return 0;
+  if (phase <= 6) return 1;
+  if (phase <= 8) return 2;
+  return -1;
+}
+
 function EmailNode({ index, phase, reduced }: { index: number; phase: number; reduced: boolean }) {
-  const isFirst = index === 0;
-  const landed = phase >= 5;
-  const active = phase >= 6;
-  const selected = isFirst && phase >= 0 && phase <= 4;
-  const showTemplate = isFirst && landed;
+  const showTemplate = phase >= LANDED_PHASES[index];
+  const active = phase >= 10;
+  const target = !showTemplate && targetEmailForPhase(phase) === index;
 
   return (
     <motion.div
       className="relative mx-auto flex h-[68px] w-[336px] max-w-[92%] items-center gap-3 overflow-hidden rounded-[14px] border bg-white px-3 shadow-[0_14px_34px_-28px_rgba(15,23,42,.45)]"
       initial={false}
       animate={{
-        borderColor: active ? "rgba(16,185,129,.42)" : selected ? "rgba(96,165,250,1)" : "rgba(226,232,240,1)",
-        boxShadow: selected
+        borderColor: active
+          ? "rgba(16,185,129,.42)"
+          : target
+            ? "rgba(96,165,250,1)"
+            : showTemplate
+              ? "rgba(191,219,254,.9)"
+              : "rgba(226,232,240,1)",
+        boxShadow: target
           ? "0 0 0 4px rgba(37,99,255,.08), 0 14px 34px -28px rgba(15,23,42,.45)"
           : "0 14px 34px -28px rgba(15,23,42,.45)",
       }}
@@ -150,15 +163,16 @@ function EmailNode({ index, phase, reduced }: { index: number; phase: number; re
       <div className="flex h-[48px] w-[56px] shrink-0 items-center justify-center overflow-hidden rounded-[9px] bg-slate-100">
         {showTemplate ? (
           <motion.div
+            key={`template-${index}`}
             className="h-full w-full"
-            initial={reduced ? false : { opacity: 0, scale: 0.84 }}
+            initial={reduced ? false : { opacity: 0, scale: 0.76 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: reduced ? 0 : 0.3 }}
+            transition={{ duration: reduced ? 0 : 0.36, ease: [0.2, 0.82, 0.24, 1] }}
           >
             <TemplatePreview template={TEMPLATES[0]} compact />
           </motion.div>
         ) : (
-          <Mail className={isFirst ? "h-4 w-4 text-blue-400" : "h-4 w-4 text-slate-300"} />
+          <Mail className={target ? "h-4 w-4 text-blue-400" : "h-4 w-4 text-slate-300"} />
         )}
       </div>
 
@@ -166,9 +180,10 @@ function EmailNode({ index, phase, reduced }: { index: number; phase: number; re
         <div className="text-[5.5px] font-black uppercase tracking-[.14em] text-slate-400">{FLOW[index].label}</div>
         {showTemplate ? (
           <motion.div
+            key={`copy-${index}`}
             initial={reduced ? false : { opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : 0.06 }}
+            transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.06 }}
           >
             <div className="mt-1 truncate text-[7.7px] font-black text-slate-800"><span className="text-slate-400">Subject:</span> {FLOW[index].subject}</div>
             <div className="mt-1 truncate text-[5.8px] font-semibold text-slate-500">{FLOW[index].body}</div>
@@ -177,8 +192,12 @@ function EmailNode({ index, phase, reduced }: { index: number; phase: number; re
         ) : (
           <>
             <div className="mt-1 text-[7.7px] font-black text-slate-800">{FLOW[index].title}</div>
-            <div className="mt-1.5 inline-flex items-center gap-1 rounded-[6px] bg-slate-50 px-2 py-1 text-[5.5px] font-black text-slate-500">
-              {isFirst ? <><LayoutTemplate className="h-2.5 w-2.5 text-blue-500" /> Choose template</> : <><Mail className="h-2.5 w-2.5" /> Email ready to customise</>}
+            <div className={target
+              ? "mt-1.5 inline-flex items-center gap-1 rounded-[6px] bg-blue-50 px-2 py-1 text-[5.5px] font-black text-blue-700"
+              : "mt-1.5 inline-flex items-center gap-1 rounded-[6px] bg-slate-50 px-2 py-1 text-[5.5px] font-black text-slate-400"}
+            >
+              <LayoutTemplate className="h-2.5 w-2.5" />
+              {target ? "Choose template" : "Waiting for template"}
             </div>
           </>
         )}
@@ -192,13 +211,18 @@ function EmailNode({ index, phase, reduced }: { index: number; phase: number; re
         >
           <Check className="h-3 w-3" strokeWidth={3} />
         </motion.span>
+      ) : showTemplate ? (
+        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+          <Check className="h-3 w-3" strokeWidth={3} />
+        </span>
       ) : null}
     </motion.div>
   );
 }
 
 function CampaignBuilder({ phase, reduced }: { phase: number; reduced: boolean }) {
-  const active = phase >= 6;
+  const allReady = phase >= 9;
+  const active = phase >= 10;
 
   return (
     <div className="absolute bottom-[5%] left-[4%] top-[5%] z-10 w-[49%]">
@@ -212,10 +236,14 @@ function CampaignBuilder({ phase, reduced }: { phase: number; reduced: boolean }
             </div>
           </div>
           <motion.span
-            className={active ? "rounded-full bg-emerald-50 px-2.5 py-1 text-[6px] font-black text-emerald-700" : "rounded-full bg-slate-100 px-2.5 py-1 text-[6px] font-black text-slate-500"}
+            className={active
+              ? "rounded-full bg-emerald-50 px-2.5 py-1 text-[6px] font-black text-emerald-700"
+              : allReady
+                ? "rounded-full bg-blue-50 px-2.5 py-1 text-[6px] font-black text-blue-700"
+                : "rounded-full bg-slate-100 px-2.5 py-1 text-[6px] font-black text-slate-500"}
             animate={{ scale: active ? [1, 1.07, 1] : 1 }}
           >
-            {active ? "ACTIVE" : "DRAFT"}
+            {active ? "ACTIVE" : allReady ? "READY" : "DRAFT"}
           </motion.span>
         </div>
 
@@ -246,8 +274,11 @@ function CampaignBuilder({ phase, reduced }: { phase: number; reduced: boolean }
           <motion.div
             className={active
               ? "inline-flex items-center gap-1.5 rounded-[9px] bg-emerald-500 px-3.5 py-2 text-[7px] font-black text-white"
-              : "inline-flex items-center gap-1.5 rounded-[9px] bg-zapla-ink px-3.5 py-2 text-[7px] font-black text-white"}
-            animate={{ scale: active ? [1, 0.97, 1] : 1 }}
+              : allReady
+                ? "inline-flex items-center gap-1.5 rounded-[9px] bg-zapla-ink px-3.5 py-2 text-[7px] font-black text-white shadow-[0_10px_28px_-18px_rgba(15,23,42,.65)]"
+                : "inline-flex items-center gap-1.5 rounded-[9px] bg-slate-200 px-3.5 py-2 text-[7px] font-black text-slate-500"}
+            animate={active ? { scale: [1, 0.97, 1] } : allReady && !reduced ? { boxShadow: ["0 0 0 0 rgba(37,99,255,0)", "0 0 0 6px rgba(37,99,255,.11)", "0 0 0 0 rgba(37,99,255,0)"] } : {}}
+            transition={{ duration: 1.25, repeat: allReady && !active && !reduced ? Infinity : 0 }}
           >
             {active ? <><Check className="h-3 w-3" /> Campaign active</> : <><Play className="h-3 w-3" /> Activate campaign</>}
           </motion.div>
@@ -258,9 +289,10 @@ function CampaignBuilder({ phase, reduced }: { phase: number; reduced: boolean }
 }
 
 function TemplateTray({ phase, reduced }: { phase: number; reduced: boolean }) {
-  const visible = phase >= 1 && phase <= 4;
+  const visible = phase >= 1 && phase <= 8;
+  const targetIndex = targetEmailForPhase(phase);
   const selected = phase >= 3;
-  const flying = phase === 4;
+  const flying = phase === 4 || phase === 6 || phase === 8;
 
   return (
     <AnimatePresence>
@@ -268,13 +300,16 @@ function TemplateTray({ phase, reduced }: { phase: number; reduced: boolean }) {
         <motion.div
           className="absolute bottom-[7%] right-[3.5%] top-[7%] z-30 w-[44%] overflow-hidden rounded-[20px] border border-slate-200 bg-white p-3.5 shadow-[0_32px_80px_-38px_rgba(15,23,42,.5)]"
           initial={reduced ? false : { opacity: 0, x: 64, scale: 0.985 }}
-          animate={{ opacity: flying ? 0.54 : 1, x: 0, scale: flying ? 0.99 : 1 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={reduced ? undefined : { opacity: 0, x: 42, scale: 0.99 }}
           transition={{ duration: reduced ? 0 : 0.4, ease: [0.2, 0.82, 0.24, 1] }}
         >
           <div className="mb-3 flex items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-violet-50 text-violet-600"><LayoutTemplate className="h-3.5 w-3.5" /></span>
-            <div><div className="text-[9px] font-black text-slate-900">Choose a template</div><div className="mt-0.5 text-[6px] font-semibold text-slate-400">Pick a design for Email 1</div></div>
+            <div>
+              <div className="text-[9px] font-black text-slate-900">Choose a template</div>
+              <div className="mt-0.5 text-[6px] font-semibold text-slate-400">Apply a design to {targetIndex >= 0 ? FLOW[targetIndex].label : "the campaign"}</div>
+            </div>
           </div>
 
           <div className="grid h-[calc(100%-42px)] grid-cols-2 gap-2.5">
@@ -288,7 +323,11 @@ function TemplateTray({ phase, reduced }: { phase: number; reduced: boolean }) {
                     ? "relative min-h-0 overflow-hidden rounded-[14px] border-2 border-blue-400 bg-white p-[3px] shadow-[0_18px_42px_-24px_rgba(37,99,255,.72)]"
                     : "relative min-h-0 overflow-hidden rounded-[14px] border border-slate-200 bg-white p-[3px] shadow-[0_14px_34px_-28px_rgba(15,23,42,.42)]"}
                   initial={reduced ? false : { opacity: 0, y: 10, scale: 0.98 }}
-                  animate={{ opacity: flying && isSelected ? 0 : dim ? 0.25 : 1, y: isSelected && !flying ? -3 : 0, scale: isSelected && !flying ? 1.02 : dim ? 0.98 : 1 }}
+                  animate={{
+                    opacity: flying && isSelected ? 0.62 : dim ? 0.28 : 1,
+                    y: isSelected && !flying ? -3 : 0,
+                    scale: isSelected && !flying ? 1.02 : dim ? 0.98 : 1,
+                  }}
                   transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : index * 0.055 }}
                 >
                   <TemplatePreview template={template} />
@@ -305,14 +344,30 @@ function TemplateTray({ phase, reduced }: { phase: number; reduced: boolean }) {
 }
 
 function FlyingTemplate({ phase, reduced }: { phase: number; reduced: boolean }) {
-  if (phase !== 4) return null;
+  const flightIndex = phase === 4 ? 0 : phase === 6 ? 1 : phase === 8 ? 2 : -1;
+  if (flightIndex < 0) return null;
+
+  const targets = [
+    { left: "9.4%", top: "28.8%" },
+    { left: "9.4%", top: "52.1%" },
+    { left: "9.4%", top: "75.4%" },
+  ] as const;
+  const target = targets[flightIndex];
 
   return (
     <motion.div
+      key={`flight-${flightIndex}`}
       className="absolute z-50 overflow-hidden rounded-[14px] border-2 border-blue-400 bg-white p-[3px] shadow-[0_24px_64px_-28px_rgba(37,99,255,.62)]"
       style={{ left: "57.4%", top: "15.2%", width: "18.3%", height: "31%" }}
       initial={reduced ? false : { opacity: 1, scale: 1 }}
-      animate={{ left: "9.4%", top: "28.8%", width: "6.8%", height: "8.2%", borderRadius: "9px", opacity: [1, 1, 1, 0.96] }}
+      animate={{
+        left: target.left,
+        top: target.top,
+        width: "6.8%",
+        height: "8.2%",
+        borderRadius: "9px",
+        opacity: [1, 1, 1, 0.96],
+      }}
       transition={{ duration: reduced ? 0 : 0.92, ease: [0.18, 0.82, 0.2, 1] }}
     >
       <TemplatePreview template={TEMPLATES[0]} />
@@ -326,15 +381,19 @@ export function SceneEmailLive({ phase, reduced }: SceneProps) {
     1: { left: "68%", top: "28%" },
     2: { left: "68%", top: "28%" },
     3: { left: "67%", top: "27%" },
-    6: { left: "26%", top: "92%" },
+    5: { left: "67%", top: "27%" },
+    7: { left: "67%", top: "27%" },
+    10: { left: "26%", top: "92%" },
   };
+
+  const press = phase === 0 || phase === 3 || phase === 5 || phase === 7 || phase === 10;
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#f7f8fb]">
       <CampaignBuilder phase={phase} reduced={reduced} />
       <TemplateTray phase={phase} reduced={reduced} />
       <FlyingTemplate phase={phase} reduced={reduced} />
-      <ZaplaDemoCursor point={points[phase] ?? null} press={phase === 0 || phase === 3 || phase === 6} reduced={reduced} />
+      <ZaplaDemoCursor point={points[phase] ?? null} press={press} reduced={reduced} />
     </div>
   );
 }
