@@ -5,14 +5,14 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AppShell } from "@/components/v5/kit";
 import {
-  SceneAutomations,
   SceneContacts,
   SceneInbox,
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
 import { SceneCalendar, SceneContracts, SceneEmail } from "@/components/v5/scenes-b";
-import { SceneContent } from "@/components/v5/scene-content";
+import { SceneContentLive } from "@/components/v5/scene-content-live";
+import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
 import { useSceneClock } from "@/components/v5/use-scene-clock";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
@@ -59,7 +59,6 @@ const SCENES: SceneDef[] = [
       1400, 520, 780, 900, 780, 420, 420, 420, 420, 760, 660, 1750, 640, 3500, 400, 340, 340, 340,
       2600,
     ],
-
     render: (p) => <SceneContacts {...p} />,
   },
   {
@@ -68,7 +67,6 @@ const SCENES: SceneDef[] = [
     title: "Opportunities",
     subtitle: "Every enquiry visible, every deal won",
     phases: [1300, 700, 420, 1000, 1000, 500, 320, 800, 600, 350, 900, 1450, 1800],
-
     render: (p) => <SceneOpportunities {...p} />,
   },
   {
@@ -85,7 +83,7 @@ const SCENES: SceneDef[] = [
     title: "Automations",
     subtitle: "Follow-up happens without anyone remembering",
     phases: [1200, 900, 900, 1100, 900, 900, 1000, 1400, 1250, 1800],
-    render: (p) => <SceneAutomations {...p} />,
+    render: (p) => <SceneAutomationsLive {...p} />,
   },
   {
     key: "content",
@@ -93,7 +91,7 @@ const SCENES: SceneDef[] = [
     title: "Content Planner",
     subtitle: "One post becomes multi-channel distribution",
     phases: [900, 800, 1200, 1000, 900, 1000, 1800],
-    render: (p) => <SceneContent {...p} />,
+    render: (p) => <SceneContentLive {...p} />,
   },
   {
     key: "email",
@@ -135,10 +133,8 @@ function HeroV5Page() {
     setSceneIndex((i) => (i + 1) % SCENES.length);
   }, []);
 
-  /* one identity per playback run: scene + run counter */
   const runId = `${scene.key}-${runKey}`;
 
-  /* real elapsed-time clock per scene: no global metronome, pause freezes it */
   const { phase, elapsedMs } = useSceneClock({
     durations: scene.phases,
     paused,
@@ -147,7 +143,6 @@ function HeroV5Page() {
     restartKey: runId,
   });
 
-  /* every tab selection restarts that scene from phase 0, even if already active */
   const selectScene = useCallback((i: number) => {
     setSceneIndex(i);
     setRunKey((k) => k + 1);
@@ -167,7 +162,6 @@ function HeroV5Page() {
 
   return (
     <div className="min-h-screen bg-white font-zapla text-zapla-ink">
-      {/* preview header */}
       <header className="mx-auto flex max-w-[1360px] items-center gap-3 px-5 py-5 sm:px-8">
         <img src={logo.url} alt="Zapla" className="h-8 w-8 rounded-[10px]" />
         <span className="text-[15px] font-semibold tracking-tight">Zapla</span>
@@ -177,7 +171,6 @@ function HeroV5Page() {
       </header>
 
       <main className="relative overflow-hidden">
-        {/* soft accents */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-10"
@@ -188,7 +181,6 @@ function HeroV5Page() {
         />
 
         <div className="mx-auto grid max-w-[1360px] items-center gap-10 px-5 pb-16 pt-4 sm:px-8 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:gap-10 lg:pb-20">
-          {/* copy */}
           <div className="max-w-[420px]">
             <p className="text-[12.5px] font-semibold uppercase tracking-[0.14em] text-zapla-blue">
               AI-powered business platform
@@ -222,7 +214,6 @@ function HeroV5Page() {
             </p>
           </div>
 
-          {/* product stage */}
           <div id="zapla-stage">
             <div
               onMouseEnter={() => setPaused(true)}
@@ -240,7 +231,6 @@ function HeroV5Page() {
               </div>
             </div>
 
-            {/* tabs */}
             <div
               role="tablist"
               aria-label="Zapla product scenes"
