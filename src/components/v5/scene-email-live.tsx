@@ -13,8 +13,8 @@ const EMAILS = [
 ] as const;
 
 const TEMPLATES = [
-  { image: photoA, headline: "Your quote is ready", button: "View quote", tone: "bg-white" },
   { image: photoB, headline: "A little something for you", button: "See offer", tone: "bg-amber-50" },
+  { image: photoA, headline: "Your quote is ready", button: "View quote", tone: "bg-white" },
   { image: photoC, headline: "What’s new this month", button: "Read more", tone: "bg-emerald-950" },
 ] as const;
 
@@ -45,7 +45,7 @@ function EmailVisual({
 
   return (
     <div className={`h-full w-full overflow-hidden rounded-[14px] ${tone}`}>
-      <div className={compact ? "h-[52%] overflow-hidden" : "h-[48%] overflow-hidden"}>
+      <div className={compact ? "h-[54%] overflow-hidden" : "h-[48%] overflow-hidden"}>
         <img src={image} alt="" className="h-full w-full object-cover" />
       </div>
       <div className={compact ? "px-2 py-2" : "px-4 py-4"}>
@@ -68,34 +68,39 @@ function EmailVisual({
 
 function SequenceCard({ index, phase, reduced }: { index: number; phase: number; reduced: boolean }) {
   const email = EMAILS[index];
-  const chosen = index === 0 && phase >= 4;
-  const filled = chosen || (index > 0 && phase >= 5);
+  const filled = phase >= 5;
   const active = phase >= 6;
-  const template = index === 0 ? TEMPLATES[0] : index === 1 ? TEMPLATES[1] : TEMPLATES[2];
+  const selected = index === 0 && phase === 1;
+  const landingTarget = index === 0 && phase === 4;
+  const template = index === 0 ? TEMPLATES[1] : index === 1 ? TEMPLATES[0] : TEMPLATES[2];
 
   return (
     <motion.div
-      className="relative flex h-[126px] min-w-0 flex-1 items-center gap-3 overflow-hidden rounded-[18px] border border-slate-200 bg-white px-3.5 shadow-[0_18px_46px_-34px_rgba(15,23,42,.38)]"
+      className="relative h-[150px] min-w-0 flex-1 overflow-hidden rounded-[18px] border border-slate-200 bg-white shadow-[0_18px_46px_-34px_rgba(15,23,42,.38)]"
       initial={false}
       animate={{
         opacity: index > 0 && phase < 5 ? 0.5 : 1,
-        y: index > 0 && phase < 5 ? 5 : 0,
-        borderColor: active ? "rgba(16,185,129,.42)" : chosen && index === 0 ? "rgba(96,165,250,1)" : "rgba(226,232,240,1)",
-        boxShadow: chosen && index === 0 && phase < 6
+        y: index > 0 && phase < 5 ? 4 : 0,
+        borderColor: active
+          ? "rgba(16,185,129,.42)"
+          : selected || landingTarget
+            ? "rgba(96,165,250,1)"
+            : "rgba(226,232,240,1)",
+        boxShadow: selected || landingTarget
           ? "0 0 0 4px rgba(37,99,255,.08), 0 18px 46px -34px rgba(15,23,42,.38)"
           : "0 18px 46px -34px rgba(15,23,42,.38)",
       }}
-      transition={{ duration: reduced ? 0 : 0.34, delay: phase === 5 && !reduced ? index * 0.08 : 0 }}
+      transition={{ duration: reduced ? 0 : 0.32, delay: phase === 5 && !reduced ? index * 0.1 : 0 }}
     >
-      <div className="h-[92px] w-[72px] shrink-0 overflow-hidden rounded-[12px] bg-slate-100">
+      <div className="absolute inset-x-0 top-0 h-[82px] overflow-hidden bg-slate-100">
         {filled ? (
           <motion.div
             className="h-full w-full"
-            initial={reduced ? false : { opacity: 0, scale: 0.8, y: 6 }}
+            initial={reduced ? false : { opacity: 0, scale: 0.88, y: 5 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.36, delay: reduced ? 0 : index * 0.1 }}
+            transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : index * 0.11 }}
           >
-            <EmailVisual {...template} compact />
+            <img src={template.image} alt="" className="h-full w-full object-cover" />
           </motion.div>
         ) : (
           <div className="flex h-full items-center justify-center">
@@ -104,38 +109,42 @@ function SequenceCard({ index, phase, reduced }: { index: number; phase: number;
         )}
       </div>
 
-      <div className="min-w-0 flex-1">
-        <div className="text-[6.5px] font-black uppercase tracking-[.14em] text-slate-400">EMAIL {index + 1}</div>
-        <div className="mt-1 truncate text-[9px] font-black text-slate-800">{email.title}</div>
-        <div className="mt-2 flex items-center gap-1.5 text-[6.5px] font-bold text-slate-400">
-          <Clock3 className="h-3 w-3" /> {email.delay}
+      <div className="absolute inset-x-0 bottom-0 h-[68px] px-3 py-2.5">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <div className="text-[6px] font-black uppercase tracking-[.14em] text-slate-400">EMAIL {index + 1}</div>
+            <div className="mt-1 truncate text-[8px] font-black text-slate-800">{email.title}</div>
+            <div className="mt-1.5 flex items-center gap-1 text-[6px] font-bold text-slate-400">
+              <Clock3 className="h-2.5 w-2.5" /> {email.delay}
+            </div>
+          </div>
+          <AnimatePresence>
+            {active ? (
+              <motion.span
+                initial={reduced ? false : { opacity: 0, scale: 0.55 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: reduced ? 0 : index * 0.1 }}
+                className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white"
+              >
+                <Check className="h-3 w-3" strokeWidth={3} />
+              </motion.span>
+            ) : null}
+          </AnimatePresence>
         </div>
       </div>
-
-      <AnimatePresence>
-        {active ? (
-          <motion.span
-            initial={reduced ? false : { opacity: 0, scale: 0.55 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: reduced ? 0 : index * 0.1 }}
-            className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white"
-          >
-            <Check className="h-3 w-3" strokeWidth={3} />
-          </motion.span>
-        ) : null}
-      </AnimatePresence>
     </motion.div>
   );
 }
 
 function SequenceStage({ phase, reduced }: { phase: number; reduced: boolean }) {
   const active = phase >= 6;
+  const galleryOpen = phase >= 2 && phase <= 3;
 
   return (
     <motion.div
       className="absolute inset-x-[6%] bottom-[10%] z-10"
-      animate={{ opacity: phase >= 2 && phase <= 3 ? 0.22 : 1, y: phase >= 2 && phase <= 3 ? 10 : 0, scale: phase >= 2 && phase <= 3 ? 0.975 : 1 }}
-      transition={{ duration: reduced ? 0 : 0.36 }}
+      animate={{ opacity: galleryOpen ? 0.18 : 1, y: galleryOpen ? 8 : 0, scale: galleryOpen ? 0.98 : 1 }}
+      transition={{ duration: reduced ? 0 : 0.34 }}
     >
       <div className="mb-4 flex items-center justify-between">
         <div>
@@ -143,7 +152,9 @@ function SequenceStage({ phase, reduced }: { phase: number; reduced: boolean }) 
           <div className="mt-0.5 text-[7px] font-semibold text-slate-400">3-email sequence</div>
         </div>
         <motion.span
-          className={active ? "rounded-full bg-emerald-50 px-3 py-1.5 text-[6.5px] font-black text-emerald-700" : "rounded-full bg-slate-100 px-3 py-1.5 text-[6.5px] font-black text-slate-500"}
+          className={active
+            ? "rounded-full bg-emerald-50 px-3 py-1.5 text-[6.5px] font-black text-emerald-700"
+            : "rounded-full bg-slate-100 px-3 py-1.5 text-[6.5px] font-black text-slate-500"}
           animate={{ scale: active ? [1, 1.08, 1] : 1 }}
           transition={{ duration: reduced ? 0 : 0.36 }}
         >
@@ -152,9 +163,9 @@ function SequenceStage({ phase, reduced }: { phase: number; reduced: boolean }) 
       </div>
 
       <div className="relative flex gap-3">
-        <div className="absolute left-[16.5%] right-[16.5%] top-1/2 h-px -translate-y-1/2 bg-slate-200" />
+        <div className="absolute left-[16.5%] right-[16.5%] top-[75px] h-px bg-slate-200" />
         <motion.div
-          className="absolute left-[16.5%] top-1/2 h-px -translate-y-1/2 bg-emerald-400"
+          className="absolute left-[16.5%] top-[75px] h-px bg-emerald-400"
           initial={false}
           animate={{ width: active ? "67%" : "0%" }}
           transition={{ duration: reduced ? 0 : 0.9, ease: [0.2, 0.82, 0.24, 1] }}
@@ -176,23 +187,23 @@ function TemplateGallery({ phase, reduced }: { phase: number; reduced: boolean }
       className="absolute inset-x-[8%] top-[8%] z-30"
       initial={reduced ? false : { opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={reduced ? undefined : { opacity: 0, y: -12 }}
+      exit={reduced ? undefined : { opacity: 0, y: -10 }}
       transition={{ duration: reduced ? 0 : 0.36, ease: [0.2, 0.82, 0.24, 1] }}
     >
       <div className="mb-3 text-center text-[10px] font-black text-slate-900">Choose a template</div>
       <div className="grid grid-cols-3 gap-4">
         {TEMPLATES.map((template, index) => {
-          const isSelected = selected && index === 0;
-          const dim = selected && index !== 0;
+          const isSelected = selected && index === 1;
+          const dim = selected && index !== 1;
 
           return (
             <motion.div
               key={index}
               className={isSelected
-                ? "relative h-[265px] overflow-hidden rounded-[18px] border-2 border-blue-400 bg-white p-[4px] shadow-[0_28px_70px_-34px_rgba(37,99,255,.6)]"
-                : "relative h-[265px] overflow-hidden rounded-[18px] border border-slate-200 bg-white p-[4px] shadow-[0_22px_60px_-38px_rgba(15,23,42,.42)]"}
+                ? "relative h-[210px] sm:h-[265px] overflow-hidden rounded-[18px] border-2 border-blue-400 bg-white p-[4px] shadow-[0_28px_70px_-34px_rgba(37,99,255,.6)]"
+                : "relative h-[210px] sm:h-[265px] overflow-hidden rounded-[18px] border border-slate-200 bg-white p-[4px] shadow-[0_22px_60px_-38px_rgba(15,23,42,.42)]"}
               initial={reduced ? false : { opacity: 0, y: 18, scale: 0.96 }}
-              animate={{ opacity: dim ? 0.28 : 1, y: isSelected ? -4 : 0, scale: isSelected ? 1.025 : dim ? 0.96 : 1 }}
+              animate={{ opacity: dim ? 0.24 : 1, y: isSelected ? -4 : 0, scale: isSelected ? 1.025 : dim ? 0.96 : 1 }}
               transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : index * 0.07 }}
             >
               <EmailVisual {...template} />
@@ -218,22 +229,29 @@ function FlyingTemplate({ phase, reduced }: { phase: number; reduced: boolean })
 
   return (
     <motion.div
-      className="absolute z-40 h-[265px] w-[28%] overflow-hidden rounded-[18px] border-2 border-blue-400 bg-white p-[4px] shadow-[0_28px_70px_-34px_rgba(37,99,255,.6)]"
-      style={{ left: "10.5%", top: "8%" }}
-      initial={reduced ? false : { opacity: 1, x: 0, y: 0, scale: 1 }}
-      animate={{ x: "10%", y: "42%", scale: 0.34, opacity: 0.98 }}
+      className="absolute z-40 overflow-hidden rounded-[18px] border-2 border-blue-400 bg-white p-[4px] shadow-[0_28px_70px_-34px_rgba(37,99,255,.58)]"
+      style={{ left: "37%", top: "13%", width: "26%", height: "265px" }}
+      initial={reduced ? false : { opacity: 1 }}
+      animate={{
+        left: "6%",
+        top: "64%",
+        width: "28%",
+        height: "150px",
+        borderRadius: "18px",
+        opacity: 0.98,
+      }}
       transition={{ duration: reduced ? 0 : 0.72, ease: [0.2, 0.82, 0.24, 1] }}
     >
-      <EmailVisual {...TEMPLATES[0]} />
+      <EmailVisual {...TEMPLATES[1]} />
     </motion.div>
   );
 }
 
 export function SceneEmailLive({ phase, reduced }: SceneProps) {
   const points: Record<number, CursorPoint> = {
-    1: { left: "18%", top: "72%" },
-    2: { left: "18%", top: "29%" },
-    3: { left: "18%", top: "29%" },
+    1: { left: "19%", top: "76%" },
+    2: { left: "50%", top: "38%" },
+    3: { left: "50%", top: "38%" },
   };
 
   return (
