@@ -1,6 +1,5 @@
-import { AnimatePresence, LayoutGroup, motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { CalendarDays, Check, MoreHorizontal, Send, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { SceneContent as ContentPlannerScene } from "./scene-content";
 import { type SceneProps } from "./motion-kit";
 import {
@@ -25,12 +24,19 @@ const CHANNELS = [
   { key: "threads", label: "Threads", Mark: ThreadsMark },
 ] as const;
 
-const POST_LAYOUT_ID = "content-planner-selected-post";
-const POST_IMAGE_LAYOUT_ID = "content-planner-selected-post-image";
-
-function ViewModePatch() {
+function AssetPreload() {
   return (
-    <div className="absolute left-[175px] top-[8px] z-[96] hidden items-center bg-white pl-4 pr-2 sm:flex">
+    <div aria-hidden className="pointer-events-none absolute left-0 top-0 z-[-1] h-px w-px overflow-hidden opacity-0">
+      <img src={photoA} alt="" loading="eager" decoding="async" />
+      <img src={photoB} alt="" loading="eager" decoding="async" />
+      <img src={photoC} alt="" loading="eager" decoding="async" />
+    </div>
+  );
+}
+
+function ViewModeControl() {
+  return (
+    <div className="absolute left-[150px] top-[4px] z-[96] hidden h-[38px] w-[270px] items-center bg-white pl-4 sm:flex">
       <div className="flex rounded-[9px] border border-slate-200 bg-slate-50 p-[2px]">
         <span className="rounded-[7px] bg-white px-2.5 py-1 text-[8px] font-black text-slate-700 shadow-sm">Calendar</span>
         <span className="rounded-[7px] px-2.5 py-1 text-[8px] font-bold text-slate-400">List</span>
@@ -39,7 +45,7 @@ function ViewModePatch() {
   );
 }
 
-function ComposerOverlay({ phase, reduced }: { phase: number; reduced: boolean }) {
+function ComposerPanel({ phase, reduced }: { phase: number; reduced: boolean }) {
   return (
     <AnimatePresence>
       {phase === 2 ? (
@@ -48,24 +54,22 @@ function ComposerOverlay({ phase, reduced }: { phase: number; reduced: boolean }
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: reduced ? 0 : 0.36 }}
+          transition={{ duration: reduced ? 0 : 0.28 }}
         >
-          <div className="absolute inset-0 bg-white/82 backdrop-blur-[2px]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_44%,rgba(255,255,255,1),rgba(255,255,255,.92)_38%,rgba(255,255,255,.7)_70%,rgba(255,255,255,.48)_100%)]" />
-
+          <div className="absolute inset-0 bg-white/58 backdrop-blur-[1.5px]" />
           <motion.div
-            className="absolute bottom-[6%] right-[4%] top-[6%] flex w-[min(400px,90%)] flex-col overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_30px_80px_-38px_rgba(15,23,42,.5)]"
-            initial={reduced ? false : { opacity: 0, y: 12, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.995 }}
-            transition={{ duration: reduced ? 0 : 0.42, ease: [0.2, 0.82, 0.24, 1] }}
+            className="absolute inset-y-0 right-0 flex w-[min(430px,88%)] flex-col border-l border-slate-200 bg-white shadow-[-28px_0_70px_-42px_rgba(15,23,42,.5)]"
+            initial={reduced ? false : { opacity: 0, x: 34 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 22 }}
+            transition={{ duration: reduced ? 0 : 0.38, ease: [0.2, 0.82, 0.24, 1] }}
           >
             <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-3">
               <div>
                 <div className="text-[12px] font-black tracking-tight text-slate-900">New Social Post</div>
                 <div className="mt-0.5 text-[7.5px] font-semibold text-slate-400">Create once, publish everywhere</div>
               </div>
-              <span className="ml-auto flex h-7 w-7 items-center justify-center rounded-[8px] text-slate-300">
+              <span className="ml-auto flex h-7 w-7 items-center justify-center text-slate-300">
                 <MoreHorizontal className="h-4 w-4" />
               </span>
             </div>
@@ -79,17 +83,16 @@ function ComposerOverlay({ phase, reduced }: { phase: number; reduced: boolean }
                       <motion.span
                         key={key}
                         className="inline-flex items-center justify-center"
-                        initial={reduced ? false : { opacity: 0, x: 6 }}
+                        initial={reduced ? false : { opacity: 0, x: 5 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: reduced ? 0 : 0.16 + index * 0.075, duration: 0.24 }}
+                        transition={{ delay: reduced ? 0 : 0.08 + index * 0.055, duration: 0.2 }}
                       >
-                        <Mark size={21} />
+                        <Mark size={20} />
                       </motion.span>
                     ))}
                     <span className="ml-1 text-[8px] font-black text-slate-500">6 channels</span>
                   </div>
                 </div>
-
                 <div className="flex items-center gap-1.5 text-[7px] font-bold text-slate-400">
                   <span className="relative h-4 w-7 rounded-full bg-slate-200">
                     <span className="absolute left-0.5 top-0.5 h-3 w-3 rounded-full bg-white shadow-sm" />
@@ -98,13 +101,13 @@ function ComposerOverlay({ phase, reduced }: { phase: number; reduced: boolean }
                 </div>
               </div>
 
-              <div className="mt-3.5">
+              <div className="mt-4">
                 <div className="text-[7.5px] font-black uppercase tracking-[.13em] text-slate-400">Headline / hook</div>
                 <motion.div
-                  className="mt-1.5 rounded-[11px] border border-slate-200 bg-slate-50/65 px-3 py-2.5 text-[10.5px] font-black text-slate-800"
+                  className="mt-1.5 rounded-[11px] border border-slate-200 bg-slate-50/70 px-3 py-2.5 text-[10.5px] font-black text-slate-800"
                   initial={reduced ? false : { opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: reduced ? 0 : 0.36, duration: 0.32 }}
+                  transition={{ delay: reduced ? 0 : 0.22, duration: 0.25 }}
                 >
                   Only 3 spots left this Friday
                 </motion.div>
@@ -116,10 +119,10 @@ function ComposerOverlay({ phase, reduced }: { phase: number; reduced: boolean }
                   <span className="rounded-full bg-violet-50 px-2 py-1 text-[6.5px] font-black text-violet-600">AI written</span>
                 </div>
                 <motion.div
-                  className="mt-1.5 min-h-[92px] rounded-[12px] border border-slate-200 bg-white px-3 py-2.5 text-[9.5px] font-semibold leading-[1.55] text-slate-600"
+                  className="mt-1.5 min-h-[94px] rounded-[12px] border border-slate-200 bg-white px-3 py-2.5 text-[9.5px] font-semibold leading-[1.55] text-slate-600"
                   initial={reduced ? false : { opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: reduced ? 0 : 0.54, duration: 0.34 }}
+                  transition={{ delay: reduced ? 0 : 0.36, duration: 0.28 }}
                 >
                   A few Friday appointments just opened up. Book your spot before they’re gone.
                   <div className="mt-2 text-[8.5px] font-bold text-blue-600">Book now →</div>
@@ -134,21 +137,19 @@ function ComposerOverlay({ phase, reduced }: { phase: number; reduced: boolean }
               </div>
 
               <motion.div
-                className="mt-3 rounded-[13px] border border-violet-100 bg-violet-50/55 p-2.5"
+                className="mt-4 flex items-center gap-2 rounded-[13px] border border-violet-100 bg-violet-50/55 p-2.5"
                 initial={reduced ? false : { opacity: 0, y: 7 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: reduced ? 0 : 0.76, duration: 0.34 }}
+                transition={{ delay: reduced ? 0 : 0.5, duration: 0.28 }}
               >
-                <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-violet-600 text-white">
-                    <Sparkles className="h-4 w-4" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="text-[8.5px] font-black text-slate-800">Generate creative concepts</div>
-                    <div className="mt-0.5 text-[7px] font-semibold text-slate-400">Create 3 visual options from this post</div>
-                  </div>
-                  <span className="rounded-full bg-white px-2 py-1 text-[6.5px] font-black text-violet-600 shadow-sm">NEXT</span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-violet-600 text-white">
+                  <Sparkles className="h-4 w-4" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[8.5px] font-black text-slate-800">Generate creative concepts</div>
+                  <div className="mt-0.5 text-[7px] font-semibold text-slate-400">Create 3 visual options from this post</div>
                 </div>
+                <span className="rounded-full bg-white px-2 py-1 text-[6.5px] font-black text-violet-600 shadow-sm">NEXT</span>
               </motion.div>
             </div>
 
@@ -225,110 +226,34 @@ function Artwork({ variant, selected = false }: { variant: 0 | 1 | 2; selected?:
 
 function CreativeFrame({ variant, selected = false }: { variant: 0 | 1 | 2; selected?: boolean }) {
   return (
-    <div className={cn(
-      "h-[220px] w-[176px] rounded-[20px] bg-white p-[3px] shadow-[0_26px_58px_-30px_rgba(15,23,42,.52)]",
-      selected && "ring-4 ring-blue-500/15",
-    )}>
+    <div className={`h-[220px] w-[176px] rounded-[20px] bg-white p-[3px] shadow-[0_26px_58px_-30px_rgba(15,23,42,.52)] ${selected ? "ring-4 ring-blue-500/15" : ""}`}>
       <Artwork variant={variant} selected={selected} />
     </div>
   );
 }
 
-function FlightPost({ compact, selected, reduced }: { compact: boolean; selected: boolean; reduced: boolean }) {
-  const layoutTransition = reduced
-    ? { duration: 0 }
-    : { type: "spring" as const, stiffness: 118, damping: 23, mass: 0.92 };
-
-  if (compact) {
-    return (
-      <motion.div
-        layoutId={POST_LAYOUT_ID}
-        transition={{ layout: layoutTransition }}
-        className="relative w-full overflow-hidden rounded-[8px] border-2 border-blue-400 bg-white shadow-[0_12px_28px_-16px_rgba(37,99,255,.9)]"
-      >
-        <motion.div layoutId={POST_IMAGE_LAYOUT_ID} transition={{ layout: layoutTransition }} className="h-8 overflow-hidden">
-          <img src={photoB} alt="" className="h-full w-full object-cover object-[50%_42%]" />
-        </motion.div>
-        <div className="px-1.5 py-1">
-          <div className="flex items-center justify-between gap-1">
-            <span className="text-[7px] font-black text-blue-700">9:00</span>
-            <span className="rounded-full bg-emerald-50 px-1 py-[1px] text-[6px] font-black text-emerald-700">SCHEDULED</span>
-          </div>
-          <div className="truncate text-[7.5px] font-black text-slate-800">Only 3 spots left Friday</div>
-          <div className="mt-0.5 flex items-center gap-[2px]">
-            {CHANNELS.map(({ key, Mark }) => (
-              <span key={key} className="inline-flex"><Mark size={9} /></span>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div
-      layoutId={POST_LAYOUT_ID}
-      transition={{ layout: layoutTransition }}
-      className={cn(
-        "h-[220px] w-[176px] overflow-hidden rounded-[20px] bg-white p-[3px] shadow-[0_26px_58px_-30px_rgba(15,23,42,.52)]",
-        selected && "ring-4 ring-blue-500/15",
-      )}
-    >
-      <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-slate-950">
-        <motion.div layoutId={POST_IMAGE_LAYOUT_ID} transition={{ layout: layoutTransition }} className="absolute inset-0 overflow-hidden">
-          <img src={photoB} alt="" className="h-full w-full object-cover object-[50%_42%]" />
-        </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-700/85 via-indigo-500/25 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-white/10" />
-        <div className="absolute left-3.5 top-3.5 rounded-full border border-white/25 bg-black/15 px-2 py-1 text-[6.5px] font-black uppercase tracking-[.14em] text-white backdrop-blur-md">North & Pine</div>
-        {selected ? (
-          <motion.span
-            className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-white text-blue-600 shadow-lg"
-            initial={reduced ? false : { opacity: 0, scale: 0.65 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 260, damping: 18 }}
-          >
-            <Check className="h-4 w-4" strokeWidth={3} />
-          </motion.span>
-        ) : null}
-        <div className="absolute inset-x-0 bottom-0 p-3.5 text-white">
-          <div className="text-[7px] font-black uppercase tracking-[.18em] text-white/65">FRIDAY FEELS</div>
-          <div className="mt-1 text-[23px] font-black leading-[.86] tracking-[-.065em]">3 SPOTS<br />LEFT</div>
-          <div className="mt-3 flex items-center justify-between gap-2">
-            <span className="rounded-full bg-white px-2 py-1 text-[6.5px] font-black uppercase tracking-[.08em] text-slate-950">Book now</span>
-            <span className="text-[6px] font-bold text-white/65">Fri 21 Aug</span>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function PublishingRail({ phase, reduced }: { phase: number; reduced: boolean }) {
+function PublishingPanel({ phase, reduced }: { phase: number; reduced: boolean }) {
   const visible = phase === 5;
-
   return (
     <motion.div
-      className="absolute left-[56%] top-1/2 z-[76] w-[min(315px,38%)] -translate-y-1/2"
+      className="absolute left-[55%] top-[43%] z-[76] w-[min(320px,39%)] -translate-y-1/2"
       initial={false}
-      animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : 14 }}
-      transition={{ duration: reduced ? 0 : 0.42, delay: visible && !reduced ? 0.28 : 0, ease: [0.2, 0.82, 0.24, 1] }}
-      style={{ pointerEvents: visible ? "auto" : "none" }}
+      animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : 10 }}
+      transition={{ duration: reduced ? 0 : 0.32, delay: visible && !reduced ? 0.18 : 0 }}
     >
       <div className="flex items-center gap-2">
         <span className="h-2 w-2 rounded-full bg-emerald-400" />
         <div className="text-[11px] font-black tracking-tight text-slate-900">Publishing to 6 channels</div>
       </div>
       <div className="mt-1 text-[7.5px] font-semibold text-slate-400">Same post, formatted for every channel</div>
-
       <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-2.5">
         {CHANNELS.map(({ key, label, Mark }, index) => (
           <motion.div
             key={key}
             className="flex min-w-0 items-center gap-2 rounded-[9px] bg-slate-50/80 px-2 py-1.5"
-            initial={reduced ? false : { opacity: 0, y: 6 }}
-            animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 6 }}
-            transition={{ duration: reduced ? 0 : 0.25, delay: visible && !reduced ? 0.42 + index * 0.09 : 0 }}
+            initial={reduced ? false : { opacity: 0, y: 5 }}
+            animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 5 }}
+            transition={{ duration: reduced ? 0 : 0.2, delay: visible && !reduced ? 0.28 + index * 0.06 : 0 }}
           >
             <Mark size={18} />
             <span className="min-w-0 flex-1 truncate text-[7px] font-black text-slate-700">{label}</span>
@@ -342,14 +267,12 @@ function PublishingRail({ phase, reduced }: { phase: number; reduced: boolean })
 
 function ScheduleDock({ phase, reduced }: { phase: number; reduced: boolean }) {
   const visible = phase === 5;
-
   return (
     <motion.div
-      className="absolute bottom-[8%] left-[56%] z-[78] flex items-center gap-2"
+      className="absolute bottom-[9%] left-[55%] z-[78] flex items-center gap-2"
       initial={false}
-      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 8 }}
-      transition={{ duration: reduced ? 0 : 0.38, delay: visible && !reduced ? 1.18 : 0 }}
-      style={{ pointerEvents: visible ? "auto" : "none" }}
+      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 7 }}
+      transition={{ duration: reduced ? 0 : 0.3, delay: visible && !reduced ? 0.72 : 0 }}
     >
       <div className="flex items-center gap-2 rounded-[11px] bg-slate-50 px-2.5 py-2">
         <CalendarDays className="h-3.5 w-3.5 text-blue-600" />
@@ -365,136 +288,177 @@ function ScheduleDock({ phase, reduced }: { phase: number; reduced: boolean }) {
   );
 }
 
+function TargetSlot({ phase, reduced }: { phase: number; reduced: boolean }) {
+  if (phase !== 6) return null;
+  return (
+    <motion.div
+      className="absolute left-[58.1%] top-[17.6%] z-[68] h-[14%] w-[12.2%] rounded-[8px] border border-dashed border-blue-300 bg-blue-50/55"
+      initial={reduced ? false : { opacity: 0, scale: 0.96 }}
+      animate={{ opacity: [0, 1, 1, 0], scale: [0.96, 1, 1, 1] }}
+      transition={{ duration: reduced ? 0 : 1.4, times: [0, 0.15, 0.72, 1] }}
+    >
+      <span className="absolute left-1.5 top-1 text-[6.5px] font-black text-blue-600">9:00</span>
+    </motion.div>
+  );
+}
+
+function FinalScheduledTile({ phase, reduced }: { phase: number; reduced: boolean }) {
+  if (phase !== 6) return null;
+  return (
+    <motion.div
+      className="absolute left-[58.7%] top-[18.2%] z-[91] w-[10.9%] min-w-[70px] max-w-[88px] overflow-hidden rounded-[7px] border-2 border-blue-400 bg-white shadow-[0_10px_24px_-14px_rgba(37,99,255,.75)]"
+      initial={reduced ? false : { opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: reduced ? 0 : 0.26, delay: reduced ? 0 : 1.18, ease: [0.2, 0.82, 0.24, 1] }}
+    >
+      <div className="h-[26px] overflow-hidden">
+        <img src={photoB} alt="" className="h-full w-full object-cover object-[50%_42%]" />
+      </div>
+      <div className="px-1.5 py-1">
+        <div className="flex items-center justify-between gap-1">
+          <span className="text-[6.5px] font-black text-blue-700">9:00</span>
+          <span className="rounded-full bg-emerald-50 px-1 py-[1px] text-[5.5px] font-black text-emerald-700">SCHEDULED</span>
+        </div>
+        <div className="truncate text-[7px] font-black text-slate-800">3 spots left Friday</div>
+        <div className="mt-0.5 flex items-center gap-[1px]">
+          {CHANNELS.slice(0, 3).map(({ key, Mark }) => <span key={key}><Mark size={8} /></span>)}
+          <span className="ml-0.5 text-[5.5px] font-black text-slate-400">+3</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function SuccessToast({ phase, reduced }: { phase: number; reduced: boolean }) {
+  if (phase !== 6) return null;
+  return (
+    <motion.div
+      className="absolute bottom-3 right-3 z-[92] flex items-center gap-2 rounded-[12px] border border-emerald-100 bg-white px-3 py-2 shadow-[0_18px_45px_-24px_rgba(15,23,42,.46)]"
+      initial={reduced ? false : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 1.38 }}
+    >
+      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-50 text-emerald-600"><Check className="h-4 w-4" strokeWidth={3} /></span>
+      <div>
+        <div className="text-[8.5px] font-black text-slate-800">Scheduled across 6 channels</div>
+        <div className="text-[7px] font-semibold text-slate-400">Friday 21 Aug · 9:00 AM</div>
+      </div>
+    </motion.div>
+  );
+}
+
 function CreativeStory({ phase, reduced }: { phase: number; reduced: boolean }) {
-  if (phase < 3 || phase > 7) return null;
+  if (phase < 3 || phase > 6) return null;
 
   const concepts = phase === 3;
-  const selecting = phase === 4;
+  const selected = phase === 4;
   const publishing = phase === 5;
-  const landed = phase >= 6;
+  const flying = phase === 6;
+
+  const centreMotion = flying
+    ? {
+        left: ["34%", "44%", "56%", "64.15%"],
+        top: ["44%", "37%", "29%", "24.2%"],
+        scale: [1.03, 0.82, 0.58, 0.36],
+        rotate: [0, -1.5, -3.5, -2],
+        opacity: [1, 1, 1, 0],
+      }
+    : publishing
+      ? { left: "34%", top: "44%", scale: 1.03, rotate: 0, opacity: 1 }
+      : selected
+        ? { left: "50%", top: "46%", scale: 1.08, rotate: 0, opacity: 1 }
+        : { left: "50%", top: "47%", scale: 1, rotate: 0, opacity: 1 };
 
   return (
     <motion.div className="pointer-events-none absolute inset-x-0 bottom-0 top-[48px] z-[70] overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-white"
         initial={false}
-        animate={{ opacity: landed ? 0 : 0.93 }}
-        transition={{ duration: reduced ? 0 : landed ? 0.48 : 0.3 }}
+        animate={{ opacity: flying ? 0 : 0.91 }}
+        transition={{ duration: reduced ? 0 : flying ? 0.42 : 0.24 }}
       />
       <motion.div
-        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(255,255,255,1),rgba(255,255,255,.88)_40%,rgba(255,255,255,.36)_76%,transparent_100%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(255,255,255,1),rgba(255,255,255,.88)_42%,rgba(255,255,255,.32)_76%,transparent_100%)]"
         initial={false}
-        animate={{ opacity: landed ? 0 : 1 }}
-        transition={{ duration: reduced ? 0 : 0.48 }}
+        animate={{ opacity: flying ? 0 : 1 }}
+        transition={{ duration: reduced ? 0 : flying ? 0.42 : 0.24 }}
       />
 
-      <AnimatePresence>
-        {concepts ? (
-          <motion.div
-            className="absolute left-1/2 top-[11%] z-[74] -translate-x-1/2 rounded-full bg-violet-50 px-3 py-1.5 text-[8px] font-black text-violet-700"
-            initial={reduced ? false : { opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: reduced ? 0 : 0.5, duration: 0.32 }}
-          >
-            <span className="inline-flex items-center gap-1.5"><Sparkles className="h-3 w-3" /> 3 concepts ready</span>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {concepts ? (
+        <motion.div
+          className="absolute left-1/2 top-[11%] z-[74] -translate-x-1/2 rounded-full bg-violet-50 px-3 py-1.5 text-[8px] font-black text-violet-700"
+          initial={reduced ? false : { opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: reduced ? 0 : 0.2, duration: 0.24 }}
+        >
+          <span className="inline-flex items-center gap-1.5"><Sparkles className="h-3 w-3" /> 3 concepts ready</span>
+        </motion.div>
+      ) : null}
 
       <motion.div
         className="absolute left-1/2 top-[47%] z-[72] -translate-x-1/2 -translate-y-1/2"
-        initial={reduced ? false : { opacity: 0, x: -105, y: 14, scale: 0.82, rotate: -3 }}
-        animate={{
-          opacity: concepts ? 1 : 0,
-          x: concepts ? -188 : -232,
-          y: concepts ? 14 : 24,
-          scale: concepts ? 0.94 : 0.86,
-          rotate: -7,
-        }}
-        transition={{ type: "spring", stiffness: 190, damping: 24, delay: concepts && !reduced ? 0.36 : 0 }}
+        initial={reduced ? false : { opacity: 0, x: -120, scale: 0.82, rotate: -3 }}
+        animate={{ opacity: concepts ? 1 : 0, x: concepts ? -188 : -235, scale: concepts ? 0.94 : 0.82, rotate: -7 }}
+        transition={{ type: "spring", stiffness: 220, damping: 25, delay: concepts && !reduced ? 0.08 : 0 }}
       >
         <CreativeFrame variant={1} />
       </motion.div>
 
       <motion.div
         className="absolute left-1/2 top-[47%] z-[72] -translate-x-1/2 -translate-y-1/2"
-        initial={reduced ? false : { opacity: 0, x: 105, y: 14, scale: 0.82, rotate: 3 }}
-        animate={{
-          opacity: concepts ? 1 : 0,
-          x: concepts ? 188 : 232,
-          y: concepts ? 14 : 24,
-          scale: concepts ? 0.94 : 0.86,
-          rotate: 7,
-        }}
-        transition={{ type: "spring", stiffness: 190, damping: 24, delay: concepts && !reduced ? 0.5 : 0 }}
+        initial={reduced ? false : { opacity: 0, x: 120, scale: 0.82, rotate: 3 }}
+        animate={{ opacity: concepts ? 1 : 0, x: concepts ? 188 : 235, scale: concepts ? 0.94 : 0.82, rotate: 7 }}
+        transition={{ type: "spring", stiffness: 220, damping: 25, delay: concepts && !reduced ? 0.14 : 0 }}
       >
         <CreativeFrame variant={2} />
       </motion.div>
 
-      {!landed ? (
-        <motion.div
-          className="absolute z-[75] -translate-x-1/2 -translate-y-1/2"
-          initial={reduced ? false : { opacity: 0, left: "50%", top: "51%", scale: 0.82 }}
-          animate={
-            publishing
-              ? { left: "34%", top: "44%", scale: 1.03, rotate: 0, opacity: 1 }
-              : selecting
-                ? { left: "42%", top: "45%", scale: 1.08, rotate: 0, opacity: 1 }
-                : { left: "50%", top: "47%", scale: 1, rotate: 0, opacity: 1 }
-          }
-          transition={{ type: "spring", stiffness: 185, damping: 25, delay: concepts && !reduced ? 0.62 : 0 }}
-        >
-          <FlightPost compact={false} selected={phase >= 4} reduced={reduced} />
-        </motion.div>
-      ) : null}
+      <motion.div
+        className="absolute z-[75] -translate-x-1/2 -translate-y-1/2"
+        initial={reduced ? false : { opacity: 0, left: "50%", top: "50%", scale: 0.84 }}
+        animate={centreMotion}
+        transition={
+          flying
+            ? { duration: reduced ? 0 : 1.35, times: [0, 0.32, 0.72, 1], ease: [0.18, 0.78, 0.2, 1] }
+            : { type: "spring", stiffness: 205, damping: 25, delay: concepts && !reduced ? 0.18 : 0 }
+        }
+      >
+        <CreativeFrame variant={0} selected={phase >= 4} />
+      </motion.div>
 
-      {landed ? (
-        <motion.div
-          className="absolute z-[92] w-[13.25%] min-w-[76px] sm:min-w-[92px]"
-          style={{ left: "58.05%", top: "18.8%" }}
-          initial={false}
-        >
-          <FlightPost compact selected reduced={reduced} />
-          {phase === 6 ? (
-            <motion.span
-              className="pointer-events-none absolute -inset-1 rounded-[10px] ring-2 ring-blue-400"
-              initial={reduced ? false : { opacity: 0, scale: 0.92 }}
-              animate={reduced ? { opacity: 0 } : { opacity: [0, 1, 0], scale: [0.92, 1.04, 1.1] }}
-              transition={{ duration: 1.35, delay: 0.9, times: [0, 0.35, 1] }}
-            />
-          ) : null}
-        </motion.div>
-      ) : null}
-
-      <PublishingRail phase={phase} reduced={reduced} />
+      <PublishingPanel phase={phase} reduced={reduced} />
       <ScheduleDock phase={phase} reduced={reduced} />
+      <TargetSlot phase={phase} reduced={reduced} />
+      <FinalScheduledTile phase={phase} reduced={reduced} />
+      <SuccessToast phase={phase} reduced={reduced} />
     </motion.div>
   );
 }
 
 export function SceneContentLive(props: SceneProps) {
   const { phase, reduced } = props;
-  const basePhase = phase >= 3 && phase <= 5 ? 2 : phase === 6 ? 0 : phase >= 7 ? 6 : phase;
+
+  // Keep the underlying planner in its clean calendar state. This prevents the
+  // older AI-brief / card sequence from appearing underneath the v5 story.
+  const basePhase = 0;
 
   const points: Record<number, CursorPoint> = {
     1: { left: "92%", top: "5%" },
-    4: { left: "42%", top: "45%" },
-    5: { left: "72%", top: "86%" },
+    4: { left: "50%", top: "46%" },
+    5: { left: "73%", top: "86%" },
   };
 
   const point = points[phase] ?? null;
   const press = phase === 1 || phase === 4 || phase === 5;
 
   return (
-    <LayoutGroup id="content-planner-flight">
-      <div className="absolute inset-0 overflow-hidden">
-        <ContentPlannerScene {...props} phase={basePhase} />
-        <ViewModePatch />
-        <ComposerOverlay phase={phase} reduced={reduced} />
-        <CreativeStory phase={phase} reduced={reduced} />
-        <ZaplaDemoCursor point={point} press={press} reduced={reduced} />
-      </div>
-    </LayoutGroup>
+    <div className="absolute inset-0 overflow-hidden">
+      <AssetPreload />
+      <ContentPlannerScene {...props} phase={basePhase} />
+      <ViewModeControl />
+      <ComposerPanel phase={phase} reduced={reduced} />
+      <CreativeStory phase={phase} reduced={reduced} />
+      <ZaplaDemoCursor point={point} press={press} reduced={reduced} />
+    </div>
   );
 }
