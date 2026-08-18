@@ -11,22 +11,37 @@ const AUDIENCES = [
 
 const TEMPLATES = [
   {
-    name: "Welcome back",
+    eyebrow: "EMAIL 1",
+    headline: "We’d love to\nsee you again",
     subject: "We’d love to see you again",
     timing: "Send now",
-    photoPosition: "center top",
+    cta: "Book again",
+    bg: "#fff1ed",
+    ink: "#7f1d1d",
+    button: "#ef6b57",
+    imageY: "0%",
   },
   {
-    name: "VIP thank you",
-    subject: "A little something extra",
+    eyebrow: "EMAIL 2",
+    headline: "Here’s a reason\nto come back",
+    subject: "Here’s a reason to come back",
     timing: "+2 days",
-    photoPosition: "center center",
+    cta: "View offer",
+    bg: "#eef7ef",
+    ink: "#14532d",
+    button: "#27855a",
+    imageY: "50%",
   },
   {
-    name: "Service reminder",
-    subject: "One last reminder",
+    eyebrow: "EMAIL 3",
+    headline: "Last chance —\ndon’t miss out",
+    subject: "Last chance — don’t miss out",
     timing: "+5 days",
-    photoPosition: "center bottom",
+    cta: "Book now",
+    bg: "#eef4ff",
+    ink: "#1e3a8a",
+    button: "#245aa8",
+    imageY: "100%",
   },
 ] as const;
 
@@ -39,19 +54,6 @@ function AudienceChip() {
   );
 }
 
-function TemplateVisual({ index, className = "" }: { index: number; className?: string }) {
-  return (
-    <div
-      className={`bg-cover bg-no-repeat ${className}`}
-      style={{
-        backgroundImage: "url('/email-campaigns/template-photos.jpg')",
-        backgroundSize: "100% 300%",
-        backgroundPosition: TEMPLATES[index].photoPosition,
-      }}
-    />
-  );
-}
-
 function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
   const selected = phase >= 2;
 
@@ -59,8 +61,8 @@ function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
     <AnimatePresence>
       {phase <= 2 ? (
         <motion.div
-          className="absolute bottom-[15%] right-[5%] top-[15%] z-30 w-[34%] overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-[0_30px_70px_-40px_rgba(15,23,42,.45)]"
-          initial={reduced ? false : { opacity: 0, x: 32 }}
+          className="absolute bottom-[16%] right-[5%] top-[16%] z-30 w-[34%] overflow-visible rounded-[22px] border border-slate-200 bg-white shadow-[0_30px_70px_-40px_rgba(15,23,42,.45)]"
+          initial={reduced ? false : { opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 18 }}
           transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
@@ -82,7 +84,7 @@ function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
 
               {!selected ? (
                 <motion.div
-                  className="absolute left-[44px] right-0 top-[40px] z-20 overflow-hidden rounded-[13px] border border-slate-200 bg-white p-1.5 shadow-[0_18px_40px_-24px_rgba(15,23,42,.42)]"
+                  className="absolute left-[44px] right-0 top-[41px] z-40 overflow-hidden rounded-[13px] border border-slate-200 bg-white p-1.5 shadow-[0_20px_44px_-24px_rgba(15,23,42,.48)]"
                   initial={reduced ? false : { opacity: 0, y: -4, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                 >
@@ -90,7 +92,8 @@ function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
                     <motion.div
                       key={name}
                       className={index === 0 ? "flex items-center gap-2 rounded-[10px] bg-fuchsia-50 px-2.5 py-2" : "flex items-center gap-2 rounded-[10px] px-2.5 py-2"}
-                      animate={{ scale: phase === 1 && index === 0 ? 0.98 : 1 }}
+                      animate={{ scale: phase === 1 && index === 0 ? 0.975 : 1 }}
+                      transition={{ duration: reduced ? 0 : 0.14 }}
                     >
                       <span className={index === 0 ? "flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-600 text-white" : "flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 text-slate-400"}>
                         <Users className="h-3 w-3" />
@@ -121,22 +124,51 @@ function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
   );
 }
 
+function TemplateArtwork({ index, compact = false }: { index: number; compact?: boolean }) {
+  const template = TEMPLATES[index];
+
+  return (
+    <div className="relative h-full w-full overflow-hidden" style={{ backgroundColor: template.bg }}>
+      <div
+        className="absolute inset-y-0 right-0 w-[58%] bg-no-repeat"
+        style={{
+          backgroundImage: "url('/email-campaigns/template-photos.jpg')",
+          backgroundSize: "200% 300%",
+          backgroundPosition: `100% ${template.imageY}`,
+        }}
+      />
+      <div
+        className="absolute inset-y-0 left-[34%] w-[36%]"
+        style={{ background: `linear-gradient(90deg, ${template.bg} 14%, transparent 100%)` }}
+      />
+
+      {!compact ? (
+        <>
+          <div className="absolute left-3 top-3 text-[5.5px] font-black tracking-[.18em]" style={{ color: template.ink }}>{template.eyebrow}</div>
+          <div className="absolute bottom-3 left-3 w-[58%]">
+            <div className="whitespace-pre-line text-[15px] font-black leading-[.92] tracking-[-.045em]" style={{ color: template.ink }}>{template.headline}</div>
+            <div className="mt-2 inline-flex rounded-full px-2 py-1 text-[5.5px] font-black text-white" style={{ backgroundColor: template.button }}>{template.cta}</div>
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
 function CreativeCard({ index, phase, reduced }: { index: number; phase: number; reduced: boolean }) {
   const flyPhase = 4 + index;
-  const hasFlown = phase > flyPhase;
-  const isFlying = phase === flyPhase;
+  const removed = phase >= flyPhase;
 
   return (
     <motion.div
-      className="w-[126px]"
+      className="h-[174px] w-[132px] overflow-hidden rounded-[18px] border border-white bg-white p-[3px] shadow-[0_24px_52px_-30px_rgba(15,23,42,.5)]"
       initial={reduced ? false : { opacity: 0, y: 12 }}
-      animate={{ opacity: hasFlown || isFlying ? 0.16 : 1, y: 0, scale: isFlying ? 0.96 : 1 }}
-      transition={{ duration: reduced ? 0 : 0.24, delay: reduced ? 0 : index * 0.05 }}
+      animate={{ opacity: removed ? 0 : 1, y: 0, scale: phase === flyPhase ? 0.98 : 1 }}
+      transition={{ duration: reduced ? 0 : 0.22, delay: phase === 3 && !reduced ? index * 0.05 : 0 }}
     >
-      <div className="overflow-hidden rounded-[16px] border border-white bg-white p-1.5 shadow-[0_22px_44px_-28px_rgba(15,23,42,.48)]">
-        <TemplateVisual index={index} className="h-[64px] w-full rounded-[11px]" />
+      <div className="h-full w-full overflow-hidden rounded-[15px]">
+        <TemplateArtwork index={index} />
       </div>
-      <div className="mt-2 text-center text-[7px] font-black text-slate-700">{TEMPLATES[index].name}</div>
     </motion.div>
   );
 }
@@ -146,17 +178,17 @@ function TemplatePicker({ phase, reduced }: { phase: number; reduced: boolean })
     <AnimatePresence>
       {phase >= 3 && phase <= 6 ? (
         <motion.div
-          className="absolute right-[3.5%] top-[22%] z-30 w-[38%]"
-          initial={reduced ? false : { opacity: 0, x: 28 }}
+          className="absolute right-[2.5%] top-[19%] z-30 w-[42%]"
+          initial={reduced ? false : { opacity: 0, x: 26 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 18 }}
-          transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
+          exit={{ opacity: 0, x: 16 }}
+          transition={{ duration: reduced ? 0 : 0.28, ease: [0.2, 0.82, 0.24, 1] }}
         >
-          <div className="mb-3 text-center">
+          <div className="mb-4 text-center">
             <div className="text-[10px] font-black text-slate-900">Your 3-email sequence</div>
-            <div className="mt-0.5 text-[6.5px] font-semibold text-slate-400">Each creative becomes one email.</div>
+            <div className="mt-0.5 text-[6.5px] font-semibold text-slate-400">Three creatives. One win-back campaign.</div>
           </div>
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-center gap-3.5">
             {TEMPLATES.map((_, index) => (
               <CreativeCard key={index} index={index} phase={phase} reduced={reduced} />
             ))}
@@ -171,37 +203,65 @@ function FlyingCreative({ phase, reduced }: { phase: number; reduced: boolean })
   if (phase < 4 || phase > 6) return null;
 
   const index = phase - 4;
-  const sourceLeft = [66, 79, 91][index];
-  const targetTop = [40, 58, 76][index];
+  const sourceLeft = [60.1, 71.7, 83.3][index];
+  const targetTop = [35.7, 54.5, 73.3][index];
 
   return (
     <motion.div
-      className="pointer-events-none absolute z-50 overflow-hidden rounded-[12px] border border-white bg-white p-1 shadow-[0_24px_50px_-28px_rgba(15,23,42,.55)]"
-      initial={reduced ? false : { left: `${sourceLeft}%`, top: "36%", width: 126, height: 76, opacity: 1, rotate: index === 1 ? 1.5 : -1.5 }}
-      animate={{ left: "12.5%", top: `${targetTop}%`, width: 78, height: 44, opacity: 1, rotate: 0 }}
-      transition={{ duration: reduced ? 0 : 0.58, ease: [0.2, 0.82, 0.24, 1] }}
+      className="pointer-events-none absolute z-50 overflow-hidden border border-white bg-white p-[3px] shadow-[0_28px_58px_-28px_rgba(15,23,42,.55)]"
+      initial={
+        reduced
+          ? false
+          : {
+              left: `${sourceLeft}%`,
+              top: "27.5%",
+              width: 132,
+              height: 174,
+              borderRadius: 18,
+              opacity: 1,
+              rotate: index === 1 ? 1.5 : -1.5,
+            }
+      }
+      animate={{
+        left: "20.1%",
+        top: `${targetTop}%`,
+        width: 48,
+        height: 60,
+        borderRadius: 9,
+        opacity: 1,
+        rotate: 0,
+      }}
+      transition={{ duration: reduced ? 0 : 0.56, ease: [0.2, 0.82, 0.24, 1] }}
     >
-      <TemplateVisual index={index} className="h-full w-full rounded-[8px]" />
+      <div className="h-full w-full overflow-hidden rounded-[6px]">
+        <TemplateArtwork index={index} compact />
+      </div>
     </motion.div>
   );
 }
 
 function SequenceRow({ index, phase, reduced }: { index: number; phase: number; reduced: boolean }) {
   const filled = phase >= 5 + index;
-  const active = phase >= 9;
   const incoming = phase === 4 + index;
+  const active = phase >= 9;
 
   return (
     <motion.div
-      className="mx-auto flex h-[70px] w-[382px] max-w-[96%] items-center gap-3 rounded-[15px] border bg-white px-3.5 shadow-[0_14px_32px_-28px_rgba(15,23,42,.42)]"
+      className="mx-auto flex h-[72px] w-[382px] max-w-[96%] items-center gap-3 rounded-[15px] border bg-white px-3.5 shadow-[0_14px_32px_-28px_rgba(15,23,42,.42)]"
       animate={{
-        borderColor: active ? "rgba(16,185,129,.34)" : incoming ? "rgba(217,70,239,.45)" : filled ? "rgba(203,213,225,.95)" : "rgba(226,232,240,1)",
-        boxShadow: incoming ? "0 0 0 4px rgba(217,70,239,.06), 0 14px 32px -28px rgba(15,23,42,.42)" : "0 14px 32px -28px rgba(15,23,42,.42)",
+        borderColor: active ? "rgba(16,185,129,.34)" : incoming ? "rgba(217,70,239,.48)" : filled ? "rgba(203,213,225,.95)" : "rgba(226,232,240,1)",
+        boxShadow: incoming ? "0 0 0 4px rgba(217,70,239,.065), 0 14px 32px -28px rgba(15,23,42,.42)" : "0 14px 32px -28px rgba(15,23,42,.42)",
       }}
-      transition={{ duration: reduced ? 0 : 0.22 }}
+      transition={{ duration: reduced ? 0 : 0.2 }}
     >
-      <div className={filled ? "h-[42px] w-[78px] shrink-0 overflow-hidden rounded-[9px] border border-slate-200 bg-white p-[2px] shadow-sm" : "flex h-[42px] w-[78px] shrink-0 items-center justify-center rounded-[9px] border border-dashed border-slate-200 bg-slate-50 text-slate-300"}>
-        {filled ? <TemplateVisual index={index} className="h-full w-full rounded-[6px]" /> : <Mail className="h-4 w-4" />}
+      <div className={filled ? "h-[60px] w-[48px] shrink-0 overflow-hidden rounded-[9px] border border-slate-200 bg-white p-[2px] shadow-sm" : "flex h-[60px] w-[48px] shrink-0 items-center justify-center rounded-[9px] border border-dashed border-slate-200 bg-slate-50 text-slate-300"}>
+        {filled ? (
+          <motion.div className="h-full w-full overflow-hidden rounded-[6px]" initial={reduced ? false : { opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }}>
+            <TemplateArtwork index={index} compact />
+          </motion.div>
+        ) : (
+          <Mail className="h-4 w-4" />
+        )}
       </div>
 
       <div className="min-w-0 flex-1">
@@ -300,9 +360,7 @@ function Builder({ phase, reduced }: { phase: number; reduced: boolean }) {
         </div>
 
         <div className="mt-2 flex justify-center">
-          <motion.div
-            className={active ? "inline-flex items-center gap-1.5 rounded-[10px] bg-emerald-500 px-4 py-2.5 text-[8px] font-black text-white" : ready ? "inline-flex items-center gap-1.5 rounded-[10px] bg-zapla-ink px-4 py-2.5 text-[8px] font-black text-white" : "inline-flex items-center gap-1.5 rounded-[10px] bg-slate-200 px-4 py-2.5 text-[8px] font-black text-slate-500"}
-          >
+          <motion.div className={active ? "inline-flex items-center gap-1.5 rounded-[10px] bg-emerald-500 px-4 py-2.5 text-[8px] font-black text-white" : ready ? "inline-flex items-center gap-1.5 rounded-[10px] bg-zapla-ink px-4 py-2.5 text-[8px] font-black text-white" : "inline-flex items-center gap-1.5 rounded-[10px] bg-slate-200 px-4 py-2.5 text-[8px] font-black text-slate-500"}>
             {active ? <><Check className="h-3.5 w-3.5" />Campaign active</> : <><Play className="h-3.5 w-3.5" />Activate campaign</>}
           </motion.div>
         </div>
@@ -333,11 +391,10 @@ function Summary({ phase, reduced }: { phase: number; reduced: boolean }) {
 
 export function SceneEmailLive({ phase, reduced }: SceneProps) {
   const points: Record<number, CursorPoint> = {
-    0: { left: "78%", top: "27%" },
     1: { left: "79%", top: "37%" },
-    4: { left: "68%", top: "39%" },
-    5: { left: "80%", top: "39%" },
-    6: { left: "92%", top: "39%" },
+    4: { left: "65%", top: "37%" },
+    5: { left: "76.6%", top: "37%" },
+    6: { left: "88.2%", top: "37%" },
     8: { left: "33%", top: "92%" },
   };
 
