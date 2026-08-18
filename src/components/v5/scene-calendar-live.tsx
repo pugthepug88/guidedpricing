@@ -74,20 +74,18 @@ const APPOINTMENTS: Record<string, Appointment[]> = {
   "Aug-28": [{ title: "Tom Bennett", time: "4:00 · Demo", face: FACE.tom, accent: "blue" }],
 };
 
-const ACCENT_CLASSES: Record<Accent, { stripe: string; dot: string }> = {
-  blue: { stripe: "border-l-blue-500", dot: "bg-blue-500" },
-  violet: { stripe: "border-l-violet-500", dot: "bg-violet-500" },
-  amber: { stripe: "border-l-amber-500", dot: "bg-amber-500" },
-  green: { stripe: "border-l-emerald-500", dot: "bg-emerald-500" },
-  rose: { stripe: "border-l-rose-500", dot: "bg-rose-500" },
+const ACCENT_CLASSES: Record<Accent, string> = {
+  blue: "border-l-blue-500",
+  violet: "border-l-violet-500",
+  amber: "border-l-amber-500",
+  green: "border-l-emerald-500",
+  rose: "border-l-rose-500",
 };
 
 function AppointmentCard({ appointment }: { appointment: Appointment }) {
-  const accent = ACCENT_CLASSES[appointment.accent];
-
   return (
     <div
-      className={`flex min-w-0 items-center gap-1.5 rounded-[9px] border border-slate-200 border-l-[3px] ${accent.stripe} bg-white px-1.5 py-1.5 shadow-[0_8px_20px_-16px_rgba(15,23,42,.5)]`}
+      className={`flex min-w-0 items-center gap-1.5 rounded-[9px] border border-slate-200 border-l-[3px] ${ACCENT_CLASSES[appointment.accent]} bg-white px-1.5 py-1.5 shadow-[0_8px_20px_-16px_rgba(15,23,42,.5)]`}
     >
       <img src={appointment.face} alt="" className="h-5 w-5 shrink-0 rounded-full object-cover ring-1 ring-slate-100" />
       <div className="min-w-0 flex-1">
@@ -98,28 +96,41 @@ function AppointmentCard({ appointment }: { appointment: Appointment }) {
   );
 }
 
-function NinaAppointment({ lifted = false, destination = false }: { lifted?: boolean; destination?: boolean }) {
+function NinaAppointment({ mode, lifted = false }: { mode: "panel" | "source" | "destination"; lifted?: boolean }) {
+  const panel = mode === "panel";
+  const destination = mode === "destination";
+
   return (
     <motion.div
-      layoutId="calendar-rebook-nina"
-      className="flex min-w-0 items-center gap-1.5 rounded-[9px] border border-slate-200 border-l-[3px] border-l-blue-500 bg-white px-1.5 py-1.5"
+      layoutId="calendar-nina-appointment"
+      className={
+        panel
+          ? "flex min-w-0 items-center gap-2.5 rounded-[15px] border border-slate-200 border-l-[4px] border-l-blue-500 bg-white p-3 shadow-[0_14px_30px_-22px_rgba(15,23,42,.35)]"
+          : "flex min-w-0 items-center gap-1.5 rounded-[9px] border border-slate-200 border-l-[3px] border-l-blue-500 bg-white px-1.5 py-1.5"
+      }
       animate={{
-        scale: lifted ? 1.055 : 1,
+        scale: lifted ? 1.06 : 1,
         boxShadow: lifted
-          ? "0 20px 34px -16px rgba(15,23,42,.38)"
-          : destination
-            ? "0 0 0 3px rgba(37,99,235,.08), 0 8px 20px -16px rgba(15,23,42,.5)"
+          ? "0 22px 38px -17px rgba(15,23,42,.4)"
+          : panel
+            ? "0 14px 30px -22px rgba(15,23,42,.35)"
             : "0 8px 20px -16px rgba(15,23,42,.5)",
       }}
       transition={{
-        layout: { duration: 0.82, ease: [0.18, 0.78, 0.2, 1] },
+        layout: { duration: 0.78, ease: [0.18, 0.78, 0.2, 1] },
         scale: { duration: 0.2 },
       }}
     >
-      <img src={FACE.nina} alt="" className="h-5 w-5 shrink-0 rounded-full object-cover ring-1 ring-slate-100" />
+      <img
+        src={FACE.nina}
+        alt=""
+        className={panel ? "h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-slate-100" : "h-5 w-5 shrink-0 rounded-full object-cover ring-1 ring-slate-100"}
+      />
       <div className="min-w-0 flex-1">
-        <div className="truncate text-[7.2px] font-black leading-tight text-slate-800">Nina Alvarez</div>
-        <div className="mt-0.5 truncate text-[5.9px] font-semibold leading-tight text-slate-400">
+        <div className={panel ? "truncate text-[10px] font-black text-slate-800" : "truncate text-[7.2px] font-black leading-tight text-slate-800"}>
+          Nina Alvarez
+        </div>
+        <div className={panel ? "mt-0.5 truncate text-[7px] font-semibold text-slate-400" : "mt-0.5 truncate text-[5.9px] font-semibold leading-tight text-slate-400"}>
           {destination ? "2:00 · Consultation" : "12:00 · Consultation"}
         </div>
       </div>
@@ -146,7 +157,7 @@ function ViewSwitch() {
   );
 }
 
-function MonthToolbar() {
+function MonthToolbar({ beat }: { beat: number }) {
   return (
     <div className="flex h-[58px] items-center gap-2 border-b border-slate-200 bg-white px-4">
       <div className="mr-2">
@@ -164,9 +175,13 @@ function MonthToolbar() {
 
       <div className="ml-auto flex items-center gap-2">
         <ViewSwitch />
-        <span className="flex items-center gap-1.5 rounded-[10px] bg-[#2563eb] px-3.5 py-2 text-[7.5px] font-black text-white shadow-[0_10px_20px_-12px_rgba(37,99,235,.75)]">
+        <motion.span
+          className="flex items-center gap-1.5 rounded-[10px] bg-[#2563eb] px-3.5 py-2 text-[7.5px] font-black text-white shadow-[0_10px_20px_-12px_rgba(37,99,235,.75)]"
+          animate={{ scale: beat === 1 ? 0.96 : 1 }}
+          transition={{ duration: 0.16 }}
+        >
           <Plus className="h-3 w-3" strokeWidth={3} /> New
-        </span>
+        </motion.span>
       </div>
     </div>
   );
@@ -176,37 +191,30 @@ function MonthCell({
   day,
   month,
   muted,
-  phase,
+  beat,
 }: {
   day: number;
   month: string;
   muted: boolean;
-  phase: number;
+  beat: number;
 }) {
   const key = `${month}-${day}`;
   const appointments = APPOINTMENTS[key] ?? [];
   const today = month === "Aug" && day === 18;
   const source = month === "Aug" && day === 18;
   const destination = month === "Aug" && day === 20;
-  const lifted = phase === 2;
-  const moved = phase >= 3;
-  const targetActive = destination && (phase === 2 || phase === 3);
+  const newBooked = beat >= 4;
+  const lifted = beat === 7;
+  const moved = beat >= 8;
+  const targetActive = destination && (beat === 7 || beat === 8);
 
   return (
-    <motion.div
+    <div
       className={
         muted
           ? "relative min-h-0 overflow-hidden bg-slate-50/65 px-1.5 py-1.5"
           : "relative min-h-0 overflow-hidden bg-white px-1.5 py-1.5"
       }
-      animate={{
-        backgroundColor: targetActive
-          ? "rgba(239,246,255,.92)"
-          : muted
-            ? "rgba(248,250,252,.65)"
-            : "rgba(255,255,255,1)",
-      }}
-      transition={{ duration: 0.25 }}
     >
       <div className="mb-1 flex items-center justify-between">
         <span
@@ -223,11 +231,11 @@ function MonthCell({
 
         {targetActive ? (
           <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="rounded-full bg-blue-50 px-1.5 py-0.5 text-[5.2px] font-black uppercase tracking-[.08em] text-blue-600"
+            className="rounded-full border border-dashed border-slate-300 bg-white px-1.5 py-0.5 text-[5.1px] font-black uppercase tracking-[.06em] text-slate-400"
           >
-            Drop here
+            Drop 2:00
           </motion.span>
         ) : null}
       </div>
@@ -237,25 +245,100 @@ function MonthCell({
           <AppointmentCard key={`${appointment.title}-${appointment.time}`} appointment={appointment} />
         ))}
 
-        {source && !moved ? <NinaAppointment lifted={lifted} /> : null}
-        {destination && moved ? <NinaAppointment destination /> : null}
+        {source && newBooked && !moved ? <NinaAppointment mode="source" lifted={lifted} /> : null}
+        {destination && moved ? <NinaAppointment mode="destination" /> : null}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
-function RebookToast({ phase, reduced }: { phase: number; reduced: boolean }) {
+function NewAppointmentPanel({ beat, reduced }: { beat: number; reduced: boolean }) {
+  const show = beat === 2 || beat === 3;
+  const pressing = beat === 3;
+
   return (
     <AnimatePresence>
-      {phase >= 4 ? (
+      {show ? (
         <motion.div
-          initial={reduced ? false : { opacity: 0, y: 16, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 10 }}
+          className="absolute right-[2.5%] top-[15%] z-30 w-[31%] overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_30px_68px_-34px_rgba(15,23,42,.5)]"
+          initial={reduced ? false : { opacity: 0, x: 34, scale: 0.97 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: 12, scale: 0.985 }}
           transition={{ duration: reduced ? 0 : 0.34, ease: [0.2, 0.82, 0.24, 1] }}
+        >
+          <div className="flex items-center gap-2.5 border-b border-slate-100 px-4 py-3.5">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-[0_10px_20px_-10px_rgba(37,99,235,.9)]">
+              <CalendarCheck className="h-4 w-4" />
+            </span>
+            <div>
+              <div className="text-[11px] font-black text-slate-900">New appointment</div>
+              <div className="mt-0.5 text-[6.8px] font-semibold text-slate-400">Create a booking</div>
+            </div>
+          </div>
+
+          <div className="p-4">
+            <NinaAppointment mode="panel" />
+
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <div className="rounded-[11px] border border-slate-200 bg-slate-50 px-2.5 py-2">
+                <div className="text-[5.8px] font-black uppercase tracking-[.13em] text-slate-400">Date</div>
+                <div className="mt-1 text-[8px] font-black text-slate-800">Tue 18 Aug</div>
+              </div>
+              <div className="rounded-[11px] border border-slate-200 bg-slate-50 px-2.5 py-2">
+                <div className="text-[5.8px] font-black uppercase tracking-[.13em] text-slate-400">Time</div>
+                <div className="mt-1 text-[8px] font-black text-slate-800">12:00 PM</div>
+              </div>
+            </div>
+
+            <motion.div
+              className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] bg-[#18bd59] px-4 py-2.5 text-[8.5px] font-black text-white shadow-[0_12px_26px_-12px_rgba(34,197,94,.85)]"
+              animate={{ scale: pressing ? 0.965 : 1 }}
+              transition={{ duration: reduced ? 0 : 0.16 }}
+            >
+              <CalendarCheck className="h-3.5 w-3.5" /> Book appointment
+            </motion.div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
+function StatusToast({ beat, reduced }: { beat: number; reduced: boolean }) {
+  const newBooked = beat === 4 || beat === 5;
+  const rebooked = beat >= 9;
+
+  return (
+    <AnimatePresence mode="wait">
+      {newBooked ? (
+        <motion.div
+          key="new"
+          initial={reduced ? false : { opacity: 0, y: 14, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 8, scale: 0.98 }}
+          transition={{ duration: reduced ? 0 : 0.32, ease: [0.2, 0.82, 0.24, 1] }}
           className="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2.5 rounded-[14px] border border-slate-200 bg-white px-4 py-3 shadow-[0_24px_54px_-28px_rgba(15,23,42,.48)]"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-white shadow-[0_10px_20px_-12px_rgba(16,185,129,.75)]">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-white">
+            <Plus className="h-4 w-4" strokeWidth={3} />
+          </span>
+          <div>
+            <div className="text-[8.5px] font-black text-slate-900">New appointment booked</div>
+            <div className="mt-0.5 flex items-center gap-1 text-[6.5px] font-semibold text-slate-400">
+              <Clock3 className="h-2.5 w-2.5" /> Nina Alvarez · Tue 18 · 12:00 PM
+            </div>
+          </div>
+        </motion.div>
+      ) : rebooked ? (
+        <motion.div
+          key="rebook"
+          initial={reduced ? false : { opacity: 0, y: 14, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 8, scale: 0.98 }}
+          transition={{ duration: reduced ? 0 : 0.32, ease: [0.2, 0.82, 0.24, 1] }}
+          className="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2.5 rounded-[14px] border border-slate-200 bg-white px-4 py-3 shadow-[0_24px_54px_-28px_rgba(15,23,42,.48)]"
+        >
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-white">
             <CalendarCheck className="h-4 w-4" />
           </span>
           <div>
@@ -270,17 +353,36 @@ function RebookToast({ phase, reduced }: { phase: number; reduced: boolean }) {
   );
 }
 
-export function SceneCalendarLive({ phase, reduced }: SceneProps) {
+function beatFor(elapsedMs: number, reduced: boolean) {
+  if (reduced) return 9;
+  if (elapsedMs < 600) return 0;
+  if (elapsedMs < 1050) return 1;
+  if (elapsedMs < 1750) return 2;
+  if (elapsedMs < 2200) return 3;
+  if (elapsedMs < 2850) return 4;
+  if (elapsedMs < 3350) return 5;
+  if (elapsedMs < 3850) return 6;
+  if (elapsedMs < 4450) return 7;
+  if (elapsedMs < 5050) return 8;
+  return 9;
+}
+
+export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
+  const beat = beatFor(elapsedMs, reduced);
+
   const points: Record<number, CursorPoint> = {
-    1: { left: "20%", top: "61%" },
-    2: { left: "20%", top: "61%" },
-    3: { left: "49%", top: "61%" },
+    1: { left: "95%", top: "6%" },
+    2: { left: "85%", top: "59%" },
+    3: { left: "85%", top: "59%" },
+    6: { left: "20%", top: "61%" },
+    7: { left: "20%", top: "61%" },
+    8: { left: "49%", top: "61%" },
   };
 
   return (
-    <LayoutGroup id="calendar-month-rebooking">
+    <LayoutGroup id="calendar-new-and-rebook">
       <div className="absolute inset-0 overflow-hidden bg-white">
-        <MonthToolbar />
+        <MonthToolbar beat={beat} />
 
         <div className="grid h-[30px] grid-cols-7 border-b border-slate-200 bg-slate-50/80">
           {WEEKDAYS.map((day) => (
@@ -295,12 +397,17 @@ export function SceneCalendarLive({ phase, reduced }: SceneProps) {
           style={{ height: "calc(100% - 88px)" }}
         >
           {MONTH_DAYS.map((cell) => (
-            <MonthCell key={`${cell.month}-${cell.day}`} {...cell} phase={phase} />
+            <MonthCell key={`${cell.month}-${cell.day}`} {...cell} beat={beat} />
           ))}
         </div>
 
-        <RebookToast phase={phase} reduced={reduced} />
-        <ZaplaDemoCursor point={points[phase] ?? null} press={phase === 2} reduced={reduced} />
+        <NewAppointmentPanel beat={beat} reduced={reduced} />
+        <StatusToast beat={beat} reduced={reduced} />
+        <ZaplaDemoCursor
+          point={points[beat] ?? null}
+          press={beat === 1 || beat === 3 || beat === 7}
+          reduced={reduced}
+        />
       </div>
     </LayoutGroup>
   );
