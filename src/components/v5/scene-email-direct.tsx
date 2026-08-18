@@ -1,7 +1,15 @@
 import { AnimatePresence, motion } from "motion/react";
+import { Mail, Plus, Users } from "lucide-react";
 import { FACE } from "./faces";
 import { type SceneProps } from "./motion-kit";
-import { SceneEmailPolished } from "./scene-email-polished";
+import { SceneEmailLive } from "./scene-email-live";
+import { ZaplaDemoCursor, type CursorPoint } from "./zapla-demo-cursor";
+
+const AUDIENCES = [
+  ["Clients gone quiet", "312 contacts"],
+  ["VIP Clients", "124 contacts"],
+  ["Open Quotes", "86 contacts"],
+] as const;
 
 const TEMPLATES = [
   { eyebrow: "EMAIL 1", headline: "We’d love to\nsee you again", face: FACE.maya, tone: "peach" as const },
@@ -23,6 +31,108 @@ const EMAIL_PHASE_DURATIONS = [650, 900, 1150, 1250, 900, 900, 900, 650, 950, 17
 const PHASE_STARTS = EMAIL_PHASE_DURATIONS.map((_, index) =>
   EMAIL_PHASE_DURATIONS.slice(0, index).reduce((sum, duration) => sum + duration, 0),
 );
+
+function AudienceChip() {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1.5 text-[7px] font-black text-blue-700">
+      <Users className="h-3 w-3" /> Clients gone quiet
+    </span>
+  );
+}
+
+function OpeningComposer({ phase, reduced }: { phase: number; reduced: boolean }) {
+  const menuOpen = phase >= 1;
+  const selected = phase >= 2;
+
+  return (
+    <AnimatePresence>
+      {phase <= 2 ? (
+        <motion.div
+          className="absolute bottom-[15%] right-[5%] top-[15%] z-[70] w-[35%] overflow-visible rounded-[22px] border border-slate-200 bg-white shadow-[0_30px_70px_-40px_rgba(15,23,42,.45)]"
+          initial={reduced ? false : { opacity: 0, x: 24, scale: 0.985 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: 16 }}
+          transition={{ duration: reduced ? 0 : 0.32, ease: [0.2, 0.82, 0.24, 1] }}
+        >
+          <div className="flex items-center gap-2.5 border-b border-slate-100 px-4 py-3.5">
+            <span
+              className="relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-[10px] text-white shadow-[0_10px_20px_-10px_rgba(37,99,235,.9)]"
+              style={{ background: "linear-gradient(145deg,#60a5fa 0%,#2563eb 52%,#06b6d4 100%)" }}
+            >
+              <span className="absolute inset-x-1 top-0 h-[45%] rounded-full bg-white/20 blur-[7px]" />
+              <Mail className="relative z-10 h-4 w-4" />
+            </span>
+            <div className="text-[11.5px] font-black text-slate-900">New email</div>
+          </div>
+
+          <div className="px-4 py-3">
+            <div className="relative flex min-h-[46px] items-center border-b border-slate-100">
+              <div className="w-[48px] text-[7px] font-black uppercase tracking-[.12em] text-slate-400">To</div>
+              <div className="flex-1">
+                {selected ? <AudienceChip /> : <span className="text-[8px] font-semibold text-slate-300">Choose a group</span>}
+              </div>
+
+              <motion.span
+                animate={phase === 1 && !reduced ? { scale: [1, 0.86, 1] } : undefined}
+                transition={{ duration: 0.24 }}
+                className="relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#2563eb] text-white shadow-[0_9px_20px_-8px_rgba(37,99,235,.9)]"
+              >
+                <span className="absolute inset-0 rounded-full bg-gradient-to-br from-white/22 to-transparent" />
+                <Plus className="relative z-10 h-3.5 w-3.5" strokeWidth={3} />
+              </motion.span>
+
+              <AnimatePresence>
+                {menuOpen && !selected ? (
+                  <motion.div
+                    className="absolute left-[46px] right-0 top-[43px] z-40 overflow-hidden rounded-[13px] border border-slate-200 bg-white p-1.5 shadow-[0_20px_44px_-24px_rgba(15,23,42,.48)]"
+                    initial={reduced ? false : { opacity: 0, y: -5, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.985 }}
+                    transition={{ duration: reduced ? 0 : 0.25, ease: [0.2, 0.82, 0.24, 1] }}
+                  >
+                    {AUDIENCES.map(([name, count], index) => (
+                      <div
+                        key={name}
+                        className={
+                          index === 0
+                            ? "flex items-center gap-2 rounded-[10px] bg-blue-50 px-2.5 py-2"
+                            : "flex items-center gap-2 rounded-[10px] px-2.5 py-2"
+                        }
+                      >
+                        <span
+                          className={
+                            index === 0
+                              ? "flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white"
+                              : "flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 text-slate-400"
+                          }
+                        >
+                          <Users className="h-3 w-3" />
+                        </span>
+                        <div className="flex-1">
+                          <div className="text-[7.5px] font-black text-slate-800">{name}</div>
+                          <div className="text-[6px] font-semibold text-slate-400">{count}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+            </div>
+
+            <div className="flex min-h-[46px] items-center border-b border-slate-100">
+              <div className="w-[48px] text-[7px] font-black uppercase tracking-[.12em] text-slate-400">Subject</div>
+              <div className="truncate text-[8.8px] font-black text-slate-800">We’d love to see you again</div>
+            </div>
+
+            <div className="pt-4 text-[8.7px] font-semibold leading-[1.65] text-slate-600">
+              Hi {"{{first_name}}"}, it’s been a little while. We’d love to welcome you back.
+            </div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
 
 function TemplateArtwork({ index }: { index: number }) {
   const template = TEMPLATES[index];
@@ -94,11 +204,7 @@ function CarouselRing({ phase, reduced }: { phase: number; reduced: boolean }) {
         className="absolute inset-0"
         style={{ transformStyle: "preserve-3d" }}
         initial={reduced ? false : { rotateY: 0 }}
-        animate={
-          phase === 3 && !reduced
-            ? { rotateY: [0, 285, 345, 360] }
-            : { rotateY: targetRotation }
-        }
+        animate={phase === 3 && !reduced ? { rotateY: [0, 285, 345, 360] } : { rotateY: targetRotation }}
         transition={
           phase === 3 && !reduced
             ? { duration: 1.08, times: [0, 0.56, 0.84, 1], ease: [0.16, 0.84, 0.25, 1] }
@@ -200,16 +306,23 @@ export function SceneEmailDirect(props: SceneProps) {
   const isPeelPhase = phase >= 4 && phase <= 6;
   const revealBaseAt = 660;
   const basePhase = isPeelPhase && localElapsed < revealBaseAt ? phase - 1 : phase;
-  const suppressBaseMotion = phase >= 3 && phase <= 6;
+  const suppressBaseMotion = phase <= 6;
+
+  const openingPoints: Record<number, CursorPoint> = {
+    0: { left: "84%", top: "31%" },
+    1: { left: "91%", top: "31%" },
+  };
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <SceneEmailPolished
+      <SceneEmailLive
         {...props}
         phase={basePhase}
         reduced={suppressBaseMotion ? true : reduced}
       />
+      <OpeningComposer phase={phase} reduced={reduced} />
       <DirectCarouselOverlay phase={phase} reduced={reduced} />
+      <ZaplaDemoCursor point={openingPoints[phase] ?? null} press={phase === 1} reduced={reduced} />
     </div>
   );
 }
