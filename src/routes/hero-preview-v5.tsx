@@ -9,12 +9,12 @@ import {
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
-import { SceneContracts } from "@/components/v5/scenes-b";
 import { SceneEmailPolished } from "@/components/v5/scene-email-polished";
 import { SceneContentLive } from "@/components/v5/scene-content-live";
 import { SceneInboxLive } from "@/components/v5/scene-inbox-live";
 import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
 import { SceneCalendarLive } from "@/components/v5/scene-calendar-live";
+import { SceneContractsLive } from "@/components/v5/scene-contracts-live";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
 import { useSceneClock } from "@/components/v5/use-scene-clock";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
@@ -115,9 +115,9 @@ const SCENES: SceneDef[] = [
     key: "contracts",
     label: "Contracts",
     title: "Contracts",
-    subtitle: "One signature changes the deal",
-    phases: [780, 700, 1000, 620, 820, 1650, 620],
-    render: (p) => <SceneContracts {...p} />,
+    subtitle: "Send, sign and close the loop",
+    phases: [520, 600, 700, 700, 800, 800, 1100, 1800],
+    render: (p) => <SceneContractsLive {...p} />,
   },
 ];
 
