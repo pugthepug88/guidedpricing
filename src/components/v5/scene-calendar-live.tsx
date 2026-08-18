@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { CalendarCheck, ChevronLeft, ChevronRight, Clock3, MessageSquare, Plus } from "lucide-react";
+import { CalendarCheck, Check, ChevronLeft, ChevronRight, Clock3, MessageSquare, Plus } from "lucide-react";
 import { FACE } from "./faces";
 import { type SceneProps } from "./motion-kit";
 import { ZaplaDemoCursor, type CursorPoint } from "./zapla-demo-cursor";
@@ -50,8 +50,11 @@ const APPOINTMENTS: Record<string, Appointment[]> = {
 };
 
 const ACCENT: Record<Accent, string> = {
-  blue: "border-l-blue-500", violet: "border-l-violet-500", amber: "border-l-amber-500",
-  green: "border-l-emerald-500", rose: "border-l-rose-500",
+  blue: "border-l-blue-500",
+  violet: "border-l-violet-500",
+  amber: "border-l-amber-500",
+  green: "border-l-emerald-500",
+  rose: "border-l-rose-500",
 };
 
 function AppointmentChip({ appointment }: { appointment: Appointment }) {
@@ -74,7 +77,11 @@ function NinaChip({ destination = false, lifted = false, large = false }: { dest
         : "flex min-w-0 items-center gap-1.5 rounded-[9px] border border-slate-200 border-l-[3px] border-l-blue-500 bg-white px-1.5 py-1.5"}
       animate={{
         scale: lifted ? 1.055 : 1,
-        boxShadow: lifted ? "0 22px 38px -17px rgba(15,23,42,.42)" : large ? "0 14px 30px -22px rgba(15,23,42,.35)" : "0 8px 20px -16px rgba(15,23,42,.5)",
+        boxShadow: lifted
+          ? "0 22px 38px -17px rgba(15,23,42,.42)"
+          : large
+            ? "0 14px 30px -22px rgba(15,23,42,.35)"
+            : "0 8px 20px -16px rgba(15,23,42,.5)",
       }}
       transition={{ duration: 0.2 }}
     >
@@ -120,8 +127,12 @@ function MonthToolbar({ beat, setNewButton }: { beat: number; setNewButton: (nod
 }
 
 function MonthCell({ day, month, muted, beat, setSource, setDestination }: {
-  day: number; month: string; muted: boolean; beat: number;
-  setSource: (node: HTMLDivElement | null) => void; setDestination: (node: HTMLDivElement | null) => void;
+  day: number;
+  month: string;
+  muted: boolean;
+  beat: number;
+  setSource: (node: HTMLDivElement | null) => void;
+  setDestination: (node: HTMLDivElement | null) => void;
 }) {
   const key = `${month}-${day}`;
   const appointments = APPOINTMENTS[key] ?? [];
@@ -150,7 +161,13 @@ function MonthCell({ day, month, muted, beat, setSource, setDestination }: {
         ) : null}
         {destination ? (
           <div ref={setDestination}>
-            {moved ? <motion.div initial={{ opacity: 0.2, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.18 }}><NinaChip destination /></motion.div> : <div className="h-[31px] w-full" />}
+            {moved ? (
+              <motion.div initial={{ opacity: 0.2, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.18 }}>
+                <NinaChip destination />
+              </motion.div>
+            ) : (
+              <div className="h-[31px] w-full" />
+            )}
           </div>
         ) : null}
       </div>
@@ -166,7 +183,10 @@ function NewAppointmentPanel({ beat, reduced, setBookButton }: { beat: number; r
         <motion.div className="absolute right-[2.5%] top-[15%] z-30 w-[31%] overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_30px_68px_-34px_rgba(15,23,42,.5)]" initial={reduced ? false : { opacity: 0, x: 34, scale: 0.97 }} animate={{ opacity: 1, x: 0, scale: 1 }} exit={{ opacity: 0, x: 12, scale: 0.985 }} transition={{ duration: reduced ? 0 : 0.34, ease: [0.2, 0.82, 0.24, 1] }}>
           <div className="flex items-center gap-2.5 border-b border-slate-100 px-4 py-3.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-gradient-to-br from-blue-500 to-cyan-500 text-white"><CalendarCheck className="h-4 w-4" /></span>
-            <div><div className="text-[11px] font-black text-slate-900">New appointment</div><div className="mt-0.5 text-[6.8px] font-semibold text-slate-400">Create a booking</div></div>
+            <div>
+              <div className="text-[11px] font-black text-slate-900">New appointment</div>
+              <div className="mt-0.5 text-[6.8px] font-semibold text-slate-400">Create a booking</div>
+            </div>
           </div>
           <div className="p-4">
             <NinaChip large />
@@ -174,7 +194,9 @@ function NewAppointmentPanel({ beat, reduced, setBookButton }: { beat: number; r
               <div className="rounded-[11px] border border-slate-200 bg-slate-50 px-2.5 py-2"><div className="text-[5.8px] font-black uppercase tracking-[.13em] text-slate-400">Date</div><div className="mt-1 text-[8px] font-black text-slate-800">Tue 18 Aug</div></div>
               <div className="rounded-[11px] border border-slate-200 bg-slate-50 px-2.5 py-2"><div className="text-[5.8px] font-black uppercase tracking-[.13em] text-slate-400">Time</div><div className="mt-1 text-[8px] font-black text-slate-800">12:00 PM</div></div>
             </div>
-            <motion.div ref={setBookButton} className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] bg-[#18bd59] px-4 py-2.5 text-[8.5px] font-black text-white shadow-[0_12px_26px_-12px_rgba(34,197,94,.85)]" animate={{ scale: beat === 3 ? 0.965 : 1 }} transition={{ duration: reduced ? 0 : 0.16 }}><CalendarCheck className="h-3.5 w-3.5" /> Book appointment</motion.div>
+            <motion.div ref={setBookButton} className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] bg-[#18bd59] px-4 py-2.5 text-[8.5px] font-black text-white shadow-[0_12px_26px_-12px_rgba(34,197,94,.85)]" animate={{ scale: beat === 3 ? 0.965 : 1 }} transition={{ duration: reduced ? 0 : 0.16 }}>
+              <CalendarCheck className="h-3.5 w-3.5" /> Book appointment
+            </motion.div>
           </div>
         </motion.div>
       ) : null}
@@ -190,7 +212,10 @@ function StatusToast({ beat, reduced }: { beat: number; reduced: boolean }) {
       {isNew || isMoved ? (
         <motion.div key={isNew ? "new" : "moved"} initial={reduced ? false : { opacity: 0, y: 12, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: reduced ? 0 : 0.28 }} className="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2.5 rounded-[14px] border border-slate-200 bg-white px-4 py-3 shadow-[0_24px_54px_-28px_rgba(15,23,42,.48)]">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-white">{isNew ? <Plus className="h-4 w-4" strokeWidth={3} /> : <CalendarCheck className="h-4 w-4" />}</span>
-          <div><div className="text-[8.5px] font-black text-slate-900">{isNew ? "New appointment booked" : "Appointment rebooked"}</div><div className="mt-0.5 flex items-center gap-1 text-[6.5px] font-semibold text-slate-400"><Clock3 className="h-2.5 w-2.5" /> Nina Alvarez · {isNew ? "Tue 18 · 12:00 PM" : "Thu 20 · 2:00 PM"}</div></div>
+          <div>
+            <div className="text-[8.5px] font-black text-slate-900">{isNew ? "New appointment booked" : "Appointment rebooked"}</div>
+            <div className="mt-0.5 flex items-center gap-1 text-[6.5px] font-semibold text-slate-400"><Clock3 className="h-2.5 w-2.5" /> Nina Alvarez · {isNew ? "Tue 18 · 12:00 PM" : "Thu 20 · 2:00 PM"}</div>
+          </div>
         </motion.div>
       ) : null}
     </AnimatePresence>
@@ -201,69 +226,93 @@ function FloatingRebook({ beat, geom, reduced }: { beat: number; geom: DragGeom 
   if (beat !== 8 || !geom) return null;
   const midX = geom.sx + (geom.dx - geom.sx) * 0.52;
   const arcY = Math.min(geom.sy, geom.dy) - 20;
+
   return (
     <motion.div
       className="pointer-events-none absolute z-50"
       style={{ width: geom.width, height: geom.height }}
       initial={reduced ? false : { left: geom.sx, top: geom.sy, scale: 1.055, rotate: 0 }}
       animate={{ left: [geom.sx, midX, geom.dx], top: [geom.sy, arcY, geom.dy], scale: [1.055, 1.075, 1], rotate: [0, -1.6, 0] }}
-      transition={{ duration: reduced ? 0 : 0.64, times: [0, 0.48, 1], ease: [0.18, 0.78, 0.2, 1] }}
+      transition={{ duration: reduced ? 0 : 0.68, times: [0, 0.48, 1], ease: [0.18, 0.78, 0.2, 1] }}
     >
       <NinaChip lifted />
     </motion.div>
   );
 }
 
-function ModernMessagePhone({ show, reduced }: { show: boolean; reduced: boolean }) {
+function SmsConfirmationOverlay({ beat, reduced }: { beat: number; reduced: boolean }) {
+  const booking = beat === 5;
+  const reschedule = beat >= 10;
+  if (!booking && !reschedule) return null;
+
+  const title = booking ? "Booking confirmation SMS sent" : "Reschedule SMS sent";
+  const meta = booking ? "Nina Alvarez · Tue 18 Aug · 12:00 PM" : "Nina Alvarez · Thu 20 Aug · 2:00 PM";
+  const message = booking
+    ? "Hi Nina, your consultation is confirmed for Tue 18 Aug at 12:00 PM. We’ll see you then!"
+    : "Hi Nina, your appointment has been moved to Thu 20 Aug at 2:00 PM. See you then!";
+
   return (
-    <AnimatePresence>
-      {show ? (
-        <motion.div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/10" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : 0.3 }}>
-          <motion.div className="relative" initial={reduced ? false : { opacity: 0, y: 26, scale: 0.94 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: reduced ? 0 : 0.42, ease: [0.18, 0.78, 0.2, 1] }}>
-            <motion.div className="absolute -left-[132px] top-[142px] z-30 flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white px-3 py-2 text-[7px] font-black text-emerald-700 shadow-[0_16px_36px_-20px_rgba(16,185,129,.48)]" initial={reduced ? false : { opacity: 0, x: -42, y: 16, scale: 0.82 }} animate={{ opacity: [0, 1, 1, 0], x: [0, 72, 112, 136], y: [0, -8, -22, -30], scale: [0.82, 1, 0.9, 0.72] }} transition={{ duration: reduced ? 0 : 0.66, times: [0, 0.22, 0.72, 1], ease: [0.18, 0.78, 0.2, 1] }}><MessageSquare className="h-3 w-3" /> SMS sent</motion.div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={booking ? "booking-sms" : "reschedule-sms"}
+        className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/10 px-8"
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: reduced ? 0 : 0.28 }}
+      >
+        <motion.div
+          className="w-full max-w-[420px] overflow-hidden rounded-[24px] border border-slate-200/90 bg-white shadow-[0_34px_90px_-34px_rgba(15,23,42,.48)]"
+          initial={reduced ? false : { opacity: 0, y: 20, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: reduced ? 0 : 0.42, ease: [0.18, 0.78, 0.2, 1] }}
+        >
+          <div className="flex items-center gap-3 border-b border-slate-100 px-5 py-4">
+            <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[14px] text-white shadow-[0_14px_28px_-14px_rgba(16,185,129,.75)]" style={{ background: "linear-gradient(145deg,#34d399 0%,#10b981 55%,#06b6d4 100%)" }}>
+              <span className="absolute inset-x-1 top-0 h-[45%] rounded-full bg-white/20 blur-[7px]" />
+              <MessageSquare className="relative z-10 h-5 w-5" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <div className="truncate text-[12px] font-black text-slate-900">{title}</div>
+                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[6px] font-black uppercase tracking-[.08em] text-emerald-700">SMS</span>
+              </div>
+              <div className="mt-1 text-[7px] font-semibold text-slate-400">Automated from Calendar · just now</div>
+            </div>
+            <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1.5 text-[6.5px] font-black text-emerald-700">
+              <Check className="h-3 w-3" strokeWidth={3} /> Sent
+            </span>
+          </div>
 
-            <div className="relative rounded-[44px] bg-gradient-to-br from-white via-slate-200 to-slate-400 p-[2px] shadow-[0_38px_90px_-32px_rgba(15,23,42,.58)]">
-              <div className="relative h-[348px] w-[198px] overflow-hidden rounded-[42px] bg-gradient-to-br from-[#dbeafe] via-[#eef2ff] to-[#f5d0fe]">
-                <div className="absolute -left-12 top-12 h-40 w-40 rounded-full bg-cyan-300/40 blur-3xl" />
-                <div className="absolute -right-12 bottom-10 h-44 w-44 rounded-full bg-violet-400/35 blur-3xl" />
-                <div className="absolute left-8 top-32 h-32 w-32 rounded-full bg-white/55 blur-2xl" />
-
-                <div className="relative z-10 flex items-center justify-between px-4 pt-3 text-[7px] font-black text-slate-800">
-                  <span>9:41</span>
-                  <div className="flex items-end gap-[2px]">
-                    <span className="h-[4px] w-[2px] rounded-sm bg-slate-700" /><span className="h-[6px] w-[2px] rounded-sm bg-slate-700" /><span className="h-[8px] w-[2px] rounded-sm bg-slate-700" />
-                    <span className="ml-1 h-[7px] w-[12px] rounded-[2px] border border-slate-700"><span className="block h-full w-[75%] rounded-[1px] bg-slate-700" /></span>
-                  </div>
-                </div>
-                <div className="absolute left-1/2 top-[9px] z-20 h-[17px] w-[52px] -translate-x-1/2 rounded-full bg-slate-900/90" />
-
-                <div className="relative z-10 mt-9 text-center">
-                  <div className="text-[22px] font-semibold tracking-[-.04em] text-slate-800">2:01</div>
-                  <div className="mt-0.5 text-[7px] font-semibold text-slate-600">Thursday, 20 August</div>
-                </div>
-
-                <motion.div
-                  className="absolute left-3 right-3 top-[103px] z-20 rounded-[20px] border border-white/70 bg-white/78 p-3 shadow-[0_18px_48px_-26px_rgba(15,23,42,.45)] backdrop-blur-xl"
-                  initial={reduced ? false : { opacity: 0, y: -14, scale: 0.94 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.42, ease: [0.18, 0.78, 0.2, 1] }}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-[0_8px_16px_-10px_rgba(16,185,129,.7)]"><MessageSquare className="h-4 w-4" /></span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-2"><span className="text-[7px] font-black uppercase tracking-[.08em] text-slate-500">Messages</span><span className="text-[6px] font-semibold text-slate-400">now</span></div>
-                      <div className="mt-1 text-[8px] font-black text-slate-900">Zapla</div>
-                    </div>
-                  </div>
-                  <div className="mt-2.5 text-[7.5px] font-semibold leading-[1.5] text-slate-700">Hi Nina, your appointment has been moved to Thu 20 at 2:00 PM. See you then!</div>
-                </motion.div>
-
-                <motion.div initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : 0.82 }} className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[5.5px] font-semibold text-slate-500/70">Swipe up to open</motion.div>
+          <div className="p-5">
+            <div className="flex items-center gap-2.5">
+              <img src={FACE.nina} alt="" className="h-9 w-9 rounded-full object-cover ring-1 ring-slate-100" />
+              <div>
+                <div className="text-[9px] font-black text-slate-800">Nina Alvarez</div>
+                <div className="mt-0.5 text-[6.5px] font-semibold text-slate-400">{meta}</div>
               </div>
             </div>
-          </motion.div>
+
+            <motion.div
+              initial={reduced ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : 0.18 }}
+              className="mt-4 rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-3.5"
+            >
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-[6px] font-black uppercase tracking-[.12em] text-slate-400">Message preview</span>
+                <span className="text-[6px] font-semibold text-slate-300">Zapla</span>
+              </div>
+              <div className="text-[9px] font-semibold leading-[1.55] text-slate-700">{message}</div>
+            </motion.div>
+
+            <div className="mt-3 flex items-center justify-between text-[6.5px] font-semibold text-slate-400">
+              <span>Sent automatically when the calendar changed</span>
+              <span className="flex items-center gap-1 text-emerald-600"><Check className="h-3 w-3" strokeWidth={3} /> Delivered</span>
+            </div>
+          </div>
         </motion.div>
-      ) : null}
+      </motion.div>
     </AnimatePresence>
   );
 }
@@ -275,11 +324,11 @@ function beatFor(elapsedMs: number, reduced: boolean) {
   if (elapsedMs < 1150) return 2;
   if (elapsedMs < 1500) return 3;
   if (elapsedMs < 1900) return 4;
-  if (elapsedMs < 2250) return 5;
-  if (elapsedMs < 2550) return 6;
-  if (elapsedMs < 2850) return 7;
-  if (elapsedMs < 3500) return 8;
-  if (elapsedMs < 3800) return 9;
+  if (elapsedMs < 2750) return 5;
+  if (elapsedMs < 3050) return 6;
+  if (elapsedMs < 3400) return 7;
+  if (elapsedMs < 4100) return 8;
+  if (elapsedMs < 4500) return 9;
   return 10;
 }
 
@@ -293,11 +342,28 @@ export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
   const [point, setPoint] = useState<CursorPoint>(null);
   const [dragGeom, setDragGeom] = useState<DragGeom | null>(null);
 
-  const target: "new" | "book" | "source" | "destination" | null = beat === 1 ? "new" : beat === 2 || beat === 3 ? "book" : beat === 6 || beat === 7 ? "source" : beat === 8 ? "destination" : null;
+  const target: "new" | "book" | "source" | "destination" | null =
+    beat === 1
+      ? "new"
+      : beat === 2 || beat === 3
+        ? "book"
+        : beat === 6 || beat === 7
+          ? "source"
+          : beat === 8
+            ? "destination"
+            : null;
 
   const measureTarget = () => {
     const root = rootRef.current;
-    const el = target === "new" ? newButtonRef.current : target === "book" ? bookButtonRef.current : target === "source" ? sourceRef.current : target === "destination" ? destinationRef.current : null;
+    const el = target === "new"
+      ? newButtonRef.current
+      : target === "book"
+        ? bookButtonRef.current
+        : target === "source"
+          ? sourceRef.current
+          : target === "destination"
+            ? destinationRef.current
+            : null;
     if (!root || !el) return;
     const r = root.getBoundingClientRect();
     const b = el.getBoundingClientRect();
@@ -316,11 +382,18 @@ export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
   };
 
   useEffect(() => {
-    if (reduced || !target) { setPoint(null); return; }
+    if (reduced || !target) {
+      setPoint(null);
+      return;
+    }
     const raf = requestAnimationFrame(() => requestAnimationFrame(measureTarget));
     const timeout = window.setTimeout(measureTarget, 80);
     window.addEventListener("resize", measureTarget);
-    return () => { cancelAnimationFrame(raf); window.clearTimeout(timeout); window.removeEventListener("resize", measureTarget); };
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(timeout);
+      window.removeEventListener("resize", measureTarget);
+    };
   }, [target, beat, reduced]);
 
   useEffect(() => {
@@ -328,23 +401,41 @@ export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
     const raf = requestAnimationFrame(() => requestAnimationFrame(measureDrag));
     const timeout = window.setTimeout(measureDrag, 70);
     window.addEventListener("resize", measureDrag);
-    return () => { cancelAnimationFrame(raf); window.clearTimeout(timeout); window.removeEventListener("resize", measureDrag); };
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(timeout);
+      window.removeEventListener("resize", measureDrag);
+    };
   }, [beat]);
 
-  const phonePayoff = beat >= 10;
+  const smsOverlay = beat === 5 || beat >= 10;
 
   return (
     <div ref={rootRef} className="absolute inset-0 overflow-hidden bg-white">
-      <motion.div className="absolute inset-0" animate={{ filter: phonePayoff ? "blur(4px)" : "blur(0px)", opacity: phonePayoff ? 0.58 : 1, scale: phonePayoff ? 0.992 : 1 }} transition={{ duration: reduced ? 0 : 0.34, ease: [0.2, 0.82, 0.24, 1] }}>
+      <motion.div
+        className="absolute inset-0"
+        animate={{
+          filter: smsOverlay ? "blur(3px)" : "blur(0px)",
+          opacity: smsOverlay ? 0.62 : 1,
+          scale: smsOverlay ? 0.994 : 1,
+        }}
+        transition={{ duration: reduced ? 0 : 0.32, ease: [0.2, 0.82, 0.24, 1] }}
+      >
         <MonthToolbar beat={beat} setNewButton={(node) => { newButtonRef.current = node; }} />
         <div className="grid h-[30px] grid-cols-7 border-b border-slate-200 bg-slate-50/80">
-          {WEEKDAYS.map((day) => <div key={day} className="flex items-center justify-center border-r border-slate-200 text-[6.5px] font-black uppercase tracking-[.12em] text-slate-400 last:border-r-0">{day}</div>)}
+          {WEEKDAYS.map((day) => (
+            <div key={day} className="flex items-center justify-center border-r border-slate-200 text-[6.5px] font-black uppercase tracking-[.12em] text-slate-400 last:border-r-0">{day}</div>
+          ))}
         </div>
         <div className="grid grid-cols-7 grid-rows-6 gap-px bg-slate-200" style={{ height: "calc(100% - 88px)" }}>
           {MONTH_DAYS.map((cell) => (
-            <MonthCell key={`${cell.month}-${cell.day}`} {...cell} beat={beat}
+            <MonthCell
+              key={`${cell.month}-${cell.day}`}
+              {...cell}
+              beat={beat}
               setSource={(node) => { if (cell.month === "Aug" && cell.day === 18) sourceRef.current = node; }}
-              setDestination={(node) => { if (cell.month === "Aug" && cell.day === 20) destinationRef.current = node; }} />
+              setDestination={(node) => { if (cell.month === "Aug" && cell.day === 20) destinationRef.current = node; }}
+            />
           ))}
         </div>
       </motion.div>
@@ -353,7 +444,7 @@ export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
       <StatusToast beat={beat} reduced={reduced} />
       <FloatingRebook beat={beat} geom={dragGeom} reduced={reduced} />
       <ZaplaDemoCursor point={point} press={beat === 1 || beat === 3 || beat === 7} reduced={reduced} />
-      <ModernMessagePhone show={phonePayoff} reduced={reduced} />
+      <SmsConfirmationOverlay beat={beat} reduced={reduced} />
     </div>
   );
 }
