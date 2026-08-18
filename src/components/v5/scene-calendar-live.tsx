@@ -379,45 +379,72 @@ function StatusToast({ beat, reduced }: { beat: number; reduced: boolean }) {
   );
 }
 
-function SmsStatus({ beat, reduced }: { beat: number; reduced: boolean }) {
-  const reminder = beat === 5;
-  const reschedule = beat >= 10;
+function PhoneSmsPayoff({ beat, reduced }: { beat: number; reduced: boolean }) {
+  const show = beat >= 10;
 
   return (
-    <AnimatePresence mode="wait">
-      {reminder ? (
+    <AnimatePresence>
+      {show ? (
         <motion.div
-          key="reminder"
-          initial={reduced ? false : { opacity: 0, x: 18, y: -4 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          exit={{ opacity: 0, x: 10 }}
-          transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
-          className="absolute right-3 top-[72px] z-30 flex items-center gap-2.5 rounded-[13px] border border-emerald-200 bg-white px-3 py-2.5 shadow-[0_18px_38px_-24px_rgba(15,23,42,.42)]"
+          className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/10"
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: reduced ? 0 : 0.28 }}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-            <MessageSquare className="h-4 w-4" />
-          </span>
-          <div>
-            <div className="text-[8px] font-black text-slate-800">SMS reminder sent</div>
-            <div className="mt-0.5 text-[6.3px] font-semibold text-slate-400">Nina · Tue 18 · 12:00 PM</div>
-          </div>
-        </motion.div>
-      ) : reschedule ? (
-        <motion.div
-          key="reschedule"
-          initial={reduced ? false : { opacity: 0, x: 18, y: -4 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          exit={{ opacity: 0, x: 10 }}
-          transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
-          className="absolute right-3 top-[72px] z-30 flex items-center gap-2.5 rounded-[13px] border border-blue-200 bg-white px-3 py-2.5 shadow-[0_18px_38px_-24px_rgba(15,23,42,.42)]"
-        >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600">
-            <MessageSquare className="h-4 w-4" />
-          </span>
-          <div>
-            <div className="text-[8px] font-black text-slate-800">Reschedule SMS sent</div>
-            <div className="mt-0.5 text-[6.3px] font-semibold text-slate-400">Updated to Thu 20 · 2:00 PM</div>
-          </div>
+          <motion.div
+            className="relative"
+            initial={reduced ? false : { opacity: 0, y: 34, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: reduced ? 0 : 0.46, ease: [0.18, 0.78, 0.2, 1] }}
+          >
+            <motion.div
+              className="absolute -left-[118px] top-[118px] z-20 flex items-center gap-1.5 rounded-full border border-blue-200 bg-white px-3 py-2 text-[7px] font-black text-blue-700 shadow-[0_16px_34px_-18px_rgba(37,99,235,.45)]"
+              initial={reduced ? false : { opacity: 0, x: -78, y: 22, scale: 0.82 }}
+              animate={{ opacity: [0, 1, 1, 0], x: [0, 62, 102, 126], y: [0, -8, -4, -2], scale: [0.82, 1, 0.9, 0.72] }}
+              transition={{ duration: reduced ? 0 : 0.72, times: [0, 0.22, 0.72, 1], ease: [0.18, 0.78, 0.2, 1] }}
+            >
+              <MessageSquare className="h-3 w-3" /> Reschedule SMS
+            </motion.div>
+
+            <div className="relative h-[318px] w-[176px] overflow-hidden rounded-[34px] border-[5px] border-slate-900 bg-white shadow-[0_34px_80px_-30px_rgba(15,23,42,.62)]">
+              <div className="absolute left-1/2 top-[7px] z-20 h-[17px] w-[64px] -translate-x-1/2 rounded-full bg-slate-900" />
+
+              <div className="flex h-full flex-col bg-[#f7f8fb] pt-7">
+                <div className="border-b border-slate-200 bg-white px-3 pb-2.5 pt-2 text-center">
+                  <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-[11px] font-black text-white">Z</div>
+                  <div className="mt-1 text-[8px] font-black text-slate-900">Zapla</div>
+                  <div className="text-[5.5px] font-semibold text-slate-400">SMS</div>
+                </div>
+
+                <div className="flex-1 px-3 py-4">
+                  <div className="mb-2 text-center text-[5.5px] font-semibold uppercase tracking-[.08em] text-slate-300">Today · 2:01 PM</div>
+
+                  <motion.div
+                    initial={reduced ? false : { opacity: 0, x: 34, y: 14, scale: 0.9 }}
+                    animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                    transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : 0.42, ease: [0.18, 0.78, 0.2, 1] }}
+                    className="ml-auto max-w-[134px] rounded-[16px] rounded-br-[5px] bg-blue-600 px-3 py-2.5 text-[7.1px] font-semibold leading-[1.45] text-white shadow-[0_10px_20px_-14px_rgba(37,99,235,.7)]"
+                  >
+                    Hi Nina, your appointment has been moved to Thu 20 at 2:00 PM. See you then!
+                  </motion.div>
+
+                  <motion.div
+                    initial={reduced ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: reduced ? 0 : 0.25, delay: reduced ? 0 : 0.7 }}
+                    className="mt-1 text-right text-[5px] font-semibold text-slate-300"
+                  >
+                    Delivered
+                  </motion.div>
+                </div>
+
+                <div className="px-3 pb-4">
+                  <div className="rounded-full border border-slate-200 bg-white px-3 py-2 text-[6px] font-semibold text-slate-300">Text message</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       ) : null}
     </AnimatePresence>
@@ -502,57 +529,70 @@ export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
     };
   }, [target, beat, reduced]);
 
+  const phonePayoff = beat >= 10;
+
   return (
     <LayoutGroup id="calendar-new-and-rebook">
       <div ref={rootRef} className="absolute inset-0 overflow-hidden bg-white">
-        <MonthToolbar
-          beat={beat}
-          setNewButton={(node) => {
-            newButtonRef.current = node;
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            filter: phonePayoff ? "blur(3.5px)" : "blur(0px)",
+            opacity: phonePayoff ? 0.62 : 1,
+            scale: phonePayoff ? 0.992 : 1,
           }}
-        />
-
-        <div className="grid h-[30px] grid-cols-7 border-b border-slate-200 bg-slate-50/80">
-          {WEEKDAYS.map((day) => (
-            <div key={day} className="flex items-center justify-center border-r border-slate-200 text-[6.5px] font-black uppercase tracking-[.12em] text-slate-400 last:border-r-0">
-              {day}
-            </div>
-          ))}
-        </div>
-
-        <div
-          className="grid grid-cols-7 grid-rows-6 gap-px bg-slate-200"
-          style={{ height: "calc(100% - 88px)" }}
+          transition={{ duration: reduced ? 0 : 0.34, ease: [0.2, 0.82, 0.24, 1] }}
         >
-          {MONTH_DAYS.map((cell) => (
-            <MonthCell
-              key={`${cell.month}-${cell.day}`}
-              {...cell}
-              beat={beat}
-              setSource={(node) => {
-                if (cell.month === "Aug" && cell.day === 18) sourceRef.current = node;
-              }}
-              setDestination={(node) => {
-                if (cell.month === "Aug" && cell.day === 20) destinationRef.current = node;
-              }}
-            />
-          ))}
-        </div>
+          <MonthToolbar
+            beat={beat}
+            setNewButton={(node) => {
+              newButtonRef.current = node;
+            }}
+          />
 
-        <NewAppointmentPanel
-          beat={beat}
-          reduced={reduced}
-          setBookButton={(node) => {
-            bookButtonRef.current = node;
-          }}
-        />
-        <StatusToast beat={beat} reduced={reduced} />
-        <SmsStatus beat={beat} reduced={reduced} />
-        <ZaplaDemoCursor
-          point={point}
-          press={beat === 1 || beat === 3 || beat === 7}
-          reduced={reduced}
-        />
+          <div className="grid h-[30px] grid-cols-7 border-b border-slate-200 bg-slate-50/80">
+            {WEEKDAYS.map((day) => (
+              <div key={day} className="flex items-center justify-center border-r border-slate-200 text-[6.5px] font-black uppercase tracking-[.12em] text-slate-400 last:border-r-0">
+                {day}
+              </div>
+            ))}
+          </div>
+
+          <div
+            className="grid grid-cols-7 grid-rows-6 gap-px bg-slate-200"
+            style={{ height: "calc(100% - 88px)" }}
+          >
+            {MONTH_DAYS.map((cell) => (
+              <MonthCell
+                key={`${cell.month}-${cell.day}`}
+                {...cell}
+                beat={beat}
+                setSource={(node) => {
+                  if (cell.month === "Aug" && cell.day === 18) sourceRef.current = node;
+                }}
+                setDestination={(node) => {
+                  if (cell.month === "Aug" && cell.day === 20) destinationRef.current = node;
+                }}
+              />
+            ))}
+          </div>
+
+          <NewAppointmentPanel
+            beat={beat}
+            reduced={reduced}
+            setBookButton={(node) => {
+              bookButtonRef.current = node;
+            }}
+          />
+          <StatusToast beat={beat} reduced={reduced} />
+          <ZaplaDemoCursor
+            point={point}
+            press={beat === 1 || beat === 3 || beat === 7}
+            reduced={reduced}
+          />
+        </motion.div>
+
+        <PhoneSmsPayoff beat={beat} reduced={reduced} />
       </div>
     </LayoutGroup>
   );
