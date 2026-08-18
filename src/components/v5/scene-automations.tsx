@@ -37,11 +37,10 @@ const N = {
   wait2d: { x: 108, y: 282, w: 176, h: 42 },
   reminder: { x: 108, y: 338, w: 176, h: 42 },
   review: { x: 108, y: 386, w: 176, h: 72 },
-  tag: { x: 448, y: 398, w: 176, h: 50 },
-  notify: { x: 656, y: 398, w: 176, h: 50 },
+  tag: { x: 448, y: 397, w: 176, h: 50 },
+  notify: { x: 656, y: 397, w: 176, h: 50 },
 } satisfies Record<string, Box>;
 
-const MERGE = { x: 536, y: 385 };
 const c = (b: Box) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 });
 
 /* connector paths, orthogonal with clean radii */
@@ -53,10 +52,9 @@ const SEG = {
   no: "M440 266 H208 A12 12 0 0 0 196 278 V282",
   no2: "M196 324 V338",
   no3: "M196 380 V386",
-  merge: "M284 422 H420 A10 10 0 0 1 430 412 V395 A10 10 0 0 1 440 385 H536",
-  yes: "M440 266 H524 A12 12 0 0 1 536 278 V385",
-  intoSuccess: "M536 385 V398",
-  succ: "M624 423 H656",
+  reviewToTag: "M284 422 H448",
+  yes: "M440 266 H536 V397",
+  tagToNotify: "M624 422 H656",
 } as const;
 
 function Wire({
@@ -78,6 +76,7 @@ function Wire({
         stroke="rgba(148,163,184,0.55)"
         strokeWidth={2}
         strokeLinecap="round"
+        strokeLinejoin="round"
         markerEnd={arrow ? "url(#zaplaWireIdle)" : undefined}
       />
       <motion.path
@@ -86,6 +85,7 @@ function Wire({
         stroke="url(#zaplaWireLive)"
         strokeWidth={2.4}
         strokeLinecap="round"
+        strokeLinejoin="round"
         markerEnd={arrow ? "url(#zaplaWireLive2)" : undefined}
         initial={false}
         animate={{ pathLength: on ? 1 : 0, opacity: on ? 1 : 0 }}
@@ -127,6 +127,7 @@ function Node({
             : state === "done"
               ? "0 0 0 1px rgba(203,213,225,0.9), 0 8px 18px -16px rgba(15,23,42,0.35)"
               : "0 0 0 1px rgba(226,232,240,0.95), 0 6px 14px -14px rgba(15,23,42,0.3)",
+        scale: state === "active" ? 1.018 : 1,
       }}
       transition={{ duration: reduced ? 0 : 0.35, ease: EASE_OUT }}
     >
@@ -195,21 +196,13 @@ const DOT_ROUTE: Record<number, Array<{ x: number; y: number }>> = {
   5: [c(N.cond), { x: 440, y: 266 }, { x: 196, y: 266 }, c(N.wait2d)],
   6: [c(N.wait2d), { x: 196, y: 331 }, c(N.reminder)],
   7: [c(N.reminder), { x: 196, y: 383 }, c(N.review)],
-  8: [
-    c(N.review),
-    { x: 420, y: 422 },
-    { x: 420, y: 405 },
-    { x: 440, y: 385 },
-    MERGE,
-    c(N.tag),
-    { x: 640, y: 423 },
-    c(N.notify),
-  ],
+  8: [c(N.review), c(N.tag)],
+  9: [c(N.tag), c(N.notify)],
 };
 
 function Token({ phase, reduced }: { phase: number; reduced: boolean }) {
   const route = DOT_ROUTE[phase];
-  const visible = phase >= 1 && phase <= 8 && !!route;
+  const visible = phase >= 1 && phase <= 9 && !!route;
   if (reduced || !visible) return null;
   return (
     <motion.span
@@ -227,8 +220,8 @@ function Token({ phase, reduced }: { phase: number; reduced: boolean }) {
         opacity: 1,
       }}
       transition={{
-        x: { duration: Math.max(0.5, route.length * 0.24), ease: "easeInOut" },
-        y: { duration: Math.max(0.5, route.length * 0.24), ease: "easeInOut" },
+        x: { duration: Math.max(0.5, route.length * 0.34), ease: "easeInOut" },
+        y: { duration: Math.max(0.5, route.length * 0.34), ease: "easeInOut" },
         opacity: { duration: 0.25, ease: EASE_OUT },
       }}
     />
@@ -242,7 +235,7 @@ function Token({ phase, reduced }: { phase: number; reduced: boolean }) {
 export function SceneAutomations({ phase, reduced }: SceneProps) {
   /* 0 hold · 1 trigger · 2 wait 2h · 3 send review request · 4 condition (No)
      5 wait 2 days · 6 send reminder · 7 review received event
-     8 merge: tag + notify · 9 final hold */
+     8 tag customer · 9 notify team · 10 final hold */
   const st = (active: number, doneFrom: number): NodeState =>
     phase >= doneFrom ? "done" : phase === active ? "active" : "idle";
 
@@ -254,7 +247,7 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
   const reminderState = st(6, 7);
   const reviewState = st(7, 8);
   const tagState = st(8, 9);
-  const notifyState = st(8, 9);
+  const notifyState = st(9, 10);
 
   /* scale the fixed graph to the stage without reflowing it */
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -357,21 +350,9 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               <Wire d={SEG.no} on={phase >= 5} reduced={reduced} arrow />
               <Wire d={SEG.no2} on={phase >= 6} reduced={reduced} arrow />
               <Wire d={SEG.no3} on={phase >= 7} reduced={reduced} arrow />
-              <Wire d={SEG.merge} on={phase >= 8} reduced={reduced} />
-              <Wire d={SEG.yes} on={false} reduced={reduced} />
-              <Wire d={SEG.intoSuccess} on={phase >= 8} reduced={reduced} arrow />
-              <Wire d={SEG.succ} on={phase >= 8} reduced={reduced} arrow />
-
-              <circle cx={MERGE.x} cy={MERGE.y} r="4.5" fill="rgba(148,163,184,0.85)" />
-              <motion.circle
-                cx={MERGE.x}
-                cy={MERGE.y}
-                r="5.5"
-                fill="#2563ff"
-                initial={false}
-                animate={{ opacity: phase >= 8 ? 1 : 0, scale: phase >= 8 ? 1 : 0.7 }}
-                transition={{ duration: reduced ? 0 : 0.3, ease: EASE_OUT }}
-              />
+              <Wire d={SEG.reviewToTag} on={phase >= 8} reduced={reduced} arrow />
+              <Wire d={SEG.yes} on={false} reduced={reduced} arrow />
+              <Wire d={SEG.tagToNotify} on={phase >= 9} reduced={reduced} arrow />
             </svg>
 
             {/* branch labels */}
@@ -539,22 +520,24 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               state={tagState}
               reduced={reduced}
             >
-              <AnimatePresence>
-                {phase >= 8 ? (
-                  <motion.span
-                    initial={reduced ? false : { opacity: 0, scale: 0.85 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: reduced ? 0 : 0.32, ease: EASE_OUT }}
-                    className="mt-[3px] inline-flex rounded-full bg-violet-50 px-1.5 py-[2px] text-[9px] font-bold text-violet-700"
-                  >
-                    Advocate
-                  </motion.span>
-                ) : (
-                  <span className="mt-[2px] block text-[9.5px] font-medium text-slate-400">
-                    Advocate
-                  </span>
-                )}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={tagState}
+                  initial={reduced ? false : { opacity: 0, y: 3 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -3 }}
+                  transition={{ duration: reduced ? 0 : 0.24, ease: EASE_OUT }}
+                  className={cn(
+                    "mt-[3px] inline-flex rounded-full px-1.5 py-[2px] text-[9px] font-bold",
+                    tagState === "done"
+                      ? "bg-emerald-50 text-emerald-700"
+                      : tagState === "active"
+                        ? "bg-violet-50 text-violet-700"
+                        : "bg-slate-50 text-slate-400",
+                  )}
+                >
+                  {tagState === "active" ? "Applying Advocate…" : tagState === "done" ? "Advocate tagged" : "Advocate"}
+                </motion.span>
               </AnimatePresence>
             </Node>
 
@@ -566,23 +549,29 @@ export function SceneAutomations({ phase, reduced }: SceneProps) {
               state={notifyState}
               reduced={reduced}
             >
-              <AnimatePresence>
-                {phase >= 8 ? (
-                  <motion.span
-                    initial={reduced ? false : { opacity: 0, y: -4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: reduced ? 0 : 0.32, ease: EASE_OUT }}
-                    className="mt-[3px] inline-flex items-center gap-1 rounded-full bg-emerald-50 px-1.5 py-[2px] text-[9px] font-bold text-emerald-700"
-                  >
-                    <Check className="h-[9px] w-[9px]" strokeWidth={3.5} />
-                    Team notified
-                  </motion.span>
-                ) : (
-                  <span className="mt-[2px] block text-[9.5px] font-medium text-slate-400">
-                    New review received
-                  </span>
-                )}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={notifyState}
+                  initial={reduced ? false : { opacity: 0, y: 3 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -3 }}
+                  transition={{ duration: reduced ? 0 : 0.24, ease: EASE_OUT }}
+                  className={cn(
+                    "mt-[3px] inline-flex items-center gap-1 rounded-full px-1.5 py-[2px] text-[9px] font-bold",
+                    notifyState === "done"
+                      ? "bg-emerald-50 text-emerald-700"
+                      : notifyState === "active"
+                        ? "bg-blue-50 text-blue-700"
+                        : "bg-slate-50 text-slate-400",
+                  )}
+                >
+                  {notifyState === "done" ? <Check className="h-[9px] w-[9px]" strokeWidth={3.5} /> : null}
+                  {notifyState === "active"
+                    ? "Notifying team…"
+                    : notifyState === "done"
+                      ? "Team notified"
+                      : "New review received"}
+                </motion.span>
               </AnimatePresence>
             </Node>
           </div>
