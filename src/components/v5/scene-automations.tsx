@@ -43,13 +43,13 @@ const N = {
 
 const c = (b: Box) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 });
 
-/* connector paths, orthogonal with clean radii */
+/* connector paths, orthogonal with clean 90-degree corners */
 const SEG = {
   s1: "M440 72 V84",
   s2: "M440 126 V138",
   s3: "M440 188 V204",
   fork: "M440 246 V266",
-  no: "M440 266 H208 A12 12 0 0 0 196 278 V282",
+  no: "M440 266 H196 V282",
   no2: "M196 324 V338",
   no3: "M196 380 V386",
   reviewToTag: "M284 422 H448",
