@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MaskLabRouteImport } from './routes/mask-lab'
+import { Route as HomepageDraftV1RouteImport } from './routes/homepage-draft-v1'
 import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
 import { Route as HeroPreviewV4RouteImport } from './routes/hero-preview-v4'
 import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
@@ -33,6 +34,11 @@ const McpRoute = McpRouteImport.update({
 const MaskLabRoute = MaskLabRouteImport.update({
   id: '/mask-lab',
   path: '/mask-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomepageDraftV1Route = HomepageDraftV1RouteImport.update({
+  id: '/homepage-draft-v1',
+  path: '/homepage-draft-v1',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HeroPreviewV5Route = HeroPreviewV5RouteImport.update({
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v4': typeof HeroPreviewV4Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
+  '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mask-lab': typeof MaskLabRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v4': typeof HeroPreviewV4Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
+  '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mask-lab': typeof MaskLabRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v4': typeof HeroPreviewV4Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
+  '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mask-lab': typeof MaskLabRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/hero-preview-v3'
     | '/hero-preview-v4'
     | '/hero-preview-v5'
+    | '/homepage-draft-v1'
     | '/mask-lab'
     | '/mcp'
     | '/pricing-v2'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/hero-preview-v3'
     | '/hero-preview-v4'
     | '/hero-preview-v5'
+    | '/homepage-draft-v1'
     | '/mask-lab'
     | '/mcp'
     | '/pricing-v2'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/hero-preview-v3'
     | '/hero-preview-v4'
     | '/hero-preview-v5'
+    | '/homepage-draft-v1'
     | '/mask-lab'
     | '/mcp'
     | '/pricing-v2'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   HeroPreviewV3Route: typeof HeroPreviewV3Route
   HeroPreviewV4Route: typeof HeroPreviewV4Route
   HeroPreviewV5Route: typeof HeroPreviewV5Route
+  HomepageDraftV1Route: typeof HomepageDraftV1Route
   MaskLabRoute: typeof MaskLabRoute
   McpRoute: typeof McpRoute
   PricingV2Route: typeof PricingV2Route
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       path: '/mask-lab'
       fullPath: '/mask-lab'
       preLoaderRoute: typeof MaskLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/homepage-draft-v1': {
+      id: '/homepage-draft-v1'
+      path: '/homepage-draft-v1'
+      fullPath: '/homepage-draft-v1'
+      preLoaderRoute: typeof HomepageDraftV1RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hero-preview-v5': {
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   HeroPreviewV3Route: HeroPreviewV3Route,
   HeroPreviewV4Route: HeroPreviewV4Route,
   HeroPreviewV5Route: HeroPreviewV5Route,
+  HomepageDraftV1Route: HomepageDraftV1Route,
   MaskLabRoute: MaskLabRoute,
   McpRoute: McpRoute,
   PricingV2Route: PricingV2Route,
