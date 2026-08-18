@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo, useRef, useEffect } from "react";
 import customer01 from "@/assets/customer-01-brightside.jpg";
 import customer02 from "@/assets/customer-02-northside.jpg";
@@ -236,6 +236,18 @@ function Hero() {
                 {t}
               </span>
             ))}
+          </div>
+
+          <div className="mt-6 flex justify-center">
+            <Link
+              to="/homepage-draft-v1"
+              className="inline-flex items-center gap-2 rounded-full border border-zapla-line bg-white/80 px-4 py-2 text-[12px] font-semibold text-zapla-ink shadow-zapla-sm backdrop-blur-md transition-all hover:border-zapla-blue/40 hover:text-zapla-blue"
+            >
+              Preview homepage draft v1
+              <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
