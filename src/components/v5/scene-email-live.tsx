@@ -12,37 +12,22 @@ const AUDIENCES = [
 const TEMPLATES = [
   {
     name: "Welcome back",
+    subject: "We’d love to see you again",
+    timing: "Send now",
     photoPosition: "center top",
-    kicker: "WELCOME BACK",
-    headline: "COME BACK\nANYTIME",
-    cta: "Book again",
-    bg: "bg-[#c93778]",
-    accent: "text-fuchsia-100",
   },
   {
     name: "VIP thank you",
+    subject: "A little something extra",
+    timing: "+2 days",
     photoPosition: "center center",
-    kicker: "JUST FOR YOU",
-    headline: "A LITTLE\nEXTRA",
-    cta: "View update",
-    bg: "bg-[#164f4b]",
-    accent: "text-emerald-100",
   },
   {
     name: "Service reminder",
+    subject: "One last reminder",
+    timing: "+5 days",
     photoPosition: "center bottom",
-    kicker: "SERVICE DUE",
-    headline: "KEEP IT\nRUNNING",
-    cta: "Book service",
-    bg: "bg-[#e9ad46]",
-    accent: "text-amber-950",
   },
-] as const;
-
-const FLOW = [
-  ["We’d love to see you again", "Send now"],
-  ["Still thinking about it?", "+2 days"],
-  ["One last reminder", "+3 days"],
 ] as const;
 
 function AudienceChip() {
@@ -54,6 +39,19 @@ function AudienceChip() {
   );
 }
 
+function TemplateVisual({ index, className = "" }: { index: number; className?: string }) {
+  return (
+    <div
+      className={`bg-cover bg-no-repeat ${className}`}
+      style={{
+        backgroundImage: "url('/email-campaigns/template-photos.jpg')",
+        backgroundSize: "100% 300%",
+        backgroundPosition: TEMPLATES[index].photoPosition,
+      }}
+    />
+  );
+}
+
 function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
   const selected = phase >= 2;
 
@@ -61,11 +59,11 @@ function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
     <AnimatePresence>
       {phase <= 2 ? (
         <motion.div
-          className="absolute bottom-[13%] right-[5%] top-[13%] z-30 w-[34%] overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-[0_32px_78px_-42px_rgba(15,23,42,.5)]"
-          initial={reduced ? false : { opacity: 0, x: 34 }}
+          className="absolute bottom-[15%] right-[5%] top-[15%] z-30 w-[34%] overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-[0_30px_70px_-40px_rgba(15,23,42,.45)]"
+          initial={reduced ? false : { opacity: 0, x: 32 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 20 }}
-          transition={{ duration: reduced ? 0 : 0.32, ease: [0.2, 0.82, 0.24, 1] }}
+          exit={{ opacity: 0, x: 18 }}
+          transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
         >
           <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-3.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-blue-50 text-blue-600">
@@ -74,60 +72,48 @@ function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
             <div className="text-[11px] font-black text-slate-900">New email</div>
           </div>
 
-          <div className="px-4 py-3.5">
-            <div className="flex min-h-[42px] items-center border-b border-slate-100">
+          <div className="px-4 py-3">
+            <div className="relative flex min-h-[44px] items-center border-b border-slate-100">
               <div className="w-[46px] text-[7px] font-black uppercase tracking-[.12em] text-slate-400">To</div>
               <div className="flex-1">
                 {selected ? <AudienceChip /> : <span className="text-[8px] font-semibold text-slate-300">Choose a group</span>}
               </div>
               <Plus className="h-3.5 w-3.5 text-slate-300" />
+
+              {!selected ? (
+                <motion.div
+                  className="absolute left-[44px] right-0 top-[40px] z-20 overflow-hidden rounded-[13px] border border-slate-200 bg-white p-1.5 shadow-[0_18px_40px_-24px_rgba(15,23,42,.42)]"
+                  initial={reduced ? false : { opacity: 0, y: -4, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                >
+                  {AUDIENCES.map(([name, count], index) => (
+                    <motion.div
+                      key={name}
+                      className={index === 0 ? "flex items-center gap-2 rounded-[10px] bg-fuchsia-50 px-2.5 py-2" : "flex items-center gap-2 rounded-[10px] px-2.5 py-2"}
+                      animate={{ scale: phase === 1 && index === 0 ? 0.98 : 1 }}
+                    >
+                      <span className={index === 0 ? "flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-600 text-white" : "flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 text-slate-400"}>
+                        <Users className="h-3 w-3" />
+                      </span>
+                      <div className="flex-1">
+                        <div className="text-[7.5px] font-black text-slate-800">{name}</div>
+                        <div className="text-[6px] font-semibold text-slate-400">{count}</div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : null}
             </div>
 
-            <div className="flex min-h-[42px] items-center border-b border-slate-100">
+            <div className="flex min-h-[44px] items-center border-b border-slate-100">
               <div className="w-[46px] text-[7px] font-black uppercase tracking-[.12em] text-slate-400">Subject</div>
               <div className="truncate text-[8.5px] font-black text-slate-800">We’d love to see you again</div>
             </div>
 
-            <div className="pt-3 text-[8.5px] font-semibold leading-[1.55] text-slate-600">
+            <div className="pt-4 text-[8.5px] font-semibold leading-[1.6] text-slate-600">
               Hi {"{{first_name}}"}, it’s been a little while. We’d love to welcome you back.
-              <div className="mt-3 inline-flex rounded-[8px] bg-zapla-ink px-3 py-2 text-[7px] font-black text-white">Book again</div>
+              <div className="mt-4 inline-flex rounded-[8px] bg-zapla-ink px-3 py-2 text-[7px] font-black text-white">Book again</div>
             </div>
-
-            {!selected ? (
-              <motion.div
-                className="mt-4 rounded-[14px] border border-slate-200 bg-slate-50/70 p-2"
-                initial={reduced ? false : { opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                {AUDIENCES.map(([name, count], index) => (
-                  <motion.div
-                    key={name}
-                    className={
-                      index === 0
-                        ? "flex items-center gap-2 rounded-[11px] border border-fuchsia-200 bg-white px-2.5 py-2 shadow-sm"
-                        : "mt-1 flex items-center gap-2 rounded-[11px] px-2.5 py-2"
-                    }
-                    animate={{ scale: phase === 1 && index === 0 ? 0.985 : 1 }}
-                    transition={{ duration: reduced ? 0 : 0.14 }}
-                  >
-                    <span
-                      className={
-                        index === 0
-                          ? "flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-600 text-white"
-                          : "flex h-6 w-6 items-center justify-center rounded-full bg-white text-slate-400"
-                      }
-                    >
-                      <Users className="h-3 w-3" />
-                    </span>
-                    <div className="flex-1">
-                      <div className="text-[7.5px] font-black text-slate-800">{name}</div>
-                      <div className="text-[6px] font-semibold text-slate-400">{count}</div>
-                    </div>
-                    {index === 0 ? <span className="text-[6px] font-black text-fuchsia-700">Select</span> : null}
-                  </motion.div>
-                ))}
-              </motion.div>
-            ) : null}
           </div>
         </motion.div>
       ) : null}
@@ -135,103 +121,44 @@ function Composer({ phase, reduced }: { phase: number; reduced: boolean }) {
   );
 }
 
-function Artwork({ index, selected = false }: { index: number; selected?: boolean }) {
-  const template = TEMPLATES[index];
-
-  if (index === 0) {
-    return (
-      <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-[#fff0f4]">
-        <div className="absolute right-0 top-0 h-full w-[56%] overflow-hidden rounded-l-[46px]">
-          <div className="h-full w-full bg-cover" style={{ backgroundImage: "url('/email-campaigns/template-photos.jpg')", backgroundSize: "100% 300%", backgroundPosition: template.photoPosition }} />
-        </div>
-        <div className="absolute left-3.5 top-3.5 text-[6.5px] font-black uppercase tracking-[.15em] text-fuchsia-600">{template.kicker}</div>
-        {selected ? <SelectedMark /> : null}
-        <div className="absolute bottom-3.5 left-3.5 w-[45%]">
-          <div className="whitespace-pre-line text-[20px] font-black leading-[.88] tracking-[-.055em] text-slate-950">{template.headline}</div>
-          <div className="mt-3 inline-flex rounded-full bg-fuchsia-600 px-2.5 py-1 text-[6px] font-black uppercase text-white">{template.cta}</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (index === 1) {
-    return (
-      <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-[#164f4b]">
-        <div className="absolute right-0 top-0 h-full w-[57%] bg-cover" style={{ backgroundImage: "url('/email-campaigns/template-photos.jpg')", backgroundSize: "100% 300%", backgroundPosition: template.photoPosition }} />
-        <div className="absolute inset-y-0 left-[38%] w-[28%] bg-gradient-to-r from-[#164f4b] to-transparent" />
-        <div className="absolute left-3.5 top-3.5 rounded-full bg-white/90 px-2 py-1 text-[6px] font-black uppercase tracking-[.12em] text-emerald-900">{template.kicker}</div>
-        {selected ? <SelectedMark /> : null}
-        <div className="absolute bottom-3.5 left-3.5 w-[48%] text-white">
-          <div className="whitespace-pre-line text-[20px] font-black leading-[.88] tracking-[-.055em]">{template.headline}</div>
-          <div className="mt-3 inline-flex rounded-full bg-[#f4e8c9] px-2.5 py-1 text-[6px] font-black uppercase text-[#164f4b]">{template.cta}</div>
-        </div>
-      </div>
-    );
-  }
+function CreativeCard({ index, phase, reduced }: { index: number; phase: number; reduced: boolean }) {
+  const flyPhase = 4 + index;
+  const hasFlown = phase > flyPhase;
+  const isFlying = phase === flyPhase;
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-[#f2bd59]">
-      <div className="absolute inset-y-0 right-0 h-full w-[58%] bg-cover" style={{ backgroundImage: "url('/email-campaigns/template-photos.jpg')", backgroundSize: "100% 300%", backgroundPosition: template.photoPosition }} />
-      <div className="absolute inset-y-0 left-[35%] w-[32%] bg-gradient-to-r from-[#f2bd59] to-transparent" />
-      <div className="absolute left-3.5 top-3.5 text-[6.5px] font-black uppercase tracking-[.15em] text-amber-950">{template.kicker}</div>
-      {selected ? <SelectedMark dark /> : null}
-      <div className="absolute bottom-3.5 left-3.5 w-[46%] text-amber-950">
-        <div className="whitespace-pre-line text-[20px] font-black leading-[.88] tracking-[-.055em]">{template.headline}</div>
-        <div className="mt-3 inline-flex rounded-full bg-amber-950 px-2.5 py-1 text-[6px] font-black uppercase text-white">{template.cta}</div>
+    <motion.div
+      className="w-[126px]"
+      initial={reduced ? false : { opacity: 0, y: 12 }}
+      animate={{ opacity: hasFlown || isFlying ? 0.16 : 1, y: 0, scale: isFlying ? 0.96 : 1 }}
+      transition={{ duration: reduced ? 0 : 0.24, delay: reduced ? 0 : index * 0.05 }}
+    >
+      <div className="overflow-hidden rounded-[16px] border border-white bg-white p-1.5 shadow-[0_22px_44px_-28px_rgba(15,23,42,.48)]">
+        <TemplateVisual index={index} className="h-[64px] w-full rounded-[11px]" />
       </div>
-    </div>
-  );
-}
-
-function SelectedMark({ dark = false }: { dark?: boolean }) {
-  return (
-    <span className={dark ? "absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-amber-950 text-white shadow-lg" : "absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-white text-fuchsia-600 shadow-lg"}>
-      <Check className="h-4 w-4" strokeWidth={3} />
-    </span>
-  );
-}
-
-function CreativeFrame({ index, selected = false }: { index: number; selected?: boolean }) {
-  return (
-    <div className={`h-[220px] w-[176px] rounded-[20px] bg-white p-[3px] shadow-[0_26px_58px_-30px_rgba(15,23,42,.52)] ${selected ? "ring-4 ring-fuchsia-500/15" : ""}`}>
-      <Artwork index={index} selected={selected} />
-    </div>
+      <div className="mt-2 text-center text-[7px] font-black text-slate-700">{TEMPLATES[index].name}</div>
+    </motion.div>
   );
 }
 
 function TemplatePicker({ phase, reduced }: { phase: number; reduced: boolean }) {
-  const selected = phase >= 4;
-
   return (
     <AnimatePresence>
-      {phase >= 3 && phase <= 4 ? (
+      {phase >= 3 && phase <= 6 ? (
         <motion.div
-          className="absolute inset-0 z-30 bg-white/72 backdrop-blur-[1px]"
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: reduced ? 0 : 0.22 }}
+          className="absolute right-[3.5%] top-[22%] z-30 w-[38%]"
+          initial={reduced ? false : { opacity: 0, x: 28 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 18 }}
+          transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
         >
-          <div className="absolute left-[9%] top-[14%]">
-            <div className="text-[11px] font-black text-slate-900">Choose a template</div>
-            <div className="mt-0.5 text-[7px] font-semibold text-slate-400">Pick one direction.</div>
+          <div className="mb-3 text-center">
+            <div className="text-[10px] font-black text-slate-900">Your 3-email sequence</div>
+            <div className="mt-0.5 text-[6.5px] font-semibold text-slate-400">Each creative becomes one email.</div>
           </div>
-
-          <div className="absolute inset-x-0 top-[28%] flex justify-center gap-6">
-            {TEMPLATES.map((template, index) => (
-              <motion.div
-                key={template.name}
-                initial={reduced ? false : { opacity: 0, y: 14 }}
-                animate={{
-                  opacity: selected && index !== 0 ? 0.42 : 1,
-                  y: selected && index === 0 ? -6 : 0,
-                  scale: selected && index === 0 ? 1.04 : 1,
-                }}
-                transition={{ duration: reduced ? 0 : 0.26, delay: reduced ? 0 : index * 0.05 }}
-              >
-                <CreativeFrame index={index} selected={selected && index === 0} />
-                <div className="mt-2 text-center text-[7.5px] font-black text-slate-700">{template.name}</div>
-              </motion.div>
+          <div className="flex justify-center gap-3">
+            {TEMPLATES.map((_, index) => (
+              <CreativeCard key={index} index={index} phase={phase} reduced={reduced} />
             ))}
           </div>
         </motion.div>
@@ -240,40 +167,63 @@ function TemplatePicker({ phase, reduced }: { phase: number; reduced: boolean })
   );
 }
 
-function SequenceRow({ index, phase, reduced }: { index: number; phase: number; reduced: boolean }) {
-  const filled = phase >= 6 + index;
-  const active = phase >= 9;
+function FlyingCreative({ phase, reduced }: { phase: number; reduced: boolean }) {
+  if (phase < 4 || phase > 6) return null;
+
+  const index = phase - 4;
+  const sourceLeft = [66, 79, 91][index];
+  const targetTop = [40, 58, 76][index];
 
   return (
     <motion.div
-      className="mx-auto flex h-[68px] w-[382px] max-w-[96%] items-center gap-3 rounded-[15px] border bg-white px-3.5 shadow-[0_14px_32px_-28px_rgba(15,23,42,.42)]"
-      animate={{ borderColor: active ? "rgba(16,185,129,.34)" : filled ? "rgba(203,213,225,.95)" : "rgba(226,232,240,1)" }}
+      className="pointer-events-none absolute z-50 overflow-hidden rounded-[12px] border border-white bg-white p-1 shadow-[0_24px_50px_-28px_rgba(15,23,42,.55)]"
+      initial={reduced ? false : { left: `${sourceLeft}%`, top: "36%", width: 126, height: 76, opacity: 1, rotate: index === 1 ? 1.5 : -1.5 }}
+      animate={{ left: "12.5%", top: `${targetTop}%`, width: 78, height: 44, opacity: 1, rotate: 0 }}
+      transition={{ duration: reduced ? 0 : 0.58, ease: [0.2, 0.82, 0.24, 1] }}
+    >
+      <TemplateVisual index={index} className="h-full w-full rounded-[8px]" />
+    </motion.div>
+  );
+}
+
+function SequenceRow({ index, phase, reduced }: { index: number; phase: number; reduced: boolean }) {
+  const filled = phase >= 5 + index;
+  const active = phase >= 9;
+  const incoming = phase === 4 + index;
+
+  return (
+    <motion.div
+      className="mx-auto flex h-[70px] w-[382px] max-w-[96%] items-center gap-3 rounded-[15px] border bg-white px-3.5 shadow-[0_14px_32px_-28px_rgba(15,23,42,.42)]"
+      animate={{
+        borderColor: active ? "rgba(16,185,129,.34)" : incoming ? "rgba(217,70,239,.45)" : filled ? "rgba(203,213,225,.95)" : "rgba(226,232,240,1)",
+        boxShadow: incoming ? "0 0 0 4px rgba(217,70,239,.06), 0 14px 32px -28px rgba(15,23,42,.42)" : "0 14px 32px -28px rgba(15,23,42,.42)",
+      }}
       transition={{ duration: reduced ? 0 : 0.22 }}
     >
-      <motion.span
-        className={filled ? "flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-violet-50 text-violet-600" : "flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-dashed border-slate-200 bg-slate-50 text-slate-300"}
-        animate={{ scale: filled ? [0.9, 1.04, 1] : 1 }}
-        transition={{ duration: reduced ? 0 : 0.28 }}
-      >
-        <Mail className="h-4 w-4" />
-      </motion.span>
+      <div className={filled ? "h-[42px] w-[78px] shrink-0 overflow-hidden rounded-[9px] border border-slate-200 bg-white p-[2px] shadow-sm" : "flex h-[42px] w-[78px] shrink-0 items-center justify-center rounded-[9px] border border-dashed border-slate-200 bg-slate-50 text-slate-300"}>
+        {filled ? <TemplateVisual index={index} className="h-full w-full rounded-[6px]" /> : <Mail className="h-4 w-4" />}
+      </div>
 
       <div className="min-w-0 flex-1">
-        <div className="text-[6px] font-black uppercase tracking-[.16em] text-slate-400">EMAIL {index + 1}</div>
+        <div className="text-[5.5px] font-black uppercase tracking-[.16em] text-slate-400">EMAIL {index + 1}</div>
         {filled ? (
           <motion.div initial={reduced ? false : { opacity: 0, y: 3 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="mt-1 truncate text-[9px] font-black text-slate-800">{FLOW[index][0]}</div>
-            <div className="mt-1 text-[6.5px] font-black text-slate-500">{FLOW[index][1]}</div>
+            <div className="mt-1 truncate text-[9px] font-black text-slate-800">{TEMPLATES[index].subject}</div>
+            <div className="mt-1 text-[6.5px] font-black text-slate-500">{TEMPLATES[index].timing}</div>
           </motion.div>
         ) : (
-          <div className="mt-1.5 text-[7px] font-semibold text-slate-300">Waiting</div>
+          <div className="mt-1.5 text-[7px] font-semibold text-slate-300">Waiting for creative</div>
         )}
       </div>
 
       {filled ? (
-        <span className={active ? "flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white" : "flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600"}>
+        <motion.span
+          initial={reduced ? false : { scale: 0.6, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className={active ? "flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white" : "flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600"}
+        >
           <Check className="h-3.5 w-3.5" strokeWidth={3} />
-        </span>
+        </motion.span>
       ) : null}
     </motion.div>
   );
@@ -292,32 +242,9 @@ function Wait({ label }: { label: string }) {
   );
 }
 
-function TemplateSummary({ phase }: { phase: number }) {
-  const filled = phase >= 5;
-
-  return (
-    <motion.div
-      className="rounded-[12px] border border-slate-200 bg-slate-50 px-3 py-2.5"
-      animate={{ borderColor: phase === 5 ? "rgba(217,70,239,.48)" : "rgba(226,232,240,1)" }}
-    >
-      <div className="text-[5.5px] font-black uppercase tracking-[.14em] text-slate-400">Template</div>
-      {filled ? (
-        <motion.div className="mt-2 flex items-center gap-2" initial={{ opacity: 0, y: 3 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="h-8 w-6 overflow-hidden rounded-[5px] bg-white p-[1px] shadow-sm">
-            <Artwork index={0} />
-          </div>
-          <span className="text-[7px] font-black text-slate-700">Welcome back</span>
-        </motion.div>
-      ) : (
-        <div className="mt-2 text-[7px] font-semibold text-slate-300">Choose creative</div>
-      )}
-    </motion.div>
-  );
-}
-
 function Builder({ phase, reduced }: { phase: number; reduced: boolean }) {
   const audience = phase >= 2;
-  const ready = phase >= 8;
+  const ready = phase >= 7;
   const active = phase >= 9;
 
   return (
@@ -325,7 +252,9 @@ function Builder({ phase, reduced }: { phase: number; reduced: boolean }) {
       <div className="flex h-full flex-col rounded-[20px] border border-slate-200 bg-white px-4 py-3.5 shadow-[0_24px_70px_-42px_rgba(15,23,42,.5)]">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-violet-50 text-violet-600"><Megaphone className="h-4 w-4" /></span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-violet-50 text-violet-600">
+              <Megaphone className="h-4 w-4" />
+            </span>
             <div>
               <div className="text-[12px] font-black text-slate-900">Customer Win-back</div>
               <div className="text-[7px] font-semibold text-slate-400">3-email campaign</div>
@@ -340,12 +269,22 @@ function Builder({ phase, reduced }: { phase: number; reduced: boolean }) {
           <div className="rounded-[12px] border border-slate-200 bg-slate-50 px-3 py-2.5">
             <div className="text-[5.5px] font-black uppercase tracking-[.14em] text-slate-400">Audience</div>
             {audience ? (
-              <div className="mt-2 flex items-center justify-between"><AudienceChip /><span className="text-[6px] font-bold text-slate-400">312</span></div>
+              <div className="mt-2 flex items-center justify-between">
+                <AudienceChip />
+                <span className="text-[6px] font-bold text-slate-400">312</span>
+              </div>
             ) : (
               <div className="mt-2 text-[7px] font-semibold text-slate-300">Choose recipients</div>
             )}
           </div>
-          <TemplateSummary phase={phase} />
+
+          <div className="rounded-[12px] border border-slate-200 bg-slate-50 px-3 py-2.5">
+            <div className="text-[5.5px] font-black uppercase tracking-[.14em] text-slate-400">Sequence</div>
+            <div className="mt-2 flex items-center justify-between">
+              <span className="text-[8px] font-black text-slate-800">3 emails</span>
+              <span className="text-[6.5px] font-bold text-slate-400">5 days</span>
+            </div>
+          </div>
         </div>
 
         <div className="mt-3 flex min-h-0 flex-1 flex-col items-center justify-center overflow-hidden">
@@ -361,7 +300,9 @@ function Builder({ phase, reduced }: { phase: number; reduced: boolean }) {
         </div>
 
         <div className="mt-2 flex justify-center">
-          <motion.div className={active ? "inline-flex items-center gap-1.5 rounded-[10px] bg-emerald-500 px-4 py-2.5 text-[8px] font-black text-white" : ready ? "inline-flex items-center gap-1.5 rounded-[10px] bg-zapla-ink px-4 py-2.5 text-[8px] font-black text-white" : "inline-flex items-center gap-1.5 rounded-[10px] bg-slate-200 px-4 py-2.5 text-[8px] font-black text-slate-500"}>
+          <motion.div
+            className={active ? "inline-flex items-center gap-1.5 rounded-[10px] bg-emerald-500 px-4 py-2.5 text-[8px] font-black text-white" : ready ? "inline-flex items-center gap-1.5 rounded-[10px] bg-zapla-ink px-4 py-2.5 text-[8px] font-black text-white" : "inline-flex items-center gap-1.5 rounded-[10px] bg-slate-200 px-4 py-2.5 text-[8px] font-black text-slate-500"}
+          >
             {active ? <><Check className="h-3.5 w-3.5" />Campaign active</> : <><Play className="h-3.5 w-3.5" />Activate campaign</>}
           </motion.div>
         </div>
@@ -370,33 +311,18 @@ function Builder({ phase, reduced }: { phase: number; reduced: boolean }) {
   );
 }
 
-function TemplateFly({ phase, reduced }: { phase: number; reduced: boolean }) {
-  if (phase !== 5) return null;
-
-  return (
-    <motion.div
-      className="pointer-events-none absolute z-50"
-      initial={reduced ? false : { left: "19%", top: "33%", width: 176, height: 220, opacity: 1 }}
-      animate={{ left: "44%", top: "15%", width: 24, height: 32, opacity: 1 }}
-      transition={{ duration: reduced ? 0 : 0.5, ease: [0.2, 0.82, 0.24, 1] }}
-    >
-      <div className="h-full w-full overflow-hidden rounded-[8px] bg-white p-[2px] shadow-[0_20px_45px_-24px_rgba(15,23,42,.52)]">
-        <Artwork index={0} selected />
-      </div>
-    </motion.div>
-  );
-}
-
 function Summary({ phase, reduced }: { phase: number; reduced: boolean }) {
   return (
     <AnimatePresence>
       {phase >= 9 ? (
         <motion.div
-          className="absolute right-[8%] top-[30%] z-20 w-[25%] rounded-[20px] border border-emerald-100 bg-white p-5 shadow-[0_28px_70px_-38px_rgba(15,23,42,.45)]"
+          className="absolute right-[8%] top-[31%] z-20 w-[25%] rounded-[20px] border border-emerald-100 bg-white p-5 shadow-[0_28px_70px_-38px_rgba(15,23,42,.45)]"
           initial={reduced ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-white"><Check className="h-4 w-4" strokeWidth={3} /></span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-white">
+            <Check className="h-4 w-4" strokeWidth={3} />
+          </span>
           <div className="mt-3 text-[13px] font-black text-slate-900">Campaign active</div>
           <div className="mt-1 text-[7.5px] font-semibold text-slate-500">312 clients · 3 emails · 5 days</div>
         </motion.div>
@@ -408,9 +334,10 @@ function Summary({ phase, reduced }: { phase: number; reduced: boolean }) {
 export function SceneEmailLive({ phase, reduced }: SceneProps) {
   const points: Record<number, CursorPoint> = {
     0: { left: "78%", top: "27%" },
-    1: { left: "79%", top: "57%" },
-    4: { left: "24%", top: "45%" },
-    5: { left: "45%", top: "17%" },
+    1: { left: "79%", top: "37%" },
+    4: { left: "68%", top: "39%" },
+    5: { left: "80%", top: "39%" },
+    6: { left: "92%", top: "39%" },
     8: { left: "33%", top: "92%" },
   };
 
@@ -419,9 +346,9 @@ export function SceneEmailLive({ phase, reduced }: SceneProps) {
       <Builder phase={phase} reduced={reduced} />
       <Composer phase={phase} reduced={reduced} />
       <TemplatePicker phase={phase} reduced={reduced} />
-      <TemplateFly phase={phase} reduced={reduced} />
+      <FlyingCreative phase={phase} reduced={reduced} />
       <Summary phase={phase} reduced={reduced} />
-      <ZaplaDemoCursor point={points[phase] ?? null} press={phase === 1 || phase === 4 || phase === 8} reduced={reduced} />
+      <ZaplaDemoCursor point={points[phase] ?? null} press={phase === 1 || phase === 4 || phase === 5 || phase === 6 || phase === 8} reduced={reduced} />
     </div>
   );
 }
