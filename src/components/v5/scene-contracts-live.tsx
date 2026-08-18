@@ -170,7 +170,7 @@ function DocumentPage({ beat }: { beat: number }) {
   const signed = beat >= 7;
 
   return (
-    <div className="mx-auto h-[calc(100%-18px)] w-[84%] max-w-[510px] overflow-hidden rounded-[14px] border border-slate-200 bg-white shadow-[0_20px_50px_-34px_rgba(15,23,42,.4)]">
+    <div className="mx-auto h-[calc(100%_-_18px)] w-[84%] max-w-[510px] overflow-hidden rounded-[14px] border border-slate-200 bg-white shadow-[0_20px_50px_-34px_rgba(15,23,42,.4)]">
       <div className="border-b border-slate-100 px-5 py-4">
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -283,7 +283,7 @@ function Workspace({
           </div>
         </div>
 
-        <div className="relative h-[calc(100%-52px)] overflow-hidden p-2.5">
+        <div className="relative h-[calc(100%_-_52px)] overflow-hidden p-2.5">
           <DocumentPage beat={beat} />
 
           <AnimatePresence>
@@ -375,7 +375,7 @@ function SignerView({
 
                 <div className={signing ? "relative mt-4 h-[78px] overflow-hidden rounded-[12px] border border-emerald-200 bg-white" : "relative mt-4 h-[78px] overflow-hidden rounded-[12px] border border-dashed border-slate-300 bg-white"}>
                   <div className="absolute left-2 top-2 text-[5px] font-bold uppercase tracking-[.08em] text-slate-300">Sign here</div>
-                  <svg viewBox="0 0 180 54" className="absolute inset-x-2 bottom-2 h-[50px] w-[calc(100%-16px)]">
+                  <svg viewBox="0 0 180 54" className="absolute inset-x-2 bottom-2 h-[50px] w-[calc(100%_-_16px)]">
                     <motion.path
                       d="M8 36 C30 6, 42 42, 61 20 C75 5, 89 43, 108 22 C126 7, 143 35, 172 14"
                       fill="none"
