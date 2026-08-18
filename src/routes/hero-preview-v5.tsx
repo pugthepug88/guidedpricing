@@ -108,7 +108,7 @@ const SCENES: SceneDef[] = [
     label: "Calendar",
     title: "Calendar",
     subtitle: "A selected time becomes a real appointment",
-    phases: [700, 720, 900, 900, 1700, 900],
+    phases: [700, 720, 900, 900, 1700, 1600],
     render: (p) => <SceneCalendarLive {...p} />,
   },
   {
