@@ -99,7 +99,7 @@ const SCENES: SceneDef[] = [
     label: "Email Marketing",
     title: "Email Marketing",
     subtitle: "From template to multi-step campaign",
-    phases: [650, 900, 1100, 900, 850, 850, 850, 700, 900, 1100, 1900],
+    phases: [650, 900, 1150, 1250, 900, 900, 900, 650, 950, 1700, 1400],
     render: (p) => <SceneEmailLive {...p} />,
   },
   {
