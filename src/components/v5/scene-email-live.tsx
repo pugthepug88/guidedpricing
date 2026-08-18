@@ -165,12 +165,12 @@ function CreativeCard({ index, phase, reduced }: { index: number; phase: number;
   const flyPhase = 4 + index;
   const removed = phase >= flyPhase;
 
-  if (removed) return null;
+  if (removed) return <div className="h-[178px] w-[134px] shrink-0" aria-hidden />;
 
   return (
     <motion.div
       layoutId={`email-creative-${index}`}
-      className="h-[178px] w-[134px] overflow-hidden rounded-[18px] border border-white bg-white p-[3px] shadow-[0_26px_54px_-30px_rgba(15,23,42,.52)]"
+      className="h-[178px] w-[134px] shrink-0 overflow-hidden rounded-[18px] border border-white bg-white p-[3px] shadow-[0_26px_54px_-30px_rgba(15,23,42,.52)]"
       initial={reduced ? false : { opacity: 0, y: 14, rotate: index === 0 ? -2.5 : index === 2 ? 2.5 : 0 }}
       animate={{ opacity: 1, y: 0, rotate: index === 0 ? -1.5 : index === 2 ? 1.5 : 0 }}
       transition={{
@@ -424,7 +424,7 @@ function ActiveSummary({ phase, reduced }: { phase: number; reduced: boolean }) 
               animate={reduced ? undefined : { boxShadow: ["0 0 0 0 rgba(16,185,129,.16)", "0 0 0 8px rgba(16,185,129,0)"] }}
               transition={reduced ? undefined : { duration: 1.5, repeat: Infinity }}
             >
-              <Check className="h-4.5 w-4.5" strokeWidth={3} />
+              <Check className="h-[18px] w-[18px]" strokeWidth={3} />
             </motion.span>
             <div className="mt-3 text-[13px] font-black text-slate-900">Campaign active</div>
             <div className="mt-1.5 text-[8px] font-semibold text-slate-500">312 clients · 3 emails · 5 days</div>
