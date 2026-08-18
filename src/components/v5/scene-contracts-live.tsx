@@ -153,7 +153,7 @@ function SignatureStroke({ signerIndex, beat }: { signerIndex: number; beat: num
   ];
 
   return (
-    <svg viewBox="0 0 160 40" className="h-8 w-full">
+    <svg viewBox="0 0 160 40" className="h-9 w-full">
       <motion.path
         d={paths[signerIndex]}
         fill="none"
@@ -177,29 +177,29 @@ function SignatureBox({ signer, index, beat }: { signer: Signer; index: number; 
     <motion.div
       className={
         signed
-          ? "relative overflow-hidden rounded-[12px] border border-emerald-200 bg-emerald-50/45 px-3 py-2.5"
+          ? "relative min-h-[96px] overflow-hidden border-2 border-emerald-200 bg-emerald-50/45 px-3 py-2.5"
           : active
-            ? "relative overflow-hidden rounded-[12px] border border-blue-200 bg-blue-50/35 px-3 py-2.5"
-            : "relative overflow-hidden rounded-[12px] border border-dashed border-slate-300 bg-white px-3 py-2.5"
+            ? "relative min-h-[96px] overflow-hidden border-2 border-blue-300 bg-blue-50/45 px-3 py-2.5"
+            : "relative min-h-[96px] overflow-hidden border-2 border-dashed border-slate-300 bg-white px-3 py-2.5"
       }
-      animate={{ y: active ? -2 : 0, boxShadow: active ? "0 12px 28px -22px rgba(37,99,235,.55)" : "0 0 0 rgba(0,0,0,0)" }}
+      animate={{ y: active ? -2 : 0, boxShadow: active ? "0 14px 30px -22px rgba(37,99,235,.6)" : "0 0 0 rgba(0,0,0,0)" }}
       transition={{ duration: 0.28 }}
     >
       <div className="flex items-center gap-1.5">
-        <img src={signer.face} alt="" className="h-5 w-5 rounded-full object-cover" />
+        <img src={signer.face} alt="" className="h-6 w-6 rounded-full object-cover" />
         <div>
-          <div className="text-[5.8px] font-black text-slate-700">{signer.name}</div>
-          <div className="text-[4.8px] font-semibold text-slate-400">{signer.role}</div>
+          <div className="text-[6.2px] font-black text-slate-700">{signer.name}</div>
+          <div className="text-[5px] font-semibold text-slate-400">{signer.role}</div>
         </div>
       </div>
 
-      <div className="relative mt-1.5 h-9">
-        <div className="absolute inset-x-0 bottom-1.5 h-px bg-slate-200" />
+      <div className="relative mt-1.5 h-10">
+        <div className="absolute inset-x-0 bottom-1.5 h-px bg-slate-300" />
         <SignatureStroke signerIndex={index} beat={beat} />
       </div>
 
-      <div className={signed ? "flex items-center gap-1 text-[5px] font-black text-emerald-700" : active ? "text-[5px] font-black text-blue-600" : "text-[5px] font-semibold text-slate-300"}>
-        {signed ? <><Check className="h-2.5 w-2.5" strokeWidth={3} /> Signed</> : active ? "Signing now…" : "Awaiting signature"}
+      <div className={signed ? "flex items-center gap-1 text-[5.3px] font-black text-emerald-700" : active ? "text-[5.3px] font-black text-blue-600" : "text-[5.3px] font-semibold text-slate-400"}>
+        {signed ? <><Check className="h-2.5 w-2.5" strokeWidth={3} /> Signed</> : active ? "Signing now…" : "Sign here"}
       </div>
     </motion.div>
   );
@@ -210,15 +210,15 @@ function ContractDocument({ beat }: { beat: number }) {
 
   return (
     <motion.div
-      className="h-full w-full overflow-hidden rounded-[16px] border border-slate-200 bg-white shadow-[0_24px_54px_-38px_rgba(15,23,42,.38)]"
-      animate={{ borderColor: complete ? "#a7f3d0" : "#e2e8f0" }}
+      className="flex h-full w-full flex-col bg-white"
+      animate={{ backgroundColor: complete ? "#fcfffd" : "#ffffff" }}
       transition={{ duration: 0.38 }}
     >
-      <div className="flex items-start justify-between gap-4 border-b border-slate-100 px-5 py-4">
+      <div className="flex h-[58px] shrink-0 items-start justify-between gap-4 border-b border-slate-100 px-5 py-3.5">
         <div>
           <div className="text-[6.5px] font-black uppercase tracking-[.14em] text-blue-600">Service Agreement</div>
           <div className="mt-1 text-[14px] font-black tracking-tight text-slate-900">Bennett Landscapes</div>
-          <div className="mt-1 text-[5.9px] font-semibold text-slate-400">Landscape design & installation · Agreement #ZA-2048</div>
+          <div className="mt-0.5 text-[5.9px] font-semibold text-slate-400">Landscape design & installation · Agreement #ZA-2048</div>
         </div>
         <motion.div
           key={complete ? "complete" : "open"}
@@ -235,49 +235,49 @@ function ContractDocument({ beat }: { beat: number }) {
         </motion.div>
       </div>
 
-      <div className="px-5 py-4">
+      <div className="flex min-h-0 flex-1 flex-col px-5 py-3">
         <div className="grid grid-cols-3 gap-2">
           {[
             ["Client", "Bennett Landscapes"],
             ["Project value", "$8,400"],
             ["Valid until", "28 Aug 2026"],
           ].map(([label, value]) => (
-            <div key={label} className="rounded-[10px] border border-slate-100 bg-slate-50/70 px-2.5 py-2">
+            <div key={label} className="rounded-[10px] border border-slate-100 bg-slate-50/70 px-2.5 py-1.5">
               <div className="text-[4.9px] font-black uppercase tracking-[.09em] text-slate-400">{label}</div>
-              <div className="mt-1 text-[6.5px] font-black text-slate-700">{value}</div>
+              <div className="mt-0.5 text-[6.5px] font-black text-slate-700">{value}</div>
             </div>
           ))}
         </div>
 
-        <div className="mt-3.5">
+        <div className="mt-2.5">
           <div className="text-[6.4px] font-black text-slate-800">Scope of works</div>
-          <div className="mt-1.5 space-y-1.5">
+          <div className="mt-1.5 space-y-1">
             <div className="h-1.5 w-[96%] rounded-full bg-slate-100" />
             <div className="h-1.5 w-[88%] rounded-full bg-slate-100" />
             <div className="h-1.5 w-[72%] rounded-full bg-slate-100" />
           </div>
         </div>
 
-        <div className="mt-3.5 overflow-hidden rounded-[11px] border border-slate-200">
-          <div className="grid grid-cols-[1fr_80px] border-b border-slate-100 px-3 py-2 text-[5.7px] font-bold text-slate-500">
+        <div className="mt-2.5 overflow-hidden rounded-[10px] border border-slate-200">
+          <div className="grid grid-cols-[1fr_80px] border-b border-slate-100 px-3 py-1.5 text-[5.7px] font-bold text-slate-500">
             <span>Landscape design & planning</span><span className="text-right">$2,400</span>
           </div>
-          <div className="grid grid-cols-[1fr_80px] border-b border-slate-100 px-3 py-2 text-[5.7px] font-bold text-slate-500">
+          <div className="grid grid-cols-[1fr_80px] border-b border-slate-100 px-3 py-1.5 text-[5.7px] font-bold text-slate-500">
             <span>Installation & project delivery</span><span className="text-right">$6,000</span>
           </div>
-          <div className="grid grid-cols-[1fr_80px] bg-slate-50 px-3 py-2 text-[6.4px] font-black text-slate-800">
+          <div className="grid grid-cols-[1fr_80px] bg-slate-50 px-3 py-1.5 text-[6.4px] font-black text-slate-800">
             <span>Total</span><span className="text-right">$8,400</span>
           </div>
         </div>
 
-        <div className="mt-3.5">
+        <div className="mt-auto pt-2.5">
           <div className="mb-2 flex items-center justify-between">
-            <div className="text-[6.4px] font-black text-slate-800">Required signatures</div>
-            <div className={complete ? "text-[5.5px] font-black text-emerald-600" : "text-[5.5px] font-bold text-slate-400"}>
+            <div className="text-[6.8px] font-black text-slate-800">Required signatures</div>
+            <div className={complete ? "text-[5.8px] font-black text-emerald-600" : "text-[5.8px] font-bold text-slate-400"}>
               {signedCountForBeat(beat)}/3 signed
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-2.5">
             {SIGNERS.map((signer, index) => (
               <SignatureBox key={signer.name} signer={signer} index={index} beat={beat} />
             ))}
@@ -325,7 +325,7 @@ export function SceneContractsLive({ elapsedMs, reduced }: SceneProps) {
   const complete = beat >= 6;
 
   return (
-    <div ref={rootRef} className="absolute inset-0 overflow-hidden bg-[#f7f8fb]">
+    <div ref={rootRef} className="absolute inset-0 overflow-hidden bg-white">
       <div className="absolute inset-x-0 top-0 z-20 flex h-[58px] items-center border-b border-slate-200 bg-white px-4">
         <div className="flex items-center gap-2.5">
           <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-blue-50 text-blue-600"><FileSignature className="h-4 w-4" /></span>
@@ -372,7 +372,7 @@ export function SceneContractsLive({ elapsedMs, reduced }: SceneProps) {
         <SignerSequence beat={beat} />
       </div>
 
-      <div className="absolute inset-x-[5%] bottom-[4%] top-[122px]">
+      <div className="absolute inset-x-0 bottom-0 top-[106px]">
         <ContractDocument beat={beat} />
       </div>
 
