@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { CalendarCheck, Check, ChevronLeft, ChevronRight, Clock3, MessageSquare, Plus } from "lucide-react";
+import { CalendarCheck, ChevronLeft, ChevronRight, Clock3, MessageSquare, Plus } from "lucide-react";
 import { FACE } from "./faces";
 import { type SceneProps } from "./motion-kit";
 import { ZaplaDemoCursor, type CursorPoint } from "./zapla-demo-cursor";
@@ -240,75 +240,83 @@ function FloatingRebook({ beat, geom, reduced }: { beat: number; geom: DragGeom 
   );
 }
 
-function SmsConfirmationOverlay({ beat, reduced }: { beat: number; reduced: boolean }) {
+function MessageThreadOverlay({ beat, reduced }: { beat: number; reduced: boolean }) {
   const booking = beat === 5;
   const reschedule = beat >= 10;
   if (!booking && !reschedule) return null;
 
-  const title = booking ? "Booking confirmation SMS sent" : "Reschedule SMS sent";
-  const meta = booking ? "Nina Alvarez · Tue 18 Aug · 12:00 PM" : "Nina Alvarez · Thu 20 Aug · 2:00 PM";
-  const message = booking
-    ? "Hi Nina, your consultation is confirmed for Tue 18 Aug at 12:00 PM. We’ll see you then!"
-    : "Hi Nina, your appointment has been moved to Thu 20 Aug at 2:00 PM. See you then!";
-
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={booking ? "booking-sms" : "reschedule-sms"}
+        key={booking ? "booking-thread" : "reschedule-thread"}
         className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/10 px-8"
         initial={reduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: reduced ? 0 : 0.28 }}
+        transition={{ duration: reduced ? 0 : 0.24 }}
       >
         <motion.div
-          className="w-full max-w-[420px] overflow-hidden rounded-[24px] border border-slate-200/90 bg-white shadow-[0_34px_90px_-34px_rgba(15,23,42,.48)]"
-          initial={reduced ? false : { opacity: 0, y: 20, scale: 0.96 }}
+          className="w-full max-w-[390px] overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-[0_34px_90px_-36px_rgba(15,23,42,.5)]"
+          initial={reduced ? false : { opacity: 0, y: 18, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: reduced ? 0 : 0.42, ease: [0.18, 0.78, 0.2, 1] }}
+          transition={{ duration: reduced ? 0 : 0.38, ease: [0.18, 0.78, 0.2, 1] }}
         >
-          <div className="flex items-center gap-3 border-b border-slate-100 px-5 py-4">
-            <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[14px] text-white shadow-[0_14px_28px_-14px_rgba(16,185,129,.75)]" style={{ background: "linear-gradient(145deg,#34d399 0%,#10b981 55%,#06b6d4 100%)" }}>
-              <span className="absolute inset-x-1 top-0 h-[45%] rounded-full bg-white/20 blur-[7px]" />
-              <MessageSquare className="relative z-10 h-5 w-5" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <div className="truncate text-[12px] font-black text-slate-900">{title}</div>
-                <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[6px] font-black uppercase tracking-[.08em] text-emerald-700">SMS</span>
-              </div>
-              <div className="mt-1 text-[7px] font-semibold text-slate-400">Automated from Calendar · just now</div>
+          <div className="grid h-[58px] grid-cols-[1fr_auto_1fr] items-center border-b border-slate-200 bg-white px-4">
+            <div className="text-[9px] font-semibold text-blue-600">‹ Messages</div>
+            <div className="text-center">
+              <img src={FACE.nina} alt="" className="mx-auto h-7 w-7 rounded-full object-cover ring-1 ring-slate-100" />
+              <div className="mt-0.5 text-[8px] font-black text-slate-900">Nina Alvarez</div>
             </div>
-            <span className="flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1.5 text-[6.5px] font-black text-emerald-700">
-              <Check className="h-3 w-3" strokeWidth={3} /> Sent
-            </span>
+            <div className="text-right text-[9px] font-semibold text-blue-600">Contact</div>
           </div>
 
-          <div className="p-5">
-            <div className="flex items-center gap-2.5">
-              <img src={FACE.nina} alt="" className="h-9 w-9 rounded-full object-cover ring-1 ring-slate-100" />
-              <div>
-                <div className="text-[9px] font-black text-slate-800">Nina Alvarez</div>
-                <div className="mt-0.5 text-[6.5px] font-semibold text-slate-400">{meta}</div>
-              </div>
-            </div>
+          <div className="min-h-[246px] bg-white px-5 py-4">
+            <div className="text-center text-[6px] font-semibold text-slate-400">Tue 18 Aug · 11:59 AM</div>
 
             <motion.div
-              initial={reduced ? false : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : 0.18 }}
-              className="mt-4 rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-3.5"
+              initial={reduced ? false : { opacity: 0, x: 22, y: 6 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.12 }}
+              className="ml-auto mt-2.5 max-w-[285px] rounded-[18px] rounded-br-[5px] bg-[#34c759] px-4 py-2.5 text-[9.5px] font-medium leading-[1.4] text-white"
             >
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-[6px] font-black uppercase tracking-[.12em] text-slate-400">Message preview</span>
-                <span className="text-[6px] font-semibold text-slate-300">Zapla</span>
-              </div>
-              <div className="text-[9px] font-semibold leading-[1.55] text-slate-700">{message}</div>
+              Hi Nina, your consultation is confirmed for Tue 18 Aug at 12:00 PM. See you then!
             </motion.div>
+            <div className="mt-1 text-right text-[5.5px] font-semibold text-slate-300">Delivered</div>
 
-            <div className="mt-3 flex items-center justify-between text-[6.5px] font-semibold text-slate-400">
-              <span>Sent automatically when the calendar changed</span>
-              <span className="flex items-center gap-1 text-emerald-600"><Check className="h-3 w-3" strokeWidth={3} /> Delivered</span>
+            {reschedule ? (
+              <>
+                <motion.div
+                  initial={reduced ? false : { opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: reduced ? 0 : 0.22, delay: reduced ? 0 : 0.16 }}
+                  className="mt-5 text-center text-[6px] font-semibold text-slate-400"
+                >
+                  Thu 20 Aug · 1:58 PM
+                </motion.div>
+
+                <motion.div
+                  initial={reduced ? false : { opacity: 0, x: 28, y: 8 }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.3, ease: [0.18, 0.78, 0.2, 1] }}
+                  className="ml-auto mt-2.5 max-w-[285px] rounded-[18px] rounded-br-[5px] bg-[#34c759] px-4 py-2.5 text-[9.5px] font-medium leading-[1.4] text-white"
+                >
+                  Hi Nina, your appointment has been rescheduled to Thu 20 Aug at 2:00 PM. See you then!
+                </motion.div>
+                <motion.div
+                  initial={reduced ? false : { opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: reduced ? 0 : 0.2, delay: reduced ? 0 : 0.55 }}
+                  className="mt-1 text-right text-[5.5px] font-semibold text-slate-300"
+                >
+                  Delivered
+                </motion.div>
+              </>
+            ) : null}
+          </div>
+
+          <div className="border-t border-slate-100 bg-slate-50/70 px-4 py-3">
+            <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-[7px] font-semibold text-slate-300">
+              <MessageSquare className="h-3 w-3" /> Text message
             </div>
           </div>
         </motion.div>
@@ -324,11 +332,11 @@ function beatFor(elapsedMs: number, reduced: boolean) {
   if (elapsedMs < 1150) return 2;
   if (elapsedMs < 1500) return 3;
   if (elapsedMs < 1900) return 4;
-  if (elapsedMs < 2750) return 5;
-  if (elapsedMs < 3050) return 6;
-  if (elapsedMs < 3400) return 7;
-  if (elapsedMs < 4100) return 8;
-  if (elapsedMs < 4500) return 9;
+  if (elapsedMs < 3150) return 5;
+  if (elapsedMs < 3450) return 6;
+  if (elapsedMs < 3800) return 7;
+  if (elapsedMs < 4550) return 8;
+  if (elapsedMs < 4950) return 9;
   return 10;
 }
 
@@ -408,18 +416,18 @@ export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
     };
   }, [beat]);
 
-  const smsOverlay = beat === 5 || beat >= 10;
+  const messageOverlay = beat === 5 || beat >= 10;
 
   return (
     <div ref={rootRef} className="absolute inset-0 overflow-hidden bg-white">
       <motion.div
         className="absolute inset-0"
         animate={{
-          filter: smsOverlay ? "blur(3px)" : "blur(0px)",
-          opacity: smsOverlay ? 0.62 : 1,
-          scale: smsOverlay ? 0.994 : 1,
+          filter: messageOverlay ? "blur(2.5px)" : "blur(0px)",
+          opacity: messageOverlay ? 0.66 : 1,
+          scale: messageOverlay ? 0.995 : 1,
         }}
-        transition={{ duration: reduced ? 0 : 0.32, ease: [0.2, 0.82, 0.24, 1] }}
+        transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
       >
         <MonthToolbar beat={beat} setNewButton={(node) => { newButtonRef.current = node; }} />
         <div className="grid h-[30px] grid-cols-7 border-b border-slate-200 bg-slate-50/80">
@@ -444,7 +452,7 @@ export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
       <StatusToast beat={beat} reduced={reduced} />
       <FloatingRebook beat={beat} geom={dragGeom} reduced={reduced} />
       <ZaplaDemoCursor point={point} press={beat === 1 || beat === 3 || beat === 7} reduced={reduced} />
-      <SmsConfirmationOverlay beat={beat} reduced={reduced} />
+      <MessageThreadOverlay beat={beat} reduced={reduced} />
     </div>
   );
 }
