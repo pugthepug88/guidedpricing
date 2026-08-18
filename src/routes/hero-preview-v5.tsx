@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 import { AppShell } from "@/components/v5/kit";
 import {
   SceneContacts,
-  SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
+import { SceneSalesLive } from "@/components/v5/scene-sales-live";
 import { SceneEmailPolished } from "@/components/v5/scene-email-polished";
 import { SceneContentLive } from "@/components/v5/scene-content-live";
 import { SceneInboxLive } from "@/components/v5/scene-inbox-live";
@@ -65,16 +65,16 @@ const SCENES: SceneDef[] = [
   },
   {
     key: "opportunities",
-    label: "Opportunities",
-    title: "Opportunities",
+    label: "Sales",
+    title: "Sales",
     subtitle: "Every enquiry visible, every deal won",
     phases: [1300, 700, 420, 1000, 1000, 500, 320, 800, 600, 350, 900, 1450, 1800],
-    render: (p) => <SceneOpportunities {...p} />,
+    render: (p) => <SceneSalesLive {...p} />,
   },
   {
     key: "inbox",
-    label: "Inbox",
-    title: "Inbox",
+    label: "Unified Inbox",
+    title: "Unified Inbox",
     subtitle: "Every channel, one conversation",
     phases: [1200, 650, 900, 1000, 1250, 550, 1200, 950, 1800],
     render: (p) => <SceneInboxLive {...p} />,
@@ -84,7 +84,7 @@ const SCENES: SceneDef[] = [
     label: "Automations",
     title: "Automations",
     subtitle: "Follow-up happens without anyone remembering",
-    phases: [1200, 900, 900, 1100, 900, 900, 1000, 1400, 1250, 1800],
+    phases: [1200, 900, 900, 1100, 900, 900, 1000, 1400, 900, 900, 1800],
     render: (p) => <SceneAutomationsLive {...p} />,
   },
   {
