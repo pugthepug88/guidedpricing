@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils";
 import { AppShell } from "@/components/v5/kit";
 import {
   SceneContacts,
-  SceneInbox,
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
 import { SceneCalendar, SceneContracts } from "@/components/v5/scenes-b";
 import { SceneEmailLive } from "@/components/v5/scene-email-live";
 import { SceneContentLive } from "@/components/v5/scene-content-live";
+import { SceneInboxLive } from "@/components/v5/scene-inbox-live";
 import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
 import { useSceneClock } from "@/components/v5/use-scene-clock";
@@ -76,7 +76,7 @@ const SCENES: SceneDef[] = [
     title: "Inbox",
     subtitle: "Every channel, one conversation",
     phases: [1200, 650, 900, 1000, 1250, 550, 1200, 950, 1800],
-    render: (p) => <SceneInbox {...p} />,
+    render: (p) => <SceneInboxLive {...p} />,
   },
   {
     key: "automations",
