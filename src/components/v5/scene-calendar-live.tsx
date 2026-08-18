@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
-import { CalendarCheck, ChevronLeft, ChevronRight, Clock3, Plus } from "lucide-react";
+import { CalendarCheck, ChevronLeft, ChevronRight, Clock3, MessageSquare, Plus } from "lucide-react";
 import { FACE } from "./faces";
 import { type SceneProps } from "./motion-kit";
 import { ZaplaDemoCursor, type CursorPoint } from "./zapla-demo-cursor";
@@ -157,7 +158,7 @@ function ViewSwitch() {
   );
 }
 
-function MonthToolbar({ beat }: { beat: number }) {
+function MonthToolbar({ beat, setNewButton }: { beat: number; setNewButton: (node: HTMLSpanElement | null) => void }) {
   return (
     <div className="flex h-[58px] items-center gap-2 border-b border-slate-200 bg-white px-4">
       <div className="mr-2">
@@ -176,6 +177,7 @@ function MonthToolbar({ beat }: { beat: number }) {
       <div className="ml-auto flex items-center gap-2">
         <ViewSwitch />
         <motion.span
+          ref={setNewButton}
           className="flex items-center gap-1.5 rounded-[10px] bg-[#2563eb] px-3.5 py-2 text-[7.5px] font-black text-white shadow-[0_10px_20px_-12px_rgba(37,99,235,.75)]"
           animate={{ scale: beat === 1 ? 0.96 : 1 }}
           transition={{ duration: 0.16 }}
@@ -192,11 +194,15 @@ function MonthCell({
   month,
   muted,
   beat,
+  setSource,
+  setDestination,
 }: {
   day: number;
   month: string;
   muted: boolean;
   beat: number;
+  setSource: (node: HTMLDivElement | null) => void;
+  setDestination: (node: HTMLDivElement | null) => void;
 }) {
   const key = `${month}-${day}`;
   const appointments = APPOINTMENTS[key] ?? [];
@@ -245,14 +251,33 @@ function MonthCell({
           <AppointmentCard key={`${appointment.title}-${appointment.time}`} appointment={appointment} />
         ))}
 
-        {source && newBooked && !moved ? <NinaAppointment mode="source" lifted={lifted} /> : null}
-        {destination && moved ? <NinaAppointment mode="destination" /> : null}
+        {source && newBooked && !moved ? (
+          <div ref={setSource}>
+            <NinaAppointment mode="source" lifted={lifted} />
+          </div>
+        ) : null}
+
+        {destination && moved ? (
+          <div ref={setDestination}>
+            <NinaAppointment mode="destination" />
+          </div>
+        ) : destination ? (
+          <div ref={setDestination} className="h-9 w-full" />
+        ) : null}
       </div>
     </div>
   );
 }
 
-function NewAppointmentPanel({ beat, reduced }: { beat: number; reduced: boolean }) {
+function NewAppointmentPanel({
+  beat,
+  reduced,
+  setBookButton,
+}: {
+  beat: number;
+  reduced: boolean;
+  setBookButton: (node: HTMLDivElement | null) => void;
+}) {
   const show = beat === 2 || beat === 3;
   const pressing = beat === 3;
 
@@ -291,6 +316,7 @@ function NewAppointmentPanel({ beat, reduced }: { beat: number; reduced: boolean
             </div>
 
             <motion.div
+              ref={setBookButton}
               className="mt-3 flex items-center justify-center gap-1.5 rounded-[12px] bg-[#18bd59] px-4 py-2.5 text-[8.5px] font-black text-white shadow-[0_12px_26px_-12px_rgba(34,197,94,.85)]"
               animate={{ scale: pressing ? 0.965 : 1 }}
               transition={{ duration: reduced ? 0 : 0.16 }}
@@ -305,8 +331,8 @@ function NewAppointmentPanel({ beat, reduced }: { beat: number; reduced: boolean
 }
 
 function StatusToast({ beat, reduced }: { beat: number; reduced: boolean }) {
-  const newBooked = beat === 4 || beat === 5;
-  const rebooked = beat >= 9;
+  const newBooked = beat === 4;
+  const rebooked = beat === 9;
 
   return (
     <AnimatePresence mode="wait">
@@ -344,7 +370,7 @@ function StatusToast({ beat, reduced }: { beat: number; reduced: boolean }) {
           <div>
             <div className="text-[8.5px] font-black text-slate-900">Appointment rebooked</div>
             <div className="mt-0.5 flex items-center gap-1 text-[6.5px] font-semibold text-slate-400">
-              <Clock3 className="h-2.5 w-2.5" /> Nina Alvarez · Thu 20 · 2:00 PM · Client notified
+              <Clock3 className="h-2.5 w-2.5" /> Nina Alvarez · Thu 20 · 2:00 PM
             </div>
           </div>
         </motion.div>
@@ -353,36 +379,138 @@ function StatusToast({ beat, reduced }: { beat: number; reduced: boolean }) {
   );
 }
 
+function SmsStatus({ beat, reduced }: { beat: number; reduced: boolean }) {
+  const reminder = beat === 5;
+  const reschedule = beat >= 10;
+
+  return (
+    <AnimatePresence mode="wait">
+      {reminder ? (
+        <motion.div
+          key="reminder"
+          initial={reduced ? false : { opacity: 0, x: 18, y: -4 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          exit={{ opacity: 0, x: 10 }}
+          transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
+          className="absolute right-3 top-[72px] z-30 flex items-center gap-2.5 rounded-[13px] border border-emerald-200 bg-white px-3 py-2.5 shadow-[0_18px_38px_-24px_rgba(15,23,42,.42)]"
+        >
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+            <MessageSquare className="h-4 w-4" />
+          </span>
+          <div>
+            <div className="text-[8px] font-black text-slate-800">SMS reminder sent</div>
+            <div className="mt-0.5 text-[6.3px] font-semibold text-slate-400">Nina · Tue 18 · 12:00 PM</div>
+          </div>
+        </motion.div>
+      ) : reschedule ? (
+        <motion.div
+          key="reschedule"
+          initial={reduced ? false : { opacity: 0, x: 18, y: -4 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          exit={{ opacity: 0, x: 10 }}
+          transition={{ duration: reduced ? 0 : 0.3, ease: [0.2, 0.82, 0.24, 1] }}
+          className="absolute right-3 top-[72px] z-30 flex items-center gap-2.5 rounded-[13px] border border-blue-200 bg-white px-3 py-2.5 shadow-[0_18px_38px_-24px_rgba(15,23,42,.42)]"
+        >
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+            <MessageSquare className="h-4 w-4" />
+          </span>
+          <div>
+            <div className="text-[8px] font-black text-slate-800">Reschedule SMS sent</div>
+            <div className="mt-0.5 text-[6.3px] font-semibold text-slate-400">Updated to Thu 20 · 2:00 PM</div>
+          </div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
 function beatFor(elapsedMs: number, reduced: boolean) {
-  if (reduced) return 9;
-  if (elapsedMs < 600) return 0;
-  if (elapsedMs < 1050) return 1;
-  if (elapsedMs < 1750) return 2;
-  if (elapsedMs < 2200) return 3;
-  if (elapsedMs < 2850) return 4;
-  if (elapsedMs < 3350) return 5;
-  if (elapsedMs < 3850) return 6;
-  if (elapsedMs < 4450) return 7;
-  if (elapsedMs < 5050) return 8;
-  return 9;
+  if (reduced) return 10;
+  if (elapsedMs < 500) return 0;
+  if (elapsedMs < 900) return 1;
+  if (elapsedMs < 1450) return 2;
+  if (elapsedMs < 1850) return 3;
+  if (elapsedMs < 2350) return 4;
+  if (elapsedMs < 2850) return 5;
+  if (elapsedMs < 3250) return 6;
+  if (elapsedMs < 3700) return 7;
+  if (elapsedMs < 4250) return 8;
+  if (elapsedMs < 4850) return 9;
+  return 10;
 }
 
 export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
   const beat = beatFor(elapsedMs, reduced);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const newButtonRef = useRef<HTMLSpanElement | null>(null);
+  const bookButtonRef = useRef<HTMLDivElement | null>(null);
+  const sourceRef = useRef<HTMLDivElement | null>(null);
+  const destinationRef = useRef<HTMLDivElement | null>(null);
+  const [point, setPoint] = useState<CursorPoint>(null);
 
-  const points: Record<number, CursorPoint> = {
-    1: { left: "95%", top: "6%" },
-    2: { left: "85%", top: "59%" },
-    3: { left: "85%", top: "59%" },
-    6: { left: "20%", top: "61%" },
-    7: { left: "20%", top: "61%" },
-    8: { left: "49%", top: "61%" },
-  };
+  const target: "new" | "book" | "source" | "destination" | null =
+    beat === 1
+      ? "new"
+      : beat === 2 || beat === 3
+        ? "book"
+        : beat === 6 || beat === 7
+          ? "source"
+          : beat === 8
+            ? "destination"
+            : null;
+
+  useEffect(() => {
+    if (reduced || !target) {
+      setPoint(null);
+      return;
+    }
+
+    const getTarget = () =>
+      target === "new"
+        ? newButtonRef.current
+        : target === "book"
+          ? bookButtonRef.current
+          : target === "source"
+            ? sourceRef.current
+            : destinationRef.current;
+
+    const measure = () => {
+      const root = rootRef.current;
+      const el = getTarget();
+      if (!root || !el) return;
+      const r = root.getBoundingClientRect();
+      const b = el.getBoundingClientRect();
+      setPoint({
+        x: b.left - r.left + b.width * 0.52,
+        y: b.top - r.top + b.height * 0.55,
+      });
+    };
+
+    const raf = requestAnimationFrame(() => requestAnimationFrame(measure));
+    const timeout = window.setTimeout(measure, 90);
+    window.addEventListener("resize", measure);
+
+    const el = getTarget();
+    const observer = typeof ResizeObserver !== "undefined" && el ? new ResizeObserver(measure) : null;
+    if (el && observer) observer.observe(el);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(timeout);
+      window.removeEventListener("resize", measure);
+      observer?.disconnect();
+    };
+  }, [target, beat, reduced]);
 
   return (
     <LayoutGroup id="calendar-new-and-rebook">
-      <div className="absolute inset-0 overflow-hidden bg-white">
-        <MonthToolbar beat={beat} />
+      <div ref={rootRef} className="absolute inset-0 overflow-hidden bg-white">
+        <MonthToolbar
+          beat={beat}
+          setNewButton={(node) => {
+            newButtonRef.current = node;
+          }}
+        />
 
         <div className="grid h-[30px] grid-cols-7 border-b border-slate-200 bg-slate-50/80">
           {WEEKDAYS.map((day) => (
@@ -397,14 +525,31 @@ export function SceneCalendarLive({ elapsedMs, reduced }: SceneProps) {
           style={{ height: "calc(100% - 88px)" }}
         >
           {MONTH_DAYS.map((cell) => (
-            <MonthCell key={`${cell.month}-${cell.day}`} {...cell} beat={beat} />
+            <MonthCell
+              key={`${cell.month}-${cell.day}`}
+              {...cell}
+              beat={beat}
+              setSource={(node) => {
+                if (cell.month === "Aug" && cell.day === 18) sourceRef.current = node;
+              }}
+              setDestination={(node) => {
+                if (cell.month === "Aug" && cell.day === 20) destinationRef.current = node;
+              }}
+            />
           ))}
         </div>
 
-        <NewAppointmentPanel beat={beat} reduced={reduced} />
+        <NewAppointmentPanel
+          beat={beat}
+          reduced={reduced}
+          setBookButton={(node) => {
+            bookButtonRef.current = node;
+          }}
+        />
         <StatusToast beat={beat} reduced={reduced} />
+        <SmsStatus beat={beat} reduced={reduced} />
         <ZaplaDemoCursor
-          point={points[beat] ?? null}
+          point={point}
           press={beat === 1 || beat === 3 || beat === 7}
           reduced={reduced}
         />
