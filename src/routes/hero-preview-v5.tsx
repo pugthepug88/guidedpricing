@@ -10,7 +10,7 @@ import {
   type SceneProps,
 } from "@/components/v5/scenes-a";
 import { SceneCalendar, SceneContracts } from "@/components/v5/scenes-b";
-import { SceneEmailLive } from "@/components/v5/scene-email-live";
+import { SceneEmailPolished } from "@/components/v5/scene-email-polished";
 import { SceneContentLive } from "@/components/v5/scene-content-live";
 import { SceneInboxLive } from "@/components/v5/scene-inbox-live";
 import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
@@ -100,7 +100,7 @@ const SCENES: SceneDef[] = [
     title: "Email Marketing",
     subtitle: "From template to multi-step campaign",
     phases: [650, 900, 1150, 1250, 900, 900, 900, 650, 950, 1700, 1400],
-    render: (p) => <SceneEmailLive {...p} />,
+    render: (p) => <SceneEmailPolished {...p} />,
   },
   {
     key: "calendar",
