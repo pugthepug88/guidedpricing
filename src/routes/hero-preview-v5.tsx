@@ -9,11 +9,12 @@ import {
   SceneOpportunities,
   type SceneProps,
 } from "@/components/v5/scenes-a";
-import { SceneCalendar, SceneContracts } from "@/components/v5/scenes-b";
+import { SceneContracts } from "@/components/v5/scenes-b";
 import { SceneEmailPolished } from "@/components/v5/scene-email-polished";
 import { SceneContentLive } from "@/components/v5/scene-content-live";
 import { SceneInboxLive } from "@/components/v5/scene-inbox-live";
 import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
+import { SceneCalendarLive } from "@/components/v5/scene-calendar-live";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
 import { useSceneClock } from "@/components/v5/use-scene-clock";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
@@ -107,8 +108,8 @@ const SCENES: SceneDef[] = [
     label: "Calendar",
     title: "Calendar",
     subtitle: "A selected time becomes a real appointment",
-    phases: [780, 620, 700, 860, 1600, 620],
-    render: (p) => <SceneCalendar {...p} />,
+    phases: [700, 720, 900, 900, 1700, 900],
+    render: (p) => <SceneCalendarLive {...p} />,
   },
   {
     key: "contracts",
