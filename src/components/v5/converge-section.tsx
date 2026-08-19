@@ -460,6 +460,9 @@ export function ConvergeSection() {
   const calmLabel = useTransform(p, [0.5, 0.62], [0, 1]);
   const glow = useTransform(p, [0.3, 0.62], [0.15, 0.6]);
   const lineOpacity = useTransform(p, [0.05, 0.2, 0.42], [0, 0.5, 0]);
+  const chipOpacity = useTransform(p, [0.74, 0.82], [0, 1]);
+  const chipY = useTransform(p, [0.74, 0.86], [26, 0]);
+  const chipScale = useTransform(p, [0.74, 0.86], [0.92, 1]);
 
   return (
     <section className="relative bg-[#FAFBFF]">
@@ -562,11 +565,7 @@ export function ConvergeSection() {
                   style={
                     reduced
                       ? undefined
-                      : {
-                          opacity: useTransform(p, [0.74, 0.82], [0, 1]),
-                          y: useTransform(p, [0.74, 0.86], [26, 0]),
-                          scale: useTransform(p, [0.74, 0.86], [0.92, 1]),
-                        }
+                      : { opacity: chipOpacity, y: chipY, scale: chipScale }
                   }
                 >
                   <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-zapla-blue">
