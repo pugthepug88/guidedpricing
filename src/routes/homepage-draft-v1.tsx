@@ -11,13 +11,14 @@ import {
   ArrowRight,
   CalendarCheck,
   Check,
+  CheckCircle2,
+  MessageSquare,
   Phone,
   Sparkles,
   UserRoundPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BelowHeroV5 } from "@/components/v5/below-hero";
-import { ConvergeSection } from "@/components/v5/converge-section";
+import { ConnectedSystemSectionV3 } from "@/components/ConnectedSystemSectionV3";
 import { AppShell } from "@/components/v5/kit";
 import {
   SceneContacts,
@@ -132,9 +133,9 @@ function HomepageDraftV1() {
   return (
     <main className="min-h-screen bg-white font-zapla text-zapla-ink">
       <Hero />
-      <ConvergeSection />
+      <LifecycleRail />
+      <ConnectedSystemSectionV3 />
       <AiWorkforce />
-      <BelowHeroV5 />
     </main>
   );
 }
@@ -200,7 +201,7 @@ function Hero() {
       <div className="relative mx-auto grid max-w-[1360px] items-center gap-10 px-5 pb-20 pt-5 sm:px-8 lg:grid-cols-[minmax(0,380px)_minmax(0,1fr)] lg:gap-10">
         <div className="max-w-[430px]">
           <p className="text-[12.5px] font-semibold uppercase tracking-[0.14em] text-zapla-blue">
-            AI-powered business platform
+            CRM + automation for service businesses
           </p>
           <h1 className="mt-4 text-[42px] font-extrabold leading-[1.03] tracking-[-0.035em] sm:text-[52px]">
             You lead.
@@ -208,8 +209,8 @@ function Hero() {
             Zapla follows through.
           </h1>
           <p className="mt-5 text-[15.5px] leading-relaxed text-zapla-muted">
-            Capture every enquiry, keep every conversation in one place, and move customers from
-            first message to booked, paid and returning.
+            Bring every enquiry, conversation and next action into one place, then let Zapla keep the
+            work moving from first contact to booked, paid and returning.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-5">
@@ -227,15 +228,17 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-medium text-slate-500">
-            {["Unlimited users", "One connected platform", "Built around your business"].map(
-              (x) => (
-                <span key={x} className="inline-flex items-center gap-1.5">
-                  <Check className="h-3.5 w-3.5 text-emerald-500" />
-                  {x}
-                </span>
-              ),
-            )}
+          <p className="mt-5 text-[12.5px] font-medium text-slate-500">
+            Guided launch. Built around your business.
+          </p>
+
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-medium text-slate-500">
+            {["Unlimited users", "One connected platform"].map((x) => (
+              <span key={x} className="inline-flex items-center gap-1.5">
+                <Check className="h-3.5 w-3.5 text-emerald-500" />
+                {x}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -294,78 +297,225 @@ function Hero() {
   );
 }
 
-function AiWorkforce() {
+function LifecycleRail() {
+  const stages = ["Capture", "Communicate", "Convert", "Operate", "Retain", "Grow"];
+
   return (
-    <section className="relative overflow-hidden bg-[#07090d] px-5 py-28 text-white sm:px-8">
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-60"
-        style={{
-          background:
-            "radial-gradient(700px 420px at 70% 30%, rgba(37,99,255,.24), transparent 70%), radial-gradient(600px 380px at 25% 80%, rgba(139,92,246,.16), transparent 70%)",
-        }}
-      />
-      <div className="relative mx-auto max-w-[1180px]">
-        <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-blue-400">
-          AI that does the work
-        </p>
-        <h2 className="mt-5 max-w-[820px] text-[40px] font-bold leading-[1.05] tracking-[-0.04em] sm:text-[58px]">
-          Some work shouldn't wait for someone to do it.
-        </h2>
-        <p className="mt-6 max-w-[650px] text-[16px] leading-relaxed text-slate-400">
-          Zapla's AI works inside the same customer system as your team — answering, following up and
-          moving work forward while you're busy doing the actual job.
-        </p>
-
-        <div className="mt-14 grid gap-4 lg:grid-cols-3">
-          <AiCard
-            icon={<Phone className="h-5 w-5" />}
-            label="Incoming call"
-            title="AI answers while you're busy"
-            body="A customer calls. Zapla answers, understands what they need and keeps the conversation moving."
-          />
-          <AiCard
-            icon={<CalendarCheck className="h-5 w-5" />}
-            label="Appointment"
-            title="A conversation becomes a booking"
-            body="Availability is checked and the customer can move from enquiry to an actual appointment."
-          />
-          <AiCard
-            icon={<UserRoundPlus className="h-5 w-5" />}
-            label="Customer record"
-            title="Your team gets the context"
-            body="The lead, conversation and next action arrive inside Zapla instead of disappearing into another tool."
-          />
-        </div>
-
-        <div className="mt-5 flex items-center gap-2 text-[12px] text-slate-500">
-          <Sparkles className="h-4 w-4 text-blue-400" />
-          AI is part of the workflow, not another tab to manage.
+    <section className="border-b border-slate-100 bg-white">
+      <div className="mx-auto max-w-[1240px] px-5 py-8 sm:px-8 sm:py-9">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <p className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.17em] text-slate-400">
+            One customer lifecycle
+          </p>
+          <div className="zapla-scroll-hide flex min-w-0 items-center gap-3 overflow-x-auto pb-1 sm:gap-5">
+            {stages.map((stage, index) => (
+              <div key={stage} className="flex shrink-0 items-center gap-3 sm:gap-5">
+                <span className="text-[14px] font-semibold tracking-[-0.01em] text-slate-700">
+                  {stage}
+                </span>
+                {index < stages.length - 1 ? (
+                  <ArrowRight className="h-3.5 w-3.5 text-slate-300" />
+                ) : null}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function AiCard({
-  icon,
-  label,
-  title,
-  body,
-}: {
-  icon: ReactNode;
-  label: string;
-  title: string;
-  body: string;
-}) {
+function AiWorkforce() {
+  const actions = [
+    {
+      icon: <Sparkles className="h-4 w-4" />,
+      title: "Intent understood",
+      detail: "Brake inspection needed tomorrow",
+    },
+    {
+      icon: <UserRoundPlus className="h-4 w-4" />,
+      title: "Customer identified",
+      detail: "Sarah Miller · returning customer",
+    },
+    {
+      icon: <CalendarCheck className="h-4 w-4" />,
+      title: "Availability checked",
+      detail: "Thursday · 10:30 AM available",
+    },
+    {
+      icon: <CheckCircle2 className="h-4 w-4" />,
+      title: "Appointment booked",
+      detail: "Workshop bay 2 · Alex assigned",
+    },
+    {
+      icon: <MessageSquare className="h-4 w-4" />,
+      title: "Confirmation sent",
+      detail: "SMS delivered with booking details",
+    },
+  ];
+
   return (
-    <div className="rounded-[22px] border border-white/10 bg-white/[0.045] p-6 backdrop-blur">
-      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-blue-300">
-        {icon}
-        {label}
+    <section className="relative overflow-hidden bg-[#05070b] px-5 py-28 text-white sm:px-8 sm:py-36">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(900px 560px at 73% 32%, rgba(37,99,255,.24), transparent 68%), radial-gradient(700px 500px at 35% 82%, rgba(124,58,237,.18), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.02), transparent 32%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-[1240px]">
+        <div className="grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:items-end lg:gap-16">
+          <div>
+            <p className="text-[11.5px] font-semibold uppercase tracking-[0.18em] text-blue-400">
+              AI that acts
+            </p>
+            <h2 className="mt-5 max-w-[560px] text-[42px] font-semibold leading-[1.02] tracking-[-0.045em] sm:text-[64px]">
+              AI doesn't sit in another tab. It does the work.
+            </h2>
+            <p className="mt-6 max-w-[540px] text-[16px] leading-7 text-slate-400">
+              When a customer calls, Zapla can answer, understand what they need, check what happens
+              next and move the work forward inside the same customer system your team uses.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 text-[12px] text-slate-400 lg:justify-end">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,.75)]" />
+            One customer record. Every action connected.
+          </div>
+        </div>
+
+        <div className="relative mt-16 overflow-hidden rounded-[30px] border border-white/10 bg-white/[0.045] shadow-[0_50px_140px_-55px_rgba(37,99,255,.75)] backdrop-blur-xl">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-40"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(59,130,246,.12), transparent), radial-gradient(420px 180px at 76% 0%, rgba(139,92,246,.20), transparent 70%)",
+            }}
+          />
+
+          <div className="relative flex flex-wrap items-center gap-3 border-b border-white/10 px-5 py-4 sm:px-7">
+            <div className="flex gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+            </div>
+            <span className="ml-1 text-[12px] font-medium text-slate-300">Zapla AI receptionist</span>
+            <span className="ml-auto inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[10.5px] font-semibold text-emerald-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" /> Live
+            </span>
+          </div>
+
+          <div className="relative grid lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+              <div className="flex items-start gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-blue-400/25 bg-blue-500/15 text-blue-300">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                    Incoming call · 7:42 PM
+                  </p>
+                  <h3 className="mt-1.5 text-[22px] font-semibold tracking-[-0.02em] text-white">
+                    Sarah Miller
+                  </h3>
+                  <p className="mt-1 text-[12px] text-slate-500">Returning customer · mobile</p>
+                </div>
+              </div>
+
+              <div className="mt-8 flex h-12 items-center gap-[4px] overflow-hidden" aria-hidden>
+                {[18, 32, 22, 40, 54, 31, 46, 66, 38, 72, 50, 29, 58, 82, 44, 68, 35, 55, 28, 47, 63, 34, 74, 41, 57, 30, 48, 70, 39, 59, 26, 43].map(
+                  (height, index) => (
+                    <span
+                      key={`${height}-${index}`}
+                      className="w-[3px] shrink-0 rounded-full bg-gradient-to-t from-blue-500/35 to-cyan-300/90"
+                      style={{ height: `${height}%` }}
+                    />
+                  ),
+                )}
+              </div>
+
+              <div className="mt-8 space-y-5">
+                <div className="max-w-[92%]">
+                  <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Customer
+                  </p>
+                  <p className="mt-2 text-[15px] leading-6 text-slate-200">
+                    Hi, I need someone to look at my brakes tomorrow morning. Do you have anything
+                    around ten?
+                  </p>
+                </div>
+
+                <div className="ml-auto max-w-[92%] border-l border-blue-400/30 pl-4">
+                  <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-blue-300">
+                    Zapla AI
+                  </p>
+                  <p className="mt-2 text-[15px] leading-6 text-white">
+                    I can help with that. I have 10:30 AM available tomorrow. Would you like me to
+                    book it for you?
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 sm:p-8 lg:p-10">
+              <div className="flex items-center justify-between gap-5">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                    While the conversation is happening
+                  </p>
+                  <h3 className="mt-2 text-[20px] font-semibold tracking-[-0.02em] text-white">
+                    Zapla is already moving the work forward.
+                  </h3>
+                </div>
+              </div>
+
+              <div className="relative mt-8">
+                <div className="absolute bottom-4 left-[15px] top-4 w-px bg-gradient-to-b from-blue-400/60 via-violet-400/35 to-white/10" />
+                <div className="space-y-1">
+                  {actions.map((action, index) => (
+                    <div key={action.title} className="relative flex gap-4 py-3.5">
+                      <div
+                        className={cn(
+                          "relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border",
+                          index < actions.length - 1
+                            ? "border-blue-400/30 bg-[#10182a] text-blue-300"
+                            : "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
+                        )}
+                      >
+                        {action.icon}
+                      </div>
+                      <div className="min-w-0 pt-0.5">
+                        <p className="text-[13.5px] font-semibold text-slate-100">{action.title}</p>
+                        <p className="mt-1 text-[12px] text-slate-500">{action.detail}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative border-t border-white/10 bg-black/15 px-6 py-5 sm:px-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-slate-500">
+                  Your team opens Zapla to the outcome
+                </p>
+                <p className="mt-1.5 text-[14px] font-medium text-slate-200">
+                  Sarah Miller · Brake inspection · Thu 10:30 AM · confirmation sent
+                </p>
+              </div>
+              <div className="inline-flex w-fit items-center gap-2 text-[12px] font-semibold text-blue-300">
+                <CheckCircle2 className="h-4 w-4" />
+                Opportunity updated automatically
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h3 className="mt-8 text-[20px] font-semibold tracking-tight">{title}</h3>
-      <p className="mt-3 text-[13.5px] leading-relaxed text-slate-400">{body}</p>
-    </div>
+    </section>
   );
 }
