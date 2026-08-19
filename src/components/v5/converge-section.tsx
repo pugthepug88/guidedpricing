@@ -250,7 +250,7 @@ const TIMELINE = [
 
 function CustomerSurface({ progress }: { progress?: MotionValue<number> }) {
   return (
-    <div className="w-full max-w-[620px] overflow-hidden rounded-[22px] border border-slate-200/90 bg-white shadow-[0_50px_110px_-45px_rgba(15,23,42,0.45),0_10px_30px_-18px_rgba(37,99,255,0.25)]">
+    <div className="w-full max-w-[660px] overflow-hidden rounded-[22px] border border-slate-200/90 bg-white shadow-[0_50px_110px_-45px_rgba(15,23,42,0.45),0_10px_30px_-18px_rgba(37,99,255,0.25)]">
       {/* head */}
       <div className="flex items-center gap-3 border-b border-slate-100 px-5 py-4">
         <img src={logo.url} alt="" className="h-6 w-6 shrink-0 rounded-[8px]" />
@@ -331,8 +331,8 @@ function TimelineRow({
 }) {
   const fallback = useMotionValue(1);
   const source = progress ?? fallback;
-  const opacity = useTransform(source, [0.62 + i * 0.05, 0.7 + i * 0.05], [0, 1]);
-  const x = useTransform(source, [0.62 + i * 0.05, 0.72 + i * 0.05], [16, 0]);
+  const opacity = useTransform(source, [0.5 + i * 0.045, 0.58 + i * 0.045], [0, 1]);
+  const x = useTransform(source, [0.5 + i * 0.045, 0.6 + i * 0.045], [16, 0]);
   const next = t.tone === "next";
 
   return (
@@ -548,7 +548,7 @@ export function ConvergeSection() {
                 FRAGS.map((f) => <Fragment key={f.key} frag={f} p={p} />)}
 
               <motion.div
-                className="absolute left-1/2 top-1/2 z-20 w-[620px] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-[54%] top-1/2 z-20 w-[660px] -translate-x-1/2 -translate-y-1/2"
                 style={
                   reduced
                     ? undefined
@@ -556,6 +556,29 @@ export function ConvergeSection() {
                 }
               >
                 <CustomerSurface progress={reduced ? undefined : p} />
+
+                <motion.div
+                  className="absolute -right-14 -bottom-8 w-[268px] rounded-[16px] border border-blue-100 bg-white/95 p-4 shadow-[0_40px_80px_-34px_rgba(37,99,255,0.5)] backdrop-blur"
+                  style={
+                    reduced
+                      ? undefined
+                      : {
+                          opacity: useTransform(p, [0.74, 0.82], [0, 1]),
+                          y: useTransform(p, [0.74, 0.86], [26, 0]),
+                          scale: useTransform(p, [0.74, 0.86], [0.92, 1]),
+                        }
+                  }
+                >
+                  <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-zapla-blue">
+                    Next action, handled by Zapla
+                  </p>
+                  <p className="mt-2 text-[14px] font-bold leading-snug text-slate-900">
+                    Review request sends tomorrow at 10:00am
+                  </p>
+                  <p className="mt-1.5 text-[12px] text-slate-500">
+                    Nobody has to remember. Nothing falls through.
+                  </p>
+                </motion.div>
               </motion.div>
             </div>
           </div>
