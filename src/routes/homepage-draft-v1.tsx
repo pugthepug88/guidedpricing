@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BelowHeroV5 } from "@/components/v5/below-hero";
+import { ConvergeSection } from "@/components/v5/converge-section";
 import { AppShell } from "@/components/v5/kit";
 import {
   SceneContacts,
@@ -131,8 +132,7 @@ function HomepageDraftV1() {
   return (
     <main className="min-h-screen bg-white font-zapla text-zapla-ink">
       <Hero />
-      <Fragmentation />
-      <Journey />
+      <ConvergeSection />
       <AiWorkforce />
       <BelowHeroV5 />
     </main>
@@ -288,79 +288,6 @@ function Hero() {
               );
             })}
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Fragmentation() {
-  const tools = ["Leads", "SMS", "Email", "Bookings", "CRM", "Reviews", "Payments", "Social"];
-
-  return (
-    <section className="px-5 py-24 sm:px-8">
-      <div className="mx-auto max-w-[1120px] text-center">
-        <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-blue-600">
-          One connected system
-        </p>
-        <h2 className="mx-auto mt-4 max-w-[760px] text-[34px] font-bold leading-tight tracking-[-0.03em] sm:text-[46px]">
-          Your customer journey shouldn't live across eight different apps.
-        </h2>
-        <p className="mx-auto mt-5 max-w-[650px] text-[16px] leading-relaxed text-slate-500">
-          When leads, conversations and follow-up live in different places, things get missed. Zapla
-          connects the customer journey from first enquiry to repeat business.
-        </p>
-
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-2.5">
-          {tools.map((tool) => (
-            <div
-              key={tool}
-              className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-[13px] font-semibold text-slate-600 shadow-sm"
-            >
-              {tool}
-            </div>
-          ))}
-          <ArrowRight className="mx-2 hidden h-5 w-5 text-slate-300 md:block" />
-          <div className="flex items-center gap-2 rounded-2xl bg-slate-950 px-6 py-4 text-[15px] font-bold text-white shadow-xl">
-            <img src={logo.url} alt="" className="h-7 w-7 rounded-lg" />
-            Zapla
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Journey() {
-  const stages = [
-    ["01", "Capture", "A new enquiry becomes a real customer record."],
-    ["02", "Communicate", "Every message stays connected to the same customer."],
-    ["03", "Convert", "Follow-up turns interest into a booked opportunity."],
-    ["04", "Deliver", "Your team knows what happens next."],
-    ["05", "Retain", "Reviews and reminders happen after the job."],
-    ["06", "Grow", "Past customers come back instead of disappearing."],
-  ];
-
-  return (
-    <section className="bg-slate-50 px-5 py-24 sm:px-8">
-      <div className="mx-auto max-w-[1180px]">
-        <div className="max-w-[720px]">
-          <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-blue-600">
-            One customer. One continuous journey.
-          </p>
-          <h2 className="mt-4 text-[34px] font-bold leading-tight tracking-[-0.03em] sm:text-[46px]">
-            From first enquiry to the next sale, nothing falls between the cracks.
-          </h2>
-        </div>
-
-        <div className="mt-12 grid gap-3 md:grid-cols-3">
-          {stages.map(([n, t, d]) => (
-            <div key={n} className="rounded-2xl border border-slate-200 bg-white p-6">
-              <span className="text-[11px] font-bold text-blue-500">{n}</span>
-              <h3 className="mt-4 text-[18px] font-bold">{t}</h3>
-              <p className="mt-2 text-[13.5px] leading-relaxed text-slate-500">{d}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
