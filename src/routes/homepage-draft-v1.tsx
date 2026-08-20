@@ -18,7 +18,7 @@ import {
   UserRoundPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ConnectedSystemSectionV3 } from "@/components/ConnectedSystemSectionV3";
+import { CredibilityBand, ConnectedSystemStory } from "@/components/v5/homepage-bridge";
 import { AppShell } from "@/components/v5/kit";
 import {
   SceneContacts,
@@ -133,8 +133,8 @@ function HomepageDraftV1() {
   return (
     <main className="min-h-screen bg-white font-zapla text-zapla-ink">
       <Hero />
-      <LifecycleRail />
-      <ConnectedSystemSectionV3 />
+      <CredibilityBand />
+      <ConnectedSystemStory />
       <AiWorkforce />
     </main>
   );
@@ -290,34 +290,6 @@ function Hero() {
                 </button>
               );
             })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function LifecycleRail() {
-  const stages = ["Capture", "Communicate", "Convert", "Operate", "Retain", "Grow"];
-
-  return (
-    <section className="border-b border-slate-100 bg-white">
-      <div className="mx-auto max-w-[1240px] px-5 py-8 sm:px-8 sm:py-9">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-          <p className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.17em] text-slate-400">
-            One customer lifecycle
-          </p>
-          <div className="zapla-scroll-hide flex min-w-0 items-center gap-3 overflow-x-auto pb-1 sm:gap-5">
-            {stages.map((stage, index) => (
-              <div key={stage} className="flex shrink-0 items-center gap-3 sm:gap-5">
-                <span className="text-[14px] font-semibold tracking-[-0.01em] text-slate-700">
-                  {stage}
-                </span>
-                {index < stages.length - 1 ? (
-                  <ArrowRight className="h-3.5 w-3.5 text-slate-300" />
-                ) : null}
-              </div>
-            ))}
           </div>
         </div>
       </div>
