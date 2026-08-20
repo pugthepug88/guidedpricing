@@ -18,7 +18,11 @@ import {
   UserRoundPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { CredibilityBand, ConnectedSystemStory } from "@/components/v5/homepage-bridge";
+import {
+  CredibilityBand,
+  ConnectedSystemStory,
+  FollowThroughStory,
+} from "@/components/v5/homepage-bridge";
 import { AppShell } from "@/components/v5/kit";
 import {
   SceneContacts,
@@ -135,6 +139,7 @@ function HomepageDraftV1() {
       <Hero />
       <CredibilityBand />
       <ConnectedSystemStory />
+      <FollowThroughStory />
       <AiWorkforce />
     </main>
   );
