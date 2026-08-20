@@ -1,27 +1,22 @@
-/* Fictional demo portraits used across the v5 product stage.
+/* Fictional demo avatars used across the v5 product stage.
    All people, businesses and numbers in the v5 preview are fictional. */
-import p1 from "@/assets/portrait-team-1.jpg.asset.json";
-import p2 from "@/assets/portrait-team-2.jpg.asset.json";
-import p3 from "@/assets/portrait-team-3.jpg.asset.json";
-import p4 from "@/assets/portrait-team-4.jpg.asset.json";
-import c1 from "@/assets/portrait-customer.jpg.asset.json";
-import c2 from "@/assets/portrait-cust-2.jpg.asset.json";
-import c3 from "@/assets/portrait-cust-3.jpg.asset.json";
-import c4 from "@/assets/portrait-cust-4.jpg.asset.json";
-import c5 from "@/assets/portrait-marcus-lee.jpg.asset.json";
-import c6 from "@/assets/caller-portrait.jpg.asset.json";
+
+const avatar = (initials: string, from: string, to: string) => {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${from}"/><stop offset="1" stop-color="${to}"/></linearGradient></defs><rect width="96" height="96" rx="48" fill="url(#g)"/><text x="48" y="55" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700" fill="white">${initials}</text></svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+};
 
 export const FACE = {
-  maya: c1.url,
-  daniel: c5.url,
-  priya: c2.url,
-  tom: c3.url,
-  sophie: c4.url,
-  leo: c6.url,
-  alex: p1.url,
-  jordan: p2.url,
-  nina: p3.url,
-  sam: p4.url,
+  maya: avatar("MC", "#2563eb", "#22c55e"),
+  daniel: avatar("DL", "#7c3aed", "#2563eb"),
+  priya: avatar("PS", "#db2777", "#7c3aed"),
+  tom: avatar("TW", "#0f766e", "#0891b2"),
+  sophie: avatar("SC", "#ea580c", "#db2777"),
+  leo: avatar("LW", "#475569", "#2563eb"),
+  alex: avatar("AR", "#2563eb", "#06b6d4"),
+  jordan: avatar("JT", "#4f46e5", "#7c3aed"),
+  nina: avatar("NP", "#059669", "#2563eb"),
+  sam: avatar("SK", "#dc2626", "#ea580c"),
 } as const;
 
 export type FaceKey = keyof typeof FACE;
