@@ -19,6 +19,7 @@ import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConceptRevenueLeakageThreadRouteImport } from './routes/concept/revenue-leakage-thread'
 import { Route as ConceptRevenueLeakageFutureRouteImport } from './routes/concept/revenue-leakage-future'
+import { Route as ConceptRevenueLeakageCinematicRouteImport } from './routes/concept/revenue-leakage-cinematic'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -75,6 +76,12 @@ const ConceptRevenueLeakageFutureRoute =
     path: '/concept/revenue-leakage-future',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ConceptRevenueLeakageCinematicRoute =
+  ConceptRevenueLeakageCinematicRouteImport.update({
+    id: '/concept/revenue-leakage-cinematic',
+    path: '/concept/revenue-leakage-cinematic',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
   Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
     id: '/.well-known/oauth-protected-resource',
@@ -105,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
   '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -120,6 +128,7 @@ export interface FileRoutesByTo {
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
   '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -136,6 +145,7 @@ export interface FileRoutesById {
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
   '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
     | '/concept/revenue-leakage-thread'
     | '/.mcp/invoke-tool/$tool'
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
     | '/concept/revenue-leakage-thread'
     | '/.mcp/invoke-tool/$tool'
@@ -183,6 +195,7 @@ export interface FileRouteTypes {
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
     | '/concept/revenue-leakage-thread'
     | '/.mcp/invoke-tool/$tool'
@@ -199,6 +212,7 @@ export interface RootRouteChildren {
   PricingV2Route: typeof PricingV2Route
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  ConceptRevenueLeakageCinematicRoute: typeof ConceptRevenueLeakageCinematicRoute
   ConceptRevenueLeakageFutureRoute: typeof ConceptRevenueLeakageFutureRoute
   ConceptRevenueLeakageThreadRoute: typeof ConceptRevenueLeakageThreadRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -276,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptRevenueLeakageFutureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/concept/revenue-leakage-cinematic': {
+      id: '/concept/revenue-leakage-cinematic'
+      path: '/concept/revenue-leakage-cinematic'
+      fullPath: '/concept/revenue-leakage-cinematic'
+      preLoaderRoute: typeof ConceptRevenueLeakageCinematicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.well-known/oauth-protected-resource': {
       id: '/.well-known/oauth-protected-resource'
       path: '/.well-known/oauth-protected-resource'
@@ -312,6 +333,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  ConceptRevenueLeakageCinematicRoute: ConceptRevenueLeakageCinematicRoute,
   ConceptRevenueLeakageFutureRoute: ConceptRevenueLeakageFutureRoute,
   ConceptRevenueLeakageThreadRoute: ConceptRevenueLeakageThreadRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
