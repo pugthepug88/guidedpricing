@@ -46,7 +46,7 @@ function useActs(progress: MotionValue<number>) {
     restoredLabels: useTransform(progress, [0.86, 0.95], [0, 1]),
     brokenFade: useTransform(progress, [0.74, 0.82], [1, 0]),
     // Copy
-    copy1: useTransform(progress, [0, 0.04, 0.42, 0.5], [1, 1, 1, 0]),
+    copy1: useTransform(progress, [0.42, 0.5], [1, 0]),
     copy2: useTransform(progress, [0.5, 0.58, 0.72, 0.78], [0, 1, 1, 0]),
     copy3: useTransform(progress, [0.8, 0.88], [0, 1]),
     ghost: useTransform(progress, [0.1, 0.3, 0.66, 0.78], [0, 1, 1, 0]),
