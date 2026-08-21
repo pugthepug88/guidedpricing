@@ -601,12 +601,26 @@ function DesktopStory({ p }: { p: MotionValue<number> }) {
 
   return (
     <div className="absolute inset-x-0 bottom-0 top-[66px] overflow-hidden bg-[#F7F9FC]">
-      {/* stage: environments, hard-cropped by the viewport */}
+      {/* stage: inbox environment inside a camera crop that opens to full bleed */}
       <motion.div
-        className="absolute inset-0"
-        style={{ opacity: inboxOpacity, scale: inboxScale, x: useTransform(inboxX, (v) => `${v * 100}%`), originX: 0.35, originY: 0.4, zIndex: 10 }}
+        className="absolute inset-y-0 right-0 overflow-hidden"
+        style={{
+          opacity: inboxOpacity,
+          left: useTransform(inboxClip, (v) => `${v * 100}%`),
+          zIndex: 10,
+        }}
       >
-        <InboxEnv quiet={0} nextActionFocus={0} />
+        <motion.div
+          className="absolute inset-y-0 left-0 w-screen"
+          style={{
+            x: useTransform(inboxX, (v) => `${v * 100}vw`),
+            scale: inboxScale,
+            originX: 0.4,
+            originY: 0.4,
+          }}
+        >
+          <InboxEnv quiet={0} nextActionFocus={0} />
+        </motion.div>
       </motion.div>
 
       {/* second inbox instance for the quiet return (keeps state clean) */}
@@ -630,23 +644,23 @@ function DesktopStory({ p }: { p: MotionValue<number> }) {
         <ReviewEnv unload={revUnload} />
       </motion.div>
 
-      {/* Beat 1 editorial — sits over the left half, inbox bleeds right */}
+      {/* Beat 1 editorial — left column, inbox owns the right of the viewport */}
       <motion.div
-        className="pointer-events-none absolute inset-y-0 left-0 z-[60] flex w-[52%] flex-col justify-center pl-[7vw] pr-10"
+        className="pointer-events-none absolute inset-y-0 left-0 z-[60] flex w-[41%] flex-col justify-center bg-[#F7F9FC] pl-[6vw] pr-8"
         style={{ opacity: h1Op, x: h1X }}
       >
-        <div className="absolute inset-y-0 left-0 right-[-60px] -z-10 bg-gradient-to-r from-[#F7F9FC] via-[#F7F9FC] to-transparent" />
         <Eyebrow />
-        <h2 className="mt-5 font-zapla text-[64px] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#0a0f1c]">
+        <h2 className="mt-5 font-zapla text-[56px] font-extrabold leading-[1.02] tracking-[-0.045em] text-[#0a0f1c]">
           Customers don’t
           <br />
           always say no.
         </h2>
-        <p className="mt-6 max-w-[420px] text-[16.5px] font-medium leading-relaxed text-slate-500">
+        <p className="mt-6 max-w-[400px] text-[16px] font-medium leading-relaxed text-slate-500">
           An enquiry arrives with intent. What matters is everything that was supposed to happen
           after it.
         </p>
       </motion.div>
+
 
       {/* scrims for editorial overlays */}
       <motion.div
