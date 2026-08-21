@@ -565,7 +565,8 @@ function DesktopStory({ p }: { p: MotionValue<number> }) {
   /* environment windows — stack unwinds naturally on erasure */
   const inboxOpacity = key(p, [0, 0.01, 0.20, 0.235, 0.875, 0.90, 1], [1, 1, 1, 0, 0, 1, 1]);
   const inboxScale = key(p, [0, 0.12, 0.20, 0.875, 1], [1, 1, 1.1, 1.04, 1]);
-  const inboxX = key(p, [0, 0.11, 0.20], [-0.3, -0.3, 0]);
+  const inboxX = key(p, [0, 0.11, 0.20], [-0.256, -0.256, 0]);
+  const inboxClip = key(p, [0, 0.11, 0.20], [0.41, 0.41, 0]);
 
   const pipeOp = key(p, [0.185, 0.215, 0.325, 0.35, 0.80, 0.825, 0.875, 0.89], [0, 1, 1, 0, 0, 1, 1, 0]);
   const calOp = key(p, [0.315, 0.345, 0.44, 0.465, 0.745, 0.77, 0.815, 0.83], [0, 1, 1, 0, 0, 1, 1, 0]);
