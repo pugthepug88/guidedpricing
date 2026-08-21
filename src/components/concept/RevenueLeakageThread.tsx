@@ -91,18 +91,20 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
       aria-hidden="true"
     >
       {/* Huge low-opacity background typography */}
-      <motion.text
-        x="700"
-        y="760"
-        fill={INK}
-        fontSize="190"
-        fontWeight={800}
-        letterSpacing="-0.04em"
-        opacity={0.035}
-        style={{ fontFamily: "var(--font-zapla, Manrope), sans-serif", opacity: a.ghost }}
-      >
-        FOLLOW THROUGH
-      </motion.text>
+      <motion.g style={{ opacity: a.ghost }}>
+        <text
+          x="520"
+          y="800"
+          fill={INK}
+          fillOpacity={0.04}
+          fontSize="150"
+          fontWeight={800}
+          letterSpacing="-0.04em"
+          style={{ fontFamily: "var(--font-zapla, Manrope), sans-serif" }}
+        >
+          FOLLOW THROUGH
+        </text>
+      </motion.g>
 
       <motion.g style={{ opacity: a.brokenFade }}>
         {/* Upstream continuity (cyan, always the live signal) */}
