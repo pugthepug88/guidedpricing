@@ -415,6 +415,7 @@ export function RevenueLeakageThread() {
         if (total > 0) {
           const p = Math.min(Math.max(-rect.top / total, 0), 1);
           scrollYProgress.set(p);
+          (window as any).__p = p;
         }
       }
       raf = requestAnimationFrame(read);
