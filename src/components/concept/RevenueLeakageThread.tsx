@@ -93,11 +93,12 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
       {/* Huge low-opacity background typography */}
       <motion.g style={{ opacity: a.ghost }}>
         <text
-          x="520"
+          x="720"
           y="800"
+          textAnchor="middle"
           fill={INK}
           fillOpacity={0.04}
-          fontSize="150"
+          fontSize="118"
           fontWeight={800}
           letterSpacing="-0.04em"
           style={{ fontFamily: "var(--font-zapla, Manrope), sans-serif" }}
