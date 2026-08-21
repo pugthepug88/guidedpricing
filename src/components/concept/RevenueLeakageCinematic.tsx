@@ -565,7 +565,7 @@ function DesktopStory({ p }: { p: MotionValue<number> }) {
   /* environment windows — stack unwinds naturally on erasure */
   const inboxOpacity = key(p, [0, 0.01, 0.20, 0.235, 0.875, 0.90, 1], [1, 1, 1, 0, 0, 1, 1]);
   const inboxScale = key(p, [0, 0.12, 0.20, 0.875, 1], [1, 1, 1.1, 1.04, 1]);
-  const inboxX = key(p, [0, 0.11, 0.20], [0.42, 0.42, 0]);
+  const inboxX = key(p, [0, 0.11, 0.20], [-0.3, -0.3, 0]);
 
   const pipeOp = key(p, [0.185, 0.215, 0.325, 0.35, 0.80, 0.825, 0.875, 0.89], [0, 1, 1, 0, 0, 1, 1, 0]);
   const calOp = key(p, [0.315, 0.345, 0.44, 0.465, 0.745, 0.77, 0.815, 0.83], [0, 1, 1, 0, 0, 1, 1, 0]);
@@ -588,7 +588,7 @@ function DesktopStory({ p }: { p: MotionValue<number> }) {
   const nextFocus = key(p, [0.90, 0.945, 0.985], [0, 1, 0.3]);
 
   /* editorial copy layers */
-  const h1Op = key(p, [0, 0.02, 0.115, 0.15], [0, 1, 1, 0]);
+  const h1Op = key(p, [0, 0.115, 0.15], [1, 1, 0]);
   const h1X = key(p, [0, 0.15], [0, -70]);
 
   const peakOp = key(p, [0.585, 0.615, 0.655, 0.675], [0, 1, 1, 0]);
@@ -600,11 +600,11 @@ function DesktopStory({ p }: { p: MotionValue<number> }) {
   const scrim2 = key(p, [0.92, 0.95, 0.985, 1], [0, 0.78, 0.78, 0.5]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#F7F9FC]">
+    <div className="absolute inset-x-0 bottom-0 top-[66px] overflow-hidden bg-[#F7F9FC]">
       {/* stage: environments, hard-cropped by the viewport */}
       <motion.div
         className="absolute inset-0"
-        style={{ opacity: inboxOpacity, scale: inboxScale, x: useTransform(inboxX, (v) => `${v * 100}%`), originX: 0.75, originY: 0.4, zIndex: 10 }}
+        style={{ opacity: inboxOpacity, scale: inboxScale, x: useTransform(inboxX, (v) => `${v * 100}%`), originX: 0.35, originY: 0.4, zIndex: 10 }}
       >
         <InboxEnv quiet={0} nextActionFocus={0} />
       </motion.div>
@@ -878,7 +878,7 @@ export function RevenueLeakageCinematic() {
 
   return (
     <div ref={wrapRef} className="relative h-[500vh] w-full bg-[#F7F9FC]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 h-screen w-full overflow-hidden pt-[66px]">
         <DesktopStory p={p} />
       </div>
     </div>
