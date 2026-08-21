@@ -505,25 +505,25 @@ function DesktopStory() {
             <>
               <motion.div
                 className="absolute left-[46%] top-[8%] z-20"
-                style={{ ...pipeline, clipPath: pipeline.clip }}
+                style={{ opacity: pipeline.opacity, x: pipeline.x, y: pipeline.y, scale: pipeline.scale, clipPath: pipeline.clip }}
               >
                 <PipelineFragment />
               </motion.div>
               <motion.div
                 className="absolute left-[62%] top-[40%] z-20"
-                style={{ ...calendar, clipPath: calendar.clip }}
+                style={{ opacity: calendar.opacity, x: calendar.x, y: calendar.y, scale: calendar.scale, clipPath: calendar.clip }}
               >
                 <CalendarFragment />
               </motion.div>
               <motion.div
                 className="absolute left-[16%] top-[76%] z-20"
-                style={{ ...payment, clipPath: payment.clip }}
+                style={{ opacity: payment.opacity, x: payment.x, y: payment.y, scale: payment.scale, clipPath: payment.clip }}
               >
                 <PaymentFragment />
               </motion.div>
               <motion.div
                 className="absolute left-[50%] top-[74%] z-10"
-                style={{ ...review, clipPath: review.clip }}
+                style={{ opacity: review.opacity, x: review.x, y: review.y, scale: review.scale, clipPath: review.clip }}
               >
                 <ReviewFragment />
               </motion.div>
