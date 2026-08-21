@@ -196,16 +196,18 @@ function EnquirySurface({
           </motion.div>
 
           <motion.div
-            className="mt-1 border-t border-slate-100 pt-1"
-            style={nextActionScale ? { scale: nextActionScale } : undefined}
-
+            className="mt-1 border-t border-slate-100 pt-2"
+            style={nextActionScale ? { opacity: nextActionScale } : undefined}
           >
-            <FieldRow
-              label="Next action"
-              value={<span className="text-slate-900">—</span>}
-              strong
-            />
+            <div className="text-[11px] font-semibold uppercase tracking-[0.07em] text-slate-500">
+              Next action
+            </div>
+            <div className="mt-1 flex items-end gap-2">
+              <span className="text-[22px] font-extrabold leading-none text-slate-900">—</span>
+              <span className="mb-[3px] h-px w-[54px] bg-slate-200" />
+            </div>
           </motion.div>
+
         </div>
       </div>
     </Surface>
