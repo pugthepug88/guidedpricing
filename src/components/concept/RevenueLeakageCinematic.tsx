@@ -174,7 +174,7 @@ function InboxEnv({
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
 
           {/* conversation */}
           <div className="flex min-w-0 flex-1 flex-col px-9 pt-7">
