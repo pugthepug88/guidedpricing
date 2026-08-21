@@ -624,17 +624,13 @@ function DesktopStory({ p }: { p: MotionValue<number> }) {
         }}
       >
         <motion.div
-          className="absolute inset-y-0 left-0 w-screen"
-          style={{
-            x: useTransform(inboxX, (v) => `${v * 100}vw`),
-            scale: inboxScale,
-            originX: 0.4,
-            originY: 0.4,
-          }}
+          className="h-full w-full"
+          style={{ scale: inboxScale, originX: 0.4, originY: 0.4 }}
         >
-          <InboxEnv quiet={0} nextActionFocus={0} />
+          <InboxEnv quiet={0} nextActionFocus={0} listWidth={inboxListWidth} />
         </motion.div>
       </motion.div>
+
 
       {/* second inbox instance for the quiet return (keeps state clean) */}
       <motion.div
