@@ -130,7 +130,19 @@ const THREADS = [
   { name: "Leo Martins", face: FACE.leo, txt: "Great work on Friday, thank you.", t: "Mon", ch: "Email" },
 ];
 
-function InboxEnv({ quiet, nextActionFocus }: { quiet: number; nextActionFocus: number }) {
+function InboxEnv({
+  quiet,
+  nextActionFocus,
+  listWidth,
+}: {
+  quiet: number;
+  nextActionFocus: number;
+  listWidth?: MotionValue<number>;
+}) {
+  const fallbackWidth = useMotionValue(300);
+  const w = listWidth ?? fallbackWidth;
+  const listOpacity = useTransform(w, [0, 120, 300], [0, 0.2, 1]);
+
   return (
     <div className="flex h-full w-full bg-[#FBFCFE]">
       <Rail active="inbox" />
@@ -138,9 +150,9 @@ function InboxEnv({ quiet, nextActionFocus }: { quiet: number; nextActionFocus: 
         <EnvHeader title="Unified Inbox" meta="All channels" />
         <div className="flex min-h-0 flex-1">
           {/* thread list */}
-          <div
-            className="w-[300px] shrink-0 border-r border-slate-200/80"
-            style={{ opacity: 1 - quiet * 0.55 }}
+          <motion.div
+            className="shrink-0 overflow-hidden border-r border-slate-200/80"
+            style={{ width: w, opacity: useTransform(listOpacity, (o) => o * (1 - quiet * 0.55)) }}
           >
             {THREADS.map((t, i) => (
               <div
