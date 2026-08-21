@@ -29,9 +29,9 @@ const STRANDS = [
 function useActs(progress: MotionValue<number>) {
   return {
     // Act 1
-    enquiry: useTransform(progress, [0, 0.06, 0.5, 0.66], [0, 1, 1, 0]),
-    upstreamDraw: useTransform(progress, [0.04, 0.2], [0, 1]),
-    downstreamDraw: useTransform(progress, [0.1, 0.26], [0, 1]),
+    enquiry: useTransform(progress, [0, 0.02, 0.5, 0.66], [0, 1, 1, 0]),
+    upstreamDraw: useTransform(progress, [0.01, 0.16], [0, 1]),
+    downstreamDraw: useTransform(progress, [0.08, 0.26], [0, 1]),
     // Act 2 — downstream recedes
     downstreamPresence: useTransform(progress, [0.3, 0.44], [1, 0.35]),
     downstreamCyan: useTransform(progress, [0.28, 0.4], [1, 0]),
@@ -39,7 +39,7 @@ function useActs(progress: MotionValue<number>) {
     // Act 3 — drain
     drain: useTransform(progress, [0.5, 0.72], [0, 1]),
     futureFall: useTransform(progress, [0.5, 0.72], [0, 190]),
-    futureFade: useTransform(progress, [0.5, 0.68], [1, 0]),
+    futureFade: useTransform(progress, [0.08, 0.2, 0.5, 0.68], [0, 1, 1, 0]),
     strands: useTransform(progress, [0.5, 0.62, 0.74], [0, 1, 0]),
     // Act 4 — reform
     restored: useTransform(progress, [0.78, 0.94], [0, 1]),
@@ -87,7 +87,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
     <svg
       viewBox="0 0 1440 900"
       className="absolute inset-0 h-full w-full"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
     >
       {/* Huge low-opacity background typography */}
@@ -234,7 +234,7 @@ function Stage({ progress }: { progress: MotionValue<number> }) {
 }
 
 function Enquiry({ progress }: { progress: MotionValue<number> }) {
-  const opacity = useTransform(progress, [0, 0.06, 0.5, 0.66], [0, 1, 1, 0]);
+  const opacity = useTransform(progress, [0, 0.02, 0.5, 0.66], [0, 1, 1, 0]);
   const y = useTransform(progress, [0.5, 0.7], [0, 60]);
   return (
     <motion.div
