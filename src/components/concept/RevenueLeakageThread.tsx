@@ -403,10 +403,25 @@ function MobileStory() {
 
 export function RevenueLeakageThread() {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: wrapperRef,
-    offset: ["start start", "end end"],
-  });
+  const scrollYProgress = useMotionValue(0);
+
+  useEffect(() => {
+    let raf = 0;
+    const read = () => {
+      const el = wrapperRef.current;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        if (total > 0) {
+          const p = Math.min(Math.max(-rect.top / total, 0), 1);
+          scrollYProgress.set(p);
+        }
+      }
+      raf = requestAnimationFrame(read);
+    };
+    raf = requestAnimationFrame(read);
+    return () => cancelAnimationFrame(raf);
+  }, [scrollYProgress]);
 
   const [reduced, setReduced] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
