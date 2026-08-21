@@ -432,7 +432,9 @@ function DesktopStory() {
   const enqY = useTransform(p, [0.14, 0.28, 0.74, 0.86], [24, 0, 0, 0]);
   const enqScale = useTransform(p, [0.14, 0.28, 0.74, 0.88], [1.02, 0.95, 0.95, 1.06]);
   const contextDim = useTransform(p, [0.76, 0.86], [1, 0.4]);
-  const nextScale = useTransform(p, [0.78, 0.9], [1, 1.1]);
+  const nextScale = useTransform(p, [0.78, 0.9], [0.72, 1]);
+  const handoffO = useTransform(p, [0.9, 1], [0, 1]);
+  const handoffY = useTransform(p, [0.9, 1], [70, 0]);
 
   /* fragment helper ranges: arrive -> settle -> fail to resolve */
   const frag = (arrive: number, leave: number, from: { x: number; y: number }) => ({
@@ -527,6 +529,23 @@ function DesktopStory() {
                 <ReviewFragment />
               </motion.div>
             </>
+          ) : null}
+
+          {/* handoff: the product surface begins to expand into the next section */}
+          {!reduced ? (
+            <motion.div
+              className="absolute -bottom-2 left-[6%] right-[6%] z-20"
+              style={{ opacity: handoffO, y: handoffY }}
+            >
+              <div className="rounded-t-[16px] border border-b-0 border-slate-200/90 bg-white px-4 pb-6 pt-3 shadow-[0_-14px_40px_-30px_rgba(15,23,42,0.35)]">
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
+                  <span className="text-[10.5px] font-bold uppercase tracking-[0.09em] text-slate-400">
+                    One customer record
+                  </span>
+                </div>
+              </div>
+            </motion.div>
           ) : null}
         </div>
       </div>
