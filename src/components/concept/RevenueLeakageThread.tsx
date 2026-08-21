@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
 
 /**
  * Isolated art-direction prototype: revenue leakage as a broken continuity thread.
