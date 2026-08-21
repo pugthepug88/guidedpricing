@@ -534,7 +534,7 @@ function DesktopStory() {
           {/* handoff: the product surface begins to expand into the next section */}
           {!reduced ? (
             <motion.div
-              className="absolute -bottom-2 left-[6%] right-[6%] z-20"
+              className="absolute bottom-[13%] left-[46%] right-[5.5%] z-20"
               style={{ opacity: handoffO, y: handoffY }}
             >
               <div className="rounded-t-[16px] border border-b-0 border-slate-200/90 bg-white px-4 pb-6 pt-3 shadow-[0_-14px_40px_-30px_rgba(15,23,42,0.35)]">
