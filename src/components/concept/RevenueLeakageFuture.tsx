@@ -196,8 +196,9 @@ function EnquirySurface({
           </motion.div>
 
           <motion.div
-            className="mt-1 origin-left border-t border-slate-100 pt-1"
+            className="mt-1 border-t border-slate-100 pt-1"
             style={nextActionScale ? { scale: nextActionScale } : undefined}
+
           >
             <FieldRow
               label="Next action"
@@ -419,47 +420,47 @@ function DesktopStory() {
   const reduced = useReducedMotion();
 
   /* copy */
-  const c1 = useTransform(p, [0, 0.03, 0.17, 0.22], [1, 1, 1, 0]);
-  const c2 = useTransform(p, [0.23, 0.29, 0.43, 0.48], [0, 1, 1, 0]);
-  const c3 = useTransform(p, [0.5, 0.56, 0.72, 0.77], [0, 1, 1, 0]);
-  const c4 = useTransform(p, [0.79, 0.85, 1, 1], [0, 1, 1, 1]);
+  const c1 = useTransform(p, [0, 0.03, 0.15, 0.2], [1, 1, 1, 0]);
+  const c2 = useTransform(p, [0.21, 0.27, 0.41, 0.46], [0, 1, 1, 0]);
+  const c3 = useTransform(p, [0.48, 0.54, 0.68, 0.73], [0, 1, 1, 0]);
+  const c4 = useTransform(p, [0.75, 0.81, 1, 1], [0, 1, 1, 1]);
 
   /* enquiry anchor */
-  const enqX = useTransform(p, [0.16, 0.3, 0.78, 0.9], [0, -168, -168, 0]);
-  const enqY = useTransform(p, [0.16, 0.3, 0.78, 0.9], [30, 0, 0, 6]);
-  const enqScale = useTransform(p, [0.16, 0.3, 0.78, 0.94, 1], [1, 0.94, 0.94, 1.04, 1.09]);
-  const enqRadius = useTransform(p, [0.94, 1], [14, 26]);
-  const contextDim = useTransform(p, [0.8, 0.9], [1, 0.42]);
-  const nextScale = useTransform(p, [0.82, 0.93], [1, 1.14]);
+  const enqX = useTransform(p, [0.14, 0.28, 0.74, 0.86], [0, -150, -150, 0]);
+  const enqY = useTransform(p, [0.14, 0.28, 0.74, 0.86], [24, 0, 0, 0]);
+  const enqScale = useTransform(p, [0.14, 0.28, 0.74, 0.88], [1.02, 0.95, 0.95, 1.06]);
+  const contextDim = useTransform(p, [0.76, 0.86], [1, 0.4]);
+  const nextScale = useTransform(p, [0.78, 0.9], [1, 1.1]);
 
   /* fragment helper ranges: arrive -> settle -> fail to resolve */
   const frag = (arrive: number, leave: number, from: { x: number; y: number }) => ({
-    opacity: useTransform(
-      p,
-      [arrive, arrive + 0.06, leave, leave + 0.07],
-      [0, 1, 1, 0],
-    ),
-    x: useTransform(p, [arrive, arrive + 0.08, leave, leave + 0.09], [from.x, 0, 0, from.x * 0.55]),
-    y: useTransform(p, [arrive, arrive + 0.08, leave, leave + 0.09], [from.y, 0, 0, from.y * 0.4]),
-    scale: useTransform(p, [arrive, arrive + 0.08, leave, leave + 0.09], [0.9, 1, 1, 0.965]),
+    opacity: useTransform(p, [arrive, arrive + 0.055, leave, leave + 0.065], [0, 1, 1, 0]),
+    x: useTransform(p, [arrive, arrive + 0.08, leave, leave + 0.085], [from.x, 0, 0, from.x * 0.5]),
+    y: useTransform(p, [arrive, arrive + 0.08, leave, leave + 0.085], [from.y, 0, 0, from.y * 0.35]),
+    scale: useTransform(p, [arrive, arrive + 0.08, leave, leave + 0.085], [0.92, 1, 1, 0.97]),
     clip: useTransform(
       p,
-      [arrive, arrive + 0.07, leave, leave + 0.08],
-      ["inset(0% 0% 100% 0% round 14px)", "inset(0% 0% 0% 0% round 14px)", "inset(0% 0% 0% 0% round 14px)", "inset(0% 0% 88% 0% round 14px)"],
+      [arrive, arrive + 0.065, leave, leave + 0.075],
+      [
+        "inset(0% 0% 100% 0% round 14px)",
+        "inset(0% 0% 0% 0% round 14px)",
+        "inset(0% 0% 0% 0% round 14px)",
+        "inset(0% 0% 90% 0% round 14px)",
+      ],
     ),
   });
 
-  const pipeline = frag(0.24, 0.5, { x: 120, y: -70 });
-  const calendar = frag(0.28, 0.56, { x: 150, y: 40 });
-  const payment = frag(0.32, 0.62, { x: 60, y: 130 });
-  const review = frag(0.36, 0.68, { x: 170, y: 110 });
+  const pipeline = frag(0.22, 0.48, { x: 110, y: -64 });
+  const calendar = frag(0.26, 0.53, { x: 140, y: 36 });
+  const payment = frag(0.3, 0.58, { x: -90, y: 110 });
+  const review = frag(0.34, 0.63, { x: 150, y: 96 });
 
   return (
     <div ref={wrapRef} className="relative h-[430vh]">
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#F7F9FC]">
         {/* copy column */}
-        <div className="absolute left-[6.5%] top-1/2 h-0 w-[430px] -translate-y-1/2">
-          <div className="absolute -top-[150px] left-0 w-[430px]">
+        <div className="absolute left-[6.5%] top-[calc(50%+18px)] h-0 w-[440px] -translate-y-1/2">
+          <div className="absolute -top-[168px] left-0 w-[440px]">
             <Beat
               o={c1}
               eyebrow="Where revenue leaks"
@@ -486,16 +487,12 @@ function DesktopStory() {
           </div>
         </div>
 
-        {/* product canvas */}
-        <div className="absolute inset-y-0 right-0 left-[42%]">
+        {/* product canvas (kept clear of the fixed site nav) */}
+        <div className="absolute bottom-6 right-2 top-[84px] left-[40%]">
           {/* persistent enquiry */}
           <motion.div
-            className="absolute left-1/2 top-1/2 z-30 w-[560px] -translate-x-1/2 -translate-y-1/2"
-            style={
-              reduced
-                ? undefined
-                : { x: enqX, y: enqY, scale: enqScale, borderRadius: enqRadius }
-            }
+            className="absolute left-1/2 top-1/2 z-30 w-[600px] -translate-x-1/2 -translate-y-1/2"
+            style={reduced ? undefined : { x: enqX, y: enqY, scale: enqScale }}
           >
             <EnquirySurface contextDim={contextDim} nextActionScale={nextScale} />
           </motion.div>
@@ -504,25 +501,25 @@ function DesktopStory() {
           {!reduced ? (
             <>
               <motion.div
-                className="absolute left-[46%] top-[8%] z-20"
+                className="absolute left-[42%] top-0 z-20"
                 style={{ opacity: pipeline.opacity, x: pipeline.x, y: pipeline.y, scale: pipeline.scale, clipPath: pipeline.clip }}
               >
                 <PipelineFragment />
               </motion.div>
               <motion.div
-                className="absolute left-[62%] top-[40%] z-20"
+                className="absolute left-[64%] top-[42%] z-20"
                 style={{ opacity: calendar.opacity, x: calendar.x, y: calendar.y, scale: calendar.scale, clipPath: calendar.clip }}
               >
                 <CalendarFragment />
               </motion.div>
               <motion.div
-                className="absolute left-[16%] top-[76%] z-20"
+                className="absolute left-[4%] top-[70%] z-20"
                 style={{ opacity: payment.opacity, x: payment.x, y: payment.y, scale: payment.scale, clipPath: payment.clip }}
               >
                 <PaymentFragment />
               </motion.div>
               <motion.div
-                className="absolute left-[50%] top-[74%] z-10"
+                className="absolute left-[36%] top-[66%] z-10"
                 style={{ opacity: review.opacity, x: review.x, y: review.y, scale: review.scale, clipPath: review.clip }}
               >
                 <ReviewFragment />
@@ -533,6 +530,7 @@ function DesktopStory() {
       </div>
     </div>
   );
+
 }
 
 /* ---------------------------------------------------------------- */
