@@ -8,7 +8,7 @@ export const Route = createFileRoute("/concept/human-work-follow-through")({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap",
       },
     ],
     meta: [
