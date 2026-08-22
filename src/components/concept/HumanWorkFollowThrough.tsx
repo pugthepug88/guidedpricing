@@ -149,12 +149,11 @@ function Signal({
     <motion.div
       className="absolute z-20 select-none whitespace-nowrap"
       style={{
-        left: `${x}%`,
+        ...(align === "right" ? { right: `${100 - x}%` } : { left: `${x}%` }),
         top: `${y}%`,
         opacity,
         y: ty,
         textAlign: align,
-        transform: align === "right" ? "translateX(-100%)" : undefined,
       }}
     >
       <div
@@ -573,7 +572,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
           align="right"
           live
         />
-        <Signal p={p} at={0.3} out={0.585} label="New enquiry" time="10:14 AM" x={4.5} y={4} live />
+        <Signal p={p} at={0.3} out={0.585} label="New enquiry" time="10:14 AM" x={4.5} y={2} tone="dark" live />
         <Signal
           p={p}
           at={0.42}
@@ -621,7 +620,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
 
         {/* ---------- ACT C statement ---------- */}
         <motion.div
-          className="absolute left-[4.5%] top-[64%] z-[45] w-[38%]"
+          className="absolute left-[4.5%] top-[63%] z-[45] w-[46%]"
           style={{ opacity: msgOpacity }}
         >
           <motion.div className="h-[2px]" style={{ width: rule, background: CYAN, maxWidth: 34 }} />
