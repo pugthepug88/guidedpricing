@@ -230,7 +230,7 @@ function CustomerSystemView() {
               Open
             </div>
           </div>
-          <div className="flex flex-1 flex-col justify-end gap-2.5 p-4">
+          <div className="flex flex-1 flex-col justify-center gap-2.5 p-4">
             {THREAD.map((m) => (
               <div
                 key={m.text}
@@ -552,7 +552,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
 
         {/* ---------- central message in the negative space ---------- */}
         <motion.div
-          className="absolute left-[29%] top-[54%] z-20 w-[41%]"
+          className="absolute left-[36.5%] top-[54%] z-20 w-[33%]"
           style={{ opacity: msgOpacity, y: msgY }}
         >
           <motion.div className="h-px bg-zapla-ink/25" style={{ width: msgLine }} />
@@ -565,7 +565,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
 
         {/* ---------- Act 5 product reveal ---------- */}
         <motion.div
-          className="absolute inset-x-[4%] top-[16%] z-30 h-[68%]"
+          className="absolute inset-x-[4%] top-[19%] z-30 h-[66%]"
           style={{ opacity: shellOpacity, scale: shellScale, y: shellY }}
         >
           <div className="h-full w-full overflow-hidden rounded-[16px] border border-zapla-line bg-white shadow-[0_50px_120px_-40px_rgba(15,23,42,0.35)]">
@@ -574,7 +574,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         </motion.div>
 
         <motion.div
-          className="absolute left-[4%] top-[5.5%] z-30 max-w-[62%]"
+          className="absolute left-[4%] top-[9%] z-30 max-w-[62%]"
           style={{ opacity: revealOpacity, y: revealY }}
         >
           <h2 className="text-[38px] font-extrabold leading-none tracking-[-0.03em] text-zapla-ink">
