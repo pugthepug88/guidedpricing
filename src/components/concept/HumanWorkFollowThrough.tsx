@@ -414,8 +414,8 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
     [
       [38, 0, 62, 100],
       [38, 0, 62, 100],
-      [4, 12, 38, 50],
-      [4, 12, 38, 50],
+      [4, 8, 40, 52],
+      [4, 8, 40, 52],
       [56, 26, 20, 22],
       [70.9, 24.2, 16.4, 9.6],
     ],
@@ -428,30 +428,30 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
     p,
     [0.2, 0.28, 0.58, 0.64],
     [
-      [104, 6, 34, 44],
-      [66, 6, 34, 44],
-      [66, 6, 34, 44],
-      [108, 6, 34, 44],
+      [104, 6, 36, 48],
+      [62, 6, 36, 48],
+      [62, 6, 36, 48],
+      [108, 6, 36, 48],
     ],
   );
   const agent = useBoxStyle(
     p,
     [0.25, 0.33, 0.58, 0.63],
     [
-      [46, -62, 15, 56],
-      [46, 8, 15, 56],
-      [46, 8, 15, 56],
-      [46, -66, 15, 56],
+      [46, -62, 14, 52],
+      [46, 8, 14, 52],
+      [46, 8, 14, 52],
+      [46, -66, 14, 52],
     ],
   );
   const dentist = useBoxStyle(
     p,
     [0.3, 0.38, 0.58, 0.65],
     [
-      [66, 108, 30, 36],
-      [66, 58, 30, 36],
-      [66, 58, 30, 36],
-      [66, 112, 30, 36],
+      [62, 108, 36, 36],
+      [62, 58, 36, 36],
+      [62, 58, 36, 36],
+      [62, 112, 36, 36],
     ],
   );
 
@@ -591,20 +591,20 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
           out={0.575}
           label="Booking confirmed"
           time="11:02 AM"
-          x={62}
+          x={60}
           y={2}
           align="right"
           tone="dark"
         />
-        <Signal p={p} at={0.5} out={0.575} label="Invoice paid" time="4:18 PM" x={67} y={94} />
+        <Signal p={p} at={0.5} out={0.575} label="Invoice paid" time="4:18 PM" x={63.5} y={90} />
         <Signal
           p={p}
           at={0.53}
           out={0.575}
           label="Review requested"
           time="Thu 9:00 AM"
-          x={62}
-          y={88}
+          x={59}
+          y={72}
           align="right"
           tone="dark"
         />
@@ -614,14 +614,14 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
           out={0.575}
           label="Client reactivated"
           time="6 months later"
-          x={44}
-          y={68}
+          x={46}
+          y={64}
           tone="dark"
         />
 
         {/* ---------- ACT C statement ---------- */}
         <motion.div
-          className="absolute left-[4.5%] top-[66%] z-[45] w-[40%]"
+          className="absolute left-[4.5%] top-[64%] z-[45] w-[38%]"
           style={{ opacity: msgOpacity }}
         >
           <motion.div className="h-[2px]" style={{ width: rule, background: CYAN, maxWidth: 34 }} />
