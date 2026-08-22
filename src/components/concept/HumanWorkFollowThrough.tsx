@@ -20,7 +20,7 @@ const MEDIA = "/concept/human-work";
 const NAV = 66; /* shared site nav height — the film starts below it */
 
 /* Concept-only display face: tight neo-grotesque, mature, not chunky */
-const DISPLAY = '"Inter Tight", "Manrope", system-ui, sans-serif';
+const DISPLAY = '"Outfit", "Inter Tight", "Manrope", system-ui, sans-serif';
 const INK = "#0B1220";
 const CYAN = "#06B6D4";
 
