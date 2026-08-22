@@ -5,9 +5,9 @@
 import { useEffect, useRef, useState } from "react";
 import {
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
-  useScroll,
   useTransform,
   type MotionValue,
 } from "motion/react";
