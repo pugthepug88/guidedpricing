@@ -761,24 +761,25 @@ function MobileSequence({ reduced }: { reduced: boolean }) {
           You lead. Zapla follows through.
         </h1>
         <p className="mt-4 text-[15px] leading-[1.6] text-[#0B1220]/62">
-          One place for enquiries, conversations, bookings, payments and next steps. Zapla keeps the
-          work moving from first contact to booked, paid and returning.
+          Bring your enquiries, conversations and next steps into one place. Zapla keeps the work
+          moving from first contact to booked, paid and returning.
         </p>
         <div className="mt-6 flex flex-col gap-2.5">
           <a
             href="https://zapla.io/booking"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full text-[15px] font-semibold text-white"
-            style={{ background: INK }}
+            className="inline-flex h-[50px] items-center justify-center gap-2 rounded-[10px] text-[15px] font-semibold text-white"
+            style={{ background: CYAN }}
           >
             Book a demo <ArrowRight className="h-4 w-4" />
           </a>
-          <span className="inline-flex h-12 items-center justify-center rounded-full border border-[#0B1220]/15 text-[15px] font-semibold text-[#0B1220]">
+          <span className="inline-flex h-[50px] items-center justify-center rounded-[10px] border border-[#0B1220]/14 bg-white/70 text-[15px] font-semibold text-[#0B1220]">
             See how it works
           </span>
         </div>
         <div className="mt-4 text-[12px] font-medium text-[#0B1220]/45">
-          Unlimited users included. No per-seat fees.
+          Unlimited users included
         </div>
+
       </div>
 
       <MobileMoment
