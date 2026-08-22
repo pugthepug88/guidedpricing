@@ -818,8 +818,9 @@ function MobileSequence({ reduced }: { reduced: boolean }) {
           One customer. Everything connected.
         </h2>
         <p className="mt-3 text-[14.5px] leading-[1.6] text-[#0B1220]/58">
-          The job, the conversation, the booking, the payment and the next step all stay attached to
-          the same customer.
+          Conversations, opportunities, bookings and next steps stay connected, so the work keeps
+          moving.
+
         </p>
       </div>
       <div className="px-4 pb-14">
