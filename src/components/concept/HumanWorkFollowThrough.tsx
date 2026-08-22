@@ -120,6 +120,7 @@ function Signal({
   x,
   y,
   align = "left",
+  tone = "light",
   live,
 }: {
   p: MotionValue<number>;
@@ -129,14 +130,16 @@ function Signal({
   x: number;
   y: number;
   align?: "left" | "right";
+  tone?: "light" | "dark";
   live?: boolean;
 }) {
   const opacity = useTransform(p, [at, at + 0.035, 0.63, 0.69], [0, 1, 1, 0]);
   const ty = useTransform(p, [at, at + 0.06], [10, 0]);
+  const dark = tone === "dark";
 
   return (
     <motion.div
-      className="absolute z-20 select-none"
+      className="absolute z-20 select-none whitespace-nowrap"
       style={{
         left: `${x}%`,
         top: `${y}%`,
@@ -150,19 +153,32 @@ function Signal({
         className={cn(
           "pb-[5px]",
           align === "right" ? "border-r pr-2.5" : "border-l pl-2.5",
-          live ? "border-[#06B6D4]" : "border-white/55",
+          live ? "border-[#06B6D4]" : dark ? "border-zapla-ink/25" : "border-white/55",
         )}
       >
-        <div className="text-[12.5px] font-semibold leading-none tracking-tight text-white drop-shadow-[0_1px_10px_rgba(6,10,20,0.7)]">
+        <div
+          className={cn(
+            "text-[12.5px] font-semibold leading-none tracking-tight",
+            dark
+              ? "text-zapla-ink"
+              : "text-white drop-shadow-[0_1px_10px_rgba(6,10,20,0.7)]",
+          )}
+        >
           {label}
         </div>
-        <div className="mt-[5px] text-[10px] font-medium uppercase leading-none tracking-[0.16em] text-white/70">
+        <div
+          className={cn(
+            "mt-[5px] text-[10px] font-medium uppercase leading-none tracking-[0.16em]",
+            dark ? "text-zapla-muted" : "text-white/70",
+          )}
+        >
           {time}
         </div>
       </div>
     </motion.div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /* Product reveal — one coherent Zapla system view                     */
