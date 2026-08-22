@@ -438,10 +438,10 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   const msgLine = useTransform(p, [0.46, 0.58], ["0%", "100%"]);
 
   /* product reveal */
-  const shellOpacity = useTransform(p, [0.76, 0.87], [0, 1]);
+  const shellOpacity = useTransform(p, [0.73, 0.85], [0, 1]);
   const shellScale = useTransform(p, [0.76, 0.94], [0.9, 1]);
   const shellY = useTransform(p, [0.76, 0.94], [70, 0]);
-  const revealOpacity = useTransform(p, [0.8, 0.89], [0, 1]);
+  const revealOpacity = useTransform(p, [0.77, 0.87], [0, 1]);
   const revealY = useTransform(p, [0.8, 0.95], [24, 0]);
 
   return (
