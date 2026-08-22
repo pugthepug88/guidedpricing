@@ -535,12 +535,20 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         </motion.div>
 
         {/* ---------- Act 3 signals ---------- */}
-        <Signal p={p} at={0.36} label="New enquiry" time="10:14 AM" x={26} y={58} live />
-        <Signal p={p} at={0.4} label="Follow-up sent" time="10:41 AM" x={92} y={38} align="right" />
-        <Signal p={p} at={0.44} label="Booking confirmed" time="11:02 AM" x={46} y={56} />
-        <Signal p={p} at={0.48} label="Invoice paid" time="4:18 PM" x={72} y={88} />
-        <Signal p={p} at={0.52} label="Review requested" time="Thu 9:00 AM" x={20} y={92} />
-        <Signal p={p} at={0.56} label="Client reactivated" time="6 months later" x={62} y={17} />
+        <Signal p={p} at={0.36} label="New enquiry" time="10:14 AM" x={3} y={49} live />
+        <Signal p={p} at={0.4} label="Follow-up sent" time="10:41 AM" x={64} y={25} tone="dark" />
+        <Signal p={p} at={0.44} label="Booking confirmed" time="11:02 AM" x={74} y={43} tone="dark" />
+        <Signal p={p} at={0.48} label="Invoice paid" time="4:18 PM" x={73} y={83} />
+        <Signal p={p} at={0.52} label="Review requested" time="Thu 9:00 AM" x={2} y={93} tone="dark" />
+        <Signal
+          p={p}
+          at={0.56}
+          label="Client reactivated"
+          time="6 months later"
+          x={28}
+          y={87}
+          tone="dark"
+        />
 
         {/* ---------- central message in the negative space ---------- */}
         <motion.div
