@@ -38,15 +38,19 @@ const RIBBON_TOTAL = 1720;
 
 function useStage(p: MotionValue<number>) {
   return {
-    feed: useTransform(p, [0, 1], [140, -(RIBBON_TOTAL - 620)]),
-    kicker: useTransform(p, [0, 0.05, 0.44, 0.52], [0, 1, 1, 0]),
-    copyBlank: useTransform(p, [0.5, 0.6, 0.72, 0.78], [0, 1, 1, 0]),
-    copyFinal: useTransform(p, [0.8, 0.9], [0, 1]),
-    blankLabel: useTransform(p, [0.54, 0.64, 0.86, 0.92], [0, 1, 1, 0]),
-    ribbonShift: useTransform(p, [0.46, 0.9], [0, -190]),
-    ribbonTilt: useTransform(p, [0, 0.5], [0, -1.2]),
+    // the paper keeps feeding, but the printed head stays legible in frame
+    feed: useTransform(p, [0, 0.45, 1], [210, 96, -300]),
+    kicker: useTransform(p, [0, 0.05, 0.5, 0.58], [0, 1, 1, 0]),
+    copyBlank: useTransform(p, [0.5, 0.6, 0.74, 0.8], [0, 1, 1, 0]),
+    copyFinal: useTransform(p, [0.82, 0.9], [0, 1]),
+    blankLabel: useTransform(p, [0.36, 0.44, 0.88, 0.94], [0, 1, 1, 0]),
+    printHead: useTransform(p, [0.3, 0.4, 0.94, 1], [0, 1, 1, 0]),
+    printHeadY: useTransform(p, [0.4, 1], [0.52, 0.78]),
+    ribbonShift: useTransform(p, [0.48, 0.9], [0, -180]),
+    ribbonTilt: useTransform(p, [0, 0.5], [0, -1.1]),
   };
 }
+
 
 function PrintedLine({
   line,
