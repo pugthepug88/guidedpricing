@@ -421,13 +421,13 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
      Bleeds off the canvas edges on purpose: a moving window into real work.  */
   const mont = useBoxStyle(
     p,
-    [0, 0.16, 0.3, 0.62, 0.7],
+    [0, 0.16, 0.28, 0.62, 0.7],
     [
       [41, -4, 63, 108],
       [41, -4, 63, 108],
-      [-5, 8, 48, 62],
-      [-5, 8, 48, 62],
-      [-54, 8, 48, 62],
+      [-6, -8, 50, 72],
+      [-6, -8, 50, 72],
+      [-56, -8, 50, 72],
     ],
   );
   const montOpacity = useTransform(p, [0.66, 0.72], [1, 0]);
@@ -435,12 +435,12 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   /* ---- ACT B: second scene bleeds in from the upper-right edge ---- */
   const broker = useBoxStyle(
     p,
-    [0.22, 0.32, 0.44, 0.5],
+    [0.22, 0.3, 0.46, 0.52],
     [
-      [104, -10, 36, 50],
-      [67, -10, 36, 50],
-      [67, -10, 36, 50],
-      [104, -10, 36, 50],
+      [104, -12, 36, 52],
+      [67, -12, 36, 52],
+      [67, -12, 36, 52],
+      [104, -12, 36, 52],
     ],
   );
   /* ---- ACT C: the world opens sequentially, never all at once ---- */
@@ -448,27 +448,28 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
     p,
     [0.46, 0.55, 0.64, 0.7],
     [
-      [104, -8, 33, 46],
-      [70, -8, 33, 46],
-      [70, -8, 33, 46],
-      [106, -8, 33, 46],
+      [104, -10, 34, 48],
+      [69, -10, 34, 48],
+      [69, -10, 34, 48],
+      [106, -10, 34, 48],
     ],
   );
   /* narrow vertical crop, bleeding off the bottom edge */
   const agent = useBoxStyle(
     p,
-    [0.5, 0.58, 0.64, 0.7],
+    [0.34, 0.42, 0.64, 0.7],
     [
-      [86, 118, 13, 54],
-      [86, 56, 13, 54],
-      [86, 56, 13, 54],
-      [86, 120, 13, 54],
+      [86, 112, 13, 58],
+      [86, 46, 13, 58],
+      [86, 46, 13, 58],
+      [86, 114, 13, 58],
     ],
   );
 
   /* ---- ACT C: the statement is the visual anchor ---- */
-  const msgOpacity = useTransform(p, [0.4, 0.415, 0.63, 0.66], [0, 1, 1, 0]);
-  const rule = useTransform(p, [0.4, 0.47], ["0%", "100%"]);
+  const msgOpacity = useTransform(p, [0.32, 0.34, 0.63, 0.66], [0, 1, 1, 0]);
+  const rule = useTransform(p, [0.32, 0.4], ["0%", "100%"]);
+
 
   /* ---- ACT D/E: the activity organises itself into one product surface ---- */
   const shellBox = useBoxStyle(
