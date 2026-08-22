@@ -411,7 +411,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
      Bleeds off the canvas edges on purpose: a moving window into real work.  */
   const mont = useBoxStyle(
     p,
-    [0, 0.16, 0.28, 0.62, 0.7],
+    [0, 0.16, 0.28, 0.6, 0.68],
     [
       [41, -4, 63, 108],
       [41, -4, 63, 108],
@@ -420,7 +420,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
       [-56, -8, 50, 72],
     ],
   );
-  const montOpacity = useTransform(p, [0.66, 0.72], [1, 0]);
+  const montOpacity = useTransform(p, [0.63, 0.68], [1, 0]);
 
   /* ---- ACT B: second scene bleeds in from the upper-right edge ---- */
   const broker = useBoxStyle(
@@ -436,7 +436,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   /* ---- ACT C: the world opens sequentially, never all at once ---- */
   const dentist = useBoxStyle(
     p,
-    [0.46, 0.55, 0.64, 0.7],
+    [0.46, 0.55, 0.62, 0.68],
     [
       [104, -10, 34, 48],
       [69, -10, 34, 48],
@@ -447,7 +447,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   /* narrow vertical crop, bleeding off the bottom edge */
   const agent = useBoxStyle(
     p,
-    [0.34, 0.42, 0.64, 0.7],
+    [0.34, 0.42, 0.62, 0.68],
     [
       [88, 112, 14, 58],
       [88, 46, 14, 58],
@@ -457,27 +457,27 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   );
 
   /* ---- ACT C: the statement is the visual anchor ---- */
-  const msgOpacity = useTransform(p, [0.32, 0.34, 0.63, 0.66], [0, 1, 1, 0]);
+  const msgOpacity = useTransform(p, [0.32, 0.34, 0.6, 0.645], [0, 1, 1, 0]);
   const rule = useTransform(p, [0.32, 0.4], ["0%", "100%"]);
 
 
   /* ---- ACT D/E: the activity organises itself into one product surface ---- */
   const shellBox = useBoxStyle(
     p,
-    [0.68, 0.84],
+    [0.66, 0.84],
     [
-      [14, 30, 72, 50],
+      [16, 30, 68, 50],
       [4, 20, 92, 72],
     ],
   );
   const shellClip = useTransform(
     p,
-    [0.68, 0.8],
+    [0.66, 0.78],
     ["inset(30% 30% 30% 30% round 14px)", "inset(0% 0% 0% 0% round 14px)"],
   );
-  const shellOpacity = useTransform(p, [0.68, 0.73], [0, 1]);
-  const headOpacity = useTransform(p, [0.8, 0.85], [0, 1]);
-  const headY = useTransform(p, [0.8, 0.87], [16, 0]);
+  const shellOpacity = useTransform(p, [0.655, 0.71], [0, 1]);
+  const headOpacity = useTransform(p, [0.78, 0.84], [0, 1]);
+  const headY = useTransform(p, [0.78, 0.86], [16, 0]);
 
   return (
     <div ref={wrap} className="relative hidden h-[520vh] md:block">
@@ -585,40 +585,40 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         <Signal
           p={p}
           at={0.5}
-          out={0.71}
+          out={0.735}
           label="Invoice paid"
           time="4:18 PM"
           x={73}
           y={28}
-          toX={62}
-          toY={34}
-          drift={[0.64, 0.71]}
+          toX={79}
+          toY={33}
+          drift={[0.6, 0.72]}
         />
         <Signal
           p={p}
           at={0.54}
-          out={0.72}
+          out={0.745}
           label="Review requested"
           time="Thu 9:00 AM"
           x={45}
           y={38}
-          toX={62}
-          toY={42}
+          toX={79}
+          toY={41}
           tone="dark"
-          drift={[0.64, 0.72]}
+          drift={[0.6, 0.73]}
         />
         <Signal
           p={p}
           at={0.58}
-          out={0.73}
+          out={0.755}
           label="Client reactivated"
           time="6 months later"
           x={45}
           y={50}
-          toX={62}
-          toY={50}
+          toX={79}
+          toY={49}
           tone="dark"
-          drift={[0.64, 0.73]}
+          drift={[0.6, 0.74]}
         />
 
         {/* ---------- ACT C statement: the anchor ---------- */}
