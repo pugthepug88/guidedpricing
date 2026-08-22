@@ -410,23 +410,23 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
      A: full-bleed right   B: reframed work window   D: compresses into the record  */
   const mont = useBoxStyle(
     p,
-    [0, 0.18, 0.3, 0.58, 0.66, 0.74],
+    [0, 0.15, 0.25, 0.58, 0.66, 0.74],
     [
       [38, 0, 62, 100],
       [38, 0, 62, 100],
       [4, 12, 38, 50],
       [4, 12, 38, 50],
-      [58, 20, 20, 22],
-      [70.5, 21.5, 17.5, 12.5],
+      [56, 26, 20, 22],
+      [70.9, 24.2, 16.4, 9.6],
     ],
   );
-  const montRadius = useTransform(p, [0.18, 0.3, 0.62], [0, 10, 8]);
+  const montRadius = useTransform(p, [0.15, 0.25, 0.62], [0, 10, 8]);
   const montOpacity = useTransform(p, [0.72, 0.78], [1, 0.92]);
 
   /* ---- ACT C: broader world slides in from the edges ---- */
   const broker = useBoxStyle(
     p,
-    [0.32, 0.4, 0.58, 0.64],
+    [0.2, 0.28, 0.58, 0.64],
     [
       [104, 6, 34, 44],
       [66, 6, 34, 44],
@@ -436,7 +436,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   );
   const agent = useBoxStyle(
     p,
-    [0.36, 0.44, 0.58, 0.63],
+    [0.25, 0.33, 0.58, 0.63],
     [
       [46, -62, 15, 56],
       [46, 8, 15, 56],
@@ -446,7 +446,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   );
   const dentist = useBoxStyle(
     p,
-    [0.4, 0.48, 0.58, 0.65],
+    [0.3, 0.38, 0.58, 0.65],
     [
       [66, 108, 30, 36],
       [66, 58, 30, 36],
@@ -464,8 +464,8 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
     p,
     [0.6, 0.74],
     [
-      [12, 18, 76, 62],
-      [3, 12, 94, 76],
+      [12, 20, 76, 60],
+      [3, 15, 94, 73],
     ],
   );
   const shellClip = useTransform(
@@ -573,7 +573,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
           align="right"
           live
         />
-        <Signal p={p} at={0.3} out={0.585} label="New enquiry" time="10:14 AM" x={4.5} y={64} live />
+        <Signal p={p} at={0.3} out={0.585} label="New enquiry" time="10:14 AM" x={4.5} y={4} live />
         <Signal
           p={p}
           at={0.42}
@@ -603,8 +603,9 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
           out={0.575}
           label="Review requested"
           time="Thu 9:00 AM"
-          x={4.5}
-          y={86}
+          x={62}
+          y={88}
+          align="right"
           tone="dark"
         />
         <Signal
@@ -613,19 +614,19 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
           out={0.575}
           label="Client reactivated"
           time="6 months later"
-          x={26}
-          y={70}
+          x={44}
+          y={68}
           tone="dark"
         />
 
         {/* ---------- ACT C statement ---------- */}
         <motion.div
-          className="absolute left-[4.5%] top-[16%] z-30 w-[36%]"
+          className="absolute left-[4.5%] top-[66%] z-[45] w-[40%]"
           style={{ opacity: msgOpacity }}
         >
           <motion.div className="h-[2px]" style={{ width: rule, background: CYAN, maxWidth: 34 }} />
           <div
-            className="mt-5 text-[52px] leading-[1.02] tracking-[-0.04em]"
+            className="mt-4 text-[44px] leading-[1.02] tracking-[-0.04em]"
             style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
           >
             <MaskLine p={p} from={0.455} to={0.5}>
@@ -648,7 +649,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         </motion.div>
 
         <motion.div
-          className="absolute left-[3%] top-[3.5%] z-40 max-w-[64%]"
+          className="absolute left-[3%] top-[4%] z-40 max-w-[62%]"
           style={{ opacity: headOpacity, y: headY }}
         >
           <h2
