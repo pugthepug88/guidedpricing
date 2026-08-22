@@ -466,14 +466,9 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
     p,
     [0.66, 0.84],
     [
-      [16, 30, 68, 50],
+      [10, 26, 80, 60],
       [4, 20, 92, 72],
     ],
-  );
-  const shellClip = useTransform(
-    p,
-    [0.66, 0.78],
-    ["inset(30% 30% 30% 30% round 14px)", "inset(0% 0% 0% 0% round 14px)"],
   );
   const shellOpacity = useTransform(p, [0.655, 0.71], [0, 1]);
   const headOpacity = useTransform(p, [0.78, 0.84], [0, 1]);
@@ -646,7 +641,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         {/* ---------- ACT D/E product state ---------- */}
         <motion.div
           className="absolute z-30"
-          style={{ ...shellBox, opacity: shellOpacity, clipPath: shellClip }}
+          style={{ ...shellBox, opacity: shellOpacity }}
         >
           <div className="h-full w-full overflow-hidden rounded-[14px] border border-slate-200/90 bg-white shadow-[0_40px_100px_-45px_rgba(15,23,42,0.3)]">
             <CustomerSystemView />
