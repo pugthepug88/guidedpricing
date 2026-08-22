@@ -114,7 +114,7 @@ function Frame({
 }
 
 /* ------------------------------------------------------------------ */
-/* Follow-through signal — editorial caption                           */
+/* Follow-through signal — editorial caption, can drift to a target    */
 /* ------------------------------------------------------------------ */
 
 function Signal({
@@ -125,6 +125,9 @@ function Signal({
   time,
   x,
   y,
+  toX,
+  toY,
+  drift,
   align = "left",
   tone = "light",
   live,
@@ -136,6 +139,9 @@ function Signal({
   time: string;
   x: number;
   y: number;
+  toX?: number;
+  toY?: number;
+  drift?: [number, number];
   align?: "left" | "right";
   tone?: "light" | "dark";
   live?: boolean;
@@ -143,14 +149,17 @@ function Signal({
   const end = out ?? 0.6;
   const opacity = useTransform(p, [at, at + 0.012, end, end + 0.018], [0, 1, 1, 0]);
   const ty = useTransform(p, [at, at + 0.03], [8, 0]);
+  const d = drift ?? [end, end];
+  const left = useTransform(p, [d[0], d[1]], [`${x}%`, `${toX ?? x}%`]);
+  const top = useTransform(p, [d[0], d[1]], [`${y}%`, `${toY ?? y}%`]);
   const dark = tone === "dark";
 
   return (
     <motion.div
       className="absolute z-20 select-none whitespace-nowrap"
       style={{
-        ...(align === "right" ? { right: `${100 - x}%` } : { left: `${x}%` }),
-        top: `${y}%`,
+        ...(align === "right" ? { right: left } : { left }),
+        top,
         opacity,
         y: ty,
         textAlign: align,
@@ -160,13 +169,13 @@ function Signal({
         className={cn(
           "pb-[4px]",
           align === "right" ? "border-r pr-2.5" : "border-l pl-2.5",
-          live ? "border-[#06B6D4]" : dark ? "border-[#0B1220]/25" : "border-white/50",
+          live ? "border-[#06B6D4]" : dark ? "border-[#0B1220]/25" : "border-white/55",
         )}
       >
         <div
           className={cn(
-            "text-[13px] font-medium leading-none tracking-[-0.01em]",
-            dark ? "text-[#0B1220]" : "text-white drop-shadow-[0_1px_10px_rgba(6,10,20,0.6)]",
+            "text-[13.5px] font-medium leading-none tracking-[-0.01em]",
+            dark ? "text-[#0B1220]" : "text-white drop-shadow-[0_1px_10px_rgba(6,10,20,0.65)]",
           )}
           style={{ fontFamily: DISPLAY }}
         >
@@ -175,7 +184,7 @@ function Signal({
         <div
           className={cn(
             "mt-[6px] text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]",
-            dark ? "text-[#0B1220]/45" : "text-white/65",
+            dark ? "text-[#0B1220]/45" : "text-white/70",
           )}
         >
           {time}
@@ -184,6 +193,7 @@ function Signal({
     </motion.div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /* Product reveal — one coherent Zapla system view                     */
