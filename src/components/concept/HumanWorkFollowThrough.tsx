@@ -387,8 +387,8 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
     const tick = () => {
       const el = wrap.current;
       if (el) {
-        const total = el.offsetHeight - window.innerHeight;
-        const prog = total > 0 ? -el.getBoundingClientRect().top / total : 0;
+        const total = el.offsetHeight - (window.innerHeight - NAV);
+        const prog = total > 0 ? (NAV - el.getBoundingClientRect().top) / total : 0;
         p.set(Math.min(1, Math.max(0, prog)));
       }
       raf = requestAnimationFrame(tick);
@@ -520,10 +520,8 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         />
 
         {/* ---------- ACT A hero copy ---------- */}
-        <motion.div
-          className="absolute left-[6%] top-1/2 z-40 w-[31%] -translate-y-1/2"
-          style={{ opacity: heroOpacity, y: heroY }}
-        >
+        <div className="absolute left-[6%] top-1/2 z-40 w-[31%] -translate-y-1/2">
+        <motion.div style={{ opacity: heroOpacity, y: heroY }}>
           <div className="flex items-center gap-2.5">
             <span className="h-[2px] w-6" style={{ background: CYAN }} />
             <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#0B1220]/55">
@@ -561,6 +559,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
             Unlimited users included. No per-seat fees.
           </div>
         </motion.div>
+        </div>
 
         {/* ---------- ACT B/C signals ---------- */}
         <Signal
