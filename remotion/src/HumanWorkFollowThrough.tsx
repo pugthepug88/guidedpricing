@@ -318,7 +318,7 @@ export const HumanWorkFollowThrough: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: BG, fontFamily, color: INK }}>
       <Frame file="mechanic.mp4" box={mech} opacity={1 - 0.86 * recede} blur={blur} />
-      <Frame file="painter.mp4" box={painter} opacity={worldOpacity(105)} blur={blur} />
+      <Frame file="hero-montage.mp4" box={painter} opacity={worldOpacity(105)} blur={blur} />
       <Frame file="agent.mp4" box={agent} opacity={worldOpacity(125)} radius={14} blur={blur} />
       <Frame file="broker.mp4" box={broker} opacity={worldOpacity(145)} radius={14} blur={blur} />
       <Frame file="dentist.mp4" box={dentist} opacity={worldOpacity(165)} blur={blur} />
