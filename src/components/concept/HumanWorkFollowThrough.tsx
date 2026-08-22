@@ -579,10 +579,8 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
           out={0.575}
           label="Follow-up sent"
           time="10:41 AM"
-          x={62}
-          y={52}
-          align="right"
-          tone="dark"
+          x={64}
+          y={44}
         />
         <Signal
           p={p}
