@@ -62,7 +62,8 @@ function PrintedLine({
   y: number;
 }) {
   const o = useTransform(p, [line.at, line.at + 0.03], [0, 1]);
-  const clip = useTransform(p, [line.at, line.at + 0.05], ["inset(0 100% 0 0)", "inset(0 0% 0 0)"]);
+  const reveal = useTransform(p, [line.at, line.at + 0.05], [100, 0]);
+  const clip = useTransform(reveal, (v) => `inset(0 ${v}% 0 0)`);
   return (
     <motion.div
       className="absolute left-9 right-9 flex items-baseline justify-between gap-4"
