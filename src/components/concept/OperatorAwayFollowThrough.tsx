@@ -475,7 +475,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   const objScale = useTransform(p, [0.66, 0.74], [1, 1.24]);
 
   /* statement -------------------------------------------------------- */
-  const stmtOpacity = useTransform(p, [0.575, 0.6, 0.7, 0.725], [0, 1, 1, 0]);
+  const stmtOpacity = useTransform(p, [0.605, 0.625, 0.7, 0.725], [0, 1, 1, 0]);
 
   /* product shell ---------------------------------------------------- */
   const shellBox = useBoxStyle(
@@ -610,8 +610,8 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
         >
           <MaskLine
             p={p}
-            from={0.6}
-            to={0.66}
+            from={0.625}
+            to={0.685}
             className={cn(
               "tracking-[-0.04em]",
               mobile ? "text-[34px] leading-[1.05]" : "text-[62px] leading-[1]",
