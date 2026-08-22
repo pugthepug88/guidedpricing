@@ -3,6 +3,14 @@ import { HumanWorkFollowThrough } from "../../components/concept/HumanWorkFollow
 
 export const Route = createFileRoute("/concept/human-work-follow-through")({
   head: () => ({
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap",
+      },
+    ],
     meta: [
       { title: "Concept: Human Work, Follow-Through | Zapla Prototype" },
       {
