@@ -409,240 +409,245 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   }, [p]);
 
   useMotionValueEvent(p, "change", (v: number) => {
-    const a = v < 0.18 ? 0 : v < 0.32 ? 1 : v < 0.58 ? 2 : v < 0.74 ? 3 : 4;
+    const a = v < 0.18 ? 0 : v < 0.44 ? 1 : v < 0.62 ? 2 : v < 0.74 ? 3 : 4;
     setAct((prev) => (prev === a ? prev : a));
   });
 
-  /* ---- ACT A: hero copy, fast decisive exit ---- */
-  const heroOpacity = useTransform(p, [0, 0.15, 0.185], [1, 1, 0]);
-  const heroY = useTransform(p, [0.14, 0.19], [0, -34]);
+  /* ---- ACT A: hero copy, decisive exit ---- */
+  const heroOpacity = useTransform(p, [0, 0.15, 0.19], [1, 1, 0]);
+  const heroY = useTransform(p, [0.14, 0.2], [0, -40]);
 
-  /* ---- the ONE retained object: hero montage ----
-     A: full-bleed right   B: reframed work window   D: compresses into the record  */
+  /* ---- the ONE dominant human window: full-bleed right -> left work window ----
+     Bleeds off the canvas edges on purpose: a moving window into real work.  */
   const mont = useBoxStyle(
     p,
-    [0, 0.15, 0.25, 0.58, 0.66, 0.74],
+    [0, 0.16, 0.3, 0.62, 0.7],
     [
-      [38, 0, 62, 100],
-      [38, 0, 62, 100],
-      [4, 8, 40, 52],
-      [4, 8, 40, 52],
-      [56, 26, 20, 22],
-      [70.9, 24.2, 16.4, 9.6],
+      [41, -4, 63, 108],
+      [41, -4, 63, 108],
+      [-5, 8, 48, 62],
+      [-5, 8, 48, 62],
+      [-54, 8, 48, 62],
     ],
   );
-  const montRadius = useTransform(p, [0.15, 0.25, 0.62], [0, 10, 8]);
-  const montOpacity = useTransform(p, [0.72, 0.78], [1, 0.92]);
+  const montOpacity = useTransform(p, [0.66, 0.72], [1, 0]);
 
-  /* ---- ACT C: broader world slides in from the edges ---- */
+  /* ---- ACT B: second scene bleeds in from the upper-right edge ---- */
   const broker = useBoxStyle(
     p,
-    [0.2, 0.28, 0.58, 0.64],
+    [0.22, 0.32, 0.44, 0.5],
     [
-      [104, 6, 36, 48],
-      [62, 6, 36, 48],
-      [62, 6, 36, 48],
-      [108, 6, 36, 48],
+      [104, -10, 36, 50],
+      [67, -10, 36, 50],
+      [67, -10, 36, 50],
+      [104, -10, 36, 50],
     ],
   );
-  const agent = useBoxStyle(
-    p,
-    [0.25, 0.33, 0.58, 0.63],
-    [
-      [46, -62, 14, 52],
-      [46, 8, 14, 52],
-      [46, 8, 14, 52],
-      [46, -66, 14, 52],
-    ],
-  );
+  /* ---- ACT C: the world opens sequentially, never all at once ---- */
   const dentist = useBoxStyle(
     p,
-    [0.3, 0.38, 0.58, 0.65],
+    [0.46, 0.55, 0.64, 0.7],
     [
-      [62, 108, 36, 36],
-      [62, 58, 36, 36],
-      [62, 58, 36, 36],
-      [62, 112, 36, 36],
+      [104, -8, 33, 46],
+      [70, -8, 33, 46],
+      [70, -8, 33, 46],
+      [106, -8, 33, 46],
+    ],
+  );
+  /* narrow vertical crop, bleeding off the bottom edge */
+  const agent = useBoxStyle(
+    p,
+    [0.5, 0.58, 0.64, 0.7],
+    [
+      [86, 118, 13, 54],
+      [86, 56, 13, 54],
+      [86, 56, 13, 54],
+      [86, 120, 13, 54],
     ],
   );
 
-  /* ---- ACT C: mid-scroll statement, all dark, masked reveal ---- */
-  const msgOpacity = useTransform(p, [0.44, 0.455, 0.575, 0.6], [0, 1, 1, 0]);
-  const rule = useTransform(p, [0.44, 0.5], ["0%", "100%"]);
+  /* ---- ACT C: the statement is the visual anchor ---- */
+  const msgOpacity = useTransform(p, [0.4, 0.415, 0.63, 0.66], [0, 1, 1, 0]);
+  const rule = useTransform(p, [0.4, 0.47], ["0%", "100%"]);
 
-  /* ---- ACT D/E: product state grows out of the same customer thread ---- */
+  /* ---- ACT D/E: the activity organises itself into one product surface ---- */
   const shellBox = useBoxStyle(
     p,
-    [0.6, 0.74],
+    [0.68, 0.84],
     [
-      [12, 20, 76, 60],
-      [3, 15, 94, 73],
+      [14, 30, 72, 50],
+      [4, 20, 92, 72],
     ],
   );
   const shellClip = useTransform(
     p,
-    [0.6, 0.68],
-    ["inset(46% 42% 46% 42% round 12px)", "inset(0% 0% 0% 0% round 14px)"],
+    [0.68, 0.8],
+    ["inset(30% 30% 30% 30% round 14px)", "inset(0% 0% 0% 0% round 14px)"],
   );
-  const shellOpacity = useTransform(p, [0.595, 0.615], [0, 1]);
-  const headOpacity = useTransform(p, [0.72, 0.755], [0, 1]);
-  const headY = useTransform(p, [0.72, 0.78], [18, 0]);
+  const shellOpacity = useTransform(p, [0.68, 0.73], [0, 1]);
+  const headOpacity = useTransform(p, [0.8, 0.85], [0, 1]);
+  const headY = useTransform(p, [0.8, 0.87], [16, 0]);
 
   return (
-    <div ref={wrap} className="relative hidden h-[460vh] md:block">
+    <div ref={wrap} className="relative hidden h-[520vh] md:block">
       <div
+        data-human-work-stage="desktop"
         className="sticky w-full overflow-hidden bg-[#F5F6FA]"
         style={{ top: NAV, height: `calc(100vh - ${NAV}px)` }}
       >
-        {/* ---------- broader service world (slides, never dissolves) ---------- */}
+        {/* ---------- sequential world: second and third scenes ---------- */}
         <Frame
           media={V.broker}
-          playing={act >= 2 && act <= 2}
+          playing={act === 1}
           reduced={reduced}
-          radius={10}
-          objectPosition="42% 40%"
+          radius={0}
+          objectPosition="42% 42%"
           style={{ ...broker, zIndex: 5 }}
         />
         <Frame
-          media={V.agent}
-          playing={act >= 2 && act <= 2}
-          reduced={reduced}
-          radius={10}
-          objectPosition="50% 42%"
-          style={{ ...agent, zIndex: 6 }}
-        />
-        <Frame
           media={V.dentist}
-          playing={act >= 2 && act <= 2}
+          playing={act === 2}
           reduced={reduced}
           radius={0}
-          objectPosition="38% 45%"
+          objectPosition="40% 45%"
           style={{ ...dentist, zIndex: 5 }}
         />
+        <Frame
+          media={V.agent}
+          playing={act === 2}
+          reduced={reduced}
+          radius={0}
+          objectPosition="50% 40%"
+          style={{ ...agent, zIndex: 6 }}
+        />
 
-        {/* ---------- the ONE retained object ---------- */}
+        {/* ---------- the dominant human window ---------- */}
         <Frame
           media={V.montage}
-          playing={act <= 4}
+          playing={act <= 2}
           reduced={reduced}
+          radius={0}
           objectPosition="52% 48%"
-          darken={0.1}
-          style={{ ...mont, borderRadius: montRadius, opacity: montOpacity, zIndex: 40 }}
+          darken={0.08}
+          style={{ ...mont, opacity: montOpacity, zIndex: 10 }}
         />
 
         {/* ---------- ACT A hero copy ---------- */}
-        <div className="absolute left-[6%] top-1/2 z-40 w-[31%] -translate-y-1/2">
-        <motion.div style={{ opacity: heroOpacity, y: heroY }}>
-          <div className="flex items-center gap-2.5">
-            <span className="h-[2px] w-6" style={{ background: CYAN }} />
-            <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#0B1220]/55">
-              CRM + automation for service businesses
-            </span>
-          </div>
-          <h1
-            className="mt-5 text-[74px] leading-[1] tracking-[-0.04em]"
-            style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
-          >
-            You lead.
-            <br />
-            Zapla follows
-            <br />
-            through.
-          </h1>
-          <p className="mt-6 max-w-[400px] text-[15.5px] leading-[1.6] text-[#0B1220]/62">
-            One place for enquiries, conversations, bookings, payments and next steps. Zapla keeps
-            the work moving from first contact to booked, paid and returning.
-          </p>
-          <div className="mt-7 flex items-center gap-3">
-            <a
-              href="https://zapla.io/booking"
-              className="inline-flex h-11 items-center gap-2 rounded-full px-6 text-[14px] font-semibold text-white"
-              style={{ background: INK }}
+        <div className="absolute left-[5.5%] top-1/2 z-40 w-[36%] -translate-y-1/2">
+          <motion.div style={{ opacity: heroOpacity, y: heroY }}>
+            <div className="flex items-center gap-2.5">
+              <span className="h-[2px] w-6" style={{ background: CYAN }} />
+              <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#0B1220]/55">
+                CRM + automation for service businesses
+              </span>
+            </div>
+            <h1
+              className="mt-6 text-[76px] leading-[0.96] tracking-[-0.045em]"
+              style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
             >
-              Book a demo
-              <ArrowRight className="h-4 w-4" />
-            </a>
-            <span className="inline-flex h-11 items-center rounded-full border border-[#0B1220]/15 px-5 text-[14px] font-semibold text-[#0B1220]">
-              See how it works
-            </span>
-          </div>
-          <div className="mt-5 text-[12px] font-medium tracking-tight text-[#0B1220]/45">
-            Unlimited users included. No per-seat fees.
-          </div>
-        </motion.div>
+              You lead.
+              <br />
+              Zapla follows
+              <br />
+              through.
+            </h1>
+            <p className="mt-7 max-w-[430px] text-[16px] leading-[1.6] text-[#0B1220]/62">
+              Bring your enquiries, conversations and next steps into one place. Zapla keeps the work
+              moving from first contact to booked, paid and returning.
+            </p>
+            <div className="mt-8 flex items-center gap-3">
+              <a
+                href="https://zapla.io/booking"
+                className="inline-flex h-[49px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white"
+                style={{ background: CYAN }}
+              >
+                Book a demo
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <span className="inline-flex h-[49px] items-center rounded-[10px] border border-[#0B1220]/14 bg-white/70 px-5 text-[15px] font-semibold text-[#0B1220]">
+                See how it works
+              </span>
+            </div>
+            <div className="mt-5 text-[12.5px] font-medium tracking-tight text-[#0B1220]/45">
+              Unlimited users included
+            </div>
+          </motion.div>
         </div>
 
-        {/* ---------- ACT B/C signals ---------- */}
+        {/* ---------- follow-through signals: 2-3 at a time, cause then effect --- */}
         <Signal
           p={p}
           at={0.03}
-          out={0.14}
+          out={0.145}
           label="New enquiry"
           time="10:14 AM"
-          x={95}
-          y={86}
+          x={94}
+          y={84}
           align="right"
           live
         />
-        <Signal p={p} at={0.3} out={0.585} label="New enquiry" time="10:14 AM" x={4.5} y={2} tone="dark" live />
+        {/* Act B: enquiry -> follow-up -> booking, anchored to the scene edges */}
+        <Signal p={p} at={0.24} out={0.44} label="New enquiry" time="10:14 AM" x={45} y={13} tone="dark" live />
+        <Signal p={p} at={0.3} out={0.46} label="Follow-up sent" time="10:41 AM" x={69} y={31} />
+        <Signal p={p} at={0.36} out={0.52} label="Booking confirmed" time="11:02 AM" x={45} y={26} tone="dark" />
+        {/* Act C: payment, review, reactivation — these drift into the product */}
         <Signal
           p={p}
-          at={0.42}
-          out={0.575}
-          label="Follow-up sent"
-          time="10:41 AM"
-          x={64}
-          y={44}
+          at={0.5}
+          out={0.71}
+          label="Invoice paid"
+          time="4:18 PM"
+          x={73}
+          y={28}
+          toX={62}
+          toY={34}
+          drift={[0.64, 0.71]}
         />
         <Signal
           p={p}
-          at={0.46}
-          out={0.575}
-          label="Booking confirmed"
-          time="11:02 AM"
-          x={60}
-          y={2}
-          align="right"
-          tone="dark"
-        />
-        <Signal p={p} at={0.5} out={0.575} label="Invoice paid" time="4:18 PM" x={63.5} y={90} />
-        <Signal
-          p={p}
-          at={0.53}
-          out={0.575}
+          at={0.54}
+          out={0.72}
           label="Review requested"
           time="Thu 9:00 AM"
-          x={59}
-          y={72}
-          align="right"
+          x={45}
+          y={38}
+          toX={62}
+          toY={42}
           tone="dark"
+          drift={[0.64, 0.72]}
         />
         <Signal
           p={p}
-          at={0.56}
-          out={0.575}
+          at={0.58}
+          out={0.73}
           label="Client reactivated"
           time="6 months later"
-          x={52}
-          y={88}
+          x={45}
+          y={50}
+          toX={62}
+          toY={50}
           tone="dark"
+          drift={[0.64, 0.73]}
         />
 
-        {/* ---------- ACT C statement ---------- */}
+        {/* ---------- ACT C statement: the anchor ---------- */}
         <motion.div
-          className="absolute left-[4.5%] top-[63%] z-[45] w-[46%]"
+          className="absolute bottom-[8%] left-[5.5%] z-[45] w-[52%]"
           style={{ opacity: msgOpacity }}
         >
-          <motion.div className="h-[2px]" style={{ width: rule, background: CYAN, maxWidth: 34 }} />
+          <motion.div className="h-[2px]" style={{ width: rule, background: CYAN, maxWidth: 36 }} />
           <div
-            className="mt-4 text-[44px] leading-[1.02] tracking-[-0.04em]"
+            className="mt-5 text-[56px] leading-[1] tracking-[-0.045em]"
             style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
           >
-            <MaskLine p={p} from={0.455} to={0.5}>
+            <MaskLine p={p} from={0.415} to={0.465} className="whitespace-nowrap">
               While you do the work,
             </MaskLine>
-            <MaskLine p={p} from={0.49} to={0.535}>
-              Zapla handles the follow-through.
+            <MaskLine p={p} from={0.45} to={0.5} className="whitespace-nowrap">
+              <span style={{ color: CYAN }}>Zapla handles</span>
+            </MaskLine>
+            <MaskLine p={p} from={0.485} to={0.535} className="whitespace-nowrap">
+              <span style={{ color: CYAN }}>the follow-through.</span>
             </MaskLine>
           </div>
         </motion.div>
@@ -658,24 +663,25 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         </motion.div>
 
         <motion.div
-          className="absolute left-[3%] top-[4%] z-40 max-w-[62%]"
+          className="absolute left-[4%] top-[3.5%] z-40 max-w-[64%]"
           style={{ opacity: headOpacity, y: headY }}
         >
           <h2
-            className="text-[46px] leading-[1] tracking-[-0.04em]"
+            className="text-[50px] leading-[1] tracking-[-0.045em]"
             style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
           >
             One customer. Everything connected.
           </h2>
-          <p className="mt-2.5 max-w-[540px] text-[14.5px] leading-[1.6] text-[#0B1220]/58">
-            The job, the conversation, the booking, the payment and the next step all stay attached
-            to the same customer.
+          <p className="mt-2.5 max-w-[560px] text-[14.5px] leading-[1.6] text-[#0B1220]/58">
+            Conversations, opportunities, bookings and next steps stay connected, so the work keeps
+            moving.
           </p>
         </motion.div>
       </div>
     </div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /* Mobile story — edge-to-edge film moments, short editorial copy       */
