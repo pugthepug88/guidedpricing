@@ -157,20 +157,19 @@ function Ribbon({ p }: { p: MotionValue<number> }) {
           if (item.kind === "rule") return <RuleLine key={i} p={p} y={y} at={item.at} />;
           return null;
         })}
+        <BlankMarker p={p} />
       </div>
     </motion.div>
   );
 }
 
+/** Marker travelling with the paper, calling out the blank stretch. */
 function BlankMarker({ p }: { p: MotionValue<number> }) {
   const s = useStage(p);
   return (
-    <motion.div
-      className="absolute left-1/2 top-1/2 -translate-y-1/2"
-      style={{ opacity: s.blankLabel, marginLeft: RIBBON_W / 2 - 150 }}
-    >
+    <motion.div className="absolute left-9 right-9 top-[700px]" style={{ opacity: s.blankLabel }}>
       <div className="flex items-center gap-4">
-        <span className="h-px w-16" style={{ background: CYAN }} />
+        <span className="h-px w-14" style={{ background: CYAN }} />
         <span className="text-[10px] font-semibold tracking-[0.3em] text-neutral-400">
           NOTHING PRINTED HERE
         </span>
@@ -178,6 +177,27 @@ function BlankMarker({ p }: { p: MotionValue<number> }) {
     </motion.div>
   );
 }
+
+/** The printer is still running. It just has nothing to print. */
+function PrintHead({ p }: { p: MotionValue<number> }) {
+  const s = useStage(p);
+  const top = useTransform(s.printHeadY, (v) => `${v * 100}%`);
+  return (
+    <motion.div
+      className="pointer-events-none absolute left-1/2 h-px w-[560px]"
+      style={{ opacity: s.printHead, top, x: "-50%", translateX: s.ribbonShift }}
+    >
+      <div
+        className="h-px w-full"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(6,182,212,0) 0%, rgba(6,182,212,0.55) 42%, rgba(6,182,212,0.55) 58%, rgba(6,182,212,0) 100%)",
+        }}
+      />
+    </motion.div>
+  );
+}
+
 
 function CopyLayer({ p }: { p: MotionValue<number> }) {
   const s = useStage(p);
