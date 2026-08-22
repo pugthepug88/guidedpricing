@@ -340,7 +340,8 @@ export function RevenueLeakageReceipt() {
     <div ref={wrapperRef} className="relative h-[560vh] bg-[#F4F6FA]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <Ribbon p={progress} />
-        <BlankMarker p={progress} />
+        <PrintHead p={progress} />
+
         <CopyLayer p={progress} />
       </div>
     </div>
