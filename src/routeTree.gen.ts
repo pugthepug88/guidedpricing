@@ -17,6 +17,7 @@ import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
 import { Route as HeroPreviewV4RouteImport } from './routes/hero-preview-v4'
 import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConceptRevenueLeakageValueRouteImport } from './routes/concept/revenue-leakage-value'
 import { Route as ConceptRevenueLeakageThreadRouteImport } from './routes/concept/revenue-leakage-thread'
 import { Route as ConceptRevenueLeakageFutureRouteImport } from './routes/concept/revenue-leakage-future'
 import { Route as ConceptRevenueLeakageCinematicRouteImport } from './routes/concept/revenue-leakage-cinematic'
@@ -64,6 +65,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConceptRevenueLeakageValueRoute =
+  ConceptRevenueLeakageValueRouteImport.update({
+    id: '/concept/revenue-leakage-value',
+    path: '/concept/revenue-leakage-value',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ConceptRevenueLeakageThreadRoute =
   ConceptRevenueLeakageThreadRouteImport.update({
     id: '/concept/revenue-leakage-thread',
@@ -115,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
   '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
+  '/concept/revenue-leakage-value': typeof ConceptRevenueLeakageValueRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -131,6 +139,7 @@ export interface FileRoutesByTo {
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
   '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
+  '/concept/revenue-leakage-value': typeof ConceptRevenueLeakageValueRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -148,6 +157,7 @@ export interface FileRoutesById {
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
   '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
+  '/concept/revenue-leakage-value': typeof ConceptRevenueLeakageValueRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
     | '/concept/revenue-leakage-thread'
+    | '/concept/revenue-leakage-value'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
     | '/concept/revenue-leakage-thread'
+    | '/concept/revenue-leakage-value'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -198,6 +210,7 @@ export interface FileRouteTypes {
     | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
     | '/concept/revenue-leakage-thread'
+    | '/concept/revenue-leakage-value'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -215,6 +228,7 @@ export interface RootRouteChildren {
   ConceptRevenueLeakageCinematicRoute: typeof ConceptRevenueLeakageCinematicRoute
   ConceptRevenueLeakageFutureRoute: typeof ConceptRevenueLeakageFutureRoute
   ConceptRevenueLeakageThreadRoute: typeof ConceptRevenueLeakageThreadRoute
+  ConceptRevenueLeakageValueRoute: typeof ConceptRevenueLeakageValueRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -274,6 +288,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/concept/revenue-leakage-value': {
+      id: '/concept/revenue-leakage-value'
+      path: '/concept/revenue-leakage-value'
+      fullPath: '/concept/revenue-leakage-value'
+      preLoaderRoute: typeof ConceptRevenueLeakageValueRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/concept/revenue-leakage-thread': {
@@ -336,6 +357,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConceptRevenueLeakageCinematicRoute: ConceptRevenueLeakageCinematicRoute,
   ConceptRevenueLeakageFutureRoute: ConceptRevenueLeakageFutureRoute,
   ConceptRevenueLeakageThreadRoute: ConceptRevenueLeakageThreadRoute,
+  ConceptRevenueLeakageValueRoute: ConceptRevenueLeakageValueRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
