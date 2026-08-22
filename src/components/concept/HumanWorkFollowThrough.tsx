@@ -151,6 +151,7 @@ function Signal({
   const ty = useTransform(p, [at, at + 0.03], [8, 0]);
   const d = drift ?? [end, end];
   const left = useTransform(p, [d[0], d[1]], [`${x}%`, `${toX ?? x}%`]);
+  const right = useTransform(p, [d[0], d[1]], [`${100 - x}%`, `${100 - (toX ?? x)}%`]);
   const top = useTransform(p, [d[0], d[1]], [`${y}%`, `${toY ?? y}%`]);
   const dark = tone === "dark";
 
@@ -158,7 +159,8 @@ function Signal({
     <motion.div
       className="absolute z-20 select-none whitespace-nowrap"
       style={{
-        ...(align === "right" ? { right: left } : { left }),
+        ...(align === "right" ? { right } : { left }),
+
         top,
         opacity,
         y: ty,
