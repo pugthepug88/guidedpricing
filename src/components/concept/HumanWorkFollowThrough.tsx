@@ -207,7 +207,7 @@ const THREAD = [
   { from: "them", text: "Perfect, book me in.", time: "10:21 AM" },
 ];
 
-function CustomerSystemView({ mediaSlot = true }: { mediaSlot?: boolean }) {
+function CustomerSystemView() {
   return (
     <AppShell activeKey="inbox" title="Sarah Chen" subtitle="Customer · Chatswood, NSW">
       <div className="flex h-full min-h-0">
@@ -247,7 +247,7 @@ function CustomerSystemView({ mediaSlot = true }: { mediaSlot?: boolean }) {
               Open
             </div>
           </div>
-          <div className="flex flex-1 flex-col justify-center gap-2.5 p-4">
+          <div className="flex flex-1 flex-col justify-end gap-2.5 p-4">
             {THREAD.map((m) => (
               <div
                 key={m.text}
@@ -278,16 +278,6 @@ function CustomerSystemView({ mediaSlot = true }: { mediaSlot?: boolean }) {
 
         {/* connected states */}
         <div className="hidden w-[248px] shrink-0 flex-col gap-2.5 border-l border-slate-200/80 bg-white p-3 md:flex">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-            Job
-          </div>
-          {/* landing slot for the retained work footage */}
-          <div
-            data-slot="work-media"
-            className="h-[86px] w-full overflow-hidden rounded-[8px] bg-slate-100"
-          >
-            {mediaSlot ? null : null}
-          </div>
           <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
             Connected
           </div>
@@ -459,10 +449,10 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
     p,
     [0.34, 0.42, 0.64, 0.7],
     [
-      [86, 112, 13, 58],
-      [86, 46, 13, 58],
-      [86, 46, 13, 58],
-      [86, 114, 13, 58],
+      [88, 112, 14, 58],
+      [88, 46, 14, 58],
+      [88, 46, 14, 58],
+      [88, 114, 14, 58],
     ],
   );
 
