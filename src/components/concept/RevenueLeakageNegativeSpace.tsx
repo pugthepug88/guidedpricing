@@ -116,7 +116,7 @@ function WordBlock({ word, p, index }: { word: Word; p: MotionValue<number>; ind
         <g mask={`url(#${maskId})`}>
           <text
             x="720"
-            y="560"
+            y="520"
             textAnchor="middle"
             fill={INK}
             fontSize={word.size}
@@ -137,8 +137,8 @@ function WordBlock({ word, p, index }: { word: Word; p: MotionValue<number>; ind
 
 /** The removed geometry reforms into one disciplined structure. */
 function Reform({ p }: { p: MotionValue<number> }) {
-  const t = useTransform(p, [0.9, 1], [0, 1]);
-  const o = useTransform(p, [0.88, 0.93], [0, 1]);
+  const t = useTransform(p, [0.92, 1], [0, 1]);
+  const o = useTransform(p, [0.91, 0.95], [0, 1]);
   const bars = [
     { x0: 160, y0: 380, x1: 452, w0: 420 },
     { x0: 620, y0: 452, x1: 592, w0: 400 },
@@ -204,8 +204,8 @@ function Enquiry({ p }: { p: MotionValue<number> }) {
 
 function CopyLayer({ p }: { p: MotionValue<number> }) {
   const kicker = useTransform(p, [0, 0.05, 0.8, 0.86], [0, 1, 1, 0]);
-  const mid = useTransform(p, [0.84, 0.88, 0.9, 0.93], [0, 1, 1, 0]);
-  const final = useTransform(p, [0.94, 0.99], [0, 1]);
+  const mid = useTransform(p, [0.82, 0.86, 0.9, 0.93], [0, 1, 1, 0]);
+  const final = useTransform(p, [0.95, 0.99], [0, 1]);
   return (
     <>
       <motion.div className="absolute right-[max(4vw,56px)] top-[112px] text-right" style={{ opacity: kicker }}>
