@@ -224,20 +224,10 @@ function Stage({ p }: { p: MotionValue<number> }) {
             </text>
           </g>
           {/* thin cyan edge left where value was cut away */}
-          {CUTS.map((c) => {
-            const o = useTransform(p, [c.at[0], c.at[0] + 0.05, c.at[1] + 0.1], [0, 0.9, 0]);
-            return (
-              <motion.rect
-                key={`edge-${c.key}`}
-                x={c.x}
-                y={c.axis === "y" ? c.y + c.h - 2 : c.y}
-                width={c.axis === "x" ? c.w : c.w}
-                height={2}
-                fill={CYAN}
-                style={{ opacity: o }}
-              />
-            );
-          })}
+          {CUTS.map((c) => (
+            <CutEdge key={`edge-${c.key}`} cut={c} p={p} />
+          ))}
+
         </motion.g>
         {CUTS.map((c) => (
           <CutLabel key={`l-${c.key}`} cut={c} p={p} />
