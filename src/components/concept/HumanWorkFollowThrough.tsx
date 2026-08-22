@@ -515,7 +515,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         />
         <Frame
           media={V.agent}
-          playing={act === 2}
+          playing={act === 1 || act === 2}
           reduced={reduced}
           radius={0}
           objectPosition="50% 40%"
@@ -641,13 +641,13 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
             className="mt-5 text-[56px] leading-[1] tracking-[-0.045em]"
             style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
           >
-            <MaskLine p={p} from={0.415} to={0.465} className="whitespace-nowrap">
+            <MaskLine p={p} from={0.335} to={0.39} className="whitespace-nowrap">
               While you do the work,
             </MaskLine>
-            <MaskLine p={p} from={0.45} to={0.5} className="whitespace-nowrap">
+            <MaskLine p={p} from={0.375} to={0.43} className="whitespace-nowrap">
               <span style={{ color: CYAN }}>Zapla handles</span>
             </MaskLine>
-            <MaskLine p={p} from={0.485} to={0.535} className="whitespace-nowrap">
+            <MaskLine p={p} from={0.415} to={0.47} className="whitespace-nowrap">
               <span style={{ color: CYAN }}>the follow-through.</span>
             </MaskLine>
           </div>
