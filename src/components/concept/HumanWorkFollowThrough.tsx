@@ -20,7 +20,7 @@ const MEDIA = "/concept/human-work";
 const NAV = 66; /* shared site nav height — the film starts below it */
 
 /* Concept-only display face: tight neo-grotesque, mature, not chunky */
-const DISPLAY = '"Inter Tight", "Manrope", system-ui, sans-serif';
+const DISPLAY = '"Outfit", "Inter Tight", "Manrope", system-ui, sans-serif';
 const INK = "#0B1220";
 const CYAN = "#06B6D4";
 
@@ -114,7 +114,7 @@ function Frame({
 }
 
 /* ------------------------------------------------------------------ */
-/* Follow-through signal — editorial caption                           */
+/* Follow-through signal — editorial caption, can drift to a target    */
 /* ------------------------------------------------------------------ */
 
 function Signal({
@@ -125,6 +125,9 @@ function Signal({
   time,
   x,
   y,
+  toX,
+  toY,
+  drift,
   align = "left",
   tone = "light",
   live,
@@ -136,6 +139,9 @@ function Signal({
   time: string;
   x: number;
   y: number;
+  toX?: number;
+  toY?: number;
+  drift?: [number, number];
   align?: "left" | "right";
   tone?: "light" | "dark";
   live?: boolean;
@@ -143,14 +149,19 @@ function Signal({
   const end = out ?? 0.6;
   const opacity = useTransform(p, [at, at + 0.012, end, end + 0.018], [0, 1, 1, 0]);
   const ty = useTransform(p, [at, at + 0.03], [8, 0]);
+  const d = drift ?? [end, end];
+  const left = useTransform(p, [d[0], d[1]], [`${x}%`, `${toX ?? x}%`]);
+  const right = useTransform(p, [d[0], d[1]], [`${100 - x}%`, `${100 - (toX ?? x)}%`]);
+  const top = useTransform(p, [d[0], d[1]], [`${y}%`, `${toY ?? y}%`]);
   const dark = tone === "dark";
 
   return (
     <motion.div
       className="absolute z-20 select-none whitespace-nowrap"
       style={{
-        ...(align === "right" ? { right: `${100 - x}%` } : { left: `${x}%` }),
-        top: `${y}%`,
+        ...(align === "right" ? { right } : { left }),
+
+        top,
         opacity,
         y: ty,
         textAlign: align,
@@ -160,13 +171,13 @@ function Signal({
         className={cn(
           "pb-[4px]",
           align === "right" ? "border-r pr-2.5" : "border-l pl-2.5",
-          live ? "border-[#06B6D4]" : dark ? "border-[#0B1220]/25" : "border-white/50",
+          live ? "border-[#06B6D4]" : dark ? "border-[#0B1220]/25" : "border-white/55",
         )}
       >
         <div
           className={cn(
-            "text-[13px] font-medium leading-none tracking-[-0.01em]",
-            dark ? "text-[#0B1220]" : "text-white drop-shadow-[0_1px_10px_rgba(6,10,20,0.6)]",
+            "text-[13.5px] font-medium leading-none tracking-[-0.01em]",
+            dark ? "text-[#0B1220]" : "text-white drop-shadow-[0_1px_10px_rgba(6,10,20,0.65)]",
           )}
           style={{ fontFamily: DISPLAY }}
         >
@@ -175,7 +186,7 @@ function Signal({
         <div
           className={cn(
             "mt-[6px] text-[9.5px] font-medium uppercase leading-none tracking-[0.18em]",
-            dark ? "text-[#0B1220]/45" : "text-white/65",
+            dark ? "text-[#0B1220]/45" : "text-white/70",
           )}
         >
           {time}
@@ -184,6 +195,7 @@ function Signal({
     </motion.div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /* Product reveal — one coherent Zapla system view                     */
@@ -195,7 +207,7 @@ const THREAD = [
   { from: "them", text: "Perfect, book me in.", time: "10:21 AM" },
 ];
 
-function CustomerSystemView({ mediaSlot = true }: { mediaSlot?: boolean }) {
+function CustomerSystemView() {
   return (
     <AppShell activeKey="inbox" title="Sarah Chen" subtitle="Customer · Chatswood, NSW">
       <div className="flex h-full min-h-0">
@@ -235,7 +247,7 @@ function CustomerSystemView({ mediaSlot = true }: { mediaSlot?: boolean }) {
               Open
             </div>
           </div>
-          <div className="flex flex-1 flex-col justify-center gap-2.5 p-4">
+          <div className="flex flex-1 flex-col justify-end gap-2.5 p-4">
             {THREAD.map((m) => (
               <div
                 key={m.text}
@@ -266,16 +278,6 @@ function CustomerSystemView({ mediaSlot = true }: { mediaSlot?: boolean }) {
 
         {/* connected states */}
         <div className="hidden w-[248px] shrink-0 flex-col gap-2.5 border-l border-slate-200/80 bg-white p-3 md:flex">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-            Job
-          </div>
-          {/* landing slot for the retained work footage */}
-          <div
-            data-slot="work-media"
-            className="h-[86px] w-full overflow-hidden rounded-[8px] bg-slate-100"
-          >
-            {mediaSlot ? null : null}
-          </div>
           <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
             Connected
           </div>
@@ -397,240 +399,241 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
   }, [p]);
 
   useMotionValueEvent(p, "change", (v: number) => {
-    const a = v < 0.18 ? 0 : v < 0.32 ? 1 : v < 0.58 ? 2 : v < 0.74 ? 3 : 4;
+    const a = v < 0.18 ? 0 : v < 0.44 ? 1 : v < 0.62 ? 2 : v < 0.74 ? 3 : 4;
     setAct((prev) => (prev === a ? prev : a));
   });
 
-  /* ---- ACT A: hero copy, fast decisive exit ---- */
-  const heroOpacity = useTransform(p, [0, 0.15, 0.185], [1, 1, 0]);
-  const heroY = useTransform(p, [0.14, 0.19], [0, -34]);
+  /* ---- ACT A: hero copy, decisive exit ---- */
+  const heroOpacity = useTransform(p, [0, 0.15, 0.19], [1, 1, 0]);
+  const heroY = useTransform(p, [0.14, 0.2], [0, -40]);
 
-  /* ---- the ONE retained object: hero montage ----
-     A: full-bleed right   B: reframed work window   D: compresses into the record  */
+  /* ---- the ONE dominant human window: full-bleed right -> left work window ----
+     Bleeds off the canvas edges on purpose: a moving window into real work.  */
   const mont = useBoxStyle(
     p,
-    [0, 0.15, 0.25, 0.58, 0.66, 0.74],
+    [0, 0.16, 0.28, 0.6, 0.68],
     [
-      [38, 0, 62, 100],
-      [38, 0, 62, 100],
-      [4, 8, 40, 52],
-      [4, 8, 40, 52],
-      [56, 26, 20, 22],
-      [70.9, 24.2, 16.4, 9.6],
+      [41, -4, 63, 108],
+      [41, -4, 63, 108],
+      [-6, -8, 50, 72],
+      [-6, -8, 50, 72],
+      [-56, -8, 50, 72],
     ],
   );
-  const montRadius = useTransform(p, [0.15, 0.25, 0.62], [0, 10, 8]);
-  const montOpacity = useTransform(p, [0.72, 0.78], [1, 0.92]);
+  const montOpacity = useTransform(p, [0.63, 0.68], [1, 0]);
 
-  /* ---- ACT C: broader world slides in from the edges ---- */
+  /* ---- ACT B: second scene bleeds in from the upper-right edge ---- */
   const broker = useBoxStyle(
     p,
-    [0.2, 0.28, 0.58, 0.64],
+    [0.22, 0.3, 0.46, 0.52],
     [
-      [104, 6, 36, 48],
-      [62, 6, 36, 48],
-      [62, 6, 36, 48],
-      [108, 6, 36, 48],
+      [104, -12, 36, 52],
+      [67, -12, 36, 52],
+      [67, -12, 36, 52],
+      [104, -12, 36, 52],
     ],
   );
-  const agent = useBoxStyle(
-    p,
-    [0.25, 0.33, 0.58, 0.63],
-    [
-      [46, -62, 14, 52],
-      [46, 8, 14, 52],
-      [46, 8, 14, 52],
-      [46, -66, 14, 52],
-    ],
-  );
+  /* ---- ACT C: the world opens sequentially, never all at once ---- */
   const dentist = useBoxStyle(
     p,
-    [0.3, 0.38, 0.58, 0.65],
+    [0.46, 0.55, 0.62, 0.68],
     [
-      [62, 108, 36, 36],
-      [62, 58, 36, 36],
-      [62, 58, 36, 36],
-      [62, 112, 36, 36],
+      [104, -10, 34, 48],
+      [69, -10, 34, 48],
+      [69, -10, 34, 48],
+      [106, -10, 34, 48],
+    ],
+  );
+  /* narrow vertical crop, bleeding off the bottom edge */
+  const agent = useBoxStyle(
+    p,
+    [0.34, 0.42, 0.62, 0.68],
+    [
+      [88, 112, 14, 58],
+      [88, 46, 14, 58],
+      [88, 46, 14, 58],
+      [88, 114, 14, 58],
     ],
   );
 
-  /* ---- ACT C: mid-scroll statement, all dark, masked reveal ---- */
-  const msgOpacity = useTransform(p, [0.44, 0.455, 0.575, 0.6], [0, 1, 1, 0]);
-  const rule = useTransform(p, [0.44, 0.5], ["0%", "100%"]);
+  /* ---- ACT C: the statement is the visual anchor ---- */
+  const msgOpacity = useTransform(p, [0.32, 0.34, 0.6, 0.645], [0, 1, 1, 0]);
+  const rule = useTransform(p, [0.32, 0.4], ["0%", "100%"]);
 
-  /* ---- ACT D/E: product state grows out of the same customer thread ---- */
+
+  /* ---- ACT D/E: the activity organises itself into one product surface ---- */
   const shellBox = useBoxStyle(
     p,
-    [0.6, 0.74],
+    [0.66, 0.84],
     [
-      [12, 20, 76, 60],
-      [3, 15, 94, 73],
+      [10, 26, 80, 60],
+      [4, 20, 92, 72],
     ],
   );
-  const shellClip = useTransform(
-    p,
-    [0.6, 0.68],
-    ["inset(46% 42% 46% 42% round 12px)", "inset(0% 0% 0% 0% round 14px)"],
-  );
-  const shellOpacity = useTransform(p, [0.595, 0.615], [0, 1]);
-  const headOpacity = useTransform(p, [0.72, 0.755], [0, 1]);
-  const headY = useTransform(p, [0.72, 0.78], [18, 0]);
+  const shellOpacity = useTransform(p, [0.655, 0.71], [0, 1]);
+  const headOpacity = useTransform(p, [0.78, 0.84], [0, 1]);
+  const headY = useTransform(p, [0.78, 0.86], [16, 0]);
 
   return (
-    <div ref={wrap} className="relative hidden h-[460vh] md:block">
+    <div ref={wrap} className="relative hidden h-[520vh] md:block">
       <div
+        data-human-work-stage="desktop"
         className="sticky w-full overflow-hidden bg-[#F5F6FA]"
         style={{ top: NAV, height: `calc(100vh - ${NAV}px)` }}
       >
-        {/* ---------- broader service world (slides, never dissolves) ---------- */}
+        {/* ---------- sequential world: second and third scenes ---------- */}
         <Frame
           media={V.broker}
-          playing={act >= 2 && act <= 2}
+          playing={act === 1}
           reduced={reduced}
-          radius={10}
-          objectPosition="42% 40%"
+          radius={0}
+          objectPosition="42% 42%"
           style={{ ...broker, zIndex: 5 }}
         />
         <Frame
-          media={V.agent}
-          playing={act >= 2 && act <= 2}
-          reduced={reduced}
-          radius={10}
-          objectPosition="50% 42%"
-          style={{ ...agent, zIndex: 6 }}
-        />
-        <Frame
           media={V.dentist}
-          playing={act >= 2 && act <= 2}
+          playing={act === 2}
           reduced={reduced}
           radius={0}
-          objectPosition="38% 45%"
+          objectPosition="40% 45%"
           style={{ ...dentist, zIndex: 5 }}
         />
+        <Frame
+          media={V.agent}
+          playing={act === 1 || act === 2}
+          reduced={reduced}
+          radius={0}
+          objectPosition="50% 40%"
+          style={{ ...agent, zIndex: 6 }}
+        />
 
-        {/* ---------- the ONE retained object ---------- */}
+        {/* ---------- the dominant human window ---------- */}
         <Frame
           media={V.montage}
-          playing={act <= 4}
+          playing={act <= 2}
           reduced={reduced}
+          radius={0}
           objectPosition="52% 48%"
-          darken={0.1}
-          style={{ ...mont, borderRadius: montRadius, opacity: montOpacity, zIndex: 40 }}
+          darken={0.08}
+          style={{ ...mont, opacity: montOpacity, zIndex: 10 }}
         />
 
         {/* ---------- ACT A hero copy ---------- */}
-        <div className="absolute left-[6%] top-1/2 z-40 w-[31%] -translate-y-1/2">
-        <motion.div style={{ opacity: heroOpacity, y: heroY }}>
-          <div className="flex items-center gap-2.5">
-            <span className="h-[2px] w-6" style={{ background: CYAN }} />
-            <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#0B1220]/55">
-              CRM + automation for service businesses
-            </span>
-          </div>
-          <h1
-            className="mt-5 text-[74px] leading-[1] tracking-[-0.04em]"
-            style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
-          >
-            You lead.
-            <br />
-            Zapla follows
-            <br />
-            through.
-          </h1>
-          <p className="mt-6 max-w-[400px] text-[15.5px] leading-[1.6] text-[#0B1220]/62">
-            One place for enquiries, conversations, bookings, payments and next steps. Zapla keeps
-            the work moving from first contact to booked, paid and returning.
-          </p>
-          <div className="mt-7 flex items-center gap-3">
-            <a
-              href="https://zapla.io/booking"
-              className="inline-flex h-11 items-center gap-2 rounded-full px-6 text-[14px] font-semibold text-white"
-              style={{ background: INK }}
+        <div className="absolute left-[5.5%] top-1/2 z-40 w-[36%] -translate-y-1/2">
+          <motion.div style={{ opacity: heroOpacity, y: heroY }}>
+            <div className="flex items-center gap-2.5">
+              <span className="h-[2px] w-6" style={{ background: CYAN }} />
+              <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#0B1220]/55">
+                CRM + automation for service businesses
+              </span>
+            </div>
+            <h1
+              className="mt-6 text-[76px] leading-[0.96] tracking-[-0.045em]"
+              style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
             >
-              Book a demo
-              <ArrowRight className="h-4 w-4" />
-            </a>
-            <span className="inline-flex h-11 items-center rounded-full border border-[#0B1220]/15 px-5 text-[14px] font-semibold text-[#0B1220]">
-              See how it works
-            </span>
-          </div>
-          <div className="mt-5 text-[12px] font-medium tracking-tight text-[#0B1220]/45">
-            Unlimited users included. No per-seat fees.
-          </div>
-        </motion.div>
+              You lead.
+              <br />
+              Zapla follows
+              <br />
+              through.
+            </h1>
+            <p className="mt-7 max-w-[430px] text-[16px] leading-[1.6] text-[#0B1220]/62">
+              Bring your enquiries, conversations and next steps into one place. Zapla keeps the work
+              moving from first contact to booked, paid and returning.
+            </p>
+            <div className="mt-8 flex items-center gap-3">
+              <a
+                href="https://zapla.io/booking"
+                className="inline-flex h-[49px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white"
+                style={{ background: CYAN }}
+              >
+                Book a demo
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <span className="inline-flex h-[49px] items-center rounded-[10px] border border-[#0B1220]/14 bg-white/70 px-5 text-[15px] font-semibold text-[#0B1220]">
+                See how it works
+              </span>
+            </div>
+            <div className="mt-5 text-[12.5px] font-medium tracking-tight text-[#0B1220]/45">
+              Unlimited users included
+            </div>
+          </motion.div>
         </div>
 
-        {/* ---------- ACT B/C signals ---------- */}
+        {/* ---------- follow-through signals: 2-3 at a time, cause then effect --- */}
         <Signal
           p={p}
           at={0.03}
-          out={0.14}
+          out={0.145}
           label="New enquiry"
           time="10:14 AM"
-          x={95}
-          y={86}
+          x={94}
+          y={84}
           align="right"
           live
         />
-        <Signal p={p} at={0.3} out={0.585} label="New enquiry" time="10:14 AM" x={4.5} y={2} tone="dark" live />
+        {/* Act B: enquiry -> follow-up -> booking, anchored to the scene edges */}
+        <Signal p={p} at={0.24} out={0.44} label="New enquiry" time="10:14 AM" x={45} y={13} tone="dark" live />
+        <Signal p={p} at={0.3} out={0.46} label="Follow-up sent" time="10:41 AM" x={69} y={31} />
+        <Signal p={p} at={0.36} out={0.52} label="Booking confirmed" time="11:02 AM" x={45} y={26} tone="dark" />
+        {/* Act C: payment, review, reactivation — these drift into the product */}
         <Signal
           p={p}
-          at={0.42}
-          out={0.575}
-          label="Follow-up sent"
-          time="10:41 AM"
-          x={64}
-          y={44}
+          at={0.5}
+          out={0.735}
+          label="Invoice paid"
+          time="4:18 PM"
+          x={73}
+          y={28}
+          toX={79}
+          toY={33}
+          drift={[0.6, 0.72]}
         />
         <Signal
           p={p}
-          at={0.46}
-          out={0.575}
-          label="Booking confirmed"
-          time="11:02 AM"
-          x={60}
-          y={2}
-          align="right"
-          tone="dark"
-        />
-        <Signal p={p} at={0.5} out={0.575} label="Invoice paid" time="4:18 PM" x={63.5} y={90} />
-        <Signal
-          p={p}
-          at={0.53}
-          out={0.575}
+          at={0.54}
+          out={0.745}
           label="Review requested"
           time="Thu 9:00 AM"
-          x={59}
-          y={72}
-          align="right"
+          x={45}
+          y={38}
+          toX={79}
+          toY={41}
           tone="dark"
+          drift={[0.6, 0.73]}
         />
         <Signal
           p={p}
-          at={0.56}
-          out={0.575}
+          at={0.58}
+          out={0.755}
           label="Client reactivated"
           time="6 months later"
-          x={52}
-          y={88}
+          x={45}
+          y={50}
+          toX={79}
+          toY={49}
           tone="dark"
+          drift={[0.6, 0.74]}
         />
 
-        {/* ---------- ACT C statement ---------- */}
+        {/* ---------- ACT C statement: the anchor ---------- */}
         <motion.div
-          className="absolute left-[4.5%] top-[63%] z-[45] w-[46%]"
+          className="absolute bottom-[8%] left-[5.5%] z-[45] w-[52%]"
           style={{ opacity: msgOpacity }}
         >
-          <motion.div className="h-[2px]" style={{ width: rule, background: CYAN, maxWidth: 34 }} />
+          <motion.div className="h-[2px]" style={{ width: rule, background: CYAN, maxWidth: 36 }} />
           <div
-            className="mt-4 text-[44px] leading-[1.02] tracking-[-0.04em]"
+            className="mt-5 text-[56px] leading-[1] tracking-[-0.045em]"
             style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
           >
-            <MaskLine p={p} from={0.455} to={0.5}>
+            <MaskLine p={p} from={0.335} to={0.39} className="whitespace-nowrap">
               While you do the work,
             </MaskLine>
-            <MaskLine p={p} from={0.49} to={0.535}>
-              Zapla handles the follow-through.
+            <MaskLine p={p} from={0.375} to={0.43} className="whitespace-nowrap">
+              <span style={{ color: CYAN }}>Zapla handles</span>
+            </MaskLine>
+            <MaskLine p={p} from={0.415} to={0.47} className="whitespace-nowrap">
+              <span style={{ color: CYAN }}>the follow-through.</span>
             </MaskLine>
           </div>
         </motion.div>
@@ -638,7 +641,7 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         {/* ---------- ACT D/E product state ---------- */}
         <motion.div
           className="absolute z-30"
-          style={{ ...shellBox, opacity: shellOpacity, clipPath: shellClip }}
+          style={{ ...shellBox, opacity: shellOpacity }}
         >
           <div className="h-full w-full overflow-hidden rounded-[14px] border border-slate-200/90 bg-white shadow-[0_40px_100px_-45px_rgba(15,23,42,0.3)]">
             <CustomerSystemView />
@@ -646,24 +649,25 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
         </motion.div>
 
         <motion.div
-          className="absolute left-[3%] top-[4%] z-40 max-w-[62%]"
+          className="absolute left-[4%] top-[3.5%] z-40 max-w-[64%]"
           style={{ opacity: headOpacity, y: headY }}
         >
           <h2
-            className="text-[46px] leading-[1] tracking-[-0.04em]"
+            className="text-[50px] leading-[1] tracking-[-0.045em]"
             style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
           >
             One customer. Everything connected.
           </h2>
-          <p className="mt-2.5 max-w-[540px] text-[14.5px] leading-[1.6] text-[#0B1220]/58">
-            The job, the conversation, the booking, the payment and the next step all stay attached
-            to the same customer.
+          <p className="mt-2.5 max-w-[560px] text-[14.5px] leading-[1.6] text-[#0B1220]/58">
+            Conversations, opportunities, bookings and next steps stay connected, so the work keeps
+            moving.
           </p>
         </motion.div>
       </div>
     </div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /* Mobile story — edge-to-edge film moments, short editorial copy       */
@@ -743,24 +747,25 @@ function MobileSequence({ reduced }: { reduced: boolean }) {
           You lead. Zapla follows through.
         </h1>
         <p className="mt-4 text-[15px] leading-[1.6] text-[#0B1220]/62">
-          One place for enquiries, conversations, bookings, payments and next steps. Zapla keeps the
-          work moving from first contact to booked, paid and returning.
+          Bring your enquiries, conversations and next steps into one place. Zapla keeps the work
+          moving from first contact to booked, paid and returning.
         </p>
         <div className="mt-6 flex flex-col gap-2.5">
           <a
             href="https://zapla.io/booking"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full text-[15px] font-semibold text-white"
-            style={{ background: INK }}
+            className="inline-flex h-[50px] items-center justify-center gap-2 rounded-[10px] text-[15px] font-semibold text-white"
+            style={{ background: CYAN }}
           >
             Book a demo <ArrowRight className="h-4 w-4" />
           </a>
-          <span className="inline-flex h-12 items-center justify-center rounded-full border border-[#0B1220]/15 text-[15px] font-semibold text-[#0B1220]">
+          <span className="inline-flex h-[50px] items-center justify-center rounded-[10px] border border-[#0B1220]/14 bg-white/70 text-[15px] font-semibold text-[#0B1220]">
             See how it works
           </span>
         </div>
         <div className="mt-4 text-[12px] font-medium text-[#0B1220]/45">
-          Unlimited users included. No per-seat fees.
+          Unlimited users included
         </div>
+
       </div>
 
       <MobileMoment
@@ -799,8 +804,9 @@ function MobileSequence({ reduced }: { reduced: boolean }) {
           One customer. Everything connected.
         </h2>
         <p className="mt-3 text-[14.5px] leading-[1.6] text-[#0B1220]/58">
-          The job, the conversation, the booking, the payment and the next step all stay attached to
-          the same customer.
+          Conversations, opportunities, bookings and next steps stay connected, so the work keeps
+          moving.
+
         </p>
       </div>
       <div className="px-4 pb-14">
