@@ -137,30 +137,59 @@ function CutLabel({ cut, p }: { cut: Cut; p: MotionValue<number> }) {
   );
 }
 
+const REFORM_TARGETS = [
+  { x: 470, w: 120 },
+  { x: 606, w: 120 },
+  { x: 742, w: 120 },
+  { x: 878, w: 120 },
+];
+
+function ReformBar({
+  cut,
+  p,
+  target,
+  accent,
+}: {
+  cut: Cut;
+  p: MotionValue<number>;
+  target: { x: number; w: number };
+  accent: boolean;
+}) {
+  const t = useTransform(p, [0.84, 0.97], [0, 1]);
+  const x = useTransform(t, [0, 1], [cut.x, target.x]);
+  const y = useTransform(t, [0, 1], [cut.y, 470]);
+  const w = useTransform(t, [0, 1], [cut.w, target.w]);
+  const h = useTransform(t, [0, 1], [cut.h, 6]);
+  const fill = useTransform(t, [0, 0.7, 1], ["#E6E9F2", "#CBD3E1", accent ? CYAN : "#0B1220"]);
+  const o = useTransform(p, [0.8, 0.86], [0, 1]);
+  return <motion.rect x={x} y={y} width={w} height={h} rx={3} fill={fill} style={{ opacity: o }} />;
+}
+
 /** Residual geometry from each cut, reassembling into one aligned structure. */
 function ReformBars({ p }: { p: MotionValue<number> }) {
-  const t = useTransform(p, [0.84, 0.97], [0, 1]);
-  const targets = [
-    { x: 470, w: 120 },
-    { x: 606, w: 120 },
-    { x: 742, w: 120 },
-    { x: 878, w: 120 },
-  ];
   return (
     <g>
-      {CUTS.map((c, i) => {
-        const tg = targets[i];
-        const x = useTransform(t, [0, 1], [c.x, tg.x]);
-        const y = useTransform(t, [0, 1], [c.y, 470]);
-        const w = useTransform(t, [0, 1], [c.axis === "x" ? c.w : c.w, tg.w]);
-        const h = useTransform(t, [0, 1], [c.h, 6]);
-        const fill = useTransform(t, [0, 0.7, 1], ["#E6E9F2", "#CBD3E1", i === 0 ? CYAN : "#0B1220"]);
-        const o = useTransform(p, [0.8, 0.86], [0, 1]);
-        return <motion.rect key={c.key} x={x} y={y} width={w} height={h} rx={3} fill={fill} style={{ opacity: o }} />;
-      })}
+      {CUTS.map((c, i) => (
+        <ReformBar key={c.key} cut={c} p={p} target={REFORM_TARGETS[i]} accent={i === 0} />
+      ))}
     </g>
   );
 }
+
+function CutEdge({ cut, p }: { cut: Cut; p: MotionValue<number> }) {
+  const o = useTransform(p, [cut.at[0], cut.at[0] + 0.05, cut.at[1] + 0.1], [0, 0.9, 0]);
+  return (
+    <motion.rect
+      x={cut.x}
+      y={cut.axis === "y" ? cut.y + cut.h - 2 : cut.y}
+      width={cut.w}
+      height={2}
+      fill={CYAN}
+      style={{ opacity: o }}
+    />
+  );
+}
+
 
 function Stage({ p }: { p: MotionValue<number> }) {
   const s = useStage(p);
