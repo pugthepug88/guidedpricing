@@ -378,13 +378,26 @@ function MaskLine({
 
 function DesktopSequence({ reduced }: { reduced: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: p } = useScroll({
-    target: wrap,
-    offset: ["start start", "end end"],
-  });
-
+  /* deterministic scroll scrub: measured every frame, immune to late layout */
+  const p = useMotionValue(0);
   const [act, setAct] = useState(0);
-  useMotionValueEvent(p, "change", (v) => {
+
+  useEffect(() => {
+    let raf = 0;
+    const tick = () => {
+      const el = wrap.current;
+      if (el) {
+        const total = el.offsetHeight - window.innerHeight;
+        const prog = total > 0 ? -el.getBoundingClientRect().top / total : 0;
+        p.set(Math.min(1, Math.max(0, prog)));
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [p]);
+
+  useMotionValueEvent(p, "change", (v: number) => {
     const a = v < 0.18 ? 0 : v < 0.32 ? 1 : v < 0.58 ? 2 : v < 0.74 ? 3 : 4;
     setAct((prev) => (prev === a ? prev : a));
   });
