@@ -613,8 +613,8 @@ function DesktopSequence({ reduced }: { reduced: boolean }) {
           out={0.575}
           label="Client reactivated"
           time="6 months later"
-          x={46}
-          y={64}
+          x={52}
+          y={88}
           tone="dark"
         />
 
