@@ -1,6 +1,8 @@
 import { Composition } from "remotion";
 import { ChaosToCalm } from "./ChaosToCalm";
 import { HumanWorkFollowThrough, HW_DURATION } from "./HumanWorkFollowThrough";
+import { OperatorAwayFilm, OAF_DURATION, OAF_FPS } from "./OperatorAwayFilm";
+
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -21,6 +23,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
       />
+      <Composition
+        id="OperatorAwayFilm"
+        component={OperatorAwayFilm}
+        durationInFrames={OAF_DURATION}
+        fps={OAF_FPS}
+        width={1920}
+        height={1080}
+      />
     </>
   );
 };
+
