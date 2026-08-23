@@ -11,84 +11,91 @@ import {
 /**
  * Operator Away — hero film.
  *
- * Told with picture only: attention on the device -> attention leaves the
- * device -> both hands back on the craft. One person, one setting, one
- * continuous performance. Cuts are framing changes inside that single take,
- * never a swap to a different person or location.
+ * Picture only, one person, one setting, one continuous performance. Cuts are
+ * framing changes inside a single unbroken take, never a swap to a different
+ * person or location.
+ *
+ * The truthful arc in the footage:
+ *   attention on the screen -> attention transfers to the craft, the phone goes
+ *   passive in the low hand -> sustained work with the phone forgotten.
  *
  * Source: Pexels 9363813 (ceramic studio, unbroken 21.6s take), normalised to
  * 1920x1080 / 30fps / CRF16 as film/studio.mp4.
  */
 
 export const OAF_FPS = 30;
-export const OAF_DURATION = 420; // 14.0s
+export const OAF_DURATION = 390; // 13.0s
+
+type Crop = { x: number; y: number; w: number; h: number };
 
 type Shot = {
   from: number;
   duration: number;
   /** source frame to start decoding from */
   startFrom: number;
+  /** framing at the head of the shot, in source pixels */
+  crop: Crop;
+  /** framing at the tail of the shot, in source pixels */
+  cropTo: Crop;
   grade: string;
-  zoom: readonly [number, number];
-  /** translate in px, at 1920x1080 */
-  pan: readonly [number, number];
-  lift: readonly [number, number];
 };
 
 const SHOTS: Shot[] = [
-  // 1 — attention is on the device
+  // 1 — attention is on the screen
   {
     from: 0,
+    duration: 95,
+    startFrom: 0,
+    crop: { x: 470, y: 110, w: 1300, h: 731 },
+    cropTo: { x: 500, y: 130, w: 1230, h: 692 },
+    grade:
+      "saturate(1.06) contrast(1.1) brightness(0.98) sepia(0.14) hue-rotate(-8deg)",
+  },
+  // 2 — the screen goes passive, the hands take over
+  {
+    from: 90,
     duration: 135,
-    startFrom: 45,
+    startFrom: 165,
+    crop: { x: 380, y: 200, w: 1400, h: 788 },
+    cropTo: { x: 440, y: 250, w: 1290, h: 726 },
     grade:
-      "saturate(1.04) contrast(1.09) brightness(0.99) sepia(0.1) hue-rotate(-7deg)",
-    zoom: [1.06, 1.11],
-    pan: [-40, 10],
-    lift: [-30, -30],
+      "saturate(1.07) contrast(1.11) brightness(0.975) sepia(0.15) hue-rotate(-8deg)",
   },
-  // 2 — the device drops out of her attention, hands take over
+  // 3 — the long held beat: only the work
   {
-    from: 135,
-    duration: 140,
-    startFrom: 280,
+    from: 220,
+    duration: 170,
+    startFrom: 465,
+    crop: { x: 520, y: 300, w: 1330, h: 748 },
+    cropTo: { x: 560, y: 332, w: 1240, h: 698 },
     grade:
-      "saturate(1.06) contrast(1.1) brightness(0.98) sepia(0.11) hue-rotate(-7deg)",
-    zoom: [1.14, 1.2],
-    pan: [30, -30],
-    lift: [10, 40],
-  },
-  // 3 — the long held beat: only the work is in frame
-  {
-    from: 275,
-    duration: 145,
-    startFrom: 500,
-    grade:
-      "saturate(1.07) contrast(1.11) brightness(0.98) sepia(0.12) hue-rotate(-7deg)",
-    zoom: [1.24, 1.34],
-    pan: [-10, -60],
-    lift: [70, 120],
+      "saturate(1.08) contrast(1.12) brightness(0.97) sepia(0.16) hue-rotate(-8deg)",
   },
 ];
+
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 const ShotLayer: React.FC<Shot> = ({
   duration,
   startFrom,
+  crop,
+  cropTo,
   grade,
-  zoom,
-  pan,
-  lift,
 }) => {
   const frame = useCurrentFrame();
   const p = interpolate(frame, [0, duration], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const scale = interpolate(p, [0, 1], [zoom[0], zoom[1]]);
-  const x = interpolate(p, [0, 1], [pan[0], pan[1]]);
-  const y = interpolate(p, [0, 1], [lift[0], lift[1]]);
-  // short, restrained cross-dissolve on the framing changes
-  const fade = interpolate(frame, [0, 10], [0, 1], {
+
+  const h = lerp(crop.h, cropTo.h, p);
+  const cx = lerp(crop.x + crop.w / 2, cropTo.x + cropTo.w / 2, p);
+  const cy = lerp(crop.y + crop.h / 2, cropTo.y + cropTo.h / 2, p);
+  const scale = 1080 / h;
+  const dx = cx - 960;
+  const dy = cy - 540;
+
+  const fade = interpolate(frame, [0, 9], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -99,7 +106,7 @@ const ShotLayer: React.FC<Shot> = ({
     >
       <AbsoluteFill
         style={{
-          transform: `scale(${scale}) translate(${x}px, ${y}px)`,
+          transform: `scale(${scale}) translate(${-dx}px, ${-dy}px)`,
           filter: grade,
         }}
       >
@@ -110,10 +117,18 @@ const ShotLayer: React.FC<Shot> = ({
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </AbsoluteFill>
+      {/* suppress the blown window streak in the upper right */}
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 45%, rgba(0,0,0,0) 40%, rgba(10,9,8,0.36) 100%)",
+            "linear-gradient(200deg, rgba(24,17,11,0.5) 0%, rgba(24,17,11,0.16) 26%, rgba(0,0,0,0) 46%)",
+        }}
+      />
+      {/* consistent black point + quiet vignette across every shot */}
+      <AbsoluteFill
+        style={{
+          background:
+            "radial-gradient(118% 88% at 48% 46%, rgba(0,0,0,0) 38%, rgba(12,9,7,0.42) 100%)",
         }}
       />
     </AbsoluteFill>
@@ -127,7 +142,7 @@ export const OperatorAwayFilm: React.FC = () => {
   });
   const closeOut = interpolate(
     frame,
-    [OAF_DURATION - 22, OAF_DURATION - 1],
+    [OAF_DURATION - 26, OAF_DURATION - 1],
     [0, 1],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
@@ -146,7 +161,7 @@ export const OperatorAwayFilm: React.FC = () => {
       <AbsoluteFill
         style={{
           backgroundColor: "#0B0B0C",
-          opacity: Math.max(1 - openUp, closeOut * 0.55),
+          opacity: Math.max(1 - openUp, closeOut * 0.5),
         }}
       />
     </AbsoluteFill>
