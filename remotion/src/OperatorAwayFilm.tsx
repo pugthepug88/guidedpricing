@@ -1,8 +1,8 @@
 import React from "react";
 import {
   AbsoluteFill,
-  OffthreadVideo,
   Sequence,
+  Video,
   interpolate,
   staticFile,
   useCurrentFrame,
@@ -11,100 +11,124 @@ import {
 /**
  * Operator Away — hero film.
  *
- * Thesis, told with picture only:
- *   brief admin interaction -> deliberate disengagement -> back to real work,
- *   and the held beat is the operator NOT touching the system.
+ * Picture only, one person, one setting, one continuous performance. Cuts are
+ * framing changes inside a single unbroken take, never a swap to a different
+ * person or location.
  *
- * Shots (all Pexels, free commercial use):
- *   studio.mp4     — ceramic artisan: phone in hand, then sets it down and glazes (same shot/person)
- *   shop-phone.mp4 — barbershop owner checks his phone (same shop as below)
- *   shop-work.mp4  — same barbershop, hands on the client, no device anywhere
+ * The truthful arc in the footage:
+ *   attention on the screen -> attention transfers to the craft, the phone goes
+ *   passive in the low hand -> sustained work with the phone forgotten.
+ *
+ * Source: Pexels 9363813 (ceramic studio, unbroken 21.6s take), normalised to
+ * 1920x1080 / 30fps / CRF16 as film/studio.mp4.
  */
 
 export const OAF_FPS = 30;
-export const OAF_DURATION = 510; // 17.0s
+export const OAF_DURATION = 390; // 13.0s
 
-const SHOTS = [
-  // studio, admin beat
+type Crop = { x: number; y: number; w: number; h: number };
+
+type Shot = {
+  from: number;
+  duration: number;
+  /** source frame to start decoding from */
+  startFrom: number;
+  /** framing at the head of the shot, in source pixels */
+  crop: Crop;
+  /** framing at the tail of the shot, in source pixels */
+  cropTo: Crop;
+  grade: string;
+};
+
+const SHOTS: Shot[] = [
+  // 1 — attention is on the screen
   {
-    src: "film/studio.mp4",
     from: 0,
-    duration: 150,
-    startFrom: 48,
+    duration: 95,
+    startFrom: 0,
+    crop: { x: 470, y: 110, w: 1300, h: 731 },
+    cropTo: { x: 500, y: 130, w: 1230, h: 692 },
     grade:
-      "saturate(1.04) contrast(1.09) brightness(0.99) sepia(0.11) hue-rotate(-7deg)",
-    zoom: [1.04, 1.0] as const,
-    pan: [-10, 6] as const,
+      "saturate(1.06) contrast(1.1) brightness(0.98) sepia(0.14) hue-rotate(-8deg)",
   },
-  // studio, phone is down, hands are working
+  // 2 — the screen goes passive, the hands take over
   {
-    src: "film/studio.mp4",
-    from: 150,
-    duration: 150,
-    startFrom: 452,
+    from: 90,
+    duration: 135,
+    startFrom: 165,
+    crop: { x: 380, y: 200, w: 1400, h: 788 },
+    cropTo: { x: 440, y: 250, w: 1290, h: 726 },
     grade:
-      "saturate(1.06) contrast(1.1) brightness(0.98) sepia(0.12) hue-rotate(-7deg)",
-    zoom: [1.0, 1.06] as const,
-    pan: [8, -8] as const,
+      "saturate(1.07) contrast(1.11) brightness(0.975) sepia(0.15) hue-rotate(-8deg)",
   },
-  // barbershop, admin beat
+  // 3 — the long held beat: only the work
   {
-    src: "film/shop-phone.mp4",
-    from: 300,
-    duration: 90,
-    startFrom: 96,
-    grade: "saturate(1.02) contrast(1.07) brightness(1.0) sepia(0.05)",
-    zoom: [1.03, 1.0] as const,
-    pan: [6, -4] as const,
-  },
-  // barbershop, back on the client — the long held beat
-  {
-    src: "film/shop-work.mp4",
-    from: 390,
-    duration: 120,
-    startFrom: 126,
-    grade: "saturate(1.02) contrast(1.08) brightness(1.0) sepia(0.06)",
-    zoom: [1.0, 1.05] as const,
-    pan: [0, 10] as const,
+    from: 220,
+    duration: 170,
+    startFrom: 465,
+    crop: { x: 520, y: 300, w: 1330, h: 748 },
+    cropTo: { x: 560, y: 332, w: 1240, h: 698 },
+    grade:
+      "saturate(1.08) contrast(1.12) brightness(0.97) sepia(0.16) hue-rotate(-8deg)",
   },
 ];
 
-const Shot: React.FC<(typeof SHOTS)[number]> = ({
-  src,
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+const ShotLayer: React.FC<Shot> = ({
   duration,
   startFrom,
+  crop,
+  cropTo,
   grade,
-  zoom,
-  pan,
 }) => {
   const frame = useCurrentFrame();
   const p = interpolate(frame, [0, duration], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const scale = interpolate(p, [0, 1], [zoom[0], zoom[1]]);
-  const x = interpolate(p, [0, 1], [pan[0], pan[1]]);
+
+  const h = lerp(crop.h, cropTo.h, p);
+  const cx = lerp(crop.x + crop.w / 2, cropTo.x + cropTo.w / 2, p);
+  const cy = lerp(crop.y + crop.h / 2, cropTo.y + cropTo.h / 2, p);
+  const scale = 1080 / h;
+  const dx = cx - 960;
+  const dy = cy - 540;
+
+  const fade = interpolate(frame, [0, 9], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0B0B0C", overflow: "hidden" }}>
+    <AbsoluteFill
+      style={{ backgroundColor: "#0B0B0C", overflow: "hidden", opacity: fade }}
+    >
       <AbsoluteFill
         style={{
-          transform: `scale(${scale}) translateX(${x}px)`,
+          transform: `scale(${scale}) translate(${-dx}px, ${-dy}px)`,
           filter: grade,
         }}
       >
-        <OffthreadVideo
-          src={staticFile(src)}
+        <Video
+          src={staticFile("film/studio.mp4")}
           startFrom={startFrom}
           muted
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </AbsoluteFill>
+      {/* suppress the blown window streak in the upper right */}
+      <AbsoluteFill
+        style={{
+          background:
+            "linear-gradient(200deg, rgba(24,17,11,0.5) 0%, rgba(24,17,11,0.16) 26%, rgba(0,0,0,0) 46%)",
+        }}
+      />
       {/* consistent black point + quiet vignette across every shot */}
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(120% 90% at 50% 45%, rgba(0,0,0,0) 42%, rgba(10,9,8,0.34) 100%)",
+            "radial-gradient(118% 88% at 48% 46%, rgba(0,0,0,0) 38%, rgba(12,9,7,0.42) 100%)",
         }}
       />
     </AbsoluteFill>
@@ -113,23 +137,32 @@ const Shot: React.FC<(typeof SHOTS)[number]> = ({
 
 export const OperatorAwayFilm: React.FC = () => {
   const frame = useCurrentFrame();
-  const openUp = interpolate(frame, [0, 14], [0, 1], {
+  const openUp = interpolate(frame, [0, 16], [0, 1], {
     extrapolateRight: "clamp",
   });
+  const closeOut = interpolate(
+    frame,
+    [OAF_DURATION - 26, OAF_DURATION - 1],
+    [0, 1],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
 
   return (
     <AbsoluteFill style={{ backgroundColor: "#0B0B0C" }}>
       {SHOTS.map((shot) => (
         <Sequence
-          key={`${shot.src}-${shot.from}`}
+          key={shot.from}
           from={shot.from}
           durationInFrames={shot.duration}
         >
-          <Shot {...shot} />
+          <ShotLayer {...shot} />
         </Sequence>
       ))}
       <AbsoluteFill
-        style={{ backgroundColor: "#0B0B0C", opacity: 1 - openUp }}
+        style={{
+          backgroundColor: "#0B0B0C",
+          opacity: Math.max(1 - openUp, closeOut * 0.5),
+        }}
       />
     </AbsoluteFill>
   );
