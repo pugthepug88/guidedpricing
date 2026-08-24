@@ -547,7 +547,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   const mechLive = !reduced && stage <= 3;
   const brokerLive = !reduced && stage >= 1 && stage <= 3;
   const agentLive = !reduced && stage >= 1 && stage <= 3;
-  const facLive = !reduced && stage === 3;
+  const facLive = !reduced && !mobile && stage === 3;
 
   /* ---- window boxes ------------------------------------------------ */
   /* MECHANIC — opener and dominant world */
@@ -559,10 +559,10 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
       ? [
           [0, 0, 100, 62],
           [0, 0, 100, 62],
-          [0, 4, 88, 44],
-          [0, 8, 74, 36],
-          [0, 10, 66, 32],
-          [0, 10, 66, 32],
+          [0, 0, 92, 48],
+          [0, 24, 66, 26],
+          [0, 24, 60, 24],
+          [0, 24, 60, 24],
         ]
       : [
           [40, 0, 60, 100],
@@ -583,11 +583,11 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
     brokerAt,
     mobile
       ? [
-          [100, 46, 82, 34],
-          [18, 46, 82, 34],
-          [26, 50, 74, 32],
-          [34, 52, 66, 30],
-          [34, 52, 66, 30],
+          [100, 52, 92, 36],
+          [6, 52, 92, 36],
+          [10, 58, 84, 30],
+          [14, 60, 78, 28],
+          [14, 60, 78, 28],
         ]
       : [
           [100, 38, 42, 54],
@@ -606,10 +606,10 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
     agentAt,
     mobile
       ? [
-          [-100, 16, 78, 24],
-          [10, 16, 78, 24],
-          [14, 18, 72, 23],
-          [14, 18, 72, 23],
+          [-100, 30, 70, 20],
+          [32, 30, 68, 20],
+          [34, 32, 64, 19],
+          [34, 32, 64, 19],
         ]
       : [
           [100, 8, 46, 30],
@@ -639,7 +639,8 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [80, 72, 18, 22],
         ],
   );
-  const facOp = useTransform(p, [0.46, 0.53, 0.57, 0.615], [0, 1, 1, 0]);
+  const facOpRaw = useTransform(p, [0.46, 0.53, 0.57, 0.615], [0, 1, 1, 0]);
+  const facOp = useTransform(facOpRaw, (v) => (mobile ? 0 : v));
 
   /* canvas + hero copy */
   const canvas = useTransform(p, [0.595, 0.648], ["#080C14", "#F5F6FA"]);
@@ -656,7 +657,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
     cueAt,
     mobile
       ? [
-          [8, 42, 84, 9],
+          [8, 86, 84, 8],
           [10, 30, 80, 8],
           [19.5, 20.6, 64, 5.1],
           [19.5, 20.6, 64, 5.1],
@@ -829,7 +830,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
         <motion.div
           className={cn(
             "absolute z-40",
-            mobile ? "left-[6%] top-[56%] w-[88%]" : "left-[7%] top-[62%] w-[40%]",
+            mobile ? "left-[6%] top-[6%] w-[88%]" : "left-[7%] top-[62%] w-[40%]",
           )}
           style={{ opacity: stmtOpacity }}
         >
