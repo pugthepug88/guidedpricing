@@ -573,7 +573,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [5, 12, 40, 48],
         ],
   );
-  const mechOp = useTransform(p, [0, 0.6, 0.68], [1, 1, 0]);
+  const mechOp = useTransform(p, [0, 0.585, 0.64], [1, 1, 0]);
   const mechDim = useTransform(p, [0, 0.12, 0.3, 0.46, 0.62], [0.12, 0.12, 0.1, 0.12, 0.2]);
 
   /* BROKER — second world, promoted */
@@ -597,7 +597,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [46, 46, 34, 42],
         ],
   );
-  const brokerOp = useTransform(p, [0.14, 0.2, 0.6, 0.665], [0, 1, 1, 0]);
+  const brokerOp = useTransform(p, [0.14, 0.2, 0.58, 0.632], [0, 1, 1, 0]);
 
   /* AGENT — third world, wide cinematic */
   const agentAt = [0.3, 0.42, 0.6, 0.66];
@@ -618,7 +618,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [58, 8, 40, 27],
         ],
   );
-  const agentOp = useTransform(p, [0.3, 0.36, 0.6, 0.655], [0, 1, 1, 0]);
+  const agentOp = useTransform(p, [0.3, 0.36, 0.575, 0.625], [0, 1, 1, 0]);
 
   /* FACILITIES — brief supporting glimpse */
   const facAt = [0.46, 0.54, 0.6, 0.645];
@@ -639,18 +639,18 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [80, 72, 18, 22],
         ],
   );
-  const facOp = useTransform(p, [0.46, 0.53, 0.59, 0.64], [0, 1, 1, 0]);
+  const facOp = useTransform(p, [0.46, 0.53, 0.57, 0.615], [0, 1, 1, 0]);
 
   /* canvas + hero copy */
-  const canvas = useTransform(p, [0.6, 0.68], ["#080C14", "#F5F6FA"]);
+  const canvas = useTransform(p, [0.595, 0.648], ["#080C14", "#F5F6FA"]);
   const heroOpacity = useTransform(p, [0, 0.08, 0.135], [1, 1, 0]);
   const heroY = useTransform(p, [0.08, 0.14], [0, -28]);
 
   /* statement at the recognition peak */
-  const stmtOpacity = useTransform(p, [0.46, 0.5, 0.575, 0.605], [0, 1, 1, 0]);
+  const stmtOpacity = useTransform(p, [0.44, 0.49, 0.555, 0.585], [0, 1, 1, 0]);
 
   /* surviving thread -> lands inside the record */
-  const cueAt = [0.6, 0.67, 0.74, 0.8];
+  const cueAt = [0.575, 0.655, 0.74, 0.8];
   const cue = useBoxStyle(
     p,
     cueAt,
@@ -668,8 +668,8 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [21.7, 26.3, 17.4, 4.8],
         ],
   );
-  const cueSurface = useTransform(p, [0.645, 0.7], [0, 1]);
-  const cueOpacity = useTransform(p, [0.575, 0.615, 0.755, 0.785], [0, 1, 1, 0]);
+  const cueSurface = useTransform(p, [0.615, 0.672], [0, 1]);
+  const cueOpacity = useTransform(p, [0.555, 0.6, 0.755, 0.785], [0, 1, 1, 0]);
   const cueShadow = useTransform(
     p,
     [0.67, 0.74],
@@ -679,19 +679,19 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   /* product shell arrives early, while the last films recede */
   const shellBox = useBoxStyle(
     p,
-    [0.64, 0.74],
+    [0.618, 0.74],
     mobile
       ? [
-          [4, 26, 92, 46],
+          [3, 18, 94, 70],
           [3, 14, 94, 78],
         ]
       : [
-          [20, 30, 60, 40],
+          [10, 24, 80, 64],
           [3, 20, 94, 74],
         ],
   );
-  const shellOpacity = useTransform(p, [0.635, 0.68], [0, 1]);
-  const mechCueOpacity = useTransform(p, [0, 0.05, 0.575, 0.6], [0, 1, 1, 0]);
+  const shellOpacity = useTransform(p, [0.612, 0.658], [0, 1]);
+  const mechCueOpacity = useTransform(p, [0, 0.05, 0.545, 0.578], [0, 1, 1, 0]);
   const headOpacity = useTransform(p, [0.78, 0.85], [0, 1]);
   const headY = useTransform(p, [0.78, 0.86], [16, 0]);
 
@@ -835,8 +835,8 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
         >
           <MaskLine
             p={p}
-            from={0.49}
-            to={0.535}
+            from={0.47}
+            to={0.518}
             className={cn(
               "tracking-[-0.04em] text-white [text-shadow:0_2px_28px_rgba(6,10,20,0.85)]",
               mobile ? "text-[24px] leading-[1.1]" : "text-[42px] leading-[1.05]",
