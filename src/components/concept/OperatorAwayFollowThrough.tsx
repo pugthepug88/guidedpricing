@@ -526,9 +526,8 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   const headY = useTransform(p, [0.84, 0.9], [14, 0]);
 
   return (
-    <div className={mobile ? "relative h-[520vh]" : "relative h-[500vh]"}>
-      <div ref={wrap} className="absolute inset-0">
-        <motion.div
+    <div ref={wrap} className={mobile ? "relative h-[520vh]" : "relative h-[500vh]"}>
+      <motion.div
           className="sticky w-full overflow-hidden"
           style={{ top: NAV, height: `calc(100vh - ${NAV}px)`, background: canvas }}
         >
@@ -679,8 +678,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
               The conversation, booking, payment and next step stay attached to the same customer.
             </p>
           </motion.div>
-        </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 }
