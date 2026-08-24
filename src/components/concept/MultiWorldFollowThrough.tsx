@@ -634,7 +634,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
         ],
   );
   const cueSurface = useTransform(p, [0.665, 0.705], [0, 1]);
-  const cueOpacity = useTransform(p, [0.44, 0.5, 0.76, 0.79], [0, 1, 1, 0]);
+  const cueOpacity = useTransform(p, [0.6, 0.645, 0.76, 0.79], [0, 1, 1, 0]);
 
   const shellBox = useBoxStyle(
     p,
@@ -759,10 +759,18 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
         <motion.div
           className={cn(
             "absolute z-40",
-            mobile ? "left-[6%] top-[43%] w-[88%]" : "left-[34%] top-[44%] w-[42%]",
+            mobile ? "left-[6%] top-[43%] w-[88%]" : "left-[30%] top-[41%] w-[44%]",
           )}
           style={{ opacity: stmtOpacity }}
         >
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -inset-x-8 -inset-y-10 -z-10"
+            style={{
+              background:
+                "radial-gradient(60% 60% at 40% 50%, rgba(6,10,20,0.86) 0%, rgba(6,10,20,0.55) 55%, rgba(6,10,20,0) 100%)",
+            }}
+          />
           <MaskLine
             p={p}
             from={0.545}
