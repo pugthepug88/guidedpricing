@@ -24,6 +24,7 @@ import { Route as ConceptRevenueLeakageNegativeSpaceRouteImport } from './routes
 import { Route as ConceptRevenueLeakageFutureRouteImport } from './routes/concept/revenue-leakage-future'
 import { Route as ConceptRevenueLeakageCinematicRouteImport } from './routes/concept/revenue-leakage-cinematic'
 import { Route as ConceptOperatorAwayFollowThroughRouteImport } from './routes/concept/operator-away-follow-through'
+import { Route as ConceptMultiWorldFollowThroughRouteImport } from './routes/concept/multi-world-follow-through'
 import { Route as ConceptHumanWorkFollowThroughRouteImport } from './routes/concept/human-work-follow-through'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -111,6 +112,12 @@ const ConceptOperatorAwayFollowThroughRoute =
     path: '/concept/operator-away-follow-through',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ConceptMultiWorldFollowThroughRoute =
+  ConceptMultiWorldFollowThroughRouteImport.update({
+    id: '/concept/multi-world-follow-through',
+    path: '/concept/multi-world-follow-through',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ConceptHumanWorkFollowThroughRoute =
   ConceptHumanWorkFollowThroughRouteImport.update({
     id: '/concept/human-work-follow-through',
@@ -148,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/human-work-follow-through': typeof ConceptHumanWorkFollowThroughRoute
+  '/concept/multi-world-follow-through': typeof ConceptMultiWorldFollowThroughRoute
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
@@ -169,6 +177,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/human-work-follow-through': typeof ConceptHumanWorkFollowThroughRoute
+  '/concept/multi-world-follow-through': typeof ConceptMultiWorldFollowThroughRoute
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
@@ -191,6 +200,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/human-work-follow-through': typeof ConceptHumanWorkFollowThroughRoute
+  '/concept/multi-world-follow-through': typeof ConceptMultiWorldFollowThroughRoute
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
   '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
@@ -214,6 +224,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/human-work-follow-through'
+    | '/concept/multi-world-follow-through'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
@@ -235,6 +246,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/human-work-follow-through'
+    | '/concept/multi-world-follow-through'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
@@ -256,6 +268,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/human-work-follow-through'
+    | '/concept/multi-world-follow-through'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leakage-cinematic'
     | '/concept/revenue-leakage-future'
@@ -278,6 +291,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ConceptHumanWorkFollowThroughRoute: typeof ConceptHumanWorkFollowThroughRoute
+  ConceptMultiWorldFollowThroughRoute: typeof ConceptMultiWorldFollowThroughRoute
   ConceptOperatorAwayFollowThroughRoute: typeof ConceptOperatorAwayFollowThroughRoute
   ConceptRevenueLeakageCinematicRoute: typeof ConceptRevenueLeakageCinematicRoute
   ConceptRevenueLeakageFutureRoute: typeof ConceptRevenueLeakageFutureRoute
@@ -395,6 +409,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptOperatorAwayFollowThroughRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/concept/multi-world-follow-through': {
+      id: '/concept/multi-world-follow-through'
+      path: '/concept/multi-world-follow-through'
+      fullPath: '/concept/multi-world-follow-through'
+      preLoaderRoute: typeof ConceptMultiWorldFollowThroughRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/concept/human-work-follow-through': {
       id: '/concept/human-work-follow-through'
       path: '/concept/human-work-follow-through'
@@ -439,6 +460,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ConceptHumanWorkFollowThroughRoute: ConceptHumanWorkFollowThroughRoute,
+  ConceptMultiWorldFollowThroughRoute: ConceptMultiWorldFollowThroughRoute,
   ConceptOperatorAwayFollowThroughRoute: ConceptOperatorAwayFollowThroughRoute,
   ConceptRevenueLeakageCinematicRoute: ConceptRevenueLeakageCinematicRoute,
   ConceptRevenueLeakageFutureRoute: ConceptRevenueLeakageFutureRoute,
