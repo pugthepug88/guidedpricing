@@ -87,13 +87,22 @@ function FilmObject({
     if (!v || reduced) return;
     void v.play().catch(() => {});
     let raf = 0;
+    const start = performance.now();
+    let live = false;
     const tick = () => {
-      onTime(v.currentTime);
+      /* if playback never starts (blocked or unsupported decode) fall back to
+         a wall clock on the same 13s cut so the cue still tells the story */
+      if (v.currentTime > 0.05) live = true;
+      const t = live
+        ? v.currentTime
+        : ((performance.now() - start) / 1000) % FILM_SECONDS;
+      onTime(t);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [reduced, onTime]);
+
 
   if (reduced) {
     return (
