@@ -550,7 +550,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   const headY = useTransform(p, [0.84, 0.9], [14, 0]);
 
   return (
-    <div ref={wrap} className={mobile ? "relative h-[520vh]" : "relative h-[500vh]"}>
+    <div ref={wrap} data-seq="oaft" className={mobile ? "relative h-[520vh]" : "relative h-[500vh]"}>
       <motion.div
           className="sticky w-full overflow-hidden"
           style={{ top: NAV, height: `calc(100vh - ${NAV}px)`, background: canvas }}
