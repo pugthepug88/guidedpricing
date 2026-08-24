@@ -466,7 +466,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   /* film: one object that reframes, never dissolves ------------------ */
   const filmBox = useBoxStyle(
     p,
-    [0, 0.14, 0.34, 0.5, 0.58, 0.68, 0.86],
+    [0, 0.14, 0.34, 0.56, 0.62, 0.7, 0.86],
     mobile
       ? [
           [0, 0, 100, 52],
@@ -487,10 +487,10 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [3, 4, 15.5, 15],
         ],
   );
-  const filmRadius = useTransform(p, [0.14, 0.34, 0.6, 0.68], [0, 10, 10, 8]);
+  const filmRadius = useTransform(p, [0.14, 0.34, 0.62, 0.7], [0, 10, 10, 8]);
 
   /* canvas: cinematic dark -> light product world ------------------- */
-  const canvas = useTransform(p, [0.54, 0.62], ["#0A0E17", "#F5F6FA"]);
+  const canvas = useTransform(p, [0.585, 0.635], ["#0A0E17", "#F5F6FA"]);
   const veil = useTransform(p, [0, 0.14, 0.34], [0.3, 0.3, 0.16]);
 
   /* hero copy -------------------------------------------------------- */
@@ -500,7 +500,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   /* the persistent cue ---------------------------------------------- */
   const cueBox = useBoxStyle(
     p,
-    [0, 0.5, 0.62, 0.74, 0.86],
+    [0, 0.56, 0.66, 0.76, 0.86],
     mobile
       ? [
           [6, 74, 88, 12],
@@ -517,19 +517,19 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [30, 44, 30, 13],
         ],
   );
-  const cueSurface = useTransform(p, [0.58, 0.66], [0, 1]);
-  const cueInk = useTransform(p, [0.57, 0.64], ["#F7F8FC", INK]);
-  const cueSub = useTransform(p, [0.57, 0.64], ["rgba(247,248,252,0.5)", "rgba(11,18,32,0.45)"]);
-  const cueOpacity = useTransform(p, [0.74, 0.79], [1, 0]);
-  const cueScale = useTransform(p, [0.64, 0.74], [1, 1.05]);
+  const cueSurface = useTransform(p, [0.6, 0.645], [0, 1]);
+  const cueInk = useTransform(p, [0.615, 0.645], ["#F7F8FC", INK]);
+  const cueSub = useTransform(p, [0.615, 0.645], ["rgba(247,248,252,0.5)", "rgba(11,18,32,0.45)"]);
+  const cueOpacity = useTransform(p, [0.735, 0.775], [1, 0]);
+  const cueScale = useTransform(p, [0.66, 0.74], [1, 1.04]);
 
   /* statement -------------------------------------------------------- */
-  const stmtOpacity = useTransform(p, [0.34, 0.38, 0.5, 0.535], [0, 1, 1, 0]);
+  const stmtOpacity = useTransform(p, [0.34, 0.38, 0.53, 0.565], [0, 1, 1, 0]);
 
   /* product shell ---------------------------------------------------- */
   const shellBox = useBoxStyle(
     p,
-    [0.64, 0.84],
+    [0.66, 0.84],
     mobile
       ? [
           [6, 30, 88, 12],
@@ -542,12 +542,12 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   );
   const shellClip = useTransform(
     p,
-    [0.64, 0.84],
+    [0.66, 0.84],
     ["inset(0% 0% 0% 0% round 10px)", "inset(0% 0% 0% 0% round 12px)"],
   );
-  const shellOpacity = useTransform(p, [0.625, 0.665], [0, 1]);
-  const headOpacity = useTransform(p, [0.76, 0.82], [0, 1]);
-  const headY = useTransform(p, [0.76, 0.83], [14, 0]);
+  const shellOpacity = useTransform(p, [0.655, 0.685], [0, 1]);
+  const headOpacity = useTransform(p, [0.74, 0.8], [0, 1]);
+  const headY = useTransform(p, [0.74, 0.81], [14, 0]);
 
   return (
     <div ref={wrap} data-seq="oaft" className={mobile ? "relative h-[520vh]" : "relative h-[500vh]"}>
