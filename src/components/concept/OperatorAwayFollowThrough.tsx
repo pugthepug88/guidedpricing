@@ -13,7 +13,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionValue,
-  useMotionValueEvent,
   useReducedMotion,
   useTransform,
   type MotionValue,
@@ -427,7 +426,6 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const p = useMotionValue(0);
   const [idx, setIdx] = useState(0);
-  const locked = useRef(false);
 
   useEffect(() => {
     let raf = 0;
@@ -444,20 +442,20 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
     return () => cancelAnimationFrame(raf);
   }, [p]);
 
-  /* once the product handoff begins the state is settled and stops cycling */
-  useMotionValueEvent(p, "change", (v: number) => {
-    const next = v >= 0.66;
-    if (next !== locked.current) {
-      locked.current = next;
-      if (next) setIdx(3);
-    }
-  });
-
   /* the cue advances on the film's own clock, only after attention has
-     transferred to the craft — never while she is engaged with the screen */
+     transferred to the craft — never while she is engaged with the screen.
+     Once the product handoff begins the state is settled and stops cycling. */
   const onTime = (t: number) => {
-    if (locked.current) return;
-    const n = t >= WORK_SUSTAINED ? 3 : t >= WORK_HELD ? 2 : t >= ATTENTION_SHIFT ? 1 : 0;
+    const settled = p.get() >= 0.64;
+    const n = settled
+      ? 3
+      : t >= WORK_SUSTAINED
+        ? 3
+        : t >= WORK_HELD
+          ? 2
+          : t >= ATTENTION_SHIFT
+            ? 1
+            : 0;
     setIdx((prev) => (prev === n ? prev : n));
   };
 
