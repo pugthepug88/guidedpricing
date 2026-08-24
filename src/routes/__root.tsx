@@ -4,7 +4,6 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -135,27 +134,15 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-/** Internal prototypes render standalone, without marketing chrome. */
-function isChromelessPath(pathname: string) {
-  return (
-    pathname.startsWith("/concept") ||
-    pathname.startsWith("/hero-preview-") ||
-    pathname.startsWith("/homepage-draft-") ||
-    pathname.startsWith("/mask-lab")
-  );
-}
-
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const chromeless = isChromelessPath(pathname);
 
   return (
     <QueryClientProvider client={queryClient}>
-      {!chromeless && <SiteNav />}
+      <SiteNav />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      {!chromeless && <SiteFooter />}
+      <SiteFooter />
     </QueryClientProvider>
   );
 }
