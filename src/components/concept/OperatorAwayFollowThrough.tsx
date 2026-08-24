@@ -82,6 +82,8 @@ function FilmObject({
   onTime: (t: number) => void;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const cb = useRef(onTime);
+  cb.current = onTime;
 
   useEffect(() => {
     const v = ref.current;
@@ -97,12 +99,13 @@ function FilmObject({
       const t = live
         ? v.currentTime
         : ((performance.now() - start) / 1000) % FILM_SECONDS;
-      onTime(t);
+      cb.current(t);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [reduced, onTime]);
+  }, [reduced]);
+
 
 
   if (reduced) {
