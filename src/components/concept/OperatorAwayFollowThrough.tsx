@@ -161,7 +161,11 @@ function SarahCue({
   compact: boolean;
 }) {
   const s = STATES[idx];
-  const bg = useTransform(surface, [0, 1], ["rgba(255,255,255,0)", "rgba(255,255,255,1)"]);
+  const bg = useTransform(
+    surface,
+    [0, 1],
+    ["rgba(8,12,23,0.42)", "rgba(255,255,255,1)"],
+  );
   const rule = useTransform(surface, [0, 1], ["rgba(255,255,255,0.22)", "rgba(11,18,32,0.10)"]);
   const shadow = useTransform(
     surface,
@@ -172,11 +176,11 @@ function SarahCue({
   return (
     <motion.div
       className="h-full w-full overflow-hidden"
-      style={{ background: bg, borderRadius: 10, boxShadow: shadow }}
+      style={{ background: bg, borderRadius: 10, boxShadow: shadow, backdropFilter: "blur(3px)" }}
     >
       <motion.div className="h-[1px] w-full" style={{ background: rule }} aria-hidden />
       <div className={cn("flex h-full items-center", compact ? "gap-2.5 px-3" : "gap-3 px-3.5")}>
-        <Face src={FACE.sophie} size={compact ? 28 : 32} />
+        <Face src={FACE.maya} size={compact ? 28 : 32} />
         <div className="min-w-0 flex-1">
           <motion.div
             className="text-[13px] font-semibold leading-none tracking-[-0.015em]"
@@ -236,7 +240,7 @@ function CustomerRecord({ compact }: { compact: boolean }) {
             Conversations
           </div>
           {[
-            { n: "Sarah Chen", m: "Perfect, book me in.", f: FACE.sophie, on: true },
+            { n: "Sarah Chen", m: "Perfect, book me in.", f: FACE.maya, on: true },
             { n: "Daniel Whitmore", m: "Quote looks good", f: FACE.daniel },
             { n: "Priya Raman", m: "See you Tuesday", f: FACE.priya },
             { n: "Tom Aldridge", m: "Thanks for the invoice", f: FACE.tom },
@@ -259,7 +263,7 @@ function CustomerRecord({ compact }: { compact: boolean }) {
 
         <div className="flex min-w-0 flex-1 flex-col bg-[#F8FAFF]">
           <div className="flex items-center gap-2.5 border-b border-slate-200/80 bg-white px-4 py-2.5">
-            <Face src={FACE.sophie} size={26} />
+            <Face src={FACE.maya} size={26} />
             <div className="min-w-0">
               <div className="text-[12.5px] font-semibold leading-none text-slate-900">
                 Sarah Chen
@@ -276,7 +280,7 @@ function CustomerRecord({ compact }: { compact: boolean }) {
               </div>
             </div>
           </div>
-          <div className="flex flex-1 flex-col justify-center gap-2.5 p-4">
+          <div className="flex flex-1 flex-col justify-end gap-2.5 p-4">
             {THREAD.map((m) => (
               <div
                 key={m.text}
@@ -302,6 +306,15 @@ function CustomerRecord({ compact }: { compact: boolean }) {
                 </div>
               </div>
             ))}
+            <div className="mt-3 flex items-center gap-2 rounded-[10px] border border-slate-200 bg-white px-3 py-2.5">
+              <span className="text-[12px] text-slate-400">Write a reply</span>
+              <span
+                className="ml-auto inline-flex h-6 items-center rounded-[8px] px-2.5 text-[11px] font-semibold text-white"
+                style={{ background: CYAN }}
+              >
+                Send
+              </span>
+            </div>
           </div>
         </div>
 
@@ -479,7 +492,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   const filmRadius = useTransform(p, [0.14, 0.34, 0.68, 0.74], [0, 10, 10, 8]);
 
   /* canvas: cinematic dark -> light product world ------------------- */
-  const canvas = useTransform(p, [0.5, 0.6], ["#0A0E17", "#F5F6FA"]);
+  const canvas = useTransform(p, [0.58, 0.68], ["#0A0E17", "#F5F6FA"]);
   const veil = useTransform(p, [0, 0.14, 0.34], [0.3, 0.3, 0.16]);
 
   /* hero copy -------------------------------------------------------- */
@@ -506,14 +519,14 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [30, 44, 30, 13],
         ],
   );
-  const cueSurface = useTransform(p, [0.6, 0.7], [0, 1]);
-  const cueInk = useTransform(p, [0.52, 0.6], ["#F7F8FC", INK]);
-  const cueSub = useTransform(p, [0.52, 0.6], ["rgba(247,248,252,0.5)", "rgba(11,18,32,0.45)"]);
+  const cueSurface = useTransform(p, [0.62, 0.71], [0, 1]);
+  const cueInk = useTransform(p, [0.6, 0.67], ["#F7F8FC", INK]);
+  const cueSub = useTransform(p, [0.6, 0.67], ["rgba(247,248,252,0.5)", "rgba(11,18,32,0.45)"]);
   const cueOpacity = useTransform(p, [0.78, 0.83], [1, 0]);
   const cueScale = useTransform(p, [0.7, 0.78], [1, 1.06]);
 
   /* statement -------------------------------------------------------- */
-  const stmtOpacity = useTransform(p, [0.36, 0.4, 0.5, 0.54], [0, 1, 1, 0]);
+  const stmtOpacity = useTransform(p, [0.36, 0.4, 0.52, 0.56], [0, 1, 1, 0]);
 
   /* product shell ---------------------------------------------------- */
   const shellBox = useBoxStyle(
