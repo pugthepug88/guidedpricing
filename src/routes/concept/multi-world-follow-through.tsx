@@ -16,14 +16,14 @@ export const Route = createFileRoute("/concept/multi-world-follow-through")({
       {
         name: "description",
         content:
-          "Isolated concept prototype: six service business worlds enter and recede on scroll, then converge into one Zapla customer record where the follow-through lives.",
+          "Isolated concept prototype: three service business worlds enter and recede on scroll, then converge into one Zapla customer record where the follow-through lives.",
       },
       { name: "robots", content: "noindex" },
       { property: "og:title", content: "Concept: Multi-World Follow-Through" },
       {
         property: "og:description",
         content:
-          "Workshops, agencies, brokers, builders, consultancies and maintenance teams share one follow-through problem, and one system.",
+          "Workshops, brokers and agencies share one follow-through problem, and one system.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
