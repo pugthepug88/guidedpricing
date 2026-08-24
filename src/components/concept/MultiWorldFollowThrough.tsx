@@ -650,7 +650,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
   const stmtOpacity = useTransform(p, [0.44, 0.49, 0.555, 0.585], [0, 1, 1, 0]);
 
   /* surviving thread -> lands inside the record */
-  const cueAt = [0.575, 0.655, 0.74, 0.8];
+  const cueAt = [0.588, 0.655, 0.74, 0.8];
   const cue = useBoxStyle(
     p,
     cueAt,
@@ -662,14 +662,14 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [19.5, 20.6, 64, 5.1],
         ]
       : [
-          [8, 22, 32, 10],
+          [6, 14, 30, 9.5],
           [24, 32, 26, 8.5],
           [21.7, 26.3, 17.4, 4.8],
           [21.7, 26.3, 17.4, 4.8],
         ],
   );
   const cueSurface = useTransform(p, [0.615, 0.672], [0, 1]);
-  const cueOpacity = useTransform(p, [0.555, 0.6, 0.755, 0.785], [0, 1, 1, 0]);
+  const cueOpacity = useTransform(p, [0.588, 0.618, 0.755, 0.785], [0, 1, 1, 0]);
   const cueShadow = useTransform(
     p,
     [0.67, 0.74],
