@@ -11,16 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as McpRouteImport } from './routes/mcp'
-import { Route as MaskLabRouteImport } from './routes/mask-lab'
 import { Route as HomepageDraftV1RouteImport } from './routes/homepage-draft-v1'
 import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
 import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ConceptRevenueLeakageValueRouteImport } from './routes/concept/revenue-leakage-value'
-import { Route as ConceptRevenueLeakageThreadRouteImport } from './routes/concept/revenue-leakage-thread'
-import { Route as ConceptRevenueLeakageReceiptRouteImport } from './routes/concept/revenue-leakage-receipt'
-import { Route as ConceptRevenueLeakageNegativeSpaceRouteImport } from './routes/concept/revenue-leakage-negative-space'
-import { Route as ConceptRevenueLeakageFutureRouteImport } from './routes/concept/revenue-leakage-future'
 import { Route as ConceptRevenueLeakageCinematicRouteImport } from './routes/concept/revenue-leakage-cinematic'
 import { Route as ConceptOperatorAwayFollowThroughRouteImport } from './routes/concept/operator-away-follow-through'
 import { Route as ConceptMultiWorldFollowThroughRouteImport } from './routes/concept/multi-world-follow-through'
@@ -37,11 +31,6 @@ const PricingV2Route = PricingV2RouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MaskLabRoute = MaskLabRouteImport.update({
-  id: '/mask-lab',
-  path: '/mask-lab',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomepageDraftV1Route = HomepageDraftV1RouteImport.update({
@@ -64,36 +53,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConceptRevenueLeakageValueRoute =
-  ConceptRevenueLeakageValueRouteImport.update({
-    id: '/concept/revenue-leakage-value',
-    path: '/concept/revenue-leakage-value',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ConceptRevenueLeakageThreadRoute =
-  ConceptRevenueLeakageThreadRouteImport.update({
-    id: '/concept/revenue-leakage-thread',
-    path: '/concept/revenue-leakage-thread',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ConceptRevenueLeakageReceiptRoute =
-  ConceptRevenueLeakageReceiptRouteImport.update({
-    id: '/concept/revenue-leakage-receipt',
-    path: '/concept/revenue-leakage-receipt',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ConceptRevenueLeakageNegativeSpaceRoute =
-  ConceptRevenueLeakageNegativeSpaceRouteImport.update({
-    id: '/concept/revenue-leakage-negative-space',
-    path: '/concept/revenue-leakage-negative-space',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ConceptRevenueLeakageFutureRoute =
-  ConceptRevenueLeakageFutureRouteImport.update({
-    id: '/concept/revenue-leakage-future',
-    path: '/concept/revenue-leakage-future',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ConceptRevenueLeakageCinematicRoute =
   ConceptRevenueLeakageCinematicRouteImport.update({
     id: '/concept/revenue-leakage-cinematic',
@@ -142,7 +101,6 @@ export interface FileRoutesByFullPath {
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
-  '/mask-lab': typeof MaskLabRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -151,11 +109,6 @@ export interface FileRoutesByFullPath {
   '/concept/multi-world-follow-through': typeof ConceptMultiWorldFollowThroughRoute
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
-  '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
-  '/concept/revenue-leakage-negative-space': typeof ConceptRevenueLeakageNegativeSpaceRoute
-  '/concept/revenue-leakage-receipt': typeof ConceptRevenueLeakageReceiptRoute
-  '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
-  '/concept/revenue-leakage-value': typeof ConceptRevenueLeakageValueRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -163,7 +116,6 @@ export interface FileRoutesByTo {
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
-  '/mask-lab': typeof MaskLabRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -172,11 +124,6 @@ export interface FileRoutesByTo {
   '/concept/multi-world-follow-through': typeof ConceptMultiWorldFollowThroughRoute
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
-  '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
-  '/concept/revenue-leakage-negative-space': typeof ConceptRevenueLeakageNegativeSpaceRoute
-  '/concept/revenue-leakage-receipt': typeof ConceptRevenueLeakageReceiptRoute
-  '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
-  '/concept/revenue-leakage-value': typeof ConceptRevenueLeakageValueRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -185,7 +132,6 @@ export interface FileRoutesById {
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
-  '/mask-lab': typeof MaskLabRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -194,11 +140,6 @@ export interface FileRoutesById {
   '/concept/multi-world-follow-through': typeof ConceptMultiWorldFollowThroughRoute
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leakage-cinematic': typeof ConceptRevenueLeakageCinematicRoute
-  '/concept/revenue-leakage-future': typeof ConceptRevenueLeakageFutureRoute
-  '/concept/revenue-leakage-negative-space': typeof ConceptRevenueLeakageNegativeSpaceRoute
-  '/concept/revenue-leakage-receipt': typeof ConceptRevenueLeakageReceiptRoute
-  '/concept/revenue-leakage-thread': typeof ConceptRevenueLeakageThreadRoute
-  '/concept/revenue-leakage-value': typeof ConceptRevenueLeakageValueRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -208,7 +149,6 @@ export interface FileRouteTypes {
     | '/hero-preview-v3'
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
-    | '/mask-lab'
     | '/mcp'
     | '/pricing-v2'
     | '/.mcp/list-tools'
@@ -217,11 +157,6 @@ export interface FileRouteTypes {
     | '/concept/multi-world-follow-through'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leakage-cinematic'
-    | '/concept/revenue-leakage-future'
-    | '/concept/revenue-leakage-negative-space'
-    | '/concept/revenue-leakage-receipt'
-    | '/concept/revenue-leakage-thread'
-    | '/concept/revenue-leakage-value'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -229,7 +164,6 @@ export interface FileRouteTypes {
     | '/hero-preview-v3'
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
-    | '/mask-lab'
     | '/mcp'
     | '/pricing-v2'
     | '/.mcp/list-tools'
@@ -238,11 +172,6 @@ export interface FileRouteTypes {
     | '/concept/multi-world-follow-through'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leakage-cinematic'
-    | '/concept/revenue-leakage-future'
-    | '/concept/revenue-leakage-negative-space'
-    | '/concept/revenue-leakage-receipt'
-    | '/concept/revenue-leakage-thread'
-    | '/concept/revenue-leakage-value'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -250,7 +179,6 @@ export interface FileRouteTypes {
     | '/hero-preview-v3'
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
-    | '/mask-lab'
     | '/mcp'
     | '/pricing-v2'
     | '/.mcp/list-tools'
@@ -259,11 +187,6 @@ export interface FileRouteTypes {
     | '/concept/multi-world-follow-through'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leakage-cinematic'
-    | '/concept/revenue-leakage-future'
-    | '/concept/revenue-leakage-negative-space'
-    | '/concept/revenue-leakage-receipt'
-    | '/concept/revenue-leakage-thread'
-    | '/concept/revenue-leakage-value'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -272,7 +195,6 @@ export interface RootRouteChildren {
   HeroPreviewV3Route: typeof HeroPreviewV3Route
   HeroPreviewV5Route: typeof HeroPreviewV5Route
   HomepageDraftV1Route: typeof HomepageDraftV1Route
-  MaskLabRoute: typeof MaskLabRoute
   McpRoute: typeof McpRoute
   PricingV2Route: typeof PricingV2Route
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
@@ -281,11 +203,6 @@ export interface RootRouteChildren {
   ConceptMultiWorldFollowThroughRoute: typeof ConceptMultiWorldFollowThroughRoute
   ConceptOperatorAwayFollowThroughRoute: typeof ConceptOperatorAwayFollowThroughRoute
   ConceptRevenueLeakageCinematicRoute: typeof ConceptRevenueLeakageCinematicRoute
-  ConceptRevenueLeakageFutureRoute: typeof ConceptRevenueLeakageFutureRoute
-  ConceptRevenueLeakageNegativeSpaceRoute: typeof ConceptRevenueLeakageNegativeSpaceRoute
-  ConceptRevenueLeakageReceiptRoute: typeof ConceptRevenueLeakageReceiptRoute
-  ConceptRevenueLeakageThreadRoute: typeof ConceptRevenueLeakageThreadRoute
-  ConceptRevenueLeakageValueRoute: typeof ConceptRevenueLeakageValueRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -303,13 +220,6 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mask-lab': {
-      id: '/mask-lab'
-      path: '/mask-lab'
-      fullPath: '/mask-lab'
-      preLoaderRoute: typeof MaskLabRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/homepage-draft-v1': {
@@ -338,41 +248,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/revenue-leakage-value': {
-      id: '/concept/revenue-leakage-value'
-      path: '/concept/revenue-leakage-value'
-      fullPath: '/concept/revenue-leakage-value'
-      preLoaderRoute: typeof ConceptRevenueLeakageValueRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/revenue-leakage-thread': {
-      id: '/concept/revenue-leakage-thread'
-      path: '/concept/revenue-leakage-thread'
-      fullPath: '/concept/revenue-leakage-thread'
-      preLoaderRoute: typeof ConceptRevenueLeakageThreadRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/revenue-leakage-receipt': {
-      id: '/concept/revenue-leakage-receipt'
-      path: '/concept/revenue-leakage-receipt'
-      fullPath: '/concept/revenue-leakage-receipt'
-      preLoaderRoute: typeof ConceptRevenueLeakageReceiptRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/revenue-leakage-negative-space': {
-      id: '/concept/revenue-leakage-negative-space'
-      path: '/concept/revenue-leakage-negative-space'
-      fullPath: '/concept/revenue-leakage-negative-space'
-      preLoaderRoute: typeof ConceptRevenueLeakageNegativeSpaceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/revenue-leakage-future': {
-      id: '/concept/revenue-leakage-future'
-      path: '/concept/revenue-leakage-future'
-      fullPath: '/concept/revenue-leakage-future'
-      preLoaderRoute: typeof ConceptRevenueLeakageFutureRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/concept/revenue-leakage-cinematic': {
@@ -432,7 +307,6 @@ const rootRouteChildren: RootRouteChildren = {
   HeroPreviewV3Route: HeroPreviewV3Route,
   HeroPreviewV5Route: HeroPreviewV5Route,
   HomepageDraftV1Route: HomepageDraftV1Route,
-  MaskLabRoute: MaskLabRoute,
   McpRoute: McpRoute,
   PricingV2Route: PricingV2Route,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
@@ -442,12 +316,6 @@ const rootRouteChildren: RootRouteChildren = {
   ConceptMultiWorldFollowThroughRoute: ConceptMultiWorldFollowThroughRoute,
   ConceptOperatorAwayFollowThroughRoute: ConceptOperatorAwayFollowThroughRoute,
   ConceptRevenueLeakageCinematicRoute: ConceptRevenueLeakageCinematicRoute,
-  ConceptRevenueLeakageFutureRoute: ConceptRevenueLeakageFutureRoute,
-  ConceptRevenueLeakageNegativeSpaceRoute:
-    ConceptRevenueLeakageNegativeSpaceRoute,
-  ConceptRevenueLeakageReceiptRoute: ConceptRevenueLeakageReceiptRoute,
-  ConceptRevenueLeakageThreadRoute: ConceptRevenueLeakageThreadRoute,
-  ConceptRevenueLeakageValueRoute: ConceptRevenueLeakageValueRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
