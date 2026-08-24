@@ -69,6 +69,7 @@ function useBoxStyle(p: MotionValue<number>, at: number[], boxes: Box[]) {
    0.0-3.2s   attention on the screen
    3.2-7.5s   attention transfers to the craft, the screen goes passive
    7.5-13.0s  sustained work, the screen is forgotten                   */
+const FILM_SECONDS = 13.0;
 const ATTENTION_SHIFT = 4.4;
 const WORK_HELD = 8.2;
 const WORK_SUSTAINED = 11.2;
