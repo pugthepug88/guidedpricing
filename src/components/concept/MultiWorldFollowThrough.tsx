@@ -573,7 +573,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [5, 12, 40, 48],
         ],
   );
-  const mechOp = useTransform(p, [0, 0.585, 0.64], [1, 1, 0]);
+  const mechOp = useTransform(p, [0, 0.572, 0.618], [1, 1, 0]);
   const mechDim = useTransform(p, [0, 0.12, 0.3, 0.46, 0.62], [0.12, 0.12, 0.1, 0.12, 0.2]);
 
   /* BROKER — second world, promoted */
