@@ -485,8 +485,8 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
           [0, 2, 74, 34],
           [0, 6, 62, 27],
           [0, 8, 52, 22],
-          [4, 4, 40, 13],
-          [4, 4, 40, 13],
+          [4, 2, 34, 11],
+          [4, 2, 34, 11],
         ]
       : [
           [42, 0, 58, 100],
@@ -808,7 +808,7 @@ function Sequence({ reduced, mobile }: { reduced: boolean; mobile: boolean }) {
         <motion.div
           className={cn(
             "absolute z-40",
-            mobile ? "left-[6%] top-[9%] w-[88%]" : "left-[3%] top-[6%] w-[56%]",
+            mobile ? "left-[6%] top-[8%] w-[88%]" : "left-[21%] top-[5.5%] w-[56%]",
           )}
           style={{ opacity: headOpacity, y: headY }}
         >
