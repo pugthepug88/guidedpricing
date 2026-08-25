@@ -234,11 +234,11 @@ function StoryStage({ mobile }: { mobile: boolean }) {
 
         <FollowThread p={p} label={threadLabel} mobile={mobile} />
 
-        <motion.div className={mobile ? "absolute left-[4%] right-[4%] top-[19%] bottom-[4%] z-50" : "absolute left-[5%] right-[5%] top-[17%] bottom-[5%] z-50"} style={{ opacity: productOpacity, y: productY, scale: productScale }}>
+        <motion.div className={mobile ? "absolute left-[4%] right-[4%] top-[26%] bottom-[4%] z-50" : "absolute left-[5%] right-[5%] top-[17%] bottom-[5%] z-50"} style={{ opacity: productOpacity, y: productY }}>
           <div className="h-full w-full overflow-hidden rounded-[14px] border border-slate-200/80 bg-white shadow-[0_40px_110px_-48px_rgba(15,23,42,.38)]"><GenericCustomerRecord /></div>
         </motion.div>
 
-        <motion.div className={mobile ? "absolute left-[6%] top-[3.5%] z-[60] w-[88%]" : "absolute left-[5%] top-[4%] z-[60] w-[70%]"} style={{ opacity: headingOpacity }}>
+        <motion.div className={mobile ? "absolute left-[6%] top-[8.5%] z-[60] w-[88%]" : "absolute left-[5%] top-[4%] z-[60] w-[70%]"} style={{ opacity: headingOpacity, y: headingY }}>
           <h2 className={mobile ? "text-[34px] leading-[1.02] tracking-[-0.04em]" : "text-[52px] leading-[0.98] tracking-[-0.045em]"} style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}>One customer. Everything connected.</h2>
           <p className={mobile ? "mt-2 max-w-[335px] text-[13.5px] leading-[1.5] text-slate-500" : "mt-3 max-w-[650px] text-[15px] leading-[1.55] text-slate-500"}>Every enquiry, message, booking, payment and review stays connected in one customer record.</p>
         </motion.div>
