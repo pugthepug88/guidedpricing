@@ -208,14 +208,13 @@ function StoryStage({ mobile }: { mobile: boolean }) {
   const { p, worldIndex, threadLabel } = useStoryScroll(wrap);
 
   const filmOpacity = useTransform(p, [0.58, 0.68], [1, 0]);
-  const filmScale = useTransform(p, [0.56, 0.69], [1, 0.955]);
   const heroOpacity = useTransform(p, [0.00, 0.09, 0.16], [1, 1, 0]);
-  const midpointOpacity = useTransform(p, [0.34, 0.42, 0.55, 0.61], [0, 1, 1, 0]);
-  const productOpacity = useTransform(p, [0.63, 0.72], [0, 1]);
-  const productY = useTransform(p, [0.63, 0.75], [mobile ? 70 : 110, 0]);
-  const productScale = useTransform(p, [0.63, 0.78], [0.94, 1]);
+  const midpointOpacity = useTransform(p, [0.34, 0.375, 0.55, 0.59], [0, 1, 1, 0]);
+  const productOpacity = useTransform(p, [0.62, 0.70], [0, 1]);
+  const productY = useTransform(p, [0.62, 0.70], [mobile ? 16 : 20, 0]);
   const bg = useTransform(p, [0.58, 0.69], ["#080B10", "#F7F8FA"]);
-  const headingOpacity = useTransform(p, [0.74, 0.83], [0, 1]);
+  const headingOpacity = useTransform(p, [0.62, 0.70], [0, 1]);
+  const headingY = useTransform(p, [0.62, 0.70], [mobile ? 16 : 20, 0]);
 
   return (
     <div ref={wrap} className={mobile ? "relative h-[520vh]" : "relative h-[600vh]"}>
