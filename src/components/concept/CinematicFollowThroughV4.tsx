@@ -144,13 +144,13 @@ function FollowThread({ p, label, mobile }: { p: ReturnType<typeof useMotionValu
   const opacity = useTransform(p, [0.03, 0.07, 0.65, 0.72], [0, 1, 1, 0]);
   const y = useTransform(p, [0.05, 0.58], [0, mobile ? -24 : -12]);
   return (
-    <motion.div className={mobile ? "absolute bottom-[7%] left-[6%] right-[6%] z-40" : "absolute bottom-[7%] left-[6%] z-40 w-[44%]"} style={{ opacity, y }}>
+    <motion.div className={mobile ? "absolute bottom-[7%] left-[6%] right-[6%] z-40" : "absolute bottom-[7%] left-[6%] z-40 w-[34%]"} style={{ opacity, y }}>
       <div className="flex items-center gap-3">
-        <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: CYAN }} />
-        <span className="h-px flex-1 bg-white/45" />
-        <div className="shrink-0 text-right">
+        <span className="h-[7px] w-[7px] shrink-0 rounded-full" style={{ background: CYAN }} />
+        <span className="h-px w-8 shrink-0 bg-white/35" />
+        <div className="min-w-0 flex-1">
           <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/45">Follow-through</div>
-          <motion.div key={label} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="mt-1 text-[13px] font-medium text-white">{label}</motion.div>
+          <motion.div key={label} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="mt-1 text-[14px] font-medium text-white" style={{ textShadow: "0 1px 14px rgba(0,0,0,.45)" }}>{label}</motion.div>
         </div>
       </div>
     </motion.div>
@@ -171,9 +171,9 @@ function GenericCustomerRecord() {
       <AppShell activeKey="inbox" title="Customer record" subtitle="Everything connected">
         <div className="grid h-full min-h-0 grid-cols-1 bg-[#F7F8FA] lg:grid-cols-[1fr_300px]">
           <div className="min-h-0 border-r border-slate-200/80 bg-white p-5 md:p-7">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">Customer timeline</div>
-            <h3 className="mt-2 text-[24px] font-semibold tracking-[-0.03em] text-slate-950">One customer. Everything connected.</h3>
-            <p className="mt-2 max-w-[620px] text-[13.5px] leading-[1.55] text-slate-500">Every enquiry, reply, booking, payment and review is visible in one place.</p>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">Follow-through activity</div>
+            <h3 className="mt-2 text-[24px] font-semibold tracking-[-0.03em] text-slate-950">Activity timeline</h3>
+            <p className="mt-2 max-w-[620px] text-[13.5px] leading-[1.55] text-slate-500">Every customer touchpoint, in order.</p>
             <div className="mt-6 space-y-3">
               {rows.map(([label, time, done]) => (
                 <div key={label} className="flex items-center gap-3 border-b border-slate-100 pb-3">
@@ -208,19 +208,18 @@ function StoryStage({ mobile }: { mobile: boolean }) {
   const { p, worldIndex, threadLabel } = useStoryScroll(wrap);
 
   const filmOpacity = useTransform(p, [0.58, 0.68], [1, 0]);
-  const filmScale = useTransform(p, [0.56, 0.69], [1, 0.955]);
   const heroOpacity = useTransform(p, [0.00, 0.09, 0.16], [1, 1, 0]);
-  const midpointOpacity = useTransform(p, [0.34, 0.42, 0.55, 0.61], [0, 1, 1, 0]);
-  const productOpacity = useTransform(p, [0.63, 0.72], [0, 1]);
-  const productY = useTransform(p, [0.63, 0.75], [mobile ? 70 : 110, 0]);
-  const productScale = useTransform(p, [0.63, 0.78], [0.94, 1]);
+  const midpointOpacity = useTransform(p, [0.34, 0.375, 0.55, 0.59], [0, 1, 1, 0]);
+  const productOpacity = useTransform(p, [0.62, 0.70], [0, 1]);
+  const productY = useTransform(p, [0.62, 0.70], [mobile ? 16 : 20, 0]);
   const bg = useTransform(p, [0.58, 0.69], ["#080B10", "#F7F8FA"]);
-  const headingOpacity = useTransform(p, [0.74, 0.83], [0, 1]);
+  const headingOpacity = useTransform(p, [0.62, 0.70], [0, 1]);
+  const headingY = useTransform(p, [0.62, 0.70], [mobile ? 16 : 20, 0]);
 
   return (
     <div ref={wrap} className={mobile ? "relative h-[520vh]" : "relative h-[600vh]"}>
       <motion.div className="sticky overflow-hidden" style={{ top: NAV, height: `calc(100vh - ${NAV}px)`, background: bg }}>
-        <motion.div className="absolute inset-0 overflow-hidden" style={{ opacity: filmOpacity, scale: filmScale }}>
+        <motion.div className="absolute inset-0 overflow-hidden" style={{ opacity: filmOpacity }}>
           {WORLDS.map((world, i) => <VideoLayer key={world.key} world={world} active={i === worldIndex} reduced={reduced} />)}
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,13,.76)_0%,rgba(5,8,13,.52)_33%,rgba(5,8,13,.14)_62%,rgba(5,8,13,.34)_100%)]" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-black/55 to-transparent" />
@@ -229,17 +228,17 @@ function StoryStage({ mobile }: { mobile: boolean }) {
 
         <motion.div className={mobile ? "absolute left-[6%] right-[6%] top-[51%] z-30" : "absolute left-[5.5%] top-1/2 z-30 w-[42%] -translate-y-1/2"} style={{ opacity: heroOpacity }}><HeroCopy mobile={mobile} /></motion.div>
 
-        <motion.div className={mobile ? "absolute left-[6%] top-[57%] z-30 w-[88%] text-[34px] leading-[1.02] tracking-[-0.045em] text-white" : "absolute left-[6%] top-[57%] z-30 w-[46%] text-[58px] leading-[0.98] tracking-[-0.05em] text-white"} style={{ opacity: midpointOpacity, fontFamily: DISPLAY, fontWeight: 500 }}>
+        <motion.div className={mobile ? "absolute left-[6%] top-[57%] z-30 w-[88%] text-[34px] leading-[1.02] tracking-[-0.045em] text-white" : "absolute left-[6%] top-[57%] z-30 w-[46%] text-[58px] leading-[0.98] tracking-[-0.05em] text-white"} style={{ opacity: midpointOpacity, fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 30px rgba(0,0,0,.55)" }}>
           Different work.<br />Same follow-through.
         </motion.div>
 
         <FollowThread p={p} label={threadLabel} mobile={mobile} />
 
-        <motion.div className={mobile ? "absolute left-[4%] right-[4%] top-[19%] bottom-[4%] z-50" : "absolute left-[5%] right-[5%] top-[17%] bottom-[5%] z-50"} style={{ opacity: productOpacity, y: productY, scale: productScale }}>
+        <motion.div className={mobile ? "absolute left-[4%] right-[4%] top-[26%] bottom-[4%] z-50" : "absolute left-[5%] right-[5%] top-[17%] bottom-[5%] z-50"} style={{ opacity: productOpacity, y: productY }}>
           <div className="h-full w-full overflow-hidden rounded-[14px] border border-slate-200/80 bg-white shadow-[0_40px_110px_-48px_rgba(15,23,42,.38)]"><GenericCustomerRecord /></div>
         </motion.div>
 
-        <motion.div className={mobile ? "absolute left-[6%] top-[3.5%] z-[60] w-[88%]" : "absolute left-[5%] top-[4%] z-[60] w-[70%]"} style={{ opacity: headingOpacity }}>
+        <motion.div className={mobile ? "absolute left-[6%] top-[8.5%] z-[60] w-[88%]" : "absolute left-[5%] top-[4%] z-[60] w-[70%]"} style={{ opacity: headingOpacity, y: headingY }}>
           <h2 className={mobile ? "text-[34px] leading-[1.02] tracking-[-0.04em]" : "text-[52px] leading-[0.98] tracking-[-0.045em]"} style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}>One customer. Everything connected.</h2>
           <p className={mobile ? "mt-2 max-w-[335px] text-[13.5px] leading-[1.5] text-slate-500" : "mt-3 max-w-[650px] text-[15px] leading-[1.55] text-slate-500"}>Every enquiry, message, booking, payment and review stays connected in one customer record.</p>
         </motion.div>
