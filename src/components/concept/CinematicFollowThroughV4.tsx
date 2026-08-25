@@ -144,13 +144,13 @@ function FollowThread({ p, label, mobile }: { p: ReturnType<typeof useMotionValu
   const opacity = useTransform(p, [0.03, 0.07, 0.65, 0.72], [0, 1, 1, 0]);
   const y = useTransform(p, [0.05, 0.58], [0, mobile ? -24 : -12]);
   return (
-    <motion.div className={mobile ? "absolute bottom-[7%] left-[6%] right-[6%] z-40" : "absolute bottom-[7%] left-[6%] z-40 w-[44%]"} style={{ opacity, y }}>
+    <motion.div className={mobile ? "absolute bottom-[7%] left-[6%] right-[6%] z-40" : "absolute bottom-[7%] left-[6%] z-40 w-[34%]"} style={{ opacity, y }}>
       <div className="flex items-center gap-3">
-        <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: CYAN }} />
-        <span className="h-px flex-1 bg-white/45" />
-        <div className="shrink-0 text-right">
+        <span className="h-[7px] w-[7px] shrink-0 rounded-full" style={{ background: CYAN }} />
+        <span className="h-px w-8 shrink-0 bg-white/35" />
+        <div className="min-w-0 flex-1">
           <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/45">Follow-through</div>
-          <motion.div key={label} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="mt-1 text-[13px] font-medium text-white">{label}</motion.div>
+          <motion.div key={label} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="mt-1 text-[14px] font-medium text-white" style={{ textShadow: "0 1px 14px rgba(0,0,0,.45)" }}>{label}</motion.div>
         </div>
       </div>
     </motion.div>
