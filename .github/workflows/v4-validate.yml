@@ -1,0 +1,42 @@
+name: V4 Validate
+
+on:
+  push:
+    branches:
+      - zapla-cinematic-v4
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build app
+        run: bun run build
+
+      - name: Show build outputs
+        run: |
+          echo "Top-level directories after build:"
+          find . -maxdepth 2 -type d | sort | sed -n '1,160p'
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: zapla-v4-build
+          path: |
+            .output
+            dist
+          if-no-files-found: warn
+          retention-days: 1
