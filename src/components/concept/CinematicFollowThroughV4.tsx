@@ -219,7 +219,7 @@ function StoryStage({ mobile }: { mobile: boolean }) {
   return (
     <div ref={wrap} className={mobile ? "relative h-[520vh]" : "relative h-[600vh]"}>
       <motion.div className="sticky overflow-hidden" style={{ top: NAV, height: `calc(100vh - ${NAV}px)`, background: bg }}>
-        <motion.div className="absolute inset-0 overflow-hidden" style={{ opacity: filmOpacity, scale: filmScale }}>
+        <motion.div className="absolute inset-0 overflow-hidden" style={{ opacity: filmOpacity }}>
           {WORLDS.map((world, i) => <VideoLayer key={world.key} world={world} active={i === worldIndex} reduced={reduced} />)}
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,13,.76)_0%,rgba(5,8,13,.52)_33%,rgba(5,8,13,.14)_62%,rgba(5,8,13,.34)_100%)]" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-black/55 to-transparent" />
