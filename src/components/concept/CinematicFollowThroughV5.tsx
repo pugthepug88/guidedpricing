@@ -194,7 +194,8 @@ function FilmMedia({
   const video = useRef<HTMLVideoElement>(null);
   const localVideo = `${V5}/${film.localStem}.mp4`;
   const localPoster = `${V5}/${film.localStem}.jpg`;
-  const candidates = [localVideo, film.remoteVideo, film.fallbackVideo].filter(Boolean) as string[];
+  // Prefer committed local files (final V5 stem, then in-repo fallback) before remote sources.
+  const candidates = [localVideo, film.fallbackVideo, film.remoteVideo].filter(Boolean) as string[];
   const [sourceIndex, setSourceIndex] = useState(0);
   const [posterFailed, setPosterFailed] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
