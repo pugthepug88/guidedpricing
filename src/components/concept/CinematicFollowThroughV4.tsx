@@ -171,9 +171,9 @@ function GenericCustomerRecord() {
       <AppShell activeKey="inbox" title="Customer record" subtitle="Everything connected">
         <div className="grid h-full min-h-0 grid-cols-1 bg-[#F7F8FA] lg:grid-cols-[1fr_300px]">
           <div className="min-h-0 border-r border-slate-200/80 bg-white p-5 md:p-7">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">Customer timeline</div>
-            <h3 className="mt-2 text-[24px] font-semibold tracking-[-0.03em] text-slate-950">One customer. Everything connected.</h3>
-            <p className="mt-2 max-w-[620px] text-[13.5px] leading-[1.55] text-slate-500">Every enquiry, reply, booking, payment and review is visible in one place.</p>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">Follow-through activity</div>
+            <h3 className="mt-2 text-[24px] font-semibold tracking-[-0.03em] text-slate-950">Activity timeline</h3>
+            <p className="mt-2 max-w-[620px] text-[13.5px] leading-[1.55] text-slate-500">Every customer touchpoint, in order.</p>
             <div className="mt-6 space-y-3">
               {rows.map(([label, time, done]) => (
                 <div key={label} className="flex items-center gap-3 border-b border-slate-100 pb-3">
