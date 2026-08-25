@@ -228,7 +228,7 @@ function StoryStage({ mobile }: { mobile: boolean }) {
 
         <motion.div className={mobile ? "absolute left-[6%] right-[6%] top-[51%] z-30" : "absolute left-[5.5%] top-1/2 z-30 w-[42%] -translate-y-1/2"} style={{ opacity: heroOpacity }}><HeroCopy mobile={mobile} /></motion.div>
 
-        <motion.div className={mobile ? "absolute left-[6%] top-[57%] z-30 w-[88%] text-[34px] leading-[1.02] tracking-[-0.045em] text-white" : "absolute left-[6%] top-[57%] z-30 w-[46%] text-[58px] leading-[0.98] tracking-[-0.05em] text-white"} style={{ opacity: midpointOpacity, fontFamily: DISPLAY, fontWeight: 500 }}>
+        <motion.div className={mobile ? "absolute left-[6%] top-[57%] z-30 w-[88%] text-[34px] leading-[1.02] tracking-[-0.045em] text-white" : "absolute left-[6%] top-[57%] z-30 w-[46%] text-[58px] leading-[0.98] tracking-[-0.05em] text-white"} style={{ opacity: midpointOpacity, fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 30px rgba(0,0,0,.55)" }}>
           Different work.<br />Same follow-through.
         </motion.div>
 
