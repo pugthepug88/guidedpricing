@@ -35,8 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: zapla-v4-build
-          path: |
-            .output
-            dist
-          if-no-files-found: warn
+          path: .output
+          include-hidden-files: true
+          if-no-files-found: error
           retention-days: 1
