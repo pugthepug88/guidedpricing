@@ -200,6 +200,23 @@ function FilmMedia({
   const [videoFailed, setVideoFailed] = useState(false);
   const src = candidates[sourceIndex];
 
+  // Local /concept/cinematic-v5 stems are not committed yet. The <video> error can
+  // fire before hydration, so probe candidates once and start on the first that exists.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      for (let i = 0; i < candidates.length; i += 1) {
+        try {
+          const res = await fetch(candidates[i], { method: "HEAD" });
+          if (res.ok) { if (!cancelled) setSourceIndex(i); return; }
+        } catch { /* try next */ }
+      }
+      if (!cancelled) setVideoFailed(true);
+    })();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [film.key]);
+
   useEffect(() => {
     const v = video.current;
     if (!v || reduced || posterOnly || !active) return;
@@ -208,6 +225,7 @@ function FilmMedia({
     void v.play().catch(() => {});
     return () => v.pause();
   }, [active, reduced, posterOnly, sourceIndex, film.start, film.end]);
+
 
   if (reduced || posterOnly) {
     const poster = !posterFailed ? localPoster : film.fallbackPoster;
