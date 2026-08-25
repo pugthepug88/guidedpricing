@@ -218,6 +218,16 @@ function FilmMedia({
   }, [film.key]);
 
   useEffect(() => {
+    let cancelled = false;
+    fetch(localPoster, { method: "HEAD" })
+      .then((r) => { if (!r.ok && !cancelled) setPosterFailed(true); })
+      .catch(() => { if (!cancelled) setPosterFailed(true); });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localPoster]);
+
+
+  useEffect(() => {
     const v = video.current;
     if (!v || reduced || posterOnly || !active) return;
     const start = film.start ?? 0;
