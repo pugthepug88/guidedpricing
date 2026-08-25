@@ -277,10 +277,13 @@ function FilmMedia({
         const end = film.end ?? Math.max(start + 0.5, v.duration - 0.05);
         if (v.currentTime >= Math.min(end, v.duration - 0.02)) v.currentTime = Math.min(start, Math.max(0, v.duration - 0.05));
       }}
-      onError={() => {
+      onError={(e) => {
+        // Only react to an error for the source currently mounted; a late 404 from a
+        // previously attempted stem must not mark a working fallback as failed.
+        if (e.currentTarget.currentSrc && !e.currentTarget.currentSrc.endsWith(src)) return;
         if (sourceIndex < candidates.length - 1) setSourceIndex((i) => i + 1);
-        else setVideoFailed(true);
       }}
+
     />
   );
 }
