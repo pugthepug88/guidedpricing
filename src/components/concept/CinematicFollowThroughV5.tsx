@@ -204,27 +204,27 @@ function FilmMedia({
   // fire before hydration, so probe candidates once and start on the first that exists.
   useEffect(() => {
     let cancelled = false;
+    const exists = async (url: string, kind: string) => {
+      try {
+        const res = await fetch(url, { method: "HEAD" });
+        return res.ok && (res.headers.get("content-type") ?? "").startsWith(kind);
+      } catch {
+        return false;
+      }
+    };
     (async () => {
       for (let i = 0; i < candidates.length; i += 1) {
-        try {
-          const res = await fetch(candidates[i], { method: "HEAD" });
-          if (res.ok) { if (!cancelled) setSourceIndex(i); return; }
-        } catch { /* try next */ }
+        if (await exists(candidates[i], "video/")) { if (!cancelled) setSourceIndex(i); return; }
       }
       if (!cancelled) setVideoFailed(true);
+    })();
+    void (async () => {
+      if (!(await exists(localPoster, "image/")) && !cancelled) setPosterFailed(true);
     })();
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [film.key]);
 
-  useEffect(() => {
-    let cancelled = false;
-    fetch(localPoster, { method: "HEAD" })
-      .then((r) => { if (!r.ok && !cancelled) setPosterFailed(true); })
-      .catch(() => { if (!cancelled) setPosterFailed(true); });
-    return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localPoster]);
 
 
   useEffect(() => {
