@@ -194,11 +194,39 @@ function FilmMedia({
   const video = useRef<HTMLVideoElement>(null);
   const localVideo = `${V5}/${film.localStem}.mp4`;
   const localPoster = `${V5}/${film.localStem}.jpg`;
-  const candidates = [localVideo, film.remoteVideo, film.fallbackVideo].filter(Boolean) as string[];
+  // Prefer committed local files (final V5 stem, then in-repo fallback) before remote sources.
+  const candidates = [localVideo, film.fallbackVideo, film.remoteVideo].filter(Boolean) as string[];
   const [sourceIndex, setSourceIndex] = useState(0);
   const [posterFailed, setPosterFailed] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
   const src = candidates[sourceIndex];
+
+  // Local /concept/cinematic-v5 stems are not committed yet. The <video> error can
+  // fire before hydration, so probe candidates once and start on the first that exists.
+  useEffect(() => {
+    let cancelled = false;
+    const exists = async (url: string, kind: string) => {
+      try {
+        const res = await fetch(url, { method: "HEAD" });
+        return res.ok && (res.headers.get("content-type") ?? "").startsWith(kind);
+      } catch {
+        return false;
+      }
+    };
+    (async () => {
+      for (let i = 0; i < candidates.length; i += 1) {
+        if (await exists(candidates[i], "video/")) { if (!cancelled) setSourceIndex(i); return; }
+      }
+      if (!cancelled) setVideoFailed(true);
+    })();
+    void (async () => {
+      if (!(await exists(localPoster, "image/")) && !cancelled) setPosterFailed(true);
+    })();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [film.key]);
+
+
 
   useEffect(() => {
     const v = video.current;
@@ -208,6 +236,7 @@ function FilmMedia({
     void v.play().catch(() => {});
     return () => v.pause();
   }, [active, reduced, posterOnly, sourceIndex, film.start, film.end]);
+
 
   if (reduced || posterOnly) {
     const poster = !posterFailed ? localPoster : film.fallbackPoster;
@@ -248,10 +277,13 @@ function FilmMedia({
         const end = film.end ?? Math.max(start + 0.5, v.duration - 0.05);
         if (v.currentTime >= Math.min(end, v.duration - 0.02)) v.currentTime = Math.min(start, Math.max(0, v.duration - 0.05));
       }}
-      onError={() => {
+      onError={(e) => {
+        // Only react to an error for the source currently mounted; a late 404 from a
+        // previously attempted stem must not mark a working fallback as failed.
+        if (e.currentTarget.currentSrc && !e.currentTarget.currentSrc.endsWith(src)) return;
         if (sourceIndex < candidates.length - 1) setSourceIndex((i) => i + 1);
-        else setVideoFailed(true);
       }}
+
     />
   );
 }
