@@ -541,7 +541,7 @@ function StoryStage({ mobile }: { mobile: boolean }) {
             f={f}
             tile={(mobile ? MOBILE_HERO_TILES : DESKTOP_HERO_TILES).find((t) => t.key === f.key)!}
             active={i === worldIndex}
-            visible={stageVisible}
+            visible={stageVisible && heroLive}
             p={p}
             reduced={reduced}
             mobile={mobile}
