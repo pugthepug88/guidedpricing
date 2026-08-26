@@ -554,7 +554,7 @@ function StoryStage({ mobile }: { mobile: boolean }) {
           <HeroCopy mobile={mobile} />
         </motion.div>
 
-        <RecognitionCollage p={p} reduced={reduced} mobile={mobile} />
+        <RecognitionCollage p={p} reduced={reduced} mobile={mobile} armed={stageVisible && collageArmed} />
         <FollowThread p={p} label={threadLabel} mobile={mobile} />
 
         {/* product: heading + surface as one group */}
