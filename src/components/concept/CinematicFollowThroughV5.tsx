@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useMotionValue, useReducedMotion, useTransform, type MotionValue } from "motion/react";
 import { ArrowRight, CalendarDays, Check, CreditCard, Star } from "lucide-react";
 import { AppShell } from "@/components/v5/kit";
@@ -15,7 +15,7 @@ const V5 = "/concept/cinematic-v5";
  * -----------------
  * Every profession resolves to exactly ONE approved source in
  * /public/concept/cinematic-v5/. No probing, no remote guess, no
- * cross-profession fallback.
+ * cross-profession fallback. JPGs are `poster` only: never a visible state.
  */
 type Film = {
   key: string;
@@ -23,14 +23,13 @@ type Film = {
   video: string;
   videoWebm: string;
   poster: string;
-  start?: number;
-  end?: number;
-  /** Crop focus, desktop / mobile. */
+  /** Approved, deliberate entry point. Every hero entry starts exactly here. */
+  start: number;
+  /** Last usable frame time. A hero never plays past this and never wraps. */
+  end: number;
   position?: string;
   positionMobile?: string;
 };
-
-const HERO_KEYS = ["mechanic", "broker", "agent", "construction"] as const;
 
 const src = (stem: string) => ({
   video: `${V5}/${stem}.mp4`,
@@ -38,53 +37,27 @@ const src = (stem: string) => ({
   poster: `${V5}/${stem}.jpg`,
 });
 
-const FILMS: Film[] = [
-  {
-    key: "mechanic",
-    label: "Automotive workshop",
-    ...src("mechanic"),
-    start: 1.2,
-    end: 8.6,
-    position: "50% 46%",
-    positionMobile: "52% 48%",
-  },
-  {
-    key: "broker",
-    label: "Mortgage broker",
-    ...src("broker"),
-    start: 0.3,
-    end: 3.6,
-    position: "49% 50%",
-    positionMobile: "52% 52%",
-  },
-  {
-    key: "agent",
-    label: "Property / real estate",
-    ...src("agent"),
-    start: 0.4,
-    end: 5.2,
-    position: "50% 48%",
-    positionMobile: "56% 50%",
-  },
-  {
-    key: "construction",
-    label: "Construction / project contractor",
-    ...src("construction"),
-    start: 0.2,
-    end: 3.5,
-    // Crop holds the people reviewing / pointing at the plan.
-    position: "50% 52%",
-    positionMobile: "54% 54%",
-  },
-  { key: "solar", label: "Solar installer", ...src("solar"), start: 0.3, end: 4.9, position: "50% 46%", positionMobile: "50% 44%" },
-  { key: "roofing", label: "Roofing contractor", ...src("roofing"), start: 0.2, end: 3.9, position: "50% 44%" },
-  { key: "personal-trainer", label: "Personal trainer", ...src("personal-trainer"), start: 0.3, end: 5.4, position: "50% 46%" },
-  { key: "photographer", label: "Photographer", ...src("photographer"), start: 0.2, end: 3.4, position: "33% 44%", positionMobile: "33% 40%" },
-  { key: "dentist", label: "Dentist", ...src("dentist"), start: 0.3, end: 4.9, position: "50% 48%" },
+/** The four rotating hero worlds. One card, four professions. */
+const HERO_FILMS: Film[] = [
+  { key: "mechanic", label: "Automotive workshop", ...src("mechanic"), start: 1.2, end: 8.6, position: "50% 46%", positionMobile: "52% 48%" },
+  { key: "broker", label: "Mortgage broker", ...src("broker"), start: 0.3, end: 3.62, position: "49% 50%", positionMobile: "52% 52%" },
+  { key: "agent", label: "Property / real estate", ...src("agent"), start: 0.4, end: 5.24, position: "50% 48%", positionMobile: "56% 50%" },
+  { key: "construction", label: "Construction / project contractor", ...src("construction"), start: 0.2, end: 3.52, position: "50% 52%", positionMobile: "54% 54%" },
 ];
 
-const film = (key: string) => FILMS.find((f) => f.key === key)!;
-const HERO = HERO_KEYS.map((k) => film(k));
+/** Eight individual support worlds. Each is its own live card. */
+const SUPPORT_FILMS: Film[] = [
+  { key: "solar", label: "Solar installer", ...src("solar"), start: 0.3, end: 4.9, position: "50% 46%", positionMobile: "50% 44%" },
+  { key: "roofing", label: "Roofing contractor", ...src("roofing"), start: 0.2, end: 3.9, position: "50% 44%" },
+  { key: "hvac", label: "Gas / HVAC technician", ...src("hvac"), start: 0.1, end: 6.3, position: "58% 56%", positionMobile: "60% 58%" },
+  { key: "medspa", label: "Medspa practitioner", ...src("medspa"), start: 0.1, end: 5.8, position: "64% 48%", positionMobile: "66% 48%" },
+  { key: "physio", label: "Physiotherapist", ...src("physio"), start: 0.1, end: 5.8, position: "50% 44%" },
+  { key: "dentist", label: "Dentist", ...src("dentist"), start: 0.3, end: 4.9, position: "50% 48%" },
+  { key: "personal-trainer", label: "Personal trainer", ...src("personal-trainer"), start: 0.3, end: 5.4, position: "50% 46%" },
+  { key: "photographer", label: "Photographer", ...src("photographer"), start: 0.2, end: 3.4, position: "33% 44%", positionMobile: "33% 40%" },
+];
+
+const support = (key: string) => SUPPORT_FILMS.find((f) => f.key === key)!;
 
 const THREAD_STATES = [
   { at: 0.03, label: "New enquiry" },
@@ -96,14 +69,13 @@ const THREAD_STATES = [
 ] as const;
 
 /* ---------------- choreography ---------------- */
-/* hero worlds        0.00 - 0.34
-   hero -> collage    0.34 - 0.46  (last world dims first, hero four recompose)
-   support tiles in   0.44 - 0.55
-   statement + peak   0.50 - 0.62
-   collage recedes    0.62 - 0.70
-   product (as one)   0.68 - 0.76
-   readable hold      0.76 - 0.90
-   release            0.90 - 1.00 */
+/* hero card full bleed   0.00 - 0.34
+   hero card -> anchor    0.34 - 0.46   (ONE object shrinks, keeps playing)
+   support cards in       0.44 - 0.55
+   statement + peak       0.50 - 0.62
+   collage recedes        0.62 - 0.70
+   product                0.68 - 0.76
+   readable hold          0.76 - 0.90 */
 const MORPH_IN = 0.34;
 const MORPH_OUT = 0.46;
 const COLLAGE_END = 0.62;
@@ -115,14 +87,10 @@ const PRODUCT_FULL = 0.76;
 function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
   const p = useMotionValue(0);
   const [stateIndex, setStateIndex] = useState(0);
-  /** Stage is on screen: everything visible may play. */
   const [stageVisible, setStageVisible] = useState(true);
-  /** Support films are (or are about to be) on screen. */
   const [collageArmed, setCollageArmed] = useState(false);
-  /** Past this point the hero no longer time-cycles: the world that is live
-   *  is the world that recomposes, so its playback is never interrupted. */
-  const [heroLocked, setHeroLocked] = useState(false);
-  /** Hero films decode until the collage has fully receded. */
+  /** True only for the physical shrink/reposition window. */
+  const [morphLock, setMorphLock] = useState(false);
   const [heroLive, setHeroLive] = useState(true);
 
   useEffect(() => {
@@ -145,10 +113,10 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
         setStateIndex((old) => Math.max(old, nextState));
       }
 
-      setHeroLocked((old) => (v >= MORPH_IN - 0.02 ? true : old));
+      const locked = v >= MORPH_IN - 0.03 && v <= MORPH_OUT + 0.02;
+      setMorphLock((old) => (old === locked ? old : locked));
       const armed = v >= 0.26 && v <= RECEDE_END + 0.06;
       setCollageArmed((old) => (old === armed ? old : armed));
-      // once the collage has faded out, stop decoding hero film too
       const heroOn = v <= RECEDE_END + 0.08;
       setHeroLive((old) => (old === heroOn ? old : heroOn));
       if (visible) raf = requestAnimationFrame(tick);
@@ -166,54 +134,199 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
     return () => { io.disconnect(); cancelAnimationFrame(raf); };
   }, [p, ref]);
 
-  return { p, threadLabel: THREAD_STATES[stateIndex].label, stageVisible, collageArmed, heroLocked, heroLive };
+  return { p, threadLabel: THREAD_STATES[stateIndex].label, stageVisible, collageArmed, morphLock, heroLive };
 }
 
-/** Autoplay owns time: hero worlds crossfade on a wall clock, zero scroll needed. */
-function useHeroCycle(count: number, ms: number, running: boolean) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    if (!running) return;
-    const id = window.setInterval(() => setIndex((i) => (i + 1) % count), ms);
-    return () => window.clearInterval(id);
-  }, [count, ms, running]);
-  return index;
-}
+/* ---------------- hero playback system ---------------- */
 
-/* ---------------- media ---------------- */
+const FADE_MS = 620;
+/** Visible hold per clip. Trimmed only where the approved window is short, so
+ *  hold + crossfade always finishes before the clip could reach its end. */
+const heroHoldMs = (f: Film) => {
+  const usable = (f.end - f.start) * 1000;
+  return Math.max(1800, Math.min(2740, usable - FADE_MS - 320));
+};
+
+type Machine = { cur: number; nxt: number; phase: "hold" | "fade"; t0: number };
 
 /**
- * Always a live <video>. The poster JPG is only the pre-readiness frame
- * (the `poster` attribute). There is no visible still-image state: geometry
- * changes never convert a playing film into a picture. `play` goes false only
- * when the tile is genuinely off screen, or when the visitor has asked for
- * reduced motion.
+ * Owns hero video time. Exactly one film advances at a time; the next film is
+ * preloaded and held paused at its approved start; every entry begins from that
+ * start; the outgoing film is paused and reset only after the crossfade lands.
  */
-function FilmMedia({
+function useHeroSequencer(active: boolean, reduced: boolean, morphLock: boolean) {
+  const videos = useRef<(HTMLVideoElement | null)[]>([]);
+  const layers = useRef<(HTMLDivElement | null)[]>([]);
+  const mach = useRef<Machine>({ cur: 0, nxt: 1, phase: "hold", t0: 0 });
+  const [label, setLabel] = useState(HERO_FILMS[0].label);
+  const lockRef = useRef(morphLock);
+  lockRef.current = morphLock;
+
+  useEffect(() => {
+    const n = HERO_FILMS.length;
+    const at = (i: number) => videos.current[i];
+    const seekStart = (i: number) => {
+      const v = at(i);
+      if (!v || !Number.isFinite(v.duration)) return;
+      if (Math.abs(v.currentTime - HERO_FILMS[i].start) > 0.06) v.currentTime = HERO_FILMS[i].start;
+    };
+    const park = (i: number) => {
+      const v = at(i);
+      if (!v) return;
+      if (!v.paused) v.pause();
+      seekStart(i);
+    };
+    const paint = (curOpacity: number, nxtOpacity: number) => {
+      const m = mach.current;
+      layers.current.forEach((el, i) => {
+        if (!el) return;
+        el.style.opacity = String(i === m.cur ? curOpacity : i === m.nxt && m.phase === "fade" ? nxtOpacity : 0);
+      });
+    };
+
+    if (!active || reduced) {
+      for (let i = 0; i < n; i++) if (i !== mach.current.cur) park(i);
+      const cv = at(mach.current.cur);
+      if (cv && !cv.paused) cv.pause();
+      paint(1, 0);
+      return;
+    }
+
+    mach.current.t0 = performance.now();
+    let raf = 0;
+
+    const frame = (now: number) => {
+      const m = mach.current;
+      const curFilm = HERO_FILMS[m.cur];
+      const cv = at(m.cur);
+      // the caption must never disagree with the film that is actually visible
+      if (m.phase === "hold") setLabel((prev) => (prev === curFilm.label ? prev : curFilm.label));
+
+
+
+      // every film except current (and the incoming one mid-fade) stays parked
+      for (let i = 0; i < n; i++) {
+        if (i === m.cur) continue;
+        if (m.phase === "fade" && i === m.nxt) continue;
+        park(i);
+      }
+      // preload the next one, paused, at its approved start
+      if (m.phase === "hold") seekStart(m.nxt);
+
+      if (cv) {
+        if (cv.paused && cv.currentTime < curFilm.end - 0.05) void cv.play().catch(() => {});
+        // never wrap: hold the last approved frame instead
+        if (cv.currentTime >= curFilm.end - 0.03 && !cv.paused) cv.pause();
+      }
+
+      if (m.phase === "hold") {
+        const elapsed = now - m.t0;
+        const remaining = cv && Number.isFinite(cv.duration) ? (curFilm.end - cv.currentTime) * 1000 : 9999;
+        // during the morph lock the card must not change profession, unless the
+        // current film is about to run out of usable window: then transition now.
+        const dueByTime = elapsed >= heroHoldMs(curFilm);
+        const dueByWindow = remaining <= FADE_MS + 220;
+        if ((!lockRef.current && dueByTime) || dueByWindow) {
+          m.nxt = (m.cur + 1) % n;
+          const nv = at(m.nxt);
+          if (nv) {
+            nv.currentTime = HERO_FILMS[m.nxt].start;
+            void nv.play().catch(() => {});
+          }
+          m.phase = "fade";
+          m.t0 = now;
+        }
+      }
+
+      if (m.phase === "fade") {
+        const t = Math.min(1, (now - m.t0) / FADE_MS);
+        const e = t * t * (3 - 2 * t);
+        paint(1 - e, e);
+        if (e >= 0.5) {
+          const inLabel = HERO_FILMS[m.nxt].label;
+          setLabel((prev) => (prev === inLabel ? prev : inLabel));
+        }
+
+        if (t >= 1) {
+          const out = m.cur;
+          m.cur = m.nxt;
+          m.nxt = (m.cur + 1) % n;
+          m.phase = "hold";
+          m.t0 = now;
+          park(out);
+          paint(1, 0);
+          setLabel(HERO_FILMS[m.cur].label);
+        }
+      } else {
+        paint(1, 0);
+      }
+
+      raf = requestAnimationFrame(frame);
+    };
+
+    raf = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(raf);
+  }, [active, reduced]);
+
+  return { videos, layers, label };
+}
+
+/** Hero film layer: never remounted, never seeked by geometry. */
+function HeroVideo({
   f,
-  play,
-  reduced,
-  mobile = false,
-  eager = false,
+  index,
+  videos,
+  layers,
+  mobile,
 }: {
   f: Film;
-  play: boolean;
-  reduced: boolean;
-  mobile?: boolean;
-  eager?: boolean;
+  index: number;
+  videos: React.MutableRefObject<(HTMLVideoElement | null)[]>;
+  layers: React.MutableRefObject<(HTMLDivElement | null)[]>;
+  mobile: boolean;
 }) {
+  const position = (mobile && f.positionMobile) || f.position || "50% 50%";
+  return (
+    <div
+      ref={(el) => { layers.current[index] = el; }}
+      data-hero-layer={f.key}
+      className="absolute inset-0"
+      style={{ opacity: index === 0 ? 1 : 0, willChange: "opacity" }}
+    >
+      <video
+        ref={(el) => { videos.current[index] = el; }}
+        data-hero-video={f.key}
+        poster={f.poster}
+        muted
+        playsInline
+        loop={false}
+        preload="auto"
+        aria-hidden
+        className="h-full w-full object-cover"
+        style={{ objectPosition: position }}
+        onLoadedMetadata={(e) => {
+          const v = e.currentTarget;
+          if (Math.abs(v.currentTime - f.start) > 0.06) v.currentTime = f.start;
+        }}
+      >
+        <source src={f.video} type="video/mp4" />
+        <source src={f.videoWebm} type="video/webm" />
+      </video>
+    </div>
+  );
+}
+
+/* ---------------- support media ---------------- */
+
+/** Always a live <video>. Poster is the pre-readiness frame only. */
+function FilmMedia({ f, play, reduced, mobile }: { f: Film; play: boolean; reduced: boolean; mobile: boolean }) {
   const video = useRef<HTMLVideoElement>(null);
   const position = (mobile && f.positionMobile) || f.position || "50% 50%";
 
-  // Kick playback whenever it is allowed. Never seeks, so a geometry change
-  // (or a re-render) cannot restart the clip.
   useEffect(() => {
     const v = video.current;
     if (!v) return;
-    if (reduced || !play) {
-      if (!v.paused) v.pause();
-      return;
-    }
+    if (reduced || !play) { if (!v.paused) v.pause(); return; }
     void v.play().catch(() => {});
   }, [play, reduced]);
 
@@ -225,37 +338,31 @@ function FilmMedia({
   return (
     <video
       ref={video}
+      data-support-video={f.key}
       poster={f.poster}
       muted
       autoPlay={!reduced}
       playsInline
       loop={false}
-      preload={eager ? "auto" : "metadata"}
+      preload="metadata"
       aria-hidden
       className="h-full w-full object-cover"
       style={{ objectPosition: position }}
       onLoadedMetadata={(e) => {
         const v = e.currentTarget;
-        const start = Math.min(f.start ?? 0, Math.max(0, v.duration - 0.05));
+        const start = Math.min(f.start, Math.max(0, v.duration - 0.05));
         if (Math.abs(v.currentTime - start) > 0.05) v.currentTime = start;
         kick(v);
       }}
       onCanPlay={(e) => kick(e.currentTarget)}
       onLoadedData={(e) => kick(e.currentTarget)}
-      // Loop inside the approved window only.
       onTimeUpdate={(e) => {
         const v = e.currentTarget;
-        const start = f.start ?? 0;
-        const end = f.end ?? Math.max(start + 0.5, v.duration - 0.05);
-        if (v.currentTime >= Math.min(end, v.duration - 0.02)) v.currentTime = Math.min(start, Math.max(0, v.duration - 0.05));
+        const end = Math.min(f.end, v.duration - 0.03);
+        if (v.currentTime >= end) v.currentTime = f.start;
       }}
-      onEnded={(e) => {
-        const v = e.currentTarget;
-        v.currentTime = f.start ?? 0;
-        kick(v);
-      }}
+      onEnded={(e) => { e.currentTarget.currentTime = f.start; kick(e.currentTarget); }}
     >
-      {/* mp4 first for Safari/iOS, webm as the universal decode path */}
       <source src={f.video} type="video/mp4" />
       <source src={f.videoWebm} type="video/webm" />
     </video>
@@ -265,75 +372,64 @@ function FilmMedia({
 /* ---------------- collage geometry ---------------- */
 
 type Box = { l: number; t: number; w: number; h: number };
-type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; label?: boolean };
+type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number };
 
-/* Art direction rules held by these numbers:
-   - hero four: >= ~90% of each tile inside the frame
-   - support five: 100% inside the frame
-   - overlaps only at tile edges, never over the working hands / face
-   - central pocket x 20-64 / y 33-62 stays empty for the statement */
-const DESKTOP_HERO_TILES: Tile[] = [
-  { key: "mechanic", box: { l: -3, t: 2, w: 36, h: 30 }, rotate: -0.8, z: 22 },
-  { key: "broker", box: { l: 64, t: -3, w: 36, h: 32 }, rotate: 0.8, z: 21, label: true },
-  { key: "agent", box: { l: 67, t: 43, w: 33, h: 44 }, rotate: 0.6, z: 23, label: true },
-  { key: "construction", box: { l: 2, t: 66, w: 30, h: 32 }, rotate: -0.6, z: 22 },
+/* One hero anchor (largest object) plus a constellation of eight support
+   cards. Statement pocket: desktop x 33-67 / y 37-61, mobile y 42-58. */
+const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: 2, t: 7, w: 30, h: 43 }, rotate: -0.7, z: 26 };
+
+const DESKTOP_SUPPORT: Tile[] = [
+  { key: "solar", box: { l: 34, t: 3, w: 15, h: 22 }, rotate: 1.1, z: 18, from: 0.445 },
+  { key: "roofing", box: { l: 51, t: 1, w: 17, h: 24 }, rotate: -0.9, z: 19, from: 0.455 },
+  { key: "hvac", box: { l: 70, t: 5, w: 27, h: 27 }, rotate: 0.7, z: 20, from: 0.465 },
+  { key: "medspa", box: { l: 71, t: 35, w: 26, h: 26 }, rotate: -0.8, z: 21, from: 0.480 },
+  { key: "physio", box: { l: 1, t: 54, w: 23, h: 25 }, rotate: 0.9, z: 19, from: 0.495 },
+  { key: "dentist", box: { l: 25.5, t: 64, w: 20, h: 25 }, rotate: -1.1, z: 20, from: 0.508 },
+  { key: "personal-trainer", box: { l: 46.5, t: 62, w: 20, h: 26 }, rotate: 0.8, z: 19, from: 0.520 },
+  { key: "photographer", box: { l: 67.5, t: 66, w: 24, h: 26 }, rotate: 1.0, z: 18, from: 0.532 },
 ];
 
-const DESKTOP_SUPPORT_TILES: Tile[] = [
-  { key: "solar", box: { l: 37, t: -2, w: 12, h: 26 }, rotate: 1.2, z: 18, from: 0.445 },
-  { key: "roofing", box: { l: 51, t: 5, w: 14, h: 21 }, rotate: -0.8, z: 19, from: 0.465 },
-  { key: "photographer", box: { l: 1, t: 36, w: 16, h: 28 }, rotate: 1.1, z: 18, from: 0.485 },
-  { key: "personal-trainer", box: { l: 37, t: 68, w: 19, h: 24 }, rotate: 0.8, z: 19, from: 0.505 },
-  // sits above the property tile's empty lower corner, fully readable itself
-  { key: "dentist", box: { l: 59, t: 70, w: 21, h: 21 }, rotate: -1.1, z: 30, from: 0.525 },
+const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: 3, t: 3, w: 62, h: 21 }, rotate: -0.7, z: 26 };
+
+const MOBILE_SUPPORT: Tile[] = [
+  { key: "hvac", box: { l: 62, t: 7, w: 36, h: 15 }, rotate: 0.9, z: 20, from: 0.445 },
+  { key: "solar", box: { l: 4, t: 26, w: 30, h: 13 }, rotate: 1.1, z: 18, from: 0.455 },
+  { key: "roofing", box: { l: 35.5, t: 25, w: 31, h: 14 }, rotate: -0.9, z: 19, from: 0.465 },
+  { key: "medspa", box: { l: 66, t: 24.5, w: 32, h: 15 }, rotate: -0.8, z: 20, from: 0.478 },
+  { key: "physio", box: { l: 2, t: 60, w: 41, h: 15 }, rotate: 0.9, z: 19, from: 0.495 },
+  { key: "dentist", box: { l: 45, t: 59, w: 30, h: 14 }, rotate: -1.0, z: 20, from: 0.508 },
+  { key: "personal-trainer", box: { l: 6, t: 77, w: 42, h: 15 }, rotate: 0.8, z: 19, from: 0.520 },
+  { key: "photographer", box: { l: 51, t: 75, w: 46, h: 17 }, rotate: 1.0, z: 18, from: 0.532 },
 ];
 
-const MOBILE_HERO_TILES: Tile[] = [
-  { key: "mechanic", box: { l: -2, t: 4, w: 56, h: 16 }, rotate: -0.8, z: 22 },
-  { key: "broker", box: { l: 50, t: 8, w: 50, h: 15 }, rotate: 0.8, z: 21 },
-  { key: "construction", box: { l: -1, t: 24, w: 52, h: 16 }, rotate: -0.6, z: 22 },
-  { key: "agent", box: { l: 48, t: 28, w: 52, h: 17 }, rotate: 0.6, z: 23 },
-];
-
-const MOBILE_SUPPORT_TILES: Tile[] = [
-  { key: "solar", box: { l: -2, t: 63, w: 28, h: 15 }, rotate: 1.2, z: 18, from: 0.45 },
-  { key: "roofing", box: { l: 28, t: 64, w: 32, h: 13 }, rotate: -0.8, z: 19, from: 0.47 },
-  { key: "photographer", box: { l: 62, t: 62, w: 36, h: 16 }, rotate: 1.0, z: 18, from: 0.49 },
-  { key: "personal-trainer", box: { l: 2, t: 79, w: 44, h: 14 }, rotate: 0.8, z: 19, from: 0.51 },
-  { key: "dentist", box: { l: 49, t: 80, w: 48, h: 13 }, rotate: -1.0, z: 20, from: 0.53 },
-];
-
-/** Hero world: full bleed, then recomposes into its collage position. */
-function HeroWorldTile({
-  f,
+/**
+ * THE hero object. Full bleed at rest, then this same element (and the same
+ * four <video> nodes inside it) shrinks into the collage anchor position.
+ * Geometry only ever touches the wrapper, so playback is continuous.
+ */
+function HeroAnchorCard({
   tile,
-  active,
-  visible,
   p,
-  reduced,
   mobile,
+  label,
+  videos,
+  layers,
 }: {
-  visible: boolean;
-  f: Film;
   tile: Tile;
-  active: boolean;
   p: MotionValue<number>;
-  reduced: boolean;
   mobile: boolean;
+  label: string;
+  videos: React.MutableRefObject<(HTMLVideoElement | null)[]>;
+  layers: React.MutableRefObject<(HTMLDivElement | null)[]>;
 }) {
   const stops = [MORPH_IN, MORPH_OUT];
   const left = useTransform(p, stops, [0, tile.box.l]);
   const top = useTransform(p, stops, [0, tile.box.t]);
   const width = useTransform(p, stops, [100, tile.box.w]);
   const height = useTransform(p, stops, [100, tile.box.h]);
-  const radius = useTransform(p, stops, [0, 4]);
+  const radius = useTransform(p, stops, [0, 5]);
   const rotate = useTransform(p, stops, [0, tile.rotate ?? 0]);
-
-  // Hero phase: only the active world is visible. During the morph every hero
-  // world fades up into its collage slot, so the composition transforms.
-  const reveal = useTransform(p, [MORPH_IN, MORPH_IN + 0.05], [0, 1]);
-  const fade = useTransform(p, [COLLAGE_END, RECEDE_END], [1, 0]);
-  const opacity = useTransform([reveal, fade], ([r, fd]: number[]) => (active ? (fd as number) : Math.min(r as number, fd as number)));
+  const opacity = useTransform(p, [COLLAGE_END, RECEDE_END], [1, 0]);
   const blur = useTransform(p, [COLLAGE_END, RECEDE_END], [0, mobile ? 6 : 10]);
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
 
@@ -345,39 +441,43 @@ function HeroWorldTile({
 
   return (
     <motion.div
+      data-hero-anchor
       className="absolute overflow-hidden bg-[#0A0E14]"
-      style={{ left: l, top: t, width: w, height: h, borderRadius: br, rotate, opacity, filter, zIndex: active ? tile.z + 4 : tile.z }}
+      style={{ left: l, top: t, width: w, height: h, borderRadius: br, rotate, opacity, filter, zIndex: tile.z }}
     >
-      <FilmMedia f={f} play={visible} reduced={reduced} mobile={mobile} eager />
-      <TileScrim p={p} label={tile.label ? f.label : undefined} />
+      {HERO_FILMS.map((f, i) => (
+        <HeroVideo key={f.key} f={f} index={i} videos={videos} layers={layers} mobile={mobile} />
+      ))}
+      <TileScrim p={p} label={label} />
     </motion.div>
   );
 }
 
-/** Scrim + subtle label that only exist once the tile is a collage tile. */
+/** Scrim + label that only exist once the card is a collage object. */
 function TileScrim({ p, label }: { p: MotionValue<number>; label?: string }) {
   const opacity = useTransform(p, [MORPH_IN + 0.02, MORPH_OUT], [0, 1]);
   return (
     <motion.div className="pointer-events-none absolute inset-0" style={{ opacity }}>
-      <span className="absolute inset-0 bg-[#070B14]/[0.14]" />
-      <span className="absolute inset-x-0 bottom-0 h-[46%] bg-gradient-to-t from-black/62 to-transparent" />
+      <span className="absolute inset-0 bg-[#070B14]/[0.12]" />
+      <span className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-black/60 to-transparent" />
       {label && (
-        <span className="absolute bottom-2.5 left-3 right-3 truncate text-[10px] font-semibold uppercase tracking-[0.15em] text-white/72">{label}</span>
+        <span className="absolute bottom-2.5 left-3 right-3 truncate text-[10px] font-semibold uppercase tracking-[0.15em] text-white/75">{label}</span>
       )}
     </motion.div>
   );
 }
 
 function SupportTile({ tile, p, reduced, mobile, armed }: { tile: Tile; p: MotionValue<number>; reduced: boolean; mobile: boolean; armed: boolean }) {
-  const f = film(tile.key);
+  const f = support(tile.key);
   const from = tile.from ?? 0.45;
-  const enterOpacity = useTransform(p, [from, from + 0.03, COLLAGE_END, RECEDE_END], [0, 1, 1, 0]);
-  const scale = useTransform(p, [from, from + 0.045, COLLAGE_END, RECEDE_END], [0.88, 1, 1, 0.9]);
+  const opacity = useTransform(p, [from, from + 0.03, COLLAGE_END, RECEDE_END], [0, 1, 1, 0]);
+  const scale = useTransform(p, [from, from + 0.045, COLLAGE_END, RECEDE_END], [0.9, 1, 1, 0.92]);
   const blur = useTransform(p, [COLLAGE_END, RECEDE_END], [0, mobile ? 6 : 10]);
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
 
   return (
     <motion.div
+      data-support-tile={tile.key}
       className="absolute overflow-hidden rounded-[4px] bg-[#0A0E14]"
       style={{
         left: `${tile.box.l}%`,
@@ -385,14 +485,14 @@ function SupportTile({ tile, p, reduced, mobile, armed }: { tile: Tile; p: Motio
         width: `${tile.box.w}%`,
         height: `${tile.box.h}%`,
         rotate: tile.rotate ?? 0,
-        opacity: enterOpacity,
+        opacity,
         scale,
         filter,
         zIndex: tile.z,
       }}
     >
       <FilmMedia f={f} play={armed} reduced={reduced} mobile={mobile} />
-      <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.16]" />
+      <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.14]" />
     </motion.div>
   );
 }
@@ -420,7 +520,6 @@ function HeroCopy({ mobile }: { mobile: boolean }) {
   );
 }
 
-/** Persistent system layer. Always sits above every tile, never inside one. */
 function FollowThread({ p, label, mobile }: { p: MotionValue<number>; label: string; mobile: boolean }) {
   const opacity = useTransform(p, [0.02, 0.06, COLLAGE_END, RECEDE_END - 0.02], [0, 1, 1, 0]);
   return (
@@ -441,19 +540,19 @@ function FollowThread({ p, label, mobile }: { p: MotionValue<number>; label: str
 /* ---------------- collage ---------------- */
 
 function RecognitionCollage({ p, reduced, mobile, armed }: { p: MotionValue<number>; reduced: boolean; mobile: boolean; armed: boolean }) {
-  const supportTiles = mobile ? MOBILE_SUPPORT_TILES : DESKTOP_SUPPORT_TILES;
+  const tiles = mobile ? MOBILE_SUPPORT : DESKTOP_SUPPORT;
   const statementOpacity = useTransform(p, [0.50, 0.545, COLLAGE_END, RECEDE_END - 0.04], [0, 1, 1, 0]);
   const statementY = useTransform(p, [0.50, 0.56], [16, 0]);
 
   return (
     <>
-      {supportTiles.map((tile) => <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />)}
+      {tiles.map((tile) => <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />)}
       <motion.div
-        className={mobile ? "absolute left-[6%] top-[47%] z-[40] w-[88%]" : "absolute left-[20%] top-[35%] z-[40] w-[44%]"}
+        className={mobile ? "absolute left-[6%] top-[42%] z-[40] w-[88%]" : "absolute left-[34%] top-[39%] z-[40] w-[33%]"}
         style={{ opacity: statementOpacity, y: statementY }}
       >
         <h2
-          className={mobile ? "text-[32px] leading-[1.02] tracking-[-0.045em] text-white" : "text-[58px] leading-[0.95] tracking-[-0.05em] text-white"}
+          className={mobile ? "text-[31px] leading-[1.02] tracking-[-0.045em] text-white" : "text-[50px] leading-[0.95] tracking-[-0.05em] text-white"}
           style={{ fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 30px rgba(0,0,0,.78)" }}
         >
           Different work.<br />Same follow-through.
@@ -516,17 +615,14 @@ function GenericCustomerRecord() {
 function StoryStage({ mobile }: { mobile: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
-  const { p, threadLabel, stageVisible, collageArmed, heroLocked, heroLive } = useStoryScroll(wrap);
-  // Autoplay, not scroll, decides which hero world is on screen. It stops
-  // advancing once the morph begins so the live world is the one that recomposes.
-  const worldIndex = useHeroCycle(HERO.length, 3500, !reduced && stageVisible && !heroLocked);
+  const { p, threadLabel, stageVisible, collageArmed, morphLock, heroLive } = useStoryScroll(wrap);
+  const { videos, layers, label } = useHeroSequencer(stageVisible && heroLive, reduced, morphLock);
+  const anchor = useMemo(() => (mobile ? MOBILE_ANCHOR : DESKTOP_ANCHOR), [mobile]);
 
   const heroOpacity = useTransform(p, [0.00, 0.05, 0.10], [1, 1, 0]);
-  // Full-bleed cinematic grade only exists while the hero worlds are full frame.
   const gradeOpacity = useTransform(p, [MORPH_IN, MORPH_IN + 0.045], [1, 0]);
   const worldLabelOpacity = useTransform(p, [0.0, 0.02, MORPH_IN, MORPH_IN + 0.03], [0, 1, 1, 0]);
 
-  // Product and heading reveal as one coordinated moment, after the collage has receded.
   const productOpacity = useTransform(p, [PRODUCT_IN, PRODUCT_FULL, 0.94, 1], [0, 1, 1, 0.92]);
   const productY = useTransform(p, [PRODUCT_IN, PRODUCT_FULL], [mobile ? 18 : 26, 0]);
   const bg = useTransform(p, [RECEDE_END - 0.06, PRODUCT_FULL - 0.02], ["#080B10", "#F7F8FA"]);
@@ -534,28 +630,15 @@ function StoryStage({ mobile }: { mobile: boolean }) {
   return (
     <div ref={wrap} data-v5-stage className={mobile ? "relative h-[520vh]" : "relative h-[560vh]"}>
       <motion.div className="sticky overflow-hidden" style={{ top: NAV, height: `calc(100vh - ${NAV}px)`, background: bg }}>
-        {/* hero worlds -> collage tiles (same objects) */}
-        {HERO.map((f, i) => (
-          <HeroWorldTile
-            key={f.key}
-            f={f}
-            tile={(mobile ? MOBILE_HERO_TILES : DESKTOP_HERO_TILES).find((t) => t.key === f.key)!}
-            active={i === worldIndex}
-            visible={stageVisible && heroLive}
-            p={p}
-            reduced={reduced}
-            mobile={mobile}
-          />
-        ))}
+        <HeroAnchorCard tile={anchor} p={p} mobile={mobile} label={label} videos={videos} layers={layers} />
 
-        {/* cinematic grade for hero legibility */}
         <motion.div className="pointer-events-none absolute inset-0 z-[28]" style={{ opacity: gradeOpacity }}>
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,13,.78)_0%,rgba(5,8,13,.54)_34%,rgba(5,8,13,.16)_64%,rgba(5,8,13,.36)_100%)]" />
           <div className="absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-black/55 to-transparent" />
         </motion.div>
 
         <motion.div className="absolute right-[4%] top-[5%] z-[30] text-[10px] font-semibold uppercase tracking-[0.19em] text-white/45" style={{ opacity: worldLabelOpacity }}>
-          {HERO[worldIndex].label}
+          {label}
         </motion.div>
 
         <motion.div
@@ -568,7 +651,6 @@ function StoryStage({ mobile }: { mobile: boolean }) {
         <RecognitionCollage p={p} reduced={reduced} mobile={mobile} armed={stageVisible && collageArmed} />
         <FollowThread p={p} label={threadLabel} mobile={mobile} />
 
-        {/* product: heading + surface as one group */}
         <motion.div
           className={mobile ? "absolute inset-x-[4%] top-[3%] bottom-[3%] z-[60] flex flex-col" : "absolute inset-x-[5%] top-[5%] bottom-[5%] z-[60] flex flex-col"}
           style={{ opacity: productOpacity, y: productY }}
