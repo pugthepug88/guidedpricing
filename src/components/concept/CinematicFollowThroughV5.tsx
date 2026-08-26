@@ -357,7 +357,7 @@ function TileScrim({ p, label }: { p: MotionValue<number>; label?: string }) {
   );
 }
 
-function SupportTile({ tile, p, reduced, mobile }: { tile: Tile; p: MotionValue<number>; reduced: boolean; mobile: boolean }) {
+function SupportTile({ tile, p, reduced, mobile, armed }: { tile: Tile; p: MotionValue<number>; reduced: boolean; mobile: boolean; armed: boolean }) {
   const f = film(tile.key);
   const from = tile.from ?? 0.45;
   const enterOpacity = useTransform(p, [from, from + 0.03, COLLAGE_END, RECEDE_END], [0, 1, 1, 0]);
