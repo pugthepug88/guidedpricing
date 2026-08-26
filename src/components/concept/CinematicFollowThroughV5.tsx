@@ -172,59 +172,83 @@ function useHeroCycle(count: number, ms: number, running: boolean) {
 
 /* ---------------- media ---------------- */
 
+/**
+ * Always a live <video>. The poster JPG is only the pre-readiness frame
+ * (the `poster` attribute). There is no visible still-image state: geometry
+ * changes never convert a playing film into a picture. `play` goes false only
+ * when the tile is genuinely off screen, or when the visitor has asked for
+ * reduced motion.
+ */
 function FilmMedia({
   f,
   play,
   reduced,
-  posterOnly = false,
   mobile = false,
+  eager = false,
 }: {
   f: Film;
   play: boolean;
   reduced: boolean;
-  posterOnly?: boolean;
   mobile?: boolean;
+  eager?: boolean;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const position = (mobile && f.positionMobile) || f.position || "50% 50%";
 
+  // Kick playback whenever it is allowed. Never seeks, so a geometry change
+  // (or a re-render) cannot restart the clip.
   useEffect(() => {
     const v = video.current;
-    if (!v || reduced || posterOnly || !play) return;
-    const start = f.start ?? 0;
-    if (v.readyState >= 1 && (v.currentTime < start || (f.end && v.currentTime > f.end))) v.currentTime = start;
+    if (!v) return;
+    if (reduced || !play) {
+      if (!v.paused) v.pause();
+      return;
+    }
     void v.play().catch(() => {});
-    return () => v.pause();
-  }, [play, reduced, posterOnly, f.start, f.end]);
+  }, [play, reduced]);
 
-
-  if ((reduced || posterOnly) && f.poster) {
-    return <img src={f.poster} alt="" aria-hidden className="h-full w-full object-cover" style={{ objectPosition: position }} />;
-  }
+  const kick = (v: HTMLVideoElement) => {
+    if (reduced || !play) return;
+    if (v.paused) void v.play().catch(() => {});
+  };
 
   return (
     <video
       ref={video}
-      src={f.video}
       poster={f.poster}
       muted
+      autoPlay={!reduced}
       playsInline
-      preload={play ? "metadata" : "none"}
+      loop={false}
+      preload={eager ? "auto" : "metadata"}
       aria-hidden
       className="h-full w-full object-cover"
       style={{ objectPosition: position }}
       onLoadedMetadata={(e) => {
         const v = e.currentTarget;
-        v.currentTime = Math.min(f.start ?? 0, Math.max(0, v.duration - 0.05));
-        if (play) void v.play().catch(() => {});
+        const start = Math.min(f.start ?? 0, Math.max(0, v.duration - 0.05));
+        if (Math.abs(v.currentTime - start) > 0.05) v.currentTime = start;
+        kick(v);
       }}
+      onCanPlay={(e) => kick(e.currentTarget)}
+      onLoadedData={(e) => kick(e.currentTarget)}
+      // Loop inside the approved window only.
       onTimeUpdate={(e) => {
         const v = e.currentTarget;
         const start = f.start ?? 0;
         const end = f.end ?? Math.max(start + 0.5, v.duration - 0.05);
         if (v.currentTime >= Math.min(end, v.duration - 0.02)) v.currentTime = Math.min(start, Math.max(0, v.duration - 0.05));
       }}
-    />
+      onEnded={(e) => {
+        const v = e.currentTarget;
+        v.currentTime = f.start ?? 0;
+        kick(v);
+      }}
+    >
+      {/* mp4 first for Safari/iOS, webm as the universal decode path */}
+      <source src={f.video} type="video/mp4" />
+      <source src={f.videoWebm} type="video/webm" />
+    </video>
   );
 }
 
