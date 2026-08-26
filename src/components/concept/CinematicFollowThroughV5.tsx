@@ -200,7 +200,8 @@ function useHeroSequencer(active: boolean, reduced: boolean, morphLock: boolean)
       const curFilm = HERO_FILMS[m.cur];
       const cv = at(m.cur);
       // the caption must never disagree with the film that is actually visible
-      setLabel((prev) => (prev === curFilm.label ? prev : curFilm.label));
+      if (m.phase === "hold") setLabel((prev) => (prev === curFilm.label ? prev : curFilm.label));
+
 
 
       // every film except current (and the incoming one mid-fade) stays parked
