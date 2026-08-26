@@ -106,10 +106,17 @@ const RECEDE_END = 0.70;
 const PRODUCT_IN = 0.68;
 const PRODUCT_FULL = 0.76;
 
+/** Scroll drives geometry only. It never chooses which film is playing. */
 function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
   const p = useMotionValue(0);
-  const [worldIndex, setWorldIndex] = useState(0);
   const [stateIndex, setStateIndex] = useState(0);
+  /** Stage is on screen: everything visible may play. */
+  const [stageVisible, setStageVisible] = useState(true);
+  /** Support films are (or are about to be) on screen. */
+  const [collageArmed, setCollageArmed] = useState(false);
+  /** Past this point the hero no longer time-cycles: the world that is live
+   *  is the world that recomposes, so its playback is never interrupted. */
+  const [heroLocked, setHeroLocked] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -131,23 +138,36 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
         setStateIndex((old) => Math.max(old, nextState));
       }
 
-      const nextWorld = v < 0.09 ? 0 : v < 0.18 ? 1 : v < 0.27 ? 2 : 3;
-      setWorldIndex((old) => (old === nextWorld ? old : nextWorld));
+      setHeroLocked((old) => (v >= MORPH_IN - 0.02 ? true : old));
+      const armed = v >= 0.26 && v <= RECEDE_END + 0.06;
+      setCollageArmed((old) => (old === armed ? old : armed));
       if (visible) raf = requestAnimationFrame(tick);
     };
 
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      setStageVisible(entry.isIntersecting);
       cancelAnimationFrame(raf);
       if (visible) raf = requestAnimationFrame(tick);
-    }, { rootMargin: "10% 0px" });
+    }, { rootMargin: "12% 0px" });
 
     io.observe(el);
     raf = requestAnimationFrame(tick);
     return () => { io.disconnect(); cancelAnimationFrame(raf); };
   }, [p, ref]);
 
-  return { p, worldIndex, threadLabel: THREAD_STATES[stateIndex].label };
+  return { p, threadLabel: THREAD_STATES[stateIndex].label, stageVisible, collageArmed, heroLocked };
+}
+
+/** Autoplay owns time: hero worlds crossfade on a wall clock, zero scroll needed. */
+function useHeroCycle(count: number, ms: number, running: boolean) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    if (!running) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % count), ms);
+    return () => window.clearInterval(id);
+  }, [count, ms, running]);
+  return index;
 }
 
 /* ---------------- media ---------------- */
