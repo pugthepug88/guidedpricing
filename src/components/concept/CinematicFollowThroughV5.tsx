@@ -336,12 +336,13 @@ type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; 
 /* Editorial composition: irregular scale, off-canvas cropping, no shared baselines. */
 const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: -4, t: 4, w: 37, h: 47 }, rotate: -2.6, z: 24 };
 const DESKTOP_SUPPORT: Tile[] = [
-  { key: "solar", box: { l: 30, t: -5, w: 19, h: 29 }, rotate: 3, z: 18, from: 0.14, enter: { x: 5, y: -30, scale: 0.82, rotate: 8, span: 0.11 } },
-  { key: "roofing", box: { l: 47, t: 1, w: 23, h: 27 }, rotate: -2.2, z: 20, from: 0.18, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.1 } },
-  { key: "skin-clinic", box: { l: 69, t: 0, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.16, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.13 } },
-  { key: "vet", box: { l: 72, t: 29, w: 32, h: 31 }, rotate: -2.4, z: 22, from: 0.245, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.12 } },
-  { key: "dentist", box: { l: -4, t: 58, w: 29, h: 31 }, rotate: 2.3, z: 21, from: 0.21, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.14 } },
-  { key: "personal-trainer", box: { l: 25, t: 69, w: 19, h: 26 }, rotate: -3.3, z: 17, from: 0.29, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
+  { key: "solar", box: { l: 29, t: -9, w: 19, h: 31 }, rotate: 3, z: 18, from: 0.14, enter: { x: 5, y: -30, scale: 0.82, rotate: 8, span: 0.11 } },
+  { key: "roofing", box: { l: 46, t: 7, w: 23, h: 29 }, rotate: -2.2, z: 20, from: 0.18, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.1 } },
+  { key: "skin-clinic", box: { l: 68, t: -2, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.16, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.13 } },
+  { key: "vet", box: { l: 68, t: 31, w: 33, h: 31 }, rotate: -2.4, z: 22, from: 0.245, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.12 } },
+  { key: "dentist", box: { l: -4, t: 56, w: 30, h: 33 }, rotate: 2.3, z: 21, from: 0.21, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.14 } },
+  { key: "personal-trainer", box: { l: 22, t: 68, w: 21, h: 28 }, rotate: -3.3, z: 17, from: 0.29, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
+
   { key: "photographer", box: { l: 70, t: 73, w: 35, h: 31 }, rotate: 3.8, z: 30, from: 0.255, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.12 } },
 ];
 
