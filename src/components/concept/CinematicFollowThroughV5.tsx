@@ -71,7 +71,7 @@ function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
       p.set(v);
 
       const nextLock = v >= MORPH_IN && v <= MORPH_OUT;
-      const nextArmed = v >= SUPPORT_IN - 0.04;
+      const nextArmed = v >= 0.1;
       if (nextLock !== morphLock.current || nextArmed !== collageArmed.current) {
         morphLock.current = nextLock;
         collageArmed.current = nextArmed;
