@@ -163,10 +163,10 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
 
 function PendingSlate({ label, compact }: { label: string; compact?: boolean }) {
   return (
-    <div className="flex h-full w-full flex-col justify-end gap-1 bg-[#0C1017] p-3" style={{ boxShadow: "inset 0 0 0 1px rgba(6,182,212,.28)" }}>
+    <div className="flex h-full w-full flex-col items-center justify-center gap-1 bg-[#0C1017] p-3 text-center" style={{ boxShadow: "inset 0 0 0 1px rgba(6,182,212,.28)" }}>
       <span className="text-[9px] font-semibold uppercase tracking-[0.2em]" style={{ color: CYAN }}>Media pending</span>
       {!compact && (
-        <span className="text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.14em] text-white/60">{label}</span>
+        <span className="max-w-full text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.14em] text-white/60">{label}</span>
       )}
     </div>
   );
@@ -237,10 +237,10 @@ type Box = { l: number; t: number; w: number; h: number };
 type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; label?: boolean };
 
 const DESKTOP_HERO_TILES: Tile[] = [
-  { key: "mechanic", box: { l: -4, t: 1, w: 38, h: 31 }, rotate: -0.8, z: 22, label: true },
+  { key: "mechanic", box: { l: -4, t: 1, w: 38, h: 31 }, rotate: -0.8, z: 22 },
   { key: "broker", box: { l: 62, t: -4, w: 42, h: 35 }, rotate: 0.8, z: 21, label: true },
   { key: "agent", box: { l: 68, t: 41, w: 36, h: 46 }, rotate: 0.6, z: 23, label: true },
-  { key: "construction", box: { l: 1, t: 62, w: 35, h: 41 }, rotate: -0.6, z: 22, label: true },
+  { key: "construction", box: { l: 1, t: 62, w: 35, h: 41 }, rotate: -0.6, z: 22 },
 ];
 
 const DESKTOP_SUPPORT_TILES: Tile[] = [
