@@ -14,125 +14,106 @@ const V2 = "/concept/multi-world-v2";
 /**
  * V5 media contract
  * -----------------
- * Drop final web cuts into /public/concept/cinematic-v5/ using these stems:
- * mechanic, broker, agent, construction, solar, roofing,
- * personal-trainer, photographer, dentist (.mp4 + .jpg).
+ * Every profession resolves to exactly ONE approved source. There is no probing,
+ * no remote guess and no cross-profession fallback: a profession with no approved
+ * file renders a visible "media pending" slate instead of the wrong footage, and
+ * mounts no <video>, so there is no 404 traffic.
  *
- * The component intentionally supports temporary fallbacks so this major
- * composition can be reviewed before every final binary is committed.
+ * To finish the pass, drop the approved final web cuts into
+ * /public/concept/cinematic-v5/ with these stems and set `video`/`poster` below:
+ *   broker, agent, construction, solar, roofing,
+ *   personal-trainer, photographer, dentist  (.mp4 + .jpg)
+ * mechanic intentionally keeps the already-approved multi-world-v2 source.
  */
 type Film = {
   key: string;
   label: string;
-  localStem: string;
-  remoteVideo?: string;
-  fallbackVideo?: string;
-  fallbackPoster?: string;
+  /** Approved source. `null` = pending approved media (renders the pending slate). */
+  video: string | null;
+  poster?: string;
   start?: number;
   end?: number;
-  objectPosition?: string;
+  /** Crop focus, desktop / mobile. */
+  position?: string;
+  positionMobile?: string;
 };
 
-const HERO: Film[] = [
+const HERO_KEYS = ["mechanic", "broker", "agent", "construction"] as const;
+
+const FILMS: Film[] = [
   {
     key: "mechanic",
     label: "Automotive workshop",
-    localStem: "mechanic",
-    fallbackVideo: `${V2}/mechanic.mp4`,
-    fallbackPoster: `${V2}/mechanic.jpg`,
+    video: `${V2}/mechanic.mp4`,
+    poster: `${V2}/mechanic.jpg`,
     start: 1.2,
     end: 8.6,
-    objectPosition: "50% 46%",
+    position: "50% 46%",
+    positionMobile: "52% 48%",
   },
   {
     key: "broker",
     label: "Mortgage broker",
-    localStem: "broker",
-    remoteVideo: "https://videos.pexels.com/video-files/8293313/8293313-hd_1920_1080_30fps.mp4",
-    fallbackVideo: `${V2}/broker.mp4`,
-    fallbackPoster: `${V2}/broker.jpg`,
+    video: `${V2}/broker.mp4`,
+    poster: `${V2}/broker.jpg`,
     start: 1.3,
     end: 5.0,
-    objectPosition: "49% 50%",
+    position: "49% 50%",
+    positionMobile: "52% 52%",
   },
   {
     key: "agent",
     label: "Property / real estate",
-    localStem: "agent",
-    remoteVideo: "https://videos.pexels.com/video-files/7646399/7646399-uhd_3840_2160_25fps.mp4",
-    fallbackVideo: `${V2}/agent.mp4`,
-    fallbackPoster: `${V2}/agent.jpg`,
+    video: `${V2}/agent.mp4`,
+    poster: `${V2}/agent.jpg`,
     start: 1.3,
     end: 6.6,
-    objectPosition: "50% 48%",
+    position: "50% 48%",
+    positionMobile: "56% 50%",
   },
   {
     key: "construction",
     label: "Construction / project contractor",
-    localStem: "construction",
-    remoteVideo: "https://videos.pexels.com/video-files/8964794/8964794-uhd_3840_2160_25fps.mp4",
-    fallbackVideo: "/concept/multi-world/builder.mp4",
-    fallbackPoster: "/concept/multi-world/builder.jpg",
-    start: 5.4,
-    end: 9.0,
-    objectPosition: "50% 47%",
+    // Approved clip pending transfer: ${V5}/construction.mp4 + .jpg
+    // Crop target once available: people reviewing / pointing at the plan.
+    video: null,
+    position: "50% 44%",
+    positionMobile: "54% 46%",
   },
+  { key: "solar", label: "Solar installer", video: null, position: "50% 46%" },
+  { key: "roofing", label: "Roofing contractor", video: null, position: "50% 44%" },
+  { key: "personal-trainer", label: "Personal trainer", video: null, position: "50% 46%" },
+  { key: "photographer", label: "Photographer", video: null, position: "50% 44%" },
+  { key: "dentist", label: "Dentist", video: null, position: "50% 48%" },
 ];
 
-const SUPPORT: Film[] = [
-  {
-    key: "solar",
-    label: "Solar installer",
-    localStem: "solar",
-    remoteVideo: "https://videos.pexels.com/video-files/8853484/8853484-hd_1080_1920_24fps.mp4",
-    start: 0,
-    end: 5,
-    objectPosition: "50% 50%",
-  },
-  {
-    key: "roofing",
-    label: "Roofing contractor",
-    localStem: "roofing",
-    fallbackVideo: "/concept/human-work/painter.mp4",
-    fallbackPoster: "/concept/human-work/painter.jpg",
-    start: 0,
-    end: 4,
-    objectPosition: "50% 45%",
-  },
-  {
-    key: "personal-trainer",
-    label: "Personal trainer",
-    localStem: "personal-trainer",
-    objectPosition: "50% 50%",
-  },
-  {
-    key: "photographer",
-    label: "Photographer",
-    localStem: "photographer",
-    objectPosition: "50% 50%",
-  },
-  {
-    key: "dentist",
-    label: "Dentist",
-    localStem: "dentist",
-    fallbackVideo: "/concept/human-work/dentist.mp4",
-    fallbackPoster: "/concept/human-work/dentist.jpg",
-    start: 0,
-    end: 5,
-    objectPosition: "50% 48%",
-  },
-];
-
-const ALL = [...HERO, ...SUPPORT];
+const film = (key: string) => FILMS.find((f) => f.key === key)!;
+const HERO = HERO_KEYS.map((k) => film(k));
 
 const THREAD_STATES = [
-  { at: 0.04, label: "New enquiry" },
-  { at: 0.17, label: "Reply sent" },
-  { at: 0.30, label: "Booking offered" },
-  { at: 0.43, label: "Booked" },
-  { at: 0.56, label: "Paid" },
-  { at: 0.67, label: "Review requested" },
+  { at: 0.03, label: "New enquiry" },
+  { at: 0.13, label: "Reply sent" },
+  { at: 0.23, label: "Booking offered" },
+  { at: 0.36, label: "Booked" },
+  { at: 0.50, label: "Paid" },
+  { at: 0.60, label: "Review requested" },
 ] as const;
+
+/* ---------------- choreography ---------------- */
+/* hero worlds        0.00 - 0.34
+   hero -> collage    0.34 - 0.46  (last world dims first, hero four recompose)
+   support tiles in   0.44 - 0.55
+   statement + peak   0.50 - 0.62
+   collage recedes    0.62 - 0.70
+   product (as one)   0.68 - 0.76
+   readable hold      0.76 - 0.90
+   release            0.90 - 1.00 */
+const MORPH_IN = 0.34;
+const MORPH_OUT = 0.46;
+const COLLAGE_END = 0.62;
+const RECEDE_END = 0.70;
+const PRODUCT_IN = 0.68;
+const PRODUCT_FULL = 0.76;
 
 function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
   const p = useMotionValue(0);
@@ -159,8 +140,8 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
         setStateIndex((old) => Math.max(old, nextState));
       }
 
-      const nextWorld = v < 0.14 ? 0 : v < 0.26 ? 1 : v < 0.38 ? 2 : 3;
-      setWorldIndex((old) => old === nextWorld ? old : nextWorld);
+      const nextWorld = v < 0.09 ? 0 : v < 0.18 ? 1 : v < 0.27 ? 2 : 3;
+      setWorldIndex((old) => (old === nextWorld ? old : nextWorld));
       if (visible) raf = requestAnimationFrame(tick);
     };
 
@@ -178,129 +159,206 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
   return { p, worldIndex, threadLabel: THREAD_STATES[stateIndex].label };
 }
 
+/* ---------------- media ---------------- */
+
+function PendingSlate({ label, compact }: { label: string; compact?: boolean }) {
+  return (
+    <div className="flex h-full w-full flex-col items-center justify-center gap-1 bg-[#0C1017] p-3 text-center" style={{ boxShadow: "inset 0 0 0 1px rgba(6,182,212,.28)" }}>
+      <span className="text-[9px] font-semibold uppercase tracking-[0.2em]" style={{ color: CYAN }}>Media pending</span>
+      {!compact && (
+        <span className="max-w-full text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.14em] text-white/60">{label}</span>
+      )}
+    </div>
+  );
+}
+
 function FilmMedia({
-  film,
-  active,
+  f,
+  play,
   reduced,
   posterOnly = false,
-  className = "",
+  mobile = false,
+  compactSlate = false,
 }: {
-  film: Film;
-  active: boolean;
+  f: Film;
+  play: boolean;
   reduced: boolean;
   posterOnly?: boolean;
-  className?: string;
+  mobile?: boolean;
+  compactSlate?: boolean;
 }) {
   const video = useRef<HTMLVideoElement>(null);
-  const localVideo = `${V5}/${film.localStem}.mp4`;
-  const localPoster = `${V5}/${film.localStem}.jpg`;
-  // Prefer committed local files (final V5 stem, then in-repo fallback) before remote sources.
-  const candidates = [localVideo, film.fallbackVideo, film.remoteVideo].filter(Boolean) as string[];
-  const [sourceIndex, setSourceIndex] = useState(0);
-  const [posterFailed, setPosterFailed] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-  const src = candidates[sourceIndex];
-
-  // Local /concept/cinematic-v5 stems are not committed yet. The <video> error can
-  // fire before hydration, so probe candidates once and start on the first that exists.
-  useEffect(() => {
-    let cancelled = false;
-    const exists = async (url: string, kind: string) => {
-      try {
-        const res = await fetch(url, { method: "HEAD" });
-        return res.ok && (res.headers.get("content-type") ?? "").startsWith(kind);
-      } catch {
-        return false;
-      }
-    };
-    (async () => {
-      for (let i = 0; i < candidates.length; i += 1) {
-        if (await exists(candidates[i], "video/")) { if (!cancelled) setSourceIndex(i); return; }
-      }
-      if (!cancelled) setVideoFailed(true);
-    })();
-    void (async () => {
-      if (!(await exists(localPoster, "image/")) && !cancelled) setPosterFailed(true);
-    })();
-    return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [film.key]);
-
-
+  const position = (mobile && f.positionMobile) || f.position || "50% 50%";
 
   useEffect(() => {
     const v = video.current;
-    if (!v || reduced || posterOnly || !active) return;
-    const start = film.start ?? 0;
-    if (v.readyState >= 1 && (v.currentTime < start || (film.end && v.currentTime > film.end))) v.currentTime = start;
+    if (!v || reduced || posterOnly || !play) return;
+    const start = f.start ?? 0;
+    if (v.readyState >= 1 && (v.currentTime < start || (f.end && v.currentTime > f.end))) v.currentTime = start;
     void v.play().catch(() => {});
     return () => v.pause();
-  }, [active, reduced, posterOnly, sourceIndex, film.start, film.end]);
+  }, [play, reduced, posterOnly, f.start, f.end]);
 
+  if (!f.video) return <PendingSlate label={f.label} compact={compactSlate} />;
 
-  if (reduced || posterOnly) {
-    const poster = !posterFailed ? localPoster : film.fallbackPoster;
-    if (poster) {
-      return <img src={poster} onError={() => setPosterFailed(true)} alt="" aria-hidden className={`h-full w-full object-cover ${className}`} style={{ objectPosition: film.objectPosition }} />;
-    }
-  }
-
-  if (!src || videoFailed) {
-    return (
-      <div className={`flex h-full w-full items-end bg-[#11151c] p-3 ${className}`}>
-        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">{film.label}</span>
-      </div>
-    );
+  if ((reduced || posterOnly) && f.poster) {
+    return <img src={f.poster} alt="" aria-hidden className="h-full w-full object-cover" style={{ objectPosition: position }} />;
   }
 
   return (
     <video
       ref={video}
-      key={`${film.key}-${sourceIndex}`}
-      src={src}
-      poster={!posterFailed ? localPoster : film.fallbackPoster}
+      src={f.video}
+      poster={f.poster}
       muted
       playsInline
-      preload={active ? "metadata" : "none"}
+      preload={play ? "metadata" : "none"}
       aria-hidden
-      className={`h-full w-full object-cover ${className}`}
-      style={{ objectPosition: film.objectPosition }}
+      className="h-full w-full object-cover"
+      style={{ objectPosition: position }}
       onLoadedMetadata={(e) => {
         const v = e.currentTarget;
-        const start = film.start ?? 0;
-        v.currentTime = Math.min(start, Math.max(0, v.duration - 0.05));
-        if (active) void v.play().catch(() => {});
+        v.currentTime = Math.min(f.start ?? 0, Math.max(0, v.duration - 0.05));
+        if (play) void v.play().catch(() => {});
       }}
       onTimeUpdate={(e) => {
         const v = e.currentTarget;
-        const start = film.start ?? 0;
-        const end = film.end ?? Math.max(start + 0.5, v.duration - 0.05);
+        const start = f.start ?? 0;
+        const end = f.end ?? Math.max(start + 0.5, v.duration - 0.05);
         if (v.currentTime >= Math.min(end, v.duration - 0.02)) v.currentTime = Math.min(start, Math.max(0, v.duration - 0.05));
       }}
-      onError={(e) => {
-        // Only react to an error for the source currently mounted; a late 404 from a
-        // previously attempted stem must not mark a working fallback as failed.
-        if (e.currentTarget.currentSrc && !e.currentTarget.currentSrc.endsWith(src)) return;
-        if (sourceIndex < candidates.length - 1) setSourceIndex((i) => i + 1);
-      }}
-
     />
   );
 }
 
-function HeroVideoLayer({ film, active, reduced }: { film: Film; active: boolean; reduced: boolean }) {
+/* ---------------- collage geometry ---------------- */
+
+type Box = { l: number; t: number; w: number; h: number };
+type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; label?: boolean };
+
+const DESKTOP_HERO_TILES: Tile[] = [
+  { key: "mechanic", box: { l: -4, t: 1, w: 38, h: 31 }, rotate: -0.8, z: 22 },
+  { key: "broker", box: { l: 62, t: -4, w: 42, h: 35 }, rotate: 0.8, z: 21, label: true },
+  { key: "agent", box: { l: 68, t: 41, w: 36, h: 46 }, rotate: 0.6, z: 23, label: true },
+  { key: "construction", box: { l: 1, t: 62, w: 35, h: 41 }, rotate: -0.6, z: 22 },
+];
+
+const DESKTOP_SUPPORT_TILES: Tile[] = [
+  { key: "solar", box: { l: 39, t: -9, w: 13, h: 31 }, rotate: 1.2, z: 18, from: 0.445 },
+  { key: "roofing", box: { l: 53, t: 5, w: 15, h: 23 }, rotate: -0.8, z: 19, from: 0.465 },
+  { key: "photographer", box: { l: -5, t: 35, w: 17, h: 34 }, rotate: 1.1, z: 18, from: 0.485 },
+  { key: "personal-trainer", box: { l: 39, t: 77, w: 20, h: 29 }, rotate: 0.8, z: 19, from: 0.505 },
+  { key: "dentist", box: { l: 61, t: 85, w: 23, h: 25 }, rotate: -1.1, z: 20, from: 0.525 },
+];
+
+const MOBILE_HERO_TILES: Tile[] = [
+  { key: "mechanic", box: { l: -8, t: 2, w: 66, h: 17 }, rotate: -0.8, z: 22 },
+  { key: "broker", box: { l: 56, t: 8, w: 52, h: 15 }, rotate: 0.8, z: 21 },
+  { key: "construction", box: { l: -6, t: 22, w: 52, h: 18 }, rotate: -0.6, z: 22 },
+  { key: "agent", box: { l: 60, t: 26, w: 48, h: 20 }, rotate: 0.6, z: 23 },
+];
+
+const MOBILE_SUPPORT_TILES: Tile[] = [
+  { key: "solar", box: { l: -4, t: 62, w: 30, h: 16 }, rotate: 1.2, z: 18, from: 0.45 },
+  { key: "roofing", box: { l: 29, t: 64, w: 34, h: 14 }, rotate: -0.8, z: 19, from: 0.47 },
+  { key: "photographer", box: { l: 68, t: 60, w: 38, h: 18 }, rotate: 1.0, z: 18, from: 0.49 },
+  { key: "personal-trainer", box: { l: 2, t: 81, w: 46, h: 16 }, rotate: 0.8, z: 19, from: 0.51 },
+  { key: "dentist", box: { l: 53, t: 82, w: 50, h: 15 }, rotate: -1.0, z: 20, from: 0.53 },
+];
+
+/** Hero world: full bleed, then recomposes into its collage position. */
+function HeroWorldTile({
+  f,
+  tile,
+  active,
+  p,
+  reduced,
+  mobile,
+}: {
+  f: Film;
+  tile: Tile;
+  active: boolean;
+  p: MotionValue<number>;
+  reduced: boolean;
+  mobile: boolean;
+}) {
+  const stops = [MORPH_IN, MORPH_OUT];
+  const left = useTransform(p, stops, [0, tile.box.l]);
+  const top = useTransform(p, stops, [0, tile.box.t]);
+  const width = useTransform(p, stops, [100, tile.box.w]);
+  const height = useTransform(p, stops, [100, tile.box.h]);
+  const radius = useTransform(p, stops, [0, 4]);
+  const rotate = useTransform(p, stops, [0, tile.rotate ?? 0]);
+
+  // Hero phase: only the active world is visible. During the morph every hero
+  // world fades up into its collage slot, so the composition transforms.
+  const reveal = useTransform(p, [MORPH_IN, MORPH_IN + 0.05], [0, 1]);
+  const fade = useTransform(p, [COLLAGE_END, RECEDE_END], [1, 0]);
+  const opacity = useTransform([reveal, fade], ([r, fd]: number[]) => (active ? (fd as number) : Math.min(r as number, fd as number)));
+  const blur = useTransform(p, [COLLAGE_END, RECEDE_END], [0, mobile ? 6 : 10]);
+  const filter = useTransform(blur, (b) => `blur(${b}px)`);
+
+  const l = useTransform(left, (v) => `${v}%`);
+  const t = useTransform(top, (v) => `${v}%`);
+  const w = useTransform(width, (v) => `${v}%`);
+  const h = useTransform(height, (v) => `${v}%`);
+  const br = useTransform(radius, (v) => `${v}px`);
+
   return (
     <motion.div
-      className="absolute inset-0"
-      initial={false}
-      animate={{ opacity: active ? 1 : 0, scale: active ? 1 : 1.018 }}
-      transition={{ opacity: { duration: 0.72 }, scale: { duration: 1.1, ease: [0.2, 0.8, 0.2, 1] } }}
-      style={{ pointerEvents: active ? "auto" : "none" }}
+      className="absolute overflow-hidden bg-[#0A0E14]"
+      style={{ left: l, top: t, width: w, height: h, borderRadius: br, rotate, opacity, filter, zIndex: active ? tile.z + 4 : tile.z }}
     >
-      <FilmMedia film={film} active={active} reduced={reduced} />
+      <FilmMedia f={f} play={active || !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile && !active} />
+      <TileScrim p={p} label={tile.label ? f.label : undefined} />
     </motion.div>
   );
 }
+
+/** Scrim + subtle label that only exist once the tile is a collage tile. */
+function TileScrim({ p, label }: { p: MotionValue<number>; label?: string }) {
+  const opacity = useTransform(p, [MORPH_IN + 0.02, MORPH_OUT], [0, 1]);
+  return (
+    <motion.div className="pointer-events-none absolute inset-0" style={{ opacity }}>
+      <span className="absolute inset-0 bg-[#070B14]/[0.14]" />
+      <span className="absolute inset-x-0 bottom-0 h-[46%] bg-gradient-to-t from-black/62 to-transparent" />
+      {label && (
+        <span className="absolute bottom-2.5 left-3 right-3 truncate text-[10px] font-semibold uppercase tracking-[0.15em] text-white/72">{label}</span>
+      )}
+    </motion.div>
+  );
+}
+
+function SupportTile({ tile, p, reduced, mobile }: { tile: Tile; p: MotionValue<number>; reduced: boolean; mobile: boolean }) {
+  const f = film(tile.key);
+  const from = tile.from ?? 0.45;
+  const enterOpacity = useTransform(p, [from, from + 0.03, COLLAGE_END, RECEDE_END], [0, 1, 1, 0]);
+  const scale = useTransform(p, [from, from + 0.045, COLLAGE_END, RECEDE_END], [0.88, 1, 1, 0.9]);
+  const blur = useTransform(p, [COLLAGE_END, RECEDE_END], [0, mobile ? 6 : 10]);
+  const filter = useTransform(blur, (b) => `blur(${b}px)`);
+
+  return (
+    <motion.div
+      className="absolute overflow-hidden rounded-[4px] bg-[#0A0E14]"
+      style={{
+        left: `${tile.box.l}%`,
+        top: `${tile.box.t}%`,
+        width: `${tile.box.w}%`,
+        height: `${tile.box.h}%`,
+        rotate: tile.rotate ?? 0,
+        opacity: enterOpacity,
+        scale,
+        filter,
+        zIndex: tile.z,
+      }}
+    >
+      <FilmMedia f={f} play={!mobile && !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile} compactSlate={mobile || tile.box.w < 16} />
+      <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.16]" />
+    </motion.div>
+  );
+}
+
+/* ---------------- hero copy + thread ---------------- */
 
 function HeroCopy({ mobile }: { mobile: boolean }) {
   return (
@@ -313,108 +371,62 @@ function HeroCopy({ mobile }: { mobile: boolean }) {
         You lead.<br />Zapla follows through.
       </h1>
       <p className={mobile ? "mt-4 text-[15px] leading-[1.55] text-white/74" : "mt-6 max-w-[525px] text-[17px] leading-[1.6] text-white/74"}>
-        Your team does the work. Zapla keeps customers moving — enquiries, replies, bookings, payments, reviews and everything between.
+        Your team does the work. Zapla keeps customers moving, from enquiries and replies to bookings, payments and reviews.
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-3">
-        <a href="https://zapla.io/booking" className="inline-flex h-[48px] items-center gap-2 rounded-[10px] bg-white px-5 text-[14px] font-semibold text-[#111318]">Book a demo <ArrowRight className="h-4 w-4" /></a>
+        <a href="https://zapla.io/booking" className="inline-flex h-[48px] items-center gap-2 rounded-[10px] bg-white px-5 text-[14px] font-semibold text-[#111318]">Book a Call <ArrowRight className="h-4 w-4" /></a>
         <a href="#zapla-product-v5" className="inline-flex h-[48px] items-center rounded-[10px] border border-white/35 px-5 text-[14px] font-semibold text-white">See how it works</a>
       </div>
     </div>
   );
 }
 
+/** Persistent system layer. Always sits above every tile, never inside one. */
 function FollowThread({ p, label, mobile }: { p: MotionValue<number>; label: string; mobile: boolean }) {
-  const opacity = useTransform(p, [0.03, 0.07, 0.69, 0.75], [0, 1, 1, 0]);
-  const y = useTransform(p, [0.05, 0.65], [0, mobile ? -18 : -10]);
+  const opacity = useTransform(p, [0.02, 0.06, COLLAGE_END, RECEDE_END - 0.02], [0, 1, 1, 0]);
   return (
-    <motion.div className={mobile ? "absolute bottom-[6%] left-[6%] right-[6%] z-40" : "absolute bottom-[6%] left-[5.5%] z-40 w-[32%]"} style={{ opacity, y }}>
-      <div className="flex items-center gap-3">
+    <motion.div
+      className={mobile ? "absolute bottom-[3%] left-[4%] right-[4%] z-[45]" : "absolute bottom-[3.5%] left-1/2 z-[45] w-[46%] -translate-x-1/2"}
+      style={{ opacity }}
+    >
+      <div className="flex items-center gap-3 rounded-full border border-white/12 bg-black/45 px-4 py-2.5 backdrop-blur-md">
         <span className="h-[7px] w-[7px] shrink-0 rounded-full" style={{ background: CYAN }} />
-        <span className="h-px w-8 shrink-0 bg-white/35" />
-        <div className="min-w-0 flex-1">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/45">Follow-through</div>
-          <motion.div key={label} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="mt-1 text-[14px] font-medium text-white" style={{ textShadow: "0 1px 14px rgba(0,0,0,.45)" }}>{label}</motion.div>
-        </div>
+        <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/50">Follow-through</span>
+        <span className="h-px flex-1 bg-white/18" />
+        <motion.span key={label} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="shrink-0 text-[13px] font-medium text-white">{label}</motion.span>
       </div>
     </motion.div>
   );
 }
 
-type TileSpec = {
-  key: string;
-  className: string;
-  from: number;
-  delay?: number;
-  enterX?: number;
-  enterY?: number;
-  rotate?: number;
-  posterOnlyMobile?: boolean;
-};
-
-const DESKTOP_TILES: TileSpec[] = [
-  { key: "mechanic", className: "left-[-3%] top-[4%] h-[33%] w-[34%]", from: 0.485, enterX: -110, enterY: -20, rotate: -1.1 },
-  { key: "broker", className: "right-[3%] top-[-1%] h-[31%] w-[28%]", from: 0.505, enterX: 90, enterY: -55, rotate: 1.2 },
-  { key: "agent", className: "right-[-4%] top-[45%] h-[35%] w-[32%]", from: 0.525, enterX: 120, enterY: 15, rotate: 0.8 },
-  { key: "construction", className: "bottom-[-5%] left-[7%] h-[34%] w-[31%]", from: 0.545, enterX: -70, enterY: 90, rotate: -0.8 },
-  { key: "solar", className: "left-[28%] top-[-7%] h-[37%] w-[13%]", from: 0.555, enterY: -110, rotate: 1.4 },
-  { key: "roofing", className: "right-[29%] top-[17%] h-[22%] w-[21%]", from: 0.565, enterY: -50, rotate: -0.7 },
-  { key: "personal-trainer", className: "bottom-[1%] left-[40%] h-[24%] w-[19%]", from: 0.575, enterY: 90, rotate: 0.7 },
-  { key: "photographer", className: "left-[-3%] top-[43%] h-[25%] w-[20%]", from: 0.585, enterX: -95, rotate: 1.1 },
-  { key: "dentist", className: "bottom-[-8%] right-[18%] h-[28%] w-[18%]", from: 0.595, enterY: 100, rotate: -1.2 },
-];
-
-const MOBILE_TILES: TileSpec[] = [
-  { key: "mechanic", className: "left-[-9%] top-[5%] h-[25%] w-[61%]", from: 0.49, enterX: -60, rotate: -1.2 },
-  { key: "agent", className: "right-[-14%] top-[7%] h-[27%] w-[55%]", from: 0.515, enterX: 60, rotate: 1.0, posterOnlyMobile: true },
-  { key: "solar", className: "left-[4%] top-[37%] h-[30%] w-[28%]", from: 0.54, enterX: -45, rotate: 1.4, posterOnlyMobile: true },
-  { key: "construction", className: "right-[-6%] top-[41%] h-[23%] w-[56%]", from: 0.56, enterX: 65, rotate: -0.8, posterOnlyMobile: true },
-  { key: "dentist", className: "bottom-[3%] left-[9%] h-[22%] w-[43%]", from: 0.58, enterY: 55, rotate: -1.0, posterOnlyMobile: true },
-  { key: "roofing", className: "bottom-[-2%] right-[-8%] h-[23%] w-[49%]", from: 0.60, enterY: 60, rotate: 1.0, posterOnlyMobile: true },
-];
-
-function CollageTile({ spec, p, reduced, mobile }: { spec: TileSpec; p: MotionValue<number>; reduced: boolean; mobile: boolean }) {
-  const film = ALL.find((f) => f.key === spec.key)!;
-  const opacity = useTransform(p, [spec.from, spec.from + 0.035, 0.70, 0.775], [0, 1, 1, 0]);
-  const x = useTransform(p, [spec.from, spec.from + 0.045], [spec.enterX ?? 0, 0]);
-  const y = useTransform(p, [spec.from, spec.from + 0.045], [spec.enterY ?? 0, 0]);
-  const scale = useTransform(p, [spec.from, spec.from + 0.045, 0.70, 0.775], [0.92, 1, 1, 0.84]);
-  const play = !mobile && !reduced;
-
-  return (
-    <motion.div
-      className={`absolute overflow-hidden bg-[#0D1118] shadow-[0_32px_90px_-42px_rgba(0,0,0,.9)] ${spec.className}`}
-      style={{ opacity, x, y, scale, rotate: spec.rotate ?? 0, zIndex: HERO.some((h) => h.key === film.key) ? 20 : 24 }}
-    >
-      <FilmMedia film={film} active={play} reduced={reduced} posterOnly={mobile && !!spec.posterOnlyMobile} />
-      <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.12]" />
-      <span className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-black/60 to-transparent" />
-      <span className="absolute bottom-2.5 left-3 right-3 truncate text-[9px] font-semibold uppercase tracking-[0.16em] text-white/70 md:text-[10px]">{film.label}</span>
-    </motion.div>
-  );
-}
+/* ---------------- collage ---------------- */
 
 function RecognitionCollage({ p, reduced, mobile }: { p: MotionValue<number>; reduced: boolean; mobile: boolean }) {
-  const groupOpacity = useTransform(p, [0.47, 0.50, 0.715, 0.79], [0, 1, 1, 0]);
-  const groupScale = useTransform(p, [0.47, 0.55, 0.70, 0.79], [1.04, 1, 1, 0.88]);
-  const statementOpacity = useTransform(p, [0.54, 0.59, 0.69, 0.735], [0, 1, 1, 0]);
-  const statementY = useTransform(p, [0.54, 0.60], [18, 0]);
-  const tiles = mobile ? MOBILE_TILES : DESKTOP_TILES;
+  const heroTiles = mobile ? MOBILE_HERO_TILES : DESKTOP_HERO_TILES;
+  const supportTiles = mobile ? MOBILE_SUPPORT_TILES : DESKTOP_SUPPORT_TILES;
+  const statementOpacity = useTransform(p, [0.50, 0.545, COLLAGE_END, RECEDE_END - 0.04], [0, 1, 1, 0]);
+  const statementY = useTransform(p, [0.50, 0.56], [16, 0]);
 
   return (
-    <motion.div className="absolute inset-0 z-30" style={{ opacity: groupOpacity, scale: groupScale }}>
-      {tiles.map((spec) => <CollageTile key={spec.key} spec={spec} p={p} reduced={reduced} mobile={mobile} />)}
+    <>
+      {supportTiles.map((tile) => <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} />)}
       <motion.div
-        className={mobile ? "absolute left-[17%] top-[31%] z-40 w-[70%]" : "absolute left-1/2 top-[43%] z-40 w-[40%] -translate-x-1/2"}
+        className={mobile ? "absolute left-[6%] top-[44%] z-[40] w-[88%]" : "absolute left-[20%] top-[35%] z-[40] w-[44%]"}
         style={{ opacity: statementOpacity, y: statementY }}
       >
-        <div className="text-[10px] font-semibold uppercase tracking-[0.19em] text-white/48">Customer follow-through for service businesses</div>
-        <h2 className={mobile ? "mt-2 text-[31px] leading-[1.02] tracking-[-0.045em] text-white" : "mt-3 text-center text-[56px] leading-[0.96] tracking-[-0.05em] text-white"} style={{ fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 28px rgba(0,0,0,.72)" }}>
+        <h2
+          className={mobile ? "text-[32px] leading-[1.02] tracking-[-0.045em] text-white" : "text-[58px] leading-[0.95] tracking-[-0.05em] text-white"}
+          style={{ fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 30px rgba(0,0,0,.78)" }}
+        >
           Different work.<br />Same follow-through.
         </h2>
+        <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.19em] text-white/50">Customer follow-through for service businesses</div>
       </motion.div>
-    </motion.div>
+    </>
   );
 }
+
+/* ---------------- product ---------------- */
 
 function GenericCustomerRecord() {
   const rows = [
@@ -461,41 +473,78 @@ function GenericCustomerRecord() {
   );
 }
 
+/* ---------------- stage ---------------- */
+
 function StoryStage({ mobile }: { mobile: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
   const { p, worldIndex, threadLabel } = useStoryScroll(wrap);
 
-  const filmOpacity = useTransform(p, [0.44, 0.51, 0.56], [1, 0.72, 0]);
-  const heroOpacity = useTransform(p, [0.00, 0.08, 0.135], [1, 1, 0]);
-  const productOpacity = useTransform(p, [0.735, 0.81], [0, 1]);
-  const productY = useTransform(p, [0.735, 0.81], [mobile ? 16 : 22, 0]);
-  const bg = useTransform(p, [0.70, 0.80], ["#080B10", "#F7F8FA"]);
-  const headingOpacity = useTransform(p, [0.77, 0.83], [0, 1]);
-  const headingY = useTransform(p, [0.77, 0.84], [mobile ? 14 : 18, 0]);
+  const heroOpacity = useTransform(p, [0.00, 0.05, 0.10], [1, 1, 0]);
+  // Full-bleed cinematic grade only exists while the hero worlds are full frame.
+  const gradeOpacity = useTransform(p, [MORPH_IN, MORPH_IN + 0.045], [1, 0]);
+  const worldLabelOpacity = useTransform(p, [0.0, 0.02, MORPH_IN, MORPH_IN + 0.03], [0, 1, 1, 0]);
+
+  // Product and heading reveal as one coordinated moment, after the collage has receded.
+  const productOpacity = useTransform(p, [PRODUCT_IN, PRODUCT_FULL, 0.94, 1], [0, 1, 1, 0.92]);
+  const productY = useTransform(p, [PRODUCT_IN, PRODUCT_FULL], [mobile ? 18 : 26, 0]);
+  const bg = useTransform(p, [RECEDE_END - 0.06, PRODUCT_FULL - 0.02], ["#080B10", "#F7F8FA"]);
 
   return (
-    <div ref={wrap} className={mobile ? "relative h-[640vh]" : "relative h-[720vh]"}>
+    <div ref={wrap} data-v5-stage className={mobile ? "relative h-[520vh]" : "relative h-[560vh]"}>
       <motion.div className="sticky overflow-hidden" style={{ top: NAV, height: `calc(100vh - ${NAV}px)`, background: bg }}>
-        <motion.div className="absolute inset-0 overflow-hidden" style={{ opacity: filmOpacity }}>
-          {HERO.map((film, i) => <HeroVideoLayer key={film.key} film={film} active={i === worldIndex} reduced={reduced} />)}
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,13,.76)_0%,rgba(5,8,13,.52)_33%,rgba(5,8,13,.14)_62%,rgba(5,8,13,.34)_100%)]" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-black/55 to-transparent" />
-          <div className="absolute right-[4%] top-[5%] text-[10px] font-semibold uppercase tracking-[0.19em] text-white/45">{HERO[worldIndex].label}</div>
+        {/* hero worlds -> collage tiles (same objects) */}
+        {HERO.map((f, i) => (
+          <HeroWorldTile
+            key={f.key}
+            f={f}
+            tile={(mobile ? MOBILE_HERO_TILES : DESKTOP_HERO_TILES).find((t) => t.key === f.key)!}
+            active={i === worldIndex}
+            p={p}
+            reduced={reduced}
+            mobile={mobile}
+          />
+        ))}
+
+        {/* cinematic grade for hero legibility */}
+        <motion.div className="pointer-events-none absolute inset-0 z-[28]" style={{ opacity: gradeOpacity }}>
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,13,.78)_0%,rgba(5,8,13,.54)_34%,rgba(5,8,13,.16)_64%,rgba(5,8,13,.36)_100%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-[34%] bg-gradient-to-t from-black/55 to-transparent" />
         </motion.div>
 
-        <motion.div className={mobile ? "absolute left-[6%] right-[6%] top-[51%] z-30" : "absolute left-[5.5%] top-1/2 z-30 w-[42%] -translate-y-1/2"} style={{ opacity: heroOpacity }}><HeroCopy mobile={mobile} /></motion.div>
+        <motion.div className="absolute right-[4%] top-[5%] z-[30] text-[10px] font-semibold uppercase tracking-[0.19em] text-white/45" style={{ opacity: worldLabelOpacity }}>
+          {HERO[worldIndex].label}
+        </motion.div>
+
+        <motion.div
+          className={mobile ? "absolute left-[6%] right-[6%] top-[46%] z-[32]" : "absolute left-[5.5%] top-1/2 z-[32] w-[42%] -translate-y-1/2"}
+          style={{ opacity: heroOpacity }}
+        >
+          <HeroCopy mobile={mobile} />
+        </motion.div>
 
         <RecognitionCollage p={p} reduced={reduced} mobile={mobile} />
         <FollowThread p={p} label={threadLabel} mobile={mobile} />
 
-        <motion.div className={mobile ? "absolute left-[4%] right-[4%] top-[26%] bottom-[4%] z-50" : "absolute left-[5%] right-[5%] top-[17%] bottom-[5%] z-50"} style={{ opacity: productOpacity, y: productY }}>
-          <div className="h-full w-full overflow-hidden rounded-[14px] border border-slate-200/80 bg-white shadow-[0_40px_110px_-48px_rgba(15,23,42,.38)]"><GenericCustomerRecord /></div>
-        </motion.div>
-
-        <motion.div className={mobile ? "absolute left-[6%] top-[8.5%] z-[60] w-[88%]" : "absolute left-[5%] top-[4%] z-[60] w-[70%]"} style={{ opacity: headingOpacity, y: headingY }}>
-          <h2 className={mobile ? "text-[34px] leading-[1.02] tracking-[-0.04em]" : "text-[52px] leading-[0.98] tracking-[-0.045em]"} style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}>One customer. Everything connected.</h2>
-          <p className={mobile ? "mt-2 max-w-[335px] text-[13.5px] leading-[1.5] text-slate-500" : "mt-3 max-w-[650px] text-[15px] leading-[1.55] text-slate-500"}>Every enquiry, message, booking, payment and review stays connected in one customer record.</p>
+        {/* product: heading + surface as one group */}
+        <motion.div
+          className={mobile ? "absolute inset-x-[4%] top-[3%] bottom-[3%] z-[60] flex flex-col" : "absolute inset-x-[5%] top-[5%] bottom-[5%] z-[60] flex flex-col"}
+          style={{ opacity: productOpacity, y: productY }}
+        >
+          <div>
+            <h2
+              className={mobile ? "text-[27px] leading-[1.04] tracking-[-0.04em]" : "text-[46px] leading-[0.98] tracking-[-0.045em]"}
+              style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
+            >
+              One customer. Everything connected.
+            </h2>
+            <p className={mobile ? "mt-1.5 text-[12.5px] leading-[1.45] text-slate-500" : "mt-2.5 max-w-[650px] text-[15px] leading-[1.55] text-slate-500"}>
+              Every enquiry, message, booking, payment and review stays connected in one customer record.
+            </p>
+          </div>
+          <div className={mobile ? "mt-3 min-h-0 flex-1 overflow-hidden rounded-[12px] border border-slate-200/80 bg-white shadow-[0_40px_110px_-48px_rgba(15,23,42,.38)]" : "mt-5 min-h-0 flex-1 overflow-hidden rounded-[14px] border border-slate-200/80 bg-white shadow-[0_40px_110px_-48px_rgba(15,23,42,.38)]"}>
+            <GenericCustomerRecord />
+          </div>
         </motion.div>
       </motion.div>
     </div>
@@ -513,7 +562,7 @@ export function CinematicFollowThroughV5() {
             <h2 className="max-w-[760px] text-[36px] leading-[1.02] tracking-[-0.04em] text-[#111318] md:text-[52px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>While you do the work, Zapla handles the follow-through.</h2>
             <p className="mt-4 max-w-[660px] text-[16px] leading-[1.6] text-slate-500">Different kinds of service businesses. The same customer problem: the next step still has to happen.</p>
           </div>
-          <a href="https://zapla.io/booking" className="inline-flex h-[50px] shrink-0 items-center gap-2 rounded-[10px] px-6 text-[14px] font-semibold text-white" style={{ background: CYAN }}>Book a demo <ArrowRight className="h-4 w-4" /></a>
+          <a href="https://zapla.io/booking" className="inline-flex h-[50px] shrink-0 items-center gap-2 rounded-[10px] px-6 text-[14px] font-semibold text-white" style={{ background: CYAN }}>Book a Call <ArrowRight className="h-4 w-4" /></a>
         </div>
       </section>
     </div>
