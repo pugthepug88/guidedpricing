@@ -8,7 +8,6 @@ import {
   Clock3,
   CreditCard,
   MessageSquareText,
-  PhoneCall,
   PlugZap,
   RefreshCw,
   Route,
@@ -23,8 +22,6 @@ import {
 } from "lucide-react";
 
 const DISPLAY = '\"Inter Tight\", \"Outfit\", \"Manrope\", system-ui, sans-serif';
-const CYAN = "#06B6D4";
-const INK = "#111318";
 const BOOK_URL = "https://zapla.io/booking";
 
 type Outcome = {
@@ -63,7 +60,7 @@ const OUTCOMES: Outcome[] = [
     icon: CircleDollarSign,
     accent: "#14B8A6",
     steps: [
-      { label: "Quote sent", detail: "$4,860 · Monday", state: "Open", icon: CircleDollarSign },
+      { label: "Quote sent", detail: "Monday afternoon", state: "Open", icon: CircleDollarSign },
       { label: "No response", detail: "48 hours elapsed", state: "Detected", icon: Clock3 },
       { label: "Follow-up sent", detail: "Personalised SMS", state: "Zapla handled", icon: Zap },
       { label: "Opportunity moves", detail: "Customer replied yes", state: "Pipeline updated", icon: Route },
@@ -78,9 +75,9 @@ const OUTCOMES: Outcome[] = [
     icon: RefreshCw,
     accent: "#8B5CF6",
     steps: [
-      { label: "Dormant segment", detail: "318 past customers", state: "Identified", icon: UsersRound },
+      { label: "Dormant customers", detail: "Past-customer segment", state: "Identified", icon: UsersRound },
       { label: "Reactivation starts", detail: "Context-aware outreach", state: "Zapla handled", icon: Sparkles },
-      { label: "Interest returns", detail: "43 conversations opened", state: "Engaged", icon: MessageSquareText },
+      { label: "Interest returns", detail: "Replies begin coming in", state: "Engaged", icon: MessageSquareText },
       { label: "Next step booked", detail: "Customer back in journey", state: "Reactivated", icon: CalendarCheck2 },
     ],
   },
@@ -225,7 +222,7 @@ function ConnectedJourneySection() {
           </p>
         </div>
 
-        <div className="mx-auto mt-14 max-w-[1240px] overflow-hidden rounded-[24px] border border-slate-200 bg-[#FBFCFD] shadow-[0_40px_100px_-58px_rgba(15,23,42,.36)] lg:mt-18">
+        <div className="mx-auto mt-14 max-w-[1240px] overflow-hidden rounded-[24px] border border-slate-200 bg-[#FBFCFD] shadow-[0_40px_100px_-58px_rgba(15,23,42,.36)] lg:mt-16">
           <div className="flex flex-col gap-5 border-b border-slate-200 bg-white px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
             <div className="flex items-center gap-3.5">
               <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111318] text-[12px] font-bold text-white">SM</div>
@@ -512,7 +509,7 @@ function TrustBridge() {
           {signals.map((signal) => {
             const Icon = signal.icon;
             return (
-              <div key={signal.title} className="py-8 lg:px-9 lg:py-10 first:lg:pl-0 last:lg:pr-0">
+              <div key={signal.title} className="py-8 lg:px-9 lg:py-10 lg:first:pl-0 lg:last:pr-0">
                 <Icon className="h-5 w-5 text-cyan-600" />
                 <div className="mt-5 text-[18px] font-semibold tracking-[-0.025em] text-slate-900">{signal.title}</div>
                 <p className="mt-2 max-w-[360px] text-[13px] leading-[1.65] text-slate-500 sm:text-[14px]">{signal.copy}</p>
