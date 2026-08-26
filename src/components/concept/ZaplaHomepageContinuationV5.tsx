@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useRef, useState } from "react";
 import {
   ArrowRight,
   CalendarCheck2,
@@ -8,10 +8,8 @@ import {
   Clock3,
   CreditCard,
   MessageSquareText,
-  PlugZap,
   RefreshCw,
   Route,
-  ShieldCheck,
   Sparkles,
   Star,
   UserRoundCheck,
@@ -20,9 +18,17 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "motion/react";
 
 const DISPLAY = '\"Inter Tight\", \"Outfit\", \"Manrope\", system-ui, sans-serif';
 const BOOK_URL = "https://zapla.io/booking";
+const V5 = "/concept/cinematic-v5";
 
 type Outcome = {
   key: string;
@@ -35,13 +41,57 @@ type Outcome = {
   steps: Array<{ label: string; detail: string; state: string; icon: LucideIcon }>;
 };
 
+type JourneyStep = {
+  key: string;
+  index: string;
+  label: string;
+  title: string;
+  copy: string;
+  kind: "inbox" | "sales" | "booking" | "aftercare";
+};
+
+const JOURNEY: JourneyStep[] = [
+  {
+    key: "inbox",
+    index: "01",
+    label: "Enquiry",
+    title: "The customer appears once.",
+    copy: "A new enquiry lands with the conversation and customer identity attached, not as another loose message somebody has to copy somewhere else.",
+    kind: "inbox",
+  },
+  {
+    key: "sales",
+    index: "02",
+    label: "Opportunity",
+    title: "The next step becomes visible.",
+    copy: "The same customer becomes a live opportunity with the conversation still attached and the next action clear to the team.",
+    kind: "sales",
+  },
+  {
+    key: "booking",
+    index: "03",
+    label: "Booking",
+    title: "The conversation becomes a commitment.",
+    copy: "Availability, confirmation and reminders sit inside the same journey instead of becoming a separate admin trail.",
+    kind: "booking",
+  },
+  {
+    key: "aftercare",
+    index: "04",
+    label: "Aftercare",
+    title: "The journey keeps going after the work.",
+    copy: "Payment, reviews and future follow-up can continue from the same customer context instead of starting from zero again.",
+    kind: "aftercare",
+  },
+];
+
 const OUTCOMES: Outcome[] = [
   {
     key: "missed-enquiry",
     label: "Missed enquiry",
     eyebrow: "NEW LEAD FOLLOW-THROUGH",
     headline: "A new enquiry should not depend on who notices first.",
-    copy: "Zapla can acknowledge the enquiry, keep the conversation moving, capture the customer and get the next step in motion while your team is busy doing the work.",
+    copy: "Acknowledge the enquiry, keep the conversation moving, capture the customer and get the next step in motion while your team is busy doing the work.",
     icon: MessageSquareText,
     accent: "#0EA5E9",
     steps: [
@@ -71,7 +121,7 @@ const OUTCOMES: Outcome[] = [
     label: "Past customer",
     eyebrow: "GHOST TO GOLD",
     headline: "Your next customer may already be in your database.",
-    copy: "Identify the customers who went quiet, reach back out with context and turn old records into new conversations instead of letting value sit dormant.",
+    copy: "Identify customers who went quiet, reach back out with context and turn old records into new conversations instead of letting value sit dormant.",
     icon: RefreshCw,
     accent: "#8B5CF6",
     steps: [
@@ -98,22 +148,11 @@ const OUTCOMES: Outcome[] = [
   },
 ];
 
-function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+function Kicker({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <div className={`text-[11px] font-semibold uppercase tracking-[0.19em] ${dark ? "text-cyan-300" : "text-cyan-600"}`}>
+    <div className={`text-[10px] font-semibold uppercase tracking-[0.19em] ${dark ? "text-cyan-300/80" : "text-cyan-700"}`}>
       {children}
     </div>
-  );
-}
-
-function SectionTitle({ children, dark = false, className = "" }: { children: ReactNode; dark?: boolean; className?: string }) {
-  return (
-    <h2
-      className={`text-[38px] leading-[1.01] tracking-[-0.047em] sm:text-[54px] lg:text-[68px] ${dark ? "text-white" : "text-[#111318]"} ${className}`}
-      style={{ fontFamily: DISPLAY, fontWeight: 500 }}
-    >
-      {children}
-    </h2>
   );
 }
 
@@ -121,15 +160,15 @@ function LifecycleRail() {
   const stages = ["Capture", "Communicate", "Convert", "Operate", "Retain", "Grow"];
   return (
     <section className="border-y border-slate-200 bg-white">
-      <div className="mx-auto flex max-w-[1360px] flex-col gap-5 px-5 py-8 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-        <div className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.19em] text-slate-400">
+      <div className="mx-auto max-w-[1360px] px-5 py-7 sm:px-8">
+        <div className="mb-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-400 sm:mb-0 sm:inline-block sm:pr-8">
           One customer lifecycle
         </div>
-        <div className="zapla-scroll-hide flex min-w-0 items-center gap-3 overflow-x-auto pb-1 sm:gap-5">
+        <div className="grid grid-cols-3 gap-x-3 gap-y-3 sm:inline-flex sm:items-center sm:gap-4">
           {stages.map((stage, index) => (
-            <div key={stage} className="flex shrink-0 items-center gap-3 sm:gap-5">
-              <span className="text-[13px] font-semibold tracking-[-0.01em] text-slate-700 sm:text-[14px]">{stage}</span>
-              {index < stages.length - 1 ? <ArrowRight className="h-3.5 w-3.5 text-slate-300" /> : null}
+            <div key={stage} className="flex min-w-0 items-center gap-3">
+              <span className="whitespace-nowrap text-[12px] font-semibold tracking-[-0.01em] text-slate-700 sm:text-[13px]">{stage}</span>
+              {index < stages.length - 1 ? <ArrowRight className="hidden h-3 w-3 shrink-0 text-slate-300 sm:block" /> : null}
             </div>
           ))}
         </div>
@@ -141,59 +180,74 @@ function LifecycleRail() {
 function RevenueLeakSection() {
   const moments = [
     { time: "9:14", title: "New enquiry", detail: "Hi, are you available this week?", tone: "live" },
-    { time: "9:28", title: "No reply yet", detail: "The team is busy with customers.", tone: "muted" },
-    { time: "10:41", title: "Still waiting", detail: "Nobody owns the next step.", tone: "muted" },
+    { time: "9:28", title: "Still no reply", detail: "The team is busy with customers.", tone: "muted" },
+    { time: "10:41", title: "Nobody owns it", detail: "The next step is still sitting there.", tone: "muted" },
     { time: "4:32", title: "Customer moved on", detail: "Booked elsewhere.", tone: "lost" },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#F7F8FA] px-5 py-24 sm:px-8 sm:py-32 lg:py-40">
-      <div className="pointer-events-none absolute right-[-10%] top-[10%] h-[520px] w-[520px] rounded-full bg-cyan-100/35 blur-[120px]" />
-      <div className="relative mx-auto grid max-w-[1360px] gap-14 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-20">
-        <div className="max-w-[650px]">
-          <Eyebrow>Where revenue leaks</Eyebrow>
-          <SectionTitle className="mt-4">
-            Customers do not always say no.<br />Sometimes nobody followed through.
-          </SectionTitle>
-          <p className="mt-6 max-w-[600px] text-[16px] leading-[1.7] text-slate-500 sm:text-[18px]">
-            The expensive gaps are often ordinary ones: an enquiry sits unanswered, a quote goes quiet, a missed call never becomes a conversation, or a past customer is simply forgotten.
-          </p>
-          <div className="mt-8 border-l-2 border-cyan-500 pl-5 text-[15px] font-medium leading-[1.6] text-slate-700 sm:text-[17px]">
-            Zapla is built to keep the next step from disappearing between people, channels and busy days.
+    <section className="bg-[#ECEFF1]">
+      <div className="mx-auto grid max-w-[1600px] lg:min-h-[760px] lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="relative overflow-hidden bg-[#0A0D12] px-5 py-20 text-white sm:px-10 sm:py-24 lg:flex lg:items-center lg:px-16 lg:py-20 xl:px-20">
+          <div className="pointer-events-none absolute inset-0 opacity-25" style={{ backgroundImage: `url(${V5}/mechanic.jpg)`, backgroundSize: "cover", backgroundPosition: "45% 50%" }} />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,12,.96)_0%,rgba(5,8,12,.88)_48%,rgba(5,8,12,.64)_100%)]" />
+          <div className="relative max-w-[650px]">
+            <Kicker dark>Where revenue leaks</Kicker>
+            <h2 className="mt-5 max-w-[630px] text-[42px] leading-[0.98] tracking-[-0.05em] sm:text-[58px] lg:text-[64px] xl:text-[72px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+              Customers do not always say no.<br />Sometimes nobody followed through.
+            </h2>
+            <p className="mt-6 max-w-[560px] text-[15px] leading-[1.72] text-white/58 sm:text-[17px]">
+              The expensive gaps are often ordinary ones: an enquiry waits, a quote goes quiet, a missed call disappears or a past customer is simply forgotten.
+            </p>
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[720px] py-6 lg:py-12">
-          <div aria-hidden className="absolute bottom-[12%] left-[87px] top-[12%] w-px bg-slate-200 sm:left-[110px]" />
-          {moments.map((moment, index) => {
-            const lost = moment.tone === "lost";
-            const live = moment.tone === "live";
-            return (
-              <div key={moment.time} className={`relative grid grid-cols-[64px_1fr] gap-5 py-5 sm:grid-cols-[82px_1fr] sm:gap-7 ${index ? "border-t border-slate-200/80" : ""}`}>
-                <div className={`pt-1 text-right font-mono text-[12px] font-semibold ${lost ? "text-rose-500" : live ? "text-slate-900" : "text-slate-400"}`}>
-                  {moment.time}
-                </div>
-                <div className="relative pl-7 sm:pl-9">
-                  <span className={`absolute left-[-1px] top-[7px] h-2.5 w-2.5 -translate-x-1/2 rounded-full ring-4 ring-[#F7F8FA] ${lost ? "bg-rose-500" : live ? "bg-cyan-500" : "bg-slate-300"}`} />
-                  <div className={`text-[17px] font-semibold tracking-[-0.02em] ${lost ? "text-rose-600" : "text-slate-900"}`}>{moment.title}</div>
-                  <div className={`mt-1 text-[14px] leading-[1.55] ${lost ? "text-rose-500/80" : "text-slate-500"}`}>{moment.detail}</div>
-                  {live ? (
-                    <div className="mt-4 inline-flex max-w-[430px] items-start gap-3 rounded-[14px] bg-white px-4 py-3.5 shadow-[0_16px_55px_-32px_rgba(15,23,42,.38)] ring-1 ring-slate-200/80">
-                      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#111318] text-[11px] font-bold text-white">SM</div>
-                      <div className="min-w-0">
-                        <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-400">Sarah Miller</div>
-                        <div className="mt-1 text-[14px] leading-[1.45] text-slate-700">Hi, are you available this week for a service?</div>
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
+        <div className="relative px-5 py-14 sm:px-10 sm:py-16 lg:flex lg:items-center lg:px-14 xl:px-20">
+          <div className="mx-auto w-full max-w-[680px]">
+            <div className="mb-8 flex items-end justify-between gap-6 border-b border-slate-300 pb-5">
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">One ordinary Tuesday</div>
+                <div className="mt-2 text-[21px] font-medium tracking-[-0.025em] text-slate-900 sm:text-[24px]">Nothing breaks. Nobody gets an alert.</div>
               </div>
-            );
-          })}
-          <div className="ml-[84px] mt-5 border-t border-slate-900 pt-5 sm:ml-[109px]">
-            <div className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-400">The leak</div>
-            <div className="mt-2 text-[22px] font-medium tracking-[-0.03em] text-slate-900 sm:text-[28px]">
-              Nothing dramatic happened. That is the problem.
+              <div className="hidden text-right sm:block">
+                <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-slate-400">Outcome</div>
+                <div className="mt-1 text-[12px] font-semibold text-rose-600">Revenue left quietly</div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div aria-hidden className="absolute bottom-[30px] left-[59px] top-[28px] w-px bg-slate-300 sm:left-[71px]" />
+              {moments.map((moment, index) => {
+                const lost = moment.tone === "lost";
+                const live = moment.tone === "live";
+                return (
+                  <div key={moment.time} className={`relative grid grid-cols-[48px_1fr] gap-5 py-4 sm:grid-cols-[58px_1fr] sm:gap-7 ${index ? "border-t border-slate-300/70" : ""}`}>
+                    <div className={`pt-1 text-right font-mono text-[11px] font-semibold ${lost ? "text-rose-500" : live ? "text-slate-900" : "text-slate-400"}`}>{moment.time}</div>
+                    <div className="relative pl-7 sm:pl-9">
+                      <span className={`absolute left-[11px] top-[7px] h-2.5 w-2.5 -translate-x-1/2 rounded-full ring-4 ring-[#ECEFF1] sm:left-[13px] ${lost ? "bg-rose-500" : live ? "bg-cyan-500" : "bg-slate-300"}`} />
+                      <div className={`text-[16px] font-semibold tracking-[-0.02em] ${lost ? "text-rose-600" : "text-slate-900"}`}>{moment.title}</div>
+                      <div className={`mt-1 text-[13px] leading-[1.5] ${lost ? "text-rose-500/80" : "text-slate-500"}`}>{moment.detail}</div>
+                      {live ? (
+                        <div className="mt-4 max-w-[420px] rounded-[16px] bg-white p-4 shadow-[0_18px_50px_-34px_rgba(15,23,42,.4)] ring-1 ring-slate-200">
+                          <div className="flex items-start gap-3">
+                            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#111318] text-[10px] font-bold text-white">SM</div>
+                            <div>
+                              <div className="text-[10px] font-semibold uppercase tracking-[0.13em] text-slate-400">Sarah Miller</div>
+                              <div className="mt-1.5 text-[14px] leading-[1.45] text-slate-700">Hi, are you available this week for a service?</div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-7 border-t-2 border-slate-900 pt-5">
+              <div className="text-[28px] font-medium leading-[1.05] tracking-[-0.04em] text-slate-900 sm:text-[34px]" style={{ fontFamily: DISPLAY }}>
+                Nothing dramatic happened.<br />That is the problem.
+              </div>
             </div>
           </div>
         </div>
@@ -202,78 +256,220 @@ function RevenueLeakSection() {
   );
 }
 
-function ConnectedJourneySection() {
-  const journey = [
-    { icon: MessageSquareText, label: "Inbox", title: "New enquiry", detail: "Website · 9:14 AM", state: "Captured" },
-    { icon: Zap, label: "Follow-up", title: "Reply sent", detail: "SMS · 9:15 AM", state: "Handled" },
-    { icon: CalendarCheck2, label: "Booking", title: "Thu 10:30", detail: "Confirmed", state: "Booked" },
-    { icon: CreditCard, label: "Payment", title: "$286.00", detail: "Invoice paid", state: "Paid" },
-    { icon: Star, label: "Retention", title: "Review request", detail: "Sent after payment", state: "Continuing" },
-  ];
+function JourneyPanel({ step }: { step: JourneyStep }) {
+  if (step.kind === "inbox") {
+    return (
+      <div className="grid min-h-[410px] lg:grid-cols-[240px_1fr]">
+        <div className="border-b border-slate-200 bg-[#F8FAFB] p-5 lg:border-b-0 lg:border-r">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Unified Inbox</div>
+          <div className="mt-5 space-y-2.5">
+            {["Sarah Miller", "Marcus Lee", "Priya Shah"].map((name, i) => (
+              <div key={name} className={`rounded-[12px] p-3 ${i === 0 ? "bg-white shadow-sm ring-1 ring-slate-200" : "text-slate-400"}`}>
+                <div className="text-[12px] font-semibold text-slate-800">{name}</div>
+                <div className="mt-1 truncate text-[11px]">{i === 0 ? "Are you available Thursday?" : "Previous conversation"}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="p-5 sm:p-7 lg:p-8">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+            <div>
+              <div className="text-[13px] font-semibold text-slate-900">Sarah Miller</div>
+              <div className="mt-1 text-[11px] text-slate-400">SMS · New enquiry</div>
+            </div>
+            <span className="rounded-full bg-cyan-50 px-2.5 py-1 text-[10px] font-semibold text-cyan-700">New lead</span>
+          </div>
+          <div className="mt-7 max-w-[520px] space-y-4">
+            <div className="w-[78%] rounded-[16px] rounded-bl-[4px] bg-slate-100 px-4 py-3 text-[13px] leading-[1.5] text-slate-700">Hi, are you available Thursday morning for a service?</div>
+            <div className="ml-auto w-[82%] rounded-[16px] rounded-br-[4px] bg-[#111318] px-4 py-3 text-[13px] leading-[1.5] text-white">Yes. I can help with that. I have Thursday at 10:30 available. Would you like me to hold it?</div>
+          </div>
+          <div className="mt-8 flex items-center gap-2 text-[11px] font-semibold text-cyan-700"><Zap className="h-3.5 w-3.5" /> Customer and conversation captured together</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (step.kind === "sales") {
+    return (
+      <div className="min-h-[410px] p-5 sm:p-7 lg:p-8">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Sales pipeline</div>
+            <div className="mt-1.5 text-[15px] font-semibold text-slate-900">Service enquiries</div>
+          </div>
+          <span className="rounded-full border border-slate-200 px-3 py-1 text-[10px] font-semibold text-slate-500">Live pipeline</span>
+        </div>
+        <div className="mt-7 grid gap-3 sm:grid-cols-3">
+          {["New enquiry", "Contacted", "Booked"].map((stage, index) => (
+            <div key={stage} className="rounded-[14px] bg-[#F7F8FA] p-3 ring-1 ring-slate-200/80">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.13em] text-slate-400">{stage}</div>
+              {index === 1 ? (
+                <div className="mt-4 rounded-[12px] bg-white p-4 shadow-sm ring-1 ring-cyan-200">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111318] text-[10px] font-bold text-white">SM</div>
+                    <div>
+                      <div className="text-[12px] font-semibold text-slate-900">Sarah Miller</div>
+                      <div className="mt-0.5 text-[10px] text-slate-400">Thursday service</div>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-[10px]">
+                    <span className="text-slate-400">Next action</span><span className="font-semibold text-cyan-700">Confirm booking</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="mt-4 h-[96px] rounded-[10px] border border-dashed border-slate-200" />
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="mt-7 flex items-center gap-2 text-[11px] font-semibold text-cyan-700"><Workflow className="h-3.5 w-3.5" /> Same customer, now visible as an opportunity</div>
+      </div>
+    );
+  }
+
+  if (step.kind === "booking") {
+    return (
+      <div className="grid min-h-[410px] lg:grid-cols-[1fr_300px]">
+        <div className="border-b border-slate-200 p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Calendar</div>
+          <div className="mt-1.5 text-[15px] font-semibold text-slate-900">Thursday</div>
+          <div className="mt-7 grid grid-cols-4 gap-2 sm:grid-cols-6">
+            {["8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "1:30", "2:00", "2:30", "3:00"].map((time) => (
+              <div key={time} className={`rounded-[10px] px-2 py-3 text-center text-[11px] font-semibold ${time === "10:30" ? "bg-[#111318] text-white shadow-md" : "bg-[#F7F8FA] text-slate-500 ring-1 ring-slate-200"}`}>{time}</div>
+            ))}
+          </div>
+        </div>
+        <div className="bg-[#F8FAFB] p-5 sm:p-7 lg:p-8">
+          <div className="rounded-[16px] bg-white p-5 shadow-sm ring-1 ring-slate-200">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Booking confirmed</div>
+            <div className="mt-5 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111318] text-[10px] font-bold text-white">SM</div>
+              <div><div className="text-[12px] font-semibold text-slate-900">Sarah Miller</div><div className="mt-1 text-[10px] text-slate-400">Thu · 10:30 AM</div></div>
+            </div>
+            <div className="mt-5 border-t border-slate-100 pt-4 text-[11px] text-slate-500">Confirmation sent by SMS</div>
+          </div>
+          <div className="mt-5 flex items-center gap-2 text-[11px] font-semibold text-cyan-700"><CalendarCheck2 className="h-3.5 w-3.5" /> Booking joins the same journey</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <section className="relative overflow-hidden bg-white px-5 py-24 sm:px-8 sm:py-32 lg:py-40">
-      <div className="mx-auto max-w-[1360px]">
-        <div className="mx-auto max-w-[920px] text-center">
-          <Eyebrow>One customer. One connected journey.</Eyebrow>
-          <SectionTitle className="mt-4">Every customer moment. One connected system.</SectionTitle>
-          <p className="mx-auto mt-5 max-w-[760px] text-[16px] leading-[1.7] text-slate-500 sm:text-[18px]">
-            The conversation may move from inbox to booking to payment. The customer context and next step do not have to get lost along the way.
-          </p>
+    <div className="grid min-h-[410px] gap-0 sm:grid-cols-2">
+      <div className="border-b border-slate-200 p-5 sm:border-b-0 sm:border-r sm:p-7 lg:p-8">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Payment</div>
+        <div className="mt-8 rounded-[18px] bg-[#111318] p-6 text-white">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40">Invoice paid</div>
+          <div className="mt-4 text-[42px] font-medium tracking-[-0.05em]">$286.00</div>
+          <div className="mt-5 flex items-center gap-2 border-t border-white/10 pt-4 text-[11px] text-white/58"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" /> Sarah Miller · payment complete</div>
         </div>
+      </div>
+      <div className="p-5 sm:p-7 lg:p-8">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Reputation & retention</div>
+        <div className="mt-8 space-y-3">
+          <div className="rounded-[16px] bg-[#F7F8FA] p-5 ring-1 ring-slate-200">
+            <div className="flex items-center gap-2"><Star className="h-4 w-4 text-amber-500" /><span className="text-[12px] font-semibold text-slate-900">Review request ready</span></div>
+            <div className="mt-2 text-[11px] leading-[1.5] text-slate-500">Sent after payment while the experience is still fresh.</div>
+          </div>
+          <div className="rounded-[16px] border border-dashed border-slate-300 p-5">
+            <div className="flex items-center gap-2"><RefreshCw className="h-4 w-4 text-cyan-600" /><span className="text-[12px] font-semibold text-slate-900">Future follow-up retained</span></div>
+            <div className="mt-2 text-[11px] leading-[1.5] text-slate-500">The customer remains part of the lifecycle, not a closed record.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-        <div className="mx-auto mt-14 max-w-[1240px] overflow-hidden rounded-[24px] border border-slate-200 bg-[#FBFCFD] shadow-[0_40px_100px_-58px_rgba(15,23,42,.36)] lg:mt-16">
-          <div className="flex flex-col gap-5 border-b border-slate-200 bg-white px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-            <div className="flex items-center gap-3.5">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111318] text-[12px] font-bold text-white">SM</div>
+function ConnectedJourneySection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = !!useReducedMotion();
+  const [active, setActive] = useState(0);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    if (reduced) return;
+    const next = Math.min(JOURNEY.length - 1, Math.floor(Math.max(0, Math.min(0.999, value)) * JOURNEY.length));
+    setActive(next);
+  });
+
+  const step = JOURNEY[active];
+
+  return (
+    <section className="bg-white">
+      <div ref={ref} className="hidden h-[210vh] lg:block">
+        <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center overflow-hidden px-8 py-8 xl:px-12">
+          <div className="mx-auto grid w-full max-w-[1460px] grid-cols-[360px_1fr] gap-12 xl:grid-cols-[400px_1fr] xl:gap-16">
+            <div className="flex flex-col justify-between py-2">
               <div>
-                <div className="text-[15px] font-semibold text-slate-900">Sarah Miller</div>
-                <div className="mt-0.5 text-[12px] text-slate-500">Returning customer · Sydney</div>
+                <Kicker>One customer. One connected journey.</Kicker>
+                <h2 className="mt-5 text-[48px] leading-[0.98] tracking-[-0.05em] text-[#111318] xl:text-[58px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+                  Every customer moment.<br />One connected system.
+                </h2>
+                <p className="mt-5 max-w-[360px] text-[15px] leading-[1.68] text-slate-500">
+                  Watch one customer move through the business without losing the conversation, context or next step.
+                </p>
+              </div>
+
+              <div className="mt-10 border-t border-slate-200 pt-5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111318] text-[11px] font-bold text-white">SM</div>
+                  <div><div className="text-[13px] font-semibold text-slate-900">Sarah Miller</div><div className="mt-1 text-[11px] text-slate-400">Same customer through every step</div></div>
+                </div>
+                <div className="mt-6 space-y-1">
+                  {JOURNEY.map((item, index) => (
+                    <button key={item.key} type="button" onClick={() => setActive(index)} className="group flex w-full items-center gap-3 py-2 text-left">
+                      <span className={`h-px transition-all ${index === active ? "w-7 bg-cyan-500" : "w-3 bg-slate-300 group-hover:w-5"}`} />
+                      <span className={`font-mono text-[10px] ${index === active ? "text-cyan-700" : "text-slate-300"}`}>{item.index}</span>
+                      <span className={`text-[12px] font-semibold ${index === active ? "text-slate-900" : "text-slate-400"}`}>{item.label}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-[12px] font-semibold text-emerald-700">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
-              Customer journey active
-            </div>
-          </div>
 
-          <div className="relative px-5 py-9 sm:px-7 sm:py-12 lg:px-10 lg:py-14">
-            <div aria-hidden className="absolute left-[10%] right-[10%] top-[93px] hidden h-px bg-slate-200 lg:block" />
-            <div className="grid gap-3 lg:grid-cols-5 lg:gap-0">
-              {journey.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <div key={item.label} className="relative min-w-0 border-b border-slate-200 py-5 last:border-b-0 lg:border-b-0 lg:border-r lg:px-6 lg:py-0 lg:last:border-r-0">
-                    <div className="relative z-10 flex items-center justify-between lg:block">
-                      <div className="flex items-center gap-3 lg:block">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white shadow-sm lg:mx-auto">
-                          <Icon className="h-4 w-4 text-slate-700" />
-                        </div>
-                        <div className="lg:mt-5 lg:text-center">
-                          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">{item.label}</div>
-                          <div className="mt-1.5 text-[16px] font-semibold tracking-[-0.02em] text-slate-900">{item.title}</div>
-                          <div className="mt-1 text-[12px] leading-[1.45] text-slate-500">{item.detail}</div>
-                        </div>
-                      </div>
-                      <div className="shrink-0 rounded-full bg-cyan-50 px-2.5 py-1 text-[10px] font-semibold text-cyan-700 lg:mx-auto lg:mt-4 lg:w-fit">{item.state}</div>
-                    </div>
-                    {index < journey.length - 1 ? <ArrowRight className="absolute -right-2.5 top-[35px] z-20 hidden h-5 w-5 rounded-full bg-[#FBFCFD] p-1 text-slate-300 lg:block" /> : null}
+            <div className="flex min-w-0 items-center">
+              <div className="w-full overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-[0_42px_100px_-48px_rgba(15,23,42,.34)]">
+                <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+                  <div>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-700">{step.index} · {step.label}</div>
+                    <div className="mt-1 text-[15px] font-semibold text-slate-900">{step.title}</div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="border-t border-slate-200 bg-white px-5 py-5 sm:px-7">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-[14px] leading-[1.55] text-slate-500">
-                Same customer. Same context. Every next step connected.
-              </p>
-              <div className="flex items-center gap-2 text-[12px] font-semibold text-slate-700">
-                <Workflow className="h-4 w-4 text-cyan-600" />
-                Zapla keeps the thread intact
+                  <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-[10px] font-semibold text-emerald-700"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Customer context live</div>
+                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div key={step.key} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }}>
+                    <JourneyPanel step={step} />
+                  </motion.div>
+                </AnimatePresence>
+                <div className="border-t border-slate-200 bg-[#FAFBFC] px-6 py-4 text-[12px] leading-[1.55] text-slate-500">{step.copy}</div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="px-5 py-20 sm:px-8 sm:py-24 lg:hidden">
+        <div className="mx-auto max-w-[760px]">
+          <Kicker>One customer. One connected journey.</Kicker>
+          <h2 className="mt-4 text-[40px] leading-[0.98] tracking-[-0.05em] text-[#111318] sm:text-[50px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+            Every customer moment.<br />One connected system.
+          </h2>
+          <p className="mt-5 text-[15px] leading-[1.65] text-slate-500">The same customer keeps the same context as the journey moves.</p>
+
+          <div className="mt-10 flex items-center gap-3 border-y border-slate-200 py-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111318] text-[10px] font-bold text-white">SM</div>
+            <div><div className="text-[12px] font-semibold text-slate-900">Sarah Miller</div><div className="mt-1 text-[10px] text-slate-400">Persistent customer context</div></div>
+          </div>
+
+          <div className="mt-8 space-y-8">
+            {JOURNEY.map((item) => (
+              <div key={item.key}>
+                <div className="mb-3 flex items-center gap-3"><span className="font-mono text-[10px] font-semibold text-cyan-700">{item.index}</span><span className="text-[12px] font-semibold uppercase tracking-[0.13em] text-slate-400">{item.label}</span></div>
+                <div className="overflow-hidden rounded-[18px] border border-slate-200 bg-white"><JourneyPanel step={item} /></div>
+                <p className="mt-3 text-[13px] leading-[1.55] text-slate-500">{item.copy}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -283,68 +479,55 @@ function ConnectedJourneySection() {
 
 function UnlimitedUsersSection() {
   const people = [
-    { initials: "OA", role: "Owner", x: "8%", y: "14%" },
-    { initials: "FR", role: "Front desk", x: "68%", y: "4%" },
-    { initials: "SL", role: "Sales", x: "80%", y: "42%" },
-    { initials: "TM", role: "Team", x: "66%", y: "78%" },
-    { initials: "AC", role: "Accounts", x: "14%", y: "76%" },
+    { initials: "OA", role: "Owner", x: "5%", y: "18%", r: "-2deg" },
+    { initials: "FR", role: "Front desk", x: "64%", y: "5%", r: "2deg" },
+    { initials: "SL", role: "Sales", x: "76%", y: "43%", r: "-1deg" },
+    { initials: "TM", role: "Team", x: "61%", y: "79%", r: "2deg" },
+    { initials: "AC", role: "Accounts", x: "10%", y: "76%", r: "-2deg" },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#F1F6F7] px-5 py-24 sm:px-8 sm:py-32 lg:py-40">
-      <div className="mx-auto grid max-w-[1360px] gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-24">
-        <div className="max-w-[650px]">
-          <Eyebrow>Unlimited users included</Eyebrow>
-          <SectionTitle className="mt-4">Stop paying a tax on teamwork.</SectionTitle>
-          <p className="mt-6 max-w-[600px] text-[16px] leading-[1.7] text-slate-600 sm:text-[18px]">
+    <section className="relative overflow-hidden bg-[#DDE9EA] px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
+      <div className="pointer-events-none absolute -left-20 bottom-[-80px] h-[380px] w-[380px] rounded-full bg-white/35 blur-[90px]" />
+      <div className="relative mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-20">
+        <div className="max-w-[600px]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3D7378]">Unlimited users included</div>
+          <h2 className="mt-5 text-[46px] leading-[0.96] tracking-[-0.055em] text-[#111318] sm:text-[62px] lg:text-[72px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+            Stop paying a tax on teamwork.
+          </h2>
+          <p className="mt-6 max-w-[540px] text-[15px] leading-[1.7] text-slate-600 sm:text-[17px]">
             The customer journey rarely belongs to one person. Give everyone who needs visibility access without turning every extra teammate into another licence decision.
           </p>
-          <div className="mt-8 space-y-3 text-[14px] font-medium text-slate-700 sm:text-[15px]">
-            {["No seat-count anxiety when the team grows", "More people can see the same customer context", "The next step is easier to own when access is not rationed"].map((item) => (
-              <div key={item} className="flex items-start gap-3">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-cyan-600" />
-                <span>{item}</span>
-              </div>
-            ))}
+          <div className="mt-8 grid max-w-[520px] grid-cols-3 border-y border-[#ACC5C7] py-5">
+            <div><div className="text-[28px] font-medium tracking-[-0.04em] text-slate-900">1</div><div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Customer</div></div>
+            <div className="border-x border-[#ACC5C7] px-4"><div className="text-[28px] font-medium tracking-[-0.04em] text-slate-900">5+</div><div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Roles</div></div>
+            <div className="pl-4"><div className="text-[28px] font-medium tracking-[-0.04em] text-slate-900">∞</div><div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Users</div></div>
           </div>
         </div>
 
-        <div className="relative mx-auto aspect-[1.05/1] w-full max-w-[660px]">
-          <div className="absolute left-1/2 top-1/2 h-[58%] w-[58%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-slate-300/80" />
-          <div className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-slate-300/70" />
-          <div className="absolute left-1/2 top-1/2 z-20 w-[58%] -translate-x-1/2 -translate-y-1/2 rounded-[22px] bg-[#111318] p-5 text-white shadow-[0_32px_80px_-36px_rgba(15,23,42,.72)] sm:p-7">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.17em] text-white/45">Shared customer context</div>
-            <div className="mt-5 flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[12px] font-bold text-[#111318]">SM</div>
-              <div>
-                <div className="text-[16px] font-semibold">Sarah Miller</div>
-                <div className="mt-1 text-[12px] text-white/55">Appointment tomorrow · 10:30</div>
+        <div className="relative mx-auto aspect-[1.15/1] w-full max-w-[650px]">
+          <div className="absolute left-1/2 top-1/2 h-[62%] w-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#A8C0C2]" />
+          <div className="absolute left-1/2 top-1/2 h-[82%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#A8C0C2]" />
+          <div className="absolute left-1/2 top-1/2 z-20 w-[58%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[22px] bg-[#111318] text-white shadow-[0_32px_80px_-34px_rgba(15,23,42,.62)]">
+            <div className="border-b border-white/10 px-5 py-4 text-[9px] font-semibold uppercase tracking-[0.17em] text-white/38">Shared customer context</div>
+            <div className="p-5 sm:p-6">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[11px] font-bold text-[#111318]">SM</div>
+                <div><div className="text-[15px] font-semibold">Sarah Miller</div><div className="mt-1 text-[11px] text-white/45">Appointment tomorrow · 10:30</div></div>
               </div>
-            </div>
-            <div className="mt-6 grid grid-cols-2 gap-y-4 border-t border-white/10 pt-5 text-[12px]">
-              <div>
-                <div className="text-white/40">Last touch</div>
-                <div className="mt-1 font-semibold text-white/85">SMS reply</div>
-              </div>
-              <div>
-                <div className="text-white/40">Next step</div>
-                <div className="mt-1 font-semibold text-white/85">Reminder</div>
+              <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/10 pt-5 text-[11px]">
+                <div><div className="text-white/35">Last touch</div><div className="mt-1 font-semibold text-white/80">SMS reply</div></div>
+                <div><div className="text-white/35">Next step</div><div className="mt-1 font-semibold text-white/80">Reminder</div></div>
               </div>
             </div>
           </div>
-          {people.map((person, index) => (
-            <div
-              key={person.role}
-              className="absolute z-30 flex items-center gap-2.5 rounded-full border border-slate-200 bg-white py-2 pl-2 pr-3 shadow-[0_12px_40px_-24px_rgba(15,23,42,.4)]"
-              style={{ left: person.x, top: person.y, transform: index === 2 ? "rotate(2deg)" : index === 4 ? "rotate(-2deg)" : undefined }}
-            >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-50 text-[10px] font-bold text-cyan-700">{person.initials}</div>
-              <div className="text-[11px] font-semibold text-slate-700 sm:text-[12px]">{person.role}</div>
+          {people.map((person) => (
+            <div key={person.role} className="absolute z-30 flex items-center gap-2 rounded-full bg-white py-2 pl-2 pr-3 shadow-[0_12px_36px_-22px_rgba(15,23,42,.38)] ring-1 ring-[#B7CBCC]" style={{ left: person.x, top: person.y, transform: `rotate(${person.r})` }}>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E5F5F5] text-[9px] font-bold text-[#276C72]">{person.initials}</div>
+              <div className="text-[10px] font-semibold text-slate-700 sm:text-[11px]">{person.role}</div>
             </div>
           ))}
-          <div className="absolute bottom-[2%] left-1/2 z-40 -translate-x-1/2 rounded-full bg-cyan-500 px-5 py-2.5 text-center text-[12px] font-bold text-[#06252D] shadow-[0_14px_36px_-22px_rgba(6,182,212,.8)]">
-            Unlimited users · included
-          </div>
+          <div className="absolute bottom-[0%] left-1/2 z-40 -translate-x-1/2 rounded-full bg-[#16C4D8] px-5 py-2.5 text-[11px] font-bold text-[#073238] shadow-[0_14px_36px_-20px_rgba(6,182,212,.7)]">Unlimited users · included</div>
         </div>
       </div>
     </section>
@@ -353,41 +536,59 @@ function UnlimitedUsersSection() {
 
 function GuidedLaunchSection() {
   const steps = [
-    { n: "01", title: "Understand", copy: "Map how enquiries, conversations, bookings, payments and follow-up actually move through your business." },
-    { n: "02", title: "Configure", copy: "Set up the customer journey, pipelines, messaging, automations and the important handoffs." },
-    { n: "03", title: "Launch", copy: "Get the team into a system that reflects the way the business needs to work, not a blank account." },
-    { n: "04", title: "Improve", copy: "Refine the workflow from real usage so Zapla becomes part of the operating rhythm, not another shelfware subscription." },
+    ["01", "Map", "Enquiries, conversations, bookings and follow-up"],
+    ["02", "Build", "Pipelines, messages, automations and handoffs"],
+    ["03", "Launch", "A working system your team can use"],
+    ["04", "Tune", "Refine from real usage, not assumptions"],
   ];
 
   return (
-    <section className="bg-white px-5 py-24 sm:px-8 sm:py-32 lg:py-40">
-      <div className="mx-auto grid max-w-[1360px] gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-        <div className="max-w-[620px] lg:sticky lg:top-[110px] lg:self-start">
-          <Eyebrow>Guided Launch</Eyebrow>
-          <SectionTitle className="mt-4">Software only works when the team actually uses it.</SectionTitle>
-          <p className="mt-6 max-w-[580px] text-[16px] leading-[1.7] text-slate-500 sm:text-[18px]">
-            Zapla does not need to start as a blank account and a pile of help articles. Guided Launch is designed to turn the customer journey into a working system your team can actually adopt.
-          </p>
-          <a href={BOOK_URL} className="mt-8 inline-flex h-[48px] items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[14px] font-semibold text-white">
-            Talk through your workflow <ArrowRight className="h-4 w-4" />
-          </a>
+    <section className="bg-[#F3F0EA] px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
+      <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:gap-20">
+        <div className="relative min-h-[520px] overflow-hidden rounded-[28px] bg-[#E8E2D8] p-5 sm:p-8 lg:min-h-[610px]">
+          <div className="absolute right-5 top-5 w-[42%] rotate-[2deg] overflow-hidden rounded-[18px] shadow-[0_26px_60px_-35px_rgba(15,23,42,.38)] sm:right-8 sm:top-8">
+            <img src={`${V5}/skin-clinic.jpg`} alt="Service team at work" className="aspect-[4/3] h-full w-full object-cover" />
+          </div>
+          <div className="absolute bottom-5 left-5 w-[38%] -rotate-[2deg] overflow-hidden rounded-[18px] shadow-[0_26px_60px_-35px_rgba(15,23,42,.38)] sm:bottom-8 sm:left-8">
+            <img src={`${V5}/photographer.jpg`} alt="Service professional at work" className="aspect-[4/3] h-full w-full object-cover" />
+          </div>
+
+          <div className="absolute left-[10%] top-[12%] z-20 w-[70%] rounded-[22px] bg-white p-5 shadow-[0_34px_90px_-40px_rgba(15,23,42,.42)] ring-1 ring-black/5 sm:left-[12%] sm:top-[15%] sm:p-7 lg:w-[68%]">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+              <div><div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-cyan-700">Guided Launch blueprint</div><div className="mt-1.5 text-[15px] font-semibold text-slate-900">Your customer journey, mapped first</div></div>
+              <div className="hidden rounded-full bg-[#111318] px-3 py-1.5 text-[9px] font-semibold text-white sm:block">Built around your business</div>
+            </div>
+            <div className="mt-6 space-y-4">
+              {["Enquiry sources", "Pipeline & ownership", "Booking & reminders", "Payment & review", "Reactivation"].map((item, index) => (
+                <div key={item} className="relative flex items-center gap-4">
+                  {index < 4 ? <span className="absolute left-[13px] top-[27px] h-[26px] w-px bg-slate-200" /> : null}
+                  <span className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[9px] font-bold ${index === 0 ? "bg-[#111318] text-white" : "bg-cyan-50 text-cyan-700 ring-1 ring-cyan-100"}`}>{index + 1}</span>
+                  <div className="min-w-0 flex-1 border-b border-slate-100 pb-3 text-[11px] font-semibold text-slate-700 last:border-b-0">{item}</div>
+                  <Check className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="border-t border-slate-200">
-          {steps.map((step, index) => (
-            <div key={step.n} className="grid gap-4 border-b border-slate-200 py-8 sm:grid-cols-[90px_180px_1fr] sm:items-start sm:gap-7 sm:py-10">
-              <div className="font-mono text-[12px] font-semibold text-cyan-600">{step.n}</div>
-              <div className="text-[22px] font-semibold tracking-[-0.03em] text-slate-900 sm:text-[26px]">{step.title}</div>
-              <div className="max-w-[520px] text-[14px] leading-[1.65] text-slate-500 sm:text-[15px]">{step.copy}</div>
-              {index === 0 ? (
-                <div className="hidden sm:col-start-3 sm:block">
-                  <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-cyan-50 px-3 py-1.5 text-[11px] font-semibold text-cyan-700">
-                    <Route className="h-3.5 w-3.5" /> Built around your business
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          ))}
+        <div className="max-w-[590px]">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7D6B55]">Guided Launch</div>
+          <h2 className="mt-5 text-[44px] leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[58px] lg:text-[64px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+            We do not hand you a blank account and wish you luck.
+          </h2>
+          <p className="mt-6 max-w-[540px] text-[15px] leading-[1.7] text-[#6E6559] sm:text-[17px]">
+            Guided Launch turns the customer journey into a working system first, so adoption starts with something relevant to the way your business actually operates.
+          </p>
+          <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-5 border-t border-[#D8D0C4] pt-6">
+            {steps.map(([n, title, copy]) => (
+              <div key={n}>
+                <div className="font-mono text-[9px] font-semibold text-[#9B8365]">{n}</div>
+                <div className="mt-2 text-[16px] font-semibold text-slate-900">{title}</div>
+                <div className="mt-1 text-[11px] leading-[1.5] text-[#7D7367]">{copy}</div>
+              </div>
+            ))}
+          </div>
+          <a href={BOOK_URL} className="mt-8 inline-flex h-[48px] items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[13px] font-semibold text-white">Talk through your workflow <ArrowRight className="h-4 w-4" /></a>
         </div>
       </div>
     </section>
@@ -398,176 +599,113 @@ function OutcomeSwitcher() {
   const [activeKey, setActiveKey] = useState(OUTCOMES[0].key);
   const active = OUTCOMES.find((item) => item.key === activeKey) ?? OUTCOMES[0];
   const ActiveIcon = active.icon;
+  const offsets = ["", "sm:ml-12", "sm:ml-4", "sm:ml-16"];
 
   return (
-    <section className="relative overflow-hidden bg-[#080B10] px-5 py-24 text-white sm:px-8 sm:py-32 lg:py-40">
-      <div className="pointer-events-none absolute left-1/2 top-[-180px] h-[520px] w-[760px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[140px]" />
+    <section className="relative overflow-hidden bg-[#080B10] px-5 py-20 text-white sm:px-8 sm:py-24 lg:py-28">
+      <div className="pointer-events-none absolute left-1/2 top-[-200px] h-[520px] w-[760px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[140px]" />
       <div className="relative mx-auto max-w-[1360px]">
-        <div className="max-w-[900px]">
-          <Eyebrow dark>Follow-through in action</Eyebrow>
-          <SectionTitle dark className="mt-4">What should Zapla follow through on?</SectionTitle>
-          <p className="mt-5 max-w-[720px] text-[16px] leading-[1.7] text-white/55 sm:text-[18px]">
-            Start with a customer moment that matters. Zapla connects the data, conversation and next action so the work can keep moving.
-          </p>
-        </div>
-
-        <div className="zapla-scroll-hide mt-9 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Follow-through examples">
-          {OUTCOMES.map((item) => {
-            const on = item.key === active.key;
-            const Icon = item.icon;
-            return (
-              <button
-                key={item.key}
-                type="button"
-                role="tab"
-                aria-selected={on}
-                onClick={() => setActiveKey(item.key)}
-                className={`inline-flex h-[46px] shrink-0 items-center gap-2 rounded-full border px-4 text-[12px] font-semibold transition-colors ${on ? "border-white bg-white text-[#111318]" : "border-white/15 bg-white/[0.035] text-white/55 hover:border-white/28 hover:text-white"}`}
-              >
-                <Icon className="h-4 w-4" /> {item.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="mt-8 overflow-hidden rounded-[24px] border border-white/10 bg-[#0E1219]">
-          <div className="grid lg:grid-cols-[0.75fr_1.25fr]">
-            <div className="border-b border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <div className="flex h-11 w-11 items-center justify-center rounded-[12px]" style={{ backgroundColor: `${active.accent}1F`, color: active.accent }}>
-                <ActiveIcon className="h-5 w-5" />
-              </div>
-              <div className="mt-7 text-[10px] font-semibold uppercase tracking-[0.17em] text-white/38">{active.eyebrow}</div>
-              <h3 className="mt-3 text-[30px] font-medium leading-[1.04] tracking-[-0.04em] text-white sm:text-[38px]" style={{ fontFamily: DISPLAY }}>
-                {active.headline}
-              </h3>
-              <p className="mt-5 text-[14px] leading-[1.7] text-white/52 sm:text-[15px]">{active.copy}</p>
-            </div>
-
-            <div className="p-5 sm:p-7 lg:p-10">
-              <div className="mb-5 flex items-center justify-between gap-4 border-b border-white/10 pb-5">
-                <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.17em] text-white/35">Live customer journey</div>
-                  <div className="mt-1.5 text-[15px] font-semibold text-white/85">One trigger. Connected next steps.</div>
-                </div>
-                <div className="hidden items-center gap-2 rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-3 py-1.5 text-[10px] font-semibold text-cyan-200 sm:flex">
-                  <Sparkles className="h-3.5 w-3.5" /> Zapla active
-                </div>
-              </div>
-
-              <div className="relative">
-                <div aria-hidden className="absolute bottom-[26px] left-[17px] top-[26px] w-px bg-white/10 sm:left-[21px]" />
-                {active.steps.map((step, index) => {
-                  const Icon = step.icon;
-                  return (
-                    <div key={`${active.key}-${step.label}`} className="relative grid grid-cols-[36px_1fr] gap-4 py-3 sm:grid-cols-[44px_1fr] sm:gap-5">
-                      <div className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#151A22] sm:h-11 sm:w-11">
-                        <Icon className="h-4 w-4 text-white/68" />
-                      </div>
-                      <div className="flex min-w-0 flex-col gap-2 rounded-[14px] border border-white/[0.07] bg-white/[0.025] px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="min-w-0">
-                          <div className="text-[14px] font-semibold text-white/88">{step.label}</div>
-                          <div className="mt-1 text-[12px] text-white/38">{step.detail}</div>
-                        </div>
-                        <div className="w-fit shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold" style={{ backgroundColor: `${active.accent}18`, color: active.accent }}>
-                          {step.state}
-                        </div>
-                      </div>
-                      {index < active.steps.length - 1 ? <div className="absolute left-[17px] top-[52px] h-3 w-px bg-white/10 sm:left-[21px] sm:top-[60px]" /> : null}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TrustBridge() {
-  const signals = [
-    { icon: PlugZap, title: "Connect what matters", copy: "Keep the tools that still belong in your stack and connect the customer journey around them." },
-    { icon: ShieldCheck, title: "Control the customer context", copy: "Bring conversations and next steps into a clearer operating system instead of scattering them across inboxes and memory." },
-    { icon: UsersRound, title: "Built for the whole team", copy: "Give the people involved in the journey shared visibility without adding another per-seat decision." },
-  ];
-
-  return (
-    <section className="bg-white px-5 py-24 sm:px-8 sm:py-32">
-      <div className="mx-auto max-w-[1360px]">
-        <div className="flex flex-col gap-8 border-b border-slate-200 pb-12 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-[760px]">
-            <Eyebrow>Fit Zapla around the business</Eyebrow>
-            <SectionTitle className="mt-4">One system should create clarity, not another migration headache.</SectionTitle>
-          </div>
-          <p className="max-w-[420px] text-[14px] leading-[1.7] text-slate-500 sm:text-[15px]">
-            Zapla is designed to become the customer follow-through layer: connecting the journey, giving the team visibility and reducing the places where the next step can disappear.
-          </p>
-        </div>
-
-        <div className="grid divide-y divide-slate-200 lg:grid-cols-3 lg:divide-x lg:divide-y-0">
-          {signals.map((signal) => {
-            const Icon = signal.icon;
-            return (
-              <div key={signal.title} className="py-8 lg:px-9 lg:py-10 lg:first:pl-0 lg:last:pr-0">
-                <Icon className="h-5 w-5 text-cyan-600" />
-                <div className="mt-5 text-[18px] font-semibold tracking-[-0.025em] text-slate-900">{signal.title}</div>
-                <p className="mt-2 max-w-[360px] text-[13px] leading-[1.65] text-slate-500 sm:text-[14px]">{signal.copy}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PricingBridge() {
-  return (
-    <section className="bg-[#F2F7F8] px-5 py-20 sm:px-8 sm:py-24">
-      <div className="mx-auto max-w-[1360px]">
-        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div className="max-w-[880px]">
-            <Eyebrow>Plans built to grow with the journey</Eyebrow>
-            <h2 className="mt-4 text-[36px] font-medium leading-[1.02] tracking-[-0.045em] text-[#111318] sm:text-[50px] lg:text-[58px]" style={{ fontFamily: DISPLAY }}>
-              Start with the follow-through you need. Keep the team included.
+        <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end lg:gap-14">
+          <div>
+            <Kicker dark>Follow-through in action</Kicker>
+            <h2 className="mt-5 max-w-[620px] text-[46px] leading-[0.97] tracking-[-0.052em] sm:text-[62px] lg:text-[70px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+              What should Zapla follow through on?
             </h2>
-            <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-[13px] font-semibold text-slate-600">
-              <span className="inline-flex items-center gap-2"><Check className="h-4 w-4 text-cyan-600" /> Unlimited users</span>
-              <span className="inline-flex items-center gap-2"><Check className="h-4 w-4 text-cyan-600" /> Connected customer system</span>
-              <span className="inline-flex items-center gap-2"><Check className="h-4 w-4 text-cyan-600" /> Guided implementation path</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap lg:justify-end" role="tablist" aria-label="Follow-through examples">
+            {OUTCOMES.map((item) => {
+              const on = item.key === active.key;
+              const Icon = item.icon;
+              return (
+                <button key={item.key} type="button" role="tab" aria-selected={on} onClick={() => setActiveKey(item.key)} className={`inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border px-3 text-[11px] font-semibold transition-colors sm:px-4 ${on ? "border-white bg-white text-[#111318]" : "border-white/15 bg-white/[0.035] text-white/55 hover:border-white/28 hover:text-white"}`}>
+                  <Icon className="h-3.5 w-3.5" /> {item.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:gap-12">
+          <AnimatePresence mode="wait">
+            <motion.div key={active.key} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.24 }} className="lg:pt-8">
+              <div className="flex h-11 w-11 items-center justify-center rounded-[12px]" style={{ backgroundColor: `${active.accent}20`, color: active.accent }}><ActiveIcon className="h-5 w-5" /></div>
+              <div className="mt-6 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/35">{active.eyebrow}</div>
+              <h3 className="mt-3 max-w-[520px] text-[34px] font-medium leading-[1.02] tracking-[-0.045em] text-white sm:text-[42px]" style={{ fontFamily: DISPLAY }}>{active.headline}</h3>
+              <p className="mt-5 max-w-[500px] text-[14px] leading-[1.7] text-white/48 sm:text-[15px]">{active.copy}</p>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="relative min-h-[500px] overflow-hidden rounded-[26px] border border-white/10 bg-[#0E1219] p-5 sm:p-7 lg:p-9">
+            <div className="absolute right-[-70px] top-[-70px] h-[240px] w-[240px] rounded-full opacity-20 blur-[90px]" style={{ backgroundColor: active.accent }} />
+            <div className="relative flex items-center justify-between border-b border-white/10 pb-5">
+              <div><div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-white/30">Live customer journey</div><div className="mt-1.5 text-[14px] font-semibold text-white/82">One trigger. Connected next steps.</div></div>
+              <div className="hidden items-center gap-2 rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-3 py-1.5 text-[9px] font-semibold text-cyan-200 sm:flex"><Sparkles className="h-3.5 w-3.5" /> Zapla active</div>
+            </div>
+
+            <div className="relative mt-7 max-w-[650px]">
+              <div aria-hidden className="absolute bottom-[44px] left-[18px] top-[42px] w-px bg-white/10 sm:left-[22px]" />
+              {active.steps.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <motion.div key={`${active.key}-${step.label}`} initial={{ opacity: 0, x: 18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.28, delay: index * 0.05 }} className={`relative mb-4 flex items-center gap-4 ${offsets[index]}`}>
+                    <div className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#151B24] sm:h-11 sm:w-11"><Icon className="h-4 w-4 text-white/65" /></div>
+                    <div className="min-w-0 flex-1 rounded-[16px] border border-white/10 bg-white/[0.035] px-4 py-3.5 sm:px-5 sm:py-4">
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <div><div className="text-[12px] font-semibold text-white/88 sm:text-[13px]">{step.label}</div><div className="mt-1 text-[10px] text-white/35 sm:text-[11px]">{step.detail}</div></div>
+                        <span className="rounded-full px-2.5 py-1 text-[9px] font-semibold" style={{ backgroundColor: `${active.accent}16`, color: active.accent }}>{step.state}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+              <div className="ml-[52px] mt-3 flex items-center gap-2 text-[10px] font-semibold text-cyan-200/70 sm:ml-[70px]"><ArrowRight className="h-3.5 w-3.5" /> The customer keeps moving</div>
             </div>
           </div>
-          <a href="/pricing" className="inline-flex h-[50px] w-fit shrink-0 items-center gap-2 rounded-[10px] bg-[#111318] px-6 text-[14px] font-semibold text-white">
-            See plans and pricing <ArrowRight className="h-4 w-4" />
-          </a>
         </div>
       </div>
     </section>
   );
 }
 
-function FinalCTA() {
+function FinalDecisionSection() {
   return (
-    <section className="relative overflow-hidden bg-[#080B10] px-5 py-24 text-white sm:px-8 sm:py-32 lg:py-40">
-      <div className="pointer-events-none absolute bottom-[-240px] left-1/2 h-[480px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/12 blur-[150px]" />
-      <div className="relative mx-auto max-w-[1180px] text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-          <Zap className="h-5 w-5 text-cyan-300" />
+    <section className="relative overflow-hidden bg-[#F4F5F6]">
+      <div className="mx-auto grid max-w-[1600px] lg:min-h-[780px] lg:grid-cols-[0.92fr_1.08fr]">
+        <div className="flex items-center px-5 py-20 sm:px-10 sm:py-24 lg:px-16 xl:px-20">
+          <div className="max-w-[650px]">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.19em] text-cyan-700">A simpler decision</div>
+            <h2 className="mt-5 text-[46px] leading-[0.96] tracking-[-0.055em] text-[#111318] sm:text-[62px] lg:text-[72px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+              Keep doing the work only your team can do.
+            </h2>
+            <p className="mt-6 max-w-[560px] text-[16px] leading-[1.7] text-slate-500 sm:text-[17px]">
+              Zapla gives the customer journey one connected place to live, with follow-through built around the moments that otherwise get lost between busy people and disconnected tools.
+            </p>
+
+            <div className="mt-8 grid gap-0 border-y border-slate-300 sm:grid-cols-3">
+              {["Unlimited users", "Guided Launch", "Connected follow-through"].map((item, index) => (
+                <div key={item} className={`flex items-center gap-2 py-4 text-[11px] font-semibold text-slate-700 sm:px-4 ${index ? "border-t border-slate-300 sm:border-l sm:border-t-0" : ""}`}><Check className="h-3.5 w-3.5 text-cyan-600" /> {item}</div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[13px] font-semibold text-white">Book a Call <ArrowRight className="h-4 w-4" /></a>
+              <a href="/pricing" className="inline-flex h-[50px] items-center rounded-[10px] border border-slate-300 bg-white px-5 text-[13px] font-semibold text-slate-800">See plans and pricing</a>
+            </div>
+          </div>
         </div>
-        <h2 className="mx-auto mt-8 max-w-[980px] text-[42px] font-medium leading-[0.98] tracking-[-0.05em] text-white sm:text-[62px] lg:text-[78px]" style={{ fontFamily: DISPLAY }}>
-          You do the work only you can do.<br />Zapla handles what happens next.
-        </h2>
-        <p className="mx-auto mt-6 max-w-[640px] text-[15px] leading-[1.7] text-white/48 sm:text-[17px]">
-          See how Zapla can connect the customer journey around the way your service business actually works.
-        </p>
-        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-white px-6 text-[14px] font-semibold text-[#111318]">
-            Book a Call <ArrowRight className="h-4 w-4" />
-          </a>
-          <a href="/pricing" className="inline-flex h-[50px] items-center rounded-[10px] border border-white/18 px-6 text-[14px] font-semibold text-white/82">
-            See pricing
-          </a>
+
+        <div className="relative min-h-[520px] overflow-hidden bg-[#0A0D12] lg:min-h-0">
+          <img src={`${V5}/real-estate.jpg`} alt="Service professional with a customer" className="absolute inset-0 h-full w-full object-cover object-center" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,10,14,.6)_0%,rgba(7,10,14,.1)_60%,rgba(7,10,14,.2)_100%)]" />
+          <div className="absolute bottom-[7%] left-[7%] w-[42%] -rotate-[2.5deg] overflow-hidden rounded-[18px] border-4 border-white/10 shadow-[0_28px_70px_-32px_rgba(0,0,0,.7)] sm:w-[36%]">
+            <img src={`${V5}/photographer.jpg`} alt="Service professional at work" className="aspect-[4/3] h-full w-full object-cover" />
+          </div>
+          <div className="absolute right-[6%] top-[8%] max-w-[260px] rotate-[2deg] rounded-[16px] bg-white/95 p-4 shadow-[0_20px_60px_-30px_rgba(0,0,0,.55)]">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-slate-400">Next step</div>
+            <div className="mt-2 text-[13px] font-semibold text-slate-900">Customer follow-up scheduled</div>
+            <div className="mt-3 flex items-center gap-2 text-[10px] font-semibold text-cyan-700"><Zap className="h-3.5 w-3.5" /> Zapla follows through</div>
+          </div>
+          <div className="absolute bottom-6 right-6 text-right text-[9px] font-semibold uppercase tracking-[0.17em] text-white/45">Different work. Same customer journey.</div>
         </div>
       </div>
     </section>
@@ -583,9 +721,7 @@ export function ZaplaHomepageContinuationV5() {
       <UnlimitedUsersSection />
       <GuidedLaunchSection />
       <OutcomeSwitcher />
-      <TrustBridge />
-      <PricingBridge />
-      <FinalCTA />
+      <FinalDecisionSection />
     </>
   );
 }
