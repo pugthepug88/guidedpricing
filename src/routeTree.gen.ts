@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as HomepageDraftV1RouteImport } from './routes/homepage-draft-v1'
 import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
@@ -25,6 +26,11 @@ import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[
 const PricingV2Route = PricingV2RouteImport.update({
   id: '/pricing-v2',
   path: '/pricing-v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mcp': typeof McpRoute
+  '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mcp': typeof McpRoute
+  '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mcp': typeof McpRoute
+  '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -140,6 +149,7 @@ export interface FileRouteTypes {
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
     | '/mcp'
+    | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
     | '/mcp'
+    | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
     | '/mcp'
+    | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -183,6 +195,7 @@ export interface RootRouteChildren {
   HeroPreviewV5Route: typeof HeroPreviewV5Route
   HomepageDraftV1Route: typeof HomepageDraftV1Route
   McpRoute: typeof McpRoute
+  PricingRoute: typeof PricingRoute
   PricingV2Route: typeof PricingV2Route
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -199,6 +212,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing-v2'
       fullPath: '/pricing-v2'
       preLoaderRoute: typeof PricingV2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -287,6 +307,7 @@ const rootRouteChildren: RootRouteChildren = {
   HeroPreviewV5Route: HeroPreviewV5Route,
   HomepageDraftV1Route: HomepageDraftV1Route,
   McpRoute: McpRoute,
+  PricingRoute: PricingRoute,
   PricingV2Route: PricingV2Route,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
