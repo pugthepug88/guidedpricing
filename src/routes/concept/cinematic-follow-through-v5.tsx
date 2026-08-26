@@ -1,8 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CinematicFollowThroughV5 } from "@/components/concept/CinematicFollowThroughV5";
+import { ZaplaHomepageContinuationV5 } from "@/components/concept/ZaplaHomepageContinuationV5";
 
 const TITLE = "Cinematic Follow-Through V5 — Zapla concept";
-const DESC = "Four service-business worlds expand into a nine-profession recognition collage, then converge into one connected Zapla customer record.";
+const DESC = "Four service-business worlds expand into a recognition collage, reveal the full Zapla platform, then continue through the customer follow-through story.";
+
+function CinematicHomepageV5() {
+  return (
+    <>
+      <CinematicFollowThroughV5 />
+      <ZaplaHomepageContinuationV5 />
+    </>
+  );
+}
 
 export const Route = createFileRoute("/concept/cinematic-follow-through-v5")({
   head: () => ({
@@ -16,5 +26,5 @@ export const Route = createFileRoute("/concept/cinematic-follow-through-v5")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: CinematicFollowThroughV5,
+  component: CinematicHomepageV5,
 });
