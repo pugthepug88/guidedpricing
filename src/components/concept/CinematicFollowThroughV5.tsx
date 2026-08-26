@@ -70,7 +70,7 @@ function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
       const v = Math.max(0, Math.min(1, raw));
       p.set(v);
 
-      const nextLock = v >= MORPH_IN - 0.02 && v <= MORPH_OUT + 0.02;
+      const nextLock = v >= MORPH_IN && v <= MORPH_OUT;
       const nextArmed = v >= SUPPORT_IN - 0.04;
       if (nextLock !== morphLock.current || nextArmed !== collageArmed.current) {
         morphLock.current = nextLock;
@@ -104,12 +104,10 @@ const heroHoldMs = (f: Film) => {
 
 type Machine = { cur: number; nxt: number; phase: "hold" | "fade"; t0: number };
 
-function useHeroSequencer(active: boolean, reduced: boolean, morphLock: boolean) {
+function useHeroSequencer(active: boolean, reduced: boolean, scrollP: MotionValue<number>) {
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
   const layers = useRef<(HTMLDivElement | null)[]>([]);
   const mach = useRef<Machine>({ cur: 0, nxt: 1, phase: "hold", t0: 0 });
-  const lockRef = useRef(morphLock);
-  lockRef.current = morphLock;
 
   useEffect(() => {
     const n = HERO_FILMS.length;
@@ -143,9 +141,38 @@ function useHeroSequencer(active: boolean, reduced: boolean, morphLock: boolean)
 
     mach.current.t0 = performance.now();
     let raf = 0;
+    let wasMorphLocked = false;
 
     const frame = (now: number) => {
       const m = mach.current;
+      const progress = scrollP.get();
+      const morphLocked = progress >= MORPH_IN && progress <= MORPH_OUT;
+      const enteringMorphLock = morphLocked && !wasMorphLocked;
+
+      /*
+       * The geometry lock reads the MotionValue directly instead of waiting for
+       * React state. If scroll catches a crossfade already in flight, settle on
+       * whichever profession is visually dominant at the lock edge, then keep
+       * that single profession fixed for the whole physical shrink.
+       */
+      if (enteringMorphLock && m.phase === "fade") {
+        const fadeT = Math.min(1, Math.max(0, (now - m.t0) / FADE_MS));
+        const mix = fadeT * fadeT * (3 - 2 * fadeT);
+        if (mix >= 0.5) {
+          const out = m.cur;
+          m.cur = m.nxt;
+          m.nxt = (m.cur + 1) % n;
+          park(out);
+        } else {
+          park(m.nxt);
+          m.nxt = (m.cur + 1) % n;
+        }
+        m.phase = "hold";
+        m.t0 = now;
+        paint(1, 0);
+      }
+      wasMorphLocked = morphLocked;
+
       const curFilm = HERO_FILMS[m.cur];
       const cv = at(m.cur);
 
@@ -167,7 +194,8 @@ function useHeroSequencer(active: boolean, reduced: boolean, morphLock: boolean)
         const dueByTime = elapsed >= heroHoldMs(curFilm);
         const dueByWindow = remaining <= FADE_MS + 180;
 
-        if (!lockRef.current && (dueByTime || dueByWindow)) {
+        /* A new profession may never start while the card is physically morphing. */
+        if (!morphLocked && (dueByTime || dueByWindow)) {
           m.nxt = (m.cur + 1) % n;
           const nv = at(m.nxt);
           if (nv) {
@@ -201,7 +229,7 @@ function useHeroSequencer(active: boolean, reduced: boolean, morphLock: boolean)
 
     raf = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(raf);
-  }, [active, reduced]);
+  }, [active, reduced, scrollP]);
 
   return { videos, layers };
 }
@@ -476,8 +504,8 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
 function StoryStage({ mobile }: { mobile: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
-  const { p, stageVisible, collageArmed, morphLock } = useStoryScroll(wrap);
-  const { videos, layers } = useHeroSequencer(stageVisible, reduced, morphLock);
+  const { p, stageVisible, collageArmed } = useStoryScroll(wrap);
+  const { videos, layers } = useHeroSequencer(stageVisible, reduced, p);
   const anchor = useMemo(() => (mobile ? MOBILE_ANCHOR : DESKTOP_ANCHOR), [mobile]);
 
   const heroOpacity = useTransform(p, [0, 0.035, 0.12], [1, 1, 0]);
