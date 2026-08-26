@@ -19,6 +19,7 @@ type Film = {
   positionMobile?: string;
   brightness?: number;
   contrast?: number;
+  saturation?: number;
 };
 
 const src = (stem: string) => ({
@@ -34,13 +35,13 @@ const HERO_FILMS: Film[] = [
 ];
 
 const SUPPORT_FILMS: Film[] = [
-  { key: "solar", ...src("solar"), start: 0.3, end: 4.9, position: "50% 46%", positionMobile: "50% 44%" },
-  { key: "roofing", ...src("roofing"), start: 0.2, end: 3.9, position: "50% 44%" },
-  { key: "skin-clinic", ...src("skin-clinic"), start: 0, end: 4.75, position: "52% 48%", positionMobile: "54% 48%" },
-  { key: "vet", ...src("vet"), start: 0, end: 4.45, position: "50% 48%", positionMobile: "50% 48%" },
-  { key: "dentist", ...src("dentist"), start: 0.3, end: 4.9, position: "50% 48%" },
-  { key: "personal-trainer", ...src("personal-trainer"), start: 0.3, end: 5.4, position: "50% 46%" },
-  { key: "photographer", ...src("photographer"), start: 0.2, end: 3.4, position: "33% 44%", positionMobile: "33% 40%", brightness: 1.2, contrast: 1.04 },
+  { key: "solar", ...src("solar"), start: 0.3, end: 4.9, position: "50% 46%", positionMobile: "50% 44%", brightness: 0.96, contrast: 1.06, saturation: 0.94 },
+  { key: "roofing", ...src("roofing"), start: 0.2, end: 3.9, position: "50% 44%", brightness: 0.97, contrast: 1.05, saturation: 0.94 },
+  { key: "skin-clinic", ...src("skin-clinic"), start: 0, end: 4.75, position: "52% 48%", positionMobile: "54% 48%", brightness: 0.93, contrast: 1.1, saturation: 0.96 },
+  { key: "vet", ...src("vet"), start: 0, end: 4.45, position: "50% 48%", positionMobile: "50% 48%", brightness: 0.94, contrast: 1.06, saturation: 0.94 },
+  { key: "dentist", ...src("dentist"), start: 0.3, end: 4.9, position: "50% 48%", brightness: 0.92, contrast: 1.06, saturation: 0.92 },
+  { key: "personal-trainer", ...src("personal-trainer"), start: 0.3, end: 5.4, position: "50% 46%", brightness: 0.96, contrast: 1.05, saturation: 0.94 },
+  { key: "photographer", ...src("photographer"), start: 0.2, end: 3.4, position: "33% 44%", positionMobile: "33% 40%", brightness: 1.16, contrast: 1.06, saturation: 0.92 },
 ];
 
 const support = (key: string) => SUPPORT_FILMS.find((f) => f.key === key)!;
@@ -302,7 +303,7 @@ function FilmMedia({ f, play, reduced, mobile }: { f: Film; play: boolean; reduc
       className="h-full w-full object-cover"
       style={{
         objectPosition: position,
-        filter: `brightness(${f.brightness ?? 1}) contrast(${f.contrast ?? 1})`,
+        filter: `brightness(${f.brightness ?? 1}) contrast(${f.contrast ?? 1}) saturate(${f.saturation ?? 1})`,
       }}
       onLoadedMetadata={(e) => {
         const v = e.currentTarget;
@@ -340,10 +341,9 @@ const DESKTOP_SUPPORT: Tile[] = [
   { key: "roofing", box: { l: 46, t: 7, w: 23, h: 29 }, rotate: -2.2, z: 20, from: 0.18, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.1 } },
   { key: "skin-clinic", box: { l: 68, t: -2, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.16, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.13 } },
   { key: "vet", box: { l: 68, t: 31, w: 33, h: 31 }, rotate: -2.4, z: 22, from: 0.245, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.12 } },
-  { key: "dentist", box: { l: -4, t: 56, w: 30, h: 33 }, rotate: 2.3, z: 21, from: 0.21, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.14 } },
-  { key: "personal-trainer", box: { l: 22, t: 68, w: 21, h: 28 }, rotate: -3.3, z: 17, from: 0.29, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
-
-  { key: "photographer", box: { l: 70, t: 73, w: 35, h: 31 }, rotate: 3.8, z: 30, from: 0.255, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.12 } },
+  { key: "dentist", box: { l: -3, t: 55, w: 33, h: 35 }, rotate: 2.3, z: 21, from: 0.21, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.14 } },
+  { key: "personal-trainer", box: { l: 27, t: 67, w: 26, h: 31 }, rotate: -3.1, z: 17, from: 0.29, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
+  { key: "photographer", box: { l: 63, t: 66, w: 41, h: 37 }, rotate: 3.6, z: 30, from: 0.255, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.12 } },
 ];
 
 const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: -5, t: 2, w: 62, h: 22 }, rotate: -2.4, z: 24 };
@@ -352,11 +352,10 @@ const MOBILE_SUPPORT: Tile[] = [
   { key: "solar", box: { l: -6, t: 27, w: 40, h: 15 }, rotate: 3, z: 18, from: 0.185, enter: { x: -28, y: -18, scale: 0.82, rotate: 9, span: 0.1 } },
   { key: "roofing", box: { l: 37, t: 21, w: 34, h: 13 }, rotate: -2.6, z: 20, from: 0.165, enter: { x: 12, y: -26, scale: 0.86, rotate: -8, span: 0.11 } },
   { key: "vet", box: { l: 66, t: 35, w: 40, h: 17 }, rotate: -2.2, z: 21, from: 0.25, enter: { x: 34, y: 12, scale: 0.86, rotate: -7, span: 0.12 } },
-  { key: "dentist", box: { l: -7, t: 60, w: 41, h: 16 }, rotate: 2.4, z: 20, from: 0.215, enter: { x: -30, y: 20, scale: 0.84, rotate: 8, span: 0.13 } },
-  { key: "personal-trainer", box: { l: 33, t: 70, w: 28, h: 13 }, rotate: -3.4, z: 17, from: 0.295, enter: { x: -6, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
-  { key: "photographer", box: { l: 62, t: 75, w: 44, h: 17 }, rotate: 3.6, z: 30, from: 0.26, enter: { x: 26, y: 30, scale: 0.84, rotate: 10, span: 0.12 } },
+  { key: "dentist", box: { l: -6, t: 59, w: 44, h: 17 }, rotate: 2.4, z: 20, from: 0.215, enter: { x: -30, y: 20, scale: 0.84, rotate: 8, span: 0.13 } },
+  { key: "personal-trainer", box: { l: 34, t: 68, w: 31, h: 14 }, rotate: -3.4, z: 17, from: 0.295, enter: { x: -6, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
+  { key: "photographer", box: { l: 59, t: 72, w: 47, h: 20 }, rotate: 3.6, z: 30, from: 0.26, enter: { x: 26, y: 30, scale: 0.84, rotate: 10, span: 0.12 } },
 ];
-
 
 function HeroAnchorCard({ tile, p, mobile, videos, layers }: {
   tile: Tile;
@@ -447,7 +446,6 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
     </motion.div>
   );
 }
-
 
 function HeroCopy({ mobile }: { mobile: boolean }) {
   return (
