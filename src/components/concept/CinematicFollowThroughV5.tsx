@@ -491,7 +491,7 @@ function StoryStage({ mobile }: { mobile: boolean }) {
   const bg = useTransform(p, [RECEDE_END - 0.06, PRODUCT_FULL - 0.02], ["#080B10", "#F7F8FA"]);
 
   return (
-    <div ref={wrap} className={mobile ? "relative h-[520vh]" : "relative h-[560vh]"}>
+    <div ref={wrap} data-v5-stage className={mobile ? "relative h-[520vh]" : "relative h-[560vh]"}>
       <motion.div className="sticky overflow-hidden" style={{ top: NAV, height: `calc(100vh - ${NAV}px)`, background: bg }}>
         {/* hero worlds -> collage tiles (same objects) */}
         {HERO.map((f, i) => (
