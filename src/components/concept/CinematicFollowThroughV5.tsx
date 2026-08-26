@@ -516,7 +516,7 @@ function GenericCustomerRecord() {
 function StoryStage({ mobile }: { mobile: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
-  const { p, threadLabel, stageVisible, collageArmed, heroLocked } = useStoryScroll(wrap);
+  const { p, threadLabel, stageVisible, collageArmed, heroLocked, heroLive } = useStoryScroll(wrap);
   // Autoplay, not scroll, decides which hero world is on screen. It stops
   // advancing once the morph begins so the live world is the one that recomposes.
   const worldIndex = useHeroCycle(HERO.length, 3500, !reduced && stageVisible && !heroLocked);
