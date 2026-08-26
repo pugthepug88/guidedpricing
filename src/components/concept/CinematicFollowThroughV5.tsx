@@ -21,6 +21,7 @@ type Film = {
   key: string;
   label: string;
   video: string;
+  videoWebm: string;
   poster: string;
   start?: number;
   end?: number;
@@ -31,7 +32,11 @@ type Film = {
 
 const HERO_KEYS = ["mechanic", "broker", "agent", "construction"] as const;
 
-const src = (stem: string) => ({ video: `${V5}/${stem}.mp4`, poster: `${V5}/${stem}.jpg` });
+const src = (stem: string) => ({
+  video: `${V5}/${stem}.mp4`,
+  videoWebm: `${V5}/${stem}.webm`,
+  poster: `${V5}/${stem}.jpg`,
+});
 
 const FILMS: Film[] = [
   {
@@ -74,7 +79,7 @@ const FILMS: Film[] = [
   { key: "solar", label: "Solar installer", ...src("solar"), start: 0.3, end: 4.9, position: "50% 46%", positionMobile: "50% 44%" },
   { key: "roofing", label: "Roofing contractor", ...src("roofing"), start: 0.2, end: 3.9, position: "50% 44%" },
   { key: "personal-trainer", label: "Personal trainer", ...src("personal-trainer"), start: 0.3, end: 5.4, position: "50% 46%" },
-  { key: "photographer", label: "Photographer", ...src("photographer"), start: 0.2, end: 4.9, position: "50% 40%", positionMobile: "50% 34%" },
+  { key: "photographer", label: "Photographer", ...src("photographer"), start: 0.2, end: 3.4, position: "33% 44%", positionMobile: "33% 40%" },
   { key: "dentist", label: "Dentist", ...src("dentist"), start: 0.3, end: 4.9, position: "50% 48%" },
 ];
 
@@ -106,10 +111,19 @@ const RECEDE_END = 0.70;
 const PRODUCT_IN = 0.68;
 const PRODUCT_FULL = 0.76;
 
+/** Scroll drives geometry only. It never chooses which film is playing. */
 function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
   const p = useMotionValue(0);
-  const [worldIndex, setWorldIndex] = useState(0);
   const [stateIndex, setStateIndex] = useState(0);
+  /** Stage is on screen: everything visible may play. */
+  const [stageVisible, setStageVisible] = useState(true);
+  /** Support films are (or are about to be) on screen. */
+  const [collageArmed, setCollageArmed] = useState(false);
+  /** Past this point the hero no longer time-cycles: the world that is live
+   *  is the world that recomposes, so its playback is never interrupted. */
+  const [heroLocked, setHeroLocked] = useState(false);
+  /** Hero films decode until the collage has fully receded. */
+  const [heroLive, setHeroLive] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
@@ -131,80 +145,120 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
         setStateIndex((old) => Math.max(old, nextState));
       }
 
-      const nextWorld = v < 0.09 ? 0 : v < 0.18 ? 1 : v < 0.27 ? 2 : 3;
-      setWorldIndex((old) => (old === nextWorld ? old : nextWorld));
+      setHeroLocked((old) => (v >= MORPH_IN - 0.02 ? true : old));
+      const armed = v >= 0.26 && v <= RECEDE_END + 0.06;
+      setCollageArmed((old) => (old === armed ? old : armed));
+      // once the collage has faded out, stop decoding hero film too
+      const heroOn = v <= RECEDE_END + 0.08;
+      setHeroLive((old) => (old === heroOn ? old : heroOn));
       if (visible) raf = requestAnimationFrame(tick);
     };
 
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      setStageVisible(entry.isIntersecting);
       cancelAnimationFrame(raf);
       if (visible) raf = requestAnimationFrame(tick);
-    }, { rootMargin: "10% 0px" });
+    }, { rootMargin: "12% 0px" });
 
     io.observe(el);
     raf = requestAnimationFrame(tick);
     return () => { io.disconnect(); cancelAnimationFrame(raf); };
   }, [p, ref]);
 
-  return { p, worldIndex, threadLabel: THREAD_STATES[stateIndex].label };
+  return { p, threadLabel: THREAD_STATES[stateIndex].label, stageVisible, collageArmed, heroLocked, heroLive };
+}
+
+/** Autoplay owns time: hero worlds crossfade on a wall clock, zero scroll needed. */
+function useHeroCycle(count: number, ms: number, running: boolean) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    if (!running) return;
+    const id = window.setInterval(() => setIndex((i) => (i + 1) % count), ms);
+    return () => window.clearInterval(id);
+  }, [count, ms, running]);
+  return index;
 }
 
 /* ---------------- media ---------------- */
 
+/**
+ * Always a live <video>. The poster JPG is only the pre-readiness frame
+ * (the `poster` attribute). There is no visible still-image state: geometry
+ * changes never convert a playing film into a picture. `play` goes false only
+ * when the tile is genuinely off screen, or when the visitor has asked for
+ * reduced motion.
+ */
 function FilmMedia({
   f,
   play,
   reduced,
-  posterOnly = false,
   mobile = false,
+  eager = false,
 }: {
   f: Film;
   play: boolean;
   reduced: boolean;
-  posterOnly?: boolean;
   mobile?: boolean;
+  eager?: boolean;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const position = (mobile && f.positionMobile) || f.position || "50% 50%";
 
+  // Kick playback whenever it is allowed. Never seeks, so a geometry change
+  // (or a re-render) cannot restart the clip.
   useEffect(() => {
     const v = video.current;
-    if (!v || reduced || posterOnly || !play) return;
-    const start = f.start ?? 0;
-    if (v.readyState >= 1 && (v.currentTime < start || (f.end && v.currentTime > f.end))) v.currentTime = start;
+    if (!v) return;
+    if (reduced || !play) {
+      if (!v.paused) v.pause();
+      return;
+    }
     void v.play().catch(() => {});
-    return () => v.pause();
-  }, [play, reduced, posterOnly, f.start, f.end]);
+  }, [play, reduced]);
 
-
-  if ((reduced || posterOnly) && f.poster) {
-    return <img src={f.poster} alt="" aria-hidden className="h-full w-full object-cover" style={{ objectPosition: position }} />;
-  }
+  const kick = (v: HTMLVideoElement) => {
+    if (reduced || !play) return;
+    if (v.paused) void v.play().catch(() => {});
+  };
 
   return (
     <video
       ref={video}
-      src={f.video}
       poster={f.poster}
       muted
+      autoPlay={!reduced}
       playsInline
-      preload={play ? "metadata" : "none"}
+      loop={false}
+      preload={eager ? "auto" : "metadata"}
       aria-hidden
       className="h-full w-full object-cover"
       style={{ objectPosition: position }}
       onLoadedMetadata={(e) => {
         const v = e.currentTarget;
-        v.currentTime = Math.min(f.start ?? 0, Math.max(0, v.duration - 0.05));
-        if (play) void v.play().catch(() => {});
+        const start = Math.min(f.start ?? 0, Math.max(0, v.duration - 0.05));
+        if (Math.abs(v.currentTime - start) > 0.05) v.currentTime = start;
+        kick(v);
       }}
+      onCanPlay={(e) => kick(e.currentTarget)}
+      onLoadedData={(e) => kick(e.currentTarget)}
+      // Loop inside the approved window only.
       onTimeUpdate={(e) => {
         const v = e.currentTarget;
         const start = f.start ?? 0;
         const end = f.end ?? Math.max(start + 0.5, v.duration - 0.05);
         if (v.currentTime >= Math.min(end, v.duration - 0.02)) v.currentTime = Math.min(start, Math.max(0, v.duration - 0.05));
       }}
-    />
+      onEnded={(e) => {
+        const v = e.currentTarget;
+        v.currentTime = f.start ?? 0;
+        kick(v);
+      }}
+    >
+      {/* mp4 first for Safari/iOS, webm as the universal decode path */}
+      <source src={f.video} type="video/mp4" />
+      <source src={f.videoWebm} type="video/webm" />
+    </video>
   );
 }
 
@@ -213,34 +267,40 @@ function FilmMedia({
 type Box = { l: number; t: number; w: number; h: number };
 type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; label?: boolean };
 
+/* Art direction rules held by these numbers:
+   - hero four: >= ~90% of each tile inside the frame
+   - support five: 100% inside the frame
+   - overlaps only at tile edges, never over the working hands / face
+   - central pocket x 20-64 / y 33-62 stays empty for the statement */
 const DESKTOP_HERO_TILES: Tile[] = [
-  { key: "mechanic", box: { l: -4, t: 1, w: 38, h: 31 }, rotate: -0.8, z: 22 },
-  { key: "broker", box: { l: 62, t: -4, w: 42, h: 35 }, rotate: 0.8, z: 21, label: true },
-  { key: "agent", box: { l: 68, t: 41, w: 36, h: 46 }, rotate: 0.6, z: 23, label: true },
-  { key: "construction", box: { l: 1, t: 62, w: 35, h: 41 }, rotate: -0.6, z: 22 },
+  { key: "mechanic", box: { l: -3, t: 2, w: 36, h: 30 }, rotate: -0.8, z: 22 },
+  { key: "broker", box: { l: 64, t: -3, w: 36, h: 32 }, rotate: 0.8, z: 21, label: true },
+  { key: "agent", box: { l: 67, t: 43, w: 33, h: 44 }, rotate: 0.6, z: 23, label: true },
+  { key: "construction", box: { l: 2, t: 66, w: 30, h: 32 }, rotate: -0.6, z: 22 },
 ];
 
 const DESKTOP_SUPPORT_TILES: Tile[] = [
-  { key: "solar", box: { l: 39, t: -9, w: 13, h: 31 }, rotate: 1.2, z: 18, from: 0.445 },
-  { key: "roofing", box: { l: 53, t: 5, w: 15, h: 23 }, rotate: -0.8, z: 19, from: 0.465 },
-  { key: "photographer", box: { l: -5, t: 35, w: 17, h: 34 }, rotate: 1.1, z: 18, from: 0.485 },
-  { key: "personal-trainer", box: { l: 39, t: 77, w: 20, h: 29 }, rotate: 0.8, z: 19, from: 0.505 },
-  { key: "dentist", box: { l: 61, t: 85, w: 23, h: 25 }, rotate: -1.1, z: 20, from: 0.525 },
+  { key: "solar", box: { l: 37, t: -2, w: 12, h: 26 }, rotate: 1.2, z: 18, from: 0.445 },
+  { key: "roofing", box: { l: 51, t: 5, w: 14, h: 21 }, rotate: -0.8, z: 19, from: 0.465 },
+  { key: "photographer", box: { l: 1, t: 36, w: 16, h: 28 }, rotate: 1.1, z: 18, from: 0.485 },
+  { key: "personal-trainer", box: { l: 37, t: 68, w: 19, h: 24 }, rotate: 0.8, z: 19, from: 0.505 },
+  // sits above the property tile's empty lower corner, fully readable itself
+  { key: "dentist", box: { l: 59, t: 70, w: 21, h: 21 }, rotate: -1.1, z: 30, from: 0.525 },
 ];
 
 const MOBILE_HERO_TILES: Tile[] = [
-  { key: "mechanic", box: { l: -8, t: 2, w: 66, h: 17 }, rotate: -0.8, z: 22 },
-  { key: "broker", box: { l: 56, t: 8, w: 52, h: 15 }, rotate: 0.8, z: 21 },
-  { key: "construction", box: { l: -6, t: 22, w: 52, h: 18 }, rotate: -0.6, z: 22 },
-  { key: "agent", box: { l: 60, t: 26, w: 48, h: 20 }, rotate: 0.6, z: 23 },
+  { key: "mechanic", box: { l: -2, t: 4, w: 56, h: 16 }, rotate: -0.8, z: 22 },
+  { key: "broker", box: { l: 50, t: 8, w: 50, h: 15 }, rotate: 0.8, z: 21 },
+  { key: "construction", box: { l: -1, t: 24, w: 52, h: 16 }, rotate: -0.6, z: 22 },
+  { key: "agent", box: { l: 48, t: 28, w: 52, h: 17 }, rotate: 0.6, z: 23 },
 ];
 
 const MOBILE_SUPPORT_TILES: Tile[] = [
-  { key: "solar", box: { l: -4, t: 62, w: 30, h: 16 }, rotate: 1.2, z: 18, from: 0.45 },
-  { key: "roofing", box: { l: 29, t: 64, w: 34, h: 14 }, rotate: -0.8, z: 19, from: 0.47 },
-  { key: "photographer", box: { l: 68, t: 60, w: 38, h: 18 }, rotate: 1.0, z: 18, from: 0.49 },
-  { key: "personal-trainer", box: { l: 2, t: 81, w: 46, h: 16 }, rotate: 0.8, z: 19, from: 0.51 },
-  { key: "dentist", box: { l: 53, t: 82, w: 50, h: 15 }, rotate: -1.0, z: 20, from: 0.53 },
+  { key: "solar", box: { l: -2, t: 63, w: 28, h: 15 }, rotate: 1.2, z: 18, from: 0.45 },
+  { key: "roofing", box: { l: 28, t: 64, w: 32, h: 13 }, rotate: -0.8, z: 19, from: 0.47 },
+  { key: "photographer", box: { l: 62, t: 62, w: 36, h: 16 }, rotate: 1.0, z: 18, from: 0.49 },
+  { key: "personal-trainer", box: { l: 2, t: 79, w: 44, h: 14 }, rotate: 0.8, z: 19, from: 0.51 },
+  { key: "dentist", box: { l: 49, t: 80, w: 48, h: 13 }, rotate: -1.0, z: 20, from: 0.53 },
 ];
 
 /** Hero world: full bleed, then recomposes into its collage position. */
@@ -248,10 +308,12 @@ function HeroWorldTile({
   f,
   tile,
   active,
+  visible,
   p,
   reduced,
   mobile,
 }: {
+  visible: boolean;
   f: Film;
   tile: Tile;
   active: boolean;
@@ -286,7 +348,7 @@ function HeroWorldTile({
       className="absolute overflow-hidden bg-[#0A0E14]"
       style={{ left: l, top: t, width: w, height: h, borderRadius: br, rotate, opacity, filter, zIndex: active ? tile.z + 4 : tile.z }}
     >
-      <FilmMedia f={f} play={active || !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile && !active} />
+      <FilmMedia f={f} play={visible} reduced={reduced} mobile={mobile} eager />
       <TileScrim p={p} label={tile.label ? f.label : undefined} />
     </motion.div>
   );
@@ -306,7 +368,7 @@ function TileScrim({ p, label }: { p: MotionValue<number>; label?: string }) {
   );
 }
 
-function SupportTile({ tile, p, reduced, mobile }: { tile: Tile; p: MotionValue<number>; reduced: boolean; mobile: boolean }) {
+function SupportTile({ tile, p, reduced, mobile, armed }: { tile: Tile; p: MotionValue<number>; reduced: boolean; mobile: boolean; armed: boolean }) {
   const f = film(tile.key);
   const from = tile.from ?? 0.45;
   const enterOpacity = useTransform(p, [from, from + 0.03, COLLAGE_END, RECEDE_END], [0, 1, 1, 0]);
@@ -329,7 +391,7 @@ function SupportTile({ tile, p, reduced, mobile }: { tile: Tile; p: MotionValue<
         zIndex: tile.z,
       }}
     >
-      <FilmMedia f={f} play={!mobile && !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile} />
+      <FilmMedia f={f} play={armed} reduced={reduced} mobile={mobile} />
       <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.16]" />
     </motion.div>
   );
@@ -378,17 +440,16 @@ function FollowThread({ p, label, mobile }: { p: MotionValue<number>; label: str
 
 /* ---------------- collage ---------------- */
 
-function RecognitionCollage({ p, reduced, mobile }: { p: MotionValue<number>; reduced: boolean; mobile: boolean }) {
-  const heroTiles = mobile ? MOBILE_HERO_TILES : DESKTOP_HERO_TILES;
+function RecognitionCollage({ p, reduced, mobile, armed }: { p: MotionValue<number>; reduced: boolean; mobile: boolean; armed: boolean }) {
   const supportTiles = mobile ? MOBILE_SUPPORT_TILES : DESKTOP_SUPPORT_TILES;
   const statementOpacity = useTransform(p, [0.50, 0.545, COLLAGE_END, RECEDE_END - 0.04], [0, 1, 1, 0]);
   const statementY = useTransform(p, [0.50, 0.56], [16, 0]);
 
   return (
     <>
-      {supportTiles.map((tile) => <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} />)}
+      {supportTiles.map((tile) => <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />)}
       <motion.div
-        className={mobile ? "absolute left-[6%] top-[44%] z-[40] w-[88%]" : "absolute left-[20%] top-[35%] z-[40] w-[44%]"}
+        className={mobile ? "absolute left-[6%] top-[47%] z-[40] w-[88%]" : "absolute left-[20%] top-[35%] z-[40] w-[44%]"}
         style={{ opacity: statementOpacity, y: statementY }}
       >
         <h2
@@ -455,7 +516,10 @@ function GenericCustomerRecord() {
 function StoryStage({ mobile }: { mobile: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
-  const { p, worldIndex, threadLabel } = useStoryScroll(wrap);
+  const { p, threadLabel, stageVisible, collageArmed, heroLocked, heroLive } = useStoryScroll(wrap);
+  // Autoplay, not scroll, decides which hero world is on screen. It stops
+  // advancing once the morph begins so the live world is the one that recomposes.
+  const worldIndex = useHeroCycle(HERO.length, 3500, !reduced && stageVisible && !heroLocked);
 
   const heroOpacity = useTransform(p, [0.00, 0.05, 0.10], [1, 1, 0]);
   // Full-bleed cinematic grade only exists while the hero worlds are full frame.
@@ -477,6 +541,7 @@ function StoryStage({ mobile }: { mobile: boolean }) {
             f={f}
             tile={(mobile ? MOBILE_HERO_TILES : DESKTOP_HERO_TILES).find((t) => t.key === f.key)!}
             active={i === worldIndex}
+            visible={stageVisible && heroLive}
             p={p}
             reduced={reduced}
             mobile={mobile}
@@ -500,7 +565,7 @@ function StoryStage({ mobile }: { mobile: boolean }) {
           <HeroCopy mobile={mobile} />
         </motion.div>
 
-        <RecognitionCollage p={p} reduced={reduced} mobile={mobile} />
+        <RecognitionCollage p={p} reduced={reduced} mobile={mobile} armed={stageVisible && collageArmed} />
         <FollowThread p={p} label={threadLabel} mobile={mobile} />
 
         {/* product: heading + surface as one group */}
