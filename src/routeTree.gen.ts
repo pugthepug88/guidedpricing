@@ -15,6 +15,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as HomepageDraftV1RouteImport } from './routes/homepage-draft-v1'
 import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
 import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConceptOperatorAwayFollowThroughRouteImport } from './routes/concept/operator-away-follow-through'
 import { Route as ConceptMultiWorldFollowThroughV3RouteImport } from './routes/concept/multi-world-follow-through-v3'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
@@ -50,6 +51,11 @@ const HeroPreviewV5Route = HeroPreviewV5RouteImport.update({
 const HeroPreviewV3Route = HeroPreviewV3RouteImport.update({
   id: '/hero-preview-v3',
   path: '/hero-preview-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConceptOperatorAwayFollowThroughRoute =
@@ -90,6 +96,7 @@ const Char91DotmcpChar93InvokeToolToolRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
@@ -104,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
@@ -119,6 +127,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
   '/homepage-draft-v1': typeof HomepageDraftV1Route
@@ -135,6 +144,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/hero-preview-v3'
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/hero-preview-v3'
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
+    | '/'
     | '/hero-preview-v3'
     | '/hero-preview-v5'
     | '/homepage-draft-v1'
@@ -178,6 +190,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   HeroPreviewV3Route: typeof HeroPreviewV3Route
   HeroPreviewV5Route: typeof HeroPreviewV5Route
   HomepageDraftV1Route: typeof HomepageDraftV1Route
@@ -236,6 +249,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HeroPreviewV3RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/concept/operator-away-follow-through': {
       id: '/concept/operator-away-follow-through'
       path: '/concept/operator-away-follow-through'
@@ -282,6 +302,7 @@ declare module '@tanstack/react-router' {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   HeroPreviewV3Route: HeroPreviewV3Route,
   HeroPreviewV5Route: HeroPreviewV5Route,
   HomepageDraftV1Route: HomepageDraftV1Route,
