@@ -71,7 +71,7 @@ function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
       p.set(v);
 
       const nextLock = v >= MORPH_IN && v <= MORPH_OUT;
-      const nextArmed = v >= SUPPORT_IN - 0.04;
+      const nextArmed = v >= 0.1;
       if (nextLock !== morphLock.current || nextArmed !== collageArmed.current) {
         morphLock.current = nextLock;
         collageArmed.current = nextArmed;
@@ -330,29 +330,33 @@ function FilmMedia({ f, play, reduced, mobile }: { f: Film; play: boolean; reduc
 }
 
 type Box = { l: number; t: number; w: number; h: number };
-type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number };
+type Entrance = { x: number; y: number; scale: number; rotate: number; span: number };
+type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; enter?: Entrance };
 
-const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: 2, t: 7, w: 30, h: 43 }, rotate: -0.65, z: 26 };
+/* Editorial composition: irregular scale, off-canvas cropping, no shared baselines. */
+const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: -4, t: 4, w: 37, h: 47 }, rotate: -2.6, z: 24 };
 const DESKTOP_SUPPORT: Tile[] = [
-  { key: "solar", box: { l: 34, t: 3, w: 15, h: 22 }, rotate: 0.9, z: 18, from: 0.18 },
-  { key: "roofing", box: { l: 51, t: 1, w: 17, h: 24 }, rotate: -0.75, z: 19, from: 0.195 },
-  { key: "skin-clinic", box: { l: 70, t: 5, w: 27, h: 27 }, rotate: 0.55, z: 20, from: 0.21 },
-  { key: "vet", box: { l: 72, t: 35, w: 25, h: 25 }, rotate: -0.6, z: 21, from: 0.225 },
-  { key: "dentist", box: { l: 1, t: 56, w: 23, h: 26 }, rotate: 0.7, z: 19, from: 0.24 },
-  { key: "personal-trainer", box: { l: 27, t: 66, w: 20, h: 25 }, rotate: -0.55, z: 20, from: 0.255 },
-  { key: "photographer", box: { l: 67, t: 66, w: 25, h: 26 }, rotate: 0.7, z: 18, from: 0.27 },
+  { key: "solar", box: { l: 29, t: -9, w: 19, h: 31 }, rotate: 3, z: 18, from: 0.14, enter: { x: 5, y: -30, scale: 0.82, rotate: 8, span: 0.11 } },
+  { key: "roofing", box: { l: 46, t: 7, w: 23, h: 29 }, rotate: -2.2, z: 20, from: 0.18, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.1 } },
+  { key: "skin-clinic", box: { l: 68, t: -2, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.16, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.13 } },
+  { key: "vet", box: { l: 68, t: 31, w: 33, h: 31 }, rotate: -2.4, z: 22, from: 0.245, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.12 } },
+  { key: "dentist", box: { l: -4, t: 56, w: 30, h: 33 }, rotate: 2.3, z: 21, from: 0.21, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.14 } },
+  { key: "personal-trainer", box: { l: 22, t: 68, w: 21, h: 28 }, rotate: -3.3, z: 17, from: 0.29, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
+
+  { key: "photographer", box: { l: 70, t: 73, w: 35, h: 31 }, rotate: 3.8, z: 30, from: 0.255, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.12 } },
 ];
 
-const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: 3, t: 3, w: 59, h: 21 }, rotate: -0.55, z: 26 };
+const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: -5, t: 2, w: 62, h: 22 }, rotate: -2.4, z: 24 };
 const MOBILE_SUPPORT: Tile[] = [
-  { key: "skin-clinic", box: { l: 64, t: 5, w: 34, h: 16 }, rotate: 0.7, z: 20, from: 0.18 },
-  { key: "solar", box: { l: 3, t: 26, w: 29, h: 13 }, rotate: 0.8, z: 18, from: 0.195 },
-  { key: "roofing", box: { l: 35, t: 25, w: 31, h: 14 }, rotate: -0.7, z: 19, from: 0.21 },
-  { key: "vet", box: { l: 68, t: 25, w: 30, h: 15 }, rotate: -0.55, z: 20, from: 0.225 },
-  { key: "dentist", box: { l: 3, t: 61, w: 31, h: 14 }, rotate: 0.6, z: 19, from: 0.24 },
-  { key: "personal-trainer", box: { l: 36, t: 61, w: 28, h: 14 }, rotate: -0.6, z: 20, from: 0.255 },
-  { key: "photographer", box: { l: 66, t: 60, w: 32, h: 16 }, rotate: 0.65, z: 18, from: 0.27 },
+  { key: "skin-clinic", box: { l: 58, t: 7, w: 47, h: 19 }, rotate: 2.2, z: 19, from: 0.15, enter: { x: 38, y: -6, scale: 0.88, rotate: 7, span: 0.12 } },
+  { key: "solar", box: { l: -6, t: 27, w: 40, h: 15 }, rotate: 3, z: 18, from: 0.185, enter: { x: -28, y: -18, scale: 0.82, rotate: 9, span: 0.1 } },
+  { key: "roofing", box: { l: 37, t: 21, w: 34, h: 13 }, rotate: -2.6, z: 20, from: 0.165, enter: { x: 12, y: -26, scale: 0.86, rotate: -8, span: 0.11 } },
+  { key: "vet", box: { l: 66, t: 35, w: 40, h: 17 }, rotate: -2.2, z: 21, from: 0.25, enter: { x: 34, y: 12, scale: 0.86, rotate: -7, span: 0.12 } },
+  { key: "dentist", box: { l: -7, t: 60, w: 41, h: 16 }, rotate: 2.4, z: 20, from: 0.215, enter: { x: -30, y: 20, scale: 0.84, rotate: 8, span: 0.13 } },
+  { key: "personal-trainer", box: { l: 33, t: 70, w: 28, h: 13 }, rotate: -3.4, z: 17, from: 0.295, enter: { x: -6, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
+  { key: "photographer", box: { l: 62, t: 75, w: 44, h: 17 }, rotate: 3.6, z: 30, from: 0.26, enter: { x: 26, y: 30, scale: 0.84, rotate: 10, span: 0.12 } },
 ];
+
 
 function HeroAnchorCard({ tile, p, mobile, videos, layers }: {
   tile: Tile;
@@ -366,7 +370,7 @@ function HeroAnchorCard({ tile, p, mobile, videos, layers }: {
   const top = useTransform(p, stops, [0, tile.box.t]);
   const width = useTransform(p, stops, [100, tile.box.w]);
   const height = useTransform(p, stops, [100, tile.box.h]);
-  const radius = useTransform(p, stops, [0, 6]);
+  const radius = useTransform(p, stops, [0, 4]);
   const rotate = useTransform(p, stops, [0, tile.rotate ?? 0]);
   const l = useTransform(left, (v) => `${v}%`);
   const t = useTransform(top, (v) => `${v}%`);
@@ -398,6 +402,8 @@ function TileScrim({ p }: { p: MotionValue<number> }) {
   );
 }
 
+const EASE_SETTLE = (t: number) => 1 - Math.pow(1 - t, 3);
+
 function SupportTile({ tile, p, reduced, mobile, armed }: {
   tile: Tile;
   p: MotionValue<number>;
@@ -407,22 +413,33 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
 }) {
   const f = support(tile.key);
   const from = tile.from ?? SUPPORT_IN;
-  const opacity = useTransform(p, [from, from + 0.035], [0, 1]);
-  const scale = useTransform(p, [from, from + 0.045], [0.92, 1]);
+  const e: Entrance = tile.enter ?? { x: 0, y: 12, scale: 0.9, rotate: 0, span: 0.06 };
+  const end = from + e.span;
+  const finalRotate = tile.rotate ?? 0;
+
+  /* Directional travel: cards fly in from offscreen and settle into the composition. */
+  const opacity = useTransform(p, [from, from + e.span * 0.32], [0, 1]);
+  const x = useTransform(p, [from, end], [`${e.x}vw`, "0vw"], { ease: EASE_SETTLE });
+  const y = useTransform(p, [from, end], [`${e.y}vh`, "0vh"], { ease: EASE_SETTLE });
+  const scale = useTransform(p, [from, end], [e.scale, 1], { ease: EASE_SETTLE });
+  const rotate = useTransform(p, [from, end], [e.rotate, finalRotate], { ease: EASE_SETTLE });
 
   return (
     <motion.div
       data-support-tile={tile.key}
-      className="absolute overflow-hidden rounded-[5px] bg-[#0A0E14]"
+      className="absolute overflow-hidden rounded-[4px] bg-[#0A0E14]"
       style={{
         left: `${tile.box.l}%`,
         top: `${tile.box.t}%`,
         width: `${tile.box.w}%`,
         height: `${tile.box.h}%`,
-        rotate: tile.rotate ?? 0,
+        x: reduced ? "0vw" : x,
+        y: reduced ? "0vh" : y,
+        rotate: reduced ? finalRotate : rotate,
         opacity,
-        scale,
+        scale: reduced ? 1 : scale,
         zIndex: tile.z,
+        boxShadow: "0 18px 46px -18px rgba(0,0,0,.62)",
       }}
     >
       <FilmMedia f={f} play={armed} reduced={reduced} mobile={mobile} />
@@ -430,6 +447,7 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
     </motion.div>
   );
 }
+
 
 function HeroCopy({ mobile }: { mobile: boolean }) {
   return (
@@ -482,7 +500,7 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
         <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />
       ))}
       <motion.div
-        className={mobile ? "absolute left-[6%] top-[44%] z-[40] w-[88%]" : "absolute left-[34%] top-[40%] z-[40] w-[34%]"}
+        className={mobile ? "absolute left-[6%] top-[45%] z-[40] w-[84%]" : "absolute left-[35%] top-[42%] z-[40] w-[38%]"}
         style={{ opacity: statementOpacity, y: statementY }}
       >
         <h2
