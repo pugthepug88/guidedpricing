@@ -262,34 +262,40 @@ function FilmMedia({
 type Box = { l: number; t: number; w: number; h: number };
 type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; label?: boolean };
 
+/* Art direction rules held by these numbers:
+   - hero four: >= ~90% of each tile inside the frame
+   - support five: 100% inside the frame
+   - overlaps only at tile edges, never over the working hands / face
+   - central pocket x 20-64 / y 33-62 stays empty for the statement */
 const DESKTOP_HERO_TILES: Tile[] = [
-  { key: "mechanic", box: { l: -4, t: 1, w: 38, h: 31 }, rotate: -0.8, z: 22 },
-  { key: "broker", box: { l: 62, t: -4, w: 42, h: 35 }, rotate: 0.8, z: 21, label: true },
-  { key: "agent", box: { l: 68, t: 41, w: 36, h: 46 }, rotate: 0.6, z: 23, label: true },
-  { key: "construction", box: { l: 1, t: 62, w: 35, h: 41 }, rotate: -0.6, z: 22 },
+  { key: "mechanic", box: { l: -3, t: 2, w: 36, h: 30 }, rotate: -0.8, z: 22 },
+  { key: "broker", box: { l: 64, t: -3, w: 36, h: 32 }, rotate: 0.8, z: 21, label: true },
+  { key: "agent", box: { l: 67, t: 43, w: 33, h: 44 }, rotate: 0.6, z: 23, label: true },
+  { key: "construction", box: { l: 2, t: 66, w: 30, h: 32 }, rotate: -0.6, z: 22 },
 ];
 
 const DESKTOP_SUPPORT_TILES: Tile[] = [
-  { key: "solar", box: { l: 39, t: -9, w: 13, h: 31 }, rotate: 1.2, z: 18, from: 0.445 },
-  { key: "roofing", box: { l: 53, t: 5, w: 15, h: 23 }, rotate: -0.8, z: 19, from: 0.465 },
-  { key: "photographer", box: { l: -5, t: 35, w: 17, h: 34 }, rotate: 1.1, z: 18, from: 0.485 },
-  { key: "personal-trainer", box: { l: 39, t: 77, w: 20, h: 29 }, rotate: 0.8, z: 19, from: 0.505 },
-  { key: "dentist", box: { l: 61, t: 85, w: 23, h: 25 }, rotate: -1.1, z: 20, from: 0.525 },
+  { key: "solar", box: { l: 37, t: -2, w: 12, h: 26 }, rotate: 1.2, z: 18, from: 0.445 },
+  { key: "roofing", box: { l: 51, t: 5, w: 14, h: 21 }, rotate: -0.8, z: 19, from: 0.465 },
+  { key: "photographer", box: { l: 1, t: 36, w: 16, h: 28 }, rotate: 1.1, z: 18, from: 0.485 },
+  { key: "personal-trainer", box: { l: 37, t: 70, w: 19, h: 27 }, rotate: 0.8, z: 19, from: 0.505 },
+  // sits above the property tile's empty lower corner, fully readable itself
+  { key: "dentist", box: { l: 59, t: 73, w: 21, h: 23 }, rotate: -1.1, z: 24, from: 0.525 },
 ];
 
 const MOBILE_HERO_TILES: Tile[] = [
-  { key: "mechanic", box: { l: -8, t: 2, w: 66, h: 17 }, rotate: -0.8, z: 22 },
-  { key: "broker", box: { l: 56, t: 8, w: 52, h: 15 }, rotate: 0.8, z: 21 },
-  { key: "construction", box: { l: -6, t: 22, w: 52, h: 18 }, rotate: -0.6, z: 22 },
-  { key: "agent", box: { l: 60, t: 26, w: 48, h: 20 }, rotate: 0.6, z: 23 },
+  { key: "mechanic", box: { l: -2, t: 4, w: 56, h: 16 }, rotate: -0.8, z: 22 },
+  { key: "broker", box: { l: 50, t: 8, w: 50, h: 15 }, rotate: 0.8, z: 21 },
+  { key: "construction", box: { l: -1, t: 24, w: 52, h: 16 }, rotate: -0.6, z: 22 },
+  { key: "agent", box: { l: 48, t: 28, w: 52, h: 17 }, rotate: 0.6, z: 23 },
 ];
 
 const MOBILE_SUPPORT_TILES: Tile[] = [
-  { key: "solar", box: { l: -4, t: 62, w: 30, h: 16 }, rotate: 1.2, z: 18, from: 0.45 },
-  { key: "roofing", box: { l: 29, t: 64, w: 34, h: 14 }, rotate: -0.8, z: 19, from: 0.47 },
-  { key: "photographer", box: { l: 68, t: 60, w: 38, h: 18 }, rotate: 1.0, z: 18, from: 0.49 },
-  { key: "personal-trainer", box: { l: 2, t: 81, w: 46, h: 16 }, rotate: 0.8, z: 19, from: 0.51 },
-  { key: "dentist", box: { l: 53, t: 82, w: 50, h: 15 }, rotate: -1.0, z: 20, from: 0.53 },
+  { key: "solar", box: { l: -2, t: 63, w: 28, h: 15 }, rotate: 1.2, z: 18, from: 0.45 },
+  { key: "roofing", box: { l: 28, t: 64, w: 32, h: 13 }, rotate: -0.8, z: 19, from: 0.47 },
+  { key: "photographer", box: { l: 62, t: 62, w: 36, h: 16 }, rotate: 1.0, z: 18, from: 0.49 },
+  { key: "personal-trainer", box: { l: 2, t: 79, w: 44, h: 14 }, rotate: 0.8, z: 19, from: 0.51 },
+  { key: "dentist", box: { l: 49, t: 80, w: 48, h: 13 }, rotate: -1.0, z: 20, from: 0.53 },
 ];
 
 /** Hero world: full bleed, then recomposes into its collage position. */
