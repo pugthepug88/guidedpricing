@@ -153,31 +153,18 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
 
 /* ---------------- media ---------------- */
 
-function PendingSlate({ label, compact }: { label: string; compact?: boolean }) {
-  return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-1 bg-[#0C1017] p-3 text-center" style={{ boxShadow: "inset 0 0 0 1px rgba(6,182,212,.28)" }}>
-      <span className="text-[9px] font-semibold uppercase tracking-[0.2em]" style={{ color: CYAN }}>Media pending</span>
-      {!compact && (
-        <span className="max-w-full text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.14em] text-white/60">{label}</span>
-      )}
-    </div>
-  );
-}
-
 function FilmMedia({
   f,
   play,
   reduced,
   posterOnly = false,
   mobile = false,
-  compactSlate = false,
 }: {
   f: Film;
   play: boolean;
   reduced: boolean;
   posterOnly?: boolean;
   mobile?: boolean;
-  compactSlate?: boolean;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const position = (mobile && f.positionMobile) || f.position || "50% 50%";
@@ -191,7 +178,6 @@ function FilmMedia({
     return () => v.pause();
   }, [play, reduced, posterOnly, f.start, f.end]);
 
-  if (!f.video) return <PendingSlate label={f.label} compact={compactSlate} />;
 
   if ((reduced || posterOnly) && f.poster) {
     return <img src={f.poster} alt="" aria-hidden className="h-full w-full object-cover" style={{ objectPosition: position }} />;
