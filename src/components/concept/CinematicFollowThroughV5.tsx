@@ -337,7 +337,7 @@ function HeroWorldTile({
       className="absolute overflow-hidden bg-[#0A0E14]"
       style={{ left: l, top: t, width: w, height: h, borderRadius: br, rotate, opacity, filter, zIndex: active ? tile.z + 4 : tile.z }}
     >
-      <FilmMedia f={f} play={active || !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile && !active} />
+      <FilmMedia f={f} play={visible} reduced={reduced} mobile={mobile} eager />
       <TileScrim p={p} label={tile.label ? f.label : undefined} />
     </motion.div>
   );
