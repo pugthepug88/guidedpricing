@@ -32,7 +32,11 @@ type Film = {
 
 const HERO_KEYS = ["mechanic", "broker", "agent", "construction"] as const;
 
-const src = (stem: string) => ({ video: `${V5}/${stem}.mp4`, poster: `${V5}/${stem}.jpg` });
+const src = (stem: string) => ({
+  video: `${V5}/${stem}.mp4`,
+  videoWebm: `${V5}/${stem}.webm`,
+  poster: `${V5}/${stem}.jpg`,
+});
 
 const FILMS: Film[] = [
   {
