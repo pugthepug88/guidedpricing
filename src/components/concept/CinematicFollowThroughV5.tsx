@@ -9,7 +9,6 @@ const CYAN = "#06B6D4";
 const INK = "#111318";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const V5 = "/concept/cinematic-v5";
-const V2 = "/concept/multi-world-v2";
 
 /**
  * V5 media contract
@@ -330,7 +329,7 @@ function SupportTile({ tile, p, reduced, mobile }: { tile: Tile; p: MotionValue<
         zIndex: tile.z,
       }}
     >
-      <FilmMedia f={f} play={!mobile && !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile} compactSlate={mobile || tile.box.w < 16} />
+      <FilmMedia f={f} play={!mobile && !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile} />
       <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.16]" />
     </motion.div>
   );
