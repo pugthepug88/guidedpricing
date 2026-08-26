@@ -401,6 +401,8 @@ function TileScrim({ p }: { p: MotionValue<number> }) {
   );
 }
 
+const EASE_SETTLE = (t: number) => 1 - Math.pow(1 - t, 3);
+
 function SupportTile({ tile, p, reduced, mobile, armed }: {
   tile: Tile;
   p: MotionValue<number>;
@@ -410,22 +412,33 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
 }) {
   const f = support(tile.key);
   const from = tile.from ?? SUPPORT_IN;
-  const opacity = useTransform(p, [from, from + 0.035], [0, 1]);
-  const scale = useTransform(p, [from, from + 0.045], [0.92, 1]);
+  const e: Entrance = tile.enter ?? { x: 0, y: 12, scale: 0.9, rotate: 0, span: 0.06 };
+  const end = from + e.span;
+  const finalRotate = tile.rotate ?? 0;
+
+  /* Directional travel: cards fly in from offscreen and settle into the composition. */
+  const opacity = useTransform(p, [from, from + e.span * 0.32], [0, 1]);
+  const x = useTransform(p, [from, end], [`${e.x}vw`, "0vw"], { ease: EASE_SETTLE });
+  const y = useTransform(p, [from, end], [`${e.y}vh`, "0vh"], { ease: EASE_SETTLE });
+  const scale = useTransform(p, [from, end], [e.scale, 1], { ease: EASE_SETTLE });
+  const rotate = useTransform(p, [from, end], [e.rotate, finalRotate], { ease: EASE_SETTLE });
 
   return (
     <motion.div
       data-support-tile={tile.key}
-      className="absolute overflow-hidden rounded-[5px] bg-[#0A0E14]"
+      className="absolute overflow-hidden rounded-[4px] bg-[#0A0E14]"
       style={{
         left: `${tile.box.l}%`,
         top: `${tile.box.t}%`,
         width: `${tile.box.w}%`,
         height: `${tile.box.h}%`,
-        rotate: tile.rotate ?? 0,
+        x: reduced ? "0vw" : x,
+        y: reduced ? "0vh" : y,
+        rotate: reduced ? finalRotate : rotate,
         opacity,
-        scale,
+        scale: reduced ? 1 : scale,
         zIndex: tile.z,
+        boxShadow: "0 18px 46px -18px rgba(0,0,0,.62)",
       }}
     >
       <FilmMedia f={f} play={armed} reduced={reduced} mobile={mobile} />
@@ -433,6 +446,7 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
     </motion.div>
   );
 }
+
 
 function HeroCopy({ mobile }: { mobile: boolean }) {
   return (
