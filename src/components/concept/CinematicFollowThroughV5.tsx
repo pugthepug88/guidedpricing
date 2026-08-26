@@ -380,7 +380,7 @@ function SupportTile({ tile, p, reduced, mobile, armed }: { tile: Tile; p: Motio
         zIndex: tile.z,
       }}
     >
-      <FilmMedia f={f} play={!mobile && !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile} />
+      <FilmMedia f={f} play={armed} reduced={reduced} mobile={mobile} />
       <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.16]" />
     </motion.div>
   );
