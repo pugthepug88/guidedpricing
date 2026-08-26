@@ -166,7 +166,7 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
     return () => { io.disconnect(); cancelAnimationFrame(raf); };
   }, [p, ref]);
 
-  return { p, threadLabel: THREAD_STATES[stateIndex].label, stageVisible, collageArmed, heroLocked };
+  return { p, threadLabel: THREAD_STATES[stateIndex].label, stageVisible, collageArmed, heroLocked, heroLive };
 }
 
 /** Autoplay owns time: hero worlds crossfade on a wall clock, zero scroll needed. */
