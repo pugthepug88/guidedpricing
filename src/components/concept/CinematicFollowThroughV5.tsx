@@ -499,7 +499,7 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
         <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />
       ))}
       <motion.div
-        className={mobile ? "absolute left-[6%] top-[44%] z-[40] w-[88%]" : "absolute left-[34%] top-[40%] z-[40] w-[34%]"}
+        className={mobile ? "absolute left-[6%] top-[45%] z-[40] w-[84%]" : "absolute left-[35%] top-[42%] z-[40] w-[38%]"}
         style={{ opacity: statementOpacity, y: statementY }}
       >
         <h2
