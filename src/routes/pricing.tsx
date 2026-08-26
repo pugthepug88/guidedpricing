@@ -12,6 +12,24 @@ import zaplaFunnel16AppsAsset from "@/assets/zapla-funnel-16-apps-final.png.asse
 const zaplaFunnel16Apps = zaplaFunnel16AppsAsset.url;
 
 export const Route = createFileRoute("/pricing")({
+  head: () => ({
+    meta: [
+      { title: "Zapla Guided Launch Pricing — One flat price, launched with you" },
+      {
+        name: "description",
+        content:
+          "Zapla is the AI operating system for growing businesses. Unlimited users, one flat platform price, launched with you. See Guided Launch pricing.",
+      },
+      { property: "og:title", content: "Zapla Guided Launch Pricing — One flat price, launched with you" },
+      {
+        property: "og:description",
+        content:
+          "Zapla is the AI operating system for growing businesses. Unlimited users, one flat platform price, launched with you. See Guided Launch pricing.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: PricingPage,
 });
 
