@@ -122,6 +122,8 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
   /** Past this point the hero no longer time-cycles: the world that is live
    *  is the world that recomposes, so its playback is never interrupted. */
   const [heroLocked, setHeroLocked] = useState(false);
+  /** Hero films decode until the collage has fully receded. */
+  const [heroLive, setHeroLive] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
