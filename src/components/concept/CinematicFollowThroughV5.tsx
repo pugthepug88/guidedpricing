@@ -369,7 +369,7 @@ function HeroAnchorCard({ tile, p, mobile, videos, layers }: {
   const top = useTransform(p, stops, [0, tile.box.t]);
   const width = useTransform(p, stops, [100, tile.box.w]);
   const height = useTransform(p, stops, [100, tile.box.h]);
-  const radius = useTransform(p, stops, [0, 6]);
+  const radius = useTransform(p, stops, [0, 4]);
   const rotate = useTransform(p, stops, [0, tile.rotate ?? 0]);
   const l = useTransform(left, (v) => `${v}%`);
   const t = useTransform(top, (v) => `${v}%`);
