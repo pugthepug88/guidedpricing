@@ -11,7 +11,7 @@ import customer08 from "@/assets/customer-08-urban.jpg";
 import zaplaFunnel16AppsAsset from "@/assets/zapla-funnel-16-apps-final.png.asset.json";
 const zaplaFunnel16Apps = zaplaFunnel16AppsAsset.url;
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/pricing")({
   component: PricingPage,
 });
 
