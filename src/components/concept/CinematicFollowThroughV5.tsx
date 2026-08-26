@@ -297,10 +297,12 @@ function HeroWorldTile({
   f,
   tile,
   active,
+  visible,
   p,
   reduced,
   mobile,
 }: {
+  visible: boolean;
   f: Film;
   tile: Tile;
   active: boolean;
