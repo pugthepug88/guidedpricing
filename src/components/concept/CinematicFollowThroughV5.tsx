@@ -241,6 +241,11 @@ function useHeroSequencer(active: boolean, reduced: boolean, morphLock: boolean)
         const t = Math.min(1, (now - m.t0) / FADE_MS);
         const e = t * t * (3 - 2 * t);
         paint(1 - e, e);
+        if (e >= 0.5) {
+          const inLabel = HERO_FILMS[m.nxt].label;
+          setLabel((prev) => (prev === inLabel ? prev : inLabel));
+        }
+
         if (t >= 1) {
           const out = m.cur;
           m.cur = m.nxt;
