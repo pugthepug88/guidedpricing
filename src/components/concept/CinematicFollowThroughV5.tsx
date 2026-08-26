@@ -371,7 +371,7 @@ const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: 2, t: 7, w: 30, h: 43 },
 
 const DESKTOP_SUPPORT: Tile[] = [
   { key: "solar", box: { l: 34, t: 3, w: 15, h: 22 }, rotate: 1.1, z: 18, from: 0.445 },
-  { key: "roofing", box: { l: 48.5, t: 1, w: 17, h: 24 }, rotate: -0.9, z: 19, from: 0.455 },
+  { key: "roofing", box: { l: 51, t: 1, w: 17, h: 24 }, rotate: -0.9, z: 19, from: 0.455 },
   { key: "hvac", box: { l: 70, t: 5, w: 27, h: 27 }, rotate: 0.7, z: 20, from: 0.465 },
   { key: "medspa", box: { l: 71, t: 35, w: 26, h: 26 }, rotate: -0.8, z: 21, from: 0.480 },
   { key: "physio", box: { l: 1, t: 54, w: 23, h: 25 }, rotate: 0.9, z: 19, from: 0.495 },
