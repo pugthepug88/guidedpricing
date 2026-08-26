@@ -429,15 +429,14 @@ function FollowThread({ p, label, mobile }: { p: MotionValue<number>; label: str
 
 /* ---------------- collage ---------------- */
 
-function RecognitionCollage({ p, reduced, mobile }: { p: MotionValue<number>; reduced: boolean; mobile: boolean }) {
-  const heroTiles = mobile ? MOBILE_HERO_TILES : DESKTOP_HERO_TILES;
+function RecognitionCollage({ p, reduced, mobile, armed }: { p: MotionValue<number>; reduced: boolean; mobile: boolean; armed: boolean }) {
   const supportTiles = mobile ? MOBILE_SUPPORT_TILES : DESKTOP_SUPPORT_TILES;
   const statementOpacity = useTransform(p, [0.50, 0.545, COLLAGE_END, RECEDE_END - 0.04], [0, 1, 1, 0]);
   const statementY = useTransform(p, [0.50, 0.56], [16, 0]);
 
   return (
     <>
-      {supportTiles.map((tile) => <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} />)}
+      {supportTiles.map((tile) => <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />)}
       <motion.div
         className={mobile ? "absolute left-[6%] top-[44%] z-[40] w-[88%]" : "absolute left-[20%] top-[35%] z-[40] w-[44%]"}
         style={{ opacity: statementOpacity, y: statementY }}
