@@ -9,28 +9,19 @@ const CYAN = "#06B6D4";
 const INK = "#111318";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const V5 = "/concept/cinematic-v5";
-const V2 = "/concept/multi-world-v2";
 
 /**
  * V5 media contract
  * -----------------
- * Every profession resolves to exactly ONE approved source. There is no probing,
- * no remote guess and no cross-profession fallback: a profession with no approved
- * file renders a visible "media pending" slate instead of the wrong footage, and
- * mounts no <video>, so there is no 404 traffic.
- *
- * To finish the pass, drop the approved final web cuts into
- * /public/concept/cinematic-v5/ with these stems and set `video`/`poster` below:
- *   broker, agent, construction, solar, roofing,
- *   personal-trainer, photographer, dentist  (.mp4 + .jpg)
- * mechanic intentionally keeps the already-approved multi-world-v2 source.
+ * Every profession resolves to exactly ONE approved source in
+ * /public/concept/cinematic-v5/. No probing, no remote guess, no
+ * cross-profession fallback.
  */
 type Film = {
   key: string;
   label: string;
-  /** Approved source. `null` = pending approved media (renders the pending slate). */
-  video: string | null;
-  poster?: string;
+  video: string;
+  poster: string;
   start?: number;
   end?: number;
   /** Crop focus, desktop / mobile. */
@@ -40,12 +31,13 @@ type Film = {
 
 const HERO_KEYS = ["mechanic", "broker", "agent", "construction"] as const;
 
+const src = (stem: string) => ({ video: `${V5}/${stem}.mp4`, poster: `${V5}/${stem}.jpg` });
+
 const FILMS: Film[] = [
   {
     key: "mechanic",
     label: "Automotive workshop",
-    video: `${V2}/mechanic.mp4`,
-    poster: `${V2}/mechanic.jpg`,
+    ...src("mechanic"),
     start: 1.2,
     end: 8.6,
     position: "50% 46%",
@@ -54,37 +46,36 @@ const FILMS: Film[] = [
   {
     key: "broker",
     label: "Mortgage broker",
-    video: `${V2}/broker.mp4`,
-    poster: `${V2}/broker.jpg`,
-    start: 1.3,
-    end: 5.0,
+    ...src("broker"),
+    start: 0.3,
+    end: 3.6,
     position: "49% 50%",
     positionMobile: "52% 52%",
   },
   {
     key: "agent",
     label: "Property / real estate",
-    video: `${V2}/agent.mp4`,
-    poster: `${V2}/agent.jpg`,
-    start: 1.3,
-    end: 6.6,
+    ...src("agent"),
+    start: 0.4,
+    end: 5.2,
     position: "50% 48%",
     positionMobile: "56% 50%",
   },
   {
     key: "construction",
     label: "Construction / project contractor",
-    // Approved clip pending transfer: ${V5}/construction.mp4 + .jpg
-    // Crop target once available: people reviewing / pointing at the plan.
-    video: null,
-    position: "50% 44%",
-    positionMobile: "54% 46%",
+    ...src("construction"),
+    start: 0.2,
+    end: 3.5,
+    // Crop holds the people reviewing / pointing at the plan.
+    position: "50% 52%",
+    positionMobile: "54% 54%",
   },
-  { key: "solar", label: "Solar installer", video: null, position: "50% 46%" },
-  { key: "roofing", label: "Roofing contractor", video: null, position: "50% 44%" },
-  { key: "personal-trainer", label: "Personal trainer", video: null, position: "50% 46%" },
-  { key: "photographer", label: "Photographer", video: null, position: "50% 44%" },
-  { key: "dentist", label: "Dentist", video: null, position: "50% 48%" },
+  { key: "solar", label: "Solar installer", ...src("solar"), start: 0.3, end: 4.9, position: "50% 46%", positionMobile: "50% 44%" },
+  { key: "roofing", label: "Roofing contractor", ...src("roofing"), start: 0.2, end: 3.9, position: "50% 44%" },
+  { key: "personal-trainer", label: "Personal trainer", ...src("personal-trainer"), start: 0.3, end: 5.4, position: "50% 46%" },
+  { key: "photographer", label: "Photographer", ...src("photographer"), start: 0.2, end: 4.9, position: "50% 40%", positionMobile: "50% 34%" },
+  { key: "dentist", label: "Dentist", ...src("dentist"), start: 0.3, end: 4.9, position: "50% 48%" },
 ];
 
 const film = (key: string) => FILMS.find((f) => f.key === key)!;
@@ -161,31 +152,18 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
 
 /* ---------------- media ---------------- */
 
-function PendingSlate({ label, compact }: { label: string; compact?: boolean }) {
-  return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-1 bg-[#0C1017] p-3 text-center" style={{ boxShadow: "inset 0 0 0 1px rgba(6,182,212,.28)" }}>
-      <span className="text-[9px] font-semibold uppercase tracking-[0.2em]" style={{ color: CYAN }}>Media pending</span>
-      {!compact && (
-        <span className="max-w-full text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.14em] text-white/60">{label}</span>
-      )}
-    </div>
-  );
-}
-
 function FilmMedia({
   f,
   play,
   reduced,
   posterOnly = false,
   mobile = false,
-  compactSlate = false,
 }: {
   f: Film;
   play: boolean;
   reduced: boolean;
   posterOnly?: boolean;
   mobile?: boolean;
-  compactSlate?: boolean;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const position = (mobile && f.positionMobile) || f.position || "50% 50%";
@@ -199,7 +177,6 @@ function FilmMedia({
     return () => v.pause();
   }, [play, reduced, posterOnly, f.start, f.end]);
 
-  if (!f.video) return <PendingSlate label={f.label} compact={compactSlate} />;
 
   if ((reduced || posterOnly) && f.poster) {
     return <img src={f.poster} alt="" aria-hidden className="h-full w-full object-cover" style={{ objectPosition: position }} />;
@@ -352,7 +329,7 @@ function SupportTile({ tile, p, reduced, mobile }: { tile: Tile; p: MotionValue<
         zIndex: tile.z,
       }}
     >
-      <FilmMedia f={f} play={!mobile && !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile} compactSlate={mobile || tile.box.w < 16} />
+      <FilmMedia f={f} play={!mobile && !reduced} reduced={reduced} mobile={mobile} posterOnly={mobile} />
       <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.16]" />
     </motion.div>
   );
