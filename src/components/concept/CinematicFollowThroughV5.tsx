@@ -505,7 +505,10 @@ function GenericCustomerRecord() {
 function StoryStage({ mobile }: { mobile: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
-  const { p, worldIndex, threadLabel } = useStoryScroll(wrap);
+  const { p, threadLabel, stageVisible, collageArmed, heroLocked } = useStoryScroll(wrap);
+  // Autoplay, not scroll, decides which hero world is on screen. It stops
+  // advancing once the morph begins so the live world is the one that recomposes.
+  const worldIndex = useHeroCycle(HERO.length, 3500, !reduced && stageVisible && !heroLocked);
 
   const heroOpacity = useTransform(p, [0.00, 0.05, 0.10], [1, 1, 0]);
   // Full-bleed cinematic grade only exists while the hero worlds are full frame.
