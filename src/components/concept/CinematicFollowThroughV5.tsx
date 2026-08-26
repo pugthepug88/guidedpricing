@@ -330,29 +330,32 @@ function FilmMedia({ f, play, reduced, mobile }: { f: Film; play: boolean; reduc
 }
 
 type Box = { l: number; t: number; w: number; h: number };
-type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number };
+type Entrance = { x: number; y: number; scale: number; rotate: number; span: number };
+type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; enter?: Entrance };
 
-const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: 2, t: 7, w: 30, h: 43 }, rotate: -0.65, z: 26 };
+/* Editorial composition: irregular scale, off-canvas cropping, no shared baselines. */
+const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: -4, t: 4, w: 37, h: 47 }, rotate: -2.6, z: 24 };
 const DESKTOP_SUPPORT: Tile[] = [
-  { key: "solar", box: { l: 34, t: 3, w: 15, h: 22 }, rotate: 0.9, z: 18, from: 0.18 },
-  { key: "roofing", box: { l: 51, t: 1, w: 17, h: 24 }, rotate: -0.75, z: 19, from: 0.195 },
-  { key: "skin-clinic", box: { l: 70, t: 5, w: 27, h: 27 }, rotate: 0.55, z: 20, from: 0.21 },
-  { key: "vet", box: { l: 72, t: 35, w: 25, h: 25 }, rotate: -0.6, z: 21, from: 0.225 },
-  { key: "dentist", box: { l: 1, t: 56, w: 23, h: 26 }, rotate: 0.7, z: 19, from: 0.24 },
-  { key: "personal-trainer", box: { l: 27, t: 66, w: 20, h: 25 }, rotate: -0.55, z: 20, from: 0.255 },
-  { key: "photographer", box: { l: 67, t: 66, w: 25, h: 26 }, rotate: 0.7, z: 18, from: 0.27 },
+  { key: "solar", box: { l: 30, t: -5, w: 19, h: 29 }, rotate: 3, z: 18, from: 0.14, enter: { x: 5, y: -30, scale: 0.82, rotate: 8, span: 0.11 } },
+  { key: "roofing", box: { l: 47, t: 1, w: 23, h: 27 }, rotate: -2.2, z: 20, from: 0.18, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.1 } },
+  { key: "skin-clinic", box: { l: 69, t: 0, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.16, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.13 } },
+  { key: "vet", box: { l: 72, t: 29, w: 32, h: 31 }, rotate: -2.4, z: 22, from: 0.245, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.12 } },
+  { key: "dentist", box: { l: -4, t: 58, w: 29, h: 31 }, rotate: 2.3, z: 21, from: 0.21, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.14 } },
+  { key: "personal-trainer", box: { l: 25, t: 69, w: 19, h: 26 }, rotate: -3.3, z: 17, from: 0.29, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
+  { key: "photographer", box: { l: 70, t: 73, w: 35, h: 31 }, rotate: 3.8, z: 30, from: 0.255, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.12 } },
 ];
 
-const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: 3, t: 3, w: 59, h: 21 }, rotate: -0.55, z: 26 };
+const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: -5, t: 2, w: 62, h: 22 }, rotate: -2.4, z: 24 };
 const MOBILE_SUPPORT: Tile[] = [
-  { key: "skin-clinic", box: { l: 64, t: 5, w: 34, h: 16 }, rotate: 0.7, z: 20, from: 0.18 },
-  { key: "solar", box: { l: 3, t: 26, w: 29, h: 13 }, rotate: 0.8, z: 18, from: 0.195 },
-  { key: "roofing", box: { l: 35, t: 25, w: 31, h: 14 }, rotate: -0.7, z: 19, from: 0.21 },
-  { key: "vet", box: { l: 68, t: 25, w: 30, h: 15 }, rotate: -0.55, z: 20, from: 0.225 },
-  { key: "dentist", box: { l: 3, t: 61, w: 31, h: 14 }, rotate: 0.6, z: 19, from: 0.24 },
-  { key: "personal-trainer", box: { l: 36, t: 61, w: 28, h: 14 }, rotate: -0.6, z: 20, from: 0.255 },
-  { key: "photographer", box: { l: 66, t: 60, w: 32, h: 16 }, rotate: 0.65, z: 18, from: 0.27 },
+  { key: "skin-clinic", box: { l: 58, t: 7, w: 47, h: 19 }, rotate: 2.2, z: 19, from: 0.15, enter: { x: 38, y: -6, scale: 0.88, rotate: 7, span: 0.12 } },
+  { key: "solar", box: { l: -6, t: 27, w: 40, h: 15 }, rotate: 3, z: 18, from: 0.185, enter: { x: -28, y: -18, scale: 0.82, rotate: 9, span: 0.1 } },
+  { key: "roofing", box: { l: 37, t: 25, w: 34, h: 13 }, rotate: -2.6, z: 20, from: 0.165, enter: { x: 12, y: -26, scale: 0.86, rotate: -8, span: 0.11 } },
+  { key: "vet", box: { l: 66, t: 31, w: 40, h: 17 }, rotate: -2.2, z: 21, from: 0.25, enter: { x: 34, y: 12, scale: 0.86, rotate: -7, span: 0.12 } },
+  { key: "dentist", box: { l: -7, t: 60, w: 41, h: 16 }, rotate: 2.4, z: 20, from: 0.215, enter: { x: -30, y: 20, scale: 0.84, rotate: 8, span: 0.13 } },
+  { key: "personal-trainer", box: { l: 33, t: 70, w: 28, h: 13 }, rotate: -3.4, z: 17, from: 0.295, enter: { x: -6, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
+  { key: "photographer", box: { l: 62, t: 75, w: 44, h: 17 }, rotate: 3.6, z: 30, from: 0.26, enter: { x: 26, y: 30, scale: 0.84, rotate: 10, span: 0.12 } },
 ];
+
 
 function HeroAnchorCard({ tile, p, mobile, videos, layers }: {
   tile: Tile;
