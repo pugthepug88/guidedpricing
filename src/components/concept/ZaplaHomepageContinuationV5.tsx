@@ -1,20 +1,11 @@
 import { useRef, useState } from "react";
 import {
   ArrowRight,
-  CalendarCheck2,
-  Check,
   CheckCircle2,
   CircleDollarSign,
-  Clock3,
-  CreditCard,
   MessageSquareText,
   RefreshCw,
-  Route,
-  Sparkles,
   Star,
-  UserRoundCheck,
-  UsersRound,
-  Workflow,
   Zap,
   type LucideIcon,
 } from "lucide-react";
@@ -341,7 +332,7 @@ function ConnectedJourneySection() {
     <section className="bg-white">
       <div ref={ref} className="hidden h-[210vh] lg:block">
         <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center overflow-hidden px-8 py-8 xl:px-12">
-          <div className="mx-auto grid w-full max-w-[1460px] grid-cols-[350px_1fr] gap-14 xl:grid-cols-[390px_1fr] xl:gap-18">
+          <div className="mx-auto grid w-full max-w-[1460px] grid-cols-[350px_1fr] gap-14 xl:grid-cols-[390px_1fr] xl:gap-20">
             <div className="flex flex-col justify-between py-2">
               <div>
                 <Kicker>One customer. One thread.</Kicker>
@@ -493,7 +484,6 @@ function GuidedLaunchSection() {
 function OutcomeBranchSection() {
   const [activeKey, setActiveKey] = useState(OUTCOMES[0].key);
   const active = OUTCOMES.find((item) => item.key === activeKey) ?? OUTCOMES[0];
-  const ActiveIcon = active.icon;
 
   return (
     <section className="relative overflow-hidden bg-[#080B10] px-5 py-20 text-white sm:px-8 sm:py-24 lg:py-28">
