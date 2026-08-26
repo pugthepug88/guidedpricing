@@ -79,7 +79,7 @@ const FILMS: Film[] = [
   { key: "solar", label: "Solar installer", ...src("solar"), start: 0.3, end: 4.9, position: "50% 46%", positionMobile: "50% 44%" },
   { key: "roofing", label: "Roofing contractor", ...src("roofing"), start: 0.2, end: 3.9, position: "50% 44%" },
   { key: "personal-trainer", label: "Personal trainer", ...src("personal-trainer"), start: 0.3, end: 5.4, position: "50% 46%" },
-  { key: "photographer", label: "Photographer", ...src("photographer"), start: 0.2, end: 4.9, position: "50% 40%", positionMobile: "50% 34%" },
+  { key: "photographer", label: "Photographer", ...src("photographer"), start: 0.2, end: 3.4, position: "33% 44%", positionMobile: "33% 40%" },
   { key: "dentist", label: "Dentist", ...src("dentist"), start: 0.3, end: 4.9, position: "50% 48%" },
 ];
 
@@ -283,9 +283,9 @@ const DESKTOP_SUPPORT_TILES: Tile[] = [
   { key: "solar", box: { l: 37, t: -2, w: 12, h: 26 }, rotate: 1.2, z: 18, from: 0.445 },
   { key: "roofing", box: { l: 51, t: 5, w: 14, h: 21 }, rotate: -0.8, z: 19, from: 0.465 },
   { key: "photographer", box: { l: 1, t: 36, w: 16, h: 28 }, rotate: 1.1, z: 18, from: 0.485 },
-  { key: "personal-trainer", box: { l: 37, t: 70, w: 19, h: 27 }, rotate: 0.8, z: 19, from: 0.505 },
+  { key: "personal-trainer", box: { l: 37, t: 68, w: 19, h: 24 }, rotate: 0.8, z: 19, from: 0.505 },
   // sits above the property tile's empty lower corner, fully readable itself
-  { key: "dentist", box: { l: 59, t: 73, w: 21, h: 23 }, rotate: -1.1, z: 24, from: 0.525 },
+  { key: "dentist", box: { l: 59, t: 70, w: 21, h: 21 }, rotate: -1.1, z: 30, from: 0.525 },
 ];
 
 const MOBILE_HERO_TILES: Tile[] = [
