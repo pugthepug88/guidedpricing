@@ -146,6 +146,9 @@ function useStoryScroll(ref: React.RefObject<HTMLDivElement | null>) {
       setHeroLocked((old) => (v >= MORPH_IN - 0.02 ? true : old));
       const armed = v >= 0.26 && v <= RECEDE_END + 0.06;
       setCollageArmed((old) => (old === armed ? old : armed));
+      // once the collage has faded out, stop decoding hero film too
+      const heroOn = v <= RECEDE_END + 0.08;
+      setHeroLive((old) => (old === heroOn ? old : heroOn));
       if (visible) raf = requestAnimationFrame(tick);
     };
 
