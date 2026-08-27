@@ -1008,13 +1008,9 @@ function RewindResolve() {
   return (
     <Stage meta={V10} height="340vh">
       {(p, reduced) => {
-        const forward = useTransform(p, [0.1, 0.44], [614, 992]);
-        const back = useTransform(p, [0.5, 0.6], [992, 614]);
-        const rewinding = useTransform(p, (v) => (v > 0.5 ? 1 : 0));
-        const minutes = useTransform([forward, back, rewinding], ([f, b, r]) =>
-          (r as number) === 1 ? (b as number) : (f as number),
-        );
-        const clock = clockFrom(minutes as MotionValue<number>);
+        /* the day runs forward, holds at the loss, then rewinds to 10:14 */
+        const minutes = useTransform(p, [0.1, 0.44, 0.5, 0.6], [614, 992, 992, 614]);
+        const clock = clockFrom(minutes);
         const lossOpacity = useTransform(p, [0.4, 0.46, 0.52, 0.56], [0, 1, 1, 0]);
         const resolveOpacity = useTransform(p, [0.56, 0.62], [0, 1]);
         const clockColor = useTransform(p, [0.3, 0.46, 0.6], [INK, LOSS, WIN]);
