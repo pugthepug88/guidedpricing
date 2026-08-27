@@ -4,7 +4,7 @@ import { RevenueLeaksLabRound2 } from "@/components/concept/RevenueLeaksLabRound
 
 const TITLE = "Revenue Leaks Motion Lab — Zapla concept";
 const DESC =
-  "Twenty motion treatments of the same revenue-leak problem: one enquiry, one missed next step, one lost customer. Concept comparison page.";
+  "Twenty premium motion treatments of the same beat: one enquiry, one working day, one lost customer. Concept comparison page.";
 
 function RevenueLeaksLabRoute() {
   return (
@@ -14,6 +14,7 @@ function RevenueLeaksLabRoute() {
     </main>
   );
 }
+
 
 export const Route = createFileRoute("/concept/revenue-leaks-lab")({
   head: () => ({
