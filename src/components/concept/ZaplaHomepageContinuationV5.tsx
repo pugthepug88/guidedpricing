@@ -1,846 +1,567 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   ArrowRight,
   CalendarCheck2,
+  CheckCircle2,
   CircleDollarSign,
   MessageSquareText,
   PhoneMissed,
   RefreshCw,
   Star,
-  Zap,
 } from "lucide-react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "motion/react";
-import { AppShell } from "@/components/v5/kit";
-import { SceneInboxLive } from "@/components/v5/scene-inbox-live";
-import { SceneSalesLive } from "@/components/v5/scene-sales-live";
-import { SceneCalendarLive } from "@/components/v5/scene-calendar-live";
-import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
-import { SceneContacts } from "@/components/v5/scenes-a";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
-const DISPLAY = '\"Inter Tight\", \"Outfit\", \"Manrope\", system-ui, sans-serif';
+const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BOOK_URL = "https://zapla.io/booking";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const PRODUCT_SCENES = [
-  {
-    key: "inbox",
-    title: "Unified Inbox",
-    subtitle: "The enquiry arrives with context",
-    render: (reduced: boolean) => <SceneInboxLive phase={7} elapsedMs={1100} reduced={reduced} />,
-  },
-  {
-    key: "opportunities",
-    title: "Sales",
-    subtitle: "The same customer becomes an opportunity",
-    render: (reduced: boolean) => <SceneSalesLive phase={11} elapsedMs={1200} reduced={reduced} />,
-  },
-  {
-    key: "calendar",
-    title: "Calendar",
-    subtitle: "The conversation becomes a booking",
-    render: (reduced: boolean) => <SceneCalendarLive phase={5} elapsedMs={1200} reduced={reduced} />,
-  },
-  {
-    key: "automations",
-    title: "Automations",
-    subtitle: "The next step no longer depends on memory",
-    render: (reduced: boolean) => <SceneAutomationsLive phase={9} elapsedMs={1200} reduced={reduced} />,
-  },
-];
-
-const LEAK_BEATS = [
-  { time: "9:14", label: "NEW ENQUIRY" },
-  { time: "9:28", label: "NO REPLY" },
-  { time: "10:41", label: "STILL WAITING" },
-  { time: "4:32", label: "BOOKED ELSEWHERE" },
-];
-
-const OUTCOMES = [
-  {
-    key: "enquiry",
-    issue: "Missed enquiry",
-    result: "Conversation started",
-    kicker: "Reply while intent is still warm",
-    copy: "The enquiry does not have to wait for someone to notice the inbox.",
-  },
-  {
-    key: "quote",
-    issue: "Quiet quote",
-    result: "Opportunity moving",
-    kicker: "Silence becomes a next action",
-    copy: "A quote going quiet becomes a follow-up moment, not the end of the trail.",
-  },
-  {
-    key: "reactivation",
-    issue: "Past customer",
-    result: "Reactivated",
-    kicker: "Dormant does not mean gone",
-    copy: "Find the right customers, reach back out and bring live conversations back into the pipeline.",
-  },
-  {
-    key: "complete",
-    issue: "Completed job",
-    result: "Paid · reviewed · returning",
-    kicker: "Completion is not the finish line",
-    copy: "Keep the journey moving through payment, reputation and the next reason to come back.",
-  },
-] as const;
-
-function clamp01(v: number) {
-  return Math.max(0, Math.min(1, v));
-}
-
-function SceneNumber({ n, dark = false }: { n: string; dark?: boolean }) {
+function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <div
-      className={`font-mono text-[10px] font-semibold tracking-[0.14em] ${dark ? "text-white/35" : "text-slate-400"}`}
-    >
-      {n} / 05
+    <div className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${dark ? "text-white/40" : "text-[#4B7478]"}`}>
+      {children}
     </div>
   );
 }
 
-function ActivityStrip({
-  progress,
-  threshold,
-  top,
-  time,
-  label,
-  accent,
-}: {
-  progress: MotionValue<number>;
-  threshold: number;
-  top: string;
-  time: string;
-  label: string;
-  accent: string;
-}) {
-  const x = useTransform(progress, [threshold - 0.08, threshold + 0.16], [140, -36]);
-  const opacity = useTransform(progress, [threshold - 0.08, threshold, threshold + 0.2], [0, 0.78, 0.16]);
+function RevenueLeakage() {
+  const reduced = !!useReducedMotion();
+  const events = [
+    ["9:17", "Another call answered"],
+    ["9:31", "Appointment confirmed"],
+    ["10:05", "Payment received"],
+    ["11:24", "Review posted"],
+  ] as const;
 
+  return (
+    <section className="overflow-hidden bg-[#F5F6F3] px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-36">
+      <div className="mx-auto max-w-[1440px]">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,.95fr)] lg:items-end">
+          <div>
+            <Eyebrow>Where revenue leaks</Eyebrow>
+            <h2
+              className="mt-6 max-w-[920px] text-[48px] font-medium leading-[0.92] tracking-[-0.06em] sm:text-[68px] lg:text-[92px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Customers do not always say no.
+              <br />
+              <span className="text-[#819093]">Sometimes nobody followed through.</span>
+            </h2>
+          </div>
+          <p className="max-w-[520px] pb-2 text-[15px] leading-[1.75] text-[#667174] sm:text-[17px] lg:justify-self-end">
+            The expensive failures are often quiet: an enquiry waits, the day gets busy, and a customer who was ready to move simply moves somewhere else.
+          </p>
+        </div>
+
+        <div className="relative mt-16 min-h-[520px] border-y border-[#D8DDDA] sm:mt-20 sm:min-h-[570px]">
+          <div className="absolute left-0 top-7 font-mono text-[11px] text-[#788184]">09:14</div>
+          <div className="absolute right-0 top-7 font-mono text-[11px] text-[#788184]">16:32</div>
+          <div className="absolute left-0 right-0 top-[72px] h-px bg-[#CBD2CF]" />
+
+          {events.map(([time, label], index) => (
+            <motion.div
+              key={time}
+              initial={reduced ? false : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.7 }}
+              transition={{ delay: reduced ? 0 : 0.08 + index * 0.08, duration: reduced ? 0 : 0.45, ease: EASE }}
+              className="absolute hidden items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-[#7B8585] lg:flex"
+              style={{ left: `${45 + index * 12}%`, top: `${146 + (index % 2) * 74}px` }}
+            >
+              <span className="font-mono text-[9px] text-[#A0A8A6]">{time}</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#8BAEAA]" />
+              <span>{label}</span>
+            </motion.div>
+          ))}
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: reduced ? 0 : 0.62, ease: EASE }}
+            className="absolute left-[4%] top-[138px] w-[86%] max-w-[560px] border-l-2 border-[#249BA1] bg-white px-5 py-5 shadow-[0_28px_70px_-50px_rgba(15,23,42,.35)] sm:left-[8%] sm:px-7 sm:py-6 lg:left-[13%] lg:top-[166px] lg:w-[40%]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111318] text-[10px] font-bold text-white">SM</div>
+              <div>
+                <div className="text-[13px] font-semibold">Sarah Miller</div>
+                <div className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#98A09E]">Website enquiry · new</div>
+              </div>
+            </div>
+            <div className="mt-6 max-w-[450px] text-[26px] leading-[1.08] tracking-[-0.035em] sm:text-[34px]" style={{ fontFamily: DISPLAY }}>
+              “Hi, are you available this week?”
+            </div>
+            <div className="mt-7 flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#A2A8A7]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D0D5D3]" /> No owner · no reply
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ delay: reduced ? 0 : 0.5, duration: reduced ? 0 : 0.6 }}
+            className="absolute bottom-[48px] left-[4%] right-[4%] border-t border-[#D87474] pt-5 sm:left-[8%] sm:right-[8%] lg:left-[58%] lg:right-[4%]"
+          >
+            <div className="font-mono text-[10px] text-[#A96565]">16:32</div>
+            <div className="mt-3 text-[35px] leading-[0.96] tracking-[-0.045em] text-[#A44242] sm:text-[48px]" style={{ fontFamily: DISPLAY }}>
+              Booked elsewhere.
+            </div>
+            <p className="mt-3 max-w-[400px] text-[13px] leading-[1.6] text-[#8A6969]">
+              Nothing broke. The next step simply never happened.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CustomerThread() {
+  const reduced = !!useReducedMotion();
+
+  return (
+    <section className="overflow-hidden bg-white px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-36">
+      <div className="mx-auto max-w-[1440px]">
+        <div className="max-w-[980px]">
+          <Eyebrow>One connected customer journey</Eyebrow>
+          <h2
+            className="mt-6 text-[46px] font-medium leading-[0.94] tracking-[-0.055em] sm:text-[66px] lg:text-[82px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            The conversation can change.
+            <br />
+            <span className="text-[#7D898B]">The customer should not disappear with it.</span>
+          </h2>
+        </div>
+
+        <div className="relative mt-18 min-h-[620px] sm:mt-20 lg:min-h-[660px]">
+          <svg className="absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 620" preserveAspectRatio="none" aria-hidden>
+            <path d="M95 305 C255 305 245 205 415 205 S565 405 720 405 S830 238 1090 238" fill="none" stroke="#D9E2E0" strokeWidth="2" />
+            <motion.path
+              d="M95 305 C255 305 245 205 415 205 S565 405 720 405 S830 238 1090 238"
+              fill="none"
+              stroke="#1A9AA1"
+              strokeWidth="3"
+              strokeLinecap="round"
+              initial={reduced ? false : { pathLength: 0 }}
+              whileInView={{ pathLength: 1 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 1.25, ease: EASE }}
+            />
+          </svg>
+
+          <div className="absolute left-[2%] top-[210px] z-20 lg:left-[5%] lg:top-[270px]">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#111318] text-[11px] font-bold text-white shadow-[0_20px_45px_-25px_rgba(15,23,42,.45)]">SM</div>
+            <div className="mt-3 text-[11px] font-semibold">Sarah Miller</div>
+            <div className="mt-1 text-[9px] uppercase tracking-[0.14em] text-[#9BA3A2]">same customer</div>
+          </div>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.55 }}
+            transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+            className="absolute left-[22%] top-[40px] w-[68%] max-w-[350px] sm:left-[21%] lg:left-[22%] lg:top-[95px]"
+          >
+            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#769397]">Conversation</div>
+            <div className="mt-3 border-l-2 border-[#1A9AA1] pl-4 text-[22px] leading-[1.12] tracking-[-0.03em] sm:text-[27px]" style={{ fontFamily: DISPLAY }}>
+              “Thursday morning works.”
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.55 }}
+            transition={{ delay: reduced ? 0 : 0.12, duration: reduced ? 0 : 0.5, ease: EASE }}
+            className="absolute left-[18%] top-[250px] sm:left-[34%] lg:left-[35%] lg:top-[150px]"
+          >
+            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#769397]">Opportunity</div>
+            <div className="mt-3 flex items-center gap-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              <span className="text-[27px] leading-none tracking-[-0.04em] sm:text-[34px]" style={{ fontFamily: DISPLAY }}>Qualified</span>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.55 }}
+            transition={{ delay: reduced ? 0 : 0.22, duration: reduced ? 0 : 0.5, ease: EASE }}
+            className="absolute left-[46%] top-[360px] sm:left-[55%] lg:left-[58%] lg:top-[350px]"
+          >
+            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#769397]">Booking</div>
+            <div className="mt-3 flex items-center gap-4">
+              <CalendarCheck2 className="h-7 w-7 text-[#1A9AA1]" />
+              <div>
+                <div className="text-[28px] leading-none tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>Thu 10:30</div>
+                <div className="mt-2 text-[10px] uppercase tracking-[0.13em] text-[#929B9A]">confirmed</div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.55 }}
+            transition={{ delay: reduced ? 0 : 0.3, duration: reduced ? 0 : 0.5, ease: EASE }}
+            className="absolute bottom-[24px] right-[2%] sm:right-[7%] lg:bottom-[250px] lg:right-[7%]"
+          >
+            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#769397]">After the work</div>
+            <div className="mt-4 flex items-center gap-6 text-[#111318]">
+              <div className="flex items-center gap-2"><CircleDollarSign className="h-5 w-5 text-[#1A9AA1]" /><span className="text-[13px] font-semibold">Paid</span></div>
+              <div className="flex items-center gap-2"><Star className="h-5 w-5 text-[#1A9AA1]" /><span className="text-[13px] font-semibold">Review</span></div>
+              <div className="flex items-center gap-2"><RefreshCw className="h-5 w-5 text-[#1A9AA1]" /><span className="text-[13px] font-semibold">Return</span></div>
+            </div>
+          </motion.div>
+
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-[#DDE3E1] lg:hidden" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Pointer({ label, className, delay, reduced }: { label: string; className: string; delay: number; reduced: boolean }) {
   return (
     <motion.div
-      className="absolute right-[5%] flex w-[49%] items-center gap-4 border-b border-white/10 pb-3 sm:right-[7%] lg:w-[42%]"
-      style={{ top, x, opacity }}
+      initial={reduced ? false : { opacity: 0, x: 20, y: 10 }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, amount: 0.7 }}
+      transition={{ delay: reduced ? 0 : delay, duration: reduced ? 0 : 0.45, ease: EASE }}
+      className={`absolute z-30 flex items-start gap-1.5 ${className}`}
     >
-      <span className="w-[48px] shrink-0 font-mono text-[10px] text-white/28">{time}</span>
-      <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: accent }} />
-      <span className="text-[11px] font-semibold uppercase tracking-[0.13em] text-white/58 sm:text-[12px]">
-        {label}
-      </span>
-    </motion.div>
-  );
-}
-
-function RevenueLeakScene({
-  opacity,
-  progress,
-  beat,
-}: {
-  opacity: MotionValue<number>;
-  progress: MotionValue<number>;
-  beat: number;
-}) {
-  const leadY = useTransform(progress, [0, 0.58, 1], [0, 96, 220]);
-  const leadX = useTransform(progress, [0, 1], [0, -42]);
-  const leadOpacity = useTransform(progress, [0, 0.66, 0.9, 1], [1, 1, 0.42, 0.08]);
-  const leadScale = useTransform(progress, [0, 1], [1, 0.94]);
-  const wordX = useTransform(progress, [0, 1], [-120, 20]);
-  const sweepX = useTransform(progress, [0, 1], ["7%", "93%"]);
-  const lostOpacity = useTransform(progress, [0.72, 0.9, 1], [0, 1, 1]);
-  const lostY = useTransform(progress, [0.72, 1], [52, 0]);
-
-  return (
-    <motion.div className="absolute inset-0 overflow-hidden bg-[#080B10] text-white" style={{ opacity }}>
-      <div className="absolute inset-x-5 top-7 z-40 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300/75">Where revenue leaks</div>
-        <SceneNumber n="01" dark />
-      </div>
-
-      <motion.div
-        className="pointer-events-none absolute left-[-3%] top-[6%] whitespace-nowrap text-[23vw] font-medium leading-none tracking-[-0.08em] text-white/[0.035]"
-        style={{ fontFamily: DISPLAY, x: wordX }}
-      >
-        UNANSWERED
-      </motion.div>
-
-      <div className="absolute left-[6%] top-[17%] z-20 max-w-[520px]">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/32">One ordinary Tuesday</div>
-        <h2
-          className="mt-4 text-[44px] leading-[0.94] tracking-[-0.055em] text-white sm:text-[62px] lg:text-[76px]"
-          style={{ fontFamily: DISPLAY, fontWeight: 500 }}
-        >
-          The business<br />keeps moving.
-        </h2>
-      </div>
-
-      <motion.div
-        className="absolute left-[6%] top-[49%] z-30 w-[72%] max-w-[620px] border-l-2 border-cyan-300 bg-white/[0.055] px-5 py-5 backdrop-blur-[2px] sm:w-[54%] sm:px-7 sm:py-6 lg:left-[8%] lg:w-[44%]"
-        style={{ y: leadY, x: leadX, opacity: leadOpacity, scale: leadScale }}
-      >
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[10px] font-bold text-[#111318]">SM</div>
-          <div>
-            <div className="text-[13px] font-semibold text-white">Sarah Miller</div>
-            <div className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/32">Website enquiry · 9:14</div>
-          </div>
-        </div>
-        <div className="mt-5 text-[24px] leading-[1.08] tracking-[-0.035em] text-white sm:text-[31px] lg:text-[38px]" style={{ fontFamily: DISPLAY }}>
-          “Hi, are you available this week?”
-        </div>
-      </motion.div>
-
-      <div className="absolute right-[6%] top-[17%] z-30 text-right">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={LEAK_BEATS[beat].time}
-            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -14, filter: "blur(5px)" }}
-            transition={{ duration: 0.3, ease: EASE }}
-          >
-            <div className="font-mono text-[54px] leading-none tracking-[-0.07em] text-white/92 sm:text-[80px] lg:text-[116px]">
-              {LEAK_BEATS[beat].time}
-            </div>
-            <div className={`mt-3 text-[9px] font-semibold uppercase tracking-[0.2em] ${beat === 3 ? "text-rose-400" : "text-cyan-300"}`}>
-              {LEAK_BEATS[beat].label}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      <ActivityStrip progress={progress} threshold={0.11} top="39%" time="9:17" label="Another call answered" accent="#67E8F9" />
-      <ActivityStrip progress={progress} threshold={0.28} top="48%" time="9:31" label="Appointment confirmed" accent="#A7F3D0" />
-      <ActivityStrip progress={progress} threshold={0.46} top="57%" time="10:05" label="Payment received" accent="#C4B5FD" />
-      <ActivityStrip progress={progress} threshold={0.63} top="66%" time="11:24" label="Review posted" accent="#FDE68A" />
-
-      <motion.div className="absolute bottom-0 top-0 z-10 w-px bg-cyan-300/28 shadow-[0_0_30px_rgba(103,232,249,.22)]" style={{ left: sweepX }} />
-
-      <motion.div className="absolute bottom-[6%] left-[7%] right-[7%] z-40 border-t border-rose-400/40 pt-4 sm:pt-5" style={{ opacity: lostOpacity, y: lostY }}>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div className="text-[31px] leading-[0.95] tracking-[-0.045em] text-rose-300 sm:text-[48px] lg:text-[62px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-            Revenue left quietly.
-          </div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-rose-300/70">Nothing broke · nobody followed through</div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function CustomerThread({ progress, sceneIndex }: { progress: MotionValue<number>; sceneIndex: number }) {
-  const left = useTransform(progress, [0, 0.24, 0.5, 0.76, 1], ["34%", "44%", "59%", "71%", "82%"]);
-  const top = useTransform(progress, [0, 0.24, 0.5, 0.76, 1], ["42%", "54%", "48%", "61%", "72%"]);
-  const rotate = useTransform(progress, [0, 0.35, 0.7, 1], [-5, 2, -2, 0]);
-  const scale = useTransform(progress, [0, 0.18, 1], [1.12, 1, 0.94]);
-
-  return (
-    <motion.div className="absolute z-50 flex items-center gap-2.5" style={{ left, top, rotate, scale }}>
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111318] text-[10px] font-bold text-white shadow-[0_10px_30px_rgba(15,23,42,.22)]">SM</div>
-      <div className="hidden bg-[#111318] px-3 py-2 text-white shadow-[0_10px_30px_rgba(15,23,42,.18)] sm:block">
-        <div className="text-[10px] font-semibold">Sarah Miller</div>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={PRODUCT_SCENES[sceneIndex].title}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 0.55, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.2 }}
-            className="mt-0.5 text-[8px] uppercase tracking-[0.11em]"
-          >
-            {PRODUCT_SCENES[sceneIndex].title}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </motion.div>
-  );
-}
-
-function ConnectedProductScene({
-  opacity,
-  progress,
-  sceneIndex,
-  reduced,
-}: {
-  opacity: MotionValue<number>;
-  progress: MotionValue<number>;
-  sceneIndex: number;
-  reduced: boolean;
-}) {
-  const shellY = useTransform(progress, [0, 0.16], [42, 0]);
-  const shellScale = useTransform(progress, [0, 0.18, 1], [0.94, 1, 1]);
-  const routeLength = useTransform(progress, [0.02, 0.94], [0, 1]);
-  const wordX = useTransform(progress, [0, 1], [-100, 18]);
-  const scene = PRODUCT_SCENES[sceneIndex];
-
-  return (
-    <motion.div className="absolute inset-0 overflow-hidden bg-[#F2F6F5] text-[#111318]" style={{ opacity }}>
-      <div className="absolute inset-x-5 top-7 z-40 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#29727A]">Every customer moment · one connected system</div>
-        <SceneNumber n="02" />
-      </div>
-
-      <motion.div
-        className="pointer-events-none absolute left-[-3%] top-[4%] whitespace-nowrap text-[20vw] font-medium leading-none tracking-[-0.075em] text-[#D7E7E5]/80"
-        style={{ fontFamily: DISPLAY, x: wordX }}
-      >
-        CONNECTED
-      </motion.div>
-
-      <div className="absolute left-[6%] top-[17%] z-20 max-w-[690px]">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5E8588]">One customer thread</div>
-        <h2 className="mt-4 text-[42px] leading-[0.94] tracking-[-0.055em] sm:text-[58px] lg:text-[72px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-          The interface can change.<br />Sarah does not disappear.
-        </h2>
-      </div>
-
-      <motion.div
-        className="absolute bottom-[6%] left-[5%] right-[4%] h-[49%] origin-center overflow-hidden border border-[#C9D9D7] bg-white shadow-[0_42px_100px_-48px_rgba(15,23,42,.32)] sm:left-[7%] lg:bottom-[8%] lg:left-[29%] lg:h-[70%]"
-        style={{ y: shellY, scale: shellScale }}
-      >
-        <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
-          <AnimatePresence mode="popLayout" initial={false}>
-            <motion.div
-              key={scene.key}
-              className="absolute inset-0"
-              initial={{ opacity: 0, x: 62, clipPath: "inset(0 0 0 22%)" }}
-              animate={{ opacity: 1, x: 0, clipPath: "inset(0 0 0 0%)" }}
-              exit={{ opacity: 0, x: -34, clipPath: "inset(0 18% 0 0)" }}
-              transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
-            >
-              {scene.render(reduced)}
-            </motion.div>
-          </AnimatePresence>
-        </AppShell>
-      </motion.div>
-
-      <svg className="pointer-events-none absolute inset-0 z-30 h-full w-full" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden>
-        <motion.path
-          d="M400 305 C470 390 530 300 620 382 S790 355 860 435 S1010 480 1065 525"
-          fill="none"
-          stroke="rgba(14,165,169,.18)"
-          strokeWidth="10"
-          strokeLinecap="round"
-          style={{ pathLength: routeLength }}
-        />
-        <motion.path
-          d="M400 305 C470 390 530 300 620 382 S790 355 860 435 S1010 480 1065 525"
-          fill="none"
-          stroke="#0EA5A9"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          style={{ pathLength: routeLength }}
-        />
+      <svg width="17" height="21" viewBox="0 0 17 21" fill="none" aria-hidden>
+        <path d="M1 1L15 10.5L8.9 11.7L5.8 19L1 1Z" fill="#101318" />
       </svg>
+      <span className="whitespace-nowrap bg-[#101318] px-2.5 py-1.5 text-[9px] font-semibold text-white shadow-sm sm:text-[10px]">{label}</span>
+    </motion.div>
+  );
+}
 
-      <CustomerThread progress={progress} sceneIndex={sceneIndex} />
+function UnlimitedUsers() {
+  const reduced = !!useReducedMotion();
+  return (
+    <section className="relative overflow-hidden bg-[#DDECEC] px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:min-h-[900px] lg:px-16 lg:py-32">
+      <div className="pointer-events-none absolute left-[-2%] top-[2%] whitespace-nowrap text-[20vw] font-medium leading-none tracking-[-0.08em] text-[#BFD9D8]/75" style={{ fontFamily: DISPLAY }}>
+        UNLIMITED
+      </div>
 
-      <div className="absolute bottom-[3.5%] left-[7%] right-[7%] z-40 hidden items-center justify-between lg:flex">
-        {PRODUCT_SCENES.map((item, index) => (
-          <div key={item.key} className="flex items-center gap-2">
-            <span className={`h-1.5 w-1.5 rounded-full ${index <= sceneIndex ? "bg-[#0EA5A9]" : "bg-[#B8CECC]"}`} />
-            <span className={`text-[9px] font-semibold uppercase tracking-[0.13em] ${index === sceneIndex ? "text-[#111318]" : "text-[#7E9B99]"}`}>
-              {item.title}
-            </span>
+      <div className="relative z-10 mx-auto max-w-[1440px]">
+        <Eyebrow>Unlimited users included</Eyebrow>
+        <div className="mt-8 grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+          <div className="relative z-20 max-w-[560px]">
+            <h2 className="text-[48px] font-medium leading-[0.92] tracking-[-0.055em] sm:text-[66px] lg:text-[78px]" style={{ fontFamily: DISPLAY }}>
+              Add the team.
+              <br />
+              <span className="text-[#55787A]">Not the seat tax.</span>
+            </h2>
+            <p className="mt-7 max-w-[500px] text-[15px] leading-[1.75] text-[#53686A] sm:text-[17px]">
+              The customer journey rarely belongs to one person. Give everyone who needs the context access without another licence decision every time the team grows.
+            </p>
           </div>
+
+          <div className="relative min-h-[540px] sm:min-h-[600px]">
+            <motion.div
+              initial={reduced ? false : { opacity: 0, scale: 0.97, y: 18 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
+              className="absolute left-[3%] right-[2%] top-[11%] overflow-hidden border border-[#AFCBC9] bg-white shadow-[0_38px_100px_-58px_rgba(15,23,42,.38)] sm:left-[7%] sm:right-[4%] sm:top-[8%] lg:left-[5%] lg:right-[2%] lg:top-[6%]"
+            >
+              <div className="flex items-center justify-between border-b border-[#E7ECEA] px-5 py-4 sm:px-7">
+                <div>
+                  <div className="text-[15px] font-semibold">Sarah Miller</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-[0.13em] text-[#8B9593]">Customer record</div>
+                </div>
+                <span className="bg-emerald-50 px-2.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-emerald-700">Active</span>
+              </div>
+
+              <div className="grid sm:grid-cols-[1.05fr_.95fr]">
+                <div className="p-5 sm:p-7">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#9AA3A1]">Customer context</div>
+                  <div className="mt-5 space-y-5">
+                    <div className="border-b border-[#EDF0EF] pb-4">
+                      <div className="text-[10px] text-[#8F9896]">Latest conversation</div>
+                      <div className="mt-2 text-[17px] leading-[1.4] tracking-[-0.02em]">“Thursday at 10:30 works for me.”</div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-5">
+                      <div><div className="text-[10px] text-[#8F9896]">Opportunity</div><div className="mt-1.5 text-[13px] font-semibold">Qualified</div></div>
+                      <div><div className="text-[10px] text-[#8F9896]">Owner</div><div className="mt-1.5 text-[13px] font-semibold">Chris</div></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="border-t border-[#EDF0EF] bg-[#F8FAF9] p-5 sm:border-l sm:border-t-0 sm:p-7">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#9AA3A1]">Next step</div>
+                  <div className="mt-5 flex items-start gap-3">
+                    <CalendarCheck2 className="mt-0.5 h-5 w-5 text-[#1A9AA1]" />
+                    <div><div className="text-[13px] font-semibold">Appointment confirmed</div><div className="mt-1 text-[11px] text-[#7D8785]">Thursday · 10:30 AM</div></div>
+                  </div>
+                  <div className="mt-6 border-t border-[#E5EAE8] pt-5">
+                    <div className="text-[10px] text-[#8F9896]">Follow-up</div>
+                    <div className="mt-1.5 text-[12px] font-semibold">Reminder scheduled</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <Pointer label="Owner" className="left-[1%] top-[3%] sm:left-[3%]" delay={0.12} reduced={reduced} />
+            <Pointer label="Front desk" className="right-[5%] top-[2%] sm:right-[7%]" delay={0.22} reduced={reduced} />
+            <Pointer label="Sales" className="left-[0%] top-[48%] sm:left-[2%]" delay={0.32} reduced={reduced} />
+            <Pointer label="Accounts" className="right-[2%] top-[53%] sm:right-[4%]" delay={0.42} reduced={reduced} />
+            <Pointer label="Team" className="bottom-[3%] left-[45%] sm:bottom-[6%] sm:left-[52%]" delay={0.52} reduced={reduced} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GuidedLaunch() {
+  return (
+    <section className="overflow-hidden bg-[#F4F1EA] px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-36">
+      <div className="mx-auto max-w-[1440px]">
+        <div className="grid gap-10 lg:grid-cols-[.82fr_1.18fr] lg:items-end">
+          <div>
+            <Eyebrow>Guided Launch</Eyebrow>
+            <h2 className="mt-6 text-[48px] font-medium leading-[0.93] tracking-[-0.055em] sm:text-[65px] lg:text-[80px]" style={{ fontFamily: DISPLAY }}>
+              Your process already exists.
+              <br />
+              <span className="text-[#8B7F70]">We map it before we automate it.</span>
+            </h2>
+          </div>
+          <p className="max-w-[500px] pb-2 text-[15px] leading-[1.75] text-[#746B60] sm:text-[17px] lg:justify-self-end">
+            Guided Launch starts with the way the business really works today, then turns the important hand-offs and next steps into a cleaner operating flow.
+          </p>
+        </div>
+
+        <div className="mt-16 grid gap-0 border-y border-[#CFC7BC] lg:mt-20 lg:grid-cols-[1fr_96px_1fr]">
+          <div className="relative min-h-[560px] overflow-hidden py-10 sm:min-h-[610px] sm:py-12 lg:pr-10">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#988C7C]">How it works today</div>
+
+            <div className="absolute left-[4%] top-[112px] w-[235px] -rotate-[4deg] border-l-2 border-[#111318] bg-white px-5 py-4 shadow-[0_18px_45px_-34px_rgba(15,23,42,.35)] sm:left-[8%] sm:w-[270px]">
+              <div className="text-[8px] uppercase tracking-[0.15em] text-[#9A9F9C]">Website enquiry</div>
+              <div className="mt-2 text-[14px]">Can I book Thursday morning?</div>
+            </div>
+            <div className="absolute right-[5%] top-[205px] flex w-[205px] rotate-[3deg] items-center gap-3 border-y border-[#C9C1B6] bg-[#FBF8F1] px-4 py-4 sm:right-[8%] sm:w-[230px]">
+              <PhoneMissed className="h-5 w-5 text-[#C35F5F]" />
+              <div><div className="text-[8px] uppercase tracking-[0.14em] text-[#9A9F9C]">Missed call</div><div className="mt-1 text-[12px] font-semibold">0412 884 103</div></div>
+            </div>
+            <div className="absolute left-[16%] top-[330px] w-[190px] -rotate-[2deg] bg-[#FFF0A8] px-5 py-5 shadow-[0_14px_38px_-30px_rgba(15,23,42,.38)] sm:left-[23%] sm:w-[215px]">
+              <div className="text-[14px] font-semibold leading-[1.35]">Remember to follow up quote</div>
+            </div>
+            <div className="absolute bottom-[54px] right-[12%] w-[215px] rotate-[4deg] border-b border-[#998C7B] px-4 py-4 sm:w-[250px]">
+              <div className="text-[8px] uppercase tracking-[0.14em] text-[#9A9F9C]">Calendar note</div>
+              <div className="mt-2 text-[13px] font-semibold">Thu · 10:30 · Sarah?</div>
+            </div>
+          </div>
+
+          <div className="relative hidden border-x border-[#CFC7BC] lg:block">
+            <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 -rotate-90 items-center gap-3 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.18em] text-[#877B6C]">
+              <span>Guided Launch</span><ArrowRight className="h-4 w-4 rotate-90" />
+            </div>
+          </div>
+
+          <div className="min-h-[560px] border-t border-[#CFC7BC] py-10 sm:min-h-[610px] sm:py-12 lg:border-t-0 lg:pl-12">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#4B7478]">What we build with you</div>
+            <div className="mt-12">
+              {[
+                ["01", "Capture", "Enquiries, calls and forms arrive in one place."],
+                ["02", "Own", "The right person can see what needs attention."],
+                ["03", "Follow through", "Replies, reminders and bookings keep moving."],
+                ["04", "Complete", "Payment, reviews and return journeys do not get forgotten."],
+              ].map(([n, title, copy]) => (
+                <div key={n} className="grid grid-cols-[42px_1fr] gap-5 border-t border-[#D9D2C8] py-6 first:border-t-0 first:pt-0 sm:grid-cols-[58px_1fr] sm:gap-7 sm:py-7">
+                  <div className="font-mono text-[10px] text-[#8D8274]">{n}</div>
+                  <div>
+                    <div className="text-[29px] leading-none tracking-[-0.04em] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>{title}</div>
+                    <div className="mt-2 max-w-[500px] text-[13px] leading-[1.65] text-[#7A7064] sm:text-[14px]">{copy}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type OutcomeKey = "enquiry" | "quote" | "reactivation" | "complete";
+
+const OUTCOMES: Array<{ key: OutcomeKey; label: string; kicker: string }> = [
+  { key: "enquiry", label: "Missed enquiry", kicker: "Start the conversation" },
+  { key: "quote", label: "Quiet quote", kicker: "Keep the opportunity moving" },
+  { key: "reactivation", label: "Past customer", kicker: "Bring dormant demand back" },
+  { key: "complete", label: "Completed job", kicker: "Keep going after complete" },
+];
+
+function EnquiryVisual() {
+  return (
+    <div className="relative h-full min-h-[440px] overflow-hidden bg-[#0A0E13] p-6 text-white sm:min-h-[500px] sm:p-9">
+      <div className="absolute left-[8%] top-[17%] max-w-[72%] border-l-2 border-white/18 bg-white/[0.045] px-5 py-4">
+        <div className="text-[8px] font-semibold uppercase tracking-[0.15em] text-white/28">Sarah · website enquiry</div>
+        <div className="mt-3 text-[23px] leading-[1.15] tracking-[-0.03em] sm:text-[30px]" style={{ fontFamily: DISPLAY }}>Are you available this week?</div>
+      </div>
+      <div className="absolute bottom-[19%] right-[7%] max-w-[76%] bg-[#BFEAEC] px-5 py-5 text-[#0A1114] sm:px-6">
+        <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-[#4F7E82]">2 min later</div>
+        <div className="mt-3 text-[22px] leading-[1.15] tracking-[-0.03em] sm:text-[29px]" style={{ fontFamily: DISPLAY }}>Yes. Thursday morning is available. Want me to book it?</div>
+      </div>
+      <div className="absolute bottom-[7%] right-[7%] text-[9px] font-semibold uppercase tracking-[0.16em] text-[#83C9CD]">Conversation started</div>
+    </div>
+  );
+}
+
+function QuoteVisual() {
+  return (
+    <div className="relative h-full min-h-[440px] overflow-hidden bg-[#0A0E13] p-6 text-white sm:min-h-[500px] sm:p-9">
+      <div className="pointer-events-none absolute -right-[3%] top-[4%] text-[28vw] font-medium leading-none tracking-[-0.08em] text-white/[0.035] sm:text-[16vw]" style={{ fontFamily: DISPLAY }}>03</div>
+      <div className="absolute left-[8%] top-[18%] text-[9px] font-semibold uppercase tracking-[0.17em] text-white/32">Quote #1048 · $4,800</div>
+      <div className="absolute left-[8%] right-[8%] top-[48%] h-px bg-white/14">
+        <div className="absolute -top-1 left-0 h-2 w-2 rounded-full bg-white" />
+        <div className="absolute -top-1 left-[48%] h-2 w-2 rounded-full bg-[#6ED4D9]" />
+        <div className="absolute -top-1 right-0 h-2 w-2 rounded-full bg-emerald-400" />
+      </div>
+      <div className="absolute left-[8%] top-[54%] text-[10px] text-white/38">Quote sent</div>
+      <div className="absolute left-[47%] top-[39%] -translate-x-1/2 bg-[#13272A] px-4 py-3">
+        <div className="text-[8px] uppercase tracking-[0.14em] text-[#72BCC0]">Follow-up</div>
+        <div className="mt-1 text-[12px] font-semibold">Still considering it?</div>
+      </div>
+      <div className="absolute right-[8%] top-[54%] text-right">
+        <div className="text-[10px] text-emerald-300">Reply received</div>
+        <div className="mt-2 text-[27px] leading-none tracking-[-0.04em] sm:text-[34px]" style={{ fontFamily: DISPLAY }}>Opportunity moving</div>
+      </div>
+    </div>
+  );
+}
+
+function ReactivationVisual() {
+  const contacts = ["MC", "DR", "PN", "TW", "SB", "LM", "AD", "NR", "JC", "KM", "RB", "TS", "AL", "MS", "CP", "ER", "JL", "NT", "AA", "BK", "PH", "VR", "OW", "GD"];
+  const active = new Set([0, 2, 6, 10, 14]);
+  return (
+    <div className="relative h-full min-h-[440px] overflow-hidden bg-[#0A0E13] p-6 text-white sm:min-h-[500px] sm:p-9">
+      <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-white/32">Past customers · dormant</div>
+      <div className="mt-10 grid grid-cols-6 gap-3 sm:gap-4">
+        {contacts.map((contact, index) => (
+          <div key={`${contact}-${index}`} className={`flex aspect-square items-center justify-center rounded-full text-[9px] font-semibold transition ${active.has(index) ? "bg-[#BFEAEC] text-[#0A1114] shadow-[0_0_34px_rgba(103,232,249,.16)]" : "bg-white/[0.055] text-white/22"}`}>{contact}</div>
         ))}
       </div>
-    </motion.div>
-  );
-}
-
-function RoleMarker({
-  label,
-  threshold,
-  progress,
-  className,
-}: {
-  label: string;
-  threshold: number;
-  progress: MotionValue<number>;
-  className: string;
-}) {
-  const opacity = useTransform(progress, [threshold - 0.08, threshold], [0, 1]);
-  const x = useTransform(progress, [threshold - 0.08, threshold], [28, 0]);
-  const scale = useTransform(progress, [threshold - 0.08, threshold + 0.04], [0.86, 1]);
-
-  return (
-    <motion.div className={`absolute z-40 items-center gap-2 ${className}`} style={{ opacity, x, scale }}>
-      <svg width="16" height="20" viewBox="0 0 16 20" fill="none" aria-hidden>
-        <path d="M1 1L14 10L8.1 11.2L5.2 18.2L1 1Z" fill="#111318" />
-      </svg>
-      <span className="whitespace-nowrap bg-[#111318] px-2.5 py-1.5 text-[10px] font-semibold text-white shadow-sm">{label}</span>
-    </motion.div>
-  );
-}
-
-function UnlimitedUsersScene({ opacity, progress, reduced }: { opacity: MotionValue<number>; progress: MotionValue<number>; reduced: boolean }) {
-  const wordX = useTransform(progress, [0, 1], [-90, 0]);
-  const productScale = useTransform(progress, [0, 0.35, 1], [0.92, 1, 1]);
-
-  return (
-    <motion.div className="absolute inset-0 overflow-hidden bg-[#DCEBEB] text-[#111318]" style={{ opacity }}>
-      <div className="absolute inset-x-5 top-7 z-40 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3B7277]">Unlimited users included</div>
-        <SceneNumber n="03" />
-      </div>
-
-      <motion.div className="pointer-events-none absolute left-[-2%] top-[8%] whitespace-nowrap text-[21vw] font-medium leading-none tracking-[-0.075em] text-[#BAD5D5]/55" style={{ fontFamily: DISPLAY, x: wordX }}>
-        UNLIMITED
-      </motion.div>
-
-      <div className="absolute left-[6%] top-[22%] z-20 max-w-[560px] lg:top-[36%]">
-        <h2 className="text-[44px] leading-[0.95] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-          Add the team.<br />Not the seat tax.
-        </h2>
-        <p className="mt-5 max-w-[470px] text-[14px] leading-[1.65] text-slate-600 sm:text-[16px] lg:mt-6 lg:text-[17px]">
-          The same customer journey can stay visible to the people who need it without turning every extra teammate into another licence decision.
-        </p>
-      </div>
-
-      <motion.div className="absolute bottom-[6%] right-[3%] h-[47%] w-[88%] overflow-hidden border border-[#AEC9C9] bg-white shadow-[0_36px_90px_-42px_rgba(15,23,42,.35)] lg:bottom-[10%] lg:h-[58%] lg:w-[58%]" style={{ scale: productScale }}>
-        <AppShell activeKey="opportunities" title="Sales" subtitle="Shared customer context">
-          <div className="absolute inset-0"><SceneSalesLive phase={11} elapsedMs={1200} reduced={reduced} /></div>
-        </AppShell>
-      </motion.div>
-
-      <RoleMarker label="Owner" threshold={0.12} progress={progress} className="left-[9%] top-[48%] flex lg:left-[66%] lg:top-[23%]" />
-      <RoleMarker label="Front desk" threshold={0.28} progress={progress} className="left-[51%] top-[45%] flex lg:left-[78%] lg:top-[33%]" />
-      <RoleMarker label="Sales" threshold={0.44} progress={progress} className="left-[13%] top-[69%] flex lg:left-[58%] lg:top-[58%]" />
-      <RoleMarker label="Accounts" threshold={0.6} progress={progress} className="left-[51%] top-[68%] flex lg:left-[83%] lg:top-[67%]" />
-      <RoleMarker label="Team" threshold={0.76} progress={progress} className="left-[30%] top-[82%] flex lg:left-[69%] lg:top-[77%]" />
-
-      <div className="absolute bottom-[3%] left-[6%] border-t border-[#A8C6C6] pt-3 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#3B7277] lg:bottom-[8%] lg:text-[11px]">
-        One customer context · everyone who needs access
-      </div>
-    </motion.div>
-  );
-}
-
-function FlowArtifact({
-  progress,
-  startX,
-  startY,
-  startRotate,
-  className,
-  children,
-}: {
-  progress: MotionValue<number>;
-  startX: number;
-  startY: number;
-  startRotate: number;
-  className: string;
-  children: React.ReactNode;
-}) {
-  const x = useTransform(progress, [0.05, 0.55], [startX, 0]);
-  const y = useTransform(progress, [0.05, 0.55], [startY, 0]);
-  const rotate = useTransform(progress, [0.05, 0.55], [startRotate, 0]);
-  const scale = useTransform(progress, [0.05, 0.55], [0.88, 1]);
-  const opacity = useTransform(progress, [0, 0.56, 0.76], [1, 1, 0.08]);
-
-  return (
-    <motion.div className={`absolute z-30 ${className}`} style={{ x, y, rotate, scale, opacity }}>
-      {children}
-    </motion.div>
-  );
-}
-
-function GuidedLaunchScene({ opacity, progress, reduced }: { opacity: MotionValue<number>; progress: MotionValue<number>; reduced: boolean }) {
-  const wordX = useTransform(progress, [0, 1], [-110, 0]);
-  const shellOpacity = useTransform(progress, [0.34, 0.58], [0, 1]);
-  const shellScale = useTransform(progress, [0.34, 0.7], [0.9, 1]);
-  const shellY = useTransform(progress, [0.34, 0.66], [70, 0]);
-  const intakeOpacity = useTransform(progress, [0.32, 0.48], [0, 1]);
-  const intakeScale = useTransform(progress, [0.32, 0.54], [0.7, 1]);
-  const routeLength = useTransform(progress, [0.18, 0.66], [0, 1]);
-
-  return (
-    <motion.div className="absolute inset-0 overflow-hidden bg-[#F0ECE4] text-[#111318]" style={{ opacity }}>
-      <div className="absolute inset-x-5 top-7 z-40 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B765B]">Guided Launch</div>
-        <SceneNumber n="04" />
-      </div>
-
-      <motion.div
-        className="pointer-events-none absolute left-[-2%] top-[6%] whitespace-nowrap text-[22vw] font-medium leading-none tracking-[-0.075em] text-[#DED6C8]/75"
-        style={{ fontFamily: DISPLAY, x: wordX }}
-      >
-        MAPPED
-      </motion.div>
-
-      <div className="absolute left-[6%] top-[16%] z-20 max-w-[700px]">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#9B866A]">Your real workflow</div>
-        <h2 className="mt-4 text-[42px] leading-[0.94] tracking-[-0.055em] sm:text-[58px] lg:text-[70px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-          We do not hand you<br />a blank account.
-        </h2>
-        <p className="mt-5 max-w-[540px] text-[14px] leading-[1.65] text-[#756958] sm:text-[16px]">
-          Guided Launch starts with the way enquiries, calls, bookings and follow-up already move through your business, then builds the important flow into Zapla.
-        </p>
-      </div>
-
-      <FlowArtifact progress={progress} startX={-170} startY={100} startRotate={-9} className="left-[7%] top-[52%] lg:left-[9%] lg:top-[61%]">
-        <div className="w-[210px] border-l-2 border-[#111318] bg-white/80 px-4 py-4 backdrop-blur-sm sm:w-[250px] sm:px-5">
-          <div className="text-[8px] font-semibold uppercase tracking-[0.15em] text-slate-400">Website enquiry</div>
-          <div className="mt-2 text-[12px] leading-[1.45] text-slate-800 sm:text-[13px]">Can I book Thursday morning?</div>
-        </div>
-      </FlowArtifact>
-
-      <FlowArtifact progress={progress} startX={150} startY={-90} startRotate={8} className="left-[48%] top-[46%] lg:left-[25%] lg:top-[51%]">
-        <div className="flex w-[185px] items-center gap-3 border-y border-[#CFC5B5] bg-[#FAF8F3]/90 px-4 py-3 sm:w-[210px] sm:py-4">
-          <PhoneMissed className="h-5 w-5 text-rose-500" />
-          <div>
-            <div className="text-[8px] uppercase tracking-[0.14em] text-slate-400">Missed call</div>
-            <div className="mt-1 text-[11px] font-semibold sm:text-[12px]">0412 884 103</div>
-          </div>
-        </div>
-      </FlowArtifact>
-
-      <FlowArtifact progress={progress} startX={220} startY={110} startRotate={10} className="left-[14%] top-[70%] lg:left-[38%] lg:top-[66%]">
-        <div className="w-[190px] border-b border-[#A99B87] bg-[#F8F5EE]/92 px-4 py-3 sm:w-[220px] sm:py-4">
-          <div className="text-[8px] uppercase tracking-[0.14em] text-slate-400">Calendar note</div>
-          <div className="mt-2 text-[12px] font-semibold sm:text-[13px]">Thu · 10:30 · Sarah?</div>
-        </div>
-      </FlowArtifact>
-
-      <FlowArtifact progress={progress} startX={-120} startY={-145} startRotate={-7} className="left-[51%] top-[65%] lg:left-[48%] lg:top-[49%]">
-        <div className="w-[175px] bg-[#FFF0A8] px-4 py-4 shadow-[0_15px_40px_-28px_rgba(15,23,42,.4)] sm:w-[205px] sm:px-5 sm:py-5">
-          <div className="text-[12px] font-semibold leading-[1.35] sm:text-[14px]">Remember to follow up quote</div>
-        </div>
-      </FlowArtifact>
-
-      <svg className="pointer-events-none absolute inset-0 z-20 h-full w-full" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden>
-        <motion.path
-          d="M150 520 C300 450 390 560 520 470 S690 470 760 430"
-          fill="none"
-          stroke="rgba(14,165,169,.14)"
-          strokeWidth="12"
-          strokeLinecap="round"
-          style={{ pathLength: routeLength }}
-        />
-        <motion.path
-          d="M150 520 C300 450 390 560 520 470 S690 470 760 430"
-          fill="none"
-          stroke="#0EA5A9"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          style={{ pathLength: routeLength }}
-        />
-      </svg>
-
-      <motion.div className="absolute left-[47%] top-[58%] z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#111318] text-white shadow-[0_16px_40px_-18px_rgba(15,23,42,.45)] lg:left-[54%] lg:top-[58%]" style={{ opacity: intakeOpacity, scale: intakeScale }}>
-        <Zap className="h-5 w-5" />
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-[5%] left-[5%] right-[5%] z-25 h-[38%] overflow-hidden border border-[#CFC5B5] bg-white shadow-[0_38px_90px_-46px_rgba(82,63,39,.36)] lg:bottom-[8%] lg:left-[43%] lg:right-[4%] lg:h-[55%]"
-        style={{ opacity: shellOpacity, scale: shellScale, y: shellY }}
-      >
-        <AppShell activeKey="automations" title="Automations" subtitle="Your mapped follow-through">
-          <div className="absolute inset-0"><SceneAutomationsLive phase={9} elapsedMs={1200} reduced={reduced} /></div>
-        </AppShell>
-      </motion.div>
-
-      <motion.div className="absolute bottom-[2.5%] left-[6%] z-40 hidden items-center gap-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8B765B] lg:flex" style={{ opacity: shellOpacity }}>
-        <span>Understand</span><span>→</span><span>Configure</span><span>→</span><span>Launch</span><span>→</span><span>Improve</span>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-function ConversationOutcome({ reduced }: { reduced: boolean }) {
-  return (
-    <div className="relative h-full overflow-hidden bg-[#0C1118] p-5 sm:p-8">
-      <motion.div
-        initial={reduced ? false : { opacity: 0, x: -34 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-        className="absolute left-[7%] top-[20%] max-w-[72%] border-l-2 border-white/20 bg-white/[0.055] px-5 py-4"
-      >
-        <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/32">Sarah · website enquiry</div>
-        <div className="mt-2 text-[17px] leading-[1.35] text-white sm:text-[22px]">Are you available this week?</div>
-      </motion.div>
-      <motion.div
-        initial={reduced ? false : { opacity: 0, x: 44, scale: 0.94 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
-        transition={{ delay: reduced ? 0 : 0.28, duration: reduced ? 0 : 0.5, ease: EASE }}
-        className="absolute bottom-[16%] right-[7%] max-w-[72%] bg-cyan-200 px-5 py-4 text-[#081015]"
-      >
-        <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#25656C]">Zapla · 2 min later</div>
-        <div className="mt-2 text-[17px] leading-[1.35] sm:text-[22px]">Yes. Thursday morning is available. Want me to book it?</div>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: reduced ? 0 : 0.6, duration: 0.25 }}
-        className="absolute bottom-[7%] right-[7%] flex items-center gap-2 text-[8px] font-semibold uppercase tracking-[0.14em] text-cyan-200/65"
-      >
-        <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" /> Conversation live
-      </motion.div>
-    </div>
-  );
-}
-
-function QuoteOutcome({ reduced }: { reduced: boolean }) {
-  return (
-    <div className="relative h-full overflow-hidden bg-[#F4F6F7] p-6 text-[#111318] sm:p-8">
-      <div className="absolute left-[8%] top-[18%] right-[8%]">
-        <div className="flex items-end justify-between gap-4 border-b border-slate-300 pb-5">
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-slate-400">Quote #1048</div>
-            <div className="mt-2 text-[26px] tracking-[-0.04em] sm:text-[34px]" style={{ fontFamily: DISPLAY }}>Kitchen electrical upgrade</div>
-          </div>
-          <div className="text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-rose-500">Viewed · 3 days ago</div>
-        </div>
-        <div className="relative mt-12 h-px bg-slate-300">
-          <motion.div
-            initial={reduced ? false : { width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: reduced ? 0 : 1.05, ease: EASE }}
-            className="absolute left-0 top-0 h-px bg-cyan-500 shadow-[0_0_18px_rgba(6,182,212,.35)]"
-          />
-          <motion.div
-            initial={reduced ? false : { left: "0%" }}
-            animate={{ left: "94%" }}
-            transition={{ duration: reduced ? 0 : 1.05, ease: EASE }}
-            className="absolute -top-1.5 h-3 w-3 rounded-full bg-cyan-500"
-          />
-        </div>
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: reduced ? 0 : 0.72, duration: reduced ? 0 : 0.4, ease: EASE }}
-          className="mt-10 flex items-center justify-between border-l-2 border-cyan-500 bg-white px-5 py-4 shadow-[0_18px_50px_-35px_rgba(15,23,42,.35)]"
-        >
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-cyan-700">Follow-up sent</div>
-            <div className="mt-1 text-[14px] font-semibold sm:text-[16px]">“Any questions before we lock in a time?”</div>
-          </div>
-          <div className="hidden text-[9px] font-semibold uppercase tracking-[0.14em] text-emerald-600 sm:block">Reply received</div>
-        </motion.div>
+      <div className="absolute bottom-[8%] left-[8%] right-[8%] flex items-end justify-between border-t border-white/12 pt-5">
+        <div><div className="text-[9px] uppercase tracking-[0.14em] text-[#72BCC0]">Reactivation</div><div className="mt-2 text-[12px] text-white/46">Dormant customers become live conversations again.</div></div>
+        <div className="text-[28px] leading-none tracking-[-0.04em] text-[#BFEAEC] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>Reactivated</div>
       </div>
     </div>
   );
 }
 
-function ReactivationOutcome({ reduced }: { reduced: boolean }) {
+function CompleteVisual() {
   return (
-    <div className="absolute inset-0 bg-white">
-      <AppShell activeKey="contacts" title="Contacts" subtitle="Dormant customers wake up">
-        <div className="absolute inset-0"><SceneContacts phase={18} elapsedMs={1200} reduced={reduced} /></div>
-      </AppShell>
+    <div className="relative h-full min-h-[440px] overflow-hidden bg-[#0A0E13] p-6 text-white sm:min-h-[500px] sm:p-9">
+      <div className="pointer-events-none absolute -left-[2%] top-[5%] text-[19vw] font-medium leading-none tracking-[-0.075em] text-white/[0.035] sm:text-[12vw]" style={{ fontFamily: DISPLAY }}>DONE.</div>
+      <div className="absolute left-[8%] top-[24%] text-[9px] font-semibold uppercase tracking-[0.16em] text-white/34">The job is complete. The customer journey is not.</div>
+      <div className="absolute left-[8%] right-[8%] top-[55%] h-px bg-white/14" />
+      {[
+        ["16%", <CheckCircle2 key="i" className="h-5 w-5" />, "Job complete"],
+        ["43%", <CircleDollarSign key="i" className="h-5 w-5" />, "Paid"],
+        ["69%", <Star key="i" className="h-5 w-5" />, "Review"],
+        ["92%", <RefreshCw key="i" className="h-5 w-5" />, "Return"],
+      ].map(([left, icon, label]) => (
+        <div key={label as string} className="absolute top-[calc(55%-18px)] -translate-x-1/2 text-center" style={{ left: left as string }}>
+          <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-[#BFEAEC] text-[#0A1114]">{icon}</div>
+          <div className="mt-3 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.13em] text-white/60">{label}</div>
+        </div>
+      ))}
     </div>
   );
 }
 
-function CompletionOutcome({ reduced }: { reduced: boolean }) {
-  const steps = [
-    { label: "Job complete", icon: CalendarCheck2 },
-    { label: "Paid", icon: CircleDollarSign },
-    { label: "Review", icon: Star },
-    { label: "Return", icon: RefreshCw },
-  ];
+function OutcomeVisual({ active }: { active: OutcomeKey }) {
+  if (active === "quote") return <QuoteVisual />;
+  if (active === "reactivation") return <ReactivationVisual />;
+  if (active === "complete") return <CompleteVisual />;
+  return <EnquiryVisual />;
+}
 
+function Outcomes() {
+  const [active, setActive] = useState<OutcomeKey>("enquiry");
   return (
-    <div className="relative h-full overflow-hidden bg-[#EEF5F4] p-6 text-[#111318] sm:p-9">
-      <div className="absolute left-[7%] right-[7%] top-[26%]">
-        <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#4D7779]">The journey keeps going</div>
-        <div className="relative mt-14">
-          <div className="absolute left-0 right-0 top-5 h-px bg-[#B8CECC]" />
-          <motion.div
-            initial={reduced ? false : { width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: reduced ? 0 : 1.15, ease: EASE }}
-            className="absolute left-0 top-5 h-[2px] bg-[#0EA5A9]"
-          />
-          <div className="relative grid grid-cols-4 gap-2">
-            {steps.map(({ label, icon: Icon }, index) => (
-              <motion.div
-                key={label}
-                initial={reduced ? false : { opacity: 0.25, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: reduced ? 0 : index * 0.2, duration: reduced ? 0 : 0.38, ease: EASE }}
-                className="flex flex-col items-center text-center"
-              >
-                <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#9FC2C1] bg-[#EEF5F4] text-[#236A70] sm:h-11 sm:w-11">
-                  <Icon className="h-4 w-4" />
-                </div>
-                <div className="mt-4 text-[10px] font-semibold uppercase tracking-[0.11em] text-[#355E62] sm:text-[11px]">{label}</div>
+    <section className="bg-white px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-36">
+      <div className="mx-auto max-w-[1440px]">
+        <Eyebrow>What should Zapla follow through on?</Eyebrow>
+        <div className="mt-7 grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-16">
+          <div>
+            <h2 className="max-w-[620px] text-[47px] font-medium leading-[0.93] tracking-[-0.055em] sm:text-[64px] lg:text-[76px]" style={{ fontFamily: DISPLAY }}>
+              Different moments.
+              <br />
+              <span className="text-[#7F8A8C]">Same job: keep it moving.</span>
+            </h2>
+
+            <div className="mt-12 border-t border-[#DDE2E0]">
+              {OUTCOMES.map((item) => {
+                const selected = active === item.key;
+                return (
+                  <button key={item.key} type="button" onClick={() => setActive(item.key)} className="group grid w-full grid-cols-[1fr_auto] items-center gap-4 border-b border-[#DDE2E0] py-5 text-left sm:py-6">
+                    <div>
+                      <div className={`text-[25px] leading-none tracking-[-0.035em] transition-colors sm:text-[30px] ${selected ? "text-[#111318]" : "text-[#9AA3A2] group-hover:text-[#5B6667]"}`} style={{ fontFamily: DISPLAY }}>{item.label}</div>
+                      <div className={`mt-2 text-[10px] uppercase tracking-[0.13em] transition-opacity ${selected ? "text-[#4B858A] opacity-100" : "text-[#A6ADAB] opacity-0 group-hover:opacity-70"}`}>{item.kicker}</div>
+                    </div>
+                    <span className={`h-2 w-2 rounded-full transition ${selected ? "bg-[#1A9AA1]" : "bg-[#D6DCDA]"}`} />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="min-w-0">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div key={active} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.26, ease: EASE }}>
+                <OutcomeVisual active={active} />
               </motion.div>
-            ))}
+            </AnimatePresence>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-function OutcomeVisual({ index, reduced }: { index: number; reduced: boolean }) {
-  if (index === 0) return <ConversationOutcome reduced={reduced} />;
-  if (index === 1) return <QuoteOutcome reduced={reduced} />;
-  if (index === 2) return <ReactivationOutcome reduced={reduced} />;
-  return <CompletionOutcome reduced={reduced} />;
-}
-
-function OutcomesScene({
-  opacity,
-  progress,
-  outcomeIndex,
-  reduced,
-}: {
-  opacity: MotionValue<number>;
-  progress: MotionValue<number>;
-  outcomeIndex: number;
-  reduced: boolean;
-}) {
-  const wordX = useTransform(progress, [0, 1], [-100, 20]);
-  const ctaOpacity = useTransform(progress, [0.78, 0.96], [0, 1]);
-  const contentOpacity = useTransform(progress, [0.74, 0.94], [1, 0.08]);
-  const visualScale = useTransform(progress, [0, 0.74, 1], [0.96, 1, 0.92]);
-  const item = OUTCOMES[outcomeIndex];
-
+function FinalDecision() {
   return (
-    <motion.div className="absolute inset-0 overflow-hidden bg-[#070A0F] text-white" style={{ opacity }}>
-      <div className="absolute inset-x-5 top-7 z-40 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300/75">Follow-through changes the ending</div>
-        <SceneNumber n="05" dark />
-      </div>
-
-      <motion.div
-        className="pointer-events-none absolute left-[-3%] top-[5%] whitespace-nowrap text-[20vw] font-medium leading-none tracking-[-0.075em] text-cyan-200/[0.055]"
-        style={{ fontFamily: DISPLAY, x: wordX }}
-      >
-        MOVING
-      </motion.div>
-
-      <motion.div className="absolute inset-0" style={{ opacity: contentOpacity }}>
-        <div className="absolute left-[6%] top-[17%] z-20 w-[88%] lg:w-[36%]">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-cyan-200/55">{item.kicker}</div>
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={item.key}
-              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -20, filter: "blur(5px)" }}
-              transition={{ duration: reduced ? 0 : 0.36, ease: EASE }}
-            >
-              <div className="mt-5 text-[24px] leading-none tracking-[-0.035em] text-white/34 line-through decoration-white/18 sm:text-[30px] lg:text-[38px]" style={{ fontFamily: DISPLAY }}>
-                {item.issue}
+    <section className="overflow-hidden bg-[#080B10] px-5 py-24 text-white sm:px-10 sm:py-28 lg:px-16 lg:py-36">
+      <div className="mx-auto max-w-[1440px]">
+        <div className="border-t border-white/12 pt-10 sm:pt-12">
+          <Eyebrow dark>Customer follow-through for service businesses</Eyebrow>
+          <div className="mt-9 grid gap-12 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
+            <h2 className="max-w-[1040px] text-[52px] font-medium leading-[0.9] tracking-[-0.062em] sm:text-[76px] lg:text-[100px]" style={{ fontFamily: DISPLAY }}>
+              You do the work only you can do.
+              <br />
+              <span className="text-white/38">Zapla keeps what happens next moving.</span>
+            </h2>
+            <div className="lg:pb-2">
+              <p className="max-w-[430px] text-[15px] leading-[1.75] text-white/48 sm:text-[17px]">
+                One connected platform for the enquiries, conversations and next steps that should not depend on someone remembering.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 bg-white px-5 text-[13px] font-semibold text-[#111318]">Book a Call <ArrowRight className="h-4 w-4" /></a>
+                <a href="/pricing" className="inline-flex h-[50px] items-center border border-white/20 px-5 text-[13px] font-semibold text-white/78">See plans and pricing</a>
               </div>
-              <h2 className="mt-4 text-[46px] leading-[0.9] tracking-[-0.06em] text-white sm:text-[62px] lg:text-[78px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-                {item.result}
-              </h2>
-              <p className="mt-6 max-w-[440px] text-[14px] leading-[1.65] text-white/43 sm:text-[16px]">{item.copy}</p>
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="mt-7 flex gap-2">
-            {OUTCOMES.map((outcome, index) => (
-              <span key={outcome.key} className={`h-1.5 transition-all duration-300 ${index === outcomeIndex ? "w-10 bg-cyan-300" : "w-3 bg-white/16"}`} />
-            ))}
+            </div>
           </div>
         </div>
-
-        <motion.div
-          className="absolute bottom-[7%] left-[6%] right-[5%] h-[43%] overflow-hidden border border-white/10 bg-[#0B1017] shadow-[0_38px_100px_-45px_rgba(0,0,0,.7)] lg:bottom-[9%] lg:left-[45%] lg:h-[66%]"
-          style={{ scale: visualScale }}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={item.key}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 0.97, clipPath: "inset(0 0 0 12%)" }}
-              animate={{ opacity: 1, scale: 1, clipPath: "inset(0 0 0 0%)" }}
-              exit={{ opacity: 0, scale: 0.985, clipPath: "inset(0 12% 0 0)" }}
-              transition={{ duration: reduced ? 0 : 0.38, ease: EASE }}
-            >
-              <OutcomeVisual index={outcomeIndex} reduced={reduced} />
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-      </motion.div>
-
-      <motion.div className="absolute inset-x-[6%] top-[23%] z-50" style={{ opacity: ctaOpacity }}>
-        <div className="max-w-[1100px] text-[52px] leading-[0.88] tracking-[-0.065em] text-white sm:text-[76px] lg:text-[108px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-          Make follow-through<br />part of the system.
-        </div>
-        <p className="mt-7 max-w-[590px] text-[15px] leading-[1.7] text-white/48 sm:text-[17px]">
-          Bring the customer journey into one connected place, then let Zapla keep the important next steps moving.
-        </p>
-        <div className="mt-9 flex flex-wrap gap-3">
-          <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 bg-white px-5 text-[13px] font-semibold text-[#111318]">
-            Book a Call <ArrowRight className="h-4 w-4" />
-          </a>
-          <a href="/pricing" className="inline-flex h-[50px] items-center border border-white/20 px-5 text-[13px] font-semibold text-white/80">
-            See plans and pricing
-          </a>
-        </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </section>
   );
 }
 
 export function ZaplaHomepageContinuationV5() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduced = !!useReducedMotion();
-  const [scene, setScene] = useState(0);
-  const [leakBeat, setLeakBeat] = useState(0);
-  const [productScene, setProductScene] = useState(0);
-  const [outcomeScene, setOutcomeScene] = useState(0);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    const v = clamp01(value);
-    const nextScene = v < 0.19 ? 0 : v < 0.45 ? 1 : v < 0.62 ? 2 : v < 0.79 ? 3 : 4;
-    setScene(nextScene);
-
-    const lb = Math.min(3, Math.floor(clamp01(v / 0.19) * 4));
-    setLeakBeat(lb);
-
-    const productLocal = clamp01((v - 0.19) / 0.26);
-    setProductScene(Math.min(3, Math.floor(Math.min(0.999, productLocal) * 4)));
-
-    const outcomeLocal = clamp01((v - 0.79) / 0.16);
-    setOutcomeScene(Math.min(3, Math.floor(Math.min(0.999, outcomeLocal) * 4)));
-  });
-
-  const leakProgress = useTransform(scrollYProgress, [0, 0.19], [0, 1], { clamp: true });
-  const connectedProgress = useTransform(scrollYProgress, [0.19, 0.45], [0, 1], { clamp: true });
-  const teamProgress = useTransform(scrollYProgress, [0.45, 0.62], [0, 1], { clamp: true });
-  const guidedProgress = useTransform(scrollYProgress, [0.62, 0.79], [0, 1], { clamp: true });
-  const outcomesProgress = useTransform(scrollYProgress, [0.79, 1], [0, 1], { clamp: true });
-
-  const o1 = useTransform(scrollYProgress, [0, 0.16, 0.205], [1, 1, 0], { clamp: true });
-  const o2 = useTransform(scrollYProgress, [0.16, 0.205, 0.42, 0.47], [0, 1, 1, 0], { clamp: true });
-  const o3 = useTransform(scrollYProgress, [0.42, 0.47, 0.59, 0.64], [0, 1, 1, 0], { clamp: true });
-  const o4 = useTransform(scrollYProgress, [0.59, 0.64, 0.76, 0.81], [0, 1, 1, 0], { clamp: true });
-  const o5 = useTransform(scrollYProgress, [0.76, 0.81, 1], [0, 1, 1], { clamp: true });
-  const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
   return (
-    <section ref={ref} className="relative h-[430vh] bg-[#080B10] sm:h-[410vh]">
-      <div className="sticky top-[66px] h-[calc(100vh-66px)] min-h-[610px] overflow-hidden bg-[#080B10]">
-        <RevenueLeakScene opacity={o1} progress={leakProgress} beat={leakBeat} />
-        <ConnectedProductScene opacity={o2} progress={connectedProgress} sceneIndex={productScene} reduced={reduced} />
-        <UnlimitedUsersScene opacity={o3} progress={teamProgress} reduced={reduced} />
-        <GuidedLaunchScene opacity={o4} progress={guidedProgress} reduced={reduced} />
-        <OutcomesScene opacity={o5} progress={outcomesProgress} outcomeIndex={outcomeScene} reduced={reduced} />
-
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-[90] h-px bg-white/10">
-          <motion.div className="h-px origin-left bg-cyan-300" style={{ scaleX: progressScale }} />
-        </div>
-
-        <div className="pointer-events-none absolute bottom-5 left-5 z-[90] hidden items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/28 lg:flex">
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" /> Follow-through story · scene {scene + 1}
-        </div>
-      </div>
-    </section>
+    <>
+      <RevenueLeakage />
+      <CustomerThread />
+      <UnlimitedUsers />
+      <GuidedLaunch />
+      <Outcomes />
+      <FinalDecision />
+    </>
   );
 }
