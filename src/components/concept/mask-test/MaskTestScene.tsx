@@ -40,7 +40,7 @@ export function MaskTestScene() {
         gsap.set(q(".real"), { opacity: 1, yPercent: 0 });
         gsap.set(q(".haze"), { opacity: 1 });
         gsap.set([...q(".cta"), ...q(".anno")], { opacity: 1, y: 0 });
-        gsap.set(q(".leader"), { opacity: 1 });
+        gsap.set(q(".leader"), { opacity: 1, scaleX: 1, scaleY: 1 });
         gsap.set(q(".ghost"), { opacity: 1, scale: 1 });
         return;
       }
