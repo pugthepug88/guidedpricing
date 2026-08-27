@@ -7,22 +7,22 @@ const KNOT_MARKS: {
   x: number;
   y: number;
 }[] = [
-  { channel: "instagram", x: 26, y: 30 },
-  { channel: "sms", x: 41, y: 62 },
-  { channel: "email", x: 57, y: 28 },
-  { channel: "phone", x: 71, y: 64 },
-  { channel: "messenger", x: 86, y: 40 },
+  { channel: "instagram", x: 23, y: 57.5 },
+  { channel: "sms", x: 34.6, y: 32.5 },
+  { channel: "email", x: 53.8, y: 60 },
+  { channel: "phone", x: 67.3, y: 65 },
+  { channel: "messenger", x: 82.7, y: 37.5 },
 ];
 
 const BUBBLES = [
-  { text: "Still waiting…", x: 31, y: 14 },
-  { text: "Did anyone reply?", x: 48, y: 84 },
-  { text: "That was Tuesday.", x: 63, y: 10 },
-  { text: "Booked elsewhere.", x: 80, y: 86 },
+  { text: "Still waiting…", x: 27, y: 80 },
+  { text: "Did anyone reply?", x: 42, y: 14 },
+  { text: "That was Tuesday.", x: 60, y: 84 },
+  { text: "Booked elsewhere.", x: 88, y: 14 },
 ];
 
 const THREAD =
-  "M -4 46 C 12 46 18 46 24 46 C 30 46 30 24 36 26 C 42 28 34 46 40 54 C 46 62 54 60 56 48 C 58 36 50 24 58 22 C 66 20 66 44 70 52 C 74 60 82 62 84 50 C 86 38 78 30 86 30 C 94 30 100 40 108 40";
+  "M -4 23 C 12 23 18 23 24 23 C 30 23 30 12 36 13 C 42 14 34 23 40 27 C 46 31 54 30 56 24 C 58 18 50 12 58 11 C 66 10 66 22 70 26 C 74 30 82 31 84 25 C 86 19 78 15 86 15 C 94 15 100 20 108 20";
 
 export function LeakV1Tangle() {
   const { ref, step, reduced } = useLeakSteps(4, 700);
@@ -42,7 +42,7 @@ export function LeakV1Tangle() {
 
         <div className="relative mt-14 min-h-[420px] flex-1 sm:mt-20">
           <svg
-            viewBox="0 0 104 80"
+            viewBox="0 0 104 40"
             preserveAspectRatio="none"
             className="absolute inset-0 h-full w-full"
             aria-hidden
@@ -51,18 +51,18 @@ export function LeakV1Tangle() {
               d={THREAD}
               fill="none"
               stroke="rgb(203,213,225)"
-              strokeWidth={14}
+              strokeWidth={1.4}
               strokeLinecap="round"
               strokeLinejoin="round"
               opacity={0.5}
               initial={false}
-              style={{ filter: "blur(6px)" }}
+              style={{ filter: "blur(3px)" }}
             />
             <motion.path
               d={THREAD}
               fill="none"
               stroke="rgb(226,232,240)"
-              strokeWidth={14}
+              strokeWidth={1.4}
               strokeLinecap="round"
               strokeLinejoin="round"
               initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
