@@ -37,7 +37,7 @@ const SCENES: SceneDef[] = [
     key: "opportunities",
     label: "Sales",
     title: "Sales",
-    subtitle: "Every enquiry visible, every next step clear",
+    subtitle: "Every enquiry visible, every deal won",
     phases: [1300, 700, 420, 1000, 1000, 500, 320, 800, 600, 350, 900, 1450, 1800],
     render: (p) => <SceneSalesLive {...p} />,
   },
@@ -61,7 +61,7 @@ const SCENES: SceneDef[] = [
     key: "content",
     label: "Content Planner",
     title: "Content Planner",
-    subtitle: "Stay visible so past customers come back",
+    subtitle: "One post becomes multi-channel distribution",
     phases: [700, 500, 2000, 1700, 900, 1800, 2700],
     render: (p) => <SceneContentLive {...p} />,
   },
@@ -69,7 +69,7 @@ const SCENES: SceneDef[] = [
     key: "email",
     label: "Email Marketing",
     title: "Email Marketing",
-    subtitle: "Quiet customers get a reason to return",
+    subtitle: "From template to multi-step campaign",
     phases: [650, 900, 1150, 1250, 900, 900, 900, 650, 950, 1700, 1400],
     render: (p) => <SceneEmailPolished {...p} />,
   },
@@ -91,12 +91,22 @@ const SCENES: SceneDef[] = [
   },
 ];
 
-export function ZaplaPlatformShowcase() {
+const FOLLOW_THROUGH_SUBTITLES: Record<string, string> = {
+  opportunities: "Every enquiry visible, every next step clear",
+  content: "Stay visible across the channels customers already use",
+  email: "Keep the conversation moving beyond the first message",
+};
+
+export function ZaplaPlatformShowcase({ variant = "legacy" }: { variant?: "legacy" | "follow-through" }) {
   const reduced = !!useReducedMotion();
   const [sceneIndex, setSceneIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [runKey, setRunKey] = useState(0);
-  const scene = SCENES[sceneIndex];
+  const baseScene = SCENES[sceneIndex];
+  const scene =
+    variant === "follow-through" && FOLLOW_THROUGH_SUBTITLES[baseScene.key]
+      ? { ...baseScene, subtitle: FOLLOW_THROUGH_SUBTITLES[baseScene.key]! }
+      : baseScene;
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   const advance = useCallback(() => {

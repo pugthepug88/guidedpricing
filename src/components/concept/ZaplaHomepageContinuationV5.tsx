@@ -9,7 +9,7 @@ export function ZaplaHomepageContinuationV5() {
     <>
       <ZaplaRevenueLeakageV6 />
       <ZaplaAISectionV6 />
-      <ZaplaPlatformShowcase />
+      <ZaplaPlatformShowcase variant="follow-through" />
       <ZaplaGrowthV6 />
       <ZaplaUnlimitedV6 />
       <ZaplaGuidedLaunchV6 />
