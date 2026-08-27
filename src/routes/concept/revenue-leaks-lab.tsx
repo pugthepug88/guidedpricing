@@ -1,17 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { RevenueLeaksLab } from "@/components/concept/RevenueLeaksLab";
+import { RevenueLeaksLabRound2 } from "@/components/concept/RevenueLeaksLabRound2";
 
 const TITLE = "Revenue Leaks Motion Lab — Zapla concept";
 const DESC =
-  "Ten premium motion treatments of the same beat: one enquiry, one working day, one lost customer. Concept comparison page.";
+  "Twenty premium motion treatments of the same beat: one enquiry, one working day, one lost customer. Concept comparison page.";
 
 function RevenueLeaksLabRoute() {
   return (
     <main>
       <RevenueLeaksLab />
+      <RevenueLeaksLabRound2 />
     </main>
   );
 }
+
 
 export const Route = createFileRoute("/concept/revenue-leaks-lab")({
   head: () => ({
