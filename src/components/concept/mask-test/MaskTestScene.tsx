@@ -118,13 +118,13 @@ export function MaskTestScene() {
             <div className="ghost pointer-events-none absolute inset-x-0 top-[9%] flex flex-col items-center gap-1 md:gap-2">
               <span
                 className="font-semibold tracking-[-0.03em] text-[#B4392C]"
-                style={{ fontSize: "clamp(48px,7.6vw,116px)", opacity: 0.1, filter: "blur(5px)" }}
+                style={{ fontSize: "clamp(48px,7.6vw,116px)", opacity: 0.07, filter: "blur(8px)" }}
               >
                 SUPER AGENT
               </span>
               <span
                 className="tracking-[0.28em] text-[#8E3A2E]"
-                style={{ fontSize: "clamp(11px,1.3vw,19px)", opacity: 0.14, filter: "blur(2.4px)" }}
+                style={{ fontSize: "clamp(11px,1.3vw,19px)", opacity: 0.1, filter: "blur(3px)" }}
               >
                 DELEGATE ANY TASK
               </span>
