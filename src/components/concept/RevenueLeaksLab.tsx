@@ -735,7 +735,7 @@ function StackCard({
   const y = useTransform(
     p,
     hero ? [arrive - 0.06, arrive, 0.66, 0.78] : [arrive - 0.06, arrive],
-    hero ? [-40, index * 26, index * 26, 520] : [-40, index * 26],
+    hero ? [-40, index * 78, index * 78, 560] : [-40, index * 78],
   );
   const rotate = useTransform(
     p,
@@ -745,7 +745,7 @@ function StackCard({
   return (
     <motion.div
       className="absolute inset-x-0 rounded-[16px] border border-black/10 bg-white px-6 py-5 shadow-[0_24px_60px_-50px_rgba(0,0,0,0.7)]"
-      style={reduced ? { top: index * 26 } : { opacity, y, rotate }}
+      style={reduced ? { top: index * 78 } : { opacity, y, rotate }}
     >
       <div className="flex items-center justify-between gap-4">
         <span className={`text-[15px] ${hero ? "font-semibold" : "text-black/55"}`}>{label}</span>
