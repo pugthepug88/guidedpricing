@@ -196,7 +196,7 @@ export function MaskTestScene() {
             </div>
 
             <div className="pointer-events-none absolute inset-0 font-mono text-[#231A17]">
-              <span className="anno absolute left-[6%] top-[27%] text-[10px] tracking-[0.18em] md:text-[11px]">
+              <span className="anno absolute left-[5%] top-[64%] text-[10px] tracking-[0.18em] md:left-[6%] md:top-[27%] md:text-[11px]">
                 WORKS 24/7
               </span>
               <span className="anno absolute right-[6%] top-[16%] hidden text-right text-[11px] leading-[1.5] tracking-[0.18em] md:block">
