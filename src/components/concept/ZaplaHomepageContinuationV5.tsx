@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   ArrowRight,
   CalendarCheck2,
   CheckCircle2,
   CircleDollarSign,
-  MessageSquareText,
   PhoneMissed,
   RefreshCw,
   Star,
@@ -15,7 +14,7 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BOOK_URL = "https://zapla.io/booking";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
   return (
     <div className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${dark ? "text-white/40" : "text-[#4B7478]"}`}>
       {children}
@@ -134,7 +133,7 @@ function CustomerThread() {
           </h2>
         </div>
 
-        <div className="relative mt-18 min-h-[620px] sm:mt-20 lg:min-h-[660px]">
+        <div className="relative mt-[72px] min-h-[620px] sm:mt-20 lg:min-h-[660px]">
           <svg className="absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 620" preserveAspectRatio="none" aria-hidden>
             <path d="M95 305 C255 305 245 205 415 205 S565 405 720 405 S830 238 1090 238" fill="none" stroke="#D9E2E0" strokeWidth="2" />
             <motion.path
@@ -399,7 +398,7 @@ const OUTCOMES: Array<{ key: OutcomeKey; label: string; kicker: string }> = [
 function EnquiryVisual() {
   return (
     <div className="relative h-full min-h-[440px] overflow-hidden bg-[#0A0E13] p-6 text-white sm:min-h-[500px] sm:p-9">
-      <div className="absolute left-[8%] top-[17%] max-w-[72%] border-l-2 border-white/18 bg-white/[0.045] px-5 py-4">
+      <div className="absolute left-[8%] top-[17%] max-w-[72%] border-l-2 border-white/[0.18] bg-white/[0.045] px-5 py-4">
         <div className="text-[8px] font-semibold uppercase tracking-[0.15em] text-white/28">Sarah · website enquiry</div>
         <div className="mt-3 text-[23px] leading-[1.15] tracking-[-0.03em] sm:text-[30px]" style={{ fontFamily: DISPLAY }}>Are you available this week?</div>
       </div>
@@ -455,20 +454,22 @@ function ReactivationVisual() {
 }
 
 function CompleteVisual() {
+  const points: Array<{ left: string; icon: ReactNode; label: string }> = [
+    { left: "16%", icon: <CheckCircle2 className="h-5 w-5" />, label: "Job complete" },
+    { left: "43%", icon: <CircleDollarSign className="h-5 w-5" />, label: "Paid" },
+    { left: "69%", icon: <Star className="h-5 w-5" />, label: "Review" },
+    { left: "92%", icon: <RefreshCw className="h-5 w-5" />, label: "Return" },
+  ];
+
   return (
     <div className="relative h-full min-h-[440px] overflow-hidden bg-[#0A0E13] p-6 text-white sm:min-h-[500px] sm:p-9">
       <div className="pointer-events-none absolute -left-[2%] top-[5%] text-[19vw] font-medium leading-none tracking-[-0.075em] text-white/[0.035] sm:text-[12vw]" style={{ fontFamily: DISPLAY }}>DONE.</div>
       <div className="absolute left-[8%] top-[24%] text-[9px] font-semibold uppercase tracking-[0.16em] text-white/34">The job is complete. The customer journey is not.</div>
       <div className="absolute left-[8%] right-[8%] top-[55%] h-px bg-white/14" />
-      {[
-        ["16%", <CheckCircle2 key="i" className="h-5 w-5" />, "Job complete"],
-        ["43%", <CircleDollarSign key="i" className="h-5 w-5" />, "Paid"],
-        ["69%", <Star key="i" className="h-5 w-5" />, "Review"],
-        ["92%", <RefreshCw key="i" className="h-5 w-5" />, "Return"],
-      ].map(([left, icon, label]) => (
-        <div key={label as string} className="absolute top-[calc(55%-18px)] -translate-x-1/2 text-center" style={{ left: left as string }}>
-          <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-[#BFEAEC] text-[#0A1114]">{icon}</div>
-          <div className="mt-3 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.13em] text-white/60">{label}</div>
+      {points.map((point) => (
+        <div key={point.label} className="absolute -translate-x-1/2 text-center" style={{ left: point.left, top: "calc(55% - 18px)" }}>
+          <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-[#BFEAEC] text-[#0A1114]">{point.icon}</div>
+          <div className="mt-3 whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.13em] text-white/60">{point.label}</div>
         </div>
       ))}
     </div>
@@ -543,7 +544,7 @@ function FinalDecision() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 bg-white px-5 text-[13px] font-semibold text-[#111318]">Book a Call <ArrowRight className="h-4 w-4" /></a>
-                <a href="/pricing" className="inline-flex h-[50px] items-center border border-white/20 px-5 text-[13px] font-semibold text-white/78">See plans and pricing</a>
+                <a href="/pricing" className="inline-flex h-[50px] items-center border border-white/20 px-5 text-[13px] font-semibold text-white/80">See plans and pricing</a>
               </div>
             </div>
           </div>
