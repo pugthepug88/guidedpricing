@@ -96,7 +96,7 @@ export function LeakV3WarmLedger() {
           The work was never the problem. The follow-through was.
         </p>
 
-        <div className="mt-16 flex w-full flex-col items-center gap-5 sm:flex-row sm:justify-center sm:gap-0">
+        <div className="mt-16 flex w-full flex-col items-center gap-5 sm:flex-row sm:justify-center sm:gap-5">
           {LEDGER_STATS.map((s, i) => (
             <LedgerCard key={s.label} stat={s} index={i} active={active} reduced={reduced} />
           ))}

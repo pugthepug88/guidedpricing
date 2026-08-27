@@ -84,10 +84,10 @@ export function LeakV4InboxDecay() {
             animate={
               step >= 1
                 ? {
-                    opacity: finale ? 0.3 : 1,
+                    opacity: finale ? 0.5 : 1,
                     y: 0,
                     scale: 1,
-                    filter: finale ? "blur(3px)" : "blur(0px)",
+                    filter: finale ? "blur(2px)" : "blur(0px)",
                   }
                 : { opacity: 0, y: 32, scale: 0.97 }
             }
@@ -202,7 +202,7 @@ export function LeakV4InboxDecay() {
           <AnimatePresence>
             {finale ? (
               <motion.div
-                className="absolute inset-0 flex flex-col items-center justify-center"
+                className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-white/60 via-white/85 to-white/60"
                 initial={reduced ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
