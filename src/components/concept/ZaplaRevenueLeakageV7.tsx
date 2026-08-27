@@ -96,15 +96,13 @@ export function ZaplaRevenueLeakageV7() {
   const consequenceY = useTransform(
     p, [0.85, 0.92], [22, 0]);
 
-  const canvasColor = useTransform(
-    p,
-    [0, 0.97, 1],
-    ["#F2EEE7", "#F2EEE7", "#070A0D"],
-  );
+  /* The canvas stays paper-light for the whole beat so the loss statement and
+     its consequence line are always readable; only the bottom seam darkens
+     to hand off into the next section. */
   const handoffOpacity = useTransform(
-    p, [0.97, 1], [0, 1]);
+    p, [0.93, 0.99], [0, 1]);
   const handoffScale = useTransform(
-    p, [0.97, 1], [0, 1]);
+    p, [0.93, 1], [0, 1]);
 
   /* the stage label belongs to the enquiry, so it leaves with it */
   const stageLabelOpacity = useTransform(
@@ -118,7 +116,7 @@ export function ZaplaRevenueLeakageV7() {
     >
       <motion.div
         className="sticky top-0 h-screen overflow-hidden text-[#0D1117]"
-        style={{ backgroundColor: reduced ? "#F2EEE7" : canvasColor }}
+        style={{ backgroundColor: "#F2EEE7" }}
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-black/[0.06]" />
 
