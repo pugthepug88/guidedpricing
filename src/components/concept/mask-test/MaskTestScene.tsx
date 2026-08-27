@@ -31,7 +31,7 @@ export function MaskTestScene() {
       gsap.set(q(".haze"), { opacity: 0.35 });
       gsap.set(q(".cta"), { opacity: 0, y: 14 });
       gsap.set(q(".anno"), { opacity: 0, y: 8 });
-      gsap.set(q(".leader"), { opacity: 0 });
+      gsap.set(q(".leader"), { opacity: 0, scaleX: 0, scaleY: 0 });
       gsap.set(q(".ghost"), { opacity: 0, scale: 1.04 });
 
       if (reduced) {
