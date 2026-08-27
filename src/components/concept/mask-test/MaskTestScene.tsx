@@ -79,14 +79,14 @@ export function MaskTestScene() {
       q(".anno").forEach((n, i) => {
         tl.to(n, { opacity: 1, y: 0, duration: 0.07 }, 0.7 + i * 0.035);
       });
-      q<SVGPathElement>(".leader").forEach((p, i) => {
-        gsap.set(p, { strokeDasharray: 1, strokeDashoffset: 1, opacity: 1 });
-        tl.to(p, { strokeDashoffset: 0, duration: 0.08 }, 0.69 + i * 0.035);
+      q<HTMLElement>(".leader").forEach((p, i) => {
+        tl.to(p, { opacity: 1, scaleX: 1, scaleY: 1, duration: 0.07 }, 0.68 + i * 0.028);
       });
 
       // 0.84–1.00 hold: 1–3px breathing only
       tl.to(q(".stage"), { y: -3, duration: 0.16 }, 0.84);
-      tl.to(q(".mask-obj"), { yPercent: -51.2, duration: 0.16 }, 0.84);
+      tl.to(q(".mask-obj"), { yPercent: -52, duration: 0.16 }, 0.84);
+
     }, el);
 
     return () => ctx.revert();
