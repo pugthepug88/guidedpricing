@@ -554,7 +554,7 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
 
 const EYEBROW = "CRM + AUTOMATION FOR SERVICE BUSINESSES";
 
-export function CinematicFollowThroughV5({ variant = "legacy" }: { variant?: "legacy" | "follow-through" }) {
+export function CinematicFollowThroughV5Claude({ variant = "legacy" }: { variant?: "legacy" | "follow-through" }) {
   const mobile = useIsMobile();
   const followThrough = variant === "follow-through";
   return (
