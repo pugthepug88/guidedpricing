@@ -552,42 +552,15 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
   );
 }
 
-function ConvergenceBand() {
-  return (
-    <section className="bg-[#080B10] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16">
-      <div className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
-        <div>
-          <div className="flex items-start gap-3">
-            <span className="mt-[7px] h-[2px] w-7 shrink-0" style={{ background: CYAN }} />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.19em] text-white/60 md:text-[11px]">
-              One platform underneath all of it
-            </span>
-          </div>
-          <h2
-            className="mt-5 text-[34px] leading-[1.02] tracking-[-0.045em] sm:text-[46px] lg:text-[56px]"
-            style={{ fontFamily: DISPLAY, fontWeight: 500 }}
-          >
-            Different businesses. The same job after every lead.
-          </h2>
-        </div>
-        <p className="max-w-[440px] text-[16px] leading-[1.65] text-white/64 lg:pb-3">
-          Keep the customer moving. Zapla connects the conversations and next steps underneath it.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-const EYEBROW_LEGACY = "CRM + AUTOMATION FOR SERVICE BUSINESSES";
-const EYEBROW_FOLLOW_THROUGH = "CUSTOMER FOLLOW-THROUGH FOR SERVICE BUSINESSES";
+const EYEBROW = "CRM + AUTOMATION FOR SERVICE BUSINESSES";
 
 export function CinematicFollowThroughV5({ variant = "legacy" }: { variant?: "legacy" | "follow-through" }) {
   const mobile = useIsMobile();
   const followThrough = variant === "follow-through";
   return (
     <div className="bg-[#F7F8FA]">
-      <StoryStage mobile={mobile} eyebrow={followThrough ? EYEBROW_FOLLOW_THROUGH : EYEBROW_LEGACY} />
-      {followThrough ? <ConvergenceBand /> : <ZaplaPlatformShowcase />}
+      <StoryStage mobile={mobile} eyebrow={EYEBROW} />
+      {followThrough ? null : <ZaplaPlatformShowcase />}
     </div>
   );
 }
