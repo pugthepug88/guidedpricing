@@ -41,7 +41,7 @@ export function LeakV4InboxDecay() {
   const finale = step >= 12;
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView || finale) return;
     if (reduced) {
       setSecs(272);
       setChip(CHIPS.length - 1);
@@ -55,9 +55,7 @@ export function LeakV4InboxDecay() {
       clearInterval(id);
       chips.forEach(clearTimeout);
     };
-  }, [inView, reduced]);
-
-  const frozen = finale;
+  }, [inView, reduced, finale]);
 
   return (
     <section
