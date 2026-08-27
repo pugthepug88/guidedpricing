@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState, type MutableRefObject, type RefOb
 import { motion, useMotionValue, useReducedMotion, useTransform, type MotionValue } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ZaplaPlatformShowcase } from "@/components/concept/ZaplaPlatformShowcase";
 
 const NAV = 66;
 const CYAN = "#06B6D4";
@@ -453,7 +452,7 @@ function HeroCopy({ mobile }: { mobile: boolean }) {
       <div className="flex items-start gap-3">
         <span className="mt-[7px] h-[2px] w-7 shrink-0" style={{ background: CYAN }} />
         <span className="text-[10px] font-semibold uppercase leading-[1.45] tracking-[0.19em] text-white/74 md:text-[11px]">
-          CRM + AUTOMATION FOR SERVICE BUSINESSES
+          CUSTOMER FOLLOW-THROUGH FOR SERVICE BUSINESSES
         </span>
       </div>
       <h1
@@ -552,12 +551,38 @@ function StoryStage({ mobile }: { mobile: boolean }) {
   );
 }
 
+function ConvergenceBand() {
+  return (
+    <section className="bg-[#080B10] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16">
+      <div className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
+        <div>
+          <div className="flex items-start gap-3">
+            <span className="mt-[7px] h-[2px] w-7 shrink-0" style={{ background: CYAN }} />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.19em] text-white/60 md:text-[11px]">
+              One platform underneath all of it
+            </span>
+          </div>
+          <h2
+            className="mt-5 text-[34px] leading-[1.02] tracking-[-0.045em] sm:text-[46px] lg:text-[56px]"
+            style={{ fontFamily: DISPLAY, fontWeight: 500 }}
+          >
+            Every one of those businesses runs the same follow-through.
+          </h2>
+        </div>
+        <p className="max-w-[440px] text-[16px] leading-[1.65] text-white/64 lg:pb-3">
+          Same enquiries, same conversations, same next steps. Zapla holds the customer journey together so nothing waits on someone remembering.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export function CinematicFollowThroughV5() {
   const mobile = useIsMobile();
   return (
     <div className="bg-[#F7F8FA]">
       <StoryStage mobile={mobile} />
-      <ZaplaPlatformShowcase />
+      <ConvergenceBand />
     </div>
   );
 }

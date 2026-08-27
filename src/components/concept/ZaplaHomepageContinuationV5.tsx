@@ -1,3 +1,4 @@
+import { ZaplaPlatformShowcase } from "@/components/concept/ZaplaPlatformShowcase";
 import { ZaplaRevenueLeakageV6 } from "@/components/concept/ZaplaRevenueLeakageV6";
 import { ZaplaAISectionV6 } from "@/components/concept/ZaplaAISectionV6";
 import { ZaplaGrowthV6, ZaplaUnlimitedV6 } from "@/components/concept/ZaplaGrowthUnlimitedV6";
@@ -8,6 +9,7 @@ export function ZaplaHomepageContinuationV5() {
     <>
       <ZaplaRevenueLeakageV6 />
       <ZaplaAISectionV6 />
+      <ZaplaPlatformShowcase />
       <ZaplaGrowthV6 />
       <ZaplaUnlimitedV6 />
       <ZaplaGuidedLaunchV6 />
