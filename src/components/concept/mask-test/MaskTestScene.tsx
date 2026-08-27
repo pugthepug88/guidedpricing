@@ -164,7 +164,13 @@ export function MaskTestScene() {
                 src={PORTRAIT}
                 alt="Portrait of a person wearing the Super Agent mask"
                 className="real absolute inset-0 h-full w-full object-cover"
-                style={{ filter: "saturate(1.04) contrast(1.02)" }}
+                style={{
+                  filter: "saturate(1.04) contrast(1.02)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%)",
+                  maskImage:
+                    "linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%)",
+                }}
               />
 
               {/* bespoke moulded mask, locked to the eye line */}
@@ -176,26 +182,33 @@ export function MaskTestScene() {
               </div>
             </div>
 
-            {/* technical annotations */}
-            <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1000 640" preserveAspectRatio="none">
-              <path className="leader" d="M170 168 H262 V232" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" pathLength={1} />
-              <path className="leader hidden md:block" d="M742 132 H676 V196" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" pathLength={1} />
-              <path className="leader" d="M840 330 H700 V358" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" pathLength={1} />
-            </svg>
+            {/* technical annotations: hairline elbow leaders + mono labels */}
+            <div className="pointer-events-none absolute inset-0 hidden md:block">
+              {/* upper-left -> jaw / shoulder */}
+              <div className="leader absolute left-[15%] top-[30%] h-px w-[16%] origin-left bg-[#231A17]/55" />
+              <div className="leader absolute left-[31%] top-[30%] h-[10%] w-px origin-top bg-[#231A17]/55" />
+              {/* upper-right -> head */}
+              <div className="leader absolute right-[16%] top-[22%] h-px w-[14%] origin-right bg-[#231A17]/55" />
+              <div className="leader absolute right-[30%] top-[22%] h-[8%] w-px origin-top bg-[#231A17]/55" />
+              {/* mid-right -> cheek */}
+              <div className="leader absolute right-[13%] top-[52%] h-px w-[19%] origin-right bg-[#231A17]/55" />
+              <div className="leader absolute right-[32%] top-[46%] h-[6%] w-px origin-bottom bg-[#231A17]/55" />
+            </div>
 
             <div className="pointer-events-none absolute inset-0 font-mono text-[#231A17]">
-              <span className="anno absolute left-[6%] top-[22%] text-[10px] tracking-[0.18em] md:text-[11px]">
+              <span className="anno absolute left-[6%] top-[27%] text-[10px] tracking-[0.18em] md:text-[11px]">
                 WORKS 24/7
               </span>
-              <span className="anno absolute right-[6%] top-[15%] hidden text-right text-[11px] leading-[1.5] tracking-[0.18em] md:block">
+              <span className="anno absolute right-[6%] top-[16%] hidden text-right text-[11px] leading-[1.5] tracking-[0.18em] md:block">
                 500+ TOOL
                 <br />
                 SUPERPOWERS
               </span>
-              <span className="anno absolute right-[5%] top-[49%] text-[10px] tracking-[0.18em] md:text-[11px]">
+              <span className="anno absolute right-[5%] top-[54%] hidden text-[11px] tracking-[0.18em] md:block">
                 INFINITE MEMORY
               </span>
             </div>
+
 
             {/* CTA */}
             <div className="absolute inset-x-0 bottom-[9%] flex justify-center">
