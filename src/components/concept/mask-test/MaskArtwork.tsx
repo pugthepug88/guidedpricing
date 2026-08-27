@@ -8,9 +8,10 @@ export const MASK_VIEWBOX = "0 0 360 132";
 /** Single custom silhouette: long rounded body, bottom-centre bridge dip,
  *  left lower edge dropping deeper than the right. */
 const BODY =
-  "M22,24 C8,29 2,44 5,64 C8,88 17,106 34,114 C58,124 90,120 118,111 " +
-  "C144,103 162,93 176,93 C190,93 206,101 232,107 C260,113 292,112 316,104 " +
-  "C338,96 350,78 354,56 C357,36 348,25 332,21 C286,10 64,12 22,24 Z";
+  "M22,22 C8,28 2,44 6,66 C10,92 20,112 40,120 C64,129 92,124 118,114 " +
+  "C142,105 160,96 172,98 C179,99 184,104 190,108 C199,113 214,112 238,108 " +
+  "C266,103 296,104 318,96 C340,88 351,70 355,50 C358,32 348,22 332,18 " +
+  "C286,7 64,10 22,22 Z";
 
 export function MaskGlasses({ id = "mask" }: { id?: string }) {
   const u = (n: string) => `${id}-${n}`;

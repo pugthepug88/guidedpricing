@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { MaskTestScene } from "@/components/concept/mask-test/MaskTestScene";
 
@@ -24,10 +25,16 @@ export const Route = createFileRoute("/concept/mask-test")({
 });
 
 function MaskTestPage() {
+  // route-local: hide the global site chrome so the mock artboard reads cleanly
+  useEffect(() => {
+    const chrome = Array.from(document.body.querySelectorAll<HTMLElement>(":scope > nav, :scope > footer"));
+    chrome.forEach((n) => (n.style.display = "none"));
+    return () => chrome.forEach((n) => (n.style.display = ""));
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#FBF9F6] text-[#17151A]">
-      {/* route-local: hide the global site chrome so the mock artboard reads cleanly */}
-      <style>{`body > div > nav.sticky, body > div > footer { display: none !important; }`}</style>
+
       <header className="mx-auto flex max-w-[1240px] items-center justify-between px-5 py-5 md:px-8">
         <div className="flex items-center gap-8">
           <span className="text-[19px] font-semibold tracking-[-0.03em]">agentlab</span>

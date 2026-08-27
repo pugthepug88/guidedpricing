@@ -80,8 +80,7 @@ export function MaskTestScene() {
         tl.to(n, { opacity: 1, y: 0, duration: 0.07 }, 0.7 + i * 0.035);
       });
       q<SVGPathElement>(".leader").forEach((p, i) => {
-        const len = p.getTotalLength?.() ?? 200;
-        gsap.set(p, { strokeDasharray: len + 4, strokeDashoffset: len + 4, opacity: 1 });
+        gsap.set(p, { strokeDasharray: 1, strokeDashoffset: 1, opacity: 1 });
         tl.to(p, { strokeDashoffset: 0, duration: 0.08 }, 0.69 + i * 0.035);
       });
 
@@ -171,7 +170,7 @@ export function MaskTestScene() {
               {/* bespoke moulded mask, locked to the eye line */}
               <div
                 className="mask-obj absolute"
-                style={{ left: `${EYE_X}%`, top: `${EYE_Y}%`, width: "54%", transform: "translate(-50%,-50%)" }}
+                style={{ left: `${EYE_X}%`, top: `${EYE_Y}%`, width: "66%", transform: "translate(-50%,-50%)" }}
               >
                 <MaskGlasses id="m1" />
               </div>
@@ -179,9 +178,9 @@ export function MaskTestScene() {
 
             {/* technical annotations */}
             <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1000 640" preserveAspectRatio="none">
-              <path className="leader" d="M170 168 H262 V232" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" />
-              <path className="leader hidden md:block" d="M742 132 H676 V196" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" />
-              <path className="leader" d="M840 330 H700 V358" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" />
+              <path className="leader" d="M170 168 H262 V232" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" pathLength={1} />
+              <path className="leader hidden md:block" d="M742 132 H676 V196" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" pathLength={1} />
+              <path className="leader" d="M840 330 H700 V358" fill="none" stroke="#231A17" strokeWidth="1" strokeOpacity="0.55" vectorEffect="non-scaling-stroke" pathLength={1} />
             </svg>
 
             <div className="pointer-events-none absolute inset-0 font-mono text-[#231A17]">
