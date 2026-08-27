@@ -16,7 +16,6 @@ import { Route as HomepageDraftV1RouteImport } from './routes/homepage-draft-v1'
 import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
 import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ConceptRevenueLeaksV7RouteImport } from './routes/concept/revenue-leaks-v7'
 import { Route as ConceptRevenueLeaksLabRouteImport } from './routes/concept/revenue-leaks-lab'
 import { Route as ConceptOperatorAwayFollowThroughRouteImport } from './routes/concept/operator-away-follow-through'
 import { Route as ConceptMultiWorldFollowThroughV3RouteImport } from './routes/concept/multi-world-follow-through-v3'
@@ -58,11 +57,6 @@ const HeroPreviewV3Route = HeroPreviewV3RouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConceptRevenueLeaksV7Route = ConceptRevenueLeaksV7RouteImport.update({
-  id: '/concept/revenue-leaks-v7',
-  path: '/concept/revenue-leaks-v7',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConceptRevenueLeaksLabRoute = ConceptRevenueLeaksLabRouteImport.update({
@@ -121,7 +115,6 @@ export interface FileRoutesByFullPath {
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
-  '/concept/revenue-leaks-v7': typeof ConceptRevenueLeaksV7Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -138,7 +131,6 @@ export interface FileRoutesByTo {
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
-  '/concept/revenue-leaks-v7': typeof ConceptRevenueLeaksV7Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -156,7 +148,6 @@ export interface FileRoutesById {
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
-  '/concept/revenue-leaks-v7': typeof ConceptRevenueLeaksV7Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -175,7 +166,6 @@ export interface FileRouteTypes {
     | '/concept/multi-world-follow-through-v3'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leaks-lab'
-    | '/concept/revenue-leaks-v7'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -192,7 +182,6 @@ export interface FileRouteTypes {
     | '/concept/multi-world-follow-through-v3'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leaks-lab'
-    | '/concept/revenue-leaks-v7'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -209,7 +198,6 @@ export interface FileRouteTypes {
     | '/concept/multi-world-follow-through-v3'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leaks-lab'
-    | '/concept/revenue-leaks-v7'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -227,7 +215,6 @@ export interface RootRouteChildren {
   ConceptMultiWorldFollowThroughV3Route: typeof ConceptMultiWorldFollowThroughV3Route
   ConceptOperatorAwayFollowThroughRoute: typeof ConceptOperatorAwayFollowThroughRoute
   ConceptRevenueLeaksLabRoute: typeof ConceptRevenueLeaksLabRoute
-  ConceptRevenueLeaksV7Route: typeof ConceptRevenueLeaksV7Route
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -280,13 +267,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/revenue-leaks-v7': {
-      id: '/concept/revenue-leaks-v7'
-      path: '/concept/revenue-leaks-v7'
-      fullPath: '/concept/revenue-leaks-v7'
-      preLoaderRoute: typeof ConceptRevenueLeaksV7RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/concept/revenue-leaks-lab': {
@@ -356,7 +336,6 @@ const rootRouteChildren: RootRouteChildren = {
   ConceptMultiWorldFollowThroughV3Route: ConceptMultiWorldFollowThroughV3Route,
   ConceptOperatorAwayFollowThroughRoute: ConceptOperatorAwayFollowThroughRoute,
   ConceptRevenueLeaksLabRoute: ConceptRevenueLeaksLabRoute,
-  ConceptRevenueLeaksV7Route: ConceptRevenueLeaksV7Route,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
