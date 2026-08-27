@@ -31,7 +31,31 @@ export function ZaplaGuidedLaunchV6() {
 }
 
 export function ZaplaProofV6() {
-  return <section className="bg-white px-5 py-24 text-[#0D1117] sm:px-10 sm:py-28 lg:px-16 lg:py-32"><div className="mx-auto grid max-w-[1260px] gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-center lg:gap-20"><Reveal><div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#58706F]">Early customer result · placeholder</div><div className="mt-6 text-[120px] leading-[.76] tracking-[-0.09em] sm:text-[155px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>4</div><div className="mt-6 text-[17px] font-medium">deals closed in 17 days</div></Reveal><Reveal delay={0.08}><div className="text-[34px] leading-[1.08] tracking-[-0.04em] sm:text-[44px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>“The ROI claim sounded impossible. Then the deals started closing.”</div><div className="mt-7 text-[10px] uppercase tracking-[0.14em] text-[#828888]">Mortgage broker case study · replace or approve before production</div></Reveal></div></section>;
+  const reduced = !!useReducedMotion();
+  return (
+    <section className="relative overflow-hidden bg-[#165DFF] px-5 py-24 text-white sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+      <div className="pointer-events-none absolute -left-8 top-6 select-none text-[40vw] leading-[.78] tracking-[-0.09em] text-white/[0.08] sm:text-[270px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>PROOF</div>
+      <div className="relative mx-auto grid max-w-[1380px] gap-12 lg:grid-cols-[.78fr_1.22fr] lg:items-stretch lg:gap-16">
+        <Reveal className="flex flex-col justify-between">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/66">Early customer result · placeholder</div>
+            <div className="mt-8 text-[150px] leading-[.72] tracking-[-0.09em] sm:text-[220px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>4</div>
+            <div className="mt-6 max-w-[360px] text-[34px] leading-[.98] tracking-[-0.045em] sm:text-[42px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>deals closed<br />in 17 days</div>
+          </div>
+          <div className="mt-10 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/48">Mortgage broker case study · replace or approve before production</div>
+        </Reveal>
+
+        <motion.div initial={reduced ? false : { opacity: 0, x: 36, rotate: 2 }} whileInView={{ opacity: 1, x: 0, rotate: -1.5 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: reduced ? 0 : 0.7, ease: EASE }} className="relative min-h-[560px] overflow-hidden bg-[#0D1E50] shadow-[0_36px_100px_rgba(3,19,71,.28)] lg:min-h-[620px]">
+          <img src="/concept/cinematic-v5/broker.jpg" alt="Mortgage broker customer story" className="absolute inset-0 h-full w-full object-cover opacity-80 saturate-[.82]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,18,58,.02),rgba(6,18,58,.82))]" />
+          <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-10 lg:p-12">
+            <div className="max-w-[760px] text-[34px] leading-[1.05] tracking-[-0.045em] sm:text-[46px] lg:text-[54px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>“The ROI claim sounded impossible. Then the deals started closing.”</div>
+            <div className="mt-7 flex items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/62"><span className="h-2 w-2 rounded-full bg-cyan-200" /> Real result · identity withheld for placeholder</div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }
 
 export function ZaplaFinalV6() {
