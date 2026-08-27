@@ -8,7 +8,7 @@ const DESC = "Four service-business worlds expand into a recognition collage, re
 function CinematicHomepageV5() {
   return (
     <>
-      <CinematicFollowThroughV5 />
+      <CinematicFollowThroughV5 variant="follow-through" />
       <ZaplaHomepageContinuationV5 />
     </>
   );

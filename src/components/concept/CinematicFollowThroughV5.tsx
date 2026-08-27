@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type MutableRefObject, type RefOb
 import { motion, useMotionValue, useReducedMotion, useTransform, type MotionValue } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ZaplaPlatformShowcase } from "@/components/concept/ZaplaPlatformShowcase";
 
 const NAV = 66;
 const CYAN = "#06B6D4";
@@ -446,13 +447,13 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
   );
 }
 
-function HeroCopy({ mobile }: { mobile: boolean }) {
+function HeroCopy({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
   return (
     <div className={mobile ? "max-w-[350px]" : "max-w-[650px]"}>
       <div className="flex items-start gap-3">
         <span className="mt-[7px] h-[2px] w-7 shrink-0" style={{ background: CYAN }} />
         <span className="text-[10px] font-semibold uppercase leading-[1.45] tracking-[0.19em] text-white/74 md:text-[11px]">
-          CUSTOMER FOLLOW-THROUGH FOR SERVICE BUSINESSES
+          {eyebrow}
         </span>
       </div>
       <h1
@@ -516,7 +517,7 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
   );
 }
 
-function StoryStage({ mobile }: { mobile: boolean }) {
+function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
   const { p, stageVisible, collageArmed } = useStoryScroll(wrap);
@@ -542,7 +543,7 @@ function StoryStage({ mobile }: { mobile: boolean }) {
             : "absolute left-[5.5%] top-1/2 z-[32] w-[48%] -translate-y-1/2"}
           style={{ opacity: heroOpacity }}
         >
-          <HeroCopy mobile={mobile} />
+          <HeroCopy mobile={mobile} eyebrow={eyebrow} />
         </motion.div>
 
         <RecognitionCollage p={p} reduced={reduced} mobile={mobile} armed={stageVisible && collageArmed} />
@@ -566,23 +567,27 @@ function ConvergenceBand() {
             className="mt-5 text-[34px] leading-[1.02] tracking-[-0.045em] sm:text-[46px] lg:text-[56px]"
             style={{ fontFamily: DISPLAY, fontWeight: 500 }}
           >
-            Every one of those businesses runs the same follow-through.
+            Different businesses. The same job after every lead.
           </h2>
         </div>
         <p className="max-w-[440px] text-[16px] leading-[1.65] text-white/64 lg:pb-3">
-          Same enquiries, same conversations, same next steps. Zapla holds the customer journey together so nothing waits on someone remembering.
+          Keep the customer moving. Zapla connects the conversations and next steps underneath it.
         </p>
       </div>
     </section>
   );
 }
 
-export function CinematicFollowThroughV5() {
+const EYEBROW_LEGACY = "CRM + AUTOMATION FOR SERVICE BUSINESSES";
+const EYEBROW_FOLLOW_THROUGH = "CUSTOMER FOLLOW-THROUGH FOR SERVICE BUSINESSES";
+
+export function CinematicFollowThroughV5({ variant = "legacy" }: { variant?: "legacy" | "follow-through" }) {
   const mobile = useIsMobile();
+  const followThrough = variant === "follow-through";
   return (
     <div className="bg-[#F7F8FA]">
-      <StoryStage mobile={mobile} />
-      <ConvergenceBand />
+      <StoryStage mobile={mobile} eyebrow={followThrough ? EYEBROW_FOLLOW_THROUGH : EYEBROW_LEGACY} />
+      {followThrough ? <ConvergenceBand /> : <ZaplaPlatformShowcase />}
     </div>
   );
 }
