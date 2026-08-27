@@ -19,6 +19,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConceptRevenueLeaksLabRouteImport } from './routes/concept/revenue-leaks-lab'
 import { Route as ConceptOperatorAwayFollowThroughRouteImport } from './routes/concept/operator-away-follow-through'
 import { Route as ConceptMultiWorldFollowThroughV3RouteImport } from './routes/concept/multi-world-follow-through-v3'
+import { Route as ConceptMaskTestRouteImport } from './routes/concept/mask-test'
 import { Route as ConceptCinematicFollowThroughV5ClaudeRouteImport } from './routes/concept/cinematic-follow-through-v5-claude'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -77,6 +78,11 @@ const ConceptMultiWorldFollowThroughV3Route =
     path: '/concept/multi-world-follow-through-v3',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ConceptMaskTestRoute = ConceptMaskTestRouteImport.update({
+  id: '/concept/mask-test',
+  path: '/concept/mask-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConceptCinematicFollowThroughV5ClaudeRoute =
   ConceptCinematicFollowThroughV5ClaudeRouteImport.update({
     id: '/concept/cinematic-follow-through-v5-claude',
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v5-claude': typeof ConceptCinematicFollowThroughV5ClaudeRoute
+  '/concept/mask-test': typeof ConceptMaskTestRoute
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v5-claude': typeof ConceptCinematicFollowThroughV5ClaudeRoute
+  '/concept/mask-test': typeof ConceptMaskTestRoute
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v5-claude': typeof ConceptCinematicFollowThroughV5ClaudeRoute
+  '/concept/mask-test': typeof ConceptMaskTestRoute
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
   '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v5-claude'
+    | '/concept/mask-test'
     | '/concept/multi-world-follow-through-v3'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leaks-lab'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v5-claude'
+    | '/concept/mask-test'
     | '/concept/multi-world-follow-through-v3'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leaks-lab'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v5-claude'
+    | '/concept/mask-test'
     | '/concept/multi-world-follow-through-v3'
     | '/concept/operator-away-follow-through'
     | '/concept/revenue-leaks-lab'
@@ -226,6 +238,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV5ClaudeRoute: typeof ConceptCinematicFollowThroughV5ClaudeRoute
+  ConceptMaskTestRoute: typeof ConceptMaskTestRoute
   ConceptMultiWorldFollowThroughV3Route: typeof ConceptMultiWorldFollowThroughV3Route
   ConceptOperatorAwayFollowThroughRoute: typeof ConceptOperatorAwayFollowThroughRoute
   ConceptRevenueLeaksLabRoute: typeof ConceptRevenueLeaksLabRoute
@@ -304,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptMultiWorldFollowThroughV3RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/concept/mask-test': {
+      id: '/concept/mask-test'
+      path: '/concept/mask-test'
+      fullPath: '/concept/mask-test'
+      preLoaderRoute: typeof ConceptMaskTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/concept/cinematic-follow-through-v5-claude': {
       id: '/concept/cinematic-follow-through-v5-claude'
       path: '/concept/cinematic-follow-through-v5-claude'
@@ -356,6 +376,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV5ClaudeRoute:
     ConceptCinematicFollowThroughV5ClaudeRoute,
+  ConceptMaskTestRoute: ConceptMaskTestRoute,
   ConceptMultiWorldFollowThroughV3Route: ConceptMultiWorldFollowThroughV3Route,
   ConceptOperatorAwayFollowThroughRoute: ConceptOperatorAwayFollowThroughRoute,
   ConceptRevenueLeaksLabRoute: ConceptRevenueLeaksLabRoute,
