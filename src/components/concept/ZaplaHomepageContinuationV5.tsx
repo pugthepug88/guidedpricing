@@ -1,13 +1,14 @@
 import { useRef, useState } from "react";
 import {
   ArrowRight,
+  CalendarCheck2,
   CheckCircle2,
   CircleDollarSign,
   MessageSquareText,
+  PhoneMissed,
   RefreshCw,
   Star,
   Zap,
-  type LucideIcon,
 } from "lucide-react";
 import {
   AnimatePresence,
@@ -15,546 +16,410 @@ import {
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
+  useTransform,
+  type MotionValue,
 } from "motion/react";
+import { AppShell } from "@/components/v5/kit";
+import { SceneInboxLive } from "@/components/v5/scene-inbox-live";
+import { SceneSalesLive } from "@/components/v5/scene-sales-live";
+import { SceneCalendarLive } from "@/components/v5/scene-calendar-live";
+import { SceneAutomationsLive } from "@/components/v5/scene-automations-live";
 
 const DISPLAY = '\"Inter Tight\", \"Outfit\", \"Manrope\", system-ui, sans-serif';
 const BOOK_URL = "https://zapla.io/booking";
 
-type Outcome = {
-  key: string;
-  label: string;
-  eyebrow: string;
-  headline: string;
-  copy: string;
-  icon: LucideIcon;
-  accent: string;
-  steps: string[];
-};
-
-type JourneyStep = {
-  key: string;
-  index: string;
-  label: string;
-  title: string;
-  copy: string;
-  kind: "inbox" | "opportunity" | "booking" | "aftercare";
-};
-
-const JOURNEY: JourneyStep[] = [
+const PRODUCT_SCENES = [
   {
     key: "inbox",
-    index: "01",
-    label: "Enquiry",
-    title: "The customer appears once.",
-    copy: "A new enquiry arrives with the conversation and customer identity attached.",
-    kind: "inbox",
+    title: "Unified Inbox",
+    subtitle: "The enquiry arrives with context",
+    phase: 7,
+    render: (reduced: boolean) => <SceneInboxLive phase={7} elapsedMs={1100} reduced={reduced} />,
   },
   {
-    key: "opportunity",
-    index: "02",
-    label: "Opportunity",
-    title: "The next step becomes visible.",
-    copy: "The same customer becomes a live opportunity with ownership and the next action clear.",
-    kind: "opportunity",
+    key: "opportunities",
+    title: "Sales",
+    subtitle: "The same customer becomes an opportunity",
+    phase: 11,
+    render: (reduced: boolean) => <SceneSalesLive phase={11} elapsedMs={1200} reduced={reduced} />,
   },
   {
-    key: "booking",
-    index: "03",
-    label: "Booking",
-    title: "The conversation becomes a commitment.",
-    copy: "Availability, confirmation and reminders join the same customer journey.",
-    kind: "booking",
+    key: "calendar",
+    title: "Calendar",
+    subtitle: "The conversation becomes a booking",
+    phase: 5,
+    render: (reduced: boolean) => <SceneCalendarLive phase={5} elapsedMs={1200} reduced={reduced} />,
   },
   {
-    key: "aftercare",
-    index: "04",
-    label: "Aftercare",
-    title: "The journey keeps going after the work.",
-    copy: "Payment, reviews and future follow-up continue from the same customer context.",
-    kind: "aftercare",
+    key: "automations",
+    title: "Automations",
+    subtitle: "The next step no longer depends on memory",
+    phase: 9,
+    render: (reduced: boolean) => <SceneAutomationsLive phase={9} elapsedMs={1200} reduced={reduced} />,
   },
 ];
 
-const OUTCOMES: Outcome[] = [
-  {
-    key: "missed-enquiry",
-    label: "Missed enquiry",
-    eyebrow: "NEW LEAD FOLLOW-THROUGH",
-    headline: "A new enquiry should not depend on who notices first.",
-    copy: "Capture the customer, acknowledge the enquiry and get the next step moving while the team is busy doing the work.",
-    icon: MessageSquareText,
-    accent: "#0EA5E9",
-    steps: ["Enquiry arrives", "Response goes out", "Context is saved", "Appointment gets booked"],
-  },
-  {
-    key: "quiet-quote",
-    label: "Quiet quote",
-    eyebrow: "QUOTE FOLLOW-THROUGH",
-    headline: "Sent is not the same thing as followed up.",
-    copy: "Keep quiet opportunities visible and create the next conversation without relying on somebody to remember.",
-    icon: CircleDollarSign,
-    accent: "#14B8A6",
-    steps: ["Quote sent", "Silence detected", "Follow-up goes out", "Opportunity moves"],
-  },
-  {
-    key: "past-customer",
-    label: "Past customer",
-    eyebrow: "GHOST TO GOLD",
-    headline: "Your next customer may already be in your database.",
-    copy: "Wake up dormant customer value with context-aware reactivation and a clear path back into the journey.",
-    icon: RefreshCw,
-    accent: "#8B5CF6",
-    steps: ["Dormant customers identified", "Reactivation starts", "Interest returns", "Next step gets booked"],
-  },
-  {
-    key: "completed-job",
-    label: "Completed job",
-    eyebrow: "AFTER THE WORK IS DONE",
-    headline: "The customer journey should not end when the job does.",
-    copy: "Carry the relationship into payment, review and future return instead of treating completion as the end of the record.",
-    icon: CheckCircle2,
-    accent: "#F59E0B",
-    steps: ["Work completed", "Payment requested", "Review requested", "Customer stays active"],
-  },
+const LEAK_BEATS = [
+  { time: "9:14", label: "NEW ENQUIRY", copy: "Hi, are you available this week?" },
+  { time: "9:28", label: "NO REPLY", copy: "The team is busy doing the work." },
+  { time: "10:41", label: "STILL WAITING", copy: "Nobody owns the next step." },
+  { time: "4:32", label: "BOOKED ELSEWHERE", copy: "Nothing broke. Revenue left quietly." },
 ];
 
-function Kicker({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+const OUTCOME_ROWS = [
+  ["Missed enquiry", "Conversation started"],
+  ["Quiet quote", "Opportunity moving"],
+  ["Past customer", "Reactivated"],
+  ["Completed job", "Paid · reviewed · retained"],
+] as const;
+
+function clamp01(v: number) {
+  return Math.max(0, Math.min(1, v));
+}
+
+function SceneNumber({ n, dark = false }: { n: string; dark?: boolean }) {
   return (
-    <div className={`text-[10px] font-semibold uppercase tracking-[0.19em] ${dark ? "text-cyan-300/80" : "text-cyan-700"}`}>
+    <div className={`font-mono text-[10px] font-semibold tracking-[0.14em] ${dark ? "text-white/35" : "text-slate-400"}`}>
+      {n} / 05
+    </div>
+  );
+}
+
+function RevenueLeakScene({ opacity, progress, beat }: { opacity: MotionValue<number>; progress: MotionValue<number>; beat: number }) {
+  const messageOpacity = useTransform(progress, [0, 0.68, 1], [1, 1, 0.12]);
+  const messageX = useTransform(progress, [0, 1], [0, -70]);
+  const sweepX = useTransform(progress, [0, 1], ["8%", "92%"]);
+  const lostOpacity = useTransform(progress, [0.72, 0.92, 1], [0, 1, 1]);
+  const lostY = useTransform(progress, [0.72, 1], [40, 0]);
+
+  return (
+    <motion.div className="absolute inset-0 overflow-hidden bg-[#080B10] text-white" style={{ opacity }}>
+      <div className="absolute inset-x-5 top-7 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300/75">Where revenue leaks</div>
+        <SceneNumber n="01" dark />
+      </div>
+
+      <motion.div className="absolute bottom-[18%] left-[5%] max-w-[75%] sm:left-[7%] lg:left-[8%] lg:max-w-[58%]" style={{ opacity: messageOpacity, x: messageX }}>
+        <div className="mb-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">Sarah Miller · website enquiry</div>
+        <div className="text-[42px] leading-[1.01] tracking-[-0.045em] text-white sm:text-[62px] lg:text-[78px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+          “Hi, are you available this week?”
+        </div>
+      </motion.div>
+
+      <div className="absolute right-[5%] top-[18%] w-[38%] min-w-[250px] max-w-[520px] sm:right-[8%]">
+        <AnimatePresence mode="wait">
+          <motion.div key={LEAK_BEATS[beat].time} initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.28 }}>
+            <div className="font-mono text-[72px] leading-none tracking-[-0.07em] text-white/95 sm:text-[96px] lg:text-[128px]">{LEAK_BEATS[beat].time}</div>
+            <div className={`mt-5 text-[10px] font-semibold uppercase tracking-[0.18em] ${beat === 3 ? "text-rose-400" : "text-cyan-300"}`}>{LEAK_BEATS[beat].label}</div>
+            <div className="mt-3 max-w-[360px] text-[14px] leading-[1.65] text-white/45 sm:text-[16px]">{LEAK_BEATS[beat].copy}</div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <motion.div className="absolute bottom-0 top-0 w-px bg-cyan-300/45 shadow-[0_0_28px_rgba(34,211,238,.35)]" style={{ left: sweepX }} />
+      <motion.div className="absolute bottom-[8%] left-[8%] right-[8%] border-t border-rose-400/45 pt-5" style={{ opacity: lostOpacity, y: lostY }}>
+        <div className="text-[30px] leading-[0.98] tracking-[-0.04em] text-rose-300 sm:text-[46px] lg:text-[58px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+          The expensive part is how ordinary it looks.
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function ConnectedProductScene({ opacity, progress, sceneIndex, reduced }: { opacity: MotionValue<number>; progress: MotionValue<number>; sceneIndex: number; reduced: boolean }) {
+  const reveal = useTransform(progress, [0, 0.2, 1], [0.9, 1, 1]);
+  const shellY = useTransform(progress, [0, 0.18], [38, 0]);
+  const threadWidth = useTransform(progress, [0, 1], ["4%", "92%"]);
+  const scene = PRODUCT_SCENES[sceneIndex];
+
+  return (
+    <motion.div className="absolute inset-0 overflow-hidden bg-[#F4F6F7] text-[#111318]" style={{ opacity }}>
+      <div className="absolute inset-x-5 top-7 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-700">Every customer moment · one connected system</div>
+        <SceneNumber n="02" />
+      </div>
+
+      <div className="absolute left-[5%] top-[17%] z-20 max-w-[420px] sm:left-[7%] lg:left-[6%] lg:top-[22%]">
+        <div className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate-400">Same customer</div>
+        <div className="mt-3 flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#111318] text-[11px] font-bold text-white">SM</div>
+          <div>
+            <div className="text-[16px] font-semibold">Sarah Miller</div>
+            <div className="mt-1 text-[12px] text-slate-400">Context stays attached</div>
+          </div>
+        </div>
+        <h2 className="mt-8 text-[42px] leading-[0.95] tracking-[-0.055em] sm:text-[56px] lg:text-[68px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+          The system changes.<br />The customer does not.
+        </h2>
+      </div>
+
+      <motion.div className="absolute left-[5%] right-[4%] top-[49%] h-[43%] origin-center overflow-hidden border border-slate-200 bg-white shadow-[0_42px_100px_-48px_rgba(15,23,42,.35)] sm:left-[7%] lg:left-[34%] lg:top-[16%] lg:h-[72%]" style={{ scale: reveal, y: shellY }}>
+        <AppShell activeKey={scene.key} title={scene.title} subtitle={scene.subtitle}>
+          <AnimatePresence mode="wait">
+            <motion.div key={scene.key} className="absolute inset-0" initial={{ opacity: 0, x: 42, clipPath: "inset(0 0 0 14%)" }} animate={{ opacity: 1, x: 0, clipPath: "inset(0 0 0 0%)" }} exit={{ opacity: 0, x: -28, clipPath: "inset(0 12% 0 0)" }} transition={{ duration: reduced ? 0 : 0.36, ease: [0.22, 1, 0.36, 1] }}>
+              {scene.render(reduced)}
+            </motion.div>
+          </AnimatePresence>
+        </AppShell>
+      </motion.div>
+
+      <div className="absolute bottom-[5%] left-[7%] right-[7%] hidden items-center gap-0 lg:flex">
+        <div className="relative h-px flex-1 bg-slate-300">
+          <motion.div className="absolute left-0 top-0 h-px bg-cyan-500" style={{ width: threadWidth }} />
+        </div>
+        {PRODUCT_SCENES.map((item, index) => (
+          <div key={item.key} className="ml-4 flex items-center gap-2">
+            <span className={`h-1.5 w-1.5 rounded-full ${index <= sceneIndex ? "bg-cyan-500" : "bg-slate-300"}`} />
+            <span className={`text-[10px] font-semibold uppercase tracking-[0.12em] ${index === sceneIndex ? "text-slate-900" : "text-slate-400"}`}>{item.title}</span>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function RoleMarker({ label, x, y, threshold, progress }: { label: string; x: string; y: string; threshold: number; progress: MotionValue<number> }) {
+  const opacity = useTransform(progress, [threshold - 0.08, threshold], [0, 1]);
+  const translate = useTransform(progress, [threshold - 0.08, threshold], [26, 0]);
+  return (
+    <motion.div className="absolute z-30 flex items-center gap-2" style={{ left: x, top: y, opacity, x: translate }}>
+      <svg width="16" height="20" viewBox="0 0 16 20" fill="none" aria-hidden>
+        <path d="M1 1L14 10L8.1 11.2L5.2 18.2L1 1Z" fill="#111318" />
+      </svg>
+      <span className="whitespace-nowrap bg-[#111318] px-2.5 py-1.5 text-[10px] font-semibold text-white shadow-sm">{label}</span>
+    </motion.div>
+  );
+}
+
+function UnlimitedUsersScene({ opacity, progress, reduced }: { opacity: MotionValue<number>; progress: MotionValue<number>; reduced: boolean }) {
+  const wordX = useTransform(progress, [0, 1], [-90, 0]);
+  const productScale = useTransform(progress, [0, 0.35, 1], [0.92, 1, 1]);
+
+  return (
+    <motion.div className="absolute inset-0 overflow-hidden bg-[#DCEBEB] text-[#111318]" style={{ opacity }}>
+      <div className="absolute inset-x-5 top-7 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3B7277]">Unlimited users included</div>
+        <SceneNumber n="03" />
+      </div>
+
+      <motion.div className="pointer-events-none absolute left-[-2%] top-[8%] whitespace-nowrap text-[21vw] font-medium leading-none tracking-[-0.075em] text-[#BAD5D5]/55" style={{ fontFamily: DISPLAY, x: wordX }}>
+        UNLIMITED
+      </motion.div>
+
+      <div className="absolute left-[6%] top-[24%] z-20 max-w-[560px] lg:top-[36%]">
+        <h2 className="text-[44px] leading-[0.95] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+          Add the team.<br />Not the seat tax.
+        </h2>
+        <p className="mt-6 max-w-[470px] text-[15px] leading-[1.7] text-slate-600 sm:text-[17px]">
+          The same customer journey can stay visible to the people who need it without turning every extra teammate into another licence decision.
+        </p>
+      </div>
+
+      <motion.div className="absolute bottom-[8%] right-[4%] h-[48%] w-[74%] overflow-hidden border border-[#AEC9C9] bg-white shadow-[0_36px_90px_-42px_rgba(15,23,42,.35)] lg:bottom-[10%] lg:h-[58%] lg:w-[58%]" style={{ scale: productScale }}>
+        <AppShell activeKey="opportunities" title="Sales" subtitle="Shared customer context">
+          <div className="absolute inset-0"><SceneSalesLive phase={11} elapsedMs={1200} reduced={reduced} /></div>
+        </AppShell>
+      </motion.div>
+
+      <RoleMarker label="Owner" x="66%" y="23%" threshold={0.12} progress={progress} />
+      <RoleMarker label="Front desk" x="78%" y="33%" threshold={0.28} progress={progress} />
+      <RoleMarker label="Sales" x="58%" y="58%" threshold={0.44} progress={progress} />
+      <RoleMarker label="Accounts" x="83%" y="67%" threshold={0.6} progress={progress} />
+      <RoleMarker label="Team" x="69%" y="77%" threshold={0.76} progress={progress} />
+
+      <div className="absolute bottom-[5%] left-[6%] border-t border-[#A8C6C6] pt-4 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#3B7277] lg:bottom-[8%]">
+        One customer context · everyone who needs access
+      </div>
+    </motion.div>
+  );
+}
+
+function ProcessFragment({ progress, startX, startY, startRotate, left, top, children }: { progress: MotionValue<number>; startX: number; startY: number; startRotate: number; left: string; top: string; children: React.ReactNode }) {
+  const x = useTransform(progress, [0.08, 0.82], [startX, 0]);
+  const y = useTransform(progress, [0.08, 0.82], [startY, 0]);
+  const rotate = useTransform(progress, [0.08, 0.82], [startRotate, 0]);
+  const scale = useTransform(progress, [0.08, 0.82], [0.94, 1]);
+  return (
+    <motion.div className="absolute z-20" style={{ left, top, x, y, rotate, scale }}>
       {children}
+    </motion.div>
+  );
+}
+
+function GuidedLaunchScene({ opacity, progress }: { opacity: MotionValue<number>; progress: MotionValue<number> }) {
+  const frameOpacity = useTransform(progress, [0.3, 0.78], [0, 1]);
+  const routeLength = useTransform(progress, [0.32, 0.86], [0, 1]);
+  const messOpacity = useTransform(progress, [0, 0.58, 0.9], [1, 0.65, 0.18]);
+
+  return (
+    <motion.div className="absolute inset-0 overflow-hidden bg-[#F0ECE4] text-[#111318]" style={{ opacity }}>
+      <div className="absolute inset-x-5 top-7 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8B765B]">Guided Launch</div>
+        <SceneNumber n="04" />
+      </div>
+
+      <div className="absolute left-[5%] top-[13%] max-w-[640px] sm:left-[7%] lg:top-[17%]">
+        <div className="text-[13px] font-semibold uppercase tracking-[0.16em] text-[#9B866A]">Before Zapla</div>
+        <h2 className="mt-4 text-[44px] leading-[0.95] tracking-[-0.055em] sm:text-[60px] lg:text-[70px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+          Your process already exists.<br />It is just scattered.
+        </h2>
+      </div>
+
+      <motion.div className="absolute inset-0" style={{ opacity: messOpacity }}>
+        <ProcessFragment progress={progress} startX={-150} startY={120} startRotate={-8} left="10%" top="58%">
+          <div className="w-[250px] border-l-2 border-slate-900 bg-white/70 px-5 py-4 backdrop-blur-sm">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-slate-400">Website enquiry</div>
+            <div className="mt-2 text-[13px] leading-[1.45] text-slate-800">Can I book Thursday morning?</div>
+          </div>
+        </ProcessFragment>
+        <ProcessFragment progress={progress} startX={170} startY={-110} startRotate={7} left="34%" top="48%">
+          <div className="flex w-[210px] items-center gap-3 border-y border-slate-300 bg-[#FAF8F3]/85 px-4 py-4">
+            <PhoneMissed className="h-5 w-5 text-rose-500" />
+            <div><div className="text-[9px] uppercase tracking-[0.14em] text-slate-400">Missed call</div><div className="mt-1 text-[12px] font-semibold">0412 884 103</div></div>
+          </div>
+        </ProcessFragment>
+        <ProcessFragment progress={progress} startX={230} startY={130} startRotate={10} left="57%" top="58%">
+          <div className="w-[220px] border-b border-slate-400 bg-[#F8F5EE]/90 px-4 py-4">
+            <div className="text-[9px] uppercase tracking-[0.14em] text-slate-400">Calendar note</div>
+            <div className="mt-2 text-[13px] font-semibold">Thu · 10:30 · Sarah?</div>
+          </div>
+        </ProcessFragment>
+        <ProcessFragment progress={progress} startX={-110} startY={-150} startRotate={-6} left="73%" top="44%">
+          <div className="w-[200px] bg-[#FFF3B0] px-5 py-5 shadow-[0_15px_40px_-28px_rgba(15,23,42,.4)]">
+            <div className="text-[14px] font-semibold leading-[1.35]">Remember to follow up quote</div>
+          </div>
+        </ProcessFragment>
+      </motion.div>
+
+      <motion.div className="absolute bottom-[7%] left-[7%] right-[7%] top-[42%] border border-[#CFC5B5]" style={{ opacity: frameOpacity }}>
+        <div className="absolute -top-6 left-0 text-[9px] font-semibold uppercase tracking-[0.17em] text-[#8B765B]">Your customer journey · mapped and built</div>
+        <div className="grid h-full grid-cols-3">
+          {[
+            ["CAPTURE", "Enquiry · call · form"],
+            ["FOLLOW THROUGH", "Ownership · reply · booking"],
+            ["COMPLETE", "Payment · review · return"],
+          ].map(([title, copy], index) => (
+            <div key={title} className={`flex flex-col justify-end p-5 sm:p-7 ${index ? "border-l border-[#D8D0C4]" : ""}`}>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8B765B]">{title}</div>
+              <div className="mt-2 text-[13px] text-[#665B4D]">{copy}</div>
+            </div>
+          ))}
+        </div>
+        <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden>
+          <motion.path d="M80 230 C220 110 300 335 430 215 S680 100 910 200" fill="none" stroke="#0EA5A9" strokeWidth="3" strokeLinecap="round" style={{ pathLength: routeLength }} />
+          <motion.path d="M80 230 C220 110 300 335 430 215 S680 100 910 200" fill="none" stroke="rgba(14,165,169,.12)" strokeWidth="12" strokeLinecap="round" style={{ pathLength: routeLength }} />
+        </svg>
+      </motion.div>
+
+      <motion.div className="absolute bottom-[4%] right-[7%] text-right" style={{ opacity: frameOpacity }}>
+        <div className="text-[26px] leading-[1] tracking-[-0.04em] text-[#111318] sm:text-[34px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>Messy inputs. One operating flow.</div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function OutcomeRow({ issue, result, index, progress }: { issue: string; result: string; index: number; progress: MotionValue<number> }) {
+  const threshold = 0.16 + index * 0.17;
+  const beforeOpacity = useTransform(progress, [threshold - 0.08, threshold + 0.05], [1, 0.18]);
+  const resultOpacity = useTransform(progress, [threshold, threshold + 0.1], [0, 1]);
+  const resultX = useTransform(progress, [threshold, threshold + 0.1], [34, 0]);
+  return (
+    <div className="grid min-h-[94px] grid-cols-[1fr_auto] items-center gap-6 border-t border-white/12 py-5 sm:min-h-[116px] sm:grid-cols-2">
+      <motion.div className="text-[24px] leading-none tracking-[-0.035em] text-white sm:text-[34px] lg:text-[42px]" style={{ fontFamily: DISPLAY, opacity: beforeOpacity }}>{issue}</motion.div>
+      <motion.div className="text-right text-[18px] font-medium leading-none tracking-[-0.025em] text-cyan-200 sm:text-[28px] lg:text-[34px]" style={{ fontFamily: DISPLAY, opacity: resultOpacity, x: resultX }}>{result}</motion.div>
     </div>
   );
 }
 
-function LifecycleRail() {
-  const stages = ["Capture", "Communicate", "Convert", "Operate", "Retain", "Grow"];
-  return (
-    <section className="border-y border-slate-200 bg-white">
-      <div className="mx-auto max-w-[1360px] px-5 py-6 sm:px-8">
-        <div className="mb-4 text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-400 sm:mb-0 sm:inline-block sm:pr-8">
-          One customer lifecycle
-        </div>
-        <div className="grid grid-cols-3 gap-x-3 gap-y-3 sm:inline-flex sm:items-center sm:gap-4">
-          {stages.map((stage, index) => (
-            <div key={stage} className="flex min-w-0 items-center gap-3">
-              <span className="whitespace-nowrap text-[12px] font-semibold tracking-[-0.01em] text-slate-700 sm:text-[13px]">{stage}</span>
-              {index < stages.length - 1 ? <ArrowRight className="hidden h-3 w-3 shrink-0 text-slate-300 sm:block" /> : null}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RevenueLeakSection() {
-  const moments = [
-    ["9:14", "New enquiry", "Are you available this week?"],
-    ["9:28", "Still no reply", "The team is busy."],
-    ["10:41", "Nobody owns it", "The next step is still sitting there."],
-    ["4:32", "Booked elsewhere", "Revenue left quietly."],
-  ];
+function OutcomesScene({ opacity, progress }: { opacity: MotionValue<number>; progress: MotionValue<number> }) {
+  const scanX = useTransform(progress, [0, 0.88], ["5%", "94%"]);
+  const ctaOpacity = useTransform(progress, [0.76, 0.95], [0, 1]);
+  const rowsOpacity = useTransform(progress, [0.72, 0.94], [1, 0.18]);
 
   return (
-    <section className="grid bg-[#E8EAEC] lg:min-h-[760px] lg:grid-cols-[0.95fr_1.05fr]">
-      <div className="relative flex items-center overflow-hidden bg-[#090C11] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 xl:px-20">
-        <div className="relative max-w-[650px]">
-          <Kicker dark>Where revenue leaks</Kicker>
-          <h2 className="mt-6 text-[68px] leading-[0.84] tracking-[-0.07em] sm:text-[92px] lg:text-[108px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-            Nothing<br />broke.
-          </h2>
-          <p className="mt-8 max-w-[520px] text-[29px] leading-[1.12] tracking-[-0.035em] text-white/72 sm:text-[36px]">
-            Nobody got an alert.<br />The customer simply left.
-          </p>
-        </div>
-        <div className="pointer-events-none absolute bottom-[-8%] right-[-18%] h-[360px] w-[360px] rounded-full border border-cyan-300/10" />
+    <motion.div className="absolute inset-0 overflow-hidden bg-[#070A0F] text-white" style={{ opacity }}>
+      <div className="absolute inset-x-5 top-7 flex items-center justify-between sm:inset-x-10 lg:inset-x-16">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300/75">Follow-through changes the ending</div>
+        <SceneNumber n="05" dark />
       </div>
 
-      <div className="relative flex items-center px-5 py-14 sm:px-10 sm:py-16 lg:px-14 xl:px-20">
-        <div className="mx-auto w-full max-w-[680px]">
-          <div className="mb-8 flex items-end justify-between gap-5 border-b border-slate-300 pb-5">
-            <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">One ordinary Tuesday</div>
-              <div className="mt-2 text-[20px] font-medium tracking-[-0.025em] text-slate-900 sm:text-[23px]">Nothing dramatic happens.</div>
-            </div>
-            <div className="hidden text-right sm:block">
-              <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-slate-400">Outcome</div>
-              <div className="mt-1 text-[11px] font-semibold text-rose-600">Customer gone</div>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div aria-hidden className="absolute bottom-5 left-[60px] top-6 w-px bg-cyan-500/70 sm:left-[72px]" />
-            {moments.map((moment, index) => {
-              const first = index === 0;
-              const lost = index === moments.length - 1;
-              return (
-                <div key={moment[0]} className={`relative grid grid-cols-[48px_1fr] gap-5 py-5 sm:grid-cols-[58px_1fr] sm:gap-7 ${index ? "border-t border-slate-300/70" : ""}`}>
-                  <div className={`pt-1 text-right font-mono text-[11px] font-semibold ${lost ? "text-rose-500" : first ? "text-slate-900" : "text-slate-400"}`}>{moment[0]}</div>
-                  <div className="relative pl-7 sm:pl-9">
-                    <span className={`absolute left-[12px] top-[7px] h-2.5 w-2.5 -translate-x-1/2 rounded-full ring-4 ring-[#E8EAEC] sm:left-[14px] ${lost ? "bg-rose-500" : first ? "bg-cyan-500" : "bg-slate-300"}`} />
-                    <div className={`text-[17px] font-semibold tracking-[-0.025em] ${lost ? "text-rose-600" : "text-slate-900"}`}>{moment[1]}</div>
-                    <div className="mt-1.5 text-[13px] leading-[1.5] text-slate-500">{moment[2]}</div>
-                    {first ? (
-                      <div className="mt-5 max-w-[420px] border-l-2 border-slate-900 pl-4">
-                        <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Sarah Miller</div>
-                        <div className="mt-2 text-[15px] leading-[1.45] text-slate-800">Hi, are you available this week for a service?</div>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-8 border-t-2 border-slate-900 pt-5">
-            <div className="text-[30px] font-medium leading-[1.02] tracking-[-0.045em] text-slate-900 sm:text-[36px]" style={{ fontFamily: DISPLAY }}>
-              The leak is ordinary.<br />That is why it is expensive.
-            </div>
-          </div>
+      <motion.div className="absolute left-[6%] right-[6%] top-[16%]" style={{ opacity: rowsOpacity }}>
+        <h2 className="max-w-[880px] text-[46px] leading-[0.94] tracking-[-0.055em] sm:text-[64px] lg:text-[80px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+          Same moments.<br />Different ending.
+        </h2>
+        <div className="mt-10 border-b border-white/12">
+          {OUTCOME_ROWS.map(([issue, result], index) => <OutcomeRow key={issue} issue={issue} result={result} index={index} progress={progress} />)}
         </div>
-      </div>
-    </section>
-  );
-}
+      </motion.div>
 
-function JourneySurface({ step }: { step: JourneyStep }) {
-  if (step.kind === "inbox") {
-    return (
-      <div className="grid min-h-[350px] sm:grid-cols-[220px_1fr]">
-        <div className="border-b border-slate-200 bg-[#F7F8F9] p-5 sm:border-b-0 sm:border-r">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">Unified inbox</div>
-          <div className="mt-6 border-y border-slate-200 py-4">
-            <div className="text-[12px] font-semibold text-slate-900">Sarah Miller</div>
-            <div className="mt-1 text-[11px] text-slate-500">Are you available Thursday?</div>
-          </div>
-          <div className="py-4 text-[11px] text-slate-300">Marcus Lee</div>
-          <div className="border-t border-slate-200 py-4 text-[11px] text-slate-300">Priya Shah</div>
+      <motion.div className="absolute bottom-0 top-0 w-px bg-cyan-300/70 shadow-[0_0_40px_rgba(103,232,249,.45)]" style={{ left: scanX }} />
+
+      <motion.div className="absolute inset-x-[6%] top-[26%] z-30" style={{ opacity: ctaOpacity }}>
+        <div className="max-w-[1040px] text-[54px] leading-[0.9] tracking-[-0.065em] text-white sm:text-[76px] lg:text-[104px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+          Make follow-through<br />part of the system.
         </div>
-        <div className="p-5 sm:p-7">
-          <div className="flex items-start justify-between border-b border-slate-200 pb-4">
-            <div>
-              <div className="text-[13px] font-semibold text-slate-900">Sarah Miller</div>
-              <div className="mt-1 text-[10px] text-slate-400">SMS · New enquiry</div>
-            </div>
-            <span className="text-[9px] font-semibold uppercase tracking-[0.13em] text-cyan-700">Captured</span>
-          </div>
-          <div className="mt-8 max-w-[560px]">
-            <div className="max-w-[76%] border-l-2 border-slate-300 pl-4 text-[14px] leading-[1.55] text-slate-700">Hi, are you available Thursday morning for a service?</div>
-            <div className="ml-auto mt-7 max-w-[82%] border-r-2 border-[#111318] pr-4 text-right text-[14px] leading-[1.55] text-slate-900">Yes. Thursday at 10:30 is available. Would you like me to hold it?</div>
-          </div>
+        <p className="mt-7 max-w-[590px] text-[15px] leading-[1.7] text-white/48 sm:text-[17px]">
+          Bring the customer journey into one connected place, then let Zapla keep the important next steps moving.
+        </p>
+        <div className="mt-9 flex flex-wrap gap-3">
+          <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 bg-white px-5 text-[13px] font-semibold text-[#111318]">Book a Call <ArrowRight className="h-4 w-4" /></a>
+          <a href="/pricing" className="inline-flex h-[50px] items-center border border-white/20 px-5 text-[13px] font-semibold text-white/80">See plans and pricing</a>
         </div>
-      </div>
-    );
-  }
-
-  if (step.kind === "opportunity") {
-    return (
-      <div className="min-h-[350px] p-5 sm:p-7">
-        <div className="flex items-end justify-between border-b border-slate-200 pb-4">
-          <div><div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">Sales pipeline</div><div className="mt-1 text-[15px] font-semibold text-slate-900">Service enquiries</div></div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.13em] text-cyan-700">Sarah is still Sarah</div>
-        </div>
-        <div className="mt-8 grid grid-cols-3 border-y border-slate-200">
-          {["New enquiry", "Contacted", "Booked"].map((stage, index) => (
-            <div key={stage} className={`min-h-[210px] p-4 ${index ? "border-l border-slate-200" : ""}`}>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">{stage}</div>
-              {index === 1 ? (
-                <div className="mt-8 border-l-2 border-cyan-500 pl-4">
-                  <div className="text-[13px] font-semibold text-slate-900">Sarah Miller</div>
-                  <div className="mt-2 text-[11px] text-slate-500">Thursday service</div>
-                  <div className="mt-5 text-[9px] font-semibold uppercase tracking-[0.12em] text-cyan-700">Next action · Confirm</div>
-                </div>
-              ) : null}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (step.kind === "booking") {
-    return (
-      <div className="grid min-h-[350px] sm:grid-cols-[1fr_260px]">
-        <div className="border-b border-slate-200 p-5 sm:border-b-0 sm:border-r sm:p-7">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">Thursday calendar</div>
-          <div className="mt-8 grid grid-cols-4 gap-x-4 gap-y-0 sm:grid-cols-6">
-            {["8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "1:30", "2:00", "2:30", "3:00"].map((time) => (
-              <div key={time} className={`border-b py-4 text-center text-[11px] font-semibold ${time === "10:30" ? "border-cyan-500 text-slate-950" : "border-slate-200 text-slate-400"}`}>{time}</div>
-            ))}
-          </div>
-        </div>
-        <div className="bg-[#F7F8F9] p-5 sm:p-7">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Confirmed</div>
-          <div className="mt-6 text-[22px] font-semibold tracking-[-0.035em] text-slate-900">Thu · 10:30</div>
-          <div className="mt-6 border-t border-slate-200 pt-5">
-            <div className="text-[12px] font-semibold text-slate-900">Sarah Miller</div>
-            <div className="mt-2 text-[10px] text-slate-500">Confirmation sent by SMS</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid min-h-[350px] sm:grid-cols-2">
-      <div className="border-b border-slate-200 p-5 sm:border-b-0 sm:border-r sm:p-7">
-        <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">Payment</div>
-        <div className="mt-10 text-[52px] font-medium tracking-[-0.06em] text-slate-950">$286</div>
-        <div className="mt-3 text-[11px] text-slate-500">Invoice paid · Sarah Miller</div>
-      </div>
-      <div className="p-5 sm:p-7">
-        <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">What happens next</div>
-        <div className="mt-8 space-y-5">
-          <div className="flex items-center gap-3 border-b border-slate-200 pb-5"><Star className="h-4 w-4 text-amber-500" /><div><div className="text-[12px] font-semibold text-slate-900">Review request</div><div className="mt-1 text-[10px] text-slate-500">Timed after payment</div></div></div>
-          <div className="flex items-center gap-3"><RefreshCw className="h-4 w-4 text-cyan-600" /><div><div className="text-[12px] font-semibold text-slate-900">Future follow-up</div><div className="mt-1 text-[10px] text-slate-500">Customer remains in the lifecycle</div></div></div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ConnectedJourneySection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduced = !!useReducedMotion();
-  const [active, setActive] = useState(0);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    if (reduced) return;
-    const next = Math.min(JOURNEY.length - 1, Math.floor(Math.max(0, Math.min(0.999, value)) * JOURNEY.length));
-    setActive(next);
-  });
-
-  const step = JOURNEY[active];
-
-  return (
-    <section className="bg-white">
-      <div ref={ref} className="hidden h-[210vh] lg:block">
-        <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center overflow-hidden px-8 py-8 xl:px-12">
-          <div className="mx-auto grid w-full max-w-[1460px] grid-cols-[350px_1fr] gap-14 xl:grid-cols-[390px_1fr] xl:gap-20">
-            <div className="flex flex-col justify-between py-2">
-              <div>
-                <Kicker>One customer. One thread.</Kicker>
-                <h2 className="mt-5 text-[50px] leading-[0.95] tracking-[-0.055em] text-[#111318] xl:text-[60px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-                  Every customer moment.<br />One connected system.
-                </h2>
-                <p className="mt-5 max-w-[350px] text-[15px] leading-[1.68] text-slate-500">The product changes around the customer. The customer identity, context and next step stay intact.</p>
-              </div>
-
-              <div className="mt-10">
-                <div className="flex items-center gap-3 border-b border-slate-200 pb-5">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111318] text-[11px] font-bold text-white">SM</div>
-                  <div><div className="text-[13px] font-semibold text-slate-900">Sarah Miller</div><div className="mt-1 text-[10px] text-slate-400">Persistent customer context</div></div>
-                </div>
-                <div className="relative mt-5 pl-6">
-                  <div className="absolute bottom-2 left-[5px] top-2 w-px bg-cyan-400" />
-                  {JOURNEY.map((item, index) => (
-                    <button key={item.key} type="button" onClick={() => setActive(index)} className="relative flex w-full items-center gap-3 py-2.5 text-left">
-                      <span className={`absolute left-[-24px] h-2.5 w-2.5 rounded-full ring-4 ring-white ${index <= active ? "bg-cyan-500" : "bg-slate-200"}`} />
-                      <span className={`font-mono text-[10px] ${index === active ? "text-cyan-700" : "text-slate-300"}`}>{item.index}</span>
-                      <span className={`text-[12px] font-semibold ${index === active ? "text-slate-900" : "text-slate-400"}`}>{item.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex min-w-0 items-center">
-              <div className="w-full border border-slate-200 bg-white">
-                <div className="flex items-start justify-between border-b border-slate-200 px-6 py-4">
-                  <div><div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-cyan-700">{step.index} · {step.label}</div><div className="mt-1 text-[15px] font-semibold text-slate-900">{step.title}</div></div>
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.12em] text-emerald-700">Context live</div>
-                </div>
-                <AnimatePresence mode="wait">
-                  <motion.div key={step.key} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} transition={{ duration: 0.26 }}>
-                    <JourneySurface step={step} />
-                  </motion.div>
-                </AnimatePresence>
-                <div className="border-t border-slate-200 px-6 py-4 text-[11px] leading-[1.55] text-slate-500">{step.copy}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="px-5 py-20 sm:px-8 sm:py-24 lg:hidden">
-        <div className="mx-auto max-w-[760px]">
-          <Kicker>One customer. One thread.</Kicker>
-          <h2 className="mt-4 text-[40px] leading-[0.96] tracking-[-0.055em] text-[#111318] sm:text-[50px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>Every customer moment.<br />One connected system.</h2>
-          <div className="mt-8 flex items-center gap-3 border-y border-slate-200 py-4"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111318] text-[10px] font-bold text-white">SM</div><div><div className="text-[12px] font-semibold text-slate-900">Sarah Miller</div><div className="mt-1 text-[10px] text-slate-400">Same customer through every step</div></div></div>
-          <div className="mt-7 grid grid-cols-4 border-b border-slate-200">
-            {JOURNEY.map((item, index) => <button key={item.key} type="button" onClick={() => setActive(index)} className={`border-b-2 px-1 pb-3 text-center text-[9px] font-semibold uppercase tracking-[0.08em] ${index === active ? "border-cyan-500 text-slate-900" : "border-transparent text-slate-400"}`}>{item.label}</button>)}
-          </div>
-          <div className="mt-6 border border-slate-200 bg-white"><JourneySurface step={step} /></div>
-          <p className="mt-4 text-[13px] leading-[1.6] text-slate-500">{step.copy}</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function UnlimitedUsersSection() {
-  const people = [
-    { initials: "OA", role: "Owner", left: "5%", top: "16%" },
-    { initials: "FR", role: "Front desk", left: "65%", top: "7%" },
-    { initials: "SL", role: "Sales", left: "80%", top: "43%" },
-    { initials: "TM", role: "Team", left: "64%", top: "79%" },
-    { initials: "AC", role: "Accounts", left: "9%", top: "75%" },
-  ];
-
-  return (
-    <section className="relative overflow-hidden bg-[#DDE9EA] px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
-      <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-20">
-        <div className="max-w-[590px]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#3D7378]">Unlimited users included</div>
-          <h2 className="mt-5 text-[48px] leading-[0.94] tracking-[-0.06em] text-[#111318] sm:text-[64px] lg:text-[76px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>Stop paying a tax on teamwork.</h2>
-          <p className="mt-6 max-w-[520px] text-[15px] leading-[1.7] text-slate-600 sm:text-[17px]">The customer journey rarely belongs to one person. Everyone who needs the context should be able to see it.</p>
-          <div className="mt-8 border-t border-[#ACC5C7] pt-5 text-[14px] font-semibold text-[#2A5A5E]">Unlimited users. One shared customer context.</div>
-        </div>
-
-        <div className="relative mx-auto aspect-[1.15/1] w-full max-w-[650px]">
-          <div className="absolute left-1/2 top-1/2 h-[66%] w-[66%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#9AB7B9]" />
-          <div className="absolute left-1/2 top-1/2 h-[88%] w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[#9AB7B9]" />
-          <div className="absolute left-1/2 top-1/2 z-20 flex h-[170px] w-[170px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-[#111318] text-white shadow-[0_28px_70px_-32px_rgba(15,23,42,.62)] sm:h-[200px] sm:w-[200px]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-500 text-[11px] font-bold text-[#07191D]">SM</div>
-            <div className="mt-4 text-[15px] font-semibold">Sarah Miller</div>
-            <div className="mt-1 text-[10px] text-white/45">Shared customer context</div>
-          </div>
-          {people.map((person) => (
-            <div key={person.role} className="absolute z-30 flex items-center gap-2 bg-white px-3 py-2 shadow-[0_12px_36px_-24px_rgba(15,23,42,.42)] ring-1 ring-[#B7CBCC]" style={{ left: person.left, top: person.top }}>
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E5F5F5] text-[9px] font-bold text-[#276C72]">{person.initials}</div>
-              <div className="text-[10px] font-semibold text-slate-700 sm:text-[11px]">{person.role}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function GuidedLaunchSection() {
-  const messy = ["Website form", "Inbox", "Notebook", "Calendar", "Owner remembers"];
-  const clean = ["Enquiry", "Context", "Owner", "Booked", "Review", "Return"];
-
-  return (
-    <section className="bg-[#EEE8DE] px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
-      <div className="mx-auto max-w-[1360px]">
-        <div className="max-w-[820px]">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7A6751]">Guided Launch</div>
-          <h2 className="mt-5 text-[46px] leading-[0.95] tracking-[-0.057em] text-[#111318] sm:text-[64px] lg:text-[72px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>We redesign the customer journey before we automate it.</h2>
-          <p className="mt-6 max-w-[700px] text-[15px] leading-[1.7] text-[#71675B] sm:text-[17px]">Not a blank account. Not a setup wizard. A working operating map built around the way your business actually moves customers.</p>
-        </div>
-
-        <div className="mt-12 grid gap-10 border-t border-[#D1C6B8] pt-10 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8D7B67]">Today</div>
-            <div className="relative mt-8 min-h-[430px] border-l border-[#BCAE9D] border-t border-[#BCAE9D]">
-              {messy.map((item, index) => {
-                const pos = [
-                  ["8%", "12%"], ["48%", "35%"], ["14%", "64%"], ["62%", "71%"], ["57%", "11%"],
-                ][index];
-                return <div key={item} className="absolute text-[13px] font-semibold text-slate-800" style={{ left: pos[0], top: pos[1] }}>{item}</div>;
-              })}
-              <svg aria-hidden className="absolute inset-0 h-full w-full" viewBox="0 0 600 430" preserveAspectRatio="none"><path d="M110 75 L310 165 L140 300 L410 335 M335 70 L310 165 M210 90 L140 300" fill="none" stroke="#9E8E7B" strokeWidth="1.4" strokeDasharray="6 6" /></svg>
-            </div>
-          </div>
-
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#2F6B70]">With Zapla</div>
-            <div className="relative mt-8 min-h-[430px] border-l border-[#6B969A] border-t border-[#6B969A]">
-              {clean.map((item, index) => {
-                const pos = [["6%", "12%"], ["34%", "12%"], ["65%", "12%"], ["65%", "48%"], ["34%", "72%"], ["6%", "72%"]][index];
-                return <div key={item} className="absolute flex items-center gap-2 text-[13px] font-semibold text-slate-800" style={{ left: pos[0], top: pos[1] }}><span className={`h-2.5 w-2.5 rounded-full ${index === 0 ? "bg-cyan-500" : "bg-[#356F74]"}`} />{item}</div>;
-              })}
-              <svg aria-hidden className="absolute inset-0 h-full w-full" viewBox="0 0 600 430" preserveAspectRatio="none"><path d="M60 62 H250 H430 V215 L250 330 H60" fill="none" stroke="#356F74" strokeWidth="2" /></svg>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-col gap-4 border-t border-[#D1C6B8] pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#506C6F]">Map → Build → Launch → Tune</div>
-          <a href={BOOK_URL} className="inline-flex h-[48px] w-fit items-center gap-2 bg-[#111318] px-5 text-[13px] font-semibold text-white">Talk through your workflow <ArrowRight className="h-4 w-4" /></a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function OutcomeBranchSection() {
-  const [activeKey, setActiveKey] = useState(OUTCOMES[0].key);
-  const active = OUTCOMES.find((item) => item.key === activeKey) ?? OUTCOMES[0];
-
-  return (
-    <section className="relative overflow-hidden bg-[#080B10] px-5 py-20 text-white sm:px-8 sm:py-24 lg:py-28">
-      <div className="mx-auto max-w-[1360px]">
-        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-16">
-          <div>
-            <Kicker dark>Follow-through in action</Kicker>
-            <h2 className="mt-5 text-[48px] leading-[0.94] tracking-[-0.06em] sm:text-[66px] lg:text-[76px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>One system.<br />Different moments.</h2>
-            <p className="mt-6 max-w-[500px] text-[15px] leading-[1.7] text-white/48 sm:text-[17px]">Missed enquiry, quiet quote, past customer or completed job. The moment changes. The follow-through principle stays the same.</p>
-            <AnimatePresence mode="wait">
-              <motion.div key={active.key} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }} className="mt-9 border-t border-white/10 pt-6">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/30">{active.eyebrow}</div>
-                <div className="mt-3 text-[26px] font-medium leading-[1.05] tracking-[-0.04em] text-white sm:text-[32px]" style={{ fontFamily: DISPLAY }}>{active.headline}</div>
-                <p className="mt-4 max-w-[470px] text-[13px] leading-[1.65] text-white/45">{active.copy}</p>
-                <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-[10px] font-semibold text-white/45">{active.steps.map((step) => <span key={step} className="inline-flex items-center gap-2"><ArrowRight className="h-3 w-3" style={{ color: active.accent }} />{step}</span>)}</div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <div className="relative mx-auto aspect-square w-full max-w-[680px]">
-            <div className="absolute left-1/2 top-1/2 h-[160px] w-[160px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/12 bg-[#0F141C] sm:h-[190px] sm:w-[190px]">
-              <div className="absolute inset-0 flex flex-col items-center justify-center"><Zap className="h-6 w-6 text-cyan-300" /><div className="mt-3 text-[11px] font-bold tracking-[0.15em] text-white">ZAPLA</div></div>
-            </div>
-            <svg aria-hidden className="absolute inset-0 h-full w-full" viewBox="0 0 680 680"><line x1="340" y1="340" x2="530" y2="150" stroke="rgba(255,255,255,.14)" strokeWidth="1.5"/><line x1="340" y1="340" x2="585" y2="350" stroke="rgba(255,255,255,.14)" strokeWidth="1.5"/><line x1="340" y1="340" x2="485" y2="565" stroke="rgba(255,255,255,.14)" strokeWidth="1.5"/><line x1="340" y1="340" x2="155" y2="555" stroke="rgba(255,255,255,.14)" strokeWidth="1.5"/></svg>
-            {[
-              [OUTCOMES[0], "65%", "12%"], [OUTCOMES[1], "79%", "48%"], [OUTCOMES[2], "61%", "82%"], [OUTCOMES[3], "7%", "79%"],
-            ].map(([item, left, top]) => {
-              const outcome = item as Outcome;
-              const Icon = outcome.icon;
-              const on = outcome.key === active.key;
-              return (
-                <button key={outcome.key} type="button" onClick={() => setActiveKey(outcome.key)} className={`absolute flex min-w-[130px] items-center gap-3 border px-3 py-3 text-left transition-all ${on ? "border-white bg-white text-[#111318]" : "border-white/12 bg-[#0D1219] text-white/60 hover:border-white/28 hover:text-white"}`} style={{ left: left as string, top: top as string }}>
-                  <Icon className="h-4 w-4 shrink-0" style={{ color: on ? outcome.accent : undefined }} /><span className="text-[10px] font-semibold">{outcome.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FinalDecisionSection() {
-  return (
-    <section className="bg-white px-5 py-16 sm:px-8 sm:py-20">
-      <div className="mx-auto flex max-w-[1360px] flex-col gap-8 border-t border-slate-200 pt-10 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-[900px]">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-700">The decision</div>
-          <h2 className="mt-4 text-[42px] leading-[0.96] tracking-[-0.055em] text-[#111318] sm:text-[58px] lg:text-[66px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>Keep doing the work only your team can do.</h2>
-          <div className="mt-4 text-[22px] font-medium tracking-[-0.035em] text-slate-500 sm:text-[26px]">Zapla keeps what happens next moving.</div>
-        </div>
-        <div className="flex shrink-0 flex-wrap items-center gap-3">
-          <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 bg-[#111318] px-5 text-[13px] font-semibold text-white">Book a Call <ArrowRight className="h-4 w-4" /></a>
-          <a href="/pricing" className="inline-flex h-[50px] items-center border border-slate-300 px-5 text-[13px] font-semibold text-slate-800">See plans and pricing</a>
-        </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.div>
   );
 }
 
 export function ZaplaHomepageContinuationV5() {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = !!useReducedMotion();
+  const [scene, setScene] = useState(0);
+  const [leakBeat, setLeakBeat] = useState(0);
+  const [productScene, setProductScene] = useState(0);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    const v = clamp01(value);
+    const nextScene = v < 0.2 ? 0 : v < 0.47 ? 1 : v < 0.64 ? 2 : v < 0.81 ? 3 : 4;
+    setScene(nextScene);
+
+    const lb = Math.min(3, Math.floor(clamp01(v / 0.2) * 4));
+    setLeakBeat(lb);
+
+    const productLocal = clamp01((v - 0.2) / 0.27);
+    setProductScene(Math.min(3, Math.floor(Math.min(0.999, productLocal) * 4)));
+  });
+
+  const leakProgress = useTransform(scrollYProgress, [0, 0.2], [0, 1], { clamp: true });
+  const connectedProgress = useTransform(scrollYProgress, [0.2, 0.47], [0, 1], { clamp: true });
+  const teamProgress = useTransform(scrollYProgress, [0.47, 0.64], [0, 1], { clamp: true });
+  const guidedProgress = useTransform(scrollYProgress, [0.64, 0.81], [0, 1], { clamp: true });
+  const outcomesProgress = useTransform(scrollYProgress, [0.81, 1], [0, 1], { clamp: true });
+
+  const o1 = useTransform(scrollYProgress, [0, 0.17, 0.215], [1, 1, 0], { clamp: true });
+  const o2 = useTransform(scrollYProgress, [0.17, 0.22, 0.44, 0.49], [0, 1, 1, 0], { clamp: true });
+  const o3 = useTransform(scrollYProgress, [0.44, 0.49, 0.61, 0.66], [0, 1, 1, 0], { clamp: true });
+  const o4 = useTransform(scrollYProgress, [0.61, 0.66, 0.78, 0.83], [0, 1, 1, 0], { clamp: true });
+  const o5 = useTransform(scrollYProgress, [0.78, 0.83, 1], [0, 1, 1], { clamp: true });
+  const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
-    <>
-      <LifecycleRail />
-      <RevenueLeakSection />
-      <ConnectedJourneySection />
-      <UnlimitedUsersSection />
-      <GuidedLaunchSection />
-      <OutcomeBranchSection />
-      <FinalDecisionSection />
-    </>
+    <section ref={ref} className="relative h-[470vh] bg-[#080B10] sm:h-[440vh]">
+      <div className="sticky top-[66px] h-[calc(100vh-66px)] min-h-[610px] overflow-hidden bg-[#080B10]">
+        <RevenueLeakScene opacity={o1} progress={leakProgress} beat={leakBeat} />
+        <ConnectedProductScene opacity={o2} progress={connectedProgress} sceneIndex={productScene} reduced={reduced} />
+        <UnlimitedUsersScene opacity={o3} progress={teamProgress} reduced={reduced} />
+        <GuidedLaunchScene opacity={o4} progress={guidedProgress} />
+        <OutcomesScene opacity={o5} progress={outcomesProgress} />
+
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-[90] h-px bg-white/10">
+          <motion.div className="h-px origin-left bg-cyan-300" style={{ scaleX: progressScale }} />
+        </div>
+
+        <div className="pointer-events-none absolute bottom-5 left-5 z-[90] hidden items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/28 lg:flex">
+          <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" /> Follow-through story · scene {scene + 1}
+        </div>
+      </div>
+    </section>
   );
 }
