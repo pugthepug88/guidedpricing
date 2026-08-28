@@ -51,74 +51,59 @@ function LeakingTap({ reduced }: { reduced: boolean }) {
   return (
     <div className="relative w-full">
       <svg
-        viewBox="0 0 1100 300"
+        viewBox="0 0 1100 260"
         className="block h-auto w-full"
         aria-hidden
         preserveAspectRatio="xMidYMid meet"
       >
-        {/* supply line coming in from the left, carrying */}
+        {/* the supply that keeps arriving */}
+        <path d="M 0 78 H 550" stroke={INK} strokeWidth={16} strokeLinecap="round" fill="none" />
+        <path d="M 24 78 H 538" stroke={CYAN} strokeWidth={5} strokeLinecap="round" fill="none" />
+
+        {/* what should have continued */}
         <path
-          d="M 0 96 H 470"
-          stroke={CYAN}
-          strokeWidth={3}
-          strokeLinecap="round"
-          fill="none"
-        />
-        {/* the line continues past the tap but stops carrying */}
-        <path
-          d="M 470 96 H 1100"
+          d="M 566 78 H 1100"
           stroke={HAIR}
-          strokeWidth={3}
+          strokeWidth={4}
           strokeLinecap="round"
-          strokeDasharray="2 10"
+          strokeDasharray="1 14"
           fill="none"
         />
 
-        {/* riser + tap body */}
+        {/* valve: turned, but never fully closed */}
+        <path d="M 550 78 V 44" stroke={INK} strokeWidth={8} strokeLinecap="round" fill="none" />
+        <circle cx={550} cy={34} r={15} stroke={INK} strokeWidth={7} fill={BG} />
+
+        {/* riser and spout */}
         <path
-          d="M 470 96 V 150 H 556"
+          d="M 550 78 V 128 H 596 V 152"
           stroke={INK}
-          strokeWidth={3}
+          strokeWidth={16}
           strokeLinejoin="round"
           strokeLinecap="round"
           fill="none"
         />
-        {/* spout */}
-        <path
-          d="M 556 150 V 176"
-          stroke={INK}
-          strokeWidth={12}
-          strokeLinecap="round"
-          fill="none"
-        />
-        {/* handle */}
-        <path
-          d="M 470 96 V 62"
-          stroke={INK}
-          strokeWidth={3}
-          strokeLinecap="round"
-          fill="none"
-        />
-        <path
-          d="M 446 62 H 494"
-          stroke={INK}
-          strokeWidth={6}
-          strokeLinecap="round"
-          fill="none"
-        />
+        <path d="M 596 152 V 160" stroke={CYAN} strokeWidth={5} strokeLinecap="round" fill="none" />
 
-        {/* falling drops */}
+        {/* what falls away */}
         {DROPS.map((d) =>
           reduced ? (
-            <circle key={d.delay} cx={556 + d.x} cy={210 + d.delay * 28} r={4} fill={CYAN} opacity={0.5} />
+            <circle
+              key={d.delay}
+              cx={596 + d.x}
+              cy={178 + d.delay * 22}
+              r={5}
+              fill={CYAN}
+              opacity={0.45}
+            />
           ) : (
             <motion.circle
               key={d.delay}
-              cx={556 + d.x}
-              r={4.5}
+              cx={596 + d.x}
+              r={5.5}
               fill={CYAN}
-              initial={{ cy: 182, opacity: 0 }}
-              animate={{ cy: [182, 262], opacity: [0, 1, 1, 0] }}
+              initial={{ cy: 162, opacity: 0 }}
+              animate={{ cy: [162, 222], opacity: [0, 1, 1, 0] }}
               transition={{
                 duration: 1.9,
                 delay: d.delay,
@@ -131,9 +116,10 @@ function LeakingTap({ reduced }: { reduced: boolean }) {
           ),
         )}
 
-        {/* the pool that never becomes anything */}
-        <path d="M 470 276 H 644" stroke={HAIR} strokeWidth={2} strokeLinecap="round" />
+        {/* it collects where nothing can use it */}
+        <path d="M 524 232 H 668" stroke={HAIR} strokeWidth={3} strokeLinecap="round" />
       </svg>
+
 
       {/* connectors down to the evidence columns, ClickUp-style */}
       <div className="mt-2 hidden grid-cols-3 sm:grid">
