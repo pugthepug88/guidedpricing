@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, PhoneMissed, Clock3, Star } from "lucide-react";
+import { ArrowDown, PhoneMissed, MessageCircle, Clock3, Star, type LucideIcon } from "lucide-react";
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
@@ -8,7 +8,6 @@ const INK = "#12141A";
 const MUTED = "#6E6A64";
 const FAINT = "#A29C93";
 const HAIR = "rgba(18,20,26,0.10)";
-const CYAN = "#06B6D4";
 const RED = "#E5484D";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -27,7 +26,7 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 22 }}
+      initial={reduced ? false : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.7, delay: reduced ? 0 : delay, ease: EASE }}
@@ -38,250 +37,168 @@ function Reveal({
 }
 
 /* ------------------------------------------------------------------ */
-/* Live UI moments — one per leak. Subtle looped motion, all gated    */
-/* behind reduced-motion.                                             */
+/* The tangled thread: one thick knotted cord running across the      */
+/* canvas — the customer journey as it actually exists. Icon chips    */
+/* for each leak moment sit on the thread; red marks show where it    */
+/* breaks. ClickUp-inspired.                                          */
 /* ------------------------------------------------------------------ */
 
-function PulseDot({ color, reduced }: { color: string; reduced: boolean }) {
-  return (
-    <span className="relative flex h-2 w-2 shrink-0">
-      {!reduced && (
-        <motion.span
-          className="absolute inline-flex h-full w-full rounded-full"
-          style={{ background: color }}
-          animate={{ scale: [1, 2.4], opacity: [0.65, 0] }}
-          transition={{ duration: 1.7, repeat: Infinity, ease: "easeOut" }}
-        />
-      )}
-      <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: color }} />
-    </span>
-  );
-}
+const THREAD_D =
+  "M 20 235 C 80 140, 165 125, 205 195 C 235 250, 160 305, 140 248 C 122 195, 210 135, 318 158 C 425 181, 402 302, 306 297 C 214 292, 252 162, 412 152 C 562 143, 588 288, 482 298 C 390 306, 418 167, 578 157 C 728 148, 748 292, 646 297 C 556 301, 588 162, 748 154 C 898 147, 918 288, 821 294 C 736 299, 783 167, 948 160 C 1028 157, 1058 192, 1082 208";
 
-function SceneMissed({ reduced }: { reduced: boolean }) {
-  return (
-    <div className="flex h-full flex-col justify-between p-4">
-      <div className="flex items-center gap-3">
-        <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
-          style={{ background: "rgba(229,72,77,0.10)" }}
-        >
-          <PhoneMissed className="h-4 w-4" style={{ color: RED }} />
-        </span>
-        <div className="min-w-0">
-          <div className="truncate text-[12px] font-semibold" style={{ color: INK }}>
-            0412 884 103
-          </div>
-          <div className="mt-0.5 text-[9px] uppercase tracking-[0.12em]" style={{ fontFamily: MONO, color: FAINT }}>
-            Missed call · 12:06
-          </div>
-        </div>
-        <span className="ml-auto">
-          <PulseDot color={RED} reduced={reduced} />
-        </span>
-      </div>
-      <div className="flex items-center gap-2.5">
-        <span className="h-px flex-1" style={{ background: HAIR }} />
-        <span className="whitespace-nowrap text-[9px] uppercase tracking-[0.12em]" style={{ fontFamily: MONO, color: FAINT }}>
-          No return call scheduled
-        </span>
-        <span className="h-px flex-1" style={{ background: HAIR }} />
-      </div>
-    </div>
-  );
-}
+type LeakNode = { icon: LucideIcon; color: string; left: string; top: string };
 
-function SceneUnasked({ reduced }: { reduced: boolean }) {
-  return (
-    <div className="flex h-full flex-col justify-center gap-2.5 p-4">
-      <div
-        className="max-w-[86%] rounded-[12px] rounded-bl-[3px] px-3 py-2 text-[11px] leading-[1.4]"
-        style={{ background: "#F0EDE7", color: INK }}
-      >
-        Hi — do you have anything this week?
-      </div>
-      <div
-        className="ml-auto flex items-center gap-1.5 rounded-[12px] rounded-br-[3px] border bg-white px-3 py-[9px]"
-        style={{ borderColor: HAIR }}
-      >
-        {[0, 1, 2].map((i) =>
-          reduced ? (
-            <span key={i} className="h-1.5 w-1.5 rounded-full" style={{ background: FAINT }} />
-          ) : (
-            <motion.span
-              key={i}
-              className="h-1.5 w-1.5 rounded-full"
-              style={{ background: FAINT }}
-              animate={{ opacity: [0.25, 1, 0.25] }}
-              transition={{ duration: 1.25, repeat: Infinity, delay: i * 0.18 }}
-            />
-          ),
-        )}
-      </div>
-      <div className="text-right text-[9px] uppercase tracking-[0.12em]" style={{ fontFamily: MONO, color: FAINT }}>
-        Never asked to book
-      </div>
-    </div>
-  );
-}
-
-function SceneSlow({ reduced }: { reduced: boolean }) {
-  return (
-    <div className="flex h-full flex-col justify-center gap-2.5 p-4">
-      <div className="flex items-center justify-between">
-        <span className="text-[11px]" style={{ color: MUTED }}>
-          Enquiry received
-        </span>
-        <span className="text-[9px] uppercase tracking-[0.1em]" style={{ fontFamily: MONO, color: FAINT }}>
-          Mon 9:02
-        </span>
-      </div>
-      <div className="h-px w-full" style={{ background: HAIR }} />
-      <div className="flex items-center justify-between">
-        <span className="text-[11px]" style={{ color: MUTED }}>
-          Reply sent
-        </span>
-        <span className="text-[9px] uppercase tracking-[0.1em]" style={{ fontFamily: MONO, color: RED }}>
-          Thu 16:47
-        </span>
-      </div>
-      <div className="mt-1 flex items-center gap-2">
-        <motion.span
-          animate={reduced ? undefined : { rotate: 360 }}
-          transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
-          className="flex"
-        >
-          <Clock3 className="h-3.5 w-3.5" style={{ color: FAINT }} />
-        </motion.span>
-        <span className="text-[13px] font-semibold tracking-[-0.01em]" style={{ fontFamily: MONO, color: INK }}>
-          3 days, 7 hours later
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function SceneForgotten({ reduced }: { reduced: boolean }) {
-  return (
-    <div className="flex h-full flex-col justify-center gap-2 p-4">
-      <div className="flex gap-[3px]">
-        {[0, 1, 2, 3, 4].map((i) => (
-          <Star key={i} className="h-3 w-3" fill="#E8B44A" stroke="none" />
-        ))}
-      </div>
-      <div className="text-[11px] leading-[1.45]" style={{ color: INK }}>
-        “Made the whole process easy.”
-      </div>
-      <div className="flex items-center gap-2">
-        <PulseDot color={FAINT} reduced={reduced} />
-        <span className="text-[9px] uppercase tracking-[0.12em]" style={{ fontFamily: MONO, color: FAINT }}>
-          No response · 3 months
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-const LEAKS: {
-  tag: string;
-  stat: string;
-  claim: string;
-  source: string[];
-  accent: string;
-  tint: string;
-  Scene: (p: { reduced: boolean }) => React.ReactNode;
-}[] = [
-  {
-    tag: "Missed calls",
-    stat: "44%",
-    claim: "of inbound callers don't reach a person.",
-    source: ["Invoca · 2026 · 70M+ calls"],
-    accent: "#E5484D",
-    tint: "#FDECEC",
-    Scene: SceneMissed,
-  },
-  {
-    tag: "Leads never asked",
-    stat: "64%",
-    claim: "of businesses don't ask the lead to buy or book.",
-    source: ["Invoca · 2026"],
-    accent: "#D97706",
-    tint: "#FDF3E0",
-    Scene: SceneUnasked,
-  },
-  {
-    tag: "Slow replies",
-    stat: "79%",
-    claim: "would take their business elsewhere after poor or slow service.",
-    source: ["ServiceNow / Lonergan Research", "Australian consumers"],
-    accent: "#2563EB",
-    tint: "#E9F1FE",
-    Scene: SceneSlow,
-  },
-  {
-    tag: "Forgotten customers",
-    stat: "89%",
-    claim: "are likely to use a local business that responds to reviews.",
-    source: ["BrightLocal · 2025"],
-    accent: "#7C3AED",
-    tint: "#F2EBFE",
-    Scene: SceneForgotten,
-  },
+const NODES: LeakNode[] = [
+  { icon: PhoneMissed, color: "#E5484D", left: "16.4%", top: "51.2%" },
+  { icon: MessageCircle, color: "#D97706", left: "32.3%", top: "54.8%" },
+  { icon: Clock3, color: "#2563EB", left: "48.2%", top: "53.6%" },
+  { icon: Star, color: "#7C3AED", left: "78.6%", top: "52.9%" },
 ];
 
-function LeakCard({ leak, index, reduced }: { leak: (typeof LEAKS)[number]; index: number; reduced: boolean }) {
+const BREAKS = [
+  { left: "24.5%", top: "76.2%" },
+  { left: "56.4%", top: "78.6%" },
+];
+
+const QUOTES = [
+  { text: "Did anyone call them back?", left: "22.7%", top: "15.5%", rotate: "-2deg" },
+  { text: "Sorry — only just seeing this", left: "47.3%", top: "11.9%", rotate: "1.5deg" },
+  { text: "Still waiting on a quote…", left: "71.8%", top: "15.5%", rotate: "-1deg" },
+];
+
+function TangledCanvas({ reduced }: { reduced: boolean }) {
+  const draw = reduced
+    ? {}
+    : {
+        initial: { pathLength: 0 },
+        whileInView: { pathLength: 1 },
+        viewport: { once: true, amount: 0.35 },
+      };
   return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.65, delay: reduced ? 0 : 0.08 + index * 0.08, ease: EASE }}
-      whileHover={reduced ? undefined : { y: -6, transition: { duration: 0.25 } }}
-      className="h-full rounded-[28px] p-4 sm:p-5"
-      style={{ background: leak.tint }}
-    >
-      {/* live moment */}
-      <div
-        className="h-[132px] overflow-hidden rounded-[18px] border bg-white"
-        style={{ borderColor: "rgba(18,20,26,0.07)", boxShadow: "0 14px 30px -22px rgba(18,20,26,0.25)" }}
-      >
-        <leak.Scene reduced={reduced} />
-      </div>
+    <div className="relative mx-auto mt-6 hidden w-full max-w-[1080px] sm:block" style={{ aspectRatio: "1100 / 420" }}>
+      <svg viewBox="0 0 1100 420" className="absolute inset-0 h-full w-full" fill="none" aria-hidden>
+        <motion.path
+          d={THREAD_D}
+          stroke="#EFEDE8"
+          strokeWidth={30}
+          strokeLinecap="round"
+          {...draw}
+          transition={{ duration: reduced ? 0 : 1.7, ease: EASE }}
+        />
+        <motion.path
+          d={THREAD_D}
+          stroke="#E3E0D9"
+          strokeWidth={13}
+          strokeLinecap="round"
+          {...draw}
+          transition={{ duration: reduced ? 0 : 1.7, delay: reduced ? 0 : 0.12, ease: EASE }}
+        />
+      </svg>
 
-      {/* tag pill */}
-      <div className="mt-5">
-        <span
-          className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em]"
-          style={{ fontFamily: MONO, background: "rgba(255,255,255,0.75)", color: leak.accent }}
+      {NODES.map((n, i) => (
+        <motion.div
+          key={i}
+          initial={reduced ? false : { opacity: 0, scale: 0.4 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5, delay: reduced ? 0 : 0.35 + i * 0.12, ease: EASE }}
+          className="absolute z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[15px] border bg-white lg:h-14 lg:w-14"
+          style={{ left: n.left, top: n.top, borderColor: HAIR, boxShadow: "0 18px 36px -18px rgba(18,20,26,0.32)" }}
         >
-          <span className="h-1.5 w-1.5 rounded-full" style={{ background: leak.accent }} />
-          {leak.tag}
-        </span>
-      </div>
+          <n.icon className="h-[18px] w-[18px] lg:h-5 lg:w-5" style={{ color: n.color }} />
+        </motion.div>
+      ))}
 
-      {/* stat + claim */}
-      <div
-        className="mt-3 text-[52px] leading-[0.95] tracking-[-0.05em]"
-        style={{ fontFamily: DISPLAY, fontWeight: 500, color: leak.accent }}
-      >
-        {leak.stat}
-      </div>
-      <p className="mt-3 min-h-[60px] text-[14px] leading-[1.5]" style={{ color: "#3B3A36" }}>
-        {leak.claim}
-      </p>
-      <div
-        className="mt-3 flex flex-col gap-0.5 text-[9px] uppercase tracking-[0.16em]"
-        style={{ fontFamily: MONO, color: "rgba(18,20,26,0.45)" }}
-      >
-        {leak.source.map((line) => (
-          <span key={line}>{line}</span>
-        ))}
-      </div>
-    </motion.div>
+      {BREAKS.map((b, i) => (
+        <motion.div
+          key={i}
+          initial={reduced ? false : { opacity: 0, scale: 0.4 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.45, delay: reduced ? 0 : 0.85 + i * 0.14, ease: EASE }}
+          className="absolute z-10 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border bg-white text-[12px] leading-none"
+          style={{ left: b.left, top: b.top, borderColor: "rgba(229,72,77,0.45)", color: RED, boxShadow: "0 8px 18px -10px rgba(229,72,77,0.5)" }}
+          aria-hidden
+        >
+          ×
+        </motion.div>
+      ))}
+
+      {QUOTES.map((q, i) => (
+        <motion.div
+          key={q.text}
+          initial={reduced ? false : { opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.5, delay: reduced ? 0 : 1 + i * 0.13, ease: EASE }}
+          className="absolute z-10 -translate-x-1/2 whitespace-nowrap rounded-full border bg-white px-3.5 py-2 text-[11px]"
+          style={{
+            left: q.left,
+            top: q.top,
+            rotate: q.rotate,
+            color: MUTED,
+            borderColor: HAIR,
+            boxShadow: "0 14px 30px -18px rgba(18,20,26,0.28)",
+          }}
+        >
+          {q.text}
+        </motion.div>
+      ))}
+    </div>
   );
 }
+
+function MobileThread() {
+  return (
+    <div className="relative mt-12 px-2 sm:hidden" aria-hidden>
+      <div className="absolute left-8 right-8 top-1/2 border-t border-dashed" style={{ borderColor: "rgba(18,20,26,0.22)" }} />
+      <div className="relative flex items-center justify-between">
+        {NODES.map((n, i) => (
+          <span
+            key={i}
+            className="flex h-11 w-11 items-center justify-center rounded-[13px] border bg-white"
+            style={{ borderColor: HAIR, boxShadow: "0 12px 24px -14px rgba(18,20,26,0.3)" }}
+          >
+            <n.icon className="h-[17px] w-[17px]" style={{ color: n.color }} />
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+const LEAKS: { label: string; pre: string; stat: string; post: string; source: string }[] = [
+  {
+    label: "Missed at hello",
+    pre: "Nearly half of inbound callers — ",
+    stat: "44%",
+    post: " — never reach a person at all.",
+    source: "Invoca · 2026 · 70M+ calls",
+  },
+  {
+    label: "Never asked",
+    pre: "",
+    stat: "64%",
+    post: " of businesses don't ask the lead to buy or book — even when the lead shows up.",
+    source: "Invoca · 2026",
+  },
+  {
+    label: "Too slow",
+    pre: "",
+    stat: "79%",
+    post: " of customers would take their business elsewhere after poor or slow service.",
+    source: "ServiceNow / Lonergan Research",
+  },
+  {
+    label: "Left behind",
+    pre: "",
+    stat: "89%",
+    post: " are more likely to use a local business that responds to its reviews.",
+    source: "BrightLocal · 2025",
+  },
+];
 
 export function ZaplaRevenueLeakageV7() {
   const reduced = !!useReducedMotion();
@@ -292,15 +209,14 @@ export function ZaplaRevenueLeakageV7() {
         {/* ---------- header ---------- */}
         <Reveal reduced={reduced}>
           <div className="mx-auto max-w-[840px] text-center">
-            <span
-              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em]"
-              style={{ fontFamily: MONO, borderColor: "rgba(6,182,212,0.35)", background: "rgba(6,182,212,0.07)", color: "#0E8FA6" }}
+            <div
+              className="text-[10px] font-semibold uppercase tracking-[0.3em]"
+              style={{ fontFamily: MONO, color: MUTED }}
             >
-              <span className="h-1.5 w-1.5 rounded-full" style={{ background: CYAN }} />
               The cost of no follow-through
-            </span>
+            </div>
             <h2
-              className="mt-7 text-[34px] leading-[1.05] tracking-[-0.045em] sm:text-[46px] lg:text-[54px]"
+              className="mt-6 text-[34px] leading-[1.05] tracking-[-0.045em] sm:text-[46px] lg:text-[56px]"
               style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
             >
               44% of inbound callers don't reach a person.
@@ -310,55 +226,67 @@ export function ZaplaRevenueLeakageV7() {
               className="mx-auto mt-6 max-w-[580px] text-[16px] leading-[1.55] sm:text-[17px]"
               style={{ color: MUTED }}
             >
-              Calls go unanswered. Leads are never asked to book. Replies land days late.
-              Even the relationship after the sale gets left unfinished.
+              The journey from first contact to booked, paid and returning should be one unbroken
+              thread. In most businesses it looks like this instead.
             </p>
           </div>
         </Reveal>
 
-        {/* ---------- leak cards ---------- */}
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* ---------- tangled thread canvas ---------- */}
+        <TangledCanvas reduced={reduced} />
+        <MobileThread />
+
+        {/* ---------- evidence columns ---------- */}
+        <div className="mt-14 grid gap-10 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
           {LEAKS.map((leak, i) => (
-            <LeakCard key={leak.tag} leak={leak} index={i} reduced={reduced} />
+            <Reveal key={leak.label} reduced={reduced} delay={0.06 + i * 0.06}>
+              <div className="border-t pt-6" style={{ borderColor: HAIR }}>
+                <div
+                  className="text-[19px] tracking-[-0.02em]"
+                  style={{ fontFamily: DISPLAY, fontWeight: 600, color: INK }}
+                >
+                  {leak.label}
+                </div>
+                <p className="mt-3 text-[15px] leading-[1.55]" style={{ color: MUTED }}>
+                  {leak.pre}
+                  <span className="font-semibold" style={{ color: INK }}>
+                    {leak.stat}
+                  </span>
+                  {leak.post}
+                </p>
+                <div
+                  className="mt-4 text-[9px] uppercase tracking-[0.16em]"
+                  style={{ fontFamily: MONO, color: FAINT }}
+                >
+                  {leak.source}
+                </div>
+              </div>
+            </Reveal>
           ))}
         </div>
 
         {/* ---------- bridge ---------- */}
-        <Reveal reduced={reduced} delay={0.1} className="mt-16 sm:mt-20">
-          <div
-            className="relative overflow-hidden rounded-[32px] px-6 py-14 text-center sm:px-12 sm:py-16"
-            style={{ background: "#111318" }}
-          >
+        <Reveal reduced={reduced} delay={0.08} className="mt-20 sm:mt-24">
+          <div className="mx-auto max-w-[760px] text-center">
             <div
-              className="pointer-events-none absolute -top-24 left-1/2 h-[280px] w-[560px] -translate-x-1/2 rounded-full blur-3xl"
-              style={{ background: "radial-gradient(circle, rgba(6,182,212,0.22), transparent 65%)" }}
-            />
-            <div className="relative">
-              <div
-                className="text-[10px] font-bold uppercase tracking-[0.24em]"
-                style={{ fontFamily: MONO, color: "rgba(116,223,225,0.8)" }}
-              >
-                One problem, not four
-              </div>
-              <div
-                className="mx-auto mt-5 max-w-[720px] text-[24px] leading-[1.25] tracking-[-0.03em] text-white/45 sm:text-[28px]"
-                style={{ fontFamily: DISPLAY, fontWeight: 500 }}
-              >
-                These aren't four separate problems. They're one follow-through problem.
-              </div>
-              <div
-                className="mx-auto mt-3 max-w-[720px] text-[24px] leading-[1.25] tracking-[-0.03em] text-white sm:text-[28px]"
-                style={{ fontFamily: DISPLAY, fontWeight: 500 }}
-              >
-                Zapla connects the next step — from first contact to booked, paid and returning.
-              </div>
-              <a
-                href="#zapla-product-v5"
-                className="mt-8 inline-flex h-[46px] items-center gap-2 rounded-full bg-white px-6 text-[13px] font-bold text-[#111318]"
-              >
-                See how Zapla connects it <ArrowRight className="h-4 w-4" />
-              </a>
+              className="text-[24px] leading-[1.25] tracking-[-0.03em] sm:text-[28px]"
+              style={{ fontFamily: DISPLAY, fontWeight: 500, color: FAINT }}
+            >
+              These aren't four separate problems. They're one follow-through problem.
             </div>
+            <div
+              className="mt-3 text-[24px] leading-[1.25] tracking-[-0.03em] sm:text-[28px]"
+              style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
+            >
+              Zapla connects the next step — from first contact to booked, paid and returning.
+            </div>
+            <a
+              href="#zapla-product-v5"
+              className="mt-7 inline-flex items-center gap-2 text-[13px] font-semibold"
+              style={{ color: "#0E8FA6" }}
+            >
+              See how Zapla connects it <ArrowDown className="h-4 w-4" />
+            </a>
           </div>
         </Reveal>
       </div>
