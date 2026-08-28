@@ -49,10 +49,10 @@ const DROPS = [
 
 function LeakingTap({ reduced }: { reduced: boolean }) {
   return (
-    <div className="relative w-full">
+    <div className="relative w-full overflow-hidden">
       <svg
         viewBox="0 0 900 250"
-        className="mx-auto block h-auto w-full max-w-[860px]"
+        className="mx-auto block h-auto w-full min-w-[600px] max-w-[860px]"
         aria-hidden
         preserveAspectRatio="xMidYMid meet"
       >
