@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TapLab } from "@/components/concept/TapLab";
 import { TapShapes } from "@/components/concept/TapShapes";
+import { TapRenderStyles } from "@/components/concept/TapRenderStyles";
 
 function TapLabRoute() {
   return (
     <>
+      <TapRenderStyles />
       <TapLab />
       <TapShapes />
     </>
