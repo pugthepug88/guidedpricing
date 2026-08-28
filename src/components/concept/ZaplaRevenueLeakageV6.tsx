@@ -51,13 +51,13 @@ const STAGES = [
 
 function ProgressionDevice() {
   return (
-    <div className="relative w-full max-w-[860px] pt-10 pb-14 sm:pt-14 sm:pb-20">
+    <div className="relative w-full max-w-[860px]">
       {/* labels sit above the baseline, on the same left axis as everything else */}
       <div className="grid grid-cols-5 items-end">
         {STAGES.map((s) => (
           <div key={s.label} className="min-w-0 pr-2">
             <span
-              className="block text-[9px] uppercase tracking-[0.2em] sm:text-[10px]"
+              className="block text-[10px] uppercase tracking-[0.2em] sm:text-[11px]"
               style={{
                 fontFamily: MONO,
                 color: s.state === "held" ? INK : s.state === "thin" ? MUTED : FAINT,
@@ -70,7 +70,7 @@ function ProgressionDevice() {
       </div>
 
       {/* one continuous baseline: solid, then hairline, then absent */}
-      <div className="mt-5 grid grid-cols-5">
+      <div className="mt-4 grid grid-cols-5">
         {STAGES.map((s) => (
           <span
             key={s.label}
@@ -88,7 +88,7 @@ function ProgressionDevice() {
       </div>
 
       {/* the moment the line stops carrying */}
-      <div className="mt-5 grid grid-cols-5">
+      <div className="mt-4 grid grid-cols-5">
         <div className="col-start-3 col-span-3">
           <span
             className="block text-[9px] uppercase tracking-[0.2em]"
@@ -159,12 +159,12 @@ export function ZaplaRevenueLeakageV6() {
         </Reveal>
 
         {/* ---------- group 2: the progression ---------- */}
-        <Reveal reduced={reduced} delay={0.08} className="mt-24 sm:mt-28">
+        <Reveal reduced={reduced} delay={0.08} className="mt-16 sm:mt-20">
           <ProgressionDevice />
         </Reveal>
 
         {/* ---------- group 3: evidence ---------- */}
-        <div className="mt-24 sm:mt-28">
+        <div className="mt-16 sm:mt-20">
           <Reveal reduced={reduced}>
             <div className="h-px w-full" style={{ background: HAIR }} />
           </Reveal>
