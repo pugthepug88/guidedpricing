@@ -311,15 +311,10 @@ export function ZaplaRevenueLeakageV6() {
         {/* quiet stat columns */}
         <div className="mt-14 grid gap-10 sm:mt-20 sm:grid-cols-3 sm:gap-0">
           {STATS.map((s, i) => (
-            <Reveal
-              key={s.stat}
-              reduced={reduced}
-              delay={0.1 + i * 0.08}
-              className={i === 0 ? "" : "sm:border-l sm:pl-10"}
-            >
+            <Reveal key={s.stat} reduced={reduced} delay={0.1 + i * 0.08}>
               <div
-                style={i === 0 ? undefined : { borderImage: `linear-gradient(${HAIR}, ${HAIR}) 1` }}
-                className={i === 0 ? "" : "sm:border-[rgba(18,20,26,0.10)]"}
+                className={i === 0 ? "" : "sm:border-l sm:pl-10"}
+                style={i === 0 ? undefined : { borderColor: HAIR }}
               >
                 <div
                   className="text-[44px] leading-none tracking-[-0.05em] sm:text-[52px]"
