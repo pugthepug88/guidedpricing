@@ -74,12 +74,6 @@ function JourneyLine() {
           </div>
         ))}
       </div>
-      <div
-        className="mt-8 text-center text-[10px] font-semibold uppercase tracking-[0.26em]"
-        style={{ fontFamily: MONO, color: FAINT }}
-      >
-        Most businesses make it to two
-      </div>
     </div>
   );
 }
@@ -100,7 +94,7 @@ const STATS = [
   {
     stat: "79%",
     claim: "said they would take their business elsewhere after poor or slow service.",
-    source: "ServiceNow / Lonergan Research",
+    source: "ServiceNow / Lonergan Research · Australian consumers",
   },
   {
     stat: "89%",
