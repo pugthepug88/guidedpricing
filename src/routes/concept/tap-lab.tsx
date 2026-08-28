@@ -27,5 +27,5 @@ export const Route = createFileRoute("/concept/tap-lab")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: TapLab,
+  component: TapLabRoute,
 });
