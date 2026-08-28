@@ -3,9 +3,11 @@ import { motion, useReducedMotion } from "motion/react";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
 
+/* three greys only */
 const INK = "#12141A";
 const MUTED = "#6E6A64";
-const FAINT = "#9A948B";
+const FAINT = "#A29C93";
+
 const HAIR = "rgba(18,20,26,0.10)";
 const BG = "#FBFAF8";
 const CYAN = "#06B6D4";
@@ -35,44 +37,66 @@ function Reveal({
 }
 
 /* ------------------------------------------------------------------ */
-/* Middle device: the journey as typography, with the line going quiet */
+/* Central device: one left-to-right progression on one continuous    */
+/* baseline that loses substance as it moves right.                   */
 /* ------------------------------------------------------------------ */
 
-function JourneyLine() {
-  const words = [
-    { label: "CALL", connected: true },
-    { label: "REPLY", connected: true },
-    { label: "BOOK", connected: false },
-    { label: "RETURN", connected: false },
-    { label: "REVIEW", connected: false },
-  ];
+const STAGES = [
+  { label: "CALL", state: "held" },
+  { label: "REPLY", state: "held" },
+  { label: "BOOK", state: "thin" },
+  { label: "RETURN", state: "gone" },
+  { label: "REVIEW", state: "gone" },
+] as const;
 
+function ProgressionDevice() {
   return (
-    <div className="mx-auto w-full max-w-[860px]">
-      <div className="flex flex-wrap items-end justify-center gap-x-8 gap-y-6 sm:gap-x-12">
-        {words.map((w) => (
-          <div key={w.label} className="flex flex-col items-center gap-5">
+    <div className="relative w-full max-w-[860px]">
+      {/* labels sit above the baseline, on the same left axis as everything else */}
+      <div className="grid grid-cols-5 items-end">
+        {STAGES.map((s) => (
+          <div key={s.label} className="min-w-0 pr-2">
             <span
-              className="text-[26px] leading-none tracking-[-0.04em] sm:text-[36px] lg:text-[44px]"
+              className="block text-[10px] uppercase tracking-[0.2em] sm:text-[11px]"
               style={{
-                fontFamily: DISPLAY,
-                fontWeight: 500,
-                color: w.connected ? INK : "#C7C2B9",
+                fontFamily: MONO,
+                color: s.state === "held" ? INK : s.state === "thin" ? MUTED : FAINT,
               }}
             >
-              {w.label}
+              {s.label}
             </span>
-            {/* baseline trace: solid where the chain holds, broken where it doesn't */}
-            <span
-              className="block h-px w-full"
-              style={{
-                background: w.connected
-                  ? CYAN
-                  : `repeating-linear-gradient(90deg, ${HAIR} 0 4px, transparent 4px 9px)`,
-              }}
-            />
           </div>
         ))}
+      </div>
+
+      {/* one continuous baseline: solid, then hairline, then absent */}
+      <div className="mt-4 grid grid-cols-5">
+        {STAGES.map((s) => (
+          <span
+            key={s.label}
+            className="block h-px"
+            style={{
+              background:
+                s.state === "held"
+                  ? CYAN
+                  : s.state === "thin"
+                    ? HAIR
+                    : "transparent",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* the moment the line stops carrying */}
+      <div className="mt-4 grid grid-cols-5">
+        <div className="col-start-3 col-span-3">
+          <span
+            className="block text-[9px] uppercase tracking-[0.2em]"
+            style={{ fontFamily: MONO, color: FAINT }}
+          >
+            Nothing here is broken. It just stops.
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -82,24 +106,19 @@ function JourneyLine() {
 
 const STATS = [
   {
-    stat: "44%",
-    claim: "of inbound callers don't reach a person.",
-    source: "Invoca · 70M+ calls",
-  },
-  {
     stat: "64%",
     claim: "of businesses don't ask the lead to buy or book.",
-    source: "Invoca · 2026",
+    source: ["Invoca · 2026"],
   },
   {
     stat: "79%",
-    claim: "said they would take their business elsewhere after poor or slow service.",
-    source: "ServiceNow / Lonergan Research · Australian consumers",
+    claim: "would take their business elsewhere after poor or slow service.",
+    source: ["ServiceNow / Lonergan Research", "Australian consumers"],
   },
   {
     stat: "89%",
-    claim: "are likely to use a local business that responds to both positive and negative reviews.",
-    source: "BrightLocal · 2025",
+    claim: "are likely to use a local business that responds to reviews.",
+    source: ["BrightLocal · 2025"],
   },
 ];
 
@@ -109,7 +128,7 @@ export function ZaplaRevenueLeakageV6() {
   return (
     <section aria-label="The cost of no follow-through" style={{ background: BG, color: INK }}>
       <div className="mx-auto max-w-[1180px] px-5 py-20 sm:px-10 sm:py-28">
-        {/* header */}
+        {/* ---------- group 1: the claim ---------- */}
         <Reveal reduced={reduced}>
           <div
             className="text-[10px] font-semibold uppercase tracking-[0.3em]"
@@ -118,55 +137,58 @@ export function ZaplaRevenueLeakageV6() {
             The cost of no follow-through
           </div>
           <h2
-            className="mt-7 max-w-[840px] text-[34px] leading-[1.05] tracking-[-0.045em] sm:text-[46px] lg:text-[54px]"
+            className="mt-6 max-w-[860px] text-[34px] leading-[1.05] tracking-[-0.045em] sm:text-[46px] lg:text-[54px]"
             style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
           >
-            44% of inbound callers don't reach a person
-            <span style={{ color: "#A8A29A" }}> — and that's just one way opportunity gets lost.</span>
+            44% of inbound callers don't reach a person.
+            <span style={{ color: FAINT }}> That's only the first step lost.</span>
           </h2>
+          <p
+            className="mt-6 max-w-[520px] text-[16px] leading-[1.55] sm:text-[17px]"
+            style={{ color: MUTED }}
+          >
+            Calls go unanswered. Leads aren't asked to book. Slow service sends customers
+            elsewhere. Even the relationship after the sale gets left unfinished.
+          </p>
           <div
             className="mt-4 text-[10px] uppercase tracking-[0.18em]"
             style={{ fontFamily: MONO, color: FAINT }}
           >
             Invoca · 2026 · 70M+ calls
           </div>
-          <p className="mt-6 max-w-[520px] text-[16px] leading-[1.55] sm:text-[17px]" style={{ color: MUTED }}>
-            Calls go unanswered. Leads aren't asked to book. Slow service sends customers elsewhere.
-            Even the relationship after the sale gets left unfinished.
-          </p>
         </Reveal>
 
-        {/* middle device */}
-        <Reveal reduced={reduced} delay={0.1} className="mt-16 sm:mt-24">
-          <JourneyLine />
+        {/* ---------- group 2: the progression ---------- */}
+        <Reveal reduced={reduced} delay={0.08} className="mt-16 sm:mt-20">
+          <ProgressionDevice />
         </Reveal>
 
-        {/* evidence row */}
-        <div className="mt-16 sm:mt-24">
+        {/* ---------- group 3: evidence ---------- */}
+        <div className="mt-16 sm:mt-20">
           <Reveal reduced={reduced}>
             <div className="h-px w-full" style={{ background: HAIR }} />
           </Reveal>
-          <div className="grid gap-10 pt-10 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-10">
+          <div className="grid gap-12 pt-10 sm:grid-cols-3 sm:gap-x-10">
             {STATS.map((s, i) => (
-              <Reveal key={s.stat + s.claim} reduced={reduced} delay={0.08 + i * 0.06}>
-                <div
-                  className={i === 0 ? "" : "lg:border-l lg:pl-8"}
-                  style={i === 0 ? undefined : { borderColor: HAIR }}
-                >
+              <Reveal key={s.stat} reduced={reduced} delay={0.06 + i * 0.06}>
+                <div className="sm:border-l sm:pl-8" style={{ borderColor: HAIR }}>
                   <div
-                    className="text-[44px] leading-none tracking-[-0.05em] sm:text-[52px]"
+                    className="text-[44px] leading-none tracking-[-0.05em]"
                     style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
                   >
                     {s.stat}
                   </div>
-                  <p className="mt-4 text-[14px] leading-[1.55]" style={{ color: "#3A3D44" }}>
+                  <p className="mt-4 text-[16px] leading-[1.5]" style={{ color: MUTED }}>
                     {s.claim}
                   </p>
+                  {/* reserved two-line source block keeps baselines aligned */}
                   <div
-                    className="mt-3 text-[9px] uppercase tracking-[0.16em]"
+                    className="mt-4 flex min-h-[26px] flex-col gap-0.5 text-[10px] uppercase tracking-[0.18em]"
                     style={{ fontFamily: MONO, color: FAINT }}
                   >
-                    {s.source}
+                    {s.source.map((line) => (
+                      <span key={line}>{line}</span>
+                    ))}
                   </div>
                 </div>
               </Reveal>
@@ -174,18 +196,21 @@ export function ZaplaRevenueLeakageV6() {
           </div>
         </div>
 
-        {/* bridge into product */}
-        <Reveal reduced={reduced} delay={0.1} className="mt-20 sm:mt-28">
+        {/* ---------- group 4: bridge, terminal emphasis ---------- */}
+        <Reveal reduced={reduced} delay={0.08} className="mt-24 sm:mt-28">
           <div className="h-px w-full" style={{ background: HAIR }} />
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-10">
+          <div className="mt-10 max-w-[720px]">
             <div
-              className="max-w-[560px] text-[22px] leading-[1.2] tracking-[-0.03em] sm:text-[26px]"
-              style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
+              className="text-[26px] leading-[1.2] tracking-[-0.03em]"
+              style={{ fontFamily: DISPLAY, fontWeight: 500, color: FAINT }}
             >
               These aren't four separate problems. They're one follow-through problem.
             </div>
-            <div className="text-[14px] leading-[1.5] font-medium sm:text-[15px]" style={{ color: MUTED }}>
-              Zapla connects the next step from first contact to booked, paid and returning.
+            <div
+              className="mt-3 text-[26px] leading-[1.2] tracking-[-0.03em]"
+              style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
+            >
+              Zapla connects the next step, from first contact to booked, paid and returning.
             </div>
           </div>
         </Reveal>
