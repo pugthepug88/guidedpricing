@@ -1,6 +1,5 @@
-import { Fragment } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { PhoneMissed, Clock3, Star } from "lucide-react";
+import { ArrowRight, PhoneMissed, Clock3, Star } from "lucide-react";
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
@@ -9,8 +8,6 @@ const INK = "#12141A";
 const MUTED = "#6E6A64";
 const FAINT = "#A29C93";
 const HAIR = "rgba(18,20,26,0.10)";
-const RAIL = "rgba(18,20,26,0.26)";
-const BG = "#FBFAF8";
 const CYAN = "#06B6D4";
 const RED = "#E5484D";
 
@@ -30,53 +27,13 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 18 }}
+      initial={reduced ? false : { opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.7, delay: reduced ? 0 : delay, ease: EASE }}
     >
       {children}
     </motion.div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Journey rail: the path every customer should travel — and the      */
-/* breaks where follow-through gets lost between the steps.           */
-/* ------------------------------------------------------------------ */
-
-function JourneyRail() {
-  const steps = ["First contact", "Booked", "Responded", "Returning"];
-  return (
-    <div className="mx-auto mt-14 hidden max-w-[1180px] items-start lg:flex" aria-hidden>
-      {steps.map((label, i) => (
-        <Fragment key={label}>
-          <div className="flex w-[92px] shrink-0 flex-col items-center gap-2.5">
-            <span
-              className="h-2.5 w-2.5 rounded-full"
-              style={{ background: i === 0 ? CYAN : FAINT, opacity: 1 - i * 0.12 }}
-            />
-            <span
-              className="whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.16em]"
-              style={{ fontFamily: MONO, color: FAINT }}
-            >
-              {label}
-            </span>
-          </div>
-          {i < steps.length - 1 && (
-            <div className="relative mx-2 mt-[5px] h-px flex-1">
-              <div className="absolute inset-x-0 top-0 border-t border-dashed" style={{ borderColor: RAIL }} />
-              <span
-                className="absolute left-1/2 top-1/2 flex h-[18px] w-[18px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border text-[9px] leading-none"
-                style={{ background: BG, borderColor: "rgba(229,72,77,0.35)", color: RED }}
-              >
-                ×
-              </span>
-            </div>
-          )}
-        </Fragment>
-      ))}
-    </div>
   );
 }
 
@@ -232,55 +189,118 @@ const LEAKS: {
   stat: string;
   claim: string;
   source: string[];
+  accent: string;
+  tint: string;
   Scene: (p: { reduced: boolean }) => React.ReactNode;
 }[] = [
   {
-    tag: "Missed",
+    tag: "Missed calls",
     stat: "44%",
     claim: "of inbound callers don't reach a person.",
     source: ["Invoca · 2026 · 70M+ calls"],
+    accent: "#E5484D",
+    tint: "#FDECEC",
     Scene: SceneMissed,
   },
   {
-    tag: "Unasked",
+    tag: "Leads never asked",
     stat: "64%",
     claim: "of businesses don't ask the lead to buy or book.",
     source: ["Invoca · 2026"],
+    accent: "#D97706",
+    tint: "#FDF3E0",
     Scene: SceneUnasked,
   },
   {
-    tag: "Slow",
+    tag: "Slow replies",
     stat: "79%",
     claim: "would take their business elsewhere after poor or slow service.",
     source: ["ServiceNow / Lonergan Research", "Australian consumers"],
+    accent: "#2563EB",
+    tint: "#E9F1FE",
     Scene: SceneSlow,
   },
   {
-    tag: "Forgotten",
+    tag: "Forgotten customers",
     stat: "89%",
     claim: "are likely to use a local business that responds to reviews.",
     source: ["BrightLocal · 2025"],
+    accent: "#7C3AED",
+    tint: "#F2EBFE",
     Scene: SceneForgotten,
   },
 ];
+
+function LeakCard({ leak, index, reduced }: { leak: (typeof LEAKS)[number]; index: number; reduced: boolean }) {
+  return (
+    <motion.div
+      initial={reduced ? false : { opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.65, delay: reduced ? 0 : 0.08 + index * 0.08, ease: EASE }}
+      whileHover={reduced ? undefined : { y: -6, transition: { duration: 0.25 } }}
+      className="h-full rounded-[28px] p-4 sm:p-5"
+      style={{ background: leak.tint }}
+    >
+      {/* live moment */}
+      <div
+        className="h-[132px] overflow-hidden rounded-[18px] border bg-white"
+        style={{ borderColor: "rgba(18,20,26,0.07)", boxShadow: "0 14px 30px -22px rgba(18,20,26,0.25)" }}
+      >
+        <leak.Scene reduced={reduced} />
+      </div>
+
+      {/* tag pill */}
+      <div className="mt-5">
+        <span
+          className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em]"
+          style={{ fontFamily: MONO, background: "rgba(255,255,255,0.75)", color: leak.accent }}
+        >
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: leak.accent }} />
+          {leak.tag}
+        </span>
+      </div>
+
+      {/* stat + claim */}
+      <div
+        className="mt-3 text-[52px] leading-[0.95] tracking-[-0.05em]"
+        style={{ fontFamily: DISPLAY, fontWeight: 500, color: leak.accent }}
+      >
+        {leak.stat}
+      </div>
+      <p className="mt-3 min-h-[60px] text-[14px] leading-[1.5]" style={{ color: "#3B3A36" }}>
+        {leak.claim}
+      </p>
+      <div
+        className="mt-3 flex flex-col gap-0.5 text-[9px] uppercase tracking-[0.16em]"
+        style={{ fontFamily: MONO, color: "rgba(18,20,26,0.45)" }}
+      >
+        {leak.source.map((line) => (
+          <span key={line}>{line}</span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
 
 export function ZaplaRevenueLeakageV7() {
   const reduced = !!useReducedMotion();
 
   return (
-    <section aria-label="The cost of no follow-through" style={{ background: BG, color: INK }}>
+    <section aria-label="The cost of no follow-through" className="bg-white" style={{ color: INK }}>
       <div className="mx-auto max-w-[1180px] px-5 py-20 sm:px-10 sm:py-28">
         {/* ---------- header ---------- */}
         <Reveal reduced={reduced}>
           <div className="mx-auto max-w-[840px] text-center">
-            <div
-              className="text-[10px] font-semibold uppercase tracking-[0.3em]"
-              style={{ fontFamily: MONO, color: "#0E8FA6" }}
+            <span
+              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em]"
+              style={{ fontFamily: MONO, borderColor: "rgba(6,182,212,0.35)", background: "rgba(6,182,212,0.07)", color: "#0E8FA6" }}
             >
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: CYAN }} />
               The cost of no follow-through
-            </div>
+            </span>
             <h2
-              className="mt-6 text-[34px] leading-[1.05] tracking-[-0.045em] sm:text-[46px] lg:text-[54px]"
+              className="mt-7 text-[34px] leading-[1.05] tracking-[-0.045em] sm:text-[46px] lg:text-[54px]"
               style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
             >
               44% of inbound callers don't reach a person.
@@ -296,67 +316,48 @@ export function ZaplaRevenueLeakageV7() {
           </div>
         </Reveal>
 
-        {/* ---------- journey rail with breaks ---------- */}
-        <Reveal reduced={reduced} delay={0.06}>
-          <JourneyRail />
-        </Reveal>
-
         {/* ---------- leak cards ---------- */}
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:mt-8 lg:grid-cols-4">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {LEAKS.map((leak, i) => (
-            <Reveal key={leak.tag} reduced={reduced} delay={0.08 + i * 0.07}>
-              <div
-                className="h-full overflow-hidden rounded-[18px] border bg-white"
-                style={{ borderColor: HAIR, boxShadow: "0 26px 60px -42px rgba(18,20,26,0.28)" }}
-              >
-                <div className="h-[132px] border-b" style={{ borderColor: HAIR }}>
-                  <leak.Scene reduced={reduced} />
-                </div>
-                <div className="px-5 py-5">
-                  <div
-                    className="text-[9px] font-semibold uppercase tracking-[0.18em]"
-                    style={{ fontFamily: MONO, color: FAINT }}
-                  >
-                    0{i + 1} · {leak.tag}
-                  </div>
-                  <div
-                    className="mt-3 text-[42px] leading-none tracking-[-0.05em]"
-                    style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
-                  >
-                    {leak.stat}
-                  </div>
-                  <p className="mt-3 min-h-[60px] text-[13.5px] leading-[1.5]" style={{ color: MUTED }}>
-                    {leak.claim}
-                  </p>
-                  <div
-                    className="mt-3 flex flex-col gap-0.5 border-t pt-3 text-[9px] uppercase tracking-[0.16em]"
-                    style={{ fontFamily: MONO, color: FAINT, borderColor: HAIR }}
-                  >
-                    {leak.source.map((line) => (
-                      <span key={line}>{line}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Reveal>
+            <LeakCard key={leak.tag} leak={leak} index={i} reduced={reduced} />
           ))}
         </div>
 
         {/* ---------- bridge ---------- */}
-        <Reveal reduced={reduced} delay={0.08} className="mt-20 sm:mt-24">
-          <div className="h-px w-full" style={{ background: HAIR }} />
-          <div className="mx-auto mt-10 max-w-[760px] text-center">
+        <Reveal reduced={reduced} delay={0.1} className="mt-16 sm:mt-20">
+          <div
+            className="relative overflow-hidden rounded-[32px] px-6 py-14 text-center sm:px-12 sm:py-16"
+            style={{ background: "#111318" }}
+          >
             <div
-              className="text-[26px] leading-[1.2] tracking-[-0.03em]"
-              style={{ fontFamily: DISPLAY, fontWeight: 500, color: FAINT }}
-            >
-              These aren't four separate problems. They're one follow-through problem.
-            </div>
-            <div
-              className="mt-3 text-[26px] leading-[1.2] tracking-[-0.03em]"
-              style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
-            >
-              Zapla connects the next step, from first contact to booked, paid and returning.
+              className="pointer-events-none absolute -top-24 left-1/2 h-[280px] w-[560px] -translate-x-1/2 rounded-full blur-3xl"
+              style={{ background: "radial-gradient(circle, rgba(6,182,212,0.22), transparent 65%)" }}
+            />
+            <div className="relative">
+              <div
+                className="text-[10px] font-bold uppercase tracking-[0.24em]"
+                style={{ fontFamily: MONO, color: "rgba(116,223,225,0.8)" }}
+              >
+                One problem, not four
+              </div>
+              <div
+                className="mx-auto mt-5 max-w-[720px] text-[24px] leading-[1.25] tracking-[-0.03em] text-white/45 sm:text-[28px]"
+                style={{ fontFamily: DISPLAY, fontWeight: 500 }}
+              >
+                These aren't four separate problems. They're one follow-through problem.
+              </div>
+              <div
+                className="mx-auto mt-3 max-w-[720px] text-[24px] leading-[1.25] tracking-[-0.03em] text-white sm:text-[28px]"
+                style={{ fontFamily: DISPLAY, fontWeight: 500 }}
+              >
+                Zapla connects the next step — from first contact to booked, paid and returning.
+              </div>
+              <a
+                href="#zapla-product-v5"
+                className="mt-8 inline-flex h-[46px] items-center gap-2 rounded-full bg-white px-6 text-[13px] font-bold text-[#111318]"
+              >
+                See how Zapla connects it <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </Reveal>
