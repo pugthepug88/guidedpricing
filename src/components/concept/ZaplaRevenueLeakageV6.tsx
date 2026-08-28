@@ -315,9 +315,12 @@ export function ZaplaRevenueLeakageV6() {
               key={s.stat}
               reduced={reduced}
               delay={0.1 + i * 0.08}
-              className={i === 0 ? "" : "sm:pl-10"}
+              className={i === 0 ? "" : "sm:border-l sm:pl-10"}
             >
-              <div style={i === 0 ? undefined : undefined}>
+              <div
+                style={i === 0 ? undefined : { borderImage: `linear-gradient(${HAIR}, ${HAIR}) 1` }}
+                className={i === 0 ? "" : "sm:border-[rgba(18,20,26,0.10)]"}
+              >
                 <div
                   className="text-[44px] leading-none tracking-[-0.05em] sm:text-[52px]"
                   style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
