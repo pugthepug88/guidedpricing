@@ -196,7 +196,7 @@ type Moment = {
   claim: string;
   source?: string;
   consequence: string;
-  Prop: (p: { live: boolean; reduced: boolean }) => JSX.Element;
+  Prop: (p: { live: boolean; reduced: boolean }) => React.ReactElement;
 };
 
 const MOMENTS: Moment[] = [
