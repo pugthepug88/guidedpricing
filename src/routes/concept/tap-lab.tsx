@@ -1,5 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TapLab } from "@/components/concept/TapLab";
+import { TapShapes } from "@/components/concept/TapShapes";
+
+function TapLabRoute() {
+  return (
+    <>
+      <TapLab />
+      <TapShapes />
+    </>
+  );
+}
 
 const TITLE = "Tap lab — 20 leak illustrations | Zapla concept";
 const DESC =
