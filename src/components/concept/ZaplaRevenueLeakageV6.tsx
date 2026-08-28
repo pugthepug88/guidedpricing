@@ -130,7 +130,7 @@ function ProductSurface({ reduced }: { reduced: boolean }) {
 
       <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
         {/* left: missed call event */}
-        <div className="px-5 py-6 sm:px-7" style={{ borderBottom: `1px solid ${HAIR}`, ...(undefined as never) }}>
+        <div className="px-5 py-6 sm:px-7" style={{ borderBottom: `1px solid ${HAIR}` }}>
           <MonoLabel>New activity</MonoLabel>
           <div className="mt-4 flex items-start gap-4">
             <div
@@ -315,9 +315,9 @@ export function ZaplaRevenueLeakageV6() {
               key={s.stat}
               reduced={reduced}
               delay={0.1 + i * 0.08}
-              className={i === 0 ? "" : "sm:border-l sm:pl-10"}
+              className={i === 0 ? "" : "sm:pl-10"}
             >
-              <div style={i === 0 ? undefined : { borderColor: HAIR }} className={i === 0 ? "" : "sm:border-[rgba(18,20,26,0.10)]"}>
+              <div style={i === 0 ? undefined : undefined}>
                 <div
                   className="text-[44px] leading-none tracking-[-0.05em] sm:text-[52px]"
                   style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}
