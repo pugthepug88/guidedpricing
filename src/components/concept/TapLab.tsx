@@ -255,9 +255,9 @@ function V04({ r }: { r: boolean }) {
       <Dashed x1={470} x2={862} />
       <Faucet />
       {[0, 0.6, 1.2].map((d, i) => (
-        <Drop key={i} cx={506} from={190} to={252} delay={d} reduced={r} />
+        <Drop key={i} cx={506} from={190} to={234} delay={d} reduced={r} />
       ))}
-      <Label x={506} y={256} size={11}>
+      <Label x={506} y={256} size={11} anchor="start">
         NO BUCKET
       </Label>
     </Stage>
