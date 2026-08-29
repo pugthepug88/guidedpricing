@@ -8,8 +8,8 @@ export function ZaplaHomepageContinuationV5() {
   return (
     <>
       <ZaplaRevenueLeakageV7 />
-      <ZaplaAISectionV6 />
       <ZaplaPlatformShowcase variant="follow-through" />
+      <ZaplaAISectionV6 />
       <ZaplaGrowthV6 />
       <ZaplaUnlimitedV6 />
       <ZaplaGuidedLaunchV6 />
