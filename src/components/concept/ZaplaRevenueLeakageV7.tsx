@@ -1,5 +1,11 @@
 import { motion, useReducedMotion } from "motion/react";
 import { FACE } from "@/components/v5/faces";
+import brightside from "@/assets/customer-01-brightside.jpg";
+import northside from "@/assets/customer-02-northside.jpg";
+import peak from "@/assets/customer-05-peak.jpg";
+import complete from "@/assets/customer-06-complete.jpg";
+import metro from "@/assets/customer-07-metro.jpg";
+import urban from "@/assets/customer-08-urban.jpg";
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
@@ -24,12 +30,12 @@ const PEOPLE: Person[] = [
   { src: FACE.jordan, lost: false, size: 58, desktop: { fromX: 24, fromY: 45, toX: 72, toY: 59 }, mobile: { fromX: 88, fromY: 17, toX: 89, toY: 62 } },
   { src: FACE.nina, lost: true, size: 44, desktop: { fromX: 33, fromY: 54, toX: 45, toY: 61 }, mobile: { fromX: 8, fromY: 30, toX: 16, toY: 41 } },
   { src: FACE.sam, lost: false, size: 64, desktop: { fromX: 42, fromY: 43, toX: 84, toY: 50 }, mobile: { fromX: 31, fromY: 29, toX: 58, toY: 73 } },
-  { src: "/concept/cinematic-v5/agent.jpg", lost: false, size: 50, desktop: { fromX: 3, fromY: 77, toX: 65, toY: 82 }, mobile: { fromX: 54, fromY: 30, toX: 12, toY: 88 } },
-  { src: "/concept/cinematic-v5/dentist.jpg", lost: true, size: 64, desktop: { fromX: 14, fromY: 79, toX: 41, toY: 77 }, mobile: { fromX: 80, fromY: 29, toX: 82, toY: 41 } },
-  { src: "/concept/cinematic-v5/mechanic.jpg", lost: false, size: 56, desktop: { fromX: 23, fromY: 72, toX: 77, toY: 79 }, mobile: { fromX: 17, fromY: 40, toX: 40, toY: 91 } },
-  { src: "/concept/cinematic-v5/photographer.jpg", lost: true, size: 46, desktop: { fromX: 31, fromY: 88, toX: 44, toY: 84 }, mobile: { fromX: 40, fromY: 40, toX: 43, toY: 43 } },
-  { src: "/concept/cinematic-v5/physio.jpg", lost: false, size: 60, desktop: { fromX: 39, fromY: 76, toX: 90, toY: 74 }, mobile: { fromX: 62, fromY: 39, toX: 69, toY: 86 } },
-  { src: "/concept/cinematic-v5/vet.jpg", lost: true, size: 54, desktop: { fromX: 47, fromY: 63, toX: 47, toY: 67 }, mobile: { fromX: 86, fromY: 39, toX: 88, toY: 44 } },
+  { src: brightside, lost: false, size: 50, desktop: { fromX: 3, fromY: 77, toX: 65, toY: 82 }, mobile: { fromX: 54, fromY: 30, toX: 12, toY: 88 } },
+  { src: northside, lost: true, size: 64, desktop: { fromX: 14, fromY: 79, toX: 41, toY: 77 }, mobile: { fromX: 80, fromY: 29, toX: 82, toY: 41 } },
+  { src: peak, lost: false, size: 56, desktop: { fromX: 23, fromY: 72, toX: 77, toY: 79 }, mobile: { fromX: 17, fromY: 40, toX: 40, toY: 91 } },
+  { src: complete, lost: true, size: 46, desktop: { fromX: 31, fromY: 88, toX: 44, toY: 84 }, mobile: { fromX: 40, fromY: 40, toX: 43, toY: 43 } },
+  { src: metro, lost: false, size: 60, desktop: { fromX: 39, fromY: 76, toX: 90, toY: 74 }, mobile: { fromX: 62, fromY: 39, toX: 69, toY: 86 } },
+  { src: urban, lost: true, size: 54, desktop: { fromX: 47, fromY: 63, toX: 47, toY: 67 }, mobile: { fromX: 86, fromY: 39, toX: 88, toY: 44 } },
 ];
 
 const PROOF = [
