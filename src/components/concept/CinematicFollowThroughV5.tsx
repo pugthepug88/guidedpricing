@@ -49,8 +49,8 @@ const support = (key: string) => SUPPORT_FILMS.find((f) => f.key === key)!;
 /* Scroll is intentionally short. Autoplay owns time; scroll only changes geometry. */
 const MORPH_IN = 0.1;
 const MORPH_OUT = 0.44;
-const SUPPORT_IN = 0.27;
-const STATEMENT_IN = 0.52;
+const SUPPORT_IN = 0.18;
+const STATEMENT_IN = 0.38;
 
 function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
   const p = useMotionValue(0);
@@ -337,24 +337,24 @@ type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; 
 /* Editorial composition: irregular scale, off-canvas cropping, no shared baselines. */
 const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: 2, t: 4, w: 35, h: 47 }, rotate: -2.2, z: 24 };
 const DESKTOP_SUPPORT: Tile[] = [
-  { key: "solar", box: { l: 29, t: -9, w: 19, h: 31 }, rotate: 3, z: 18, from: 0.28, enter: { x: 5, y: -30, scale: 0.82, rotate: 8, span: 0.15 } },
-  { key: "roofing", box: { l: 46, t: 7, w: 23, h: 29 }, rotate: -2.2, z: 20, from: 0.33, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.14 } },
-  { key: "skin-clinic", box: { l: 68, t: -2, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.3, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.17 } },
-  { key: "vet", box: { l: 68, t: 31, w: 33, h: 31 }, rotate: -2.4, z: 22, from: 0.39, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.16 } },
-  { key: "dentist", box: { l: -3, t: 55, w: 33, h: 35 }, rotate: 2.3, z: 21, from: 0.36, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.17 } },
-  { key: "personal-trainer", box: { l: 27, t: 67, w: 26, h: 31 }, rotate: -3.1, z: 17, from: 0.46, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.14 } },
-  { key: "photographer", box: { l: 63, t: 66, w: 41, h: 37 }, rotate: 3.6, z: 30, from: 0.42, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.16 } },
+  { key: "solar", box: { l: 29, t: -9, w: 19, h: 31 }, rotate: 3, z: 18, from: 0.17, enter: { x: 5, y: -30, scale: 0.82, rotate: 8, span: 0.15 } },
+  { key: "roofing", box: { l: 46, t: 7, w: 23, h: 29 }, rotate: -2.2, z: 20, from: 0.2, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.14 } },
+  { key: "skin-clinic", box: { l: 68, t: -2, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.19, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.17 } },
+  { key: "vet", box: { l: 68, t: 31, w: 33, h: 31 }, rotate: -2.4, z: 22, from: 0.25, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.16 } },
+  { key: "dentist", box: { l: -3, t: 55, w: 33, h: 35 }, rotate: 2.3, z: 21, from: 0.23, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.17 } },
+  { key: "personal-trainer", box: { l: 27, t: 67, w: 26, h: 31 }, rotate: -3.1, z: 17, from: 0.3, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.14 } },
+  { key: "photographer", box: { l: 63, t: 66, w: 41, h: 37 }, rotate: 3.6, z: 30, from: 0.28, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.16 } },
 ];
 
 const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: 3, t: 2, w: 54, h: 22 }, rotate: -2.2, z: 24 };
 const MOBILE_SUPPORT: Tile[] = [
-  { key: "skin-clinic", box: { l: 58, t: 7, w: 47, h: 19 }, rotate: 2.2, z: 19, from: 0.29, enter: { x: 38, y: -6, scale: 0.88, rotate: 7, span: 0.16 } },
-  { key: "solar", box: { l: -6, t: 27, w: 40, h: 15 }, rotate: 3, z: 18, from: 0.34, enter: { x: -28, y: -18, scale: 0.82, rotate: 9, span: 0.14 } },
-  { key: "roofing", box: { l: 37, t: 21, w: 34, h: 13 }, rotate: -2.6, z: 20, from: 0.31, enter: { x: 12, y: -26, scale: 0.86, rotate: -8, span: 0.15 } },
-  { key: "vet", box: { l: 66, t: 35, w: 40, h: 17 }, rotate: -2.2, z: 21, from: 0.4, enter: { x: 34, y: 12, scale: 0.86, rotate: -7, span: 0.16 } },
-  { key: "dentist", box: { l: -6, t: 59, w: 44, h: 17 }, rotate: 2.4, z: 20, from: 0.37, enter: { x: -30, y: 20, scale: 0.84, rotate: 8, span: 0.17 } },
-  { key: "personal-trainer", box: { l: 34, t: 68, w: 31, h: 14 }, rotate: -3.4, z: 17, from: 0.47, enter: { x: -6, y: 30, scale: 0.76, rotate: -9, span: 0.14 } },
-  { key: "photographer", box: { l: 59, t: 72, w: 47, h: 20 }, rotate: 3.6, z: 30, from: 0.43, enter: { x: 26, y: 30, scale: 0.84, rotate: 10, span: 0.16 } },
+  { key: "skin-clinic", box: { l: 58, t: 7, w: 47, h: 19 }, rotate: 2.2, z: 19, from: 0.18, enter: { x: 38, y: -6, scale: 0.88, rotate: 7, span: 0.16 } },
+  { key: "solar", box: { l: -6, t: 27, w: 40, h: 15 }, rotate: 3, z: 18, from: 0.21, enter: { x: -28, y: -18, scale: 0.82, rotate: 9, span: 0.14 } },
+  { key: "roofing", box: { l: 37, t: 21, w: 34, h: 13 }, rotate: -2.6, z: 20, from: 0.2, enter: { x: 12, y: -26, scale: 0.86, rotate: -8, span: 0.15 } },
+  { key: "vet", box: { l: 66, t: 35, w: 40, h: 17 }, rotate: -2.2, z: 21, from: 0.26, enter: { x: 34, y: 12, scale: 0.86, rotate: -7, span: 0.16 } },
+  { key: "dentist", box: { l: -6, t: 59, w: 44, h: 17 }, rotate: 2.4, z: 20, from: 0.24, enter: { x: -30, y: 20, scale: 0.84, rotate: 8, span: 0.17 } },
+  { key: "personal-trainer", box: { l: 34, t: 68, w: 31, h: 14 }, rotate: -3.4, z: 17, from: 0.31, enter: { x: -6, y: 30, scale: 0.76, rotate: -9, span: 0.14 } },
+  { key: "photographer", box: { l: 59, t: 72, w: 47, h: 20 }, rotate: 3.6, z: 30, from: 0.29, enter: { x: 26, y: 30, scale: 0.84, rotate: 10, span: 0.16 } },
 ];
 
 function HeroAnchorCard({ tile, p, mobile, videos, layers }: {
