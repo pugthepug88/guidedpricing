@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type MutableRefObject, type RefObject } from "react";
-import { motion, useMotionValue, useReducedMotion, useTransform, type MotionValue } from "motion/react";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ZaplaPlatformShowcase } from "@/components/concept/ZaplaPlatformShowcase";
@@ -47,10 +47,10 @@ const SUPPORT_FILMS: Film[] = [
 const support = (key: string) => SUPPORT_FILMS.find((f) => f.key === key)!;
 
 /* Scroll is intentionally short. Autoplay owns time; scroll only changes geometry. */
-const MORPH_IN = 0.08;
-const MORPH_OUT = 0.26;
-const SUPPORT_IN = 0.18;
-const STATEMENT_IN = 0.29;
+const MORPH_IN = 0.1;
+const MORPH_OUT = 0.44;
+const SUPPORT_IN = 0.27;
+const STATEMENT_IN = 0.52;
 
 function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
   const p = useMotionValue(0);
@@ -335,26 +335,26 @@ type Entrance = { x: number; y: number; scale: number; rotate: number; span: num
 type Tile = { key: string; box: Box; rotate?: number; z: number; from?: number; enter?: Entrance };
 
 /* Editorial composition: irregular scale, off-canvas cropping, no shared baselines. */
-const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: -4, t: 4, w: 37, h: 47 }, rotate: -2.6, z: 24 };
+const DESKTOP_ANCHOR: Tile = { key: "anchor", box: { l: 2, t: 4, w: 35, h: 47 }, rotate: -2.2, z: 24 };
 const DESKTOP_SUPPORT: Tile[] = [
-  { key: "solar", box: { l: 29, t: -9, w: 19, h: 31 }, rotate: 3, z: 18, from: 0.14, enter: { x: 5, y: -30, scale: 0.82, rotate: 8, span: 0.11 } },
-  { key: "roofing", box: { l: 46, t: 7, w: 23, h: 29 }, rotate: -2.2, z: 20, from: 0.18, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.1 } },
-  { key: "skin-clinic", box: { l: 68, t: -2, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.16, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.13 } },
-  { key: "vet", box: { l: 68, t: 31, w: 33, h: 31 }, rotate: -2.4, z: 22, from: 0.245, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.12 } },
-  { key: "dentist", box: { l: -3, t: 55, w: 33, h: 35 }, rotate: 2.3, z: 21, from: 0.21, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.14 } },
-  { key: "personal-trainer", box: { l: 27, t: 67, w: 26, h: 31 }, rotate: -3.1, z: 17, from: 0.29, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
-  { key: "photographer", box: { l: 63, t: 66, w: 41, h: 37 }, rotate: 3.6, z: 30, from: 0.255, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.12 } },
+  { key: "solar", box: { l: 29, t: -9, w: 19, h: 31 }, rotate: 3, z: 18, from: 0.28, enter: { x: 5, y: -30, scale: 0.82, rotate: 8, span: 0.141 } },
+  { key: "roofing", box: { l: 46, t: 7, w: 23, h: 29 }, rotate: -2.2, z: 20, from: 0.33, enter: { x: 14, y: -24, scale: 0.86, rotate: -7, span: 0.14 } },
+  { key: "skin-clinic", box: { l: 68, t: -2, w: 35, h: 32 }, rotate: 1.7, z: 19, from: 0.3, enter: { x: 36, y: -5, scale: 0.9, rotate: 6, span: 0.143 } },
+  { key: "vet", box: { l: 68, t: 31, w: 33, h: 31 }, rotate: -2.4, z: 22, from: 0.39, enter: { x: 32, y: 14, scale: 0.86, rotate: -7, span: 0.142 } },
+  { key: "dentist", box: { l: -3, t: 55, w: 33, h: 35 }, rotate: 2.3, z: 21, from: 0.36, enter: { x: -30, y: 18, scale: 0.86, rotate: 8, span: 0.144 } },
+  { key: "personal-trainer", box: { l: 27, t: 67, w: 26, h: 31 }, rotate: -3.1, z: 17, from: 0.46, enter: { x: -5, y: 30, scale: 0.76, rotate: -9, span: 0.13 } },
+  { key: "photographer", box: { l: 63, t: 66, w: 41, h: 37 }, rotate: 3.6, z: 30, from: 0.42, enter: { x: 28, y: 32, scale: 0.84, rotate: 10, span: 0.142 } },
 ];
 
-const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: -5, t: 2, w: 62, h: 22 }, rotate: -2.4, z: 24 };
+const MOBILE_ANCHOR: Tile = { key: "anchor", box: { l: 3, t: 2, w: 54, h: 22 }, rotate: -2.2, z: 24 };
 const MOBILE_SUPPORT: Tile[] = [
-  { key: "skin-clinic", box: { l: 58, t: 7, w: 47, h: 19 }, rotate: 2.2, z: 19, from: 0.15, enter: { x: 38, y: -6, scale: 0.88, rotate: 7, span: 0.12 } },
-  { key: "solar", box: { l: -6, t: 27, w: 40, h: 15 }, rotate: 3, z: 18, from: 0.185, enter: { x: -28, y: -18, scale: 0.82, rotate: 9, span: 0.1 } },
-  { key: "roofing", box: { l: 37, t: 21, w: 34, h: 13 }, rotate: -2.6, z: 20, from: 0.165, enter: { x: 12, y: -26, scale: 0.86, rotate: -8, span: 0.11 } },
-  { key: "vet", box: { l: 66, t: 35, w: 40, h: 17 }, rotate: -2.2, z: 21, from: 0.25, enter: { x: 34, y: 12, scale: 0.86, rotate: -7, span: 0.12 } },
-  { key: "dentist", box: { l: -6, t: 59, w: 44, h: 17 }, rotate: 2.4, z: 20, from: 0.215, enter: { x: -30, y: 20, scale: 0.84, rotate: 8, span: 0.13 } },
-  { key: "personal-trainer", box: { l: 34, t: 68, w: 31, h: 14 }, rotate: -3.4, z: 17, from: 0.295, enter: { x: -6, y: 30, scale: 0.76, rotate: -9, span: 0.09 } },
-  { key: "photographer", box: { l: 59, t: 72, w: 47, h: 20 }, rotate: 3.6, z: 30, from: 0.26, enter: { x: 26, y: 30, scale: 0.84, rotate: 10, span: 0.12 } },
+  { key: "skin-clinic", box: { l: 58, t: 7, w: 47, h: 19 }, rotate: 2.2, z: 19, from: 0.29, enter: { x: 38, y: -6, scale: 0.88, rotate: 7, span: 0.142 } },
+  { key: "solar", box: { l: -6, t: 27, w: 40, h: 15 }, rotate: 3, z: 18, from: 0.335, enter: { x: -28, y: -18, scale: 0.82, rotate: 9, span: 0.14 } },
+  { key: "roofing", box: { l: 37, t: 21, w: 34, h: 13 }, rotate: -2.6, z: 20, from: 0.35, enter: { x: 12, y: -26, scale: 0.86, rotate: -8, span: 0.141 } },
+  { key: "vet", box: { l: 66, t: 35, w: 40, h: 17 }, rotate: -2.2, z: 21, from: 0.4, enter: { x: 34, y: 12, scale: 0.86, rotate: -7, span: 0.142 } },
+  { key: "dentist", box: { l: -6, t: 59, w: 44, h: 17 }, rotate: 2.4, z: 20, from: 0.365, enter: { x: -30, y: 20, scale: 0.84, rotate: 8, span: 0.143 } },
+  { key: "personal-trainer", box: { l: 34, t: 68, w: 31, h: 14 }, rotate: -3.4, z: 17, from: 0.465, enter: { x: -6, y: 30, scale: 0.76, rotate: -9, span: 0.13 } },
+  { key: "photographer", box: { l: 59, t: 72, w: 47, h: 20 }, rotate: 3.6, z: 30, from: 0.43, enter: { x: 26, y: 30, scale: 0.84, rotate: 10, span: 0.142 } },
 ];
 
 function HeroAnchorCard({ tile, p, mobile, videos, layers }: {
@@ -369,7 +369,7 @@ function HeroAnchorCard({ tile, p, mobile, videos, layers }: {
   const top = useTransform(p, stops, [0, tile.box.t]);
   const width = useTransform(p, stops, [100, tile.box.w]);
   const height = useTransform(p, stops, [100, tile.box.h]);
-  const radius = useTransform(p, stops, [0, 4]);
+  const radius = useTransform(p, stops, [0, 16]);
   const rotate = useTransform(p, stops, [0, tile.rotate ?? 0]);
   const l = useTransform(left, (v) => `${v}%`);
   const t = useTransform(top, (v) => `${v}%`);
@@ -426,7 +426,7 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
   return (
     <motion.div
       data-support-tile={tile.key}
-      className="absolute overflow-hidden rounded-[4px] bg-[#0A0E14]"
+      className="absolute overflow-hidden rounded-[14px] bg-[#0A0E14]"
       style={{
         left: `${tile.box.l}%`,
         top: `${tile.box.t}%`,
@@ -521,16 +521,22 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
   const { p, stageVisible, collageArmed } = useStoryScroll(wrap);
-  const { videos, layers } = useHeroSequencer(stageVisible, reduced, p);
+  const smoothP = useSpring(p, {
+    stiffness: 110,
+    damping: 26,
+    mass: 0.34,
+    restDelta: 0.0008,
+  });
+  const { videos, layers } = useHeroSequencer(stageVisible, reduced, smoothP);
   const anchor = useMemo(() => (mobile ? MOBILE_ANCHOR : DESKTOP_ANCHOR), [mobile]);
 
-  const heroOpacity = useTransform(p, [0, 0.035, 0.12], [1, 1, 0]);
-  const gradeOpacity = useTransform(p, [MORPH_IN, MORPH_OUT], [1, 0]);
+  const heroOpacity = useTransform(smoothP, [0, 0.06, 0.25], [1, 1, 0]);
+  const gradeOpacity = useTransform(smoothP, [MORPH_IN, MORPH_OUT], [1, 0]);
 
   return (
-    <div ref={wrap} data-v5-stage className={mobile ? "relative h-[280vh]" : "relative h-[260vh]"}>
+    <div ref={wrap} data-v5-stage className={mobile ? "relative h-[340vh]" : "relative h-[320vh]"}>
       <div className="sticky overflow-hidden bg-[#080B10]" style={{ top: NAV, height: `calc(100vh - ${NAV}px)` }}>
-        <HeroAnchorCard tile={anchor} p={p} mobile={mobile} videos={videos} layers={layers} />
+        <HeroAnchorCard tile={anchor} p={smoothP} mobile={mobile} videos={videos} layers={layers} />
 
         <motion.div className="pointer-events-none absolute inset-0 z-[28]" style={{ opacity: gradeOpacity }}>
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,13,.78)_0%,rgba(5,8,13,.54)_34%,rgba(5,8,13,.16)_64%,rgba(5,8,13,.36)_100%)]" />
@@ -546,7 +552,7 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
           <HeroCopy mobile={mobile} eyebrow={eyebrow} />
         </motion.div>
 
-        <RecognitionCollage p={p} reduced={reduced} mobile={mobile} armed={stageVisible && collageArmed} />
+        <RecognitionCollage p={smoothP} reduced={reduced} mobile={mobile} armed={stageVisible && collageArmed} />
       </div>
     </div>
   );
