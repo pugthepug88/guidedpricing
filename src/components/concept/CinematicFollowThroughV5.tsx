@@ -484,12 +484,9 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
 function HeroCopy({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
   return (
     <div className={mobile ? "max-w-[350px]" : "max-w-[650px]"}>
-      <div className="flex items-start gap-3">
-        <span className="mt-[7px] h-[2px] w-7 shrink-0" style={{ background: CYAN }} />
-        <span className="text-[10px] font-semibold uppercase leading-[1.45] tracking-[0.19em] text-white/74 md:text-[11px]">
-          {eyebrow}
-        </span>
-      </div>
+      <span className="block text-[10px] font-semibold uppercase leading-[1.45] tracking-[0.19em] text-white/74 md:text-[11px]">
+        {eyebrow}
+      </span>
       <h1
         className={mobile
           ? "mt-4 text-[48px] leading-[0.98] tracking-[-0.045em] text-white"
