@@ -3,40 +3,90 @@ import { motion, useReducedMotion } from "motion/react";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
 const EASE = [0.16, 1, 0.3, 1] as const;
+const BRAND_BLUE = "#2563ff";
 
-type Point = { fromX: number; fromY: number; toX: number; toY: number };
+const AUTUMN = [
+  "#D7C5A7", // oatmeal
+  "#B9B49B", // muted sage
+  "#D9A58D", // dusty peach
+  "#C7B39A", // mushroom
+  "#C98F72", // soft clay
+  "#A9AE91", // olive sage
+  "#D3B07D", // camel
+  "#BDA99A", // warm taupe
+] as const;
 
 type Person = {
   src: string;
-  size: number;
-  lost: boolean;
-  fade?: number;
-  blur?: number;
-  desktop: Point;
-  mobile: Point;
+  bg: (typeof AUTUMN)[number];
 };
 
-const avatar = (id: number) => `https://i.pravatar.cc/160?img=${id}`;
-
-/* 16 inbound people. 7 fade before the line, 9 make it through: 7 / 16 = 43.75%. */
+/*
+ * Single-person professional headshots only. The Soft Autumn colour belongs
+ * inside each avatar, behind the portrait. The portrait edges are softly
+ * masked so the warm background reads as part of the avatar rather than a ring.
+ */
 const PEOPLE: Person[] = [
-  { src: avatar(1), size: 58, lost: false, desktop: { fromX: 4, fromY: 15, toX: 62, toY: 13 }, mobile: { fromX: 11, fromY: 4, toX: 14, toY: 62 } },
-  { src: avatar(5), size: 46, lost: true, fade: 0.38, blur: 0.4, desktop: { fromX: 11, fromY: 6, toX: 31, toY: 9 }, mobile: { fromX: 32, fromY: 5, toX: 27, toY: 34 } },
-  { src: avatar(7), size: 52, lost: false, desktop: { fromX: 18, fromY: 26, toX: 70, toY: 27 }, mobile: { fromX: 55, fromY: 5, toX: 38, toY: 66 } },
-  { src: avatar(9), size: 56, lost: true, fade: 0.31, blur: 0.8, desktop: { fromX: 27, fromY: 12, toX: 36, toY: 25 }, mobile: { fromX: 79, fromY: 5, toX: 73, toY: 37 } },
-  { src: avatar(11), size: 62, lost: false, desktop: { fromX: 36, fromY: 20, toX: 82, toY: 16 }, mobile: { fromX: 20, fromY: 16, toX: 82, toY: 62 } },
-  { src: avatar(12), size: 44, lost: false, desktop: { fromX: 7, fromY: 47, toX: 59, toY: 47 }, mobile: { fromX: 42, fromY: 17, toX: 26, toY: 77 } },
-  { src: avatar(13), size: 50, lost: true, fade: 0.25, blur: 1.2, desktop: { fromX: 16, fromY: 57, toX: 40, toY: 44 }, mobile: { fromX: 66, fromY: 17, toX: 60, toY: 41 } },
-  { src: avatar(15), size: 54, lost: false, desktop: { fromX: 25, fromY: 43, toX: 74, toY: 52 }, mobile: { fromX: 88, fromY: 18, toX: 90, toY: 69 } },
-  { src: avatar(17), size: 42, lost: true, fade: 0.2, blur: 1.7, desktop: { fromX: 34, fromY: 55, toX: 43, toY: 66 }, mobile: { fromX: 9, fromY: 30, toX: 16, toY: 44 } },
-  { src: avatar(19), size: 60, lost: false, desktop: { fromX: 41, fromY: 42, toX: 88, toY: 41 }, mobile: { fromX: 31, fromY: 30, toX: 58, toY: 74 } },
-  { src: avatar(21), size: 48, lost: false, desktop: { fromX: 4, fromY: 78, toX: 64, toY: 79 }, mobile: { fromX: 54, fromY: 29, toX: 12, toY: 88 } },
-  { src: avatar(23), size: 58, lost: true, fade: 0.16, blur: 2.1, desktop: { fromX: 14, fromY: 80, toX: 46, toY: 82 }, mobile: { fromX: 80, fromY: 30, toX: 84, toY: 46 } },
-  { src: avatar(25), size: 52, lost: false, desktop: { fromX: 23, fromY: 72, toX: 79, toY: 73 }, mobile: { fromX: 17, fromY: 40, toX: 39, toY: 91 } },
-  { src: avatar(27), size: 44, lost: true, fade: 0.11, blur: 2.8, desktop: { fromX: 31, fromY: 89, toX: 48, toY: 54 }, mobile: { fromX: 40, fromY: 40, toX: 43, toY: 47 } },
-  { src: avatar(29), size: 56, lost: false, desktop: { fromX: 39, fromY: 77, toX: 91, toY: 69 }, mobile: { fromX: 62, fromY: 39, toX: 70, toY: 87 } },
-  { src: avatar(31), size: 48, lost: true, fade: 0.07, blur: 3.6, desktop: { fromX: 45, fromY: 64, toX: 49.2, toY: 29 }, mobile: { fromX: 86, fromY: 40, toX: 89, toY: 49 } },
+  { src: "https://randomuser.me/api/portraits/women/44.jpg", bg: AUTUMN[1] },
+  { src: "https://randomuser.me/api/portraits/men/32.jpg", bg: AUTUMN[0] },
+  { src: "https://randomuser.me/api/portraits/women/65.jpg", bg: AUTUMN[2] },
+  { src: "https://randomuser.me/api/portraits/men/52.jpg", bg: AUTUMN[5] },
+  { src: "https://randomuser.me/api/portraits/women/33.jpg", bg: AUTUMN[6] },
+  { src: "https://randomuser.me/api/portraits/men/75.jpg", bg: AUTUMN[3] },
+  { src: "https://randomuser.me/api/portraits/women/68.jpg", bg: AUTUMN[4] },
+  { src: "https://randomuser.me/api/portraits/men/41.jpg", bg: AUTUMN[1] },
+  { src: "https://randomuser.me/api/portraits/women/12.jpg", bg: AUTUMN[7] },
+  { src: "https://randomuser.me/api/portraits/men/24.jpg", bg: AUTUMN[6] },
+  { src: "https://randomuser.me/api/portraits/women/5.jpg", bg: AUTUMN[0] },
+  { src: "https://randomuser.me/api/portraits/men/18.jpg", bg: AUTUMN[4] },
+  { src: "https://randomuser.me/api/portraits/women/79.jpg", bg: AUTUMN[5] },
+  { src: "https://randomuser.me/api/portraits/men/67.jpg", bg: AUTUMN[3] },
+  { src: "https://randomuser.me/api/portraits/women/22.jpg", bg: AUTUMN[2] },
+  { src: "https://randomuser.me/api/portraits/men/46.jpg", bg: AUTUMN[7] },
 ];
+
+const LEFT = [
+  { i: 0, x: 4, y: 14, s: 68 },
+  { i: 1, x: 15, y: 7, s: 58 },
+  { i: 2, x: 28, y: 15, s: 64 },
+  { i: 3, x: 9, y: 37, s: 56 },
+  { i: 4, x: 20, y: 31, s: 64 },
+  { i: 5, x: 33, y: 34, s: 54 },
+  { i: 6, x: 2, y: 61, s: 60 },
+  { i: 7, x: 14, y: 57, s: 66 },
+  { i: 8, x: 27, y: 58, s: 58 },
+  { i: 9, x: 37, y: 54, s: 56 },
+  { i: 10, x: 8, y: 82, s: 54 },
+  { i: 11, x: 20, y: 80, s: 58 },
+  { i: 12, x: 31, y: 82, s: 64 },
+  { i: 13, x: 40, y: 77, s: 50 },
+  { i: 14, x: 24, y: 11, s: 50 },
+  { i: 15, x: 36, y: 18, s: 48 },
+] as const;
+
+/* Seven of sixteen inbound people fade toward the checkpoint: 43.75% ≈ 44%. */
+const FADE = [
+  { i: 1, x: 40.5, y: 22, s: 50, o: 0.46 },
+  { i: 4, x: 43.5, y: 40, s: 54, o: 0.34 },
+  { i: 6, x: 45.8, y: 60, s: 49, o: 0.26 },
+  { i: 8, x: 47.8, y: 30, s: 46, o: 0.2 },
+  { i: 11, x: 49.1, y: 72, s: 44, o: 0.15 },
+  { i: 13, x: 50.2, y: 47, s: 40, o: 0.11 },
+  { i: 15, x: 51.1, y: 57, s: 36, o: 0.07 },
+] as const;
+
+/* The nine people who make it through stay crisp on the right. */
+const RIGHT = [
+  { i: 0, x: 63, y: 15, s: 64 },
+  { i: 2, x: 76, y: 11, s: 58 },
+  { i: 3, x: 91, y: 18, s: 62 },
+  { i: 5, x: 59, y: 43, s: 56 },
+  { i: 7, x: 72, y: 39, s: 64 },
+  { i: 9, x: 86, y: 42, s: 56 },
+  { i: 10, x: 65, y: 72, s: 58 },
+  { i: 12, x: 79, y: 70, s: 64 },
+  { i: 14, x: 94, y: 72, s: 56 },
+] as const;
 
 const PROOF = [
   {
@@ -73,78 +123,123 @@ function Reveal({ children, reduced, delay = 0, className = "" }: { children: Re
   );
 }
 
-function Portrait({ person, layout, reduced, index }: { person: Person; layout: "desktop" | "mobile"; reduced: boolean; index: number }) {
-  const position = person[layout];
-  const size = layout === "mobile" ? person.size * 0.78 : person.size;
-  const finalState = person.lost
-    ? {
-        left: `${position.toX}%`,
-        top: `${position.toY}%`,
-        opacity: person.fade ?? 0.16,
-        scale: 0.84,
-        filter: `blur(${person.blur ?? 2}px) saturate(0.72)`,
-      }
-    : {
-        left: `${position.toX}%`,
-        top: `${position.toY}%`,
-        opacity: 1,
-        scale: 1,
-        filter: "blur(0px) saturate(1)",
-      };
-
+function Avatar({ person, size, opacity = 1 }: { person: Person; size: number; opacity?: number }) {
   return (
-    <motion.div
-      className="absolute -translate-x-1/2 -translate-y-1/2"
-      style={{ width: size, height: size, left: `${position.fromX}%`, top: `${position.fromY}%` }}
-      initial={reduced ? finalState : { left: `${position.fromX}%`, top: `${position.fromY}%`, opacity: 1, scale: 1, filter: "blur(0px) saturate(1)" }}
-      whileInView={finalState}
-      viewport={{ once: true, amount: layout === "desktop" ? 0.4 : 0.28 }}
-      transition={{ duration: person.lost ? 1.25 : 1.65, delay: reduced ? 0 : 0.1 + index * 0.025, ease: EASE }}
+    <div
+      className="relative overflow-hidden rounded-full shadow-[0_7px_22px_rgba(17,19,24,0.07)] ring-1 ring-black/[0.05]"
+      style={{ width: size, height: size, backgroundColor: person.bg, opacity }}
     >
-      <div className="h-full w-full overflow-hidden rounded-full border border-white bg-white shadow-[0_8px_26px_rgba(17,19,24,0.08)] ring-1 ring-zapla-line">
-        <img
-          src={person.src}
-          alt=""
-          aria-hidden="true"
-          className="h-full w-full object-cover object-center"
-          loading="lazy"
-          referrerPolicy="no-referrer"
-        />
-      </div>
-    </motion.div>
+      <img
+        src={person.src}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full scale-[1.04] object-cover object-center saturate-[0.88] contrast-[0.98]"
+        loading="lazy"
+        referrerPolicy="no-referrer"
+        style={{
+          WebkitMaskImage: "radial-gradient(ellipse 78% 92% at 50% 54%, #000 47%, rgba(0,0,0,.9) 68%, transparent 100%)",
+          maskImage: "radial-gradient(ellipse 78% 92% at 50% 54%, #000 47%, rgba(0,0,0,.9) 68%, transparent 100%)",
+        }}
+      />
+    </div>
   );
 }
 
-function FadeFilterVisual({ reduced }: { reduced: boolean }) {
-  return (
-    <div className="mt-9 sm:mt-12" aria-hidden="true">
-      <div className="relative mx-auto hidden h-[310px] w-full max-w-[1080px] overflow-hidden sm:block">
-        <motion.div
-          className="absolute bottom-[5%] left-1/2 top-[5%] w-px"
-          style={{ background: "linear-gradient(to bottom, transparent, rgba(6,182,212,0.34) 18%, rgba(6,182,212,0.34) 82%, transparent)" }}
-          initial={reduced ? false : { opacity: 0, scaleY: 0.55 }}
-          whileInView={{ opacity: 1, scaleY: 1 }}
-          viewport={{ once: true, amount: 0.45 }}
-          transition={{ duration: 0.7, ease: EASE }}
-        />
-        {PEOPLE.map((person, index) => (
-          <Portrait key={person.src} person={person} layout="desktop" reduced={reduced} index={index} />
-        ))}
-      </div>
+function DesktopFadeFilter() {
+  const streamDots = Array.from({ length: 44 }, (_, n) => {
+    const band = n % 11;
+    const row = Math.floor(n / 11);
+    const x = 39 + band * 1.35;
+    const center = 50;
+    const spread = Math.max(4, 24 - band * 1.7);
+    const y = center + Math.sin((n + 2) * 1.61) * spread + (row - 1.5) * 3;
+    const opacity = Math.max(0.06, 0.28 - band * 0.018);
+    return { x, y, opacity, size: 2 + (n % 3) };
+  });
 
-      <div className="relative mx-auto h-[470px] w-full max-w-[390px] overflow-hidden sm:hidden">
-        <motion.div
-          className="absolute left-[4%] right-[4%] top-1/2 h-px"
-          style={{ background: "linear-gradient(to right, transparent, rgba(6,182,212,0.34) 18%, rgba(6,182,212,0.34) 82%, transparent)" }}
-          initial={reduced ? false : { opacity: 0, scaleX: 0.55 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true, amount: 0.32 }}
-          transition={{ duration: 0.7, ease: EASE }}
+  return (
+    <div className="relative mx-auto hidden h-[340px] w-full max-w-[1120px] overflow-hidden sm:block" aria-hidden="true">
+      {LEFT.map(({ i, x, y, s }) => (
+        <div key={`left-${i}`} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${x}%`, top: `${y}%` }}>
+          <Avatar person={PEOPLE[i]} size={s} />
+        </div>
+      ))}
+
+      {streamDots.map((dot, index) => (
+        <span
+          key={`dot-${index}`}
+          className="absolute rounded-full"
+          style={{
+            left: `${dot.x}%`,
+            top: `${dot.y}%`,
+            width: dot.size,
+            height: dot.size,
+            opacity: dot.opacity,
+            backgroundColor: index % 5 === 0 ? BRAND_BLUE : "#C9A68D",
+          }}
         />
-        {PEOPLE.map((person, index) => (
-          <Portrait key={person.src} person={person} layout="mobile" reduced={reduced} index={index} />
-        ))}
-      </div>
+      ))}
+
+      {FADE.map(({ i, x, y, s, o }) => (
+        <div key={`fade-${i}`} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${x}%`, top: `${y}%` }}>
+          <Avatar person={PEOPLE[i]} size={s} opacity={o} />
+        </div>
+      ))}
+
+      <div className="absolute bottom-[4%] left-[54%] top-[4%] w-[2px] rounded-full" style={{ backgroundColor: BRAND_BLUE }} />
+
+      {RIGHT.map(({ i, x, y, s }) => (
+        <div key={`right-${i}`} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${x}%`, top: `${y}%` }}>
+          <Avatar person={PEOPLE[i]} size={s} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function MobileFadeFilter() {
+  const entrants = LEFT.slice(0, 8);
+  const lost = FADE.slice(0, 4);
+  const passed = RIGHT.slice(0, 5);
+
+  return (
+    <div className="relative mx-auto h-[540px] w-full max-w-[390px] overflow-hidden sm:hidden" aria-hidden="true">
+      {entrants.map(({ i, x, y, s }, index) => {
+        const col = index % 4;
+        const row = Math.floor(index / 4);
+        return (
+          <div key={`m-left-${i}`} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${14 + col * 24}%`, top: `${10 + row * 17}%` }}>
+            <Avatar person={PEOPLE[i]} size={Math.min(52, s * 0.78)} />
+          </div>
+        );
+      })}
+
+      {lost.map(({ i, o }, index) => (
+        <div key={`m-fade-${i}`} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${25 + index * 17}%`, top: `${39 + index * 3}%` }}>
+          <Avatar person={PEOPLE[i]} size={42 - index * 2} opacity={o} />
+        </div>
+      ))}
+
+      <div className="absolute left-[5%] right-[5%] top-1/2 h-[2px] rounded-full" style={{ backgroundColor: BRAND_BLUE }} />
+
+      {passed.map(({ i, s }, index) => {
+        const col = index % 3;
+        const row = Math.floor(index / 3);
+        return (
+          <div key={`m-right-${i}`} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${20 + col * 30}%`, top: `${67 + row * 18}%` }}>
+            <Avatar person={PEOPLE[i]} size={Math.min(54, s * 0.82)} />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function FadeFilterVisual() {
+  return (
+    <div className="mt-9 sm:mt-12">
+      <DesktopFadeFilter />
+      <MobileFadeFilter />
     </div>
   );
 }
@@ -176,7 +271,7 @@ export function ZaplaRevenueLeakageV7() {
           </header>
         </Reveal>
 
-        <FadeFilterVisual reduced={reduced} />
+        <FadeFilterVisual />
 
         <div className="mt-8 grid gap-9 border-t border-zapla-line pt-9 sm:mt-10 sm:grid-cols-3 sm:gap-8 sm:pt-10 lg:gap-14">
           {PROOF.map((proof, index) => (
