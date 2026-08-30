@@ -50,7 +50,7 @@ const support = (key: string) => SUPPORT_FILMS.find((f) => f.key === key)!;
 const MORPH_IN = 0.08;
 const MORPH_OUT = 0.48;
 const SUPPORT_IN = 0.17;
-const STATEMENT_IN = 0.36;
+const STATEMENT_IN = 0.44;
 
 function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
   const p = useMotionValue(0);
@@ -522,13 +522,13 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
         <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />
       ))}
       <motion.div
-        className={mobile ? "absolute left-[6%] top-[45%] z-[40] w-[84%]" : "absolute left-[40%] top-[42%] z-[40] w-[36%]"}
+        className={mobile ? "absolute left-[6%] top-[45%] z-[40] w-[84%]" : "absolute left-[37.5%] top-[42%] z-[40] w-[35%]"}
         style={{ opacity: statementOpacity, y: statementY }}
       >
         <motion.h2
           className={mobile
             ? "text-[31px] leading-[1.02] tracking-[-0.045em]"
-            : "text-[50px] leading-[0.95] tracking-[-0.05em]"}
+            : "text-[41px] leading-[0.97] tracking-[-0.05em] 2xl:text-[50px] 2xl:leading-[0.95]"}
           style={{ color: statementColor, fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 30px rgba(0,0,0,.78)" }}
         >
           Different work.<br />Same follow-through.
