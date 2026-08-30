@@ -5,99 +5,60 @@ const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
 const EASE = [0.16, 1, 0.3, 1] as const;
 const BRAND_BLUE = "#2563FF";
 
+const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
+
 const AUTUMN = [
-  "#D7C5A7",
-  "#B9B49B",
-  "#D9A58D",
-  "#C7B39A",
-  "#C98F72",
-  "#A9AE91",
-  "#D3B07D",
-  "#BDA99A",
+  "#C89A5D",
+  "#BF7458",
+  "#85845D",
+  "#C2A07B",
+  "#D69672",
+  "#B59672",
+  "#D29A43",
+  "#9A9870",
 ] as const;
 
 type Person = {
-  src: string;
+  cell: number;
   bg: (typeof AUTUMN)[number];
 };
 
-const PEOPLE: Person[] = [
-  { src: "/__l5e/assets-v1/3094a030-e089-4e10-a459-c902351c1752/portrait-team-1.jpg", bg: AUTUMN[1] },
-  { src: "/__l5e/assets-v1/635ad476-1246-4248-9c50-c77823a21b08/portrait-team-4.jpg", bg: AUTUMN[0] },
-  { src: "/__l5e/assets-v1/c6b0a085-a9d7-4c72-8e3f-a0eab2b762f5/portrait-cust-4.jpg", bg: AUTUMN[2] },
-  { src: "/__l5e/assets-v1/c5dd213b-f52c-4fad-a88b-edc9d644303e/portrait-customer.jpg", bg: AUTUMN[5] },
-  { src: "/__l5e/assets-v1/5f1d6b4d-0256-4517-9964-9fe5c62e9dd4/portrait-team-3.jpg", bg: AUTUMN[6] },
-  { src: "/__l5e/assets-v1/e9af5655-c090-43d0-bd39-883193f63ea2/portrait-marcus-lee.jpg", bg: AUTUMN[3] },
-  { src: "/__l5e/assets-v1/5297c319-be82-4923-b540-f47d2ba3ab6f/portrait-cust-2.jpg", bg: AUTUMN[4] },
-  { src: "/__l5e/assets-v1/44b50289-c10c-47d4-86d2-60ab6fed811f/portrait-team-2.jpg", bg: AUTUMN[1] },
-  { src: "/__l5e/assets-v1/f659a35a-cbfc-4f61-9f00-c4dd8cdb71dd/portrait-cust-3.jpg", bg: AUTUMN[7] },
-  { src: "/__l5e/assets-v1/63e3b736-cb2e-46da-81ed-402643ef26c8/caller-portrait.jpg", bg: AUTUMN[6] },
-  { src: "/__l5e/assets-v1/3094a030-e089-4e10-a459-c902351c1752/portrait-team-1.jpg", bg: AUTUMN[0] },
-  { src: "/__l5e/assets-v1/635ad476-1246-4248-9c50-c77823a21b08/portrait-team-4.jpg", bg: AUTUMN[4] },
-  { src: "/__l5e/assets-v1/c6b0a085-a9d7-4c72-8e3f-a0eab2b762f5/portrait-cust-4.jpg", bg: AUTUMN[5] },
-  { src: "/__l5e/assets-v1/c5dd213b-f52c-4fad-a88b-edc9d644303e/portrait-customer.jpg", bg: AUTUMN[3] },
-  { src: "/__l5e/assets-v1/5f1d6b4d-0256-4517-9964-9fe5c62e9dd4/portrait-team-3.jpg", bg: AUTUMN[2] },
-  { src: "/__l5e/assets-v1/e9af5655-c090-43d0-bd39-883193f63ea2/portrait-marcus-lee.jpg", bg: AUTUMN[7] },
-  { src: "/__l5e/assets-v1/5297c319-be82-4923-b540-f47d2ba3ab6f/portrait-cust-2.jpg", bg: AUTUMN[1] },
-  { src: "/__l5e/assets-v1/44b50289-c10c-47d4-86d2-60ab6fed811f/portrait-team-2.jpg", bg: AUTUMN[0] },
-  { src: "/__l5e/assets-v1/f659a35a-cbfc-4f61-9f00-c4dd8cdb71dd/portrait-cust-3.jpg", bg: AUTUMN[4] },
-  { src: "/__l5e/assets-v1/63e3b736-cb2e-46da-81ed-402643ef26c8/caller-portrait.jpg", bg: AUTUMN[5] },
-  { src: "/__l5e/assets-v1/3094a030-e089-4e10-a459-c902351c1752/portrait-team-1.jpg", bg: AUTUMN[6] },
-  { src: "/__l5e/assets-v1/635ad476-1246-4248-9c50-c77823a21b08/portrait-team-4.jpg", bg: AUTUMN[3] },
-  { src: "/__l5e/assets-v1/c6b0a085-a9d7-4c72-8e3f-a0eab2b762f5/portrait-cust-4.jpg", bg: AUTUMN[2] },
-  { src: "/__l5e/assets-v1/c5dd213b-f52c-4fad-a88b-edc9d644303e/portrait-customer.jpg", bg: AUTUMN[7] },
-];
+const PEOPLE: Person[] = Array.from({ length: 24 }, (_, cell) => ({
+  cell,
+  bg: AUTUMN[cell % AUTUMN.length],
+}));
 
 const INBOUND = [
-  { i: 0, x: 1, y: 13, s: 68 },
-  { i: 1, x: 8, y: 5, s: 50 },
-  { i: 2, x: 16, y: 14, s: 58 },
-  { i: 3, x: 24, y: 7, s: 46 },
-  { i: 4, x: 32, y: 15, s: 52 },
-  { i: 5, x: 5, y: 31, s: 56 },
-  { i: 6, x: 13, y: 29, s: 66 },
-  { i: 7, x: 22, y: 32, s: 54 },
-  { i: 8, x: 31, y: 29, s: 60 },
-  { i: 9, x: 39, y: 35, s: 46 },
-  { i: 10, x: 0, y: 50, s: 64 },
-  { i: 11, x: 9, y: 48, s: 52 },
-  { i: 12, x: 18, y: 49, s: 64 },
-  { i: 13, x: 27, y: 52, s: 50 },
-  { i: 14, x: 36, y: 52, s: 58 },
-  { i: 15, x: 6, y: 69, s: 58 },
-  { i: 16, x: 15, y: 68, s: 66 },
-  { i: 17, x: 24, y: 71, s: 54 },
-  { i: 18, x: 33, y: 68, s: 62 },
-  { i: 19, x: 41, y: 67, s: 46 },
-  { i: 20, x: 1, y: 88, s: 64 },
-  { i: 21, x: 11, y: 84, s: 54 },
-  { i: 22, x: 21, y: 89, s: 60 },
-  { i: 23, x: 32, y: 85, s: 52 },
+  { i: 0, x: 5, y: 13, s: 62 },
+  { i: 1, x: 12, y: 7, s: 48 },
+  { i: 2, x: 20, y: 14, s: 58 },
+  { i: 3, x: 28, y: 8, s: 46 },
+  { i: 4, x: 36, y: 17, s: 52 },
+  { i: 5, x: 7, y: 32, s: 54 },
+  { i: 6, x: 15, y: 30, s: 64 },
+  { i: 7, x: 24, y: 34, s: 52 },
+  { i: 8, x: 34, y: 32, s: 58 },
+  { i: 9, x: 5, y: 52, s: 60 },
+  { i: 10, x: 13, y: 50, s: 50 },
+  { i: 11, x: 22, y: 53, s: 62 },
+  { i: 12, x: 32, y: 54, s: 52 },
+  { i: 13, x: 8, y: 72, s: 56 },
+  { i: 14, x: 18, y: 71, s: 64 },
+  { i: 15, x: 30, y: 73, s: 56 },
 ] as const;
 
 const FADING = [
-  { i: 2, x: 40.5, y: 18, s: 46, o: 0.58 },
-  { i: 8, x: 42.3, y: 31, s: 44, o: 0.5 },
-  { i: 12, x: 43.7, y: 44, s: 44, o: 0.42 },
-  { i: 16, x: 45.1, y: 58, s: 42, o: 0.35 },
-  { i: 20, x: 46.4, y: 71, s: 40, o: 0.29 },
-  { i: 5, x: 47.4, y: 27, s: 38, o: 0.25 },
-  { i: 10, x: 48.4, y: 40, s: 36, o: 0.21 },
-  { i: 14, x: 49.4, y: 53, s: 34, o: 0.17 },
-  { i: 18, x: 50.3, y: 66, s: 32, o: 0.13 },
-  { i: 22, x: 51.2, y: 35, s: 30, o: 0.1 },
-  { i: 7, x: 52.1, y: 49, s: 28, o: 0.07 },
-  { i: 19, x: 53, y: 59, s: 24, o: 0.04 },
+  { i: 16, x: 40.5, y: 24, s: 45, o: 0.58 },
+  { i: 17, x: 43.5, y: 39, s: 40, o: 0.43 },
+  { i: 18, x: 46.2, y: 55, s: 35, o: 0.29 },
+  { i: 19, x: 49, y: 68, s: 30, o: 0.16 },
 ] as const;
 
 const SURVIVORS = [
-  { i: 0, x: 64, y: 45, s: 54 },
-  { i: 3, x: 69.5, y: 57, s: 62 },
-  { i: 6, x: 75, y: 38, s: 52 },
-  { i: 9, x: 80.5, y: 52, s: 60 },
-  { i: 11, x: 86, y: 43, s: 54 },
-  { i: 15, x: 91, y: 57, s: 64 },
-  { i: 21, x: 96, y: 42, s: 52 },
+  { i: 20, x: 65, y: 46, s: 54 },
+  { i: 21, x: 75, y: 57, s: 62 },
+  { i: 22, x: 86, y: 42, s: 54 },
+  { i: 23, x: 95, y: 55, s: 60 },
 ] as const;
 
 const PROOF = [
@@ -154,26 +115,24 @@ function Avatar({
   size: number;
   opacity?: number;
 }) {
+  const column = person.cell % 6;
+  const row = Math.floor(person.cell / 6);
+  const backgroundPosition = `${(column / 5) * 100}% ${(row / 3) * 100}%`;
+
   return (
     <div
-      className="relative overflow-hidden rounded-full shadow-[0_8px_24px_rgba(17,19,24,0.08)] ring-1 ring-black/[0.055]"
-      style={{ width: size, height: size, backgroundColor: person.bg, opacity }}
-    >
-      <img
-        src={person.src}
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full scale-[1.05] object-cover object-center saturate-[0.84] contrast-[0.98]"
-        loading="lazy"
-        referrerPolicy="no-referrer"
-        style={{
-          WebkitMaskImage:
-            "radial-gradient(ellipse 80% 94% at 50% 54%, #000 49%, rgba(0,0,0,.92) 70%, transparent 100%)",
-          maskImage:
-            "radial-gradient(ellipse 80% 94% at 50% 54%, #000 49%, rgba(0,0,0,.92) 70%, transparent 100%)",
-        }}
-      />
-    </div>
+      className="relative overflow-hidden rounded-full shadow-[0_8px_24px_rgba(17,19,24,0.1)] ring-1 ring-black/[0.06]"
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: person.bg,
+        backgroundImage: `url(${PORTRAIT_SHEET})`,
+        backgroundPosition,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "600% 400%",
+        opacity,
+      }}
+    />
   );
 }
 
@@ -203,7 +162,7 @@ function DesktopStream() {
 
   return (
     <div
-      className="relative mx-auto hidden h-[390px] w-full max-w-[1180px] overflow-hidden sm:block"
+      className="relative mx-auto hidden h-[390px] w-full max-w-[1180px] overflow-visible sm:block"
       aria-hidden="true"
     >
       <svg
@@ -283,10 +242,20 @@ function DesktopStream() {
         </div>
       ))}
 
-      <div
-        className="absolute bottom-[6%] left-[54%] top-[6%] w-[2px] rounded-full shadow-[0_0_18px_rgba(37,99,255,0.24)]"
-        style={{ backgroundColor: BRAND_BLUE }}
-      />
+      <div className="absolute bottom-[7%] left-[54%] top-[7%] w-[26px] -translate-x-1/2">
+        <div
+          className="absolute inset-0 rounded-[13px] border border-white/70 bg-white/25 shadow-[0_18px_42px_rgba(42,49,58,0.13),inset_0_0_0_1px_rgba(255,255,255,0.46)] backdrop-blur-[2px]"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.7) 44%, rgba(255,255,255,.22) 100%)",
+          }}
+        />
+        <div
+          className="absolute bottom-[3%] left-1/2 top-[3%] w-px -translate-x-1/2 rounded-full shadow-[0_0_14px_rgba(37,99,255,0.28)]"
+          style={{ backgroundColor: BRAND_BLUE }}
+        />
+        <div className="absolute left-[4px] top-1/2 h-10 w-[7px] -translate-y-1/2 rounded-full bg-white/70 blur-[2px]" />
+      </div>
 
       {outputParticles.map((dot, index) => (
         <span
@@ -317,8 +286,8 @@ function DesktopStream() {
 
 function MobileStream() {
   const mobileInbound = INBOUND.slice(0, 12);
-  const mobileFading = FADING.slice(3, 10);
-  const mobileSurvivors = SURVIVORS.slice(0, 4);
+  const mobileFading = FADING;
+  const mobileSurvivors = SURVIVORS;
 
   const mobileParticles = Array.from({ length: 52 }, (_, n) => {
     const row = n % 13;
@@ -333,7 +302,7 @@ function MobileStream() {
 
   return (
     <div
-      className="relative mx-auto h-[550px] w-full max-w-[390px] overflow-hidden sm:hidden"
+      className="relative mx-auto h-[550px] w-full max-w-[390px] overflow-visible sm:hidden"
       aria-hidden="true"
     >
       <svg
@@ -425,10 +394,19 @@ function MobileStream() {
         </div>
       ))}
 
-      <div
-        className="absolute left-[7%] right-[7%] top-1/2 h-[2px] rounded-full shadow-[0_0_16px_rgba(37,99,255,0.22)]"
-        style={{ backgroundColor: BRAND_BLUE }}
-      />
+      <div className="absolute left-[7%] right-[7%] top-1/2 h-[20px] -translate-y-1/2">
+        <div
+          className="absolute inset-0 rounded-[10px] border border-white/70 bg-white/25 shadow-[0_14px_32px_rgba(42,49,58,0.12),inset_0_0_0_1px_rgba(255,255,255,0.44)] backdrop-blur-[2px]"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,.72) 48%, rgba(255,255,255,.2) 100%)",
+          }}
+        />
+        <div
+          className="absolute left-[2%] right-[2%] top-1/2 h-px -translate-y-1/2 rounded-full shadow-[0_0_12px_rgba(37,99,255,0.26)]"
+          style={{ backgroundColor: BRAND_BLUE }}
+        />
+      </div>
 
       {mobileSurvivors.map(({ i, s }, index) => (
         <div
