@@ -68,7 +68,7 @@ export function SiteNav() {
             src={ZAPLA_LOGO}
             alt="Zapla"
             className="h-8 w-auto sm:h-9"
-            style={cinematicV5 ? { filter: "brightness(0) invert(1)" } : undefined}
+            style={undefined}
           />
         </a>
 
