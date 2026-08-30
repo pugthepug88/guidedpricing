@@ -6,21 +6,26 @@ export const ZAPLA_LOGO =
 
 function CinematicZaplaLogo() {
   return (
-    <span className="relative inline-block h-9">
-      {/* Keep the exact homepage artwork as the base so the mark stays blue with its white inner cutout. */}
-      <img
-        src={ZAPLA_LOGO}
-        alt="Zapla"
-        className="block h-9 w-auto max-w-none"
-      />
-      {/* Overlay the same artwork in white, clipped so only the Zapla wordmark changes colour. */}
-      <img
-        src={ZAPLA_LOGO}
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-9 w-auto max-w-none brightness-0 invert"
-        style={{ clipPath: "inset(0 0 0 36px)" }}
-      />
+    <span className="flex h-9 items-center">
+      {/* The homepage mark has a transparent inner cutout. White backing makes
+          that cutout white over the dark hero while preserving the exact blue mark. */}
+      <span className="relative block h-9 w-9 shrink-0 overflow-hidden rounded-[9px] bg-white">
+        <img
+          src={ZAPLA_LOGO}
+          alt="Zapla"
+          className="absolute left-0 top-0 h-9 w-auto max-w-none"
+        />
+      </span>
+
+      {/* Reuse the real wordmark artwork rather than recreating it as text. */}
+      <span className="ml-1.5 block h-9 w-[94px] overflow-hidden">
+        <img
+          src={ZAPLA_LOGO}
+          alt=""
+          aria-hidden="true"
+          className="h-9 w-auto max-w-none -translate-x-9 brightness-0 invert"
+        />
+      </span>
     </span>
   );
 }
@@ -30,6 +35,7 @@ export function SiteNav() {
   const cinematicV5 = location.pathname === "/concept/cinematic-follow-through-v5";
   const [scrolled, setScrolled] = useState(false);
   const [cinematicVisible, setCinematicVisible] = useState(true);
+  const [cinematicPastHero, setCinematicPastHero] = useState(false);
   const [openMenu, setOpenMenu] = useState<null | "products" | "resources">(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -42,6 +48,7 @@ export function SiteNav() {
   useEffect(() => {
     if (!cinematicV5) {
       setCinematicVisible(true);
+      setCinematicPastHero(false);
       return;
     }
 
@@ -49,7 +56,9 @@ export function SiteNav() {
       const { progress, stageBottom } = (
         event as CustomEvent<{ progress: number; stageBottom: number }>
       ).detail;
-      setCinematicVisible(progress < 0.105 || stageBottom <= 0);
+      const pastHero = stageBottom <= 0;
+      setCinematicPastHero(pastHero);
+      setCinematicVisible(progress < 0.105 || pastHero);
     };
 
     window.addEventListener("zapla:v5-progress", onProgress);
@@ -57,14 +66,20 @@ export function SiteNav() {
   }, [cinematicV5]);
 
   const linkCls = cinematicV5
-    ? "inline-flex items-center gap-1 text-[15px] font-medium text-white/90 transition hover:text-white"
+    ? cinematicPastHero
+      ? "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/78 transition hover:text-zapla-blue"
+      : "inline-flex items-center gap-1 text-[15px] font-medium text-white/90 transition hover:text-white"
     : "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
+
+  const cinematicNavClass = cinematicPastHero
+    ? "fixed inset-x-0 top-0 z-50 border-b border-zapla-line/80 bg-white/[0.84] shadow-[0_10px_30px_rgba(15,23,42,.08)] backdrop-blur-[18px] backdrop-saturate-[1.05] transition-[background-color,border-color,box-shadow,opacity,transform] duration-400 ease-out"
+    : "fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-[#090E15]/[0.38] shadow-[0_10px_30px_rgba(0,0,0,.12)] backdrop-blur-[10px] backdrop-saturate-[0.92] transition-[background-color,border-color,box-shadow,opacity,transform] duration-400 ease-out";
 
   return (
     <nav
       className={
         cinematicV5
-          ? "fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[linear-gradient(90deg,rgba(17,25,34,.76),rgba(61,60,57,.55),rgba(30,35,40,.68))] shadow-[0_12px_36px_rgba(0,0,0,.2)] backdrop-blur-[14px] transition-all duration-500 ease-out"
+          ? cinematicNavClass
           : `sticky top-0 z-50 transition-all duration-300 ${
               scrolled
                 ? "border-b border-zapla-line bg-white/90 backdrop-blur-xl"
@@ -86,7 +101,11 @@ export function SiteNav() {
       >
         <a href="https://zapla.io/" className="flex items-center">
           {cinematicV5 ? (
-            <CinematicZaplaLogo />
+            cinematicPastHero ? (
+              <img src={ZAPLA_LOGO} alt="Zapla" className="h-9 w-auto" />
+            ) : (
+              <CinematicZaplaLogo />
+            )
           ) : (
             <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto sm:h-9" />
           )}
@@ -155,7 +174,9 @@ export function SiteNav() {
           type="button"
           aria-label="Menu"
           className={cinematicV5
-            ? "grid h-10 w-10 place-items-center rounded-xl border border-white/25 bg-white/10 text-white lg:hidden"
+            ? cinematicPastHero
+              ? "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white/80 text-zapla-ink lg:hidden"
+              : "grid h-10 w-10 place-items-center rounded-xl border border-white/25 bg-white/10 text-white lg:hidden"
             : "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white text-zapla-ink lg:hidden"}
           onClick={() => setMobileOpen((v) => !v)}
         >
