@@ -25,8 +25,10 @@ export function SiteNav() {
     }
 
     const onProgress = (event: Event) => {
-      const value = (event as CustomEvent<number>).detail;
-      setCinematicVisible(value < 0.105 || value > 0.94);
+      const { progress, stageBottom } = (
+        event as CustomEvent<{ progress: number; stageBottom: number }>
+      ).detail;
+      setCinematicVisible(progress < 0.105 || stageBottom <= 0);
     };
 
     window.addEventListener("zapla:v5-progress", onProgress);
