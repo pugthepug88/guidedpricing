@@ -4,6 +4,27 @@ import { useLocation } from "@tanstack/react-router";
 export const ZAPLA_LOGO =
   "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/9GCLMi9hEWTo5mWQUAFo/media/69c3771ac1440392b12c5779.png";
 
+function CinematicZaplaLogo() {
+  return (
+    <span className="relative inline-block h-9">
+      {/* Keep the exact homepage artwork as the base so the mark stays blue with its white inner cutout. */}
+      <img
+        src={ZAPLA_LOGO}
+        alt="Zapla"
+        className="block h-9 w-auto max-w-none"
+      />
+      {/* Overlay the same artwork in white, clipped so only the Zapla wordmark changes colour. */}
+      <img
+        src={ZAPLA_LOGO}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-9 w-auto max-w-none brightness-0 invert"
+        style={{ clipPath: "inset(0 0 0 36px)" }}
+      />
+    </span>
+  );
+}
+
 export function SiteNav() {
   const location = useLocation();
   const cinematicV5 = location.pathname === "/concept/cinematic-follow-through-v5";
@@ -65,16 +86,7 @@ export function SiteNav() {
       >
         <a href="https://zapla.io/" className="flex items-center">
           {cinematicV5 ? (
-            <span className="flex items-center">
-              <img
-                src="/concept/zapla-mark-white.png"
-                alt="Zapla"
-                className="h-8 w-8 sm:h-9 sm:w-9"
-              />
-              <span className="ml-1.5 text-[25px] font-extrabold leading-none tracking-[-0.06em] text-white sm:text-[28px]">
-                Zapla
-              </span>
-            </span>
+            <CinematicZaplaLogo />
           ) : (
             <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto sm:h-9" />
           )}
