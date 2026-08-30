@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ZaplaPlatformShowcase } from "@/components/concept/ZaplaPlatformShowcase";
 
-const NAV = 66;
+const NAV = 0;
 const CYAN = "#06B6D4";
 const DISPLAY = '\"Inter Tight\", \"Outfit\", \"Manrope\", system-ui, sans-serif';
 const V5 = "/concept/cinematic-v5";
@@ -47,10 +47,10 @@ const SUPPORT_FILMS: Film[] = [
 const support = (key: string) => SUPPORT_FILMS.find((f) => f.key === key)!;
 
 /* Scroll is intentionally short. Autoplay owns time; scroll only changes geometry. */
-const MORPH_IN = 0.1;
-const MORPH_OUT = 0.44;
-const SUPPORT_IN = 0.18;
-const STATEMENT_IN = 0.38;
+const MORPH_IN = 0.08;
+const MORPH_OUT = 0.48;
+const SUPPORT_IN = 0.17;
+const STATEMENT_IN = 0.36;
 
 function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
   const p = useMotionValue(0);
@@ -70,6 +70,7 @@ function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
       const raw = total > 0 ? (NAV - el.getBoundingClientRect().top) / total : 0;
       const v = Math.max(0, Math.min(1, raw));
       p.set(v);
+      window.dispatchEvent(new CustomEvent("zapla:v5-progress", { detail: v }));
 
       const nextLock = v >= MORPH_IN && v <= MORPH_OUT;
       const nextArmed = v >= 0.1;
@@ -91,7 +92,11 @@ function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
 
     io.observe(el);
     raf = requestAnimationFrame(tick);
-    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+      window.dispatchEvent(new CustomEvent("zapla:v5-progress", { detail: 1 }));
+    };
   }, [p, ref]);
 
   return { p, ...signals };
@@ -490,7 +495,17 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
 }) {
   const tiles = mobile ? MOBILE_SUPPORT : DESKTOP_SUPPORT;
   const statementOpacity = useTransform(p, [STATEMENT_IN, STATEMENT_IN + 0.055], [0, 1]);
-  const statementY = useTransform(p, [STATEMENT_IN, STATEMENT_IN + 0.07], [14, 0]);
+  const statementY = useTransform(p, [STATEMENT_IN, STATEMENT_IN + 0.09], [14, 0]);
+  const statementColor = useTransform(
+    p,
+    [STATEMENT_IN, STATEMENT_IN + 0.18],
+    ["rgba(255,255,255,.38)", "rgba(255,255,255,1)"],
+  );
+  const eyebrowColor = useTransform(
+    p,
+    [STATEMENT_IN, STATEMENT_IN + 0.18],
+    ["rgba(255,255,255,.18)", "rgba(255,255,255,.54)"],
+  );
 
   return (
     <>
@@ -498,20 +513,23 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
         <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />
       ))}
       <motion.div
-        className={mobile ? "absolute left-[6%] top-[45%] z-[40] w-[84%]" : "absolute left-[35%] top-[42%] z-[40] w-[38%]"}
+        className={mobile ? "absolute left-[6%] top-[45%] z-[40] w-[84%]" : "absolute left-[40%] top-[42%] z-[40] w-[36%]"}
         style={{ opacity: statementOpacity, y: statementY }}
       >
-        <h2
+        <motion.h2
           className={mobile
-            ? "text-[31px] leading-[1.02] tracking-[-0.045em] text-white"
-            : "text-[50px] leading-[0.95] tracking-[-0.05em] text-white"}
-          style={{ fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 30px rgba(0,0,0,.78)" }}
+            ? "text-[31px] leading-[1.02] tracking-[-0.045em]"
+            : "text-[50px] leading-[0.95] tracking-[-0.05em]"}
+          style={{ color: statementColor, fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 30px rgba(0,0,0,.78)" }}
         >
           Different work.<br />Same follow-through.
-        </h2>
-        <div className="mt-3 text-[10px] font-semibold uppercase tracking-[0.19em] text-white/50">
+        </motion.h2>
+        <motion.div
+          className="mt-3 text-[10px] font-semibold uppercase tracking-[0.19em]"
+          style={{ color: eyebrowColor }}
+        >
           Service businesses. One connected customer journey.
-        </div>
+        </motion.div>
       </motion.div>
     </>
   );
@@ -522,9 +540,9 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
   const reduced = !!useReducedMotion();
   const { p, stageVisible, collageArmed } = useStoryScroll(wrap);
   const smoothP = useSpring(p, {
-    stiffness: 110,
-    damping: 26,
-    mass: 0.34,
+    stiffness: 72,
+    damping: 22,
+    mass: 0.5,
     restDelta: 0.0008,
   });
   const { videos, layers } = useHeroSequencer(stageVisible, reduced, smoothP);
@@ -534,8 +552,8 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
   const gradeOpacity = useTransform(smoothP, [MORPH_IN, MORPH_OUT], [1, 0]);
 
   return (
-    <div ref={wrap} data-v5-stage className={mobile ? "relative h-[340vh]" : "relative h-[320vh]"}>
-      <div className="sticky overflow-hidden bg-[#080B10]" style={{ top: NAV, height: `calc(100vh - ${NAV}px)` }}>
+    <div ref={wrap} data-v5-stage className={mobile ? "relative h-[390vh]" : "relative h-[380vh]"}>
+      <div className="sticky top-0 h-screen overflow-hidden bg-[#080B10]">
         <HeroAnchorCard tile={anchor} p={smoothP} mobile={mobile} videos={videos} layers={layers} />
 
         <motion.div className="pointer-events-none absolute inset-0 z-[28]" style={{ opacity: gradeOpacity }}>
