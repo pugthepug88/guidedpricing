@@ -64,12 +64,23 @@ export function SiteNav() {
           : "mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8"}
       >
         <a href="https://zapla.io/" className="flex items-center">
-          <img
-            src={ZAPLA_LOGO}
-            alt="Zapla"
-            className="h-8 w-auto sm:h-9"
-            style={undefined}
-          />
+          {cinematicV5 ? (
+            <span className="flex items-center">
+              <span className="block h-8 w-8 shrink-0 overflow-hidden sm:h-9 sm:w-9">
+                <img
+                  src={ZAPLA_LOGO}
+                  alt=""
+                  aria-hidden
+                  className="h-8 w-auto max-w-none sm:h-9"
+                />
+              </span>
+              <span className="ml-1.5 text-[25px] font-extrabold leading-none tracking-[-0.06em] text-white sm:text-[28px]">
+                Zapla
+              </span>
+            </span>
+          ) : (
+            <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto sm:h-9" />
+          )}
         </a>
 
         <div className="hidden items-center gap-7 lg:flex">
