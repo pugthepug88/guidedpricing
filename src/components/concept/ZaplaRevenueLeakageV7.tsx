@@ -246,18 +246,18 @@ function DesktopStream() {
 
       <div className="absolute bottom-[5%] left-[54%] top-[5%] w-[54px] -translate-x-1/2">
         <div
-          className="absolute inset-0 drop-shadow-[0_18px_24px_rgba(42,49,58,.14)]"
+          className="absolute inset-0 drop-shadow-[0_18px_26px_rgba(42,49,58,.2)]"
           style={{
             clipPath: "polygon(17% 5%, 83% 0, 83% 100%, 17% 95%)",
             background:
-              "linear-gradient(90deg, rgba(123,135,152,.22), rgba(255,255,255,.9) 17%, rgba(247,248,249,.72) 70%, rgba(123,135,152,.2))",
+              "linear-gradient(90deg, rgba(111,122,138,.46), rgba(255,255,255,.96) 17%, rgba(244,246,247,.8) 70%, rgba(111,122,138,.4))",
           }}
         >
-          <div className="absolute inset-[1px] bg-white/30 backdrop-blur-[4px]" />
+          <div className="absolute inset-[2px] bg-white/42 backdrop-blur-[4px]" />
           {[31, 40, 49, 58, 67].map((top, index) => (
             <span
               key={"filter-pore-" + index}
-              className="absolute h-[3px] w-[3px] rounded-full bg-[#9B7A5F]/35"
+              className="absolute h-[4px] w-[4px] rounded-full bg-[#9B7A5F]/55"
               style={{ left: 16 + (index % 2) * 9, top: top + "%" }}
             />
           ))}
@@ -408,19 +408,19 @@ function MobileStream() {
         </div>
       ))}
 
-      <div className="absolute left-[5%] right-[5%] top-1/2 h-[42px] -translate-y-1/2 drop-shadow-[0_14px_22px_rgba(42,49,58,.13)]">
+      <div className="absolute left-[5%] right-[5%] top-1/2 h-[42px] -translate-y-1/2 drop-shadow-[0_14px_24px_rgba(42,49,58,.18)]">
         <div
           className="absolute inset-0 bg-white/65 backdrop-blur-[4px]"
           style={{
             clipPath: "polygon(4% 16%, 96% 16%, 91% 84%, 9% 84%)",
             background:
-              "linear-gradient(180deg, rgba(123,135,152,.2), rgba(255,255,255,.9) 28%, rgba(247,248,249,.72) 72%, rgba(123,135,152,.18))",
+              "linear-gradient(180deg, rgba(111,122,138,.38), rgba(255,255,255,.96) 28%, rgba(244,246,247,.8) 72%, rgba(111,122,138,.34))",
           }}
         />
         {[31, 41, 51, 61].map((left, index) => (
           <span
             key={"mobile-filter-pore-" + index}
-            className="absolute h-[3px] w-[3px] rounded-full bg-[#9B7A5F]/35"
+            className="absolute h-[4px] w-[4px] rounded-full bg-[#9B7A5F]/55"
             style={{ left: left + "%", top: 19 + (index % 2) * 10 }}
           />
         ))}
