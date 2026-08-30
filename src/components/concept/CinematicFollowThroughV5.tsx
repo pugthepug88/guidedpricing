@@ -299,6 +299,26 @@ function FilmMedia({ f, play, reduced, mobile }: { f: Film; play: boolean; reduc
     void v.play().catch(() => {});
   }, [play, reduced]);
 
+  useEffect(() => {
+    const v = video.current;
+    if (!v || reduced || !play) return;
+    let raf = 0;
+
+    const keepPlaying = () => {
+      if (v.readyState >= 2) {
+        const end = Number.isFinite(v.duration)
+          ? Math.min(f.end, v.duration - 0.03)
+          : f.end;
+        if (v.ended || v.currentTime >= end) v.currentTime = f.start;
+        if (v.paused) void v.play().catch(() => {});
+      }
+      raf = requestAnimationFrame(keepPlaying);
+    };
+
+    raf = requestAnimationFrame(keepPlaying);
+    return () => cancelAnimationFrame(raf);
+  }, [f.end, f.start, play, reduced]);
+
   const kick = (v: HTMLVideoElement) => {
     if (!reduced && play && v.paused) void v.play().catch(() => {});
   };
