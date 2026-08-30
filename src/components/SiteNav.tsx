@@ -162,7 +162,7 @@ export function SiteNav() {
         <div className="hidden items-center gap-3 lg:flex">
           <a
             href="https://zapla.io/booking"
-            className="inline-flex items-center justify-center rounded-full bg-zapla-blue px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-zapla-blue2 hover:shadow-zapla-blue"
+            className="inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#1D4ED8] hover:shadow-zapla-blue"
           >
             Book a Call
           </a>
@@ -212,7 +212,7 @@ export function SiteNav() {
             <a href="https://zapla.io/pricing" className="py-2">Pricing</a>
             <a href="https://my.zapla.io/" className="py-2">Log In</a>
             <div className="mt-2 grid gap-2">
-              <a href="https://zapla.io/booking" className="inline-flex items-center justify-center rounded-full bg-zapla-blue px-4 py-2.5 text-[13px] font-extrabold text-white">Book a Call</a>
+              <a href="https://zapla.io/booking" className="inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2.5 text-[13px] font-extrabold text-white">Book a Call</a>
             </div>
           </div>
         </div>
