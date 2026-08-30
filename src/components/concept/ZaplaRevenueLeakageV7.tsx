@@ -242,19 +242,19 @@ function DesktopStream() {
         </div>
       ))}
 
-      <div className="absolute bottom-[7%] left-[54%] top-[7%] w-[26px] -translate-x-1/2">
+      <div className="absolute bottom-[7%] left-[54%] top-[7%] w-[42px] -translate-x-1/2">
         <div
-          className="absolute inset-0 rounded-[13px] border border-white/70 bg-white/25 shadow-[0_18px_42px_rgba(42,49,58,0.13),inset_0_0_0_1px_rgba(255,255,255,0.46)] backdrop-blur-[2px]"
+          className="absolute inset-0 rounded-[14px] border border-[#7B8798]/20 shadow-[0_18px_42px_rgba(42,49,58,0.14),inset_0_0_0_1px_rgba(255,255,255,0.72)] backdrop-blur-[3px]"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.7) 44%, rgba(255,255,255,.22) 100%)",
+              "linear-gradient(90deg, rgba(37,99,255,.035) 0%, rgba(255,255,255,.82) 48%, rgba(37,99,255,.075) 100%)",
           }}
         />
         <div
-          className="absolute bottom-[3%] left-1/2 top-[3%] w-px -translate-x-1/2 rounded-full shadow-[0_0_14px_rgba(37,99,255,0.28)]"
+          className="absolute bottom-[4%] right-[5px] top-[4%] w-px rounded-full shadow-[0_0_14px_rgba(37,99,255,0.32)]"
           style={{ backgroundColor: BRAND_BLUE }}
         />
-        <div className="absolute left-[4px] top-1/2 h-10 w-[7px] -translate-y-1/2 rounded-full bg-white/70 blur-[2px]" />
+        <div className="absolute bottom-[7%] left-[7px] top-[7%] w-[8px] rounded-full bg-white/75 blur-[2px]" />
       </div>
 
       {outputParticles.map((dot, index) => (
@@ -394,16 +394,16 @@ function MobileStream() {
         </div>
       ))}
 
-      <div className="absolute left-[7%] right-[7%] top-1/2 h-[20px] -translate-y-1/2">
+      <div className="absolute left-[7%] right-[7%] top-1/2 h-[28px] -translate-y-1/2">
         <div
-          className="absolute inset-0 rounded-[10px] border border-white/70 bg-white/25 shadow-[0_14px_32px_rgba(42,49,58,0.12),inset_0_0_0_1px_rgba(255,255,255,0.44)] backdrop-blur-[2px]"
+          className="absolute inset-0 rounded-[12px] border border-[#7B8798]/20 shadow-[0_14px_32px_rgba(42,49,58,0.13),inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-[3px]"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,.72) 48%, rgba(255,255,255,.2) 100%)",
+              "linear-gradient(180deg, rgba(37,99,255,.035) 0%, rgba(255,255,255,.84) 48%, rgba(37,99,255,.075) 100%)",
           }}
         />
         <div
-          className="absolute left-[2%] right-[2%] top-1/2 h-px -translate-y-1/2 rounded-full shadow-[0_0_12px_rgba(37,99,255,0.26)]"
+          className="absolute bottom-[5px] left-[2%] right-[2%] h-px rounded-full shadow-[0_0_12px_rgba(37,99,255,0.3)]"
           style={{ backgroundColor: BRAND_BLUE }}
         />
       </div>
