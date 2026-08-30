@@ -74,8 +74,13 @@ export function SiteNav() {
                   className="h-8 w-auto max-w-none sm:h-9"
                 />
               </span>
-              <span className="ml-1.5 text-[25px] font-extrabold leading-none tracking-[-0.06em] text-white sm:text-[28px]">
-                Zapla
+              <span className="ml-1.5 block h-8 w-[82px] overflow-hidden sm:h-9 sm:w-[94px]">
+                <img
+                  src={ZAPLA_LOGO}
+                  alt=""
+                  aria-hidden
+                  className="-translate-x-8 h-8 w-auto max-w-none brightness-0 invert mix-blend-screen sm:-translate-x-9 sm:h-9"
+                />
               </span>
             </span>
           ) : (
