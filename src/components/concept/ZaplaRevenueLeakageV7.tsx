@@ -26,37 +26,40 @@ const PEOPLE: Person[] = Array.from({ length: 24 }, (_, cell) => ({
   bg: AUTUMN[cell % AUTUMN.length],
 }));
 
+/* Broad on the far left, progressively tighter as the stream approaches the filter. */
 const INBOUND = [
-  { i: 0, x: 5, y: 13, s: 62 },
-  { i: 1, x: 12, y: 7, s: 48 },
-  { i: 2, x: 20, y: 14, s: 58 },
-  { i: 3, x: 28, y: 8, s: 46 },
-  { i: 4, x: 36, y: 17, s: 52 },
-  { i: 5, x: 7, y: 32, s: 54 },
-  { i: 6, x: 15, y: 30, s: 64 },
-  { i: 7, x: 24, y: 34, s: 52 },
-  { i: 8, x: 34, y: 32, s: 58 },
-  { i: 9, x: 5, y: 52, s: 60 },
-  { i: 10, x: 13, y: 50, s: 50 },
-  { i: 11, x: 22, y: 53, s: 62 },
-  { i: 12, x: 32, y: 54, s: 52 },
-  { i: 13, x: 8, y: 72, s: 56 },
-  { i: 14, x: 18, y: 71, s: 64 },
-  { i: 15, x: 30, y: 73, s: 56 },
+  { i: 0, x: 4, y: 12, s: 62 },
+  { i: 1, x: 10, y: 31, s: 48 },
+  { i: 2, x: 5, y: 56, s: 58 },
+  { i: 3, x: 9, y: 81, s: 46 },
+  { i: 4, x: 16, y: 8, s: 52 },
+  { i: 5, x: 17, y: 38, s: 54 },
+  { i: 6, x: 18, y: 68, s: 64 },
+  { i: 7, x: 23, y: 84, s: 52 },
+  { i: 8, x: 26, y: 18, s: 58 },
+  { i: 9, x: 27, y: 43, s: 60 },
+  { i: 10, x: 28, y: 69, s: 50 },
+  { i: 11, x: 33, y: 29, s: 62 },
+  { i: 12, x: 34, y: 55, s: 52 },
+  { i: 13, x: 36, y: 72, s: 56 },
+  { i: 14, x: 39, y: 40, s: 64 },
+  { i: 15, x: 40, y: 60, s: 56 },
 ] as const;
 
+/* These remain visible in the still image so the loss is obvious at a glance. */
 const FADING = [
-  { i: 16, x: 40.5, y: 24, s: 45, o: 0.58 },
-  { i: 17, x: 43.5, y: 39, s: 40, o: 0.43 },
-  { i: 18, x: 46.2, y: 55, s: 35, o: 0.29 },
-  { i: 19, x: 49, y: 68, s: 30, o: 0.16 },
+  { i: 16, x: 43, y: 33, s: 48, o: 0.62 },
+  { i: 17, x: 46, y: 43, s: 42, o: 0.46 },
+  { i: 18, x: 48.5, y: 52, s: 36, o: 0.31 },
+  { i: 19, x: 50.5, y: 58, s: 30, o: 0.17 },
 ] as const;
 
+/* Fewer people emerge close to the checkpoint, then the stream opens slightly. */
 const SURVIVORS = [
-  { i: 20, x: 65, y: 46, s: 54 },
-  { i: 21, x: 75, y: 57, s: 62 },
-  { i: 22, x: 86, y: 42, s: 54 },
-  { i: 23, x: 95, y: 55, s: 60 },
+  { i: 20, x: 60, y: 47, s: 54 },
+  { i: 21, x: 69, y: 53, s: 62 },
+  { i: 22, x: 80, y: 43, s: 54 },
+  { i: 23, x: 91, y: 52, s: 60 },
 ] as const;
 
 const PROOF = [
@@ -135,75 +138,62 @@ function Avatar({
 }
 
 function DesktopStream() {
-  const particles = Array.from({ length: 116 }, (_, n) => {
-    const column = n % 29;
-    const row = Math.floor(n / 29);
-    const progress = column / 28;
-    const x = 1 + column * 1.84;
-    const spread = 43 - progress * 35;
+  const particles = Array.from({ length: 104 }, (_, n) => {
+    const column = n % 26;
+    const row = Math.floor(n / 26);
+    const progress = column / 25;
+    const x = 1 + column * 2.03;
+    const spread = 41 - progress * 34;
     const wave = Math.sin(n * 1.73) * spread;
-    const rowOffset = (row - 1.5) * 6.5;
+    const rowOffset = (row - 1.5) * 5.2;
     return {
       x,
       y: 50 + wave + rowOffset,
-      size: Math.max(2.8, 8.2 - progress * 5.1 + (n % 3) * 0.55),
-      opacity: Math.max(0.08, 0.28 - progress * 0.16),
+      size: Math.max(2.5, 7.4 - progress * 4.7 + (n % 3) * 0.5),
+      opacity: Math.max(0.1, 0.31 - progress * 0.16),
       tone: AUTUMN[(n * 3 + row) % AUTUMN.length],
     };
   });
 
-  const outputParticles = Array.from({ length: 32 }, (_, n) => ({
-    x: 58 + (n % 16) * 2.65,
-    y: 50 + Math.sin(n * 1.37) * (9 + (n % 4) * 2.5),
-    size: 2.5 + (n % 3) * 0.9,
-    opacity: 0.07 + (n % 4) * 0.022,
-    tone: AUTUMN[(n * 5 + 2) % AUTUMN.length],
-  }));
+  const outputParticles = Array.from({ length: 42 }, (_, n) => {
+    const column = n % 14;
+    const progress = column / 13;
+    return {
+      x: 56.5 + column * 3.05,
+      y: 50 + Math.sin(n * 1.37) * (4 + progress * 11) + (Math.floor(n / 14) - 1) * 3.5,
+      size: 2.4 + (n % 3) * 0.8,
+      opacity: 0.085 + (n % 4) * 0.025,
+      tone: AUTUMN[(n * 5 + 2) % AUTUMN.length],
+    };
+  });
 
   return (
     <div
-      className="relative mx-auto hidden h-[390px] w-full max-w-[1180px] overflow-visible sm:block"
+      className="relative mx-auto hidden h-[338px] w-full max-w-[1180px] overflow-visible sm:block"
       aria-hidden="true"
     >
       <svg
-        className="absolute inset-0 h-full w-full text-zapla-ink"
-        viewBox="0 0 1120 390"
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 1120 338"
         preserveAspectRatio="none"
         fill="none"
       >
-        {[68, 116, 164, 212, 260, 308].map((y, index) => (
+        {[42, 88, 134, 204, 250, 296].map((y, index) => (
           <path
             key={"in-line-" + index}
-            d={
-              "M -20 " +
-              y +
-              " C 165 " +
-              (y + (index % 2 ? 28 : -20)) +
-              ", 380 " +
-              (205 + (index - 2.5) * 17) +
-              ", 604 195"
-            }
-            stroke="currentColor"
+            d={`M -20 ${y} C 175 ${y + (index % 2 ? 24 : -18)}, 390 ${171 + (index - 2.5) * 13}, 603 169`}
+            stroke="#8F877F"
             strokeWidth="1"
-            opacity="0.055"
+            opacity="0.1"
           />
         ))}
-        {[0, 1, 2, 3, 4].map((index) => (
+        {[0, 1, 2, 3].map((index) => (
           <path
             key={"out-line-" + index}
-            d={
-              "M 606 " +
-              (180 + index * 8) +
-              " C 760 " +
-              (140 + index * 24) +
-              ", 940 " +
-              (245 - index * 19) +
-              ", 1140 " +
-              (168 + index * 14)
-            }
-            stroke="currentColor"
+            d={`M 607 ${160 + index * 6} C 735 ${153 + index * 8}, 860 ${142 + index * 18}, 1140 ${125 + index * 31}`}
+            stroke="#8F877F"
             strokeWidth="1"
-            opacity="0.065"
+            opacity="0.095"
           />
         ))}
       </svg>
@@ -219,7 +209,7 @@ function DesktopStream() {
             height: dot.size,
             opacity: dot.opacity,
             backgroundColor: dot.tone,
-            boxShadow: "inset 0 -1px 2px rgba(77,51,36,.18)",
+            boxShadow: "inset 0 -1px 2px rgba(77,51,36,.16)",
           }}
         />
       ))}
@@ -244,28 +234,27 @@ function DesktopStream() {
         </div>
       ))}
 
-      <div className="absolute bottom-[5%] left-[54%] top-[5%] w-[54px] -translate-x-1/2">
+      {/* Existing translucent checkpoint, made narrower and more legible rather than replaced by a blue line. */}
+      <div className="absolute bottom-[7%] left-[54%] top-[7%] w-[34px] -translate-x-1/2">
         <div
-          className="absolute inset-0 drop-shadow-[0_18px_26px_rgba(42,49,58,.2)]"
+          className="absolute inset-0 shadow-[0_18px_34px_rgba(42,49,58,.12)]"
           style={{
-            clipPath: "polygon(17% 5%, 83% 0, 83% 100%, 17% 95%)",
+            clipPath: "polygon(20% 4%, 80% 0, 80% 100%, 20% 96%)",
             background:
-              "linear-gradient(90deg, rgba(111,122,138,.46), rgba(255,255,255,.96) 17%, rgba(244,246,247,.8) 70%, rgba(111,122,138,.4))",
+              "linear-gradient(90deg, rgba(67,75,86,.2), rgba(255,255,255,.96) 27%, rgba(246,247,248,.86) 68%, rgba(67,75,86,.18))",
           }}
         >
-          <div className="absolute inset-[2px] bg-white/42 backdrop-blur-[4px]" />
-          {[31, 40, 49, 58, 67].map((top, index) => (
+          <div className="absolute inset-[1px] bg-white/36 backdrop-blur-[5px]" />
+          <div className="absolute bottom-0 left-[5px] top-0 w-px bg-zapla-ink/12" />
+          <div className="absolute bottom-0 right-[6px] top-0 w-px bg-zapla-ink/10" />
+          {[29, 38, 47, 56, 65, 74].map((top, index) => (
             <span
               key={"filter-pore-" + index}
-              className="absolute h-[4px] w-[4px] rounded-full bg-[#9B7A5F]/55"
-              style={{ left: 16 + (index % 2) * 9, top: top + "%" }}
+              className="absolute h-[3px] w-[3px] rounded-full bg-[#8E725D]/60"
+              style={{ left: 11 + (index % 2) * 7, top: top + "%" }}
             />
           ))}
         </div>
-        <div
-          className="absolute bottom-[6%] left-[9px] top-[6%] w-[7px] bg-white/55 blur-[2px]"
-          style={{ clipPath: "polygon(25% 4%, 100% 0, 100% 100%, 25% 96%)" }}
-        />
       </div>
 
       {outputParticles.map((dot, index) => (
@@ -301,63 +290,45 @@ function MobileStream() {
   const mobileFading = FADING;
   const mobileSurvivors = SURVIVORS;
 
-  const mobileParticles = Array.from({ length: 52 }, (_, n) => {
-    const row = n % 13;
-    const progress = row / 12;
+  const mobileParticles = Array.from({ length: 56 }, (_, n) => {
+    const row = n % 14;
+    const progress = row / 13;
     return {
-      x: 50 + Math.sin(n * 1.51) * (42 - progress * 31),
-      y: 4 + row * 3.3 + Math.floor(n / 13) * 1.8,
-      size: 2.6 + (n % 3) * 1.15,
-      opacity: 0.085 + (n % 4) * 0.03,
+      x: 50 + Math.sin(n * 1.51) * (42 - progress * 32),
+      y: 3 + row * 3.15 + Math.floor(n / 14) * 1.7,
+      size: 2.5 + (n % 3) * 1.05,
+      opacity: 0.1 + (n % 4) * 0.03,
       tone: AUTUMN[(n * 3 + row) % AUTUMN.length],
     };
   });
 
   return (
     <div
-      className="relative mx-auto h-[550px] w-full max-w-[390px] overflow-visible sm:hidden"
+      className="relative mx-auto h-[520px] w-full max-w-[390px] overflow-visible sm:hidden"
       aria-hidden="true"
     >
       <svg
-        className="absolute inset-0 h-full w-full text-zapla-ink"
-        viewBox="0 0 390 550"
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 390 520"
         preserveAspectRatio="none"
         fill="none"
       >
         {[28, 92, 156, 220, 284, 348].map((x, index) => (
           <path
             key={"mobile-line-" + index}
-            d={
-              "M " +
-              x +
-              " -10 C " +
-              (x + (index % 2 ? 18 : -18)) +
-              " 105, " +
-              (195 + (index - 2.5) * 9) +
-              " 180, 195 264"
-            }
-            stroke="currentColor"
+            d={`M ${x} -10 C ${x + (index % 2 ? 18 : -18)} 104, ${195 + (index - 2.5) * 8} 170, 195 248`}
+            stroke="#8F877F"
             strokeWidth="1"
-            opacity="0.055"
+            opacity="0.1"
           />
         ))}
         {[0, 1, 2].map((index) => (
           <path
             key={"mobile-output-line-" + index}
-            d={
-              "M " +
-              (187 + index * 8) +
-              " 286 C " +
-              (146 + index * 45) +
-              " 360, " +
-              (120 + index * 74) +
-              " 450, " +
-              (82 + index * 112) +
-              " 565"
-            }
-            stroke="currentColor"
+            d={`M ${190 + index * 5} 270 C ${160 + index * 34} 335, ${118 + index * 76} 415, ${82 + index * 112} 530`}
+            stroke="#8F877F"
             strokeWidth="1"
-            opacity="0.06"
+            opacity="0.09"
           />
         ))}
       </svg>
@@ -384,7 +355,7 @@ function MobileStream() {
           <div
             key={"mobile-inbound-" + i}
             className="absolute -translate-x-1/2 -translate-y-1/2"
-            style={{ left: 12 + col * 25 + "%", top: 7 + row * 15 + "%" }}
+            style={{ left: 12 + col * 25 + "%", top: 7 + row * 14.5 + "%" }}
           >
             <Avatar person={PEOPLE[i]} size={Math.min(50, s * 0.78)} />
           </div>
@@ -395,45 +366,28 @@ function MobileStream() {
         <div
           key={"mobile-fading-" + index}
           className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{
-            left: 21 + index * 9.7 + "%",
-            top: 42 + index * 1.7 + "%",
-          }}
+          style={{ left: 22 + index * 14 + "%", top: 43 + index * 1.3 + "%" }}
         >
-          <Avatar
-            person={PEOPLE[i]}
-            size={Math.max(22, s * 0.72)}
-            opacity={Math.min(0.48, o + 0.08)}
-          />
+          <Avatar person={PEOPLE[i]} size={Math.max(22, s * 0.72)} opacity={Math.min(0.58, o + 0.04)} />
         </div>
       ))}
 
-      <div className="absolute left-[5%] right-[5%] top-1/2 h-[42px] -translate-y-1/2 drop-shadow-[0_14px_24px_rgba(42,49,58,.18)]">
+      <div className="absolute left-[6%] right-[6%] top-1/2 h-[30px] -translate-y-1/2">
         <div
-          className="absolute inset-0 bg-white/65 backdrop-blur-[4px]"
+          className="absolute inset-0 shadow-[0_12px_26px_rgba(42,49,58,.12)]"
           style={{
-            clipPath: "polygon(4% 16%, 96% 16%, 91% 84%, 9% 84%)",
+            clipPath: "polygon(4% 18%, 96% 18%, 92% 82%, 8% 82%)",
             background:
-              "linear-gradient(180deg, rgba(111,122,138,.38), rgba(255,255,255,.96) 28%, rgba(244,246,247,.8) 72%, rgba(111,122,138,.34))",
+              "linear-gradient(180deg, rgba(67,75,86,.18), rgba(255,255,255,.96) 30%, rgba(246,247,248,.84) 70%, rgba(67,75,86,.16))",
           }}
         />
-        {[31, 41, 51, 61].map((left, index) => (
-          <span
-            key={"mobile-filter-pore-" + index}
-            className="absolute h-[4px] w-[4px] rounded-full bg-[#9B7A5F]/55"
-            style={{ left: left + "%", top: 19 + (index % 2) * 10 }}
-          />
-        ))}
       </div>
 
       {mobileSurvivors.map(({ i, s }, index) => (
         <div
           key={"mobile-survivor-" + i}
           className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{
-            left: 18 + index * 22 + "%",
-            top: 66 + (index % 2) * 13 + "%",
-          }}
+          style={{ left: 20 + index * 20 + "%", top: 65 + (index % 2) * 10 + "%" }}
         >
           <Avatar person={PEOPLE[i]} size={Math.min(55, s * 0.84)} />
         </div>
@@ -444,7 +398,7 @@ function MobileStream() {
 
 function FadeFilterVisual() {
   return (
-    <div className="mt-8 sm:mt-10">
+    <div className="mt-7 sm:mt-8">
       <DesktopStream />
       <MobileStream />
     </div>
@@ -461,7 +415,7 @@ export function ZaplaRevenueLeakageV7() {
     >
       <div className="mx-auto max-w-[1240px] px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
         <Reveal reduced={reduced}>
-          <header className="mx-auto max-w-[980px] text-center">
+          <header className="mx-auto max-w-[1080px] text-center">
             <p
               className="text-[10px] font-semibold uppercase tracking-[0.3em] text-zapla-muted"
               style={{ fontFamily: MONO }}
@@ -469,14 +423,12 @@ export function ZaplaRevenueLeakageV7() {
               Where revenue gets lost
             </p>
             <h2
-              className="mt-6 text-[36px] leading-[0.99] tracking-[-0.05em] sm:text-[48px] lg:text-[60px]"
+              className="mt-6 text-[36px] leading-[0.98] tracking-[-0.05em] sm:text-[48px] lg:text-[60px] lg:leading-[0.96]"
               style={{ fontFamily: DISPLAY, fontWeight: 500 }}
             >
               44% of inbound callers don&apos;t reach a person.
-              <span className="text-zapla-muted2">
-                {" "}
-                That&apos;s only the first step lost.
-              </span>
+              <br className="hidden lg:block" />
+              <span className="text-zapla-muted2"> That&apos;s only the first step lost.</span>
             </h2>
             <p className="mx-auto mt-6 max-w-[760px] text-[16px] leading-[1.58] text-zapla-muted sm:text-[18px]">
               Missed calls are only the start. Leads aren&apos;t asked to book.
@@ -494,7 +446,7 @@ export function ZaplaRevenueLeakageV7() {
 
         <FadeFilterVisual />
 
-        <div className="mt-7 grid gap-4 sm:mt-9 sm:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-3">
           {PROOF.map((proof, index) => (
             <Reveal
               key={proof.label}
@@ -503,14 +455,14 @@ export function ZaplaRevenueLeakageV7() {
               className="h-full"
             >
               <article
-                className="flex min-h-[292px] h-full flex-col items-center rounded-[30px] px-7 py-9 text-center sm:min-h-[320px] sm:px-8 sm:py-10 lg:px-10"
+                className="flex min-h-[270px] h-full flex-col items-center rounded-[28px] px-7 py-8 text-center sm:min-h-[292px] sm:px-8 sm:py-9 lg:px-10"
                 style={{
                   backgroundColor: ["#E7D8C5", "#DCE0CC", "#E7CEC2"][index],
                   boxShadow: "inset 0 1px 0 rgba(255,255,255,.38)",
                 }}
               >
                 <p
-                  className="text-[64px] font-medium leading-none tracking-[-0.065em] text-zapla-ink sm:text-[68px] lg:text-[76px]"
+                  className="text-[62px] font-medium leading-none tracking-[-0.065em] text-zapla-ink sm:text-[66px] lg:text-[72px]"
                   style={{ fontFamily: DISPLAY }}
                 >
                   {proof.stat}
