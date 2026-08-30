@@ -35,14 +35,15 @@ export function SiteNav() {
     return () => window.removeEventListener("zapla:v5-progress", onProgress);
   }, [cinematicV5]);
 
-  const linkCls =
-    "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
+  const linkCls = cinematicV5
+    ? "inline-flex items-center gap-1 text-[15px] font-medium text-white/90 transition hover:text-white"
+    : "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
 
   return (
     <nav
       className={
         cinematicV5
-          ? "fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-all duration-500 ease-out sm:px-5 sm:pt-4"
+          ? "fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[linear-gradient(90deg,rgba(17,25,34,.76),rgba(61,60,57,.55),rgba(30,35,40,.68))] shadow-[0_12px_36px_rgba(0,0,0,.2)] backdrop-blur-[14px] transition-all duration-500 ease-out"
           : `sticky top-0 z-50 transition-all duration-300 ${
               scrolled
                 ? "border-b border-zapla-line bg-white/90 backdrop-blur-xl"
@@ -59,11 +60,16 @@ export function SiteNav() {
     >
       <div
         className={cinematicV5
-          ? "mx-auto flex max-w-[1320px] items-center justify-between gap-4 rounded-[22px] border border-white/70 bg-[linear-gradient(115deg,rgba(255,255,255,.84),rgba(244,247,250,.68))] px-5 py-3 shadow-[0_16px_50px_rgba(3,8,18,.16),inset_0_1px_0_rgba(255,255,255,.88)] backdrop-blur-2xl sm:px-7"
+          ? "mx-auto flex max-w-[1320px] items-center justify-between gap-4 px-5 py-2.5 sm:px-7"
           : "mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8"}
       >
         <a href="https://zapla.io/" className="flex items-center">
-          <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto sm:h-9" />
+          <img
+            src={ZAPLA_LOGO}
+            alt="Zapla"
+            className="h-8 w-auto sm:h-9"
+            style={cinematicV5 ? { filter: "brightness(0) invert(1)" } : undefined}
+          />
         </a>
 
         <div className="hidden items-center gap-7 lg:flex">
@@ -128,7 +134,9 @@ export function SiteNav() {
         <button
           type="button"
           aria-label="Menu"
-          className="grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white text-zapla-ink lg:hidden"
+          className={cinematicV5
+            ? "grid h-10 w-10 place-items-center rounded-xl border border-white/25 bg-white/10 text-white lg:hidden"
+            : "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white text-zapla-ink lg:hidden"}
           onClick={() => setMobileOpen((v) => !v)}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
