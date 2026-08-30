@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "@tanstack/react-router";
 
 export const ZAPLA_LOGO =
   "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/9GCLMi9hEWTo5mWQUAFo/media/69c3771ac1440392b12c5779.png";
 
 export function SiteNav() {
+  const location = useLocation();
+  const cinematicV5 = location.pathname === "/concept/cinematic-follow-through-v5";
   const [scrolled, setScrolled] = useState(false);
+  const [cinematicVisible, setCinematicVisible] = useState(true);
   const [openMenu, setOpenMenu] = useState<null | "products" | "resources">(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -14,18 +18,48 @@ export function SiteNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!cinematicV5) {
+      setCinematicVisible(true);
+      return;
+    }
+
+    const onProgress = (event: Event) => {
+      const value = (event as CustomEvent<number>).detail;
+      setCinematicVisible(value < 0.105 || value > 0.94);
+    };
+
+    window.addEventListener("zapla:v5-progress", onProgress);
+    return () => window.removeEventListener("zapla:v5-progress", onProgress);
+  }, [cinematicV5]);
+
   const linkCls =
     "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-zapla-line bg-white/90 backdrop-blur-xl"
-          : "border-b border-transparent bg-white/60 backdrop-blur"
-      }`}
+      className={
+        cinematicV5
+          ? "fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-all duration-500 ease-out sm:px-5 sm:pt-4"
+          : `sticky top-0 z-50 transition-all duration-300 ${
+              scrolled
+                ? "border-b border-zapla-line bg-white/90 backdrop-blur-xl"
+                : "border-b border-transparent bg-white/60 backdrop-blur"
+            }`
+      }
+      style={cinematicV5
+        ? {
+            opacity: cinematicVisible ? 1 : 0,
+            transform: cinematicVisible ? "translateY(0)" : "translateY(-18px)",
+            pointerEvents: cinematicVisible ? "auto" : "none",
+          }
+        : undefined}
     >
-      <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+      <div
+        className={cinematicV5
+          ? "mx-auto flex max-w-[1320px] items-center justify-between gap-4 rounded-[22px] border border-white/70 bg-[linear-gradient(115deg,rgba(255,255,255,.84),rgba(244,247,250,.68))] px-5 py-3 shadow-[0_16px_50px_rgba(3,8,18,.16),inset_0_1px_0_rgba(255,255,255,.88)] backdrop-blur-2xl sm:px-7"
+          : "mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8"}
+      >
         <a href="https://zapla.io/" className="flex items-center">
           <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto sm:h-9" />
         </a>
