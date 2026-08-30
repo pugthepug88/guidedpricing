@@ -66,11 +66,16 @@ function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
     let visible = true;
 
     const tick = () => {
+      const rect = el.getBoundingClientRect();
       const total = el.offsetHeight - (window.innerHeight - NAV);
-      const raw = total > 0 ? (NAV - el.getBoundingClientRect().top) / total : 0;
+      const raw = total > 0 ? (NAV - rect.top) / total : 0;
       const v = Math.max(0, Math.min(1, raw));
       p.set(v);
-      window.dispatchEvent(new CustomEvent("zapla:v5-progress", { detail: v }));
+      window.dispatchEvent(
+        new CustomEvent("zapla:v5-progress", {
+          detail: { progress: v, stageBottom: rect.bottom },
+        }),
+      );
 
       const nextLock = v >= MORPH_IN && v <= MORPH_OUT;
       const nextArmed = v >= 0.1;
@@ -95,7 +100,11 @@ function useStoryScroll(ref: RefObject<HTMLDivElement | null>) {
     return () => {
       io.disconnect();
       cancelAnimationFrame(raf);
-      window.dispatchEvent(new CustomEvent("zapla:v5-progress", { detail: 1 }));
+      window.dispatchEvent(
+        new CustomEvent("zapla:v5-progress", {
+          detail: { progress: 1, stageBottom: 0 },
+        }),
+      );
     };
   }, [p, ref]);
 
