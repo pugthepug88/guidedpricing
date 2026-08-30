@@ -7,9 +7,11 @@ export const ZAPLA_LOGO =
 function CinematicZaplaLogo() {
   return (
     <span className="flex h-9 items-center">
-      {/* The homepage mark has a transparent inner cutout. White backing makes
-          that cutout white over the dark hero while preserving the exact blue mark. */}
-      <span className="relative block h-9 w-9 shrink-0 overflow-hidden rounded-[9px] bg-white">
+      {/* Keep the exact homepage mark. A small white patch sits only beneath the
+          transparent inner cutout, so the cutout reads white without creating
+          a white container around the blue mark. */}
+      <span className="relative block h-9 w-9 shrink-0 overflow-hidden">
+        <span className="absolute left-[8px] top-[7px] h-[22px] w-[21px] rounded-[6px] bg-white" />
         <img
           src={ZAPLA_LOGO}
           alt="Zapla"
@@ -34,7 +36,7 @@ export function SiteNav() {
   const location = useLocation();
   const cinematicV5 = location.pathname === "/concept/cinematic-follow-through-v5";
   const [scrolled, setScrolled] = useState(false);
-  const [cinematicVisible, setCinematicVisible] = useState(true);
+  const [cinematicProgress, setCinematicProgress] = useState(0);
   const [cinematicPastHero, setCinematicPastHero] = useState(false);
   const [openMenu, setOpenMenu] = useState<null | "products" | "resources">(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -47,7 +49,7 @@ export function SiteNav() {
 
   useEffect(() => {
     if (!cinematicV5) {
-      setCinematicVisible(true);
+      setCinematicProgress(0);
       setCinematicPastHero(false);
       return;
     }
@@ -56,14 +58,15 @@ export function SiteNav() {
       const { progress, stageBottom } = (
         event as CustomEvent<{ progress: number; stageBottom: number }>
       ).detail;
-      const pastHero = stageBottom <= 0;
-      setCinematicPastHero(pastHero);
-      setCinematicVisible(progress < 0.105 || pastHero);
+      setCinematicProgress(progress);
+      setCinematicPastHero(stageBottom <= 0);
     };
 
     window.addEventListener("zapla:v5-progress", onProgress);
     return () => window.removeEventListener("zapla:v5-progress", onProgress);
   }, [cinematicV5]);
+
+  const cinematicAtTop = cinematicV5 && !cinematicPastHero && cinematicProgress < 0.025;
 
   const linkCls = cinematicV5
     ? cinematicPastHero
@@ -72,8 +75,10 @@ export function SiteNav() {
     : "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
 
   const cinematicNavClass = cinematicPastHero
-    ? "fixed inset-x-0 top-0 z-50 border-b border-zapla-line/80 bg-white/[0.84] shadow-[0_10px_30px_rgba(15,23,42,.08)] backdrop-blur-[18px] backdrop-saturate-[1.05] transition-[background-color,border-color,box-shadow,opacity,transform] duration-400 ease-out"
-    : "fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-[#090E15]/[0.38] shadow-[0_10px_30px_rgba(0,0,0,.12)] backdrop-blur-[10px] backdrop-saturate-[0.92] transition-[background-color,border-color,box-shadow,opacity,transform] duration-400 ease-out";
+    ? "fixed inset-x-0 top-0 z-50 border-b border-zapla-line/70 bg-white/[0.78] shadow-[0_10px_30px_rgba(15,23,42,.07)] backdrop-blur-[16px] backdrop-saturate-[1.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
+    : cinematicAtTop
+      ? "fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
+      : "fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#090E15]/[0.22] shadow-[0_8px_28px_rgba(0,0,0,.09)] backdrop-blur-[12px] backdrop-saturate-[1.02] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out";
 
   return (
     <nav
@@ -86,13 +91,6 @@ export function SiteNav() {
                 : "border-b border-transparent bg-white/60 backdrop-blur"
             }`
       }
-      style={cinematicV5
-        ? {
-            opacity: cinematicVisible ? 1 : 0,
-            transform: cinematicVisible ? "translateY(0)" : "translateY(-18px)",
-            pointerEvents: cinematicVisible ? "auto" : "none",
-          }
-        : undefined}
     >
       <div
         className={cinematicV5
@@ -176,7 +174,9 @@ export function SiteNav() {
           className={cinematicV5
             ? cinematicPastHero
               ? "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white/80 text-zapla-ink lg:hidden"
-              : "grid h-10 w-10 place-items-center rounded-xl border border-white/25 bg-white/10 text-white lg:hidden"
+              : cinematicAtTop
+                ? "grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-transparent text-white lg:hidden"
+                : "grid h-10 w-10 place-items-center rounded-xl border border-white/22 bg-white/[0.06] text-white backdrop-blur-[8px] lg:hidden"
             : "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white text-zapla-ink lg:hidden"}
           onClick={() => setMobileOpen((v) => !v)}
         >
