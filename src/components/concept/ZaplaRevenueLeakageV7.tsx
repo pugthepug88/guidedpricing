@@ -3,8 +3,6 @@ import { motion, useReducedMotion } from "motion/react";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
 const EASE = [0.16, 1, 0.3, 1] as const;
-const BRAND_BLUE = "#2563FF";
-
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 const AUTUMN = [
@@ -148,16 +146,18 @@ function DesktopStream() {
     return {
       x,
       y: 50 + wave + rowOffset,
-      size: Math.max(1.5, 5 - progress * 3.2 + (n % 3) * 0.45),
-      opacity: Math.max(0.045, 0.18 - progress * 0.11),
+      size: Math.max(2.8, 8.2 - progress * 5.1 + (n % 3) * 0.55),
+      opacity: Math.max(0.08, 0.28 - progress * 0.16),
+      tone: AUTUMN[(n * 3 + row) % AUTUMN.length],
     };
   });
 
   const outputParticles = Array.from({ length: 32 }, (_, n) => ({
     x: 58 + (n % 16) * 2.65,
     y: 50 + Math.sin(n * 1.37) * (9 + (n % 4) * 2.5),
-    size: 1.5 + (n % 3),
-    opacity: 0.055 + (n % 4) * 0.018,
+    size: 2.5 + (n % 3) * 0.9,
+    opacity: 0.07 + (n % 4) * 0.022,
+    tone: AUTUMN[(n * 5 + 2) % AUTUMN.length],
   }));
 
   return (
@@ -211,13 +211,15 @@ function DesktopStream() {
       {particles.map((dot, index) => (
         <span
           key={"particle-" + index}
-          className="absolute rounded-full bg-zapla-ink"
+          className="absolute rounded-full ring-1 ring-white/35"
           style={{
             left: dot.x + "%",
             top: dot.y + "%",
             width: dot.size,
             height: dot.size,
             opacity: dot.opacity,
+            backgroundColor: dot.tone,
+            boxShadow: "inset 0 -1px 2px rgba(77,51,36,.18)",
           }}
         />
       ))}
@@ -242,31 +244,41 @@ function DesktopStream() {
         </div>
       ))}
 
-      <div className="absolute bottom-[7%] left-[54%] top-[7%] w-[42px] -translate-x-1/2">
+      <div className="absolute bottom-[5%] left-[54%] top-[5%] w-[54px] -translate-x-1/2">
         <div
-          className="absolute inset-0 rounded-[14px] border border-[#7B8798]/20 shadow-[0_18px_42px_rgba(42,49,58,0.14),inset_0_0_0_1px_rgba(255,255,255,0.72)] backdrop-blur-[3px]"
+          className="absolute inset-0 drop-shadow-[0_18px_24px_rgba(42,49,58,.14)]"
           style={{
+            clipPath: "polygon(17% 5%, 83% 0, 83% 100%, 17% 95%)",
             background:
-              "linear-gradient(90deg, rgba(37,99,255,.035) 0%, rgba(255,255,255,.82) 48%, rgba(37,99,255,.075) 100%)",
+              "linear-gradient(90deg, rgba(123,135,152,.22), rgba(255,255,255,.9) 17%, rgba(247,248,249,.72) 70%, rgba(123,135,152,.2))",
           }}
-        />
+        >
+          <div className="absolute inset-[1px] bg-white/30 backdrop-blur-[4px]" />
+          {[31, 40, 49, 58, 67].map((top, index) => (
+            <span
+              key={"filter-pore-" + index}
+              className="absolute h-[3px] w-[3px] rounded-full bg-[#9B7A5F]/35"
+              style={{ left: 16 + (index % 2) * 9, top: top + "%" }}
+            />
+          ))}
+        </div>
         <div
-          className="absolute bottom-[4%] right-[5px] top-[4%] w-px rounded-full shadow-[0_0_14px_rgba(37,99,255,0.32)]"
-          style={{ backgroundColor: BRAND_BLUE }}
+          className="absolute bottom-[6%] left-[9px] top-[6%] w-[7px] bg-white/55 blur-[2px]"
+          style={{ clipPath: "polygon(25% 4%, 100% 0, 100% 100%, 25% 96%)" }}
         />
-        <div className="absolute bottom-[7%] left-[7px] top-[7%] w-[8px] rounded-full bg-white/75 blur-[2px]" />
       </div>
 
       {outputParticles.map((dot, index) => (
         <span
           key={"output-particle-" + index}
-          className="absolute rounded-full bg-zapla-ink"
+          className="absolute rounded-full ring-1 ring-white/30"
           style={{
             left: dot.x + "%",
             top: dot.y + "%",
             width: dot.size,
             height: dot.size,
             opacity: dot.opacity,
+            backgroundColor: dot.tone,
           }}
         />
       ))}
@@ -295,8 +307,9 @@ function MobileStream() {
     return {
       x: 50 + Math.sin(n * 1.51) * (42 - progress * 31),
       y: 4 + row * 3.3 + Math.floor(n / 13) * 1.8,
-      size: 1.5 + (n % 3),
-      opacity: 0.06 + (n % 4) * 0.025,
+      size: 2.6 + (n % 3) * 1.15,
+      opacity: 0.085 + (n % 4) * 0.03,
+      tone: AUTUMN[(n * 3 + row) % AUTUMN.length],
     };
   });
 
@@ -352,13 +365,14 @@ function MobileStream() {
       {mobileParticles.map((dot, index) => (
         <span
           key={"mobile-particle-" + index}
-          className="absolute rounded-full bg-zapla-ink"
+          className="absolute rounded-full ring-1 ring-white/35"
           style={{
             left: dot.x + "%",
             top: dot.y + "%",
             width: dot.size,
             height: dot.size,
             opacity: dot.opacity,
+            backgroundColor: dot.tone,
           }}
         />
       ))}
@@ -394,18 +408,22 @@ function MobileStream() {
         </div>
       ))}
 
-      <div className="absolute left-[7%] right-[7%] top-1/2 h-[28px] -translate-y-1/2">
+      <div className="absolute left-[5%] right-[5%] top-1/2 h-[42px] -translate-y-1/2 drop-shadow-[0_14px_22px_rgba(42,49,58,.13)]">
         <div
-          className="absolute inset-0 rounded-[12px] border border-[#7B8798]/20 shadow-[0_14px_32px_rgba(42,49,58,0.13),inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-[3px]"
+          className="absolute inset-0 bg-white/65 backdrop-blur-[4px]"
           style={{
+            clipPath: "polygon(4% 16%, 96% 16%, 91% 84%, 9% 84%)",
             background:
-              "linear-gradient(180deg, rgba(37,99,255,.035) 0%, rgba(255,255,255,.84) 48%, rgba(37,99,255,.075) 100%)",
+              "linear-gradient(180deg, rgba(123,135,152,.2), rgba(255,255,255,.9) 28%, rgba(247,248,249,.72) 72%, rgba(123,135,152,.18))",
           }}
         />
-        <div
-          className="absolute bottom-[5px] left-[2%] right-[2%] h-px rounded-full shadow-[0_0_12px_rgba(37,99,255,0.3)]"
-          style={{ backgroundColor: BRAND_BLUE }}
-        />
+        {[31, 41, 51, 61].map((left, index) => (
+          <span
+            key={"mobile-filter-pore-" + index}
+            className="absolute h-[3px] w-[3px] rounded-full bg-[#9B7A5F]/35"
+            style={{ left: left + "%", top: 19 + (index % 2) * 10 }}
+          />
+        ))}
       </div>
 
       {mobileSurvivors.map(({ i, s }, index) => (
@@ -476,20 +494,21 @@ export function ZaplaRevenueLeakageV7() {
 
         <FadeFilterVisual />
 
-        <div className="mt-5 grid border-y border-zapla-line sm:mt-7 sm:grid-cols-3">
+        <div className="mt-7 grid gap-4 sm:mt-9 sm:grid-cols-3">
           {PROOF.map((proof, index) => (
             <Reveal
               key={proof.label}
               reduced={reduced}
               delay={0.04 + index * 0.05}
-              className={
-                "py-8 text-center sm:px-8 sm:py-10 lg:px-12 " +
-                (index > 0
-                  ? "border-t border-zapla-line sm:border-l sm:border-t-0"
-                  : "")
-              }
+              className="h-full"
             >
-              <article>
+              <article
+                className="flex min-h-[292px] h-full flex-col items-center rounded-[30px] px-7 py-9 text-center sm:min-h-[320px] sm:px-8 sm:py-10 lg:px-10"
+                style={{
+                  backgroundColor: ["#E7D8C5", "#DCE0CC", "#E7CEC2"][index],
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,.38)",
+                }}
+              >
                 <p
                   className="text-[64px] font-medium leading-none tracking-[-0.065em] text-zapla-ink sm:text-[68px] lg:text-[76px]"
                   style={{ fontFamily: DISPLAY }}
@@ -503,11 +522,11 @@ export function ZaplaRevenueLeakageV7() {
                 >
                   {proof.label}
                 </h3>
-                <p className="mx-auto mt-2 max-w-[280px] text-[13px] leading-[1.55] text-zapla-muted">
+                <p className="mx-auto mt-2 max-w-[280px] text-[13px] leading-[1.55] text-zapla-ink/65">
                   {proof.text}
                 </p>
                 <p
-                  className="mt-4 text-[8px] uppercase leading-[1.45] tracking-[0.12em] text-zapla-muted2"
+                  className="mt-auto pt-6 text-[8px] uppercase leading-[1.45] tracking-[0.12em] text-zapla-ink/45"
                   style={{ fontFamily: MONO }}
                 >
                   {proof.source}
