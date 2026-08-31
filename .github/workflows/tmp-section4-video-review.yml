@@ -1,0 +1,36 @@
+name: Temp Section 4 Video Review
+on:
+  push:
+    branches:
+      - tmp-section4-video-review
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Download exact Section 4 recording
+        run: |
+          curl -L --fail --retry 3 --output section4.mp4 'https://cdn.openart.ai/openart-uploads/production/2026-08/create-image/RIgeTc0auXc32mC7YORv/section_4_1788184176030_b99892cd.mp4'
+          ffprobe -v error -show_entries format=duration -show_entries stream=width,height,r_frame_rate -of default=noprint_wrappers=1 section4.mp4
+      - name: Extract overview frames every 0.5 seconds
+        run: |
+          mkdir -p frames_halfsec
+          ffmpeg -hide_banner -loglevel error -i section4.mp4 -vf "fps=2,scale=960:-2" -q:v 2 frames_halfsec/frame_%04d.jpg
+      - name: Extract dense frames every 0.2 seconds
+        run: |
+          mkdir -p frames_dense
+          ffmpeg -hide_banner -loglevel error -i section4.mp4 -vf "fps=5,scale=960:-2" -q:v 3 frames_dense/frame_%04d.jpg
+      - name: Write metadata
+        run: |
+          ffprobe -v error -show_format -show_streams section4.mp4 > metadata.txt
+      - name: Upload review frames
+        uses: actions/upload-artifact@v4
+        with:
+          name: section4-video-review-frames
+          path: |
+            frames_halfsec/
+            frames_dense/
+            metadata.txt
+          compression-level: 6
+          retention-days: 1
