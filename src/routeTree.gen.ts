@@ -12,16 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as McpRouteImport } from './routes/mcp'
-import { Route as HomepageDraftV1RouteImport } from './routes/homepage-draft-v1'
 import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
 import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ConceptTapLabRouteImport } from './routes/concept/tap-lab'
-import { Route as ConceptRevenueLeaksLabRouteImport } from './routes/concept/revenue-leaks-lab'
-import { Route as ConceptOperatorAwayFollowThroughRouteImport } from './routes/concept/operator-away-follow-through'
 import { Route as ConceptMultiWorldFollowThroughV3RouteImport } from './routes/concept/multi-world-follow-through-v3'
-import { Route as ConceptMaskTestRouteImport } from './routes/concept/mask-test'
-import { Route as ConceptCinematicFollowThroughV5ClaudeRouteImport } from './routes/concept/cinematic-follow-through-v5-claude'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -42,11 +36,6 @@ const McpRoute = McpRouteImport.update({
   path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HomepageDraftV1Route = HomepageDraftV1RouteImport.update({
-  id: '/homepage-draft-v1',
-  path: '/homepage-draft-v1',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const HeroPreviewV5Route = HeroPreviewV5RouteImport.update({
   id: '/hero-preview-v5',
   path: '/hero-preview-v5',
@@ -62,37 +51,10 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConceptTapLabRoute = ConceptTapLabRouteImport.update({
-  id: '/concept/tap-lab',
-  path: '/concept/tap-lab',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConceptRevenueLeaksLabRoute = ConceptRevenueLeaksLabRouteImport.update({
-  id: '/concept/revenue-leaks-lab',
-  path: '/concept/revenue-leaks-lab',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConceptOperatorAwayFollowThroughRoute =
-  ConceptOperatorAwayFollowThroughRouteImport.update({
-    id: '/concept/operator-away-follow-through',
-    path: '/concept/operator-away-follow-through',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ConceptMultiWorldFollowThroughV3Route =
   ConceptMultiWorldFollowThroughV3RouteImport.update({
     id: '/concept/multi-world-follow-through-v3',
     path: '/concept/multi-world-follow-through-v3',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ConceptMaskTestRoute = ConceptMaskTestRouteImport.update({
-  id: '/concept/mask-test',
-  path: '/concept/mask-test',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConceptCinematicFollowThroughV5ClaudeRoute =
-  ConceptCinematicFollowThroughV5ClaudeRouteImport.update({
-    id: '/concept/cinematic-follow-through-v5-claude',
-    path: '/concept/cinematic-follow-through-v5-claude',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ConceptCinematicFollowThroughV5Route =
@@ -124,38 +86,26 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
-  '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
-  '/concept/cinematic-follow-through-v5-claude': typeof ConceptCinematicFollowThroughV5ClaudeRoute
-  '/concept/mask-test': typeof ConceptMaskTestRoute
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
-  '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
-  '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
-  '/concept/tap-lab': typeof ConceptTapLabRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
-  '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
-  '/concept/cinematic-follow-through-v5-claude': typeof ConceptCinematicFollowThroughV5ClaudeRoute
-  '/concept/mask-test': typeof ConceptMaskTestRoute
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
-  '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
-  '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
-  '/concept/tap-lab': typeof ConceptTapLabRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -163,19 +113,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/hero-preview-v3': typeof HeroPreviewV3Route
   '/hero-preview-v5': typeof HeroPreviewV5Route
-  '/homepage-draft-v1': typeof HomepageDraftV1Route
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
-  '/concept/cinematic-follow-through-v5-claude': typeof ConceptCinematicFollowThroughV5ClaudeRoute
-  '/concept/mask-test': typeof ConceptMaskTestRoute
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
-  '/concept/operator-away-follow-through': typeof ConceptOperatorAwayFollowThroughRoute
-  '/concept/revenue-leaks-lab': typeof ConceptRevenueLeaksLabRoute
-  '/concept/tap-lab': typeof ConceptTapLabRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -184,57 +128,39 @@ export interface FileRouteTypes {
     | '/'
     | '/hero-preview-v3'
     | '/hero-preview-v5'
-    | '/homepage-draft-v1'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
-    | '/concept/cinematic-follow-through-v5-claude'
-    | '/concept/mask-test'
     | '/concept/multi-world-follow-through-v3'
-    | '/concept/operator-away-follow-through'
-    | '/concept/revenue-leaks-lab'
-    | '/concept/tap-lab'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/hero-preview-v3'
     | '/hero-preview-v5'
-    | '/homepage-draft-v1'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
-    | '/concept/cinematic-follow-through-v5-claude'
-    | '/concept/mask-test'
     | '/concept/multi-world-follow-through-v3'
-    | '/concept/operator-away-follow-through'
-    | '/concept/revenue-leaks-lab'
-    | '/concept/tap-lab'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
     | '/'
     | '/hero-preview-v3'
     | '/hero-preview-v5'
-    | '/homepage-draft-v1'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
-    | '/concept/cinematic-follow-through-v5-claude'
-    | '/concept/mask-test'
     | '/concept/multi-world-follow-through-v3'
-    | '/concept/operator-away-follow-through'
-    | '/concept/revenue-leaks-lab'
-    | '/concept/tap-lab'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -242,19 +168,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HeroPreviewV3Route: typeof HeroPreviewV3Route
   HeroPreviewV5Route: typeof HeroPreviewV5Route
-  HomepageDraftV1Route: typeof HomepageDraftV1Route
   McpRoute: typeof McpRoute
   PricingRoute: typeof PricingRoute
   PricingV2Route: typeof PricingV2Route
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
-  ConceptCinematicFollowThroughV5ClaudeRoute: typeof ConceptCinematicFollowThroughV5ClaudeRoute
-  ConceptMaskTestRoute: typeof ConceptMaskTestRoute
   ConceptMultiWorldFollowThroughV3Route: typeof ConceptMultiWorldFollowThroughV3Route
-  ConceptOperatorAwayFollowThroughRoute: typeof ConceptOperatorAwayFollowThroughRoute
-  ConceptRevenueLeaksLabRoute: typeof ConceptRevenueLeaksLabRoute
-  ConceptTapLabRoute: typeof ConceptTapLabRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -281,13 +201,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/homepage-draft-v1': {
-      id: '/homepage-draft-v1'
-      path: '/homepage-draft-v1'
-      fullPath: '/homepage-draft-v1'
-      preLoaderRoute: typeof HomepageDraftV1RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/hero-preview-v5': {
       id: '/hero-preview-v5'
       path: '/hero-preview-v5'
@@ -309,46 +222,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/concept/tap-lab': {
-      id: '/concept/tap-lab'
-      path: '/concept/tap-lab'
-      fullPath: '/concept/tap-lab'
-      preLoaderRoute: typeof ConceptTapLabRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/revenue-leaks-lab': {
-      id: '/concept/revenue-leaks-lab'
-      path: '/concept/revenue-leaks-lab'
-      fullPath: '/concept/revenue-leaks-lab'
-      preLoaderRoute: typeof ConceptRevenueLeaksLabRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/operator-away-follow-through': {
-      id: '/concept/operator-away-follow-through'
-      path: '/concept/operator-away-follow-through'
-      fullPath: '/concept/operator-away-follow-through'
-      preLoaderRoute: typeof ConceptOperatorAwayFollowThroughRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/concept/multi-world-follow-through-v3': {
       id: '/concept/multi-world-follow-through-v3'
       path: '/concept/multi-world-follow-through-v3'
       fullPath: '/concept/multi-world-follow-through-v3'
       preLoaderRoute: typeof ConceptMultiWorldFollowThroughV3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/mask-test': {
-      id: '/concept/mask-test'
-      path: '/concept/mask-test'
-      fullPath: '/concept/mask-test'
-      preLoaderRoute: typeof ConceptMaskTestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/cinematic-follow-through-v5-claude': {
-      id: '/concept/cinematic-follow-through-v5-claude'
-      path: '/concept/cinematic-follow-through-v5-claude'
-      fullPath: '/concept/cinematic-follow-through-v5-claude'
-      preLoaderRoute: typeof ConceptCinematicFollowThroughV5ClaudeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/concept/cinematic-follow-through-v5': {
@@ -386,7 +264,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HeroPreviewV3Route: HeroPreviewV3Route,
   HeroPreviewV5Route: HeroPreviewV5Route,
-  HomepageDraftV1Route: HomepageDraftV1Route,
   McpRoute: McpRoute,
   PricingRoute: PricingRoute,
   PricingV2Route: PricingV2Route,
@@ -394,13 +271,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
-  ConceptCinematicFollowThroughV5ClaudeRoute:
-    ConceptCinematicFollowThroughV5ClaudeRoute,
-  ConceptMaskTestRoute: ConceptMaskTestRoute,
   ConceptMultiWorldFollowThroughV3Route: ConceptMultiWorldFollowThroughV3Route,
-  ConceptOperatorAwayFollowThroughRoute: ConceptOperatorAwayFollowThroughRoute,
-  ConceptRevenueLeaksLabRoute: ConceptRevenueLeaksLabRoute,
-  ConceptTapLabRoute: ConceptTapLabRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
