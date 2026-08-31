@@ -16,6 +16,7 @@ import { Route as HeroPreviewV5RouteImport } from './routes/hero-preview-v5'
 import { Route as HeroPreviewV3RouteImport } from './routes/hero-preview-v3'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConceptMultiWorldFollowThroughV3RouteImport } from './routes/concept/multi-world-follow-through-v3'
+import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -57,6 +58,12 @@ const ConceptMultiWorldFollowThroughV3Route =
     path: '/concept/multi-world-follow-through-v3',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ConceptCinematicFollowThroughV6Route =
+  ConceptCinematicFollowThroughV6RouteImport.update({
+    id: '/concept/cinematic-follow-through-v6',
+    path: '/concept/cinematic-follow-through-v6',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ConceptCinematicFollowThroughV5Route =
   ConceptCinematicFollowThroughV5RouteImport.update({
     id: '/concept/cinematic-follow-through-v5',
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
+  '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -105,6 +113,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
+  '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -119,6 +128,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
+  '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/concept/multi-world-follow-through-v3': typeof ConceptMultiWorldFollowThroughV3Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
+    | '/concept/cinematic-follow-through-v6'
     | '/concept/multi-world-follow-through-v3'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
+    | '/concept/cinematic-follow-through-v6'
     | '/concept/multi-world-follow-through-v3'
     | '/.mcp/invoke-tool/$tool'
   id:
@@ -160,6 +172,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
+    | '/concept/cinematic-follow-through-v6'
     | '/concept/multi-world-follow-through-v3'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
@@ -174,6 +187,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
+  ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
   ConceptMultiWorldFollowThroughV3Route: typeof ConceptMultiWorldFollowThroughV3Route
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -229,6 +243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptMultiWorldFollowThroughV3RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/concept/cinematic-follow-through-v6': {
+      id: '/concept/cinematic-follow-through-v6'
+      path: '/concept/cinematic-follow-through-v6'
+      fullPath: '/concept/cinematic-follow-through-v6'
+      preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/concept/cinematic-follow-through-v5': {
       id: '/concept/cinematic-follow-through-v5'
       path: '/concept/cinematic-follow-through-v5'
@@ -271,6 +292,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
+  ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
   ConceptMultiWorldFollowThroughV3Route: ConceptMultiWorldFollowThroughV3Route,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
