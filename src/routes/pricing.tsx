@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo, useRef, useEffect } from "react";
 import customer01 from "@/assets/customer-01-brightside.jpg";
 import customer02 from "@/assets/customer-02-northside.jpg";
