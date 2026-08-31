@@ -1,4 +1,5 @@
 import { ZaplaCustomerJourneyShowcaseV6 } from "@/components/concept/ZaplaCustomerJourneyShowcaseV6";
+import { ZaplaCustomerJourneyPrototypeBV6 } from "@/components/concept/ZaplaCustomerJourneyPrototypeBV6";
 import { ZaplaRevenueLeakageV7 } from "@/components/concept/ZaplaRevenueLeakageV7";
 import { ZaplaAISectionV6 } from "@/components/concept/ZaplaAISectionV6";
 import { ZaplaGrowthV6, ZaplaUnlimitedV6 } from "@/components/concept/ZaplaGrowthUnlimitedV6";
@@ -9,6 +10,7 @@ export function ZaplaHomepageContinuationV6() {
     <>
       <ZaplaRevenueLeakageV7 />
       <ZaplaCustomerJourneyShowcaseV6 />
+      <ZaplaCustomerJourneyPrototypeBV6 />
       <ZaplaAISectionV6 />
       <ZaplaGrowthV6 />
       <ZaplaUnlimitedV6 />
