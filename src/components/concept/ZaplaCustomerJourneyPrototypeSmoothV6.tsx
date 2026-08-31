@@ -82,7 +82,7 @@ function WebsiteEnquiryCard() {
       className="absolute right-[3.2%] top-[6%] z-50 w-[296px] max-w-[60%] overflow-hidden rounded-[16px] border border-[#DED6CB] bg-[#FFFEFC] shadow-[0_24px_54px_-30px_rgba(69,55,41,.34)]"
       initial={{ opacity: 0, y: -18, scale: 0.96 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 22, scale: 0.92 }}
+      exit={{ opacity: 0, y: 24, scale: 0.9 }}
       transition={{ duration: 0.72, ease: EASE }}
     >
       <div className="flex items-center gap-2 border-b border-[#EEE7DD] bg-[#FBF8F3] px-3.5 py-2.5">
@@ -119,7 +119,7 @@ function ContactRow({ animateIn = true }: { animateIn?: boolean }) {
       className="absolute left-4 right-4 top-[74px] z-40 overflow-hidden border-y border-[#D8CDBF] bg-[#F3EBDD]/96 shadow-[0_10px_28px_-22px_rgba(78,61,44,.35)]"
       initial={animateIn ? { opacity: 0, y: -22, scaleY: 0.8 } : false}
       animate={{ opacity: 1, y: 0, scaleY: 1 }}
-      transition={{ duration: 0.78, delay: animateIn ? 1.55 : 0, ease: EASE }}
+      transition={{ duration: 0.78, ease: EASE }}
       style={{ transformOrigin: "top" }}
     >
       <div className="grid items-center gap-2 px-3 py-[9px]" style={{ gridTemplateColumns: CONTACT_COLS }}>
@@ -146,7 +146,7 @@ function CreatedEvents({ animateIn = true }: { animateIn?: boolean }) {
       className="absolute bottom-4 right-4 z-50 grid gap-1.5"
       initial={animateIn ? { opacity: 0, y: 12 } : false}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: animateIn ? 0.55 : 0, delay: animateIn ? 2.35 : 0, ease: EASE }}
+      transition={{ duration: animateIn ? 0.55 : 0, delay: animateIn ? 0.42 : 0, ease: EASE }}
     >
       {["Contact created", "Opportunity created · New Enquiry"].map((label, index) => (
         <div key={label} className="flex items-center gap-2 rounded-[9px] border border-[#DFD7CC] bg-[#FFFEFC]/95 px-3 py-2 text-[10px] font-semibold text-[#5F5A52] shadow-[0_12px_30px_-22px_rgba(72,57,43,.3)]">
@@ -324,7 +324,6 @@ function SalesOverlay({ animateMove = true }: { animateMove?: boolean }) {
 function CalendarOverlay({ animateIn = true }: { animateIn?: boolean }) {
   return (
     <>
-      <div className="absolute bottom-0 left-[34%] right-0 top-[34px] z-30 pointer-events-none bg-white/94" />
       <motion.div
         className="absolute left-[43.2%] top-[49%] z-40 w-[13.6%] min-w-[96px] rounded-[9px] border border-[#D8CDBF] border-l-[3px] border-l-[#2563FF] bg-[#FFFEFC] px-2 py-2 shadow-[0_12px_24px_-16px_rgba(71,56,43,.38)]"
         initial={animateIn ? { opacity: 0, y: -24, scale: 0.93 } : false}
@@ -333,13 +332,6 @@ function CalendarOverlay({ animateIn = true }: { animateIn?: boolean }) {
       >
         <SarahIdentity detail="2:30 · Consultation" />
       </motion.div>
-      <div className="absolute right-[3%] top-[20%] z-40 w-[29%] rounded-[15px] border border-[#DDD5CA] bg-[#FFFEFC] p-3 shadow-[0_18px_44px_-28px_rgba(66,52,40,.34)]">
-        <SarahIdentity detail="Thursday · 2:30 PM" />
-        <div className="mt-3 grid grid-cols-2 gap-2 text-[8.5px] font-semibold text-[#857D73]">
-          <div className="rounded-[9px] bg-[#F4EFE8] px-2.5 py-2"><div className="text-[6.5px] uppercase tracking-[.1em] text-[#A2988D]">Type</div><div className="mt-1 text-[#5C5750]">Consultation</div></div>
-          <div className="rounded-[9px] bg-[#F4EFE8] px-2.5 py-2"><div className="text-[6.5px] uppercase tracking-[.1em] text-[#A2988D]">Status</div><div className="mt-1 text-[#5C684F]">Confirmed</div></div>
-        </div>
-      </div>
       <motion.div
         className="absolute bottom-4 right-4 z-50 flex max-w-[285px] items-start gap-2.5 rounded-xl border border-[#D9D1C7] bg-[#FFFEFC]/97 px-3 py-2.5 shadow-[0_16px_34px_-22px_rgba(71,56,43,.32)]"
         initial={animateIn ? { opacity: 0, y: 12 } : false}
@@ -354,6 +346,37 @@ function CalendarOverlay({ animateIn = true }: { animateIn?: boolean }) {
           <div className="mt-0.5 text-[10px] font-medium text-[#81786F]">Sarah Nguyen · Thursday · 2:30 PM</div>
         </div>
       </motion.div>
+      <div className="absolute left-[33%] top-[16%] z-30 h-[58%] w-[35%] rounded-[18px] border border-[#DDD5CA] bg-[#FFFEFC] shadow-[0_24px_54px_-30px_rgba(66,52,40,.28)]" />
+      <div className="absolute left-[35%] top-[20%] z-40 w-[31%] rounded-[15px] border border-[#DDD5CA] bg-[#FFFEFC] p-4 shadow-[0_18px_44px_-28px_rgba(66,52,40,.34)]">
+        <SarahIdentity detail="Thursday · 2:30 PM" />
+        <div className="mt-3 grid grid-cols-2 gap-2 text-[8.5px] font-semibold text-[#857D73]">
+          <div className="rounded-[9px] bg-[#F4EFE8] px-2.5 py-2"><div className="text-[6.5px] uppercase tracking-[.1em] text-[#A2988D]">Type</div><div className="mt-1 text-[#5C5750]">Consultation</div></div>
+          <div className="rounded-[9px] bg-[#F4EFE8] px-2.5 py-2"><div className="text-[6.5px] uppercase tracking-[.1em] text-[#A2988D]">Status</div><div className="mt-1 text-[#5C684F]">Confirmed</div></div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function ContactsJourney({ interactive = false }: { interactive?: boolean }) {
+  const [inserted, setInserted] = useState(interactive);
+
+  useEffect(() => {
+    if (interactive) {
+      setInserted(true);
+      return;
+    }
+    setInserted(false);
+    const timer = window.setTimeout(() => setInserted(true), 1750);
+    return () => window.clearTimeout(timer);
+  }, [interactive]);
+
+  return (
+    <>
+      <AnimatePresence mode="wait" initial={false}>
+        {!inserted ? <WebsiteEnquiryCard key="website-enquiry" /> : <ContactRow key="contact-row" animateIn={false} />}
+      </AnimatePresence>
+      {inserted ? <CreatedEvents animateIn={!interactive} /> : null}
     </>
   );
 }
@@ -374,9 +397,7 @@ function JourneyScene({ stageIndex, interactive = false }: { stageIndex: number;
   return (
     <div className="absolute inset-0">
       <BaseScene stage={stage.key} />
-      {stage.key === "contacts" ? (
-        interactive ? <><ContactRow animateIn={false} /><CreatedEvents animateIn={false} /></> : <><WebsiteEnquiryCard /><ContactRow /><CreatedEvents /></>
-      ) : null}
+      {stage.key === "contacts" ? <ContactsJourney interactive={interactive} /> : null}
       {stage.key === "inbox" ? <InboxOverlay complete={interactive} animateMessages={!interactive} /> : null}
       {stage.key === "opportunities" ? <SalesOverlay animateMove={!interactive} /> : null}
       {stage.key === "calendar" ? <CalendarOverlay animateIn={!interactive} /> : null}
