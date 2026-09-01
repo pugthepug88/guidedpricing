@@ -9,14 +9,15 @@ type Accent = "blue" | "violet" | "amber" | "green" | "rose";
 type Appointment = { title: string; time: string; face?: string; accent: Accent; sarah?: boolean };
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
-const DAYS = [
+type DayCell = { day: number; month: string; muted?: boolean; target?: boolean };
+const DAYS: DayCell[] = [
   { day:31, month:"Aug", muted:true }, { day:1, month:"Sep" }, { day:2, month:"Sep" }, { day:3, month:"Sep", target:true }, { day:4, month:"Sep" }, { day:5, month:"Sep" }, { day:6, month:"Sep" },
   { day:7, month:"Sep" }, { day:8, month:"Sep" }, { day:9, month:"Sep" }, { day:10, month:"Sep" }, { day:11, month:"Sep" }, { day:12, month:"Sep" }, { day:13, month:"Sep" },
   { day:14, month:"Sep" }, { day:15, month:"Sep" }, { day:16, month:"Sep" }, { day:17, month:"Sep" }, { day:18, month:"Sep" }, { day:19, month:"Sep" }, { day:20, month:"Sep" },
   { day:21, month:"Sep" }, { day:22, month:"Sep" }, { day:23, month:"Sep" }, { day:24, month:"Sep" }, { day:25, month:"Sep" }, { day:26, month:"Sep" }, { day:27, month:"Sep" },
   { day:28, month:"Sep" }, { day:29, month:"Sep" }, { day:30, month:"Sep" }, { day:1, month:"Oct", muted:true }, { day:2, month:"Oct", muted:true }, { day:3, month:"Oct", muted:true }, { day:4, month:"Oct", muted:true },
   { day:5, month:"Oct", muted:true }, { day:6, month:"Oct", muted:true }, { day:7, month:"Oct", muted:true }, { day:8, month:"Oct", muted:true }, { day:9, month:"Oct", muted:true }, { day:10, month:"Oct", muted:true }, { day:11, month:"Oct", muted:true },
-] as const;
+];
 
 const APPTS: Record<string, Appointment[]> = {
   "Sep-1": [{ title:"Maya Chen", time:"10:00 · Review", face:FACE.maya, accent:"blue" }],
