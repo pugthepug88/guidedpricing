@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { LayoutGroup, motion } from "motion/react";
 import { Check, Clock, Globe2, MessageSquare, MoreHorizontal, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FACE } from "@/components/v5/faces";
@@ -22,6 +22,8 @@ const H = 470;
 const BOX_W = 224;
 const BOX_H = 62;
 const X = (W - BOX_W) / 2;
+const AVATAR_SIZE = 19;
+const AVATAR_STEP = 14;
 
 const STEPS: Step[] = [
   {
@@ -90,26 +92,55 @@ function Wire({ d, on }: { d: string; on: boolean }) {
   );
 }
 
-function CrowdStack({ crowd }: { crowd: string[] }) {
+function CrowdStack({ crowd, hasSarah, interactive }: { crowd: string[]; hasSarah: boolean; interactive: boolean }) {
+  const stackWidth = AVATAR_SIZE + crowd.length * AVATAR_STEP;
+  const sarahLeft = crowd.length * AVATAR_STEP;
+
   return (
-    <div className="absolute -top-[10px] right-4 z-20 flex items-center">
+    <div
+      className="absolute -top-[10px] right-7 z-20"
+      style={{ width: stackWidth, height: AVATAR_SIZE }}
+      aria-hidden="true"
+    >
       {crowd.map((src, index) => (
         <img
           key={`${src}-${index}`}
           src={src}
           alt=""
-          aria-hidden
-          className={cn(
-            "h-[19px] w-[19px] rounded-full object-cover ring-2 ring-white shadow-[0_4px_10px_-6px_rgba(15,23,42,.45)]",
-            index > 0 && "-ml-[5px]",
-          )}
+          className="absolute top-0 rounded-full object-cover ring-2 ring-white shadow-[0_4px_10px_-6px_rgba(15,23,42,.45)]"
+          style={{
+            width: AVATAR_SIZE,
+            height: AVATAR_SIZE,
+            left: index * AVATAR_STEP,
+            zIndex: index + 1,
+          }}
         />
       ))}
+
+      {hasSarah ? (
+        <motion.span
+          layoutId="automation-sarah-avatar"
+          className="absolute top-0 block rounded-full"
+          style={{
+            width: AVATAR_SIZE,
+            height: AVATAR_SIZE,
+            left: sarahLeft,
+            zIndex: crowd.length + 2,
+          }}
+          initial={false}
+          transition={{ duration: interactive ? 0 : 0.62, ease: EASE }}
+        >
+          <RevenueAvatar
+            size={AVATAR_SIZE}
+            className="ring-2 ring-white shadow-[0_4px_10px_-6px_rgba(15,23,42,.45)]"
+          />
+        </motion.span>
+      ) : null}
     </div>
   );
 }
 
-function Node({ step, state }: { step: Step; state: NodeState }) {
+function Node({ step, state, interactive }: { step: Step; state: NodeState; interactive: boolean }) {
   const { box, icon: Icon, kind, title, detail, crowd } = step;
 
   return (
@@ -123,11 +154,11 @@ function Node({ step, state }: { step: Step; state: NodeState }) {
             : state === "done"
               ? "0 0 0 1px rgba(203,213,225,0.9), 0 8px 18px -16px rgba(15,23,42,0.35)"
               : "0 0 0 1px rgba(226,232,240,0.95), 0 6px 14px -14px rgba(15,23,42,0.3)",
-        scale: state === "active" ? 1.015 : 1,
       }}
       transition={{ duration: 0.32, ease: EASE }}
     >
-      <CrowdStack crowd={crowd} />
+      <CrowdStack crowd={crowd} hasSarah={state === "active"} interactive={interactive} />
+
       <div className="flex items-start gap-2">
         <span
           className={cn(
@@ -139,12 +170,14 @@ function Node({ step, state }: { step: Step; state: NodeState }) {
         >
           <Icon className="h-3.5 w-3.5" />
         </span>
+
         <div className="min-w-0 flex-1 pr-8">
           <div className="text-[8.5px] font-bold uppercase tracking-[0.12em] text-slate-400">{kind}</div>
           <div className="truncate text-[12.5px] font-bold leading-tight tracking-tight text-slate-900">{title}</div>
           <div className="mt-1 truncate text-[9px] font-semibold text-slate-400">{detail}</div>
         </div>
       </div>
+
       {state === "done" ? (
         <span className="absolute -right-1.5 -top-1.5 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-emerald-500 shadow-sm">
           <Check className="h-[11px] w-[11px] text-white" strokeWidth={3.5} />
@@ -172,10 +205,6 @@ export function AutomationScene({ interactive = false }: { interactive?: boolean
 
   const stateFor = (index: number): NodeState =>
     index < progress ? "done" : index === progress ? "active" : "idle";
-
-  const currentStep = STEPS[progress];
-  const sarahX = currentStep.box.x + currentStep.box.w - 30 - currentStep.crowd.length * 14;
-  const sarahY = currentStep.box.y - 11;
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden bg-slate-50/70">
@@ -217,18 +246,11 @@ export function AutomationScene({ interactive = false }: { interactive?: boolean
             ))}
           </svg>
 
-          {STEPS.map((step, index) => (
-            <Node key={step.title} step={step} state={stateFor(index)} />
-          ))}
-
-          <motion.div
-            className="pointer-events-none absolute z-40 rounded-full bg-white p-[2px] shadow-[0_8px_18px_-10px_rgba(15,23,42,.42)] ring-2 ring-[#2563FF]"
-            initial={false}
-            animate={{ x: sarahX, y: sarahY }}
-            transition={{ duration: interactive ? 0 : 0.7, ease: EASE }}
-          >
-            <RevenueAvatar size={21} />
-          </motion.div>
+          <LayoutGroup id="automation-sarah-progress">
+            {STEPS.map((step, index) => (
+              <Node key={step.title} step={step} state={stateFor(index)} interactive={interactive} />
+            ))}
+          </LayoutGroup>
         </div>
       </div>
     </div>
