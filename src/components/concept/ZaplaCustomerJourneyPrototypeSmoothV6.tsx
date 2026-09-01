@@ -23,13 +23,13 @@ const STAGES: JourneyStage[] = [
   { key: "calendar", action: "Book", module: "Calendar", title: "Calendar", subtitle: "Sarah’s confirmed time lands in the schedule" },
 ];
 
-function JourneyScene({ stageIndex, interactive = false }: { stageIndex: number; interactive?: boolean }) {
+function JourneyScene({ stageIndex, interactive = false, journeyComplete = false, onJourneyComplete }: { stageIndex: number; interactive?: boolean; journeyComplete?: boolean; onJourneyComplete?: () => void }) {
   const stage = STAGES[stageIndex];
   if (stage.key === "contacts") return <CaptureScene interactive={interactive} />;
-  if (stage.key === "inbox") return <InboxScene interactive={interactive} />;
+  if (stage.key === "inbox") return <InboxScene interactive={interactive} complete={journeyComplete} />;
   if (stage.key === "automations") return <AutomationScene interactive={interactive} />;
   if (stage.key === "opportunities") return <SalesScene interactive={interactive} />;
-  return <CalendarScene interactive={interactive} />;
+  return <CalendarScene interactive={interactive} onConfirmed={onJourneyComplete} />;
 }
 
 function JourneyRail({ activeIndex, onSelect }: { activeIndex: number; onSelect: (index: number) => void }) {
@@ -62,6 +62,7 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
   const [manualIndex, setManualIndex] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [journeyCompleted, setJourneyCompleted] = useState(false);
   const [replayKey, setReplayKey] = useState(0);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -85,8 +86,9 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
 
   const activeIndex = manualIndex ?? stageIndex;
   const activeStage = STAGES[activeIndex];
+  const markJourneyComplete = useCallback(() => setJourneyCompleted(true), []);
   const selectStage = useCallback((index: number) => { setManualIndex(index); setPlaying(false); }, []);
-  const replay = useCallback(() => { setManualIndex(null); setStageIndex(0); setReplayKey((key) => key + 1); setHasStarted(true); setPlaying(true); }, []);
+  const replay = useCallback(() => { setManualIndex(null); setStageIndex(0); setJourneyCompleted(false); setReplayKey((key) => key + 1); setHasStarted(true); setPlaying(true); }, []);
 
   const onTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     let next = -1;
@@ -111,7 +113,7 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
           <div className="rounded-[18px] border border-[#DDD5CA] bg-white p-1.5 shadow-[0_28px_70px_-38px_rgba(74,56,39,.34)]">
             <div className="h-[470px] sm:h-[560px] lg:h-[640px]">
               <AppShell activeKey={activeStage.key} title={activeStage.title} subtitle={activeStage.subtitle}>
-                <div className="absolute inset-0"><JourneyScene key={`${activeStage.key}-${manualIndex != null ? "manual" : `story-${replayKey}`}`} stageIndex={activeIndex} interactive={manualIndex != null || !playing} /></div>
+                <div className="absolute inset-0"><JourneyScene key={`${activeStage.key}-${manualIndex != null ? "manual" : `story-${replayKey}`}`} stageIndex={activeIndex} interactive={manualIndex != null || !playing} journeyComplete={journeyCompleted} onJourneyComplete={markJourneyComplete} /></div>
               </AppShell>
             </div>
           </div>

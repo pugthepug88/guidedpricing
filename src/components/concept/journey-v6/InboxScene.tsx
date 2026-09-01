@@ -48,7 +48,28 @@ function NavItem({ label, count, active, Icon }: { label: string; count?: number
   );
 }
 
-export function InboxScene({ interactive = false }: { interactive?: boolean }) {
+function IncomingMessage({ children, time }: { children: string; time: string }) {
+  return (
+    <div className="max-w-[76%]">
+      <div className="rounded-2xl rounded-bl-sm bg-slate-100 px-3.5 py-2.5 text-[11.5px] font-medium leading-[1.45] text-slate-600">{children}</div>
+      <div className="mt-1 flex items-center gap-1 text-[8.5px] font-semibold text-slate-400"><ChannelTile channel="sms" size={11} /><span>{time}</span></div>
+    </div>
+  );
+}
+
+function OutgoingMessage({ children, time, label }: { children: string; time: string; label?: string }) {
+  return (
+    <div className="ml-auto max-w-[76%]">
+      <div className="rounded-2xl rounded-br-sm bg-[#2563FF] px-3.5 py-2.5 text-[11.5px] font-medium leading-[1.45] text-white">{children}</div>
+      <div className="mt-1 flex items-center justify-end gap-1.5 text-[8.5px] font-semibold text-slate-400">
+        {label ? <span className="rounded bg-blue-50 px-1.5 py-[2px] text-[8px] font-black tracking-[.04em] text-[#2563FF]">{label}</span> : null}
+        <span>{time}</span>
+      </div>
+    </div>
+  );
+}
+
+export function InboxScene({ interactive = false, complete = false }: { interactive?: boolean; complete?: boolean }) {
   const [replyVisible, setReplyVisible] = useState(interactive);
   useEffect(() => {
     if (interactive) { setReplyVisible(true); return; }
@@ -56,6 +77,10 @@ export function InboxScene({ interactive = false }: { interactive?: boolean }) {
     const timer = window.setTimeout(() => setReplyVisible(true), 760);
     return () => window.clearTimeout(timer);
   }, [interactive]);
+
+  const rows = ROWS.map((row) => row.active && complete
+    ? { ...row, preview: "You’re booked for Thursday at 2:30 PM.", time: "Just now" }
+    : row);
 
   return (
     <div className="absolute inset-0 flex overflow-hidden bg-[#F8FAFC]">
@@ -73,7 +98,7 @@ export function InboxScene({ interactive = false }: { interactive?: boolean }) {
       <div className="w-[36%] min-w-[190px] border-r border-slate-200 bg-white sm:w-[32%]">
         <div className="flex h-[46px] items-center border-b border-slate-200 px-3"><div className="text-[11px] font-black text-slate-800">All conversations</div><span className="ml-auto rounded-full bg-slate-100 px-2 py-0.5 text-[9px] font-bold text-slate-500">12</span></div>
         <div className="p-2">
-          {ROWS.map((row) => (
+          {rows.map((row) => (
             <div key={row.name} className={cn("mb-1 flex items-start gap-2 rounded-[10px] px-2 py-2", row.active ? "bg-blue-50/70 shadow-[inset_2px_0_0_0_rgba(37,99,255,.9)]" : "bg-white")}>
               <AvatarWithChannel row={row} />
               <div className="min-w-0 flex-1"><div className="flex items-center gap-2"><span className="truncate text-[10.5px] font-bold text-slate-800">{row.name}</span><span className="ml-auto text-[8.5px] font-semibold text-slate-400">{row.time}</span></div><div className="mt-0.5 truncate text-[9.5px] text-slate-500">{row.preview}</div></div>
@@ -88,12 +113,22 @@ export function InboxScene({ interactive = false }: { interactive?: boolean }) {
           <div className="ml-auto text-right"><div className="text-[7.5px] font-black uppercase tracking-[.1em] text-slate-400">Owner</div><div className="text-[10.5px] font-bold text-slate-600">James</div></div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-[72px] top-[58px] overflow-hidden px-5 py-4">
-          <div className="mx-auto flex h-full max-w-[590px] flex-col justify-start gap-3 pt-2 lg:pt-5">
-            <div className="max-w-[76%]"><div className="rounded-2xl rounded-bl-sm bg-slate-100 px-3.5 py-2.5 text-[11.5px] font-medium leading-[1.5] text-slate-600">Hi, I’m interested in getting a quote. Are you available Thursday afternoon?</div><div className="mt-1 flex items-center gap-1 text-[8.5px] font-semibold text-slate-400"><ChannelTile channel="sms" size={11} /><span>10:42 AM</span></div></div>
-            <motion.div className="ml-auto max-w-[76%]" initial={interactive ? false : { opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: replyVisible ? 1 : 0, y: replyVisible ? 0 : 10, scale: replyVisible ? 1 : 0.98 }} transition={{ duration: 0.48, ease: EASE }}>
-              <div className="rounded-2xl rounded-br-sm bg-[#2563FF] px-3.5 py-2.5 text-[11.5px] font-medium leading-[1.5] text-white">Hi Sarah, thanks for reaching out. Happy to help. What time works best for you?</div><div className="mt-1 flex items-center justify-end gap-1.5 text-[8.5px] font-semibold text-slate-400"><span className="rounded bg-blue-50 px-1.5 py-[2px] text-[8px] font-black tracking-[.04em] text-[#2563FF]">AUTOMATIC REPLY</span><span>10:42 AM</span></div>
+        <div className="absolute inset-x-0 bottom-[72px] top-[58px] overflow-hidden px-5 py-3">
+          <div className={cn("mx-auto flex h-full max-w-[590px] flex-col justify-start", complete ? "gap-2 pt-1 lg:pt-2" : "gap-3 pt-2 lg:pt-5")}>
+            <IncomingMessage time="10:42 AM">Hi, I’m interested in getting a quote. Are you available Thursday afternoon?</IncomingMessage>
+            <motion.div initial={interactive ? false : { opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: replyVisible ? 1 : 0, y: replyVisible ? 0 : 10, scale: replyVisible ? 1 : 0.98 }} transition={{ duration: 0.48, ease: EASE }}>
+              <OutgoingMessage time="10:42 AM" label="AUTOMATIC REPLY">Hi Sarah, thanks for reaching out. Happy to help. What time works best for you?</OutgoingMessage>
             </motion.div>
+
+            {complete ? (
+              <>
+                <OutgoingMessage time="11:12 AM" label="AUTOMATIC FOLLOW-UP">Just following up in case you missed this. I can hold Thursday afternoon for you.</OutgoingMessage>
+                <IncomingMessage time="11:16 AM">Thursday 2:30 works perfectly. Thanks!</IncomingMessage>
+                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.42, ease: EASE }}>
+                  <OutgoingMessage time="11:17 AM" label="BOOKING CONFIRMATION">Perfect, Sarah. You’re booked for Thursday at 2:30 PM. I’ve sent you a confirmation.</OutgoingMessage>
+                </motion.div>
+              </>
+            ) : null}
           </div>
         </div>
 
