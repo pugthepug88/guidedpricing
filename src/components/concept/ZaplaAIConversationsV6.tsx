@@ -8,7 +8,6 @@ import {
   Mail,
   MessageSquareText,
   Phone,
-  Sparkles,
   UserRound,
 } from "lucide-react";
 
@@ -17,8 +16,8 @@ const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const BG = "#111214";
-const SURFACE = "#0C0D0F";
-const SURFACE_2 = "#121316";
+const PANEL = "#0C0D0F";
+const PANEL_INNER = "#111215";
 const CORAL = "#E97D62";
 const AMBER = "#DDA34B";
 const ROSE = "#C96C85";
@@ -36,59 +35,46 @@ function useCycle(inView: boolean, reduced: boolean, count: number, ms: number, 
   return index;
 }
 
-function SignalBloom({ size = 58 }: { size?: number }) {
-  const lobes = [
-    { color: CORAL, x: -0.23, y: 0, delay: 0 },
-    { color: AMBER, x: 0, y: -0.23, delay: 0.12 },
-    { color: ROSE, x: 0.23, y: 0, delay: 0.24 },
-    { color: SAGE, x: 0, y: 0.23, delay: 0.36 },
+function SignalBloom() {
+  const petals = [
+    { color: CORAL, x: -10, y: 0, delay: 0 },
+    { color: AMBER, x: 0, y: -10, delay: 0.12 },
+    { color: ROSE, x: 10, y: 0, delay: 0.24 },
+    { color: SAGE, x: 0, y: 10, delay: 0.36 },
   ];
 
   return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
-      {lobes.map((lobe, index) => (
+    <div className="relative h-11 w-11 shrink-0">
+      {petals.map((petal, index) => (
         <motion.span
           key={index}
-          className="absolute left-1/2 top-1/2 rounded-full blur-[1px]"
-          style={{
-            width: size * 0.54,
-            height: size * 0.54,
-            marginLeft: -(size * 0.27),
-            marginTop: -(size * 0.27),
-            backgroundColor: lobe.color,
-          }}
+          className="absolute left-1/2 top-1/2 h-6 w-6 rounded-full blur-[1px]"
+          style={{ marginLeft: -12, marginTop: -12, backgroundColor: petal.color }}
           animate={{
-            x: [size * lobe.x * 0.82, size * lobe.x, size * lobe.x * 0.86],
-            y: [size * lobe.y * 0.82, size * lobe.y, size * lobe.y * 0.86],
-            scale: [0.94, 1.08, 0.96],
-            opacity: [0.7, 1, 0.76],
+            x: [petal.x * 0.82, petal.x, petal.x * 0.86],
+            y: [petal.y * 0.82, petal.y, petal.y * 0.86],
+            scale: [0.94, 1.06, 0.96],
+            opacity: [0.62, 0.9, 0.68],
           }}
-          transition={{ duration: 3.4, repeat: Infinity, delay: lobe.delay, ease: "easeInOut" }}
+          transition={{ duration: 3.8, repeat: Infinity, delay: petal.delay, ease: "easeInOut" }}
         />
       ))}
-      <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[3px] bg-white"
-        style={{
-          width: size * 0.2,
-          height: size * 0.2,
-          boxShadow: "0 0 20px rgba(255,255,255,.65)",
-        }}
-      />
+      <div className="absolute left-1/2 top-1/2 h-[9px] w-[9px] -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] bg-white shadow-[0_0_14px_rgba(255,255,255,.5)]" />
     </div>
   );
 }
 
-function SpectrumSweep({ active = true, className = "" }: { active?: boolean; className?: string }) {
+function DecisionSweep({ active }: { active: boolean }) {
   return (
-    <div className={`relative h-[4px] overflow-hidden rounded-full bg-white/[0.07] ${className}`}>
+    <div className="relative h-[3px] overflow-hidden rounded-full bg-white/[0.07]">
       <motion.div
-        className="absolute inset-y-0 left-[-40%] w-[42%] rounded-full"
+        className="absolute inset-y-0 left-[-42%] w-[40%] rounded-full"
         style={{
-          background: `linear-gradient(90deg, transparent 0%, ${CORAL} 18%, ${AMBER} 44%, ${ROSE} 70%, ${SAGE} 88%, transparent 100%)`,
-          boxShadow: `0 0 22px ${CORAL}77`,
+          background: `linear-gradient(90deg, transparent 0%, ${CORAL} 18%, ${AMBER} 46%, ${ROSE} 72%, ${SAGE} 90%, transparent 100%)`,
+          boxShadow: `0 0 18px ${CORAL}55`,
         }}
-        animate={active ? { x: ["0%", "345%"] } : { x: "345%" }}
-        transition={active ? { duration: 1.8, repeat: Infinity, ease: "linear" } : { duration: 0.2 }}
+        animate={active ? { x: ["0%", "360%"] } : { x: "360%" }}
+        transition={active ? { duration: 1.85, repeat: Infinity, ease: "linear" } : { duration: 0.2 }}
       />
     </div>
   );
@@ -97,10 +83,10 @@ function SpectrumSweep({ active = true, className = "" }: { active?: boolean; cl
 function RolePill({ label, color }: { label: string; color: string }) {
   return (
     <div
-      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/76"
+      className="inline-flex items-center gap-2 rounded-full border border-white/[0.09] bg-white/[0.035] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/70"
       style={{ fontFamily: MONO }}
     >
-      <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: color, boxShadow: `0 0 10px ${color}` }} />
+      <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: color }} />
       {label}
     </div>
   );
@@ -125,20 +111,16 @@ function FeatureFrame({
 }) {
   return (
     <article
-      className={`relative overflow-hidden rounded-[28px] border border-white/[0.11] bg-[#0B0C0E] px-6 pb-6 pt-7 sm:px-8 sm:pb-8 sm:pt-8 ${className}`}
-      style={{ boxShadow: "0 28px 90px rgba(0,0,0,.24)" }}
+      className={`relative overflow-hidden rounded-[20px] border border-white/[0.10] bg-[#0B0C0E] px-6 pb-6 pt-7 sm:px-8 sm:pb-8 sm:pt-8 ${className}`}
+      style={{ boxShadow: "0 24px 70px rgba(0,0,0,.22)" }}
     >
-      <div
-        className="pointer-events-none absolute -bottom-24 left-[12%] h-44 w-[76%] rounded-full blur-3xl"
-        style={{ backgroundColor: roleColor, opacity: 0.075 }}
-      />
       <div className="relative z-10 flex items-start justify-between gap-5">
-        <div className="max-w-[580px]">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45" style={{ fontFamily: MONO }}>
+        <div className="max-w-[590px]">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/44" style={{ fontFamily: MONO }}>
             {eyebrow}
           </div>
           <h3 className="mt-3 text-[28px] font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-[34px]">{title}</h3>
-          <p className="mt-3 max-w-[540px] text-[14px] leading-[1.6] text-white/55 sm:text-[16px]">{copy}</p>
+          <p className="mt-3 max-w-[550px] text-[14px] leading-[1.6] text-white/55 sm:text-[16px]">{copy}</p>
         </div>
         {role ? <RolePill label={role} color={roleColor} /> : null}
       </div>
@@ -148,28 +130,23 @@ function FeatureFrame({
 }
 
 function ConversationsStory({ inView, reduced }: { inView: boolean; reduced: boolean }) {
-  const channel = useCycle(inView, reduced, 3, 1750, 0);
+  const channel = useCycle(inView, reduced, 3, 2200, 0);
   const channels = [
     { label: "CALL", icon: Phone, color: CORAL, detail: "We want to start in March." },
     { label: "SMS", icon: MessageSquareText, color: AMBER, detail: "Can you send the quote again?" },
     { label: "EMAIL", icon: Mail, color: ROSE, detail: "Bathroom renovation enquiry" },
   ];
-  const active = channels[channel];
-  const ActiveIcon = active.icon;
-  const bars = [15, 27, 20, 42, 26, 54, 32, 23, 46, 29, 38, 19, 31, 24];
+  const current = channels[channel];
+  const CurrentIcon = current.icon;
+  const bars = [15, 28, 21, 40, 25, 52, 31, 22, 44, 29, 36, 19, 30];
 
   return (
-    <div className="relative min-h-[300px] overflow-hidden rounded-[22px] border border-white/[0.09] bg-[#111215] p-5 sm:p-6">
-      <div
-        className="pointer-events-none absolute -left-12 top-4 h-48 w-48 rounded-full blur-3xl"
-        style={{ backgroundColor: active.color, opacity: 0.11 }}
-      />
-
-      <div className="grid gap-6 sm:grid-cols-[150px_1fr]">
-        <div className="relative h-[174px] overflow-hidden rounded-2xl border border-white/[0.08] bg-black/20 p-3">
-          <div className="absolute inset-x-0 top-1/2 h-[52px] -translate-y-1/2 border-y border-white/[0.06] bg-white/[0.025]" />
+    <div className="relative min-h-[310px] overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#101114] p-5 sm:p-6">
+      <div className="grid gap-6 sm:grid-cols-[148px_1fr] sm:items-center">
+        <div className="relative h-[178px] overflow-hidden rounded-[26px] border border-white/[0.08] bg-black/20 p-3">
+          <div className="absolute inset-x-2 top-1/2 h-[50px] -translate-y-1/2 rounded-full border border-white/[0.06] bg-white/[0.025]" />
           <motion.div
-            animate={{ y: 58 - channel * 52 }}
+            animate={{ y: 59 - channel * 52 }}
             transition={{ duration: 0.55, ease: EASE }}
             className="absolute left-3 right-3 top-0"
           >
@@ -179,12 +156,12 @@ function ConversationsStory({ inView, reduced }: { inView: boolean; reduced: boo
               return (
                 <motion.div
                   key={item.label}
-                  animate={{ opacity: selected ? 1 : 0.26, scale: selected ? 1 : 0.94 }}
-                  transition={{ duration: 0.4, ease: EASE }}
+                  animate={{ opacity: selected ? 1 : 0.23, scale: selected ? 1 : 0.94 }}
+                  transition={{ duration: 0.38, ease: EASE }}
                   className="mb-2 flex h-11 items-center gap-2.5 rounded-full border px-3"
                   style={{
-                    borderColor: selected ? `${item.color}55` : "rgba(255,255,255,.07)",
-                    backgroundColor: selected ? `${item.color}12` : "rgba(255,255,255,.025)",
+                    borderColor: selected ? `${item.color}4D` : "rgba(255,255,255,.06)",
+                    backgroundColor: selected ? `${item.color}0F` : "rgba(255,255,255,.018)",
                   }}
                 >
                   <Icon size={14} color={item.color} />
@@ -195,47 +172,73 @@ function ConversationsStory({ inView, reduced }: { inView: boolean; reduced: boo
           </motion.div>
         </div>
 
-        <div className="flex min-h-[174px] flex-col justify-center">
-          <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-              <ActiveIcon size={17} color={active.color} strokeWidth={2.1} />
-            </span>
-            <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/35" style={{ fontFamily: MONO }}>Incoming conversation</div>
-              <div className="mt-1 text-[15px] font-semibold text-white/88">{active.label.toLowerCase()}</div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current.label}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -7 }}
+            transition={{ duration: 0.42, ease: EASE }}
+            className="min-h-[178px]"
+          >
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.035]">
+                <CurrentIcon size={17} color={current.color} strokeWidth={2.1} />
+              </span>
+              <div>
+                <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/34" style={{ fontFamily: MONO }}>Incoming conversation</div>
+                <div className="mt-1 text-[15px] font-semibold text-white/88">{current.label.toLowerCase()}</div>
+              </div>
             </div>
-          </div>
 
-          <div className="mt-6 flex h-[54px] items-center gap-[4px]">
-            {bars.map((height, index) => (
-              <motion.span
-                key={index}
-                className="w-[3px] rounded-full"
-                style={{ backgroundColor: index % 4 === 0 ? active.color : "rgba(255,255,255,.28)" }}
-                animate={inView && !reduced ? { height: [height * 0.45, height, height * 0.66] } : { height: height * 0.68 }}
-                transition={{ duration: 0.95, repeat: inView && !reduced ? Infinity : 0, delay: index * 0.035, ease: "easeInOut" }}
-              />
-            ))}
-          </div>
-        </div>
+            {channel === 0 ? (
+              <div className="mt-6 flex h-[58px] items-center gap-[4px]">
+                {bars.map((height, index) => (
+                  <motion.span
+                    key={index}
+                    className="w-[3px] rounded-full"
+                    style={{ backgroundColor: index % 4 === 0 ? CORAL : "rgba(255,255,255,.26)" }}
+                    animate={inView && !reduced ? { height: [height * 0.45, height, height * 0.66] } : { height: height * 0.68 }}
+                    transition={{ duration: 0.95, repeat: inView && !reduced ? Infinity : 0, delay: index * 0.035, ease: "easeInOut" }}
+                  />
+                ))}
+              </div>
+            ) : channel === 1 ? (
+              <div className="mt-6 space-y-2.5">
+                <div className="ml-auto w-[78%] rounded-[18px_18px_5px_18px] bg-white/[0.06] px-3.5 py-2.5 text-[12px] text-white/66">Can you send the quote again?</div>
+                <motion.div
+                  animate={{ opacity: [0.35, 1, 0.35] }}
+                  transition={{ duration: 1.5, repeat: inView && !reduced ? Infinity : 0 }}
+                  className="w-[42%] rounded-[18px_18px_18px_5px] border border-white/[0.07] px-3.5 py-2.5 text-[12px] text-white/44"
+                >
+                  typing…
+                </motion.div>
+              </div>
+            ) : (
+              <div className="mt-6 rounded-[16px] border border-white/[0.08] bg-white/[0.025] p-4">
+                <div className="h-2 w-[42%] rounded-full bg-white/[0.12]" />
+                <div className="mt-3 h-2 w-[78%] rounded-full bg-white/[0.07]" />
+                <div className="mt-2 h-2 w-[62%] rounded-full bg-white/[0.05]" />
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={active.label}
+          key={`summary-${current.label}`}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -7 }}
-          transition={{ duration: 0.38, ease: EASE }}
-          className="mt-5 rounded-2xl border border-white/[0.09] bg-white/[0.035] px-4 py-3.5"
+          transition={{ duration: 0.4, ease: EASE }}
+          className="mt-5 flex items-center justify-between gap-4 rounded-full border border-white/[0.08] bg-white/[0.025] px-4 py-3"
         >
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/36" style={{ fontFamily: MONO }}>Conversation understood</div>
-              <div className="mt-1.5 text-[15px] font-medium text-white/90">“{active.detail}”</div>
-            </div>
-            <Sparkles size={16} color={active.color} />
+          <div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/32" style={{ fontFamily: MONO }}>Understood</div>
+            <div className="mt-1 text-[14px] font-medium text-white/86">“{current.detail}”</div>
           </div>
+          <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: current.color }} />
         </motion.div>
       </AnimatePresence>
     </div>
@@ -243,124 +246,119 @@ function ConversationsStory({ inView, reduced }: { inView: boolean; reduced: boo
 }
 
 function ContextHalo({ inView, reduced }: { inView: boolean; reduced: boolean }) {
-  const step = useCycle(inView, reduced, 6, 920, 5);
-  const items = [
-    { label: "6 messages", color: AMBER, x: "7%", y: "18%" },
-    { label: "$18k quote", color: ROSE, x: "66%", y: "15%" },
-    { label: "4 days quiet", color: SAGE, x: "72%", y: "64%" },
-    { label: "March start", color: CORAL, x: "8%", y: "69%" },
-    { label: "Quote sent", color: AMBER, x: "37%", y: "5%" },
-    { label: "Thu 2:30", color: CORAL, x: "39%", y: "78%" },
+  const step = useCycle(inView, reduced, 7, 980, 6);
+  const signals = [
+    { label: "6 messages", color: AMBER, startX: -230, startY: -118, dockX: -150, dockY: -96 },
+    { label: "$18k quote", color: ROSE, startX: 210, startY: -128, dockX: 145, dockY: -92 },
+    { label: "4 days quiet", color: SAGE, startX: 232, startY: 84, dockX: 154, dockY: 82 },
+    { label: "March start", color: CORAL, startX: -220, startY: 96, dockX: -148, dockY: 88 },
+    { label: "Quote sent", color: AMBER, startX: -24, startY: -172, dockX: -24, dockY: -128 },
+    { label: "Thu 2:30", color: CORAL, startX: 6, startY: 160, dockX: 6, dockY: 126 },
   ];
+  const ready = step >= 5;
 
   return (
-    <div className="relative min-h-[390px] overflow-hidden rounded-[22px] border border-white/[0.09] bg-[#101114]">
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
-        style={{ background: `radial-gradient(circle, ${AMBER}28 0%, ${ROSE}18 34%, transparent 70%)` }}
-      />
-
+    <div className="relative min-h-[410px] overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#101114]">
       <motion.div
-        className="absolute left-1/2 top-1/2 h-[208px] w-[208px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.08]"
+        className="absolute left-1/2 top-1/2 h-[220px] w-[220px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.07]"
         animate={{ rotate: inView && !reduced ? 360 : 0 }}
-        transition={{ duration: 24, repeat: inView && !reduced ? Infinity : 0, ease: "linear" }}
+        transition={{ duration: 28, repeat: inView && !reduced ? Infinity : 0, ease: "linear" }}
       >
-        <div className="absolute -left-1 -top-1 h-2 w-2 rounded-full" style={{ backgroundColor: CORAL, boxShadow: `0 0 16px ${CORAL}` }} />
-        <div className="absolute -bottom-1 -right-1 h-2 w-2 rounded-full" style={{ backgroundColor: SAGE, boxShadow: `0 0 16px ${SAGE}` }} />
+        <span className="absolute -left-1 top-[42%] h-2 w-2 rounded-full bg-white/40" />
+        <span className="absolute -right-1 bottom-[35%] h-2 w-2 rounded-full bg-white/20" />
       </motion.div>
 
       <motion.div
-        className="absolute left-1/2 top-1/2 flex h-[148px] w-[148px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border text-center"
+        className="absolute left-1/2 top-1/2 flex h-[154px] w-[154px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border text-center"
         animate={{
-          borderColor: step >= 4 ? `${AMBER}88` : "rgba(255,255,255,.12)",
-          boxShadow: step >= 4 ? `0 0 42px ${AMBER}18, inset 0 0 30px ${ROSE}0D` : "0 0 0 rgba(0,0,0,0)",
+          borderColor: ready ? `${SAGE}66` : "rgba(255,255,255,.12)",
+          backgroundColor: ready ? `${SAGE}0A` : "rgba(255,255,255,.025)",
+          boxShadow: ready ? `0 0 32px ${SAGE}14` : "0 0 0 rgba(0,0,0,0)",
+          scale: ready ? 1.03 : 1,
         }}
-        transition={{ duration: 0.5, ease: EASE }}
-        style={{ background: "radial-gradient(circle at 45% 38%, rgba(255,255,255,.08), rgba(255,255,255,.025) 58%, transparent 100%)" }}
+        transition={{ duration: 0.55, ease: EASE }}
       >
-        <UserRound size={20} color={CORAL} strokeWidth={2.1} />
-        <div className="mt-2 text-[19px] font-semibold tracking-[-0.035em] text-white">Sarah</div>
-        <motion.div
-          animate={{ color: step >= 4 ? SAGE : "rgba(255,255,255,.38)" }}
-          className="mt-1 text-[9px] font-semibold uppercase tracking-[0.14em]"
-          style={{ fontFamily: MONO }}
-        >
-          {step >= 4 ? "Context ready" : "Building context"}
-        </motion.div>
+        <UserRound size={20} color={ready ? SAGE : "rgba(255,255,255,.55)"} strokeWidth={2.1} />
+        <div className="mt-2 text-[20px] font-semibold tracking-[-0.035em] text-white">Sarah</div>
+        <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: ready ? SAGE : "rgba(255,255,255,.34)", fontFamily: MONO }}>
+          {ready ? "Context ready" : "Building context"}
+        </div>
       </motion.div>
 
-      {items.map((item, index) => {
-        const absorbed = index <= step;
+      {signals.map((signal, index) => {
+        const docked = index <= step;
         return (
           <motion.div
-            key={item.label}
-            className="absolute rounded-full border px-3 py-2 text-[11px] font-semibold text-white/82"
-            style={{ left: item.x, top: item.y }}
+            key={signal.label}
+            className="absolute left-1/2 top-1/2 rounded-full border px-3 py-2 text-[11px] font-semibold text-white/82"
+            initial={false}
             animate={{
-              opacity: absorbed ? 1 : 0.28,
-              scale: absorbed ? 1 : 0.92,
-              borderColor: absorbed ? `${item.color}48` : "rgba(255,255,255,.08)",
-              backgroundColor: absorbed ? `${item.color}12` : "rgba(255,255,255,.025)",
-              boxShadow: absorbed ? `0 0 24px ${item.color}14` : "0 0 0 rgba(0,0,0,0)",
+              x: docked ? signal.dockX : signal.startX,
+              y: docked ? signal.dockY : signal.startY,
+              opacity: docked ? 1 : 0.26,
+              scale: docked ? 1 : 0.92,
+              borderColor: docked ? `${signal.color}42` : "rgba(255,255,255,.07)",
+              backgroundColor: docked ? `${signal.color}0D` : "rgba(255,255,255,.018)",
             }}
-            transition={{ duration: 0.5, ease: EASE }}
+            transition={{ duration: 0.7, ease: EASE }}
+            style={{ marginLeft: -42, marginTop: -18 }}
           >
-            <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: item.color }} />
-            {item.label}
+            <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: signal.color }} />
+            {signal.label}
           </motion.div>
         );
       })}
 
-      <div className="absolute bottom-5 left-[15%] right-[15%]">
-        <SpectrumSweep active={inView && !reduced} />
-      </div>
+      <motion.div
+        animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 8 }}
+        transition={{ duration: 0.5, ease: EASE }}
+        className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-white/[0.08] bg-white/[0.025] px-4 py-2 text-[10px] font-medium text-white/54"
+      >
+        conversation + CRM + calendar
+      </motion.div>
     </div>
   );
 }
 
 function DecisionStack({ inView, reduced }: { inView: boolean; reduced: boolean }) {
-  const selected = useCycle(inView, reduced, 4, 1450, 2);
+  const selected = useCycle(inView, reduced, 4, 1550, 2);
   const actions = ["Wait", "Call tomorrow", "Follow up now", "Offer Thu 2:30"];
 
   return (
-    <div className="relative min-h-[330px] overflow-hidden rounded-[22px] border border-white/[0.09] bg-[#101114] p-5 sm:p-6">
-      <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-52 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
-        style={{ backgroundColor: ROSE, opacity: 0.09 }}
-      />
-
+    <div className="relative min-h-[340px] overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#101114] p-5 sm:p-6">
       <div className="flex flex-wrap gap-2">
         {["positive call", "$18k quote", "4 days quiet"].map((signal, index) => (
-          <motion.span
-            key={signal}
-            animate={{ y: inView && !reduced ? [0, -2, 0] : 0 }}
-            transition={{ duration: 2.2, repeat: inView && !reduced ? Infinity : 0, delay: index * 0.22, ease: "easeInOut" }}
-            className="rounded-full border border-white/[0.09] bg-white/[0.03] px-3 py-1.5 text-[10px] font-medium text-white/54"
-          >
+          <span key={signal} className="rounded-full border border-white/[0.08] bg-white/[0.025] px-3 py-1.5 text-[10px] font-medium text-white/52">
+            <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full" style={{ backgroundColor: [CORAL, ROSE, SAGE][index] }} />
             {signal}
-          </motion.span>
+          </span>
         ))}
       </div>
 
-      <div className="mt-7 grid gap-5 sm:grid-cols-[1fr_170px] sm:items-center">
+      <div className="mt-8 grid gap-7 sm:grid-cols-[1fr_180px] sm:items-center">
         <div>
           <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/34" style={{ fontFamily: MONO }}>Best next action</div>
-          <motion.div
-            key={actions[selected]}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: EASE }}
-            className="mt-3 text-[40px] font-semibold leading-[0.96] tracking-[-0.055em] text-white sm:text-[50px]"
-          >
-            {actions[selected]}.
-          </motion.div>
-          <div className="mt-7 max-w-[330px]"><SpectrumSweep active={inView && !reduced} /></div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={actions[selected]}
+              initial={{ opacity: 0, y: 9 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -7 }}
+              transition={{ duration: 0.4, ease: EASE }}
+              className="mt-3 text-[42px] font-semibold leading-[0.96] tracking-[-0.055em] text-white sm:text-[52px]"
+            >
+              {actions[selected]}.
+            </motion.div>
+          </AnimatePresence>
+          <div className="mt-7 max-w-[340px]">
+            <DecisionSweep active={inView && !reduced} />
+          </div>
         </div>
 
-        <div className="relative h-[186px] overflow-hidden rounded-2xl border border-white/[0.08] bg-black/20">
-          <div className="absolute inset-x-0 top-1/2 h-[50px] -translate-y-1/2 border-y border-white/[0.06] bg-white/[0.03]" />
+        <div className="relative h-[194px] overflow-hidden rounded-[26px] border border-white/[0.08] bg-black/20">
+          <div className="absolute inset-x-2 top-1/2 h-[50px] -translate-y-1/2 rounded-full border border-white/[0.06] bg-white/[0.03]" />
           <motion.div
-            animate={{ y: 70 - selected * 48 }}
+            animate={{ y: 73 - selected * 48 }}
             transition={{ duration: 0.55, ease: EASE }}
             className="absolute left-3 right-3 top-0"
           >
@@ -369,13 +367,13 @@ function DecisionStack({ inView, reduced }: { inView: boolean; reduced: boolean 
               return (
                 <motion.div
                   key={action}
-                  animate={{ opacity: active ? 1 : Math.abs(index - selected) === 1 ? 0.38 : 0.13, scale: active ? 1 : 0.94 }}
-                  transition={{ duration: 0.4, ease: EASE }}
+                  animate={{ opacity: active ? 1 : Math.abs(index - selected) === 1 ? 0.34 : 0.1, scale: active ? 1 : 0.94 }}
+                  transition={{ duration: 0.38, ease: EASE }}
                   className="mb-2 flex h-10 items-center rounded-full border px-3 text-[11px] font-semibold"
                   style={{
-                    borderColor: active ? `${ROSE}66` : "rgba(255,255,255,.07)",
-                    backgroundColor: active ? `${ROSE}14` : "rgba(255,255,255,.02)",
-                    color: active ? "white" : "rgba(255,255,255,.56)",
+                    borderColor: active ? `${ROSE}5C` : "rgba(255,255,255,.06)",
+                    backgroundColor: active ? `${ROSE}10` : "rgba(255,255,255,.018)",
+                    color: active ? "white" : "rgba(255,255,255,.48)",
                   }}
                 >
                   {action}
@@ -390,70 +388,77 @@ function DecisionStack({ inView, reduced }: { inView: boolean; reduced: boolean 
 }
 
 function ActionChain({ inView, reduced }: { inView: boolean; reduced: boolean }) {
-  const step = useCycle(inView, reduced, 4, 1350, 3);
+  const step = useCycle(inView, reduced, 4, 1450, 3);
   const rows = [
     { label: "Follow-up", detail: "Hi Sarah, any questions on the quote?", color: AMBER },
     { label: "Sarah replied", detail: "Thursday works", color: CORAL },
     { label: "CRM updated", detail: "Quote sent → Re-engaged", color: SAGE },
   ];
+  const progress = step === 0 ? 8 : step === 1 ? 35 : step === 2 ? 67 : 100;
 
   return (
-    <div className="relative min-h-[330px] overflow-hidden rounded-[22px] border border-white/[0.09] bg-[#101114] p-5 sm:p-6">
-      <div
-        className="pointer-events-none absolute -bottom-10 right-0 h-56 w-64 rounded-full blur-3xl"
-        style={{ backgroundColor: SAGE, opacity: step >= 3 ? 0.12 : 0.035 }}
-      />
-
-      <div className="rounded-2xl border border-white/[0.08] bg-black/20 p-4">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/34" style={{ fontFamily: MONO }}>AI Employee</div>
-            <div className="mt-1 text-[16px] font-semibold text-white/90">Follow up now</div>
-          </div>
-          <motion.div
-            animate={{ rotate: inView && !reduced ? 360 : 0 }}
-            transition={{ duration: 5, repeat: inView && !reduced ? Infinity : 0, ease: "linear" }}
-          >
-            <SignalBloom size={34} />
-          </motion.div>
+    <div className="relative min-h-[340px] overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#101114] p-5 sm:p-6">
+      <div className="flex items-center justify-between gap-3 rounded-full border border-white/[0.08] bg-white/[0.025] px-4 py-3">
+        <div>
+          <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/32" style={{ fontFamily: MONO }}>AI Employee</div>
+          <div className="mt-1 text-[15px] font-semibold text-white/90">Follow up now</div>
         </div>
-        <div className="mt-4"><SpectrumSweep active={step === 0 || (inView && !reduced)} /></div>
+        <motion.span
+          animate={{ opacity: [0.45, 1, 0.45] }}
+          transition={{ duration: 1.6, repeat: inView && !reduced ? Infinity : 0 }}
+          className="h-2.5 w-2.5 rounded-full"
+          style={{ backgroundColor: SAGE, boxShadow: `0 0 14px ${SAGE}` }}
+        />
       </div>
 
-      <div className="relative mt-5 space-y-3">
-        <div className="absolute bottom-4 left-[18px] top-4 w-px bg-white/[0.08]" />
-        {rows.map((row, index) => {
-          const done = step > index;
-          return (
-            <motion.div
-              key={row.label}
-              animate={{ opacity: done ? 1 : 0.34, x: done ? 0 : -4 }}
-              transition={{ duration: 0.5, ease: EASE }}
-              className="relative flex items-start gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.025] px-3.5 py-3"
-            >
-              <span
-                className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border bg-[#16171A]"
-                style={{ borderColor: done ? `${row.color}55` : "rgba(255,255,255,.08)" }}
+      <div className="relative mt-6 pl-12">
+        <div className="absolute bottom-4 left-[17px] top-4 w-px bg-white/[0.08]" />
+        <motion.div
+          className="absolute left-[15px] top-4 w-[3px] rounded-full"
+          style={{ backgroundColor: SAGE, boxShadow: `0 0 14px ${SAGE}66` }}
+          animate={{ height: `${progress}%` }}
+          transition={{ duration: 0.65, ease: EASE }}
+        />
+        <motion.span
+          className="absolute left-[11px] h-[11px] w-[11px] rounded-full"
+          style={{ backgroundColor: SAGE, boxShadow: `0 0 18px ${SAGE}` }}
+          animate={{ top: `calc(${progress}% - 5px)` }}
+          transition={{ duration: 0.65, ease: EASE }}
+        />
+
+        <div className="space-y-3">
+          {rows.map((row, index) => {
+            const done = step > index;
+            return (
+              <motion.div
+                key={row.label}
+                animate={{ opacity: done ? 1 : 0.30, x: done ? 0 : -3 }}
+                transition={{ duration: 0.45, ease: EASE }}
+                className="rounded-[16px] border border-white/[0.07] bg-white/[0.022] px-4 py-3"
               >
-                {done ? <Check size={14} color={row.color} strokeWidth={2.5} /> : <Clock3 size={13} color="rgba(255,255,255,.35)" />}
-              </span>
-              <div>
-                <div className="text-[13px] font-semibold text-white/88">{row.label}</div>
-                <div className="mt-1 text-[12px] text-white/44">{row.detail}</div>
-              </div>
-            </motion.div>
-          );
-        })}
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-[13px] font-semibold text-white/88">{row.label}</div>
+                    <div className="mt-1 text-[12px] text-white/43">{row.detail}</div>
+                  </div>
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border" style={{ borderColor: done ? `${row.color}45` : "rgba(255,255,255,.07)" }}>
+                    {done ? <Check size={12} color={row.color} strokeWidth={2.5} /> : <Clock3 size={12} color="rgba(255,255,255,.28)" />}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
       <motion.div
         animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 8 }}
-        transition={{ duration: 0.55, ease: EASE }}
-        className="mt-4 flex items-center justify-between rounded-full border px-4 py-2.5"
-        style={{ borderColor: `${SAGE}44`, backgroundColor: `${SAGE}10` }}
+        transition={{ duration: 0.5, ease: EASE }}
+        className="mt-5 flex items-center justify-between rounded-full border px-4 py-2.5"
+        style={{ borderColor: `${SAGE}3D`, backgroundColor: `${SAGE}0B` }}
       >
         <span className="text-[10px] font-semibold uppercase tracking-[0.13em]" style={{ color: SAGE, fontFamily: MONO }}>Opportunity moving</span>
-        <span className="h-2 w-2 rounded-full" style={{ backgroundColor: SAGE, boxShadow: `0 0 14px ${SAGE}` }} />
+        <span className="text-[11px] font-medium text-white/54">Re-engaged</span>
       </motion.div>
     </div>
   );
@@ -470,18 +475,13 @@ export default function ZaplaAIConversationsV6() {
       className="relative overflow-hidden px-5 py-[106px] sm:px-8 sm:py-[128px] lg:py-[150px]"
       style={{ backgroundColor: BG, fontFamily: DISPLAY }}
     >
-      <div
-        className="pointer-events-none absolute left-1/2 top-[250px] h-[520px] w-[min(1100px,96vw)] -translate-x-1/2 blur-3xl"
-        style={{
-          background: `radial-gradient(circle at 18% 46%, ${CORAL}1A 0%, transparent 31%), radial-gradient(circle at 49% 42%, ${ROSE}24 0%, transparent 34%), radial-gradient(circle at 78% 46%, ${AMBER}1A 0%, transparent 32%)`,
-        }}
-      />
+      <div className="pointer-events-none absolute left-1/2 top-[250px] h-[420px] w-[min(920px,92vw)] -translate-x-1/2 rounded-full bg-white/[0.018] blur-3xl" />
 
       <div className="relative mx-auto max-w-[1240px]">
         <header className="mx-auto max-w-[920px] text-center">
           <div className="flex items-center justify-center gap-3">
-            <SignalBloom size={54} />
-            <span className="text-[31px] font-semibold tracking-[-0.045em] text-white sm:text-[35px]">Zapla AI</span>
+            <SignalBloom />
+            <span className="text-[30px] font-semibold tracking-[-0.045em] text-white sm:text-[34px]">Zapla AI</span>
           </div>
           <h2 className="mt-7 text-[42px] font-semibold leading-[0.99] tracking-[-0.058em] text-white sm:text-[58px] lg:text-[70px]">
             Turn every conversation into the next action.
@@ -536,11 +536,6 @@ export default function ZaplaAIConversationsV6() {
           </FeatureFrame>
         </div>
       </div>
-
-      <div
-        className="pointer-events-none absolute bottom-[-180px] left-1/2 h-[340px] w-[min(1100px,96vw)] -translate-x-1/2 rounded-[50%] blur-3xl"
-        style={{ background: `linear-gradient(90deg, ${CORAL}18, ${AMBER}18, ${ROSE}22, ${SAGE}16)` }}
-      />
     </section>
   );
 }
