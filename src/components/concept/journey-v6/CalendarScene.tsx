@@ -42,16 +42,27 @@ function AppointmentChip({ appointment }: { appointment: Appointment }) {
   );
 }
 
-export function CalendarScene({ interactive = false }: { interactive?: boolean }) {
+export function CalendarScene({ interactive = false, onConfirmed }: { interactive?: boolean; onConfirmed?: () => void }) {
   const [booked, setBooked] = useState(interactive);
   const [confirmed, setConfirmed] = useState(interactive);
+
   useEffect(() => {
-    if (interactive) { setBooked(true); setConfirmed(true); return; }
-    setBooked(false); setConfirmed(false);
+    if (interactive) {
+      setBooked(true);
+      setConfirmed(true);
+      onConfirmed?.();
+      return;
+    }
+
+    setBooked(false);
+    setConfirmed(false);
     const a = window.setTimeout(() => setBooked(true), 760);
-    const b = window.setTimeout(() => setConfirmed(true), 1750);
+    const b = window.setTimeout(() => {
+      setConfirmed(true);
+      onConfirmed?.();
+    }, 1750);
     return () => { window.clearTimeout(a); window.clearTimeout(b); };
-  }, [interactive]);
+  }, [interactive, onConfirmed]);
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden bg-slate-50/70">
@@ -76,7 +87,7 @@ export function CalendarScene({ interactive = false }: { interactive?: boolean }
             );
           })}
         </div>
-        {confirmed ? <motion.div className="absolute bottom-4 right-4 z-30 flex items-center gap-2.5 rounded-[11px] border border-slate-200 bg-white px-3.5 py-2.5 shadow-[0_16px_34px_-24px_rgba(15,23,42,.26)]" initial={interactive ? false : { opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ duration:.48, ease:EASE }}><span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-emerald-50 text-emerald-700"><CalendarCheck className="h-3.5 w-3.5" /></span><div><div className="text-[8px] font-black uppercase tracking-[.1em] text-emerald-700">Booking confirmed</div><div className="mt-0.5 text-[10.5px] font-bold text-slate-700">Sarah Nguyen · Thu 2:30 PM</div></div></motion.div> : null}
+        {confirmed ? <motion.div className="absolute bottom-4 right-4 z-30 flex items-center gap-2.5 rounded-[11px] border border-slate-200 bg-white px-3.5 py-2.5 shadow-[0_16px_34px_-24px_rgba(15,23,42,.26)]" initial={interactive ? false : { opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ duration:.48, ease:EASE }}><span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-emerald-50 text-emerald-700"><CalendarCheck className="h-3.5 w-3.5" /></span><div><div className="text-[8px] font-black uppercase tracking-[.1em] text-emerald-700">Booking confirmed</div><div className="mt-0.5 text-[10.5px] font-bold text-slate-700">Sarah Nguyen · Thu 2:30 PM</div><div className="mt-0.5 text-[7.5px] font-semibold text-slate-400">SMS confirmation sent</div></div></motion.div> : null}
       </div>
     </div>
   );
