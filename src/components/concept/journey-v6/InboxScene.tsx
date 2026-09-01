@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { Inbox as InboxIcon, Mail, MessageSquare, Plus, Send, UserCheck } from "lucide-react";
+import { CalendarCheck, Inbox as InboxIcon, Mail, MessageSquare, Plus, Send, UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FACE } from "@/components/v5/faces";
 import { FacebookMark, InstagramMark, LinkedInMark, TikTokMark } from "@/components/v5/social-brands";
@@ -51,8 +51,8 @@ function NavItem({ label, count, active, Icon }: { label: string; count?: number
 function IncomingMessage({ children, time }: { children: string; time: string }) {
   return (
     <div className="max-w-[76%]">
-      <div className="rounded-2xl rounded-bl-sm bg-slate-100 px-3.5 py-2 text-[11px] font-medium leading-[1.4] text-slate-600">{children}</div>
-      <div className="mt-0.5 flex items-center gap-1 text-[8px] font-semibold text-slate-400"><ChannelTile channel="sms" size={10} /><span>{time}</span></div>
+      <div className="rounded-2xl rounded-bl-sm bg-slate-100 px-3.5 py-1.5 text-[10.5px] font-medium leading-[1.35] text-slate-600">{children}</div>
+      <div className="mt-0.5 flex items-center gap-1 text-[7.5px] font-semibold text-slate-400"><ChannelTile channel="sms" size={9} /><span>{time}</span></div>
     </div>
   );
 }
@@ -60,10 +60,35 @@ function IncomingMessage({ children, time }: { children: string; time: string })
 function OutgoingMessage({ children, time, label }: { children: string; time: string; label?: string }) {
   return (
     <div className="ml-auto max-w-[76%]">
-      <div className="rounded-2xl rounded-br-sm bg-[#2563FF] px-3.5 py-2 text-[11px] font-medium leading-[1.4] text-white">{children}</div>
-      <div className="mt-0.5 flex items-center justify-end gap-1.5 text-[8px] font-semibold text-slate-400">
-        {label ? <span className="rounded bg-blue-50 px-1.5 py-[2px] text-[7.5px] font-black tracking-[.04em] text-[#2563FF]">{label}</span> : null}
+      <div className="rounded-2xl rounded-br-sm bg-[#2563FF] px-3.5 py-1.5 text-[10.5px] font-medium leading-[1.35] text-white">{children}</div>
+      <div className="mt-0.5 flex items-center justify-end gap-1.5 text-[7.5px] font-semibold text-slate-400">
+        {label ? <span className="rounded bg-blue-50 px-1.5 py-[2px] text-[7px] font-black tracking-[.04em] text-[#2563FF]">{label}</span> : null}
         <span>{time}</span>
+      </div>
+    </div>
+  );
+}
+
+function BookingConfirmation() {
+  return (
+    <div className="ml-auto w-[76%] overflow-hidden rounded-[13px] border border-blue-200 bg-white shadow-[0_10px_26px_-20px_rgba(37,99,255,.45)]">
+      <div className="flex items-center gap-2 border-b border-blue-100 bg-blue-50/70 px-3 py-1.5">
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-[8px] bg-[#2563FF] text-white">
+          <CalendarCheck className="h-3.5 w-3.5" strokeWidth={2.5} />
+        </span>
+        <div className="min-w-0">
+          <div className="text-[7px] font-black uppercase tracking-[.11em] text-[#2563FF]">Automatic booking confirmation</div>
+          <div className="text-[10.5px] font-black text-slate-800">Booking confirmed ✓</div>
+        </div>
+      </div>
+      <div className="px-3 py-2">
+        <div className="text-[10.5px] font-black text-slate-800">Thursday, 3 September · 2:30 PM</div>
+        <div className="mt-0.5 text-[8.5px] font-semibold text-slate-500">Consultation with James</div>
+        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+          <span className="rounded-md bg-slate-100 px-2 py-1 text-[7px] font-bold text-slate-500">Add to calendar</span>
+          <span className="rounded-md bg-slate-100 px-2 py-1 text-[7px] font-bold text-slate-500">Reschedule</span>
+          <span className="ml-auto text-[7px] font-bold text-emerald-600">Reminder scheduled</span>
+        </div>
       </div>
     </div>
   );
@@ -73,27 +98,31 @@ export function InboxScene({ interactive = false, complete = false }: { interact
   const [replyVisible, setReplyVisible] = useState(interactive);
   const [followupVisible, setFollowupVisible] = useState(interactive);
   const [customerReplyVisible, setCustomerReplyVisible] = useState(interactive);
-  const [confirmationVisible, setConfirmationVisible] = useState(interactive || complete);
+  const [ackVisible, setAckVisible] = useState(interactive || complete);
+  const [bookingConfirmationVisible, setBookingConfirmationVisible] = useState(interactive || complete);
 
   useEffect(() => {
     if (interactive || complete) {
       setReplyVisible(true);
       setFollowupVisible(true);
       setCustomerReplyVisible(true);
-      setConfirmationVisible(true);
+      setAckVisible(true);
+      setBookingConfirmationVisible(true);
       return;
     }
 
     setReplyVisible(false);
     setFollowupVisible(false);
     setCustomerReplyVisible(false);
-    setConfirmationVisible(false);
+    setAckVisible(false);
+    setBookingConfirmationVisible(false);
 
     const timers = [
-      window.setTimeout(() => setReplyVisible(true), 620),
-      window.setTimeout(() => setFollowupVisible(true), 1450),
-      window.setTimeout(() => setCustomerReplyVisible(true), 2250),
-      window.setTimeout(() => setConfirmationVisible(true), 3050),
+      window.setTimeout(() => setReplyVisible(true), 520),
+      window.setTimeout(() => setFollowupVisible(true), 1250),
+      window.setTimeout(() => setCustomerReplyVisible(true), 1950),
+      window.setTimeout(() => setAckVisible(true), 2600),
+      window.setTimeout(() => setBookingConfirmationVisible(true), 3250),
     ];
 
     return () => timers.forEach((timer) => window.clearTimeout(timer));
@@ -101,7 +130,8 @@ export function InboxScene({ interactive = false, complete = false }: { interact
 
   const rows = ROWS.map((row) => {
     if (!row.active) return row;
-    if (confirmationVisible) return { ...row, preview: "Booked · Thursday 2:30 PM confirmed", time: "Just now" };
+    if (bookingConfirmationVisible) return { ...row, preview: "Booking confirmed · Thu 2:30 PM", time: "Just now" };
+    if (ackVisible) return { ...row, preview: "I’ve booked you in for Thursday at 2:30 PM.", time: "Just now" };
     if (customerReplyVisible) return { ...row, preview: "Thursday 2:30 works perfectly. Thanks!", time: "Just now" };
     if (followupVisible) return { ...row, preview: "Just following up in case you missed this…", time: "Just now" };
     return row;
@@ -138,24 +168,28 @@ export function InboxScene({ interactive = false, complete = false }: { interact
           <div className="ml-auto text-right"><div className="text-[7.5px] font-black uppercase tracking-[.1em] text-slate-400">Owner</div><div className="text-[10.5px] font-bold text-slate-600">James</div></div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-[72px] top-[58px] overflow-hidden px-5 py-2.5">
-          <div className="mx-auto flex h-full max-w-[590px] flex-col justify-start gap-[7px] pt-1 lg:pt-2">
+        <div className="absolute inset-x-0 bottom-[72px] top-[58px] overflow-hidden px-5 py-2">
+          <div className="mx-auto flex h-full max-w-[590px] flex-col justify-start gap-[5px] pt-0.5 lg:pt-1">
             <IncomingMessage time="10:42 AM">Hi, I’m interested in getting a quote. Are you available Thursday afternoon?</IncomingMessage>
 
-            <motion.div initial={interactive || complete ? false : { opacity: 0, y: 8, scale: 0.985 }} animate={{ opacity: replyVisible ? 1 : 0, y: replyVisible ? 0 : 8, scale: replyVisible ? 1 : 0.985 }} transition={{ duration: 0.4, ease: EASE }}>
+            <motion.div initial={interactive || complete ? false : { opacity: 0, y: 7, scale: 0.985 }} animate={{ opacity: replyVisible ? 1 : 0, y: replyVisible ? 0 : 7, scale: replyVisible ? 1 : 0.985 }} transition={{ duration: 0.36, ease: EASE }}>
               <OutgoingMessage time="10:42 AM" label="AUTOMATIC REPLY">Hi Sarah, thanks for reaching out. Happy to help. What time works best for you?</OutgoingMessage>
             </motion.div>
 
-            <motion.div initial={false} animate={{ opacity: followupVisible ? 1 : 0, y: followupVisible ? 0 : 8, scale: followupVisible ? 1 : 0.985 }} transition={{ duration: 0.4, ease: EASE }}>
+            <motion.div initial={false} animate={{ opacity: followupVisible ? 1 : 0, y: followupVisible ? 0 : 7, scale: followupVisible ? 1 : 0.985 }} transition={{ duration: 0.36, ease: EASE }}>
               <OutgoingMessage time="11:12 AM" label="AUTOMATIC FOLLOW-UP">Just following up in case you missed this. I can hold Thursday afternoon for you.</OutgoingMessage>
             </motion.div>
 
-            <motion.div initial={false} animate={{ opacity: customerReplyVisible ? 1 : 0, y: customerReplyVisible ? 0 : 8, scale: customerReplyVisible ? 1 : 0.985 }} transition={{ duration: 0.4, ease: EASE }}>
+            <motion.div initial={false} animate={{ opacity: customerReplyVisible ? 1 : 0, y: customerReplyVisible ? 0 : 7, scale: customerReplyVisible ? 1 : 0.985 }} transition={{ duration: 0.36, ease: EASE }}>
               <IncomingMessage time="11:16 AM">Thursday 2:30 works perfectly. Thanks!</IncomingMessage>
             </motion.div>
 
-            <motion.div initial={false} animate={{ opacity: confirmationVisible ? 1 : 0, y: confirmationVisible ? 0 : 8, scale: confirmationVisible ? 1 : 0.985 }} transition={{ duration: 0.42, ease: EASE }}>
-              <OutgoingMessage time="11:17 AM" label="BOOKING CONFIRMATION">Perfect, Sarah. You’re booked for Thursday at 2:30 PM. Your confirmation has been sent.</OutgoingMessage>
+            <motion.div initial={false} animate={{ opacity: ackVisible ? 1 : 0, y: ackVisible ? 0 : 7, scale: ackVisible ? 1 : 0.985 }} transition={{ duration: 0.36, ease: EASE }}>
+              <OutgoingMessage time="11:17 AM">Perfect, Sarah. I’ve booked you in for Thursday at 2:30 PM.</OutgoingMessage>
+            </motion.div>
+
+            <motion.div initial={false} animate={{ opacity: bookingConfirmationVisible ? 1 : 0, y: bookingConfirmationVisible ? 0 : 7, scale: bookingConfirmationVisible ? 1 : 0.985 }} transition={{ duration: 0.4, ease: EASE }}>
+              <BookingConfirmation />
             </motion.div>
           </div>
         </div>
