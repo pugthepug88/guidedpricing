@@ -1,74 +1,55 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { Check, Clock3, FileText, MessageSquareText, Phone, Send } from "lucide-react";
+import { Check, Clock3, FileText, MessageSquareText, Phone } from "lucide-react";
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const MONO = '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace';
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const BG = "#111214";
-const INK = "#201F1D";
-const MUTED = "#817A70";
 const IVORY = "#F4F0E8";
 const CORAL = "#E97D62";
 const AMBER = "#DDA34B";
 const ROSE = "#C96C85";
 const SAGE = "#99A36D";
-const PORTRAITS = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
-const PH = { IDLE: 0, CONTEXT: 1, THINK: 2, ACT: 3, TYPING: 4, REPLY: 5, STATUS: 6, HOLD: 7, RESET: 8 } as const;
-const DURATIONS = [1500, 2100, 1800, 1700, 1050, 1450, 1300, 3600, 800];
+const PH = {
+  CONVERSATION: 0,
+  CONTEXT: 1,
+  THINK: 2,
+  ACT: 3,
+  OUTCOME: 4,
+  HOLD: 5,
+  RESET: 6,
+} as const;
+
+const DURATIONS = [2100, 2300, 2100, 1900, 1800, 3200, 800];
 
 function useStoryLoop(inView: boolean, reduced: boolean) {
-  const [phase, setPhase] = useState<number>(reduced ? PH.HOLD : PH.IDLE);
+  const [phase, setPhase] = useState<number>(reduced ? PH.HOLD : PH.CONVERSATION);
+
   useEffect(() => {
     if (reduced) {
       setPhase(PH.HOLD);
       return;
     }
     if (!inView) return;
-    const timer = window.setTimeout(() => setPhase((p) => (p >= PH.RESET ? PH.IDLE : p + 1)), DURATIONS[phase]);
+
+    const timer = window.setTimeout(() => {
+      setPhase((current) => (current >= PH.RESET ? PH.CONVERSATION : current + 1));
+    }, DURATIONS[phase]);
+
     return () => window.clearTimeout(timer);
   }, [phase, inView, reduced]);
+
   return phase;
 }
 
-function SarahFace({ size = 30 }: { size?: number }) {
+function RoleLabel({ label, tone }: { label: string; tone: string }) {
   return (
     <span
-      aria-hidden
-      className="block shrink-0 rounded-full ring-1 ring-black/[0.06]"
-      style={{
-        width: size,
-        height: size,
-        backgroundColor: "#C89A5D",
-        backgroundImage: `url(${PORTRAITS})`,
-        backgroundPosition: "0% 0%",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "600% 400%",
-      }}
-    />
-  );
-}
-
-function Spectrum({ active }: { active: boolean }) {
-  return (
-    <div className="relative h-[3px] overflow-hidden rounded-full bg-black/[0.06]">
-      <motion.div
-        className="absolute inset-y-0 left-[-40%] w-[75%] rounded-full"
-        style={{ background: `linear-gradient(90deg,transparent,${CORAL},${AMBER},${ROSE},${SAGE},transparent)` }}
-        animate={active ? { x: ["0%", "190%"] } : { x: "190%" }}
-        transition={active ? { duration: 1.7, repeat: Infinity, ease: "linear" } : { duration: 0 }}
-      />
-    </div>
-  );
-}
-
-function Role({ label, tone }: { label: string; tone: string }) {
-  return (
-    <span
-      className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[0.08em]"
-      style={{ borderColor: `${tone}55`, backgroundColor: `${tone}14`, color: INK, fontFamily: MONO }}
+      className="inline-flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.13em]"
+      style={{ color: IVORY, fontFamily: MONO }}
     >
       <span className="h-[5px] w-[5px] rounded-full" style={{ backgroundColor: tone }} />
       {label}
@@ -76,238 +57,381 @@ function Role({ label, tone }: { label: string; tone: string }) {
   );
 }
 
-function DealStatus({ active, reduced }: { active: boolean; reduced: boolean }) {
+function StageLabel({ active, label, tone }: { active: boolean; label: string; tone: string }) {
   return (
-    <div className="relative h-[28px] w-[128px] shrink-0 overflow-hidden rounded-full border border-black/[0.07] bg-white/75">
+    <motion.div
+      initial={false}
+      animate={{ opacity: active ? 1 : 0.28, y: active ? 0 : 2 }}
+      transition={{ duration: 0.35, ease: EASE }}
+      className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.16em]"
+      style={{ color: active ? IVORY : "rgba(244,240,232,.6)", fontFamily: MONO }}
+    >
       <motion.span
-        className="absolute inset-0 flex items-center justify-center gap-1.5 text-[10px] font-semibold"
-        style={{ color: "#8B625A" }}
-        animate={{ opacity: active ? 0 : 1, y: active ? -8 : 0 }}
-        transition={{ duration: reduced ? 0 : 0.35, ease: EASE }}
-      >
-        <span className="h-[6px] w-[6px] rounded-full" style={{ backgroundColor: ROSE }} /> Quote sent
-      </motion.span>
-      <motion.span
-        className="absolute inset-0 flex items-center justify-center gap-1.5 text-[10px] font-semibold"
-        style={{ color: "#657047" }}
-        animate={{ opacity: active ? 1 : 0, y: active ? 0 : 8 }}
-        transition={{ duration: reduced ? 0 : 0.35, ease: EASE }}
-      >
-        <span className="h-[6px] w-[6px] rounded-full" style={{ backgroundColor: SAGE }} /> Re-engaged
-      </motion.span>
-    </div>
+        initial={false}
+        animate={{ scale: active ? 1 : 0.8, opacity: active ? 1 : 0.35 }}
+        className="h-[5px] w-[5px] rounded-full"
+        style={{ backgroundColor: tone }}
+      />
+      {label}
+    </motion.div>
   );
 }
 
-function StorySteps({ phase }: { phase: number }) {
-  const current = phase < PH.CONTEXT ? 0 : phase < PH.THINK ? 1 : phase < PH.ACT ? 2 : 3;
-  const steps = ["Conversation", "Context", "Think", "Act"];
-  const tones = [CORAL, AMBER, ROSE, SAGE];
+function SpectrumSweep({ active, vertical = false }: { active: boolean; vertical?: boolean }) {
   return (
-    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-x-7">
-      {steps.map((step, i) => (
-        <span key={step} className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.16em]" style={{ fontFamily: MONO, color: current === i ? IVORY : "rgba(244,240,232,.28)" }}>
-          <span className="h-[5px] w-[5px] rounded-full transition-colors duration-500" style={{ backgroundColor: current === i ? tones[i] : "rgba(244,240,232,.14)" }} />
-          {step}
-        </span>
-      ))}
+    <div className={`relative overflow-hidden rounded-full bg-white/[0.08] ${vertical ? "h-full w-[3px]" : "h-[3px] w-full"}`}>
+      <motion.div
+        className="absolute rounded-full"
+        style={
+          vertical
+            ? {
+                left: 0,
+                right: 0,
+                top: "-38%",
+                height: "54%",
+                background: `linear-gradient(180deg, transparent, ${CORAL}, ${AMBER}, ${ROSE}, ${SAGE}, transparent)`,
+              }
+            : {
+                top: 0,
+                bottom: 0,
+                left: "-38%",
+                width: "54%",
+                background: `linear-gradient(90deg, transparent, ${CORAL}, ${AMBER}, ${ROSE}, ${SAGE}, transparent)`,
+              }
+        }
+        animate={
+          active
+            ? vertical
+              ? { y: ["0%", "255%"] }
+              : { x: ["0%", "255%"] }
+            : vertical
+              ? { y: "255%" }
+              : { x: "255%" }
+        }
+        transition={active ? { duration: 1.65, repeat: Infinity, ease: "linear" } : { duration: 0 }}
+      />
     </div>
   );
 }
 
-function Conversation({ phase, reduced }: { phase: number; reduced: boolean }) {
-  const sent = phase >= PH.ACT && phase < PH.RESET;
-  const typing = phase === PH.TYPING;
-  const replied = phase >= PH.REPLY && phase < PH.RESET;
-  const reengaged = phase >= PH.STATUS && phase < PH.RESET;
+function SignalPath({ phase, reduced }: { phase: number; reduced: boolean }) {
+  const live = phase >= PH.CONTEXT && phase <= PH.OUTCOME;
+  return (
+    <svg viewBox="0 0 1000 220" className="absolute inset-x-[4%] top-[170px] h-[220px] w-[92%]" aria-hidden>
+      <defs>
+        <linearGradient id="zapla-spectrum" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={CORAL} />
+          <stop offset="38%" stopColor={AMBER} />
+          <stop offset="68%" stopColor={ROSE} />
+          <stop offset="100%" stopColor={SAGE} />
+        </linearGradient>
+        <filter id="zapla-soft-glow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      <path
+        d="M40 114 C190 52 300 54 420 108 C520 154 595 156 690 112 C785 68 865 72 960 111"
+        fill="none"
+        stroke="rgba(244,240,232,.12)"
+        strokeWidth="1.5"
+      />
+
+      <motion.path
+        d="M40 114 C190 52 300 54 420 108 C520 154 595 156 690 112 C785 68 865 72 960 111"
+        fill="none"
+        stroke="url(#zapla-spectrum)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeDasharray="42 180"
+        filter="url(#zapla-soft-glow)"
+        initial={false}
+        animate={{
+          opacity: live ? 0.95 : 0.18,
+          strokeDashoffset: live && !reduced ? [0, -222] : -222,
+        }}
+        transition={live && !reduced ? { duration: 1.8, repeat: Infinity, ease: "linear" } : { duration: 0.4 }}
+      />
+    </svg>
+  );
+}
+
+function ConversationCluster({ active }: { active: boolean }) {
+  const bars = [9, 16, 25, 12, 21, 15, 27, 11, 18];
 
   return (
-    <div className="flex min-w-0 flex-1 flex-col bg-[#FBF8F1]">
-      <div className="flex items-center justify-between gap-3 border-b border-black/[0.07] px-4 py-3.5 sm:px-5">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <SarahFace size={34} />
-          <div className="min-w-0">
-            <div className="truncate text-[13px] font-bold" style={{ color: INK }}>Sarah Nguyen</div>
-            <div className="truncate text-[9.5px] font-medium" style={{ color: MUTED }}>Bathroom renovation · $18,000 opportunity</div>
-          </div>
-        </div>
-        <DealStatus active={reengaged} reduced={reduced} />
-      </div>
-
-      <div className="flex-1 px-4 py-4 sm:px-5 sm:py-5">
-        <div className="space-y-3.5">
-          <div className="text-center text-[8px] font-semibold uppercase tracking-[0.17em]" style={{ fontFamily: MONO, color: "#A49D92" }}>Tuesday</div>
-
-          <div className="flex items-end gap-2">
-            <SarahFace size={20} />
-            <div className="max-w-[79%] rounded-[15px] rounded-bl-[5px] bg-[#EEE7DA] px-3.5 py-2.5 text-[12px] leading-[1.5] sm:text-[12.5px]" style={{ color: INK }}>
-              Hi! I’d love a quote for our bathroom reno. We’re hoping to start in March.
-            </div>
-          </div>
-
-          <div className="ml-7 flex flex-wrap items-center gap-2">
-            <Role label="AI Voice" tone={CORAL} />
-            <span className="flex items-center gap-1 text-[8.5px] font-medium" style={{ fontFamily: MONO, color: MUTED }}><Phone size={10} color={CORAL} /> Call answered · 2m 14s</span>
-          </div>
-
-          <div className="flex justify-end">
-            <div className="max-w-[79%] rounded-[15px] rounded-br-[5px] bg-[#252525] px-3.5 py-2.5 text-[12px] leading-[1.5] text-white sm:text-[12.5px]">
-              Thanks Sarah, lovely chatting today. Your quote is on its way.
-            </div>
-          </div>
-
-          <div className="flex justify-end">
-            <div className="flex max-w-[90%] items-center gap-2.5 rounded-[12px] border border-black/[0.08] bg-white px-3 py-2.5">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px]" style={{ backgroundColor: `${ROSE}18` }}><FileText size={13} color={ROSE} /></span>
-              <span className="min-w-0">
-                <span className="block truncate text-[10.5px] font-semibold" style={{ color: INK }}>Quote #1284 · Bathroom renovation</span>
-                <span className="block text-[8.5px]" style={{ color: MUTED }}>Opened twice · sent Wednesday</span>
-              </span>
-              <span className="ml-1 shrink-0 text-[12px] font-bold" style={{ color: INK }}>$18,000</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 py-0.5">
-            <span className="h-px flex-1 bg-black/[0.07]" />
-            <span className="flex items-center gap-1.5 text-[8px] font-semibold uppercase tracking-[0.13em]" style={{ fontFamily: MONO, color: "#A16C63" }}><Clock3 size={9} color={ROSE} /> 4 days · no reply</span>
-            <span className="h-px flex-1 bg-black/[0.07]" />
-          </div>
-
-          <motion.div className="flex flex-col items-end" initial={false} animate={{ opacity: sent ? 1 : 0, y: sent ? 0 : reduced ? 0 : 10 }} transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}>
-            <div className="mb-1.5 mr-1"><Role label="AI Employee" tone={AMBER} /></div>
-            <div className="max-w-[83%] rounded-[15px] rounded-br-[5px] border px-3.5 py-2.5 text-[12px] leading-[1.5] sm:text-[12.5px]" style={{ color: INK, borderColor: `${AMBER}55`, backgroundColor: `${AMBER}16` }}>
-              Hi Sarah, just checking in on your bathroom reno quote. Happy to answer any questions, or we can lock in a start date.
-            </div>
-            <div className="mt-1 text-[8px] font-semibold uppercase tracking-[0.11em]" style={{ fontFamily: MONO, color: MUTED }}>Zapla · follow-up · 4:02 PM</div>
-          </motion.div>
-
-          <div className="relative h-[68px]">
-            <motion.div className="absolute left-0 top-0 flex items-end gap-2" initial={false} animate={{ opacity: typing ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.3 }}>
-              <SarahFace size={20} />
-              <div className="flex gap-1 rounded-[15px] rounded-bl-[5px] bg-[#EEE7DA] px-3 py-2.5">
-                {[0, 1, 2].map((i) => <motion.span key={i} className="h-[5px] w-[5px] rounded-full bg-[#8C857B]" animate={typing && !reduced ? { opacity: [0.3, 1, 0.3] } : { opacity: 0.4 }} transition={typing && !reduced ? { duration: 0.9, repeat: Infinity, delay: i * 0.15 } : { duration: 0 }} />)}
-              </div>
-            </motion.div>
-            <motion.div className="absolute left-0 top-0 flex items-end gap-2" initial={false} animate={{ opacity: replied ? 1 : 0, y: replied ? 0 : reduced ? 0 : 8 }} transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}>
-              <SarahFace size={20} />
-              <div>
-                <div className="max-w-[92%] rounded-[15px] rounded-bl-[5px] bg-[#EEE7DA] px-3.5 py-2.5 text-[12px] leading-[1.5] sm:text-[12.5px]" style={{ color: INK }}>Sorry for the quiet week! Yes please, can we book Thursday?</div>
-                <div className="mt-1 text-[8px] font-semibold uppercase tracking-[0.11em]" style={{ fontFamily: MONO, color: MUTED }}>Sarah · 4:09 PM</div>
-              </div>
-            </motion.div>
-          </div>
+    <motion.div
+      initial={false}
+      animate={{ opacity: active ? 1 : 0.34, x: active ? 0 : -8, scale: active ? 1 : 0.98 }}
+      transition={{ duration: 0.45, ease: EASE }}
+      className="absolute left-[5%] top-[110px] w-[250px]"
+    >
+      <div className="mb-4"><RoleLabel label="AI Voice" tone={CORAL} /></div>
+      <div className="flex items-center gap-3">
+        <Phone size={18} color={CORAL} strokeWidth={2.1} />
+        <div className="flex h-8 items-center gap-[3px]">
+          {bars.map((height, index) => (
+            <motion.span
+              key={index}
+              className="w-[2px] rounded-full"
+              style={{ backgroundColor: index % 3 === 0 ? CORAL : "rgba(244,240,232,.48)" }}
+              animate={active ? { height: [height * 0.55, height, height * 0.72] } : { height: height * 0.6 }}
+              transition={active ? { duration: 0.9, repeat: Infinity, delay: index * 0.05, ease: "easeInOut" } : { duration: 0.3 }}
+            />
+          ))}
         </div>
       </div>
+      <div className="mt-3 text-[17px] font-semibold tracking-[-0.02em] text-white">Call answered</div>
+      <div className="mt-1 text-[12px] text-white/48">“We want to start in March.”</div>
 
-      <div className="flex items-center gap-2 border-t border-black/[0.07] px-4 py-2.5 sm:px-5">
-        <div className="flex h-9 flex-1 items-center rounded-full bg-[#EEE8DC] px-4 text-[11px]" style={{ color: "#A49D92" }}>Message Sarah…</div>
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#252525]"><Send size={12} color="#fff" /></span>
-      </div>
-    </div>
+      <motion.div
+        initial={false}
+        animate={{ opacity: active ? 1 : 0.35, y: active ? 0 : 5 }}
+        transition={{ duration: 0.45, delay: active ? 0.18 : 0, ease: EASE }}
+        className="mt-7 flex items-center gap-2.5"
+      >
+        <MessageSquareText size={15} color={AMBER} strokeWidth={2} />
+        <span className="text-[12px] font-medium text-white/68">SMS conversation · 6 messages</span>
+      </motion.div>
+    </motion.div>
   );
 }
 
-function Intelligence({ phase, reduced }: { phase: number; reduced: boolean }) {
-  const context = phase >= PH.CONTEXT && phase < PH.RESET;
-  const thinking = phase >= PH.THINK && phase < PH.RESET;
-  const acted = phase >= PH.ACT && phase < PH.RESET;
+function ContextCluster({ active }: { active: boolean }) {
   const signals = [
-    { icon: Phone, label: "Call", tone: CORAL },
-    { icon: MessageSquareText, label: "6 messages", tone: AMBER },
-    { icon: FileText, label: "$18k quote", tone: ROSE },
-    { icon: Clock3, label: "4 days quiet", tone: SAGE },
+    { icon: MessageSquareText, text: "Previous SMS", tone: AMBER, x: -82, y: -58 },
+    { icon: FileText, text: "$18,000 quote", tone: ROSE, x: 96, y: -42 },
+    { icon: Clock3, text: "4 days quiet", tone: SAGE, x: 84, y: 60 },
+    { icon: Phone, text: "Call history", tone: CORAL, x: -94, y: 52 },
   ];
 
   return (
-    <aside className="relative border-t border-black/[0.07] bg-[#F1ECE2] md:w-[300px] md:shrink-0 md:border-l md:border-t-0">
-      <div className="absolute inset-x-0 top-0"><Spectrum active={thinking && !acted} /></div>
-      <div className="p-4 pt-5 sm:p-5 sm:pt-6">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ fontFamily: MONO, color: MUTED }}>Zapla AI</span>
-            {thinking && <Role label="AI Agent" tone={ROSE} />}
-          </div>
-          <span className="text-[8px] font-semibold uppercase tracking-[0.12em]" style={{ fontFamily: MONO, color: acted ? SAGE : thinking ? AMBER : MUTED }}>{acted ? "Acting" : thinking ? "Thinking" : context ? "Context" : "Listening"}</span>
-        </div>
-
-        <motion.div initial={false} animate={{ opacity: context ? 1 : 0.18 }} transition={{ duration: reduced ? 0 : 0.4 }} className="mt-5">
-          <div className="text-[8px] font-semibold uppercase tracking-[0.15em]" style={{ fontFamily: MONO, color: MUTED }}>Context</div>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {signals.map(({ icon: Icon, label, tone }, i) => (
-              <motion.span key={label} initial={false} animate={{ opacity: context ? 1 : 0, y: context ? 0 : reduced ? 0 : 7 }} transition={{ duration: reduced ? 0 : 0.35, delay: reduced ? 0 : context ? i * 0.08 : 0, ease: EASE }} className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.07] bg-white/75 px-2.5 py-1.5 text-[9.5px] font-semibold" style={{ color: INK }}>
-                <Icon size={10} color={tone} /> {label}
-              </motion.span>
-            ))}
-          </div>
-          <motion.div initial={false} animate={{ opacity: context ? 1 : 0, y: context ? 0 : reduced ? 0 : 8 }} transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : context ? 0.3 : 0, ease: EASE }} className="mt-4 rounded-[12px] bg-white/70 px-3 py-3 text-[11.5px] font-semibold leading-[1.5]" style={{ color: INK }}>
-            Sarah is a warm lead. Quote opened. No reply for four days.
-          </motion.div>
-        </motion.div>
-
-        <motion.div initial={false} animate={{ opacity: thinking ? 1 : 0.12 }} transition={{ duration: reduced ? 0 : 0.4 }} className="mt-5 border-t border-black/[0.07] pt-5">
-          <div className="text-[8px] font-semibold uppercase tracking-[0.15em]" style={{ fontFamily: MONO, color: MUTED }}>Best next action</div>
-          <motion.div initial={false} animate={{ opacity: thinking ? 1 : 0, y: thinking ? 0 : reduced ? 0 : 8 }} transition={{ duration: reduced ? 0 : 0.5, ease: EASE }} className="mt-3 rounded-[12px] border border-white/[0.07] bg-[#1D1E20] p-3">
-            <Spectrum active={thinking && !acted} />
-            <div className="mt-3 flex items-center justify-between gap-3">
-              <span className="text-[12px] font-semibold text-white">Follow up now</span>
-              <span className="flex h-6 w-6 items-center justify-center rounded-full" style={{ backgroundColor: `${SAGE}2A` }}><Check size={12} color={SAGE} strokeWidth={2.8} /></span>
-            </div>
-            <div className="mt-1 text-[9.5px] leading-[1.45] text-white/45">Personal SMS based on the quote and previous conversation.</div>
-          </motion.div>
-        </motion.div>
-
-        <motion.div initial={false} animate={{ opacity: acted ? 1 : 0, y: acted ? 0 : reduced ? 0 : 8 }} transition={{ duration: reduced ? 0 : 0.45, ease: EASE }} className="mt-4 flex items-center gap-2 rounded-[10px] border px-3 py-2.5" style={{ borderColor: `${SAGE}45`, backgroundColor: `${SAGE}13` }}>
-          <span className="flex h-5 w-5 items-center justify-center rounded-full" style={{ backgroundColor: `${SAGE}25` }}><Check size={10} color={SAGE} strokeWidth={2.8} /></span>
-          <span className="text-[10.5px] font-semibold" style={{ color: INK }}>Follow-up sent · CRM updated</span>
-        </motion.div>
+    <motion.div
+      initial={false}
+      animate={{ opacity: active ? 1 : 0.25, scale: active ? 1 : 0.96 }}
+      transition={{ duration: 0.5, ease: EASE }}
+      className="absolute left-[40%] top-[146px] h-[210px] w-[220px] -translate-x-1/2"
+    >
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+        <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/38" style={{ fontFamily: MONO }}>Context</div>
+        <div className="mt-2 whitespace-nowrap text-[22px] font-semibold tracking-[-0.04em] text-white">Sarah · bathroom reno</div>
+        <div className="mt-1 whitespace-nowrap text-[12px] text-white/52">Quote sent · no reply</div>
       </div>
-    </aside>
+
+      {signals.map((signal, index) => {
+        const Icon = signal.icon;
+        return (
+          <motion.div
+            key={signal.text}
+            initial={false}
+            animate={{
+              opacity: active ? 1 : 0,
+              x: active ? signal.x : 0,
+              y: active ? signal.y : 0,
+              scale: active ? 1 : 0.7,
+            }}
+            transition={{ duration: 0.55, delay: active ? index * 0.09 : 0, ease: EASE }}
+            className="absolute left-1/2 top-1/2 flex items-center gap-2 whitespace-nowrap"
+          >
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.07]">
+              <Icon size={11} color={signal.tone} strokeWidth={2.1} />
+            </span>
+            <span className="text-[10px] font-medium text-white/62">{signal.text}</span>
+          </motion.div>
+        );
+      })}
+    </motion.div>
   );
 }
 
-export function ZaplaAIConversationsV6() {
-  const reduced = !!useReducedMotion();
-  const stageRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(stageRef, { amount: 0.18 });
+function ThinkCluster({ active, reduced }: { active: boolean; reduced: boolean }) {
+  return (
+    <motion.div
+      initial={false}
+      animate={{ opacity: active ? 1 : 0.24, scale: active ? 1 : 0.97 }}
+      transition={{ duration: 0.5, ease: EASE }}
+      className="absolute left-[63%] top-[126px] w-[250px] -translate-x-1/2 text-center"
+    >
+      <RoleLabel label="AI Agent" tone={ROSE} />
+      <div className="mt-5 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/38" style={{ fontFamily: MONO }}>Best next action</div>
+      <div className="mt-2 text-[28px] font-semibold tracking-[-0.05em] text-white">Follow up now</div>
+      <div className="mx-auto mt-4 w-[190px]"><SpectrumSweep active={active && !reduced} /></div>
+      <div className="mt-4 flex items-center justify-center gap-5 text-[10px] font-medium uppercase tracking-[0.1em]" style={{ fontFamily: MONO }}>
+        <span className="text-white/20 line-through">Wait</span>
+        <span className="text-white/20 line-through">Call</span>
+        <span style={{ color: AMBER }}>Follow up</span>
+      </div>
+    </motion.div>
+  );
+}
+
+function ActionCluster({ active, outcome }: { active: boolean; outcome: boolean }) {
+  return (
+    <motion.div
+      initial={false}
+      animate={{ opacity: active ? 1 : 0.25, x: active ? 0 : 8, scale: active ? 1 : 0.98 }}
+      transition={{ duration: 0.48, ease: EASE }}
+      className="absolute right-[5%] top-[112px] w-[225px]"
+    >
+      <RoleLabel label="AI Employee" tone={AMBER} />
+      <motion.div
+        initial={false}
+        animate={{ opacity: active ? 1 : 0, y: active ? 0 : 8 }}
+        transition={{ duration: 0.45, delay: active ? 0.08 : 0, ease: EASE }}
+        className="mt-5"
+      >
+        <div className="flex items-center gap-2 text-[16px] font-semibold tracking-[-0.02em] text-white">
+          <Check size={15} color={AMBER} strokeWidth={2.4} /> Follow-up sent
+        </div>
+        <div className="mt-2 text-[12px] leading-[1.55] text-white/46">The next step happens inside the conversation, without waiting for someone to remember.</div>
+      </motion.div>
+
+      <motion.div
+        initial={false}
+        animate={{ opacity: outcome ? 1 : 0, y: outcome ? 0 : 10 }}
+        transition={{ duration: 0.5, delay: outcome ? 0.15 : 0, ease: EASE }}
+        className="mt-7 space-y-3"
+      >
+        <div className="flex items-center justify-between border-b border-white/[0.09] pb-2.5 text-[11px] text-white/48">
+          <span>Sarah replied</span><span className="font-semibold text-white">Thursday works</span>
+        </div>
+        <div className="flex items-center justify-between text-[11px] text-white/48">
+          <span>Opportunity</span><span className="font-semibold" style={{ color: SAGE }}>Re-engaged</span>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function DesktopSignalField({ phase, reduced }: { phase: number; reduced: boolean }) {
+  const conversation = phase === PH.CONVERSATION;
+  const context = phase === PH.CONTEXT;
+  const think = phase === PH.THINK;
+  const act = phase === PH.ACT || phase === PH.OUTCOME || phase === PH.HOLD;
+  const outcome = phase === PH.OUTCOME || phase === PH.HOLD;
+
+  return (
+    <div className="relative hidden h-[500px] overflow-hidden md:block">
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 46%, rgba(255,255,255,.045), transparent 33%), radial-gradient(circle at 73% 45%, rgba(233,125,98,.035), transparent 18%)",
+        }}
+      />
+
+      <SignalPath phase={phase} reduced={reduced} />
+      <ConversationCluster active={conversation} />
+      <ContextCluster active={context} />
+      <ThinkCluster active={think} reduced={reduced} />
+      <ActionCluster active={act} outcome={outcome} />
+
+      <div className="absolute inset-x-[7%] bottom-[34px] grid grid-cols-4 gap-8 border-t border-white/[0.07] pt-5">
+        <StageLabel active={conversation} label="Conversation" tone={CORAL} />
+        <StageLabel active={context} label="Context" tone={AMBER} />
+        <StageLabel active={think} label="Think" tone={ROSE} />
+        <StageLabel active={act} label="Act" tone={SAGE} />
+      </div>
+    </div>
+  );
+}
+
+function MobileSignalField({ phase, reduced }: { phase: number; reduced: boolean }) {
+  const steps = [
+    {
+      label: "Conversation",
+      tone: CORAL,
+      active: phase === PH.CONVERSATION,
+      content: (
+        <>
+          <RoleLabel label="AI Voice" tone={CORAL} />
+          <div className="mt-2 flex items-center gap-2 text-[16px] font-semibold text-white"><Phone size={15} color={CORAL} /> Call answered</div>
+          <div className="mt-1 text-[11px] text-white/45">SMS conversation · 6 messages</div>
+        </>
+      ),
+    },
+    {
+      label: "Context",
+      tone: AMBER,
+      active: phase === PH.CONTEXT,
+      content: (
+        <>
+          <div className="text-[17px] font-semibold text-white">Sarah · bathroom reno</div>
+          <div className="mt-1 text-[11px] text-white/46">$18k quote · 4 days quiet · previous conversation</div>
+        </>
+      ),
+    },
+    {
+      label: "Think",
+      tone: ROSE,
+      active: phase === PH.THINK,
+      content: (
+        <>
+          <RoleLabel label="AI Agent" tone={ROSE} />
+          <div className="mt-2 text-[20px] font-semibold tracking-[-0.04em] text-white">Follow up now</div>
+          <div className="mt-3 w-[150px]"><SpectrumSweep active={phase === PH.THINK && !reduced} /></div>
+        </>
+      ),
+    },
+    {
+      label: "Act",
+      tone: SAGE,
+      active: phase >= PH.ACT && phase <= PH.HOLD,
+      content: (
+        <>
+          <RoleLabel label="AI Employee" tone={AMBER} />
+          <div className="mt-2 flex items-center gap-2 text-[16px] font-semibold text-white"><Check size={14} color={AMBER} /> Follow-up sent</div>
+          <div className="mt-1 text-[11px]" style={{ color: SAGE }}>Sarah replied · Re-engaged</div>
+        </>
+      ),
+    },
+  ];
+
+  return (
+    <div className="relative mt-10 md:hidden">
+      <div className="absolute bottom-5 left-[6px] top-5"><SpectrumSweep active={!reduced} vertical /></div>
+      <div className="space-y-8 pl-7">
+        {steps.map((step) => (
+          <motion.div key={step.label} initial={false} animate={{ opacity: step.active ? 1 : 0.34 }} transition={{ duration: 0.35, ease: EASE }}>
+            <StageLabel active={step.active} label={step.label} tone={step.tone} />
+            <div className="mt-3">{step.content}</div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function ZaplaAIConversationsV6() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const inView = useInView(sectionRef, { amount: 0.22, once: false });
+  const reduced = Boolean(useReducedMotion());
   const phase = useStoryLoop(inView, reduced);
 
   return (
-    <section className="relative overflow-hidden px-5 py-24 text-white sm:px-10 sm:py-28 lg:px-16 lg:py-32" style={{ backgroundColor: BG }}>
-      <div className="pointer-events-none absolute left-1/2 top-[300px] h-[500px] w-[900px] -translate-x-1/2 opacity-65 blur-3xl" style={{ background: `radial-gradient(circle at 35% 46%,${CORAL}16,transparent 34%),radial-gradient(circle at 52% 40%,${AMBER}16,transparent 32%),radial-gradient(circle at 66% 52%,${ROSE}14,transparent 34%),radial-gradient(circle at 53% 64%,${SAGE}10,transparent 32%)` }} />
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden px-5 py-[92px] sm:px-8 sm:py-[116px] lg:py-[138px]"
+      style={{ backgroundColor: BG, fontFamily: DISPLAY }}
+    >
+      <div className="mx-auto max-w-[1240px]">
+        <header className="mx-auto max-w-[820px] text-center">
+          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/42" style={{ fontFamily: MONO }}>Zapla AI</div>
+          <h2 className="mt-5 text-[42px] font-semibold leading-[0.98] tracking-[-0.055em] text-white sm:text-[56px] lg:text-[72px]">
+            Turn every conversation into the next action.
+          </h2>
+          <p className="mx-auto mt-6 max-w-[660px] text-[15px] leading-[1.65] text-white/52 sm:text-[17px]">
+            Calls and messages become context. Context becomes a decision. Zapla takes it from there.
+          </p>
+        </header>
 
-      <div className="relative mx-auto max-w-[1320px]">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-end lg:gap-16">
-          <motion.div initial={reduced ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: reduced ? 0 : 0.7, ease: EASE }}>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ fontFamily: MONO, color: AMBER }}>Zapla AI</div>
-            <h2 className="mt-5 max-w-[820px] text-[40px] leading-[0.97] tracking-[-0.05em] sm:text-[54px] lg:text-[64px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
-              Turn every conversation <span className="block text-white/48">into the next action.</span>
-            </h2>
-          </motion.div>
-          <motion.p initial={reduced ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.08, ease: EASE }} className="max-w-[520px] text-[15px] leading-[1.7] text-white/52 sm:text-[16px]">
-            Zapla answers calls and messages, understands what’s already happened, then follows up, books, updates your CRM and keeps opportunities moving.
-          </motion.p>
-        </div>
-
-        <div className="mt-10 flex items-center justify-between gap-6">
-          <StorySteps phase={phase} />
-          <div className="hidden text-[9px] font-semibold uppercase tracking-[0.13em] text-white/25 sm:block" style={{ fontFamily: MONO }}>One customer · one continuous context</div>
-        </div>
-
-        <div ref={stageRef} className="relative mx-auto mt-7 max-w-[1080px]">
-          <div className="absolute -inset-[1px] rounded-[24px] opacity-65" style={{ background: `linear-gradient(115deg,${CORAL}55,${AMBER}45 30%,transparent 48%,${ROSE}42 68%,${SAGE}45)` }} />
-          <div className="relative overflow-hidden rounded-[23px] border border-white/[0.08] bg-[#202124] shadow-[0_45px_120px_rgba(0,0,0,.52)]">
-            <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3 sm:px-5">
-              <div className="flex items-center gap-2.5"><img src="/concept/zapla-mark-white.png" alt="" aria-hidden className="h-[17px] w-[17px] object-contain" /><span className="text-[11px] font-semibold text-white/78">Zapla workspace</span></div>
-              <span className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/28" style={{ fontFamily: MONO }}>Live customer context</span>
-            </div>
-            <div className="flex flex-col md:flex-row"><Conversation phase={phase} reduced={reduced} /><Intelligence phase={phase} reduced={reduced} /></div>
-          </div>
-        </div>
-
-        <div className="mx-auto mt-6 flex max-w-[1080px] flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[10px] font-medium text-white/38 sm:justify-start">
-          <span><strong className="font-semibold text-white/65">AI Voice</strong> answers</span><span className="text-white/16">•</span>
-          <span><strong className="font-semibold text-white/65">AI Agent</strong> decides</span><span className="text-white/16">•</span>
-          <span><strong className="font-semibold text-white/65">AI Employee</strong> follows through</span>
+        <div className="mt-8 sm:mt-12 lg:mt-14">
+          <DesktopSignalField phase={phase} reduced={reduced} />
+          <MobileSignalField phase={phase} reduced={reduced} />
         </div>
       </div>
     </section>
