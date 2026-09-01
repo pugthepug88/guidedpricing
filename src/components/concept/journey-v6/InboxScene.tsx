@@ -51,8 +51,8 @@ function NavItem({ label, count, active, Icon }: { label: string; count?: number
 function IncomingMessage({ children, time }: { children: string; time: string }) {
   return (
     <div className="max-w-[76%]">
-      <div className="rounded-2xl rounded-bl-sm bg-slate-100 px-3.5 py-2.5 text-[11.5px] font-medium leading-[1.45] text-slate-600">{children}</div>
-      <div className="mt-1 flex items-center gap-1 text-[8.5px] font-semibold text-slate-400"><ChannelTile channel="sms" size={11} /><span>{time}</span></div>
+      <div className="rounded-2xl rounded-bl-sm bg-slate-100 px-3.5 py-2 text-[11px] font-medium leading-[1.4] text-slate-600">{children}</div>
+      <div className="mt-0.5 flex items-center gap-1 text-[8px] font-semibold text-slate-400"><ChannelTile channel="sms" size={10} /><span>{time}</span></div>
     </div>
   );
 }
@@ -60,9 +60,9 @@ function IncomingMessage({ children, time }: { children: string; time: string })
 function OutgoingMessage({ children, time, label }: { children: string; time: string; label?: string }) {
   return (
     <div className="ml-auto max-w-[76%]">
-      <div className="rounded-2xl rounded-br-sm bg-[#2563FF] px-3.5 py-2.5 text-[11.5px] font-medium leading-[1.45] text-white">{children}</div>
-      <div className="mt-1 flex items-center justify-end gap-1.5 text-[8.5px] font-semibold text-slate-400">
-        {label ? <span className="rounded bg-blue-50 px-1.5 py-[2px] text-[8px] font-black tracking-[.04em] text-[#2563FF]">{label}</span> : null}
+      <div className="rounded-2xl rounded-br-sm bg-[#2563FF] px-3.5 py-2 text-[11px] font-medium leading-[1.4] text-white">{children}</div>
+      <div className="mt-0.5 flex items-center justify-end gap-1.5 text-[8px] font-semibold text-slate-400">
+        {label ? <span className="rounded bg-blue-50 px-1.5 py-[2px] text-[7.5px] font-black tracking-[.04em] text-[#2563FF]">{label}</span> : null}
         <span>{time}</span>
       </div>
     </div>
@@ -71,16 +71,41 @@ function OutgoingMessage({ children, time, label }: { children: string; time: st
 
 export function InboxScene({ interactive = false, complete = false }: { interactive?: boolean; complete?: boolean }) {
   const [replyVisible, setReplyVisible] = useState(interactive);
-  useEffect(() => {
-    if (interactive) { setReplyVisible(true); return; }
-    setReplyVisible(false);
-    const timer = window.setTimeout(() => setReplyVisible(true), 760);
-    return () => window.clearTimeout(timer);
-  }, [interactive]);
+  const [followupVisible, setFollowupVisible] = useState(interactive);
+  const [customerReplyVisible, setCustomerReplyVisible] = useState(interactive);
+  const [confirmationVisible, setConfirmationVisible] = useState(interactive || complete);
 
-  const rows = ROWS.map((row) => row.active && complete
-    ? { ...row, preview: "You’re booked for Thursday at 2:30 PM.", time: "Just now" }
-    : row);
+  useEffect(() => {
+    if (interactive || complete) {
+      setReplyVisible(true);
+      setFollowupVisible(true);
+      setCustomerReplyVisible(true);
+      setConfirmationVisible(true);
+      return;
+    }
+
+    setReplyVisible(false);
+    setFollowupVisible(false);
+    setCustomerReplyVisible(false);
+    setConfirmationVisible(false);
+
+    const timers = [
+      window.setTimeout(() => setReplyVisible(true), 620),
+      window.setTimeout(() => setFollowupVisible(true), 1450),
+      window.setTimeout(() => setCustomerReplyVisible(true), 2250),
+      window.setTimeout(() => setConfirmationVisible(true), 3050),
+    ];
+
+    return () => timers.forEach((timer) => window.clearTimeout(timer));
+  }, [interactive, complete]);
+
+  const rows = ROWS.map((row) => {
+    if (!row.active) return row;
+    if (confirmationVisible) return { ...row, preview: "Booked · Thursday 2:30 PM confirmed", time: "Just now" };
+    if (customerReplyVisible) return { ...row, preview: "Thursday 2:30 works perfectly. Thanks!", time: "Just now" };
+    if (followupVisible) return { ...row, preview: "Just following up in case you missed this…", time: "Just now" };
+    return row;
+  });
 
   return (
     <div className="absolute inset-0 flex overflow-hidden bg-[#F8FAFC]">
@@ -113,22 +138,25 @@ export function InboxScene({ interactive = false, complete = false }: { interact
           <div className="ml-auto text-right"><div className="text-[7.5px] font-black uppercase tracking-[.1em] text-slate-400">Owner</div><div className="text-[10.5px] font-bold text-slate-600">James</div></div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-[72px] top-[58px] overflow-hidden px-5 py-3">
-          <div className={cn("mx-auto flex h-full max-w-[590px] flex-col justify-start", complete ? "gap-2 pt-1 lg:pt-2" : "gap-3 pt-2 lg:pt-5")}>
+        <div className="absolute inset-x-0 bottom-[72px] top-[58px] overflow-hidden px-5 py-2.5">
+          <div className="mx-auto flex h-full max-w-[590px] flex-col justify-start gap-[7px] pt-1 lg:pt-2">
             <IncomingMessage time="10:42 AM">Hi, I’m interested in getting a quote. Are you available Thursday afternoon?</IncomingMessage>
-            <motion.div initial={interactive ? false : { opacity: 0, y: 10, scale: 0.98 }} animate={{ opacity: replyVisible ? 1 : 0, y: replyVisible ? 0 : 10, scale: replyVisible ? 1 : 0.98 }} transition={{ duration: 0.48, ease: EASE }}>
+
+            <motion.div initial={interactive || complete ? false : { opacity: 0, y: 8, scale: 0.985 }} animate={{ opacity: replyVisible ? 1 : 0, y: replyVisible ? 0 : 8, scale: replyVisible ? 1 : 0.985 }} transition={{ duration: 0.4, ease: EASE }}>
               <OutgoingMessage time="10:42 AM" label="AUTOMATIC REPLY">Hi Sarah, thanks for reaching out. Happy to help. What time works best for you?</OutgoingMessage>
             </motion.div>
 
-            {complete ? (
-              <>
-                <OutgoingMessage time="11:12 AM" label="AUTOMATIC FOLLOW-UP">Just following up in case you missed this. I can hold Thursday afternoon for you.</OutgoingMessage>
-                <IncomingMessage time="11:16 AM">Thursday 2:30 works perfectly. Thanks!</IncomingMessage>
-                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.42, ease: EASE }}>
-                  <OutgoingMessage time="11:17 AM" label="BOOKING CONFIRMATION">Perfect, Sarah. You’re booked for Thursday at 2:30 PM. I’ve sent you a confirmation.</OutgoingMessage>
-                </motion.div>
-              </>
-            ) : null}
+            <motion.div initial={false} animate={{ opacity: followupVisible ? 1 : 0, y: followupVisible ? 0 : 8, scale: followupVisible ? 1 : 0.985 }} transition={{ duration: 0.4, ease: EASE }}>
+              <OutgoingMessage time="11:12 AM" label="AUTOMATIC FOLLOW-UP">Just following up in case you missed this. I can hold Thursday afternoon for you.</OutgoingMessage>
+            </motion.div>
+
+            <motion.div initial={false} animate={{ opacity: customerReplyVisible ? 1 : 0, y: customerReplyVisible ? 0 : 8, scale: customerReplyVisible ? 1 : 0.985 }} transition={{ duration: 0.4, ease: EASE }}>
+              <IncomingMessage time="11:16 AM">Thursday 2:30 works perfectly. Thanks!</IncomingMessage>
+            </motion.div>
+
+            <motion.div initial={false} animate={{ opacity: confirmationVisible ? 1 : 0, y: confirmationVisible ? 0 : 8, scale: confirmationVisible ? 1 : 0.985 }} transition={{ duration: 0.42, ease: EASE }}>
+              <OutgoingMessage time="11:17 AM" label="BOOKING CONFIRMATION">Perfect, Sarah. You’re booked for Thursday at 2:30 PM. Your confirmation has been sent.</OutgoingMessage>
+            </motion.div>
           </div>
         </div>
 
