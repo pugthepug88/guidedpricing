@@ -380,7 +380,7 @@ function Connectors({ phase, reduced }: { phase: number; reduced: boolean }) {
 export function ZaplaAIConversationsV5() {
   const reduced = !!useReducedMotion();
   const stageRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(stageRef, { amount: 0.3 });
+  const inView = useInView(stageRef, { amount: 0.15 });
   const phase = useStoryLoop(inView, reduced);
   const [manualRole, setManualRole] = useState<string | null>(null);
 
@@ -477,7 +477,7 @@ export function ZaplaAIConversationsV5() {
                   key={role.id}
                   type="button"
                   onClick={() => setManualRole((prev) => (prev === role.id ? null : role.id))}
-                  className="rounded-full border px-4 py-2 text-[11px] font-semibold transition-colors duration-400"
+                  className="rounded-full border px-4 py-2 text-[11px] font-semibold transition-colors duration-300"
                   style={{
                     borderColor: active ? "rgba(210,154,67,.55)" : "rgba(255,255,255,.12)",
                     color: active ? IVORY : "rgba(244,237,226,.45)",
