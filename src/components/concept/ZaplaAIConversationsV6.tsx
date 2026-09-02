@@ -434,13 +434,16 @@ function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
   );
 }
 
-function AgentFlowerAvatar({ color }: { color: string }) {
+function AgentFlowerAvatar({ color, hollow = false }: { color: string; hollow?: boolean }) {
   return (
     <span
       className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border"
-      style={{ borderColor: `${color}4A`, backgroundColor: "#25262A" }}
+      style={{
+        borderColor: hollow ? "rgba(255,255,255,.18)" : `${color}4A`,
+        backgroundColor: "#25262A",
+      }}
     >
-      <PetalFlower size={27} filled={6} mono={color} />
+      <PetalFlower size={27} filled={hollow ? 0 : 6} mono={hollow ? undefined : color} />
     </span>
   );
 }
@@ -494,7 +497,7 @@ function AIAgentVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
               transition={{ duration: 0.72, ease: EASE }}
               style={{ zIndex: 20 - distance }}
             >
-              <AgentFlowerAvatar color={agent.color} />
+              <AgentFlowerAvatar color={agent.color} hollow={agent.name === "Custom Follow Up"} />
               <span className="min-w-0 flex-1 truncate text-[12px] font-medium" style={{ color: selected ? "rgba(255,255,255,.97)" : "rgba(255,255,255,.66)" }}>
                 {agent.name}
               </span>
