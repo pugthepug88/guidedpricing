@@ -18,8 +18,6 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const BG = "#111214";
 const STAGE = "#18191C";
-const SURFACE = "#1D1E22";
-const SURFACE_STRONG = "#222327";
 const CORAL = "#E97D62";
 const AMBER = "#DDA34B";
 const ROSE = "#C96C85";
@@ -27,6 +25,7 @@ const SAGE = "#99A36D";
 const PLUM = "#9B86B8";
 const APRICOT = "#D58C75";
 const PETALS = [CORAL, ROSE, AMBER, SAGE, PLUM, APRICOT];
+const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 function useCycle(inView: boolean, reduced: boolean, count: number, ms: number, initial = 0) {
   const [index, setIndex] = useState(initial);
@@ -36,6 +35,26 @@ function useCycle(inView: boolean, reduced: boolean, count: number, ms: number, 
     return () => window.clearInterval(timer);
   }, [count, inView, ms, reduced]);
   return index;
+}
+
+function RevenueAvatar({ size = 24, cell = 0 }: { size?: number; cell?: number }) {
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+  return (
+    <span
+      className="shrink-0 overflow-hidden rounded-full border border-white/[0.12] shadow-[0_5px_14px_rgba(0,0,0,.22)]"
+      style={{
+        width: size,
+        height: size,
+        backgroundImage: `url(${PORTRAIT_SHEET})`,
+        backgroundPosition: `${(column / 5) * 100}% ${(row / 3) * 100}%`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "600% 400%",
+        backgroundColor: "#B98278",
+      }}
+      aria-hidden="true"
+    />
+  );
 }
 
 function PetalFlower({ size = 68, filled = 6, mono }: { size?: number; filled?: number; mono?: string }) {
@@ -48,8 +67,8 @@ function PetalFlower({ size = 68, filled = 6, mono }: { size?: number; filled?: 
             d="M80 14 C95 14 104 25 102 42 C100 58 92 70 80 82 C68 70 60 58 58 42 C56 25 65 14 80 14 Z"
             initial={false}
             animate={{
-              fill: index < filled ? color : "rgba(255,255,255,0.012)",
-              stroke: index < filled ? color : "rgba(255,255,255,0.19)",
+              fill: index < filled ? color : "#48494D",
+              stroke: index < filled ? color : "#68696E",
               opacity: 1,
             }}
             transition={{ duration: 0.58, ease: EASE }}
@@ -59,17 +78,6 @@ function PetalFlower({ size = 68, filled = 6, mono }: { size?: number; filled?: 
       ))}
       <circle cx="80" cy="80" r="14" fill="#111214" stroke="rgba(255,255,255,.08)" />
     </svg>
-  );
-}
-
-function TinyPersonAvatar({ size = 24 }: { size?: number }) {
-  return (
-    <span
-      className="flex shrink-0 items-center justify-center rounded-full border border-white/[0.10] bg-[#26272B]"
-      style={{ width: size, height: size }}
-    >
-      <UserRound size={Math.round(size * 0.48)} color="rgba(255,255,255,.72)" strokeWidth={2} />
-    </span>
   );
 }
 
@@ -117,30 +125,36 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
       <TerritoryHeading icon={<MessageSquareText size={18} strokeWidth={2.1} />} label="Conversations" color={CORAL} />
 
       <div className="mt-8 grid grid-cols-[54px_1fr] gap-4">
-        <div className="relative h-[248px] overflow-hidden rounded-[22px] border border-white/[0.10] bg-[#151619] px-1.5 py-2">
+        <div className="relative h-[334px] overflow-hidden rounded-[22px] border border-white/[0.10] bg-[#151619] px-1.5 py-2">
           <motion.div
-            className="absolute left-1.5 right-1.5 h-[52px] rounded-[16px] border"
-            animate={{ y: active * 54 }}
+            className="absolute left-1.5 right-1.5 top-2 h-[77px] rounded-[16px] border"
+            animate={{ y: active * 79 }}
             transition={{ duration: 0.72, ease: EASE }}
             style={{ borderColor: `${current.color}68`, backgroundColor: `${current.color}0E`, boxShadow: `inset 0 0 22px ${current.color}0E` }}
           />
-          {channels.map((channel, index) => {
-            const Icon = channel.icon;
-            const selected = index === active;
-            return (
-              <div key={channel.label} className="relative z-10 flex h-[54px] flex-col items-center justify-center gap-1">
-                <Icon size={15} color={selected ? channel.color : "rgba(255,255,255,.38)"} />
-                <span className="text-[8px] font-semibold tracking-[0.04em]" style={{ color: selected ? "rgba(255,255,255,.94)" : "rgba(255,255,255,.40)" }}>
-                  {channel.label}
-                </span>
-              </div>
-            );
-          })}
+          <div className="relative z-10 grid h-full grid-rows-4">
+            {channels.map((channel, index) => {
+              const Icon = channel.icon;
+              const selected = index === active;
+              return (
+                <div key={channel.label} className="flex flex-col items-center justify-center gap-1.5">
+                  <Icon size={16} color={selected ? channel.color : "rgba(255,255,255,.38)"} />
+                  <span className="text-[8px] font-semibold tracking-[0.04em]" style={{ color: selected ? "rgba(255,255,255,.94)" : "rgba(255,255,255,.40)" }}>
+                    {channel.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         <div
-          className="relative h-[334px] overflow-hidden rounded-[24px] border border-white/[0.12] p-5"
-          style={{ background: `radial-gradient(circle at 58% 34%, ${current.color}16 0%, transparent 40%), linear-gradient(180deg, #202126, #1B1C20)` }}
+          className="relative h-[334px] overflow-hidden rounded-[24px] border p-5"
+          style={{
+            borderColor: "rgba(233,125,98,.44)",
+            background: `radial-gradient(circle at 56% 26%, rgba(233,125,98,.15) 0%, transparent 40%), linear-gradient(180deg, #202126, #1B1C20)`,
+            boxShadow: "0 0 0 1px rgba(233,125,98,.10), 0 0 28px rgba(233,125,98,.10), inset 0 1px 0 rgba(255,255,255,.045), inset 0 0 46px rgba(233,125,98,.035)",
+          }}
         >
           <div className="relative flex items-center justify-end gap-1.5 text-[12px] font-semibold tracking-[0.02em]" style={{ color: CORAL }}>
             <Sparkles size={14} strokeWidth={2.1} />
@@ -178,11 +192,13 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
                     </div>
                   ) : (
                     <div className="w-full space-y-3">
-                      <div className="ml-auto max-w-[84%] rounded-[15px] border border-white/[0.09] bg-[#25262A] px-3 py-2.5 text-[10px] leading-[1.4] text-white/66">
-                        {channel.label === "SOCIAL" ? "Saw your work on Instagram." : "Hi, just checking in."}
+                      <div className="ml-auto flex max-w-[86%] items-center gap-2 rounded-[15px] border border-white/[0.09] bg-[#25262A] px-3 py-2.5 text-[10px] leading-[1.4] text-white/70">
+                        <RevenueAvatar size={22} cell={0} />
+                        <span>{channel.label === "SOCIAL" ? "Saw your work on Instagram." : "Hi, just checking in."}</span>
                       </div>
-                      <div className="max-w-[79%] rounded-[15px] border px-3 py-2.5 text-[10px] leading-[1.4] text-white/88" style={{ borderColor: `${channel.color}42`, backgroundColor: `${channel.color}10` }}>
-                        {channel.label === "SOCIAL" ? "Do you service my area?" : "Can we move forward this week?"}
+                      <div className="flex max-w-[82%] items-center gap-2 rounded-[15px] border px-3 py-2.5 text-[10px] leading-[1.4] text-white/90" style={{ borderColor: `${channel.color}42`, backgroundColor: `${channel.color}10` }}>
+                        <span className="flex-1">{channel.label === "SOCIAL" ? "Do you service my area?" : "Can we move forward this week?"}</span>
+                        <TinyFlowerAvatar color={channel.color} size={22} />
                       </div>
                     </div>
                   )}
@@ -227,13 +243,13 @@ function ArtifactSurface({ artifact }: { artifact: ContextArtifact }) {
       <>
         <div className="flex items-center gap-2 text-[10px] font-semibold text-white/90"><MessageSquareText size={13} color={artifact.color} /> Conversation</div>
         <div className="mt-3 space-y-2.5">
-          <div className="flex items-start gap-2">
-            <TinyPersonAvatar size={22} />
-            <div className="max-w-[120px] rounded-[10px] bg-[#28292D] px-2.5 py-1.5 text-[8px] leading-[1.35] text-white/76">Can we start in March?</div>
+          <div className="flex items-center gap-2">
+            <RevenueAvatar size={24} cell={0} />
+            <div className="max-w-[120px] rounded-[10px] bg-[#28292D] px-2.5 py-1.5 text-[8px] leading-[1.35] text-white/78">Can we start in March?</div>
           </div>
-          <div className="flex items-start justify-end gap-2">
-            <div className="max-w-[116px] rounded-[10px] px-2.5 py-1.5 text-right text-[8px] leading-[1.35] text-white/84" style={{ backgroundColor: `${artifact.color}18` }}>Absolutely. I’ll check.</div>
-            <TinyFlowerAvatar color={artifact.color} size={22} />
+          <div className="flex items-center justify-end gap-2">
+            <div className="max-w-[116px] rounded-[10px] px-2.5 py-1.5 text-right text-[8px] leading-[1.35] text-white/86" style={{ backgroundColor: `${artifact.color}18` }}>Absolutely. I’ll check.</div>
+            <TinyFlowerAvatar color={artifact.color} size={24} />
           </div>
         </div>
       </>
@@ -248,10 +264,12 @@ function ArtifactSurface({ artifact }: { artifact: ContextArtifact }) {
           <span className="flex h-5 w-5 items-center justify-center rounded-full" style={{ backgroundColor: `${artifact.color}18` }}><Check size={11} color={artifact.color} strokeWidth={2.4} /></span>
         </div>
         <div className="mt-3 text-[21px] font-semibold tracking-[-0.04em] text-white/94">$18,000</div>
-        <div className="mt-3 space-y-2">
-          <div className="h-1.5 w-[86%] rounded-full bg-white/[0.14]" />
-          <div className="h-1.5 w-[68%] rounded-full bg-white/[0.09]" />
-          <div className="h-1.5 w-[78%] rounded-full bg-white/[0.09]" />
+        <div className="mt-3 overflow-hidden rounded-[9px] border border-white/[0.06] bg-[#191A1D] px-2.5 py-2.5">
+          <div className="space-y-2">
+            <div className="h-1.5 w-full rounded-full bg-white/[0.14]" />
+            <div className="h-1.5 w-[78%] rounded-full bg-white/[0.09]" />
+            <div className="h-1.5 w-[60%] rounded-full bg-white/[0.07]" />
+          </div>
         </div>
       </>
     );
@@ -280,32 +298,42 @@ function ArtifactSurface({ artifact }: { artifact: ContextArtifact }) {
     return (
       <>
         <div className="flex items-center gap-2 text-[10px] font-semibold text-white/90"><Send size={13} color={artifact.color} /> Pipeline</div>
-        <div className="mt-4 flex items-center gap-1.5">
+        <div className="mt-3 grid grid-cols-3 gap-2">
           {stages.map((stage, index) => (
-            <div key={stage} className="flex flex-1 flex-col items-center gap-1.5">
-              <span
-                className="h-2.5 w-2.5 rounded-full border"
-                style={{ borderColor: index === 1 ? artifact.color : "rgba(255,255,255,.20)", backgroundColor: index === 1 ? artifact.color : "#202126" }}
-              />
-              <span className="text-[6px] text-white/46">{stage}</span>
+            <div
+              key={stage}
+              className="rounded-[10px] border px-2 py-2"
+              style={{
+                borderColor: index === 1 ? `${artifact.color}70` : "rgba(255,255,255,.08)",
+                backgroundColor: index === 1 ? `${artifact.color}0D` : "#191A1D",
+              }}
+            >
+              <div className="flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full border" style={{ borderColor: index === 1 ? artifact.color : "rgba(255,255,255,.22)", backgroundColor: index === 1 ? artifact.color : "transparent" }} />
+                <span className="truncate text-[6px] text-white/48">{stage}</span>
+              </div>
+              <div className="mt-2 space-y-1.5">
+                <div className="h-1 w-full rounded-full bg-white/[0.11]" />
+                <div className="h-1 w-[70%] rounded-full bg-white/[0.07]" />
+              </div>
             </div>
           ))}
         </div>
-        <div className="mx-auto mt-2 h-1.5 w-[72%] rounded-full" style={{ background: `linear-gradient(90deg, rgba(255,255,255,.08), ${artifact.color}66, rgba(255,255,255,.08))` }} />
       </>
     );
   }
 
   if (artifact.kind === "transcript") {
+    const transcriptBars = [10,18,14,25,13,22,16,28,12,20,26,15,23,18,27,13,21,16,24,11,19,14];
     return (
       <>
         <div className="flex items-center gap-2 text-[10px] font-semibold text-white/90"><Phone size={13} color={artifact.color} /> Call transcript</div>
-        <div className="mt-4 flex h-[28px] items-center gap-[3px]">
-          {[8, 14, 11, 19, 10, 16, 8, 13, 18, 9, 14, 11, 17].map((h, i) => (
-            <span key={i} className="w-[2px] rounded-full" style={{ height: h, backgroundColor: i % 4 === 0 ? artifact.color : "rgba(255,255,255,.28)" }} />
+        <div className="mt-4 grid h-[32px] w-full grid-cols-[repeat(22,minmax(0,1fr))] items-center gap-[2px]">
+          {transcriptBars.map((height, index) => (
+            <span key={index} className="w-full rounded-full" style={{ height, backgroundColor: index % 4 === 0 ? artifact.color : "rgba(255,255,255,.28)" }} />
           ))}
         </div>
-        <div className="mt-3 h-1.5 w-[82%] rounded-full bg-white/[0.12]" />
+        <div className="mt-3 h-1.5 w-full rounded-full bg-white/[0.12]" />
       </>
     );
   }
@@ -314,9 +342,10 @@ function ArtifactSurface({ artifact }: { artifact: ContextArtifact }) {
     <>
       <div className="flex items-center gap-2 text-[10px] font-semibold text-white/90"><UserRound size={13} color={artifact.color} /> Contact record</div>
       <div className="mt-3 flex items-center gap-3">
-        <TinyPersonAvatar size={30} />
+        <RevenueAvatar size={32} cell={0} />
         <div className="flex-1">
-          <div className="h-1.5 w-[72%] rounded-full bg-white/[0.14]" />
+          <div className="h-1.5 w-[76%] rounded-full bg-white/[0.14]" />
+          <div className="mt-2 h-1.5 w-[54%] rounded-full bg-white/[0.08]" />
           <div className="mt-2 flex gap-1.5">
             {['IG', 'FB', 'Social'].map((chip) => (
               <span key={chip} className="rounded-full bg-[#28292D] px-2 py-0.5 text-[7px] text-white/50">{chip}</span>
@@ -335,11 +364,11 @@ function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
 
   const artifacts: ContextArtifact[] = [
     { kind: "conversation", color: ROSE, x: -174, y: -128, width: 180, height: 118 },
-    { kind: "quote", color: AMBER, x: 174, y: -128, width: 148, height: 108 },
-    { kind: "transcript", color: CORAL, x: -184, y: 0, width: 158, height: 104 },
-    { kind: "contact", color: PLUM, x: 184, y: 0, width: 164, height: 104 },
+    { kind: "quote", color: AMBER, x: 174, y: -128, width: 148, height: 112 },
+    { kind: "transcript", color: CORAL, x: -184, y: 0, width: 166, height: 108 },
+    { kind: "contact", color: PLUM, x: 184, y: 0, width: 168, height: 108 },
     { kind: "appointment", color: SAGE, x: -164, y: 126, width: 150, height: 106 },
-    { kind: "pipeline", color: CORAL, x: 164, y: 126, width: 160, height: 106 },
+    { kind: "pipeline", color: CORAL, x: 164, y: 126, width: 174, height: 110 },
   ];
 
   const isAbsorbed = (index: number) => {
