@@ -20,6 +20,8 @@ const CORAL = "#E97D62";
 const AMBER = "#DDA34B";
 const ROSE = "#C96C85";
 const SAGE = "#99A36D";
+const PLUM = "#9B86B8";
+const PETALS = [CORAL, ROSE, AMBER, SAGE, "#B98278", "#D58C75"];
 
 function useCycle(inView: boolean, reduced: boolean, count: number, ms: number, initial = 0) {
   const [index, setIndex] = useState(initial);
@@ -31,39 +33,39 @@ function useCycle(inView: boolean, reduced: boolean, count: number, ms: number, 
   return index;
 }
 
-function PulseMark() {
-  const petals = [
-    { color: CORAL, rotate: 0 },
-    { color: ROSE, rotate: 60 },
-    { color: AMBER, rotate: 120 },
-    { color: SAGE, rotate: 180 },
-    { color: "#B98278", rotate: 240 },
-    { color: "#D58C75", rotate: 300 },
-  ];
+function BrandMark({ size = 66, filled = 6 }: { size?: number; filled?: number }) {
+  const petalH = size * 0.54;
+  const petalW = size * 0.27;
+  const radius = size * 0.43;
 
   return (
-    <div className="relative h-[64px] w-[70px] shrink-0">
-      {petals.map((petal, index) => (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      {PETALS.map((color, index) => (
         <motion.span
-          key={petal.rotate}
-          className="absolute left-1/2 top-1/2 h-[35px] w-[18px] rounded-[999px_999px_999px_8px]"
+          key={color + index}
+          className="absolute left-1/2 top-1/2 rounded-[999px_999px_999px_10px] border"
           style={{
-            backgroundColor: petal.color,
-            marginLeft: -9,
-            marginTop: -31,
-            transformOrigin: "50% 31px",
-            opacity: 0.88,
-            boxShadow: `0 8px 22px ${petal.color}24`,
+            width: petalW,
+            height: petalH,
+            marginLeft: -petalW / 2,
+            marginTop: -radius,
+            transformOrigin: `50% ${radius}px`,
           }}
-          animate={{ rotate: [petal.rotate - 1.2, petal.rotate + 1.2, petal.rotate - 1.2] }}
-          transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.08 }}
+          animate={{
+            rotate: index * 60,
+            borderColor: index < filled ? `${color}AA` : "rgba(255,255,255,.16)",
+            backgroundColor: index < filled ? `${color}D0` : "rgba(255,255,255,.018)",
+            boxShadow: index < filled ? `0 6px 18px ${color}24` : "0 0 0 rgba(0,0,0,0)",
+          }}
+          transition={{ duration: 0.75, ease: EASE }}
         />
       ))}
       <img
         src="/concept/zapla-mark-white.png"
         alt=""
         aria-hidden="true"
-        className="absolute left-1/2 top-1/2 z-10 h-[34px] w-[40px] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_3px_10px_rgba(0,0,0,.28)]"
+        className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 object-contain"
+        style={{ width: size * 0.56, height: size * 0.46 }}
       />
     </div>
   );
@@ -71,17 +73,14 @@ function PulseMark() {
 
 function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boolean }) {
   const channels = [
-    { label: "SMS", icon: MessageSquareText, color: AMBER },
-    { label: "CALL", icon: Phone, color: CORAL },
-    { label: "EMAIL", icon: Mail, color: ROSE },
+    { label: "SMS", icon: MessageSquareText, color: AMBER, meta: "SMS conversation", quote: "“Just following up on the quote.”", tag: "AI Messaging" },
+    { label: "CALL", icon: Phone, color: CORAL, meta: "Call · 00:15", quote: "“We’d like to start in March.”", tag: "AI Voice" },
+    { label: "EMAIL", icon: Mail, color: ROSE, meta: "Email enquiry", quote: "“Can we lock in Thursday?”", tag: "AI Messaging" },
+    { label: "SOCIAL", icon: MessageSquareText, color: SAGE, meta: "Social enquiry", quote: "“Hi, do you service my area?”", tag: "AI Messaging" },
   ];
-  const active = useCycle(inView, reduced, 3, 3600, 1);
-  const bars = [28, 43, 34, 57, 41, 68, 46, 35, 61, 40, 55, 30, 48, 36, 52, 31, 44, 27];
-  const copy = active === 0
-    ? { meta: "SMS conversation", quote: "“Can we move the appointment?”", tag: "AI Messaging" }
-    : active === 1
-      ? { meta: "Call · 00:15", quote: "“We’d like to start in March.”", tag: "AI Voice" }
-      : { meta: "Email enquiry", quote: "“Can you resend the quote?”", tag: "AI Messaging" };
+  const active = useCycle(inView, reduced, channels.length, 3600, 1);
+  const current = channels[active];
+  const bars = [26, 40, 31, 55, 38, 63, 44, 34, 58, 41, 52, 29, 46, 35, 50, 30, 42];
 
   return (
     <div className="relative h-full px-6 py-7 lg:px-7">
@@ -90,25 +89,25 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
         Conversations
       </div>
 
-      <div className="mt-8 grid grid-cols-[64px_1fr] gap-4">
-        <div className="relative overflow-hidden rounded-[24px] border border-white/[0.10] bg-black/15 px-1.5 py-3">
+      <div className="mt-8 grid grid-cols-[58px_1fr] gap-4">
+        <div className="relative overflow-hidden rounded-[22px] border border-white/[0.10] bg-black/15 px-1.5 py-2">
           <motion.div
-            className="absolute left-1.5 right-1.5 h-[58px] rounded-[18px] border"
-            animate={{ y: active * 62 }}
+            className="absolute left-1.5 right-1.5 h-[52px] rounded-[16px] border"
+            animate={{ y: active * 54 }}
             transition={{ duration: 0.72, ease: EASE }}
             style={{
-              borderColor: `${channels[active].color}75`,
-              backgroundColor: `${channels[active].color}10`,
-              boxShadow: `0 0 26px ${channels[active].color}18`,
+              borderColor: `${current.color}72`,
+              backgroundColor: `${current.color}0E`,
+              boxShadow: `0 0 24px ${current.color}14`,
             }}
           />
           {channels.map((channel, index) => {
             const Icon = channel.icon;
-            const isActive = index === active;
+            const selected = index === active;
             return (
-              <div key={channel.label} className="relative z-10 flex h-[62px] flex-col items-center justify-center gap-1.5">
-                <Icon size={16} color={isActive ? channel.color : "rgba(255,255,255,.34)"} />
-                <span className="text-[9px] font-semibold tracking-[0.05em]" style={{ color: isActive ? "rgba(255,255,255,.92)" : "rgba(255,255,255,.32)" }}>
+              <div key={channel.label} className="relative z-10 flex h-[54px] flex-col items-center justify-center gap-1">
+                <Icon size={15} color={selected ? channel.color : "rgba(255,255,255,.30)"} />
+                <span className="text-[8px] font-semibold tracking-[0.04em]" style={{ color: selected ? "rgba(255,255,255,.92)" : "rgba(255,255,255,.29)" }}>
                   {channel.label}
                 </span>
               </div>
@@ -116,18 +115,18 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
           })}
         </div>
 
-        <div className="relative min-h-[300px] overflow-hidden rounded-[24px] border border-white/[0.11] bg-white/[0.045] p-5">
-          <div className="absolute inset-x-10 top-[92px] h-[90px] rounded-full blur-[36px]" style={{ background: `radial-gradient(ellipse, ${channels[active].color}24 0%, transparent 72%)` }} />
+        <div className="relative h-[320px] overflow-hidden rounded-[24px] border border-white/[0.11] bg-white/[0.045] p-5">
+          <div className="absolute inset-x-8 top-[84px] h-[105px] rounded-full blur-[38px]" style={{ background: `radial-gradient(ellipse, ${current.color}22 0%, transparent 72%)` }} />
 
           <div className="relative flex items-center justify-between gap-4">
             <div>
               <div className="text-[10px] font-semibold uppercase tracking-[0.13em] text-white/34">Live conversation</div>
-              <motion.div key={copy.meta} className="mt-1 text-[13px] font-medium text-white/66" animate={{ x: [-5, 0], opacity: [0.6, 1] }} transition={{ duration: 0.55, ease: EASE }}>
-                {copy.meta}
+              <motion.div key={current.meta} className="mt-1 text-[13px] font-medium text-white/68" animate={{ x: [-5, 0], opacity: [0.62, 1] }} transition={{ duration: 0.5, ease: EASE }}>
+                {current.meta}
               </motion.div>
             </div>
-            <motion.span key={copy.tag} className="rounded-full border border-white/[0.09] bg-white/[0.04] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.10em] text-white/46" animate={{ opacity: [0.65, 1] }} transition={{ duration: 0.5 }}>
-              {copy.tag}
+            <motion.span key={current.tag} className="rounded-full border border-white/[0.09] bg-white/[0.04] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.10em] text-white/48" animate={{ opacity: [0.7, 1] }} transition={{ duration: 0.45 }}>
+              {current.tag}
             </motion.span>
           </div>
 
@@ -136,20 +135,20 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
               <motion.span
                 key={index}
                 className="w-[3px] shrink-0 rounded-full"
-                style={{ backgroundColor: index % 5 === 0 ? channels[active].color : "rgba(255,255,255,.30)" }}
+                style={{ backgroundColor: index % 5 === 0 ? current.color : "rgba(255,255,255,.28)" }}
                 animate={inView && !reduced ? { height: [height * 0.58, height, height * 0.68] } : { height: height * 0.72 }}
                 transition={{ duration: 1.2, repeat: inView && !reduced ? Infinity : 0, delay: index * 0.04, ease: "easeInOut" }}
               />
             ))}
           </div>
 
-          <div className="relative mt-5 border-t border-white/[0.08] pt-5">
-            <motion.div key={copy.quote} className="max-w-[270px] text-[17px] font-medium leading-[1.45] text-white/94" animate={{ x: [-7, 0], opacity: [0.68, 1] }} transition={{ duration: 0.55, ease: EASE }}>
-              {copy.quote}
+          <div className="relative mt-4 border-t border-white/[0.08] pt-5">
+            <motion.div key={current.quote} className="max-w-[280px] text-[17px] font-medium leading-[1.45] text-white/94" animate={{ x: [-6, 0], opacity: [0.68, 1] }} transition={{ duration: 0.55, ease: EASE }}>
+              {current.quote}
             </motion.div>
             <div className="mt-4 flex items-center gap-2 text-[11px] text-white/48">
-              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: channels[active].color }} />
-              Context updated
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: current.color }} />
+              Captured as context
             </div>
           </div>
         </div>
@@ -158,80 +157,73 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
   );
 }
 
-function ContextPetal({ color, rotate, filled }: { color: string; rotate: number; filled: boolean }) {
-  return (
-    <motion.div
-      className="absolute left-1/2 top-1/2 h-[74px] w-[34px] rounded-[999px_999px_999px_13px] border"
-      style={{ marginLeft: -17, marginTop: -67, transformOrigin: "50% 67px" }}
-      animate={{
-        rotate,
-        borderColor: filled ? `${color}9A` : "rgba(255,255,255,.18)",
-        backgroundColor: filled ? `${color}70` : "rgba(255,255,255,.018)",
-        boxShadow: filled ? `0 8px 28px ${color}22` : "0 0 0 rgba(0,0,0,0)",
-      }}
-      transition={{ duration: 0.9, ease: EASE }}
-    />
-  );
-}
+type ContextArtifact = {
+  label: string;
+  detail: string;
+  icon: typeof MessageSquareText;
+  color: string;
+  x: number;
+  y: number;
+  width: number;
+};
 
 function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean }) {
-  const phase = useCycle(inView, reduced, 7, 1500, 0);
-  const absorbed = Math.min(phase, 4);
-  const signals = [
-    { label: "6 messages", icon: MessageSquareText, color: ROSE, x: -145, y: -102 },
-    { label: "$18k quote", icon: FileText, color: AMBER, x: 145, y: -102 },
-    { label: "4 days quiet", icon: Phone, color: CORAL, x: -145, y: 110 },
-    { label: "Thu 2:30", icon: CalendarDays, color: SAGE, x: 145, y: 110 },
+  const phase = useCycle(inView, reduced, 8, 1450, 0);
+  const absorbed = Math.min(phase, 6);
+  const artifacts: ContextArtifact[] = [
+    { label: "Conversation", detail: "6 messages", icon: MessageSquareText, color: ROSE, x: -170, y: -118, width: 126 },
+    { label: "Quote", detail: "$18k sent", icon: FileText, color: AMBER, x: 170, y: -118, width: 118 },
+    { label: "Calendar", detail: "Thu 2:30", icon: CalendarDays, color: SAGE, x: -178, y: 104, width: 120 },
+    { label: "Pipeline", detail: "Quote sent", icon: Send, color: CORAL, x: 178, y: 104, width: 120 },
+    { label: "Call transcript", detail: "Start in March", icon: Phone, color: CORAL, x: -186, y: -8, width: 138 },
+    { label: "Contact record", detail: "Social lead", icon: Mail, color: PLUM, x: 186, y: -8, width: 132 },
   ];
 
   return (
-    <div className="relative h-full min-h-[455px] overflow-hidden border-x border-white/[0.085] px-6 py-7">
-      <div className="text-[18px] font-medium text-white/86">Context</div>
+    <div className="relative h-full overflow-hidden border-x border-white/[0.085] px-6 py-7">
+      <div className="flex items-center gap-2.5 text-[18px] font-medium text-white/86">
+        <img src="/concept/zapla-mark-white.png" alt="" aria-hidden="true" className="h-[20px] w-[24px] object-contain opacity-95" />
+        Context
+      </div>
 
-      <div className="absolute left-1/2 top-[54%] h-[330px] w-[430px] -translate-x-1/2 -translate-y-1/2">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[250px] w-[250px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.04]" />
+      <div className="absolute left-1/2 top-[54%] h-[390px] w-[520px] -translate-x-1/2 -translate-y-1/2">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[282px] w-[282px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.035]" />
 
-        <div className="absolute left-1/2 top-1/2 h-[190px] w-[190px] -translate-x-1/2 -translate-y-1/2">
-          <ContextPetal color={ROSE} rotate={0} filled={absorbed >= 1} />
-          <ContextPetal color={AMBER} rotate={90} filled={absorbed >= 2} />
-          <ContextPetal color={SAGE} rotate={180} filled={absorbed >= 4} />
-          <ContextPetal color={CORAL} rotate={270} filled={absorbed >= 3} />
-          <div className="absolute left-1/2 top-1/2 z-20 flex h-[72px] w-[84px] -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-            <img src="/concept/zapla-mark-white.png" alt="" aria-hidden="true" className="h-[54px] w-[64px] object-contain opacity-95" />
-          </div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <BrandMark size={154} filled={absorbed} />
         </div>
 
-        {signals.map((signal, index) => {
-          const Icon = signal.icon;
+        {artifacts.map((artifact, index) => {
+          const Icon = artifact.icon;
           const isAbsorbed = index < absorbed;
-          const isCurrent = index === absorbed && absorbed < 4;
+          const isCurrent = index === absorbed && absorbed < 6;
           return (
             <motion.div
-              key={signal.label}
-              className="absolute left-1/2 top-1/2 flex items-center gap-2 rounded-full border px-3.5 py-2.5 text-[12px] font-medium"
-              initial={false}
+              key={artifact.label}
+              className="absolute left-1/2 top-1/2 rounded-[18px] border bg-white/[0.035] px-3 py-2.5"
+              style={{ width: artifact.width, marginLeft: -artifact.width / 2, marginTop: -26 }}
               animate={{
-                x: isAbsorbed ? 0 : signal.x,
-                y: isAbsorbed ? 0 : signal.y,
-                scale: isAbsorbed ? 0.7 : isCurrent ? 1.03 : 1,
-                opacity: isAbsorbed ? 0 : isCurrent ? 1 : 0.66,
-                borderColor: isCurrent ? `${signal.color}70` : "rgba(255,255,255,.11)",
-                backgroundColor: isCurrent ? `${signal.color}10` : "rgba(255,255,255,.035)",
-                boxShadow: isCurrent ? `0 0 22px ${signal.color}12` : "none",
+                x: isAbsorbed ? 0 : artifact.x,
+                y: isAbsorbed ? 0 : artifact.y,
+                scale: isAbsorbed ? 0.54 : isCurrent ? 1.03 : 1,
+                opacity: isAbsorbed ? 0 : isCurrent ? 1 : 0.62,
+                borderColor: isCurrent ? `${artifact.color}70` : "rgba(255,255,255,.11)",
+                boxShadow: isCurrent ? `0 0 20px ${artifact.color}12` : "none",
               }}
               transition={{ duration: isAbsorbed ? 0.95 : 0.7, ease: EASE }}
-              style={{ marginLeft: -62, marginTop: -21, color: isCurrent ? "rgba(255,255,255,.94)" : "rgba(255,255,255,.66)" }}
             >
-              <Icon size={14} color={signal.color} />
-              {signal.label}
+              <div className="flex items-center gap-2">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[10px] border border-white/[0.08] bg-black/15">
+                  <Icon size={13} color={artifact.color} />
+                </span>
+                <div className="min-w-0">
+                  <div className="truncate text-[10px] font-semibold text-white/86">{artifact.label}</div>
+                  <div className="mt-0.5 truncate text-[9px] text-white/38">{artifact.detail}</div>
+                </div>
+              </div>
             </motion.div>
           );
         })}
-
-        <motion.div className="absolute left-1/2 top-[76%] -translate-x-1/2 text-center" animate={{ opacity: absorbed === 4 ? 1 : 0.42, y: absorbed === 4 ? 0 : 4 }} transition={{ duration: 0.7, ease: EASE }}>
-          <div className="text-[16px] font-semibold text-white/92">Sarah Nguyen</div>
-          <div className="mt-1 text-[11px] text-white/42">Bathroom renovation</div>
-        </motion.div>
       </div>
     </div>
   );
@@ -251,7 +243,7 @@ function AIAgentVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
     { name: "No Show Follow Up", color: AMBER },
     { name: "Social Follow Up", color: ROSE },
     { name: "Sales Follow Up", color: SAGE },
-    { name: "Lead Scoring", color: "#9B86B8" },
+    { name: "Lead Scoring", color: PLUM },
     { name: "Custom Follow Up", color: AMBER },
   ];
   const active = useCycle(inView, reduced, agents.length, 2500, 0);
@@ -271,9 +263,9 @@ function AIAgentVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
         AI Agent
       </div>
 
-      <div className="relative mt-8 h-[330px] overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-14 bg-gradient-to-b from-[#18191C] to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-14 bg-gradient-to-t from-[#18191C] to-transparent" />
+      <div className="relative mt-10 h-[330px] overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-16 bg-gradient-to-b from-[#18191C] to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-16 bg-gradient-to-t from-[#18191C] to-transparent" />
 
         {agents.map((agent, index) => {
           const delta = signedDelta(index);
@@ -284,10 +276,10 @@ function AIAgentVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
               key={agent.name}
               className="absolute left-1/2 top-1/2 flex h-[66px] w-[88%] -translate-x-1/2 items-center gap-3 rounded-[22px] border px-4"
               animate={{
-                y: delta * 44 - 33,
+                y: delta * 48 - 33,
                 x: distance * 10,
                 scale: delta === 0 ? 1 : 0.95 - distance * 0.018,
-                opacity: visible ? (delta === 0 ? 1 : 0.48 - distance * 0.10) : 0,
+                opacity: visible ? (delta === 0 ? 1 : 0.48 - distance * 0.1) : 0,
                 borderColor: delta === 0 ? `${agent.color}8A` : "rgba(255,255,255,.09)",
                 backgroundColor: delta === 0 ? `${agent.color}12` : "rgba(255,255,255,.026)",
                 boxShadow: delta === 0 ? `0 16px 34px rgba(0,0,0,.30), 0 0 24px ${agent.color}16` : "0 10px 24px rgba(0,0,0,.18)",
@@ -299,7 +291,14 @@ function AIAgentVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
               <span className="min-w-0 flex-1 truncate text-[12px] font-medium" style={{ color: delta === 0 ? "rgba(255,255,255,.97)" : "rgba(255,255,255,.58)" }}>
                 {agent.name}
               </span>
-              <span className="h-5 w-5 shrink-0 rounded-full border" style={{ borderColor: delta === 0 ? agent.color : "rgba(255,255,255,.16)", boxShadow: delta === 0 ? `inset 0 0 0 4px #18191C, 0 0 0 1px ${agent.color}, 0 0 14px ${agent.color}35` : "none", backgroundColor: delta === 0 ? agent.color : "transparent" }} />
+              <span
+                className="h-5 w-5 shrink-0 rounded-full border"
+                style={{
+                  borderColor: delta === 0 ? agent.color : "rgba(255,255,255,.16)",
+                  boxShadow: delta === 0 ? `inset 0 0 0 4px #18191C, 0 0 0 1px ${agent.color}, 0 0 14px ${agent.color}35` : "none",
+                  backgroundColor: delta === 0 ? agent.color : "transparent",
+                }}
+              />
             </motion.div>
           );
         })}
@@ -310,10 +309,13 @@ function AIAgentVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
 
 function DesktopStage({ inView, reduced }: { inView: boolean; reduced: boolean }) {
   return (
-    <div className="relative hidden overflow-hidden rounded-[34px] border border-white/[0.15] lg:grid lg:grid-cols-[0.88fr_1.28fr_0.92fr]" style={{ backgroundColor: STAGE, boxShadow: "0 30px 100px rgba(0,0,0,.30)" }}>
-      <div className="relative z-10"><ConversationVisual inView={inView} reduced={reduced} /></div>
-      <div className="relative z-10"><ContextVisual inView={inView} reduced={reduced} /></div>
-      <div className="relative z-10"><AIAgentVisual inView={inView} reduced={reduced} /></div>
+    <div
+      className="relative hidden h-[500px] overflow-hidden rounded-[34px] border border-white/[0.16] lg:grid lg:grid-cols-[0.84fr_1.34fr_0.92fr]"
+      style={{ backgroundColor: STAGE, boxShadow: "0 30px 100px rgba(0,0,0,.30)" }}
+    >
+      <ConversationVisual inView={inView} reduced={reduced} />
+      <ContextVisual inView={inView} reduced={reduced} />
+      <AIAgentVisual inView={inView} reduced={reduced} />
     </div>
   );
 }
@@ -322,8 +324,8 @@ function MobileStage({ inView, reduced }: { inView: boolean; reduced: boolean })
   return (
     <div className="space-y-3 lg:hidden">
       <div className="overflow-hidden rounded-[24px] border border-white/[0.13]" style={{ backgroundColor: STAGE }}><ConversationVisual inView={inView} reduced={reduced} /></div>
-      <div className="overflow-hidden rounded-[24px] border border-white/[0.13]" style={{ backgroundColor: STAGE }}><ContextVisual inView={inView} reduced={reduced} /></div>
-      <div className="overflow-hidden rounded-[24px] border border-white/[0.13]" style={{ backgroundColor: STAGE }}><AIAgentVisual inView={inView} reduced={reduced} /></div>
+      <div className="h-[470px] overflow-hidden rounded-[24px] border border-white/[0.13]" style={{ backgroundColor: STAGE }}><ContextVisual inView={inView} reduced={reduced} /></div>
+      <div className="h-[430px] overflow-hidden rounded-[24px] border border-white/[0.13]" style={{ backgroundColor: STAGE }}><AIAgentVisual inView={inView} reduced={reduced} /></div>
     </div>
   );
 }
@@ -338,9 +340,9 @@ export function ZaplaAIConversationsV6() {
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
         <header className="mx-auto max-w-[980px] text-center">
           <div className="flex items-center justify-center gap-3.5">
-            <PulseMark />
+            <BrandMark size={68} filled={6} />
             <span className="text-[26px] font-semibold tracking-[-0.035em] text-white sm:text-[30px]">
-              ZAPLA{" "}<span style={{ color: CORAL, textShadow: `0 0 18px ${CORAL}30` }}>AI</span>
+              ZAPLA <span style={{ color: CORAL, textShadow: `0 0 18px ${CORAL}30` }}>AI</span>
             </span>
           </div>
 
@@ -352,9 +354,10 @@ export function ZaplaAIConversationsV6() {
           </p>
         </header>
 
-        <div className="pointer-events-none absolute left-1/2 top-[305px] h-[245px] w-[900px] -translate-x-1/2 rounded-full blur-[80px]" style={{ background: `radial-gradient(ellipse, ${CORAL}28 0%, ${ROSE}18 36%, ${AMBER}0D 56%, transparent 74%)` }} />
+        <div className="pointer-events-none absolute left-1/2 top-[310px] h-[250px] w-[1020px] -translate-x-1/2 rounded-[50%] blur-[62px]" style={{ background: `radial-gradient(ellipse at center, ${CORAL}32 0%, ${ROSE}20 34%, ${AMBER}10 54%, transparent 76%)` }} />
+        <div className="pointer-events-none absolute left-1/2 top-[382px] h-[120px] w-[760px] -translate-x-1/2 rounded-[50%] blur-[38px]" style={{ background: `radial-gradient(ellipse at center, rgba(255,255,255,.055) 0%, ${CORAL}16 36%, transparent 74%)` }} />
 
-        <div className="relative mt-12 sm:mt-14 lg:mt-16">
+        <div className="relative mt-14 sm:mt-16 lg:mt-20">
           <DesktopStage inView={inView} reduced={reduced} />
           <MobileStage inView={inView} reduced={reduced} />
         </div>
