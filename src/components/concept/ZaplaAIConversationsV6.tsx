@@ -101,10 +101,19 @@ function channelDelta(index: number, active: number, count: number) {
 }
 
 function TerritoryHeading({ icon, label, color }: { icon: React.ReactNode; label: string; color: string }) {
+  const subtitle = {
+    Conversations: "Every interaction, captured.",
+    Context: "Everything it needs to know.",
+    "AI Agent": "The right follow-up, handled.",
+  }[label];
+
   return (
-    <div className="flex items-center justify-center gap-2.5 text-[18px] font-medium text-white/90">
-      <span style={{ color }}>{icon}</span>
-      {label}
+    <div className="text-center">
+      <div className="flex items-center justify-center gap-2.5 text-[18px] font-medium text-white/90">
+        <span style={{ color }}>{icon}</span>
+        {label}
+      </div>
+      {subtitle && <div className="mt-1.5 text-[11px] leading-none text-white/38">{subtitle}</div>}
     </div>
   );
 }
