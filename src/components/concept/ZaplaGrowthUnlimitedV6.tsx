@@ -44,65 +44,73 @@ export function ZaplaGrowthV6() {
   );
 }
 
-type TeamMemberProps = {
+type UnlimitedTeamMember = {
   label: string;
   cell: number;
   bg: string;
-  className: string;
-  delay: number;
+  labelColor: string;
 };
 
-function TeamMember({ label, cell, bg, className, delay }: TeamMemberProps) {
-  const reduced = !!useReducedMotion();
+const UNLIMITED_TEAM: UnlimitedTeamMember[] = [
+  { label: "Owner", cell: 7, bg: "#C89A5D", labelColor: "#DDA34B" },
+  { label: "Front desk", cell: 4, bg: "#BF7458", labelColor: "#E97D62" },
+  { label: "Sales", cell: 16, bg: "#85845D", labelColor: "#A8AD73" },
+  { label: "Marketing", cell: 13, bg: "#D69672", labelColor: "#E9A06F" },
+  { label: "Accounts", cell: 20, bg: "#B59672", labelColor: "#CFA379" },
+  { label: "Operations", cell: 10, bg: "#8E657A", labelColor: "#C887A1" },
+];
+
+function portraitPosition(cell: number) {
   const column = cell % 6;
   const row = Math.floor(cell / 6);
-  const backgroundPosition = `${(column / 5) * 100}% ${(row / 3) * 100}%`;
+  return `${(column / 5) * 100}% ${(row / 3) * 100}%`;
+}
 
+function HumanAvatar({ member, index }: { member: UnlimitedTeamMember; index: number }) {
   return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, scale: 0.92, y: 10 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.45 }}
-      transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : delay, ease: EASE }}
-      className={`absolute z-30 flex items-center gap-3 ${className}`}
-    >
+    <div className={`relative shrink-0 text-center ${index === 0 ? "" : "-ml-7 sm:-ml-9 lg:-ml-11"}`} style={{ zIndex: 20 - index }}>
       <div
-        className="h-14 w-14 shrink-0 rounded-full border border-white/12 shadow-[0_12px_34px_rgba(0,0,0,.22)]"
+        className="h-[108px] w-[108px] rounded-full border-2 border-[#1E2B29] shadow-[0_18px_42px_rgba(0,0,0,.18)] sm:h-[132px] sm:w-[132px] lg:h-[156px] lg:w-[156px]"
         style={{
-          backgroundColor: bg,
+          backgroundColor: member.bg,
           backgroundImage: `url(${PORTRAIT_SHEET})`,
-          backgroundPosition,
+          backgroundPosition: portraitPosition(member.cell),
           backgroundRepeat: "no-repeat",
           backgroundSize: "600% 400%",
         }}
       />
-      <span className="whitespace-nowrap rounded-[8px] border border-white/10 bg-[#14201F]/90 px-3 py-2 text-[10px] font-semibold text-[#F7F1E8] shadow-[0_10px_28px_rgba(0,0,0,.2)] backdrop-blur-sm">
-        {label}
-      </span>
-    </motion.div>
+      <div className="mt-4 text-[12px] font-semibold sm:text-[14px] lg:text-[16px]" style={{ color: member.labelColor }}>
+        {member.label}
+      </div>
+    </div>
   );
 }
 
-const TEAM = [
-  { label: "Owner", cell: 7, bg: "#C89A5D", className: "left-[2%] top-[43%]", delay: 0.06 },
-  { label: "Marketing", cell: 13, bg: "#BF7458", className: "left-[49%] top-[18%]", delay: 0.12 },
-  { label: "Front desk", cell: 4, bg: "#D69672", className: "right-[1%] top-[31%]", delay: 0.18 },
-  { label: "Sales", cell: 16, bg: "#85845D", className: "left-[24%] bottom-[2%]", delay: 0.24 },
-  { label: "Accounts", cell: 20, bg: "#B59672", className: "right-[12%] bottom-[1%]", delay: 0.3 },
-] as const;
+function GhostAvatar({ index }: { index: number }) {
+  const size = [126, 112, 98, 84, 70][index] ?? 70;
+  const opacity = [0.24, 0.19, 0.14, 0.10, 0.07][index] ?? 0.07;
+
+  return (
+    <div
+      className="relative -ml-8 shrink-0 rounded-full border border-white/[0.06] bg-white/[0.04]"
+      style={{ width: size, height: size, opacity }}
+      aria-hidden="true"
+    >
+      <div className="absolute left-1/2 top-[26%] h-[27%] w-[27%] -translate-x-1/2 rounded-full bg-white/35" />
+      <div className="absolute bottom-[18%] left-1/2 h-[36%] w-[55%] -translate-x-1/2 rounded-t-[999px] bg-white/30" />
+    </div>
+  );
+}
 
 export function ZaplaUnlimitedV6() {
   return (
-    <section className="relative min-h-[920px] overflow-hidden bg-[#1E2B29] px-5 py-24 text-[#F7F2EA] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+    <section className="relative min-h-[900px] overflow-hidden bg-[#1E2B29] px-5 py-24 text-[#F7F2EA] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div
         className="pointer-events-none absolute -left-8 top-3 whitespace-nowrap text-[36vw] leading-[.8] tracking-[-0.085em] text-[#31403D] sm:text-[245px]"
         style={{ fontFamily: DISPLAY, fontWeight: 500 }}
       >
         UNLIMITED
       </div>
-
-      <div className="pointer-events-none absolute -left-[15%] bottom-[-32%] h-[620px] w-[620px] rounded-full border border-[#DDA34B]/[0.07]" aria-hidden="true" />
-      <div className="pointer-events-none absolute -left-[8%] bottom-[-28%] h-[500px] w-[500px] rounded-full border border-[#DDA34B]/[0.06]" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-[1440px]">
         <Reveal className="relative z-10 max-w-[850px]">
@@ -111,58 +119,35 @@ export function ZaplaUnlimitedV6() {
             className="mt-5 text-[48px] leading-[0.92] tracking-[-0.06em] text-[#F7F2EA] sm:text-[68px] lg:text-[84px]"
             style={{ fontFamily: DISPLAY, fontWeight: 500 }}
           >
-            Grow your team.<br />Not your software bill.
+            Grow your team.<br />
+            <span className="text-[#E97D62]">Not your software bill.</span>
           </h2>
           <p className="mt-6 max-w-[650px] text-[17px] leading-[1.65] text-[#B8C0BC] sm:text-[19px]">
             <span className="font-semibold text-[#F7F2EA]">Unlimited users. No per-seat fees.</span> Add everyone who needs Zapla without paying more for every person you add.
           </p>
         </Reveal>
 
-        <div className="relative mt-16 min-h-[560px] sm:mt-20 lg:min-h-[575px]">
-          <Reveal delay={0.08} className="relative z-10 mx-auto max-w-[820px] rounded-[22px] border border-white/[0.12] bg-[#13201F]/80 px-7 py-8 text-[#F7F2EA] shadow-[0_34px_100px_rgba(0,0,0,.24)] backdrop-blur-sm lg:ml-auto lg:mr-[4%] lg:px-10 lg:py-9">
-            <div className="flex items-center gap-4 border-b border-white/10 pb-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#D69672] text-[10px] font-bold text-[#1A2422]">SM</div>
-              <div>
-                <div className="text-[22px] font-semibold">Sarah Miller</div>
-                <div className="mt-1 text-[10px] text-white/42">Customer since May · 2 bookings · $1,680 lifetime value</div>
+        <div className="relative z-10 mt-16 sm:mt-20 lg:mt-24">
+          <div className="overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex min-w-max items-center pl-1 pr-4 sm:pl-2 lg:justify-center lg:px-0">
+              {UNLIMITED_TEAM.map((member, index) => (
+                <HumanAvatar key={member.label} member={member} index={index} />
+              ))}
+
+              <div className="ml-3 flex items-center sm:ml-5 lg:ml-7">
+                {[0, 1, 2, 3, 4].map((index) => <GhostAvatar key={index} index={index} />)}
+                <div className="ml-5 whitespace-nowrap text-[22px] font-medium tracking-[-0.025em] text-[#F7F2EA] sm:text-[26px] lg:text-[30px]">
+                  + unlimited
+                </div>
               </div>
             </div>
-            <div className="grid gap-7 pt-7 sm:grid-cols-[1.15fr_.85fr]">
-              <div>
-                {[["Conversation","“Thursday morning works.”"],["Opportunity","Service booked · won"],["Last campaign","90-day reactivation · replied"]].map(([label,value])=><div key={label} className="border-t border-white/10 py-4 first:border-t-0 first:pt-0"><div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/34">{label}</div><div className="mt-2 text-[16px] font-semibold sm:text-[18px]">{value}</div></div>)}
-              </div>
-              <div>
-                {[["Owner","Front desk"],["Appointment","Thu · 10:30 AM"],["Next step","Review request · tomorrow"]].map(([label,value])=><div key={label} className="border-t border-white/10 py-4 first:border-t-0 first:pt-0"><div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/34">{label}</div><div className="mt-2 text-[16px] font-semibold sm:text-[18px]">{value}</div></div>)}
-              </div>
-            </div>
-          </Reveal>
-
-          <div className="hidden lg:block">
-            {TEAM.map((member) => <TeamMember key={member.label} {...member} />)}
-          </div>
-
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-5 lg:hidden">
-            {TEAM.map((member) => (
-              <div key={member.label} className="flex flex-col items-center gap-2 rounded-[14px] border border-white/10 bg-white/[0.04] px-3 py-4 text-center">
-                <div
-                  className="h-12 w-12 rounded-full border border-white/10"
-                  style={{
-                    backgroundColor: member.bg,
-                    backgroundImage: `url(${PORTRAIT_SHEET})`,
-                    backgroundPosition: `${((member.cell % 6) / 5) * 100}% ${(Math.floor(member.cell / 6) / 3) * 100}%`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "600% 400%",
-                  }}
-                />
-                <span className="text-[10px] font-semibold text-[#F7F2EA]">{member.label}</span>
-              </div>
-            ))}
           </div>
         </div>
 
-        <div className="relative z-10 mt-8 flex flex-col gap-2 border-t border-white/10 pt-7 sm:flex-row sm:items-center sm:justify-between">
-          <div className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[#DDA34B]">Unlimited users included</div>
-          <div className="text-[16px] font-medium text-[#F7F2EA]">One platform. Your whole team.</div>
+        <div className="relative z-10 mx-auto mt-16 flex max-w-[980px] flex-col items-center justify-center gap-5 border-t border-white/10 pt-8 text-center sm:flex-row sm:gap-10 lg:mt-20">
+          <div className="text-[17px] font-semibold text-[#F7F2EA] sm:text-[19px]">Unlimited users included</div>
+          <div className="hidden h-7 w-px bg-white/14 sm:block" aria-hidden="true" />
+          <div className="text-[17px] font-semibold text-[#F7F2EA] sm:text-[19px]">No per-seat fees</div>
         </div>
       </div>
     </section>
