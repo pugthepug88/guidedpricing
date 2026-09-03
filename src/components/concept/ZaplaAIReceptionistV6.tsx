@@ -220,15 +220,21 @@ export function ZaplaAIReceptionistV6() {
 
         <div className="relative mx-auto mt-20 max-w-[980px] overflow-hidden px-5 py-16 text-center sm:mt-24 sm:py-20 lg:mt-28 lg:py-24">
           <div
-            className="pointer-events-none absolute left-1/2 bottom-[-72px] h-[260px] w-[900px] -translate-x-1/2 rounded-[50%] blur-[64px]"
+            className="pointer-events-none absolute bottom-[-120px] right-[-120px] h-[430px] w-[500px] rounded-[50%] blur-[72px]"
             style={{
-              background: `radial-gradient(circle at 36% 58%, ${CORAL}34 0%, transparent 24%), radial-gradient(circle at 50% 48%, ${AMBER}22 0%, transparent 28%), radial-gradient(circle at 64% 58%, ${ROSE}2C 0%, transparent 24%), radial-gradient(circle at 52% 68%, ${PLUM}18 0%, transparent 30%)`,
+              background: `radial-gradient(circle at 48% 42%, ${CORAL}2A 0%, transparent 30%), radial-gradient(circle at 64% 58%, ${ROSE}24 0%, transparent 36%), radial-gradient(circle at 38% 68%, ${AMBER}18 0%, transparent 34%)`,
             }}
           />
-          <div className="pointer-events-none absolute left-1/2 bottom-[-68px] -translate-x-1/2 opacity-[0.075]" aria-hidden="true">
-            <PetalFlower size={240} />
+          <div className="pointer-events-none absolute bottom-[-150px] right-[-112px] h-[390px] w-[390px] opacity-[0.24]" aria-hidden="true">
+            <span className="absolute bottom-[114px] left-[42px] h-[178px] w-[116px] rotate-[48deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${PLUM}B8, ${ROSE}58)` }} />
+            <span className="absolute bottom-[150px] left-[142px] h-[202px] w-[126px] rotate-[18deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${ROSE}C8, ${CORAL}70)` }} />
+            <span className="absolute bottom-[98px] left-[235px] h-[194px] w-[122px] -rotate-[24deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${CORAL}C4, ${AMBER}62)` }} />
+            <span className="absolute bottom-[18px] left-[210px] h-[168px] w-[120px] -rotate-[66deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${AMBER}A8, ${APRICOT}58)` }} />
+            <span className="absolute bottom-[2px] left-[94px] h-[170px] w-[120px] rotate-[84deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${APRICOT}82, ${PLUM}4A)` }} />
+            <span className="absolute bottom-[88px] left-[166px] h-[46px] w-[46px] rounded-full bg-[#141518]/95 shadow-[0_0_30px_rgba(0,0,0,.35)]" />
           </div>
-          <div className="pointer-events-none absolute left-1/2 bottom-[6px] h-[104px] w-[520px] -translate-x-1/2 rounded-[50%] border border-white/[0.035]" />
+          <div className="pointer-events-none absolute bottom-[-22px] left-[9%] h-[150px] w-[520px] rounded-[50%] blur-[64px]" style={{ background: `radial-gradient(ellipse at center, ${CORAL}16 0%, ${ROSE}0D 42%, transparent 72%)` }} />
+
           <div className="relative z-10">
             <h3 className="mx-auto max-w-[760px] text-[36px] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-[46px] lg:text-[54px]">
               AI that actually follows through.
