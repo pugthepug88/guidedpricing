@@ -251,11 +251,7 @@ function StoryPanel({ story, index, reduced }: { story: Story; index: number; re
       className="relative mb-8 lg:sticky lg:top-[92px] lg:mb-[14vh] lg:h-[calc(100vh-116px)] lg:min-h-[650px] lg:max-h-[860px]"
       style={{ zIndex: 10 + index }}
     >
-      <motion.article
-        initial={reduced ? false : { opacity: 0.85, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.18 }}
-        transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
+      <article
         className="relative min-h-[760px] overflow-hidden rounded-[28px] border border-black/[0.06] px-7 py-9 shadow-[0_24px_70px_rgba(28,25,30,.08)] sm:px-10 sm:py-11 lg:h-full lg:min-h-0 lg:px-[60px] lg:py-[54px]"
         style={{ backgroundColor: story.bg }}
       >
@@ -285,7 +281,7 @@ function StoryPanel({ story, index, reduced }: { story: Story; index: number; re
             {story.key === "reputation" && <ReputationVisual story={story} reduced={reduced} />}
           </div>
         </div>
-      </motion.article>
+      </article>
     </div>
   );
 }
