@@ -62,9 +62,20 @@ function PetalFlower({ size = 82 }: { size?: number }) {
   );
 }
 
+function HoverTrace({ color = CORAL, radius = 30 }: { color?: string; radius?: number }) {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-40 overflow-hidden" style={{ borderRadius: radius }} aria-hidden="true">
+      <span className="absolute left-8 right-8 top-0 h-px origin-left scale-x-0 transition-transform duration-700 ease-out group-hover:scale-x-100" style={{ background: `linear-gradient(90deg, transparent, ${color}B8 34%, ${AMBER}86 68%, transparent)` }} />
+      <span className="absolute bottom-8 right-0 top-8 w-px origin-top scale-y-0 transition-transform duration-700 delay-150 ease-out group-hover:scale-y-100" style={{ background: `linear-gradient(180deg, transparent, ${ROSE}92 44%, ${color}82, transparent)` }} />
+      <span className="absolute bottom-0 left-8 right-8 h-px origin-right scale-x-0 transition-transform duration-700 delay-300 ease-out group-hover:scale-x-100" style={{ background: `linear-gradient(270deg, transparent, ${AMBER}78 34%, ${PLUM}72 68%, transparent)` }} />
+      <span className="absolute bottom-8 left-0 top-8 w-px origin-bottom scale-y-0 transition-transform duration-700 delay-[450ms] ease-out group-hover:scale-y-100" style={{ background: `linear-gradient(0deg, transparent, ${color}7E 44%, ${AMBER}68, transparent)` }} />
+    </div>
+  );
+}
+
 function Capability({ icon, label, color }: { icon: React.ReactNode; label: string; color: string }) {
   return (
-    <div className="flex items-center gap-2.5 rounded-full border border-white/[0.09] bg-white/[0.025] px-3.5 py-2 text-[11px] font-medium text-white/72">
+    <div className="flex items-center gap-2.5 rounded-full border border-white/[0.09] bg-white/[0.025] px-3.5 py-2 text-[11px] font-medium text-white/72 transition-[border-color,background-color,box-shadow] duration-300 hover:border-white/[0.16] hover:bg-white/[0.04] hover:shadow-[0_0_18px_rgba(233,125,98,.06)]">
       <span style={{ color }}>{icon}</span>
       {label}
     </div>
@@ -92,8 +103,14 @@ function Waveform() {
 
 function OutcomeCard({ icon, title, detail, color, children }: { icon: React.ReactNode; title: string; detail?: string; color: string; children?: React.ReactNode }) {
   return (
-    <div
+    <motion.div
       className="rounded-[17px] border px-3.5 py-3"
+      whileHover={{
+        y: -2,
+        borderColor: `${color}68`,
+        boxShadow: `inset 0 1px 0 rgba(255,255,255,.05), 0 12px 30px rgba(0,0,0,.18), 0 0 22px ${color}15`,
+      }}
+      transition={{ duration: 0.28, ease: EASE }}
       style={{
         borderColor: `${color}35`,
         background: `linear-gradient(180deg, ${color}0D, rgba(255,255,255,.025))`,
@@ -110,7 +127,7 @@ function OutcomeCard({ icon, title, detail, color, children }: { icon: React.Rea
         </div>
       </div>
       {children}
-    </div>
+    </motion.div>
   );
 }
 
@@ -121,13 +138,15 @@ export function ZaplaAIReceptionistV6() {
     <section className="relative -mt-16 overflow-hidden pb-24 sm:-mt-20 sm:pb-28 lg:-mt-24 lg:pb-32" style={{ backgroundColor: BG, fontFamily: DISPLAY }}>
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
         <div
-          className="relative overflow-hidden rounded-[30px] border border-white/[0.14] px-6 py-7 sm:px-8 sm:py-9 lg:grid lg:min-h-[326px] lg:grid-cols-[0.90fr_1.10fr] lg:items-center lg:gap-10 lg:px-12 lg:py-10"
+          className="group relative overflow-hidden rounded-[30px] border border-white/[0.14] px-6 py-7 transition-[border-color,box-shadow] duration-500 hover:border-white/[0.19] hover:shadow-[0_28px_100px_rgba(0,0,0,.28),0_0_38px_rgba(233,125,98,.07)] sm:px-8 sm:py-9 lg:grid lg:min-h-[326px] lg:grid-cols-[0.90fr_1.10fr] lg:items-center lg:gap-10 lg:px-12 lg:py-10"
           style={{
             background: `radial-gradient(circle at 72% 44%, ${CORAL}12 0%, transparent 29%), radial-gradient(circle at 86% 72%, ${ROSE}0E 0%, transparent 28%), linear-gradient(180deg, #191A1E, #16171A)`,
             boxShadow: "0 28px 90px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.035)",
           }}
         >
-          <div className="pointer-events-none absolute left-[11%] top-0 h-px w-[32%] bg-gradient-to-r from-transparent via-[#E97D62]/55 to-transparent" />
+          <HoverTrace radius={30} />
+          <div className="pointer-events-none absolute left-[9%] top-0 z-30 h-px w-[21%] bg-gradient-to-r from-transparent via-[#E97D62]/38 to-transparent" />
+          <div className="pointer-events-none absolute right-[10%] top-0 z-30 h-px w-[18%] bg-gradient-to-r from-transparent via-[#C96C85]/26 to-transparent" />
           <div className="pointer-events-none absolute right-[8%] top-[16%] h-40 w-72 rounded-full bg-[#E97D62]/[0.06] blur-[50px]" />
 
           <div className="relative z-10 max-w-[590px]">
@@ -164,7 +183,7 @@ export function ZaplaAIReceptionistV6() {
               <path d="M318 122 C362 122 386 204 440 204" fill="none" stroke="rgba(201,108,133,.27)" strokeWidth="1.2" strokeLinecap="round" />
             </svg>
 
-            <div className="absolute left-0 top-1/2 w-[150px] -translate-y-1/2 rounded-[20px] border border-white/[0.10] bg-[#1E1F23]/95 p-4 shadow-[0_18px_45px_rgba(0,0,0,.22)] sm:w-[165px]">
+            <div className="absolute left-0 top-1/2 w-[150px] -translate-y-1/2 rounded-[20px] border border-white/[0.10] bg-[#1E1F23]/95 p-4 shadow-[0_18px_45px_rgba(0,0,0,.22)] transition-[border-color,box-shadow] duration-300 hover:border-[#E97D62]/35 hover:shadow-[0_18px_46px_rgba(0,0,0,.24),0_0_20px_rgba(233,125,98,.08)] sm:w-[165px]">
               <div className="flex items-center gap-2 text-[9px] font-medium text-white/56"><Phone size={12} color={CORAL} /> Incoming call</div>
               <div className="mt-4 flex items-center gap-3">
                 <RevenueAvatar size={45} cell={0} />
