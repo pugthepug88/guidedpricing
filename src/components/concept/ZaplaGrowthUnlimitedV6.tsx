@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from "motion/react";
 
 const DISPLAY = '\"Inter Tight\", \"Outfit\", \"Manrope\", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
+const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const reduced = !!useReducedMotion();
@@ -43,20 +44,126 @@ export function ZaplaGrowthV6() {
   );
 }
 
-function Cursor({ label, className }: { label: string; className: string }) {
+type TeamMemberProps = {
+  label: string;
+  cell: number;
+  bg: string;
+  className: string;
+  delay: number;
+};
+
+function TeamMember({ label, cell, bg, className, delay }: TeamMemberProps) {
   const reduced = !!useReducedMotion();
-  return <motion.div initial={reduced ? false : { opacity: 0, x: 18, y: 10 }} whileInView={{ opacity: 1, x: 0, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: reduced ? 0 : 0.4, ease: EASE }} className={`absolute z-30 flex items-start gap-2 ${className}`}><svg width="18" height="22" viewBox="0 0 18 22" fill="none" aria-hidden><path d="M2 1.5L16 11.1L9.8 12.2L6.7 20L2 1.5Z" fill="#111318" /></svg><span className="whitespace-nowrap bg-[#111318] px-2.5 py-1.5 text-[9px] font-semibold text-white shadow-[0_8px_22px_rgba(15,23,42,.16)]">{label}</span></motion.div>;
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+  const backgroundPosition = `${(column / 5) * 100}% ${(row / 3) * 100}%`;
+
+  return (
+    <motion.div
+      initial={reduced ? false : { opacity: 0, scale: 0.92, y: 10 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.45 }}
+      transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : delay, ease: EASE }}
+      className={`absolute z-30 flex items-center gap-3 ${className}`}
+    >
+      <div
+        className="h-14 w-14 shrink-0 rounded-full border border-white/12 shadow-[0_12px_34px_rgba(0,0,0,.22)]"
+        style={{
+          backgroundColor: bg,
+          backgroundImage: `url(${PORTRAIT_SHEET})`,
+          backgroundPosition,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "600% 400%",
+        }}
+      />
+      <span className="whitespace-nowrap rounded-[8px] border border-white/10 bg-[#14201F]/90 px-3 py-2 text-[10px] font-semibold text-[#F7F1E8] shadow-[0_10px_28px_rgba(0,0,0,.2)] backdrop-blur-sm">
+        {label}
+      </span>
+    </motion.div>
+  );
 }
+
+const TEAM = [
+  { label: "Owner", cell: 7, bg: "#C89A5D", className: "left-[2%] top-[43%]", delay: 0.06 },
+  { label: "Marketing", cell: 13, bg: "#BF7458", className: "left-[49%] top-[18%]", delay: 0.12 },
+  { label: "Front desk", cell: 4, bg: "#D69672", className: "right-[1%] top-[31%]", delay: 0.18 },
+  { label: "Sales", cell: 16, bg: "#85845D", className: "left-[24%] bottom-[2%]", delay: 0.24 },
+  { label: "Accounts", cell: 20, bg: "#B59672", className: "right-[12%] bottom-[1%]", delay: 0.3 },
+] as const;
 
 export function ZaplaUnlimitedV6() {
   return (
-    <section className="relative min-h-[920px] overflow-hidden bg-[#D9ECEC] px-5 py-24 text-[#0D1117] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="pointer-events-none absolute -left-10 top-8 whitespace-nowrap text-[36vw] leading-[.8] tracking-[-0.085em] text-[#B6D6D7] sm:text-[245px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>UNLIMITED</div>
+    <section className="relative min-h-[920px] overflow-hidden bg-[#1E2B29] px-5 py-24 text-[#F7F2EA] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+      <div
+        className="pointer-events-none absolute -left-8 top-3 whitespace-nowrap text-[36vw] leading-[.8] tracking-[-0.085em] text-[#31403D] sm:text-[245px]"
+        style={{ fontFamily: DISPLAY, fontWeight: 500 }}
+      >
+        UNLIMITED
+      </div>
+
+      <div className="pointer-events-none absolute -left-[15%] bottom-[-32%] h-[620px] w-[620px] rounded-full border border-[#DDA34B]/[0.07]" aria-hidden="true" />
+      <div className="pointer-events-none absolute -left-[8%] bottom-[-28%] h-[500px] w-[500px] rounded-full border border-[#DDA34B]/[0.06]" aria-hidden="true" />
+
       <div className="relative mx-auto max-w-[1440px]">
-        <Reveal className="relative z-10 max-w-[780px]"><div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#58706F]">Unlimited users included</div><h2 className="mt-5 text-[48px] leading-[0.92] tracking-[-0.06em] sm:text-[68px] lg:text-[84px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>Your whole team can<br />follow through.</h2><p className="mt-6 max-w-[520px] text-[17px] leading-[1.6] text-[#3F5150] sm:text-[19px]"><span className="font-semibold text-[#0D1117]">Unlimited users. One flat price.</span> No per-seat pricing as your team grows.</p></Reveal>
-        <Reveal delay={0.08} className="relative z-10 mx-auto mt-16 max-w-[820px] bg-white px-7 py-8 shadow-[0_30px_90px_rgba(15,23,42,.16)] lg:ml-auto lg:mr-0 lg:px-10 lg:py-9"><div className="flex items-center gap-4 border-b border-[#E7ECEB] pb-6"><div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#111318] text-[10px] font-bold text-white">SM</div><div><div className="text-[22px] font-semibold">Sarah Miller</div><div className="mt-1 text-[10px] text-[#8A9390]">Customer since May · 2 bookings · $1,680 lifetime value</div></div></div><div className="grid gap-7 pt-7 sm:grid-cols-[1.15fr_.85fr]"><div>{[["Conversation","“Thursday morning works.”"],["Opportunity","Service booked · won"],["Last campaign","90-day reactivation · replied"]].map(([label,value])=><div key={label} className="border-t border-[#E2E8E7] py-4 first:border-t-0 first:pt-0"><div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#8C9592]">{label}</div><div className="mt-2 text-[16px] font-semibold sm:text-[18px]">{value}</div></div>)}</div><div>{[["Owner","Front desk"],["Appointment","Thu · 10:30 AM"],["Next step","Review request · tomorrow"]].map(([label,value])=><div key={label} className="border-t border-[#E2E8E7] py-4 first:border-t-0 first:pt-0"><div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#8C9592]">{label}</div><div className="mt-2 text-[16px] font-semibold sm:text-[18px]">{value}</div></div>)}</div></div></Reveal>
-        <div className="hidden lg:block"><Cursor label="Owner" className="left-[3%] top-[31%]" /><Cursor label="Marketing" className="left-[52%] top-[20%]" /><Cursor label="Front desk" className="right-[1%] top-[27%]" /><Cursor label="Sales" className="left-[24%] bottom-[4%]" /><Cursor label="Accounts" className="right-[16%] bottom-[2%]" /></div>
-        <div className="mt-7 flex flex-wrap gap-2 lg:hidden">{["Owner","Front desk","Sales","Accounts","Marketing"].map(label=><span key={label} className="bg-[#111318] px-3 py-2 text-[9px] font-semibold text-white">{label}</span>)}</div>
+        <Reveal className="relative z-10 max-w-[850px]">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#DDA34B]">Unlimited users</div>
+          <h2
+            className="mt-5 text-[48px] leading-[0.92] tracking-[-0.06em] text-[#F7F2EA] sm:text-[68px] lg:text-[84px]"
+            style={{ fontFamily: DISPLAY, fontWeight: 500 }}
+          >
+            Grow your team.<br />Not your software bill.
+          </h2>
+          <p className="mt-6 max-w-[650px] text-[17px] leading-[1.65] text-[#B8C0BC] sm:text-[19px]">
+            <span className="font-semibold text-[#F7F2EA]">Unlimited users. No per-seat fees.</span> Add everyone who needs Zapla without paying more for every person you add.
+          </p>
+        </Reveal>
+
+        <div className="relative mt-16 min-h-[560px] sm:mt-20 lg:min-h-[575px]">
+          <Reveal delay={0.08} className="relative z-10 mx-auto max-w-[820px] rounded-[22px] border border-white/[0.12] bg-[#13201F]/80 px-7 py-8 text-[#F7F2EA] shadow-[0_34px_100px_rgba(0,0,0,.24)] backdrop-blur-sm lg:ml-auto lg:mr-[4%] lg:px-10 lg:py-9">
+            <div className="flex items-center gap-4 border-b border-white/10 pb-6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#D69672] text-[10px] font-bold text-[#1A2422]">SM</div>
+              <div>
+                <div className="text-[22px] font-semibold">Sarah Miller</div>
+                <div className="mt-1 text-[10px] text-white/42">Customer since May · 2 bookings · $1,680 lifetime value</div>
+              </div>
+            </div>
+            <div className="grid gap-7 pt-7 sm:grid-cols-[1.15fr_.85fr]">
+              <div>
+                {[["Conversation","“Thursday morning works.”"],["Opportunity","Service booked · won"],["Last campaign","90-day reactivation · replied"]].map(([label,value])=><div key={label} className="border-t border-white/10 py-4 first:border-t-0 first:pt-0"><div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/34">{label}</div><div className="mt-2 text-[16px] font-semibold sm:text-[18px]">{value}</div></div>)}
+              </div>
+              <div>
+                {[["Owner","Front desk"],["Appointment","Thu · 10:30 AM"],["Next step","Review request · tomorrow"]].map(([label,value])=><div key={label} className="border-t border-white/10 py-4 first:border-t-0 first:pt-0"><div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/34">{label}</div><div className="mt-2 text-[16px] font-semibold sm:text-[18px]">{value}</div></div>)}
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="hidden lg:block">
+            {TEAM.map((member) => <TeamMember key={member.label} {...member} />)}
+          </div>
+
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-5 lg:hidden">
+            {TEAM.map((member) => (
+              <div key={member.label} className="flex flex-col items-center gap-2 rounded-[14px] border border-white/10 bg-white/[0.04] px-3 py-4 text-center">
+                <div
+                  className="h-12 w-12 rounded-full border border-white/10"
+                  style={{
+                    backgroundColor: member.bg,
+                    backgroundImage: `url(${PORTRAIT_SHEET})`,
+                    backgroundPosition: `${((member.cell % 6) / 5) * 100}% ${(Math.floor(member.cell / 6) / 3) * 100}%`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "600% 400%",
+                  }}
+                />
+                <span className="text-[10px] font-semibold text-[#F7F2EA]">{member.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative z-10 mt-8 flex flex-col gap-2 border-t border-white/10 pt-7 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-[13px] font-semibold uppercase tracking-[0.15em] text-[#DDA34B]">Unlimited users included</div>
+          <div className="text-[16px] font-medium text-[#F7F2EA]">One platform. Your whole team.</div>
+        </div>
       </div>
     </section>
   );
