@@ -135,7 +135,7 @@ export function ZaplaAIReceptionistV6() {
   const reduced = Boolean(useReducedMotion());
 
   return (
-    <section className="relative -mt-16 overflow-hidden pb-14 sm:-mt-20 sm:pb-16 lg:-mt-24 lg:pb-20" style={{ backgroundColor: BG, fontFamily: DISPLAY }}>
+    <section className="relative -mt-16 overflow-hidden pb-0 sm:-mt-20 lg:-mt-24" style={{ backgroundColor: BG, fontFamily: DISPLAY }}>
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
         <div
           className="group relative overflow-hidden rounded-[30px] border border-white/[0.14] px-6 py-7 transition-[border-color,box-shadow] duration-500 hover:border-white/[0.19] hover:shadow-[0_28px_100px_rgba(0,0,0,.28),0_0_38px_rgba(233,125,98,.07)] sm:px-8 sm:py-9 lg:grid lg:min-h-[326px] lg:grid-cols-[0.90fr_1.10fr] lg:items-center lg:gap-10 lg:px-12 lg:py-10"
