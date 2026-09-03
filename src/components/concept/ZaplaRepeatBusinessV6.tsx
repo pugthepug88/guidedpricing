@@ -1,13 +1,13 @@
 import { motion, useReducedMotion } from "motion/react";
-import { CalendarDays, Check, MessageSquareText, RotateCcw, Star } from "lucide-react";
+import { CalendarDays, Check, Star } from "lucide-react";
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
+const FLOWER_COLORS = ["#E97D62", "#C96C85", "#DDA34B", "#99A36D", "#9B86B8", "#D58C75"] as const;
 
 type Story = {
   key: "return" | "reactivate" | "reputation";
-  number: string;
   label: string;
   headline: string;
   copy: string;
@@ -19,7 +19,6 @@ type Story = {
 const STORIES: Story[] = [
   {
     key: "return",
-    number: "01 / 03",
     label: "Return",
     headline: "Bring customers back at the right time.",
     copy: "Zapla remembers when the next visit is due and makes coming back easy.",
@@ -29,7 +28,6 @@ const STORIES: Story[] = [
   },
   {
     key: "reactivate",
-    number: "02 / 03",
     label: "Reactivate",
     headline: "Win back customers who go quiet.",
     copy: "Spot the customers who have drifted away and restart the conversation while it can still become revenue.",
@@ -39,10 +37,9 @@ const STORIES: Story[] = [
   },
   {
     key: "reputation",
-    number: "03 / 03",
     label: "Reputation",
-    headline: "Turn great service into your next customer.",
-    copy: "Ask at the right moment, make reviewing easy, and turn a finished job into proof for the next buyer.",
+    headline: "Turn happy customers into 5-star reviews.",
+    copy: "Ask at the right moment, make reviewing easy, and turn happy customers into public proof.",
     bg: "#EFE2D2",
     accent: "#A36F55",
     accentSoft: "#E3CDB9",
@@ -68,6 +65,31 @@ function Avatar({ muted = false }: { muted?: boolean }) {
         }}
       />
     </motion.div>
+  );
+}
+
+function ZaplaFlower({ size = 25 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 160 160" aria-hidden="true" className="shrink-0 overflow-visible">
+      {FLOWER_COLORS.map((color, index) => (
+        <g key={color} transform={`rotate(${index * 60} 80 80)`}>
+          <path
+            d="M80 14 C95 14 104 25 102 42 C100 58 92 70 80 82 C68 70 60 58 58 42 C56 25 65 14 80 14 Z"
+            fill={color}
+          />
+        </g>
+      ))}
+      <circle cx="80" cy="80" r="13" fill="#F8F6F2" />
+    </svg>
+  );
+}
+
+function ZaplaSender({ accent }: { accent: string }) {
+  return (
+    <div className="flex items-center gap-2.5 text-[11px] font-semibold tracking-[-0.01em]" style={{ color: accent }}>
+      <ZaplaFlower />
+      <span>Zapla</span>
+    </div>
   );
 }
 
@@ -108,12 +130,12 @@ function ReturnVisual({ story, reduced }: { story: Story; reduced: boolean }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.55 }}
         transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.06, ease: EASE }}
-        className="mt-10 max-w-[470px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(42,33,45,.09)]"
+        className="mt-10 max-w-[480px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(42,33,45,.09)]"
       >
-        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: story.accent }}>
-          <MessageSquareText size={15} strokeWidth={2} /> Zapla reminder
+        <ZaplaSender accent={story.accent} />
+        <div className="mt-3 text-[19px] leading-[1.45] tracking-[-0.022em] text-[#242127]">
+          “Hi Sarah, you’re due for your next service. I have Thursday at 10:30 available. Want me to book it?”
         </div>
-        <div className="mt-3 text-[20px] leading-[1.4] tracking-[-0.025em] text-[#242127]">“Your next service is due. Thursday 10:30?”</div>
       </motion.div>
 
       <motion.div
@@ -139,11 +161,8 @@ function ReactivateVisual({ story, reduced }: { story: Story; reduced: boolean }
       <div className="flex items-center gap-4">
         <Avatar muted />
         <div>
-          <div className="flex items-center gap-2">
-            <div className="text-[24px] font-semibold tracking-[-0.035em] text-[#1A191D]">Sarah Nguyen</div>
-            <span className="rounded-full bg-white/66 px-3 py-1 text-[10px] font-semibold text-[#696A59]">120 days quiet</span>
-          </div>
-          <div className="mt-1 text-[13px] text-[#626456]">No recent booking or reply</div>
+          <div className="text-[24px] font-semibold tracking-[-0.035em] text-[#1A191D]">Sarah Nguyen</div>
+          <div className="mt-1 text-[13px] text-[#626456]">120 days since last visit</div>
         </div>
       </div>
 
@@ -152,12 +171,12 @@ function ReactivateVisual({ story, reduced }: { story: Story; reduced: boolean }
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.55 }}
         transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
-        className="mt-10 max-w-[475px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(43,46,31,.08)]"
+        className="mt-10 max-w-[485px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(43,46,31,.08)]"
       >
-        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: story.accent }}>
-          <RotateCcw size={15} strokeWidth={2} /> Re-engagement
+        <ZaplaSender accent={story.accent} />
+        <div className="mt-3 text-[19px] leading-[1.45] tracking-[-0.02em] text-[#23251D]">
+          “Hi Sarah, it’s been a while. Still thinking about your renovation? Happy to help whenever you’re ready.”
         </div>
-        <div className="mt-3 text-[19px] leading-[1.42] tracking-[-0.02em] text-[#23251D]">“Still thinking about your renovation? I’m here when you’re ready.”</div>
       </motion.div>
 
       <motion.div
@@ -167,7 +186,7 @@ function ReactivateVisual({ story, reduced }: { story: Story; reduced: boolean }
         transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.08, ease: EASE }}
         className="ml-auto mt-4 rounded-[16px] bg-[#191B17] px-5 py-4 text-[18px] font-medium tracking-[-0.02em] text-white"
       >
-        “Yes, let’s book.”
+        “Yes, let’s get it started.”
       </motion.div>
 
       <motion.div
@@ -178,7 +197,7 @@ function ReactivateVisual({ story, reduced }: { story: Story; reduced: boolean }
         className="mt-5 flex items-center gap-3 text-[14px] font-semibold text-[#3E4031]"
       >
         <span className="flex h-8 w-8 items-center justify-center rounded-full text-white" style={{ backgroundColor: story.accent }}><Check size={16} strokeWidth={2.3} /></span>
-        Opportunity reopened
+        Conversation restarted
       </motion.div>
     </div>
   );
@@ -191,7 +210,7 @@ function ReputationVisual({ story, reduced }: { story: Story; reduced: boolean }
         <Avatar />
         <div>
           <div className="text-[24px] font-semibold tracking-[-0.035em] text-[#1A191D]">Sarah Nguyen</div>
-          <div className="mt-1 flex items-center gap-2 text-[13px] text-[#6C6158]"><CalendarDays size={14} /> Job completed · 4:48 PM</div>
+          <div className="mt-1 flex items-center gap-2 text-[13px] text-[#6C6158]"><CalendarDays size={14} /> Job completed today</div>
         </div>
       </div>
 
@@ -200,9 +219,13 @@ function ReputationVisual({ story, reduced }: { story: Story; reduced: boolean }
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.55 }}
         transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
-        className="mt-10 flex w-max items-center gap-2 rounded-full bg-white/75 px-4 py-2.5 text-[11px] font-semibold text-[#6B584D] shadow-[0_10px_28px_rgba(58,42,31,.06)]"
+        className="mt-9 max-w-[500px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(58,42,31,.08)]"
       >
-        <MessageSquareText size={15} style={{ color: story.accent }} /> Review request sent
+        <ZaplaSender accent={story.accent} />
+        <div className="mt-3 text-[18px] leading-[1.45] tracking-[-0.018em] text-[#2A241F]">
+          “Thanks again, Sarah. If you were happy with the service, would you mind leaving us a quick Google review?”
+        </div>
+        <div className="mt-4 text-[12px] font-semibold" style={{ color: story.accent }}>Leave a review →</div>
       </motion.div>
 
       <motion.div
@@ -210,13 +233,13 @@ function ReputationVisual({ story, reduced }: { story: Story; reduced: boolean }
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.55 }}
         transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 0.06, ease: EASE }}
-        className="mt-5 rounded-[22px] bg-white px-7 py-7 shadow-[0_22px_58px_rgba(61,45,34,.10)]"
+        className="ml-auto mt-5 w-full max-w-[430px] rounded-[20px] bg-white px-6 py-6 shadow-[0_22px_58px_rgba(61,45,34,.10)]"
       >
         <div className="flex gap-1" style={{ color: story.accent }}>
-          {[0, 1, 2, 3, 4].map((i) => <Star key={i} size={23} fill="currentColor" strokeWidth={1.5} />)}
+          {[0, 1, 2, 3, 4].map((i) => <Star key={i} size={21} fill="currentColor" strokeWidth={1.5} />)}
         </div>
-        <div className="mt-5 text-[27px] font-medium leading-[1.25] tracking-[-0.035em] text-[#28221E]">“Made the whole process easy.”</div>
-        <div className="mt-5 text-[12px] font-semibold text-[#81766E]">New Google review · just now</div>
+        <div className="mt-4 text-[24px] font-medium leading-[1.25] tracking-[-0.035em] text-[#28221E]">“Made the whole process easy.”</div>
+        <div className="mt-4 text-[12px] font-semibold text-[#81766E]">New Google review</div>
       </motion.div>
     </div>
   );
@@ -239,10 +262,7 @@ function StoryPanel({ story, index, reduced }: { story: Story; index: number; re
         <div className="pointer-events-none absolute right-[-12%] top-[-22%] h-[480px] w-[480px] rounded-full bg-white/18 blur-3xl" aria-hidden="true" />
         <div className="relative grid h-full gap-12 lg:grid-cols-[.78fr_1.22fr] lg:items-center lg:gap-[76px]">
           <div className="flex h-full flex-col justify-center">
-            <div className="flex items-center justify-between gap-5">
-              <PetalTag story={story} />
-              <span className="text-[10px] font-semibold tracking-[0.2em] text-black/34">{story.number}</span>
-            </div>
+            <PetalTag story={story} />
             <h3
               className="mt-10 max-w-[520px] text-[46px] font-medium leading-[0.95] tracking-[-0.06em] text-[#17161A] sm:text-[58px] lg:text-[66px]"
               style={{ fontFamily: DISPLAY }}
@@ -252,6 +272,11 @@ function StoryPanel({ story, index, reduced }: { story: Story; index: number; re
             <p className="mt-7 max-w-[480px] text-[17px] leading-[1.65] text-[#615D64] sm:text-[18px]">
               {story.copy}
             </p>
+            {story.key === "reputation" && (
+              <div className="mt-5 text-[13px] font-semibold text-[#755D50]">
+                Google and 50+ other review platforms
+              </div>
+            )}
           </div>
 
           <div className="relative h-[440px] lg:h-full lg:min-h-[520px]">
