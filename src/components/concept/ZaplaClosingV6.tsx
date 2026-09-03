@@ -1,6 +1,8 @@
 import { motion, useReducedMotion } from "motion/react";
 
-const DISPLAY = '\"Inter Tight\", \"Outfit\", \"Manrope\", system-ui, sans-serif';
+const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
+const GUIDED_DISPLAY = '"Outfit", "Manrope", system-ui, sans-serif';
+const GUIDED_BODY = '"Manrope", system-ui, sans-serif';
 const BOOK_URL = "https://zapla.io/booking";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -10,20 +12,60 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
 }
 
 export function ZaplaGuidedLaunchV6() {
-  const reduced = !!useReducedMotion();
-  const scraps = [
-    { className: "left-[2%] top-[19%] -rotate-[7deg]", label: "Website enquiry", value: "Can I book Thursday?", bg: "bg-white" },
-    { className: "left-[16%] bottom-[6%] rotate-[5deg]", label: "Sticky note", value: "Remember to follow up quote", bg: "bg-[#FFF1A9]" },
-    { className: "right-[3%] top-[15%] rotate-[6deg]", label: "Missed call", value: "0412 884 103", bg: "bg-white" },
-    { className: "right-[17%] bottom-[4%] -rotate-[4deg]", label: "Calendar", value: "Thu 10:30 · Sarah?", bg: "bg-white" },
-  ];
+  const stages = [
+    { label: "Map", accent: "#9CA56E", bg: "rgba(156,165,110,.13)" },
+    { label: "Build", accent: "#9B86B8", bg: "rgba(155,134,184,.13)" },
+    { label: "Launch", accent: "#D58C75", bg: "rgba(213,140,117,.14)" },
+  ] as const;
+
   return (
-    <section className="overflow-hidden bg-[#F0E8DD] px-5 py-24 text-[#0D1117] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1440px]">
-        <Reveal className="mx-auto max-w-[980px] text-center"><div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#58706F]">Guided Launch</div><h2 className="mt-5 text-[46px] leading-[0.94] tracking-[-0.06em] sm:text-[64px] lg:text-[80px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>We don’t hand you software.<br />We build the operating flow with you.</h2><p className="mx-auto mt-6 max-w-[680px] text-[15px] leading-[1.7] text-[#786E63] sm:text-[17px]">Your process already exists in calls, inboxes, calendars, sticky notes and habits. Guided Launch turns that reality into a system your team can actually use.</p></Reveal>
-        <div className="relative mx-auto mt-16 min-h-[610px] max-w-[1240px]">
-          <motion.div initial={reduced ? false : { opacity: 0, y: 25, scale: 0.97 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, amount: 0.28 }} transition={{ duration: reduced ? 0 : 0.65, ease: EASE }} className="relative z-20 mx-auto max-w-[560px] bg-[#111318] px-7 py-8 text-white shadow-[0_40px_100px_rgba(47,36,25,.22)] lg:absolute lg:left-1/2 lg:top-5 lg:w-[560px] lg:-translate-x-1/2 lg:px-9 lg:py-9"><div className="text-[8px] font-semibold uppercase tracking-[0.16em] text-cyan-200/75">Your Zapla launch</div><div className="mt-5 text-[34px] leading-[1.02] tracking-[-0.045em] sm:text-[38px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>From scattered habits<br />to one operating rhythm.</div><div className="mt-7">{[["01","Map","Your real journey"],["02","Build","Important workflows"],["03","Launch","With your team"],["04","Tune","As the business learns"]].map(([n,title,copy])=><div key={n} className="grid grid-cols-[46px_1fr_auto] items-center border-t border-white/12 py-4"><div className="text-[9px] text-white/32">{n}</div><div className="text-[17px] font-semibold">{title}</div><div className="text-[8px] font-semibold uppercase tracking-[0.12em] text-white/40">{copy}</div></div>)}</div></motion.div>
-          <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:mt-0 lg:block">{scraps.map((item,index)=><motion.div key={item.label} initial={reduced ? false : { opacity: 0, x: index % 2 ? 35 : -35, y: 20 }} whileInView={{ opacity: 1, x: 0, y: 0 }} viewport={{ once: true, amount: 0.35 }} transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.18 + index * 0.08, ease: EASE }} className={`${item.bg} px-5 py-5 shadow-[0_22px_60px_rgba(74,57,38,.12)] lg:absolute lg:w-[230px] ${item.className}`}><div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#9D9183]">{item.label}</div><div className="mt-2 text-[13px] font-semibold">{item.value}</div></motion.div>)}</div>
+    <section className="overflow-hidden bg-[#F6F0E8] px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+      <div className="mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[.82fr_1.18fr] lg:items-center lg:gap-12 xl:gap-16">
+        <div className="relative z-10 max-w-[610px]">
+          <div
+            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C56D52]"
+            style={{ fontFamily: GUIDED_BODY }}
+          >
+            Guided Launch
+          </div>
+
+          <h2
+            className="mt-6 text-[48px] leading-[0.96] tracking-[-0.052em] text-[#111318] sm:text-[62px] lg:text-[70px] xl:text-[76px]"
+            style={{ fontFamily: GUIDED_DISPLAY, fontWeight: 500 }}
+          >
+            <span className="block">We don’t hand you software.</span>
+            <span className="mt-[0.16em] block">We build it</span>
+            <span className="block text-[#C96F55]">around how you work.</span>
+          </h2>
+
+          <p
+            className="mt-7 max-w-[560px] text-[17px] leading-[1.65] text-[#64645F] sm:text-[18px]"
+            style={{ fontFamily: GUIDED_BODY }}
+          >
+            We map your process, build what matters, and launch it with your team.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3" style={{ fontFamily: GUIDED_BODY }}>
+            {stages.map((stage) => (
+              <div
+                key={stage.label}
+                className="inline-flex h-11 items-center gap-2.5 rounded-full border px-5 text-[14px] font-semibold text-[#252824]"
+                style={{ background: stage.bg, borderColor: `${stage.accent}40` }}
+              >
+                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: stage.accent }} />
+                {stage.label}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative lg:-mr-8 xl:-mr-14">
+          <img
+            src="/concept/guided-launch-people-v6.webp"
+            alt="Business owner working with a Zapla launch specialist"
+            className="block h-auto w-full object-contain"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
