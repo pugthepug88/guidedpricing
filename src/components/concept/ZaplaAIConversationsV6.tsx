@@ -92,6 +92,17 @@ function TinyFlowerAvatar({ color, size = 24 }: { color: string; size?: number }
   );
 }
 
+function HoverTrace({ color = CORAL, radius = 34 }: { color?: string; radius?: number }) {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-40 overflow-hidden" style={{ borderRadius: radius }} aria-hidden="true">
+      <span className="absolute left-8 right-8 top-0 h-px origin-left scale-x-0 transition-transform duration-700 ease-out group-hover:scale-x-100" style={{ background: `linear-gradient(90deg, transparent, ${color}B8 34%, ${AMBER}8A 68%, transparent)` }} />
+      <span className="absolute bottom-8 right-0 top-8 w-px origin-top scale-y-0 transition-transform duration-700 delay-150 ease-out group-hover:scale-y-100" style={{ background: `linear-gradient(180deg, transparent, ${ROSE}9A 44%, ${color}86, transparent)` }} />
+      <span className="absolute bottom-0 left-8 right-8 h-px origin-right scale-x-0 transition-transform duration-700 delay-300 ease-out group-hover:scale-x-100" style={{ background: `linear-gradient(270deg, transparent, ${AMBER}80 34%, ${ROSE}88 68%, transparent)` }} />
+      <span className="absolute bottom-8 left-0 top-8 w-px origin-bottom scale-y-0 transition-transform duration-700 delay-[450ms] ease-out group-hover:scale-y-100" style={{ background: `linear-gradient(0deg, transparent, ${color}84 44%, ${AMBER}70, transparent)` }} />
+    </div>
+  );
+}
+
 function channelDelta(index: number, active: number, count: number) {
   let delta = index - active;
   const half = Math.floor(count / 2);
@@ -158,7 +169,7 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
         </div>
 
         <div
-          className="relative h-[334px] overflow-hidden rounded-[24px] border p-5"
+          className="relative h-[334px] overflow-hidden rounded-[24px] border p-5 transition-[border-color,box-shadow] duration-300 hover:border-[#E97D62]/60 hover:shadow-[0_0_38px_rgba(233,125,98,.13)]"
           style={{
             borderColor: "rgba(233,125,98,.44)",
             background: `radial-gradient(circle at 56% 26%, rgba(233,125,98,.15) 0%, transparent 40%), linear-gradient(180deg, #202126, #1B1C20)`,
@@ -415,6 +426,10 @@ function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
                 scale: absorbed ? 0.10 : 1,
                 opacity: absorbed ? 0 : 1,
               }}
+              whileHover={{
+                borderColor: `${artifact.color}62`,
+                boxShadow: `inset 0 1px 0 rgba(255,255,255,.05), inset 0 -24px 50px ${artifact.color}0E, 0 15px 34px rgba(0,0,0,.18), 0 0 22px ${artifact.color}16`,
+              }}
               transition={{ duration: releasing ? 0.86 : 0.88, ease: EASE }}
               style={{
                 width: artifact.width,
@@ -494,6 +509,7 @@ function AIAgentVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
                 backgroundColor: selected ? "#232428" : "#1D1E22",
                 boxShadow: selected ? `0 14px 30px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.035), 0 0 16px ${agent.color}0A` : "0 10px 22px rgba(0,0,0,.16)",
               }}
+              whileHover={{ boxShadow: `0 14px 32px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.04), 0 0 22px ${agent.color}18` }}
               transition={{ duration: 0.72, ease: EASE }}
               style={{ zIndex: 20 - distance }}
             >
@@ -520,9 +536,13 @@ function AIAgentVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
 function DesktopStage({ inView, reduced }: { inView: boolean; reduced: boolean }) {
   return (
     <div
-      className="relative hidden h-[500px] overflow-hidden rounded-[34px] border border-white/[0.16] lg:grid lg:grid-cols-[0.84fr_1.40fr_0.92fr]"
+      className="group relative hidden h-[500px] overflow-hidden rounded-[34px] border border-white/[0.16] transition-[border-color,box-shadow] duration-500 hover:border-white/[0.20] hover:shadow-[0_30px_110px_rgba(0,0,0,.34),0_0_42px_rgba(233,125,98,.07)] lg:grid lg:grid-cols-[0.84fr_1.40fr_0.92fr]"
       style={{ backgroundColor: STAGE, boxShadow: "0 30px 100px rgba(0,0,0,.30)" }}
     >
+      <HoverTrace radius={34} />
+      <div className="pointer-events-none absolute left-[5%] top-0 z-30 h-px w-[17%] bg-gradient-to-r from-transparent via-[#E97D62]/35 to-transparent" />
+      <div className="pointer-events-none absolute left-[39%] top-0 z-30 h-px w-[19%] bg-gradient-to-r from-transparent via-[#DDA34B]/30 to-transparent" />
+      <div className="pointer-events-none absolute right-[6%] top-0 z-30 h-px w-[16%] bg-gradient-to-r from-transparent via-[#C96C85]/28 to-transparent" />
       <ConversationVisual inView={inView} reduced={reduced} />
       <ContextVisual inView={inView} reduced={reduced} />
       <AIAgentVisual inView={inView} reduced={reduced} />
@@ -565,12 +585,12 @@ export function ZaplaAIConversationsV6() {
         </header>
 
         <div
-          className="pointer-events-none absolute left-1/2 top-[304px] h-[270px] w-[1100px] -translate-x-1/2 rounded-[50%] blur-[58px]"
-          style={{ background: `radial-gradient(ellipse at center, ${CORAL}42 0%, ${ROSE}2B 34%, ${AMBER}15 56%, transparent 78%)` }}
+          className="pointer-events-none absolute left-1/2 top-[300px] h-[282px] w-[1120px] -translate-x-1/2 rounded-[50%] blur-[56px]"
+          style={{ background: `radial-gradient(ellipse at center, ${CORAL}4A 0%, ${ROSE}30 34%, ${AMBER}19 56%, transparent 78%)` }}
         />
         <div
-          className="pointer-events-none absolute left-1/2 top-[380px] h-[132px] w-[820px] -translate-x-1/2 rounded-[50%] blur-[34px]"
-          style={{ background: `radial-gradient(ellipse at center, rgba(255,255,255,.08) 0%, ${CORAL}22 37%, transparent 75%)` }}
+          className="pointer-events-none absolute left-1/2 top-[376px] h-[138px] w-[840px] -translate-x-1/2 rounded-[50%] blur-[33px]"
+          style={{ background: `radial-gradient(ellipse at center, rgba(255,255,255,.09) 0%, ${CORAL}27 37%, transparent 75%)` }}
         />
 
         <div className="relative mt-14 sm:mt-16 lg:mt-20">
