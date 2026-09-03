@@ -48,12 +48,9 @@ const STORIES: Story[] = [
 
 function Avatar({ muted = false }: { muted?: boolean }) {
   return (
-    <motion.div
+    <div
       className="relative h-[84px] w-[84px] shrink-0 overflow-hidden rounded-full border border-black/[0.07] bg-[#C89A5D] shadow-[0_12px_30px_rgba(35,28,24,.10)]"
-      initial={false}
-      whileInView={muted ? { filter: ["grayscale(1) saturate(.45)", "grayscale(0) saturate(.92)"] } : { filter: "grayscale(0) saturate(.92)" }}
-      viewport={{ amount: 0.7 }}
-      transition={{ duration: 0.9, ease: EASE }}
+      style={muted ? { filter: "grayscale(.62) saturate(.62)" } : undefined}
     >
       <div
         className="absolute inset-0"
@@ -64,7 +61,7 @@ function Avatar({ muted = false }: { muted?: boolean }) {
           backgroundSize: "600% 400%",
         }}
       />
-    </motion.div>
+    </div>
   );
 }
 
@@ -108,54 +105,36 @@ function PetalTag({ story }: { story: Story }) {
   );
 }
 
-function ReturnVisual({ story, reduced }: { story: Story; reduced: boolean }) {
+function ReturnVisual({ story }: { story: Story }) {
   return (
     <div className="relative mx-auto flex h-full w-full max-w-[570px] flex-col justify-center">
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
-        className="flex items-center gap-4"
-      >
+      <div className="flex items-center gap-4">
         <Avatar />
         <div>
           <div className="text-[24px] font-semibold tracking-[-0.035em] text-[#1A191D]">Sarah Nguyen</div>
           <div className="mt-1 text-[13px] text-[#66616A]">Last visit · 8 months ago</div>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.06, ease: EASE }}
-        className="mt-10 max-w-[480px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(42,33,45,.09)]"
-      >
+      <div className="mt-10 max-w-[480px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(42,33,45,.09)]">
         <ZaplaSender accent={story.accent} />
         <div className="mt-3 text-[19px] leading-[1.45] tracking-[-0.022em] text-[#242127]">
           “Hi Sarah, you’re due for your next service. I have Thursday at 10:30 available. Want me to book it?”
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, scale: 0.97 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.12, ease: EASE }}
-        className="ml-auto mt-5 flex w-full max-w-[340px] items-center gap-4 rounded-[18px] bg-[#19191D] px-5 py-5 text-white shadow-[0_20px_50px_rgba(30,25,31,.16)]"
-      >
+      <div className="ml-auto mt-5 flex w-full max-w-[340px] items-center gap-4 rounded-[18px] bg-[#19191D] px-5 py-5 text-white shadow-[0_20px_50px_rgba(30,25,31,.16)]">
         <span className="flex h-11 w-11 items-center justify-center rounded-full" style={{ backgroundColor: story.accent }}><Check size={21} strokeWidth={2.4} /></span>
         <div>
           <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/46">Booked again</div>
           <div className="mt-1 text-[19px] font-semibold tracking-[-0.02em]">Thursday · 10:30 AM</div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
 
-function ReactivateVisual({ story, reduced }: { story: Story; reduced: boolean }) {
+function ReactivateVisual({ story }: { story: Story }) {
   return (
     <div className="relative mx-auto flex h-full w-full max-w-[570px] flex-col justify-center">
       <div className="flex items-center gap-4">
@@ -166,44 +145,26 @@ function ReactivateVisual({ story, reduced }: { story: Story; reduced: boolean }
         </div>
       </div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
-        className="mt-10 max-w-[485px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(43,46,31,.08)]"
-      >
+      <div className="mt-10 max-w-[485px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(43,46,31,.08)]">
         <ZaplaSender accent={story.accent} />
         <div className="mt-3 text-[19px] leading-[1.45] tracking-[-0.02em] text-[#23251D]">
           “Hi Sarah, it’s been a while. Still thinking about your renovation? Happy to help whenever you’re ready.”
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, x: 10 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.08, ease: EASE }}
-        className="ml-auto mt-4 rounded-[16px] bg-[#191B17] px-5 py-4 text-[18px] font-medium tracking-[-0.02em] text-white"
-      >
+      <div className="ml-auto mt-4 rounded-[16px] bg-[#191B17] px-5 py-4 text-[18px] font-medium tracking-[-0.02em] text-white">
         “Yes, let’s get it started.”
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.14, ease: EASE }}
-        className="mt-5 flex items-center gap-3 text-[14px] font-semibold text-[#3E4031]"
-      >
+      <div className="mt-5 flex items-center gap-3 text-[14px] font-semibold text-[#3E4031]">
         <span className="flex h-8 w-8 items-center justify-center rounded-full text-white" style={{ backgroundColor: story.accent }}><Check size={16} strokeWidth={2.3} /></span>
         Conversation restarted
-      </motion.div>
+      </div>
     </div>
   );
 }
 
-function ReputationVisual({ story, reduced }: { story: Story; reduced: boolean }) {
+function ReputationVisual({ story }: { story: Story }) {
   return (
     <div className="relative mx-auto flex h-full w-full max-w-[570px] flex-col justify-center">
       <div className="flex items-center gap-4">
@@ -214,38 +175,26 @@ function ReputationVisual({ story, reduced }: { story: Story; reduced: boolean }
         </div>
       </div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
-        className="mt-9 max-w-[500px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(58,42,31,.08)]"
-      >
+      <div className="mt-9 max-w-[500px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(58,42,31,.08)]">
         <ZaplaSender accent={story.accent} />
         <div className="mt-3 text-[18px] leading-[1.45] tracking-[-0.018em] text-[#2A241F]">
           “Thanks again, Sarah. If you were happy with the service, would you mind leaving us a quick Google review?”
         </div>
         <div className="mt-4 text-[12px] font-semibold" style={{ color: story.accent }}>Leave a review →</div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 0.06, ease: EASE }}
-        className="ml-auto mt-5 w-full max-w-[430px] rounded-[20px] bg-white px-6 py-6 shadow-[0_22px_58px_rgba(61,45,34,.10)]"
-      >
+      <div className="ml-auto mt-5 w-full max-w-[430px] rounded-[20px] bg-white px-6 py-6 shadow-[0_22px_58px_rgba(61,45,34,.10)]">
         <div className="flex gap-1" style={{ color: story.accent }}>
           {[0, 1, 2, 3, 4].map((i) => <Star key={i} size={21} fill="currentColor" strokeWidth={1.5} />)}
         </div>
         <div className="mt-4 text-[24px] font-medium leading-[1.25] tracking-[-0.035em] text-[#28221E]">“Made the whole process easy.”</div>
         <div className="mt-4 text-[12px] font-semibold text-[#81766E]">New Google review</div>
-      </motion.div>
+      </div>
     </div>
   );
 }
 
-function StoryPanel({ story, index, reduced }: { story: Story; index: number; reduced: boolean }) {
+function StoryPanel({ story, index }: { story: Story; index: number }) {
   return (
     <div
       className="relative mb-8 lg:sticky lg:top-[92px] lg:mb-[14vh] lg:h-[calc(100vh-116px)] lg:min-h-[650px] lg:max-h-[860px]"
@@ -276,9 +225,9 @@ function StoryPanel({ story, index, reduced }: { story: Story; index: number; re
           </div>
 
           <div className="relative h-[440px] lg:h-full lg:min-h-[520px]">
-            {story.key === "return" && <ReturnVisual story={story} reduced={reduced} />}
-            {story.key === "reactivate" && <ReactivateVisual story={story} reduced={reduced} />}
-            {story.key === "reputation" && <ReputationVisual story={story} reduced={reduced} />}
+            {story.key === "return" && <ReturnVisual story={story} />}
+            {story.key === "reactivate" && <ReactivateVisual story={story} />}
+            {story.key === "reputation" && <ReputationVisual story={story} />}
           </div>
         </div>
       </article>
@@ -310,7 +259,7 @@ export default function ZaplaRepeatBusinessV6() {
 
         <div className="relative">
           {STORIES.map((story, index) => (
-            <StoryPanel key={story.key} story={story} index={index} reduced={reduced} />
+            <StoryPanel key={story.key} story={story} index={index} />
           ))}
         </div>
       </div>
