@@ -218,21 +218,26 @@ export function ZaplaAIReceptionistV6() {
           </div>
         </div>
 
-        <div className="relative mx-auto mt-20 max-w-[980px] overflow-hidden px-5 py-14 text-center sm:mt-24 sm:py-16 lg:mt-28 lg:py-20">
+        <div className="relative mx-auto mt-20 max-w-[980px] overflow-hidden px-5 py-16 text-center sm:mt-24 sm:py-20 lg:mt-28 lg:py-24">
           <div
-            className="pointer-events-none absolute left-1/2 bottom-[-58px] h-[190px] w-[760px] -translate-x-1/2 rounded-[50%] blur-[58px]"
-            style={{ background: `radial-gradient(ellipse at center, ${CORAL}28 0%, ${ROSE}18 35%, ${AMBER}0E 56%, transparent 76%)` }}
+            className="pointer-events-none absolute left-1/2 bottom-[-72px] h-[260px] w-[900px] -translate-x-1/2 rounded-[50%] blur-[64px]"
+            style={{
+              background: `radial-gradient(circle at 36% 58%, ${CORAL}34 0%, transparent 24%), radial-gradient(circle at 50% 48%, ${AMBER}22 0%, transparent 28%), radial-gradient(circle at 64% 58%, ${ROSE}2C 0%, transparent 24%), radial-gradient(circle at 52% 68%, ${PLUM}18 0%, transparent 30%)`,
+            }}
           />
+          <div className="pointer-events-none absolute left-1/2 bottom-[-68px] -translate-x-1/2 opacity-[0.075]" aria-hidden="true">
+            <PetalFlower size={240} />
+          </div>
+          <div className="pointer-events-none absolute left-1/2 bottom-[6px] h-[104px] w-[520px] -translate-x-1/2 rounded-[50%] border border-white/[0.035]" />
           <div className="relative z-10">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: CORAL }}>Zapla AI</div>
-            <h3 className="mx-auto mt-4 max-w-[760px] text-[36px] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-[46px] lg:text-[54px]">
+            <h3 className="mx-auto max-w-[760px] text-[36px] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-[46px] lg:text-[54px]">
               AI that actually follows through.
             </h3>
             <p className="mx-auto mt-5 max-w-[650px] text-[14px] leading-[1.65] text-white/52 sm:text-[16px]">
               From first contact to booked job, Zapla helps you respond, follow up, and keep opportunities moving.
             </p>
             <div className="mt-8 flex justify-center">
-              <a href={BOOK_URL} className="inline-flex h-[50px] items-center justify-center rounded-full bg-white px-6 text-[13px] font-semibold text-[#111214] transition-transform hover:scale-[1.02]">
+              <a href={BOOK_URL} className="inline-flex h-[50px] items-center justify-center rounded-full bg-white px-6 text-[13px] font-semibold text-[#111214] shadow-[0_10px_34px_rgba(233,125,98,.10)] transition-[transform,box-shadow] hover:scale-[1.02] hover:shadow-[0_12px_38px_rgba(233,125,98,.16)]">
                 Book a Call
               </a>
             </div>
