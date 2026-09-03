@@ -585,12 +585,12 @@ export function ZaplaAIConversationsV6() {
         </header>
 
         <div
-          className="pointer-events-none absolute left-1/2 top-[300px] h-[282px] w-[1120px] -translate-x-1/2 rounded-[50%] blur-[56px]"
-          style={{ background: `radial-gradient(ellipse at center, ${CORAL}4A 0%, ${ROSE}30 34%, ${AMBER}19 56%, transparent 78%)` }}
+          className="pointer-events-none absolute left-1/2 top-[292px] h-[310px] w-[1190px] -translate-x-1/2 rounded-[50%] blur-[54px]"
+          style={{ background: `radial-gradient(ellipse at center, ${CORAL}6E 0%, ${ROSE}48 34%, ${AMBER}26 57%, transparent 80%)` }}
         />
         <div
-          className="pointer-events-none absolute left-1/2 top-[376px] h-[138px] w-[840px] -translate-x-1/2 rounded-[50%] blur-[33px]"
-          style={{ background: `radial-gradient(ellipse at center, rgba(255,255,255,.09) 0%, ${CORAL}27 37%, transparent 75%)` }}
+          className="pointer-events-none absolute left-1/2 top-[370px] h-[150px] w-[890px] -translate-x-1/2 rounded-[50%] blur-[31px]"
+          style={{ background: `radial-gradient(ellipse at center, rgba(255,255,255,.13) 0%, ${CORAL}3B 38%, transparent 76%)` }}
         />
 
         <div className="relative mt-14 sm:mt-16 lg:mt-20">
