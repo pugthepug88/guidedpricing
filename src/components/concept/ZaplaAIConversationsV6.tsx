@@ -368,8 +368,8 @@ function ArtifactSurface({ artifact }: { artifact: ContextArtifact }) {
 
 function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean }) {
   const step = useCycle(inView, reduced, 10, 1100, 0);
-  const filled = step <= 6 ? step : step <= 8 ? 6 : 0;
-  const spinTarget = step >= 7 && step <= 9 ? 360 : 0;
+  const filled = step <= 6 ? step : step === 7 ? 6 : 0;
+  const spinTarget = step === 7 ? 360 : 0;
 
   const artifacts: ContextArtifact[] = [
     { kind: "conversation", color: ROSE, x: -174, y: -128, width: 180, height: 118 },
@@ -381,7 +381,7 @@ function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
   ];
 
   const isAbsorbed = (index: number) => {
-    if (step >= 1 && step <= 7) return index < Math.min(step, 6);
+    if (step >= 1 && step <= 6) return index < Math.min(step, 6);
     return false;
   };
 
@@ -403,7 +403,7 @@ function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
 
         {artifacts.map((artifact, index) => {
           const absorbed = isAbsorbed(index);
-          const releasing = step === 8;
+          const releasing = step === 7;
           return (
             <motion.div
               key={artifact.kind}
@@ -415,7 +415,7 @@ function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean 
                 scale: absorbed ? 0.10 : 1,
                 opacity: absorbed ? 0 : 1,
               }}
-              transition={{ duration: releasing ? 0.82 : 0.88, ease: EASE }}
+              transition={{ duration: releasing ? 0.86 : 0.88, ease: EASE }}
               style={{
                 width: artifact.width,
                 height: artifact.height,
@@ -565,12 +565,12 @@ export function ZaplaAIConversationsV6() {
         </header>
 
         <div
-          className="pointer-events-none absolute left-1/2 top-[310px] h-[250px] w-[1060px] -translate-x-1/2 rounded-[50%] blur-[62px]"
-          style={{ background: `radial-gradient(ellipse at center, ${CORAL}34 0%, ${ROSE}22 34%, ${AMBER}10 55%, transparent 77%)` }}
+          className="pointer-events-none absolute left-1/2 top-[304px] h-[270px] w-[1100px] -translate-x-1/2 rounded-[50%] blur-[58px]"
+          style={{ background: `radial-gradient(ellipse at center, ${CORAL}42 0%, ${ROSE}2B 34%, ${AMBER}15 56%, transparent 78%)` }}
         />
         <div
-          className="pointer-events-none absolute left-1/2 top-[386px] h-[120px] w-[780px] -translate-x-1/2 rounded-[50%] blur-[38px]"
-          style={{ background: `radial-gradient(ellipse at center, rgba(255,255,255,.06) 0%, ${CORAL}17 36%, transparent 74%)` }}
+          className="pointer-events-none absolute left-1/2 top-[380px] h-[132px] w-[820px] -translate-x-1/2 rounded-[50%] blur-[34px]"
+          style={{ background: `radial-gradient(ellipse at center, rgba(255,255,255,.08) 0%, ${CORAL}22 37%, transparent 75%)` }}
         />
 
         <div className="relative mt-14 sm:mt-16 lg:mt-20">
