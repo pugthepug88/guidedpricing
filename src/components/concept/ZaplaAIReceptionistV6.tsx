@@ -1,7 +1,6 @@
 import { motion, useReducedMotion } from "motion/react";
 import {
   CalendarDays,
-  Check,
   Globe2,
   Headphones,
   MessageSquareText,
@@ -12,6 +11,7 @@ import {
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
+const BOOK_URL = "https://zapla.io/booking";
 
 const BG = "#111214";
 const CORAL = "#E97D62";
@@ -101,14 +101,13 @@ function OutcomeCard({ icon, title, detail, color, children }: { icon: React.Rea
       }}
     >
       <div className="flex items-center gap-2.5">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border border-white/[0.08] bg-black/15" style={{ color }}>
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] border border-white/[0.08] bg-white/[0.025]" style={{ color }}>
           {icon}
         </span>
         <div className="min-w-0 flex-1">
           <div className="text-[10px] font-medium text-white/86">{title}</div>
           {detail && <div className="mt-0.5 text-[9px] text-white/42">{detail}</div>}
         </div>
-        {title === "Appointment" && <Check size={15} strokeWidth={2.3} color={SAGE} />}
       </div>
       {children}
     </div>
@@ -116,8 +115,10 @@ function OutcomeCard({ icon, title, detail, color, children }: { icon: React.Rea
 }
 
 export function ZaplaAIReceptionistV6() {
+  const reduced = Boolean(useReducedMotion());
+
   return (
-    <section className="relative -mt-16 overflow-hidden pb-24 sm:-mt-20 sm:pb-28 lg:-mt-24 lg:pb-36" style={{ backgroundColor: BG, fontFamily: DISPLAY }}>
+    <section className="relative -mt-16 overflow-hidden pb-24 sm:-mt-20 sm:pb-28 lg:-mt-24 lg:pb-32" style={{ backgroundColor: BG, fontFamily: DISPLAY }}>
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
         <div
           className="relative overflow-hidden rounded-[30px] border border-white/[0.14] px-6 py-7 sm:px-8 sm:py-9 lg:grid lg:min-h-[326px] lg:grid-cols-[0.90fr_1.10fr] lg:items-center lg:gap-10 lg:px-12 lg:py-10"
@@ -139,8 +140,8 @@ export function ZaplaAIReceptionistV6() {
               Your front desk, even when no one picks up.
             </h3>
 
-            <p className="mt-5 max-w-[570px] text-[14px] leading-[1.65] text-white/54 sm:text-[15px]">
-              Zapla answers incoming calls, handles common questions, qualifies enquiries, books the next step, speaks multiple languages, and hands off to your team when a human is needed.
+            <p className="mt-5 max-w-[590px] text-[14px] leading-[1.65] text-white/54 sm:text-[15px]">
+              Zapla answers incoming calls 24/7, handles common questions, qualifies enquiries, books the next step, speaks multiple languages, and hands off to your team when a human is needed.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2.5">
@@ -156,6 +157,13 @@ export function ZaplaAIReceptionistV6() {
             <div className="absolute left-[41%] top-1/2 h-[210px] w-[210px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.04]" />
             <div className="absolute left-[41%] top-1/2 h-[156px] w-[156px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.035]" />
 
+            <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 640 245" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M164 122 C190 122 202 122 212 122" fill="none" stroke="rgba(233,125,98,.38)" strokeWidth="1.3" strokeLinecap="round" />
+              <path d="M318 122 C362 122 386 40 440 40" fill="none" stroke="rgba(233,125,98,.30)" strokeWidth="1.2" strokeLinecap="round" />
+              <path d="M318 122 C365 122 392 122 440 122" fill="none" stroke="rgba(221,163,75,.27)" strokeWidth="1.2" strokeLinecap="round" />
+              <path d="M318 122 C362 122 386 204 440 204" fill="none" stroke="rgba(201,108,133,.27)" strokeWidth="1.2" strokeLinecap="round" />
+            </svg>
+
             <div className="absolute left-0 top-1/2 w-[150px] -translate-y-1/2 rounded-[20px] border border-white/[0.10] bg-[#1E1F23]/95 p-4 shadow-[0_18px_45px_rgba(0,0,0,.22)] sm:w-[165px]">
               <div className="flex items-center gap-2 text-[9px] font-medium text-white/56"><Phone size={12} color={CORAL} /> Incoming call</div>
               <div className="mt-4 flex items-center gap-3">
@@ -169,10 +177,14 @@ export function ZaplaAIReceptionistV6() {
             </div>
 
             <div className="absolute left-[41%] top-1/2 -translate-x-1/2 -translate-y-1/2">
-              <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E97D62]/10 blur-[24px]" />
-              <div className="relative flex h-[112px] w-[112px] items-center justify-center rounded-full border border-white/[0.09] bg-[#191A1D] shadow-[0_0_34px_rgba(233,125,98,.08)]">
-                <PetalFlower size={78} />
-              </div>
+              <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E97D62]/10 blur-[26px]" />
+              <motion.div
+                className="relative"
+                animate={reduced ? undefined : { rotate: 360 }}
+                transition={reduced ? undefined : { duration: 18, repeat: Infinity, ease: "linear" }}
+              >
+                <PetalFlower size={82} />
+              </motion.div>
             </div>
 
             <div className="absolute right-0 top-1/2 grid w-[186px] -translate-y-1/2 gap-2.5 sm:w-[205px]">
@@ -184,9 +196,27 @@ export function ZaplaAIReceptionistV6() {
               </OutcomeCard>
               <OutcomeCard icon={<Headphones size={16} />} title="Transfer to team" detail="Human handoff" color={PLUM} />
             </div>
+          </div>
+        </div>
 
-            <div className="pointer-events-none absolute left-[151px] top-1/2 h-px w-[calc(41%-151px-52px)] -translate-y-1/2 bg-gradient-to-r from-[#E97D62]/20 via-[#E97D62]/55 to-[#E97D62]/10" />
-            <div className="pointer-events-none absolute left-[calc(41%+56px)] right-[198px] top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-[#E97D62]/18 via-white/[0.10] to-transparent sm:right-[217px]" />
+        <div className="relative mx-auto mt-20 max-w-[980px] overflow-hidden px-5 py-14 text-center sm:mt-24 sm:py-16 lg:mt-28 lg:py-20">
+          <div
+            className="pointer-events-none absolute left-1/2 bottom-[-58px] h-[190px] w-[760px] -translate-x-1/2 rounded-[50%] blur-[58px]"
+            style={{ background: `radial-gradient(ellipse at center, ${CORAL}28 0%, ${ROSE}18 35%, ${AMBER}0E 56%, transparent 76%)` }}
+          />
+          <div className="relative z-10">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: CORAL }}>Zapla AI</div>
+            <h3 className="mx-auto mt-4 max-w-[760px] text-[36px] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-[46px] lg:text-[54px]">
+              AI that actually follows through.
+            </h3>
+            <p className="mx-auto mt-5 max-w-[650px] text-[14px] leading-[1.65] text-white/52 sm:text-[16px]">
+              From first contact to booked job, Zapla helps you respond, follow up, and keep opportunities moving.
+            </p>
+            <div className="mt-8 flex justify-center">
+              <a href={BOOK_URL} className="inline-flex h-[50px] items-center justify-center rounded-full bg-white px-6 text-[13px] font-semibold text-[#111214] transition-transform hover:scale-[1.02]">
+                Book a Call
+              </a>
+            </div>
           </div>
         </div>
       </div>
