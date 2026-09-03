@@ -60,6 +60,14 @@ const UNLIMITED_TEAM: UnlimitedTeamMember[] = [
   { label: "Operations", cell: 10, bg: "#8E657A", labelColor: "#C887A1" },
 ];
 
+const GHOST_TEAM = [
+  { cell: 2, bg: "#9B86B8" },
+  { cell: 8, bg: "#D58C75" },
+  { cell: 14, bg: "#99A36D" },
+  { cell: 19, bg: "#C96C85" },
+  { cell: 22, bg: "#DDA34B" },
+];
+
 function portraitPosition(cell: number) {
   const column = cell % 6;
   const row = Math.floor(cell / 6);
@@ -86,25 +94,31 @@ function HumanAvatar({ member, index }: { member: UnlimitedTeamMember; index: nu
   );
 }
 
-function GhostAvatar({ index }: { index: number }) {
-  const size = [126, 112, 98, 84, 70][index] ?? 70;
+function GhostAvatar({ cell, bg, index }: { cell: number; bg: string; index: number }) {
+  const size = [132, 116, 100, 84, 68][index] ?? 68;
   const opacity = [0.24, 0.19, 0.14, 0.10, 0.07][index] ?? 0.07;
 
   return (
     <div
-      className="relative -ml-8 shrink-0 rounded-full border border-white/[0.06] bg-white/[0.04]"
-      style={{ width: size, height: size, opacity }}
+      className="relative -ml-8 shrink-0 overflow-hidden rounded-full border-2 border-[#1E2B29] shadow-[0_12px_30px_rgba(0,0,0,.12)]"
+      style={{
+        width: size,
+        height: size,
+        opacity,
+        backgroundColor: bg,
+        backgroundImage: `url(${PORTRAIT_SHEET})`,
+        backgroundPosition: portraitPosition(cell),
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "600% 400%",
+      }}
       aria-hidden="true"
-    >
-      <div className="absolute left-1/2 top-[26%] h-[27%] w-[27%] -translate-x-1/2 rounded-full bg-white/35" />
-      <div className="absolute bottom-[18%] left-1/2 h-[36%] w-[55%] -translate-x-1/2 rounded-t-[999px] bg-white/30" />
-    </div>
+    />
   );
 }
 
 export function ZaplaUnlimitedV6() {
   return (
-    <section className="relative min-h-[900px] overflow-hidden bg-[#1E2B29] px-5 py-24 text-[#F7F2EA] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+    <section className="relative min-h-[840px] overflow-hidden bg-[#1E2B29] px-5 py-24 text-[#F7F2EA] sm:px-10 sm:py-28 lg:px-16 lg:py-28">
       <div
         className="pointer-events-none absolute -left-8 top-3 whitespace-nowrap text-[36vw] leading-[.8] tracking-[-0.085em] text-[#31403D] sm:text-[245px]"
         style={{ fontFamily: DISPLAY, fontWeight: 500 }}
@@ -120,23 +134,23 @@ export function ZaplaUnlimitedV6() {
             style={{ fontFamily: DISPLAY, fontWeight: 500 }}
           >
             Grow your team.<br />
-            <span className="text-[#E97D62]">Not your software bill.</span>
+            <span className="text-[#D98670]">Not your software bill.</span>
           </h2>
           <p className="mt-6 max-w-[650px] text-[17px] leading-[1.65] text-[#B8C0BC] sm:text-[19px]">
             <span className="font-semibold text-[#F7F2EA]">Unlimited users. No per-seat fees.</span> Add everyone who needs Zapla without paying more for every person you add.
           </p>
         </Reveal>
 
-        <div className="relative z-10 mt-16 sm:mt-20 lg:mt-24">
+        <div className="relative z-10 mt-12 sm:mt-14 lg:mt-16">
           <div className="overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <div className="flex min-w-max items-center pl-1 pr-4 sm:pl-2 lg:justify-center lg:px-0">
               {UNLIMITED_TEAM.map((member, index) => (
                 <HumanAvatar key={member.label} member={member} index={index} />
               ))}
 
-              <div className="ml-3 flex items-center sm:ml-5 lg:ml-7">
-                {[0, 1, 2, 3, 4].map((index) => <GhostAvatar key={index} index={index} />)}
-                <div className="ml-5 whitespace-nowrap text-[22px] font-medium tracking-[-0.025em] text-[#F7F2EA] sm:text-[26px] lg:text-[30px]">
+              <div className="ml-0 flex items-center sm:ml-1 lg:ml-2">
+                {GHOST_TEAM.map((member, index) => <GhostAvatar key={`${member.cell}-${index}`} {...member} index={index} />)}
+                <div className="ml-4 whitespace-nowrap text-[22px] font-medium tracking-[-0.025em] text-[#F7F2EA] sm:text-[26px] lg:text-[30px]">
                   + unlimited
                 </div>
               </div>
@@ -144,10 +158,10 @@ export function ZaplaUnlimitedV6() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto mt-16 flex max-w-[980px] flex-col items-center justify-center gap-5 border-t border-white/10 pt-8 text-center sm:flex-row sm:gap-10 lg:mt-20">
-          <div className="text-[17px] font-semibold text-[#F7F2EA] sm:text-[19px]">Unlimited users included</div>
-          <div className="hidden h-7 w-px bg-white/14 sm:block" aria-hidden="true" />
-          <div className="text-[17px] font-semibold text-[#F7F2EA] sm:text-[19px]">No per-seat fees</div>
+        <div className="relative z-10 mx-auto mt-10 max-w-[980px] text-center sm:mt-12 lg:mt-14">
+          <p className="text-[17px] font-semibold tracking-[-0.015em] text-[#F7F2EA] sm:text-[19px]">
+            Unlimited users included. <span className="text-[#D98670]">No per-seat fees.</span>
+          </p>
         </div>
       </div>
     </section>
