@@ -135,7 +135,7 @@ export function ZaplaAIReceptionistV6() {
   const reduced = Boolean(useReducedMotion());
 
   return (
-    <section className="relative -mt-16 overflow-hidden pb-24 sm:-mt-20 sm:pb-28 lg:-mt-24 lg:pb-32" style={{ backgroundColor: BG, fontFamily: DISPLAY }}>
+    <section className="relative -mt-16 overflow-hidden pb-14 sm:-mt-20 sm:pb-16 lg:-mt-24 lg:pb-20" style={{ backgroundColor: BG, fontFamily: DISPLAY }}>
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
         <div
           className="group relative overflow-hidden rounded-[30px] border border-white/[0.14] px-6 py-7 transition-[border-color,box-shadow] duration-500 hover:border-white/[0.19] hover:shadow-[0_28px_100px_rgba(0,0,0,.28),0_0_38px_rgba(233,125,98,.07)] sm:px-8 sm:py-9 lg:grid lg:min-h-[326px] lg:grid-cols-[0.90fr_1.10fr] lg:items-center lg:gap-10 lg:px-12 lg:py-10"
@@ -218,24 +218,25 @@ export function ZaplaAIReceptionistV6() {
           </div>
         </div>
 
-        <div className="relative mx-auto mt-20 max-w-[980px] overflow-hidden px-5 py-16 text-center sm:mt-24 sm:py-20 lg:mt-28 lg:py-24">
+        <div className="relative left-1/2 mt-14 w-screen -translate-x-1/2 overflow-hidden py-14 text-center sm:mt-16 sm:py-16 lg:mt-20 lg:py-[72px]">
           <div
-            className="pointer-events-none absolute bottom-[-120px] right-[-120px] h-[430px] w-[500px] rounded-[50%] blur-[72px]"
+            className="pointer-events-none absolute bottom-[-160px] left-1/2 h-[320px] w-[1180px] -translate-x-1/2 rounded-[50%] blur-[82px]"
             style={{
-              background: `radial-gradient(circle at 48% 42%, ${CORAL}2A 0%, transparent 30%), radial-gradient(circle at 64% 58%, ${ROSE}24 0%, transparent 36%), radial-gradient(circle at 38% 68%, ${AMBER}18 0%, transparent 34%)`,
+              background: `radial-gradient(ellipse at center, ${CORAL}22 0%, ${ROSE}16 34%, ${AMBER}10 55%, transparent 76%)`,
             }}
           />
-          <div className="pointer-events-none absolute bottom-[-150px] right-[-112px] h-[390px] w-[390px] opacity-[0.24]" aria-hidden="true">
-            <span className="absolute bottom-[114px] left-[42px] h-[178px] w-[116px] rotate-[48deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${PLUM}B8, ${ROSE}58)` }} />
-            <span className="absolute bottom-[150px] left-[142px] h-[202px] w-[126px] rotate-[18deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${ROSE}C8, ${CORAL}70)` }} />
-            <span className="absolute bottom-[98px] left-[235px] h-[194px] w-[122px] -rotate-[24deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${CORAL}C4, ${AMBER}62)` }} />
-            <span className="absolute bottom-[18px] left-[210px] h-[168px] w-[120px] -rotate-[66deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${AMBER}A8, ${APRICOT}58)` }} />
-            <span className="absolute bottom-[2px] left-[94px] h-[170px] w-[120px] rotate-[84deg] rounded-[58%_42%_58%_42%]" style={{ background: `linear-gradient(145deg, ${APRICOT}82, ${PLUM}4A)` }} />
-            <span className="absolute bottom-[88px] left-[166px] h-[46px] w-[46px] rounded-full bg-[#141518]/95 shadow-[0_0_30px_rgba(0,0,0,.35)]" />
+          <div
+            className="pointer-events-none absolute bottom-[-210px] right-[-140px] h-[700px] w-[700px] rounded-full blur-[92px]"
+            style={{
+              background: `radial-gradient(circle at 44% 44%, ${CORAL}28 0%, transparent 30%), radial-gradient(circle at 62% 54%, ${ROSE}20 0%, transparent 36%), radial-gradient(circle at 38% 66%, ${AMBER}16 0%, transparent 36%), radial-gradient(circle at 52% 76%, ${PLUM}12 0%, transparent 42%)`,
+            }}
+          />
+          <div className="pointer-events-none absolute bottom-[-280px] right-[-220px] z-[1] h-[620px] w-[620px] origin-bottom-right -rotate-[8deg] opacity-[0.18] sm:scale-[0.84] lg:scale-100" aria-hidden="true">
+            <PetalFlower size={620} />
           </div>
-          <div className="pointer-events-none absolute bottom-[-22px] left-[9%] h-[150px] w-[520px] rounded-[50%] blur-[64px]" style={{ background: `radial-gradient(ellipse at center, ${CORAL}16 0%, ${ROSE}0D 42%, transparent 72%)` }} />
+          <div className="pointer-events-none absolute bottom-[-40px] left-[4%] h-[160px] w-[560px] rounded-[50%] blur-[72px]" style={{ background: `radial-gradient(ellipse at center, ${CORAL}13 0%, ${ROSE}09 42%, transparent 74%)` }} />
 
-          <div className="relative z-10">
+          <div className="relative z-10 mx-auto max-w-[980px] px-5 sm:px-8">
             <h3 className="mx-auto max-w-[760px] text-[36px] font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-[46px] lg:text-[54px]">
               AI that actually follows through.
             </h3>
