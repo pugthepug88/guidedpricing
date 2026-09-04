@@ -61,7 +61,7 @@ export function ZaplaGuidedLaunchV6() {
 
         <div className="relative flex min-w-0 justify-end">
           <img
-            src="/concept/guided-launch-people-v6-final.webp"
+            src="/concept/guided-launch-people-v6-final.png"
             alt="Business owner working with a Zapla launch specialist"
             className="block h-auto w-full max-w-[760px] object-contain"
             loading="lazy"
