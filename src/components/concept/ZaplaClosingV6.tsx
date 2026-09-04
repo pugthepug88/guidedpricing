@@ -59,13 +59,17 @@ export function ZaplaGuidedLaunchV6() {
           </div>
         </div>
 
-        <div className="relative flex min-w-0 justify-end">
+        <div className="relative flex min-w-0 justify-end overflow-hidden">
           <img
             src="/concept/guided-launch-people-v6-final.png"
             alt="Business owner working with a Zapla launch specialist"
             className="block h-auto w-full max-w-[760px] object-contain"
             loading="lazy"
           />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-[#F6F0E8] via-[#F6F0E8]/80 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[12%] bg-gradient-to-b from-[#F6F0E8] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-[#F6F0E8] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-[4%] bg-gradient-to-l from-[#F6F0E8] to-transparent" />
         </div>
       </div>
     </section>
