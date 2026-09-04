@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef, useState } from "react";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import { Boxes, Map, Rocket } from "lucide-react";
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
@@ -23,38 +24,18 @@ export function ZaplaGuidedLaunchV6() {
     <section className="overflow-hidden bg-[#F6F0E8] px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div className="mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[minmax(0,.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-12 xl:gap-16">
         <div className="relative z-10 min-w-0 max-w-[610px]">
-          <div
-            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C56D52]"
-            style={{ fontFamily: GUIDED_BODY }}
-          >
-            Guided Launch
-          </div>
-
-          <h2
-            className="mt-6 text-[48px] leading-[0.96] tracking-[-0.052em] text-[#111318] sm:text-[62px] lg:text-[70px] xl:text-[76px]"
-            style={{ fontFamily: GUIDED_DISPLAY, fontWeight: 500 }}
-          >
+          <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C56D52]" style={{ fontFamily: GUIDED_BODY }}>Guided Launch</div>
+          <h2 className="mt-6 text-[48px] leading-[0.96] tracking-[-0.052em] text-[#111318] sm:text-[62px] lg:text-[70px] xl:text-[76px]" style={{ fontFamily: GUIDED_DISPLAY, fontWeight: 500 }}>
             <span className="block">We don’t hand you software.</span>
             <span className="mt-[0.16em] block">We build it</span>
             <span className="block text-[#C96F55]">around how you work.</span>
           </h2>
-
-          <p
-            className="mt-7 max-w-[560px] text-[17px] leading-[1.65] text-[#64645F] sm:text-[18px]"
-            style={{ fontFamily: GUIDED_BODY }}
-          >
-            We map your process, build what matters, and launch it with your team.
-          </p>
-
+          <p className="mt-7 max-w-[560px] text-[17px] leading-[1.65] text-[#64645F] sm:text-[18px]" style={{ fontFamily: GUIDED_BODY }}>We map your process, build what matters, and launch it with your team.</p>
           <div className="mt-8 flex flex-wrap gap-3" style={{ fontFamily: GUIDED_BODY }}>
             {stages.map((stage) => {
               const StageIcon = stage.icon;
               return (
-                <div
-                  key={stage.label}
-                  className="inline-flex h-11 items-center gap-2.5 rounded-full border px-5 text-[14px] font-semibold text-[#252824]"
-                  style={{ background: stage.bg, borderColor: `${stage.accent}40` }}
-                >
+                <div key={stage.label} className="inline-flex h-11 items-center gap-2.5 rounded-full border px-5 text-[14px] font-semibold text-[#252824]" style={{ background: stage.bg, borderColor: `${stage.accent}40` }}>
                   <StageIcon size={17} strokeWidth={1.8} style={{ color: stage.accent }} aria-hidden="true" />
                   {stage.label}
                 </div>
@@ -64,12 +45,7 @@ export function ZaplaGuidedLaunchV6() {
         </div>
 
         <div className="relative flex min-w-0 justify-end overflow-hidden">
-          <img
-            src="/concept/guided-launch-people-v6-final.png"
-            alt="Business owner working with a Zapla launch specialist"
-            className="block h-auto w-full max-w-[760px] object-contain"
-            loading="lazy"
-          />
+          <img src="/concept/guided-launch-people-v6-final.png" alt="Business owner working with a Zapla launch specialist" className="block h-auto w-full max-w-[760px] object-contain" loading="lazy" />
           <div className="pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-[#F6F0E8] via-[#F6F0E8]/80 to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[12%] bg-gradient-to-b from-[#F6F0E8] to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-[#F6F0E8] to-transparent" />
@@ -80,29 +56,134 @@ export function ZaplaGuidedLaunchV6() {
   );
 }
 
+const PROOF_STORIES = [
+  {
+    eyebrow: "EARLY CUSTOMER RESULT",
+    profession: "Mortgage broker",
+    image: "/concept/cinematic-v5/broker.jpg",
+    metric: "4",
+    title: "deals closed",
+    timeframe: "in 17 days",
+    body: "One mortgage broker used Zapla to follow up existing opportunities. Four closed. Two more remained active after 17 days.",
+    footer: "2 more active",
+    accent: "#D58C75",
+    placeholder: false,
+  },
+  {
+    eyebrow: "CUSTOMER STORY",
+    profession: "Mechanic",
+    image: "/concept/cinematic-v5/mechanic.jpg",
+    metric: "",
+    title: "Mechanic proof goes here.",
+    timeframe: "",
+    body: "First-iteration placeholder for a verified mechanic testimonial and measured result.",
+    footer: "Replace with verified proof",
+    accent: "#99A36D",
+    placeholder: true,
+  },
+  {
+    eyebrow: "CUSTOMER STORY",
+    profession: "Dental practice",
+    image: "/concept/cinematic-v5/dentist.jpg",
+    metric: "",
+    title: "Dental proof goes here.",
+    timeframe: "",
+    body: "First-iteration placeholder for a verified dental testimonial and measured result.",
+    footer: "Replace with verified proof",
+    accent: "#9B86B8",
+    placeholder: true,
+  },
+] as const;
+
 export function ZaplaProofV6() {
   const reduced = !!useReducedMotion();
-  return (
-    <section className="relative overflow-hidden bg-[#165DFF] px-5 py-24 text-white sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="pointer-events-none absolute -left-8 top-6 select-none text-[40vw] leading-[.78] tracking-[-0.09em] text-white/[0.08] sm:text-[270px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>PROOF</div>
-      <div className="relative mx-auto grid max-w-[1380px] gap-12 lg:grid-cols-[.78fr_1.22fr] lg:items-stretch lg:gap-16">
-        <Reveal className="flex flex-col justify-between">
-          <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/66">Early customer result · placeholder</div>
-            <div className="mt-8 text-[150px] leading-[.72] tracking-[-0.09em] sm:text-[220px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>4</div>
-            <div className="mt-6 max-w-[360px] text-[34px] leading-[.98] tracking-[-0.045em] sm:text-[42px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>deals closed<br />in 17 days</div>
-          </div>
-          <div className="mt-10 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/48">Mortgage broker case study · replace or approve before production</div>
-        </Reveal>
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [active, setActive] = useState(0);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 
-        <motion.div initial={reduced ? false : { opacity: 0, x: 36, rotate: 2 }} whileInView={{ opacity: 1, x: 0, rotate: -1.5 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: reduced ? 0 : 0.7, ease: EASE }} className="relative min-h-[560px] overflow-hidden bg-[#0D1E50] shadow-[0_36px_100px_rgba(3,19,71,.28)] lg:min-h-[620px]">
-          <img src="/concept/cinematic-v5/broker.jpg" alt="Mortgage broker customer story" className="absolute inset-0 h-full w-full object-cover opacity-80 saturate-[.82]" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,18,58,.02),rgba(6,18,58,.82))]" />
-          <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-10 lg:p-12">
-            <div className="max-w-[760px] text-[34px] leading-[1.05] tracking-[-0.045em] sm:text-[46px] lg:text-[54px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>“The ROI claim sounded impossible. Then the deals started closing.”</div>
-            <div className="mt-7 flex items-center gap-3 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/62"><span className="h-2 w-2 rounded-full bg-cyan-200" /> Real result · identity withheld for placeholder</div>
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (reduced) return;
+    const next = latest < 0.34 ? 0 : latest < 0.67 ? 1 : 2;
+    setActive((current) => (current === next ? current : next));
+  });
+
+  const current = PROOF_STORIES[active];
+
+  return (
+    <section ref={sectionRef} className="relative bg-[#F0F1EC] text-[#111318] lg:h-[300vh]">
+      <div className="px-5 py-24 sm:px-10 sm:py-28 lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center lg:overflow-hidden lg:px-16 lg:py-0">
+        <div className="mx-auto w-full max-w-[1420px]">
+          <div className="lg:hidden">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6C7463]">Early customer result</div>
+            <div className="mt-7 text-[132px] leading-[.72] tracking-[-0.08em]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>4</div>
+            <h2 className="mt-6 text-[42px] leading-[.96] tracking-[-0.05em]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>deals closed<br />in 17 days</h2>
+            <p className="mt-6 max-w-[560px] text-[17px] leading-[1.65] text-[#60635C]">One mortgage broker used Zapla to follow up existing opportunities. Four closed. Two more remained active after 17 days.</p>
+            <img src="/concept/cinematic-v5/broker.jpg" alt="Mortgage broker customer story" className="mt-9 h-[480px] w-full rounded-[18px] object-cover" />
           </div>
-        </motion.div>
+
+          <div className="hidden lg:grid lg:grid-cols-[.78fr_1.22fr] lg:items-center lg:gap-16 xl:gap-24">
+            <div className="min-w-0">
+              <motion.div key={`${active}-eyebrow`} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.36, ease: EASE }} className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6C7463]">
+                {current.eyebrow}
+              </motion.div>
+
+              <motion.div key={`${active}-copy`} initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE }}>
+                {current.metric ? (
+                  <div className="mt-7 text-[200px] leading-[.72] tracking-[-0.09em]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>{current.metric}</div>
+                ) : null}
+                <h2 className={`${current.metric ? "mt-7" : "mt-12"} max-w-[560px] text-[54px] leading-[.94] tracking-[-0.055em] xl:text-[66px]`} style={{ fontFamily: DISPLAY, fontWeight: 500 }}>
+                  {current.title}{current.timeframe ? <><br /><span className="text-[#7A7E74]">{current.timeframe}</span></> : null}
+                </h2>
+                <p className="mt-7 max-w-[540px] text-[17px] leading-[1.7] text-[#62655E] xl:text-[18px]">{current.body}</p>
+                <div className="mt-8 inline-flex items-center gap-3 border-t border-[#111318]/10 pt-5 text-[12px] font-semibold text-[#343833]">
+                  <span className="h-2.5 w-2.5 rounded-full" style={{ background: current.accent }} />
+                  {current.footer}
+                </div>
+                {current.placeholder ? <div className="mt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#111318]/38">Prototype placeholder only</div> : null}
+              </motion.div>
+
+              <div className="mt-12 flex gap-2">
+                {PROOF_STORIES.map((story, index) => (
+                  <div key={story.profession} className="h-[3px] w-12 overflow-hidden rounded-full bg-[#111318]/10">
+                    <motion.div animate={{ width: index === active ? "100%" : "0%" }} transition={{ duration: 0.35, ease: EASE }} className="h-full rounded-full" style={{ background: story.accent }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative h-[640px] min-w-0 xl:h-[700px]">
+              {PROOF_STORIES.map((story, index) => {
+                const offset = index - active;
+                const distance = Math.abs(offset);
+                return (
+                  <motion.div
+                    key={story.profession}
+                    className="absolute inset-[4%_4%_4%_8%] overflow-hidden rounded-[18px] bg-[#D9DDD3] shadow-[0_24px_70px_rgba(17,19,24,.12)]"
+                    animate={reduced ? { opacity: index === 0 ? 1 : 0 } : {
+                      x: offset * 34,
+                      y: offset * 44,
+                      scale: distance === 0 ? 1 : 0.93,
+                      rotate: offset * 1.4,
+                      opacity: distance === 0 ? 1 : distance === 1 ? 0.42 : 0.12,
+                    }}
+                    transition={{ duration: 0.58, ease: EASE }}
+                    style={{ zIndex: 20 - distance }}
+                  >
+                    <img src={story.image} alt={`${story.profession} customer story`} className="h-full w-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-6 p-7 text-white">
+                      <div>
+                        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/65">Customer story</div>
+                        <div className="mt-2 text-[26px] leading-none tracking-[-0.035em]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>{story.profession}</div>
+                      </div>
+                      {index === 0 ? <div className="rounded-full bg-white/92 px-4 py-2 text-[12px] font-semibold text-[#111318]">4 closed · 17 days</div> : null}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
