@@ -20,8 +20,8 @@ export function ZaplaGuidedLaunchV6() {
 
   return (
     <section className="overflow-hidden bg-[#F6F0E8] px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[.82fr_1.18fr] lg:items-center lg:gap-12 xl:gap-16">
-        <div className="relative z-10 max-w-[610px]">
+      <div className="mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[minmax(0,.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-12 xl:gap-16">
+        <div className="relative z-10 min-w-0 max-w-[610px]">
           <div
             className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C56D52]"
             style={{ fontFamily: GUIDED_BODY }}
@@ -59,11 +59,11 @@ export function ZaplaGuidedLaunchV6() {
           </div>
         </div>
 
-        <div className="relative lg:-mr-8 xl:-mr-14">
+        <div className="relative flex min-w-0 justify-end">
           <img
-            src="/concept/guided-launch-people-v6-final.webp"
+            src="/concept/guided-launch-people-v6-hq.webp"
             alt="Business owner working with a Zapla launch specialist"
-            className="block h-auto w-full object-contain"
+            className="block h-auto w-full max-w-[760px] object-contain"
             loading="lazy"
           />
         </div>
