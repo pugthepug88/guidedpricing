@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "motion/react";
+import { Boxes, Map, Rocket } from "lucide-react";
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const GUIDED_DISPLAY = '"Outfit", "Manrope", system-ui, sans-serif';
@@ -13,9 +14,9 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
 
 export function ZaplaGuidedLaunchV6() {
   const stages = [
-    { label: "Map", accent: "#9CA56E", bg: "rgba(156,165,110,.13)" },
-    { label: "Build", accent: "#9B86B8", bg: "rgba(155,134,184,.13)" },
-    { label: "Launch", accent: "#D58C75", bg: "rgba(213,140,117,.14)" },
+    { label: "Map", icon: Map, accent: "#9CA56E", bg: "rgba(156,165,110,.13)" },
+    { label: "Build", icon: Boxes, accent: "#9B86B8", bg: "rgba(155,134,184,.13)" },
+    { label: "Launch", icon: Rocket, accent: "#D58C75", bg: "rgba(213,140,117,.14)" },
   ] as const;
 
   return (
@@ -46,16 +47,19 @@ export function ZaplaGuidedLaunchV6() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3" style={{ fontFamily: GUIDED_BODY }}>
-            {stages.map((stage) => (
-              <div
-                key={stage.label}
-                className="inline-flex h-11 items-center gap-2.5 rounded-full border px-5 text-[14px] font-semibold text-[#252824]"
-                style={{ background: stage.bg, borderColor: `${stage.accent}40` }}
-              >
-                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: stage.accent }} />
-                {stage.label}
-              </div>
-            ))}
+            {stages.map((stage) => {
+              const StageIcon = stage.icon;
+              return (
+                <div
+                  key={stage.label}
+                  className="inline-flex h-11 items-center gap-2.5 rounded-full border px-5 text-[14px] font-semibold text-[#252824]"
+                  style={{ background: stage.bg, borderColor: `${stage.accent}40` }}
+                >
+                  <StageIcon size={17} strokeWidth={1.8} style={{ color: stage.accent }} aria-hidden="true" />
+                  {stage.label}
+                </div>
+              );
+            })}
           </div>
         </div>
 
