@@ -1,0 +1,86 @@
+name: Section 9 Render QA
+on:
+  push:
+    branches: [qa-section9-render]
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm install --no-save playwright@1.55.0
+      - run: npx playwright install --with-deps chromium
+      - name: Start Vite
+        run: |
+          npm run dev -- --host 127.0.0.1 > /tmp/vite.log 2>&1 &
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:5173/concept/cinematic-follow-through-v6 >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/vite.log
+          exit 1
+      - name: Measure Section 9 across scroll
+        run: |
+          cat > /tmp/qa-section9.mjs <<'EOF'
+          import { chromium } from 'playwright';
+          const browser = await chromium.launch({headless:true});
+          const page = await browser.newPage({viewport:{width:1440,height:900}});
+          await page.goto('http://127.0.0.1:5173/concept/cinematic-follow-through-v6', {waitUntil:'networkidle'});
+          await page.evaluate(() => document.fonts.ready);
+          const info = await page.evaluate(() => {
+            const card = document.querySelector('[data-result-card="broker"]');
+            const sec = card?.closest('section');
+            if (!sec) return null;
+            const r = sec.getBoundingClientRect();
+            return {top:r.top+scrollY, height:r.height};
+          });
+          if (!info) throw new Error('Section 9 not found');
+          const ids = ['broker','follow-up','active','system','why','summary'];
+          const points = [0,0.04,0.08,0.12,0.133,0.16,0.20,0.24,0.28,0.32,0.36,0.40,0.44,0.48,0.52,0.56,0.60,0.64,0.68,0.72,0.76,0.80,0.84,0.88,0.92,0.96,1];
+          const out=[];
+          for (const p of points) {
+            const y = info.top + p * Math.max(0, info.height - 900);
+            await page.evaluate(y => scrollTo(0,y), y);
+            await page.waitForTimeout(90);
+            const sample = await page.evaluate((ids,p) => {
+              const vp={w:innerWidth,h:innerHeight};
+              const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+              const rows = ids.map(id => {
+                const el=document.querySelector(`[data-result-card="${id}"]`);
+                if(!el) return {id,missing:true};
+                const r=el.getBoundingClientRect();
+                const wrap=el.parentElement;
+                const op=wrap?parseFloat(getComputedStyle(wrap).opacity||'1'):1;
+                const iw=Math.max(0, Math.min(r.right,vp.w)-Math.max(r.left,0));
+                const ih=Math.max(0, Math.min(r.bottom,vp.h)-Math.max(r.top,0));
+                const area=Math.max(1,r.width*r.height);
+                const visible=(iw*ih)/area;
+                return {id,x:+r.x.toFixed(1),y:+r.y.toFixed(1),w:+r.width.toFixed(1),h:+r.height.toFixed(1),right:+r.right.toFixed(1),bottom:+r.bottom.toFixed(1),opacity:+op.toFixed(3),visible:+visible.toFixed(3)};
+              });
+              const title=[...document.querySelectorAll('h2')].find(h=>h.textContent?.includes('From the first'));
+              let titleData=null;
+              if(title){const r=title.getBoundingClientRect(); const wrap=title.parentElement; titleData={x:+r.x.toFixed(1),y:+r.y.toFixed(1),w:+r.width.toFixed(1),h:+r.height.toFixed(1),opacity:+parseFloat(getComputedStyle(wrap).opacity||'1').toFixed(3)};}
+              const visible=rows.filter(x=>!x.missing && x.opacity>.05 && x.visible>.02);
+              const overlaps=[];
+              for(let i=0;i<visible.length;i++) for(let j=i+1;j<visible.length;j++){
+                const a=visible[i],b=visible[j];
+                const ox=Math.max(0,Math.min(a.right,b.right)-Math.max(a.x,b.x));
+                const oy=Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y));
+                if(ox*oy>2500) overlaps.push(`${a.id}:${b.id}`);
+              }
+              return {p,title:titleData,cards:rows,meaningfulVisible:visible.map(x=>x.id),overlaps};
+            }, ids, p);
+            out.push(sample);
+          }
+          console.log('SECTION9_QA_JSON_START');
+          console.log(JSON.stringify({section:info,samples:out},null,2));
+          console.log('SECTION9_QA_JSON_END');
+          await browser.close();
+          EOF
+          node /tmp/qa-section9.mjs
