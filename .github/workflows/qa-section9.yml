@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
       - run: npm install
       - run: npm install --no-save playwright@1.55.0
       - run: npx playwright install --with-deps chromium
@@ -20,7 +20,7 @@ jobs:
         run: |
           npm run dev -- --host 127.0.0.1 > /tmp/vite.log 2>&1 &
           for i in {1..60}; do
-            if curl -fsS http://127.0.0.1:5173/concept/cinematic-follow-through-v6 >/dev/null; then exit 0; fi
+            if curl -fsS http://127.0.0.1:8080/concept/cinematic-follow-through-v6 >/dev/null; then exit 0; fi
             sleep 1
           done
           cat /tmp/vite.log
@@ -31,7 +31,7 @@ jobs:
           import { chromium } from 'playwright';
           const browser = await chromium.launch({headless:true});
           const page = await browser.newPage({viewport:{width:1440,height:900}});
-          await page.goto('http://127.0.0.1:5173/concept/cinematic-follow-through-v6', {waitUntil:'networkidle'});
+          await page.goto('http://127.0.0.1:8080/concept/cinematic-follow-through-v6', {waitUntil:'networkidle'});
           await page.evaluate(() => document.fonts.ready);
           const info = await page.evaluate(() => {
             const card = document.querySelector('[data-result-card="broker"]');
@@ -47,10 +47,9 @@ jobs:
           for (const p of points) {
             const y = info.top + p * Math.max(0, info.height - 900);
             await page.evaluate(y => scrollTo(0,y), y);
-            await page.waitForTimeout(90);
+            await page.waitForTimeout(120);
             const sample = await page.evaluate((ids,p) => {
               const vp={w:innerWidth,h:innerHeight};
-              const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
               const rows = ids.map(id => {
                 const el=document.querySelector(`[data-result-card="${id}"]`);
                 if(!el) return {id,missing:true};
