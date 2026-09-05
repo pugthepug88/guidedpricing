@@ -14,94 +14,101 @@ const BROKER_IMAGE = "/concept/cinematic-v5/broker.jpg";
 type ResultCard = {
   id: string;
   tone: string;
+  eyebrow: string;
   text: string;
-  eyebrow?: string;
   body?: string;
+  footer?: string;
   image?: string;
   imageAlt?: string;
-  footer?: string;
   metricA?: { value: string; label: string };
   metricB?: { value: string; label: string };
-  layout: "split" | "note" | "metric";
+  layout: "split" | "quote" | "metric";
   width: string;
 };
 
 const RESULT_CARDS: ResultCard[] = [
   {
     id: "broker",
-    tone: "#CDB5DC",
-    eyebrow: "Mortgage broker",
+    tone: "#E9D2F4",
+    eyebrow: "Mortgage broker · early customer",
     text: "4 deals closed in 17 days.",
-    body: "Zapla followed up opportunities that were already in motion.",
+    body: "Zapla followed up opportunities that were already in motion, while the broker kept working the business.",
+    footer: "Early customer result",
     image: BROKER_IMAGE,
     imageAlt: "Mortgage broker customer result",
     metricA: { value: "4", label: "deals closed" },
     metricB: { value: "17", label: "days" },
     layout: "split",
-    width: "min(920px, 64vw)",
+    width: "min(940px, 62vw)",
   },
   {
     id: "follow-up",
-    tone: "#F0ECD3",
+    tone: "#F4F0D8",
     eyebrow: "What changed",
     text: "Existing opportunities got consistent follow-up instead of waiting for someone to remember.",
-    footer: "Early customer result",
-    layout: "note",
-    width: "min(760px, 52vw)",
+    footer: "Follow-through on work already in motion",
+    layout: "quote",
+    width: "min(760px, 50vw)",
   },
   {
     id: "active",
-    tone: "#E4A05F",
+    tone: "#EFA65E",
     eyebrow: "Still moving",
-    text: "2 more opportunities remained active after the same 17-day period.",
+    text: "2 more opportunities were still active after the same 17-day period.",
     metricA: { value: "2", label: "still active" },
     metricB: { value: "17", label: "days" },
     layout: "metric",
-    width: "min(780px, 54vw)",
+    width: "min(790px, 51vw)",
   },
   {
     id: "system",
-    tone: "#91C6A0",
-    eyebrow: "The useful bit",
-    text: "The result came from follow-through on work that already existed, not from adding another channel to babysit.",
+    tone: "#73D89B",
+    eyebrow: "Why it matters",
+    text: "The result came from following through on opportunities that already existed.",
+    body: "Not another channel to babysit. A system that keeps the next step moving.",
     footer: "One connected follow-up system",
-    layout: "note",
-    width: "min(800px, 55vw)",
+    layout: "quote",
+    width: "min(800px, 52vw)",
   },
   {
     id: "summary",
-    tone: "#D97462",
-    eyebrow: "Early result",
+    tone: "#E96F5C",
+    eyebrow: "Early customer result",
     text: "Follow-through, measured.",
-    body: "4 closed. 2 more active. 17 days.",
+    body: "One early customer. One short period. A useful signal of what consistent follow-up can recover.",
     metricA: { value: "4", label: "closed" },
-    metricB: { value: "2", label: "active" },
+    metricB: { value: "2", label: "still active" },
     layout: "metric",
-    width: "min(860px, 60vw)",
+    width: "min(880px, 57vw)",
   },
 ];
 
 /*
- * Deliberately overlapping windows. While the active card is near its focus
- * point, the next card has already entered just far enough to leave a sliver
- * visible on the right. Continued scrolling completes the handoff: the active
- * card moves left and the next card takes its place.
+ * Choreography is intentionally modelled on the supplied Flow reference:
+ * every card enters from below/left, becomes the main card low in the frame,
+ * then continues diagonally up/right. The next card begins entering before the
+ * current card has left, so a small piece of the next card is always visible.
  */
 const CARD_WINDOWS = [
-  { start: 0.08, middle: 0.2, end: 0.4, x: ["58vw", "-4vw", "-54vw"], y: ["18vh", "10vh", "2vh"] },
-  { start: 0.18, middle: 0.36, end: 0.56, x: ["64vw", "5vw", "-52vw"], y: ["17vh", "11vh", "2vh"] },
-  { start: 0.34, middle: 0.52, end: 0.72, x: ["64vw", "4vw", "-52vw"], y: ["18vh", "11vh", "1vh"] },
-  { start: 0.5, middle: 0.68, end: 0.88, x: ["64vw", "3vw", "-53vw"], y: ["18vh", "10vh", "1vh"] },
-  { start: 0.66, middle: 0.84, end: 0.995, x: ["64vw", "1vw", "-48vw"], y: ["18vh", "10vh", "2vh"] },
+  { start: 0.07, enter: 0.12, focus: 0.2, leave: 0.3, end: 0.4 },
+  { start: 0.2, enter: 0.25, focus: 0.35, leave: 0.46, end: 0.56 },
+  { start: 0.36, enter: 0.41, focus: 0.51, leave: 0.62, end: 0.72 },
+  { start: 0.52, enter: 0.57, focus: 0.67, leave: 0.78, end: 0.88 },
+  { start: 0.68, enter: 0.73, focus: 0.83, leave: 0.92, end: 0.995 },
 ] as const;
 
-function Metric({ value, label }: { value: string; label: string }) {
+const FOCUS_X = ["-1vw", "-4vw", "1vw", "-2vw", "2vw"] as const;
+
+function Metric({ value, label, inverse = false }: { value: string; label: string; inverse?: boolean }) {
   return (
     <div>
-      <div className="text-[38px] leading-none tracking-[-0.055em] sm:text-[46px]" style={{ fontFamily: SANS, fontWeight: 650 }}>
+      <div
+        className={`text-[42px] leading-none tracking-[-0.06em] sm:text-[50px] ${inverse ? "text-white" : "text-[#151515]"}`}
+        style={{ fontFamily: SERIF, fontWeight: 400 }}
+      >
         {value}
       </div>
-      <div className="mt-1.5 max-w-[92px] text-[9px] font-semibold uppercase leading-[1.25] tracking-[0.12em] text-black/55">
+      <div className={`mt-2 max-w-[104px] text-[10px] font-semibold leading-[1.25] ${inverse ? "text-white/72" : "text-black/58"}`} style={{ fontFamily: SANS }}>
         {label}
       </div>
     </div>
@@ -109,76 +116,110 @@ function Metric({ value, label }: { value: string; label: string }) {
 }
 
 function CardContent({ card }: { card: ResultCard }) {
-  const isSplit = card.layout === "split";
-
-  if (isSplit) {
+  if (card.layout === "split") {
     return (
-      <div className="grid h-full grid-cols-[1.04fr_.96fr] overflow-hidden rounded-[24px]">
-        <div className="flex min-h-[390px] flex-col p-8 xl:min-h-[430px] xl:p-10">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-black/56">{card.eyebrow}</div>
-          <div className="mt-6 max-w-[360px] text-[34px] leading-[1.02] tracking-[-0.042em] text-[#111] xl:text-[40px]" style={{ fontFamily: SERIF }}>
-            {card.text}
+      <div className="grid min-h-[500px] grid-cols-[1.03fr_.97fr] overflow-hidden rounded-[28px] xl:min-h-[550px]">
+        <div className="flex flex-col px-10 py-10 xl:px-12 xl:py-12">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.1em] text-black/62" style={{ fontFamily: SANS }}>
+            {card.eyebrow}
           </div>
-          <p className="mt-5 max-w-[360px] text-[13px] leading-[1.6] text-black/62 xl:text-[14px]">{card.body}</p>
-          <div className="mt-auto flex items-end gap-10 pt-10">
+
+          <div className="mt-8 max-w-[390px] text-[43px] leading-[0.98] tracking-[-0.045em] text-[#171717] xl:text-[50px]" style={{ fontFamily: SERIF }}>
+            “{card.text}”
+          </div>
+
+          <p className="mt-6 max-w-[390px] text-[14px] leading-[1.62] text-black/60 xl:text-[15px]" style={{ fontFamily: SANS }}>
+            {card.body}
+          </p>
+
+          <div className="mt-auto flex items-center gap-3 pt-10 text-[13px] font-semibold text-black/76" style={{ fontFamily: SANS }}>
+            <span>{card.footer}</span>
+            <span aria-hidden="true">→</span>
+          </div>
+        </div>
+
+        <div className="relative m-5 ml-0 overflow-hidden rounded-[23px] bg-black/10">
+          <img src={card.image} alt={card.imageAlt ?? ""} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+          <div className="absolute inset-x-0 bottom-0 bg-black/86 px-7 py-6">
+            <div className="flex gap-12">
+              {card.metricA ? <Metric {...card.metricA} inverse /> : null}
+              {card.metricB ? <Metric {...card.metricB} inverse /> : null}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (card.layout === "metric") {
+    return (
+      <div className="flex min-h-[430px] flex-col px-10 py-10 xl:min-h-[475px] xl:px-12 xl:py-12">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.11em] text-black/56" style={{ fontFamily: SANS }}>
+          {card.eyebrow}
+        </div>
+
+        <div className="mt-8 max-w-[560px] text-[43px] leading-[0.99] tracking-[-0.045em] text-[#171717] xl:text-[50px]" style={{ fontFamily: SERIF }}>
+          {card.text}
+        </div>
+
+        {card.body ? (
+          <p className="mt-5 max-w-[540px] text-[14px] leading-[1.62] text-black/58 xl:text-[15px]" style={{ fontFamily: SANS }}>
+            {card.body}
+          </p>
+        ) : null}
+
+        <div className="mt-auto flex items-end justify-between gap-8 border-t border-black/14 pt-8">
+          <div className="flex gap-14">
             {card.metricA ? <Metric {...card.metricA} /> : null}
             {card.metricB ? <Metric {...card.metricB} /> : null}
           </div>
-        </div>
-        <div className="relative min-h-[390px] overflow-hidden bg-black/10 xl:min-h-[430px]">
-          <img src={card.image} alt={card.imageAlt ?? ""} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-          <div className="absolute inset-x-0 bottom-0 h-px bg-black/12" />
+          <div className="grid h-12 w-12 place-items-center rounded-full bg-[#171717] text-[10px] font-bold tracking-[0.06em] text-white" style={{ fontFamily: SANS }}>
+            Z
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-[330px] flex-col p-8 xl:min-h-[360px] xl:p-10">
-      <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-black/52">{card.eyebrow}</div>
-      <div className={`${card.layout === "metric" ? "max-w-[520px] text-[35px] xl:text-[40px]" : "max-w-[520px] text-[33px] xl:text-[38px]"} mt-6 leading-[1.04] tracking-[-0.04em] text-[#111]`} style={{ fontFamily: SERIF }}>
-        {card.text}
+    <div className="flex min-h-[420px] flex-col px-10 py-10 xl:min-h-[460px] xl:px-12 xl:py-12">
+      <div className="text-[11px] font-semibold uppercase tracking-[0.11em] text-black/55" style={{ fontFamily: SANS }}>
+        {card.eyebrow}
       </div>
-      {card.body ? <p className="mt-5 max-w-[470px] text-[14px] leading-[1.6] text-black/60">{card.body}</p> : null}
 
-      {card.layout === "metric" ? (
-        <div className="mt-auto flex items-end justify-between gap-8 border-t border-black/12 pt-8">
-          <div className="flex gap-12">
-            {card.metricA ? <Metric {...card.metricA} /> : null}
-            {card.metricB ? <Metric {...card.metricB} /> : null}
-          </div>
-          <div className="h-11 w-11 rounded-full bg-black/92" aria-hidden="true" />
-        </div>
-      ) : (
-        <div className="mt-auto flex items-center gap-3 pt-10 text-[10px] font-semibold text-black/62">
-          <div className="grid h-9 w-9 place-items-center rounded-full bg-black text-[8px] font-bold uppercase tracking-[0.04em] text-white">Z</div>
-          <span>{card.footer}</span>
-        </div>
-      )}
+      <div className="mt-8 max-w-[600px] text-[43px] leading-[1.01] tracking-[-0.045em] text-[#171717] xl:text-[50px]" style={{ fontFamily: SERIF }}>
+        “{card.text}”
+      </div>
+
+      {card.body ? (
+        <p className="mt-5 max-w-[520px] text-[14px] leading-[1.62] text-black/58 xl:text-[15px]" style={{ fontFamily: SANS }}>
+          {card.body}
+        </p>
+      ) : null}
+
+      <div className="mt-auto flex items-center gap-3 pt-10 text-[12px] font-semibold text-black/64" style={{ fontFamily: SANS }}>
+        <div className="grid h-10 w-10 place-items-center rounded-full bg-[#171717] text-[9px] font-bold tracking-[0.06em] text-white">Z</div>
+        <span>{card.footer}</span>
+      </div>
     </div>
   );
 }
 
 function FloatingResultCard({ progress, card, index }: { progress: MotionValue<number>; card: ResultCard; index: number }) {
   const window = CARD_WINDOWS[index];
-  const input = [window.start, window.middle, window.end];
-  const x = useTransform(progress, input, [...window.x]);
-  const y = useTransform(progress, input, [...window.y]);
-  const opacity = useTransform(
-    progress,
-    [window.start, window.start + 0.018, window.middle, window.end - 0.035, window.end],
-    [0, 1, 1, 1, 0],
-  );
-  const rotate = useTransform(progress, input, [1.4, 0, -1.2]);
-  const scale = useTransform(progress, input, [0.97, 1, 0.975]);
+  const input = [window.start, window.enter, window.focus, window.leave, window.end];
+
+  const x = useTransform(progress, input, ["-58vw", "-38vw", FOCUS_X[index], "30vw", "60vw"]);
+  const y = useTransform(progress, input, ["66vh", "43vh", "14vh", "-16vh", "-50vh"]);
+  const opacity = useTransform(progress, [window.start, window.start + 0.018, window.end - 0.025, window.end], [0, 1, 1, 0]);
 
   return (
     <motion.div
       className="absolute left-1/2 top-1/2"
-      style={{ x, y, opacity, rotate, scale, zIndex: 20 + index, willChange: "transform, opacity" }}
+      style={{ x, y, opacity, zIndex: 20 + index, willChange: "transform, opacity" }}
     >
       <div
-        className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[24px] border border-white/10 text-[#111] shadow-[0_30px_90px_rgba(0,0,0,.32)]"
+        className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[28px] border border-black/10 text-[#111] shadow-[0_28px_80px_rgba(0,0,0,.22)]"
         style={{ width: card.width, background: card.tone }}
       >
         <CardContent card={card} />
@@ -189,7 +230,7 @@ function FloatingResultCard({ progress, card, index }: { progress: MotionValue<n
 
 function StaticCard({ card }: { card: ResultCard }) {
   return (
-    <div className="overflow-hidden rounded-[22px] border border-white/10 text-[#111] shadow-[0_22px_60px_rgba(0,0,0,.22)]" style={{ background: card.tone }}>
+    <div className="overflow-hidden rounded-[24px] border border-black/10 text-[#111] shadow-[0_20px_55px_rgba(0,0,0,.18)]" style={{ background: card.tone }}>
       <CardContent card={card} />
     </div>
   );
@@ -199,36 +240,48 @@ export function ZaplaEarlyResultsFlowV6() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const reduced = !!useReducedMotion();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.035, 0.14, 0.27], [0, 1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.055, 0.18, 0.27], [38, 0, 0, -34]);
-  const hintOpacity = useTransform(scrollYProgress, [0.03, 0.08, 0.18], [0, 1, 0]);
+
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.025, 0.2, 0.34], [0, 1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.05, 0.22, 0.34], [32, 0, 0, -30]);
+  const hintOpacity = useTransform(scrollYProgress, [0.02, 0.07, 0.18], [0, 1, 0]);
 
   return (
-    <section ref={sectionRef} className={`relative bg-[#F6F0E8] px-3 py-10 text-white sm:px-5 ${reduced ? "lg:py-16" : "lg:h-[460vh] lg:py-0"}`}>
-      <div className={`${reduced ? "lg:min-h-screen" : "lg:sticky lg:top-0 lg:h-screen"} relative mx-auto w-full max-w-[1680px] overflow-hidden rounded-[34px] bg-[#191918] sm:rounded-[42px]`}>
+    <section
+      ref={sectionRef}
+      className={`relative bg-[#F5F0E7] px-3 py-10 text-white sm:px-5 ${reduced ? "lg:py-16" : "lg:h-[500vh] lg:py-0"}`}
+    >
+      <div
+        className={`${reduced ? "lg:min-h-screen" : "lg:sticky lg:top-0 lg:h-screen"} relative mx-auto w-full max-w-[1680px] overflow-hidden rounded-[38px] bg-[#1A1A19] sm:rounded-[46px]`}
+      >
         <div className="pointer-events-none absolute inset-0 rounded-[inherit] border border-white/[0.035]" />
 
         <div className="relative z-10 px-5 pb-16 pt-16 sm:px-10 sm:pt-20 lg:hidden">
           <div className="text-center">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/45">Early access. Real result.</div>
-            <h2 className="mx-auto mt-5 max-w-[520px] text-[45px] leading-[0.96] tracking-[-0.045em] text-white sm:text-[54px]" style={{ fontFamily: SERIF, fontWeight: 400 }}>
-              One early customer.<br />
-              <em className="font-normal text-[#E7D8EB]">Real follow-through.</em>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/42" style={{ fontFamily: SANS }}>
+              Early customer results
+            </div>
+            <h2 className="mx-auto mt-5 max-w-[560px] text-[46px] leading-[0.95] tracking-[-0.045em] text-white sm:text-[56px]" style={{ fontFamily: SERIF, fontWeight: 400 }}>
+              From the first<br />
+              <em className="font-normal text-[#F1E7D9]">businesses to use it.</em>
             </h2>
           </div>
-          <div className="mx-auto mt-10 grid max-w-[720px] gap-5">
+          <div className="mx-auto mt-10 grid max-w-[760px] gap-5">
             {RESULT_CARDS.slice(0, 4).map((card) => <StaticCard key={card.id} card={card} />)}
           </div>
-          <div className="mx-auto mt-7 max-w-[720px] text-center text-[10px] leading-[1.5] text-white/36">Early customer result. Individual outcomes vary by business and follow-up.</div>
+          <div className="mx-auto mt-7 max-w-[720px] text-center text-[10px] leading-[1.5] text-white/34" style={{ fontFamily: SANS }}>
+            Early customer result. Individual outcomes vary by business and follow-up.
+          </div>
         </div>
 
         {reduced ? (
           <div className="relative z-10 hidden min-h-screen px-10 py-24 lg:block xl:px-16">
             <div className="mx-auto max-w-[1320px]">
               <div className="text-center">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/45">Early access. Real result.</div>
-                <h2 className="mx-auto mt-5 max-w-[720px] text-[66px] leading-[0.94] tracking-[-0.05em] text-white" style={{ fontFamily: SERIF, fontWeight: 400 }}>
-                  One early customer. <em className="font-normal text-[#E7D8EB]">Real follow-through.</em>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/42" style={{ fontFamily: SANS }}>
+                  Early customer results
+                </div>
+                <h2 className="mx-auto mt-5 max-w-[760px] text-[68px] leading-[0.93] tracking-[-0.05em] text-white" style={{ fontFamily: SERIF, fontWeight: 400 }}>
+                  From the first <em className="font-normal text-[#F1E7D9]">businesses to use it.</em>
                 </h2>
               </div>
               <div className="mt-14 grid grid-cols-2 gap-6">
@@ -238,23 +291,33 @@ export function ZaplaEarlyResultsFlowV6() {
           </div>
         ) : (
           <div className="relative hidden h-full lg:block">
-            <motion.div className="absolute left-1/2 top-[7vh] z-10 w-[min(760px,70vw)] -translate-x-1/2 text-center" style={{ opacity: titleOpacity, y: titleY }}>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.24em] text-white/42">Early access. Real result.</div>
-              <h2 className="mt-5 text-[58px] leading-[0.93] tracking-[-0.05em] text-white xl:text-[70px]" style={{ fontFamily: SERIF, fontWeight: 400 }}>
-                One early customer.<br />
-                <em className="font-normal text-[#E7D8EB]">Real follow-through.</em>
+            <motion.div
+              className="absolute left-1/2 top-[9vh] z-10 w-[min(820px,72vw)] -translate-x-1/2 text-center"
+              style={{ opacity: titleOpacity, y: titleY }}
+            >
+              <div className="text-[10px] font-semibold uppercase tracking-[0.19em] text-white/38" style={{ fontFamily: SANS }}>
+                Early customer results
+              </div>
+              <h2 className="mt-5 text-[58px] leading-[0.93] tracking-[-0.05em] text-white xl:text-[72px]" style={{ fontFamily: SERIF, fontWeight: 400 }}>
+                From the first<br />
+                <em className="font-normal text-[#F1E7D9]">businesses to use it.</em>
               </h2>
             </motion.div>
 
-            <motion.div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/22" style={{ opacity: hintOpacity }}>
-              Scroll through the result
+            <motion.div
+              className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[9px] font-semibold uppercase tracking-[0.17em] text-white/22"
+              style={{ opacity: hintOpacity, fontFamily: SANS }}
+            >
+              Scroll through the results
             </motion.div>
 
             {RESULT_CARDS.map((card, index) => (
               <FloatingResultCard key={card.id} progress={scrollYProgress} card={card} index={index} />
             ))}
 
-            <div className="absolute bottom-6 right-7 z-10 text-[9px] text-white/24 xl:right-10">Early customer result. Individual outcomes vary.</div>
+            <div className="absolute bottom-6 right-7 z-10 text-[9px] text-white/22 xl:right-10" style={{ fontFamily: SANS }}>
+              Early customer result. Individual outcomes vary.
+            </div>
           </div>
         )}
       </div>
