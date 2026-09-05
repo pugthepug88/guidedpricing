@@ -32,8 +32,6 @@ type MotionPath = {
   input: number[];
   x: string[];
   y: string[];
-  rotate: number[];
-  fadeOut?: boolean;
 };
 
 const RESULT_CARDS: ResultCard[] = [
@@ -109,47 +107,40 @@ const RESULT_CARDS: ResultCard[] = [
 ];
 
 /*
- * Measured from the supplied Flow recording rather than a shared carousel curve.
- * The first card rises almost vertically, the middle cards cross from lower-left
- * to upper-right, and the final red card climbs into a high hold near the end.
+ * Choreography traced from the supplied Flow recording at 1.7 second intervals.
+ * Cards stay fully opaque once they enter. They disappear by physically travelling
+ * out through the upper-right edge, matching the reference instead of cross-fading.
  */
 const MOTION_PATHS: MotionPath[] = [
   {
-    input: [0.0, 0.047, 0.071, 0.11, 0.133, 0.157, 0.188, 0.204, 0.266],
-    x: ["-1vw", "-1vw", "-1vw", "-1vw", "-1vw", "-1vw", "5vw", "15.5vw", "33vw"],
-    y: ["62vh", "55.8vh", "46.7vh", "21vh", "16.6vh", "-1.4vh", "-4.7vh", "-11.1vh", "-12.3vh"],
-    rotate: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    input: [0, 0.083, 0.167, 0.25, 0.333, 0.36],
+    x: ["-1vw", "-1vw", "14vw", "33vw", "60vw", "82vw"],
+    y: ["62vh", "17vh", "-9.5vh", "-12.3vh", "-32vh", "-50vh"],
   },
   {
-    input: [0.2, 0.251, 0.282, 0.329, 0.36, 0.4, 0.423, 0.435],
-    x: ["-50.7vw", "-36.6vw", "-26vw", "-8.1vw", "2.8vw", "23.7vw", "43.5vw", "52vw"],
-    y: ["32.4vh", "24vh", "17vh", "4.5vh", "-2.9vh", "-15.4vh", "-20.2vh", "-22vh"],
-    rotate: [0, 0, 0, 0, 0, 0, 0, 0],
+    input: [0.167, 0.25, 0.333, 0.417, 0.5, 0.54],
+    x: ["-52vw", "-34.5vw", "-6.1vw", "23vw", "48vw", "82vw"],
+    y: ["33vh", "22.7vh", "3.2vh", "-14vh", "-27vh", "-50vh"],
   },
   {
-    input: [0.34, 0.392, 0.431, 0.462, 0.501, 0.525, 0.55],
-    x: ["-48vw", "-39vw", "-10vw", "-3.6vw", "22vw", "44vw", "56vw"],
-    y: ["38vh", "22.5vh", "6vh", "1.4vh", "-15.9vh", "-22vh", "-24vh"],
-    rotate: [0, 0, 0, 0, 0, 0, 0],
+    input: [0.417, 0.5, 0.583, 0.667, 0.70],
+    x: ["-50vw", "-10vw", "20vw", "58vw", "82vw"],
+    y: ["31vh", "0vh", "-12vh", "-28vh", "-50vh"],
   },
   {
-    input: [0.454, 0.493, 0.525, 0.556, 0.587, 0.603, 0.619, 0.674, 0.705],
-    x: ["-74vw", "-52vw", "-23.7vw", "-0.6vw", "5.5vw", "5.5vw", "13.4vw", "40.2vw", "54vw"],
-    y: ["43vh", "32.8vh", "15.4vh", "-0.6vh", "-4.7vh", "-4.7vh", "-9.6vh", "-19.3vh", "-20vh"],
-    rotate: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    input: [0.5, 0.583, 0.667, 0.75, 0.833, 0.86],
+    x: ["-70vw", "-23vw", "5.5vw", "25vw", "60vw", "82vw"],
+    y: ["42vh", "15vh", "-4.7vh", "-14.4vh", "-30vh", "-50vh"],
   },
   {
-    input: [0.611, 0.65, 0.674, 0.697, 0.713, 0.736, 0.752, 0.76, 0.79],
-    x: ["-59.9vw", "-48vw", "-27.5vw", "-17.8vw", "-0.2vw", "10.9vw", "11.6vw", "20.6vw", "40vw"],
-    y: ["36.8vh", "30.5vh", "17.5vh", "10.8vh", "-0.9vh", "-8.1vh", "-8.6vh", "-13.7vh", "-20vh"],
-    rotate: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    input: [0.75, 0.833, 0.917, 0.95],
+    x: ["-42vw", "10.5vw", "48vw", "82vw"],
+    y: ["27vh", "-7.8vh", "-25vh", "-50vh"],
   },
   {
-    input: [0.705, 0.752, 0.783, 0.799, 0.807, 0.823, 0.838, 0.854, 0.87, 1.0],
-    x: ["-79vw", "-55vw", "-28vw", "-21.6vw", "-13.1vw", "-7.9vw", "-7vw", "-5.7vw", "-1.5vw", "-1vw"],
-    y: ["58.7vh", "34.7vh", "18.5vh", "14.3vh", "7.7vh", "4.4vh", "3.8vh", "-6.3vh", "-21.5vh", "-21.5vh"],
-    rotate: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    fadeOut: false,
+    input: [0.833, 0.917, 1],
+    x: ["-56vw", "-21.6vw", "-1.2vw"],
+    y: ["35.4vh", "14.3vh", "-21.6vh"],
   },
 ];
 
@@ -188,18 +179,10 @@ function HeroCard({ card }: { card: ResultCard }) {
   return (
     <div className="grid h-full grid-cols-[1.03fr_.97fr]">
       <div className="flex min-w-0 flex-col px-[clamp(40px,3.3vw,52px)] py-[clamp(40px,3.3vw,52px)]">
-        <div className="text-[clamp(22px,1.85vw,31px)] font-black leading-none tracking-[-0.045em] text-[#171717]" style={{ fontFamily: SANS }}>
-          {card.label}
-        </div>
-        <div className="mt-3 text-[clamp(13px,1vw,17px)] text-black/55" style={{ fontFamily: SANS }}>
-          {card.sublabel}
-        </div>
-        <div className="mt-[clamp(24px,3vh,38px)] max-w-[430px] text-[clamp(32px,2.55vw,46px)] leading-[0.99] tracking-[-0.045em] text-[#171717]" style={{ fontFamily: SERIF }}>
-          “{card.quote}”
-        </div>
-        <div className="mt-auto flex items-center gap-3 pt-8 text-[clamp(12px,.9vw,15px)] font-semibold text-black/78" style={{ fontFamily: SANS }}>
-          <span>{card.footer}</span><span aria-hidden="true">›</span>
-        </div>
+        <div className="text-[clamp(22px,1.85vw,31px)] font-black leading-none tracking-[-0.045em] text-[#171717]" style={{ fontFamily: SANS }}>{card.label}</div>
+        <div className="mt-3 text-[clamp(13px,1vw,17px)] text-black/55" style={{ fontFamily: SANS }}>{card.sublabel}</div>
+        <div className="mt-[clamp(24px,3vh,38px)] max-w-[430px] text-[clamp(32px,2.55vw,46px)] leading-[0.99] tracking-[-0.045em] text-[#171717]" style={{ fontFamily: SERIF }}>“{card.quote}”</div>
+        <div className="mt-auto flex items-center gap-3 pt-8 text-[clamp(12px,.9vw,15px)] font-semibold text-black/78" style={{ fontFamily: SANS }}><span>{card.footer}</span><span aria-hidden="true">›</span></div>
       </div>
       <div className="relative m-[clamp(14px,1.4vw,24px)] ml-0 overflow-hidden rounded-[clamp(26px,2.4vw,44px)] bg-black">
         <img src={card.image} alt="Mortgage broker early customer result" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
@@ -218,12 +201,8 @@ function QuoteCard({ card }: { card: ResultCard }) {
   return (
     <div className="flex h-full flex-col px-[clamp(36px,3.2vw,58px)] py-[clamp(38px,3.5vw,60px)]">
       <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/42" style={{ fontFamily: SANS }}>{card.label}</div>
-      <div className="mt-[clamp(24px,3vh,42px)] max-w-[690px] text-[clamp(34px,2.75vw,50px)] leading-[1.01] tracking-[-0.047em] text-[#171717]" style={{ fontFamily: SERIF }}>
-        “{card.quote}”
-      </div>
-      <div className="mt-auto flex items-center gap-4 pt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72" style={{ fontFamily: SANS }}>
-        <RoundMark /><span>{card.footer}</span>
-      </div>
+      <div className="mt-[clamp(24px,3vh,42px)] max-w-[690px] text-[clamp(34px,2.75vw,50px)] leading-[1.01] tracking-[-0.047em] text-[#171717]" style={{ fontFamily: SERIF }}>“{card.quote}”</div>
+      <div className="mt-auto flex items-center gap-4 pt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72" style={{ fontFamily: SANS }}><RoundMark /><span>{card.footer}</span></div>
     </div>
   );
 }
@@ -232,10 +211,7 @@ function PhotoQuoteCard({ card }: { card: ResultCard }) {
   return (
     <div className="relative h-full overflow-hidden">
       <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_30%]" loading="lazy" />
-      <div
-        className="absolute inset-x-[clamp(16px,1.4vw,24px)] bottom-[clamp(16px,1.4vw,24px)] rounded-[clamp(24px,2.2vw,40px)] px-[clamp(28px,2.8vw,48px)] py-[clamp(28px,3vh,44px)]"
-        style={{ background: card.tone }}
-      >
+      <div className="absolute inset-x-[clamp(16px,1.4vw,24px)] bottom-[clamp(16px,1.4vw,24px)] rounded-[clamp(24px,2.2vw,40px)] px-[clamp(28px,2.8vw,48px)] py-[clamp(28px,3vh,44px)]" style={{ background: card.tone }}>
         <div className="max-w-[670px] text-[clamp(31px,2.55vw,46px)] leading-[1.01] tracking-[-0.045em] text-[#171717]" style={{ fontFamily: SERIF }}>“{card.quote}”</div>
         <div className="mt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72" style={{ fontFamily: SANS }}>{card.footer}</div>
       </div>
@@ -293,21 +269,25 @@ function CardContent({ card }: { card: ResultCard }) {
 
 function FloatingCard({ card, index, progress }: { card: ResultCard; index: number; progress: MotionValue<number> }) {
   const path = MOTION_PATHS[index];
-  const x = useTransform(progress, path.input, path.x);
-  const y = useTransform(progress, path.input, path.y);
-  const rotate = useTransform(progress, path.input, path.rotate);
+  const x = useTransform(progress, path.input, path.x, { clamp: true });
+  const y = useTransform(progress, path.input, path.y, { clamp: true });
   const start = path.input[0];
-  const end = path.input[path.input.length - 1];
-  const opacity = path.fadeOut === false
-    ? useTransform(progress, [Math.max(0, start - 0.002), start], [0, 1])
-    : useTransform(progress, [Math.max(0, start - 0.002), start, Math.max(start, end - 0.002), end], [0, 1, 1, 0]);
+  const opacity = useTransform(progress, (value) => (index === 0 || value >= start ? 1 : 0));
 
   return (
-    <motion.div className="absolute left-1/2 top-1/2" style={{ x, y, rotate, opacity, zIndex: 20 + index, willChange: "transform, opacity" }}>
+    <motion.div
+      className="absolute left-1/2 top-1/2"
+      style={{ x, y, opacity, zIndex: 20 + index, willChange: "transform" }}
+    >
       <div
         data-result-card={card.id}
         className="-translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/[0.06] text-[#171717] shadow-[0_28px_80px_rgba(0,0,0,.12)]"
-        style={{ width: card.width, aspectRatio: card.aspectRatio, background: card.tone, borderRadius: "clamp(38px, 3.55vw, 60px)" }}
+        style={{
+          width: card.width,
+          aspectRatio: card.aspectRatio,
+          background: card.tone,
+          borderRadius: "clamp(38px, 3.55vw, 60px)",
+        }}
       >
         <CardContent card={card} />
       </div>
@@ -328,8 +308,8 @@ export function ZaplaEarlyResultsFlowV6() {
   const reduced = !!useReducedMotion();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 
-  const titleY = useTransform(scrollYProgress, [0, 0.06, 0.13, 0.18], ["0vh", "-8vh", "-25vh", "-42vh"]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.1, 0.16, 0.2], [1, 1, 0.7, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.04, 0.083, 0.13], ["0vh", "-3vh", "-16vh", "-42vh"], { clamp: true });
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.07, 0.12, 0.15], [1, 1, 0.8, 0], { clamp: true });
 
   return (
     <section ref={sectionRef} className={`relative bg-[#F7F4E6] text-white ${reduced ? "py-12" : "lg:h-[610vh]"}`}>
@@ -361,7 +341,7 @@ export function ZaplaEarlyResultsFlowV6() {
           </div>
         ) : (
           <div className="relative hidden h-full lg:block">
-            <motion.div className="absolute left-1/2 top-[20vh] z-10 w-[min(760px,72vw)] -translate-x-1/2 text-center" style={{ y: titleY, opacity: titleOpacity }}>
+            <motion.div className="absolute left-1/2 top-[16vh] z-10 w-[min(760px,72vw)] -translate-x-1/2 text-center" style={{ y: titleY, opacity: titleOpacity }}>
               <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/43" style={{ fontFamily: SANS }}>Early access. Real results.</div>
               <h2 className="mt-5 text-[clamp(54px,4.2vw,72px)] leading-[0.94] tracking-[-0.047em] text-[#F7F4E6]" style={{ fontFamily: SERIF, fontWeight: 400 }}>
                 From the first<br /><em className="font-normal">businesses to use it.</em>
