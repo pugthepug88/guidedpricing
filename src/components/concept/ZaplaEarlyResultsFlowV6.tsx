@@ -107,40 +107,42 @@ const RESULT_CARDS: ResultCard[] = [
 ];
 
 /*
- * Choreography traced from the supplied Flow recording at 1.7 second intervals.
- * Cards stay fully opaque once they enter. They disappear by physically travelling
- * out through the upper-right edge, matching the reference instead of cross-fading.
+ * Reference-beat choreography.
+ * Progress checkpoints deliberately line up with the supplied Flow recording:
+ * .10 purple hero, .20 first handoff, .34 cream hero, .46 photo hero,
+ * .60 green hero, .74 cream hero, .86 red entering, .96 red hero.
+ * Cards remain opaque and leave by travelling through the upper-right edge.
  */
 const MOTION_PATHS: MotionPath[] = [
   {
-    input: [0, 0.083, 0.167, 0.25, 0.333, 0.36],
-    x: ["-1vw", "-1vw", "14vw", "33vw", "60vw", "82vw"],
-    y: ["62vh", "17vh", "-9.5vh", "-12.3vh", "-32vh", "-50vh"],
+    input: [0, 0.10, 0.20, 0.27, 0.34, 0.40],
+    x: ["-1vw", "-1vw", "14vw", "32.7vw", "60.5vw", "82vw"],
+    y: ["49.8vh", "16.6vh", "-9.4vh", "-12.3vh", "-44.6vh", "-55vh"],
   },
   {
-    input: [0.167, 0.25, 0.333, 0.417, 0.5, 0.54],
-    x: ["-52vw", "-34.5vw", "-6.1vw", "23vw", "48vw", "82vw"],
-    y: ["33vh", "22.7vh", "3.2vh", "-14vh", "-27vh", "-50vh"],
+    input: [0.10, 0.20, 0.27, 0.34, 0.40, 0.46, 0.50],
+    x: ["-69vw", "-52vw", "-34.5vw", "-6.2vw", "23.7vw", "53vw", "82vw"],
+    y: ["58vh", "33.2vh", "22.7vh", "3.2vh", "-14vh", "-42vh", "-55vh"],
   },
   {
-    input: [0.417, 0.5, 0.583, 0.667, 0.70],
-    x: ["-50vw", "-10vw", "20vw", "58vw", "82vw"],
-    y: ["31vh", "0vh", "-12vh", "-28vh", "-50vh"],
+    input: [0.34, 0.40, 0.46, 0.53, 0.57],
+    x: ["-64vw", "-34.8vw", "-3.8vw", "44vw", "82vw"],
+    y: ["38.5vh", "23vh", "1.6vh", "-21.8vh", "-55vh"],
   },
   {
-    input: [0.5, 0.583, 0.667, 0.75, 0.833, 0.86],
-    x: ["-70vw", "-23vw", "5.5vw", "25vw", "60vw", "82vw"],
-    y: ["42vh", "15vh", "-4.7vh", "-14.4vh", "-30vh", "-50vh"],
+    input: [0.46, 0.53, 0.60, 0.67, 0.74, 0.78],
+    x: ["-70vw", "-23.2vw", "5.6vw", "24.9vw", "60vw", "82vw"],
+    y: ["41.5vh", "15vh", "-4.7vh", "-14.4vh", "-40vh", "-55vh"],
   },
   {
-    input: [0.75, 0.833, 0.917, 0.95],
-    x: ["-42vw", "10.5vw", "48vw", "82vw"],
-    y: ["27vh", "-7.8vh", "-25vh", "-50vh"],
+    input: [0.60, 0.67, 0.74, 0.86, 0.90],
+    x: ["-60.5vw", "-42.2vw", "10.5vw", "47vw", "82vw"],
+    y: ["37.2vh", "27vh", "-7.8vh", "-37vh", "-55vh"],
   },
   {
-    input: [0.833, 0.917, 1],
-    x: ["-56vw", "-21.6vw", "-1.2vw"],
-    y: ["35.4vh", "14.3vh", "-21.6vh"],
+    input: [0.74, 0.86, 0.96, 1],
+    x: ["-56.3vw", "-21.6vw", "-1.2vw", "-1.2vw"],
+    y: ["35.4vh", "14.3vh", "-12.3vh", "-12.3vh"],
   },
 ];
 
@@ -275,10 +277,7 @@ function FloatingCard({ card, index, progress }: { card: ResultCard; index: numb
   const opacity = useTransform(progress, (value) => (index === 0 || value >= start ? 1 : 0));
 
   return (
-    <motion.div
-      className="absolute left-1/2 top-1/2"
-      style={{ x, y, opacity, zIndex: 20 + index, willChange: "transform" }}
-    >
+    <motion.div className="absolute left-1/2 top-1/2" style={{ x, y, opacity, zIndex: 20 + index, willChange: "transform" }}>
       <div
         data-result-card={card.id}
         className="-translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/[0.06] text-[#171717] shadow-[0_28px_80px_rgba(0,0,0,.12)]"
@@ -308,14 +307,15 @@ export function ZaplaEarlyResultsFlowV6() {
   const reduced = !!useReducedMotion();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 
-  const titleY = useTransform(scrollYProgress, [0, 0.04, 0.083, 0.13], ["0vh", "-3vh", "-16vh", "-42vh"], { clamp: true });
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.07, 0.12, 0.15], [1, 1, 0.8, 0], { clamp: true });
+  const titleY = useTransform(scrollYProgress, [0, 0.06, 0.10, 0.18, 0.22], ["0vh", "-3vh", "-14vh", "-34vh", "-50vh"], { clamp: true });
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.10, 0.18, 0.22], [1, 1, 0.45, 0], { clamp: true });
+  const stageY = useTransform(scrollYProgress, [0, 0.92, 0.96, 1], ["0vh", "0vh", "-10vh", "-22vh"], { clamp: true });
 
   return (
-    <section ref={sectionRef} className={`relative bg-[#F7F4E6] text-white ${reduced ? "py-12" : "lg:h-[610vh]"}`}>
-      <div
+    <section ref={sectionRef} className={`relative bg-[#F7F4E6] text-white ${reduced ? "py-12" : "lg:h-[560vh]"}`}>
+      <motion.div
         className={`relative w-full overflow-hidden bg-[#191918] ${reduced ? "" : "lg:sticky lg:top-0 lg:h-screen"}`}
-        style={{ borderRadius: "clamp(34px, 3.5vw, 58px)" }}
+        style={{ borderRadius: "clamp(34px, 3.5vw, 58px)", y: reduced ? 0 : stageY }}
       >
         <div className="px-5 pb-16 pt-16 sm:px-9 lg:hidden">
           <div className="text-center">
@@ -350,7 +350,7 @@ export function ZaplaEarlyResultsFlowV6() {
             {RESULT_CARDS.map((card, index) => <FloatingCard key={card.id} card={card} index={index} progress={scrollYProgress} />)}
           </div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 }
