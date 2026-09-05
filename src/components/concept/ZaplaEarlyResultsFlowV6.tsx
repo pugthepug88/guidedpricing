@@ -107,9 +107,9 @@ const RESULT_CARDS: ResultCard[] = [
 ];
 
 /*
- * Flow-style conveyor choreography, calibrated against the supplied recording.
- * Every hero beat already contains a controlled fragment of the upcoming card.
- * Cards stay opaque and physically leave through the upper-right edge.
+ * Flow-style conveyor choreography calibrated against the supplied recording.
+ * Each hero beat already contains a controlled fragment of the upcoming card.
+ * Cards remain opaque and leave physically through the upper-right edge.
  */
 const MOTION_PATHS: MotionPath[] = [
   {
@@ -123,9 +123,9 @@ const MOTION_PATHS: MotionPath[] = [
     y: ["72vh", "42vh", "24vh", "5vh", "-12vh", "-44vh", "-58vh"],
   },
   {
-    input: [0.32, 0.34, 0.40, 0.46, 0.53, 0.57],
-    x: ["-82vw", "-72vw", "-38vw", "2vw", "48vw", "84vw"],
-    y: ["62vh", "52vh", "25vh", "3vh", "-23vh", "-58vh"],
+    input: [0.32, 0.34, 0.40, 0.46, 0.53, 0.60, 0.64],
+    x: ["-82vw", "-72vw", "-38vw", "2vw", "48vw", "68vw", "84vw"],
+    y: ["62vh", "52vh", "25vh", "3vh", "-23vh", "-40vh", "-58vh"],
   },
   {
     input: [0.43, 0.46, 0.53, 0.60, 0.67, 0.74, 0.78],
@@ -138,9 +138,9 @@ const MOTION_PATHS: MotionPath[] = [
     y: ["64vh", "54vh", "28vh", "-6vh", "-15vh", "-40vh", "-58vh"],
   },
   {
-    input: [0.80, 0.86, 0.91, 0.96, 1],
-    x: ["-84vw", "-58vw", "-29vw", "0vw", "0vw"],
-    y: ["66vh", "42vh", "22vh", "-20vh", "-20vh"],
+    input: [0.74, 0.80, 0.86, 0.91, 0.96, 1],
+    x: ["-88vw", "-68vw", "-30vw", "-10vw", "5vw", "5vw"],
+    y: ["72vh", "58vh", "25vh", "9vh", "-10vh", "-10vh"],
   },
 ];
 
@@ -272,7 +272,7 @@ export function ZaplaEarlyResultsFlowV6() {
 
   const titleY = useTransform(scrollYProgress, [0, 0.08, 0.12, 0.18, 0.22], ["0vh", "-2vh", "-12vh", "-42vh", "-60vh"], { clamp: true });
   const titleOpacity = useTransform(scrollYProgress, [0, 0.12, 0.18, 0.22], [1, 1, 0.55, 0], { clamp: true });
-  const revealHeight = useTransform(scrollYProgress, [0, 0.91, 0.95, 1], ["0vh", "0vh", "12vh", "28vh"], { clamp: true });
+  const revealHeight = useTransform(scrollYProgress, [0, 0.94, 0.97, 1], ["0vh", "0vh", "7vh", "20vh"], { clamp: true });
 
   return (
     <section ref={sectionRef} className={`relative bg-[#F7F4E6] text-white ${reduced ? "py-12" : "lg:h-[520vh]"}`}>
