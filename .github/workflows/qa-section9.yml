@@ -48,7 +48,7 @@ jobs:
             const y = info.top + p * Math.max(0, info.height - 900);
             await page.evaluate(y => scrollTo(0,y), y);
             await page.waitForTimeout(80);
-            const sample = await page.evaluate((ids,p) => {
+            const sample = await page.evaluate(({ids,p}) => {
               const vp={w:innerWidth,h:innerHeight};
               const rows = ids.map(id => {
                 const el=document.querySelector(`[data-result-card="${id}"]`);
@@ -66,7 +66,7 @@ jobs:
               if(title){const r=title.getBoundingClientRect(); const wrap=title.parentElement; titleData={y:+r.y.toFixed(1),h:+r.height.toFixed(1),opacity:+parseFloat(getComputedStyle(wrap).opacity||'1').toFixed(3)};}
               const visible=rows.filter(x=>!x.missing && x.opacity>.05 && x.visible>.02);
               return {p:+p.toFixed(2),title:titleData,cards:rows,meaningfulVisible:visible.map(x=>x.id)};
-            }, ids, p);
+            }, {ids,p});
             out.push(sample);
           }
           const target={
