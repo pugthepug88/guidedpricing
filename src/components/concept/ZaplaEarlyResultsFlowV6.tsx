@@ -11,216 +11,448 @@ const SERIF = 'Georgia, "Times New Roman", serif';
 const SANS = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BROKER_IMAGE = "/concept/cinematic-v5/broker.jpg";
 
+type CardKind = "hero" | "quote" | "photoQuote" | "greenSplit" | "closing";
+
 type ResultCard = {
   id: string;
+  kind: CardKind;
   tone: string;
-  eyebrow: string;
-  text: string;
-  body?: string;
-  footer?: string;
+  width: string;
+  height: string;
+  label: string;
+  sublabel?: string;
+  quote: string;
+  footer: string;
   image?: string;
-  imageAlt?: string;
   metricA?: { value: string; label: string };
   metricB?: { value: string; label: string };
-  layout: "split" | "quote" | "metric";
-  width: string;
+};
+
+type MotionPath = {
+  input: number[];
+  x: string[];
+  y: string[];
+  rotate: number[];
+  fadeOut?: boolean;
 };
 
 const RESULT_CARDS: ResultCard[] = [
   {
     id: "broker",
-    tone: "#E9D2F4",
-    eyebrow: "Mortgage broker · early customer",
-    text: "4 deals closed in 17 days.",
-    body: "Zapla followed up opportunities that were already in motion, while the broker kept working the business.",
-    footer: "Early customer result",
+    kind: "hero",
+    tone: "#E8CEF7",
+    width: "min(1110px, 66vw)",
+    height: "clamp(500px, 56.4vh, 690px)",
+    label: "MORTGAGE BROKER",
+    sublabel: "Early customer result",
+    quote: "4 deals closed in 17 days. Two more remained active.",
+    footer: "Result details",
     image: BROKER_IMAGE,
-    imageAlt: "Mortgage broker customer result",
     metricA: { value: "4", label: "deals closed" },
     metricB: { value: "17", label: "days" },
-    layout: "split",
-    width: "min(940px, 62vw)",
   },
   {
     id: "follow-up",
-    tone: "#F4F0D8",
-    eyebrow: "What changed",
-    text: "Existing opportunities got consistent follow-up instead of waiting for someone to remember.",
-    footer: "Follow-through on work already in motion",
-    layout: "quote",
-    width: "min(760px, 50vw)",
+    kind: "quote",
+    tone: "#F3F3D9",
+    width: "min(820px, 49vw)",
+    height: "clamp(500px, 56.1vh, 687px)",
+    label: "WHAT CHANGED",
+    quote:
+      "The opportunities were already there. Consistent follow-up changed what happened next.",
+    footer: "Early customer result",
   },
   {
     id: "active",
-    tone: "#EFA65E",
-    eyebrow: "Still moving",
-    text: "2 more opportunities were still active after the same 17-day period.",
-    metricA: { value: "2", label: "still active" },
-    metricB: { value: "17", label: "days" },
-    layout: "metric",
-    width: "min(790px, 51vw)",
+    kind: "photoQuote",
+    tone: "#F4A443",
+    width: "min(820px, 49vw)",
+    height: "clamp(500px, 56.1vh, 687px)",
+    label: "STILL MOVING",
+    quote: "2 more opportunities were still active after the same 17-day period.",
+    footer: "Same early customer",
+    image: BROKER_IMAGE,
   },
   {
     id: "system",
-    tone: "#73D89B",
-    eyebrow: "Why it matters",
-    text: "The result came from following through on opportunities that already existed.",
-    body: "Not another channel to babysit. A system that keeps the next step moving.",
+    kind: "greenSplit",
+    tone: "#45DF98",
+    width: "min(1117px, 66.4vw)",
+    height: "clamp(500px, 56vh, 686px)",
+    label: "FOLLOW-THROUGH",
+    quote:
+      "Zapla kept the follow-up moving across the same opportunity set.",
     footer: "One connected follow-up system",
-    layout: "quote",
-    width: "min(800px, 52vw)",
+    image: BROKER_IMAGE,
+  },
+  {
+    id: "why",
+    kind: "quote",
+    tone: "#E8E8CF",
+    width: "min(824px, 49vw)",
+    height: "clamp(495px, 55.4vh, 678px)",
+    label: "WHY IT MATTERS",
+    quote:
+      "Not more leads. Better follow-through on the opportunities already there.",
+    footer: "The useful part",
   },
   {
     id: "summary",
-    tone: "#E96F5C",
-    eyebrow: "Early customer result",
-    text: "Follow-through, measured.",
-    body: "One early customer. One short period. A useful signal of what consistent follow-up can recover.",
+    kind: "closing",
+    tone: "#F45C4D",
+    width: "min(1110px, 66vw)",
+    height: "clamp(500px, 56.4vh, 690px)",
+    label: "EARLY CUSTOMER RESULT",
+    quote: "Follow-through, measured.",
+    footer: "4 closed · 2 active · 17 days",
+    image: BROKER_IMAGE,
     metricA: { value: "4", label: "closed" },
     metricB: { value: "2", label: "still active" },
-    layout: "metric",
-    width: "min(880px, 57vw)",
   },
 ];
 
 /*
- * Choreography is intentionally modelled on the supplied Flow reference:
- * every card enters from below/left, becomes the main card low in the frame,
- * then continues diagonally up/right. The next card begins entering before the
- * current card has left, so a small piece of the next card is always visible.
+ * These are not one repeated carousel path. They mirror the supplied Flow
+ * recording card-by-card: the first card rises almost vertically, the middle
+ * cards arrive from the lower-left and sweep to the upper-right, and the last
+ * results card enters from the left before the black stage gives way.
  */
-const CARD_WINDOWS = [
-  { start: 0.07, enter: 0.12, focus: 0.2, leave: 0.3, end: 0.4 },
-  { start: 0.2, enter: 0.25, focus: 0.35, leave: 0.46, end: 0.56 },
-  { start: 0.36, enter: 0.41, focus: 0.51, leave: 0.62, end: 0.72 },
-  { start: 0.52, enter: 0.57, focus: 0.67, leave: 0.78, end: 0.88 },
-  { start: 0.68, enter: 0.73, focus: 0.83, leave: 0.92, end: 0.995 },
-] as const;
+const MOTION_PATHS: MotionPath[] = [
+  {
+    input: [0.055, 0.085, 0.14, 0.18, 0.245, 0.305],
+    x: ["-1vw", "-1vw", "-1vw", "-1vw", "14vw", "44vw"],
+    y: ["50vh", "34vh", "16vh", "16vh", "-10vh", "-42vh"],
+    rotate: [0, 0, 0, 0, 0, 0],
+  },
+  {
+    input: [0.20, 0.255, 0.345, 0.39, 0.455, 0.515],
+    x: ["-53vw", "-35vw", "-6vw", "-6vw", "26vw", "56vw"],
+    y: ["34vh", "23vh", "3vh", "3vh", "-10vh", "-39vh"],
+    rotate: [-2.2, -1.2, 0, 0, 1.1, 2.1],
+  },
+  {
+    input: [0.34, 0.395, 0.49, 0.535, 0.605, 0.665],
+    x: ["-64vw", "-37vw", "-5vw", "-5vw", "30vw", "62vw"],
+    y: ["49vh", "31vh", "1vh", "1vh", "-4vh", "-31vh"],
+    rotate: [-2.4, -1.3, 0, 0, 1.0, 2.0],
+  },
+  {
+    input: [0.49, 0.55, 0.635, 0.68, 0.75, 0.81],
+    x: ["-70vw", "-24vw", "5vw", "5vw", "26vw", "60vw"],
+    y: ["42vh", "15vh", "-5vh", "-5vh", "-14vh", "-40vh"],
+    rotate: [-2.0, -1.0, 0, 0, 0.9, 1.8],
+  },
+  {
+    input: [0.63, 0.69, 0.775, 0.82, 0.875, 0.935],
+    x: ["-61vw", "-42vw", "10vw", "10vw", "33vw", "62vw"],
+    y: ["38vh", "27vh", "-8vh", "-8vh", "-17vh", "-43vh"],
+    rotate: [-2.2, -1.1, 0, 0, 1.0, 2.0],
+  },
+  {
+    input: [0.785, 0.835, 0.91, 0.955, 0.995, 1],
+    x: ["-68vw", "-38vw", "-4vw", "-4vw", "8vw", "10vw"],
+    y: ["6vh", "2vh", "-6vh", "-6vh", "-10vh", "-10vh"],
+    rotate: [-1.2, -0.6, 0, 0, 0, 0],
+    fadeOut: false,
+  },
+];
 
-const FOCUS_X = ["-1vw", "-4vw", "1vw", "-2vw", "2vw"] as const;
+function RoundMark() {
+  return (
+    <span
+      className="grid h-11 w-11 place-items-center rounded-full bg-[#171717] text-[9px] font-extrabold tracking-[0.08em] text-white"
+      style={{ fontFamily: SANS }}
+      aria-hidden="true"
+    >
+      Z
+    </span>
+  );
+}
 
-function Metric({ value, label, inverse = false }: { value: string; label: string; inverse?: boolean }) {
+function Metric({
+  value,
+  label,
+  inverse = false,
+}: {
+  value: string;
+  label: string;
+  inverse?: boolean;
+}) {
   return (
     <div>
       <div
-        className={`text-[42px] leading-none tracking-[-0.06em] sm:text-[50px] ${inverse ? "text-white" : "text-[#151515]"}`}
+        className={`text-[clamp(38px,3vw,56px)] leading-none tracking-[-0.06em] ${
+          inverse ? "text-white" : "text-[#171717]"
+        }`}
         style={{ fontFamily: SERIF, fontWeight: 400 }}
       >
         {value}
       </div>
-      <div className={`mt-2 max-w-[104px] text-[10px] font-semibold leading-[1.25] ${inverse ? "text-white/72" : "text-black/58"}`} style={{ fontFamily: SANS }}>
+      <div
+        className={`mt-2 max-w-[110px] text-[11px] font-semibold leading-[1.2] ${
+          inverse ? "text-white/76" : "text-black/60"
+        }`}
+        style={{ fontFamily: SANS }}
+      >
         {label}
       </div>
     </div>
   );
 }
 
-function CardContent({ card }: { card: ResultCard }) {
-  if (card.layout === "split") {
-    return (
-      <div className="grid min-h-[500px] grid-cols-[1.03fr_.97fr] overflow-hidden rounded-[28px] xl:min-h-[550px]">
-        <div className="flex flex-col px-10 py-10 xl:px-12 xl:py-12">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.1em] text-black/62" style={{ fontFamily: SANS }}>
-            {card.eyebrow}
-          </div>
-
-          <div className="mt-8 max-w-[390px] text-[43px] leading-[0.98] tracking-[-0.045em] text-[#171717] xl:text-[50px]" style={{ fontFamily: SERIF }}>
-            “{card.text}”
-          </div>
-
-          <p className="mt-6 max-w-[390px] text-[14px] leading-[1.62] text-black/60 xl:text-[15px]" style={{ fontFamily: SANS }}>
-            {card.body}
-          </p>
-
-          <div className="mt-auto flex items-center gap-3 pt-10 text-[13px] font-semibold text-black/76" style={{ fontFamily: SANS }}>
-            <span>{card.footer}</span>
-            <span aria-hidden="true">→</span>
-          </div>
-        </div>
-
-        <div className="relative m-5 ml-0 overflow-hidden rounded-[23px] bg-black/10">
-          <img src={card.image} alt={card.imageAlt ?? ""} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-          <div className="absolute inset-x-0 bottom-0 bg-black/86 px-7 py-6">
-            <div className="flex gap-12">
-              {card.metricA ? <Metric {...card.metricA} inverse /> : null}
-              {card.metricB ? <Metric {...card.metricB} inverse /> : null}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (card.layout === "metric") {
-    return (
-      <div className="flex min-h-[430px] flex-col px-10 py-10 xl:min-h-[475px] xl:px-12 xl:py-12">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.11em] text-black/56" style={{ fontFamily: SANS }}>
-          {card.eyebrow}
-        </div>
-
-        <div className="mt-8 max-w-[560px] text-[43px] leading-[0.99] tracking-[-0.045em] text-[#171717] xl:text-[50px]" style={{ fontFamily: SERIF }}>
-          {card.text}
-        </div>
-
-        {card.body ? (
-          <p className="mt-5 max-w-[540px] text-[14px] leading-[1.62] text-black/58 xl:text-[15px]" style={{ fontFamily: SANS }}>
-            {card.body}
-          </p>
-        ) : null}
-
-        <div className="mt-auto flex items-end justify-between gap-8 border-t border-black/14 pt-8">
-          <div className="flex gap-14">
-            {card.metricA ? <Metric {...card.metricA} /> : null}
-            {card.metricB ? <Metric {...card.metricB} /> : null}
-          </div>
-          <div className="grid h-12 w-12 place-items-center rounded-full bg-[#171717] text-[10px] font-bold tracking-[0.06em] text-white" style={{ fontFamily: SANS }}>
-            Z
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+function HeroCard({ card }: { card: ResultCard }) {
   return (
-    <div className="flex min-h-[420px] flex-col px-10 py-10 xl:min-h-[460px] xl:px-12 xl:py-12">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.11em] text-black/55" style={{ fontFamily: SANS }}>
-        {card.eyebrow}
+    <div className="grid h-full grid-cols-[1.03fr_.97fr]">
+      <div className="flex min-w-0 flex-col px-[clamp(34px,3vw,52px)] py-[clamp(34px,3vw,52px)]">
+        <div
+          className="text-[clamp(22px,1.85vw,31px)] font-black leading-none tracking-[-0.045em] text-[#171717]"
+          style={{ fontFamily: SANS }}
+        >
+          {card.label}
+        </div>
+        <div
+          className="mt-3 text-[clamp(13px,1vw,17px)] text-black/55"
+          style={{ fontFamily: SANS }}
+        >
+          {card.sublabel}
+        </div>
+
+        <div
+          className="mt-[clamp(24px,3vh,38px)] max-w-[430px] text-[clamp(32px,2.55vw,46px)] leading-[0.99] tracking-[-0.045em] text-[#171717]"
+          style={{ fontFamily: SERIF }}
+        >
+          “{card.quote}”
+        </div>
+
+        <div
+          className="mt-auto flex items-center gap-3 pt-8 text-[clamp(12px,.9vw,15px)] font-semibold text-black/78"
+          style={{ fontFamily: SANS }}
+        >
+          <span>{card.footer}</span>
+          <span aria-hidden="true">›</span>
+        </div>
       </div>
 
-      <div className="mt-8 max-w-[600px] text-[43px] leading-[1.01] tracking-[-0.045em] text-[#171717] xl:text-[50px]" style={{ fontFamily: SERIF }}>
-        “{card.text}”
+      <div className="relative m-[clamp(14px,1.4vw,24px)] ml-0 overflow-hidden rounded-[clamp(26px,2.4vw,44px)] bg-black">
+        <img
+          src={card.image}
+          alt="Mortgage broker early customer result"
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-x-0 bottom-0 bg-black/86 px-[clamp(22px,2vw,32px)] py-[clamp(18px,2.1vh,28px)]">
+          <div className="flex gap-[clamp(34px,4vw,64px)]">
+            {card.metricA ? <Metric {...card.metricA} inverse /> : null}
+            {card.metricB ? <Metric {...card.metricB} inverse /> : null}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function QuoteCard({ card }: { card: ResultCard }) {
+  return (
+    <div className="flex h-full flex-col px-[clamp(36px,3.2vw,58px)] py-[clamp(38px,3.5vw,60px)]">
+      <div
+        className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/42"
+        style={{ fontFamily: SANS }}
+      >
+        {card.label}
+      </div>
+      <div
+        className="mt-[clamp(24px,3vh,42px)] max-w-[690px] text-[clamp(34px,2.75vw,50px)] leading-[1.01] tracking-[-0.047em] text-[#171717]"
+        style={{ fontFamily: SERIF }}
+      >
+        “{card.quote}”
       </div>
 
-      {card.body ? (
-        <p className="mt-5 max-w-[520px] text-[14px] leading-[1.62] text-black/58 xl:text-[15px]" style={{ fontFamily: SANS }}>
-          {card.body}
-        </p>
-      ) : null}
-
-      <div className="mt-auto flex items-center gap-3 pt-10 text-[12px] font-semibold text-black/64" style={{ fontFamily: SANS }}>
-        <div className="grid h-10 w-10 place-items-center rounded-full bg-[#171717] text-[9px] font-bold tracking-[0.06em] text-white">Z</div>
+      <div
+        className="mt-auto flex items-center gap-4 pt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72"
+        style={{ fontFamily: SANS }}
+      >
+        <RoundMark />
         <span>{card.footer}</span>
       </div>
     </div>
   );
 }
 
-function FloatingResultCard({ progress, card, index }: { progress: MotionValue<number>; card: ResultCard; index: number }) {
-  const window = CARD_WINDOWS[index];
-  const input = [window.start, window.enter, window.focus, window.leave, window.end];
+function PhotoQuoteCard({ card }: { card: ResultCard }) {
+  return (
+    <div className="relative h-full overflow-hidden">
+      <img
+        src={card.image}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-[50%_30%]"
+        loading="lazy"
+      />
 
-  const x = useTransform(progress, input, ["-58vw", "-38vw", FOCUS_X[index], "30vw", "60vw"]);
-  const y = useTransform(progress, input, ["66vh", "43vh", "14vh", "-16vh", "-50vh"]);
-  const opacity = useTransform(progress, [window.start, window.start + 0.018, window.end - 0.025, window.end], [0, 1, 1, 0]);
+      <div
+        className="absolute inset-x-[clamp(16px,1.4vw,24px)] bottom-[clamp(16px,1.4vw,24px)] rounded-[clamp(24px,2.2vw,40px)] px-[clamp(28px,2.8vw,48px)] py-[clamp(28px,3vh,44px)]"
+        style={{ background: card.tone }}
+      >
+        <div
+          className="max-w-[670px] text-[clamp(31px,2.55vw,46px)] leading-[1.01] tracking-[-0.045em] text-[#171717]"
+          style={{ fontFamily: SERIF }}
+        >
+          “{card.quote}”
+        </div>
+        <div
+          className="mt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72"
+          style={{ fontFamily: SANS }}
+        >
+          {card.footer}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GreenSplitCard({ card }: { card: ResultCard }) {
+  return (
+    <div className="grid h-full grid-cols-[1fr_1.05fr] p-[clamp(16px,1.4vw,24px)]">
+      <div className="overflow-hidden rounded-[clamp(26px,2.4vw,44px)]">
+        <img
+          src={card.image}
+          alt=""
+          className="h-full w-full object-cover object-[50%_36%]"
+          loading="lazy"
+        />
+      </div>
+      <div className="flex min-w-0 flex-col px-[clamp(34px,3vw,52px)] py-[clamp(20px,2vw,36px)]">
+        <div
+          className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/42"
+          style={{ fontFamily: SANS }}
+        >
+          {card.label}
+        </div>
+        <div
+          className="mt-[clamp(24px,3vh,42px)] text-[clamp(34px,2.7vw,49px)] leading-[1] tracking-[-0.047em] text-[#171717]"
+          style={{ fontFamily: SERIF }}
+        >
+          “{card.quote}”
+        </div>
+        <div
+          className="mt-auto text-[clamp(12px,.95vw,16px)] font-semibold leading-[1.3] text-black/65"
+          style={{ fontFamily: SANS }}
+        >
+          {card.footer}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ClosingCard({ card }: { card: ResultCard }) {
+  return (
+    <div className="grid h-full grid-cols-[1.04fr_.96fr]">
+      <div className="flex min-w-0 flex-col px-[clamp(36px,3.2vw,58px)] py-[clamp(38px,3.5vw,60px)]">
+        <div
+          className="text-[clamp(18px,1.35vw,23px)] font-black tracking-[-0.035em] text-[#171717]"
+          style={{ fontFamily: SANS }}
+        >
+          ZAPLA
+        </div>
+        <div
+          className="mt-[clamp(28px,3vh,42px)] max-w-[490px] text-[clamp(36px,2.9vw,52px)] leading-[0.98] tracking-[-0.05em] text-[#171717]"
+          style={{ fontFamily: SERIF }}
+        >
+          “{card.quote}”
+        </div>
+        <div
+          className="mt-5 max-w-[420px] text-[clamp(15px,1.15vw,19px)] leading-[1.45] text-black/67"
+          style={{ fontFamily: SANS }}
+        >
+          4 deals closed. 2 more still active. 17 days.
+        </div>
+        <div
+          className="mt-auto flex items-center gap-3 text-[clamp(12px,.95vw,16px)] font-semibold text-black/76"
+          style={{ fontFamily: SANS }}
+        >
+          <span>{card.footer}</span>
+          <span aria-hidden="true">›</span>
+        </div>
+      </div>
+
+      <div className="relative m-[clamp(14px,1.4vw,24px)] ml-0 overflow-hidden rounded-[clamp(26px,2.4vw,44px)] bg-black">
+        <img
+          src={card.image}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-black/16" />
+        <div className="absolute inset-x-0 bottom-0 bg-black/76 px-[clamp(22px,2vw,32px)] py-[clamp(18px,2.1vh,28px)]">
+          <div className="flex gap-[clamp(34px,4vw,64px)]">
+            {card.metricA ? <Metric {...card.metricA} inverse /> : null}
+            {card.metricB ? <Metric {...card.metricB} inverse /> : null}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CardContent({ card }: { card: ResultCard }) {
+  switch (card.kind) {
+    case "hero":
+      return <HeroCard card={card} />;
+    case "quote":
+      return <QuoteCard card={card} />;
+    case "photoQuote":
+      return <PhotoQuoteCard card={card} />;
+    case "greenSplit":
+      return <GreenSplitCard card={card} />;
+    case "closing":
+      return <ClosingCard card={card} />;
+  }
+}
+
+function FloatingCard({
+  card,
+  index,
+  progress,
+}: {
+  card: ResultCard;
+  index: number;
+  progress: MotionValue<number>;
+}) {
+  const path = MOTION_PATHS[index];
+  const x = useTransform(progress, path.input, path.x);
+  const y = useTransform(progress, path.input, path.y);
+  const rotate = useTransform(progress, path.input, path.rotate);
+  const start = path.input[0];
+  const end = path.input[path.input.length - 1];
+
+  const opacity = path.fadeOut === false
+    ? useTransform(progress, [Math.max(0, start - 0.012), start], [0, 1])
+    : useTransform(
+        progress,
+        [Math.max(0, start - 0.012), start, Math.max(start, end - 0.018), end],
+        [0, 1, 1, 0],
+      );
 
   return (
     <motion.div
       className="absolute left-1/2 top-1/2"
-      style={{ x, y, opacity, zIndex: 20 + index, willChange: "transform, opacity" }}
+      style={{
+        x,
+        y,
+        rotate,
+        opacity,
+        zIndex: 20 + index,
+        willChange: "transform, opacity",
+      }}
     >
       <div
-        className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[28px] border border-black/10 text-[#111] shadow-[0_28px_80px_rgba(0,0,0,.22)]"
-        style={{ width: card.width, background: card.tone }}
+        className="-translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/[0.06] text-[#171717] shadow-[0_28px_80px_rgba(0,0,0,.12)]"
+        style={{
+          width: card.width,
+          height: card.height,
+          background: card.tone,
+          borderRadius: "clamp(38px, 3.55vw, 60px)",
+        }}
       >
         <CardContent card={card} />
       </div>
@@ -230,8 +462,16 @@ function FloatingResultCard({ progress, card, index }: { progress: MotionValue<n
 
 function StaticCard({ card }: { card: ResultCard }) {
   return (
-    <div className="overflow-hidden rounded-[24px] border border-black/10 text-[#111] shadow-[0_20px_55px_rgba(0,0,0,.18)]" style={{ background: card.tone }}>
-      <CardContent card={card} />
+    <div
+      className="overflow-hidden text-[#171717]"
+      style={{
+        background: card.tone,
+        borderRadius: 28,
+      }}
+    >
+      <div className="min-h-[330px]">
+        <CardContent card={card} />
+      </div>
     </div>
   );
 }
@@ -239,85 +479,113 @@ function StaticCard({ card }: { card: ResultCard }) {
 export function ZaplaEarlyResultsFlowV6() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const reduced = !!useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
 
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.025, 0.2, 0.34], [0, 1, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.05, 0.22, 0.34], [32, 0, 0, -30]);
-  const hintOpacity = useTransform(scrollYProgress, [0.02, 0.07, 0.18], [0, 1, 0]);
+  const titleY = useTransform(
+    scrollYProgress,
+    [0, 0.055, 0.14, 0.205],
+    ["16vh", "0vh", "-15vh", "-36vh"],
+  );
+  const titleOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.02, 0.185, 0.215],
+    [0.95, 1, 1, 0],
+  );
 
   return (
     <section
       ref={sectionRef}
-      className={`relative bg-[#F5F0E7] px-3 py-10 text-white sm:px-5 ${reduced ? "lg:py-16" : "lg:h-[500vh] lg:py-0"}`}
+      className={`relative bg-[#F7F4E6] text-white ${
+        reduced ? "py-12" : "lg:h-[610vh]"
+      }`}
     >
       <div
-        className={`${reduced ? "lg:min-h-screen" : "lg:sticky lg:top-0 lg:h-screen"} relative mx-auto w-full max-w-[1680px] overflow-hidden rounded-[38px] bg-[#1A1A19] sm:rounded-[46px]`}
+        className={`relative w-full overflow-hidden bg-[#191918] ${
+          reduced ? "" : "lg:sticky lg:top-0 lg:h-screen"
+        }`}
+        style={{ borderRadius: "clamp(34px, 3.5vw, 58px)" }}
       >
-        <div className="pointer-events-none absolute inset-0 rounded-[inherit] border border-white/[0.035]" />
-
-        <div className="relative z-10 px-5 pb-16 pt-16 sm:px-10 sm:pt-20 lg:hidden">
+        <div className="px-5 pb-16 pt-16 sm:px-9 lg:hidden">
           <div className="text-center">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/42" style={{ fontFamily: SANS }}>
-              Early customer results
+            <div
+              className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45"
+              style={{ fontFamily: SANS }}
+            >
+              Early access. Real results.
             </div>
-            <h2 className="mx-auto mt-5 max-w-[560px] text-[46px] leading-[0.95] tracking-[-0.045em] text-white sm:text-[56px]" style={{ fontFamily: SERIF, fontWeight: 400 }}>
-              From the first<br />
-              <em className="font-normal text-[#F1E7D9]">businesses to use it.</em>
+            <h2
+              className="mx-auto mt-5 max-w-[620px] text-[46px] leading-[0.94] tracking-[-0.045em] text-[#F7F4E6] sm:text-[56px]"
+              style={{ fontFamily: SERIF, fontWeight: 400 }}
+            >
+              From the first
+              <br />
+              <em className="font-normal">businesses to use it.</em>
             </h2>
           </div>
-          <div className="mx-auto mt-10 grid max-w-[760px] gap-5">
-            {RESULT_CARDS.slice(0, 4).map((card) => <StaticCard key={card.id} card={card} />)}
-          </div>
-          <div className="mx-auto mt-7 max-w-[720px] text-center text-[10px] leading-[1.5] text-white/34" style={{ fontFamily: SANS }}>
-            Early customer result. Individual outcomes vary by business and follow-up.
+          <div className="mx-auto mt-12 grid max-w-[760px] gap-5">
+            {RESULT_CARDS.map((card) => (
+              <StaticCard key={card.id} card={card} />
+            ))}
           </div>
         </div>
 
         {reduced ? (
-          <div className="relative z-10 hidden min-h-screen px-10 py-24 lg:block xl:px-16">
+          <div className="hidden px-10 py-20 lg:block xl:px-16">
             <div className="mx-auto max-w-[1320px]">
               <div className="text-center">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/42" style={{ fontFamily: SANS }}>
-                  Early customer results
+                <div
+                  className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45"
+                  style={{ fontFamily: SANS }}
+                >
+                  Early access. Real results.
                 </div>
-                <h2 className="mx-auto mt-5 max-w-[760px] text-[68px] leading-[0.93] tracking-[-0.05em] text-white" style={{ fontFamily: SERIF, fontWeight: 400 }}>
-                  From the first <em className="font-normal text-[#F1E7D9]">businesses to use it.</em>
+                <h2
+                  className="mx-auto mt-5 max-w-[800px] text-[70px] leading-[0.94] tracking-[-0.05em] text-[#F7F4E6]"
+                  style={{ fontFamily: SERIF, fontWeight: 400 }}
+                >
+                  From the first <em className="font-normal">businesses to use it.</em>
                 </h2>
               </div>
               <div className="mt-14 grid grid-cols-2 gap-6">
-                {RESULT_CARDS.slice(0, 4).map((card) => <StaticCard key={card.id} card={card} />)}
+                {RESULT_CARDS.map((card) => (
+                  <StaticCard key={card.id} card={card} />
+                ))}
               </div>
             </div>
           </div>
         ) : (
           <div className="relative hidden h-full lg:block">
             <motion.div
-              className="absolute left-1/2 top-[9vh] z-10 w-[min(820px,72vw)] -translate-x-1/2 text-center"
-              style={{ opacity: titleOpacity, y: titleY }}
+              className="absolute left-1/2 top-[20vh] z-10 w-[min(760px,72vw)] -translate-x-1/2 text-center"
+              style={{ y: titleY, opacity: titleOpacity }}
             >
-              <div className="text-[10px] font-semibold uppercase tracking-[0.19em] text-white/38" style={{ fontFamily: SANS }}>
-                Early customer results
+              <div
+                className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/43"
+                style={{ fontFamily: SANS }}
+              >
+                Early access. Real results.
               </div>
-              <h2 className="mt-5 text-[58px] leading-[0.93] tracking-[-0.05em] text-white xl:text-[72px]" style={{ fontFamily: SERIF, fontWeight: 400 }}>
-                From the first<br />
-                <em className="font-normal text-[#F1E7D9]">businesses to use it.</em>
+              <h2
+                className="mt-5 text-[clamp(54px,4.2vw,72px)] leading-[0.94] tracking-[-0.047em] text-[#F7F4E6]"
+                style={{ fontFamily: SERIF, fontWeight: 400 }}
+              >
+                From the first
+                <br />
+                <em className="font-normal">businesses to use it.</em>
               </h2>
             </motion.div>
 
-            <motion.div
-              className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[9px] font-semibold uppercase tracking-[0.17em] text-white/22"
-              style={{ opacity: hintOpacity, fontFamily: SANS }}
-            >
-              Scroll through the results
-            </motion.div>
-
             {RESULT_CARDS.map((card, index) => (
-              <FloatingResultCard key={card.id} progress={scrollYProgress} card={card} index={index} />
+              <FloatingCard
+                key={card.id}
+                card={card}
+                index={index}
+                progress={scrollYProgress}
+              />
             ))}
-
-            <div className="absolute bottom-6 right-7 z-10 text-[9px] text-white/22 xl:right-10" style={{ fontFamily: SANS }}>
-              Early customer result. Individual outcomes vary.
-            </div>
           </div>
         )}
       </div>
