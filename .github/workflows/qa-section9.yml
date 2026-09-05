@@ -13,9 +13,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - run: npm install
-      - run: npm install --no-save playwright@1.55.0
-      - run: npx playwright install --with-deps chromium
+      - run: npm install >/dev/null 2>&1
+      - run: npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+      - run: npx playwright install --with-deps chromium >/dev/null 2>&1
       - name: Start Vite
         run: |
           npm run dev -- --host 127.0.0.1 > /tmp/vite.log 2>&1 &
@@ -27,7 +27,7 @@ jobs:
           exit 1
       - name: Measure Section 9 across scroll
         run: |
-          cat > /tmp/qa-section9.mjs <<'EOF'
+          cat > qa-section9.mjs <<'EOF'
           import { chromium } from 'playwright';
           const browser = await chromium.launch({headless:true});
           const page = await browser.newPage({viewport:{width:1440,height:900}});
@@ -42,12 +42,12 @@ jobs:
           });
           if (!info) throw new Error('Section 9 not found');
           const ids = ['broker','follow-up','active','system','why','summary'];
-          const points = [0,0.04,0.08,0.12,0.133,0.16,0.20,0.24,0.28,0.32,0.36,0.40,0.44,0.48,0.52,0.56,0.60,0.64,0.68,0.72,0.76,0.80,0.84,0.88,0.92,0.96,1];
+          const points = Array.from({length:51},(_,i)=>i/50);
           const out=[];
           for (const p of points) {
             const y = info.top + p * Math.max(0, info.height - 900);
             await page.evaluate(y => scrollTo(0,y), y);
-            await page.waitForTimeout(120);
+            await page.waitForTimeout(80);
             const sample = await page.evaluate((ids,p) => {
               const vp={w:innerWidth,h:innerHeight};
               const rows = ids.map(id => {
@@ -59,27 +59,33 @@ jobs:
                 const iw=Math.max(0, Math.min(r.right,vp.w)-Math.max(r.left,0));
                 const ih=Math.max(0, Math.min(r.bottom,vp.h)-Math.max(r.top,0));
                 const area=Math.max(1,r.width*r.height);
-                const visible=(iw*ih)/area;
-                return {id,x:+r.x.toFixed(1),y:+r.y.toFixed(1),w:+r.width.toFixed(1),h:+r.height.toFixed(1),right:+r.right.toFixed(1),bottom:+r.bottom.toFixed(1),opacity:+op.toFixed(3),visible:+visible.toFixed(3)};
+                return {id,x:+r.x.toFixed(1),y:+r.y.toFixed(1),w:+r.width.toFixed(1),h:+r.height.toFixed(1),right:+r.right.toFixed(1),bottom:+r.bottom.toFixed(1),opacity:+op.toFixed(3),visible:+((iw*ih)/area).toFixed(3)};
               });
               const title=[...document.querySelectorAll('h2')].find(h=>h.textContent?.includes('From the first'));
               let titleData=null;
-              if(title){const r=title.getBoundingClientRect(); const wrap=title.parentElement; titleData={x:+r.x.toFixed(1),y:+r.y.toFixed(1),w:+r.width.toFixed(1),h:+r.height.toFixed(1),opacity:+parseFloat(getComputedStyle(wrap).opacity||'1').toFixed(3)};}
+              if(title){const r=title.getBoundingClientRect(); const wrap=title.parentElement; titleData={y:+r.y.toFixed(1),h:+r.height.toFixed(1),opacity:+parseFloat(getComputedStyle(wrap).opacity||'1').toFixed(3)};}
               const visible=rows.filter(x=>!x.missing && x.opacity>.05 && x.visible>.02);
-              const overlaps=[];
-              for(let i=0;i<visible.length;i++) for(let j=i+1;j<visible.length;j++){
-                const a=visible[i],b=visible[j];
-                const ox=Math.max(0,Math.min(a.right,b.right)-Math.max(a.x,b.x));
-                const oy=Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y));
-                if(ox*oy>2500) overlaps.push(`${a.id}:${b.id}`);
-              }
-              return {p,title:titleData,cards:rows,meaningfulVisible:visible.map(x=>x.id),overlaps};
+              return {p:+p.toFixed(2),title:titleData,cards:rows,meaningfulVisible:visible.map(x=>x.id)};
             }, ids, p);
             out.push(sample);
           }
+          const target={
+            broker:{x:231,y:304,w:950,h:591},
+            'follow-up':{x:279,y:184,w:706,h:591},
+            system:{x:322,y:115,w:956,h:586},
+            why:{x:518,y:89,w:706,h:581},
+            summary:{x:227,y:44,w:950,h:591}
+          };
+          const focus={};
+          for(const id of Object.keys(target)){
+            const t=target[id]; let best=null;
+            for(const s of out){const c=s.cards.find(v=>v.id===id); if(!c||c.opacity<.2)continue; const e=Math.abs(c.x-t.x)+Math.abs(c.y-t.y)+Math.abs(c.w-t.w)+Math.abs(c.h-t.h); if(!best||e<best.error)best={p:s.p,error:+e.toFixed(1),box:c};}
+            focus[id]=best;
+          }
+          const summary=out.map(s=>({p:s.p,visible:s.meaningfulVisible,boxes:Object.fromEntries(s.cards.filter(c=>c.opacity>.05&&c.visible>.02).map(c=>[c.id,{x:c.x,y:c.y,w:c.w,h:c.h,vis:c.visible,op:c.opacity}]))}));
           console.log('SECTION9_QA_JSON_START');
-          console.log(JSON.stringify({section:info,samples:out},null,2));
+          console.log(JSON.stringify({section:info,target,focus,samples:summary},null,2));
           console.log('SECTION9_QA_JSON_END');
           await browser.close();
           EOF
-          node /tmp/qa-section9.mjs
+          node qa-section9.mjs
