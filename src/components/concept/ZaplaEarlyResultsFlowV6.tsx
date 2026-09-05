@@ -107,42 +107,40 @@ const RESULT_CARDS: ResultCard[] = [
 ];
 
 /*
- * Reference-beat choreography.
- * Progress checkpoints deliberately line up with the supplied Flow recording:
- * .10 purple hero, .20 first handoff, .34 cream hero, .46 photo hero,
- * .60 green hero, .74 cream hero, .86 red entering, .96 red hero.
- * Cards remain opaque and leave by travelling through the upper-right edge.
+ * Flow-style conveyor choreography, calibrated against the supplied recording.
+ * Every hero beat already contains a controlled fragment of the upcoming card.
+ * Cards stay opaque and physically leave through the upper-right edge.
  */
 const MOTION_PATHS: MotionPath[] = [
   {
     input: [0, 0.10, 0.20, 0.27, 0.34, 0.40],
-    x: ["-1vw", "-1vw", "14vw", "32.7vw", "60.5vw", "82vw"],
-    y: ["49.8vh", "16.6vh", "-9.4vh", "-12.3vh", "-44.6vh", "-55vh"],
+    x: ["-1vw", "-1vw", "14vw", "32.7vw", "60.5vw", "84vw"],
+    y: ["49.8vh", "16.6vh", "-9.4vh", "-12.3vh", "-44.6vh", "-58vh"],
   },
   {
     input: [0.10, 0.20, 0.27, 0.34, 0.40, 0.46, 0.50],
-    x: ["-69vw", "-52vw", "-34.5vw", "-6.2vw", "23.7vw", "53vw", "82vw"],
-    y: ["58vh", "33.2vh", "22.7vh", "3.2vh", "-14vh", "-42vh", "-55vh"],
+    x: ["-82vw", "-66vw", "-36vw", "-5vw", "24vw", "64vw", "84vw"],
+    y: ["72vh", "42vh", "24vh", "5vh", "-12vh", "-44vh", "-58vh"],
   },
   {
-    input: [0.34, 0.40, 0.46, 0.53, 0.57],
-    x: ["-64vw", "-34.8vw", "-3.8vw", "44vw", "82vw"],
-    y: ["38.5vh", "23vh", "1.6vh", "-21.8vh", "-55vh"],
+    input: [0.32, 0.34, 0.40, 0.46, 0.53, 0.57],
+    x: ["-82vw", "-72vw", "-38vw", "2vw", "48vw", "84vw"],
+    y: ["62vh", "52vh", "25vh", "3vh", "-23vh", "-58vh"],
   },
   {
-    input: [0.46, 0.53, 0.60, 0.67, 0.74, 0.78],
-    x: ["-70vw", "-23.2vw", "5.6vw", "24.9vw", "60vw", "82vw"],
-    y: ["41.5vh", "15vh", "-4.7vh", "-14.4vh", "-40vh", "-55vh"],
+    input: [0.43, 0.46, 0.53, 0.60, 0.67, 0.74, 0.78],
+    x: ["-86vw", "-72vw", "-31vw", "4.5vw", "25vw", "61vw", "84vw"],
+    y: ["66vh", "52vh", "20vh", "-3vh", "-14vh", "-42vh", "-58vh"],
   },
   {
-    input: [0.60, 0.67, 0.74, 0.86, 0.90],
-    x: ["-60.5vw", "-42.2vw", "10.5vw", "47vw", "82vw"],
-    y: ["37.2vh", "27vh", "-7.8vh", "-37vh", "-55vh"],
+    input: [0.58, 0.60, 0.67, 0.74, 0.80, 0.86, 0.90],
+    x: ["-84vw", "-72vw", "-36vw", "9vw", "25vw", "53vw", "84vw"],
+    y: ["64vh", "54vh", "28vh", "-6vh", "-15vh", "-40vh", "-58vh"],
   },
   {
-    input: [0.74, 0.86, 0.96, 1],
-    x: ["-56.3vw", "-21.6vw", "-1.2vw", "-1.2vw"],
-    y: ["35.4vh", "14.3vh", "-12.3vh", "-12.3vh"],
+    input: [0.80, 0.86, 0.91, 0.96, 1],
+    x: ["-84vw", "-58vw", "-29vw", "0vw", "0vw"],
+    y: ["66vh", "42vh", "22vh", "-20vh", "-20vh"],
   },
 ];
 
@@ -272,12 +270,12 @@ export function ZaplaEarlyResultsFlowV6() {
   const reduced = !!useReducedMotion();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 
-  const titleY = useTransform(scrollYProgress, [0, 0.05, 0.10, 0.18, 0.21], ["0vh", "-4vh", "-27vh", "-52vh", "-58vh"], { clamp: true });
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.10, 0.16, 0.20], [1, 1, 0.45, 0], { clamp: true });
-  const revealHeight = useTransform(scrollYProgress, [0, 0.92, 0.96, 1], ["0vh", "0vh", "10vh", "22vh"], { clamp: true });
+  const titleY = useTransform(scrollYProgress, [0, 0.08, 0.12, 0.18, 0.22], ["0vh", "-2vh", "-12vh", "-42vh", "-60vh"], { clamp: true });
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.12, 0.18, 0.22], [1, 1, 0.55, 0], { clamp: true });
+  const revealHeight = useTransform(scrollYProgress, [0, 0.91, 0.95, 1], ["0vh", "0vh", "12vh", "28vh"], { clamp: true });
 
   return (
-    <section ref={sectionRef} className={`relative bg-[#F7F4E6] text-white ${reduced ? "py-12" : "lg:h-[560vh]"}`}>
+    <section ref={sectionRef} className={`relative bg-[#F7F4E6] text-white ${reduced ? "py-12" : "lg:h-[520vh]"}`}>
       <div className={`relative w-full overflow-hidden bg-[#191918] ${reduced ? "" : "lg:sticky lg:top-0 lg:h-screen"}`} style={{ borderRadius: "clamp(34px, 3.5vw, 58px)" }}>
         <div className="px-5 pb-16 pt-16 sm:px-9 lg:hidden">
           <div className="text-center">
