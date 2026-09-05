@@ -31,7 +31,7 @@ jobs:
           cat > qa-section9.mjs <<'EOF'
           import { chromium } from 'playwright';
           const browser = await chromium.launch({headless:true});
-          const page = await browser.newPage({viewport:{width:1440,height:900}});
+          const page = await browser.newPage({viewport:{width:1682,height:1224}});
           await page.goto('http://127.0.0.1:8080/concept/cinematic-follow-through-v6', {waitUntil:'networkidle'});
           await page.evaluate(() => document.fonts.ready);
           const info = await page.evaluate(() => {
@@ -44,7 +44,8 @@ jobs:
           if(!info) throw new Error('Section 9 not found');
           const checkpoints=[0,0.10,0.20,0.34,0.46,0.60,0.74,0.86,0.96];
           for(const p of checkpoints){
-            const y=info.top+p*(info.height-900);
+            const viewportHeight=await page.evaluate(()=>innerHeight);
+            const y=info.top+p*(info.height-viewportHeight);
             await page.evaluate(y=>{document.documentElement.style.scrollBehavior='auto';scrollTo(0,y)},y);
             await page.waitForTimeout(450);
             const actual=await page.evaluate(({top,height})=>({scrollY,progress:(scrollY-top)/(height-innerHeight)}),info);
