@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CinematicFollowThroughV5 } from "@/components/concept/CinematicFollowThroughV5";
+import { CinematicFollowThroughV6 } from "@/components/concept/CinematicFollowThroughV6";
 import { ZaplaHomepageContinuationV6 } from "@/components/concept/ZaplaHomepageContinuationV6";
 
 const TITLE = "Cinematic Follow-Through V6 — Zapla concept";
@@ -8,7 +8,7 @@ const DESC = "The V5 opening and follow-through story, with a new connected cust
 function CinematicHomepageV6() {
   return (
     <>
-      <CinematicFollowThroughV5 variant="follow-through" />
+      <CinematicFollowThroughV6 />
       <ZaplaHomepageContinuationV6 />
     </>
   );

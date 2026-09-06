@@ -21,7 +21,7 @@ export function ZaplaGuidedLaunchV6() {
   ] as const;
 
   return (
-    <section className="overflow-hidden bg-[#F6F0E8] px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+    <section id="guided-launch-v6" className="overflow-hidden bg-[#F6F0E8] px-5 py-24 text-[#111318] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div className="mx-auto grid max-w-[1440px] gap-14 lg:grid-cols-[minmax(0,.82fr)_minmax(0,1.18fr)] lg:items-center lg:gap-12 xl:gap-16">
         <div className="relative z-10 min-w-0 max-w-[610px]">
           <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C56D52]" style={{ fontFamily: GUIDED_BODY }}>Guided Launch</div>
@@ -45,10 +45,22 @@ export function ZaplaGuidedLaunchV6() {
         </div>
 
         <div className="relative flex min-w-0 justify-end overflow-hidden">
-          <img src="/concept/guided-launch-people-v6-final.png" alt="Business owner working with a Zapla launch specialist" className="block h-auto w-full max-w-[760px] object-contain" loading="lazy" />
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-[#F6F0E8] via-[#F6F0E8]/80 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[12%] bg-gradient-to-b from-[#F6F0E8] to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[16%] bg-gradient-to-t from-[#F6F0E8] to-transparent" />
+          {/* Start the small image early, below hero priority, and reserve its space. */}
+          <img
+            src="/concept/guided-launch-natural-v6.webp"
+            srcSet="/concept/guided-launch-natural-v6-760.webp 760w, /concept/guided-launch-natural-v6.webp 1448w"
+            sizes="(min-width: 1600px) 760px, (min-width: 1024px) 55vw, 100vw"
+            width={1448}
+            height={1086}
+            alt="Business owner working with a Zapla launch specialist"
+            className="block h-auto w-full max-w-[760px] object-contain"
+            loading="eager"
+            fetchPriority="low"
+            decoding="async"
+          />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-[12%] bg-gradient-to-r from-[#F6F0E8] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[8%] bg-gradient-to-b from-[#F6F0E8] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%] bg-gradient-to-t from-[#F6F0E8] to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-[4%] bg-gradient-to-l from-[#F6F0E8] to-transparent" />
         </div>
       </div>
