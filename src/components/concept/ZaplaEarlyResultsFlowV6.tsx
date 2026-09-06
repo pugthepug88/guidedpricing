@@ -33,15 +33,17 @@ type MotionPath = {
   x: string[];
   y: string[];
   rotate: number[];
+  scale: number[];
+  z: number[];
 };
 
 const RESULT_CARDS: ResultCard[] = [
   {
     id: "broker",
     kind: "hero",
-    tone: "#E8CEF7",
-    width: "min(1110px, 66vw)",
-    aspectRatio: "1110 / 690",
+    tone: "#E4C8F7",
+    width: "min(1120px, 78vw)",
+    aspectRatio: "1120 / 690",
     label: "MORTGAGE BROKER",
     sublabel: "Early customer result",
     quote: "4 deals closed in 17 days. Two more remained active.",
@@ -53,9 +55,9 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "follow-up",
     kind: "quote",
-    tone: "#F3F3D9",
-    width: "min(820px, 49vw)",
-    aspectRatio: "820 / 687",
+    tone: "#F1F1D8",
+    width: "min(700px, 49vw)",
+    aspectRatio: "1 / 1",
     label: "WHAT CHANGED",
     quote: "The opportunities were already there. Consistent follow-up changed what happened next.",
     footer: "Early customer result",
@@ -63,9 +65,9 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "active",
     kind: "photoQuote",
-    tone: "#F4A443",
-    width: "min(820px, 49vw)",
-    aspectRatio: "820 / 687",
+    tone: "#F2B346",
+    width: "min(700px, 49vw)",
+    aspectRatio: "1 / 1",
     label: "STILL MOVING",
     quote: "2 more opportunities were still active after the same 17-day period.",
     footer: "Same early customer",
@@ -74,9 +76,9 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "system",
     kind: "greenSplit",
-    tone: "#45DF98",
-    width: "min(1117px, 66.4vw)",
-    aspectRatio: "1117 / 684",
+    tone: "#49DFA0",
+    width: "min(1120px, 78vw)",
+    aspectRatio: "1120 / 690",
     label: "FOLLOW-THROUGH",
     quote: "Zapla kept the follow-up moving across the same opportunity set.",
     footer: "One connected follow-up system",
@@ -85,9 +87,9 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "why",
     kind: "quote",
-    tone: "#E8E8CF",
-    width: "min(824px, 49vw)",
-    aspectRatio: "824 / 678",
+    tone: "#E9E9CF",
+    width: "min(700px, 49vw)",
+    aspectRatio: "1 / 1",
     label: "WHY IT MATTERS",
     quote: "Not more leads. Better follow-through on the opportunities already there.",
     footer: "The useful part",
@@ -95,9 +97,9 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "summary",
     kind: "closing",
-    tone: "#F45C4D",
-    width: "min(1110px, 66vw)",
-    aspectRatio: "1110 / 690",
+    tone: "#F15D50",
+    width: "min(1120px, 78vw)",
+    aspectRatio: "1120 / 690",
     label: "EARLY CUSTOMER RESULT",
     quote: "Follow-through, measured.",
     footer: "4 closed · 2 active · 17 days",
@@ -108,55 +110,69 @@ const RESULT_CARDS: ResultCard[] = [
 ];
 
 /*
- * Flow-style conveyor choreography calibrated against the supplied recording.
- * Each hero beat already contains a controlled fragment of the upcoming card.
- * Cards remain opaque and leave physically through the upper-right edge.
- * The outgoing card also picks up a subtle counter-clockwise tilt once it clears
- * its hero beat. That late rotation is what gives the Flow reference its floating,
- * physical-card feeling instead of a rigid translate-only carousel.
+ * Wispr Flow reference choreography.
+ * The section header is deliberately NOT sticky. It lives in normal flow above
+ * the card stage, then scrolls away as the sticky 3D card conveyor takes over.
+ * Cards stay opaque and physically travel from lower-left/below toward upper-right.
  */
 const MOTION_PATHS: MotionPath[] = [
   {
-    input: [0, 0.10, 0.20, 0.27, 0.34, 0.40],
-    x: ["-1vw", "-1vw", "14vw", "32.7vw", "60.5vw", "84vw"],
-    y: ["49.8vh", "16.6vh", "-9.4vh", "-12.3vh", "-44.6vh", "-58vh"],
-    rotate: [0, 0, 0, -0.6, -6.8, -8],
+    input: [0, 0.055, 0.13, 0.205, 0.275, 0.335],
+    x: ["-22vw", "-10vw", "0vw", "11vw", "38vw", "78vw"],
+    y: ["74vh", "31vh", "1vh", "-7vh", "-31vh", "-77vh"],
+    rotate: [0, 0, 0, -0.4, -3.8, -8.5],
+    scale: [0.985, 1, 1, 1, 0.995, 0.98],
+    z: [-90, -30, 0, 0, -30, -120],
   },
   {
-    input: [0.10, 0.20, 0.27, 0.34, 0.40, 0.46, 0.50],
-    x: ["-82vw", "-66vw", "-36vw", "-5vw", "24vw", "64vw", "84vw"],
-    y: ["72vh", "42vh", "24vh", "5vh", "-12vh", "-44vh", "-58vh"],
-    rotate: [0, 0, 0, 0, -1.8, -5.8, -7.5],
+    input: [0.075, 0.14, 0.225, 0.305, 0.385, 0.45],
+    x: ["-79vw", "-54vw", "-7vw", "4vw", "37vw", "79vw"],
+    y: ["78vh", "49vh", "5vh", "-3vh", "-30vh", "-76vh"],
+    rotate: [0, 0, 0, -0.2, -3.2, -8],
+    scale: [0.98, 0.99, 1, 1, 0.995, 0.98],
+    z: [-110, -55, 0, 0, -25, -120],
   },
   {
-    input: [0.32, 0.34, 0.40, 0.46, 0.53, 0.60, 0.64],
-    x: ["-82vw", "-72vw", "-38vw", "2vw", "48vw", "68vw", "84vw"],
-    y: ["62vh", "52vh", "25vh", "3vh", "-23vh", "-40vh", "-58vh"],
-    rotate: [0, 0, 0, 0, -4.2, -6.5, -7.5],
+    input: [0.225, 0.29, 0.375, 0.455, 0.535, 0.60],
+    x: ["-80vw", "-56vw", "-5vw", "3vw", "39vw", "80vw"],
+    y: ["78vh", "50vh", "4vh", "-4vh", "-31vh", "-77vh"],
+    rotate: [0, 0, 0, -0.25, -3.5, -8.2],
+    scale: [0.98, 0.99, 1, 1, 0.995, 0.98],
+    z: [-110, -55, 0, 0, -28, -120],
   },
   {
-    input: [0.43, 0.46, 0.53, 0.60, 0.67, 0.74, 0.78],
-    x: ["-86vw", "-72vw", "-31vw", "4.5vw", "25vw", "61vw", "84vw"],
-    y: ["66vh", "52vh", "20vh", "-3vh", "-14vh", "-42vh", "-58vh"],
-    rotate: [0, 0, 0, 0, -1.4, -5.2, -7.2],
+    input: [0.375, 0.44, 0.525, 0.605, 0.685, 0.75],
+    x: ["-82vw", "-58vw", "-4vw", "4vw", "39vw", "80vw"],
+    y: ["79vh", "51vh", "5vh", "-4vh", "-31vh", "-77vh"],
+    rotate: [0, 0, 0, -0.25, -3.3, -8.2],
+    scale: [0.98, 0.99, 1, 1, 0.995, 0.98],
+    z: [-110, -55, 0, 0, -28, -120],
   },
   {
-    input: [0.58, 0.60, 0.67, 0.74, 0.80, 0.86, 0.90],
-    x: ["-84vw", "-72vw", "-36vw", "9vw", "25vw", "53vw", "84vw"],
-    y: ["64vh", "54vh", "28vh", "-6vh", "-15vh", "-40vh", "-58vh"],
-    rotate: [0, 0, 0, 0, -1.5, -5.2, -7.2],
+    input: [0.525, 0.59, 0.675, 0.755, 0.835, 0.90],
+    x: ["-80vw", "-56vw", "-4vw", "4vw", "38vw", "79vw"],
+    y: ["78vh", "50vh", "4vh", "-4vh", "-30vh", "-76vh"],
+    rotate: [0, 0, 0, -0.2, -3.2, -8],
+    scale: [0.98, 0.99, 1, 1, 0.995, 0.98],
+    z: [-110, -55, 0, 0, -26, -120],
   },
   {
-    input: [0.74, 0.80, 0.86, 0.91, 0.96, 1],
-    x: ["-88vw", "-68vw", "-30vw", "-10vw", "5vw", "5vw"],
-    y: ["72vh", "58vh", "25vh", "9vh", "-10vh", "-10vh"],
+    input: [0.675, 0.74, 0.83, 0.91, 0.965, 1],
+    x: ["-82vw", "-58vw", "-7vw", "1vw", "1vw", "1vw"],
+    y: ["80vh", "52vh", "6vh", "-3vh", "-3vh", "-3vh"],
     rotate: [0, 0, 0, 0, 0, 0],
+    scale: [0.98, 0.99, 1, 1, 1, 1],
+    z: [-110, -55, 0, 0, 0, 0],
   },
 ];
 
 function RoundMark() {
   return (
-    <span className="grid h-11 w-11 place-items-center rounded-full bg-[#171717] text-[9px] font-extrabold tracking-[0.08em] text-white" style={{ fontFamily: SANS }} aria-hidden="true">
+    <span
+      className="grid h-11 w-11 place-items-center rounded-full bg-[#171717] text-[9px] font-extrabold tracking-[0.08em] text-white"
+      style={{ fontFamily: SANS }}
+      aria-hidden="true"
+    >
       Z
     </span>
   );
@@ -165,8 +181,18 @@ function RoundMark() {
 function Metric({ value, label, inverse = false }: { value: string; label: string; inverse?: boolean }) {
   return (
     <div>
-      <div className={`text-[clamp(38px,3vw,56px)] leading-none tracking-[-0.06em] ${inverse ? "text-white" : "text-[#171717]"}`} style={{ fontFamily: SERIF, fontWeight: 400 }}>{value}</div>
-      <div className={`mt-2 max-w-[110px] text-[11px] font-semibold leading-[1.2] ${inverse ? "text-white/76" : "text-black/60"}`} style={{ fontFamily: SANS }}>{label}</div>
+      <div
+        className={`text-[clamp(38px,3vw,56px)] leading-none tracking-[-0.06em] ${inverse ? "text-white" : "text-[#171717]"}`}
+        style={{ fontFamily: SERIF, fontWeight: 400 }}
+      >
+        {value}
+      </div>
+      <div
+        className={`mt-2 max-w-[110px] text-[11px] font-semibold leading-[1.2] ${inverse ? "text-white/76" : "text-black/60"}`}
+        style={{ fontFamily: SANS }}
+      >
+        {label}
+      </div>
     </div>
   );
 }
@@ -175,15 +201,41 @@ function HeroCard({ card }: { card: ResultCard }) {
   return (
     <div className="grid h-full grid-cols-[1.03fr_.97fr]">
       <div className="flex min-w-0 flex-col px-[clamp(40px,3.3vw,52px)] py-[clamp(40px,3.3vw,52px)]">
-        <div className="text-[clamp(22px,1.85vw,31px)] font-black leading-none tracking-[-0.045em] text-[#171717]" style={{ fontFamily: SANS }}>{card.label}</div>
-        <div className="mt-3 text-[clamp(13px,1vw,17px)] text-black/55" style={{ fontFamily: SANS }}>{card.sublabel}</div>
-        <div className="mt-[clamp(24px,3vh,38px)] max-w-[430px] text-[clamp(32px,2.55vw,46px)] leading-[0.99] tracking-[-0.045em] text-[#171717]" style={{ fontFamily: SERIF }}>“{card.quote}”</div>
-        <div className="mt-auto flex items-center gap-3 pt-8 text-[clamp(12px,.9vw,15px)] font-semibold text-black/78" style={{ fontFamily: SANS }}><span>{card.footer}</span><span aria-hidden="true">›</span></div>
+        <div
+          className="text-[clamp(22px,1.85vw,31px)] font-black leading-none tracking-[-0.045em] text-[#171717]"
+          style={{ fontFamily: SANS }}
+        >
+          {card.label}
+        </div>
+        <div className="mt-3 text-[clamp(13px,1vw,17px)] text-black/55" style={{ fontFamily: SANS }}>
+          {card.sublabel}
+        </div>
+        <div
+          className="mt-[clamp(24px,3vh,38px)] max-w-[430px] text-[clamp(32px,2.55vw,46px)] leading-[0.99] tracking-[-0.045em] text-[#171717]"
+          style={{ fontFamily: SERIF }}
+        >
+          “{card.quote}”
+        </div>
+        <div
+          className="mt-auto flex items-center gap-3 pt-8 text-[clamp(12px,.9vw,15px)] font-semibold text-black/78"
+          style={{ fontFamily: SANS }}
+        >
+          <span>{card.footer}</span>
+          <span aria-hidden="true">›</span>
+        </div>
       </div>
       <div className="relative m-[clamp(14px,1.4vw,24px)] ml-0 overflow-hidden rounded-[clamp(26px,2.4vw,44px)] bg-black">
-        <img src={card.image} alt="Mortgage broker early customer result" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <img
+          src={card.image}
+          alt="Mortgage broker early customer result"
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+        />
         <div className="absolute inset-x-0 bottom-0 bg-black/86 px-[clamp(22px,2vw,32px)] py-[clamp(18px,2.1vh,28px)]">
-          <div className="flex gap-[clamp(34px,4vw,64px)]">{card.metricA ? <Metric {...card.metricA} inverse /> : null}{card.metricB ? <Metric {...card.metricB} inverse /> : null}</div>
+          <div className="flex gap-[clamp(34px,4vw,64px)]">
+            {card.metricA ? <Metric {...card.metricA} inverse /> : null}
+            {card.metricB ? <Metric {...card.metricB} inverse /> : null}
+          </div>
         </div>
       </div>
     </div>
@@ -193,9 +245,22 @@ function HeroCard({ card }: { card: ResultCard }) {
 function QuoteCard({ card }: { card: ResultCard }) {
   return (
     <div className="flex h-full flex-col px-[clamp(36px,3.2vw,58px)] py-[clamp(38px,3.5vw,60px)]">
-      <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/42" style={{ fontFamily: SANS }}>{card.label}</div>
-      <div className="mt-[clamp(24px,3vh,42px)] max-w-[690px] text-[clamp(34px,2.75vw,50px)] leading-[1.01] tracking-[-0.047em] text-[#171717]" style={{ fontFamily: SERIF }}>“{card.quote}”</div>
-      <div className="mt-auto flex items-center gap-4 pt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72" style={{ fontFamily: SANS }}><RoundMark /><span>{card.footer}</span></div>
+      <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/42" style={{ fontFamily: SANS }}>
+        {card.label}
+      </div>
+      <div
+        className="mt-[clamp(24px,3vh,42px)] max-w-[690px] text-[clamp(34px,2.75vw,50px)] leading-[1.01] tracking-[-0.047em] text-[#171717]"
+        style={{ fontFamily: SERIF }}
+      >
+        “{card.quote}”
+      </div>
+      <div
+        className="mt-auto flex items-center gap-4 pt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72"
+        style={{ fontFamily: SANS }}
+      >
+        <RoundMark />
+        <span>{card.footer}</span>
+      </div>
     </div>
   );
 }
@@ -204,9 +269,19 @@ function PhotoQuoteCard({ card }: { card: ResultCard }) {
   return (
     <div className="relative h-full overflow-hidden">
       <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover object-[50%_30%]" loading="lazy" />
-      <div className="absolute inset-x-[clamp(16px,1.4vw,24px)] bottom-[clamp(16px,1.4vw,24px)] rounded-[clamp(24px,2.2vw,40px)] px-[clamp(28px,2.8vw,48px)] py-[clamp(28px,3vh,44px)]" style={{ background: card.tone }}>
-        <div className="max-w-[670px] text-[clamp(31px,2.55vw,46px)] leading-[1.01] tracking-[-0.045em] text-[#171717]" style={{ fontFamily: SERIF }}>“{card.quote}”</div>
-        <div className="mt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72" style={{ fontFamily: SANS }}>{card.footer}</div>
+      <div
+        className="absolute inset-x-[clamp(16px,1.4vw,24px)] bottom-[clamp(16px,1.4vw,24px)] rounded-[clamp(24px,2.2vw,40px)] px-[clamp(28px,2.8vw,48px)] py-[clamp(28px,3vh,44px)]"
+        style={{ background: card.tone }}
+      >
+        <div
+          className="max-w-[670px] text-[clamp(31px,2.55vw,46px)] leading-[1.01] tracking-[-0.045em] text-[#171717]"
+          style={{ fontFamily: SERIF }}
+        >
+          “{card.quote}”
+        </div>
+        <div className="mt-8 text-[clamp(12px,.95vw,16px)] font-semibold text-black/72" style={{ fontFamily: SANS }}>
+          {card.footer}
+        </div>
       </div>
     </div>
   );
@@ -215,11 +290,22 @@ function PhotoQuoteCard({ card }: { card: ResultCard }) {
 function GreenSplitCard({ card }: { card: ResultCard }) {
   return (
     <div className="grid h-full grid-cols-[1fr_1.05fr] p-[clamp(16px,1.4vw,24px)]">
-      <div className="overflow-hidden rounded-[clamp(26px,2.4vw,44px)]"><img src={card.image} alt="" className="h-full w-full object-cover object-[50%_36%]" loading="lazy" /></div>
+      <div className="overflow-hidden rounded-[clamp(26px,2.4vw,44px)]">
+        <img src={card.image} alt="" className="h-full w-full object-cover object-[50%_36%]" loading="lazy" />
+      </div>
       <div className="flex min-w-0 flex-col px-[clamp(34px,3vw,52px)] py-[clamp(20px,2vw,36px)]">
-        <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/42" style={{ fontFamily: SANS }}>{card.label}</div>
-        <div className="mt-[clamp(24px,3vh,42px)] text-[clamp(34px,2.7vw,49px)] leading-[1] tracking-[-0.047em] text-[#171717]" style={{ fontFamily: SERIF }}>“{card.quote}”</div>
-        <div className="mt-auto text-[clamp(12px,.95vw,16px)] font-semibold leading-[1.3] text-black/65" style={{ fontFamily: SANS }}>{card.footer}</div>
+        <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-black/42" style={{ fontFamily: SANS }}>
+          {card.label}
+        </div>
+        <div
+          className="mt-[clamp(24px,3vh,42px)] text-[clamp(34px,2.7vw,49px)] leading-[1] tracking-[-0.047em] text-[#171717]"
+          style={{ fontFamily: SERIF }}
+        >
+          “{card.quote}”
+        </div>
+        <div className="mt-auto text-[clamp(12px,.95vw,16px)] font-semibold leading-[1.3] text-black/65" style={{ fontFamily: SANS }}>
+          {card.footer}
+        </div>
       </div>
     </div>
   );
@@ -229,16 +315,31 @@ function ClosingCard({ card }: { card: ResultCard }) {
   return (
     <div className="grid h-full grid-cols-[1.04fr_.96fr]">
       <div className="flex min-w-0 flex-col px-[clamp(36px,3.2vw,58px)] py-[clamp(38px,3.5vw,60px)]">
-        <div className="text-[clamp(18px,1.35vw,23px)] font-black tracking-[-0.035em] text-[#171717]" style={{ fontFamily: SANS }}>ZAPLA</div>
-        <div className="mt-[clamp(28px,3vh,42px)] max-w-[490px] text-[clamp(36px,2.9vw,52px)] leading-[0.98] tracking-[-0.05em] text-[#171717]" style={{ fontFamily: SERIF }}>“{card.quote}”</div>
-        <div className="mt-5 max-w-[420px] text-[clamp(15px,1.15vw,19px)] leading-[1.45] text-black/67" style={{ fontFamily: SANS }}>4 deals closed. 2 more still active. 17 days.</div>
-        <div className="mt-auto flex items-center gap-3 text-[clamp(12px,.95vw,16px)] font-semibold text-black/76" style={{ fontFamily: SANS }}><span>{card.footer}</span><span aria-hidden="true">›</span></div>
+        <div className="text-[clamp(18px,1.35vw,23px)] font-black tracking-[-0.035em] text-[#171717]" style={{ fontFamily: SANS }}>
+          ZAPLA
+        </div>
+        <div
+          className="mt-[clamp(28px,3vh,42px)] max-w-[490px] text-[clamp(36px,2.9vw,52px)] leading-[0.98] tracking-[-0.05em] text-[#171717]"
+          style={{ fontFamily: SERIF }}
+        >
+          “{card.quote}”
+        </div>
+        <div className="mt-5 max-w-[420px] text-[clamp(15px,1.15vw,19px)] leading-[1.45] text-black/67" style={{ fontFamily: SANS }}>
+          4 deals closed. 2 more still active. 17 days.
+        </div>
+        <div className="mt-auto flex items-center gap-3 text-[clamp(12px,.95vw,16px)] font-semibold text-black/76" style={{ fontFamily: SANS }}>
+          <span>{card.footer}</span>
+          <span aria-hidden="true">›</span>
+        </div>
       </div>
       <div className="relative m-[clamp(14px,1.4vw,24px)] ml-0 overflow-hidden rounded-[clamp(26px,2.4vw,44px)] bg-black">
         <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
         <div className="absolute inset-0 bg-black/16" />
         <div className="absolute inset-x-0 bottom-0 bg-black/76 px-[clamp(22px,2vw,32px)] py-[clamp(18px,2.1vh,28px)]">
-          <div className="flex gap-[clamp(34px,4vw,64px)]">{card.metricA ? <Metric {...card.metricA} inverse /> : null}{card.metricB ? <Metric {...card.metricB} inverse /> : null}</div>
+          <div className="flex gap-[clamp(34px,4vw,64px)]">
+            {card.metricA ? <Metric {...card.metricA} inverse /> : null}
+            {card.metricB ? <Metric {...card.metricB} inverse /> : null}
+          </div>
         </div>
       </div>
     </div>
@@ -247,11 +348,16 @@ function ClosingCard({ card }: { card: ResultCard }) {
 
 function CardContent({ card }: { card: ResultCard }) {
   switch (card.kind) {
-    case "hero": return <HeroCard card={card} />;
-    case "quote": return <QuoteCard card={card} />;
-    case "photoQuote": return <PhotoQuoteCard card={card} />;
-    case "greenSplit": return <GreenSplitCard card={card} />;
-    case "closing": return <ClosingCard card={card} />;
+    case "hero":
+      return <HeroCard card={card} />;
+    case "quote":
+      return <QuoteCard card={card} />;
+    case "photoQuote":
+      return <PhotoQuoteCard card={card} />;
+    case "greenSplit":
+      return <GreenSplitCard card={card} />;
+    case "closing":
+      return <ClosingCard card={card} />;
   }
 }
 
@@ -260,12 +366,36 @@ function FloatingCard({ card, index, progress }: { card: ResultCard; index: numb
   const x = useTransform(progress, path.input, path.x, { clamp: true });
   const y = useTransform(progress, path.input, path.y, { clamp: true });
   const rotate = useTransform(progress, path.input, path.rotate, { clamp: true });
+  const scale = useTransform(progress, path.input, path.scale, { clamp: true });
+  const z = useTransform(progress, path.input, path.z, { clamp: true });
   const start = path.input[0];
   const opacity = useTransform(progress, (value) => (index === 0 || value >= start ? 1 : 0));
 
   return (
-    <motion.div className="absolute left-1/2 top-1/2" style={{ x, y, rotate, opacity, zIndex: 20 + index, willChange: "transform" }}>
-      <div data-result-card={card.id} className="-translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/[0.06] text-[#171717] shadow-[0_28px_80px_rgba(0,0,0,.12)]" style={{ width: card.width, aspectRatio: card.aspectRatio, background: card.tone, borderRadius: "clamp(38px, 3.55vw, 60px)" }}>
+    <motion.div
+      className="absolute left-1/2 top-1/2"
+      style={{
+        x,
+        y,
+        z,
+        rotate,
+        scale,
+        opacity,
+        zIndex: 100000000 + index,
+        willChange: "transform",
+        transformStyle: "preserve-3d",
+      }}
+    >
+      <div
+        data-result-card={card.id}
+        className="-translate-x-1/2 -translate-y-1/2 overflow-hidden text-[#171717] shadow-[0_32px_90px_rgba(0,0,0,.16)]"
+        style={{
+          width: card.width,
+          aspectRatio: card.aspectRatio,
+          background: card.tone,
+          borderRadius: "clamp(42px, 4vw, 62px)",
+        }}
+      >
         <CardContent card={card} />
       </div>
     </motion.div>
@@ -273,47 +403,94 @@ function FloatingCard({ card, index, progress }: { card: ResultCard; index: numb
 }
 
 function StaticCard({ card }: { card: ResultCard }) {
-  return <div className="overflow-hidden text-[#171717]" style={{ background: card.tone, borderRadius: 28 }}><div className="min-h-[330px]"><CardContent card={card} /></div></div>;
+  return (
+    <div className="overflow-hidden text-[#171717]" style={{ background: card.tone, borderRadius: 28 }}>
+      <div className="min-h-[330px]">
+        <CardContent card={card} />
+      </div>
+    </div>
+  );
 }
 
 export function ZaplaEarlyResultsFlowV6() {
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
   const reduced = !!useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
-
-  const titleY = useTransform(scrollYProgress, [0, 0.08, 0.12, 0.18, 0.22], ["0vh", "-2vh", "-12vh", "-42vh", "-60vh"], { clamp: true });
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.12, 0.18, 0.22], [1, 1, 0.55, 0], { clamp: true });
-  const revealHeight = useTransform(scrollYProgress, [0, 0.94, 0.97, 1], ["0vh", "0vh", "7vh", "20vh"], { clamp: true });
+  const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start start", "end end"] });
 
   return (
-    <section ref={sectionRef} className={`relative bg-[#F7F4E6] text-white ${reduced ? "py-12" : "lg:h-[520vh]"}`}>
-      <div className={`relative w-full overflow-hidden bg-[#191918] ${reduced ? "" : "lg:sticky lg:top-0 lg:h-screen"}`} style={{ borderRadius: "clamp(34px, 3.5vw, 58px)" }}>
-        <div className="px-5 pb-16 pt-16 sm:px-9 lg:hidden">
+    <section className="relative bg-[#F7F4E6] text-white">
+      <div
+        className="relative w-full overflow-hidden bg-[#1A1A1A]"
+        style={{ borderRadius: "80px 80px 0 0" }}
+      >
+        <div className="px-5 pb-14 pt-16 sm:px-9 lg:hidden">
           <div className="text-center">
-            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45" style={{ fontFamily: SANS }}>Early access. Real results.</div>
-            <h2 className="mx-auto mt-5 max-w-[620px] text-[46px] leading-[0.94] tracking-[-0.045em] text-[#F7F4E6] sm:text-[56px]" style={{ fontFamily: SERIF, fontWeight: 400 }}>From the first<br /><em className="font-normal">businesses to use it.</em></h2>
+            <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45" style={{ fontFamily: SANS }}>
+              Early access. Real results.
+            </div>
+            <h2
+              className="mx-auto mt-5 max-w-[620px] text-[46px] leading-[0.94] tracking-[-0.045em] text-[#F5F1E8] sm:text-[56px]"
+              style={{ fontFamily: SERIF, fontWeight: 400 }}
+            >
+              From the first
+              <br />
+              <em className="font-normal">businesses to use it.</em>
+            </h2>
           </div>
-          <div className="mx-auto mt-12 grid max-w-[760px] gap-5">{RESULT_CARDS.map((card) => <StaticCard key={card.id} card={card} />)}</div>
+          <div className="mx-auto mt-12 grid max-w-[760px] gap-5">
+            {RESULT_CARDS.map((card) => (
+              <StaticCard key={card.id} card={card} />
+            ))}
+          </div>
         </div>
 
         {reduced ? (
           <div className="hidden px-10 py-20 lg:block xl:px-16">
             <div className="mx-auto max-w-[1320px]">
               <div className="text-center">
-                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45" style={{ fontFamily: SANS }}>Early access. Real results.</div>
-                <h2 className="mx-auto mt-5 max-w-[800px] text-[70px] leading-[0.94] tracking-[-0.05em] text-[#F7F4E6]" style={{ fontFamily: SERIF, fontWeight: 400 }}>From the first <em className="font-normal">businesses to use it.</em></h2>
+                <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/45" style={{ fontFamily: SANS }}>
+                  Early access. Real results.
+                </div>
+                <h2
+                  className="mx-auto mt-5 max-w-[850px] text-[72px] leading-[0.93] tracking-[-0.05em] text-[#F5F1E8]"
+                  style={{ fontFamily: SERIF, fontWeight: 400 }}
+                >
+                  From the first <em className="font-normal">businesses to use it.</em>
+                </h2>
               </div>
-              <div className="mt-14 grid grid-cols-2 gap-6">{RESULT_CARDS.map((card) => <StaticCard key={card.id} card={card} />)}</div>
+              <div className="mt-16 grid grid-cols-2 gap-6">
+                {RESULT_CARDS.map((card) => (
+                  <StaticCard key={card.id} card={card} />
+                ))}
+              </div>
             </div>
           </div>
         ) : (
-          <div className="relative hidden h-full lg:block">
-            <motion.div className="absolute left-1/2 top-[27vh] z-10 w-[min(760px,72vw)] -translate-x-1/2 text-center" style={{ y: titleY, opacity: titleOpacity }}>
-              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/43" style={{ fontFamily: SANS }}>Early access. Real results.</div>
-              <h2 className="mt-5 text-[clamp(54px,4.2vw,72px)] leading-[0.94] tracking-[-0.047em] text-[#F7F4E6]" style={{ fontFamily: SERIF, fontWeight: 400 }}>From the first<br /><em className="font-normal">businesses to use it.</em></h2>
-            </motion.div>
-            {RESULT_CARDS.map((card, index) => <FloatingCard key={card.id} card={card} index={index} progress={scrollYProgress} />)}
-            <motion.div className="pointer-events-none absolute inset-x-0 bottom-0 z-[100] hidden rounded-t-[clamp(34px,3.5vw,58px)] bg-[#F7F4E6] lg:block" style={{ height: revealHeight }} />
+          <div className="relative hidden lg:block">
+            <header className="relative z-10 mx-auto flex min-h-[78vh] max-w-[1440px] flex-col items-center justify-center px-12 pb-[14vh] pt-[12vh] text-center">
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/43" style={{ fontFamily: SANS }}>
+                Early access. Real results.
+              </div>
+              <h2
+                className="mt-5 max-w-[850px] text-[clamp(58px,5vw,80px)] leading-[0.92] tracking-[-0.052em] text-[#F5F1E8]"
+                style={{ fontFamily: SERIF, fontWeight: 400 }}
+              >
+                From the first
+                <br />
+                <em className="font-normal">businesses to use it.</em>
+              </h2>
+            </header>
+
+            <div ref={trackRef} className="relative h-[402vh]">
+              <div
+                className="sticky top-0 h-screen w-full overflow-hidden"
+                style={{ perspective: "1600px", perspectiveOrigin: "50% 48%" }}
+              >
+                {RESULT_CARDS.map((card, index) => (
+                  <FloatingCard key={card.id} card={card} index={index} progress={scrollYProgress} />
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>
