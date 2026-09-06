@@ -3,7 +3,7 @@ import { useReducedMotion } from "motion/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const BROKER_IMAGE = "/concept/cinematic-v5/broker.jpg";
+const STORY_IMAGES = "/concept/customer-stories-v6";
 type CardKind = "caseStudy" | "press" | "photo" | "green" | "pressAlt" | "closing";
 type ResultCard = {
   id: string;
@@ -12,54 +12,75 @@ type ResultCard = {
   quote: string;
   label: string;
   kicker?: string;
+  supporting?: string;
+  note: string;
   image?: string;
+  imageAlt?: string;
 };
+// Cards 2–6 are explicitly labelled prototype testimonials, not customer claims.
+// Replace draft quotes, illustrative metrics and portraits with approved material.
 const RESULT_CARDS: ResultCard[] = [
   {
     id: "broker",
     kind: "caseStudy",
     tone: "#F0D7FF",
-    kicker: "MORTGAGE BROKER · EARLY CUSTOMER RESULT",
-    quote: "4 deals closed in 17 days. Two more opportunities were still active.",
-    label: "Read the early result",
-    image: BROKER_IMAGE,
+    kicker: "Mortgage broker",
+    quote: "4 deals closed in 17 days.",
+    supporting:
+      "Following up existing opportunities. Two more were still active after the same period.",
+    label: "Early customer result",
+    note: "Illustrative portrait",
+    image: `${STORY_IMAGES}/broker.webp`,
+    imageAlt: "Illustrative portrait of a mortgage broker in an office",
   },
   {
     id: "existing-opportunities",
     kind: "press",
     tone: "#FFFFEB",
-    quote: "The opportunities were already there.",
-    label: "WHAT CHANGED",
+    quote: "I can focus on the job in front of me knowing new enquiries are getting a response.",
+    label: "Workshop owner",
+    note: "Placeholder testimonial",
   },
   {
     id: "two-active",
     kind: "photo",
     tone: "#FFA946",
-    quote: "2 more opportunities were still active after the same 17-day period.",
-    label: "STILL MOVING",
-    image: BROKER_IMAGE,
+    quote:
+      "We spend less time chasing confirmations and more time looking after the people who are here.",
+    label: "Practice manager",
+    note: "Placeholder testimonial",
+    image: `${STORY_IMAGES}/practice.webp`,
+    imageAlt: "Illustrative portrait of a practice manager at reception",
   },
   {
     id: "follow-through",
     kind: "green",
     tone: "#34D399",
-    quote: "Consistent follow-through changed what happened next.",
-    label: "FOLLOW-THROUGH",
-    image: BROKER_IMAGE,
+    quote: "Everyone can see what’s happened and what needs to happen next.",
+    label: "Property manager",
+    note: "Placeholder testimonial",
+    image: `${STORY_IMAGES}/property.webp`,
+    imageAlt: "Illustrative portrait of two property management colleagues",
   },
   {
     id: "why-it-matters",
     kind: "pressAlt",
     tone: "#E4E4D0",
-    quote: "Not more leads. Better follow-through on the opportunities already there.",
-    label: "WHY IT MATTERS",
+    quote:
+      "We didn’t have to figure out the software ourselves. The Zapla team built it around how we work.",
+    label: "Business owner · Guided Launch",
+    note: "Placeholder testimonial",
   },
   {
     id: "summary",
     kind: "closing",
     tone: "#FF6C4C",
-    quote: "Follow-through, measured.",
-    label: "EARLY CUSTOMER RESULT",
+    quote:
+      "We used to leave the next booking to the customer. Now the follow-up keeps that conversation going.",
+    label: "Studio owner",
+    note: "Placeholder story · illustrative figures",
+    image: `${STORY_IMAGES}/studio.webp`,
+    imageAlt: "Illustrative portrait of a Pilates studio owner",
   },
 ];
 
@@ -197,18 +218,19 @@ function useResultOrbit(sectionRef: React.RefObject<HTMLDivElement | null>, redu
   }, [sectionRef, reduced]);
 }
 
-function SmallArrow() {
-  return (
-    <span aria-hidden="true" className="zef6-arrow">
-      ›
-    </span>
-  );
-}
 function ResultMetric({ value, label }: { value: string; label: string }) {
   return (
     <div className="zef6-metric">
       <div className="zef6-number">{value}</div>
       <div>{label}</div>
+    </div>
+  );
+}
+function Attribution({ card }: { card: ResultCard }) {
+  return (
+    <div>
+      <div className="zef6-label">{card.label}</div>
+      <div className="zef6-secondary">{card.note}</div>
     </div>
   );
 }
@@ -219,18 +241,16 @@ function CardContent({ card }: { card: ResultCard }) {
         <div className="zef6-copy">
           <div>
             <div className="zef6-kicker">
-              <span>{card.kicker?.split(" · ")[0]}</span>
-              <span>· {card.kicker?.split(" · ")[1]}</span>
+              <span>{card.kicker}</span>
+              <span>Early customer result</span>
             </div>
-            <p className="zef6-quote zef6-quote-spaced">“{card.quote}”</p>
+            <p className="zef6-quote zef6-quote-spaced">{card.quote}</p>
+            <p className="zef6-supporting">{card.supporting}</p>
           </div>
-          <div className="zef6-footer">
-            {card.label}
-            <SmallArrow />
-          </div>
+          <div className="zef6-secondary">{card.note}</div>
         </div>
         <div className="zef6-image-panel">
-          <img src={card.image} alt="Mortgage broker" loading="lazy" />
+          <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
           <div className="zef6-image-metrics">
             <ResultMetric value="4" label="deals closed" />
             <ResultMetric value="17" label="days" />
@@ -244,11 +264,7 @@ function CardContent({ card }: { card: ResultCard }) {
       <div className="zef6-copy zef6-press-copy">
         <p className="zef6-quote">“{card.quote}”</p>
         <div className="zef6-attribution">
-          <span className="zef6-brand">Zapla</span>
-          <div>
-            <div className="zef6-label">{card.label}</div>
-            <div className="zef6-secondary">Early customer result</div>
-          </div>
+          <Attribution card={card} />
         </div>
       </div>
     );
@@ -256,13 +272,17 @@ function CardContent({ card }: { card: ResultCard }) {
   if (card.kind === "photo") {
     return (
       <>
-        <img className="zef6-photo" src={card.image} alt="Mortgage broker" loading="lazy" />
+        <img
+          className="zef6-photo"
+          src={card.image}
+          alt={card.imageAlt}
+          loading="lazy"
+          width={543}
+          height={724}
+        />
         <div className="zef6-photo-caption" style={{ background: card.tone }}>
           <p className="zef6-quote">“{card.quote}”</p>
-          <div>
-            <div className="zef6-label">{card.label}</div>
-            <div className="zef6-secondary">Same 17-day period</div>
-          </div>
+          <Attribution card={card} />
         </div>
       </>
     );
@@ -271,16 +291,11 @@ function CardContent({ card }: { card: ResultCard }) {
     return (
       <>
         <div className="zef6-image-panel">
-          <img src={card.image} alt="Mortgage broker" loading="lazy" />
+          <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
         </div>
         <div className="zef6-copy">
           <p className="zef6-quote">“{card.quote}”</p>
-          <div>
-            <div className="zef6-label">{card.label}</div>
-            <div className="zef6-secondary">
-              The next action kept moving across the same opportunity set.
-            </div>
-          </div>
+          <Attribution card={card} />
         </div>
       </>
     );
@@ -288,21 +303,14 @@ function CardContent({ card }: { card: ResultCard }) {
   return (
     <>
       <div className="zef6-copy">
-        <div>
-          <div className="zef6-label">{card.label}</div>
-          <p className="zef6-quote zef6-quote-spaced">{card.quote}</p>
-        </div>
-        <div className="zef6-footer">
-          Same early customer
-          <SmallArrow />
-        </div>
+        <p className="zef6-quote">“{card.quote}”</p>
+        <Attribution card={card} />
       </div>
       <div className="zef6-image-panel">
-        <img src={BROKER_IMAGE} alt="Mortgage broker" loading="lazy" />
+        <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
         <div className="zef6-image-metrics zef6-summary-metrics">
-          <ResultMetric value="4" label="deals closed" />
-          <ResultMetric value="2" label="still active" />
-          <ResultMetric value="17" label="days" />
+          <ResultMetric value="18" label="return bookings" />
+          <ResultMetric value="30" label="days" />
         </div>
       </div>
     </>
@@ -327,7 +335,7 @@ const SECTION_STYLES = `
 .zef6-kicker { min-height: 67.8px; }
 .zef6-kicker span { display: block; font-size: 28px; line-height: 1; font-weight: 700; letter-spacing: -.03em; }
 .zef6-kicker span + span { margin-top: 8px; font-size: 16px; line-height: 1.3; font-weight: 500; letter-spacing: 0; opacity: .75; }
-.zef6-card[data-result-card="summary"] .zef6-label { min-height: 32px; }
+.zef6-supporting { margin: 20px 0 0; font-size: 16px; line-height: 1.35; }
 .zef6-quote { margin: 0; font: 400 32px/.95 "EB Garamond", Georgia, serif; letter-spacing: -.03em; }
 .zef6-quote-spaced { margin-top: 24px; }
 .zef6-footer { display: flex; gap: 12px; align-items: center; font-weight: 500; }
@@ -354,7 +362,9 @@ const SECTION_STYLES = `
   .zef6-heading { margin-top: 24px; font-size: 48px; }
   .zef6-card { border-radius: 24px; height: 352px; }
   .zef6-landscape { display: flex; flex-direction: column; height: auto; gap: 8px; }
-  .zef6-copy { padding: 16px 0; height: auto; }
+  .zef6-copy { padding: 16px 0; height: auto; gap: 20px; }
+  .zef6-supporting { margin-top: 16px; font-size: 14px; }
+  .zef6-card[data-result-card="summary"] .zef6-quote { font-size: 22px; }
   .zef6-card[data-result-card="broker"] .zef6-copy { min-height: 266.75px; }
   .zef6-card[data-result-card="follow-through"] .zef6-copy { min-height: 171.365px; }
   .zef6-card[data-result-card="summary"] .zef6-copy { min-height: 207.167px; }
@@ -384,11 +394,11 @@ export function ZaplaEarlyResultsFlowV6() {
       <style>{SECTION_STYLES}</style>
       <div ref={sectionRef} className="zef6-section">
         <header className="zef6-header">
-          <div className="zef6-eyebrow">Early access, real results</div>
+          <div className="zef6-eyebrow">Customer stories</div>
           <h2 id="zef6-heading" className="zef6-heading">
-            From the first
+            Real businesses.
             <br />
-            <em>businesses to use it.</em>
+            <em>Real follow-through.</em>
           </h2>
         </header>
         <div className="zef6-runway">
