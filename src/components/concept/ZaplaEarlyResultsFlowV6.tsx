@@ -32,6 +32,7 @@ type MotionPath = {
   input: number[];
   x: string[];
   y: string[];
+  rotate: number[];
 };
 
 const RESULT_CARDS: ResultCard[] = [
@@ -110,37 +111,46 @@ const RESULT_CARDS: ResultCard[] = [
  * Flow-style conveyor choreography calibrated against the supplied recording.
  * Each hero beat already contains a controlled fragment of the upcoming card.
  * Cards remain opaque and leave physically through the upper-right edge.
+ * The outgoing card also picks up a subtle counter-clockwise tilt once it clears
+ * its hero beat. That late rotation is what gives the Flow reference its floating,
+ * physical-card feeling instead of a rigid translate-only carousel.
  */
 const MOTION_PATHS: MotionPath[] = [
   {
     input: [0, 0.10, 0.20, 0.27, 0.34, 0.40],
     x: ["-1vw", "-1vw", "14vw", "32.7vw", "60.5vw", "84vw"],
     y: ["49.8vh", "16.6vh", "-9.4vh", "-12.3vh", "-44.6vh", "-58vh"],
+    rotate: [0, 0, 0, -0.6, -6.8, -8],
   },
   {
     input: [0.10, 0.20, 0.27, 0.34, 0.40, 0.46, 0.50],
     x: ["-82vw", "-66vw", "-36vw", "-5vw", "24vw", "64vw", "84vw"],
     y: ["72vh", "42vh", "24vh", "5vh", "-12vh", "-44vh", "-58vh"],
+    rotate: [0, 0, 0, 0, -1.8, -5.8, -7.5],
   },
   {
     input: [0.32, 0.34, 0.40, 0.46, 0.53, 0.60, 0.64],
     x: ["-82vw", "-72vw", "-38vw", "2vw", "48vw", "68vw", "84vw"],
     y: ["62vh", "52vh", "25vh", "3vh", "-23vh", "-40vh", "-58vh"],
+    rotate: [0, 0, 0, 0, -4.2, -6.5, -7.5],
   },
   {
     input: [0.43, 0.46, 0.53, 0.60, 0.67, 0.74, 0.78],
     x: ["-86vw", "-72vw", "-31vw", "4.5vw", "25vw", "61vw", "84vw"],
     y: ["66vh", "52vh", "20vh", "-3vh", "-14vh", "-42vh", "-58vh"],
+    rotate: [0, 0, 0, 0, -1.4, -5.2, -7.2],
   },
   {
     input: [0.58, 0.60, 0.67, 0.74, 0.80, 0.86, 0.90],
     x: ["-84vw", "-72vw", "-36vw", "9vw", "25vw", "53vw", "84vw"],
     y: ["64vh", "54vh", "28vh", "-6vh", "-15vh", "-40vh", "-58vh"],
+    rotate: [0, 0, 0, 0, -1.5, -5.2, -7.2],
   },
   {
     input: [0.74, 0.80, 0.86, 0.91, 0.96, 1],
     x: ["-88vw", "-68vw", "-30vw", "-10vw", "5vw", "5vw"],
     y: ["72vh", "58vh", "25vh", "9vh", "-10vh", "-10vh"],
+    rotate: [0, 0, 0, 0, 0, 0],
   },
 ];
 
@@ -249,11 +259,12 @@ function FloatingCard({ card, index, progress }: { card: ResultCard; index: numb
   const path = MOTION_PATHS[index];
   const x = useTransform(progress, path.input, path.x, { clamp: true });
   const y = useTransform(progress, path.input, path.y, { clamp: true });
+  const rotate = useTransform(progress, path.input, path.rotate, { clamp: true });
   const start = path.input[0];
   const opacity = useTransform(progress, (value) => (index === 0 || value >= start ? 1 : 0));
 
   return (
-    <motion.div className="absolute left-1/2 top-1/2" style={{ x, y, opacity, zIndex: 20 + index, willChange: "transform" }}>
+    <motion.div className="absolute left-1/2 top-1/2" style={{ x, y, rotate, opacity, zIndex: 20 + index, willChange: "transform" }}>
       <div data-result-card={card.id} className="-translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/[0.06] text-[#171717] shadow-[0_28px_80px_rgba(0,0,0,.12)]" style={{ width: card.width, aspectRatio: card.aspectRatio, background: card.tone, borderRadius: "clamp(38px, 3.55vw, 60px)" }}>
         <CardContent card={card} />
       </div>
