@@ -25,9 +25,9 @@ const RESULT_CARDS: ResultCard[] = [
     kind: "caseStudy",
     tone: "#F0D7FF",
     kicker: "Mortgage broker",
-    quote: "Recovered $18.4k from a 2,000-contact database.",
+    quote: "4 deals signed in 17 days.",
     supporting:
-      "We plugged our entire dormant list (2,000+ contacts) into Zapla’s reactivation workflow. In 17 days, 4 clients signed loan offers. Two more are still active. It’s the first time our old data has actually paid rent.",
+      "From 2,000+ dormant contacts, those four signed loan offers generated $18.4k in commission. Two more deals are still active.",
     label: "Richard K.",
     note: "Principal Broker",
     image: `${STORY_IMAGES}/broker.webp`,
@@ -243,15 +243,16 @@ function CardContent({ card }: { card: ResultCard }) {
             <div className="zef6-kicker">
               <span>{card.kicker}</span>
             </div>
-            <p className="zef6-quote zef6-quote-spaced">{card.quote}</p>
+            <p className="zef6-quote zef6-quote-spaced zef6-broker-headline">{card.quote}</p>
             <p className="zef6-supporting">{card.supporting}</p>
           </div>
           <Attribution card={card} />
         </div>
         <div className="zef6-image-panel">
           <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
-          <div className="zef6-image-metrics">
+          <div className="zef6-image-metrics zef6-broker-metrics">
             <ResultMetric value="$18.4k" label="commission earned" />
+            <ResultMetric value="7x" label="ROI" />
             <ResultMetric value="17" label="days" />
           </div>
         </div>
@@ -337,6 +338,7 @@ const SECTION_STYLES = `
 .zef6-supporting { margin: 20px 0 0; font-size: 16px; line-height: 1.35; }
 .zef6-quote { margin: 0; font: 400 32px/.95 "EB Garamond", Georgia, serif; letter-spacing: -.03em; }
 .zef6-quote-spaced { margin-top: 24px; }
+.zef6-broker-headline { font: 600 30px/1.08 "Figtree", Inter, system-ui, sans-serif; letter-spacing: -.035em; }
 .zef6-footer { display: flex; gap: 12px; align-items: center; font-weight: 500; }
 .zef6-arrow { font-size: 26px; line-height: .7; }
 .zef6-secondary { font-size: 14px; font-weight: 500; line-height: 1.3; color: #1A1A1A99; }
@@ -345,6 +347,9 @@ const SECTION_STYLES = `
 .zef6-image-metrics { position: absolute; inset: 0; display: flex; align-items: flex-end; gap: 32px; padding: 32px; color: #FFFFEB; background: linear-gradient(transparent 48%, #0009); }
 .zef6-metric { flex: 1; min-width: 0; font-size: 14px; font-weight: 500; line-height: 1.15; }
 .zef6-number { margin-bottom: 8px; font: italic 400 48px/1 "EB Garamond", Georgia, serif; letter-spacing: -.04em; }
+.zef6-broker-metrics { display: grid; grid-template-columns: 1.25fr .7fr .7fr; align-items: end; gap: 16px; padding: 28px 24px; }
+.zef6-broker-metrics .zef6-metric { font-size: 12px; }
+.zef6-broker-metrics .zef6-number { margin-bottom: 6px; font-size: 40px; white-space: nowrap; }
 .zef6-attribution { display: flex; align-items: center; gap: 16px; font-size: 14px; font-weight: 500; }
 .zef6-brand { font-size: 24px; font-weight: 700; letter-spacing: -.05em; }
 .zef6-photo-caption { display: flex; position: absolute; inset: auto 16px 16px; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 210.2px; padding: 24px; border-radius: 32px; }
@@ -369,10 +374,14 @@ const SECTION_STYLES = `
   .zef6-card[data-result-card="summary"] .zef6-copy { min-height: 207.167px; }
   .zef6-press-copy { height: 320px; }
   .zef6-quote { font-size: 24px; }
+  .zef6-broker-headline { font-size: 25px; line-height: 1.08; }
   .zef6-image-panel { flex: none; width: 100%; height: auto; aspect-ratio: 1; border-radius: 16px; }
   .zef6-card[data-result-card="follow-through"] .zef6-image-panel { order: 2; }
   .zef6-photo-caption { padding: 24px; border-radius: 24px; }
   .zef6-image-metrics { padding: 16px; gap: 24px; }
+  .zef6-broker-metrics { grid-template-columns: 1.2fr .65fr .65fr; gap: 10px; padding: 16px 14px; }
+  .zef6-broker-metrics .zef6-metric { font-size: 11px; }
+  .zef6-broker-metrics .zef6-number { font-size: 32px; }
   .zef6-summary-metrics { padding: 16px; gap: 16px; }
 }
 @media (max-width: 479px) { .zef6-heading { font-size: 40px; } }
