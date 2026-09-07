@@ -58,11 +58,14 @@ const RESULT_CARDS: ResultCard[] = [
     id: "follow-through",
     kind: "green",
     tone: "#34D399",
-    quote: "Everyone can see what’s happened and what needs to happen next.",
-    label: "Property manager",
-    note: "Placeholder testimonial",
-    image: `${STORY_IMAGES}/property.webp`,
-    imageAlt: "Illustrative portrait of two property management colleagues",
+    kicker: "Auto workshop",
+    quote: "20 dormant customers rebooked in 30 days.",
+    supporting:
+      "“Zapla keeps track of when customers are due back for a service or renewal, follows them up for us, and sends the review request after the job. We brought 20 customers back in the first 30 days.”",
+    label: "Service Manager",
+    note: "",
+    image: "/concept/human-work/mechanic.jpg",
+    imageAlt: "Auto workshop mechanic",
   },
   {
     id: "why-it-matters",
@@ -300,9 +303,20 @@ function CardContent({ card }: { card: ResultCard }) {
       <>
         <div className="zef6-image-panel">
           <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
+          <div className="zef6-image-metrics zef6-broker-metrics zef6-green-metrics">
+            <ResultMetric value="20" label="customers rebooked" />
+            <ResultMetric value="30" label="new 5-star reviews" />
+            <ResultMetric value="30" label="days" />
+          </div>
         </div>
         <div className="zef6-copy">
-          <p className="zef6-quote">“{card.quote}”</p>
+          <div>
+            <div className="zef6-kicker">
+              <span>{card.kicker}</span>
+            </div>
+            <p className="zef6-quote zef6-quote-spaced zef6-broker-headline">{card.quote}</p>
+            <p className="zef6-supporting">{card.supporting}</p>
+          </div>
           <Attribution card={card} />
         </div>
       </>
@@ -359,6 +373,7 @@ const SECTION_STYLES = `
 .zef6-broker-metrics .zef6-metric { font-size: 12px; }
 .zef6-broker-metrics .zef6-number { margin-bottom: 6px; font-size: 40px; white-space: nowrap; }
 .zef6-split-metrics { grid-template-columns: 1.2fr .75fr .55fr; gap: 14px; padding: 28px 22px; }
+.zef6-green-metrics { grid-template-columns: .9fr 1.15fr .45fr; gap: 14px; padding: 28px 22px; }
 .zef6-attribution { display: flex; align-items: center; gap: 16px; font-size: 14px; font-weight: 500; }
 .zef6-brand { font-size: 24px; font-weight: 700; letter-spacing: -.05em; }
 .zef6-photo-caption { display: flex; position: absolute; inset: auto 16px 16px; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 210.2px; padding: 24px; border-radius: 32px; }
@@ -379,7 +394,7 @@ const SECTION_STYLES = `
   .zef6-supporting { margin-top: 16px; font-size: 14px; }
   .zef6-card[data-result-card="summary"] .zef6-quote { font-size: 22px; }
   .zef6-card[data-result-card="broker"] .zef6-copy { min-height: 266.75px; }
-  .zef6-card[data-result-card="follow-through"] .zef6-copy { min-height: 171.365px; }
+  .zef6-card[data-result-card="follow-through"] .zef6-copy { min-height: 266.75px; }
   .zef6-card[data-result-card="summary"] .zef6-copy { min-height: 207.167px; }
   .zef6-press-copy { height: 320px; }
   .zef6-quote { font-size: 24px; }
@@ -392,6 +407,7 @@ const SECTION_STYLES = `
   .zef6-broker-metrics .zef6-metric { font-size: 11px; }
   .zef6-broker-metrics .zef6-number { font-size: 32px; }
   .zef6-split-metrics { grid-template-columns: 1.1fr .65fr .45fr; gap: 10px; padding: 16px 14px; }
+  .zef6-green-metrics { grid-template-columns: .9fr 1.1fr .45fr; gap: 10px; padding: 16px 14px; }
   .zef6-summary-metrics { padding: 16px; gap: 16px; }
 }
 @media (max-width: 479px) { .zef6-heading { font-size: 40px; } }
