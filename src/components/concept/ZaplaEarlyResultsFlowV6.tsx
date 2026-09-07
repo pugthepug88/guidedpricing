@@ -23,7 +23,7 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "broker",
     kind: "caseStudy",
-    tone: "#F0D7FF",
+    tone: "#9B86B8",
     kicker: "Mortgage broker",
     quote: "4 deals signed in 17 days.",
     supporting:
@@ -36,7 +36,7 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "existing-opportunities",
     kind: "press",
-    tone: "#FFFFEB",
+    tone: "#DDA34B",
     quote: "We spend less time chasing confirmations and more time looking after the people who are here.",
     label: "Daniel N.",
     note: "Principal Dentist",
@@ -44,7 +44,7 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "two-active",
     kind: "splitPhoto",
-    tone: "#FFA946",
+    tone: "#C96C85",
     kicker: "Skin clinic",
     quote: "12 high-value clients rebooked in 3 weeks.",
     supporting:
@@ -57,7 +57,7 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "follow-through",
     kind: "green",
-    tone: "#34D399",
+    tone: "#99A36D",
     kicker: "Auto workshop",
     quote: "23 customers back in 30 days.",
     supporting:
@@ -70,7 +70,7 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "why-it-matters",
     kind: "pressAlt",
-    tone: "#E4E4D0",
+    tone: "#D58C75",
     quote:
       "We didn’t have to figure out the software ourselves. The Zapla team built it around how we work.",
     label: "Adrian C.",
@@ -79,7 +79,7 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "summary",
     kind: "closing",
-    tone: "#FF6C4C",
+    tone: "#E97D62",
     kicker: "Plumbing company",
     quote: "12 jobs booked from calls we would have missed.",
     supporting:
