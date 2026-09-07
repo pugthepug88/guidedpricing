@@ -80,12 +80,14 @@ const RESULT_CARDS: ResultCard[] = [
     id: "summary",
     kind: "closing",
     tone: "#FF6C4C",
-    quote:
-      "We used to leave the next booking to the customer. Now the follow-up keeps that conversation going.",
-    label: "Studio owner",
-    note: "Placeholder story · illustrative figures",
-    image: `${STORY_IMAGES}/studio.webp`,
-    imageAlt: "Illustrative portrait of a Pilates studio owner",
+    kicker: "Plumbing company",
+    quote: "12 jobs booked from calls we would have missed.",
+    supporting:
+      "“If we were on a job, calls would go to voicemail and people would just call someone else. Now Zapla answers, gets the details and books them in while we’re still on-site.”",
+    label: "Nathan C.",
+    note: "Owner, Plumbing",
+    image: "/concept/plumber.png",
+    imageAlt: "Plumber working on-site",
   },
 ];
 
@@ -325,13 +327,20 @@ function CardContent({ card }: { card: ResultCard }) {
   return (
     <>
       <div className="zef6-copy">
-        <p className="zef6-quote">“{card.quote}”</p>
+        <div>
+          <div className="zef6-kicker">
+            <span>{card.kicker}</span>
+          </div>
+          <p className="zef6-quote zef6-quote-spaced zef6-broker-headline">{card.quote}</p>
+          <p className="zef6-supporting">{card.supporting}</p>
+        </div>
         <Attribution card={card} />
       </div>
       <div className="zef6-image-panel">
         <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
-        <div className="zef6-image-metrics zef6-summary-metrics">
-          <ResultMetric value="18" label="return bookings" />
+        <div className="zef6-image-metrics zef6-broker-metrics zef6-summary-metrics">
+          <ResultMetric value="12" label="jobs booked" />
+          <ResultMetric value="41" label="calls answered" />
           <ResultMetric value="30" label="days" />
         </div>
       </div>
@@ -379,7 +388,7 @@ const SECTION_STYLES = `
 .zef6-attribution { display: flex; align-items: center; gap: 16px; font-size: 14px; font-weight: 500; }
 .zef6-brand { font-size: 24px; font-weight: 700; letter-spacing: -.05em; }
 .zef6-photo-caption { display: flex; position: absolute; inset: auto 16px 16px; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 210.2px; padding: 24px; border-radius: 32px; }
-.zef6-summary-metrics { padding: 24px; gap: 16px; }
+.zef6-summary-metrics { grid-template-columns: .8fr 1fr .45fr; gap: 14px; padding: 28px 22px; }
 .zef6-section[data-animated] .zef6-stage { display: block; position: sticky; top: 0; height: 100vh; padding: 0; perspective-origin: 50% 50%; }
 .zef6-section[data-animated] .zef6-card { position: absolute; left: 50%; top: 50vh; transform-style: preserve-3d; will-change: transform; }
 @media (max-width: 991px) {
@@ -397,7 +406,7 @@ const SECTION_STYLES = `
   .zef6-card[data-result-card="summary"] .zef6-quote { font-size: 22px; }
   .zef6-card[data-result-card="broker"] .zef6-copy { min-height: 266.75px; }
   .zef6-card[data-result-card="follow-through"] .zef6-copy { min-height: 266.75px; }
-  .zef6-card[data-result-card="summary"] .zef6-copy { min-height: 207.167px; }
+  .zef6-card[data-result-card="summary"] .zef6-copy { min-height: 266.75px; }
   .zef6-press-copy { height: 320px; }
   .zef6-quote { font-size: 24px; }
   .zef6-broker-headline { font-size: 25px; line-height: 1.08; }
@@ -411,7 +420,7 @@ const SECTION_STYLES = `
   .zef6-split-metrics { grid-template-columns: 1.1fr .65fr .45fr; gap: 10px; padding: 16px 14px; }
   .zef6-green-metrics { grid-template-columns: .9fr 1.1fr .45fr; gap: 10px; padding: 16px 14px; }
   .zef6-green-metrics .zef6-metric { grid-template-rows: 38px 26px; }
-  .zef6-summary-metrics { padding: 16px; gap: 16px; }
+  .zef6-summary-metrics { grid-template-columns: .8fr 1fr .45fr; gap: 10px; padding: 16px 14px; }
 }
 @media (max-width: 479px) { .zef6-heading { font-size: 40px; } }
 @media (prefers-reduced-motion: reduce) {
