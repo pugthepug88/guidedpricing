@@ -319,7 +319,7 @@ function CardContent({ card }: { card: ResultCard }) {
 
 const SECTION_STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Figtree:wght@400;500;600;700&display=swap');
-.zef6-shell { background: linear-gradient(#F6F0E8 50%, #071012 50%); }
+.zef6-shell { background: linear-gradient(#F6F0E8 50%, #F7F4EE 50%); }
 .zef6-section { position: relative; overflow: clip; border-radius: 80px; background: #1A1A1A; color: #FFFFEB; font: 400 16px/1.3 "Figtree", Inter, system-ui, sans-serif; }
 .zef6-section * { box-sizing: border-box; }
 .zef6-header { padding: 128px 40px 0; text-align: center; }
