@@ -73,8 +73,8 @@ const RESULT_CARDS: ResultCard[] = [
     tone: "#E4E4D0",
     quote:
       "We didn’t have to figure out the software ourselves. The Zapla team built it around how we work.",
-    label: "Business owner · Guided Launch",
-    note: "Placeholder testimonial",
+    label: "Adrian C.",
+    note: "Owner, Electrical Contracting",
   },
   {
     id: "summary",
