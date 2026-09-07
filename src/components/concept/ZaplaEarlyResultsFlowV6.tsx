@@ -286,10 +286,10 @@ function CardContent({ card }: { card: ResultCard }) {
         </div>
         <div className="zef6-image-panel">
           <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
-          <div className="zef6-image-metrics zef6-broker-metrics">
+          <div className="zef6-image-metrics zef6-broker-metrics zef6-split-metrics">
             <ResultMetric value="$24k" label="revenue generated" />
-            <ResultMetric value="9.5x" label="return on spend" />
-            <ResultMetric value="12" label="clients rebooked" />
+            <ResultMetric value="9.5x" label="ROI" />
+            <ResultMetric value="3" label="weeks" />
           </div>
         </div>
       </>
@@ -358,6 +358,7 @@ const SECTION_STYLES = `
 .zef6-broker-metrics { display: grid; grid-template-columns: 1.25fr .7fr .7fr; align-items: end; gap: 16px; padding: 28px 24px; }
 .zef6-broker-metrics .zef6-metric { font-size: 12px; }
 .zef6-broker-metrics .zef6-number { margin-bottom: 6px; font-size: 40px; white-space: nowrap; }
+.zef6-split-metrics { grid-template-columns: 1.2fr .75fr .55fr; gap: 14px; padding: 28px 22px; }
 .zef6-attribution { display: flex; align-items: center; gap: 16px; font-size: 14px; font-weight: 500; }
 .zef6-brand { font-size: 24px; font-weight: 700; letter-spacing: -.05em; }
 .zef6-photo-caption { display: flex; position: absolute; inset: auto 16px 16px; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 210.2px; padding: 24px; border-radius: 32px; }
@@ -390,6 +391,7 @@ const SECTION_STYLES = `
   .zef6-broker-metrics { grid-template-columns: 1.2fr .65fr .65fr; gap: 10px; padding: 16px 14px; }
   .zef6-broker-metrics .zef6-metric { font-size: 11px; }
   .zef6-broker-metrics .zef6-number { font-size: 32px; }
+  .zef6-split-metrics { grid-template-columns: 1.1fr .65fr .45fr; gap: 10px; padding: 16px 14px; }
   .zef6-summary-metrics { padding: 16px; gap: 16px; }
 }
 @media (max-width: 479px) { .zef6-heading { font-size: 40px; } }
