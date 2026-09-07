@@ -1,8 +1,17 @@
 import {
+  siAirtable,
+  siClickup,
+  siFacebook,
   siGoogle,
-  siMeta,
+  siInstagram,
+  siLinkedin,
+  siNotion,
+  siQuickbooks,
   siShopify,
+  siSlack,
   siStripe,
+  siTiktok,
+  siWhatsapp,
   siXero,
   siZapier,
   type SimpleIcon,
@@ -10,9 +19,18 @@ import {
 
 const INTEGRATIONS: SimpleIcon[] = [
   siGoogle,
-  siMeta,
+  siFacebook,
+  siInstagram,
+  siWhatsapp,
+  siLinkedin,
+  siTiktok,
   siStripe,
   siXero,
+  siQuickbooks,
+  siAirtable,
+  siNotion,
+  siSlack,
+  siClickup,
   siShopify,
   siZapier,
 ];
@@ -46,7 +64,7 @@ export function ZaplaIntegrationsStripV6() {
           to { transform: translateX(-50%); }
         }
         .zapla-integrations-track-v6 {
-          animation: zapla-integrations-marquee-v6 28s linear infinite;
+          animation: zapla-integrations-marquee-v6 58s linear infinite;
           will-change: transform;
         }
         .zapla-integrations-marquee-v6:hover .zapla-integrations-track-v6 {
