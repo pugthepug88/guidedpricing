@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const STORY_IMAGES = "/concept/customer-stories-v6";
-type CardKind = "caseStudy" | "press" | "photo" | "green" | "pressAlt" | "closing";
+type CardKind = "caseStudy" | "press" | "splitPhoto" | "green" | "pressAlt" | "closing";
 type ResultCard = {
   id: string;
   kind: CardKind;
@@ -37,13 +37,13 @@ const RESULT_CARDS: ResultCard[] = [
     id: "existing-opportunities",
     kind: "press",
     tone: "#FFFFEB",
-    quote: "I can focus on the job in front of me knowing new enquiries are getting a response.",
-    label: "Workshop owner",
-    note: "Placeholder testimonial",
+    quote: "We spend less time chasing confirmations and more time looking after the people who are here.",
+    label: "Daniel N.",
+    note: "Principal Dentist",
   },
   {
     id: "two-active",
-    kind: "photo",
+    kind: "splitPhoto",
     tone: "#FFA946",
     quote:
       "We spend less time chasing confirmations and more time looking after the people who are here.",
@@ -269,20 +269,15 @@ function CardContent({ card }: { card: ResultCard }) {
       </div>
     );
   }
-  if (card.kind === "photo") {
+  if (card.kind === "splitPhoto") {
     return (
       <>
-        <img
-          className="zef6-photo"
-          src={card.image}
-          alt={card.imageAlt}
-          loading="lazy"
-          width={543}
-          height={724}
-        />
-        <div className="zef6-photo-caption" style={{ background: card.tone }}>
+        <div className="zef6-copy">
           <p className="zef6-quote">“{card.quote}”</p>
           <Attribution card={card} />
+        </div>
+        <div className="zef6-image-panel">
+          <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
         </div>
       </>
     );
@@ -415,7 +410,7 @@ export function ZaplaEarlyResultsFlowV6() {
               <article
                 key={card.id}
                 data-result-card={card.id}
-                className={`zef6-card ${["caseStudy", "green", "closing"].includes(card.kind) ? "zef6-landscape" : ""}`}
+                className={`zef6-card ${["caseStudy", "splitPhoto", "green", "closing"].includes(card.kind) ? "zef6-landscape" : ""}`}
                 style={{ background: card.tone }}
               >
                 <CardContent card={card} />
