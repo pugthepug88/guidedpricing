@@ -5,7 +5,7 @@ import ZaplaAIConversationsV6 from "@/components/concept/ZaplaAIConversationsV6"
 import ZaplaAIReceptionistV6 from "@/components/concept/ZaplaAIReceptionistV6";
 import ZaplaRepeatBusinessV6 from "@/components/concept/ZaplaRepeatBusinessV6";
 import { ZaplaUnlimitedV6 } from "@/components/concept/ZaplaGrowthUnlimitedV6";
-import { ZaplaFinalV6, ZaplaGuidedLaunchV6 } from "@/components/concept/ZaplaClosingV6";
+import { ZaplaGuidedLaunchV6 } from "@/components/concept/ZaplaClosingV6";
 import { ZaplaEarlyResultsFlowV6 } from "@/components/concept/ZaplaEarlyResultsFlowV6";
 import ZaplaPlatformTeaserV6 from "@/components/concept/ZaplaPlatformTeaserV6";
 
@@ -22,7 +22,6 @@ export function ZaplaHomepageContinuationV6() {
       <ZaplaGuidedLaunchV6 />
       <ZaplaEarlyResultsFlowV6 />
       <ZaplaPlatformTeaserV6 />
-      <ZaplaFinalV6 />
     </>
   );
 }
