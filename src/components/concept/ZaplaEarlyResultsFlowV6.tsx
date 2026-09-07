@@ -59,12 +59,12 @@ const RESULT_CARDS: ResultCard[] = [
     kind: "green",
     tone: "#34D399",
     kicker: "Auto workshop",
-    quote: "20 dormant customers rebooked in 30 days.",
+    quote: "23 customers back in 30 days.",
     supporting:
-      "“Zapla keeps track of when customers are due back for a service or renewal, follows them up for us, and sends the review request after the job. We brought 20 customers back in the first 30 days.”",
-    label: "Service Manager",
-    note: "",
-    image: "/concept/human-work/mechanic.jpg",
+      "“Zapla keeps track of when customers are due back for a service or renewal, follows them up for us, and sends the review request after the job. We brought 23 customers back in the first 30 days.”",
+    label: "Brad P.",
+    note: "Mechanic Owner",
+    image: "/concept/Mechanic.png",
     imageAlt: "Auto workshop mechanic",
   },
   {
@@ -304,8 +304,8 @@ function CardContent({ card }: { card: ResultCard }) {
         <div className="zef6-image-panel">
           <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
           <div className="zef6-image-metrics zef6-broker-metrics zef6-green-metrics">
-            <ResultMetric value="20" label="customers rebooked" />
-            <ResultMetric value="30" label="new 5-star reviews" />
+            <ResultMetric value="23" label="customers rebooked" />
+            <ResultMetric value="28" label="new 5-star reviews" />
             <ResultMetric value="30" label="days" />
           </div>
         </div>
@@ -374,6 +374,8 @@ const SECTION_STYLES = `
 .zef6-broker-metrics .zef6-number { margin-bottom: 6px; font-size: 40px; white-space: nowrap; }
 .zef6-split-metrics { grid-template-columns: 1.2fr .75fr .55fr; gap: 14px; padding: 28px 22px; }
 .zef6-green-metrics { grid-template-columns: .9fr 1.15fr .45fr; gap: 14px; padding: 28px 22px; }
+.zef6-green-metrics .zef6-metric { display: grid; grid-template-rows: 46px 28px; align-self: end; }
+.zef6-green-metrics .zef6-number { align-self: start; margin-bottom: 0; }
 .zef6-attribution { display: flex; align-items: center; gap: 16px; font-size: 14px; font-weight: 500; }
 .zef6-brand { font-size: 24px; font-weight: 700; letter-spacing: -.05em; }
 .zef6-photo-caption { display: flex; position: absolute; inset: auto 16px 16px; flex-direction: column; justify-content: space-between; gap: 32px; min-height: 210.2px; padding: 24px; border-radius: 32px; }
@@ -408,6 +410,7 @@ const SECTION_STYLES = `
   .zef6-broker-metrics .zef6-number { font-size: 32px; }
   .zef6-split-metrics { grid-template-columns: 1.1fr .65fr .45fr; gap: 10px; padding: 16px 14px; }
   .zef6-green-metrics { grid-template-columns: .9fr 1.1fr .45fr; gap: 10px; padding: 16px 14px; }
+  .zef6-green-metrics .zef6-metric { grid-template-rows: 38px 26px; }
   .zef6-summary-metrics { padding: 16px; gap: 16px; }
 }
 @media (max-width: 479px) { .zef6-heading { font-size: 40px; } }
