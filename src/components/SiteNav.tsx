@@ -6,26 +6,26 @@ export const ZAPLA_LOGO =
 
 function CinematicZaplaLogo() {
   return (
-    <span className="flex h-9 items-center">
+    <span className="flex h-8 items-center">
       {/* Keep the exact homepage mark. A small white patch sits only beneath the
           transparent inner cutout, so the cutout reads white without creating
           a white container around the blue mark. */}
-      <span className="relative block h-9 w-9 shrink-0 overflow-hidden">
-        <span className="absolute left-[8px] top-[7px] h-[22px] w-[21px] rounded-[6px] bg-white" />
+      <span className="relative block h-8 w-8 shrink-0 overflow-hidden">
+        <span className="absolute left-[7px] top-[6px] h-[20px] w-[19px] rounded-[5px] bg-white" />
         <img
           src={ZAPLA_LOGO}
           alt="Zapla"
-          className="absolute left-0 top-0 h-9 w-auto max-w-none"
+          className="absolute left-0 top-0 h-8 w-auto max-w-none"
         />
       </span>
 
       {/* Reuse the real wordmark artwork rather than recreating it as text. */}
-      <span className="ml-1.5 block h-9 w-[94px] overflow-hidden">
+      <span className="ml-1.5 block h-8 w-[84px] overflow-hidden">
         <img
           src={ZAPLA_LOGO}
           alt=""
           aria-hidden="true"
-          className="h-9 w-auto max-w-none -translate-x-9 brightness-0 invert"
+          className="h-8 w-auto max-w-none -translate-x-8 brightness-0 invert"
         />
       </span>
     </span>
@@ -81,6 +81,10 @@ export function SiteNav() {
       ? "fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
       : "fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#090E15]/[0.22] shadow-[0_8px_28px_rgba(0,0,0,.09)] backdrop-blur-[12px] backdrop-saturate-[1.02] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out";
 
+  const headerCtaCls = cinematicV5 && !cinematicPastHero
+    ? "inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-[13px] font-bold text-[#111318] shadow-[0_6px_20px_rgba(0,0,0,.12)] transition hover:-translate-y-0.5 hover:bg-white/92 hover:shadow-[0_10px_26px_rgba(0,0,0,.16)]"
+    : "inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#1D4ED8] hover:shadow-zapla-blue";
+
   return (
     <nav
       className={
@@ -95,13 +99,13 @@ export function SiteNav() {
     >
       <div
         className={cinematicV5
-          ? "mx-auto flex max-w-[1320px] items-center justify-between gap-4 px-5 py-2.5 sm:px-7"
+          ? "flex w-full items-center justify-between gap-4 px-[6vw] py-2.5 lg:px-[5.5vw]"
           : "mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8"}
       >
         <a href="https://zapla.io/" className="flex items-center">
           {cinematicV5 ? (
             cinematicPastHero ? (
-              <img src={ZAPLA_LOGO} alt="Zapla" className="h-9 w-auto" />
+              <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto" />
             ) : (
               <CinematicZaplaLogo />
             )
@@ -161,10 +165,7 @@ export function SiteNav() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="https://zapla.io/booking"
-            className="inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#1D4ED8] hover:shadow-zapla-blue"
-          >
+          <a href="https://zapla.io/booking" className={headerCtaCls}>
             Book a Call
           </a>
         </div>
