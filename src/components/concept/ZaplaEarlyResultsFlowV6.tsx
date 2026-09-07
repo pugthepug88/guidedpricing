@@ -25,13 +25,13 @@ const RESULT_CARDS: ResultCard[] = [
     kind: "caseStudy",
     tone: "#F0D7FF",
     kicker: "Mortgage broker",
-    quote: "4 deals closed in 17 days.",
+    quote: "Recovered $18.4k from a 2,000-contact database.",
     supporting:
-      "Following up existing opportunities. Two more were still active after the same period.",
-    label: "Early customer result",
-    note: "Illustrative portrait",
+      "We plugged our entire dormant list (2,000+ contacts) into Zapla’s reactivation workflow. In 17 days, 4 clients signed loan offers. Two more are still active. It’s the first time our old data has actually paid rent.",
+    label: "Richard K.",
+    note: "Principal Broker",
     image: `${STORY_IMAGES}/broker.webp`,
-    imageAlt: "Illustrative portrait of a mortgage broker in an office",
+    imageAlt: "Mortgage broker in an office",
   },
   {
     id: "existing-opportunities",
@@ -242,17 +242,16 @@ function CardContent({ card }: { card: ResultCard }) {
           <div>
             <div className="zef6-kicker">
               <span>{card.kicker}</span>
-              <span>Early customer result</span>
             </div>
             <p className="zef6-quote zef6-quote-spaced">{card.quote}</p>
             <p className="zef6-supporting">{card.supporting}</p>
           </div>
-          <div className="zef6-secondary">{card.note}</div>
+          <Attribution card={card} />
         </div>
         <div className="zef6-image-panel">
           <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
           <div className="zef6-image-metrics">
-            <ResultMetric value="4" label="deals closed" />
+            <ResultMetric value="$18.4k" label="commission earned" />
             <ResultMetric value="17" label="days" />
           </div>
         </div>
@@ -332,7 +331,7 @@ const SECTION_STYLES = `
 .zef6-landscape { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; width: 46.25rem; }
 .zef6-copy { display: flex; position: relative; flex-direction: column; justify-content: space-between; min-width: 0; height: 100%; gap: 32px; padding: 16px; }
 .zef6-label { font-size: 14px; line-height: 1.3; font-weight: 500; }
-.zef6-kicker { min-height: 67.8px; }
+.zef6-kicker { min-height: 28px; }
 .zef6-kicker span { display: block; font-size: 28px; line-height: 1; font-weight: 700; letter-spacing: -.03em; }
 .zef6-kicker span + span { margin-top: 8px; font-size: 16px; line-height: 1.3; font-weight: 500; letter-spacing: 0; opacity: .75; }
 .zef6-supporting { margin: 20px 0 0; font-size: 16px; line-height: 1.35; }
