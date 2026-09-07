@@ -27,7 +27,7 @@ const RESULT_CARDS: ResultCard[] = [
     kicker: "Mortgage broker",
     quote: "4 deals signed in 17 days.",
     supporting:
-      "“We had more than 2,000 old contacts sitting there doing nothing. Zapla followed them up for us. Within 17 days, four clients signed loan offers and two more were still active. It was the first time our old database had actually paid rent.”",
+      "“We had 2,000+ old contacts sitting there doing nothing. Zapla followed them up for us, and for the first time that old database was actually paying rent. Two more deals are still active.”",
     label: "Richard K.",
     note: "Principal Broker",
     image: `${STORY_IMAGES}/broker.webp`,
