@@ -45,12 +45,14 @@ const RESULT_CARDS: ResultCard[] = [
     id: "two-active",
     kind: "splitPhoto",
     tone: "#FFA946",
-    quote:
-      "We spend less time chasing confirmations and more time looking after the people who are here.",
-    label: "Practice manager",
-    note: "Placeholder testimonial",
+    kicker: "Skin clinic",
+    quote: "12 high-value clients rebooked in 3 weeks.",
+    supporting:
+      "“We had some of our best clients go quiet. Zapla showed us who to focus on and followed them up for us. Within three weeks, 12 had rebooked. We stopped losing good clients simply because nobody followed up.”",
+    label: "Chloe B.",
+    note: "Practice Manager",
     image: `${STORY_IMAGES}/practice.webp`,
-    imageAlt: "Illustrative portrait of a practice manager at reception",
+    imageAlt: "Skin clinic practice manager at reception",
   },
   {
     id: "follow-through",
@@ -273,11 +275,22 @@ function CardContent({ card }: { card: ResultCard }) {
     return (
       <>
         <div className="zef6-copy">
-          <p className="zef6-quote">“{card.quote}”</p>
+          <div>
+            <div className="zef6-kicker">
+              <span>{card.kicker}</span>
+            </div>
+            <p className="zef6-quote zef6-quote-spaced zef6-broker-headline">{card.quote}</p>
+            <p className="zef6-supporting">{card.supporting}</p>
+          </div>
           <Attribution card={card} />
         </div>
         <div className="zef6-image-panel">
           <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
+          <div className="zef6-image-metrics zef6-broker-metrics">
+            <ResultMetric value="$24k" label="revenue generated" />
+            <ResultMetric value="9.5x" label="return on spend" />
+            <ResultMetric value="12" label="clients rebooked" />
+          </div>
         </div>
       </>
     );
