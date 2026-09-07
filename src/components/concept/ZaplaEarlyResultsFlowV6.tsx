@@ -79,7 +79,7 @@ const RESULT_CARDS: ResultCard[] = [
   {
     id: "summary",
     kind: "closing",
-    tone: "#E97D62",
+    tone: "#DDA34B",
     kicker: "Plumbing company",
     quote: "12 jobs booked from calls we would have missed.",
     supporting:
