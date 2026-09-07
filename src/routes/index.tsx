@@ -1,9 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CinematicFollowThroughV5 } from "@/components/concept/CinematicFollowThroughV5";
+import { ZaplaHomepageContinuationV6 } from "@/components/concept/ZaplaHomepageContinuationV6";
 
 const TITLE = "Zapla — Different work. Same follow-through.";
 const DESC =
   "Zapla is the AI operating system for growing businesses. Every enquiry, booking, and review followed through, all in one place.";
+
+function ZaplaHomepage() {
+  return (
+    <>
+      <CinematicFollowThroughV5 variant="follow-through" />
+      <ZaplaHomepageContinuationV6 />
+    </>
+  );
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,5 +26,5 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: CinematicFollowThroughV5,
+  component: ZaplaHomepage,
 });
