@@ -34,7 +34,8 @@ function CinematicZaplaLogo() {
 
 export function SiteNav() {
   const location = useLocation();
-  const cinematicV5 = location.pathname === "/concept/cinematic-follow-through-v5";
+  const cinematicV5 =
+    location.pathname === "/" || location.pathname === "/concept/cinematic-follow-through-v5";
   const [scrolled, setScrolled] = useState(false);
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [cinematicPastHero, setCinematicPastHero] = useState(false);
