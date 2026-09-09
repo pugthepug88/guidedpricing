@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { ArrowRight, Check, ChevronDown, Map, Boxes, Rocket } from "lucide-react";
 
 export const Route = createFileRoute("/pricing-v2")({
@@ -321,10 +321,10 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 18 }}
+      initial={reduced ? false : { opacity: 1, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : delay, ease: EASE }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -415,7 +415,7 @@ function MarqueeGroup({ groupIndex }: { groupIndex: number }) {
 
 function UnlimitedUsersMarquee() {
   return (
-    <section className="flex h-[72px] items-center overflow-hidden bg-[#F6F2EB] sm:h-[92px]" aria-label="Unlimited users on every Zapla plan">
+    <section className="pricing-marquee-shell flex h-[72px] items-center overflow-hidden bg-[#F6F2EB] sm:h-[92px]" aria-label="Unlimited users on every Zapla plan">
       <p className="sr-only">Unlimited users. One flat price. No per-seat fees.</p>
       <div className="pricing-marquee-track flex w-max items-center whitespace-nowrap text-[26px] font-medium leading-none tracking-[-0.035em] text-[#111318] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>
         <MarqueeGroup groupIndex={0} />
@@ -429,6 +429,11 @@ function UnlimitedUsersMarquee() {
         .pricing-marquee-track {
           animation: pricing-unlimited-marquee 64s linear infinite;
           will-change: transform;
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .pricing-marquee-shell:hover .pricing-marquee-track {
+            animation-play-state: paused;
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           .pricing-marquee-track {
@@ -507,7 +512,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
 
   return (
     <Reveal delay={index * 0.04} className="h-full">
-      <article className="flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] sm:p-6 md:min-h-[535px]" style={{ background: bg, borderColor: border, color: dark ? "#F7F4EE" : COLORS.ink }}>
+      <article className="flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[535px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none" style={{ background: bg, borderColor: border, color: dark ? "#F7F4EE" : COLORS.ink }}>
         <div className="flex min-h-[32px] flex-wrap items-center gap-2">
           <h3 className="text-[26px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h3>
           {badge ? (
@@ -552,9 +557,10 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           <a
             href={BOOK_URL}
             data-track={plan.track}
-            className={`inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold transition-transform hover:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${dark ? "bg-[#F7F4EE] text-[#1E2B29]" : plan.recommended ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
+            className={`group inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${dark ? "bg-[#F7F4EE] text-[#1E2B29]" : plan.recommended ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
           >
-            {plan.enterprise ? "Talk to sales" : "Book a Call"} <ArrowRight size={14} />
+            {plan.enterprise ? "Talk to sales" : "Book a Call"}
+            <ArrowRight size={14} className="transition-transform duration-200 ease-out group-hover:translate-x-[3px] motion-reduce:transform-none motion-reduce:transition-none" />
           </a>
         </div>
       </article>
@@ -633,24 +639,56 @@ function GuidedLaunch() {
           </p>
         </Reveal>
 
-        <div className="grid gap-3 sm:grid-cols-3">
-          {stages.map((stage, index) => (
-            <Reveal key={stage.label} delay={index * 0.05} className="h-full">
-              <article className="h-full rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-white/[0.08] bg-white/[0.035]" style={{ color: stage.color }}>
-                  <stage.Icon size={18} strokeWidth={1.8} />
-                </div>
-                <div className="mt-6 text-[9px] font-bold uppercase tracking-[0.15em]" style={{ color: stage.color }}>0{index + 1}</div>
-                <h3 className="mt-1.5 text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{stage.label}</h3>
-                <p className="mt-2 text-[12.5px] leading-[1.55] text-white/50">{stage.copy}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <GuidedLaunchStages stages={stages} />
       </div>
     </section>
   );
 }
+
+type LaunchStage = { label: string; copy: string; Icon: typeof Map; color: string };
+
+function GuidedLaunchStages({ stages }: { stages: LaunchStage[] }) {
+  const reduced = !!useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const active = reduced || inView;
+
+  return (
+    <div ref={ref} className="relative">
+      <div className="pointer-events-none absolute left-[8%] right-[8%] top-[36px] hidden sm:block" aria-hidden="true">
+        <div className="h-px w-full bg-white/[0.07]">
+          <div
+            className="h-px bg-white/25 transition-[width] duration-[1100ms] ease-out motion-reduce:transition-none"
+            style={{ width: active ? "100%" : "0%" }}
+          />
+        </div>
+      </div>
+
+      <div className="relative grid gap-3 sm:grid-cols-3">
+        {stages.map((stage, index) => (
+          <Reveal key={stage.label} delay={index * 0.05} className="h-full">
+            <article
+              className="h-full rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 transition-colors duration-500 ease-out motion-reduce:transition-none"
+              style={{ borderColor: active ? "rgba(255,255,255,.16)" : undefined, transitionDelay: reduced ? undefined : `${300 + index * 320}ms` }}
+            >
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-white/[0.08] bg-white/[0.035] transition-opacity duration-500 ease-out motion-reduce:transition-none"
+                style={{ color: stage.color, opacity: active ? 1 : 0.42, transitionDelay: reduced ? undefined : `${300 + index * 320}ms` }}
+              >
+                <stage.Icon size={18} strokeWidth={1.8} />
+              </div>
+              <div className="mt-6 text-[9px] font-bold uppercase tracking-[0.15em]" style={{ color: stage.color }}>0{index + 1}</div>
+              <h3 className="mt-1.5 text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{stage.label}</h3>
+              <p className="mt-2 text-[12.5px] leading-[1.55] text-white/50">{stage.copy}</p>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
 
 function LaunchScope() {
   const [openIndex, setOpenIndex] = useState(-1);
@@ -667,7 +705,7 @@ function LaunchScope() {
           {LAUNCH_SCOPES.map((scope, index) => {
             const open = index === openIndex;
             return (
-              <div key={scope.title} className="overflow-hidden rounded-[18px] border border-black/[0.07] bg-white">
+              <div key={scope.title} className={`overflow-hidden rounded-[18px] border bg-white transition-colors duration-200 ${open ? "border-black/[0.12] shadow-[0_10px_28px_rgba(48,38,29,.05)]" : "border-black/[0.07]"}`}>
                 <button type="button" aria-expanded={open} onClick={() => setOpenIndex(open ? -1 : index)} className="flex w-full items-start justify-between gap-5 px-5 py-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#DDA34B] sm:px-6 sm:py-5">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -678,13 +716,17 @@ function LaunchScope() {
                   </div>
                   <ChevronDown size={17} className={`mt-1 shrink-0 text-[#9A7550] transition-transform ${open ? "rotate-180" : ""}`} />
                 </button>
-                {open ? (
-                  <div className="border-t border-black/[0.06] px-5 pb-6 pt-4 sm:px-6">
-                    <div className="grid gap-x-7 gap-y-2.5 sm:grid-cols-2">
-                      {scope.items.map((item) => <div key={item} className="flex items-start gap-2 text-[12.5px] leading-[1.5] text-[#555A56]"><CheckMark />{item}</div>)}
+                <div
+                  className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="border-t border-black/[0.06] px-5 pb-6 pt-4 sm:px-6">
+                      <div className="grid gap-x-7 gap-y-2.5 sm:grid-cols-2">
+                        {scope.items.map((item) => <div key={item} className="flex items-start gap-2 text-[12.5px] leading-[1.5] text-[#555A56]"><CheckMark />{item}</div>)}
+                      </div>
                     </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           })}
@@ -796,11 +838,15 @@ function FaqItem({ faq, index }: { faq: (typeof FAQS)[number]; index: number }) 
           <span className="text-[14px] font-semibold leading-[1.35] text-[#292B28]">{faq.q}</span>
           <ChevronDown size={16} className={`shrink-0 text-[#9A7550] transition-transform ${open ? "rotate-180" : ""}`} />
         </button>
-        {open ? (
-          <div className="space-y-2.5 border-t border-black/[0.06] px-5 pb-5 pt-3.5 text-[12.5px] leading-[1.58] text-[#666B66]">
-            {faq.a.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        <div
+          className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+        >
+          <div className="overflow-hidden">
+            <div className="space-y-2.5 border-t border-black/[0.06] px-5 pb-5 pt-3.5 text-[12.5px] leading-[1.58] text-[#666B66]">
+              {faq.a.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
           </div>
-        ) : null}
+        </div>
       </div>
     </Reveal>
   );
@@ -859,11 +905,16 @@ function StickyMobileCta() {
   if (!visible || finalVisible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-black/[0.08] bg-[#F7F4EE]/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-md md:hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.18, ease: EASE }}
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-black/[0.08] bg-[#F7F4EE]/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-md md:hidden"
+    >
       <div className="flex gap-2">
         <a href={BOOK_URL} className="flex-1 rounded-full bg-[#1E2B29] px-4 py-3 text-center text-[13px] font-semibold text-[#F7F4EE] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDA34B]">Book a Call</a>
         <a href="#pricing" className="rounded-full border border-[#1E2B29]/15 bg-white px-4 py-3 text-[13px] font-semibold text-[#1E2B29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDA34B]">Plans</a>
       </div>
-    </div>
+    </motion.div>
   );
 }
