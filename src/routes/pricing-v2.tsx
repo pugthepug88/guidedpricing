@@ -705,7 +705,7 @@ function LaunchScope() {
           {LAUNCH_SCOPES.map((scope, index) => {
             const open = index === openIndex;
             return (
-              <div key={scope.title} className="overflow-hidden rounded-[18px] border border-black/[0.07] bg-white">
+              <div key={scope.title} className={`overflow-hidden rounded-[18px] border bg-white transition-colors duration-200 ${open ? "border-black/[0.12] shadow-[0_10px_28px_rgba(48,38,29,.05)]" : "border-black/[0.07]"}`}>
                 <button type="button" aria-expanded={open} onClick={() => setOpenIndex(open ? -1 : index)} className="flex w-full items-start justify-between gap-5 px-5 py-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#DDA34B] sm:px-6 sm:py-5">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
