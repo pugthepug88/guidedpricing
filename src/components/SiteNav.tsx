@@ -108,8 +108,8 @@ export function SiteNav() {
           : "mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8"}
       >
         <a href="https://zapla.io/" className="flex items-center">
-          {cinematicV5 ? (
-            cinematicPastHero ? (
+          {cinematicGeometry ? (
+            lightGlassState ? (
               <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto" />
             ) : (
               <CinematicZaplaLogo />
