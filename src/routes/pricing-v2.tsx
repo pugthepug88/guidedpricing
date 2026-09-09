@@ -38,19 +38,34 @@ const COLORS = {
   apricot: "#D58C75",
 } as const;
 
-const PRICING_PORTRAITS = [
-  { cell: 7, background: "#C89A5D", ring: COLORS.amber },
-  { cell: 4, background: "#BF7458", ring: COLORS.coral },
-  { cell: 16, background: "#85845D", ring: COLORS.sage },
-  { cell: 13, background: "#D69672", ring: COLORS.apricot },
-  { cell: 10, background: "#8E657A", ring: COLORS.rose },
-] as const;
+const PORTRAIT_RINGS = [COLORS.amber, COLORS.coral, COLORS.sage, COLORS.apricot, COLORS.rose] as const;
+const PORTRAIT_BACKGROUNDS = ["#C89A5D", "#BF7458", "#85845D", "#D69672", "#8E657A", "#B59672"] as const;
+
+// 24 distinct cells on the 6x4 portrait sheet.
+const PORTRAIT_CELLS = Array.from({ length: 24 }, (_, index) => index);
+
+const PRICING_PORTRAITS = PORTRAIT_CELLS.map((cell, index) => ({
+  cell,
+  background: PORTRAIT_BACKGROUNDS[index % PORTRAIT_BACKGROUNDS.length]!,
+  ring: PORTRAIT_RINGS[index % PORTRAIT_RINGS.length]!,
+}));
+
+// Six clusters of four faces: 24 unique portraits before any exact visual repeat.
+const PORTRAIT_CLUSTERS = [
+  [3, 14, 8, 21],
+  [0, 17, 11, 6],
+  [19, 5, 22, 12],
+  [9, 1, 16, 23],
+  [13, 20, 2, 15],
+  [7, 10, 18, 4],
+];
 
 function portraitPosition(cell: number) {
   const column = cell % 6;
   const row = Math.floor(cell / 6);
   return `${(column / 5) * 100}% ${(row / 3) * 100}%`;
 }
+
 
 type Plan = {
   name: string;
@@ -347,54 +362,72 @@ function CheckMark({ dark = false }: { dark?: boolean }) {
   );
 }
 
-function AvatarCluster() {
+function AvatarCluster({ clusterIndex }: { clusterIndex: number }) {
+  const cells = PORTRAIT_CLUSTERS[clusterIndex % PORTRAIT_CLUSTERS.length]!;
   return (
     <span className="inline-flex shrink-0 items-center pl-1" aria-hidden="true">
-      {PRICING_PORTRAITS.map((portrait, index) => (
-        <span
-          key={portrait.cell}
-          className={`relative h-8 w-8 rounded-full border-2 border-[#F3EDE4] sm:h-10 sm:w-10 ${index === 0 ? "" : "-ml-1.5"}`}
-          style={{
-            backgroundColor: portrait.background,
-            backgroundImage: "url(/concept/revenue/soft-autumn-portraits-v1.webp)",
-            backgroundPosition: portraitPosition(portrait.cell),
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "600% 400%",
-            boxShadow: `0 0 0 1.5px ${portrait.ring}`,
-          }}
-        />
-      ))}
+      {cells.map((cell, index) => {
+        const portrait = PRICING_PORTRAITS[cell]!;
+        return (
+          <span
+            key={`${clusterIndex}-${cell}`}
+            className={`relative h-8 w-8 rounded-full border-2 border-[#F6F2EB] sm:h-10 sm:w-10 ${index === 0 ? "" : "-ml-1.5"}`}
+            style={{
+              backgroundColor: portrait.background,
+              backgroundImage: "url(/concept/revenue/soft-autumn-portraits-v1.webp)",
+              backgroundPosition: portraitPosition(portrait.cell),
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "600% 400%",
+              boxShadow: `0 0 0 1.5px ${portrait.ring}`,
+            }}
+          />
+        );
+      })}
     </span>
   );
 }
 
-function MarqueeSequence({ duplicate = false }: { duplicate?: boolean }) {
+function MarqueeSequence({ offset }: { offset: number }) {
   return (
-    <div className={`pricing-marquee-sequence flex shrink-0 items-center gap-4 pr-8 sm:gap-6 sm:pr-12 ${duplicate ? "pricing-marquee-duplicate" : ""}`} aria-hidden={duplicate || undefined}>
+    <div className="pricing-marquee-sequence flex shrink-0 items-center gap-4 pr-8 sm:gap-6 sm:pr-12">
       <span>Unlimited users.</span>
-      <AvatarCluster />
+      <AvatarCluster clusterIndex={offset} />
       <span className="text-[#C96F55]">One flat price.</span>
-      <AvatarCluster />
-      <span className="text-[#777B76]">No per-seat fees.</span>
+      <AvatarCluster clusterIndex={offset + 1} />
+      <span className="text-[#4E5350]">No per-seat fees.</span>
+      <AvatarCluster clusterIndex={offset + 2} />
+    </div>
+  );
+}
+
+// One group holds three sequences (~3400px+), comfortably wider than a 2560px viewport.
+const MARQUEE_SEQUENCE_OFFSETS = [0, 3, 6] as const;
+
+function MarqueeGroup({ groupIndex }: { groupIndex: number }) {
+  return (
+    <div className="pricing-marquee-group flex shrink-0 items-center" aria-hidden={groupIndex > 0 || undefined}>
+      {MARQUEE_SEQUENCE_OFFSETS.map((offset) => (
+        <MarqueeSequence key={offset} offset={offset} />
+      ))}
     </div>
   );
 }
 
 function UnlimitedUsersMarquee() {
   return (
-    <section className="flex h-[72px] items-center overflow-hidden border-y border-black/[0.07] bg-[#F3EDE4] sm:h-[92px]" aria-label="Unlimited users on every Zapla plan">
+    <section className="flex h-[72px] items-center overflow-hidden bg-[#F6F2EB] sm:h-[92px]" aria-label="Unlimited users on every Zapla plan">
       <p className="sr-only">Unlimited users. One flat price. No per-seat fees.</p>
       <div className="pricing-marquee-track flex w-max items-center whitespace-nowrap text-[26px] font-medium leading-none tracking-[-0.035em] text-[#111318] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>
-        <MarqueeSequence />
-        <MarqueeSequence duplicate />
+        <MarqueeGroup groupIndex={0} />
+        <MarqueeGroup groupIndex={1} />
       </div>
       <style>{`
         @keyframes pricing-unlimited-marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+          from { transform: translate3d(0, 0, 0); }
+          to { transform: translate3d(-50%, 0, 0); }
         }
         .pricing-marquee-track {
-          animation: pricing-unlimited-marquee 22s linear infinite;
+          animation: pricing-unlimited-marquee 64s linear infinite;
           will-change: transform;
         }
         @media (prefers-reduced-motion: reduce) {
@@ -402,7 +435,10 @@ function UnlimitedUsersMarquee() {
             animation: none;
             margin-inline: auto;
           }
-          .pricing-marquee-duplicate {
+          .pricing-marquee-group:not(:first-child) {
+            display: none;
+          }
+          .pricing-marquee-group .pricing-marquee-sequence:not(:first-child) {
             display: none;
           }
           .pricing-marquee-sequence {
@@ -413,6 +449,7 @@ function UnlimitedUsersMarquee() {
     </section>
   );
 }
+
 
 function PricingPage() {
   return (
