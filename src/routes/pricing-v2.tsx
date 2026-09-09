@@ -639,20 +639,7 @@ function GuidedLaunch() {
           </p>
         </Reveal>
 
-        <div className="grid gap-3 sm:grid-cols-3">
-          {stages.map((stage, index) => (
-            <Reveal key={stage.label} delay={index * 0.05} className="h-full">
-              <article className="h-full rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-white/[0.08] bg-white/[0.035]" style={{ color: stage.color }}>
-                  <stage.Icon size={18} strokeWidth={1.8} />
-                </div>
-                <div className="mt-6 text-[9px] font-bold uppercase tracking-[0.15em]" style={{ color: stage.color }}>0{index + 1}</div>
-                <h3 className="mt-1.5 text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{stage.label}</h3>
-                <p className="mt-2 text-[12.5px] leading-[1.55] text-white/50">{stage.copy}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <GuidedLaunchStages stages={stages} />
       </div>
     </section>
   );
