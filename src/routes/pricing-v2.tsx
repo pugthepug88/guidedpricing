@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, Fragment, type ReactNode } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { ArrowRight, Check, ChevronDown, Map, Boxes, Rocket } from "lucide-react";
 
