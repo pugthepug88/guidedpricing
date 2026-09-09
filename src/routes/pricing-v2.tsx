@@ -474,7 +474,7 @@ function PricingPage() {
 
 function PricingPlans() {
   return (
-    <section id="pricing" className="bg-[#F6F0E8] px-5 pb-10 pt-12 sm:px-10 sm:pb-14 sm:pt-16 lg:px-16 lg:pb-16 lg:pt-20">
+    <section id="pricing" className="bg-[#F6F0E8] px-5 pb-10 pt-[104px] sm:px-10 sm:pb-14 sm:pt-[116px] lg:px-16 lg:pb-16 lg:pt-[128px]">
       <div className="mx-auto max-w-[1440px]">
         <Reveal className="mx-auto max-w-[820px] text-center">
           <Eyebrow>Pricing</Eyebrow>
