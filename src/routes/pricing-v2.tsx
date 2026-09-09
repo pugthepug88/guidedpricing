@@ -716,13 +716,17 @@ function LaunchScope() {
                   </div>
                   <ChevronDown size={17} className={`mt-1 shrink-0 text-[#9A7550] transition-transform ${open ? "rotate-180" : ""}`} />
                 </button>
-                {open ? (
-                  <div className="border-t border-black/[0.06] px-5 pb-6 pt-4 sm:px-6">
-                    <div className="grid gap-x-7 gap-y-2.5 sm:grid-cols-2">
-                      {scope.items.map((item) => <div key={item} className="flex items-start gap-2 text-[12.5px] leading-[1.5] text-[#555A56]"><CheckMark />{item}</div>)}
+                <div
+                  className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="border-t border-black/[0.06] px-5 pb-6 pt-4 sm:px-6">
+                      <div className="grid gap-x-7 gap-y-2.5 sm:grid-cols-2">
+                        {scope.items.map((item) => <div key={item} className="flex items-start gap-2 text-[12.5px] leading-[1.5] text-[#555A56]"><CheckMark />{item}</div>)}
+                      </div>
                     </div>
                   </div>
-                ) : null}
+                </div>
               </div>
             );
           })}
@@ -834,11 +838,15 @@ function FaqItem({ faq, index }: { faq: (typeof FAQS)[number]; index: number }) 
           <span className="text-[14px] font-semibold leading-[1.35] text-[#292B28]">{faq.q}</span>
           <ChevronDown size={16} className={`shrink-0 text-[#9A7550] transition-transform ${open ? "rotate-180" : ""}`} />
         </button>
-        {open ? (
-          <div className="space-y-2.5 border-t border-black/[0.06] px-5 pb-5 pt-3.5 text-[12.5px] leading-[1.58] text-[#666B66]">
-            {faq.a.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        <div
+          className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+        >
+          <div className="overflow-hidden">
+            <div className="space-y-2.5 border-t border-black/[0.06] px-5 pb-5 pt-3.5 text-[12.5px] leading-[1.58] text-[#666B66]">
+              {faq.a.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
           </div>
-        ) : null}
+        </div>
       </div>
     </Reveal>
   );
