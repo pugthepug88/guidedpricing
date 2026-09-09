@@ -178,8 +178,8 @@ export function SiteNav() {
         <button
           type="button"
           aria-label="Menu"
-          className={cinematicV5
-            ? cinematicPastHero
+          className={cinematicGeometry
+            ? lightGlassState
               ? "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white/80 text-zapla-ink lg:hidden"
               : cinematicAtTop
                 ? "grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-transparent text-white lg:hidden"
