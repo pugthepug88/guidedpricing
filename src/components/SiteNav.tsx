@@ -74,13 +74,13 @@ export function SiteNav() {
 
   const cinematicAtTop = cinematicV5 && !cinematicPastHero && cinematicProgress < 0.025;
 
-  const linkCls = cinematicV5
-    ? cinematicPastHero
+  const linkCls = cinematicGeometry
+    ? lightGlassState
       ? "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/78 transition hover:text-zapla-blue"
       : "inline-flex items-center gap-1 text-[15px] font-medium text-white/90 transition hover:text-white"
     : "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
 
-  const cinematicNavClass = cinematicPastHero
+  const cinematicNavClass = lightGlassState
     ? "fixed inset-x-0 top-0 z-50 border-b border-zapla-line/70 bg-white/[0.78] shadow-[0_10px_30px_rgba(15,23,42,.07)] backdrop-blur-[16px] backdrop-saturate-[1.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
     : cinematicAtTop
       ? "fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
