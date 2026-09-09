@@ -103,7 +103,7 @@ export function SiteNav() {
       }
     >
       <div
-        className={cinematicV5
+        className={cinematicGeometry
           ? "flex w-full items-center justify-between gap-4 px-[6vw] py-2.5 lg:px-[5.5vw]"
           : "mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8"}
       >
