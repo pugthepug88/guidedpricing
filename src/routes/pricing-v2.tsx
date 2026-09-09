@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { ArrowRight, Check, ChevronDown, Map, Boxes, Rocket } from "lucide-react";
 
 export const Route = createFileRoute("/pricing-v2")({
@@ -321,10 +321,10 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 18 }}
+      initial={reduced ? false : { opacity: 1, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : delay, ease: EASE }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -415,7 +415,7 @@ function MarqueeGroup({ groupIndex }: { groupIndex: number }) {
 
 function UnlimitedUsersMarquee() {
   return (
-    <section className="flex h-[72px] items-center overflow-hidden bg-[#F6F2EB] sm:h-[92px]" aria-label="Unlimited users on every Zapla plan">
+    <section className="pricing-marquee-shell flex h-[72px] items-center overflow-hidden bg-[#F6F2EB] sm:h-[92px]" aria-label="Unlimited users on every Zapla plan">
       <p className="sr-only">Unlimited users. One flat price. No per-seat fees.</p>
       <div className="pricing-marquee-track flex w-max items-center whitespace-nowrap text-[26px] font-medium leading-none tracking-[-0.035em] text-[#111318] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>
         <MarqueeGroup groupIndex={0} />
@@ -429,6 +429,11 @@ function UnlimitedUsersMarquee() {
         .pricing-marquee-track {
           animation: pricing-unlimited-marquee 64s linear infinite;
           will-change: transform;
+        }
+        @media (hover: hover) and (pointer: fine) {
+          .pricing-marquee-shell:hover .pricing-marquee-track {
+            animation-play-state: paused;
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           .pricing-marquee-track {
@@ -507,7 +512,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
 
   return (
     <Reveal delay={index * 0.04} className="h-full">
-      <article className="flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] sm:p-6 md:min-h-[535px]" style={{ background: bg, borderColor: border, color: dark ? "#F7F4EE" : COLORS.ink }}>
+      <article className="flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[535px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none" style={{ background: bg, borderColor: border, color: dark ? "#F7F4EE" : COLORS.ink }}>
         <div className="flex min-h-[32px] flex-wrap items-center gap-2">
           <h3 className="text-[26px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h3>
           {badge ? (
@@ -552,9 +557,10 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           <a
             href={BOOK_URL}
             data-track={plan.track}
-            className={`inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold transition-transform hover:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${dark ? "bg-[#F7F4EE] text-[#1E2B29]" : plan.recommended ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
+            className={`group inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${dark ? "bg-[#F7F4EE] text-[#1E2B29]" : plan.recommended ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
           >
-            {plan.enterprise ? "Talk to sales" : "Book a Call"} <ArrowRight size={14} />
+            {plan.enterprise ? "Talk to sales" : "Book a Call"}
+            <ArrowRight size={14} className="transition-transform duration-200 ease-out group-hover:translate-x-[3px] motion-reduce:transform-none motion-reduce:transition-none" />
           </a>
         </div>
       </article>
