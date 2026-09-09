@@ -38,19 +38,34 @@ const COLORS = {
   apricot: "#D58C75",
 } as const;
 
-const PRICING_PORTRAITS = [
-  { cell: 7, background: "#C89A5D", ring: COLORS.amber },
-  { cell: 4, background: "#BF7458", ring: COLORS.coral },
-  { cell: 16, background: "#85845D", ring: COLORS.sage },
-  { cell: 13, background: "#D69672", ring: COLORS.apricot },
-  { cell: 10, background: "#8E657A", ring: COLORS.rose },
-] as const;
+const PORTRAIT_RINGS = [COLORS.amber, COLORS.coral, COLORS.sage, COLORS.apricot, COLORS.rose] as const;
+const PORTRAIT_BACKGROUNDS = ["#C89A5D", "#BF7458", "#85845D", "#D69672", "#8E657A", "#B59672"] as const;
+
+// 24 distinct cells on the 6x4 portrait sheet.
+const PORTRAIT_CELLS = Array.from({ length: 24 }, (_, index) => index);
+
+const PRICING_PORTRAITS = PORTRAIT_CELLS.map((cell, index) => ({
+  cell,
+  background: PORTRAIT_BACKGROUNDS[index % PORTRAIT_BACKGROUNDS.length]!,
+  ring: PORTRAIT_RINGS[index % PORTRAIT_RINGS.length]!,
+}));
+
+// Six clusters of four faces: 24 unique portraits before any exact visual repeat.
+const PORTRAIT_CLUSTERS = [
+  [3, 14, 8, 21],
+  [0, 17, 11, 6],
+  [19, 5, 22, 12],
+  [9, 1, 16, 23],
+  [13, 20, 2, 15],
+  [7, 10, 18, 4],
+];
 
 function portraitPosition(cell: number) {
   const column = cell % 6;
   const row = Math.floor(cell / 6);
   return `${(column / 5) * 100}% ${(row / 3) * 100}%`;
 }
+
 
 type Plan = {
   name: string;
