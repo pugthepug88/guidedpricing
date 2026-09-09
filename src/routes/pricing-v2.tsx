@@ -659,8 +659,8 @@ function GuidedLaunchStages({ stages }: { stages: LaunchStage[] }) {
   return (
     <div ref={ref} className="relative grid gap-3 sm:grid-cols-[1fr_20px_1fr_20px_1fr] sm:gap-0">
       {stages.map((stage, index) => (
-        <>
-          <Reveal key={stage.label} delay={index * 0.05} className="h-full">
+        <Fragment key={`stage-${stage.label}`}>
+          <Reveal delay={index * 0.05} className="h-full">
             <article
               className="h-full rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 transition-colors duration-500 ease-out motion-reduce:transition-none"
               style={{ borderColor: active ? "rgba(255,255,255,.16)" : undefined, transitionDelay: reduced ? undefined : `${STAGE_DELAYS[index]}ms` }}
@@ -677,7 +677,7 @@ function GuidedLaunchStages({ stages }: { stages: LaunchStage[] }) {
             </article>
           </Reveal>
           {index < stages.length - 1 ? <Connector key={`connector-${stage.label}`} active={active} delay={CONNECTOR_DELAYS[index]!} /> : null}
-        </>
+        </Fragment>
       ))}
     </div>
   );
