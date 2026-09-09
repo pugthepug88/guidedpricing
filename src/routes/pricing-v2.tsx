@@ -38,12 +38,19 @@ const COLORS = {
   apricot: "#D58C75",
 } as const;
 
-const TEAM_AVATARS = [
-  { src: "/concept/cinematic-v5/broker.jpg", ring: COLORS.plum },
-  { src: "/concept/cinematic-v5/dentist.jpg", ring: COLORS.amber },
-  { src: "/concept/cinematic-v5/construction.jpg", ring: COLORS.apricot },
-  { src: "/concept/cinematic-v5/agent.jpg", ring: COLORS.rose },
+const PRICING_PORTRAITS = [
+  { cell: 7, background: "#C89A5D", ring: COLORS.amber },
+  { cell: 4, background: "#BF7458", ring: COLORS.coral },
+  { cell: 16, background: "#85845D", ring: COLORS.sage },
+  { cell: 13, background: "#D69672", ring: COLORS.apricot },
+  { cell: 10, background: "#8E657A", ring: COLORS.rose },
 ] as const;
+
+function portraitPosition(cell: number) {
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+  return `${(column / 5) * 100}% ${(row / 3) * 100}%`;
+}
 
 type Plan = {
   name: string;
@@ -342,15 +349,20 @@ function CheckMark({ dark = false }: { dark?: boolean }) {
 
 function AvatarCluster() {
   return (
-    <span className="inline-flex shrink-0 items-center pl-2" aria-hidden="true">
-      {TEAM_AVATARS.map((avatar, index) => (
+    <span className="inline-flex shrink-0 items-center pl-1" aria-hidden="true">
+      {PRICING_PORTRAITS.map((portrait, index) => (
         <span
-          key={avatar.src}
-          className={`relative h-9 w-9 overflow-hidden rounded-full border-[3px] border-[#EFE8DE] bg-white sm:h-11 sm:w-11 ${index === 0 ? "" : "-ml-2.5"}`}
-          style={{ boxShadow: `0 0 0 2px ${avatar.ring}` }}
-        >
-          <img src={avatar.src} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
-        </span>
+          key={portrait.cell}
+          className={`relative h-8 w-8 rounded-full border-2 border-[#F3EDE4] sm:h-10 sm:w-10 ${index === 0 ? "" : "-ml-1.5"}`}
+          style={{
+            backgroundColor: portrait.background,
+            backgroundImage: "url(/concept/revenue/soft-autumn-portraits-v1.webp)",
+            backgroundPosition: portraitPosition(portrait.cell),
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "600% 400%",
+            boxShadow: `0 0 0 1.5px ${portrait.ring}`,
+          }}
+        />
       ))}
     </span>
   );
@@ -358,33 +370,46 @@ function AvatarCluster() {
 
 function MarqueeSequence({ duplicate = false }: { duplicate?: boolean }) {
   return (
-    <div className="flex shrink-0 items-center gap-5 pr-8 sm:gap-7 sm:pr-12" aria-hidden={duplicate || undefined}>
+    <div className={`pricing-marquee-sequence flex shrink-0 items-center gap-4 pr-8 sm:gap-6 sm:pr-12 ${duplicate ? "pricing-marquee-duplicate" : ""}`} aria-hidden={duplicate || undefined}>
       <span>Unlimited users.</span>
       <AvatarCluster />
       <span className="text-[#C96F55]">One flat price.</span>
       <AvatarCluster />
-      <span>Bring the whole team.</span>
       <span className="text-[#777B76]">No per-seat fees.</span>
     </div>
   );
 }
 
 function UnlimitedUsersMarquee() {
-  const reduced = !!useReducedMotion();
-
   return (
-    <section className="overflow-hidden border-y border-black/[0.07] bg-[#EFE8DE] py-4 sm:py-5" aria-label="Unlimited users on every Zapla plan">
-      <p className="sr-only">Unlimited users. One flat price. Bring the whole team. No per-seat fees.</p>
-      <motion.div
-        className="flex w-max items-center whitespace-nowrap text-[30px] font-medium leading-none tracking-[-0.045em] text-[#111318] sm:text-[40px] lg:text-[48px]"
-        style={{ fontFamily: DISPLAY }}
-        initial={false}
-        animate={reduced ? undefined : { x: ["0%", "-50%"] }}
-        transition={reduced ? undefined : { duration: 24, ease: "linear", repeat: Infinity }}
-      >
+    <section className="flex h-[72px] items-center overflow-hidden border-y border-black/[0.07] bg-[#F3EDE4] sm:h-[92px]" aria-label="Unlimited users on every Zapla plan">
+      <p className="sr-only">Unlimited users. One flat price. No per-seat fees.</p>
+      <div className="pricing-marquee-track flex w-max items-center whitespace-nowrap text-[26px] font-medium leading-none tracking-[-0.035em] text-[#111318] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>
         <MarqueeSequence />
         <MarqueeSequence duplicate />
-      </motion.div>
+      </div>
+      <style>{`
+        @keyframes pricing-unlimited-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        .pricing-marquee-track {
+          animation: pricing-unlimited-marquee 22s linear infinite;
+          will-change: transform;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pricing-marquee-track {
+            animation: none;
+            margin-inline: auto;
+          }
+          .pricing-marquee-duplicate {
+            display: none;
+          }
+          .pricing-marquee-sequence {
+            padding-right: 0;
+          }
+        }
+      `}</style>
     </section>
   );
 }
