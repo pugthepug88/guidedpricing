@@ -647,6 +647,9 @@ function GuidedLaunch() {
 
 type LaunchStage = { label: string; copy: string; Icon: typeof Map; color: string };
 
+const STAGE_DELAYS = [300, 620, 900] as const;
+const CONNECTOR_DELAYS = [430, 750] as const;
+
 function GuidedLaunchStages({ stages }: { stages: LaunchStage[] }) {
   const reduced = !!useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
@@ -654,36 +657,46 @@ function GuidedLaunchStages({ stages }: { stages: LaunchStage[] }) {
   const active = reduced || inView;
 
   return (
-    <div ref={ref} className="relative">
-      <div className="pointer-events-none absolute left-[8%] right-[8%] top-[36px] hidden sm:block" aria-hidden="true">
-        <div className="h-px w-full bg-white/[0.07]">
-          <div
-            className="h-px bg-white/25 transition-[width] duration-[1100ms] ease-out motion-reduce:transition-none"
-            style={{ width: active ? "100%" : "0%" }}
-          />
-        </div>
-      </div>
-
-      <div className="relative grid gap-3 sm:grid-cols-3">
-        {stages.map((stage, index) => (
-          <Reveal key={stage.label} delay={index * 0.05} className="h-full">
-            <article
-              className="h-full rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 transition-colors duration-500 ease-out motion-reduce:transition-none"
-              style={{ borderColor: active ? "rgba(255,255,255,.16)" : undefined, transitionDelay: reduced ? undefined : `${300 + index * 320}ms` }}
+    <div ref={ref} className="relative grid gap-3 sm:grid-cols-[1fr_20px_1fr_20px_1fr] sm:gap-0">
+      {stages.map((stage, index) => (
+        <Reveal key={stage.label} delay={index * 0.05} className="h-full">
+          <article
+            className="h-full rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 transition-colors duration-500 ease-out motion-reduce:transition-none"
+            style={{ borderColor: active ? "rgba(255,255,255,.16)" : undefined, transitionDelay: reduced ? undefined : `${STAGE_DELAYS[index]}ms` }}
+          >
+            <div
+              className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-white/[0.08] bg-white/[0.035] transition-opacity duration-500 ease-out motion-reduce:transition-none"
+              style={{ color: stage.color, opacity: active ? 1 : 0.42, transitionDelay: reduced ? undefined : `${STAGE_DELAYS[index]}ms` }}
             >
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-white/[0.08] bg-white/[0.035] transition-opacity duration-500 ease-out motion-reduce:transition-none"
-                style={{ color: stage.color, opacity: active ? 1 : 0.42, transitionDelay: reduced ? undefined : `${300 + index * 320}ms` }}
-              >
-                <stage.Icon size={18} strokeWidth={1.8} />
-              </div>
-              <div className="mt-6 text-[9px] font-bold uppercase tracking-[0.15em]" style={{ color: stage.color }}>0{index + 1}</div>
-              <h3 className="mt-1.5 text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{stage.label}</h3>
-              <p className="mt-2 text-[12.5px] leading-[1.55] text-white/50">{stage.copy}</p>
-            </article>
-          </Reveal>
-        ))}
+              <stage.Icon size={18} strokeWidth={1.8} />
+            </div>
+            <div className="mt-6 text-[9px] font-bold uppercase tracking-[0.15em]" style={{ color: stage.color }}>0{index + 1}</div>
+            <h3 className="mt-1.5 text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{stage.label}</h3>
+            <p className="mt-2 text-[12.5px] leading-[1.55] text-white/50">{stage.copy}</p>
+          </article>
+        </Reveal>
+      ))}
+
+      <Connector active={active} delay={CONNECTOR_DELAYS[0]} />
+      <Connector active={active} delay={CONNECTOR_DELAYS[1]} />
+    </div>
+  );
+}
+
+function Connector({ active, delay }: { active: boolean; delay: number }) {
+  const reduced = !!useReducedMotion();
+  return (
+    <div className="relative hidden sm:block" aria-hidden="true">
+      <div className="absolute left-0 right-0 top-[40px] h-px bg-white/[0.08]">
+        <div
+          className="h-px bg-white/25 transition-[width] duration-[260ms] ease-out motion-reduce:transition-none"
+          style={{ width: active ? "100%" : "0%", transitionDelay: reduced ? undefined : `${delay}ms` }}
+        />
       </div>
+      <span
+        className="absolute right-0 top-[40px] h-[5px] w-[5px] -translate-y-1/2 rounded-full bg-white/25 transition-opacity duration-200 motion-reduce:transition-none"
+        style={{ opacity: active ? 1 : 0, transitionDelay: reduced ? undefined : `${delay + 180}ms` }}
+      />
     </div>
   );
 }
