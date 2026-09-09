@@ -40,10 +40,10 @@ export function SiteNav() {
   // light "past hero" glass state (no dark hero, no white-text state).
   const pricingV2 = location.pathname === "/pricing-v2";
   const cinematicGeometry = cinematicV5 || pricingV2;
-  const lightGlassState = cinematicPastHero || pricingV2;
   const [scrolled, setScrolled] = useState(false);
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [cinematicPastHero, setCinematicPastHero] = useState(false);
+  const lightGlassState = cinematicPastHero || pricingV2;
   const [openMenu, setOpenMenu] = useState<null | "products" | "resources">(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
