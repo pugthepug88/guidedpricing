@@ -284,13 +284,7 @@ const FAQS = [
     q: "What does AI Receptionist cost?",
     a: [
       "AI Receptionist is available from Growth as an add-on, from A$495 per month. Setup is quoted separately.",
-      "AI voice usage is not shown as a public minute allowance until Australian telephony and text-to-speech costs are verified.",
-    ],
-  },
-  {
-    q: "Are prices shown before or after GST?",
-    a: [
-      "Prices are in AUD and exclude GST unless stated otherwise.",
+      "AI voice usage is charged separately based on usage.",
     ],
   },
 ] as const;
@@ -354,14 +348,11 @@ function CheckMark({ dark = false }: { dark?: boolean }) {
 function PricingPage() {
   return (
     <div className="min-h-screen bg-[#F7F4EE] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
-      <Hero />
       <PricingPlans />
-      <UnlimitedStrip />
       <Comparison />
       <GuidedLaunch />
       <LaunchScope />
       <CostsExtra />
-      <AddOns />
       <Faq />
       <FinalCta />
       <StickyMobileCta />
@@ -369,67 +360,35 @@ function PricingPage() {
   );
 }
 
-function Hero() {
-  const petals = [COLORS.coral, COLORS.rose, COLORS.amber, COLORS.sage, COLORS.plum, COLORS.apricot];
+function PricingPlans() {
   return (
-    <header id="top" className="relative overflow-hidden bg-[#F7F4EE] px-5 pb-12 pt-20 sm:px-10 sm:pb-16 sm:pt-24 lg:px-16 lg:pb-20 lg:pt-28">
-      <div className="mx-auto grid max-w-[1440px] gap-12 lg:grid-cols-[1.05fr_.70fr] lg:items-center lg:gap-20">
-        <Reveal className="max-w-[850px]">
+    <section id="pricing" className="bg-[#F6F0E8] px-5 pb-12 pt-20 sm:px-10 sm:pb-16 sm:pt-24 lg:px-16 lg:pb-20 lg:pt-24">
+      <div className="mx-auto max-w-[1440px]">
+        <Reveal className="mx-auto max-w-[860px] text-center">
           <Eyebrow>Pricing</Eyebrow>
-          <h1
-            className="mt-6 text-[52px] font-medium leading-[0.93] tracking-[-0.062em] text-[#111318] sm:text-[72px] lg:text-[88px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Simple pricing.<br />
-            <span className="text-[#C96F55]">Built around your business.</span>
+          <h1 className="mt-4 text-[44px] font-medium leading-[0.98] tracking-[-0.055em] text-[#111318] sm:text-[58px] lg:text-[66px]" style={{ fontFamily: DISPLAY }}>
+            One flat price. Unlimited users.
           </h1>
-          <p className="mt-7 max-w-[720px] text-[17px] leading-[1.65] text-[#686D69] sm:text-[19px]">
-            One flat monthly price. Unlimited users. Then we configure Zapla around how your business actually works through Guided Launch.
+          <p className="mx-auto mt-5 max-w-[780px] text-[15px] leading-[1.65] text-[#686D69] sm:text-[17px]">
+            Choose the plan that fits your business. Every plan includes unlimited users, with a one-time Guided Launch to configure Zapla around how you work.
           </p>
-          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-[13px] font-semibold text-[#4F544F]">
-            {["Unlimited users", "No per-seat fees", "Guided Launch with every rollout"].map((item) => (
-              <span key={item} className="inline-flex items-center gap-2.5"><CheckMark />{item}</span>
+          <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12px] font-semibold text-[#4F544F] sm:text-[13px]">
+            {["No per-seat fees", "AUD pricing", "One-time Guided Launch"].map((item) => (
+              <span key={item} className="inline-flex items-center gap-2"><CheckMark />{item}</span>
             ))}
           </div>
         </Reveal>
 
-        <Reveal delay={0.08} className="relative hidden min-h-[390px] lg:block">
-          <div className="absolute inset-[4%_2%_8%_8%] rounded-[38px] border border-black/[0.05] bg-[#EFE2D2]" />
-          <div className="absolute left-[3%] top-[17%] h-[54%] w-[62%] -rotate-[4deg] rounded-[30px] border border-black/[0.06] bg-white shadow-[0_26px_70px_rgba(50,40,31,.09)]" />
-          <div className="absolute right-[2%] top-[8%] h-[48%] w-[56%] rotate-[4deg] rounded-[30px] border border-black/[0.06] bg-[#E2E4D2] shadow-[0_22px_60px_rgba(50,40,31,.08)]" />
-          <div className="absolute bottom-[4%] right-[9%] h-[56%] w-[58%] -rotate-[2deg] rounded-[30px] border border-black/[0.06] bg-[#E7E0EA] shadow-[0_24px_64px_rgba(50,40,31,.10)]" />
-          <div className="absolute left-[13%] top-[25%] z-10 text-[11px] font-semibold uppercase tracking-[.16em] text-[#7A7169]">Monthly</div>
-          <div className="absolute left-[13%] top-[34%] z-10 text-[54px] font-medium tracking-[-.06em]" style={{ fontFamily: DISPLAY }}>A$499</div>
-          <div className="absolute bottom-[16%] right-[16%] z-10 max-w-[220px]">
-            <div className="text-[10px] font-semibold uppercase tracking-[.16em] text-[#776B7D]">Guided Launch</div>
-            <div className="mt-2 text-[22px] font-medium leading-[1.05] tracking-[-.035em]" style={{ fontFamily: DISPLAY }}>Configured around how you work.</div>
-          </div>
-          <div className="absolute right-[10%] top-[17%] z-10 flex gap-2">
-            {petals.slice(0, 4).map((color) => <span key={color} className="h-3.5 w-3.5 rounded-full" style={{ background: color }} />)}
-          </div>
-        </Reveal>
-      </div>
-    </header>
-  );
-}
-
-function PricingPlans() {
-  return (
-    <section id="pricing" className="bg-[#F6F0E8] px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-      <div className="mx-auto max-w-[1440px]">
-        <SectionHeading
-          eyebrow="Plans"
-          title={<>Choose the plan that fits <span className="text-[#777B76]">where you are now.</span></>}
-          sub="Every plan includes unlimited users. Your one-time Guided Launch is scoped to the plan and gets the first version built around your business."
-        />
-
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {PLANS.map((plan, index) => (
             <PlanCard key={plan.name} plan={plan} index={index} />
           ))}
         </div>
 
-        <p className="mx-auto mt-8 max-w-[980px] text-center text-[12px] leading-[1.6] text-[#77716A]">
+        <p className="mx-auto mt-7 w-fit border-y border-black/[0.07] px-4 py-3 text-center text-[13px] font-semibold leading-[1.5] text-[#4F544F]">
+          Unlimited users on every plan. No per-seat fees as your team grows.
+        </p>
+        <p className="mx-auto mt-5 max-w-[980px] text-center text-[12px] leading-[1.6] text-[#77716A]">
           Prices are in AUD and exclude GST. SMS, Email, AI voice, WhatsApp, domains, payment gateway/card fees, ad spend, third-party tools, complex migrations and custom build work may be separate. No lock-in after launch. Thirty days notice.
         </p>
       </div>
@@ -444,7 +403,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   return (
     <Reveal delay={index * 0.05} className="h-full">
       <article
-        className="relative flex h-full min-h-[610px] flex-col overflow-hidden rounded-[30px] border p-7 shadow-[0_18px_50px_rgba(48,38,29,.06)] sm:p-8"
+        className="relative flex h-full flex-col overflow-hidden rounded-[30px] border p-7 shadow-[0_18px_50px_rgba(48,38,29,.06)] sm:p-8 xl:min-h-[590px]"
         style={{ background: bg, borderColor: border, color: dark ? "#F7F4EE" : COLORS.ink }}
       >
         {plan.recommended ? (
@@ -455,10 +414,10 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           <div className="mb-6 w-fit rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-[#DDA34B]">
             Complex rollout
           </div>
-        ) : <div className="mb-6 h-[28px]" />}
+        ) : null}
 
-        <h3 className="text-[28px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h3>
-        <p className={`mt-3 min-h-[88px] text-[14px] leading-[1.58] ${dark ? "text-white/58" : "text-[#6C6D68]"}`}>{plan.fit}</p>
+        <h3 className={`${plan.recommended || plan.enterprise ? "" : "mt-1"} text-[28px] font-medium tracking-[-0.04em]`} style={{ fontFamily: DISPLAY }}>{plan.name}</h3>
+        <p className={`mt-3 text-[14px] leading-[1.58] xl:min-h-[88px] ${dark ? "text-white/58" : "text-[#6C6D68]"}`}>{plan.fit}</p>
 
         <div className="mt-7 flex items-end gap-2">
           <div className="text-[50px] font-medium leading-none tracking-[-0.065em] sm:text-[56px]" style={{ fontFamily: DISPLAY }}>{plan.price}</div>
@@ -466,7 +425,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
         </div>
 
         <div className={`mt-6 rounded-[18px] border px-4 py-4 ${dark ? "border-white/10 bg-white/[0.04]" : "border-black/[0.06] bg-white/55"}`}>
-          <div className={`text-[9px] font-bold uppercase tracking-[0.15em] ${dark ? "text-[#DDA34B]" : "text-[#9A7550]"}`}>One-time setup</div>
+          <div className={`text-[9px] font-bold uppercase tracking-[0.15em] ${dark ? "text-[#DDA34B]" : "text-[#9A7550]"}`}>One-time Guided Launch</div>
           <div className={`mt-1.5 text-[13px] font-semibold leading-[1.45] ${dark ? "text-white/82" : "text-[#373833]"}`}>{plan.launch}</div>
         </div>
 
@@ -483,7 +442,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           <a
             href={BOOK_URL}
             data-track={plan.track}
-            className={`inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full px-5 text-[13px] font-semibold transition-transform hover:scale-[1.01] ${dark ? "bg-[#F7F4EE] text-[#1E2B29]" : plan.recommended ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
+            className={`inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full px-5 text-[13px] font-semibold transition-transform hover:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${dark ? "bg-[#F7F4EE] text-[#1E2B29]" : plan.recommended ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
           >
             {plan.enterprise ? "Talk to sales" : "Book a Call"} <ArrowRight size={15} />
           </a>
@@ -493,37 +452,22 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   );
 }
 
-function UnlimitedStrip() {
-  return (
-    <section className="bg-[#1E2B29] px-5 py-12 text-[#F7F4EE] sm:px-10 lg:px-16">
-      <Reveal className="mx-auto flex max-w-[1280px] flex-col gap-4 text-center sm:items-center">
-        <Eyebrow accent={COLORS.amber}>Unlimited users on every plan</Eyebrow>
-        <h2 className="text-[34px] font-medium leading-[1] tracking-[-0.05em] sm:text-[44px]" style={{ fontFamily: DISPLAY }}>
-          Add your whole team. <span className="text-[#D98670]">Not another software seat.</span>
-        </h2>
-        <p className="max-w-[720px] text-[14px] leading-[1.6] text-white/56 sm:text-[16px]">
-          Add everyone who needs Zapla without paying more for every person you add.
-        </p>
-      </Reveal>
-    </section>
-  );
-}
-
 function Comparison() {
   const [open, setOpen] = useState(false);
   return (
-    <section className="bg-[#F7F4EE] px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+    <section className="bg-[#F7F4EE] px-5 py-10 sm:px-10 sm:py-12 lg:px-16 lg:py-14">
       <div className="mx-auto max-w-[1280px]">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <SectionHeading
-            eyebrow="Compare"
-            title={<>Need the <span className="text-[#777B76]">details?</span></>}
-            sub="Open the full comparison when you want the numbers side by side."
-          />
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <Eyebrow>Compare</Eyebrow>
+            <h2 className="mt-2 text-[27px] font-medium tracking-[-0.04em] text-[#111318] sm:text-[32px]" style={{ fontFamily: DISPLAY }}>Compare every plan</h2>
+          </div>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-[48px] w-fit shrink-0 items-center gap-2 rounded-full border border-black/[0.10] bg-white px-5 text-[13px] font-semibold text-[#252824]"
+            aria-expanded={open}
+            aria-controls="plan-comparison"
+            className="inline-flex h-[46px] w-fit shrink-0 items-center gap-2 rounded-full border border-black/[0.10] bg-white px-5 text-[13px] font-semibold text-[#252824] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B]"
           >
             {open ? "Hide comparison" : "Compare all features"}
             <ChevronDown size={16} className={`transition-transform ${open ? "rotate-180" : ""}`} />
@@ -531,12 +475,13 @@ function Comparison() {
         </div>
 
         {open ? (
-          <Reveal className="mt-10 overflow-x-auto rounded-[26px] border border-black/[0.07] bg-white shadow-[0_20px_60px_rgba(48,38,29,.06)]">
+          <Reveal className="mt-6 overflow-x-auto rounded-[22px] border border-black/[0.07] bg-white shadow-[0_20px_60px_rgba(48,38,29,.06)]">
+            <div id="plan-comparison">
             <table className="w-full min-w-[860px] border-collapse text-[13px]">
               <thead>
                 <tr>
                   {["Item", "Core", "Growth", "Scale", "Scale+"].map((heading, index) => (
-                    <th key={heading} className={`border-b border-black/[0.07] px-5 py-4 text-left text-[10px] font-bold uppercase tracking-[0.14em] ${index === 2 ? "bg-[#FFF2D8] text-[#8A641F]" : "text-[#77716A]"}`}>{heading}</th>
+                    <th key={heading} className={`border-b border-black/[0.07] px-5 py-4 text-left text-[10px] font-bold uppercase tracking-[0.14em] ${index === 0 ? "sticky left-0 z-10 bg-white" : ""} ${index === 2 ? "bg-[#FFF2D8] text-[#8A641F]" : "text-[#77716A]"}`}>{heading}</th>
                   ))}
                 </tr>
               </thead>
@@ -544,12 +489,13 @@ function Comparison() {
                 {COMPARE_ROWS.map((row) => (
                   <tr key={row[0]}>
                     {row.map((cell, index) => (
-                      <td key={`${row[0]}-${index}`} className={`border-b border-black/[0.06] px-5 py-4 ${index === 0 ? "font-semibold text-[#252824]" : "text-[#5D625E]"} ${index === 2 ? "bg-[#FFF9EC]" : ""}`}>{cell}</td>
+                      <td key={`${row[0]}-${index}`} className={`border-b border-black/[0.06] px-5 py-4 ${index === 0 ? "sticky left-0 z-10 bg-white font-semibold text-[#252824]" : "text-[#5D625E]"} ${index === 2 ? "bg-[#FFF9EC]" : ""}`}>{cell}</td>
                     ))}
                   </tr>
                 ))}
               </tbody>
             </table>
+            </div>
           </Reveal>
         ) : null}
       </div>
@@ -612,7 +558,7 @@ function LaunchScope() {
             const open = index === openIndex;
             return (
               <div key={scope.title} className="overflow-hidden rounded-[22px] border border-black/[0.07] bg-white">
-                <button type="button" onClick={() => setOpenIndex(open ? -1 : index)} className="flex w-full items-start justify-between gap-6 px-6 py-5 text-left sm:px-7 sm:py-6">
+                <button type="button" aria-expanded={open} onClick={() => setOpenIndex(open ? -1 : index)} className="flex w-full items-start justify-between gap-6 px-6 py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#DDA34B] sm:px-7 sm:py-6">
                   <div>
                     <h3 className="text-[20px] font-medium tracking-[-0.03em] text-[#111318]" style={{ fontFamily: DISPLAY }}>{scope.title}</h3>
                     <p className="mt-1 text-[13px] leading-[1.5] text-[#77716A]">{scope.sub}</p>
@@ -645,7 +591,7 @@ function CostsExtra() {
   const usage = [
     ["SMS", "Standard SMS is 15c per segment. Lower rates are available for higher-volume prepaid packs."],
     ["Email", "Email usage beyond the allowance included in your plan may be separate."],
-    ["AI voice", "AI voice usage is separate. No public minute allowance is shown until AU telephony and TTS costs are verified."],
+    ["AI voice", "AI voice usage is charged separately based on usage. AI Receptionist setup and monthly charges remain separate."],
     ["Other usage", "WhatsApp, domains, payment gateway/card fees, ad spend and third-party tools may be separate where applicable."],
   ];
   const optional = [
@@ -688,31 +634,26 @@ function CostsExtra() {
             </div>
           </Reveal>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function AddOns() {
-  return (
-    <section id="addons" className="bg-[#F6F0E8] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <SectionHeading
-          eyebrow="Optional add-ons"
-          title={<>Add more when <span className="text-[#777B76]">you need it.</span></>}
-          sub="The core plan stays simple. Usage-heavy or custom work is handled separately."
-        />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {ADDONS.map((addon, index) => (
-            <Reveal key={addon.title} delay={index * 0.05} className="h-full">
-              <article className="flex h-full min-h-[320px] flex-col rounded-[28px] border border-black/[0.06] p-7" style={{ background: addon.tone }}>
-                <span className="h-3 w-12 rounded-full" style={{ background: addon.accent }} />
-                <h3 className="mt-8 text-[27px] font-medium leading-[1.02] tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{addon.title}</h3>
-                <p className="mt-4 text-[14px] leading-[1.62] text-[#5F625D]">{addon.copy}</p>
-                <div className="mt-auto border-t border-black/[0.08] pt-5 text-[13px] font-semibold text-[#343631]">{addon.price}</div>
-              </article>
-            </Reveal>
-          ))}
+        <div id="addons" className="mt-14 border-t border-black/[0.08] pt-12">
+          <Reveal>
+            <Eyebrow accent={COLORS.plum}>Optional add-ons</Eyebrow>
+            <h3 className="mt-4 text-[34px] font-medium leading-[1] tracking-[-0.045em] text-[#111318] sm:text-[42px]" style={{ fontFamily: DISPLAY }}>
+              Add more when you need it.
+            </h3>
+          </Reveal>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {ADDONS.map((addon, index) => (
+              <Reveal key={addon.title} delay={index * 0.05} className="h-full">
+                <article className="flex h-full min-h-[300px] flex-col rounded-[28px] border border-black/[0.06] p-7" style={{ background: addon.tone }}>
+                  <span className="h-3 w-12 rounded-full" style={{ background: addon.accent }} />
+                  <h3 className="mt-8 text-[27px] font-medium leading-[1.02] tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{addon.title}</h3>
+                  <p className="mt-4 text-[14px] leading-[1.62] text-[#5F625D]">{addon.copy}</p>
+                  <div className="mt-auto border-t border-black/[0.08] pt-5 text-[13px] font-semibold text-[#343631]">{addon.price}</div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -741,7 +682,7 @@ function FaqItem({ faq, index }: { faq: (typeof FAQS)[number]; index: number }) 
   return (
     <Reveal delay={(index % 2) * 0.035}>
       <div className="overflow-hidden rounded-[20px] border border-black/[0.07] bg-white">
-        <button type="button" onClick={() => setOpen((value) => !value)} className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left sm:px-6">
+        <button type="button" aria-expanded={open} onClick={() => setOpen((value) => !value)} className="flex w-full items-center justify-between gap-5 px-5 py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#DDA34B] sm:px-6">
           <span className="text-[15px] font-semibold leading-[1.4] text-[#292B28]">{faq.q}</span>
           <ChevronDown size={17} className={`shrink-0 text-[#9A7550] transition-transform ${open ? "rotate-180" : ""}`} />
         </button>
@@ -770,8 +711,8 @@ function FinalCta() {
             Book a short call and we'll recommend the simplest plan that fits how your business works.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29]">Book a Call <ArrowRight size={15} /></a>
-            <a href="#pricing" className="inline-flex h-[50px] items-center rounded-full border border-white/16 px-6 text-[13px] font-semibold text-white/82">Review plans ↑</a>
+            <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B]">Book a Call <ArrowRight size={15} /></a>
+            <a href="#pricing" className="inline-flex h-[50px] items-center rounded-full border border-white/16 px-6 text-[13px] font-semibold text-white/82 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B]">Review plans ↑</a>
           </div>
         </div>
       </Reveal>
@@ -781,10 +722,10 @@ function FinalCta() {
 
 function StickyMobileCta() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-black/[0.08] bg-[#F7F4EE]/95 px-4 py-3 backdrop-blur-md md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-black/[0.08] bg-[#F7F4EE]/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-md md:hidden">
       <div className="flex gap-2">
-        <a href={BOOK_URL} className="flex-1 rounded-full bg-[#1E2B29] px-4 py-3 text-center text-[13px] font-semibold text-[#F7F4EE]">Book a Call</a>
-        <a href="#pricing" className="rounded-full border border-[#1E2B29]/15 bg-white px-4 py-3 text-[13px] font-semibold text-[#1E2B29]">Plans</a>
+        <a href={BOOK_URL} className="flex-1 rounded-full bg-[#1E2B29] px-4 py-3 text-center text-[13px] font-semibold text-[#F7F4EE] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDA34B]">Book a Call</a>
+        <a href="#pricing" className="rounded-full border border-[#1E2B29]/15 bg-white px-4 py-3 text-[13px] font-semibold text-[#1E2B29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDA34B]">Plans</a>
       </div>
     </div>
   );
