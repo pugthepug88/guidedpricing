@@ -93,7 +93,7 @@ export function SiteNav() {
   return (
     <nav
       className={
-        cinematicV5
+        cinematicGeometry
           ? cinematicNavClass
           : `sticky top-0 z-50 transition-all duration-300 ${
               scrolled
