@@ -86,7 +86,7 @@ export function SiteNav() {
       ? "fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
       : "fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#090E15]/[0.22] shadow-[0_8px_28px_rgba(0,0,0,.09)] backdrop-blur-[12px] backdrop-saturate-[1.02] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out";
 
-  const headerCtaCls = cinematicV5 && !cinematicPastHero
+  const headerCtaCls = cinematicGeometry && !lightGlassState
     ? "inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-[13px] font-bold text-[#111318] shadow-[0_6px_20px_rgba(0,0,0,.12)] transition hover:-translate-y-0.5 hover:bg-white/92 hover:shadow-[0_10px_26px_rgba(0,0,0,.16)]"
     : "inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#1D4ED8] hover:shadow-zapla-blue";
 
