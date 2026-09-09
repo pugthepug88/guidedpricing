@@ -38,6 +38,13 @@ const COLORS = {
   apricot: "#D58C75",
 } as const;
 
+const TEAM_AVATARS = [
+  { src: "/concept/cinematic-v5/broker.jpg", ring: COLORS.plum },
+  { src: "/concept/cinematic-v5/dentist.jpg", ring: COLORS.amber },
+  { src: "/concept/cinematic-v5/construction.jpg", ring: COLORS.apricot },
+  { src: "/concept/cinematic-v5/agent.jpg", ring: COLORS.rose },
+] as const;
+
 type Plan = {
   name: string;
   fit: string;
@@ -333,10 +340,60 @@ function CheckMark({ dark = false }: { dark?: boolean }) {
   );
 }
 
+function AvatarCluster() {
+  return (
+    <span className="inline-flex shrink-0 items-center pl-2" aria-hidden="true">
+      {TEAM_AVATARS.map((avatar, index) => (
+        <span
+          key={avatar.src}
+          className={`relative h-9 w-9 overflow-hidden rounded-full border-[3px] border-[#EFE8DE] bg-white sm:h-11 sm:w-11 ${index === 0 ? "" : "-ml-2.5"}`}
+          style={{ boxShadow: `0 0 0 2px ${avatar.ring}` }}
+        >
+          <img src={avatar.src} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function MarqueeSequence({ duplicate = false }: { duplicate?: boolean }) {
+  return (
+    <div className="flex shrink-0 items-center gap-5 pr-8 sm:gap-7 sm:pr-12" aria-hidden={duplicate || undefined}>
+      <span>Unlimited users.</span>
+      <AvatarCluster />
+      <span className="text-[#C96F55]">One flat price.</span>
+      <AvatarCluster />
+      <span>Bring the whole team.</span>
+      <span className="text-[#777B76]">No per-seat fees.</span>
+    </div>
+  );
+}
+
+function UnlimitedUsersMarquee() {
+  const reduced = !!useReducedMotion();
+
+  return (
+    <section className="overflow-hidden border-y border-black/[0.07] bg-[#EFE8DE] py-4 sm:py-5" aria-label="Unlimited users on every Zapla plan">
+      <p className="sr-only">Unlimited users. One flat price. Bring the whole team. No per-seat fees.</p>
+      <motion.div
+        className="flex w-max items-center whitespace-nowrap text-[30px] font-medium leading-none tracking-[-0.045em] text-[#111318] sm:text-[40px] lg:text-[48px]"
+        style={{ fontFamily: DISPLAY }}
+        initial={false}
+        animate={reduced ? undefined : { x: ["0%", "-50%"] }}
+        transition={reduced ? undefined : { duration: 24, ease: "linear", repeat: Infinity }}
+      >
+        <MarqueeSequence />
+        <MarqueeSequence duplicate />
+      </motion.div>
+    </section>
+  );
+}
+
 function PricingPage() {
   return (
     <div className="min-h-screen bg-[#F7F4EE] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <PricingPlans />
+      <UnlimitedUsersMarquee />
       <Comparison />
       <GuidedLaunch />
       <LaunchScope />
@@ -361,7 +418,7 @@ function PricingPlans() {
             Choose the plan that fits your business. Every plan includes unlimited users, with a one-time Guided Launch to configure Zapla around how you work.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] font-semibold text-[#4F544F] sm:text-[12px]">
-            {["No per-seat fees", "AUD pricing", "One-time Guided Launch"].map((item) => (
+            {["AUD pricing", "One-time Guided Launch", "No lock-in after launch"].map((item) => (
               <span key={item} className="inline-flex items-center gap-2"><CheckMark />{item}</span>
             ))}
           </div>
@@ -371,10 +428,7 @@ function PricingPlans() {
           {PLANS.map((plan, index) => <PlanCard key={plan.name} plan={plan} index={index} />)}
         </div>
 
-        <p className="mx-auto mt-6 w-fit border-y border-black/[0.07] px-4 py-2.5 text-center text-[12px] font-semibold leading-[1.5] text-[#4F544F]">
-          Unlimited users on every plan. No per-seat fees as your team grows.
-        </p>
-        <p className="mx-auto mt-4 max-w-[980px] text-center text-[11px] leading-[1.55] text-[#77716A] sm:text-[12px]">
+        <p className="mx-auto mt-5 max-w-[980px] text-center text-[11px] leading-[1.55] text-[#77716A] sm:text-[12px]">
           Prices are in AUD and exclude GST. SMS, Email, AI voice, WhatsApp, domains, payment gateway/card fees, ad spend, third-party tools, complex migrations and custom build work may be separate. No lock-in after launch. Thirty days notice.
         </p>
       </div>
