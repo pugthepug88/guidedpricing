@@ -393,7 +393,7 @@ function Hero() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.08} className="relative hidden min-h-[390px] lg:block" aria-hidden="true">
+        <Reveal delay={0.08} className="relative hidden min-h-[390px] lg:block">
           <div className="absolute inset-[4%_2%_8%_8%] rounded-[38px] border border-black/[0.05] bg-[#EFE2D2]" />
           <div className="absolute left-[3%] top-[17%] h-[54%] w-[62%] -rotate-[4deg] rounded-[30px] border border-black/[0.06] bg-white shadow-[0_26px_70px_rgba(50,40,31,.09)]" />
           <div className="absolute right-[2%] top-[8%] h-[48%] w-[56%] rotate-[4deg] rounded-[30px] border border-black/[0.06] bg-[#E2E4D2] shadow-[0_22px_60px_rgba(50,40,31,.08)]" />
