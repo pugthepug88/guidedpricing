@@ -676,7 +676,7 @@ function GuidedLaunchStages({ stages }: { stages: LaunchStage[] }) {
               <p className="mt-2 text-[12.5px] leading-[1.55] text-white/50">{stage.copy}</p>
             </article>
           </Reveal>
-          {index < stages.length - 1 ? <Connector active={active} delay={CONNECTOR_DELAYS[index]!} /> : null}
+          {index < stages.length - 1 ? <Connector key={`connector-${stage.label}`} active={active} delay={CONNECTOR_DELAYS[index]!} /> : null}
         </>
       ))}
     </div>
