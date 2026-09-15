@@ -191,7 +191,7 @@ function PricingV3Page() {
 
 function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
   const reduced = !!useReducedMotion();
-  return <motion.div className={className} initial={reduced ? false : { opacity: 1, y: 9 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : delay, ease: EASE }}>{children}</motion.div>;
+  return <motion.div className={className} initial={{ opacity: 1, y: 9 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : delay, ease: EASE }}>{children}</motion.div>;
 }
 
 function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
