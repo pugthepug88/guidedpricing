@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
@@ -32,6 +33,11 @@ const PricingRoute = PricingRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingV3Route = PricingV3RouteImport.update({
+  id: '/Pricing-v3',
+  path: '/Pricing-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -72,6 +78,7 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Pricing-v3': typeof PricingV3Route
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
@@ -83,6 +90,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Pricing-v3': typeof PricingV3Route
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
@@ -95,6 +103,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/Pricing-v3': typeof PricingV3Route
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/Pricing-v3'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/Pricing-v3'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/Pricing-v3'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
@@ -142,6 +154,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PricingV3Route: typeof PricingV3Route
   McpRoute: typeof McpRoute
   PricingRoute: typeof PricingRoute
   PricingV2Route: typeof PricingV2Route
@@ -173,6 +186,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Pricing-v3': {
+      id: '/Pricing-v3'
+      path: '/Pricing-v3'
+      fullPath: '/Pricing-v3'
+      preLoaderRoute: typeof PricingV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -222,6 +242,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PricingV3Route: PricingV3Route,
   McpRoute: McpRoute,
   PricingRoute: PricingRoute,
   PricingV2Route: PricingV2Route,
