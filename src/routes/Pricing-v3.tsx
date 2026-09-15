@@ -27,6 +27,9 @@ const COLORS = {
   paper: "#F7F4EE",
   paper2: "#F6F0E8",
   ink: "#111318",
+  muted: "#686D69",
+  line: "#DDD5CA",
+  dark: "#111214",
   green: "#1E2B29",
   coral: "#E97D62",
   rose: "#C96C85",
@@ -53,12 +56,12 @@ const PLANS: Plan[] = [
   {
     name: "Follow-Through",
     promise: "Stop losing the business already coming to you.",
-    fit: "For service businesses that need every enquiry, call, quote and appointment followed through.",
+    fit: "Capture every enquiry, call, quote and booking, then make sure the next step happens.",
     price: "A$399",
     priceLabel: "/mo + GST",
     launch: "from A$997 + GST",
     outcomes: [
-      "Respond to missed calls and new enquiries",
+      "Capture and respond to calls, forms, chat and new enquiries",
       "Keep leads and quotes moving",
       "Recover bookings and no-shows",
       "Automate reviews and customer follow-up",
@@ -124,6 +127,7 @@ const COMPARISON_GROUPS = [
   {
     title: "Follow-through systems",
     rows: [
+      ["Lead capture and response", "Included", "Included", "Scoped"],
       ["Lead Rescue", "Included", "Included", "Scoped"],
       ["Lead Follow-Through", "Included", "Included", "Scoped"],
       ["Quote Chaser", "Included", "Included", "Scoped"],
@@ -161,7 +165,7 @@ const COMPARISON_GROUPS = [
 const LAUNCH_SCOPES = [
   {
     title: "Follow-Through Guided Launch",
-    sub: "A focused first build for live demand and operational follow-through. From A$997 + GST.",
+    sub: "A focused first build for incoming demand and operational follow-through. From A$997 + GST.",
     items: [
       "One standard data import up to 5,000 records",
       "One Zapla-connected number or forwarding setup",
@@ -238,8 +242,8 @@ const FAQS = [
   {
     q: "What actually makes Growth different from Follow-Through?",
     a: [
-      "Follow-Through reacts to something that has already happened: a missed call, enquiry, quote, booking or customer moment. It makes sure the next step happens.",
-      "Growth adds the proactive side. You choose an audience and a moment, then run campaigns, recall, nurture, broadcasts, social and ads to create demand from people already in your database.",
+      "Follow-Through starts when demand enters the business: a call, form, chat, enquiry, quote or booking. Zapla captures the moment, responds and keeps the next step moving.",
+      "Growth adds the proactive side. You choose an audience and a moment, then run campaigns, recall, nurture, broadcasts, social and ads to create more revenue from people already in your database.",
     ],
   },
   {
@@ -413,7 +417,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   return (
     <Reveal delay={index * 0.04} className="h-full">
       <article
-        className={`flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[555px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none ${growth ? "border-[#DDA34B]/60 bg-[#FFF2D8]" : custom ? "border-black/[0.08] bg-[#ECE7DF]" : "border-black/[0.09] bg-[#FBFAF7]"}`}
+        className={`flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[555px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none ${growth ? "border-[#DDA34B]/60 bg-[#FFF2D8]" : custom ? "border-black/[0.08] bg-[#F1ECE5]" : "border-black/[0.09] bg-[#FBFAF7]"}`}
       >
         <h2 className="text-[27px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h2>
         <p className="mt-2.5 text-[17px] font-medium leading-[1.17] tracking-[-0.025em] text-[#292C28]" style={{ fontFamily: DISPLAY }}>{plan.promise}</p>
@@ -536,14 +540,14 @@ function UnlimitedUsersMarquee() {
 const PLAN_PATHS = [
   {
     name: "Follow-Through",
-    copy: "A call, enquiry, quote, booking or customer moment creates the trigger. Zapla makes sure the next step happens.",
-    steps: ["Live event", "Zapla follows through", "Demand captured"],
+    copy: "Demand enters through a call, form, chat, quote or booking. Zapla captures it, responds and keeps the next step moving.",
+    steps: ["Incoming call or enquiry", "Captured & responded", "Followed through", "Booking or sale"],
     color: COLORS.apricot,
   },
   {
     name: "Growth",
-    copy: "You choose who to reach and when, then create demand from leads and customers already in your database.",
-    steps: ["Audience or time trigger", "Proactive campaign", "More revenue"],
+    copy: "Growth starts with the people already in your database and gives you a proactive way to create another reason to buy.",
+    steps: ["Existing leads & customers", "Segment or timing", "Proactive campaign", "Repeat revenue"],
     color: COLORS.amber,
   },
 ] as const;
@@ -551,39 +555,41 @@ const PLAN_PATHS = [
 function PlanDifference() {
   const reduced = !!useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.35 });
+  const inView = useInView(ref, { once: true, amount: 0.3 });
   const active = reduced || inView;
 
   return (
-    <section className="bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F7F4EE] px-5 py-16 text-[#111318] sm:px-10 sm:py-20 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1280px]">
         <SectionHeading
           eyebrow="Follow-Through vs Growth"
-          title={<>Growth isn't more CRM. <span className="text-[#D58C75]">It's a different job.</span></>}
-          sub="Follow-Through protects the demand already moving through your business. Growth adds the proactive capability to create more revenue from the people already in your database."
-          light
+          title={<>One captures and follows through. <span className="text-[#C96F55]">The other creates more from your database.</span></>}
+          sub="Follow-Through handles the calls, enquiries, quotes, bookings and customer moments already happening. Growth includes all of that, then adds proactive campaigns across the people already in your database."
         />
-        <div ref={ref} className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div ref={ref} className="mt-9 grid gap-4 lg:grid-cols-2">
           {PLAN_PATHS.map((path, pathIndex) => (
-            <Reveal key={path.name} delay={pathIndex * 0.08}>
-              <article className="rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 sm:p-6">
-                <h3 className="text-[24px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{path.name}</h3>
-                <p className="mt-2 min-h-[44px] text-[12.5px] leading-[1.55] text-white/52">{path.copy}</p>
-                <div className="mt-6 grid gap-2 sm:grid-cols-[1fr_18px_1fr_18px_1fr] sm:items-center">
+            <Reveal key={path.name} delay={pathIndex * 0.06}>
+              <article className={`h-full rounded-[22px] border p-5 shadow-[0_12px_34px_rgba(48,38,29,.04)] sm:p-6 ${pathIndex === 1 ? "border-[#DDA34B]/45 bg-[#FFF8E8]" : "border-black/[0.07] bg-[#FBFAF7]"}`}>
+                <p className="text-[9px] font-bold uppercase tracking-[0.16em]" style={{ color: path.color }}>{path.name}</p>
+                <h3 className="mt-2 text-[25px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>
+                  {pathIndex === 0 ? "Capture the demand already coming in." : "Create more from the people you already know."}
+                </h3>
+                <p className="mt-2 min-h-[42px] text-[12.5px] leading-[1.55] text-[#686D69]">{path.copy}</p>
+                <div className="mt-6 grid gap-2 sm:grid-cols-[1fr_16px_1fr_16px_1fr_16px_1fr] sm:items-center">
                   {path.steps.map((step, index) => (
                     <Fragment key={step}>
                       <div
-                        className="rounded-[13px] border border-white/10 bg-white/[0.045] px-3 py-3 text-center text-[11px] font-semibold text-white/80 transition-[opacity,transform,border-color] duration-500 motion-reduce:transition-none"
+                        className="rounded-[12px] border bg-white px-3 py-3 text-center text-[10.5px] font-semibold text-[#4F544F] shadow-[0_4px_12px_rgba(48,38,29,.025)] transition-[opacity,transform,border-color] duration-500 motion-reduce:transition-none"
                         style={{
                           opacity: active ? 1 : 0.35,
                           transform: active ? "translateY(0)" : "translateY(7px)",
-                          borderColor: active ? `${path.color}55` : undefined,
-                          transitionDelay: reduced ? undefined : `${220 + pathIndex * 120 + index * 180}ms`,
+                          borderColor: active ? `${path.color}66` : "rgba(17,19,24,.08)",
+                          transitionDelay: reduced ? undefined : `${180 + pathIndex * 120 + index * 160}ms`,
                         }}
                       >
                         {step}
                       </div>
-                      {index < 2 ? <ArrowRight size={14} className="mx-auto rotate-90 text-white/28 sm:rotate-0" /> : null}
+                      {index < path.steps.length - 1 ? <ArrowRight size={13} className="mx-auto rotate-90 text-[#8C877F] sm:rotate-0" /> : null}
                     </Fragment>
                   ))}
                 </div>
