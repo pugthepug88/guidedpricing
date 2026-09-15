@@ -1,17 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { Fragment, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
   Check,
   ChevronDown,
   CircleDot,
-  Clock3,
   Megaphone,
-  MessageSquareText,
-  PhoneCall,
   RefreshCw,
-  Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/Pricing-v3")({
