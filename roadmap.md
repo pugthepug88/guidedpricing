@@ -7,3 +7,5 @@
 - [x] Complete four-director sign-off, build checks, responsive QA, and unchanged-route smoke checks.
 - [x] Rebuild `/Pricing-v3` with V2 structure and motion plus the three-path V3 commercial model.
 - [x] Validate desktop, mobile, reduced motion, accordions, and unchanged pricing routes.
+- [ ] Rebuild `/Pricing-v3` fresh from the approved V2 baseline with the agreed three-path commercial model.
+- [ ] Inspect screenshots, run the four-lens review, fix visual regressions, and QA all requested routes.
