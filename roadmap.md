@@ -5,3 +5,5 @@
 - [x] Verify TypeScript, build, desktop/mobile rendering, one-header rule, overflow, errors, key sections, and `/pricing-v2` smoke test.
 - [x] Revise `/Pricing-v3` to the approved two-plan buying architecture with a subordinate Custom path.
 - [x] Complete four-director sign-off, build checks, responsive QA, and unchanged-route smoke checks.
+- [x] Rebuild `/Pricing-v3` with V2 structure and motion plus the three-path V3 commercial model.
+- [x] Validate desktop, mobile, reduced motion, accordions, and unchanged pricing routes.
