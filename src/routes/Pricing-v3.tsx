@@ -84,7 +84,6 @@ const PLANS: Plan[] = [
       "Reactivate dormant leads and customers",
       "Automate repeat, recall and nurture campaigns",
       "Run targeted email, SMS and WhatsApp campaigns",
-      "Segment and market proactively across your database",
     ],
     platform: "Social Planner, Ad Manager and campaign templates included.",
     cta: "Book a Call",
@@ -93,15 +92,15 @@ const PLANS: Plan[] = [
   {
     name: "Custom",
     promise: "Built for businesses that need more than a standard plan covers.",
-    fit: "Multiple locations or brands, more complex data or system needs, or workflows that need to be tailored around your business.",
-    price: "Custom pricing",
-    priceLabel: "",
-    launch: "",
+    fit: "For multiple locations or brands, more complex setup, or workflows that need something different.",
+    price: "Custom",
+    priceLabel: "quote",
+    launch: "Custom Guided Launch",
     outcomes: [
       "Multiple locations or brands",
       "Larger or more complex data moves",
-      "Connecting Zapla with systems that need custom work",
-      "Custom workflows, routing or reporting",
+      "Linking Zapla with software outside the standard setup",
+      "Workflows or reporting that need to work differently",
       "Higher-volume or unusual requirements",
     ],
     platform: "Your setup, rollout and ongoing support are agreed before work starts.",
@@ -379,10 +378,6 @@ function Tick({ dark = false }: { dark?: boolean }) {
   );
 }
 
-function ScopeDot() {
-  return <span className="mt-[5px] h-2.5 w-2.5 shrink-0 rounded-full bg-[#C8C1B8]" aria-hidden="true" />;
-}
-
 function PricingPlans() {
   return (
     <section id="pricing-v3-plans" className="bg-[#F6F0E8] px-5 pb-10 pt-[104px] sm:px-10 sm:pb-14 sm:pt-[116px] lg:px-16 lg:pb-16 lg:pt-[128px]">
@@ -403,7 +398,7 @@ function PricingPlans() {
           </div>
         </Reveal>
 
-        <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mx-auto mt-7 grid max-w-[1180px] gap-4 md:grid-cols-2 xl:grid-cols-3">
           {PLANS.map((plan, index) => <PlanCard key={plan.name} plan={plan} index={index} />)}
         </div>
 
@@ -416,75 +411,67 @@ function PricingPlans() {
 }
 
 function PlanCard({ plan, index }: { plan: Plan; index: number }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [featuresOpen, setFeaturesOpen] = useState(false);
   const growth = plan.tone === "growth";
   const custom = plan.tone === "custom";
+  const features = custom ? plan.outcomes : [...PLAN_CONSTANTS, ...plan.outcomes];
+  const bg = growth ? "#FFF2D8" : "#FBFAF7";
+  const border = growth ? "rgba(221,163,75,.62)" : "rgba(17,19,24,.09)";
 
   return (
     <Reveal delay={index * 0.04} className="h-full">
       <article
-        className={`flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[555px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none ${growth ? "border-[#DDA34B]/75 bg-[#F3DFB5]" : custom ? "border-black/[0.075] bg-[#F8F5F0]" : "border-black/[0.09] bg-[#FBFAF7]"}`}
+        className="flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[535px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none"
+        style={{ background: bg, borderColor: border }}
       >
-        <div className="flex min-h-[34px] flex-wrap items-center gap-2.5">
-          <h2 className="text-[27px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h2>
+        <div className="flex min-h-[32px] flex-wrap items-center gap-2">
+          <h2 className="text-[26px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h2>
           {growth ? (
-            <span className="inline-flex rounded-full bg-[#1E2B29] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.13em] text-[#F7F4EE] shadow-[0_3px_10px_rgba(30,43,41,.12)]">
+            <span className="rounded-full border border-[#DDA34B]/35 bg-white/55 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A641F]">
               Recommended
             </span>
           ) : null}
         </div>
-        <p className="mt-2.5 text-[17px] font-medium leading-[1.17] tracking-[-0.025em] text-[#292C28]" style={{ fontFamily: DISPLAY }}>{plan.promise}</p>
-        <p className="mt-2 min-h-[58px] text-[12.5px] leading-[1.5] text-[#666A65]">{plan.fit}</p>
 
-        <div className="mt-4 min-h-[52px]">
-          <div className="flex items-end gap-2">
-            <strong className={`${custom ? "text-[34px] sm:text-[38px]" : "text-[48px] sm:text-[50px]"} font-medium leading-none tracking-[-0.06em]`} style={{ fontFamily: DISPLAY }}>{plan.price}</strong>
-            {plan.priceLabel ? <span className="pb-1 text-[11px] font-semibold text-[#77716A]">{plan.priceLabel}</span> : null}
-          </div>
-          {custom ? <p className="mt-2 text-[12px] font-semibold text-[#77716A]">Tailored to your business</p> : null}
+        <p className="mt-2 text-[13px] leading-[1.5] text-[#666A65] md:min-h-[78px]">
+          <span className="font-semibold text-[#343631]">{plan.promise}</span>{" "}{plan.fit}
+        </p>
+
+        <div className="mt-5 flex items-end gap-2">
+          <div className="text-[46px] font-medium leading-none tracking-[-0.065em] sm:text-[50px]" style={{ fontFamily: DISPLAY }}>{plan.price}</div>
+          <div className="pb-1 text-[11px] font-semibold text-[#77716A]">{plan.priceLabel}</div>
         </div>
 
-        {!custom ? (
-          <>
-            <div className="mt-3 flex min-h-[22px] flex-wrap gap-x-4 gap-y-2 text-[11px] font-semibold text-[#4F544F]">
-              {PLAN_CONSTANTS.map((item) => (
-                <span key={item} className="inline-flex items-center gap-2"><Tick />{item}</span>
-              ))}
-            </div>
-
-            <div className="mt-4 rounded-[15px] border border-black/[0.06] bg-white/55 px-3.5 py-3">
-              <p className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#9A7550]">One-time Guided Launch</p>
-              <p className="mt-1 text-[12px] font-semibold leading-[1.4] text-[#373833]">{plan.launch}</p>
-            </div>
-          </>
-        ) : null}
+        <div className="mt-4 rounded-[15px] border border-black/[0.06] bg-white/55 px-3.5 py-3">
+          <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#9A7550]">Guided Launch</div>
+          <div className="mt-1 text-[12px] font-semibold leading-[1.4] text-[#373833]">{plan.launch}</div>
+        </div>
 
         <button
           type="button"
-          onClick={() => setMobileOpen((value) => !value)}
-          aria-expanded={mobileOpen}
+          onClick={() => setFeaturesOpen((value) => !value)}
+          aria-expanded={featuresOpen}
           className="mt-4 flex w-full items-center justify-between rounded-[12px] border border-black/[0.07] px-3.5 py-2.5 text-left text-[12px] font-semibold text-[#343631] md:hidden"
         >
-          <span>{mobileOpen ? "Hide outcomes" : custom ? "What Custom can cover" : "What this plan does"}</span>
-          <ChevronDown size={15} className={`transition-transform duration-200 ${mobileOpen ? "rotate-180" : ""}`} />
+          <span>{featuresOpen ? "Hide inclusions" : "What's included"}</span>
+          <ChevronDown size={15} className={`transition-transform duration-200 ${featuresOpen ? "rotate-180" : ""}`} />
         </button>
 
-        <ul className={`${mobileOpen ? "grid" : "hidden"} mt-4 gap-2.5 md:grid`}>
-          {plan.outcomes.map((item) => (
-            <li key={item} className="flex items-start gap-2 text-[12.5px] leading-[1.45] text-[#4E504B]">
-              {custom ? <ScopeDot /> : <Tick />}
-              <span className={item === "Everything in Follow-Through" ? "font-semibold" : ""}>{item}</span>
+        <ul className={`${featuresOpen ? "grid" : "hidden"} mt-4 gap-2.5 md:grid md:mt-5`}>
+          {features.map((feature) => (
+            <li key={feature} className="flex items-start gap-2 text-[12.5px] leading-[1.45] text-[#4E504B]">
+              <Tick />
+              <span className={feature === "Everything in Follow-Through" ? "font-semibold" : ""}>{feature}</span>
             </li>
           ))}
         </ul>
 
-        <p className="mt-4 min-h-[48px] border-t border-black/[0.07] pt-4 text-[11.5px] leading-[1.5] text-[#686C67] md:mt-auto md:h-[64px] md:min-h-0">{plan.platform}</p>
-        <div className="pt-4">
+        <div className="mt-5 md:mt-auto md:pt-5">
           <a
             href={BOOK_URL}
             className={`group inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${growth ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
           >
-            {plan.cta}<ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-[3px] motion-reduce:transform-none" />
+            {plan.cta}<ArrowRight size={14} className="transition-transform duration-200 ease-out group-hover:translate-x-[3px] motion-reduce:transform-none motion-reduce:transition-none" />
           </a>
         </div>
       </article>
