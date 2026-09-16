@@ -415,8 +415,8 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   const growth = plan.tone === "growth";
   const custom = plan.tone === "custom";
   const features = custom ? plan.outcomes : [...PLAN_CONSTANTS, ...plan.outcomes];
-  const bg = growth ? "#E8C46F" : "#FBFAF7";
-  const border = growth ? "rgba(191,132,37,.62)" : "rgba(17,19,24,.09)";
+  const bg = growth ? "#F0DDC1" : "#FBFAF7";
+  const border = growth ? "rgba(221,163,75,.48)" : "rgba(17,19,24,.09)";
 
   return (
     <Reveal delay={index * 0.04} className="h-full">
