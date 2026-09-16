@@ -323,7 +323,6 @@ function PricingV3Page() {
     <main className="min-h-screen overflow-hidden bg-[#F7F4EE] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <PricingPlans />
       <UnlimitedUsersMarquee />
-      <PlanDifference />
       <Comparison />
       <GuidedLaunch />
       <LaunchScope />
@@ -551,71 +550,6 @@ function UnlimitedUsersMarquee() {
   );
 }
 
-const PLAN_PATHS = [
-  {
-    name: "Follow-Through",
-    copy: "Demand enters through a call, form, chat, quote or booking. Zapla captures it, responds and keeps the next step moving.",
-    steps: ["Incoming call or enquiry", "Captured & responded", "Followed through", "Booking or sale"],
-    color: COLORS.apricot,
-  },
-  {
-    name: "Growth",
-    copy: "Growth starts with the people already in your database and gives you a proactive way to create another reason to buy.",
-    steps: ["Existing leads & customers", "Segment or timing", "Proactive campaign", "Repeat revenue"],
-    color: COLORS.amber,
-  },
-] as const;
-
-function PlanDifference() {
-  const reduced = !!useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.3 });
-  const active = reduced || inView;
-
-  return (
-    <section className="bg-[#F7F4EE] px-5 py-16 text-[#111318] sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-      <div className="mx-auto max-w-[1280px]">
-        <SectionHeading
-          eyebrow="Follow-Through vs Growth"
-          title={<>One captures and follows through. <span className="text-[#C96F55]">The other creates more from your database.</span></>}
-          sub="Follow-Through handles the calls, enquiries, quotes, bookings and customer moments already happening. Growth includes all of that, then adds proactive campaigns across the people already in your database."
-        />
-        <div ref={ref} className="mt-9 grid gap-4 lg:grid-cols-2">
-          {PLAN_PATHS.map((path, pathIndex) => (
-            <Reveal key={path.name} delay={pathIndex * 0.06}>
-              <article className={`h-full rounded-[22px] border p-5 shadow-[0_12px_34px_rgba(48,38,29,.04)] sm:p-6 ${pathIndex === 1 ? "border-[#DDA34B]/45 bg-[#FFF8E8]" : "border-black/[0.07] bg-[#FBFAF7]"}`}>
-                <p className="text-[9px] font-bold uppercase tracking-[0.16em]" style={{ color: path.color }}>{path.name}</p>
-                <h3 className="mt-2 text-[25px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>
-                  {pathIndex === 0 ? "Capture the demand already coming in." : "Create more from the people you already know."}
-                </h3>
-                <p className="mt-2 min-h-[42px] text-[12.5px] leading-[1.55] text-[#686D69]">{path.copy}</p>
-                <div className="mt-6 grid gap-2 sm:grid-cols-[1fr_16px_1fr_16px_1fr_16px_1fr] sm:items-center">
-                  {path.steps.map((step, index) => (
-                    <Fragment key={step}>
-                      <div
-                        className="rounded-[12px] border bg-white px-3 py-3 text-center text-[10.5px] font-semibold text-[#4F544F] shadow-[0_4px_12px_rgba(48,38,29,.025)] transition-[opacity,transform,border-color] duration-500 motion-reduce:transition-none"
-                        style={{
-                          opacity: active ? 1 : 0.35,
-                          transform: active ? "translateY(0)" : "translateY(7px)",
-                          borderColor: active ? `${path.color}66` : "rgba(17,19,24,.08)",
-                          transitionDelay: reduced ? undefined : `${180 + pathIndex * 120 + index * 160}ms`,
-                        }}
-                      >
-                        {step}
-                      </div>
-                      {index < path.steps.length - 1 ? <ArrowRight size={13} className="mx-auto rotate-90 text-[#8C877F] sm:rotate-0" /> : null}
-                    </Fragment>
-                  ))}
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Comparison() {
   const [open, setOpen] = useState(false);
   return (
@@ -625,7 +559,7 @@ function Comparison() {
           <div>
             <Eyebrow>Compare</Eyebrow>
             <h2 className="mt-2 text-[26px] font-medium tracking-[-0.04em] text-[#111318] sm:text-[30px]" style={{ fontFamily: DISPLAY }}>Compare what changes.</h2>
-            <p className="mt-2 max-w-[720px] text-[13px] leading-[1.55] text-[#686D69]">The operating platform and follow-through systems are shared. Growth adds the proactive marketing layer.</p>
+            <p className="mt-2 max-w-[720px] text-[13px] leading-[1.55] text-[#686D69]">Follow-Through helps you stop losing new enquiries. Growth adds reactivation and marketing to bring old leads and customers back.</p>
           </div>
           <button
             type="button"
