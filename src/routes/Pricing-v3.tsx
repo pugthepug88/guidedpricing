@@ -19,8 +19,8 @@ export const Route = createFileRoute("/Pricing-v3")({
 });
 
 const BOOK_URL = "https://zapla.io/booking";
-const DISPLAY = '\"Inter Tight\", \"Outfit\", \"Manrope\", system-ui, sans-serif';
-const BODY = '\"Manrope\", system-ui, sans-serif';
+const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
+const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const COLORS = {
@@ -92,18 +92,19 @@ const PLANS: Plan[] = [
   },
   {
     name: "Custom",
-    promise: "Built for businesses that don't fit a standard plan.",
-    fit: "For multi-location or multi-brand operations, complex migrations, advanced integrations or non-standard implementation requirements.",
+    promise: "Built for businesses that need more than a standard plan covers.",
+    fit: "Multiple locations or brands, more complex data or system needs, or workflows that need to be tailored around your business.",
     price: "Custom pricing",
     priceLabel: "",
     launch: "",
     outcomes: [
-      "Multi-location or multi-brand rollout",
-      "Complex migrations and integrations",
-      "Non-standard routing or reporting where supported",
-      "Higher-volume implementation requirements",
+      "Multiple locations or brands",
+      "Larger or more complex data moves",
+      "Connecting Zapla with systems that need custom work",
+      "Custom workflows, routing or reporting",
+      "Higher-volume or unusual requirements",
     ],
-    platform: "Requirements, rollout and ongoing support are scoped together before work starts.",
+    platform: "Your setup, rollout and ongoing support are agreed before work starts.",
     cta: "Talk to us",
     tone: "custom",
   },
@@ -390,9 +391,9 @@ function PricingPlans() {
           <Eyebrow>Pricing</Eyebrow>
           <h1 className="mt-3 text-[40px] font-medium leading-[0.98] tracking-[-0.055em] sm:text-[54px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
             <span className="block">One flat price.</span>
-            <span className="block">Unlimited users and contacts.</span>
+            <span className="block">Unlimited users. Unlimited contacts.</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-[760px] text-[14px] leading-[1.6] text-[#686D69] sm:text-[16px]">
+          <p className="mx-auto mt-4 max-w-[960px] text-[14px] leading-[1.6] text-[#686D69] sm:text-[16px] lg:whitespace-nowrap">
             Follow-Through keeps incoming enquiries moving. Growth adds reactivation and marketing across your database.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] font-semibold text-[#4F544F] sm:text-[12px]">
@@ -400,7 +401,6 @@ function PricingPlans() {
               <span key={item} className="inline-flex items-center gap-2"><Tick />{item}</span>
             ))}
           </div>
-          <p className="mt-4 text-[10px] text-[#8A847C]">Internal pricing draft · selected expansion prices remain under validation.</p>
         </Reveal>
 
         <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -423,7 +423,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   return (
     <Reveal delay={index * 0.04} className="h-full">
       <article
-        className={`flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[555px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none ${growth ? "border-[#DDA34B]/65 bg-[#FFF2D8]" : custom ? "border-black/[0.075] bg-[#F8F5F0]" : "border-black/[0.09] bg-[#FBFAF7]"}`}
+        className={`flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[555px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none ${growth ? "border-[#DDA34B]/75 bg-[#F3DFB5]" : custom ? "border-black/[0.075] bg-[#F8F5F0]" : "border-black/[0.09] bg-[#FBFAF7]"}`}
       >
         <div className="flex min-h-[34px] flex-wrap items-center gap-2.5">
           <h2 className="text-[27px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h2>
@@ -441,7 +441,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
             <strong className={`${custom ? "text-[34px] sm:text-[38px]" : "text-[48px] sm:text-[50px]"} font-medium leading-none tracking-[-0.06em]`} style={{ fontFamily: DISPLAY }}>{plan.price}</strong>
             {plan.priceLabel ? <span className="pb-1 text-[11px] font-semibold text-[#77716A]">{plan.priceLabel}</span> : null}
           </div>
-          {custom ? <p className="mt-2 text-[12px] font-semibold text-[#77716A]">Scoped to your requirements</p> : null}
+          {custom ? <p className="mt-2 text-[12px] font-semibold text-[#77716A]">Tailored to your business</p> : null}
         </div>
 
         {!custom ? (
@@ -471,7 +471,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           <ChevronDown size={15} className={`transition-transform duration-200 ${mobileOpen ? "rotate-180" : ""}`} />
         </button>
 
-        <ul className={`${mobileOpen ? "grid" : "hidden"} mt-4 gap-2.5 md:grid md:min-h-[150px]`}>
+        <ul className={`${mobileOpen ? "grid" : "hidden"} mt-4 gap-2.5 md:grid md:h-[160px]`}>
           {plan.outcomes.map((item) => (
             <li key={item} className="flex items-start gap-2 text-[12.5px] leading-[1.45] text-[#4E504B]">
               {custom ? <ScopeDot /> : <Tick />}
