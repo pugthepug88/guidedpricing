@@ -52,11 +52,13 @@ type Plan = {
   tone: "standard" | "growth" | "custom";
 };
 
+const PLAN_CONSTANTS = ["Unlimited users", "Unlimited stored contacts*"] as const;
+
 const PLANS: Plan[] = [
   {
     name: "Follow-Through",
     promise: "Stop losing the business already coming to you.",
-    fit: "Capture every enquiry, call, quote and booking, then make sure the next step happens.",
+    fit: "Capture every enquiry and keep every call, quote and booking moving.",
     price: "A$399",
     priceLabel: "/mo + GST",
     launch: "from A$997 + GST",
@@ -72,8 +74,8 @@ const PLANS: Plan[] = [
   },
   {
     name: "Growth",
-    promise: "Turn the customers and leads you already have into more revenue.",
-    fit: "For businesses ready to proactively reactivate, recall, nurture and market to their customer base.",
+    promise: "Turn the leads and customers you already have into more revenue.",
+    fit: "Reactivate dormant leads, bring customers back and run targeted campaigns across your database.",
     price: "A$699",
     priceLabel: "/mo + GST",
     launch: "from A$1,497 + GST",
@@ -84,7 +86,7 @@ const PLANS: Plan[] = [
       "Run targeted email, SMS and WhatsApp campaigns",
       "Segment and market proactively across your database",
     ],
-    platform: "Includes Growth marketing tools such as Social Planner, Ad Manager and campaign templates.",
+    platform: "Includes Social Planner, Ad Manager and campaign templates on top of Follow-Through.",
     cta: "Book a Call",
     tone: "growth",
   },
@@ -387,10 +389,10 @@ function PricingPlans() {
             One flat price. Unlimited users.
           </h1>
           <p className="mx-auto mt-4 max-w-[780px] text-[14px] leading-[1.6] text-[#686D69] sm:text-[16px]">
-            Choose the level of follow-through your business needs. Every plan includes unlimited users and unlimited stored contacts, with a one-time Guided Launch to configure Zapla around how you work.
+            Choose the plan that fits your business. Every plan includes unlimited users and unlimited stored contacts, with a one-time Guided Launch to configure Zapla around how you work.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] font-semibold text-[#4F544F] sm:text-[12px]">
-            {["AUD pricing", "Unlimited users", "Unlimited stored contacts*", "Month-to-month"].map((item) => (
+            {["AUD pricing", "One-time Guided Launch", "Month-to-month"].map((item) => (
               <span key={item} className="inline-flex items-center gap-2"><Tick />{item}</span>
             ))}
           </div>
@@ -433,6 +435,12 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           <p className="mt-1 text-[12px] font-semibold leading-[1.4] text-[#373833]">{plan.launch}</p>
         </div>
 
+        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-semibold text-[#4F544F]">
+          {PLAN_CONSTANTS.map((item) => (
+            <span key={item} className="inline-flex items-center gap-2"><Tick />{item}</span>
+          ))}
+        </div>
+
         <button
           type="button"
           onClick={() => setMobileOpen((value) => !value)}
@@ -443,7 +451,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           <ChevronDown size={15} className={`transition-transform duration-200 ${mobileOpen ? "rotate-180" : ""}`} />
         </button>
 
-        <ul className={`${mobileOpen ? "grid" : "hidden"} mt-4 gap-2.5 md:grid md:mt-5`}>
+        <ul className={`${mobileOpen ? "grid" : "hidden"} mt-4 gap-2.5 md:grid md:min-h-[150px]`}>
           {plan.outcomes.map((item) => (
             <li key={item} className="flex items-start gap-2 text-[12.5px] leading-[1.45] text-[#4E504B]">
               <Tick />
@@ -452,8 +460,8 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           ))}
         </ul>
 
-        <p className="mt-5 border-t border-black/[0.07] pt-4 text-[11.5px] leading-[1.5] text-[#686C67]">{plan.platform}</p>
-        <div className="mt-auto pt-5">
+        <p className="mt-4 min-h-[48px] border-t border-black/[0.07] pt-4 text-[11.5px] leading-[1.5] text-[#686C67]">{plan.platform}</p>
+        <div className="mt-auto pt-4">
           <a
             href={BOOK_URL}
             className={`group inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${growth ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
