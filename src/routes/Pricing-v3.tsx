@@ -53,6 +53,7 @@ type Plan = {
 };
 
 const PLAN_CONSTANTS = ["Unlimited users", "Unlimited stored contacts*"] as const;
+const CUSTOM_CONSTANTS = ["Requirements and commercials agreed upfront"] as const;
 
 const PLANS: Plan[] = [
   {
@@ -92,16 +93,16 @@ const PLANS: Plan[] = [
   },
   {
     name: "Custom",
-    promise: "For businesses that don't fit neatly into a standard plan.",
+    promise: "Built for businesses that don't fit a standard plan.",
     fit: "Multi-location or multi-brand operations, complex migrations, advanced integrations or non-standard implementation requirements.",
-    price: "Custom",
-    priceLabel: "Let's scope it",
-    launch: "Custom Guided Launch",
+    price: "Let's scope it",
+    priceLabel: "",
+    launch: "Pricing and Guided Launch agreed around your requirements.",
     outcomes: [
       "Multi-location or multi-brand rollout",
-      "Complex migrations or integrations",
+      "Complex migrations and integrations",
       "Non-standard routing or reporting where supported",
-      "Higher-volume or unusual implementation requirements",
+      "Higher-volume implementation requirements",
       "Commercial and support scope agreed upfront",
     ],
     platform: "Requirements, rollout and ongoing support are agreed before work starts.",
@@ -383,16 +384,16 @@ function PricingPlans() {
   return (
     <section id="pricing-v3-plans" className="bg-[#F6F0E8] px-5 pb-10 pt-[104px] sm:px-10 sm:pb-14 sm:pt-[116px] lg:px-16 lg:pb-16 lg:pt-[128px]">
       <div className="mx-auto max-w-[1440px]">
-        <Reveal className="mx-auto max-w-[840px] text-center">
+        <Reveal className="mx-auto max-w-[900px] text-center">
           <Eyebrow>Pricing</Eyebrow>
           <h1 className="mt-3 text-[40px] font-medium leading-[0.98] tracking-[-0.055em] sm:text-[54px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
-            One flat price. Unlimited users.
+            One flat price. Unlimited users and contacts.
           </h1>
-          <p className="mx-auto mt-4 max-w-[780px] text-[14px] leading-[1.6] text-[#686D69] sm:text-[16px]">
-            Choose the plan that fits your business. Every plan includes unlimited users and unlimited stored contacts, with a one-time Guided Launch to configure Zapla around how you work.
+          <p className="mx-auto mt-4 max-w-[800px] text-[14px] leading-[1.6] text-[#686D69] sm:text-[16px]">
+            Choose the plan that fits your business. Our standard plans include unlimited users and unlimited stored contacts, with a one-time Guided Launch to configure Zapla around how you work.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] font-semibold text-[#4F544F] sm:text-[12px]">
-            {["AUD pricing", "One-time Guided Launch", "Month-to-month"].map((item) => (
+            {["No per-seat fees", "One-time Guided Launch", "Month-to-month"].map((item) => (
               <span key={item} className="inline-flex items-center gap-2"><Tick />{item}</span>
             ))}
           </div>
@@ -415,28 +416,36 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const growth = plan.tone === "growth";
   const custom = plan.tone === "custom";
+  const constants = custom ? CUSTOM_CONSTANTS : PLAN_CONSTANTS;
 
   return (
     <Reveal delay={index * 0.04} className="h-full">
       <article
-        className={`flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[555px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none ${growth ? "border-[#DDA34B]/60 bg-[#FFF2D8]" : custom ? "border-black/[0.08] bg-[#F1ECE5]" : "border-black/[0.09] bg-[#FBFAF7]"}`}
+        className={`flex h-full flex-col overflow-hidden rounded-[26px] border p-5 shadow-[0_16px_42px_rgba(48,38,29,.055)] transition-[transform,box-shadow] duration-200 ease-out sm:p-6 md:min-h-[555px] md:hover:-translate-y-[2px] md:hover:shadow-[0_22px_52px_rgba(48,38,29,.09)] motion-reduce:transform-none motion-reduce:transition-none ${growth ? "border-[#DDA34B]/65 bg-[#FFF2D8]" : custom ? "border-black/[0.075] bg-[#F3EEE7]" : "border-black/[0.09] bg-[#FBFAF7]"}`}
       >
-        <h2 className="text-[27px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h2>
+        <div className="flex min-h-[34px] flex-wrap items-center gap-2.5">
+          <h2 className="text-[27px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h2>
+          {growth ? (
+            <span className="inline-flex rounded-full bg-[#1E2B29] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.14em] text-[#F7F4EE]">
+              Recommended
+            </span>
+          ) : null}
+        </div>
         <p className="mt-2.5 text-[17px] font-medium leading-[1.17] tracking-[-0.025em] text-[#292C28]" style={{ fontFamily: DISPLAY }}>{plan.promise}</p>
         <p className="mt-2 min-h-[58px] text-[12.5px] leading-[1.5] text-[#666A65]">{plan.fit}</p>
 
         <div className="mt-4 flex min-h-[52px] items-end gap-2">
-          <strong className={`${custom ? "text-[40px]" : "text-[48px] sm:text-[50px]"} font-medium leading-none tracking-[-0.06em]`} style={{ fontFamily: DISPLAY }}>{plan.price}</strong>
-          <span className="pb-1 text-[11px] font-semibold text-[#77716A]">{plan.priceLabel}</span>
+          <strong className={`${custom ? "text-[34px] sm:text-[38px]" : "text-[48px] sm:text-[50px]"} font-medium leading-none tracking-[-0.06em]`} style={{ fontFamily: DISPLAY }}>{plan.price}</strong>
+          {plan.priceLabel ? <span className="pb-1 text-[11px] font-semibold text-[#77716A]">{plan.priceLabel}</span> : null}
         </div>
 
         <div className="mt-4 rounded-[15px] border border-black/[0.06] bg-white/55 px-3.5 py-3">
-          <p className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#9A7550]">One-time Guided Launch</p>
+          <p className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#9A7550]">{custom ? "Custom scope" : "One-time Guided Launch"}</p>
           <p className="mt-1 text-[12px] font-semibold leading-[1.4] text-[#373833]">{plan.launch}</p>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-semibold text-[#4F544F]">
-          {PLAN_CONSTANTS.map((item) => (
+        <div className="mt-4 flex min-h-[22px] flex-wrap gap-x-4 gap-y-2 text-[11px] font-semibold text-[#4F544F]">
+          {constants.map((item) => (
             <span key={item} className="inline-flex items-center gap-2"><Tick />{item}</span>
           ))}
         </div>
