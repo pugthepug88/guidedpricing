@@ -397,7 +397,7 @@ function PricingPlans() {
             Follow-Through keeps incoming enquiries moving. Growth adds reactivation and marketing across your database.
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] font-semibold text-[#4F544F] sm:text-[12px]">
-            {["No per-seat fees", "One-time Guided Launch", "Month-to-month"].map((item) => (
+            {["No per-seat fees", "One-time Guided Launch", "No lock-in"].map((item) => (
               <span key={item} className="inline-flex items-center gap-2"><Tick />{item}</span>
             ))}
           </div>
@@ -457,9 +457,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
               <p className="mt-1 text-[12px] font-semibold leading-[1.4] text-[#373833]">{plan.launch}</p>
             </div>
           </>
-        ) : (
-          <div className="hidden min-h-[93px] md:block" aria-hidden="true" />
-        )}
+        ) : null}
 
         <button
           type="button"
@@ -471,7 +469,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           <ChevronDown size={15} className={`transition-transform duration-200 ${mobileOpen ? "rotate-180" : ""}`} />
         </button>
 
-        <ul className={`${mobileOpen ? "grid" : "hidden"} mt-4 gap-2.5 md:grid md:h-[160px]`}>
+        <ul className={`${mobileOpen ? "grid" : "hidden"} mt-4 gap-2.5 md:grid`}>
           {plan.outcomes.map((item) => (
             <li key={item} className="flex items-start gap-2 text-[12.5px] leading-[1.45] text-[#4E504B]">
               {custom ? <ScopeDot /> : <Tick />}
@@ -480,8 +478,8 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           ))}
         </ul>
 
-        <p className="mt-4 min-h-[48px] border-t border-black/[0.07] pt-4 text-[11.5px] leading-[1.5] text-[#686C67]">{plan.platform}</p>
-        <div className="mt-auto pt-4">
+        <p className="mt-4 min-h-[48px] border-t border-black/[0.07] pt-4 text-[11.5px] leading-[1.5] text-[#686C67] md:mt-auto md:h-[64px] md:min-h-0">{plan.platform}</p>
+        <div className="pt-4">
           <a
             href={BOOK_URL}
             className={`group inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${growth ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
@@ -524,9 +522,9 @@ function MarqueeSequence({ offset }: { offset: number }) {
     <div className="pricing-v3-marquee-sequence flex shrink-0 items-center gap-4 pr-8 sm:gap-6 sm:pr-12">
       <span>Unlimited users.</span>
       <AvatarCluster clusterIndex={offset} />
-      <span className="text-[#C96F55]">One flat price.</span>
+      <span className="text-[#4E5350]">Unlimited contacts.</span>
       <AvatarCluster clusterIndex={offset + 1} />
-      <span className="text-[#4E5350]">No per-seat fees.</span>
+      <span className="text-[#C96F55]">One flat price.</span>
       <AvatarCluster clusterIndex={offset + 2} />
     </div>
   );
@@ -542,8 +540,8 @@ function MarqueeGroup({ duplicate = false }: { duplicate?: boolean }) {
 
 function UnlimitedUsersMarquee() {
   return (
-    <section className="pricing-v3-marquee-shell flex h-[72px] items-center overflow-hidden bg-[#F6F2EB] sm:h-[92px]" aria-label="Unlimited users on every standard Zapla plan">
-      <p className="sr-only">Unlimited users. One flat price. No per-seat fees.</p>
+    <section className="pricing-v3-marquee-shell flex h-[72px] items-center overflow-hidden bg-[#F6F2EB] sm:h-[92px]" aria-label="Unlimited users and contacts on every standard Zapla plan">
+      <p className="sr-only">Unlimited users. Unlimited contacts. One flat price.</p>
       <div className="pricing-v3-marquee-track flex w-max items-center whitespace-nowrap text-[26px] font-medium leading-none tracking-[-0.035em] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>
         <MarqueeGroup />
         <MarqueeGroup duplicate />
