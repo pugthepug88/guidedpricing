@@ -415,8 +415,8 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   const growth = plan.tone === "growth";
   const custom = plan.tone === "custom";
   const features = custom ? plan.outcomes : [...PLAN_CONSTANTS, ...plan.outcomes];
-  const bg = growth ? "#FFF2D8" : "#FBFAF7";
-  const border = growth ? "rgba(221,163,75,.62)" : "rgba(17,19,24,.09)";
+  const bg = growth ? "#E8C46F" : "#FBFAF7";
+  const border = growth ? "rgba(191,132,37,.62)" : "rgba(17,19,24,.09)";
 
   return (
     <Reveal delay={index * 0.04} className="h-full">
@@ -427,7 +427,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
         <div className="flex min-h-[32px] flex-wrap items-center gap-2">
           <h2 className="text-[26px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{plan.name}</h2>
           {growth ? (
-            <span className="rounded-full border border-[#DDA34B]/35 bg-white/55 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A641F]">
+            <span className="inline-flex rounded-full bg-[#1E2B29] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.13em] text-[#F7F4EE] shadow-[0_3px_10px_rgba(30,43,41,.12)]">
               Recommended
             </span>
           ) : null}
@@ -467,9 +467,10 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
         </ul>
 
         <div className="mt-5 md:mt-auto md:pt-5">
+          <p className="min-h-[54px] border-t border-black/[0.07] pt-4 text-[11.5px] leading-[1.5] text-[#686C67]">{plan.platform}</p>
           <a
             href={BOOK_URL}
-            className={`group inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${growth ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
+            className={`group mt-4 inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-full px-5 text-[12.5px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B] ${growth ? "bg-[#1E2B29] text-[#F7F4EE]" : "border border-[#1E2B29]/18 bg-white text-[#1E2B29]"}`}
           >
             {plan.cta}<ArrowRight size={14} className="transition-transform duration-200 ease-out group-hover:translate-x-[3px] motion-reduce:transform-none motion-reduce:transition-none" />
           </a>
