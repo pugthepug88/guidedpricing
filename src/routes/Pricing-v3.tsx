@@ -213,13 +213,15 @@ const ADDONS = [
   {
     title: "AI Receptionist",
     price: "A$199/mo + GST",
-    copy: "Answers calls, qualifies enquiries and captures details. Includes 200 Voice AI minutes.",
+    setup: "Setup from A$497 + GST",
+    copy: "Answers calls, captures details and can book or route enquiries. Includes 200 Voice AI minutes.",
     background: "#EFE2D2",
     accent: COLORS.apricot,
   },
   {
     title: "Managed Success",
     price: "From A$697/mo + GST",
+    setup: null,
     copy: "Ongoing hands-on help with workflow changes, automations, campaign setup and reporting changes. Scope agreed upfront.",
     background: "#E7E0EC",
     accent: COLORS.plum,
@@ -227,6 +229,7 @@ const ADDONS = [
   {
     title: "Custom work & extra capacity",
     price: "Quoted to scope",
+    setup: null,
     copy: "Additional locations, integrations, reporting, workflows or custom build work.",
     background: "#E4E6D5",
     accent: COLORS.sage,
@@ -862,6 +865,7 @@ function CostsAndExpansion() {
                   <p className="mt-2 text-[12px] leading-[1.55] text-[#68635E]">{item.copy}</p>
                   <div className="mt-auto border-t border-black/[0.07] pt-4">
                     <p className="text-[11.5px] font-semibold text-[#343631]">{item.price}</p>
+                    {item.setup ? <p className="mt-1 text-[10.5px] text-[#68635E]">{item.setup}</p> : null}
                   </div>
                 </article>
               </Reveal>
