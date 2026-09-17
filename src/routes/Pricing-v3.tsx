@@ -219,8 +219,8 @@ const ADDONS = [
   },
   {
     title: "Managed Success",
-    price: "A$697/mo + GST",
-    copy: "A monthly review plus up to 3 effective hours of agreed optimisation or execution.",
+    price: "From A$697/mo + GST",
+    copy: "Ongoing hands-on help with workflow changes, automations, campaign setup and reporting changes. Scope agreed upfront.",
     background: "#E7E0EC",
     accent: COLORS.plum,
   },
