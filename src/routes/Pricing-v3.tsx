@@ -727,9 +727,6 @@ function LaunchScope() {
             );
           })}
         </div>
-        <p className="mt-4 rounded-[15px] border border-black/[0.07] bg-white/70 px-4 py-3 text-[11.5px] leading-[1.55] text-[#66625D]">
-          <strong className="text-[#343631]">After launch:</strong> the builders remain available for self-service use. Additional Zapla-built work moves to Managed Success or quoted custom work.
-        </p>
       </div>
     </section>
   );
