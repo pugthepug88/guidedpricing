@@ -156,7 +156,6 @@ const COMPARISON_GROUPS = [
     rows: [
       ["Help AI and knowledge centre", "Included", "Included", "Scoped"],
       ["Standard technical support", "Included", "Included", "Scoped"],
-      ["Priority Expert Support", "Optional", "Optional", "Scoped"],
       ["Managed Success", "Optional", "Optional", "Scoped"],
       ["Additional locations", "Inherit organisation tier", "Inherit organisation tier", "Custom scope"],
     ],
@@ -216,26 +215,23 @@ const ADDONS = [
   {
     title: "AI Receptionist",
     price: "A$199/mo + GST",
-    copy: "Includes 200 Voice AI minutes. Available on either standard plan.",
-    note: "",
-  },
-  {
-    title: "Priority Expert Support",
-    price: "A$149/mo + GST",
-    copy: "Faster human troubleshooting, guidance and screen-share help. New builds are not included.",
-    note: "Draft candidate",
+    copy: "Answers calls, qualifies enquiries and captures details. Includes 200 Voice AI minutes.",
+    background: "#EFE2D2",
+    accent: COLORS.apricot,
   },
   {
     title: "Managed Success",
     price: "A$697/mo + GST",
     copy: "A monthly review plus up to 3 effective hours of agreed optimisation or execution.",
-    note: "",
+    background: "#E7E0EC",
+    accent: COLORS.plum,
   },
   {
-    title: "Website AI Chat / AI Front Desk",
-    price: "Price under validation",
-    copy: "The product placement is clear. Supplier economics and the public price are still being validated.",
-    note: "Internal draft",
+    title: "Custom work & extra capacity",
+    price: "Quoted to scope",
+    copy: "Additional locations, integrations, reporting, workflows or custom build work.",
+    background: "#E4E6D5",
+    accent: COLORS.sage,
   },
 ] as const;
 
@@ -262,10 +258,10 @@ const FAQS = [
     ],
   },
   {
-    q: "What is the difference between standard support, Priority Expert Support and Managed Success?",
+    q: "What is the difference between standard support and Managed Success?",
     a: [
       "Standard support covers access, faults and normal product questions and is included on both plans.",
-      "Priority Expert Support adds faster human troubleshooting, guidance and screen-share help. Managed Success adds a monthly review plus agreed execution time.",
+      "Managed Success adds a monthly review plus agreed execution time for ongoing optimisation or agreed work.",
     ],
   },
   {
@@ -285,10 +281,6 @@ const FAQS = [
   {
     q: "Is there a contract or lock-in?",
     a: ["Both standard plans are month-to-month after launch. The current draft has no early termination fee."],
-  },
-  {
-    q: "Is Website AI Chat included?",
-    a: ["Not as a fixed-price inclusion yet. Its product placement is clear, but supplier economics and the final public price are still being validated."],
   },
   {
     q: "Why no per-user fee?",
@@ -813,42 +805,73 @@ function PriceBlock({ title, price }: { title: string; price: string }) {
 }
 
 function CostsAndExpansion() {
+  const [usageOpen, setUsageOpen] = useState(false);
+
   return (
     <section className="bg-[#FBFAF7] px-5 pb-16 pt-4 sm:px-10 sm:pb-20 lg:px-16">
       <div className="mx-auto max-w-[1280px]">
         <SectionHeading
           eyebrow="No surprises"
           title={<>Know what sits <span className="text-[#777B76]">outside the plan.</span></>}
-          sub="Usage-heavy services and optional specialist help are clear before you enable them."
+          sub="Usage-based services and optional work are clear before you enable them."
         />
-        <div className="mt-8 grid gap-4 lg:grid-cols-2">
-          <Reveal className="rounded-[24px] border border-black/[0.07] bg-white p-6">
-            <Eyebrow>Usage</Eyebrow>
-            <div className="mt-5">
-              {USAGE.map(([name, price, unit], index) => (
-                <div key={name} className={`grid gap-1 py-3.5 sm:grid-cols-[1fr_auto] ${index ? "border-t border-black/[0.06]" : ""}`}>
-                  <p className="text-[13px] font-semibold">{name}</p>
-                  <p className="text-[12px] text-[#5E625E]"><strong>{price}</strong> {unit}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
 
-          <Reveal delay={0.05} className="rounded-[24px] border border-black/[0.07] bg-[#EFE2D2] p-6">
-            <Eyebrow>Add more when you need it</Eyebrow>
-            <div className="mt-5">
-              {ADDONS.map((item, index) => (
-                <div key={item.title} className={`py-3.5 ${index ? "border-t border-black/[0.07]" : ""}`}>
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="text-[16px] font-medium" style={{ fontFamily: DISPLAY }}>{item.title}</h3>
-                    <strong className="text-[11px]">{item.price}</strong>
-                  </div>
-                  <p className="mt-1.5 text-[12px] leading-[1.5] text-[#66615C]">{item.copy}</p>
-                  {item.note ? <p className="mt-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#9A7550]">{item.note}</p> : null}
-                </div>
-              ))}
+        <Reveal className="mt-8 overflow-hidden rounded-[24px] border border-black/[0.07] bg-white shadow-[0_12px_34px_rgba(48,38,29,.035)]">
+          <div className="grid gap-5 p-6 sm:p-7 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <Eyebrow>Usage-based services</Eyebrow>
+              <h3 className="mt-3 text-[26px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>Only pay for what you use.</h3>
+              <p className="mt-2 max-w-[760px] text-[13px] leading-[1.58] text-[#686D69]">
+                SMS, email, WhatsApp and AI voice are billed separately based on usage. Current rates are shown before you enable them.
+              </p>
             </div>
+            <button
+              type="button"
+              aria-expanded={usageOpen}
+              aria-controls="pricing-v3-usage-rates"
+              onClick={() => setUsageOpen((value) => !value)}
+              className="inline-flex h-[42px] w-fit items-center gap-2 rounded-full border border-[#1E2B29]/16 bg-[#F7F4EE] px-4 text-[11.5px] font-semibold text-[#1E2B29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#DDA34B]"
+            >
+              {usageOpen ? "Hide usage rates" : "View current usage rates"}
+              <ChevronDown size={14} className={`transition-transform duration-200 ${usageOpen ? "rotate-180" : ""}`} />
+            </button>
+          </div>
+          <div id="pricing-v3-usage-rates" className={`grid transition-[grid-template-rows,opacity] duration-200 motion-reduce:transition-none ${usageOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+            <div className="overflow-hidden">
+              <div className="border-t border-black/[0.06] px-6 pb-6 sm:px-7">
+                {USAGE.map(([name, price, unit], index) => (
+                  <div key={name} className={`grid gap-1 py-3.5 sm:grid-cols-[1fr_auto] ${index ? "border-t border-black/[0.06]" : ""}`}>
+                    <p className="text-[13px] font-semibold text-[#303330]">{name}</p>
+                    <p className="text-[12px] text-[#5E625E]"><strong>{price}</strong> {unit}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <div className="mt-10 border-t border-black/[0.07] pt-9">
+          <Reveal>
+            <Eyebrow>Optional add-ons</Eyebrow>
+            <h3 className="mt-3 text-[30px] font-medium tracking-[-0.045em] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>Add more when you need it.</h3>
           </Reveal>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {ADDONS.map((item, index) => (
+              <Reveal key={item.title} delay={index * 0.04} className="h-full">
+                <article
+                  className="flex h-full min-h-[210px] flex-col rounded-[22px] border border-black/[0.07] p-5 shadow-[0_10px_28px_rgba(48,38,29,.035)] sm:p-6"
+                  style={{ background: item.background }}
+                >
+                  <span className="h-[6px] w-8 rounded-full" style={{ background: item.accent }} aria-hidden="true" />
+                  <h4 className="mt-5 text-[20px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{item.title}</h4>
+                  <p className="mt-2 text-[12px] leading-[1.55] text-[#68635E]">{item.copy}</p>
+                  <div className="mt-auto border-t border-black/[0.07] pt-4">
+                    <p className="text-[11.5px] font-semibold text-[#343631]">{item.price}</p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
