@@ -366,3 +366,34 @@ html {
     color: var(--color-foreground);
   }
 }
+
+/* Pricing V3 optional add-on card accent: layered translucent circles. */
+article.min-h-\[210px\] > span[aria-hidden="true"] {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin-left: 12px;
+  border-radius: 9999px;
+}
+
+article.min-h-\[210px\] > span[aria-hidden="true"]::before,
+article.min-h-\[210px\] > span[aria-hidden="true"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: inherit;
+}
+
+article.min-h-\[210px\] > span[aria-hidden="true"]::before {
+  left: -12px;
+  opacity: 0.22;
+}
+
+article.min-h-\[210px\] > span[aria-hidden="true"]::after {
+  left: -6px;
+  opacity: 0.5;
+}
