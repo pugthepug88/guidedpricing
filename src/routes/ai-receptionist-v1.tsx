@@ -257,7 +257,7 @@ function Hero() {
               href="#how-it-works"
               className="inline-flex h-[50px] items-center justify-center gap-2 rounded-[11px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-[transform,background-color] duration-200 hover:-translate-y-px hover:bg-[#253633]"
             >
-              See how it works <ArrowRight size={15} />
+              See a call handled <ArrowRight size={15} />
             </a>
             <a
               href={PRICING_URL}
@@ -448,23 +448,21 @@ function BusyMoment() {
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-12 grid border-y border-[#D8CFC3] md:grid-cols-3">
           {moments.map((moment, index) => (
-            <Reveal key={moment.label} delay={index * 0.04}>
-              <article className="overflow-hidden rounded-[22px] border border-[#DED5CA] bg-[#FBFAF7]">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img src={moment.image} alt="" className="h-full w-full object-cover" loading="lazy" />
-                  <div className="absolute inset-x-0 bottom-0 bg-[#111214]/78 px-4 py-3 text-[#F7F4EE]">
-                    <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.13em]">
-                      <Clock size={13} className="text-[#DDA34B]" />
-                      {moment.label}
-                    </div>
-                  </div>
+            <Reveal
+              key={moment.label}
+              delay={index * 0.04}
+              className={"py-6 md:py-8 " + (index > 0 ? "border-t border-[#D8CFC3] md:border-l md:border-t-0 md:pl-6" : "") + (index < moments.length - 1 ? " md:pr-6" : "")}
+            >
+              <div className="relative aspect-[5/3] overflow-hidden">
+                <img src={moment.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+                <div className="absolute left-3 top-3 inline-flex items-center gap-2 bg-[#111214]/82 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
+                  <Clock size={12} className="text-[#DDA34B]" />
+                  {moment.label}
                 </div>
-                <div className="p-5">
-                  <p className="text-[14px] leading-[1.62] text-[#565B56]">{moment.copy}</p>
-                </div>
-              </article>
+              </div>
+              <p className="mt-5 max-w-[360px] text-[14px] leading-[1.62] text-[#565B56]">{moment.copy}</p>
             </Reveal>
           ))}
         </div>
@@ -487,22 +485,27 @@ function HowItWorks() {
           </p>
         </Reveal>
 
-        <div className="relative mt-12 grid gap-3 lg:grid-cols-5">
-          <div className="pointer-events-none absolute left-[9%] right-[9%] top-[31px] hidden h-px bg-[#D8CFC3] lg:block" aria-hidden="true" />
+        <div className="mt-12 border-y border-[#D8CFC3] lg:grid lg:grid-cols-5 lg:divide-x lg:divide-[#D8CFC3]">
           {WORKFLOW_STEPS.map((step, index) => (
-            <Reveal key={step.n} delay={index * 0.035} className="relative">
-              <article className="relative h-full rounded-[18px] border border-[#DDD5CA] bg-[#FBFAF7] p-5">
+            <Reveal
+              key={step.n}
+              delay={index * 0.035}
+              className={"relative py-6 lg:px-5 lg:py-8 " + (index > 0 ? "border-t border-[#D8CFC3] lg:border-t-0" : "")}
+            >
+              <div className="flex items-start gap-5 lg:block">
                 <span
-                  className="relative z-10 flex h-[62px] w-[62px] items-center justify-center rounded-full border-4 border-[#F6F0E8] text-[11px] font-bold tracking-[0.12em]"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[10px] font-bold tracking-[0.12em]"
                   style={{ backgroundColor: step.accent, color: COLORS.dark }}
                 >
                   {step.n}
                 </span>
-                <h3 className="mt-5 text-[23px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-[13px] leading-[1.62] text-[#686D69]">{step.copy}</p>
-              </article>
+                <div className="min-w-0 lg:mt-6">
+                  <h3 className="text-[23px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>
+                    {step.title}
+                  </h3>
+                  <p className="mt-2.5 text-[13px] leading-[1.62] text-[#686D69]">{step.copy}</p>
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>
@@ -628,21 +631,23 @@ function ControlSection() {
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-12 border-y border-[#D8CFC3] md:grid md:grid-cols-3 md:divide-x md:divide-[#D8CFC3]">
           {items.map((item, index) => (
-            <Reveal key={item.title} delay={index * 0.04}>
-              <article className="h-full rounded-[20px] border border-[#DDD5CA] bg-[#FBFAF7] p-6">
-                <span
-                  className="flex h-10 w-10 items-center justify-center rounded-[11px]"
-                  style={{ color: item.accent, backgroundColor: item.accent + "18" }}
-                >
-                  {item.icon}
-                </span>
-                <h3 className="mt-6 text-[24px] font-medium leading-[1.08] tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-[13px] leading-[1.65] text-[#686D69]">{item.copy}</p>
-              </article>
+            <Reveal
+              key={item.title}
+              delay={index * 0.04}
+              className={"py-7 md:px-7 md:py-9 " + (index > 0 ? "border-t border-[#D8CFC3] md:border-t-0" : "")}
+            >
+              <span
+                className="flex h-10 w-10 items-center justify-center rounded-[11px]"
+                style={{ color: item.accent, backgroundColor: item.accent + "18" }}
+              >
+                {item.icon}
+              </span>
+              <h3 className="mt-6 text-[24px] font-medium leading-[1.08] tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>
+                {item.title}
+              </h3>
+              <p className="mt-3 max-w-[340px] text-[13px] leading-[1.65] text-[#686D69]">{item.copy}</p>
             </Reveal>
           ))}
         </div>
@@ -796,21 +801,23 @@ function GuidedSetup() {
             <p className="mt-5 text-[15px] leading-[1.68] text-[#686D69] sm:text-[17px]">
               The useful part is not access to voice AI. It is turning your real call handling into a working system that your team can trust.
             </p>
-            <div className="mt-7 rounded-[18px] border border-[#DDD5CA] bg-[#F6F0E8] p-5">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9A6759]">Setup</div>
-              <div className="mt-2 text-[24px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>From A$997 + GST</div>
+            <div className="mt-8 border-l-2 border-[#D58C75] pl-5">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#9A6759]">Setup from</div>
+              <div className="mt-2 text-[28px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>A$997 + GST</div>
               <div className="mt-2 text-[12px] leading-[1.55] text-[#686D69]">Final scope is confirmed before work starts.</div>
             </div>
           </Reveal>
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="border-y border-[#D8CFC3]">
             {steps.map((step, index) => (
-              <Reveal key={step.n} delay={index * 0.035}>
-                <article className="h-full rounded-[18px] border border-[#DDD5CA] bg-[#FBFAF7] p-5 sm:p-6">
-                  <div className="text-[10px] font-bold tracking-[0.16em] text-[#C96F55]">{step.n}</div>
-                  <h3 className="mt-4 text-[23px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{step.title}</h3>
-                  <p className="mt-3 text-[13px] leading-[1.62] text-[#686D69]">{step.copy}</p>
-                </article>
+              <Reveal
+                key={step.n}
+                delay={index * 0.035}
+                className={"grid gap-4 py-6 sm:grid-cols-[70px_180px_1fr] sm:items-start sm:gap-5 sm:py-7 " + (index > 0 ? "border-t border-[#D8CFC3]" : "")}
+              >
+                <div className="text-[10px] font-bold tracking-[0.16em] text-[#C96F55]">{step.n}</div>
+                <h3 className="text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{step.title}</h3>
+                <p className="max-w-[470px] text-[13px] leading-[1.62] text-[#686D69]">{step.copy}</p>
               </Reveal>
             ))}
           </div>
