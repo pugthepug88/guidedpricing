@@ -859,7 +859,8 @@ function GhostToGold() {
 }
 
 function PriceBlock({ title, price, copy }: { title: string; price: string; copy: string }) {
-  const [amount, gst] = price.split(" + GST");
+  const hasGst = price.includes(" + GST");
+  const amount = price.replace(" + GST", "");
 
   return (
     <div className="rounded-[15px] border border-white/10 bg-black/10 p-4">
@@ -869,7 +870,7 @@ function PriceBlock({ title, price, copy }: { title: string; price: string; copy
       </div>
       <p className="mt-2 flex items-baseline gap-1.5" style={{ fontFamily: DISPLAY }}>
         <span className="text-[22px] font-medium tracking-[-0.035em]">{amount}</span>
-        {gst ? <span className="text-[11px] font-medium tracking-[-0.01em] text-white/48">+ GST</span> : null}
+        {hasGst ? <span className="text-[11px] font-medium tracking-[-0.01em] text-white/48">+ GST</span> : null}
       </p>
       <p className="mt-2.5 text-[11px] leading-[1.5] text-white/58">{copy}</p>
     </div>
