@@ -267,10 +267,10 @@ const FAQS = [
     ],
   },
   {
-    q: "Can different locations be on different plans?",
+    q: "How do additional locations work?",
     a: [
-      "Additional locations can be added under the same organisation. Final pricing and launch scope depend on the plan and how much of the existing setup can be reused.",
-      "Unusual mixed-use or multi-brand situations can be scoped separately.",
+      "Additional locations can be added under the same organisation, with monthly pricing based on the plan used for that location.",
+      "More complex multi-brand or mixed-use setups can be scoped separately.",
     ],
   },
   {
@@ -278,6 +278,21 @@ const FAQS = [
     a: [
       "Standard support covers access, faults and normal product questions and is included on both plans.",
       "Managed Success is optional hands-on help with agreed changes to your Zapla setup, with the monthly scope and price agreed upfront.",
+      "Managed Success can be cancelled with 30 days' notice.",
+    ],
+  },
+  {
+    q: "Can I start on Follow-Through and upgrade to Growth later?",
+    a: [
+      "Yes. You can start with Follow-Through and move to Growth when you need proactive reactivation and marketing campaigns.",
+      "If additional setup is required, we'll confirm that scope before making the change.",
+    ],
+  },
+  {
+    q: "Do I need Guided Launch to use Zapla?",
+    a: [
+      "For a new standard Zapla setup, yes. Guided Launch is how we configure the first working version around your business and get your team live.",
+      "Some standalone services, such as Ghost to Gold, may have their own setup scope instead.",
     ],
   },
   {
@@ -291,7 +306,7 @@ const FAQS = [
     q: "What is the difference between Growth and Ghost to Gold?",
     a: [
       "Growth is for businesses that want to run ongoing reactivation, repeat and marketing campaigns themselves.",
-      "Ghost to Gold is a one-off done-for-you reactivation service. Sprint means Zapla builds and launches the campaign for you. Managed Campaign also monitors replies and hands interested customers back to your team.",
+      "Ghost to Gold is a one-off done-for-you reactivation service. Sprint means Zapla builds and launches the campaign for you. Managed also monitors replies and hands interested customers back to your team.",
     ],
   },
   {
@@ -302,8 +317,18 @@ const FAQS = [
     ],
   },
   {
+    q: "What costs extra beyond my monthly plan?",
+    a: [
+      "Your monthly plan covers the Zapla software and included features. Guided Launch is separate, and usage-based services such as SMS, email, WhatsApp and AI voice are billed separately.",
+      "Optional services such as AI Receptionist, Ghost to Gold, Managed Success, additional locations and custom work are also separate.",
+    ],
+  },
+  {
     q: "Is there a contract or lock-in?",
-    a: ["Both standard plans are month-to-month after launch, with no long-term lock-in."],
+    a: [
+      "Both standard plans are month-to-month after launch. You can cancel at any time, with cancellation taking effect at the end of your current paid billing period.",
+      "There is no early termination fee.",
+    ],
   },
   {
     q: "Why no per-user fee?",
