@@ -216,6 +216,7 @@ const ADDONS = [
   {
     title: "AI Receptionist",
     price: "A$199/mo + GST",
+    secondaryPrice: null,
     setup: "Setup from A$997 + GST",
     copy: "Answers calls, captures details and can book or route enquiries. Includes 200 Voice AI minutes.",
     background: "#EFE2D2",
@@ -224,6 +225,7 @@ const ADDONS = [
   {
     title: "Managed Success",
     price: "From A$697/mo + GST",
+    secondaryPrice: null,
     setup: null,
     copy: "Monthly hands-on help for smaller changes to workflows, forms, pipelines, campaigns and reporting. Scope agreed upfront.",
     background: "#E7E0EC",
@@ -232,10 +234,20 @@ const ADDONS = [
   {
     title: "Custom work",
     price: "Quoted to scope",
+    secondaryPrice: null,
     setup: null,
     copy: "Larger one-off builds, integrations or projects outside your plan and Guided Launch.",
     background: "#E4E6D5",
     accent: COLORS.sage,
+  },
+  {
+    title: "Additional locations",
+    price: "Follow-Through A$299/mo + GST",
+    secondaryPrice: "Growth A$499/mo + GST",
+    setup: null,
+    copy: "Add another location under the same organisation.",
+    background: "#EFE7D5",
+    accent: COLORS.amber,
   },
 ] as const;
 
@@ -872,7 +884,7 @@ function CostsAndExpansion() {
             <Eyebrow>Optional add-ons</Eyebrow>
             <h3 className="mt-3 text-[30px] font-medium tracking-[-0.045em] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>Add more when you need it.</h3>
           </Reveal>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {ADDONS.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.04} className="h-full">
                 <article
@@ -884,6 +896,7 @@ function CostsAndExpansion() {
                   <p className="mt-2 text-[12px] leading-[1.55] text-[#68635E]">{item.copy}</p>
                   <div className="mt-auto border-t border-black/[0.07] pt-4">
                     <p className="text-[11.5px] font-semibold text-[#343631]">{item.price}</p>
+                    {item.secondaryPrice ? <p className="mt-1 text-[11.5px] font-semibold text-[#343631]">{item.secondaryPrice}</p> : null}
                     {item.setup ? <p className="mt-1 text-[10.5px] text-[#68635E]">{item.setup}</p> : null}
                   </div>
                 </article>
