@@ -61,7 +61,7 @@ const PLANS: Plan[] = [
     fit: "Capture every enquiry and keep every call, quote and booking moving.",
     price: "A$399",
     priceLabel: "/mo + GST",
-    launch: "from A$997 + GST",
+    launch: "from A$1,997 + GST",
     outcomes: [
       "Capture and respond to calls, forms, chat and new enquiries",
       "Keep leads and quotes moving",
@@ -78,7 +78,7 @@ const PLANS: Plan[] = [
     fit: "Reactivate dormant leads, bring customers back and run targeted campaigns across your database.",
     price: "A$699",
     priceLabel: "/mo + GST",
-    launch: "from A$1,497 + GST",
+    launch: "from A$2,997 + GST",
     outcomes: [
       "Everything in Follow-Through",
       "Reactivate dormant leads and customers",
@@ -140,11 +140,11 @@ const COMPARISON_GROUPS = [
   {
     title: "Proactive growth",
     rows: [
-      ["Reactivation", "—", "Included", "Scoped"],
-      ["Repeat and recall", "—", "Included", "Scoped"],
-      ["Email marketing broadcasts", "—", "Included", "Scoped"],
+      ["Database reactivation campaigns", "—", "Included", "Scoped"],
+      ["Targeted repeat and recall campaigns", "—", "Included", "Scoped"],
+      ["Email campaigns", "—", "Included", "Scoped"],
       ["Bulk SMS and WhatsApp campaigns", "—", "Included", "Scoped"],
-      ["Advanced segmentation", "—", "Included", "Scoped"],
+      ["Contact groups for targeted campaigns", "—", "Included", "Scoped"],
       ["Campaign templates", "—", "Included", "Scoped"],
       ["Social Planner", "—", "Included", "Scoped"],
       ["Ad Manager", "—", "Included", "Scoped"],
@@ -157,7 +157,7 @@ const COMPARISON_GROUPS = [
       ["Help AI and knowledge centre", "Included", "Included", "Scoped"],
       ["Standard technical support", "Included", "Included", "Scoped"],
       ["Managed Success", "Optional", "Optional", "Scoped"],
-      ["Additional locations", "Inherit organisation tier", "Inherit organisation tier", "Custom scope"],
+      ["Additional locations", "A$249/mo + A$597 launch", "A$449/mo + A$597 launch", "Custom scope"],
     ],
   },
 ] as const;
@@ -165,27 +165,30 @@ const COMPARISON_GROUPS = [
 const LAUNCH_SCOPES = [
   {
     title: "Follow-Through Guided Launch",
-    sub: "Sets up the essentials to capture enquiries, manage follow-up and get your team live. From A$997 + GST.",
+    sub: "Sets up the essentials to capture enquiries, automate follow-up and get your team live. From A$1,997 + GST.",
     items: [
-      "Import up to 5,000 contacts",
-      "Set up a new business number or call forwarding from your existing number",
-      "Set up to 2 sales pipelines",
-      "Set up to 3 forms or surveys",
-      "Set up to 2 calendars",
-      "Set up your follow-up automations",
+      "Zapla workspace and user access configured",
+      "Business email and inbox connected",
+      "A new business number or call forwarding from your existing number",
+      "Import up to 5,000 clean contacts",
+      "Up to 2 sales pipelines configured",
+      "Up to 3 forms or surveys built",
+      "Up to 2 calendars configured",
+      "Up to 3 agreed follow-through automations built and tested",
       "One training session",
       "Testing and go-live",
     ],
   },
   {
     title: "Growth Guided Launch",
-    sub: "Includes Follow-Through setup, plus the tools your team needs to run reactivation and marketing campaigns. From A$1,497 + GST.",
+    sub: "Includes Follow-Through Guided Launch, plus the Growth setup needed for ongoing reactivation and marketing. From A$2,997 + GST.",
     items: [
       "Everything in Follow-Through Guided Launch",
-      "Set up to 3 sales pipelines",
-      "Organise your contacts into useful groups for marketing",
-      "Set up the tools for email, SMS and WhatsApp campaigns",
-      "Add reusable campaign templates where needed",
+      "Up to 3 sales pipelines configured",
+      "Contact groups created for reactivation and marketing",
+      "Email, SMS and WhatsApp channels connected for campaigns",
+      "One agreed repeat, recall or nurture automation built",
+      "Reusable campaign templates added where needed",
     ],
   },
   {
@@ -213,7 +216,7 @@ const ADDONS = [
   {
     title: "AI Receptionist",
     price: "A$199/mo + GST",
-    setup: "Setup from A$497 + GST",
+    setup: "Setup from A$997 + GST",
     copy: "Answers calls, captures details and can book or route enquiries. Includes 200 Voice AI minutes.",
     background: "#EFE2D2",
     accent: COLORS.apricot,
@@ -222,17 +225,25 @@ const ADDONS = [
     title: "Managed Success",
     price: "From A$697/mo + GST",
     setup: null,
-    copy: "Ongoing hands-on help with workflow changes, automations, campaign setup and reporting changes. Scope agreed upfront.",
+    copy: "Monthly hands-on help for smaller changes to workflows, forms, pipelines, campaigns and reporting. Scope agreed upfront.",
     background: "#E7E0EC",
     accent: COLORS.plum,
   },
   {
-    title: "Custom work & extra capacity",
+    title: "Custom work",
     price: "Quoted to scope",
     setup: null,
-    copy: "Additional locations, integrations, reporting, workflows or custom build work.",
+    copy: "Larger one-off builds, integrations or projects outside your plan and Guided Launch.",
     background: "#E4E6D5",
     accent: COLORS.sage,
+  },
+  {
+    title: "Additional locations",
+    price: "Follow-Through A$249/mo + GST",
+    setup: "Growth A$449/mo + GST · Launch A$597 + GST",
+    copy: "Add another location with its own Zapla workspace and launch.",
+    background: "#EFE7D5",
+    accent: COLORS.amber,
   },
 ] as const;
 
@@ -254,34 +265,41 @@ const FAQS = [
   {
     q: "Can different locations be on different plans?",
     a: [
-      "The standard rule is one plan per organisation, and additional locations inherit it.",
-      "Unusual mixed-use situations can be scoped separately as a custom requirement.",
+      "The standard rule is one plan per organisation. Additional Follow-Through locations are A$249/mo + GST and Growth locations are A$449/mo + GST, plus A$597 + GST Guided Launch per additional location.",
+      "Unusual mixed-use or multi-brand situations can be scoped separately.",
     ],
   },
   {
     q: "What is the difference between standard support and Managed Success?",
     a: [
       "Standard support covers access, faults and normal product questions and is included on both plans.",
-      "Managed Success adds a monthly review plus agreed execution time for ongoing optimisation or agreed work.",
+      "Managed Success is optional hands-on help with agreed changes to your Zapla setup, with the monthly scope and price agreed upfront.",
     ],
   },
   {
     q: "Why is Guided Launch separate from the monthly plan?",
     a: [
-      "The monthly plan covers the platform. Guided Launch covers the finite work of mapping your journey, configuring the agreed system, importing your data, training your team and taking the first version live.",
+      "The monthly plan covers the software. Guided Launch covers the finite work of mapping your journey, building the agreed setup, importing your data, training your team and taking the first version live.",
       "Empty software does not change how a business runs, so the first build is treated as its own piece of work.",
+    ],
+  },
+  {
+    q: "What is the difference between Growth and Ghost to Gold?",
+    a: [
+      "Growth is for businesses that want to run ongoing reactivation, repeat and marketing campaigns themselves.",
+      "Ghost to Gold is a one-off done-for-you reactivation service. Sprint means Zapla builds and launches the campaign for you. Managed Campaign also monitors replies and hands interested customers back to your team.",
     ],
   },
   {
     q: "How long does Ghost to Gold take?",
     a: [
-      "It is staged rather than a single blast. Most campaigns run for roughly 3 to 8 weeks, with a standard maximum deployment window of 90 days.",
-      "The standard scope covers up to 2,500 eligible contacts already in your database.",
+      "It is staged rather than a single blast. Most campaigns run for roughly 3 to 8 weeks.",
+      "The standard scope covers up to 2,500 eligible contacts already in your database. Larger databases are quoted to scope.",
     ],
   },
   {
     q: "Is there a contract or lock-in?",
-    a: ["Both standard plans are month-to-month after launch. The current draft has no early termination fee."],
+    a: ["Both standard plans are month-to-month after launch, with no long-term lock-in."],
   },
   {
     q: "Why no per-user fee?",
@@ -636,7 +654,7 @@ function ComparisonGroup({ group, defaultOpen }: { group: (typeof COMPARISON_GRO
 const STAGES = [
   { label: "Map", copy: "Your workflow, team and customer journey.", Icon: Map, color: COLORS.sage },
   { label: "Build", copy: "The system, workflows and connections that matter.", Icon: Boxes, color: COLORS.plum },
-  { label: "Launch", copy: "Training, QA and rollout with your team.", Icon: Rocket, color: COLORS.apricot },
+  { label: "Launch", copy: "Training, testing and go-live with your team.", Icon: Rocket, color: COLORS.apricot },
 ] as const;
 
 function GuidedLaunch() {
@@ -649,7 +667,7 @@ function GuidedLaunch() {
             We don't hand you software.<br /><span className="text-[#D58C75]">We build it around how you work.</span>
           </h2>
           <p className="mt-5 max-w-[620px] text-[15px] leading-[1.65] text-white/56 sm:text-[17px]">
-            We map your customer journey, configure the agreed system, connect the pieces that matter and launch it with your team.
+            We map your customer journey, build the agreed setup, connect what matters and launch it with your team.
           </p>
         </Reveal>
         <GuidedStages />
@@ -759,8 +777,8 @@ function GhostToGold() {
     "One staged campaign, not a single blast",
     "Up to 2,500 eligible contacts",
     "Typical target: roughly 3 to 8 weeks",
-    "Standard maximum deployment: 90 days",
-    "Above 5,000 contacts: custom scope",
+    "Above 2,500 contacts: quoted to scope",
+    "SMS usage charged separately",
   ];
 
   return (
@@ -774,13 +792,21 @@ function GhostToGold() {
                 Start with the database <span className="text-[#DDA34B]">you already own.</span>
               </h2>
               <p className="mt-4 max-w-[610px] text-[14px] leading-[1.65] text-white/58 sm:text-[16px]">
-                A staged reactivation campaign for eligible contacts already in your database, paced around sender readiness and response behaviour rather than an arbitrary 30-day deadline.
+                A one-off reactivation campaign built around dormant leads and past customers already in your database. Choose Sprint if your team will handle replies, or Managed Campaign if you want Zapla to monitor responses and hand interested customers back to you.
               </p>
             </div>
             <div className="rounded-[20px] border border-white/10 bg-white/[0.045] p-5 sm:p-6">
               <div className="grid gap-3 sm:grid-cols-2">
-                <PriceBlock title="Sprint" price="A$997 + GST" />
-                <PriceBlock title="Managed" price="A$1,497 + GST" />
+                <PriceBlock
+                  title="Sprint"
+                  price="A$997 + GST"
+                  copy="We shape the audience, write the SMS sequence, build the workflow, test it and launch it. Your team handles replies."
+                />
+                <PriceBlock
+                  title="Managed Campaign"
+                  price="A$1,497 + GST"
+                  copy="Everything in Sprint, plus campaign monitoring, adjustments and response triage. Interested customers are flagged and handed to your team."
+                />
               </div>
               <div className="mt-5 grid gap-3">
                 {facts.map((fact) => <div key={fact} className="flex items-center gap-3 text-[12.5px] text-white/70"><CircleDot size={14} className="shrink-0 text-[#D58C75]" />{fact}</div>)}
@@ -793,11 +819,12 @@ function GhostToGold() {
   );
 }
 
-function PriceBlock({ title, price }: { title: string; price: string }) {
+function PriceBlock({ title, price, copy }: { title: string; price: string; copy: string }) {
   return (
     <div className="rounded-[15px] border border-white/10 bg-black/10 p-4">
       <p className="text-[10px] text-white/52">Ghost to Gold {title}</p>
       <p className="mt-2 text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{price}</p>
+      <p className="mt-2.5 text-[11px] leading-[1.5] text-white/58">{copy}</p>
     </div>
   );
 }
@@ -853,7 +880,7 @@ function CostsAndExpansion() {
             <Eyebrow>Optional add-ons</Eyebrow>
             <h3 className="mt-3 text-[30px] font-medium tracking-[-0.045em] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>Add more when you need it.</h3>
           </Reveal>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {ADDONS.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.04} className="h-full">
                 <article
