@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, Boxes, Check, ChevronDown, CircleDot, Map, Rocket } from "lucide-react";
+import { ArrowRight, Boxes, Check, ChevronDown, Map, Rocket } from "lucide-react";
 
 export const Route = createFileRoute("/Pricing-v3")({
   staticData: { sitemap: false },
@@ -295,10 +295,10 @@ const FAQS = [
     ],
   },
   {
-    q: "How long does Ghost to Gold take?",
+    q: "How is Ghost to Gold scoped?",
     a: [
-      "It is staged rather than a single blast. Most campaigns run for roughly 3 to 8 weeks.",
-      "The standard scope covers up to 2,500 eligible contacts already in your database. Larger databases are quoted to scope.",
+      "Campaign scope is confirmed upfront based on your database and what needs to be run.",
+      "An active Zapla plan is required while the campaign is running, and SMS usage is charged separately.",
     ],
   },
   {
@@ -778,10 +778,8 @@ function Accordion({ title, sub, open, onToggle, children }: { title: string; su
 
 function GhostToGold() {
   const facts = [
-    "One staged campaign, not a single blast",
-    "Up to 2,500 eligible contacts",
-    "Typical target: roughly 3 to 8 weeks",
-    "Above 2,500 contacts: quoted to scope",
+    "Active Zapla plan required",
+    "Database size scoped upfront",
     "SMS usage charged separately",
   ];
 
@@ -791,29 +789,38 @@ function GhostToGold() {
         <Reveal className="overflow-hidden rounded-[26px] bg-[#1E2B29] p-6 text-[#F7F4EE] sm:p-8 lg:p-10">
           <div className="grid gap-9 lg:grid-cols-[1fr_.9fr] lg:items-center lg:gap-14">
             <div>
-              <Eyebrow light>Ghost to Gold</Eyebrow>
+              <div className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em]">
+                <span className="text-[#DDA34B]">Ghost to Gold</span>
+                <span className="text-white/28" aria-hidden="true">|</span>
+                <span className="text-white/82">Up to 10x ROI</span>
+              </div>
               <h2 className="mt-5 text-[38px] font-medium leading-[0.97] tracking-[-0.052em] sm:text-[50px] lg:text-[58px]" style={{ fontFamily: DISPLAY }}>
                 Start with the database <span className="text-[#DDA34B]">you already own.</span>
               </h2>
               <p className="mt-4 max-w-[610px] text-[14px] leading-[1.65] text-white/58 sm:text-[16px]">
-                A one-off reactivation campaign built around dormant leads and past customers already in your database. Choose Sprint if your team will handle replies, or Managed Campaign if you want Zapla to monitor responses and hand interested customers back to you.
+                A one-off reactivation service for dormant leads and past customers already in your database.
               </p>
             </div>
             <div className="rounded-[20px] border border-white/10 bg-white/[0.045] p-5 sm:p-6">
               <div className="grid gap-3 sm:grid-cols-2">
                 <PriceBlock
                   title="Sprint"
-                  price="A$997 + GST"
-                  copy="We shape the audience, write the SMS sequence, build the workflow, test it and launch it. Your team handles replies."
+                  price="From A$997 + GST"
+                  copy="Zapla builds and launches the campaign. Your team handles replies."
                 />
                 <PriceBlock
                   title="Managed Campaign"
-                  price="A$1,497 + GST"
-                  copy="Everything in Sprint, plus campaign monitoring, adjustments and response triage. Interested customers are flagged and handed to your team."
+                  price="From A$1,497 + GST"
+                  copy="Zapla builds, launches and monitors the campaign, then flags interested customers to your team."
                 />
               </div>
-              <div className="mt-5 grid gap-3">
-                {facts.map((fact) => <div key={fact} className="flex items-center gap-3 text-[12.5px] text-white/70"><CircleDot size={14} className="shrink-0 text-[#D58C75]" />{fact}</div>)}
+              <div className="mt-5 grid gap-3 border-t border-white/10 pt-4 sm:grid-cols-3 sm:gap-4">
+                {facts.map((fact) => (
+                  <div key={fact} className="flex items-center gap-2.5 text-[11.5px] leading-[1.4] text-white/68">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D58C75]" aria-hidden="true" />
+                    <span>{fact}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -826,7 +833,10 @@ function GhostToGold() {
 function PriceBlock({ title, price, copy }: { title: string; price: string; copy: string }) {
   return (
     <div className="rounded-[15px] border border-white/10 bg-black/10 p-4">
-      <p className="text-[10px] text-white/52">Ghost to Gold {title}</p>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[10px] text-white/52">Ghost to Gold {title}</p>
+        <span className="rounded-full border border-white/10 bg-white/[0.045] px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-white/55">One-off</span>
+      </div>
       <p className="mt-2 text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{price}</p>
       <p className="mt-2.5 text-[11px] leading-[1.5] text-white/58">{copy}</p>
     </div>
