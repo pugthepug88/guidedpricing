@@ -814,10 +814,13 @@ function GhostToGold() {
                   copy="Zapla builds, launches and monitors the campaign, then flags interested customers to your team."
                 />
               </div>
-              <div className="mt-5 grid gap-3 border-t border-white/[0.07] pt-4 sm:grid-cols-3 sm:gap-4">
-                {facts.map((fact) => (
-                  <div key={fact} className="flex items-center gap-2 text-[10.5px] leading-[1.4] text-white/48">
-                    <span className="h-1 w-1 shrink-0 rounded-full bg-white/28" aria-hidden="true" />
+              <div className="mt-5 grid gap-3 border-t border-white/[0.09] pt-4 sm:grid-cols-3 sm:gap-0">
+                {facts.map((fact, index) => (
+                  <div
+                    key={fact}
+                    className={`flex items-center gap-2.5 text-[10.5px] leading-[1.4] text-white/64 ${index ? "sm:border-l sm:border-white/[0.09] sm:pl-5" : ""} ${index < facts.length - 1 ? "sm:pr-5" : ""}`}
+                  >
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-[#DDA34B]" aria-hidden="true" />
                     <span>{fact}</span>
                   </div>
                 ))}
