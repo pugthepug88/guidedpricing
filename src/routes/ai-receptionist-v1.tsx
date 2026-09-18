@@ -246,8 +246,8 @@ function Hero() {
             className="mt-4 text-[46px] font-medium leading-[0.94] tracking-[-0.06em] sm:text-[62px] lg:text-[76px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Every call answered.
-            <span className="block">Every next step handled.</span>
+            An AI receptionist
+            <span className="block">that follows through.</span>
           </h1>
           <p className="mt-6 max-w-[610px] text-[16px] leading-[1.68] text-[#686D69] sm:text-[18px]">
             Zapla answers incoming calls, captures what the caller needs, books or routes the next step, and keeps the conversation connected to your CRM and follow-up.
