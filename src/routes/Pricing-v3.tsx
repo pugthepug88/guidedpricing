@@ -779,7 +779,7 @@ function Accordion({ title, sub, open, onToggle, children }: { title: string; su
 function GhostToGold() {
   const facts = [
     "Active Zapla plan required",
-    "Database size scoped upfront",
+    "Pricing scales with database size",
     "SMS usage charged separately",
   ];
 
@@ -801,7 +801,7 @@ function GhostToGold() {
                 A one-off reactivation service for dormant leads and past customers already in your database.
               </p>
             </div>
-            <div className="rounded-[20px] border border-white/10 bg-white/[0.045] p-5 sm:p-6">
+            <div className="rounded-[20px] bg-white/[0.035] p-5 sm:p-6">
               <div className="grid gap-3 sm:grid-cols-2">
                 <PriceBlock
                   title="Sprint"
@@ -809,15 +809,15 @@ function GhostToGold() {
                   copy="Zapla builds and launches the campaign. Your team handles replies."
                 />
                 <PriceBlock
-                  title="Managed Campaign"
+                  title="Managed"
                   price="From A$1,497 + GST"
                   copy="Zapla builds, launches and monitors the campaign, then flags interested customers to your team."
                 />
               </div>
-              <div className="mt-5 grid gap-3 border-t border-white/10 pt-4 sm:grid-cols-3 sm:gap-4">
+              <div className="mt-5 grid gap-3 border-t border-white/[0.07] pt-4 sm:grid-cols-3 sm:gap-4">
                 {facts.map((fact) => (
-                  <div key={fact} className="flex items-center gap-2.5 text-[11.5px] leading-[1.4] text-white/68">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D58C75]" aria-hidden="true" />
+                  <div key={fact} className="flex items-center gap-2 text-[10.5px] leading-[1.4] text-white/48">
+                    <span className="h-1 w-1 shrink-0 rounded-full bg-white/28" aria-hidden="true" />
                     <span>{fact}</span>
                   </div>
                 ))}
@@ -835,7 +835,7 @@ function PriceBlock({ title, price, copy }: { title: string; price: string; copy
     <div className="rounded-[15px] border border-white/10 bg-black/10 p-4">
       <div className="flex items-center justify-between gap-3">
         <p className="text-[10px] text-white/52">Ghost to Gold {title}</p>
-        <span className="rounded-full border border-white/10 bg-white/[0.045] px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-white/55">One-off</span>
+        <span className="whitespace-nowrap rounded-full border border-white/10 bg-white/[0.045] px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-white/55">One-off</span>
       </div>
       <p className="mt-2 text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{price}</p>
       <p className="mt-2.5 text-[11px] leading-[1.5] text-white/58">{copy}</p>
