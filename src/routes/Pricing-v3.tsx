@@ -157,7 +157,7 @@ const COMPARISON_GROUPS = [
       ["Help AI and knowledge centre", "Included", "Included", "Scoped"],
       ["Standard technical support", "Included", "Included", "Scoped"],
       ["Managed Success", "Optional", "Optional", "Scoped"],
-      ["Additional locations", "A$249/mo + A$597 launch", "A$449/mo + A$597 launch", "Custom scope"],
+      ["Additional locations", "Available", "Available", "Custom scope"],
     ],
   },
 ] as const;
@@ -237,14 +237,6 @@ const ADDONS = [
     background: "#E4E6D5",
     accent: COLORS.sage,
   },
-  {
-    title: "Additional locations",
-    price: "Follow-Through A$249/mo + GST",
-    setup: "Growth A$449/mo + GST · Launch A$597 + GST",
-    copy: "Add another location with its own Zapla workspace and launch.",
-    background: "#EFE7D5",
-    accent: COLORS.amber,
-  },
 ] as const;
 
 const FAQS = [
@@ -265,7 +257,7 @@ const FAQS = [
   {
     q: "Can different locations be on different plans?",
     a: [
-      "The standard rule is one plan per organisation. Additional Follow-Through locations are A$249/mo + GST and Growth locations are A$449/mo + GST, plus A$597 + GST Guided Launch per additional location.",
+      "Additional locations can be added under the same organisation. Final pricing and launch scope depend on the plan and how much of the existing setup can be reused.",
       "Unusual mixed-use or multi-brand situations can be scoped separately.",
     ],
   },
@@ -880,7 +872,7 @@ function CostsAndExpansion() {
             <Eyebrow>Optional add-ons</Eyebrow>
             <h3 className="mt-3 text-[30px] font-medium tracking-[-0.045em] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>Add more when you need it.</h3>
           </Reveal>
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
             {ADDONS.map((item, index) => (
               <Reveal key={item.title} delay={index * 0.04} className="h-full">
                 <article
