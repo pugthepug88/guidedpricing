@@ -950,10 +950,15 @@ function StickyMobileCta() {
   const finalRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    const update = () => setVisible(window.scrollY > 520);
+    const update = () => {
+      const nearBottom =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 420;
+      setVisible(window.scrollY > 520 && !nearBottom);
+    };
 
     update();
     window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
 
     const final = document.getElementById("ai-receptionist-final-cta");
     if (final && typeof IntersectionObserver !== "undefined") {
@@ -966,6 +971,7 @@ function StickyMobileCta() {
 
     return () => {
       window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
       finalRef.current?.disconnect();
     };
   }, []);
