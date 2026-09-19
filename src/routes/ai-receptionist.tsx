@@ -4,12 +4,9 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
   Calendar,
-  Check,
   ChevronDown,
-  CornerDownRight,
   Database,
   GitBranch,
-  Headphones,
   MessageSquare,
   Phone,
   PhoneForwarded,
