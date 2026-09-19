@@ -20,7 +20,7 @@ import {
   Wrench,
 } from "lucide-react";
 
-export const Route = createFileRoute("/ai_receptionist")({
+export const Route = createFileRoute("/ai-receptionist")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
