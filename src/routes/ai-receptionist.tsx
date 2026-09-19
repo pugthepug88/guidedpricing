@@ -284,7 +284,7 @@ function Hero() {
 
 function HeroCallDemo() {
   const reduced = !!useReducedMotion();
-  const [active, setActive] = useState(reduced ? CALL_PHASES.length - 1 : 0);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     if (reduced) {
@@ -292,20 +292,13 @@ function HeroCallDemo() {
       return;
     }
 
-    let timer = 0;
-    const delays = [3000, 3000, 3000, 4400];
+    const delay = active === CALL_PHASES.length - 1 ? 4400 : 3000;
+    const timer = window.setTimeout(() => {
+      setActive((active + 1) % CALL_PHASES.length);
+    }, delay);
 
-    const advance = () => {
-      setActive((current) => {
-        const next = current === CALL_PHASES.length - 1 ? 0 : current + 1;
-        timer = window.setTimeout(advance, delays[next]);
-        return next;
-      });
-    };
-
-    timer = window.setTimeout(advance, delays[0]);
     return () => window.clearTimeout(timer);
-  }, [reduced]);
+  }, [active, reduced]);
 
   const current = CALL_PHASES[active];
 
