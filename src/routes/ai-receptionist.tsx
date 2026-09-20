@@ -39,6 +39,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const HERO_IMAGE =
   "https://cdn.openart.ai/openart-uploads/production/attachment-transfers/befc6b19b694f24013c9255a9b9d14f5044236b772a28709c682c6cc47c7b696.png";
 const PETAL_COLORS = ["#E97D62", "#C96C85", "#DDA34B", "#99A36D", "#9B86B8", "#D58C75"] as const;
+const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 const FAQS = [
   {
@@ -185,6 +186,26 @@ function ZaplaPetalSpeaker({ size = 26, reduced = false }: { size?: number; redu
   );
 }
 
+function TeamAvatar({ size, cell, className = "" }: { size: number; cell: number; className?: string }) {
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+
+  return (
+    <span
+      className={`block shrink-0 overflow-hidden rounded-full border-2 border-[#1E2B29] shadow-[0_8px_24px_rgba(0,0,0,.24)] ${className}`}
+      style={{
+        width: size,
+        height: size,
+        backgroundImage: `url(${PORTRAIT_SHEET})`,
+        backgroundPosition: `${(column / 5) * 100}% ${(row / 3) * 100}%`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "600% 400%",
+      }}
+      aria-hidden="true"
+    />
+  );
+}
+
 function HumanHeroCard() {
   const reduced = !!useReducedMotion();
 
@@ -316,10 +337,20 @@ function WhatItHandles() {
                   viewport={{ once: true, amount: 0.6 }}
                   transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.3, ease: EASE }}
                 >
-                  <div className="flex h-[76px] w-[76px] items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-white">
-                    <UserRound size={28} strokeWidth={1.6} />
+                  <div className="flex min-w-[112px] items-end justify-center -space-x-4">
+                    <TeamAvatar size={48} cell={7} className="z-0 opacity-80" />
+                    <motion.span
+                      className="relative z-20 block"
+                      initial={reduced ? false : { opacity: 0, scale: 0.86, y: 4 }}
+                      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.7 }}
+                      transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : 0.42, ease: EASE }}
+                    >
+                      <TeamAvatar size={62} cell={0} />
+                    </motion.span>
+                    <TeamAvatar size={48} cell={14} className="z-10 opacity-80" />
                   </div>
-                  <div className="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/62">Your team</div>
+                  <div className="mt-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/62">Your team</div>
                 </motion.div>
               </div>
 
