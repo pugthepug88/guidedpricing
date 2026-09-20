@@ -378,159 +378,211 @@ function HandleItem({ icon, title, copy }: { icon: ReactNode; title: string; cop
 function FollowThrough() {
   const reduced = !!useReducedMotion();
 
-  const artifacts = [
-    {
-      n: "01",
-      label: "Call",
-      title: "Incoming enquiry",
-      body: (
-        <div className="mt-5 rounded-[16px] border border-white/10 bg-white/[0.035] p-4">
-          <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/42">
-            <Phone size={13} className="text-[#E97D62]" />
-            Caller
-          </div>
-          <div className="mt-3 rounded-[12px] rounded-tl-[4px] bg-white/[0.07] px-3 py-2.5 text-[12px] leading-[1.45] text-white/82">
-            Do you have anything Tuesday morning?
-          </div>
-        </div>
-      ),
-    },
-    {
-      n: "02",
-      label: "Booking",
-      title: "10:30 booked",
-      body: (
-        <div className="mt-5 rounded-[16px] border border-[#DDA34B]/20 bg-[#DDA34B]/[0.055] p-4">
-          <div className="flex items-center justify-between gap-3">
-            <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[#DDA34B]/12 text-[#DDA34B]">
-              <Calendar size={15} />
-            </span>
-            <span className="rounded-full border border-[#99A36D]/25 bg-[#99A36D]/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.11em] text-[#B8C28A]">
-              Booked
-            </span>
-          </div>
-          <div className="mt-4 text-[16px] font-medium tracking-[-0.03em] text-white">Tuesday · 10:30am</div>
-          <div className="mt-1.5 text-[10px] text-white/42">Appointment confirmed</div>
-        </div>
-      ),
-    },
-    {
-      n: "03",
-      label: "Customer",
-      title: "Record updated",
-      body: (
-        <div className="mt-5 rounded-[16px] border border-white/10 bg-white/[0.035] p-4">
-          <div className="flex items-center gap-3">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-white/72">
-              <UserRound size={14} />
-            </span>
-            <div>
-              <div className="text-[11px] font-semibold text-white/84">New customer</div>
-              <div className="mt-0.5 text-[9px] text-white/36">Call context saved</div>
-            </div>
-          </div>
-          <div className="mt-4 divide-y divide-white/[0.07] border-y border-white/[0.07]">
-            <div className="flex items-center justify-between gap-3 py-2 text-[9px]">
-              <span className="text-white/38">Appointment</span>
-              <span className="font-semibold text-white/74">Tue · 10:30am</span>
-            </div>
-            <div className="flex items-center justify-between gap-3 py-2 text-[9px]">
-              <span className="text-white/38">Call notes</span>
-              <span className="inline-flex items-center gap-1 font-semibold text-[#B8C28A]">
-                <Check size={9} strokeWidth={2.4} />
-                Saved
-              </span>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      n: "04",
-      label: "Follow-up",
-      title: "Confirmation sent",
-      body: (
-        <div className="mt-5 rounded-[16px] border border-[#C96C85]/18 bg-[#C96C85]/[0.045] p-4">
-          <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/42">
-            <MessageSquare size={13} className="text-[#C96C85]" />
-            Sent
-          </div>
-          <div className="mt-3 rounded-[12px] rounded-tr-[4px] bg-[#F7F4EE] px-3 py-2.5 text-[11px] font-medium leading-[1.45] text-[#343834]">
-            You’re booked for Tuesday at 10:30am.
-          </div>
-        </div>
-      ),
-    },
-  ] as const;
-
   return (
-    <section className="bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="grid gap-7 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-10">
-          <div>
-            <Eyebrow light>The Zapla difference</Eyebrow>
-            <h2 className="mt-4 max-w-[620px] text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[54px] lg:text-[60px]" style={{ fontFamily: DISPLAY }}>
-              The call ends.
-              <span className="block text-[#DDA34B]">The work keeps moving.</span>
-            </h2>
-          </div>
-          <p className="max-w-[510px] text-[15px] leading-[1.65] text-white/64 sm:text-[16px]">
-            Zapla does not stop at answering. It can book the next step, update the customer record and trigger follow-up while the conversation is still fresh.
+    <section className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_57%_58%,rgba(221,163,75,.07),transparent_30%),radial-gradient(circle_at_72%_45%,rgba(201,108,133,.045),transparent_24%)]" />
+      <div className="relative mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[760px]">
+          <Eyebrow light>The Zapla difference</Eyebrow>
+          <h2 className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[54px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
+            The call ends.
+            <span className="block text-[#DDA34B]">The work keeps moving.</span>
+          </h2>
+          <p className="mt-5 max-w-[570px] text-[15px] leading-[1.65] text-white/60 sm:text-[16px]">
+            One conversation can become the next actions without your team having to pick everything back up.
           </p>
         </Reveal>
 
-        <div className="relative mt-12">
-          <div className="relative mb-5 hidden h-5 lg:block" aria-hidden="true">
-            <div className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px -translate-y-1/2 bg-white/10" />
-            <motion.div
-              className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px origin-left -translate-y-1/2 bg-[#DDA34B]/70"
-              initial={reduced ? false : { scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, amount: 0.7 }}
-              transition={{ duration: reduced ? 0 : 1.05, ease: EASE }}
-            />
-            {[12.5, 37.5, 62.5, 87.5].map((left, index) => (
-              <motion.span
-                key={left}
-                className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/50 bg-[#111214] shadow-[0_0_0_4px_rgba(221,163,75,.06)]"
-                style={{ left: `${left}%` }}
-                initial={reduced ? false : { opacity: 0, scale: 0.7 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.7 }}
-                transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : 0.18 + index * 0.18, ease: EASE }}
+        <Reveal className="mt-10 sm:mt-12">
+          <div className="relative min-h-[720px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[linear-gradient(145deg,#151619_0%,#101113_56%,#161518_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,.025)] sm:min-h-[700px] lg:min-h-[520px]">
+            <div className="pointer-events-none absolute left-[48%] top-1/2 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(221,163,75,.12),rgba(221,163,75,.035)_36%,transparent_70%)] blur-xl" />
+
+            <svg className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 520" fill="none" aria-hidden="true">
+              <motion.path
+                d="M338 264 C420 264 446 258 520 258"
+                stroke="rgba(221,163,75,.62)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.55 }}
+                transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
               />
-            ))}
-          </div>
+              <motion.path
+                d="M660 250 C760 210 820 154 914 122"
+                stroke="rgba(221,163,75,.52)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.55 }}
+                transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.25, ease: EASE }}
+              />
+              <motion.path
+                d="M666 260 C770 260 832 262 938 264"
+                stroke="rgba(153,163,109,.5)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.55 }}
+                transition={{ duration: reduced ? 0 : 0.72, delay: reduced ? 0 : 0.37, ease: EASE }}
+              />
+              <motion.path
+                d="M660 272 C760 310 826 366 920 400"
+                stroke="rgba(201,108,133,.5)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.55 }}
+                transition={{ duration: reduced ? 0 : 0.74, delay: reduced ? 0 : 0.49, ease: EASE }}
+              />
+            </svg>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {artifacts.map((artifact, index) => (
-              <motion.div
-                key={artifact.n}
-                className="min-h-[238px] rounded-[20px] border border-white/10 bg-[#17181B] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,.025)] sm:p-6"
-                initial={reduced ? false : { opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.35 }}
-                transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.09, ease: EASE }}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <div className="text-[9px] font-bold tracking-[0.18em] text-[#DDA34B]">{artifact.n}</div>
-                  <div className="text-[8px] font-semibold uppercase tracking-[0.15em] text-white/32">{artifact.label}</div>
+            <motion.div
+              className="absolute left-6 top-7 w-[calc(100%-3rem)] rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 backdrop-blur-sm sm:left-8 sm:top-9 sm:w-[360px] sm:p-6 lg:left-[4.6%] lg:top-1/2 lg:w-[330px] lg:-translate-y-1/2"
+              initial={reduced ? false : { opacity: 0, x: -18, y: 8 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E97D62]/12 text-[#E97D62]">
+                    <Phone size={15} />
+                  </span>
+                  <div>
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/34">Live call</div>
+                    <div className="mt-0.5 text-[11px] font-semibold text-white/80">New customer enquiry</div>
+                  </div>
                 </div>
-                <h3 className="mt-4 text-[22px] font-medium tracking-[-0.04em] text-white" style={{ fontFamily: DISPLAY }}>{artifact.title}</h3>
-                {artifact.body}
+                <span className="inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#B8C28A]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
+                  00:42
+                </span>
+              </div>
+
+              <div className="mt-6 flex h-[64px] items-center gap-[4px]">
+                {[22,38,28,50,34,58,44,27,53,36,48,25,42,30,56,34,45,26].map((height, index) => (
+                  <motion.span
+                    key={index}
+                    className="w-[3px] rounded-full"
+                    style={{ backgroundColor: index % 5 === 0 ? "#E97D62" : "rgba(255,255,255,.28)" }}
+                    animate={reduced ? { height: height * 0.68 } : { height: [height * 0.48, height, height * 0.6] }}
+                    transition={reduced ? undefined : { duration: 1.2, repeat: Infinity, delay: index * 0.035, ease: "easeInOut" }}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-5 border-t border-white/[0.08] pt-4">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">Caller</div>
+                <div className="mt-2 text-[18px] font-medium leading-[1.35] tracking-[-0.025em] text-white/92" style={{ fontFamily: DISPLAY }}>
+                  “Do you have anything Tuesday morning?”
+                </div>
+              </div>
+            </motion.div>
+
+            <div className="absolute left-1/2 top-[270px] z-20 -translate-x-1/2 sm:top-[280px] lg:left-[52%] lg:top-1/2 lg:-translate-y-1/2">
+              <motion.div
+                className="absolute left-1/2 top-1/2 h-[138px] w-[138px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/12"
+                animate={reduced ? undefined : { scale: [0.84, 1.16], opacity: [0.34, 0] }}
+                transition={reduced ? undefined : { duration: 1.9, repeat: Infinity, ease: "easeOut" }}
+                aria-hidden="true"
+              />
+              <motion.div
+                className="absolute left-1/2 top-1/2 h-[104px] w-[104px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#DDA34B]/[0.035] blur-md"
+                animate={reduced ? undefined : { scale: [0.94, 1.08, 0.94], opacity: [0.7, 1, 0.7] }}
+                transition={reduced ? undefined : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                aria-hidden="true"
+              />
+              <motion.div
+                initial={reduced ? false : { opacity: 0, scale: 0.88 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.15, ease: EASE }}
+              >
+                <ZaplaPetalSpeaker size={88} reduced />
               </motion.div>
-            ))}
+              <div className="mt-3 text-center text-[8px] font-semibold uppercase tracking-[0.18em] text-white/34">Zapla</div>
+            </div>
+
+            <motion.div
+              className="absolute right-6 top-[350px] w-[calc(100%-3rem)] rounded-[20px] border border-[#DDA34B]/18 bg-[#171719]/92 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-8 sm:w-[310px] lg:right-[5%] lg:top-[62px] lg:w-[285px]"
+              initial={reduced ? false : { opacity: 0, x: 18, y: 8 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.3, ease: EASE }}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-[11px] bg-[#DDA34B]/12 text-[#DDA34B]">
+                    <Calendar size={16} />
+                  </span>
+                  <div>
+                    <div className="text-[9px] uppercase tracking-[0.14em] text-white/30">Appointment</div>
+                    <div className="mt-1 text-[15px] font-semibold tracking-[-0.025em] text-white/90">Tuesday · 10:30am</div>
+                  </div>
+                </div>
+                <span className="rounded-full bg-[#99A36D]/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-[#B8C28A]">Booked</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="absolute right-4 top-[455px] w-[calc(100%-2rem)] rounded-[22px] border border-white/[0.09] bg-[#161719]/94 p-4 shadow-[0_20px_48px_rgba(0,0,0,.28)] backdrop-blur-lg sm:right-14 sm:w-[340px] lg:right-[9%] lg:top-[212px] lg:w-[318px]"
+              initial={reduced ? false : { opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.42, ease: EASE }}
+            >
+              <div className="flex items-center gap-3">
+                <TeamAvatar size={38} cell={0} className="border-white/10" />
+                <div className="min-w-0 flex-1">
+                  <div className="text-[9px] uppercase tracking-[0.14em] text-white/30">Customer record</div>
+                  <div className="mt-1 text-[14px] font-semibold text-white/90">New customer added</div>
+                </div>
+                <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-[#B8C28A]">
+                  <Check size={10} strokeWidth={2.4} />
+                  Notes saved
+                </span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="absolute right-8 top-[558px] w-[calc(100%-4rem)] rounded-[18px] border border-[#C96C85]/16 bg-[#181619]/95 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-10 sm:w-[320px] lg:right-[4.5%] lg:top-[360px] lg:w-[300px]"
+              initial={reduced ? false : { opacity: 0, x: 16, y: -4 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.54, ease: EASE }}
+            >
+              <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#D69AAF]">
+                <MessageSquare size={13} />
+                Confirmation sent
+              </div>
+              <div className="mt-3 rounded-[12px] rounded-tr-[4px] bg-[#F7F4EE] px-3 py-2.5 text-[11px] font-medium leading-[1.45] text-[#343834]">
+                You’re booked for Tuesday at 10:30am.
+              </div>
+            </motion.div>
+
+            <div className="absolute bottom-5 left-6 right-6 hidden items-center gap-3 border-t border-white/[0.08] pt-4 lg:flex">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#DDA34B]/12 text-[#DDA34B]">
+                <Check size={12} strokeWidth={2.4} />
+              </span>
+              <p className="text-[13px] font-semibold text-white/72">
+                One call in. Three jobs already handled.
+              </p>
+            </div>
           </div>
 
-          <Reveal className="mt-6 flex items-start gap-3 border-t border-white/10 pt-5.5">
-            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#DDA34B]/14 text-[#DDA34B]">
+          <div className="mt-5 flex items-start gap-3 border-t border-white/[0.08] pt-5 lg:hidden">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#DDA34B]/12 text-[#DDA34B]">
               <Check size={12} strokeWidth={2.4} />
             </span>
-            <p className="max-w-[760px] text-[13px] font-semibold leading-[1.55] text-white/78 sm:text-[14px]">
-              So the call does not become another thing your team has to remember.
+            <p className="text-[13px] font-semibold leading-[1.55] text-white/72">
+              One call in. Three jobs already handled.
             </p>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
