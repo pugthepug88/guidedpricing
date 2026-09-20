@@ -185,15 +185,15 @@ function HumanHeroCard() {
 
             <div className="mt-3 space-y-2.5">
               <div className="max-w-[82%]">
-                <div className="mb-1 text-[8px] font-semibold uppercase tracking-[0.14em] text-[#817A72]">Caller</div>
-                <div className="rounded-[14px] rounded-tl-[5px] border border-white/55 bg-white/55 px-3 py-2 text-[11px] font-medium leading-[1.42] text-[#343834] shadow-[0_4px_14px_rgba(22,25,24,.05)]">
+                <div className="mb-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#817A72]">Caller</div>
+                <div className="rounded-[14px] rounded-tl-[5px] border border-white/55 bg-white/55 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#343834] shadow-[0_4px_14px_rgba(22,25,24,.05)]">
                   Do you have anything Tuesday morning?
                 </div>
               </div>
 
               <div className="ml-auto max-w-[88%]">
-                <div className="mb-1 text-right text-[8px] font-semibold uppercase tracking-[0.14em] text-[#69735D]">Zapla AI</div>
-                <div className="rounded-[14px] rounded-tr-[5px] bg-[#1E2B29]/95 px-3 py-2 text-[11px] font-medium leading-[1.42] text-[#F7F4EE] shadow-[0_6px_16px_rgba(22,25,24,.12)]">
+                <div className="mb-1 text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-[#69735D]">Zapla AI</div>
+                <div className="rounded-[14px] rounded-tr-[5px] bg-[#1E2B29]/95 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#F7F4EE] shadow-[0_6px_16px_rgba(22,25,24,.12)]">
                   Yes, 10:30 is available. Want me to book it?
                 </div>
               </div>
