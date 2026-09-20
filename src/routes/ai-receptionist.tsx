@@ -33,6 +33,7 @@ const PRICING_URL = "/Pricing-v3";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
+const PETAL_COLORS = ["#E97D62", "#C96C85", "#DDA34B", "#99A36D", "#9B86B8", "#D58C75"] as const;
 
 const FAQS = [
   {
@@ -147,6 +148,38 @@ function Hero() {
   );
 }
 
+function ZaplaPetalSpeaker({ size = 26, reduced = false }: { size?: number; reduced?: boolean }) {
+  return (
+    <span className="relative flex shrink-0 items-center justify-center" style={{ width: size + 8, height: size + 8 }} aria-label="Zapla">
+      <motion.span
+        className="absolute inset-0 rounded-full border border-[#D58C75]/25"
+        animate={reduced ? undefined : { scale: [0.72, 1.35], opacity: [0.28, 0] }}
+        transition={reduced ? undefined : { duration: 1.45, repeat: Infinity, ease: "easeOut" }}
+        aria-hidden="true"
+      />
+      <motion.span
+        className="relative block"
+        animate={reduced ? undefined : { scale: [1, 1.055, 0.985, 1] }}
+        transition={reduced ? undefined : { duration: 1.45, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <svg width={size} height={size} viewBox="0 0 160 160" aria-hidden="true" className="block overflow-visible">
+          {PETAL_COLORS.map((color, index) => (
+            <g key={color} transform={`rotate(${index * 60} 80 80)`}>
+              <path
+                d="M80 14 C95 14 104 25 102 42 C100 58 92 70 80 82 C68 70 60 58 58 42 C56 25 65 14 80 14 Z"
+                fill={color}
+                stroke={color}
+                strokeWidth="1.4"
+              />
+            </g>
+          ))}
+          <circle cx="80" cy="80" r="14" fill="#111214" stroke="rgba(255,255,255,.08)" />
+        </svg>
+      </motion.span>
+    </span>
+  );
+}
+
 function HumanHeroCard() {
   const reduced = !!useReducedMotion();
 
@@ -191,8 +224,8 @@ function HumanHeroCard() {
                 </div>
               </div>
 
-              <div className="ml-auto max-w-[88%]">
-                <div className="mb-1 text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-[#69735D]">Zapla AI</div>
+              <div className="ml-auto flex max-w-[92%] items-end justify-end gap-2">
+                <ZaplaPetalSpeaker size={26} reduced={reduced} />
                 <div className="rounded-[14px] rounded-tr-[5px] bg-[#1E2B29]/95 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#F7F4EE] shadow-[0_6px_16px_rgba(22,25,24,.12)]">
                   Yes, 10:30 is available. Want me to book it?
                 </div>
