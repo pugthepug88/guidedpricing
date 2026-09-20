@@ -39,19 +39,11 @@ export function SiteNav() {
   // Every non-home route inherits the homepage header geometry. Light pages begin in
   // the same glass state the homepage uses after its cinematic hero.
   const lightSitePage = !cinematicV5;
-  const cinematicGeometry = true;
-  const [scrolled, setScrolled] = useState(false);
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [cinematicPastHero, setCinematicPastHero] = useState(false);
   const lightGlassState = cinematicPastHero || lightSitePage;
   const [openMenu, setOpenMenu] = useState<null | "products" | "resources">(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     if (!cinematicV5) {
@@ -74,14 +66,12 @@ export function SiteNav() {
 
   const cinematicAtTop = cinematicV5 && !cinematicPastHero && cinematicProgress < 0.025;
 
-  const linkCls = cinematicGeometry
-    ? lightGlassState
-      ? "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/78 transition hover:text-zapla-blue"
-      : "inline-flex items-center gap-1 text-[15px] font-medium text-white/90 transition hover:text-white"
-    : "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
+  const linkCls = lightGlassState
+    ? "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/78 transition hover:text-zapla-blue"
+    : "inline-flex items-center gap-1 text-[15px] font-medium text-white/90 transition hover:text-white";
 
   const cinematicNavClass = lightGlassState
-    ? `${cinematicV5 ? "fixed" : "sticky"} inset-x-0 top-0 z-50 border-b border-zapla-line/70 bg-white/[0.78] shadow-[0_10px_30px_rgba(15,23,42,.07)] backdrop-blur-[16px] backdrop-saturate-[1.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out`
+    ? "fixed inset-x-0 top-0 z-50 border-b border-zapla-line/70 bg-white/[0.78] shadow-[0_10px_30px_rgba(15,23,42,.07)] backdrop-blur-[16px] backdrop-saturate-[1.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
     : cinematicAtTop
       ? "fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
       : "fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#090E15]/[0.22] shadow-[0_8px_28px_rgba(0,0,0,.09)] backdrop-blur-[12px] backdrop-saturate-[1.02] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out";
@@ -91,17 +81,7 @@ export function SiteNav() {
     : "inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#1D4ED8] hover:shadow-zapla-blue";
 
   return (
-    <nav
-      className={
-        cinematicGeometry
-          ? cinematicNavClass
-          : `sticky top-0 z-50 transition-all duration-300 ${
-              scrolled
-                ? "border-b border-zapla-line bg-white/90 backdrop-blur-xl"
-                : "border-b border-transparent bg-white/60 backdrop-blur"
-            }`
-      }
-    >
+    <nav className={cinematicNavClass}>
       <div
         className="flex w-full items-center justify-between gap-4 px-[6vw] py-2.5 lg:px-[5.5vw]"
       >
