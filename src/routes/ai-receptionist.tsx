@@ -161,18 +161,13 @@ function Hero() {
 }
 
 function HumanHeroCard() {
-  const reduced = !!useReducedMotion();
-
   return (
     <div className="relative overflow-hidden rounded-[24px] bg-[#111214] shadow-[0_28px_78px_rgba(57,45,32,.16)]">
       <div className="relative min-h-[470px] sm:min-h-[560px] lg:min-h-[620px]">
-        <motion.img
+        <img
           src="/concept/operator-away/poster.jpg"
           alt="Small business owner working while checking her phone"
-          className="absolute inset-0 h-full w-full object-cover"
-          initial={reduced ? false : { scale: 1.015 }}
-          animate={reduced ? undefined : { scale: [1.015, 1.035, 1.015] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-0 h-full w-full object-cover object-[34%_50%] sm:object-[32%_50%] lg:object-[30%_50%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/[0.04] to-transparent" />
 
@@ -229,22 +224,37 @@ function WhatItHandles() {
           </Reveal>
 
           <Reveal>
-            <div className="relative h-full min-h-[420px] overflow-hidden rounded-[24px] bg-[#111214]">
-              <img
-                src="/concept/human-work/agent.jpg"
-                alt="Service professional speaking with customers"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/62 via-black/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-8">
+            <div className="flex h-full min-h-[420px] flex-col justify-between overflow-hidden rounded-[24px] bg-[#1E2B29] p-6 text-[#F7F4EE] sm:p-8 lg:p-10">
+              <div>
                 <div className="text-[10px] font-semibold uppercase tracking-[0.17em] text-[#DDA34B]">Human handoff</div>
-                <h3 className="mt-3 max-w-[470px] text-[31px] font-medium leading-[1.02] tracking-[-0.045em]" style={{ fontFamily: DISPLAY }}>
+                <h3 className="mt-4 max-w-[470px] text-[34px] font-medium leading-[1.01] tracking-[-0.047em] sm:text-[39px]" style={{ fontFamily: DISPLAY }}>
                   The calls that need a person still get a person.
                 </h3>
-                <p className="mt-4 max-w-[470px] text-[13px] leading-[1.65] text-white/68">
-                  You decide when Zapla answers, when it takes details, and when it hands the conversation to your team.
-                </p>
               </div>
+
+              <div className="my-10 flex items-center gap-4 sm:gap-5">
+                <div className="min-w-0 flex-1 rounded-[18px] border border-white/10 bg-white/[0.04] p-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F7F4EE] text-[#1E2B29]">
+                      <Phone size={16} />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/40">Zapla</div>
+                      <div className="mt-1 text-[12px] font-semibold text-white/90">Caller needs your team</div>
+                    </div>
+                  </div>
+                </div>
+
+                <ArrowRight size={18} className="shrink-0 text-[#DDA34B]" />
+
+                <div className="flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-white">
+                  <UserRound size={28} strokeWidth={1.6} />
+                </div>
+              </div>
+
+              <p className="max-w-[500px] border-t border-white/10 pt-5 text-[13px] leading-[1.65] text-white/66">
+                You decide when Zapla answers, when it takes details, and when it hands the conversation to your team.
+              </p>
             </div>
           </Reveal>
         </div>
@@ -287,15 +297,38 @@ function FollowThrough() {
           </p>
         </Reveal>
 
-        <Reveal className="mt-12 overflow-hidden rounded-[24px] border border-white/10 bg-[#17181B]">
-          <div className="grid md:grid-cols-4 md:divide-x md:divide-white/10">
+        <Reveal className="mt-12 overflow-hidden rounded-[24px] border border-white/10 bg-[#17181B] px-6 py-7 sm:px-8 sm:py-9 lg:px-10 lg:py-10">
+          <div className="hidden items-start md:grid md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]">
             {steps.map(([n, title, copy], index) => (
-              <div key={n} className={"p-6 sm:p-7 lg:p-8 " + (index ? "border-t border-white/10 md:border-t-0" : "")}>
-                <div className="text-[10px] font-bold tracking-[0.18em] text-[#DDA34B]">{n}</div>
-                <h3 className="mt-5 text-[25px] font-medium tracking-[-0.04em] text-white" style={{ fontFamily: DISPLAY }}>{title}</h3>
-                <p className="mt-3 text-[13px] leading-[1.62] text-white/52">{copy}</p>
+              <div key={n} className="contents">
+                <div className="min-w-0">
+                  <div className="text-[10px] font-bold tracking-[0.18em] text-[#DDA34B]">{n}</div>
+                  <h3 className="mt-4 text-[25px] font-medium tracking-[-0.04em] text-white" style={{ fontFamily: DISPLAY }}>{title}</h3>
+                  <p className="mt-3 max-w-[220px] text-[12px] leading-[1.6] text-white/48">{copy}</p>
+                </div>
+                {index < steps.length - 1 ? (
+                  <div className="flex h-full items-center px-5 pt-8 text-[#DDA34B]">
+                    <ArrowRight size={18} />
+                  </div>
+                ) : null}
               </div>
             ))}
+          </div>
+
+          <div className="md:hidden">
+            {steps.map(([n, title, copy], index) => (
+              <div key={n} className={"grid grid-cols-[40px_1fr] gap-4 py-4 " + (index ? "border-t border-white/10" : "")}>
+                <div className="pt-1 text-[10px] font-bold tracking-[0.18em] text-[#DDA34B]">{n}</div>
+                <div>
+                  <h3 className="text-[22px] font-medium tracking-[-0.035em] text-white" style={{ fontFamily: DISPLAY }}>{title}</h3>
+                  <p className="mt-2 text-[12px] leading-[1.6] text-white/50">{copy}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 border-t border-white/10 pt-5 text-[12px] font-semibold text-white/70">
+            The call does not become another message to chase later.
           </div>
         </Reveal>
       </div>
@@ -369,7 +402,7 @@ function PriceLine({ label, value }: { label: string; value: string }) {
 }
 
 function Faq() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
