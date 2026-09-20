@@ -148,6 +148,8 @@ function Hero() {
 }
 
 function HumanHeroCard() {
+  const reduced = !!useReducedMotion();
+
   return (
     <div className="relative overflow-hidden rounded-[24px] bg-[#111214] shadow-[0_28px_78px_rgba(57,45,32,.16)]">
       <div className="relative min-h-[470px] sm:min-h-[560px] lg:min-h-[620px]">
