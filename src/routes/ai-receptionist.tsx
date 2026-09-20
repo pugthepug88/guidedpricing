@@ -106,9 +106,10 @@ function Hero() {
           >
             Your phone rings.
             <span className="block">Zapla picks up.</span>
+            <span className="block text-[#C96F55]">You keep working.</span>
           </h1>
           <p className="mt-6 max-w-[570px] text-[16px] leading-[1.68] text-[#626762] sm:text-[18px]">
-            Answer routine enquiries, capture what matters, book or route the next step, and keep the follow-up moving when your team is busy.
+            Zapla handles routine calls, captures what matters, books or routes the next step, and keeps follow-up moving while your team stays focused.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -193,7 +194,7 @@ function WhatItHandles() {
         <Reveal className="max-w-[860px]">
           <Eyebrow>Keep the routine moving</Eyebrow>
           <h2 className="mt-4 text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
-            Let AI handle the calls that should not stop your day.
+            Stay with the work in front of you. Zapla handles the call.
           </h2>
         </Reveal>
 
@@ -439,7 +440,7 @@ function FinalCta() {
       <Reveal className="mx-auto max-w-[980px] text-center">
         <Eyebrow light>Keep the next call moving</Eyebrow>
         <h2 className="mx-auto mt-4 max-w-[860px] text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]" style={{ fontFamily: DISPLAY }}>
-          Let the phone ring without stopping the work.
+          Keep working. Zapla keeps the call moving.
         </h2>
         <p className="mx-auto mt-5 max-w-[620px] text-[15px] leading-[1.7] text-white/58 sm:text-[17px]">
           We will map the routine calls your team handles today and show you where Zapla can answer, act or hand off.
