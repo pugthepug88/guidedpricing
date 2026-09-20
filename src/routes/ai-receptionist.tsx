@@ -249,13 +249,15 @@ function HumanHeroCard() {
 }
 
 function WhatItHandles() {
+  const reduced = !!useReducedMotion();
+
   return (
     <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[860px]">
           <Eyebrow>Keep the routine moving</Eyebrow>
           <h2 className="mt-4 text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
-            Stay with the work in front of you. Zapla handles the call.
+            The routine gets handled. The calls that need you still reach you.
           </h2>
         </Reveal>
 
@@ -263,10 +265,10 @@ function WhatItHandles() {
           <Reveal>
             <div className="h-full rounded-[24px] bg-[#F1EADF] p-6 sm:p-8 lg:p-10">
               <div className="grid gap-7 sm:grid-cols-2">
-                <HandleItem icon={<MessageSquare size={18} />} title="Routine questions" copy="Hours, services, availability and the information you choose to provide." />
-                <HandleItem icon={<Calendar size={18} />} title="Bookings" copy="Move suitable callers into the appointment flow you have set." />
-                <HandleItem icon={<UserRound size={18} />} title="Caller details" copy="Capture names, contact details and the reason they called." />
-                <HandleItem icon={<PhoneForwarded size={18} />} title="Routing" copy="Send the call to the right person when it should not stay with AI." />
+                <HandleItem icon={<MessageSquare size={18} />} title="Routine questions" copy="Hours, services, availability and common questions." />
+                <HandleItem icon={<Calendar size={18} />} title="Bookings" copy="Move suitable callers straight into your booking flow." />
+                <HandleItem icon={<UserRound size={18} />} title="Caller details" copy="Capture who called, how to reach them and why." />
+                <HandleItem icon={<PhoneForwarded size={18} />} title="Routing" copy="Send the call to the right person when AI should step aside." />
               </div>
             </div>
           </Reveal>
@@ -276,31 +278,49 @@ function WhatItHandles() {
               <div>
                 <div className="text-[10px] font-semibold uppercase tracking-[0.17em] text-[#DDA34B]">Human handoff</div>
                 <h3 className="mt-4 max-w-[470px] text-[34px] font-medium leading-[1.01] tracking-[-0.047em] sm:text-[39px]" style={{ fontFamily: DISPLAY }}>
-                  The calls that need a person still get a person.
+                  When the call needs a person, it moves to your team.
                 </h3>
               </div>
 
               <div className="my-10 flex items-center gap-4 sm:gap-5">
-                <div className="min-w-0 flex-1 rounded-[18px] border border-white/10 bg-white/[0.04] p-4">
+                <motion.div
+                  className="min-w-0 flex-1 rounded-[18px] border border-white/10 bg-white/[0.04] p-4"
+                  initial={reduced ? false : { opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
+                >
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F7F4EE] text-[#1E2B29]">
-                      <Phone size={16} />
-                    </span>
+                    <ZaplaPetalSpeaker size={28} reduced />
                     <div className="min-w-0">
                       <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/62">Zapla</div>
                       <div className="mt-1 text-[12px] font-semibold text-white/90">Caller needs your team</div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
-                <ArrowRight size={18} className="shrink-0 text-[#DDA34B]" />
+                <motion.div
+                  className="shrink-0 text-[#DDA34B]"
+                  initial={reduced ? false : { opacity: 0, x: -8 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ duration: reduced ? 0 : 0.36, delay: reduced ? 0 : 0.16, ease: EASE }}
+                >
+                  <ArrowRight size={18} />
+                </motion.div>
 
-                <div className="shrink-0 text-center">
+                <motion.div
+                  className="shrink-0 text-center"
+                  initial={reduced ? false : { opacity: 0, scale: 0.92 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.3, ease: EASE }}
+                >
                   <div className="flex h-[76px] w-[76px] items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-white">
                     <UserRound size={28} strokeWidth={1.6} />
                   </div>
                   <div className="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/62">Your team</div>
-                </div>
+                </motion.div>
               </div>
 
               <p className="max-w-[500px] border-t border-white/10 pt-5 text-[13px] leading-[1.65] text-white/66">
