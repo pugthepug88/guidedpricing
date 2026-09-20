@@ -6,7 +6,6 @@ import {
   Calendar,
   Check,
   ChevronDown,
-  Headphones,
   MessageSquare,
   Phone,
   PhoneForwarded,
