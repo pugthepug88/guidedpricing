@@ -198,7 +198,7 @@ function HumanHeroCard() {
             initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.18, ease: EASE }}
-            className="w-full rounded-[20px] border border-white/55 bg-[#F7F4EE]/78 p-3.5 shadow-[0_16px_38px_rgba(22,25,24,.15)] backdrop-blur-xl sm:p-4"
+            className="w-full rounded-[20px] border border-white/65 bg-[#F7F4EE]/70 p-3.5 shadow-[0_16px_38px_rgba(22,25,24,.15)] backdrop-blur-2xl sm:p-4"
           >
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5">
@@ -225,10 +225,10 @@ function HumanHeroCard() {
               </div>
 
               <div className="ml-auto flex max-w-[92%] items-end justify-end gap-2">
-                <ZaplaPetalSpeaker size={26} reduced={reduced} />
-                <div className="rounded-[14px] rounded-tr-[5px] bg-[#1E2B29]/95 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#F7F4EE] shadow-[0_6px_16px_rgba(22,25,24,.12)]">
+                <div className="rounded-[14px] rounded-br-[5px] bg-[#1E2B29]/95 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#F7F4EE] shadow-[0_6px_16px_rgba(22,25,24,.12)]">
                   Yes, 10:30 is available. Want me to book it?
                 </div>
+                <ZaplaPetalSpeaker size={26} reduced={reduced} />
               </div>
             </div>
           </motion.div>
