@@ -160,30 +160,43 @@ function HumanHeroCard() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/[0.04] to-transparent" />
 
-        <div className="absolute bottom-5 left-4 right-4 sm:bottom-16 sm:left-5 sm:right-auto sm:w-[350px] lg:bottom-[72px] lg:left-6 lg:w-[360px]">
+        <div className="absolute bottom-5 left-4 right-4 sm:bottom-14 sm:left-5 sm:right-auto sm:w-[390px] lg:bottom-[64px] lg:left-6 lg:w-[400px]">
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.18, ease: EASE }}
-            className="w-full rounded-[18px] border border-white/55 bg-[#F7F4EE]/80 px-4 py-3.5 shadow-[0_14px_34px_rgba(22,25,24,.14)] backdrop-blur-xl sm:px-4"
+            className="w-full rounded-[20px] border border-white/55 bg-[#F7F4EE]/78 p-3.5 shadow-[0_16px_38px_rgba(22,25,24,.15)] backdrop-blur-xl sm:p-4"
           >
-            <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1E2B29]/95 text-[#F7F4EE] shadow-sm">
-                <Phone size={13} strokeWidth={2} />
-              </span>
-
-              <div className="min-w-0 flex-1">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#746E67]">Incoming call</div>
-                <div className="mt-1 truncate text-[14px] font-semibold leading-none text-[#111318]">New customer enquiry</div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1E2B29]/95 text-[#F7F4EE] shadow-sm">
+                  <Phone size={12} strokeWidth={2} />
+                </span>
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#6E6962]">Live call</div>
+                  <div className="mt-0.5 text-[10px] font-medium text-[#777168]">New customer enquiry</div>
+                </div>
               </div>
-
-              <span className="shrink-0 rounded-full border border-white/50 bg-[#E7EAD9]/75 px-2.5 py-1 text-[9px] font-semibold text-[#66705A] backdrop-blur-sm">
-                Handled
-              </span>
+              <div className="flex items-center gap-1.5 text-[9px] font-semibold text-[#66705A]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
+                00:42
+              </div>
             </div>
 
-            <div className="mt-3 border-t border-white/55 pt-2.5 text-[11.5px] font-medium leading-[1.45] text-[#575C58]">
-              Zapla has it. You keep working.
+            <div className="mt-3 space-y-2.5">
+              <div className="max-w-[82%]">
+                <div className="mb-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#817A72]">Caller</div>
+                <div className="rounded-[14px] rounded-tl-[5px] border border-white/55 bg-white/55 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#343834] shadow-[0_4px_14px_rgba(22,25,24,.05)]">
+                  Do you have anything Tuesday morning?
+                </div>
+              </div>
+
+              <div className="ml-auto max-w-[88%]">
+                <div className="mb-1 text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-[#69735D]">Zapla AI</div>
+                <div className="rounded-[14px] rounded-tr-[5px] bg-[#1E2B29]/95 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#F7F4EE] shadow-[0_6px_16px_rgba(22,25,24,.12)]">
+                  Yes, 10:30 is available. Want me to book it?
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
