@@ -76,7 +76,7 @@ function Reveal({ children, className = "" }: { children: ReactNode; className?:
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.16 }}
       transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
@@ -170,7 +170,7 @@ function HumanHeroCard() {
                 <Phone size={16} />
               </span>
               <div className="min-w-0 flex-1">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8A8178]">Incoming call</div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#6F6A63]">Incoming call</div>
                 <div className="mt-1 text-[14px] font-semibold text-[#111318]">New customer enquiry</div>
               </div>
               <span className="rounded-full bg-[#E7EAD9] px-3 py-1.5 text-[10px] font-semibold text-[#66705A]">Answered</span>
@@ -226,7 +226,7 @@ function WhatItHandles() {
                       <Phone size={16} />
                     </span>
                     <div className="min-w-0">
-                      <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/40">Zapla</div>
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/62">Zapla</div>
                       <div className="mt-1 text-[12px] font-semibold text-white/90">Caller needs your team</div>
                     </div>
                   </div>
@@ -238,7 +238,7 @@ function WhatItHandles() {
                   <div className="flex h-[76px] w-[76px] items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-white">
                     <UserRound size={28} strokeWidth={1.6} />
                   </div>
-                  <div className="mt-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-white/45">Your team</div>
+                  <div className="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/62">Your team</div>
                 </div>
               </div>
 
@@ -294,7 +294,7 @@ function FollowThrough() {
                 <div className="min-w-0">
                   <div className="text-[10px] font-bold tracking-[0.18em] text-[#DDA34B]">{n}</div>
                   <h3 className="mt-4 text-[25px] font-medium tracking-[-0.04em] text-white" style={{ fontFamily: DISPLAY }}>{title}</h3>
-                  <p className="mt-3 max-w-[220px] text-[12px] leading-[1.6] text-white/48">{copy}</p>
+                  <p className="mt-3 max-w-[220px] text-[12px] leading-[1.6] text-white/62">{copy}</p>
                 </div>
                 {index < steps.length - 1 ? (
                   <div className="flex h-full items-center px-5 pt-8 text-[#DDA34B]">
@@ -385,7 +385,7 @@ function SetupAndPricing() {
 function PriceLine({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid grid-cols-[120px_1fr] gap-5 py-4">
-      <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/40">{label}</div>
+      <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/62">{label}</div>
       <div className="text-[13px] font-semibold text-white/88">{value}</div>
     </div>
   );
