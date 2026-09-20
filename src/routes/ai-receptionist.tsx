@@ -165,7 +165,7 @@ function HumanHeroCard() {
             initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.18, ease: EASE }}
-            className="w-full rounded-[20px] border border-white/45 bg-[#F7F4EE]/95 px-4 py-4 shadow-[0_18px_45px_rgba(0,0,0,.18)] backdrop-blur-md sm:px-5"
+            className="w-full rounded-[18px] border border-white/55 bg-[#F7F4EE]/80 px-4 py-3.5 shadow-[0_14px_34px_rgba(22,25,24,.14)] backdrop-blur-xl sm:px-4"
           >
             <div className="flex items-center gap-3">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1E2B29] text-[#F7F4EE]">
