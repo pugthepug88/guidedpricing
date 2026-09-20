@@ -376,63 +376,152 @@ function HandleItem({ icon, title, copy }: { icon: ReactNode; title: string; cop
 }
 
 function FollowThrough() {
-  const steps = [
-    ["01", "Answer", "The call gets picked up."],
-    ["02", "Take action", "Book, route or capture the next step."],
-    ["03", "Update Zapla", "Keep the customer context with the record."],
-    ["04", "Follow through", "Trigger the next message, task or pipeline move."],
+  const reduced = !!useReducedMotion();
+
+  const artifacts = [
+    {
+      n: "01",
+      label: "Call",
+      title: "Incoming enquiry",
+      body: (
+        <div className="mt-5 rounded-[16px] border border-white/10 bg-white/[0.035] p-4">
+          <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/42">
+            <Phone size={13} className="text-[#E97D62]" />
+            Caller
+          </div>
+          <div className="mt-3 rounded-[12px] rounded-tl-[4px] bg-white/[0.07] px-3 py-2.5 text-[12px] leading-[1.45] text-white/82">
+            Do you have anything Tuesday morning?
+          </div>
+        </div>
+      ),
+    },
+    {
+      n: "02",
+      label: "Booking",
+      title: "10:30 booked",
+      body: (
+        <div className="mt-5 rounded-[16px] border border-[#DDA34B]/20 bg-[#DDA34B]/[0.055] p-4">
+          <div className="flex items-center justify-between gap-3">
+            <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[#DDA34B]/12 text-[#DDA34B]">
+              <Calendar size={15} />
+            </span>
+            <span className="rounded-full border border-[#99A36D]/25 bg-[#99A36D]/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.11em] text-[#B8C28A]">
+              Booked
+            </span>
+          </div>
+          <div className="mt-4 text-[16px] font-medium tracking-[-0.03em] text-white">Tuesday · 10:30am</div>
+          <div className="mt-1.5 text-[10px] text-white/42">Appointment confirmed</div>
+        </div>
+      ),
+    },
+    {
+      n: "03",
+      label: "Customer",
+      title: "Record updated",
+      body: (
+        <div className="mt-5 rounded-[16px] border border-white/10 bg-white/[0.035] p-4">
+          <div className="flex items-center gap-3">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-white/72">
+              <UserRound size={14} />
+            </span>
+            <div>
+              <div className="text-[11px] font-semibold text-white/84">New customer</div>
+              <div className="mt-0.5 text-[9px] text-white/36">Call context saved</div>
+            </div>
+          </div>
+          <div className="mt-4 space-y-2">
+            <div className="h-1.5 w-[78%] rounded-full bg-white/10" />
+            <div className="h-1.5 w-[58%] rounded-full bg-white/[0.07]" />
+          </div>
+        </div>
+      ),
+    },
+    {
+      n: "04",
+      label: "Follow-up",
+      title: "Confirmation sent",
+      body: (
+        <div className="mt-5 rounded-[16px] border border-[#C96C85]/18 bg-[#C96C85]/[0.045] p-4">
+          <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/42">
+            <MessageSquare size={13} className="text-[#C96C85]" />
+            Sent
+          </div>
+          <div className="mt-3 rounded-[12px] rounded-tr-[4px] bg-[#F7F4EE] px-3 py-2.5 text-[11px] font-medium leading-[1.45] text-[#343834]">
+            You’re booked for Tuesday at 10:30am.
+          </div>
+        </div>
+      ),
+    },
   ] as const;
 
   return (
-    <section className="bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1280px]">
-        <Reveal className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-16">
+        <Reveal className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-16">
           <div>
             <Eyebrow light>The Zapla difference</Eyebrow>
-            <h2 className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[70px]" style={{ fontFamily: DISPLAY }}>
-              Answering is useful.
-              <span className="block text-[#DDA34B]">Follow-through is the point.</span>
+            <h2 className="mt-4 max-w-[650px] text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
+              The call ends.
+              <span className="block text-[#DDA34B]">The work keeps moving.</span>
             </h2>
           </div>
-          <p className="max-w-[590px] text-[15px] leading-[1.7] text-white/58 sm:text-[17px]">
-            A basic answering bot can stop when the call ends. Zapla can keep that customer moving into the rest of the work.
+          <p className="max-w-[590px] pb-1 text-[15px] leading-[1.7] text-white/58 sm:text-[17px]">
+            Zapla does not stop at answering. It can book the next step, update the customer record and trigger follow-up while the conversation is still fresh.
           </p>
         </Reveal>
 
-        <Reveal className="mt-12 overflow-hidden rounded-[24px] border border-white/10 bg-[#17181B] px-6 py-7 sm:px-8 sm:py-9 lg:px-10 lg:py-10">
-          <div className="hidden items-start md:grid md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]">
-            {steps.map(([n, title, copy], index) => (
-              <div key={n} className="contents">
-                <div className="min-w-0">
-                  <div className="text-[10px] font-bold tracking-[0.18em] text-[#DDA34B]">{n}</div>
-                  <h3 className="mt-4 text-[25px] font-medium tracking-[-0.04em] text-white" style={{ fontFamily: DISPLAY }}>{title}</h3>
-                  <p className="mt-3 max-w-[220px] text-[12px] leading-[1.6] text-white/62">{copy}</p>
-                </div>
-                {index < steps.length - 1 ? (
-                  <div className="flex h-full items-center px-5 pt-8 text-[#DDA34B]">
-                    <ArrowRight size={18} />
-                  </div>
-                ) : null}
-              </div>
+        <div className="relative mt-12">
+          <div className="relative mb-5 hidden h-5 lg:block" aria-hidden="true">
+            <div className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px -translate-y-1/2 bg-white/10" />
+            <motion.div
+              className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px origin-left -translate-y-1/2 bg-[#DDA34B]/70"
+              initial={reduced ? false : { scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, amount: 0.7 }}
+              transition={{ duration: reduced ? 0 : 1.05, ease: EASE }}
+            />
+            {[12.5, 37.5, 62.5, 87.5].map((left, index) => (
+              <motion.span
+                key={left}
+                className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/50 bg-[#111214] shadow-[0_0_0_4px_rgba(221,163,75,.06)]"
+                style={{ left: `${left}%` }}
+                initial={reduced ? false : { opacity: 0, scale: 0.7 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.7 }}
+                transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : 0.18 + index * 0.18, ease: EASE }}
+              />
             ))}
           </div>
 
-          <div className="md:hidden">
-            {steps.map(([n, title, copy], index) => (
-              <div key={n} className={"grid grid-cols-[40px_1fr] gap-4 py-4 " + (index ? "border-t border-white/10" : "")}>
-                <div className="pt-1 text-[10px] font-bold tracking-[0.18em] text-[#DDA34B]">{n}</div>
-                <div>
-                  <h3 className="text-[22px] font-medium tracking-[-0.035em] text-white" style={{ fontFamily: DISPLAY }}>{title}</h3>
-                  <p className="mt-2 text-[12px] leading-[1.6] text-white/50">{copy}</p>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {artifacts.map((artifact, index) => (
+              <motion.div
+                key={artifact.n}
+                className="min-h-[238px] rounded-[20px] border border-white/10 bg-[#17181B] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,.025)] sm:p-6"
+                initial={reduced ? false : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.09, ease: EASE }}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-[9px] font-bold tracking-[0.18em] text-[#DDA34B]">{artifact.n}</div>
+                  <div className="text-[8px] font-semibold uppercase tracking-[0.15em] text-white/32">{artifact.label}</div>
                 </div>
-              </div>
+                <h3 className="mt-4 text-[22px] font-medium tracking-[-0.04em] text-white" style={{ fontFamily: DISPLAY }}>{artifact.title}</h3>
+                {artifact.body}
+              </motion.div>
             ))}
           </div>
 
-          <div className="mt-8 border-t border-white/10 pt-5 text-[12px] font-semibold text-white/70">
-            The call does not become another message to chase later.
-          </div>
-        </Reveal>
+          <Reveal className="mt-6 flex items-start gap-3 border-t border-white/10 pt-5">
+            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#DDA34B]/12 text-[#DDA34B]">
+              <Check size={11} strokeWidth={2.4} />
+            </span>
+            <p className="max-w-[720px] text-[12px] font-semibold leading-[1.6] text-white/70 sm:text-[13px]">
+              So the call does not become another thing your team has to remember.
+            </p>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
