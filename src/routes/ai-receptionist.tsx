@@ -34,20 +34,6 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const C = {
-  paper: "#F7F4EE",
-  paper2: "#F2EADF",
-  ink: "#111318",
-  muted: "#676B67",
-  line: "#D8CFC3",
-  dark: "#111214",
-  green: "#1E2B29",
-  coral: "#E97D62",
-  amber: "#DDA34B",
-  sage: "#99A36D",
-  plum: "#9B86B8",
-} as const;
-
 const FAQS = [
   {
     q: "Can I keep my existing business number?",
