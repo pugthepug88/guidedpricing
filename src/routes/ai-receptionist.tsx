@@ -416,6 +416,7 @@ function Faq() {
                   onClick={() => setOpen(isOpen ? null : index)}
                   className="flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C96F55] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F4EE] sm:py-6"
                   aria-expanded={isOpen}
+                  aria-controls={`ai-receptionist-faq-${index}`}
                 >
                   <span className="text-[17px] font-semibold tracking-[-0.025em] text-[#111318] sm:text-[19px]" style={{ fontFamily: DISPLAY }}>
                     {item.q}
@@ -423,7 +424,11 @@ function Faq() {
                   <ChevronDown size={18} className={"shrink-0 text-[#777168] transition-transform " + (isOpen ? "rotate-180" : "")} />
                 </button>
                 <div className={"grid transition-[grid-template-rows,opacity] duration-200 " + (isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
-                  <div className="overflow-hidden">
+                  <div
+                    id={`ai-receptionist-faq-${index}`}
+                    role="region"
+                    className="overflow-hidden"
+                  >
                     <p className="max-w-[790px] pb-6 text-[14px] leading-[1.7] text-[#626762] sm:text-[15px]">{item.a}</p>
                   </div>
                 </div>
