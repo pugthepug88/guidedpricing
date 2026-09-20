@@ -114,13 +114,13 @@ function Hero() {
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href={BOOK_URL}
-              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform duration-200 hover:-translate-y-px"
+              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform duration-200 hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C96F55] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F6F0E8]"
             >
               Book a Call <ArrowRight size={15} />
             </a>
             <a
               href={PRICING_URL}
-              className="inline-flex h-[50px] items-center rounded-[10px] border border-[#CBC2B7] bg-[#FBFAF7] px-6 text-[13px] font-semibold text-[#111318]"
+              className="inline-flex h-[50px] items-center rounded-[10px] border border-[#CBC2B7] bg-[#FBFAF7] px-6 text-[13px] font-semibold text-[#111318] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C96F55] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F6F0E8]"
             >
               View pricing
             </a>
@@ -233,8 +233,11 @@ function WhatItHandles() {
 
                 <ArrowRight size={18} className="shrink-0 text-[#DDA34B]" />
 
-                <div className="flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-white">
-                  <UserRound size={28} strokeWidth={1.6} />
+                <div className="shrink-0 text-center">
+                  <div className="flex h-[76px] w-[76px] items-center justify-center rounded-full border border-white/14 bg-white/[0.06] text-white">
+                    <UserRound size={28} strokeWidth={1.6} />
+                  </div>
+                  <div className="mt-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-white/45">Your team</div>
                 </div>
               </div>
 
@@ -338,10 +341,10 @@ function SetupAndPricing() {
                 ["02", "Build the flow", "Questions, booking, routing and handoff."],
                 ["03", "Test and launch", "Run real scenarios before customers reach it."],
               ].map(([n, title, copy]) => (
-                <div key={n} className="grid grid-cols-[44px_130px_1fr] gap-3 py-5 sm:grid-cols-[50px_150px_1fr]">
-                  <div className="text-[10px] font-bold tracking-[0.16em] text-[#C96F55]">{n}</div>
+                <div key={n} className="grid grid-cols-[38px_1fr] gap-x-3 gap-y-1 py-5 sm:grid-cols-[50px_150px_1fr] sm:gap-3">
+                  <div className="row-span-2 pt-0.5 text-[10px] font-bold tracking-[0.16em] text-[#C96F55] sm:row-span-1">{n}</div>
                   <div className="text-[14px] font-semibold text-[#111318]">{title}</div>
-                  <div className="text-[12px] leading-[1.6] text-[#666B67]">{copy}</div>
+                  <div className="col-start-2 text-[12px] leading-[1.6] text-[#666B67] sm:col-start-auto">{copy}</div>
                 </div>
               ))}
             </div>
@@ -364,10 +367,10 @@ function SetupAndPricing() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={BOOK_URL} className="inline-flex h-[48px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29]">
+              <a href={BOOK_URL} className="inline-flex h-[48px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E2B29]">
                 Book a Call <ArrowRight size={15} />
               </a>
-              <a href={PRICING_URL} className="inline-flex h-[48px] items-center rounded-[10px] border border-white/20 px-6 text-[13px] font-semibold text-[#F7F4EE]">
+              <a href={PRICING_URL} className="inline-flex h-[48px] items-center rounded-[10px] border border-white/20 px-6 text-[13px] font-semibold text-[#F7F4EE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E2B29]">
                 Full pricing
               </a>
             </div>
@@ -408,7 +411,7 @@ function Faq() {
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : index)}
-                  className="flex w-full items-center justify-between gap-6 py-5 text-left sm:py-6"
+                  className="flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C96F55] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F4EE] sm:py-6"
                   aria-expanded={isOpen}
                 >
                   <span className="text-[17px] font-semibold tracking-[-0.025em] text-[#111318] sm:text-[19px]" style={{ fontFamily: DISPLAY }}>
@@ -441,7 +444,7 @@ function FinalCta() {
         <p className="mx-auto mt-5 max-w-[620px] text-[15px] leading-[1.7] text-white/58 sm:text-[17px]">
           We will map the routine calls your team handles today and show you where Zapla can answer, act or hand off.
         </p>
-        <a href={BOOK_URL} className="mt-8 inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29]">
+        <a href={BOOK_URL} className="mt-8 inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E2B29]">
           Book a Call <ArrowRight size={15} />
         </a>
       </Reveal>
