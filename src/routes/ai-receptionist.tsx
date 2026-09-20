@@ -160,16 +160,16 @@ function HumanHeroCard() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/[0.04] to-transparent" />
 
-        <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-auto sm:w-[390px]">
+        <div className="absolute bottom-5 left-4 right-4 sm:bottom-16 sm:left-5 sm:right-auto sm:w-[350px] lg:bottom-[72px] lg:left-6 lg:w-[360px]">
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.18, ease: EASE }}
-            className="w-full rounded-[20px] border border-white/45 bg-[#F7F4EE]/95 px-4 py-4 shadow-[0_18px_45px_rgba(0,0,0,.18)] backdrop-blur-md sm:px-5"
+            className="w-full rounded-[18px] border border-white/55 bg-[#F7F4EE]/80 px-4 py-3.5 shadow-[0_14px_34px_rgba(22,25,24,.14)] backdrop-blur-xl sm:px-4"
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1E2B29] text-[#F7F4EE]">
-                <Phone size={14} strokeWidth={2} />
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1E2B29]/95 text-[#F7F4EE] shadow-sm">
+                <Phone size={13} strokeWidth={2} />
               </span>
 
               <div className="min-w-0 flex-1">
@@ -177,12 +177,12 @@ function HumanHeroCard() {
                 <div className="mt-1 truncate text-[14px] font-semibold leading-none text-[#111318]">New customer enquiry</div>
               </div>
 
-              <span className="shrink-0 rounded-full bg-[#E7EAD9] px-2.5 py-1 text-[9px] font-semibold text-[#66705A]">
+              <span className="shrink-0 rounded-full border border-white/50 bg-[#E7EAD9]/75 px-2.5 py-1 text-[9px] font-semibold text-[#66705A] backdrop-blur-sm">
                 Handled
               </span>
             </div>
 
-            <div className="mt-3 border-t border-[#DDD5CA]/90 pt-3 text-[12px] font-medium leading-[1.45] text-[#626762]">
+            <div className="mt-3 border-t border-white/55 pt-2.5 text-[11.5px] font-medium leading-[1.45] text-[#575C58]">
               Zapla has it. You keep working.
             </div>
           </motion.div>
