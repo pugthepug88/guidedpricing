@@ -24,6 +24,10 @@ export const Route = createFileRoute("/ai-receptionist")({
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
+    links: [
+      { rel: "preconnect", href: "https://images.leadconnectorhq.com" },
+      { rel: "preload", as: "image", href: HERO_IMAGE },
+    ],
   }),
   component: AIReceptionistPage,
 });
@@ -33,6 +37,8 @@ const PRICING_URL = "/Pricing-v3";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
+const HERO_IMAGE =
+  "https://images.leadconnectorhq.com/image/f_webp/q_70/r_1600/u_https://cdn.openart.ai/openart-uploads/production/attachment-transfers/befc6b19b694f24013c9255a9b9d14f5044236b772a28709c682c6cc47c7b696.png";
 const PETAL_COLORS = ["#E97D62", "#C96C85", "#DDA34B", "#99A36D", "#9B86B8", "#D58C75"] as const;
 
 const FAQS = [
@@ -187,8 +193,13 @@ function HumanHeroCard() {
     <div className="relative overflow-hidden rounded-[24px] bg-[#111214] shadow-[0_28px_78px_rgba(57,45,32,.16)]">
       <div className="relative min-h-[470px] sm:min-h-[560px] lg:min-h-[620px]">
         <img
-          src="https://cdn.openart.ai/openart-uploads/production/attachment-transfers/befc6b19b694f24013c9255a9b9d14f5044236b772a28709c682c6cc47c7b696.png"
+          src={HERO_IMAGE}
           alt="Physiotherapist treating a patient while an incoming call waits nearby"
+          width={1448}
+          height={1086}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/[0.04] to-transparent" />

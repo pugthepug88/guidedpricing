@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 
-export const ZAPLA_LOGO =
-  "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/9GCLMi9hEWTo5mWQUAFo/media/69c3771ac1440392b12c5779.png";
+export const ZAPLA_LOGO = "/concept/zapla-logo-dark.svg";
 
 function CinematicZaplaLogo() {
   return (
@@ -35,15 +34,16 @@ function CinematicZaplaLogo() {
 export function SiteNav() {
   const location = useLocation();
   const cinematicV5 =
-    location.pathname === "/" || location.pathname === "/concept/cinematic-follow-through-v5";
-  // Draft pricing routes reuse the homepage header geometry, but start directly in the
-  // light "past hero" glass state (no dark hero, no white-text state).
-  const lightPricing = location.pathname === "/pricing-v2" || location.pathname === "/Pricing-v3";
-  const cinematicGeometry = cinematicV5 || lightPricing;
+    location.pathname === "/" ||
+    location.pathname === "/concept/cinematic-follow-through-v5";
+  // Every non-home route inherits the homepage header geometry. Light pages begin in
+  // the same glass state the homepage uses after its cinematic hero.
+  const lightSitePage = !cinematicV5;
+  const cinematicGeometry = true;
   const [scrolled, setScrolled] = useState(false);
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [cinematicPastHero, setCinematicPastHero] = useState(false);
-  const lightGlassState = cinematicPastHero || lightPricing;
+  const lightGlassState = cinematicPastHero || lightSitePage;
   const [openMenu, setOpenMenu] = useState<null | "products" | "resources">(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -81,12 +81,12 @@ export function SiteNav() {
     : "inline-flex items-center gap-1 text-[15px] font-medium text-zapla-ink/85 transition hover:text-zapla-blue";
 
   const cinematicNavClass = lightGlassState
-    ? "fixed inset-x-0 top-0 z-50 border-b border-zapla-line/70 bg-white/[0.78] shadow-[0_10px_30px_rgba(15,23,42,.07)] backdrop-blur-[16px] backdrop-saturate-[1.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
+    ? `${cinematicV5 ? "fixed" : "sticky"} inset-x-0 top-0 z-50 border-b border-zapla-line/70 bg-white/[0.78] shadow-[0_10px_30px_rgba(15,23,42,.07)] backdrop-blur-[16px] backdrop-saturate-[1.04] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out`
     : cinematicAtTop
       ? "fixed inset-x-0 top-0 z-50 border-b border-transparent bg-transparent shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out"
       : "fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#090E15]/[0.22] shadow-[0_8px_28px_rgba(0,0,0,.09)] backdrop-blur-[12px] backdrop-saturate-[1.02] transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-out";
 
-  const headerCtaCls = cinematicGeometry && !lightGlassState
+  const headerCtaCls = !lightGlassState
     ? "inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-[13px] font-bold text-[#111318] shadow-[0_6px_20px_rgba(0,0,0,.12)] transition hover:-translate-y-0.5 hover:bg-white/92 hover:shadow-[0_10px_26px_rgba(0,0,0,.16)]"
     : "inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#1D4ED8] hover:shadow-zapla-blue";
 
@@ -103,19 +103,13 @@ export function SiteNav() {
       }
     >
       <div
-        className={cinematicGeometry
-          ? "flex w-full items-center justify-between gap-4 px-[6vw] py-2.5 lg:px-[5.5vw]"
-          : "mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8"}
+        className="flex w-full items-center justify-between gap-4 px-[6vw] py-2.5 lg:px-[5.5vw]"
       >
         <a href="https://zapla.io/" className="flex items-center">
-          {cinematicGeometry ? (
-            lightGlassState ? (
-              <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto" />
-            ) : (
-              <CinematicZaplaLogo />
-            )
+          {lightGlassState ? (
+            <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto" />
           ) : (
-            <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto sm:h-9" />
+            <CinematicZaplaLogo />
           )}
         </a>
 
@@ -178,13 +172,11 @@ export function SiteNav() {
         <button
           type="button"
           aria-label="Menu"
-          className={cinematicGeometry
-            ? lightGlassState
-              ? "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white/80 text-zapla-ink lg:hidden"
-              : cinematicAtTop
-                ? "grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-transparent text-white lg:hidden"
-                : "grid h-10 w-10 place-items-center rounded-xl border border-white/22 bg-white/[0.06] text-white backdrop-blur-[8px] lg:hidden"
-            : "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white text-zapla-ink lg:hidden"}
+          className={lightGlassState
+            ? "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white/80 text-zapla-ink lg:hidden"
+            : cinematicAtTop
+              ? "grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-transparent text-white lg:hidden"
+              : "grid h-10 w-10 place-items-center rounded-xl border border-white/22 bg-white/[0.06] text-white backdrop-blur-[8px] lg:hidden"}
           onClick={() => setMobileOpen((v) => !v)}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
