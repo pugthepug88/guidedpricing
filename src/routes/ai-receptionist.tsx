@@ -160,7 +160,7 @@ function HumanHeroCard() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/[0.04] to-transparent" />
 
-        <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-auto sm:w-[390px]">
+        <div className="absolute bottom-5 left-4 right-4 sm:bottom-16 sm:left-5 sm:right-auto sm:w-[350px] lg:bottom-[72px] lg:left-6 lg:w-[360px]">
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
