@@ -225,10 +225,10 @@ function HumanHeroCard() {
               </div>
 
               <div className="ml-auto flex max-w-[92%] items-end justify-end gap-2">
-                <ZaplaPetalSpeaker size={26} reduced={reduced} />
-                <div className="rounded-[14px] rounded-tr-[5px] bg-[#1E2B29]/95 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#F7F4EE] shadow-[0_6px_16px_rgba(22,25,24,.12)]">
+                <div className="rounded-[14px] rounded-br-[5px] bg-[#1E2B29]/95 px-3 py-2 text-[12px] font-medium leading-[1.42] text-[#F7F4EE] shadow-[0_6px_16px_rgba(22,25,24,.12)]">
                   Yes, 10:30 is available. Want me to book it?
                 </div>
+                <ZaplaPetalSpeaker size={26} reduced={reduced} />
               </div>
             </div>
           </motion.div>
