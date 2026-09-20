@@ -160,27 +160,30 @@ function HumanHeroCard() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/[0.04] to-transparent" />
 
-        <div className="absolute inset-x-4 bottom-4 sm:inset-x-5 sm:bottom-5">
+        <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-auto sm:w-[390px]">
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 12 }}
+            initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.2, ease: EASE }}
-            className="max-w-[420px] rounded-[18px] bg-[#F7F4EE] p-4 shadow-[0_18px_50px_rgba(0,0,0,.2)] sm:p-5"
+            transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.18, ease: EASE }}
+            className="w-full rounded-[20px] border border-white/45 bg-[#F7F4EE]/95 px-4 py-4 shadow-[0_18px_45px_rgba(0,0,0,.18)] backdrop-blur-md sm:px-5"
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1E2B29] text-[#F7F4EE]">
-                <Phone size={16} />
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1E2B29] text-[#F7F4EE]">
+                <Phone size={14} strokeWidth={2} />
               </span>
+
               <div className="min-w-0 flex-1">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#6F6A63]">Incoming call</div>
-                <div className="mt-1 text-[14px] font-semibold text-[#111318]">New customer enquiry</div>
+                <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#746E67]">Incoming call</div>
+                <div className="mt-1 truncate text-[14px] font-semibold leading-none text-[#111318]">New customer enquiry</div>
               </div>
-              <span className="rounded-full bg-[#E7EAD9] px-3 py-1.5 text-[10px] font-semibold text-[#66705A]">Answered</span>
+
+              <span className="shrink-0 rounded-full bg-[#E7EAD9] px-2.5 py-1 text-[9px] font-semibold text-[#66705A]">
+                Handled
+              </span>
             </div>
 
-            <div className="mt-4 flex items-center justify-between border-t border-[#DDD5CA] pt-4">
-              <div className="text-[12px] leading-[1.55] text-[#626762]">Zapla is handling the call while you keep working.</div>
-              <ArrowRight size={15} className="ml-4 shrink-0 text-[#C96F55]" />
+            <div className="mt-3 border-t border-[#DDD5CA]/90 pt-3 text-[12px] font-medium leading-[1.45] text-[#626762]">
+              Zapla has it. You keep working.
             </div>
           </motion.div>
         </div>
