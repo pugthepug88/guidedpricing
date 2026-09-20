@@ -154,9 +154,9 @@ function HumanHeroCard() {
     <div className="relative overflow-hidden rounded-[24px] bg-[#111214] shadow-[0_28px_78px_rgba(57,45,32,.16)]">
       <div className="relative min-h-[470px] sm:min-h-[560px] lg:min-h-[620px]">
         <img
-          src="/concept/operator-away/poster.jpg"
-          alt="Small business owner working while checking her phone"
-          className="absolute inset-0 h-full w-full object-cover object-[34%_50%] sm:object-[32%_50%] lg:object-[30%_50%]"
+          src="https://cdn.openart.ai/openart-uploads/production/attachment-transfers/befc6b19b694f24013c9255a9b9d14f5044236b772a28709c682c6cc47c7b696.png"
+          alt="Physiotherapist treating a patient while an incoming call waits nearby"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/[0.04] to-transparent" />
 
