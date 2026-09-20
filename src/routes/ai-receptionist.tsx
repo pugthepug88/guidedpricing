@@ -429,9 +429,18 @@ function FollowThrough() {
               <div className="mt-0.5 text-[9px] text-white/36">Call context saved</div>
             </div>
           </div>
-          <div className="mt-4 space-y-2">
-            <div className="h-1.5 w-[78%] rounded-full bg-white/10" />
-            <div className="h-1.5 w-[58%] rounded-full bg-white/[0.07]" />
+          <div className="mt-4 divide-y divide-white/[0.07] border-y border-white/[0.07]">
+            <div className="flex items-center justify-between gap-3 py-2 text-[9px]">
+              <span className="text-white/38">Appointment</span>
+              <span className="font-semibold text-white/74">Tue · 10:30am</span>
+            </div>
+            <div className="flex items-center justify-between gap-3 py-2 text-[9px]">
+              <span className="text-white/38">Call notes</span>
+              <span className="inline-flex items-center gap-1 font-semibold text-[#B8C28A]">
+                <Check size={9} strokeWidth={2.4} />
+                Saved
+              </span>
+            </div>
           </div>
         </div>
       ),
@@ -457,15 +466,15 @@ function FollowThrough() {
   return (
     <section className="bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1280px]">
-        <Reveal className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-16">
+        <Reveal className="grid gap-7 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-10">
           <div>
             <Eyebrow light>The Zapla difference</Eyebrow>
-            <h2 className="mt-4 max-w-[650px] text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
+            <h2 className="mt-4 max-w-[620px] text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[54px] lg:text-[60px]" style={{ fontFamily: DISPLAY }}>
               The call ends.
               <span className="block text-[#DDA34B]">The work keeps moving.</span>
             </h2>
           </div>
-          <p className="max-w-[590px] pb-1 text-[15px] leading-[1.7] text-white/58 sm:text-[17px]">
+          <p className="max-w-[510px] text-[15px] leading-[1.65] text-white/64 sm:text-[16px]">
             Zapla does not stop at answering. It can book the next step, update the customer record and trigger follow-up while the conversation is still fresh.
           </p>
         </Reveal>
@@ -513,11 +522,11 @@ function FollowThrough() {
             ))}
           </div>
 
-          <Reveal className="mt-6 flex items-start gap-3 border-t border-white/10 pt-5">
-            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#DDA34B]/12 text-[#DDA34B]">
-              <Check size={11} strokeWidth={2.4} />
+          <Reveal className="mt-6 flex items-start gap-3 border-t border-white/10 pt-5.5">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#DDA34B]/14 text-[#DDA34B]">
+              <Check size={12} strokeWidth={2.4} />
             </span>
-            <p className="max-w-[720px] text-[12px] font-semibold leading-[1.6] text-white/70 sm:text-[13px]">
+            <p className="max-w-[760px] text-[13px] font-semibold leading-[1.55] text-white/78 sm:text-[14px]">
               So the call does not become another thing your team has to remember.
             </p>
           </Reveal>
