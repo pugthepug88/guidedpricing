@@ -398,51 +398,106 @@ function FollowThrough() {
             <div className="pointer-events-none absolute left-[50.5%] top-[46%] h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(221,163,75,.12),rgba(221,163,75,.035)_36%,transparent_70%)] blur-xl" />
 
             <svg className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 470" fill="none" aria-hidden="true">
-              <path d="M370 216 C438 216 492 216 548 216" stroke="rgba(221,163,75,.10)" strokeWidth="5" strokeLinecap="round" />
-              <path d="M666 204 C706 187 742 140 782 111" stroke="rgba(221,163,75,.09)" strokeWidth="5" strokeLinecap="round" />
-              <path d="M666 216 C708 217 742 220 774 223" stroke="rgba(153,163,109,.09)" strokeWidth="5" strokeLinecap="round" />
-              <path d="M666 228 C708 250 746 316 782 361" stroke="rgba(201,108,133,.09)" strokeWidth="5" strokeLinecap="round" />
+              {/* Quiet structural paths. Their tangents are horizontal at both the hub and card edges so the fan feels precise rather than hand-drawn. */}
+              <path d="M370 216 C430 216 490 216 548 216" stroke="rgba(221,163,75,.055)" strokeWidth="4" strokeLinecap="round" />
+              <path d="M665 204 C710 204 736 111 782 111" stroke="rgba(221,163,75,.055)" strokeWidth="4" strokeLinecap="round" />
+              <path d="M665 216 C710 216 730 223 774 223" stroke="rgba(153,163,109,.05)" strokeWidth="4" strokeLinecap="round" />
+              <path d="M665 228 C710 228 736 361 782 361" stroke="rgba(201,108,133,.05)" strokeWidth="4" strokeLinecap="round" />
 
               <motion.path
-                d="M370 216 C438 216 492 216 548 216"
-                stroke="rgba(221,163,75,.70)"
-                strokeWidth="1.75"
+                d="M370 216 C430 216 490 216 548 216"
+                stroke="rgba(221,163,75,.46)"
+                strokeWidth="1.35"
                 strokeLinecap="round"
                 initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+                transition={{ duration: reduced ? 0 : 0.48, ease: EASE }}
               />
               <motion.path
-                d="M666 204 C706 187 742 140 782 111"
-                stroke="rgba(221,163,75,.64)"
-                strokeWidth="1.75"
+                d="M665 204 C710 204 736 111 782 111"
+                stroke="rgba(221,163,75,.46)"
+                strokeWidth="1.35"
                 strokeLinecap="round"
                 initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.24, ease: EASE }}
+                transition={{ duration: reduced ? 0 : 0.54, delay: reduced ? 0 : 0.22, ease: EASE }}
               />
               <motion.path
-                d="M666 216 C708 217 742 220 774 223"
-                stroke="rgba(153,163,109,.62)"
-                strokeWidth="1.75"
+                d="M665 216 C710 216 730 223 774 223"
+                stroke="rgba(153,163,109,.42)"
+                strokeWidth="1.35"
                 strokeLinecap="round"
                 initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.52, delay: reduced ? 0 : 0.36, ease: EASE }}
+                transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.34, ease: EASE }}
               />
               <motion.path
-                d="M666 228 C708 250 746 316 782 361"
-                stroke="rgba(201,108,133,.62)"
-                strokeWidth="1.75"
+                d="M665 228 C710 228 736 361 782 361"
+                stroke="rgba(201,108,133,.44)"
+                strokeWidth="1.35"
                 strokeLinecap="round"
                 initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 0.48, ease: EASE }}
+                transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.46, ease: EASE }}
               />
+
+              {/* A single warm signal travels through the actual workflow instead of tracing the decorative container. */}
+              {!reduced && (
+                <>
+                  <motion.path
+                    d="M370 216 C430 216 490 216 548 216"
+                    pathLength={1}
+                    stroke="#F2B24B"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeDasharray="0.075 0.925"
+                    initial={{ strokeDashoffset: 1, opacity: 0 }}
+                    animate={{ strokeDashoffset: 0, opacity: [0, 0.95, 0.95, 0] }}
+                    transition={{ duration: 1.05, repeat: Infinity, repeatDelay: 2.55, ease: "linear" }}
+                    style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.8))" }}
+                  />
+                  <motion.path
+                    d="M665 204 C710 204 736 111 782 111"
+                    pathLength={1}
+                    stroke="#F2B24B"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeDasharray="0.075 0.925"
+                    initial={{ strokeDashoffset: 1, opacity: 0 }}
+                    animate={{ strokeDashoffset: 0, opacity: [0, 0.9, 0.9, 0] }}
+                    transition={{ duration: 1.15, delay: 0.82, repeat: Infinity, repeatDelay: 2.45, ease: "linear" }}
+                    style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.72))" }}
+                  />
+                  <motion.path
+                    d="M665 216 C710 216 730 223 774 223"
+                    pathLength={1}
+                    stroke="#F2B24B"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeDasharray="0.075 0.925"
+                    initial={{ strokeDashoffset: 1, opacity: 0 }}
+                    animate={{ strokeDashoffset: 0, opacity: [0, 0.84, 0.84, 0] }}
+                    transition={{ duration: 1.05, delay: 0.9, repeat: Infinity, repeatDelay: 2.55, ease: "linear" }}
+                    style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.68))" }}
+                  />
+                  <motion.path
+                    d="M665 228 C710 228 736 361 782 361"
+                    pathLength={1}
+                    stroke="#F2B24B"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeDasharray="0.075 0.925"
+                    initial={{ strokeDashoffset: 1, opacity: 0 }}
+                    animate={{ strokeDashoffset: 0, opacity: [0, 0.88, 0.88, 0] }}
+                    transition={{ duration: 1.2, delay: 0.98, repeat: Infinity, repeatDelay: 2.4, ease: "linear" }}
+                    style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.7))" }}
+                  />
+                </>
+              )}
             </svg>
 
             <motion.div
