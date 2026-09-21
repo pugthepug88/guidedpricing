@@ -572,8 +572,7 @@ function FollowThrough() {
                 You’re booked for Tuesday at 10:30am.
               </div>
             </motion.div>
-
-
+          </div>
         </Reveal>
       </div>
     </section>
