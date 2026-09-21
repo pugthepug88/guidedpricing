@@ -394,54 +394,64 @@ function FollowThrough() {
         </Reveal>
 
         <Reveal className="mt-10 sm:mt-12">
-          <div className="relative min-h-[720px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[linear-gradient(145deg,#151619_0%,#101113_56%,#161518_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,.025)] sm:min-h-[700px] lg:min-h-[520px]">
-            <div className="pointer-events-none absolute left-[48%] top-1/2 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(221,163,75,.12),rgba(221,163,75,.035)_36%,transparent_70%)] blur-xl" />
+          <div className="relative min-h-[720px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[linear-gradient(145deg,#151619_0%,#101113_56%,#161518_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,.025)] sm:min-h-[700px] lg:min-h-[500px]">
+            <div className="pointer-events-none absolute left-[51%] top-[47%] h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(221,163,75,.12),rgba(221,163,75,.035)_36%,transparent_70%)] blur-xl" />
 
-            <svg className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 520" fill="none" aria-hidden="true">
+            <svg className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 500" fill="none" aria-hidden="true">
+              <path d="M366 235 C430 235 486 235 548 235" stroke="rgba(221,163,75,.11)" strokeWidth="5" strokeLinecap="round" />
+              <path d="M666 223 C714 198 756 156 804 118" stroke="rgba(221,163,75,.10)" strokeWidth="5" strokeLinecap="round" />
+              <path d="M668 235 C720 235 752 236 792 236" stroke="rgba(153,163,109,.10)" strokeWidth="5" strokeLinecap="round" />
+              <path d="M666 247 C716 271 754 313 798 358" stroke="rgba(201,108,133,.10)" strokeWidth="5" strokeLinecap="round" />
+
               <motion.path
-                d="M338 264 C420 264 446 258 520 258"
-                stroke="rgba(221,163,75,.62)"
-                strokeWidth="1.5"
+                d="M366 235 C430 235 486 235 548 235"
+                stroke="rgba(221,163,75,.72)"
+                strokeWidth="1.75"
                 strokeLinecap="round"
                 initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.55, ease: EASE }}
+                transition={{ duration: reduced ? 0 : 0.52, ease: EASE }}
               />
               <motion.path
-                d="M660 250 C760 210 820 154 914 122"
-                stroke="rgba(221,163,75,.52)"
-                strokeWidth="1.5"
+                d="M666 223 C714 198 756 156 804 118"
+                stroke="rgba(221,163,75,.64)"
+                strokeWidth="1.75"
                 strokeLinecap="round"
                 initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.25, ease: EASE }}
+                transition={{ duration: reduced ? 0 : 0.62, delay: reduced ? 0 : 0.24, ease: EASE }}
               />
               <motion.path
-                d="M666 260 C770 260 832 262 938 264"
-                stroke="rgba(153,163,109,.5)"
-                strokeWidth="1.5"
+                d="M668 235 C720 235 752 236 792 236"
+                stroke="rgba(153,163,109,.62)"
+                strokeWidth="1.75"
                 strokeLinecap="round"
                 initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.72, delay: reduced ? 0 : 0.37, ease: EASE }}
+                transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.36, ease: EASE }}
               />
               <motion.path
-                d="M660 272 C760 310 826 366 920 400"
-                stroke="rgba(201,108,133,.5)"
-                strokeWidth="1.5"
+                d="M666 247 C716 271 754 313 798 358"
+                stroke="rgba(201,108,133,.62)"
+                strokeWidth="1.75"
                 strokeLinecap="round"
                 initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.74, delay: reduced ? 0 : 0.49, ease: EASE }}
+                transition={{ duration: reduced ? 0 : 0.64, delay: reduced ? 0 : 0.48, ease: EASE }}
               />
+
+              <circle cx="366" cy="235" r="2.5" fill="rgba(221,163,75,.78)" />
+              <circle cx="804" cy="118" r="2.5" fill="rgba(221,163,75,.72)" />
+              <circle cx="792" cy="236" r="2.5" fill="rgba(153,163,109,.72)" />
+              <circle cx="798" cy="358" r="2.5" fill="rgba(201,108,133,.72)" />
             </svg>
 
             <motion.div
-              className="absolute left-6 top-7 w-[calc(100%-3rem)] rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 backdrop-blur-sm sm:left-8 sm:top-9 sm:w-[360px] sm:p-6 lg:left-[4.6%] lg:top-1/2 lg:w-[330px] lg:-translate-y-1/2"
+              className="absolute left-6 top-7 w-[calc(100%-3rem)] rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 backdrop-blur-sm sm:left-8 sm:top-9 sm:w-[360px] sm:p-6 lg:left-[4.6%] lg:top-[47%] lg:w-[330px] lg:-translate-y-1/2"
               initial={reduced ? false : { opacity: 0, x: -18, y: 8 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
@@ -483,15 +493,15 @@ function FollowThrough() {
               </div>
             </motion.div>
 
-            <div className="absolute left-1/2 top-[270px] z-20 -translate-x-1/2 sm:top-[280px] lg:left-[52%] lg:top-1/2 lg:-translate-y-1/2">
+            <div className="absolute left-1/2 top-[270px] z-20 -translate-x-1/2 sm:top-[280px] lg:left-[51%] lg:top-[47%] lg:-translate-y-1/2">
               <motion.div
-                className="absolute left-1/2 top-1/2 h-[138px] w-[138px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/12"
+                className="absolute left-1/2 top-1/2 h-[162px] w-[162px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/12"
                 animate={reduced ? undefined : { scale: [0.84, 1.16], opacity: [0.34, 0] }}
                 transition={reduced ? undefined : { duration: 1.9, repeat: Infinity, ease: "easeOut" }}
                 aria-hidden="true"
               />
               <motion.div
-                className="absolute left-1/2 top-1/2 h-[104px] w-[104px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#DDA34B]/[0.035] blur-md"
+                className="absolute left-1/2 top-1/2 h-[124px] w-[124px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#DDA34B]/[0.035] blur-md"
                 animate={reduced ? undefined : { scale: [0.94, 1.08, 0.94], opacity: [0.7, 1, 0.7] }}
                 transition={reduced ? undefined : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
                 aria-hidden="true"
@@ -502,13 +512,13 @@ function FollowThrough() {
                 viewport={{ once: true, amount: 0.6 }}
                 transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.15, ease: EASE }}
               >
-                <ZaplaPetalSpeaker size={88} reduced />
+                <ZaplaPetalSpeaker size={108} reduced />
               </motion.div>
               <div className="mt-3 text-center text-[8px] font-semibold uppercase tracking-[0.18em] text-white/34">Zapla</div>
             </div>
 
             <motion.div
-              className="absolute right-6 top-[350px] w-[calc(100%-3rem)] rounded-[20px] border border-[#DDA34B]/18 bg-[#171719]/92 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-8 sm:w-[310px] lg:right-[5%] lg:top-[62px] lg:w-[285px]"
+              className="absolute right-6 top-[350px] w-[calc(100%-3rem)] rounded-[20px] border border-[#DDA34B]/18 bg-[#171719]/92 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-8 sm:w-[310px] lg:right-[9%] lg:top-[76px] lg:w-[285px]"
               initial={reduced ? false : { opacity: 0, x: 18, y: 8 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true, amount: 0.45 }}
@@ -529,7 +539,7 @@ function FollowThrough() {
             </motion.div>
 
             <motion.div
-              className="absolute right-4 top-[455px] w-[calc(100%-2rem)] rounded-[22px] border border-white/[0.09] bg-[#161719]/94 p-4 shadow-[0_20px_48px_rgba(0,0,0,.28)] backdrop-blur-lg sm:right-14 sm:w-[340px] lg:right-[9%] lg:top-[212px] lg:w-[318px]"
+              className="absolute right-4 top-[455px] w-[calc(100%-2rem)] rounded-[22px] border border-white/[0.09] bg-[#161719]/94 p-4 shadow-[0_20px_48px_rgba(0,0,0,.28)] backdrop-blur-lg sm:right-14 sm:w-[340px] lg:right-[7.5%] lg:top-[194px] lg:w-[318px]"
               initial={reduced ? false : { opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.45 }}
@@ -549,7 +559,7 @@ function FollowThrough() {
             </motion.div>
 
             <motion.div
-              className="absolute right-8 top-[558px] w-[calc(100%-4rem)] rounded-[18px] border border-[#C96C85]/16 bg-[#181619]/95 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-10 sm:w-[320px] lg:right-[4.5%] lg:top-[360px] lg:w-[300px]"
+              className="absolute right-8 top-[558px] w-[calc(100%-4rem)] rounded-[18px] border border-[#C96C85]/16 bg-[#181619]/95 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-10 sm:w-[320px] lg:right-[8.5%] lg:top-[332px] lg:w-[300px]"
               initial={reduced ? false : { opacity: 0, x: 16, y: -4 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true, amount: 0.45 }}
@@ -564,7 +574,7 @@ function FollowThrough() {
               </div>
             </motion.div>
 
-            <div className="absolute bottom-5 left-6 right-6 hidden items-center gap-3 border-t border-white/[0.08] pt-4 lg:flex">
+            <div className="absolute bottom-5 left-7 hidden items-center gap-3 lg:flex">
               <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#DDA34B]/12 text-[#DDA34B]">
                 <Check size={12} strokeWidth={2.4} />
               </span>
