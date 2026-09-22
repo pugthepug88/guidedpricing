@@ -399,13 +399,13 @@ function FollowThrough() {
 
             <svg className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 470" fill="none" aria-hidden="true">
               {/* Quiet structural paths. Their tangents are horizontal at both the hub and card edges so the fan feels precise rather than hand-drawn. */}
-              <path d="M370 216 C430 216 490 216 548 216" stroke="rgba(221,163,75,.055)" strokeWidth="4" strokeLinecap="round" />
-              <path d="M665 204 C710 204 736 111 782 111" stroke="rgba(221,163,75,.055)" strokeWidth="4" strokeLinecap="round" />
-              <path d="M665 216 C710 216 730 223 774 223" stroke="rgba(153,163,109,.05)" strokeWidth="4" strokeLinecap="round" />
-              <path d="M665 228 C710 228 736 361 782 361" stroke="rgba(201,108,133,.05)" strokeWidth="4" strokeLinecap="round" />
+              <path d="M345 216 C420 216 490 216 548 216" stroke="rgba(221,163,75,.055)" strokeWidth="4" strokeLinecap="round" />
+              <path d="M665 204 C720 204 754 111 812 111" stroke="rgba(221,163,75,.055)" strokeWidth="4" strokeLinecap="round" />
+              <path d="M665 216 C720 216 758 223 812 223" stroke="rgba(153,163,109,.05)" strokeWidth="4" strokeLinecap="round" />
+              <path d="M665 228 C720 228 758 361 812 361" stroke="rgba(201,108,133,.05)" strokeWidth="4" strokeLinecap="round" />
 
               <motion.path
-                d="M370 216 C430 216 490 216 548 216"
+                d="M345 216 C420 216 490 216 548 216"
                 stroke="rgba(221,163,75,.46)"
                 strokeWidth="1.35"
                 strokeLinecap="round"
@@ -415,7 +415,7 @@ function FollowThrough() {
                 transition={{ duration: reduced ? 0 : 0.48, ease: EASE }}
               />
               <motion.path
-                d="M665 204 C710 204 736 111 782 111"
+                d="M665 204 C720 204 754 111 812 111"
                 stroke="rgba(221,163,75,.46)"
                 strokeWidth="1.35"
                 strokeLinecap="round"
@@ -425,7 +425,7 @@ function FollowThrough() {
                 transition={{ duration: reduced ? 0 : 0.54, delay: reduced ? 0 : 0.22, ease: EASE }}
               />
               <motion.path
-                d="M665 216 C710 216 730 223 774 223"
+                d="M665 216 C720 216 758 223 812 223"
                 stroke="rgba(153,163,109,.42)"
                 strokeWidth="1.35"
                 strokeLinecap="round"
@@ -435,7 +435,7 @@ function FollowThrough() {
                 transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.34, ease: EASE }}
               />
               <motion.path
-                d="M665 228 C710 228 736 361 782 361"
+                d="M665 228 C720 228 758 361 812 361"
                 stroke="rgba(201,108,133,.44)"
                 strokeWidth="1.35"
                 strokeLinecap="round"
@@ -449,7 +449,7 @@ function FollowThrough() {
               {!reduced && (
                 <>
                   <motion.path
-                    d="M370 216 C430 216 490 216 548 216"
+                    d="M345 216 C420 216 490 216 548 216"
                     pathLength={1}
                     stroke="#F2B24B"
                     strokeWidth="2.2"
@@ -461,7 +461,7 @@ function FollowThrough() {
                     style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.8))" }}
                   />
                   <motion.path
-                    d="M665 204 C710 204 736 111 782 111"
+                    d="M665 204 C720 204 754 111 812 111"
                     pathLength={1}
                     stroke="#F2B24B"
                     strokeWidth="2.2"
@@ -473,7 +473,7 @@ function FollowThrough() {
                     style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.72))" }}
                   />
                   <motion.path
-                    d="M665 216 C710 216 730 223 774 223"
+                    d="M665 216 C720 216 758 223 812 223"
                     pathLength={1}
                     stroke="#F2B24B"
                     strokeWidth="2.2"
@@ -485,7 +485,7 @@ function FollowThrough() {
                     style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.68))" }}
                   />
                   <motion.path
-                    d="M665 228 C710 228 736 361 782 361"
+                    d="M665 228 C720 228 758 361 812 361"
                     pathLength={1}
                     stroke="#F2B24B"
                     strokeWidth="2.2"
