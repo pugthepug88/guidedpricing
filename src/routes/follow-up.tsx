@@ -146,7 +146,7 @@ function Hero() {
             <span className="block text-[#C96F55]">Zapla keeps it moving.</span>
           </h1>
           <p className="mt-6 max-w-[600px] text-[16px] leading-[1.7] text-[#626762] sm:text-[18px]">
-            Zapla follows up across SMS and email, keeps the conversation connected to the customer record, and keeps the next step moving while your team gets on with the work.
+            Zapla follows up across SMS and email, keeps every conversation tied to the customer record, and keeps opportunities moving while your team gets on with the work.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -191,7 +191,7 @@ function FollowUpScene() {
         </div>
       </div>
 
-      <div className="relative mt-7 min-h-[500px]">
+      <div className="relative mt-7 min-h-[560px] sm:min-h-[500px]">
         <motion.div
           className="absolute left-0 top-0 w-[78%] rounded-[22px] border border-white/10 bg-[#172320] p-5 shadow-[0_18px_46px_rgba(0,0,0,.18)] sm:w-[64%]"
           initial={reduced ? false : { opacity: 0, x: -14, y: 6 }}
@@ -236,7 +236,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div
-          className="absolute left-[4%] top-[328px] w-[68%] rounded-[18px] border border-white/10 bg-[#16221F] p-4 sm:left-[11%] sm:w-[54%]"
+          className="absolute left-[4%] top-[338px] w-[72%] rounded-[18px] sm:left-[11%] sm:top-[328px] sm:w-[54%] border border-white/10 bg-[#16221F] p-4"
           initial={reduced ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -247,7 +247,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div
-          className="absolute bottom-0 right-[2%] w-[72%] rounded-[20px] border border-[#99A36D]/20 bg-[#151B19] p-4 sm:w-[58%]"
+          className="absolute bottom-0 right-0 w-[92%] rounded-[20px] sm:right-[2%] sm:w-[58%] border border-[#99A36D]/20 bg-[#151B19] p-4"
           initial={reduced ? false : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -261,7 +261,7 @@ function FollowUpScene() {
               <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/34">Next step</div>
               <div className="mt-1 text-[14px] font-semibold text-white/90">Consultation · Tuesday 10:30am</div>
             </div>
-            <span className="ml-auto rounded-full bg-[#99A36D]/12 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-[#B8C28A]">
+            <span className="ml-12 rounded-full bg-[#99A36D]/12 px-2.5 py-1 text-[8px] sm:ml-auto font-semibold uppercase tracking-[0.1em] text-[#B8C28A]">
               Booked
             </span>
           </div>
