@@ -4,14 +4,11 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
   Calendar,
-  Check,
   ChevronDown,
   Clock3,
   FileText,
-  Mail,
   MessageSquare,
   RotateCcw,
-  UserRound,
 } from "lucide-react";
 
 export const Route = createFileRoute("/follow-up")({
@@ -224,7 +221,6 @@ function FollowUpScene() {
               r="5"
               fill="#F0B75A"
               style={{ filter: "drop-shadow(0 0 8px rgba(240,183,90,.9))" }}
-              initial={{ pathLength: 0 }}
             >
               <animateMotion dur="3.8s" repeatCount="indefinite" path="M66 92 C190 92 220 166 300 185 C394 207 420 277 500 300 C588 326 606 390 702 408" />
             </motion.circle>
@@ -336,7 +332,7 @@ function FollowUpScene() {
         </Reveal>
 
         <div className="mt-14 space-y-5 sm:space-y-6">
-          {moments.map((item, index) => (
+          {moments.map((item) => (
             <Reveal key={item.n} className={`${item.width} ${item.offset}`}>
               <div className="group relative overflow-hidden border-y border-[#D7CFC5] bg-white/35 px-5 py-7 sm:px-7 sm:py-8">
                 <div className="absolute bottom-[-26px] right-3 text-[92px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.035]" style={{ fontFamily: DISPLAY }}>{item.n}</div>
