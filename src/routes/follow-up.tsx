@@ -55,7 +55,7 @@ const FAQS = [
 
 function FollowUpPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
+    <main className="min-h-screen bg-[#FCFCFA] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <Hero />
       <LeakSection />
       <ThreadSection />
@@ -182,7 +182,7 @@ function FollowUpScene() {
 
   const cards = [
     {
-      className: "lg:left-[2%] lg:top-[8%] lg:w-[50%] lg:-rotate-[1deg]",
+      className: "lg:left-[2%] lg:top-[15%] lg:w-[50%] lg:-rotate-1",
       mobile: "bg-[#1E2B29] text-[#F7F4EE]",
       bg: "#1E2B29",
       fg: "#F7F4EE",
@@ -193,7 +193,7 @@ function FollowUpScene() {
       avatar: true,
     },
     {
-      className: "lg:right-[1%] lg:top-[28%] lg:w-[66%] lg:rotate-[.8deg]",
+      className: "lg:right-[1%] lg:top-[34%] lg:w-[66%] lg:rotate-1",
       mobile: "bg-[#DDA34B] text-[#111318]",
       bg: "#DDA34B",
       fg: "#111318",
@@ -204,7 +204,7 @@ function FollowUpScene() {
       ai: true,
     },
     {
-      className: "lg:left-[8%] lg:top-[56%] lg:w-[49%] lg:-rotate-[.7deg]",
+      className: "lg:left-[8%] lg:top-[58%] lg:w-[49%] lg:-rotate-1",
       mobile: "bg-[#C96C85] text-[#FFF8F3]",
       bg: "#C96C85",
       fg: "#FFF8F3",
@@ -214,7 +214,7 @@ function FollowUpScene() {
       meta: "Reply received",
     },
     {
-      className: "lg:right-[5%] lg:top-[74%] lg:w-[57%] lg:rotate-[.5deg]",
+      className: "lg:right-[5%] lg:top-[78%] lg:w-[57%] lg:rotate-1",
       mobile: "bg-[#99A36D] text-[#111318]",
       bg: "#99A36D",
       fg: "#111318",
@@ -547,7 +547,7 @@ function HumanControl() {
           </Reveal>
 
           <Reveal>
-            <div className="border-l border-[#8F8298]/18 pl-0 lg:pl-10">
+            <div className="lg:border-l lg:border-[#8F8298]/18 lg:pl-10">
               <div className="flex -space-x-4">
                 <TeamAvatar size={70} cell={7} />
                 <TeamAvatar size={84} cell={0} />
@@ -659,7 +659,7 @@ function ConnectedCrm() {
 function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[980px]">
         <Reveal>
           <Eyebrow>Questions</Eyebrow>
