@@ -176,180 +176,114 @@ function Hero() {
 function FollowUpScene() {
   const reduced = !!useReducedMotion();
 
-  const desktopEvents = [
-    { x: "7%", y: "11%", time: "10:04", label: "New enquiry", copy: "Consultation next week?", tone: "#E97D62" },
-    { x: "37%", y: "30%", time: "10:05", label: "Zapla follows up", copy: "Would Tuesday morning suit you?", tone: "#DDA34B", ai: true },
-    { x: "62%", y: "56%", time: "10:12", label: "Customer replied", copy: "Tuesday morning works.", tone: "#C96C85" },
-    { x: "75%", y: "78%", time: "10:13", label: "Consultation booked", copy: "Tuesday · 10:30am", tone: "#99A36D", booked: true },
+  const beats = [
+    { time: "10:04", title: "New enquiry", copy: "Consultation next week?", bg: "#1E2B29", fg: "#F7F4EE", width: "w-[74%]", offset: "ml-0" },
+    { time: "10:05", title: "Zapla follows up", copy: "Would Tuesday morning suit you?", bg: "#DDA34B", fg: "#111318", width: "w-[86%]", offset: "ml-[8%]", ai: true },
+    { time: "10:12", title: "Customer replies", copy: "Tuesday morning works.", bg: "#C96C85", fg: "#FFF8F3", width: "w-[68%]", offset: "ml-[22%]" },
+    { time: "10:13", title: "Booked", copy: "Tuesday · 10:30am", bg: "#99A36D", fg: "#111318", width: "w-[88%]", offset: "ml-[3%]" },
   ];
 
   return (
-    <div className="relative overflow-hidden rounded-[30px] bg-[#1E2B29] p-5 shadow-[0_30px_80px_rgba(47,41,34,.16)] sm:p-6 lg:min-h-[620px]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_56%_44%,rgba(221,163,75,.14),transparent_27%),radial-gradient(circle_at_20%_80%,rgba(155,134,184,.10),transparent_30%)]" />
-
-      <div className="relative z-10 flex items-end justify-between gap-4">
-        <div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#DDA34B]">Momentum</div>
-          <div className="mt-1 text-[13px] font-semibold text-white/82">From enquiry to booked</div>
-        </div>
-        <div className="text-right">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/32">Elapsed</div>
-          <div className="mt-1 text-[28px] font-medium tracking-[-0.05em] text-white/90" style={{ fontFamily: DISPLAY }}>9 min</div>
-        </div>
+    <div className="relative min-h-[560px] overflow-hidden lg:min-h-[620px]">
+      <div className="pointer-events-none absolute right-0 top-[-34px] text-right">
+        <div className="text-[132px] font-medium leading-[0.82] tracking-[-0.09em] text-[#111318]/[0.035] sm:text-[168px]" style={{ fontFamily: DISPLAY }}>9</div>
+        <div className="mt-1 text-[18px] font-semibold uppercase tracking-[0.28em] text-[#111318]/20">minutes</div>
       </div>
 
-      <div className="relative mt-7 hidden h-[500px] lg:block">
-        <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 760 500" fill="none" aria-hidden="true">
-          <path
-            d="M66 92 C190 92 220 166 300 185 C394 207 420 277 500 300 C588 326 606 390 702 408"
-            stroke="rgba(255,255,255,.08)"
-            strokeWidth="8"
-            strokeLinecap="round"
-          />
-          <motion.path
-            d="M66 92 C190 92 220 166 300 185 C394 207 420 277 500 300 C588 326 606 390 702 408"
-            stroke="rgba(221,163,75,.68)"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            initial={reduced ? false : { pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: reduced ? 0 : 1.15, ease: EASE }}
-          />
-          {!reduced && (
-            <motion.circle
-              r="5"
-              fill="#F0B75A"
-              style={{ filter: "drop-shadow(0 0 8px rgba(240,183,90,.9))" }}
+      <div className="relative z-10 pt-16 sm:pt-20 lg:pt-24">
+        <div className="mb-8 flex items-end justify-between gap-4 border-b border-[#CFC6BB] pb-4">
+          <div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">One enquiry</div>
+            <div className="mt-1 text-[16px] font-semibold text-[#242824]">Four moments. No chasing.</div>
+          </div>
+          <div className="text-right text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7A7D78]">10:04 → 10:13</div>
+        </div>
+
+        <div className="space-y-3 sm:space-y-4">
+          {beats.map((beat, index) => (
+            <motion.div
+              key={beat.time}
+              className={`${beat.width} ${beat.offset}`}
+              initial={reduced ? false : { opacity: 0, x: index % 2 === 0 ? -26 : 26 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.65 }}
+              transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : index * 0.08, ease: EASE }}
             >
-              <animateMotion dur="3.8s" repeatCount="indefinite" path="M66 92 C190 92 220 166 300 185 C394 207 420 277 500 300 C588 326 606 390 702 408" />
-            </motion.circle>
-          )}
-        </svg>
-
-        <div className="pointer-events-none absolute left-[40%] top-[37%] text-[92px] font-medium leading-none tracking-[-0.08em] text-white/[0.025]" style={{ fontFamily: DISPLAY }}>
-          FOLLOW
+              <div className="grid min-h-[92px] grid-cols-[64px_1fr] items-center gap-3 px-4 py-4 sm:min-h-[108px] sm:grid-cols-[78px_1fr] sm:px-5" style={{ backgroundColor: beat.bg, color: beat.fg }}>
+                <div className="text-[12px] font-bold tracking-[0.12em] opacity-70">{beat.time}</div>
+                <div className="flex items-center gap-3">
+                  {beat.ai && (
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#111214]">
+                      <ZaplaPetal size={24} />
+                    </span>
+                  )}
+                  <div>
+                    <div className="text-[20px] font-medium leading-none tracking-[-0.035em] sm:text-[24px]" style={{ fontFamily: DISPLAY }}>{beat.title}</div>
+                    <div className="mt-2 text-[11px] leading-[1.45] opacity-65 sm:text-[12px]">{beat.copy}</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-
-        {desktopEvents.map((event, index) => (
-          <motion.div
-            key={event.time}
-            className="absolute w-[220px]"
-            style={{ left: event.x, top: event.y }}
-            initial={reduced ? false : { opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.12 + index * 0.12, ease: EASE }}
-          >
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full border-2 border-[#1E2B29]" style={{ backgroundColor: event.tone, boxShadow: `0 0 0 5px ${event.tone}22` }} />
-              <span className="text-[10px] font-semibold tracking-[0.12em]" style={{ color: event.tone }}>{event.time}</span>
-            </div>
-            <div className="mt-3 flex items-center gap-2">
-              {event.ai && (
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#111214]">
-                  <ZaplaPetal size={22} />
-                </span>
-              )}
-              <div className="text-[15px] font-semibold text-white/90">{event.label}</div>
-              {event.booked && (
-                <span className="rounded-full bg-[#99A36D]/12 px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-[#B8C28A]">Booked</span>
-              )}
-            </div>
-            <div className="mt-2 max-w-[210px] text-[12px] leading-[1.5] text-white/48">{event.copy}</div>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="relative mt-7 space-y-0 lg:hidden">
-        <div className="absolute bottom-4 left-[18px] top-4 w-px bg-white/10" />
-        {desktopEvents.map((event, index) => (
-          <motion.div
-            key={event.time}
-            className="relative grid grid-cols-[38px_1fr] gap-3 py-5"
-            initial={reduced ? false : { opacity: 0, x: -8 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : index * 0.08, ease: EASE }}
-          >
-            <div className="relative z-10 mt-1 flex h-9 w-9 items-center justify-center rounded-full bg-[#172320]">
-              {event.ai ? <ZaplaPetal size={22} /> : <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: event.tone }} />}
-            </div>
-            <div>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.14em]" style={{ color: event.tone }}>{event.time}</div>
-              <div className="mt-1 text-[15px] font-semibold text-white/90">{event.label}</div>
-              <div className="mt-1 text-[12px] leading-[1.5] text-white/48">{event.copy}</div>
-            </div>
-          </motion.div>
-        ))}
       </div>
     </div>
   );
 }
 
 function LeakSection() {
-  const moments = [
+  const losses = [
     {
       n: "01",
+      state: "WAITING.",
       title: "New enquiry",
       copy: "The first reply waits until someone remembers.",
-      note: "Momentum lost before the conversation really starts.",
       tone: "#E97D62",
-      width: "lg:w-[72%]",
-      offset: "",
     },
     {
       n: "02",
+      state: "STALE.",
       title: "Quote sent",
       copy: "Silence gets mistaken for a no.",
-      note: "A live opportunity slowly becomes an old quote.",
       tone: "#DDA34B",
-      width: "lg:w-[68%]",
-      offset: "lg:ml-[22%]",
     },
     {
       n: "03",
+      state: "FORGOTTEN.",
       title: "Past customer",
       copy: "The next job never gets asked for.",
-      note: "Trust already exists, but the next conversation never begins.",
       tone: "#99A36D",
-      width: "lg:w-[76%]",
-      offset: "lg:ml-[7%]",
     },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute -right-24 top-14 text-[170px] font-medium tracking-[-0.08em] text-[#111318]/[0.018]" style={{ fontFamily: DISPLAY }}>QUIET</div>
-      <div className="relative mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[920px]">
+    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[900px]">
           <Eyebrow>The revenue leak</Eyebrow>
           <h2 className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[70px]" style={{ fontFamily: DISPLAY }}>
             Most leads don’t say no.
             <span className="block text-[#C96F55]">They just go quiet.</span>
           </h2>
-          <p className="mt-6 max-w-[680px] text-[15px] leading-[1.72] text-[#666B67] sm:text-[17px]">
-            Follow-up breaks when the next step lives in someone’s memory. The opportunity rarely disappears all at once. It loses momentum one forgotten action at a time.
+          <p className="mt-6 max-w-[650px] text-[15px] leading-[1.72] text-[#666B67] sm:text-[17px]">
+            Follow-up usually does not fail in one dramatic moment. It fades while the next action sits in someone’s head.
           </p>
         </Reveal>
 
-        <div className="mt-14 space-y-5 sm:space-y-6">
-          {moments.map((item) => (
-            <Reveal key={item.n} className={`${item.width} ${item.offset}`}>
-              <div className="group relative overflow-hidden border-y border-[#D7CFC5] bg-white/35 px-5 py-7 sm:px-7 sm:py-8">
-                <div className="absolute bottom-[-26px] right-3 text-[92px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.035]" style={{ fontFamily: DISPLAY }}>{item.n}</div>
-                <div className="grid gap-4 sm:grid-cols-[58px_190px_1fr] sm:items-center">
-                  <div className="flex items-center gap-3">
-                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.tone }} />
-                    <span className="text-[9px] font-bold tracking-[0.18em]" style={{ color: item.tone }}>{item.n}</span>
-                  </div>
-                  <div className="text-[24px] font-medium tracking-[-0.04em] text-[#111318]" style={{ fontFamily: DISPLAY }}>{item.title}</div>
-                  <div>
-                    <div className="text-[16px] font-medium leading-[1.5] text-[#333833]">{item.copy}</div>
-                    <div className="mt-1.5 text-[12px] leading-[1.5] text-[#777C77]">{item.note}</div>
-                  </div>
+        <div className="mt-14 grid border-y border-[#D8D0C7] lg:grid-cols-3">
+          {losses.map((item, index) => (
+            <Reveal key={item.n}>
+              <div className={`relative min-h-[360px] overflow-hidden py-8 lg:px-8 lg:py-10 ${index < 2 ? "border-b border-[#D8D0C7] lg:border-b-0 lg:border-r" : ""}`}>
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-bold tracking-[0.18em]" style={{ color: item.tone }}>{item.n}</span>
+                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.tone }} />
                 </div>
-                <div className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" style={{ backgroundColor: item.tone }} />
+                <div className="mt-12 text-[48px] font-medium leading-[0.9] tracking-[-0.07em] text-[#111318] sm:text-[58px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
+                  {item.state}
+                </div>
+                <div className="mt-12 text-[21px] font-medium tracking-[-0.035em] text-[#111318]" style={{ fontFamily: DISPLAY }}>{item.title}</div>
+                <p className="mt-3 max-w-[300px] text-[14px] leading-[1.65] text-[#6E736E]">{item.copy}</p>
+                <div className="absolute bottom-0 left-0 h-[3px] w-1/3" style={{ backgroundColor: item.tone }} />
               </div>
             </Reveal>
           ))}
@@ -362,107 +296,61 @@ function LeakSection() {
 function ThreadSection() {
   const reduced = !!useReducedMotion();
   const events = [
-    { side: "left", time: "10:04am", title: "Enquiry arrives", copy: "Sarah asks about a consultation next week.", tone: "#E97D62", icon: <MessageSquare size={16} /> },
-    { side: "right", time: "10:05am", title: "Zapla follows up", copy: "A relevant reply goes out while the enquiry is still warm.", tone: "#DDA34B", ai: true },
-    { side: "left", time: "10:12am", title: "Customer replies", copy: "Tuesday morning works.", tone: "#C96C85", icon: <MessageSquare size={16} /> },
-    { side: "right", time: "10:13am", title: "Next step is booked", copy: "The customer record and booking update together.", tone: "#99A36D", icon: <Calendar size={16} /> },
+    { no: "01", time: "10:04", title: "Enquiry arrives", copy: "Sarah asks about a consultation next week.", tone: "#E97D62", icon: <MessageSquare size={18} /> },
+    { no: "02", time: "10:05", title: "Zapla follows up", copy: "A relevant reply goes out while the enquiry is still warm.", tone: "#DDA34B", ai: true },
+    { no: "03", time: "10:12", title: "Customer replies", copy: "Tuesday morning works.", tone: "#C96C85", icon: <MessageSquare size={18} /> },
+    { no: "04", time: "10:13", title: "Next step booked", copy: "The customer record and booking move forward together.", tone: "#99A36D", icon: <Calendar size={18} /> },
   ];
 
   return (
-    <section id="how-it-works" className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute left-1/2 top-[42%] h-[540px] w-[540px] -translate-x-1/2 rounded-full bg-[#9B86B8]/[0.055] blur-[150px]" />
-      <div className="relative mx-auto max-w-[1180px]">
-        <Reveal className="mx-auto max-w-[820px] text-center">
+    <section id="how-it-works" className="bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[880px]">
           <Eyebrow dark>One connected thread</Eyebrow>
-          <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
+          <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[58px] lg:text-[66px]" style={{ fontFamily: DISPLAY }}>
             The conversation keeps moving without starting over.
           </h2>
-          <p className="mx-auto mt-6 max-w-[620px] text-[15px] leading-[1.72] text-white/56 sm:text-[16px]">
+          <p className="mt-6 max-w-[610px] text-[15px] leading-[1.72] text-white/54 sm:text-[16px]">
             Every reply, booking and next step stays attached to the same customer story.
           </p>
         </Reveal>
 
-        <div className="relative mx-auto mt-16 max-w-[930px]">
-          <motion.div
-            className="absolute bottom-0 left-[19px] top-0 w-px bg-gradient-to-b from-[#E97D62]/55 via-[#DDA34B]/45 to-[#99A36D]/55 sm:left-1/2 sm:-translate-x-1/2"
-            initial={reduced ? false : { scaleY: 0, transformOrigin: "top" }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: reduced ? 0 : 1.1, ease: EASE }}
-          />
-
-          <div className="space-y-12 sm:space-y-16">
-            {events.map((event, index) => {
-              const right = event.side === "right";
-              return (
-                <motion.div
-                  key={event.time}
-                  className="relative grid grid-cols-[40px_1fr] gap-4 sm:grid-cols-[1fr_56px_1fr] sm:gap-7"
-                  initial={reduced ? false : { opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.08, ease: EASE }}
-                >
-                  <div className={`hidden sm:block ${right ? "" : "text-right"}`}>
-                    {!right && (
-                      <ThreadEventText time={event.time} title={event.title} copy={event.copy} tone={event.tone} ai={event.ai} icon={event.icon} align="right" />
-                    )}
-                  </div>
-
-                  <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#171819] sm:mx-auto sm:h-12 sm:w-12">
-                    {event.ai ? <ZaplaPetal size={28} /> : <span style={{ color: event.tone }}>{event.icon}</span>}
-                  </div>
-
-                  <div>
-                    <div className="sm:hidden">
-                      <ThreadEventText time={event.time} title={event.title} copy={event.copy} tone={event.tone} ai={event.ai} icon={event.icon} />
-                    </div>
-                    {right && (
-                      <div className="hidden sm:block">
-                        <ThreadEventText time={event.time} title={event.title} copy={event.copy} tone={event.tone} ai={event.ai} icon={event.icon} />
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <Reveal className="mt-16 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/52">
-              <span className="h-2 w-2 rounded-full bg-[#99A36D]" />
-              Customer replied. Unnecessary follow-up stops here.
-            </div>
-          </Reveal>
+        <div className="mt-14 grid border-y border-white/[0.09] sm:grid-cols-2 lg:grid-cols-4">
+          {events.map((event, index) => (
+            <motion.div
+              key={event.no}
+              className={`relative min-h-[330px] overflow-hidden p-6 sm:p-7 ${index < 3 ? "border-b border-white/[0.08] lg:border-b-0 lg:border-r" : ""} ${index === 1 ? "bg-white/[0.025]" : ""}`}
+              initial={reduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.08, ease: EASE }}
+            >
+              <div className="absolute right-4 top-1 text-[92px] font-medium leading-none tracking-[-0.08em] text-white/[0.028]" style={{ fontFamily: DISPLAY }}>{event.no}</div>
+              <div className="relative">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: event.tone }}>{event.time}</div>
+                <div className="mt-8 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.035]">
+                  {event.ai ? <ZaplaPetal size={30} /> : <span style={{ color: event.tone }}>{event.icon}</span>}
+                </div>
+                <h3 className="mt-8 text-[28px] font-medium leading-[1.02] tracking-[-0.04em] text-white/92" style={{ fontFamily: DISPLAY }}>{event.title}</h3>
+                <p className="mt-4 max-w-[230px] text-[13px] leading-[1.6] text-white/44">{event.copy}</p>
+              </div>
+              <div className="absolute bottom-0 left-0 h-[3px] w-full origin-left" style={{ backgroundColor: event.tone, opacity: index === 1 ? 0.9 : 0.45 }} />
+            </motion.div>
+          ))}
         </div>
+
+        <Reveal className="mt-8">
+          <div className="flex flex-col justify-between gap-3 border-t border-white/[0.08] pt-6 text-[12px] text-white/44 sm:flex-row sm:items-center">
+            <span>Reply received. The chase stops.</span>
+            <span className="font-semibold text-[#B8C28A]">The next step keeps moving.</span>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
 }
 
-function ThreadEventText({
-  time,
-  title,
-  copy,
-  tone,
-  align = "left",
-}: {
-  time: string;
-  title: string;
-  copy: string;
-  tone: string;
-  ai?: boolean;
-  icon?: ReactNode;
-  align?: "left" | "right";
-}) {
-  return (
-    <div className={align === "right" ? "sm:ml-auto sm:max-w-[310px]" : "sm:max-w-[310px]"}>
-      <div className="text-[9px] font-semibold uppercase tracking-[0.16em]" style={{ color: tone }}>{time}</div>
-      <div className="mt-2 text-[22px] font-medium leading-[1.05] tracking-[-0.035em] text-white/92" style={{ fontFamily: DISPLAY }}>{title}</div>
-      <div className="mt-2 text-[12px] leading-[1.55] text-white/46">{copy}</div>
-    </div>
-  );
-}
+
 
 function UseCases() {
   return (
@@ -536,72 +424,61 @@ function UseCaseCard({ eyebrow, title, copy, icon, className, dark = false }: { 
 
 function HumanControl() {
   return (
-    <section className="relative overflow-hidden bg-[#E9E2EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute -right-20 -top-20 h-[360px] w-[360px] rounded-full bg-[#C96C85]/10 blur-[100px]" />
-      <div className="relative mx-auto max-w-[1280px]">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-16">
+    <section className="bg-[#E9E2EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[880px]">
+          <Eyebrow>Human control</Eyebrow>
+          <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[58px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
+            Automation handles repetition. People handle judgment.
+          </h2>
+          <p className="mt-6 max-w-[620px] text-[15px] leading-[1.72] text-[#626662] sm:text-[16px]">
+            When the conversation needs nuance, Zapla stops chasing and hands the full context back to your team.
+          </p>
+        </Reveal>
+
+        <div className="relative mt-12 grid overflow-hidden rounded-[30px] shadow-[0_24px_70px_rgba(76,64,85,.10)] lg:grid-cols-2">
           <Reveal>
-            <Eyebrow>Human control</Eyebrow>
-            <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
-              Automation handles repetition. People handle judgment.
-            </h2>
-            <p className="mt-6 max-w-[520px] text-[15px] leading-[1.72] text-[#5F625F] sm:text-[16px]">
-              When a customer replies or the conversation needs nuance, the automation can stop and your team takes over with the full context intact.
-            </p>
-          </Reveal>
-
-          <Reveal>
-            <div className="relative hidden min-h-[390px] sm:block">
-              <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 700 390" fill="none" aria-hidden="true">
-                <path d="M120 205 C230 205 252 205 338 205 C430 205 454 205 574 205" stroke="rgba(30,43,41,.12)" strokeWidth="7" strokeLinecap="round" />
-                <path d="M120 205 C230 205 252 205 338 205 C430 205 454 205 574 205" stroke="rgba(221,163,75,.8)" strokeWidth="1.8" strokeLinecap="round" />
-              </svg>
-
-              <div className="absolute left-[4%] top-[34%]">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#C96C85]">Customer reply</div>
-                <div className="mt-2 max-w-[170px] text-[16px] font-semibold leading-[1.35] text-[#222522]">“Can I change the booking?”</div>
+            <div className="relative min-h-[420px] bg-[#2B2630] p-7 text-[#F7F4EE] sm:p-10">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#C96C85]">Automation</div>
+              <div className="mt-12 max-w-[400px] text-[34px] font-medium leading-[1.02] tracking-[-0.045em] sm:text-[42px]" style={{ fontFamily: DISPLAY }}>
+                “Can I change the booking?”
               </div>
-
-              <div className="absolute left-1/2 top-[52%] -translate-x-1/2 -translate-y-1/2 text-center">
-                <span className="mx-auto flex h-[90px] w-[90px] items-center justify-center rounded-full bg-[#111214] shadow-[0_18px_44px_rgba(30,22,34,.16)]">
-                  <ZaplaPetal size={58} />
-                </span>
-                <div className="mt-4 rounded-full bg-[#111318]/[0.06] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#55595A]">Sequence pauses</div>
-              </div>
-
-              <div className="absolute right-[3%] top-[30%] text-center">
-                <div className="flex -space-x-3">
-                  <TeamAvatar size={58} cell={7} />
-                  <TeamAvatar size={66} cell={0} />
-                  <TeamAvatar size={58} cell={14} />
-                </div>
-                <div className="mt-4 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#1E2B29]/55">Your team</div>
-                <div className="mt-1 text-[15px] font-semibold text-[#1E2B29]">Takes over with context</div>
-              </div>
-            </div>
-
-            <div className="sm:hidden">
-              <div className="border-y border-[#8F8298]/20 py-6">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#C96C85]">Customer reply</div>
-                <div className="mt-2 text-[17px] font-semibold text-[#222522]">“Can I change the booking?”</div>
-              </div>
-              <div className="flex items-center justify-center py-7">
-                <span className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-[#111214]">
+              <div className="mt-10 flex items-center gap-4">
+                <span className="flex h-[76px] w-[76px] items-center justify-center rounded-full bg-[#111214]">
                   <ZaplaPetal size={48} />
                 </span>
-                <ArrowRight size={18} className="mx-4 text-[#DDA34B]" />
-                <div className="flex -space-x-3">
-                  <TeamAvatar size={48} cell={7} />
-                  <TeamAvatar size={54} cell={0} />
-                  <TeamAvatar size={48} cell={14} />
+                <div>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/36">Zapla</div>
+                  <div className="mt-1 text-[16px] font-semibold text-white/84">Sequence pauses here.</div>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#1E2B29]/50">Sequence pauses</div>
-                <div className="mt-1 text-[15px] font-semibold text-[#1E2B29]">Your team takes over with context.</div>
+              <div className="absolute bottom-7 left-7 text-[10px] uppercase tracking-[0.16em] text-white/26 sm:left-10">No more automated chase</div>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="relative min-h-[420px] bg-[#F7F4EE] p-7 text-[#111318] sm:p-10">
+              <div className="pointer-events-none absolute -right-3 top-2 text-[90px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.035]" style={{ fontFamily: DISPLAY }}>HUMAN</div>
+              <div className="relative">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#1E2B29]/45">Your team</div>
+                <div className="mt-9 flex -space-x-4">
+                  <TeamAvatar size={74} cell={7} />
+                  <TeamAvatar size={86} cell={0} />
+                  <TeamAvatar size={74} cell={14} />
+                </div>
+                <h3 className="mt-8 max-w-[390px] text-[34px] font-medium leading-[1.02] tracking-[-0.045em] sm:text-[42px]" style={{ fontFamily: DISPLAY }}>
+                  Picks up with the whole story.
+                </h3>
+                <p className="mt-5 max-w-[430px] text-[14px] leading-[1.65] text-[#656A65]">
+                  Messages, timing and customer context are already there. Your team steps in without asking the customer to start again.
+                </p>
               </div>
             </div>
           </Reveal>
+
+          <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#8F8298]/20 bg-[#E9E2EE] text-[#8F8298] shadow-[0_8px_24px_rgba(76,64,85,.12)] lg:flex">
+            <ArrowRight size={18} />
+          </div>
         </div>
 
         <div className="mt-8 grid gap-6 border-t border-[#8F8298]/20 pt-8 sm:grid-cols-3">
@@ -624,64 +501,46 @@ function SmallPrinciple({ title, copy }: { title: string; copy: string }) {
 }
 
 function ConnectedCrm() {
-  const nodes = [
-    { className: "left-[4%] top-[12%]", label: "Messages", value: "Every reply stays attached", icon: <MessageSquare size={17} />, tone: "#E97D62" },
-    { className: "right-[4%] top-[12%]", label: "Booking", value: "Tuesday · 10:30am", icon: <Calendar size={17} />, tone: "#DDA34B" },
-    { className: "left-[7%] bottom-[12%]", label: "Notes", value: "Context stays with the record", icon: <FileText size={17} />, tone: "#9B86B8" },
-    { className: "right-[7%] bottom-[12%]", label: "Next step", value: "Consultation booked", icon: <Clock3 size={17} />, tone: "#99A36D" },
+  const facts = [
+    { label: "Messages", value: "Every reply attached", tone: "#E97D62" },
+    { label: "Booking", value: "Tuesday · 10:30am", tone: "#DDA34B" },
+    { label: "Notes", value: "Context saved", tone: "#9B86B8" },
+    { label: "Next step", value: "Consultation booked", tone: "#99A36D" },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#E3E6D7] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute left-1/2 top-[56%] h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#99A36D]/10 blur-[130px]" />
-      <div className="relative mx-auto max-w-[1180px]">
-        <Reveal className="mx-auto max-w-[760px] text-center">
+    <section className="bg-[#E3E6D7] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[820px]">
           <Eyebrow>Connected CRM</Eyebrow>
           <h2 className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[62px]" style={{ fontFamily: DISPLAY }}>
             One customer. One history.
           </h2>
-          <p className="mx-auto mt-6 max-w-[610px] text-[15px] leading-[1.72] text-[#60665F] sm:text-[16px]">
-            Follow-up works because the messages, booking, notes and next step stay connected to the same person instead of scattering across tools and inboxes.
+          <p className="mt-6 max-w-[620px] text-[15px] leading-[1.72] text-[#60665F] sm:text-[16px]">
+            Messages, bookings, notes and the next step stay with the same customer record instead of scattering across tools and inboxes.
           </p>
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="relative mx-auto min-h-[560px] max-w-[980px]">
-            <svg className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block" viewBox="0 0 980 560" fill="none" aria-hidden="true">
-              <path d="M490 280 C390 230 280 150 170 122" stroke="rgba(30,43,41,.16)" strokeWidth="1.4" />
-              <path d="M490 280 C590 230 700 150 810 122" stroke="rgba(30,43,41,.16)" strokeWidth="1.4" />
-              <path d="M490 280 C390 330 292 410 190 442" stroke="rgba(30,43,41,.16)" strokeWidth="1.4" />
-              <path d="M490 280 C590 330 688 410 790 442" stroke="rgba(30,43,41,.16)" strokeWidth="1.4" />
-            </svg>
-
-            <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center">
-              <div className="mx-auto flex h-[150px] w-[150px] items-center justify-center rounded-full border border-[#1E2B29]/10 bg-[#F7F4EE] shadow-[0_26px_70px_rgba(55,61,47,.14)]">
-                <TeamAvatar size={112} cell={0} />
+          <div className="grid border-y border-[#1E2B29]/14 lg:grid-cols-[0.78fr_1.22fr]">
+            <div className="flex min-h-[420px] flex-col justify-between border-b border-[#1E2B29]/14 py-8 lg:border-b-0 lg:border-r lg:pr-10">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Customer record</div>
+              <div>
+                <div className="flex h-[150px] w-[150px] items-center justify-center rounded-full bg-[#F7F4EE] shadow-[0_24px_60px_rgba(55,61,47,.10)]">
+                  <TeamAvatar size={116} cell={0} />
+                </div>
+                <div className="mt-7 text-[44px] font-medium leading-[0.95] tracking-[-0.055em]" style={{ fontFamily: DISPLAY }}>Sarah Mitchell</div>
+                <div className="mt-3 text-[13px] text-[#6B7168]">Website enquiry · Today</div>
               </div>
-              <div className="mt-5 text-[28px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>Sarah Mitchell</div>
-              <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#64695F]">Customer record</div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#1E2B29]/45">One source of truth</div>
             </div>
 
-            {nodes.map((node) => (
-              <div key={node.label} className={`absolute hidden w-[220px] sm:block ${node.className}`}>
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F7F4EE] shadow-[0_10px_28px_rgba(55,61,47,.10)]" style={{ color: node.tone }}>{node.icon}</span>
-                  <div>
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#6A7068]">{node.label}</div>
-                    <div className="mt-1 text-[14px] font-semibold leading-[1.35] text-[#242824]">{node.value}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            <div className="grid gap-3 pt-[390px] sm:hidden">
-              {nodes.map((node) => (
-                <div key={`mobile-${node.label}`} className="flex items-center gap-3 border-t border-[#1E2B29]/10 py-4">
-                  <span style={{ color: node.tone }}>{node.icon}</span>
-                  <div>
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#6A7068]">{node.label}</div>
-                    <div className="mt-1 text-[13px] font-semibold text-[#242824]">{node.value}</div>
-                  </div>
+            <div className="grid sm:grid-cols-2">
+              {facts.map((fact, index) => (
+                <div key={fact.label} className={`relative min-h-[210px] p-7 sm:p-8 ${index % 2 === 0 ? "sm:border-r sm:border-[#1E2B29]/12" : ""} ${index < 2 ? "border-b border-[#1E2B29]/12" : ""}`}>
+                  <div className="absolute left-0 top-0 h-1 w-14" style={{ backgroundColor: fact.tone }} />
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">{fact.label}</div>
+                  <div className="mt-10 max-w-[260px] text-[28px] font-medium leading-[1.03] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>{fact.value}</div>
                 </div>
               ))}
             </div>
