@@ -471,7 +471,7 @@ function UseCases() {
               title="Silence is not the same as no."
               copy="Keep a quote moving with timed follow-up instead of leaving the whole opportunity dependent on someone remembering to chase it."
               icon={<FileText size={19} />}
-              className="min-h-[330px] bg-[#F7F4EE]"
+              className="min-h-[330px] bg-white"
             />
           </Reveal>
           <Reveal className="lg:col-span-5">
@@ -480,7 +480,7 @@ function UseCases() {
               title="Reduce the gap between booked and arrived."
               copy="Use reminders and confirmations to keep the next appointment visible without turning your staff into a reminder service."
               icon={<Calendar size={19} />}
-              className="min-h-[280px] bg-[#F7F4EE]"
+              className="min-h-[280px] bg-white"
             />
           </Reveal>
           <Reveal className="lg:col-span-7">
