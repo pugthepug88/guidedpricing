@@ -462,20 +462,7 @@ function ThreadEventText({
       <div className="mt-2 text-[12px] leading-[1.55] text-white/46">{copy}</div>
     </div>
   );
-}\n\nfunction ThreadRow({ icon, label, meta, copy, accent }: { icon: ReactNode; label: string; meta: string; copy: string; accent: string }) {
-  return (
-    <div className="grid grid-cols-[40px_1fr] gap-3 rounded-[16px] border border-white/[0.07] bg-white/[0.025] p-4 sm:grid-cols-[40px_150px_1fr] sm:items-center">
-      <span className="flex h-9 w-9 items-center justify-center rounded-[10px]" style={{ backgroundColor: `${accent}18`, color: accent }}>{icon}</span>
-      <div>
-        <div className="text-[11px] font-semibold text-white/82">{label}</div>
-        <div className="mt-1 text-[9px] text-white/32">{meta}</div>
-      </div>
-      <div className="col-start-2 text-[12px] leading-[1.55] text-white/58 sm:col-start-auto">{copy}</div>
-    </div>
-  );
-}
-
-function UseCases() {
+}\n\n\n\nfunction UseCases() {
   return (
     <section className="bg-[#EFE3D4] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1280px]">
@@ -562,8 +549,8 @@ function HumanControl() {
           </Reveal>
 
           <Reveal>
-            <div className="relative min-h-[390px]">
-              <svg className="pointer-events-none absolute inset-0 hidden h-full w-full sm:block" viewBox="0 0 700 390" fill="none" aria-hidden="true">
+            <div className="relative hidden min-h-[390px] sm:block">
+              <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 700 390" fill="none" aria-hidden="true">
                 <path d="M120 205 C230 205 252 205 338 205 C430 205 454 205 574 205" stroke="rgba(30,43,41,.12)" strokeWidth="7" strokeLinecap="round" />
                 <path d="M120 205 C230 205 252 205 338 205 C430 205 454 205 574 205" stroke="rgba(221,163,75,.8)" strokeWidth="1.8" strokeLinecap="round" />
               </svg>
@@ -588,6 +575,28 @@ function HumanControl() {
                 </div>
                 <div className="mt-4 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#1E2B29]/55">Your team</div>
                 <div className="mt-1 text-[15px] font-semibold text-[#1E2B29]">Takes over with context</div>
+              </div>
+            </div>
+
+            <div className="sm:hidden">
+              <div className="border-y border-[#8F8298]/20 py-6">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#C96C85]">Customer reply</div>
+                <div className="mt-2 text-[17px] font-semibold text-[#222522]">“Can I change the booking?”</div>
+              </div>
+              <div className="flex items-center justify-center py-7">
+                <span className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-[#111214]">
+                  <ZaplaPetal size={48} />
+                </span>
+                <ArrowRight size={18} className="mx-4 text-[#DDA34B]" />
+                <div className="flex -space-x-3">
+                  <TeamAvatar size={48} cell={7} />
+                  <TeamAvatar size={54} cell={0} />
+                  <TeamAvatar size={48} cell={14} />
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#1E2B29]/50">Sequence pauses</div>
+                <div className="mt-1 text-[15px] font-semibold text-[#1E2B29]">Your team takes over with context.</div>
               </div>
             </div>
           </Reveal>
@@ -650,7 +659,7 @@ function ConnectedCrm() {
             </div>
 
             {nodes.map((node) => (
-              <div key={node.label} className={`absolute w-[220px] ${node.className}`}>
+              <div key={node.label} className={`absolute hidden w-[220px] sm:block ${node.className}`}>
                 <div className="flex items-center gap-3">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F7F4EE] shadow-[0_10px_28px_rgba(55,61,47,.10)]" style={{ color: node.tone }}>{node.icon}</span>
                   <div>
@@ -677,28 +686,7 @@ function ConnectedCrm() {
       </div>
     </section>
   );
-}\n\nfunction CrmLine({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-center justify-between gap-4 border-b border-white/[0.06] pb-3">
-      <span className="text-[11px] text-white/34">{label}</span>
-      <span className="text-[11px] font-semibold text-white/76">{value}</span>
-    </div>
-  );
-}
-
-function Activity({ icon, title, meta }: { icon: ReactNode; title: string; meta: string }) {
-  return (
-    <div className="flex items-center gap-3 rounded-[14px] bg-white/[0.035] p-3.5">
-      <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[#DDA34B]/10 text-[#DDA34B]">{icon}</span>
-      <div>
-        <div className="text-[11px] font-semibold text-white/78">{title}</div>
-        <div className="mt-1 text-[9px] text-white/28">{meta}</div>
-      </div>
-    </div>
-  );
-}
-
-function Faq() {
+}\n\n\n\nfunction Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
