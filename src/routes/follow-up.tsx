@@ -285,7 +285,9 @@ function FollowUpScene() {
       </div>
     </div>
   );
-}\n\nfunction LeakSection() {
+}
+
+function LeakSection() {
   const moments = [
     {
       n: "01",
@@ -355,7 +357,9 @@ function FollowUpScene() {
       </div>
     </section>
   );
-}\n\nfunction ThreadSection() {
+}
+
+function ThreadSection() {
   const reduced = !!useReducedMotion();
   const events = [
     { side: "left", time: "10:04am", title: "Enquiry arrives", copy: "Sarah asks about a consultation next week.", tone: "#E97D62", icon: <MessageSquare size={16} /> },
@@ -458,7 +462,9 @@ function ThreadEventText({
       <div className="mt-2 text-[12px] leading-[1.55] text-white/46">{copy}</div>
     </div>
   );
-}\n\n\n\nfunction UseCases() {
+}
+
+function UseCases() {
   return (
     <section className="bg-[#EFE3D4] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1280px]">
@@ -606,7 +612,9 @@ function HumanControl() {
       </div>
     </section>
   );
-}\n\nfunction SmallPrinciple({ title, copy }: { title: string; copy: string }) {
+}
+
+function SmallPrinciple({ title, copy }: { title: string; copy: string }) {
   return (
     <div>
       <div className="text-[13px] font-semibold text-[#111318]">{title}</div>
@@ -682,7 +690,9 @@ function ConnectedCrm() {
       </div>
     </section>
   );
-}\n\n\n\nfunction Faq() {
+}
+
+function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
