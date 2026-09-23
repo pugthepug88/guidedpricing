@@ -55,7 +55,7 @@ const FAQS = [
 
 function FollowUpPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
+    <main className="min-h-screen bg-[#FCFCFA] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <Hero />
       <LeakSection />
       <ThreadSection />
@@ -130,9 +130,9 @@ function TeamAvatar({ size = 42, cell = 0 }: { size?: number; cell?: number }) {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#F2E9DE] px-5 pb-20 pt-[116px] sm:px-10 sm:pb-24 sm:pt-[126px] lg:px-16 lg:pb-28 lg:pt-[138px]">
-      <div className="pointer-events-none absolute right-[-8%] top-[12%] h-[520px] w-[520px] rounded-full bg-[#DDA34B]/10 blur-[110px]" />
-      <div className="pointer-events-none absolute bottom-[-25%] left-[32%] h-[420px] w-[420px] rounded-full bg-[#C96C85]/8 blur-[120px]" />
+    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-20 pt-[116px] sm:px-10 sm:pb-24 sm:pt-[126px] lg:px-16 lg:pb-28 lg:pt-[138px]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_18%,rgba(155,134,184,.08),transparent_28%),radial-gradient(circle_at_18%_82%,rgba(153,163,109,.07),transparent_30%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#111318]/8" />
 
       <div className="relative mx-auto grid max-w-[1420px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
         <Reveal className="max-w-[650px]">
@@ -149,15 +149,20 @@ function Hero() {
             <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px">
               Book a Call <ArrowRight size={15} />
             </a>
-            <a href="#how-it-works" className="inline-flex h-[50px] items-center rounded-[10px] border border-[#C9BFB2] bg-white/55 px-6 text-[13px] font-semibold text-[#111318]">
+            <a href="#how-it-works" className="inline-flex h-[50px] items-center rounded-[10px] border border-[#D7D9D4] bg-white px-6 text-[13px] font-semibold text-[#111318]">
               See how it works
             </a>
           </div>
 
           <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[11px] font-semibold text-[#656A65] sm:text-[12px]">
-            {["New enquiries", "Quotes", "Bookings", "Reactivation"].map((item) => (
+            {[
+              ["New enquiries", "#E97D62"],
+              ["Quotes", "#DDA34B"],
+              ["Bookings", "#C96C85"],
+              ["Reactivation", "#99A36D"],
+            ].map(([item, tone]) => (
               <span key={item} className="inline-flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#C96F55]" />
+                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: tone }} />
                 {item}
               </span>
             ))}
@@ -175,88 +180,144 @@ function Hero() {
 function FollowUpScene() {
   const reduced = !!useReducedMotion();
 
-  const beats = [
-    { time: "10:04", title: "New enquiry", copy: "Consultation next week?", bg: "#1E2B29", fg: "#F7F4EE", width: "w-[74%]", offset: "ml-0" },
-    { time: "10:05", title: "Zapla follows up", copy: "Would Tuesday morning suit you?", bg: "#DDA34B", fg: "#111318", width: "w-[86%]", offset: "ml-[8%]", ai: true },
-    { time: "10:12", title: "Customer replies", copy: "Tuesday morning works.", bg: "#C96C85", fg: "#FFF8F3", width: "w-[68%]", offset: "ml-[22%]" },
-    { time: "10:13", title: "Booked", copy: "Tuesday · 10:30am", bg: "#99A36D", fg: "#111318", width: "w-[88%]", offset: "ml-[3%]" },
+  const cards = [
+    {
+      className: "lg:left-[2%] lg:top-[15%] lg:w-[50%] lg:-rotate-1",
+      mobile: "bg-[#1E2B29] text-[#F7F4EE]",
+      bg: "#1E2B29",
+      fg: "#F7F4EE",
+      time: "10:04",
+      eyebrow: "New enquiry",
+      title: "Consultation next week?",
+      meta: "Sarah Mitchell",
+      avatar: true,
+    },
+    {
+      className: "lg:right-[1%] lg:top-[34%] lg:w-[66%] lg:rotate-1",
+      mobile: "bg-[#DDA34B] text-[#111318]",
+      bg: "#DDA34B",
+      fg: "#111318",
+      time: "10:05",
+      eyebrow: "Zapla follows up",
+      title: "Would Tuesday morning suit you?",
+      meta: "SMS sent",
+      ai: true,
+    },
+    {
+      className: "lg:left-[8%] lg:top-[58%] lg:w-[49%] lg:-rotate-1",
+      mobile: "bg-[#C96C85] text-[#FFF8F3]",
+      bg: "#C96C85",
+      fg: "#FFF8F3",
+      time: "10:12",
+      eyebrow: "Customer replied",
+      title: "Tuesday morning works.",
+      meta: "Reply received",
+    },
+    {
+      className: "lg:right-[5%] lg:top-[78%] lg:w-[57%] lg:rotate-1",
+      mobile: "bg-[#99A36D] text-[#111318]",
+      bg: "#99A36D",
+      fg: "#111318",
+      time: "10:13",
+      eyebrow: "Booked",
+      title: "Tuesday · 10:30am",
+      meta: "Consultation",
+      booked: true,
+    },
   ];
 
   return (
-    <div className="relative min-h-[560px] overflow-hidden lg:min-h-[620px]">
-      <div className="pointer-events-none absolute right-0 top-[-34px] text-right">
-        <div className="text-[132px] font-medium leading-[0.82] tracking-[-0.09em] text-[#111318]/[0.035] sm:text-[168px]" style={{ fontFamily: DISPLAY }}>9</div>
-        <div className="mt-1 text-[18px] font-semibold uppercase tracking-[0.28em] text-[#111318]/20">minutes</div>
+    <div className="relative min-h-[610px] sm:min-h-[660px]">
+      <div className="pointer-events-none absolute right-[2%] top-0 hidden text-right lg:block">
+        <div className="text-[150px] font-medium leading-[0.82] tracking-[-0.09em] text-[#111318]/[0.035]" style={{ fontFamily: DISPLAY }}>9</div>
+        <div className="mt-1 text-[14px] font-semibold uppercase tracking-[0.28em] text-[#111318]/20">minutes</div>
       </div>
 
-      <div className="relative z-10 pt-16 sm:pt-20 lg:pt-24">
-        <div className="mb-8 flex items-end justify-between gap-4 border-b border-[#CFC6BB] pb-4">
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">One enquiry</div>
-            <div className="mt-1 text-[16px] font-semibold text-[#242824]">Four moments. No chasing.</div>
-          </div>
-          <div className="text-right text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7A7D78]">10:04 → 10:13</div>
+      <div className="relative z-10 mb-6 flex items-end justify-between border-b border-[#D9DCD6] pb-4 lg:absolute lg:left-[4%] lg:right-[2%] lg:top-[4%]">
+        <div>
+          <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">One enquiry</div>
+          <div className="mt-1 text-[15px] font-semibold text-[#252925]">Four moments. No chasing.</div>
         </div>
+        <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7C817B]">10:04 → 10:13</div>
+      </div>
 
-        <div className="space-y-3 sm:space-y-4">
-          {beats.map((beat, index) => (
-            <motion.div
-              key={beat.time}
-              className={`${beat.width} ${beat.offset}`}
-              initial={reduced ? false : { opacity: 0, x: index % 2 === 0 ? -26 : 26 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.65 }}
-              transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : index * 0.08, ease: EASE }}
-            >
-              <div className="grid min-h-[92px] grid-cols-[64px_1fr] items-center gap-3 px-4 py-4 sm:min-h-[108px] sm:grid-cols-[78px_1fr] sm:px-5" style={{ backgroundColor: beat.bg, color: beat.fg }}>
-                <div className="text-[12px] font-bold tracking-[0.12em] opacity-70">{beat.time}</div>
-                <div className="flex items-center gap-3">
-                  {beat.ai && (
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#111214]">
-                      <ZaplaPetal size={24} />
-                    </span>
-                  )}
-                  <div>
-                    <div className="text-[20px] font-medium leading-none tracking-[-0.035em] sm:text-[24px]" style={{ fontFamily: DISPLAY }}>{beat.title}</div>
-                    <div className="mt-2 text-[11px] leading-[1.45] opacity-65 sm:text-[12px]">{beat.copy}</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+      <div className="space-y-3 lg:hidden">
+        {cards.map((card, index) => (
+          <motion.div
+            key={card.time}
+            className={`rounded-[22px] px-5 py-5 ${card.mobile}`}
+            initial={reduced ? false : { opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.08, ease: EASE }}
+          >
+            <HeroMoment card={card} />
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="relative hidden h-[610px] lg:block">
+        {cards.map((card, index) => (
+          <motion.div
+            key={card.time}
+            className={`absolute rounded-[26px] px-6 py-6 shadow-[0_22px_50px_rgba(34,34,31,.10)] ${card.className}`}
+            style={{ backgroundColor: card.bg, color: card.fg }}
+            initial={reduced ? false : { opacity: 0, y: 18, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.08 + index * 0.09, ease: EASE }}
+            whileHover={reduced ? undefined : { y: -3 }}
+          >
+            <HeroMoment card={card} />
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function HeroMoment({
+  card,
+}: {
+  card: {
+    time: string;
+    eyebrow: string;
+    title: string;
+    meta: string;
+    ai?: boolean;
+    avatar?: boolean;
+    booked?: boolean;
+  };
+}) {
+  return (
+    <div>
+      <div className="flex items-center gap-3">
+        <span className="text-[10px] font-bold tracking-[0.14em] opacity-60">{card.time}</span>
+        <span className="h-px flex-1 bg-current opacity-15" />
+        <span className="text-[9px] font-semibold uppercase tracking-[0.16em] opacity-52">{card.meta}</span>
+      </div>
+      <div className="mt-5 flex items-center gap-3">
+        {card.ai && (
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#111214]">
+            <ZaplaPetal size={27} />
+          </span>
+        )}
+        {card.avatar && <TeamAvatar size={42} cell={0} />}
+        <div>
+          <div className="text-[9px] font-semibold uppercase tracking-[0.16em] opacity-58">{card.eyebrow}</div>
+          <div className="mt-2 text-[23px] font-medium leading-[1.06] tracking-[-0.04em] sm:text-[27px]" style={{ fontFamily: DISPLAY }}>{card.title}</div>
         </div>
+        {card.booked && (
+          <span className="ml-auto rounded-full bg-[#111318]/[0.08] px-2.5 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em]">Booked</span>
+        )}
       </div>
     </div>
   );
 }
 
 function LeakSection() {
-  const losses = [
-    {
-      n: "01",
-      state: "WAITING.",
-      title: "New enquiry",
-      copy: "The first reply waits until someone remembers.",
-      tone: "#E97D62",
-    },
-    {
-      n: "02",
-      state: "STALE.",
-      title: "Quote sent",
-      copy: "Silence gets mistaken for a no.",
-      tone: "#DDA34B",
-    },
-    {
-      n: "03",
-      state: "FORGOTTEN.",
-      title: "Past customer",
-      copy: "The next job never gets asked for.",
-      tone: "#99A36D",
-    },
-  ];
-
   return (
-    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F8F9F7] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1280px]">
         <Reveal className="max-w-[900px]">
           <Eyebrow>The revenue leak</Eyebrow>
@@ -269,23 +330,49 @@ function LeakSection() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid border-y border-[#D8D0C7] lg:grid-cols-3">
-          {losses.map((item, index) => (
-            <Reveal key={item.n}>
-              <div className={`relative min-h-[360px] overflow-hidden py-8 lg:px-8 lg:py-10 ${index < 2 ? "border-b border-[#D8D0C7] lg:border-b-0 lg:border-r" : ""}`}>
-                <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold tracking-[0.18em]" style={{ color: item.tone }}>{item.n}</span>
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.tone }} />
-                </div>
-                <div className="mt-12 text-[48px] font-medium leading-[0.9] tracking-[-0.07em] text-[#111318] sm:text-[58px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
-                  {item.state}
-                </div>
-                <div className="mt-12 text-[21px] font-medium tracking-[-0.035em] text-[#111318]" style={{ fontFamily: DISPLAY }}>{item.title}</div>
-                <p className="mt-3 max-w-[300px] text-[14px] leading-[1.65] text-[#6E736E]">{item.copy}</p>
-                <div className="absolute bottom-0 left-0 h-[3px] w-1/3" style={{ backgroundColor: item.tone }} />
+        <div className="mt-14 grid gap-4 lg:grid-cols-12">
+          <Reveal className="lg:col-span-7">
+            <div className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#E97D62] p-7 text-[#FFF9F5] sm:p-9">
+              <div className="absolute right-5 top-1 text-[132px] font-medium leading-none tracking-[-0.08em] text-white/[0.08]" style={{ fontFamily: DISPLAY }}>01</div>
+              <div className="relative">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/58">New enquiry</div>
+                <div className="mt-14 text-[64px] font-medium leading-[0.86] tracking-[-0.07em] sm:text-[78px]" style={{ fontFamily: DISPLAY }}>WAITING.</div>
+                <p className="mt-8 max-w-[430px] text-[15px] leading-[1.65] text-white/72">
+                  The first reply waits until someone remembers. Momentum is lost before the conversation really starts.
+                </p>
               </div>
-            </Reveal>
-          ))}
+            </div>
+          </Reveal>
+
+          <Reveal className="lg:col-span-5">
+            <div className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#F0D59D] p-7 text-[#1C211D] sm:p-9">
+              <div className="absolute right-5 top-1 text-[116px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.05]" style={{ fontFamily: DISPLAY }}>02</div>
+              <div className="relative">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#9B6722]">Quote sent</div>
+                <div className="mt-14 text-[58px] font-medium leading-[0.86] tracking-[-0.07em] sm:text-[70px]" style={{ fontFamily: DISPLAY }}>STALE.</div>
+                <p className="mt-8 max-w-[350px] text-[14px] leading-[1.65] text-[#5A543F]">
+                  Silence gets mistaken for a no. A live opportunity quietly becomes an old quote.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal className="lg:col-span-12">
+            <div className="grid min-h-[250px] overflow-hidden rounded-[30px] bg-[#B6C18D] text-[#182019] sm:grid-cols-[0.8fr_1.2fr]">
+              <div className="relative flex items-end p-7 sm:p-9">
+                <div className="absolute right-3 top-[-12px] text-[120px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.045]" style={{ fontFamily: DISPLAY }}>03</div>
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#5A6536]">Past customer</div>
+                  <div className="mt-6 text-[54px] font-medium leading-[0.88] tracking-[-0.07em] sm:text-[68px]" style={{ fontFamily: DISPLAY }}>FORGOTTEN.</div>
+                </div>
+              </div>
+              <div className="flex items-center border-t border-[#182019]/10 p-7 sm:border-l sm:border-t-0 sm:p-10">
+                <p className="max-w-[520px] text-[17px] leading-[1.68] text-[#46503E]">
+                  The relationship already exists. Nobody asks for the next job, so the next conversation never begins.
+                </p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -295,51 +382,58 @@ function LeakSection() {
 function ThreadSection() {
   const reduced = !!useReducedMotion();
   const events = [
-    { no: "01", time: "10:04", title: "Enquiry arrives", copy: "Sarah asks about a consultation next week.", tone: "#E97D62", icon: <MessageSquare size={18} /> },
-    { no: "02", time: "10:05", title: "Zapla follows up", copy: "A relevant reply goes out while the enquiry is still warm.", tone: "#DDA34B", ai: true },
-    { no: "03", time: "10:12", title: "Customer replies", copy: "Tuesday morning works.", tone: "#C96C85", icon: <MessageSquare size={18} /> },
-    { no: "04", time: "10:13", title: "Next step booked", copy: "The customer record and booking move forward together.", tone: "#99A36D", icon: <Calendar size={18} /> },
+    { time: "10:04", title: "Enquiry arrives", copy: "Sarah asks about a consultation next week.", tone: "#E97D62", icon: <MessageSquare size={18} /> },
+    { time: "10:05", title: "Zapla follows up", copy: "A relevant reply goes out while the enquiry is still warm.", tone: "#DDA34B", ai: true },
+    { time: "10:12", title: "Customer replies", copy: "Tuesday morning works.", tone: "#C96C85", icon: <MessageSquare size={18} /> },
+    { time: "10:13", title: "Booked", copy: "The customer record and booking move forward together.", tone: "#99A36D", icon: <Calendar size={18} /> },
   ];
 
   return (
-    <section id="how-it-works" className="bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[880px]">
+    <section id="how-it-works" className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="pointer-events-none absolute left-[-8%] top-[22%] text-[190px] font-medium leading-none tracking-[-0.08em] text-white/[0.018]" style={{ fontFamily: DISPLAY }}>SARAH</div>
+      <div className="relative mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-start lg:gap-16">
+        <Reveal>
           <Eyebrow dark>One connected thread</Eyebrow>
-          <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[58px] lg:text-[66px]" style={{ fontFamily: DISPLAY }}>
-            The conversation keeps moving without starting over.
+          <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[58px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
+            Same customer. Same story.
           </h2>
-          <p className="mt-6 max-w-[610px] text-[15px] leading-[1.72] text-white/54 sm:text-[16px]">
-            Every reply, booking and next step stays attached to the same customer story.
+          <p className="mt-6 max-w-[480px] text-[15px] leading-[1.72] text-white/52 sm:text-[16px]">
+            Every reply, booking and next step stays attached to the person instead of being rebuilt from memory.
           </p>
+
+          <div className="mt-10 flex items-center gap-4">
+            <TeamAvatar size={72} cell={0} />
+            <div>
+              <div className="text-[22px] font-medium tracking-[-0.04em] text-white/92" style={{ fontFamily: DISPLAY }}>Sarah Mitchell</div>
+              <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/30">Website enquiry · Today</div>
+            </div>
+          </div>
         </Reveal>
 
-        <div className="mt-14 grid border-y border-white/[0.09] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="border-y border-white/[0.09]">
           {events.map((event, index) => (
             <motion.div
-              key={event.no}
-              className={`relative min-h-[330px] overflow-hidden p-6 sm:p-7 ${index < 3 ? "border-b border-white/[0.08] lg:border-b-0 lg:border-r" : ""} ${index === 1 ? "bg-white/[0.025]" : ""}`}
-              initial={reduced ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.45 }}
-              transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.08, ease: EASE }}
+              key={event.time}
+              className={`grid gap-4 py-6 sm:grid-cols-[76px_56px_1fr] sm:items-center sm:py-7 ${index < events.length - 1 ? "border-b border-white/[0.08]" : ""}`}
+              initial={reduced ? false : { opacity: 0, x: 18 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.07, ease: EASE }}
             >
-              <div className="absolute right-4 top-1 text-[92px] font-medium leading-none tracking-[-0.08em] text-white/[0.028]" style={{ fontFamily: DISPLAY }}>{event.no}</div>
-              <div className="relative">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: event.tone }}>{event.time}</div>
-                <div className="mt-8 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/[0.035]">
-                  {event.ai ? <ZaplaPetal size={30} /> : <span style={{ color: event.tone }}>{event.icon}</span>}
-                </div>
-                <h3 className="mt-8 text-[28px] font-medium leading-[1.02] tracking-[-0.04em] text-white/92" style={{ fontFamily: DISPLAY }}>{event.title}</h3>
-                <p className="mt-4 max-w-[230px] text-[13px] leading-[1.6] text-white/44">{event.copy}</p>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: event.tone }}>{event.time}</div>
+              <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.035]">
+                {event.ai ? <ZaplaPetal size={28} /> : <span style={{ color: event.tone }}>{event.icon}</span>}
               </div>
-              <div className="absolute bottom-0 left-0 h-[3px] w-full origin-left" style={{ backgroundColor: event.tone, opacity: index === 1 ? 0.9 : 0.45 }} />
+              <div>
+                <div className="text-[25px] font-medium leading-[1.02] tracking-[-0.04em] text-white/92" style={{ fontFamily: DISPLAY }}>{event.title}</div>
+                <div className="mt-2 text-[12px] leading-[1.55] text-white/42">{event.copy}</div>
+              </div>
             </motion.div>
           ))}
         </div>
 
-        <Reveal className="mt-8">
-          <div className="flex flex-col justify-between gap-3 border-t border-white/[0.08] pt-6 text-[12px] text-white/44 sm:flex-row sm:items-center">
+        <Reveal className="lg:col-start-2">
+          <div className="flex flex-col justify-between gap-3 border-t border-white/[0.08] pt-5 text-[12px] text-white/42 sm:flex-row sm:items-center">
             <span>Reply received. The chase stops.</span>
             <span className="font-semibold text-[#B8C28A]">The next step keeps moving.</span>
           </div>
@@ -349,11 +443,9 @@ function ThreadSection() {
   );
 }
 
-
-
 function UseCases() {
   return (
-    <section className="bg-[#EFE3D4] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F7F8F5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1280px]">
         <Reveal className="max-w-[820px]">
           <Eyebrow>Where follow-up matters</Eyebrow>
@@ -379,7 +471,7 @@ function UseCases() {
               title="Silence is not the same as no."
               copy="Keep a quote moving with timed follow-up instead of leaving the whole opportunity dependent on someone remembering to chase it."
               icon={<FileText size={19} />}
-              className="min-h-[330px] bg-[#F7F4EE]"
+              className="min-h-[330px] bg-white"
             />
           </Reveal>
           <Reveal className="lg:col-span-5">
@@ -388,7 +480,7 @@ function UseCases() {
               title="Reduce the gap between booked and arrived."
               copy="Use reminders and confirmations to keep the next appointment visible without turning your staff into a reminder service."
               icon={<Calendar size={19} />}
-              className="min-h-[280px] bg-[#F7F4EE]"
+              className="min-h-[280px] bg-white"
             />
           </Reveal>
           <Reveal className="lg:col-span-7">
@@ -423,64 +515,67 @@ function UseCaseCard({ eyebrow, title, copy, icon, className, dark = false }: { 
 
 function HumanControl() {
   return (
-    <section className="bg-[#E9E2EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[880px]">
+    <section className="relative overflow-hidden bg-[#EAE4F0] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="pointer-events-none absolute right-[-6%] top-[-10%] h-[420px] w-[420px] rounded-full bg-[#C96C85]/8 blur-[110px]" />
+      <div className="relative mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[900px]">
           <Eyebrow>Human control</Eyebrow>
           <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[58px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
             Automation handles repetition. People handle judgment.
           </h2>
           <p className="mt-6 max-w-[620px] text-[15px] leading-[1.72] text-[#626662] sm:text-[16px]">
-            When the conversation needs nuance, Zapla stops chasing and hands the full context back to your team.
+            When the conversation needs nuance, Zapla stops chasing and gives the full context back to your team.
           </p>
         </Reveal>
 
-        <div className="relative mt-12 grid overflow-hidden rounded-[30px] shadow-[0_24px_70px_rgba(76,64,85,.10)] lg:grid-cols-2">
+        <div className="mt-14 grid gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
           <Reveal>
-            <div className="relative min-h-[420px] bg-[#2B2630] p-7 text-[#F7F4EE] sm:p-10">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#C96C85]">Automation</div>
-              <div className="mt-12 max-w-[400px] text-[34px] font-medium leading-[1.02] tracking-[-0.045em] sm:text-[42px]" style={{ fontFamily: DISPLAY }}>
+            <div className="relative">
+              <div className="text-[58px] font-medium leading-[0.94] tracking-[-0.06em] text-[#2A2630] sm:text-[72px] lg:text-[82px]" style={{ fontFamily: DISPLAY }}>
                 “Can I change the booking?”
               </div>
-              <div className="mt-10 flex items-center gap-4">
-                <span className="flex h-[76px] w-[76px] items-center justify-center rounded-full bg-[#111214]">
-                  <ZaplaPetal size={48} />
+              <div className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#2B2630] px-4 py-3 text-[#F7F4EE]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]">
+                  <ZaplaPetal size={25} />
                 </span>
                 <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/36">Zapla</div>
-                  <div className="mt-1 text-[16px] font-semibold text-white/84">Sequence pauses here.</div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#C96C85]">Zapla</div>
+                  <div className="mt-0.5 text-[12px] font-semibold text-white/84">Automation pauses here.</div>
                 </div>
               </div>
-              <div className="absolute bottom-7 left-7 text-[10px] uppercase tracking-[0.16em] text-white/26 sm:left-10">No more automated chase</div>
             </div>
           </Reveal>
 
           <Reveal>
-            <div className="relative min-h-[420px] bg-[#F7F4EE] p-7 text-[#111318] sm:p-10">
-              <div className="pointer-events-none absolute -right-3 top-2 text-[90px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.035]" style={{ fontFamily: DISPLAY }}>HUMAN</div>
-              <div className="relative">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#1E2B29]/45">Your team</div>
-                <div className="mt-9 flex -space-x-4">
-                  <TeamAvatar size={74} cell={7} />
-                  <TeamAvatar size={86} cell={0} />
-                  <TeamAvatar size={74} cell={14} />
-                </div>
-                <h3 className="mt-8 max-w-[390px] text-[34px] font-medium leading-[1.02] tracking-[-0.045em] sm:text-[42px]" style={{ fontFamily: DISPLAY }}>
-                  Picks up with the whole story.
-                </h3>
-                <p className="mt-5 max-w-[430px] text-[14px] leading-[1.65] text-[#656A65]">
-                  Messages, timing and customer context are already there. Your team steps in without asking the customer to start again.
-                </p>
+            <div className="lg:border-l lg:border-[#8F8298]/18 lg:pl-10">
+              <div className="flex -space-x-4">
+                <TeamAvatar size={70} cell={7} />
+                <TeamAvatar size={84} cell={0} />
+                <TeamAvatar size={70} cell={14} />
+              </div>
+              <div className="mt-7 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1E2B29]/45">Your team</div>
+              <div className="mt-2 max-w-[420px] text-[40px] font-medium leading-[0.98] tracking-[-0.05em] text-[#1E2B29] sm:text-[48px]" style={{ fontFamily: DISPLAY }}>
+                Takes it from here with the whole story.
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {["Messages", "Booking", "Customer notes"].map((item, index) => (
+                  <span
+                    key={item}
+                    className="rounded-full px-3 py-2 text-[10px] font-semibold"
+                    style={{
+                      backgroundColor: index === 0 ? "rgba(201,108,133,.12)" : index === 1 ? "rgba(221,163,75,.14)" : "rgba(153,163,109,.14)",
+                      color: index === 0 ? "#9C5269" : index === 1 ? "#8B6427" : "#5F6B3A",
+                    }}
+                  >
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
           </Reveal>
-
-          <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#8F8298]/20 bg-[#E9E2EE] text-[#8F8298] shadow-[0_8px_24px_rgba(76,64,85,.12)] lg:flex">
-            <ArrowRight size={18} />
-          </div>
         </div>
 
-        <div className="mt-8 grid gap-6 border-t border-[#8F8298]/20 pt-8 sm:grid-cols-3">
+        <div className="mt-12 grid gap-6 border-t border-[#8F8298]/18 pt-8 sm:grid-cols-3">
           <SmallPrinciple title="Your rules" copy="You decide what triggers follow-up and when it stops." />
           <SmallPrinciple title="Your voice" copy="Messages are built around your business, not generic scripts." />
           <SmallPrinciple title="Your team" copy="Humans step in exactly where judgment matters." />
@@ -508,40 +603,51 @@ function ConnectedCrm() {
   ];
 
   return (
-    <section className="bg-[#E3E6D7] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[820px]">
+    <section className="relative overflow-hidden bg-[#DDE4CF] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="pointer-events-none absolute -left-24 bottom-[-28%] h-[460px] w-[460px] rounded-full bg-white/35 blur-[110px]" />
+      <div className="relative mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[840px]">
           <Eyebrow>Connected CRM</Eyebrow>
           <h2 className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[62px]" style={{ fontFamily: DISPLAY }}>
             One customer. One history.
           </h2>
-          <p className="mt-6 max-w-[620px] text-[15px] leading-[1.72] text-[#60665F] sm:text-[16px]">
+          <p className="mt-6 max-w-[620px] text-[15px] leading-[1.72] text-[#596153] sm:text-[16px]">
             Messages, bookings, notes and the next step stay with the same customer record instead of scattering across tools and inboxes.
           </p>
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="grid border-y border-[#1E2B29]/14 lg:grid-cols-[0.78fr_1.22fr]">
-            <div className="flex min-h-[420px] flex-col justify-between border-b border-[#1E2B29]/14 py-8 lg:border-b-0 lg:border-r lg:pr-10">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Customer record</div>
-              <div>
-                <div className="flex h-[150px] w-[150px] items-center justify-center rounded-full bg-[#F7F4EE] shadow-[0_24px_60px_rgba(55,61,47,.10)]">
-                  <TeamAvatar size={116} cell={0} />
+          <div className="relative overflow-hidden rounded-[34px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_72px_rgba(62,70,49,.10)]">
+            <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
+              <div className="relative border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Customer record</div>
+                <div className="mt-10 flex h-[142px] w-[142px] items-center justify-center rounded-full bg-[#F3F4EF]">
+                  <TeamAvatar size={110} cell={0} />
                 </div>
-                <div className="mt-7 text-[44px] font-medium leading-[0.95] tracking-[-0.055em]" style={{ fontFamily: DISPLAY }}>Sarah Mitchell</div>
+                <div className="mt-8 text-[48px] font-medium leading-[0.92] tracking-[-0.055em]" style={{ fontFamily: DISPLAY }}>Sarah Mitchell</div>
                 <div className="mt-3 text-[13px] text-[#6B7168]">Website enquiry · Today</div>
-              </div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[#1E2B29]/45">One source of truth</div>
-            </div>
-
-            <div className="grid sm:grid-cols-2">
-              {facts.map((fact, index) => (
-                <div key={fact.label} className={`relative min-h-[210px] p-7 sm:p-8 ${index % 2 === 0 ? "sm:border-r sm:border-[#1E2B29]/12" : ""} ${index < 2 ? "border-b border-[#1E2B29]/12" : ""}`}>
-                  <div className="absolute left-0 top-0 h-1 w-14" style={{ backgroundColor: fact.tone }} />
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">{fact.label}</div>
-                  <div className="mt-10 max-w-[260px] text-[28px] font-medium leading-[1.03] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>{fact.value}</div>
+                <div className="mt-10 inline-flex rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
+                  One source of truth
                 </div>
-              ))}
+              </div>
+
+              <div>
+                <div className="border-b border-[#1E2B29]/10 px-7 py-7 sm:px-9">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Everything that matters, already here.</div>
+                </div>
+                <div className="grid sm:grid-cols-2">
+                  {facts.map((fact, index) => (
+                    <div
+                      key={fact.label}
+                      className={`relative min-h-[185px] p-7 sm:p-8 ${index % 2 === 0 ? "sm:border-r sm:border-[#1E2B29]/10" : ""} ${index < 2 ? "border-b border-[#1E2B29]/10" : ""}`}
+                    >
+                      <div className="absolute left-7 top-0 h-[4px] w-16 sm:left-8" style={{ backgroundColor: fact.tone }} />
+                      <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">{fact.label}</div>
+                      <div className="mt-10 max-w-[280px] text-[29px] font-medium leading-[1.03] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>{fact.value}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>
@@ -553,7 +659,7 @@ function ConnectedCrm() {
 function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[980px]">
         <Reveal>
           <Eyebrow>Questions</Eyebrow>
