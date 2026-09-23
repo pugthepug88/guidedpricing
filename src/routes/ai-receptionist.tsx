@@ -392,7 +392,6 @@ function FollowThrough() {
 
   useEffect(() => {
     let frame = 0;
-    let settleTimer = 0;
 
     const measure = () => {
       const stage = stageRef.current;
@@ -403,31 +402,23 @@ function FollowThrough() {
       const confirmation = confirmationRef.current;
       if (!stage || !call || !hub || !appointment || !record || !confirmation) return;
 
-      const stageBox = stage.getBoundingClientRect();
-      const relative = (element: HTMLElement) => {
-        const box = element.getBoundingClientRect();
-        return {
-          left: box.left - stageBox.left,
-          right: box.right - stageBox.left,
-          top: box.top - stageBox.top,
-          bottom: box.bottom - stageBox.top,
-          cx: box.left - stageBox.left + box.width / 2,
-          cy: box.top - stageBox.top + box.height / 2,
-        };
-      };
+      // Use layout geometry instead of getBoundingClientRect so Framer Motion's
+      // entrance transforms cannot move the connector anchors away from the cards.
+      const callRight = call.offsetLeft + call.offsetWidth;
+      const callY = call.offsetTop; // desktop card is vertically centred with translateY(-50%)
 
-      const callBox = relative(call);
-      const hubBox = relative(hub);
-      const appointmentBox = relative(appointment);
-      const recordBox = relative(record);
-      const confirmationBox = relative(confirmation);
-
-      // The petal is the first 118px of the hub wrapper; the label sits below it.
-      const hubX = hubBox.cx;
-      const hubY = hubBox.top + 59;
+      const hubX = hub.offsetLeft;
+      const hubY = hub.offsetTop;
       const hubRadius = 88;
       const hubLeft = hubX - hubRadius;
       const hubRight = hubX + hubRadius;
+
+      const appointmentLeft = appointment.offsetLeft;
+      const appointmentY = appointment.offsetTop + appointment.offsetHeight / 2;
+      const recordLeft = record.offsetLeft;
+      const recordY = record.offsetTop + record.offsetHeight / 2;
+      const confirmationLeft = confirmation.offsetLeft;
+      const confirmationY = confirmation.offsetTop + confirmation.offsetHeight / 2;
 
       const curve = (sx: number, sy: number, ex: number, ey: number) => {
         const span = Math.max(36, ex - sx);
@@ -436,10 +427,10 @@ function FollowThrough() {
       };
 
       const next = {
-        inbound: curve(callBox.right, callBox.cy, hubLeft, hubY),
-        appointment: curve(hubRight, hubY - 12, appointmentBox.left, appointmentBox.cy),
-        record: curve(hubRight, hubY, recordBox.left, recordBox.cy),
-        confirmation: curve(hubRight, hubY + 12, confirmationBox.left, confirmationBox.cy),
+        inbound: curve(callRight, callY, hubLeft, hubY),
+        appointment: curve(hubRight, hubY - 12, appointmentLeft, appointmentY),
+        record: curve(hubRight, hubY, recordLeft, recordY),
+        confirmation: curve(hubRight, hubY + 12, confirmationLeft, confirmationY),
       };
 
       setConnectorPaths((current) =>
@@ -459,7 +450,6 @@ function FollowThrough() {
     };
 
     scheduleMeasure();
-    settleTimer = window.setTimeout(scheduleMeasure, 700);
 
     const observer = new ResizeObserver(scheduleMeasure);
     [stageRef, callRef, hubRef, appointmentRef, recordRef, confirmationRef].forEach((ref) => {
@@ -469,7 +459,6 @@ function FollowThrough() {
 
     return () => {
       cancelAnimationFrame(frame);
-      window.clearTimeout(settleTimer);
       observer.disconnect();
       window.removeEventListener("resize", scheduleMeasure);
     };
