@@ -380,6 +380,7 @@ function FollowThrough() {
   const stageRef = useRef<HTMLDivElement>(null);
   const callRef = useRef<HTMLDivElement>(null);
   const hubRef = useRef<HTMLDivElement>(null);
+  const hubRingAnchorRef = useRef<HTMLDivElement>(null);
   const appointmentRef = useRef<HTMLDivElement>(null);
   const recordRef = useRef<HTMLDivElement>(null);
   const confirmationRef = useRef<HTMLDivElement>(null);
@@ -397,21 +398,24 @@ function FollowThrough() {
       const stage = stageRef.current;
       const call = callRef.current;
       const hub = hubRef.current;
+      const hubRingAnchor = hubRingAnchorRef.current;
       const appointment = appointmentRef.current;
       const record = recordRef.current;
       const confirmation = confirmationRef.current;
-      if (!stage || !call || !hub || !appointment || !record || !confirmation) return;
+      if (!stage || !call || !hub || !hubRingAnchor || !appointment || !record || !confirmation) return;
 
       // Use layout geometry instead of getBoundingClientRect so Framer Motion's
       // entrance transforms cannot move the connector anchors away from the cards.
       const callRight = call.offsetLeft + call.offsetWidth;
       const callY = call.offsetTop; // desktop card is vertically centred with translateY(-50%)
 
-      const hubX = hub.offsetLeft;
-      const hubY = hub.offsetTop;
-      const hubRadius = 88;
-      const hubLeft = hubX - hubRadius;
-      const hubRight = hubX + hubRadius;
+      // Measure a non-animated twin of the visible 176px hub ring.
+      // This gives the actual rendered ring boundary after the hub's centering transforms.
+      const stageBox = stage.getBoundingClientRect();
+      const hubRingBox = hubRingAnchor.getBoundingClientRect();
+      const hubLeft = hubRingBox.left - stageBox.left + 2;
+      const hubRight = hubRingBox.right - stageBox.left - 2;
+      const hubY = hubRingBox.top - stageBox.top + hubRingBox.height / 2;
 
       const appointmentLeft = appointment.offsetLeft;
       const appointmentY = appointment.offsetTop + appointment.offsetHeight / 2;
@@ -452,7 +456,7 @@ function FollowThrough() {
     scheduleMeasure();
 
     const observer = new ResizeObserver(scheduleMeasure);
-    [stageRef, callRef, hubRef, appointmentRef, recordRef, confirmationRef].forEach((ref) => {
+    [stageRef, callRef, hubRef, hubRingAnchorRef, appointmentRef, recordRef, confirmationRef].forEach((ref) => {
       if (ref.current) observer.observe(ref.current);
     });
     window.addEventListener("resize", scheduleMeasure);
@@ -583,6 +587,11 @@ function FollowThrough() {
             </motion.div>
 
             <div ref={hubRef} className="absolute left-1/2 top-[270px] z-20 -translate-x-1/2 sm:top-[280px] lg:left-[50.5%] lg:top-[46%] lg:-translate-y-1/2">
+              <div
+                ref={hubRingAnchorRef}
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[176px] w-[176px] -translate-x-1/2 -translate-y-1/2"
+                aria-hidden="true"
+              />
               <motion.div
                 className="absolute left-1/2 top-1/2 h-[176px] w-[176px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/12"
                 animate={reduced ? undefined : { scale: [0.84, 1.16], opacity: [0.34, 0] }}
