@@ -261,7 +261,7 @@ function FollowUpScene() {
               <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/34">Next step</div>
               <div className="mt-1 text-[14px] font-semibold text-white/90">Consultation · Tuesday 10:30am</div>
             </div>
-            <span className="ml-12 rounded-full bg-[#99A36D]/12 px-2.5 py-1 text-[8px] sm:ml-auto font-semibold uppercase tracking-[0.1em] text-[#B8C28A]">
+            <span className="col-start-2 w-fit rounded-full bg-[#99A36D]/12 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-[#B8C28A] sm:col-start-auto sm:ml-auto">
               Booked
             </span>
           </div>
