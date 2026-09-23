@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as FollowUpRouteImport } from './routes/follow-up'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
 import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as IndexRouteImport } from './routes/index'
@@ -34,6 +35,11 @@ const PricingRoute = PricingRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FollowUpRoute = FollowUpRouteImport.update({
+  id: '/follow-up',
+  path: '/follow-up',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AiReceptionistRoute = AiReceptionistRouteImport.update({
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
+  '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
+  '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
+  '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
@@ -128,6 +137,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
+    | '/follow-up'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
@@ -141,6 +151,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
+    | '/follow-up'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
@@ -154,6 +165,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
+    | '/follow-up'
     | '/mcp'
     | '/pricing'
     | '/pricing-v2'
@@ -168,6 +180,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PricingV3Route: typeof PricingV3Route
   AiReceptionistRoute: typeof AiReceptionistRoute
+  FollowUpRoute: typeof FollowUpRoute
   McpRoute: typeof McpRoute
   PricingRoute: typeof PricingRoute
   PricingV2Route: typeof PricingV2Route
@@ -199,6 +212,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/follow-up': {
+      id: '/follow-up'
+      path: '/follow-up'
+      fullPath: '/follow-up'
+      preLoaderRoute: typeof FollowUpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ai-receptionist': {
@@ -264,6 +284,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PricingV3Route: PricingV3Route,
   AiReceptionistRoute: AiReceptionistRoute,
+  FollowUpRoute: FollowUpRoute,
   McpRoute: McpRoute,
   PricingRoute: PricingRoute,
   PricingV2Route: PricingV2Route,
