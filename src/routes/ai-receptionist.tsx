@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
@@ -377,6 +377,103 @@ function HandleItem({ icon, title, copy }: { icon: ReactNode; title: string; cop
 
 function FollowThrough() {
   const reduced = !!useReducedMotion();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const callRef = useRef<HTMLDivElement>(null);
+  const hubRef = useRef<HTMLDivElement>(null);
+  const appointmentRef = useRef<HTMLDivElement>(null);
+  const recordRef = useRef<HTMLDivElement>(null);
+  const confirmationRef = useRef<HTMLDivElement>(null);
+  const [connectorPaths, setConnectorPaths] = useState<{
+    inbound: string;
+    appointment: string;
+    record: string;
+    confirmation: string;
+  } | null>(null);
+
+  useEffect(() => {
+    let frame = 0;
+    let settleTimer = 0;
+
+    const measure = () => {
+      const stage = stageRef.current;
+      const call = callRef.current;
+      const hub = hubRef.current;
+      const appointment = appointmentRef.current;
+      const record = recordRef.current;
+      const confirmation = confirmationRef.current;
+      if (!stage || !call || !hub || !appointment || !record || !confirmation) return;
+
+      const stageBox = stage.getBoundingClientRect();
+      const relative = (element: HTMLElement) => {
+        const box = element.getBoundingClientRect();
+        return {
+          left: box.left - stageBox.left,
+          right: box.right - stageBox.left,
+          top: box.top - stageBox.top,
+          bottom: box.bottom - stageBox.top,
+          cx: box.left - stageBox.left + box.width / 2,
+          cy: box.top - stageBox.top + box.height / 2,
+        };
+      };
+
+      const callBox = relative(call);
+      const hubBox = relative(hub);
+      const appointmentBox = relative(appointment);
+      const recordBox = relative(record);
+      const confirmationBox = relative(confirmation);
+
+      // The petal is the first 118px of the hub wrapper; the label sits below it.
+      const hubX = hubBox.cx;
+      const hubY = hubBox.top + 59;
+      const hubRadius = 88;
+      const hubLeft = hubX - hubRadius;
+      const hubRight = hubX + hubRadius;
+
+      const curve = (sx: number, sy: number, ex: number, ey: number) => {
+        const span = Math.max(36, ex - sx);
+        const control = Math.min(150, span * 0.44);
+        return `M${sx.toFixed(1)} ${sy.toFixed(1)} C${(sx + control).toFixed(1)} ${sy.toFixed(1)} ${(ex - control).toFixed(1)} ${ey.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+      };
+
+      const next = {
+        inbound: curve(callBox.right, callBox.cy, hubLeft, hubY),
+        appointment: curve(hubRight, hubY - 12, appointmentBox.left, appointmentBox.cy),
+        record: curve(hubRight, hubY, recordBox.left, recordBox.cy),
+        confirmation: curve(hubRight, hubY + 12, confirmationBox.left, confirmationBox.cy),
+      };
+
+      setConnectorPaths((current) =>
+        current &&
+        current.inbound === next.inbound &&
+        current.appointment === next.appointment &&
+        current.record === next.record &&
+        current.confirmation === next.confirmation
+          ? current
+          : next,
+      );
+    };
+
+    const scheduleMeasure = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    };
+
+    scheduleMeasure();
+    settleTimer = window.setTimeout(scheduleMeasure, 700);
+
+    const observer = new ResizeObserver(scheduleMeasure);
+    [stageRef, callRef, hubRef, appointmentRef, recordRef, confirmationRef].forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+    window.addEventListener("resize", scheduleMeasure);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(settleTimer);
+      observer.disconnect();
+      window.removeEventListener("resize", scheduleMeasure);
+    };
+  }, []);
 
   return (
     <section className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
@@ -394,113 +491,62 @@ function FollowThrough() {
         </Reveal>
 
         <Reveal className="mt-10 sm:mt-12">
-          <div className="relative min-h-[720px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[linear-gradient(145deg,#151619_0%,#101113_56%,#161518_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,.025)] sm:min-h-[700px] lg:min-h-[470px]">
+          <div ref={stageRef} className="relative min-h-[720px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[linear-gradient(145deg,#151619_0%,#101113_56%,#161518_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,.025)] sm:min-h-[700px] lg:min-h-[470px]">
             <div className="pointer-events-none absolute left-[50.5%] top-[46%] h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(221,163,75,.12),rgba(221,163,75,.035)_36%,transparent_70%)] blur-xl" />
 
-            <svg className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 470" fill="none" aria-hidden="true">
-              {/* Quiet structural paths. Their tangents are horizontal at both the hub and card edges so the fan feels precise rather than hand-drawn. */}
-              <path d="M345 216 C420 216 490 216 548 216" stroke="rgba(221,163,75,.055)" strokeWidth="4" strokeLinecap="round" />
-              <path d="M665 204 C720 204 754 111 812 111" stroke="rgba(221,163,75,.055)" strokeWidth="4" strokeLinecap="round" />
-              <path d="M665 216 C720 216 758 223 812 223" stroke="rgba(153,163,109,.05)" strokeWidth="4" strokeLinecap="round" />
-              <path d="M665 228 C720 228 758 361 812 361" stroke="rgba(201,108,133,.05)" strokeWidth="4" strokeLinecap="round" />
-
-              <motion.path
-                d="M345 216 C420 216 490 216 548 216"
-                stroke="rgba(221,163,75,.46)"
-                strokeWidth="1.35"
-                strokeLinecap="round"
-                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.48, ease: EASE }}
-              />
-              <motion.path
-                d="M665 204 C720 204 754 111 812 111"
-                stroke="rgba(221,163,75,.46)"
-                strokeWidth="1.35"
-                strokeLinecap="round"
-                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.54, delay: reduced ? 0 : 0.22, ease: EASE }}
-              />
-              <motion.path
-                d="M665 216 C720 216 758 223 812 223"
-                stroke="rgba(153,163,109,.42)"
-                strokeWidth="1.35"
-                strokeLinecap="round"
-                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.34, ease: EASE }}
-              />
-              <motion.path
-                d="M665 228 C720 228 758 361 812 361"
-                stroke="rgba(201,108,133,.44)"
-                strokeWidth="1.35"
-                strokeLinecap="round"
-                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                viewport={{ once: true, amount: 0.55 }}
-                transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.46, ease: EASE }}
-              />
-
-              {/* A single warm signal travels through the actual workflow instead of tracing the decorative container. */}
-              {!reduced && (
-                <>
-                  <motion.path
-                    d="M345 216 C420 216 490 216 548 216"
-                    pathLength={1}
-                    stroke="#F2B24B"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeDasharray="0.075 0.925"
-                    initial={{ strokeDashoffset: 1, opacity: 0 }}
-                    animate={{ strokeDashoffset: 0, opacity: [0, 0.95, 0.95, 0] }}
-                    transition={{ duration: 1.05, repeat: Infinity, repeatDelay: 2.55, ease: "linear" }}
-                    style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.8))" }}
-                  />
-                  <motion.path
-                    d="M665 204 C720 204 754 111 812 111"
-                    pathLength={1}
-                    stroke="#F2B24B"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeDasharray="0.075 0.925"
-                    initial={{ strokeDashoffset: 1, opacity: 0 }}
-                    animate={{ strokeDashoffset: 0, opacity: [0, 0.9, 0.9, 0] }}
-                    transition={{ duration: 1.15, delay: 0.82, repeat: Infinity, repeatDelay: 2.45, ease: "linear" }}
-                    style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.72))" }}
-                  />
-                  <motion.path
-                    d="M665 216 C720 216 758 223 812 223"
-                    pathLength={1}
-                    stroke="#F2B24B"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeDasharray="0.075 0.925"
-                    initial={{ strokeDashoffset: 1, opacity: 0 }}
-                    animate={{ strokeDashoffset: 0, opacity: [0, 0.84, 0.84, 0] }}
-                    transition={{ duration: 1.05, delay: 0.9, repeat: Infinity, repeatDelay: 2.55, ease: "linear" }}
-                    style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.68))" }}
-                  />
-                  <motion.path
-                    d="M665 228 C720 228 758 361 812 361"
-                    pathLength={1}
-                    stroke="#F2B24B"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeDasharray="0.075 0.925"
-                    initial={{ strokeDashoffset: 1, opacity: 0 }}
-                    animate={{ strokeDashoffset: 0, opacity: [0, 0.88, 0.88, 0] }}
-                    transition={{ duration: 1.2, delay: 0.98, repeat: Infinity, repeatDelay: 2.4, ease: "linear" }}
-                    style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.7))" }}
-                  />
-                </>
-              )}
-            </svg>
+            {connectorPaths && (
+              <svg
+                className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
+                width="100%"
+                height="100%"
+                fill="none"
+                aria-hidden="true"
+              >
+                {[
+                  [connectorPaths.inbound, "rgba(221,163,75,.46)"],
+                  [connectorPaths.appointment, "rgba(221,163,75,.46)"],
+                  [connectorPaths.record, "rgba(153,163,109,.42)"],
+                  [connectorPaths.confirmation, "rgba(201,108,133,.44)"],
+                ].map(([path, stroke], index) => (
+                  <g key={index}>
+                    <path d={path} stroke={stroke.replace(/\.[0-9]+\)$/, ".055)")} strokeWidth="4" strokeLinecap="round" />
+                    <motion.path
+                      d={path}
+                      stroke={stroke}
+                      strokeWidth="1.35"
+                      strokeLinecap="round"
+                      initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      viewport={{ once: true, amount: 0.55 }}
+                      transition={{ duration: reduced ? 0 : 0.5 + index * 0.03, delay: reduced ? 0 : index * 0.12, ease: EASE }}
+                    />
+                    {!reduced && (
+                      <motion.path
+                        d={path}
+                        pathLength={1}
+                        stroke="#F2B24B"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeDasharray="0.075 0.925"
+                        initial={{ strokeDashoffset: 1, opacity: 0 }}
+                        animate={{ strokeDashoffset: 0, opacity: [0, 0.9, 0.9, 0] }}
+                        transition={{
+                          duration: index === 0 ? 1.05 : 1.15,
+                          delay: index === 0 ? 0 : 0.78 + index * 0.08,
+                          repeat: Infinity,
+                          repeatDelay: index === 0 ? 2.55 : 2.45,
+                          ease: "linear",
+                        }}
+                        style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.72))" }}
+                      />
+                    )}
+                  </g>
+                ))}
+              </svg>
+            )}
 
             <motion.div
+              ref={callRef}
               className="absolute left-6 top-7 w-[calc(100%-3rem)] rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 backdrop-blur-sm sm:left-8 sm:top-9 sm:w-[360px] sm:p-5 lg:left-[5.4%] lg:top-[46%] lg:w-[305px] lg:-translate-y-1/2"
               initial={reduced ? false : { opacity: 0, x: -18, y: 8 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -547,7 +593,7 @@ function FollowThrough() {
               </div>
             </motion.div>
 
-            <div className="absolute left-1/2 top-[270px] z-20 -translate-x-1/2 sm:top-[280px] lg:left-[50.5%] lg:top-[46%] lg:-translate-y-1/2">
+            <div ref={hubRef} className="absolute left-1/2 top-[270px] z-20 -translate-x-1/2 sm:top-[280px] lg:left-[50.5%] lg:top-[46%] lg:-translate-y-1/2">
               <motion.div
                 className="absolute left-1/2 top-1/2 h-[176px] w-[176px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/12"
                 animate={reduced ? undefined : { scale: [0.84, 1.16], opacity: [0.34, 0] }}
@@ -572,6 +618,7 @@ function FollowThrough() {
             </div>
 
             <motion.div
+              ref={appointmentRef}
               className="absolute right-6 top-[350px] w-[calc(100%-3rem)] rounded-[20px] border border-[#DDA34B]/18 bg-[#171719]/92 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-8 sm:w-[310px] lg:right-[11.5%] lg:top-[76px] lg:w-[280px]"
               initial={reduced ? false : { opacity: 0, x: 18, y: 8 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
@@ -593,6 +640,7 @@ function FollowThrough() {
             </motion.div>
 
             <motion.div
+              ref={recordRef}
               className="absolute right-4 top-[455px] w-[calc(100%-2rem)] rounded-[22px] border border-white/[0.09] bg-[#161719]/94 p-4 shadow-[0_20px_48px_rgba(0,0,0,.28)] backdrop-blur-lg sm:right-14 sm:w-[340px] lg:right-[9.5%] lg:top-[188px] lg:w-[312px]"
               initial={reduced ? false : { opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -613,6 +661,7 @@ function FollowThrough() {
             </motion.div>
 
             <motion.div
+              ref={confirmationRef}
               className="absolute right-8 top-[558px] w-[calc(100%-4rem)] rounded-[18px] border border-[#C96C85]/16 bg-[#181619]/95 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-10 sm:w-[320px] lg:right-[10.5%] lg:top-[314px] lg:w-[292px]"
               initial={reduced ? false : { opacity: 0, x: 16, y: -4 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
