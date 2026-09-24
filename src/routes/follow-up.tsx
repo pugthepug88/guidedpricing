@@ -624,9 +624,9 @@ function UseCaseCard({
 
 function HumanControl() {
   const actions = [
-    { label: "Continue follow-up", tone: "#DDA34B", className: "bg-[#F7E5B8]" },
-    { label: "Pause sequence", tone: "#C96C85", className: "bg-[#F2DDE5]" },
-    { label: "Change workflow", tone: "#9B86B8", className: "bg-[#E5DFF0]" },
+    { label: "Continue follow-up", tone: "#DDA34B", className: "bg-[#F7E5B8]", team: false },
+    { label: "Pause sequence", tone: "#C96C85", className: "bg-[#F2DDE5]", team: false },
+    { label: "Change workflow", tone: "#9B86B8", className: "bg-[#E5DFF0]", team: false },
     { label: "Send to your team", tone: "#99A36D", className: "bg-[#E1E7D0]", team: true },
   ] as const;
 
@@ -705,6 +705,7 @@ function HumanControl() {
 }
 
 function ConnectedCrm() {
+  const reduced = !!useReducedMotion();
   const history = [
     { label: "Relationship", value: "Existing customer", meta: "Known history", tone: "#E97D62" },
     { label: "Last message", value: "“Thanks, all sorted.”", meta: "Previous conversation", tone: "#C96C85" },
@@ -754,10 +755,10 @@ function ConnectedCrm() {
                   <motion.div
                     key={item.label}
                     className={`relative ml-5 rounded-[20px] border border-[#1E2B29]/8 bg-white p-5 shadow-[0_10px_28px_rgba(55,64,46,.06)] sm:ml-8 sm:grid sm:grid-cols-[0.9fr_1.25fr_auto] sm:items-center sm:gap-6 ${index === 1 ? "sm:translate-x-6" : index === 2 ? "sm:translate-x-3" : ""}`}
-                    initial={{ opacity: 0, x: 12 }}
+                    initial={reduced ? false : { opacity: 0, x: 12 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.6 }}
-                    transition={{ duration: 0.4, delay: index * 0.07, ease: EASE }}
+                    transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : index * 0.07, ease: EASE }}
                   >
                     <span className="absolute -left-[29px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-4 border-[#FCFCFA] sm:-left-[45px]" style={{ backgroundColor: item.tone }} />
                     <div>
