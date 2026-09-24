@@ -456,29 +456,6 @@ function LeakSection() {
 
 function MechanismSection() {
   const reduced = !!useReducedMotion();
-  const steps = [
-    {
-      number: "01",
-      word: "TRIGGER.",
-      line: "Enquiry. Quote. Missed call. Booking. Past customer.",
-      tone: "#E97D62",
-      ai: false,
-    },
-    {
-      number: "02",
-      word: "RULES.",
-      line: "When to run. Which channel. What happens on reply.",
-      tone: "#DDA34B",
-      ai: true,
-    },
-    {
-      number: "03",
-      word: "ACTION.",
-      line: "Follow up. Remind. Update. Hand off.",
-      tone: "#99A36D",
-      ai: false,
-    },
-  ] as const;
 
   return (
     <section id="how-it-works" className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
@@ -490,30 +467,69 @@ function MechanismSection() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 border-y border-white/[0.09] lg:grid lg:grid-cols-3">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              className={`relative py-9 lg:min-h-[300px] lg:px-8 lg:py-10 ${index ? "border-t border-white/[0.09] lg:border-l lg:border-t-0" : ""}`}
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.45 }}
-              transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.07, ease: EASE }}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-semibold tracking-[0.16em] text-white/22">{step.number}</span>
-                {step.ai ? <ZaplaPetal size={34} /> : <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: step.tone }} />}
-              </div>
-              <div className="mt-14 text-[48px] font-medium leading-[0.9] tracking-[-0.06em] sm:text-[58px]" style={{ color: step.tone, fontFamily: DISPLAY }}>
-                {step.word}
-              </div>
-              <div className="mt-6 max-w-[300px] text-[13px] leading-[1.65] text-white/48">{step.line}</div>
-            </motion.div>
-          ))}
+        <div className="relative mt-14 min-h-[430px] lg:min-h-[390px]">
+          <div className="pointer-events-none absolute left-[12%] right-[12%] top-1/2 hidden h-px bg-white/[0.12] lg:block" />
+
+          <motion.div
+            className="relative z-10 rounded-[28px] bg-[#E97D62] p-7 text-[#FFF8F4] sm:p-9 lg:absolute lg:left-0 lg:top-[44px] lg:w-[38%]"
+            initial={reduced ? false : { opacity: 0, x: -14 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-semibold tracking-[0.16em] text-white/58">01</span>
+              <span className="h-2.5 w-2.5 rounded-full bg-white/70" />
+            </div>
+            <div className="mt-14 text-[58px] font-medium leading-[0.88] tracking-[-0.065em] sm:text-[70px]" style={{ fontFamily: DISPLAY }}>TRIGGER.</div>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {["Enquiry", "Quote", "Missed call", "Booking", "Past customer"].map((item) => (
+                <span key={item} className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-[10px] font-semibold text-white/78">{item}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="relative z-20 mt-4 rounded-[28px] border border-white/[0.10] bg-[#F6EFE2] p-7 text-[#1F211E] shadow-[0_24px_70px_rgba(0,0,0,.26)] sm:p-9 lg:absolute lg:left-1/2 lg:top-0 lg:w-[30%] lg:-translate-x-1/2"
+            initial={reduced ? false : { opacity: 0, y: 16, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.08, ease: EASE }}
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-semibold tracking-[0.16em] text-[#9A6B24]">02</span>
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={31} /></span>
+            </div>
+            <div className="mt-12 text-[56px] font-medium leading-[0.88] tracking-[-0.065em] text-[#DDA34B] sm:text-[68px]" style={{ fontFamily: DISPLAY }}>RULES.</div>
+            <div className="mt-7 grid gap-2 text-[11px] font-semibold text-[#64665F]">
+              <div className="border-t border-[#1F211E]/10 pt-3">When to run</div>
+              <div className="border-t border-[#1F211E]/10 pt-3">Which channel</div>
+              <div className="border-t border-[#1F211E]/10 pt-3">What happens on reply</div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="relative z-10 mt-4 rounded-[28px] bg-[#A9B47A] p-7 text-[#172019] sm:p-9 lg:absolute lg:right-0 lg:top-[72px] lg:w-[38%]"
+            initial={reduced ? false : { opacity: 0, x: 14 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.14, ease: EASE }}
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-semibold tracking-[0.16em] text-[#526034]">03</span>
+              <span className="h-2.5 w-2.5 rounded-full bg-[#526034]" />
+            </div>
+            <div className="mt-14 text-[58px] font-medium leading-[0.88] tracking-[-0.065em] sm:text-[70px]" style={{ fontFamily: DISPLAY }}>ACTION.</div>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {["Follow up", "Remind", "Update", "Hand off"].map((item) => (
+                <span key={item} className="rounded-full border border-[#172019]/12 bg-white/24 px-3 py-2 text-[10px] font-semibold text-[#3E4930]">{item}</span>
+              ))}
+            </div>
+          </motion.div>
         </div>
 
         <Reveal>
-          <div className="mt-6 text-[11px] font-semibold text-[#B8C28A]">Rules first. Automation second.</div>
+          <div className="mt-5 text-[11px] font-semibold text-[#B8C28A]">Rules first. Automation second.</div>
         </Reveal>
       </div>
     </section>
@@ -608,10 +624,10 @@ function UseCaseCard({
 
 function HumanControl() {
   const actions = [
-    { label: "Continue follow-up", tone: "#DDA34B", team: false },
-    { label: "Pause sequence", tone: "#C96C85", team: false },
-    { label: "Change workflow", tone: "#9B86B8", team: false },
-    { label: "Send to your team", tone: "#99A36D", team: true },
+    { label: "Continue follow-up", tone: "#DDA34B", className: "bg-[#F7E5B8]" },
+    { label: "Pause sequence", tone: "#C96C85", className: "bg-[#F2DDE5]" },
+    { label: "Change workflow", tone: "#9B86B8", className: "bg-[#E5DFF0]" },
+    { label: "Send to your team", tone: "#99A36D", className: "bg-[#E1E7D0]", team: true },
   ] as const;
 
   return (
@@ -627,9 +643,9 @@ function HumanControl() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
+        <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
           <Reveal>
-            <div className="flex h-full min-h-[390px] flex-col justify-between rounded-[30px] bg-[#2B2630] p-7 text-[#F7F4EE] sm:p-9">
+            <div className="flex h-full min-h-[430px] flex-col justify-between rounded-[30px] bg-[#2B2630] p-7 text-[#F7F4EE] sm:p-9">
               <div className="flex items-center gap-3">
                 <TeamAvatar size={54} cell={0} />
                 <div>
@@ -650,25 +666,36 @@ function HumanControl() {
           </Reveal>
 
           <Reveal>
-            <div className="h-full overflow-hidden rounded-[30px] border border-[#8F8298]/16 bg-white/58 shadow-[0_18px_50px_rgba(74,62,87,.08)] backdrop-blur-sm">
-              {actions.map((action, index) => (
-                <div
-                  key={action.label}
-                  className={`flex min-h-[96px] items-center gap-4 px-6 py-5 sm:px-8 ${index ? "border-t border-[#8F8298]/12" : ""}`}
-                >
-                  <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: action.tone }} />
-                  <div className="flex-1 text-[24px] font-medium tracking-[-0.04em] text-[#2A2630] sm:text-[28px]" style={{ fontFamily: DISPLAY }}>
-                    {action.label}
-                  </div>
-                  {action.team ? (
-                    <div className="flex -space-x-2">
-                      <TeamAvatar size={30} cell={7} />
-                      <TeamAvatar size={34} cell={0} />
-                      <TeamAvatar size={30} cell={14} />
+            <div className="relative h-full min-h-[430px] rounded-[30px] border border-[#8F8298]/14 bg-white/42 p-5 shadow-[0_20px_55px_rgba(74,62,87,.08)] backdrop-blur-sm sm:p-6">
+              <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 hidden h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[6px] border-[#EAE4F0] bg-[#111214] shadow-[0_12px_26px_rgba(53,45,61,.16)] lg:flex">
+                <ZaplaPetal size={38} />
+              </div>
+
+              <div className="grid h-full gap-3 sm:grid-cols-2 sm:grid-rows-2">
+                {actions.map((action, index) => (
+                  <div
+                    key={action.label}
+                    className={`relative flex min-h-[170px] flex-col justify-between overflow-hidden rounded-[22px] border border-white/72 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,.86)] ${action.className}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="h-3 w-3 rounded-full" style={{ backgroundColor: action.tone }} />
+                      <span className="text-[10px] font-semibold tracking-[0.14em] text-[#6D6870]/50">0{index + 1}</span>
                     </div>
-                  ) : null}
-                </div>
-              ))}
+                    <div className="mt-8 text-[26px] font-medium leading-[1] tracking-[-0.045em] text-[#2A2630] sm:text-[30px]" style={{ fontFamily: DISPLAY }}>
+                      {action.label}
+                    </div>
+                    {action.team ? (
+                      <div className="mt-5 flex -space-x-2">
+                        <TeamAvatar size={30} cell={7} />
+                        <TeamAvatar size={34} cell={0} />
+                        <TeamAvatar size={30} cell={14} />
+                      </div>
+                    ) : (
+                      <div className="mt-5 h-px w-12" style={{ backgroundColor: action.tone }} />
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </Reveal>
         </div>
@@ -678,11 +705,11 @@ function HumanControl() {
 }
 
 function ConnectedCrm() {
-  const facts = [
-    { label: "Relationship", value: "Existing customer", tone: "#E97D62" },
-    { label: "Last message", value: "“Thanks, all sorted.”", tone: "#C96C85" },
-    { label: "Last booking", value: "6 months ago", tone: "#DDA34B" },
-    { label: "Owner", value: "Front desk", tone: "#99A36D" },
+  const history = [
+    { label: "Relationship", value: "Existing customer", meta: "Known history", tone: "#E97D62" },
+    { label: "Last message", value: "“Thanks, all sorted.”", meta: "Previous conversation", tone: "#C96C85" },
+    { label: "Last booking", value: "6 months ago", meta: "Service history", tone: "#DDA34B" },
+    { label: "Owner", value: "Front desk", meta: "Who picks it up", tone: "#99A36D" },
   ];
 
   return (
@@ -699,37 +726,47 @@ function ConnectedCrm() {
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="overflow-hidden rounded-[34px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_72px_rgba(62,70,49,.10)]">
-            <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
-              <div className="flex min-h-[400px] flex-col justify-between border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
-                <div className="flex items-center gap-4">
-                  <TeamAvatar size={72} cell={14} className="border-[#DDE4CF]" />
-                  <div>
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Past customer</div>
-                    <div className="mt-2 text-[34px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Emma Chen</div>
-                  </div>
+          <div className="grid overflow-hidden rounded-[34px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_72px_rgba(62,70,49,.10)] lg:grid-cols-[0.76fr_1.24fr]">
+            <div className="flex min-h-[430px] flex-col justify-between border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
+              <div className="flex items-center gap-4">
+                <TeamAvatar size={76} cell={14} className="border-[#DDE4CF]" />
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Past customer</div>
+                  <div className="mt-2 text-[36px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Emma Chen</div>
                 </div>
+              </div>
 
-                <div className="text-[44px] font-medium leading-[0.98] tracking-[-0.05em] text-[#1E2B29]" style={{ fontFamily: DISPLAY }}>
+              <div>
+                <div className="text-[48px] font-medium leading-[0.94] tracking-[-0.055em] text-[#1E2B29]" style={{ fontFamily: DISPLAY }}>
                   The history is already there.
                 </div>
-
-                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
+                <div className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
                   <ZaplaPetal size={20} />
                   Context connected
                 </div>
               </div>
+            </div>
 
-              <div className="grid sm:grid-cols-2">
-                {facts.map((fact, index) => (
-                  <div
-                    key={fact.label}
-                    className={`relative min-h-[200px] p-7 sm:p-8 ${index % 2 === 0 ? "sm:border-r sm:border-[#1E2B29]/10" : ""} ${index < 2 ? "border-b border-[#1E2B29]/10" : ""}`}
+            <div className="relative min-h-[430px] overflow-hidden p-6 sm:p-8">
+              <div className="pointer-events-none absolute bottom-[12%] left-[42px] top-[12%] w-px bg-[#1E2B29]/10 sm:left-[54px]" />
+              <div className="relative flex h-full flex-col justify-between gap-4">
+                {history.map((item, index) => (
+                  <motion.div
+                    key={item.label}
+                    className={`relative ml-5 rounded-[20px] border border-[#1E2B29]/8 bg-white p-5 shadow-[0_10px_28px_rgba(55,64,46,.06)] sm:ml-8 sm:grid sm:grid-cols-[0.9fr_1.25fr_auto] sm:items-center sm:gap-6 ${index === 1 ? "sm:translate-x-6" : index === 2 ? "sm:translate-x-3" : ""}`}
+                    initial={{ opacity: 0, x: 12 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.6 }}
+                    transition={{ duration: 0.4, delay: index * 0.07, ease: EASE }}
                   >
-                    <div className="absolute left-7 top-0 h-[4px] w-14 sm:left-8" style={{ backgroundColor: fact.tone }} />
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">{fact.label}</div>
-                    <div className="mt-12 max-w-[280px] text-[30px] font-medium leading-[1.03] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>{fact.value}</div>
-                  </div>
+                    <span className="absolute -left-[29px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-4 border-[#FCFCFA] sm:-left-[45px]" style={{ backgroundColor: item.tone }} />
+                    <div>
+                      <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#6B7168]">{item.label}</div>
+                      <div className="mt-1 text-[10px] text-[#8A9086]">{item.meta}</div>
+                    </div>
+                    <div className="mt-4 text-[25px] font-medium leading-[1.05] tracking-[-0.04em] text-[#202420] sm:mt-0 sm:text-[28px]" style={{ fontFamily: DISPLAY }}>{item.value}</div>
+                    <span className="mt-4 h-2.5 w-2.5 rounded-full sm:mt-0" style={{ backgroundColor: item.tone }} />
+                  </motion.div>
                 ))}
               </div>
             </div>
