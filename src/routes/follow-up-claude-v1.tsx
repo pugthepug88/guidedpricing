@@ -2335,9 +2335,10 @@ const FOOTER_SOCIALS = [
 
 function FooterLandscape() {
   const reduced = !!useReducedMotion();
+  const dominoVideo = "/concept/Zapla%20domino.mp4";
 
   return (
-    <div className="relative overflow-hidden bg-[#E8C6A4] pb-5 sm:pb-8 lg:pb-10">
+    <div className="relative overflow-hidden bg-[#E8C6A4]">
       <div className="relative h-[390px] overflow-hidden sm:h-[560px] lg:h-[720px]">
         <video
           aria-hidden="true"
@@ -2346,23 +2347,52 @@ function FooterLandscape() {
           muted
           loop={!reduced}
           playsInline
-          preload="auto"
+          preload="metadata"
         >
-          <source src="/concept/footer-domino.mp4" type="video/mp4" />
+          <source src={dominoVideo} type="video/mp4" />
         </video>
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#FCFCFA] via-[#FCFCFA]/60 to-transparent sm:h-40 lg:h-48"
+          className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#FCFCFA] via-[#FCFCFA]/58 to-transparent sm:h-40 lg:h-48"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#E8C6A4] to-transparent sm:h-28 lg:h-32"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#C89469]/30 via-[#DDB28C]/10 to-transparent sm:h-24 lg:h-28"
         />
       </div>
 
-      <div className="relative z-20 -mt-5 px-4 sm:-mt-12 sm:px-8 lg:-mt-16 lg:px-12">
-        <div className="mx-auto max-w-[1220px] rounded-[30px] border border-white/60 bg-[#F8F5EF]/[0.98] p-7 shadow-[0_30px_80px_rgba(54,40,26,.20)] sm:p-9 lg:p-11">
+      <div className="relative -mt-5 overflow-hidden px-4 pb-5 sm:-mt-12 sm:px-8 sm:pb-8 lg:-mt-16 lg:px-12 lg:pb-10">
+        <video
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-[10%] h-[120%] w-[120%] max-w-none object-cover object-[center_78%] opacity-80 blur-[18px] saturate-[0.9] brightness-[1.04] sm:blur-[22px]"
+          autoPlay={!reduced}
+          muted
+          loop={!reduced}
+          playsInline
+          preload="metadata"
+        >
+          <source src={dominoVideo} type="video/mp4" />
+        </video>
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(223,177,137,.18)_0%,rgba(216,164,119,.46)_38%,rgba(196,143,99,.68)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-24 bottom-[-90px] h-56 w-80 rounded-[50%] bg-[#C77253]/24 blur-3xl sm:h-72 sm:w-[420px]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-28 bottom-[-80px] h-64 w-96 rounded-[50%] bg-[#8A7C59]/22 blur-3xl sm:h-80 sm:w-[460px]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[44%] top-6 h-40 w-56 -translate-x-1/2 rounded-full bg-[#2563FF]/8 blur-3xl sm:h-52 sm:w-72"
+        />
+
+        <div className="relative z-20 mx-auto max-w-[1220px] rounded-[30px] border border-white/60 bg-[#F8F5EF]/[0.98] p-7 shadow-[0_30px_80px_rgba(54,40,26,.20)] sm:p-9 lg:p-11">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr_1fr] lg:gap-12">
             <div>
               <a href="https://zapla.io/" className="inline-flex items-center">
