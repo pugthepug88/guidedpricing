@@ -462,6 +462,7 @@ function MechanismSection() {
       word: "TRIGGER.",
       line: "Enquiry. Quote. Missed call. Booking. Past customer.",
       tone: "#E97D62",
+      ai: false,
     },
     {
       number: "02",
@@ -475,6 +476,7 @@ function MechanismSection() {
       word: "ACTION.",
       line: "Follow up. Remind. Update. Hand off.",
       tone: "#99A36D",
+      ai: false,
     },
   ] as const;
 
@@ -606,9 +608,9 @@ function UseCaseCard({
 
 function HumanControl() {
   const actions = [
-    { label: "Continue follow-up", tone: "#DDA34B" },
-    { label: "Pause sequence", tone: "#C96C85" },
-    { label: "Change workflow", tone: "#9B86B8" },
+    { label: "Continue follow-up", tone: "#DDA34B", team: false },
+    { label: "Pause sequence", tone: "#C96C85", team: false },
+    { label: "Change workflow", tone: "#9B86B8", team: false },
     { label: "Send to your team", tone: "#99A36D", team: true },
   ] as const;
 
