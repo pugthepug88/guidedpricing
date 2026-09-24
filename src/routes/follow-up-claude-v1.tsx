@@ -2283,61 +2283,235 @@ function Faq() {
   );
 }
 
-function FinalCta() {
-  const reduced = !!useReducedMotion();
-  return (
-    <section id="zfu-final-cta" className="bg-white px-5 pb-24 sm:px-10 sm:pb-28 lg:px-16 lg:pb-32">
-      <Reveal className="mx-auto max-w-[1180px]">
-        <div className="relative overflow-hidden rounded-[36px] bg-[#1E2B29] px-6 py-16 text-center text-[#F7F4EE] sm:px-12 sm:py-20 lg:py-24">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(40%_60%_at_15%_10%,rgba(221,163,75,.16),transparent_70%),radial-gradient(40%_60%_at_85%_100%,rgba(201,108,133,.14),transparent_70%)]"
-          />
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-40 -right-36 opacity-[0.07]"
-            animate={reduced ? undefined : { rotate: 360 }}
-            transition={reduced ? undefined : { duration: 90, repeat: Infinity, ease: "linear" }}
-          >
-            <ZaplaPetal size={420} core="#1E2B29" />
-          </motion.div>
+const FOOTER_GROUPS = [
+  {
+    label: "Product",
+    links: [
+      ["Zapla CRM", "https://zapla.io/crm"],
+      ["Follow-Up", "/follow-up"],
+      ["AI Receptionist", "/ai-receptionist"],
+      ["Vibe Studio", "https://zapla.io/vibe-studio"],
+    ],
+  },
+  {
+    label: "Resources",
+    links: [
+      ["Blog", "https://zapla.io/blog"],
+      ["Request feature", "https://zapla.canny.io/feature-request"],
+      ["Zapla vs HubSpot", "https://zapla.io/comparison/zapla-vs-hubspot"],
+    ],
+  },
+  {
+    label: "Company",
+    links: [
+      ["Home", "https://zapla.io/"],
+      ["Pricing", "https://zapla.io/pricing"],
+      ["Book a Call", BOOK_URL],
+      ["Log In", "https://my.zapla.io/"],
+    ],
+  },
+] as const;
 
-          <div className="relative mx-auto max-w-[760px]">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#111214] ring-1 ring-white/10">
-              <ZaplaPetal size={34} bloom />
+function FooterLandscape() {
+  const reduced = !!useReducedMotion();
+  const ballColors = [CORAL, AMBER, ROSE, SAGE, PLUM, "#2563FF"];
+
+  return (
+    <div className="relative h-[760px] overflow-hidden sm:h-[800px] lg:h-[860px]">
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 1600 860"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 h-full w-full"
+      >
+        <defs>
+          <linearGradient id="zfu-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FCFCFA" />
+            <stop offset="50%" stopColor="#F5E7D9" />
+            <stop offset="100%" stopColor="#E8C7A4" />
+          </linearGradient>
+          <linearGradient id="zfu-hill-back" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#7B9977" />
+            <stop offset="100%" stopColor="#527563" />
+          </linearGradient>
+          <linearGradient id="zfu-hill-front" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#AAB57C" />
+            <stop offset="100%" stopColor="#71855F" />
+          </linearGradient>
+          <linearGradient id="zfu-slide" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#3F79FF" />
+            <stop offset="100%" stopColor="#1558E6" />
+          </linearGradient>
+          <filter id="zfu-slide-shadow" x="-20%" y="-20%" width="140%" height="160%">
+            <feDropShadow dx="0" dy="12" stdDeviation="12" floodColor="#0C3D99" floodOpacity=".25" />
+          </filter>
+          <filter id="zfu-ball-shadow" x="-100%" y="-100%" width="300%" height="300%">
+            <feDropShadow dx="0" dy="5" stdDeviation="4" floodColor="#273127" floodOpacity=".2" />
+          </filter>
+        </defs>
+
+        <rect width="1600" height="860" fill="url(#zfu-sky)" />
+        <circle cx="1220" cy="118" r="66" fill="#F8C986" opacity=".52" />
+
+        <path
+          d="M0 330 C170 220 330 240 500 318 C680 400 845 315 1015 270 C1210 220 1400 240 1600 342 L1600 860 L0 860 Z"
+          fill="url(#zfu-hill-back)"
+        />
+        <path
+          d="M0 470 C180 370 370 400 560 486 C760 578 910 450 1100 414 C1280 380 1440 410 1600 500 L1600 860 L0 860 Z"
+          fill="url(#zfu-hill-front)"
+        />
+        <path
+          d="M0 616 C250 532 472 570 694 652 C945 744 1214 608 1600 620 L1600 860 L0 860 Z"
+          fill="#58725D"
+          opacity=".55"
+        />
+
+        {[
+          [156, 330, 30, "#2F5A4A"],
+          [218, 356, 24, "#416D58"],
+          [1260, 296, 34, "#2F5A4A"],
+          [1328, 328, 24, "#416D58"],
+          [1420, 320, 28, "#315B4C"],
+          [1065, 397, 22, "#365F4E"],
+          [420, 420, 20, "#365F4E"],
+        ].map(([x, y, r, fill], index) => (
+          <g key={index} transform={`translate(${x} ${y})`}>
+            <rect x={-3} y={Number(r) * 0.45} width="6" height={Number(r) * 0.7} rx="3" fill="#594B3F" opacity=".55" />
+            <path
+              d={`M0 ${-Number(r)} C ${Number(r) * 0.72} ${-Number(r) * 0.34}, ${Number(r) * 0.62} ${Number(r) * 0.55}, 0 ${Number(r) * 0.68} C ${-Number(r) * 0.62} ${Number(r) * 0.55}, ${-Number(r) * 0.72} ${-Number(r) * 0.34}, 0 ${-Number(r)} Z`}
+              fill={String(fill)}
+            />
+          </g>
+        ))}
+
+        <path
+          id="zfu-footer-slide-path"
+          d="M250 382 C430 350 530 388 474 454 C420 520 626 508 690 580 C748 646 690 682 626 700"
+          fill="none"
+          stroke="#0F439F"
+          strokeWidth="48"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity=".2"
+          filter="url(#zfu-slide-shadow)"
+        />
+        <path
+          d="M250 372 C430 340 530 378 474 444 C420 510 626 498 690 570 C748 636 690 672 626 690"
+          fill="none"
+          stroke="url(#zfu-slide)"
+          strokeWidth="36"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          filter="url(#zfu-slide-shadow)"
+        />
+        <path
+          d="M250 365 C430 333 530 371 474 437 C420 503 626 491 690 563 C748 629 690 665 626 683"
+          fill="none"
+          stroke="#8FB0FF"
+          strokeWidth="5"
+          strokeLinecap="round"
+          opacity=".62"
+        />
+
+        {!reduced &&
+          ballColors.map((color, index) => (
+            <circle key={color} r={index % 2 ? 12 : 14} fill={color} filter="url(#zfu-ball-shadow)">
+              <animateMotion
+                dur={`${5.7 + index * 0.18}s`}
+                begin={`-${index * 0.78}s`}
+                repeatCount="indefinite"
+                path="M250 372 C430 340 530 378 474 444 C420 510 626 498 690 570 C748 636 690 672 626 690"
+              />
+            </circle>
+          ))}
+
+        {reduced &&
+          ballColors.slice(0, 4).map((color, index) => (
+            <circle key={color} cx={570 + index * 32} cy={674 - index * 5} r={index % 2 ? 12 : 14} fill={color} filter="url(#zfu-ball-shadow)" />
+          ))}
+
+        {ballColors.concat([AMBER, CORAL, SAGE, ROSE]).map((color, index) => {
+          const x = 520 + (index % 5) * 38 + (index > 4 ? 22 : 0);
+          const y = 718 + Math.floor(index / 5) * 28 + (index % 2) * 5;
+          return <circle key={`pit-${index}`} cx={x} cy={y} r={13} fill={color} filter="url(#zfu-ball-shadow)" />;
+        })}
+      </svg>
+
+      <div className="absolute inset-x-0 bottom-5 z-20 px-4 sm:bottom-8 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-[1220px] rounded-[32px] border border-black/[0.05] bg-[#F8F5EF]/[0.96] p-7 shadow-[0_32px_80px_rgba(40,47,35,.20)] backdrop-blur-sm sm:p-9 lg:p-11">
+          <div className="grid gap-10 lg:grid-cols-[1.18fr_2.82fr] lg:gap-16">
+            <div>
+              <img src="/concept/zapla-logo-dark.svg" alt="Zapla" className="h-9 w-auto" />
+              <p className="mt-5 max-w-[270px] text-[14px] leading-[1.7] text-[#60645F]">
+                Follow through without adding another person to the chase.
+              </p>
+              <a
+                href={BOOK_URL}
+                className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold text-[#1E2B29] underline decoration-[#DDA34B] decoration-2 underline-offset-4"
+              >
+                Book a Call <ArrowRight size={14} />
+              </a>
             </div>
-            <Eyebrow onDark className="mt-7">
-              Your next customer is already asking
-            </Eyebrow>
-            <h2
-              className="mt-4 text-[40px] font-medium leading-[1.02] tracking-[-0.04em] text-balance sm:text-[58px] lg:text-[68px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              Stop letting good leads go quiet.
-            </h2>
-            <p className="mx-auto mt-6 max-w-[560px] text-[16px] leading-[1.7] text-white/64 sm:text-[17px]">
-              Book a call. We’ll map where follow-up slips in your business today and show you
-              exactly what Zapla would send, and when.
-            </p>
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <PrimaryCta onDark className="w-full sm:w-auto" />
-              <SecondaryCta href={PRICING_URL} onDark className="w-full sm:w-auto">
-                View pricing
-              </SecondaryCta>
-            </div>
-            <div className="mt-9 flex items-center justify-center gap-3">
-              <div className="flex -space-x-2.5">
-                <Portrait size={30} cell={7} ring="ring-[#1E2B29]" />
-                <Portrait size={30} cell={3} ring="ring-[#1E2B29]" />
-                <Portrait size={30} cell={14} ring="ring-[#1E2B29]" />
-              </div>
-              <span className="text-[13px] font-medium text-white/64">
-                Talk it through with the Zapla team
-              </span>
+
+            <div className="grid gap-8 sm:grid-cols-3">
+              {FOOTER_GROUPS.map((group) => (
+                <div key={group.label}>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#20241F]">{group.label}</div>
+                  <div className="mt-4 grid gap-2.5">
+                    {group.links.map(([label, href]) => (
+                      <a
+                        key={label}
+                        href={href}
+                        className="text-[13px] font-medium text-[#676B65] transition-colors hover:text-[#111318]"
+                      >
+                        {label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+
+          <div className="mt-9 flex flex-col gap-3 border-t border-[#DED8CF] pt-5 text-[11px] text-[#888C85] sm:flex-row sm:items-center sm:justify-between">
+            <span>© {new Date().getFullYear()} Zapla</span>
+            <span>Unlimited users. One flat price.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FinalCta() {
+  return (
+    <section id="zfu-final-cta" className="overflow-hidden bg-[#FCFCFA] pt-24 sm:pt-28 lg:pt-32">
+      <Reveal className="mx-auto max-w-[900px] px-5 text-center sm:px-10">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+          <ZaplaPetal size={34} bloom />
+        </div>
+        <Eyebrow className="mt-7">Keep the next step moving</Eyebrow>
+        <h2
+          className="mt-4 text-[42px] font-medium leading-[1.01] tracking-[-0.045em] text-balance text-[#111318] sm:text-[58px] lg:text-[68px]"
+          style={{ fontFamily: DISPLAY }}
+        >
+          Stop relying on memory to make the next move.
+        </h2>
+        <p className="mx-auto mt-5 max-w-[650px] text-[15px] leading-[1.7] text-[#666B66] sm:text-[16px]">
+          Book a call and we’ll map where follow-up is slipping, then show you what Zapla can automate and when.
+        </p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <PrimaryCta className="w-full sm:w-auto" />
+          <SecondaryCta href={PRICING_URL} className="w-full sm:w-auto">
+            View pricing
+          </SecondaryCta>
         </div>
       </Reveal>
+
+      <div className="mt-8 sm:mt-10">
+        <FooterLandscape />
+      </div>
     </section>
   );
 }
