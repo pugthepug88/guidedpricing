@@ -6,7 +6,10 @@ import {
   Calendar,
   ChevronDown,
   FileText,
+  Globe2,
+  MessageCircle,
   MessageSquare,
+  Phone,
   RotateCcw,
 } from "lucide-react";
 
@@ -18,7 +21,7 @@ export const Route = createFileRoute("/follow-up")({
       {
         name: "description",
         content:
-          "Zapla keeps new enquiries, quotes, bookings and past customers moving with connected follow-up across SMS, email and your CRM.",
+          "Zapla keeps new enquiries, quotes, bookings and past customers moving with connected follow-up across the channels you use.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -129,23 +132,29 @@ function TeamAvatar({ size = 42, cell = 0 }: { size?: number; cell?: number }) {
 }
 
 function Hero() {
+  const proof = [
+    ["Fast first response", "#E97D62"],
+    ["Rules you control", "#DDA34B"],
+    ["Human handoff when needed", "#99A36D"],
+  ] as const;
+
   return (
     <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-20 pt-[116px] sm:px-10 sm:pb-24 sm:pt-[126px] lg:px-16 lg:pb-28 lg:pt-[138px]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_82%_18%,rgba(155,134,184,.08),transparent_28%),radial-gradient(circle_at_18%_82%,rgba(153,163,109,.07),transparent_30%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(201,108,133,.055),transparent_24%),radial-gradient(circle_at_88%_18%,rgba(153,163,109,.06),transparent_24%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#111318]/8" />
 
-      <div className="relative mx-auto grid max-w-[1420px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
-        <Reveal className="max-w-[650px]">
+      <div className="relative mx-auto max-w-[1420px]">
+        <Reveal className="mx-auto max-w-[980px] text-center">
           <Eyebrow>Follow-up automation</Eyebrow>
-          <h1 className="mt-4 text-[50px] font-medium leading-[0.92] tracking-[-0.06em] sm:text-[68px] lg:text-[82px]" style={{ fontFamily: DISPLAY }}>
+          <h1 className="mt-4 text-[52px] font-medium leading-[0.91] tracking-[-0.062em] sm:text-[72px] lg:text-[88px]" style={{ fontFamily: DISPLAY }}>
             The lead came in.
             <span className="block text-[#C96F55]">Zapla keeps it moving.</span>
           </h1>
-          <p className="mt-6 max-w-[600px] text-[16px] leading-[1.7] text-[#626762] sm:text-[18px]">
-            Zapla follows up across SMS and email, keeps every conversation tied to the customer record, and keeps opportunities moving while your team gets on with the work.
+          <p className="mx-auto mt-6 max-w-[790px] text-[16px] leading-[1.72] text-[#626762] sm:text-[18px]">
+            Zapla follows up across the channels you use, keeps every conversation tied to the customer record, and keeps the next step moving while your team gets on with the work.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px">
               Book a Call <ArrowRight size={15} />
             </a>
@@ -154,22 +163,17 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[11px] font-semibold text-[#656A65] sm:text-[12px]">
-            {[
-              ["New enquiries", "#E97D62"],
-              ["Quotes", "#DDA34B"],
-              ["Bookings", "#C96C85"],
-              ["Reactivation", "#99A36D"],
-            ].map(([item, tone]) => (
+          <div className="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-3 text-[11px] font-semibold text-[#555B56] sm:text-[12px]">
+            {proof.map(([item, tone]) => (
               <span key={item} className="inline-flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: tone }} />
+                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: tone }} />
                 {item}
               </span>
             ))}
           </div>
         </Reveal>
 
-        <Reveal>
+        <Reveal className="mt-14 sm:mt-16">
           <FollowUpScene />
         </Reveal>
       </div>
@@ -180,137 +184,168 @@ function Hero() {
 function FollowUpScene() {
   const reduced = !!useReducedMotion();
 
-  const cards = [
-    {
-      className: "lg:left-[2%] lg:top-[15%] lg:w-[50%] lg:-rotate-1",
-      mobile: "bg-[#1E2B29] text-[#F7F4EE]",
-      bg: "#1E2B29",
-      fg: "#F7F4EE",
-      time: "10:04",
-      eyebrow: "New enquiry",
-      title: "Consultation next week?",
-      meta: "Sarah Mitchell",
-      avatar: true,
-    },
-    {
-      className: "lg:right-[1%] lg:top-[34%] lg:w-[66%] lg:rotate-1",
-      mobile: "bg-[#DDA34B] text-[#111318]",
-      bg: "#DDA34B",
-      fg: "#111318",
-      time: "10:05",
-      eyebrow: "Zapla follows up",
-      title: "Would Tuesday morning suit you?",
-      meta: "SMS sent",
-      ai: true,
-    },
-    {
-      className: "lg:left-[8%] lg:top-[58%] lg:w-[49%] lg:-rotate-1",
-      mobile: "bg-[#C96C85] text-[#FFF8F3]",
-      bg: "#C96C85",
-      fg: "#FFF8F3",
-      time: "10:12",
-      eyebrow: "Customer replied",
-      title: "Tuesday morning works.",
-      meta: "Reply received",
-    },
-    {
-      className: "lg:right-[5%] lg:top-[78%] lg:w-[57%] lg:rotate-1",
-      mobile: "bg-[#99A36D] text-[#111318]",
-      bg: "#99A36D",
-      fg: "#111318",
-      time: "10:13",
-      eyebrow: "Booked",
-      title: "Tuesday · 10:30am",
-      meta: "Consultation",
-      booked: true,
-    },
-  ];
+  const channels = ["Web chat", "SMS", "Email", "WhatsApp", "Voice", "Social"];
 
   return (
-    <div className="relative min-h-[610px] sm:min-h-[660px]">
-      <div className="pointer-events-none absolute right-[2%] top-0 hidden text-right lg:block">
-        <div className="text-[150px] font-medium leading-[0.82] tracking-[-0.09em] text-[#111318]/[0.035]" style={{ fontFamily: DISPLAY }}>9</div>
-        <div className="mt-1 text-[14px] font-semibold uppercase tracking-[0.28em] text-[#111318]/20">minutes</div>
-      </div>
-
-      <div className="relative z-10 mb-6 flex items-end justify-between border-b border-[#D9DCD6] pb-4 lg:absolute lg:left-[4%] lg:right-[2%] lg:top-[4%]">
-        <div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">One enquiry</div>
-          <div className="mt-1 text-[15px] font-semibold text-[#252925]">Four moments. No chasing.</div>
+    <div className="relative mx-auto max-w-[1320px] overflow-hidden rounded-[34px] border border-[#1E2B29]/[0.08] bg-[#EEF0E9] shadow-[0_28px_80px_rgba(48,52,43,.09)]">
+      <div className="relative px-5 pb-5 pt-5 sm:px-7 sm:pb-7 sm:pt-6 lg:px-8 lg:pb-8">
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {channels.map((channel, index) => (
+            <span
+              key={channel}
+              className="rounded-full border border-[#1E2B29]/[0.08] bg-white/70 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#5C625C]"
+              style={{ color: index === 3 ? "#9C5269" : index === 4 ? "#6B5A8B" : undefined }}
+            >
+              {channel}
+            </span>
+          ))}
         </div>
-        <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7C817B]">10:04 → 10:13</div>
-      </div>
 
-      <div className="space-y-3 lg:hidden">
-        {cards.map((card, index) => (
-          <motion.div
-            key={card.time}
-            className={`rounded-[22px] px-5 py-5 ${card.mobile}`}
-            initial={reduced ? false : { opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.08, ease: EASE }}
-          >
-            <HeroMoment card={card} />
-          </motion.div>
-        ))}
-      </div>
+        <div className="relative mt-5 min-h-[760px] overflow-hidden rounded-[28px] sm:min-h-[720px] lg:min-h-[650px]">
+          <div className="absolute inset-x-0 bottom-0 top-[18%] rounded-[28px] bg-[linear-gradient(135deg,#E97D62_0%,#DDA34B_53%,#C96C85_100%)]" />
+          <div className="pointer-events-none absolute inset-x-[8%] bottom-[4%] h-[38%] rounded-full bg-white/18 blur-[70px]" />
 
-      <div className="relative hidden h-[610px] lg:block">
-        {cards.map((card, index) => (
-          <motion.div
-            key={card.time}
-            className={`absolute rounded-[26px] px-6 py-6 shadow-[0_22px_50px_rgba(34,34,31,.10)] ${card.className}`}
-            style={{ backgroundColor: card.bg, color: card.fg }}
-            initial={reduced ? false : { opacity: 0, y: 18, scale: 0.985 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.6 }}
-            transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.08 + index * 0.09, ease: EASE }}
-            whileHover={reduced ? undefined : { y: -3 }}
-          >
-            <HeroMoment card={card} />
-          </motion.div>
-        ))}
+          <div className="relative z-10 grid gap-3 p-4 sm:p-5 lg:hidden">
+            <ChannelMoment icon={<Globe2 size={15} />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" tone="#E97D62" />
+            <CustomerRecord />
+            <ChannelMoment icon={<MessageCircle size={15} />} eyebrow="WhatsApp" title="Follow-up sent" copy="Would Tuesday morning suit you?" tone="#DDA34B" ai />
+            <ChannelMoment icon={<Calendar size={15} />} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" tone="#99A36D" />
+          </div>
+
+          <div className="relative hidden h-[650px] lg:block">
+            <motion.div
+              className="absolute left-[3%] top-[15%] w-[22%]"
+              initial={reduced ? false : { opacity: 0, x: -18, y: 8 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: reduced ? 0 : 0.46, ease: EASE }}
+            >
+              <ChannelMoment icon={<Globe2 size={15} />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" tone="#E97D62" />
+            </motion.div>
+
+            <motion.div
+              className="absolute bottom-[12%] left-[5%] w-[20%]"
+              initial={reduced ? false : { opacity: 0, x: -16, y: 10 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.12, ease: EASE }}
+            >
+              <ChannelMoment icon={<Phone size={15} />} eyebrow="Voice AI" title="Call captured" copy="Customer wants Tuesday morning." tone="#9B86B8" />
+            </motion.div>
+
+            <motion.div
+              className="absolute left-1/2 top-[9%] w-[48%] -translate-x-1/2"
+              initial={reduced ? false : { opacity: 0, y: 16, scale: 0.985 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.55 }}
+              transition={{ duration: reduced ? 0 : 0.52, delay: reduced ? 0 : 0.06, ease: EASE }}
+            >
+              <CustomerRecord />
+            </motion.div>
+
+            <motion.div
+              className="absolute right-[3%] top-[17%] w-[23%]"
+              initial={reduced ? false : { opacity: 0, x: 18, y: 8 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.16, ease: EASE }}
+            >
+              <ChannelMoment icon={<MessageCircle size={15} />} eyebrow="WhatsApp" title="Follow-up sent" copy="Would Tuesday morning suit you?" tone="#DDA34B" ai />
+            </motion.div>
+
+            <motion.div
+              className="absolute bottom-[12%] right-[5%] w-[21%]"
+              initial={reduced ? false : { opacity: 0, x: 16, y: 10 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.24, ease: EASE }}
+            >
+              <ChannelMoment icon={<Calendar size={15} />} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" tone="#99A36D" />
+            </motion.div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function HeroMoment({
-  card,
+function CustomerRecord() {
+  return (
+    <div className="overflow-hidden rounded-[26px] border border-black/[0.07] bg-[#FCFCFA] shadow-[0_24px_58px_rgba(49,45,38,.16)]">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-black/[0.07] px-5 py-5 sm:px-6">
+        <div className="flex items-center gap-3">
+          <TeamAvatar size={48} cell={0} />
+          <div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8A8E89]">Customer record</div>
+            <div className="mt-1 text-[18px] font-semibold tracking-[-0.025em] text-[#111318]">Sarah Mitchell</div>
+          </div>
+        </div>
+        <span className="rounded-full bg-[#99A36D]/14 px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#697342]">Follow-up active</span>
+      </div>
+
+      <div className="p-5 sm:p-6">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8A8E89]">Latest conversation</div>
+        <div className="mt-4 rounded-[18px] bg-[#F1F2ED] px-4 py-4">
+          <div className="text-[11px] font-semibold text-[#727872]">Customer · 10:12am</div>
+          <div className="mt-2 text-[22px] font-medium leading-[1.12] tracking-[-0.035em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
+            Tuesday morning works.
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-3">
+          <RecordFact label="Next step" value="Consultation" tone="#E97D62" />
+          <RecordFact label="Booked" value="Tue · 10:30am" tone="#DDA34B" />
+          <RecordFact label="Owner" value="Front desk" tone="#99A36D" />
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 border-t border-black/[0.07] bg-white/70 px-5 py-4 sm:px-6">
+        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]">
+          <ZaplaPetal size={24} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#C96F55]">Zapla</div>
+          <div className="mt-1 text-[12px] font-semibold text-[#444944]">Conversation, context and next step stay together.</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RecordFact({ label, value, tone }: { label: string; value: string; tone: string }) {
+  return (
+    <div className="border-t-2 pt-3" style={{ borderColor: tone }}>
+      <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#8A8E89]">{label}</div>
+      <div className="mt-1.5 text-[11px] font-semibold text-[#333833]">{value}</div>
+    </div>
+  );
+}
+
+function ChannelMoment({
+  icon,
+  eyebrow,
+  title,
+  copy,
+  tone,
+  ai = false,
 }: {
-  card: {
-    time: string;
-    eyebrow: string;
-    title: string;
-    meta: string;
-    ai?: boolean;
-    avatar?: boolean;
-    booked?: boolean;
-  };
+  icon: ReactNode;
+  eyebrow: string;
+  title: string;
+  copy: string;
+  tone: string;
+  ai?: boolean;
 }) {
   return (
-    <div>
-      <div className="flex items-center gap-3">
-        <span className="text-[10px] font-bold tracking-[0.14em] opacity-60">{card.time}</span>
-        <span className="h-px flex-1 bg-current opacity-15" />
-        <span className="text-[9px] font-semibold uppercase tracking-[0.16em] opacity-52">{card.meta}</span>
+    <div className="rounded-[20px] border border-black/[0.07] bg-white/94 p-4 shadow-[0_16px_38px_rgba(45,41,35,.13)] backdrop-blur-sm">
+      <div className="flex items-center gap-2.5">
+        <span className="flex h-8 w-8 items-center justify-center rounded-[9px]" style={{ backgroundColor: `${tone}18`, color: tone }}>
+          {ai ? <ZaplaPetal size={21} /> : icon}
+        </span>
+        <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#747A74]">{eyebrow}</div>
       </div>
-      <div className="mt-5 flex items-center gap-3">
-        {card.ai && (
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#111214]">
-            <ZaplaPetal size={27} />
-          </span>
-        )}
-        {card.avatar && <TeamAvatar size={42} cell={0} />}
-        <div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.16em] opacity-58">{card.eyebrow}</div>
-          <div className="mt-2 text-[23px] font-medium leading-[1.06] tracking-[-0.04em] sm:text-[27px]" style={{ fontFamily: DISPLAY }}>{card.title}</div>
-        </div>
-        {card.booked && (
-          <span className="ml-auto rounded-full bg-[#111318]/[0.08] px-2.5 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em]">Booked</span>
-        )}
-      </div>
+      <div className="mt-4 text-[19px] font-medium leading-[1.04] tracking-[-0.035em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>{title}</div>
+      <div className="mt-2 text-[11px] leading-[1.5] text-[#6B706B]">{copy}</div>
     </div>
   );
 }
