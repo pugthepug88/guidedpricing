@@ -459,92 +459,59 @@ function MechanismSection() {
   const steps = [
     {
       number: "01",
-      eyebrow: "Trigger",
-      title: "Something happens.",
-      copy: "A new enquiry arrives, a quote is sent, a booking is coming up, a call is missed or a past customer reaches the right moment.",
-      examples: ["New enquiry", "Quote sent", "Missed call", "Booking due", "Past customer"],
+      word: "TRIGGER.",
+      line: "Enquiry. Quote. Missed call. Booking. Past customer.",
       tone: "#E97D62",
-      ai: false,
     },
     {
       number: "02",
-      eyebrow: "Rules",
-      title: "Your workflow decides.",
-      copy: "You choose the timing, channel, conditions, reply behaviour and the point where a person should step in.",
-      examples: ["When to run", "Which channel", "If they reply", "When to hand off"],
+      word: "RULES.",
+      line: "When to run. Which channel. What happens on reply.",
       tone: "#DDA34B",
       ai: true,
     },
     {
       number: "03",
-      eyebrow: "Action",
-      title: "The next step happens.",
-      copy: "Zapla carries out the action you set instead of leaving the next move to memory.",
-      examples: ["Send follow-up", "Confirm or remind", "Update the record", "Assign to team"],
+      word: "ACTION.",
+      line: "Follow up. Remind. Update. Hand off.",
       tone: "#99A36D",
-      ai: false,
     },
   ] as const;
 
   return (
     <section id="how-it-works" className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="relative mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[860px]">
+        <Reveal className="max-w-[900px]">
           <Eyebrow dark>How follow-up works</Eyebrow>
-          <h2 className="mt-4 text-[42px] font-medium leading-[0.97] tracking-[-0.052em] sm:text-[58px] lg:text-[66px]" style={{ fontFamily: DISPLAY }}>
-            A trigger starts it. Your rules decide. Zapla acts.
+          <h2 className="mt-4 text-[46px] font-medium leading-[0.94] tracking-[-0.055em] sm:text-[64px] lg:text-[76px]" style={{ fontFamily: DISPLAY }}>
+            Something happens. Your rules decide. Zapla acts.
           </h2>
-          <p className="mt-6 max-w-[690px] text-[15px] leading-[1.72] text-white/52 sm:text-[16px]">
-            Choose the moments that matter, the timing and conditions, and what should happen next. The same logic can run across the channels you use.
-          </p>
         </Reveal>
 
         <div className="mt-14 border-y border-white/[0.09] lg:grid lg:grid-cols-3">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              className={`relative px-0 py-8 sm:py-9 lg:min-h-[390px] lg:px-8 lg:py-10 ${index ? "border-t border-white/[0.09] lg:border-l lg:border-t-0" : ""}`}
-              initial={reduced ? false : { opacity: 0, y: 14 }}
+              className={`relative py-9 lg:min-h-[300px] lg:px-8 lg:py-10 ${index ? "border-t border-white/[0.09] lg:border-l lg:border-t-0" : ""}`}
+              initial={reduced ? false : { opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.45 }}
-              transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.08, ease: EASE }}
+              transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.07, ease: EASE }}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: step.tone }}>{step.eyebrow}</span>
                 <span className="text-[10px] font-semibold tracking-[0.16em] text-white/22">{step.number}</span>
+                {step.ai ? <ZaplaPetal size={34} /> : <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: step.tone }} />}
               </div>
-
-              <div className="mt-8 flex items-center gap-3">
-                {step.ai ? (
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.04]">
-                    <ZaplaPetal size={30} />
-                  </span>
-                ) : (
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: step.tone }} />
-                )}
-                <h3 className="text-[28px] font-medium leading-[1.02] tracking-[-0.04em] text-white/94" style={{ fontFamily: DISPLAY }}>
-                  {step.title}
-                </h3>
+              <div className="mt-14 text-[48px] font-medium leading-[0.9] tracking-[-0.06em] sm:text-[58px]" style={{ color: step.tone, fontFamily: DISPLAY }}>
+                {step.word}
               </div>
-
-              <p className="mt-5 max-w-[350px] text-[13px] leading-[1.68] text-white/47">{step.copy}</p>
-
-              <div className="mt-8 flex flex-wrap gap-2">
-                {step.examples.map((item) => (
-                  <span key={item} className="rounded-full border border-white/[0.09] bg-white/[0.035] px-3 py-2 text-[9px] font-semibold text-white/58">
-                    {item}
-                  </span>
-                ))}
-              </div>
+              <div className="mt-6 max-w-[300px] text-[13px] leading-[1.65] text-white/48">{step.line}</div>
             </motion.div>
           ))}
         </div>
 
         <Reveal>
-          <div className="mt-6 flex flex-col gap-2 text-[11px] text-white/38 sm:flex-row sm:items-center sm:justify-between">
-            <span>The automation follows the workflow you set.</span>
-            <span className="font-semibold text-[#B8C28A]">Rules first. Automation second.</span>
-          </div>
+          <div className="mt-6 text-[11px] font-semibold text-[#B8C28A]">Rules first. Automation second.</div>
         </Reveal>
       </div>
     </section>
@@ -639,10 +606,10 @@ function UseCaseCard({
 
 function HumanControl() {
   const actions = [
-    { label: "Continue follow-up", detail: "Keep the current workflow moving.", tone: "#DDA34B", team: false },
-    { label: "Pause the sequence", detail: "Stop further automated messages for now.", tone: "#C96C85", team: false },
-    { label: "Change workflow", detail: "Move the customer into a different next-step path.", tone: "#9B86B8", team: false },
-    { label: "Send to your team", detail: "Bring a person in with the conversation context attached.", tone: "#99A36D", team: true },
+    { label: "Continue follow-up", tone: "#DDA34B" },
+    { label: "Pause sequence", tone: "#C96C85" },
+    { label: "Change workflow", tone: "#9B86B8" },
+    { label: "Send to your team", tone: "#99A36D", team: true },
   ] as const;
 
   return (
@@ -650,85 +617,61 @@ function HumanControl() {
       <div className="relative mx-auto max-w-[1280px]">
         <Reveal className="max-w-[900px]">
           <Eyebrow>You stay in control</Eyebrow>
-          <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[58px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
-            A reply can change the plan. Your rules decide how.
+          <h2 className="mt-4 text-[46px] font-medium leading-[0.95] tracking-[-0.055em] text-[#111318] sm:text-[64px] lg:text-[72px]" style={{ fontFamily: DISPLAY }}>
+            You decide what happens next.
           </h2>
-          <p className="mt-6 max-w-[700px] text-[15px] leading-[1.72] text-[#626662] sm:text-[16px]">
-            Follow-up does not have to behave the same way every time. You choose what a reply, status change or handoff should do next.
+          <p className="mt-5 max-w-[680px] text-[15px] leading-[1.68] text-[#626662] sm:text-[16px]">
+            A reply can pause, continue, change the workflow or bring in your team.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
+        <div className="mt-14 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
           <Reveal>
-            <div className="flex h-full min-h-[430px] flex-col justify-between rounded-[30px] bg-[#2B2630] p-7 text-[#F7F4EE] sm:p-9">
-              <div>
-                <div className="flex items-center gap-3">
-                  <TeamAvatar size={54} cell={0} />
-                  <div>
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/38">Customer reply</div>
-                    <div className="mt-1 text-[13px] font-semibold text-white/78">Sarah Mitchell</div>
-                  </div>
-                </div>
-                <div className="mt-12 text-[42px] font-medium leading-[0.98] tracking-[-0.05em] sm:text-[50px]" style={{ fontFamily: DISPLAY }}>
-                  “Can I change the booking?”
-                </div>
-              </div>
-              <div className="mt-10 border-t border-white/[0.09] pt-5 text-[11px] leading-[1.55] text-white/42">
-                A reply is a new piece of context. What happens next is configurable.
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal>
-            <div className="h-full rounded-[30px] border border-[#8F8298]/16 bg-white/55 p-5 shadow-[0_18px_50px_rgba(74,62,87,.08)] backdrop-blur-sm sm:p-7">
-              <div className="flex items-center justify-between gap-4 border-b border-[#8F8298]/14 pb-5">
+            <div className="flex h-full min-h-[390px] flex-col justify-between rounded-[30px] bg-[#2B2630] p-7 text-[#F7F4EE] sm:p-9">
+              <div className="flex items-center gap-3">
+                <TeamAvatar size={54} cell={0} />
                 <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8B6A7A]">Possible next actions</div>
-                  <div className="mt-2 text-[24px] font-medium tracking-[-0.04em] text-[#2A2630]" style={{ fontFamily: DISPLAY }}>You decide which rule applies.</div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/38">Customer reply</div>
+                  <div className="mt-1 text-[13px] font-semibold text-white/78">Sarah Mitchell</div>
                 </div>
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#111214]">
-                  <ZaplaPetal size={29} />
-                </span>
               </div>
 
-              <div className="divide-y divide-[#8F8298]/12">
-                {actions.map((action) => (
-                  <div key={action.label} className="grid gap-3 py-5 sm:grid-cols-[14px_1fr_auto] sm:items-center">
-                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: action.tone }} />
-                    <div>
-                      <div className="text-[15px] font-semibold text-[#2A2630]">{action.label}</div>
-                      <div className="mt-1 text-[11px] leading-[1.5] text-[#777078]">{action.detail}</div>
-                    </div>
-                    {action.team ? (
-                      <div className="flex -space-x-2">
-                        <TeamAvatar size={30} cell={7} />
-                        <TeamAvatar size={34} cell={0} />
-                        <TeamAvatar size={30} cell={14} />
-                      </div>
-                    ) : null}
-                  </div>
-                ))}
+              <div className="my-10 text-[48px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
+                “Can I change the booking?”
+              </div>
+
+              <div className="flex items-center gap-3 border-t border-white/[0.09] pt-5">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={27} /></span>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/48">Your rules decide</span>
               </div>
             </div>
           </Reveal>
-        </div>
 
-        <div className="mt-12 grid gap-6 border-t border-[#8F8298]/18 pt-8 sm:grid-cols-3">
-          <SmallPrinciple title="Timing" copy="Choose when follow-up starts and how it spaces out." />
-          <SmallPrinciple title="Behaviour" copy="Decide what replies and status changes should trigger." />
-          <SmallPrinciple title="Handoff" copy="Bring a person in when the workflow calls for judgment." />
+          <Reveal>
+            <div className="h-full overflow-hidden rounded-[30px] border border-[#8F8298]/16 bg-white/58 shadow-[0_18px_50px_rgba(74,62,87,.08)] backdrop-blur-sm">
+              {actions.map((action, index) => (
+                <div
+                  key={action.label}
+                  className={`flex min-h-[96px] items-center gap-4 px-6 py-5 sm:px-8 ${index ? "border-t border-[#8F8298]/12" : ""}`}
+                >
+                  <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: action.tone }} />
+                  <div className="flex-1 text-[24px] font-medium tracking-[-0.04em] text-[#2A2630] sm:text-[28px]" style={{ fontFamily: DISPLAY }}>
+                    {action.label}
+                  </div>
+                  {action.team ? (
+                    <div className="flex -space-x-2">
+                      <TeamAvatar size={30} cell={7} />
+                      <TeamAvatar size={34} cell={0} />
+                      <TeamAvatar size={30} cell={14} />
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
-  );
-}
-
-function SmallPrinciple({ title, copy }: { title: string; copy: string }) {
-  return (
-    <div>
-      <div className="text-[13px] font-semibold text-[#111318]">{title}</div>
-      <div className="mt-2 text-[12px] leading-[1.55] text-[#6A706B]">{copy}</div>
-    </div>
   );
 }
 
@@ -743,57 +686,49 @@ function ConnectedCrm() {
   return (
     <section className="relative overflow-hidden bg-[#DDE4CF] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="relative mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[920px]">
+        <Reveal className="max-w-[900px]">
           <Eyebrow>Context-aware follow-up</Eyebrow>
-          <h2 className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[62px]" style={{ fontFamily: DISPLAY }}>
-            Follow-up works better when it already knows what happened.
+          <h2 className="mt-4 text-[48px] font-medium leading-[0.94] tracking-[-0.058em] sm:text-[66px] lg:text-[76px]" style={{ fontFamily: DISPLAY }}>
+            One customer. One history.
           </h2>
-          <p className="mt-6 max-w-[720px] text-[15px] leading-[1.72] text-[#596153] sm:text-[16px]">
-            Source, recent messages, booking status and ownership stay with the customer record, so the workflow is not operating from a disconnected list.
+          <p className="mt-5 max-w-[650px] text-[15px] leading-[1.68] text-[#596153] sm:text-[16px]">
+            Follow-up sees the context already attached to the customer record.
           </p>
         </Reveal>
 
         <Reveal className="mt-12">
           <div className="overflow-hidden rounded-[34px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_72px_rgba(62,70,49,.10)]">
             <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
-              <div className="border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
+              <div className="flex min-h-[400px] flex-col justify-between border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
                 <div className="flex items-center gap-4">
-                  <TeamAvatar size={70} cell={14} className="border-[#DDE4CF]" />
+                  <TeamAvatar size={72} cell={14} className="border-[#DDE4CF]" />
                   <div>
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Past customer context</div>
-                    <div className="mt-2 text-[30px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Emma Chen</div>
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Past customer</div>
+                    <div className="mt-2 text-[34px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Emma Chen</div>
                   </div>
                 </div>
 
-                <div className="mt-10 border-t border-[#1E2B29]/10 pt-7">
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Before the next action</div>
-                  <div className="mt-4 text-[40px] font-medium leading-[0.98] tracking-[-0.05em] text-[#1E2B29]" style={{ fontFamily: DISPLAY }}>
-                    The workflow can see the history your team has already captured.
-                  </div>
+                <div className="text-[44px] font-medium leading-[0.98] tracking-[-0.05em] text-[#1E2B29]" style={{ fontFamily: DISPLAY }}>
+                  The history is already there.
                 </div>
 
-                <div className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
+                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
                   <ZaplaPetal size={20} />
-                  Context stays connected
+                  Context connected
                 </div>
               </div>
 
-              <div>
-                <div className="border-b border-[#1E2B29]/10 px-7 py-7 sm:px-9">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Available before follow-up runs</div>
-                </div>
-                <div className="grid sm:grid-cols-2">
-                  {facts.map((fact, index) => (
-                    <div
-                      key={fact.label}
-                      className={`relative min-h-[180px] p-7 sm:p-8 ${index % 2 === 0 ? "sm:border-r sm:border-[#1E2B29]/10" : ""} ${index < 2 ? "border-b border-[#1E2B29]/10" : ""}`}
-                    >
-                      <div className="absolute left-7 top-0 h-[4px] w-14 sm:left-8" style={{ backgroundColor: fact.tone }} />
-                      <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">{fact.label}</div>
-                      <div className="mt-10 max-w-[280px] text-[27px] font-medium leading-[1.05] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>{fact.value}</div>
-                    </div>
-                  ))}
-                </div>
+              <div className="grid sm:grid-cols-2">
+                {facts.map((fact, index) => (
+                  <div
+                    key={fact.label}
+                    className={`relative min-h-[200px] p-7 sm:p-8 ${index % 2 === 0 ? "sm:border-r sm:border-[#1E2B29]/10" : ""} ${index < 2 ? "border-b border-[#1E2B29]/10" : ""}`}
+                  >
+                    <div className="absolute left-7 top-0 h-[4px] w-14 sm:left-8" style={{ backgroundColor: fact.tone }} />
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">{fact.label}</div>
+                    <div className="mt-12 max-w-[280px] text-[30px] font-medium leading-[1.03] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>{fact.value}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
