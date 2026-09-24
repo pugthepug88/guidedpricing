@@ -5,9 +5,6 @@ import {
   ArrowRight,
   Calendar,
   ChevronDown,
-  FileText,
-  MessageSquare,
-  RotateCcw,
 } from "lucide-react";
 
 export const Route = createFileRoute("/follow-up")({
@@ -36,12 +33,12 @@ const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 const FAQS = [
   {
-    q: "Can Zapla follow up by SMS and email?",
-    a: "Yes. Follow-up can run across the channels you choose, with the conversation kept against the customer record so your team can see what has happened.",
+    q: "Which channels can Zapla use for follow-up?",
+    a: "Follow-up can run across the channels you choose, including SMS, email, web chat and other connected channels. The exact mix depends on the workflow you set up.",
   },
   {
     q: "What happens when a customer replies?",
-    a: "You decide what should happen next. A reply can pause an automated sequence, move the opportunity forward, or bring the conversation back to your team.",
+    a: "You decide. A reply can pause or continue a sequence, change the workflow, update the next step, or bring the conversation back to your team.",
   },
   {
     q: "Is follow-up only for new leads?",
@@ -51,6 +48,10 @@ const FAQS = [
     q: "Does my team still control the messages?",
     a: "Yes. You choose the timing, wording, channels, handoff points and rules. Automation should remove repetitive chasing, not remove human judgment.",
   },
+  {
+    q: "Do we have to build the workflows ourselves?",
+    a: "No. Zapla can map the agreed workflow with you and build the initial setup as part of Guided Launch, so your team is not starting from a blank screen.",
+  },
 ] as const;
 
 function FollowUpPage() {
@@ -58,7 +59,7 @@ function FollowUpPage() {
     <main className="min-h-screen bg-[#FCFCFA] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <Hero />
       <LeakSection />
-      <ThreadSection />
+      <MechanismSection />
       <UseCases />
       <HumanControl />
       <ConnectedCrm />
@@ -109,12 +110,20 @@ function ZaplaPetal({ size = 30 }: { size?: number }) {
   );
 }
 
-function TeamAvatar({ size = 42, cell = 0 }: { size?: number; cell?: number }) {
+function TeamAvatar({
+  size = 42,
+  cell = 0,
+  className = "",
+}: {
+  size?: number;
+  cell?: number;
+  className?: string;
+}) {
   const column = cell % 6;
   const row = Math.floor(cell / 6);
   return (
     <span
-      className="block shrink-0 overflow-hidden rounded-full border-2 border-white/15 shadow-[0_8px_24px_rgba(0,0,0,.22)]"
+      className={`block shrink-0 overflow-hidden rounded-full border-2 border-white/15 shadow-[0_8px_24px_rgba(0,0,0,.22)] ${className}`}
       style={{
         width: size,
         height: size,
@@ -386,13 +395,13 @@ function LeakSection() {
     <section className="bg-[#F8F9F7] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1280px]">
         <Reveal className="max-w-[900px]">
-          <Eyebrow>The revenue leak</Eyebrow>
+          <Eyebrow>Where follow-up breaks</Eyebrow>
           <h2 className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[70px]" style={{ fontFamily: DISPLAY }}>
             Most leads don’t say no.
             <span className="block text-[#C96F55]">They just go quiet.</span>
           </h2>
-          <p className="mt-6 max-w-[650px] text-[15px] leading-[1.72] text-[#666B67] sm:text-[17px]">
-            Follow-up usually does not fail in one dramatic moment. It fades while the next action sits in someone’s head.
+          <p className="mt-6 max-w-[660px] text-[15px] leading-[1.72] text-[#666B67] sm:text-[17px]">
+            Follow-up rarely fails in one dramatic moment. It slips when the next action waits in someone’s head, inbox or to-do list.
           </p>
         </Reveal>
 
@@ -417,7 +426,7 @@ function LeakSection() {
                 <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#9B6722]">Quote sent</div>
                 <div className="mt-14 text-[58px] font-medium leading-[0.86] tracking-[-0.07em] sm:text-[70px]" style={{ fontFamily: DISPLAY }}>STALE.</div>
                 <p className="mt-8 max-w-[350px] text-[14px] leading-[1.65] text-[#5A543F]">
-                  Silence gets mistaken for a no. A live opportunity quietly becomes an old quote.
+                  Silence gets mistaken for a no. The quote gets older because nobody brings the conversation back.
                 </p>
               </div>
             </div>
@@ -445,63 +454,96 @@ function LeakSection() {
   );
 }
 
-function ThreadSection() {
+function MechanismSection() {
   const reduced = !!useReducedMotion();
-  const events = [
-    { time: "10:04", title: "Enquiry arrives", copy: "Sarah asks about a consultation next week.", tone: "#E97D62", icon: <MessageSquare size={18} /> },
-    { time: "10:05", title: "Zapla follows up", copy: "A relevant reply goes out while the enquiry is still warm.", tone: "#DDA34B", ai: true },
-    { time: "10:12", title: "Customer replies", copy: "Tuesday morning works.", tone: "#C96C85", icon: <MessageSquare size={18} /> },
-    { time: "10:13", title: "Booked", copy: "The customer record and booking move forward together.", tone: "#99A36D", icon: <Calendar size={18} /> },
-  ];
+  const steps = [
+    {
+      number: "01",
+      eyebrow: "Trigger",
+      title: "Something happens.",
+      copy: "A new enquiry arrives, a quote is sent, a booking is coming up, a call is missed or a past customer reaches the right moment.",
+      examples: ["New enquiry", "Quote sent", "Missed call", "Booking due", "Past customer"],
+      tone: "#E97D62",
+      ai: false,
+    },
+    {
+      number: "02",
+      eyebrow: "Rules",
+      title: "Your workflow decides.",
+      copy: "You choose the timing, channel, conditions, reply behaviour and the point where a person should step in.",
+      examples: ["When to run", "Which channel", "If they reply", "When to hand off"],
+      tone: "#DDA34B",
+      ai: true,
+    },
+    {
+      number: "03",
+      eyebrow: "Action",
+      title: "The next step happens.",
+      copy: "Zapla carries out the action you set instead of leaving the next move to memory.",
+      examples: ["Send follow-up", "Confirm or remind", "Update the record", "Assign to team"],
+      tone: "#99A36D",
+      ai: false,
+    },
+  ] as const;
 
   return (
     <section id="how-it-works" className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute left-[-8%] top-[22%] text-[190px] font-medium leading-none tracking-[-0.08em] text-white/[0.018]" style={{ fontFamily: DISPLAY }}>SARAH</div>
-      <div className="relative mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-start lg:gap-16">
-        <Reveal>
-          <Eyebrow dark>One connected thread</Eyebrow>
-          <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[58px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
-            Same customer. Same story.
+      <div className="relative mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[860px]">
+          <Eyebrow dark>How follow-up works</Eyebrow>
+          <h2 className="mt-4 text-[42px] font-medium leading-[0.97] tracking-[-0.052em] sm:text-[58px] lg:text-[66px]" style={{ fontFamily: DISPLAY }}>
+            A trigger starts it. Your rules decide. Zapla acts.
           </h2>
-          <p className="mt-6 max-w-[480px] text-[15px] leading-[1.72] text-white/52 sm:text-[16px]">
-            Every reply, booking and next step stays attached to the person instead of being rebuilt from memory.
+          <p className="mt-6 max-w-[690px] text-[15px] leading-[1.72] text-white/52 sm:text-[16px]">
+            Choose the moments that matter, the timing and conditions, and what should happen next. The same logic can run across the channels you use.
           </p>
-
-          <div className="mt-10 flex items-center gap-4">
-            <TeamAvatar size={72} cell={0} />
-            <div>
-              <div className="text-[22px] font-medium tracking-[-0.04em] text-white/92" style={{ fontFamily: DISPLAY }}>Sarah Mitchell</div>
-              <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/30">Website enquiry · Today</div>
-            </div>
-          </div>
         </Reveal>
 
-        <div className="border-y border-white/[0.09]">
-          {events.map((event, index) => (
+        <div className="mt-14 border-y border-white/[0.09] lg:grid lg:grid-cols-3">
+          {steps.map((step, index) => (
             <motion.div
-              key={event.time}
-              className={`grid gap-4 py-6 sm:grid-cols-[76px_56px_1fr] sm:items-center sm:py-7 ${index < events.length - 1 ? "border-b border-white/[0.08]" : ""}`}
-              initial={reduced ? false : { opacity: 0, x: 18 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.07, ease: EASE }}
+              key={step.number}
+              className={`relative px-0 py-8 sm:py-9 lg:min-h-[390px] lg:px-8 lg:py-10 ${index ? "border-t border-white/[0.09] lg:border-l lg:border-t-0" : ""}`}
+              initial={reduced ? false : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.08, ease: EASE }}
             >
-              <div className="text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: event.tone }}>{event.time}</div>
-              <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.035]">
-                {event.ai ? <ZaplaPetal size={28} /> : <span style={{ color: event.tone }}>{event.icon}</span>}
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: step.tone }}>{step.eyebrow}</span>
+                <span className="text-[10px] font-semibold tracking-[0.16em] text-white/22">{step.number}</span>
               </div>
-              <div>
-                <div className="text-[25px] font-medium leading-[1.02] tracking-[-0.04em] text-white/92" style={{ fontFamily: DISPLAY }}>{event.title}</div>
-                <div className="mt-2 text-[12px] leading-[1.55] text-white/42">{event.copy}</div>
+
+              <div className="mt-8 flex items-center gap-3">
+                {step.ai ? (
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/[0.04]">
+                    <ZaplaPetal size={30} />
+                  </span>
+                ) : (
+                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: step.tone }} />
+                )}
+                <h3 className="text-[28px] font-medium leading-[1.02] tracking-[-0.04em] text-white/94" style={{ fontFamily: DISPLAY }}>
+                  {step.title}
+                </h3>
+              </div>
+
+              <p className="mt-5 max-w-[350px] text-[13px] leading-[1.68] text-white/47">{step.copy}</p>
+
+              <div className="mt-8 flex flex-wrap gap-2">
+                {step.examples.map((item) => (
+                  <span key={item} className="rounded-full border border-white/[0.09] bg-white/[0.035] px-3 py-2 text-[9px] font-semibold text-white/58">
+                    {item}
+                  </span>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
 
-        <Reveal className="lg:col-start-2">
-          <div className="flex flex-col justify-between gap-3 border-t border-white/[0.08] pt-5 text-[12px] text-white/42 sm:flex-row sm:items-center">
-            <span>Reply received. The chase stops.</span>
-            <span className="font-semibold text-[#B8C28A]">The next step keeps moving.</span>
+        <Reveal>
+          <div className="mt-6 flex flex-col gap-2 text-[11px] text-white/38 sm:flex-row sm:items-center sm:justify-between">
+            <span>The automation follows the workflow you set.</span>
+            <span className="font-semibold text-[#B8C28A]">Rules first. Automation second.</span>
           </div>
         </Reveal>
       </div>
@@ -513,48 +555,48 @@ function UseCases() {
   return (
     <section className="bg-[#F7F8F5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[820px]">
-          <Eyebrow>Where follow-up matters</Eyebrow>
+        <Reveal className="max-w-[840px]">
+          <Eyebrow>Where Zapla follows through</Eyebrow>
           <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
-            Four places good opportunities quietly go cold.
+            One follow-up system. Different moments that matter.
           </h2>
         </Reveal>
 
         <div className="mt-10 grid gap-4 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
             <UseCaseCard
-              eyebrow="New leads"
+              number="01"
+              eyebrow="New enquiries"
               title="Reply while the enquiry is still warm."
-              copy="A new enquiry can get an immediate response, the right questions and a clear next step instead of sitting untouched until someone gets back to it."
-              icon={<MessageSquare size={19} />}
+              copy="A new enquiry can get a fast response, the right questions and a clear next step instead of sitting untouched until someone gets back to it."
               className="min-h-[330px] bg-[#1E2B29] text-[#F7F4EE]"
               dark
             />
           </Reveal>
           <Reveal className="lg:col-span-5">
             <UseCaseCard
+              number="02"
               eyebrow="Quotes"
-              title="Silence is not the same as no."
-              copy="Keep a quote moving with timed follow-up instead of leaving the whole opportunity dependent on someone remembering to chase it."
-              icon={<FileText size={19} />}
+              title="Keep the decision alive."
+              copy="Schedule relevant follow-up around a quote instead of relying on someone to remember the next touch."
               className="min-h-[330px] bg-white"
             />
           </Reveal>
           <Reveal className="lg:col-span-5">
             <UseCaseCard
+              number="03"
               eyebrow="Bookings"
-              title="Reduce the gap between booked and arrived."
-              copy="Use reminders and confirmations to keep the next appointment visible without turning your staff into a reminder service."
-              icon={<Calendar size={19} />}
+              title="Keep the booking visible."
+              copy="Confirm, remind and follow up around appointments without turning your staff into a reminder service."
               className="min-h-[280px] bg-white"
             />
           </Reveal>
           <Reveal className="lg:col-span-7">
             <UseCaseCard
-              eyebrow="Reactivation"
-              title="Past customers are not dead leads."
-              copy="Bring the right customers back into a conversation when there is a genuine reason to reconnect instead of buying attention from strangers every time."
-              icon={<RotateCcw size={19} />}
+              number="04"
+              eyebrow="Past customers"
+              title="Reconnect when there is a reason."
+              copy="Bring the right customer back into a conversation when timing, service cycles or a campaign make it relevant."
               className="min-h-[280px] bg-[#C96F55] text-[#FFF8F3]"
               dark
             />
@@ -565,14 +607,30 @@ function UseCases() {
   );
 }
 
-function UseCaseCard({ eyebrow, title, copy, icon, className, dark = false }: { eyebrow: string; title: string; copy: string; icon: ReactNode; className: string; dark?: boolean }) {
+function UseCaseCard({
+  number,
+  eyebrow,
+  title,
+  copy,
+  className,
+  dark = false,
+}: {
+  number: string;
+  eyebrow: string;
+  title: string;
+  copy: string;
+  className: string;
+  dark?: boolean;
+}) {
   return (
     <div className={`relative flex h-full flex-col justify-between overflow-hidden rounded-[26px] p-7 sm:p-9 ${className}`}>
       <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full border border-current opacity-[0.06]" />
       <div>
-        <span className={`flex h-11 w-11 items-center justify-center rounded-[12px] ${dark ? "bg-white/10" : "bg-[#1E2B29] text-[#F7F4EE]"}`}>{icon}</span>
-        <div className={`mt-7 text-[10px] font-semibold uppercase tracking-[0.18em] ${dark ? "text-white/56" : "text-[#C96F55]"}`}>{eyebrow}</div>
-        <h3 className="mt-3 max-w-[560px] text-[32px] font-medium leading-[1.02] tracking-[-0.045em] sm:text-[38px]" style={{ fontFamily: DISPLAY }}>{title}</h3>
+        <div className="flex items-center justify-between">
+          <div className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${dark ? "text-white/56" : "text-[#C96F55]"}`}>{eyebrow}</div>
+          <div className={`text-[11px] font-semibold tracking-[0.16em] ${dark ? "text-white/24" : "text-[#111318]/22"}`}>{number}</div>
+        </div>
+        <h3 className="mt-12 max-w-[560px] text-[32px] font-medium leading-[1.02] tracking-[-0.045em] sm:text-[38px]" style={{ fontFamily: DISPLAY }}>{title}</h3>
       </div>
       <p className={`mt-8 max-w-[560px] text-[14px] leading-[1.68] ${dark ? "text-white/68" : "text-[#666B67]"}`}>{copy}</p>
     </div>
@@ -580,61 +638,75 @@ function UseCaseCard({ eyebrow, title, copy, icon, className, dark = false }: { 
 }
 
 function HumanControl() {
+  const actions = [
+    { label: "Continue follow-up", detail: "Keep the current workflow moving.", tone: "#DDA34B", team: false },
+    { label: "Pause the sequence", detail: "Stop further automated messages for now.", tone: "#C96C85", team: false },
+    { label: "Change workflow", detail: "Move the customer into a different next-step path.", tone: "#9B86B8", team: false },
+    { label: "Send to your team", detail: "Bring a person in with the conversation context attached.", tone: "#99A36D", team: true },
+  ] as const;
+
   return (
     <section className="relative overflow-hidden bg-[#EAE4F0] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute right-[-6%] top-[-10%] h-[420px] w-[420px] rounded-full bg-[#C96C85]/8 blur-[110px]" />
       <div className="relative mx-auto max-w-[1280px]">
         <Reveal className="max-w-[900px]">
-          <Eyebrow>Human control</Eyebrow>
+          <Eyebrow>You stay in control</Eyebrow>
           <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[58px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
-            Automation handles repetition. People handle judgment.
+            A reply can change the plan. Your rules decide how.
           </h2>
-          <p className="mt-6 max-w-[620px] text-[15px] leading-[1.72] text-[#626662] sm:text-[16px]">
-            When the conversation needs nuance, Zapla stops chasing and gives the full context back to your team.
+          <p className="mt-6 max-w-[700px] text-[15px] leading-[1.72] text-[#626662] sm:text-[16px]">
+            Follow-up does not have to behave the same way every time. You choose what a reply, status change or handoff should do next.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-end">
+        <div className="mt-14 grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
           <Reveal>
-            <div className="relative">
-              <div className="text-[58px] font-medium leading-[0.94] tracking-[-0.06em] text-[#2A2630] sm:text-[72px] lg:text-[82px]" style={{ fontFamily: DISPLAY }}>
-                “Can I change the booking?”
-              </div>
-              <div className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#2B2630] px-4 py-3 text-[#F7F4EE]">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]">
-                  <ZaplaPetal size={25} />
-                </span>
-                <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#C96C85]">Zapla</div>
-                  <div className="mt-0.5 text-[12px] font-semibold text-white/84">Automation pauses here.</div>
+            <div className="flex h-full min-h-[430px] flex-col justify-between rounded-[30px] bg-[#2B2630] p-7 text-[#F7F4EE] sm:p-9">
+              <div>
+                <div className="flex items-center gap-3">
+                  <TeamAvatar size={54} cell={0} />
+                  <div>
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/38">Customer reply</div>
+                    <div className="mt-1 text-[13px] font-semibold text-white/78">Sarah Mitchell</div>
+                  </div>
                 </div>
+                <div className="mt-12 text-[42px] font-medium leading-[0.98] tracking-[-0.05em] sm:text-[50px]" style={{ fontFamily: DISPLAY }}>
+                  “Can I change the booking?”
+                </div>
+              </div>
+              <div className="mt-10 border-t border-white/[0.09] pt-5 text-[11px] leading-[1.55] text-white/42">
+                A reply is a new piece of context. What happens next is configurable.
               </div>
             </div>
           </Reveal>
 
           <Reveal>
-            <div className="lg:border-l lg:border-[#8F8298]/18 lg:pl-10">
-              <div className="flex -space-x-4">
-                <TeamAvatar size={70} cell={7} />
-                <TeamAvatar size={84} cell={0} />
-                <TeamAvatar size={70} cell={14} />
+            <div className="h-full rounded-[30px] border border-[#8F8298]/16 bg-white/55 p-5 shadow-[0_18px_50px_rgba(74,62,87,.08)] backdrop-blur-sm sm:p-7">
+              <div className="flex items-center justify-between gap-4 border-b border-[#8F8298]/14 pb-5">
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8B6A7A]">Possible next actions</div>
+                  <div className="mt-2 text-[24px] font-medium tracking-[-0.04em] text-[#2A2630]" style={{ fontFamily: DISPLAY }}>You decide which rule applies.</div>
+                </div>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#111214]">
+                  <ZaplaPetal size={29} />
+                </span>
               </div>
-              <div className="mt-7 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#1E2B29]/45">Your team</div>
-              <div className="mt-2 max-w-[420px] text-[40px] font-medium leading-[0.98] tracking-[-0.05em] text-[#1E2B29] sm:text-[48px]" style={{ fontFamily: DISPLAY }}>
-                Takes it from here with the whole story.
-              </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {["Messages", "Booking", "Customer notes"].map((item, index) => (
-                  <span
-                    key={item}
-                    className="rounded-full px-3 py-2 text-[10px] font-semibold"
-                    style={{
-                      backgroundColor: index === 0 ? "rgba(201,108,133,.12)" : index === 1 ? "rgba(221,163,75,.14)" : "rgba(153,163,109,.14)",
-                      color: index === 0 ? "#9C5269" : index === 1 ? "#8B6427" : "#5F6B3A",
-                    }}
-                  >
-                    {item}
-                  </span>
+
+              <div className="divide-y divide-[#8F8298]/12">
+                {actions.map((action) => (
+                  <div key={action.label} className="grid gap-3 py-5 sm:grid-cols-[14px_1fr_auto] sm:items-center">
+                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: action.tone }} />
+                    <div>
+                      <div className="text-[15px] font-semibold text-[#2A2630]">{action.label}</div>
+                      <div className="mt-1 text-[11px] leading-[1.5] text-[#777078]">{action.detail}</div>
+                    </div>
+                    {action.team ? (
+                      <div className="flex -space-x-2">
+                        <TeamAvatar size={30} cell={7} />
+                        <TeamAvatar size={34} cell={0} />
+                        <TeamAvatar size={30} cell={14} />
+                      </div>
+                    ) : null}
+                  </div>
                 ))}
               </div>
             </div>
@@ -642,9 +714,9 @@ function HumanControl() {
         </div>
 
         <div className="mt-12 grid gap-6 border-t border-[#8F8298]/18 pt-8 sm:grid-cols-3">
-          <SmallPrinciple title="Your rules" copy="You decide what triggers follow-up and when it stops." />
-          <SmallPrinciple title="Your voice" copy="Messages are built around your business, not generic scripts." />
-          <SmallPrinciple title="Your team" copy="Humans step in exactly where judgment matters." />
+          <SmallPrinciple title="Timing" copy="Choose when follow-up starts and how it spaces out." />
+          <SmallPrinciple title="Behaviour" copy="Decide what replies and status changes should trigger." />
+          <SmallPrinciple title="Handoff" copy="Bring a person in when the workflow calls for judgment." />
         </div>
       </div>
     </section>
@@ -662,54 +734,63 @@ function SmallPrinciple({ title, copy }: { title: string; copy: string }) {
 
 function ConnectedCrm() {
   const facts = [
-    { label: "Messages", value: "Every reply attached", tone: "#E97D62" },
-    { label: "Booking", value: "Tuesday · 10:30am", tone: "#DDA34B" },
-    { label: "Notes", value: "Context saved", tone: "#9B86B8" },
-    { label: "Next step", value: "Consultation booked", tone: "#99A36D" },
+    { label: "Relationship", value: "Existing customer", tone: "#E97D62" },
+    { label: "Last message", value: "“Thanks, all sorted.”", tone: "#C96C85" },
+    { label: "Last booking", value: "6 months ago", tone: "#DDA34B" },
+    { label: "Owner", value: "Front desk", tone: "#99A36D" },
   ];
 
   return (
     <section className="relative overflow-hidden bg-[#DDE4CF] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute -left-24 bottom-[-28%] h-[460px] w-[460px] rounded-full bg-white/35 blur-[110px]" />
       <div className="relative mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[840px]">
-          <Eyebrow>Connected CRM</Eyebrow>
+        <Reveal className="max-w-[920px]">
+          <Eyebrow>Context-aware follow-up</Eyebrow>
           <h2 className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[62px]" style={{ fontFamily: DISPLAY }}>
-            One customer. One history.
+            Follow-up works better when it already knows what happened.
           </h2>
-          <p className="mt-6 max-w-[620px] text-[15px] leading-[1.72] text-[#596153] sm:text-[16px]">
-            Messages, bookings, notes and the next step stay with the same customer record instead of scattering across tools and inboxes.
+          <p className="mt-6 max-w-[720px] text-[15px] leading-[1.72] text-[#596153] sm:text-[16px]">
+            Source, recent messages, booking status and ownership stay with the customer record, so the workflow is not operating from a disconnected list.
           </p>
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="relative overflow-hidden rounded-[34px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_72px_rgba(62,70,49,.10)]">
-            <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
-              <div className="relative border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Customer record</div>
-                <div className="mt-10 flex h-[142px] w-[142px] items-center justify-center rounded-full bg-[#F3F4EF]">
-                  <TeamAvatar size={110} cell={0} />
+          <div className="overflow-hidden rounded-[34px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_72px_rgba(62,70,49,.10)]">
+            <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
+              <div className="border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
+                <div className="flex items-center gap-4">
+                  <TeamAvatar size={70} cell={14} className="border-[#DDE4CF]" />
+                  <div>
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Past customer context</div>
+                    <div className="mt-2 text-[30px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Emma Chen</div>
+                  </div>
                 </div>
-                <div className="mt-8 text-[48px] font-medium leading-[0.92] tracking-[-0.055em]" style={{ fontFamily: DISPLAY }}>Sarah Mitchell</div>
-                <div className="mt-3 text-[13px] text-[#6B7168]">Website enquiry · Today</div>
-                <div className="mt-10 inline-flex rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
-                  One source of truth
+
+                <div className="mt-10 border-t border-[#1E2B29]/10 pt-7">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Before the next action</div>
+                  <div className="mt-4 text-[40px] font-medium leading-[0.98] tracking-[-0.05em] text-[#1E2B29]" style={{ fontFamily: DISPLAY }}>
+                    The workflow can see the history your team has already captured.
+                  </div>
+                </div>
+
+                <div className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
+                  <ZaplaPetal size={20} />
+                  Context stays connected
                 </div>
               </div>
 
               <div>
                 <div className="border-b border-[#1E2B29]/10 px-7 py-7 sm:px-9">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Everything that matters, already here.</div>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Available before follow-up runs</div>
                 </div>
                 <div className="grid sm:grid-cols-2">
                   {facts.map((fact, index) => (
                     <div
                       key={fact.label}
-                      className={`relative min-h-[185px] p-7 sm:p-8 ${index % 2 === 0 ? "sm:border-r sm:border-[#1E2B29]/10" : ""} ${index < 2 ? "border-b border-[#1E2B29]/10" : ""}`}
+                      className={`relative min-h-[180px] p-7 sm:p-8 ${index % 2 === 0 ? "sm:border-r sm:border-[#1E2B29]/10" : ""} ${index < 2 ? "border-b border-[#1E2B29]/10" : ""}`}
                     >
-                      <div className="absolute left-7 top-0 h-[4px] w-16 sm:left-8" style={{ backgroundColor: fact.tone }} />
+                      <div className="absolute left-7 top-0 h-[4px] w-14 sm:left-8" style={{ backgroundColor: fact.tone }} />
                       <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">{fact.label}</div>
-                      <div className="mt-10 max-w-[280px] text-[29px] font-medium leading-[1.03] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>{fact.value}</div>
+                      <div className="mt-10 max-w-[280px] text-[27px] font-medium leading-[1.05] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>{fact.value}</div>
                     </div>
                   ))}
                 </div>
@@ -762,7 +843,7 @@ function FinalCta() {
           Stop relying on memory to make the next move.
         </h2>
         <p className="mx-auto mt-6 max-w-[620px] text-[15px] leading-[1.7] text-white/62 sm:text-[17px]">
-          Zapla keeps the conversation, follow-up and next step connected so good opportunities do not quietly disappear.
+          Zapla keeps the conversation, follow-up and next step connected so the next action does not quietly disappear into someone’s memory.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29]">
