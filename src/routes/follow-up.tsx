@@ -7,9 +7,7 @@ import {
   ChevronDown,
   FileText,
   Globe2,
-  MessageCircle,
   MessageSquare,
-  Phone,
   RotateCcw,
 } from "lucide-react";
 
@@ -268,16 +266,6 @@ function FollowUpScene() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute left-[27.8%] top-1/2 hidden -translate-y-1/2 lg:flex">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D8DBD5] bg-white text-[#8A8F89] shadow-sm">
-            <ArrowRight size={14} />
-          </span>
-        </div>
-        <div className="pointer-events-none absolute right-[25.8%] top-1/2 hidden -translate-y-1/2 lg:flex">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D8DBD5] bg-white text-[#8A8F89] shadow-sm">
-            <ArrowRight size={14} />
-          </span>
-        </div>
       </div>
     </div>
   );
