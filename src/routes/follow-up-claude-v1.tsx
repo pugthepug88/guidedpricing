@@ -2314,136 +2314,38 @@ const FOOTER_GROUPS = [
 
 function FooterLandscape() {
   const reduced = !!useReducedMotion();
-  const ballColors = [CORAL, AMBER, ROSE, SAGE, PLUM, "#2563FF"];
 
   return (
-    <div className="relative h-[760px] overflow-hidden sm:h-[800px] lg:h-[860px]">
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 1600 860"
-        preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-0 h-full w-full"
-      >
-        <defs>
-          <linearGradient id="zfu-sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#FCFCFA" />
-            <stop offset="50%" stopColor="#F5E7D9" />
-            <stop offset="100%" stopColor="#E8C7A4" />
-          </linearGradient>
-          <linearGradient id="zfu-hill-back" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#7B9977" />
-            <stop offset="100%" stopColor="#527563" />
-          </linearGradient>
-          <linearGradient id="zfu-hill-front" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#AAB57C" />
-            <stop offset="100%" stopColor="#71855F" />
-          </linearGradient>
-          <linearGradient id="zfu-slide" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#3F79FF" />
-            <stop offset="100%" stopColor="#1558E6" />
-          </linearGradient>
-          <filter id="zfu-slide-shadow" x="-20%" y="-20%" width="140%" height="160%">
-            <feDropShadow dx="0" dy="12" stdDeviation="12" floodColor="#0C3D99" floodOpacity=".25" />
-          </filter>
-          <filter id="zfu-ball-shadow" x="-100%" y="-100%" width="300%" height="300%">
-            <feDropShadow dx="0" dy="5" stdDeviation="4" floodColor="#273127" floodOpacity=".2" />
-          </filter>
-        </defs>
+    <div className="relative overflow-hidden bg-[#E8C6A4] pb-5 sm:pb-8 lg:pb-10">
+      <div className="relative h-[390px] overflow-hidden sm:h-[560px] lg:h-[720px]">
+        <video
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          autoPlay={!reduced}
+          muted
+          loop={!reduced}
+          playsInline
+          preload="auto"
+        >
+          <source src="/concept/footer-domino.mp4" type="video/mp4" />
+        </video>
 
-        <rect width="1600" height="860" fill="url(#zfu-sky)" />
-        <circle cx="1220" cy="118" r="66" fill="#F8C986" opacity=".52" />
-
-        <path
-          d="M0 330 C170 220 330 240 500 318 C680 400 845 315 1015 270 C1210 220 1400 240 1600 342 L1600 860 L0 860 Z"
-          fill="url(#zfu-hill-back)"
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#FCFCFA] via-[#FCFCFA]/60 to-transparent sm:h-40 lg:h-48"
         />
-        <path
-          d="M0 470 C180 370 370 400 560 486 C760 578 910 450 1100 414 C1280 380 1440 410 1600 500 L1600 860 L0 860 Z"
-          fill="url(#zfu-hill-front)"
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[#54402A]/20 via-[#54402A]/5 to-transparent"
         />
-        <path
-          d="M0 616 C250 532 472 570 694 652 C945 744 1214 608 1600 620 L1600 860 L0 860 Z"
-          fill="#58725D"
-          opacity=".55"
-        />
+      </div>
 
-        {[
-          [156, 330, 30, "#2F5A4A"],
-          [218, 356, 24, "#416D58"],
-          [1260, 296, 34, "#2F5A4A"],
-          [1328, 328, 24, "#416D58"],
-          [1420, 320, 28, "#315B4C"],
-          [1065, 397, 22, "#365F4E"],
-          [420, 420, 20, "#365F4E"],
-        ].map(([x, y, r, fill], index) => (
-          <g key={index} transform={`translate(${x} ${y})`}>
-            <rect x={-3} y={Number(r) * 0.45} width="6" height={Number(r) * 0.7} rx="3" fill="#594B3F" opacity=".55" />
-            <path
-              d={`M0 ${-Number(r)} C ${Number(r) * 0.72} ${-Number(r) * 0.34}, ${Number(r) * 0.62} ${Number(r) * 0.55}, 0 ${Number(r) * 0.68} C ${-Number(r) * 0.62} ${Number(r) * 0.55}, ${-Number(r) * 0.72} ${-Number(r) * 0.34}, 0 ${-Number(r)} Z`}
-              fill={String(fill)}
-            />
-          </g>
-        ))}
-
-        <path
-          id="zfu-footer-slide-path"
-          d="M250 382 C430 350 530 388 474 454 C420 520 626 508 690 580 C748 646 690 682 626 700"
-          fill="none"
-          stroke="#0F439F"
-          strokeWidth="48"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          opacity=".2"
-          filter="url(#zfu-slide-shadow)"
-        />
-        <path
-          d="M250 372 C430 340 530 378 474 444 C420 510 626 498 690 570 C748 636 690 672 626 690"
-          fill="none"
-          stroke="url(#zfu-slide)"
-          strokeWidth="36"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter="url(#zfu-slide-shadow)"
-        />
-        <path
-          d="M250 365 C430 333 530 371 474 437 C420 503 626 491 690 563 C748 629 690 665 626 683"
-          fill="none"
-          stroke="#8FB0FF"
-          strokeWidth="5"
-          strokeLinecap="round"
-          opacity=".62"
-        />
-
-        {!reduced &&
-          ballColors.map((color, index) => (
-            <circle key={color} r={index % 2 ? 12 : 14} fill={color} filter="url(#zfu-ball-shadow)">
-              <animateMotion
-                dur={`${5.7 + index * 0.18}s`}
-                begin={`-${index * 0.78}s`}
-                repeatCount="indefinite"
-                path="M250 372 C430 340 530 378 474 444 C420 510 626 498 690 570 C748 636 690 672 626 690"
-              />
-            </circle>
-          ))}
-
-        {reduced &&
-          ballColors.slice(0, 4).map((color, index) => (
-            <circle key={color} cx={570 + index * 32} cy={674 - index * 5} r={index % 2 ? 12 : 14} fill={color} filter="url(#zfu-ball-shadow)" />
-          ))}
-
-        {ballColors.concat([AMBER, CORAL, SAGE, ROSE]).map((color, index) => {
-          const x = 520 + (index % 5) * 38 + (index > 4 ? 22 : 0);
-          const y = 718 + Math.floor(index / 5) * 28 + (index % 2) * 5;
-          return <circle key={`pit-${index}`} cx={x} cy={y} r={13} fill={color} filter="url(#zfu-ball-shadow)" />;
-        })}
-      </svg>
-
-      <div className="absolute inset-x-0 bottom-5 z-20 px-4 sm:bottom-8 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-[1220px] rounded-[32px] border border-black/[0.05] bg-[#F8F5EF]/[0.96] p-7 shadow-[0_32px_80px_rgba(40,47,35,.20)] backdrop-blur-sm sm:p-9 lg:p-11">
-          <div className="grid gap-10 lg:grid-cols-[1.18fr_2.82fr] lg:gap-16">
+      <div className="relative z-20 -mt-20 px-4 sm:-mt-28 sm:px-8 lg:-mt-40 lg:px-12">
+        <div className="mx-auto max-w-[1220px] rounded-[30px] border border-white/60 bg-[#F8F5EF]/[0.98] p-7 shadow-[0_30px_80px_rgba(54,40,26,.22)] sm:p-9 lg:p-11">
+          <div className="grid gap-10 lg:grid-cols-[1.12fr_2.88fr] lg:gap-16">
             <div>
               <img src="/concept/zapla-logo-dark.svg" alt="Zapla" className="h-9 w-auto" />
-              <p className="mt-5 max-w-[270px] text-[14px] leading-[1.7] text-[#60645F]">
+              <p className="mt-5 max-w-[280px] text-[14px] leading-[1.7] text-[#60645F]">
                 Follow through without adding another person to the chase.
               </p>
               <a
@@ -2454,7 +2356,7 @@ function FooterLandscape() {
               </a>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-x-7 gap-y-9 sm:grid-cols-3 sm:gap-8">
               {FOOTER_GROUPS.map((group) => (
                 <div key={group.label}>
                   <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#20241F]">{group.label}</div>
@@ -2463,7 +2365,7 @@ function FooterLandscape() {
                       <a
                         key={label}
                         href={href}
-                        className="text-[13px] font-medium text-[#676B65] transition-colors hover:text-[#111318]"
+                        className="text-[13px] font-medium text-[#676B65] transition-colors hover:text-[#111318] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF]"
                       >
                         {label}
                       </a>
