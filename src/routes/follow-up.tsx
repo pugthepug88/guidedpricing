@@ -456,6 +456,35 @@ function LeakSection() {
 
 function MechanismSection() {
   const reduced = !!useReducedMotion();
+  const stages = [
+    {
+      number: "01",
+      title: "TRIGGER.",
+      tone: "#E97D62",
+      text: "#FFF8F4",
+      accent: "#FFF8F4",
+      items: ["Enquiry", "Quote", "Missed call", "Booking", "Past customer"],
+      ai: false,
+    },
+    {
+      number: "02",
+      title: "RULES.",
+      tone: "#F6EFE2",
+      text: "#1F211E",
+      accent: "#DDA34B",
+      items: ["When to run", "Which channel", "What happens on reply"],
+      ai: true,
+    },
+    {
+      number: "03",
+      title: "ACTION.",
+      tone: "#A9B47A",
+      text: "#172019",
+      accent: "#172019",
+      items: ["Follow up", "Remind", "Update", "Hand off"],
+      ai: false,
+    },
+  ] as const;
 
   return (
     <section id="how-it-works" className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
@@ -467,65 +496,70 @@ function MechanismSection() {
           </h2>
         </Reveal>
 
-        <div className="relative mt-14 min-h-[430px] lg:min-h-[390px]">
-          <div className="pointer-events-none absolute left-[12%] right-[12%] top-1/2 hidden h-px bg-white/[0.12] lg:block" />
+        <div className="mt-14 rounded-[32px] border border-white/[0.08] bg-white/[0.025] p-3 sm:p-4">
+          <div className="grid gap-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:items-stretch">
+            {stages.map((stage, index) => (
+              <div key={stage.number} className="contents">
+                <motion.div
+                  className="flex min-h-[310px] flex-col justify-between rounded-[26px] p-7 sm:p-8"
+                  style={{ backgroundColor: stage.tone, color: stage.text }}
+                  initial={reduced ? false : { opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.45 }}
+                  transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.08, ease: EASE }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-semibold tracking-[0.16em] opacity-55">{stage.number}</span>
+                      {stage.ai ? (
+                        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111214]">
+                          <ZaplaPetal size={29} />
+                        </span>
+                      ) : (
+                        <span className="h-2.5 w-2.5 rounded-full bg-current opacity-55" />
+                      )}
+                    </div>
 
-          <motion.div
-            className="relative z-10 rounded-[28px] bg-[#E97D62] p-7 text-[#FFF8F4] sm:p-9 lg:absolute lg:left-0 lg:top-[44px] lg:w-[38%]"
-            initial={reduced ? false : { opacity: 0, x: -14 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold tracking-[0.16em] text-white/58">01</span>
-              <span className="h-2.5 w-2.5 rounded-full bg-white/70" />
-            </div>
-            <div className="mt-14 text-[58px] font-medium leading-[0.88] tracking-[-0.065em] sm:text-[70px]" style={{ fontFamily: DISPLAY }}>TRIGGER.</div>
-            <div className="mt-7 flex flex-wrap gap-2">
-              {["Enquiry", "Quote", "Missed call", "Booking", "Past customer"].map((item) => (
-                <span key={item} className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-[10px] font-semibold text-white/78">{item}</span>
-              ))}
-            </div>
-          </motion.div>
+                    <div
+                      className="mt-14 text-[52px] font-medium leading-[0.88] tracking-[-0.065em] sm:text-[60px]"
+                      style={{ fontFamily: DISPLAY, color: stage.accent }}
+                    >
+                      {stage.title}
+                    </div>
+                  </div>
 
-          <motion.div
-            className="relative z-20 mt-4 rounded-[28px] border border-white/[0.10] bg-[#F6EFE2] p-7 text-[#1F211E] shadow-[0_24px_70px_rgba(0,0,0,.26)] sm:p-9 lg:absolute lg:left-1/2 lg:top-0 lg:w-[30%] lg:-translate-x-1/2"
-            initial={reduced ? false : { opacity: 0, y: 16, scale: 0.985 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.08, ease: EASE }}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold tracking-[0.16em] text-[#9A6B24]">02</span>
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={31} /></span>
-            </div>
-            <div className="mt-12 text-[56px] font-medium leading-[0.88] tracking-[-0.065em] text-[#DDA34B] sm:text-[68px]" style={{ fontFamily: DISPLAY }}>RULES.</div>
-            <div className="mt-7 grid gap-2 text-[11px] font-semibold text-[#64665F]">
-              <div className="border-t border-[#1F211E]/10 pt-3">When to run</div>
-              <div className="border-t border-[#1F211E]/10 pt-3">Which channel</div>
-              <div className="border-t border-[#1F211E]/10 pt-3">What happens on reply</div>
-            </div>
-          </motion.div>
+                  <div className="mt-8">
+                    {stage.ai ? (
+                      <div className="divide-y divide-[#1F211E]/10 border-y border-[#1F211E]/10">
+                        {stage.items.map((item) => (
+                          <div key={item} className="py-3 text-[11px] font-semibold text-[#64665F]">{item}</div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        {stage.items.map((item) => (
+                          <span
+                            key={item}
+                            className="rounded-full border border-current/20 bg-white/15 px-3 py-2 text-[10px] font-semibold opacity-80"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
 
-          <motion.div
-            className="relative z-10 mt-4 rounded-[28px] bg-[#A9B47A] p-7 text-[#172019] sm:p-9 lg:absolute lg:right-0 lg:top-[72px] lg:w-[38%]"
-            initial={reduced ? false : { opacity: 0, x: 14 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.14, ease: EASE }}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-semibold tracking-[0.16em] text-[#526034]">03</span>
-              <span className="h-2.5 w-2.5 rounded-full bg-[#526034]" />
-            </div>
-            <div className="mt-14 text-[58px] font-medium leading-[0.88] tracking-[-0.065em] sm:text-[70px]" style={{ fontFamily: DISPLAY }}>ACTION.</div>
-            <div className="mt-7 flex flex-wrap gap-2">
-              {["Follow up", "Remind", "Update", "Hand off"].map((item) => (
-                <span key={item} className="rounded-full border border-[#172019]/12 bg-white/24 px-3 py-2 text-[10px] font-semibold text-[#3E4930]">{item}</span>
-              ))}
-            </div>
-          </motion.div>
+                {index < 2 ? (
+                  <div className="hidden items-center justify-center lg:flex">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.12] bg-[#171819] text-white/52">
+                      <ArrowRight size={15} strokeWidth={1.5} />
+                    </span>
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </div>
         </div>
 
         <Reveal>
@@ -643,7 +677,7 @@ function HumanControl() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+        <div className="relative mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
           <Reveal>
             <div className="flex h-full min-h-[430px] flex-col justify-between rounded-[30px] bg-[#2B2630] p-7 text-[#F7F4EE] sm:p-9">
               <div className="flex items-center gap-3">
@@ -665,23 +699,33 @@ function HumanControl() {
             </div>
           </Reveal>
 
+          <span className="pointer-events-none absolute left-[44.4%] top-1/2 z-20 hidden h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[5px] border-[#EAE4F0] bg-[#FCFCFA] text-[#5E5961] shadow-[0_10px_24px_rgba(53,45,61,.10)] lg:flex">
+            <ArrowRight size={16} strokeWidth={1.5} />
+          </span>
+
           <Reveal>
-            <div className="relative h-full min-h-[430px] rounded-[30px] border border-[#8F8298]/14 bg-white/42 p-5 shadow-[0_20px_55px_rgba(74,62,87,.08)] backdrop-blur-sm sm:p-6">
-              <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 hidden h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[6px] border-[#EAE4F0] bg-[#111214] shadow-[0_12px_26px_rgba(53,45,61,.16)] lg:flex">
-                <ZaplaPetal size={38} />
+            <div className="h-full min-h-[430px] overflow-hidden rounded-[30px] border border-[#8F8298]/14 bg-white/55 shadow-[0_20px_55px_rgba(74,62,87,.08)] backdrop-blur-sm">
+              <div className="flex items-center justify-between border-b border-[#8F8298]/12 px-6 py-5 sm:px-7">
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8B6A7A]">Possible outcomes</div>
+                  <div className="mt-1 text-[17px] font-medium tracking-[-0.03em] text-[#2A2630]" style={{ fontFamily: DISPLAY }}>The reply changes what happens next.</div>
+                </div>
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111214]">
+                  <ZaplaPetal size={27} />
+                </span>
               </div>
 
-              <div className="grid h-full gap-3 sm:grid-cols-2 sm:grid-rows-2">
+              <div className="grid gap-px bg-[#8F8298]/10 sm:grid-cols-2">
                 {actions.map((action, index) => (
                   <div
                     key={action.label}
-                    className={`relative flex min-h-[170px] flex-col justify-between overflow-hidden rounded-[22px] border border-white/72 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,.86)] ${action.className}`}
+                    className={`relative flex min-h-[165px] flex-col justify-between p-6 ${action.className}`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="h-3 w-3 rounded-full" style={{ backgroundColor: action.tone }} />
-                      <span className="text-[10px] font-semibold tracking-[0.14em] text-[#6D6870]/50">0{index + 1}</span>
+                      <span className="text-[10px] font-semibold tracking-[0.14em] text-[#6D6870]/45">0{index + 1}</span>
                     </div>
-                    <div className="mt-8 text-[26px] font-medium leading-[1] tracking-[-0.045em] text-[#2A2630] sm:text-[30px]" style={{ fontFamily: DISPLAY }}>
+                    <div className="mt-8 text-[27px] font-medium leading-[1] tracking-[-0.045em] text-[#2A2630] sm:text-[30px]" style={{ fontFamily: DISPLAY }}>
                       {action.label}
                     </div>
                     {action.team ? (
@@ -707,11 +751,11 @@ function HumanControl() {
 function ConnectedCrm() {
   const reduced = !!useReducedMotion();
   const history = [
-    { label: "Relationship", value: "Existing customer", meta: "Known history", tone: "#E97D62" },
-    { label: "Last message", value: "“Thanks, all sorted.”", meta: "Previous conversation", tone: "#C96C85" },
-    { label: "Last booking", value: "6 months ago", meta: "Service history", tone: "#DDA34B" },
-    { label: "Owner", value: "Front desk", meta: "Who picks it up", tone: "#99A36D" },
-  ];
+    { label: "Relationship", value: "Existing customer", meta: "Known history", tone: "#E97D62", featured: false },
+    { label: "Last booking", value: "6 months ago", meta: "Service history", tone: "#DDA34B", featured: false },
+    { label: "Last message", value: "“Thanks, all sorted.”", meta: "Previous conversation", tone: "#C96C85", featured: true },
+    { label: "Owner", value: "Front desk", meta: "Who picks it up", tone: "#99A36D", featured: false },
+  ] as const;
 
   return (
     <section className="relative overflow-hidden bg-[#DDE4CF] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
@@ -727,46 +771,55 @@ function ConnectedCrm() {
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="grid overflow-hidden rounded-[34px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_72px_rgba(62,70,49,.10)] lg:grid-cols-[0.76fr_1.24fr]">
-            <div className="flex min-h-[430px] flex-col justify-between border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
+          <div className="grid overflow-hidden rounded-[34px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_72px_rgba(62,70,49,.10)] lg:grid-cols-[0.68fr_1.32fr]">
+            <div className="flex min-h-[390px] flex-col justify-between border-b border-[#1E2B29]/10 bg-[#F7F7F2] p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
               <div className="flex items-center gap-4">
-                <TeamAvatar size={76} cell={14} className="border-[#DDE4CF]" />
+                <TeamAvatar size={72} cell={14} className="border-[#DDE4CF]" />
                 <div>
                   <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Past customer</div>
-                  <div className="mt-2 text-[36px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Emma Chen</div>
+                  <div className="mt-2 text-[34px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Emma Chen</div>
                 </div>
               </div>
 
               <div>
-                <div className="text-[48px] font-medium leading-[0.94] tracking-[-0.055em] text-[#1E2B29]" style={{ fontFamily: DISPLAY }}>
+                <div className="text-[43px] font-medium leading-[0.96] tracking-[-0.052em] text-[#1E2B29]" style={{ fontFamily: DISPLAY }}>
                   The history is already there.
                 </div>
-                <div className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
+                <div className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-[#1E2B29] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#F7F4EE]">
                   <ZaplaPetal size={20} />
                   Context connected
                 </div>
               </div>
             </div>
 
-            <div className="relative min-h-[430px] overflow-hidden p-6 sm:p-8">
-              <div className="pointer-events-none absolute bottom-[12%] left-[42px] top-[12%] w-px bg-[#1E2B29]/10 sm:left-[54px]" />
-              <div className="relative flex h-full flex-col justify-between gap-4">
+            <div className="relative min-h-[390px] px-7 py-7 sm:px-9 sm:py-8">
+              <div className="flex items-center justify-between border-b border-[#1E2B29]/10 pb-5">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">History attached</div>
+                <div className="text-[10px] text-[#8A9086]">Customer context</div>
+              </div>
+
+              <div className="relative mt-2">
+                <div className="pointer-events-none absolute bottom-0 left-[7px] top-0 w-px bg-[#1E2B29]/10" />
                 {history.map((item, index) => (
                   <motion.div
                     key={item.label}
-                    className={`relative ml-5 rounded-[20px] border border-[#1E2B29]/8 bg-white p-5 shadow-[0_10px_28px_rgba(55,64,46,.06)] sm:ml-8 sm:grid sm:grid-cols-[0.9fr_1.25fr_auto] sm:items-center sm:gap-6 ${index === 1 ? "sm:translate-x-6" : index === 2 ? "sm:translate-x-3" : ""}`}
-                    initial={reduced ? false : { opacity: 0, x: 12 }}
+                    className={`relative grid gap-3 border-b border-[#1E2B29]/8 py-5 pl-8 last:border-b-0 sm:grid-cols-[0.72fr_1.28fr] sm:items-center ${item.featured ? "bg-[#F8F3F5]/55" : ""}`}
+                    initial={reduced ? false : { opacity: 0, x: 10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.6 }}
-                    transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : index * 0.07, ease: EASE }}
+                    transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : index * 0.06, ease: EASE }}
                   >
-                    <span className="absolute -left-[29px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-4 border-[#FCFCFA] sm:-left-[45px]" style={{ backgroundColor: item.tone }} />
+                    <span className="absolute left-0 top-1/2 h-[15px] w-[15px] -translate-x-[1px] -translate-y-1/2 rounded-full border-4 border-[#FCFCFA]" style={{ backgroundColor: item.tone }} />
                     <div>
                       <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#6B7168]">{item.label}</div>
                       <div className="mt-1 text-[10px] text-[#8A9086]">{item.meta}</div>
                     </div>
-                    <div className="mt-4 text-[25px] font-medium leading-[1.05] tracking-[-0.04em] text-[#202420] sm:mt-0 sm:text-[28px]" style={{ fontFamily: DISPLAY }}>{item.value}</div>
-                    <span className="mt-4 h-2.5 w-2.5 rounded-full sm:mt-0" style={{ backgroundColor: item.tone }} />
+                    <div
+                      className={`text-[25px] font-medium leading-[1.04] tracking-[-0.04em] text-[#202420] sm:text-[28px] ${item.featured ? "sm:text-[31px]" : ""}`}
+                      style={{ fontFamily: DISPLAY }}
+                    >
+                      {item.value}
+                    </div>
                   </motion.div>
                 ))}
               </div>
