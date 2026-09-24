@@ -462,7 +462,9 @@ function MechanismSection() {
       title: "TRIGGER.",
       tone: "#E97D62",
       text: "#FFF8F4",
+      accent: "#FFF8F4",
       items: ["Enquiry", "Quote", "Missed call", "Booking", "Past customer"],
+      ai: false,
     },
     {
       number: "02",
@@ -478,7 +480,9 @@ function MechanismSection() {
       title: "ACTION.",
       tone: "#A9B47A",
       text: "#172019",
+      accent: "#172019",
       items: ["Follow up", "Remind", "Update", "Hand off"],
+      ai: false,
     },
   ] as const;
 
@@ -518,7 +522,7 @@ function MechanismSection() {
 
                     <div
                       className="mt-14 text-[52px] font-medium leading-[0.88] tracking-[-0.065em] sm:text-[60px]"
-                      style={{ fontFamily: DISPLAY, color: stage.accent ?? stage.text }}
+                      style={{ fontFamily: DISPLAY, color: stage.accent }}
                     >
                       {stage.title}
                     </div>
@@ -536,7 +540,7 @@ function MechanismSection() {
                         {stage.items.map((item) => (
                           <span
                             key={item}
-                            className="rounded-full border border-current/15 bg-white/15 px-3 py-2 text-[10px] font-semibold opacity-80"
+                            className="rounded-full border border-current/20 bg-white/15 px-3 py-2 text-[10px] font-semibold opacity-80"
                           >
                             {item}
                           </span>
@@ -747,10 +751,10 @@ function HumanControl() {
 function ConnectedCrm() {
   const reduced = !!useReducedMotion();
   const history = [
-    { label: "Relationship", value: "Existing customer", meta: "Known history", tone: "#E97D62" },
-    { label: "Last booking", value: "6 months ago", meta: "Service history", tone: "#DDA34B" },
+    { label: "Relationship", value: "Existing customer", meta: "Known history", tone: "#E97D62", featured: false },
+    { label: "Last booking", value: "6 months ago", meta: "Service history", tone: "#DDA34B", featured: false },
     { label: "Last message", value: "“Thanks, all sorted.”", meta: "Previous conversation", tone: "#C96C85", featured: true },
-    { label: "Owner", value: "Front desk", meta: "Who picks it up", tone: "#99A36D" },
+    { label: "Owner", value: "Front desk", meta: "Who picks it up", tone: "#99A36D", featured: false },
   ] as const;
 
   return (
