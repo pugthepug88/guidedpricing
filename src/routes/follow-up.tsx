@@ -181,8 +181,8 @@ function FollowUpScene() {
   const reduced = !!useReducedMotion();
 
   return (
-    <div className="relative mx-auto max-w-[1340px] pt-10 sm:pt-14 lg:min-h-[650px] lg:pt-20">
-      <div className="absolute bottom-0 left-[3.5%] right-[3.5%] top-[15.5%] rounded-[34px] bg-[#8C9676]" />
+    <div className="relative mx-auto max-w-[1340px] pt-10 sm:pt-14 lg:min-h-[600px] lg:pt-20">
+      <div className="absolute bottom-0 left-[3.5%] right-[3.5%] top-[14.5%] rounded-[34px] bg-[#98A27F]" />
 
       <div className="relative z-10 lg:hidden">
         <div className="px-4">
@@ -234,7 +234,7 @@ function FollowUpScene() {
         </div>
       </div>
 
-      <div className="relative z-10 hidden h-[650px] lg:block">
+      <div className="relative z-10 hidden h-[600px] lg:block">
         <motion.div
           className="absolute bottom-0 left-1/2 top-0 w-[45%] -translate-x-1/2"
           initial={reduced ? false : { opacity: 0, y: 12, scale: 0.992 }}
@@ -249,11 +249,11 @@ function FollowUpScene() {
           <OrbitCard visual={<TeamAvatar size={38} cell={0} className="border-white/80" />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" />
         </motion.div>
 
-        <motion.div className="absolute left-[4.8%] top-[34%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.14, ease: EASE }}>
+        <motion.div className="absolute left-[4.8%] top-[31.5%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.14, ease: EASE }}>
           <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>} eyebrow="Voice AI" title="Call captured" copy="Customer asked about Tuesday morning." />
         </motion.div>
 
-        <motion.div className="absolute left-[4.8%] top-[68%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.2, ease: EASE }}>
+        <motion.div className="absolute left-[4.8%] top-[63%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.2, ease: EASE }}>
           <OrbitCard visual={<TeamAvatar size={38} cell={14} className="border-white/80" />} eyebrow="Past customer" title="Follow-up ready" copy="Time to reconnect." />
         </motion.div>
 
@@ -261,11 +261,11 @@ function FollowUpScene() {
           <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>} eyebrow="SMS" title="SMS sent" copy="Would Tuesday morning suit you?" />
         </motion.div>
 
-        <motion.div className="absolute right-[4.8%] top-[34%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.16, ease: EASE }}>
+        <motion.div className="absolute right-[4.8%] top-[31.5%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.16, ease: EASE }}>
           <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#99A36D]/16 text-[#6C7746]"><Calendar size={16} /></span>} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" />
         </motion.div>
 
-        <motion.div className="absolute right-[4.8%] top-[68%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.22, ease: EASE }}>
+        <motion.div className="absolute right-[4.8%] top-[63%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.22, ease: EASE }}>
           <OrbitCard
             visual={
               <span className="flex -space-x-2">
@@ -280,14 +280,16 @@ function FollowUpScene() {
           />
         </motion.div>
 
-        {["17%","51%","85%"].map((top) => (
-          <span key={`left-${top}`} className="pointer-events-none absolute left-[25.6%] flex h-8 w-8 items-center justify-center text-white/75" style={{ top }}>
-            <ArrowRight size={18} strokeWidth={1.6} />
+        {["10.5%","42%","73.5%"].map((top) => (
+          <span key={`left-${top}`} className="pointer-events-none absolute left-[24.7%] flex w-[3.6%] items-center text-white/72" style={{ top }}>
+            <span className="h-px flex-1 bg-white/45" />
+            <ArrowRight size={16} strokeWidth={1.5} />
           </span>
         ))}
-        {["17%","51%","85%"].map((top) => (
-          <span key={`right-${top}`} className="pointer-events-none absolute right-[25.6%] flex h-8 w-8 items-center justify-center text-white/75" style={{ top }}>
-            <ArrowRight size={18} strokeWidth={1.6} />
+        {["10.5%","42%","73.5%"].map((top) => (
+          <span key={`right-${top}`} className="pointer-events-none absolute right-[24.7%] flex w-[3.6%] items-center text-white/72" style={{ top }}>
+            <span className="h-px flex-1 bg-white/45" />
+            <ArrowRight size={16} strokeWidth={1.5} />
           </span>
         ))}
       </div>
@@ -296,10 +298,10 @@ function FollowUpScene() {
 }
 
 function CustomerRecord() {
-  const ghostRows = Array.from({ length: 10 });
+  const ghostRows = Array.from({ length: 8 });
 
   return (
-    <div className="relative h-full min-h-[650px] overflow-hidden rounded-[24px_24px_0_0] border border-black/[0.06] bg-white shadow-[0_28px_70px_rgba(48,54,40,.18)]">
+    <div className="relative h-full min-h-[600px] overflow-hidden rounded-[24px_24px_0_0] border border-black/[0.06] bg-white shadow-[0_28px_70px_rgba(48,54,40,.18)]">
       <div className="flex items-center gap-3 border-b border-[#E7E9E4] bg-[#F2CDBD] px-5 py-4">
         <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#111214]">
           <ZaplaPetal size={23} />
@@ -341,7 +343,7 @@ function CustomerRecord() {
         ))}
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[180px] bg-gradient-to-b from-transparent via-white/72 to-[#D8DEC9]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[220px] bg-gradient-to-b from-transparent via-white/82 to-[#E3E8D7]" />
     </div>
   );
 }
