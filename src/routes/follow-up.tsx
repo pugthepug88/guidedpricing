@@ -7,7 +7,6 @@ import {
   ChevronDown,
   FileText,
   Globe2,
-  Mail,
   MessageCircle,
   MessageSquare,
   Phone,
