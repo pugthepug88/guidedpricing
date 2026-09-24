@@ -209,8 +209,8 @@ function FollowUpScene() {
           />
           <OrbitCard
             visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>}
-            eyebrow="WhatsApp"
-            title="Fast first response"
+            eyebrow="SMS"
+            title="SMS sent"
             copy="Would Tuesday morning suit you?"
           />
           <OrbitCard
@@ -258,7 +258,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div className="absolute right-[4.8%] top-0 w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.1, ease: EASE }}>
-          <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>} eyebrow="WhatsApp" title="Fast first response" copy="Would Tuesday morning suit you?" />
+          <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>} eyebrow="SMS" title="SMS sent" copy="Would Tuesday morning suit you?" />
         </motion.div>
 
         <motion.div className="absolute right-[4.8%] top-[34%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.16, ease: EASE }}>
