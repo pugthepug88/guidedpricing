@@ -281,15 +281,23 @@ function FollowUpScene() {
         </motion.div>
 
         {["10.5%","42%","73.5%"].map((top) => (
-          <span key={`left-${top}`} className="pointer-events-none absolute left-[24.7%] flex w-[3.6%] items-center text-white/72" style={{ top }}>
-            <span className="h-px flex-1 bg-white/45" />
-            <ArrowRight size={16} strokeWidth={1.5} />
+          <span
+            key={`left-${top}`}
+            className="pointer-events-none absolute left-[24.8%] flex w-[2.7%] -translate-y-1/2 items-center text-white/66"
+            style={{ top }}
+          >
+            <span className="h-px flex-1 bg-white/36" />
+            <ArrowRight size={12} strokeWidth={1.45} />
           </span>
         ))}
         {["10.5%","42%","73.5%"].map((top) => (
-          <span key={`right-${top}`} className="pointer-events-none absolute right-[24.7%] flex w-[3.6%] items-center text-white/72" style={{ top }}>
-            <span className="h-px flex-1 bg-white/45" />
-            <ArrowRight size={16} strokeWidth={1.5} />
+          <span
+            key={`right-${top}`}
+            className="pointer-events-none absolute left-[72.5%] flex w-[2.7%] -translate-y-1/2 items-center text-white/66"
+            style={{ top }}
+          >
+            <span className="h-px flex-1 bg-white/36" />
+            <ArrowRight size={12} strokeWidth={1.45} />
           </span>
         ))}
       </div>
