@@ -2338,45 +2338,26 @@ function FooterLandscape() {
   const dominoVideo = "/concept/Zapla%20domino.mp4";
 
   return (
-    <div className="relative overflow-hidden bg-[#C88D63]">
+    <div className="relative isolate min-h-[760px] overflow-hidden sm:min-h-[860px] lg:min-h-[940px]">
       <video
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full scale-[1.04] object-cover object-center opacity-65 blur-[10px] saturate-[0.92] contrast-[1.02]"
+        className="absolute inset-0 h-full w-full object-cover object-center"
         autoPlay={!reduced}
         muted
         loop={!reduced}
         playsInline
-        preload="metadata"
+        preload="auto"
       >
         <source src={dominoVideo} type="video/mp4" />
       </video>
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(252,252,250,.30)_0%,rgba(252,252,250,0)_18%,rgba(191,130,86,.08)_58%,rgba(112,75,51,.20)_100%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#FCFCFA] via-[#FCFCFA]/35 to-transparent sm:h-36"
       />
 
-      <div className="relative z-10 mx-auto h-[390px] w-full overflow-hidden sm:h-auto sm:aspect-[7/4] sm:max-w-[1344px]">
-        <video
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover object-center sm:object-contain"
-          autoPlay={!reduced}
-          muted
-          loop={!reduced}
-          playsInline
-          preload="auto"
-        >
-          <source src={dominoVideo} type="video/mp4" />
-        </video>
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#FCFCFA] via-[#FCFCFA]/34 to-transparent sm:h-28"
-        />
-      </div>
-
-      <div className="relative z-20 -mt-5 px-4 pb-5 sm:-mt-12 sm:px-8 sm:pb-8 lg:-mt-16 lg:px-12 lg:pb-10">
-        <div className="mx-auto max-w-[1220px] rounded-[30px] border border-white/60 bg-[#F8F5EF]/[0.98] p-7 shadow-[0_30px_80px_rgba(54,40,26,.22)] sm:p-9 lg:p-11">
+      <div className="relative z-20 flex min-h-[760px] items-end px-4 pb-5 pt-[390px] sm:min-h-[860px] sm:px-8 sm:pb-8 sm:pt-[470px] lg:min-h-[940px] lg:px-12 lg:pb-10 lg:pt-[540px]">
+        <div className="mx-auto w-full max-w-[1220px] rounded-[30px] border border-white/60 bg-[#F8F5EF]/[0.98] p-7 shadow-[0_30px_80px_rgba(54,40,26,.22)] sm:p-9 lg:p-11">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr_1fr_1fr] lg:gap-12">
             <div>
               <a href="https://zapla.io/" className="inline-flex items-center">
