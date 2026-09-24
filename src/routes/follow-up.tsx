@@ -8,7 +8,9 @@ import {
   FileText,
   Globe2,
   MessageSquare,
+  Phone,
   RotateCcw,
+  UserRound,
 } from "lucide-react";
 
 export const Route = createFileRoute("/follow-up")({
@@ -182,90 +184,93 @@ function FollowUpScene() {
   const reduced = !!useReducedMotion();
 
   return (
-    <div className="mx-auto max-w-[1320px] overflow-hidden rounded-[32px] border border-[#DDE0DA] bg-[#F4F5F1] shadow-[0_24px_64px_rgba(43,48,40,.08)]">
-      <div className="flex flex-col gap-3 border-b border-[#DDE0DA] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#697069]">Connected follow-up</div>
-        <div className="text-[10px] font-medium text-[#858A84]">
-          Web chat <span className="mx-1.5 text-[#B9BDB7]">·</span> SMS <span className="mx-1.5 text-[#B9BDB7]">·</span> Email <span className="mx-1.5 text-[#B9BDB7]">·</span> WhatsApp <span className="mx-1.5 text-[#B9BDB7]">·</span> Voice <span className="mx-1.5 text-[#B9BDB7]">·</span> Social
+    <div className="relative mx-auto max-w-[1320px] pt-12 sm:pt-16 lg:min-h-[640px] lg:pt-24">
+      <div className="absolute inset-x-0 bottom-0 top-[18%] rounded-[34px] bg-[#ECE8F5]" />
+
+      <div className="relative z-10 lg:hidden">
+        <div className="px-4">
+          <CustomerRecord />
+        </div>
+        <div className="mt-5 grid gap-3 px-4 pb-5 sm:grid-cols-2">
+          <OrbitCard icon={<Globe2 size={16} />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" tone="#E97D62" />
+          <OrbitCard icon={<Phone size={16} />} eyebrow="Voice AI" title="Call captured" copy="Customer asked about Tuesday morning." tone="#9B86B8" />
+          <OrbitCard icon={<MessageSquare size={16} />} eyebrow="WhatsApp" title="Fast first response" copy="Would Tuesday morning suit you?" tone="#DDA34B" ai />
+          <OrbitCard icon={<Calendar size={16} />} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" tone="#99A36D" />
+          <OrbitCard icon={<UserRound size={16} />} eyebrow="Human handoff" title="Front desk notified" copy="Full context is ready for the team." tone="#C96C85" />
+          <OrbitCard icon={<RotateCcw size={16} />} eyebrow="Past customer" title="Follow-up ready" copy="The relationship does not disappear into the database." tone="#D58C75" />
         </div>
       </div>
 
-      <div className="relative grid gap-5 p-5 sm:p-7 lg:grid-cols-[0.82fr_1.42fr_0.9fr] lg:items-center lg:gap-7 lg:p-9">
+      <div className="relative z-10 hidden h-[640px] lg:block">
         <motion.div
-          initial={reduced ? false : { opacity: 0, x: -14 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.65 }}
-          transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
-        >
-          <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.17em] text-[#8A8F89]">Incoming</div>
-          <div className="rounded-[22px] border border-[#E7D7D0] bg-[#FFF9F6] p-5 shadow-[0_12px_30px_rgba(65,54,47,.07)]">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#E97D62]/10 text-[#C96F55]">
-                <Globe2 size={16} />
-              </span>
-              <div>
-                <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#9A776B]">Web chat</div>
-                <div className="mt-0.5 text-[10px] text-[#A2A6A1]">10:04am</div>
-              </div>
-            </div>
-            <div className="mt-5 text-[26px] font-medium leading-[1.02] tracking-[-0.04em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>New enquiry</div>
-            <div className="mt-3 text-[13px] leading-[1.55] text-[#656B65]">“Can I book a consultation next week?”</div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 12, scale: 0.99 }}
+          className="absolute left-1/2 top-0 w-[46%] -translate-x-1/2"
+          initial={reduced ? false : { opacity: 0, y: 14, scale: 0.99 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.06, ease: EASE }}
+          transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
         >
           <CustomerRecord />
         </motion.div>
 
-        <div>
-          <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.17em] text-[#8A8F89]">Follow-up → next step</div>
-          <div className="space-y-4">
-            <motion.div
-              initial={reduced ? false : { opacity: 0, x: 14 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.65 }}
-              transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.12, ease: EASE }}
-            >
-              <div className="rounded-[22px] border border-[#E8D8AD] bg-[#FFF7DF] p-5 shadow-[0_12px_30px_rgba(65,54,47,.06)]">
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#DDA34B]/14">
-                    <ZaplaPetal size={22} />
-                  </span>
-                  <div>
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8B672A]">WhatsApp</div>
-                    <div className="mt-0.5 text-[10px] text-[#A2A6A1]">10:05am</div>
-                  </div>
-                </div>
-                <div className="mt-5 text-[24px] font-medium leading-[1.02] tracking-[-0.04em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>Follow-up sent</div>
-                <div className="mt-3 text-[13px] leading-[1.55] text-[#656B65]">“Would Tuesday morning suit you?”</div>
-              </div>
-            </motion.div>
+        <motion.div
+          className="absolute left-[3%] top-[16%] w-[22%]"
+          initial={reduced ? false : { opacity: 0, x: -16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.08, ease: EASE }}
+        >
+          <OrbitCard icon={<Globe2 size={16} />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" tone="#E97D62" />
+        </motion.div>
 
-            <motion.div
-              initial={reduced ? false : { opacity: 0, x: 14 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.65 }}
-              transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.2, ease: EASE }}
-            >
-              <div className="rounded-[22px] border border-[#D7DEC0] bg-[#F4F7E9] p-5 shadow-[0_12px_30px_rgba(65,54,47,.06)]">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#99A36D]/14 text-[#75814C]">
-                    <Calendar size={16} />
-                  </span>
-                  <span className="rounded-full bg-[#99A36D]/13 px-2.5 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#66713F]">Booked</span>
-                </div>
-                <div className="mt-5 text-[25px] font-medium leading-[1.02] tracking-[-0.04em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>Tuesday · 10:30am</div>
-                <div className="mt-2 text-[12px] text-[#727871]">Consultation</div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
+        <motion.div
+          className="absolute left-[5%] top-[43%] w-[20%]"
+          initial={reduced ? false : { opacity: 0, x: -16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.14, ease: EASE }}
+        >
+          <OrbitCard icon={<Phone size={16} />} eyebrow="Voice AI" title="Call captured" copy="Customer asked about Tuesday morning." tone="#9B86B8" />
+        </motion.div>
 
+        <motion.div
+          className="absolute bottom-[8%] left-[3%] w-[22%]"
+          initial={reduced ? false : { opacity: 0, x: -16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.2, ease: EASE }}
+        >
+          <OrbitCard icon={<RotateCcw size={16} />} eyebrow="Past customer" title="Follow-up ready" copy="The relationship does not disappear into the database." tone="#D58C75" />
+        </motion.div>
+
+        <motion.div
+          className="absolute right-[3%] top-[16%] w-[22%]"
+          initial={reduced ? false : { opacity: 0, x: 16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.12, ease: EASE }}
+        >
+          <OrbitCard icon={<MessageSquare size={16} />} eyebrow="WhatsApp" title="Fast first response" copy="Would Tuesday morning suit you?" tone="#DDA34B" ai />
+        </motion.div>
+
+        <motion.div
+          className="absolute right-[5%] top-[43%] w-[20%]"
+          initial={reduced ? false : { opacity: 0, x: 16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.18, ease: EASE }}
+        >
+          <OrbitCard icon={<Calendar size={16} />} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" tone="#99A36D" />
+        </motion.div>
+
+        <motion.div
+          className="absolute bottom-[8%] right-[3%] w-[22%]"
+          initial={reduced ? false : { opacity: 0, x: 16 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.24, ease: EASE }}
+        >
+          <OrbitCard icon={<UserRound size={16} />} eyebrow="Human handoff" title="Front desk notified" copy="Full context is ready for the team." tone="#C96C85" />
+        </motion.div>
       </div>
     </div>
   );
@@ -273,51 +278,87 @@ function FollowUpScene() {
 
 function CustomerRecord() {
   return (
-    <div className="overflow-hidden rounded-[26px] border border-[#D8DCD5] bg-white shadow-[0_18px_46px_rgba(48,52,43,.10)]">
-      <div className="h-1.5 bg-[#E97D62]" />
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#E7E9E4] px-5 py-5 sm:px-6">
+    <div className="overflow-hidden rounded-[26px] border border-black/[0.07] bg-white shadow-[0_26px_60px_rgba(59,53,70,.14)]">
+      <div className="flex items-center justify-between gap-4 border-b border-[#ECEDE9] px-6 py-5">
         <div className="flex items-center gap-3">
-          <TeamAvatar size={48} cell={0} />
+          <TeamAvatar size={46} cell={0} />
           <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8A8E89]">Customer record</div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8B908A]">Customer</div>
             <div className="mt-1 text-[19px] font-semibold tracking-[-0.025em] text-[#111318]">Sarah Mitchell</div>
           </div>
         </div>
-        <span className="rounded-full bg-[#99A36D]/14 px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#697342]">Follow-up active</span>
+        <div className="flex items-center gap-2 rounded-full bg-[#EEF3E3] px-3 py-2">
+          <ZaplaPetal size={20} />
+          <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#687245]">Follow-up active</span>
+        </div>
       </div>
 
-      <div className="p-5 sm:p-6">
-        <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8A8E89]">Latest reply</div>
-        <div className="mt-3 rounded-[16px] bg-[#F4F5F1] px-4 py-4">
-          <div className="text-[10px] font-semibold text-[#7C827C]">Customer · 10:12am</div>
-          <div className="mt-2 text-[24px] font-medium leading-[1.08] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
+      <div className="grid gap-4 p-6 sm:grid-cols-[1.1fr_.9fr]">
+        <div className="rounded-[17px] bg-[#F5F5F2] p-4">
+          <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8A8F89]">Latest reply</div>
+          <div className="mt-2 text-[21px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
             Tuesday morning works.
           </div>
+          <div className="mt-3 text-[10px] text-[#848983]">Customer · 10:12am</div>
         </div>
 
-        <div className="mt-5 grid gap-4 sm:grid-cols-3">
-          <RecordFact label="Next step" value="Consultation" tone="#E97D62" />
-          <RecordFact label="Booked" value="Tue · 10:30am" tone="#DDA34B" />
-          <RecordFact label="Handoff" value="Front desk" tone="#99A36D" />
+        <div className="rounded-[17px] border border-[#E7E9E4] bg-white p-4">
+          <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8A8F89]">Next step</div>
+          <div className="mt-2 text-[20px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
+            Consultation
+          </div>
+          <div className="mt-3 flex items-center gap-2 text-[11px] font-semibold text-[#606660]">
+            <Calendar size={14} className="text-[#DDA34B]" />
+            Tuesday · 10:30am
+          </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 border-t border-[#E7E9E4] bg-[#FBFBF8] px-5 py-4 sm:px-6">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]">
-          <ZaplaPetal size={24} />
+      <div className="grid border-t border-[#ECEDE9] sm:grid-cols-3">
+        <RecordFact label="Rule" value="Follow-up active" tone="#DDA34B" />
+        <RecordFact label="Handoff" value="Front desk" tone="#C96C85" />
+        <RecordFact label="Context" value="Kept together" tone="#99A36D" />
+      </div>
+    </div>
+  );
+}
+
+function OrbitCard({
+  icon,
+  eyebrow,
+  title,
+  copy,
+  tone,
+  ai = false,
+}: {
+  icon: ReactNode;
+  eyebrow: string;
+  title: string;
+  copy: string;
+  tone: string;
+  ai?: boolean;
+}) {
+  return (
+    <div className="rounded-[20px] border border-white/80 bg-white/[0.70] p-4 shadow-[0_14px_34px_rgba(57,49,69,.10)] backdrop-blur-[16px]">
+      <div className="flex items-center gap-2.5">
+        <span
+          className="flex h-9 w-9 items-center justify-center rounded-[11px]"
+          style={{ backgroundColor: `${tone}18`, color: tone }}
+        >
+          {ai ? <ZaplaPetal size={22} /> : icon}
         </span>
-        <div className="min-w-0 flex-1">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#C96F55]">Zapla</div>
-          <div className="mt-1 text-[12px] font-semibold text-[#444944]">Conversation, context and next step stay together.</div>
-        </div>
+        <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7D827C]">{eyebrow}</div>
       </div>
+      <div className="mt-4 text-[20px] font-medium leading-[1.04] tracking-[-0.035em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>{title}</div>
+      <div className="mt-2 text-[11px] leading-[1.5] text-[#666C66]">{copy}</div>
     </div>
   );
 }
 
 function RecordFact({ label, value, tone }: { label: string; value: string; tone: string }) {
   return (
-    <div className="border-t-2 pt-3" style={{ borderColor: tone }}>
+    <div className="relative px-5 py-4 sm:border-r sm:border-[#ECEDE9] sm:last:border-r-0">
+      <div className="absolute left-5 top-0 h-[3px] w-10" style={{ backgroundColor: tone }} />
       <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#8A8E89]">{label}</div>
       <div className="mt-1.5 text-[11px] font-semibold text-[#333833]">{value}</div>
     </div>
