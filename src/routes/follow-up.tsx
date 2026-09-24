@@ -42,7 +42,7 @@ const FAQS = [
   },
   {
     q: "Is follow-up only for new leads?",
-    a: "No. You can use it for new enquiries, quotes, bookings, reminders and reactivation of past customers, depending on the workflow you set.",
+    a: "No. Zapla can follow up around new enquiries, quotes, bookings, service or renewal dates, past customers and post-job actions such as review requests. The workflow depends on what you want to happen and when.",
   },
   {
     q: "Does my team still control the messages?",
@@ -463,7 +463,7 @@ function MechanismSection() {
       tone: "#E97D62",
       text: "#FFF8F4",
       accent: "#FFF8F4",
-      items: ["Enquiry", "Quote", "Missed call", "Booking", "Past customer"],
+      items: ["Enquiry", "Quote", "Missed call", "Booking", "Service due", "Job complete"],
       ai: false,
     },
     {
@@ -481,7 +481,7 @@ function MechanismSection() {
       tone: "#A9B47A",
       text: "#172019",
       accent: "#172019",
-      items: ["Follow up", "Remind", "Update", "Hand off"],
+      items: ["Follow up", "Remind", "Book", "Ask for a review", "Hand off"],
       ai: false,
     },
   ] as const;
@@ -613,9 +613,9 @@ function UseCases() {
           <Reveal className="lg:col-span-7">
             <UseCaseCard
               number="04"
-              eyebrow="Past customers"
-              title="Reconnect when there is a reason."
-              copy="Bring the right customer back into a conversation when timing, service cycles or a campaign make it relevant."
+              eyebrow="Repeat business"
+              title="Bring customers back at the right time."
+              copy="Trigger follow-up around service cycles, renewals and return dates, or reconnect with customers who have gone quiet."
               className="min-h-[280px] bg-[#C96F55] text-[#FFF8F3]"
               dark
             />
