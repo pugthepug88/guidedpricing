@@ -7,9 +7,7 @@ import {
   ChevronDown,
   FileText,
   Globe2,
-  MessageCircle,
   MessageSquare,
-  Phone,
   RotateCcw,
 } from "lucide-react";
 
@@ -140,7 +138,6 @@ function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-20 pt-[116px] sm:px-10 sm:pb-24 sm:pt-[126px] lg:px-16 lg:pb-28 lg:pt-[138px]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(201,108,133,.055),transparent_24%),radial-gradient(circle_at_88%_18%,rgba(153,163,109,.06),transparent_24%)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#111318]/8" />
 
       <div className="relative mx-auto max-w-[1420px]">
@@ -184,86 +181,91 @@ function Hero() {
 function FollowUpScene() {
   const reduced = !!useReducedMotion();
 
-  const channels = ["Web chat", "SMS", "Email", "WhatsApp", "Voice", "Social"];
-
   return (
-    <div className="relative mx-auto max-w-[1320px] overflow-hidden rounded-[34px] border border-[#1E2B29]/[0.08] bg-[#EEF0E9] shadow-[0_28px_80px_rgba(48,52,43,.09)]">
-      <div className="relative px-5 pb-5 pt-5 sm:px-7 sm:pb-7 sm:pt-6 lg:px-8 lg:pb-8">
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          {channels.map((channel, index) => (
-            <span
-              key={channel}
-              className="rounded-full border border-[#1E2B29]/[0.08] bg-white/70 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#5C625C]"
-              style={{ color: index === 3 ? "#9C5269" : index === 4 ? "#6B5A8B" : undefined }}
+    <div className="mx-auto max-w-[1320px] overflow-hidden rounded-[32px] border border-[#DDE0DA] bg-[#F4F5F1] shadow-[0_24px_64px_rgba(43,48,40,.08)]">
+      <div className="flex flex-col gap-3 border-b border-[#DDE0DA] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#697069]">Connected follow-up</div>
+        <div className="text-[10px] font-medium text-[#858A84]">
+          Web chat <span className="mx-1.5 text-[#B9BDB7]">·</span> SMS <span className="mx-1.5 text-[#B9BDB7]">·</span> Email <span className="mx-1.5 text-[#B9BDB7]">·</span> WhatsApp <span className="mx-1.5 text-[#B9BDB7]">·</span> Voice <span className="mx-1.5 text-[#B9BDB7]">·</span> Social
+        </div>
+      </div>
+
+      <div className="relative grid gap-5 p-5 sm:p-7 lg:grid-cols-[0.82fr_1.42fr_0.9fr] lg:items-center lg:gap-7 lg:p-9">
+        <motion.div
+          initial={reduced ? false : { opacity: 0, x: -14 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.65 }}
+          transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
+        >
+          <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.17em] text-[#8A8F89]">Incoming</div>
+          <div className="rounded-[22px] border border-[#E7D7D0] bg-[#FFF9F6] p-5 shadow-[0_12px_30px_rgba(65,54,47,.07)]">
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#E97D62]/10 text-[#C96F55]">
+                <Globe2 size={16} />
+              </span>
+              <div>
+                <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#9A776B]">Web chat</div>
+                <div className="mt-0.5 text-[10px] text-[#A2A6A1]">10:04am</div>
+              </div>
+            </div>
+            <div className="mt-5 text-[26px] font-medium leading-[1.02] tracking-[-0.04em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>New enquiry</div>
+            <div className="mt-3 text-[13px] leading-[1.55] text-[#656B65]">“Can I book a consultation next week?”</div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={reduced ? false : { opacity: 0, y: 12, scale: 0.99 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.06, ease: EASE }}
+        >
+          <CustomerRecord />
+        </motion.div>
+
+        <div>
+          <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.17em] text-[#8A8F89]">Follow-up → next step</div>
+          <div className="space-y-4">
+            <motion.div
+              initial={reduced ? false : { opacity: 0, x: 14 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.65 }}
+              transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.12, ease: EASE }}
             >
-              {channel}
-            </span>
-          ))}
+              <div className="rounded-[22px] border border-[#E8D8AD] bg-[#FFF7DF] p-5 shadow-[0_12px_30px_rgba(65,54,47,.06)]">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#DDA34B]/14">
+                    <ZaplaPetal size={22} />
+                  </span>
+                  <div>
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8B672A]">WhatsApp</div>
+                    <div className="mt-0.5 text-[10px] text-[#A2A6A1]">10:05am</div>
+                  </div>
+                </div>
+                <div className="mt-5 text-[24px] font-medium leading-[1.02] tracking-[-0.04em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>Follow-up sent</div>
+                <div className="mt-3 text-[13px] leading-[1.55] text-[#656B65]">“Would Tuesday morning suit you?”</div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={reduced ? false : { opacity: 0, x: 14 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.65 }}
+              transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.2, ease: EASE }}
+            >
+              <div className="rounded-[22px] border border-[#D7DEC0] bg-[#F4F7E9] p-5 shadow-[0_12px_30px_rgba(65,54,47,.06)]">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#99A36D]/14 text-[#75814C]">
+                    <Calendar size={16} />
+                  </span>
+                  <span className="rounded-full bg-[#99A36D]/13 px-2.5 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#66713F]">Booked</span>
+                </div>
+                <div className="mt-5 text-[25px] font-medium leading-[1.02] tracking-[-0.04em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>Tuesday · 10:30am</div>
+                <div className="mt-2 text-[12px] text-[#727871]">Consultation</div>
+              </div>
+            </motion.div>
+          </div>
         </div>
 
-        <div className="relative mt-5 min-h-[760px] overflow-hidden rounded-[28px] sm:min-h-[720px] lg:min-h-[650px]">
-          <div className="absolute inset-x-0 bottom-0 top-[18%] rounded-[28px] bg-[linear-gradient(135deg,#E97D62_0%,#DDA34B_53%,#C96C85_100%)]" />
-          <div className="pointer-events-none absolute inset-x-[8%] bottom-[4%] h-[38%] rounded-full bg-white/18 blur-[70px]" />
-
-          <div className="relative z-10 grid gap-3 p-4 sm:p-5 lg:hidden">
-            <ChannelMoment icon={<Globe2 size={15} />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" tone="#E97D62" />
-            <CustomerRecord />
-            <ChannelMoment icon={<MessageCircle size={15} />} eyebrow="WhatsApp" title="Follow-up sent" copy="Would Tuesday morning suit you?" tone="#DDA34B" ai />
-            <ChannelMoment icon={<Calendar size={15} />} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" tone="#99A36D" />
-          </div>
-
-          <div className="relative hidden h-[650px] lg:block">
-            <motion.div
-              className="absolute left-[3%] top-[15%] w-[22%]"
-              initial={reduced ? false : { opacity: 0, x: -18, y: 8 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: reduced ? 0 : 0.46, ease: EASE }}
-            >
-              <ChannelMoment icon={<Globe2 size={15} />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" tone="#E97D62" />
-            </motion.div>
-
-            <motion.div
-              className="absolute bottom-[12%] left-[5%] w-[20%]"
-              initial={reduced ? false : { opacity: 0, x: -16, y: 10 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.12, ease: EASE }}
-            >
-              <ChannelMoment icon={<Phone size={15} />} eyebrow="Voice AI" title="Call captured" copy="Customer wants Tuesday morning." tone="#9B86B8" />
-            </motion.div>
-
-            <motion.div
-              className="absolute left-1/2 top-[9%] w-[48%] -translate-x-1/2"
-              initial={reduced ? false : { opacity: 0, y: 16, scale: 0.985 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.55 }}
-              transition={{ duration: reduced ? 0 : 0.52, delay: reduced ? 0 : 0.06, ease: EASE }}
-            >
-              <CustomerRecord />
-            </motion.div>
-
-            <motion.div
-              className="absolute right-[3%] top-[17%] w-[23%]"
-              initial={reduced ? false : { opacity: 0, x: 18, y: 8 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.16, ease: EASE }}
-            >
-              <ChannelMoment icon={<MessageCircle size={15} />} eyebrow="WhatsApp" title="Follow-up sent" copy="Would Tuesday morning suit you?" tone="#DDA34B" ai />
-            </motion.div>
-
-            <motion.div
-              className="absolute bottom-[12%] right-[5%] w-[21%]"
-              initial={reduced ? false : { opacity: 0, x: 16, y: 10 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.24, ease: EASE }}
-            >
-              <ChannelMoment icon={<Calendar size={15} />} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" tone="#99A36D" />
-            </motion.div>
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -271,35 +273,36 @@ function FollowUpScene() {
 
 function CustomerRecord() {
   return (
-    <div className="overflow-hidden rounded-[26px] border border-black/[0.07] bg-[#FCFCFA] shadow-[0_24px_58px_rgba(49,45,38,.16)]">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-black/[0.07] px-5 py-5 sm:px-6">
+    <div className="overflow-hidden rounded-[26px] border border-[#D8DCD5] bg-white shadow-[0_18px_46px_rgba(48,52,43,.10)]">
+      <div className="h-1.5 bg-[#E97D62]" />
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#E7E9E4] px-5 py-5 sm:px-6">
         <div className="flex items-center gap-3">
           <TeamAvatar size={48} cell={0} />
           <div>
             <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8A8E89]">Customer record</div>
-            <div className="mt-1 text-[18px] font-semibold tracking-[-0.025em] text-[#111318]">Sarah Mitchell</div>
+            <div className="mt-1 text-[19px] font-semibold tracking-[-0.025em] text-[#111318]">Sarah Mitchell</div>
           </div>
         </div>
         <span className="rounded-full bg-[#99A36D]/14 px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#697342]">Follow-up active</span>
       </div>
 
       <div className="p-5 sm:p-6">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8A8E89]">Latest conversation</div>
-        <div className="mt-4 rounded-[18px] bg-[#F1F2ED] px-4 py-4">
-          <div className="text-[11px] font-semibold text-[#727872]">Customer · 10:12am</div>
-          <div className="mt-2 text-[22px] font-medium leading-[1.12] tracking-[-0.035em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
+        <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8A8E89]">Latest reply</div>
+        <div className="mt-3 rounded-[16px] bg-[#F4F5F1] px-4 py-4">
+          <div className="text-[10px] font-semibold text-[#7C827C]">Customer · 10:12am</div>
+          <div className="mt-2 text-[24px] font-medium leading-[1.08] tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
             Tuesday morning works.
           </div>
         </div>
 
-        <div className="mt-5 grid gap-3 sm:grid-cols-3">
+        <div className="mt-5 grid gap-4 sm:grid-cols-3">
           <RecordFact label="Next step" value="Consultation" tone="#E97D62" />
           <RecordFact label="Booked" value="Tue · 10:30am" tone="#DDA34B" />
-          <RecordFact label="Owner" value="Front desk" tone="#99A36D" />
+          <RecordFact label="Handoff" value="Front desk" tone="#99A36D" />
         </div>
       </div>
 
-      <div className="flex items-center gap-3 border-t border-black/[0.07] bg-white/70 px-5 py-4 sm:px-6">
+      <div className="flex items-center gap-3 border-t border-[#E7E9E4] bg-[#FBFBF8] px-5 py-4 sm:px-6">
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]">
           <ZaplaPetal size={24} />
         </span>
@@ -317,35 +320,6 @@ function RecordFact({ label, value, tone }: { label: string; value: string; tone
     <div className="border-t-2 pt-3" style={{ borderColor: tone }}>
       <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#8A8E89]">{label}</div>
       <div className="mt-1.5 text-[11px] font-semibold text-[#333833]">{value}</div>
-    </div>
-  );
-}
-
-function ChannelMoment({
-  icon,
-  eyebrow,
-  title,
-  copy,
-  tone,
-  ai = false,
-}: {
-  icon: ReactNode;
-  eyebrow: string;
-  title: string;
-  copy: string;
-  tone: string;
-  ai?: boolean;
-}) {
-  return (
-    <div className="rounded-[20px] border border-black/[0.07] bg-white/94 p-4 shadow-[0_16px_38px_rgba(45,41,35,.13)] backdrop-blur-sm">
-      <div className="flex items-center gap-2.5">
-        <span className="flex h-8 w-8 items-center justify-center rounded-[9px]" style={{ backgroundColor: `${tone}18`, color: tone }}>
-          {ai ? <ZaplaPetal size={21} /> : icon}
-        </span>
-        <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#747A74]">{eyebrow}</div>
-      </div>
-      <div className="mt-4 text-[19px] font-medium leading-[1.04] tracking-[-0.035em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>{title}</div>
-      <div className="mt-2 text-[11px] leading-[1.5] text-[#6B706B]">{copy}</div>
     </div>
   );
 }
