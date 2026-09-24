@@ -374,16 +374,6 @@ function OrbitCard({
   );
 }
 
-function RecordFact({ label, value, tone }: { label: string; value: string; tone: string }) {
-  return (
-    <div className="relative px-5 py-4 sm:border-r sm:border-[#ECEDE9] sm:last:border-r-0">
-      <div className="absolute left-5 top-0 h-[3px] w-10" style={{ backgroundColor: tone }} />
-      <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#8A8E89]">{label}</div>
-      <div className="mt-1.5 text-[11px] font-semibold text-[#333833]">{value}</div>
-    </div>
-  );
-}
-
 function LeakSection() {
   return (
     <section className="bg-[#F8F9F7] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
