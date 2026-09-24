@@ -6,6 +6,8 @@ import {
   Calendar,
   ChevronDown,
   FileText,
+  MessageSquare,
+  RotateCcw,
 } from "lucide-react";
 
 export const Route = createFileRoute("/follow-up")({
