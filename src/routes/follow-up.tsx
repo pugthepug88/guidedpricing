@@ -181,8 +181,8 @@ function FollowUpScene() {
   const reduced = !!useReducedMotion();
 
   return (
-    <div className="relative mx-auto max-w-[1320px] pt-12 sm:pt-16 lg:min-h-[650px] lg:pt-24">
-      <div className="absolute bottom-[2%] left-[5%] right-[5%] top-[20%] rounded-[34px] bg-[#24332F]" />
+    <div className="relative mx-auto max-w-[1340px] pt-10 sm:pt-14 lg:min-h-[650px] lg:pt-20">
+      <div className="absolute bottom-0 left-[3.5%] right-[3.5%] top-[15.5%] rounded-[34px] bg-[#8C9676]" />
 
       <div className="relative z-10 lg:hidden">
         <div className="px-4">
@@ -202,6 +202,12 @@ function FollowUpScene() {
             copy="Customer asked about Tuesday morning."
           />
           <OrbitCard
+            visual={<TeamAvatar size={38} cell={14} className="border-white/80" />}
+            eyebrow="Past customer"
+            title="Follow-up ready"
+            copy="Time to reconnect."
+          />
+          <OrbitCard
             visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>}
             eyebrow="WhatsApp"
             title="Fast first response"
@@ -214,12 +220,6 @@ function FollowUpScene() {
             copy="Consultation booked"
           />
           <OrbitCard
-            visual={<TeamAvatar size={38} cell={14} className="border-white/80" />}
-            eyebrow="Past customer"
-            title="Follow-up ready"
-            copy="A previous customer is ready to hear from you."
-          />
-          <OrbitCard
             visual={
               <span className="flex -space-x-2">
                 <TeamAvatar size={34} cell={7} className="border-white/80" />
@@ -229,104 +229,43 @@ function FollowUpScene() {
             }
             eyebrow="Human handoff"
             title="Front desk notified"
-            copy="Full context is ready for the team."
+            copy="Full context is ready."
           />
         </div>
       </div>
 
       <div className="relative z-10 hidden h-[650px] lg:block">
         <motion.div
-          className="absolute left-1/2 top-0 w-[48%] -translate-x-1/2"
-          initial={reduced ? false : { opacity: 0, y: 14, scale: 0.99 }}
+          className="absolute bottom-0 left-1/2 top-0 w-[45%] -translate-x-1/2"
+          initial={reduced ? false : { opacity: 0, y: 12, scale: 0.992 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, amount: 0.6 }}
+          viewport={{ once: true, amount: 0.55 }}
           transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
         >
           <CustomerRecord />
         </motion.div>
 
-        <motion.div
-          className="absolute left-[1%] top-[18%] w-[18.5%]"
-          initial={reduced ? false : { opacity: 0, x: -14 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.08, ease: EASE }}
-        >
-          <OrbitCard
-            visual={<TeamAvatar size={38} cell={0} className="border-white/80" />}
-            eyebrow="Web chat"
-            title="New enquiry"
-            copy="Can I book a consultation next week?"
-          />
+        <motion.div className="absolute left-[4.8%] top-0 w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.08, ease: EASE }}>
+          <OrbitCard visual={<TeamAvatar size={38} cell={0} className="border-white/80" />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" />
         </motion.div>
 
-        <motion.div
-          className="absolute left-[2.5%] top-[45%] w-[17.5%]"
-          initial={reduced ? false : { opacity: 0, x: -14 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.14, ease: EASE }}
-        >
-          <OrbitCard
-            visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>}
-            eyebrow="Voice AI"
-            title="Call captured"
-            copy="Customer asked about Tuesday morning."
-          />
+        <motion.div className="absolute left-[4.8%] top-[34%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.14, ease: EASE }}>
+          <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>} eyebrow="Voice AI" title="Call captured" copy="Customer asked about Tuesday morning." />
         </motion.div>
 
-        <motion.div
-          className="absolute bottom-[8%] left-[1%] w-[18.5%]"
-          initial={reduced ? false : { opacity: 0, x: -14 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.2, ease: EASE }}
-        >
-          <OrbitCard
-            visual={<TeamAvatar size={38} cell={14} className="border-white/80" />}
-            eyebrow="Past customer"
-            title="Follow-up ready"
-            copy="A previous customer is ready to hear from you."
-          />
+        <motion.div className="absolute left-[4.8%] top-[68%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.2, ease: EASE }}>
+          <OrbitCard visual={<TeamAvatar size={38} cell={14} className="border-white/80" />} eyebrow="Past customer" title="Follow-up ready" copy="Time to reconnect." />
         </motion.div>
 
-        <motion.div
-          className="absolute right-[1%] top-[18%] w-[18.5%]"
-          initial={reduced ? false : { opacity: 0, x: 14 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.12, ease: EASE }}
-        >
-          <OrbitCard
-            visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>}
-            eyebrow="WhatsApp"
-            title="Fast first response"
-            copy="Would Tuesday morning suit you?"
-          />
+        <motion.div className="absolute right-[4.8%] top-0 w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.1, ease: EASE }}>
+          <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>} eyebrow="WhatsApp" title="Fast first response" copy="Would Tuesday morning suit you?" />
         </motion.div>
 
-        <motion.div
-          className="absolute right-[2.5%] top-[45%] w-[17.5%]"
-          initial={reduced ? false : { opacity: 0, x: 14 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.18, ease: EASE }}
-        >
-          <OrbitCard
-            visual={<span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#99A36D]/16 text-[#6C7746]"><Calendar size={16} /></span>}
-            eyebrow="Booking"
-            title="Tuesday · 10:30am"
-            copy="Consultation booked"
-          />
+        <motion.div className="absolute right-[4.8%] top-[34%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.16, ease: EASE }}>
+          <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#99A36D]/16 text-[#6C7746]"><Calendar size={16} /></span>} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" />
         </motion.div>
 
-        <motion.div
-          className="absolute bottom-[8%] right-[1%] w-[18.5%]"
-          initial={reduced ? false : { opacity: 0, x: 14 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.24, ease: EASE }}
-        >
+        <motion.div className="absolute right-[4.8%] top-[68%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.22, ease: EASE }}>
           <OrbitCard
             visual={
               <span className="flex -space-x-2">
@@ -337,19 +276,30 @@ function FollowUpScene() {
             }
             eyebrow="Human handoff"
             title="Front desk notified"
-            copy="Full context is ready for the team."
+            copy="Full context is ready."
           />
         </motion.div>
+
+        {["17%","51%","85%"].map((top) => (
+          <span key={`left-${top}`} className="pointer-events-none absolute left-[25.6%] flex h-8 w-8 items-center justify-center text-white/75" style={{ top }}>
+            <ArrowRight size={18} strokeWidth={1.6} />
+          </span>
+        ))}
+        {["17%","51%","85%"].map((top) => (
+          <span key={`right-${top}`} className="pointer-events-none absolute right-[25.6%] flex h-8 w-8 items-center justify-center text-white/75" style={{ top }}>
+            <ArrowRight size={18} strokeWidth={1.6} />
+          </span>
+        ))}
       </div>
     </div>
   );
 }
 
 function CustomerRecord() {
-  const ghostRows = Array.from({ length: 8 });
+  const ghostRows = Array.from({ length: 10 });
 
   return (
-    <div className="min-h-[520px] overflow-hidden rounded-[24px] border border-black/[0.07] bg-white shadow-[0_30px_72px_rgba(8,18,16,.24)]">
+    <div className="relative h-full min-h-[650px] overflow-hidden rounded-[24px_24px_0_0] border border-black/[0.06] bg-white shadow-[0_28px_70px_rgba(48,54,40,.18)]">
       <div className="flex items-center gap-3 border-b border-[#E7E9E4] bg-[#F2CDBD] px-5 py-4">
         <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#111214]">
           <ZaplaPetal size={23} />
@@ -391,13 +341,7 @@ function CustomerRecord() {
         ))}
       </div>
 
-      <div className="flex items-center justify-between gap-4 border-t border-[#ECEDE9] bg-[#FBFBF9] px-5 py-4">
-        <div className="text-[10px] font-semibold text-[#666C66]">Conversation, status and next step stay together.</div>
-        <div className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.13em] text-[#687245]">
-          <span className="h-2 w-2 rounded-full bg-[#99A36D]" />
-          Follow-up active
-        </div>
-      </div>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[180px] bg-gradient-to-b from-transparent via-white/72 to-[#D8DEC9]" />
     </div>
   );
 }
@@ -414,13 +358,15 @@ function OrbitCard({
   copy: string;
 }) {
   return (
-    <div className="rounded-[18px] border border-white/70 bg-white/[0.80] p-3.5 shadow-[0_18px_42px_rgba(7,17,15,.20),inset_0_1px_0_rgba(255,255,255,.9)] backdrop-blur-[18px]">
-      <div className="flex items-center gap-2.5">
-        <span className="shrink-0">{visual}</span>
-        <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#737A74]">{eyebrow}</div>
+    <div className="rounded-[20px] border border-white/70 bg-white/[0.18] p-[3px] shadow-[0_18px_40px_rgba(44,48,35,.18),inset_0_1px_0_rgba(255,255,255,.72)] backdrop-blur-[18px]">
+      <div className="h-[126px] rounded-[16px] border border-white/90 bg-white/[0.88] px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,.95)] backdrop-blur-[14px]">
+        <div className="flex items-center gap-2.5">
+          <span className="shrink-0">{visual}</span>
+          <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#737A74]">{eyebrow}</div>
+        </div>
+        <div className="mt-3 text-[18px] font-medium leading-[1.04] tracking-[-0.035em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>{title}</div>
+        <div className="mt-1.5 line-clamp-2 text-[10px] leading-[1.4] text-[#666C66]">{copy}</div>
       </div>
-      <div className="mt-3.5 text-[18px] font-medium leading-[1.04] tracking-[-0.035em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>{title}</div>
-      <div className="mt-2 text-[10px] leading-[1.45] text-[#666C66]">{copy}</div>
     </div>
   );
 }
