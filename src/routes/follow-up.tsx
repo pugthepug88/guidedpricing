@@ -185,7 +185,7 @@ function FollowUpScene() {
 
   return (
     <div className="relative mx-auto max-w-[1320px] pt-12 sm:pt-16 lg:min-h-[640px] lg:pt-24">
-      <div className="absolute inset-x-0 bottom-0 top-[18%] rounded-[34px] bg-[#ECE8F5]" />
+      <div className="absolute bottom-0 left-[4%] right-[4%] top-[18%] rounded-[34px] bg-[#554D61]" />
 
       <div className="relative z-10 lg:hidden">
         <div className="px-4">
@@ -213,7 +213,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div
-          className="absolute left-[3%] top-[16%] w-[22%]"
+          className="absolute left-0 top-[18%] w-[22%]"
           initial={reduced ? false : { opacity: 0, x: -16 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -223,7 +223,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div
-          className="absolute left-[5%] top-[43%] w-[20%]"
+          className="absolute left-[1.5%] top-[45%] w-[20%]"
           initial={reduced ? false : { opacity: 0, x: -16 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -233,7 +233,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div
-          className="absolute bottom-[8%] left-[3%] w-[22%]"
+          className="absolute bottom-[7%] left-0 w-[22%]"
           initial={reduced ? false : { opacity: 0, x: -16 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -243,7 +243,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div
-          className="absolute right-[3%] top-[16%] w-[22%]"
+          className="absolute right-0 top-[18%] w-[22%]"
           initial={reduced ? false : { opacity: 0, x: 16 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -253,7 +253,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div
-          className="absolute right-[5%] top-[43%] w-[20%]"
+          className="absolute right-[1.5%] top-[45%] w-[20%]"
           initial={reduced ? false : { opacity: 0, x: 16 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -263,7 +263,7 @@ function FollowUpScene() {
         </motion.div>
 
         <motion.div
-          className="absolute bottom-[8%] right-[3%] w-[22%]"
+          className="absolute bottom-[7%] right-0 w-[22%]"
           initial={reduced ? false : { opacity: 0, x: 16 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.6 }}
@@ -277,47 +277,66 @@ function FollowUpScene() {
 }
 
 function CustomerRecord() {
+  const ghostRows = [
+    ["Sarah Mitchell", "Reply received", "Tue · 10:30am"],
+    ["James Lee", "Follow-up active", "Quote sent"],
+    ["Amelia Wong", "Waiting", "Call back"],
+    ["Noah Patel", "Sequence paused", "Front desk"],
+    ["Olivia Chen", "Booked", "Wed · 2:00pm"],
+  ];
+
   return (
-    <div className="overflow-hidden rounded-[26px] border border-black/[0.07] bg-white shadow-[0_26px_60px_rgba(59,53,70,.14)]">
-      <div className="flex items-center justify-between gap-4 border-b border-[#ECEDE9] px-6 py-5">
-        <div className="flex items-center gap-3">
-          <TeamAvatar size={46} cell={0} />
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8B908A]">Customer</div>
-            <div className="mt-1 text-[19px] font-semibold tracking-[-0.025em] text-[#111318]">Sarah Mitchell</div>
-          </div>
+    <div className="overflow-hidden rounded-[24px] border border-black/[0.07] bg-white shadow-[0_26px_60px_rgba(33,28,40,.20)]">
+      <div className="flex items-center gap-3 border-b border-[#E7E9E4] bg-[#F3D7CB] px-5 py-4">
+        <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#111214]">
+          <ZaplaPetal size={23} />
+        </span>
+        <div>
+          <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#9B6758]">Zapla</div>
+          <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.025em] text-[#1E211E]">Follow-Up</div>
         </div>
-        <div className="flex items-center gap-2 rounded-full bg-[#EEF3E3] px-3 py-2">
-          <ZaplaPetal size={20} />
-          <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#687245]">Follow-up active</span>
-        </div>
+        <span className="ml-auto rounded-full bg-white/55 px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#777C76]">Live</span>
       </div>
 
-      <div className="grid gap-4 p-6 sm:grid-cols-[1.1fr_.9fr]">
-        <div className="rounded-[17px] bg-[#F5F5F2] p-4">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8A8F89]">Latest reply</div>
-          <div className="mt-2 text-[21px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
-            Tuesday morning works.
-          </div>
-          <div className="mt-3 text-[10px] text-[#848983]">Customer · 10:12am</div>
-        </div>
-
-        <div className="rounded-[17px] border border-[#E7E9E4] bg-white p-4">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8A8F89]">Next step</div>
-          <div className="mt-2 text-[20px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
-            Consultation
-          </div>
-          <div className="mt-3 flex items-center gap-2 text-[11px] font-semibold text-[#606660]">
-            <Calendar size={14} className="text-[#DDA34B]" />
-            Tuesday · 10:30am
-          </div>
-        </div>
+      <div className="grid grid-cols-[1.1fr_1fr_.9fr] border-b border-[#ECEDE9] px-5 py-3 text-[8px] font-semibold uppercase tracking-[0.14em] text-[#999D98]">
+        <span>Customer</span>
+        <span>Status</span>
+        <span>Next step</span>
       </div>
 
-      <div className="grid border-t border-[#ECEDE9] sm:grid-cols-3">
-        <RecordFact label="Rule" value="Follow-up active" tone="#DDA34B" />
-        <RecordFact label="Handoff" value="Front desk" tone="#C96C85" />
-        <RecordFact label="Context" value="Kept together" tone="#99A36D" />
+      <div className="px-5 pb-5 pt-2">
+        {ghostRows.map((row, index) => (
+          <div
+            key={row[0]}
+            className={`grid grid-cols-[1.1fr_1fr_.9fr] items-center border-b border-[#F0F1EE] py-3 last:border-b-0 ${index === 0 ? "rounded-[12px] bg-[#F6F2EF] px-3" : "px-3"}`}
+          >
+            {row.map((cell, cellIndex) =>
+              index === 0 ? (
+                <span
+                  key={cell}
+                  className={`text-[11px] font-semibold ${cellIndex === 1 ? "text-[#8A6527]" : "text-[#303430]"}`}
+                >
+                  {cell}
+                </span>
+              ) : (
+                <span key={cell} className="pr-4">
+                  <span
+                    className="block h-2 rounded-full bg-[#ECEDE9]"
+                    style={{ width: cellIndex === 0 ? "72%" : cellIndex === 1 ? "62%" : "58%" }}
+                  />
+                </span>
+              )
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between gap-4 border-t border-[#ECEDE9] bg-[#FBFBF9] px-5 py-4">
+        <div className="text-[10px] font-semibold text-[#666C66]">Conversation, status and next step stay together.</div>
+        <div className="flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.13em] text-[#687245]">
+          <span className="h-2 w-2 rounded-full bg-[#99A36D]" />
+          Follow-up active
+        </div>
       </div>
     </div>
   );
@@ -339,7 +358,7 @@ function OrbitCard({
   ai?: boolean;
 }) {
   return (
-    <div className="rounded-[20px] border border-white/80 bg-white/[0.70] p-4 shadow-[0_14px_34px_rgba(57,49,69,.10)] backdrop-blur-[16px]">
+    <div className="rounded-[20px] border border-white/45 bg-white/[0.72] p-4 shadow-[0_16px_36px_rgba(24,20,31,.20)] backdrop-blur-[18px]">
       <div className="flex items-center gap-2.5">
         <span
           className="flex h-9 w-9 items-center justify-center rounded-[11px]"
@@ -351,16 +370,6 @@ function OrbitCard({
       </div>
       <div className="mt-4 text-[20px] font-medium leading-[1.04] tracking-[-0.035em] text-[#171A17]" style={{ fontFamily: DISPLAY }}>{title}</div>
       <div className="mt-2 text-[11px] leading-[1.5] text-[#666C66]">{copy}</div>
-    </div>
-  );
-}
-
-function RecordFact({ label, value, tone }: { label: string; value: string; tone: string }) {
-  return (
-    <div className="relative px-5 py-4 sm:border-r sm:border-[#ECEDE9] sm:last:border-r-0">
-      <div className="absolute left-5 top-0 h-[3px] w-10" style={{ backgroundColor: tone }} />
-      <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#8A8E89]">{label}</div>
-      <div className="mt-1.5 text-[11px] font-semibold text-[#333833]">{value}</div>
     </div>
   );
 }
