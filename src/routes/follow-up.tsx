@@ -833,27 +833,60 @@ function ConnectedCrm() {
 
 function Faq() {
   const [open, setOpen] = useState<number | null>(0);
+  const reduced = !!useReducedMotion();
+
   return (
     <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[980px]">
+      <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
         <Reveal>
           <Eyebrow>Questions</Eyebrow>
-          <h2 className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.05em] sm:text-[56px]" style={{ fontFamily: DISPLAY }}>
+          <h2 className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.052em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
             The practical stuff.
           </h2>
+          <p className="mt-5 max-w-[360px] text-[14px] leading-[1.7] text-[#737872] sm:text-[15px]">
+            Something else on your mind?{" "}
+            <a href={BOOK_URL} className="font-semibold text-[#1E2B29] underline decoration-[#DDA34B] decoration-2 underline-offset-4">
+              Ask us on a call.
+            </a>
+          </p>
         </Reveal>
 
-        <div className="mt-10 divide-y divide-[#D7CFC5] border-y border-[#D7CFC5]">
+        <div className="border-y border-[#DED7CF]">
           {FAQS.map((item, index) => {
             const active = open === index;
             return (
-              <button key={item.q} type="button" className="w-full py-6 text-left" onClick={() => setOpen(active ? null : index)}>
-                <div className="flex items-center justify-between gap-5">
-                  <span className="text-[16px] font-semibold text-[#111318] sm:text-[18px]">{item.q}</span>
-                  <ChevronDown size={18} className={`shrink-0 transition-transform ${active ? "rotate-180" : ""}`} />
-                </div>
-                {active && <p className="mt-4 max-w-[760px] pr-8 text-[14px] leading-[1.7] text-[#666B67]">{item.a}</p>}
-              </button>
+              <div key={item.q} className="border-b border-[#DED7CF] last:border-b-0">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between gap-5 py-6 text-left sm:py-7"
+                  onClick={() => setOpen(active ? null : index)}
+                  aria-expanded={active}
+                >
+                  <span className="text-[16px] font-semibold tracking-[-0.02em] text-[#111318] sm:text-[18px]">
+                    {item.q}
+                  </span>
+                  <motion.span
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border ${active ? "border-[#1E2B29] bg-[#1E2B29] text-[#F7F4EE]" : "border-[#D8D1C8] bg-[#FCFCFA] text-[#4D534E]"}`}
+                    animate={reduced ? undefined : { rotate: active ? 180 : 0 }}
+                    transition={{ duration: reduced ? 0 : 0.22, ease: EASE }}
+                  >
+                    <ChevronDown size={15} strokeWidth={1.6} />
+                  </motion.span>
+                </button>
+
+                <motion.div
+                  className="grid overflow-hidden"
+                  initial={false}
+                  animate={{ gridTemplateRows: active ? "1fr" : "0fr", opacity: active ? 1 : 0 }}
+                  transition={{ duration: reduced ? 0 : 0.24, ease: EASE }}
+                >
+                  <div className="min-h-0">
+                    <p className="max-w-[720px] pb-7 pr-12 text-[14px] leading-[1.75] text-[#696F69] sm:text-[15px]">
+                      {item.a}
+                    </p>
+                  </div>
+                </motion.div>
+              </div>
             );
           })}
         </div>
@@ -864,22 +897,52 @@ function Faq() {
 
 function FinalCta() {
   return (
-    <section className="bg-[#1E2B29] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <Reveal className="mx-auto max-w-[1050px] text-center">
-        <Eyebrow dark>Keep the next step moving</Eyebrow>
-        <h2 className="mx-auto mt-4 max-w-[900px] text-[46px] font-medium leading-[0.94] tracking-[-0.055em] sm:text-[64px] lg:text-[74px]" style={{ fontFamily: DISPLAY }}>
-          Stop relying on memory to make the next move.
-        </h2>
-        <p className="mx-auto mt-6 max-w-[620px] text-[15px] leading-[1.7] text-white/62 sm:text-[17px]">
-          Zapla keeps the conversation, follow-up and next step connected so the next action does not quietly disappear into someone’s memory.
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29]">
-            Book a Call <ArrowRight size={15} />
-          </a>
-          <a href={PRICING_URL} className="inline-flex h-[50px] items-center rounded-[10px] border border-white/20 px-6 text-[13px] font-semibold text-[#F7F4EE]">
-            View pricing
-          </a>
+    <section className="bg-[#FCFCFA] px-5 pb-20 pt-4 sm:px-10 sm:pb-24 lg:px-16 lg:pb-28">
+      <Reveal className="relative mx-auto max-w-[1280px] overflow-hidden rounded-[34px] bg-[#1E2B29] px-6 py-20 text-center text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+        <div className="pointer-events-none absolute -bottom-28 -right-24 opacity-[0.075]">
+          <ZaplaPetal size={300} />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-[920px]">
+          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.10] bg-[#111214]/72 shadow-[0_10px_30px_rgba(0,0,0,.16)]">
+            <ZaplaPetal size={36} />
+          </span>
+
+          <div className="mt-7">
+            <Eyebrow dark>Keep the next step moving</Eyebrow>
+          </div>
+
+          <h2 className="mx-auto mt-5 max-w-[900px] text-[48px] font-medium leading-[0.94] tracking-[-0.057em] sm:text-[66px] lg:text-[76px]" style={{ fontFamily: DISPLAY }}>
+            Stop relying on memory to make the next move.
+          </h2>
+
+          <p className="mx-auto mt-6 max-w-[720px] text-[15px] leading-[1.72] text-white/62 sm:text-[17px]">
+            Book a call and we’ll map where follow-up is slipping across your enquiries, quotes, bookings and repeat business, then show you what Zapla can automate and when.
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <a
+              href={BOOK_URL}
+              className="inline-flex h-[54px] items-center gap-2 rounded-full bg-[#F7F4EE] px-7 text-[13px] font-semibold text-[#1E2B29] transition-transform hover:-translate-y-px"
+            >
+              Book a Call <ArrowRight size={15} />
+            </a>
+            <a
+              href={PRICING_URL}
+              className="inline-flex h-[54px] items-center rounded-full border border-white/20 bg-white/[0.02] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-colors hover:bg-white/[0.06]"
+            >
+              View pricing
+            </a>
+          </div>
+
+          <div className="mt-10 flex items-center justify-center gap-3 text-[12px] font-semibold text-white/52">
+            <span className="flex -space-x-2">
+              <TeamAvatar size={34} cell={7} />
+              <TeamAvatar size={38} cell={0} />
+              <TeamAvatar size={34} cell={14} />
+            </span>
+            <span>Talk it through with the Zapla team</span>
+          </div>
         </div>
       </Reveal>
     </section>
