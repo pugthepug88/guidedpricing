@@ -464,6 +464,7 @@ function MechanismSection() {
       copy: "A new enquiry arrives, a quote is sent, a booking is coming up, a call is missed or a past customer reaches the right moment.",
       examples: ["New enquiry", "Quote sent", "Missed call", "Booking due", "Past customer"],
       tone: "#E97D62",
+      ai: false,
     },
     {
       number: "02",
@@ -481,6 +482,7 @@ function MechanismSection() {
       copy: "Zapla carries out the action you set instead of leaving the next move to memory.",
       examples: ["Send follow-up", "Confirm or remind", "Update the record", "Assign to team"],
       tone: "#99A36D",
+      ai: false,
     },
   ] as const;
 
@@ -637,9 +639,9 @@ function UseCaseCard({
 
 function HumanControl() {
   const actions = [
-    { label: "Continue follow-up", detail: "Keep the current workflow moving.", tone: "#DDA34B" },
-    { label: "Pause the sequence", detail: "Stop further automated messages for now.", tone: "#C96C85" },
-    { label: "Change workflow", detail: "Move the customer into a different next-step path.", tone: "#9B86B8" },
+    { label: "Continue follow-up", detail: "Keep the current workflow moving.", tone: "#DDA34B", team: false },
+    { label: "Pause the sequence", detail: "Stop further automated messages for now.", tone: "#C96C85", team: false },
+    { label: "Change workflow", detail: "Move the customer into a different next-step path.", tone: "#9B86B8", team: false },
     { label: "Send to your team", detail: "Bring a person in with the conversation context attached.", tone: "#99A36D", team: true },
   ] as const;
 
@@ -732,9 +734,9 @@ function SmallPrinciple({ title, copy }: { title: string; copy: string }) {
 
 function ConnectedCrm() {
   const facts = [
-    { label: "Source", value: "Website enquiry", tone: "#E97D62" },
-    { label: "Latest reply", value: "“Tuesday morning works.”", tone: "#C96C85" },
-    { label: "Booking", value: "Tue · 10:30am", tone: "#DDA34B" },
+    { label: "Relationship", value: "Existing customer", tone: "#E97D62" },
+    { label: "Last message", value: "“Thanks, all sorted.”", tone: "#C96C85" },
+    { label: "Last booking", value: "6 months ago", tone: "#DDA34B" },
     { label: "Owner", value: "Front desk", tone: "#99A36D" },
   ];
 
@@ -756,17 +758,17 @@ function ConnectedCrm() {
             <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
               <div className="border-b border-[#1E2B29]/10 p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
                 <div className="flex items-center gap-4">
-                  <TeamAvatar size={70} cell={0} className="border-[#DDE4CF]" />
+                  <TeamAvatar size={70} cell={14} className="border-[#DDE4CF]" />
                   <div>
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Customer context</div>
-                    <div className="mt-2 text-[30px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Sarah Mitchell</div>
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Past customer context</div>
+                    <div className="mt-2 text-[30px] font-medium tracking-[-0.045em] text-[#202420]" style={{ fontFamily: DISPLAY }}>Emma Chen</div>
                   </div>
                 </div>
 
                 <div className="mt-10 border-t border-[#1E2B29]/10 pt-7">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Before the next action</div>
                   <div className="mt-4 text-[40px] font-medium leading-[0.98] tracking-[-0.05em] text-[#1E2B29]" style={{ fontFamily: DISPLAY }}>
-                    The workflow already has the context your team has captured.
+                    The workflow can see the history your team has already captured.
                   </div>
                 </div>
 
