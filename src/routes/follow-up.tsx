@@ -496,39 +496,37 @@ function MechanismSection() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 rounded-[32px] border border-white/[0.08] bg-white/[0.025] p-3 sm:p-4">
-          <div className="grid gap-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:items-stretch">
+        <div className="mt-14 rounded-[30px] border border-white/[0.07] p-2 sm:p-3">
+          <div className="grid gap-3 lg:grid-cols-[1fr_52px_1fr_52px_1fr] lg:items-stretch lg:gap-0">
             {stages.map((stage, index) => (
               <div key={stage.number} className="contents">
                 <motion.div
-                  className="flex min-h-[310px] flex-col justify-between rounded-[26px] p-7 sm:p-8"
+                  className="relative min-h-[286px] rounded-[26px] p-7 sm:p-8"
                   style={{ backgroundColor: stage.tone, color: stage.text }}
-                  initial={reduced ? false : { opacity: 0, y: 12 }}
+                  initial={reduced ? false : { opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.45 }}
-                  transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.08, ease: EASE }}
+                  transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : index * 0.07, ease: EASE }}
                 >
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-semibold tracking-[0.16em] opacity-55">{stage.number}</span>
-                      {stage.ai ? (
-                        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111214]">
-                          <ZaplaPetal size={29} />
-                        </span>
-                      ) : (
-                        <span className="h-2.5 w-2.5 rounded-full bg-current opacity-55" />
-                      )}
-                    </div>
-
-                    <div
-                      className="mt-14 text-[52px] font-medium leading-[0.88] tracking-[-0.065em] sm:text-[60px]"
-                      style={{ fontFamily: DISPLAY, color: stage.accent }}
-                    >
-                      {stage.title}
-                    </div>
+                  <div className="flex h-11 items-start justify-between">
+                    <span className="pt-1 text-[10px] font-semibold tracking-[0.16em] opacity-55">{stage.number}</span>
+                    {!stage.ai ? <span className="mt-1 h-2.5 w-2.5 rounded-full bg-current opacity-55" /> : null}
                   </div>
 
-                  <div className="mt-8">
+                  {stage.ai ? (
+                    <span className="absolute right-7 top-7 flex h-11 w-11 items-center justify-center rounded-full bg-[#111214] sm:right-8 sm:top-8">
+                      <ZaplaPetal size={29} />
+                    </span>
+                  ) : null}
+
+                  <div
+                    className="mt-8 text-[52px] font-medium leading-[0.88] tracking-[-0.065em] sm:text-[60px]"
+                    style={{ fontFamily: DISPLAY, color: stage.accent }}
+                  >
+                    {stage.title}
+                  </div>
+
+                  <div className="mt-7">
                     {stage.ai ? (
                       <div className="divide-y divide-[#1F211E]/10 border-y border-[#1F211E]/10">
                         {stage.items.map((item) => (
@@ -551,20 +549,15 @@ function MechanismSection() {
                 </motion.div>
 
                 {index < 2 ? (
-                  <div className="hidden items-center justify-center lg:flex">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.12] bg-[#171819] text-white/52">
-                      <ArrowRight size={15} strokeWidth={1.5} />
-                    </span>
+                  <div className="hidden items-center px-3 lg:flex">
+                    <span className="h-px flex-1 bg-white/[0.16]" />
+                    <ArrowRight className="-ml-px shrink-0 text-white/42" size={15} strokeWidth={1.4} />
                   </div>
                 ) : null}
               </div>
             ))}
           </div>
         </div>
-
-        <Reveal>
-          <div className="mt-5 text-[11px] font-semibold text-[#B8C28A]">Rules first. Automation second.</div>
-        </Reveal>
       </div>
     </section>
   );
