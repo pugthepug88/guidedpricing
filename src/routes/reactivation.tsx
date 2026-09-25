@@ -386,24 +386,21 @@ function OutcomePill({ children }: { children: ReactNode }) {
 }
 
 function DormantRevenue() {
-  const cards = [
+  const moments = [
     {
       tag: "OLD ENQUIRIES",
       title: "They asked. Then life happened.",
       copy: "The enquiry was real. The timing was not. Months later, nobody has tried again.",
-      bg: "#F1EADF",
     },
     {
       tag: "STALE QUOTES",
       title: "You sent it. Nobody reopened it.",
       copy: "It is no longer an active quote chase. It is an older opportunity sitting untouched.",
-      bg: "#F2CDBD",
     },
     {
       tag: "PAST CUSTOMERS",
       title: "They bought once. Nobody invited them back.",
       copy: "The relationship already exists. The next conversation simply never started.",
-      bg: "#E7E4D4",
     },
   ];
 
@@ -416,31 +413,35 @@ function DormantRevenue() {
             className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[56px] lg:text-[68px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Some opportunities do not disappear.
+            Some opportunities don't disappear.
             <span className="block text-[#C96F55]">
               They just stop moving.
             </span>
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-3">
-          {cards.map((card) => (
-            <Reveal key={card.tag}>
-              <article
-                className="min-h-[310px] rounded-[24px] p-6 sm:p-8"
-                style={{ backgroundColor: card.bg }}
-              >
+        <div className="mt-14 border-y border-[#DADBD6] lg:grid lg:grid-cols-3">
+          {moments.map((moment, index) => (
+            <Reveal
+              key={moment.tag}
+              className={
+                index === 0
+                  ? ""
+                  : "border-t border-[#DADBD6] lg:border-l lg:border-t-0"
+              }
+            >
+              <article className="min-h-[280px] px-1 py-8 sm:px-3 sm:py-10 lg:px-8 lg:py-12">
                 <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8A6B5E]">
-                  {card.tag}
+                  {moment.tag}
                 </div>
                 <h3
-                  className="mt-5 max-w-[340px] text-[30px] font-medium leading-[1.02] tracking-[-0.045em]"
+                  className="mt-6 max-w-[340px] text-[30px] font-medium leading-[1.02] tracking-[-0.045em]"
                   style={{ fontFamily: DISPLAY }}
                 >
-                  {card.title}
+                  {moment.title}
                 </h3>
                 <p className="mt-5 max-w-[350px] text-[13.5px] leading-[1.7] text-[#656962]">
-                  {card.copy}
+                  {moment.copy}
                 </p>
               </article>
             </Reveal>
