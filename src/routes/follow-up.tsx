@@ -318,7 +318,7 @@ function CustomerRecord() {
   const ghostRows = Array.from({ length: 8 });
 
   return (
-    <div className="relative h-full min-h-[600px] overflow-hidden rounded-[24px_24px_0_0] border border-black/[0.06] bg-white shadow-[0_28px_70px_rgba(48,54,40,.18)]">
+    <div className="relative h-full min-h-[600px] overflow-hidden rounded-[24px] border border-black/[0.06] bg-white shadow-[0_28px_70px_rgba(48,54,40,.18)]">
       <div className="flex items-center gap-3 border-b border-[#E7E9E4] bg-[#F2CDBD] px-5 py-4">
         <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#111214]">
           <ZaplaPetal size={23} />
@@ -360,7 +360,7 @@ function CustomerRecord() {
         ))}
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[220px] lg:h-[235px] bg-gradient-to-b from-transparent via-white/82 to-[#E3E8D7]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[290px] rounded-b-[24px] bg-gradient-to-b from-transparent via-white/72 via-[42%] to-[#E3E8D7] lg:h-[320px]" />
     </div>
   );
 }
