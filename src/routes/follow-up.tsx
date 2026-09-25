@@ -190,8 +190,8 @@ function FollowUpScene() {
   const reduced = !!useReducedMotion();
 
   return (
-    <div className="relative mx-auto max-w-[1340px] pt-10 sm:pt-14 lg:min-h-[600px] lg:pt-20">
-      <div className="absolute bottom-0 left-[3.5%] right-[3.5%] top-[14.5%] rounded-[34px] bg-[#98A27F]" />
+    <div className="relative mx-auto max-w-[1340px] pt-10 sm:pt-14 lg:min-h-[640px] lg:pt-16">
+      <div className="absolute bottom-[20px] left-[3.5%] right-[3.5%] top-[21%] rounded-[34px] bg-[#98A27F]" />
 
       <div className="relative z-10 lg:hidden">
         <div className="px-4">
@@ -243,7 +243,7 @@ function FollowUpScene() {
         </div>
       </div>
 
-      <div className="relative z-10 hidden h-[600px] lg:block">
+      <div className="relative z-10 hidden h-[640px] lg:block">
         <motion.div
           className="absolute bottom-0 left-1/2 top-0 w-[45%] -translate-x-1/2"
           initial={reduced ? false : { opacity: 0, y: 12, scale: 0.992 }}
@@ -254,27 +254,27 @@ function FollowUpScene() {
           <CustomerRecord />
         </motion.div>
 
-        <motion.div className="absolute left-[4.8%] top-0 w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.08, ease: EASE }}>
+        <motion.div className="absolute left-[4.8%] top-[11%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.08, ease: EASE }}>
           <OrbitCard visual={<TeamAvatar size={38} cell={0} className="border-white/80" />} eyebrow="Web chat" title="New enquiry" copy="Can I book a consultation next week?" />
         </motion.div>
 
-        <motion.div className="absolute left-[4.8%] top-[31.5%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.14, ease: EASE }}>
+        <motion.div className="absolute left-[4.8%] top-[38%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.14, ease: EASE }}>
           <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>} eyebrow="Voice AI" title="Call captured" copy="Customer asked about Tuesday morning." />
         </motion.div>
 
-        <motion.div className="absolute left-[4.8%] top-[63%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.2, ease: EASE }}>
+        <motion.div className="absolute left-[4.8%] top-[65%] w-[20%]" initial={reduced ? false : { opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.2, ease: EASE }}>
           <OrbitCard visual={<TeamAvatar size={38} cell={14} className="border-white/80" />} eyebrow="Past customer" title="Follow-up ready" copy="Time to reconnect." />
         </motion.div>
 
-        <motion.div className="absolute right-[4.8%] top-0 w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.1, ease: EASE }}>
+        <motion.div className="absolute right-[4.8%] top-[11%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.1, ease: EASE }}>
           <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]"><ZaplaPetal size={23} /></span>} eyebrow="SMS" title="SMS sent" copy="Would Tuesday morning suit you?" />
         </motion.div>
 
-        <motion.div className="absolute right-[4.8%] top-[31.5%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.16, ease: EASE }}>
+        <motion.div className="absolute right-[4.8%] top-[38%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.16, ease: EASE }}>
           <OrbitCard visual={<span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#99A36D]/16 text-[#6C7746]"><Calendar size={16} /></span>} eyebrow="Booking" title="Tuesday · 10:30am" copy="Consultation booked" />
         </motion.div>
 
-        <motion.div className="absolute right-[4.8%] top-[63%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.22, ease: EASE }}>
+        <motion.div className="absolute right-[4.8%] top-[65%] w-[20%]" initial={reduced ? false : { opacity: 0, x: 12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.22, ease: EASE }}>
           <OrbitCard
             visual={
               <span className="flex -space-x-2">
@@ -289,7 +289,7 @@ function FollowUpScene() {
           />
         </motion.div>
 
-        {["10.5%","42%","73.5%"].map((top) => (
+        {["21.5%","48.5%","75.5%"].map((top) => (
           <span
             key={`left-${top}`}
             className="pointer-events-none absolute left-[24.8%] flex w-[2.7%] -translate-y-1/2 items-center text-white/66"
@@ -299,7 +299,7 @@ function FollowUpScene() {
             <ArrowRight size={12} strokeWidth={1.45} />
           </span>
         ))}
-        {["10.5%","42%","73.5%"].map((top) => (
+        {["21.5%","48.5%","75.5%"].map((top) => (
           <span
             key={`right-${top}`}
             className="pointer-events-none absolute left-[72.5%] flex w-[2.7%] -translate-y-1/2 items-center text-white/66"
@@ -360,7 +360,7 @@ function CustomerRecord() {
         ))}
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[220px] bg-gradient-to-b from-transparent via-white/82 to-[#E3E8D7]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[220px] lg:h-[235px] bg-gradient-to-b from-transparent via-white/82 to-[#E3E8D7]" />
     </div>
   );
 }
