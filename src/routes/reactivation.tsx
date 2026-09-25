@@ -163,9 +163,9 @@ function Hero() {
             className="mt-4 text-[50px] font-medium leading-[0.92] tracking-[-0.062em] sm:text-[68px] lg:text-[82px]"
             style={{ fontFamily: DISPLAY }}
           >
-            New revenue does not always need a new lead.
+            New revenue doesn't always need a new lead.
             <span className="mt-2 block text-[#C96F55]">
-              Sometimes it is already there.
+              Sometimes it's already sitting in your database.
             </span>
           </h1>
 
