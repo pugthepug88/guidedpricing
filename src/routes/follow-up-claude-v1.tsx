@@ -2357,8 +2357,8 @@ function FooterLandscape() {
           className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#FCFCFA] via-[#FCFCFA]/30 to-transparent sm:h-36"
         />
 
-        <div className="absolute inset-x-0 bottom-5 z-20 px-4 sm:bottom-7 sm:px-8 lg:bottom-8 lg:px-12">
-          <div className="mx-auto w-full max-w-[1080px] rounded-[32px] border border-white/75 bg-[#F8F5EF]/[0.96] p-7 shadow-[0_32px_90px_rgba(45,37,28,.22)] backdrop-blur-[12px] sm:p-9 lg:p-10">
+        <div className="absolute inset-x-0 bottom-0 z-20 px-4 sm:px-8 lg:px-12">
+          <div className="mx-auto w-full max-w-[1240px] rounded-t-[34px] border border-b-0 border-white/75 bg-[#F8F5EF]/[0.97] p-7 pb-8 shadow-[0_-18px_70px_rgba(45,37,28,.16)] backdrop-blur-[12px] sm:p-9 sm:pb-10 lg:p-10 lg:pb-12">
             <div className="grid gap-9 lg:grid-cols-[1.15fr_.8fr_1.05fr_.7fr] lg:gap-10">
               <div>
                 <a href="https://zapla.io/" className="inline-flex items-center">
