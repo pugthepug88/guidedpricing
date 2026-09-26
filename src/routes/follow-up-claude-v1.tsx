@@ -2335,19 +2335,70 @@ const FOOTER_SOCIALS = [
 
 function FooterLandscape() {
   const reduced = !!useReducedMotion();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const dominoVideo = "/concept/Zapla%20domino%20final.mp4";
+  const dominoPoster = "/concept/zapla-domino-poster.webp";
+
+  useEffect(() => {
+    if (reduced) return;
+
+    const section = sectionRef.current;
+    if (!section || typeof IntersectionObserver === "undefined") {
+      setShouldLoadVideo(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setShouldLoadVideo(true);
+        observer.disconnect();
+      },
+      { rootMargin: "1800px 0px" },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [reduced]);
+
+  useEffect(() => {
+    if (!shouldLoadVideo || reduced) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.preload = "auto";
+    video.load();
+  }, [shouldLoadVideo, reduced]);
 
   return (
-    <div className="relative isolate overflow-hidden bg-[#D9DFC9]">
+    <div ref={sectionRef} className="relative isolate overflow-hidden bg-[#D9DFC9]">
       <div className="relative min-h-[760px] sm:min-h-[840px] lg:min-h-[900px] xl:min-h-[940px]">
-        <video
+        <img
+          src={dominoPoster}
+          alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover object-[center_62%]"
+          decoding="async"
+          className={`absolute inset-0 h-full w-full object-cover object-[center_62%] transition-opacity duration-500 ${videoReady ? "opacity-0" : "opacity-100"}`}
+        />
+
+        <video
+          ref={videoRef}
+          aria-hidden="true"
+          className={`absolute inset-0 h-full w-full object-cover object-[center_62%] transition-opacity duration-500 ${videoReady ? "opacity-100" : "opacity-0"}`}
           autoPlay={!reduced}
           muted
           loop={!reduced}
           playsInline
-          preload="metadata"
+          preload={shouldLoadVideo ? "auto" : "none"}
+          onCanPlay={() => {
+            setVideoReady(true);
+            if (!reduced) {
+              void videoRef.current?.play().catch(() => undefined);
+            }
+          }}
         >
           <source src={dominoVideo} type="video/mp4" />
         </video>
