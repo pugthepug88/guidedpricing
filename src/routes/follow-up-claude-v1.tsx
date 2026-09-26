@@ -2407,7 +2407,7 @@ function FooterLandscape() {
           src={dominoVideo}
           poster={DOMINO_POSTER_DATA_URI}
           aria-hidden="true"
-          className={`absolute inset-0 h-full w-full object-cover object-[center_62%] ${videoReady ? "opacity-100" : "opacity-0"}`}
+          className="absolute inset-0 h-full w-full object-cover object-[center_62%]"
           muted
           playsInline
           preload="auto"
