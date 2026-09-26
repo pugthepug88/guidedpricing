@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { DOMINO_POSTER_DATA_URI } from "../assets/dominoPosterData";
 import {
   useEffect,
   useRef,
@@ -56,14 +57,6 @@ export const Route = createFileRoute("/follow-up-claude-v1")({
           "Zapla replies to new enquiries straight away, chases quotes, confirms bookings and stops the moment a customer replies. Follow-up by SMS and email, built into your CRM.",
       },
       { name: "robots", content: "noindex, nofollow" },
-    ],
-    links: [
-      {
-        rel: "preload",
-        as: "image",
-        href: "/concept/zapla-domino-poster.webp",
-        type: "image/webp",
-      },
     ],
   }),
   component: FollowUpClaudeV1Page,
@@ -2349,7 +2342,6 @@ function FooterLandscape() {
   const [videoReady, setVideoReady] = useState(false);
   const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
   const dominoVideo = "/concept/Zapla%20domino%20final.mp4";
-  const dominoPoster = "/concept/zapla-domino-poster.webp";
 
   useEffect(() => {
     if (reduced) return;
@@ -2418,18 +2410,11 @@ function FooterLandscape() {
   }, [shouldPlayVideo, reduced]);
 
   return (
-    <div ref={sectionRef} className="relative isolate overflow-hidden bg-[#D8A06F]">
-      <div className="relative min-h-[760px] sm:min-h-[840px] lg:min-h-[900px] xl:min-h-[940px]">
-        <img
-          src={dominoPoster}
-          alt=""
-          aria-hidden="true"
-          loading="eager"
-          fetchPriority="high"
-          decoding="sync"
-          className={`absolute inset-0 h-full w-full object-cover object-[center_62%] transition-opacity duration-200 ${videoReady ? "opacity-0" : "opacity-100"}`}
-        />
-
+    <div ref={sectionRef} className="relative isolate overflow-hidden">
+      <div
+        className="relative min-h-[760px] bg-cover bg-[position:center_62%] sm:min-h-[840px] lg:min-h-[900px] xl:min-h-[940px]"
+        style={{ backgroundImage: `url(${DOMINO_POSTER_DATA_URI})` }}
+      >
         <video
           ref={videoRef}
           aria-hidden="true"
