@@ -798,18 +798,53 @@ function Faq() {
 
 function FinalCta() {
   return (
-    <section className="bg-[#1E2B29] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <Reveal className="mx-auto max-w-[980px] text-center">
-        <Eyebrow light>See where AI fits</Eyebrow>
-        <h2 className="mx-auto mt-4 max-w-[900px] text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]" style={{ fontFamily: DISPLAY }}>
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+      <Reveal className="mx-auto max-w-[1080px] text-center">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+          <svg width="34" height="34" viewBox="0 0 160 160" aria-hidden="true" className="block overflow-visible">
+            {PETAL_COLORS.map((color, index) => (
+              <g key={color} transform={`rotate(${index * 60} 80 80)`}>
+                <path
+                  d="M80 14 C95 14 104 25 102 42 C100 58 92 70 80 82 C68 70 60 58 58 42 C56 25 65 14 80 14 Z"
+                  fill={color}
+                  stroke={color}
+                  strokeWidth="1.4"
+                />
+              </g>
+            ))}
+            <circle cx="80" cy="80" r="14" fill="#111214" stroke="rgba(255,255,255,.08)" />
+          </svg>
+        </div>
+
+        <div className="mt-5">
+          <Eyebrow>See where AI fits</Eyebrow>
+        </div>
+
+        <h2
+          className="mx-auto mt-3 max-w-[900px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[56px] lg:text-[64px]"
+          style={{ fontFamily: DISPLAY }}
+        >
           Start with the calls your team shouldn’t have to stop for.
         </h2>
-        <p className="mx-auto mt-5 max-w-[680px] text-[15px] leading-[1.7] text-white/58 sm:text-[17px]">
+
+        <p className="mx-auto mt-4 max-w-[700px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
           We’ll map your call flow and show exactly what Zapla can answer, book, route or hand off, and where a human should stay in control.
         </p>
-        <a href={BOOK_URL} className="mt-8 inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E2B29]">
-          Book a Call <ArrowRight size={15} />
-        </a>
+
+        <div className="mt-7 flex flex-wrap justify-center gap-3">
+          <a
+            href={BOOK_URL}
+            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
+          >
+            Book a Call <ArrowRight size={15} />
+          </a>
+          <a
+            href={PRICING_URL}
+            className="inline-flex h-[50px] items-center rounded-full border border-[#E2DBD1] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA]"
+          >
+            View pricing
+          </a>
+        </div>
       </Reveal>
     </section>
   );
