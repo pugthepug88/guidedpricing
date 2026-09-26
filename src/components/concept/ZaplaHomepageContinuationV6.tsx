@@ -6,7 +6,6 @@ import ZaplaRepeatBusinessV6 from "@/components/concept/ZaplaRepeatBusinessV6";
 import { ZaplaUnlimitedV6 } from "@/components/concept/ZaplaGrowthUnlimitedV6";
 import { ZaplaGuidedLaunchV6 } from "@/components/concept/ZaplaClosingV6";
 import { ZaplaEarlyResultsFlowV6 } from "@/components/concept/ZaplaEarlyResultsFlowV6";
-import ZaplaPlatformTeaserV6 from "@/components/concept/ZaplaPlatformTeaserV6";
 import ZaplaIntegrationsStripV6 from "@/components/concept/ZaplaIntegrationsStripV6";
 
 export function ZaplaHomepageContinuationV6() {
@@ -14,14 +13,13 @@ export function ZaplaHomepageContinuationV6() {
     <>
       <ZaplaRevenueLeakageV7 />
       <ZaplaCustomerJourneyPrototypeSmoothV6 />
+      <ZaplaIntegrationsStripV6 />
       <ZaplaAIConversationsV6 />
       <ZaplaAIReceptionistV6 />
       <ZaplaRepeatBusinessV6 />
       <ZaplaUnlimitedV6 />
       <ZaplaGuidedLaunchV6 />
       <ZaplaEarlyResultsFlowV6 />
-      <ZaplaPlatformTeaserV6 />
-      <ZaplaIntegrationsStripV6 />
     </>
   );
 }
