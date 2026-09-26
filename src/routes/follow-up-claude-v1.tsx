@@ -2347,6 +2347,7 @@ function FooterLandscape() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
   const dominoVideo = "/concept/Zapla%20domino%20final.mp4";
   const dominoPoster = "/concept/zapla-domino-poster.webp";
 
@@ -2386,6 +2387,36 @@ function FooterLandscape() {
     video.load();
   }, [shouldLoadVideo, reduced]);
 
+  useEffect(() => {
+    if (reduced) return;
+
+    const section = sectionRef.current;
+    if (!section || typeof IntersectionObserver === "undefined") {
+      setShouldPlayVideo(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setShouldPlayVideo(true);
+        observer.disconnect();
+      },
+      { threshold: 0.12 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [reduced]);
+
+  useEffect(() => {
+    if (!shouldPlayVideo || reduced) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    void video.play().catch(() => undefined);
+  }, [shouldPlayVideo, reduced]);
+
   return (
     <div ref={sectionRef} className="relative isolate overflow-hidden bg-[#D8A06F]">
       <div className="relative min-h-[760px] sm:min-h-[840px] lg:min-h-[900px] xl:min-h-[940px]">
@@ -2403,13 +2434,11 @@ function FooterLandscape() {
           ref={videoRef}
           aria-hidden="true"
           className={`absolute inset-0 h-full w-full object-cover object-[center_62%] transition-opacity duration-200 ${videoReady ? "opacity-100" : "opacity-0"}`}
-          autoPlay={!reduced}
           muted
-          loop={!reduced}
           playsInline
           preload={shouldLoadVideo ? "auto" : "none"}
           onCanPlay={() => {
-            if (!reduced) {
+            if (shouldPlayVideo && !reduced) {
               void videoRef.current?.play().catch(() => undefined);
             }
           }}
