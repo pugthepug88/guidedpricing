@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { DOMINO_POSTER_DATA_URI } from "../assets/dominoPosterData";
 import {
   useEffect,
   useRef,
@@ -61,7 +60,13 @@ export const Route = createFileRoute("/follow-up-claude-v1")({
     links: [
       {
         rel: "preload",
-        href: "/concept/Zapla%20domino%20final.mp4",
+        href: "/concept/zapla-domino-first-frame.jpg",
+        as: "image",
+        type: "image/jpeg",
+      },
+      {
+        rel: "preload",
+        href: "/concept/zapla-domino-web.mp4",
         as: "video",
         type: "video/mp4",
       },
@@ -2346,23 +2351,21 @@ function FooterLandscape() {
   const reduced = !!useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
-  const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
-  const dominoVideo = "/concept/Zapla%20domino%20final.mp4";
+  const dominoVideo = "/concept/zapla-domino-web.mp4";
+  const dominoPoster = "/concept/zapla-domino-first-frame.jpg";
 
   useEffect(() => {
     if (reduced) return;
 
     const section = sectionRef.current;
     if (!section || typeof IntersectionObserver === "undefined") {
-      setShouldPlayVideo(true);
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry?.isIntersecting) return;
-        setShouldPlayVideo(true);
+        void videoRef.current?.play().catch(() => undefined);
         observer.disconnect();
       },
       { threshold: 0.12 },
@@ -2372,53 +2375,27 @@ function FooterLandscape() {
     return () => observer.disconnect();
   }, [reduced]);
 
-  useEffect(() => {
-    if (reduced) return;
-    const video = videoRef.current;
-    if (!video) return;
-
-    const primeFirstFrame = () => {
-      video.pause();
-      if (video.currentTime !== 0) video.currentTime = 0;
-      setVideoReady(true);
-    };
-
-    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      primeFirstFrame();
-    }
-
-    video.addEventListener("loadeddata", primeFirstFrame);
-    return () => video.removeEventListener("loadeddata", primeFirstFrame);
-  }, [reduced]);
-
-  useEffect(() => {
-    if (!shouldPlayVideo || !videoReady || reduced) return;
-    void videoRef.current?.play().catch(() => undefined);
-  }, [shouldPlayVideo, videoReady, reduced]);
-
   return (
     <div ref={sectionRef} className="relative isolate overflow-hidden">
-      <div
-        className="relative min-h-[760px] bg-cover bg-[position:center_62%] sm:min-h-[840px] lg:min-h-[900px] xl:min-h-[940px]"
-        style={{ backgroundImage: `url(${DOMINO_POSTER_DATA_URI})` }}
-      >
+      <div className="relative min-h-[760px] sm:min-h-[840px] lg:min-h-[900px] xl:min-h-[940px]">
+        <img
+          src={dominoPoster}
+          alt=""
+          aria-hidden="true"
+          loading="eager"
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full object-cover object-[center_62%]"
+        />
+
         <video
           ref={videoRef}
           src={dominoVideo}
-          poster={DOMINO_POSTER_DATA_URI}
+          poster={dominoPoster}
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover object-[center_62%]"
           muted
           playsInline
           preload="auto"
-          onLoadedData={() => {
-            const video = videoRef.current;
-            if (!video) return;
-
-            video.pause();
-            if (video.currentTime !== 0) video.currentTime = 0;
-            setVideoReady(true);
-          }}
         />
 
         <div
