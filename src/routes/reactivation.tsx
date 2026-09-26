@@ -152,7 +152,7 @@ function Eyebrow({
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#F6F0E8] px-5 pb-20 pt-[116px] sm:px-10 sm:pb-24 sm:pt-[126px] lg:px-16 lg:pb-28 lg:pt-[138px]">
+    <section className="relative overflow-hidden bg-[#F3F5FC] px-5 pb-20 pt-[116px] sm:px-10 sm:pb-24 sm:pt-[126px] lg:px-16 lg:pb-28 lg:pt-[138px]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[#111318]/8" />
 
       <div className="relative mx-auto grid max-w-[1420px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
@@ -164,7 +164,7 @@ function Hero() {
             style={{ fontFamily: DISPLAY }}
           >
             New revenue doesn't always need a new lead.
-            <span className="mt-2 block text-[#C96F55]">
+            <span className="mt-2 block text-[#2563FF]">
               Sometimes it's already sitting in your database.
             </span>
           </h1>
@@ -178,7 +178,7 @@ function Hero() {
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href={BOOK_URL}
-              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
+              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#2563FF] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px"
             >
               Book a Call <ArrowRight size={15} />
             </a>
@@ -194,7 +194,7 @@ function Hero() {
             {["Dormant enquiries", "Older quotes", "Past customers"].map(
               (item) => (
                 <span key={item} className="inline-flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-[#DDA34B]" />
+                  <span className="h-2 w-2 rounded-full bg-[#2563FF]" />
                   {item}
                 </span>
               ),
@@ -214,10 +214,10 @@ function RecoveryHeroScene() {
   const reduced = !!useReducedMotion();
 
   return (
-    <div className="relative overflow-hidden rounded-[26px] bg-[#1E2B29] p-4 text-[#F7F4EE] shadow-[0_28px_78px_rgba(57,45,32,.18)] sm:p-5 lg:p-6">
+    <div className="relative overflow-hidden rounded-[26px] bg-[#17213A] p-4 text-[#F7F4EE] shadow-[0_28px_78px_rgba(57,45,32,.18)] sm:p-5 lg:p-6">
       <div className="flex items-center justify-between border-b border-white/10 pb-4">
         <div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#DDA34B]">
+          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8FB2FF]">
             Zapla
           </div>
           <div className="mt-1 text-[18px] font-semibold tracking-[-0.025em]">
@@ -225,7 +225,7 @@ function RecoveryHeroScene() {
           </div>
         </div>
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-white/64">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#7EA3FF]" />
           Campaign ready
         </div>
       </div>
@@ -315,7 +315,7 @@ function RecoveryHeroScene() {
       </div>
 
       <div className="mt-4 flex items-center gap-3 rounded-[16px] border border-white/10 bg-white/[0.035] px-4 py-3">
-        <Database size={15} className="text-[#DDA34B]" />
+        <Database size={15} className="text-[#8FB2FF]" />
         <span className="text-[11px] leading-[1.45] text-white/62">
           Same customer record. Old context stays attached.
         </span>
@@ -340,7 +340,7 @@ function DormantRow({
       className={
         "flex items-center gap-3 rounded-[14px] border px-3 py-3 " +
         (active
-          ? "border-[#DDA34B]/45 bg-[#DDA34B]/10"
+          ? "border-[#6F8FFF]/45 bg-[#6F8FFF]/12"
           : "border-white/[0.08] bg-white/[0.025]")
       }
     >
@@ -348,7 +348,7 @@ function DormantRow({
         className={
           "flex h-9 w-9 shrink-0 items-center justify-center rounded-full " +
           (active
-            ? "bg-[#DDA34B] text-[#1E2B29]"
+            ? "bg-[#6F8FFF] text-white"
             : "bg-white/[0.06] text-white/46")
         }
       >
@@ -366,7 +366,7 @@ function DormantRow({
         className={
           "shrink-0 rounded-full px-2 py-1 text-[8.5px] font-semibold uppercase tracking-[0.08em] " +
           (active
-            ? "bg-[#DDA34B]/18 text-[#EAC27E]"
+            ? "bg-[#6F8FFF]/18 text-[#BFD0FF]"
             : "bg-white/[0.05] text-white/36")
         }
       >
@@ -539,7 +539,7 @@ function ControlledAudience() {
   ] as const;
 
   return (
-    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#EEF0FB] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto grid max-w-[1320px] items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <Reveal className="max-w-[590px]">
           <Eyebrow>Controlled reactivation</Eyebrow>
@@ -574,14 +574,14 @@ function ControlledAudience() {
         </Reveal>
 
         <Reveal>
-          <div className="overflow-hidden rounded-[24px] border border-[#D8D2C7] bg-[#FCFCFA] shadow-[0_24px_70px_rgba(57,45,32,.09)]">
-            <div className="flex items-center justify-between border-b border-[#E4DED4] bg-[#EFE7DA] px-5 py-4 sm:px-6">
+          <div className="overflow-hidden rounded-[24px] border border-[#D9DEEF] bg-white shadow-[0_24px_70px_rgba(44,57,92,.10)]">
+            <div className="flex items-center justify-between border-b border-[#D9DEEF] bg-[#E4E9F8] px-5 py-4 sm:px-6">
               <div className="flex items-center gap-2.5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#1E2B29] text-[#F7F4EE]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#2563FF] text-white">
                   <Database size={16} />
                 </span>
                 <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#94786A]">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#5B6FA8]">
                     Audience review
                   </div>
                   <div className="mt-0.5 text-[15px] font-semibold text-[#282C28]">
@@ -612,7 +612,7 @@ function ControlledAudience() {
                     className={
                       "rounded-full px-2.5 py-1 text-[8.5px] font-semibold tracking-[0.08em] " +
                       (include
-                        ? "bg-[#99A36D]/18 text-[#657041]"
+                        ? "bg-[#2563FF]/10 text-[#1D4ED8]"
                         : "bg-[#ECEAE5] text-[#858985]")
                     }
                   >
@@ -622,7 +622,7 @@ function ControlledAudience() {
               ))}
             </div>
 
-            <div className="border-t border-[#E4DED4] bg-[#FBF8F2] px-5 py-4 text-[11px] leading-[1.55] text-[#6D726D] sm:px-6">
+            <div className="border-t border-[#D9DEEF] bg-[#F6F8FF] px-5 py-4 text-[11px] leading-[1.55] text-[#6D726D] sm:px-6">
               Your rules decide who is eligible before the campaign starts.
             </div>
           </div>
@@ -647,7 +647,7 @@ function ScenarioSection() {
             style={{ fontFamily: DISPLAY }}
           >
             Same capability.
-            <span className="block text-[#C96F55]">
+            <span className="block text-[#2563FF]">
               Different reason to come back.
             </span>
           </h2>
@@ -662,7 +662,7 @@ function ScenarioSection() {
               className={
                 "rounded-full px-4 py-2.5 text-[11px] font-semibold transition " +
                 (activeIndex === index
-                  ? "bg-[#1E2B29] text-[#F7F4EE]"
+                  ? "bg-[#2563FF] text-white"
                   : "border border-[#D7D9D4] bg-white text-[#555B56] hover:border-[#1E2B29]/25")
               }
             >
@@ -671,7 +671,7 @@ function ScenarioSection() {
           ))}
         </div>
 
-        <div className="mt-5 overflow-hidden rounded-[26px] border border-[#DFDED8] bg-[#F7F4EE] p-5 sm:p-7 lg:p-8">
+        <div className="mt-5 overflow-hidden rounded-[26px] border border-[#D9DEEF] bg-[#F3F5FC] p-5 sm:p-7 lg:p-8">
           <motion.div
             key={active.tab}
             initial={reduced ? false : { opacity: 0, y: 10 }}
@@ -679,7 +679,7 @@ function ScenarioSection() {
             transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
             className="grid gap-5 lg:grid-cols-[0.86fr_1.14fr]"
           >
-            <div className="rounded-[20px] bg-[#1E2B29] p-5 text-[#F7F4EE] sm:p-6">
+            <div className="rounded-[20px] bg-[#17213A] p-5 text-white sm:p-6">
               <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#DDA34B]">
                 Dormant record
               </div>
@@ -743,7 +743,7 @@ function ScenarioSection() {
 
 function ConnectedHistory() {
   return (
-    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#EEF3EA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto grid max-w-[1220px] gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
         <Reveal className="max-w-[560px]">
           <Eyebrow>The old context stays useful</Eyebrow>
@@ -762,7 +762,7 @@ function ConnectedHistory() {
 
         <Reveal>
           <div className="overflow-hidden rounded-[24px] border border-[#D8D2C7] bg-white shadow-[0_24px_70px_rgba(57,45,32,.08)]">
-            <div className="flex items-center gap-3 border-b border-[#E7E2D8] bg-[#EFE7DA] px-5 py-4 sm:px-6">
+            <div className="flex items-center gap-3 border-b border-[#DCE6D5] bg-[#E3EBDC] px-5 py-4 sm:px-6">
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1E2B29] text-[#F7F4EE]">
                 <UserRound size={16} />
               </span>
@@ -834,8 +834,8 @@ function CommercialPaths() {
 
         <div className="mt-10 grid gap-4 lg:grid-cols-2">
           <Reveal>
-            <div className="flex h-full min-h-[390px] flex-col rounded-[24px] bg-[#F1EADF] p-6 sm:p-8">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8C7164]">
+            <div className="flex h-full min-h-[390px] flex-col rounded-[24px] bg-[#EEF0FB] p-6 sm:p-8">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#5B6FA8]">
                 Growth
               </div>
               <h3
@@ -849,7 +849,7 @@ function CommercialPaths() {
                 capability whenever the business needs it.
               </p>
 
-              <div className="mt-8 border-t border-[#D6CCBF] pt-6">
+              <div className="mt-8 border-t border-[#D9DEEF] pt-6">
                 <div className="text-[30px] font-semibold tracking-[-0.04em] text-[#1E2B29]">
                   A$699
                   <span className="ml-1 text-[12px] font-medium tracking-normal text-[#6B706B]">
@@ -984,8 +984,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 function FinalCta() {
   return (
-    <section className="relative overflow-hidden bg-[#1E2B29] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#DDA34B]/10 blur-3xl" />
+    <section className="relative overflow-hidden bg-[#17213A] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#2563FF]/18 blur-3xl" />
 
       <div className="relative mx-auto max-w-[1100px] text-center">
         <Reveal>
@@ -995,7 +995,7 @@ function FinalCta() {
             style={{ fontFamily: DISPLAY }}
           >
             Before you buy another lead,
-            <span className="block text-[#DDA34B]">
+            <span className="block text-[#8FB2FF]">
               see what you already have.
             </span>
           </h2>
@@ -1008,7 +1008,7 @@ function FinalCta() {
           <div className="mt-8 flex justify-center">
             <a
               href={BOOK_URL}
-              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29] transition-transform hover:-translate-y-px"
+              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-white px-6 text-[13px] font-semibold text-[#17213A] transition-transform hover:-translate-y-px"
             >
               Book a Call <ArrowRight size={15} />
             </a>
