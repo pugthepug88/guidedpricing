@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { DominoFooter } from "@/components/DominoFooter";
 import {
   ArrowRight,
   Calendar,
@@ -73,6 +74,7 @@ function AIReceptionistPage() {
       <SetupAndPricing />
       <Faq />
       <FinalCta />
+      <DominoFooter />
     </main>
   );
 }
@@ -798,12 +800,12 @@ function FinalCta() {
   return (
     <section className="bg-[#1E2B29] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <Reveal className="mx-auto max-w-[980px] text-center">
-        <Eyebrow light>Keep the next call moving</Eyebrow>
-        <h2 className="mx-auto mt-4 max-w-[860px] text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]" style={{ fontFamily: DISPLAY }}>
-          Keep working. Zapla keeps the call moving.
+        <Eyebrow light>See where AI fits</Eyebrow>
+        <h2 className="mx-auto mt-4 max-w-[900px] text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]" style={{ fontFamily: DISPLAY }}>
+          Start with the calls your team shouldn’t have to stop for.
         </h2>
-        <p className="mx-auto mt-5 max-w-[620px] text-[15px] leading-[1.7] text-white/58 sm:text-[17px]">
-          We will map the routine calls your team handles today and show you where Zapla can answer, act or hand off.
+        <p className="mx-auto mt-5 max-w-[680px] text-[15px] leading-[1.7] text-white/58 sm:text-[17px]">
+          We’ll map your call flow and show exactly what Zapla can answer, book, route or hand off, and where a human should stay in control.
         </p>
         <a href={BOOK_URL} className="mt-8 inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E2B29]">
           Book a Call <ArrowRight size={15} />
