@@ -58,6 +58,14 @@ export const Route = createFileRoute("/follow-up-claude-v1")({
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
+    links: [
+      {
+        rel: "preload",
+        href: "/concept/Zapla%20domino%20final.mp4",
+        as: "video",
+        type: "video/mp4",
+      },
+    ],
   }),
   component: FollowUpClaudeV1Page,
 });
@@ -2338,50 +2346,9 @@ function FooterLandscape() {
   const reduced = !!useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoSrc, setVideoSrc] = useState<string | null>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
   const dominoVideo = "/concept/Zapla%20domino%20final.mp4";
-
-  useEffect(() => {
-    if (reduced) return;
-
-    let objectUrl: string | null = null;
-    let cancelled = false;
-    const controller = new AbortController();
-
-    const preloadEntireVideo = async () => {
-      try {
-        const response = await fetch(dominoVideo, {
-          cache: "force-cache",
-          signal: controller.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error(`Footer video preload failed: ${response.status}`);
-        }
-
-        const blob = await response.blob();
-        if (cancelled) return;
-
-        objectUrl = URL.createObjectURL(blob);
-        setVideoSrc(objectUrl);
-      } catch {
-        if (!cancelled) {
-          // Fall back to the normal URL if the eager fetch fails.
-          setVideoSrc(dominoVideo);
-        }
-      }
-    };
-
-    void preloadEntireVideo();
-
-    return () => {
-      cancelled = true;
-      controller.abort();
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-    };
-  }, [reduced]);
 
   useEffect(() => {
     if (reduced) return;
@@ -2406,6 +2373,25 @@ function FooterLandscape() {
   }, [reduced]);
 
   useEffect(() => {
+    if (reduced) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    const primeFirstFrame = () => {
+      video.pause();
+      if (video.currentTime !== 0) video.currentTime = 0;
+      setVideoReady(true);
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      primeFirstFrame();
+    }
+
+    video.addEventListener("loadeddata", primeFirstFrame);
+    return () => video.removeEventListener("loadeddata", primeFirstFrame);
+  }, [reduced]);
+
+  useEffect(() => {
     if (!shouldPlayVideo || !videoReady || reduced) return;
     void videoRef.current?.play().catch(() => undefined);
   }, [shouldPlayVideo, videoReady, reduced]);
@@ -2418,10 +2404,10 @@ function FooterLandscape() {
       >
         <video
           ref={videoRef}
-          src={videoSrc ?? undefined}
+          src={dominoVideo}
           poster={DOMINO_POSTER_DATA_URI}
           aria-hidden="true"
-          className={`absolute inset-0 h-full w-full object-cover object-[center_62%] transition-opacity duration-150 ${videoReady ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 h-full w-full object-cover object-[center_62%] ${videoReady ? "opacity-100" : "opacity-0"}`}
           muted
           playsInline
           preload="auto"
@@ -2430,12 +2416,8 @@ function FooterLandscape() {
             if (!video) return;
 
             video.pause();
-            video.currentTime = 0;
+            if (video.currentTime !== 0) video.currentTime = 0;
             setVideoReady(true);
-
-            if (shouldPlayVideo && !reduced) {
-              void video.play().catch(() => undefined);
-            }
           }}
         />
 
