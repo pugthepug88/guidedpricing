@@ -891,62 +891,35 @@ function Faq() {
 }
 
 function FinalCta() {
-  const reduced = !!useReducedMotion();
-
   return (
-    <section className="bg-[#FCFCFA] px-5 pb-20 pt-4 sm:px-10 sm:pb-24 lg:px-16 lg:pb-28">
-      <Reveal className="relative mx-auto max-w-[1280px] overflow-hidden rounded-[34px] bg-[#1E2B29] px-6 py-20 text-center text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -bottom-24 -right-20 h-56 w-56 rounded-full bg-[#E97D62]/[0.08]" />
-          <div className="absolute -bottom-28 right-20 h-52 w-52 rounded-full bg-[#9E87C5]/[0.075]" />
-          <div className="absolute bottom-5 -right-12 h-44 w-44 rounded-full bg-[#DDA34B]/[0.07]" />
-          <div className="absolute -bottom-10 right-2 h-24 w-24 rounded-full bg-[#98A27F]/[0.10]" />
-        </div>
+    <section className="bg-[#1E2B29] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <Reveal className="mx-auto max-w-[980px] text-center">
+        <Eyebrow light>Keep the next step moving</Eyebrow>
 
-        <div className="relative z-10 mx-auto max-w-[920px]">
-          <motion.span
-            className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.12] bg-[#111214]/78 shadow-[0_10px_30px_rgba(0,0,0,.16)]"
-            animate={reduced ? undefined : { y: [0, -4, 0], rotate: [0, 3, 0, -3, 0] }}
-            transition={reduced ? undefined : { duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+        <h2
+          className="mx-auto mt-4 max-w-[900px] text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
+          style={{ fontFamily: DISPLAY }}
+        >
+          Stop relying on memory to make the next move.
+        </h2>
+
+        <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/60 sm:text-[17px]">
+          Book a call and we’ll map where follow-up is slipping across your enquiries, quotes, bookings and repeat business, then show you what Zapla can automate and when.
+        </p>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <a
+            href={BOOK_URL}
+            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29] transition-transform hover:-translate-y-px"
           >
-            <ZaplaPetal size={36} />
-          </motion.span>
-
-          <div className="mt-7">
-            <Eyebrow dark>Keep the next step moving</Eyebrow>
-          </div>
-
-          <h2 className="mx-auto mt-5 max-w-[900px] text-[48px] font-medium leading-[0.94] tracking-[-0.057em] sm:text-[66px] lg:text-[76px]" style={{ fontFamily: DISPLAY }}>
-            Stop relying on memory to make the next move.
-          </h2>
-
-          <p className="mx-auto mt-6 max-w-[720px] text-[15px] leading-[1.72] text-white/62 sm:text-[17px]">
-            Book a call and we’ll map where follow-up is slipping across your enquiries, quotes, bookings and repeat business, then show you what Zapla can automate and when.
-          </p>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a
-              href={BOOK_URL}
-              className="inline-flex h-[54px] items-center gap-2 rounded-full bg-[#F7F4EE] px-7 text-[13px] font-semibold text-[#1E2B29] transition-transform hover:-translate-y-px"
-            >
-              Book a Call <ArrowRight size={15} />
-            </a>
-            <a
-              href={PRICING_URL}
-              className="inline-flex h-[54px] items-center rounded-full border border-white/20 bg-white/[0.02] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-colors hover:bg-white/[0.06]"
-            >
-              View pricing
-            </a>
-          </div>
-
-          <div className="mt-10 flex items-center justify-center gap-3 text-[12px] font-semibold text-white/52">
-            <span className="flex items-center -space-x-2.5">
-              <TeamAvatar size={34} cell={7} className="relative z-[1] ring-2 ring-[#1E2B29]" />
-              <TeamAvatar size={38} cell={0} className="relative z-[3] ring-2 ring-[#1E2B29]" />
-              <TeamAvatar size={34} cell={14} className="relative z-[2] ring-2 ring-[#1E2B29]" />
-            </span>
-            <span>Talk it through with the Zapla team</span>
-          </div>
+            Book a Call <ArrowRight size={15} />
+          </a>
+          <a
+            href={PRICING_URL}
+            className="inline-flex h-[50px] items-center rounded-full border border-white/20 bg-white/[0.02] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-colors hover:bg-white/[0.06]"
+          >
+            View pricing
+          </a>
         </div>
       </Reveal>
     </section>
