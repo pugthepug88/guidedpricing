@@ -27,28 +27,29 @@ function HomePetal() {
 
 function HomeFinalCta() {
   return (
-    <section className="overflow-hidden bg-[#FCFCFA] pt-24 sm:pt-28 lg:pt-32">
-      <div className="mx-auto max-w-[940px] px-5 text-center sm:px-10">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+    <section className="overflow-hidden bg-[#FCFCFA] pt-20 sm:pt-24 lg:pt-24">
+      <div className="mx-auto max-w-[1120px] px-5 text-center sm:px-10">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
           <HomePetal />
         </div>
 
-        <p className="mt-7 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">
+        <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">
           Keep the next step moving
         </p>
 
         <h2
-          className="mx-auto mt-4 max-w-[900px] text-[42px] font-medium leading-[1.01] tracking-[-0.045em] text-balance text-[#111318] sm:text-[58px] lg:text-[68px]"
+          className="mx-auto mt-3 max-w-[1080px] text-[40px] font-medium leading-[0.99] tracking-[-0.045em] text-[#111318] sm:text-[54px] lg:text-[64px]"
           style={{ fontFamily: '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif' }}
         >
-          Turn more enquiries into customers. Keep more customers coming back.
+          <span className="block lg:whitespace-nowrap">Turn more enquiries into customers.</span>
+          <span className="block lg:whitespace-nowrap">Keep more customers coming back.</span>
         </h2>
 
-        <p className="mx-auto mt-5 max-w-[690px] text-[15px] leading-[1.7] text-[#666B66] sm:text-[16px]">
+        <p className="mx-auto mt-4 max-w-[760px] text-[15px] leading-[1.65] text-[#5F655F] sm:text-[16px]">
           Book a call and we’ll show you where enquiries, follow-ups and repeat business are getting stuck, then map what Zapla can automate.
         </p>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href="https://zapla.io/booking"
             className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px sm:w-auto"
@@ -64,7 +65,7 @@ function HomeFinalCta() {
         </div>
       </div>
 
-      <div className="mt-8 sm:mt-10">
+      <div className="mt-6 sm:mt-8">
         <DominoFooter />
       </div>
     </section>
