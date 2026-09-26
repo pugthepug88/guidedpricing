@@ -64,7 +64,7 @@ const RESULT_CARDS: ResultCard[] = [
       "“Zapla keeps track of when customers are due back for a service or renewal, follows them up for us, and sends the review request after the job. We brought 23 customers back in the first 30 days.”",
     label: "Brad P.",
     note: "Mechanic Owner",
-    image: "/concept/Mechanic.png",
+    image: `${STORY_IMAGES}/mechanic.webp`,
     imageAlt: "Auto workshop mechanic",
   },
   {
@@ -86,7 +86,7 @@ const RESULT_CARDS: ResultCard[] = [
       "“If we were on a job, calls would go to voicemail and people would just call someone else. Now Zapla answers, gets the details and books them in while we’re still on-site.”",
     label: "Nathan C.",
     note: "Owner, Plumbing",
-    image: "/concept/plumber.png",
+    image: `${STORY_IMAGES}/plumber.webp`,
     imageAlt: "Plumber working on-site",
   },
 ];
@@ -256,7 +256,7 @@ function CardContent({ card }: { card: ResultCard }) {
           <Attribution card={card} />
         </div>
         <div className="zef6-image-panel">
-          <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
+          <img src={card.image} alt={card.imageAlt} loading="eager" fetchPriority="low" decoding="async" width={543} height={724} />
           <div className="zef6-image-metrics zef6-broker-metrics">
             <ResultMetric value="$18.4k" label="commission earned" />
             <ResultMetric value="7x" label="ROI" />
@@ -290,7 +290,7 @@ function CardContent({ card }: { card: ResultCard }) {
           <Attribution card={card} />
         </div>
         <div className="zef6-image-panel">
-          <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
+          <img src={card.image} alt={card.imageAlt} loading="eager" fetchPriority="low" decoding="async" width={543} height={724} />
           <div className="zef6-image-metrics zef6-broker-metrics zef6-split-metrics">
             <ResultMetric value="$24k" label="revenue generated" />
             <ResultMetric value="9.5x" label="ROI" />
@@ -304,7 +304,7 @@ function CardContent({ card }: { card: ResultCard }) {
     return (
       <>
         <div className="zef6-image-panel">
-          <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
+          <img src={card.image} alt={card.imageAlt} loading="eager" fetchPriority="low" decoding="async" width={543} height={724} />
           <div className="zef6-image-metrics zef6-broker-metrics zef6-green-metrics">
             <ResultMetric value="23" label="customers rebooked" />
             <ResultMetric value="28" label="new 5-star reviews" />
@@ -337,7 +337,7 @@ function CardContent({ card }: { card: ResultCard }) {
         <Attribution card={card} />
       </div>
       <div className="zef6-image-panel">
-        <img src={card.image} alt={card.imageAlt} loading="lazy" width={543} height={724} />
+        <img src={card.image} alt={card.imageAlt} loading="eager" fetchPriority="low" decoding="async" width={543} height={724} />
         <div className="zef6-image-metrics zef6-broker-metrics zef6-summary-metrics">
           <ResultMetric value="12" label="jobs booked" />
           <ResultMetric value="41" label="calls answered" />
