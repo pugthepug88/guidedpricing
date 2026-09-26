@@ -1,4 +1,5 @@
 name: Optimize customer story images
+# rerun from latest branch state
 
 on:
   push:
