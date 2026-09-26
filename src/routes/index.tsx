@@ -41,7 +41,7 @@ function HomeFinalCta() {
           className="mx-auto mt-4 max-w-[900px] text-[42px] font-medium leading-[1.01] tracking-[-0.045em] text-balance text-[#111318] sm:text-[58px] lg:text-[68px]"
           style={{ fontFamily: '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif' }}
         >
-          Your business keeps moving. Zapla makes sure your customers do too.
+          Turn more enquiries into customers. Keep more customers coming back.
         </h2>
 
         <p className="mx-auto mt-5 max-w-[690px] text-[15px] leading-[1.7] text-[#666B66] sm:text-[16px]">
