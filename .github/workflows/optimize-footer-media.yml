@@ -1,0 +1,46 @@
+name: Optimize footer media
+
+on:
+  push:
+    branches:
+      - fix/footer-media-faststart
+    paths:
+      - .github/workflows/optimize-footer-media.yml
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build web-ready footer media
+        run: |
+          set -euxo pipefail
+          ffmpeg -y \
+            -i "public/concept/Zapla domino final.mp4" \
+            -map 0:v:0 \
+            -c copy \
+            -an \
+            -movflags +faststart \
+            "public/concept/zapla-domino-web.mp4"
+
+          ffmpeg -y \
+            -ss 0 \
+            -i "public/concept/Zapla domino final.mp4" \
+            -frames:v 1 \
+            -q:v 2 \
+            "public/concept/zapla-domino-first-frame.jpg"
+
+      - name: Commit optimized assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "public/concept/zapla-domino-web.mp4" "public/concept/zapla-domino-first-frame.jpg"
+          git commit -m "Generate faststart footer video and exact poster"
+          git push origin HEAD:fix/footer-media-faststart
