@@ -892,31 +892,37 @@ function Faq() {
 
 function FinalCta() {
   return (
-    <section className="bg-[#1E2B29] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <Reveal className="mx-auto max-w-[980px] text-center">
-        <Eyebrow light>Keep the next step moving</Eyebrow>
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+      <Reveal className="mx-auto max-w-[1080px] text-center">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+          <ZaplaPetal size={34} />
+        </div>
+
+        <div className="mt-5">
+          <Eyebrow>Keep the next step moving</Eyebrow>
+        </div>
 
         <h2
-          className="mx-auto mt-4 max-w-[900px] text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
+          className="mx-auto mt-3 max-w-[900px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[56px] lg:text-[64px]"
           style={{ fontFamily: DISPLAY }}
         >
           Stop relying on memory to make the next move.
         </h2>
 
-        <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/60 sm:text-[17px]">
+        <p className="mx-auto mt-4 max-w-[720px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
           Book a call and we’ll map where follow-up is slipping across your enquiries, quotes, bookings and repeat business, then show you what Zapla can automate and when.
         </p>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <div className="mt-7 flex flex-wrap justify-center gap-3">
           <a
             href={BOOK_URL}
-            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#F7F4EE] px-6 text-[13px] font-semibold text-[#1E2B29] transition-transform hover:-translate-y-px"
+            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
           >
             Book a Call <ArrowRight size={15} />
           </a>
           <a
             href={PRICING_URL}
-            className="inline-flex h-[50px] items-center rounded-full border border-white/20 bg-white/[0.02] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-colors hover:bg-white/[0.06]"
+            className="inline-flex h-[50px] items-center rounded-full border border-[#E2DBD1] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA]"
           >
             View pricing
           </a>
