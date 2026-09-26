@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
+import { DominoFooter } from "@/components/DominoFooter";
 import { ArrowRight, Boxes, Check, ChevronDown, Map, Rocket } from "lucide-react";
 
 export const Route = createFileRoute("/Pricing-v3")({
@@ -370,6 +371,7 @@ function PricingV3Page() {
       <CostsAndExpansion />
       <Faq />
       <FinalCta />
+      <DominoFooter />
       <StickyMobileCta />
     </main>
   );

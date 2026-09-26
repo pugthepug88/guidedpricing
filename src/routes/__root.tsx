@@ -138,7 +138,14 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const hideGlobalFooter = pathname.replace(/\/+$/, "") === "/follow-up-claude-v1";
+  const normalizedPath = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
+  const hideGlobalFooter = new Set([
+    "/",
+    "/ai-receptionist",
+    "/follow-up",
+    "/follow-up-claude-v1",
+    "/Pricing-v3",
+  ]).has(normalizedPath);
 
   return (
     <QueryClientProvider client={queryClient}>
