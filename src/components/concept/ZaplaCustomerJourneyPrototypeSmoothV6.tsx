@@ -106,7 +106,7 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
         <div className="max-w-[900px]">
           <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#58706F]">The platform behind the follow-through</div>
           <h2 className="mt-5 text-[40px] leading-[0.98] tracking-[-0.05em] text-[#111318] sm:text-[58px] lg:text-[68px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>One platform. Every customer step connected.</h2>
-          <p className="mt-5 max-w-[760px] text-[16px] leading-[1.65] text-[#6D736F] sm:text-[17px]">Watch one enquiry become a customer record, a conversation, an active opportunity and a booked next step, without falling between disconnected tools.</p>
+          <p className="mt-5 max-w-[760px] text-[16px] leading-[1.65] text-[#6D736F] sm:text-[17px]">Follow one enquiry from first contact to booked next step, all in one connected flow.</p>
         </div>
 
         <div className="mt-10 lg:mt-14">
@@ -126,7 +126,7 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
         </div>
 
         <div className="mt-9 flex flex-col gap-4 border-t border-[#DDD4C8] pt-7 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-[720px] text-[14px] leading-[1.6] text-[#766F66]">One customer record stays intact from first enquiry to booked next step.</p>
+          <p className="max-w-[720px] text-[14px] leading-[1.6] text-[#766F66]">CRM · Conversations · Bookings · Payments · Reviews · Websites · AI · and more.</p>
           <a href="https://zapla.io/booking" className="inline-flex h-[48px] w-fit shrink-0 items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[14px] font-semibold text-white">Book a Call <ArrowRight className="h-4 w-4" /></a>
         </div>
       </div>
