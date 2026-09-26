@@ -1,0 +1,40 @@
+name: Optimize customer story images
+
+on:
+  push:
+    branches:
+      - feat/shared-domino-footer-page-ctas
+    paths:
+      - .github/workflows/optimize-customer-stories.yml
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Optimize customer story images
+        run: |
+          set -euxo pipefail
+          ffmpeg -y -i "public/concept/Mechanic.png" -vf "scale='min(900,iw)':-2" -c:v libwebp -quality 82 -compression_level 6 "public/concept/customer-stories-v6/mechanic.webp"
+          ffmpeg -y -i "public/concept/plumber.png" -vf "scale='min(900,iw)':-2" -c:v libwebp -quality 82 -compression_level 6 "public/concept/customer-stories-v6/plumber.webp"
+          ls -lh public/concept/customer-stories-v6/mechanic.webp public/concept/customer-stories-v6/plumber.webp
+
+      - name: Commit optimized images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/concept/customer-stories-v6/mechanic.webp public/concept/customer-stories-v6/plumber.webp
+          git commit -m "Optimize homepage customer story images"
+          git push origin HEAD:feat/shared-domino-footer-page-ctas
