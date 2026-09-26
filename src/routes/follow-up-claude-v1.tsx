@@ -2338,7 +2338,7 @@ function FooterLandscape() {
   const reduced = !!useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
   const [videoReady, setVideoReady] = useState(false);
   const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
   const dominoVideo = "/concept/Zapla%20domino%20final.mp4";
@@ -2346,38 +2346,42 @@ function FooterLandscape() {
   useEffect(() => {
     if (reduced) return;
 
-    const startLoading = () => setShouldLoadVideo(true);
-    const timer = window.setTimeout(startLoading, 700);
-    const section = sectionRef.current;
+    let objectUrl: string | null = null;
+    let cancelled = false;
+    const controller = new AbortController();
 
-    const observer =
-      section && typeof IntersectionObserver !== "undefined"
-        ? new IntersectionObserver(
-            ([entry]) => {
-              if (!entry?.isIntersecting) return;
-              startLoading();
-              observer.disconnect();
-            },
-            { rootMargin: "4000px 0px" },
-          )
-        : null;
+    const preloadEntireVideo = async () => {
+      try {
+        const response = await fetch(dominoVideo, {
+          cache: "force-cache",
+          signal: controller.signal,
+        });
 
-    if (section && observer) observer.observe(section);
+        if (!response.ok) {
+          throw new Error(`Footer video preload failed: ${response.status}`);
+        }
+
+        const blob = await response.blob();
+        if (cancelled) return;
+
+        objectUrl = URL.createObjectURL(blob);
+        setVideoSrc(objectUrl);
+      } catch {
+        if (!cancelled) {
+          // Fall back to the normal URL if the eager fetch fails.
+          setVideoSrc(dominoVideo);
+        }
+      }
+    };
+
+    void preloadEntireVideo();
 
     return () => {
-      window.clearTimeout(timer);
-      observer?.disconnect();
+      cancelled = true;
+      controller.abort();
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
   }, [reduced]);
-
-  useEffect(() => {
-    if (!shouldLoadVideo || reduced) return;
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.preload = "auto";
-    video.load();
-  }, [shouldLoadVideo, reduced]);
 
   useEffect(() => {
     if (reduced) return;
@@ -2402,12 +2406,9 @@ function FooterLandscape() {
   }, [reduced]);
 
   useEffect(() => {
-    if (!shouldPlayVideo || reduced) return;
-    const video = videoRef.current;
-    if (!video) return;
-
-    void video.play().catch(() => undefined);
-  }, [shouldPlayVideo, reduced]);
+    if (!shouldPlayVideo || !videoReady || reduced) return;
+    void videoRef.current?.play().catch(() => undefined);
+  }, [shouldPlayVideo, videoReady, reduced]);
 
   return (
     <div ref={sectionRef} className="relative isolate overflow-hidden">
@@ -2417,20 +2418,26 @@ function FooterLandscape() {
       >
         <video
           ref={videoRef}
+          src={videoSrc ?? undefined}
+          poster={DOMINO_POSTER_DATA_URI}
           aria-hidden="true"
-          className={`absolute inset-0 h-full w-full object-cover object-[center_62%] transition-opacity duration-200 ${videoReady ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 h-full w-full object-cover object-[center_62%] transition-opacity duration-150 ${videoReady ? "opacity-100" : "opacity-0"}`}
           muted
           playsInline
-          preload={shouldLoadVideo ? "auto" : "none"}
-          onCanPlay={() => {
+          preload="auto"
+          onLoadedData={() => {
+            const video = videoRef.current;
+            if (!video) return;
+
+            video.pause();
+            video.currentTime = 0;
+            setVideoReady(true);
+
             if (shouldPlayVideo && !reduced) {
-              void videoRef.current?.play().catch(() => undefined);
+              void video.play().catch(() => undefined);
             }
           }}
-          onPlaying={() => setVideoReady(true)}
-        >
-          <source src={dominoVideo} type="video/mp4" />
-        </video>
+        />
 
         <div
           aria-hidden="true"
