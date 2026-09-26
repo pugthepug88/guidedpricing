@@ -187,6 +187,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
+    | '/reactivation'
     | '/follow-up'
     | '/follow-up-claude-v1'
     | '/mcp'
