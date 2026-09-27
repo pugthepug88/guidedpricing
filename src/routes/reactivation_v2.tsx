@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Check, ChevronDown, MessageSquare } from "lucide-react";
+import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
 
 export const Route = createFileRoute("/reactivation_v2")({
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/reactivation_v2")({
       {
         name: "description",
         content:
-          "An experimental Zapla Reopen concept for lead and customer reactivation, built around the quiet archive of old enquiries, stale quotes and past customers.",
+          "Zapla Reopen helps service businesses revive dormant enquiries, stale quotes and past customers without blasting the whole database.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -27,60 +27,6 @@ const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
-const AUTUMN = {
-  paper: "#F7F5F1",
-  parchment: "#F1E7D8",
-  coral: "#BF7458",
-  peach: "#E7CEC2",
-  gold: "#DDA34B",
-  straw: "#F0D59D",
-  sage: "#A9B47A",
-  sageSoft: "#DCE0CC",
-  lavender: "#9B86B8",
-  lavenderSoft: "#E7E0EA",
-  ink: "#171816",
-  greenInk: "#1E2B29",
-} as const;
-
-const ARCHIVE_PEOPLE = [
-  { cell: 0, x: 7, y: 17, size: 54, opacity: 0.28, rotate: -6 },
-  { cell: 4, x: 18, y: 9, size: 68, opacity: 0.34, rotate: 5 },
-  { cell: 11, x: 31, y: 16, size: 47, opacity: 0.23, rotate: -3 },
-  { cell: 18, x: 45, y: 8, size: 58, opacity: 0.31, rotate: 4 },
-  { cell: 21, x: 61, y: 15, size: 50, opacity: 0.24, rotate: -5 },
-  { cell: 3, x: 78, y: 8, size: 65, opacity: 0.29, rotate: 4 },
-  { cell: 13, x: 92, y: 18, size: 48, opacity: 0.24, rotate: -3 },
-  { cell: 7, x: 8, y: 46, size: 64, opacity: 0.3, rotate: 5 },
-  { cell: 16, x: 24, y: 51, size: 48, opacity: 0.2, rotate: -4 },
-  { cell: 10, x: 74, y: 44, size: 57, opacity: 0.28, rotate: 3 },
-  { cell: 22, x: 91, y: 49, size: 46, opacity: 0.2, rotate: -4 },
-  { cell: 2, x: 10, y: 78, size: 49, opacity: 0.21, rotate: -5 },
-  { cell: 15, x: 27, y: 87, size: 61, opacity: 0.3, rotate: 5 },
-  { cell: 5, x: 48, y: 86, size: 48, opacity: 0.23, rotate: -2 },
-  { cell: 19, x: 72, y: 83, size: 64, opacity: 0.3, rotate: 4 },
-  { cell: 23, x: 92, y: 78, size: 50, opacity: 0.22, rotate: -4 },
-] as const;
-
-const PIPELINE_QUIET = [
-  { cell: 2, x: 10, y: 24, label: "Enquiry · 42 days", tone: "#BF7458" },
-  { cell: 7, x: 28, y: 46, label: "Quote · 5 months", tone: "#DDA34B" },
-  { cell: 14, x: 48, y: 27, label: "Customer · 11 months", tone: "#9B86B8" },
-  { cell: 20, x: 67, y: 54, label: "Enquiry · 7 months", tone: "#A9B47A" },
-  { cell: 11, x: 86, y: 33, label: "Quote · 4 months", tone: "#C89A5D" },
-] as const;
-
-const CURATION = [
-  { cell: 0, x: 8, y: 17, tag: "7 months quiet", selected: true },
-  { cell: 5, x: 29, y: 12, tag: "active quote", selected: false },
-  { cell: 13, x: 49, y: 24, tag: "past customer", selected: true },
-  { cell: 9, x: 72, y: 12, tag: "recently contacted", selected: false },
-  { cell: 18, x: 91, y: 25, tag: "5 months quiet", selected: true },
-  { cell: 21, x: 13, y: 67, tag: "unsubscribed", selected: false },
-  { cell: 7, x: 36, y: 76, tag: "old enquiry", selected: true },
-  { cell: 15, x: 61, y: 67, tag: "active job", selected: false },
-  { cell: 23, x: 85, y: 77, tag: "past customer", selected: true },
-] as const;
-
 const FAQS = [
   {
     q: "What is Reopen?",
@@ -91,8 +37,8 @@ const FAQS = [
     a: "Follow-Up keeps active opportunities moving while they are still live. Reopen goes back to opportunities that have already gone quiet and gives them a fresh reason to re-engage.",
   },
   {
-    q: "Does Reopen contact everyone?",
-    a: "No. The audience should be deliberate. Active opportunities, recent contacts, unsubscribed contacts and people who already replied can be excluded before anything sends.",
+    q: "Does Reopen message everyone?",
+    a: "No. The audience is selected first. Active opportunities, recent contacts, unsubscribed contacts and people who have already replied can be excluded before anything sends.",
   },
   {
     q: "What happens when someone replies?",
@@ -104,14 +50,31 @@ const FAQS = [
   },
 ] as const;
 
+const LEDGER_ROWS = [
+  { cell: 4, type: "Web enquiry", quiet: "18 days quiet", last: "Asked about Tuesday", state: "ACTIVE", tone: "#A9B47A" },
+  { cell: 9, type: "Quote sent", quiet: "5 months quiet", last: "A$4,800 proposal", state: "REOPEN", tone: "#BF7458" },
+  { cell: 14, type: "Past customer", quiet: "11 months quiet", last: "Job completed", state: "QUIET", tone: "#9B86B8" },
+  { cell: 2, type: "Phone enquiry", quiet: "7 months quiet", last: "Requested callback", state: "QUIET", tone: "#DDA34B" },
+  { cell: 19, type: "Quote sent", quiet: "4 months quiet", last: "No decision", state: "QUIET", tone: "#C89A5D" },
+] as const;
+
+const CONTACTS = [
+  { cell: 0, label: "7 months quiet", selected: true },
+  { cell: 5, label: "Active quote", selected: false },
+  { cell: 7, label: "Past customer", selected: true },
+  { cell: 12, label: "Recent contact", selected: false },
+  { cell: 18, label: "5 months quiet", selected: true },
+  { cell: 21, label: "Unsubscribed", selected: false },
+] as const;
+
 function ReactivationV2Page() {
   return (
     <main className="min-h-screen bg-[#F7F5F1] text-[#171816] antialiased" style={{ fontFamily: BODY }}>
-      <ArchiveHero />
+      <Hero />
       <SecondPipeline />
-      <CurationDesk />
-      <ConversationArchaeology />
-      <CommercialSplit />
+      <Selection />
+      <OneRecord />
+      <Commercial />
       <Faq />
       <FinalCta />
       <DominoFooter />
@@ -136,7 +99,7 @@ function Reveal({
       initial={reduced ? false : { opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: reduced ? 0 : 0.52, delay: reduced ? 0 : delay, ease: EASE }}
+      transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -145,14 +108,14 @@ function Reveal({
 
 function Eyebrow({
   children,
-  color = "#77716A",
+  color = "#786F68",
 }: {
   children: ReactNode;
   color?: string;
 }) {
   return (
     <div
-      className="text-[10px] font-semibold uppercase tracking-[0.23em]"
+      className="text-[9px] font-semibold uppercase tracking-[0.24em]"
       style={{ color }}
     >
       {children}
@@ -162,562 +125,502 @@ function Eyebrow({
 
 function Portrait({
   cell,
-  size,
-  muted = false,
   className = "",
+  muted = false,
 }: {
   cell: number;
-  size: number;
-  muted?: boolean;
   className?: string;
+  muted?: boolean;
 }) {
   const column = cell % 6;
   const row = Math.floor(cell / 6);
 
   return (
-    <span
-      className={"block shrink-0 overflow-hidden rounded-full " + className}
+    <div
+      className={"bg-[#D8C6B2] " + className}
       style={{
-        width: size,
-        height: size,
-        backgroundImage: "url(" + PORTRAIT_SHEET + ")",
-        backgroundPosition: (column / 5) * 100 + "% " + (row / 3) * 100 + "%",
+        backgroundImage: `url(${PORTRAIT_SHEET})`,
+        backgroundPosition: `${(column / 5) * 100}% ${(row / 3) * 100}%`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "600% 400%",
-        filter: muted ? "grayscale(.82) saturate(.52) contrast(.94)" : undefined,
+        filter: muted ? "grayscale(.92) saturate(.46) contrast(.95)" : undefined,
       }}
       aria-hidden="true"
     />
   );
 }
 
-function ArchiveHero() {
-  return (
-    <section className="relative min-h-[900px] overflow-hidden bg-[#F1E7D8] px-5 pb-16 pt-[112px] sm:px-10 sm:pt-[124px] lg:px-16 lg:pt-[136px]">
-      <div className="pointer-events-none absolute inset-0 opacity-[0.24]" style={{
-        backgroundImage:
-          "radial-gradient(circle at 10% 18%, rgba(191,116,88,.18), transparent 24%), radial-gradient(circle at 82% 8%, rgba(169,180,122,.18), transparent 25%), radial-gradient(circle at 70% 82%, rgba(155,134,184,.14), transparent 23%)",
-      }} />
-
-      <div className="relative mx-auto max-w-[1420px]">
-        <div className="grid gap-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-start lg:gap-10">
-          <Reveal className="relative z-20 max-w-[650px] lg:pt-10">
-            <div className="flex flex-wrap items-center gap-3">
-              <Eyebrow color={AUTUMN.coral}>Reopen</Eyebrow>
-              <span className="h-px w-7 bg-[#CDB9A7]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8A7D72]">
-                Lead & customer reactivation
-              </span>
-            </div>
-
-            <h1
-              className="mt-5 text-[52px] font-medium leading-[0.89] tracking-[-0.066em] sm:text-[72px] lg:text-[90px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              They went quiet.
-              <span className="mt-2 block text-[#BF7458]">
-                That doesn't mean they're gone.
-              </span>
-            </h1>
-
-            <p className="mt-7 max-w-[590px] text-[16px] leading-[1.72] text-[#675F58] sm:text-[18px]">
-              Reopen finds the old enquiries, stale quotes and past customers worth revisiting, then brings the right conversations back to life.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href={BOOK_URL}
-                className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
-              >
-                Book a Call <ArrowRight size={15} />
-              </a>
-              <a
-                href="#second-pipeline"
-                className="inline-flex h-[50px] items-center rounded-full border border-[#CDB9A7] bg-white/48 px-6 text-[13px] font-semibold text-[#282521] backdrop-blur-sm"
-              >
-                Enter the archive
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.07}>
-            <ArchiveWorld />
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ArchiveWorld() {
+function Hero() {
   const reduced = !!useReducedMotion();
 
   return (
-    <div className="relative mx-auto h-[650px] w-full max-w-[820px] lg:h-[700px]">
-      <div className="absolute inset-[4%] rounded-[48%] bg-white/20 blur-3xl" />
+    <section className="relative min-h-[880px] overflow-hidden bg-[#F1E7D8] px-5 pb-14 pt-[112px] sm:px-10 sm:pt-[124px] lg:px-16 lg:pt-[136px]">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{
+          background:
+            "radial-gradient(circle at 80% 8%, rgba(169,180,122,.24), transparent 24%), radial-gradient(circle at 12% 74%, rgba(191,116,88,.13), transparent 22%)",
+        }}
+      />
 
-      <div className="absolute left-[4%] top-[6%] text-[9px] font-semibold uppercase tracking-[0.2em] text-[#9A8D80]">
-        Quiet archive · 1,284 records
+      <div className="relative mx-auto max-w-[1450px]">
+        <div className="border-b border-[#CFC0B2] pb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8E8176]">
+          Zapla Reopen / Lead & customer reactivation
+        </div>
+
+        <div className="grid min-h-[700px] lg:grid-cols-[0.88fr_1.12fr]">
+          <div className="relative flex flex-col justify-between border-b border-[#CFC0B2] py-10 lg:border-b-0 lg:border-r lg:py-14 lg:pr-14">
+            <Reveal>
+              <Eyebrow color="#BF7458">Reopen</Eyebrow>
+              <h1
+                className="mt-6 max-w-[720px] text-[58px] font-medium leading-[0.88] tracking-[-0.07em] sm:text-[78px] lg:text-[96px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                They went quiet.
+                <span className="mt-3 block text-[#BF7458]">
+                  That doesn't mean they're gone.
+                </span>
+              </h1>
+
+              <p className="mt-7 max-w-[590px] text-[16px] leading-[1.72] text-[#665F58] sm:text-[18px]">
+                Reopen finds the old enquiries, stale quotes and past customers worth revisiting, then brings the right conversations back to life.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href={BOOK_URL}
+                  className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
+                >
+                  Book a Call <ArrowRight size={15} />
+                </a>
+                <a
+                  href="#second-pipeline"
+                  className="inline-flex h-[50px] items-center rounded-full border border-[#C8B8AA] bg-white/36 px-6 text-[13px] font-semibold text-[#27231F]"
+                >
+                  See the quiet pipeline
+                </a>
+              </div>
+            </Reveal>
+
+            <div className="mt-12 flex items-end justify-between gap-5 border-t border-[#D4C6B8] pt-5">
+              <div className="max-w-[310px] text-[11px] leading-[1.6] text-[#8A817A]">
+                Most businesses keep watching what is active. Reopen looks at what stopped moving.
+              </div>
+              <div className="text-right text-[9px] font-semibold uppercase tracking-[0.18em] text-[#978A7E]">
+                quiet records / selected / reopened
+              </div>
+            </div>
+          </div>
+
+          <div className="relative min-h-[650px] overflow-hidden lg:min-h-0">
+            <div className="absolute left-8 top-8 z-20 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8F8277]">
+              Quiet index
+            </div>
+            <div className="absolute right-8 top-8 z-20 text-[9px] font-semibold uppercase tracking-[0.18em] text-[#A3968B]">
+              last 18 months
+            </div>
+
+            <div className="absolute inset-x-0 top-[88px] h-px bg-[#D5C6B7]" />
+            <div className="absolute bottom-0 left-[18%] top-[88px] w-px bg-[#D5C6B7]" />
+            <div className="absolute bottom-0 left-[58%] top-[88px] w-px bg-[#D5C6B7]" />
+
+            <motion.div
+              className="absolute left-[6%] top-[18%] h-[42%] w-[46%] overflow-hidden bg-[#D4C0AC]"
+              initial={reduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
+            >
+              <Portrait cell={9} className="h-full w-full scale-[1.08]" muted />
+              <div className="absolute inset-0 bg-[#A97C5D]/10 mix-blend-multiply" />
+              <div className="absolute bottom-0 left-0 right-0 border-t border-black/[0.08] bg-[#EEE2D4]/92 px-4 py-3">
+                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A796C]">
+                  QUOTE SENT
+                </div>
+                <div className="mt-1 text-[12px] font-semibold text-[#312B27]">5 months quiet</div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="absolute right-[7%] top-[16%] w-[35%] border-y border-[#CDBEAF] py-4"
+              initial={reduced ? false : { opacity: 0, x: 12 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.18, ease: EASE }}
+            >
+              <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#9C6A57]">Last known context</div>
+              <div className="mt-3 text-[26px] font-medium leading-[1.05] tracking-[-0.04em] text-[#2A2723]" style={{ fontFamily: DISPLAY }}>
+                A$4,800 quote
+              </div>
+              <div className="mt-2 text-[11px] text-[#7B7169]">No decision recorded.</div>
+            </motion.div>
+
+            <motion.div
+              className="absolute right-[7%] top-[41%] w-[35%] bg-white/68 px-5 py-5 shadow-[0_20px_48px_rgba(71,49,33,.08)]"
+              initial={reduced ? false : { opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.34, ease: EASE }}
+            >
+              <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-[#A26753]">REOPEN</div>
+              <div className="mt-3 text-[16px] font-medium leading-[1.5] text-[#302B27]">
+                Want us to update that quote?
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="absolute bottom-[10%] left-[25%] right-[7%] bg-[#1E2B29] px-6 py-6 text-[#F7F4EE] shadow-[0_28px_70px_rgba(31,43,41,.18)]"
+              initial={reduced ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.52, ease: EASE }}
+            >
+              <div className="grid gap-6 sm:grid-cols-[auto_1fr_auto] sm:items-center">
+                <Portrait cell={9} className="h-12 w-12" />
+                <div>
+                  <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/38">Reply received</div>
+                  <div className="mt-2 text-[20px] font-medium leading-[1.35] tracking-[-0.02em]" style={{ fontFamily: DISPLAY }}>
+                    “Yes. Send me the latest pricing.”
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.12em] text-[#C5D098]">
+                  <span className="h-2 w-2 rounded-full bg-[#A9B47A]" />
+                  Reopened
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </div>
-
-      {ARCHIVE_PEOPLE.map((person, index) => (
-        <motion.div
-          key={index}
-          className={(index > 11 ? "hidden sm:block " : "") + "absolute -translate-x-1/2 -translate-y-1/2"}
-          style={{
-            left: person.x + "%",
-            top: person.y + "%",
-            rotate: person.rotate,
-          }}
-          initial={reduced ? false : { opacity: 0, scale: 0.88 }}
-          whileInView={{ opacity: person.opacity, scale: 1 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.05 + index * 0.02, ease: EASE }}
-        >
-          <Portrait cell={person.cell} size={person.size} muted className="ring-1 ring-black/[0.05] shadow-[0_12px_30px_rgba(58,43,30,.08)]" />
-        </motion.div>
-      ))}
-
-      <ArchiveFragment className="left-[5%] top-[31%] -rotate-[5deg]" tone="#E7CEC2" eyebrow="OLD ENQUIRY" line1="Website form" line2="Quiet · 7 months" />
-      <ArchiveFragment className="right-[3%] top-[24%] rotate-[4deg]" tone="#F0D59D" eyebrow="QUOTE SENT" line1="A$4,800" line2="No activity · 5 months" />
-      <ArchiveFragment className="bottom-[7%] left-[8%] rotate-[3deg]" tone="#DCE0CC" eyebrow="PAST CUSTOMER" line1="Job complete" line2="Last contact · 14 months" />
-
-      <motion.div
-        className="absolute left-[38%] top-[40%] z-20 -translate-x-1/2 -translate-y-1/2"
-        initial={reduced ? false : { opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.3, ease: EASE }}
-      >
-        <div className="relative">
-          <span className="absolute -inset-4 rounded-full border border-[#BF7458]/28" />
-          <span className="absolute -inset-8 rounded-full border border-[#BF7458]/12" />
-          <span className="absolute -inset-12 rounded-full border border-[#BF7458]/6" />
-          <Portrait cell={9} size={112} className="ring-4 ring-[#F1E7D8] shadow-[0_22px_50px_rgba(70,44,28,.17)]" />
-        </div>
-        <div className="mt-6 rounded-full border border-[#D7C6B6] bg-[#FBF6ED]/92 px-4 py-2 text-center text-[9px] font-semibold uppercase tracking-[0.13em] text-[#7B6B60] shadow-sm">
-          Quote · 5 months quiet
-        </div>
-      </motion.div>
-
-      <div className="pointer-events-none absolute left-[49%] top-[40%] hidden w-[13%] border-t border-dashed border-[#BF7458]/42 sm:block" />
-      <span className="pointer-events-none absolute left-[61.5%] top-[40%] hidden h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-[#BF7458] sm:block" />
-
-      <motion.div
-        className="absolute right-[1%] top-[31%] z-30 w-[46%] max-w-[335px] bg-white/92 px-5 py-5 shadow-[0_24px_58px_rgba(72,50,35,.13)] backdrop-blur-sm"
-        style={{ clipPath: "polygon(0 4%, 96% 0, 100% 92%, 4% 100%)" }}
-        initial={reduced ? false : { opacity: 0, x: 14 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.45 }}
-        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.5, ease: EASE }}
-      >
-        <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#A66A55]">Reopen found a reason</div>
-        <div className="mt-3 text-[16px] font-medium leading-[1.48] tracking-[-0.015em] text-[#2E2925]">
-          Want us to update that quote?
-        </div>
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-[16%] right-[5%] z-30 w-[48%] max-w-[350px] bg-[#1E2B29] px-5 py-5 text-[#F7F4EE] shadow-[0_26px_60px_rgba(31,43,41,.18)]"
-        style={{ clipPath: "polygon(4% 0, 100% 5%, 96% 100%, 0 94%)" }}
-        initial={reduced ? false : { opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.45 }}
-        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.68, ease: EASE }}
-      >
-        <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/44">
-          <MessageSquare size={12} />
-          Reply received
-        </div>
-        <div className="mt-3 text-[16px] font-medium leading-[1.48] tracking-[-0.015em] text-white/94">
-          Yes. Send me the latest pricing.
-        </div>
-        <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4 text-[10px] font-bold uppercase tracking-[0.12em] text-[#C7D39B]">
-          <span className="h-2 w-2 rounded-full bg-[#A9B47A]" />
-          Reopened
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-function ArchiveFragment({
-  className,
-  tone,
-  eyebrow,
-  line1,
-  line2,
-}: {
-  className: string;
-  tone: string;
-  eyebrow: string;
-  line1: string;
-  line2: string;
-}) {
-  return (
-    <div
-      className={"absolute hidden w-[170px] px-4 py-4 shadow-[0_16px_36px_rgba(72,52,38,.08)] sm:block " + className}
-      style={{ backgroundColor: tone }}
-    >
-      <div className="text-[8px] font-bold uppercase tracking-[0.16em] text-[#71675E]">{eyebrow}</div>
-      <div className="mt-3 text-[14px] font-semibold text-[#302D29]">{line1}</div>
-      <div className="mt-1 text-[10px] text-[#716A63]">{line2}</div>
-    </div>
+    </section>
   );
 }
 
 function SecondPipeline() {
-  const reduced = !!useReducedMotion();
-
   return (
-    <section id="second-pipeline" className="relative overflow-hidden bg-[#171816] px-5 py-24 text-[#F7F5F1] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+    <section id="second-pipeline" className="bg-[#151614] px-5 py-24 text-[#F5F1EB] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-[1360px]">
-        <Reveal className="max-w-[980px]">
+        <Reveal className="max-w-[1000px]">
           <Eyebrow color="#DDA34B">The quiet layer</Eyebrow>
           <h2
-            className="mt-5 text-[46px] font-medium leading-[0.92] tracking-[-0.06em] sm:text-[64px] lg:text-[78px]"
+            className="mt-5 text-[48px] font-medium leading-[0.92] tracking-[-0.062em] sm:text-[68px] lg:text-[82px]"
             style={{ fontFamily: DISPLAY }}
           >
             Most businesses have a second pipeline.
-            <span className="block text-[#C8D39C]">It's just gone quiet.</span>
+            <span className="block text-[#C7D19B]">It's just gone quiet.</span>
           </h2>
         </Reveal>
 
-        <div className="relative mt-16 min-h-[760px] overflow-hidden border-y border-white/10">
-          <div className="absolute inset-x-0 top-0 h-[31%] bg-white/[0.025]" />
-          <div className="absolute inset-x-0 top-[31%] h-px bg-[#DDA34B]/42" />
-          <div className="absolute left-0 top-[31%] -translate-y-1/2 bg-[#171816] pr-4 text-[9px] font-semibold uppercase tracking-[0.17em] text-[#DDA34B]">
-            Active pipeline
-          </div>
-          <div className="absolute left-0 top-[35%] text-[9px] font-semibold uppercase tracking-[0.17em] text-white/28">
-            Quiet pipeline
+        <div className="mt-16 border-y border-white/10">
+          <div className="grid grid-cols-[1.2fr_.8fr_1.2fr_.55fr] gap-4 border-b border-white/10 py-3 text-[8px] font-semibold uppercase tracking-[0.18em] text-white/30">
+            <div>Record</div>
+            <div>Quiet for</div>
+            <div>Last context</div>
+            <div className="text-right">State</div>
           </div>
 
-          <div className="absolute left-[7%] top-[12%] flex items-center gap-3">
-            <Portrait cell={4} size={48} className="ring-2 ring-white/10" />
-            <div>
-              <div className="text-[11px] font-semibold text-white/86">New enquiry</div>
-              <div className="mt-1 text-[9px] text-white/35">Today · active</div>
-            </div>
-          </div>
-          <div className="absolute left-[39%] top-[13%] flex items-center gap-3">
-            <Portrait cell={12} size={48} className="ring-2 ring-white/10" />
-            <div>
-              <div className="text-[11px] font-semibold text-white/86">Quote follow-up</div>
-              <div className="mt-1 text-[9px] text-white/35">Yesterday · active</div>
-            </div>
-          </div>
-          <div className="absolute right-[8%] top-[12%] flex items-center gap-3">
-            <Portrait cell={18} size={48} className="ring-2 ring-white/10" />
-            <div>
-              <div className="text-[11px] font-semibold text-white/86">Booked</div>
-              <div className="mt-1 text-[9px] text-white/35">Next Tuesday</div>
-            </div>
-          </div>
-
-          {PIPELINE_QUIET.map((record, index) => (
-            <motion.div
-              key={record.label}
-              className="absolute -translate-x-1/2 -translate-y-1/2"
-              style={{ left: record.x + "%", top: 36 + record.y * 0.58 + "%" }}
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.06, ease: EASE }}
-            >
-              <div className="flex flex-col items-center text-center">
-                <Portrait cell={record.cell} size={index === 1 ? 82 : 62} muted={index !== 1} className="ring-1 ring-white/10 shadow-[0_18px_40px_rgba(0,0,0,.16)]" />
-                <span className="mt-3 rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 text-[9px] font-semibold text-white/45">
-                  {record.label}
-                </span>
-              </div>
-            </motion.div>
+          {LEDGER_ROWS.map((row, index) => (
+            <LedgerRow key={row.type + index} row={row} index={index} />
           ))}
+        </div>
 
-          <motion.div
-            className="absolute bottom-[5%] left-[26%] right-[8%] border-t border-dashed border-white/12 pt-6"
-            initial={reduced ? false : { opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 0.35 }}
-          >
-            <div className="max-w-[680px] text-[14px] leading-[1.7] text-white/48 sm:text-[16px]">
-              The active pipeline gets attention because everyone can see it. Reopen makes the quiet layer visible again, without pretending every old record deserves another message.
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="absolute left-[28%] top-[56%] h-[188px] w-px origin-bottom bg-[#DDA34B]/55"
-            initial={reduced ? false : { scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.48, ease: EASE }}
-          />
-          <motion.div
-            className="absolute left-[28%] top-[28%] -translate-x-1/2"
-            initial={reduced ? false : { opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.7, ease: EASE }}
-          >
-            <span className="rounded-full bg-[#DDA34B] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#171816]">
-              Worth reopening
-            </span>
-          </motion.div>
+        <div className="mt-10 grid gap-8 lg:grid-cols-[.65fr_1.35fr]">
+          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">
+            Active pipeline gets watched.
+            <br />
+            Quiet pipeline gets forgotten.
+          </div>
+          <p className="max-w-[760px] text-[17px] leading-[1.72] text-white/52 sm:text-[19px]">
+            Reopen makes the quiet layer visible again, then gives your team a way to act on the records that still have somewhere to go.
+          </p>
         </div>
       </div>
     </section>
   );
 }
 
-function CurationDesk() {
-  return (
-    <section className="relative overflow-hidden bg-[#E7E0EA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="pointer-events-none absolute right-[-8%] top-[-18%] h-[500px] w-[500px] rounded-full bg-white/26 blur-3xl" />
-      <div className="relative mx-auto grid max-w-[1320px] gap-14 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-16">
-        <Reveal className="max-w-[520px]">
-          <Eyebrow color="#7E687F">Selection before sending</Eyebrow>
-          <h2
-            className="mt-5 text-[45px] font-medium leading-[0.94] tracking-[-0.06em] sm:text-[60px] lg:text-[72px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Don't wake everyone up.
-            <span className="block text-[#7E687F]">Wake the right ones.</span>
-          </h2>
-          <p className="mt-6 max-w-[500px] text-[16px] leading-[1.75] text-[#645D66]">
-            Reopen behaves more like a curator than a megaphone. It starts by deciding who should be left alone.
-          </p>
-          <div className="mt-8 space-y-3 text-[12px] font-semibold text-[#544E56]">
-            {["Active opportunities stay out.", "Recent contacts stay out.", "Unsubscribed contacts stay out.", "Replies stop the sequence."].map((item) => (
-              <div key={item} className="flex items-center gap-3">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/50 text-[#7E687F]">
-                  <Check size={13} strokeWidth={2.5} />
-                </span>
-                {item}
-              </div>
-            ))}
-          </div>
-        </Reveal>
-
-        <Reveal>
-          <div className="relative h-[640px] min-h-[640px]">
-            <div className="absolute inset-[4%] border border-[#7E687F]/12" />
-            <div className="absolute left-[4%] top-[4%] -translate-y-1/2 bg-[#E7E0EA] pr-3 text-[8px] font-semibold uppercase tracking-[0.18em] text-[#817784]">
-              Selection desk · Thursday 10:12
-            </div>
-
-            {CURATION.map((person, index) => (
-              <CurationRecord key={index} person={person} index={index} />
-            ))}
-
-            <div className="absolute bottom-[2%] left-[4%] right-[4%] flex flex-wrap items-center justify-between gap-4 border-t border-[#7E687F]/14 pt-5">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#776E79]">
-                5 selected · 4 intentionally left alone
-              </div>
-              <div className="text-[10px] text-[#817784]">Rules decide before outreach starts.</div>
-            </div>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function CurationRecord({
-  person,
+function LedgerRow({
+  row,
   index,
 }: {
-  person: (typeof CURATION)[number];
+  row: (typeof LEDGER_ROWS)[number];
   index: number;
 }) {
   const reduced = !!useReducedMotion();
+  const active = row.state === "REOPEN";
 
   return (
     <motion.div
-      className="absolute -translate-x-1/2 -translate-y-1/2"
-      style={{ left: person.x + "%", top: person.y + "%" }}
-      initial={reduced ? false : { opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.3 }}
+      initial={reduced ? false : { opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.45 }}
       transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.045, ease: EASE }}
+      className={
+        "grid grid-cols-[1.2fr_.8fr_1.2fr_.55fr] items-center gap-4 border-b border-white/10 py-5 last:border-b-0 " +
+        (active ? "bg-[#BF7458]/[0.08]" : "")
+      }
     >
-      <div className={"relative " + (!person.selected ? "opacity-48" : "")}>
-        {person.selected ? (
-          <>
-            <span className="absolute -inset-3 rounded-full border border-[#7E687F]/28" />
-            <span className="absolute -inset-1.5 rounded-full border border-white/70" />
-          </>
-        ) : (
-          <span className="absolute left-[-16px] top-1/2 h-px w-[calc(100%+32px)] -rotate-[12deg] bg-[#7E687F]/32" />
-        )}
-        <Portrait cell={person.cell} size={person.selected ? 76 : 62} muted={!person.selected} className="shadow-[0_14px_34px_rgba(72,59,76,.11)]" />
+      <div className="flex min-w-0 items-center gap-3">
+        <Portrait cell={row.cell} muted={!active} className={"h-11 w-11 " + (active ? "ring-2 ring-[#BF7458]" : "opacity-55")} />
+        <span className="truncate text-[12px] font-semibold text-white/82">{row.type}</span>
       </div>
-      <div className="mt-4 max-w-[118px] text-center">
+      <div className="text-[11px] text-white/42">{row.quiet}</div>
+      <div className="truncate text-[11px] text-white/50">{row.last}</div>
+      <div className="text-right">
         <span
-          className={
-            "inline-block px-2.5 py-1 text-[8.5px] font-bold uppercase tracking-[0.1em] " +
-            (person.selected ? "bg-white/62 text-[#6E5B70]" : "bg-white/24 text-[#8E858F]")
-          }
+          className="inline-flex border px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.12em]"
+          style={{
+            borderColor: active ? "#BF7458" : "rgba(255,255,255,.12)",
+            color: active ? "#E6A48B" : "rgba(255,255,255,.34)",
+          }}
         >
-          {person.tag}
+          {row.state}
         </span>
       </div>
     </motion.div>
   );
 }
 
-function ConversationArchaeology() {
+function Selection() {
   return (
-    <section className="bg-[#FCFBF8] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto grid max-w-[1240px] gap-14 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
-        <Reveal className="max-w-[520px] lg:sticky lg:top-32 lg:self-start">
-          <Eyebrow color="#BF7458">One record returns</Eyebrow>
-          <h2
-            className="mt-5 text-[45px] font-medium leading-[0.94] tracking-[-0.06em] sm:text-[60px] lg:text-[72px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Silence is part of the story.
-          </h2>
-          <p className="mt-6 max-w-[500px] text-[16px] leading-[1.75] text-[#66605A]">
-            Reopen does not create a new lead. It picks up an old story where it stopped.
-          </p>
-        </Reveal>
+    <section className="bg-[#E7E0EA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+      <div className="mx-auto max-w-[1320px]">
+        <div className="grid gap-14 lg:grid-cols-[.78fr_1.22fr] lg:items-start lg:gap-20">
+          <Reveal className="max-w-[540px]">
+            <Eyebrow color="#7E687F">Selection before sending</Eyebrow>
+            <h2
+              className="mt-5 text-[46px] font-medium leading-[0.94] tracking-[-0.06em] sm:text-[62px] lg:text-[74px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Don't wake everyone up.
+              <span className="block text-[#7E687F]">Wake the right ones.</span>
+            </h2>
+            <p className="mt-6 max-w-[510px] text-[16px] leading-[1.75] text-[#625B64]">
+              Reopen starts by narrowing the field. The point is not reach. The point is relevance.
+            </p>
 
-        <Reveal>
-          <div className="relative min-h-[980px] pl-10 sm:pl-14">
-            <div className="absolute bottom-0 left-[14px] top-0 w-px bg-[#D8D0C6] sm:left-[18px]" />
-
-            <TimelineMoment top={0} date="12 FEB" tone="#C2A07B" title="Enquiry received" copy="Sarah asks about pricing and timing." />
-            <TimelineMoment top={145} date="14 FEB" tone="#DDA34B" title="Quote sent" copy="A$4,800 proposal goes out." />
-            <TimelineMoment top={290} date="28 FEB" tone="#9A9870" title="Conversation goes quiet" copy="No reply. No clear no. The record simply stops moving." />
-
-            <div className="absolute left-[44px] right-0 top-[420px] sm:left-[62px]">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#B1AAA2]">March</div>
-              <div className="mt-16 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C1BAB2]">April</div>
-              <div className="mt-16 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#CDC6BF]">May</div>
-              <div className="mt-16 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D5CFC8]">June</div>
-              <div className="mt-16 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#DDD7D0]">July</div>
-            </div>
-
-            <div className="absolute left-[14px] top-[758px] h-3 w-3 -translate-x-1/2 rounded-full bg-[#BF7458] ring-4 ring-[#FCFBF8] sm:left-[18px]" />
-            <div className="absolute left-[44px] right-0 top-[740px] sm:left-[62px]">
-              <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#A66A55]">08 AUG · REOPEN</div>
-              <div className="mt-3 max-w-[520px] text-[28px] font-medium leading-[1.05] tracking-[-0.04em] text-[#2B2926]" style={{ fontFamily: DISPLAY }}>
-                Want us to update the quote we sent earlier this year?
-              </div>
-            </div>
-
-            <div className="absolute bottom-0 left-[44px] right-0 bg-[#1E2B29] px-6 py-6 text-[#F7F4EE] shadow-[0_26px_60px_rgba(31,43,41,.13)] sm:left-[62px] sm:px-8">
-              <div className="flex items-center gap-3">
-                <Portrait cell={9} size={48} className="ring-2 ring-white/10" />
-                <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/38">Sarah replied</div>
-                  <div className="mt-1 text-[10px] text-white/36">Same customer record</div>
+            <div className="mt-10 border-t border-[#7E687F]/20">
+              {[
+                ["Active opportunity", "Leave it alone"],
+                ["Recent contact", "Leave it alone"],
+                ["Unsubscribed", "Leave it alone"],
+                ["Dormant opportunity", "Consider reopening"],
+              ].map(([label, action], index) => (
+                <div key={label} className="flex items-center justify-between gap-5 border-b border-[#7E687F]/15 py-4 text-[11px]">
+                  <span className="font-semibold text-[#4F4951]">{label}</span>
+                  <span className={index === 3 ? "font-semibold text-[#7E687F]" : "text-[#877E89]"}>{action}</span>
                 </div>
-              </div>
-              <div className="mt-5 text-[24px] font-medium leading-[1.25] tracking-[-0.03em] text-white/94" style={{ fontFamily: DISPLAY }}>
-                “Yes. Please send me the latest pricing.”
-              </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {["Outreach stopped", "History preserved", "Sales notified"].map((item) => (
-                  <span key={item} className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-[9px] font-semibold text-white/58">
-                    <Check size={10} className="text-[#B9C88C]" strokeWidth={2.5} />
-                    {item}
-                  </span>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className="border-l border-t border-[#7E687F]/18">
+              <div className="grid grid-cols-2 sm:grid-cols-3">
+                {CONTACTS.map((contact, index) => (
+                  <ContactPanel key={contact.label + index} contact={contact} index={index} />
                 ))}
               </div>
             </div>
-          </div>
-        </Reveal>
+            <div className="mt-5 flex items-center justify-between gap-5 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#766D79]">
+              <span>3 selected</span>
+              <span>3 intentionally excluded</span>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
 }
 
-function TimelineMoment({
-  top,
-  date,
-  tone,
-  title,
-  copy,
+function ContactPanel({
+  contact,
+  index,
 }: {
-  top: number;
-  date: string;
-  tone: string;
-  title: string;
-  copy: string;
+  contact: (typeof CONTACTS)[number];
+  index: number;
 }) {
+  const reduced = !!useReducedMotion();
+
   return (
-    <>
-      <div
-        className="absolute left-[14px] h-3 w-3 -translate-x-1/2 rounded-full ring-4 ring-[#FCFBF8] sm:left-[18px]"
-        style={{ top, backgroundColor: tone }}
+    <motion.div
+      initial={reduced ? false : { opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.45 }}
+      transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : index * 0.04 }}
+      className={
+        "relative min-h-[250px] border-b border-r border-[#7E687F]/18 " +
+        (contact.selected ? "bg-white/28" : "bg-transparent")
+      }
+    >
+      <Portrait
+        cell={contact.cell}
+        muted={!contact.selected}
+        className={"absolute inset-x-6 top-6 h-[150px] " + (contact.selected ? "" : "opacity-40")}
       />
-      <div className="absolute left-[44px] right-0 sm:left-[62px]" style={{ top: top - 10 }}>
-        <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#A19890]">{date}</div>
-        <div className="mt-2 text-[20px] font-semibold tracking-[-0.02em] text-[#2D2A27]">{title}</div>
-        <div className="mt-2 max-w-[500px] text-[13px] leading-[1.65] text-[#716A64]">{copy}</div>
+      <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+        <div>
+          <div className="text-[8px] font-semibold uppercase tracking-[0.13em] text-[#7D747F]">{contact.label}</div>
+          <div className="mt-1 text-[10px] font-semibold text-[#403B42]">
+            {contact.selected ? "Worth reviewing" : "Excluded"}
+          </div>
+        </div>
+        {contact.selected ? (
+          <span className="h-3 w-3 bg-[#7E687F]" />
+        ) : (
+          <span className="h-px w-8 rotate-[-18deg] bg-[#7E687F]/35" />
+        )}
       </div>
-    </>
+    </motion.div>
   );
 }
 
-function CommercialSplit() {
+function OneRecord() {
   return (
-    <section className="overflow-hidden">
-      <div className="grid lg:grid-cols-2">
-        <div className="bg-[#DCE0CC] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-          <div className="mx-auto max-w-[620px] lg:ml-auto lg:mr-0">
-            <Reveal>
-              <Eyebrow color="#667044">Use Reopen yourself</Eyebrow>
-              <h2 className="mt-5 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
-                Keep the quiet pipeline visible.
-              </h2>
-              <p className="mt-6 max-w-[500px] text-[15px] leading-[1.75] text-[#59604D]">
-                Reopen sits inside Growth so you can build audiences and run targeted reactivation whenever the business needs it.
-              </p>
+    <section className="bg-[#FCFBF8] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+      <div className="mx-auto max-w-[1260px]">
+        <div className="grid gap-14 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+          <Reveal className="max-w-[500px] lg:sticky lg:top-32 lg:self-start">
+            <Eyebrow color="#BF7458">One record returns</Eyebrow>
+            <h2
+              className="mt-5 text-[46px] font-medium leading-[0.94] tracking-[-0.06em] sm:text-[62px] lg:text-[74px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Silence is part of the story.
+            </h2>
+            <p className="mt-6 max-w-[480px] text-[16px] leading-[1.75] text-[#67615B]">
+              Reopen does not create a new lead. It picks up an old story where it stopped.
+            </p>
+          </Reveal>
 
-              <div className="mt-10 text-[38px] font-semibold tracking-[-0.045em] text-[#252A22]">
-                A$699
-                <span className="ml-1 text-[12px] font-medium tracking-normal text-[#69705F]">/mo + GST</span>
-              </div>
-              <div className="mt-2 text-[11px] text-[#727866]">Guided Launch from A$2,997 + GST</div>
+          <Reveal>
+            <div className="border-t border-[#D9D0C6]">
+              <StoryRow date="12 FEB" title="Enquiry received" copy="Sarah asks about pricing and timing." tone="#C2A07B" />
+              <StoryRow date="14 FEB" title="Quote sent" copy="A$4,800 proposal sent." tone="#DDA34B" />
+              <StoryRow date="28 FEB" title="Conversation goes quiet" copy="No clear no. No next step either." tone="#9A9870" />
 
-              <a href={PRICING_URL} className="mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold text-[#252A22]">
-                View Growth <ArrowRight size={14} />
-              </a>
-            </Reveal>
-          </div>
-        </div>
-
-        <div className="bg-[#1E2B29] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-          <div className="mx-auto max-w-[620px] lg:ml-0 lg:mr-auto">
-            <Reveal delay={0.04}>
-              <Eyebrow color="#DDA34B">Ghost to Gold</Eyebrow>
-              <h2 className="mt-5 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
-                Or hand us the archive.
-              </h2>
-              <p className="mt-6 max-w-[510px] text-[15px] leading-[1.75] text-white/56">
-                Ghost to Gold is the done for you Reopen offer. We build and launch the campaign, with a managed option for monitoring and handoff.
-              </p>
-
-              <div className="mt-10 grid max-w-[440px] grid-cols-2 gap-8 border-t border-white/10 pt-6">
-                <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/36">Sprint</div>
-                  <div className="mt-2 text-[25px] font-semibold">A$997+</div>
+              <div className="grid min-h-[360px] grid-cols-[110px_1fr] border-b border-[#D9D0C6] sm:grid-cols-[150px_1fr]">
+                <div className="border-r border-[#D9D0C6] py-8 pr-5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#B6AEA6]">
+                  Mar → Jul
                 </div>
-                <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/36">Managed</div>
-                  <div className="mt-2 text-[25px] font-semibold">A$1,497+</div>
+                <div className="flex items-center px-6 py-10 sm:px-10">
+                  <div className="w-full">
+                    <div className="h-px w-full bg-gradient-to-r from-[#D8D0C8] via-[#E6E0DA] to-transparent" />
+                    <div className="mt-5 text-[12px] font-medium text-[#B5AEA7]">Nothing.</div>
+                  </div>
                 </div>
               </div>
 
-              <a href={BOOK_URL} className="mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold text-[#F7F4EE]">
-                Ask about Ghost to Gold <ArrowRight size={14} />
-              </a>
-            </Reveal>
-          </div>
+              <div className="grid grid-cols-[110px_1fr] border-b border-[#D9D0C6] sm:grid-cols-[150px_1fr]">
+                <div className="border-r border-[#D9D0C6] py-8 pr-5">
+                  <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#A76B58]">08 AUG</div>
+                  <div className="mt-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#BF7458]">REOPEN</div>
+                </div>
+                <div className="px-6 py-8 sm:px-10">
+                  <div className="max-w-[590px] text-[28px] font-medium leading-[1.08] tracking-[-0.035em] text-[#2D2926]" style={{ fontFamily: DISPLAY }}>
+                    Want us to update the quote we sent earlier this year?
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-[#1E2B29] px-6 py-7 text-[#F7F4EE] sm:px-10">
+                <div className="grid gap-6 sm:grid-cols-[auto_1fr_auto] sm:items-center">
+                  <Portrait cell={9} className="h-14 w-14" />
+                  <div>
+                    <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/36">Sarah replied</div>
+                    <div className="mt-2 text-[24px] font-medium leading-[1.28] tracking-[-0.028em]" style={{ fontFamily: DISPLAY }}>
+                      “Yes. Please send me the latest pricing.”
+                    </div>
+                  </div>
+                  <div className="space-y-2 text-[9px] font-semibold text-white/55">
+                    {["Outreach stopped", "History preserved", "Sales notified"].map((item) => (
+                      <div key={item} className="flex items-center gap-2">
+                        <Check size={10} className="text-[#B9C88C]" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function StoryRow({
+  date,
+  title,
+  copy,
+  tone,
+}: {
+  date: string;
+  title: string;
+  copy: string;
+  tone: string;
+}) {
+  return (
+    <div className="grid grid-cols-[110px_1fr] border-b border-[#D9D0C6] sm:grid-cols-[150px_1fr]">
+      <div className="border-r border-[#D9D0C6] py-7 pr-5">
+        <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#989088]">{date}</div>
+        <span className="mt-4 block h-2.5 w-2.5" style={{ backgroundColor: tone }} />
+      </div>
+      <div className="px-6 py-7 sm:px-10">
+        <div className="text-[17px] font-semibold text-[#2D2A27]">{title}</div>
+        <div className="mt-2 text-[13px] leading-[1.65] text-[#736C66]">{copy}</div>
+      </div>
+    </div>
+  );
+}
+
+function Commercial() {
+  return (
+    <section className="grid lg:grid-cols-2">
+      <div className="bg-[#DCE0CC] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+        <Reveal className="mx-auto max-w-[610px] lg:ml-auto lg:mr-0">
+          <Eyebrow color="#667044">Reopen inside Growth</Eyebrow>
+          <h2 className="mt-5 text-[44px] font-medium leading-[0.95] tracking-[-0.057em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
+            Keep the quiet pipeline visible.
+          </h2>
+          <p className="mt-6 max-w-[510px] text-[15px] leading-[1.75] text-[#59604D]">
+            Build audiences and run targeted reactivation whenever the business needs it.
+          </p>
+          <div className="mt-10 text-[38px] font-semibold tracking-[-0.045em] text-[#252A22]">
+            A$699
+            <span className="ml-1 text-[12px] font-medium tracking-normal text-[#69705F]">/mo + GST</span>
+          </div>
+          <div className="mt-2 text-[11px] text-[#727866]">Guided Launch from A$2,997 + GST</div>
+          <a href={PRICING_URL} className="mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold text-[#252A22]">
+            View Growth <ArrowRight size={14} />
+          </a>
+        </Reveal>
+      </div>
+
+      <div className="bg-[#BF7458] px-5 py-20 text-[#FFF9F5] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+        <Reveal className="mx-auto max-w-[610px] lg:ml-0 lg:mr-auto" delay={0.04}>
+          <Eyebrow color="#F2D6A5">Ghost to Gold</Eyebrow>
+          <h2 className="mt-5 text-[44px] font-medium leading-[0.95] tracking-[-0.057em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
+            Or hand us the quiet pipeline.
+          </h2>
+          <p className="mt-6 max-w-[510px] text-[15px] leading-[1.75] text-white/70">
+            Ghost to Gold is the done for you Reopen offer. We build and launch the campaign, with a managed option for monitoring and handoff.
+          </p>
+          <div className="mt-10 grid max-w-[430px] grid-cols-2 gap-8 border-t border-white/20 pt-6">
+            <div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/48">Sprint</div>
+              <div className="mt-2 text-[25px] font-semibold">A$997+</div>
+            </div>
+            <div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/48">Managed</div>
+              <div className="mt-2 text-[25px] font-semibold">A$1,497+</div>
+            </div>
+          </div>
+          <a href={BOOK_URL} className="mt-10 inline-flex items-center gap-2 text-[12.5px] font-semibold text-white">
+            Ask about Ghost to Gold <ArrowRight size={14} />
+          </a>
+        </Reveal>
       </div>
     </section>
   );
@@ -768,24 +671,17 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 function FinalCta() {
   return (
-    <section className="relative overflow-hidden bg-[#BF7458] px-5 py-24 text-[#FFF9F5] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="pointer-events-none absolute inset-0" style={{
-        background:
-          "radial-gradient(circle at 14% 80%, rgba(231,224,234,.12), transparent 26%), radial-gradient(circle at 84% 12%, rgba(240,213,157,.16), transparent 28%)",
-      }} />
-      <div className="relative mx-auto max-w-[1100px] text-center">
+    <section className="bg-[#171816] px-5 py-24 text-[#F7F5F1] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+      <div className="mx-auto max-w-[1120px]">
         <Reveal>
-          <Eyebrow color="rgba(255,255,255,.62)">Reopen what is already there</Eyebrow>
-          <h2 className="mx-auto mt-5 max-w-[980px] text-[46px] font-medium leading-[0.92] tracking-[-0.06em] sm:text-[64px] lg:text-[80px]" style={{ fontFamily: DISPLAY }}>
+          <Eyebrow color="#DDA34B">Look back before you buy forward</Eyebrow>
+          <h2 className="mt-5 max-w-[1040px] text-[48px] font-medium leading-[0.92] tracking-[-0.06em] sm:text-[66px] lg:text-[82px]" style={{ fontFamily: DISPLAY }}>
             You already paid to get their attention.
-            <span className="block text-[#F8E2B5]">Don't pay twice before you look back.</span>
+            <span className="block text-[#C7D19B]">Reopen the conversations that still matter.</span>
           </h2>
-          <p className="mx-auto mt-7 max-w-[650px] text-[15px] leading-[1.75] text-white/70">
-            Reopen the conversations that still have somewhere to go.
-          </p>
           <a
             href={BOOK_URL}
-            className="mt-9 inline-flex h-[52px] items-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
+            className="mt-9 inline-flex h-[52px] items-center gap-2 rounded-full bg-[#F7F5F1] px-7 text-[13px] font-semibold text-[#171816] transition-transform hover:-translate-y-px"
           >
             Book a Call <ArrowRight size={15} />
           </a>
