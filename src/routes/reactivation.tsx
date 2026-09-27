@@ -55,21 +55,13 @@ const FAQS = [
 ] as const;
 
 const ARCHIVE_CONTACTS = [
-  { cell: 2, x: 7, y: 14, size: 54, rotate: -6, opacity: 0.54 },
-  { cell: 6, x: 20, y: 8, size: 66, rotate: 4, opacity: 0.45 },
-  { cell: 13, x: 34, y: 16, size: 48, rotate: -3, opacity: 0.42 },
-  { cell: 17, x: 52, y: 10, size: 62, rotate: 5, opacity: 0.5 },
-  { cell: 20, x: 72, y: 16, size: 52, rotate: -4, opacity: 0.4 },
-  { cell: 4, x: 88, y: 10, size: 64, rotate: 3, opacity: 0.46 },
-  { cell: 10, x: 10, y: 44, size: 62, rotate: 5, opacity: 0.46 },
-  { cell: 7, x: 25, y: 52, size: 48, rotate: -5, opacity: 0.38 },
-  { cell: 15, x: 78, y: 48, size: 56, rotate: 3, opacity: 0.5 },
-  { cell: 22, x: 91, y: 43, size: 46, rotate: -3, opacity: 0.38 },
-  { cell: 11, x: 9, y: 76, size: 48, rotate: -4, opacity: 0.36 },
-  { cell: 16, x: 24, y: 84, size: 60, rotate: 5, opacity: 0.44 },
-  { cell: 1, x: 48, y: 86, size: 50, rotate: -3, opacity: 0.42 },
-  { cell: 19, x: 72, y: 82, size: 64, rotate: 4, opacity: 0.46 },
-  { cell: 23, x: 92, y: 78, size: 48, rotate: -4, opacity: 0.38 },
+  { cell: 2, x: 5, y: 13, size: 74, rotate: -3, opacity: 0.28, label: "Old enquiry", meta: "7 months quiet" },
+  { cell: 13, x: 34, y: 9, size: 82, rotate: 2, opacity: 0.24, label: "Past customer", meta: "11 months quiet" },
+  { cell: 20, x: 81, y: 16, size: 78, rotate: -2, opacity: 0.26, label: "Quote sent", meta: "4 months quiet" },
+  { cell: 6, x: 8, y: 56, size: 84, rotate: 2, opacity: 0.22, label: "Old enquiry", meta: "5 months quiet" },
+  { cell: 17, x: 79, y: 55, size: 82, rotate: -2, opacity: 0.24, label: "Past customer", meta: "14 months quiet" },
+  { cell: 11, x: 24, y: 86, size: 76, rotate: 2, opacity: 0.19, label: "Quote sent", meta: "8 months quiet" },
+  { cell: 23, x: 86, y: 84, size: 72, rotate: -2, opacity: 0.18, label: "Old enquiry", meta: "9 months quiet" },
 ] as const;
 
 const AUDIENCE = [
@@ -87,33 +79,6 @@ const AUDIENCE = [
   { cell: 16, label: "Recent lead", selected: false },
 ] as const;
 
-const USE_CASES = [
-  {
-    label: "OLD ENQUIRY",
-    accent: "#BF7458",
-    bg: "#E7CEC2",
-    title: "The enquiry was real. The timing was not.",
-    message: "Still looking to get this sorted?",
-    reply: "Yes. What are the next steps?",
-  },
-  {
-    label: "STALE QUOTE",
-    accent: "#9B6722",
-    bg: "#F0D59D",
-    title: "The quote went quiet before a decision was made.",
-    message: "Want us to update that quote?",
-    reply: "Yes, please send the latest pricing.",
-  },
-  {
-    label: "PAST CUSTOMER",
-    accent: "#667044",
-    bg: "#DCE0CC",
-    title: "They already know you. Nobody invited them back.",
-    message: "Need a hand with this again?",
-    reply: "Actually yes. Can someone call me today?",
-  },
-] as const;
-
 function ReactivationPage() {
   return (
     <main className="min-h-screen bg-[#F7F5F1] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
@@ -121,7 +86,6 @@ function ReactivationPage() {
       <QuietMoments />
       <AudienceSection />
       <ReopenedStory />
-      <UseCases />
       <CommercialPaths />
       <Faq />
       <FinalCta />
@@ -212,8 +176,10 @@ function AutumnAvatar({
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#F3EBDD] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-24 lg:pt-[136px]">
-      <div className="pointer-events-none absolute -left-20 top-[18%] h-[360px] w-[360px] rounded-full bg-[#E7CEC2]/45 blur-3xl" />
-      <div className="pointer-events-none absolute right-[2%] top-[8%] h-[420px] w-[420px] rounded-full bg-[#DCE0CC]/42 blur-3xl" />
+      <div className="pointer-events-none absolute -left-24 top-[16%] h-[420px] w-[420px] rounded-full bg-[#E7CEC2]/55 blur-3xl" />
+      <div className="pointer-events-none absolute right-[3%] top-[5%] h-[470px] w-[470px] rounded-full bg-[#DCE0CC]/55 blur-3xl" />
+      <div className="pointer-events-none absolute right-[20%] top-[18%] h-[390px] w-[390px] rounded-full bg-[#E7E0EA]/42 blur-3xl" />
+      <div className="pointer-events-none absolute right-[8%] top-[29%] h-[520px] w-[520px] rounded-full bg-[#1E2B29]/[0.10] blur-3xl" />
 
       <div className="relative mx-auto grid max-w-[1420px] items-center gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10">
         <Reveal className="max-w-[640px]">
@@ -236,7 +202,7 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-[595px] text-[16px] leading-[1.72] text-[#655F59] sm:text-[18px]">
-            Reopen finds old enquiries, stale quotes and past customers worth revisiting, starts the right conversation, and stops as soon as someone replies.
+            Zapla finds old enquiries, stale quotes and past customers worth reopening, reaches out with the right message, and stops the moment they reply.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -280,29 +246,40 @@ function ArchiveScene() {
 
   return (
     <div className="relative mx-auto min-h-[500px] w-full max-w-[760px] sm:min-h-[560px] lg:min-h-[630px]">
-      <div className="pointer-events-none absolute left-[8%] right-[8%] top-[12%] h-[70%] rounded-[50%] bg-white/30 blur-2xl" />
+      <div
+        className="pointer-events-none absolute inset-[2%] rounded-[44%]"
+        style={{
+          background:
+            "radial-gradient(ellipse at 52% 46%, rgba(30,43,41,.24), rgba(30,43,41,.07) 40%, transparent 68%), radial-gradient(circle at 73% 22%, rgba(220,224,204,.72), transparent 29%), radial-gradient(circle at 28% 68%, rgba(231,206,194,.70), transparent 31%), radial-gradient(circle at 84% 76%, rgba(231,224,234,.62), transparent 26%)",
+        }}
+      />
 
       {ARCHIVE_CONTACTS.map((contact, index) => (
         <motion.div
-          key={index}
-          className={(index > 11 ? "hidden sm:block " : "") + "absolute -translate-x-1/2 -translate-y-1/2"}
+          key={contact.label + index}
+          className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-3 border border-white/45 bg-[#FBF7F0]/65 px-3 py-3 shadow-[0_12px_34px_rgba(63,48,37,.07)] backdrop-blur-[5px]"
           style={{
             left: contact.x + "%",
             top: contact.y + "%",
             rotate: contact.rotate,
             opacity: contact.opacity,
+            width: 190,
           }}
-          initial={reduced ? false : { opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: contact.opacity, scale: 1 }}
+          initial={reduced ? false : { opacity: 0, y: 8 }}
+          whileInView={{ opacity: contact.opacity, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.018, ease: EASE }}
+          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.035, ease: EASE }}
         >
           <AutumnAvatar cell={contact.cell} size={contact.size} muted />
+          <div className="min-w-0">
+            <div className="truncate text-[9px] font-semibold uppercase tracking-[0.13em] text-[#766C63]">{contact.label}</div>
+            <div className="mt-1 truncate text-[10px] text-[#91877E]">{contact.meta}</div>
+          </div>
         </motion.div>
       ))}
 
       <motion.div
-        className="absolute left-[36%] top-[42%] z-20 -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-[34%] top-[41%] z-20 -translate-x-1/2 -translate-y-1/2"
         initial={reduced ? false : { opacity: 0, scale: 0.92 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.45 }}
@@ -311,7 +288,7 @@ function ArchiveScene() {
         <div className="relative">
           <span className="absolute -inset-3 rounded-full border border-[#BF7458]/22" />
           <span className="absolute -inset-6 rounded-full border border-[#BF7458]/10" />
-          <AutumnAvatar cell={9} size={104} />
+          <AutumnAvatar cell={9} size={122} />
         </div>
         <div className="mt-5 -translate-x-2 rounded-full border border-[#D8C8B9] bg-[#F8F3EA]/90 px-4 py-2 text-center text-[9px] font-semibold uppercase tracking-[0.13em] text-[#7B6B60] shadow-sm backdrop-blur-sm">
           Quote sent · 5 months quiet
@@ -322,7 +299,7 @@ function ArchiveScene() {
       <div className="pointer-events-none absolute left-[58%] top-[42%] hidden h-2 w-2 -translate-y-1/2 rounded-full bg-[#BF7458] sm:block" />
 
       <motion.div
-        className="absolute right-[2%] top-[28%] z-30 w-[48%] max-w-[320px] rounded-[20px] bg-white px-5 py-5 shadow-[0_20px_54px_rgba(79,57,43,.12)] sm:right-[3%]"
+        className="absolute right-[1%] top-[28%] z-30 w-[47%] max-w-[330px] border-l-2 border-[#BF7458] bg-white/92 px-5 py-5 shadow-[0_22px_56px_rgba(79,57,43,.12)] backdrop-blur-sm sm:right-[2%]"
         initial={reduced ? false : { opacity: 0, x: 14 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.5 }}
@@ -335,7 +312,7 @@ function ArchiveScene() {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-[14%] right-[7%] z-30 w-[52%] max-w-[350px] rounded-[20px] bg-[#1E2B29] px-5 py-5 text-[#F7F4EE] shadow-[0_24px_58px_rgba(37,43,40,.18)]"
+        className="absolute bottom-[13%] right-[4%] z-30 w-[55%] max-w-[385px] bg-[#1E2B29] px-5 py-5 text-[#F7F4EE] shadow-[0_28px_68px_rgba(31,43,41,.20)]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
@@ -355,7 +332,7 @@ function ArchiveScene() {
       </motion.div>
 
       <div className="absolute bottom-[5%] left-[5%] max-w-[250px] text-[10px] font-medium leading-[1.55] text-[#8A8178]">
-        Most records stay quiet. The right ones come back into focus.
+        Most records stay quiet. One worthwhile conversation comes back into focus.
       </div>
     </div>
   );
@@ -366,7 +343,7 @@ function QuietMoments() {
     <section className="bg-[#FCFBF8] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1280px]">
         <Reveal className="max-w-[900px]">
-          <Eyebrow tone="muted">Where old revenue sits</Eyebrow>
+          <Eyebrow tone="muted">Where opportunities go quiet</Eyebrow>
           <h2
             className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[70px]"
             style={{ fontFamily: DISPLAY }}
@@ -379,9 +356,6 @@ function QuietMoments() {
         <div className="mt-14 grid gap-4 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
             <article className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#BF7458] p-7 text-[#FFF9F5] sm:p-9">
-              <div className="absolute right-5 top-0 text-[128px] font-medium leading-none tracking-[-0.08em] text-white/[0.075]" style={{ fontFamily: DISPLAY }}>
-                01
-              </div>
               <div className="relative flex min-h-[290px] flex-col justify-between">
                 <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-white/62">Old enquiries</div>
                 <div>
@@ -399,9 +373,6 @@ function QuietMoments() {
 
           <Reveal className="lg:col-span-5">
             <article className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#F0D59D] p-7 text-[#24231E] sm:p-9">
-              <div className="absolute right-5 top-0 text-[116px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.05]" style={{ fontFamily: DISPLAY }}>
-                02
-              </div>
               <div className="relative flex min-h-[290px] flex-col justify-between">
                 <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#9B6722]">Stale quotes</div>
                 <div>
@@ -420,9 +391,6 @@ function QuietMoments() {
           <Reveal className="lg:col-span-12">
             <article className="grid min-h-[270px] overflow-hidden rounded-[30px] bg-[#DCE0CC] text-[#1A2018] sm:grid-cols-[0.78fr_1.22fr]">
               <div className="relative flex items-end p-7 sm:p-9">
-                <div className="absolute right-4 top-[-18px] text-[122px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.045]" style={{ fontFamily: DISPLAY }}>
-                  03
-                </div>
                 <div>
                   <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#667044]">Past customers</div>
                   <h3 className="mt-7 text-[44px] font-medium leading-[0.93] tracking-[-0.057em] sm:text-[56px]" style={{ fontFamily: DISPLAY }}>
@@ -457,7 +425,7 @@ function AudienceSection() {
       <div className="pointer-events-none absolute right-[-8%] top-[-18%] h-[460px] w-[460px] rounded-full bg-white/26 blur-3xl" />
       <div className="relative mx-auto grid max-w-[1320px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
         <Reveal className="max-w-[570px]">
-          <Eyebrow tone="muted">Controlled reactivation</Eyebrow>
+          <Eyebrow tone="muted">Not another database blast</Eyebrow>
           <h2
             className="mt-4 text-[43px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[58px] lg:text-[70px]"
             style={{ fontFamily: DISPLAY }}
@@ -466,7 +434,7 @@ function AudienceSection() {
             <span className="block text-[#7E687F]">Wake the right ones.</span>
           </h2>
           <p className="mt-6 max-w-[540px] text-[15px] leading-[1.75] text-[#645D66] sm:text-[17px]">
-            Reopen starts with selection, not sending. Active opportunities stay out. Recent contacts stay out. People who should not be contacted stay out.
+            Reopen starts with selection, not sending. Active opportunities stay out. Recent contacts stay out. Unsubscribed people stay out. Only the right dormant records move forward.
           </p>
 
           <div className="mt-8 grid gap-3 text-[12px] font-semibold text-[#514C53] sm:grid-cols-2">
@@ -556,14 +524,17 @@ function ReopenedStory() {
     <section className="bg-[#F3EBDD] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1240px]">
         <Reveal className="max-w-[900px]">
-          <Eyebrow>One old conversation</Eyebrow>
+          <Eyebrow>Context stays attached</Eyebrow>
           <h2
             className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[60px] lg:text-[72px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Same customer.
-            <span className="block text-[#BF7458]">Conversation reopened.</span>
+            A reply doesn't become a brand-new lead.
+            <span className="block text-[#BF7458]">It reopens the same customer story.</span>
           </h2>
+          <p className="mt-6 max-w-[720px] text-[15px] leading-[1.75] text-[#6A625B] sm:text-[17px]">
+            The enquiry, quote, notes and messages stay with the same customer record, so your team picks up where the conversation left off.
+          </p>
         </Reveal>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:gap-6">
@@ -635,61 +606,6 @@ function ReopenedStory() {
               </div>
             </div>
           </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function UseCases() {
-  return (
-    <section className="bg-[#FCFBF8] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[860px]">
-          <Eyebrow tone="muted">Three ways Reopen earns its place</Eyebrow>
-          <h2
-            className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[66px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Same idea.
-            <span className="block text-[#BF7458]">Different reason to come back.</span>
-          </h2>
-        </Reveal>
-
-        <div className="mt-12 border-y border-[#DDD6CD] lg:grid lg:grid-cols-3">
-          {USE_CASES.map((item, index) => (
-            <Reveal
-              key={item.label}
-              className={index === 0 ? "" : "border-t border-[#DDD6CD] lg:border-l lg:border-t-0"}
-              delay={index * 0.04}
-            >
-              <article className="min-h-[470px] px-1 py-8 sm:px-4 sm:py-10 lg:px-8 lg:py-12">
-                <div className="flex items-center gap-3">
-                  <span className="h-3 w-3 rounded-full" style={{ backgroundColor: item.accent }} />
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.17em]" style={{ color: item.accent }}>
-                    {item.label}
-                  </span>
-                </div>
-
-                <h3 className="mt-7 max-w-[350px] text-[31px] font-medium leading-[1.02] tracking-[-0.046em]" style={{ fontFamily: DISPLAY }}>
-                  {item.title}
-                </h3>
-
-                <div className="mt-9 rounded-[18px] px-4 py-4 text-[13px] font-semibold leading-[1.5] text-[#302D29]" style={{ backgroundColor: item.bg }}>
-                  {item.message}
-                </div>
-
-                <div className="ml-auto mt-3 max-w-[88%] rounded-[18px] bg-[#1E2B29] px-4 py-4 text-[13px] font-semibold leading-[1.5] text-[#F7F4EE]">
-                  {item.reply}
-                </div>
-
-                <div className="mt-6 flex items-center gap-2 text-[10px] font-semibold text-[#74706A]">
-                  <Check size={12} style={{ color: item.accent }} strokeWidth={2.5} />
-                  Stop on reply. Hand back to the team.
-                </div>
-              </article>
-            </Reveal>
-          ))}
         </div>
       </div>
     </section>
@@ -780,7 +696,7 @@ function Faq() {
             className="mt-4 text-[42px] font-medium leading-[0.97] tracking-[-0.052em] sm:text-[54px]"
             style={{ fontFamily: DISPLAY }}
           >
-            The obvious questions before you wake old conversations up.
+            Questions before you reopen old conversations.
           </h2>
         </Reveal>
 
@@ -828,16 +744,15 @@ function FinalCta() {
 
       <div className="relative mx-auto max-w-[1080px] text-center">
         <Reveal>
-          <Eyebrow tone="light">Reopen what is already there</Eyebrow>
+          <Eyebrow tone="light">Before you buy another lead</Eyebrow>
           <h2
             className="mx-auto mt-5 max-w-[960px] text-[45px] font-medium leading-[0.93] tracking-[-0.058em] sm:text-[62px] lg:text-[76px]"
             style={{ fontFamily: DISPLAY }}
           >
-            You already paid to get their attention.
-            <span className="block text-[#F8E2B5]">Reopen the conversation.</span>
+            Look at the conversations you already paid to start.
           </h2>
           <p className="mx-auto mt-6 max-w-[650px] text-[15px] leading-[1.75] text-white/72">
-            We can help you work out which dormant opportunities are worth revisiting and the cleanest way to bring them back into conversation.
+            Reopen the ones that still have somewhere to go.
           </p>
 
           <div className="mt-8 flex justify-center">
