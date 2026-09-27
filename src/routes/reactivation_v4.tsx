@@ -1,196 +1,860 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, MessageSquare } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
 
-export const Route=createFileRoute("/reactivation_v4")({
-  staticData:{sitemap:false},
-  head:()=>({meta:[{title:"Reopen | The Echo | Zapla"},{name:"robots",content:"noindex, nofollow"}]}),
-  component:TheEcho,
+export const Route = createFileRoute("/reactivation_v4")({
+  staticData: { sitemap: false },
+  head: () => ({
+    meta: [
+      { title: "Reopen V4 | Lead & Customer Reactivation | Zapla" },
+      {
+        name: "description",
+        content:
+          "Zapla Reopen helps service businesses bring old enquiries, stale quotes and past customers back into conversation with controlled lead and customer reactivation.",
+      },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
+  component: ReactivationPage,
 });
 
-const BOOK_URL="https://zapla.io/booking";
-const DISPLAY='"Inter Tight","Outfit","Manrope",system-ui,sans-serif';
-const BODY='"Manrope",system-ui,sans-serif';
-const EASE=[0.22,1,0.36,1] as const;
+const BOOK_URL = "https://zapla.io/booking";
+const PRICING_URL = "/Pricing-v3";
+const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
+const BODY = '"Manrope", system-ui, sans-serif';
+const EASE = [0.22, 1, 0.36, 1] as const;
+const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
-const FAQS=[
-  ["What is Reopen?","Reopen helps service businesses restart dormant enquiries, stale quotes and past-customer conversations."],
-  ["Does it message everyone?","No. Reopen is designed around controlled audience selection and exclusions."],
-  ["What happens when someone replies?","Outreach can stop and the reply can route back to your team with the original history attached."],
+const FAQS = [
+  {
+    q: "What is Reopen?",
+    a: "Reopen is Zapla's lead and customer reactivation solution. It helps you identify dormant enquiries, older quotes and past customers worth revisiting, then restart the conversation with rules around who gets contacted and what happens when they reply.",
+  },
+  {
+    q: "How is Reopen different from Follow-Up?",
+    a: "Follow-Up keeps active opportunities moving while they are still live. Reopen goes back to opportunities that have already gone quiet and gives them a fresh reason to re-engage.",
+  },
+  {
+    q: "Does Reopen message my whole database?",
+    a: "No. The audience should be deliberate. You can exclude active opportunities, recent contacts, unsubscribed contacts, people who already replied and anyone outside the segment you want to reach.",
+  },
+  {
+    q: "What happens when someone replies?",
+    a: "The outreach can stop automatically and the conversation can route back to your team with the previous customer history still attached.",
+  },
+  {
+    q: "Which Zapla plan includes Reopen?",
+    a: "Reopen is included in Growth. Growth is currently A$699 per month plus GST, with Guided Launch from A$2,997 plus GST.",
+  },
+  {
+    q: "What is Ghost to Gold?",
+    a: "Ghost to Gold is the done for you Reopen service. Sprint starts from A$997 plus GST and covers campaign build and launch. Managed starts from A$1,497 plus GST and also includes monitoring and handoff of interested customers to your team.",
+  },
 ] as const;
 
-function Reveal({children,className="",delay=0}:{children:ReactNode;className?:string;delay?:number}) {
-  const reduced=!!useReducedMotion();
-  return <motion.div className={className} initial={reduced?false:{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.18}} transition={{duration:reduced?0:.58,delay:reduced?0:delay,ease:EASE}}>{children}</motion.div>;
-}
-function Eyebrow({children,color="#8C8177"}:{children:ReactNode;color?:string}) {
-  return <div className="text-[9px] font-semibold uppercase tracking-[.24em]" style={{color}}>{children}</div>;
+const ARCHIVE_CONTACTS = [
+  { cell: 2, x: 5, y: 13, size: 74, rotate: -3, opacity: 0.28, label: "Old enquiry", meta: "7 months quiet" },
+  { cell: 13, x: 34, y: 9, size: 82, rotate: 2, opacity: 0.24, label: "Past customer", meta: "11 months quiet" },
+  { cell: 20, x: 81, y: 16, size: 78, rotate: -2, opacity: 0.26, label: "Quote sent", meta: "4 months quiet" },
+  { cell: 6, x: 8, y: 56, size: 84, rotate: 2, opacity: 0.22, label: "Old enquiry", meta: "5 months quiet" },
+  { cell: 17, x: 79, y: 55, size: 82, rotate: -2, opacity: 0.24, label: "Past customer", meta: "14 months quiet" },
+  { cell: 11, x: 24, y: 86, size: 76, rotate: 2, opacity: 0.19, label: "Quote sent", meta: "8 months quiet" },
+  { cell: 23, x: 86, y: 84, size: 72, rotate: -2, opacity: 0.18, label: "Old enquiry", meta: "9 months quiet" },
+] as const;
+
+const AUDIENCE = [
+  { cell: 0, label: "Old enquiry", selected: true },
+  { cell: 3, label: "Active quote", selected: false },
+  { cell: 7, label: "Past customer", selected: true },
+  { cell: 12, label: "Recent contact", selected: false },
+  { cell: 18, label: "Old quote", selected: true },
+  { cell: 21, label: "Unsubscribed", selected: false },
+  { cell: 5, label: "Dormant lead", selected: true },
+  { cell: 9, label: "Active job", selected: false },
+  { cell: 14, label: "Past customer", selected: true },
+  { cell: 20, label: "Already replied", selected: false },
+  { cell: 11, label: "Old enquiry", selected: true },
+  { cell: 16, label: "Recent lead", selected: false },
+] as const;
+
+const USE_CASES = [
+  {
+    label: "OLD ENQUIRY",
+    accent: "#BF7458",
+    bg: "#E7CEC2",
+    title: "The enquiry was real. The timing was not.",
+    message: "Still looking to get this sorted?",
+    reply: "Yes. What are the next steps?",
+  },
+  {
+    label: "STALE QUOTE",
+    accent: "#9B6722",
+    bg: "#F0D59D",
+    title: "The quote went quiet before a decision was made.",
+    message: "Want us to update that quote?",
+    reply: "Yes, please send the latest pricing.",
+  },
+  {
+    label: "PAST CUSTOMER",
+    accent: "#667044",
+    bg: "#DCE0CC",
+    title: "They already know you. Nobody invited them back.",
+    message: "Need a hand with this again?",
+    reply: "Actually yes. Can someone call me today?",
+  },
+] as const;
+
+function ReactivationPage() {
+  return (
+    <main className="min-h-screen bg-[#F7F5F1] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
+      <Hero />
+      <QuietMoments />
+      <AudienceSection />
+      <ReopenedStory />
+      <UseCases />
+      <CommercialPaths />
+      <Faq />
+      <FinalCta />
+      <DominoFooter />
+    </main>
+  );
 }
 
-function TheEcho() {
-  return <main className="bg-[#151614] text-white" style={{fontFamily:BODY}}>
-    <EchoHero/>
-    <FadingConversation/>
-    <Silence/>
-    <NewLine/>
-    <Selection/>
-    <Commercial/>
-    <Faq/>
-    <FinalCta/>
-    <DominoFooter/>
-  </main>;
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const reduced = !!useReducedMotion();
+
+  return (
+    <motion.div
+      className={className}
+      initial={reduced ? false : { opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE }}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
-function EchoHero() {
-  return <section className="relative min-h-[88svh] overflow-hidden px-5 pb-20 pt-[116px] sm:px-10 lg:px-16 lg:pt-[136px]">
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(191,116,88,.09),transparent_27%),radial-gradient(circle_at_10%_90%,rgba(169,180,122,.07),transparent_24%)]"/>
-    <div className="relative mx-auto max-w-[1450px]">
-      <div className="flex items-center justify-between border-b border-white/10 pb-3 text-[8px] font-semibold uppercase tracking-[.18em] text-white/32">
-        <span>Zapla Reopen</span><span>The Echo</span>
-      </div>
+function Eyebrow({
+  children,
+  tone = "coral",
+}: {
+  children: ReactNode;
+  tone?: "coral" | "gold" | "muted" | "light";
+}) {
+  const tones = {
+    coral: "text-[#BF7458]",
+    gold: "text-[#DDA34B]",
+    muted: "text-[#77716A]",
+    light: "text-white/62",
+  };
 
-      <Reveal className="pt-[12vh]">
-        <Eyebrow color="#D88B6F">Lead & customer reactivation</Eyebrow>
-        <h1 className="mt-6 max-w-[1260px] text-[60px] font-medium leading-[.86] tracking-[-.07em] sm:text-[86px] lg:text-[118px]" style={{fontFamily:DISPLAY}}>
-          The conversation
-          <span className="block text-white/28">didn't end.</span>
-          <span className="block text-[#D88B6F]">It faded.</span>
-        </h1>
-      </Reveal>
+  return (
+    <div className={"text-[10px] font-semibold uppercase tracking-[0.22em] " + tones[tone]}>
+      {children}
     </div>
-  </section>;
+  );
 }
 
-function FadingConversation() {
-  const lines=[
-    {text:"How much would this cost?",size:"text-[34px] sm:text-[46px] lg:text-[58px]",opacity:"text-white/92",indent:"ml-0"},
-    {text:"Can you send me a quote?",size:"text-[30px] sm:text-[42px] lg:text-[52px]",opacity:"text-white/68",indent:"ml-[10%]"},
-    {text:"Thanks. I'll take a look.",size:"text-[27px] sm:text-[38px] lg:text-[46px]",opacity:"text-white/45",indent:"ml-[21%]"},
-    {text:"…",size:"text-[24px] sm:text-[34px] lg:text-[40px]",opacity:"text-white/20",indent:"ml-[34%]"},
-  ];
-  return <section className="px-5 py-24 sm:px-10 lg:px-16 lg:py-32">
-    <div className="mx-auto max-w-[1320px]">
-      <Eyebrow color="#D88B6F">FEBRUARY</Eyebrow>
-      <div className="mt-12 space-y-16">
-        {lines.map((x,i)=><Reveal key={x.text} delay={i*.05} className={x.indent}>
-          <div className={x.size+" "+x.opacity+" font-medium tracking-[-.045em]"} style={{fontFamily:DISPLAY}}>{x.text}</div>
-          <div className="mt-4 h-px w-[68%] bg-white/8"/>
-        </Reveal>)}
-      </div>
-    </div>
-  </section>;
+function AutumnAvatar({
+  cell,
+  size,
+  muted = false,
+  className = "",
+}: {
+  cell: number;
+  size: number;
+  muted?: boolean;
+  className?: string;
+}) {
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+
+  return (
+    <span
+      className={
+        "block shrink-0 overflow-hidden rounded-full border border-black/[0.06] shadow-[0_10px_28px_rgba(46,36,28,.11)] " +
+        className
+      }
+      style={{
+        width: size,
+        height: size,
+        backgroundImage: "url(" + PORTRAIT_SHEET + ")",
+        backgroundPosition: (column / 5) * 100 + "% " + (row / 3) * 100 + "%",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "600% 400%",
+        filter: muted ? "grayscale(.78) saturate(.58)" : undefined,
+      }}
+      aria-hidden="true"
+    />
+  );
 }
 
-function Silence() {
-  return <section className="relative flex min-h-[92svh] items-center justify-center overflow-hidden border-y border-white/8">
-    <div className="absolute inset-0 bg-[#121311]"/>
-    <Reveal className="relative text-center">
-      <div className="text-[10px] font-semibold uppercase tracking-[.22em] text-white/22">MAR · APR · MAY · JUN · JUL</div>
-      <div className="mt-8 text-[82px] font-medium leading-none tracking-[-.075em] text-white/[.08] sm:text-[140px] lg:text-[220px]" style={{fontFamily:DISPLAY}}>167 DAYS</div>
-      <div className="mt-2 text-[12px] uppercase tracking-[.18em] text-white/24">no reply</div>
-    </Reveal>
-  </section>;
-}
+function Hero() {
+  return (
+    <section className="relative overflow-hidden bg-[#F3EBDD] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-24 lg:pt-[136px]">
+      <div className="pointer-events-none absolute -left-24 top-[16%] h-[420px] w-[420px] rounded-full bg-[#E7CEC2]/55 blur-3xl" />
+      <div className="pointer-events-none absolute right-[3%] top-[5%] h-[470px] w-[470px] rounded-full bg-[#DCE0CC]/55 blur-3xl" />
+      <div className="pointer-events-none absolute right-[20%] top-[18%] h-[390px] w-[390px] rounded-full bg-[#E7E0EA]/42 blur-3xl" />
+      <div className="pointer-events-none absolute right-[8%] top-[29%] h-[520px] w-[520px] rounded-full bg-[#1E2B29]/[0.10] blur-3xl" />
 
-function NewLine() {
-  return <section className="relative overflow-hidden bg-[#F4EBDD] px-5 py-24 text-[#171816] sm:px-10 lg:px-16 lg:py-32">
-    <div className="mx-auto max-w-[1320px]">
-      <Reveal>
-        <Eyebrow color="#BF7458">08 AUG · REOPEN</Eyebrow>
-        <div className="mt-10 flex items-start gap-4">
-          <span className="mt-4 block h-8 w-[3px] animate-pulse bg-[#BF7458]"/>
-          <div className="text-[48px] font-medium leading-[.98] tracking-[-.055em] sm:text-[68px] lg:text-[86px]" style={{fontFamily:DISPLAY}}>
-            Want us to update that quote?
+      <div className="relative mx-auto grid max-w-[1420px] items-center gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-10">
+        <Reveal className="max-w-[640px]">
+          <div className="flex flex-wrap items-center gap-3">
+            <Eyebrow>Reopen</Eyebrow>
+            <span className="h-px w-7 bg-[#C9B7A6]" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8D8277]">
+              Lead & customer reactivation
+            </span>
           </div>
-        </div>
-      </Reveal>
 
-      <Reveal className="mt-20 lg:ml-[20%]" delay={.12}>
-        <Eyebrow color="#667044">REPLY RECEIVED</Eyebrow>
-        <div className="mt-6 text-[42px] font-medium leading-[1] tracking-[-.05em] text-[#667044] sm:text-[60px] lg:text-[76px]" style={{fontFamily:DISPLAY}}>
-          Yes. Send me the latest pricing.
-        </div>
-        <div className="mt-8 flex flex-wrap gap-5 text-[9px] font-semibold uppercase tracking-[.13em] text-[#706B64]">
-          {["Outreach stopped","History preserved","Sales notified"].map(x=><span key={x} className="inline-flex items-center gap-2"><Check size={11} className="text-[#70804B]"/>{x}</span>)}
-        </div>
-      </Reveal>
-    </div>
-  </section>;
-}
+          <h1
+            className="mt-5 text-[50px] font-medium leading-[0.91] tracking-[-0.062em] sm:text-[68px] lg:text-[84px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            They went quiet.
+            <span className="mt-1 block text-[#BF7458]">
+              That doesn't mean they're gone.
+            </span>
+          </h1>
 
-function Selection() {
-  const rows=[
-    ["ACTIVE QUOTE","Still moving.","LEAVE IT ALONE",false],
-    ["CONTACTED YESTERDAY","Too soon.","LEAVE IT ALONE",false],
-    ["UNSUBSCRIBED","Not eligible.","LEAVE IT ALONE",false],
-    ["5 MONTHS QUIET · NO CLEAR NO","Still unresolved.","REOPEN",true],
-  ] as const;
-  return <section className="bg-[#E7E0EA] px-5 py-24 text-[#171816] sm:px-10 lg:px-16 lg:py-28">
-    <div className="mx-auto max-w-[1320px]">
-      <Reveal className="max-w-[900px]">
-        <Eyebrow color="#7E687F">Not every echo needs an answer</Eyebrow>
-        <h2 className="mt-5 text-[48px] font-medium leading-[.92] tracking-[-.06em] sm:text-[66px] lg:text-[78px]" style={{fontFamily:DISPLAY}}>
-          Reopen chooses
-          <span className="block text-[#7E687F]">where to speak again.</span>
-        </h2>
-      </Reveal>
+          <p className="mt-6 max-w-[595px] text-[16px] leading-[1.72] text-[#655F59] sm:text-[18px]">
+            Reopen finds old enquiries, stale quotes and past customers worth revisiting, starts the right conversation, and stops as soon as someone replies.
+          </p>
 
-      <div className="mt-14 border-t border-[#7E687F]/16">
-        {rows.map(([a,b,c,active],i)=><Reveal key={a} delay={i*.04}>
-          <div className={"grid gap-4 border-b border-[#7E687F]/16 py-6 sm:grid-cols-[1.2fr_.8fr_auto] sm:items-center "+(active?"":"opacity-35")}>
-            <div className={"text-[30px] font-medium tracking-[-.04em] sm:text-[40px] "+(active?"text-[#BF7458]":"")} style={{fontFamily:DISPLAY}}>{a}</div>
-            <div className="text-[12px] text-[#756D77]">{b}</div>
-            <div className={"text-[9px] font-bold uppercase tracking-[.14em] "+(active?"text-[#BF7458]":"text-[#7E687F]")}>{c}</div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={BOOK_URL}
+              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
+            >
+              Book a Call <ArrowRight size={15} />
+            </a>
+            <a
+              href="#how-reopen-works"
+              className="inline-flex h-[50px] items-center rounded-[10px] border border-[#CFC1B4] bg-white/58 px-6 text-[13px] font-semibold text-[#1F211E] backdrop-blur-sm"
+            >
+              See how Reopen works
+            </a>
           </div>
-        </Reveal>)}
+
+          <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[11px] font-semibold text-[#6D6862] sm:text-[12px]">
+            {["Old enquiries", "Stale quotes", "Past customers"].map((item, index) => (
+              <span key={item} className="inline-flex items-center gap-2">
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ backgroundColor: ["#BF7458", "#DDA34B", "#99A36D"][index] }}
+                />
+                {item}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <ArchiveScene />
+        </Reveal>
       </div>
-    </div>
-  </section>;
+    </section>
+  );
 }
 
-function Commercial() {
-  return <section className="bg-[#F7F4EE] px-5 py-24 text-[#171816] sm:px-10 lg:px-16">
-    <div className="mx-auto max-w-[1180px]">
-      <Eyebrow>Two ways to use Reopen</Eyebrow>
-      <div className="mt-10 grid border-y border-[#D9D0C6] lg:grid-cols-2">
-        <div className="py-9 lg:border-r lg:border-[#D9D0C6] lg:pr-10">
-          <div className="text-[9px] font-bold uppercase tracking-[.14em] text-[#667044]">GROWTH</div>
-          <div className="mt-4 text-[38px] font-medium tracking-[-.045em]" style={{fontFamily:DISPLAY}}>A$699 /mo + GST</div>
+function ArchiveScene() {
+  const reduced = !!useReducedMotion();
+
+  return (
+    <div className="relative mx-auto min-h-[500px] w-full max-w-[760px] sm:min-h-[560px] lg:min-h-[630px]">
+      <div
+        className="pointer-events-none absolute inset-[2%] rounded-[44%]"
+        style={{
+          background:
+            "radial-gradient(ellipse at 52% 46%, rgba(30,43,41,.24), rgba(30,43,41,.07) 40%, transparent 68%), radial-gradient(circle at 73% 22%, rgba(220,224,204,.72), transparent 29%), radial-gradient(circle at 28% 68%, rgba(231,206,194,.70), transparent 31%), radial-gradient(circle at 84% 76%, rgba(231,224,234,.62), transparent 26%)",
+        }}
+      />
+
+      {ARCHIVE_CONTACTS.map((contact, index) => (
+        <motion.div
+          key={contact.label + index}
+          className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-3 border border-white/45 bg-[#FBF7F0]/65 px-3 py-3 shadow-[0_12px_34px_rgba(63,48,37,.07)] backdrop-blur-[5px]"
+          style={{
+            left: contact.x + "%",
+            top: contact.y + "%",
+            rotate: contact.rotate,
+            opacity: contact.opacity,
+            width: 190,
+          }}
+          initial={reduced ? false : { opacity: 0, y: 8 }}
+          whileInView={{ opacity: contact.opacity, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : index * 0.035, ease: EASE }}
+        >
+          <AutumnAvatar cell={contact.cell} size={contact.size} muted />
+          <div className="min-w-0">
+            <div className="truncate text-[9px] font-semibold uppercase tracking-[0.13em] text-[#766C63]">{contact.label}</div>
+            <div className="mt-1 truncate text-[10px] text-[#91877E]">{contact.meta}</div>
+          </div>
+        </motion.div>
+      ))}
+
+      <motion.div
+        className="absolute left-[34%] top-[41%] z-20 -translate-x-1/2 -translate-y-1/2"
+        initial={reduced ? false : { opacity: 0, scale: 0.92 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.45 }}
+        transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.18, ease: EASE }}
+      >
+        <div className="relative">
+          <span className="absolute -inset-3 rounded-full border border-[#BF7458]/22" />
+          <span className="absolute -inset-6 rounded-full border border-[#BF7458]/10" />
+          <AutumnAvatar cell={9} size={122} />
         </div>
-        <div className="py-9 lg:pl-10">
-          <div className="text-[9px] font-bold uppercase tracking-[.14em] text-[#BF7458]">GHOST TO GOLD</div>
-          <div className="mt-4 text-[38px] font-medium tracking-[-.045em]" style={{fontFamily:DISPLAY}}>From A$997 + GST</div>
+        <div className="mt-5 -translate-x-2 rounded-full border border-[#D8C8B9] bg-[#F8F3EA]/90 px-4 py-2 text-center text-[9px] font-semibold uppercase tracking-[0.13em] text-[#7B6B60] shadow-sm backdrop-blur-sm">
+          Quote sent · 5 months quiet
         </div>
+      </motion.div>
+
+      <div className="pointer-events-none absolute left-[47%] top-[42%] hidden h-px w-[12%] bg-[#BF7458]/45 sm:block" />
+      <div className="pointer-events-none absolute left-[58%] top-[42%] hidden h-2 w-2 -translate-y-1/2 rounded-full bg-[#BF7458] sm:block" />
+
+      <motion.div
+        className="absolute right-[1%] top-[28%] z-30 w-[47%] max-w-[330px] border-l-2 border-[#BF7458] bg-white/92 px-5 py-5 shadow-[0_22px_56px_rgba(79,57,43,.12)] backdrop-blur-sm sm:right-[2%]"
+        initial={reduced ? false : { opacity: 0, x: 14 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.34, ease: EASE }}
+      >
+        <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#A66A55]">Reopen</div>
+        <p className="mt-3 text-[14px] font-semibold leading-[1.5] text-[#2E2A27] sm:text-[15px]">
+          Want us to update that quote?
+        </p>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-[13%] right-[4%] z-30 w-[55%] max-w-[385px] bg-[#1E2B29] px-5 py-5 text-[#F7F4EE] shadow-[0_28px_68px_rgba(31,43,41,.20)]"
+        initial={reduced ? false : { opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.5, ease: EASE }}
+      >
+        <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/48">
+          <MessageSquare size={12} />
+          Reply received
+        </div>
+        <p className="mt-3 text-[14px] font-semibold leading-[1.5] sm:text-[15px]">
+          Yes. Please send me the latest pricing.
+        </p>
+        <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-4 text-[10px] font-semibold text-[#C9D2A7]">
+          <span className="h-2 w-2 rounded-full bg-[#99A36D]" />
+          REOPENED
+        </div>
+      </motion.div>
+
+      <div className="absolute bottom-[5%] left-[5%] max-w-[250px] text-[10px] font-medium leading-[1.55] text-[#8A8178]">
+        Most records stay quiet. One worthwhile conversation comes back into focus.
       </div>
     </div>
-  </section>;
+  );
+}
+
+function QuietMoments() {
+  return (
+    <section className="bg-[#FCFBF8] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[900px]">
+          <Eyebrow tone="muted">Where old revenue sits</Eyebrow>
+          <h2
+            className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[70px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Some opportunities never really ended.
+            <span className="block text-[#BF7458]">They just stopped moving.</span>
+          </h2>
+        </Reveal>
+
+        <div className="mt-14 grid gap-4 lg:grid-cols-12">
+          <Reveal className="lg:col-span-7">
+            <article className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#BF7458] p-7 text-[#FFF9F5] sm:p-9">
+              <div className="absolute right-5 top-0 text-[128px] font-medium leading-none tracking-[-0.08em] text-white/[0.075]" style={{ fontFamily: DISPLAY }}>
+                01
+              </div>
+              <div className="relative flex min-h-[290px] flex-col justify-between">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-white/62">Old enquiries</div>
+                <div>
+                  <h3 className="max-w-[560px] text-[46px] font-medium leading-[0.94] tracking-[-0.058em] sm:text-[58px]" style={{ fontFamily: DISPLAY }}>
+                    They asked.
+                    <span className="block">Timing got in the way.</span>
+                  </h3>
+                  <p className="mt-6 max-w-[460px] text-[14px] leading-[1.68] text-white/72 sm:text-[15px]">
+                    The interest was real. The conversation simply never made it to the next step.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          <Reveal className="lg:col-span-5">
+            <article className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#F0D59D] p-7 text-[#24231E] sm:p-9">
+              <div className="absolute right-5 top-0 text-[116px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.05]" style={{ fontFamily: DISPLAY }}>
+                02
+              </div>
+              <div className="relative flex min-h-[290px] flex-col justify-between">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#9B6722]">Stale quotes</div>
+                <div>
+                  <h3 className="max-w-[430px] text-[43px] font-medium leading-[0.94] tracking-[-0.058em] sm:text-[53px]" style={{ fontFamily: DISPLAY }}>
+                    They didn't say no.
+                    <span className="block">They stopped replying.</span>
+                  </h3>
+                  <p className="mt-6 max-w-[370px] text-[14px] leading-[1.68] text-[#5D563F]">
+                    An older quote can still be an opportunity. It just needs a reason to come back into view.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          <Reveal className="lg:col-span-12">
+            <article className="grid min-h-[270px] overflow-hidden rounded-[30px] bg-[#DCE0CC] text-[#1A2018] sm:grid-cols-[0.78fr_1.22fr]">
+              <div className="relative flex items-end p-7 sm:p-9">
+                <div className="absolute right-4 top-[-18px] text-[122px] font-medium leading-none tracking-[-0.08em] text-[#111318]/[0.045]" style={{ fontFamily: DISPLAY }}>
+                  03
+                </div>
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#667044]">Past customers</div>
+                  <h3 className="mt-7 text-[44px] font-medium leading-[0.93] tracking-[-0.057em] sm:text-[56px]" style={{ fontFamily: DISPLAY }}>
+                    They already know you.
+                  </h3>
+                </div>
+              </div>
+              <div className="flex items-center border-t border-[#1A2018]/10 p-7 sm:border-l sm:border-t-0 sm:p-10">
+                <div>
+                  <div className="text-[34px] font-medium leading-[1] tracking-[-0.046em] text-[#49513B]" style={{ fontFamily: DISPLAY }}>
+                    Nobody invited them back.
+                  </div>
+                  <p className="mt-5 max-w-[590px] text-[16px] leading-[1.7] text-[#59604D]">
+                    The relationship already exists. Reopen gives the next conversation somewhere to start.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AudienceSection() {
+  return (
+    <section
+      id="how-reopen-works"
+      className="relative overflow-hidden bg-[#E7E0EA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28"
+    >
+      <div className="pointer-events-none absolute right-[-8%] top-[-18%] h-[460px] w-[460px] rounded-full bg-white/26 blur-3xl" />
+      <div className="relative mx-auto grid max-w-[1320px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
+        <Reveal className="max-w-[570px]">
+          <Eyebrow tone="muted">Controlled reactivation</Eyebrow>
+          <h2
+            className="mt-4 text-[43px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[58px] lg:text-[70px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Don't wake everyone up.
+            <span className="block text-[#7E687F]">Wake the right ones.</span>
+          </h2>
+          <p className="mt-6 max-w-[540px] text-[15px] leading-[1.75] text-[#645D66] sm:text-[17px]">
+            Reopen starts with selection, not sending. Active opportunities stay out. Recent contacts stay out. People who should not be contacted stay out.
+          </p>
+
+          <div className="mt-8 grid gap-3 text-[12px] font-semibold text-[#514C53] sm:grid-cols-2">
+            {["Audience rules", "Controlled batches", "Stop on reply", "Human handoff"].map((item) => (
+              <span key={item} className="flex items-center gap-2.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/56 text-[#7E687F]">
+                  <Check size={13} strokeWidth={2.5} />
+                </span>
+                {item}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="relative mx-auto max-w-[720px]">
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4">
+              {AUDIENCE.map((person, index) => (
+                <AudiencePerson key={index} person={person} index={index} />
+              ))}
+            </div>
+
+            <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-[#7E687F]/15 pt-5">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.13em] text-[#776E79]">
+                6 records selected for this audience
+              </div>
+              <div className="flex items-center gap-4 text-[10px] font-semibold text-[#776E79]">
+                <span className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-[#7E687F]" />
+                  Eligible
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-[#AAA1AA]" />
+                  Excluded
+                </span>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function AudiencePerson({
+  person,
+  index,
+}: {
+  person: (typeof AUDIENCE)[number];
+  index: number;
+}) {
+  const reduced = !!useReducedMotion();
+
+  return (
+    <motion.div
+      initial={reduced ? false : { opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.45 }}
+      transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : index * 0.035, ease: EASE }}
+      className={
+        "relative flex min-h-[158px] flex-col items-center justify-center rounded-[22px] border px-3 py-4 text-center " +
+        (person.selected
+          ? "border-[#7E687F]/22 bg-white/60 shadow-[0_14px_36px_rgba(83,70,87,.08)]"
+          : "border-white/30 bg-white/22")
+      }
+    >
+      <AutumnAvatar cell={person.cell} size={54} muted={!person.selected} />
+      <div className={"mt-3 text-[10px] font-semibold " + (person.selected ? "text-[#3D3940]" : "text-[#8A818B]")}>
+        {person.label}
+      </div>
+      <div
+        className={
+          "mt-2 rounded-full px-2 py-1 text-[8px] font-bold uppercase tracking-[0.1em] " +
+          (person.selected
+            ? "bg-[#7E687F]/10 text-[#7E687F]"
+            : "bg-black/[0.035] text-[#9A929B]")
+        }
+      >
+        {person.selected ? "Select" : "Exclude"}
+      </div>
+    </motion.div>
+  );
+}
+
+function ReopenedStory() {
+  return (
+    <section className="bg-[#F3EBDD] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1240px]">
+        <Reveal className="max-w-[900px]">
+          <Eyebrow>One old conversation</Eyebrow>
+          <h2
+            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[60px] lg:text-[72px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Same customer.
+            <span className="block text-[#BF7458]">Conversation reopened.</span>
+          </h2>
+        </Reveal>
+
+        <div className="mt-12 grid gap-5 lg:grid-cols-[0.78fr_1.22fr] lg:gap-6">
+          <Reveal>
+            <div className="h-full rounded-[28px] border border-[#D8CABC] bg-white/50 p-6 sm:p-8">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8D8176]">History that stays attached</div>
+              <div className="relative mt-8">
+                <div className="absolute bottom-4 left-[15px] top-4 w-px bg-[#D9CFC3]" />
+                {[
+                  ["12 FEB", "Enquiry received", "Asked about pricing and timing."],
+                  ["14 FEB", "Quote sent", "A$4,800 proposal sent."],
+                  ["28 FEB", "Conversation went quiet", "No reply after the quote."],
+                  ["08 AUG", "Reopen selected the record", "Eligible for a new conversation."],
+                ].map(([date, title, copy], index) => (
+                  <div key={title} className="relative grid grid-cols-[32px_1fr] gap-4 pb-7 last:pb-0">
+                    <span
+                      className="relative z-10 mt-1 h-[10px] w-[10px] rounded-full border-2 border-[#F3EBDD]"
+                      style={{ backgroundColor: ["#C2A07B", "#DDA34B", "#9A9870", "#BF7458"][index] }}
+                    />
+                    <div>
+                      <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#9A8E83]">{date}</div>
+                      <div className="mt-1.5 text-[15px] font-semibold text-[#2C2926]">{title}</div>
+                      <div className="mt-1 text-[12px] leading-[1.55] text-[#716A63]">{copy}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.06}>
+            <div className="relative min-h-[520px] overflow-hidden rounded-[28px] bg-[#1E2B29] p-6 text-[#F7F4EE] sm:p-8 lg:p-10">
+              <div className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-[#BF7458]/12 blur-3xl" />
+              <div className="relative">
+                <div className="flex items-center gap-4">
+                  <AutumnAvatar cell={9} size={72} />
+                  <div>
+                    <div className="text-[24px] font-semibold tracking-[-0.035em]">Sarah Nguyen</div>
+                    <div className="mt-1 text-[11px] text-white/42">Existing customer record · 5 months quiet</div>
+                  </div>
+                </div>
+
+                <div className="mt-9 max-w-[490px] rounded-[20px] bg-[#E7CEC2] px-5 py-5 text-[#2B2926] shadow-[0_16px_42px_rgba(0,0,0,.12)]">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#9C6756]">Reopen</div>
+                  <div className="mt-3 text-[17px] font-medium leading-[1.48] tracking-[-0.015em]">
+                    Hi Sarah, want us to update the quote we sent earlier this year?
+                  </div>
+                </div>
+
+                <div className="ml-auto mt-5 max-w-[430px] rounded-[20px] border border-white/10 bg-white/[0.055] px-5 py-5">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/40">Sarah replied</div>
+                  <div className="mt-3 text-[18px] font-medium leading-[1.45] tracking-[-0.018em] text-white/94">
+                    Yes. Please send me the latest pricing.
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-wrap gap-2.5 border-t border-white/10 pt-6">
+                  {["Outreach stopped", "Conversation reopened", "Routed to Sales"].map((item) => (
+                    <span key={item} className="inline-flex items-center gap-2 rounded-full bg-white/[0.055] px-3 py-2 text-[10px] font-semibold text-white/68">
+                      <Check size={11} className="text-[#B9C88C]" strokeWidth={2.5} />
+                      {item}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="mt-8 max-w-[620px] text-[12px] leading-[1.65] text-white/46">
+                  The reply does not become a brand new lead. The enquiry, quote, notes and messages stay with the same customer record.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function UseCases() {
+  return (
+    <section className="bg-[#FCFBF8] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[860px]">
+          <Eyebrow tone="muted">Three ways Reopen earns its place</Eyebrow>
+          <h2
+            className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[66px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Same idea.
+            <span className="block text-[#BF7458]">Different reason to come back.</span>
+          </h2>
+        </Reveal>
+
+        <div className="mt-12 border-y border-[#DDD6CD] lg:grid lg:grid-cols-3">
+          {USE_CASES.map((item, index) => (
+            <Reveal
+              key={item.label}
+              className={index === 0 ? "" : "border-t border-[#DDD6CD] lg:border-l lg:border-t-0"}
+              delay={index * 0.04}
+            >
+              <article className="min-h-[470px] px-1 py-8 sm:px-4 sm:py-10 lg:px-8 lg:py-12">
+                <div className="flex items-center gap-3">
+                  <span className="h-3 w-3 rounded-full" style={{ backgroundColor: item.accent }} />
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.17em]" style={{ color: item.accent }}>
+                    {item.label}
+                  </span>
+                </div>
+
+                <h3 className="mt-7 max-w-[350px] text-[31px] font-medium leading-[1.02] tracking-[-0.046em]" style={{ fontFamily: DISPLAY }}>
+                  {item.title}
+                </h3>
+
+                <div className="mt-9 rounded-[18px] px-4 py-4 text-[13px] font-semibold leading-[1.5] text-[#302D29]" style={{ backgroundColor: item.bg }}>
+                  {item.message}
+                </div>
+
+                <div className="ml-auto mt-3 max-w-[88%] rounded-[18px] bg-[#1E2B29] px-4 py-4 text-[13px] font-semibold leading-[1.5] text-[#F7F4EE]">
+                  {item.reply}
+                </div>
+
+                <div className="mt-6 flex items-center gap-2 text-[10px] font-semibold text-[#74706A]">
+                  <Check size={12} style={{ color: item.accent }} strokeWidth={2.5} />
+                  Stop on reply. Hand back to the team.
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CommercialPaths() {
+  return (
+    <section className="bg-[#F7F5F1] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1220px]">
+        <Reveal className="max-w-[900px]">
+          <Eyebrow>Two ways to use Reopen</Eyebrow>
+          <h2
+            className="mt-4 text-[43px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[68px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Use Reopen yourself.
+            <span className="block text-[#BF7458]">Or let us run the first campaign.</span>
+          </h2>
+        </Reveal>
+
+        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          <Reveal>
+            <div className="flex h-full min-h-[400px] flex-col rounded-[28px] bg-[#E7E0EA] p-6 sm:p-8">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7E687F]">Growth</div>
+              <h3 className="mt-5 max-w-[460px] text-[36px] font-medium leading-[0.98] tracking-[-0.048em]" style={{ fontFamily: DISPLAY }}>
+                Reopen whenever the business needs it.
+              </h3>
+              <p className="mt-5 max-w-[500px] text-[14px] leading-[1.7] text-[#655D66]">
+                Build the audience, run targeted reactivation and keep the capability inside Zapla for ongoing use.
+              </p>
+
+              <div className="mt-9 border-t border-[#7E687F]/16 pt-6">
+                <div className="text-[31px] font-semibold tracking-[-0.04em] text-[#28242A]">
+                  A$699
+                  <span className="ml-1 text-[12px] font-medium tracking-normal text-[#706972]">/mo + GST</span>
+                </div>
+                <div className="mt-1 text-[11px] text-[#827A84]">Guided Launch from A$2,997 + GST</div>
+              </div>
+
+              <a href={PRICING_URL} className="mt-auto inline-flex w-fit items-center gap-2 pt-8 text-[12.5px] font-semibold text-[#332E35]">
+                View Growth <ArrowRight size={14} />
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.04}>
+            <div className="flex h-full min-h-[400px] flex-col rounded-[28px] bg-[#1E2B29] p-6 text-[#F7F4EE] sm:p-8">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#DDA34B]">Ghost to Gold</div>
+              <h3 className="mt-5 max-w-[480px] text-[36px] font-medium leading-[0.98] tracking-[-0.048em]" style={{ fontFamily: DISPLAY }}>
+                Want us to run the Reopen campaign for you?
+              </h3>
+              <p className="mt-5 max-w-[510px] text-[14px] leading-[1.7] text-white/56">
+                Ghost to Gold is the done for you offer. Zapla can build and launch the campaign, or manage the response flow as well.
+              </p>
+
+              <div className="mt-9 grid gap-4 border-t border-white/10 pt-6 sm:grid-cols-2">
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/36">Sprint</div>
+                  <div className="mt-2 text-[23px] font-semibold">From A$997</div>
+                  <div className="mt-1 text-[10px] text-white/42">+ GST</div>
+                </div>
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/36">Managed</div>
+                  <div className="mt-2 text-[23px] font-semibold">From A$1,497</div>
+                  <div className="mt-1 text-[10px] text-white/42">+ GST</div>
+                </div>
+              </div>
+
+              <a href={BOOK_URL} className="mt-auto inline-flex w-fit items-center gap-2 pt-8 text-[12.5px] font-semibold text-[#F7F4EE]">
+                Ask about Ghost to Gold <ArrowRight size={14} />
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function Faq() {
-  return <section className="bg-[#F4EBDD] px-5 py-20 text-[#171816] sm:px-10 lg:px-16">
-    <div className="mx-auto max-w-[960px]">
-      <Eyebrow>FAQ</Eyebrow>
-      <h2 className="mt-5 text-[42px] font-medium tracking-[-.05em] sm:text-[54px]" style={{fontFamily:DISPLAY}}>Before you reopen anything.</h2>
-      <div className="mt-10 divide-y divide-[#D8CCC0] border-y border-[#D8CCC0]">{FAQS.map(([q,a])=><FaqItem key={q} q={q} a={a}/>)}</div>
-    </div>
-  </section>;
+  return (
+    <section className="bg-[#F3EBDD] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[980px]">
+        <Reveal className="max-w-[760px]">
+          <Eyebrow tone="muted">FAQ</Eyebrow>
+          <h2
+            className="mt-4 text-[42px] font-medium leading-[0.97] tracking-[-0.052em] sm:text-[54px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            The obvious questions before you wake old conversations up.
+          </h2>
+        </Reveal>
+
+        <div className="mt-10 divide-y divide-[#D8CFC3] border-y border-[#D8CFC3]">
+          {FAQS.map((item) => (
+            <FaqItem key={item.q} q={item.q} a={item.a} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
-function FaqItem({q,a}:{q:string;a:string}) {
-  const [open,setOpen]=useState(false);
-  return <div><button onClick={()=>setOpen(v=>!v)} className="flex w-full items-center justify-between py-5 text-left"><span className="text-[14px] font-semibold">{q}</span><ChevronDown size={16} className={open?"rotate-180":""}/></button>{open&&<div className="pb-5 pr-10 text-[13px] leading-[1.75] text-[#6B645D]">{a}</div>}</div>;
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-6 py-5 text-left"
+      >
+        <span className="text-[14px] font-semibold text-[#2E2A27] sm:text-[15px]">{q}</span>
+        <ChevronDown
+          size={17}
+          className={"shrink-0 text-[#746D66] transition-transform " + (open ? "rotate-180" : "")}
+        />
+      </button>
+      {open && (
+        <div className="max-w-[820px] pb-5 pr-10 text-[13.5px] leading-[1.75] text-[#69635E]">
+          {a}
+        </div>
+      )}
+    </div>
+  );
 }
 
 function FinalCta() {
-  return <section className="bg-[#151614] px-5 py-24 sm:px-10 lg:px-16">
-    <div className="mx-auto max-w-[1120px]">
-      <Eyebrow color="#DDA34B">One more line can change the story</Eyebrow>
-      <h2 className="mt-5 text-[48px] font-medium leading-[.92] tracking-[-.06em] sm:text-[68px] lg:text-[82px]" style={{fontFamily:DISPLAY}}>
-        Reopen the conversations
-        <span className="block text-[#C7D19B]">that still have an answer.</span>
-      </h2>
-      <a href={BOOK_URL} className="mt-9 inline-flex h-[52px] items-center gap-2 rounded-full bg-white px-7 text-[13px] font-semibold text-[#171816]">Book a Call <ArrowRight size={15}/></a>
-    </div>
-  </section>;
+  return (
+    <section className="relative overflow-hidden bg-[#BF7458] px-5 py-20 text-[#FFF9F5] sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="pointer-events-none absolute -right-24 -top-24 h-[360px] w-[360px] rounded-full bg-[#F0D59D]/16 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-20 h-[320px] w-[320px] rounded-full bg-[#E7E0EA]/12 blur-3xl" />
+
+      <div className="relative mx-auto max-w-[1080px] text-center">
+        <Reveal>
+          <Eyebrow tone="light">Reopen what is already there</Eyebrow>
+          <h2
+            className="mx-auto mt-5 max-w-[960px] text-[45px] font-medium leading-[0.93] tracking-[-0.058em] sm:text-[62px] lg:text-[76px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            You already paid to get their attention.
+            <span className="block text-[#F8E2B5]">Reopen the conversation.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-[650px] text-[15px] leading-[1.75] text-white/72">
+            We can help you work out which dormant opportunities are worth revisiting and the cleanest way to bring them back into conversation.
+          </p>
+
+          <div className="mt-8 flex justify-center">
+            <a
+              href={BOOK_URL}
+              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
+            >
+              Book a Call <ArrowRight size={15} />
+            </a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
 }
