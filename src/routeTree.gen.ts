@@ -17,6 +17,7 @@ import { Route as FollowUpRouteImport } from './routes/follow-up'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
 import { Route as ReactivationRouteImport } from './routes/reactivation'
 import { Route as ReactivationV2RouteImport } from './routes/reactivation_v2'
+import { Route as ReactivationV3RouteImport } from './routes/reactivation_v3'
 import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
@@ -63,6 +64,11 @@ const ReactivationRoute = ReactivationRouteImport.update({
 const ReactivationV2Route = ReactivationV2RouteImport.update({
   id: '/reactivation_v2',
   path: '/reactivation_v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReactivationV3Route = ReactivationV3RouteImport.update({
+  id: '/reactivation_v3',
+  path: '/reactivation_v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingV3Route = PricingV3RouteImport.update({
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/ai-receptionist': typeof AiReceptionistRoute
   '/reactivation': typeof ReactivationRoute
   '/reactivation_v2': typeof ReactivationV2Route
+  '/reactivation_v3': typeof ReactivationV3Route
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
   '/mcp': typeof McpRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/ai-receptionist': typeof AiReceptionistRoute
   '/reactivation': typeof ReactivationRoute
   '/reactivation_v2': typeof ReactivationV2Route
+  '/reactivation_v3': typeof ReactivationV3Route
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
   '/mcp': typeof McpRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   '/ai-receptionist': typeof AiReceptionistRoute
   '/reactivation': typeof ReactivationRoute
   '/reactivation_v2': typeof ReactivationV2Route
+  '/reactivation_v3': typeof ReactivationV3Route
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
   '/mcp': typeof McpRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
     | '/ai-receptionist'
     | '/reactivation'
     | '/reactivation_v2'
+    | '/reactivation_v3'
     | '/follow-up'
     | '/follow-up-claude-v1'
     | '/mcp'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/ai-receptionist'
     | '/reactivation'
     | '/reactivation_v2'
+    | '/reactivation_v3'
     | '/follow-up'
     | '/follow-up-claude-v1'
     | '/mcp'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/ai-receptionist'
     | '/reactivation'
     | '/reactivation_v2'
+    | '/reactivation_v3'
     | '/follow-up'
     | '/follow-up-claude-v1'
     | '/mcp'
@@ -218,6 +230,7 @@ export interface RootRouteChildren {
   AiReceptionistRoute: typeof AiReceptionistRoute
   ReactivationRoute: typeof ReactivationRoute
   ReactivationV2Route: typeof ReactivationV2Route
+  ReactivationV3Route: typeof ReactivationV3Route
   FollowUpRoute: typeof FollowUpRoute
   FollowUpClaudeV1Route: typeof FollowUpClaudeV1Route
   McpRoute: typeof McpRoute
@@ -288,6 +301,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReactivationV2RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reactivation_v3': {
+      id: '/reactivation_v3'
+      path: '/reactivation_v3'
+      fullPath: '/reactivation_v3'
+      preLoaderRoute: typeof ReactivationV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Pricing-v3': {
       id: '/Pricing-v3'
       path: '/Pricing-v3'
@@ -346,6 +366,7 @@ const rootRouteChildren: RootRouteChildren = {
   AiReceptionistRoute: AiReceptionistRoute,
   ReactivationRoute: ReactivationRoute,
   ReactivationV2Route: ReactivationV2Route,
+  ReactivationV3Route: ReactivationV3Route,
   FollowUpRoute: FollowUpRoute,
   FollowUpClaudeV1Route: FollowUpClaudeV1Route,
   McpRoute: McpRoute,
