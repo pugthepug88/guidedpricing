@@ -71,6 +71,7 @@ function ReviewsPage() {
       style={{ fontFamily: BODY }}
     >
       <Hero />
+      <EvidenceSection />
       <ProblemSection />
       <MechanismSection />
       <TimingSection />
@@ -336,84 +337,168 @@ function ReviewHeroScene() {
   );
 }
 
+
+function EvidenceSection() {
+  const stats = [
+    {
+      value: "85%",
+      copy: "are more likely to use a business after reading positive reviews.",
+    },
+    {
+      value: "47%",
+      copy: "won’t use a business with fewer than 20 reviews.",
+    },
+    {
+      value: "74%",
+      copy: "look for reviews written within the last three months.",
+    },
+  ] as const;
+
+  return (
+    <section className="bg-[#101820] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="max-w-[980px]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E0B15A]">Why reviews matter</p>
+          <h2
+            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.057em] sm:text-[60px] lg:text-[74px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            People check your reviews
+            <span className="block text-[#E4B85F]">before they call.</span>
+          </h2>
+          <p className="mt-5 max-w-[720px] text-[15px] leading-[1.72] text-white/58 sm:text-[16px]">
+            Your rating matters. So does how many reviews you have and how recent
+            they are.
+          </p>
+        </Reveal>
+
+        <div className="mt-14 grid border-y border-white/10 sm:grid-cols-3">
+          {stats.map((stat, index) => (
+            <Reveal key={stat.value} delay={index * 0.06}>
+              <div className="min-h-[250px] border-b border-white/10 py-8 last:border-b-0 sm:border-b-0 sm:border-r sm:px-7 sm:first:pl-0 sm:last:border-r-0 lg:min-h-[280px] lg:py-10">
+                <div
+                  className="text-[74px] font-medium leading-none tracking-[-0.065em] text-white sm:text-[82px] lg:text-[96px]"
+                  style={{ fontFamily: DISPLAY }}
+                >
+                  {stat.value}
+                </div>
+                <p className="mt-6 max-w-[300px] text-[14px] font-medium leading-[1.6] text-white/70 sm:text-[15px]">
+                  {stat.copy}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-7 grid gap-5 border-b border-white/10 pb-7 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
+          <Reveal>
+            <p className="max-w-[760px] text-[18px] font-medium leading-[1.55] text-white/88 sm:text-[21px]">
+              More reviews and positive ratings can also help your business rank
+              better in local search.
+            </p>
+          </Reveal>
+          <Reveal delay={0.05} className="lg:text-right">
+            <a
+              href="https://support.google.com/business/answer/7091?hl=en"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-white/42 transition-colors hover:text-white/70"
+            >
+              Local ranking guidance <ExternalLink size={11} />
+            </a>
+          </Reveal>
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[9px] leading-[1.6] text-white/35">
+          <span>Consumer figures: BrightLocal Local Consumer Review Survey 2026, 1,002 US adults.</span>
+          <a
+            href="https://www.brightlocal.com/research/local-consumer-review-survey/"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 font-semibold text-white/44 transition-colors hover:text-white/70"
+          >
+            View source <ExternalLink size={10} />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProblemSection() {
   return (
     <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[900px]">
-          <Eyebrow>What gets missed</Eyebrow>
-          <h2
-            className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[68px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            The work gets done.
-            <span className="block text-[#B27B2D]">The proof gets left behind.</span>
-          </h2>
-          <p className="mt-5 max-w-[650px] text-[15px] leading-[1.72] text-[#666B67] sm:text-[16px]">
-            Review collection usually fails for boring reasons: nobody asks,
-            the ask comes too late, or a review arrives and nobody owns what
-            happens next.
-          </p>
-        </Reveal>
-
-        <div className="mt-12 grid gap-4 lg:grid-cols-12">
-          <Reveal className="lg:col-span-7">
-            <article className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#17212B] p-7 text-white sm:p-9">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#DDA34B]">No request</div>
-              <h3
-                className="mt-12 max-w-[620px] text-[46px] font-medium leading-[0.94] tracking-[-0.058em] text-white sm:text-[60px]"
-                style={{ fontFamily: DISPLAY }}
-              >
-                Happy customer.
-                <span className="block text-[#E2B35E]">Nobody asked.</span>
-              </h3>
-              <p className="mt-7 max-w-[470px] text-[14px] leading-[1.7] text-white/62">
-                They pay, leave and get on with their day. Goodwill expires faster
-                than your team remembers to send the link.
-              </p>
-            </article>
+        <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-end lg:gap-20">
+          <Reveal className="max-w-[760px]">
+            <Eyebrow>The part businesses miss</Eyebrow>
+            <h2
+              className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[70px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Happy customers leave.
+              <span className="block text-[#A66F20]">Most don&apos;t think to review you.</span>
+            </h2>
+            <p className="mt-6 max-w-[650px] text-[15px] leading-[1.75] text-[#626B73] sm:text-[16px]">
+              They pay, get back to work, pick up the kids, or move on to the next
+              thing. If nobody asks, a good experience can disappear without ever
+              becoming a review.
+            </p>
           </Reveal>
 
-          <Reveal className="lg:col-span-5" delay={0.06}>
-            <article className="min-h-[360px] rounded-[30px] bg-[#E8EEF4] p-7 sm:p-9">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#667789]">Bad timing</div>
+          <Reveal delay={0.05}>
+            <div className="border-l border-[#D9E1E8] pl-7 sm:pl-9">
               <div
-                className="mt-14 text-[58px] font-medium leading-[0.88] tracking-[-0.07em] text-[#26323D] sm:text-[70px]"
+                className="text-[72px] font-medium leading-none tracking-[-0.065em] text-[#17212B] sm:text-[88px]"
                 style={{ fontFamily: DISPLAY }}
               >
-                TOO
-                <br />
-                LATE.
+                94%
               </div>
-              <p className="mt-7 max-w-[350px] text-[14px] leading-[1.68] text-[#5D6A76]">
-                A generic request two weeks later feels like admin. The service
-                moment is already gone.
+              <p className="mt-4 max-w-[390px] text-[16px] font-medium leading-[1.6] text-[#38434D]">
+                are open to leaving a review.
               </p>
-            </article>
-          </Reveal>
-
-          <Reveal className="lg:col-span-12">
-            <article className="grid min-h-[260px] overflow-hidden rounded-[30px] bg-[#DCE0CC] text-[#1A2018] sm:grid-cols-[0.82fr_1.18fr]">
-              <div className="p-7 sm:p-9">
-                <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#667044]">No ownership</div>
-                <h3
-                  className="mt-8 text-[42px] font-medium leading-[0.95] tracking-[-0.055em] sm:text-[54px]"
+              <div className="mt-8 border-t border-[#E1E7EC] pt-6">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8A7550]">
+                  But the typical consumer writes
+                </div>
+                <div
+                  className="mt-2 text-[42px] font-medium tracking-[-0.055em] text-[#A66F20]"
                   style={{ fontFamily: DISPLAY }}
                 >
-                  A review lands.
-                  <span className="block text-[#647046]">Then it sits there.</span>
-                </h3>
+                  only 4–6 a year.
+                </div>
               </div>
-              <div className="flex items-center border-t border-[#1A2018]/10 p-7 sm:border-l sm:border-t-0 sm:p-10">
-                <p className="max-w-[570px] text-[16px] leading-[1.72] text-[#525B47]">
-                  Positive or negative, a customer has said something in public.
-                  Someone should know who they are, what happened, and what the
-                  business wants to say back.
-                </p>
-              </div>
-            </article>
+              <a
+                href="https://www.brightlocal.com/research/local-consumer-review-survey/"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#8A949D] transition-colors hover:text-[#58636C]"
+              >
+                BrightLocal, 2026 <ExternalLink size={10} />
+              </a>
+            </div>
           </Reveal>
         </div>
+
+        <Reveal className="mt-16 overflow-hidden rounded-[30px] bg-[#EEF3F7] px-7 py-9 sm:px-10 sm:py-11 lg:px-12">
+          <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
+            <div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6C7985]">
+                The missing step
+              </div>
+              <div
+                className="mt-3 text-[40px] font-medium leading-[0.96] tracking-[-0.055em] text-[#1D2832] sm:text-[52px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                Ask.
+              </div>
+            </div>
+            <p className="max-w-[650px] text-[17px] leading-[1.7] text-[#55626D] sm:text-[19px]">
+              Not two weeks later. Not when somebody remembers. Ask when the job
+              is finished and the experience is still fresh.
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -423,30 +508,30 @@ function MechanismSection() {
   const steps = [
     {
       n: "01",
-      label: "Finished",
-      title: "The job reaches the trigger you chose.",
-      copy: "For example: work completed, payment received, or a manual stage your team controls.",
+      label: "Done",
+      title: "The job reaches the point you choose.",
+      copy: "For example: work completed, payment received, or a stage your team controls.",
       tone: "#D58C75",
     },
     {
       n: "02",
-      label: "Asked",
-      title: "Zapla sends one neutral review request.",
-      copy: "The message, channel and delay are set around the customer experience, not around expected sentiment.",
+      label: "Wait",
+      title: "Zapla waits for the delay you set.",
+      copy: "Send it straight away, later that day, or whenever makes sense for the service.",
       tone: "#DDA34B",
     },
     {
       n: "03",
-      label: "Heard",
-      title: "A review or reply becomes visible.",
-      copy: "Public praise becomes proof. A concern becomes something the team can act on.",
+      label: "Ask",
+      title: "The review request goes out automatically.",
+      copy: "One clear, neutral message with a direct path to leave a genuine review.",
       tone: "#99A36D",
     },
     {
       n: "04",
-      label: "Owned",
-      title: "Your team decides the response.",
-      copy: "The customer context stays close so the reply is grounded in what actually happened.",
+      label: "Review",
+      title: "The feedback comes back into view.",
+      copy: "Your team can see what was said, who said it, and what happened with the customer.",
       tone: "#E7E0EA",
     },
   ] as const;
@@ -463,8 +548,8 @@ function MechanismSection() {
             className="mt-4 text-[46px] font-medium leading-[0.94] tracking-[-0.056em] sm:text-[62px] lg:text-[76px]"
             style={{ fontFamily: DISPLAY }}
           >
-            The ask should happen because the job finished.
-            <span className="block text-[#DDA34B]">Not because someone remembered.</span>
+            Ask at the right time.
+            <span className="block text-[#DDA34B]">Automatically.</span>
           </h2>
         </Reveal>
 
@@ -612,13 +697,13 @@ function FeedbackSection() {
             className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[68px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Good feedback becomes proof.
-            <span className="block text-[#BF7458]">Problems become visible too.</span>
+            See the review.
+            <span className="block text-[#BF7458]">See the customer behind it.</span>
           </h2>
           <p className="mt-5 max-w-[700px] text-[15px] leading-[1.72] text-[#666B67] sm:text-[16px]">
-            Zapla should not decide who is allowed to review you. The same honest
-            ask goes out. What changes is what your team does when the customer
-            speaks.
+            The same honest request goes out to eligible customers. If someone is
+            happy, you see the review. If something went wrong, your team sees that
+            too.
           </p>
         </Reveal>
 
@@ -630,7 +715,7 @@ function FeedbackSection() {
                 className="mt-5 max-w-[500px] text-[36px] font-medium leading-[0.98] tracking-[-0.05em] text-[#292922] sm:text-[44px]"
                 style={{ fontFamily: DISPLAY }}
               >
-                A real review can keep working after the customer leaves.
+                Positive feedback becomes visible to the next customer.
               </h3>
               <div className="mt-auto pt-8">
                 <div className="rounded-[20px] bg-[#FFF9ED] p-5 shadow-[0_16px_38px_rgba(79,57,28,.10)]">
@@ -706,13 +791,12 @@ function CustomerRecordSection() {
             className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.057em] text-[#182018] sm:text-[58px] lg:text-[70px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Every review has a customer
-            <span className="block text-[#5F6B42]">behind it.</span>
+            The review stays connected
+            <span className="block text-[#5F6B42]">to the customer.</span>
           </h2>
           <p className="mt-5 max-w-[680px] text-[15px] leading-[1.72] text-[#535D4C] sm:text-[16px]">
-            Reputation is more useful when it is not a separate inbox. Keep the
-            job, the messages, the review request and the response in the same
-            customer story.
+            The job, messages, review request and response stay in the same
+            customer story, instead of becoming another disconnected inbox.
           </p>
         </Reveal>
 
@@ -782,13 +866,12 @@ function CommercialSection() {
             className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[66px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Reviews aren&apos;t another
-            <span className="block text-[#B27B2D]">bolt-on subscription.</span>
+            Review Engine
+            <span className="block text-[#B27B2D]">is included.</span>
           </h2>
           <p className="mt-5 max-w-[690px] text-[15px] leading-[1.72] text-[#666B67] sm:text-[16px]">
-            The Review Engine is included in both Follow-Through and Growth, so
-            the request can sit inside the same system already handling your
-            customer journey.
+            It&apos;s included in both Follow-Through and Growth. No separate
+            review-management subscription required.
           </p>
         </Reveal>
 
@@ -868,6 +951,20 @@ function Faq() {
           </h2>
         </Reveal>
 
+        <p className="mt-6 max-w-[760px] text-[11px] leading-[1.7] text-[#747F89]">
+          Australian Government guidance notes that online reviews can influence
+          consumers, build trust and credibility, and improve local search
+          visibility.{" "}
+          <a
+            href="https://business.gov.au/online-and-digital/online-reviews"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold underline decoration-[#AAB4BC] underline-offset-2"
+          >
+            Source
+          </a>
+        </p>
+
         <div className="mt-10 divide-y divide-[#D4DDE5] border-y border-[#D4DDE5]">
           {FAQS.map((item) => (
             <FaqItem key={item.q} q={item.q} a={item.a} />
@@ -912,18 +1009,18 @@ function FinalCta() {
           <ZaplaPetal size={34} />
         </div>
         <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#80551C]">
-          Make the good work visible
+          Stop forgetting to ask
         </p>
         <h2
           className="mx-auto mt-3 max-w-[920px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[56px] lg:text-[64px]"
           style={{ fontFamily: DISPLAY }}
         >
-          Do great work.
-          <span className="block text-[#B27B2D]">Make sure people can see it.</span>
+          Get more reviews
+          <span className="block text-[#B27B2D]">without remembering to ask.</span>
         </h2>
         <p className="mx-auto mt-4 max-w-[700px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
-          We&apos;ll map the right trigger, timing and review flow around how your
-          customers already move through the business.
+          Choose the trigger, timing and message. Zapla handles the review request
+          as part of the customer journey.
         </p>
         <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
