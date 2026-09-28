@@ -244,16 +244,16 @@ function ArchiveScene() {
   const reduced = !!useReducedMotion();
 
   const backgroundRecords = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", left: -2, top: 5, rotate: 3.4, width: 330, opacity: 0.56 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", left: 37, top: 13, rotate: 2.2, width: 316, opacity: 0.48 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", left: -4, top: 35, rotate: 2.4, width: 324, opacity: 0.48 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", left: -1, top: 65, rotate: 2.8, width: 322, opacity: 0.50 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", left: 4, top: 83, rotate: 3.0, width: 318, opacity: 0.48 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", left: 43, top: 82, rotate: 2.2, width: 326, opacity: 0.46 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", left: 0, top: 5, rotate: 3.4, width: 360, opacity: 0.64 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", left: 35, top: 13, rotate: 2.2, width: 350, opacity: 0.58 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", left: -1, top: 38, rotate: 2.5, width: 356, opacity: 0.58 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", left: 1, top: 67, rotate: 2.8, width: 352, opacity: 0.60 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", left: 6, top: 84, rotate: 3.1, width: 350, opacity: 0.57 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", left: 42, top: 83, rotate: 2.3, width: 356, opacity: 0.55 },
   ] as const;
 
   return (
-    <div className="relative mx-auto min-h-[630px] w-full max-w-[940px] sm:min-h-[710px] lg:min-h-[780px]">
+    <div className="relative mx-auto min-h-[650px] w-full max-w-[960px] sm:min-h-[730px] lg:-ml-[18%] lg:min-h-[810px] lg:w-[124%] lg:max-w-none">
       <div className="pointer-events-none absolute -left-[8%] top-[4%] h-[90%] w-[86%] bg-[radial-gradient(circle_at_43%_44%,rgba(196,187,177,.08),transparent_34%)]" />
 
       <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 900 760" preserveAspectRatio="none" aria-hidden="true">
@@ -265,23 +265,23 @@ function ArchiveScene() {
         <circle cx="690" cy="92" r="5" fill="#D0C3B7" />
       </svg>
 
-      <div className="absolute left-[47%] top-[2%] opacity-52">
+      <div className="absolute left-[47%] top-[1%] opacity-58">
         <AutumnAvatar cell={2} size={48} muted />
       </div>
-      <div className="absolute left-[76%] top-[7%] opacity-46">
+      <div className="absolute left-[75%] top-[7%] opacity-52">
         <AutumnAvatar cell={16} size={48} muted />
       </div>
 
       {backgroundRecords.map((record, index) => (
         <motion.div
           key={record.name}
-          className="absolute rounded-[22px] border border-white/62 bg-[#FBF8F2]/78 px-4 py-4 shadow-[0_16px_42px_rgba(70,54,40,.085)] backdrop-blur-[.8px]"
+          className="absolute rounded-[22px] border border-white/70 bg-[#FBF8F2]/84 px-4 py-4 shadow-[0_16px_42px_rgba(70,54,40,.09)] backdrop-blur-[.35px]"
           style={{
             left: record.left + "%",
             top: record.top + "%",
             rotate: record.rotate,
             width: record.width,
-            filter: "blur(.10px)",
+            filter: "blur(.04px)",
           }}
           initial={reduced ? false : { opacity: 0, y: 8 }}
           whileInView={{ opacity: record.opacity, y: 0 }}
@@ -291,9 +291,9 @@ function ArchiveScene() {
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={record.cell} size={58} muted />
             <div className="min-w-0">
-              <div className="truncate text-[12px] font-semibold text-[#5F5851]">{record.name}</div>
-              <div className="mt-1 text-[10px] text-[#887E75]">{record.type}</div>
-              <div className="mt-0.5 text-[10px] text-[#938980]">{record.quiet}</div>
+              <div className="truncate text-[12px] font-semibold text-[#575049]">{record.name}</div>
+              <div className="mt-1 text-[10px] text-[#7E746B]">{record.type}</div>
+              <div className="mt-0.5 text-[10px] text-[#887E75]">{record.quiet}</div>
             </div>
           </div>
           <div className="mt-3 space-y-1.5">
@@ -304,25 +304,25 @@ function ArchiveScene() {
       ))}
 
       <motion.div
-        className="absolute left-[25%] top-[27%] z-20 w-[565px] max-w-[64%] rotate-[2.25deg] rounded-[24px] border border-white/76 bg-[#FCF9F4]/96 p-5 shadow-[0_34px_78px_rgba(76,55,40,.19)] backdrop-blur-sm"
+        className="absolute left-[31%] top-[24%] z-20 w-[620px] max-w-[62%] rotate-[2.6deg] rounded-[24px] border border-white/78 bg-[#FCF9F4]/97 p-6 shadow-[0_36px_82px_rgba(76,55,40,.20)] backdrop-blur-sm"
         initial={reduced ? false : { opacity: 0, y: 10, scale: .97 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.42 }}
         transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.12, ease: EASE }}
       >
-        <div className="-rotate-[2.25deg] flex items-start gap-5">
+        <div className="flex items-start gap-6">
           <div className="rounded-full bg-[#EBC5B3] p-2.5">
-            <AutumnAvatar cell={9} size={104} />
+            <AutumnAvatar cell={9} size={116} />
           </div>
           <div className="min-w-0 flex-1 pt-1">
             <div className="flex items-center justify-between gap-4">
-              <div className="text-[20px] font-semibold tracking-[-0.02em] text-[#282522]">Sarah Nguyen</div>
+              <div className="text-[22px] font-semibold tracking-[-0.025em] text-[#282522]">Sarah Mitchell</div>
               <span className="rounded-full bg-[#EAE9E4] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
             </div>
-            <div className="mt-2 text-[14px] text-[#69615A]">
+            <div className="mt-2.5 text-[15px] text-[#69615A]">
               Quote sent <span className="px-2 text-[#B0A69E]">•</span> A$4,800
             </div>
-            <div className="mt-1 text-[14px] text-[#766E67]">167 days quiet</div>
+            <div className="mt-1.5 text-[15px] text-[#766E67]">167 days quiet</div>
             <div className="mt-5 space-y-2">
               <div className="h-3 w-[72%] rounded-full bg-black/[0.075]" />
               <div className="h-3 w-[50%] rounded-full bg-black/[0.06]" />
@@ -341,7 +341,7 @@ function ArchiveScene() {
       </svg>
 
       <motion.div
-        className="absolute left-[49%] top-[52%] z-30 w-[326px] max-w-[39%] -rotate-[.6deg] rounded-[18px] border border-[#E6D9CF] bg-white/97 px-5 py-4 shadow-[0_20px_48px_rgba(74,53,39,.11)]"
+        className="absolute left-[49%] top-[51%] z-30 w-[350px] max-w-[39%] -rotate-[.4deg] rounded-[18px] border border-[#E6D9CF] bg-white/97 px-5 py-4 shadow-[0_20px_48px_rgba(74,53,39,.11)]"
         initial={reduced ? false : { opacity: 0, x: 12 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.42 }}
@@ -359,7 +359,7 @@ function ArchiveScene() {
       </motion.div>
 
       <motion.div
-        className="absolute left-[59%] top-[66%] z-30 w-[368px] max-w-[44%] rotate-[.45deg] rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/97 px-5 py-4 shadow-[0_20px_48px_rgba(77,85,54,.11)]"
+        className="absolute left-[58%] top-[65%] z-30 w-[390px] max-w-[44%] rotate-[.35deg] rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/97 px-5 py-4 shadow-[0_20px_48px_rgba(77,85,54,.11)]"
         initial={reduced ? false : { opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.42 }}
@@ -383,7 +383,7 @@ function ArchiveScene() {
       </div>
 
       <motion.div
-        className="absolute bottom-[5%] left-[63%] z-30 flex w-[380px] max-w-[45%] -rotate-[.25deg] items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/96 px-5 py-4 shadow-[0_20px_48px_rgba(61,64,46,.09)]"
+        className="absolute bottom-[4%] left-[62%] z-30 flex w-[410px] max-w-[46%] -rotate-[.2deg] items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/96 px-5 py-4 shadow-[0_20px_48px_rgba(61,64,46,.09)]"
         initial={reduced ? false : { opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.42 }}
@@ -640,7 +640,7 @@ function ReopenedStory() {
                 <div className="flex items-center gap-4">
                   <AutumnAvatar cell={9} size={72} />
                   <div>
-                    <div className="text-[24px] font-semibold tracking-[-0.035em]">Sarah Nguyen</div>
+                    <div className="text-[24px] font-semibold tracking-[-0.035em]">Sarah Mitchell</div>
                     <div className="mt-1 text-[11px] text-white/42">Existing customer record · 5 months quiet</div>
                   </div>
                 </div>
