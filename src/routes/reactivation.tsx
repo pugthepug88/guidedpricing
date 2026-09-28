@@ -234,16 +234,16 @@ function ReopenHeroVisual() {
   const reduced = !!useReducedMotion();
 
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -1.5, y: 7.5, w: 35.5, rz: 2.6, ry: 6.0, opacity: 0.67, blur: 0.15, z: 6 },
-    { cell: 2, name: "", type: "", quiet: "", x: 18.0, y: -2.0, w: 37.5, rz: 2.1, ry: 5.0, opacity: 0.24, blur: 1.05, z: 1 },
-    { cell: 16, name: "", type: "", quiet: "", x: 29.0, y: 5.0, w: 37.0, rz: 1.8, ry: 5.5, opacity: 0.28, blur: 0.85, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 34.5, y: 15.0, w: 35.5, rz: 1.7, ry: 6.5, opacity: 0.60, blur: 0.12, z: 7 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -2.0, y: 35.5, w: 35.0, rz: 1.8, ry: 5.5, opacity: 0.58, blur: 0.15, z: 5 },
-    { cell: 6, name: "", type: "", quiet: "", x: 10.0, y: 29.0, w: 36.0, rz: 2.0, ry: 5.0, opacity: 0.22, blur: 1.0, z: 1 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.0, y: 58.5, w: 35.5, rz: 2.3, ry: 6.0, opacity: 0.62, blur: 0.16, z: 5 },
-    { cell: 17, name: "", type: "", quiet: "", x: 16.0, y: 56.0, w: 35.5, rz: 1.8, ry: 5.5, opacity: 0.20, blur: 1.05, z: 1 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.5, y: 77.0, w: 35.5, rz: 2.4, ry: 6.0, opacity: 0.59, blur: 0.18, z: 5 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 38.0, y: 80.0, w: 35.5, rz: 1.7, ry: 6.5, opacity: 0.56, blur: 0.18, z: 5 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -4.0, y: 7.0, w: 38.0, rz: 2.8, ry: 13.0, opacity: 0.66, blur: 0.10, z: 6 },
+    { cell: 2, name: "", type: "", quiet: "", x: 15.0, y: -1.5, w: 39.0, rz: 2.4, ry: 12.0, opacity: 0.24, blur: 1.0, z: 1 },
+    { cell: 16, name: "", type: "", quiet: "", x: 25.0, y: 4.0, w: 39.0, rz: 2.1, ry: 12.5, opacity: 0.27, blur: 0.80, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 29.0, y: 14.0, w: 38.5, rz: 2.1, ry: 14.0, opacity: 0.60, blur: 0.10, z: 7 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -5.5, y: 34.0, w: 38.0, rz: 2.3, ry: 13.0, opacity: 0.58, blur: 0.12, z: 5 },
+    { cell: 6, name: "", type: "", quiet: "", x: 7.0, y: 27.5, w: 38.0, rz: 2.1, ry: 12.0, opacity: 0.22, blur: 0.95, z: 1 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -3.5, y: 56.0, w: 38.0, rz: 2.6, ry: 13.0, opacity: 0.61, blur: 0.12, z: 5 },
+    { cell: 17, name: "", type: "", quiet: "", x: 13.5, y: 55.0, w: 37.5, rz: 2.0, ry: 12.0, opacity: 0.19, blur: 1.0, z: 1 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: -0.5, y: 76.0, w: 38.0, rz: 2.7, ry: 13.0, opacity: 0.57, blur: 0.14, z: 5 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 35.0, y: 79.0, w: 38.0, rz: 2.1, ry: 14.0, opacity: 0.54, blur: 0.14, z: 5 },
   ] as const;
 
   return (
@@ -302,10 +302,10 @@ function ReopenHeroVisual() {
           transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : index * 0.025, ease: EASE }}
         >
           <div
-            className="rounded-[22px] border border-white/72 bg-[#FBF8F2]/88 px-4 py-4 shadow-[18px_24px_52px_rgba(70,54,40,.09)]"
+            className="rounded-[22px] border border-white/72 bg-[#FBF8F2]/88 px-4 py-4 shadow-[22px_26px_56px_rgba(70,54,40,.085)]"
             style={{
-              transform: `perspective(1150px) rotateY(${record.ry}deg) rotateZ(${record.rz}deg)`,
-              transformOrigin: "30% 50%",
+              transform: `perspective(760px) rotateY(${record.ry}deg) rotateZ(${record.rz}deg)`,
+              transformOrigin: "16% 50%",
               transformStyle: "preserve-3d",
             }}
           >
@@ -335,17 +335,17 @@ function ReopenHeroVisual() {
       ))}
 
       <motion.div
-        className="absolute left-[26%] top-[24%] z-20 w-[57%]"
+        className="absolute left-[25%] top-[23.8%] z-20 w-[57.5%]"
         initial={reduced ? false : { opacity: 0, y: 12, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.11, ease: EASE }}
       >
         <div
-          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 p-6 shadow-[24px_36px_82px_rgba(76,55,40,.22)]"
+          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 p-6 shadow-[30px_38px_84px_rgba(76,55,40,.20)]"
           style={{
-            transform: "perspective(900px) rotateY(10.5deg) rotateZ(2.15deg)",
-            transformOrigin: "28% 50%",
+            transform: "perspective(700px) rotateY(16deg) rotateZ(2.6deg)",
+            transformOrigin: "14% 50%",
             transformStyle: "preserve-3d",
             willChange: "transform",
           }}
@@ -388,7 +388,7 @@ function ReopenHeroVisual() {
       </svg>
 
       <motion.div
-        className="absolute left-[48.5%] top-[50%] z-30 w-[34%]"
+        className="absolute left-[47.5%] top-[49.6%] z-30 w-[34%]"
         initial={reduced ? false : { opacity: 0, x: 14 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.35 }}
@@ -406,7 +406,7 @@ function ReopenHeroVisual() {
       </motion.div>
 
       <motion.div
-        className="absolute left-[57.5%] top-[64%] z-30 w-[39%]"
+        className="absolute left-[56.5%] top-[63.3%] z-30 w-[39%]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
@@ -432,7 +432,7 @@ function ReopenHeroVisual() {
       </div>
 
       <motion.div
-        className="absolute left-[63%] top-[78%] z-30 w-[40%]"
+        className="absolute left-[61.8%] top-[77.2%] z-30 w-[40%]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
