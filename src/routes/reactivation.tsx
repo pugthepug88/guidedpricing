@@ -3,6 +3,7 @@ import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Check, ChevronDown, MessageSquare } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
+import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/reactivation")({
   staticData: { sitemap: false },
@@ -239,30 +240,6 @@ function Hero() {
   );
 }
 
-function PetalsIcon() {
-  const petals = [
-    ["left-[12px] top-0", "#FF735F"],
-    ["right-0 top-[9px]", "#D85B87"],
-    ["right-[-1px] bottom-[9px]", "#FFC342"],
-    ["left-[18px] bottom-0", "#B7C987"],
-    ["left-0 bottom-[8px]", "#8B79D6"],
-    ["left-[-3px] top-[16px]", "#F39A78"],
-  ] as const;
-
-  return (
-    <span className="relative block h-[42px] w-[46px] shrink-0" aria-hidden="true">
-      {petals.map(([position, color]) => (
-        <span
-          key={position}
-          className={"absolute h-[22px] w-[25px] rounded-[55%] border border-[#20242C]/70 " + position}
-          style={{ backgroundColor: color }}
-        />
-      ))}
-      <span className="absolute left-[18px] top-[17px] z-10 h-[16px] w-[16px] rounded-full bg-[#20242C]" />
-    </span>
-  );
-}
-
 function ArchiveScene() {
   const reduced = !!useReducedMotion();
 
@@ -419,7 +396,7 @@ function ArchiveScene() {
           style={{ transform: "rotate(-0.65deg)" }}
         >
           <div className="flex items-center gap-4">
-            <PetalsIcon />
+            <ZaplaPetal size={38} className="shrink-0" />
             <div>
               <div className="text-[15px] font-semibold leading-[1.45] text-[#292623]">Want us to update that quote?</div>
               <div className="mt-2 text-[9px] text-[#A0968C]">10:14 AM</div>
