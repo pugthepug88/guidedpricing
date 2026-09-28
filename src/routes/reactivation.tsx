@@ -31,7 +31,7 @@ const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 const FAQS = [
   {
     q: "What is Reopen?",
-    a: "Reopen is Zapla's lead and customer reactivation solution. It helps you identify dormant enquiries, older quotes and past customers worth revisiting, then restart the conversation with rules around who gets contacted and what happens when they reply.",
+    a: "Reopen is Zapla's lead and customer reactivation workflow. It helps you choose dormant enquiries, older quotes and past customers worth revisiting, start a new conversation, and stop outreach when someone replies.",
   },
   {
     q: "How is Reopen different from Follow-Up?",
@@ -39,11 +39,11 @@ const FAQS = [
   },
   {
     q: "Does Reopen message my whole database?",
-    a: "No. The audience should be deliberate. You can exclude active opportunities, recent contacts, unsubscribed contacts, people who already replied and anyone outside the segment you want to reach.",
+    a: "No. You choose who is eligible. Active opportunities, recent contacts, unsubscribed people, anyone who already replied and any segment you do not want to contact can stay excluded.",
   },
   {
     q: "What happens when someone replies?",
-    a: "The outreach can stop automatically and the conversation can route back to your team with the previous customer history still attached.",
+    a: "Outreach stops automatically when someone replies, and the conversation can route back to your team with the previous customer history still attached.",
   },
   {
     q: "Which Zapla plan includes Reopen?",
@@ -51,7 +51,7 @@ const FAQS = [
   },
   {
     q: "What is Ghost to Gold?",
-    a: "Ghost to Gold is the done for you Reopen service. Sprint starts from A$997 plus GST and covers campaign build and launch. Managed starts from A$1,497 plus GST and also includes monitoring and handoff of interested customers to your team.",
+    a: "Ghost to Gold is the done for you Reopen service. Sprint starts from A$997 plus GST and covers campaign build and launch. Managed starts from A$1,497 plus GST and adds monitoring plus handoff when someone responds.",
   },
 ] as const;
 
@@ -189,7 +189,7 @@ function Hero() {
           </h1>
 
           <p className="mt-7 max-w-[575px] text-[16px] leading-[1.68] text-[#625D57] sm:text-[18px]">
-            Zapla finds old enquiries, stale quotes and past customers worth reopening, reaches out with the right message, and stops the moment they reply.
+            Reopen brings old enquiries, stale quotes and past customers back into conversation automatically, then stops the moment they reply.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -203,7 +203,7 @@ function Hero() {
               href="#how-reopen-works"
               className="inline-flex h-[52px] items-center rounded-full border border-[#C9BDB2] bg-white/40 px-7 text-[13px] font-semibold text-[#1F211E]"
             >
-              See how Reopen works
+              See Reopen in action
             </a>
           </div>
 
@@ -267,11 +267,11 @@ function ReopenHeroVisual() {
           end: point(outgoing, 0.03, 0.5),
         },
         greenOne: {
-          start: point(outgoing, 0.16, 1),
+          start: point(outgoing, 0.18, 1),
           end: point(reply, 0.03, 0.5),
         },
         greenTwo: {
-          start: point(reply, 0.16, 1),
+          start: point(reply, 0.18, 1),
           end: point(reopened, 0.03, 0.5),
         },
       });
@@ -318,13 +318,13 @@ function ReopenHeroVisual() {
     start: { x: number; y: number },
     end: { x: number; y: number },
   ) => {
-    const verticalDistance = Math.max(1, end.y - start.y);
-    const drop = Math.max(28, Math.min(42, verticalDistance * 0.48));
-    return `M ${start.x} ${start.y} C ${start.x} ${start.y + drop}, ${end.x - 26} ${end.y}, ${end.x} ${end.y}`;
+    const drop = 32;
+    const approach = 26;
+    return `M ${start.x} ${start.y} C ${start.x} ${start.y + drop}, ${end.x - approach} ${end.y}, ${end.x} ${end.y}`;
   };
 
   return (
-    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:left-[52px] lg:-top-[28px] lg:mx-0 lg:w-full lg:max-w-none" style={{ marginLeft: "min(0px, calc((1700px - 100vw) / 2))" }}>
+    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:left-[72px] lg:-top-[28px] lg:mx-0 lg:w-full lg:max-w-none xl:left-[96px]" style={{ marginLeft: "min(0px, calc((1700px - 100vw) / 2))" }}>
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
         viewBox="0 0 1000 780"
@@ -509,7 +509,7 @@ function ReopenHeroVisual() {
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <div ref={reopenedRef} className="absolute left-[59%] top-[72.6%] z-40 w-[32.5%]">
+      <div ref={reopenedRef} className="absolute left-[62%] top-[70.8%] z-40 w-[32.5%]">
         <div className="flex items-center justify-between gap-4 rounded-[17px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[18px] py-[15px] shadow-[0_18px_44px_rgba(61,64,46,.095)]">
           <div className="flex min-w-0 items-center gap-3">
             <span className="h-3 w-3 shrink-0 rounded-full bg-[#879653]" />
@@ -625,7 +625,7 @@ function AudienceSection() {
             <span className="block text-[#7E687F]">Wake the right ones.</span>
           </h2>
           <p className="mt-6 max-w-[540px] text-[15px] leading-[1.75] text-[#645D66] sm:text-[17px]">
-            Reopen starts with selection, not sending. Active opportunities stay out. Recent contacts stay out. Unsubscribed people stay out. Only the right dormant records move forward.
+            Reopen starts with selection, not sending. Exclude active opportunities, recent contacts, unsubscribed people and anyone who already replied. Only the dormant records you choose move forward.
           </p>
 
           <div className="mt-8 grid gap-3 text-[12px] font-semibold text-[#514C53] sm:grid-cols-2">
@@ -704,7 +704,7 @@ function AudiencePerson({
             : "bg-black/[0.035] text-[#9A929B]")
         }
       >
-        {person.selected ? "Select" : "Exclude"}
+        {person.selected ? "Eligible" : "Excluded"}
       </div>
     </motion.div>
   );
@@ -738,7 +738,7 @@ function ReopenedStory() {
                   ["12 FEB", "Enquiry received", "Asked about pricing and timing."],
                   ["14 FEB", "Quote sent", "A$4,800 proposal sent."],
                   ["28 FEB", "Conversation went quiet", "No reply after the quote."],
-                  ["08 AUG", "Reopen selected the record", "Eligible for a new conversation."],
+                  ["08 AUG", "Added to Reopen", "Selected for a new conversation."],
                 ].map(([date, title, copy], index) => (
                   <div key={title} className="relative grid grid-cols-[32px_1fr] gap-4 pb-7 last:pb-0">
                     <span
@@ -763,7 +763,7 @@ function ReopenedStory() {
                 <div className="flex items-center gap-4">
                   <AutumnAvatar cell={9} size={72} />
                   <div>
-                    <div className="text-[24px] font-semibold tracking-[-0.035em]">Sarah Nguyen</div>
+                    <div className="text-[24px] font-semibold tracking-[-0.035em]">Sarah Mitchell</div>
                     <div className="mt-1 text-[11px] text-white/42">Existing customer record · 5 months quiet</div>
                   </div>
                 </div>
@@ -783,7 +783,7 @@ function ReopenedStory() {
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-2.5 border-t border-white/10 pt-6">
-                  {["Outreach stopped", "Conversation reopened", "Routed to Sales"].map((item) => (
+                  {["Outreach stopped", "Conversation reopened", "Routed to your team"].map((item) => (
                     <span key={item} className="inline-flex items-center gap-2 rounded-full bg-white/[0.055] px-3 py-2 text-[10px] font-semibold text-white/68">
                       <Check size={11} className="text-[#B9C88C]" strokeWidth={2.5} />
                       {item}
@@ -792,7 +792,7 @@ function ReopenedStory() {
                 </div>
 
                 <p className="mt-8 max-w-[620px] text-[12px] leading-[1.65] text-white/46">
-                  The reply does not become a brand new lead. The enquiry, quote, notes and messages stay with the same customer record.
+                  Same record. Same history. Your team picks up with the full context.
                 </p>
               </div>
             </div>
@@ -823,10 +823,10 @@ function CommercialPaths() {
             <div className="flex h-full min-h-[400px] flex-col rounded-[28px] bg-[#E7E0EA] p-6 sm:p-8">
               <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7E687F]">Growth</div>
               <h3 className="mt-5 max-w-[460px] text-[36px] font-medium leading-[0.98] tracking-[-0.048em]" style={{ fontFamily: DISPLAY }}>
-                Reopen whenever the business needs it.
+                Run Reopen whenever opportunities go quiet.
               </h3>
               <p className="mt-5 max-w-[500px] text-[14px] leading-[1.7] text-[#655D66]">
-                Build the audience, run targeted reactivation and keep the capability inside Zapla for ongoing use.
+                Choose the audience, launch targeted reactivation and keep Reopen ready for the next batch.
               </p>
 
               <div className="mt-9 border-t border-[#7E687F]/16 pt-6">
@@ -850,7 +850,7 @@ function CommercialPaths() {
                 Want us to run the Reopen campaign for you?
               </h3>
               <p className="mt-5 max-w-[510px] text-[14px] leading-[1.7] text-white/56">
-                Ghost to Gold is the done for you offer. Zapla can build and launch the campaign, or manage the response flow as well.
+                We build and launch the campaign for you. Managed adds monitoring and handoff when someone replies.
               </p>
 
               <div className="mt-9 grid gap-4 border-t border-white/10 pt-6 sm:grid-cols-2">
