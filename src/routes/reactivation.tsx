@@ -26,7 +26,6 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
-const PETALS_ICON = "/concept/zapla-petals-96.png";
 
 const FAQS = [
   {
@@ -176,14 +175,14 @@ function AutumnAvatar({
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#F7F2EA] px-5 pb-10 pt-[108px] sm:px-10 sm:pt-[118px] lg:px-16 lg:pb-12 lg:pt-[126px]">
+    <section className="relative overflow-hidden bg-[#F7F2EA] px-5 pb-8 pt-[108px] sm:px-10 sm:pt-[118px] lg:pl-0 lg:pr-14 lg:pb-10 lg:pt-[126px]">
 
-      <div className="relative mx-auto grid min-h-[760px] max-w-[1540px] items-center gap-6 lg:grid-cols-[1.18fr_.82fr] lg:gap-8">
+      <div className="relative mx-auto grid min-h-[760px] max-w-[1700px] items-center gap-4 lg:grid-cols-[1.24fr_.76fr] lg:gap-2">
         <Reveal className="order-2 lg:order-1">
           <ArchiveScene />
         </Reveal>
 
-        <Reveal className="order-1 max-w-[660px] lg:order-2 lg:justify-self-end" delay={0.04}>
+        <Reveal className="order-1 max-w-[650px] lg:order-2 lg:justify-self-end lg:pl-5" delay={0.04}>
           <div className="flex items-center gap-4">
             <Eyebrow>Reopen</Eyebrow>
             <span className="h-px flex-1 bg-[#D4C5B8]" />
@@ -240,167 +239,248 @@ function Hero() {
   );
 }
 
+function PetalsIcon() {
+  const petals = [
+    ["left-[12px] top-0", "#FF735F"],
+    ["right-0 top-[9px]", "#D85B87"],
+    ["right-[-1px] bottom-[9px]", "#FFC342"],
+    ["left-[18px] bottom-0", "#B7C987"],
+    ["left-0 bottom-[8px]", "#8B79D6"],
+    ["left-[-3px] top-[16px]", "#F39A78"],
+  ] as const;
+
+  return (
+    <span className="relative block h-[42px] w-[46px] shrink-0" aria-hidden="true">
+      {petals.map(([position, color]) => (
+        <span
+          key={position}
+          className={"absolute h-[22px] w-[25px] rounded-[55%] border border-[#20242C]/70 " + position}
+          style={{ backgroundColor: color }}
+        />
+      ))}
+      <span className="absolute left-[18px] top-[17px] z-10 h-[16px] w-[16px] rounded-full bg-[#20242C]" />
+    </span>
+  );
+}
+
 function ArchiveScene() {
   const reduced = !!useReducedMotion();
 
   const backgroundRecords = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", left: 0, top: 5, rotate: 3.4, width: 360, opacity: 0.64 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", left: 35, top: 13, rotate: 2.2, width: 350, opacity: 0.58 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", left: -1, top: 38, rotate: 2.5, width: 356, opacity: 0.58 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", left: 1, top: 67, rotate: 2.8, width: 352, opacity: 0.60 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", left: 6, top: 84, rotate: 3.1, width: 350, opacity: 0.57 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", left: 42, top: 83, rotate: 2.3, width: 356, opacity: 0.55 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.5, y: 6, w: 35.5, rotate: 3.1, opacity: 0.68 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 36, y: 14, w: 35.5, rotate: 2.3, opacity: 0.60 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -1.5, y: 35.5, w: 34.5, rotate: 2.1, opacity: 0.59 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0, y: 59.5, w: 35.5, rotate: 2.8, opacity: 0.62 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.5, y: 77.2, w: 35.5, rotate: 2.8, opacity: 0.59 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 38.5, y: 80.5, w: 35.5, rotate: 2.0, opacity: 0.57 },
   ] as const;
 
   return (
-    <div className="relative mx-auto min-h-[650px] w-full max-w-[960px] sm:min-h-[730px] lg:-ml-[18%] lg:min-h-[810px] lg:w-[124%] lg:max-w-none">
-      <div className="pointer-events-none absolute -left-[8%] top-[4%] h-[90%] w-[86%] bg-[radial-gradient(circle_at_43%_44%,rgba(196,187,177,.08),transparent_34%)]" />
-
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 900 760" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M 70 100 C 270 82, 430 135, 555 268 C 665 385, 660 540, 806 606" fill="none" stroke="#C98D74" strokeWidth="1.45" strokeDasharray="5 7" opacity=".52" />
-        <path d="M 120 645 C 330 620, 370 490, 515 420 C 615 370, 735 330, 835 352" fill="none" stroke="#98A06D" strokeWidth="1.35" strokeDasharray="4 7" opacity=".52" />
-        <path d="M 220 720 C 375 585, 380 286, 690 92" fill="none" stroke="#D5C8BC" strokeWidth="1.05" opacity=".58" />
-        <circle cx="555" cy="268" r="6" fill="#BF7458" opacity=".9" />
-        <circle cx="660" cy="540" r="6" fill="#8E9C5C" opacity=".95" />
-        <circle cx="690" cy="92" r="5" fill="#D0C3B7" />
+    <div className="relative mx-auto aspect-[980/760] w-[110%] max-w-none lg:-ml-[9%] lg:w-[118%]">
+      <svg
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-visible"
+        viewBox="0 0 980 760"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path d="M 40 96 C 270 72, 474 92, 664 225 C 790 314, 820 465, 887 555" fill="none" stroke="#C98D74" strokeWidth="1.25" strokeDasharray="5 7" opacity=".50" />
+        <path d="M 125 713 C 370 694, 470 592, 544 475 C 625 347, 727 290, 927 321" fill="none" stroke="#88945E" strokeWidth="1.18" strokeDasharray="4 7" opacity=".48" />
+        <path d="M 380 14 C 580 31, 725 92, 805 208 C 878 315, 865 435, 823 514" fill="none" stroke="#D5C7B9" strokeWidth="1.0" opacity=".50" />
+        <path d="M 382 146 C 545 153, 671 202, 723 303 C 759 373, 751 460, 721 528" fill="none" stroke="#DDB59F" strokeWidth=".85" opacity=".38" />
+        <circle cx="663" cy="225" r="6" fill="#BF7458" opacity=".9" />
+        <circle cx="822" cy="513" r="6" fill="#879653" opacity=".9" />
+        <circle cx="805" cy="208" r="5" fill="#C9BFB4" />
       </svg>
 
-      <div className="absolute left-[47%] top-[1%] opacity-58">
-        <AutumnAvatar cell={2} size={48} muted />
-      </div>
-      <div className="absolute left-[75%] top-[7%] opacity-52">
-        <AutumnAvatar cell={16} size={48} muted />
-      </div>
+      <motion.div
+        className="absolute left-[47%] top-[2%] z-[2]"
+        initial={reduced ? false : { opacity: 0 }}
+        whileInView={{ opacity: 0.56 }}
+        viewport={{ once: true }}
+        transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
+      >
+        <AutumnAvatar cell={2} size={54} muted />
+      </motion.div>
+      <motion.div
+        className="absolute left-[76%] top-[8%] z-[2]"
+        initial={reduced ? false : { opacity: 0 }}
+        whileInView={{ opacity: 0.52 }}
+        viewport={{ once: true }}
+        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.06, ease: EASE }}
+      >
+        <AutumnAvatar cell={16} size={54} muted />
+      </motion.div>
+      <motion.div
+        className="absolute left-[85%] top-[31%] z-[2]"
+        initial={reduced ? false : { opacity: 0 }}
+        whileInView={{ opacity: 0.48 }}
+        viewport={{ once: true }}
+        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.08, ease: EASE }}
+      >
+        <AutumnAvatar cell={12} size={54} muted />
+      </motion.div>
+      <motion.div
+        className="absolute left-[42%] top-[65%] z-[2]"
+        initial={reduced ? false : { opacity: 0 }}
+        whileInView={{ opacity: 0.46 }}
+        viewport={{ once: true }}
+        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.1, ease: EASE }}
+      >
+        <AutumnAvatar cell={20} size={52} muted />
+      </motion.div>
 
       {backgroundRecords.map((record, index) => (
         <motion.div
           key={record.name}
-          className="absolute rounded-[22px] border border-white/70 bg-[#FBF8F2]/84 px-4 py-4 shadow-[0_16px_42px_rgba(70,54,40,.09)] backdrop-blur-[.35px]"
-          style={{
-            left: record.left + "%",
-            top: record.top + "%",
-            rotate: record.rotate,
-            width: record.width,
-            filter: "blur(.04px)",
-          }}
-          initial={reduced ? false : { opacity: 0, y: 8 }}
+          className="absolute z-[3]"
+          style={{ left: record.x + "%", top: record.y + "%", width: record.w + "%" }}
+          initial={reduced ? false : { opacity: 0, y: 10 }}
           whileInView={{ opacity: record.opacity, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: true, amount: 0.18 }}
           transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : index * 0.03, ease: EASE }}
         >
-          <div className="flex items-center gap-3">
-            <AutumnAvatar cell={record.cell} size={58} muted />
-            <div className="min-w-0">
-              <div className="truncate text-[12px] font-semibold text-[#575049]">{record.name}</div>
-              <div className="mt-1 text-[10px] text-[#7E746B]">{record.type}</div>
-              <div className="mt-0.5 text-[10px] text-[#887E75]">{record.quiet}</div>
+          <div
+            className="rounded-[22px] border border-white/72 bg-[#FBF8F2]/88 px-4 py-4 shadow-[0_18px_48px_rgba(70,54,40,.10)]"
+            style={{ transform: `rotate(${record.rotate}deg)`, transformOrigin: "50% 50%" }}
+          >
+            <div className="flex items-center gap-3">
+              <AutumnAvatar cell={record.cell} size={62} muted />
+              <div className="min-w-0">
+                <div className="truncate text-[12px] font-semibold text-[#58514B]">{record.name}</div>
+                <div className="mt-1 text-[10px] text-[#7C736B]">{record.type}</div>
+                <div className="mt-0.5 text-[10px] text-[#867D75]">{record.quiet}</div>
+              </div>
             </div>
-          </div>
-          <div className="mt-3 space-y-1.5">
-            <div className="h-2.5 w-[72%] rounded-full bg-black/[0.07]" />
-            <div className="h-2.5 w-[45%] rounded-full bg-black/[0.055]" />
+            <div className="mt-3 space-y-1.5">
+              <div className="h-2.5 w-[74%] rounded-full bg-black/[0.075]" />
+              <div className="h-2.5 w-[49%] rounded-full bg-black/[0.058]" />
+            </div>
           </div>
         </motion.div>
       ))}
 
       <motion.div
-        className="absolute left-[31%] top-[24%] z-20 w-[620px] max-w-[62%] rotate-[2.6deg] rounded-[24px] border border-white/78 bg-[#FCF9F4]/97 p-6 shadow-[0_36px_82px_rgba(76,55,40,.20)] backdrop-blur-sm"
-        initial={reduced ? false : { opacity: 0, y: 10, scale: .97 }}
+        className="absolute left-[27%] top-[24%] z-20 w-[56.5%]"
+        initial={reduced ? false : { opacity: 0, y: 12, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.42 }}
-        transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.12, ease: EASE }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.11, ease: EASE }}
       >
-        <div className="flex items-start gap-6">
-          <div className="rounded-full bg-[#EBC5B3] p-2.5">
-            <AutumnAvatar cell={9} size={116} />
-          </div>
-          <div className="min-w-0 flex-1 pt-1">
-            <div className="flex items-center justify-between gap-4">
-              <div className="text-[22px] font-semibold tracking-[-0.025em] text-[#282522]">Sarah Mitchell</div>
-              <span className="rounded-full bg-[#EAE9E4] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
+        <div
+          className="rounded-[24px] border border-white/80 bg-[#FCF9F4]/98 p-6 shadow-[0_38px_86px_rgba(76,55,40,.22)]"
+          style={{ transform: "rotate(2.75deg)", transformOrigin: "50% 50%" }}
+        >
+          <div className="flex items-start gap-6">
+            <div className="rounded-full bg-[#EBC5B3] p-2.5">
+              <AutumnAvatar cell={9} size={126} />
             </div>
-            <div className="mt-2.5 text-[15px] text-[#69615A]">
-              Quote sent <span className="px-2 text-[#B0A69E]">•</span> A$4,800
-            </div>
-            <div className="mt-1.5 text-[15px] text-[#766E67]">167 days quiet</div>
-            <div className="mt-5 space-y-2">
-              <div className="h-3 w-[72%] rounded-full bg-black/[0.075]" />
-              <div className="h-3 w-[50%] rounded-full bg-black/[0.06]" />
+            <div className="min-w-0 flex-1 pt-1">
+              <div className="flex items-center justify-between gap-4">
+                <div className="text-[23px] font-semibold tracking-[-0.03em] text-[#282522]">Sarah Mitchell</div>
+                <span className="rounded-full bg-[#EAE9E4] px-3.5 py-2 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
+              </div>
+              <div className="mt-3 text-[15px] text-[#69615A]">
+                Quote sent <span className="px-2 text-[#B0A69E]">•</span> A$4,800
+              </div>
+              <div className="mt-1.5 text-[15px] text-[#766E67]">167 days quiet</div>
+              <div className="mt-5 space-y-2">
+                <div className="h-3 w-[76%] rounded-full bg-black/[0.075]" />
+                <div className="h-3 w-[51%] rounded-full bg-black/[0.058]" />
+              </div>
             </div>
           </div>
         </div>
       </motion.div>
 
-      <svg className="pointer-events-none absolute inset-0 z-10 h-full w-full" viewBox="0 0 900 760" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M 430 405 C 455 420, 470 450, 488 466" fill="none" stroke="#B75E3F" strokeWidth="2.2" />
-        <circle cx="430" cy="405" r="6" fill="#B75E3F" />
-        <circle cx="488" cy="466" r="5" fill="#B75E3F" />
-        <path d="M 545 525 C 560 545, 575 565, 600 580" fill="none" stroke="#76834F" strokeWidth="2.1" />
-        <circle cx="545" cy="525" r="5" fill="#76834F" />
-        <path d="M 635 630 C 655 645, 672 655, 692 662" fill="none" stroke="#76834F" strokeWidth="2.1" />
+      <svg
+        className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
+        viewBox="0 0 980 760"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path d="M 405 372 C 420 420, 453 433, 488 440" fill="none" stroke="#B75E3F" strokeWidth="2.0" />
+        <circle cx="405" cy="372" r="6" fill="#B75E3F" />
+        <circle cx="488" cy="440" r="5" fill="#B75E3F" />
+        <path d="M 527 495 C 525 550, 552 584, 610 602" fill="none" stroke="#76834F" strokeWidth="2.0" />
+        <circle cx="527" cy="495" r="5" fill="#76834F" />
+        <circle cx="610" cy="602" r="5" fill="#76834F" />
+        <path d="M 611 602 C 632 630, 654 648, 691 655" fill="none" stroke="#76834F" strokeWidth="2.0" />
       </svg>
 
       <motion.div
-        className="absolute left-[49%] top-[51%] z-30 w-[350px] max-w-[39%] -rotate-[.4deg] rounded-[18px] border border-[#E6D9CF] bg-white/97 px-5 py-4 shadow-[0_20px_48px_rgba(74,53,39,.11)]"
-        initial={reduced ? false : { opacity: 0, x: 12 }}
+        className="absolute left-[48.5%] top-[50%] z-30 w-[34%]"
+        initial={reduced ? false : { opacity: 0, x: 14 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.42 }}
-        transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.3, ease: EASE }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.28, ease: EASE }}
       >
-        <div className="flex items-start gap-3">
-          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center">
-            <img src={PETALS_ICON} alt="" className="h-8 w-8 object-contain" />
-          </div>
-          <div>
-            <div className="text-[14px] font-semibold leading-[1.45] text-[#292623]">Want us to update that quote?</div>
-            <div className="mt-2 text-[9px] text-[#A0968C]">10:14 AM</div>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[58%] top-[65%] z-30 w-[390px] max-w-[44%] rotate-[.35deg] rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/97 px-5 py-4 shadow-[0_20px_48px_rgba(77,85,54,.11)]"
-        initial={reduced ? false : { opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.42 }}
-        transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.44, ease: EASE }}
-      >
-        <div className="flex items-center gap-3">
-          <AutumnAvatar cell={9} size={44} />
-          <div className="min-w-0 flex-1">
-            <div className="text-[13px] font-semibold leading-[1.45] text-[#2E3128]">Yes. Please send me the latest pricing.</div>
-            <div className="mt-2 flex items-center gap-2 text-[9px] text-[#7B8367]">
-              10:27 AM <Check size={11} strokeWidth={2.4} />
+        <div
+          className="rounded-[18px] border border-[#E6D9CF] bg-white/98 px-5 py-4 shadow-[0_22px_52px_rgba(74,53,39,.12)]"
+          style={{ transform: "rotate(-0.65deg)" }}
+        >
+          <div className="flex items-center gap-4">
+            <PetalsIcon />
+            <div>
+              <div className="text-[15px] font-semibold leading-[1.45] text-[#292623]">Want us to update that quote?</div>
+              <div className="mt-2 text-[9px] text-[#A0968C]">10:14 AM</div>
             </div>
           </div>
         </div>
       </motion.div>
 
-      <div className="pointer-events-none absolute left-[82%] top-[63%] z-40">
+      <motion.div
+        className="absolute left-[57.5%] top-[64%] z-30 w-[39%]"
+        initial={reduced ? false : { opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.41, ease: EASE }}
+      >
+        <div
+          className="rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/98 px-5 py-4 shadow-[0_22px_52px_rgba(77,85,54,.12)]"
+          style={{ transform: "rotate(0.45deg)" }}
+        >
+          <div className="flex items-center gap-3">
+            <AutumnAvatar cell={9} size={48} />
+            <div className="min-w-0 flex-1">
+              <div className="text-[14px] font-semibold leading-[1.45] text-[#2E3128]">Yes. Please send me the latest pricing.</div>
+              <div className="mt-2 flex items-center gap-2 text-[9px] text-[#7B8367]">
+                10:27 AM <Check size={11} strokeWidth={2.4} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      <div className="pointer-events-none absolute left-[91%] top-[61%] z-40">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
       <motion.div
-        className="absolute bottom-[4%] left-[62%] z-30 flex w-[410px] max-w-[46%] -rotate-[.2deg] items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/96 px-5 py-4 shadow-[0_20px_48px_rgba(61,64,46,.09)]"
-        initial={reduced ? false : { opacity: 0, y: 10 }}
+        className="absolute left-[63%] top-[78%] z-30 w-[40%]"
+        initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.42 }}
-        transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.56, ease: EASE }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.54, ease: EASE }}
       >
-        <div className="flex items-center gap-3">
-          <span className="h-3 w-3 rounded-full bg-[#879653]" />
-          <div className="flex items-center gap-4">
-            <div className="rounded-full bg-[#E5E8D5] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#637044]">Reopened</div>
-            <div className="h-7 w-px bg-[#D5D3C9]" />
-            <div>
-              <div className="text-[11px] font-semibold text-[#373631]">Sarah is back</div>
-              <div className="mt-1 text-[9px] text-[#77726C]">Resumed conversation</div>
+        <div
+          className="flex items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/98 px-5 py-4 shadow-[0_22px_52px_rgba(61,64,46,.10)]"
+          style={{ transform: "rotate(-0.25deg)" }}
+        >
+          <div className="flex items-center gap-3">
+            <span className="h-3 w-3 rounded-full bg-[#879653]" />
+            <div className="flex items-center gap-4">
+              <div className="rounded-full bg-[#E5E8D5] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#637044]">Reopened</div>
+              <div className="h-7 w-px bg-[#D5D3C9]" />
+              <div>
+                <div className="text-[11px] font-semibold text-[#373631]">Sarah is back</div>
+                <div className="mt-1 text-[9px] text-[#77726C]">Resumed conversation</div>
+              </div>
             </div>
           </div>
+          <ArrowRight size={16} className="text-[#5E6257]" />
         </div>
-        <ArrowRight size={16} className="text-[#5E6257]" />
       </motion.div>
     </div>
   );
