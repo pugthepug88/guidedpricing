@@ -10,7 +10,6 @@ import {
   MessageSquareText,
   ShieldCheck,
   Star,
-  UserRound,
 } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
@@ -68,7 +67,7 @@ const FAQS = [
 function ReviewsPage() {
   return (
     <main
-      className="min-h-screen overflow-hidden bg-[#FCFCFA] text-[#111318] antialiased"
+      className="min-h-screen overflow-hidden bg-white text-[#111318] antialiased"
       style={{ fontFamily: BODY }}
     >
       <Hero />
@@ -168,54 +167,62 @@ function Stars({ small = false }: { small?: boolean }) {
 
 function Hero() {
   return (
-    <section className="relative bg-[#F7F2EA] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-24 lg:pt-[136px]">
-      <div className="mx-auto grid max-w-[1400px] items-center gap-12 lg:grid-cols-[0.83fr_1.17fr] lg:gap-16">
-        <Reveal className="max-w-[650px]">
-          <Eyebrow>Reviews & Reputation</Eyebrow>
-          <h1
-            className="mt-4 text-[50px] font-medium leading-[0.92] tracking-[-0.06em] sm:text-[68px] lg:text-[82px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            A good job should keep selling
-            <span className="block text-[#B27B2D]">after it&apos;s done.</span>
-          </h1>
-          <p className="mt-6 max-w-[590px] text-[16px] leading-[1.7] text-[#625D57] sm:text-[18px]">
-            Zapla asks for a review at the moment you choose, keeps the feedback
-            connected to the customer, and turns finished work into proof your
-            next customer can actually see.
-          </p>
+    <section className="relative overflow-hidden border-b border-[#DDE5EE] bg-[#F7FAFD] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-18 sm:pt-[124px] lg:px-16 lg:pb-20 lg:pt-[136px]">
+      <div className="pointer-events-none absolute right-[-120px] top-[70px] h-[420px] w-[420px] rounded-full bg-[#2563FF]/[0.045] blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-180px] left-[18%] h-[360px] w-[360px] rounded-full bg-[#DDA34B]/[0.07] blur-3xl" />
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href={BOOK_URL}
-              className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F2EA]"
+      <div className="relative mx-auto max-w-[1400px]">
+        <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <Reveal className="max-w-[680px]">
+            <Eyebrow>Reviews & Reputation</Eyebrow>
+            <h1
+              className="mt-4 text-[50px] font-medium leading-[0.92] tracking-[-0.06em] sm:text-[68px] lg:text-[84px]"
+              style={{ fontFamily: DISPLAY }}
             >
-              Book a Call <ArrowRight size={15} />
-            </a>
-            <a
-              href="#review-loop"
-              className="inline-flex h-[50px] items-center rounded-[10px] border border-[#CBBEAF] bg-white/45 px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#AA9B8B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F2EA]"
-            >
-              See how it works
-            </a>
-          </div>
+              A good job should keep selling
+              <span className="block text-[#A66F20]">after it&apos;s done.</span>
+            </h1>
+            <p className="mt-6 max-w-[610px] text-[16px] leading-[1.72] text-[#56616D] sm:text-[18px]">
+              Zapla asks for a review at the moment you choose, keeps the feedback
+              connected to the customer, and turns finished work into proof your
+              next customer can actually see.
+            </p>
 
-          <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-[11px] font-semibold text-[#615D56] sm:text-[12px]">
-            {["Trigger after completed work", "Neutral review request", "Customer context stays attached"].map(
-              (item) => (
-                <span key={item} className="inline-flex items-center gap-2">
-                  <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#DDA34B]/18 text-[#8D6428]">
-                    <Check size={10} strokeWidth={2.5} />
-                  </span>
-                  {item}
-                </span>
-              ),
-            )}
-          </div>
-        </Reveal>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={BOOK_URL}
+                className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7FAFD]"
+              >
+                Book a Call <ArrowRight size={15} />
+              </a>
+              <a
+                href="#review-loop"
+                className="inline-flex h-[50px] items-center rounded-[10px] border border-[#CCD7E2] bg-white px-6 text-[13px] font-semibold text-[#111318] shadow-[0_6px_18px_rgba(27,45,64,.04)] transition-colors hover:border-[#9EACBA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#DDA34B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7FAFD]"
+              >
+                See how it works
+              </a>
+            </div>
+          </Reveal>
 
-        <Reveal delay={0.08}>
-          <ReviewHeroScene />
+          <Reveal delay={0.08}>
+            <ReviewHeroScene />
+          </Reveal>
+        </div>
+
+        <Reveal className="mt-12 border-t border-[#DCE5ED] pt-5 lg:mt-10">
+          <div className="grid gap-4 text-[11px] font-semibold text-[#596775] sm:grid-cols-3 sm:text-[12px]">
+            {[
+              ["01", "Completed work", "The trigger"],
+              ["02", "Honest request", "The ask"],
+              ["03", "Visible proof", "The outcome"],
+            ].map(([number, title, label]) => (
+              <div key={number} className="flex items-center gap-3">
+                <span className="text-[9px] font-bold tracking-[0.16em] text-[#A66F20]">{number}</span>
+                <span>{title}</span>
+                <span className="text-[#9AA7B4]">/ {label}</span>
+              </div>
+            ))}
+          </div>
         </Reveal>
       </div>
     </section>
@@ -228,106 +235,110 @@ function ReviewHeroScene() {
     reduced
       ? { initial: false as const, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
       : {
-          initial: { opacity: 0, y: 16 },
+          initial: { opacity: 0, y: 14 },
           whileInView: { opacity: 1, y: 0 },
-          transition: { duration: 0.44, delay, ease: EASE },
+          transition: { duration: 0.42, delay, ease: EASE },
         };
 
   return (
-    <div className="relative min-h-[610px] overflow-hidden rounded-[30px] border border-[#D5C7B7] bg-[#F0D59D] p-4 shadow-[0_28px_70px_rgba(74,57,37,.13)] sm:min-h-[620px] sm:p-6">
-      <div className="absolute right-[-68px] top-[-70px] h-[230px] w-[230px] rounded-full border border-[#9B6722]/10" />
-      <div className="absolute right-[-26px] top-[-28px] h-[150px] w-[150px] rounded-full border border-[#9B6722]/10" />
+    <div className="relative mx-auto min-h-[570px] w-full max-w-[650px] py-5 sm:min-h-[600px] sm:py-8">
+      <div className="pointer-events-none absolute left-[12%] top-[12%] h-[72%] w-[70%] rounded-[50%] bg-[#EAF1F8] blur-[44px]" />
+      <div className="pointer-events-none absolute right-[2%] top-[2%] h-[120px] w-[120px] rounded-full border border-[#2563FF]/10" />
+      <div className="pointer-events-none absolute right-[6%] top-[6%] h-[72px] w-[72px] rounded-full border border-[#DDA34B]/20" />
 
-      <div className="relative z-10 flex items-center justify-between">
-        <div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#76501C]">Review flow</div>
-          <div className="mt-1 text-[17px] font-semibold tracking-[-0.025em] text-[#2B2A25]">Northside Plumbing</div>
-        </div>
-        <div className="rounded-full bg-[#FBF5E8]/70 px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#796343]">
-          Example
-        </div>
-      </div>
-
-      <div className="relative z-10 mt-6 grid gap-3">
-        <motion.div
-          {...beat(0.08)}
-          viewport={{ once: true, amount: 0.75 }}
-          className="ml-0 max-w-[390px] rounded-[20px] border border-white/70 bg-[#FCF9F3]/95 p-4 shadow-[0_15px_38px_rgba(76,55,40,.10)]"
-        >
-          <div className="flex items-center gap-3">
-            <ExampleAvatar />
-            <div className="min-w-0 flex-1">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8A8176]">Customer record</div>
-              <div className="mt-0.5 truncate text-[14px] font-semibold text-[#302E2A]">Mia Thompson</div>
-            </div>
-            <span className="rounded-full bg-[#DCE0CC] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-[#5C6844]">
-              Completed
-            </span>
+      <motion.div
+        {...beat(0.08)}
+        viewport={{ once: true, amount: 0.75 }}
+        className="relative z-10 mr-auto max-w-[390px] rounded-[18px] border border-[#D9E2EA] bg-white p-4 shadow-[0_18px_45px_rgba(31,49,68,.09)]"
+      >
+        <div className="flex items-center gap-3">
+          <ExampleAvatar />
+          <div className="min-w-0 flex-1">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7C8995]">Customer record</div>
+            <div className="mt-0.5 truncate text-[14px] font-semibold text-[#26313B]">Mia Thompson</div>
           </div>
-          <div className="mt-3 flex items-center justify-between border-t border-[#E6DDD2] pt-3 text-[10px] text-[#71695F]">
-            <span>Hot water repair</span>
-            <span>4:12 PM</span>
-          </div>
-        </motion.div>
+          <span className="rounded-full bg-[#DCE0CC] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-[#56643E]">
+            Completed
+          </span>
+        </div>
+        <div className="mt-3 flex items-center justify-between border-t border-[#E7EDF2] pt-3 text-[10px] text-[#687581]">
+          <span>Hot water repair</span>
+          <span>4:12 PM</span>
+        </div>
+      </motion.div>
 
-        <motion.div
-          {...beat(0.28)}
-          viewport={{ once: true, amount: 0.7 }}
-          className="ml-auto max-w-[430px] rounded-[20px] border border-[#CDBA91] bg-[#FFF9EB] p-4 shadow-[0_18px_42px_rgba(76,55,40,.12)]"
-        >
-          <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#80551C]">
+      <div className="relative z-10 ml-8 h-9 w-px bg-gradient-to-b from-[#B7C4D0] to-[#DDA34B] sm:ml-14" />
+
+      <motion.div
+        {...beat(0.28)}
+        viewport={{ once: true, amount: 0.7 }}
+        className="relative z-10 ml-auto max-w-[455px] rounded-[20px] bg-[#1E2B29] p-5 text-white shadow-[0_24px_54px_rgba(20,37,35,.16)]"
+      >
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#E4BE72]">
             <MessageSquareText size={13} />
             Review request · SMS
           </div>
-          <p className="mt-3 text-[12.5px] font-semibold leading-[1.52] text-[#34312B]">
-            Hi Mia, thanks for choosing Northside Plumbing. If you have a minute,
-            we&apos;d value an honest Google review about your experience.
-          </p>
-          <div className="mt-3 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#765B33]">
-            <Clock3 size={11} />
-            Sent 2 hours after completion
-          </div>
-        </motion.div>
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-white/55">
+            Automated
+          </span>
+        </div>
+        <p className="mt-4 text-[12.5px] font-semibold leading-[1.58] text-white/88">
+          Hi Mia, thanks for choosing Northside Plumbing. If you have a minute,
+          we&apos;d value an honest Google review about your experience.
+        </p>
+        <div className="mt-4 inline-flex items-center gap-1.5 text-[9px] font-semibold text-white/48">
+          <Clock3 size={11} />
+          Sent 2 hours after completion
+        </div>
+      </motion.div>
 
-        <motion.div
-          {...beat(0.52)}
-          viewport={{ once: true, amount: 0.7 }}
-          className="ml-3 max-w-[460px] rounded-[22px] border border-white/80 bg-white/95 p-5 shadow-[0_22px_52px_rgba(76,55,40,.14)] sm:ml-12"
-        >
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8B8379]">Google Business Profile</div>
-              <div className="mt-1 text-[14px] font-semibold text-[#292B28]">Example review received</div>
-            </div>
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1E2B29] text-[#F7F4EE]">
-              <ZaplaPetal size={22} />
-            </span>
-          </div>
-          <div className="mt-4 flex items-center gap-3">
-            <ExampleAvatar column={2} row={1} className="h-9 w-9" />
-            <div>
-              <div className="text-[11px] font-semibold text-[#343631]">Mia T.</div>
-              <div className="mt-0.5"><Stars small /></div>
-            </div>
-          </div>
-          <p className="mt-3 text-[12px] leading-[1.58] text-[#5F635E]">
-            Great communication. Arrived when they said they would and explained
-            the repair clearly.
-          </p>
-        </motion.div>
-      </div>
+      <div className="relative z-10 ml-auto mr-10 h-9 w-px bg-gradient-to-b from-[#DDA34B] to-[#B7C4D0] sm:mr-20" />
 
-      <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between gap-3 rounded-[16px] border border-[#927038]/15 bg-[#F8E8BF]/90 px-4 py-3 sm:bottom-6 sm:left-6 sm:right-6">
-        <span className="text-[10px] font-semibold text-[#5C513E]">Finished work → review request → visible proof</span>
-        <ExternalLink size={14} className="shrink-0 text-[#76501C]" />
-      </div>
+      <motion.div
+        {...beat(0.5)}
+        viewport={{ once: true, amount: 0.7 }}
+        className="relative z-10 ml-4 max-w-[485px] rounded-[22px] border border-[#D9E2EA] bg-white p-5 shadow-[0_24px_60px_rgba(31,49,68,.11)] sm:ml-12"
+      >
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#758390]">Google Business Profile</div>
+            <div className="mt-1 text-[14px] font-semibold text-[#252E36]">Example review received</div>
+          </div>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F2E3BF] text-[#80551C]">
+            <ZaplaPetal size={22} />
+          </span>
+        </div>
+        <div className="mt-4 flex items-center gap-3">
+          <ExampleAvatar column={2} row={1} className="h-9 w-9" />
+          <div>
+            <div className="text-[11px] font-semibold text-[#343A3F]">Mia T.</div>
+            <div className="mt-0.5"><Stars small /></div>
+          </div>
+          <span className="ml-auto text-[8px] font-semibold uppercase tracking-[0.1em] text-[#9AA5AE]">Example</span>
+        </div>
+        <p className="mt-3 text-[12px] leading-[1.58] text-[#59646D]">
+          Great communication. Arrived when they said they would and explained
+          the repair clearly.
+        </p>
+      </motion.div>
+
+      <motion.div
+        {...beat(0.68)}
+        viewport={{ once: true, amount: 0.7 }}
+        className="relative z-10 ml-auto mt-5 flex w-fit items-center gap-2 rounded-full border border-[#D7E0E8] bg-white/90 px-3.5 py-2 text-[9px] font-semibold text-[#56636F] shadow-[0_10px_24px_rgba(31,49,68,.06)]"
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
+        Finished work becomes visible proof
+        <ExternalLink size={11} className="text-[#A66F20]" />
+      </motion.div>
     </div>
   );
 }
 
 function ProblemSection() {
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[900px]">
           <Eyebrow>What gets missed</Eyebrow>
@@ -347,16 +358,16 @@ function ProblemSection() {
 
         <div className="mt-12 grid gap-4 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
-            <article className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#F0D59D] p-7 sm:p-9">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#76501C]">No request</div>
+            <article className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#17212B] p-7 text-white sm:p-9">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#DDA34B]">No request</div>
               <h3
-                className="mt-12 max-w-[620px] text-[46px] font-medium leading-[0.94] tracking-[-0.058em] text-[#25251F] sm:text-[60px]"
+                className="mt-12 max-w-[620px] text-[46px] font-medium leading-[0.94] tracking-[-0.058em] text-white sm:text-[60px]"
                 style={{ fontFamily: DISPLAY }}
               >
                 Happy customer.
-                <span className="block text-[#8E6324]">Nobody asked.</span>
+                <span className="block text-[#E2B35E]">Nobody asked.</span>
               </h3>
-              <p className="mt-7 max-w-[470px] text-[14px] leading-[1.7] text-[#5F563D]">
+              <p className="mt-7 max-w-[470px] text-[14px] leading-[1.7] text-white/62">
                 They pay, leave and get on with their day. Goodwill expires faster
                 than your team remembers to send the link.
               </p>
@@ -364,17 +375,17 @@ function ProblemSection() {
           </Reveal>
 
           <Reveal className="lg:col-span-5" delay={0.06}>
-            <article className="min-h-[360px] rounded-[30px] bg-[#E7E0EA] p-7 sm:p-9">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#7E687F]">Bad timing</div>
+            <article className="min-h-[360px] rounded-[30px] bg-[#E8EEF4] p-7 sm:p-9">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#667789]">Bad timing</div>
               <div
-                className="mt-14 text-[58px] font-medium leading-[0.88] tracking-[-0.07em] text-[#342F36] sm:text-[70px]"
+                className="mt-14 text-[58px] font-medium leading-[0.88] tracking-[-0.07em] text-[#26323D] sm:text-[70px]"
                 style={{ fontFamily: DISPLAY }}
               >
                 TOO
                 <br />
                 LATE.
               </div>
-              <p className="mt-7 max-w-[350px] text-[14px] leading-[1.68] text-[#625B64]">
+              <p className="mt-7 max-w-[350px] text-[14px] leading-[1.68] text-[#5D6A76]">
                 A generic request two weeks later feels like admin. The service
                 moment is already gone.
               </p>
@@ -501,7 +512,7 @@ function MechanismSection() {
 
 function TimingSection() {
   return (
-    <section className="bg-[#F7F2EA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F4F7FA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto grid max-w-[1320px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
         <Reveal className="max-w-[570px]">
           <Eyebrow>Timing & control</Eyebrow>
@@ -536,8 +547,8 @@ function ReviewTimingUi() {
   ] as const;
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-[#D5C9BB] bg-[#FCFAF6] shadow-[0_24px_60px_rgba(76,55,40,.10)]">
-      <div className="flex items-center justify-between border-b border-[#E0D7CC] bg-[#F0D59D]/45 px-5 py-4 sm:px-6">
+    <div className="overflow-hidden rounded-[28px] border border-[#D7E0E8] bg-white shadow-[0_24px_60px_rgba(76,55,40,.10)]">
+      <div className="flex items-center justify-between border-b border-[#DDE5EC] bg-[#E8EEF4] px-5 py-4 sm:px-6">
         <div>
           <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#76501C]">Review request workflow</div>
           <div className="mt-1 text-[17px] font-semibold tracking-[-0.025em] text-[#2B2C28]">After the job is finished</div>
@@ -549,9 +560,9 @@ function ReviewTimingUi() {
       </div>
 
       <div className="grid sm:grid-cols-[0.86fr_1.14fr]">
-        <div className="border-b border-[#E3DBD1] p-5 sm:border-b-0 sm:border-r sm:p-6">
+        <div className="border-b border-[#E1E8EE] p-5 sm:border-b-0 sm:border-r sm:p-6">
           <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8C8379]">Rules</div>
-          <div className="mt-4 divide-y divide-[#E6DED4] border-y border-[#E6DED4]">
+          <div className="mt-4 divide-y divide-[#E4EAF0] border-y border-[#E4EAF0]">
             {rows.map(([label, value]) => (
               <div key={label} className="grid grid-cols-[0.72fr_1.28fr] gap-3 py-3.5">
                 <span className="text-[10px] font-semibold text-[#8B8277]">{label}</span>
@@ -593,7 +604,7 @@ function ReviewTimingUi() {
 
 function FeedbackSection() {
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[900px]">
           <Eyebrow>What happens next</Eyebrow>
@@ -763,7 +774,7 @@ function CustomerRecordSection() {
 
 function CommercialSection() {
   return (
-    <section className="bg-[#F7F5F1] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F5F7F9] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[900px]">
           <Eyebrow>Included in Zapla</Eyebrow>
@@ -783,7 +794,7 @@ function CommercialSection() {
 
         <div className="mt-12 grid gap-4 lg:grid-cols-2">
           <Reveal>
-            <div className="flex min-h-[390px] flex-col rounded-[28px] border border-[#DDD4C8] bg-[#FCFAF6] p-7 sm:p-9">
+            <div className="flex min-h-[390px] flex-col rounded-[28px] border border-[#D9E1E8] bg-white p-7 sm:p-9">
               <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8B6A3C]">Follow-Through</div>
               <h3 className="mt-5 max-w-[470px] text-[34px] font-medium leading-[0.98] tracking-[-0.048em]" style={{ fontFamily: DISPLAY }}>
                 Stop losing the business already coming to you.
@@ -844,7 +855,7 @@ function CommercialSection() {
 
 function Faq() {
   return (
-    <section className="bg-[#F3EBDD] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#EEF2F6] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1160px]">
         <Reveal>
           <Eyebrow>FAQ</Eyebrow>
@@ -857,7 +868,7 @@ function Faq() {
           </h2>
         </Reveal>
 
-        <div className="mt-10 divide-y divide-[#D8CFC3] border-y border-[#D8CFC3]">
+        <div className="mt-10 divide-y divide-[#D4DDE5] border-y border-[#D4DDE5]">
           {FAQS.map((item) => (
             <FaqItem key={item.q} q={item.q} a={item.a} />
           ))}
@@ -881,7 +892,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         <span className="text-[14px] font-semibold text-[#2E2A27] sm:text-[16px]">{q}</span>
         <ChevronDown
           size={17}
-          className={"shrink-0 text-[#8B714E] transition-transform " + (open ? "rotate-180" : "")}
+          className={"shrink-0 text-[#7B6A50] transition-transform " + (open ? "rotate-180" : "")}
         />
       </button>
       {open ? (
@@ -895,7 +906,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 function FinalCta() {
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1120px] text-center">
         <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
           <ZaplaPetal size={34} />
