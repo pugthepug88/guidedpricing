@@ -232,18 +232,18 @@ function Hero() {
 
 function ReopenHeroVisual() {
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.5, y: 7.0, w: 36.5, rz: 0.7, ry: 9.5, opacity: 0.67, blur: 0.14, z: 8 },
-    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 14.5, y: 1.0, w: 39.0, rz: 0.4, ry: 8.5, opacity: 0.25, blur: 1.0, z: 1 },
-    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 23.0, y: 7.5, w: 40.0, rz: 0.6, ry: 9.0, opacity: 0.32, blur: 0.75, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 30.0, y: 14.0, w: 38.0, rz: 0.7, ry: 9.5, opacity: 0.62, blur: 0.14, z: 9 },
-    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 10.5, y: 25.5, w: 39.0, rz: 0.5, ry: 9.0, opacity: 0.27, blur: 0.9, z: 2 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -0.5, y: 31.0, w: 36.5, rz: 0.7, ry: 9.0, opacity: 0.61, blur: 0.14, z: 7 },
-    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 20.5, y: 33.0, w: 40.0, rz: 0.5, ry: 9.0, opacity: 0.24, blur: 1.0, z: 2 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.5, y: 52.0, w: 36.5, rz: 0.8, ry: 9.5, opacity: 0.63, blur: 0.15, z: 7 },
-    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 15.5, y: 48.5, w: 40.0, rz: 0.5, ry: 9.0, opacity: 0.28, blur: 0.95, z: 2 },
-    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 23.0, y: 58.5, w: 39.0, rz: 0.6, ry: 9.0, opacity: 0.23, blur: 1.05, z: 1 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.0, y: 70.0, w: 36.5, rz: 0.8, ry: 9.5, opacity: 0.60, blur: 0.16, z: 7 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 34.0, y: 72.5, w: 37.0, rz: 0.7, ry: 9.5, opacity: 0.59, blur: 0.16, z: 7 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.5, y: 7.5, w: 38.0, rz: 0.55, ry: 10.0, opacity: 0.70, blur: 0.12, z: 8 },
+    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 15.0, y: 0.5, w: 40.5, rz: 0.30, ry: 9.0, opacity: 0.34, blur: 0.78, z: 1 },
+    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 23.5, y: 5.5, w: 41.0, rz: 0.40, ry: 9.5, opacity: 0.38, blur: 0.62, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 30.0, y: 13.0, w: 39.5, rz: 0.50, ry: 10.0, opacity: 0.66, blur: 0.12, z: 9 },
+    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 9.5, y: 22.0, w: 40.5, rz: 0.35, ry: 9.5, opacity: 0.35, blur: 0.74, z: 2 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -1.5, y: 30.0, w: 38.0, rz: 0.50, ry: 9.5, opacity: 0.66, blur: 0.12, z: 7 },
+    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 18.0, y: 31.0, w: 41.0, rz: 0.35, ry: 9.5, opacity: 0.33, blur: 0.78, z: 2 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.0, y: 49.0, w: 38.0, rz: 0.60, ry: 10.0, opacity: 0.67, blur: 0.12, z: 7 },
+    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 14.0, y: 46.0, w: 41.0, rz: 0.35, ry: 9.5, opacity: 0.36, blur: 0.72, z: 2 },
+    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 22.0, y: 55.0, w: 40.5, rz: 0.40, ry: 9.5, opacity: 0.31, blur: 0.82, z: 1 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 1.5, y: 67.0, w: 38.0, rz: 0.60, ry: 10.0, opacity: 0.64, blur: 0.13, z: 7 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 33.0, y: 72.0, w: 38.0, rz: 0.50, ry: 10.0, opacity: 0.63, blur: 0.13, z: 7 },
   ] as const;
 
   const floatingAvatars = [
@@ -254,7 +254,7 @@ function ReopenHeroVisual() {
   ] as const;
 
   return (
-    <div className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:mx-0">
+    <div className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:-ml-[16%] lg:-mt-[105px] lg:w-[122%] lg:max-w-none">
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
         viewBox="0 0 1000 780"
@@ -316,11 +316,11 @@ function ReopenHeroVisual() {
         </div>
       ))}
 
-      <div className="absolute left-[24%] top-[23.5%] z-30 w-[61%]">
+      <div className="absolute left-[24%] top-[23.5%] z-30 w-[62.5%]">
         <div
           className="rounded-[25px] border border-white/85 bg-[#FCF9F4]/[0.99] p-[22px] shadow-[26px_34px_76px_rgba(76,55,40,.19)]"
           style={{
-            transform: "perspective(760px) rotateY(11.5deg) rotateZ(1.15deg)",
+            transform: "perspective(720px) rotateY(12.5deg) rotateZ(0.95deg)",
             transformOrigin: "13% 50%",
             transformStyle: "preserve-3d",
           }}
@@ -348,25 +348,28 @@ function ReopenHeroVisual() {
       </div>
 
       <svg
-        className="pointer-events-none absolute inset-0 z-[34] h-full w-full overflow-hidden"
+        className="pointer-events-none absolute inset-0 z-[34] h-full w-full overflow-visible"
         viewBox="0 0 1000 780"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path d="M 410 378 C 415 408, 435 430, 470 444" fill="none" stroke="#B75E3F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="410" cy="378" r="5.5" fill="#B75E3F" />
-        <circle cx="470" cy="444" r="5" fill="#B75E3F" />
+        {/* Sarah -> outgoing message: both dots sit on component edges. */}
+        <path d="M 405 366 C 407 397, 422 418, 450 428" fill="none" stroke="#B75E3F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="405" cy="366" r="5.5" fill="#B75E3F" />
+        <circle cx="450" cy="428" r="5" fill="#B75E3F" />
 
-        <path d="M 530 495 C 528 528, 540 552, 558 566" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="530" cy="495" r="5" fill="#76834F" />
-        <circle cx="558" cy="566" r="5" fill="#76834F" />
+        {/* Outgoing message -> Sarah reply. Starts on the outgoing card bottom edge and lands on the reply card left edge. */}
+        <path d="M 500 462 C 498 497, 509 526, 535 536" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="500" cy="462" r="5" fill="#76834F" />
+        <circle cx="535" cy="536" r="5" fill="#76834F" />
 
-        <path d="M 596 614 C 596 640, 603 658, 617 670" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="596" cy="614" r="5" fill="#76834F" />
-        <circle cx="617" cy="670" r="5" fill="#76834F" />
+        {/* Sarah reply -> reopened state. Starts on the reply card bottom edge and enters the reopened card left edge. */}
+        <path d="M 535 573 C 537 606, 552 630, 585 638" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="535" cy="573" r="5" fill="#76834F" />
+        <circle cx="585" cy="638" r="5" fill="#76834F" />
       </svg>
 
-      <div className="absolute left-[46.8%] top-[50.5%] z-40 w-[33%]">
+      <div className="absolute left-[45%] top-[50.5%] z-40 w-[33%]">
         <div className="rounded-[17px] border border-[#E6D9CF] bg-white/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(74,53,39,.11)]">
           <div className="flex items-center gap-[14px]">
             <ZaplaPetal size={37} className="shrink-0" />
@@ -378,7 +381,7 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div className="absolute left-[55.5%] top-[63.8%] z-40 w-[38.5%]">
+      <div className="absolute left-[53.5%] top-[63.8%] z-40 w-[38.5%]">
         <div className="rounded-[17px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(77,85,54,.11)]">
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={46} />
@@ -392,13 +395,13 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-[91.5%] top-[61.3%] z-50">
+      <div className="pointer-events-none absolute left-[89.5%] top-[61.3%] z-50">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <div className="absolute left-[61%] top-[78%] z-40 w-[35.5%]">
+      <div className="absolute left-[58.5%] top-[78%] z-40 w-[35.5%]">
         <div className="flex items-center justify-between gap-4 rounded-[17px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(61,64,46,.095)]">
           <div className="flex min-w-0 items-center gap-3">
             <span className="h-3 w-3 shrink-0 rounded-full bg-[#879653]" />
