@@ -232,16 +232,18 @@ function Hero() {
 
 function ReopenHeroVisual() {
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 1.0, y: 7.0, w: 35.5, rz: 0.8, ry: 8.5, opacity: 0.66, blur: 0.15, z: 7 },
-    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 17.0, y: -1.0, w: 38.0, rz: 0.5, ry: 7.0, opacity: 0.24, blur: 1.15, z: 1 },
-    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 25.0, y: 7.5, w: 39.0, rz: 0.7, ry: 8.0, opacity: 0.30, blur: 0.8, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 31.5, y: 15.5, w: 36.5, rz: 0.8, ry: 8.5, opacity: 0.60, blur: 0.16, z: 8 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -0.5, y: 34.5, w: 35.5, rz: 0.7, ry: 8.0, opacity: 0.59, blur: 0.16, z: 6 },
-    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 12.5, y: 28.5, w: 38.0, rz: 0.6, ry: 8.0, opacity: 0.24, blur: 1.0, z: 2 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.5, y: 57.0, w: 36.0, rz: 0.9, ry: 8.5, opacity: 0.61, blur: 0.17, z: 6 },
-    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 18.5, y: 51.5, w: 38.5, rz: 0.6, ry: 8.0, opacity: 0.25, blur: 1.05, z: 2 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.0, y: 76.0, w: 35.5, rz: 0.8, ry: 8.5, opacity: 0.58, blur: 0.18, z: 6 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 36.0, y: 79.0, w: 35.5, rz: 0.7, ry: 8.5, opacity: 0.57, blur: 0.18, z: 6 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.5, y: 7.0, w: 36.5, rz: 0.7, ry: 9.5, opacity: 0.67, blur: 0.14, z: 8 },
+    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 14.5, y: 1.0, w: 39.0, rz: 0.4, ry: 8.5, opacity: 0.25, blur: 1.0, z: 1 },
+    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 23.0, y: 7.5, w: 40.0, rz: 0.6, ry: 9.0, opacity: 0.32, blur: 0.75, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 30.0, y: 14.0, w: 38.0, rz: 0.7, ry: 9.5, opacity: 0.62, blur: 0.14, z: 9 },
+    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 10.5, y: 25.5, w: 39.0, rz: 0.5, ry: 9.0, opacity: 0.27, blur: 0.9, z: 2 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -0.5, y: 31.0, w: 36.5, rz: 0.7, ry: 9.0, opacity: 0.61, blur: 0.14, z: 7 },
+    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 20.5, y: 33.0, w: 40.0, rz: 0.5, ry: 9.0, opacity: 0.24, blur: 1.0, z: 2 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.5, y: 52.0, w: 36.5, rz: 0.8, ry: 9.5, opacity: 0.63, blur: 0.15, z: 7 },
+    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 15.5, y: 48.5, w: 40.0, rz: 0.5, ry: 9.0, opacity: 0.28, blur: 0.95, z: 2 },
+    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 23.0, y: 58.5, w: 39.0, rz: 0.6, ry: 9.0, opacity: 0.23, blur: 1.05, z: 1 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.0, y: 70.0, w: 36.5, rz: 0.8, ry: 9.5, opacity: 0.60, blur: 0.16, z: 7 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 34.0, y: 72.5, w: 37.0, rz: 0.7, ry: 9.5, opacity: 0.59, blur: 0.16, z: 7 },
   ] as const;
 
   const floatingAvatars = [
@@ -314,12 +316,12 @@ function ReopenHeroVisual() {
         </div>
       ))}
 
-      <div className="absolute left-[25%] top-[23.5%] z-30 w-[59%]">
+      <div className="absolute left-[24%] top-[23.5%] z-30 w-[61%]">
         <div
           className="rounded-[25px] border border-white/85 bg-[#FCF9F4]/[0.99] p-[22px] shadow-[26px_34px_76px_rgba(76,55,40,.19)]"
           style={{
-            transform: "perspective(900px) rotateY(9deg) rotateZ(1.4deg)",
-            transformOrigin: "17% 50%",
+            transform: "perspective(760px) rotateY(11.5deg) rotateZ(1.15deg)",
+            transformOrigin: "13% 50%",
             transformStyle: "preserve-3d",
           }}
         >
