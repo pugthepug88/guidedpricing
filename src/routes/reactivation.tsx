@@ -293,18 +293,18 @@ function ReopenHeroVisual() {
   }, []);
 
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -2.0, y: 7.0, w: 38.0, rz: 0.45, ry: 9.5, opacity: 0.76, blur: 0.10, z: 8 },
-    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 13.0, y: 0.5, w: 40.0, rz: 0.25, ry: 9.0, opacity: 0.43, blur: 0.58, z: 1 },
-    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 22.0, y: 6.0, w: 40.0, rz: 0.35, ry: 9.2, opacity: 0.47, blur: 0.48, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 29.0, y: 13.0, w: 39.0, rz: 0.45, ry: 9.5, opacity: 0.72, blur: 0.10, z: 9 },
-    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 8.0, y: 22.5, w: 40.0, rz: 0.30, ry: 9.2, opacity: 0.44, blur: 0.56, z: 2 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -3.0, y: 31.0, w: 38.0, rz: 0.45, ry: 9.5, opacity: 0.73, blur: 0.10, z: 7 },
-    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 16.0, y: 32.0, w: 40.0, rz: 0.30, ry: 9.2, opacity: 0.42, blur: 0.58, z: 2 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -2.0, y: 51.0, w: 38.0, rz: 0.50, ry: 9.5, opacity: 0.74, blur: 0.10, z: 7 },
-    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 13.0, y: 48.0, w: 40.0, rz: 0.30, ry: 9.2, opacity: 0.45, blur: 0.54, z: 2 },
-    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 22.0, y: 58.0, w: 40.0, rz: 0.35, ry: 9.2, opacity: 0.40, blur: 0.62, z: 1 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 0.0, y: 72.0, w: 38.0, rz: 0.50, ry: 9.5, opacity: 0.71, blur: 0.11, z: 7 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 32.0, y: 78.0, w: 38.0, rz: 0.45, ry: 9.5, opacity: 0.70, blur: 0.11, z: 7 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 1.5, y: 7.0, w: 33.0, rz: 0.45, ry: 9.0, opacity: 0.66, blur: 0.10, z: 8 },
+    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 17.0, y: 0.5, w: 35.0, rz: 0.25, ry: 8.5, opacity: 0.31, blur: 0.82, z: 1 },
+    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 25.0, y: 7.5, w: 35.0, rz: 0.35, ry: 8.8, opacity: 0.36, blur: 0.65, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 32.0, y: 15.0, w: 33.5, rz: 0.45, ry: 9.0, opacity: 0.63, blur: 0.10, z: 9 },
+    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 12.0, y: 26.0, w: 35.0, rz: 0.30, ry: 8.8, opacity: 0.33, blur: 0.75, z: 2 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -0.5, y: 34.0, w: 33.0, rz: 0.45, ry: 9.0, opacity: 0.64, blur: 0.10, z: 7 },
+    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 19.0, y: 34.0, w: 35.0, rz: 0.30, ry: 8.8, opacity: 0.31, blur: 0.82, z: 2 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 1.0, y: 57.0, w: 33.0, rz: 0.50, ry: 9.0, opacity: 0.65, blur: 0.10, z: 7 },
+    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 17.0, y: 52.0, w: 35.0, rz: 0.30, ry: 8.8, opacity: 0.33, blur: 0.75, z: 2 },
+    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 24.0, y: 61.0, w: 35.0, rz: 0.35, ry: 8.8, opacity: 0.30, blur: 0.86, z: 1 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 3.0, y: 77.0, w: 33.0, rz: 0.50, ry: 9.0, opacity: 0.62, blur: 0.11, z: 7 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 36.0, y: 84.0, w: 33.0, rz: 0.45, ry: 9.0, opacity: 0.61, blur: 0.11, z: 7 },
   ] as const;
 
   const floatingAvatars = [
@@ -315,7 +315,7 @@ function ReopenHeroVisual() {
   ] as const;
 
   return (
-    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:-ml-[6%] lg:-mt-[35px] lg:w-[112%] lg:max-w-none">
+    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:mx-0 lg:w-full lg:max-w-none" style={{ marginLeft: "min(0px, calc((1700px - 100vw) / 2))" }}>
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
         viewBox="0 0 1000 780"
@@ -377,7 +377,7 @@ function ReopenHeroVisual() {
         </div>
       ))}
 
-      <div ref={sarahRef} className="absolute left-[24%] top-[23.5%] z-30 w-[59.5%]">
+      <div ref={sarahRef} className="absolute left-[27%] top-[23.5%] z-30 w-[54%]">
         <div
           className="rounded-[25px] border border-white/85 bg-[#FCF9F4]/[0.99] p-[26px] shadow-[28px_36px_80px_rgba(76,55,40,.20)]"
           style={{
@@ -468,7 +468,7 @@ function ReopenHeroVisual() {
         </svg>
       )}
 
-      <div ref={outgoingRef} className="absolute left-[43.5%] top-[50.2%] z-40 w-[27.5%]">
+      <div ref={outgoingRef} className="absolute left-[47.5%] top-[52.5%] z-40 w-[31%]">
         <div className="rounded-[17px] border border-[#E6D9CF] bg-white/[0.99] px-[18px] py-[16px] shadow-[0_18px_44px_rgba(74,53,39,.11)]">
           <div className="flex items-center gap-[14px]">
             <ZaplaPetal size={37} className="shrink-0" />
@@ -480,7 +480,7 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div ref={replyRef} className="absolute left-[51.5%] top-[62.7%] z-40 w-[32%]">
+      <div ref={replyRef} className="absolute left-[55%] top-[65%] z-40 w-[37%]">
         <div className="rounded-[17px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(77,85,54,.11)]">
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={46} />
@@ -494,13 +494,13 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-[81.5%] top-[60.3%] z-50">
+      <div className="pointer-events-none absolute left-[90%] top-[62.2%] z-50">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <div ref={reopenedRef} className="absolute left-[57%] top-[75.8%] z-40 w-[31.5%]">
+      <div ref={reopenedRef} className="absolute left-[61%] top-[80%] z-40 w-[35.5%]">
         <div className="flex items-center justify-between gap-4 rounded-[17px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[18px] py-[15px] shadow-[0_18px_44px_rgba(61,64,46,.095)]">
           <div className="flex min-w-0 items-center gap-3">
             <span className="h-3 w-3 shrink-0 rounded-full bg-[#879653]" />
