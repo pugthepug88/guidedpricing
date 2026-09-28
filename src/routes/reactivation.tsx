@@ -247,7 +247,7 @@ function ReopenHeroVisual() {
         width: container.width,
         height: container.height,
         orange: {
-          start: point(sarah, 0.31, 1),
+          start: point(sarah, 0.30, 1),
           end: point(outgoing, 0.03, 0.5),
         },
         greenOne: {
@@ -370,9 +370,9 @@ function ReopenHeroVisual() {
         </div>
       ))}
 
-      <div ref={sarahRef} className="absolute left-[27%] top-[23.5%] z-30 w-[54%]">
+      <div ref={sarahRef} className="absolute left-[27%] top-[24%] z-30 w-[52%]">
         <div
-          className="rounded-[25px] border border-white/85 bg-[#FCF9F4]/[0.99] p-[26px] shadow-[28px_36px_80px_rgba(76,55,40,.20)]"
+          className="rounded-[24px] border border-white/85 bg-[#FCF9F4]/[0.99] p-[23px] shadow-[26px_32px_72px_rgba(76,55,40,.18)]"
           style={{
             transform: "perspective(740px) rotateY(12.5deg) rotateZ(0.75deg)",
             transformOrigin: "13% 50%",
@@ -381,11 +381,11 @@ function ReopenHeroVisual() {
         >
           <div className="flex items-start gap-[24px]">
             <div className="rounded-full bg-[#EBC5B3] p-[10px]">
-              <AutumnAvatar cell={9} size={126} />
+              <AutumnAvatar cell={9} size={116} />
             </div>
             <div className="min-w-0 flex-1 pt-1">
               <div className="flex items-center justify-between gap-4">
-                <div className="text-[23px] font-semibold tracking-[-0.035em] text-[#282522]">Sarah Mitchell</div>
+                <div className="text-[22px] font-semibold tracking-[-0.035em] text-[#282522]">Sarah Mitchell</div>
                 <span className="rounded-full bg-[#EAE9E4] px-3.5 py-2 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
               </div>
               <div className="mt-3 text-[15px] text-[#69615A]">
@@ -461,24 +461,24 @@ function ReopenHeroVisual() {
         </svg>
       )}
 
-      <div ref={outgoingRef} className="absolute left-[47.5%] top-[51.8%] z-40 w-[30.5%]">
-        <div className="rounded-[17px] border border-[#E6D9CF] bg-white/[0.99] px-[18px] py-[16px] shadow-[0_18px_44px_rgba(74,53,39,.11)]">
+      <div ref={outgoingRef} className="absolute left-[46.8%] top-[53.8%] z-40 w-[25.5%]">
+        <div className="rounded-[16px] border border-[#E6D9CF] bg-white/[0.99] px-[15px] py-[13px] shadow-[0_16px_38px_rgba(74,53,39,.10)]">
           <div className="flex items-center gap-[14px]">
-            <ZaplaPetal size={37} className="shrink-0" />
+            <ZaplaPetal size={32} className="shrink-0" />
             <div>
-              <div className="text-[13px] font-semibold leading-[1.42] text-[#292623]">Hi Sarah, checking in on the quote we sent earlier this year. If it’s still on your radar, I can send an updated quote and next steps.</div>
+              <div className="text-[12px] font-semibold leading-[1.42] text-[#292623]">Hi Sarah, we sent you a quote earlier this year. If it’s still relevant, I can send an updated version.</div>
               <div className="mt-1.5 text-[9px] text-[#A0968C]">10:14 AM</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div ref={replyRef} className="absolute left-[55%] top-[65%] z-40 w-[34.5%]">
-        <div className="rounded-[17px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(77,85,54,.11)]">
+      <div ref={replyRef} className="absolute left-[54.2%] top-[67.3%] z-40 w-[27%]">
+        <div className="rounded-[16px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[15px] py-[12px] shadow-[0_16px_38px_rgba(77,85,54,.10)]">
           <div className="flex items-center gap-3">
-            <AutumnAvatar cell={9} size={46} />
+            <AutumnAvatar cell={9} size={40} />
             <div className="min-w-0 flex-1">
-              <div className="text-[13px] font-semibold leading-[1.4] text-[#2E3128]">Yes please. Send me the updated quote.</div>
+              <div className="text-[12px] font-semibold leading-[1.4] text-[#2E3128]">Yes please. Send me the updated quote.</div>
               <div className="mt-1.5 flex items-center gap-2 text-[9px] text-[#7B8367]">
                 10:27 AM <Check size={11} strokeWidth={2.4} />
               </div>
@@ -487,22 +487,22 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-[87%] top-[62.2%] z-50">
+      <div className="pointer-events-none absolute left-[79%] top-[64.8%] z-50">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <div ref={reopenedRef} className="absolute left-[63%] top-[78.2%] z-40 w-[33%]">
-        <div className="flex items-center justify-between gap-4 rounded-[17px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[18px] py-[15px] shadow-[0_18px_44px_rgba(61,64,46,.095)]">
+      <div ref={reopenedRef} className="absolute left-[59.8%] top-[81.2%] z-40 w-[25%]">
+        <div className="flex items-center justify-between gap-3 rounded-[16px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[14px] py-[12px] shadow-[0_16px_36px_rgba(61,64,46,.09)]">
           <div className="flex min-w-0 items-center gap-3">
-            <span className="h-3 w-3 shrink-0 rounded-full bg-[#879653]" />
-            <div className="flex min-w-0 items-center gap-3.5">
-              <div className="shrink-0 rounded-full bg-[#E5E8D5] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#637044]">Reopened</div>
+            <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#879653]" />
+            <div className="flex min-w-0 items-center gap-2.5">
+              <div className="shrink-0 rounded-full bg-[#E5E8D5] px-2.5 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#637044]">Reopened</div>
               <div className="h-7 w-px shrink-0 bg-[#D5D3C9]" />
               <div className="min-w-0">
-                <div className="whitespace-nowrap text-[11px] font-semibold text-[#373631]">Sarah is back</div>
-                <div className="mt-1 whitespace-nowrap text-[9px] text-[#77726C]">Resumed conversation</div>
+                <div className="whitespace-nowrap text-[10px] font-semibold text-[#373631]">Sarah is back</div>
+                <div className="mt-0.5 whitespace-nowrap text-[8px] text-[#77726C]">Resumed conversation</div>
               </div>
             </div>
           </div>
@@ -755,7 +755,7 @@ function ReopenedStory() {
                 <div className="mt-9 max-w-[490px] rounded-[20px] bg-[#E7CEC2] px-5 py-5 text-[#2B2926] shadow-[0_16px_42px_rgba(0,0,0,.12)]">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#9C6756]">Reopen</div>
                   <div className="mt-3 text-[17px] font-medium leading-[1.48] tracking-[-0.015em]">
-                    Hi Sarah, checking in on the quote we sent earlier this year. If it’s still on your radar, I can send an updated quote and next steps.
+                    Hi Sarah, we sent you a quote earlier this year. If it’s still relevant, I can send an updated version.
                   </div>
                 </div>
 
