@@ -166,9 +166,9 @@ function AutumnAvatar({
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#F7F2EA] px-5 pb-8 pt-[108px] sm:px-10 sm:pt-[118px] lg:pl-0 lg:pr-14 lg:pb-10 lg:pt-[126px]">
+    <section className="relative overflow-hidden bg-[#F7F2EA] px-5 pb-8 pt-[92px] sm:px-10 sm:pt-[96px] lg:pl-0 lg:pr-14 lg:pb-8 lg:pt-[88px]">
 
-      <div className="relative mx-auto grid min-h-[760px] max-w-[1700px] items-center gap-4 lg:grid-cols-[1.24fr_.76fr] lg:gap-2">
+      <div className="relative mx-auto grid min-h-[700px] max-w-[1700px] items-center gap-4 lg:grid-cols-[1.24fr_.76fr] lg:gap-2">
         <Reveal className="order-2 lg:order-1">
           <ReopenHeroVisual />
         </Reveal>
@@ -234,12 +234,16 @@ function ReopenHeroVisual() {
   const reduced = !!useReducedMotion();
 
   const backgroundRecords = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -3.5, y: 7.5, w: 37.5, rotate: 2.8, opacity: 0.67, stackX: 15, stackY: -10 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 28, y: 14.5, w: 38, rotate: 2.0, opacity: 0.58, stackX: -12, stackY: -12 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -4.2, y: 34.5, w: 37, rotate: 1.8, opacity: 0.59, stackX: 14, stackY: -8 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -3, y: 55, w: 37, rotate: 2.4, opacity: 0.61, stackX: 11, stackY: -9 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 0.5, y: 73.5, w: 37.5, rotate: 2.4, opacity: 0.58, stackX: 13, stackY: -10 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 33.5, y: 76.5, w: 37, rotate: 1.7, opacity: 0.54, stackX: -11, stackY: -9 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -5.0, y: 8.0, w: 36.5, rotate: 3.0, opacity: 0.62, z: 4, blur: 0.18 },
+    { cell: 2, name: "", type: "", quiet: "", x: 13.0, y: -1.0, w: 38.0, rotate: 2.6, opacity: 0.24, z: 1, blur: 1.15 },
+    { cell: 16, name: "", type: "", quiet: "", x: 24.0, y: 5.0, w: 38.5, rotate: 2.3, opacity: 0.26, z: 2, blur: 0.9 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 29.0, y: 15.0, w: 37.0, rotate: 2.0, opacity: 0.56, z: 5, blur: 0.16 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -6.5, y: 35.0, w: 36.0, rotate: 2.0, opacity: 0.54, z: 3, blur: 0.2 },
+    { cell: 6, name: "", type: "", quiet: "", x: 8.5, y: 28.0, w: 36.5, rotate: 2.4, opacity: 0.22, z: 1, blur: 1.0 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -4.5, y: 56.0, w: 36.0, rotate: 2.6, opacity: 0.56, z: 3, blur: 0.2 },
+    { cell: 17, name: "", type: "", quiet: "", x: 14.5, y: 55.0, w: 35.0, rotate: 2.1, opacity: 0.20, z: 1, blur: 1.05 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: -1.5, y: 76.0, w: 36.5, rotate: 2.5, opacity: 0.53, z: 3, blur: 0.25 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 34.5, y: 79.0, w: 36.5, rotate: 1.9, opacity: 0.50, z: 3, blur: 0.25 },
   ] as const;
 
   return (
@@ -298,77 +302,76 @@ function ReopenHeroVisual() {
 
       {backgroundRecords.map((record, index) => (
         <motion.div
-          key={record.name}
-          className="absolute z-[3]"
-          style={{ left: record.x + "%", top: record.y + "%", width: record.w + "%" }}
+          key={record.name || `archive-${index}`}
+          className="absolute"
+          style={{
+            left: record.x + "%",
+            top: record.y + "%",
+            width: record.w + "%",
+            zIndex: record.z,
+            filter: `blur(${record.blur}px)`,
+          }}
           initial={reduced ? false : { opacity: 0, y: 10 }}
           whileInView={{ opacity: record.opacity, y: 0 }}
           viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : index * 0.03, ease: EASE }}
+          transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : index * 0.025, ease: EASE }}
         >
           <div
-            className="absolute inset-0 rounded-[22px] border border-white/50 bg-[#F8F4ED]/55 shadow-[0_20px_52px_rgba(70,54,40,.07)]"
-            style={{
-              transform: `translate(${record.stackX}px, ${record.stackY}px) rotate(${record.rotate - 1.2}deg)`,
-              filter: "blur(.45px)",
-            }}
-            aria-hidden="true"
-          />
-          <div
-            className="absolute inset-0 rounded-[22px] border border-white/42 bg-[#F9F6EF]/44"
-            style={{
-              transform: `translate(${record.stackX * 1.7}px, ${record.stackY * 1.65}px) rotate(${record.rotate - 2.0}deg)`,
-              filter: "blur(.8px)",
-            }}
-            aria-hidden="true"
-          />
-          <div
-            className="relative rounded-[22px] border border-white/72 bg-[#FBF8F2]/86 px-4 py-4 shadow-[0_18px_48px_rgba(70,54,40,.09)]"
+            className="rounded-[22px] border border-white/70 bg-[#FBF8F2]/88 px-4 py-4 shadow-[0_20px_54px_rgba(70,54,40,.10)]"
             style={{ transform: `rotate(${record.rotate}deg)`, transformOrigin: "50% 50%" }}
           >
             <div className="flex items-center gap-3">
-              <AutumnAvatar cell={record.cell} size={62} muted />
-              <div className="min-w-0">
-                <div className="truncate text-[12px] font-semibold text-[#58514B]">{record.name}</div>
-                <div className="mt-1 text-[10px] text-[#7C736B]">{record.type}</div>
-                <div className="mt-0.5 text-[10px] text-[#867D75]">{record.quiet}</div>
+              <AutumnAvatar cell={record.cell} size={record.name ? 62 : 56} muted />
+              <div className="min-w-0 flex-1">
+                {record.name ? (
+                  <>
+                    <div className="truncate text-[12px] font-semibold text-[#58514B]">{record.name}</div>
+                    <div className="mt-1 text-[10px] text-[#7C736B]">{record.type}</div>
+                    <div className="mt-0.5 text-[10px] text-[#867D75]">{record.quiet}</div>
+                  </>
+                ) : (
+                  <div className="space-y-2 pt-1">
+                    <div className="h-2.5 w-[48%] rounded-full bg-black/[0.07]" />
+                    <div className="h-2.5 w-[32%] rounded-full bg-black/[0.05]" />
+                  </div>
+                )}
               </div>
             </div>
             <div className="mt-3 space-y-1.5">
-              <div className="h-2.5 w-[74%] rounded-full bg-black/[0.072]" />
-              <div className="h-2.5 w-[49%] rounded-full bg-black/[0.052]" />
+              <div className="h-2.5 w-[76%] rounded-full bg-black/[0.07]" />
+              <div className="h-2.5 w-[50%] rounded-full bg-black/[0.052]" />
             </div>
           </div>
         </motion.div>
       ))}
 
       <motion.div
-        className="absolute left-[25.5%] top-[24%] z-20 w-[56.5%]"
+        className="absolute left-[23.8%] top-[22.8%] z-20 w-[57.5%]"
         initial={reduced ? false : { opacity: 0, y: 12, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.11, ease: EASE }}
       >
         <div
-          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 px-[22px] py-[20px] shadow-[18px_34px_70px_rgba(76,55,40,.20)]"
-          style={{ transform: "perspective(1100px) rotateY(-6.5deg) rotateX(1.2deg) rotateZ(1.35deg)", transformOrigin: "42% 50%", transformStyle: "preserve-3d", willChange: "transform" }}
+          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 p-6 shadow-[22px_38px_78px_rgba(76,55,40,.21)]"
+          style={{ transform: "perspective(820px) rotateY(9deg) rotateX(-3.5deg) rotateZ(2.3deg)", transformOrigin: "44% 50%", transformStyle: "preserve-3d", willChange: "transform" }}
         >
           <div className="flex items-start gap-6">
-            <div className="rounded-full bg-[#EECDBD] p-[7px]">
-              <AutumnAvatar cell={9} size={112} />
+            <div className="rounded-full bg-[#EBC5B3] p-2.5">
+              <AutumnAvatar cell={9} size={126} />
             </div>
             <div className="min-w-0 flex-1 pt-1">
               <div className="flex items-center justify-between gap-4">
-                <div className="text-[21px] font-semibold tracking-[-0.03em] text-[#282522]">Sarah Nguyen</div>
+                <div className="text-[23px] font-semibold tracking-[-0.03em] text-[#282522]">Sarah Nguyen</div>
                 <span className="rounded-full bg-[#EAE9E4] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
               </div>
-              <div className="mt-2.5 text-[14px] text-[#69615A]">
+              <div className="mt-3 text-[15px] text-[#69615A]">
                 Quote sent <span className="px-2 text-[#B0A69E]">•</span> A$4,800
               </div>
-              <div className="mt-1.5 text-[14px] text-[#766E67]">167 days quiet</div>
-              <div className="mt-4 space-y-2">
-                <div className="h-2.5 w-[76%] rounded-full bg-black/[0.068]" />
-                <div className="h-2.5 w-[51%] rounded-full bg-black/[0.050]" />
+              <div className="mt-1.5 text-[15px] text-[#766E67]">167 days quiet</div>
+              <div className="mt-5 space-y-2">
+                <div className="h-3 w-[76%] rounded-full bg-black/[0.075]" />
+                <div className="h-3 w-[51%] rounded-full bg-black/[0.058]" />
               </div>
             </div>
           </div>
@@ -381,17 +384,17 @@ function ReopenHeroVisual() {
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path d="M 394 369 C 400 402, 423 420, 456 426" fill="none" stroke="#B75E3F" strokeWidth="2.0" />
-        <circle cx="394" cy="369" r="6" fill="#B75E3F" />
-        <circle cx="456" cy="426" r="5" fill="#B75E3F" />
-        <path d="M 505 482 C 502 518, 520 544, 548 554" fill="none" stroke="#76834F" strokeWidth="2.0" />
-        <circle cx="505" cy="482" r="5" fill="#76834F" />
-        <circle cx="548" cy="554" r="5" fill="#76834F" />
-        <path d="M 548 554 C 554 588, 574 610, 600 620" fill="none" stroke="#76834F" strokeWidth="2.0" />
+        <path d="M 388 360 C 392 392, 414 410, 447 416" fill="none" stroke="#B75E3F" strokeWidth="2.0" />
+        <circle cx="388" cy="360" r="6" fill="#B75E3F" />
+        <circle cx="447" cy="416" r="5" fill="#B75E3F" />
+        <path d="M 496 472 C 493 505, 512 528, 538 538" fill="none" stroke="#76834F" strokeWidth="2.0" />
+        <circle cx="496" cy="472" r="5" fill="#76834F" />
+        <circle cx="538" cy="538" r="5" fill="#76834F" />
+        <path d="M 538 538 C 544 570, 562 590, 590 600" fill="none" stroke="#76834F" strokeWidth="2.0" />
       </svg>
 
       <motion.div
-        className="absolute left-[46.5%] top-[49.8%] z-30 w-[34.5%]"
+        className="absolute left-[45.5%] top-[48.4%] z-30 w-[34%]"
         initial={reduced ? false : { opacity: 0, x: 14 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.35 }}
@@ -412,7 +415,7 @@ function ReopenHeroVisual() {
       </motion.div>
 
       <motion.div
-        className="absolute left-[55.5%] top-[63.2%] z-30 w-[38.5%]"
+        className="absolute left-[54.0%] top-[61.8%] z-30 w-[38%]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
@@ -441,7 +444,7 @@ function ReopenHeroVisual() {
       </div>
 
       <motion.div
-        className="absolute left-[61%] top-[77.5%] z-30 w-[39%]"
+        className="absolute left-[59.5%] top-[75.5%] z-30 w-[38.5%]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
