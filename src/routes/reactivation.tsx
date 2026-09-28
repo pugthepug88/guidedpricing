@@ -263,16 +263,16 @@ function ReopenHeroVisual() {
         width: container.width,
         height: container.height,
         orange: {
-          start: point(sarah, 0.28, 1),
-          end: point(outgoing, 0, 0.5),
+          start: point(sarah, 0.31, 1),
+          end: point(outgoing, 0.03, 0.5),
         },
         greenOne: {
-          start: point(outgoing, 0.18, 1),
-          end: point(reply, 0, 0.52),
+          start: point(outgoing, 0.16, 1),
+          end: point(reply, 0.03, 0.5),
         },
         greenTwo: {
           start: point(reply, 0.16, 1),
-          end: point(reopened, 0, 0.5),
+          end: point(reopened, 0.03, 0.5),
         },
       });
     };
@@ -293,18 +293,18 @@ function ReopenHeroVisual() {
   }, []);
 
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 1.5, y: 7.0, w: 33.0, rz: 0.45, ry: 9.0, opacity: 0.66, blur: 0.10, z: 8 },
-    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 17.0, y: 0.5, w: 35.0, rz: 0.25, ry: 8.5, opacity: 0.31, blur: 0.82, z: 1 },
-    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 25.0, y: 7.5, w: 35.0, rz: 0.35, ry: 8.8, opacity: 0.36, blur: 0.65, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 32.0, y: 15.0, w: 33.5, rz: 0.45, ry: 9.0, opacity: 0.63, blur: 0.10, z: 9 },
-    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 12.0, y: 26.0, w: 35.0, rz: 0.30, ry: 8.8, opacity: 0.33, blur: 0.75, z: 2 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -0.5, y: 34.0, w: 33.0, rz: 0.45, ry: 9.0, opacity: 0.64, blur: 0.10, z: 7 },
-    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 19.0, y: 34.0, w: 35.0, rz: 0.30, ry: 8.8, opacity: 0.31, blur: 0.82, z: 2 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 1.0, y: 57.0, w: 33.0, rz: 0.50, ry: 9.0, opacity: 0.65, blur: 0.10, z: 7 },
-    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 17.0, y: 52.0, w: 35.0, rz: 0.30, ry: 8.8, opacity: 0.33, blur: 0.75, z: 2 },
-    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 24.0, y: 61.0, w: 35.0, rz: 0.35, ry: 8.8, opacity: 0.30, blur: 0.86, z: 1 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 3.0, y: 77.0, w: 33.0, rz: 0.50, ry: 9.0, opacity: 0.62, blur: 0.11, z: 7 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 36.0, y: 84.0, w: 33.0, rz: 0.45, ry: 9.0, opacity: 0.61, blur: 0.11, z: 7 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.5, y: 7.0, w: 33.5, rz: 0.40, ry: 9.5, opacity: 0.72, blur: 0.08, z: 8 },
+    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 15.8, y: 0.8, w: 35.5, rz: 0.22, ry: 9.0, opacity: 0.38, blur: 0.68, z: 1 },
+    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 23.5, y: 7.0, w: 35.5, rz: 0.32, ry: 9.2, opacity: 0.42, blur: 0.54, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 30.5, y: 14.3, w: 34.0, rz: 0.42, ry: 9.5, opacity: 0.70, blur: 0.08, z: 9 },
+    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 10.5, y: 25.0, w: 35.5, rz: 0.28, ry: 9.2, opacity: 0.39, blur: 0.64, z: 2 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -1.0, y: 33.0, w: 33.5, rz: 0.42, ry: 9.5, opacity: 0.70, blur: 0.08, z: 7 },
+    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 17.5, y: 32.5, w: 35.5, rz: 0.28, ry: 9.2, opacity: 0.37, blur: 0.70, z: 2 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.2, y: 55.5, w: 33.5, rz: 0.46, ry: 9.5, opacity: 0.71, blur: 0.08, z: 7 },
+    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 15.5, y: 50.5, w: 35.5, rz: 0.28, ry: 9.2, opacity: 0.39, blur: 0.64, z: 2 },
+    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 22.2, y: 59.0, w: 35.5, rz: 0.32, ry: 9.2, opacity: 0.36, blur: 0.76, z: 1 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.0, y: 74.5, w: 33.5, rz: 0.46, ry: 9.5, opacity: 0.68, blur: 0.09, z: 7 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 34.5, y: 81.5, w: 33.5, rz: 0.42, ry: 9.5, opacity: 0.67, blur: 0.09, z: 7 },
   ] as const;
 
   const floatingAvatars = [
@@ -314,8 +314,17 @@ function ReopenHeroVisual() {
     { cell: 20, left: "43.5%", top: "65.5%", size: 50, opacity: 0.43 },
   ] as const;
 
+  const buildConnectorPath = (
+    start: { x: number; y: number },
+    end: { x: number; y: number },
+  ) => {
+    const verticalDistance = Math.max(1, end.y - start.y);
+    const drop = Math.max(28, Math.min(42, verticalDistance * 0.48));
+    return `M ${start.x} ${start.y} C ${start.x} ${start.y + drop}, ${end.x - 26} ${end.y}, ${end.x} ${end.y}`;
+  };
+
   return (
-    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:mx-0 lg:w-full lg:max-w-none" style={{ marginLeft: "min(0px, calc((1700px - 100vw) / 2))" }}>
+    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:left-[52px] lg:-top-[28px] lg:mx-0 lg:w-full lg:max-w-none" style={{ marginLeft: "min(0px, calc((1700px - 100vw) / 2))" }}>
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
         viewBox="0 0 1000 780"
@@ -381,7 +390,7 @@ function ReopenHeroVisual() {
         <div
           className="rounded-[25px] border border-white/85 bg-[#FCF9F4]/[0.99] p-[26px] shadow-[28px_36px_80px_rgba(76,55,40,.20)]"
           style={{
-            transform: "perspective(760px) rotateY(11.5deg) rotateZ(0.85deg)",
+            transform: "perspective(740px) rotateY(12.5deg) rotateZ(0.75deg)",
             transformOrigin: "13% 50%",
             transformStyle: "preserve-3d",
           }}
@@ -420,13 +429,13 @@ function ReopenHeroVisual() {
             return (
               <>
                 <path
-                  d={`M ${start.x} ${start.y} C ${start.x} ${start.y + 34}, ${end.x - 26} ${end.y}, ${end.x} ${end.y}`}
+                  d={buildConnectorPath(start, end)}
                   fill="none"
                   stroke="#B75E3F"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
-                <circle cx={start.x} cy={start.y} r="5.5" fill="#B75E3F" />
+                <circle cx={start.x} cy={start.y} r="5" fill="#B75E3F" />
                 <circle cx={end.x} cy={end.y} r="5" fill="#B75E3F" />
               </>
             );
@@ -437,7 +446,7 @@ function ReopenHeroVisual() {
             return (
               <>
                 <path
-                  d={`M ${start.x} ${start.y} C ${start.x - 2} ${start.y + 34}, ${end.x - 24} ${end.y}, ${end.x} ${end.y}`}
+                  d={buildConnectorPath(start, end)}
                   fill="none"
                   stroke="#76834F"
                   strokeWidth="2"
@@ -454,7 +463,7 @@ function ReopenHeroVisual() {
             return (
               <>
                 <path
-                  d={`M ${start.x} ${start.y} C ${start.x} ${start.y + 35}, ${end.x - 25} ${end.y}, ${end.x} ${end.y}`}
+                  d={buildConnectorPath(start, end)}
                   fill="none"
                   stroke="#76834F"
                   strokeWidth="2"
@@ -468,7 +477,7 @@ function ReopenHeroVisual() {
         </svg>
       )}
 
-      <div ref={outgoingRef} className="absolute left-[47.5%] top-[52.5%] z-40 w-[31%]">
+      <div ref={outgoingRef} className="absolute left-[47%] top-[49.8%] z-40 w-[28.5%]">
         <div className="rounded-[17px] border border-[#E6D9CF] bg-white/[0.99] px-[18px] py-[16px] shadow-[0_18px_44px_rgba(74,53,39,.11)]">
           <div className="flex items-center gap-[14px]">
             <ZaplaPetal size={37} className="shrink-0" />
@@ -480,7 +489,7 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div ref={replyRef} className="absolute left-[55%] top-[65%] z-40 w-[37%]">
+      <div ref={replyRef} className="absolute left-[54%] top-[60.8%] z-40 w-[33.5%]">
         <div className="rounded-[17px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(77,85,54,.11)]">
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={46} />
@@ -494,13 +503,13 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-[90%] top-[62.2%] z-50">
+      <div className="pointer-events-none absolute left-[84.5%] top-[58.2%] z-50">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <div ref={reopenedRef} className="absolute left-[61%] top-[80%] z-40 w-[35.5%]">
+      <div ref={reopenedRef} className="absolute left-[59%] top-[72.6%] z-40 w-[32.5%]">
         <div className="flex items-center justify-between gap-4 rounded-[17px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[18px] py-[15px] shadow-[0_18px_44px_rgba(61,64,46,.095)]">
           <div className="flex min-w-0 items-center gap-3">
             <span className="h-3 w-3 shrink-0 rounded-full bg-[#879653]" />
