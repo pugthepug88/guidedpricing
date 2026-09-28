@@ -189,7 +189,7 @@ function Hero() {
           </h1>
 
           <p className="mt-7 max-w-[575px] text-[16px] leading-[1.68] text-[#625D57] sm:text-[18px]">
-            Reopen brings old enquiries, stale quotes and past customers back into conversation automatically, then stops the moment they reply.
+            Reopen brings old enquiries, stale quotes and past customers back into conversation automatically, then stops the moment someone replies.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -207,23 +207,7 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-12 grid grid-cols-3 border-t border-[#D7CCC2] pt-5">
-            <div className="pr-4">
-              <div className="text-[8px] font-semibold uppercase tracking-[0.15em] text-[#9A8F85]">Last activity</div>
-              <div className="mt-2 text-[18px] font-medium tracking-[-0.02em] text-[#302C28]">14 February</div>
-            </div>
-            <div className="border-l border-[#D7CCC2] px-4">
-              <div className="text-[8px] font-semibold uppercase tracking-[0.15em] text-[#9A8F85]">Days since reply</div>
-              <div className="mt-2 text-[18px] font-medium tracking-[-0.02em] text-[#302C28]">167</div>
-            </div>
-            <div className="border-l border-[#D7CCC2] pl-4">
-              <div className="text-[8px] font-semibold uppercase tracking-[0.15em] text-[#9A8F85]">Status</div>
-              <div className="mt-2 flex items-center gap-2 text-[18px] font-medium tracking-[-0.02em] text-[#302C28]">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#879653]" />
-                Reopened
-              </div>
-            </div>
-          </div>
+
         </Reveal>
       </div>
     </section>
@@ -293,18 +277,18 @@ function ReopenHeroVisual() {
   }, []);
 
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.5, y: 7.0, w: 33.5, rz: 0.40, ry: 9.5, opacity: 0.72, blur: 0.08, z: 8 },
-    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 15.8, y: 0.8, w: 35.5, rz: 0.22, ry: 9.0, opacity: 0.38, blur: 0.68, z: 1 },
-    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 23.5, y: 7.0, w: 35.5, rz: 0.32, ry: 9.2, opacity: 0.42, blur: 0.54, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 30.5, y: 14.3, w: 34.0, rz: 0.42, ry: 9.5, opacity: 0.70, blur: 0.08, z: 9 },
-    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 10.5, y: 25.0, w: 35.5, rz: 0.28, ry: 9.2, opacity: 0.39, blur: 0.64, z: 2 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -1.0, y: 33.0, w: 33.5, rz: 0.42, ry: 9.5, opacity: 0.70, blur: 0.08, z: 7 },
-    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 17.5, y: 32.5, w: 35.5, rz: 0.28, ry: 9.2, opacity: 0.37, blur: 0.70, z: 2 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.2, y: 55.5, w: 33.5, rz: 0.46, ry: 9.5, opacity: 0.71, blur: 0.08, z: 7 },
-    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 15.5, y: 50.5, w: 35.5, rz: 0.28, ry: 9.2, opacity: 0.39, blur: 0.64, z: 2 },
-    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 22.2, y: 59.0, w: 35.5, rz: 0.32, ry: 9.2, opacity: 0.36, blur: 0.76, z: 1 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.0, y: 74.5, w: 33.5, rz: 0.46, ry: 9.5, opacity: 0.68, blur: 0.09, z: 7 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 34.5, y: 81.5, w: 33.5, rz: 0.42, ry: 9.5, opacity: 0.67, blur: 0.09, z: 7 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.0, y: 6.5, w: 31.5, rz: 0.40, ry: 9.5, opacity: 0.69, blur: 0.08, z: 8 },
+    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 15.0, y: 0.0, w: 33.0, rz: 0.22, ry: 9.0, opacity: 0.34, blur: 0.72, z: 1 },
+    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 23.0, y: 7.5, w: 33.0, rz: 0.32, ry: 9.2, opacity: 0.38, blur: 0.58, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 31.5, y: 15.0, w: 32.0, rz: 0.42, ry: 9.5, opacity: 0.67, blur: 0.08, z: 9 },
+    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 9.5, y: 25.5, w: 33.0, rz: 0.28, ry: 9.2, opacity: 0.35, blur: 0.68, z: 2 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -1.5, y: 34.5, w: 31.5, rz: 0.42, ry: 9.5, opacity: 0.67, blur: 0.08, z: 7 },
+    { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 18.0, y: 34.5, w: 33.0, rz: 0.28, ry: 9.2, opacity: 0.33, blur: 0.74, z: 2 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -0.5, y: 57.5, w: 31.5, rz: 0.46, ry: 9.5, opacity: 0.68, blur: 0.08, z: 7 },
+    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 16.5, y: 51.5, w: 33.0, rz: 0.28, ry: 9.2, opacity: 0.35, blur: 0.68, z: 2 },
+    { cell: 3, name: "Maya Collins", type: "Old quote", quiet: "136 days quiet", x: 24.0, y: 61.5, w: 33.0, rz: 0.32, ry: 9.2, opacity: 0.32, blur: 0.80, z: 1 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 1.5, y: 76.5, w: 31.5, rz: 0.46, ry: 9.5, opacity: 0.65, blur: 0.09, z: 7 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 35.5, y: 83.0, w: 31.5, rz: 0.42, ry: 9.5, opacity: 0.64, blur: 0.09, z: 7 },
   ] as const;
 
   const floatingAvatars = [
@@ -324,7 +308,7 @@ function ReopenHeroVisual() {
   };
 
   return (
-    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:left-[72px] lg:-top-[28px] lg:mx-0 lg:w-full lg:max-w-none xl:left-[96px]" style={{ marginLeft: "min(0px, calc((1700px - 100vw) / 2))" }}>
+    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:-top-[18px] lg:mx-0 lg:max-w-none" style={{ width: "min(94%, 980px)", left: "clamp(26px, calc(26px + (100vw - 1600px) * 0.065), 78px)", marginLeft: "min(0px, calc((1700px - 100vw) / 2))" }}>
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
         viewBox="0 0 1000 780"
@@ -477,24 +461,24 @@ function ReopenHeroVisual() {
         </svg>
       )}
 
-      <div ref={outgoingRef} className="absolute left-[47%] top-[49.8%] z-40 w-[28.5%]">
+      <div ref={outgoingRef} className="absolute left-[47.5%] top-[51.8%] z-40 w-[30.5%]">
         <div className="rounded-[17px] border border-[#E6D9CF] bg-white/[0.99] px-[18px] py-[16px] shadow-[0_18px_44px_rgba(74,53,39,.11)]">
           <div className="flex items-center gap-[14px]">
             <ZaplaPetal size={37} className="shrink-0" />
             <div>
-              <div className="text-[14px] font-semibold leading-[1.4] text-[#292623]">Want us to update that quote?</div>
+              <div className="text-[13px] font-semibold leading-[1.42] text-[#292623]">Hi Sarah, checking in on the quote we sent earlier this year. If it’s still on your radar, I can send an updated quote and next steps.</div>
               <div className="mt-1.5 text-[9px] text-[#A0968C]">10:14 AM</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div ref={replyRef} className="absolute left-[54%] top-[60.8%] z-40 w-[33.5%]">
+      <div ref={replyRef} className="absolute left-[55%] top-[65%] z-40 w-[34.5%]">
         <div className="rounded-[17px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(77,85,54,.11)]">
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={46} />
             <div className="min-w-0 flex-1">
-              <div className="text-[13px] font-semibold leading-[1.4] text-[#2E3128]">Yes. Please send me the latest pricing.</div>
+              <div className="text-[13px] font-semibold leading-[1.4] text-[#2E3128]">Yes please. Send me the updated quote.</div>
               <div className="mt-1.5 flex items-center gap-2 text-[9px] text-[#7B8367]">
                 10:27 AM <Check size={11} strokeWidth={2.4} />
               </div>
@@ -503,13 +487,13 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-[84.5%] top-[58.2%] z-50">
+      <div className="pointer-events-none absolute left-[87%] top-[62.2%] z-50">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <div ref={reopenedRef} className="absolute left-[62%] top-[70.8%] z-40 w-[32.5%]">
+      <div ref={reopenedRef} className="absolute left-[63%] top-[78.2%] z-40 w-[33%]">
         <div className="flex items-center justify-between gap-4 rounded-[17px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[18px] py-[15px] shadow-[0_18px_44px_rgba(61,64,46,.095)]">
           <div className="flex min-w-0 items-center gap-3">
             <span className="h-3 w-3 shrink-0 rounded-full bg-[#879653]" />
@@ -771,14 +755,14 @@ function ReopenedStory() {
                 <div className="mt-9 max-w-[490px] rounded-[20px] bg-[#E7CEC2] px-5 py-5 text-[#2B2926] shadow-[0_16px_42px_rgba(0,0,0,.12)]">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#9C6756]">Reopen</div>
                   <div className="mt-3 text-[17px] font-medium leading-[1.48] tracking-[-0.015em]">
-                    Hi Sarah, want us to update the quote we sent earlier this year?
+                    Hi Sarah, checking in on the quote we sent earlier this year. If it’s still on your radar, I can send an updated quote and next steps.
                   </div>
                 </div>
 
                 <div className="ml-auto mt-5 max-w-[430px] rounded-[20px] border border-white/10 bg-white/[0.055] px-5 py-5">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/40">Sarah replied</div>
                   <div className="mt-3 text-[18px] font-medium leading-[1.45] tracking-[-0.018em] text-white/94">
-                    Yes. Please send me the latest pricing.
+                    Yes please. Send me the updated quote.
                   </div>
                 </div>
 
