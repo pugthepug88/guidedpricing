@@ -120,7 +120,7 @@ function Eyebrow({
     <p
       className={
         "text-[10px] font-semibold uppercase tracking-[0.2em] " +
-        (light ? "text-[#E8B75F]" : "text-[#A36F24]")
+        (light ? "text-[#E8B75F]" : "text-[#80551C]")
       }
     >
       {children}
@@ -240,7 +240,7 @@ function ReviewHeroScene() {
 
       <div className="relative z-10 flex items-center justify-between">
         <div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8E6425]">Review flow</div>
+          <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#76501C]">Review flow</div>
           <div className="mt-1 text-[17px] font-semibold tracking-[-0.025em] text-[#2B2A25]">Northside Plumbing</div>
         </div>
         <div className="rounded-full bg-[#FBF5E8]/70 px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#796343]">
@@ -275,7 +275,7 @@ function ReviewHeroScene() {
           viewport={{ once: true, amount: 0.7 }}
           className="ml-auto max-w-[430px] rounded-[20px] border border-[#CDBA91] bg-[#FFF9EB] p-4 shadow-[0_18px_42px_rgba(76,55,40,.12)]"
         >
-          <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#9B6B27]">
+          <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#80551C]">
             <MessageSquareText size={13} />
             Review request · SMS
           </div>
@@ -283,7 +283,7 @@ function ReviewHeroScene() {
             Hi Mia, thanks for choosing Northside Plumbing. If you have a minute,
             we&apos;d value an honest Google review about your experience.
           </p>
-          <div className="mt-3 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#8E744D]">
+          <div className="mt-3 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#765B33]">
             <Clock3 size={11} />
             Sent 2 hours after completion
           </div>
@@ -319,7 +319,7 @@ function ReviewHeroScene() {
 
       <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between gap-3 rounded-[16px] border border-[#927038]/15 bg-[#F8E8BF]/90 px-4 py-3 sm:bottom-6 sm:left-6 sm:right-6">
         <span className="text-[10px] font-semibold text-[#5C513E]">Finished work → review request → visible proof</span>
-        <ExternalLink size={14} className="shrink-0 text-[#8F6729]" />
+        <ExternalLink size={14} className="shrink-0 text-[#76501C]" />
       </div>
     </div>
   );
@@ -348,7 +348,7 @@ function ProblemSection() {
         <div className="mt-12 grid gap-4 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
             <article className="relative min-h-[360px] overflow-hidden rounded-[30px] bg-[#F0D59D] p-7 sm:p-9">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#94651E]">No request</div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#76501C]">No request</div>
               <h3
                 className="mt-12 max-w-[620px] text-[46px] font-medium leading-[0.94] tracking-[-0.058em] text-[#25251F] sm:text-[60px]"
                 style={{ fontFamily: DISPLAY }}
@@ -539,7 +539,7 @@ function ReviewTimingUi() {
     <div className="overflow-hidden rounded-[28px] border border-[#D5C9BB] bg-[#FCFAF6] shadow-[0_24px_60px_rgba(76,55,40,.10)]">
       <div className="flex items-center justify-between border-b border-[#E0D7CC] bg-[#F0D59D]/45 px-5 py-4 sm:px-6">
         <div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#8F6729]">Review request workflow</div>
+          <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#76501C]">Review request workflow</div>
           <div className="mt-1 text-[17px] font-semibold tracking-[-0.025em] text-[#2B2C28]">After the job is finished</div>
         </div>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DCE0CC] px-2.5 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#5F6949]">
@@ -614,7 +614,7 @@ function FeedbackSection() {
         <div className="mt-12 grid gap-4 lg:grid-cols-2">
           <Reveal>
             <div className="flex min-h-[430px] flex-col rounded-[30px] bg-[#F0D59D] p-7 sm:p-9">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#956820]">Public proof</div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#76501C]">Public proof</div>
               <h3
                 className="mt-5 max-w-[500px] text-[36px] font-medium leading-[0.98] tracking-[-0.05em] text-[#292922] sm:text-[44px]"
                 style={{ fontFamily: DISPLAY }}
@@ -900,7 +900,7 @@ function FinalCta() {
         <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
           <ZaplaPetal size={34} />
         </div>
-        <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A36F24]">
+        <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#80551C]">
           Make the good work visible
         </p>
         <h2
