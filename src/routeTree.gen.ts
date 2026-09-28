@@ -16,6 +16,7 @@ import { Route as FollowUpClaudeV1RouteImport } from './routes/follow-up-claude-
 import { Route as FollowUpRouteImport } from './routes/follow-up'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
 import { Route as ReactivationRouteImport } from './routes/reactivation'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ReactivationV4RouteImport } from './routes/reactivation_v4'
 import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as IndexRouteImport } from './routes/index'
@@ -58,6 +59,11 @@ const AiReceptionistRoute = AiReceptionistRouteImport.update({
 const ReactivationRoute = ReactivationRouteImport.update({
   id: '/reactivation',
   path: '/reactivation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReactivationV4Route = ReactivationV4RouteImport.update({
@@ -111,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
   '/reactivation': typeof ReactivationRoute
+  '/reviews': typeof ReviewsRoute
   '/reactivation_v4': typeof ReactivationV4Route
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
@@ -128,6 +135,7 @@ export interface FileRoutesByTo {
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
   '/reactivation': typeof ReactivationRoute
+  '/reviews': typeof ReviewsRoute
   '/reactivation_v4': typeof ReactivationV4Route
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
@@ -146,6 +154,7 @@ export interface FileRoutesById {
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
   '/reactivation': typeof ReactivationRoute
+  '/reviews': typeof ReviewsRoute
   '/reactivation_v4': typeof ReactivationV4Route
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
@@ -165,6 +174,7 @@ export interface FileRouteTypes {
     | '/Pricing-v3'
     | '/ai-receptionist'
     | '/reactivation'
+    | '/reviews'
     | '/reactivation_v4'
     | '/follow-up'
     | '/follow-up-claude-v1'
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/Pricing-v3'
     | '/ai-receptionist'
     | '/reactivation'
+    | '/reviews'
     | '/reactivation_v4'
     | '/follow-up'
     | '/follow-up-claude-v1'
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/Pricing-v3'
     | '/ai-receptionist'
     | '/reactivation'
+    | '/reviews'
     | '/reactivation_v4'
     | '/follow-up'
     | '/follow-up-claude-v1'
@@ -217,6 +229,7 @@ export interface RootRouteChildren {
   PricingV3Route: typeof PricingV3Route
   AiReceptionistRoute: typeof AiReceptionistRoute
   ReactivationRoute: typeof ReactivationRoute
+  ReviewsRoute: typeof ReviewsRoute
   ReactivationV4Route: typeof ReactivationV4Route
   FollowUpRoute: typeof FollowUpRoute
   FollowUpClaudeV1Route: typeof FollowUpClaudeV1Route
@@ -279,6 +292,13 @@ declare module '@tanstack/react-router' {
       path: '/reactivation'
       fullPath: '/reactivation'
       preLoaderRoute: typeof ReactivationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reactivation_v4': {
@@ -345,6 +365,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingV3Route: PricingV3Route,
   AiReceptionistRoute: AiReceptionistRoute,
   ReactivationRoute: ReactivationRoute,
+  ReviewsRoute: ReviewsRoute,
   ReactivationV4Route: ReactivationV4Route,
   FollowUpRoute: FollowUpRoute,
   FollowUpClaudeV1Route: FollowUpClaudeV1Route,
