@@ -302,9 +302,9 @@ function ReopenHeroVisual() {
     start: { x: number; y: number },
     end: { x: number; y: number },
   ) => {
-    const drop = 32;
-    const approach = 26;
-    return `M ${start.x} ${start.y} C ${start.x} ${start.y + drop}, ${end.x - approach} ${end.y}, ${end.x} ${end.y}`;
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    return `M ${start.x} ${start.y} C ${start.x} ${start.y + dy * 0.58}, ${end.x - dx * 0.52} ${end.y}, ${end.x} ${end.y}`;
   };
 
   return (
@@ -461,24 +461,24 @@ function ReopenHeroVisual() {
         </svg>
       )}
 
-      <div ref={outgoingRef} className="absolute left-[46.8%] top-[53.8%] z-40 w-[25.5%]">
-        <div className="rounded-[16px] border border-[#E6D9CF] bg-white/[0.99] px-[15px] py-[13px] shadow-[0_16px_38px_rgba(74,53,39,.10)]">
+      <div ref={outgoingRef} className="absolute left-[46.5%] top-[53.5%] z-40 w-[26.5%]">
+        <div className="rounded-[16px] border border-[#E6D9CF] bg-white/[0.99] px-[14px] py-[11px] shadow-[0_15px_34px_rgba(74,53,39,.10)]">
           <div className="flex items-center gap-[14px]">
             <ZaplaPetal size={32} className="shrink-0" />
             <div>
-              <div className="text-[12px] font-semibold leading-[1.42] text-[#292623]">Hi Sarah, we sent you a quote earlier this year. If it’s still relevant, I can send an updated version.</div>
+              <div className="text-[12px] font-semibold leading-[1.42] text-[#292623]">Hi Sarah, we sent you a quote earlier this year. If you’re still considering it, I can send an updated version.</div>
               <div className="mt-1.5 text-[9px] text-[#A0968C]">10:14 AM</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div ref={replyRef} className="absolute left-[54.2%] top-[67.3%] z-40 w-[27%]">
-        <div className="rounded-[16px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[15px] py-[12px] shadow-[0_16px_38px_rgba(77,85,54,.10)]">
+      <div ref={replyRef} className="absolute left-[54.5%] top-[69.5%] z-40 w-[25%]">
+        <div className="rounded-[16px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[14px] py-[11px] shadow-[0_15px_34px_rgba(77,85,54,.10)]">
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={40} />
             <div className="min-w-0 flex-1">
-              <div className="text-[12px] font-semibold leading-[1.4] text-[#2E3128]">Yes please. Send me the updated quote.</div>
+              <div className="text-[12px] font-semibold leading-[1.4] text-[#2E3128]">Yes please. Send it through.</div>
               <div className="mt-1.5 flex items-center gap-2 text-[9px] text-[#7B8367]">
                 10:27 AM <Check size={11} strokeWidth={2.4} />
               </div>
@@ -487,14 +487,14 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-[79%] top-[64.8%] z-50">
+      <div className="pointer-events-none absolute left-[78.5%] top-[66.3%] z-50">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <div ref={reopenedRef} className="absolute left-[59.8%] top-[81.2%] z-40 w-[25%]">
-        <div className="flex items-center justify-between gap-3 rounded-[16px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[14px] py-[12px] shadow-[0_16px_36px_rgba(61,64,46,.09)]">
+      <div ref={reopenedRef} className="absolute left-[64.5%] top-[84%] z-40 w-[23.5%]">
+        <div className="flex items-center justify-between gap-3 rounded-[16px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[13px] py-[10px] shadow-[0_15px_32px_rgba(61,64,46,.085)]">
           <div className="flex min-w-0 items-center gap-3">
             <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#879653]" />
             <div className="flex min-w-0 items-center gap-2.5">
