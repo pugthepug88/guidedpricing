@@ -8,7 +8,10 @@ import {
   Clock3,
   ExternalLink,
   MessageSquareText,
+  MousePointerClick,
+  Send,
   ShieldCheck,
+  Smartphone,
   Star,
 } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
@@ -75,6 +78,7 @@ function ReviewsPage() {
       <ProblemSection />
       <MechanismSection />
       <TimingSection />
+      <InPersonMomentSection />
       <FeedbackSection />
       <CustomerRecordSection />
       <CommercialSection />
@@ -505,90 +509,106 @@ function ProblemSection() {
 }
 
 function MechanismSection() {
-  const steps = [
+  const levers = [
     {
       n: "01",
-      label: "Done",
-      title: "The job reaches the point you choose.",
-      copy: "For example: work completed, payment received, or a stage your team controls.",
-      tone: "#D58C75",
+      eyebrow: "Right moment",
+      title: "Ask while the experience is still fresh.",
+      copy: "When the job is done. After the appointment. When payment clears. Or at the point that makes sense for your business.",
+      icon: Clock3,
     },
     {
       n: "02",
-      label: "Wait",
-      title: "Zapla waits for the delay you set.",
-      copy: "Send it straight away, later that day, or whenever makes sense for the service.",
-      tone: "#DDA34B",
+      eyebrow: "Every time",
+      title: "Don’t rely on someone remembering.",
+      copy: "Once the trigger happens, Zapla handles the review request automatically. The process is consistent even on the busy days.",
+      icon: Send,
     },
     {
       n: "03",
-      label: "Ask",
-      title: "The review request goes out automatically.",
-      copy: "One clear, neutral message with a direct path to leave a genuine review.",
-      tone: "#99A36D",
-    },
-    {
-      n: "04",
-      label: "Review",
-      title: "The feedback comes back into view.",
-      copy: "Your team can see what was said, who said it, and what happened with the customer.",
-      tone: "#E7E0EA",
+      eyebrow: "Straight to the review",
+      title: "Take them directly to the review screen.",
+      copy: "The link arrives on their phone. They tap it and land on the review screen. No searching for your business or figuring out where to leave it.",
+      icon: MousePointerClick,
     },
   ] as const;
 
   return (
     <section
       id="review-loop"
-      className="scroll-mt-20 bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-28"
+      className="scroll-mt-20 bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28"
     >
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[980px]">
-          <Eyebrow light>The review loop</Eyebrow>
+        <Reveal className="max-w-[960px]">
+          <Eyebrow>The ask</Eyebrow>
           <h2
-            className="mt-4 text-[46px] font-medium leading-[0.94] tracking-[-0.056em] sm:text-[62px] lg:text-[76px]"
+            className="mt-4 text-[46px] font-medium leading-[0.94] tracking-[-0.056em] text-[#121820] sm:text-[62px] lg:text-[76px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Ask at the right time.
-            <span className="block text-[#DDA34B]">Automatically.</span>
+            The difference is
+            <span className="block text-[#A66F20]">how you ask.</span>
           </h2>
+          <p className="mt-6 max-w-[720px] text-[16px] leading-[1.72] text-[#626D77] sm:text-[18px]">
+            Timing matters. Consistency matters. And the fewer steps between the
+            request and the review screen, the easier it is for the customer to act.
+          </p>
         </Reveal>
 
-        <div className="relative mt-14 grid gap-px overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.08] lg:grid-cols-4">
-          {steps.map((step, index) => (
-            <Reveal key={step.n} delay={index * 0.07}>
-              <div className="relative min-h-[330px] bg-[#161719] p-6 sm:p-8">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-semibold tracking-[0.18em] text-white/30">{step.n}</span>
-                  <span
-                    className="h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: step.tone }}
-                  />
-                </div>
-                <div
-                  className="mt-10 text-[34px] font-medium tracking-[-0.05em]"
-                  style={{ fontFamily: DISPLAY, color: step.tone }}
-                >
-                  {step.label}
-                </div>
-                <h3 className="mt-5 max-w-[270px] text-[18px] font-semibold leading-[1.38] text-white/90">
-                  {step.title}
-                </h3>
-                <p className="mt-4 max-w-[280px] text-[12.5px] leading-[1.7] text-white/50">
-                  {step.copy}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+        <div className="mt-14 grid border-y border-[#DDE4EA] lg:grid-cols-3">
+          {levers.map((lever, index) => {
+            const Icon = lever.icon;
+            return (
+              <Reveal key={lever.n} delay={index * 0.06}>
+                <article className="min-h-[390px] border-b border-[#DDE4EA] py-8 lg:border-b-0 lg:border-r lg:px-8 lg:py-10 lg:first:pl-0 lg:last:border-r-0">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[9px] font-bold tracking-[0.17em] text-[#9AA4AD]">{lever.n}</span>
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F1E4C9] text-[#8A5D1D]">
+                      <Icon size={17} strokeWidth={1.8} />
+                    </span>
+                  </div>
+                  <p className="mt-10 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8B682F]">
+                    {lever.eyebrow}
+                  </p>
+                  <h3
+                    className="mt-3 max-w-[340px] text-[32px] font-medium leading-[1.02] tracking-[-0.045em] text-[#202931] sm:text-[36px]"
+                    style={{ fontFamily: DISPLAY }}
+                  >
+                    {lever.title}
+                  </h3>
+                  <p className="mt-5 max-w-[350px] text-[13.5px] leading-[1.72] text-[#68737D]">
+                    {lever.copy}
+                  </p>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
 
-        <Reveal className="mt-5 flex flex-wrap items-center gap-x-7 gap-y-3 rounded-[18px] border border-[#DDA34B]/15 bg-[#DDA34B]/[0.045] px-5 py-4">
-          <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-[#E8C27D]">
-            <ShieldCheck size={14} />
-            One neutral request
-          </span>
-          <span className="text-[11px] leading-[1.55] text-white/48">
-            No sentiment filtering. No hiding customers you think may be unhappy.
-          </span>
+        <Reveal className="mt-10 grid gap-7 rounded-[28px] bg-[#EEF3F7] p-7 sm:p-9 lg:grid-cols-[.42fr_1.58fr] lg:items-center lg:p-10">
+          <div>
+            <div
+              className="text-[64px] font-medium leading-none tracking-[-0.06em] text-[#17212B] sm:text-[76px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              83%
+            </div>
+            <p className="mt-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-[#7B8791]">
+              of people asked to leave a review went on to leave one
+            </p>
+          </div>
+          <div className="border-t border-[#D5DFE7] pt-6 lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0">
+            <p className="max-w-[690px] text-[20px] font-medium leading-[1.5] tracking-[-0.02em] text-[#2B3640] sm:text-[24px]">
+              Customers are willing to review businesses. The missed opportunity is often simply not asking them.
+            </p>
+            <a
+              href="https://www.brightlocal.com/research/local-consumer-review-survey/"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#7C8790] transition-colors hover:text-[#4C5963]"
+            >
+              BrightLocal Local Consumer Review Survey 2026 <ExternalLink size={10} />
+            </a>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -597,25 +617,26 @@ function MechanismSection() {
 
 function TimingSection() {
   return (
-    <section className="bg-[#F4F7FA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto grid max-w-[1320px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
-        <Reveal className="max-w-[570px]">
-          <Eyebrow>Timing & control</Eyebrow>
+    <section className="bg-[#11181F] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="max-w-[920px]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E0B15A]">
+            What Zapla actually does
+          </p>
           <h2
-            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[68px]"
+            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.057em] sm:text-[60px] lg:text-[72px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Ask while the work is
-            <span className="block text-[#B27B2D]">still fresh.</span>
+            Set the moment once.
+            <span className="block text-[#E4B85F]">Then stop thinking about it.</span>
           </h2>
-          <p className="mt-5 text-[15px] leading-[1.75] text-[#625D57] sm:text-[16px]">
-            You choose what starts the review workflow, how long Zapla waits,
-            which message goes out and when the workflow should pause. The
-            automation handles the remembering. You keep the rules.
+          <p className="mt-5 max-w-[720px] text-[15px] leading-[1.72] text-white/58 sm:text-[16px]">
+            You choose the trigger, delay and message. Zapla handles the remembering
+            and sends the customer straight to the review screen.
           </p>
         </Reveal>
 
-        <Reveal delay={0.05}>
+        <Reveal className="mt-14">
           <ReviewTimingUi />
         </Reveal>
       </div>
@@ -624,66 +645,168 @@ function TimingSection() {
 }
 
 function ReviewTimingUi() {
-  const rows = [
-    ["Trigger", "Job marked completed"],
-    ["Wait", "2 hours"],
-    ["Channel", "SMS"],
-    ["Destination", "Google Business Profile"],
-  ] as const;
+  const reduced = !!useReducedMotion();
+  const beat = (delay: number) =>
+    reduced
+      ? { initial: false as const, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+      : {
+          initial: { opacity: 0, y: 12 },
+          whileInView: { opacity: 1, y: 0 },
+          transition: { duration: 0.42, delay, ease: EASE },
+        };
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-[#D7E0E8] bg-white shadow-[0_24px_60px_rgba(76,55,40,.10)]">
-      <div className="flex items-center justify-between border-b border-[#DDE5EC] bg-[#E8EEF4] px-5 py-4 sm:px-6">
-        <div>
-          <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#76501C]">Review request workflow</div>
-          <div className="mt-1 text-[17px] font-semibold tracking-[-0.025em] text-[#2B2C28]">After the job is finished</div>
+    <div className="grid gap-5 lg:grid-cols-[.86fr_1.08fr_.86fr] lg:items-center">
+      <motion.div
+        {...beat(0.04)}
+        viewport={{ once: true, amount: 0.6 }}
+        className="overflow-hidden rounded-[24px] border border-white/10 bg-[#182129] shadow-[0_24px_60px_rgba(0,0,0,.18)]"
+      >
+        <div className="border-b border-white/8 px-5 py-4">
+          <div className="text-[8px] font-semibold uppercase tracking-[0.17em] text-[#D9AA55]">1 · Choose the moment</div>
+          <div className="mt-1 text-[16px] font-semibold text-white/92">Review request workflow</div>
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DCE0CC] px-2.5 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#5F6949]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#7B8959]" />
-          Active
-        </span>
-      </div>
-
-      <div className="grid sm:grid-cols-[0.86fr_1.14fr]">
-        <div className="border-b border-[#E1E8EE] p-5 sm:border-b-0 sm:border-r sm:p-6">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8C8379]">Rules</div>
-          <div className="mt-4 divide-y divide-[#E4EAF0] border-y border-[#E4EAF0]">
-            {rows.map(([label, value]) => (
-              <div key={label} className="grid grid-cols-[0.72fr_1.28fr] gap-3 py-3.5">
-                <span className="text-[10px] font-semibold text-[#8B8277]">{label}</span>
-                <span className="text-[11px] font-semibold text-[#333530]">{value}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 inline-flex items-center gap-2 text-[10px] font-semibold text-[#68645D]">
-            <ShieldCheck size={13} className="text-[#73804E]" />
-            Manual pause stays available
-          </div>
+        <div className="divide-y divide-white/8 p-5">
+          {[
+            ["Trigger", "Job marked completed"],
+            ["Wait", "2 hours"],
+            ["Channel", "SMS"],
+            ["Link", "Google review screen"],
+          ].map(([label, value]) => (
+            <div key={label} className="grid grid-cols-[.6fr_1.4fr] gap-3 py-3.5">
+              <span className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/35">{label}</span>
+              <span className="text-[11px] font-semibold text-white/82">{value}</span>
+            </div>
+          ))}
         </div>
+        <div className="flex items-center gap-2 border-t border-white/8 px-5 py-4 text-[9px] font-semibold text-white/42">
+          <ShieldCheck size={12} className="text-[#9DAF77]" />
+          Manual pause stays available
+        </div>
+      </motion.div>
 
-        <div className="p-5 sm:p-6">
-          <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#8C8379]">Message preview</div>
-          <div className="mt-4 rounded-[18px] bg-[#1E2B29] p-4 text-[#F7F4EE]">
+      <motion.div
+        {...beat(0.18)}
+        viewport={{ once: true, amount: 0.6 }}
+        className="relative mx-auto w-full max-w-[390px] rounded-[38px] border-[7px] border-[#050708] bg-[#050708] p-2 shadow-[0_30px_80px_rgba(0,0,0,.30)]"
+      >
+        <div className="overflow-hidden rounded-[29px] bg-[#F7F8F9]">
+          <div className="flex items-center justify-between bg-[#F7F8F9] px-5 pb-3 pt-4 text-[9px] font-semibold text-[#59636C]">
+            <span>6:12</span>
+            <span>SMS</span>
+          </div>
+          <div className="border-t border-[#E2E7EB] px-4 pb-6 pt-5">
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111214]">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1E2B29]">
                 <ZaplaPetal size={23} />
               </span>
               <div>
-                <div className="text-[11px] font-semibold">Northside Plumbing</div>
-                <div className="mt-0.5 text-[9px] text-white/42">Today · 6:12 PM</div>
+                <div className="text-[12px] font-semibold text-[#273039]">Northside Plumbing</div>
+                <div className="mt-0.5 text-[9px] text-[#8A949D]">just now</div>
               </div>
             </div>
-            <p className="mt-4 text-[12.5px] leading-[1.58] text-white/82">
-              Hi Mia, thanks for choosing Northside Plumbing. If you have a minute,
-              we&apos;d value an honest Google review about your experience.
-            </p>
-            <div className="mt-4 rounded-[12px] bg-white/[0.07] px-3 py-2.5 text-[10px] font-semibold text-[#E5C47F]">
-              Leave a Google review
+
+            <div className="mt-5 rounded-[18px] rounded-tl-[5px] bg-white p-4 shadow-[0_8px_24px_rgba(28,44,58,.08)]">
+              <p className="text-[12px] leading-[1.6] text-[#39434C]">
+                Hi Mia, thanks for choosing Northside Plumbing. If you have a minute,
+                we&apos;d value an honest Google review about your experience.
+              </p>
+              <div className="mt-4 flex items-center justify-between rounded-[12px] bg-[#1E2B29] px-3.5 py-3 text-[10px] font-semibold text-white">
+                Leave a Google review
+                <ArrowRight size={12} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div className="absolute left-1/2 top-[11px] h-[17px] w-[84px] -translate-x-1/2 rounded-full bg-[#050708]" />
+      </motion.div>
+
+      <motion.div
+        {...beat(0.34)}
+        viewport={{ once: true, amount: 0.6 }}
+        className="rounded-[24px] border border-white/10 bg-white p-5 text-[#202930] shadow-[0_24px_60px_rgba(0,0,0,.18)]"
+      >
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-[8px] font-semibold uppercase tracking-[0.16em] text-[#7E8992]">3 · Straight to the review</div>
+            <div className="mt-1 text-[16px] font-semibold">Northside Plumbing</div>
+          </div>
+          <span className="text-[10px] font-semibold text-[#8A949D]">Google</span>
+        </div>
+        <div className="mt-6 flex items-center gap-1">
+          {[0,1,2,3,4].map((item) => (
+            <Star key={item} size={27} className="fill-[#E1AD45] text-[#E1AD45]" strokeWidth={1.2} />
+          ))}
+        </div>
+        <p className="mt-3 text-[12px] text-[#66717A]">Tap a star to rate your experience</p>
+        <div className="mt-6 rounded-[14px] border border-[#E1E6EA] bg-[#FAFBFC] px-4 py-4 text-[11px] text-[#9AA3AA]">
+          Share details of your experience...
+        </div>
+        <div className="mt-4 flex items-center gap-2 text-[9px] font-semibold text-[#6B7680]">
+          <MousePointerClick size={12} className="text-[#A66F20]" />
+          No need to search for the business first
+        </div>
+      </motion.div>
     </div>
+  );
+}
+
+function InPersonMomentSection() {
+  return (
+    <section className="bg-[#EEF3F7] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[.92fr_1.08fr] lg:items-center lg:gap-20">
+        <Reveal>
+          <Eyebrow>When they&apos;re still there</Eyebrow>
+          <h2
+            className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] text-[#16202A] sm:text-[56px] lg:text-[66px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Make the human ask
+            <span className="block text-[#A66F20]">easy too.</span>
+          </h2>
+          <p className="mt-5 max-w-[600px] text-[15px] leading-[1.72] text-[#616D77] sm:text-[16px]">
+            If the customer is still standing there, your team doesn&apos;t need to
+            explain how to find the business on Google. The link is already on the
+            customer&apos;s phone.
+          </p>
+          <div className="mt-8 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.13em] text-[#7B8790]">
+            <Smartphone size={15} className="text-[#A66F20]" />
+            Sent automatically · ready when you ask
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05}>
+          <div className="relative overflow-hidden rounded-[30px] bg-[#17212B] p-7 text-white sm:p-9 lg:p-11">
+            <div className="absolute right-[-60px] top-[-65px] h-[190px] w-[190px] rounded-full border border-white/8" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-3">
+                <ExampleAvatar column={1} row={2} className="h-11 w-11" />
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/38">At the end of the job</div>
+                  <div className="mt-1 text-[13px] font-semibold text-white/88">A normal conversation</div>
+                </div>
+              </div>
+
+              <blockquote
+                className="mt-9 max-w-[720px] text-[27px] font-medium leading-[1.28] tracking-[-0.035em] text-white sm:text-[34px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                “You&apos;re all sorted. I&apos;ve just sent a review link to your phone.
+                If you&apos;ve got 30 seconds, would you mind leaving us a quick review?”
+              </blockquote>
+
+              <div className="mt-9 grid gap-3 sm:grid-cols-3">
+                {["Link already sent", "Experience is fresh", "No instructions needed"].map((item) => (
+                  <div key={item} className="border-t border-white/10 pt-3 text-[10px] font-semibold text-white/48">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
   );
 }
 
