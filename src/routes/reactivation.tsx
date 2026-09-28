@@ -233,21 +233,24 @@ function Hero() {
 function ReopenHeroVisual() {
   const reduced = !!useReducedMotion();
 
-  const backgroundRecords = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -5.0, y: 8.0, w: 36.5, rotate: 3.0, opacity: 0.62, z: 4, blur: 0.18 },
-    { cell: 2, name: "", type: "", quiet: "", x: 13.0, y: -1.0, w: 38.0, rotate: 2.6, opacity: 0.24, z: 1, blur: 1.15 },
-    { cell: 16, name: "", type: "", quiet: "", x: 24.0, y: 5.0, w: 38.5, rotate: 2.3, opacity: 0.26, z: 2, blur: 0.9 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 29.0, y: 15.0, w: 37.0, rotate: 2.0, opacity: 0.56, z: 5, blur: 0.16 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -6.5, y: 35.0, w: 36.0, rotate: 2.0, opacity: 0.54, z: 3, blur: 0.2 },
-    { cell: 6, name: "", type: "", quiet: "", x: 8.5, y: 28.0, w: 36.5, rotate: 2.4, opacity: 0.22, z: 1, blur: 1.0 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -4.5, y: 56.0, w: 36.0, rotate: 2.6, opacity: 0.56, z: 3, blur: 0.2 },
-    { cell: 17, name: "", type: "", quiet: "", x: 14.5, y: 55.0, w: 35.0, rotate: 2.1, opacity: 0.20, z: 1, blur: 1.05 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: -1.5, y: 76.0, w: 36.5, rotate: 2.5, opacity: 0.53, z: 3, blur: 0.25 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 34.5, y: 79.0, w: 36.5, rotate: 1.9, opacity: 0.50, z: 3, blur: 0.25 },
+  const archiveCards = [
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -1.5, y: 7.5, w: 35.5, rz: 2.6, ry: 6.0, opacity: 0.67, blur: 0.15, z: 6 },
+    { cell: 2, name: "", type: "", quiet: "", x: 18.0, y: -2.0, w: 37.5, rz: 2.1, ry: 5.0, opacity: 0.24, blur: 1.05, z: 1 },
+    { cell: 16, name: "", type: "", quiet: "", x: 29.0, y: 5.0, w: 37.0, rz: 1.8, ry: 5.5, opacity: 0.28, blur: 0.85, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 34.5, y: 15.0, w: 35.5, rz: 1.7, ry: 6.5, opacity: 0.60, blur: 0.12, z: 7 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -2.0, y: 35.5, w: 35.0, rz: 1.8, ry: 5.5, opacity: 0.58, blur: 0.15, z: 5 },
+    { cell: 6, name: "", type: "", quiet: "", x: 10.0, y: 29.0, w: 36.0, rz: 2.0, ry: 5.0, opacity: 0.22, blur: 1.0, z: 1 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.0, y: 58.5, w: 35.5, rz: 2.3, ry: 6.0, opacity: 0.62, blur: 0.16, z: 5 },
+    { cell: 17, name: "", type: "", quiet: "", x: 16.0, y: 56.0, w: 35.5, rz: 1.8, ry: 5.5, opacity: 0.20, blur: 1.05, z: 1 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.5, y: 77.0, w: 35.5, rz: 2.4, ry: 6.0, opacity: 0.59, blur: 0.18, z: 5 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 38.0, y: 80.0, w: 35.5, rz: 1.7, ry: 6.5, opacity: 0.56, blur: 0.18, z: 5 },
   ] as const;
 
   return (
-    <div className="relative mx-auto aspect-[980/760] w-[110%] max-w-none lg:-ml-[9%] lg:w-[118%]">
+    <div
+      className="relative mx-auto aspect-[980/760] w-[110%] max-w-none lg:-ml-[9%] lg:w-[118%]"
+      style={{ transformStyle: "preserve-3d" }}
+    >
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-visible"
         viewBox="0 0 980 760"
@@ -263,44 +266,26 @@ function ReopenHeroVisual() {
         <circle cx="805" cy="208" r="5" fill="#C9BFB4" />
       </svg>
 
-      <motion.div
-        className="absolute left-[47%] top-[2%] z-[2]"
-        initial={reduced ? false : { opacity: 0 }}
-        whileInView={{ opacity: 0.56 }}
-        viewport={{ once: true }}
-        transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-      >
-        <AutumnAvatar cell={2} size={54} muted />
-      </motion.div>
-      <motion.div
-        className="absolute left-[76%] top-[8%] z-[2]"
-        initial={reduced ? false : { opacity: 0 }}
-        whileInView={{ opacity: 0.52 }}
-        viewport={{ once: true }}
-        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.06, ease: EASE }}
-      >
-        <AutumnAvatar cell={16} size={54} muted />
-      </motion.div>
-      <motion.div
-        className="absolute left-[85%] top-[31%] z-[2]"
-        initial={reduced ? false : { opacity: 0 }}
-        whileInView={{ opacity: 0.48 }}
-        viewport={{ once: true }}
-        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.08, ease: EASE }}
-      >
-        <AutumnAvatar cell={12} size={54} muted />
-      </motion.div>
-      <motion.div
-        className="absolute left-[42%] top-[65%] z-[2]"
-        initial={reduced ? false : { opacity: 0 }}
-        whileInView={{ opacity: 0.46 }}
-        viewport={{ once: true }}
-        transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.1, ease: EASE }}
-      >
-        <AutumnAvatar cell={20} size={52} muted />
-      </motion.div>
+      {[
+        { cell: 2, left: "47%", top: "2%", size: 54, opacity: 0.56, delay: 0 },
+        { cell: 16, left: "76%", top: "8%", size: 54, opacity: 0.52, delay: 0.06 },
+        { cell: 12, left: "85%", top: "31%", size: 54, opacity: 0.48, delay: 0.08 },
+        { cell: 20, left: "42%", top: "65%", size: 52, opacity: 0.46, delay: 0.1 },
+      ].map((avatar, index) => (
+        <motion.div
+          key={index}
+          className="absolute z-[2]"
+          style={{ left: avatar.left, top: avatar.top }}
+          initial={reduced ? false : { opacity: 0 }}
+          whileInView={{ opacity: avatar.opacity }}
+          viewport={{ once: true }}
+          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : avatar.delay, ease: EASE }}
+        >
+          <AutumnAvatar cell={avatar.cell} size={avatar.size} muted />
+        </motion.div>
+      ))}
 
-      {backgroundRecords.map((record, index) => (
+      {archiveCards.map((record, index) => (
         <motion.div
           key={record.name || `archive-${index}`}
           className="absolute"
@@ -317,8 +302,12 @@ function ReopenHeroVisual() {
           transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : index * 0.025, ease: EASE }}
         >
           <div
-            className="rounded-[22px] border border-white/70 bg-[#FBF8F2]/88 px-4 py-4 shadow-[0_20px_54px_rgba(70,54,40,.10)]"
-            style={{ transform: `rotate(${record.rotate}deg)`, transformOrigin: "50% 50%" }}
+            className="rounded-[22px] border border-white/72 bg-[#FBF8F2]/88 px-4 py-4 shadow-[18px_24px_52px_rgba(70,54,40,.09)]"
+            style={{
+              transform: `perspective(1150px) rotateY(${record.ry}deg) rotateZ(${record.rz}deg)`,
+              transformOrigin: "30% 50%",
+              transformStyle: "preserve-3d",
+            }}
           >
             <div className="flex items-center gap-3">
               <AutumnAvatar cell={record.cell} size={record.name ? 62 : 56} muted />
@@ -331,30 +320,35 @@ function ReopenHeroVisual() {
                   </>
                 ) : (
                   <div className="space-y-2 pt-1">
-                    <div className="h-2.5 w-[48%] rounded-full bg-black/[0.07]" />
-                    <div className="h-2.5 w-[32%] rounded-full bg-black/[0.05]" />
+                    <div className="h-2.5 w-[48%] rounded-full bg-black/[0.065]" />
+                    <div className="h-2.5 w-[32%] rounded-full bg-black/[0.045]" />
                   </div>
                 )}
               </div>
             </div>
             <div className="mt-3 space-y-1.5">
-              <div className="h-2.5 w-[76%] rounded-full bg-black/[0.07]" />
-              <div className="h-2.5 w-[50%] rounded-full bg-black/[0.052]" />
+              <div className="h-2.5 w-[76%] rounded-full bg-black/[0.068]" />
+              <div className="h-2.5 w-[50%] rounded-full bg-black/[0.05]" />
             </div>
           </div>
         </motion.div>
       ))}
 
       <motion.div
-        className="absolute left-[23.8%] top-[22.8%] z-20 w-[57.5%]"
+        className="absolute left-[26%] top-[24%] z-20 w-[57%]"
         initial={reduced ? false : { opacity: 0, y: 12, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.11, ease: EASE }}
       >
         <div
-          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 p-6 shadow-[22px_38px_78px_rgba(76,55,40,.21)]"
-          style={{ transform: "perspective(820px) rotateY(9deg) rotateX(-3.5deg) rotateZ(2.3deg)", transformOrigin: "44% 50%", transformStyle: "preserve-3d", willChange: "transform" }}
+          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 p-6 shadow-[24px_36px_82px_rgba(76,55,40,.22)]"
+          style={{
+            transform: "perspective(900px) rotateY(10.5deg) rotateZ(2.15deg)",
+            transformOrigin: "28% 50%",
+            transformStyle: "preserve-3d",
+            willChange: "transform",
+          }}
         >
           <div className="flex items-start gap-6">
             <div className="rounded-full bg-[#EBC5B3] p-2.5">
@@ -363,7 +357,7 @@ function ReopenHeroVisual() {
             <div className="min-w-0 flex-1 pt-1">
               <div className="flex items-center justify-between gap-4">
                 <div className="text-[23px] font-semibold tracking-[-0.03em] text-[#282522]">Sarah Nguyen</div>
-                <span className="rounded-full bg-[#EAE9E4] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
+                <span className="rounded-full bg-[#EAE9E4] px-3.5 py-2 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
               </div>
               <div className="mt-3 text-[15px] text-[#69615A]">
                 Quote sent <span className="px-2 text-[#B0A69E]">•</span> A$4,800
@@ -384,26 +378,23 @@ function ReopenHeroVisual() {
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path d="M 388 360 C 392 392, 414 410, 447 416" fill="none" stroke="#B75E3F" strokeWidth="2.0" />
-        <circle cx="388" cy="360" r="6" fill="#B75E3F" />
-        <circle cx="447" cy="416" r="5" fill="#B75E3F" />
-        <path d="M 496 472 C 493 505, 512 528, 538 538" fill="none" stroke="#76834F" strokeWidth="2.0" />
-        <circle cx="496" cy="472" r="5" fill="#76834F" />
-        <circle cx="538" cy="538" r="5" fill="#76834F" />
-        <path d="M 538 538 C 544 570, 562 590, 590 600" fill="none" stroke="#76834F" strokeWidth="2.0" />
+        <path d="M 404 372 C 415 408, 441 426, 476 432" fill="none" stroke="#B75E3F" strokeWidth="2.0" />
+        <circle cx="404" cy="372" r="6" fill="#B75E3F" />
+        <circle cx="476" cy="432" r="5" fill="#B75E3F" />
+        <path d="M 526 492 C 523 532, 544 557, 578 568" fill="none" stroke="#76834F" strokeWidth="2.0" />
+        <circle cx="526" cy="492" r="5" fill="#76834F" />
+        <circle cx="578" cy="568" r="5" fill="#76834F" />
+        <path d="M 578 568 C 584 602, 604 624, 632 634" fill="none" stroke="#76834F" strokeWidth="2.0" />
       </svg>
 
       <motion.div
-        className="absolute left-[45.5%] top-[48.4%] z-30 w-[34%]"
+        className="absolute left-[48.5%] top-[50%] z-30 w-[34%]"
         initial={reduced ? false : { opacity: 0, x: 14 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.28, ease: EASE }}
       >
-        <div
-          className="rounded-[18px] border border-[#E6D9CF] bg-white/98 px-5 py-4 shadow-[0_22px_52px_rgba(74,53,39,.12)]"
-          style={{ transform: "rotate(0deg)" }}
-        >
+        <div className="rounded-[18px] border border-[#E6D9CF] bg-white/98 px-5 py-4 shadow-[0_22px_52px_rgba(74,53,39,.12)]">
           <div className="flex items-center gap-4">
             <ZaplaPetal size={38} className="shrink-0" />
             <div>
@@ -415,16 +406,13 @@ function ReopenHeroVisual() {
       </motion.div>
 
       <motion.div
-        className="absolute left-[54.0%] top-[61.8%] z-30 w-[38%]"
+        className="absolute left-[57.5%] top-[64%] z-30 w-[39%]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.41, ease: EASE }}
       >
-        <div
-          className="rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/98 px-5 py-4 shadow-[0_22px_52px_rgba(77,85,54,.12)]"
-          style={{ transform: "rotate(0deg)" }}
-        >
+        <div className="rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/98 px-5 py-4 shadow-[0_22px_52px_rgba(77,85,54,.12)]">
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={48} />
             <div className="min-w-0 flex-1">
@@ -437,23 +425,20 @@ function ReopenHeroVisual() {
         </div>
       </motion.div>
 
-      <div className="pointer-events-none absolute left-[92.5%] top-[61.6%] z-40">
+      <div className="pointer-events-none absolute left-[91%] top-[61%] z-40">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
       <motion.div
-        className="absolute left-[59.5%] top-[75.5%] z-30 w-[38.5%]"
+        className="absolute left-[63%] top-[78%] z-30 w-[40%]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.54, ease: EASE }}
       >
-        <div
-          className="flex items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/98 px-5 py-4 shadow-[0_22px_52px_rgba(61,64,46,.10)]"
-          style={{ transform: "rotate(0deg)" }}
-        >
+        <div className="flex items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/98 px-5 py-4 shadow-[0_22px_52px_rgba(61,64,46,.10)]">
           <div className="flex items-center gap-3">
             <span className="h-3 w-3 rounded-full bg-[#879653]" />
             <div className="flex items-center gap-4">
