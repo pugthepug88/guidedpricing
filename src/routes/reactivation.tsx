@@ -234,44 +234,41 @@ function ReopenHeroVisual() {
   const reduced = !!useReducedMotion();
 
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -4.0, y: 7.0, w: 38.0, rz: 2.8, ry: 13.0, opacity: 0.66, blur: 0.10, z: 6 },
-    { cell: 2, name: "", type: "", quiet: "", x: 15.0, y: -1.5, w: 39.0, rz: 2.4, ry: 12.0, opacity: 0.24, blur: 1.0, z: 1 },
-    { cell: 16, name: "", type: "", quiet: "", x: 25.0, y: 4.0, w: 39.0, rz: 2.1, ry: 12.5, opacity: 0.27, blur: 0.80, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 29.0, y: 14.0, w: 38.5, rz: 2.1, ry: 14.0, opacity: 0.60, blur: 0.10, z: 7 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -5.5, y: 34.0, w: 38.0, rz: 2.3, ry: 13.0, opacity: 0.58, blur: 0.12, z: 5 },
-    { cell: 6, name: "", type: "", quiet: "", x: 7.0, y: 27.5, w: 38.0, rz: 2.1, ry: 12.0, opacity: 0.22, blur: 0.95, z: 1 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -3.5, y: 56.0, w: 38.0, rz: 2.6, ry: 13.0, opacity: 0.61, blur: 0.12, z: 5 },
-    { cell: 17, name: "", type: "", quiet: "", x: 13.5, y: 55.0, w: 37.5, rz: 2.0, ry: 12.0, opacity: 0.19, blur: 1.0, z: 1 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: -0.5, y: 76.0, w: 38.0, rz: 2.7, ry: 13.0, opacity: 0.57, blur: 0.14, z: 5 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 35.0, y: 79.0, w: 38.0, rz: 2.1, ry: 14.0, opacity: 0.54, blur: 0.14, z: 5 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -2.0, y: 7.0, w: 34.5, rz: 2.4, ry: 5.0, opacity: 0.64, blur: 0.10, z: 5 },
+    { cell: 2, name: "", type: "", quiet: "", x: 17.0, y: -3.0, w: 36.5, rz: 1.9, ry: 4.0, opacity: 0.22, blur: 1.15, z: 1 },
+    { cell: 16, name: "", type: "", quiet: "", x: 24.0, y: 4.0, w: 37.0, rz: 1.7, ry: 4.5, opacity: 0.27, blur: 0.85, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 31.5, y: 15.0, w: 35.0, rz: 1.8, ry: 5.5, opacity: 0.58, blur: 0.10, z: 6 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -3.0, y: 35.5, w: 34.5, rz: 1.8, ry: 4.5, opacity: 0.57, blur: 0.12, z: 4 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -1.0, y: 57.5, w: 34.5, rz: 2.2, ry: 5.0, opacity: 0.60, blur: 0.12, z: 4 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.0, y: 76.5, w: 34.5, rz: 2.2, ry: 5.0, opacity: 0.56, blur: 0.14, z: 4 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 37.5, y: 79.0, w: 34.5, rz: 1.6, ry: 5.5, opacity: 0.54, blur: 0.14, z: 4 },
+  ] as const;
+
+  const floatingAvatars = [
+    { cell: 2, left: "48%", top: "3%", size: 52, opacity: 0.50, delay: 0 },
+    { cell: 16, left: "77%", top: "9%", size: 52, opacity: 0.48, delay: 0.05 },
+    { cell: 12, left: "86%", top: "31%", size: 50, opacity: 0.44, delay: 0.08 },
+    { cell: 20, left: "43%", top: "65%", size: 50, opacity: 0.42, delay: 0.10 },
   ] as const;
 
   return (
-    <div
-      className="relative mx-auto aspect-[980/760] w-[110%] max-w-none lg:-ml-[9%] lg:w-[118%]"
-      style={{ transformStyle: "preserve-3d" }}
-    >
+    <div className="relative mx-auto aspect-[980/760] w-[104%] max-w-none lg:-ml-[4%]">
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-visible"
         viewBox="0 0 980 760"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path d="M 40 96 C 270 72, 474 92, 664 225 C 790 314, 820 465, 887 555" fill="none" stroke="#C98D74" strokeWidth="1.25" strokeDasharray="5 7" opacity=".50" />
-        <path d="M 125 713 C 370 694, 470 592, 544 475 C 625 347, 727 290, 927 321" fill="none" stroke="#88945E" strokeWidth="1.18" strokeDasharray="4 7" opacity=".48" />
-        <path d="M 380 14 C 580 31, 725 92, 805 208 C 878 315, 865 435, 823 514" fill="none" stroke="#D5C7B9" strokeWidth="1.0" opacity=".50" />
-        <path d="M 382 146 C 545 153, 671 202, 723 303 C 759 373, 751 460, 721 528" fill="none" stroke="#DDB59F" strokeWidth=".85" opacity=".38" />
-        <circle cx="663" cy="225" r="6" fill="#BF7458" opacity=".9" />
-        <circle cx="822" cy="513" r="6" fill="#879653" opacity=".9" />
-        <circle cx="805" cy="208" r="5" fill="#C9BFB4" />
+        <path d="M 24 98 C 245 74, 472 88, 660 222 C 780 308, 820 450, 884 548" fill="none" stroke="#C98D74" strokeWidth="1.2" strokeDasharray="5 7" opacity=".44" />
+        <path d="M 110 714 C 350 692, 462 594, 544 478 C 632 354, 734 296, 922 322" fill="none" stroke="#88945E" strokeWidth="1.1" strokeDasharray="4 7" opacity=".43" />
+        <path d="M 360 18 C 566 31, 716 92, 798 207 C 872 312, 856 428, 814 506" fill="none" stroke="#D5C7B9" strokeWidth="1" opacity=".46" />
+        <path d="M 370 151 C 536 154, 660 201, 718 296 C 758 362, 753 438, 726 506" fill="none" stroke="#DDB59F" strokeWidth=".85" opacity=".34" />
+        <circle cx="662" cy="222" r="6" fill="#BF7458" opacity=".88" />
+        <circle cx="814" cy="506" r="6" fill="#879653" opacity=".88" />
+        <circle cx="798" cy="207" r="5" fill="#C9BFB4" />
       </svg>
 
-      {[
-        { cell: 2, left: "47%", top: "2%", size: 54, opacity: 0.56, delay: 0 },
-        { cell: 16, left: "76%", top: "8%", size: 54, opacity: 0.52, delay: 0.06 },
-        { cell: 12, left: "85%", top: "31%", size: 54, opacity: 0.48, delay: 0.08 },
-        { cell: 20, left: "42%", top: "65%", size: 52, opacity: 0.46, delay: 0.1 },
-      ].map((avatar, index) => (
+      {floatingAvatars.map((avatar, index) => (
         <motion.div
           key={index}
           className="absolute z-[2]"
@@ -296,21 +293,20 @@ function ReopenHeroVisual() {
             zIndex: record.z,
             filter: `blur(${record.blur}px)`,
           }}
-          initial={reduced ? false : { opacity: 0, y: 10 }}
+          initial={reduced ? false : { opacity: 0, y: 8 }}
           whileInView={{ opacity: record.opacity, y: 0 }}
           viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : index * 0.025, ease: EASE }}
+          transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : index * 0.025, ease: EASE }}
         >
           <div
-            className="rounded-[22px] border border-white/72 bg-[#FBF8F2]/88 px-4 py-4 shadow-[22px_26px_56px_rgba(70,54,40,.085)]"
+            className="rounded-[22px] border border-white/72 bg-[#FBF8F2]/88 px-4 py-4 shadow-[18px_22px_46px_rgba(70,54,40,.075)]"
             style={{
-              transform: `perspective(760px) rotateY(${record.ry}deg) rotateZ(${record.rz}deg)`,
-              transformOrigin: "16% 50%",
-              transformStyle: "preserve-3d",
+              transform: `perspective(1100px) rotateY(${record.ry}deg) rotateZ(${record.rz}deg)`,
+              transformOrigin: "22% 50%",
             }}
           >
             <div className="flex items-center gap-3">
-              <AutumnAvatar cell={record.cell} size={record.name ? 62 : 56} muted />
+              <AutumnAvatar cell={record.cell} size={record.name ? 60 : 54} muted />
               <div className="min-w-0 flex-1">
                 {record.name ? (
                   <>
@@ -320,43 +316,42 @@ function ReopenHeroVisual() {
                   </>
                 ) : (
                   <div className="space-y-2 pt-1">
-                    <div className="h-2.5 w-[48%] rounded-full bg-black/[0.065]" />
-                    <div className="h-2.5 w-[32%] rounded-full bg-black/[0.045]" />
+                    <div className="h-2.5 w-[48%] rounded-full bg-black/[0.06]" />
+                    <div className="h-2.5 w-[32%] rounded-full bg-black/[0.04]" />
                   </div>
                 )}
               </div>
             </div>
             <div className="mt-3 space-y-1.5">
-              <div className="h-2.5 w-[76%] rounded-full bg-black/[0.068]" />
-              <div className="h-2.5 w-[50%] rounded-full bg-black/[0.05]" />
+              <div className="h-2.5 w-[76%] rounded-full bg-black/[0.066]" />
+              <div className="h-2.5 w-[50%] rounded-full bg-black/[0.048]" />
             </div>
           </div>
         </motion.div>
       ))}
 
       <motion.div
-        className="absolute left-[25%] top-[23.8%] z-20 w-[57.5%]"
-        initial={reduced ? false : { opacity: 0, y: 12, scale: 0.98 }}
+        className="absolute left-[25.5%] top-[24%] z-20 w-[55.5%]"
+        initial={reduced ? false : { opacity: 0, y: 10, scale: 0.985 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.11, ease: EASE }}
+        transition={{ duration: reduced ? 0 : 0.54, delay: reduced ? 0 : 0.10, ease: EASE }}
       >
         <div
-          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 p-6 shadow-[30px_38px_84px_rgba(76,55,40,.20)]"
+          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 p-6 shadow-[24px_32px_72px_rgba(76,55,40,.18)]"
           style={{
-            transform: "perspective(700px) rotateY(16deg) rotateZ(2.6deg)",
-            transformOrigin: "14% 50%",
-            transformStyle: "preserve-3d",
+            transform: "perspective(980px) rotateY(8deg) rotateZ(2.05deg)",
+            transformOrigin: "20% 50%",
             willChange: "transform",
           }}
         >
           <div className="flex items-start gap-6">
             <div className="rounded-full bg-[#EBC5B3] p-2.5">
-              <AutumnAvatar cell={9} size={126} />
+              <AutumnAvatar cell={9} size={122} />
             </div>
             <div className="min-w-0 flex-1 pt-1">
               <div className="flex items-center justify-between gap-4">
-                <div className="text-[23px] font-semibold tracking-[-0.03em] text-[#282522]">Sarah Nguyen</div>
+                <div className="text-[23px] font-semibold tracking-[-0.03em] text-[#282522]">Sarah Mitchell</div>
                 <span className="rounded-full bg-[#EAE9E4] px-3.5 py-2 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
               </div>
               <div className="mt-3 text-[15px] text-[#69615A]">
@@ -364,8 +359,8 @@ function ReopenHeroVisual() {
               </div>
               <div className="mt-1.5 text-[15px] text-[#766E67]">167 days quiet</div>
               <div className="mt-5 space-y-2">
-                <div className="h-3 w-[76%] rounded-full bg-black/[0.075]" />
-                <div className="h-3 w-[51%] rounded-full bg-black/[0.058]" />
+                <div className="h-3 w-[76%] rounded-full bg-black/[0.072]" />
+                <div className="h-3 w-[51%] rounded-full bg-black/[0.055]" />
               </div>
             </div>
           </div>
@@ -378,23 +373,26 @@ function ReopenHeroVisual() {
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path d="M 404 372 C 415 408, 441 426, 476 432" fill="none" stroke="#B75E3F" strokeWidth="2.0" />
-        <circle cx="404" cy="372" r="6" fill="#B75E3F" />
-        <circle cx="476" cy="432" r="5" fill="#B75E3F" />
-        <path d="M 526 492 C 523 532, 544 557, 578 568" fill="none" stroke="#76834F" strokeWidth="2.0" />
-        <circle cx="526" cy="492" r="5" fill="#76834F" />
-        <circle cx="578" cy="568" r="5" fill="#76834F" />
-        <path d="M 578 568 C 584 602, 604 624, 632 634" fill="none" stroke="#76834F" strokeWidth="2.0" />
+        <path d="M 402 369 C 407 398, 430 414, 462 420" fill="none" stroke="#B75E3F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="402" cy="369" r="6" fill="#B75E3F" />
+        <circle cx="462" cy="420" r="5" fill="#B75E3F" />
+
+        <path d="M 514 473 C 511 514, 529 540, 557 551" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="514" cy="473" r="5" fill="#76834F" />
+        <circle cx="557" cy="551" r="5" fill="#76834F" />
+
+        <path d="M 557 551 C 563 582, 581 604, 610 614" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="610" cy="614" r="5" fill="#76834F" />
       </svg>
 
       <motion.div
-        className="absolute left-[47.5%] top-[49.6%] z-30 w-[34%]"
-        initial={reduced ? false : { opacity: 0, x: 14 }}
+        className="absolute left-[47%] top-[49%] z-30 w-[31%]"
+        initial={reduced ? false : { opacity: 0, x: 12 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.28, ease: EASE }}
+        transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : 0.27, ease: EASE }}
       >
-        <div className="rounded-[18px] border border-[#E6D9CF] bg-white/98 px-5 py-4 shadow-[0_22px_52px_rgba(74,53,39,.12)]">
+        <div className="rounded-[18px] border border-[#E6D9CF] bg-white/98 px-5 py-4 shadow-[0_20px_46px_rgba(74,53,39,.105)]">
           <div className="flex items-center gap-4">
             <ZaplaPetal size={38} className="shrink-0" />
             <div>
@@ -406,13 +404,13 @@ function ReopenHeroVisual() {
       </motion.div>
 
       <motion.div
-        className="absolute left-[56.5%] top-[63.3%] z-30 w-[39%]"
-        initial={reduced ? false : { opacity: 0, y: 12 }}
+        className="absolute left-[56%] top-[63%] z-30 w-[36.5%]"
+        initial={reduced ? false : { opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.41, ease: EASE }}
+        transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : 0.40, ease: EASE }}
       >
-        <div className="rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/98 px-5 py-4 shadow-[0_22px_52px_rgba(77,85,54,.12)]">
+        <div className="rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/98 px-5 py-4 shadow-[0_20px_46px_rgba(77,85,54,.105)]">
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={48} />
             <div className="min-w-0 flex-1">
@@ -425,20 +423,20 @@ function ReopenHeroVisual() {
         </div>
       </motion.div>
 
-      <div className="pointer-events-none absolute left-[91%] top-[61%] z-40">
+      <div className="pointer-events-none absolute left-[89.5%] top-[60.5%] z-40">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
       <motion.div
-        className="absolute left-[61.8%] top-[77.2%] z-30 w-[40%]"
-        initial={reduced ? false : { opacity: 0, y: 12 }}
+        className="absolute left-[61.5%] top-[77%] z-30 w-[33.5%]"
+        initial={reduced ? false : { opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.54, ease: EASE }}
+        transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : 0.53, ease: EASE }}
       >
-        <div className="flex items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/98 px-5 py-4 shadow-[0_22px_52px_rgba(61,64,46,.10)]">
+        <div className="flex items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/98 px-5 py-4 shadow-[0_20px_46px_rgba(61,64,46,.09)]">
           <div className="flex items-center gap-3">
             <span className="h-3 w-3 rounded-full bg-[#879653]" />
             <div className="flex items-center gap-4">
