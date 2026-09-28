@@ -231,127 +231,105 @@ function Hero() {
 }
 
 function ReopenHeroVisual() {
-  const reduced = !!useReducedMotion();
-
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -2.0, y: 7.0, w: 34.5, rz: 2.4, ry: 5.0, opacity: 0.64, blur: 0.10, z: 5 },
-    { cell: 2, name: "", type: "", quiet: "", x: 17.0, y: -3.0, w: 36.5, rz: 1.9, ry: 4.0, opacity: 0.22, blur: 1.15, z: 1 },
-    { cell: 16, name: "", type: "", quiet: "", x: 24.0, y: 4.0, w: 37.0, rz: 1.7, ry: 4.5, opacity: 0.27, blur: 0.85, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 31.5, y: 15.0, w: 35.0, rz: 1.8, ry: 5.5, opacity: 0.58, blur: 0.10, z: 6 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -3.0, y: 35.5, w: 34.5, rz: 1.8, ry: 4.5, opacity: 0.57, blur: 0.12, z: 4 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -1.0, y: 57.5, w: 34.5, rz: 2.2, ry: 5.0, opacity: 0.60, blur: 0.12, z: 4 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.0, y: 76.5, w: 34.5, rz: 2.2, ry: 5.0, opacity: 0.56, blur: 0.14, z: 4 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 37.5, y: 79.0, w: 34.5, rz: 1.6, ry: 5.5, opacity: 0.54, blur: 0.14, z: 4 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 1.0, y: 7.0, w: 35.5, rz: 0.8, ry: 8.5, opacity: 0.66, blur: 0.15, z: 7 },
+    { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 17.0, y: -1.0, w: 38.0, rz: 0.5, ry: 7.0, opacity: 0.24, blur: 1.15, z: 1 },
+    { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 25.0, y: 7.5, w: 39.0, rz: 0.7, ry: 8.0, opacity: 0.30, blur: 0.8, z: 2 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 31.5, y: 15.5, w: 36.5, rz: 0.8, ry: 8.5, opacity: 0.60, blur: 0.16, z: 8 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -0.5, y: 34.5, w: 35.5, rz: 0.7, ry: 8.0, opacity: 0.59, blur: 0.16, z: 6 },
+    { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 12.5, y: 28.5, w: 38.0, rz: 0.6, ry: 8.0, opacity: 0.24, blur: 1.0, z: 2 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0.5, y: 57.0, w: 36.0, rz: 0.9, ry: 8.5, opacity: 0.61, blur: 0.17, z: 6 },
+    { cell: 15, name: "Liam Evans", type: "Enquiry", quiet: "149 days quiet", x: 18.5, y: 51.5, w: 38.5, rz: 0.6, ry: 8.0, opacity: 0.25, blur: 1.05, z: 2 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.0, y: 76.0, w: 35.5, rz: 0.8, ry: 8.5, opacity: 0.58, blur: 0.18, z: 6 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 36.0, y: 79.0, w: 35.5, rz: 0.7, ry: 8.5, opacity: 0.57, blur: 0.18, z: 6 },
   ] as const;
 
   const floatingAvatars = [
-    { cell: 2, left: "48%", top: "3%", size: 52, opacity: 0.50, delay: 0 },
-    { cell: 16, left: "77%", top: "9%", size: 52, opacity: 0.48, delay: 0.05 },
-    { cell: 12, left: "86%", top: "31%", size: 50, opacity: 0.44, delay: 0.08 },
-    { cell: 20, left: "43%", top: "65%", size: 50, opacity: 0.42, delay: 0.10 },
+    { cell: 2, left: "46.5%", top: "4%", size: 54, opacity: 0.50 },
+    { cell: 16, left: "76.5%", top: "10.5%", size: 54, opacity: 0.48 },
+    { cell: 12, left: "88.5%", top: "32%", size: 52, opacity: 0.46 },
+    { cell: 20, left: "43.5%", top: "65.5%", size: 50, opacity: 0.43 },
   ] as const;
 
   return (
-    <div className="relative mx-auto aspect-[980/760] w-[104%] max-w-none lg:-ml-[4%]">
+    <div className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:mx-0">
       <svg
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-visible"
-        viewBox="0 0 980 760"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
+        viewBox="0 0 1000 780"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path d="M 24 98 C 245 74, 472 88, 660 222 C 780 308, 820 450, 884 548" fill="none" stroke="#C98D74" strokeWidth="1.2" strokeDasharray="5 7" opacity=".44" />
-        <path d="M 110 714 C 350 692, 462 594, 544 478 C 632 354, 734 296, 922 322" fill="none" stroke="#88945E" strokeWidth="1.1" strokeDasharray="4 7" opacity=".43" />
-        <path d="M 360 18 C 566 31, 716 92, 798 207 C 872 312, 856 428, 814 506" fill="none" stroke="#D5C7B9" strokeWidth="1" opacity=".46" />
-        <path d="M 370 151 C 536 154, 660 201, 718 296 C 758 362, 753 438, 726 506" fill="none" stroke="#DDB59F" strokeWidth=".85" opacity=".34" />
-        <circle cx="662" cy="222" r="6" fill="#BF7458" opacity=".88" />
-        <circle cx="814" cy="506" r="6" fill="#879653" opacity=".88" />
-        <circle cx="798" cy="207" r="5" fill="#C9BFB4" />
+        <path d="M 10 98 C 238 72, 478 84, 674 218 C 796 302, 850 418, 916 540" fill="none" stroke="#C98D74" strokeWidth="1.15" strokeDasharray="5 7" opacity=".42" />
+        <path d="M 96 742 C 314 724, 452 624, 548 486 C 644 349, 756 286, 958 316" fill="none" stroke="#88945E" strokeWidth="1.05" strokeDasharray="4 7" opacity=".40" />
+        <path d="M 354 15 C 568 26, 728 91, 814 208 C 888 309, 884 426, 842 510" fill="none" stroke="#D5C7B9" strokeWidth="1" opacity=".45" />
+        <path d="M 370 146 C 546 150, 680 202, 742 300 C 784 366, 782 437, 754 502" fill="none" stroke="#DDB59F" strokeWidth=".85" opacity=".33" />
+        <circle cx="674" cy="218" r="6" fill="#BF7458" opacity=".86" />
+        <circle cx="842" cy="510" r="6" fill="#879653" opacity=".86" />
       </svg>
 
       {floatingAvatars.map((avatar, index) => (
-        <motion.div
+        <div
           key={index}
-          className="absolute z-[2]"
-          style={{ left: avatar.left, top: avatar.top }}
-          initial={reduced ? false : { opacity: 0 }}
-          whileInView={{ opacity: avatar.opacity }}
-          viewport={{ once: true }}
-          transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : avatar.delay, ease: EASE }}
+          className="absolute z-[3]"
+          style={{ left: avatar.left, top: avatar.top, opacity: avatar.opacity }}
         >
           <AutumnAvatar cell={avatar.cell} size={avatar.size} muted />
-        </motion.div>
+        </div>
       ))}
 
       {archiveCards.map((record, index) => (
-        <motion.div
-          key={record.name || `archive-${index}`}
+        <div
+          key={record.name + index}
           className="absolute"
           style={{
             left: record.x + "%",
             top: record.y + "%",
             width: record.w + "%",
             zIndex: record.z,
+            opacity: record.opacity,
             filter: `blur(${record.blur}px)`,
           }}
-          initial={reduced ? false : { opacity: 0, y: 8 }}
-          whileInView={{ opacity: record.opacity, y: 0 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : index * 0.025, ease: EASE }}
         >
           <div
-            className="rounded-[22px] border border-white/72 bg-[#FBF8F2]/88 px-4 py-4 shadow-[18px_22px_46px_rgba(70,54,40,.075)]"
+            className="rounded-[22px] border border-white/70 bg-[#FBF8F2]/92 px-4 py-4 shadow-[16px_22px_44px_rgba(70,54,40,.08)]"
             style={{
-              transform: `perspective(1100px) rotateY(${record.ry}deg) rotateZ(${record.rz}deg)`,
-              transformOrigin: "22% 50%",
+              transform: `perspective(1050px) rotateY(${record.ry}deg) rotateZ(${record.rz}deg)`,
+              transformOrigin: "16% 50%",
+              transformStyle: "preserve-3d",
             }}
           >
             <div className="flex items-center gap-3">
-              <AutumnAvatar cell={record.cell} size={record.name ? 60 : 54} muted />
+              <AutumnAvatar cell={record.cell} size={record.name ? 58 : 54} muted />
               <div className="min-w-0 flex-1">
-                {record.name ? (
-                  <>
-                    <div className="truncate text-[12px] font-semibold text-[#58514B]">{record.name}</div>
-                    <div className="mt-1 text-[10px] text-[#7C736B]">{record.type}</div>
-                    <div className="mt-0.5 text-[10px] text-[#867D75]">{record.quiet}</div>
-                  </>
-                ) : (
-                  <div className="space-y-2 pt-1">
-                    <div className="h-2.5 w-[48%] rounded-full bg-black/[0.06]" />
-                    <div className="h-2.5 w-[32%] rounded-full bg-black/[0.04]" />
-                  </div>
-                )}
+                <div className="truncate text-[12px] font-semibold text-[#59514B]">{record.name}</div>
+                <div className="mt-1 text-[10px] text-[#7C736B]">{record.type}</div>
+                <div className="mt-0.5 text-[10px] text-[#867D75]">{record.quiet}</div>
               </div>
             </div>
             <div className="mt-3 space-y-1.5">
-              <div className="h-2.5 w-[76%] rounded-full bg-black/[0.066]" />
-              <div className="h-2.5 w-[50%] rounded-full bg-black/[0.048]" />
+              <div className="h-2.5 w-[76%] rounded-full bg-black/[0.065]" />
+              <div className="h-2.5 w-[49%] rounded-full bg-black/[0.047]" />
             </div>
           </div>
-        </motion.div>
+        </div>
       ))}
 
-      <motion.div
-        className="absolute left-[25.5%] top-[24%] z-20 w-[55.5%]"
-        initial={reduced ? false : { opacity: 0, y: 10, scale: 0.985 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.54, delay: reduced ? 0 : 0.10, ease: EASE }}
-      >
+      <div className="absolute left-[25%] top-[23.5%] z-30 w-[59%]">
         <div
-          className="rounded-[24px] border border-white/82 bg-[#FCF9F4]/98 p-6 shadow-[24px_32px_72px_rgba(76,55,40,.18)]"
+          className="rounded-[25px] border border-white/85 bg-[#FCF9F4]/[0.99] p-[22px] shadow-[26px_34px_76px_rgba(76,55,40,.19)]"
           style={{
-            transform: "perspective(980px) rotateY(8deg) rotateZ(2.05deg)",
-            transformOrigin: "20% 50%",
-            willChange: "transform",
+            transform: "perspective(900px) rotateY(9deg) rotateZ(1.4deg)",
+            transformOrigin: "17% 50%",
+            transformStyle: "preserve-3d",
           }}
         >
-          <div className="flex items-start gap-6">
-            <div className="rounded-full bg-[#EBC5B3] p-2.5">
-              <AutumnAvatar cell={9} size={122} />
+          <div className="flex items-start gap-[24px]">
+            <div className="rounded-full bg-[#EBC5B3] p-[9px]">
+              <AutumnAvatar cell={9} size={118} />
             </div>
             <div className="min-w-0 flex-1 pt-1">
               <div className="flex items-center justify-between gap-4">
-                <div className="text-[23px] font-semibold tracking-[-0.03em] text-[#282522]">Sarah Mitchell</div>
+                <div className="text-[22px] font-semibold tracking-[-0.035em] text-[#282522]">Sarah Mitchell</div>
                 <span className="rounded-full bg-[#EAE9E4] px-3.5 py-2 text-[8px] font-bold uppercase tracking-[0.12em] text-[#6D6861]">Dormant</span>
               </div>
               <div className="mt-3 text-[15px] text-[#69615A]">
@@ -359,98 +337,81 @@ function ReopenHeroVisual() {
               </div>
               <div className="mt-1.5 text-[15px] text-[#766E67]">167 days quiet</div>
               <div className="mt-5 space-y-2">
-                <div className="h-3 w-[76%] rounded-full bg-black/[0.072]" />
-                <div className="h-3 w-[51%] rounded-full bg-black/[0.055]" />
+                <div className="h-3 w-[77%] rounded-full bg-black/[0.074]" />
+                <div className="h-3 w-[52%] rounded-full bg-black/[0.055]" />
               </div>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <svg
-        className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
-        viewBox="0 0 980 760"
+        className="pointer-events-none absolute inset-0 z-[34] h-full w-full overflow-hidden"
+        viewBox="0 0 1000 780"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path d="M 402 369 C 407 398, 430 414, 462 420" fill="none" stroke="#B75E3F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="402" cy="369" r="6" fill="#B75E3F" />
-        <circle cx="462" cy="420" r="5" fill="#B75E3F" />
+        <path d="M 410 378 C 415 408, 435 430, 470 444" fill="none" stroke="#B75E3F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="410" cy="378" r="5.5" fill="#B75E3F" />
+        <circle cx="470" cy="444" r="5" fill="#B75E3F" />
 
-        <path d="M 514 473 C 511 514, 529 540, 557 551" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="514" cy="473" r="5" fill="#76834F" />
-        <circle cx="557" cy="551" r="5" fill="#76834F" />
+        <path d="M 530 495 C 528 528, 540 552, 558 566" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="530" cy="495" r="5" fill="#76834F" />
+        <circle cx="558" cy="566" r="5" fill="#76834F" />
 
-        <path d="M 557 551 C 563 582, 581 604, 610 614" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="610" cy="614" r="5" fill="#76834F" />
+        <path d="M 596 614 C 596 640, 603 658, 617 670" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="596" cy="614" r="5" fill="#76834F" />
+        <circle cx="617" cy="670" r="5" fill="#76834F" />
       </svg>
 
-      <motion.div
-        className="absolute left-[47%] top-[49%] z-30 w-[31%]"
-        initial={reduced ? false : { opacity: 0, x: 12 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : 0.27, ease: EASE }}
-      >
-        <div className="rounded-[18px] border border-[#E6D9CF] bg-white/98 px-5 py-4 shadow-[0_20px_46px_rgba(74,53,39,.105)]">
-          <div className="flex items-center gap-4">
-            <ZaplaPetal size={38} className="shrink-0" />
+      <div className="absolute left-[46.8%] top-[50.5%] z-40 w-[33%]">
+        <div className="rounded-[17px] border border-[#E6D9CF] bg-white/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(74,53,39,.11)]">
+          <div className="flex items-center gap-[14px]">
+            <ZaplaPetal size={37} className="shrink-0" />
             <div>
-              <div className="text-[15px] font-semibold leading-[1.45] text-[#292623]">Want us to update that quote?</div>
-              <div className="mt-2 text-[9px] text-[#A0968C]">10:14 AM</div>
+              <div className="text-[14px] font-semibold leading-[1.4] text-[#292623]">Want us to update that quote?</div>
+              <div className="mt-1.5 text-[9px] text-[#A0968C]">10:14 AM</div>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        className="absolute left-[56%] top-[63%] z-30 w-[36.5%]"
-        initial={reduced ? false : { opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : 0.40, ease: EASE }}
-      >
-        <div className="rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/98 px-5 py-4 shadow-[0_20px_46px_rgba(77,85,54,.105)]">
+      <div className="absolute left-[55.5%] top-[63.8%] z-40 w-[38.5%]">
+        <div className="rounded-[17px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(77,85,54,.11)]">
           <div className="flex items-center gap-3">
-            <AutumnAvatar cell={9} size={48} />
+            <AutumnAvatar cell={9} size={46} />
             <div className="min-w-0 flex-1">
-              <div className="text-[14px] font-semibold leading-[1.45] text-[#2E3128]">Yes. Please send me the latest pricing.</div>
-              <div className="mt-2 flex items-center gap-2 text-[9px] text-[#7B8367]">
+              <div className="text-[13px] font-semibold leading-[1.4] text-[#2E3128]">Yes. Please send me the latest pricing.</div>
+              <div className="mt-1.5 flex items-center gap-2 text-[9px] text-[#7B8367]">
                 10:27 AM <Check size={11} strokeWidth={2.4} />
               </div>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
-      <div className="pointer-events-none absolute left-[89.5%] top-[60.5%] z-40">
+      <div className="pointer-events-none absolute left-[91.5%] top-[61.3%] z-50">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <motion.div
-        className="absolute left-[61.5%] top-[77%] z-30 w-[33.5%]"
-        initial={reduced ? false : { opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : 0.53, ease: EASE }}
-      >
-        <div className="flex items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/98 px-5 py-4 shadow-[0_20px_46px_rgba(61,64,46,.09)]">
-          <div className="flex items-center gap-3">
-            <span className="h-3 w-3 rounded-full bg-[#879653]" />
-            <div className="flex items-center gap-4">
-              <div className="rounded-full bg-[#E5E8D5] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#637044]">Reopened</div>
-              <div className="h-7 w-px bg-[#D5D3C9]" />
-              <div>
-                <div className="text-[11px] font-semibold text-[#373631]">Sarah is back</div>
-                <div className="mt-1 text-[9px] text-[#77726C]">Resumed conversation</div>
+      <div className="absolute left-[61%] top-[78%] z-40 w-[35.5%]">
+        <div className="flex items-center justify-between gap-4 rounded-[17px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(61,64,46,.095)]">
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="h-3 w-3 shrink-0 rounded-full bg-[#879653]" />
+            <div className="flex min-w-0 items-center gap-3.5">
+              <div className="shrink-0 rounded-full bg-[#E5E8D5] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#637044]">Reopened</div>
+              <div className="h-7 w-px shrink-0 bg-[#D5D3C9]" />
+              <div className="min-w-0">
+                <div className="whitespace-nowrap text-[11px] font-semibold text-[#373631]">Sarah is back</div>
+                <div className="mt-1 whitespace-nowrap text-[9px] text-[#77726C]">Resumed conversation</div>
               </div>
             </div>
           </div>
-          <ArrowRight size={16} className="text-[#5E6257]" />
+          <ArrowRight size={16} className="shrink-0 text-[#5E6257]" />
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
