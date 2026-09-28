@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Check, ChevronDown, MessageSquare } from "lucide-react";
+import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
@@ -53,16 +53,6 @@ const FAQS = [
     q: "What is Ghost to Gold?",
     a: "Ghost to Gold is the done for you Reopen service. Sprint starts from A$997 plus GST and covers campaign build and launch. Managed starts from A$1,497 plus GST and also includes monitoring and handoff of interested customers to your team.",
   },
-] as const;
-
-const ARCHIVE_CONTACTS = [
-  { cell: 2, x: 5, y: 13, size: 74, rotate: -3, opacity: 0.28, label: "Old enquiry", meta: "7 months quiet" },
-  { cell: 13, x: 34, y: 9, size: 82, rotate: 2, opacity: 0.24, label: "Past customer", meta: "11 months quiet" },
-  { cell: 20, x: 81, y: 16, size: 78, rotate: -2, opacity: 0.26, label: "Quote sent", meta: "4 months quiet" },
-  { cell: 6, x: 8, y: 56, size: 84, rotate: 2, opacity: 0.22, label: "Old enquiry", meta: "5 months quiet" },
-  { cell: 17, x: 79, y: 55, size: 82, rotate: -2, opacity: 0.24, label: "Past customer", meta: "14 months quiet" },
-  { cell: 11, x: 24, y: 86, size: 76, rotate: 2, opacity: 0.19, label: "Quote sent", meta: "8 months quiet" },
-  { cell: 23, x: 86, y: 84, size: 72, rotate: -2, opacity: 0.18, label: "Old enquiry", meta: "9 months quiet" },
 ] as const;
 
 const AUDIENCE = [
@@ -180,7 +170,7 @@ function Hero() {
 
       <div className="relative mx-auto grid min-h-[760px] max-w-[1700px] items-center gap-4 lg:grid-cols-[1.24fr_.76fr] lg:gap-2">
         <Reveal className="order-2 lg:order-1">
-          <ArchiveScene />
+          <ReopenHeroVisual />
         </Reveal>
 
         <Reveal className="order-1 max-w-[650px] lg:order-2 lg:justify-self-end lg:pl-5" delay={0.04}>
@@ -240,7 +230,7 @@ function Hero() {
   );
 }
 
-function ArchiveScene() {
+function ReopenHeroVisual() {
   const reduced = !!useReducedMotion();
 
   const backgroundRecords = [
