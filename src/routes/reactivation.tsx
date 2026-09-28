@@ -244,12 +244,15 @@ function ArchiveScene() {
   const reduced = !!useReducedMotion();
 
   const backgroundRecords = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.5, y: 6, w: 35.5, rotate: 3.1, opacity: 0.68 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 36, y: 14, w: 35.5, rotate: 2.3, opacity: 0.60 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -1.5, y: 35.5, w: 34.5, rotate: 2.1, opacity: 0.59 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: 0, y: 59.5, w: 35.5, rotate: 2.8, opacity: 0.62 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 2.5, y: 77.2, w: 35.5, rotate: 2.8, opacity: 0.59 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 38.5, y: 80.5, w: 35.5, rotate: 2.0, opacity: 0.57 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: -1.8, y: 6, w: 36.5, rotate: 3.0, opacity: 0.70 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 27.5, y: 13, w: 36.5, rotate: 2.2, opacity: 0.63 },
+    { cell: 10, name: "Chloe Martin", type: "Past customer", quiet: "118 days quiet", x: 43, y: 5, w: 29.5, rotate: 1.8, opacity: 0.43 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -2.8, y: 36.5, w: 35.5, rotate: 2.0, opacity: 0.61 },
+    { cell: 15, name: "Oliver Grant", type: "Quote sent", quiet: "109 days quiet", x: 18, y: 30.5, w: 29, rotate: 2.5, opacity: 0.44 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", x: -0.8, y: 58.5, w: 36.5, rotate: 2.7, opacity: 0.64 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", x: 1.5, y: 76.5, w: 36.5, rotate: 2.8, opacity: 0.60 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", x: 31.5, y: 79, w: 36, rotate: 1.9, opacity: 0.58 },
+    { cell: 5, name: "Noah Patel", type: "Enquiry", quiet: "153 days quiet", x: 49.5, y: 71.5, w: 28.5, rotate: 1.6, opacity: 0.40 },
   ] as const;
 
   return (
@@ -337,15 +340,15 @@ function ArchiveScene() {
       ))}
 
       <motion.div
-        className="absolute left-[27%] top-[24%] z-20 w-[56.5%]"
+        className="absolute left-[24.8%] top-[23.5%] z-20 w-[58%]"
         initial={reduced ? false : { opacity: 0, y: 12, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.11, ease: EASE }}
       >
         <div
-          className="rounded-[24px] border border-white/80 bg-[#FCF9F4]/98 p-6 shadow-[0_38px_86px_rgba(76,55,40,.22)]"
-          style={{ transform: "rotate(2.75deg)", transformOrigin: "50% 50%" }}
+          className="rounded-[24px] border border-white/80 bg-[#FCF9F4]/98 p-6 shadow-[0_42px_92px_rgba(76,55,40,.23)]"
+          style={{ transform: "rotate(3.15deg)", transformOrigin: "50% 50%" }}
         >
           <div className="flex items-start gap-6">
             <div className="rounded-full bg-[#EBC5B3] p-2.5">
@@ -375,17 +378,17 @@ function ArchiveScene() {
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path d="M 405 372 C 420 420, 453 433, 488 440" fill="none" stroke="#B75E3F" strokeWidth="2.0" />
-        <circle cx="405" cy="372" r="6" fill="#B75E3F" />
-        <circle cx="488" cy="440" r="5" fill="#B75E3F" />
-        <path d="M 527 495 C 525 550, 552 584, 610 602" fill="none" stroke="#76834F" strokeWidth="2.0" />
-        <circle cx="527" cy="495" r="5" fill="#76834F" />
-        <circle cx="610" cy="602" r="5" fill="#76834F" />
-        <path d="M 611 602 C 632 630, 654 648, 691 655" fill="none" stroke="#76834F" strokeWidth="2.0" />
+        <path d="M 392 370 C 405 405, 430 425, 466 433" fill="none" stroke="#B75E3F" strokeWidth="2.0" />
+        <circle cx="392" cy="370" r="6" fill="#B75E3F" />
+        <circle cx="466" cy="433" r="5" fill="#B75E3F" />
+        <path d="M 510 487 C 507 530, 529 555, 566 566" fill="none" stroke="#76834F" strokeWidth="2.0" />
+        <circle cx="510" cy="487" r="5" fill="#76834F" />
+        <circle cx="566" cy="566" r="5" fill="#76834F" />
+        <path d="M 566 566 C 572 604, 588 624, 606 635" fill="none" stroke="#76834F" strokeWidth="2.0" />
       </svg>
 
       <motion.div
-        className="absolute left-[48.5%] top-[50%] z-30 w-[34%]"
+        className="absolute left-[47.5%] top-[50.8%] z-30 w-[35.5%]"
         initial={reduced ? false : { opacity: 0, x: 14 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.35 }}
@@ -393,7 +396,7 @@ function ArchiveScene() {
       >
         <div
           className="rounded-[18px] border border-[#E6D9CF] bg-white/98 px-5 py-4 shadow-[0_22px_52px_rgba(74,53,39,.12)]"
-          style={{ transform: "rotate(-0.65deg)" }}
+          style={{ transform: "rotate(0deg)" }}
         >
           <div className="flex items-center gap-4">
             <ZaplaPetal size={38} className="shrink-0" />
@@ -406,7 +409,7 @@ function ArchiveScene() {
       </motion.div>
 
       <motion.div
-        className="absolute left-[57.5%] top-[64%] z-30 w-[39%]"
+        className="absolute left-[57.7%] top-[64.8%] z-30 w-[40%]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
@@ -414,7 +417,7 @@ function ArchiveScene() {
       >
         <div
           className="rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/98 px-5 py-4 shadow-[0_22px_52px_rgba(77,85,54,.12)]"
-          style={{ transform: "rotate(0.45deg)" }}
+          style={{ transform: "rotate(0deg)" }}
         >
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={48} />
@@ -428,14 +431,14 @@ function ArchiveScene() {
         </div>
       </motion.div>
 
-      <div className="pointer-events-none absolute left-[91%] top-[61%] z-40">
+      <div className="pointer-events-none absolute left-[92.5%] top-[61.6%] z-40">
         <span className="absolute h-[18px] w-[3px] -rotate-[12deg] bg-[#70804B]" />
         <span className="absolute left-3 top-[-4px] h-[18px] w-[3px] rotate-[8deg] bg-[#70804B]" />
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
       <motion.div
-        className="absolute left-[63%] top-[78%] z-30 w-[40%]"
+        className="absolute left-[61.5%] top-[79.2%] z-30 w-[41%]"
         initial={reduced ? false : { opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
@@ -443,7 +446,7 @@ function ArchiveScene() {
       >
         <div
           className="flex items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/98 px-5 py-4 shadow-[0_22px_52px_rgba(61,64,46,.10)]"
-          style={{ transform: "rotate(-0.25deg)" }}
+          style={{ transform: "rotate(0deg)" }}
         >
           <div className="flex items-center gap-3">
             <span className="h-3 w-3 rounded-full bg-[#879653]" />
