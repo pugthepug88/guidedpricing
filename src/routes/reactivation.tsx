@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
@@ -231,6 +231,67 @@ function Hero() {
 }
 
 function ReopenHeroVisual() {
+  const visualRef = useRef<HTMLDivElement>(null);
+  const sarahRef = useRef<HTMLDivElement>(null);
+  const outgoingRef = useRef<HTMLDivElement>(null);
+  const replyRef = useRef<HTMLDivElement>(null);
+  const reopenedRef = useRef<HTMLDivElement>(null);
+  const [connectorGeometry, setConnectorGeometry] = useState<{
+    width: number;
+    height: number;
+    orange: { start: { x: number; y: number }; end: { x: number; y: number } };
+    greenOne: { start: { x: number; y: number }; end: { x: number; y: number } };
+    greenTwo: { start: { x: number; y: number }; end: { x: number; y: number } };
+  } | null>(null);
+
+  useEffect(() => {
+    const updateConnectors = () => {
+      const container = visualRef.current?.getBoundingClientRect();
+      const sarah = sarahRef.current?.getBoundingClientRect();
+      const outgoing = outgoingRef.current?.getBoundingClientRect();
+      const reply = replyRef.current?.getBoundingClientRect();
+      const reopened = reopenedRef.current?.getBoundingClientRect();
+
+      if (!container || !sarah || !outgoing || !reply || !reopened) return;
+
+      const point = (rect: DOMRect, xRatio: number, yRatio: number) => ({
+        x: rect.left - container.left + rect.width * xRatio,
+        y: rect.top - container.top + rect.height * yRatio,
+      });
+
+      setConnectorGeometry({
+        width: container.width,
+        height: container.height,
+        orange: {
+          start: point(sarah, 0.28, 1),
+          end: point(outgoing, 0, 0.5),
+        },
+        greenOne: {
+          start: point(outgoing, 0.18, 1),
+          end: point(reply, 0, 0.52),
+        },
+        greenTwo: {
+          start: point(reply, 0.16, 1),
+          end: point(reopened, 0, 0.5),
+        },
+      });
+    };
+
+    const frame = requestAnimationFrame(updateConnectors);
+    const observer = new ResizeObserver(updateConnectors);
+
+    [visualRef.current, sarahRef.current, outgoingRef.current, replyRef.current, reopenedRef.current].forEach(
+      (element) => element && observer.observe(element),
+    );
+
+    window.addEventListener("resize", updateConnectors);
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", updateConnectors);
+    };
+  }, []);
+
   const archiveCards = [
     { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.5, y: 7.5, w: 38.0, rz: 0.55, ry: 10.0, opacity: 0.70, blur: 0.12, z: 8 },
     { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 15.0, y: 0.5, w: 40.5, rz: 0.30, ry: 9.0, opacity: 0.34, blur: 0.78, z: 1 },
@@ -254,7 +315,7 @@ function ReopenHeroVisual() {
   ] as const;
 
   return (
-    <div className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:-ml-[16%] lg:-mt-[105px] lg:w-[122%] lg:max-w-none">
+    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:-ml-[16%] lg:-mt-[105px] lg:w-[122%] lg:max-w-none">
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
         viewBox="0 0 1000 780"
@@ -316,7 +377,7 @@ function ReopenHeroVisual() {
         </div>
       ))}
 
-      <div className="absolute left-[24%] top-[23.5%] z-30 w-[62.5%]">
+      <div ref={sarahRef} className="absolute left-[24%] top-[23.5%] z-30 w-[62.5%]">
         <div
           className="rounded-[25px] border border-white/85 bg-[#FCF9F4]/[0.99] p-[22px] shadow-[26px_34px_76px_rgba(76,55,40,.19)]"
           style={{
@@ -347,29 +408,67 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <svg
-        className="pointer-events-none absolute inset-0 z-[34] h-full w-full overflow-visible"
-        viewBox="0 0 1000 780"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        {/* Sarah -> outgoing message: both dots sit on component edges. */}
-        <path d="M 405 366 C 407 397, 422 418, 450 428" fill="none" stroke="#B75E3F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="405" cy="366" r="5.5" fill="#B75E3F" />
-        <circle cx="450" cy="428" r="5" fill="#B75E3F" />
+      {connectorGeometry && (
+        <svg
+          className="pointer-events-none absolute inset-0 z-[34] h-full w-full overflow-visible"
+          viewBox={`0 0 ${connectorGeometry.width} ${connectorGeometry.height}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {(() => {
+            const { start, end } = connectorGeometry.orange;
+            return (
+              <>
+                <path
+                  d={`M ${start.x} ${start.y} C ${start.x} ${start.y + 34}, ${end.x - 26} ${end.y}, ${end.x} ${end.y}`}
+                  fill="none"
+                  stroke="#B75E3F"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <circle cx={start.x} cy={start.y} r="5.5" fill="#B75E3F" />
+                <circle cx={end.x} cy={end.y} r="5" fill="#B75E3F" />
+              </>
+            );
+          })()}
 
-        {/* Outgoing message -> Sarah reply. Starts on the outgoing card bottom edge and lands on the reply card left edge. */}
-        <path d="M 500 462 C 498 497, 509 526, 535 536" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="500" cy="462" r="5" fill="#76834F" />
-        <circle cx="535" cy="536" r="5" fill="#76834F" />
+          {(() => {
+            const { start, end } = connectorGeometry.greenOne;
+            return (
+              <>
+                <path
+                  d={`M ${start.x} ${start.y} C ${start.x - 2} ${start.y + 34}, ${end.x - 24} ${end.y}, ${end.x} ${end.y}`}
+                  fill="none"
+                  stroke="#76834F"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <circle cx={start.x} cy={start.y} r="5" fill="#76834F" />
+                <circle cx={end.x} cy={end.y} r="5" fill="#76834F" />
+              </>
+            );
+          })()}
 
-        {/* Sarah reply -> reopened state. Starts on the reply card bottom edge and enters the reopened card left edge. */}
-        <path d="M 535 573 C 537 606, 552 630, 585 638" fill="none" stroke="#76834F" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="535" cy="573" r="5" fill="#76834F" />
-        <circle cx="585" cy="638" r="5" fill="#76834F" />
-      </svg>
+          {(() => {
+            const { start, end } = connectorGeometry.greenTwo;
+            return (
+              <>
+                <path
+                  d={`M ${start.x} ${start.y} C ${start.x} ${start.y + 35}, ${end.x - 25} ${end.y}, ${end.x} ${end.y}`}
+                  fill="none"
+                  stroke="#76834F"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <circle cx={start.x} cy={start.y} r="5" fill="#76834F" />
+                <circle cx={end.x} cy={end.y} r="5" fill="#76834F" />
+              </>
+            );
+          })()}
+        </svg>
+      )}
 
-      <div className="absolute left-[45%] top-[50.5%] z-40 w-[33%]">
+      <div ref={outgoingRef} className="absolute left-[45%] top-[50.5%] z-40 w-[33%]">
         <div className="rounded-[17px] border border-[#E6D9CF] bg-white/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(74,53,39,.11)]">
           <div className="flex items-center gap-[14px]">
             <ZaplaPetal size={37} className="shrink-0" />
@@ -381,7 +480,7 @@ function ReopenHeroVisual() {
         </div>
       </div>
 
-      <div className="absolute left-[53.5%] top-[63.8%] z-40 w-[38.5%]">
+      <div ref={replyRef} className="absolute left-[53.5%] top-[63.8%] z-40 w-[38.5%]">
         <div className="rounded-[17px] border border-[#C7D0A7] bg-[#E8EBD9]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(77,85,54,.11)]">
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={9} size={46} />
@@ -401,7 +500,7 @@ function ReopenHeroVisual() {
         <span className="absolute left-6 top-[2px] h-[16px] w-[3px] rotate-[28deg] bg-[#70804B]" />
       </div>
 
-      <div className="absolute left-[58.5%] top-[78%] z-40 w-[35.5%]">
+      <div ref={reopenedRef} className="absolute left-[58.5%] top-[78%] z-40 w-[35.5%]">
         <div className="flex items-center justify-between gap-4 rounded-[17px] border border-[#D5D7C5] bg-[#FAF8F2]/[0.99] px-[18px] py-[14px] shadow-[0_18px_44px_rgba(61,64,46,.095)]">
           <div className="flex min-w-0 items-center gap-3">
             <span className="h-3 w-3 shrink-0 rounded-full bg-[#879653]" />
