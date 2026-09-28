@@ -244,9 +244,9 @@ function ArchiveScene() {
   const reduced = !!useReducedMotion();
 
   const backgroundRecords = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", left: -1, top: 4, rotate: -2 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", left: 1, top: 4, rotate: -2 },
     { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", left: 37, top: 15, rotate: 1 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", left: -3, top: 36, rotate: -1 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", left: 0, top: 36, rotate: -1 },
     { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", left: 0, top: 66, rotate: 2 },
     { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", left: 8, top: 84, rotate: -1 },
     { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", left: 45, top: 84, rotate: 1 },
@@ -254,7 +254,7 @@ function ArchiveScene() {
 
   return (
     <div className="relative mx-auto min-h-[610px] w-full max-w-[900px] sm:min-h-[690px] lg:min-h-[760px]">
-      <div className="pointer-events-none absolute -left-[8%] top-[4%] h-[90%] w-[86%] bg-[radial-gradient(circle_at_43%_44%,rgba(196,187,177,.18),transparent_31%)]" />
+      <div className="pointer-events-none absolute -left-[8%] top-[4%] h-[90%] w-[86%] bg-[radial-gradient(circle_at_43%_44%,rgba(196,187,177,.08),transparent_34%)]" />
 
       <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 900 760" preserveAspectRatio="none" aria-hidden="true">
         <path d="M 70 100 C 270 82, 430 135, 555 268 C 665 385, 660 540, 806 606" fill="none" stroke="#C98D74" strokeWidth="1.45" strokeDasharray="5 7" opacity=".52" />
@@ -265,39 +265,39 @@ function ArchiveScene() {
         <circle cx="690" cy="92" r="5" fill="#D0C3B7" />
       </svg>
 
-      <div className="absolute left-[48%] top-[3%] opacity-35">
+      <div className="absolute left-[48%] top-[3%] opacity-45">
         <AutumnAvatar cell={2} size={48} muted />
       </div>
-      <div className="absolute left-[76%] top-[8%] opacity-28">
+      <div className="absolute left-[76%] top-[8%] opacity-38">
         <AutumnAvatar cell={16} size={48} muted />
       </div>
 
       {backgroundRecords.map((record, index) => (
         <motion.div
           key={record.name}
-          className="absolute w-[300px] rounded-[22px] border border-white/45 bg-[#FBF8F2]/58 px-4 py-4 shadow-[0_12px_35px_rgba(70,54,40,.06)] backdrop-blur-[2px]"
+          className="absolute w-[300px] rounded-[22px] border border-white/65 bg-[#FBF8F2]/76 px-4 py-4 shadow-[0_12px_35px_rgba(70,54,40,.07)] backdrop-blur-[1px]"
           style={{
             left: record.left + "%",
             top: record.top + "%",
             rotate: record.rotate,
-            filter: "blur(.55px)",
+            filter: "blur(.12px)",
           }}
           initial={reduced ? false : { opacity: 0, y: 8 }}
-          whileInView={{ opacity: index < 2 ? 0.32 : 0.25, y: 0 }}
+          whileInView={{ opacity: index < 2 ? 0.48 : 0.39, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : index * 0.03, ease: EASE }}
         >
           <div className="flex items-center gap-3">
             <AutumnAvatar cell={record.cell} size={58} muted />
             <div className="min-w-0">
-              <div className="truncate text-[12px] font-semibold text-[#675F58]">{record.name}</div>
-              <div className="mt-1 text-[10px] text-[#978D84]">{record.type}</div>
-              <div className="mt-0.5 text-[10px] text-[#A1978E]">{record.quiet}</div>
+              <div className="truncate text-[12px] font-semibold text-[#5F5851]">{record.name}</div>
+              <div className="mt-1 text-[10px] text-[#887E75]">{record.type}</div>
+              <div className="mt-0.5 text-[10px] text-[#938980]">{record.quiet}</div>
             </div>
           </div>
           <div className="mt-3 space-y-1.5">
-            <div className="h-2.5 w-[72%] rounded-full bg-black/[0.055]" />
-            <div className="h-2.5 w-[45%] rounded-full bg-black/[0.045]" />
+            <div className="h-2.5 w-[72%] rounded-full bg-black/[0.07]" />
+            <div className="h-2.5 w-[45%] rounded-full bg-black/[0.055]" />
           </div>
         </motion.div>
       ))}
