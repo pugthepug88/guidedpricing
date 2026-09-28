@@ -26,7 +26,7 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
-const PETALS_ICON = "data:image/png;base64,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";
+const PETALS_ICON = "/concept/zapla-petals-96.png";
 
 const FAQS = [
   {
@@ -244,16 +244,16 @@ function ArchiveScene() {
   const reduced = !!useReducedMotion();
 
   const backgroundRecords = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", left: 1, top: 4, rotate: -2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", left: 37, top: 15, rotate: 1 },
-    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", left: 0, top: 36, rotate: -1 },
-    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", left: 0, top: 66, rotate: 2 },
-    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", left: 8, top: 84, rotate: -1 },
-    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", left: 45, top: 84, rotate: 1 },
+    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", left: -2, top: 5, rotate: 3.4, width: 330, opacity: 0.56 },
+    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", left: 37, top: 13, rotate: 2.2, width: 316, opacity: 0.48 },
+    { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", left: -4, top: 35, rotate: 2.4, width: 324, opacity: 0.48 },
+    { cell: 7, name: "Ellie Carter", type: "Quote sent", quiet: "124 days quiet", left: -1, top: 65, rotate: 2.8, width: 322, opacity: 0.50 },
+    { cell: 21, name: "Tom Bennett", type: "Past customer", quiet: "188 days quiet", left: 4, top: 83, rotate: 3.0, width: 318, opacity: 0.48 },
+    { cell: 11, name: "Hannah Brooks", type: "Enquiry", quiet: "142 days quiet", left: 43, top: 82, rotate: 2.2, width: 326, opacity: 0.46 },
   ] as const;
 
   return (
-    <div className="relative mx-auto min-h-[610px] w-full max-w-[900px] sm:min-h-[690px] lg:min-h-[760px]">
+    <div className="relative mx-auto min-h-[630px] w-full max-w-[940px] sm:min-h-[710px] lg:min-h-[780px]">
       <div className="pointer-events-none absolute -left-[8%] top-[4%] h-[90%] w-[86%] bg-[radial-gradient(circle_at_43%_44%,rgba(196,187,177,.08),transparent_34%)]" />
 
       <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 900 760" preserveAspectRatio="none" aria-hidden="true">
@@ -265,25 +265,26 @@ function ArchiveScene() {
         <circle cx="690" cy="92" r="5" fill="#D0C3B7" />
       </svg>
 
-      <div className="absolute left-[48%] top-[3%] opacity-45">
+      <div className="absolute left-[47%] top-[2%] opacity-52">
         <AutumnAvatar cell={2} size={48} muted />
       </div>
-      <div className="absolute left-[76%] top-[8%] opacity-38">
+      <div className="absolute left-[76%] top-[7%] opacity-46">
         <AutumnAvatar cell={16} size={48} muted />
       </div>
 
       {backgroundRecords.map((record, index) => (
         <motion.div
           key={record.name}
-          className="absolute w-[300px] rounded-[22px] border border-white/65 bg-[#FBF8F2]/76 px-4 py-4 shadow-[0_12px_35px_rgba(70,54,40,.07)] backdrop-blur-[1px]"
+          className="absolute rounded-[22px] border border-white/62 bg-[#FBF8F2]/78 px-4 py-4 shadow-[0_16px_42px_rgba(70,54,40,.085)] backdrop-blur-[.8px]"
           style={{
             left: record.left + "%",
             top: record.top + "%",
             rotate: record.rotate,
-            filter: "blur(.12px)",
+            width: record.width,
+            filter: "blur(.10px)",
           }}
           initial={reduced ? false : { opacity: 0, y: 8 }}
-          whileInView={{ opacity: index < 2 ? 0.48 : 0.39, y: 0 }}
+          whileInView={{ opacity: record.opacity, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : index * 0.03, ease: EASE }}
         >
@@ -303,13 +304,13 @@ function ArchiveScene() {
       ))}
 
       <motion.div
-        className="absolute left-[27%] top-[28%] z-20 w-[545px] max-w-[62%] rounded-[24px] border border-white/72 bg-[#FCF9F4]/95 p-5 shadow-[0_30px_72px_rgba(76,55,40,.17)] backdrop-blur-sm"
+        className="absolute left-[25%] top-[27%] z-20 w-[565px] max-w-[64%] rotate-[2.25deg] rounded-[24px] border border-white/76 bg-[#FCF9F4]/96 p-5 shadow-[0_34px_78px_rgba(76,55,40,.19)] backdrop-blur-sm"
         initial={reduced ? false : { opacity: 0, y: 10, scale: .97 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.42 }}
         transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.12, ease: EASE }}
       >
-        <div className="flex items-start gap-5">
+        <div className="-rotate-[2.25deg] flex items-start gap-5">
           <div className="rounded-full bg-[#EBC5B3] p-2.5">
             <AutumnAvatar cell={9} size={104} />
           </div>
@@ -340,7 +341,7 @@ function ArchiveScene() {
       </svg>
 
       <motion.div
-        className="absolute left-[50%] top-[52%] z-30 w-[320px] max-w-[38%] rounded-[18px] border border-[#E6D9CF] bg-white/96 px-5 py-4 shadow-[0_18px_45px_rgba(74,53,39,.10)]"
+        className="absolute left-[49%] top-[52%] z-30 w-[326px] max-w-[39%] -rotate-[.6deg] rounded-[18px] border border-[#E6D9CF] bg-white/97 px-5 py-4 shadow-[0_20px_48px_rgba(74,53,39,.11)]"
         initial={reduced ? false : { opacity: 0, x: 12 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.42 }}
@@ -358,7 +359,7 @@ function ArchiveScene() {
       </motion.div>
 
       <motion.div
-        className="absolute left-[60%] top-[66%] z-30 w-[360px] max-w-[43%] rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/97 px-5 py-4 shadow-[0_18px_45px_rgba(77,85,54,.10)]"
+        className="absolute left-[59%] top-[66%] z-30 w-[368px] max-w-[44%] rotate-[.45deg] rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9]/97 px-5 py-4 shadow-[0_20px_48px_rgba(77,85,54,.11)]"
         initial={reduced ? false : { opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.42 }}
@@ -382,7 +383,7 @@ function ArchiveScene() {
       </div>
 
       <motion.div
-        className="absolute bottom-[6%] left-[64%] z-30 flex w-[370px] max-w-[44%] items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/96 px-5 py-4 shadow-[0_18px_45px_rgba(61,64,46,.08)]"
+        className="absolute bottom-[5%] left-[63%] z-30 flex w-[380px] max-w-[45%] -rotate-[.25deg] items-center justify-between gap-4 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2]/96 px-5 py-4 shadow-[0_20px_48px_rgba(61,64,46,.09)]"
         initial={reduced ? false : { opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.42 }}
