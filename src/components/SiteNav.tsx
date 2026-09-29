@@ -114,6 +114,7 @@ export function SiteNav() {
                   <a href="/follow-up" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Follow-Up</a>
                   <a href="/ai-receptionist" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">AI Receptionist</a>
                   <a href="/reactivation" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Reopen</a>
+                  <a href="/reviews" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Reviews &amp; Reputation</a>
                   <a href="https://zapla.io/vibe-studio" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Zapla Vibe Studio</a>
                 </div>
               </div>
@@ -183,6 +184,7 @@ export function SiteNav() {
                 <a href="/follow-up" className="py-1.5">Follow-Up</a>
                 <a href="/ai-receptionist" className="py-1.5">AI Receptionist</a>
                 <a href="/reactivation" className="py-1.5">Reopen</a>
+                <a href="/reviews" className="py-1.5">Reviews &amp; Reputation</a>
                 <a href="https://zapla.io/vibe-studio" className="py-1.5">Zapla Vibe Studio</a>
               </div>
             </details>
