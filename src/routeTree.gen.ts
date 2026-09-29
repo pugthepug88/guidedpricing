@@ -9,12 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as ReactivationRouteImport } from './routes/reactivation'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as FollowUpRouteImport } from './routes/follow-up'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
-import { Route as ReactivationRouteImport } from './routes/reactivation'
-import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
@@ -23,6 +23,16 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReactivationRoute = ReactivationRouteImport.update({
+  id: '/reactivation',
+  path: '/reactivation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingV2Route = PricingV2RouteImport.update({
   id: '/pricing-v2',
   path: '/pricing-v2',
@@ -41,16 +51,6 @@ const FollowUpRoute = FollowUpRouteImport.update({
 const AiReceptionistRoute = AiReceptionistRouteImport.update({
   id: '/ai-receptionist',
   path: '/ai-receptionist',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReactivationRoute = ReactivationRouteImport.update({
-  id: '/reactivation',
-  path: '/reactivation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReviewsRoute = ReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingV3Route = PricingV3RouteImport.update({
@@ -98,11 +98,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/reactivation': typeof ReactivationRoute
-  '/reviews': typeof ReviewsRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
+  '/reactivation': typeof ReactivationRoute
+  '/reviews': typeof ReviewsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
@@ -113,11 +113,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/reactivation': typeof ReactivationRoute
-  '/reviews': typeof ReviewsRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
+  '/reactivation': typeof ReactivationRoute
+  '/reviews': typeof ReviewsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
@@ -129,11 +129,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/reactivation': typeof ReactivationRoute
-  '/reviews': typeof ReviewsRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
+  '/reactivation': typeof ReactivationRoute
+  '/reviews': typeof ReviewsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
@@ -146,11 +146,11 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/reactivation'
-    | '/reviews'
     | '/follow-up'
     | '/mcp'
     | '/pricing-v2'
+    | '/reactivation'
+    | '/reviews'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
@@ -161,11 +161,11 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/reactivation'
-    | '/reviews'
     | '/follow-up'
     | '/mcp'
     | '/pricing-v2'
+    | '/reactivation'
+    | '/reviews'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
@@ -176,11 +176,11 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/reactivation'
-    | '/reviews'
     | '/follow-up'
     | '/mcp'
     | '/pricing-v2'
+    | '/reactivation'
+    | '/reviews'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/concept/cinematic-follow-through-v5'
@@ -192,11 +192,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PricingV3Route: typeof PricingV3Route
   AiReceptionistRoute: typeof AiReceptionistRoute
-  ReactivationRoute: typeof ReactivationRoute
-  ReviewsRoute: typeof ReviewsRoute
   FollowUpRoute: typeof FollowUpRoute
   McpRoute: typeof McpRoute
   PricingV2Route: typeof PricingV2Route
+  ReactivationRoute: typeof ReactivationRoute
+  ReviewsRoute: typeof ReviewsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
@@ -206,6 +206,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reactivation': {
+      id: '/reactivation'
+      path: '/reactivation'
+      fullPath: '/reactivation'
+      preLoaderRoute: typeof ReactivationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing-v2': {
       id: '/pricing-v2'
       path: '/pricing-v2'
@@ -232,20 +246,6 @@ declare module '@tanstack/react-router' {
       path: '/ai-receptionist'
       fullPath: '/ai-receptionist'
       preLoaderRoute: typeof AiReceptionistRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reactivation': {
-      id: '/reactivation'
-      path: '/reactivation'
-      fullPath: '/reactivation'
-      preLoaderRoute: typeof ReactivationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reviews': {
-      id: '/reviews'
-      path: '/reviews'
-      fullPath: '/reviews'
-      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Pricing-v3': {
@@ -304,11 +304,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PricingV3Route: PricingV3Route,
   AiReceptionistRoute: AiReceptionistRoute,
-  ReactivationRoute: ReactivationRoute,
-  ReviewsRoute: ReviewsRoute,
   FollowUpRoute: FollowUpRoute,
   McpRoute: McpRoute,
   PricingV2Route: PricingV2Route,
+  ReactivationRoute: ReactivationRoute,
+  ReviewsRoute: ReviewsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,

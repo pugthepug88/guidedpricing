@@ -138,6 +138,8 @@ export function SiteNav() {
                   <a href="https://zapla.io/blog" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Blog</a>
                   <a href="https://zapla.canny.io/feature-request" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Request feature</a>
                   <a href="https://zapla.io/comparison/zapla-vs-hubspot" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Compare</a>
+                  <a href="/pricing-v2" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Pricing V2</a>
+                  <a href="/Pricing-v3" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Pricing V3</a>
                 </div>
               </div>
             )}
@@ -194,6 +196,8 @@ export function SiteNav() {
                 <a href="https://zapla.io/blog" className="py-1.5">Blog</a>
                 <a href="https://zapla.canny.io/feature-request" className="py-1.5">Request feature</a>
                 <a href="https://zapla.io/comparison/zapla-vs-hubspot" className="py-1.5">Compare</a>
+                <a href="/pricing-v2" className="py-1.5">Pricing V2</a>
+                <a href="/Pricing-v3" className="py-1.5">Pricing V3</a>
               </div>
             </details>
             <a href="https://zapla.io/pricing" className="py-2">Pricing</a>
