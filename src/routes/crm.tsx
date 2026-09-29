@@ -7,7 +7,6 @@ import {
   Check,
   ChevronDown,
   CircleDollarSign,
-  Clock3,
   FileText,
   Inbox,
   Mail,
@@ -17,7 +16,6 @@ import {
   Search,
   Star,
   Users,
-  Zap,
 } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
