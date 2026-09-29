@@ -309,10 +309,10 @@ function ReviewHeroScene() {
 
 function EvidenceSection() {
   return (
-    <section className="bg-[#101820] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+    <section className="bg-[#111214] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[980px]">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D9AA55]">
+        <Reveal className="mx-auto max-w-[980px] text-center">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#DDA34B]">
             Why reviews matter
           </p>
           <h2
@@ -322,114 +322,108 @@ function EvidenceSection() {
             People check your reviews
             <span className="block text-[#E4B85F]">before they call.</span>
           </h2>
-          <p className="mt-5 max-w-[720px] text-[15px] leading-[1.72] text-white/58 sm:text-[16px]">
+          <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.72] text-white/58 sm:text-[16px]">
             Your rating matters. So does how many reviews you have and how recent
             they are.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-[1.18fr_.82fr] lg:grid-rows-2">
-          <Reveal className="lg:row-span-2">
-            <article className="relative flex h-full min-h-[440px] flex-col overflow-hidden rounded-[30px] border border-white/10 bg-[#171F25] p-8 shadow-[0_30px_80px_rgba(0,0,0,.16)] sm:p-10">
-              <div className="absolute left-0 top-0 h-[3px] w-[62%] bg-[#D9AA55]" />
-              <div className="flex items-center justify-between gap-4">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#E4B85F]">
-                  Positive reviews
+        <Reveal className="mt-12">
+          <div className="overflow-hidden rounded-[34px] border border-white/[0.16] bg-[#18191C] shadow-[0_30px_110px_rgba(0,0,0,.30)]">
+            <div className="grid lg:grid-cols-[1.08fr_.92fr]">
+              <article className="relative flex min-h-[450px] flex-col border-b border-white/[0.085] p-8 sm:p-10 lg:border-b-0 lg:border-r">
+                <div className="absolute left-8 right-8 top-0 h-px bg-gradient-to-r from-transparent via-[#DDA34B]/80 to-transparent" />
+                <div className="flex items-center justify-between gap-5">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#DDA34B]">
+                    Positive reviews
+                  </div>
+                  <div className="flex gap-1 text-[#DDA34B]">
+                    {[0,1,2,3,4].map((item) => (
+                      <Star key={item} size={14} className="fill-current" strokeWidth={1.2} />
+                    ))}
+                  </div>
                 </div>
-                <div className="flex gap-1 text-[#DDA34B]">
-                  {[0,1,2,3,4].map((item) => (
-                    <Star key={item} size={14} className="fill-current" strokeWidth={1.2} />
-                  ))}
-                </div>
-              </div>
 
-              <div className="mt-auto">
-                <div
-                  className="text-[108px] font-medium leading-[0.86] tracking-[-0.075em] text-white sm:text-[132px]"
-                  style={{ fontFamily: DISPLAY }}
-                >
-                  85%
+                <div className="mt-auto">
+                  <div
+                    className="text-[110px] font-medium leading-[0.84] tracking-[-0.075em] text-white sm:text-[136px]"
+                    style={{ fontFamily: DISPLAY }}
+                  >
+                    85%
+                  </div>
+                  <p className="mt-7 max-w-[500px] text-[18px] font-medium leading-[1.55] text-white/70 sm:text-[21px]">
+                    are more likely to use a business after reading positive reviews.
+                  </p>
                 </div>
-                <p className="mt-7 max-w-[480px] text-[18px] font-medium leading-[1.55] text-white/72 sm:text-[21px]">
-                  are more likely to use a business after reading positive reviews.
+              </article>
+
+              <div className="grid">
+                <article className="relative flex min-h-[225px] flex-col justify-end border-b border-white/[0.085] p-7 sm:p-8">
+                  <div className="absolute left-8 right-8 top-0 h-px bg-gradient-to-r from-transparent via-[#8EAEBD]/72 to-transparent" />
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#AFC7D2]">
+                    Review count
+                  </div>
+                  <div className="mt-4 grid grid-cols-[auto_1fr] items-end gap-7">
+                    <div
+                      className="text-[72px] font-medium leading-none tracking-[-0.07em] text-white sm:text-[82px]"
+                      style={{ fontFamily: DISPLAY }}
+                    >
+                      47%
+                    </div>
+                    <p className="pb-1 text-right text-[13px] font-medium leading-[1.55] text-white/58 sm:text-[14px]">
+                      won&apos;t use a business with fewer than 20 reviews.
+                    </p>
+                  </div>
+                </article>
+
+                <article className="relative flex min-h-[225px] flex-col justify-end p-7 sm:p-8">
+                  <div className="absolute left-8 right-8 top-0 h-px bg-gradient-to-r from-transparent via-[#99A36D]/72 to-transparent" />
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#B9C49B]">
+                    Recent reviews
+                  </div>
+                  <div className="mt-4 grid grid-cols-[auto_1fr] items-end gap-7">
+                    <div
+                      className="text-[72px] font-medium leading-none tracking-[-0.07em] text-white sm:text-[82px]"
+                      style={{ fontFamily: DISPLAY }}
+                    >
+                      74%
+                    </div>
+                    <p className="pb-1 text-right text-[13px] font-medium leading-[1.55] text-white/58 sm:text-[14px]">
+                      look for reviews written within the last three months.
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <div className="grid gap-5 border-t border-white/[0.085] bg-[#151619] px-7 py-7 sm:px-9 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#DDA34B]">
+                  Higher reviews. Higher visibility.
+                </div>
+                <p className="mt-2 max-w-[850px] text-[18px] font-medium leading-[1.55] text-white/86 sm:text-[20px]">
+                  More reviews and positive ratings can also help your business rank better in local search.
                 </p>
               </div>
-            </article>
-          </Reveal>
-
-          <Reveal delay={0.06}>
-            <article className="relative flex h-full min-h-[212px] items-end overflow-hidden rounded-[28px] border border-white/10 bg-[#171F25] p-7 shadow-[0_24px_60px_rgba(0,0,0,.12)] sm:p-8">
-              <div className="absolute left-0 top-0 h-[3px] w-[46%] bg-[#8EAEBD]" />
-              <div className="w-full">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#AFC7D2]">
-                  Review count
-                </div>
-                <div className="mt-4 flex items-end justify-between gap-6">
-                  <div
-                    className="text-[72px] font-medium leading-none tracking-[-0.07em] text-white sm:text-[82px]"
-                    style={{ fontFamily: DISPLAY }}
-                  >
-                    47%
-                  </div>
-                  <p className="max-w-[220px] pb-1 text-right text-[13px] font-medium leading-[1.55] text-white/62 sm:text-[14px]">
-                    won&apos;t use a business with fewer than 20 reviews.
-                  </p>
-                </div>
-              </div>
-            </article>
-          </Reveal>
-
-          <Reveal delay={0.12}>
-            <article className="relative flex h-full min-h-[212px] items-end overflow-hidden rounded-[28px] border border-white/10 bg-[#171F25] p-7 shadow-[0_24px_60px_rgba(0,0,0,.12)] sm:p-8">
-              <div className="absolute left-0 top-0 h-[3px] w-[46%] bg-[#9DAF77]" />
-              <div className="w-full">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#BDCAA0]">
-                  Recent reviews
-                </div>
-                <div className="mt-4 flex items-end justify-between gap-6">
-                  <div
-                    className="text-[72px] font-medium leading-none tracking-[-0.07em] text-white sm:text-[82px]"
-                    style={{ fontFamily: DISPLAY }}
-                  >
-                    74%
-                  </div>
-                  <p className="max-w-[220px] pb-1 text-right text-[13px] font-medium leading-[1.55] text-white/62 sm:text-[14px]">
-                    look for reviews written within the last three months.
-                  </p>
-                </div>
-              </div>
-            </article>
-          </Reveal>
-        </div>
-
-        <Reveal className="mt-4">
-          <div className="grid gap-5 rounded-[24px] border border-white/10 bg-[#141C22] px-7 py-6 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#D9AA55]">
-                Higher reviews. Higher visibility.
-              </div>
-              <p className="mt-2 max-w-[850px] text-[18px] font-medium leading-[1.55] text-white/88 sm:text-[20px]">
-                More reviews and positive ratings can also help your business rank better in local search.
-              </p>
+              <a
+                href="https://support.google.com/business/answer/7091?hl=en"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#E7C67F] transition-colors hover:text-white"
+              >
+                Local ranking guidance <ExternalLink size={12} />
+              </a>
             </div>
-            <a
-              href="https://support.google.com/business/answer/7091?hl=en"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#E7C67F] transition-colors hover:text-white"
-            >
-              Local ranking guidance <ExternalLink size={12} />
-            </a>
           </div>
         </Reveal>
 
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[11px] leading-[1.6] text-white/42">
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[11px] leading-[1.6] text-white/38">
           <span>Consumer figures: BrightLocal Local Consumer Review Survey 2026, 1,002 US adults.</span>
           <a
             href="https://www.brightlocal.com/research/local-consumer-review-survey/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 font-semibold text-white/55 transition-colors hover:text-white/80"
+            className="inline-flex items-center gap-1.5 font-semibold text-white/52 transition-colors hover:text-white/78"
           >
             View source <ExternalLink size={11} />
           </a>
@@ -667,189 +661,145 @@ function TimingSection() {
 
 function ReviewTimingUi() {
   const reduced = !!useReducedMotion();
+  const connector = "#B99568";
 
-  const wireTransition = (delay: number) => ({
-    duration: reduced ? 0 : 0.58,
-    delay: reduced ? 0 : delay,
-    ease: EASE,
+  const reveal = (delay: number) => ({
+    initial: reduced ? false as const : { opacity: 0, y: 10 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.55 },
+    transition: { duration: reduced ? 0 : 0.45, delay: reduced ? 0 : delay, ease: EASE },
   });
 
-  const connector = "#B99568";
-  const connectorSoft = "#D9C7AF";
+  const Connector = ({ delay = 0 }: { delay?: number }) => (
+    <div className="relative hidden h-full min-h-[160px] items-center lg:flex">
+      <span className="absolute left-0 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#18191C] bg-[#B99568] shadow-[0_0_0_1px_rgba(185,149,104,.45)]" />
+      <motion.span
+        className="h-px w-full origin-left"
+        style={{ backgroundColor: connector }}
+        initial={reduced ? false : { scaleX: 0, opacity: 0 }}
+        whileInView={{ scaleX: 1, opacity: 1 }}
+        viewport={{ once: true, amount: 0.55 }}
+        transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE }}
+      />
+      <span className="absolute right-0 top-1/2 h-3 w-3 translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#18191C] bg-[#B99568] shadow-[0_0_0_1px_rgba(185,149,104,.45)]" />
+    </div>
+  );
 
   return (
-    <div className="overflow-hidden rounded-[24px] border border-[#D7DFE3] bg-white shadow-[0_30px_80px_rgba(46,63,76,.09)]">
-      <div className="flex flex-wrap items-center gap-3 border-b border-[#E2E7E9] bg-[#FCFCFB] px-5 py-3.5 sm:px-6">
+    <div className="overflow-hidden rounded-[30px] border border-white/[0.16] bg-[#18191C] shadow-[0_30px_100px_rgba(24,25,28,.20)]">
+      <div className="flex flex-wrap items-center gap-3 border-b border-white/[0.085] bg-[#151619] px-5 py-4 sm:px-6">
         <div className="flex min-w-0 items-center gap-2">
-          <span className="text-[10px] font-medium text-[#98A1A8]">Automations /</span>
-          <span className="truncate text-[12px] font-semibold text-[#2C353C]">Reviews / Post-service review request</span>
+          <span className="text-[10px] font-medium text-white/32">Automations /</span>
+          <span className="truncate text-[12px] font-semibold text-white/80">Reviews / Post-service review request</span>
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EEF3E8] px-2.5 py-1 text-[9px] font-bold text-[#667A55]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#8FA06B]" />
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#99A36D]/20 bg-[#99A36D]/10 px-2.5 py-1 text-[9px] font-bold text-[#B9C49B]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
           Active
         </span>
         <div className="ml-auto hidden items-center gap-2 sm:flex">
-          <span className="rounded-[8px] border border-[#DCE2E6] bg-white px-3 py-1.5 text-[9px] font-semibold text-[#67727A]">Save</span>
-          <span className="rounded-[8px] bg-[#17212B] px-3 py-1.5 text-[9px] font-semibold text-white">Published</span>
+          <span className="rounded-[8px] border border-white/10 bg-white/[0.025] px-3 py-1.5 text-[9px] font-semibold text-white/42">Save</span>
+          <span className="rounded-[8px] border border-white/10 bg-white/[0.07] px-3 py-1.5 text-[9px] font-semibold text-white/78">Published</span>
         </div>
       </div>
 
       <div
-        className="relative min-h-[500px] overflow-hidden bg-[#F8F8F5]"
+        className="relative bg-[#18191C] px-5 py-10 sm:px-7 sm:py-12 lg:px-8 lg:py-14"
         style={{
-          backgroundImage: "radial-gradient(rgba(157,145,130,.24) 1px, transparent 1px)",
-          backgroundSize: "18px 18px",
+          backgroundImage: "radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
         }}
       >
-        <div className="hidden lg:block">
-          <svg
-            className="pointer-events-none absolute inset-0 h-full w-full"
-            viewBox="0 0 1200 500"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            {[
-              { d: "M235 250 H320", delay: 0.16 },
-              { d: "M485 250 H570", delay: 0.46 },
-              { d: "M770 250 H855", delay: 0.76 },
-            ].map((wire) => (
-              <g key={wire.d}>
-                <path d={wire.d} fill="none" stroke={connectorSoft} strokeWidth="2" strokeLinecap="round" />
-                <motion.path
-                  d={wire.d}
-                  fill="none"
-                  stroke={connector}
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  initial={reduced ? false : { pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 1 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={wireTransition(wire.delay)}
-                />
-              </g>
-            ))}
-          </svg>
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[260px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-[#E97D62]/[0.055] blur-[70px]" />
 
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(0.02)}
-            className="absolute left-[5.5%] top-1/2 w-[170px] -translate-y-1/2 rounded-[16px] border border-[#D6DDCF] bg-[#F1F4E9] shadow-[0_14px_34px_rgba(46,63,76,.07)]"
-          >
-            <div className="border-b border-[#DDE4D7] px-4 py-3">
-              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#6E7C59]">Trigger</span>
-            </div>
-            <div className="px-4 py-4">
-              <div className="text-[13px] font-semibold text-[#222A30]">Service completed</div>
-              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#7C878D]">Customer enters the review workflow.</div>
-            </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+        <div className="relative hidden min-h-[270px] grid-cols-[1fr_58px_.92fr_58px_1.08fr_58px_1.42fr] items-center lg:grid">
+          <motion.div {...reveal(0.02)} className="relative rounded-[20px] border border-white/[0.12] bg-[#202126] p-5 shadow-[0_16px_38px_rgba(0,0,0,.18)]">
+            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#B9C49B]">Trigger</div>
+            <div className="mt-5 text-[15px] font-semibold text-white/92">Service completed</div>
+            <div className="mt-2 text-[10px] leading-[1.55] text-white/42">Customer enters the review workflow.</div>
           </motion.div>
 
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(0.32)}
-            className="absolute left-[26.7%] top-1/2 w-[165px] -translate-y-1/2 rounded-[16px] border border-[#E2D7C1] bg-[#FBF2DF] shadow-[0_14px_34px_rgba(46,63,76,.065)]"
-          >
-            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-            <div className="border-b border-[#E9DFC9] px-4 py-3">
-              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8B682F]">Wait</span>
-            </div>
-            <div className="px-4 py-4">
-              <div className="text-[13px] font-semibold text-[#222A30]">2 hours</div>
-              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#7C878D]">Give the customer time before asking.</div>
-            </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+          <Connector delay={0.18} />
+
+          <motion.div {...reveal(0.30)} className="relative rounded-[20px] border border-white/[0.12] bg-[#202126] p-5 shadow-[0_16px_38px_rgba(0,0,0,.18)]">
+            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#E1BC7A]">Wait</div>
+            <div className="mt-5 text-[15px] font-semibold text-white/92">2 hours</div>
+            <div className="mt-2 text-[10px] leading-[1.55] text-white/42">Give the customer time before asking.</div>
           </motion.div>
 
+          <Connector delay={0.46} />
+
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 10, scale: .985 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(0.62)}
-            className="absolute left-[47.5%] top-1/2 w-[200px] -translate-y-1/2 rounded-[18px] border border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_18px_44px_rgba(37,99,255,.09)]"
+            {...reveal(0.58)}
+            className="relative overflow-hidden rounded-[22px] border border-[#E97D62]/40 bg-[#202126] p-5 shadow-[0_18px_44px_rgba(0,0,0,.22),0_0_32px_rgba(233,125,98,.06)]"
           >
-            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-            <div className="flex items-center gap-2 border-b border-[#DDE6F6] px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
-                <ZaplaPetal size={20} />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(233,125,98,.10),transparent_52%)]" />
+            <div className="relative flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#151619]">
+                <ZaplaPetal size={23} />
               </span>
               <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#597DDA]">Zapla AI</div>
-                <div className="mt-0.5 text-[12px] font-semibold text-[#202A34]">Review request</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#E97D62]">Zapla AI</div>
+                <div className="mt-1 text-[14px] font-semibold text-white/94">Review request</div>
               </div>
             </div>
-            <div className="px-4 py-4">
-              <div className="text-[10px] leading-[1.5] text-[#66727D]">Personalises the message and sends it automatically.</div>
+            <div className="relative mt-4 text-[10px] leading-[1.55] text-white/46">
+              Personalises the message and sends it automatically.
             </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
           </motion.div>
 
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(0.92)}
-            className="absolute right-[5%] top-1/2 w-[265px] -translate-y-1/2 overflow-hidden rounded-[20px] border border-[#E4D7CF] bg-[#FFFDFC] shadow-[0_18px_48px_rgba(46,63,76,.09)]"
-          >
-            <span className="absolute -left-[7px] top-1/2 z-10 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+          <Connector delay={0.74} />
 
-            <div className="border-b border-[#EAE4DF] bg-[#FBF1EC] p-4">
+          <motion.div {...reveal(0.86)} className="overflow-hidden rounded-[22px] border border-white/[0.12] bg-[#202126] shadow-[0_18px_44px_rgba(0,0,0,.20)]">
+            <div className="border-b border-white/[0.085] p-4">
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#151619]">
                   <ZaplaPetal size={20} />
                 </span>
                 <div>
-                  <div className="text-[10px] font-semibold text-[#273039]">Northside</div>
-                  <div className="mt-0.5 text-[8px] text-[#8A949D]">SMS · just now</div>
+                  <div className="text-[10px] font-semibold text-white/88">Northside</div>
+                  <div className="mt-0.5 text-[8px] text-white/34">SMS · just now</div>
                 </div>
               </div>
-              <p className="mt-3 text-[10.5px] leading-[1.52] text-[#4F5A63]">
+              <p className="mt-3 text-[10.5px] leading-[1.52] text-white/58">
                 Hi Mia, if you have a minute, we&apos;d value an honest Google review.
               </p>
-              <div className="mt-3 flex items-center justify-between rounded-[9px] bg-[#1E2B29] px-3 py-2.5 text-[9px] font-semibold text-white">
+              <div className="mt-3 flex items-center justify-between rounded-[10px] border border-white/10 bg-white/[0.055] px-3 py-2.5 text-[9px] font-semibold text-white/90">
                 Leave a Google review <ArrowRight size={10} />
               </div>
             </div>
 
-            <div className="bg-[#FFF9EB] p-4">
+            <div className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A7956]">Review screen opens</div>
-                  <div className="mt-1 text-[12px] font-semibold text-[#202930]">Northside</div>
+                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#E1BC7A]">Review screen opens</div>
+                  <div className="mt-1 text-[12px] font-semibold text-white/88">Northside</div>
                 </div>
-                <span className="text-[9px] font-semibold text-[#8A949D]">Google</span>
+                <span className="text-[9px] font-semibold text-white/32">Google</span>
               </div>
               <div className="mt-3 flex items-center gap-1">
                 {[0,1,2,3,4].map((item) => (
                   <Star key={item} size={18} className="fill-[#DDA34B] text-[#DDA34B]" strokeWidth={1.2} />
                 ))}
               </div>
-              <p className="mt-2 text-[9.5px] text-[#66717A]">Tap a star to rate your experience</p>
+              <p className="mt-2 text-[9.5px] text-white/40">Tap a star to rate your experience</p>
             </div>
           </motion.div>
         </div>
 
-        <div className="space-y-4 p-5 lg:hidden">
+        <div className="relative space-y-3 lg:hidden">
           {[
-            ["Trigger", "Service completed", "bg-[#F1F4E9] border-[#D6DDCF]"],
-            ["Wait", "2 hours", "bg-[#FBF2DF] border-[#E2D7C1]"],
-            ["Zapla AI", "Review request", "bg-[#F2F6FF] border-[#BFD0F7]"],
-            ["Customer", "SMS arrives and opens the review screen", "bg-[#FBF1EC] border-[#E4D7CF]"],
+            ["Trigger", "Service completed", "#99A36D"],
+            ["Wait", "2 hours", "#DDA34B"],
+            ["Zapla AI", "Review request", "#E97D62"],
+            ["Customer", "SMS arrives and opens the review screen", "#D58C75"],
           ].map(([label, title, tone], index) => (
             <motion.div
               key={label}
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.7 }}
-              transition={wireTransition(index * 0.12)}
-              className={"relative rounded-[16px] border px-4 py-4 shadow-[0_10px_28px_rgba(46,63,76,.055)] " + tone}
+              {...reveal(index * 0.1)}
+              className="rounded-[18px] border border-white/[0.12] bg-[#202126] px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,.16)]"
             >
-              <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A795F]">{label}</div>
-              <div className="mt-1 text-[13px] font-semibold text-[#202930]">{title}</div>
+              <div className="text-[8px] font-bold uppercase tracking-[0.14em]" style={{ color: tone }}>{label}</div>
+              <div className="mt-2 text-[13px] font-semibold text-white/88">{title}</div>
             </motion.div>
           ))}
         </div>
