@@ -674,61 +674,76 @@ function ReviewTimingUi() {
   const connectorSoft = "#D9C7AF";
 
   const reveal = (delay: number) => ({
-    initial: reduced ? false as const : { opacity: 0, y: 10 },
+    initial: reduced ? false as const : { opacity: 0, y: 8 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.5 },
+    viewport: { once: true, amount: 0.55 },
     transition: {
-      duration: reduced ? 0 : 0.46,
+      duration: reduced ? 0 : 0.42,
       delay: reduced ? 0 : delay,
       ease: EASE,
     },
   });
 
   const FlowConnector = ({ delay }: { delay: number }) => (
-    <div className="relative hidden h-full min-h-[180px] items-center lg:flex">
+    <div className="relative hidden h-[184px] items-center justify-center lg:flex" aria-hidden="true">
       <span
-        className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 rounded-full"
+        className="absolute left-0 right-[8px] top-1/2 h-[2px] -translate-y-1/2 rounded-full"
         style={{ backgroundColor: connectorSoft }}
       />
       <motion.span
-        className="absolute left-0 right-0 top-1/2 h-[2px] origin-left -translate-y-1/2 rounded-full"
+        className="absolute left-0 right-[8px] top-1/2 h-[2px] origin-left -translate-y-1/2 rounded-full"
         style={{ backgroundColor: connector }}
         initial={reduced ? false : { scaleX: 0, opacity: 0 }}
         whileInView={{ scaleX: 1, opacity: 1 }}
-        viewport={{ once: true, amount: 0.6 }}
-        transition={{ duration: reduced ? 0 : 0.5, delay, ease: EASE }}
+        viewport={{ once: true, amount: 0.65 }}
+        transition={{ duration: reduced ? 0 : 0.42, delay, ease: EASE }}
       />
-      <span className="absolute left-0 top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-      <span className="absolute right-0 top-1/2 h-3.5 w-3.5 translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+      <ArrowRight
+        size={15}
+        strokeWidth={2.2}
+        className="absolute right-[-1px] top-1/2 -translate-y-1/2 text-[#B99568]"
+      />
       {!reduced && (
         <motion.span
           className="absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border-2 border-[#FFFDF8] bg-[#D5A765]"
-          initial={{ left: 0, opacity: 0 }}
+          initial={{ left: "0%", opacity: 0 }}
           animate={{
-            left: ["0%", "100%"],
+            left: ["0%", "82%"],
             opacity: [0, 1, 1, 0],
           }}
           transition={{
-            duration: 0.72,
+            duration: 0.62,
             delay,
             repeat: Infinity,
-            repeatDelay: 2.25,
+            repeatDelay: 2.35,
             ease: EASE,
           }}
-          style={{ boxShadow: "0 0 10px rgba(213,167,101,.62)" }}
+          style={{ boxShadow: "0 0 9px rgba(213,167,101,.56)" }}
         />
       )}
     </div>
   );
 
   const MobileConnector = ({ delay }: { delay: number }) => (
-    <div className="relative mx-auto h-7 w-[2px] bg-[#D9C7AF] lg:hidden">
+    <div className="relative mx-auto flex h-8 w-5 items-center justify-center lg:hidden" aria-hidden="true">
+      <span className="absolute top-0 h-7 w-[2px] bg-[#D9C7AF]" />
+      <ArrowRight
+        size={14}
+        strokeWidth={2.2}
+        className="absolute bottom-0 rotate-90 text-[#B99568]"
+      />
       {!reduced && (
         <motion.span
           className="absolute left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-[#FFFDF8] bg-[#D5A765]"
           initial={{ top: 0, opacity: 0 }}
-          animate={{ top: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 0.55, delay, repeat: Infinity, repeatDelay: 2.4, ease: EASE }}
+          animate={{ top: ["0%", "70%"], opacity: [0, 1, 1, 0] }}
+          transition={{
+            duration: 0.5,
+            delay,
+            repeat: Infinity,
+            repeatDelay: 2.45,
+            ease: EASE,
+          }}
           style={{ boxShadow: "0 0 8px rgba(213,167,101,.5)" }}
         />
       )}
@@ -736,7 +751,7 @@ function ReviewTimingUi() {
   );
 
   const nodeBase =
-    "relative rounded-[18px] border shadow-[0_14px_34px_rgba(46,63,76,.065)]";
+    "relative flex h-[184px] min-w-0 flex-col overflow-hidden rounded-[18px] border shadow-[0_14px_34px_rgba(46,63,76,.06)]";
 
   return (
     <div className="overflow-hidden rounded-[24px] border border-[#D7DFE3] bg-white shadow-[0_30px_80px_rgba(46,63,76,.09)]">
@@ -762,133 +777,136 @@ function ReviewTimingUi() {
       </div>
 
       <div
-        className="relative overflow-hidden bg-[#F8F8F5] px-5 py-9 sm:px-7 sm:py-10 lg:px-9 lg:py-11"
+        className="relative overflow-hidden bg-[#F8F8F5] px-5 py-8 sm:px-7 sm:py-9 lg:px-8 lg:py-10"
         style={{
           backgroundImage:
             "radial-gradient(rgba(157,145,130,.24) 1px, transparent 1px)",
           backgroundSize: "18px 18px",
         }}
       >
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[200px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-[#DDA34B]/[0.035] blur-[54px]" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[160px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-[#DDA34B]/[0.03] blur-[48px]" />
 
-        <div className="relative hidden grid-cols-[1fr_58px_.92fr_58px_1.1fr_58px_1.35fr] items-center lg:grid">
+        <div className="relative mx-auto hidden max-w-[1220px] grid-cols-[.9fr_34px_.82fr_34px_1.02fr_34px_1.14fr_34px_.92fr] items-center lg:grid">
           <motion.div
             {...reveal(0.02)}
-            className={nodeBase + " min-h-[178px] border-[#D6DDCF] bg-[#F1F4E9]"}
+            className={nodeBase + " border-[#D6DDCF] bg-[#F1F4E9]"}
           >
-            <div className="border-b border-[#DDE4D7] px-5 py-3.5">
+            <div className="border-b border-[#DDE4D7] px-4 py-3">
               <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#6E7C59]">
                 Trigger
               </span>
             </div>
-            <div className="px-5 py-5">
-              <div className="text-[14px] font-semibold text-[#222A30]">
+            <div className="flex flex-1 flex-col justify-center px-4 py-4">
+              <div className="text-[13px] font-semibold text-[#222A30]">
                 Service completed
               </div>
-              <div className="mt-2 text-[10px] leading-[1.55] text-[#7C878D]">
+              <div className="mt-2 text-[9.5px] leading-[1.5] text-[#7C878D]">
                 Customer enters the review workflow.
               </div>
             </div>
           </motion.div>
 
-          <FlowConnector delay={0.16} />
+          <FlowConnector delay={0.14} />
 
           <motion.div
-            {...reveal(0.28)}
-            className={nodeBase + " min-h-[178px] border-[#E2D7C1] bg-[#FBF2DF]"}
+            {...reveal(0.24)}
+            className={nodeBase + " border-[#E2D7C1] bg-[#FBF2DF]"}
           >
-            <div className="border-b border-[#E9DFC9] px-5 py-3.5">
+            <div className="border-b border-[#E9DFC9] px-4 py-3">
               <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8B682F]">
                 Wait
               </span>
             </div>
-            <div className="px-5 py-5">
-              <div className="text-[14px] font-semibold text-[#222A30]">2 hours</div>
-              <div className="mt-2 text-[10px] leading-[1.55] text-[#7C878D]">
+            <div className="flex flex-1 flex-col justify-center px-4 py-4">
+              <div className="text-[13px] font-semibold text-[#222A30]">2 hours</div>
+              <div className="mt-2 text-[9.5px] leading-[1.5] text-[#7C878D]">
                 Give the customer time before asking.
               </div>
             </div>
           </motion.div>
 
-          <FlowConnector delay={0.94} />
+          <FlowConnector delay={0.78} />
 
           <motion.div
-            {...reveal(0.54)}
-            className={nodeBase + " min-h-[178px] border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_16px_42px_rgba(37,99,255,.085)]"}
+            {...reveal(0.46)}
+            className={nodeBase + " border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_15px_38px_rgba(37,99,255,.075)]"}
           >
-            <div className="flex items-center gap-3 border-b border-[#DDE6F6] px-5 py-3.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
-                <ZaplaPetal size={20} />
+            <div className="flex items-center gap-2.5 border-b border-[#DDE6F6] px-4 py-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#17212B]">
+                <ZaplaPetal size={18} />
               </span>
               <div>
                 <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#597DDA]">
                   Zapla AI
                 </div>
-                <div className="mt-0.5 text-[12px] font-semibold text-[#202A34]">
+                <div className="mt-0.5 text-[11px] font-semibold text-[#202A34]">
                   Review request
                 </div>
               </div>
             </div>
-            <div className="px-5 py-4">
-              <div className="text-[10px] leading-[1.55] text-[#66727D]">
+            <div className="flex flex-1 items-center px-4 py-4">
+              <div className="text-[9.5px] leading-[1.5] text-[#66727D]">
                 Personalises the message and sends it automatically.
               </div>
             </div>
           </motion.div>
 
-          <FlowConnector delay={1.72} />
+          <FlowConnector delay={1.42} />
 
           <motion.div
-            {...reveal(0.80)}
-            className="overflow-hidden rounded-[20px] border border-[#E4D7CF] bg-[#FFFDFC] shadow-[0_18px_46px_rgba(46,63,76,.08)]"
+            {...reveal(0.68)}
+            className={nodeBase + " border-[#E4D7CF] bg-[#FBF1EC]"}
           >
-            <div className="border-b border-[#EAE4DF] bg-[#FBF1EC] px-5 py-4">
-              <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
-                  <ZaplaPetal size={20} />
-                </span>
-                <div>
-                  <div className="text-[10px] font-semibold text-[#273039]">
-                    Northside
-                  </div>
-                  <div className="mt-0.5 text-[8px] text-[#8A949D]">
-                    SMS · just now
-                  </div>
+            <div className="flex items-center gap-2.5 border-b border-[#EAE4DF] px-4 py-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#17212B]">
+                <ZaplaPetal size={18} />
+              </span>
+              <div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#A56D58]">
+                  SMS arrives
+                </div>
+                <div className="mt-0.5 text-[10px] font-semibold text-[#273039]">
+                  Northside · just now
                 </div>
               </div>
-              <p className="mt-3 text-[10.5px] leading-[1.52] text-[#4F5A63]">
+            </div>
+            <div className="flex flex-1 flex-col justify-center px-4 py-3.5">
+              <p className="text-[9.5px] leading-[1.45] text-[#4F5A63]">
                 Hi Mia, if you have a minute, we&apos;d value an honest Google review.
               </p>
-              <div className="mt-3 flex items-center justify-between rounded-[9px] bg-[#1E2B29] px-3 py-2.5 text-[9px] font-semibold text-white">
+              <div className="mt-2.5 flex items-center justify-between rounded-[8px] bg-[#1E2B29] px-3 py-2 text-[8.5px] font-semibold text-white">
                 Leave a Google review <ArrowRight size={10} />
               </div>
             </div>
+          </motion.div>
 
-            <div className="bg-[#FFF9EB] px-5 py-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A7956]">
-                    Review screen opens
-                  </div>
-                  <div className="mt-1 text-[12px] font-semibold text-[#202930]">
-                    Northside
-                  </div>
-                </div>
-                <span className="text-[9px] font-semibold text-[#8A949D]">
-                  Google
+          <FlowConnector delay={2.06} />
+
+          <motion.div
+            {...reveal(0.90)}
+            className={nodeBase + " border-[#E3DDCC] bg-[#FFF9EB]"}
+          >
+            <div className="border-b border-[#E8E0CB] px-4 py-3">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8A7956]">
+                  Review screen
                 </span>
+                <span className="text-[8px] font-semibold text-[#8A949D]">Google</span>
               </div>
+            </div>
+            <div className="flex flex-1 flex-col justify-center px-4 py-4">
+              <div className="text-[12px] font-semibold text-[#202930]">Northside</div>
               <div className="mt-3 flex items-center gap-1">
                 {[0, 1, 2, 3, 4].map((item) => (
                   <Star
                     key={item}
-                    size={18}
+                    size={17}
                     className="fill-[#DDA34B] text-[#DDA34B]"
                     strokeWidth={1.2}
                   />
                 ))}
               </div>
-              <p className="mt-2 text-[9.5px] text-[#66717A]">
+              <p className="mt-2 text-[9px] leading-[1.45] text-[#66717A]">
                 Tap a star to rate your experience
               </p>
             </div>
@@ -900,16 +918,13 @@ function ReviewTimingUi() {
             ["Trigger", "Service completed", "bg-[#F1F4E9] border-[#D6DDCF]"],
             ["Wait", "2 hours", "bg-[#FBF2DF] border-[#E2D7C1]"],
             ["Zapla AI", "Review request", "bg-[#F2F6FF] border-[#BFD0F7]"],
-            [
-              "Customer",
-              "SMS arrives and opens the review screen",
-              "bg-[#FBF1EC] border-[#E4D7CF]",
-            ],
+            ["SMS", "Review request arrives", "bg-[#FBF1EC] border-[#E4D7CF]"],
+            ["Review screen", "Google review opens", "bg-[#FFF9EB] border-[#E3DDCC]"],
           ].map(([label, title, tone], index, items) => (
             <div key={label}>
               <motion.div
-                {...reveal(index * 0.1)}
-                className={"rounded-[17px] border px-4 py-4 shadow-[0_10px_28px_rgba(46,63,76,.055)] " + tone}
+                {...reveal(index * 0.09)}
+                className={"rounded-[17px] border px-4 py-4 shadow-[0_10px_28px_rgba(46,63,76,.05)] " + tone}
               >
                 <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A795F]">
                   {label}
@@ -918,7 +933,7 @@ function ReviewTimingUi() {
                   {title}
                 </div>
               </motion.div>
-              {index < items.length - 1 && <MobileConnector delay={0.25 + index * 0.8} />}
+              {index < items.length - 1 && <MobileConnector delay={0.2 + index * 0.7} />}
             </div>
           ))}
         </div>
