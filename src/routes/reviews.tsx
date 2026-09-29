@@ -999,7 +999,7 @@ function CustomerRecordSection() {
 
 function CommercialSection() {
   return (
-    <section className="bg-[#F5F7F9] px-5 py-16 sm:px-10 sm:py-18 lg:px-16 lg:py-20">
+    <section className="bg-[#F5F7F9] px-5 py-16 sm:px-10 sm:py-[72px] lg:px-16 lg:py-20">
       <div className="mx-auto max-w-[1160px]">
         <Reveal>
           <div className="grid gap-8 rounded-[28px] border border-[#D9E1E8] bg-white px-7 py-8 shadow-[0_18px_46px_rgba(31,49,68,.05)] sm:px-9 sm:py-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
