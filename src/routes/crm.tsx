@@ -386,62 +386,103 @@ function RecognitionSection() {
 }
 
 function FragmentedCustomer() {
-  const cards = [
-    {
-      icon: <Phone size={15} />,
-      label: "Phone",
-      title: "Spoke to Mia",
-      copy: "Asked for Tuesday afternoon.",
-      pos: "lg:col-start-1 lg:row-start-1",
-      tone: "#8DB0FF",
-    },
-    {
-      icon: <Mail size={15} />,
-      label: "Inbox",
-      title: "Quote email",
-      copy: "Sent from Ben's personal inbox.",
-      pos: "lg:col-start-3 lg:row-start-1",
-      tone: "#DDA34B",
-    },
-    {
-      icon: <FileText size={15} />,
-      label: "Spreadsheet",
-      title: "Quote follow-up",
-      copy: "Cell says: 'call Thursday'.",
-      pos: "lg:col-start-1 lg:row-start-3",
-      tone: "#99A36D",
-    },
-    {
-      icon: <Calendar size={15} />,
-      label: "Calendar",
-      title: "Site visit",
-      copy: "Booked. No customer history attached.",
-      pos: "lg:col-start-3 lg:row-start-3",
-      tone: "#D58C75",
-    },
-  ];
-
   return (
-    <div className="grid gap-3 lg:grid-cols-[1fr_.82fr_1fr] lg:grid-rows-[1fr_.82fr_1fr]">
-      {cards.map((card, index) => (
-        <Reveal key={card.label} delay={index * 0.05} className={card.pos}>
-          <div className="h-full min-h-[160px] rounded-[22px] border border-white/10 bg-white/[0.045] p-5">
-            <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/38">
-              <span style={{ color: card.tone }}>{card.icon}</span>
-              {card.label}
+    <div className="relative mx-auto max-w-[1180px] py-3 sm:py-6">
+      <div className="grid gap-4 lg:grid-cols-12 lg:gap-5">
+        <Reveal className="lg:col-span-5" delay={0.02}>
+          <div className="overflow-hidden rounded-[22px] border border-[#D9E2EA] bg-[#F9FBFC] text-[#111318] shadow-[0_20px_50px_rgba(0,0,0,.14)]">
+            <div className="flex items-center justify-between border-b border-[#E1E8EE] bg-white px-5 py-3">
+              <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7B8791]">
+                <Phone size={13} className="text-[#2563FF]" />
+                Phone note
+              </div>
+              <span className="text-[8px] font-semibold text-[#A1ABB3]">10:32 AM</span>
             </div>
-            <div className="mt-5 text-[17px] font-semibold text-white/88">{card.title}</div>
-            <p className="mt-2 max-w-[290px] text-[11px] leading-[1.6] text-white/44">{card.copy}</p>
+            <div className="p-5">
+              <div className="text-[13px] font-semibold text-[#2E3942]">Mia Thompson</div>
+              <p className="mt-3 text-[12px] leading-[1.65] text-[#5F6B75]">
+                Tuesday afternoon works. Asked whether the quote can be sent before the visit.
+              </p>
+              <div className="mt-4 text-[9px] font-semibold text-[#8B969F]">Saved in Ben&apos;s call notes</div>
+            </div>
           </div>
         </Reveal>
-      ))}
 
-      <div className="lg:col-start-2 lg:row-start-2">
-        <div className="flex h-full min-h-[170px] flex-col items-center justify-center rounded-[24px] bg-[#2563FF] p-6 text-center shadow-[0_26px_68px_rgba(37,99,255,.2)]">
-          <Avatar cell={0} size={48} className="border-white/30" />
-          <div className="mt-3 text-[18px] font-semibold">Mia Thompson</div>
-          <div className="mt-1 text-[10px] text-white/62">One customer. Four versions of the story.</div>
+        <Reveal className="lg:col-span-7 lg:pt-12" delay={0.06}>
+          <div className="overflow-hidden rounded-[22px] border border-[#D9E2EA] bg-white text-[#111318] shadow-[0_20px_50px_rgba(0,0,0,.14)]">
+            <div className="flex items-center justify-between border-b border-[#E1E8EE] px-5 py-3">
+              <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7B8791]">
+                <Mail size={13} className="text-[#C98B2E]" />
+                Email
+              </div>
+              <span className="text-[8px] font-semibold text-[#A1ABB3]">Ben&apos;s inbox</span>
+            </div>
+            <div className="p-5">
+              <div className="text-[11px] font-semibold text-[#8B969F]">Subject</div>
+              <div className="mt-1 text-[14px] font-semibold text-[#2E3942]">Hot water replacement quote</div>
+              <div className="mt-4 rounded-[14px] bg-[#F5F7F9] p-4 text-[11px] leading-[1.65] text-[#5E6A74]">
+                Hi Mia, attached is the A$2,850 quote we discussed. Let me know if Tuesday still works.
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <div className="lg:col-span-12">
+          <div className="mx-auto my-1 flex w-fit items-center gap-3 rounded-full bg-[#2563FF] px-4 py-2.5 text-white shadow-[0_18px_44px_rgba(37,99,255,.28)]">
+            <Avatar cell={0} size={34} className="border-white/25" />
+            <div>
+              <div className="text-[11px] font-semibold">Mia Thompson</div>
+              <div className="text-[8px] text-white/62">Same customer. Different pieces of the story.</div>
+            </div>
+          </div>
         </div>
+
+        <Reveal className="lg:col-span-7" delay={0.1}>
+          <div className="overflow-hidden rounded-[22px] border border-[#D9E2EA] bg-[#F9FBFC] text-[#111318] shadow-[0_20px_50px_rgba(0,0,0,.14)]">
+            <div className="flex items-center justify-between border-b border-[#E1E8EE] bg-white px-5 py-3">
+              <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7B8791]">
+                <FileText size={13} className="text-[#788B4F]" />
+                Spreadsheet
+              </div>
+              <span className="text-[8px] font-semibold text-[#A1ABB3]">Quotes.xlsx</span>
+            </div>
+            <div className="overflow-x-auto">
+              <div className="min-w-[520px]">
+                <div className="grid grid-cols-[1.1fr_.9fr_.8fr_1.2fr] border-b border-[#E6ECF1] bg-[#F4F7F9] px-5 py-2 text-[8px] font-bold uppercase tracking-[0.11em] text-[#8A959E]">
+                  <span>Customer</span>
+                  <span>Stage</span>
+                  <span>Value</span>
+                  <span>Next step</span>
+                </div>
+                <div className="grid grid-cols-[1.1fr_.9fr_.8fr_1.2fr] items-center px-5 py-4 text-[10px] font-semibold text-[#46525C]">
+                  <span>Mia Thompson</span>
+                  <span>Quote sent</span>
+                  <span>A$2,850</span>
+                  <span className="text-[#A5682A]">Call Thursday</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal className="lg:col-span-5 lg:pt-8" delay={0.14}>
+          <div className="overflow-hidden rounded-[22px] border border-[#D9E2EA] bg-white text-[#111318] shadow-[0_20px_50px_rgba(0,0,0,.14)]">
+            <div className="flex items-center gap-2 border-b border-[#E1E8EE] px-5 py-3 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7B8791]">
+              <Calendar size={13} className="text-[#C97158]" />
+              Calendar
+            </div>
+            <div className="p-5">
+              <div className="rounded-[15px] border-l-[3px] border-[#2563FF] bg-[#F1F5FA] p-4">
+                <div className="text-[13px] font-semibold text-[#2E3942]">Site visit · Mia Thompson</div>
+                <div className="mt-2 text-[10px] text-[#697680]">Tuesday · 2:30 PM</div>
+                <div className="mt-1 text-[10px] text-[#8A959E]">Assigned to Ben</div>
+              </div>
+              <p className="mt-4 text-[10px] leading-[1.55] text-[#8A959E]">
+                The appointment is here. The call note, quote and follow-up are somewhere else.
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </div>
   );
@@ -663,49 +704,100 @@ function PipelineSection() {
 }
 
 function ActionSection() {
-  const steps = [
-    { icon: <Inbox size={15} />, title: "New enquiry", copy: "Customer record created.", tone: "#8DB0FF" },
-    { icon: <Users size={15} />, title: "Assign", copy: "Owner gets the next step.", tone: "#DDA34B" },
-    { icon: <MessageSquareText size={15} />, title: "Follow up", copy: "Agreed message goes out.", tone: "#99A36D" },
-    { icon: <Calendar size={15} />, title: "Book", copy: "Appointment lands in the history.", tone: "#8DB0FF" },
-    { icon: <FileText size={15} />, title: "Quote", copy: "Opportunity stays visible.", tone: "#D58C75" },
-    { icon: <Star size={15} />, title: "Review", copy: "Post-job request is triggered.", tone: "#DDA34B" },
-  ];
+  const journey = [
+    { label: "Enquiry", detail: "9:18 AM", done: true },
+    { label: "Assigned", detail: "Ben", done: true },
+    { label: "Booked", detail: "Tue · 2:30", done: true },
+    { label: "Quote sent", detail: "A$2,850", done: true },
+    { label: "Follow up", detail: "Thu · 10:00", current: true },
+    { label: "Review", detail: "After job", done: false },
+  ] as const;
 
   return (
     <section className="bg-[#101820] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[990px]">
-          <Eyebrow light>CRM that does something</Eyebrow>
+        <Reveal className="max-w-[900px]">
+          <Eyebrow light>From record to next step</Eyebrow>
           <h2
             className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[60px] lg:text-[72px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Knowing what happened is useful.
-            <span className="block text-[#8DB0FF]">Knowing what to do next is better.</span>
+            See what happened.
+            <span className="block text-[#8DB0FF]">Know what happens next.</span>
           </h2>
-          <p className="mt-6 max-w-[730px] text-[15px] leading-[1.72] text-white/56 sm:text-[16px]">
-            Zapla can use the customer record and pipeline stage to trigger the
-            follow-through you have agreed, while your team still controls the rules.
+          <p className="mt-6 max-w-[700px] text-[15px] leading-[1.72] text-white/56 sm:text-[16px]">
+            The customer record is not just a history. Zapla can use the stage,
+            timing and rules you set to keep the next step moving.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid overflow-hidden rounded-[26px] border border-white/10 bg-white/[0.03] sm:grid-cols-2 lg:grid-cols-6">
-          {steps.map((step, index) => (
-            <Reveal key={step.title} delay={index * 0.04}>
-              <div className="relative min-h-[220px] border-b border-white/10 p-5 sm:border-r lg:border-b-0">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/[0.06]" style={{ color: step.tone }}>
-                  {step.icon}
+        <Reveal className="mt-14">
+          <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#151F29] shadow-[0_28px_72px_rgba(0,0,0,.22)]">
+            <div className="flex flex-wrap items-center justify-between gap-5 border-b border-white/10 px-5 py-5 sm:px-7">
+              <div className="flex items-center gap-3">
+                <Avatar cell={0} size={42} className="border-white/15" />
+                <div>
+                  <div className="text-[14px] font-semibold text-white/92">Mia Thompson</div>
+                  <div className="mt-0.5 text-[9px] uppercase tracking-[0.11em] text-white/36">
+                    Hot water replacement
+                  </div>
                 </div>
-                <div className="mt-9 text-[16px] font-semibold text-white/90">{step.title}</div>
-                <p className="mt-2 text-[10.5px] leading-[1.6] text-white/42">{step.copy}</p>
-                <span className="absolute bottom-4 right-4 text-[9px] font-semibold text-white/18">
-                  0{index + 1}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <span className="rounded-full bg-white/[0.05] px-3 py-1.5 text-[9px] font-semibold text-white/50">
+                  Owner · Ben Walker
+                </span>
+                <span className="rounded-full bg-[#8DB0FF]/10 px-3 py-1.5 text-[9px] font-semibold text-[#AFC6FF]">
+                  Current stage · Quote sent
                 </span>
               </div>
-            </Reveal>
-          ))}
-        </div>
+            </div>
+
+            <div className="relative px-5 py-8 sm:px-7 lg:px-9 lg:py-10">
+              <div className="hidden lg:block absolute left-[8%] right-[8%] top-[65px] h-px bg-white/10" />
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6 lg:gap-0">
+                {journey.map((step, index) => (
+                  <div key={step.label} className="relative lg:px-3">
+                    <div
+                      className={
+                        "relative z-10 flex h-9 w-9 items-center justify-center rounded-full border text-[10px] font-bold " +
+                        (step.current
+                          ? "border-[#8DB0FF] bg-[#2563FF] text-white shadow-[0_0_0_7px_rgba(37,99,255,.10)]"
+                          : step.done
+                            ? "border-[#7F9D58]/30 bg-[#99A36D]/14 text-[#B6C990]"
+                            : "border-white/10 bg-[#18232D] text-white/24")
+                      }
+                    >
+                      {step.done ? <Check size={13} strokeWidth={2.4} /> : index + 1}
+                    </div>
+                    <div className="mt-4 text-[12px] font-semibold text-white/88">{step.label}</div>
+                    <div className="mt-1 text-[9px] text-white/35">{step.detail}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid border-t border-white/10 lg:grid-cols-[0.72fr_1.28fr]">
+              <div className="border-b border-white/10 bg-white/[0.025] px-5 py-5 sm:px-7 lg:border-b-0 lg:border-r">
+                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-white/32">Rule</div>
+                <div className="mt-2 text-[12px] font-semibold text-white/80">
+                  If no decision 2 days after quote
+                </div>
+              </div>
+              <div className="flex items-center gap-4 bg-[#2563FF]/10 px-5 py-5 sm:px-7">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#2563FF] text-white">
+                  <MessageSquareText size={14} />
+                </span>
+                <div>
+                  <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8DB0FF]">Next action</div>
+                  <div className="mt-1 text-[12px] font-semibold text-white/88">
+                    Send the agreed follow-up Thursday at 10:00 AM
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
 
         <Reveal className="mt-5 text-[11px] leading-[1.65] text-white/42">
           Follow-Up keeps active opportunities moving. Reviews handles the post-job ask. Reopen brings dormant leads and customers back into conversation. They all work from the same customer record.
@@ -814,12 +906,11 @@ function PlatformSection() {
             className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[68px]"
             style={{ fontFamily: DISPLAY }}
           >
-            You don&apos;t need five systems
-            <span className="block text-[#2563FF]">to understand one customer.</span>
+            One customer shouldn&apos;t be
+            <span className="block text-[#2563FF]">spread across five systems.</span>
           </h2>
           <p className="mt-5 max-w-[690px] text-[15px] leading-[1.72] text-[#616C76] sm:text-[16px]">
-            Keep the operating pieces around the customer record instead of moving
-            between disconnected tools every time the next step changes.
+            Keep conversations, pipeline, bookings, payments and follow-up around the same customer record instead of chasing the story across separate tools.
           </p>
         </Reveal>
 
