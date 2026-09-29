@@ -64,7 +64,7 @@ const FAQS = [
   },
   {
     q: "Which Zapla plans include the Review Engine?",
-    a: "The Review Engine is included in Follow-Through and Growth. Follow-Through is currently A$399 per month plus GST, with Guided Launch from A$1,997 plus GST. Growth is A$699 per month plus GST, with Guided Launch from A$2,997 plus GST.",
+    a: "The Review Engine is included in Follow-Through and Growth. See the Pricing page for current plan details.",
   },
 ] as const;
 
@@ -999,79 +999,41 @@ function CustomerRecordSection() {
 
 function CommercialSection() {
   return (
-    <section className="bg-[#F5F7F9] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[900px]">
-          <Eyebrow>Included in Zapla</Eyebrow>
-          <h2
-            className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[66px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Review Engine
-            <span className="block text-[#B27B2D]">is included.</span>
-          </h2>
-          <p className="mt-5 max-w-[690px] text-[15px] leading-[1.72] text-[#666B67] sm:text-[16px]">
-            It&apos;s included in both Follow-Through and Growth. No separate
-            review-management subscription required.
-          </p>
+    <section className="bg-[#F5F7F9] px-5 py-16 sm:px-10 sm:py-18 lg:px-16 lg:py-20">
+      <div className="mx-auto max-w-[1160px]">
+        <Reveal>
+          <div className="grid gap-8 rounded-[28px] border border-[#D9E1E8] bg-white px-7 py-8 shadow-[0_18px_46px_rgba(31,49,68,.05)] sm:px-9 sm:py-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
+            <div className="max-w-[720px]">
+              <Eyebrow>Included in Zapla</Eyebrow>
+              <h2
+                className="mt-3 text-[38px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[48px] lg:text-[54px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                Review Engine
+                <span className="text-[#B27B2D]"> is included.</span>
+              </h2>
+              <p className="mt-4 max-w-[650px] text-[15px] leading-[1.7] text-[#666B67] sm:text-[16px]">
+                Included in Follow-Through and Growth. No add-on. No separate
+                review-management subscription.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3 lg:justify-end">
+              <a
+                href={PRICING_URL}
+                className="inline-flex h-[48px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
+              >
+                See plans &amp; pricing <ArrowRight size={15} />
+              </a>
+              <a
+                href={BOOK_URL}
+                className="inline-flex h-[48px] items-center rounded-full border border-[#D8DEE4] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#B8C1C9]"
+              >
+                Book a Call
+              </a>
+            </div>
+          </div>
         </Reveal>
-
-        <div className="mt-12 grid gap-4 lg:grid-cols-2">
-          <Reveal>
-            <div className="flex min-h-[390px] flex-col rounded-[28px] border border-[#D9E1E8] bg-white p-7 sm:p-9">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8B6A3C]">Follow-Through</div>
-              <h3 className="mt-5 max-w-[470px] text-[34px] font-medium leading-[0.98] tracking-[-0.048em]" style={{ fontFamily: DISPLAY }}>
-                Stop losing the business already coming to you.
-              </h3>
-              <p className="mt-5 max-w-[500px] text-[14px] leading-[1.7] text-[#666B67]">
-                Review Engine included alongside lead capture, quote follow-up
-                and appointment recovery.
-              </p>
-              <div className="mt-auto pt-9">
-                <div className="text-[34px] font-medium tracking-[-0.045em]" style={{ fontFamily: DISPLAY }}>
-                  A$399
-                  <span className="ml-1 text-[12px] font-medium tracking-normal text-[#77716A]">/mo + GST</span>
-                </div>
-                <div className="mt-1 text-[11px] text-[#827B73]">Guided Launch from A$1,997 + GST</div>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.05}>
-            <div className="flex min-h-[390px] flex-col rounded-[28px] bg-[#1E2B29] p-7 text-[#F7F4EE] sm:p-9">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#DDA34B]">Growth</div>
-              <h3 className="mt-5 max-w-[470px] text-[34px] font-medium leading-[0.98] tracking-[-0.048em]" style={{ fontFamily: DISPLAY }}>
-                Add reactivation and proactive campaigns around the same customer record.
-              </h3>
-              <p className="mt-5 max-w-[500px] text-[14px] leading-[1.7] text-white/58">
-                Everything in Follow-Through, including Review Engine, plus the
-                proactive growth workflows in the Growth plan.
-              </p>
-              <div className="mt-auto pt-9">
-                <div className="text-[34px] font-medium tracking-[-0.045em]" style={{ fontFamily: DISPLAY }}>
-                  A$699
-                  <span className="ml-1 text-[12px] font-medium tracking-normal text-white/45">/mo + GST</span>
-                </div>
-                <div className="mt-1 text-[11px] text-white/42">Guided Launch from A$2,997 + GST</div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a
-            href={BOOK_URL}
-            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
-          >
-            Book a Call <ArrowRight size={15} />
-          </a>
-          <a
-            href={PRICING_URL}
-            className="inline-flex h-[50px] items-center rounded-full border border-[#D8CFC4] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#BFB3A5]"
-          >
-            View full pricing
-          </a>
-        </div>
       </div>
     </section>
   );
