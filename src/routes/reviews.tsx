@@ -784,9 +784,30 @@ function InPersonMomentSection() {
                 alt="Customer checking a review link while a staff member finishes the interaction"
                 className="h-full w-full object-cover object-center"
               />
-              <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[#17212B] via-[#17212B]/36 to-transparent" />
-              <div className="absolute bottom-4 left-4 rounded-full border border-white/18 bg-[#17212B]/78 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-white/72 backdrop-blur">
-                Review link sent
+              <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[#17212B] via-[#17212B]/30 to-transparent" />
+
+              <div className="absolute bottom-4 right-4 w-[250px] max-w-[calc(100%-2rem)] rounded-[16px] border border-white/70 bg-white/96 p-4 text-[#26313A] shadow-[0_16px_38px_rgba(18,29,38,.22)] backdrop-blur sm:w-[280px]">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1E2B29] text-white">
+                      <MessageSquareText size={13} strokeWidth={1.8} />
+                    </span>
+                    <div>
+                      <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#59656F]">
+                        Review request
+                      </div>
+                      <div className="mt-0.5 text-[8px] text-[#98A1A8]">SMS · just now</div>
+                    </div>
+                  </div>
+                  <Check size={13} className="text-[#82905B]" />
+                </div>
+                <p className="mt-3 text-[10px] leading-[1.5] text-[#4C5861]">
+                  Thanks again. If you have a minute, we&apos;d really appreciate a quick Google review.
+                </p>
+                <div className="mt-3 flex items-center justify-between border-t border-[#E4E8EB] pt-2.5 text-[9px] font-semibold text-[#1E2B29]">
+                  Leave a review
+                  <ArrowRight size={11} />
+                </div>
               </div>
             </div>
 
@@ -800,7 +821,7 @@ function InPersonMomentSection() {
               </blockquote>
 
               <div className="mt-6 grid gap-3 border-t border-white/10 pt-4 sm:grid-cols-2">
-                {["Experience still fresh", "Nothing to search for"].map((item) => (
+                {["Link already on their phone", "Ask while it’s still fresh"].map((item) => (
                   <div key={item} className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/44">
                     {item}
                   </div>
