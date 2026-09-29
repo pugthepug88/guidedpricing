@@ -145,6 +145,7 @@ function RootComponent() {
     "/follow-up",
     "/follow-up-claude-v1",
     "/reactivation",
+    "/reviews",
     "/Pricing-v3",
   ]).has(normalizedPath);
 
