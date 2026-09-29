@@ -173,11 +173,8 @@ function Stars({ small = false }: { small?: boolean }) {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#DDE5EE] bg-[#F7FAFD] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-20 lg:pt-[136px]">
-      <div className="pointer-events-none absolute right-[-120px] top-[70px] h-[420px] w-[420px] rounded-full bg-[#2563FF]/[0.045] blur-3xl" />
-      <div className="pointer-events-none absolute bottom-[-180px] left-[18%] h-[360px] w-[360px] rounded-full bg-[#DDA34B]/[0.07] blur-3xl" />
-
-      <div className="relative mx-auto max-w-[1400px]">
+    <section className="relative overflow-hidden border-b border-[#DDE5EE] bg-[#F7FAFD] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-24 lg:pt-[136px]">
+      <div className="mx-auto max-w-[1400px]">
         <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal className="max-w-[680px]">
             <Eyebrow>Reviews & Reputation</Eyebrow>
@@ -214,22 +211,6 @@ function Hero() {
             <ReviewHeroScene />
           </Reveal>
         </div>
-
-        <Reveal className="mt-12 border-t border-[#DCE5ED] pt-5 lg:mt-10">
-          <div className="grid gap-4 text-[11px] font-semibold text-[#596775] sm:grid-cols-3 sm:text-[12px]">
-            {[
-              ["01", "Completed work", "The trigger"],
-              ["02", "Honest request", "The ask"],
-              ["03", "Visible proof", "The outcome"],
-            ].map(([number, title, label]) => (
-              <div key={number} className="flex items-center gap-3">
-                <span className="text-[9px] font-bold tracking-[0.16em] text-[#A66F20]">{number}</span>
-                <span>{title}</span>
-                <span className="text-[#9AA7B4]">/ {label}</span>
-              </div>
-            ))}
-          </div>
-        </Reveal>
       </div>
     </section>
   );
@@ -241,126 +222,121 @@ function ReviewHeroScene() {
     reduced
       ? { initial: false as const, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
       : {
-          initial: { opacity: 0, y: 14 },
+          initial: { opacity: 0, y: 16 },
           whileInView: { opacity: 1, y: 0 },
-          transition: { duration: 0.42, delay, ease: EASE },
+          transition: { duration: 0.46, delay, ease: EASE },
         };
 
   return (
-    <div className="relative mx-auto min-h-[570px] w-full max-w-[650px] py-5 sm:min-h-[600px] sm:py-8">
-      <div className="pointer-events-none absolute left-[12%] top-[12%] h-[72%] w-[70%] rounded-[50%] bg-[#EAF1F8] blur-[44px]" />
-      <div className="pointer-events-none absolute right-[2%] top-[2%] h-[120px] w-[120px] rounded-full border border-[#2563FF]/10" />
-      <div className="pointer-events-none absolute right-[6%] top-[6%] h-[72px] w-[72px] rounded-full border border-[#DDA34B]/20" />
-
-      <motion.div
-        {...beat(0.08)}
-        viewport={{ once: true, amount: 0.75 }}
-        className="relative z-10 mr-auto max-w-[390px] rounded-[18px] border border-[#D9E2EA] bg-white p-4 shadow-[0_18px_45px_rgba(31,49,68,.09)]"
-      >
-        <div className="flex items-center gap-3">
-          <ExampleAvatar />
-          <div className="min-w-0 flex-1">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7C8995]">Customer record</div>
-            <div className="mt-0.5 truncate text-[14px] font-semibold text-[#26313B]">Mia Thompson</div>
-          </div>
-          <span className="rounded-full bg-[#DCE0CC] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-[#56643E]">
-            Completed
+    <div className="mx-auto w-full max-w-[660px]">
+      <div className="relative overflow-hidden rounded-[32px] border border-[#DCE5ED] bg-gradient-to-br from-white via-[#F9FBFC] to-[#EEF3F7] p-4 shadow-[0_30px_80px_rgba(31,49,68,.10)] sm:p-6">
+        <div className="mb-4 flex items-center justify-between px-1">
+          <span className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#778592]">
+            From completed work to public proof
+          </span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
+            <ZaplaPetal size={20} />
           </span>
         </div>
-        <div className="mt-3 flex items-center justify-between border-t border-[#E7EDF2] pt-3 text-[10px] text-[#687581]">
-          <span>Hot water repair</span>
-          <span>4:12 PM</span>
-        </div>
-      </motion.div>
 
-      <div className="relative z-10 ml-8 h-9 w-px bg-gradient-to-b from-[#B7C4D0] to-[#DDA34B] sm:ml-14" />
-
-      <motion.div
-        {...beat(0.28)}
-        viewport={{ once: true, amount: 0.7 }}
-        className="relative z-10 ml-auto max-w-[455px] rounded-[20px] bg-[#1E2B29] p-5 text-white shadow-[0_24px_54px_rgba(20,37,35,.16)]"
-      >
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#E4BE72]">
-            <MessageSquareText size={13} />
-            Review request · SMS
+        <motion.div
+          {...beat(0.08)}
+          viewport={{ once: true, amount: 0.7 }}
+          className="relative z-10 w-[76%] rounded-[18px] border border-[#D9E2EA] bg-white p-4 shadow-[0_14px_34px_rgba(31,49,68,.08)]"
+        >
+          <div className="flex items-center gap-3">
+            <ExampleAvatar />
+            <div className="min-w-0 flex-1">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7C8995]">Customer record</div>
+              <div className="mt-0.5 truncate text-[14px] font-semibold text-[#26313B]">Mia Thompson</div>
+            </div>
+            <span className="rounded-full bg-[#DCE0CC] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-[#56643E]">
+              Completed
+            </span>
           </div>
-          <span className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-white/55">
-            Automated
-          </span>
-        </div>
-        <p className="mt-4 text-[12.5px] font-semibold leading-[1.58] text-white/88">
-          Hi Mia, thanks for choosing Northside Plumbing. If you have a minute,
-          we&apos;d value an honest Google review about your experience.
-        </p>
-        <div className="mt-4 inline-flex items-center gap-1.5 text-[9px] font-semibold text-white/48">
-          <Clock3 size={11} />
-          Sent 2 hours after completion
-        </div>
-      </motion.div>
-
-      <div className="relative z-10 ml-auto mr-10 h-9 w-px bg-gradient-to-b from-[#DDA34B] to-[#B7C4D0] sm:mr-20" />
-
-      <motion.div
-        {...beat(0.5)}
-        viewport={{ once: true, amount: 0.7 }}
-        className="relative z-10 ml-4 max-w-[485px] rounded-[22px] border border-[#D9E2EA] bg-white p-5 shadow-[0_24px_60px_rgba(31,49,68,.11)] sm:ml-12"
-      >
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#758390]">Google Business Profile</div>
-            <div className="mt-1 text-[14px] font-semibold text-[#252E36]">Example review received</div>
+          <div className="mt-3 flex items-center justify-between border-t border-[#E7EDF2] pt-3 text-[10px] text-[#687581]">
+            <span>Service completed</span>
+            <span>4:12 PM</span>
           </div>
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F2E3BF] text-[#80551C]">
-            <ZaplaPetal size={22} />
-          </span>
-        </div>
-        <div className="mt-4 flex items-center gap-3">
-          <ExampleAvatar column={2} row={1} className="h-9 w-9" />
-          <div>
-            <div className="text-[11px] font-semibold text-[#343A3F]">Mia T.</div>
-            <div className="mt-0.5"><Stars small /></div>
-          </div>
-          <span className="ml-auto text-[8px] font-semibold uppercase tracking-[0.1em] text-[#9AA5AE]">Example</span>
-        </div>
-        <p className="mt-3 text-[12px] leading-[1.58] text-[#59646D]">
-          Great communication. Arrived when they said they would and explained
-          the repair clearly.
-        </p>
-      </motion.div>
+        </motion.div>
 
-      <motion.div
-        {...beat(0.68)}
-        viewport={{ once: true, amount: 0.7 }}
-        className="relative z-10 ml-auto mt-5 flex w-fit items-center gap-2 rounded-full border border-[#D7E0E8] bg-white/90 px-3.5 py-2 text-[9px] font-semibold text-[#56636F] shadow-[0_10px_24px_rgba(31,49,68,.06)]"
-      >
-        <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
-        Finished work becomes visible proof
-        <ExternalLink size={11} className="text-[#A66F20]" />
-      </motion.div>
+        <motion.div
+          {...beat(0.24)}
+          viewport={{ once: true, amount: 0.7 }}
+          className="relative z-20 -mt-1 ml-auto w-[86%] rounded-[20px] bg-[#1E2B29] p-5 text-white shadow-[0_22px_50px_rgba(20,37,35,.18)]"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.15em] text-[#E4BE72]">
+              <MessageSquareText size={13} />
+              Review request · SMS
+            </div>
+            <span className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-white/55">
+              Automated
+            </span>
+          </div>
+          <p className="mt-4 text-[12.5px] font-semibold leading-[1.58] text-white/88">
+            Hi Mia, thanks for choosing Northside. If you have a minute, we&apos;d
+            value an honest Google review about your experience.
+          </p>
+          <div className="mt-4 inline-flex items-center gap-1.5 text-[9px] font-semibold text-white/48">
+            <Clock3 size={11} />
+            Sent at the moment you choose
+          </div>
+        </motion.div>
+
+        <motion.div
+          {...beat(0.42)}
+          viewport={{ once: true, amount: 0.7 }}
+          className="relative z-10 -mt-1 w-[90%] rounded-[22px] border border-[#D9E2EA] bg-white p-5 shadow-[0_22px_52px_rgba(31,49,68,.10)]"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#758390]">Google Business Profile</div>
+              <div className="mt-1 text-[14px] font-semibold text-[#252E36]">Review received</div>
+            </div>
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F2E3BF] text-[#80551C]">
+              <ZaplaPetal size={22} />
+            </span>
+          </div>
+          <div className="mt-4 flex items-center gap-3">
+            <ExampleAvatar column={2} row={1} className="h-9 w-9" />
+            <div>
+              <div className="text-[11px] font-semibold text-[#343A3F]">Mia T.</div>
+              <div className="mt-0.5"><Stars small /></div>
+            </div>
+            <span className="ml-auto text-[8px] font-semibold uppercase tracking-[0.1em] text-[#9AA5AE]">Example</span>
+          </div>
+          <p className="mt-3 text-[12px] leading-[1.58] text-[#59646D]">
+            Great communication. Everything was clear and the team followed through
+            exactly as promised.
+          </p>
+        </motion.div>
+      </div>
     </div>
   );
 }
-
 
 function EvidenceSection() {
   const stats = [
     {
       value: "85%",
+      label: "Positive reviews",
       copy: "are more likely to use a business after reading positive reviews.",
     },
     {
       value: "47%",
+      label: "Review count",
       copy: "won’t use a business with fewer than 20 reviews.",
     },
     {
       value: "74%",
+      label: "Recent reviews",
       copy: "look for reviews written within the last three months.",
     },
   ] as const;
 
   return (
-    <section className="bg-[#101820] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#101820] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[980px]">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E0B15A]">Why reviews matter</p>
@@ -377,17 +353,20 @@ function EvidenceSection() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid border-y border-white/10 sm:grid-cols-3">
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
           {stats.map((stat, index) => (
             <Reveal key={stat.value} delay={index * 0.06}>
-              <div className="min-h-[250px] border-b border-white/10 py-8 last:border-b-0 sm:border-b-0 sm:border-r sm:px-7 sm:first:pl-0 sm:last:border-r-0 lg:min-h-[280px] lg:py-10">
+              <div className="h-full rounded-[26px] border border-white/10 bg-white/[0.045] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,.04)] sm:p-8">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#D9AA55]">
+                  {stat.label}
+                </div>
                 <div
-                  className="text-[74px] font-medium leading-none tracking-[-0.065em] text-white sm:text-[82px] lg:text-[96px]"
+                  className="mt-7 text-[72px] font-medium leading-none tracking-[-0.065em] text-white sm:text-[82px]"
                   style={{ fontFamily: DISPLAY }}
                 >
                   {stat.value}
                 </div>
-                <p className="mt-6 max-w-[300px] text-[14px] font-medium leading-[1.6] text-white/70 sm:text-[15px]">
+                <p className="mt-5 max-w-[290px] text-[14px] font-medium leading-[1.6] text-white/68 sm:text-[15px]">
                   {stat.copy}
                 </p>
               </div>
@@ -395,34 +374,31 @@ function EvidenceSection() {
           ))}
         </div>
 
-        <div className="mt-7 grid gap-5 border-b border-white/10 pb-7 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
-          <Reveal>
-            <p className="max-w-[760px] text-[18px] font-medium leading-[1.55] text-white/88 sm:text-[21px]">
-              More reviews and positive ratings can also help your business rank
-              better in local search.
+        <Reveal className="mt-4">
+          <div className="grid gap-5 rounded-[24px] border border-white/10 bg-white/[0.025] px-6 py-6 sm:px-7 lg:grid-cols-[1fr_auto] lg:items-center">
+            <p className="max-w-[820px] text-[17px] font-medium leading-[1.55] text-white/88 sm:text-[20px]">
+              More reviews and positive ratings can also help your business rank better in local search.
             </p>
-          </Reveal>
-          <Reveal delay={0.05} className="lg:text-right">
             <a
               href="https://support.google.com/business/answer/7091?hl=en"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-white/42 transition-colors hover:text-white/70"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-white/54 transition-colors hover:text-white/80"
             >
-              Local ranking guidance <ExternalLink size={11} />
+              Local ranking guidance <ExternalLink size={12} />
             </a>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
 
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[9px] leading-[1.6] text-white/35">
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[11px] leading-[1.6] text-white/46">
           <span>Consumer figures: BrightLocal Local Consumer Review Survey 2026, 1,002 US adults.</span>
           <a
             href="https://www.brightlocal.com/research/local-consumer-review-survey/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 font-semibold text-white/44 transition-colors hover:text-white/70"
+            className="inline-flex items-center gap-1.5 font-semibold text-white/56 transition-colors hover:text-white/80"
           >
-            View source <ExternalLink size={10} />
+            View source <ExternalLink size={11} />
           </a>
         </div>
       </div>
@@ -432,9 +408,9 @@ function EvidenceSection() {
 
 function ProblemSection() {
   return (
-    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-white px-5 py-18 sm:px-10 sm:py-20 lg:px-16 lg:py-20">
       <div className="mx-auto max-w-[1320px]">
-        <div className="grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-end lg:gap-20">
+        <div className="grid gap-10 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-16">
           <Reveal className="max-w-[760px]">
             <Eyebrow>The part businesses miss</Eyebrow>
             <h2
@@ -452,7 +428,7 @@ function ProblemSection() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <div className="border-l border-[#D9E1E8] pl-7 sm:pl-9">
+            <div className="rounded-[28px] border border-[#E0E6EB] bg-[#F7F9FA] p-7 shadow-[0_18px_44px_rgba(31,49,68,.05)] sm:p-9">
               <div
                 className="text-[72px] font-medium leading-none tracking-[-0.065em] text-[#17212B] sm:text-[88px]"
                 style={{ fontFamily: DISPLAY }}
@@ -462,7 +438,7 @@ function ProblemSection() {
               <p className="mt-4 max-w-[390px] text-[16px] font-medium leading-[1.6] text-[#38434D]">
                 are open to leaving a review.
               </p>
-              <div className="mt-8 border-t border-[#E1E7EC] pt-6">
+              <div className="mt-7 border-t border-[#DDE4E9] pt-6">
                 <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8A7550]">
                   But the typical consumer writes
                 </div>
@@ -477,29 +453,29 @@ function ProblemSection() {
                 href="https://www.brightlocal.com/research/local-consumer-review-survey/"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#8A949D] transition-colors hover:text-[#58636C]"
+                className="mt-5 inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#7D8992] transition-colors hover:text-[#58636C]"
               >
-                BrightLocal, 2026 <ExternalLink size={10} />
+                BrightLocal, 2026 <ExternalLink size={11} />
               </a>
             </div>
           </Reveal>
         </div>
 
-        <Reveal className="mt-16 overflow-hidden rounded-[30px] bg-[#EEF3F7] px-7 py-9 sm:px-10 sm:py-11 lg:px-12">
-          <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
+        <Reveal className="mt-12 border-y border-[#DDE4EA] py-7 sm:py-8">
+          <div className="grid gap-5 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
             <div>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6C7985]">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8B682F]">
                 The missing step
               </div>
               <div
-                className="mt-3 text-[40px] font-medium leading-[0.96] tracking-[-0.055em] text-[#1D2832] sm:text-[52px]"
+                className="mt-2 text-[34px] font-medium leading-[1] tracking-[-0.05em] text-[#1D2832] sm:text-[42px]"
                 style={{ fontFamily: DISPLAY }}
               >
-                Ask.
+                Ask while it&apos;s still fresh.
               </div>
             </div>
-            <p className="max-w-[650px] text-[17px] leading-[1.7] text-[#55626D] sm:text-[19px]">
-              Not two weeks later. Not when somebody remembers. Ask when the job
+            <p className="max-w-[680px] text-[16px] leading-[1.7] text-[#5D6973] sm:text-[18px]">
+              Not two weeks later. Not when somebody remembers. Ask when the work
               is finished and the experience is still fresh.
             </p>
           </div>
@@ -512,32 +488,32 @@ function ProblemSection() {
 function MechanismSection() {
   const levers = [
     {
-      n: "01",
       eyebrow: "Right moment",
-      title: "Ask while the experience is still fresh.",
-      copy: "When the job is done. After the appointment. When payment clears. Or at the point that makes sense for your business.",
+      title: "Ask while it’s fresh.",
+      copy: "When the job is done, after the appointment, when payment clears, or whenever the moment makes sense.",
       icon: Clock3,
+      tone: "bg-[#F8F1E4] border-[#EBDCC0]",
     },
     {
-      n: "02",
-      eyebrow: "Every time",
-      title: "Don’t rely on someone remembering.",
-      copy: "Once the trigger happens, Zapla handles the review request automatically. The process is consistent even on the busy days.",
+      eyebrow: "Automatic",
+      title: "Make it automatic.",
+      copy: "Once the trigger happens, Zapla sends the request. Nobody has to remember on a busy day.",
       icon: Send,
+      tone: "bg-[#F1F5F7] border-[#DCE5EA]",
     },
     {
-      n: "03",
-      eyebrow: "Straight to the review",
-      title: "Take them directly to the review screen.",
-      copy: "The link arrives on their phone. They tap it and land on the review screen. No searching for your business or figuring out where to leave it.",
+      eyebrow: "One tap away",
+      title: "Open the review screen.",
+      copy: "The customer taps the link and lands on the review screen. No searching for your business first.",
       icon: MousePointerClick,
+      tone: "bg-white border-[#DDE4EA]",
     },
   ] as const;
 
   return (
     <section
       id="review-loop"
-      className="scroll-mt-20 bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28"
+      className="scroll-mt-20 bg-[#FBFCFD] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24"
     >
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[960px]">
@@ -555,28 +531,25 @@ function MechanismSection() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid border-y border-[#DDE4EA] lg:grid-cols-3">
+        <div className="mt-12 grid gap-4 lg:grid-cols-3">
           {levers.map((lever, index) => {
             const Icon = lever.icon;
             return (
-              <Reveal key={lever.n} delay={index * 0.06}>
-                <article className="min-h-[390px] border-b border-[#DDE4EA] py-8 lg:border-b-0 lg:border-r lg:px-8 lg:py-10 lg:first:pl-0 lg:last:border-r-0">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[9px] font-bold tracking-[0.17em] text-[#9AA4AD]">{lever.n}</span>
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F1E4C9] text-[#8A5D1D]">
-                      <Icon size={17} strokeWidth={1.8} />
-                    </span>
-                  </div>
-                  <p className="mt-10 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8B682F]">
+              <Reveal key={lever.title} delay={index * 0.06}>
+                <article className={"h-full rounded-[28px] border p-7 shadow-[0_16px_40px_rgba(31,49,68,.035)] sm:p-8 " + lever.tone}>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#17212B] text-[#E8BC68]">
+                    <Icon size={18} strokeWidth={1.8} />
+                  </span>
+                  <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8B682F]">
                     {lever.eyebrow}
                   </p>
                   <h3
-                    className="mt-3 max-w-[340px] text-[32px] font-medium leading-[1.02] tracking-[-0.045em] text-[#202931] sm:text-[36px]"
+                    className="mt-3 max-w-[330px] text-[34px] font-medium leading-[1.02] tracking-[-0.047em] text-[#202931] sm:text-[38px]"
                     style={{ fontFamily: DISPLAY }}
                   >
                     {lever.title}
                   </h3>
-                  <p className="mt-5 max-w-[350px] text-[13.5px] leading-[1.72] text-[#68737D]">
+                  <p className="mt-5 max-w-[340px] text-[13.5px] leading-[1.72] text-[#68737D]">
                     {lever.copy}
                   </p>
                 </article>
@@ -585,30 +558,32 @@ function MechanismSection() {
           })}
         </div>
 
-        <Reveal className="mt-10 grid gap-7 rounded-[28px] bg-[#EEF3F7] p-7 sm:p-9 lg:grid-cols-[.42fr_1.58fr] lg:items-center lg:p-10">
-          <div>
-            <div
-              className="text-[64px] font-medium leading-none tracking-[-0.06em] text-[#17212B] sm:text-[76px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              83%
+        <Reveal className="mt-5">
+          <div className="grid gap-6 rounded-[26px] bg-[#17212B] p-7 text-white sm:p-8 lg:grid-cols-[.38fr_1.62fr] lg:items-center">
+            <div>
+              <div
+                className="text-[62px] font-medium leading-none tracking-[-0.06em] text-white sm:text-[72px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                83%
+              </div>
+              <p className="mt-2 max-w-[230px] text-[11px] font-semibold uppercase tracking-[0.11em] text-white/46">
+                of people asked to leave a review went on to leave one
+              </p>
             </div>
-            <p className="mt-3 text-[12px] font-semibold uppercase tracking-[0.12em] text-[#7B8791]">
-              of people asked to leave a review went on to leave one
-            </p>
-          </div>
-          <div className="border-t border-[#D5DFE7] pt-6 lg:border-l lg:border-t-0 lg:pl-9 lg:pt-0">
-            <p className="max-w-[690px] text-[20px] font-medium leading-[1.5] tracking-[-0.02em] text-[#2B3640] sm:text-[24px]">
-              Customers are willing to review businesses. The missed opportunity is often simply not asking them.
-            </p>
-            <a
-              href="https://www.brightlocal.com/research/local-consumer-review-survey/"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-4 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#7C8790] transition-colors hover:text-[#4C5963]"
-            >
-              BrightLocal Local Consumer Review Survey 2026 <ExternalLink size={10} />
-            </a>
+            <div className="border-t border-white/10 pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+              <p className="max-w-[720px] text-[19px] font-medium leading-[1.5] tracking-[-0.02em] text-white/90 sm:text-[22px]">
+                Customers are willing to review businesses. The missed opportunity is often simply not asking them.
+              </p>
+              <a
+                href="https://www.brightlocal.com/research/local-consumer-review-survey/"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-semibold text-white/44 transition-colors hover:text-white/70"
+              >
+                BrightLocal Local Consumer Review Survey 2026 <ExternalLink size={11} />
+              </a>
+            </div>
           </div>
         </Reveal>
       </div>
@@ -618,7 +593,7 @@ function MechanismSection() {
 
 function TimingSection() {
   return (
-    <section className="bg-[#11181F] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#0D141A] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[920px]">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E0B15A]">
@@ -632,13 +607,15 @@ function TimingSection() {
             <span className="block text-[#E4B85F]">Then stop thinking about it.</span>
           </h2>
           <p className="mt-5 max-w-[720px] text-[15px] leading-[1.72] text-white/58 sm:text-[16px]">
-            You choose the trigger, delay and message. Zapla handles the remembering
-            and sends the customer straight to the review screen.
+            Choose when the request goes out. Zapla sends it automatically and
+            takes the customer straight to the review screen.
           </p>
         </Reveal>
 
-        <Reveal className="mt-14">
-          <ReviewTimingUi />
+        <Reveal className="mt-12">
+          <div className="rounded-[34px] border border-white/10 bg-[#121C23] p-4 shadow-[0_34px_90px_rgba(0,0,0,.22)] sm:p-6 lg:p-8">
+            <ReviewTimingUi />
+          </div>
         </Reveal>
       </div>
     </section>
@@ -647,34 +624,34 @@ function TimingSection() {
 
 function ReviewTimingUi() {
   const reduced = !!useReducedMotion();
-  const beat = (delay: number) =>
-    reduced
-      ? { initial: false as const, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0 } }
-      : {
-          initial: { opacity: 0, y: 12 },
-          whileInView: { opacity: 1, y: 0 },
-          transition: { duration: 0.42, delay, ease: EASE },
-        };
+
+  const transition = (delay: number) => ({
+    duration: reduced ? 0 : 0.52,
+    delay: reduced ? 0 : delay,
+    ease: EASE,
+  });
 
   return (
-    <div className="relative grid gap-5 lg:grid-cols-[.86fr_1.08fr_.86fr] lg:items-center before:pointer-events-none before:absolute before:left-[28%] before:right-[28%] before:top-1/2 before:hidden before:h-px before:bg-white/10 lg:before:block">
+    <div className="grid gap-5 lg:grid-cols-[.82fr_1.16fr_.9fr] lg:items-center lg:gap-7">
       <motion.div
-        {...beat(0.04)}
+        initial={reduced ? false : { opacity: 0, x: -18 }}
+        whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.6 }}
-        className="relative z-10 overflow-hidden rounded-[24px] border border-white/10 bg-[#182129] shadow-[0_24px_60px_rgba(0,0,0,.18)]"
+        transition={transition(0.05)}
+        className="overflow-hidden rounded-[24px] border border-white/10 bg-[#18232B] shadow-[0_20px_50px_rgba(0,0,0,.16)]"
       >
         <div className="border-b border-white/8 px-5 py-4">
-          <div className="text-[8px] font-semibold uppercase tracking-[0.17em] text-[#D9AA55]">1 · Choose the moment</div>
-          <div className="mt-1 text-[16px] font-semibold text-white/92">Review request workflow</div>
+          <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#D9AA55]">Workflow settings</div>
+          <div className="mt-1 text-[16px] font-semibold text-white/92">Review request</div>
         </div>
         <div className="divide-y divide-white/8 p-5">
           {[
-            ["Trigger", "Job marked completed"],
+            ["Trigger", "Service marked completed"],
             ["Wait", "2 hours"],
             ["Channel", "SMS"],
-            ["Link", "Google review screen"],
+            ["Destination", "Google review screen"],
           ].map(([label, value]) => (
-            <div key={label} className="grid grid-cols-[.6fr_1.4fr] gap-3 py-3.5">
+            <div key={label} className="grid grid-cols-[.72fr_1.28fr] gap-3 py-3.5">
               <span className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/35">{label}</span>
               <span className="text-[11px] font-semibold text-white/82">{value}</span>
             </div>
@@ -687,12 +664,14 @@ function ReviewTimingUi() {
       </motion.div>
 
       <motion.div
-        {...beat(0.18)}
+        initial={reduced ? false : { opacity: 0, y: 18, scale: 0.985 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.6 }}
-        className="relative z-10 mx-auto w-full max-w-[410px] rounded-[38px] border-[7px] border-[#050708] bg-[#050708] p-2 shadow-[0_30px_80px_rgba(0,0,0,.30)]"
+        transition={transition(0.22)}
+        className="relative mx-auto w-full max-w-[420px] rounded-[40px] border-[7px] border-[#050708] bg-[#050708] p-2 shadow-[0_30px_80px_rgba(0,0,0,.30)] lg:-translate-y-3"
       >
-        <div className="overflow-hidden rounded-[29px] bg-[#F7F8F9]">
-          <div className="flex items-center justify-between bg-[#F7F8F9] px-5 pb-3 pt-4 text-[9px] font-semibold text-[#59636C]">
+        <div className="overflow-hidden rounded-[30px] bg-[#F7F8F9]">
+          <div className="flex items-center justify-between px-5 pb-3 pt-4 text-[9px] font-semibold text-[#59636C]">
             <span>6:12</span>
             <span>SMS</span>
           </div>
@@ -702,14 +681,14 @@ function ReviewTimingUi() {
                 <ZaplaPetal size={23} />
               </span>
               <div>
-                <div className="text-[12px] font-semibold text-[#273039]">Northside Plumbing</div>
+                <div className="text-[12px] font-semibold text-[#273039]">Northside</div>
                 <div className="mt-0.5 text-[9px] text-[#8A949D]">just now</div>
               </div>
             </div>
 
             <div className="mt-5 rounded-[18px] rounded-tl-[5px] bg-white p-4 shadow-[0_8px_24px_rgba(28,44,58,.08)]">
               <p className="text-[12px] leading-[1.6] text-[#39434C]">
-                Hi Mia, thanks for choosing Northside Plumbing. If you have a minute,
+                Hi Mia, thanks for choosing Northside. If you have a minute,
                 we&apos;d value an honest Google review about your experience.
               </p>
               <div className="mt-4 flex items-center justify-between rounded-[12px] bg-[#1E2B29] px-3.5 py-3 text-[10px] font-semibold text-white">
@@ -723,14 +702,16 @@ function ReviewTimingUi() {
       </motion.div>
 
       <motion.div
-        {...beat(0.34)}
+        initial={reduced ? false : { opacity: 0, x: 18 }}
+        whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.6 }}
-        className="relative z-10 rounded-[24px] border border-white/10 bg-white p-5 text-[#202930] shadow-[0_24px_60px_rgba(0,0,0,.18)]"
+        transition={transition(0.4)}
+        className="rounded-[24px] border border-white/10 bg-white p-5 text-[#202930] shadow-[0_22px_54px_rgba(0,0,0,.18)] lg:translate-y-4"
       >
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-[8px] font-semibold uppercase tracking-[0.16em] text-[#7E8992]">3 · Straight to the review</div>
-            <div className="mt-1 text-[16px] font-semibold">Northside Plumbing</div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#7E8992]">Google review screen</div>
+            <div className="mt-1 text-[16px] font-semibold">Northside</div>
           </div>
           <span className="text-[10px] font-semibold text-[#8A949D]">Google</span>
         </div>
@@ -745,7 +726,7 @@ function ReviewTimingUi() {
         </div>
         <div className="mt-4 flex items-center gap-2 text-[9px] font-semibold text-[#6B7680]">
           <MousePointerClick size={12} className="text-[#A66F20]" />
-          No need to search for the business first
+          Opens straight from the message
         </div>
       </motion.div>
     </div>
@@ -770,10 +751,7 @@ function InPersonMomentSection() {
             link has been sent. No directions. No searching. They can open it from
             their phone when they&apos;re ready.
           </p>
-          <div className="mt-7 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.13em] text-[#7B8790]">
-            <Smartphone size={15} className="text-[#A66F20]" />
-            Sent automatically · ready when you ask
-          </div>
+          
         </Reveal>
 
         <Reveal delay={0.05} className="w-full lg:max-w-[620px] lg:justify-self-end">
@@ -812,7 +790,7 @@ function InPersonMomentSection() {
               </div>
             </div>
 
-            <div className="rounded-b-[26px] bg-[#17212B] px-6 pb-7 pt-16 sm:px-7 sm:pb-8 sm:pt-[68px]">
+            <div className="rounded-b-[26px] bg-[#17212B] px-6 pb-6 pt-14 sm:px-7 sm:pb-7 sm:pt-16">
               <blockquote
                 className="max-w-[560px] text-[22px] font-medium leading-[1.3] tracking-[-0.03em] text-white sm:text-[25px]"
                 style={{ fontFamily: DISPLAY }}
@@ -848,9 +826,9 @@ function FeedbackSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-2">
+        <div className="mt-12 grid gap-4 lg:grid-cols-[1.08fr_.92fr] lg:items-start">
           <Reveal>
-            <div className="flex min-h-[430px] flex-col rounded-[30px] bg-[#F0D59D] p-7 sm:p-9">
+            <div className="flex min-h-[410px] flex-col rounded-[30px] bg-[#F0D59D] p-7 sm:p-9">
               <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#76501C]">Public proof</div>
               <h3
                 className="mt-5 max-w-[500px] text-[36px] font-medium leading-[0.98] tracking-[-0.05em] text-[#292922] sm:text-[44px]"
@@ -876,8 +854,8 @@ function FeedbackSection() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.05}>
-            <div className="flex min-h-[430px] flex-col rounded-[30px] bg-[#E7CEC2] p-7 sm:p-9">
+          <Reveal delay={0.05} className="lg:mt-10">
+            <div className="flex min-h-[380px] flex-col rounded-[30px] bg-[#E7CEC2] p-7 sm:p-9">
               <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#9A6553]">Needs attention</div>
               <h3
                 className="mt-5 max-w-[500px] text-[36px] font-medium leading-[0.98] tracking-[-0.05em] text-[#302926] sm:text-[44px]"
@@ -916,8 +894,8 @@ function FeedbackSection() {
 
 function CustomerRecordSection() {
   const timeline = [
-    ["17 SEP · 2:10 PM", "Booking completed", "Hot water repair"],
-    ["17 SEP · 4:12 PM", "Job marked completed", "Review workflow started"],
+    ["17 SEP · 2:10 PM", "Appointment completed", "Service completed"],
+    ["17 SEP · 4:12 PM", "Service marked completed", "Review workflow started"],
     ["17 SEP · 6:12 PM", "Review request sent", "SMS · neutral request"],
     ["17 SEP · 7:04 PM", "Review received", "Google Business Profile"],
     ["18 SEP · 9:16 AM", "Business replied", "Handled by team"],
@@ -943,7 +921,7 @@ function CustomerRecordSection() {
 
         <Reveal className="mt-12 overflow-hidden rounded-[32px] border border-[#1E2B29]/10 bg-[#FCFCFA] shadow-[0_28px_70px_rgba(61,70,48,.10)]">
           <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
-            <div className="flex min-h-[370px] flex-col justify-between border-b border-[#1E2B29]/10 bg-[#F6F6F0] p-7 sm:p-9 lg:border-b-0 lg:border-r">
+            <div className="flex min-h-[320px] flex-col justify-between border-b border-[#1E2B29]/10 bg-[#F6F6F0] p-7 sm:p-9 lg:border-b-0 lg:border-r">
               <div>
                 <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#6B7168]">Customer</div>
                 <div className="mt-5 flex items-center gap-4">
@@ -952,7 +930,7 @@ function CustomerRecordSection() {
                     <div className="text-[26px] font-medium tracking-[-0.04em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
                       Mia Thompson
                     </div>
-                    <div className="mt-1 text-[11px] text-[#777D74]">Northside · Residential</div>
+                    <div className="mt-1 text-[11px] text-[#777D74]">Northside · Customer</div>
                   </div>
                 </div>
               </div>
@@ -1053,20 +1031,6 @@ function Faq() {
             <span className="block text-[#8A7459]">before you switch it on.</span>
           </h2>
         </Reveal>
-
-        <p className="mt-6 max-w-[760px] text-[11px] leading-[1.7] text-[#747F89]">
-          Australian Government guidance notes that online reviews can influence
-          consumers, build trust and credibility, and improve local search
-          visibility.{" "}
-          <a
-            href="https://business.gov.au/online-and-digital/online-reviews"
-            target="_blank"
-            rel="noreferrer"
-            className="font-semibold underline decoration-[#AAB4BC] underline-offset-2"
-          >
-            Source
-          </a>
-        </p>
 
         <div className="mt-10 divide-y divide-[#D4DDE5] border-y border-[#D4DDE5]">
           {FAQS.map((item) => (
