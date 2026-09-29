@@ -309,8 +309,16 @@ function ReviewHeroScene() {
 
 function EvidenceSection() {
   return (
-    <section className="bg-[#111214] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1320px]">
+    <section className="relative overflow-hidden bg-[#111214] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div
+        className="pointer-events-none absolute left-1/2 top-[300px] h-[330px] w-[1120px] -translate-x-1/2 rounded-[50%] blur-[58px]"
+        style={{ background: "radial-gradient(ellipse at center, rgba(221,163,75,.18) 0%, rgba(201,108,133,.07) 38%, transparent 78%)" }}
+      />
+      <div
+        className="pointer-events-none absolute left-1/2 top-[390px] h-[150px] w-[820px] -translate-x-1/2 rounded-[50%] blur-[34px]"
+        style={{ background: "radial-gradient(ellipse at center, rgba(255,255,255,.07) 0%, rgba(221,163,75,.08) 42%, transparent 76%)" }}
+      />
+      <div className="relative mx-auto max-w-[1320px]">
         <Reveal className="mx-auto max-w-[980px] text-center">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#DDA34B]">
             Why reviews matter
@@ -329,7 +337,7 @@ function EvidenceSection() {
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="overflow-hidden rounded-[34px] border border-white/[0.16] bg-[#18191C] shadow-[0_30px_110px_rgba(0,0,0,.30)]">
+          <div className="overflow-hidden rounded-[34px] border border-white/[0.16] bg-[#18191C] shadow-[0_30px_110px_rgba(0,0,0,.30),0_0_52px_rgba(221,163,75,.045)]">
             <div className="grid lg:grid-cols-[1.08fr_.92fr]">
               <article className="relative flex min-h-[450px] flex-col border-b border-white/[0.085] p-8 sm:p-10 lg:border-b-0 lg:border-r">
                 <div className="absolute left-8 right-8 top-0 h-px bg-gradient-to-r from-transparent via-[#DDA34B]/80 to-transparent" />
@@ -432,6 +440,8 @@ function EvidenceSection() {
     </section>
   );
 }
+
+
 
 function ProblemSection() {
   return (
@@ -661,145 +671,211 @@ function TimingSection() {
 
 function ReviewTimingUi() {
   const reduced = !!useReducedMotion();
-  const connector = "#B99568";
 
-  const reveal = (delay: number) => ({
-    initial: reduced ? false as const : { opacity: 0, y: 10 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.55 },
-    transition: { duration: reduced ? 0 : 0.45, delay: reduced ? 0 : delay, ease: EASE },
+  const wireTransition = (delay: number) => ({
+    duration: reduced ? 0 : 0.58,
+    delay: reduced ? 0 : delay,
+    ease: EASE,
   });
 
-  const Connector = ({ delay = 0 }: { delay?: number }) => (
-    <div className="relative hidden h-full min-h-[160px] items-center lg:flex">
-      <span className="absolute left-0 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#18191C] bg-[#B99568] shadow-[0_0_0_1px_rgba(185,149,104,.45)]" />
-      <motion.span
-        className="h-px w-full origin-left"
-        style={{ backgroundColor: connector }}
-        initial={reduced ? false : { scaleX: 0, opacity: 0 }}
-        whileInView={{ scaleX: 1, opacity: 1 }}
-        viewport={{ once: true, amount: 0.55 }}
-        transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE }}
-      />
-      <span className="absolute right-0 top-1/2 h-3 w-3 translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#18191C] bg-[#B99568] shadow-[0_0_0_1px_rgba(185,149,104,.45)]" />
-    </div>
-  );
+  const connector = "#B99568";
+  const connectorSoft = "#D9C7AF";
 
   return (
-    <div className="overflow-hidden rounded-[30px] border border-white/[0.16] bg-[#18191C] shadow-[0_30px_100px_rgba(24,25,28,.20)]">
-      <div className="flex flex-wrap items-center gap-3 border-b border-white/[0.085] bg-[#151619] px-5 py-4 sm:px-6">
+    <div className="overflow-hidden rounded-[24px] border border-[#D7DFE3] bg-white shadow-[0_30px_80px_rgba(46,63,76,.09)]">
+      <div className="flex flex-wrap items-center gap-3 border-b border-[#E2E7E9] bg-[#FCFCFB] px-5 py-3.5 sm:px-6">
         <div className="flex min-w-0 items-center gap-2">
-          <span className="text-[10px] font-medium text-white/32">Automations /</span>
-          <span className="truncate text-[12px] font-semibold text-white/80">Reviews / Post-service review request</span>
+          <span className="text-[10px] font-medium text-[#98A1A8]">Automations /</span>
+          <span className="truncate text-[12px] font-semibold text-[#2C353C]">Reviews / Post-service review request</span>
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#99A36D]/20 bg-[#99A36D]/10 px-2.5 py-1 text-[9px] font-bold text-[#B9C49B]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EEF3E8] px-2.5 py-1 text-[9px] font-bold text-[#667A55]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#8FA06B]" />
           Active
         </span>
         <div className="ml-auto hidden items-center gap-2 sm:flex">
-          <span className="rounded-[8px] border border-white/10 bg-white/[0.025] px-3 py-1.5 text-[9px] font-semibold text-white/42">Save</span>
-          <span className="rounded-[8px] border border-white/10 bg-white/[0.07] px-3 py-1.5 text-[9px] font-semibold text-white/78">Published</span>
+          <span className="rounded-[8px] border border-[#DCE2E6] bg-white px-3 py-1.5 text-[9px] font-semibold text-[#67727A]">Save</span>
+          <span className="rounded-[8px] bg-[#17212B] px-3 py-1.5 text-[9px] font-semibold text-white">Published</span>
         </div>
       </div>
 
       <div
-        className="relative bg-[#18191C] px-5 py-10 sm:px-7 sm:py-12 lg:px-8 lg:py-14"
+        className="relative min-h-[500px] overflow-hidden bg-[#F8F8F5]"
         style={{
-          backgroundImage: "radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
+          backgroundImage: "radial-gradient(rgba(157,145,130,.24) 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
         }}
       >
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[260px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-[#E97D62]/[0.055] blur-[70px]" />
-
-        <div className="relative hidden min-h-[270px] grid-cols-[1fr_58px_.92fr_58px_1.08fr_58px_1.42fr] items-center lg:grid">
-          <motion.div {...reveal(0.02)} className="relative rounded-[20px] border border-white/[0.12] bg-[#202126] p-5 shadow-[0_16px_38px_rgba(0,0,0,.18)]">
-            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#B9C49B]">Trigger</div>
-            <div className="mt-5 text-[15px] font-semibold text-white/92">Service completed</div>
-            <div className="mt-2 text-[10px] leading-[1.55] text-white/42">Customer enters the review workflow.</div>
-          </motion.div>
-
-          <Connector delay={0.18} />
-
-          <motion.div {...reveal(0.30)} className="relative rounded-[20px] border border-white/[0.12] bg-[#202126] p-5 shadow-[0_16px_38px_rgba(0,0,0,.18)]">
-            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#E1BC7A]">Wait</div>
-            <div className="mt-5 text-[15px] font-semibold text-white/92">2 hours</div>
-            <div className="mt-2 text-[10px] leading-[1.55] text-white/42">Give the customer time before asking.</div>
-          </motion.div>
-
-          <Connector delay={0.46} />
+        <div className="hidden lg:block">
+          <svg
+            className="pointer-events-none absolute inset-0 h-full w-full"
+            viewBox="0 0 1200 500"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            {[
+              { d: "M235 250 H320", x1: 235, x2: 320, delay: 0.10, pulseDelay: 0.15 },
+              { d: "M485 250 H570", x1: 485, x2: 570, delay: 0.40, pulseDelay: 1.15 },
+              { d: "M770 250 H855", x1: 770, x2: 855, delay: 0.70, pulseDelay: 2.15 },
+            ].map((wire) => (
+              <g key={wire.d}>
+                <path d={wire.d} fill="none" stroke={connectorSoft} strokeWidth="2" strokeLinecap="round" />
+                <motion.path
+                  d={wire.d}
+                  fill="none"
+                  stroke={connector}
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={wireTransition(wire.delay)}
+                />
+                {!reduced && (
+                  <motion.circle
+                    cy="250"
+                    r="4.5"
+                    fill="#D5A765"
+                    stroke="#FFFDF8"
+                    strokeWidth="2"
+                    initial={{ cx: wire.x1, opacity: 0 }}
+                    animate={{
+                      cx: [wire.x1, wire.x2],
+                      opacity: [0, 1, 1, 0],
+                    }}
+                    transition={{
+                      duration: 0.9,
+                      delay: wire.pulseDelay,
+                      repeat: Infinity,
+                      repeatDelay: 2.1,
+                      ease: EASE,
+                    }}
+                    style={{ filter: "drop-shadow(0 0 5px rgba(213,167,101,.55))" }}
+                  />
+                )}
+              </g>
+            ))}
+          </svg>
 
           <motion.div
-            {...reveal(0.58)}
-            className="relative overflow-hidden rounded-[22px] border border-[#E97D62]/40 bg-[#202126] p-5 shadow-[0_18px_44px_rgba(0,0,0,.22),0_0_32px_rgba(233,125,98,.06)]"
+            initial={reduced ? false : { opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={wireTransition(0.02)}
+            className="absolute left-[5.5%] top-1/2 w-[170px] -translate-y-1/2 rounded-[16px] border border-[#D6DDCF] bg-[#F1F4E9] shadow-[0_14px_34px_rgba(46,63,76,.07)]"
           >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(233,125,98,.10),transparent_52%)]" />
-            <div className="relative flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#151619]">
-                <ZaplaPetal size={23} />
-              </span>
-              <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#E97D62]">Zapla AI</div>
-                <div className="mt-1 text-[14px] font-semibold text-white/94">Review request</div>
-              </div>
+            <div className="border-b border-[#DDE4D7] px-4 py-3">
+              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#6E7C59]">Trigger</span>
             </div>
-            <div className="relative mt-4 text-[10px] leading-[1.55] text-white/46">
-              Personalises the message and sends it automatically.
+            <div className="px-4 py-4">
+              <div className="text-[13px] font-semibold text-[#222A30]">Service completed</div>
+              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#7C878D]">Customer enters the review workflow.</div>
             </div>
+            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
           </motion.div>
 
-          <Connector delay={0.74} />
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={wireTransition(0.32)}
+            className="absolute left-[26.7%] top-1/2 w-[165px] -translate-y-1/2 rounded-[16px] border border-[#E2D7C1] bg-[#FBF2DF] shadow-[0_14px_34px_rgba(46,63,76,.065)]"
+          >
+            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+            <div className="border-b border-[#E9DFC9] px-4 py-3">
+              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8B682F]">Wait</span>
+            </div>
+            <div className="px-4 py-4">
+              <div className="text-[13px] font-semibold text-[#222A30]">2 hours</div>
+              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#7C878D]">Give the customer time before asking.</div>
+            </div>
+            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+          </motion.div>
 
-          <motion.div {...reveal(0.86)} className="overflow-hidden rounded-[22px] border border-white/[0.12] bg-[#202126] shadow-[0_18px_44px_rgba(0,0,0,.20)]">
-            <div className="border-b border-white/[0.085] p-4">
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 10, scale: .985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={wireTransition(0.62)}
+            className="absolute left-[47.5%] top-1/2 w-[200px] -translate-y-1/2 rounded-[18px] border border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_18px_44px_rgba(37,99,255,.09)]"
+          >
+            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+            <div className="flex items-center gap-2 border-b border-[#DDE6F6] px-4 py-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
+                <ZaplaPetal size={20} />
+              </span>
+              <div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#597DDA]">Zapla AI</div>
+                <div className="mt-0.5 text-[12px] font-semibold text-[#202A34]">Review request</div>
+              </div>
+            </div>
+            <div className="px-4 py-4">
+              <div className="text-[10px] leading-[1.5] text-[#66727D]">Personalises the message and sends it automatically.</div>
+            </div>
+            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+          </motion.div>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={wireTransition(0.92)}
+            className="absolute right-[5%] top-1/2 w-[265px] -translate-y-1/2 overflow-hidden rounded-[20px] border border-[#E4D7CF] bg-[#FFFDFC] shadow-[0_18px_48px_rgba(46,63,76,.09)]"
+          >
+            <span className="absolute -left-[7px] top-1/2 z-10 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+
+            <div className="border-b border-[#EAE4DF] bg-[#FBF1EC] p-4">
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#151619]">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
                   <ZaplaPetal size={20} />
                 </span>
                 <div>
-                  <div className="text-[10px] font-semibold text-white/88">Northside</div>
-                  <div className="mt-0.5 text-[8px] text-white/34">SMS · just now</div>
+                  <div className="text-[10px] font-semibold text-[#273039]">Northside</div>
+                  <div className="mt-0.5 text-[8px] text-[#8A949D]">SMS · just now</div>
                 </div>
               </div>
-              <p className="mt-3 text-[10.5px] leading-[1.52] text-white/58">
+              <p className="mt-3 text-[10.5px] leading-[1.52] text-[#4F5A63]">
                 Hi Mia, if you have a minute, we&apos;d value an honest Google review.
               </p>
-              <div className="mt-3 flex items-center justify-between rounded-[10px] border border-white/10 bg-white/[0.055] px-3 py-2.5 text-[9px] font-semibold text-white/90">
+              <div className="mt-3 flex items-center justify-between rounded-[9px] bg-[#1E2B29] px-3 py-2.5 text-[9px] font-semibold text-white">
                 Leave a Google review <ArrowRight size={10} />
               </div>
             </div>
 
-            <div className="p-4">
+            <div className="bg-[#FFF9EB] p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#E1BC7A]">Review screen opens</div>
-                  <div className="mt-1 text-[12px] font-semibold text-white/88">Northside</div>
+                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A7956]">Review screen opens</div>
+                  <div className="mt-1 text-[12px] font-semibold text-[#202930]">Northside</div>
                 </div>
-                <span className="text-[9px] font-semibold text-white/32">Google</span>
+                <span className="text-[9px] font-semibold text-[#8A949D]">Google</span>
               </div>
               <div className="mt-3 flex items-center gap-1">
                 {[0,1,2,3,4].map((item) => (
                   <Star key={item} size={18} className="fill-[#DDA34B] text-[#DDA34B]" strokeWidth={1.2} />
                 ))}
               </div>
-              <p className="mt-2 text-[9.5px] text-white/40">Tap a star to rate your experience</p>
+              <p className="mt-2 text-[9.5px] text-[#66717A]">Tap a star to rate your experience</p>
             </div>
           </motion.div>
         </div>
 
-        <div className="relative space-y-3 lg:hidden">
+        <div className="space-y-4 p-5 lg:hidden">
           {[
-            ["Trigger", "Service completed", "#99A36D"],
-            ["Wait", "2 hours", "#DDA34B"],
-            ["Zapla AI", "Review request", "#E97D62"],
-            ["Customer", "SMS arrives and opens the review screen", "#D58C75"],
+            ["Trigger", "Service completed", "bg-[#F1F4E9] border-[#D6DDCF]"],
+            ["Wait", "2 hours", "bg-[#FBF2DF] border-[#E2D7C1]"],
+            ["Zapla AI", "Review request", "bg-[#F2F6FF] border-[#BFD0F7]"],
+            ["Customer", "SMS arrives and opens the review screen", "bg-[#FBF1EC] border-[#E4D7CF]"],
           ].map(([label, title, tone], index) => (
             <motion.div
               key={label}
-              {...reveal(index * 0.1)}
-              className="rounded-[18px] border border-white/[0.12] bg-[#202126] px-4 py-4 shadow-[0_12px_30px_rgba(0,0,0,.16)]"
+              initial={reduced ? false : { opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.7 }}
+              transition={wireTransition(index * 0.12)}
+              className={"relative rounded-[16px] border px-4 py-4 shadow-[0_10px_28px_rgba(46,63,76,.055)] " + tone}
             >
-              <div className="text-[8px] font-bold uppercase tracking-[0.14em]" style={{ color: tone }}>{label}</div>
-              <div className="mt-2 text-[13px] font-semibold text-white/88">{title}</div>
+              <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A795F]">{label}</div>
+              <div className="mt-1 text-[13px] font-semibold text-[#202930]">{title}</div>
             </motion.div>
           ))}
         </div>
@@ -807,6 +883,8 @@ function ReviewTimingUi() {
     </div>
   );
 }
+
+
 
 function InPersonMomentSection() {
   return (
