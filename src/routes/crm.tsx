@@ -154,7 +154,7 @@ function Avatar({
   return (
     <span
       aria-hidden="true"
-      className={"block shrink-0 overflow-hidden rounded-full border border-white/[0.08]0 bg-[#E9EEF4] " + className}
+      className={"block shrink-0 overflow-hidden rounded-full border border-white/80 bg-[#E9EEF4] " + className}
       style={{
         width: size,
         height: size,
@@ -492,39 +492,25 @@ function CustomerRecordSection() {
   return (
     <section
       id="customer-record"
-      className="relative scroll-mt-20 overflow-hidden bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-32"
+      className="scroll-mt-20 bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28"
     >
-      <div className="pointer-events-none absolute left-[-80px] top-[90px] text-[170px] font-medium leading-none tracking-[-0.08em] text-[#F2F6F9] sm:text-[220px] lg:text-[280px]" style={{ fontFamily: DISPLAY }}>
-        CRM
-      </div>
-
-      <div className="relative mx-auto grid max-w-[1480px] gap-12 lg:grid-cols-[0.33fr_0.67fr] lg:gap-10 xl:gap-16">
-        <Reveal className="self-start lg:sticky lg:top-28">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="max-w-[920px]">
           <Eyebrow>One customer. One history.</Eyebrow>
           <h2
-            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[58px] lg:text-[68px]"
+            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[70px]"
             style={{ fontFamily: DISPLAY }}
           >
             Stop piecing together
             <span className="block text-[#2563FF]">what happened.</span>
           </h2>
-          <p className="mt-5 max-w-[520px] text-[15px] leading-[1.72] text-[#616C76] sm:text-[16px]">
+          <p className="mt-5 max-w-[690px] text-[15px] leading-[1.72] text-[#616C76] sm:text-[16px]">
             Open the customer record and see the contact details, conversations,
             appointments, quote, owner, activity and next step together.
           </p>
-
-          <div className="mt-9 border-l-2 border-[#2563FF] pl-5">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#87939D]">One record holds</div>
-            <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3 text-[11px] font-semibold text-[#46525C]">
-              <span>Conversations</span>
-              <span>Appointments</span>
-              <span>Quotes</span>
-              <span>Next steps</span>
-            </div>
-          </div>
         </Reveal>
 
-        <Reveal delay={0.05} className="lg:pt-16 xl:-mr-24">
+        <Reveal className="mt-12">
           <UnifiedRecord />
         </Reveal>
       </div>
@@ -645,46 +631,32 @@ function PipelineSection() {
   ] as const;
 
   return (
-    <section className="relative overflow-hidden bg-[#EAF0F6] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-32">
-      <div
-        className="pointer-events-none absolute right-[-80px] top-[20px] text-[150px] font-medium leading-none tracking-[-0.08em] text-[#DDE6EE] sm:text-[220px] lg:text-[300px]"
-        style={{ fontFamily: DISPLAY }}
-      >
-        PIPELINE
-      </div>
+    <section className="bg-[#EEF3F7] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-14">
+          <Reveal>
+            <Eyebrow>Pipeline</Eyebrow>
+            <h2
+              className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[68px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              See what&apos;s moving.
+              <span className="block text-[#2563FF]">And what isn&apos;t.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.04}>
+            <p className="max-w-[620px] text-[15px] leading-[1.72] text-[#5F6B75] sm:text-[16px] lg:ml-auto">
+              See every opportunity by stage, owner and value. When something has
+              been sitting too long, it is visible before it quietly disappears.
+            </p>
+          </Reveal>
+        </div>
 
-      <div className="relative mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[0.34fr_0.66fr] lg:items-center lg:gap-12">
-        <Reveal className="max-w-[500px]">
-          <Eyebrow>Pipeline</Eyebrow>
-          <h2
-            className="mt-4 text-[46px] font-medium leading-[0.94] tracking-[-0.06em] sm:text-[62px] lg:text-[72px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            See what&apos;s moving.
-            <span className="block text-[#2563FF]">And what isn&apos;t.</span>
-          </h2>
-          <p className="mt-5 text-[15px] leading-[1.72] text-[#5F6B75] sm:text-[16px]">
-            See every opportunity by stage, owner and value. When something has
-            been sitting too long, it is visible before it quietly disappears.
-          </p>
-
-          <div className="mt-9 max-w-[360px] rounded-[20px] border border-[#D4DEE7] bg-white/75 p-5 shadow-[0_14px_36px_rgba(31,49,68,.05)] backdrop-blur">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8B969F]">Needs attention</div>
-                <div className="mt-2 text-[14px] font-semibold text-[#2E3942]">Chris Moore</div>
-                <div className="mt-1 text-[10px] text-[#74808A]">Bathroom electrical · A$1,900</div>
-              </div>
-              <span className="rounded-full bg-[#D58C75]/12 px-2.5 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#A65F48]">6 days</span>
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.05} className="lg:-mr-28">
-          <div className="overflow-x-auto rounded-[30px] border border-[#D2DDE6] bg-[#F8FAFC] p-4 shadow-[0_30px_74px_rgba(31,49,68,.10)] sm:p-5">
-            <div className="grid min-w-[980px] grid-cols-4 gap-3">
+        <Reveal className="mt-12">
+          <div className="overflow-x-auto rounded-[28px] border border-[#D5DFE7] bg-[#F9FBFC] p-4 shadow-[0_24px_60px_rgba(31,49,68,.07)] sm:p-5">
+            <div className="grid min-w-[1000px] grid-cols-4 gap-3">
               {columns.map((column) => (
-                <div key={column.name} className="rounded-[18px] bg-[#EEF3F7] p-3">
+                <div key={column.name} className="rounded-[18px] bg-[#F1F5F8] p-3">
                   <div className="flex items-center justify-between px-1 py-2">
                     <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#66737E]">{column.name}</div>
                     <span className="text-[9px] font-semibold text-[#9AA5AE]">{column.cards.length}</span>
@@ -697,7 +669,7 @@ function PipelineSection() {
                           key={name}
                           className={
                             "rounded-[15px] border bg-white p-4 shadow-[0_8px_24px_rgba(31,49,68,.04)] " +
-                            (stale ? "border-[#D58C75]/55 shadow-[0_10px_30px_rgba(201,111,85,.08)]" : "border-[#DFE6EC]")
+                            (stale ? "border-[#D58C75]/45" : "border-[#DFE6EC]")
                           }
                         >
                           <div className="flex items-start justify-between gap-3">
@@ -901,7 +873,6 @@ function PlatformSection() {
   const groups = [
     {
       label: "Talk",
-      tone: "bg-[#F5F8FB]",
       items: [
         [<MessageSquareText size={15} />, "Unified inbox"],
         [<Phone size={15} />, "Phone & dialer"],
@@ -910,7 +881,6 @@ function PlatformSection() {
     },
     {
       label: "Move",
-      tone: "bg-[#EEF4FA]",
       items: [
         [<Users size={15} />, "Pipelines"],
         [<Calendar size={15} />, "Booking"],
@@ -919,7 +889,6 @@ function PlatformSection() {
     },
     {
       label: "Complete",
-      tone: "bg-[#E8F0F7]",
       items: [
         [<CircleDollarSign size={15} />, "Invoices & payments"],
         [<Star size={15} />, "Reviews"],
@@ -929,86 +898,71 @@ function PlatformSection() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1400px]">
-        <Reveal className="max-w-[980px]">
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="max-w-[900px]">
           <Eyebrow>One connected platform</Eyebrow>
           <h2
-            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[60px] lg:text-[72px]"
+            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[68px]"
             style={{ fontFamily: DISPLAY }}
           >
             One customer shouldn&apos;t be
             <span className="block text-[#2563FF]">spread across five systems.</span>
           </h2>
-          <p className="mt-5 max-w-[720px] text-[15px] leading-[1.72] text-[#616C76] sm:text-[16px]">
-            Keep conversations, pipeline, bookings, payments and follow-up around
-            the same customer record instead of chasing the story across separate tools.
+          <p className="mt-5 max-w-[690px] text-[15px] leading-[1.72] text-[#616C76] sm:text-[16px]">
+            Keep conversations, pipeline, bookings, payments and follow-up around the same customer record instead of chasing the story across separate tools.
           </p>
         </Reveal>
 
-        <div className="relative mt-14 lg:min-h-[610px]">
-          <Reveal className="relative z-20 lg:absolute lg:left-0 lg:top-14 lg:w-[34%]">
-            <div className="flex min-h-[420px] flex-col justify-between rounded-[30px] bg-[#111B25] p-7 text-white shadow-[0_30px_74px_rgba(17,27,37,.18)] sm:p-9">
+        <div className="mt-12 grid gap-4 lg:grid-cols-[0.72fr_1.28fr]">
+          <Reveal>
+            <div className="flex min-h-[460px] flex-col justify-between rounded-[28px] bg-[#F1F5F8] p-7 sm:p-9">
               <div>
-                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8DB0FF]">Customer record</div>
-                <div className="mt-7 flex items-center gap-4">
-                  <Avatar cell={0} size={60} className="border-white/15" />
+                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#75828D]">Customer record</div>
+                <div className="mt-6 flex items-center gap-4">
+                  <Avatar cell={0} size={56} />
                   <div>
-                    <div className="text-[29px] font-medium tracking-[-0.045em]" style={{ fontFamily: DISPLAY }}>Mia Thompson</div>
-                    <div className="mt-1 text-[10px] text-white/42">Everything points back here.</div>
+                    <div className="text-[26px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>Mia Thompson</div>
+                    <div className="mt-1 text-[10px] text-[#7E8A94]">Everything points back here.</div>
                   </div>
                 </div>
               </div>
-              <div className="space-y-3">
-                <div className="rounded-[18px] border border-white/[0.08] bg-white/[0.04] p-4">
-                  <div className="text-[8px] font-semibold uppercase tracking-[0.13em] text-white/34">Current state</div>
-                  <div className="mt-2 text-[17px] font-semibold text-white/90">Quote sent · A$2,850</div>
-                  <div className="mt-1 text-[10px] text-white/42">Next step: follow up Thursday</div>
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  {[
-                    ["5", "events"],
-                    ["3", "channels"],
-                    ["1", "owner"],
-                  ].map(([value, label]) => (
-                    <div key={label} className="rounded-[14px] bg-white/[0.04] px-2 py-3">
-                      <div className="text-[18px] font-semibold text-white/90">{value}</div>
-                      <div className="mt-1 text-[7px] uppercase tracking-[0.1em] text-white/30">{label}</div>
-                    </div>
-                  ))}
+              <div>
+                <div className="rounded-[18px] bg-white p-4 shadow-[0_10px_28px_rgba(31,49,68,.05)]">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.13em] text-[#8B97A0]">Current state</div>
+                  <div className="mt-2 text-[17px] font-semibold text-[#303B44]">Quote sent · A$2,850</div>
+                  <div className="mt-1 text-[10px] text-[#76828C]">Next step: follow up Thursday</div>
                 </div>
               </div>
             </div>
           </Reveal>
 
-          <div className="mt-5 space-y-4 lg:ml-[28%] lg:mt-0">
-            {groups.map((group, index) => (
-              <Reveal key={group.label} delay={0.04 + index * 0.04} className={index === 1 ? "lg:translate-x-8" : index === 2 ? "lg:translate-x-16" : ""}>
-                <div className={"overflow-hidden rounded-[26px] border border-[#D8E2EA] " + group.tone}>
-                  <div className="grid sm:grid-cols-[0.26fr_0.74fr]">
-                    <div className="flex items-center px-6 py-7 sm:px-8">
-                      <div
-                        className="text-[34px] font-medium tracking-[-0.05em] text-[#2E3A45]"
-                        style={{ fontFamily: DISPLAY }}
-                      >
-                        {group.label}
-                      </div>
-                    </div>
-                    <div className="grid sm:grid-cols-3">
-                      {group.items.map(([icon, item]) => (
-                        <div key={String(item)} className="flex min-h-[138px] items-center gap-3 border-t border-[#DCE5EC] px-5 py-5 first:border-t-0 sm:border-l sm:border-t-0">
-                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#2563FF] shadow-[0_8px_20px_rgba(31,49,68,.05)]">
-                            {icon}
-                          </span>
-                          <span className="text-[11px] font-semibold leading-[1.45] text-[#48545E]">{item}</span>
-                        </div>
-                      ))}
+          <Reveal delay={0.05}>
+            <div className="overflow-hidden rounded-[28px] border border-[#D8E2EA] bg-[#FBFCFD]">
+              {groups.map((group) => (
+                <div key={group.label} className="grid border-b border-[#E1E8EE] last:border-b-0 sm:grid-cols-[0.26fr_0.74fr]">
+                  <div className="flex items-center bg-[#F4F7FA] px-6 py-6">
+                    <div
+                      className="text-[28px] font-medium tracking-[-0.045em] text-[#30404F]"
+                      style={{ fontFamily: DISPLAY }}
+                    >
+                      {group.label}
                     </div>
                   </div>
+                  <div className="grid sm:grid-cols-3">
+                    {group.items.map(([icon, item]) => (
+                      <div key={String(item)} className="flex min-h-[120px] items-center gap-3 border-t border-[#E6ECF1] px-5 py-5 first:border-t-0 sm:border-l sm:border-t-0">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#2563FF]/[0.08] text-[#2563FF]">
+                          {icon}
+                        </span>
+                        <span className="text-[11px] font-semibold leading-[1.45] text-[#4D5963]">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -1024,68 +978,48 @@ function GuidedLaunchSection() {
   ] as const;
 
   return (
-    <section className="relative overflow-hidden bg-[#EAF0F6] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1450px]">
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-0">
-          <Reveal className="relative lg:pr-0">
-            <div className="overflow-hidden rounded-[30px] bg-[#DCE6EE] shadow-[0_28px_70px_rgba(31,49,68,.09)]">
-              <img
-                src="/concept/guided-launch-natural-v6.webp"
-                alt="Business team working together during setup"
-                className="h-[430px] w-full object-cover sm:h-[560px]"
-              />
-            </div>
-            <div className="absolute bottom-5 left-5 hidden rounded-[16px] bg-white/[0.92] px-4 py-3 shadow-[0_12px_30px_rgba(31,49,68,.10)] backdrop-blur sm:block">
-              <div className="text-[8px] font-semibold uppercase tracking-[0.13em] text-[#8A959E]">You are not starting from scratch</div>
-              <div className="mt-1 text-[12px] font-semibold text-[#2F3B44]">Contacts · pipelines · forms · calendars</div>
-            </div>
-          </Reveal>
+    <section className="bg-[#EEF3F7] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-16">
+        <Reveal>
+          <div className="overflow-hidden rounded-[28px] bg-[#DCE6EE]">
+            <img
+              src="/concept/guided-launch-natural-v6.webp"
+              alt="Business team working together during setup"
+              className="h-[380px] w-full object-cover sm:h-[500px]"
+            />
+          </div>
+        </Reveal>
 
-          <Reveal delay={0.05} className="relative z-10 lg:-ml-16">
-            <div className="relative overflow-hidden rounded-[32px] border border-[#D7E1E9] bg-white p-7 shadow-[0_34px_86px_rgba(31,49,68,.13)] sm:p-9 lg:p-10">
-              <div
-                className="pointer-events-none absolute right-[-10px] top-[-30px] text-[150px] font-medium leading-none tracking-[-0.08em] text-[#EEF4FA]"
-                style={{ fontFamily: DISPLAY }}
-              >
-                4
-              </div>
+        <Reveal delay={0.05}>
+          <Eyebrow>Guided Launch</Eyebrow>
+          <h2
+            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[58px] lg:text-[66px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Switching CRM shouldn&apos;t become
+            <span className="block text-[#2563FF]">another project for your team.</span>
+          </h2>
+          <p className="mt-5 max-w-[650px] text-[15px] leading-[1.72] text-[#5F6B75] sm:text-[16px]">
+            Guided Launch gets the agreed essentials configured with you so the team
+            is not starting from a blank workspace.
+          </p>
 
-              <div className="relative">
-                <Eyebrow>Guided Launch</Eyebrow>
-                <h2
-                  className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[54px] lg:text-[60px]"
-                  style={{ fontFamily: DISPLAY }}
-                >
-                  Switching CRM shouldn&apos;t become
-                  <span className="block text-[#2563FF]">another project for your team.</span>
-                </h2>
-                <p className="mt-5 max-w-[620px] text-[14px] leading-[1.72] text-[#5F6B75] sm:text-[15px]">
-                  Guided Launch gets the agreed essentials configured with you so the
-                  team is not starting from a blank workspace.
-                </p>
-
-                <div className="relative mt-8">
-                  <div className="absolute bottom-5 left-[15px] top-5 w-px bg-[#D9E4ED]" />
-                  {steps.map(([n, title, copy]) => (
-                    <div key={n} className="relative grid grid-cols-[42px_1fr] gap-4 border-b border-[#E4EAF0] py-5 last:border-b-0">
-                      <span className="relative z-10 flex h-[30px] w-[30px] items-center justify-center rounded-full bg-[#2563FF] text-[8px] font-bold text-white shadow-[0_0_0_5px_white]">
-                        {n}
-                      </span>
-                      <div>
-                        <div className="text-[14px] font-semibold text-[#303B44]">{title}</div>
-                        <p className="mt-1 text-[11px] leading-[1.6] text-[#717D87]">{copy}</p>
-                      </div>
-                    </div>
-                  ))}
+          <div className="mt-8 border-y border-[#D4DEE6]">
+            {steps.map(([n, title, copy]) => (
+              <div key={n} className="grid grid-cols-[42px_1fr] gap-4 border-b border-[#D4DEE6] py-5 last:border-b-0">
+                <span className="text-[9px] font-bold tracking-[0.14em] text-[#2563FF]">{n}</span>
+                <div>
+                  <div className="text-[14px] font-semibold text-[#303B44]">{title}</div>
+                  <p className="mt-1 text-[11px] leading-[1.6] text-[#717D87]">{copy}</p>
                 </div>
-
-                <p className="mt-5 text-[10px] leading-[1.6] text-[#7B8791]">
-                  Follow-Through Guided Launch starts from A$1,997 + GST. Larger or more complex moves are scoped separately.
-                </p>
               </div>
-            </div>
-          </Reveal>
-        </div>
+            ))}
+          </div>
+
+          <p className="mt-5 text-[10px] leading-[1.6] text-[#7B8791]">
+            Follow-Through Guided Launch starts from A$1,997 + GST. Larger or more complex moves are scoped separately.
+          </p>
+        </Reveal>
       </div>
     </section>
   );
@@ -1238,61 +1172,38 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 function FinalCta() {
   return (
-    <section className="relative overflow-hidden bg-[#2563FF] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute left-[-70px] top-[-90px] h-[320px] w-[320px] rounded-full border border-white/10" />
-      <div className="pointer-events-none absolute bottom-[-130px] right-[-60px] h-[360px] w-[360px] rounded-full border border-white/10" />
-
-      <div className="relative mx-auto max-w-[1180px]">
-        <div className="grid gap-10 lg:grid-cols-[0.72fr_0.28fr] lg:items-end">
-          <Reveal>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">
-              One customer story
-            </p>
-            <h2
-              className="mt-4 max-w-[900px] text-[46px] font-medium leading-[0.95] tracking-[-0.06em] sm:text-[62px] lg:text-[76px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              Know what&apos;s happening.
-              <span className="block text-[#DDE7FF]">Know what happens next.</span>
-            </h2>
-            <p className="mt-5 max-w-[700px] text-[15px] leading-[1.7] text-white/68 sm:text-[16px]">
-              We&apos;ll map the customer flow, move the agreed essentials and set up the CRM around how your team actually works.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.05} className="lg:justify-self-end">
-            <div className="flex h-[92px] w-[92px] items-center justify-center rounded-full border border-white/15 bg-white/[0.08] shadow-[0_18px_46px_rgba(14,51,140,.18)]">
-              <ZaplaPetal size={54} />
-            </div>
-          </Reveal>
+    <section className="bg-[#F4F7FA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+      <div className="mx-auto max-w-[1120px] text-center">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111318]">
+          <ZaplaPetal size={34} />
         </div>
-
-        <Reveal className="mt-10 border-t border-white/15 pt-7">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-semibold text-white/55">
-              <span>Customer record</span>
-              <span>→</span>
-              <span>Pipeline</span>
-              <span>→</span>
-              <span>Next step</span>
-            </div>
-
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <a
-                href={BOOK_URL}
-                className="inline-flex h-[50px] items-center justify-center gap-2 rounded-full bg-white px-6 text-[13px] font-semibold text-[#173A80] transition-transform hover:-translate-y-px"
-              >
-                Book a Call <ArrowRight size={15} />
-              </a>
-              <a
-                href={PRICING_URL}
-                className="inline-flex h-[50px] items-center justify-center rounded-full border border-white/20 bg-white/[0.06] px-6 text-[13px] font-semibold text-white"
-              >
-                View pricing
-              </a>
-            </div>
-          </div>
-        </Reveal>
+        <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#2563FF]">
+          One customer story
+        </p>
+        <h2
+          className="mx-auto mt-3 max-w-[940px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[56px] lg:text-[64px]"
+          style={{ fontFamily: DISPLAY }}
+        >
+          Know what&apos;s happening.
+          <span className="block text-[#2563FF]">Know what happens next.</span>
+        </h2>
+        <p className="mx-auto mt-4 max-w-[710px] text-[15px] leading-[1.68] text-[#616C76] sm:text-[16px]">
+          We&apos;ll map the customer flow, move the agreed essentials and set up the CRM around how your team actually works.
+        </p>
+        <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href={BOOK_URL}
+            className="inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px sm:w-auto"
+          >
+            Book a Call <ArrowRight size={15} />
+          </a>
+          <a
+            href={PRICING_URL}
+            className="inline-flex h-[50px] w-full items-center justify-center rounded-full border border-[#D7E0E7] bg-white px-6 text-[13px] font-semibold text-[#111318] sm:w-auto"
+          >
+            View pricing
+          </a>
+        </div>
       </div>
     </section>
   );
