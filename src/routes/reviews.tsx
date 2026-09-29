@@ -308,37 +308,10 @@ function ReviewHeroScene() {
 }
 
 function EvidenceSection() {
-  const stats = [
-    {
-      value: "85%",
-      label: "Positive reviews",
-      copy: "are more likely to use a business after reading positive reviews.",
-      panel: "bg-[#2B251F]",
-      accent: "text-[#E4B85F]",
-      line: "bg-[#D9AA55]",
-    },
-    {
-      value: "47%",
-      label: "Review count",
-      copy: "won’t use a business with fewer than 20 reviews.",
-      panel: "bg-[#182329]",
-      accent: "text-[#AFC7D2]",
-      line: "bg-[#8EAEBD]",
-    },
-    {
-      value: "74%",
-      label: "Recent reviews",
-      copy: "look for reviews written within the last three months.",
-      panel: "bg-[#20261E]",
-      accent: "text-[#BDCAA0]",
-      line: "bg-[#9DAF77]",
-    },
-  ] as const;
-
   return (
     <section className="bg-[#101820] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="mx-auto max-w-[980px] text-center">
+        <Reveal className="max-w-[980px]">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D9AA55]">
             Why reviews matter
           </p>
@@ -349,55 +322,104 @@ function EvidenceSection() {
             People check your reviews
             <span className="block text-[#E4B85F]">before they call.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.72] text-white/58 sm:text-[16px]">
+          <p className="mt-5 max-w-[720px] text-[15px] leading-[1.72] text-white/58 sm:text-[16px]">
             Your rating matters. So does how many reviews you have and how recent
             they are.
           </p>
         </Reveal>
 
-        <Reveal className="mt-12">
-          <div className="overflow-hidden rounded-[32px] border border-white/10 bg-[#141D24] shadow-[0_30px_80px_rgba(0,0,0,.16)]">
-            <div className="grid md:grid-cols-3">
-              {stats.map((stat) => (
-                <article
-                  key={stat.value}
-                  className={"relative flex min-h-[320px] flex-col items-center justify-center px-7 py-10 text-center md:border-r md:border-white/10 md:last:border-r-0 " + stat.panel}
-                >
-                  <span className={"absolute left-1/2 top-0 h-[3px] w-[56%] -translate-x-1/2 rounded-b-full " + stat.line} />
-                  <div className={"text-[10px] font-semibold uppercase tracking-[0.18em] " + stat.accent}>
-                    {stat.label}
-                  </div>
-                  <div
-                    className="mt-5 text-[78px] font-medium leading-none tracking-[-0.07em] text-white sm:text-[88px]"
-                    style={{ fontFamily: DISPLAY }}
-                  >
-                    {stat.value}
-                  </div>
-                  <p className="mx-auto mt-5 max-w-[300px] text-[14px] font-medium leading-[1.62] text-white/68 sm:text-[15px]">
-                    {stat.copy}
-                  </p>
-                </article>
-              ))}
-            </div>
-
-            <div className="grid gap-5 border-t border-white/10 bg-[#121A20] px-7 py-7 sm:px-9 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#D9AA55]">
-                  Higher reviews. Higher visibility.
+        <div className="mt-12 grid gap-4 lg:grid-cols-[1.18fr_.82fr] lg:grid-rows-2">
+          <Reveal className="lg:row-span-2">
+            <article className="relative flex h-full min-h-[440px] flex-col overflow-hidden rounded-[30px] border border-white/10 bg-[#171F25] p-8 shadow-[0_30px_80px_rgba(0,0,0,.16)] sm:p-10">
+              <div className="absolute left-0 top-0 h-[3px] w-[62%] bg-[#D9AA55]" />
+              <div className="flex items-center justify-between gap-4">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#E4B85F]">
+                  Positive reviews
                 </div>
-                <p className="mt-2 max-w-[850px] text-[18px] font-medium leading-[1.55] text-white/88 sm:text-[20px]">
-                  More reviews and positive ratings can also help your business rank better in local search.
+                <div className="flex gap-1 text-[#DDA34B]">
+                  {[0,1,2,3,4].map((item) => (
+                    <Star key={item} size={14} className="fill-current" strokeWidth={1.2} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-auto">
+                <div
+                  className="text-[108px] font-medium leading-[0.86] tracking-[-0.075em] text-white sm:text-[132px]"
+                  style={{ fontFamily: DISPLAY }}
+                >
+                  85%
+                </div>
+                <p className="mt-7 max-w-[480px] text-[18px] font-medium leading-[1.55] text-white/72 sm:text-[21px]">
+                  are more likely to use a business after reading positive reviews.
                 </p>
               </div>
-              <a
-                href="https://support.google.com/business/answer/7091?hl=en"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#E7C67F] transition-colors hover:text-white"
-              >
-                Local ranking guidance <ExternalLink size={12} />
-              </a>
+            </article>
+          </Reveal>
+
+          <Reveal delay={0.06}>
+            <article className="relative flex h-full min-h-[212px] items-end overflow-hidden rounded-[28px] border border-white/10 bg-[#171F25] p-7 shadow-[0_24px_60px_rgba(0,0,0,.12)] sm:p-8">
+              <div className="absolute left-0 top-0 h-[3px] w-[46%] bg-[#8EAEBD]" />
+              <div className="w-full">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#AFC7D2]">
+                  Review count
+                </div>
+                <div className="mt-4 flex items-end justify-between gap-6">
+                  <div
+                    className="text-[72px] font-medium leading-none tracking-[-0.07em] text-white sm:text-[82px]"
+                    style={{ fontFamily: DISPLAY }}
+                  >
+                    47%
+                  </div>
+                  <p className="max-w-[220px] pb-1 text-right text-[13px] font-medium leading-[1.55] text-white/62 sm:text-[14px]">
+                    won&apos;t use a business with fewer than 20 reviews.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          <Reveal delay={0.12}>
+            <article className="relative flex h-full min-h-[212px] items-end overflow-hidden rounded-[28px] border border-white/10 bg-[#171F25] p-7 shadow-[0_24px_60px_rgba(0,0,0,.12)] sm:p-8">
+              <div className="absolute left-0 top-0 h-[3px] w-[46%] bg-[#9DAF77]" />
+              <div className="w-full">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#BDCAA0]">
+                  Recent reviews
+                </div>
+                <div className="mt-4 flex items-end justify-between gap-6">
+                  <div
+                    className="text-[72px] font-medium leading-none tracking-[-0.07em] text-white sm:text-[82px]"
+                    style={{ fontFamily: DISPLAY }}
+                  >
+                    74%
+                  </div>
+                  <p className="max-w-[220px] pb-1 text-right text-[13px] font-medium leading-[1.55] text-white/62 sm:text-[14px]">
+                    look for reviews written within the last three months.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        </div>
+
+        <Reveal className="mt-4">
+          <div className="grid gap-5 rounded-[24px] border border-white/10 bg-[#141C22] px-7 py-6 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#D9AA55]">
+                Higher reviews. Higher visibility.
+              </div>
+              <p className="mt-2 max-w-[850px] text-[18px] font-medium leading-[1.55] text-white/88 sm:text-[20px]">
+                More reviews and positive ratings can also help your business rank better in local search.
+              </p>
             </div>
+            <a
+              href="https://support.google.com/business/answer/7091?hl=en"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#E7C67F] transition-colors hover:text-white"
+            >
+              Local ranking guidance <ExternalLink size={12} />
+            </a>
           </div>
         </Reveal>
 
@@ -653,7 +675,7 @@ function ReviewTimingUi() {
   });
 
   const connector = "#B99568";
-  const connectorSoft = "#D8C3A8";
+  const connectorSoft = "#D9C7AF";
 
   return (
     <div className="overflow-hidden rounded-[24px] border border-[#D7DFE3] bg-white shadow-[0_30px_80px_rgba(46,63,76,.09)]">
@@ -673,34 +695,32 @@ function ReviewTimingUi() {
       </div>
 
       <div
-        className="relative min-h-[570px] overflow-hidden bg-[#F8F8F5] sm:min-h-[600px]"
+        className="relative min-h-[500px] overflow-hidden bg-[#F8F8F5]"
         style={{
-          backgroundImage: "radial-gradient(rgba(157,145,130,.26) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(157,145,130,.24) 1px, transparent 1px)",
           backgroundSize: "18px 18px",
         }}
       >
         <div className="hidden lg:block">
           <svg
             className="pointer-events-none absolute inset-0 h-full w-full"
-            viewBox="0 0 1200 600"
+            viewBox="0 0 1200 500"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
             {[
-              { d: "M262 272 H330", delay: 0.16 },
-              { d: "M510 272 H606", delay: 0.46 },
-              { d: "M796 272 H838 V222 H882", delay: 0.76 },
-              { d: "M1002 302 V356 H980 V410", delay: 1.06 },
+              { d: "M235 250 H320", delay: 0.16 },
+              { d: "M485 250 H570", delay: 0.46 },
+              { d: "M770 250 H855", delay: 0.76 },
             ].map((wire) => (
               <g key={wire.d}>
-                <path d={wire.d} fill="none" stroke={connectorSoft} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d={wire.d} fill="none" stroke={connectorSoft} strokeWidth="2" strokeLinecap="round" />
                 <motion.path
                   d={wire.d}
                   fill="none"
                   stroke={connector}
                   strokeWidth="2.5"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
                   initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                   whileInView={{ pathLength: 1, opacity: 1 }}
                   viewport={{ once: true, amount: 0.5 }}
@@ -711,11 +731,11 @@ function ReviewTimingUi() {
           </svg>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 12 }}
+            initial={reduced ? false : { opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(0.02)}
-            className="absolute left-[6%] top-[35%] w-[190px] rounded-[16px] border border-[#D6DDCF] bg-[#F1F4E9] shadow-[0_14px_34px_rgba(46,63,76,.07)]"
+            className="absolute left-[5.5%] top-1/2 w-[170px] -translate-y-1/2 rounded-[16px] border border-[#D6DDCF] bg-[#F1F4E9] shadow-[0_14px_34px_rgba(46,63,76,.07)]"
           >
             <div className="border-b border-[#DDE4D7] px-4 py-3">
               <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#6E7C59]">Trigger</span>
@@ -728,11 +748,11 @@ function ReviewTimingUi() {
           </motion.div>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 12 }}
+            initial={reduced ? false : { opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(0.32)}
-            className="absolute left-[27.5%] top-[35%] w-[180px] rounded-[16px] border border-[#E2D7C1] bg-[#FBF2DF] shadow-[0_14px_34px_rgba(46,63,76,.065)]"
+            className="absolute left-[26.7%] top-1/2 w-[165px] -translate-y-1/2 rounded-[16px] border border-[#E2D7C1] bg-[#FBF2DF] shadow-[0_14px_34px_rgba(46,63,76,.065)]"
           >
             <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
             <div className="border-b border-[#E9DFC9] px-4 py-3">
@@ -746,11 +766,11 @@ function ReviewTimingUi() {
           </motion.div>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 12, scale: .985 }}
+            initial={reduced ? false : { opacity: 0, y: 10, scale: .985 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(0.62)}
-            className="absolute left-[50.5%] top-[31.5%] w-[190px] rounded-[18px] border border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_18px_44px_rgba(37,99,255,.09)]"
+            className="absolute left-[47.5%] top-1/2 w-[200px] -translate-y-1/2 rounded-[18px] border border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_18px_44px_rgba(37,99,255,.09)]"
           >
             <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
             <div className="flex items-center gap-2 border-b border-[#DDE6F6] px-4 py-3">
@@ -769,52 +789,47 @@ function ReviewTimingUi() {
           </motion.div>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 12 }}
+            initial={reduced ? false : { opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(0.92)}
-            className="absolute left-[73.5%] top-[23%] w-[230px] rounded-[18px] border border-[#E4D7CF] bg-[#FBF1EC] p-4 shadow-[0_16px_42px_rgba(46,63,76,.08)]"
+            className="absolute right-[5%] top-1/2 w-[265px] -translate-y-1/2 overflow-hidden rounded-[20px] border border-[#E4D7CF] bg-[#FFFDFC] shadow-[0_18px_48px_rgba(46,63,76,.09)]"
           >
-            <span className="absolute -left-[7px] top-[62%] h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-            <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
-                <ZaplaPetal size={20} />
-              </span>
-              <div>
-                <div className="text-[10px] font-semibold text-[#273039]">Northside</div>
-                <div className="mt-0.5 text-[8px] text-[#8A949D]">SMS · just now</div>
-              </div>
-            </div>
-            <p className="mt-3 text-[10.5px] leading-[1.52] text-[#4F5A63]">
-              Hi Mia, if you have a minute, we&apos;d value an honest Google review.
-            </p>
-            <div className="mt-3 flex items-center justify-between rounded-[9px] bg-[#1E2B29] px-3 py-2.5 text-[9px] font-semibold text-white">
-              Leave a Google review <ArrowRight size={10} />
-            </div>
-            <span className="absolute bottom-[-7px] right-[43%] h-3.5 w-3.5 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-          </motion.div>
+            <span className="absolute -left-[7px] top-1/2 z-10 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
 
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(1.22)}
-            className="absolute bottom-[6%] right-[8%] w-[250px] rounded-[18px] border border-[#E3DDCC] bg-[#FFF9EB] p-4 shadow-[0_16px_42px_rgba(46,63,76,.08)]"
-          >
-            <span className="absolute -top-[7px] right-[42%] h-3.5 w-3.5 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A7956]">Google review screen</div>
-                <div className="mt-1 text-[13px] font-semibold text-[#202930]">Northside</div>
+            <div className="border-b border-[#EAE4DF] bg-[#FBF1EC] p-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
+                  <ZaplaPetal size={20} />
+                </span>
+                <div>
+                  <div className="text-[10px] font-semibold text-[#273039]">Northside</div>
+                  <div className="mt-0.5 text-[8px] text-[#8A949D]">SMS · just now</div>
+                </div>
               </div>
-              <span className="text-[9px] font-semibold text-[#8A949D]">Google</span>
+              <p className="mt-3 text-[10.5px] leading-[1.52] text-[#4F5A63]">
+                Hi Mia, if you have a minute, we&apos;d value an honest Google review.
+              </p>
+              <div className="mt-3 flex items-center justify-between rounded-[9px] bg-[#1E2B29] px-3 py-2.5 text-[9px] font-semibold text-white">
+                Leave a Google review <ArrowRight size={10} />
+              </div>
             </div>
-            <div className="mt-4 flex items-center gap-1">
-              {[0,1,2,3,4].map((item) => (
-                <Star key={item} size={20} className="fill-[#DDA34B] text-[#DDA34B]" strokeWidth={1.2} />
-              ))}
+
+            <div className="bg-[#FFF9EB] p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A7956]">Review screen opens</div>
+                  <div className="mt-1 text-[12px] font-semibold text-[#202930]">Northside</div>
+                </div>
+                <span className="text-[9px] font-semibold text-[#8A949D]">Google</span>
+              </div>
+              <div className="mt-3 flex items-center gap-1">
+                {[0,1,2,3,4].map((item) => (
+                  <Star key={item} size={18} className="fill-[#DDA34B] text-[#DDA34B]" strokeWidth={1.2} />
+                ))}
+              </div>
+              <p className="mt-2 text-[9.5px] text-[#66717A]">Tap a star to rate your experience</p>
             </div>
-            <p className="mt-2.5 text-[10px] text-[#66717A]">Tap a star to rate your experience</p>
           </motion.div>
         </div>
 
@@ -823,8 +838,7 @@ function ReviewTimingUi() {
             ["Trigger", "Service completed", "bg-[#F1F4E9] border-[#D6DDCF]"],
             ["Wait", "2 hours", "bg-[#FBF2DF] border-[#E2D7C1]"],
             ["Zapla AI", "Review request", "bg-[#F2F6FF] border-[#BFD0F7]"],
-            ["SMS", "Customer receives the link", "bg-[#FBF1EC] border-[#E4D7CF]"],
-            ["Outcome", "Google review screen opens", "bg-[#FFF9EB] border-[#E3DDCC]"],
+            ["Customer", "SMS arrives and opens the review screen", "bg-[#FBF1EC] border-[#E4D7CF]"],
           ].map(([label, title, tone], index) => (
             <motion.div
               key={label}
