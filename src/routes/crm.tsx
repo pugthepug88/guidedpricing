@@ -171,7 +171,7 @@ function Avatar({
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#E2E9F0] bg-[#F7FAFD] px-5 pb-18 pt-[112px] sm:px-10 sm:pb-22 sm:pt-[126px] lg:px-16 lg:pb-24 lg:pt-[138px]">
+    <section className="relative overflow-hidden border-b border-[#E2E9F0] bg-[#F7FAFD] px-5 pb-20 pt-[112px] sm:px-10 sm:pb-24 sm:pt-[126px] lg:px-16 lg:pb-24 lg:pt-[138px]">
       <div className="pointer-events-none absolute right-[-120px] top-[40px] h-[440px] w-[440px] rounded-full bg-[#2563FF]/[0.07] blur-3xl" />
       <div className="pointer-events-none absolute bottom-[-160px] left-[20%] h-[360px] w-[360px] rounded-full bg-[#99A36D]/[0.06] blur-3xl" />
 
@@ -863,7 +863,7 @@ function PlatformSection() {
                   <div className="grid sm:grid-cols-3">
                     {group.items.map(([icon, item]) => (
                       <div key={String(item)} className="flex min-h-[120px] items-center gap-3 border-t border-[#E6ECF1] px-5 py-5 first:border-t-0 sm:border-l sm:border-t-0">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#2563FF]/8 text-[#2563FF]">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#2563FF]/[0.08] text-[#2563FF]">
                           {icon}
                         </span>
                         <span className="text-[11px] font-semibold leading-[1.45] text-[#4D5963]">{item}</span>
