@@ -1034,7 +1034,7 @@ function FeedbackSection() {
                 Positive feedback becomes visible to the next customer.
               </h3>
               <div className="mt-auto pt-8">
-                <div className="flex min-h-[154px] flex-col justify-between rounded-[20px] bg-[#FFF9ED] p-5 shadow-[0_16px_38px_rgba(79,57,28,.10)]">
+                <div className="flex min-h-[154px] flex-col justify-between rounded-[20px] bg-[#FFF9ED] p-5 shadow-[0_16px_38px_rgba(79,57,28,.10)] sm:h-[154px]">
                   <div className="flex items-center gap-3">
                     <ExampleAvatar column={4} row={0} className="h-10 w-10" />
                     <div className="flex-1">
@@ -1069,7 +1069,7 @@ function FeedbackSection() {
                 If something went wrong, your team should know.
               </h3>
               <div className="mt-auto pt-8">
-                <div className="flex min-h-[154px] flex-col justify-between rounded-[20px] border border-white/60 bg-[#FFF9F5]/80 p-5 shadow-[0_16px_38px_rgba(89,56,44,.055)]">
+                <div className="flex min-h-[154px] flex-col justify-between rounded-[20px] border border-white/60 bg-[#FFF9F5]/80 p-5 shadow-[0_16px_38px_rgba(89,56,44,.055)] sm:h-[154px]">
                   <div className="flex items-start gap-3">
                     <ExampleAvatar column={1} row={0} className="h-10 w-10" />
                     <div className="min-w-0 flex-1">
