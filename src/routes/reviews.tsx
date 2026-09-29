@@ -777,16 +777,17 @@ function InPersonMomentSection() {
         </Reveal>
 
         <Reveal delay={0.05} className="w-full lg:max-w-[620px] lg:justify-self-end">
-          <div className="relative overflow-hidden rounded-[26px] bg-[#17212B] text-white shadow-[0_22px_58px_rgba(31,49,68,.14)]">
-            <div className="relative aspect-[3/2] overflow-hidden">
-              <img
-                src={IN_PERSON_SCENE}
-                alt="Customer checking a review link while a staff member finishes the interaction"
-                className="h-full w-full object-cover object-center"
-              />
-              <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[#17212B] via-[#17212B]/30 to-transparent" />
+          <div className="relative text-white drop-shadow-[0_22px_58px_rgba(31,49,68,.14)]">
+            <div className="relative aspect-[3/2]">
+              <div className="absolute inset-0 overflow-hidden rounded-t-[26px]">
+                <img
+                  src={IN_PERSON_SCENE}
+                  alt="Customer checking a review link while a staff member finishes the interaction"
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
 
-              <div className="absolute bottom-4 right-4 w-[250px] max-w-[calc(100%-2rem)] rounded-[16px] border border-white/70 bg-white/96 p-4 text-[#26313A] shadow-[0_16px_38px_rgba(18,29,38,.22)] backdrop-blur sm:w-[280px]">
+              <div className="absolute bottom-[-46px] right-3 z-20 w-[250px] max-w-[calc(100%-1.5rem)] rounded-[16px] border border-[#E6EAED] bg-white p-3.5 text-[#26313A] shadow-[0_16px_38px_rgba(18,29,38,.20)] sm:w-[270px] lg:right-[-24px]">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1E2B29] text-white">
@@ -801,32 +802,24 @@ function InPersonMomentSection() {
                   </div>
                   <Check size={13} className="text-[#82905B]" />
                 </div>
-                <p className="mt-3 text-[10px] leading-[1.5] text-[#4C5861]">
+                <p className="mt-2.5 text-[10px] leading-[1.5] text-[#4C5861]">
                   Thanks again. If you have a minute, we&apos;d really appreciate a quick Google review.
                 </p>
-                <div className="mt-3 flex items-center justify-between border-t border-[#E4E8EB] pt-2.5 text-[9px] font-semibold text-[#1E2B29]">
+                <div className="mt-2.5 flex items-center justify-between border-t border-[#E4E8EB] pt-2 text-[9px] font-semibold text-[#1E2B29]">
                   Leave a review
                   <ArrowRight size={11} />
                 </div>
               </div>
             </div>
 
-            <div className="p-6 sm:p-7">
+            <div className="rounded-b-[26px] bg-[#17212B] px-6 pb-7 pt-16 sm:px-7 sm:pb-8 sm:pt-[68px]">
               <blockquote
-                className="max-w-[600px] text-[22px] font-medium leading-[1.3] tracking-[-0.03em] text-white sm:text-[26px]"
+                className="max-w-[560px] text-[22px] font-medium leading-[1.3] tracking-[-0.03em] text-white sm:text-[25px]"
                 style={{ fontFamily: DISPLAY }}
               >
                 “You&apos;re all sorted. I&apos;ve just sent a review link to your phone.
                 If you&apos;ve got 30 seconds, would you mind leaving us a quick review?”
               </blockquote>
-
-              <div className="mt-6 grid gap-3 border-t border-white/10 pt-4 sm:grid-cols-2">
-                {["Link already on their phone", "Ask while it’s still fresh"].map((item) => (
-                  <div key={item} className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/44">
-                    {item}
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </Reveal>
