@@ -3,14 +3,10 @@ import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
-  Check,
   ChevronDown,
   Database,
   Filter,
-  MessageSquare,
   Search,
-  Settings2,
-  Tag,
   Users,
   Workflow,
 } from "lucide-react";
@@ -332,13 +328,6 @@ function ProductStory() {
             visual={<ContactsShell />}
           />
           <ProductRow
-            index="Conversations"
-            title="The message arrives with the customer context attached."
-            copy="The unified inbox keeps the active conversation beside the customer profile so the person replying can see who they are dealing with and what is already known."
-            visual={<ConversationShell />}
-            reverse
-          />
-          <ProductRow
             index="Pipeline"
             title="See what is moving. And what has stopped."
             copy="View opportunities by stage, owner and value, with stale work visible before it quietly disappears into somebody's memory."
@@ -433,51 +422,6 @@ function ContactsShell() {
         ))}
         <div className="flex h-9 items-center gap-2 rounded-[7px] bg-[#EEF3FF] px-3 text-[9px] font-semibold text-[#2563FF]">
           <span className="h-1.5 w-1.5 rounded-full bg-[#2563FF]" /> 1 match
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ConversationShell() {
-  return (
-    <div className="overflow-hidden rounded-[14px] border border-[#DDE3E9] bg-white shadow-[0_18px_46px_rgba(36,55,78,.07)]">
-      <ProductTopTabs active="Unified inbox" items={["Unified inbox", "Channels", "Saved responses", "Opt-in lists", "Ticketing"]} />
-      <div className="grid min-h-[390px] grid-cols-[180px_1fr_180px]">
-        <div className="border-r border-[#E5E9EE] p-3">
-          <div className="text-[13px] font-semibold text-[#26313B]">Messages</div>
-          {["Mia Thompson", "SMS Contact", "John Smith", "Priya Shah"].map((name, i) => (
-            <div key={name} className={"mt-2 rounded-[8px] px-2.5 py-3 " + (i === 0 ? "bg-[#EEF3F8]" : "")}>
-              <div className="text-[9px] font-semibold text-[#27323D]">{name}</div>
-              <div className="mt-1 text-[7px] text-[#98A2AC]">Recent customer message...</div>
-            </div>
-          ))}
-        </div>
-        <div className="flex flex-col justify-between bg-[#FBFCFD] p-4">
-          <div>
-            <div className="max-w-[88%] rounded-[10px] border border-[#DEE4EA] bg-white px-3.5 py-3 text-[9px] leading-[1.55] text-[#46525E]">
-              Hi Mia, would Tuesday afternoon suit you for the site visit?
-            </div>
-            <div className="mt-3 ml-auto max-w-[82%] rounded-[10px] bg-[#EAF0FF] px-3.5 py-3 text-[9px] leading-[1.55] text-[#344B78]">
-              Tuesday afternoon works. Can you send through the quote?
-            </div>
-          </div>
-          <div className="rounded-[9px] border border-[#DDE3E9] bg-white px-3.5 py-3 text-[8px] text-[#9AA5AF]">Type a message...</div>
-        </div>
-        <div className="border-l border-[#E5E9EE] bg-white p-3.5">
-          <div className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#8F9AA5]">Profile</div>
-          <div className="mt-3 text-[10px] font-semibold text-[#26313B]">Mia Thompson</div>
-          {[
-            ["Owner", "Ben Walker"],
-            ["Department", "Sales"],
-            ["Tag", "VIP"],
-            ["Language", "English"],
-          ].map(([a, b]) => (
-            <div key={a} className="mt-3 rounded-[7px] border border-[#E3E8ED] bg-[#FBFCFD] px-2.5 py-2">
-              <div className="text-[7px] font-semibold text-[#9AA5AF]">{a}</div>
-              <div className="mt-0.5 text-[8px] font-medium text-[#505D69]">{b}</div>
-            </div>
-          ))}
         </div>
       </div>
     </div>
