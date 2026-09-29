@@ -313,73 +313,79 @@ function EvidenceSection() {
       value: "85%",
       label: "Positive reviews",
       copy: "are more likely to use a business after reading positive reviews.",
-      tone: "bg-[#FBF1DF]",
-      accent: "text-[#A66F20]",
+      panel: "bg-[#2B251F]",
+      accent: "text-[#E4B85F]",
+      line: "bg-[#D9AA55]",
     },
     {
       value: "47%",
       label: "Review count",
       copy: "won’t use a business with fewer than 20 reviews.",
-      tone: "bg-[#EFF4F6]",
-      accent: "text-[#5E7786]",
+      panel: "bg-[#182329]",
+      accent: "text-[#AFC7D2]",
+      line: "bg-[#8EAEBD]",
     },
     {
       value: "74%",
       label: "Recent reviews",
       copy: "look for reviews written within the last three months.",
-      tone: "bg-[#F0F2E8]",
-      accent: "text-[#70804D]",
+      panel: "bg-[#20261E]",
+      accent: "text-[#BDCAA0]",
+      line: "bg-[#9DAF77]",
     },
   ] as const;
 
   return (
-    <section className="bg-[#F7F5F0] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+    <section className="bg-[#101820] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="mx-auto max-w-[980px] text-center">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A7772E]">Why reviews matter</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D9AA55]">
+            Why reviews matter
+          </p>
           <h2
-            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.057em] text-[#111318] sm:text-[60px] lg:text-[74px]"
+            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.057em] sm:text-[60px] lg:text-[74px]"
             style={{ fontFamily: DISPLAY }}
           >
             People check your reviews
-            <span className="block text-[#B27B2D]">before they call.</span>
+            <span className="block text-[#E4B85F]">before they call.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.72] text-[#68727A] sm:text-[16px]">
+          <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.72] text-white/58 sm:text-[16px]">
             Your rating matters. So does how many reviews you have and how recent
             they are.
           </p>
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="overflow-hidden rounded-[34px] border border-[#DDD8CF] bg-white shadow-[0_28px_70px_rgba(49,39,29,.065)]">
+          <div className="overflow-hidden rounded-[32px] border border-white/10 bg-[#141D24] shadow-[0_30px_80px_rgba(0,0,0,.16)]">
             <div className="grid md:grid-cols-3">
               {stats.map((stat) => (
                 <article
                   key={stat.value}
-                  className={"flex min-h-[320px] flex-col items-center justify-center px-7 py-10 text-center md:border-r md:border-[#E5E1DA] md:last:border-r-0 " + stat.tone}
+                  className={"relative flex min-h-[320px] flex-col items-center justify-center px-7 py-10 text-center md:border-r md:border-white/10 md:last:border-r-0 " + stat.panel}
                 >
+                  <span className={"absolute left-1/2 top-0 h-[3px] w-[56%] -translate-x-1/2 rounded-b-full " + stat.line} />
                   <div className={"text-[10px] font-semibold uppercase tracking-[0.18em] " + stat.accent}>
                     {stat.label}
                   </div>
                   <div
-                    className="mt-5 text-[78px] font-medium leading-none tracking-[-0.07em] text-[#17212B] sm:text-[88px]"
+                    className="mt-5 text-[78px] font-medium leading-none tracking-[-0.07em] text-white sm:text-[88px]"
                     style={{ fontFamily: DISPLAY }}
                   >
                     {stat.value}
                   </div>
-                  <p className="mx-auto mt-5 max-w-[300px] text-[14px] font-medium leading-[1.62] text-[#5F686F] sm:text-[15px]">
+                  <p className="mx-auto mt-5 max-w-[300px] text-[14px] font-medium leading-[1.62] text-white/68 sm:text-[15px]">
                     {stat.copy}
                   </p>
                 </article>
               ))}
             </div>
 
-            <div className="grid gap-5 border-t border-[#E5E1DA] bg-[#FCFAF6] px-7 py-7 sm:px-9 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div className="grid gap-5 border-t border-white/10 bg-[#121A20] px-7 py-7 sm:px-9 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
-                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#A7772E]">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#D9AA55]">
                   Higher reviews. Higher visibility.
                 </div>
-                <p className="mt-2 max-w-[850px] text-[18px] font-medium leading-[1.55] text-[#232B32] sm:text-[20px]">
+                <p className="mt-2 max-w-[850px] text-[18px] font-medium leading-[1.55] text-white/88 sm:text-[20px]">
                   More reviews and positive ratings can also help your business rank better in local search.
                 </p>
               </div>
@@ -387,7 +393,7 @@ function EvidenceSection() {
                 href="https://support.google.com/business/answer/7091?hl=en"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#8C692E] transition-colors hover:text-[#5F451E]"
+                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#E7C67F] transition-colors hover:text-white"
               >
                 Local ranking guidance <ExternalLink size={12} />
               </a>
@@ -395,13 +401,13 @@ function EvidenceSection() {
           </div>
         </Reveal>
 
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[11px] leading-[1.6] text-[#7D858B]">
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-[11px] leading-[1.6] text-white/42">
           <span>Consumer figures: BrightLocal Local Consumer Review Survey 2026, 1,002 US adults.</span>
           <a
             href="https://www.brightlocal.com/research/local-consumer-review-survey/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 font-semibold text-[#68727A] transition-colors hover:text-[#30383E]"
+            className="inline-flex items-center gap-1.5 font-semibold text-white/55 transition-colors hover:text-white/80"
           >
             View source <ExternalLink size={11} />
           </a>
@@ -416,7 +422,7 @@ function ProblemSection() {
     <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
         <Reveal>
-          <div className="overflow-hidden rounded-[36px] border border-[#E0DBD2] bg-[#F8F4ED] shadow-[0_28px_70px_rgba(49,39,29,.06)]">
+          <div className="overflow-hidden rounded-[36px] border border-[#E2E4E3] bg-[#FAFAF8] shadow-[0_28px_70px_rgba(49,39,29,.055)]">
             <div className="grid gap-12 px-7 py-10 sm:px-10 sm:py-12 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-16 lg:px-12 lg:py-14">
               <div className="max-w-[760px]">
                 <Eyebrow>The part businesses miss</Eyebrow>
@@ -434,7 +440,7 @@ function ProblemSection() {
                 </p>
               </div>
 
-              <div className="border-t border-[#DED5C8] pt-8 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+              <div className="border-t border-[#DFE2E0] pt-8 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
                 <div className="grid gap-8 sm:grid-cols-[1fr_auto] sm:items-end lg:block">
                   <div>
                     <div
@@ -448,7 +454,7 @@ function ProblemSection() {
                     </p>
                   </div>
 
-                  <div className="sm:text-right lg:mt-9 lg:border-t lg:border-[#DED5C8] lg:pt-7 lg:text-left">
+                  <div className="sm:text-right lg:mt-9 lg:border-t lg:border-[#DFE2E0] lg:pt-7 lg:text-left">
                     <div
                       className="text-[42px] font-medium leading-none tracking-[-0.055em] text-[#A66F20] sm:text-[50px]"
                       style={{ fontFamily: DISPLAY }}
@@ -475,19 +481,19 @@ function ProblemSection() {
               </div>
             </div>
 
-            <div className="grid gap-6 border-t border-[#DED5C8] bg-[#F2ECE2] px-7 py-7 sm:px-10 lg:grid-cols-[.8fr_1.2fr] lg:items-center lg:px-12">
+            <div className="grid gap-6 border-t border-[#26343E] bg-[#17212B] px-7 py-7 text-white sm:px-10 lg:grid-cols-[.8fr_1.2fr] lg:items-center lg:px-12">
               <div>
-                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#8B682F]">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#D9AA55]">
                   The missing step
                 </div>
                 <div
-                  className="mt-2 text-[32px] font-medium leading-[1] tracking-[-0.05em] text-[#1D2832] sm:text-[40px]"
+                  className="mt-2 text-[32px] font-medium leading-[1] tracking-[-0.05em] text-white sm:text-[40px]"
                   style={{ fontFamily: DISPLAY }}
                 >
                   Ask while it&apos;s still fresh.
                 </div>
               </div>
-              <p className="max-w-[700px] text-[15px] leading-[1.7] text-[#5D6973] sm:text-[17px]">
+              <p className="max-w-[700px] text-[15px] leading-[1.7] text-white/62 sm:text-[17px]">
                 Not two weeks later. Not when somebody remembers. Ask when the work
                 is finished and the experience is still fresh.
               </p>
@@ -610,7 +616,7 @@ function MechanismSection() {
 
 function TimingSection() {
   return (
-    <section className="overflow-hidden bg-[#EEF3F6] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+    <section className="overflow-hidden bg-[#F4F7F8] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[920px]">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#98702D]">
@@ -641,20 +647,23 @@ function ReviewTimingUi() {
   const reduced = !!useReducedMotion();
 
   const wireTransition = (delay: number) => ({
-    duration: reduced ? 0 : 0.55,
+    duration: reduced ? 0 : 0.58,
     delay: reduced ? 0 : delay,
     ease: EASE,
   });
 
+  const connector = "#B99568";
+  const connectorSoft = "#D8C3A8";
+
   return (
-    <div className="overflow-hidden rounded-[26px] border border-[#D9E1E6] bg-white shadow-[0_30px_80px_rgba(46,63,76,.10)]">
-      <div className="flex flex-wrap items-center gap-3 border-b border-[#E3E8EB] bg-[#FCFDFD] px-5 py-3.5 sm:px-6">
+    <div className="overflow-hidden rounded-[24px] border border-[#D7DFE3] bg-white shadow-[0_30px_80px_rgba(46,63,76,.09)]">
+      <div className="flex flex-wrap items-center gap-3 border-b border-[#E2E7E9] bg-[#FCFCFB] px-5 py-3.5 sm:px-6">
         <div className="flex min-w-0 items-center gap-2">
           <span className="text-[10px] font-medium text-[#98A1A8]">Automations /</span>
           <span className="truncate text-[12px] font-semibold text-[#2C353C]">Reviews / Post-service review request</span>
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E8F4E8] px-2.5 py-1 text-[9px] font-bold text-[#5D765D]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#6E986F]" />
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EEF3E8] px-2.5 py-1 text-[9px] font-bold text-[#667A55]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#8FA06B]" />
           Active
         </span>
         <div className="ml-auto hidden items-center gap-2 sm:flex">
@@ -664,33 +673,34 @@ function ReviewTimingUi() {
       </div>
 
       <div
-        className="relative min-h-[560px] overflow-hidden bg-[#F7F9FA] sm:min-h-[590px]"
+        className="relative min-h-[570px] overflow-hidden bg-[#F8F8F5] sm:min-h-[600px]"
         style={{
-          backgroundImage: "radial-gradient(rgba(132,148,160,.28) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(157,145,130,.26) 1px, transparent 1px)",
           backgroundSize: "18px 18px",
         }}
       >
         <div className="hidden lg:block">
           <svg
             className="pointer-events-none absolute inset-0 h-full w-full"
-            viewBox="0 0 1200 590"
+            viewBox="0 0 1200 600"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
             {[
-              { d: "M240 284 H330", delay: 0.16 },
-              { d: "M510 284 H605", delay: 0.46 },
-              { d: "M795 284 H885", delay: 0.76 },
-              { d: "M1010 350 V428", delay: 1.06 },
+              { d: "M262 272 H330", delay: 0.16 },
+              { d: "M510 272 H606", delay: 0.46 },
+              { d: "M796 272 H838 V222 H882", delay: 0.76 },
+              { d: "M1002 302 V356 H980 V410", delay: 1.06 },
             ].map((wire) => (
               <g key={wire.d}>
-                <path d={wire.d} fill="none" stroke="#C7D1D8" strokeWidth="2" strokeLinecap="round" />
+                <path d={wire.d} fill="none" stroke={connectorSoft} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 <motion.path
                   d={wire.d}
                   fill="none"
-                  stroke="#2563FF"
-                  strokeWidth="2.4"
+                  stroke={connector}
+                  strokeWidth="2.5"
                   strokeLinecap="round"
+                  strokeLinejoin="round"
                   initial={reduced ? false : { pathLength: 0, opacity: 0 }}
                   whileInView={{ pathLength: 1, opacity: 1 }}
                   viewport={{ once: true, amount: 0.5 }}
@@ -701,49 +711,49 @@ function ReviewTimingUi() {
           </svg>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 14 }}
+            initial={reduced ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(0.02)}
-            className="absolute left-[6%] top-[34%] w-[190px] rounded-[16px] border border-[#DCE3E7] bg-white shadow-[0_14px_34px_rgba(46,63,76,.08)]"
+            className="absolute left-[6%] top-[35%] w-[190px] rounded-[16px] border border-[#D6DDCF] bg-[#F1F4E9] shadow-[0_14px_34px_rgba(46,63,76,.07)]"
           >
-            <div className="border-b border-[#EDF0F2] px-4 py-3">
-              <span className="rounded-full bg-[#E8F3E8] px-2 py-1 text-[8px] font-bold uppercase tracking-[0.12em] text-[#5E795E]">Trigger</span>
+            <div className="border-b border-[#DDE4D7] px-4 py-3">
+              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#6E7C59]">Trigger</span>
             </div>
             <div className="px-4 py-4">
               <div className="text-[13px] font-semibold text-[#222A30]">Service completed</div>
-              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#879199]">Customer moves into the review workflow.</div>
+              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#7C878D]">Customer enters the review workflow.</div>
             </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#7E9B7C] shadow-[0_0_0_1px_#C8D1D6]" />
+            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
           </motion.div>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 14 }}
+            initial={reduced ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(0.32)}
-            className="absolute left-[27.5%] top-[34%] w-[180px] rounded-[16px] border border-[#E2D8C4] bg-[#FFFDF8] shadow-[0_14px_34px_rgba(46,63,76,.07)]"
+            className="absolute left-[27.5%] top-[35%] w-[180px] rounded-[16px] border border-[#E2D7C1] bg-[#FBF2DF] shadow-[0_14px_34px_rgba(46,63,76,.065)]"
           >
-            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#D3B16A] shadow-[0_0_0_1px_#C8D1D6]" />
-            <div className="border-b border-[#EEE7DA] px-4 py-3">
-              <span className="rounded-full bg-[#F6ECD5] px-2 py-1 text-[8px] font-bold uppercase tracking-[0.12em] text-[#8B682F]">Wait</span>
+            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+            <div className="border-b border-[#E9DFC9] px-4 py-3">
+              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8B682F]">Wait</span>
             </div>
             <div className="px-4 py-4">
               <div className="text-[13px] font-semibold text-[#222A30]">2 hours</div>
-              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#879199]">Give the customer time before asking.</div>
+              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#7C878D]">Give the customer time before asking.</div>
             </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#D3B16A] shadow-[0_0_0_1px_#C8D1D6]" />
+            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
           </motion.div>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 14, scale: .98 }}
+            initial={reduced ? false : { opacity: 0, y: 12, scale: .985 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(0.62)}
-            className="absolute left-[50.5%] top-[30%] w-[190px] rounded-[18px] border border-[#AFC3FF] bg-[#F5F8FF] shadow-[0_18px_46px_rgba(37,99,255,.12)]"
+            className="absolute left-[50.5%] top-[31.5%] w-[190px] rounded-[18px] border border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_18px_44px_rgba(37,99,255,.09)]"
           >
-            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#2563FF] shadow-[0_0_0_1px_#AFC3FF]" />
-            <div className="flex items-center gap-2 border-b border-[#DCE6FF] px-4 py-3">
+            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+            <div className="flex items-center gap-2 border-b border-[#DDE6F6] px-4 py-3">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
                 <ZaplaPetal size={20} />
               </span>
@@ -755,19 +765,19 @@ function ReviewTimingUi() {
             <div className="px-4 py-4">
               <div className="text-[10px] leading-[1.5] text-[#66727D]">Personalises the message and sends it automatically.</div>
             </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#2563FF] shadow-[0_0_0_1px_#AFC3FF]" />
+            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
           </motion.div>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 14 }}
+            initial={reduced ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(0.92)}
-            className="absolute left-[73.5%] top-[24%] w-[230px] rounded-[18px] border border-[#DDE3E7] bg-white p-4 shadow-[0_16px_42px_rgba(46,63,76,.10)]"
+            className="absolute left-[73.5%] top-[23%] w-[230px] rounded-[18px] border border-[#E4D7CF] bg-[#FBF1EC] p-4 shadow-[0_16px_42px_rgba(46,63,76,.08)]"
           >
-            <span className="absolute -left-[7px] top-[56%] h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#2563FF] shadow-[0_0_0_1px_#C8D1D6]" />
+            <span className="absolute -left-[7px] top-[62%] h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
             <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1E2B29]">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
                 <ZaplaPetal size={20} />
               </span>
               <div>
@@ -781,27 +791,27 @@ function ReviewTimingUi() {
             <div className="mt-3 flex items-center justify-between rounded-[9px] bg-[#1E2B29] px-3 py-2.5 text-[9px] font-semibold text-white">
               Leave a Google review <ArrowRight size={10} />
             </div>
-            <span className="absolute bottom-[-7px] right-[44%] h-3.5 w-3.5 rounded-full border-2 border-white bg-[#2563FF] shadow-[0_0_0_1px_#C8D1D6]" />
+            <span className="absolute bottom-[-7px] right-[43%] h-3.5 w-3.5 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
           </motion.div>
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 14 }}
+            initial={reduced ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={wireTransition(1.22)}
-            className="absolute bottom-[7%] right-[8%] w-[250px] rounded-[18px] border border-[#DDE3E7] bg-white p-4 shadow-[0_16px_42px_rgba(46,63,76,.10)]"
+            className="absolute bottom-[6%] right-[8%] w-[250px] rounded-[18px] border border-[#E3DDCC] bg-[#FFF9EB] p-4 shadow-[0_16px_42px_rgba(46,63,76,.08)]"
           >
-            <span className="absolute -top-[7px] right-[42%] h-3.5 w-3.5 rounded-full border-2 border-white bg-[#9AAE72] shadow-[0_0_0_1px_#C8D1D6]" />
+            <span className="absolute -top-[7px] right-[42%] h-3.5 w-3.5 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#7E8992]">Google review screen</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A7956]">Google review screen</div>
                 <div className="mt-1 text-[13px] font-semibold text-[#202930]">Northside</div>
               </div>
               <span className="text-[9px] font-semibold text-[#8A949D]">Google</span>
             </div>
             <div className="mt-4 flex items-center gap-1">
               {[0,1,2,3,4].map((item) => (
-                <Star key={item} size={20} className="fill-[#E1AD45] text-[#E1AD45]" strokeWidth={1.2} />
+                <Star key={item} size={20} className="fill-[#DDA34B] text-[#DDA34B]" strokeWidth={1.2} />
               ))}
             </div>
             <p className="mt-2.5 text-[10px] text-[#66717A]">Tap a star to rate your experience</p>
@@ -810,21 +820,21 @@ function ReviewTimingUi() {
 
         <div className="space-y-4 p-5 lg:hidden">
           {[
-            ["Trigger", "Service completed"],
-            ["Wait", "2 hours"],
-            ["Zapla AI", "Review request"],
-            ["SMS", "Customer receives the link"],
-            ["Outcome", "Google review screen opens"],
-          ].map(([label, title], index) => (
+            ["Trigger", "Service completed", "bg-[#F1F4E9] border-[#D6DDCF]"],
+            ["Wait", "2 hours", "bg-[#FBF2DF] border-[#E2D7C1]"],
+            ["Zapla AI", "Review request", "bg-[#F2F6FF] border-[#BFD0F7]"],
+            ["SMS", "Customer receives the link", "bg-[#FBF1EC] border-[#E4D7CF]"],
+            ["Outcome", "Google review screen opens", "bg-[#FFF9EB] border-[#E3DDCC]"],
+          ].map(([label, title, tone], index) => (
             <motion.div
               key={label}
               initial={reduced ? false : { opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.7 }}
               transition={wireTransition(index * 0.12)}
-              className="relative rounded-[16px] border border-[#DDE3E7] bg-white px-4 py-4 shadow-[0_10px_28px_rgba(46,63,76,.06)]"
+              className={"relative rounded-[16px] border px-4 py-4 shadow-[0_10px_28px_rgba(46,63,76,.055)] " + tone}
             >
-              <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A949D]">{label}</div>
+              <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A795F]">{label}</div>
               <div className="mt-1 text-[13px] font-semibold text-[#202930]">{title}</div>
             </motion.div>
           ))}
