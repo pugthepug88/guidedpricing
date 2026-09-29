@@ -754,54 +754,54 @@ function ReviewTimingUi() {
 
 function InPersonMomentSection() {
   return (
-    <section className="bg-[#EEF3F7] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto grid max-w-[1320px] gap-12 lg:grid-cols-[.92fr_1.08fr] lg:items-center lg:gap-20">
-        <Reveal>
+    <section className="bg-[#EEF3F7] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+      <div className="mx-auto grid max-w-[1240px] gap-12 lg:grid-cols-[.95fr_1.05fr] lg:items-center lg:gap-16">
+        <Reveal className="max-w-[570px]">
           <Eyebrow>When they&apos;re still there</Eyebrow>
           <h2
-            className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] text-[#16202A] sm:text-[56px] lg:text-[66px]"
+            className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] text-[#16202A] sm:text-[56px] lg:text-[64px]"
             style={{ fontFamily: DISPLAY }}
           >
             Make the human ask
             <span className="block text-[#A66F20]">easy too.</span>
           </h2>
-          <p className="mt-5 max-w-[600px] text-[15px] leading-[1.72] text-[#616D77] sm:text-[16px]">
-            If the customer is still standing there, your team doesn&apos;t need to
-            explain how to find the business on Google. The link is already on the
-            customer&apos;s phone.
+          <p className="mt-5 max-w-[560px] text-[15px] leading-[1.72] text-[#616D77] sm:text-[16px]">
+            If the customer is still there, your team can simply say the review
+            link has been sent. No directions. No searching. They can open it from
+            their phone when they&apos;re ready.
           </p>
-          <div className="mt-8 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.13em] text-[#7B8790]">
+          <div className="mt-7 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.13em] text-[#7B8790]">
             <Smartphone size={15} className="text-[#A66F20]" />
             Sent automatically · ready when you ask
           </div>
         </Reveal>
 
-        <Reveal delay={0.05}>
-          <div className="relative overflow-hidden rounded-[30px] bg-[#17212B] text-white shadow-[0_26px_70px_rgba(31,49,68,.16)]">
-            <div className="relative aspect-[4/3] overflow-hidden">
+        <Reveal delay={0.05} className="w-full lg:max-w-[620px] lg:justify-self-end">
+          <div className="relative overflow-hidden rounded-[26px] bg-[#17212B] text-white shadow-[0_22px_58px_rgba(31,49,68,.14)]">
+            <div className="relative aspect-[3/2] overflow-hidden">
               <img
                 src={IN_PERSON_SCENE}
                 alt="Customer checking a review link while a staff member finishes the interaction"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover object-center"
               />
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#17212B] via-[#17212B]/45 to-transparent" />
-              <div className="absolute bottom-5 left-5 rounded-full border border-white/20 bg-[#17212B]/80 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/70 backdrop-blur">
-                Link already sent
+              <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[#17212B] via-[#17212B]/36 to-transparent" />
+              <div className="absolute bottom-4 left-4 rounded-full border border-white/18 bg-[#17212B]/78 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[0.14em] text-white/72 backdrop-blur">
+                Review link sent
               </div>
             </div>
 
-            <div className="p-7 sm:p-9">
+            <div className="p-6 sm:p-7">
               <blockquote
-                className="max-w-[720px] text-[26px] font-medium leading-[1.28] tracking-[-0.035em] text-white sm:text-[32px]"
+                className="max-w-[600px] text-[22px] font-medium leading-[1.3] tracking-[-0.03em] text-white sm:text-[26px]"
                 style={{ fontFamily: DISPLAY }}
               >
                 “You&apos;re all sorted. I&apos;ve just sent a review link to your phone.
                 If you&apos;ve got 30 seconds, would you mind leaving us a quick review?”
               </blockquote>
 
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                {["Link already sent", "Experience is fresh", "No instructions needed"].map((item) => (
-                  <div key={item} className="border-t border-white/12 pt-3 text-[10px] font-semibold text-white/52">
+              <div className="mt-6 grid gap-3 border-t border-white/10 pt-4 sm:grid-cols-2">
+                {["Experience still fresh", "Nothing to search for"].map((item) => (
+                  <div key={item} className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/44">
                     {item}
                   </div>
                 ))}
