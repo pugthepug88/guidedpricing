@@ -39,7 +39,7 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
-const IN_PERSON_SCENE = "/concept/reviews-v3-human-two-women.webp";
+const IN_PERSON_SCENE = "/concept/reviews-v3-human-clean.png";
 
 const FAQS = [
   {
