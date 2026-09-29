@@ -705,12 +705,12 @@ function PipelineSection() {
 
 function ActionSection() {
   const journey = [
-    { label: "Enquiry", detail: "9:18 AM", done: true },
-    { label: "Assigned", detail: "Ben", done: true },
-    { label: "Booked", detail: "Tue · 2:30", done: true },
-    { label: "Quote sent", detail: "A$2,850", done: true },
+    { label: "Enquiry", detail: "9:18 AM", done: true, current: false },
+    { label: "Assigned", detail: "Ben", done: true, current: false },
+    { label: "Booked", detail: "Tue · 2:30", done: true, current: false },
+    { label: "Quote sent", detail: "A$2,850", done: true, current: false },
     { label: "Follow up", detail: "Thu · 10:00", current: true },
-    { label: "Review", detail: "After job", done: false },
+    { label: "Review", detail: "After job", done: false, current: false },
   ] as const;
 
   return (
