@@ -110,7 +110,7 @@ export function SiteNav() {
             {openMenu === "products" && (
               <div className="absolute left-1/2 top-full z-50 w-56 -translate-x-1/2 pt-3">
                 <div className="rounded-2xl border border-zapla-line bg-white p-2 shadow-zapla">
-                  <a href="https://zapla.io/crm" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Zapla CRM</a>
+                  <a href="/crm" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Zapla CRM</a>
                   <a href="/follow-up" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Follow-Up</a>
                   <a href="/ai-receptionist" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">AI Receptionist</a>
                   <a href="/reactivation" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Reopen</a>
@@ -179,7 +179,7 @@ export function SiteNav() {
             <details className="group">
               <summary className="flex cursor-pointer list-none items-center justify-between py-2">Products<span className="text-zapla-muted group-open:rotate-180 transition">▾</span></summary>
               <div className="ml-3 grid gap-1 pb-2 text-[14px] text-zapla-muted">
-                <a href="https://zapla.io/crm" className="py-1.5">Zapla CRM</a>
+                <a href="/crm" className="py-1.5">Zapla CRM</a>
                 <a href="/follow-up" className="py-1.5">Follow-Up</a>
                 <a href="/ai-receptionist" className="py-1.5">AI Receptionist</a>
                 <a href="/reactivation" className="py-1.5">Reopen</a>
