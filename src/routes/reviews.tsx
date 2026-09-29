@@ -7,7 +7,6 @@ import {
   ChevronDown,
   Clock3,
   ExternalLink,
-  MessageSquareText,
   MousePointerClick,
   Send,
   ShieldCheck,
@@ -642,7 +641,7 @@ function MechanismSection() {
 
 function TimingSection() {
   return (
-    <section className="overflow-hidden bg-[#F4F7F8] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+    <section className="overflow-hidden bg-[#EEF3F7] px-5 py-20 text-[#111318] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[920px]">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#98702D]">
@@ -671,166 +670,190 @@ function TimingSection() {
 
 function ReviewTimingUi() {
   const reduced = !!useReducedMotion();
-
-  const wireTransition = (delay: number) => ({
-    duration: reduced ? 0 : 0.58,
-    delay: reduced ? 0 : delay,
-    ease: EASE,
-  });
-
   const connector = "#B99568";
   const connectorSoft = "#D9C7AF";
+
+  const reveal = (delay: number) => ({
+    initial: reduced ? false as const : { opacity: 0, y: 10 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.5 },
+    transition: {
+      duration: reduced ? 0 : 0.46,
+      delay: reduced ? 0 : delay,
+      ease: EASE,
+    },
+  });
+
+  const FlowConnector = ({ delay }: { delay: number }) => (
+    <div className="relative hidden h-full min-h-[180px] items-center lg:flex">
+      <span
+        className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 rounded-full"
+        style={{ backgroundColor: connectorSoft }}
+      />
+      <motion.span
+        className="absolute left-0 right-0 top-1/2 h-[2px] origin-left -translate-y-1/2 rounded-full"
+        style={{ backgroundColor: connector }}
+        initial={reduced ? false : { scaleX: 0, opacity: 0 }}
+        whileInView={{ scaleX: 1, opacity: 1 }}
+        viewport={{ once: true, amount: 0.6 }}
+        transition={{ duration: reduced ? 0 : 0.5, delay, ease: EASE }}
+      />
+      <span className="absolute left-0 top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+      <span className="absolute right-0 top-1/2 h-3.5 w-3.5 translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+      {!reduced && (
+        <motion.span
+          className="absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border-2 border-[#FFFDF8] bg-[#D5A765]"
+          initial={{ left: 0, opacity: 0 }}
+          animate={{
+            left: ["0%", "100%"],
+            opacity: [0, 1, 1, 0],
+          }}
+          transition={{
+            duration: 0.72,
+            delay,
+            repeat: Infinity,
+            repeatDelay: 2.25,
+            ease: EASE,
+          }}
+          style={{ boxShadow: "0 0 10px rgba(213,167,101,.62)" }}
+        />
+      )}
+    </div>
+  );
+
+  const MobileConnector = ({ delay }: { delay: number }) => (
+    <div className="relative mx-auto h-7 w-[2px] bg-[#D9C7AF] lg:hidden">
+      {!reduced && (
+        <motion.span
+          className="absolute left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-[#FFFDF8] bg-[#D5A765]"
+          initial={{ top: 0, opacity: 0 }}
+          animate={{ top: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+          transition={{ duration: 0.55, delay, repeat: Infinity, repeatDelay: 2.4, ease: EASE }}
+          style={{ boxShadow: "0 0 8px rgba(213,167,101,.5)" }}
+        />
+      )}
+    </div>
+  );
+
+  const nodeBase =
+    "relative rounded-[18px] border shadow-[0_14px_34px_rgba(46,63,76,.065)]";
 
   return (
     <div className="overflow-hidden rounded-[24px] border border-[#D7DFE3] bg-white shadow-[0_30px_80px_rgba(46,63,76,.09)]">
       <div className="flex flex-wrap items-center gap-3 border-b border-[#E2E7E9] bg-[#FCFCFB] px-5 py-3.5 sm:px-6">
         <div className="flex min-w-0 items-center gap-2">
           <span className="text-[10px] font-medium text-[#98A1A8]">Automations /</span>
-          <span className="truncate text-[12px] font-semibold text-[#2C353C]">Reviews / Post-service review request</span>
+          <span className="truncate text-[12px] font-semibold text-[#2C353C]">
+            Reviews / Post-service review request
+          </span>
         </div>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EEF3E8] px-2.5 py-1 text-[9px] font-bold text-[#667A55]">
           <span className="h-1.5 w-1.5 rounded-full bg-[#8FA06B]" />
           Active
         </span>
         <div className="ml-auto hidden items-center gap-2 sm:flex">
-          <span className="rounded-[8px] border border-[#DCE2E6] bg-white px-3 py-1.5 text-[9px] font-semibold text-[#67727A]">Save</span>
-          <span className="rounded-[8px] bg-[#17212B] px-3 py-1.5 text-[9px] font-semibold text-white">Published</span>
+          <span className="rounded-[8px] border border-[#DCE2E6] bg-white px-3 py-1.5 text-[9px] font-semibold text-[#67727A]">
+            Save
+          </span>
+          <span className="rounded-[8px] bg-[#17212B] px-3 py-1.5 text-[9px] font-semibold text-white">
+            Published
+          </span>
         </div>
       </div>
 
       <div
-        className="relative min-h-[500px] overflow-hidden bg-[#F8F8F5]"
+        className="relative overflow-hidden bg-[#F8F8F5] px-5 py-9 sm:px-7 sm:py-10 lg:px-9 lg:py-11"
         style={{
-          backgroundImage: "radial-gradient(rgba(157,145,130,.24) 1px, transparent 1px)",
+          backgroundImage:
+            "radial-gradient(rgba(157,145,130,.24) 1px, transparent 1px)",
           backgroundSize: "18px 18px",
         }}
       >
-        <div className="hidden lg:block">
-          <svg
-            className="pointer-events-none absolute inset-0 h-full w-full"
-            viewBox="0 0 1200 500"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            {[
-              { d: "M235 250 H320", x1: 235, x2: 320, delay: 0.10, pulseDelay: 0.15 },
-              { d: "M485 250 H570", x1: 485, x2: 570, delay: 0.40, pulseDelay: 1.15 },
-              { d: "M770 250 H855", x1: 770, x2: 855, delay: 0.70, pulseDelay: 2.15 },
-            ].map((wire) => (
-              <g key={wire.d}>
-                <path d={wire.d} fill="none" stroke={connectorSoft} strokeWidth="2" strokeLinecap="round" />
-                <motion.path
-                  d={wire.d}
-                  fill="none"
-                  stroke={connector}
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  initial={reduced ? false : { pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 1 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={wireTransition(wire.delay)}
-                />
-                {!reduced && (
-                  <motion.circle
-                    cy="250"
-                    r="4.5"
-                    fill="#D5A765"
-                    stroke="#FFFDF8"
-                    strokeWidth="2"
-                    initial={{ cx: wire.x1, opacity: 0 }}
-                    animate={{
-                      cx: [wire.x1, wire.x2],
-                      opacity: [0, 1, 1, 0],
-                    }}
-                    transition={{
-                      duration: 0.9,
-                      delay: wire.pulseDelay,
-                      repeat: Infinity,
-                      repeatDelay: 2.1,
-                      ease: EASE,
-                    }}
-                    style={{ filter: "drop-shadow(0 0 5px rgba(213,167,101,.55))" }}
-                  />
-                )}
-              </g>
-            ))}
-          </svg>
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[200px] w-[620px] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-[#DDA34B]/[0.035] blur-[54px]" />
 
+        <div className="relative hidden grid-cols-[1fr_58px_.92fr_58px_1.1fr_58px_1.35fr] items-center lg:grid">
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(0.02)}
-            className="absolute left-[5.5%] top-1/2 w-[170px] -translate-y-1/2 rounded-[16px] border border-[#D6DDCF] bg-[#F1F4E9] shadow-[0_14px_34px_rgba(46,63,76,.07)]"
+            {...reveal(0.02)}
+            className={nodeBase + " min-h-[178px] border-[#D6DDCF] bg-[#F1F4E9]"}
           >
-            <div className="border-b border-[#DDE4D7] px-4 py-3">
-              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#6E7C59]">Trigger</span>
+            <div className="border-b border-[#DDE4D7] px-5 py-3.5">
+              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#6E7C59]">
+                Trigger
+              </span>
             </div>
-            <div className="px-4 py-4">
-              <div className="text-[13px] font-semibold text-[#222A30]">Service completed</div>
-              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#7C878D]">Customer enters the review workflow.</div>
+            <div className="px-5 py-5">
+              <div className="text-[14px] font-semibold text-[#222A30]">
+                Service completed
+              </div>
+              <div className="mt-2 text-[10px] leading-[1.55] text-[#7C878D]">
+                Customer enters the review workflow.
+              </div>
             </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
           </motion.div>
 
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(0.32)}
-            className="absolute left-[26.7%] top-1/2 w-[165px] -translate-y-1/2 rounded-[16px] border border-[#E2D7C1] bg-[#FBF2DF] shadow-[0_14px_34px_rgba(46,63,76,.065)]"
-          >
-            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-            <div className="border-b border-[#E9DFC9] px-4 py-3">
-              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8B682F]">Wait</span>
-            </div>
-            <div className="px-4 py-4">
-              <div className="text-[13px] font-semibold text-[#222A30]">2 hours</div>
-              <div className="mt-1.5 text-[10px] leading-[1.5] text-[#7C878D]">Give the customer time before asking.</div>
-            </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-          </motion.div>
+          <FlowConnector delay={0.16} />
 
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 10, scale: .985 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(0.62)}
-            className="absolute left-[47.5%] top-1/2 w-[200px] -translate-y-1/2 rounded-[18px] border border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_18px_44px_rgba(37,99,255,.09)]"
+            {...reveal(0.28)}
+            className={nodeBase + " min-h-[178px] border-[#E2D7C1] bg-[#FBF2DF]"}
           >
-            <span className="absolute -left-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
-            <div className="flex items-center gap-2 border-b border-[#DDE6F6] px-4 py-3">
+            <div className="border-b border-[#E9DFC9] px-5 py-3.5">
+              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8B682F]">
+                Wait
+              </span>
+            </div>
+            <div className="px-5 py-5">
+              <div className="text-[14px] font-semibold text-[#222A30]">2 hours</div>
+              <div className="mt-2 text-[10px] leading-[1.55] text-[#7C878D]">
+                Give the customer time before asking.
+              </div>
+            </div>
+          </motion.div>
+
+          <FlowConnector delay={0.94} />
+
+          <motion.div
+            {...reveal(0.54)}
+            className={nodeBase + " min-h-[178px] border-[#BFD0F7] bg-[#F2F6FF] shadow-[0_16px_42px_rgba(37,99,255,.085)]"}
+          >
+            <div className="flex items-center gap-3 border-b border-[#DDE6F6] px-5 py-3.5">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
                 <ZaplaPetal size={20} />
               </span>
               <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#597DDA]">Zapla AI</div>
-                <div className="mt-0.5 text-[12px] font-semibold text-[#202A34]">Review request</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#597DDA]">
+                  Zapla AI
+                </div>
+                <div className="mt-0.5 text-[12px] font-semibold text-[#202A34]">
+                  Review request
+                </div>
               </div>
             </div>
-            <div className="px-4 py-4">
-              <div className="text-[10px] leading-[1.5] text-[#66727D]">Personalises the message and sends it automatically.</div>
+            <div className="px-5 py-4">
+              <div className="text-[10px] leading-[1.55] text-[#66727D]">
+                Personalises the message and sends it automatically.
+              </div>
             </div>
-            <span className="absolute -right-[7px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
           </motion.div>
 
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={wireTransition(0.92)}
-            className="absolute right-[5%] top-1/2 w-[265px] -translate-y-1/2 overflow-hidden rounded-[20px] border border-[#E4D7CF] bg-[#FFFDFC] shadow-[0_18px_48px_rgba(46,63,76,.09)]"
-          >
-            <span className="absolute -left-[7px] top-1/2 z-10 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-[#B99568] shadow-[0_0_0_1px_#D1B896]" />
+          <FlowConnector delay={1.72} />
 
-            <div className="border-b border-[#EAE4DF] bg-[#FBF1EC] p-4">
+          <motion.div
+            {...reveal(0.80)}
+            className="overflow-hidden rounded-[20px] border border-[#E4D7CF] bg-[#FFFDFC] shadow-[0_18px_46px_rgba(46,63,76,.08)]"
+          >
+            <div className="border-b border-[#EAE4DF] bg-[#FBF1EC] px-5 py-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
                   <ZaplaPetal size={20} />
                 </span>
                 <div>
-                  <div className="text-[10px] font-semibold text-[#273039]">Northside</div>
-                  <div className="mt-0.5 text-[8px] text-[#8A949D]">SMS · just now</div>
+                  <div className="text-[10px] font-semibold text-[#273039]">
+                    Northside
+                  </div>
+                  <div className="mt-0.5 text-[8px] text-[#8A949D]">
+                    SMS · just now
+                  </div>
                 </div>
               </div>
               <p className="mt-3 text-[10.5px] leading-[1.52] text-[#4F5A63]">
@@ -841,50 +864,68 @@ function ReviewTimingUi() {
               </div>
             </div>
 
-            <div className="bg-[#FFF9EB] p-4">
+            <div className="bg-[#FFF9EB] px-5 py-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A7956]">Review screen opens</div>
-                  <div className="mt-1 text-[12px] font-semibold text-[#202930]">Northside</div>
+                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A7956]">
+                    Review screen opens
+                  </div>
+                  <div className="mt-1 text-[12px] font-semibold text-[#202930]">
+                    Northside
+                  </div>
                 </div>
-                <span className="text-[9px] font-semibold text-[#8A949D]">Google</span>
+                <span className="text-[9px] font-semibold text-[#8A949D]">
+                  Google
+                </span>
               </div>
               <div className="mt-3 flex items-center gap-1">
-                {[0,1,2,3,4].map((item) => (
-                  <Star key={item} size={18} className="fill-[#DDA34B] text-[#DDA34B]" strokeWidth={1.2} />
+                {[0, 1, 2, 3, 4].map((item) => (
+                  <Star
+                    key={item}
+                    size={18}
+                    className="fill-[#DDA34B] text-[#DDA34B]"
+                    strokeWidth={1.2}
+                  />
                 ))}
               </div>
-              <p className="mt-2 text-[9.5px] text-[#66717A]">Tap a star to rate your experience</p>
+              <p className="mt-2 text-[9.5px] text-[#66717A]">
+                Tap a star to rate your experience
+              </p>
             </div>
           </motion.div>
         </div>
 
-        <div className="space-y-4 p-5 lg:hidden">
+        <div className="relative lg:hidden">
           {[
             ["Trigger", "Service completed", "bg-[#F1F4E9] border-[#D6DDCF]"],
             ["Wait", "2 hours", "bg-[#FBF2DF] border-[#E2D7C1]"],
             ["Zapla AI", "Review request", "bg-[#F2F6FF] border-[#BFD0F7]"],
-            ["Customer", "SMS arrives and opens the review screen", "bg-[#FBF1EC] border-[#E4D7CF]"],
-          ].map(([label, title, tone], index) => (
-            <motion.div
-              key={label}
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.7 }}
-              transition={wireTransition(index * 0.12)}
-              className={"relative rounded-[16px] border px-4 py-4 shadow-[0_10px_28px_rgba(46,63,76,.055)] " + tone}
-            >
-              <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A795F]">{label}</div>
-              <div className="mt-1 text-[13px] font-semibold text-[#202930]">{title}</div>
-            </motion.div>
+            [
+              "Customer",
+              "SMS arrives and opens the review screen",
+              "bg-[#FBF1EC] border-[#E4D7CF]",
+            ],
+          ].map(([label, title, tone], index, items) => (
+            <div key={label}>
+              <motion.div
+                {...reveal(index * 0.1)}
+                className={"rounded-[17px] border px-4 py-4 shadow-[0_10px_28px_rgba(46,63,76,.055)] " + tone}
+              >
+                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A795F]">
+                  {label}
+                </div>
+                <div className="mt-1 text-[13px] font-semibold text-[#202930]">
+                  {title}
+                </div>
+              </motion.div>
+              {index < items.length - 1 && <MobileConnector delay={0.25 + index * 0.8} />}
+            </div>
           ))}
         </div>
       </div>
     </div>
   );
 }
-
-
 
 function InPersonMomentSection() {
   return (
@@ -904,7 +945,6 @@ function InPersonMomentSection() {
             link has been sent. No directions. No searching. They can open it from
             their phone when they&apos;re ready.
           </p>
-          
         </Reveal>
 
         <Reveal delay={0.05} className="w-full lg:max-w-[620px] lg:justify-self-end">
@@ -921,14 +961,16 @@ function InPersonMomentSection() {
               <div className="absolute bottom-[-46px] right-3 z-20 w-[250px] max-w-[calc(100%-1.5rem)] rounded-[16px] border border-[#E6EAED] bg-white p-3.5 text-[#26313A] shadow-[0_16px_38px_rgba(18,29,38,.20)] sm:w-[270px] lg:right-[-24px]">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1E2B29] text-white">
-                      <MessageSquareText size={13} strokeWidth={1.8} />
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#17212B]">
+                      <ZaplaPetal size={20} />
                     </span>
                     <div>
                       <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#59656F]">
                         Review request
                       </div>
-                      <div className="mt-0.5 text-[8px] text-[#98A1A8]">SMS · just now</div>
+                      <div className="mt-0.5 text-[8px] text-[#98A1A8]">
+                        Zapla AI · SMS · just now
+                      </div>
                     </div>
                   </div>
                   <Check size={13} className="text-[#82905B]" />
@@ -981,8 +1023,10 @@ function FeedbackSection() {
 
         <div className="mt-12 grid gap-4 lg:grid-cols-2">
           <Reveal>
-            <div className="flex min-h-[410px] h-full flex-col rounded-[30px] bg-[#F0D59D] p-7 sm:p-9">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#76501C]">Public proof</div>
+            <div className="flex h-full min-h-[410px] flex-col rounded-[30px] bg-[#F0D59D] p-7 sm:p-9">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#76501C]">
+                Public proof
+              </div>
               <h3
                 className="mt-5 max-w-[500px] text-[36px] font-medium leading-[0.98] tracking-[-0.05em] text-[#292922] sm:text-[44px]"
                 style={{ fontFamily: DISPLAY }}
@@ -990,14 +1034,20 @@ function FeedbackSection() {
                 Positive feedback becomes visible to the next customer.
               </h3>
               <div className="mt-auto pt-8">
-                <div className="rounded-[20px] bg-[#FFF9ED] p-5 shadow-[0_16px_38px_rgba(79,57,28,.10)]">
+                <div className="flex min-h-[154px] flex-col justify-between rounded-[20px] bg-[#FFF9ED] p-5 shadow-[0_16px_38px_rgba(79,57,28,.10)]">
                   <div className="flex items-center gap-3">
                     <ExampleAvatar column={4} row={0} className="h-10 w-10" />
                     <div className="flex-1">
-                      <div className="text-[11px] font-semibold text-[#33342F]">Daniel K.</div>
-                      <div className="mt-1"><Stars small /></div>
+                      <div className="text-[11px] font-semibold text-[#33342F]">
+                        Daniel K.
+                      </div>
+                      <div className="mt-1">
+                        <Stars small />
+                      </div>
                     </div>
-                    <span className="text-[8px] font-semibold uppercase tracking-[0.1em] text-[#8A8278]">Example</span>
+                    <span className="text-[8px] font-semibold uppercase tracking-[0.1em] text-[#8A8278]">
+                      Example
+                    </span>
                   </div>
                   <p className="mt-3 text-[12px] leading-[1.58] text-[#5D605A]">
                     Easy to book, clear communication and the team left everything tidy.
@@ -1008,8 +1058,10 @@ function FeedbackSection() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <div className="flex min-h-[410px] h-full flex-col rounded-[30px] bg-[#E7CEC2] p-7 sm:p-9">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#9A6553]">Needs attention</div>
+            <div className="flex h-full min-h-[410px] flex-col rounded-[30px] bg-[#E7CEC2] p-7 sm:p-9">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#9A6553]">
+                Needs attention
+              </div>
               <h3
                 className="mt-5 max-w-[500px] text-[36px] font-medium leading-[0.98] tracking-[-0.05em] text-[#302926] sm:text-[44px]"
                 style={{ fontFamily: DISPLAY }}
@@ -1017,20 +1069,27 @@ function FeedbackSection() {
                 If something went wrong, your team should know.
               </h3>
               <div className="mt-auto pt-8">
-                <div className="rounded-[20px] border border-white/60 bg-[#FFF9F5]/80 p-5">
+                <div className="flex min-h-[154px] flex-col justify-between rounded-[20px] border border-white/60 bg-[#FFF9F5]/80 p-5 shadow-[0_16px_38px_rgba(89,56,44,.055)]">
                   <div className="flex items-start gap-3">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#BF7458]/12 text-[#A65E47]">
-                      <MessageSquareText size={15} />
-                    </span>
-                    <div className="min-w-0">
-                      <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#9A6B5D]">Customer reply</div>
+                    <ExampleAvatar column={1} row={0} className="h-10 w-10" />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                        <span className="text-[11px] font-semibold text-[#403632]">
+                          Mia T.
+                        </span>
+                        <span className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#9A6B5D]">
+                          Customer reply
+                        </span>
+                      </div>
                       <p className="mt-2 text-[12px] font-semibold leading-[1.5] text-[#403632]">
                         The service was fine, but I waited longer than expected and wasn&apos;t sure what was happening.
                       </p>
                     </div>
                   </div>
                   <div className="mt-4 flex items-center justify-between border-t border-[#E6D4CA] pt-3">
-                    <span className="text-[9px] font-semibold text-[#765F57]">Customer record attached</span>
+                    <span className="text-[9px] font-semibold text-[#765F57]">
+                      Customer record attached
+                    </span>
                     <span className="rounded-full bg-[#BF7458]/12 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.1em] text-[#9C5D49]">
                       Team reply
                     </span>
