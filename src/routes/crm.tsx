@@ -154,7 +154,7 @@ function Avatar({
   return (
     <span
       aria-hidden="true"
-      className={"block shrink-0 overflow-hidden rounded-full border border-white/80 bg-[#E9EEF4] " + className}
+      className={"block shrink-0 overflow-hidden rounded-full border border-white/[0.08]0 bg-[#E9EEF4] " + className}
       style={{
         width: size,
         height: size,
@@ -960,7 +960,7 @@ function PlatformSection() {
                 </div>
               </div>
               <div className="space-y-3">
-                <div className="rounded-[18px] border border-white/8 bg-white/[0.04] p-4">
+                <div className="rounded-[18px] border border-white/[0.08] bg-white/[0.04] p-4">
                   <div className="text-[8px] font-semibold uppercase tracking-[0.13em] text-white/34">Current state</div>
                   <div className="mt-2 text-[17px] font-semibold text-white/90">Quote sent · A$2,850</div>
                   <div className="mt-1 text-[10px] text-white/42">Next step: follow up Thursday</div>
@@ -1035,7 +1035,7 @@ function GuidedLaunchSection() {
                 className="h-[430px] w-full object-cover sm:h-[560px]"
               />
             </div>
-            <div className="absolute bottom-5 left-5 hidden rounded-[16px] bg-white/92 px-4 py-3 shadow-[0_12px_30px_rgba(31,49,68,.10)] backdrop-blur sm:block">
+            <div className="absolute bottom-5 left-5 hidden rounded-[16px] bg-white/[0.92] px-4 py-3 shadow-[0_12px_30px_rgba(31,49,68,.10)] backdrop-blur sm:block">
               <div className="text-[8px] font-semibold uppercase tracking-[0.13em] text-[#8A959E]">You are not starting from scratch</div>
               <div className="mt-1 text-[12px] font-semibold text-[#2F3B44]">Contacts · pipelines · forms · calendars</div>
             </div>
