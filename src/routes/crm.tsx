@@ -206,7 +206,7 @@ function Hero() {
           </div>
 
           <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[11px] font-semibold text-[#5B6874] sm:text-[12px]">
-            {["Unlimited users", "Unlimited stored contacts*", "Guided Launch"].map((item) => (
+            {["Unlimited users", "CRM included", "Guided Launch"].map((item) => (
               <span key={item} className="inline-flex items-center gap-2">
                 <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#2563FF]/10 text-[#2563FF]">
                   <Check size={10} strokeWidth={2.5} />
