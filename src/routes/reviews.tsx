@@ -705,10 +705,10 @@ function ReviewTimingUi() {
       />
       {!reduced && (
         <motion.span
-          className="absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border-2 border-[#FFFDF8] bg-[#D5A765]"
+          className="absolute top-1/2 h-[3px] w-5 -translate-y-1/2"
           initial={{ left: "0%", opacity: 0 }}
           animate={{
-            left: ["0%", "82%"],
+            left: ["0%", "72%"],
             opacity: [0, 1, 1, 0],
           }}
           transition={{
@@ -718,7 +718,10 @@ function ReviewTimingUi() {
             repeatDelay: 2.35,
             ease: EASE,
           }}
-          style={{ boxShadow: "0 0 9px rgba(213,167,101,.56)" }}
+          style={{
+            background: "linear-gradient(90deg, rgba(213,167,101,0), rgba(213,167,101,.95))",
+            boxShadow: "0 0 8px rgba(213,167,101,.34)",
+          }}
         />
       )}
     </div>
@@ -734,9 +737,9 @@ function ReviewTimingUi() {
       />
       {!reduced && (
         <motion.span
-          className="absolute left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-[#FFFDF8] bg-[#D5A765]"
+          className="absolute left-1/2 h-5 w-[3px] -translate-x-1/2"
           initial={{ top: 0, opacity: 0 }}
-          animate={{ top: ["0%", "70%"], opacity: [0, 1, 1, 0] }}
+          animate={{ top: ["0%", "52%"], opacity: [0, 1, 1, 0] }}
           transition={{
             duration: 0.5,
             delay,
@@ -744,7 +747,10 @@ function ReviewTimingUi() {
             repeatDelay: 2.45,
             ease: EASE,
           }}
-          style={{ boxShadow: "0 0 8px rgba(213,167,101,.5)" }}
+          style={{
+            background: "linear-gradient(180deg, rgba(213,167,101,0), rgba(213,167,101,.95))",
+            boxShadow: "0 0 7px rgba(213,167,101,.30)",
+          }}
         />
       )}
     </div>
