@@ -408,7 +408,7 @@ function EvidenceSection() {
 
 function ProblemSection() {
   return (
-    <section className="bg-white px-5 py-18 sm:px-10 sm:py-20 lg:px-16 lg:py-20">
+    <section className="bg-white px-5 py-[72px] sm:px-10 sm:py-20 lg:px-16 lg:py-20">
       <div className="mx-auto max-w-[1320px]">
         <div className="grid gap-10 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-16">
           <Reveal className="max-w-[760px]">
