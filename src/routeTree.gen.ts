@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as CrmRouteImport } from './routes/crm'
 import { Route as FollowUpClaudeV1RouteImport } from './routes/follow-up-claude-v1'
 import { Route as FollowUpRouteImport } from './routes/follow-up'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
@@ -38,6 +39,11 @@ const PricingRoute = PricingRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CrmRoute = CrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FollowUpClaudeV1Route = FollowUpClaudeV1RouteImport.update({
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
   '/mcp': typeof McpRoute
+  '/crm': typeof CrmRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
   '/mcp': typeof McpRoute
+  '/crm': typeof CrmRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/follow-up': typeof FollowUpRoute
   '/follow-up-claude-v1': typeof FollowUpClaudeV1Route
   '/mcp': typeof McpRoute
+  '/crm': typeof CrmRoute
   '/pricing': typeof PricingRoute
   '/pricing-v2': typeof PricingV2Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/follow-up'
     | '/follow-up-claude-v1'
     | '/mcp'
+    | '/crm'
     | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
     | '/follow-up'
     | '/follow-up-claude-v1'
     | '/mcp'
+    | '/crm'
     | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/follow-up'
     | '/follow-up-claude-v1'
     | '/mcp'
+    | '/crm'
     | '/pricing'
     | '/pricing-v2'
     | '/.mcp/list-tools'
@@ -221,6 +233,7 @@ export interface RootRouteChildren {
   FollowUpRoute: typeof FollowUpRoute
   FollowUpClaudeV1Route: typeof FollowUpClaudeV1Route
   McpRoute: typeof McpRoute
+  CrmRoute: typeof CrmRoute
   PricingRoute: typeof PricingRoute
   PricingV2Route: typeof PricingV2Route
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/crm': {
+      id: '/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof CrmRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/follow-up-claude-v1': {
@@ -349,6 +369,7 @@ const rootRouteChildren: RootRouteChildren = {
   FollowUpRoute: FollowUpRoute,
   FollowUpClaudeV1Route: FollowUpClaudeV1Route,
   McpRoute: McpRoute,
+  CrmRoute: CrmRoute,
   PricingRoute: PricingRoute,
   PricingV2Route: PricingV2Route,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
