@@ -8,7 +8,6 @@ import {
   CreditCard,
   Filter,
   Globe2,
-  LayoutTemplate,
   Mail,
   MessageSquare,
   MousePointer2,
@@ -43,6 +42,7 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
+const ZAPLA_ICON_URL = "/__l5e/assets-v1/f4e55763-ff20-4d1a-8d1f-5461ade0724a/zapla-logo-blue.png";
 
 const FAQS = [
   {
@@ -338,7 +338,7 @@ function CustomerWorkbench() {
           <div className="max-w-[610px]">
             <Eyebrow>Work the database</Eyebrow>
             <h2 className="mt-5 text-[40px] font-medium leading-[.98] tracking-[-0.052em] text-[#111318] sm:text-[50px] lg:text-[60px]" style={{ fontFamily: DISPLAY }}>
-              Find the customers that need attention. Then open the full context.
+              Find who needs attention. See the full context.
             </h2>
           </div>
 
@@ -610,7 +610,7 @@ function Automation() {
           <div className="max-w-[790px]">
             <Eyebrow dark>CRM that can act</Eyebrow>
             <h2 className="mt-5 text-[42px] font-medium leading-[.96] tracking-[-0.055em] text-white sm:text-[54px] lg:text-[64px]" style={{fontFamily:DISPLAY}}>
-              When the customer state changes,
+              When customer state changes,
               <span className="block text-[#74DFE1]">the next action can start.</span>
             </h2>
           </div>
@@ -622,26 +622,46 @@ function Automation() {
         <Reveal className="mt-12" delay={0.04}>
           <div className="overflow-hidden rounded-[22px] bg-white text-[#111318] shadow-[0_34px_90px_rgba(0,0,0,.3)]">
             <div className="flex min-h-12 items-center justify-between border-b border-[#E1E5E1] px-4">
-              <div><div className="text-[11px] font-semibold text-[#26302A]">Quote follow-up</div><div className="mt-0.5 text-[7px] uppercase tracking-[0.11em] text-[#87908A]">Automation · Draft</div></div>
-              <div className="flex gap-2"><span className="rounded-[7px] border border-[#D9DEDA] px-2.5 py-1.5 text-[8px] font-semibold text-[#59625D]">Test</span><span className="rounded-[7px] bg-[#1E2B29] px-2.5 py-1.5 text-[8px] font-semibold text-white">Save</span></div>
+              <div>
+                <div className="text-[11px] font-semibold text-[#26302A]">Quote follow-up</div>
+                <div className="mt-0.5 text-[7px] uppercase tracking-[0.11em] text-[#87908A]">Automation · Draft</div>
+              </div>
+              <div className="flex gap-2">
+                <span className="rounded-[7px] border border-[#D9DEDA] px-2.5 py-1.5 text-[8px] font-semibold text-[#59625D]">Test</span>
+                <span className="rounded-[7px] bg-[#1E2B29] px-2.5 py-1.5 text-[8px] font-semibold text-white">Save</span>
+              </div>
             </div>
 
             <div className="grid min-h-[500px] lg:grid-cols-[265px_1fr]">
               <div className="border-r border-[#E1E5E1] bg-[#F8F9F7]">
                 <div className="grid grid-cols-3 border-b border-[#E1E5E1] text-[8px] font-bold uppercase tracking-[0.1em]">
-                  <span className="border-b-2 border-[#111318] px-3 py-3 text-[#111318]">Triggers</span><span className="px-3 py-3 text-[#7A837D]">Logic</span><span className="px-3 py-3 text-[#7A837D]">Actions</span>
+                  <span className="border-b-2 border-[#111318] px-3 py-3 text-[#111318]">Triggers</span>
+                  <span className="px-3 py-3 text-[#7A837D]">Logic</span>
+                  <span className="px-3 py-3 text-[#7A837D]">Actions</span>
                 </div>
                 <div className="p-3">
-                  <div className="flex items-center gap-2 rounded-[8px] border border-[#D9DEDA] bg-white px-3 py-2 text-[8px] text-[#7B847E]"><Search size={11}/> Search steps...</div>
+                  <div className="flex items-center gap-2 rounded-[8px] border border-[#D9DEDA] bg-white px-3 py-2 text-[8px] text-[#7B847E]">
+                    <Search size={11}/> Search steps...
+                  </div>
                   {[
-                    ["Communications",["Inbound SMS","Inbound call"]],["Contact",["Tag changed","Contact created"]],["Pipeline",["Pipeline stage changed","Opportunity created"]],
+                    ["Communications",["Inbound SMS","Inbound call"]],
+                    ["Contact",["Tag changed","Contact created"]],
+                    ["Pipeline",["Pipeline stage changed","Opportunity created"]],
                   ].map(([group,items])=>(
                     <div key={group as string} className="mt-4">
                       <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-[#87908A]">{group}</div>
                       <div className="mt-2 space-y-1.5">
                         {(items as string[]).map((item,i)=>(
-                          <motion.div key={item} initial={reduced?false:{opacity:0,x:-7}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{duration:reduced?0:.3,delay:reduced?0:i*.04,ease:EASE}} className="flex items-center gap-2 rounded-[7px] border border-[#DFE3DF] bg-white px-3 py-2.5 text-[8px] font-semibold text-[#465049]">
-                            <span className="grid h-5 w-5 place-items-center rounded-[5px] bg-[#111318] text-white">↯</span>{item}
+                          <motion.div
+                            key={item}
+                            initial={reduced?false:{opacity:0,x:-7}}
+                            whileInView={{opacity:1,x:0}}
+                            viewport={{once:true}}
+                            transition={{duration:reduced?0:.3,delay:reduced?0:i*.04,ease:EASE}}
+                            className="flex items-center gap-2 rounded-[7px] border border-[#DFE3DF] bg-white px-3 py-2.5 text-[8px] font-semibold text-[#465049]"
+                          >
+                            <span className="grid h-5 w-5 place-items-center rounded-[5px] bg-[#111318] text-white">↯</span>
+                            {item}
                           </motion.div>
                         ))}
                       </div>
@@ -650,15 +670,28 @@ function Automation() {
                 </div>
               </div>
 
-              <div className="relative overflow-hidden bg-[#FBFCFB] p-5 sm:p-7 lg:p-8" style={{backgroundImage:"radial-gradient(circle, rgba(87,96,91,.16) 1px, transparent 1px)",backgroundSize:"22px 22px"}}>
-                <div className="absolute inset-x-0 top-5 text-center text-[8px] font-semibold uppercase tracking-[0.12em] text-[#8C958F]">Example workflow</div>
-                <div className="relative mt-12 flex min-h-[390px] flex-col justify-center gap-5 xl:grid xl:grid-cols-[1fr_64px_1fr_64px_1fr] xl:items-center">
-                  <BuilderNode label="Trigger" title="Pipeline stage changed" copy="Stage becomes Quote sent" tone="blue"/>
-                  <BuilderConnector/>
-                  <BuilderNode label="Wait" title="2 days" copy="Give the customer time to decide" tone="neutral"/>
-                  <BuilderConnector/>
-                  <BuilderNode label="Action" title="Send follow-up" copy="Message goes out if still in stage" tone="sage"/>
+              <div
+                className="relative overflow-hidden bg-[#FBFCFB] p-5 sm:p-7 lg:p-8"
+                style={{backgroundImage:"radial-gradient(circle, rgba(87,96,91,.16) 1px, transparent 1px)",backgroundSize:"22px 22px"}}
+              >
+                <div className="relative flex min-h-[430px] items-center">
+                  <div className="absolute left-[9%] right-[9%] top-1/2 hidden h-px -translate-y-1/2 bg-[#8F9992] xl:block">
+                    <motion.span
+                      className="block h-full bg-[#1E2B29]"
+                      initial={reduced?false:{width:"0%"}}
+                      whileInView={{width:"100%"}}
+                      viewport={{once:true,amount:.45}}
+                      transition={{duration:reduced?0:1.05,ease:EASE}}
+                    />
+                  </div>
+
+                  <div className="relative z-10 grid w-full gap-7 xl:grid-cols-3 xl:gap-20">
+                    <BuilderNode label="Trigger" title="Pipeline stage changed" copy="Stage becomes Quote sent" tone="blue"/>
+                    <BuilderNode label="Wait" title="2 days" copy="Give the customer time to decide" tone="neutral"/>
+                    <BuilderNode label="Action" title="Send follow-up" copy="Message goes out if still in stage" tone="sage"/>
+                  </div>
                 </div>
+
                 <div className="absolute bottom-5 right-5 text-[7px] font-bold uppercase tracking-[0.1em] text-[#66706A]">CRM state → workflow</div>
               </div>
             </div>
@@ -672,8 +705,10 @@ function Automation() {
 function BuilderNode({label,title,copy,tone}:{label:string;title:string;copy:string;tone:"blue"|"neutral"|"sage"}) {
   const bar={blue:"bg-[#2563FF]",neutral:"bg-[#C89A5D]",sage:"bg-[#85845D]"};
   return (
-    <div className="relative overflow-hidden rounded-[14px] border border-[#DDE2DE] bg-white p-4 shadow-[0_10px_28px_rgba(38,53,70,.06)]">
-      <span className={"absolute inset-y-0 left-0 w-[4px] "+bar[tone]} />
+    <div className="relative overflow-visible rounded-[14px] border border-[#DDE2DE] bg-white p-4 shadow-[0_10px_28px_rgba(38,53,70,.07)]">
+      <span className={"absolute inset-y-0 left-0 w-[4px] rounded-l-[14px] "+bar[tone]} />
+      <span className="absolute left-[-5px] top-1/2 hidden h-[10px] w-[10px] -translate-y-1/2 rounded-full border-2 border-[#8F9992] bg-white xl:block" />
+      <span className="absolute right-[-5px] top-1/2 hidden h-[10px] w-[10px] -translate-y-1/2 rounded-full border-2 border-[#8F9992] bg-white xl:block" />
       <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#5E6862]">{label}</div>
       <div className="mt-4 text-[13px] font-semibold text-[#26302A]">{title}</div>
       <div className="mt-1 text-[9px] leading-[1.5] text-[#66706A]">{copy}</div>
@@ -681,49 +716,37 @@ function BuilderNode({label,title,copy,tone}:{label:string;title:string;copy:str
   );
 }
 
-function BuilderConnector() {
-  return <div className="hidden items-center xl:flex"><span className="h-px flex-1 bg-[#AAB2AD]"/><span className="-ml-px h-2 w-2 rotate-45 border-r border-t border-[#8E9891]"/></div>;
-}
-
 function ScaleSection() {
   return (
     <section className="relative overflow-hidden bg-[#1E2B29] px-5 py-24 text-[#F7F2EA] sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="pointer-events-none absolute -left-8 top-8 whitespace-nowrap text-[28vw] leading-[.8] tracking-[-0.08em] text-[#31403D] sm:text-[220px]" style={{fontFamily:DISPLAY,fontWeight:500}}>
-        UNLIMITED
-      </div>
+      <div className="pointer-events-none absolute right-[-8%] top-[-18%] h-[620px] w-[620px] rounded-full bg-[#31403D]/55 blur-[140px]" />
 
       <div className="relative mx-auto max-w-[1380px]">
-        <Reveal className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start lg:gap-14">
-          <div className="relative z-10 max-w-[600px]">
+        <Reveal className="grid gap-12 lg:grid-cols-[.68fr_1.32fr] lg:items-center lg:gap-16">
+          <div className="relative z-10 max-w-[590px]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#DDA34B]">Unlimited users</div>
             <h2 className="mt-5 text-[48px] font-medium leading-[.92] tracking-[-0.06em] text-[#F7F2EA] sm:text-[64px] lg:text-[76px]" style={{fontFamily:DISPLAY}}>
               Unlimited users.
-              <span className="block text-[#D98670]">One shared customer record.</span>
+              <span className="block text-[#D98670]">One shared CRM.</span>
             </h2>
-            <p className="mt-6 max-w-[570px] text-[16px] leading-[1.68] text-[#B8C0BC] sm:text-[18px]">
-              Owner, reception, sales, admin and operations can all work from the same customer history. <span className="font-semibold text-[#F7F2EA]">No per-seat fees.</span>
+            <p className="mt-6 max-w-[560px] text-[16px] leading-[1.68] text-[#B8C0BC] sm:text-[18px]">
+              Reception, sales, admin, operations and owners can work in the same system without adding another per-seat charge as the team grows.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-t border-white/10 pt-6 text-[12px] font-semibold">
-              <span>Unlimited users</span><span className="text-[#D98670]">Unlimited contacts</span><span className="text-[#DDA34B]">Guided Launch</span>
+              <span>No per-seat fees</span>
+              <span className="text-[#D98670]">Unlimited contacts</span>
+              <span className="text-[#DDA34B]">Guided Launch</span>
             </div>
+
+            <a href={PRICING_URL} className="mt-8 inline-flex items-center gap-2 text-[12px] font-semibold text-[#F7F2EA]">
+              See how Zapla is priced <ArrowRight size={14}/>
+            </a>
           </div>
 
           <Reveal delay={0.06}>
             <TeamWorkspaceVisual />
           </Reveal>
-        </Reveal>
-
-        <Reveal className="mt-10">
-          <div className="grid gap-6 border-t border-white/12 pt-7 sm:grid-cols-3">
-            <CommercialPoint title="Unlimited users" copy="Bring the whole team into the CRM without adding another per-seat charge." dark />
-            <CommercialPoint title="Unlimited contacts" copy="Keep the customer history you need instead of trimming the database to stay under a contact cap." dark />
-            <CommercialPoint title="Guided Launch" copy="Start with the agreed fields, pipeline and essentials configured with you." dark />
-          </div>
-        </Reveal>
-
-        <Reveal className="mt-7">
-          <a href={PRICING_URL} className="inline-flex items-center gap-2 text-[12px] font-semibold text-[#F7F2EA]">See how Zapla is priced <ArrowRight size={14}/></a>
         </Reveal>
       </div>
     </section>
@@ -732,63 +755,110 @@ function ScaleSection() {
 
 function TeamWorkspaceVisual() {
   const people=[
-    {cell:0,name:"Owner",target:"Overview",x:"6%",y:"20%",tone:"#DDA34B"},
-    {cell:7,name:"Reception",target:"Conversation",x:"88%",y:"20%",tone:"#C887A1"},
-    {cell:14,name:"Sales",target:"Deal",x:"8%",y:"76%",tone:"#E97D62"},
-    {cell:9,name:"Operations",target:"Task",x:"88%",y:"76%",tone:"#A8AD73"},
-    {cell:19,name:"Admin",target:"Fields",x:"48%",y:"7%",tone:"#CFA379"},
+    {cell:7,name:"Reception",x:"18%",y:"23%",tone:"#C887A1"},
+    {cell:14,name:"Sales",x:"73%",y:"20%",tone:"#E97D62"},
+    {cell:19,name:"Admin",x:"84%",y:"67%",tone:"#CFA379"},
+    {cell:9,name:"Operations",x:"20%",y:"78%",tone:"#A8AD73"},
+    {cell:0,name:"Owner",x:"51%",y:"8%",tone:"#DDA34B"},
   ];
 
   return (
-    <div className="relative min-h-[560px]">
-      <div className="absolute inset-[12%_10%_8%_10%] overflow-hidden rounded-[22px] bg-white shadow-[0_32px_90px_rgba(0,0,0,.28)]">
-        <div className="flex items-center justify-between border-b border-[#E3E7E3] px-5 py-4">
-          <div className="flex items-center gap-3">
-            <Avatar cell={0} size={44} className="border-2 border-white shadow-[0_4px_12px_rgba(35,53,76,.10)]"/>
-            <div><div className="text-[11px] font-semibold text-[#26302A]">Mia Thompson</div><div className="mt-0.5 text-[7px] text-[#7B847E]">Northside Plumbing</div></div>
+    <div className="relative min-h-[600px]">
+      <div className="absolute inset-[9%_5%_7%_5%] overflow-hidden rounded-[24px] bg-white shadow-[0_34px_92px_rgba(0,0,0,.28)]">
+        <div className="flex items-center justify-between border-b border-[#E4E7E4] px-5 py-4">
+          <div>
+            <div className="text-[11px] font-semibold text-[#25302A]">Team workspace</div>
+            <div className="mt-0.5 text-[7px] text-[#7B847E]">One CRM · shared customer context</div>
           </div>
-          <span className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#8E725D]">Quote sent</span>
+          <div className="flex -space-x-2">
+            {[0,7,14,19,9].map((cell)=><Avatar key={cell} cell={cell} size={28} className="border-2 border-white"/>)}
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-[.64fr_.36fr]">
-          <div className="divide-y divide-[#E7EAE7]">
-            <TeamRecordRow label="Overview" value="VIP · Residential · Owner: Ben" active/>
-            <TeamRecordRow label="Conversation" value="SMS reply received 9:41am"/>
-            <TeamRecordRow label="Deal" value="A$2,850 · Quote sent"/>
-            <TeamRecordRow label="Task" value="Confirm site visit · Tuesday"/>
-            <TeamRecordRow label="Fields" value="Service area · Sydney · Hot water"/>
+        <div className="grid min-h-[455px] lg:grid-cols-2">
+          <div className="border-b border-[#E6E9E6] p-5 lg:border-b-0 lg:border-r">
+            <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Conversations</div>
+            <div className="mt-4 flex items-center gap-3 border-b border-[#E7EAE7] pb-4">
+              <Avatar cell={0} size={40} className="border-2 border-white"/>
+              <div className="min-w-0 flex-1">
+                <div className="text-[10px] font-semibold text-[#26302A]">Mia Thompson</div>
+                <div className="mt-1 truncate text-[8px] text-[#69736D]">Tuesday afternoon works. Can you send the quote?</div>
+              </div>
+              <span className="text-[7px] font-bold uppercase tracking-[0.08em] text-[#2563FF]">SMS</span>
+            </div>
+            <div className="mt-4 rounded-[14px] bg-[#1E2B29] px-4 py-3 text-[9px] leading-[1.55] text-white">
+              Reply ready with the full customer history beside it.
+            </div>
+
+            <div className="mt-7 text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Customer data</div>
+            <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3 text-[8px]">
+              <div><span className="block text-[#8A928D]">Tags</span><span className="mt-1 block font-semibold text-[#39433D]">VIP · Residential</span></div>
+              <div><span className="block text-[#8A928D]">Owner</span><span className="mt-1 block font-semibold text-[#39433D]">Ben Walker</span></div>
+              <div><span className="block text-[#8A928D]">Service area</span><span className="mt-1 block font-semibold text-[#39433D]">Sydney</span></div>
+              <div><span className="block text-[#8A928D]">Source</span><span className="mt-1 block font-semibold text-[#39433D]">Website</span></div>
+            </div>
           </div>
-          <div className="border-t border-[#E7EAE7] bg-[#F7F7F4] p-4 lg:border-l lg:border-t-0">
-            <div className="text-[7px] font-bold uppercase tracking-[0.11em] text-[#727B75]">Customer history</div>
+
+          <div className="bg-[#F7F7F4] p-5">
+            <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Work in motion</div>
+
             <div className="mt-4 space-y-3">
-              <div><div className="text-[8px] font-semibold text-[#2E3731]">Quote sent</div><div className="mt-1 text-[7px] text-[#7A837D]">Today · 09:24</div></div>
-              <div><div className="text-[8px] font-semibold text-[#2E3731]">Customer replied</div><div className="mt-1 text-[7px] text-[#7A837D]">Today · 09:41</div></div>
-              <div><div className="text-[8px] font-semibold text-[#2E3731]">Follow-up scheduled</div><div className="mt-1 text-[7px] text-[#7A837D]">In 2 days</div></div>
+              <div className="rounded-[13px] border border-[#E0E4E0] bg-white p-3.5">
+                <div className="flex items-center justify-between">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.08em] text-[#8E725D]">Deal</div>
+                  <span className="text-[7px] font-semibold text-[#69736D]">Sales</span>
+                </div>
+                <div className="mt-2 text-[12px] font-semibold text-[#26302A]">A$2,850 · Quote sent</div>
+              </div>
+
+              <div className="rounded-[13px] border border-[#E0E4E0] bg-white p-3.5">
+                <div className="flex items-center justify-between">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.08em] text-[#69735D]">Task</div>
+                  <span className="text-[7px] font-semibold text-[#69736D]">Operations</span>
+                </div>
+                <div className="mt-2 text-[12px] font-semibold text-[#26302A]">Confirm site visit · Tuesday</div>
+              </div>
+
+              <div className="rounded-[13px] border border-[#E0E4E0] bg-white p-3.5">
+                <div className="flex items-center justify-between">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.08em] text-[#58706F]">Fields</div>
+                  <span className="text-[7px] font-semibold text-[#69736D]">Admin</span>
+                </div>
+                <div className="mt-2 text-[12px] font-semibold text-[#26302A]">Service area · Sydney · Hot water</div>
+              </div>
+            </div>
+
+            <div className="mt-5 border-t border-[#DDE1DD] pt-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Owner view</div>
+                  <div className="mt-1 text-[10px] font-semibold text-[#26302A]">Everything stays on one customer record.</div>
+                </div>
+                <Users size={18} className="text-[#58706F]"/>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {people.map((person,index)=>(
-        <motion.div key={person.name} className="absolute" style={{left:person.x,top:person.y,translateX:"-50%",translateY:"-50%"}} initial={{opacity:0,scale:.82,y:10}} whileInView={{opacity:1,scale:1,y:0}} viewport={{once:true,amount:.45}} transition={{duration:.48,delay:index*.06,ease:EASE}}>
+        <motion.div
+          key={person.name}
+          className="absolute"
+          style={{left:person.x,top:person.y,translateX:"-50%",translateY:"-50%"}}
+          initial={{opacity:0,scale:.82,y:10}}
+          whileInView={{opacity:1,scale:1,y:0}}
+          viewport={{once:true,amount:.45}}
+          transition={{duration:.48,delay:index*.06,ease:EASE}}
+        >
           <div className="relative">
-            <Avatar cell={person.cell} size={66} className="border-[3px] border-[#F7F2EA] shadow-[0_14px_30px_rgba(0,0,0,.22)]"/>
-            <div className="absolute left-[49px] top-[47px] flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-[9px] font-bold text-[#111318] shadow-[0_8px_20px_rgba(0,0,0,.16)]" style={{backgroundColor:person.tone}}>
+            <Avatar cell={person.cell} size={64} className="border-[3px] border-[#F7F2EA] shadow-[0_14px_30px_rgba(0,0,0,.22)]"/>
+            <div className="absolute left-[46px] top-[46px] flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-[9px] font-bold text-[#111318] shadow-[0_8px_20px_rgba(0,0,0,.16)]" style={{backgroundColor:person.tone}}>
               <MousePointer2 size={10} fill="currentColor"/>{person.name}
             </div>
-            <div className="absolute left-[53px] top-[73px] whitespace-nowrap text-[6px] font-bold uppercase tracking-[0.1em] text-[#D4DAD7]">{person.target}</div>
           </div>
         </motion.div>
       ))}
-    </div>
-  );
-}
-
-function TeamRecordRow({label,value,active=false}:{label:string;value:string;active?:boolean}) {
-  return (
-    <div className={"grid grid-cols-[110px_1fr] items-center px-4 py-3.5 "+(active?"bg-[#F4F7FF]":"bg-white")}>
-      <div className="flex items-center gap-2 text-[7px] font-bold uppercase tracking-[0.1em] text-[#66706A]"><span className={"h-1.5 w-1.5 rounded-full "+(active?"bg-[#2563FF]":"bg-[#B8C0BA]")}/>{label}</div>
-      <div className="text-[9px] font-semibold text-[#465049]">{value}</div>
     </div>
   );
 }
@@ -831,58 +901,92 @@ function Avatar({
 }
 
 function ConnectedPlatform() {
-  const items=[
-    {icon:Mail,title:"Email + SMS",x:"8%",y:"52%",tone:"#BF7458"},
-    {icon:CalendarDays,title:"Bookings",x:"24%",y:"24%",tone:"#85845D"},
-    {icon:CreditCard,title:"Payments",x:"24%",y:"80%",tone:"#C89A5D"},
-    {icon:Globe2,title:"Websites + funnels",x:"76%",y:"24%",tone:"#58706F"},
-    {icon:TicketCheck,title:"Ticketing + service",x:"92%",y:"52%",tone:"#BF7458"},
-    {icon:LayoutTemplate,title:"Forms + lead capture",x:"76%",y:"80%",tone:"#85845D"},
+  const steps=[
+    {icon:Globe2,eyebrow:"Lead capture",title:"Website enquiry",detail:"Form submitted",tone:"#58706F"},
+    {icon:Mail,eyebrow:"Conversation",title:"SMS + email",detail:"Reply stays attached",tone:"#BF7458"},
+    {icon:CalendarDays,eyebrow:"Booking",title:"Tuesday · 10:30",detail:"Site visit booked",tone:"#85845D"},
+    {icon:CreditCard,eyebrow:"Payment",title:"A$2,850",detail:"Payment recorded",tone:"#C89A5D"},
+    {icon:TicketCheck,eyebrow:"Service",title:"Job complete",detail:"History stays with Mia",tone:"#58706F"},
   ];
 
   return (
     <section className="overflow-hidden bg-[#F7F4EE] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
-          <div className="max-w-[600px]">
+          <div className="max-w-[610px]">
             <Eyebrow>Connected beyond CRM</Eyebrow>
             <h2 className="mt-5 text-[42px] font-medium leading-[.96] tracking-[-0.055em] text-[#111318] sm:text-[54px] lg:text-[64px]" style={{fontFamily:DISPLAY}}>
-              The customer record stays connected to what happens next.
+              One customer record.
+              <span className="block text-[#58706F]">Across what happens next.</span>
             </h2>
           </div>
           <p className="max-w-[560px] text-[15px] font-medium leading-[1.72] text-[#646B65] lg:justify-self-end">
-            Email, SMS, bookings, payments, lead capture and service activity can all sit around the same customer record.
+            Email, SMS, bookings, payments, lead capture and service activity can stay tied to the same customer instead of becoming separate trails across separate tools.
           </p>
         </Reveal>
 
         <Reveal className="mt-14" delay={0.04}>
-          <div className="relative mx-auto hidden h-[390px] max-w-[1160px] md:block">
-            <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1160 390" fill="none" aria-hidden>
-              <motion.path d="M100 195 C260 195 330 110 580 195 C830 280 900 195 1060 195" stroke="#B9B2A8" strokeWidth="2" initial={{pathLength:0}} whileInView={{pathLength:1}} viewport={{once:true,amount:.4}} transition={{duration:1.1,ease:EASE}} />
-              <motion.path d="M285 95 C390 95 470 135 580 195 C690 255 770 295 875 295" stroke="#D0C7BA" strokeWidth="1.5" initial={{pathLength:0}} whileInView={{pathLength:1}} viewport={{once:true,amount:.4}} transition={{duration:1,delay:.12,ease:EASE}} />
-            </svg>
-
-            <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-              <div className="grid h-[150px] w-[150px] place-items-center rounded-full bg-[#1E2B29] text-center text-white shadow-[0_22px_60px_rgba(30,43,41,.18)]">
-                <div><Users size={25} className="mx-auto"/><div className="mt-3 text-[14px] font-semibold">Zapla CRM</div><div className="mt-1 text-[8px] text-white/55">One customer record</div></div>
+          <div className="relative mx-auto max-w-[1220px] border-y border-[#D8D0C5] py-10 sm:py-12">
+            <div className="flex items-center gap-3 pb-8">
+              <Avatar cell={0} size={46} className="border-2 border-white shadow-[0_5px_14px_rgba(35,53,76,.10)]"/>
+              <div>
+                <div className="text-[12px] font-semibold text-[#26302A]">Mia Thompson</div>
+                <div className="mt-1 text-[8px] uppercase tracking-[0.1em] text-[#7B847E]">One customer record · Northside Plumbing</div>
               </div>
             </div>
 
-            {items.map((item,index)=>{
-              const Icon=item.icon;
-              return (
-                <motion.div key={item.title} className="absolute -translate-x-1/2 -translate-y-1/2" style={{left:item.x,top:item.y}} initial={{opacity:0,scale:.88}} whileInView={{opacity:1,scale:1}} viewport={{once:true,amount:.45}} transition={{duration:.45,delay:.1+index*.05,ease:EASE}}>
-                  <div className="flex min-w-[150px] flex-col items-center text-center">
-                    <div className="grid h-14 w-14 place-items-center rounded-full bg-white shadow-[0_12px_28px_rgba(35,53,76,.10)] ring-1 ring-black/[0.05]" style={{color:item.tone}}><Icon size={21}/></div>
-                    <div className="mt-3 text-[10px] font-semibold text-[#39413C]">{item.title}</div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+            <div className="relative hidden md:block">
+              <div className="absolute left-[5%] right-[5%] top-[37px] h-px bg-[#BEB6AA]">
+                <motion.div
+                  className="h-full bg-[#1E2B29]"
+                  initial={{width:"0%"}}
+                  whileInView={{width:"100%"}}
+                  viewport={{once:true,amount:.45}}
+                  transition={{duration:1.2,ease:EASE}}
+                />
+              </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 md:hidden">
-            {items.map((item)=>{const Icon=item.icon;return <div key={item.title} className="flex items-center gap-3 border-b border-[#DDD5CA] py-4"><div className="grid h-10 w-10 place-items-center rounded-full bg-white text-[#46525E]"><Icon size={17}/></div><div className="text-[11px] font-semibold text-[#39413C]">{item.title}</div></div>;})}
+              <div className="relative grid grid-cols-5 gap-5">
+                {steps.map((step,index)=>{
+                  const Icon=step.icon;
+                  return (
+                    <motion.div
+                      key={step.title}
+                      initial={{opacity:0,y:12}}
+                      whileInView={{opacity:1,y:0}}
+                      viewport={{once:true,amount:.45}}
+                      transition={{duration:.42,delay:.08+index*.06,ease:EASE}}
+                      className="relative pt-[72px]"
+                    >
+                      <div className="absolute left-1/2 top-[18px] z-10 grid h-[38px] w-[38px] -translate-x-1/2 place-items-center rounded-full bg-[#F7F4EE] ring-1 ring-[#BEB6AA]" style={{color:step.tone}}>
+                        <Icon size={17}/>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7A837D]">{step.eyebrow}</div>
+                        <div className="mt-2 text-[12px] font-semibold text-[#26302A]">{step.title}</div>
+                        <div className="mt-1 text-[9px] leading-[1.5] text-[#69716C]">{step.detail}</div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="divide-y divide-[#D8D0C5] md:hidden">
+              {steps.map((step)=>{
+                const Icon=step.icon;
+                return (
+                  <div key={step.title} className="flex items-center gap-4 py-4">
+                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white" style={{color:step.tone}}><Icon size={17}/></div>
+                    <div>
+                      <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7A837D]">{step.eyebrow}</div>
+                      <div className="mt-1 text-[11px] font-semibold text-[#26302A]">{step.title}</div>
+                      <div className="mt-1 text-[9px] text-[#69716C]">{step.detail}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </Reveal>
       </div>
@@ -929,18 +1033,37 @@ function Faq() {
 
 function FinalCta() {
   return (
-    <section className="overflow-hidden bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <Reveal className="mx-auto max-w-[1120px] text-center">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#C96F55]">See it around your business</div>
-        <h2 className="mx-auto mt-5 max-w-[980px] text-[46px] font-medium leading-[.96] tracking-[-0.055em] text-[#111318] sm:text-[60px] lg:text-[72px]" style={{fontFamily:DISPLAY}}>
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+      <Reveal className="mx-auto max-w-[1080px] text-center">
+        <img
+          src={ZAPLA_ICON_URL}
+          alt=""
+          aria-hidden="true"
+          className="mx-auto h-[52px] w-[52px] rounded-[14px] object-cover shadow-[0_8px_20px_rgba(37,99,255,.16)]"
+        />
+
+        <div className="mt-5">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">See it around your business</div>
+        </div>
+
+        <h2
+          className="mx-auto mt-3 max-w-[900px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[56px] lg:text-[64px]"
+          style={{fontFamily:DISPLAY}}
+        >
           See how Zapla would fit the way your team manages customers.
         </h2>
-        <p className="mx-auto mt-6 max-w-[720px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
+
+        <p className="mx-auto mt-4 max-w-[720px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
           We’ll map your customer flow, show where the CRM fits, and explain what would move with Guided Launch.
         </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a href={BOOK_URL} className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px sm:w-auto">Book a Call <ArrowRight size={15}/></a>
-          <a href={PRICING_URL} className="inline-flex h-[52px] w-full items-center justify-center rounded-full border border-[#E2DBD1] bg-white px-7 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA] sm:w-auto">View pricing</a>
+
+        <div className="mt-7 flex flex-wrap justify-center gap-3">
+          <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px">
+            Book a Call <ArrowRight size={15}/>
+          </a>
+          <a href={PRICING_URL} className="inline-flex h-[50px] items-center rounded-full border border-[#E2DBD1] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA]">
+            View pricing
+          </a>
         </div>
       </Reveal>
     </section>
