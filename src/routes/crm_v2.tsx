@@ -6,6 +6,7 @@ import {
   CalendarDays,
   ChevronDown,
   CreditCard,
+  FileText,
   Filter,
   Globe2,
   Mail,
@@ -360,7 +361,8 @@ function CustomerWorkbench() {
           <div className="max-w-[610px]">
             <Eyebrow>Work the database</Eyebrow>
             <h2 className="mt-5 text-[40px] font-medium leading-[.98] tracking-[-0.052em] text-[#111318] sm:text-[50px] lg:text-[60px]" style={{ fontFamily: DISPLAY }}>
-              Find who needs attention. See the full context.
+              <span className="block lg:whitespace-nowrap">Find who needs attention.</span>
+              <span className="block lg:whitespace-nowrap">See the full context.</span>
             </h2>
           </div>
 
@@ -949,7 +951,7 @@ function ConnectedPlatform() {
     {icon:CalendarDays,title:"Calendars + bookings",copy:"Turn conversations into booked next steps.",tone:"#85845D"},
     {icon:CreditCard,title:"Payments",copy:"Keep payment activity in context.",tone:"#C89A5D"},
     {icon:Globe2,title:"Websites + funnels",copy:"Capture enquiries into the CRM.",tone:"#58706F"},
-    {icon:Filter,title:"Forms + lead capture",copy:"Create records from new enquiries.",tone:"#85845D"},
+    {icon:FileText,title:"Forms + lead capture",copy:"Create records from new enquiries.",tone:"#85845D"},
     {icon:TicketCheck,title:"Ticketing + service",copy:"Carry the history beyond the sale.",tone:"#BF7458"},
   ];
 
