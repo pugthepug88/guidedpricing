@@ -127,23 +127,23 @@ function PrimaryButton() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#E3E8EE] bg-[#F8FAFC] px-5 pb-12 pt-[112px] sm:px-10 sm:pb-14 sm:pt-[120px] lg:px-16 lg:pb-16 lg:pt-[122px]">
-      <div className="pointer-events-none absolute left-1/2 top-[45%] h-[760px] w-[1180px] -translate-x-1/2 rounded-[50%] bg-[#2563FF]/[0.045] blur-[120px]" />
+    <section className="relative overflow-hidden border-b border-[#E3E8EE] bg-[#F8FAFC] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[120px] lg:px-16 lg:pb-18 lg:pt-[122px]">
+      <div className="pointer-events-none absolute left-1/2 top-[48%] h-[680px] w-[1040px] -translate-x-1/2 rounded-[50%] bg-[#2563FF]/[0.035] blur-[120px]" />
 
-      <div className="relative mx-auto max-w-[1440px]">
-        <Reveal className="mx-auto max-w-[860px] text-center">
+      <div className="relative mx-auto max-w-[1360px]">
+        <Reveal className="mx-auto max-w-[900px] text-center">
           <Eyebrow>Zapla CRM</Eyebrow>
+
           <h1
-            className="mx-auto mt-4 max-w-[820px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[50px] lg:text-[58px]"
+            className="mx-auto mt-4 max-w-[900px] text-[40px] font-medium leading-[0.99] tracking-[-0.05em] sm:text-[48px] lg:text-[54px]"
             style={{ fontFamily: DISPLAY }}
           >
-            One customer.
-            <span className="block">One working history.</span>
-            <span className="block text-[#2563FF]">Everyone sees what matters.</span>
+            The CRM that keeps every customer,
+            <span className="block text-[#2563FF]">conversation and next step connected.</span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-[#5F6975] sm:text-[17px]">
-            Customer details, conversations, pipeline status and next actions stay connected, so your team works from the same picture instead of piecing it together.
+          <p className="mx-auto mt-5 max-w-[760px] text-[15px] leading-[1.72] text-[#5F6975] sm:text-[17px]">
+            Keep customer records, conversations, pipelines and automations working from the same source of truth, so your team can see what happened, where things stand and what needs to happen next.
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-3">
@@ -161,7 +161,7 @@ function Hero() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-10 sm:mt-12" delay={0.05}>
+        <Reveal className="mt-9 sm:mt-11" delay={0.05}>
           <HeroStage />
         </Reveal>
       </div>
@@ -171,29 +171,10 @@ function Hero() {
 
 function HeroStage() {
   return (
-    <div className="relative mx-auto min-h-[520px] max-w-[1380px] lg:min-h-[600px]">
-      <div className="absolute inset-x-[8%] bottom-0 top-[16%] rounded-[28px] bg-[#E7EEF9]" />
-
-      <div className="pointer-events-none absolute left-[-2%] top-[27%] hidden w-[31%] rotate-[-1.4deg] lg:block">
-        <PipelinePeek />
-      </div>
-
-      <div className="pointer-events-none absolute right-[-1%] top-[25%] hidden w-[29%] rotate-[1.1deg] lg:block">
-        <ConversationPeek />
-      </div>
-
-      <div className="relative z-20 mx-auto w-full max-w-[980px] lg:pt-4">
+    <div className="relative mx-auto max-w-[1160px]">
+      <div className="absolute inset-x-[4%] bottom-[-16px] top-[26px] rounded-[20px] bg-[#E7EEF9]" />
+      <div className="relative">
         <MainCrmWindow />
-      </div>
-
-      <div className="pointer-events-none absolute bottom-[8%] left-[8%] z-30 hidden rounded-[8px] border border-[#D9E3EF] bg-white px-3 py-2 shadow-[0_10px_24px_rgba(35,53,76,.10)] lg:block">
-        <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#2563FF]">Customer state</div>
-        <div className="mt-0.5 text-[8px] font-semibold text-[#4B5762]">Quote sent · owned by Ben</div>
-      </div>
-
-      <div className="pointer-events-none absolute bottom-[13%] right-[7%] z-30 hidden rounded-[8px] border border-[#D9E3EF] bg-white px-3 py-2 shadow-[0_10px_24px_rgba(35,53,76,.10)] lg:block">
-        <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#2563FF]">Conversation</div>
-        <div className="mt-0.5 text-[8px] font-semibold text-[#4B5762]">Latest reply stays on the record</div>
       </div>
     </div>
   );
@@ -201,7 +182,7 @@ function HeroStage() {
 
 function MainCrmWindow() {
   return (
-    <div className="overflow-hidden rounded-[16px] border border-[#D6DEE7] bg-white shadow-[0_30px_80px_rgba(35,53,76,.14)]">
+    <div className="overflow-hidden rounded-[16px] border border-[#D6DEE7] bg-white shadow-[0_30px_78px_rgba(35,53,76,.13)]">
       <div className="flex min-h-12 items-center justify-between border-b border-[#E2E7EC] bg-white px-4 sm:px-5">
         <div className="flex min-w-0 items-center gap-5">
           {["Contacts", "Inbox", "Pipelines", "Automations"].map((item, index) => (
@@ -216,6 +197,7 @@ function MainCrmWindow() {
             </span>
           ))}
         </div>
+
         <div className="flex shrink-0 gap-2">
           <span className="hidden rounded-[7px] border border-[#DDE3E9] bg-white px-3 py-2 text-[8px] font-bold uppercase tracking-[0.08em] text-[#5E6A76] sm:block">
             Custom columns
@@ -226,14 +208,18 @@ function MainCrmWindow() {
         </div>
       </div>
 
-      <div className="grid min-h-[455px] lg:grid-cols-[1.06fr_.94fr]">
+      <div className="grid min-h-[465px] lg:grid-cols-[1.08fr_.92fr]">
         <div className="min-w-0 border-b border-[#E2E7EC] lg:border-b-0 lg:border-r">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
             <div>
               <div className="text-[17px] font-semibold text-[#1F2933]">Customer records</div>
               <div className="mt-1 text-[8px] font-bold uppercase tracking-[0.12em] text-[#909AA5]">All contacts</div>
             </div>
+
             <div className="flex gap-2">
+              <span className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-[#DDE3E9] bg-white px-3 text-[8px] font-bold uppercase tracking-[0.08em] text-[#66727E]">
+                <Settings2 size={11} /> Columns
+              </span>
               <span className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-[#BFD0FF] bg-[#F4F7FF] px-3 text-[8px] font-bold uppercase tracking-[0.08em] text-[#2563FF]">
                 <Filter size={11} /> Filter
               </span>
@@ -241,8 +227,8 @@ function MainCrmWindow() {
           </div>
 
           <div className="overflow-x-auto">
-            <div className="min-w-[620px]">
-              <div className="grid grid-cols-[1.35fr_1fr_.78fr_.8fr_.72fr] border-y border-[#E5E9EE] bg-[#F8FAFB] px-4 py-2.5 text-[8px] font-semibold text-[#596571]">
+            <div className="min-w-[650px]">
+              <div className="grid grid-cols-[1.3fr_1fr_.72fr_.78fr_.72fr] border-y border-[#E5E9EE] bg-[#F8FAFB] px-4 py-2.5 text-[8px] font-semibold text-[#596571]">
                 {["Customer", "Phone", "Owner", "Stage", "Tag"].map((item) => <div key={item}>{item}</div>)}
               </div>
 
@@ -256,7 +242,7 @@ function MainCrmWindow() {
                 <div
                   key={row[0]}
                   className={
-                    "grid grid-cols-[1.35fr_1fr_.78fr_.8fr_.72fr] items-center border-b border-[#E7EBEF] px-4 py-3.5 text-[9px] text-[#4B5762] " +
+                    "grid grid-cols-[1.3fr_1fr_.72fr_.78fr_.72fr] items-center border-b border-[#E7EBEF] px-4 py-3.5 text-[9px] text-[#4B5762] " +
                     (i === 0 ? "bg-[#F2F6FF]" : "bg-white")
                   }
                 >
@@ -270,6 +256,11 @@ function MainCrmWindow() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="flex items-center justify-between px-4 py-3 text-[8px] text-[#8C97A2] sm:px-5">
+            <span>5 of 2,846 contacts</span>
+            <span>Rows per page 10</span>
           </div>
         </div>
 
@@ -308,14 +299,25 @@ function MainCrmWindow() {
             <div className="mt-3 space-y-2.5">
               <div className="rounded-[9px] border border-[#DDE4EA] bg-white p-3">
                 <div className="text-[8px] font-semibold text-[#6B7681]">SMS reply</div>
-                <div className="mt-1 text-[9px] leading-[1.5] text-[#44515E]">Tuesday afternoon works. Can you send through the quote?</div>
+                <div className="mt-1 text-[9px] leading-[1.5] text-[#44515E]">
+                  Tuesday afternoon works. Can you send through the quote?
+                </div>
               </div>
+
               <div className="rounded-[9px] border border-[#DDE4EA] bg-white p-3">
                 <div className="text-[8px] font-semibold text-[#6B7681]">Pipeline update</div>
                 <div className="mt-1 flex items-center gap-2 text-[9px] text-[#44515E]">
                   <span className="rounded-[5px] bg-[#F3EFE6] px-2 py-1 text-[7px] font-bold text-[#8A6B3F]">Proposal</span>
                   <ArrowRight size={10} className="text-[#A2ADB7]" />
                   <span className="rounded-[5px] bg-[#EEF3FF] px-2 py-1 text-[7px] font-bold text-[#2563FF]">Quote sent</span>
+                </div>
+              </div>
+
+              <div className="rounded-[9px] border border-[#DDE4EA] bg-white p-3">
+                <div className="text-[8px] font-semibold text-[#6B7681]">Next action</div>
+                <div className="mt-1 flex items-center justify-between gap-3 text-[9px] text-[#44515E]">
+                  <span>Follow up if no reply</span>
+                  <span className="rounded-[5px] bg-[#F0F4EA] px-2 py-1 text-[7px] font-bold text-[#667A4B]">2 days</span>
                 </div>
               </div>
             </div>
@@ -326,69 +328,6 @@ function MainCrmWindow() {
               <span key={tag} className="rounded-[5px] border border-[#DDE3E9] bg-white px-2 py-1 text-[7px] font-semibold text-[#65717D]">{tag}</span>
             ))}
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PipelinePeek() {
-  const columns = [
-    ["Lead", "#6F8C36", ["Alex Chen", "Lena Parker"]],
-    ["Proposal", "#D09100", ["Mia Thompson", "Chris Moore"]],
-    ["Won", "#28894A", ["Daniel Brooks", "Grace Tan"]],
-  ] as const;
-
-  return (
-    <div className="overflow-hidden rounded-[14px] border border-[#D8E0E8] bg-[#F5F6F7] shadow-[0_22px_54px_rgba(35,53,76,.10)]">
-      <div className="border-b border-[#E1E6EB] bg-white px-4 py-3">
-        <div className="text-[10px] font-semibold text-[#26313B]">Sales pipeline</div>
-      </div>
-      <div className="grid grid-cols-3 gap-1.5 p-2.5">
-        {columns.map(([name, tone, people]) => (
-          <div key={name} className="overflow-hidden border border-[#DCE2E8] bg-white">
-            <div className="px-2 py-2 text-[7px] font-bold text-white" style={{ backgroundColor: tone }}>{name}</div>
-            <div className="space-y-1.5 p-1.5">
-              {people.map((person) => (
-                <div key={person} className="border border-[#E4E8EC] bg-[#FAFBFC] p-2">
-                  <div className="text-[7px] font-semibold text-[#37434F]">{person}</div>
-                  <div className="mt-2 h-1 w-8 rounded-full bg-[#E6EAF0]" />
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ConversationPeek() {
-  return (
-    <div className="overflow-hidden rounded-[14px] border border-[#D8E0E8] bg-white shadow-[0_22px_54px_rgba(35,53,76,.10)]">
-      <div className="flex items-center justify-between border-b border-[#E1E6EB] px-4 py-3">
-        <div className="text-[10px] font-semibold text-[#26313B]">Unified inbox</div>
-        <MessageSquare size={12} className="text-[#6F7B87]" />
-      </div>
-      <div className="grid min-h-[270px] grid-cols-[86px_1fr]">
-        <div className="border-r border-[#E4E8EC] bg-[#FBFCFD] p-2">
-          {["Mia", "John", "Priya"].map((name, i) => (
-            <div key={name} className={"mb-1.5 rounded-[6px] px-2 py-2.5 " + (i === 0 ? "bg-[#EEF3F8]" : "")}>
-              <div className="text-[7px] font-semibold text-[#394550]">{name}</div>
-              <div className="mt-1 h-1 w-8 rounded-full bg-[#DDE3E9]" />
-            </div>
-          ))}
-        </div>
-        <div className="flex flex-col justify-between bg-[#FAFBFC] p-3">
-          <div>
-            <div className="max-w-[86%] rounded-[8px] border border-[#DDE3E9] bg-white p-2 text-[7px] leading-[1.45] text-[#596571]">
-              Would Tuesday afternoon suit you?
-            </div>
-            <div className="mt-2 ml-auto max-w-[80%] rounded-[8px] bg-[#EAF0FF] p-2 text-[7px] leading-[1.45] text-[#40547B]">
-              Yes, that works.
-            </div>
-          </div>
-          <div className="rounded-[7px] border border-[#DDE3E9] bg-white px-2 py-2 text-[7px] text-[#A0A9B2]">Reply...</div>
         </div>
       </div>
     </div>
