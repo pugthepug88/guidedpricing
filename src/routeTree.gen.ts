@@ -14,7 +14,7 @@ import { Route as ReactivationRouteImport } from './routes/reactivation'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as FollowUpRouteImport } from './routes/follow-up'
-import { Route as Crm_v2RouteImport } from './routes/crm_v2'
+import { Route as CrmRouteImport } from './routes/crm'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
 import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as IndexRouteImport } from './routes/index'
@@ -49,9 +49,9 @@ const FollowUpRoute = FollowUpRouteImport.update({
   path: '/follow-up',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Crm_v2Route = Crm_v2RouteImport.update({
-  id: '/crm_v2',
-  path: '/crm_v2',
+const CrmRoute = CrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AiReceptionistRoute = AiReceptionistRouteImport.update({
@@ -104,7 +104,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/crm_v2': typeof Crm_v2Route
+  '/crm': typeof CrmRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -120,7 +120,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/crm_v2': typeof Crm_v2Route
+  '/crm': typeof CrmRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -137,7 +137,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/crm_v2': typeof Crm_v2Route
+  '/crm': typeof CrmRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/pricing-v2': typeof PricingV2Route
@@ -155,7 +155,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/crm_v2'
+    | '/crm'
     | '/follow-up'
     | '/mcp'
     | '/pricing-v2'
@@ -171,7 +171,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/crm_v2'
+    | '/crm'
     | '/follow-up'
     | '/mcp'
     | '/pricing-v2'
@@ -187,7 +187,7 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/crm_v2'
+    | '/crm'
     | '/follow-up'
     | '/mcp'
     | '/pricing-v2'
@@ -204,7 +204,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PricingV3Route: typeof PricingV3Route
   AiReceptionistRoute: typeof AiReceptionistRoute
-  Crm_v2Route: typeof Crm_v2Route
+  CrmRoute: typeof CrmRoute
   FollowUpRoute: typeof FollowUpRoute
   McpRoute: typeof McpRoute
   PricingV2Route: typeof PricingV2Route
@@ -254,11 +254,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FollowUpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/crm_v2': {
-      id: '/crm_v2'
-      path: '/crm_v2'
-      fullPath: '/crm_v2'
-      preLoaderRoute: typeof Crm_v2RouteImport
+    '/crm': {
+      id: '/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof CrmRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ai-receptionist': {
@@ -324,7 +324,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PricingV3Route: PricingV3Route,
   AiReceptionistRoute: AiReceptionistRoute,
-  Crm_v2Route: Crm_v2Route,
+  CrmRoute: CrmRoute,
   FollowUpRoute: FollowUpRoute,
   McpRoute: McpRoute,
   PricingV2Route: PricingV2Route,

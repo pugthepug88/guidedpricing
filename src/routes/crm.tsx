@@ -19,7 +19,7 @@ import {
 import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
-export const Route = createFileRoute("/crm_v2")({
+export const Route = createFileRoute("/crm")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/crm_v2")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: CrmV2Page,
+  component: CrmPage,
 });
 
 const BOOK_URL = "https://zapla.io/booking";
@@ -71,7 +71,7 @@ const FAQS = [
   },
 ] as const;
 
-function CrmV2Page() {
+function CrmPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#FCFCFA] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <Hero />
