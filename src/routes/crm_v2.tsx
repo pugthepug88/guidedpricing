@@ -41,6 +41,7 @@ const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 const ZAPLA_WORDMARK_URL = "/concept/zapla-logo-dark.svg";
+const ZAPLA_WORDMARK_WHITE_URL = "/concept/zapla-logo-white.png";
 
 const FAQS = [
   {
@@ -127,14 +128,14 @@ function PrimaryButton() {
   );
 }
 
-function ProductBrand({ section }: { section?: string }) {
+function ProductBrand({ section, dark = false }: { section?: string; dark?: boolean }) {
   return (
     <div className="flex min-w-0 items-center gap-3">
-      <img src={ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[18px] w-auto shrink-0" />
+      <img src={dark ? ZAPLA_WORDMARK_WHITE_URL : ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[18px] w-auto shrink-0 object-contain" />
       {section ? (
         <>
-          <span className="h-4 w-px bg-[#D9DEDA]" />
-          <span className="truncate text-[7px] font-bold uppercase tracking-[0.12em] text-[#7A837D]">{section}</span>
+          <span className={"h-4 w-px " + (dark ? "bg-white/20" : "bg-[#D9DEDA]")} />
+          <span className={"truncate text-[7px] font-bold uppercase tracking-[0.12em] " + (dark ? "text-white/55" : "text-[#7A837D]")}>{section}</span>
         </>
       ) : null}
     </div>
@@ -786,14 +787,14 @@ function ScaleSection() {
 function TeamWorkspaceVisual() {
   const people=[
     {cell:0,name:"Owner",x:"48%",y:"4%",tone:"#DDA34B"},
-    {cell:6,name:"Sales manager",x:"83%",y:"14%",tone:"#E7D8C5"},
-    {cell:14,name:"Sales rep",x:"92%",y:"37%",tone:"#D98670"},
-    {cell:11,name:"Marketing",x:"88%",y:"72%",tone:"#DCE0CC"},
-    {cell:7,name:"Reception",x:"67%",y:"90%",tone:"#CFA5B6"},
-    {cell:9,name:"Client service",x:"34%",y:"91%",tone:"#A8AD73"},
-    {cell:18,name:"Accounting",x:"8%",y:"72%",tone:"#CFA379"},
-    {cell:19,name:"Admin",x:"7%",y:"38%",tone:"#D9CDC0"},
-    {cell:16,name:"Operations",x:"15%",y:"13%",tone:"#A8AD73"},
+    {cell:6,name:"Sales manager",x:"82%",y:"14%",tone:"#E7D8C5",side:"left"},
+    {cell:14,name:"Sales rep",x:"91%",y:"37%",tone:"#D98670",side:"left"},
+    {cell:11,name:"Marketing",x:"87%",y:"72%",tone:"#DCE0CC",side:"left"},
+    {cell:7,name:"Reception",x:"67%",y:"90%",tone:"#CFA5B6",side:"left"},
+    {cell:9,name:"Client service",x:"34%",y:"91%",tone:"#A8AD73",side:"right"},
+    {cell:18,name:"Accounting",x:"9%",y:"72%",tone:"#CFA379",side:"right"},
+    {cell:19,name:"Admin",x:"8%",y:"38%",tone:"#D9CDC0",side:"right"},
+    {cell:16,name:"Operations",x:"16%",y:"13%",tone:"#A8AD73",side:"right"},
   ];
 
   return (
@@ -890,7 +891,7 @@ function TeamWorkspaceVisual() {
         >
           <div className="relative">
             <Avatar cell={person.cell} size={50} className="border-[3px] border-[#F7F2EA] shadow-[0_12px_26px_rgba(0,0,0,.20)]"/>
-            <div className="absolute left-[36px] top-[35px] flex items-center gap-1.5 whitespace-nowrap rounded-full border border-black/[0.07] bg-[#F7F2EA] px-2.5 py-1.5 text-[8px] font-bold text-[#111318] shadow-[0_8px_18px_rgba(0,0,0,.13)]">
+            <div className={"absolute top-[35px] flex items-center gap-1.5 whitespace-nowrap rounded-full border border-black/[0.07] bg-[#F7F2EA] px-2.5 py-1.5 text-[8px] font-bold text-[#111318] shadow-[0_8px_18px_rgba(0,0,0,.13)] " + (person.side==="left" ? "right-[36px]" : "left-[36px]")}>
               <span className="h-1.5 w-1.5 rounded-full" style={{backgroundColor:person.tone}} />
               <MousePointer2 size={9} fill="currentColor"/>{person.name}
             </div>
@@ -964,7 +965,7 @@ function ConnectedPlatform() {
             </h2>
           </div>
           <p className="max-w-[560px] text-[15px] font-medium leading-[1.72] text-[#646B65] lg:justify-self-end">
-            Zapla can connect the customer record to the surrounding work without turning the CRM into six disconnected subscriptions and six separate histories.
+            Zapla connects the customer record to the surrounding work, so messages, bookings, payments and lead capture do not become separate trails across separate tools.
           </p>
         </Reveal>
 
@@ -973,7 +974,7 @@ function ConnectedPlatform() {
             <div className="relative flex min-h-[360px] flex-col justify-between overflow-hidden bg-[#1E2B29] p-7 text-white sm:p-9">
               <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[#31403D] blur-[80px]" />
               <div className="relative">
-                <ProductBrand section="CRM" />
+                <ProductBrand section="CRM" dark />
                 <div className="mt-9 flex items-center gap-4">
                   <Avatar cell={3} size={58} className="border-2 border-white/80 shadow-[0_8px_22px_rgba(0,0,0,.16)]"/>
                   <div>
@@ -1003,7 +1004,12 @@ function ConnectedPlatform() {
                     whileInView={{opacity:1,y:0}}
                     viewport={{once:true,amount:.45}}
                     transition={{duration:.38,delay:index*.04,ease:EASE}}
-                    className={"min-h-[180px] border-[#E3E0DA] p-5 sm:p-6 " + (index>0?"border-t sm:border-t-0":"") + (index%2===1?"sm:border-l":"") + (index>=2?"sm:border-t":"") + (index%3!==0?"lg:border-l":"") + (index>=3?"lg:border-t":"")}
+                    className={"min-h-[180px] border-[#E3E0DA] p-5 sm:p-6 " +
+                      (index>0 ? "border-t " : "") +
+                      (index%2===1 ? "sm:border-l " : "") +
+                      (index>=2 ? "sm:border-t " : "sm:border-t-0 ") +
+                      (index%3!==0 ? "lg:border-l " : "lg:border-l-0 ") +
+                      (index>=3 ? "lg:border-t " : "lg:border-t-0 ")}
                   >
                     <div className="grid h-10 w-10 place-items-center rounded-full bg-[#F7F4EE]" style={{color:tool.tone}}>
                       <Icon size={17}/>
