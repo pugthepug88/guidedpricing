@@ -962,35 +962,25 @@ function ConnectedPlatform() {
           <div className="max-w-[620px]">
             <Eyebrow>Connected beyond CRM</Eyebrow>
             <h2 className="mt-5 text-[42px] font-medium leading-[.96] tracking-[-0.055em] text-[#111318] sm:text-[54px] lg:text-[64px]" style={{fontFamily:DISPLAY}}>
-              CRM at the centre.
-              <span className="block text-[#58706F]">The rest of the work stays connected.</span>
+              One customer record.
+              <span className="block text-[#58706F]">The work around it stays connected.</span>
             </h2>
           </div>
           <p className="max-w-[560px] text-[15px] font-medium leading-[1.72] text-[#646B65] lg:justify-self-end">
-            Zapla connects the customer record to the surrounding work, so messages, bookings, payments and lead capture do not become separate trails across separate tools.
+            Messages, bookings, payments, lead capture and service activity stay connected to the same customer instead of being scattered across separate tools.
           </p>
         </Reveal>
 
         <Reveal className="mt-14" delay={0.04}>
-          <div className="grid overflow-hidden rounded-[28px] border border-[#D8D0C5] bg-white shadow-[0_22px_58px_rgba(38,45,41,.07)] lg:grid-cols-[.38fr_.62fr]">
-            <div className="relative flex min-h-[360px] flex-col justify-between overflow-hidden bg-[#1E2B29] p-7 text-white sm:p-9">
-              <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[#31403D] blur-[80px]" />
-              <div className="relative">
-                <ProductBrand section="CRM" dark />
-                <div className="mt-9 flex items-center gap-4">
-                  <Avatar cell={9} size={58} className="border-2 border-white/80 shadow-[0_8px_22px_rgba(0,0,0,.16)]"/>
-                  <div>
-                    <div className="text-[16px] font-semibold">Mia Thompson</div>
-                    <div className="mt-1 text-[9px] text-white/55">Northside Plumbing</div>
-                  </div>
-                </div>
-                <div className="mt-7 text-[28px] font-medium leading-[1.03] tracking-[-0.04em]" style={{fontFamily:DISPLAY}}>
-                  One customer record.
-                  <span className="block text-[#DDA34B]">More of the work around it.</span>
-                </div>
-              </div>
-
-
+          <div className="grid overflow-hidden rounded-[28px] border border-[#D8D0C5] bg-white shadow-[0_22px_58px_rgba(38,45,41,.07)] lg:grid-cols-[.42fr_.58fr]">
+            <div className="relative min-h-[360px] overflow-hidden bg-[#1E2B29] sm:min-h-[420px] lg:min-h-0">
+              <img
+                src="/concept/CRM image.png"
+                alt="Small business team member handling customer work"
+                className="absolute inset-0 h-full w-full object-cover object-[50%_50%]"
+                loading="lazy"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#15211F]/18 via-transparent to-transparent" />
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3">
