@@ -118,7 +118,7 @@ function PrimaryButton() {
   return (
     <a
       href={BOOK_URL}
-      className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] focus-visible:ring-offset-2"
+      className="inline-flex h-[50px] items-center gap-2 rounded-[12px] bg-[#2563FF] px-6 text-[13px] font-semibold text-white shadow-[0_10px_24px_rgba(37,99,255,.18)] transition-all hover:-translate-y-px hover:bg-[#1F56E8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] focus-visible:ring-offset-2"
     >
       Book a Call <ArrowRight size={15} />
     </a>
@@ -128,9 +128,8 @@ function PrimaryButton() {
 function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-[#DDD5CA] bg-[#F7F4EE] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[120px] lg:px-16 lg:pb-20 lg:pt-[122px]">
-      <div className="pointer-events-none absolute -left-[8%] top-[18%] h-[520px] w-[520px] rounded-full bg-[#DCE0CC]/65 blur-[120px]" />
-      <div className="pointer-events-none absolute right-[-7%] top-[28%] h-[520px] w-[520px] rounded-full bg-[#E7CEC2]/55 blur-[125px]" />
-      <div className="pointer-events-none absolute left-1/2 bottom-[-24%] h-[420px] w-[760px] -translate-x-1/2 rounded-[50%] bg-[#E7D8C5]/55 blur-[120px]" />
+      <div className="pointer-events-none absolute -left-[10%] top-[22%] h-[560px] w-[560px] rounded-full bg-[#DCE0CC]/45 blur-[135px]" />
+      <div className="pointer-events-none absolute right-[-9%] top-[30%] h-[540px] w-[540px] rounded-full bg-[#E7CEC2]/35 blur-[140px]" />
 
       <div className="relative mx-auto max-w-[1380px]">
         <Reveal className="mx-auto max-w-[920px] text-center">
@@ -144,7 +143,7 @@ function Hero() {
             <span className="block text-[#2563FF]">conversation and next step connected.</span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-[760px] text-[15px] leading-[1.72] text-[#5F6975] sm:text-[17px]">
+          <p className="mx-auto mt-5 max-w-[760px] text-[15px] leading-[1.72] font-medium text-[#4F5A64] sm:text-[17px]">
             Keep the customer record, messages, deal status and next action in one place, so whoever picks up the work sees the full context.
           </p>
 
@@ -152,13 +151,13 @@ function Hero() {
             <PrimaryButton />
             <a
               href="#crm-workbench"
-              className="inline-flex h-[50px] items-center rounded-[10px] border border-[#D3DAE2] bg-white px-6 text-[13px] font-semibold text-[#111318]"
+              className="inline-flex h-[50px] items-center rounded-[12px] border border-[#D8D0C5] bg-[#FBF9F5] px-6 text-[13px] font-semibold text-[#1B1F23] shadow-[0_5px_14px_rgba(35,53,76,.05)] transition-colors hover:bg-white"
             >
               Explore the CRM
             </a>
           </div>
 
-          <div className="mt-5 text-[11px] font-semibold text-[#68737E] sm:text-[12px]">
+          <div className="mt-5 text-[11px] font-semibold text-[#59656F] sm:text-[12px]">
             Unlimited users <span className="mx-2 text-[#A8B2BD]">·</span> Unlimited contacts <span className="mx-2 text-[#A8B2BD]">·</span> Guided Launch
           </div>
         </Reveal>
@@ -173,11 +172,8 @@ function Hero() {
 
 function HeroStage() {
   return (
-    <div className="relative mx-auto max-w-[1220px]">
-      <div className="absolute inset-x-[3%] bottom-[-18px] top-[28px] rounded-[22px] border border-[#DDD5CA] bg-[#EEEADF]" />
-      <div className="relative">
-        <CustomerRecordHero />
-      </div>
+    <div className="relative mx-auto max-w-[1240px] rounded-[30px] border border-[#DDD5CA] bg-[#EEEAE2]/90 p-3 shadow-[0_26px_70px_rgba(35,53,76,.08)] sm:p-5">
+      <CustomerRecordHero />
     </div>
   );
 }
@@ -201,21 +197,21 @@ function CustomerRecordHero() {
 
       <div className="grid min-h-[520px] lg:grid-cols-[225px_minmax(0,1fr)_205px]">
         <div className="border-b border-[#E2E7EC] bg-[#FAFBFC] p-4 lg:border-b-0 lg:border-r">
-          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Profile</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6F7A84]">Profile</div>
 
           <div className="mt-4 flex items-center gap-3">
-            <InitialsAvatar initials="MT" size={44} />
+            <Avatar cell={0} size={46} className="border border-white shadow-[0_6px_16px_rgba(35,53,76,.10)]" />
             <div>
               <div className="text-[13px] font-semibold text-[#26313B]">Mia Thompson</div>
-              <div className="mt-0.5 text-[8px] text-[#929DA8]">Northside Plumbing</div>
+              <div className="mt-0.5 text-[8px] text-[#737E88]">Northside Plumbing</div>
             </div>
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-1.5">
             {[
-              ["Call", "text-[#56604D] border-[#DCE0CC] bg-[#FAFAF6]"],
-              ["Note", "text-[#58706F] border-[#D5CCBF] bg-[#FBFAF7]"],
-              ["Book", "text-[#BF7458] border-[#E7CEC2] bg-[#FCF8F6]"],
+              ["Call", "text-[#56604D] border-[#BFC6AE] bg-[#EEF0E5]"],
+              ["Note", "text-[#2563FF] border-[#C7D6FF] bg-[#EEF3FF]"],
+              ["Book", "text-[#A95D48] border-[#E2B7A9] bg-[#F5E7E1]"],
             ].map(([label, cls]) => (
               <div key={label} className={"grid h-8 place-items-center rounded-[7px] border text-[7px] font-bold uppercase tracking-[0.08em] " + cls}>
                 {label}
@@ -267,7 +263,7 @@ function CustomerRecordHero() {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-[14px] font-semibold text-[#26313B]">Recent activity</div>
-                <div className="mt-1 text-[8px] text-[#8F9AA5]">Everything around this customer, in order.</div>
+                <div className="mt-1 text-[8px] text-[#6F7A84]">Everything around this customer, in order.</div>
               </div>
               <div className="inline-flex h-8 items-center gap-2 rounded-[7px] border border-[#DDE3E9] bg-white px-3 text-[8px] font-semibold text-[#65717D]">
                 <Filter size={10} /> Filter
@@ -318,7 +314,7 @@ function CustomerRecordHero() {
         </div>
 
         <div className="hidden border-l border-[#E2E7EC] bg-white p-4 lg:block">
-          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Customer context</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6F7A84]">Customer context</div>
 
           <div className="mt-4 space-y-2">
             <ContextCard
@@ -342,7 +338,7 @@ function CustomerRecordHero() {
           </div>
 
           <div className="mt-5 border-t border-[#E4E8EC] pt-4">
-            <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Also connected</div>
+            <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6F7A84]">Also connected</div>
             <div className="mt-3 space-y-2">
               {["Notes", "Files", "Invoices", "Payments", "Bookings"].map((item) => (
                 <div key={item} className="flex items-center justify-between rounded-[7px] border border-[#E2E7EC] bg-[#FAFBFC] px-3 py-2.5">
@@ -381,11 +377,11 @@ function ActivityItem({
   last?: boolean;
 }) {
   const tones = {
-    blue: "bg-[#EAF0FF] text-[#2563FF]",
-    sage: "bg-[#EEF0E5] text-[#69735D]",
-    blush: "bg-[#F5E7E1] text-[#BF7458]",
-    oat: "bg-[#F4ECDD] text-[#9A7247]",
-    slate: "bg-[#EEF1F0] text-[#58706F]",
+    blue: "bg-[#DCE6FF] text-[#2563FF]",
+    sage: "bg-[#E2E7D4] text-[#56604D]",
+    blush: "bg-[#F1D9D0] text-[#A95D48]",
+    oat: "bg-[#EFE0C7] text-[#8E6538]",
+    slate: "bg-[#E4EBE9] text-[#496463]",
   };
 
   return (
@@ -397,7 +393,7 @@ function ActivityItem({
       <div className="rounded-[9px] border border-[#DEE4EA] bg-white p-3.5">
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div className="text-[9px] font-semibold text-[#2D3843]">{title}</div>
-          <div className="text-[7px] font-semibold text-[#9AA5AF]">{meta}</div>
+          <div className="text-[7px] font-semibold text-[#7E8993]">{meta}</div>
         </div>
         <div className="mt-1.5 text-[9px] leading-[1.5] text-[#53606C]">{copy}</div>
         <div className="mt-2 rounded-[6px] bg-[#F7F8FA] px-2.5 py-2 text-[7px] font-medium text-[#7F8A95]">{detail}</div>
@@ -418,16 +414,16 @@ function ContextCard({
   tone: "blue" | "sage" | "oat";
 }) {
   const tones = {
-    blue: "bg-[#F3F6FF] border-[#D4DFFF]",
-    sage: "bg-[#F2F3EC] border-[#DCE0CC]",
-    oat: "bg-[#F7F1E7] border-[#E7D8C5]",
+    blue: "bg-[#EAF0FF] border-[#C7D6FF]",
+    sage: "bg-[#EDF0E4] border-[#C8D0B7]",
+    oat: "bg-[#F5EBDD] border-[#E2CDAA]",
   };
 
   return (
     <div className={"rounded-[9px] border p-3 " + tones[tone]}>
-      <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#84909B]">{label}</div>
+      <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#66717C]">{label}</div>
       <div className="mt-1 text-[10px] font-semibold text-[#2F3A45]">{value}</div>
-      <div className="mt-1 text-[7px] font-medium text-[#7C8792]">{sub}</div>
+      <div className="mt-1 text-[7px] font-medium text-[#66717C]">{sub}</div>
     </div>
   );
 }
@@ -534,7 +530,7 @@ function SegmentSurface() {
             ["Value", "Quote sent"],
           ].map(([label, value]) => (
             <div key={label}>
-              <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#8F9AA5]">{label}</div>
+              <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#6F7A84]">{label}</div>
               <div className="mt-1.5 flex h-9 items-center justify-between rounded-[7px] border border-[#DDE3E9] bg-white px-3 text-[9px] font-medium text-[#3E4A56]">
                 {value} <ChevronDown size={11} />
               </div>
@@ -578,16 +574,16 @@ function ConversationSurface() {
             Tuesday afternoon works. Can you send through the quote?
           </div>
         </div>
-        <div className="rounded-[9px] border border-[#DDE3E9] bg-white px-4 py-3.5 text-[8px] text-[#9AA5AF]">Type a message...</div>
+        <div className="rounded-[9px] border border-[#DDE3E9] bg-white px-4 py-3.5 text-[8px] text-[#7E8993]">Type a message...</div>
       </div>
 
       <div className="hidden border-l border-[#E3E8ED] py-5 pl-4 lg:block">
-        <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Profile</div>
+        <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6F7A84]">Profile</div>
         <div className="mt-4 flex items-center gap-3">
-          <InitialsAvatar initials="MT" size={38} />
+          <Avatar cell={0} size={40} className="border border-white shadow-[0_5px_14px_rgba(35,53,76,.10)]" />
           <div>
             <div className="text-[10px] font-semibold text-[#26313B]">Mia Thompson</div>
-            <div className="text-[7px] uppercase tracking-[0.1em] text-[#9AA5AF]">Customer</div>
+            <div className="text-[7px] uppercase tracking-[0.1em] text-[#7E8993]">Customer</div>
           </div>
         </div>
         {[
@@ -597,7 +593,7 @@ function ConversationSurface() {
           ["Language", "English"],
         ].map(([label, value]) => (
           <div key={label} className="mt-3 rounded-[7px] border border-[#E1E6EB] bg-[#FAFBFC] px-3 py-2">
-            <div className="text-[7px] font-semibold text-[#9AA5AF]">{label}</div>
+            <div className="text-[7px] font-semibold text-[#7E8993]">{label}</div>
             <div className="mt-0.5 text-[8px] font-medium text-[#4C5965]">{value}</div>
           </div>
         ))}
@@ -661,7 +657,7 @@ function PipelineRail() {
                         {stageIndex === 2 && itemIndex === 1 ? (
                           <span className="rounded-[4px] bg-[#FCE9E3] px-1.5 py-1 text-[6px] font-bold uppercase tracking-[0.08em] text-[#B86850]">stale</span>
                         ) : (
-                          <span className="text-[7px] text-[#9AA5AF]">active</span>
+                          <span className="text-[7px] text-[#7E8993]">active</span>
                         )}
                       </div>
                     </motion.div>
@@ -680,8 +676,10 @@ function Automation() {
   const reduced = !!useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-[#101820] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16">
-      <div className="pointer-events-none absolute right-[-12%] top-[-34%] h-[680px] w-[680px] rounded-full bg-[#2563FF]/10 blur-[130px]" />
+    <section className="bg-[#F7F4EE] px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+      <div className="relative mx-auto max-w-[1460px] overflow-hidden rounded-[34px] border border-[#1B2D43] bg-[#0B1726] px-5 py-16 text-white shadow-[0_28px_76px_rgba(13,27,42,.18)] sm:px-8 sm:py-20 lg:px-12 lg:py-24">
+      <div className="pointer-events-none absolute right-[-10%] top-[-36%] h-[700px] w-[700px] rounded-full bg-[#2563FF]/14 blur-[140px]" />
+        <div className="pointer-events-none absolute -left-[12%] bottom-[-40%] h-[520px] w-[520px] rounded-full bg-[#58706F]/12 blur-[130px]" />
 
       <div className="relative mx-auto max-w-[1320px]">
         <Reveal className="max-w-[880px]">
@@ -693,7 +691,7 @@ function Automation() {
         </Reveal>
 
         <Reveal className="mt-10" delay={0.04}>
-          <div className="overflow-hidden rounded-[14px] border border-white/10 bg-[#F8FAFC] text-[#111318] shadow-[0_30px_80px_rgba(0,0,0,.26)]">
+          <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#F8FAFC] text-[#111318] shadow-[0_32px_90px_rgba(0,0,0,.28)]">
             <div className="flex min-h-12 items-center justify-between border-b border-[#DFE5EA] bg-white px-4">
               <div>
                 <div className="text-[11px] font-semibold text-[#26313B]">Quote follow-up</div>
@@ -770,6 +768,7 @@ function Automation() {
           </div>
         </Reveal>
       </div>
+      </div>
     </section>
   );
 }
@@ -811,7 +810,7 @@ function BuilderConnector() {
 
 function ScaleSection() {
   return (
-    <section className="bg-[#F8FAFC] px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
       <div className="mx-auto max-w-[1260px]">
         <Reveal className="max-w-[760px]">
           <h2 className="text-[38px] font-medium leading-[0.99] tracking-[-0.05em] sm:text-[50px] lg:text-[56px]" style={{ fontFamily: DISPLAY }}>
@@ -824,7 +823,7 @@ function ScaleSection() {
         </Reveal>
 
         <Reveal className="mt-10" delay={0.04}>
-          <div className="overflow-hidden border border-[#DCE3EA] bg-white">
+          <div className="overflow-hidden rounded-[30px] border border-[#DCD6CD] bg-white shadow-[0_24px_64px_rgba(35,53,76,.08)]">
             <div className="grid lg:grid-cols-[1.45fr_.55fr]">
               <UnlimitedUsersVisual />
 
@@ -849,32 +848,32 @@ function ScaleSection() {
 function UnlimitedUsersVisual() {
   const people = [
     { cell: 0, name: "Owner", x: "13%", y: "18%", tone: "#2563FF" },
-    { cell: 7, name: "Reception", x: "72%", y: "14%", tone: "#8B5CF6" },
-    { cell: 14, name: "Sales", x: "18%", y: "72%", tone: "#E97D62" },
-    { cell: 9, name: "Operations", x: "73%", y: "72%", tone: "#99A36D" },
-    { cell: 19, name: "Admin", x: "44%", y: "43%", tone: "#DDA34B" },
+    { cell: 7, name: "Reception", x: "73%", y: "15%", tone: "#8E657A" },
+    { cell: 14, name: "Sales", x: "17%", y: "73%", tone: "#BF7458" },
+    { cell: 9, name: "Operations", x: "74%", y: "73%", tone: "#85845D" },
+    { cell: 19, name: "Admin", x: "44%", y: "42%", tone: "#C89A5D" },
   ];
 
   return (
-    <div className="relative min-h-[470px] overflow-hidden bg-[#F5F8FF] p-6 sm:p-8">
+    <div className="relative min-h-[520px] overflow-hidden bg-[#F2F5FB] p-6 sm:p-8">
       <div className="max-w-[420px]">
         <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Unlimited users</div>
         <h3 className="mt-3 text-[30px] font-medium leading-[1] tracking-[-0.045em] text-[#111318] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>
           Bring the whole team into the customer history.
         </h3>
-        <p className="mt-3 max-w-[390px] text-[12px] leading-[1.65] text-[#6B7681]">
+        <p className="mt-3 max-w-[390px] text-[12px] leading-[1.65] text-[#59646E]">
           Sales, admin, reception, operations and management can work from the same CRM without adding a new per-seat charge each time the team grows.
         </p>
       </div>
 
-      <div className="absolute bottom-5 left-[5%] right-[5%] top-[47%] rounded-[12px] border border-[#D7E0EC] bg-white shadow-[0_16px_34px_rgba(35,53,76,.08)]">
+      <div className="absolute bottom-6 left-[5%] right-[5%] top-[45%] rounded-[22px] border border-[#D7E0EC] bg-white shadow-[0_22px_50px_rgba(35,53,76,.10)]">
         <div className="flex h-full items-center justify-center">
-          <div className="w-[62%] rounded-[10px] border border-[#E0E5EA] bg-[#FAFBFC] p-4">
+          <div className="w-[64%] rounded-[16px] border border-[#DDE3E9] bg-[#FAFBFC] p-5 shadow-[0_10px_24px_rgba(35,53,76,.06)]">
             <div className="flex items-center justify-between">
               <span className="text-[9px] font-semibold text-[#26313B]">Mia Thompson</span>
               <span className="rounded-[5px] bg-[#EEF3FF] px-2 py-1 text-[7px] font-bold text-[#2563FF]">Quote sent</span>
             </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-[7px] text-[#84909B]">
+            <div className="mt-3 grid grid-cols-3 gap-2 text-[7px] text-[#66717C]">
               <span>Owner: Ben</span>
               <span>Value: A$2,850</span>
               <span>Tag: VIP</span>
@@ -883,18 +882,18 @@ function UnlimitedUsersVisual() {
         </div>
 
         {people.map((person) => (
-          <div key={person.name} className="absolute" style={{ left: person.x, top: person.y, transform: "translate(-50%, -50%)" }}>
+          <motion.div key={person.name} className="absolute" style={{ left: person.x, top: person.y, translateX: "-50%", translateY: "-50%" }} initial={{ opacity: 0, scale: 0.86, y: 8 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, amount: 0.45 }} transition={{ duration: 0.45, ease: EASE }}>
             <div className="relative">
-              <Avatar cell={person.cell} size={38} className="border-2 border-white shadow-[0_8px_18px_rgba(35,53,76,.14)]" />
+              <Avatar cell={person.cell} size={52} className="border-[3px] border-white shadow-[0_10px_24px_rgba(35,53,76,.16)]" />
               <div
-                className="absolute left-[28px] top-[30px] flex items-center gap-1.5 rounded-[6px] px-2 py-1 text-[7px] font-bold text-white shadow-[0_6px_14px_rgba(35,53,76,.16)]"
+                className="absolute left-[39px] top-[39px] flex items-center gap-1.5 rounded-[7px] px-2.5 py-1.5 text-[8px] font-bold text-white shadow-[0_7px_16px_rgba(35,53,76,.18)]"
                 style={{ backgroundColor: person.tone }}
               >
                 <MousePointer2 size={8} fill="currentColor" />
                 {person.name}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -903,7 +902,7 @@ function UnlimitedUsersVisual() {
 
 function UnlimitedContactsVisual() {
   return (
-    <div className="border-b border-[#DCE3EA] p-6 sm:p-7">
+    <div className="border-b border-[#DCD6CD] bg-[#FCFBF8] p-6 sm:p-7">
       <div className="flex items-center justify-between">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Unlimited contacts</div>
@@ -918,22 +917,22 @@ function UnlimitedContactsVisual() {
         {["Customer · Mia Thompson", "Lead · Chris Moore", "Past customer · Daniel Brooks", "Prospect · Priya Shah"].map((item, i) => (
           <div key={item} className="flex items-center justify-between border-b border-[#E7EBEF] pb-2.5">
             <span className="text-[9px] font-medium text-[#4A5662]">{item}</span>
-            <span className="text-[7px] font-semibold text-[#9AA5AF]">{i < 2 ? "active" : "stored"}</span>
+            <span className="text-[7px] font-semibold text-[#7E8993]">{i < 2 ? "active" : "stored"}</span>
           </div>
         ))}
       </div>
 
-      <p className="mt-4 text-[11px] leading-[1.6] text-[#6E7984]">The customer history does not need to be trimmed just to stay under a contact count.</p>
+      <p className="mt-4 text-[11px] leading-[1.6] text-[#59646E]">The customer history does not need to be trimmed just to stay under a contact count.</p>
     </div>
   );
 }
 
 function GuidedLaunchVisual() {
   return (
-    <div className="p-6 sm:p-7">
+    <div className="bg-[#FBFAF6] p-6 sm:p-7">
       <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Guided Launch</div>
       <h3 className="mt-2 text-[24px] font-medium tracking-[-0.04em] text-[#111318]" style={{ fontFamily: DISPLAY }}>Do not start from blank.</h3>
-      <p className="mt-3 text-[11px] leading-[1.6] text-[#6E7984]">
+      <p className="mt-3 text-[11px] leading-[1.6] text-[#59646E]">
         We help configure the agreed CRM essentials so moving platforms does not become another internal project.
       </p>
 
