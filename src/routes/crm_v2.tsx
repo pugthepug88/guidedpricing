@@ -9,16 +9,14 @@ import {
   Filter,
   Globe2,
   Mail,
-  MessageSquare,
   MousePointer2,
   Search,
-  Settings2,
   SlidersHorizontal,
   TicketCheck,
   Users,
-  Workflow,
 } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
+import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/crm_v2")({
   staticData: { sitemap: false },
@@ -42,7 +40,7 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
-const ZAPLA_ICON_URL = "/__l5e/assets-v1/f4e55763-ff20-4d1a-8d1f-5461ade0724a/zapla-logo-blue.png";
+const ZAPLA_WORDMARK_URL = "/concept/zapla-logo-dark.svg";
 
 const FAQS = [
   {
@@ -82,7 +80,6 @@ function CrmV2Page() {
       <ConnectedPlatform />
       <Faq />
       <FinalCta />
-      <DominoFooter />
     </main>
   );
 }
@@ -127,6 +124,29 @@ function PrimaryButton() {
     >
       Book a Call <ArrowRight size={15} />
     </a>
+  );
+}
+
+function ProductBrand({ section }: { section?: string }) {
+  return (
+    <div className="flex min-w-0 items-center gap-3">
+      <img src={ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[18px] w-auto shrink-0" />
+      {section ? (
+        <>
+          <span className="h-4 w-px bg-[#D9DEDA]" />
+          <span className="truncate text-[7px] font-bold uppercase tracking-[0.12em] text-[#7A837D]">{section}</span>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function ProductShellBar({ section, right }: { section: string; right?: ReactNode }) {
+  return (
+    <div className="flex min-h-[42px] items-center justify-between gap-4 border-b border-[#E1E5E1] bg-[#FCFCFB] px-4">
+      <ProductBrand section={section} />
+      {right ? <div className="shrink-0">{right}</div> : null}
+    </div>
   );
 }
 
@@ -186,12 +206,13 @@ function HeroStage() {
 function CustomerRecordHero() {
   return (
     <div className="overflow-hidden rounded-[22px] border border-[#D4D9DE] bg-white shadow-[0_32px_80px_rgba(40,45,52,.16)]">
-      <div className="flex min-h-12 items-center gap-5 overflow-hidden border-b border-[#E3E7EB] bg-[#FCFCFB] px-4 sm:px-5">
-        {["Contacts", "Contact types", "Contact fields", "Tags", "Smart lists", "Quick actions"].map((item, index) => (
-          <span key={item} className={"whitespace-nowrap text-[8px] font-bold uppercase tracking-[0.12em] " + (index === 0 ? "text-[#111318]" : "hidden text-[#7A817D] md:inline")}>
-            {item}
-          </span>
-        ))}
+      <div className="flex min-h-[46px] items-center justify-between gap-5 overflow-hidden border-b border-[#E3E7EB] bg-[#FCFCFB] px-4 sm:px-5">
+        <ProductBrand section="Contacts" />
+        <div className="hidden items-center gap-5 md:flex">
+          {["Contact types", "Contact fields", "Tags", "Smart lists", "Quick actions"].map((item) => (
+            <span key={item} className="whitespace-nowrap text-[7px] font-bold uppercase tracking-[0.12em] text-[#7A817D]">{item}</span>
+          ))}
+        </div>
       </div>
 
       <div className="grid min-h-[520px] lg:grid-cols-[220px_minmax(0,1fr)_205px]">
@@ -199,7 +220,7 @@ function CustomerRecordHero() {
           <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6C746F]">Profile</div>
 
           <div className="mt-4 flex items-center gap-3">
-            <Avatar cell={0} size={48} className="border-2 border-white shadow-[0_7px_18px_rgba(35,53,76,.12)]" />
+            <Avatar cell={3} size={48} className="border-2 border-white shadow-[0_7px_18px_rgba(35,53,76,.12)]" />
             <div>
               <div className="text-[13px] font-semibold text-[#20252A]">Mia Thompson</div>
               <div className="mt-0.5 text-[8px] text-[#717873]">Northside Plumbing</div>
@@ -361,6 +382,7 @@ function CustomerWorkbench() {
 
         <Reveal className="mt-10" delay={0.04}>
           <div className="overflow-hidden rounded-[22px] border border-[#D8DEDA] bg-white shadow-[0_24px_56px_rgba(38,45,41,.08)]">
+            <ProductShellBar section={mode==="segment" ? "Contacts · Smart lists" : "Inbox · Conversations"} />
             {mode==="segment"?<SegmentSurface/>:<ConversationSurface/>}
           </div>
         </Reveal>
@@ -371,7 +393,7 @@ function CustomerWorkbench() {
 
 function SegmentSurface() {
   const matches=[
-    {name:"Mia Thompson",cell:0,owner:"Ben",stage:"Quote sent",activity:"2 days",tags:["VIP","Residential"]},
+    {name:"Mia Thompson",cell:3,owner:"Ben",stage:"Quote sent",activity:"2 days",tags:["VIP","Residential"]},
     {name:"Chris Moore",cell:14,owner:"Alex",stage:"Quote sent",activity:"4 days",tags:["VIP","Electrical"]},
     {name:"Daniel Brooks",cell:5,owner:"Sam",stage:"Quote sent",activity:"5 days",tags:["VIP","Commercial"]},
     {name:"Priya Shah",cell:9,owner:"Ben",stage:"Quote sent",activity:"6 days",tags:["VIP","Repeat"]},
@@ -453,7 +475,7 @@ function SegmentSurface() {
 
 function ConversationSurface() {
   const customers=[
-    {name:"Mia Thompson",cell:0,preview:"Tuesday afternoon works. Can you send...",channel:"SMS",active:true},
+    {name:"Mia Thompson",cell:3,preview:"Tuesday afternoon works. Can you send...",channel:"SMS",active:true},
     {name:"Daniel Brooks",cell:5,preview:"Thanks, I have paid the invoice.",channel:"Email",active:false},
     {name:"John Smith",cell:12,preview:"Can we move the booking to Friday?",channel:"SMS",active:false},
     {name:"Priya Shah",cell:9,preview:"Perfect. See you then.",channel:"Email",active:false},
@@ -506,7 +528,7 @@ function ConversationSurface() {
 
       <div className="hidden border-l border-[#E1E5E1] bg-[#F6F3ED] p-4 lg:block">
         <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#66706A]">Customer context</div>
-        <div className="mt-4 flex items-center gap-3"><Avatar cell={0} size={42} className="border-2 border-white shadow-[0_5px_14px_rgba(35,53,76,.10)]"/><div><div className="text-[10px] font-semibold text-[#26302A]">Mia Thompson</div><div className="text-[7px] uppercase tracking-[0.1em] text-[#7E8781]">Northside Plumbing</div></div></div>
+        <div className="mt-4 flex items-center gap-3"><Avatar cell={3} size={42} className="border-2 border-white shadow-[0_5px_14px_rgba(35,53,76,.10)]"/><div><div className="text-[10px] font-semibold text-[#26302A]">Mia Thompson</div><div className="text-[7px] uppercase tracking-[0.1em] text-[#7E8781]">Northside Plumbing</div></div></div>
         <div className="mt-4 divide-y divide-[#DED8CE] border-y border-[#DED8CE]">
           {[["Pipeline stage","Quote sent"],["Tags","VIP · Residential"],["Custom field","Service area · Sydney"],["Next action","Follow up in 2 days"]].map(([label,value])=>(
             <div key={label} className="py-3"><div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#778079]">{label}</div><div className="mt-1 text-[8px] font-semibold text-[#465049]">{value}</div></div>
@@ -521,7 +543,7 @@ function PipelineRail() {
   const stages = [
     { name: "Lead", count: 4, tone: "#85845D", people: [{ name: "Alex Chen", value: "A$1,450", cell: 8 }, { name: "Lena Parker", value: "A$780", cell: 11 }] },
     { name: "Contacted", count: 3, tone: "#BF7458", people: [{ name: "Sam Nguyen", value: "A$3,200", cell: 16 }, { name: "Ivy Harris", value: "A$950", cell: 7 }] },
-    { name: "Proposal", count: 2, tone: "#C89A5D", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 0 }, { name: "Chris Moore", value: "A$1,900", cell: 14, stale: true }] },
+    { name: "Proposal", count: 2, tone: "#C89A5D", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 3 }, { name: "Chris Moore", value: "A$1,900", cell: 14, stale: true }] },
     { name: "Negotiation", count: 2, tone: "#58706F", people: [{ name: "Priya Shah", value: "A$520", cell: 9 }, { name: "Ben Lewis", value: "A$2,250", cell: 18 }] },
     { name: "Closed won", count: 3, tone: "#99A36D", people: [{ name: "Daniel Brooks", value: "A$4,100", cell: 5 }, { name: "Grace Tan", value: "A$1,680", cell: 2 }] },
   ];
@@ -544,10 +566,14 @@ function PipelineRail() {
 
         <Reveal className="mt-10" delay={0.04}>
           <div className="overflow-hidden rounded-[24px] border border-[#DADFE5] bg-white shadow-[0_20px_54px_rgba(35,53,76,.06)]">
-            <div className="flex items-center justify-between border-b border-[#E3E8ED] px-5 py-4">
-              <div>
-                <div className="text-[13px] font-semibold text-[#26313B]">Residential sales</div>
-                <div className="mt-1 text-[8px] text-[#6E7984]">10 opportunities · A$18,630 open value</div>
+            <div className="flex items-center justify-between gap-4 border-b border-[#E3E8ED] px-5 py-4">
+              <div className="flex items-center gap-5">
+                <ProductBrand section="Pipelines" />
+                <div className="hidden h-7 w-px bg-[#E1E5E1] sm:block" />
+                <div>
+                  <div className="text-[12px] font-semibold text-[#26313B]">Residential sales</div>
+                  <div className="mt-1 text-[8px] text-[#6E7984]">10 opportunities · A$18,630 open value</div>
+                </div>
               </div>
               <div className="rounded-[8px] border border-[#DDE3E9] bg-white px-3 py-2 text-[8px] font-semibold text-[#59646E]">Filter pipeline</div>
             </div>
@@ -621,10 +647,14 @@ function Automation() {
 
         <Reveal className="mt-12" delay={0.04}>
           <div className="overflow-hidden rounded-[22px] bg-white text-[#111318] shadow-[0_34px_90px_rgba(0,0,0,.3)]">
-            <div className="flex min-h-12 items-center justify-between border-b border-[#E1E5E1] px-4">
-              <div>
-                <div className="text-[11px] font-semibold text-[#26302A]">Quote follow-up</div>
-                <div className="mt-0.5 text-[7px] uppercase tracking-[0.11em] text-[#87908A]">Automation · Draft</div>
+            <div className="flex min-h-12 items-center justify-between gap-4 border-b border-[#E1E5E1] px-4">
+              <div className="flex items-center gap-5">
+                <ProductBrand section="Automations" />
+                <div className="hidden h-7 w-px bg-[#E1E5E1] sm:block" />
+                <div>
+                  <div className="text-[10px] font-semibold text-[#26302A]">Quote follow-up</div>
+                  <div className="mt-0.5 text-[7px] uppercase tracking-[0.11em] text-[#87908A]">Draft</div>
+                </div>
               </div>
               <div className="flex gap-2">
                 <span className="rounded-[7px] border border-[#D9DEDA] px-2.5 py-1.5 text-[8px] font-semibold text-[#59625D]">Test</span>
@@ -722,7 +752,7 @@ function ScaleSection() {
       <div className="pointer-events-none absolute right-[-8%] top-[-18%] h-[620px] w-[620px] rounded-full bg-[#31403D]/55 blur-[140px]" />
 
       <div className="relative mx-auto max-w-[1380px]">
-        <Reveal className="grid gap-12 lg:grid-cols-[.68fr_1.32fr] lg:items-center lg:gap-16">
+        <Reveal className="grid gap-12 lg:grid-cols-[.66fr_1.34fr] lg:items-center lg:gap-16">
           <div className="relative z-10 max-w-[590px]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#DDA34B]">Unlimited users</div>
             <h2 className="mt-5 text-[48px] font-medium leading-[.92] tracking-[-0.06em] text-[#F7F2EA] sm:text-[64px] lg:text-[76px]" style={{fontFamily:DISPLAY}}>
@@ -730,13 +760,13 @@ function ScaleSection() {
               <span className="block text-[#D98670]">One shared CRM.</span>
             </h2>
             <p className="mt-6 max-w-[560px] text-[16px] leading-[1.68] text-[#B8C0BC] sm:text-[18px]">
-              Reception, sales, admin, operations and owners can work in the same system without adding another per-seat charge as the team grows.
+              Owner, sales, marketing, client service, accounting, admin and operations can all work in the same system. <span className="font-semibold text-[#F7F2EA]">No per-seat fees.</span>
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-t border-white/10 pt-6 text-[12px] font-semibold">
-              <span>No per-seat fees</span>
-              <span className="text-[#D98670]">Unlimited contacts</span>
-              <span className="text-[#DDA34B]">Guided Launch</span>
+            <div className="mt-8 grid gap-3 border-t border-white/10 pt-6 text-[12px] font-semibold sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              <div><span className="block text-[#F7F2EA]">Unlimited users</span><span className="mt-1 block text-[10px] font-medium text-[#8F9A95]">No seat-count penalty</span></div>
+              <div><span className="block text-[#D98670]">Unlimited contacts</span><span className="mt-1 block text-[10px] font-medium text-[#8F9A95]">Keep the full database</span></div>
+              <div><span className="block text-[#DDA34B]">Guided Launch</span><span className="mt-1 block text-[10px] font-medium text-[#8F9A95]">Configured with you</span></div>
             </div>
 
             <a href={PRICING_URL} className="mt-8 inline-flex items-center gap-2 text-[12px] font-semibold text-[#F7F2EA]">
@@ -755,84 +785,91 @@ function ScaleSection() {
 
 function TeamWorkspaceVisual() {
   const people=[
-    {cell:7,name:"Reception",x:"18%",y:"23%",tone:"#C887A1"},
-    {cell:14,name:"Sales",x:"73%",y:"20%",tone:"#E97D62"},
-    {cell:19,name:"Admin",x:"84%",y:"67%",tone:"#CFA379"},
-    {cell:9,name:"Operations",x:"20%",y:"78%",tone:"#A8AD73"},
-    {cell:0,name:"Owner",x:"51%",y:"8%",tone:"#DDA34B"},
+    {cell:0,name:"Owner",x:"48%",y:"4%",tone:"#DDA34B"},
+    {cell:6,name:"Sales manager",x:"83%",y:"14%",tone:"#E7D8C5"},
+    {cell:14,name:"Sales rep",x:"92%",y:"37%",tone:"#D98670"},
+    {cell:11,name:"Marketing",x:"88%",y:"72%",tone:"#DCE0CC"},
+    {cell:7,name:"Reception",x:"67%",y:"90%",tone:"#CFA5B6"},
+    {cell:9,name:"Client service",x:"34%",y:"91%",tone:"#A8AD73"},
+    {cell:18,name:"Accounting",x:"8%",y:"72%",tone:"#CFA379"},
+    {cell:19,name:"Admin",x:"7%",y:"38%",tone:"#D9CDC0"},
+    {cell:16,name:"Operations",x:"15%",y:"13%",tone:"#A8AD73"},
   ];
 
   return (
-    <div className="relative min-h-[600px]">
-      <div className="absolute inset-[9%_5%_7%_5%] overflow-hidden rounded-[24px] bg-white shadow-[0_34px_92px_rgba(0,0,0,.28)]">
-        <div className="flex items-center justify-between border-b border-[#E4E7E4] px-5 py-4">
-          <div>
-            <div className="text-[11px] font-semibold text-[#25302A]">Team workspace</div>
-            <div className="mt-0.5 text-[7px] text-[#7B847E]">One CRM · shared customer context</div>
+    <div className="relative min-h-[650px]">
+      <div className="absolute inset-[9%_7%_8%_7%] overflow-hidden rounded-[26px] bg-white shadow-[0_34px_92px_rgba(0,0,0,.28)]">
+        <ProductShellBar
+          section="Team workspace"
+          right={
+            <div className="flex items-center gap-3">
+              <span className="hidden text-[7px] font-bold uppercase tracking-[0.12em] text-[#6F7872] sm:block">Unlimited seats</span>
+              <div className="flex -space-x-2">
+                {[0,6,14,11,7,9,18,19,16].slice(0,6).map((cell)=><Avatar key={cell} cell={cell} size={27} className="border-2 border-white"/>)}
+                <div className="grid h-[27px] w-[27px] place-items-center rounded-full border-2 border-white bg-[#1E2B29] text-[7px] font-bold text-white">+3</div>
+              </div>
+            </div>
+          }
+        />
+
+        <div className="grid min-h-[500px] lg:grid-cols-[.9fr_1.1fr]">
+          <div className="border-b border-[#E4E8E4] bg-[#FAFBF9] p-5 lg:border-b-0 lg:border-r">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Shared customer view</div>
+                <div className="mt-2 text-[17px] font-semibold text-[#26302A]">Mia Thompson</div>
+                <div className="mt-1 text-[8px] text-[#727B75]">Northside Plumbing · VIP · Residential</div>
+              </div>
+              <Avatar cell={3} size={48} className="border-2 border-white shadow-[0_6px_16px_rgba(35,53,76,.10)]"/>
+            </div>
+
+            <div className="mt-5 divide-y divide-[#E2E6E2] border-y border-[#E2E6E2]">
+              <div className="grid grid-cols-[92px_1fr] py-3">
+                <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Latest reply</span>
+                <span className="text-[9px] font-semibold text-[#3E4842]">Tuesday afternoon works. Can you send the quote?</span>
+              </div>
+              <div className="grid grid-cols-[92px_1fr] py-3">
+                <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Deal</span>
+                <span className="text-[9px] font-semibold text-[#3E4842]">A$2,850 · Quote sent</span>
+              </div>
+              <div className="grid grid-cols-[92px_1fr] py-3">
+                <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Next task</span>
+                <span className="text-[9px] font-semibold text-[#3E4842]">Confirm site visit · Tuesday</span>
+              </div>
+              <div className="grid grid-cols-[92px_1fr] py-3">
+                <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Payment</span>
+                <span className="text-[9px] font-semibold text-[#3E4842]">Awaiting deposit</span>
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Customer data</div>
+              <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3 text-[8px]">
+                <div><span className="block text-[#8A928D]">Owner</span><span className="mt-1 block font-semibold text-[#39433D]">Ben Walker</span></div>
+                <div><span className="block text-[#8A928D]">Source</span><span className="mt-1 block font-semibold text-[#39433D]">Website</span></div>
+                <div><span className="block text-[#8A928D]">Service area</span><span className="mt-1 block font-semibold text-[#39433D]">Sydney</span></div>
+                <div><span className="block text-[#8A928D]">Tags</span><span className="mt-1 block font-semibold text-[#39433D]">VIP · Residential</span></div>
+              </div>
+            </div>
           </div>
-          <div className="flex -space-x-2">
-            {[0,7,14,19,9].map((cell)=><Avatar key={cell} cell={cell} size={28} className="border-2 border-white"/>)}
-          </div>
-        </div>
 
-        <div className="grid min-h-[455px] lg:grid-cols-2">
-          <div className="border-b border-[#E6E9E6] p-5 lg:border-b-0 lg:border-r">
-            <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Conversations</div>
-            <div className="mt-4 flex items-center gap-3 border-b border-[#E7EAE7] pb-4">
-              <Avatar cell={0} size={40} className="border-2 border-white"/>
-              <div className="min-w-0 flex-1">
-                <div className="text-[10px] font-semibold text-[#26302A]">Mia Thompson</div>
-                <div className="mt-1 truncate text-[8px] text-[#69736D]">Tuesday afternoon works. Can you send the quote?</div>
-              </div>
-              <span className="text-[7px] font-bold uppercase tracking-[0.08em] text-[#2563FF]">SMS</span>
-            </div>
-            <div className="mt-4 rounded-[14px] bg-[#1E2B29] px-4 py-3 text-[9px] leading-[1.55] text-white">
-              Reply ready with the full customer history beside it.
+          <div className="p-5">
+            <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Who is working this customer</div>
+
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <TeamAction role="Sales manager" action="Review quote" status="Open" tone="#E97D62" />
+              <TeamAction role="Sales rep" action="Follow up" status="Today" tone="#D98670" />
+              <TeamAction role="Marketing" action="VIP segment" status="Included" tone="#85845D" />
+              <TeamAction role="Client service" action="Confirm visit" status="Tuesday" tone="#99A36D" />
+              <TeamAction role="Accounting" action="Check deposit" status="Pending" tone="#C89A5D" />
+              <TeamAction role="Operations" action="Prepare job" status="Queued" tone="#58706F" />
             </div>
 
-            <div className="mt-7 text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Customer data</div>
-            <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3 text-[8px]">
-              <div><span className="block text-[#8A928D]">Tags</span><span className="mt-1 block font-semibold text-[#39433D]">VIP · Residential</span></div>
-              <div><span className="block text-[#8A928D]">Owner</span><span className="mt-1 block font-semibold text-[#39433D]">Ben Walker</span></div>
-              <div><span className="block text-[#8A928D]">Service area</span><span className="mt-1 block font-semibold text-[#39433D]">Sydney</span></div>
-              <div><span className="block text-[#8A928D]">Source</span><span className="mt-1 block font-semibold text-[#39433D]">Website</span></div>
-            </div>
-          </div>
-
-          <div className="bg-[#F7F7F4] p-5">
-            <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7B847E]">Work in motion</div>
-
-            <div className="mt-4 space-y-3">
-              <div className="rounded-[13px] border border-[#E0E4E0] bg-white p-3.5">
-                <div className="flex items-center justify-between">
-                  <div className="text-[8px] font-bold uppercase tracking-[0.08em] text-[#8E725D]">Deal</div>
-                  <span className="text-[7px] font-semibold text-[#69736D]">Sales</span>
-                </div>
-                <div className="mt-2 text-[12px] font-semibold text-[#26302A]">A$2,850 · Quote sent</div>
-              </div>
-
-              <div className="rounded-[13px] border border-[#E0E4E0] bg-white p-3.5">
-                <div className="flex items-center justify-between">
-                  <div className="text-[8px] font-bold uppercase tracking-[0.08em] text-[#69735D]">Task</div>
-                  <span className="text-[7px] font-semibold text-[#69736D]">Operations</span>
-                </div>
-                <div className="mt-2 text-[12px] font-semibold text-[#26302A]">Confirm site visit · Tuesday</div>
-              </div>
-
-              <div className="rounded-[13px] border border-[#E0E4E0] bg-white p-3.5">
-                <div className="flex items-center justify-between">
-                  <div className="text-[8px] font-bold uppercase tracking-[0.08em] text-[#58706F]">Fields</div>
-                  <span className="text-[7px] font-semibold text-[#69736D]">Admin</span>
-                </div>
-                <div className="mt-2 text-[12px] font-semibold text-[#26302A]">Service area · Sydney · Hot water</div>
-              </div>
-            </div>
-
-            <div className="mt-5 border-t border-[#DDE1DD] pt-4">
+            <div className="mt-5 border-t border-[#E1E5E1] pt-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Owner view</div>
-                  <div className="mt-1 text-[10px] font-semibold text-[#26302A]">Everything stays on one customer record.</div>
+                  <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Shared context</div>
+                  <div className="mt-1 text-[10px] font-semibold text-[#26302A]">Different roles. Same history. Same customer.</div>
                 </div>
                 <Users size={18} className="text-[#58706F]"/>
               </div>
@@ -846,15 +883,16 @@ function TeamWorkspaceVisual() {
           key={person.name}
           className="absolute"
           style={{left:person.x,top:person.y,translateX:"-50%",translateY:"-50%"}}
-          initial={{opacity:0,scale:.82,y:10}}
+          initial={{opacity:0,scale:.84,y:10}}
           whileInView={{opacity:1,scale:1,y:0}}
           viewport={{once:true,amount:.45}}
-          transition={{duration:.48,delay:index*.06,ease:EASE}}
+          transition={{duration:.48,delay:index*.045,ease:EASE}}
         >
           <div className="relative">
-            <Avatar cell={person.cell} size={64} className="border-[3px] border-[#F7F2EA] shadow-[0_14px_30px_rgba(0,0,0,.22)]"/>
-            <div className="absolute left-[46px] top-[46px] flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-[9px] font-bold text-[#111318] shadow-[0_8px_20px_rgba(0,0,0,.16)]" style={{backgroundColor:person.tone}}>
-              <MousePointer2 size={10} fill="currentColor"/>{person.name}
+            <Avatar cell={person.cell} size={50} className="border-[3px] border-[#F7F2EA] shadow-[0_12px_26px_rgba(0,0,0,.20)]"/>
+            <div className="absolute left-[36px] top-[35px] flex items-center gap-1.5 whitespace-nowrap rounded-full border border-black/[0.07] bg-[#F7F2EA] px-2.5 py-1.5 text-[8px] font-bold text-[#111318] shadow-[0_8px_18px_rgba(0,0,0,.13)]">
+              <span className="h-1.5 w-1.5 rounded-full" style={{backgroundColor:person.tone}} />
+              <MousePointer2 size={9} fill="currentColor"/>{person.name}
             </div>
           </div>
         </motion.div>
@@ -863,11 +901,15 @@ function TeamWorkspaceVisual() {
   );
 }
 
-function CommercialPoint({title,copy,dark=false}:{title:string;copy:string;dark?:boolean}) {
+function TeamAction({role,action,status,tone}:{role:string;action:string;status:string;tone:string}) {
   return (
-    <div>
-      <div className={"text-[10px] font-bold uppercase tracking-[0.13em] "+(dark?"text-[#DDA34B]":"text-[#2563FF]")}>{title}</div>
-      <p className={"mt-2 max-w-[340px] text-[12px] leading-[1.65] "+(dark?"text-[#B8C0BC]":"text-[#59646E]")}>{copy}</p>
+    <div className="relative overflow-hidden rounded-[12px] border border-[#E0E4E0] bg-[#FCFCFB] p-3.5">
+      <span className="absolute inset-y-0 left-0 w-[3px]" style={{backgroundColor:tone}} />
+      <div className="flex items-center justify-between gap-3">
+        <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#707A73]">{role}</div>
+        <div className="text-[7px] font-semibold text-[#8A928D]">{status}</div>
+      </div>
+      <div className="mt-2 text-[11px] font-semibold text-[#26302A]">{action}</div>
     </div>
   );
 }
@@ -901,89 +943,74 @@ function Avatar({
 }
 
 function ConnectedPlatform() {
-  const steps=[
-    {icon:Globe2,eyebrow:"Lead capture",title:"Website enquiry",detail:"Form submitted",tone:"#58706F"},
-    {icon:Mail,eyebrow:"Conversation",title:"SMS + email",detail:"Reply stays attached",tone:"#BF7458"},
-    {icon:CalendarDays,eyebrow:"Booking",title:"Tuesday · 10:30",detail:"Site visit booked",tone:"#85845D"},
-    {icon:CreditCard,eyebrow:"Payment",title:"A$2,850",detail:"Payment recorded",tone:"#C89A5D"},
-    {icon:TicketCheck,eyebrow:"Service",title:"Job complete",detail:"History stays with Mia",tone:"#58706F"},
+  const tools=[
+    {icon:Mail,title:"Email + SMS",copy:"Messages stay with the customer.",tone:"#BF7458"},
+    {icon:CalendarDays,title:"Calendars + bookings",copy:"Turn conversations into booked next steps.",tone:"#85845D"},
+    {icon:CreditCard,title:"Payments",copy:"Keep payment activity in context.",tone:"#C89A5D"},
+    {icon:Globe2,title:"Websites + funnels",copy:"Capture enquiries into the CRM.",tone:"#58706F"},
+    {icon:Filter,title:"Forms + lead capture",copy:"Create records from new enquiries.",tone:"#85845D"},
+    {icon:TicketCheck,title:"Ticketing + service",copy:"Carry the history beyond the sale.",tone:"#BF7458"},
   ];
 
   return (
     <section className="overflow-hidden bg-[#F7F4EE] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
-          <div className="max-w-[610px]">
+          <div className="max-w-[620px]">
             <Eyebrow>Connected beyond CRM</Eyebrow>
             <h2 className="mt-5 text-[42px] font-medium leading-[.96] tracking-[-0.055em] text-[#111318] sm:text-[54px] lg:text-[64px]" style={{fontFamily:DISPLAY}}>
-              One customer record.
-              <span className="block text-[#58706F]">Across what happens next.</span>
+              CRM at the centre.
+              <span className="block text-[#58706F]">The rest of the work stays connected.</span>
             </h2>
           </div>
           <p className="max-w-[560px] text-[15px] font-medium leading-[1.72] text-[#646B65] lg:justify-self-end">
-            Email, SMS, bookings, payments, lead capture and service activity can stay tied to the same customer instead of becoming separate trails across separate tools.
+            Zapla can connect the customer record to the surrounding work without turning the CRM into six disconnected subscriptions and six separate histories.
           </p>
         </Reveal>
 
         <Reveal className="mt-14" delay={0.04}>
-          <div className="relative mx-auto max-w-[1220px] border-y border-[#D8D0C5] py-10 sm:py-12">
-            <div className="flex items-center gap-3 pb-8">
-              <Avatar cell={0} size={46} className="border-2 border-white shadow-[0_5px_14px_rgba(35,53,76,.10)]"/>
-              <div>
-                <div className="text-[12px] font-semibold text-[#26302A]">Mia Thompson</div>
-                <div className="mt-1 text-[8px] uppercase tracking-[0.1em] text-[#7B847E]">One customer record · Northside Plumbing</div>
-              </div>
-            </div>
-
-            <div className="relative hidden md:block">
-              <div className="absolute left-[5%] right-[5%] top-[37px] h-px bg-[#BEB6AA]">
-                <motion.div
-                  className="h-full bg-[#1E2B29]"
-                  initial={{width:"0%"}}
-                  whileInView={{width:"100%"}}
-                  viewport={{once:true,amount:.45}}
-                  transition={{duration:1.2,ease:EASE}}
-                />
-              </div>
-
-              <div className="relative grid grid-cols-5 gap-5">
-                {steps.map((step,index)=>{
-                  const Icon=step.icon;
-                  return (
-                    <motion.div
-                      key={step.title}
-                      initial={{opacity:0,y:12}}
-                      whileInView={{opacity:1,y:0}}
-                      viewport={{once:true,amount:.45}}
-                      transition={{duration:.42,delay:.08+index*.06,ease:EASE}}
-                      className="relative pt-[72px]"
-                    >
-                      <div className="absolute left-1/2 top-[18px] z-10 grid h-[38px] w-[38px] -translate-x-1/2 place-items-center rounded-full bg-[#F7F4EE] ring-1 ring-[#BEB6AA]" style={{color:step.tone}}>
-                        <Icon size={17}/>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7A837D]">{step.eyebrow}</div>
-                        <div className="mt-2 text-[12px] font-semibold text-[#26302A]">{step.title}</div>
-                        <div className="mt-1 text-[9px] leading-[1.5] text-[#69716C]">{step.detail}</div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="divide-y divide-[#D8D0C5] md:hidden">
-              {steps.map((step)=>{
-                const Icon=step.icon;
-                return (
-                  <div key={step.title} className="flex items-center gap-4 py-4">
-                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white" style={{color:step.tone}}><Icon size={17}/></div>
-                    <div>
-                      <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#7A837D]">{step.eyebrow}</div>
-                      <div className="mt-1 text-[11px] font-semibold text-[#26302A]">{step.title}</div>
-                      <div className="mt-1 text-[9px] text-[#69716C]">{step.detail}</div>
-                    </div>
+          <div className="grid overflow-hidden rounded-[28px] border border-[#D8D0C5] bg-white shadow-[0_22px_58px_rgba(38,45,41,.07)] lg:grid-cols-[.38fr_.62fr]">
+            <div className="relative flex min-h-[360px] flex-col justify-between overflow-hidden bg-[#1E2B29] p-7 text-white sm:p-9">
+              <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[#31403D] blur-[80px]" />
+              <div className="relative">
+                <ProductBrand section="CRM" />
+                <div className="mt-9 flex items-center gap-4">
+                  <Avatar cell={3} size={58} className="border-2 border-white/80 shadow-[0_8px_22px_rgba(0,0,0,.16)]"/>
+                  <div>
+                    <div className="text-[16px] font-semibold">Mia Thompson</div>
+                    <div className="mt-1 text-[9px] text-white/55">Northside Plumbing</div>
                   </div>
+                </div>
+                <div className="mt-7 text-[28px] font-medium leading-[1.03] tracking-[-0.04em]" style={{fontFamily:DISPLAY}}>
+                  One customer record.
+                  <span className="block text-[#DDA34B]">More of the work around it.</span>
+                </div>
+              </div>
+
+              <div className="relative mt-8 flex items-center gap-2 text-[9px] font-semibold text-white/62">
+                <span className="h-2 w-2 rounded-full bg-[#74DFE1]" />
+                Customer history stays together
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3">
+              {tools.map((tool,index)=>{
+                const Icon=tool.icon;
+                return (
+                  <motion.div
+                    key={tool.title}
+                    initial={{opacity:0,y:10}}
+                    whileInView={{opacity:1,y:0}}
+                    viewport={{once:true,amount:.45}}
+                    transition={{duration:.38,delay:index*.04,ease:EASE}}
+                    className={"min-h-[180px] border-[#E3E0DA] p-5 sm:p-6 " + (index>0?"border-t sm:border-t-0":"") + (index%2===1?"sm:border-l":"") + (index>=2?"sm:border-t":"") + (index%3!==0?"lg:border-l":"") + (index>=3?"lg:border-t":"")}
+                  >
+                    <div className="grid h-10 w-10 place-items-center rounded-full bg-[#F7F4EE]" style={{color:tool.tone}}>
+                      <Icon size={17}/>
+                    </div>
+                    <div className="mt-5 text-[12px] font-semibold text-[#26302A]">{tool.title}</div>
+                    <div className="mt-2 max-w-[210px] text-[10px] leading-[1.6] text-[#6A736D]">{tool.copy}</div>
+                  </motion.div>
                 );
               })}
             </div>
@@ -1033,39 +1060,41 @@ function Faq() {
 
 function FinalCta() {
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
-      <Reveal className="mx-auto max-w-[1080px] text-center">
-        <img
-          src={ZAPLA_ICON_URL}
-          alt=""
-          aria-hidden="true"
-          className="mx-auto h-[52px] w-[52px] rounded-[14px] object-cover shadow-[0_8px_20px_rgba(37,99,255,.16)]"
-        />
-
-        <div className="mt-5">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">See it around your business</div>
+    <section className="overflow-hidden bg-[#FCFCFA] pt-20 sm:pt-24 lg:pt-24">
+      <div className="mx-auto max-w-[1120px] px-5 text-center sm:px-10">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+          <ZaplaPetal size={34} />
         </div>
 
-        <h2
-          className="mx-auto mt-3 max-w-[900px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[56px] lg:text-[64px]"
-          style={{fontFamily:DISPLAY}}
-        >
-          See how Zapla would fit the way your team manages customers.
-        </h2>
-
-        <p className="mx-auto mt-4 max-w-[720px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
-          We’ll map your customer flow, show where the CRM fits, and explain what would move with Guided Launch.
+        <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">
+          See it around your business
         </p>
 
-        <div className="mt-7 flex flex-wrap justify-center gap-3">
-          <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px">
+        <h2
+          className="mx-auto mt-3 max-w-[1080px] text-[40px] font-medium leading-[0.99] tracking-[-0.045em] text-[#111318] sm:text-[54px] lg:text-[64px]"
+          style={{fontFamily:DISPLAY}}
+        >
+          <span className="block lg:whitespace-nowrap">See how Zapla would fit the way</span>
+          <span className="block lg:whitespace-nowrap">your team manages customers.</span>
+        </h2>
+
+        <p className="mx-auto mt-4 max-w-[760px] text-[15px] leading-[1.65] text-[#5F655F] sm:text-[16px]">
+          Book a call and we’ll map your customer flow, show where the CRM fits, and explain what would move with Guided Launch.
+        </p>
+
+        <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a href={BOOK_URL} className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px sm:w-auto">
             Book a Call <ArrowRight size={15}/>
           </a>
-          <a href={PRICING_URL} className="inline-flex h-[50px] items-center rounded-full border border-[#E2DBD1] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA]">
+          <a href={PRICING_URL} className="inline-flex h-[52px] w-full items-center justify-center rounded-full border border-[#E2DBD1] bg-white px-7 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA] sm:w-auto">
             View pricing
           </a>
         </div>
-      </Reveal>
+      </div>
+
+      <div className="mt-6 sm:mt-8">
+        <DominoFooter />
+      </div>
     </section>
   );
 }
