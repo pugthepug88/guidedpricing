@@ -222,7 +222,7 @@ function CustomerRecordHero() {
           <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6C746F]">Profile</div>
 
           <div className="mt-4 flex items-center gap-3">
-            <Avatar cell={3} size={48} className="border-2 border-white shadow-[0_7px_18px_rgba(35,53,76,.12)]" />
+            <Avatar cell={9} size={48} className="border-2 border-white shadow-[0_7px_18px_rgba(35,53,76,.12)]" />
             <div>
               <div className="text-[13px] font-semibold text-[#20252A]">Mia Thompson</div>
               <div className="mt-0.5 text-[8px] text-[#717873]">Northside Plumbing</div>
@@ -396,10 +396,10 @@ function CustomerWorkbench() {
 
 function SegmentSurface() {
   const matches=[
-    {name:"Mia Thompson",cell:3,owner:"Ben",stage:"Quote sent",activity:"2 days",tags:["VIP","Residential"]},
-    {name:"Chris Moore",cell:14,owner:"Alex",stage:"Quote sent",activity:"4 days",tags:["VIP","Electrical"]},
+    {name:"Mia Thompson",cell:9,owner:"Ben",stage:"Quote sent",activity:"2 days",tags:["VIP","Residential"]},
+    {name:"Aisha Moore",cell:14,owner:"Alex",stage:"Quote sent",activity:"4 days",tags:["VIP","Electrical"]},
     {name:"Daniel Brooks",cell:5,owner:"Sam",stage:"Quote sent",activity:"5 days",tags:["VIP","Commercial"]},
-    {name:"Priya Shah",cell:9,owner:"Ben",stage:"Quote sent",activity:"6 days",tags:["VIP","Repeat"]},
+    {name:"Priya Shah",cell:0,owner:"Ben",stage:"Quote sent",activity:"6 days",tags:["VIP","Repeat"]},
   ];
 
   return (
@@ -478,10 +478,10 @@ function SegmentSurface() {
 
 function ConversationSurface() {
   const customers=[
-    {name:"Mia Thompson",cell:3,preview:"Tuesday afternoon works. Can you send...",channel:"SMS",active:true},
+    {name:"Mia Thompson",cell:9,preview:"Tuesday afternoon works. Can you send...",channel:"SMS",active:true},
     {name:"Daniel Brooks",cell:5,preview:"Thanks, I have paid the invoice.",channel:"Email",active:false},
-    {name:"John Smith",cell:12,preview:"Can we move the booking to Friday?",channel:"SMS",active:false},
-    {name:"Priya Shah",cell:9,preview:"Perfect. See you then.",channel:"Email",active:false},
+    {name:"John Smith",cell:3,preview:"Can we move the booking to Friday?",channel:"SMS",active:false},
+    {name:"Priya Shah",cell:0,preview:"Perfect. See you then.",channel:"Email",active:false},
   ];
 
   return (
@@ -531,7 +531,7 @@ function ConversationSurface() {
 
       <div className="hidden border-l border-[#E1E5E1] bg-[#F6F3ED] p-4 lg:block">
         <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#66706A]">Customer context</div>
-        <div className="mt-4 flex items-center gap-3"><Avatar cell={3} size={42} className="border-2 border-white shadow-[0_5px_14px_rgba(35,53,76,.10)]"/><div><div className="text-[10px] font-semibold text-[#26302A]">Mia Thompson</div><div className="text-[7px] uppercase tracking-[0.1em] text-[#7E8781]">Northside Plumbing</div></div></div>
+        <div className="mt-4 flex items-center gap-3"><Avatar cell={9} size={42} className="border-2 border-white shadow-[0_5px_14px_rgba(35,53,76,.10)]"/><div><div className="text-[10px] font-semibold text-[#26302A]">Mia Thompson</div><div className="text-[7px] uppercase tracking-[0.1em] text-[#7E8781]">Northside Plumbing</div></div></div>
         <div className="mt-4 divide-y divide-[#DED8CE] border-y border-[#DED8CE]">
           {[["Pipeline stage","Quote sent"],["Tags","VIP · Residential"],["Custom field","Service area · Sydney"],["Next action","Follow up in 2 days"]].map(([label,value])=>(
             <div key={label} className="py-3"><div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#778079]">{label}</div><div className="mt-1 text-[8px] font-semibold text-[#465049]">{value}</div></div>
@@ -546,8 +546,8 @@ function PipelineRail() {
   const stages = [
     { name: "Lead", count: 4, tone: "#85845D", people: [{ name: "Alex Chen", value: "A$1,450", cell: 8 }, { name: "Lena Parker", value: "A$780", cell: 11 }] },
     { name: "Contacted", count: 3, tone: "#BF7458", people: [{ name: "Sam Nguyen", value: "A$3,200", cell: 16 }, { name: "Ivy Harris", value: "A$950", cell: 7 }] },
-    { name: "Proposal", count: 2, tone: "#C89A5D", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 3 }, { name: "Chris Moore", value: "A$1,900", cell: 14, stale: true }] },
-    { name: "Negotiation", count: 2, tone: "#58706F", people: [{ name: "Priya Shah", value: "A$520", cell: 9 }, { name: "Ben Lewis", value: "A$2,250", cell: 18 }] },
+    { name: "Proposal", count: 2, tone: "#C89A5D", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 3 }, { name: "Aisha Moore", value: "A$1,900", cell: 14, stale: true }] },
+    { name: "Negotiation", count: 2, tone: "#58706F", people: [{ name: "Priya Shah", value: "A$520", cell: 0 }, { name: "Ben Lewis", value: "A$2,250", cell: 18 }] },
     { name: "Closed won", count: 3, tone: "#99A36D", people: [{ name: "Daniel Brooks", value: "A$4,100", cell: 5 }, { name: "Grace Tan", value: "A$1,680", cell: 2 }] },
   ];
 
@@ -574,7 +574,7 @@ function PipelineRail() {
                 <ProductBrand section="Pipelines" />
                 <div className="hidden h-7 w-px bg-[#E1E5E1] sm:block" />
                 <div>
-                  <div className="text-[12px] font-semibold text-[#26313B]">Residential sales</div>
+                  <div className="text-[12px] font-semibold text-[#26313B]">Sales pipeline</div>
                   <div className="mt-1 text-[8px] text-[#6E7984]">10 opportunities · A$18,630 open value</div>
                 </div>
               </div>
@@ -793,7 +793,7 @@ function TeamWorkspaceVisual() {
     {cell:14,name:"Sales rep",x:"91%",y:"37%",tone:"#D98670",side:"left"},
     {cell:11,name:"Marketing",x:"87%",y:"72%",tone:"#DCE0CC",side:"left"},
     {cell:7,name:"Reception",x:"67%",y:"90%",tone:"#CFA5B6",side:"left"},
-    {cell:9,name:"Client service",x:"34%",y:"91%",tone:"#A8AD73",side:"right"},
+    {cell:12,name:"Client service",x:"34%",y:"91%",tone:"#A8AD73",side:"right"},
     {cell:18,name:"Accounting",x:"9%",y:"72%",tone:"#CFA379",side:"right"},
     {cell:19,name:"Admin",x:"8%",y:"38%",tone:"#D9CDC0",side:"right"},
     {cell:16,name:"Operations",x:"16%",y:"13%",tone:"#A8AD73",side:"right"},
@@ -823,7 +823,7 @@ function TeamWorkspaceVisual() {
                 <div className="mt-2 text-[17px] font-semibold text-[#26302A]">Mia Thompson</div>
                 <div className="mt-1 text-[8px] text-[#727B75]">Northside Plumbing · VIP · Residential</div>
               </div>
-              <Avatar cell={3} size={48} className="border-2 border-white shadow-[0_6px_16px_rgba(35,53,76,.10)]"/>
+              <Avatar cell={9} size={48} className="border-2 border-white shadow-[0_6px_16px_rgba(35,53,76,.10)]"/>
             </div>
 
             <div className="mt-5 divide-y divide-[#E2E6E2] border-y border-[#E2E6E2]">
@@ -978,7 +978,7 @@ function ConnectedPlatform() {
               <div className="relative">
                 <ProductBrand section="CRM" dark />
                 <div className="mt-9 flex items-center gap-4">
-                  <Avatar cell={3} size={58} className="border-2 border-white/80 shadow-[0_8px_22px_rgba(0,0,0,.16)]"/>
+                  <Avatar cell={9} size={58} className="border-2 border-white/80 shadow-[0_8px_22px_rgba(0,0,0,.16)]"/>
                   <div>
                     <div className="text-[16px] font-semibold">Mia Thompson</div>
                     <div className="mt-1 text-[9px] text-white/55">Northside Plumbing</div>
@@ -990,10 +990,7 @@ function ConnectedPlatform() {
                 </div>
               </div>
 
-              <div className="relative mt-8 flex items-center gap-2 text-[9px] font-semibold text-white/62">
-                <span className="h-2 w-2 rounded-full bg-[#74DFE1]" />
-                Customer history stays together
-              </div>
+
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3">
@@ -1006,7 +1003,7 @@ function ConnectedPlatform() {
                     whileInView={{opacity:1,y:0}}
                     viewport={{once:true,amount:.45}}
                     transition={{duration:.38,delay:index*.04,ease:EASE}}
-                    className={"min-h-[180px] border-[#E3E0DA] p-5 sm:p-6 " +
+                    className={"flex min-h-[180px] flex-col items-center justify-center border-[#E3E0DA] p-5 text-center sm:p-6 " +
                       (index>0 ? "border-t " : "") +
                       (index%2===1 ? "sm:border-l " : "") +
                       (index>=2 ? "sm:border-t " : "sm:border-t-0 ") +
@@ -1017,7 +1014,7 @@ function ConnectedPlatform() {
                       <Icon size={17}/>
                     </div>
                     <div className="mt-5 text-[12px] font-semibold text-[#26302A]">{tool.title}</div>
-                    <div className="mt-2 max-w-[210px] text-[10px] leading-[1.6] text-[#6A736D]">{tool.copy}</div>
+                    <div className="mx-auto mt-2 max-w-[210px] text-[10px] leading-[1.6] text-[#6A736D]">{tool.copy}</div>
                   </motion.div>
                 );
               })}
