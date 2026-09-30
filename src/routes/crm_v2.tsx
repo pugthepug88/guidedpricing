@@ -4,12 +4,10 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
   CalendarDays,
-  Check,
   ChevronDown,
   CreditCard,
   Filter,
   Globe2,
-  Infinity as InfinityIcon,
   LayoutTemplate,
   Mail,
   MessageSquare,
@@ -135,8 +133,7 @@ function PrimaryButton() {
 function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-[#DDD5CA] bg-[#F7F4EE] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[120px] lg:px-16 lg:pb-20 lg:pt-[122px]">
-      <div className="pointer-events-none absolute -left-[10%] top-[22%] h-[560px] w-[560px] rounded-full bg-[#DCE0CC]/45 blur-[135px]" />
-      <div className="pointer-events-none absolute right-[-9%] top-[30%] h-[540px] w-[540px] rounded-full bg-[#E7CEC2]/35 blur-[140px]" />
+      <div className="pointer-events-none absolute -left-[12%] top-[25%] h-[620px] w-[620px] rounded-full bg-[#DCE0CC]/28 blur-[155px]" />
 
       <div className="relative mx-auto max-w-[1380px]">
         <Reveal className="mx-auto max-w-[920px] text-center">
@@ -187,14 +184,14 @@ function HeroStage() {
 
 function CustomerRecordHero() {
   return (
-    <div className="overflow-hidden rounded-[16px] border border-[#D5DEE8] bg-white shadow-[0_30px_78px_rgba(35,53,76,.13)]">
-      <div className="flex min-h-12 items-center gap-5 overflow-hidden border-b border-[#E2E7EC] bg-white px-4 sm:px-5">
+    <div className="overflow-hidden rounded-[18px] border border-[#D7DEE6] bg-white shadow-[0_28px_72px_rgba(35,53,76,.11)]">
+      <div className="flex min-h-12 items-center gap-5 overflow-hidden border-b border-[#E3E8ED] bg-white px-4 sm:px-5">
         {["Contacts", "Contact types", "Contact fields", "Tags", "Smart lists", "Quick actions"].map((item, index) => (
           <span
             key={item}
             className={
               "whitespace-nowrap text-[8px] font-bold uppercase tracking-[0.12em] " +
-              (index === 0 ? "text-[#26313B]" : "hidden text-[#8A95A0] md:inline")
+              (index === 0 ? "text-[#26313B]" : "hidden text-[#7F8A95] md:inline")
             }
           >
             {item}
@@ -203,24 +200,28 @@ function CustomerRecordHero() {
       </div>
 
       <div className="grid min-h-[520px] lg:grid-cols-[225px_minmax(0,1fr)_205px]">
-        <div className="border-b border-[#E2E7EC] bg-[#FAFBFC] p-4 lg:border-b-0 lg:border-r">
-          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6F7A84]">Profile</div>
+        <div className="border-b border-[#E3E8ED] bg-[#FBFCFD] p-4 lg:border-b-0 lg:border-r">
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#66717C]">Profile</div>
 
           <div className="mt-4 flex items-center gap-3">
             <Avatar cell={0} size={46} className="border border-white shadow-[0_6px_16px_rgba(35,53,76,.10)]" />
             <div>
               <div className="text-[13px] font-semibold text-[#26313B]">Mia Thompson</div>
-              <div className="mt-0.5 text-[8px] text-[#737E88]">Northside Plumbing</div>
+              <div className="mt-0.5 text-[8px] text-[#6E7984]">Northside Plumbing</div>
             </div>
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-1.5">
-            {[
-              ["Call", "text-[#56604D] border-[#BFC6AE] bg-[#EEF0E5]"],
-              ["Note", "text-[#2563FF] border-[#C7D6FF] bg-[#EEF3FF]"],
-              ["Book", "text-[#A95D48] border-[#E2B7A9] bg-[#F5E7E1]"],
-            ].map(([label, cls]) => (
-              <div key={label} className={"grid h-8 place-items-center rounded-[7px] border text-[7px] font-bold uppercase tracking-[0.08em] " + cls}>
+            {["Call", "Note", "Book"].map((label, index) => (
+              <div
+                key={label}
+                className={
+                  "grid h-8 place-items-center rounded-[7px] border text-[7px] font-bold uppercase tracking-[0.08em] " +
+                  (index === 1
+                    ? "border-[#C8D6FF] bg-[#F4F7FF] text-[#2563FF]"
+                    : "border-[#DDE3E9] bg-white text-[#59646E]")
+                }
+              >
                 {label}
               </div>
             ))}
@@ -234,17 +235,17 @@ function CustomerRecordHero() {
               ["Email", "mia@northside.com"],
               ["Phone", "0412 555 018"],
               ["Language", "English"],
-            ].map(([label, value], index) => (
-              <div key={label} className={"rounded-[8px] border px-3 py-2.5 " + (index < 3 ? "border-[#DCE3EA] bg-white" : "border-[#E5E9EE] bg-[#FDFDFE]")}>
-                <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#8D98A3]">{label}</div>
-                <div className="mt-1 text-[8px] font-medium text-[#4A5662]">{value}</div>
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-[8px] border border-[#E0E5EA] bg-white px-3 py-2.5">
+                <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7D8893]">{label}</div>
+                <div className="mt-1 text-[8px] font-medium text-[#46525E]">{value}</div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="min-w-0 bg-[#F7F8FA]">
-          <div className="grid grid-cols-4 border-b border-[#E2E7EC] bg-white sm:grid-cols-7">
+        <div className="min-w-0 bg-[#F8FAFB]">
+          <div className="grid grid-cols-4 border-b border-[#E3E8ED] bg-white sm:grid-cols-7">
             {[
               ["Activity", true],
               ["Messaging", false],
@@ -258,7 +259,7 @@ function CustomerRecordHero() {
                 key={label as string}
                 className={
                   "flex h-11 items-center justify-center border-r border-[#EEF1F4] text-[7px] font-bold uppercase tracking-[0.11em] " +
-                  (active ? "bg-[#FAFBFC] text-[#26313B]" : "text-[#85919C] " + (index > 3 ? "hidden sm:flex" : ""))
+                  (active ? "bg-[#F9FBFF] text-[#2563FF]" : "text-[#7F8A95] " + (index > 3 ? "hidden sm:flex" : ""))
                 }
               >
                 {label}
@@ -270,82 +271,35 @@ function CustomerRecordHero() {
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-[14px] font-semibold text-[#26313B]">Recent activity</div>
-                <div className="mt-1 text-[8px] text-[#6F7A84]">Everything around this customer, in order.</div>
+                <div className="mt-1 text-[8px] text-[#66717C]">Everything around this customer, in order.</div>
               </div>
-              <div className="inline-flex h-8 items-center gap-2 rounded-[7px] border border-[#DDE3E9] bg-white px-3 text-[8px] font-semibold text-[#65717D]">
+              <div className="inline-flex h-8 items-center gap-2 rounded-[7px] border border-[#DDE3E9] bg-white px-3 text-[8px] font-semibold text-[#59646E]">
                 <Filter size={10} /> Filter
               </div>
             </div>
 
             <div className="relative mt-5">
               <div className="absolute bottom-2 left-[14px] top-2 w-px bg-[#D8E0E8]" />
-
-              <ActivityItem
-                tone="blue"
-                title="Opportunity created"
-                meta="Today · 09:12"
-                copy="Hot water replacement"
-                detail="Stage: Lead · Value: A$2,850"
-              />
-              <ActivityItem
-                tone="sage"
-                title="Quote sent"
-                meta="Today · 09:24"
-                copy="A$2,850 quote sent by SMS and email."
-                detail="Owner: Ben Walker"
-              />
-              <ActivityItem
-                tone="blush"
-                title="Customer replied"
-                meta="Today · 09:41"
-                copy="Tuesday afternoon works. Can you send through the quote?"
-                detail="SMS · Unified inbox"
-              />
-              <ActivityItem
-                tone="oat"
-                title="Stage changed"
-                meta="Today · 09:43"
-                copy="Proposal moved to Quote sent."
-                detail="Pipeline: Residential sales"
-              />
-              <ActivityItem
-                tone="slate"
-                title="Next action scheduled"
-                meta="In 2 days"
-                copy="Follow up automatically if the customer has not replied."
-                detail="Automation active"
-                last
-              />
+              <ActivityItem marker="+" title="Opportunity created" meta="Today · 09:12" copy="Hot water replacement" detail="Stage: Lead · Value: A$2,850" active />
+              <ActivityItem marker="✓" title="Quote sent" meta="Today · 09:24" copy="A$2,850 quote sent by SMS and email." detail="Owner: Ben Walker" />
+              <ActivityItem marker="↗" title="Customer replied" meta="Today · 09:41" copy="Tuesday afternoon works. Can you send through the quote?" detail="SMS · Unified inbox" />
+              <ActivityItem marker="→" title="Stage changed" meta="Today · 09:43" copy="Proposal moved to Quote sent." detail="Pipeline: Residential sales" />
+              <ActivityItem marker="•" title="Next action scheduled" meta="In 2 days" copy="Follow up automatically if the customer has not replied." detail="Automation active" last />
             </div>
           </div>
         </div>
 
-        <div className="hidden border-l border-[#E2E7EC] bg-white p-4 lg:block">
-          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6F7A84]">Customer context</div>
+        <div className="hidden border-l border-[#E3E8ED] bg-white p-4 lg:block">
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#66717C]">Customer context</div>
 
           <div className="mt-4 space-y-2">
-            <ContextCard
-              label="Automation"
-              value="Quote follow-up"
-              sub="Active · waits 2 days"
-              tone="blue"
-            />
-            <ContextCard
-              label="Open deal"
-              value="A$2,850"
-              sub="Quote sent"
-              tone="sage"
-            />
-            <ContextCard
-              label="Task"
-              value="Confirm site visit"
-              sub="Due Tuesday"
-              tone="oat"
-            />
+            <ContextCard label="Automation" value="Quote follow-up" sub="Active · waits 2 days" accent="blue" />
+            <ContextCard label="Open deal" value="A$2,850" sub="Quote sent" accent="sage" />
+            <ContextCard label="Task" value="Confirm site visit" sub="Due Tuesday" accent="oat" />
           </div>
 
           <div className="mt-5 border-t border-[#E4E8EC] pt-4">
-            <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6F7A84]">Also connected</div>
+            <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#66717C]">Also connected</div>
             <div className="mt-3 space-y-2">
               {["Notes", "Files", "Invoices", "Payments", "Bookings"].map((item) => (
                 <div key={item} className="flex items-center justify-between rounded-[7px] border border-[#E2E7EC] bg-[#FAFBFC] px-3 py-2.5">
@@ -369,32 +323,26 @@ function CustomerRecordHero() {
 }
 
 function ActivityItem({
-  tone,
+  marker,
   title,
   meta,
   copy,
   detail,
+  active = false,
   last = false,
 }: {
-  tone: "blue" | "sage" | "blush" | "oat" | "slate";
+  marker: string;
   title: string;
   meta: string;
   copy: string;
   detail: string;
+  active?: boolean;
   last?: boolean;
 }) {
-  const tones = {
-    blue: "bg-[#E7E2FA] text-[#7359A7]",
-    sage: "bg-[#E6EBCF] text-[#657247]",
-    blush: "bg-[#F5D8E2] text-[#A84E73]",
-    oat: "bg-[#FFE8B6] text-[#97651E]",
-    slate: "bg-[#F6DCD4] text-[#A85C48]",
-  };
-
   return (
     <div className={"relative pl-10 " + (last ? "pb-0" : "pb-3")}>
-      <div className={"absolute left-0 top-1 z-10 grid h-7 w-7 place-items-center rounded-full text-[8px] font-bold " + tones[tone]}>
-        {tone === "blue" ? "+" : tone === "sage" ? "✓" : tone === "blush" ? "↗" : tone === "oat" ? "→" : "•"}
+      <div className={"absolute left-0 top-1 z-10 grid h-7 w-7 place-items-center rounded-full text-[8px] font-bold " + (active ? "bg-[#EAF0FF] text-[#2563FF]" : "bg-[#EDF1F0] text-[#58706F]")}>
+        {marker}
       </div>
 
       <div className="rounded-[9px] border border-[#DEE4EA] bg-white p-3.5">
@@ -403,7 +351,7 @@ function ActivityItem({
           <div className="text-[7px] font-semibold text-[#7E8993]">{meta}</div>
         </div>
         <div className="mt-1.5 text-[9px] leading-[1.5] text-[#53606C]">{copy}</div>
-        <div className="mt-2 rounded-[6px] bg-[#F7F8FA] px-2.5 py-2 text-[7px] font-medium text-[#7F8A95]">{detail}</div>
+        <div className="mt-2 rounded-[6px] bg-[#F7F8FA] px-2.5 py-2 text-[7px] font-medium text-[#6E7984]">{detail}</div>
       </div>
     </div>
   );
@@ -413,21 +361,22 @@ function ContextCard({
   label,
   value,
   sub,
-  tone,
+  accent,
 }: {
   label: string;
   value: string;
   sub: string;
-  tone: "blue" | "sage" | "oat";
+  accent: "blue" | "sage" | "oat";
 }) {
-  const tones = {
-    blue: "bg-[#F1ECFB] border-[#D8CDF0]",
-    sage: "bg-[#F0F3E1] border-[#D5DCB8]",
-    oat: "bg-[#FFF3D5] border-[#EFD59B]",
+  const bar = {
+    blue: "bg-[#2563FF]",
+    sage: "bg-[#85845D]",
+    oat: "bg-[#C89A5D]",
   };
 
   return (
-    <div className={"rounded-[9px] border p-3 " + tones[tone]}>
+    <div className="relative overflow-hidden rounded-[9px] border border-[#E0E5EA] bg-white p-3">
+      <span className={"absolute inset-y-0 left-0 w-[3px] " + bar[accent]} />
       <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#66717C]">{label}</div>
       <div className="mt-1 text-[10px] font-semibold text-[#2F3A45]">{value}</div>
       <div className="mt-1 text-[7px] font-medium text-[#66717C]">{sub}</div>
@@ -444,10 +393,7 @@ function CustomerWorkbench() {
         <Reveal className="grid gap-8 lg:grid-cols-[.82fr_1.18fr] lg:items-end">
           <div className="max-w-[610px]">
             <Eyebrow>Work the database</Eyebrow>
-            <h2
-              className="mt-4 text-[36px] font-medium leading-[1] tracking-[-0.048em] sm:text-[46px] lg:text-[52px]"
-              style={{ fontFamily: DISPLAY }}
-            >
+            <h2 className="mt-4 text-[36px] font-medium leading-[1] tracking-[-0.048em] sm:text-[46px] lg:text-[52px]" style={{ fontFamily: DISPLAY }}>
               Find the customers that need attention. Then open the full context.
             </h2>
           </div>
@@ -458,18 +404,10 @@ function CustomerWorkbench() {
             </p>
 
             <div className="inline-flex rounded-[12px] border border-[#DADFE5] bg-[#F5F6F7] p-1">
-              <button
-                type="button"
-                onClick={() => setMode("segment")}
-                className={"rounded-[9px] px-4 py-2.5 text-[10px] font-semibold transition-all " + (mode === "segment" ? "bg-white text-[#111318] shadow-[0_4px_14px_rgba(35,53,76,.10)]" : "text-[#6E7984]")}
-              >
+              <button type="button" onClick={() => setMode("segment")} className={"rounded-[9px] px-4 py-2.5 text-[10px] font-semibold transition-all " + (mode === "segment" ? "bg-white text-[#111318] shadow-[0_4px_14px_rgba(35,53,76,.10)]" : "text-[#6E7984]")}>
                 Segment customers
               </button>
-              <button
-                type="button"
-                onClick={() => setMode("customer")}
-                className={"rounded-[9px] px-4 py-2.5 text-[10px] font-semibold transition-all " + (mode === "customer" ? "bg-white text-[#111318] shadow-[0_4px_14px_rgba(35,53,76,.10)]" : "text-[#6E7984]")}
-              >
+              <button type="button" onClick={() => setMode("customer")} className={"rounded-[9px] px-4 py-2.5 text-[10px] font-semibold transition-all " + (mode === "customer" ? "bg-white text-[#111318] shadow-[0_4px_14px_rgba(35,53,76,.10)]" : "text-[#6E7984]")}>
                 Open customer
               </button>
             </div>
@@ -477,7 +415,7 @@ function CustomerWorkbench() {
         </Reveal>
 
         <Reveal className="mt-10" delay={0.04}>
-          <div className="overflow-hidden rounded-[28px] border border-[#DCD6CD] bg-[#FAFAF8] shadow-[0_20px_52px_rgba(35,53,76,.07)]">
+          <div className="overflow-hidden rounded-[24px] border border-[#DDE3E9] bg-white shadow-[0_18px_44px_rgba(35,53,76,.06)]">
             {mode === "segment" ? <SegmentSurface /> : <ConversationSurface />}
           </div>
         </Reveal>
@@ -495,19 +433,27 @@ function SegmentSurface() {
   ];
 
   return (
-    <div className="grid lg:grid-cols-[1.34fr_.66fr]">
+    <div className="grid lg:grid-cols-[1.36fr_.64fr]">
       <div className="min-w-0 p-5 sm:p-6 lg:p-7">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-3">
               <div className="text-[16px] font-semibold text-[#26313B]">VIP quotes waiting on a reply</div>
-              <span className="rounded-full bg-[#F1ECFB] px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.08em] text-[#7359A7]">23 matches</span>
+              <span className="rounded-full border border-[#C8D6FF] bg-[#F6F8FF] px-2.5 py-1 text-[7px] font-bold uppercase tracking-[0.08em] text-[#2563FF]">23 matches</span>
             </div>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              <FilterChip label="Tag" value="VIP" tone="pink" />
-              <FilterChip label="Stage" value="Quote sent" tone="gold" />
-              <FilterChip label="Last activity" value="3+ days" tone="sage" />
-              <FilterChip label="Owner" value="Any" tone="purple" />
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {[
+                ["Tag", "VIP", true],
+                ["Stage", "Quote sent", false],
+                ["Last activity", "3+ days", false],
+                ["Owner", "Any", false],
+              ].map(([label, value, active]) => (
+                <span key={label as string} className={"inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[7px] font-semibold " + (active ? "border-[#C8D6FF] bg-[#F6F8FF] text-[#2563FF]" : "border-[#DDE3E9] bg-white text-[#59646E]")}>
+                  <span className={"h-1.5 w-1.5 rounded-full " + (active ? "bg-[#2563FF]" : "bg-[#AAB4BE]")} />
+                  {label}: {value}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -521,24 +467,16 @@ function SegmentSurface() {
           </div>
         </div>
 
-        <div className="mt-5 space-y-2">
+        <div className="mt-5 overflow-hidden rounded-[14px] border border-[#E1E5E9]">
           {matches.map((customer, i) => (
-            <div
-              key={customer.name}
-              className={"grid items-center gap-3 rounded-[14px] border p-3.5 sm:grid-cols-[1.35fr_.7fr_.9fr_.65fr] " + (i === 0 ? "border-[#D8CDF0] bg-[#F8F5FD]" : "border-[#E1E5E9] bg-white")}
-            >
+            <div key={customer.name} className={"grid items-center gap-3 border-b border-[#E7EAED] px-4 py-3.5 last:border-b-0 sm:grid-cols-[1.35fr_.7fr_.9fr_.65fr] " + (i === 0 ? "bg-[#F7F9FE]" : "bg-white")}>
               <div className="flex items-center gap-3">
                 <Avatar cell={customer.cell} size={34} className="border-2 border-white shadow-[0_4px_12px_rgba(35,53,76,.10)]" />
                 <div>
                   <div className="text-[10px] font-semibold text-[#293440]">{customer.name}</div>
-                  <div className="mt-1 flex flex-wrap gap-1">
+                  <div className="mt-1 flex flex-wrap gap-1.5">
                     {customer.tags.map((tag, tagIndex) => (
-                      <span
-                        key={tag}
-                        className={"rounded-[5px] px-1.5 py-1 text-[6px] font-bold " + (tagIndex === 0 ? "bg-[#F5D8E2] text-[#A84E73]" : "bg-[#F1F3E7] text-[#657247]")}
-                      >
-                        {tag}
-                      </span>
+                      <span key={tag} className={"rounded-[5px] px-1.5 py-1 text-[6px] font-bold " + (tagIndex === 0 ? "bg-[#EEF3FF] text-[#2563FF]" : "bg-[#F0F2EC] text-[#69735D]")}>{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -551,73 +489,50 @@ function SegmentSurface() {
 
               <div>
                 <div className="text-[7px] font-bold uppercase tracking-[0.09em] text-[#87929D]">Pipeline stage</div>
-                <div className="mt-1 inline-flex rounded-[6px] bg-[#FFF3D5] px-2 py-1 text-[7px] font-bold text-[#97651E]">{customer.stage}</div>
+                <div className="mt-1 inline-flex rounded-[6px] bg-[#F4F1EA] px-2 py-1 text-[7px] font-bold text-[#8E725D]">{customer.stage}</div>
               </div>
 
               <div>
                 <div className="text-[7px] font-bold uppercase tracking-[0.09em] text-[#87929D]">Last activity</div>
-                <div className={"mt-1 text-[9px] font-semibold " + (i > 1 ? "text-[#A85C48]" : "text-[#59646E]")}>{customer.activity}</div>
+                <div className={"mt-1 text-[9px] font-semibold " + (i > 1 ? "text-[#BF7458]" : "text-[#59646E]")}>{customer.activity}</div>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="border-t border-[#E1E5E9] bg-[#F7F6F3] p-5 sm:p-6 lg:border-l lg:border-t-0">
+      <div className="border-t border-[#E1E5E9] bg-[#FAFAF8] p-5 sm:p-6 lg:border-l lg:border-t-0">
         <div className="flex items-center gap-2 text-[12px] font-semibold text-[#26313B]">
-          <Filter size={14} className="text-[#7359A7]" />
+          <Filter size={14} className="text-[#2563FF]" />
           Build a customer segment
         </div>
-        <p className="mt-1.5 text-[9px] leading-[1.55] text-[#6E7984]">
+        <p className="mt-1.5 text-[9px] leading-[1.55] text-[#66717C]">
           Use the fields already attached to each customer. Add your own fields and tags when the business needs them.
         </p>
 
-        <div className="mt-5 space-y-3">
-          <FilterRule label="Tag" value="VIP" tone="pink" />
-          <FilterRule label="Pipeline stage" value="Quote sent" tone="gold" />
-          <FilterRule label="Last activity" value="More than 3 days ago" tone="sage" />
-          <FilterRule label="Custom field" value="Service area = Sydney" tone="purple" />
+        <div className="mt-5 overflow-hidden rounded-[12px] border border-[#DDE3E9] bg-white">
+          {[
+            ["Tag", "VIP", true],
+            ["Pipeline stage", "Quote sent", false],
+            ["Last activity", "More than 3 days ago", false],
+            ["Custom field", "Service area = Sydney", false],
+          ].map(([label, value, active], index) => (
+            <div key={label as string} className={"relative border-b border-[#E7EAED] px-4 py-3 last:border-b-0 " + (active ? "bg-[#F7F9FE]" : "bg-white")}>
+              <span className={"absolute inset-y-0 left-0 w-[3px] " + (active ? "bg-[#2563FF]" : "bg-[#D9DEE4]")} />
+              <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7A8590]">{label}</div>
+              <div className="mt-1.5 flex items-center justify-between text-[9px] font-semibold text-[#394550]">{value}<ChevronDown size={11} /></div>
+            </div>
+          ))}
         </div>
 
-        <button type="button" className="mt-4 inline-flex items-center gap-2 text-[8px] font-semibold text-[#2563FF]">
-          + Add another condition
-        </button>
+        <button type="button" className="mt-4 inline-flex items-center gap-2 text-[8px] font-semibold text-[#2563FF]">+ Add another condition</button>
 
         <div className="mt-5 flex items-center justify-between border-t border-[#DDDCD7] pt-4">
-          <div className="flex items-center gap-2 text-[9px] font-semibold text-[#7359A7]">
-            <span className="h-2 w-2 rounded-full bg-[#D85A8A]" /> 23 customers match
+          <div className="flex items-center gap-2 text-[9px] font-semibold text-[#2563FF]">
+            <span className="h-2 w-2 rounded-full bg-[#2563FF]" /> 23 customers match
           </div>
           <span className="text-[8px] font-semibold text-[#7B8690]">Match all conditions</span>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function FilterChip({ label, value, tone }: { label: string; value: string; tone: "pink" | "gold" | "sage" | "purple" }) {
-  const tones = {
-    pink: "bg-[#F5D8E2] text-[#A84E73]",
-    gold: "bg-[#FFF0C8] text-[#97651E]",
-    sage: "bg-[#E9EDDA] text-[#657247]",
-    purple: "bg-[#EEE7FA] text-[#7359A7]",
-  };
-
-  return <span className={"rounded-full px-2.5 py-1 text-[7px] font-bold " + tones[tone]}>{label}: {value}</span>;
-}
-
-function FilterRule({ label, value, tone }: { label: string; value: string; tone: "pink" | "gold" | "sage" | "purple" }) {
-  const tones = {
-    pink: "border-[#E9BECF] bg-[#FCF2F6]",
-    gold: "border-[#EAD29B] bg-[#FFF8E8]",
-    sage: "border-[#D2D9B6] bg-[#F5F7ED]",
-    purple: "border-[#D7C9ED] bg-[#F8F5FC]",
-  };
-
-  return (
-    <div className={"rounded-[11px] border p-3 " + tones[tone]}>
-      <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7A8590]">{label}</div>
-      <div className="mt-1.5 flex items-center justify-between text-[9px] font-semibold text-[#394550]">
-        {value} <ChevronDown size={11} />
       </div>
     </div>
   );
@@ -637,20 +552,20 @@ function ConversationSurface() {
         <div className="flex items-center justify-between">
           <div>
             <div className="text-[14px] font-semibold text-[#26313B]">Customer conversations</div>
-            <div className="mt-1 text-[8px] text-[#77838E]">SMS and email in one view</div>
+            <div className="mt-1 text-[8px] text-[#66717C]">SMS and email in one view</div>
           </div>
           <Search size={13} className="text-[#6D7883]" />
         </div>
 
         <div className="mt-3 space-y-1.5">
           {customers.map((customer) => (
-            <div key={customer.name} className={"rounded-[12px] border p-3 " + (customer.active ? "border-[#D8CDF0] bg-[#F8F5FD]" : "border-transparent bg-transparent")}>
+            <div key={customer.name} className={"rounded-[10px] border p-3 " + (customer.active ? "border-[#C8D6FF] bg-[#F7F9FE]" : "border-transparent bg-transparent")}>
               <div className="flex items-center gap-2.5">
                 <Avatar cell={customer.cell} size={30} className="border-2 border-white" />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-2">
                     <div className="truncate text-[9px] font-semibold text-[#293440]">{customer.name}</div>
-                    <span className={"rounded-[5px] px-1.5 py-1 text-[6px] font-bold " + (customer.channel === "SMS" ? "bg-[#F5D8E2] text-[#A84E73]" : "bg-[#EEE7FA] text-[#7359A7]")}>{customer.channel}</span>
+                    <span className={"rounded-[5px] px-1.5 py-1 text-[6px] font-bold " + (customer.channel === "SMS" ? "bg-[#EEF3FF] text-[#2563FF]" : "bg-[#F0F2EC] text-[#69735D]")}>{customer.channel}</span>
                   </div>
                   <div className="mt-1 truncate text-[7px] text-[#87929D]">{customer.preview}</div>
                 </div>
@@ -665,9 +580,9 @@ function ConversationSurface() {
           <div>
             <div className="text-[12px] font-semibold text-[#293440]">Mia Thompson</div>
             <div className="mt-1 flex gap-1.5">
-              <span className="rounded-[5px] bg-[#F5D8E2] px-2 py-1 text-[6px] font-bold text-[#A84E73]">VIP</span>
-              <span className="rounded-[5px] bg-[#FFF0C8] px-2 py-1 text-[6px] font-bold text-[#97651E]">Quote sent</span>
-              <span className="rounded-[5px] bg-[#E9EDDA] px-2 py-1 text-[6px] font-bold text-[#657247]">Residential</span>
+              <span className="rounded-[5px] bg-[#EEF3FF] px-2 py-1 text-[6px] font-bold text-[#2563FF]">VIP</span>
+              <span className="rounded-[5px] bg-[#F4F1EA] px-2 py-1 text-[6px] font-bold text-[#8E725D]">Quote sent</span>
+              <span className="rounded-[5px] bg-[#F0F2EC] px-2 py-1 text-[6px] font-bold text-[#69735D]">Residential</span>
             </div>
           </div>
           <div className="text-[7px] font-semibold text-[#7B8690]">Owner · Ben Walker</div>
@@ -678,19 +593,17 @@ function ConversationSurface() {
             <div className="max-w-[76%] rounded-[14px] border border-[#DFE4E9] bg-white px-4 py-3 text-[9px] leading-[1.55] text-[#45515E] shadow-[0_4px_12px_rgba(35,53,76,.04)]">
               Hi Mia, your quote is ready. Would Tuesday afternoon suit you for the site visit?
             </div>
-            <div className="mt-3 ml-auto max-w-[72%] rounded-[14px] bg-[#F1ECFB] px-4 py-3 text-[9px] leading-[1.55] text-[#5E4A82]">
+            <div className="mt-3 ml-auto max-w-[72%] rounded-[14px] bg-[#EEF3FF] px-4 py-3 text-[9px] leading-[1.55] text-[#40547B]">
               Tuesday afternoon works. Can you send through the quote?
             </div>
           </div>
 
-          <div className="rounded-[12px] border border-[#DDE3E9] bg-white px-4 py-3.5 text-[8px] text-[#7E8993] shadow-[0_4px_12px_rgba(35,53,76,.03)]">
-            Reply by SMS…
-          </div>
+          <div className="rounded-[12px] border border-[#DDE3E9] bg-white px-4 py-3.5 text-[8px] text-[#7E8993] shadow-[0_4px_12px_rgba(35,53,76,.03)]">Reply by SMS…</div>
         </div>
       </div>
 
-      <div className="hidden border-l border-[#E1E5E9] bg-[#F7F6F3] p-4 lg:block">
-        <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#6F7A84]">Customer context</div>
+      <div className="hidden border-l border-[#E1E5E9] bg-[#FAFAF8] p-4 lg:block">
+        <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#66717C]">Customer context</div>
         <div className="mt-4 flex items-center gap-3">
           <Avatar cell={0} size={42} className="border-2 border-white shadow-[0_5px_14px_rgba(35,53,76,.10)]" />
           <div>
@@ -699,46 +612,37 @@ function ConversationSurface() {
           </div>
         </div>
 
-        <div className="mt-4 space-y-2">
-          <ContextField label="Pipeline stage" value="Quote sent" tone="gold" />
-          <ContextField label="Tags" value="VIP · Residential" tone="pink" />
-          <ContextField label="Custom field" value="Service area · Sydney" tone="purple" />
-          <ContextField label="Next action" value="Follow up in 2 days" tone="sage" />
+        <div className="mt-4 overflow-hidden rounded-[10px] border border-[#DDE3E9] bg-white">
+          {[
+            ["Pipeline stage", "Quote sent"],
+            ["Tags", "VIP · Residential"],
+            ["Custom field", "Service area · Sydney"],
+            ["Next action", "Follow up in 2 days"],
+          ].map(([label, value], index) => (
+            <div key={label} className={"border-b border-[#E7EAED] px-3 py-2.5 last:border-b-0 " + (index === 0 ? "bg-[#F7F9FE]" : "")}>
+              <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#77838E]">{label}</div>
+              <div className="mt-1 text-[8px] font-semibold text-[#46525E]">{value}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-function ContextField({ label, value, tone }: { label: string; value: string; tone: "pink" | "gold" | "sage" | "purple" }) {
-  const tones = {
-    pink: "border-[#E9BECF] bg-[#FCF2F6]",
-    gold: "border-[#EAD29B] bg-[#FFF8E8]",
-    sage: "border-[#D2D9B6] bg-[#F5F7ED]",
-    purple: "border-[#D7C9ED] bg-[#F8F5FC]",
-  };
-
-  return (
-    <div className={"rounded-[10px] border p-3 " + tones[tone]}>
-      <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#77838E]">{label}</div>
-      <div className="mt-1 text-[8px] font-semibold text-[#46525E]">{value}</div>
-    </div>
-  );
-}
-
 function PipelineRail() {
   const stages = [
-    { name: "Lead", count: 4, tone: "#9AA36A", people: [{ name: "Alex Chen", value: "A$1,450", cell: 8 }, { name: "Lena Parker", value: "A$780", cell: 11 }] },
-    { name: "Contacted", count: 3, tone: "#EF8C72", people: [{ name: "Sam Nguyen", value: "A$3,200", cell: 16 }, { name: "Ivy Harris", value: "A$950", cell: 7 }] },
-    { name: "Proposal", count: 2, tone: "#F2B84B", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 0 }, { name: "Chris Moore", value: "A$1,900", cell: 14, stale: true }] },
-    { name: "Negotiation", count: 2, tone: "#8D78C7", people: [{ name: "Priya Shah", value: "A$520", cell: 9 }, { name: "Ben Lewis", value: "A$2,250", cell: 18 }] },
-    { name: "Closed won", count: 3, tone: "#D65A89", people: [{ name: "Daniel Brooks", value: "A$4,100", cell: 5 }, { name: "Grace Tan", value: "A$1,680", cell: 2 }] },
+    { name: "Lead", count: 4, tone: "#85845D", people: [{ name: "Alex Chen", value: "A$1,450", cell: 8 }, { name: "Lena Parker", value: "A$780", cell: 11 }] },
+    { name: "Contacted", count: 3, tone: "#BF7458", people: [{ name: "Sam Nguyen", value: "A$3,200", cell: 16 }, { name: "Ivy Harris", value: "A$950", cell: 7 }] },
+    { name: "Proposal", count: 2, tone: "#C89A5D", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 0 }, { name: "Chris Moore", value: "A$1,900", cell: 14, stale: true }] },
+    { name: "Negotiation", count: 2, tone: "#58706F", people: [{ name: "Priya Shah", value: "A$520", cell: 9 }, { name: "Ben Lewis", value: "A$2,250", cell: 18 }] },
+    { name: "Closed won", count: 3, tone: "#99A36D", people: [{ name: "Daniel Brooks", value: "A$4,100", cell: 5 }, { name: "Grace Tan", value: "A$1,680", cell: 2 }] },
   ];
 
   return (
     <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
-      <div className="mx-auto max-w-[1460px] rounded-[34px] border border-[#DDD5CA] bg-[#F4F6F8] px-5 py-14 shadow-[0_24px_64px_rgba(35,53,76,.07)] sm:px-8 lg:px-10">
-        <Reveal className="mx-auto flex max-w-[1320px] flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[600px]">
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7D8994]">Pipeline</div>
             <h2 className="mt-3 text-[36px] font-medium leading-[1] tracking-[-0.048em] sm:text-[46px] lg:text-[52px]" style={{ fontFamily: DISPLAY }}>
@@ -751,47 +655,55 @@ function PipelineRail() {
           </p>
         </Reveal>
 
-        <Reveal className="mx-auto mt-10 max-w-[1320px]" delay={0.04}>
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
-            {stages.map((stage, stageIndex) => (
-              <div key={stage.name} className="min-h-[330px] rounded-[20px] border border-[#DDE2E7] bg-white p-2.5 shadow-[0_8px_22px_rgba(35,53,76,.04)]">
-                <div className="flex items-center justify-between rounded-[13px] px-3 py-2.5 text-white" style={{ backgroundColor: stage.tone }}>
-                  <span className="text-[9px] font-bold">{stage.name}</span>
-                  <span className="text-[8px] font-semibold">{stage.count}</span>
-                </div>
-
-                <div className="mt-2.5 space-y-2.5">
-                  {stage.people.map((person, itemIndex) => (
-                    <motion.div
-                      key={person.name}
-                      initial={false}
-                      whileInView={stageIndex === 2 && itemIndex === 0 ? { y: [0, -4, 0] } : undefined}
-                      viewport={{ once: true, amount: 0.65 }}
-                      transition={{ duration: 1.1, delay: 0.3, ease: "easeInOut" }}
-                      className="rounded-[15px] border border-[#E1E5E9] bg-[#FAFBFC] p-3.5"
-                    >
-                      <div className="flex items-start gap-2.5">
-                        <Avatar cell={person.cell} size={32} className="border-2 border-white shadow-[0_4px_10px_rgba(35,53,76,.10)]" />
-                        <div className="min-w-0 flex-1">
-                          <div className="text-[9px] font-semibold text-[#2B3641]">{person.name}</div>
-                          <div className="mt-1 text-[7px] font-semibold text-[#66717C]">{person.value}</div>
-                        </div>
-                        {"stale" in person && person.stale ? (
-                          <span className="rounded-[5px] bg-[#F5D8D0] px-1.5 py-1 text-[6px] font-bold uppercase tracking-[0.08em] text-[#A85C48]">stale</span>
-                        ) : (
-                          <span className="h-2 w-2 rounded-full bg-[#AAB697]" />
-                        )}
-                      </div>
-
-                      <div className="mt-3 flex items-center justify-between border-t border-[#E9EDF1] pt-2 text-[7px] text-[#7B8690]">
-                        <span>Owner assigned</span>
-                        <span>{stageIndex === 2 && itemIndex === 1 ? "6 days" : "active"}</span>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
+        <Reveal className="mt-10" delay={0.04}>
+          <div className="overflow-hidden rounded-[24px] border border-[#DADFE5] bg-white shadow-[0_20px_54px_rgba(35,53,76,.06)]">
+            <div className="flex items-center justify-between border-b border-[#E3E8ED] px-5 py-4">
+              <div>
+                <div className="text-[13px] font-semibold text-[#26313B]">Residential sales</div>
+                <div className="mt-1 text-[8px] text-[#6E7984]">10 opportunities · A$18,630 open value</div>
               </div>
-            ))}
+              <div className="rounded-[8px] border border-[#DDE3E9] bg-white px-3 py-2 text-[8px] font-semibold text-[#59646E]">Filter pipeline</div>
+            </div>
+
+            <div className="grid gap-0 overflow-x-auto bg-[#F6F7F8] md:grid-cols-2 xl:grid-cols-5">
+              {stages.map((stage, stageIndex) => (
+                <div key={stage.name} className="min-h-[330px] min-w-[220px] border-r border-[#DDE2E7] p-2.5 last:border-r-0">
+                  <div className="flex items-center justify-between rounded-[10px] px-3 py-2.5 text-white" style={{ backgroundColor: stage.tone }}>
+                    <span className="text-[9px] font-bold">{stage.name}</span>
+                    <span className="text-[8px] font-semibold">{stage.count}</span>
+                  </div>
+
+                  <div className="mt-2.5 space-y-2.5">
+                    {stage.people.map((person, itemIndex) => (
+                      <motion.div
+                        key={person.name}
+                        initial={false}
+                        whileInView={stageIndex === 2 && itemIndex === 0 ? { y: [0, -4, 0] } : undefined}
+                        viewport={{ once: true, amount: 0.65 }}
+                        transition={{ duration: 1.1, delay: 0.3, ease: "easeInOut" }}
+                        className="rounded-[12px] border border-[#E1E5E9] bg-white p-3.5 shadow-[0_4px_12px_rgba(35,53,76,.03)]"
+                      >
+                        <div className="flex items-start gap-2.5">
+                          <Avatar cell={person.cell} size={34} className="border-2 border-white shadow-[0_4px_10px_rgba(35,53,76,.10)]" />
+                          <div className="min-w-0 flex-1">
+                            <div className="text-[9px] font-semibold text-[#2B3641]">{person.name}</div>
+                            <div className="mt-1 text-[7px] font-semibold text-[#59646E]">{person.value}</div>
+                          </div>
+                          {"stale" in person && person.stale ? (
+                            <span className="rounded-[5px] bg-[#F7E9E4] px-1.5 py-1 text-[6px] font-bold uppercase tracking-[0.08em] text-[#BF7458]">stale</span>
+                          ) : <span className="h-2 w-2 rounded-full bg-[#BFC6AE]" />}
+                        </div>
+
+                        <div className="mt-3 flex items-center justify-between border-t border-[#E9EDF1] pt-2 text-[7px] text-[#7B8690]">
+                          <span>Owner assigned</span>
+                          <span>{stageIndex === 2 && itemIndex === 1 ? "6 days" : "active"}</span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>
@@ -803,43 +715,46 @@ function Automation() {
   const reduced = !!useReducedMotion();
 
   return (
-    <section className="bg-[#F7F4EE] px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
-      <div className="relative mx-auto max-w-[1460px] overflow-hidden rounded-[34px] border border-[#1B2D43] bg-[#0B1726] px-5 py-16 text-white shadow-[0_28px_76px_rgba(13,27,42,.18)] sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-      <div className="pointer-events-none absolute right-[-10%] top-[-36%] h-[700px] w-[700px] rounded-full bg-[#2563FF]/14 blur-[140px]" />
-        <div className="pointer-events-none absolute -left-[12%] bottom-[-40%] h-[520px] w-[520px] rounded-full bg-[#58706F]/12 blur-[130px]" />
+    <section className="relative overflow-hidden bg-[#0D1117] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="pointer-events-none absolute right-[-10%] top-[-35%] h-[700px] w-[700px] rounded-full bg-[#2563FF]/10 blur-[150px]" />
 
       <div className="relative mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[880px]">
-          <Eyebrow dark>CRM that can act</Eyebrow>
-          <h2 className="mt-4 text-[38px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[50px] lg:text-[56px]" style={{ fontFamily: DISPLAY }}>
-            When the customer state changes,
-            <span className="block text-[#8EACFF]">the next action can start automatically.</span>
-          </h2>
+        <Reveal className="grid gap-8 lg:grid-cols-[.82fr_1.18fr] lg:items-end">
+          <div className="max-w-[790px]">
+            <Eyebrow dark>CRM that can act</Eyebrow>
+            <h2 className="mt-4 text-[38px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[49px] lg:text-[54px]" style={{ fontFamily: DISPLAY }}>
+              When the customer state changes,
+              <span className="block text-[#86A6FF]">the next action can start automatically.</span>
+            </h2>
+          </div>
+          <p className="max-w-[470px] text-[14px] font-medium leading-[1.72] text-white/64 lg:justify-self-end">
+            Stage changes, tags, timing and customer events can become workflow triggers instead of another thing someone has to remember.
+          </p>
         </Reveal>
 
         <Reveal className="mt-10" delay={0.04}>
-          <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#F8FAFC] text-[#111318] shadow-[0_32px_90px_rgba(0,0,0,.28)]">
+          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#F8FAFC] text-[#111318] shadow-[0_30px_84px_rgba(0,0,0,.28)]">
             <div className="flex min-h-12 items-center justify-between border-b border-[#DFE5EA] bg-white px-4">
               <div>
                 <div className="text-[11px] font-semibold text-[#26313B]">Quote follow-up</div>
-                <div className="mt-0.5 text-[7px] uppercase tracking-[0.11em] text-[#A0A9B2]">Automation · Draft</div>
+                <div className="mt-0.5 text-[7px] uppercase tracking-[0.11em] text-[#87929D]">Automation · Draft</div>
               </div>
               <div className="flex gap-2">
-                <span className="rounded-[7px] border border-[#DDE3E9] px-2.5 py-1.5 text-[8px] font-semibold text-[#65717D]">Test</span>
-                <span className="rounded-[7px] bg-[#C9B89B] px-2.5 py-1.5 text-[8px] font-semibold text-[#2C2924]">Save</span>
+                <span className="rounded-[7px] border border-[#DDE3E9] px-2.5 py-1.5 text-[8px] font-semibold text-[#59646E]">Test</span>
+                <span className="rounded-[7px] bg-[#1E2B29] px-2.5 py-1.5 text-[8px] font-semibold text-white">Save</span>
               </div>
             </div>
 
             <div className="grid min-h-[500px] lg:grid-cols-[265px_1fr]">
               <div className="border-r border-[#DFE5EA] bg-white">
                 <div className="grid grid-cols-3 border-b border-[#E0E5EA] text-[8px] font-bold uppercase tracking-[0.1em]">
-                  <span className="border-b-2 border-[#D65A89] px-3 py-3 text-[#A84E73]">Triggers</span>
+                  <span className="border-b-2 border-[#2563FF] px-3 py-3 text-[#2563FF]">Triggers</span>
                   <span className="px-3 py-3 text-[#77838E]">Logic</span>
                   <span className="px-3 py-3 text-[#77838E]">Actions</span>
                 </div>
 
                 <div className="p-3">
-                  <div className="flex items-center gap-2 rounded-[8px] border border-[#DDE3E9] px-3 py-2 text-[8px] text-[#8B96A1]">
+                  <div className="flex items-center gap-2 rounded-[8px] border border-[#DDE3E9] px-3 py-2 text-[8px] text-[#7B8690]">
                     <Search size={11} /> Search steps...
                   </div>
 
@@ -849,7 +764,7 @@ function Automation() {
                     ["Pipeline", ["Pipeline stage changed", "Opportunity created"]],
                   ].map(([group, items]) => (
                     <div key={group as string} className="mt-4">
-                      <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-[#A0A9B2]">{group}</div>
+                      <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-[#87929D]">{group}</div>
                       <div className="mt-2 space-y-1.5">
                         {(items as string[]).map((item, i) => (
                           <motion.div
@@ -858,9 +773,9 @@ function Automation() {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : i * 0.04, ease: EASE }}
-                            className="flex items-center gap-2 rounded-[7px] border border-[#E8C6D3] bg-[#FCF2F6] px-3 py-2.5 text-[8px] font-semibold text-[#A84E73]"
+                            className="flex items-center gap-2 rounded-[7px] border border-[#DDE3E9] bg-[#FAFBFC] px-3 py-2.5 text-[8px] font-semibold text-[#46525E]"
                           >
-                            <span className="grid h-5 w-5 place-items-center rounded-[5px] bg-[#D65A89] text-white">↯</span>
+                            <span className="grid h-5 w-5 place-items-center rounded-[5px] bg-[#EEF3FF] text-[#2563FF]">↯</span>
                             {item}
                           </motion.div>
                         ))}
@@ -870,19 +785,13 @@ function Automation() {
                 </div>
               </div>
 
-              <div
-                className="relative overflow-hidden p-5 sm:p-7 lg:p-8"
-                style={{
-                  backgroundImage: "radial-gradient(circle, rgba(111,126,142,.22) 1px, transparent 1px)",
-                  backgroundSize: "22px 22px",
-                }}
-              >
+              <div className="relative overflow-hidden p-5 sm:p-7 lg:p-8" style={{ backgroundImage: "radial-gradient(circle, rgba(111,126,142,.20) 1px, transparent 1px)", backgroundSize: "22px 22px" }}>
                 <div className="absolute inset-x-0 top-5 text-center text-[8px] font-semibold uppercase tracking-[0.12em] text-[#98A4AF]">Example workflow</div>
 
                 <div className="relative mt-12 flex min-h-[390px] flex-col justify-center gap-5 xl:grid xl:grid-cols-[1fr_64px_1fr_64px_1fr] xl:items-center">
-                  <BuilderNode label="Trigger" title="Pipeline stage changed" copy="Stage becomes Quote sent" tone="purple" />
+                  <BuilderNode label="Trigger" title="Pipeline stage changed" copy="Stage becomes Quote sent" tone="blue" />
                   <BuilderConnector />
-                  <BuilderNode label="Wait" title="2 days" copy="Give the customer time to decide" tone="gold" />
+                  <BuilderNode label="Wait" title="2 days" copy="Give the customer time to decide" tone="neutral" />
                   <BuilderConnector />
                   <BuilderNode label="Action" title="Send follow-up" copy="Message goes out if still in stage" tone="sage" />
                 </div>
@@ -895,30 +804,19 @@ function Automation() {
           </div>
         </Reveal>
       </div>
-      </div>
     </section>
   );
 }
 
-function BuilderNode({
-  label,
-  title,
-  copy,
-  tone,
-}: {
-  label: string;
-  title: string;
-  copy: string;
-  tone: "purple" | "gold" | "sage";
-}) {
+function BuilderNode({ label, title, copy, tone }: { label: string; title: string; copy: string; tone: "blue" | "neutral" | "sage" }) {
   const toneMap = {
-    purple: "border-[#D8CDF0] bg-[#F4F0FB] text-[#7359A7]",
-    gold: "border-[#EAD29B] bg-[#FFF5DD] text-[#97651E]",
-    sage: "border-[#D2D9B6] bg-[#F2F5E8] text-[#657247]",
+    blue: "border-[#C8D6FF] bg-[#F4F7FF] text-[#2563FF]",
+    neutral: "border-[#DDD5CA] bg-[#F7F4EE] text-[#8E725D]",
+    sage: "border-[#D2D8C2] bg-[#F2F4EA] text-[#69735D]",
   };
 
   return (
-    <div className={"relative rounded-[16px] border p-4 shadow-[0_10px_28px_rgba(38,53,70,.07)] " + toneMap[tone]}>
+    <div className={"relative rounded-[15px] border p-4 shadow-[0_10px_28px_rgba(38,53,70,.06)] " + toneMap[tone]}>
       <div className="text-[8px] font-bold uppercase tracking-[0.13em]">{label}</div>
       <div className="mt-4 text-[13px] font-semibold text-[#26313B]">{title}</div>
       <div className="mt-1 text-[9px] leading-[1.5] text-[#66717C]">{copy}</div>
@@ -937,28 +835,30 @@ function BuilderConnector() {
 
 function ScaleSection() {
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1260px]">
-        <Reveal className="max-w-[760px]">
-          <h2 className="text-[38px] font-medium leading-[0.99] tracking-[-0.05em] sm:text-[50px] lg:text-[56px]" style={{ fontFamily: DISPLAY }}>
-            More people. More customers.
-            <span className="block text-[#2563FF]">Same CRM.</span>
-          </h2>
-          <p className="mt-4 max-w-[620px] text-[14px] leading-[1.7] text-[#687480] sm:text-[15px]">
-            Add the team, keep the customer history and start with a system that has been configured with you.
+        <Reveal className="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+          <div className="max-w-[720px]">
+            <Eyebrow>Built to grow with the team</Eyebrow>
+            <h2 className="mt-4 text-[38px] font-medium leading-[0.99] tracking-[-0.05em] sm:text-[50px] lg:text-[56px]" style={{ fontFamily: DISPLAY }}>
+              More people. More customers.
+              <span className="block text-[#2563FF]">Same CRM.</span>
+            </h2>
+          </div>
+          <p className="max-w-[470px] text-[14px] font-medium leading-[1.72] text-[#59646E] lg:justify-self-end">
+            Reception, sales, operations, admin and owners can work from the same customer record without turning team growth into a seat-count problem.
           </p>
         </Reveal>
 
         <Reveal className="mt-10" delay={0.04}>
-          <div className="overflow-hidden rounded-[30px] border border-[#DCD6CD] bg-white shadow-[0_24px_64px_rgba(35,53,76,.08)]">
-            <div className="grid lg:grid-cols-[1.45fr_.55fr]">
-              <UnlimitedUsersVisual />
+          <TeamWorkspaceVisual />
+        </Reveal>
 
-              <div className="grid border-t border-[#DCE3EA] lg:border-l lg:border-t-0">
-                <UnlimitedContactsVisual />
-                <GuidedLaunchVisual />
-              </div>
-            </div>
+        <Reveal className="mt-8">
+          <div className="grid border-y border-[#DCD6CD] sm:grid-cols-3">
+            <CommercialPoint title="Unlimited users" copy="Bring the whole team into the CRM without adding another per-seat charge." />
+            <CommercialPoint title="Unlimited contacts" copy="Keep the customer history you need instead of trimming the database to stay under a contact cap." />
+            <CommercialPoint title="Guided Launch" copy="Start with the agreed fields, pipeline and essentials configured with you." />
           </div>
         </Reveal>
 
@@ -972,162 +872,78 @@ function ScaleSection() {
   );
 }
 
-function UnlimitedUsersVisual() {
+function TeamWorkspaceVisual() {
   const people = [
-    { cell: 0, name: "Owner", x: "10%", y: "18%", tone: "#2563FF", target: "Overview" },
-    { cell: 7, name: "Reception", x: "79%", y: "17%", tone: "#D65A89", target: "Conversation" },
-    { cell: 14, name: "Sales", x: "12%", y: "74%", tone: "#EF8C72", target: "Deal" },
-    { cell: 9, name: "Operations", x: "79%", y: "74%", tone: "#9AA36A", target: "Task" },
-    { cell: 19, name: "Admin", x: "45%", y: "12%", tone: "#F2B84B", target: "Fields" },
+    { cell: 0, name: "Owner", target: "Overview", x: "8%", y: "18%", tone: "#2563FF" },
+    { cell: 7, name: "Reception", target: "Conversation", x: "82%", y: "17%", tone: "#8E657A" },
+    { cell: 14, name: "Sales", target: "Deal", x: "9%", y: "76%", tone: "#BF7458" },
+    { cell: 9, name: "Operations", target: "Task", x: "82%", y: "76%", tone: "#85845D" },
+    { cell: 19, name: "Admin", target: "Fields", x: "47%", y: "10%", tone: "#C89A5D" },
   ];
 
   return (
-    <div className="relative min-h-[540px] overflow-hidden bg-[#F2F5FB] p-6 sm:p-8">
-      <div className="max-w-[430px]">
-        <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Unlimited users</div>
-        <h3 className="mt-3 text-[30px] font-medium leading-[1] tracking-[-0.045em] text-[#111318] sm:text-[36px]" style={{ fontFamily: DISPLAY }}>
-          Bring the whole team into the same customer record.
-        </h3>
-        <p className="mt-3 max-w-[400px] text-[12px] leading-[1.65] text-[#59646E]">
-          Different roles can work on the part they own without adding another per-seat charge as the team grows.
-        </p>
-      </div>
-
-      <div className="absolute bottom-6 left-[5%] right-[5%] top-[44%] rounded-[24px] border border-[#D7E0EC] bg-white shadow-[0_22px_50px_rgba(35,53,76,.10)]">
-        <div className="absolute inset-[14%_18%] rounded-[17px] border border-[#DDE3E9] bg-[#FAFBFC] p-4 shadow-[0_10px_24px_rgba(35,53,76,.06)]">
-          <div className="flex items-center justify-between">
+    <div className="relative min-h-[540px] overflow-hidden rounded-[28px] border border-[#D7DEE6] bg-[#F5F7FC] shadow-[0_22px_58px_rgba(35,53,76,.08)]">
+      <div className="absolute inset-[15%_16%] rounded-[20px] border border-[#DDE3E9] bg-white p-5 shadow-[0_14px_34px_rgba(35,53,76,.08)]">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Avatar cell={0} size={42} className="border-2 border-white shadow-[0_4px_12px_rgba(35,53,76,.10)]" />
             <div>
-              <div className="text-[10px] font-semibold text-[#26313B]">Mia Thompson</div>
+              <div className="text-[11px] font-semibold text-[#26313B]">Mia Thompson</div>
               <div className="mt-0.5 text-[7px] text-[#7B8690]">Northside Plumbing</div>
             </div>
-            <span className="rounded-[6px] bg-[#FFF0C8] px-2 py-1 text-[7px] font-bold text-[#97651E]">Quote sent</span>
           </div>
-
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            <RoleTarget label="Overview" value="VIP · Residential" tone="blue" />
-            <RoleTarget label="Conversation" value="SMS reply received" tone="pink" />
-            <RoleTarget label="Deal" value="A$2,850" tone="coral" />
-            <RoleTarget label="Task" value="Site visit · Tuesday" tone="sage" />
-          </div>
-
-          <div className="mt-2">
-            <RoleTarget label="Fields" value="Service area · Sydney · Hot water" tone="gold" />
-          </div>
+          <span className="rounded-[6px] bg-[#F4F1EA] px-2 py-1 text-[7px] font-bold text-[#8E725D]">Quote sent</span>
         </div>
 
-        {people.map((person, index) => (
-          <motion.div
-            key={person.name}
-            className="absolute"
-            style={{ left: person.x, top: person.y, translateX: "-50%", translateY: "-50%" }}
-            initial={{ opacity: 0, scale: 0.84, y: 8 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: 0.45, delay: index * 0.05, ease: EASE }}
-          >
-            <div className="relative">
-              <Avatar cell={person.cell} size={54} className="border-[3px] border-white shadow-[0_10px_24px_rgba(35,53,76,.16)]" />
-              <div
-                className="absolute left-[41px] top-[39px] flex items-center gap-1.5 whitespace-nowrap rounded-[7px] px-2.5 py-1.5 text-[8px] font-bold text-white shadow-[0_7px_16px_rgba(35,53,76,.18)]"
-                style={{ backgroundColor: person.tone }}
-              >
-                <MousePointer2 size={9} fill="currentColor" />
-                {person.name}
-              </div>
-              <div className="absolute left-[44px] top-[62px] whitespace-nowrap text-[6px] font-bold uppercase tracking-[0.08em] text-[#7B8690]">
-                {person.target}
-              </div>
+        <div className="mt-5 overflow-hidden rounded-[12px] border border-[#E1E5E9]">
+          <TeamRecordRow label="Overview" value="VIP · Residential · Owner: Ben" active />
+          <TeamRecordRow label="Conversation" value="SMS reply received 9:41am" />
+          <TeamRecordRow label="Deal" value="A$2,850 · Quote sent" />
+          <TeamRecordRow label="Task" value="Confirm site visit · Tuesday" />
+          <TeamRecordRow label="Fields" value="Service area · Sydney · Hot water" />
+        </div>
+      </div>
+
+      {people.map((person, index) => (
+        <motion.div
+          key={person.name}
+          className="absolute"
+          style={{ left: person.x, top: person.y, translateX: "-50%", translateY: "-50%" }}
+          initial={{ opacity: 0, scale: 0.86, y: 8 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.45 }}
+          transition={{ duration: 0.45, delay: index * 0.05, ease: EASE }}
+        >
+          <div className="relative">
+            <Avatar cell={person.cell} size={58} className="border-[3px] border-white shadow-[0_12px_26px_rgba(35,53,76,.16)]" />
+            <div className="absolute left-[43px] top-[41px] flex items-center gap-1.5 whitespace-nowrap rounded-[7px] px-2.5 py-1.5 text-[8px] font-bold text-white shadow-[0_7px_16px_rgba(35,53,76,.18)]" style={{ backgroundColor: person.tone }}>
+              <MousePointer2 size={9} fill="currentColor" /> {person.name}
             </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function RoleTarget({ label, value, tone }: { label: string; value: string; tone: "blue" | "pink" | "coral" | "sage" | "gold" }) {
-  const tones = {
-    blue: "border-[#C8D5FF] bg-[#F2F5FF]",
-    pink: "border-[#E9BECF] bg-[#FCF2F6]",
-    coral: "border-[#E9C2B7] bg-[#FDF2EE]",
-    sage: "border-[#D2D9B6] bg-[#F5F7ED]",
-    gold: "border-[#EAD29B] bg-[#FFF8E8]",
-  };
-
-  return (
-    <div className={"rounded-[10px] border px-3 py-2.5 " + tones[tone]}>
-      <div className="text-[6px] font-bold uppercase tracking-[0.09em] text-[#7A8590]">{label}</div>
-      <div className="mt-1 text-[8px] font-semibold text-[#46525E]">{value}</div>
-    </div>
-  );
-}
-
-function UnlimitedContactsVisual() {
-  return (
-    <div className="border-b border-[#DCD6CD] bg-[#FCFBF8] p-6 sm:p-7">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Unlimited contacts</div>
-          <h3 className="mt-2 text-[24px] font-medium tracking-[-0.04em] text-[#111318]" style={{ fontFamily: DISPLAY }}>Keep the database.</h3>
-        </div>
-        <div className="grid h-12 w-12 place-items-center rounded-full bg-[#EEF3FF] text-[#2563FF]">
-          <InfinityIcon size={23} />
-        </div>
-      </div>
-
-      <div className="mt-5 space-y-2">
-        {["Customer · Mia Thompson", "Lead · Chris Moore", "Past customer · Daniel Brooks", "Prospect · Priya Shah"].map((item, i) => (
-          <div key={item} className="flex items-center justify-between border-b border-[#E7EBEF] pb-2.5">
-            <span className="text-[9px] font-medium text-[#4A5662]">{item}</span>
-            <span className="text-[7px] font-semibold text-[#7E8993]">{i < 2 ? "active" : "stored"}</span>
+            <div className="absolute left-[46px] top-[65px] whitespace-nowrap text-[6px] font-bold uppercase tracking-[0.08em] text-[#66717C]">{person.target}</div>
           </div>
-        ))}
-      </div>
-
-      <p className="mt-4 text-[11px] leading-[1.6] text-[#59646E]">The customer history does not need to be trimmed just to stay under a contact count.</p>
+        </motion.div>
+      ))}
     </div>
   );
 }
 
-function GuidedLaunchVisual() {
+function TeamRecordRow({ label, value, active = false }: { label: string; value: string; active?: boolean }) {
   return (
-    <div className="bg-[#FBFAF6] p-6 sm:p-7">
-      <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Guided Launch</div>
-      <h3 className="mt-2 text-[24px] font-medium tracking-[-0.04em] text-[#111318]" style={{ fontFamily: DISPLAY }}>Do not start from blank.</h3>
-      <p className="mt-3 text-[11px] leading-[1.6] text-[#59646E]">
-        We help configure the agreed CRM essentials so moving platforms does not become another internal project.
-      </p>
-
-      <div className="mt-5 space-y-2.5">
-        {["Customer data agreed", "Core fields configured", "Pipeline structure set", "Team ready to work"].map((item, i) => (
-          <div key={item} className="flex items-center gap-3">
-            <span className={"grid h-6 w-6 place-items-center rounded-full text-[8px] font-bold " + (i < 3 ? "bg-[#EAF0FF] text-[#2563FF]" : "bg-[#EEF3E7] text-[#6B7C50]")}>
-              <Check size={11} strokeWidth={2.5} />
-            </span>
-            <span className="text-[9px] font-medium text-[#4B5762]">{item}</span>
-          </div>
-        ))}
+    <div className={"grid grid-cols-[110px_1fr] items-center border-b border-[#E7EAED] px-4 py-3 last:border-b-0 " + (active ? "bg-[#F7F9FE]" : "bg-white")}>
+      <div className="flex items-center gap-2 text-[7px] font-bold uppercase tracking-[0.1em] text-[#66717C]">
+        <span className={"h-1.5 w-1.5 rounded-full " + (active ? "bg-[#2563FF]" : "bg-[#B8C0C8]")} /> {label}
       </div>
+      <div className="text-[9px] font-semibold text-[#46525E]">{value}</div>
     </div>
   );
 }
 
-
-function InitialsAvatar({
-  initials,
-  size,
-}: {
-  initials: string;
-  size: number;
-}) {
+function CommercialPoint({ title, copy }: { title: string; copy: string }) {
   return (
-    <span
-      className="grid shrink-0 place-items-center rounded-full border border-[#D5CCBF] bg-[#EEEAE2] font-semibold text-[#58706F]"
-      style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.25)) }}
-      aria-label={initials}
-    >
-      {initials}
-    </span>
+    <div className="px-0 py-6 sm:px-6 sm:first:pl-0 sm:last:pr-0 sm:[&+&]:border-l sm:[&+&]:border-[#DCD6CD]">
+      <div className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#2563FF]">{title}</div>
+      <p className="mt-2 max-w-[340px] text-[12px] leading-[1.65] text-[#59646E]">{copy}</p>
+    </div>
   );
 }
 
@@ -1161,48 +977,84 @@ function Avatar({
 
 function ConnectedPlatform() {
   const items = [
-    { icon: Mail, title: "Email + SMS", copy: "Follow up from the same customer context.", tone: "bg-[#FCF2F6] text-[#A84E73]" },
-    { icon: CalendarDays, title: "Calendars + bookings", copy: "Turn the conversation into a scheduled next step.", tone: "bg-[#F5F7ED] text-[#657247]" },
-    { icon: CreditCard, title: "Payments", copy: "Keep payment activity connected to the customer.", tone: "bg-[#FFF8E8] text-[#97651E]" },
-    { icon: Globe2, title: "Websites + funnels", copy: "Bring captured leads into the same CRM.", tone: "bg-[#F4F0FB] text-[#7359A7]" },
-    { icon: TicketCheck, title: "Ticketing + service", copy: "Carry customer context beyond the sale.", tone: "bg-[#FDF2EE] text-[#A85C48]" },
-    { icon: LayoutTemplate, title: "Forms + lead capture", copy: "Feed new enquiries directly into records and workflows.", tone: "bg-[#F1F5FF] text-[#2563FF]" },
+    { icon: Mail, title: "Email + SMS" },
+    { icon: CalendarDays, title: "Bookings" },
+    { icon: CreditCard, title: "Payments" },
+    { icon: Globe2, title: "Websites + funnels" },
+    { icon: TicketCheck, title: "Ticketing + service" },
+    { icon: LayoutTemplate, title: "Forms + lead capture" },
   ];
 
   return (
-    <section className="bg-[#F7F4EE] px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+    <section className="bg-[#F7F4EE] px-5 py-18 sm:px-10 sm:py-22 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="grid gap-8 lg:grid-cols-[.75fr_1.25fr] lg:items-end">
-          <div className="max-w-[520px]">
+        <Reveal className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
+          <div className="max-w-[560px]">
             <Eyebrow>Connected beyond CRM</Eyebrow>
             <h2 className="mt-4 text-[34px] font-medium leading-[1] tracking-[-0.047em] sm:text-[44px] lg:text-[50px]" style={{ fontFamily: DISPLAY }}>
-              The customer record does not stop when the CRM tab closes.
+              The customer record stays connected to what happens next.
             </h2>
           </div>
           <p className="max-w-[560px] text-[14px] font-medium leading-[1.72] text-[#59646E] lg:justify-self-end">
-            Zapla connects the CRM to the tools customers move through next. This page stays focused on CRM, while the wider platform handles the surrounding work.
+            Email, SMS, bookings, payments, lead capture and service activity can sit around the same customer record without turning this CRM page into a catalogue of every Zapla tool.
           </p>
         </Reveal>
 
-        <Reveal className="mt-9" delay={0.04}>
-          <div className="grid overflow-hidden rounded-[28px] border border-[#DCD6CD] bg-white shadow-[0_20px_54px_rgba(35,53,76,.06)] sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.title} className={"min-h-[150px] p-5 sm:p-6 " + (index > 0 ? "border-t border-[#E5E0D8] sm:border-t-0" : "") + (index % 2 === 1 ? " sm:border-l" : "") + (index >= 3 ? " lg:border-t" : "") + (index % 3 !== 0 ? " lg:border-l" : "")}>
-                  <div className={"grid h-10 w-10 place-items-center rounded-[11px] " + item.tone}>
-                    <Icon size={17} />
-                  </div>
-                  <div className="mt-5 text-[13px] font-semibold text-[#26313B]">{item.title}</div>
-                  <div className="mt-2 max-w-[300px] text-[11px] leading-[1.62] text-[#66717C]">{item.copy}</div>
+        <Reveal className="mt-10" delay={0.04}>
+          <div className="overflow-hidden rounded-[24px] border border-[#DCD6CD] bg-white shadow-[0_18px_44px_rgba(35,53,76,.05)]">
+            <div className="grid items-stretch md:grid-cols-[1fr_auto_1fr_auto_1.15fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr]">
+              {items.slice(0,2).map((item) => {
+                const Icon=item.icon;
+                return (
+                  <>
+                    <PlatformNode key={item.title} icon={Icon} title={item.title} />
+                    <PlatformArrow key={item.title+"arrow"} />
+                  </>
+                );
+              })}
+              <div className="flex min-h-[150px] flex-col items-center justify-center bg-[#F4F7FF] px-5 text-center">
+                <div className="grid h-12 w-12 place-items-center rounded-[14px] bg-[#2563FF] text-white shadow-[0_8px_18px_rgba(37,99,255,.18)]">
+                  <Users size={19} />
                 </div>
-              );
-            })}
+                <div className="mt-3 text-[12px] font-semibold text-[#26313B]">Zapla CRM</div>
+                <div className="mt-1 text-[8px] text-[#66717C]">One customer record</div>
+              </div>
+              {items.slice(2).map((item, index) => {
+                const Icon=item.icon;
+                return (
+                  <>
+                    <PlatformArrow key={item.title+"arrow"} />
+                    <PlatformNode key={item.title} icon={Icon} title={item.title} />
+                  </>
+                );
+              })}
+            </div>
           </div>
         </Reveal>
       </div>
     </section>
   );
+}
+
+function PlatformNode({ icon: Icon, title }: { icon: typeof Mail; title: string }) {
+  return (
+    <motion.div
+      className="flex min-h-[150px] flex-col items-center justify-center px-4 text-center"
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.35, ease: EASE }}
+    >
+      <div className="grid h-10 w-10 place-items-center rounded-[11px] border border-[#DDE3E9] bg-[#FAFBFC] text-[#46525E]">
+        <Icon size={17} />
+      </div>
+      <div className="mt-3 text-[9px] font-semibold text-[#394550]">{title}</div>
+    </motion.div>
+  );
+}
+
+function PlatformArrow() {
+  return <div className="hidden items-center text-[#AAB4BE] md:flex"><ArrowRight size={14} /></div>;
 }
 
 function Faq() {
