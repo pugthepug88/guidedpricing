@@ -127,15 +127,16 @@ function PrimaryButton() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#E3E8EE] bg-[#F8FAFC] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[120px] lg:px-16 lg:pb-18 lg:pt-[122px]">
-      <div className="pointer-events-none absolute left-1/2 top-[48%] h-[680px] w-[1040px] -translate-x-1/2 rounded-[50%] bg-[#2563FF]/[0.035] blur-[120px]" />
+    <section className="relative overflow-hidden border-b border-[#E2E8F0] bg-[#F5F8FD] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[120px] lg:px-16 lg:pb-20 lg:pt-[122px]">
+      <div className="pointer-events-none absolute left-1/2 top-[46%] h-[760px] w-[1180px] -translate-x-1/2 rounded-[50%] bg-[#2563FF]/[0.055] blur-[130px]" />
+      <div className="pointer-events-none absolute left-[13%] top-[18%] h-[260px] w-[260px] rounded-full bg-[#9FC0FF]/10 blur-[90px]" />
 
-      <div className="relative mx-auto max-w-[1360px]">
-        <Reveal className="mx-auto max-w-[900px] text-center">
+      <div className="relative mx-auto max-w-[1380px]">
+        <Reveal className="mx-auto max-w-[920px] text-center">
           <Eyebrow>Zapla CRM</Eyebrow>
 
           <h1
-            className="mx-auto mt-4 max-w-[900px] text-[40px] font-medium leading-[0.99] tracking-[-0.05em] sm:text-[48px] lg:text-[54px]"
+            className="mx-auto mt-4 max-w-[900px] text-[39px] font-medium leading-[1] tracking-[-0.05em] sm:text-[47px] lg:text-[52px]"
             style={{ fontFamily: DISPLAY }}
           >
             The CRM that keeps every customer,
@@ -143,7 +144,7 @@ function Hero() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-[760px] text-[15px] leading-[1.72] text-[#5F6975] sm:text-[17px]">
-            Keep customer records, conversations, pipelines and automations working from the same source of truth, so your team can see what happened, where things stand and what needs to happen next.
+            Keep the customer record, messages, deal status and next action in one place, so whoever picks up the work sees the full context.
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-3">
@@ -156,8 +157,8 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-5 text-[11px] font-semibold text-[#6B7681] sm:text-[12px]">
-            Unlimited users <span className="mx-2 text-[#AAB4BE]">·</span> Unlimited contacts <span className="mx-2 text-[#AAB4BE]">·</span> Guided Launch
+          <div className="mt-5 text-[11px] font-semibold text-[#68737E] sm:text-[12px]">
+            Unlimited users <span className="mx-2 text-[#A8B2BD]">·</span> Unlimited contacts <span className="mx-2 text-[#A8B2BD]">·</span> Guided Launch
           </div>
         </Reveal>
 
@@ -171,165 +172,261 @@ function Hero() {
 
 function HeroStage() {
   return (
-    <div className="relative mx-auto max-w-[1160px]">
-      <div className="absolute inset-x-[4%] bottom-[-16px] top-[26px] rounded-[20px] bg-[#E7EEF9]" />
+    <div className="relative mx-auto max-w-[1220px]">
+      <div className="absolute inset-x-[3%] bottom-[-18px] top-[28px] rounded-[22px] border border-[#D9E5F5] bg-[#EAF1FC]" />
       <div className="relative">
-        <MainCrmWindow />
+        <CustomerRecordHero />
       </div>
     </div>
   );
 }
 
-function MainCrmWindow() {
+function CustomerRecordHero() {
   return (
-    <div className="overflow-hidden rounded-[16px] border border-[#D6DEE7] bg-white shadow-[0_30px_78px_rgba(35,53,76,.13)]">
-      <div className="flex min-h-12 items-center justify-between border-b border-[#E2E7EC] bg-white px-4 sm:px-5">
-        <div className="flex min-w-0 items-center gap-5">
-          {["Contacts", "Inbox", "Pipelines", "Automations"].map((item, index) => (
-            <span
-              key={item}
-              className={
-                "whitespace-nowrap text-[8px] font-bold uppercase tracking-[0.12em] " +
-                (index === 0 ? "text-[#26313B]" : "hidden text-[#8A95A0] sm:inline")
-              }
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex shrink-0 gap-2">
-          <span className="hidden rounded-[7px] border border-[#DDE3E9] bg-white px-3 py-2 text-[8px] font-bold uppercase tracking-[0.08em] text-[#5E6A76] sm:block">
-            Custom columns
+    <div className="overflow-hidden rounded-[16px] border border-[#D5DEE8] bg-white shadow-[0_30px_78px_rgba(35,53,76,.13)]">
+      <div className="flex min-h-12 items-center gap-5 overflow-hidden border-b border-[#E2E7EC] bg-white px-4 sm:px-5">
+        {["Contacts", "Contact types", "Contact fields", "Tags", "Smart lists", "Quick actions"].map((item, index) => (
+          <span
+            key={item}
+            className={
+              "whitespace-nowrap text-[8px] font-bold uppercase tracking-[0.12em] " +
+              (index === 0 ? "text-[#26313B]" : "hidden text-[#8A95A0] md:inline")
+            }
+          >
+            {item}
           </span>
-          <span className="rounded-[7px] bg-[#C9B89B] px-3 py-2 text-[8px] font-bold uppercase tracking-[0.08em] text-[#2D2923]">
-            New contact
-          </span>
-        </div>
+        ))}
       </div>
 
-      <div className="grid min-h-[465px] lg:grid-cols-[1.08fr_.92fr]">
-        <div className="min-w-0 border-b border-[#E2E7EC] lg:border-b-0 lg:border-r">
-          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-5">
-            <div>
-              <div className="text-[17px] font-semibold text-[#1F2933]">Customer records</div>
-              <div className="mt-1 text-[8px] font-bold uppercase tracking-[0.12em] text-[#909AA5]">All contacts</div>
-            </div>
+      <div className="grid min-h-[520px] lg:grid-cols-[225px_minmax(0,1fr)_205px]">
+        <div className="border-b border-[#E2E7EC] bg-[#FAFBFC] p-4 lg:border-b-0 lg:border-r">
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Profile</div>
 
-            <div className="flex gap-2">
-              <span className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-[#DDE3E9] bg-white px-3 text-[8px] font-bold uppercase tracking-[0.08em] text-[#66727E]">
-                <Settings2 size={11} /> Columns
-              </span>
-              <span className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-[#BFD0FF] bg-[#F4F7FF] px-3 text-[8px] font-bold uppercase tracking-[0.08em] text-[#2563FF]">
-                <Filter size={11} /> Filter
-              </span>
+          <div className="mt-4 flex items-center gap-3">
+            <Avatar cell={3} size={44} />
+            <div>
+              <div className="text-[13px] font-semibold text-[#26313B]">Mia Thompson</div>
+              <div className="mt-0.5 text-[8px] text-[#929DA8]">Northside Plumbing</div>
             </div>
           </div>
 
-          <div className="overflow-x-auto">
-            <div className="min-w-[650px]">
-              <div className="grid grid-cols-[1.3fr_1fr_.72fr_.78fr_.72fr] border-y border-[#E5E9EE] bg-[#F8FAFB] px-4 py-2.5 text-[8px] font-semibold text-[#596571]">
-                {["Customer", "Phone", "Owner", "Stage", "Tag"].map((item) => <div key={item}>{item}</div>)}
+          <div className="mt-4 grid grid-cols-3 gap-1.5">
+            {[
+              ["Call", "text-[#49A669] border-[#CCE8D5]"],
+              ["Note", "text-[#2563FF] border-[#CBD9FF]"],
+              ["Book", "text-[#D56D63] border-[#F0D0CB]"],
+            ].map(([label, cls]) => (
+              <div key={label} className={"grid h-8 place-items-center rounded-[7px] border bg-white text-[7px] font-bold uppercase tracking-[0.08em] " + cls}>
+                {label}
               </div>
+            ))}
+          </div>
 
-              {[
-                ["Mia Thompson", "0412 555 018", "Ben", "Quote sent", "VIP"],
-                ["Chris Moore", "0433 444 022", "Alex", "Proposal", "Electrical"],
-                ["Lena Parker", "0414 222 490", "Sam", "Contacted", "Service"],
-                ["Daniel Brooks", "0416 308 114", "Ben", "Lead", "Commercial"],
-                ["Priya Shah", "0408 668 291", "Jin", "Negotiation", "Priority"],
-              ].map((row, i) => (
-                <div
-                  key={row[0]}
-                  className={
-                    "grid grid-cols-[1.3fr_1fr_.72fr_.78fr_.72fr] items-center border-b border-[#E7EBEF] px-4 py-3.5 text-[9px] text-[#4B5762] " +
-                    (i === 0 ? "bg-[#F2F6FF]" : "bg-white")
-                  }
-                >
-                  {row.map((cell, j) => (
-                    <div key={j} className={j === 0 ? "font-semibold text-[#26313B]" : ""}>
-                      {j === 4 ? (
-                        <span className="rounded-[5px] bg-[#EDF3FF] px-2 py-1 text-[7px] font-bold text-[#2563FF]">{cell}</span>
-                      ) : cell}
-                    </div>
-                  ))}
+          <div className="mt-4 space-y-2">
+            {[
+              ["Contact owner", "Ben Walker"],
+              ["Department", "Sales"],
+              ["Tags", "VIP · Residential"],
+              ["Email", "mia@northside.com"],
+              ["Phone", "0412 555 018"],
+              ["Language", "English"],
+            ].map(([label, value], index) => (
+              <div key={label} className={"rounded-[8px] border px-3 py-2.5 " + (index < 3 ? "border-[#DCE3EA] bg-white" : "border-[#E5E9EE] bg-[#FDFDFE]")}>
+                <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#8D98A3]">{label}</div>
+                <div className="mt-1 text-[8px] font-medium text-[#4A5662]">{value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="min-w-0 bg-[#F7F8FA]">
+          <div className="grid grid-cols-4 border-b border-[#E2E7EC] bg-white sm:grid-cols-7">
+            {[
+              ["Activity", true],
+              ["Messaging", false],
+              ["Notes", false],
+              ["Files", false],
+              ["Deals", false],
+              ["Tasks", false],
+              ["Jobs", false],
+            ].map(([label, active], index) => (
+              <div
+                key={label as string}
+                className={
+                  "flex h-11 items-center justify-center border-r border-[#EEF1F4] text-[7px] font-bold uppercase tracking-[0.11em] " +
+                  (active ? "bg-[#FAFBFC] text-[#26313B]" : "text-[#85919C] " + (index > 3 ? "hidden sm:flex" : ""))
+                }
+              >
+                {label}
+              </div>
+            ))}
+          </div>
+
+          <div className="p-4 sm:p-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-[14px] font-semibold text-[#26313B]">Recent activity</div>
+                <div className="mt-1 text-[8px] text-[#8F9AA5]">Everything around this customer, in order.</div>
+              </div>
+              <div className="inline-flex h-8 items-center gap-2 rounded-[7px] border border-[#DDE3E9] bg-white px-3 text-[8px] font-semibold text-[#65717D]">
+                <Filter size={10} /> Filter
+              </div>
+            </div>
+
+            <div className="relative mt-5">
+              <div className="absolute bottom-2 left-[14px] top-2 w-px bg-[#D8E0E8]" />
+
+              <ActivityItem
+                tone="blue"
+                title="Opportunity created"
+                meta="Today · 09:12"
+                copy="Hot water replacement"
+                detail="Stage: Lead · Value: A$2,850"
+              />
+              <ActivityItem
+                tone="green"
+                title="Quote sent"
+                meta="Today · 09:24"
+                copy="A$2,850 quote sent by SMS and email."
+                detail="Owner: Ben Walker"
+              />
+              <ActivityItem
+                tone="purple"
+                title="Customer replied"
+                meta="Today · 09:41"
+                copy="Tuesday afternoon works. Can you send through the quote?"
+                detail="SMS · Unified inbox"
+              />
+              <ActivityItem
+                tone="amber"
+                title="Stage changed"
+                meta="Today · 09:43"
+                copy="Proposal moved to Quote sent."
+                detail="Pipeline: Residential sales"
+              />
+              <ActivityItem
+                tone="slate"
+                title="Next action scheduled"
+                meta="In 2 days"
+                copy="Follow up automatically if the customer has not replied."
+                detail="Automation active"
+                last
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden border-l border-[#E2E7EC] bg-white p-4 lg:block">
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Customer context</div>
+
+          <div className="mt-4 space-y-2">
+            <ContextCard
+              label="Automation"
+              value="Quote follow-up"
+              sub="Active · waits 2 days"
+              tone="blue"
+            />
+            <ContextCard
+              label="Open deal"
+              value="A$2,850"
+              sub="Quote sent"
+              tone="green"
+            />
+            <ContextCard
+              label="Task"
+              value="Confirm site visit"
+              sub="Due Tuesday"
+              tone="amber"
+            />
+          </div>
+
+          <div className="mt-5 border-t border-[#E4E8EC] pt-4">
+            <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Also connected</div>
+            <div className="mt-3 space-y-2">
+              {["Notes", "Files", "Invoices", "Payments", "Bookings"].map((item) => (
+                <div key={item} className="flex items-center justify-between rounded-[7px] border border-[#E2E7EC] bg-[#FAFBFC] px-3 py-2.5">
+                  <span className="text-[8px] font-semibold text-[#4F5C68]">{item}</span>
+                  <ChevronDown size={10} className="text-[#98A3AD]" />
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="flex items-center justify-between px-4 py-3 text-[8px] text-[#8C97A2] sm:px-5">
-            <span>5 of 2,846 contacts</span>
-            <span>Rows per page 10</span>
-          </div>
-        </div>
-
-        <div className="bg-[#FAFBFC] p-4 sm:p-5">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <Avatar cell={3} size={44} />
-              <div>
-                <div className="text-[13px] font-semibold text-[#26313B]">Mia Thompson</div>
-                <div className="mt-0.5 text-[8px] text-[#929DA8]">Northside Plumbing</div>
-              </div>
+          <div className="mt-5 rounded-[9px] border border-[#C9D8FF] bg-[#F3F6FF] p-3">
+            <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#2563FF]">One record</div>
+            <div className="mt-1 text-[9px] font-semibold leading-[1.45] text-[#3E4B59]">
+              Profile, conversation, deal, task and automation stay attached to the same customer.
             </div>
-            <span className="rounded-[6px] bg-[#EEF3FF] px-2.5 py-1.5 text-[7px] font-bold text-[#2563FF]">Quote sent</span>
-          </div>
-
-          <div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-3">
-            {[
-              ["Owner", "Ben Walker"],
-              ["Service", "Hot water"],
-              ["Value", "A$2,850"],
-              ["Source", "Website"],
-            ].map(([label, value]) => (
-              <div key={label} className="border-b border-[#E2E7EC] pb-2.5">
-                <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#9AA5AF]">{label}</div>
-                <div className="mt-1 text-[9px] font-medium text-[#46525E]">{value}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-5">
-            <div className="flex items-center justify-between">
-              <div className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#8E99A4]">Recent activity</div>
-              <span className="text-[7px] font-semibold text-[#9AA5AF]">Today</span>
-            </div>
-
-            <div className="mt-3 space-y-2.5">
-              <div className="rounded-[9px] border border-[#DDE4EA] bg-white p-3">
-                <div className="text-[8px] font-semibold text-[#6B7681]">SMS reply</div>
-                <div className="mt-1 text-[9px] leading-[1.5] text-[#44515E]">
-                  Tuesday afternoon works. Can you send through the quote?
-                </div>
-              </div>
-
-              <div className="rounded-[9px] border border-[#DDE4EA] bg-white p-3">
-                <div className="text-[8px] font-semibold text-[#6B7681]">Pipeline update</div>
-                <div className="mt-1 flex items-center gap-2 text-[9px] text-[#44515E]">
-                  <span className="rounded-[5px] bg-[#F3EFE6] px-2 py-1 text-[7px] font-bold text-[#8A6B3F]">Proposal</span>
-                  <ArrowRight size={10} className="text-[#A2ADB7]" />
-                  <span className="rounded-[5px] bg-[#EEF3FF] px-2 py-1 text-[7px] font-bold text-[#2563FF]">Quote sent</span>
-                </div>
-              </div>
-
-              <div className="rounded-[9px] border border-[#DDE4EA] bg-white p-3">
-                <div className="text-[8px] font-semibold text-[#6B7681]">Next action</div>
-                <div className="mt-1 flex items-center justify-between gap-3 text-[9px] text-[#44515E]">
-                  <span>Follow up if no reply</span>
-                  <span className="rounded-[5px] bg-[#F0F4EA] px-2 py-1 text-[7px] font-bold text-[#667A4B]">2 days</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {["VIP", "Residential", "Hot water"].map((tag) => (
-              <span key={tag} className="rounded-[5px] border border-[#DDE3E9] bg-white px-2 py-1 text-[7px] font-semibold text-[#65717D]">{tag}</span>
-            ))}
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function ActivityItem({
+  tone,
+  title,
+  meta,
+  copy,
+  detail,
+  last = false,
+}: {
+  tone: "blue" | "green" | "purple" | "amber" | "slate";
+  title: string;
+  meta: string;
+  copy: string;
+  detail: string;
+  last?: boolean;
+}) {
+  const tones = {
+    blue: "bg-[#EAF0FF] text-[#2563FF]",
+    green: "bg-[#EAF5ED] text-[#43835A]",
+    purple: "bg-[#F1EBFA] text-[#7656A7]",
+    amber: "bg-[#FFF4DE] text-[#A66D13]",
+    slate: "bg-[#EDF1F5] text-[#647586]",
+  };
+
+  return (
+    <div className={"relative pl-10 " + (last ? "pb-0" : "pb-3")}>
+      <div className={"absolute left-0 top-1 z-10 grid h-7 w-7 place-items-center rounded-full text-[8px] font-bold " + tones[tone]}>
+        {tone === "blue" ? "+" : tone === "green" ? "✓" : tone === "purple" ? "↗" : tone === "amber" ? "→" : "•"}
+      </div>
+
+      <div className="rounded-[9px] border border-[#DEE4EA] bg-white p-3.5">
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <div className="text-[9px] font-semibold text-[#2D3843]">{title}</div>
+          <div className="text-[7px] font-semibold text-[#9AA5AF]">{meta}</div>
+        </div>
+        <div className="mt-1.5 text-[9px] leading-[1.5] text-[#53606C]">{copy}</div>
+        <div className="mt-2 rounded-[6px] bg-[#F7F8FA] px-2.5 py-2 text-[7px] font-medium text-[#7F8A95]">{detail}</div>
+      </div>
+    </div>
+  );
+}
+
+function ContextCard({
+  label,
+  value,
+  sub,
+  tone,
+}: {
+  label: string;
+  value: string;
+  sub: string;
+  tone: "blue" | "green" | "amber";
+}) {
+  const tones = {
+    blue: "bg-[#F3F6FF] border-[#D4DFFF]",
+    green: "bg-[#F2F7F0] border-[#D8E3D1]",
+    amber: "bg-[#FFF8EA] border-[#EFDFC0]",
+  };
+
+  return (
+    <div className={"rounded-[9px] border p-3 " + tones[tone]}>
+      <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#84909B]">{label}</div>
+      <div className="mt-1 text-[10px] font-semibold text-[#2F3A45]">{value}</div>
+      <div className="mt-1 text-[7px] font-medium text-[#7C8792]">{sub}</div>
     </div>
   );
 }
