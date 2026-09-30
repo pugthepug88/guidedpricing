@@ -127,9 +127,10 @@ function PrimaryButton() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#E2E8F0] bg-[#F5F8FD] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[120px] lg:px-16 lg:pb-20 lg:pt-[122px]">
-      <div className="pointer-events-none absolute left-1/2 top-[46%] h-[760px] w-[1180px] -translate-x-1/2 rounded-[50%] bg-[#2563FF]/[0.055] blur-[130px]" />
-      <div className="pointer-events-none absolute left-[13%] top-[18%] h-[260px] w-[260px] rounded-full bg-[#9FC0FF]/10 blur-[90px]" />
+    <section className="relative overflow-hidden border-b border-[#DDD5CA] bg-[#F7F4EE] px-5 pb-14 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[120px] lg:px-16 lg:pb-20 lg:pt-[122px]">
+      <div className="pointer-events-none absolute -left-[8%] top-[18%] h-[520px] w-[520px] rounded-full bg-[#DCE0CC]/65 blur-[120px]" />
+      <div className="pointer-events-none absolute right-[-7%] top-[28%] h-[520px] w-[520px] rounded-full bg-[#E7CEC2]/55 blur-[125px]" />
+      <div className="pointer-events-none absolute left-1/2 bottom-[-24%] h-[420px] w-[760px] -translate-x-1/2 rounded-[50%] bg-[#E7D8C5]/55 blur-[120px]" />
 
       <div className="relative mx-auto max-w-[1380px]">
         <Reveal className="mx-auto max-w-[920px] text-center">
@@ -173,7 +174,7 @@ function Hero() {
 function HeroStage() {
   return (
     <div className="relative mx-auto max-w-[1220px]">
-      <div className="absolute inset-x-[3%] bottom-[-18px] top-[28px] rounded-[22px] border border-[#D9E5F5] bg-[#EAF1FC]" />
+      <div className="absolute inset-x-[3%] bottom-[-18px] top-[28px] rounded-[22px] border border-[#DDD5CA] bg-[#EEEADF]" />
       <div className="relative">
         <CustomerRecordHero />
       </div>
@@ -203,7 +204,7 @@ function CustomerRecordHero() {
           <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Profile</div>
 
           <div className="mt-4 flex items-center gap-3">
-            <Avatar cell={3} size={44} />
+            <InitialsAvatar initials="MT" size={44} />
             <div>
               <div className="text-[13px] font-semibold text-[#26313B]">Mia Thompson</div>
               <div className="mt-0.5 text-[8px] text-[#929DA8]">Northside Plumbing</div>
@@ -212,11 +213,11 @@ function CustomerRecordHero() {
 
           <div className="mt-4 grid grid-cols-3 gap-1.5">
             {[
-              ["Call", "text-[#49A669] border-[#CCE8D5]"],
-              ["Note", "text-[#2563FF] border-[#CBD9FF]"],
-              ["Book", "text-[#D56D63] border-[#F0D0CB]"],
+              ["Call", "text-[#56604D] border-[#DCE0CC] bg-[#FAFAF6]"],
+              ["Note", "text-[#58706F] border-[#D5CCBF] bg-[#FBFAF7]"],
+              ["Book", "text-[#BF7458] border-[#E7CEC2] bg-[#FCF8F6]"],
             ].map(([label, cls]) => (
-              <div key={label} className={"grid h-8 place-items-center rounded-[7px] border bg-white text-[7px] font-bold uppercase tracking-[0.08em] " + cls}>
+              <div key={label} className={"grid h-8 place-items-center rounded-[7px] border text-[7px] font-bold uppercase tracking-[0.08em] " + cls}>
                 {label}
               </div>
             ))}
@@ -284,21 +285,21 @@ function CustomerRecordHero() {
                 detail="Stage: Lead · Value: A$2,850"
               />
               <ActivityItem
-                tone="green"
+                tone="sage"
                 title="Quote sent"
                 meta="Today · 09:24"
                 copy="A$2,850 quote sent by SMS and email."
                 detail="Owner: Ben Walker"
               />
               <ActivityItem
-                tone="purple"
+                tone="blush"
                 title="Customer replied"
                 meta="Today · 09:41"
                 copy="Tuesday afternoon works. Can you send through the quote?"
                 detail="SMS · Unified inbox"
               />
               <ActivityItem
-                tone="amber"
+                tone="oat"
                 title="Stage changed"
                 meta="Today · 09:43"
                 copy="Proposal moved to Quote sent."
@@ -330,13 +331,13 @@ function CustomerRecordHero() {
               label="Open deal"
               value="A$2,850"
               sub="Quote sent"
-              tone="green"
+              tone="sage"
             />
             <ContextCard
               label="Task"
               value="Confirm site visit"
               sub="Due Tuesday"
-              tone="amber"
+              tone="oat"
             />
           </div>
 
@@ -352,8 +353,8 @@ function CustomerRecordHero() {
             </div>
           </div>
 
-          <div className="mt-5 rounded-[9px] border border-[#C9D8FF] bg-[#F3F6FF] p-3">
-            <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#2563FF]">One record</div>
+          <div className="mt-5 rounded-[9px] border border-[#D5CCBF] bg-[#F7F4EE] p-3">
+            <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#58706F]">One record</div>
             <div className="mt-1 text-[9px] font-semibold leading-[1.45] text-[#3E4B59]">
               Profile, conversation, deal, task and automation stay attached to the same customer.
             </div>
@@ -372,7 +373,7 @@ function ActivityItem({
   detail,
   last = false,
 }: {
-  tone: "blue" | "green" | "purple" | "amber" | "slate";
+  tone: "blue" | "sage" | "blush" | "oat" | "slate";
   title: string;
   meta: string;
   copy: string;
@@ -381,16 +382,16 @@ function ActivityItem({
 }) {
   const tones = {
     blue: "bg-[#EAF0FF] text-[#2563FF]",
-    green: "bg-[#EAF5ED] text-[#43835A]",
-    purple: "bg-[#F1EBFA] text-[#7656A7]",
-    amber: "bg-[#FFF4DE] text-[#A66D13]",
-    slate: "bg-[#EDF1F5] text-[#647586]",
+    sage: "bg-[#EEF0E5] text-[#69735D]",
+    blush: "bg-[#F5E7E1] text-[#BF7458]",
+    oat: "bg-[#F4ECDD] text-[#9A7247]",
+    slate: "bg-[#EEF1F0] text-[#58706F]",
   };
 
   return (
     <div className={"relative pl-10 " + (last ? "pb-0" : "pb-3")}>
       <div className={"absolute left-0 top-1 z-10 grid h-7 w-7 place-items-center rounded-full text-[8px] font-bold " + tones[tone]}>
-        {tone === "blue" ? "+" : tone === "green" ? "✓" : tone === "purple" ? "↗" : tone === "amber" ? "→" : "•"}
+        {tone === "blue" ? "+" : tone === "sage" ? "✓" : tone === "blush" ? "↗" : tone === "oat" ? "→" : "•"}
       </div>
 
       <div className="rounded-[9px] border border-[#DEE4EA] bg-white p-3.5">
@@ -414,12 +415,12 @@ function ContextCard({
   label: string;
   value: string;
   sub: string;
-  tone: "blue" | "green" | "amber";
+  tone: "blue" | "sage" | "oat";
 }) {
   const tones = {
     blue: "bg-[#F3F6FF] border-[#D4DFFF]",
-    green: "bg-[#F2F7F0] border-[#D8E3D1]",
-    amber: "bg-[#FFF8EA] border-[#EFDFC0]",
+    sage: "bg-[#F2F3EC] border-[#DCE0CC]",
+    oat: "bg-[#F7F1E7] border-[#E7D8C5]",
   };
 
   return (
@@ -583,7 +584,7 @@ function ConversationSurface() {
       <div className="hidden border-l border-[#E3E8ED] py-5 pl-4 lg:block">
         <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8F9AA5]">Profile</div>
         <div className="mt-4 flex items-center gap-3">
-          <Avatar cell={3} size={38} />
+          <InitialsAvatar initials="MT" size={38} />
           <div>
             <div className="text-[10px] font-semibold text-[#26313B]">Mia Thompson</div>
             <div className="text-[7px] uppercase tracking-[0.1em] text-[#9AA5AF]">Customer</div>
@@ -607,11 +608,11 @@ function ConversationSurface() {
 
 function PipelineRail() {
   const stages = [
-    { name: "Lead", count: 4, tone: "#6F8C36", items: [["Alex Chen", "A$1,450"], ["Lena Parker", "A$780"]] },
-    { name: "Contacted", count: 3, tone: "#C95A18", items: [["Sam Nguyen", "A$3,200"], ["Ivy Harris", "A$950"]] },
-    { name: "Proposal", count: 2, tone: "#D09100", items: [["Mia Thompson", "A$2,850"], ["Chris Moore", "A$1,900"]] },
-    { name: "Negotiation", count: 2, tone: "#2497B4", items: [["Priya Shah", "A$520"], ["Ben Lewis", "A$2,250"]] },
-    { name: "Closed won", count: 3, tone: "#28894A", items: [["Daniel Brooks", "A$4,100"], ["Grace Tan", "A$1,680"]] },
+    { name: "Lead", count: 4, tone: "#85845D", items: [["Alex Chen", "A$1,450"], ["Lena Parker", "A$780"]] },
+    { name: "Contacted", count: 3, tone: "#BF7458", items: [["Sam Nguyen", "A$3,200"], ["Ivy Harris", "A$950"]] },
+    { name: "Proposal", count: 2, tone: "#C89A5D", items: [["Mia Thompson", "A$2,850"], ["Chris Moore", "A$1,900"]] },
+    { name: "Negotiation", count: 2, tone: "#58706F", items: [["Priya Shah", "A$520"], ["Ben Lewis", "A$2,250"]] },
+    { name: "Closed won", count: 3, tone: "#99A36D", items: [["Daniel Brooks", "A$4,100"], ["Grace Tan", "A$1,680"]] },
   ];
 
   return (
@@ -947,6 +948,25 @@ function GuidedLaunchVisual() {
         ))}
       </div>
     </div>
+  );
+}
+
+
+function InitialsAvatar({
+  initials,
+  size,
+}: {
+  initials: string;
+  size: number;
+}) {
+  return (
+    <span
+      className="grid shrink-0 place-items-center rounded-full border border-[#D5CCBF] bg-[#EEEAE2] font-semibold text-[#58706F]"
+      style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.25)) }}
+      aria-label={initials}
+    >
+      {initials}
+    </span>
   );
 }
 
