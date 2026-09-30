@@ -73,7 +73,7 @@ const FAQS = [
 
 function CrmPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#FCFCFA] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
+    <main data-page="crm" className="min-h-screen overflow-hidden bg-[#FCFCFA] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <Hero />
       <CustomerWorkbench />
       <PipelineRail />
