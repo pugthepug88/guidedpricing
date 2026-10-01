@@ -74,6 +74,7 @@ function CustomerMarketingPage() {
       style={{ fontFamily: BODY }}
     >
       <Hero />
+      <ProblemAwarenessSection />
       <AudienceSection />
       <ContextSection />
       <ChannelSection />
@@ -358,9 +359,148 @@ function FilterRow({
   );
 }
 
+function ProblemAwarenessSection() {
+  const reduced = !!useReducedMotion();
+
+  const dormantRows = [
+    { name: "Mia Thompson", detail: "Existing customer · Residential", state: "No recent outreach" },
+    { name: "Daniel Kim", detail: "Existing customer · Residential", state: "No recent outreach" },
+    { name: "Priya Shah", detail: "Existing customer · Commercial", state: "No recent outreach" },
+    { name: "Lucas Martin", detail: "Existing customer · Residential", state: "No recent outreach" },
+    { name: "Sophie Nguyen", detail: "Existing customer · Residential", state: "No recent outreach" },
+  ];
+
+  return (
+    <section
+      id="how-it-works"
+      className="relative overflow-hidden border-b border-[#E0D8CD] bg-[#F0E8DE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28"
+    >
+      <div className="pointer-events-none absolute -left-28 top-20 h-[360px] w-[360px] rounded-full bg-[#C9795B]/8 blur-[120px]" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-[380px] w-[380px] rounded-full bg-[#99A36D]/12 blur-[130px]" />
+
+      <div className="relative mx-auto max-w-[1320px]">
+        <Reveal className="max-w-[940px]">
+          <Eyebrow>The problem</Eyebrow>
+          <h2
+            className="mt-4 text-[45px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[60px] lg:text-[72px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            You already did the work
+            <span className="block">to win these customers.</span>
+            <span className="block text-[#9B624C]">Most databases barely get used.</span>
+          </h2>
+        </Reveal>
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-start lg:gap-14">
+          <Reveal className="border-y border-[#D8CDC0]">
+            <ProblemPoint
+              index="01"
+              title="They sit there."
+              copy="Customers only hear from you when someone remembers to send something."
+            />
+            <ProblemPoint
+              index="02"
+              title="Everyone gets the same message."
+              copy="Because the marketing tool often does not know what actually happened with the customer."
+            />
+            <ProblemPoint
+              index="03"
+              title="New leads get all the attention."
+              copy="While customers who already know the business rarely get another relevant reason to return."
+              last
+            />
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <div className="overflow-hidden rounded-[24px] border border-[#D5CCC0] bg-[#FCFBF8] shadow-[0_30px_80px_rgba(69,55,43,.08)]">
+              <div className="flex min-h-[48px] items-center justify-between border-b border-[#E3DDD5] px-4 sm:px-5">
+                <ProductBrand section="Customer database" />
+                <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#9A9188]">
+                  Existing customers
+                </span>
+              </div>
+
+              <div className="grid grid-cols-[1fr_auto] border-b border-[#E7E1DA] bg-[#F7F3ED] px-4 py-3 sm:px-5">
+                <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#91887F]">
+                  Customer
+                </span>
+                <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#91887F]">
+                  Marketing activity
+                </span>
+              </div>
+
+              <div className="divide-y divide-[#E9E4DD]">
+                {dormantRows.map((row, index) => (
+                  <motion.div
+                    key={row.name}
+                    initial={reduced ? false : { opacity: 0.35, x: 8 }}
+                    whileInView={{ opacity: index === 1 ? 0.95 : 0.48, x: 0 }}
+                    viewport={{ once: true, amount: 0.7 }}
+                    transition={{
+                      duration: reduced ? 0 : 0.34,
+                      delay: reduced ? 0 : index * 0.055,
+                      ease: EASE,
+                    }}
+                    className="grid grid-cols-[1fr_auto] items-center gap-5 px-4 py-4 sm:px-5"
+                  >
+                    <div className="min-w-0">
+                      <div className="text-[11px] font-semibold text-[#39403C]">{row.name}</div>
+                      <div className="mt-1 text-[8.5px] text-[#8A8F8A]">{row.detail}</div>
+                    </div>
+                    <div className="flex items-center gap-2 text-[9px] font-semibold text-[#9A8B81]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#C58A72]" />
+                      {row.state}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="border-t border-[#E1DBD3] bg-[#1E2B29] px-5 py-4 text-[#F7F4EE]">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[10px] font-semibold">The customer data is already here.</span>
+                  <span className="text-[9px] text-white/55">The opportunity is using it deliberately.</span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProblemPoint({
+  index,
+  title,
+  copy,
+  last = false,
+}: {
+  index: string;
+  title: string;
+  copy: string;
+  last?: boolean;
+}) {
+  return (
+    <div className={"grid gap-4 py-6 sm:grid-cols-[56px_1fr] sm:gap-5 " + (last ? "" : "border-b border-[#D8CDC0]")}>
+      <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#9B7A69]">{index}</span>
+      <div>
+        <h3
+          className="text-[25px] font-medium tracking-[-0.04em] text-[#242824] sm:text-[29px]"
+          style={{ fontFamily: DISPLAY }}
+        >
+          {title}
+        </h3>
+        <p className="mt-2 max-w-[470px] text-[13px] leading-[1.65] text-[#6F6B66] sm:text-[14px]">
+          {copy}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function AudienceSection() {
   return (
-    <section id="how-it-works" className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto grid max-w-[1340px] items-center gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
         <Reveal className="max-w-[560px]">
           <Eyebrow>Choose the audience</Eyebrow>
@@ -689,76 +829,107 @@ function MiniRule({ label, value }: { label: string; value: string }) {
 }
 
 function ReasonsSection() {
-  const reasons = [
+  const moments = [
     {
-      label: "Seasonal offer",
-      title: "Reach the customers the offer actually suits.",
-      copy: "Build the audience around customer information instead of sending the same promotion to everyone.",
+      context: "Existing residential customers",
+      why: "Seasonal availability",
+      action: "Offer the service to the customers it actually suits.",
       tone: "#BF7458",
     },
     {
-      label: "New service or cross sell",
-      title: "Give existing customers another reason to buy.",
-      copy: "Use what you already know about the customer to make the next offer more relevant.",
+      context: "Customers who already bought one service",
+      why: "New service or cross sell",
+      action: "Create another relevant reason to buy.",
       tone: "#A66F20",
     },
     {
-      label: "Customer update",
-      title: "Tell the right group when something changes.",
-      copy: "Reach a defined customer segment without rebuilding a separate marketing list first.",
+      context: "Customers affected by a change",
+      why: "Customer update",
+      action: "Tell the right group without rebuilding a separate list.",
       tone: "#2563FF",
     },
     {
-      label: "Re engagement",
-      title: "Create another reason to start a conversation.",
-      copy: "Customer Marketing can support re engagement, while the dedicated Reopen system owns dormant enquiries and stale opportunities.",
+      context: "Past customers worth contacting again",
+      why: "Re engagement",
+      action: "Start another conversation when the timing makes sense.",
       tone: "#7C8868",
     },
   ];
 
   return (
     <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[840px]">
-          <Eyebrow>Reasons to reach out</Eyebrow>
-          <h2
-            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Different customers.
-            <span className="block text-[#717770]">Different reasons to get back in touch.</span>
-          </h2>
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="grid gap-7 lg:grid-cols-[1.08fr_.92fr] lg:items-end lg:gap-16">
+          <div className="max-w-[860px]">
+            <Eyebrow>Reasons to reach out</Eyebrow>
+            <h2
+              className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Different customers.
+              <span className="block text-[#717770]">Different reasons to get back in touch.</span>
+            </h2>
+          </div>
+          <p className="max-w-[490px] text-[14px] leading-[1.75] text-[#6C726C] sm:text-[15px] lg:pb-2">
+            Customer Marketing is not one generic blast. The customer context helps decide who should hear from you and why.
+          </p>
         </Reveal>
 
-        <div className="mt-12 border-y border-[#DDDCD7]">
-          {reasons.map((reason, index) => (
-            <Reveal key={reason.label} delay={index * 0.025}>
-              <div className="grid gap-5 border-b border-[#DDDCD7] py-7 last:border-b-0 md:grid-cols-[0.42fr_0.84fr_1fr] md:items-center md:gap-8 sm:py-8">
-                <div className="flex items-center gap-3">
-                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: reason.tone }} />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#70766F]">
-                    {reason.label}
-                  </span>
-                </div>
-                <h3
-                  className="text-[25px] font-medium leading-[1.02] tracking-[-0.04em] sm:text-[30px]"
-                  style={{ fontFamily: DISPLAY }}
-                >
-                  {reason.title}
-                </h3>
-                <p className="max-w-[520px] text-[13px] leading-[1.7] text-[#6B716B] sm:text-[14px]">
-                  {reason.copy}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="mt-12" delay={0.05}>
+          <div className="overflow-hidden rounded-[25px] border border-[#D9DDD7] bg-white shadow-[0_26px_75px_rgba(45,50,44,.07)]">
+            <div className="grid border-b border-[#E1E4E0] bg-[#F7F8F5] px-5 py-3 md:grid-cols-[1fr_.72fr_1.18fr] md:gap-6 sm:px-6">
+              <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#87908A]">Customer context</span>
+              <span className="hidden text-[8px] font-bold uppercase tracking-[0.13em] text-[#87908A] md:block">Why now</span>
+              <span className="hidden text-[8px] font-bold uppercase tracking-[0.13em] text-[#87908A] md:block">What that creates</span>
+            </div>
 
-        <Reveal className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-[#686E68]">
-          <span>Trying to recover old enquiries or stale opportunities specifically?</span>
-          <a href="/reactivation" className="inline-flex items-center gap-1.5 font-semibold text-[#1E2B29]">
-            See Reopen <ArrowRight size={13} />
-          </a>
+            <div className="divide-y divide-[#E5E8E4]">
+              {moments.map((moment, index) => (
+                <Reveal key={moment.why} delay={index * 0.025}>
+                  <div className="relative grid gap-4 px-5 py-6 md:grid-cols-[1fr_.72fr_1.18fr] md:items-center md:gap-6 sm:px-6 sm:py-7">
+                    <span
+                      className="absolute bottom-0 left-0 top-0 w-[3px]"
+                      style={{ backgroundColor: moment.tone }}
+                    />
+                    <div>
+                      <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#929994] md:hidden">
+                        Customer context
+                      </div>
+                      <div className="mt-1 text-[15px] font-semibold tracking-[-0.025em] text-[#313733] sm:text-[16px]">
+                        {moment.context}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#929994] md:hidden">
+                        Why now
+                      </div>
+                      <div className="mt-1 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.11em] text-[#626A64]">
+                        <span className="h-2 w-2 rounded-full" style={{ backgroundColor: moment.tone }} />
+                        {moment.why}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#929994] md:hidden">
+                        What that creates
+                      </div>
+                      <p className="mt-1 text-[13px] leading-[1.65] text-[#666E68] sm:text-[14px]">
+                        {moment.action}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            <div className="flex flex-col gap-3 border-t border-[#E0E4DF] bg-[#1E2B29] px-5 py-4 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              <span className="text-[10px] font-semibold text-white/90">
+                One customer database. Multiple reasons to create the next conversation.
+              </span>
+              <a href="/reactivation" className="inline-flex items-center gap-1.5 text-[9px] font-semibold text-white/62">
+                Old enquiries or stale opportunities? See Reopen <ArrowRight size={12} />
+              </a>
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -871,62 +1042,47 @@ function ReplyLoopVisual() {
 
 function SystemBoundarySection() {
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="mx-auto max-w-[850px] text-center">
+    <section className="border-y border-[#DFE2DD] bg-[#F7F8F5] px-5 py-10 sm:px-10 sm:py-12 lg:px-16">
+      <Reveal className="mx-auto grid max-w-[1220px] gap-7 md:grid-cols-[0.72fr_1.28fr] md:items-center md:gap-12">
+        <div>
           <Eyebrow>Where it fits</Eyebrow>
           <h2
-            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
+            className="mt-3 text-[30px] font-medium leading-[1.02] tracking-[-0.045em] text-[#252A26] sm:text-[36px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Same customer system.
-            <span className="block text-[#717770]">Different jobs.</span>
+            Two different jobs.
+            <span className="block text-[#747C75]">One customer system.</span>
           </h2>
-        </Reveal>
-
-        <div className="mt-12 grid overflow-hidden rounded-[26px] border border-[#DDDCD7] bg-white lg:grid-cols-2">
-          <Reveal className="border-b border-[#DDDCD7] p-7 sm:p-9 lg:border-b-0 lg:border-r" delay={0.03}>
-            <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#C96F55]">
-              Demand already came in
-            </div>
-            <h3
-              className="mt-4 text-[34px] font-medium tracking-[-0.045em] sm:text-[40px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              Follow-Up
-            </h3>
-            <p className="mt-4 max-w-[500px] text-[14px] leading-[1.72] text-[#696F69]">
-              Someone has enquired, called, booked, received a quote or is already moving through the customer journey. Zapla keeps the expected next step moving.
-            </p>
-            <a href="/follow-up" className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold text-[#1E2B29]">
-              See Follow-Up <ArrowRight size={13} />
-            </a>
-          </Reveal>
-
-          <Reveal className="bg-[#F4F6F1] p-7 sm:p-9" delay={0.07}>
-            <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#63745A]">
-              You choose who to contact
-            </div>
-            <h3
-              className="mt-4 text-[34px] font-medium tracking-[-0.045em] sm:text-[40px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              Customer Marketing
-            </h3>
-            <p className="mt-4 max-w-[500px] text-[14px] leading-[1.72] text-[#646D62]">
-              You choose a relevant customer group and create a new reason to get in touch through a proactive campaign.
-            </p>
-            <div className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold text-[#526348]">
-              <Check size={14} />
-              You are here
-            </div>
-          </Reveal>
         </div>
 
-        <Reveal className="mt-6 mx-auto max-w-[840px] text-center text-[12px] leading-[1.65] text-[#777C77]">
-          Reopen, Quote Chasing, Appointment Recovery and Repeat & Recall solve more specific moments inside the customer journey.
-        </Reveal>
-      </div>
+        <div className="grid overflow-hidden rounded-[18px] border border-[#DBDFDA] bg-white sm:grid-cols-2">
+          <div className="border-b border-[#E1E4E0] p-5 sm:border-b-0 sm:border-r">
+            <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#C96F55]">
+              Demand already came in
+            </div>
+            <div className="mt-2 text-[19px] font-semibold tracking-[-0.03em]">Follow-Up</div>
+            <p className="mt-2 text-[11px] leading-[1.55] text-[#707670]">
+              Keep an expected next step moving after an enquiry, booking, quote or active conversation.
+            </p>
+            <a href="/follow-up" className="mt-3 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#39423D]">
+              See Follow-Up <ArrowRight size={11} />
+            </a>
+          </div>
+
+          <div className="bg-[#F1F4EE] p-5">
+            <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#63745A]">
+              You choose who to contact
+            </div>
+            <div className="mt-2 text-[19px] font-semibold tracking-[-0.03em]">Customer Marketing</div>
+            <p className="mt-2 text-[11px] leading-[1.55] text-[#687167]">
+              Choose a relevant customer group and create a new reason to start a conversation.
+            </p>
+            <div className="mt-3 inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#526348]">
+              <Check size={11} /> You are here
+            </div>
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
