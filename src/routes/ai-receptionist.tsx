@@ -287,73 +287,144 @@ function HumanHeroCard() {
 
 
 function ProblemAwareness() {
+  const reduced = !!useReducedMotion();
   const moments = [
     {
       icon: <UserRound size={18} />,
       label: "With a customer",
-      copy: "You cannot stop mid-appointment just because another enquiry arrived.",
+      detail: "Mid-appointment",
+      position: "left-0 top-8",
+      align: "items-start text-left",
     },
     {
       icon: <Hammer size={18} />,
       label: "On the job",
-      copy: "The phone rings while your hands are full and the work cannot pause.",
+      detail: "Hands already full",
+      position: "right-0 top-8",
+      align: "items-end text-right",
     },
     {
       icon: <Phone size={18} />,
       label: "Already on a call",
-      copy: "A second enquiry waits, leaves voicemail or tries someone else.",
+      detail: "Second enquiry waiting",
+      position: "left-0 bottom-8",
+      align: "items-start text-left",
     },
     {
       icon: <Calendar size={18} />,
       label: "After hours",
-      copy: "The customer is still deciding even when your front desk is closed.",
+      detail: "Nobody at the desk",
+      position: "right-0 bottom-8",
+      align: "items-end text-right",
     },
   ];
 
+  const fallout = ["Missed call", "Voicemail", "Callback", "Phone tag", "Manual follow-up"];
+
   return (
-    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="overflow-hidden bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <div className="grid gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:gap-20">
-          <Reveal className="max-w-[650px]">
+        <div className="grid gap-14 lg:grid-cols-[0.76fr_1.24fr] lg:items-center lg:gap-20">
+          <Reveal className="max-w-[620px]">
             <Eyebrow>The interruption is only the start</Eyebrow>
             <h2
-              className="mt-4 text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[64px]"
+              className="mt-4 text-[42px] font-medium leading-[0.95] tracking-[-0.058em] sm:text-[56px] lg:text-[68px]"
               style={{ fontFamily: DISPLAY }}
             >
-              The missed call is only the first problem.
+              The call disappears.
+              <span className="block text-[#C96F55]">The work doesn’t.</span>
             </h2>
-            <p className="mt-5 max-w-[580px] text-[15px] leading-[1.72] text-[#626762] sm:text-[17px]">
-              Calls arrive while you are with a customer, on a job, already on the phone or closed for the day. What follows is the part your team has to carry.
+            <p className="mt-6 max-w-[560px] text-[15px] leading-[1.72] text-[#626762] sm:text-[17px]">
+              Calls arrive while you’re with a customer, on a job, already on the phone or closed for the day. If nobody picks up, the enquiry often comes back later as admin.
             </p>
           </Reveal>
 
-          <div className="border-y border-[#DDE2DD]">
-            {moments.map((moment, index) => (
-              <Reveal key={moment.label}>
-                <div className={"grid gap-4 py-6 sm:grid-cols-[48px_170px_1fr] sm:items-center sm:gap-5 " + (index ? "border-t border-[#E5E8E4]" : "")}>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-[11px] bg-[#1E2B29] text-white">
+          <Reveal>
+            <div className="relative mx-auto min-h-[430px] w-full max-w-[720px]">
+              <div className="pointer-events-none absolute left-1/2 top-1/2 h-px w-[78%] -translate-x-1/2 bg-[#DCE2DD]" />
+              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[74%] w-px -translate-y-1/2 bg-[#DCE2DD]" />
+              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#E4E8E3]" />
+              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[208px] w-[208px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#EEF0ED]" />
+
+              {moments.map((moment, index) => (
+                <motion.div
+                  key={moment.label}
+                  className={"absolute z-10 flex max-w-[210px] flex-col gap-2 " + moment.position + " " + moment.align}
+                  initial={reduced ? false : { opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.08 * index, ease: EASE }}
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDE3DD] bg-white text-[#1E2B29] shadow-[0_8px_24px_rgba(30,43,41,.06)]">
                     {moment.icon}
                   </span>
-                  <h3 className="text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>
-                    {moment.label}
-                  </h3>
-                  <p className="max-w-[430px] text-[13px] leading-[1.65] text-[#666B67]">{moment.copy}</p>
+                  <div>
+                    <div className="text-[17px] font-semibold tracking-[-0.025em] text-[#171A18]" style={{ fontFamily: DISPLAY }}>
+                      {moment.label}
+                    </div>
+                    <div className="mt-1 text-[11px] font-medium text-[#858B85]">{moment.detail}</div>
+                  </div>
+                </motion.div>
+              ))}
+
+              <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+                <motion.div
+                  className="absolute left-1/2 top-1/2 h-[160px] w-[160px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C96F55]/20"
+                  animate={reduced ? undefined : { scale: [0.82, 1.2], opacity: [0.38, 0] }}
+                  transition={reduced ? undefined : { duration: 1.8, repeat: Infinity, ease: "easeOut" }}
+                  aria-hidden="true"
+                />
+                <div className="relative flex h-[132px] w-[132px] flex-col items-center justify-center rounded-full bg-[#1E2B29] text-center text-white shadow-[0_26px_70px_rgba(30,43,41,.18)]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#C96F55] text-white">
+                    <Phone size={16} />
+                  </span>
+                  <div className="mt-3 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/48">Incoming call</div>
+                  <div className="mt-1 text-[12px] font-semibold text-white/92">New enquiry</div>
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              </div>
+
+              <div className="pointer-events-none absolute left-1/2 top-[12%] h-2 w-2 -translate-x-1/2 rounded-full bg-[#DDA34B]" />
+              <div className="pointer-events-none absolute bottom-[12%] left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-[#99A36D]" />
+              <div className="pointer-events-none absolute left-[11%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#9B86B8]" />
+              <div className="pointer-events-none absolute right-[11%] top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#E97D62]" />
+            </div>
+          </Reveal>
         </div>
 
-        <Reveal className="mt-10">
-          <div className="border-y border-[#DDE2DD] py-5">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-semibold text-[#4F5750] sm:text-[12px]">
-              <span className="mr-1 text-[10px] font-semibold uppercase tracking-[0.17em] text-[#C96F55]">What follows</span>
-              {["Missed call", "Voicemail", "Callback", "Phone tag", "Manual follow-up"].map((item, index, items) => (
-                <span key={item} className="inline-flex items-center gap-3">
-                  <span>{item}</span>
-                  {index < items.length - 1 && <ArrowRight size={13} className="text-[#A1A79F]" />}
-                </span>
-              ))}
+        <Reveal className="mt-14 lg:mt-16">
+          <div className="border-y border-[#DCE2DD] py-8">
+            <div className="grid gap-7 lg:grid-cols-[230px_1fr] lg:items-center lg:gap-12">
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C96F55]">When it gets missed</div>
+                <div className="mt-2 text-[24px] font-medium leading-[1.05] tracking-[-0.04em] text-[#171A18]" style={{ fontFamily: DISPLAY }}>
+                  The work comes back later.
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="pointer-events-none absolute left-[6%] right-[6%] top-[15px] h-px bg-[#DCE2DD]" />
+                <div className="relative grid grid-cols-5 gap-3">
+                  {fallout.map((item, index) => (
+                    <motion.div
+                      key={item}
+                      className="relative pt-9"
+                      initial={reduced ? false : { opacity: 0, y: 8 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.8 }}
+                      transition={{ duration: reduced ? 0 : 0.35, delay: reduced ? 0 : index * 0.08, ease: EASE }}
+                    >
+                      <span
+                        className="absolute left-0 top-[9px] h-[13px] w-[13px] rounded-full border-[3px] border-white shadow-[0_0_0_1px_rgba(30,43,41,.12)]"
+                        style={{
+                          backgroundColor: ["#AEB4AE", "#9B86B8", "#DDA34B", "#D58C75", "#C96F55"][index],
+                        }}
+                      />
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9A9F9A]">0{index + 1}</div>
+                      <div className="mt-1.5 text-[13px] font-semibold text-[#343A35]">{item}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>
