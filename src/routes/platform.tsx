@@ -142,54 +142,62 @@ function Hero() {
 
 const MOMENT_CARDS = [
   {
+    kind: "enquiry",
     title: "Enquiry captured",
-    meta: "Call added to the customer record",
     icon: Phone,
     tone: "blue",
-    pos: "left-[3%] top-[8%]",
+    pos: "left-[1.5%] top-[7%]",
+    width: "w-[300px]",
     appear: 0.12,
   },
   {
+    kind: "conversation",
     title: "Conversation",
-    meta: "Reply lands in the same history",
     icon: MessageSquareText,
     tone: "cyan",
-    pos: "right-[3%] top-[8%]",
+    pos: "right-[1.5%] top-[8%]",
+    width: "w-[318px]",
     appear: 0.24,
   },
   {
+    kind: "booking",
     title: "Booking confirmed",
-    meta: "The customer state changes",
     icon: CalendarDays,
     tone: "blue",
-    pos: "right-[1%] top-[49%]",
+    pos: "right-[0.5%] top-[51%]",
+    width: "w-[286px]",
     appear: 0.38,
   },
   {
+    kind: "payment",
     title: "Payment received",
-    meta: "Accounts can see the latest status",
     icon: CreditCard,
     tone: "green",
-    pos: "right-[22%] bottom-[4%]",
+    pos: "right-[20%] bottom-[1%]",
+    width: "w-[286px]",
     appear: 0.52,
   },
   {
+    kind: "followup",
     title: "Follow-up adjusts",
-    meta: "The next action changes with the customer",
     icon: Workflow,
     tone: "cyan",
-    pos: "left-[22%] bottom-[4%]",
+    pos: "left-[18%] bottom-[1%]",
+    width: "w-[322px]",
     appear: 0.66,
   },
   {
+    kind: "review",
     title: "Review moment",
-    meta: "The completed job can trigger what comes next",
     icon: Star,
     tone: "amber",
-    pos: "left-[1%] top-[49%]",
+    pos: "left-[0.5%] top-[53%]",
+    width: "w-[304px]",
     appear: 0.8,
   },
 ] as const;
+
+type MomentCardData = (typeof MOMENT_CARDS)[number];
 
 type MomentCardData = (typeof MOMENT_CARDS)[number];
 
@@ -242,7 +250,7 @@ function ConnectedCustomerScene() {
         <div className="relative z-30 mx-auto w-full max-w-[1050px] px-8 pt-[96px] text-center">
           <Eyebrow>Zapla Platform</Eyebrow>
           <h1
-            className="mx-auto mt-4 max-w-[920px] text-[80px] font-medium leading-[0.94] tracking-[-0.056em]"
+            className="mx-auto mt-4 max-w-[900px] text-[74px] font-medium leading-[0.95] tracking-[-0.054em]"
             style={{ fontFamily: DISPLAY }}
           >
             One customer.
@@ -255,7 +263,7 @@ function ConnectedCustomerScene() {
 
         <div className="relative mx-auto min-h-0 w-full max-w-[1420px] flex-1 px-8">
           <div className="relative h-full w-full">
-            <div className="absolute left-1/2 top-[49%] h-[48vh] w-[330px] -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute left-1/2 top-[59%] h-[42vh] w-[320px] -translate-x-1/2 -translate-y-1/2">
               <img
                 src={heroSketch.url}
                 alt=""
@@ -318,46 +326,159 @@ function toneClasses(tone: MomentCardData["tone"]) {
 }
 
 function MomentCard({ card, progress }: { card: MomentCardData; progress: number }) {
-  const Icon = card.icon;
   const enter = Math.min(1, Math.max(0, (progress - card.appear) / 0.07));
+
   return (
     <div
-      className={"absolute w-[270px] " + card.pos}
+      className={"absolute " + card.width + " " + card.pos}
       style={{
         opacity: enter,
-        transform: `translateY(${18 * (1 - enter)}px) scale(${0.96 + 0.04 * enter})`,
+        transform: `translateY(${20 * (1 - enter)}px) scale(${0.955 + 0.045 * enter})`,
       }}
     >
-      <div className="rounded-[20px] border border-[#DDE3EC] bg-white p-4 shadow-[0_18px_45px_rgba(31,43,67,.10)]">
-        <div className="flex items-center gap-3">
-          <span className={"grid h-10 w-10 shrink-0 place-items-center rounded-[12px] " + toneClasses(card.tone)}>
-            <Icon size={18} />
-          </span>
-          <div>
-            <div className="text-[13px] font-semibold text-[#202B3D]">{card.title}</div>
-            <div className="mt-1 text-[10px] leading-[1.5] text-[#778195]">{card.meta}</div>
+      <MomentCardSurface card={card} />
+    </div>
+  );
+}
+
+
+function MomentCardSurface({ card, compact = false }: { card: MomentCardData; compact?: boolean }) {
+  const Icon = card.icon;
+  const shell =
+    "overflow-hidden border border-[#DCE3ED] bg-white shadow-[0_18px_46px_rgba(26,39,65,.10)] " +
+    (compact ? "rounded-[18px]" : "rounded-[22px]");
+
+  const header = (
+    <div className="flex items-center justify-between gap-3">
+      <div className="flex min-w-0 items-center gap-2.5">
+        <span className={"grid h-9 w-9 shrink-0 place-items-center rounded-[11px] " + toneClasses(card.tone)}>
+          <Icon size={16} />
+        </span>
+        <div className="truncate text-[12px] font-semibold text-[#202B3D]">{card.title}</div>
+      </div>
+      <span className="shrink-0 text-[8px] font-bold uppercase tracking-[0.12em] text-[#99A3B3]">Alex Morgan</span>
+    </div>
+  );
+
+  if (card.kind === "enquiry") {
+    return (
+      <div className={shell}>
+        <div className="p-4">
+          {header}
+          <div className="mt-3 rounded-[13px] bg-[#F7F9FC] p-3 ring-1 ring-[#E7EBF2]">
+            <div className="flex items-center justify-between text-[9px] text-[#7B8596]">
+              <span>Incoming call · 0:42</span>
+              <span className="font-semibold text-[#2563FF]">NEW</span>
+            </div>
+            <div className="mt-2 text-[11px] font-semibold leading-[1.45] text-[#323C4C]">
+              “Calling about a bathroom renovation next month…”
+            </div>
+          </div>
+          <div className="mt-2.5 flex items-center gap-1.5 text-[9px] font-semibold text-[#2563FF]">
+            <Sparkles size={11} /> Added to customer record
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (card.kind === "conversation") {
+    return (
+      <div className={shell}>
+        <div className="p-4">
+          {header}
+          <div className="mt-3 flex justify-end">
+            <div className="max-w-[82%] rounded-[14px] rounded-br-[5px] bg-[#2563FF] px-3 py-2.5 text-[10.5px] leading-[1.45] text-white">
+              Thursday at 2 works for me.
+            </div>
+          </div>
+          <div className="mt-2 text-right text-[8.5px] font-medium text-[#8A94A4]">SMS · just now · attached to same history</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (card.kind === "booking") {
+    return (
+      <div className={shell}>
+        <div className="p-4">
+          {header}
+          <div className="mt-3 grid grid-cols-[54px_1fr] items-center gap-3 rounded-[13px] bg-[#F7F9FC] p-3 ring-1 ring-[#E7EBF2]">
+            <div className="overflow-hidden rounded-[10px] bg-white text-center ring-1 ring-[#DEE5EF]">
+              <div className="bg-[#2563FF] py-1 text-[7px] font-bold uppercase tracking-[0.1em] text-white">Thu</div>
+              <div className="py-1.5 text-[18px] font-semibold leading-none text-[#202B3D]">14</div>
+            </div>
+            <div>
+              <div className="text-[11px] font-semibold text-[#2D3747]">2:00 PM · Consultation</div>
+              <div className="mt-1 text-[9px] text-[#7D8798]">Confirmation sent automatically</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (card.kind === "payment") {
+    return (
+      <div className={shell}>
+        <div className="p-4">
+          {header}
+          <div className="mt-3 flex items-end justify-between border-t border-[#E6EBF2] pt-3">
+            <div>
+              <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8994A5]">Amount received</div>
+              <div className="mt-1 text-[23px] font-semibold tracking-[-0.04em] text-[#172033]">$1,250</div>
+            </div>
+            <span className="rounded-full bg-[#EAF8F1] px-2.5 py-1 text-[8px] font-bold text-[#159767]">PAID</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (card.kind === "followup") {
+    return (
+      <div className={shell}>
+        <div className="p-4">
+          {header}
+          <div className="mt-3 space-y-2">
+            {[
+              ["✓", "Enquiry captured", "done"],
+              ["✓", "Customer replied", "done"],
+              ["Ⅱ", "Lead follow-up paused", "active"],
+            ].map(([mark, label, state]) => (
+              <div key={label} className="flex items-center gap-2.5">
+                <span className={"grid h-5 w-5 place-items-center rounded-full text-[8px] font-bold " + (state === "active" ? "bg-[#E7F8FB] text-[#0891B2]" : "bg-[#EAF8F1] text-[#159767]")}>
+                  {mark}
+                </span>
+                <span className={"text-[10px] " + (state === "active" ? "font-semibold text-[#263246]" : "text-[#7B8596]")}>{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={shell}>
+      <div className="p-4">
+        {header}
+        <div className="mt-3 rounded-[13px] bg-[#FFF9E8] p-3 ring-1 ring-[#F5E8B8]">
+          <div className="flex items-center gap-0.5 text-[#E4A11B]">
+            {[0, 1, 2, 3, 4].map((i) => <Star key={i} size={12} fill="currentColor" />)}
+          </div>
+          <div className="mt-2 text-[10.5px] font-medium leading-[1.45] text-[#4A4334]">
+            “Easy from first call to finish.”
+          </div>
+        </div>
+        <div className="mt-2 text-[8.5px] text-[#8A94A4]">Review request sent after completed work</div>
       </div>
     </div>
   );
 }
 
 function StaticMomentCard({ card }: { card: MomentCardData }) {
-  const Icon = card.icon;
-  return (
-    <div className="rounded-[18px] border border-[#DDE3EC] bg-white p-4 shadow-[0_12px_30px_rgba(31,43,67,.07)]">
-      <div className="flex items-center gap-3">
-        <span className={"grid h-9 w-9 shrink-0 place-items-center rounded-[11px] " + toneClasses(card.tone)}>
-          <Icon size={16} />
-        </span>
-        <div>
-          <div className="text-[12px] font-semibold text-[#202B3D]">{card.title}</div>
-          <div className="mt-1 text-[10px] leading-[1.5] text-[#778195]">{card.meta}</div>
-        </div>
-      </div>
-    </div>
-  );
+  return <MomentCardSurface card={card} compact />;
 }
 
 function PlatformMap() {
