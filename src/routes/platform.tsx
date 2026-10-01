@@ -39,7 +39,7 @@ function PlatformPage() {
   return (
     <main
       data-page="platform"
-      className="min-h-screen bg-white text-[#111318] antialiased"
+      className="min-h-screen overflow-x-clip bg-white text-[#111318] antialiased"
       style={{ fontFamily: BODY }}
     >
       <PlatformConnectedSystemScene />
