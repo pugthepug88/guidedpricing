@@ -313,48 +313,48 @@ function ProblemAwareness() {
   return (
     <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
-          <div>
+        <div className="grid gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:gap-20">
+          <Reveal className="max-w-[650px]">
             <Eyebrow>The interruption is only the start</Eyebrow>
             <h2
-              className="mt-4 max-w-[720px] text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[64px]"
+              className="mt-4 text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[64px]"
               style={{ fontFamily: DISPLAY }}
             >
-              The expensive part is what happens after nobody picks up.
+              The missed call is only the first problem.
             </h2>
-          </div>
-          <p className="max-w-[610px] text-[15px] leading-[1.72] text-[#626762] sm:text-[17px]">
-            A call lands while you are with a customer, on a job, already on the phone or closed for the day. Then someone has to listen, call back, take notes and remember what should happen next.
-          </p>
-        </Reveal>
+            <p className="mt-5 max-w-[580px] text-[15px] leading-[1.72] text-[#626762] sm:text-[17px]">
+              Calls arrive while you are with a customer, on a job, already on the phone or closed for the day. What follows is the part your team has to carry.
+            </p>
+          </Reveal>
 
-        <div className="mt-11 grid gap-px overflow-hidden rounded-[24px] border border-[#E2E4DF] bg-[#E2E4DF] sm:grid-cols-2 lg:grid-cols-4">
-          {moments.map((moment, index) => (
-            <Reveal key={moment.label}>
-              <div className="h-full min-h-[220px] bg-[#FAFAF8] p-6 sm:p-7">
-                <div className="flex items-center justify-between">
+          <div className="border-y border-[#DDE2DD]">
+            {moments.map((moment, index) => (
+              <Reveal key={moment.label}>
+                <div className={"grid gap-4 py-6 sm:grid-cols-[48px_170px_1fr] sm:items-center sm:gap-5 " + (index ? "border-t border-[#E5E8E4]" : "")}>
                   <span className="flex h-10 w-10 items-center justify-center rounded-[11px] bg-[#1E2B29] text-white">
                     {moment.icon}
                   </span>
-                  <span className="text-[10px] font-semibold tracking-[0.14em] text-[#A4A8A2]">0{index + 1}</span>
+                  <h3 className="text-[22px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>
+                    {moment.label}
+                  </h3>
+                  <p className="max-w-[430px] text-[13px] leading-[1.65] text-[#666B67]">{moment.copy}</p>
                 </div>
-                <h3 className="mt-8 text-[24px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>
-                  {moment.label}
-                </h3>
-                <p className="mt-3 text-[13px] leading-[1.65] text-[#666B67]">{moment.copy}</p>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
         </div>
 
-        <Reveal className="mt-5">
-          <div className="flex flex-wrap items-center gap-2 rounded-[18px] border border-[#E2E4DF] bg-[#F4F6F3] px-5 py-4 text-[11px] font-semibold text-[#4F5750] sm:px-6 sm:text-[12px]">
-            {["Missed call", "Voicemail", "Callback", "Phone tag", "Manual follow-up"].map((item, index, items) => (
-              <span key={item} className="inline-flex items-center gap-2">
-                <span>{item}</span>
-                {index < items.length - 1 && <ArrowRight size={13} className="text-[#A1A79F]" />}
-              </span>
-            ))}
+        <Reveal className="mt-10">
+          <div className="border-y border-[#DDE2DD] py-5">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-semibold text-[#4F5750] sm:text-[12px]">
+              <span className="mr-1 text-[10px] font-semibold uppercase tracking-[0.17em] text-[#C96F55]">What follows</span>
+              {["Missed call", "Voicemail", "Callback", "Phone tag", "Manual follow-up"].map((item, index, items) => (
+                <span key={item} className="inline-flex items-center gap-3">
+                  <span>{item}</span>
+                  {index < items.length - 1 && <ArrowRight size={13} className="text-[#A1A79F]" />}
+                </span>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>
@@ -377,13 +377,11 @@ function WhatItHandles() {
 
         <div className="mt-10 grid gap-4 lg:grid-cols-[1.05fr_.95fr]">
           <Reveal>
-            <div className="h-full rounded-[24px] bg-[#F1EADF] p-6 sm:p-8 lg:p-10">
-              <div className="grid gap-7 sm:grid-cols-2">
-                <HandleItem icon={<MessageSquare size={18} />} title="Routine questions" copy="Hours, services, availability and common questions." />
-                <HandleItem icon={<Calendar size={18} />} title="Bookings" copy="Move suitable callers straight into your booking flow." />
-                <HandleItem icon={<UserRound size={18} />} title="Caller details" copy="Capture who called, how to reach them and why." />
-                <HandleItem icon={<PhoneForwarded size={18} />} title="Routing" copy="Send the call to the right person when AI should step aside." />
-              </div>
+            <div className="grid h-full gap-x-8 sm:grid-cols-2">
+              <HandleItem icon={<MessageSquare size={18} />} title="Routine questions" copy="Hours, services, availability and common questions." />
+              <HandleItem icon={<Calendar size={18} />} title="Bookings" copy="Move suitable callers straight into your booking flow." />
+              <HandleItem icon={<UserRound size={18} />} title="Caller details" copy="Capture who called, how to reach them and why." />
+              <HandleItem icon={<PhoneForwarded size={18} />} title="Routing" copy="Send the call to the right person when AI should step aside." />
             </div>
           </Reveal>
 
@@ -460,10 +458,14 @@ function WhatItHandles() {
 
 function HandleItem({ icon, title, copy }: { icon: ReactNode; title: string; copy: string }) {
   return (
-    <div className="border-t border-[#D2C8BC] pt-5">
-      <span className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[#1E2B29] text-[#F7F4EE]">{icon}</span>
-      <h3 className="mt-5 text-[23px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{title}</h3>
-      <p className="mt-2.5 max-w-[290px] text-[13px] leading-[1.62] text-[#666B67]">{copy}</p>
+    <div className="border-t border-[#D6DDD6] py-6">
+      <div className="flex items-start gap-4">
+        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-[#1E2B29] text-[#F7F4EE]">{icon}</span>
+        <div>
+          <h3 className="text-[23px] font-medium tracking-[-0.035em]" style={{ fontFamily: DISPLAY }}>{title}</h3>
+          <p className="mt-2 max-w-[290px] text-[13px] leading-[1.62] text-[#666B67]">{copy}</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -575,14 +577,14 @@ function FollowThrough() {
             A standalone answering tool can stop at “message taken”. Zapla keeps the caller, outcome and next step connected to the same customer workflow.
           </p>
 
-          <div className="mt-7 grid max-w-[780px] gap-2 sm:grid-cols-2">
-            <div className="rounded-[16px] border border-white/[0.08] bg-white/[0.025] px-4 py-4">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/34">Standalone answering tool</div>
-              <div className="mt-2 text-[12px] font-semibold text-white/66">Answer → message or action → call ends</div>
+          <div className="mt-7 max-w-[780px] border-y border-white/[0.09]">
+            <div className="grid gap-2 py-3.5 sm:grid-cols-[110px_1fr] sm:items-center">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/34">Typical</div>
+              <div className="text-[12px] font-semibold text-white/58">Answer → message or action → call ends</div>
             </div>
-            <div className="rounded-[16px] border border-[#DDA34B]/20 bg-[#DDA34B]/[0.035] px-4 py-4">
+            <div className="grid gap-2 border-t border-white/[0.07] py-3.5 sm:grid-cols-[110px_1fr] sm:items-center">
               <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#DDA34B]">Zapla</div>
-              <div className="mt-2 text-[12px] font-semibold text-white/86">Answer → customer record → next action → follow-up</div>
+              <div className="text-[12px] font-semibold text-white/86">Answer → customer record → next action → follow-up</div>
             </div>
           </div>
         </Reveal>
@@ -795,6 +797,7 @@ function IndustryExamples() {
       caller: "Are you taking new patients, and do you have anything after 5?",
       reply: "I can help with your booking options and practice information. What day works best for you?",
       outcome: ["Enquiry captured", "Booking path started", "Handoff available"],
+      accent: "#99A36D",
     },
     {
       key: "trades",
@@ -803,6 +806,7 @@ function IndustryExamples() {
       caller: "My hot water has stopped. Can someone come out today?",
       reply: "I can take the details and check the urgent-job flow. What suburb are you in?",
       outcome: ["Urgency captured", "Job routed", "Customer details attached"],
+      accent: "#DDA34B",
     },
     {
       key: "real-estate",
@@ -811,6 +815,7 @@ function IndustryExamples() {
       caller: "I’m thinking of selling and would like to organise an appraisal.",
       reply: "Absolutely. I can take the property details and arrange the next step with the team.",
       outcome: ["Seller lead created", "Property details saved", "Follow-up task triggered"],
+      accent: "#E97D62",
     },
     {
       key: "professional-services",
@@ -819,6 +824,7 @@ function IndustryExamples() {
       caller: "I’m not sure which service I need. Can someone talk me through it?",
       reply: "I can take a few details, identify the right enquiry path and arrange the next step with the team.",
       outcome: ["Need captured", "Enquiry routed", "Next step recorded"],
+      accent: "#9B86B8",
     },
   ] as const;
 
@@ -856,10 +862,9 @@ function IndustryExamples() {
                 aria-pressed={active}
                 className={
                   "inline-flex h-[44px] items-center gap-2 rounded-full border px-4 text-[12px] font-semibold transition-colors " +
-                  (active
-                    ? "border-[#1E2B29] bg-[#1E2B29] text-white"
-                    : "border-[#DDE1DB] bg-[#FAFAF8] text-[#555C56] hover:bg-white")
+                  (active ? "text-[#111318]" : "border-[#DDE1DB] bg-[#FAFAF8] text-[#555C56] hover:bg-white")
                 }
+                style={active ? { borderColor: example.accent, backgroundColor: example.accent + "18" } : undefined}
               >
                 {example.icon}
                 {example.label}
@@ -873,19 +878,20 @@ function IndustryExamples() {
           initial={reduced ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
-          className="mt-5 grid overflow-hidden rounded-[24px] border border-[#E0E3DE] bg-[#F4F6F3] lg:grid-cols-[1.02fr_.98fr]"
+          className="mt-5 grid overflow-hidden rounded-[24px] border bg-[#F7F8F6] lg:grid-cols-[1.02fr_.98fr]"
+          style={{ borderColor: selected.accent + "55" }}
         >
           <div className="p-6 sm:p-8 lg:p-10">
             <div className="text-[10px] font-semibold uppercase tracking-[0.17em] text-[#8A8178]">Illustrative call</div>
 
-            <div className="mt-7 border-l-2 border-[#D58C75] pl-5">
+            <div className="mt-7 border-l-2 pl-5" style={{ borderColor: selected.accent }}>
               <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#817A72]">Caller</div>
               <div className="mt-2 text-[23px] font-medium leading-[1.28] tracking-[-0.035em] text-[#111318]" style={{ fontFamily: DISPLAY }}>
                 “{selected.caller}”
               </div>
             </div>
 
-            <div className="mt-7 border-l-2 border-[#99A36D] pl-5">
+            <div className="mt-7 border-l-2 pl-5" style={{ borderColor: selected.accent }}>
               <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#69735D]">Zapla</div>
               <div className="mt-2 text-[19px] font-medium leading-[1.38] tracking-[-0.025em] text-[#313632]" style={{ fontFamily: DISPLAY }}>
                 “{selected.reply}”
@@ -899,7 +905,10 @@ function IndustryExamples() {
               {selected.outcome.map((item) => (
                 <div key={item} className="flex items-center justify-between gap-4 border-b border-[#E7E9E5] pb-3">
                   <span className="text-[13px] font-semibold text-[#343A35]">{item}</span>
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#99A36D]/14 text-[#69735D]">
+                  <span
+                    className="flex h-6 w-6 items-center justify-center rounded-full"
+                    style={{ color: selected.accent, backgroundColor: selected.accent + "18" }}
+                  >
                     <Check size={12} strokeWidth={2.5} />
                   </span>
                 </div>
@@ -956,10 +965,10 @@ function ControlBoundaries() {
           </p>
         </Reveal>
 
-        <div className="mt-11 overflow-hidden rounded-[24px] border border-[#D7DED7] bg-white">
+        <div className="mt-11 border-y border-[#CFD8CF]">
           {rows.map((row, index) => (
             <Reveal key={row.label}>
-              <div className={"grid gap-4 p-6 md:grid-cols-[120px_1fr_1.2fr] md:items-center md:gap-8 sm:p-7 " + (index ? "border-t border-[#E0E5E0]" : "")}>
+              <div className={"grid gap-4 py-7 md:grid-cols-[120px_1fr_1.2fr] md:items-center md:gap-8 " + (index ? "border-t border-[#D8E0D8]" : "")}>
                 <div className="text-[10px] font-bold tracking-[0.18em]" style={{ color: row.accent }}>{row.label}</div>
                 <div className="flex items-center gap-3">
                   <span
