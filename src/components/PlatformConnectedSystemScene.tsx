@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
   CalendarDays,
+  CheckCircle2,
   CreditCard,
   MessageSquareText,
   Phone,
@@ -13,87 +14,79 @@ import {
 } from "lucide-react";
 import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
+import pCustomer from "@/assets/portrait-customer.jpg.asset.json";
 
 type Moment = {
+  kind: "enquiry" | "conversation" | "followup" | "booking" | "payment" | "review";
   title: string;
-  detail: string;
-  status: string;
   icon: LucideIcon;
   accent: string;
   soft: string;
   x: number;
   y: number;
-  line: string;
+  ingestAt: number;
 };
 
 const MOMENTS: Moment[] = [
   {
+    kind: "enquiry",
     title: "Enquiry captured",
-    detail: "AI call · added to customer",
-    status: "NEW",
     icon: Phone,
     accent: "#F17364",
     soft: "#FFF0EC",
-    x: 12,
-    y: 15,
-    line: "M 145 92 C 270 95 430 205 600 320",
+    x: 14,
+    y: 16,
+    ingestAt: 0.14,
   },
   {
+    kind: "conversation",
     title: "Conversation",
-    detail: "“Thursday at 2 works for me.”",
-    status: "REPLY",
     icon: MessageSquareText,
     accent: "#D45B8A",
     soft: "#FCECF3",
-    x: 88,
-    y: 15,
-    line: "M 1055 92 C 930 95 770 205 600 320",
+    x: 86,
+    y: 16,
+    ingestAt: 0.26,
   },
   {
+    kind: "followup",
     title: "Follow-up adjusts",
-    detail: "Reply detected · sequence paused",
-    status: "PAUSED",
     icon: Workflow,
     accent: "#A97ABB",
     soft: "#F3ECF8",
-    x: 12,
-    y: 49,
-    line: "M 145 304 C 310 304 455 312 600 320",
+    x: 14,
+    y: 50,
+    ingestAt: 0.38,
   },
   {
+    kind: "booking",
     title: "Booking confirmed",
-    detail: "14 Nov · 2:00 PM consultation",
-    status: "BOOKED",
     icon: CalendarDays,
     accent: "#2563FF",
     soft: "#EAF0FF",
-    x: 88,
-    y: 49,
-    line: "M 1055 304 C 890 304 745 312 600 320",
+    x: 86,
+    y: 50,
+    ingestAt: 0.50,
   },
   {
+    kind: "payment",
     title: "Payment received",
-    detail: "$1,250 · customer record updated",
-    status: "PAID",
     icon: CreditCard,
-    accent: "#AEA971",
+    accent: "#99965E",
     soft: "#F3F2E8",
-    x: 16,
-    y: 82,
-    line: "M 205 505 C 330 485 470 390 600 320",
+    x: 14,
+    y: 84,
+    ingestAt: 0.62,
   },
   {
+    kind: "review",
     title: "Review completed",
-    detail: "5-star review · history retained",
-    status: "5.0 ★",
     icon: Star,
-    accent: "#F5A651",
+    accent: "#E99A3A",
     soft: "#FFF4E5",
-    x: 84,
-    y: 82,
-    line: "M 995 505 C 870 485 730 390 600 320",
+    x: 86,
+    y: 84,
+    ingestAt: 0.74,
   },
 ];
 
@@ -110,12 +103,12 @@ export function PlatformConnectedSystemScene() {
   }, []);
 
   return (
-    <section className="relative border-b border-[#E4E8EF] bg-[#FCFCFA] px-5 pb-16 pt-[112px] text-[#111318] sm:px-10 sm:pb-20 sm:pt-[120px] lg:px-16 lg:pb-24 lg:pt-[122px]">
-      <div className="pointer-events-none absolute -left-[12%] top-[18%] h-[520px] w-[520px] rounded-full bg-[#DDE7FF]/35 blur-[170px]" />
-      <div className="pointer-events-none absolute -right-[10%] top-[32%] h-[420px] w-[420px] rounded-full bg-[#F7DED5]/28 blur-[165px]" />
+    <section className="relative overflow-x-clip border-b border-[#E4E8EF] bg-[#FCFCFA] px-5 pb-16 pt-[112px] text-[#111318] sm:px-10 sm:pb-20 sm:pt-[120px] lg:px-16 lg:pb-24 lg:pt-[122px]">
+      <div className="pointer-events-none absolute -left-[12%] top-[18%] h-[520px] w-[520px] rounded-full bg-[#DDE7FF]/32 blur-[170px]" />
+      <div className="pointer-events-none absolute -right-[10%] top-[32%] h-[420px] w-[420px] rounded-full bg-[#F7DED5]/24 blur-[165px]" />
 
       <div className="relative mx-auto max-w-[1380px]">
-        <div className="mx-auto max-w-[930px] text-center">
+        <div className="mx-auto max-w-[960px] text-center">
           <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#58706F]">
             Zapla Platform
           </div>
@@ -125,7 +118,7 @@ export function PlatformConnectedSystemScene() {
             <span className="block text-[#2563FF]">One connected system.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-[900px] text-[15px] font-medium leading-[1.7] text-[#5F655F] sm:text-[17px]">
+          <p className="mx-auto mt-6 max-w-[930px] text-[15px] font-medium leading-[1.65] text-[#5F655F] sm:text-[17px]">
             When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
           </p>
 
@@ -180,78 +173,47 @@ function DesktopContextScene() {
     };
   }, []);
 
-  const converge = smoothstep(0.08, 0.82, progress);
-  const cardOpacity = 1 - smoothstep(0.58, 0.9, progress) * 0.94;
-  const sketchOpacity = 1 - smoothstep(0.12, 0.72, progress);
-  const colourOpacity = smoothstep(0.12, 0.78, progress);
-  const lineOpacity = 0.22 + (1 - Math.abs(progress - 0.42) / 0.42) * 0.26;
-  const endLabelOpacity = smoothstep(0.78, 0.94, progress);
+  const sketchOpacity = 1 - smoothstep(0.10, 0.84, progress);
+  const colourOpacity = smoothstep(0.10, 0.84, progress);
+  const endLabelOpacity = smoothstep(0.82, 0.94, progress);
 
   return (
-    <div ref={ref} className="relative mt-12 h-[285vh]">
-      <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center">
-        <div className="relative mx-auto h-[620px] max-h-[calc(100vh-104px)] min-h-[520px] w-full max-w-[1240px]">
+    <div ref={ref} className="relative mt-12 h-[300vh]">
+      <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center overflow-hidden">
+        <div className="relative mx-auto h-[640px] max-h-[calc(100vh-104px)] min-h-[540px] w-full max-w-[1280px]">
           <div
-            className="pointer-events-none absolute inset-x-[12%] inset-y-[8%] rounded-full blur-[12px]"
+            className="pointer-events-none absolute left-1/2 top-[51%] h-[74%] w-[52%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
             style={{
               background:
-                "radial-gradient(circle at center, rgba(37,99,255,0.09) 0%, rgba(241,115,100,0.05) 31%, rgba(255,255,255,0) 70%)",
-              opacity: 0.35 + colourOpacity * 0.65,
+                "radial-gradient(circle at center, rgba(37,99,255,0.10), rgba(212,91,138,0.045) 34%, rgba(255,255,255,0) 72%)",
+              opacity: 0.3 + colourOpacity * 0.7,
             }}
           />
-
-          <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 h-full w-full"
-            viewBox="0 0 1200 620"
-            preserveAspectRatio="none"
-          >
-            {MOMENTS.map((moment) => (
-              <path
-                key={moment.title}
-                d={moment.line}
-                fill="none"
-                stroke={moment.accent}
-                strokeWidth="1.15"
-                strokeLinecap="round"
-                style={{
-                  opacity: Math.max(0.08, lineOpacity) * (1 - converge * 0.75),
-                  strokeDasharray: "3 7",
-                }}
-              />
-            ))}
-            <circle cx="600" cy="320" r="4.5" fill="#2563FF" opacity={0.18 + colourOpacity * 0.38} />
-          </svg>
 
           <motion.img
             src={heroSketch.url}
             alt=""
             aria-hidden="true"
             draggable={false}
-            className="pointer-events-none absolute left-1/2 top-[52%] h-[82%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+            className="pointer-events-none absolute left-1/2 top-[52%] h-[86%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
             animate={{ opacity: sketchOpacity }}
-            transition={{ duration: 0.12, ease: EASE }}
+            transition={{ duration: 0.08 }}
           />
           <motion.img
             src={heroColor.url}
             alt="A customer at the centre of a connected customer journey"
             draggable={false}
-            className="pointer-events-none absolute left-1/2 top-[52%] h-[82%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+            className="pointer-events-none absolute left-1/2 top-[52%] h-[86%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
             animate={{ opacity: colourOpacity }}
-            transition={{ duration: 0.12, ease: EASE }}
+            transition={{ duration: 0.08 }}
           />
 
           {MOMENTS.map((moment) => (
-            <ContextMoment
-              key={moment.title}
-              moment={moment}
-              converge={converge}
-              opacity={cardOpacity}
-            />
+            <CustomerMoment key={moment.kind} moment={moment} progress={progress} />
           ))}
 
           <div
-            className="absolute bottom-[4%] left-1/2 -translate-x-1/2 rounded-full border border-[#DDE3EC] bg-white/92 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#6D7686] shadow-sm backdrop-blur"
+            className="absolute bottom-[2%] left-1/2 -translate-x-1/2 rounded-full border border-[#DDE3EC] bg-white/94 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#6D7686] shadow-sm backdrop-blur"
             style={{ opacity: endLabelOpacity }}
           >
             One customer · one history
@@ -262,23 +224,16 @@ function DesktopContextScene() {
   );
 }
 
-function ContextMoment({
-  moment,
-  converge,
-  opacity,
-}: {
-  moment: Moment;
-  converge: number;
-  opacity: number;
-}) {
-  const Icon = moment.icon;
-  const left = moment.x + (50 - moment.x) * converge;
-  const top = moment.y + (52 - moment.y) * converge;
-  const scale = 1 - converge * 0.28;
+function CustomerMoment({ moment, progress }: { moment: Moment; progress: number }) {
+  const ingest = smoothstep(moment.ingestAt, moment.ingestAt + 0.14, progress);
+  const left = moment.x + (50 - moment.x) * ingest;
+  const top = moment.y + (52 - moment.y) * ingest;
+  const opacity = 1 - smoothstep(moment.ingestAt + 0.07, moment.ingestAt + 0.15, progress);
+  const scale = 1 - ingest * 0.32;
 
   return (
     <div
-      className="absolute z-20 w-[238px]"
+      className="absolute z-20 w-[278px]"
       style={{
         left: `${left}%`,
         top: `${top}%`,
@@ -286,42 +241,178 @@ function ContextMoment({
         transform: `translate(-50%, -50%) scale(${scale})`,
       }}
     >
-      <div className="rounded-[16px] border border-[#DCE2EB] bg-white/96 px-3.5 py-3 shadow-[0_12px_30px_rgba(31,43,67,.07)] backdrop-blur-sm">
-        <div className="flex items-center gap-3">
+      <MomentCard moment={moment} />
+    </div>
+  );
+}
+
+function MomentCard({ moment }: { moment: Moment }) {
+  const Icon = moment.icon;
+
+  return (
+    <div className="overflow-hidden rounded-[18px] border border-[#DCE2EA] bg-white shadow-[0_14px_36px_rgba(24,38,64,.075)]">
+      <div className="flex items-center justify-between gap-3 px-4 pb-3 pt-3.5">
+        <div className="flex min-w-0 items-center gap-2.5">
           <span
             className="grid h-9 w-9 shrink-0 place-items-center rounded-[11px]"
             style={{ backgroundColor: moment.soft, color: moment.accent }}
           >
             <Icon size={16} />
           </span>
+          <div className="min-w-0">
+            <div className="truncate text-[12.5px] font-semibold tracking-[-0.015em] text-[#202938]">
+              {moment.title}
+            </div>
+            <div className="mt-0.5 text-[9px] font-medium text-[#8A93A2]">Emma Wilson · customer history</div>
+          </div>
+        </div>
+        <span
+          className="h-2.5 w-2.5 shrink-0 rounded-full"
+          style={{ backgroundColor: moment.accent }}
+        />
+      </div>
 
+      <div className="border-t border-[#EDF0F4] bg-[#FBFCFE] px-4 py-3">
+        <MomentBody kind={moment.kind} accent={moment.accent} soft={moment.soft} />
+      </div>
+    </div>
+  );
+}
+
+function MomentBody({
+  kind,
+  accent,
+  soft,
+}: {
+  kind: Moment["kind"];
+  accent: string;
+  soft: string;
+}) {
+  if (kind === "enquiry") {
+    return (
+      <>
+        <div className="flex items-center gap-2.5">
+          <img src={pCustomer.url} alt="" className="h-8 w-8 rounded-full object-cover ring-2 ring-white" />
           <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between gap-2">
-              <div className="truncate text-[11.5px] font-semibold tracking-[-0.015em] text-[#222C3B]">
-                {moment.title}
-              </div>
-              <span
-                className="shrink-0 rounded-full px-2 py-0.5 text-[7px] font-bold tracking-[0.08em]"
-                style={{ backgroundColor: moment.soft, color: moment.accent }}
-              >
-                {moment.status}
-              </span>
-            </div>
-            <div className="mt-1 truncate text-[9px] leading-[1.45] text-[#7A8495]">
-              {moment.detail}
-            </div>
+            <div className="text-[10.5px] font-semibold text-[#263142]">Incoming call · 0:42</div>
+            <div className="mt-0.5 truncate text-[9px] text-[#7B8595]">04•• ••• ••• · just now</div>
+          </div>
+          <span className="rounded-full px-2 py-1 text-[7px] font-bold" style={{ backgroundColor: soft, color: accent }}>
+            AI LIVE
+          </span>
+        </div>
+        <div className="mt-2.5 rounded-[10px] bg-white px-3 py-2 text-[9.5px] leading-[1.45] text-[#596474] ring-1 ring-[#E7EBF1]">
+          “Calling about a quote for a bathroom renovation next month…”
+        </div>
+        <div className="mt-2 flex items-center gap-1.5 text-[8.5px] font-semibold" style={{ color: accent }}>
+          <Sparkles size={10} /> Transcribed · added to CRM
+        </div>
+      </>
+    );
+  }
+
+  if (kind === "conversation") {
+    return (
+      <>
+        <div className="flex items-center gap-2.5">
+          <img src={pCustomer.url} alt="" className="h-8 w-8 rounded-full object-cover ring-2 ring-white" />
+          <div>
+            <div className="text-[10.5px] font-semibold text-[#263142]">Emma replied by SMS</div>
+            <div className="mt-0.5 text-[9px] text-[#7B8595]">Same customer record · just now</div>
+          </div>
+        </div>
+        <div className="mt-2.5 ml-auto max-w-[86%] rounded-[12px] rounded-br-[4px] px-3 py-2 text-[9.5px] leading-[1.45]" style={{ backgroundColor: soft, color: "#354052" }}>
+          Can I move my 3pm to Thursday?
+        </div>
+      </>
+    );
+  }
+
+  if (kind === "followup") {
+    const steps = [
+      ["Lead captured", true],
+      ["Welcome SMS sent", true],
+      ["Follow-up paused after reply", false],
+    ] as const;
+
+    return (
+      <div className="space-y-2">
+        {steps.map(([label, done], index) => (
+          <div key={label} className="flex items-center gap-2.5">
+            <span
+              className="grid h-5 w-5 place-items-center rounded-full text-[8px] font-bold"
+              style={{ backgroundColor: done ? "#EAF8F1" : soft, color: done ? "#159767" : accent }}
+            >
+              {done ? "✓" : index + 1}
+            </span>
+            <span className={"text-[9.5px] " + (done ? "text-[#87909E]" : "font-semibold text-[#313B4B]")}>
+              {label}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (kind === "booking") {
+    return (
+      <div className="grid grid-cols-[58px_1fr] items-center gap-3">
+        <div className="overflow-hidden rounded-[11px] bg-white text-center ring-1 ring-[#DFE5ED]">
+          <div className="py-1 text-[7px] font-bold uppercase tracking-[0.08em] text-white" style={{ backgroundColor: accent }}>
+            Thu
+          </div>
+          <div className="py-2 text-[19px] font-semibold leading-none text-[#232D3C]">14</div>
+        </div>
+        <div>
+          <div className="text-[10.5px] font-semibold text-[#263142]">2:00 PM · Consultation</div>
+          <div className="mt-1 text-[9px] text-[#7B8595]">45 min · Emma Wilson</div>
+          <div className="mt-2 flex items-center gap-1.5 text-[8.5px] font-semibold" style={{ color: accent }}>
+            <CheckCircle2 size={10} /> Booking confirmed
           </div>
         </div>
       </div>
-    </div>
+    );
+  }
+
+  if (kind === "payment") {
+    return (
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.11em] text-[#8A93A2]">Invoice paid</div>
+          <div className="mt-1 text-[22px] font-semibold tracking-[-0.04em] text-[#1E2837]">$1,250.00</div>
+          <div className="mt-1 text-[8.5px] text-[#7B8595]">INV-2841 · Visa ending 4242</div>
+        </div>
+        <span className="rounded-full px-2.5 py-1 text-[7px] font-bold" style={{ backgroundColor: soft, color: accent }}>
+          PAID
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="flex items-center gap-2.5">
+        <img src={pCustomer.url} alt="" className="h-8 w-8 rounded-full object-cover ring-2 ring-white" />
+        <div>
+          <div className="text-[10.5px] font-semibold text-[#263142]">Emma Wilson</div>
+          <div className="mt-0.5 flex gap-0.5" style={{ color: accent }}>
+            {[0, 1, 2, 3, 4].map((i) => <Star key={i} size={11} fill="currentColor" />)}
+          </div>
+        </div>
+      </div>
+      <div className="mt-2.5 text-[9.5px] leading-[1.5] text-[#596474]">
+        “Absolutely brilliant service from start to finish.”
+      </div>
+      <div className="mt-2 text-[8.5px] text-[#8A93A2]">Google review · requested after completed work</div>
+    </>
   );
 }
 
 function StaticContextScene() {
   return (
     <div className="mx-auto mt-12 max-w-[980px]">
-      <div className="relative mx-auto h-[330px] w-[250px]">
-        <div className="absolute inset-6 rounded-full bg-[radial-gradient(circle,rgba(37,99,255,0.09),rgba(241,115,100,0.04)_42%,transparent_72%)]" />
+      <div className="relative mx-auto h-[350px] w-[270px]">
+        <div className="absolute inset-6 rounded-full bg-[radial-gradient(circle,rgba(37,99,255,0.09),rgba(212,91,138,0.04)_42%,transparent_72%)]" />
         <img
           src={heroColor.url}
           alt="A customer at the centre of a connected customer journey"
@@ -329,29 +420,10 @@ function StaticContextScene() {
         />
       </div>
 
-      <div className="mt-8 grid gap-3 sm:grid-cols-2">
-        {MOMENTS.map((moment) => {
-          const Icon = moment.icon;
-          return (
-            <div
-              key={moment.title}
-              className="rounded-[16px] border border-[#DCE2EB] bg-white px-4 py-3.5 shadow-[0_10px_26px_rgba(31,43,67,.055)]"
-            >
-              <div className="flex items-center gap-3">
-                <span
-                  className="grid h-9 w-9 shrink-0 place-items-center rounded-[11px]"
-                  style={{ backgroundColor: moment.soft, color: moment.accent }}
-                >
-                  <Icon size={16} />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-[12px] font-semibold text-[#222C3B]">{moment.title}</div>
-                  <div className="mt-1 text-[9.5px] text-[#7A8495]">{moment.detail}</div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        {MOMENTS.map((moment) => (
+          <MomentCard key={moment.kind} moment={moment} />
+        ))}
       </div>
     </div>
   );
