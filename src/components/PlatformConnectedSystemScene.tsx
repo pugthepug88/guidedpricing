@@ -48,8 +48,8 @@ export function PlatformConnectedSystemScene() {
     return (
       <section className="relative bg-white text-neutral-900 py-20 sm:py-24 px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
-            One customer. One <span className="text-zapla-blue">connected</span> system.
+          <h1 className="font-zapla text-[36px] sm:text-[42px] md:text-[46px] font-semibold tracking-[-0.045em] text-neutral-900 leading-[0.98]">
+            <span className="block">One customer.</span><span className="block"><span className="text-zapla-blue">One connected</span> system.</span>
           </h1>
           <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
             When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
@@ -107,9 +107,9 @@ function DesktopScrollScene() {
   return (
     <section ref={ref} className="relative h-[460vh] bg-white text-neutral-900">
       <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
-        <div className="relative z-30 pt-12 md:pt-16 px-6 text-center max-w-3xl mx-auto">
+        <div className="relative z-30 pt-11 md:pt-14 px-6 text-center max-w-[860px] mx-auto">
           <h1 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
-            One customer. One <span className="text-zapla-blue">connected</span> system.
+            <span className="block">One customer.</span><span className="block"><span className="text-zapla-blue">One connected</span> system.</span>
           </h1>
           <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
             When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
