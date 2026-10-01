@@ -130,7 +130,7 @@ function Hero() {
   ] as const;
 
   return (
-    <section className="bg-[#F7F2EB] px-5 pb-14 pt-[108px] sm:px-10 sm:pb-18 sm:pt-[120px] lg:px-16 lg:pb-20 lg:pt-[132px]">
+    <section className="bg-[#F7F2EB] px-5 pb-14 pt-[108px] sm:px-10 sm:pb-20 sm:pt-[120px] lg:px-16 lg:pb-20 lg:pt-[132px]">
       <div className="mx-auto max-w-[1420px]">
         <div className="grid items-center gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16">
           <Reveal className="max-w-[620px]">
