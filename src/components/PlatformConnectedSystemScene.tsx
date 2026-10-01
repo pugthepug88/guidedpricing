@@ -51,7 +51,7 @@ export function PlatformConnectedSystemScene() {
           <h1 className="font-zapla text-[36px] sm:text-[42px] md:text-[46px] font-semibold tracking-[-0.045em] text-neutral-900 leading-[0.98]">
             <span className="block">One customer.</span><span className="block"><span className="text-zapla-blue">One connected</span> system.</span>
           </h1>
-          <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
+          <p className="mx-auto mt-4 max-w-[720px] text-[16px] text-neutral-600 leading-[1.65]">
             When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
           </p>
         </div>
@@ -111,26 +111,26 @@ function DesktopScrollScene() {
           <h1 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
             <span className="block">One customer.</span><span className="block"><span className="text-zapla-blue">One connected</span> system.</span>
           </h1>
-          <p className="mt-4 text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed">
+          <p className="mx-auto mt-4 max-w-[720px] text-[16px] text-neutral-600 leading-[1.65]">
             When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
           </p>
         </div>
-        <div className="relative mx-auto w-full max-w-[1400px] flex-1 px-6">
+        <div className="relative mx-auto w-full max-w-[1320px] flex-1 px-8">
           <div className="relative mx-auto flex h-full items-center justify-center">
-            <div className="relative mx-auto h-[74vh] w-[min(148vh,96vw)]">
+            <div className="relative mx-auto h-[68vh] w-[min(138vh,94vw)]">
               <motion.img
                 src={heroSketch.url}
                 alt=""
                 draggable={false}
                 style={{ opacity: sketchOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                className="pointer-events-none absolute left-1/2 top-[52%] h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
               />
               <motion.img
                 src={heroColor.url}
                 alt=""
                 draggable={false}
                 style={{ opacity: colorOpacity }}
-                className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+                className="pointer-events-none absolute left-1/2 top-[52%] h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
               />
 
               <OrbitCard progress={progress} appearAt={0.18} pos="left-[-6%] top-[2%]"><ConversationsCard /></OrbitCard>
