@@ -336,7 +336,7 @@ function ConnectedCall() {
       const next = {
         inbound: curve(callRight, callY, hubLeft, hubY),
         appointment: curve(hubRight, hubY - 12, appointmentLeft, appointmentY),
-        record: straight(hubRight, hubY, recordLeft, recordY),
+        record: straight(hubRight, hubY, recordLeft, hubY),
         confirmation: curve(hubRight, hubY + 12, confirmationLeft, confirmationY),
       };
 
