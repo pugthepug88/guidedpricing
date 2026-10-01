@@ -4,13 +4,10 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowDown,
   ArrowRight,
-  Bot,
   CalendarDays,
   Check,
   CircleDollarSign,
-  Clock3,
   CreditCard,
-  FileText,
   Globe2,
   Inbox,
   Layers3,
@@ -18,10 +15,8 @@ import {
   MessageSquareText,
   Phone,
   RefreshCw,
-  Search,
   Send,
   Sparkles,
-  Tags,
   UserRound,
   Users,
   Workflow,
@@ -61,10 +56,10 @@ function PlatformPage() {
       <Hero />
       <Fragmentation />
       <Architecture />
-      <OperatingTerritories />
-      <CapabilityMap />
+      <BuyerOutcomes />
       <UnlimitedSection />
       <ReplaceConnect />
+      <GuidedLaunch />
       <GoDeeper />
       <FinalCta />
     </main>
@@ -110,7 +105,7 @@ function Eyebrow({
     <p
       className={
         "text-[10px] font-semibold uppercase tracking-[0.22em] " +
-        (dark ? "text-[#E8B75F]" : "text-[#58706F]")
+        (dark ? "text-[#F2B85B]" : "text-[#2563FF]")
       }
     >
       {children}
@@ -122,7 +117,7 @@ function PrimaryButton({ label = "Book a Call" }: { label?: string }) {
   return (
     <a
       href={BOOK_URL}
-      className="inline-flex h-[50px] items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] shadow-[0_12px_28px_rgba(30,43,41,.12)] transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E2B29] focus-visible:ring-offset-2"
+      className="inline-flex h-[50px] items-center justify-center gap-2 rounded-full bg-[#111827] px-6 text-[13px] font-semibold text-white shadow-[0_12px_28px_rgba(17,24,39,.14)] transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] focus-visible:ring-offset-2"
     >
       {label} <ArrowRight size={15} />
     </a>
@@ -147,9 +142,9 @@ function ProductBrand({ section }: { section: string }) {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#DED8CF] bg-[#F7F3EC] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-24 lg:pt-[132px]">
-      <div className="pointer-events-none absolute -left-40 top-24 h-[500px] w-[500px] rounded-full bg-[#CFD9C3]/34 blur-[145px]" />
-      <div className="pointer-events-none absolute -right-24 top-14 h-[420px] w-[420px] rounded-full bg-[#2563FF]/[0.045] blur-[130px]" />
+    <section className="relative overflow-hidden border-b border-[#E3E8F1] bg-[#F8FAFF] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-24 lg:pt-[132px]">
+      <div className="pointer-events-none absolute -left-36 top-16 h-[480px] w-[480px] rounded-full bg-[#2563FF]/[0.075] blur-[150px]" />
+      <div className="pointer-events-none absolute -right-20 top-20 h-[360px] w-[360px] rounded-full bg-[#F29B78]/[0.10] blur-[145px]" />
 
       <div className="relative mx-auto max-w-[1420px]">
         <Reveal className="mx-auto max-w-[1060px] text-center">
@@ -163,22 +158,22 @@ function Hero() {
             <span className="block text-[#2563FF]">One connected system around them.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-[820px] text-[16px] leading-[1.72] text-[#606660] sm:text-[18px]">
-            Customer records, conversations, opportunities, bookings and the actions that follow stay connected, so your team works from the same history instead of stitching together separate tools.
+          <p className="mx-auto mt-6 max-w-[850px] text-[16px] leading-[1.72] text-[#596273] sm:text-[18px]">
+            When someone enquires, replies, books, pays or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
               href="#how-it-connects"
-              className="inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px sm:w-auto"
+              className="inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full border border-[#C9D5EE] bg-white px-6 text-[13px] font-semibold text-[#172033] transition-colors hover:border-[#2563FF] sm:w-auto"
             >
               See how it connects <ArrowDown size={14} />
             </a>
             <PrimaryButton />
           </div>
 
-          <div className="mt-5 text-[11px] font-semibold text-[#6A6F6B] sm:text-[12px]">
-            Unlimited users <span className="mx-2 text-[#B3B2AC]">·</span> Unlimited stored contacts* <span className="mx-2 text-[#B3B2AC]">·</span> Guided Launch
+          <div className="mt-5 text-[11px] font-semibold text-[#657086] sm:text-[12px]">
+            Unlimited users <span className="mx-2 text-[#B5BDCC]">·</span> Unlimited stored contacts* <span className="mx-2 text-[#B5BDCC]">·</span> Guided Launch
           </div>
         </Reveal>
 
@@ -209,7 +204,7 @@ function ConnectedCustomerHero() {
 
   return (
     <div className="relative mx-auto max-w-[1280px]">
-      <div className="absolute inset-x-[6%] bottom-0 top-[18%] rounded-[36px] bg-[#CED8C3]" />
+      <div className="absolute inset-x-[6%] bottom-0 top-[18%] rounded-[36px] bg-[#DCE7FF]" />
 
       <div className="relative grid gap-4 p-3 sm:p-5 lg:grid-cols-[0.82fr_1.36fr_0.82fr] lg:gap-5 lg:p-8">
         <div className="rounded-[22px] border border-black/[0.08] bg-[#FCFCFB] p-5 shadow-[0_24px_70px_rgba(39,44,38,.09)] sm:p-6">
@@ -230,7 +225,7 @@ function ConnectedCustomerHero() {
                 }}
                 className="flex items-center gap-3 rounded-[13px] border border-[#E0E4DF] bg-white px-3.5 py-3"
               >
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#EEF1EB] text-[#63715D]">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#EEF4FF] text-[#4D6FC5]">
                   {item.icon}
                 </span>
                 <div className="min-w-0">
@@ -268,8 +263,8 @@ function ConnectedCustomerHero() {
                 <ContextMeta label="Customer type" value="Residential" />
               </div>
 
-              <div className="mt-5 rounded-[12px] bg-[#E7ECE2] px-3 py-3">
-                <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#68745F]">
+              <div className="mt-5 rounded-[12px] bg-[#EAF0FF] px-3 py-3">
+                <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#5E72A2]">
                   Same record
                 </div>
                 <div className="mt-1 text-[10px] font-semibold text-[#3C4538]">
@@ -426,66 +421,66 @@ function Fragmentation() {
   ];
 
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1360px]">
-        <Reveal className="mx-auto max-w-[960px] text-center">
+        <Reveal className="mx-auto max-w-[980px] text-center">
           <Eyebrow>The hidden problem</Eyebrow>
           <h2
             className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
             style={{ fontFamily: DISPLAY }}
           >
             Your customer doesn't live in separate tools.
-            <span className="block text-[#6E756E]">Their history shouldn't either.</span>
+            <span className="block text-[#697386]">Their history shouldn't either.</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-[760px] text-[15px] leading-[1.75] text-[#686E68] sm:text-[16px]">
-            The real problem with a fragmented stack is not the number of logins. It is that each system can hold a different version of what is happening with the same customer.
+          <p className="mx-auto mt-6 max-w-[780px] text-[15px] leading-[1.75] text-[#626B79] sm:text-[16px]">
+            The problem is not simply having several tools. It is that each one can hold a different version of what just happened, so the next person acts on an older story.
           </p>
         </Reveal>
 
         <div className="mt-12 grid items-stretch gap-5 lg:grid-cols-[1fr_0.9fr] lg:gap-7">
           <Reveal>
-            <div className="h-full rounded-[26px] border border-[#E0D9CF] bg-[#F7F3ED] p-6 sm:p-8">
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#8A7564]">
+            <div className="h-full rounded-[26px] border border-[#DEE3EC] bg-[#F7F9FC] p-6 sm:p-8">
+              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#697386]">
                 When the tools do not share context
               </div>
 
-              <div className="mt-6 border-y border-[#DED5CA]">
+              <div className="mt-6 border-y border-[#DCE2EB]">
                 {rows.map((row) => (
                   <div
                     key={row.system}
-                    className="grid gap-2 border-b border-[#DED5CA] py-4 last:border-b-0 sm:grid-cols-[150px_1fr] sm:items-center"
+                    className="grid gap-2 border-b border-[#DCE2EB] py-4 last:border-b-0 sm:grid-cols-[150px_1fr] sm:items-center"
                   >
-                    <div className="flex items-center gap-2.5 text-[#6E655C]">
+                    <div className="flex items-center gap-2.5 text-[#697386]">
                       {row.icon}
                       <span className="text-[10px] font-bold uppercase tracking-[0.13em]">{row.system}</span>
                     </div>
-                    <div className="text-[13px] font-semibold text-[#343633] sm:text-[14px]">{row.state}</div>
+                    <div className="text-[13px] font-semibold text-[#2B3442] sm:text-[14px]">{row.state}</div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 flex items-start gap-3 rounded-[16px] bg-[#E7D8C7] px-4 py-4">
-                <Users size={17} className="mt-0.5 shrink-0 text-[#735C49]" />
-                <p className="text-[11px] leading-[1.65] text-[#66594E] sm:text-[12px]">
-                  Your team becomes the integration layer, remembering what changed and manually fixing what the other systems do not know.
+              <div className="mt-6 flex items-start gap-3 rounded-[16px] border border-[#F3D5C9] bg-[#FFF2EC] px-4 py-4">
+                <Users size={17} className="mt-0.5 shrink-0 text-[#C96F55]" />
+                <p className="text-[11px] leading-[1.65] text-[#74594F] sm:text-[12px]">
+                  That is when customers repeat themselves, follow-up keeps firing after they have replied, and your team checks three places before deciding what to do.
                 </p>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="relative h-full overflow-hidden rounded-[26px] bg-[#1E2B29] p-6 text-white sm:p-8">
-              <div className="pointer-events-none absolute -right-20 -top-20 h-[260px] w-[260px] rounded-full bg-[#2563FF]/10 blur-[90px]" />
+            <div className="relative h-full overflow-hidden rounded-[26px] bg-[#101A2B] p-6 text-white sm:p-8">
+              <div className="pointer-events-none absolute -right-20 -top-20 h-[260px] w-[260px] rounded-full bg-[#2563FF]/20 blur-[90px]" />
 
               <div className="relative">
-                <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#E7B75E]">
+                <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#8EADFF]">
                   Connected customer history
                 </div>
                 <h3
                   className="mt-5 max-w-[560px] text-[38px] font-medium leading-[0.98] tracking-[-0.05em] sm:text-[48px]"
                   style={{ fontFamily: DISPLAY }}
                 >
-                  One version of the customer can inform what happens next.
+                  One change can inform what happens next.
                 </h3>
 
                 <div className="mt-8 space-y-3">
@@ -493,20 +488,20 @@ function Fragmentation() {
                     ["Reply received", "Conversation context updates"],
                     ["Booking changed", "Follow-up can adjust"],
                     ["Payment recorded", "Customer state changes"],
-                    ["Service completed", "Review or retention action can begin"],
-                  ].map(([event, outcome], index) => (
+                    ["Service completed", "Review or retention can begin"],
+                  ].map(([event, outcome]) => (
                     <div key={event} className="grid gap-2 border-t border-white/10 pt-4 sm:grid-cols-[0.9fr_1.1fr]">
                       <div className="text-[11px] font-semibold text-white/90">{event}</div>
-                      <div className="flex items-center gap-2 text-[10.5px] text-white/52">
-                        <ArrowRight size={12} className="text-[#AFC3FF]" />
+                      <div className="flex items-center gap-2 text-[10.5px] text-white/55">
+                        <ArrowRight size={12} className="text-[#8EADFF]" />
                         {outcome}
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <p className="mt-8 max-w-[570px] text-[12px] leading-[1.75] text-white/48 sm:text-[13px]">
-                  The point is not to make every tool disappear. It is to stop customer context from disappearing between them.
+                <p className="mt-8 max-w-[570px] text-[12px] leading-[1.75] text-white/52 sm:text-[13px]">
+                  The point is not to make every tool disappear. It is to stop the customer story from disappearing between them.
                 </p>
               </div>
             </div>
@@ -523,34 +518,38 @@ function Architecture() {
   const steps = [
     {
       number: "01",
-      title: "Record",
-      copy: "Who the customer is. Their details, fields, tags, ownership and history.",
-      tone: "#D8E0CF",
+      term: "Record",
+      title: "Who they are",
+      copy: "Details, fields, tags, ownership and the history already attached to the customer.",
+      tone: "#DDE7FF",
     },
     {
       number: "02",
-      title: "Context",
-      copy: "What happened. Messages, calls, forms, notes, bookings and activity.",
-      tone: "#E8DDD1",
+      term: "Context",
+      title: "What happened",
+      copy: "Messages, calls, forms, notes, bookings and other activity that changes the story.",
+      tone: "#FFE4D8",
     },
     {
       number: "03",
-      title: "State",
-      copy: "Where things stand. Lead stage, quote status, booking, payment or service state.",
-      tone: "#DCE5F8",
+      term: "State",
+      title: "Where things stand",
+      copy: "Lead stage, quote status, booking, payment or service status right now.",
+      tone: "#DDE7FF",
     },
     {
       number: "04",
-      title: "Action",
-      copy: "What should happen next. A task, message, workflow, booking, AI action or follow-through.",
-      tone: "#E6DFC8",
+      term: "Action",
+      title: "What happens next",
+      copy: "A task, message, workflow, booking, AI action or other follow-through.",
+      tone: "#F8E7B9",
     },
   ];
 
   return (
-    <section id="how-it-connects" className="relative overflow-hidden bg-[#17211F] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute -left-28 top-20 h-[420px] w-[420px] rounded-full bg-[#6F8063]/12 blur-[150px]" />
-      <div className="pointer-events-none absolute -right-20 bottom-0 h-[360px] w-[360px] rounded-full bg-[#2563FF]/9 blur-[140px]" />
+    <section id="how-it-connects" className="relative overflow-hidden bg-[#0C1524] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="pointer-events-none absolute -left-28 top-20 h-[420px] w-[420px] rounded-full bg-[#2563FF]/15 blur-[150px]" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-[360px] w-[360px] rounded-full bg-[#F29B78]/10 blur-[140px]" />
 
       <div className="relative mx-auto max-w-[1360px]">
         <Reveal className="max-w-[980px]">
@@ -560,10 +559,10 @@ function Architecture() {
             style={{ fontFamily: DISPLAY }}
           >
             The customer record
-            <span className="block text-white/46">is only the beginning.</span>
+            <span className="block text-white/48">is only the beginning.</span>
           </h2>
-          <p className="mt-6 max-w-[760px] text-[15px] leading-[1.75] text-white/52 sm:text-[16px]">
-            Zapla becomes more useful when customer identity, what just happened, the current state and the next action can stay connected instead of being reconstructed by hand.
+          <p className="mt-6 max-w-[780px] text-[15px] leading-[1.75] text-white/58 sm:text-[16px]">
+            Zapla connects who the customer is, what just happened, where things stand and what should happen next, so your team does not have to reconstruct the story by hand.
           </p>
         </Reveal>
 
@@ -574,60 +573,61 @@ function Architecture() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: reduced ? 0 : 0.75, ease: EASE }}
-            className="absolute left-[8%] right-[8%] top-[39px] hidden h-px origin-left bg-[#8DAFFF]/55 lg:block"
+            className="absolute left-[8%] right-[8%] top-[39px] hidden h-px origin-left bg-[#7EA2FF]/70 lg:block"
           />
 
           <div className="relative grid gap-3 lg:grid-cols-4">
             {steps.map((step, index) => (
               <Reveal key={step.title} delay={index * 0.05}>
-                <div className="h-full rounded-[22px] border border-white/10 bg-white/[0.055] p-5 backdrop-blur-[2px] sm:p-6">
+                <div className="h-full rounded-[22px] border border-white/10 bg-white/[0.055] p-5 sm:p-6">
                   <div
-                    className="grid h-[48px] w-[48px] place-items-center rounded-full text-[10px] font-bold text-[#1E2927]"
+                    className="grid h-[48px] w-[48px] place-items-center rounded-full text-[10px] font-bold text-[#172033]"
                     style={{ backgroundColor: step.tone }}
                   >
                     {step.number}
                   </div>
+                  <div className="mt-6 text-[8px] font-bold uppercase tracking-[0.15em] text-white/38">{step.term}</div>
                   <h3
-                    className="mt-6 text-[29px] font-medium tracking-[-0.045em]"
+                    className="mt-2 text-[29px] font-medium tracking-[-0.045em]"
                     style={{ fontFamily: DISPLAY }}
                   >
                     {step.title}
                   </h3>
-                  <p className="mt-3 text-[12px] leading-[1.7] text-white/48 sm:text-[13px]">{step.copy}</p>
+                  <p className="mt-3 text-[12px] leading-[1.7] text-white/50 sm:text-[13px]">{step.copy}</p>
                 </div>
               </Reveal>
             ))}
           </div>
         </div>
 
-        <Reveal className="mt-8 rounded-[24px] border border-white/10 bg-[#F6F2EA] p-5 text-[#1A1D1B] sm:p-7" delay={0.12}>
+        <Reveal className="mt-8 rounded-[24px] border border-white/10 bg-white p-5 text-[#172033] sm:p-7" delay={0.12}>
           <div className="grid items-center gap-6 lg:grid-cols-[0.62fr_1.38fr]">
             <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#687460]">
+              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#2563FF]">
                 A simple example
               </div>
               <h3
                 className="mt-3 text-[30px] font-medium leading-[1] tracking-[-0.045em] sm:text-[36px]"
                 style={{ fontFamily: DISPLAY }}
               >
-                Context changes the next action.
+                Mia replied. The next step changes.
               </h3>
             </div>
 
             <div className="grid gap-2.5 sm:grid-cols-4">
               {[
-                ["Reply", "Mia says Thursday works"],
-                ["Context", "Reply attaches to Mia"],
-                ["State", "Booking becomes confirmed"],
-                ["Action", "Lead follow-up can stop"],
+                ["Reply", "“Thursday works for me.”"],
+                ["Customer", "Reply attaches to Mia"],
+                ["Now", "Booking is confirmed"],
+                ["Next", "Lead follow-up stops"],
               ].map(([label, copy], index) => (
-                <div key={label} className="relative rounded-[14px] border border-[#DED8CF] bg-white px-4 py-4">
-                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#7C847E]">{label}</div>
-                  <div className="mt-2 text-[10px] font-semibold leading-[1.5] text-[#363C38]">{copy}</div>
+                <div key={label} className="relative rounded-[14px] border border-[#DDE3EE] bg-[#F8FAFF] px-4 py-4">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#758197]">{label}</div>
+                  <div className="mt-2 text-[10px] font-semibold leading-[1.5] text-[#303949]">{copy}</div>
                   {index < 3 ? (
                     <ArrowRight
                       size={13}
-                      className="absolute -right-[8px] top-1/2 z-10 hidden -translate-y-1/2 text-[#7085B7] sm:block"
+                      className="absolute -right-[8px] top-1/2 z-10 hidden -translate-y-1/2 text-[#7393E8] sm:block"
                     />
                   ) : null}
                 </div>
@@ -635,203 +635,90 @@ function Architecture() {
             </div>
           </div>
         </Reveal>
-
-        <Reveal className="mt-6 text-center text-[12px] font-medium text-white/50">
-          When record, context and state live together, the next action does not have to start from scratch.
-        </Reveal>
       </div>
     </section>
   );
 }
 
-function OperatingTerritories() {
-  return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[910px]">
-          <Eyebrow>One system, different jobs</Eyebrow>
-          <h2
-            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            See what is happening.
-            <span className="block text-[#717770]">Then keep it moving.</span>
-          </h2>
-        </Reveal>
 
-        <div className="mt-12 border-y border-[#DDDCD7]">
-          <Territory
-            number="01"
-            eyebrow="Know what is happening"
-            title="Keep the customer and the context together."
-            copy="Customer records, conversations, opportunity stages and activity history give the person picking up the work the same picture."
-            capabilities={["Customer records", "Conversations", "Pipelines", "History", "Reporting"]}
-            links={[["Explore CRM", "/crm"]]}
-          />
-
-          <Territory
-            number="02"
-            eyebrow="Make the next thing happen"
-            title="Use customer state to drive the next action."
-            copy="A new enquiry, reply, stage change, booking or other customer event can create the next task, message, workflow or AI-assisted action without starting from zero."
-            capabilities={["Workflows", "Bookings", "Email", "SMS", "AI", "Payments"]}
-            links={[
-              ["Explore Follow-Up", "/follow-up"],
-              ["Explore AI Receptionist", "/ai-receptionist"],
-            ]}
-            alt
-          />
-
-          <Territory
-            number="03"
-            eyebrow="Keep the relationship moving"
-            title="The customer history keeps mattering after the first sale."
-            copy="Use what Zapla already knows about the customer to ask for a review, start another relevant conversation or reopen a relationship that went quiet."
-            capabilities={["Customer Marketing", "Reviews", "Reactivation", "Segmentation", "Repeat business"]}
-            links={[
-              ["Customer Marketing", "/customer-marketing"],
-              ["Reviews & Reputation", "/reviews"],
-              ["Reopen", "/reactivation"],
-            ]}
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Territory({
-  number,
-  eyebrow,
-  title,
-  copy,
-  capabilities,
-  links,
-  alt = false,
-}: {
-  number: string;
-  eyebrow: string;
-  title: string;
-  copy: string;
-  capabilities: string[];
-  links: [string, string][];
-  alt?: boolean;
-}) {
-  return (
-    <Reveal>
-      <div
-        className={
-          "grid gap-7 border-b border-[#DDDCD7] py-9 last:border-b-0 sm:py-11 lg:grid-cols-[0.34fr_0.86fr_1.1fr] lg:items-start lg:gap-12 " +
-          (alt ? "bg-[#F7F5F0] -mx-5 px-5 sm:-mx-8 sm:px-8 lg:-mx-10 lg:px-10" : "")
-        }
-      >
-        <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#9B9E98]">{number}</div>
-          <div className="mt-3 text-[9px] font-bold uppercase tracking-[0.15em] text-[#6A7664]">{eyebrow}</div>
-        </div>
-
-        <div>
-          <h3
-            className="text-[32px] font-medium leading-[1] tracking-[-0.045em] sm:text-[40px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            {title}
-          </h3>
-          <p className="mt-4 max-w-[560px] text-[13px] leading-[1.75] text-[#6A706A] sm:text-[14px]">{copy}</p>
-        </div>
-
-        <div>
-          <div className="flex flex-wrap gap-x-5 gap-y-2 border-b border-[#E1E0DB] pb-5">
-            {capabilities.map((item) => (
-              <span key={item} className="text-[10px] font-semibold text-[#626962]">
-                {item}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
-            {links.map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#1E2B29] transition-colors hover:text-[#2563FF]"
-              >
-                {label} <ArrowRight size={12} />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </Reveal>
-  );
-}
-
-function CapabilityMap() {
-  const groups = [
+function BuyerOutcomes() {
+  const moments = [
     {
-      title: "Capture & context",
-      icon: <Search size={15} />,
-      items: ["Customer records", "Forms & lead capture", "Websites & funnels", "Conversations", "Calls"],
+      number: "01",
+      moment: "A new enquiry arrives",
+      context: "The source, customer record and conversation start together.",
+      next: "Respond and start follow-up while interest is fresh.",
+      outcome: "Less demand goes quiet.",
+      icon: <Globe2 size={16} />,
     },
     {
-      title: "Work & state",
-      icon: <Layers3 size={15} />,
-      items: ["Pipelines & opportunities", "Calendars & bookings", "Payments & invoices", "Tasks & ownership", "Customer history"],
+      number: "02",
+      moment: "They reply or change a booking",
+      context: "The latest conversation and booking state attach to the same customer.",
+      next: "Pause or adjust follow-up instead of sending the wrong message.",
+      outcome: "Less manual cleanup.",
+      icon: <MessageSquareText size={16} />,
     },
     {
-      title: "Action & communication",
-      icon: <Workflow size={15} />,
-      items: ["Workflows", "Email", "SMS", "AI agents", "API & webhooks"],
+      number: "03",
+      moment: "A quote, payment or service status changes",
+      context: "The customer state moves as the work moves.",
+      next: "Sales, operations and accounts can act from the latest version.",
+      outcome: "Fewer hand-off gaps.",
+      icon: <CreditCard size={16} />,
     },
     {
-      title: "Growth & insight",
-      icon: <RefreshCw size={15} />,
-      items: ["Customer marketing", "Reviews & reputation", "Reactivation", "Segmentation", "Dashboards & reporting"],
+      number: "04",
+      moment: "A lead or customer goes quiet",
+      context: "Their history stays usable instead of disappearing into an archive.",
+      next: "Reopen the right conversation later without starting from zero.",
+      outcome: "More value from the database.",
+      icon: <RefreshCw size={16} />,
     },
   ];
 
   return (
-    <section className="bg-[#EEF2EA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#EEF4FF] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <Reveal className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
           <div>
-            <Eyebrow>What sits underneath it</Eyebrow>
+            <Eyebrow>What connected context changes</Eyebrow>
             <h2
               className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
               style={{ fontFamily: DISPLAY }}
             >
-              One customer context.
-              <span className="block text-[#687460]">Different capabilities around it.</span>
+              When something changes,
+              <span className="block text-[#2563FF]">the next step can change with it.</span>
             </h2>
           </div>
-          <p className="max-w-[650px] text-[14px] leading-[1.75] text-[#687067] sm:text-[15px]">
-            Customer records, forms, conversations, bookings, payments, marketing and reporting become more useful when they can work from the same customer context instead of operating as separate islands.
+          <p className="max-w-[650px] text-[14px] leading-[1.75] text-[#5F6B80] sm:text-[15px]">
+            The value is not having more software. It is having enough of the customer story in one place for the next action to match what is actually happening.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid border-y border-[#D5DED1] md:grid-cols-2 lg:grid-cols-4">
-          {groups.map((group, index) => (
+        <div className="mt-12 overflow-hidden rounded-[28px] border border-[#C9D7F3] bg-white shadow-[0_18px_55px_rgba(37,99,255,.07)]">
+          {moments.map((item, index) => (
             <Reveal
-              key={group.title}
-              className={
-                "border-b border-[#D5DED1] p-6 md:border-r lg:border-b-0 sm:p-7 " +
-                (index === 1 ? "md:border-r-0 lg:border-r" : "") +
-                (index === 3 ? " border-b-0 md:border-r-0" : "")
-              }
+              key={item.moment}
+              className={"grid gap-5 p-6 sm:p-7 lg:grid-cols-[72px_0.9fr_1.2fr_0.72fr] lg:items-center lg:gap-8 " + (index ? "border-t border-[#DFE6F2]" : "")}
               delay={index * 0.04}
             >
-              <div className="flex items-center gap-2.5 text-[#5F6D58]">
-                {group.icon}
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.15em]">{group.title}</h3>
+              <div className="flex items-center gap-3 lg:block">
+                <div className="grid h-10 w-10 place-items-center rounded-full bg-[#E7EEFF] text-[#2563FF]">{item.icon}</div>
+                <div className="mt-0 text-[9px] font-bold uppercase tracking-[0.14em] text-[#8A95A8] lg:mt-2">{item.number}</div>
               </div>
-              <div className="mt-5 space-y-3">
-                {group.items.map((item) => (
-                  <div key={item} className="flex items-center gap-2.5 text-[12px] font-medium text-[#3F4740]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
-                    {item}
-                  </div>
-                ))}
+              <div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#7A8598]">What changed</div>
+                <h3 className="mt-2 text-[26px] font-medium leading-[1] tracking-[-0.04em] text-[#172033]" style={{ fontFamily: DISPLAY }}>
+                  {item.moment}
+                </h3>
+                <p className="mt-3 text-[12px] leading-[1.65] text-[#6A7486]">{item.context}</p>
               </div>
+              <div className="rounded-[16px] bg-[#F7F9FD] px-5 py-4">
+                <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#2563FF]">Zapla can keep the next step relevant</div>
+                <p className="mt-2 text-[12px] font-semibold leading-[1.6] text-[#354055]">{item.next}</p>
+              </div>
+              <div className="text-[13px] font-semibold leading-[1.5] text-[#243047]">{item.outcome}</div>
             </Reveal>
           ))}
         </div>
@@ -844,53 +731,53 @@ function UnlimitedSection() {
   const roles = ["Reception", "Sales", "Operations", "Marketing", "Accounts", "Owner"];
 
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto grid max-w-[1360px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
-        <Reveal className="max-w-[590px]">
-          <Eyebrow>Shared customer context</Eyebrow>
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto grid max-w-[1360px] items-center gap-12 lg:grid-cols-[0.86fr_1.14fr] lg:gap-20">
+        <Reveal className="max-w-[610px]">
+          <Eyebrow>Unlimited participation</Eyebrow>
           <h2
             className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
             style={{ fontFamily: DISPLAY }}
           >
-            The system works better
-            <span className="block text-[#717770]">when the whole team can use it.</span>
+            Everyone who touches the customer
+            <span className="block text-[#2563FF]">should see the same story.</span>
           </h2>
-          <p className="mt-6 max-w-[560px] text-[15px] leading-[1.75] text-[#686E68] sm:text-[16px]">
-            Reception should not see one version of a customer while sales, marketing and operations work from another. Unlimited users removes the seat-count decision from who gets access to the shared history.
+          <p className="mt-6 max-w-[580px] text-[15px] leading-[1.75] text-[#626B79] sm:text-[16px]">
+            That is why Zapla includes unlimited users on standard plans. Reception, sales, operations, accounts and marketing can work from the same customer history without deciding who deserves a seat.
           </p>
-          <p className="mt-4 max-w-[560px] text-[15px] leading-[1.75] text-[#686E68] sm:text-[16px]">
-            Unlimited stored contacts* means past leads and customers can remain part of that history instead of becoming a database you avoid using because it grew.
+          <p className="mt-4 max-w-[580px] text-[15px] leading-[1.75] text-[#626B79] sm:text-[16px]">
+            Unlimited stored contacts* keeps old leads and customers usable for follow-up, reactivation and customer marketing as the database grows.
           </p>
-          <div className="mt-6 text-[10px] text-[#8A8E89]">
+          <div className="mt-6 text-[10px] text-[#8A93A2]">
             *Unlimited stored contacts are subject to fair use. Communications and other usage-based services are separate.
           </div>
         </Reveal>
 
         <Reveal delay={0.05}>
           <div className="relative">
-            <div className="absolute -inset-4 rounded-[34px] bg-[#E7D8C7]" />
-            <div className="relative overflow-hidden rounded-[26px] border border-[#D7D9D5] bg-white shadow-[0_28px_80px_rgba(42,47,41,.10)]">
-              <div className="flex min-h-[46px] items-center justify-between border-b border-[#E2E5E1] px-4 sm:px-5">
+            <div className="absolute -inset-4 rounded-[34px] bg-[#DCE7FF]" />
+            <div className="relative overflow-hidden rounded-[26px] border border-[#CDD8EC] bg-white shadow-[0_28px_80px_rgba(37,99,255,.10)]">
+              <div className="flex min-h-[46px] items-center justify-between border-b border-[#E2E7F0] px-4 sm:px-5">
                 <ProductBrand section="Shared customer workspace" />
-                <span className="hidden text-[8px] font-bold uppercase tracking-[0.12em] text-[#7B837D] sm:inline">
+                <span className="hidden text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF] sm:inline">
                   Unlimited users
                 </span>
               </div>
 
               <div className="p-5 sm:p-7">
-                <div className="rounded-[18px] border border-[#DEE2DE] bg-[#F8F9F6] p-5">
+                <div className="rounded-[18px] border border-[#DDE4F0] bg-[#F8FAFF] p-5">
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="grid h-11 w-11 place-items-center rounded-full bg-[#E9DDD2] text-[12px] font-semibold text-[#514942]">
+                      <div className="grid h-11 w-11 place-items-center rounded-full bg-[#FFE5DA] text-[12px] font-semibold text-[#6C4B40]">
                         MT
                       </div>
                       <div>
                         <div className="text-[13px] font-semibold">Mia Thompson</div>
-                        <div className="mt-0.5 text-[9px] text-[#858C87]">Booked · Thursday 10:30am</div>
+                        <div className="mt-0.5 text-[9px] text-[#7A8496]">Booked · Thursday 10:30am</div>
                       </div>
                     </div>
-                    <div className="rounded-full bg-[#E4EBDD] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.11em] text-[#607058]">
-                      Same history
+                    <div className="rounded-full bg-[#E7EEFF] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.11em] text-[#2563FF]">
+                      Same customer
                     </div>
                   </div>
 
@@ -901,23 +788,23 @@ function UnlimitedSection() {
                       ["Operations", "Service context ready"],
                       ["Accounts", "Payment status visible"],
                     ].map(([role, state]) => (
-                      <div key={role} className="rounded-[13px] border border-[#E1E4E0] bg-white px-4 py-3">
-                        <div className="text-[8px] font-bold uppercase tracking-[0.11em] text-[#7E8780]">{role}</div>
-                        <div className="mt-1.5 text-[10px] font-semibold text-[#3D4540]">{state}</div>
+                      <div key={role} className="rounded-[13px] border border-[#DFE5EF] bg-white px-4 py-3">
+                        <div className="text-[8px] font-bold uppercase tracking-[0.11em] text-[#7E899B]">{role}</div>
+                        <div className="mt-1.5 text-[10px] font-semibold text-[#354055]">{state}</div>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div className="mt-6">
-                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A918C]">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A95A8]">
                     Who can work from the same customer system
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {roles.map((role) => (
                       <span
                         key={role}
-                        className="rounded-full border border-[#DDE1DD] bg-white px-3 py-2 text-[9px] font-semibold text-[#5F6762]"
+                        className="rounded-full border border-[#DCE3EF] bg-white px-3 py-2 text-[9px] font-semibold text-[#5C677A]"
                       >
                         {role}
                       </span>
@@ -935,52 +822,52 @@ function UnlimitedSection() {
 
 function ReplaceConnect() {
   return (
-    <section className="bg-[#F5F1E9] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F5F7FB] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="mx-auto max-w-[980px] text-center">
-          <Eyebrow>Consolidate where it helps</Eyebrow>
+        <Reveal className="mx-auto max-w-[1040px] text-center">
+          <Eyebrow>Replace less blindly</Eyebrow>
           <h2
             className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
             style={{ fontFamily: DISPLAY }}
           >
-            You do not need to replace everything
-            <span className="block text-[#746F67]">to connect the customer journey.</span>
+            Bring together what should share context.
+            <span className="block text-[#697386]">Keep what still earns its place.</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-[790px] text-[15px] leading-[1.75] text-[#6C6964] sm:text-[16px]">
-            Consolidate the customer-facing work Zapla already covers. Where another system still belongs, supported connections can keep it part of the flow instead of forcing a rip-and-replace project.
+          <p className="mx-auto mt-6 max-w-[790px] text-[15px] leading-[1.75] text-[#626B79] sm:text-[16px]">
+            Zapla can consolidate the customer-facing work that benefits from one shared history without forcing every specialist system out of the business.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid overflow-hidden rounded-[28px] border border-[#DDD4C8] bg-white lg:grid-cols-2">
-          <Reveal className="border-b border-[#DDD4C8] p-7 sm:p-9 lg:border-b-0 lg:border-r" delay={0.03}>
+        <div className="mt-12 grid overflow-hidden rounded-[28px] border border-[#D8DFEA] bg-white lg:grid-cols-2">
+          <Reveal className="border-b border-[#D8DFEA] p-7 sm:p-9 lg:border-b-0 lg:border-r" delay={0.03}>
             <div className="flex items-center gap-3">
-              <span className="grid h-10 w-10 place-items-center rounded-full bg-[#E2E9DC] text-[#627258]">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-[#E7EEFF] text-[#2563FF]">
                 <Layers3 size={17} />
               </span>
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#66725E]">Bring together</div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#2563FF]">Bring together</div>
             </div>
             <h3
               className="mt-6 text-[34px] font-medium leading-[1] tracking-[-0.045em] sm:text-[42px]"
               style={{ fontFamily: DISPLAY }}
             >
-              Move the customer work that benefits from shared context.
+              Put the customer-facing work that benefits from shared context in one place.
             </h3>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
               {["CRM & customer records", "Inbox & conversations", "Pipelines & bookings", "Marketing & follow-through", "Forms & lead capture", "Payments & invoices"].map((item) => (
-                <div key={item} className="flex items-center gap-2.5 border-t border-[#E4E0DA] pt-3 text-[11px] font-semibold text-[#525954]">
-                  <Check size={13} className="text-[#6E815F]" />
+                <div key={item} className="flex items-center gap-2.5 border-t border-[#E3E7EE] pt-3 text-[11px] font-semibold text-[#525D70]">
+                  <Check size={13} className="text-[#2563FF]" />
                   {item}
                 </div>
               ))}
             </div>
           </Reveal>
 
-          <Reveal className="bg-[#F9F7F2] p-7 sm:p-9" delay={0.07}>
+          <Reveal className="bg-[#FAFBFE] p-7 sm:p-9" delay={0.07}>
             <div className="flex items-center gap-3">
-              <span className="grid h-10 w-10 place-items-center rounded-full bg-[#E6ECF9] text-[#4D69A7]">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-[#FFF0EA] text-[#C96F55]">
                 <Workflow size={17} />
               </span>
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#63749A]">Keep and connect</div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#B9654E]">Keep and connect</div>
             </div>
             <h3
               className="mt-6 text-[34px] font-medium leading-[1] tracking-[-0.045em] sm:text-[42px]"
@@ -988,19 +875,19 @@ function ReplaceConnect() {
             >
               Keep specialist systems where they still make sense.
             </h3>
-            <p className="mt-5 max-w-[530px] text-[13px] leading-[1.75] text-[#6E716D] sm:text-[14px]">
-              Keep the specialist systems that still earn their place. Zapla can connect to supported tools and channels so the customer journey does not have to restart every time the work crosses systems.
+            <p className="mt-5 max-w-[530px] text-[13px] leading-[1.75] text-[#687386] sm:text-[14px]">
+              Where another system still belongs, supported connections can keep it part of the customer flow so the team does not have to restart the story every time work crosses systems.
             </p>
-            <div className="mt-7 rounded-[17px] border border-[#DDDCD7] bg-white p-4">
-              <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#7C837E]">Guided Launch</div>
-              <div className="mt-2 text-[12px] font-semibold text-[#363D39]">
-                We map what moves into Zapla, what connects to it and what should happen automatically.
+            <div className="mt-7 rounded-[17px] border border-[#DCE3EE] bg-white p-4">
+              <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#7A8496]">The decision</div>
+              <div className="mt-2 text-[12px] font-semibold text-[#354055]">
+                Move what benefits from shared context. Keep what is genuinely specialist. Connect the gap where supported.
               </div>
             </div>
           </Reveal>
         </div>
 
-        <Reveal className="mt-6 text-center text-[10px] leading-[1.6] text-[#88837C]">
+        <Reveal className="mt-6 text-center text-[10px] leading-[1.6] text-[#8992A1]">
           Connection options depend on the systems, channels and account setup being used.
         </Reveal>
       </div>
@@ -1008,127 +895,163 @@ function ReplaceConnect() {
   );
 }
 
-function GoDeeper() {
-  const platformLinks = [
+
+function GuidedLaunch() {
+  const steps = [
     {
-      title: "CRM",
-      copy: "Work from the customer record, conversations, pipeline and shared history.",
+      number: "01",
+      title: "Map",
+      copy: "We map how enquiries, customers, bookings and hand-offs move through your business.",
+    },
+    {
+      number: "02",
+      title: "Build",
+      copy: "We configure the agreed records, pipelines, forms, automations and connections around that flow.",
+    },
+    {
+      number: "03",
+      title: "Launch",
+      copy: "We test the first working version with your team and get it live.",
+    },
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-[#111827] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="pointer-events-none absolute -left-24 bottom-0 h-[360px] w-[360px] rounded-full bg-[#2563FF]/18 blur-[140px]" />
+      <div className="pointer-events-none absolute -right-20 top-0 h-[300px] w-[300px] rounded-full bg-[#F29B78]/12 blur-[120px]" />
+      <div className="relative mx-auto max-w-[1320px]">
+        <Reveal className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <Eyebrow dark>Guided Launch</Eyebrow>
+            <h2
+              className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              You do not have to map
+              <span className="block text-[#8EADFF]">this system alone.</span>
+            </h2>
+          </div>
+          <p className="max-w-[620px] text-[14px] leading-[1.75] text-white/60 sm:text-[15px]">
+            Guided Launch turns the platform into a first working version around your business. We decide what moves into Zapla, what stays connected and what should happen automatically.
+          </p>
+        </Reveal>
+
+        <div className="mt-12 grid overflow-hidden rounded-[26px] border border-white/10 bg-white/[0.045] lg:grid-cols-3">
+          {steps.map((step, index) => (
+            <Reveal
+              key={step.title}
+              className={"p-7 sm:p-8 " + (index ? "border-t border-white/10 lg:border-l lg:border-t-0" : "")}
+              delay={index * 0.05}
+            >
+              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#8EADFF]">{step.number}</div>
+              <h3 className="mt-5 text-[34px] font-medium tracking-[-0.045em]" style={{ fontFamily: DISPLAY }}>{step.title}</h3>
+              <p className="mt-4 max-w-[340px] text-[12px] leading-[1.7] text-white/52 sm:text-[13px]">{step.copy}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-8 flex flex-col gap-5 rounded-[22px] border border-white/10 bg-white/[0.04] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+          <div>
+            <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#F2B85B]">What gets decided</div>
+            <div className="mt-2 text-[17px] font-semibold tracking-[-0.02em] text-white">What moves. What stays. What should happen automatically.</div>
+          </div>
+          <PrimaryButton label="Map my setup" />
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function GoDeeper() {
+  const intents = [
+    {
+      title: "Manage customers and opportunities",
+      product: "CRM",
+      copy: "Keep records, conversations, pipelines and customer history together.",
       href: "/crm",
       icon: <UserRound size={17} />,
     },
     {
-      title: "Customer Marketing",
-      copy: "Use customer data to reach relevant groups and keep replies attached to the same customer.",
-      href: "/customer-marketing",
-      icon: <Send size={17} />,
+      title: "Stop enquiries going quiet",
+      product: "Follow-Up",
+      copy: "Keep expected next steps moving after an enquiry, quote or booking.",
+      href: "/follow-up",
+      icon: <Workflow size={17} />,
     },
     {
-      title: "AI Receptionist",
-      copy: "Handle calls, qualification, booking and hand-off while keeping the next step connected.",
+      title: "Answer more calls and book more work",
+      product: "AI Receptionist",
+      copy: "Handle calls, qualification, booking and hand-off without losing the next step.",
       href: "/ai-receptionist",
       icon: <Phone size={17} />,
     },
     {
-      title: "Reviews & Reputation",
+      title: "Bring dormant leads and customers back",
+      product: "Reopen",
+      copy: "Restart relevant conversations without losing the history that came before.",
+      href: "/reactivation",
+      icon: <RefreshCw size={17} />,
+    },
+    {
+      title: "Reach existing customers with relevant campaigns",
+      product: "Customer Marketing",
+      copy: "Use customer data to choose the right audience and keep replies connected.",
+      href: "/customer-marketing",
+      icon: <Send size={17} />,
+    },
+    {
+      title: "Ask for reviews at the right moment",
+      product: "Reviews & Reputation",
       copy: "Carry the customer story through to the review moment after the work is done.",
       href: "/reviews",
       icon: <Sparkles size={17} />,
     },
   ];
 
-  const solutionLinks = [
-    {
-      title: "Follow-Up",
-      copy: "Keep enquiries, quotes and other expected next steps moving.",
-      href: "/follow-up",
-    },
-    {
-      title: "Reopen",
-      copy: "Restart dormant customer conversations without losing the history that came before.",
-      href: "/reactivation",
-    },
-  ];
-
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[900px]">
-          <Eyebrow>Go deeper</Eyebrow>
-          <h2
-            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Start with the part of Zapla
-            <span className="block text-[#717770]">you need to understand next.</span>
-          </h2>
+        <Reveal className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <div>
+            <Eyebrow>Choose where to go next</Eyebrow>
+            <h2
+              className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              What do you want
+              <span className="block text-[#2563FF]">to fix first?</span>
+            </h2>
+          </div>
+          <p className="max-w-[600px] text-[14px] leading-[1.75] text-[#626B79] sm:text-[15px]">
+            Start with the job that is getting stuck today. Each page goes deeper into how Zapla handles that specific part of the customer journey.
+          </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.28fr_0.72fr]">
-          <Reveal>
-            <div className="rounded-[27px] border border-[#DCDDD8] bg-white p-6 sm:p-8">
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#64715E]">
-                Explore the platform
+        <div className="mt-12 grid overflow-hidden rounded-[28px] border border-[#DDE3EC] md:grid-cols-2">
+          {intents.map((item, index) => (
+            <a
+              key={item.title}
+              href={item.href}
+              className={
+                "group grid gap-4 bg-white p-6 transition-colors hover:bg-[#F8FAFF] sm:p-7 " +
+                (index >= 2 ? "border-t border-[#DDE3EC] " : "") +
+                (index % 2 === 1 ? "md:border-l md:border-[#DDE3EC] " : "") +
+                (index === 1 ? "border-t border-[#DDE3EC] md:border-t-0 " : "")
+              }
+            >
+              <div className="flex items-start justify-between gap-5">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-[#E7EEFF] text-[#2563FF]">{item.icon}</span>
+                <ArrowRight size={15} className="mt-2 text-[#9BA5B5] transition-transform group-hover:translate-x-1 group-hover:text-[#2563FF]" />
               </div>
-              <div className="mt-5 border-y border-[#E2E3DF]">
-                {platformLinks.map((item) => (
-                  <a
-                    key={item.title}
-                    href={item.href}
-                    className="group grid gap-3 border-b border-[#E2E3DF] py-5 last:border-b-0 sm:grid-cols-[44px_0.6fr_1fr_22px] sm:items-center sm:gap-5"
-                  >
-                    <span className="grid h-10 w-10 place-items-center rounded-full bg-[#EEF1EB] text-[#61705A]">
-                      {item.icon}
-                    </span>
-                    <span
-                      className="text-[23px] font-medium tracking-[-0.035em] text-[#222724]"
-                      style={{ fontFamily: DISPLAY }}
-                    >
-                      {item.title}
-                    </span>
-                    <span className="text-[11px] leading-[1.65] text-[#737A74]">{item.copy}</span>
-                    <ArrowRight size={15} className="text-[#9CA19C] transition-transform group-hover:translate-x-1 group-hover:text-[#2563FF]" />
-                  </a>
-                ))}
+              <div>
+                <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#7F8A9E]">{item.product}</div>
+                <h3 className="mt-2 text-[27px] font-medium leading-[1.02] tracking-[-0.04em] text-[#172033]" style={{ fontFamily: DISPLAY }}>
+                  {item.title}
+                </h3>
+                <p className="mt-3 max-w-[500px] text-[12px] leading-[1.65] text-[#6B7587]">{item.copy}</p>
               </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.06}>
-            <div className="h-full rounded-[27px] bg-[#1E2B29] p-6 text-white sm:p-8">
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#E7B75E]">
-                Solve a specific problem
-              </div>
-              <div className="mt-5 space-y-4">
-                {solutionLinks.map((item) => (
-                  <a
-                    key={item.title}
-                    href={item.href}
-                    className="group block rounded-[18px] border border-white/10 bg-white/[0.055] p-5 transition-colors hover:bg-white/[0.08]"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <h3
-                        className="text-[28px] font-medium tracking-[-0.04em]"
-                        style={{ fontFamily: DISPLAY }}
-                      >
-                        {item.title}
-                      </h3>
-                      <ArrowRight size={15} className="text-white/40 transition-transform group-hover:translate-x-1 group-hover:text-[#AFC3FF]" />
-                    </div>
-                    <p className="mt-3 text-[11px] leading-[1.65] text-white/48">{item.copy}</p>
-                  </a>
-                ))}
-              </div>
-
-              <div className="mt-7 border-t border-white/10 pt-6">
-                <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-white/35">
-                  Other follow-through moments
-                </div>
-                <p className="mt-2 text-[11px] leading-[1.65] text-white/45">
-                  Quote chasing, appointment recovery and repeat & recall can also be mapped around the same customer history.
-                </p>
-              </div>
-            </div>
-          </Reveal>
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -1137,9 +1060,9 @@ function GoDeeper() {
 
 function FinalCta() {
   return (
-    <section className="bg-[#FCFCFA] px-5 pb-10 pt-8 sm:px-10 sm:pb-12 lg:px-16">
+    <section className="bg-[#F8FAFF] px-5 pb-12 pt-12 sm:px-10 sm:pb-14 sm:pt-16 lg:px-16">
       <Reveal className="mx-auto max-w-[1080px] text-center">
-        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111827] ring-1 ring-black/[0.06]">
           <ZaplaPetal size={34} />
         </div>
 
@@ -1148,22 +1071,22 @@ function FinalCta() {
         </div>
 
         <h2
-          className="mx-auto mt-3 max-w-[980px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[56px] lg:text-[66px]"
+          className="mx-auto mt-3 max-w-[980px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111827] sm:text-[56px] lg:text-[66px]"
           style={{ fontFamily: DISPLAY }}
         >
-          Stop rebuilding the customer story
-          <span className="block text-[#2563FF]">every time the work moves.</span>
+          See where Zapla should fit
+          <span className="block text-[#2563FF]">around your customer journey.</span>
         </h2>
 
-        <p className="mx-auto mt-4 max-w-[760px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
-          We’ll map the customer journey, the systems around it and the places where shared context can remove manual follow-through.
+        <p className="mx-auto mt-4 max-w-[760px] text-[15px] leading-[1.68] text-[#616B7B] sm:text-[16px]">
+          We’ll map what should move into Zapla, what should stay connected and where better context can remove manual follow-through.
         </p>
 
         <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <PrimaryButton />
           <a
             href={PRICING_URL}
-            className="inline-flex h-[50px] w-full items-center justify-center rounded-full border border-[#E2DBD1] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA] sm:w-auto"
+            className="inline-flex h-[50px] w-full items-center justify-center rounded-full border border-[#D6DEEB] bg-white px-6 text-[13px] font-semibold text-[#172033] transition-colors hover:border-[#2563FF] sm:w-auto"
           >
             View pricing
           </a>
@@ -1172,3 +1095,4 @@ function FinalCta() {
     </section>
   );
 }
+
