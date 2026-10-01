@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ReactivationRouteImport } from './routes/reactivation'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
+import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as FollowUpRouteImport } from './routes/follow-up'
+import { Route as CustomerMarketingRouteImport } from './routes/customer-marketing'
 import { Route as CrmRouteImport } from './routes/crm'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
 import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
@@ -39,6 +41,11 @@ const PricingV2Route = PricingV2RouteImport.update({
   path: '/pricing-v2',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformRoute = PlatformRouteImport.update({
+  id: '/platform',
+  path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
@@ -47,6 +54,11 @@ const McpRoute = McpRouteImport.update({
 const FollowUpRoute = FollowUpRouteImport.update({
   id: '/follow-up',
   path: '/follow-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerMarketingRoute = CustomerMarketingRouteImport.update({
+  id: '/customer-marketing',
+  path: '/customer-marketing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CrmRoute = CrmRouteImport.update({
@@ -105,8 +117,10 @@ export interface FileRoutesByFullPath {
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
   '/crm': typeof CrmRoute
+  '/customer-marketing': typeof CustomerMarketingRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
+  '/platform': typeof PlatformRoute
   '/pricing-v2': typeof PricingV2Route
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
@@ -121,8 +135,10 @@ export interface FileRoutesByTo {
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
   '/crm': typeof CrmRoute
+  '/customer-marketing': typeof CustomerMarketingRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
+  '/platform': typeof PlatformRoute
   '/pricing-v2': typeof PricingV2Route
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
@@ -138,8 +154,10 @@ export interface FileRoutesById {
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
   '/crm': typeof CrmRoute
+  '/customer-marketing': typeof CustomerMarketingRoute
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
+  '/platform': typeof PlatformRoute
   '/pricing-v2': typeof PricingV2Route
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
@@ -156,8 +174,10 @@ export interface FileRouteTypes {
     | '/Pricing-v3'
     | '/ai-receptionist'
     | '/crm'
+    | '/customer-marketing'
     | '/follow-up'
     | '/mcp'
+    | '/platform'
     | '/pricing-v2'
     | '/reactivation'
     | '/reviews'
@@ -172,8 +192,10 @@ export interface FileRouteTypes {
     | '/Pricing-v3'
     | '/ai-receptionist'
     | '/crm'
+    | '/customer-marketing'
     | '/follow-up'
     | '/mcp'
+    | '/platform'
     | '/pricing-v2'
     | '/reactivation'
     | '/reviews'
@@ -188,8 +210,10 @@ export interface FileRouteTypes {
     | '/Pricing-v3'
     | '/ai-receptionist'
     | '/crm'
+    | '/customer-marketing'
     | '/follow-up'
     | '/mcp'
+    | '/platform'
     | '/pricing-v2'
     | '/reactivation'
     | '/reviews'
@@ -205,8 +229,10 @@ export interface RootRouteChildren {
   PricingV3Route: typeof PricingV3Route
   AiReceptionistRoute: typeof AiReceptionistRoute
   CrmRoute: typeof CrmRoute
+  CustomerMarketingRoute: typeof CustomerMarketingRoute
   FollowUpRoute: typeof FollowUpRoute
   McpRoute: typeof McpRoute
+  PlatformRoute: typeof PlatformRoute
   PricingV2Route: typeof PricingV2Route
   ReactivationRoute: typeof ReactivationRoute
   ReviewsRoute: typeof ReviewsRoute
@@ -240,6 +266,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingV2RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform': {
+      id: '/platform'
+      path: '/platform'
+      fullPath: '/platform'
+      preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mcp': {
       id: '/mcp'
       path: '/mcp'
@@ -252,6 +285,13 @@ declare module '@tanstack/react-router' {
       path: '/follow-up'
       fullPath: '/follow-up'
       preLoaderRoute: typeof FollowUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer-marketing': {
+      id: '/customer-marketing'
+      path: '/customer-marketing'
+      fullPath: '/customer-marketing'
+      preLoaderRoute: typeof CustomerMarketingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/crm': {
@@ -325,8 +365,10 @@ const rootRouteChildren: RootRouteChildren = {
   PricingV3Route: PricingV3Route,
   AiReceptionistRoute: AiReceptionistRoute,
   CrmRoute: CrmRoute,
+  CustomerMarketingRoute: CustomerMarketingRoute,
   FollowUpRoute: FollowUpRoute,
   McpRoute: McpRoute,
+  PlatformRoute: PlatformRoute,
   PricingV2Route: PricingV2Route,
   ReactivationRoute: ReactivationRoute,
   ReviewsRoute: ReviewsRoute,
