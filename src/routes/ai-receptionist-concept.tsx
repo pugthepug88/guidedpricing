@@ -74,8 +74,7 @@ function AIReceptionistConcept() {
     <main className="min-h-screen bg-[#FCFCFA] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <Hero />
       <StickyCallStory />
-      <IndustryExamples />
-      <ConnectedJourney />
+      <BusinessConnectedStory />
       <SetupControlPricing />
       <Faq />
       <FinalCta />
@@ -552,7 +551,7 @@ function StickyCallStory() {
   );
 }
 
-function IndustryExamples() {
+function BusinessConnectedStory() {
   const examples = [
     {
       key: "allied-health",
@@ -560,7 +559,8 @@ function IndustryExamples() {
       icon: <Stethoscope size={16} />,
       caller: "Are you taking new patients, and do you have anything after 5?",
       reply: "I can help with your booking options and practice information. What day works best for you?",
-      outcome: ["Enquiry captured", "Booking path started", "Handoff available"],
+      captured: "New patient enquiry",
+      route: "Appointment path",
       accent: "#99A36D",
     },
     {
@@ -569,7 +569,8 @@ function IndustryExamples() {
       icon: <Hammer size={16} />,
       caller: "My hot water has stopped. Can someone come out today?",
       reply: "I can take the details and check the urgent-job flow. What suburb are you in?",
-      outcome: ["Urgency captured", "Job routed", "Customer details attached"],
+      captured: "Urgent job enquiry",
+      route: "Job booking",
       accent: "#DDA34B",
     },
     {
@@ -578,7 +579,8 @@ function IndustryExamples() {
       icon: <Home size={16} />,
       caller: "I’m thinking of selling and would like to organise an appraisal.",
       reply: "Absolutely. I can take the property details and arrange the next step with the team.",
-      outcome: ["Seller lead created", "Property details saved", "Follow-up task triggered"],
+      captured: "Seller enquiry",
+      route: "Appraisal path",
       accent: "#E97D62",
     },
     {
@@ -587,7 +589,8 @@ function IndustryExamples() {
       icon: <Briefcase size={16} />,
       caller: "I’m not sure which service I need. Can someone talk me through it?",
       reply: "I can take a few details, identify the right enquiry path and arrange the next step with the team.",
-      outcome: ["Need captured", "Enquiry routed", "Next step recorded"],
+      captured: "Service enquiry",
+      route: "Right team",
       accent: "#9B86B8",
     },
   ] as const;
@@ -596,148 +599,198 @@ function IndustryExamples() {
   const [selectedKey, setSelectedKey] = useState(examples[0].key);
   const selected = examples.find((example) => example.key === selectedKey) ?? examples[0];
 
-  return (
-    <section className="bg-white px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1240px]">
-        <Reveal className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <Eyebrow>Built around your business</Eyebrow>
-            <h2 className="mt-4 text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
-              Same AI. Different job.
-            </h2>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {examples.map((example) => {
-              const active = selected.key === example.key;
-              return (
-                <button
-                  key={example.key}
-                  type="button"
-                  onClick={() => setSelectedKey(example.key)}
-                  aria-pressed={active}
-                  className="inline-flex h-[42px] items-center gap-2 rounded-full border px-4 text-[12px] font-semibold transition-colors"
-                  style={
-                    active
-                      ? { borderColor: example.accent, backgroundColor: example.accent + "18", color: "#111318" }
-                      : { borderColor: "#DDE1DB", backgroundColor: "#FAFAF8", color: "#555C56" }
-                  }
-                >
-                  {example.icon}
-                  {example.label}
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
-
-        <motion.div
-          key={selected.key}
-          initial={reduced ? false : { opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
-          className="mt-8 grid border-y border-[#E2E5E1] py-9 lg:grid-cols-[1.05fr_.95fr] lg:gap-16"
-        >
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8A8178]">Caller</div>
-            <div className="mt-3 max-w-[610px] text-[28px] font-medium leading-[1.24] tracking-[-0.04em] text-[#111318]" style={{ fontFamily: DISPLAY }}>
-              “{selected.caller}”
-            </div>
-            <div className="mt-8 text-[9px] font-semibold uppercase tracking-[0.16em]" style={{ color: selected.accent }}>Zapla</div>
-            <div className="mt-3 max-w-[610px] text-[21px] font-medium leading-[1.4] tracking-[-0.025em] text-[#343A35]" style={{ fontFamily: DISPLAY }}>
-              “{selected.reply}”
-            </div>
-          </div>
-
-          <div className="mt-8 border-t border-[#E7E9E5] pt-8 lg:mt-0 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8A8178]">What happens next</div>
-            <div className="mt-5 space-y-4">
-              {selected.outcome.map((item, index) => (
-                <div key={item} className="flex items-center gap-4 border-b border-[#E7E9E5] pb-4">
-                  <span className="text-[10px] font-semibold tracking-[0.12em] text-[#A3A8A2]">0{index + 1}</span>
-                  <span className="text-[14px] font-semibold text-[#343A35]">{item}</span>
-                  <span className="ml-auto flex h-6 w-6 items-center justify-center rounded-full" style={{ color: selected.accent, backgroundColor: selected.accent + "18" }}>
-                    <Check size={12} strokeWidth={2.5} />
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function ConnectedJourney() {
-  const nodes = [
-    { label: "Call", icon: <Phone size={17} />, accent: "#E97D62", href: null },
-    { label: "Customer record", icon: <UserRound size={17} />, accent: "#99A36D", href: "/crm" },
-    { label: "Follow-up", icon: <MessageSquare size={17} />, accent: "#DDA34B", href: "/follow-up" },
-    { label: "Booking", icon: <Calendar size={17} />, accent: "#9B86B8", href: null },
-    { label: "Review", icon: <Star size={17} />, accent: "#C96C85", href: "/reviews" },
-    { label: "Repeat customer", icon: <RefreshCcw size={17} />, accent: "#788565", href: "/reactivation" },
+  const journey = [
+    {
+      label: "Captured",
+      value: selected.captured,
+      icon: <Phone size={16} />,
+      accent: selected.accent,
+      href: null,
+    },
+    {
+      label: "Customer record",
+      value: "Contact created",
+      icon: <UserRound size={16} />,
+      accent: "#99A36D",
+      href: "/crm",
+    },
+    {
+      label: "Booking or route",
+      value: selected.route,
+      icon: <Calendar size={16} />,
+      accent: "#9B86B8",
+      href: null,
+    },
+    {
+      label: "Follow-up",
+      value: "Next action moving",
+      icon: <MessageSquare size={16} />,
+      accent: "#DDA34B",
+      href: "/follow-up",
+    },
+    {
+      label: "Review",
+      value: "Ask at the right time",
+      icon: <Star size={16} />,
+      accent: "#C96C85",
+      href: "/reviews",
+    },
+    {
+      label: "Repeat",
+      value: "Bring them back",
+      icon: <RefreshCcw size={16} />,
+      accent: "#788565",
+      href: "/reactivation",
+    },
   ] as const;
 
   return (
-    <section className="overflow-hidden bg-[#F7F2EB] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+    <section className="overflow-hidden bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[900px]">
-          <h2
-            className="text-[44px] font-medium leading-[0.95] tracking-[-0.058em] text-[#111318] sm:text-[58px] lg:text-[72px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            The receptionist is only
-            <span className="block text-[#C96F55]">the front door.</span>
-          </h2>
-          <p className="mt-6 max-w-[700px] text-[15px] leading-[1.72] text-[#616761] sm:text-[17px]">
-            The useful part is what happens after the call. Zapla keeps the customer journey connected instead of handing you another isolated tool.
-          </p>
-        </Reveal>
+        <Reveal className="grid gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
+          <div className="max-w-[760px]">
+            <Eyebrow>Built around your business</Eyebrow>
+            <h2
+              className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] text-[#111318] sm:text-[58px] lg:text-[70px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Built for your front desk.
+              <span className="block text-[#C96F55]">Connected to the rest of it.</span>
+            </h2>
+          </div>
 
-        <Reveal className="mt-16 lg:mt-20">
-          <div className="relative">
-            <div className="pointer-events-none absolute left-[6%] right-[6%] top-[25px] hidden h-px bg-[#D7D1C8] lg:block" />
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6 lg:gap-2">
-              {nodes.map((node, index) => {
-                const inner = (
-                  <motion.div
-                    whileHover={node.href ? { y: -4 } : undefined}
-                    className="group relative h-full border-t border-[#D7D1C8] pt-6 lg:border-t-0 lg:pt-0"
+          <div className="lg:pb-1">
+            <p className="max-w-[600px] text-[15px] leading-[1.7] text-[#626762] sm:text-[17px]">
+              Switch the business and the call changes. What matters is that the customer, booking and next action keep moving through Zapla.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {examples.map((example) => {
+                const active = selected.key === example.key;
+                return (
+                  <button
+                    key={example.key}
+                    type="button"
+                    onClick={() => setSelectedKey(example.key)}
+                    aria-pressed={active}
+                    className="inline-flex h-[42px] items-center gap-2 rounded-full border px-4 text-[12px] font-semibold transition-all duration-200"
+                    style={
+                      active
+                        ? {
+                            borderColor: example.accent,
+                            backgroundColor: example.accent + "16",
+                            color: "#111318",
+                            boxShadow: "0 8px 24px rgba(30,43,41,.05)",
+                          }
+                        : {
+                            borderColor: "#DDE1DB",
+                            backgroundColor: "#FFFFFF",
+                            color: "#5C635D",
+                          }
+                    }
                   >
-                    <div
-                      className="relative z-10 flex h-[50px] w-[50px] items-center justify-center rounded-full border-[5px] border-[#F7F2EB] shadow-[0_0_0_1px_rgba(30,43,41,.08)]"
-                      style={{ color: node.accent, backgroundColor: node.accent + "18" }}
-                    >
-                      {node.icon}
-                    </div>
-                    <div className="mt-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9A958D]">0{index + 1}</div>
-                    <div className="mt-2 flex items-center gap-2 text-[17px] font-semibold tracking-[-0.025em] text-[#202420]" style={{ fontFamily: DISPLAY }}>
-                      {node.label}
-                      {node.href && <ArrowRight size={13} className="opacity-35 transition-transform group-hover:translate-x-1 group-hover:opacity-70" />}
-                    </div>
-                  </motion.div>
-                );
-                return node.href ? (
-                  <a key={node.label} href={node.href} className="block min-h-[150px]">
-                    {inner}
-                  </a>
-                ) : (
-                  <div key={node.label} className="min-h-[150px]">
-                    {inner}
-                  </div>
+                    {example.icon}
+                    {example.label}
+                  </button>
                 );
               })}
             </div>
           </div>
         </Reveal>
 
-        <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-[11px] font-semibold text-[#7A807A]">
-          <span>CRM</span>
-          <span>Follow-up</span>
-          <span>Reviews</span>
-          <span>Reactivation</span>
-          <span className="text-[#C96F55]">One customer journey.</span>
+        <div className="mt-16 lg:mt-20">
+          <motion.div
+            key={selected.key + "-conversation"}
+            initial={reduced ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
+            className="grid gap-10 border-y border-[#DDE2DD] py-10 lg:grid-cols-2 lg:gap-16 lg:py-12"
+          >
+            <div className="relative lg:pr-8">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#8A8178]">Caller</div>
+              <div
+                className="mt-4 max-w-[620px] text-[30px] font-medium leading-[1.2] tracking-[-0.042em] text-[#111318] sm:text-[34px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                “{selected.caller}”
+              </div>
+            </div>
+
+            <div className="relative border-t border-[#E5E8E4] pt-9 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.17em]" style={{ color: selected.accent }}>Zapla</div>
+              <div
+                className="mt-4 max-w-[620px] text-[23px] font-medium leading-[1.36] tracking-[-0.03em] text-[#343A35] sm:text-[26px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                “{selected.reply}”
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="relative pb-4 pt-14 lg:pb-8 lg:pt-20">
+            <div className="pointer-events-none absolute left-[4%] right-[4%] top-[105px] hidden h-px bg-[#D9DED8] lg:block" />
+            <motion.div
+              key={selected.key + "-line"}
+              className="pointer-events-none absolute left-[4%] top-[104px] hidden h-[2px] origin-left lg:block"
+              style={{
+                right: "4%",
+                background:
+                  "linear-gradient(90deg," +
+                  selected.accent +
+                  " 0%,#99A36D 22%,#9B86B8 43%,#DDA34B 62%,#C96C85 81%,#788565 100%)",
+              }}
+              initial={reduced ? false : { scaleX: 0, opacity: 0 }}
+              whileInView={{ scaleX: 1, opacity: 0.72 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: reduced ? 0 : 0.9, ease: EASE }}
+            />
+
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-5">
+              {journey.map((item, index) => {
+                const content = (
+                  <motion.div
+                    initial={reduced ? false : { opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.65 }}
+                    transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : index * 0.07, ease: EASE }}
+                    whileHover={item.href ? { y: -4 } : undefined}
+                    className="group relative min-h-[160px] border-t border-[#DDE2DD] pt-6 lg:border-t-0 lg:pt-0"
+                  >
+                    <div
+                      className="relative z-10 flex h-[54px] w-[54px] items-center justify-center rounded-full border-[6px] border-[#FCFCFA] shadow-[0_0_0_1px_rgba(30,43,41,.10),0_10px_30px_rgba(30,43,41,.05)]"
+                      style={{ color: item.accent, backgroundColor: item.accent + "16" }}
+                    >
+                      {item.icon}
+                    </div>
+
+                    <div className="mt-6 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#9A9F99]">
+                      0{index + 1} · {item.label}
+                    </div>
+                    <div
+                      className="mt-2 max-w-[170px] text-[18px] font-semibold leading-[1.2] tracking-[-0.03em] text-[#242824]"
+                      style={{ fontFamily: DISPLAY }}
+                    >
+                      {item.value}
+                    </div>
+
+                    {item.href && (
+                      <div className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#777E78] transition-colors group-hover:text-[#252A26]">
+                        Explore {item.label}
+                        <ArrowRight size={11} className="transition-transform group-hover:translate-x-1" />
+                      </div>
+                    )}
+                  </motion.div>
+                );
+
+                return item.href ? (
+                  <a key={item.label} href={item.href} className="block">
+                    {content}
+                  </a>
+                ) : (
+                  <div key={item.label}>{content}</div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
