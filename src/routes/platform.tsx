@@ -5,7 +5,6 @@ import {
   ArrowDown,
   ArrowRight,
   CalendarDays,
-  CheckCircle2,
   CreditCard,
   MessageSquareText,
   Phone,
@@ -44,7 +43,7 @@ function PlatformPage() {
   return (
     <main
       data-page="platform"
-      className="min-h-screen overflow-hidden bg-white text-[#111318] antialiased"
+      className="min-h-screen bg-white text-[#111318] antialiased"
       style={{ fontFamily: BODY }}
     >
       <Hero />
@@ -89,93 +88,56 @@ function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boole
 
 function Hero() {
   return (
-    <section className="relative bg-white px-5 pb-10 pt-[108px] sm:px-10 sm:pb-12 sm:pt-[120px] lg:px-16 lg:pt-[128px]">
-      <div className="pointer-events-none absolute left-1/2 top-20 h-[360px] w-[760px] -translate-x-1/2 rounded-full bg-[#2563FF]/[0.055] blur-[120px]" />
-      <div className="relative mx-auto max-w-[1180px] text-center">
-        <Reveal>
-          <Eyebrow>Zapla Platform</Eyebrow>
-          <h1
-            className="mx-auto mt-4 max-w-[1020px] text-[50px] font-medium leading-[0.94] tracking-[-0.058em] sm:text-[70px] lg:text-[88px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            One customer.
-            <span className="block text-[#2563FF]">One connected system around them.</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-[760px] text-[16px] leading-[1.7] text-[#606978] sm:text-[18px]">
-            Calls, messages, bookings, payments, follow-up and reviews stay attached to the same customer, so the next step can move with them.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href="#platform-map"
-              className="inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full bg-[#111827] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px sm:w-auto"
+    <>
+      <section className="relative bg-white px-5 pb-12 pt-[108px] sm:px-10 sm:pt-[120px] lg:hidden">
+        <div className="pointer-events-none absolute left-1/2 top-20 h-[320px] w-[520px] -translate-x-1/2 rounded-full bg-[#2563FF]/[0.055] blur-[110px]" />
+        <div className="relative mx-auto max-w-[760px] text-center">
+          <Reveal>
+            <Eyebrow>Zapla Platform</Eyebrow>
+            <h1
+              className="mx-auto mt-4 max-w-[760px] text-[46px] font-medium leading-[0.95] tracking-[-0.055em] sm:text-[62px]"
+              style={{ fontFamily: DISPLAY }}
             >
-              See what makes up Zapla <ArrowDown size={14} />
-            </a>
-            <a
-              href={BOOK_URL}
-              className="inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full border border-[#D8E0EC] bg-white px-6 text-[13px] font-semibold text-[#172033] transition-colors hover:border-[#2563FF] sm:w-auto"
-            >
-              Book a Call <ArrowRight size={14} />
-            </a>
+              One customer.
+              <span className="block text-[#2563FF]">One connected system.</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-[720px] text-[16px] leading-[1.7] text-[#606978] sm:text-[17px]">
+              When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href="#platform-map"
+                className="inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full bg-[#111827] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px sm:w-auto"
+              >
+                See what makes up Zapla <ArrowDown size={14} />
+              </a>
+              <a
+                href={BOOK_URL}
+                className="inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full border border-[#D8E0EC] bg-white px-6 text-[13px] font-semibold text-[#172033] transition-colors hover:border-[#2563FF] sm:w-auto"
+              >
+                Book a Call <ArrowRight size={14} />
+              </a>
+            </div>
+          </Reveal>
+          <div className="mx-auto mt-10 h-[280px] w-[220px]">
+            <img
+              src={heroColor.url}
+              alt="A customer at the centre of a connected customer journey"
+              className="h-full w-full object-contain"
+            />
           </div>
-        </Reveal>
-      </div>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {MOMENT_CARDS.map((card) => (
+              <StaticMomentCard key={card.title} card={card} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       <ConnectedCustomerScene />
-    </section>
+    </>
   );
 }
-
-const MOMENT_CARDS = [
-  {
-    title: "Enquiry captured",
-    meta: "Call added to the customer record",
-    icon: Phone,
-    tone: "blue",
-    pos: "left-[3%] top-[8%]",
-    appear: 0.12,
-  },
-  {
-    title: "Conversation",
-    meta: "Reply lands in the same history",
-    icon: MessageSquareText,
-    tone: "cyan",
-    pos: "right-[3%] top-[8%]",
-    appear: 0.24,
-  },
-  {
-    title: "Booking confirmed",
-    meta: "The customer state changes",
-    icon: CalendarDays,
-    tone: "blue",
-    pos: "right-[1%] top-[49%]",
-    appear: 0.38,
-  },
-  {
-    title: "Payment received",
-    meta: "Accounts can see the latest status",
-    icon: CreditCard,
-    tone: "green",
-    pos: "right-[22%] bottom-[4%]",
-    appear: 0.52,
-  },
-  {
-    title: "Follow-up adjusts",
-    meta: "The next action changes with the customer",
-    icon: Workflow,
-    tone: "cyan",
-    pos: "left-[22%] bottom-[4%]",
-    appear: 0.66,
-  },
-  {
-    title: "Review moment",
-    meta: "The completed job can trigger what comes next",
-    icon: Star,
-    tone: "amber",
-    pos: "left-[1%] top-[49%]",
-    appear: 0.80,
-  },
-] as const;
 
 function ConnectedCustomerScene() {
   const reduced = !!useReducedMotion();
@@ -187,54 +149,75 @@ function ConnectedCustomerScene() {
       setProgress(1);
       return;
     }
+
     const section = sectionRef.current;
     if (!section) return;
 
-    let ticking = false;
+    let rafId: number | null = null;
+
     const update = () => {
-      ticking = false;
-      const rect = section.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      if (total <= 0) return;
-      const p = Math.min(1, Math.max(0, -rect.top / total));
-      setProgress(p);
+      const total = section.scrollHeight - window.innerHeight;
+      const p = total > 0 ? (window.scrollY - section.offsetTop) / total : 0;
+      setProgress(Math.max(0, Math.min(1, p)));
+      rafId = null;
     };
+
     const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
+      if (rafId === null) rafId = requestAnimationFrame(update);
     };
+
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, [reduced]);
 
-  const colorProgress = reduced ? 1 : Math.min(1, Math.max(0, (progress - 0.1) / 0.42));
+  const colorProgress = reduced ? 1 : Math.min(1, Math.max(0, (progress - 0.08) / 0.42));
+  const closingOpacity = reduced ? 1 : Math.min(1, Math.max(0, (progress - 0.84) / 0.1));
 
   return (
-    <>
-      <div ref={sectionRef} className="relative mt-10 hidden h-[185vh] lg:block">
-        <div className="sticky top-[64px] h-[calc(100vh-64px)] overflow-hidden">
-          <div className="relative mx-auto h-full max-w-[1380px]">
-            <div className="absolute left-1/2 top-[45%] h-[54vh] w-[360px] -translate-x-1/2 -translate-y-1/2">
+    <section ref={sectionRef} className="relative hidden h-[340vh] bg-white lg:block">
+      <div className="sticky top-0 flex h-screen w-full flex-col overflow-hidden bg-white">
+        <div className="pointer-events-none absolute left-1/2 top-8 h-[360px] w-[820px] -translate-x-1/2 rounded-full bg-[#2563FF]/[0.055] blur-[125px]" />
+
+        <div className="relative z-30 mx-auto w-full max-w-[1050px] px-8 pt-[96px] text-center">
+          <Eyebrow>Zapla Platform</Eyebrow>
+          <h1
+            className="mx-auto mt-4 max-w-[920px] text-[80px] font-medium leading-[0.94] tracking-[-0.056em]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            One customer.
+            <span className="block text-[#2563FF]">One connected system.</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-[800px] text-[17px] leading-[1.68] text-[#606978]">
+            When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
+          </p>
+        </div>
+
+        <div className="relative mx-auto min-h-0 w-full max-w-[1420px] flex-1 px-8">
+          <div className="relative h-full w-full">
+            <div className="absolute left-1/2 top-[49%] h-[48vh] w-[330px] -translate-x-1/2 -translate-y-1/2">
               <img
                 src={heroSketch.url}
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 h-full w-full object-contain"
+                draggable={false}
+                className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain"
                 style={{ opacity: 1 - colorProgress }}
               />
               <img
                 src={heroColor.url}
                 alt="A customer at the centre of a connected customer journey"
-                className="absolute inset-0 h-full w-full object-contain"
+                draggable={false}
+                className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain"
                 style={{ opacity: colorProgress }}
               />
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-[#D8E1F0] bg-white/90 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.15em] text-[#667389] shadow-sm backdrop-blur">
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-[#D8E1F0] bg-white/92 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.15em] text-[#667389] shadow-sm backdrop-blur">
                 One customer · one history
               </div>
             </div>
@@ -244,30 +227,34 @@ function ConnectedCustomerScene() {
             ))}
 
             <div
-              className="absolute bottom-[5%] left-1/2 -translate-x-1/2 text-center transition-opacity duration-500"
-              style={{ opacity: Math.min(1, Math.max(0, (progress - 0.82) / 0.12)) }}
+              className="absolute bottom-[3.5%] left-1/2 -translate-x-1/2 text-center"
+              style={{ opacity: closingOpacity }}
             >
-              <div className="text-[13px] font-semibold text-[#263246]">Same customer. More context. Better next step.</div>
+              <div className="text-[13px] font-semibold text-[#263246]">
+                Same customer. More context. Better next step.
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="mx-auto mt-12 max-w-[760px] lg:hidden">
-        <div className="mx-auto h-[280px] w-[220px]">
-          <img src={heroColor.url} alt="A customer at the centre of a connected customer journey" className="h-full w-full object-contain" />
-        </div>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {MOMENT_CARDS.map((card) => (
-            <StaticMomentCard key={card.title} card={card} />
-          ))}
+        <div className="relative z-30 flex items-center justify-center gap-3 px-8 pb-7">
+          <a
+            href="#platform-map"
+            className="inline-flex h-[46px] items-center justify-center gap-2 rounded-full bg-[#111827] px-5 text-[12px] font-semibold text-white transition-transform hover:-translate-y-px"
+          >
+            See what makes up Zapla <ArrowDown size={13} />
+          </a>
+          <a
+            href={BOOK_URL}
+            className="inline-flex h-[46px] items-center justify-center gap-2 rounded-full border border-[#D8E0EC] bg-white px-5 text-[12px] font-semibold text-[#172033] transition-colors hover:border-[#2563FF]"
+          >
+            Book a Call <ArrowRight size={13} />
+          </a>
         </div>
       </div>
-    </>
+    </section>
   );
 }
-
-type MomentCardData = (typeof MOMENT_CARDS)[number];
 
 function toneClasses(tone: MomentCardData["tone"]) {
   if (tone === "green") return "bg-[#EAF8F1] text-[#159767]";
@@ -356,8 +343,8 @@ function PlatformMap() {
             className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Four parts.
-            <span className="block text-[#8EADFF]">One customer system.</span>
+            The platform behind
+            <span className="block text-[#8EADFF]">the customer journey.</span>
           </h2>
         </Reveal>
 
@@ -391,7 +378,7 @@ function PlatformMap() {
         </div>
 
         <Reveal className="mt-6 text-[12px] leading-[1.7] text-white/42">
-          Follow-up, reactivation, bookings, payments and automation run through the same customer records and workflows.
+          Follow-up, reactivation, bookings, payments and automation work across these areas through the same customer records and workflows.
         </Reveal>
       </div>
     </section>
