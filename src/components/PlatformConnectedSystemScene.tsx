@@ -105,7 +105,7 @@ function DesktopScrollScene() {
   const colorOpacity = useTransform(scrollYProgress, [0.15, 0.55, 1], [0, 1, 1]);
 
   return (
-    <section ref={ref} className="relative h-[460vh] bg-white text-neutral-900">
+    <section ref={ref} className="relative h-[420vh] bg-white text-neutral-900">
       <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
         <div className="relative z-30 pt-11 md:pt-14 px-6 text-center max-w-[860px] mx-auto">
           <h1 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
@@ -133,14 +133,14 @@ function DesktopScrollScene() {
                 className="pointer-events-none absolute left-1/2 top-[52%] h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
               />
 
-              <OrbitCard progress={progress} appearAt={0.18} pos="left-[-6%] top-[2%]"><ConversationsCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.26} pos="right-[-6%] top-[2%]"><NewLeadCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.36} pos="right-[-10%] top-[38%]"><BookingCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.46} pos="right-[-3%] top-[72%]"><WorkflowCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.56} pos="right-[24%] bottom-[2%]"><OpportunityCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.66} pos="left-[24%] bottom-[2%]"><InvoiceCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.76} pos="left-[-3%] top-[72%]"><ReviewCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.86} pos="left-[-10%] top-[38%]"><WinBackCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.18} pos="left-[1%] top-[3%]"><ConversationsCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.26} pos="right-[1%] top-[3%]"><NewLeadCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.36} pos="right-[0%] top-[35%]"><BookingCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.46} pos="right-[2%] top-[64%]"><WorkflowCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.56} pos="right-[23%] bottom-[0%]"><OpportunityCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.66} pos="left-[23%] bottom-[0%]"><InvoiceCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.76} pos="left-[2%] top-[64%]"><ReviewCard /></OrbitCard>
+              <OrbitCard progress={progress} appearAt={0.86} pos="left-[0%] top-[35%]"><WinBackCard /></OrbitCard>
             </div>
           </div>
         </div>
@@ -154,7 +154,7 @@ function OrbitCard({ progress, appearAt, pos, children }: { progress: number; ap
   const moveProgress = progress <= appearAt ? 0 : progress >= appearAt + 0.06 ? 1 : (progress - appearAt) / 0.06;
   const opacity = fadeProgress;
   const y = 24 * (1 - moveProgress);
-  const scale = 0.92 + 0.08 * moveProgress;
+  const scale = (0.92 + 0.08 * moveProgress) * 0.84;
   return (
     <div style={{ opacity, transform: `translateY(${y}px) scale(${scale})` }} className={`absolute z-20 ${pos}`}>
       {children}
