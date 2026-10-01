@@ -26,12 +26,12 @@ type Moment = {
 
 const MOMENTS: Moment[] = [
   { kind: "enquiry", label: "Enquiry", accent: "#BF7458", soft: "#F3E5DF", x: 16, y: 13, width: 300 },
-  { kind: "conversation", label: "Conversation", accent: "#8E657A", soft: "#F0E6EB", x: 84, y: 18, width: 286 },
+  { kind: "conversation", label: "Conversation", accent: "#8E657A", soft: "#F0E6EB", x: 84, y: 14, width: 286 },
   { kind: "pipeline", label: "Pipeline & follow-up", accent: "#85845D", soft: "#ECECE3", x: 14, y: 48, width: 296 },
-  { kind: "booking", label: "Booking", accent: "#0E777B", soft: "#E2F0EF", x: 87, y: 44, width: 274 },
+  { kind: "booking", label: "Booking", accent: "#0E777B", soft: "#E2F0EF", x: 87, y: 39, width: 274 },
   { kind: "payment", label: "Payment", accent: "#C89A5D", soft: "#F2E9DD", x: 16, y: 82, width: 276 },
-  { kind: "review", label: "Review", accent: "#D69672", soft: "#F4E7DF", x: 86, y: 70, width: 286 },
-  { kind: "repeat", label: "Repeat business", accent: "#8E657A", soft: "#F0E6EB", x: 73, y: 88, width: 292 },
+  { kind: "review", label: "Review", accent: "#D69672", soft: "#F4E7DF", x: 88, y: 64, width: 276 },
+  { kind: "repeat", label: "Repeat business", accent: "#8E657A", soft: "#F0E6EB", x: 74, y: 87, width: 282 },
 ];
 
 export function PlatformConnectedSystemScene() {
@@ -124,7 +124,7 @@ function DesktopContextScene() {
   return (
     <div ref={ref} className="relative mt-12 h-[285vh]">
       <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center overflow-hidden">
-        <div className="relative mx-auto h-[650px] max-h-[calc(100vh-96px)] min-h-[540px] w-full max-w-[1280px]">
+        <div className="relative mx-auto h-[700px] max-h-[calc(100vh-90px)] min-h-[560px] w-full max-w-[1320px]">
           <div
             className="pointer-events-none absolute left-1/2 top-[57%] h-[76%] w-[54%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
             style={{
