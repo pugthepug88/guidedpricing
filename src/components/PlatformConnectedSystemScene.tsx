@@ -108,7 +108,7 @@ function DesktopScrollScene() {
     <section ref={ref} className="relative h-[420vh] bg-white text-neutral-900">
       <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
         <div className="relative z-30 pt-11 md:pt-14 px-6 text-center max-w-[860px] mx-auto">
-          <h1 className="font-zapla text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900 leading-[1.1]">
+          <h1 className="font-zapla text-[44px] font-semibold tracking-[-0.048em] text-neutral-900 leading-[0.98]">
             <span className="block">One customer.</span><span className="block"><span className="text-zapla-blue">One connected</span> system.</span>
           </h1>
           <p className="mx-auto mt-4 max-w-[720px] text-[16px] text-neutral-600 leading-[1.65]">
