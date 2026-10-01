@@ -199,8 +199,6 @@ const MOMENT_CARDS = [
 
 type MomentCardData = (typeof MOMENT_CARDS)[number];
 
-type MomentCardData = (typeof MOMENT_CARDS)[number];
-
 function ConnectedCustomerScene() {
   const reduced = !!useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
