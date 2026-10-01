@@ -8,7 +8,6 @@ import {
   Mail,
   MessageSquareText,
   Send,
-  SlidersHorizontal,
   Users,
 } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
@@ -36,6 +35,14 @@ const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const ZAPLA_WORDMARK_URL = "/concept/zapla-logo-dark.svg";
 
+const CUSTOMERS = [
+  { initials: "MT", name: "Mia Thompson", detail: "Residential · Sydney", selected: true },
+  { initials: "DK", name: "Daniel Kim", detail: "Residential · Sydney", selected: true },
+  { initials: "PS", name: "Priya Shah", detail: "Commercial · Sydney", selected: false },
+  { initials: "LM", name: "Lucas Martin", detail: "Residential · Newcastle", selected: false },
+  { initials: "SN", name: "Sophie Nguyen", detail: "Residential · Sydney", selected: true },
+] as const;
+
 const FAQS = [
   {
     q: "What is Customer Marketing in Zapla?",
@@ -55,14 +62,6 @@ const FAQS = [
   },
 ] as const;
 
-const CUSTOMERS = [
-  { initials: "MT", name: "Mia Thompson", detail: "Residential · Sydney", selected: true },
-  { initials: "DK", name: "Daniel Kim", detail: "Residential · Sydney", selected: true },
-  { initials: "PS", name: "Priya Shah", detail: "Commercial · Sydney", selected: false },
-  { initials: "LM", name: "Lucas Martin", detail: "Residential · Newcastle", selected: false },
-  { initials: "SN", name: "Sophie Nguyen", detail: "Residential · Sydney", selected: true },
-] as const;
-
 function CustomerMarketingPage() {
   return (
     <main
@@ -71,9 +70,8 @@ function CustomerMarketingPage() {
       style={{ fontFamily: BODY }}
     >
       <Hero />
-      <SignalStrip />
-      <JourneySection />
-      <MomentsSection />
+      <CustomerFlow />
+      <Moments />
       <Faq />
       <FinalCta />
     </main>
@@ -97,11 +95,7 @@ function Reveal({
       initial={reduced ? false : { opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{
-        duration: reduced ? 0 : 0.44,
-        delay: reduced ? 0 : delay,
-        ease: EASE,
-      }}
+      transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -121,15 +115,16 @@ function PrimaryButton() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-16 pt-[106px] sm:px-10 sm:pb-20 sm:pt-[116px] lg:px-16 lg:pb-24 lg:pt-[120px]">
-      <div className="pointer-events-none absolute -left-[12%] top-[10%] h-[520px] w-[520px] rounded-full bg-[#EDF2E9] blur-[130px]" />
-      <div className="pointer-events-none absolute right-[2%] top-[8%] h-[430px] w-[430px] rounded-full bg-[#2563FF]/[0.04] blur-[120px]" />
+    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-14 pt-[106px] sm:px-10 sm:pb-18 sm:pt-[116px] lg:px-16 lg:pb-20 lg:pt-[120px]">
+      <div className="pointer-events-none absolute -left-[14%] top-[8%] h-[560px] w-[560px] rounded-full bg-[#EDF2E9] blur-[135px]" />
+      <div className="pointer-events-none absolute right-[2%] top-[8%] h-[420px] w-[420px] rounded-full bg-[#2563FF]/[0.035] blur-[120px]" />
 
-      <div className="relative mx-auto grid max-w-[1380px] items-center gap-12 lg:grid-cols-[0.77fr_1.23fr] lg:gap-16">
-        <Reveal className="max-w-[600px]">
+      <div className="relative mx-auto grid max-w-[1380px] items-center gap-12 lg:grid-cols-[0.76fr_1.24fr] lg:gap-16">
+        <Reveal className="max-w-[590px]">
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
             Customer Marketing
           </div>
+
           <h1
             className="mt-5 text-[42px] font-medium leading-[0.99] tracking-[-0.052em] sm:text-[49px] lg:text-[55px]"
             style={{ fontFamily: DISPLAY }}
@@ -137,14 +132,15 @@ function Hero() {
             Your customer database should be
             <span className="block text-[#2563FF]">bringing you business.</span>
           </h1>
-          <p className="mt-6 max-w-[555px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
+
+          <p className="mt-6 max-w-[550px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
             Reach the right customers with a relevant message, then keep every reply connected to the same customer record.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
             <PrimaryButton />
             <a
-              href="#how-it-works"
+              href="#customer-flow"
               className="inline-flex h-[50px] items-center rounded-full border border-[#D7DDD8] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#BBC5BD]"
             >
               See how it works
@@ -161,21 +157,29 @@ function Hero() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <HeroWorkspace />
+          <HeroProduct />
         </Reveal>
+      </div>
+
+      <div className="relative mx-auto mt-14 max-w-[1380px] border-t border-[#E3E7E3] pt-5">
+        <div className="grid gap-3 text-[12px] text-[#687069] md:grid-cols-3 md:gap-8">
+          <span><strong className="font-semibold text-[#2F3631]">Choose who matters.</strong> Not every customer needs the same message.</span>
+          <span><strong className="font-semibold text-[#2F3631]">Reach them directly.</strong> Use SMS or email without rebuilding the audience elsewhere.</span>
+          <span><strong className="font-semibold text-[#2F3631]">Keep the context.</strong> Replies come back to the customer record.</span>
+        </div>
       </div>
     </section>
   );
 }
 
-function HeroWorkspace() {
+function HeroProduct() {
   const reduced = !!useReducedMotion();
 
   return (
     <div className="relative mx-auto w-full max-w-[790px] pb-12 sm:pb-14">
-      <div className="pointer-events-none absolute inset-x-[8%] bottom-0 top-[18%] rounded-[34px] bg-[#D7E0CE]" />
+      <div className="pointer-events-none absolute inset-x-[7%] bottom-0 top-[16%] rounded-[34px] bg-[#D7E0CE]" />
 
-      <div className="relative overflow-hidden rounded-[22px] border border-[#D9DEDA] bg-white shadow-[0_30px_80px_rgba(38,48,40,.12)]">
+      <div className="relative overflow-hidden rounded-[22px] border border-[#D9DEDA] bg-white shadow-[0_32px_82px_rgba(38,48,40,.13)]">
         <div className="flex min-h-[46px] items-center justify-between border-b border-[#E3E7E3] bg-[#FCFCFB] px-4 sm:px-5">
           <div className="flex items-center gap-3">
             <img src={ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[18px] w-auto object-contain" />
@@ -189,16 +193,12 @@ function HeroWorkspace() {
           </span>
         </div>
 
-        <div className="grid min-h-[390px] lg:grid-cols-[0.98fr_1.02fr]">
+        <div className="grid min-h-[382px] lg:grid-cols-[0.96fr_1.04fr]">
           <div className="border-b border-[#E4E8E4] p-5 lg:border-b-0 lg:border-r sm:p-6">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">
-                  Audience
-                </div>
-                <div className="mt-1.5 text-[19px] font-semibold tracking-[-0.03em]">
-                  Residential Sydney
-                </div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Audience</div>
+                <div className="mt-1.5 text-[19px] font-semibold tracking-[-0.03em]">Residential Sydney</div>
               </div>
               <div className="text-right">
                 <div className="text-[24px] font-semibold tracking-[-0.04em]">86</div>
@@ -211,7 +211,7 @@ function HeroWorkspace() {
                 <motion.div
                   key={customer.name}
                   initial={reduced ? false : { opacity: 0, x: -7 }}
-                  whileInView={{ opacity: customer.selected ? 1 : 0.36, x: 0 }}
+                  whileInView={{ opacity: customer.selected ? 1 : 0.34, x: 0 }}
                   viewport={{ once: true, amount: 0.65 }}
                   transition={{
                     duration: reduced ? 0 : 0.3,
@@ -229,31 +229,18 @@ function HeroWorkspace() {
                       <div className="mt-0.5 text-[8px] text-[#8B918D]">{customer.detail}</div>
                     </div>
                   </div>
-                  <span
-                    className={
-                      "grid h-5 w-5 place-items-center rounded-full border " +
-                      (customer.selected
-                        ? "border-[#91A07F] bg-[#E9EFE3] text-[#617150]"
-                        : "border-[#DCE0DD] text-transparent")
-                    }
-                  >
-                    <Check size={11} strokeWidth={2.4} />
-                  </span>
+                  <Check
+                    size={12}
+                    className={customer.selected ? "text-[#6A7A59]" : "text-transparent"}
+                  />
                 </motion.div>
               ))}
             </div>
-
-            <div className="mt-5 flex items-center gap-2 text-[9px] font-semibold text-[#65705F]">
-              <SlidersHorizontal size={13} />
-              Filtered by customer data already in the CRM
-            </div>
           </div>
 
-          <div className="relative bg-[#FBFCFA] p-5 sm:p-6">
+          <div className="bg-[#FBFCFA] p-5 sm:p-6">
             <div className="flex items-center justify-between">
-              <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">
-                Campaign message
-              </div>
+              <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Message</div>
               <div className="flex items-center gap-4 text-[9px]">
                 <span className="inline-flex items-center gap-1.5 font-semibold text-[#2563FF]">
                   <MessageSquareText size={12} /> SMS
@@ -279,10 +266,10 @@ function HeroWorkspace() {
             </div>
 
             <motion.div
-              initial={reduced ? false : { opacity: 0, y: 10 }}
+              initial={reduced ? false : { opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.7 }}
-              transition={{ duration: reduced ? 0 : 0.36, delay: reduced ? 0 : 0.18, ease: EASE }}
+              transition={{ duration: reduced ? 0 : 0.36, delay: reduced ? 0 : 0.16, ease: EASE }}
               className="mt-5"
             >
               <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Reply</div>
@@ -301,44 +288,24 @@ function HeroWorkspace() {
   );
 }
 
-function SignalStrip() {
-  return (
-    <section className="border-y border-[#E5E8E5] bg-white">
-      <div className="mx-auto grid max-w-[1380px] md:grid-cols-3">
-        {[
-          ["You already won the customer", "The data is sitting in your CRM."],
-          ["Not everyone needs the same message", "Customer context decides who is relevant."],
-          ["A reply is not another lead", "It returns to the existing customer conversation."],
-        ].map(([title, copy], index) => (
-          <div
-            key={title}
-            className={
-              "px-5 py-6 sm:px-8 " +
-              (index < 2 ? "border-b border-[#E5E8E5] md:border-b-0 md:border-r" : "")
-            }
-          >
-            <div className="text-[14px] font-semibold tracking-[-0.02em] text-[#2D332F]">{title}</div>
-            <div className="mt-1.5 text-[12px] leading-[1.55] text-[#747B75]">{copy}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function JourneySection() {
+function CustomerFlow() {
   const [active, setActive] = useState(0);
-  const refs = [useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null), useRef<HTMLDivElement>(null)];
+  const beatOne = useRef<HTMLDivElement>(null);
+  const beatTwo = useRef<HTMLDivElement>(null);
+  const beatThree = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const refs = [beatOne, beatTwo, beatThree];
     const observers = refs.map((ref, index) => {
       if (!ref.current) return null;
+
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) setActive(index);
         },
-        { rootMargin: "-32% 0px -52% 0px", threshold: 0.05 },
+        { rootMargin: "-30% 0px -55% 0px", threshold: 0.08 },
       );
+
       observer.observe(ref.current);
       return observer;
     });
@@ -347,62 +314,50 @@ function JourneySection() {
   }, []);
 
   return (
-    <section id="how-it-works" className="bg-[#F7F8F5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
+    <section id="customer-flow" className="bg-[#F7F8F5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
-          <div>
-            <div className="lg:sticky lg:top-28">
-              <Reveal className="max-w-[470px]">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
-                  One connected flow
-                </div>
-                <h2
-                  className="mt-4 text-[34px] font-medium leading-[1.04] tracking-[-0.045em] sm:text-[39px] lg:text-[42px]"
-                  style={{ fontFamily: DISPLAY }}
-                >
-                  Use what you know about the customer to create
-                  <span className="text-[#2563FF]"> the next conversation.</span>
-                </h2>
-              </Reveal>
+        <Reveal className="max-w-[700px]">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
+            One connected flow
+          </div>
+          <h2
+            className="mt-4 text-[34px] font-medium leading-[1.04] tracking-[-0.045em] sm:text-[39px] lg:text-[42px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Use what you know about the customer to create
+            <span className="text-[#2563FF]"> the next conversation.</span>
+          </h2>
+        </Reveal>
 
-              <div className="mt-12 hidden lg:block">
-                <JourneyProgress active={active} />
-              </div>
+        <div className="mt-10 grid gap-12 lg:grid-cols-[0.66fr_1.34fr] lg:gap-20">
+          <div className="relative">
+            <div ref={beatOne} className="flex min-h-[62vh] items-center lg:min-h-[78vh]">
+              <FlowBeat
+                active={active === 0}
+                title="Your whole database isn't one audience."
+                copy="Use customer fields, tags, location, service type and saved lists to narrow the people a message is actually relevant to."
+              />
+            </div>
+
+            <div ref={beatTwo} className="flex min-h-[62vh] items-center lg:min-h-[78vh]">
+              <FlowBeat
+                active={active === 1}
+                title="Relevant first. Channel second."
+                copy="Once the audience is right, reach them by SMS or email without rebuilding the list somewhere else."
+              />
+            </div>
+
+            <div ref={beatThree} className="flex min-h-[62vh] items-center lg:min-h-[78vh]">
+              <FlowBeat
+                active={active === 2}
+                title="When they reply, it becomes a customer conversation."
+                copy="The response returns with the customer context attached, so your team can continue from there."
+              />
             </div>
           </div>
 
-          <div>
-            <div className="sticky top-24 z-10 mb-12 hidden lg:block">
-              <JourneyCanvas active={active} />
-            </div>
-
-            <div className="space-y-16 lg:-mt-[430px] lg:pt-[500px]">
-              <JourneyBeat
-                ref={refs[0]}
-                active={active === 0}
-                kicker="Audience"
-                title="Find the customers who actually fit the moment."
-                copy="Use fields, tags, service type, location and saved lists to narrow the audience before anything is sent."
-              />
-              <JourneyBeat
-                ref={refs[1]}
-                active={active === 1}
-                kicker="Message"
-                title="Send something worth hearing."
-                copy="Use SMS or email for the message, with the customer group already decided."
-              />
-              <JourneyBeat
-                ref={refs[2]}
-                active={active === 2}
-                kicker="Reply"
-                title="When they answer, the marketing part is over."
-                copy="The reply returns to the customer conversation with the existing context attached."
-              />
-            </div>
-
-            <div className="mt-10 lg:hidden">
-              <JourneyCanvas active={active} />
-            </div>
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <FlowCanvas active={active} />
           </div>
         </div>
       </div>
@@ -410,109 +365,112 @@ function JourneySection() {
   );
 }
 
-function JourneyProgress({ active }: { active: number }) {
+function FlowBeat({
+  active,
+  title,
+  copy,
+}: {
+  active: boolean;
+  title: string;
+  copy: string;
+}) {
   return (
-    <div className="space-y-3">
-      {["Choose the audience", "Send the message", "Continue the conversation"].map((label, index) => (
-        <div key={label} className="flex items-center gap-3">
-          <span
-            className={
-              "h-1.5 w-1.5 rounded-full transition-colors " +
-              (active === index ? "bg-[#2563FF]" : "bg-[#CED4CF]")
-            }
-          />
-          <span
-            className={
-              "text-[11px] font-semibold transition-colors " +
-              (active === index ? "text-[#2E3530]" : "text-[#9BA19C]")
-            }
-          >
-            {label}
-          </span>
-        </div>
-      ))}
+    <div className={"max-w-[470px] transition-all duration-300 " + (active ? "opacity-100" : "opacity-42")}>
+      <h3
+        className="text-[29px] font-medium leading-[1.05] tracking-[-0.042em] sm:text-[34px]"
+        style={{ fontFamily: DISPLAY }}
+      >
+        {title}
+      </h3>
+      <p className="mt-4 max-w-[430px] text-[14px] leading-[1.7] text-[#6A726B]">{copy}</p>
     </div>
   );
 }
 
-const JourneyBeat = function JourneyBeat({
-  active,
-  kicker,
-  title,
-  copy,
-  ref,
-}: {
-  active: boolean;
-  kicker: string;
-  title: string;
-  copy: string;
-  ref: React.RefObject<HTMLDivElement | null>;
-}) {
-  return (
-    <div ref={ref} className="flex min-h-[52vh] items-center lg:min-h-[74vh]">
-      <div className={"max-w-[470px] transition-opacity duration-300 " + (active ? "opacity-100" : "opacity-58")}>
-        <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#7B857E]">{kicker}</div>
-        <h3
-          className="mt-3 text-[29px] font-medium leading-[1.04] tracking-[-0.042em] sm:text-[34px]"
-          style={{ fontFamily: DISPLAY }}
-        >
-          {title}
-        </h3>
-        <p className="mt-4 max-w-[430px] text-[14px] leading-[1.68] text-[#6A726B]">{copy}</p>
-      </div>
-    </div>
-  );
-};
-
-function JourneyCanvas({ active }: { active: number }) {
+function FlowCanvas({ active }: { active: number }) {
   const reduced = !!useReducedMotion();
 
   return (
     <div className="relative overflow-hidden rounded-[26px] border border-[#D8DED9] bg-white shadow-[0_30px_90px_rgba(38,48,40,.1)]">
       <div className="flex min-h-[44px] items-center justify-between border-b border-[#E4E8E4] px-5">
-        <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#737D76]">Customer Marketing</span>
-        <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">
-          {active === 0 ? "Build audience" : active === 1 ? "Send campaign" : "Customer reply"}
-        </span>
+        <div className="flex items-center gap-3">
+          <img src={ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[17px] w-auto object-contain" />
+          <span className="h-4 w-px bg-[#D9DEDA]" />
+          <span className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#78817B]">
+            Customer Marketing
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {[0, 1, 2].map((index) => (
+            <span
+              key={index}
+              className={
+                "h-1.5 rounded-full transition-all duration-300 " +
+                (active === index ? "w-5 bg-[#2563FF]" : "w-1.5 bg-[#D5DAD6]")
+              }
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="relative min-h-[380px] overflow-hidden bg-[#FBFCFA]">
-        <motion.div
-          animate={reduced ? undefined : { x: active === 0 ? "0%" : active === 1 ? "-100%" : "-200%" }}
-          transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-          className="flex w-[300%]"
-        >
-          <div className="w-1/3 p-6">
-            <AudiencePanel />
-          </div>
-          <div className="w-1/3 p-6">
-            <MessagePanel />
-          </div>
-          <div className="w-1/3 p-6">
-            <ReplyPanel />
-          </div>
-        </motion.div>
+      <div className="relative min-h-[450px] bg-[#FBFCFA]">
+        <CanvasState active={active === 0} reduced={reduced}>
+          <AudienceState />
+        </CanvasState>
+        <CanvasState active={active === 1} reduced={reduced}>
+          <MessageState />
+        </CanvasState>
+        <CanvasState active={active === 2} reduced={reduced}>
+          <ReplyState />
+        </CanvasState>
       </div>
     </div>
   );
 }
 
-function AudiencePanel() {
+function CanvasState({
+  active,
+  reduced,
+  children,
+}: {
+  active: boolean;
+  reduced: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <motion.div
+      className="absolute inset-0 p-5 sm:p-6"
+      initial={false}
+      animate={{
+        opacity: active ? 1 : 0,
+        y: active ? 0 : 10,
+        pointerEvents: active ? "auto" : "none",
+      }}
+      transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
+      aria-hidden={!active}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function AudienceState() {
   return (
     <div>
-      <div className="flex items-end justify-between">
+      <div className="flex items-end justify-between gap-4">
         <div>
-          <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Audience</div>
-          <div className="mt-1.5 text-[20px] font-semibold tracking-[-0.03em]">Residential Sydney</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Audience</div>
+          <div className="mt-1.5 text-[21px] font-semibold tracking-[-0.03em]">Residential Sydney</div>
         </div>
         <div className="text-right">
-          <div className="text-[26px] font-semibold tracking-[-0.04em]">86</div>
+          <div className="text-[27px] font-semibold tracking-[-0.04em]">86</div>
           <div className="text-[8px] text-[#8C938E]">matched</div>
         </div>
       </div>
 
-      <div className="mt-6 grid gap-4 md:grid-cols-[0.72fr_1.28fr]">
-        <div className="space-y-3 border-r border-[#E5E9E5] pr-4">
+      <div className="mt-6 grid gap-5 md:grid-cols-[0.72fr_1.28fr]">
+        <div className="space-y-4 border-r border-[#E5E9E5] pr-5">
           {[
             ["Tag", "Existing customer"],
             ["Service", "Residential"],
@@ -523,10 +481,18 @@ function AudiencePanel() {
               <div className="mt-1 text-[10px] font-semibold text-[#4A524D]">{value}</div>
             </div>
           ))}
+
+          <div className="pt-1 text-[9px] font-semibold text-[#68726A]">
+            Match all conditions
+          </div>
         </div>
+
         <div className="divide-y divide-[#E7EAE7]">
           {CUSTOMERS.map((customer) => (
-            <div key={customer.name} className={"flex items-center justify-between gap-3 py-2.5 " + (customer.selected ? "" : "opacity-35")}>
+            <div
+              key={customer.name}
+              className={"flex items-center justify-between gap-3 py-3 " + (customer.selected ? "" : "opacity-34")}
+            >
               <div className="flex items-center gap-3">
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-[#EFF1ED] text-[8px] font-semibold text-[#5D655F]">
                   {customer.initials}
@@ -545,36 +511,42 @@ function AudiencePanel() {
   );
 }
 
-function MessagePanel() {
+function MessageState() {
   return (
-    <div className="grid gap-6 md:grid-cols-[0.78fr_1.22fr]">
-      <div>
-        <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Audience</div>
-        <div className="mt-1.5 text-[18px] font-semibold tracking-[-0.03em]">Residential Sydney</div>
+    <div className="grid gap-7 md:grid-cols-[0.72fr_1.28fr]">
+      <div className="border-r border-[#E5E9E5] pr-5">
+        <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Selected audience</div>
+        <div className="mt-1.5 text-[19px] font-semibold tracking-[-0.03em]">Residential Sydney</div>
         <div className="mt-1 text-[9px] text-[#8B918D]">86 customers</div>
 
-        <div className="mt-6 space-y-3 text-[9px]">
-          <div className="flex items-center gap-2 font-semibold text-[#2563FF]">
-            <MessageSquareText size={13} /> SMS selected
+        <div className="mt-7 space-y-3">
+          <div className="flex items-center gap-2 text-[10px] font-semibold text-[#2563FF]">
+            <MessageSquareText size={13} /> SMS
           </div>
-          <div className="flex items-center gap-2 text-[#8B918D]">
-            <Mail size={13} /> Email available
+          <div className="flex items-center gap-2 text-[10px] text-[#8B918D]">
+            <Mail size={13} /> Email
           </div>
         </div>
+
+        <div className="mt-8 text-[8px] font-bold uppercase tracking-[0.12em] text-[#949A95]">Audience stays attached</div>
       </div>
 
-      <div className="border-l border-[#E5E9E5] pl-5">
-        <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Message</div>
-        <div className="mt-4 rounded-[17px] bg-[#F0F3F8] p-4">
-          <div className="text-[10px] font-semibold text-[#394556]">Northside</div>
-          <p className="mt-2 text-[11px] leading-[1.6] text-[#596575]">
+      <div>
+        <div className="flex items-center justify-between">
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Message</div>
+          <div className="text-[9px] font-semibold text-[#68716A]">Northside</div>
+        </div>
+
+        <div className="mt-5 rounded-[18px] bg-[#F0F3F8] p-5">
+          <p className="text-[12px] leading-[1.65] text-[#566274]">
             Hi Mia, we have extra service appointments next week. Want the available times?
           </p>
         </div>
-        <div className="mt-5 flex items-center justify-between">
-          <span className="text-[9px] font-semibold text-[#727A74]">Ready to send</span>
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-[#1E2B29] text-white">
-            <Send size={12} />
+
+        <div className="mt-6 flex items-center justify-between border-t border-[#E7EAE7] pt-5">
+          <span className="text-[9px] font-semibold text-[#747B75]">Ready for selected audience</span>
+          <span className="inline-flex h-9 items-center gap-2 rounded-full bg-[#1E2B29] px-4 text-[9px] font-semibold text-white">
+            Send <Send size={11} />
           </span>
         </div>
       </div>
@@ -582,23 +554,23 @@ function MessagePanel() {
   );
 }
 
-function ReplyPanel() {
+function ReplyState() {
   return (
-    <div className="grid gap-6 md:grid-cols-[0.72fr_1.28fr]">
+    <div className="grid gap-7 md:grid-cols-[0.72fr_1.28fr]">
       <div className="border-r border-[#E5E9E5] pr-5">
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-[#EDE9E3] text-[11px] font-semibold text-[#5B534D]">
+        <span className="grid h-11 w-11 place-items-center rounded-full bg-[#EDE9E3] text-[11px] font-semibold text-[#5B534D]">
           MT
         </span>
-        <div className="mt-3 text-[14px] font-semibold">Mia Thompson</div>
+        <div className="mt-3 text-[15px] font-semibold">Mia Thompson</div>
         <div className="mt-1 text-[9px] text-[#8A918C]">Existing customer · Residential</div>
 
-        <div className="mt-6 space-y-3">
+        <div className="mt-7 space-y-4">
           {[
             ["Campaign", "Service availability"],
             ["Channel", "SMS"],
             ["Owner", "Ben Walker"],
           ].map(([label, value]) => (
-            <div key={label} className="border-b border-[#E6EAE6] pb-2.5">
+            <div key={label} className="border-b border-[#E6EAE6] pb-3">
               <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#959B96]">{label}</div>
               <div className="mt-1 text-[9px] font-semibold text-[#4C544F]">{value}</div>
             </div>
@@ -607,14 +579,17 @@ function ReplyPanel() {
       </div>
 
       <div>
-        <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Conversation</div>
-        <div className="mt-5 ml-auto max-w-[88%] rounded-[15px] rounded-br-[5px] bg-[#EEF2FF] px-4 py-3 text-[11px] leading-[1.55] text-[#4A5668]">
+        <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Conversation</div>
+
+        <div className="mt-5 ml-auto max-w-[88%] rounded-[16px] rounded-br-[5px] bg-[#EEF2FF] px-4 py-3.5 text-[11px] leading-[1.55] text-[#4A5668]">
           Hi Mia, we have extra service appointments next week. Want the available times?
         </div>
-        <div className="mt-3 max-w-[88%] rounded-[15px] rounded-bl-[5px] bg-[#EAF0E7] px-4 py-3 text-[11px] leading-[1.55] text-[#465146]">
+
+        <div className="mt-3 max-w-[88%] rounded-[16px] rounded-bl-[5px] bg-[#EAF0E7] px-4 py-3.5 text-[11px] leading-[1.55] text-[#465146]">
           Yes please. Thursday would be best.
         </div>
-        <div className="mt-5 flex items-center gap-2 text-[9px] font-semibold text-[#63705D]">
+
+        <div className="mt-6 flex items-center gap-2 border-t border-[#E7EAE7] pt-5 text-[9px] font-semibold text-[#63705D]">
           <span className="h-1.5 w-1.5 rounded-full bg-[#7E916B]" />
           Customer context stays attached
         </div>
@@ -623,14 +598,21 @@ function ReplyPanel() {
   );
 }
 
-function MomentsSection() {
+function Moments() {
+  const moments = [
+    ["Seasonal availability", "Existing residential customers", "Offer a service when it becomes useful again."],
+    ["New service", "Customers who already bought from you", "Give them another relevant reason to buy."],
+    ["Customer update", "People affected by a change", "Reach only the customers who need to know."],
+    ["Re engagement", "Past customers worth contacting again", "Create a new reason to start a conversation."],
+  ] as const;
+
   return (
     <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
       <div className="mx-auto max-w-[1260px]">
-        <div className="grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
-          <Reveal className="max-w-[430px]">
+        <Reveal className="grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+          <div className="max-w-[420px]">
             <h2
-              className="text-[32px] font-medium leading-[1.04] tracking-[-0.044em] sm:text-[37px] lg:text-[40px]"
+              className="text-[31px] font-medium leading-[1.04] tracking-[-0.044em] sm:text-[36px] lg:text-[39px]"
               style={{ fontFamily: DISPLAY }}
             >
               One customer base.
@@ -639,17 +621,12 @@ function MomentsSection() {
             <p className="mt-5 text-[14px] leading-[1.68] text-[#6B726C]">
               The audience changes with the moment. The database does not have to.
             </p>
-          </Reveal>
+          </div>
 
           <div className="border-t border-[#DDE2DE]">
-            {[
-              ["Seasonal availability", "Existing residential customers", "Offer a service when it becomes useful again."],
-              ["New service", "Customers who already bought from you", "Give them another relevant reason to buy."],
-              ["Customer update", "People affected by a change", "Reach only the customers who need to know."],
-              ["Re engagement", "Past customers worth contacting again", "Create a new reason to start a conversation."],
-            ].map(([reason, audience, action], index) => (
+            {moments.map(([reason, audience, action], index) => (
               <Reveal key={reason} delay={index * 0.025}>
-                <div className="grid gap-3 border-b border-[#DDE2DE] py-5 sm:grid-cols-[0.7fr_1fr] sm:gap-8">
+                <div className="grid gap-3 border-b border-[#DDE2DE] py-5 sm:grid-cols-[0.72fr_1fr] sm:gap-8">
                   <div>
                     <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#7B837D]">{reason}</div>
                     <div className="mt-2 text-[15px] font-semibold tracking-[-0.02em] text-[#303733]">{audience}</div>
@@ -666,7 +643,7 @@ function MomentsSection() {
               </a>
             </Reveal>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -747,7 +724,7 @@ function FinalCta() {
             <ZaplaPetal size={27} />
           </div>
           <h2
-            className="mt-5 text-[32px] font-medium leading-[1.04] tracking-[-0.045em] sm:text-[38px] lg:text-[42px]"
+            className="mt-5 text-[31px] font-medium leading-[1.04] tracking-[-0.045em] sm:text-[37px] lg:text-[40px]"
             style={{ fontFamily: DISPLAY }}
           >
             Your next customer conversation may already be in your CRM.
