@@ -393,7 +393,9 @@ function StickyCallStory() {
 
           <div className="hidden lg:block">
             <div className="sticky top-[92px] flex h-[calc(100vh-92px)] items-center">
-              <div className="relative min-h-[560px] w-full overflow-hidden rounded-[30px] border border-white/[0.08] bg-[radial-gradient(circle_at_48%_48%,rgba(221,163,75,.075),transparent_27%),linear-gradient(145deg,#151619_0%,#101113_58%,#171517_100%)]">
+              <div className="relative min-h-[560px] w-full overflow-hidden rounded-[30px] border border-white/[0.14] bg-[radial-gradient(circle_at_48%_48%,rgba(221,163,75,.11),transparent_29%),radial-gradient(circle_at_82%_48%,rgba(255,255,255,.035),transparent_34%),linear-gradient(145deg,#17181B_0%,#101113_56%,#181619_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,.045),inset_0_0_90px_rgba(255,255,255,.012),0_28px_80px_rgba(0,0,0,.24)]">
+                <div className="pointer-events-none absolute inset-x-[8%] top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent)]" />
+                <div className="pointer-events-none absolute -right-[8%] top-[18%] h-[300px] w-[300px] rounded-full bg-white/[0.018] blur-3xl" />
                 <div className="absolute left-[5%] top-1/2 w-[29%] -translate-y-1/2 rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 shadow-[0_20px_50px_rgba(0,0,0,.24)]">
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
@@ -432,16 +434,16 @@ function StickyCallStory() {
                 </div>
 
                 <motion.div
-                  className="absolute bottom-[10%] left-[5%] flex w-[29%] items-center gap-3 rounded-[16px] border border-[#9B86B8]/14 bg-[#151518]/82 px-4 py-3"
-                  animate={{ opacity: activeStep === 0 ? 0.9 : 0.34 }}
+                  className="absolute bottom-[10%] left-[5%] flex w-[29%] items-center gap-3 rounded-[16px] border border-[#9B86B8]/30 bg-[#1B1821]/92 px-4 py-3 shadow-[0_14px_34px_rgba(0,0,0,.18)]"
+                  animate={{ opacity: activeStep === 0 ? 1 : 0.72 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[#9B86B8]/12 text-[#B5A3CC]">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[#9B86B8]/20 text-[#C7B6DC]">
                     <PhoneForwarded size={14} />
                   </span>
                   <div className="min-w-0">
-                    <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/28">Alternate path</div>
-                    <div className="mt-1 text-[10px] font-semibold text-white/64">Hand off to your team</div>
+                    <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#B5A3CC]">Handoff available</div>
+                    <div className="mt-1 text-[10px] font-semibold text-white/82">Hand off to your team when needed</div>
                   </div>
                 </motion.div>
 
@@ -458,42 +460,42 @@ function StickyCallStory() {
                 </div>
 
                 <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1000 560" preserveAspectRatio="none" fill="none" aria-hidden="true">
-                  <path d="M340 280 L388 280" stroke="rgba(221,163,75,.42)" strokeWidth="1.5" />
+                  <path d="M340 280 L388 280" stroke="rgba(221,163,75,.62)" strokeWidth="1.8" />
                   <motion.path
                     d="M505 250 C575 250 590 116 650 116"
-                    stroke="rgba(221,163,75,.50)"
-                    strokeWidth="1.6"
+                    stroke="rgba(221,163,75,.72)"
+                    strokeWidth="1.9"
                     initial={false}
-                    animate={{ opacity: activeStep >= 1 ? 1 : 0.10 }}
+                    animate={{ opacity: activeStep >= 1 ? 1 : 0.12 }}
                     transition={{ duration: 0.28 }}
                   />
                   <motion.path
                     d="M505 272 L650 218"
-                    stroke="rgba(153,163,109,.50)"
-                    strokeWidth="1.6"
+                    stroke="rgba(153,163,109,.74)"
+                    strokeWidth="1.9"
                     initial={false}
-                    animate={{ opacity: activeStep >= 2 ? 1 : 0.10 }}
+                    animate={{ opacity: activeStep >= 2 ? 1 : 0.12 }}
                     transition={{ duration: 0.28 }}
                   />
                   <motion.path
                     d="M505 292 L650 320"
-                    stroke="rgba(201,108,133,.50)"
-                    strokeWidth="1.6"
+                    stroke="rgba(201,108,133,.72)"
+                    strokeWidth="1.9"
                     initial={false}
-                    animate={{ opacity: activeStep >= 3 ? 1 : 0.10 }}
+                    animate={{ opacity: activeStep >= 3 ? 1 : 0.12 }}
                     transition={{ duration: 0.28 }}
                   />
                   <motion.path
                     d="M505 310 C575 310 590 422 650 422"
-                    stroke="rgba(155,134,184,.50)"
-                    strokeWidth="1.6"
+                    stroke="rgba(155,134,184,.72)"
+                    strokeWidth="1.9"
                     initial={false}
-                    animate={{ opacity: activeStep >= 4 ? 1 : 0.10 }}
+                    animate={{ opacity: activeStep >= 4 ? 1 : 0.12 }}
                     transition={{ duration: 0.28 }}
                   />
                 </svg>
 
-                <div className="absolute bottom-[9%] right-[4%] top-[9%] w-[35%] overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#141517]/76 shadow-[0_24px_70px_rgba(0,0,0,.22)] backdrop-blur-md">
+                <div className="absolute bottom-[9%] right-[4%] top-[9%] w-[35%] overflow-hidden rounded-[22px] border border-white/[0.11] bg-[#151619]/84 shadow-[0_24px_70px_rgba(0,0,0,.22),inset_0_1px_0_rgba(255,255,255,.025)] backdrop-blur-md">
                   <div className="border-b border-white/[0.07] px-5 py-3.5">
                     <div className="text-[8px] font-semibold uppercase tracking-[0.17em] text-white/24">What happens next</div>
                   </div>
@@ -535,9 +537,6 @@ function StickyCallStory() {
                   </div>
                 </div>
 
-                <div className="absolute bottom-5 left-[39%] text-[9px] font-semibold uppercase tracking-[0.16em] text-white/20">
-                  Scroll to follow the call
-                </div>
               </div>
             </div>
           </div>
