@@ -83,79 +83,130 @@ function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boole
 }
 
 function PlatformMap() {
-  const areas = [
+  const systems = [
     {
-      title: "CRM",
-      copy: "Customer records, conversations, opportunities and the work around them.",
-      href: "/crm",
-      icon: UserRound,
+      index: "01",
+      title: "Customer system",
+      copy: "One place for who the customer is, what they said and what they booked.",
+      capabilities: [
+        "CRM & customer records",
+        "Conversations & inbox",
+        "Calls & VoIP",
+        "Bookings & appointments",
+      ],
+      accent: "#8EADFF",
     },
     {
-      title: "Customer Marketing",
-      copy: "Use customer data to reach the right groups and keep replies connected.",
-      href: "/customer-marketing",
-      icon: Send,
+      index: "02",
+      title: "Work system",
+      copy: "The operational layer that moves the customer from enquiry to completed work.",
+      capabilities: [
+        "Pipelines & opportunities",
+        "Automation & workflows",
+        "Payments & invoicing",
+        "Docs, contracts & ticketing",
+      ],
+      accent: "#9FC6B5",
     },
     {
-      title: "AI Receptionist",
-      copy: "Answer calls, qualify, book and hand off without losing the next step.",
-      href: "/ai-receptionist",
-      icon: Phone,
-    },
-    {
-      title: "Reviews & Reputation",
-      copy: "Ask for reviews at the right customer moment after the work is done.",
-      href: "/reviews",
-      icon: Star,
+      index: "03",
+      title: "Growth system",
+      copy: "Use the history you already have to create the next conversation, review or booking.",
+      capabilities: [
+        "Customer marketing",
+        "Reactivation & follow-up",
+        "Reviews & reputation",
+        "Forms, websites & funnels",
+        "Repeat business",
+      ],
+      accent: "#D6A27C",
     },
   ];
 
   return (
-    <section id="platform-map" className="bg-[#FCFCFA] px-5 pb-5 pt-8 sm:px-10 sm:pb-6 sm:pt-10 lg:px-16">
-      <div className="mx-auto max-w-[1320px] overflow-hidden rounded-[34px] bg-[#0D1626] px-6 py-16 text-white shadow-[0_28px_80px_rgba(13,22,38,.12)] sm:px-9 sm:py-20 lg:px-12 lg:py-24">
-        <Reveal className="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
-          <div className="max-w-[680px]">
-            <Eyebrow dark>What makes up Zapla</Eyebrow>
-            <h2
-              className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[52px] lg:text-[60px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              The platform behind
-              <span className="block text-[#8EADFF]">the customer journey.</span>
-            </h2>
-          </div>
-          <p className="max-w-[520px] text-[14px] leading-[1.72] text-white/52 sm:text-[15px] lg:justify-self-end">
-            Follow-up, reactivation, bookings, payments and automation work across these areas through the same customer records and workflows.
-          </p>
-        </Reveal>
+    <section id="platform-map" className="bg-[#FCFCFA] px-5 pb-7 pt-8 sm:px-10 sm:pb-8 sm:pt-10 lg:px-16">
+      <div className="mx-auto max-w-[1320px] overflow-hidden rounded-[34px] bg-[#0D1626] text-white shadow-[0_28px_80px_rgba(13,22,38,.12)]">
+        <div className="px-6 pb-10 pt-16 sm:px-9 sm:pb-12 sm:pt-20 lg:px-12 lg:pb-14 lg:pt-24">
+          <Reveal className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div className="max-w-[720px]">
+              <Eyebrow dark>What makes up Zapla</Eyebrow>
+              <h2
+                className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[52px] lg:text-[60px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                Everything your customer touches.
+                <span className="block text-[#8EADFF]">Connected in one platform.</span>
+              </h2>
+            </div>
+            <p className="max-w-[510px] text-[14px] leading-[1.72] text-white/52 sm:text-[15px] lg:justify-self-end">
+              Zapla is more than the CRM. Customer context flows through communication, operations and growth instead of stopping at the edge of each tool.
+            </p>
+          </Reveal>
+        </div>
 
-        <div className="mt-10 grid overflow-hidden rounded-[24px] border border-white/10 md:grid-cols-2">
-          {areas.map((area, index) => {
-            const Icon = area.icon;
-            return (
-              <a
-                key={area.title}
-                href={area.href}
+        <div className="border-t border-white/10">
+          <div className="grid lg:grid-cols-3">
+            {systems.map((system, index) => (
+              <Reveal
+                key={system.title}
+                delay={index * 0.05}
                 className={
-                  "group bg-white/[0.045] p-6 transition-colors hover:bg-white/[0.075] sm:p-7 " +
-                  (index >= 2 ? "border-t border-white/10 " : "") +
-                  (index % 2 === 1 ? "md:border-l md:border-white/10 " : "") +
-                  (index === 1 ? "border-t border-white/10 md:border-t-0 " : "")
+                  "relative px-6 py-9 sm:px-9 sm:py-10 lg:min-h-[390px] lg:px-9 lg:py-11 " +
+                  (index ? "border-t border-white/10 lg:border-l lg:border-t-0" : "")
                 }
               >
-                <div className="flex items-start justify-between gap-5">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-[#2563FF]/18 text-[#8EADFF]">
-                    <Icon size={17} />
-                  </span>
-                  <ArrowRight size={15} className="mt-2 text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-[#8EADFF]" />
-                </div>
-                <h3 className="mt-5 text-[28px] font-medium tracking-[-0.043em]" style={{ fontFamily: DISPLAY }}>
-                  {area.title}
+                <div
+                  className="absolute left-0 top-0 h-[3px] w-full lg:left-9 lg:top-0 lg:w-[72px]"
+                  style={{ backgroundColor: system.accent }}
+                />
+                <div className="text-[9px] font-bold uppercase tracking-[0.17em] text-white/30">{system.index}</div>
+                <h3
+                  className="mt-4 text-[30px] font-medium tracking-[-0.045em] text-white"
+                  style={{ fontFamily: DISPLAY }}
+                >
+                  {system.title}
                 </h3>
-                <p className="mt-3 max-w-[470px] text-[12px] leading-[1.7] text-white/50 sm:text-[13px]">{area.copy}</p>
-              </a>
-            );
-          })}
+                <p className="mt-3 max-w-[340px] text-[12px] leading-[1.68] text-white/48 sm:text-[13px]">
+                  {system.copy}
+                </p>
+
+                <div className="mt-8 border-t border-white/10">
+                  {system.capabilities.map((capability) => (
+                    <div
+                      key={capability}
+                      className="flex items-center gap-3 border-b border-white/10 py-3 text-[12px] font-medium text-white/78"
+                    >
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: system.accent }} />
+                      <span>{capability}</span>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t border-white/10 bg-white/[0.035] px-6 py-7 sm:px-9 lg:px-12">
+          <Reveal className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+            <div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.17em] text-[#8EADFF]">Across the whole platform</div>
+              <div className="mt-2 text-[18px] font-semibold tracking-[-0.025em] text-white">
+                AI, reporting and integrations.
+              </div>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {[
+                ["AI", "Reception, assistance and automation where context matters."],
+                ["Reporting", "See customer activity and operational performance in one place."],
+                ["Integrations", "Connect specialist systems without rebuilding the customer story."],
+              ].map(([title, copy]) => (
+                <div key={title} className="border-l border-white/12 pl-4">
+                  <div className="text-[11px] font-semibold text-white/86">{title}</div>
+                  <div className="mt-1.5 text-[10px] leading-[1.55] text-white/42">{copy}</div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
