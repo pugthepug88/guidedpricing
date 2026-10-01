@@ -3,7 +3,7 @@
  */
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle, Sparkles, RefreshCw } from "lucide-react";
+import { ArrowRight, Phone, Calendar, Star, CheckCircle2, Target, Zap, MessageCircle, Sparkles, RefreshCw } from "lucide-react";
 import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
 import pCustomer from "@/assets/portrait-customer.jpg.asset.json";
@@ -39,37 +39,75 @@ function useIsDesktop() {
   return d;
 }
 
+
 export function PlatformConnectedSystemScene() {
   const isDesktop = useIsDesktop();
   const reduced = useReducedMotion();
 
-  // On tablet/mobile OR reduced-motion: use a clean normal-flow grid, no sticky scroll.
-  if (!isDesktop || reduced) {
-    return (
-      <section className="relative bg-white text-neutral-900 py-20 sm:py-24 px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="font-zapla text-[36px] sm:text-[42px] md:text-[46px] font-semibold tracking-[-0.045em] text-neutral-900 leading-[0.98]">
-            <span className="block">One customer.</span><span className="block"><span className="text-zapla-blue">One connected</span> system.</span>
+  return (
+    <section className="relative overflow-hidden border-b border-[#E4E8EF] bg-[#FCFCFA] px-5 pb-16 pt-[112px] text-neutral-900 sm:px-10 sm:pb-20 sm:pt-[120px] lg:px-16 lg:pb-24 lg:pt-[122px]">
+      <div className="pointer-events-none absolute -left-[12%] top-[18%] h-[520px] w-[520px] rounded-full bg-[#DDE7FF]/35 blur-[170px]" />
+      <div className="relative mx-auto max-w-[1380px]">
+        <div className="mx-auto max-w-[930px] text-center">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#58706F]">
+            Zapla Platform
+          </div>
+
+          <h1 className="mx-auto mt-5 max-w-[900px] font-zapla text-[40px] font-medium leading-[0.99] tracking-[-0.052em] text-[#111318] sm:text-[48px] lg:text-[54px]">
+            <span className="block">One customer.</span>
+            <span className="block text-zapla-blue">One connected system.</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-[720px] text-[16px] text-neutral-600 leading-[1.65]">
+
+          <p className="mx-auto mt-6 max-w-[760px] text-[15px] font-medium leading-[1.7] text-[#5F655F] sm:text-[17px]">
             When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
           </p>
-        </div>
-        <div className="mx-auto mt-10 grid max-w-6xl gap-4 sm:grid-cols-2">
-          <ConversationsCard />
-          <NewLeadCard />
-          <BookingCard />
-          <WorkflowCard />
-          <OpportunityCard />
-          <InvoiceCard />
-          <ReviewCard />
-          <WinBackCard />
-        </div>
-      </section>
-    );
-  }
 
-  return <DesktopScrollScene />;
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <a
+              href="#platform-map"
+              className="inline-flex h-[52px] items-center rounded-full border border-[#D8D0C5] bg-white px-7 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#C7BDAF]"
+            >
+              Explore the platform
+            </a>
+            <a
+              href="https://zapla.io/booking"
+              className="inline-flex h-[52px] items-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] shadow-[0_12px_28px_rgba(30,43,41,.14)] transition-transform hover:-translate-y-px"
+            >
+              Book a Call <ArrowRight size={15} />
+            </a>
+          </div>
+        </div>
+
+        {isDesktop && !reduced ? (
+          <DesktopScrollScene />
+        ) : (
+          <MobileScene />
+        )}
+      </div>
+    </section>
+  );
+}
+
+function MobileScene() {
+  return (
+    <div className="mx-auto mt-12 max-w-[960px]">
+      <div className="mx-auto h-[330px] w-[250px]">
+        <img
+          src={heroColor.url}
+          alt="A customer at the centre of a connected customer journey"
+          className="h-full w-full object-contain"
+        />
+      </div>
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <NewLeadCard />
+        <ConversationsCard />
+        <BookingCard />
+        <WorkflowCard />
+        <InvoiceCard />
+        <ReviewCard />
+      </div>
+    </div>
+  );
 }
 
 function DesktopScrollScene() {
@@ -80,9 +118,11 @@ function DesktopScrollScene() {
   });
 
   const [progress, setProgress] = useState(0);
+
   useEffect(() => {
     const section = ref.current;
     if (!section) return;
+
     let rafId: number | null = null;
     const update = () => {
       const total = section.scrollHeight - window.innerHeight;
@@ -93,6 +133,7 @@ function DesktopScrollScene() {
     const onScroll = () => {
       if (rafId === null) rafId = requestAnimationFrame(update);
     };
+
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
@@ -101,51 +142,46 @@ function DesktopScrollScene() {
     };
   }, []);
 
-  const sketchOpacity = useTransform(scrollYProgress, [0.05, 0.35, 0.55, 1], [1, 0.35, 0, 0]);
-  const colorOpacity = useTransform(scrollYProgress, [0.15, 0.55, 1], [0, 1, 1]);
+  const sketchOpacity = useTransform(scrollYProgress, [0.02, 0.22, 0.42, 1], [1, 0.35, 0, 0]);
+  const colorOpacity = useTransform(scrollYProgress, [0.08, 0.32, 1], [0, 1, 1]);
 
   return (
-    <section ref={ref} className="relative h-[420vh] bg-white text-neutral-900">
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center overflow-hidden bg-white">
-        <div className="relative z-30 pt-11 md:pt-14 px-6 text-center max-w-[860px] mx-auto">
-          <h1 className="font-zapla text-[44px] font-semibold tracking-[-0.048em] text-neutral-900 leading-[0.98]">
-            <span className="block">One customer.</span><span className="block"><span className="text-zapla-blue">One connected</span> system.</span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-[720px] text-[16px] text-neutral-600 leading-[1.65]">
-            When someone enquires, replies, books, pays, leaves a review or comes back months later, Zapla keeps that activity attached to the same customer story, so the next step can change with it.
-          </p>
-        </div>
-        <div className="relative mx-auto w-full max-w-[1320px] flex-1 px-8">
-          <div className="relative mx-auto flex h-full items-center justify-center">
-            <div className="relative mx-auto h-[68vh] w-[min(138vh,94vw)]">
-              <motion.img
-                src={heroSketch.url}
-                alt=""
-                draggable={false}
-                style={{ opacity: sketchOpacity }}
-                className="pointer-events-none absolute left-1/2 top-[52%] h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
-              />
-              <motion.img
-                src={heroColor.url}
-                alt=""
-                draggable={false}
-                style={{ opacity: colorOpacity }}
-                className="pointer-events-none absolute left-1/2 top-[52%] h-[92%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
-              />
+    <div ref={ref} className="relative mt-14 h-[300vh]">
+      <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center">
+        <div className="relative mx-auto h-[620px] max-h-[calc(100vh-104px)] min-h-[520px] w-full max-w-[1240px]">
+          <div className="absolute inset-x-[8%] inset-y-[6%] rounded-[40px] bg-[radial-gradient(circle_at_center,rgba(37,99,255,0.07),rgba(255,255,255,0)_68%)]" />
 
-              <OrbitCard progress={progress} appearAt={0.18} pos="left-[1%] top-[3%]"><ConversationsCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.26} pos="right-[1%] top-[3%]"><NewLeadCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.36} pos="right-[0%] top-[35%]"><BookingCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.46} pos="right-[2%] top-[64%]"><WorkflowCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.56} pos="right-[23%] bottom-[0%]"><OpportunityCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.66} pos="left-[23%] bottom-[0%]"><InvoiceCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.76} pos="left-[2%] top-[64%]"><ReviewCard /></OrbitCard>
-              <OrbitCard progress={progress} appearAt={0.86} pos="left-[0%] top-[35%]"><WinBackCard /></OrbitCard>
-            </div>
+          <motion.img
+            src={heroSketch.url}
+            alt=""
+            draggable={false}
+            style={{ opacity: sketchOpacity }}
+            className="pointer-events-none absolute left-1/2 top-[52%] h-[86%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+          />
+          <motion.img
+            src={heroColor.url}
+            alt="A customer at the centre of a connected customer journey"
+            draggable={false}
+            style={{ opacity: colorOpacity }}
+            className="pointer-events-none absolute left-1/2 top-[52%] h-[86%] w-auto -translate-x-1/2 -translate-y-1/2 select-none object-contain"
+          />
+
+          <OrbitCard progress={progress} appearAt={0.12} pos="left-[2%] top-[5%]"><NewLeadCard /></OrbitCard>
+          <OrbitCard progress={progress} appearAt={0.25} pos="right-[2%] top-[5%]"><ConversationsCard /></OrbitCard>
+          <OrbitCard progress={progress} appearAt={0.38} pos="left-[2%] top-[38%]"><WorkflowCard /></OrbitCard>
+          <OrbitCard progress={progress} appearAt={0.51} pos="right-[2%] top-[38%]"><BookingCard /></OrbitCard>
+          <OrbitCard progress={progress} appearAt={0.64} pos="left-[2%] bottom-[5%]"><InvoiceCard /></OrbitCard>
+          <OrbitCard progress={progress} appearAt={0.77} pos="right-[2%] bottom-[5%]"><ReviewCard /></OrbitCard>
+
+          <div
+            className="absolute bottom-[2%] left-1/2 -translate-x-1/2 rounded-full border border-[#DDE3EC] bg-white/90 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#6D7686] shadow-sm backdrop-blur"
+            style={{ opacity: Math.min(1, Math.max(0, (progress - 0.8) / 0.1)) }}
+          >
+            One customer · one history
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -154,7 +190,7 @@ function OrbitCard({ progress, appearAt, pos, children }: { progress: number; ap
   const moveProgress = progress <= appearAt ? 0 : progress >= appearAt + 0.06 ? 1 : (progress - appearAt) / 0.06;
   const opacity = fadeProgress;
   const y = 24 * (1 - moveProgress);
-  const scale = (0.92 + 0.08 * moveProgress) * 0.84;
+  const scale = (0.92 + 0.08 * moveProgress) * 0.76;
   return (
     <div style={{ opacity, transform: `translateY(${y}px) scale(${scale})` }} className={`absolute z-20 ${pos}`}>
       {children}
