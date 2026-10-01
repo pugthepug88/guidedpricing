@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
@@ -42,6 +42,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const HERO_IMAGE =
   "https://cdn.openart.ai/openart-uploads/production/attachment-transfers/befc6b19b694f24013c9255a9b9d14f5044236b772a28709c682c6cc47c7b696.png";
 const PETAL_COLORS = ["#E97D62", "#C96C85", "#DDA34B", "#99A36D", "#9B86B8", "#D58C75"] as const;
+const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 const FAQS = [
   {
@@ -118,6 +119,58 @@ function PetalMark({ size = 44 }: { size?: number }) {
       ))}
       <circle cx="80" cy="80" r="14" fill="#111214" stroke="rgba(255,255,255,.08)" />
     </svg>
+  );
+}
+
+function ZaplaPetalSpeaker({ size = 26, reduced = false }: { size?: number; reduced?: boolean }) {
+  return (
+    <span className="relative flex shrink-0 items-center justify-center" style={{ width: size + 8, height: size + 8 }} aria-label="Zapla">
+      <motion.span
+        className="absolute inset-0 rounded-full border border-[#D58C75]/25"
+        animate={reduced ? undefined : { scale: [0.72, 1.35], opacity: [0.28, 0] }}
+        transition={reduced ? undefined : { duration: 1.45, repeat: Infinity, ease: "easeOut" }}
+        aria-hidden="true"
+      />
+      <motion.span
+        className="relative block"
+        animate={reduced ? undefined : { scale: [1, 1.055, 0.985, 1] }}
+        transition={reduced ? undefined : { duration: 1.45, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <svg width={size} height={size} viewBox="0 0 160 160" aria-hidden="true" className="block overflow-visible">
+          {PETAL_COLORS.map((color, index) => (
+            <g key={color} transform={`rotate(${index * 60} 80 80)`}>
+              <path
+                d="M80 14 C95 14 104 25 102 42 C100 58 92 70 80 82 C68 70 60 58 58 42 C56 25 65 14 80 14 Z"
+                fill={color}
+                stroke={color}
+                strokeWidth="1.4"
+              />
+            </g>
+          ))}
+          <circle cx="80" cy="80" r="14" fill="#111214" stroke="rgba(255,255,255,.08)" />
+        </svg>
+      </motion.span>
+    </span>
+  );
+}
+
+function TeamAvatar({ size, cell, className = "" }: { size: number; cell: number; className?: string }) {
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+
+  return (
+    <span
+      className={`block shrink-0 overflow-hidden rounded-full border-2 border-[#1E2B29] shadow-[0_8px_24px_rgba(0,0,0,.24)] ${className}`}
+      style={{
+        width: size,
+        height: size,
+        backgroundImage: `url(${PORTRAIT_SHEET})`,
+        backgroundPosition: `${(column / 5) * 100}% ${(row / 3) * 100}%`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "600% 400%",
+      }}
+      aria-hidden="true"
+    />
   );
 }
 
@@ -225,25 +278,107 @@ function Hero() {
 
 function ConnectedCall() {
   const reduced = !!useReducedMotion();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const callRef = useRef<HTMLDivElement>(null);
+  const hubRef = useRef<HTMLDivElement>(null);
+  const hubRingAnchorRef = useRef<HTMLDivElement>(null);
+  const appointmentRef = useRef<HTMLDivElement>(null);
+  const recordRef = useRef<HTMLDivElement>(null);
+  const confirmationRef = useRef<HTMLDivElement>(null);
+  const [connectorPaths, setConnectorPaths] = useState<{
+    inbound: string;
+    appointment: string;
+    record: string;
+    confirmation: string;
+  } | null>(null);
 
-  const outcomes = [
-    { icon: <Calendar size={16} />, label: "Appointment", value: "Tuesday · 10:30am", accent: "#DDA34B" },
-    { icon: <UserRound size={16} />, label: "Customer record", value: "New customer added", accent: "#99A36D" },
-    { icon: <MessageSquare size={16} />, label: "Confirmation", value: "Sent automatically", accent: "#C96C85" },
-  ];
+  useEffect(() => {
+    let frame = 0;
+
+    const measure = () => {
+      const stage = stageRef.current;
+      const call = callRef.current;
+      const hub = hubRef.current;
+      const hubRingAnchor = hubRingAnchorRef.current;
+      const appointment = appointmentRef.current;
+      const record = recordRef.current;
+      const confirmation = confirmationRef.current;
+      if (!stage || !call || !hub || !hubRingAnchor || !appointment || !record || !confirmation) return;
+
+      // Use layout geometry instead of getBoundingClientRect so Framer Motion's
+      // entrance transforms cannot move the connector anchors away from the cards.
+      const callRight = call.offsetLeft + call.offsetWidth;
+      const callY = call.offsetTop; // desktop card is vertically centred with translateY(-50%)
+
+      // Measure a non-animated twin of the visible 176px hub ring.
+      // This gives the actual rendered ring boundary after the hub's centering transforms.
+      const stageBox = stage.getBoundingClientRect();
+      const hubRingBox = hubRingAnchor.getBoundingClientRect();
+      const hubLeft = hubRingBox.left - stageBox.left + 2;
+      const hubRight = hubRingBox.right - stageBox.left - 2;
+      const hubY = hubRingBox.top - stageBox.top + hubRingBox.height / 2;
+
+      const appointmentLeft = appointment.offsetLeft;
+      const appointmentY = appointment.offsetTop + appointment.offsetHeight / 2;
+      const recordLeft = record.offsetLeft;
+      const recordY = record.offsetTop + record.offsetHeight / 2;
+      const confirmationLeft = confirmation.offsetLeft;
+      const confirmationY = confirmation.offsetTop + confirmation.offsetHeight / 2;
+
+      const curve = (sx: number, sy: number, ex: number, ey: number) => {
+        const span = Math.max(36, ex - sx);
+        const control = Math.min(150, span * 0.44);
+        return `M${sx.toFixed(1)} ${sy.toFixed(1)} C${(sx + control).toFixed(1)} ${sy.toFixed(1)} ${(ex - control).toFixed(1)} ${ey.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`;
+      };
+      const straight = (sx: number, sy: number, ex: number, ey: number) =>
+        `M${sx.toFixed(1)} ${sy.toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)}`;
+
+      const next = {
+        inbound: curve(callRight, callY, hubLeft, hubY),
+        appointment: curve(hubRight, hubY - 12, appointmentLeft, appointmentY),
+        record: straight(hubRight, hubY, recordLeft, recordY),
+        confirmation: curve(hubRight, hubY + 12, confirmationLeft, confirmationY),
+      };
+
+      setConnectorPaths((current) =>
+        current &&
+        current.inbound === next.inbound &&
+        current.appointment === next.appointment &&
+        current.record === next.record &&
+        current.confirmation === next.confirmation
+          ? current
+          : next,
+      );
+    };
+
+    const scheduleMeasure = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    };
+
+    scheduleMeasure();
+
+    const observer = new ResizeObserver(scheduleMeasure);
+    [stageRef, callRef, hubRef, hubRingAnchorRef, appointmentRef, recordRef, confirmationRef].forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+    window.addEventListener("resize", scheduleMeasure);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", scheduleMeasure);
+    };
+  }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#111214] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_54%_52%,rgba(221,163,75,.08),transparent_27%),radial-gradient(circle_at_75%_55%,rgba(201,108,133,.05),transparent_22%)]" />
-
+    <section className="relative overflow-hidden bg-[#111214] px-5 py-20 text-[#F7F4EE] sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_57%_58%,rgba(221,163,75,.07),transparent_30%),radial-gradient(circle_at_72%_45%,rgba(201,108,133,.045),transparent_24%)]" />
       <div className="relative mx-auto max-w-[1280px]">
         <Reveal className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-16">
           <div>
             <Eyebrow light>The Zapla difference</Eyebrow>
-            <h2
-              className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[66px]"
-              style={{ fontFamily: DISPLAY }}
-            >
+            <h2 className="mt-4 text-[42px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[56px] lg:text-[66px]" style={{ fontFamily: DISPLAY }}>
               The call ends.
               <span className="block text-[#DDA34B]">The next step is already moving.</span>
             </h2>
@@ -253,81 +388,204 @@ function ConnectedCall() {
           </p>
         </Reveal>
 
-        <Reveal className="mt-12">
-          <div className="grid min-h-[470px] overflow-hidden rounded-[30px] border border-white/[0.08] bg-[linear-gradient(145deg,#151619_0%,#101113_65%,#171517_100%)] lg:grid-cols-[0.92fr_0.38fr_1.05fr]">
-            <div className="flex items-center border-b border-white/[0.08] p-8 lg:border-b-0 lg:border-r lg:p-10">
-              <div className="w-full rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-6">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E97D62]/12 text-[#E97D62]">
-                      <Phone size={16} />
-                    </span>
-                    <div>
-                      <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/34">Live call</div>
-                      <div className="mt-1 text-[12px] font-semibold text-white/82">New customer enquiry</div>
-                    </div>
-                  </div>
-                  <span className="text-[9px] font-semibold text-[#B8C28A]">00:42</span>
-                </div>
+        <Reveal className="mt-10 sm:mt-12">
+          <div ref={stageRef} className="relative min-h-[720px] overflow-hidden rounded-[28px] border border-white/[0.08] bg-[linear-gradient(145deg,#151619_0%,#101113_56%,#161518_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,.025)] sm:min-h-[700px] lg:min-h-[470px]">
+            <div className="pointer-events-none absolute left-[50.5%] top-[46%] h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(221,163,75,.12),rgba(221,163,75,.035)_36%,transparent_70%)] blur-xl" />
 
-                <div className="mt-8 border-t border-white/[0.08] pt-6">
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/28">Caller</div>
-                  <div className="mt-2 text-[22px] font-medium leading-[1.3] tracking-[-0.03em] text-white/92" style={{ fontFamily: DISPLAY }}>
-                    “Do you have anything Tuesday morning?”
-                  </div>
-                </div>
-              </div>
-            </div>
+            {connectorPaths && (
+              <svg
+                className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
+                width="100%"
+                height="100%"
+                fill="none"
+                aria-hidden="true"
+              >
+                {[
+                  [connectorPaths.inbound, "rgba(221,163,75,.46)"],
+                  [connectorPaths.appointment, "rgba(221,163,75,.46)"],
+                  [connectorPaths.record, "rgba(153,163,109,.42)"],
+                  [connectorPaths.confirmation, "rgba(201,108,133,.44)"],
+                ].map(([path, stroke], index) => (
+                  <g key={index}>
+                    <path d={path} stroke={stroke.replace(/\.[0-9]+\)$/, ".055)")} strokeWidth="4" strokeLinecap="round" />
+                    <motion.path
+                      d={path}
+                      stroke={stroke}
+                      strokeWidth="1.35"
+                      strokeLinecap="round"
+                      initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      viewport={{ once: true, amount: 0.55 }}
+                      transition={{ duration: reduced ? 0 : 0.5 + index * 0.03, delay: reduced ? 0 : index * 0.12, ease: EASE }}
+                    />
+                    {!reduced && (
+                      <motion.path
+                        d={path}
+                        pathLength={1}
+                        stroke="#F2B24B"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeDasharray="0.075 0.925"
+                        initial={{ strokeDashoffset: 1, opacity: 0 }}
+                        animate={{ strokeDashoffset: 0, opacity: [0, 0.9, 0.9, 0] }}
+                        transition={{
+                          duration: index === 0 ? 1.05 : 1.15,
+                          delay: index === 0 ? 0 : 0.78 + index * 0.08,
+                          repeat: Infinity,
+                          repeatDelay: index === 0 ? 2.55 : 2.45,
+                          ease: "linear",
+                        }}
+                        style={{ filter: "drop-shadow(0 0 5px rgba(242,178,75,.72))" }}
+                      />
+                    )}
+                  </g>
+                ))}
+              </svg>
+            )}
 
-            <div className="relative flex items-center justify-center border-b border-white/[0.08] py-12 lg:border-b-0 lg:border-r lg:py-0">
-              <div className="absolute left-1/2 top-1/2 h-[190px] w-[190px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/10" />
-              <motion.div
-                className="absolute left-1/2 top-1/2 h-[150px] w-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/16"
-                animate={reduced ? undefined : { scale: [0.86, 1.15], opacity: [0.34, 0] }}
-                transition={reduced ? undefined : { duration: 1.8, repeat: Infinity, ease: "easeOut" }}
-              />
-              <div className="relative z-10 flex flex-col items-center">
-                <PetalMark size={104} />
-                <div className="mt-4 text-[8px] font-semibold uppercase tracking-[0.19em] text-white/30">Zapla</div>
-              </div>
-            </div>
-
-            <div className="flex flex-col justify-center gap-4 p-8 lg:p-10">
-              {outcomes.map((item, index) => (
-                <motion.div
-                  key={item.label}
-                  initial={reduced ? false : { opacity: 0, x: 12 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.6 }}
-                  transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : index * 0.1, ease: EASE }}
-                  className="flex items-center gap-4 border-b border-white/[0.07] pb-4 last:border-b-0 last:pb-0"
-                >
-                  <span
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px]"
-                    style={{ color: item.accent, backgroundColor: item.accent + "18" }}
-                  >
-                    {item.icon}
+            <motion.div
+              ref={callRef}
+              className="absolute left-6 top-7 w-[calc(100%-3rem)] rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 backdrop-blur-sm sm:left-8 sm:top-9 sm:w-[360px] sm:p-5 lg:left-[5.4%] lg:top-[46%] lg:w-[305px] lg:-translate-y-1/2"
+              initial={reduced ? false : { opacity: 0, x: -18, y: 8 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E97D62]/12 text-[#E97D62]">
+                    <Phone size={15} />
                   </span>
                   <div>
-                    <div className="text-[9px] uppercase tracking-[0.14em] text-white/30">{item.label}</div>
-                    <div className="mt-1 text-[15px] font-semibold text-white/90">{item.value}</div>
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/34">Live call</div>
+                    <div className="mt-0.5 text-[11px] font-semibold text-white/80">New customer enquiry</div>
                   </div>
-                  <span className="ml-auto flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.04] text-[#B8C28A]">
-                    <Check size={11} strokeWidth={2.4} />
-                  </span>
-                </motion.div>
-              ))}
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-[9px] font-semibold text-[#B8C28A]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#99A36D]" />
+                  00:42
+                </span>
+              </div>
+
+              <div className="mt-6 flex h-[72px] items-center justify-center gap-[7px]">
+                {[14,20,30,42,56,70,56,42,30,20,14].map((height, index) => {
+                  const distance = Math.abs(index - 5);
+                  const accent = index === 5 ? "#E97D62" : index === 4 || index === 6 ? "rgba(233,125,98,.62)" : "rgba(255,255,255,.30)";
+                  return (
+                    <motion.span
+                      key={index}
+                      className="w-[4px] rounded-full"
+                      style={{ backgroundColor: accent }}
+                      animate={reduced ? { height: height * 0.72 } : { height: [height * 0.62, height, height * 0.72] }}
+                      transition={reduced ? undefined : { duration: 1.25, repeat: Infinity, repeatType: "mirror", delay: distance * 0.055, ease: "easeInOut" }}
+                    />
+                  );
+                })}
+              </div>
+
+              <div className="mt-5 border-t border-white/[0.08] pt-4">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">Caller</div>
+                <div className="mt-2 text-[18px] font-medium leading-[1.35] tracking-[-0.025em] text-white/92" style={{ fontFamily: DISPLAY }}>
+                  “Do you have anything Tuesday morning?”
+                </div>
+              </div>
+            </motion.div>
+
+            <div ref={hubRef} className="absolute left-1/2 top-[270px] z-20 -translate-x-1/2 sm:top-[280px] lg:left-[50.5%] lg:top-[46%] lg:-translate-y-1/2">
+              <div
+                ref={hubRingAnchorRef}
+                className="pointer-events-none absolute left-1/2 top-1/2 h-[176px] w-[176px] -translate-x-1/2 -translate-y-1/2"
+                aria-hidden="true"
+              />
+              <motion.div
+                className="absolute left-1/2 top-1/2 h-[176px] w-[176px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/12"
+                animate={reduced ? undefined : { scale: [0.84, 1.16], opacity: [0.34, 0] }}
+                transition={reduced ? undefined : { duration: 1.9, repeat: Infinity, ease: "easeOut" }}
+                aria-hidden="true"
+              />
+              <motion.div
+                className="absolute left-1/2 top-1/2 h-[136px] w-[136px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#DDA34B]/[0.035] blur-md"
+                animate={reduced ? undefined : { scale: [0.94, 1.08, 0.94], opacity: [0.7, 1, 0.7] }}
+                transition={reduced ? undefined : { duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                aria-hidden="true"
+              />
+              <motion.div
+                initial={reduced ? false : { opacity: 0, scale: 0.88 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.15, ease: EASE }}
+              >
+                <ZaplaPetalSpeaker size={118} reduced />
+              </motion.div>
+              <div className="mt-3 text-center text-[8px] font-semibold uppercase tracking-[0.18em] text-white/34">Zapla</div>
             </div>
+
+            <motion.div
+              ref={appointmentRef}
+              className="absolute right-6 top-[350px] w-[calc(100%-3rem)] rounded-[20px] border border-[#DDA34B]/18 bg-[#171719]/92 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-8 sm:w-[310px] lg:right-[11.5%] lg:top-[76px] lg:w-[280px]"
+              initial={reduced ? false : { opacity: 0, x: 18, y: 8 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.46, delay: reduced ? 0 : 0.3, ease: EASE }}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-[11px] bg-[#DDA34B]/12 text-[#DDA34B]">
+                    <Calendar size={16} />
+                  </span>
+                  <div>
+                    <div className="text-[9px] uppercase tracking-[0.14em] text-white/30">Appointment</div>
+                    <div className="mt-1 text-[15px] font-semibold tracking-[-0.025em] text-white/90">Tuesday · 10:30am</div>
+                  </div>
+                </div>
+                <span className="rounded-full bg-[#99A36D]/10 px-2 py-1 text-[8px] font-semibold uppercase tracking-[0.1em] text-[#B8C28A]">Booked</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              ref={recordRef}
+              className="absolute right-4 top-[455px] w-[calc(100%-2rem)] rounded-[22px] border border-white/[0.09] bg-[#161719]/94 p-4 shadow-[0_20px_48px_rgba(0,0,0,.28)] backdrop-blur-lg sm:right-14 sm:w-[340px] lg:right-[9.5%] lg:top-[188px] lg:w-[312px]"
+              initial={reduced ? false : { opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.42, ease: EASE }}
+            >
+              <div className="flex items-center gap-3">
+                <TeamAvatar size={38} cell={0} className="border-white/10" />
+                <div className="min-w-0 flex-1">
+                  <div className="text-[9px] uppercase tracking-[0.14em] text-white/30">Customer record</div>
+                  <div className="mt-1 text-[14px] font-semibold text-white/90">New customer added</div>
+                </div>
+                <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-[#B8C28A]">
+                  <Check size={10} strokeWidth={2.4} />
+                  Notes saved
+                </span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              ref={confirmationRef}
+              className="absolute right-8 top-[558px] w-[calc(100%-4rem)] rounded-[18px] border border-[#C96C85]/16 bg-[#181619]/95 p-4 shadow-[0_18px_42px_rgba(0,0,0,.24)] backdrop-blur-lg sm:right-10 sm:w-[320px] lg:right-[10.5%] lg:top-[314px] lg:w-[292px]"
+              initial={reduced ? false : { opacity: 0, x: 16, y: -4 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.45 }}
+              transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : 0.54, ease: EASE }}
+            >
+              <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#D69AAF]">
+                <MessageSquare size={13} />
+                Confirmation sent
+              </div>
+              <div className="mt-3 rounded-[12px] rounded-tr-[4px] bg-[#F7F4EE] px-3 py-2.5 text-[11px] font-medium leading-[1.45] text-[#343834]">
+                You’re booked for Tuesday at 10:30am.
+              </div>
+            </motion.div>
           </div>
         </Reveal>
-
-        <div className="mt-5 text-[11px] font-semibold text-white/32">
-          Native to Zapla CRM and workflows.
-        </div>
       </div>
     </section>
   );
 }
+
 
 function IndustryExamples() {
   const examples = [
@@ -583,22 +841,31 @@ function Faq() {
 
 function FinalCta() {
   return (
-    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
-      <Reveal className="mx-auto max-w-[1000px] text-center">
-        <div className="mx-auto flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#111214]">
-          <PetalMark size={32} />
+    <section className="border-t border-[#E5E8E4] bg-[#F7F8F6] px-5 py-16 sm:px-10 sm:py-18 lg:px-16 lg:py-20">
+      <Reveal className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+        <div>
+          <h2
+            className="max-w-[720px] text-[42px] font-medium leading-[0.97] tracking-[-0.052em] text-[#111318] sm:text-[54px] lg:text-[60px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Show us your call flow.
+          </h2>
+          <p className="mt-4 max-w-[700px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
+            We’ll show you exactly what Zapla can answer, book, route or hand off before anything goes live.
+          </p>
         </div>
-        <h2 className="mx-auto mt-6 max-w-[840px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[56px] lg:text-[64px]" style={{ fontFamily: DISPLAY }}>
-          Show us your call flow.
-        </h2>
-        <p className="mx-auto mt-4 max-w-[630px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
-          We’ll show you what Zapla can answer, book, route or hand off before anything goes live.
-        </p>
-        <div className="mt-7 flex flex-wrap justify-center gap-3">
-          <a href={BOOK_URL} className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-white">
+
+        <div className="flex flex-wrap gap-3 lg:justify-end">
+          <a
+            href={BOOK_URL}
+            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px"
+          >
             Book a Call <ArrowRight size={15} />
           </a>
-          <a href={PRICING_URL} className="inline-flex h-[50px] items-center rounded-full border border-[#DFE2DD] bg-white px-6 text-[13px] font-semibold text-[#111318]">
+          <a
+            href={PRICING_URL}
+            className="inline-flex h-[50px] items-center rounded-full border border-[#D7DDD7] bg-white px-6 text-[13px] font-semibold text-[#111318]"
+          >
             View pricing
           </a>
         </div>
