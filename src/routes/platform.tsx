@@ -139,6 +139,60 @@ function Hero() {
   );
 }
 
+
+const MOMENT_CARDS = [
+  {
+    title: "Enquiry captured",
+    meta: "Call added to the customer record",
+    icon: Phone,
+    tone: "blue",
+    pos: "left-[3%] top-[8%]",
+    appear: 0.12,
+  },
+  {
+    title: "Conversation",
+    meta: "Reply lands in the same history",
+    icon: MessageSquareText,
+    tone: "cyan",
+    pos: "right-[3%] top-[8%]",
+    appear: 0.24,
+  },
+  {
+    title: "Booking confirmed",
+    meta: "The customer state changes",
+    icon: CalendarDays,
+    tone: "blue",
+    pos: "right-[1%] top-[49%]",
+    appear: 0.38,
+  },
+  {
+    title: "Payment received",
+    meta: "Accounts can see the latest status",
+    icon: CreditCard,
+    tone: "green",
+    pos: "right-[22%] bottom-[4%]",
+    appear: 0.52,
+  },
+  {
+    title: "Follow-up adjusts",
+    meta: "The next action changes with the customer",
+    icon: Workflow,
+    tone: "cyan",
+    pos: "left-[22%] bottom-[4%]",
+    appear: 0.66,
+  },
+  {
+    title: "Review moment",
+    meta: "The completed job can trigger what comes next",
+    icon: Star,
+    tone: "amber",
+    pos: "left-[1%] top-[49%]",
+    appear: 0.8,
+  },
+] as const;
+
+type MomentCardData = (typeof MOMENT_CARDS)[number];
+
 function ConnectedCustomerScene() {
   const reduced = !!useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
