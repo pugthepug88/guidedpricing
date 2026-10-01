@@ -300,9 +300,49 @@ function StickyCallStory() {
       copy: "Details, call outcome and notes stay with the contact instead of disappearing into voicemail.",
     },
     {
+      kicker: "Confirmation",
+      title: "The confirmation is already sent.",
+      copy: "The customer gets the booking details without somebody on your team having to send them manually.",
+    },
+    {
       kicker: "Follow-up",
       title: "The next step is already moving.",
-      copy: "Confirmation and the configured follow-up can happen without somebody restarting the work.",
+      copy: "The configured message, task or next action can already be queued before your team needs to touch the enquiry again.",
+    },
+  ] as const;
+
+  const outcomes = [
+    {
+      label: "Appointment",
+      value: "Tuesday · 10:30am",
+      icon: <Calendar size={15} />,
+      accent: "#DDA34B",
+      step: 1,
+      status: "Booked",
+    },
+    {
+      label: "Customer record",
+      value: "New customer added",
+      icon: <UserRound size={15} />,
+      accent: "#99A36D",
+      step: 2,
+      status: "Notes saved",
+    },
+    {
+      label: "Confirmation",
+      value: "Sent automatically",
+      icon: <MessageSquare size={15} />,
+      accent: "#C96C85",
+      step: 3,
+      status: "Sent",
+    },
+    {
+      label: "Follow-up",
+      value: "Next action queued",
+      icon: <RefreshCcw size={15} />,
+      accent: "#9B86B8",
+      step: 4,
+      status: "Ready",
     },
   ] as const;
 
@@ -316,7 +356,7 @@ function StickyCallStory() {
                 key={step.title}
                 onViewportEnter={() => setActiveStep(index)}
                 viewport={{ amount: 0.62 }}
-                className="flex min-h-[54vh] items-center border-b border-white/[0.06] last:border-b-0 lg:min-h-[70vh]"
+                className="flex min-h-[54vh] items-center border-b border-white/[0.06] last:border-b-0 lg:min-h-[66vh]"
               >
                 <div className="max-w-[500px]">
                   {index === 0 && <Eyebrow light>The Zapla difference</Eyebrow>}
@@ -327,7 +367,7 @@ function StickyCallStory() {
                     className={"mt-3 font-medium leading-[0.96] tracking-[-0.055em] " + (index === 0 ? "text-[42px] sm:text-[54px] lg:text-[62px]" : "text-[36px] sm:text-[46px] lg:text-[54px]")}
                     style={{ fontFamily: DISPLAY }}
                   >
-                    {index === 3 ? (
+                    {index === 4 ? (
                       <>
                         The next step is
                         <span className="block text-[#DDA34B]">already moving.</span>
@@ -339,6 +379,13 @@ function StickyCallStory() {
                   <p className="mt-5 max-w-[460px] text-[15px] leading-[1.7] text-white/54 sm:text-[16px]">
                     {step.copy}
                   </p>
+
+                  {index === 0 && (
+                    <div className="mt-7 inline-flex items-center gap-2 border-t border-white/[0.08] pt-4 text-[11px] font-semibold text-white/38">
+                      <PhoneForwarded size={13} className="text-[#9B86B8]" />
+                      Needs a person? Zapla can hand the call to your team with context attached.
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -346,22 +393,22 @@ function StickyCallStory() {
 
           <div className="hidden lg:block">
             <div className="sticky top-[92px] flex h-[calc(100vh-92px)] items-center">
-              <div className="relative min-h-[560px] w-full overflow-hidden rounded-[30px] border border-white/[0.08] bg-[radial-gradient(circle_at_50%_48%,rgba(221,163,75,.075),transparent_27%),linear-gradient(145deg,#151619_0%,#101113_58%,#171517_100%)]">
-                <div className="absolute left-[6%] top-1/2 w-[31%] -translate-y-1/2 rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-6 shadow-[0_20px_50px_rgba(0,0,0,.24)]">
+              <div className="relative min-h-[560px] w-full overflow-hidden rounded-[30px] border border-white/[0.08] bg-[radial-gradient(circle_at_48%_48%,rgba(221,163,75,.075),transparent_27%),linear-gradient(145deg,#151619_0%,#101113_58%,#171517_100%)]">
+                <div className="absolute left-[5%] top-1/2 w-[29%] -translate-y-1/2 rounded-[22px] border border-white/[0.09] bg-white/[0.035] p-5 shadow-[0_20px_50px_rgba(0,0,0,.24)]">
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E97D62]/12 text-[#E97D62]">
-                        <Phone size={16} />
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E97D62]/12 text-[#E97D62]">
+                        <Phone size={15} />
                       </span>
                       <div>
                         <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/34">Live call</div>
-                        <div className="mt-1 text-[12px] font-semibold text-white/82">New customer enquiry</div>
+                        <div className="mt-1 text-[11px] font-semibold text-white/82">New customer enquiry</div>
                       </div>
                     </div>
                     <span className="text-[9px] font-semibold text-[#B8C28A]">00:42</span>
                   </div>
 
-                  <div className="mt-8 flex h-[62px] items-center justify-center gap-[6px]">
+                  <div className="mt-7 flex h-[58px] items-center justify-center gap-[6px]">
                     {[14,20,30,42,56,70,56,42,30,20,14].map((height, index) => (
                       <motion.span
                         key={index}
@@ -376,102 +423,119 @@ function StickyCallStory() {
                     ))}
                   </div>
 
-                  <div className="mt-6 border-t border-white/[0.08] pt-5">
+                  <div className="mt-5 border-t border-white/[0.08] pt-4">
                     <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">Caller</div>
-                    <div className="mt-2 text-[21px] font-medium leading-[1.3] tracking-[-0.03em] text-white/92" style={{ fontFamily: DISPLAY }}>
+                    <div className="mt-2 text-[18px] font-medium leading-[1.32] tracking-[-0.03em] text-white/92" style={{ fontFamily: DISPLAY }}>
                       “Do you have anything Tuesday morning?”
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute left-[46.5%] top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+                <motion.div
+                  className="absolute bottom-[10%] left-[5%] flex w-[29%] items-center gap-3 rounded-[16px] border border-[#9B86B8]/14 bg-[#151518]/82 px-4 py-3"
+                  animate={{ opacity: activeStep === 0 ? 0.9 : 0.34 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[#9B86B8]/12 text-[#B5A3CC]">
+                    <PhoneForwarded size={14} />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/28">Alternate path</div>
+                    <div className="mt-1 text-[10px] font-semibold text-white/64">Hand off to your team</div>
+                  </div>
+                </motion.div>
+
+                <div className="absolute left-[45%] top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
                   <motion.div
-                    className="absolute left-1/2 top-1/2 h-[190px] w-[190px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/12"
+                    className="absolute left-1/2 top-1/2 h-[184px] w-[184px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#DDA34B]/12"
                     animate={reduced ? undefined : { scale: [0.86, 1.15], opacity: [0.32, 0] }}
                     transition={reduced ? undefined : { duration: 1.8, repeat: Infinity, ease: "easeOut" }}
                   />
                   <div className="relative flex flex-col items-center">
-                    <ZaplaPetalSpeaker size={116} reduced={reduced} />
+                    <ZaplaPetalSpeaker size={110} reduced={reduced} />
                     <div className="mt-3 text-[8px] font-semibold uppercase tracking-[0.18em] text-white/32">Zapla</div>
                   </div>
                 </div>
 
                 <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1000 560" preserveAspectRatio="none" fill="none" aria-hidden="true">
-                  <path d="M370 280 L405 280" stroke="rgba(221,163,75,.45)" strokeWidth="1.5" />
+                  <path d="M340 280 L388 280" stroke="rgba(221,163,75,.42)" strokeWidth="1.5" />
                   <motion.path
-                    d="M525 260 C610 260 610 120 690 120"
+                    d="M505 250 C575 250 590 116 650 116"
                     stroke="rgba(221,163,75,.50)"
                     strokeWidth="1.6"
                     initial={false}
-                    animate={{ opacity: activeStep >= 1 ? 1 : 0.18 }}
-                    transition={{ duration: 0.3 }}
+                    animate={{ opacity: activeStep >= 1 ? 1 : 0.10 }}
+                    transition={{ duration: 0.28 }}
                   />
                   <motion.path
-                    d="M525 280 L690 280"
+                    d="M505 272 L650 218"
                     stroke="rgba(153,163,109,.50)"
                     strokeWidth="1.6"
                     initial={false}
-                    animate={{ opacity: activeStep >= 2 ? 1 : 0.18 }}
-                    transition={{ duration: 0.3 }}
+                    animate={{ opacity: activeStep >= 2 ? 1 : 0.10 }}
+                    transition={{ duration: 0.28 }}
                   />
                   <motion.path
-                    d="M525 300 C610 300 610 440 690 440"
+                    d="M505 292 L650 320"
                     stroke="rgba(201,108,133,.50)"
                     strokeWidth="1.6"
                     initial={false}
-                    animate={{ opacity: activeStep >= 3 ? 1 : 0.18 }}
-                    transition={{ duration: 0.3 }}
+                    animate={{ opacity: activeStep >= 3 ? 1 : 0.10 }}
+                    transition={{ duration: 0.28 }}
+                  />
+                  <motion.path
+                    d="M505 310 C575 310 590 422 650 422"
+                    stroke="rgba(155,134,184,.50)"
+                    strokeWidth="1.6"
+                    initial={false}
+                    animate={{ opacity: activeStep >= 4 ? 1 : 0.10 }}
+                    transition={{ duration: 0.28 }}
                   />
                 </svg>
 
-                <motion.div
-                  className="absolute right-[6%] top-[14%] w-[31%] rounded-[18px] border border-[#DDA34B]/18 bg-[#171719]/94 p-4"
-                  animate={{ opacity: activeStep >= 1 ? 1 : 0.28, y: activeStep >= 1 ? 0 : 6 }}
-                  transition={{ duration: 0.32 }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-[11px] bg-[#DDA34B]/12 text-[#DDA34B]">
-                      <Calendar size={16} />
-                    </span>
-                    <div>
-                      <div className="text-[9px] uppercase tracking-[0.14em] text-white/30">Appointment</div>
-                      <div className="mt-1 text-[15px] font-semibold text-white/90">Tuesday · 10:30am</div>
-                    </div>
-                    <span className="ml-auto rounded-full bg-[#99A36D]/10 px-2 py-1 text-[8px] font-semibold uppercase text-[#B8C28A]">Booked</span>
+                <div className="absolute bottom-[9%] right-[4%] top-[9%] w-[35%] overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#141517]/76 shadow-[0_24px_70px_rgba(0,0,0,.22)] backdrop-blur-md">
+                  <div className="border-b border-white/[0.07] px-5 py-3.5">
+                    <div className="text-[8px] font-semibold uppercase tracking-[0.17em] text-white/24">What happens next</div>
                   </div>
-                </motion.div>
 
-                <motion.div
-                  className="absolute right-[4%] top-1/2 w-[34%] -translate-y-1/2 rounded-[20px] border border-white/[0.09] bg-[#161719]/95 p-4"
-                  animate={{ opacity: activeStep >= 2 ? 1 : 0.28, x: activeStep >= 2 ? 0 : 8 }}
-                  transition={{ duration: 0.32 }}
-                >
-                  <div className="flex items-center gap-3">
-                    <TeamAvatar size={38} cell={0} className="border-white/10" />
-                    <div className="min-w-0 flex-1">
-                      <div className="text-[9px] uppercase tracking-[0.14em] text-white/30">Customer record</div>
-                      <div className="mt-1 text-[14px] font-semibold text-white/90">New customer added</div>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-[#B8C28A]">
-                      <Check size={10} strokeWidth={2.4} /> Notes saved
-                    </span>
+                  <div className="divide-y divide-white/[0.07]">
+                    {outcomes.map((item) => {
+                      const reached = activeStep >= item.step;
+                      const current = activeStep === item.step;
+                      return (
+                        <motion.div
+                          key={item.label}
+                          className="relative flex min-h-[100px] items-center gap-3 px-5 py-4"
+                          animate={{
+                            opacity: reached ? 1 : 0.20,
+                            backgroundColor: current ? item.accent + "09" : "rgba(255,255,255,0)",
+                          }}
+                          transition={{ duration: 0.28 }}
+                        >
+                          <motion.span
+                            className="absolute bottom-0 left-0 top-0 w-[2px]"
+                            style={{ backgroundColor: item.accent }}
+                            animate={{ opacity: current ? 1 : reached ? 0.32 : 0 }}
+                            transition={{ duration: 0.25 }}
+                          />
+                          <span
+                            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]"
+                            style={{ color: item.accent, backgroundColor: item.accent + "14" }}
+                          >
+                            {item.icon}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-white/26">{item.label}</div>
+                            <div className="mt-1 text-[13px] font-semibold text-white/88">{item.value}</div>
+                          </div>
+                          <span className="text-[8px] font-semibold text-white/28">{item.status}</span>
+                        </motion.div>
+                      );
+                    })}
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  className="absolute bottom-[12%] right-[6%] w-[31%] rounded-[18px] border border-[#C96C85]/16 bg-[#181619]/95 p-4"
-                  animate={{ opacity: activeStep >= 3 ? 1 : 0.28, y: activeStep >= 3 ? 0 : -6 }}
-                  transition={{ duration: 0.32 }}
-                >
-                  <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#D69AAF]">
-                    <MessageSquare size={13} /> Confirmation sent
-                  </div>
-                  <div className="mt-3 rounded-[12px] rounded-tr-[4px] bg-[#F7F4EE] px-3 py-2.5 text-[11px] font-medium text-[#343834]">
-                    You’re booked for Tuesday at 10:30am.
-                  </div>
-                </motion.div>
-
-                <div className="absolute bottom-6 left-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-white/22">
+                <div className="absolute bottom-5 left-[39%] text-[9px] font-semibold uppercase tracking-[0.16em] text-white/20">
                   Scroll to follow the call
                 </div>
               </div>
