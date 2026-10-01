@@ -164,7 +164,7 @@ function OrbitCard({ progress, appearAt, pos, children }: { progress: number; ap
 
 function Shell({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`rounded-2xl bg-white ring-1 ring-neutral-200/80 shadow-[0_24px_48px_-18px_rgba(15,23,42,0.20),0_8px_16px_-8px_rgba(15,23,42,0.10)] ${className}`}>
+    <div className={`rounded-[18px] border border-slate-200/90 bg-white shadow-[0_16px_38px_-24px_rgba(15,23,42,0.28)] ${className}`}>
       {children}
     </div>
   );
