@@ -148,6 +148,7 @@ function RootComponent() {
     "/reviews",
     "/Pricing-v3",
     "/crm_v2",
+    "/crm",
     "/customer-marketing",
     "/platform",
   ]).has(normalizedPath);

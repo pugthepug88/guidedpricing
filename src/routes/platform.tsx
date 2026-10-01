@@ -802,12 +802,12 @@ function CapabilityMap() {
               className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[58px] lg:text-[68px]"
               style={{ fontFamily: DISPLAY }}
             >
-              More than a CRM.
-              <span className="block text-[#687460]">Not a feature catalogue.</span>
+              One customer context.
+              <span className="block text-[#687460]">Different capabilities around it.</span>
             </h2>
           </div>
           <p className="max-w-[650px] text-[14px] leading-[1.75] text-[#687067] sm:text-[15px]">
-            These capabilities matter because they can operate around the same customer context. The page you are on explains the system; the deeper pages explain the jobs that deserve their own buying decision.
+            Customer records, forms, conversations, bookings, payments, marketing and reporting become more useful when they can work from the same customer context instead of operating as separate islands.
           </p>
         </Reveal>
 
@@ -949,7 +949,7 @@ function ReplaceConnect() {
             <span className="block text-[#746F67]">to connect the customer journey.</span>
           </h2>
           <p className="mx-auto mt-6 max-w-[790px] text-[15px] leading-[1.75] text-[#6C6964] sm:text-[16px]">
-            Consolidate the customer-facing work Zapla already covers. Where another system still belongs, supported connections, calendar integrations, payment gateways, APIs and webhooks can keep it part of the flow.
+            Consolidate the customer-facing work Zapla already covers. Where another system still belongs, supported connections can keep it part of the flow instead of forcing a rip-and-replace project.
           </p>
         </Reveal>
 
@@ -991,7 +991,7 @@ function ReplaceConnect() {
               Keep specialist systems where they still make sense.
             </h3>
             <p className="mt-5 max-w-[530px] text-[13px] leading-[1.75] text-[#6E716D] sm:text-[14px]">
-              The goal is not a forced rip-and-replace project. The goal is a customer journey where the systems that matter can exchange the information needed to keep work moving.
+              Keep the specialist systems that still earn their place. Zapla can connect to supported tools and channels so the customer journey does not have to restart every time the work crosses systems.
             </p>
             <div className="mt-7 rounded-[17px] border border-[#DDDCD7] bg-white p-4">
               <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#7C837E]">Guided Launch</div>
@@ -1060,8 +1060,8 @@ function GoDeeper() {
             className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Understand the system here.
-            <span className="block text-[#717770]">Explore the job where it matters.</span>
+            Start with the part of Zapla
+            <span className="block text-[#717770]">you need to understand next.</span>
           </h2>
         </Reveal>
 
@@ -1123,10 +1123,10 @@ function GoDeeper() {
 
               <div className="mt-7 border-t border-white/10 pt-6">
                 <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-white/35">
-                  More specific systems
+                  Other follow-through moments
                 </div>
                 <p className="mt-2 text-[11px] leading-[1.65] text-white/45">
-                  Quote chasing, appointment recovery and repeat & recall belong at the solution layer when they need a dedicated buying story.
+                  Quote chasing, appointment recovery and repeat & recall can also be mapped around the same customer history.
                 </p>
               </div>
             </div>
