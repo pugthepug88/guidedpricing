@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+// Platform overview uses the dedicated connected-system scene.
 import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
