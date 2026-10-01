@@ -15,7 +15,7 @@ import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 type Moment = {
-  kind: "enquiry" | "conversation" | "pipeline" | "booking" | "completed" | "repeat";
+  kind: "enquiry" | "conversation" | "pipeline" | "booking" | "payment" | "review" | "repeat";
   label: string;
   accent: string;
   soft: string;
@@ -29,8 +29,9 @@ const MOMENTS: Moment[] = [
   { kind: "conversation", label: "Conversation", accent: "#8E657A", soft: "#F0E6EB", x: 84, y: 18, width: 286 },
   { kind: "pipeline", label: "Pipeline & follow-up", accent: "#85845D", soft: "#ECECE3", x: 14, y: 48, width: 296 },
   { kind: "booking", label: "Booking", accent: "#0E777B", soft: "#E2F0EF", x: 87, y: 44, width: 274 },
-  { kind: "completed", label: "Completed", accent: "#C89A5D", soft: "#F2E9DD", x: 19, y: 82, width: 292 },
-  { kind: "repeat", label: "Repeat business", accent: "#D69672", soft: "#F4E7DF", x: 82, y: 79, width: 304 },
+  { kind: "payment", label: "Payment", accent: "#C89A5D", soft: "#F2E9DD", x: 16, y: 82, width: 276 },
+  { kind: "review", label: "Review", accent: "#D69672", soft: "#F4E7DF", x: 86, y: 70, width: 286 },
+  { kind: "repeat", label: "Repeat business", accent: "#8E657A", soft: "#F0E6EB", x: 73, y: 88, width: 292 },
 ];
 
 export function PlatformConnectedSystemScene() {
@@ -316,25 +317,33 @@ function MomentBody({ moment }: { moment: Moment }) {
     );
   }
 
-  if (moment.kind === "completed") {
+  if (moment.kind === "payment") {
+    return (
+      <div className="flex items-end justify-between gap-3 p-3.5">
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#8A918E]">Amount received</div>
+          <div className="mt-1 text-[23px] font-semibold tracking-[-0.04em] text-[#27313F]">$1,250</div>
+          <div className="mt-1 text-[8.5px] text-[#8A918E]">INV-2841 · Emma Wilson</div>
+        </div>
+        <CreditCard size={15} style={{ color: moment.accent }} />
+      </div>
+    );
+  }
+
+  if (moment.kind === "review") {
     return (
       <div className="p-3.5">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <div className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#8A918E]">Job completed</div>
-            <div className="mt-1 text-[22px] font-semibold tracking-[-0.04em] text-[#27313F]">$1,250 paid</div>
-            <div className="mt-1 text-[8.5px] text-[#8A918E]">INV-2841 · Emma Wilson</div>
+        <div className="flex items-center gap-2.5">
+          <HomepageAvatar size={30} cell={0} />
+          <div className="min-w-0 flex-1">
+            <div className="text-[10.5px] font-semibold text-[#27313F]">Emma Wilson</div>
+            <div className="mt-0.5 flex gap-0.5" style={{ color: moment.accent }}>
+              {[0, 1, 2, 3, 4].map((i) => <Star key={i} size={10} fill="currentColor" />)}
+            </div>
           </div>
-          <CreditCard size={15} style={{ color: moment.accent }} />
+          <span className="text-[7.5px] font-semibold uppercase tracking-[0.08em]" style={{ color: moment.accent }}>Google</span>
         </div>
-
-        <div className="mt-3 flex items-center justify-between rounded-[9px] bg-[#F7F7F5] px-2.5 py-2">
-          <div className="flex items-center gap-2">
-            <Star size={11} fill="currentColor" style={{ color: moment.accent }} />
-            <span className="text-[8.5px] font-medium text-[#68706C]">Review request sent</span>
-          </div>
-          <span className="text-[7.5px] font-semibold" style={{ color: moment.accent }}>AFTER SERVICE</span>
-        </div>
+        <div className="mt-2.5 text-[9px] leading-[1.45] text-[#606965]">“Absolutely brilliant service from start to finish.”</div>
       </div>
     );
   }
