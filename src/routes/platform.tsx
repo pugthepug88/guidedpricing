@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-// Platform overview uses the dedicated connected-system scene.
+// Platform overview uses the dedicated connected-system scene and keeps the hero visual isolated from the rest of the route.
 import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
