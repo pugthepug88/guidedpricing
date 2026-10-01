@@ -3,12 +3,17 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
+  Briefcase,
   Calendar,
   Check,
   ChevronDown,
+  Hammer,
+  Home,
   MessageSquare,
   Phone,
   PhoneForwarded,
+  ShieldCheck,
+  Stethoscope,
   UserRound,
 } from "lucide-react";
 
@@ -59,6 +64,14 @@ const FAQS = [
     a: "It does not need to invent one. You can set the fallback to collect the right details, take a clean message or hand the call to your team.",
   },
   {
+    q: "Where does the information from the call go?",
+    a: "The call outcome and customer details can stay with the contact in Zapla and trigger the next configured step, such as a message, task, booking or pipeline update.",
+  },
+  {
+    q: "Can we change what the receptionist handles later?",
+    a: "Yes. The information it uses, the calls it handles, and the booking, routing, handoff and fallback rules can be refined as your business changes.",
+  },
+  {
     q: "How much does it cost?",
     a: "AI Receptionist is A$199 per month plus GST as an add-on to an active Zapla plan. It includes 200 Voice AI minutes. Setup starts from A$997 plus GST, and additional Voice AI usage is A$0.90 plus GST per minute.",
   },
@@ -66,10 +79,13 @@ const FAQS = [
 
 function AIReceptionistPage() {
   return (
-    <main className="min-h-screen bg-[#F7F4EE] text-[#111318] antialiased" style={{ fontFamily: BODY }}>
+    <main className="min-h-screen bg-white text-[#111318] antialiased" style={{ fontFamily: BODY }}>
       <Hero />
+      <ProblemAwareness />
       <WhatItHandles />
       <FollowThrough />
+      <IndustryExamples />
+      <ControlBoundaries />
       <SetupAndPricing />
       <Faq />
       <FinalCta />
@@ -269,11 +285,88 @@ function HumanHeroCard() {
   );
 }
 
+
+function ProblemAwareness() {
+  const moments = [
+    {
+      icon: <UserRound size={18} />,
+      label: "With a customer",
+      copy: "You cannot stop mid-appointment just because another enquiry arrived.",
+    },
+    {
+      icon: <Hammer size={18} />,
+      label: "On the job",
+      copy: "The phone rings while your hands are full and the work cannot pause.",
+    },
+    {
+      icon: <Phone size={18} />,
+      label: "Already on a call",
+      copy: "A second enquiry waits, leaves voicemail or tries someone else.",
+    },
+    {
+      icon: <Calendar size={18} />,
+      label: "After hours",
+      copy: "The customer is still deciding even when your front desk is closed.",
+    },
+  ];
+
+  return (
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
+          <div>
+            <Eyebrow>The interruption is only the start</Eyebrow>
+            <h2
+              className="mt-4 max-w-[720px] text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[64px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              The expensive part is what happens after nobody picks up.
+            </h2>
+          </div>
+          <p className="max-w-[610px] text-[15px] leading-[1.72] text-[#626762] sm:text-[17px]">
+            A call lands while you are with a customer, on a job, already on the phone or closed for the day. Then someone has to listen, call back, take notes and remember what should happen next.
+          </p>
+        </Reveal>
+
+        <div className="mt-11 grid gap-px overflow-hidden rounded-[24px] border border-[#E2E4DF] bg-[#E2E4DF] sm:grid-cols-2 lg:grid-cols-4">
+          {moments.map((moment, index) => (
+            <Reveal key={moment.label}>
+              <div className="h-full min-h-[220px] bg-[#FAFAF8] p-6 sm:p-7">
+                <div className="flex items-center justify-between">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-[11px] bg-[#1E2B29] text-white">
+                    {moment.icon}
+                  </span>
+                  <span className="text-[10px] font-semibold tracking-[0.14em] text-[#A4A8A2]">0{index + 1}</span>
+                </div>
+                <h3 className="mt-8 text-[24px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>
+                  {moment.label}
+                </h3>
+                <p className="mt-3 text-[13px] leading-[1.65] text-[#666B67]">{moment.copy}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-5">
+          <div className="flex flex-wrap items-center gap-2 rounded-[18px] border border-[#E2E4DF] bg-[#F4F6F3] px-5 py-4 text-[11px] font-semibold text-[#4F5750] sm:px-6 sm:text-[12px]">
+            {["Missed call", "Voicemail", "Callback", "Phone tag", "Manual follow-up"].map((item, index, items) => (
+              <span key={item} className="inline-flex items-center gap-2">
+                <span>{item}</span>
+                {index < items.length - 1 && <ArrowRight size={13} className="text-[#A1A79F]" />}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function WhatItHandles() {
   const reduced = !!useReducedMotion();
 
   return (
-    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F5F7F4] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[860px]">
           <Eyebrow>Keep the routine moving</Eyebrow>
@@ -478,9 +571,20 @@ function FollowThrough() {
             The call ends.
             <span className="block text-[#DDA34B]">The work keeps moving.</span>
           </h2>
-          <p className="mt-5 max-w-[570px] text-[15px] leading-[1.65] text-white/60 sm:text-[16px]">
-            Zapla turns one call into the next actions automatically, so your team does not have to restart the work.
+          <p className="mt-5 max-w-[700px] text-[15px] leading-[1.7] text-white/60 sm:text-[16px]">
+            A standalone answering tool can stop at “message taken”. Zapla keeps the caller, outcome and next step connected to the same customer workflow.
           </p>
+
+          <div className="mt-7 grid max-w-[780px] gap-2 sm:grid-cols-2">
+            <div className="rounded-[16px] border border-white/[0.08] bg-white/[0.025] px-4 py-4">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-white/34">Standalone answering tool</div>
+              <div className="mt-2 text-[12px] font-semibold text-white/66">Answer → message or action → call ends</div>
+            </div>
+            <div className="rounded-[16px] border border-[#DDA34B]/20 bg-[#DDA34B]/[0.035] px-4 py-4">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#DDA34B]">Zapla</div>
+              <div className="mt-2 text-[12px] font-semibold text-white/86">Answer → customer record → next action → follow-up</div>
+            </div>
+          </div>
         </Reveal>
 
         <Reveal className="mt-10 sm:mt-12">
@@ -681,16 +785,213 @@ function FollowThrough() {
   );
 }
 
+
+function IndustryExamples() {
+  const examples = [
+    {
+      key: "allied-health",
+      label: "Allied health",
+      icon: <Stethoscope size={16} />,
+      caller: "Are you taking new patients, and do you have anything after 5?",
+      reply: "I can help with your booking options and practice information. What day works best for you?",
+      outcome: ["Enquiry captured", "Booking path started", "Handoff available"],
+    },
+    {
+      key: "trades",
+      label: "Trades",
+      icon: <Hammer size={16} />,
+      caller: "My hot water has stopped. Can someone come out today?",
+      reply: "I can take the details and check the urgent-job flow. What suburb are you in?",
+      outcome: ["Urgency captured", "Job routed", "Customer details attached"],
+    },
+    {
+      key: "real-estate",
+      label: "Real estate",
+      icon: <Home size={16} />,
+      caller: "I’m thinking of selling and would like to organise an appraisal.",
+      reply: "Absolutely. I can take the property details and arrange the next step with the team.",
+      outcome: ["Seller lead created", "Property details saved", "Follow-up task triggered"],
+    },
+    {
+      key: "professional-services",
+      label: "Professional services",
+      icon: <Briefcase size={16} />,
+      caller: "I’m not sure which service I need. Can someone talk me through it?",
+      reply: "I can take a few details, identify the right enquiry path and arrange the next step with the team.",
+      outcome: ["Need captured", "Enquiry routed", "Next step recorded"],
+    },
+  ] as const;
+
+  const [selectedKey, setSelectedKey] = useState(examples[0].key);
+  const selected = examples.find((example) => example.key === selectedKey) ?? examples[0];
+
+  return (
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end lg:gap-16">
+          <div>
+            <Eyebrow>Built around your front desk</Eyebrow>
+            <h2
+              className="mt-4 text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[64px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Same AI.
+              <span className="block">Different job.</span>
+            </h2>
+          </div>
+          <p className="max-w-[640px] text-[15px] leading-[1.7] text-[#626762] sm:text-[17px]">
+            A clinic, tradie, real estate agency and professional services firm should not sound like the same generic bot. The questions, actions and handoff rules change with the business.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 flex flex-wrap gap-2">
+          {examples.map((example) => {
+            const active = selected.key === example.key;
+            return (
+              <button
+                key={example.key}
+                type="button"
+                onClick={() => setSelectedKey(example.key)}
+                aria-pressed={active}
+                className={
+                  "inline-flex h-[44px] items-center gap-2 rounded-full border px-4 text-[12px] font-semibold transition-colors " +
+                  (active
+                    ? "border-[#1E2B29] bg-[#1E2B29] text-white"
+                    : "border-[#DDE1DB] bg-[#FAFAF8] text-[#555C56] hover:bg-white")
+                }
+              >
+                {example.icon}
+                {example.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <motion.div
+          key={selected.key}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: EASE }}
+          className="mt-5 grid overflow-hidden rounded-[24px] border border-[#E0E3DE] bg-[#F4F6F3] lg:grid-cols-[1.02fr_.98fr]"
+        >
+          <div className="p-6 sm:p-8 lg:p-10">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.17em] text-[#8A8178]">Illustrative call</div>
+
+            <div className="mt-7 border-l-2 border-[#D58C75] pl-5">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#817A72]">Caller</div>
+              <div className="mt-2 text-[23px] font-medium leading-[1.28] tracking-[-0.035em] text-[#111318]" style={{ fontFamily: DISPLAY }}>
+                “{selected.caller}”
+              </div>
+            </div>
+
+            <div className="mt-7 border-l-2 border-[#99A36D] pl-5">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#69735D]">Zapla</div>
+              <div className="mt-2 text-[19px] font-medium leading-[1.38] tracking-[-0.025em] text-[#313632]" style={{ fontFamily: DISPLAY }}>
+                “{selected.reply}”
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-[#E0E3DE] bg-white p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.17em] text-[#8A8178]">What happens behind the call</div>
+            <div className="mt-7 space-y-3">
+              {selected.outcome.map((item) => (
+                <div key={item} className="flex items-center justify-between gap-4 border-b border-[#E7E9E5] pb-3">
+                  <span className="text-[13px] font-semibold text-[#343A35]">{item}</span>
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#99A36D]/14 text-[#69735D]">
+                    <Check size={12} strokeWidth={2.5} />
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-[11px] leading-[1.6] text-[#737A73]">
+              Illustrative workflow. The real questions, actions and handoffs are configured around your business during setup.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function ControlBoundaries() {
+  const rows = [
+    {
+      label: "HANDLE",
+      title: "Routine calls",
+      copy: "Common questions, simple enquiries, bookings and information your front desk handles every day.",
+      icon: <MessageSquare size={18} />,
+      accent: "#C96F55",
+    },
+    {
+      label: "HAND OFF",
+      title: "Calls that need a person",
+      copy: "Route or transfer the conversation when judgement, sensitivity or a human relationship matters.",
+      icon: <PhoneForwarded size={18} />,
+      accent: "#9B86B8",
+    },
+    {
+      label: "FALL BACK",
+      title: "Anything outside the rules",
+      copy: "Take a clean message, collect the right details or escalate. Unknown does not need to become invented.",
+      icon: <ShieldCheck size={18} />,
+      accent: "#788565",
+    },
+  ];
+
+  return (
+    <section className="bg-[#EEF2EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1200px]">
+        <Reveal className="max-w-[860px]">
+          <Eyebrow>Control</Eyebrow>
+          <h2
+            className="mt-4 text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[64px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            You decide where AI stops.
+          </h2>
+          <p className="mt-5 max-w-[720px] text-[15px] leading-[1.7] text-[#606761] sm:text-[17px]">
+            The goal is not to make the receptionist endlessly clever. It is to make call handling predictable enough that your team knows what happens next.
+          </p>
+        </Reveal>
+
+        <div className="mt-11 overflow-hidden rounded-[24px] border border-[#D7DED7] bg-white">
+          {rows.map((row, index) => (
+            <Reveal key={row.label}>
+              <div className={"grid gap-4 p-6 md:grid-cols-[120px_1fr_1.2fr] md:items-center md:gap-8 sm:p-7 " + (index ? "border-t border-[#E0E5E0]" : "")}>
+                <div className="text-[10px] font-bold tracking-[0.18em]" style={{ color: row.accent }}>{row.label}</div>
+                <div className="flex items-center gap-3">
+                  <span
+                    className="flex h-10 w-10 items-center justify-center rounded-[11px]"
+                    style={{ color: row.accent, backgroundColor: row.accent + "18" }}
+                  >
+                    {row.icon}
+                  </span>
+                  <h3 className="text-[25px] font-medium tracking-[-0.04em]" style={{ fontFamily: DISPLAY }}>{row.title}</h3>
+                </div>
+                <p className="max-w-[520px] text-[13px] leading-[1.65] text-[#626962]">{row.copy}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SetupAndPricing() {
   return (
-    <section className="bg-[#EFE3D4] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto grid max-w-[1280px] gap-4 lg:grid-cols-2">
         <Reveal>
-          <div className="h-full rounded-[24px] bg-[#F7F4EE] p-6 sm:p-8 lg:p-10">
+          <div className="h-full rounded-[24px] border border-[#E1E4DF] bg-[#F5F7F4] p-6 sm:p-8 lg:p-10">
             <Eyebrow>Guided setup</Eyebrow>
             <h2 className="mt-4 max-w-[520px] text-[37px] font-medium leading-[0.99] tracking-[-0.05em] sm:text-[48px]" style={{ fontFamily: DISPLAY }}>
               We set up the receptionist around your business.
             </h2>
+            <p className="mt-4 max-w-[520px] text-[14px] leading-[1.68] text-[#626962]">
+              We do not hand you a blank bot. We map the calls, rules, handoffs and next steps before customers reach it.
+            </p>
             <div className="mt-8 divide-y divide-[#D8CFC3] border-y border-[#D8CFC3]">
               {[
                 ["01", "Map the calls", "What people ask and what should happen next."],
@@ -750,7 +1051,7 @@ function Faq() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F7F8F6] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1000px]">
         <Reveal>
           <Eyebrow>Questions</Eyebrow>
@@ -767,7 +1068,7 @@ function Faq() {
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : index)}
-                  className="flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C96F55] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F4EE] sm:py-6"
+                  className="flex w-full items-center justify-between gap-6 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C96F55] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F8F6] sm:py-6"
                   aria-expanded={isOpen}
                   aria-controls={`ai-receptionist-faq-${index}`}
                 >
