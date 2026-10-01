@@ -14,16 +14,18 @@ import {
 } from "lucide-react";
 import heroColor from "@/assets/connected-hero-color.png.asset.json";
 import heroSketch from "@/assets/connected-hero-sketch.png.asset.json";
-import pCustomer from "@/assets/portrait-customer.jpg.asset.json";
+
+const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 type Moment = {
-  kind: "enquiry" | "conversation" | "followup" | "booking" | "payment" | "review";
+  kind: "enquiry" | "conversation" | "pipeline" | "booking" | "payment" | "review";
   label: string;
   icon: LucideIcon;
   accent: string;
   soft: string;
   x: number;
   y: number;
+  width: number;
 };
 
 const MOMENTS: Moment[] = [
@@ -34,7 +36,8 @@ const MOMENTS: Moment[] = [
     accent: "#F17364",
     soft: "#FFF0EC",
     x: 16,
-    y: 17,
+    y: 14,
+    width: 326,
   },
   {
     kind: "conversation",
@@ -42,17 +45,19 @@ const MOMENTS: Moment[] = [
     icon: MessageSquareText,
     accent: "#D45B8A",
     soft: "#FCECF3",
-    x: 84,
-    y: 17,
+    x: 83,
+    y: 20,
+    width: 302,
   },
   {
-    kind: "followup",
-    label: "Follow-up",
+    kind: "pipeline",
+    label: "Pipeline & follow-up",
     icon: Workflow,
     accent: "#A97ABB",
     soft: "#F3ECF8",
-    x: 16,
-    y: 50,
+    x: 18,
+    y: 49,
+    width: 314,
   },
   {
     kind: "booking",
@@ -60,8 +65,9 @@ const MOMENTS: Moment[] = [
     icon: CalendarDays,
     accent: "#2563FF",
     soft: "#EAF0FF",
-    x: 84,
-    y: 50,
+    x: 86,
+    y: 46,
+    width: 288,
   },
   {
     kind: "payment",
@@ -69,8 +75,9 @@ const MOMENTS: Moment[] = [
     icon: CreditCard,
     accent: "#99965E",
     soft: "#F3F2E8",
-    x: 16,
-    y: 81,
+    x: 15,
+    y: 82,
+    width: 300,
   },
   {
     kind: "review",
@@ -78,8 +85,9 @@ const MOMENTS: Moment[] = [
     icon: Star,
     accent: "#E99A3A",
     soft: "#FFF4E5",
-    x: 84,
-    y: 81,
+    x: 81,
+    y: 79,
+    width: 320,
   },
 ];
 
@@ -167,29 +175,29 @@ function DesktopContextScene() {
   }, []);
 
   const scene = smoothstep(0.10, 0.84, progress);
-  const personScale = 0.86 + scene * 0.34;
+  const personScale = 0.88 + scene * 0.24;
   const sketchOpacity = 1 - smoothstep(0.12, 0.78, progress);
   const colourOpacity = smoothstep(0.12, 0.82, progress);
-  const cardScale = 1 - scene * 0.42;
-  const cardOpacity = 1 - smoothstep(0.58, 0.92, progress) * 0.97;
-  const inward = scene * 0.08;
+  const cardScale = 1 - scene * 0.40;
+  const cardOpacity = 1 - smoothstep(0.60, 0.92, progress) * 0.97;
+  const inward = scene * 0.055;
   const endLabelOpacity = smoothstep(0.82, 0.95, progress);
 
   return (
     <div ref={ref} className="relative mt-12 h-[300vh]">
       <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center overflow-hidden">
-        <div className="relative mx-auto h-[650px] max-h-[calc(100vh-100px)] min-h-[550px] w-full max-w-[1280px]">
+        <div className="relative mx-auto h-[650px] max-h-[calc(100vh-96px)] min-h-[540px] w-full max-w-[1280px]">
           <div
-            className="pointer-events-none absolute left-1/2 top-[51%] h-[76%] w-[54%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
+            className="pointer-events-none absolute left-1/2 top-[53%] h-[72%] w-[52%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
             style={{
               background:
-                "radial-gradient(circle at center, rgba(37,99,255,0.105), rgba(212,91,138,0.045) 34%, rgba(255,255,255,0) 72%)",
-              opacity: 0.28 + scene * 0.72,
+                "radial-gradient(circle at center, rgba(37,99,255,0.10), rgba(212,91,138,0.042) 34%, rgba(255,255,255,0) 72%)",
+              opacity: 0.26 + scene * 0.74,
             }}
           />
 
           <div
-            className="pointer-events-none absolute left-1/2 top-[52%] h-[86%] -translate-x-1/2 -translate-y-1/2"
+            className="pointer-events-none absolute left-1/2 top-[55%] h-[74%] -translate-x-1/2 -translate-y-1/2"
             style={{ transform: `translate(-50%, -50%) scale(${personScale})` }}
           >
             <motion.img
@@ -213,12 +221,13 @@ function DesktopContextScene() {
 
           {MOMENTS.map((moment) => {
             const x = moment.x + (50 - moment.x) * inward;
-            const y = moment.y + (52 - moment.y) * inward;
+            const y = moment.y + (54 - moment.y) * inward;
             return (
               <div
                 key={moment.kind}
-                className="absolute z-20 w-[314px]"
+                className="absolute z-20"
                 style={{
+                  width: moment.width,
                   left: `${x}%`,
                   top: `${y}%`,
                   opacity: cardOpacity,
@@ -232,7 +241,7 @@ function DesktopContextScene() {
           })}
 
           <div
-            className="absolute bottom-[2.5%] left-1/2 -translate-x-1/2 rounded-full border border-[#DDE3EC] bg-white/94 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#6D7686] shadow-sm backdrop-blur"
+            className="absolute bottom-[1.5%] left-1/2 -translate-x-1/2 rounded-full border border-[#DDE3EC] bg-white/94 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.14em] text-[#6D7686] shadow-sm backdrop-blur"
             style={{ opacity: endLabelOpacity }}
           >
             One customer · one history
@@ -246,10 +255,10 @@ function DesktopContextScene() {
 function MomentCard({ moment }: { moment: Moment }) {
   return (
     <div className="rounded-[22px] bg-[#F1F2F4] p-3.5 shadow-[0_10px_28px_rgba(24,38,64,.045)]">
-      <div className="mb-3 px-1 text-[16px] font-semibold tracking-[-0.025em] text-[#171A20]">
-        {moment.label}
+      <div className="mb-3 flex items-center justify-between px-1">
+        <div className="text-[15px] font-semibold tracking-[-0.025em] text-[#171A20]">{moment.label}</div>
+        <span className="h-2 w-2 rounded-full" style={{ backgroundColor: moment.accent }} />
       </div>
-
       <div className="overflow-hidden rounded-[15px] border border-[#E2E5EA] bg-white shadow-[0_8px_20px_rgba(24,38,64,.045)]">
         <MomentBody moment={moment} />
       </div>
@@ -257,7 +266,35 @@ function MomentCard({ moment }: { moment: Moment }) {
   );
 }
 
-function MomentHeader({ moment, title, meta }: { moment: Moment; title: string; meta: string }) {
+function HomepageAvatar({ size = 28, cell = 0 }: { size?: number; cell?: number }) {
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+  return (
+    <span
+      className="shrink-0 overflow-hidden rounded-full border-2 border-white shadow-[0_4px_12px_rgba(35,53,76,.10)]"
+      style={{
+        width: size,
+        height: size,
+        backgroundImage: `url(${PORTRAIT_SHEET})`,
+        backgroundPosition: `${(column / 5) * 100}% ${(row / 3) * 100}%`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "600% 400%",
+        backgroundColor: "#B98278",
+      }}
+      aria-hidden="true"
+    />
+  );
+}
+
+function CardHeader({
+  moment,
+  title,
+  meta,
+}: {
+  moment: Moment;
+  title: string;
+  meta: string;
+}) {
   const Icon = moment.icon;
   return (
     <div className="flex items-center gap-3 border-b border-[#EDF0F4] px-4 py-3.5">
@@ -271,7 +308,7 @@ function MomentHeader({ moment, title, meta }: { moment: Moment; title: string; 
         <div className="text-[11.5px] font-semibold text-[#222C3B]">{title}</div>
         <div className="mt-0.5 text-[9px] text-[#858E9D]">{meta}</div>
       </div>
-      <img src={pCustomer.url} alt="" className="h-7 w-7 rounded-full object-cover ring-2 ring-white" />
+      <HomepageAvatar size={28} cell={0} />
     </div>
   );
 }
@@ -280,16 +317,30 @@ function MomentBody({ moment }: { moment: Moment }) {
   if (moment.kind === "enquiry") {
     return (
       <>
-        <MomentHeader moment={moment} title="Incoming call" meta="Emma Wilson · just now" />
+        <CardHeader moment={moment} title="Incoming call" meta="Emma Wilson · just now" />
         <div className="bg-[#FBFCFE] px-4 py-3.5">
-          <div className="rounded-[10px] bg-white px-3 py-2.5 text-[10px] leading-[1.48] text-[#596474] ring-1 ring-[#E6EAF0]">
-            “Calling about a quote for a bathroom renovation next month…”
+          <div className="rounded-[12px] px-3 py-3" style={{ backgroundColor: moment.soft }}>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm" style={{ color: moment.accent }}>
+                <Phone size={15} />
+              </div>
+              <div className="flex flex-1 items-end justify-center gap-[3px]">
+                {[10, 18, 13, 24, 16, 28, 12, 20, 9, 17, 12, 23, 14, 19].map((height, index) => (
+                  <span
+                    key={index}
+                    className="w-[3px] rounded-full"
+                    style={{ height, backgroundColor: moment.accent, opacity: 0.42 + (index % 3) * 0.18 }}
+                  />
+                ))}
+              </div>
+              <div className="text-right">
+                <div className="text-[10px] font-semibold text-[#303947]">00:42</div>
+                <div className="mt-0.5 text-[7.5px] font-bold uppercase tracking-[0.08em]" style={{ color: moment.accent }}>AI listening</div>
+              </div>
+            </div>
           </div>
-          <div className="mt-2.5 flex items-center justify-between">
-            <span className="flex items-center gap-1.5 text-[8.5px] font-semibold" style={{ color: moment.accent }}>
-              <Sparkles size={10} /> AI transcribed
-            </span>
-            <span className="text-[8.5px] font-medium text-[#7B8595]">Added to customer</span>
+          <div className="mt-2.5 truncate rounded-[9px] bg-white px-3 py-2 text-[9px] text-[#697382] ring-1 ring-[#E7EBF1]">
+            “Calling about a bathroom renovation next month…”
           </div>
         </div>
       </>
@@ -299,41 +350,47 @@ function MomentBody({ moment }: { moment: Moment }) {
   if (moment.kind === "conversation") {
     return (
       <>
-        <MomentHeader moment={moment} title="SMS conversation" meta="Emma Wilson · same history" />
+        <CardHeader moment={moment} title="SMS conversation" meta="Emma Wilson · same history" />
         <div className="bg-[#FBFCFE] px-4 py-3.5">
           <div className="max-w-[88%] rounded-[12px] rounded-bl-[4px] bg-white px-3 py-2 text-[9.5px] leading-[1.45] text-[#596474] ring-1 ring-[#E6EAF0]">
             Can I move my 3pm to Thursday?
           </div>
           <div className="mt-2 ml-auto max-w-[82%] rounded-[12px] rounded-br-[4px] px-3 py-2 text-[9.5px] leading-[1.45] text-[#394456]" style={{ backgroundColor: moment.soft }}>
-            Thursday at 2 works. I’ll update it now.
+            Thursday at 2 works.
           </div>
+          <div className="mt-2 text-right text-[8px] font-medium text-[#9199A5]">SMS · synced to customer history</div>
         </div>
       </>
     );
   }
 
-  if (moment.kind === "followup") {
-    const steps = [
-      ["Lead captured", true],
-      ["Welcome SMS sent", true],
-      ["Follow-up paused after reply", false],
-    ] as const;
-
+  if (moment.kind === "pipeline") {
+    const stages = ["Lead", "Qualified", "Proposal", "Won"];
     return (
       <>
-        <MomentHeader moment={moment} title="Workflow running" meta="Enquiry → nurture" />
-        <div className="space-y-2 bg-[#FBFCFE] px-4 py-3.5">
-          {steps.map(([label, done], index) => (
-            <div key={label} className="flex items-center gap-2.5 rounded-[9px] bg-white px-2.5 py-2 ring-1 ring-[#E9ECF1]">
-              <span
-                className="grid h-5 w-5 shrink-0 place-items-center rounded-full text-[8px] font-bold"
-                style={{ backgroundColor: done ? "#EAF8F1" : moment.soft, color: done ? "#159767" : moment.accent }}
+        <CardHeader moment={moment} title="Opportunity updated" meta="Bathroom renovation · $4,800" />
+        <div className="bg-[#FBFCFE] px-4 py-3.5">
+          <div className="grid grid-cols-4 gap-1.5">
+            {stages.map((stage, index) => (
+              <div
+                key={stage}
+                className="rounded-full px-1 py-1.5 text-center text-[7.5px] font-bold"
+                style={{
+                  backgroundColor: index < 2 ? "#EAF8F1" : index === 2 ? moment.soft : "#EEF0F3",
+                  color: index < 2 ? "#428B69" : index === 2 ? moment.accent : "#A2A9B4",
+                }}
               >
-                {done ? "✓" : index + 1}
-              </span>
-              <span className={"text-[9.5px] " + (done ? "text-[#87909E]" : "font-semibold text-[#313B4B]")}>{label}</span>
+                {stage}
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 flex items-center gap-2 rounded-[10px] bg-white px-3 py-2.5 ring-1 ring-[#E7EBF1]">
+            <span className="grid h-5 w-5 place-items-center rounded-full text-[8px] font-bold" style={{ backgroundColor: moment.soft, color: moment.accent }}>3</span>
+            <div className="flex-1">
+              <div className="text-[9px] font-semibold text-[#344052]">Next action</div>
+              <div className="mt-0.5 text-[8.5px] text-[#7C8696]">Follow up automatically in 2 days</div>
             </div>
-          ))}
+          </div>
         </div>
       </>
     );
@@ -342,7 +399,7 @@ function MomentBody({ moment }: { moment: Moment }) {
   if (moment.kind === "booking") {
     return (
       <>
-        <MomentHeader moment={moment} title="Booking confirmed" meta="Emma Wilson · consultation" />
+        <CardHeader moment={moment} title="Booking confirmed" meta="Emma Wilson · consultation" />
         <div className="grid grid-cols-[62px_1fr] items-center gap-3 bg-[#FBFCFE] px-4 py-3.5">
           <div className="overflow-hidden rounded-[11px] bg-white text-center ring-1 ring-[#DFE5ED]">
             <div className="py-1 text-[7px] font-bold uppercase tracking-[0.08em] text-white" style={{ backgroundColor: moment.accent }}>Thu</div>
@@ -363,7 +420,7 @@ function MomentBody({ moment }: { moment: Moment }) {
   if (moment.kind === "payment") {
     return (
       <>
-        <MomentHeader moment={moment} title="Invoice paid" meta="INV-2841 · Emma Wilson" />
+        <CardHeader moment={moment} title="Invoice paid" meta="INV-2841 · Emma Wilson" />
         <div className="flex items-end justify-between gap-4 bg-[#FBFCFE] px-4 py-4">
           <div>
             <div className="text-[8px] font-bold uppercase tracking-[0.11em] text-[#8A93A2]">Amount received</div>
@@ -378,10 +435,10 @@ function MomentBody({ moment }: { moment: Moment }) {
 
   return (
     <>
-      <MomentHeader moment={moment} title="New 5-star review" meta="Auto-requested after completed work" />
+      <CardHeader moment={moment} title="New 5-star review" meta="Requested after completed work" />
       <div className="bg-[#FBFCFE] px-4 py-3.5">
-        <div className="flex items-center gap-2">
-          <img src={pCustomer.url} alt="" className="h-8 w-8 rounded-full object-cover ring-2 ring-white" />
+        <div className="flex items-center gap-2.5">
+          <HomepageAvatar size={30} cell={0} />
           <div>
             <div className="text-[10.5px] font-semibold text-[#263142]">Emma Wilson</div>
             <div className="mt-0.5 flex gap-0.5" style={{ color: moment.accent }}>
