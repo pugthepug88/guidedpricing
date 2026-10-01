@@ -26,7 +26,6 @@ import {
   Users,
   Workflow,
 } from "lucide-react";
-import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/platform")({
@@ -68,7 +67,6 @@ function PlatformPage() {
       <ReplaceConnect />
       <GoDeeper />
       <FinalCta />
-      <DominoFooter />
     </main>
   );
 }

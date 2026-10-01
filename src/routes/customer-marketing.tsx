@@ -14,7 +14,6 @@ import {
   Tag,
   Users,
 } from "lucide-react";
-import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/customer-marketing")({
@@ -84,7 +83,6 @@ function CustomerMarketingPage() {
       <GrowthStrip />
       <Faq />
       <FinalCta />
-      <DominoFooter />
     </main>
   );
 }

@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Check, ChevronDown } from "lucide-react";
-import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/reactivation")({
@@ -80,7 +79,6 @@ function ReactivationPage() {
       <CommercialPaths />
       <Faq />
       <FinalCta />
-      <DominoFooter />
     </main>
   );
 }

@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { DominoFooter } from "@/components/DominoFooter";
 import {
   ArrowRight,
   Calendar,
@@ -66,7 +65,6 @@ function FollowUpPage() {
       <ConnectedCrm />
       <Faq />
       <FinalCta />
-      <DominoFooter />
     </main>
   );
 }

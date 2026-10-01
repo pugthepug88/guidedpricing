@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { CinematicFollowThroughV5 } from "@/components/concept/CinematicFollowThroughV5";
 import { ZaplaHomepageContinuationV6 } from "@/components/concept/ZaplaHomepageContinuationV6";
-import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 const TITLE = "Zapla — Different work. Same follow-through.";
@@ -49,9 +48,6 @@ function HomeFinalCta() {
         </div>
       </div>
 
-      <div className="mt-6 sm:mt-8">
-        <DominoFooter />
-      </div>
     </section>
   );
 }

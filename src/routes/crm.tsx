@@ -16,7 +16,6 @@ import {
   TicketCheck,
   Users,
 } from "lucide-react";
-import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/crm")({
@@ -1087,9 +1086,6 @@ function FinalCta() {
         </div>
       </div>
 
-      <div className="mt-6 sm:mt-8">
-        <DominoFooter />
-      </div>
     </section>
   );
 }

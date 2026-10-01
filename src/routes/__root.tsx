@@ -4,7 +4,6 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -13,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteNav } from "../components/SiteNav";
-import { SiteFooter } from "../components/SiteFooter";
+import { DominoFooter } from "../components/DominoFooter";
 
 function NotFoundComponent() {
   return (
@@ -137,27 +136,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const normalizedPath = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
-  const hideGlobalFooter = new Set([
-    "/",
-    "/ai-receptionist",
-    "/follow-up",
-    "/follow-up-claude-v1",
-    "/reactivation",
-    "/reviews",
-    "/Pricing-v3",
-    "/crm_v2",
-    "/customer-marketing",
-    "/platform",
-  ]).has(normalizedPath);
 
   return (
     <QueryClientProvider client={queryClient}>
       <SiteNav />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      {!hideGlobalFooter && <SiteFooter />}
+      <DominoFooter />
     </QueryClientProvider>
   );
 }

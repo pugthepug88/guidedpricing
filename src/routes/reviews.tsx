@@ -13,7 +13,6 @@ import {
   Smartphone,
   Star,
 } from "lucide-react";
-import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/reviews")({
@@ -84,7 +83,6 @@ function ReviewsPage() {
       <CommercialSection />
       <Faq />
       <FinalCta />
-      <DominoFooter />
     </main>
   );
 }
