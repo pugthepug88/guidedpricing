@@ -822,6 +822,7 @@ function IndustryExamples() {
     },
   ] as const;
 
+  const reduced = !!useReducedMotion();
   const [selectedKey, setSelectedKey] = useState(examples[0].key);
   const selected = examples.find((example) => example.key === selectedKey) ?? examples[0];
 
@@ -869,9 +870,9 @@ function IndustryExamples() {
 
         <motion.div
           key={selected.key}
-          initial={{ opacity: 0, y: 8 }}
+          initial={reduced ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: EASE }}
+          transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
           className="mt-5 grid overflow-hidden rounded-[24px] border border-[#E0E3DE] bg-[#F4F6F3] lg:grid-cols-[1.02fr_.98fr]"
         >
           <div className="p-6 sm:p-8 lg:p-10">
