@@ -3,11 +3,17 @@ import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
+  CalendarDays,
   ChevronDown,
+  CreditCard,
+  FileText,
   Filter,
+  Globe2,
+  Mail,
   MousePointer2,
   Search,
   SlidersHorizontal,
+  TicketCheck,
   Users,
 } from "lucide-react";
 import { DominoFooter } from "@/components/DominoFooter";
@@ -940,31 +946,69 @@ function Avatar({
 }
 
 function ConnectedPlatform() {
+  const tools=[
+    {icon:Mail,title:"Email + SMS",copy:"Messages stay with the customer.",tone:"#BF7458"},
+    {icon:CalendarDays,title:"Calendars + bookings",copy:"Turn conversations into booked next steps.",tone:"#85845D"},
+    {icon:CreditCard,title:"Payments",copy:"Keep payment activity in context.",tone:"#C89A5D"},
+    {icon:Globe2,title:"Websites + funnels",copy:"Capture enquiries into the CRM.",tone:"#58706F"},
+    {icon:FileText,title:"Forms + lead capture",copy:"Create records from new enquiries.",tone:"#85845D"},
+    {icon:TicketCheck,title:"Ticketing + service",copy:"Carry the history beyond the sale.",tone:"#BF7458"},
+  ];
+
   return (
-    <section className="border-y border-[#E1DAD1] bg-[#F7F4EE] px-5 py-16 sm:px-10 sm:py-20 lg:px-16">
-      <div className="mx-auto max-w-[1180px]">
-        <Reveal className="grid gap-7 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-16">
-          <div>
-            <Eyebrow>Beyond CRM</Eyebrow>
-            <h2
-              className="mt-4 text-[38px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[48px] lg:text-[56px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              CRM is one part of
-              <span className="block text-[#58706F]">the customer system.</span>
+    <section className="overflow-hidden bg-[#F7F4EE] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+      <div className="mx-auto max-w-[1320px]">
+        <Reveal className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
+          <div className="max-w-[620px]">
+            <Eyebrow>Connected beyond CRM</Eyebrow>
+            <h2 className="mt-5 text-[42px] font-medium leading-[.96] tracking-[-0.055em] text-[#111318] sm:text-[54px] lg:text-[64px]" style={{fontFamily:DISPLAY}}>
+              One customer record.
+              <span className="block text-[#58706F]">The work around it stays connected.</span>
             </h2>
           </div>
+          <p className="max-w-[560px] text-[15px] font-medium leading-[1.72] text-[#646B65] lg:justify-self-end">
+            Messages, bookings, payments, lead capture and service activity stay connected to the same customer instead of being scattered across separate tools.
+          </p>
+        </Reveal>
 
-          <div className="max-w-[620px] lg:justify-self-end">
-            <p className="text-[14px] leading-[1.72] text-[#646B65] sm:text-[15px]">
-              Use the CRM to manage the customer record, conversations and opportunity state. Zapla’s wider platform can use that same context across bookings, payments, marketing, reviews and automation.
-            </p>
-            <a
-              href="/platform"
-              className="mt-5 inline-flex items-center gap-2 text-[12px] font-semibold text-[#1E2B29] transition-colors hover:text-[#2563FF]"
-            >
-              See the Zapla platform <ArrowRight size={13} />
-            </a>
+        <Reveal className="mt-14" delay={0.04}>
+          <div className="grid overflow-hidden rounded-[28px] border border-[#D8D0C5] bg-white shadow-[0_22px_58px_rgba(38,45,41,.07)] lg:grid-cols-[.42fr_.58fr]">
+            <div className="relative min-h-[360px] overflow-hidden bg-[#1E2B29] sm:min-h-[420px] lg:min-h-0">
+              <img
+                src="/concept/CRM image.png"
+                alt="Small business team member handling customer work"
+                className="absolute inset-0 h-full w-full object-cover object-[50%_50%]"
+                loading="lazy"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#15211F]/18 via-transparent to-transparent" />
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3">
+              {tools.map((tool,index)=>{
+                const Icon=tool.icon;
+                return (
+                  <motion.div
+                    key={tool.title}
+                    initial={{opacity:0,y:10}}
+                    whileInView={{opacity:1,y:0}}
+                    viewport={{once:true,amount:.45}}
+                    transition={{duration:.38,delay:index*.04,ease:EASE}}
+                    className={"flex min-h-[180px] flex-col items-center justify-center border-[#E3E0DA] p-5 text-center sm:p-6 " +
+                      (index>0 ? "border-t " : "") +
+                      (index%2===1 ? "sm:border-l " : "") +
+                      (index>=2 ? "sm:border-t " : "sm:border-t-0 ") +
+                      (index%3!==0 ? "lg:border-l " : "lg:border-l-0 ") +
+                      (index>=3 ? "lg:border-t " : "lg:border-t-0 ")}
+                  >
+                    <div className="grid h-10 w-10 place-items-center rounded-full bg-[#F7F4EE]" style={{color:tool.tone}}>
+                      <Icon size={17}/>
+                    </div>
+                    <div className="mt-5 text-[12px] font-semibold text-[#26302A]">{tool.title}</div>
+                    <div className="mx-auto mt-2 max-w-[210px] text-[10px] leading-[1.6] text-[#6A736D]">{tool.copy}</div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </Reveal>
       </div>

@@ -32,6 +32,13 @@ const PATH_ICONS: Record<string, BrandIcon> = Object.fromEntries(
   ] as BrandIcon[]).map((icon) => [icon.slug, icon]),
 );
 
+const linkedinIcon: BrandIcon = {
+  title: "LinkedIn",
+  slug: "linkedin",
+  hex: "0A66C2",
+  path: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z",
+};
+
 const slackIcon: BrandIcon = {
   title: "Slack",
   slug: "slack",
@@ -62,9 +69,18 @@ const INTEGRATIONS: BrandIcon[] = [
   PATH_ICONS["facebook"],
   PATH_ICONS["instagram"],
   PATH_ICONS["whatsapp"],
+  linkedinIcon,
+  PATH_ICONS["tiktok"],
   PATH_ICONS["stripe"],
+  PATH_ICONS["xero"],
+  PATH_ICONS["quickbooks"],
+  PATH_ICONS["airtable"],
+  PATH_ICONS["notion"],
   slackIcon,
-]
+  PATH_ICONS["clickup"],
+  PATH_ICONS["shopify"],
+  PATH_ICONS["zapier"],
+];
 
 function IntegrationLogo({ icon }: { icon: BrandIcon }) {
   return (
@@ -115,13 +131,13 @@ export function ZaplaIntegrationsStripV6() {
       <div className="mx-auto flex max-w-[1600px] flex-col lg:flex-row lg:items-stretch">
         <div className="flex shrink-0 items-center border-b border-[#111318]/10 px-5 py-5 sm:px-10 lg:w-[245px] lg:border-b-0 lg:border-r lg:px-10 lg:py-0">
           <p className="max-w-[180px] text-[10px] font-semibold uppercase leading-[1.55] tracking-[0.2em] text-[#747A76] sm:text-[11px]">
-            Connect what you keep
+            Works with the tools you already use
           </p>
         </div>
 
         <div className="zapla-integrations-marquee-v6 min-w-0 flex-1 overflow-hidden py-5 sm:py-6">
           <div className="zapla-integrations-track-v6 flex w-max items-center">
-            <div className="flex shrink-0 items-center" aria-label="Selected supported connections and channels">
+            <div className="flex shrink-0 items-center" aria-label="Integration examples">
               {INTEGRATIONS.map((icon) => (
                 <IntegrationLogo key={`a-${icon.slug}`} icon={icon} />
               ))}
