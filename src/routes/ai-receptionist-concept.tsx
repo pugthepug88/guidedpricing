@@ -559,8 +559,8 @@ function BusinessConnectedStory() {
       icon: <Stethoscope size={16} />,
       caller: "Are you taking new patients, and do you have anything after 5?",
       reply: "I can help with your booking options and practice information. What day works best for you?",
-      captured: "New patient enquiry",
-      route: "Appointment path",
+      captured: "New patient",
+      route: "Appointment",
       accent: "#99A36D",
     },
     {
@@ -569,7 +569,7 @@ function BusinessConnectedStory() {
       icon: <Hammer size={16} />,
       caller: "My hot water has stopped. Can someone come out today?",
       reply: "I can take the details and check the urgent-job flow. What suburb are you in?",
-      captured: "Urgent job enquiry",
+      captured: "Urgent job",
       route: "Job booking",
       accent: "#DDA34B",
     },
@@ -579,8 +579,8 @@ function BusinessConnectedStory() {
       icon: <Home size={16} />,
       caller: "I’m thinking of selling and would like to organise an appraisal.",
       reply: "Absolutely. I can take the property details and arrange the next step with the team.",
-      captured: "Seller enquiry",
-      route: "Appraisal path",
+      captured: "Seller lead",
+      route: "Appraisal",
       accent: "#E97D62",
     },
     {
@@ -601,197 +601,248 @@ function BusinessConnectedStory() {
 
   const journey = [
     {
-      label: "Captured",
-      value: selected.captured,
-      icon: <Phone size={16} />,
-      accent: selected.accent,
-      href: null,
-    },
-    {
       label: "Customer record",
-      value: "Contact created",
-      icon: <UserRound size={16} />,
+      value: selected.captured,
+      icon: <UserRound size={17} />,
       accent: "#99A36D",
       href: "/crm",
+      x: 16,
+      y: 69,
+      size: "lg",
     },
     {
       label: "Booking or route",
       value: selected.route,
-      icon: <Calendar size={16} />,
+      icon: <Calendar size={17} />,
       accent: "#9B86B8",
       href: null,
+      x: 36,
+      y: 54,
+      size: "md",
     },
     {
       label: "Follow-up",
       value: "Next action moving",
-      icon: <MessageSquare size={16} />,
+      icon: <MessageSquare size={17} />,
       accent: "#DDA34B",
       href: "/follow-up",
+      x: 56,
+      y: 70,
+      size: "lg",
     },
     {
       label: "Review",
       value: "Ask at the right time",
-      icon: <Star size={16} />,
+      icon: <Star size={17} />,
       accent: "#C96C85",
       href: "/reviews",
+      x: 76,
+      y: 52,
+      size: "md",
     },
     {
       label: "Repeat",
       value: "Bring them back",
-      icon: <RefreshCcw size={16} />,
+      icon: <RefreshCcw size={17} />,
       accent: "#788565",
       href: "/reactivation",
+      x: 91,
+      y: 68,
+      size: "md",
     },
   ] as const;
 
   return (
     <section className="overflow-hidden bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="grid gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
-          <div className="max-w-[760px]">
-            <Eyebrow>Built around your business</Eyebrow>
-            <h2
-              className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] text-[#111318] sm:text-[58px] lg:text-[70px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              Built for your front desk.
-              <span className="block text-[#C96F55]">Connected to the rest of it.</span>
-            </h2>
-          </div>
-
-          <div className="lg:pb-1">
-            <p className="max-w-[600px] text-[15px] leading-[1.7] text-[#626762] sm:text-[17px]">
-              Switch the business and the call changes. What matters is that the customer, booking and next action keep moving through Zapla.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {examples.map((example) => {
-                const active = selected.key === example.key;
-                return (
-                  <button
-                    key={example.key}
-                    type="button"
-                    onClick={() => setSelectedKey(example.key)}
-                    aria-pressed={active}
-                    className="inline-flex h-[42px] items-center gap-2 rounded-full border px-4 text-[12px] font-semibold transition-all duration-200"
-                    style={
-                      active
-                        ? {
-                            borderColor: example.accent,
-                            backgroundColor: example.accent + "16",
-                            color: "#111318",
-                            boxShadow: "0 8px 24px rgba(30,43,41,.05)",
-                          }
-                        : {
-                            borderColor: "#DDE1DB",
-                            backgroundColor: "#FFFFFF",
-                            color: "#5C635D",
-                          }
-                    }
-                  >
-                    {example.icon}
-                    {example.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+        <Reveal className="max-w-[980px]">
+          <Eyebrow>Built around your business</Eyebrow>
+          <h2
+            className="mt-4 text-[46px] font-medium leading-[0.95] tracking-[-0.058em] text-[#111318] sm:text-[60px] lg:text-[72px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Built around your business.
+            <span className="block text-[#C96F55]">Connected beyond the call.</span>
+          </h2>
         </Reveal>
 
-        <div className="mt-16 lg:mt-20">
-          <motion.div
-            key={selected.key + "-conversation"}
-            initial={reduced ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
-            className="grid gap-10 border-y border-[#DDE2DD] py-10 lg:grid-cols-2 lg:gap-16 lg:py-12"
-          >
-            <div className="relative lg:pr-8">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#8A8178]">Caller</div>
+        <div className="mt-9 flex flex-wrap gap-2">
+          {examples.map((example) => {
+            const active = selected.key === example.key;
+            return (
+              <button
+                key={example.key}
+                type="button"
+                onClick={() => setSelectedKey(example.key)}
+                aria-pressed={active}
+                className="inline-flex h-[42px] items-center gap-2 rounded-full border px-4 text-[12px] font-semibold transition-all duration-200"
+                style={
+                  active
+                    ? {
+                        borderColor: example.accent,
+                        backgroundColor: example.accent + "16",
+                        color: "#111318",
+                        boxShadow: "0 8px 24px rgba(30,43,41,.05)",
+                      }
+                    : {
+                        borderColor: "#DDE1DB",
+                        backgroundColor: "#FFFFFF",
+                        color: "#5C635D",
+                      }
+                }
+              >
+                {example.icon}
+                {example.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <Reveal className="mt-10">
+          <div className="relative min-h-[650px] overflow-hidden rounded-[34px] border border-[#E3E7E2] bg-[radial-gradient(circle_at_26%_22%,rgba(201,111,85,.07),transparent_25%),radial-gradient(circle_at_70%_62%,rgba(153,163,109,.055),transparent_30%),linear-gradient(180deg,#FFFFFF_0%,#F7F8F5_100%)] shadow-[0_28px_80px_rgba(30,43,41,.06)]">
+            <motion.div
+              key={selected.key + "-caller"}
+              initial={reduced ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
+              className="absolute left-[5%] top-[8%] w-[38%] rounded-[24px] border border-[#E5E7E3] bg-white/92 p-6 shadow-[0_18px_48px_rgba(30,43,41,.06)] backdrop-blur-sm"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="flex h-10 w-10 items-center justify-center rounded-full"
+                    style={{ backgroundColor: selected.accent + "16", color: selected.accent }}
+                  >
+                    <Phone size={16} />
+                  </span>
+                  <div>
+                    <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#8E938E]">Caller</div>
+                    <div className="mt-1 text-[11px] font-semibold text-[#5A615B]">{selected.label}</div>
+                  </div>
+                </div>
+                <span className="rounded-full bg-[#F4F5F2] px-2.5 py-1 text-[9px] font-semibold text-[#858B85]">Live enquiry</span>
+              </div>
               <div
-                className="mt-4 max-w-[620px] text-[30px] font-medium leading-[1.2] tracking-[-0.042em] text-[#111318] sm:text-[34px]"
+                className="mt-6 text-[27px] font-medium leading-[1.25] tracking-[-0.04em] text-[#171A18]"
                 style={{ fontFamily: DISPLAY }}
               >
                 “{selected.caller}”
               </div>
-            </div>
+            </motion.div>
 
-            <div className="relative border-t border-[#E5E8E4] pt-9 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.17em]" style={{ color: selected.accent }}>Zapla</div>
+            <motion.div
+              key={selected.key + "-reply"}
+              initial={reduced ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.06, ease: EASE }}
+              className="absolute right-[5%] top-[9%] w-[40%] rounded-[24px] bg-[#1E2B29] p-6 text-white shadow-[0_22px_58px_rgba(30,43,41,.14)]"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07]">
+                  <PetalMark size={25} />
+                </div>
+                <div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#DDA34B]">Zapla</div>
+                  <div className="mt-1 text-[11px] font-semibold text-white/50">AI Receptionist</div>
+                </div>
+              </div>
               <div
-                className="mt-4 max-w-[620px] text-[23px] font-medium leading-[1.36] tracking-[-0.03em] text-[#343A35] sm:text-[26px]"
+                className="mt-6 text-[23px] font-medium leading-[1.35] tracking-[-0.03em] text-white/92"
                 style={{ fontFamily: DISPLAY }}
               >
                 “{selected.reply}”
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
 
-          <div className="relative pb-4 pt-14 lg:pb-8 lg:pt-20">
-            <div className="pointer-events-none absolute left-[4%] right-[4%] top-[105px] hidden h-px bg-[#D9DED8] lg:block" />
+            <div className="pointer-events-none absolute left-[42.5%] top-[25%] h-px w-[12%] bg-[#D8DDD7]" />
+
+            <div className="absolute left-[5%] right-[5%] top-[47%] h-px bg-[#DDE1DC]" />
             <motion.div
-              key={selected.key + "-line"}
-              className="pointer-events-none absolute left-[4%] top-[104px] hidden h-[2px] origin-left lg:block"
+              key={selected.key + "-journey-line"}
+              className="absolute left-[5%] right-[5%] top-[47%] h-[2px] origin-left"
               style={{
-                right: "4%",
                 background:
                   "linear-gradient(90deg," +
                   selected.accent +
-                  " 0%,#99A36D 22%,#9B86B8 43%,#DDA34B 62%,#C96C85 81%,#788565 100%)",
+                  " 0%,#99A36D 20%,#9B86B8 40%,#DDA34B 61%,#C96C85 81%,#788565 100%)",
               }}
               initial={reduced ? false : { scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 0.72 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: reduced ? 0 : 0.9, ease: EASE }}
+              whileInView={{ scaleX: 1, opacity: 0.7 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: reduced ? 0 : 0.95, ease: EASE }}
             />
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-5">
-              {journey.map((item, index) => {
-                const content = (
-                  <motion.div
-                    initial={reduced ? false : { opacity: 0, y: 14 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.65 }}
-                    transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : index * 0.07, ease: EASE }}
-                    whileHover={item.href ? { y: -4 } : undefined}
-                    className="group relative min-h-[160px] border-t border-[#DDE2DD] pt-6 lg:border-t-0 lg:pt-0"
+            <div className="absolute left-[5%] top-[42%]">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#9A9F9A]">That same customer keeps moving</div>
+            </div>
+
+            {journey.map((item, index) => {
+              const big = item.size === "lg";
+              const card = (
+                <motion.div
+                  initial={reduced ? false : { opacity: 0, y: 12, scale: 0.97 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, amount: 0.7 }}
+                  transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.08 + index * 0.08, ease: EASE }}
+                  whileHover={item.href ? { y: -5 } : undefined}
+                  className="group absolute -translate-x-1/2 -translate-y-1/2"
+                  style={{ left: item.x + "%", top: item.y + "%" }}
+                >
+                  <div
+                    className={
+                      "relative rounded-[22px] border bg-white/96 shadow-[0_18px_50px_rgba(30,43,41,.07)] backdrop-blur-sm " +
+                      (big ? "min-w-[205px] p-5" : "min-w-[175px] p-4")
+                    }
+                    style={{ borderColor: item.accent + "38" }}
                   >
-                    <div
-                      className="relative z-10 flex h-[54px] w-[54px] items-center justify-center rounded-full border-[6px] border-[#FCFCFA] shadow-[0_0_0_1px_rgba(30,43,41,.10),0_10px_30px_rgba(30,43,41,.05)]"
-                      style={{ color: item.accent, backgroundColor: item.accent + "16" }}
-                    >
-                      {item.icon}
-                    </div>
-
-                    <div className="mt-6 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#9A9F99]">
-                      0{index + 1} · {item.label}
-                    </div>
-                    <div
-                      className="mt-2 max-w-[170px] text-[18px] font-semibold leading-[1.2] tracking-[-0.03em] text-[#242824]"
-                      style={{ fontFamily: DISPLAY }}
-                    >
-                      {item.value}
-                    </div>
-
-                    {item.href && (
-                      <div className="mt-4 inline-flex items-center gap-1.5 text-[10px] font-semibold text-[#777E78] transition-colors group-hover:text-[#252A26]">
-                        Explore {item.label}
-                        <ArrowRight size={11} className="transition-transform group-hover:translate-x-1" />
+                    <span
+                      className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-[calc(50%+1px)] rounded-full border-[3px] border-[#FCFCFA]"
+                      style={{ backgroundColor: item.accent, boxShadow: "0 0 0 1px " + item.accent + "38" }}
+                    />
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]"
+                        style={{ color: item.accent, backgroundColor: item.accent + "14" }}
+                      >
+                        {item.icon}
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#9A9F99]">{item.label}</div>
+                        <div
+                          className={"mt-1 font-semibold leading-[1.18] tracking-[-0.025em] text-[#252A26] " + (big ? "text-[17px]" : "text-[15px]")}
+                          style={{ fontFamily: DISPLAY }}
+                        >
+                          {item.value}
+                        </div>
                       </div>
+                    </div>
+                    {item.href && (
+                      <ArrowRight
+                        size={13}
+                        className="absolute bottom-4 right-4 text-[#9BA19B] transition-transform group-hover:translate-x-1 group-hover:text-[#444B45]"
+                      />
                     )}
-                  </motion.div>
-                );
+                  </div>
+                </motion.div>
+              );
 
-                return item.href ? (
-                  <a key={item.label} href={item.href} className="block">
-                    {content}
-                  </a>
-                ) : (
-                  <div key={item.label}>{content}</div>
-                );
-              })}
+              return item.href ? (
+                <a key={item.label} href={item.href} aria-label={"Explore " + item.label}>
+                  {card}
+                </a>
+              ) : (
+                <div key={item.label}>{card}</div>
+              );
+            })}
+
+            <div className="absolute bottom-[6%] left-[5%] flex items-center gap-3 text-[11px] font-semibold text-[#737A74]">
+              <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#1E2B29]">
+                <PetalMark size={17} />
+              </span>
+              One connected customer journey.
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
