@@ -111,20 +111,25 @@ function PlatformMap() {
   ];
 
   return (
-    <section id="platform-map" className="bg-[#0D1626] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[820px]">
-          <Eyebrow dark>What makes up Zapla</Eyebrow>
-          <h2
-            className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            The platform behind
-            <span className="block text-[#8EADFF]">the customer journey.</span>
-          </h2>
+    <section id="platform-map" className="bg-[#FCFCFA] px-5 pb-5 pt-8 sm:px-10 sm:pb-6 sm:pt-10 lg:px-16">
+      <div className="mx-auto max-w-[1320px] overflow-hidden rounded-[34px] bg-[#0D1626] px-6 py-16 text-white shadow-[0_28px_80px_rgba(13,22,38,.12)] sm:px-9 sm:py-20 lg:px-12 lg:py-24">
+        <Reveal className="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-end">
+          <div className="max-w-[680px]">
+            <Eyebrow dark>What makes up Zapla</Eyebrow>
+            <h2
+              className="mt-4 text-[42px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[52px] lg:text-[60px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              The platform behind
+              <span className="block text-[#8EADFF]">the customer journey.</span>
+            </h2>
+          </div>
+          <p className="max-w-[520px] text-[14px] leading-[1.72] text-white/52 sm:text-[15px] lg:justify-self-end">
+            Follow-up, reactivation, bookings, payments and automation work across these areas through the same customer records and workflows.
+          </p>
         </Reveal>
 
-        <div className="mt-12 grid overflow-hidden rounded-[28px] border border-white/10 md:grid-cols-2">
+        <div className="mt-10 grid overflow-hidden rounded-[24px] border border-white/10 md:grid-cols-2">
           {areas.map((area, index) => {
             const Icon = area.icon;
             return (
@@ -132,19 +137,19 @@ function PlatformMap() {
                 key={area.title}
                 href={area.href}
                 className={
-                  "group bg-white/[0.045] p-6 transition-colors hover:bg-white/[0.07] sm:p-8 " +
+                  "group bg-white/[0.045] p-6 transition-colors hover:bg-white/[0.075] sm:p-7 " +
                   (index >= 2 ? "border-t border-white/10 " : "") +
                   (index % 2 === 1 ? "md:border-l md:border-white/10 " : "") +
                   (index === 1 ? "border-t border-white/10 md:border-t-0 " : "")
                 }
               >
                 <div className="flex items-start justify-between gap-5">
-                  <span className="grid h-11 w-11 place-items-center rounded-full bg-[#2563FF]/18 text-[#8EADFF]">
-                    <Icon size={18} />
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-[#2563FF]/18 text-[#8EADFF]">
+                    <Icon size={17} />
                   </span>
-                  <ArrowRight size={16} className="mt-2 text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-[#8EADFF]" />
+                  <ArrowRight size={15} className="mt-2 text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-[#8EADFF]" />
                 </div>
-                <h3 className="mt-6 text-[30px] font-medium tracking-[-0.045em]" style={{ fontFamily: DISPLAY }}>
+                <h3 className="mt-5 text-[28px] font-medium tracking-[-0.043em]" style={{ fontFamily: DISPLAY }}>
                   {area.title}
                 </h3>
                 <p className="mt-3 max-w-[470px] text-[12px] leading-[1.7] text-white/50 sm:text-[13px]">{area.copy}</p>
@@ -152,10 +157,6 @@ function PlatformMap() {
             );
           })}
         </div>
-
-        <Reveal className="mt-6 text-[12px] leading-[1.7] text-white/42">
-          Follow-up, reactivation, bookings, payments and automation work across these areas through the same customer records and workflows.
-        </Reveal>
       </div>
     </section>
   );
@@ -170,21 +171,23 @@ function Differentiators() {
   ];
 
   return (
-    <section className="bg-[#2563FF] px-5 py-12 text-white sm:px-10 sm:py-14 lg:px-16">
-      <div className="mx-auto grid max-w-[1280px] gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
-        {items.map(([title, copy], index) => (
-          <Reveal
-            key={title}
-            className={"lg:px-7 " + (index ? "lg:border-l lg:border-white/20" : "")}
-            delay={index * 0.04}
-          >
-            <div className="text-[16px] font-semibold tracking-[-0.02em]">{title}</div>
-            <div className="mt-2 text-[11px] leading-[1.6] text-white/70">{copy}</div>
-          </Reveal>
-        ))}
-      </div>
-      <div className="mx-auto mt-7 max-w-[1280px] text-[9px] text-white/52">
-        *Unlimited stored contacts are subject to fair use. Communications and other usage-based services are separate.
+    <section className="bg-[#FCFCFA] px-5 pb-16 pt-1 sm:px-10 sm:pb-20 lg:px-16 lg:pb-24">
+      <div className="mx-auto max-w-[1320px] rounded-[28px] bg-[#2563FF] px-6 py-9 text-white shadow-[0_18px_50px_rgba(37,99,255,.14)] sm:px-8 sm:py-10">
+        <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+          {items.map(([title, copy], index) => (
+            <Reveal
+              key={title}
+              className={"lg:px-7 " + (index ? "lg:border-l lg:border-white/20" : "")}
+              delay={index * 0.04}
+            >
+              <div className="text-[15px] font-semibold tracking-[-0.02em]">{title}</div>
+              <div className="mt-2 text-[11px] leading-[1.6] text-white/72">{copy}</div>
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-6 text-[9px] text-white/52">
+          *Unlimited stored contacts are subject to fair use. Communications and other usage-based services are separate.
+        </div>
       </div>
     </section>
   );
@@ -201,41 +204,36 @@ function IntentRouter() {
   ] as const;
 
   return (
-    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="border-t border-[#E2E7EF] bg-[#F7F9FC] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1280px]">
-        <Reveal className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <Reveal className="grid gap-6 lg:grid-cols-[0.84fr_1.16fr] lg:items-end">
           <div>
             <Eyebrow>Go deeper</Eyebrow>
             <h2
-              className="mt-4 text-[44px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[60px] lg:text-[72px]"
+              className="mt-4 text-[40px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[52px] lg:text-[60px]"
               style={{ fontFamily: DISPLAY }}
             >
               What do you want
               <span className="block text-[#2563FF]">to fix first?</span>
             </h2>
           </div>
-          <p className="max-w-[520px] text-[14px] leading-[1.7] text-[#657083]">
+          <p className="max-w-[460px] text-[14px] leading-[1.7] text-[#657083] lg:justify-self-end">
             Start with the job that is getting stuck today.
           </p>
         </Reveal>
 
-        <div className="mt-12 grid overflow-hidden rounded-[26px] border border-[#DDE3EC] md:grid-cols-2">
+        <div className="mt-10 grid gap-3 md:grid-cols-2">
           {intents.map(([title, product, href, Icon], index) => (
             <a
               key={title}
               href={href}
-              className={
-                "group flex items-center gap-4 bg-white p-5 transition-colors hover:bg-[#F7F9FD] sm:p-6 " +
-                (index >= 2 ? "border-t border-[#DDE3EC] " : "") +
-                (index % 2 === 1 ? "md:border-l md:border-[#DDE3EC] " : "") +
-                (index === 1 ? "border-t border-[#DDE3EC] md:border-t-0 " : "")
-              }
+              className="group flex items-center gap-4 rounded-[18px] border border-[#DEE4ED] bg-white p-5 shadow-[0_10px_30px_rgba(31,43,67,.045)] transition-all hover:-translate-y-px hover:border-[#C8D5F1] hover:shadow-[0_16px_38px_rgba(31,43,67,.07)] sm:p-6"
             >
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#E8EFFF] text-[#2563FF]">
                 <Icon size={17} />
               </span>
               <div className="min-w-0 flex-1">
-                <div className="text-[17px] font-semibold tracking-[-0.025em] text-[#1D2738]">{title}</div>
+                <div className="text-[16px] font-semibold tracking-[-0.025em] text-[#1D2738]">{title}</div>
                 <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.13em] text-[#8A94A6]">{product}</div>
               </div>
               <ArrowRight size={15} className="shrink-0 text-[#A0A8B6] transition-transform group-hover:translate-x-1 group-hover:text-[#2563FF]" />
@@ -249,13 +247,13 @@ function IntentRouter() {
 
 function FinalCta() {
   return (
-    <section className="bg-[#F7F9FC] px-5 py-16 sm:px-10 sm:py-20 lg:px-16">
-      <Reveal className="mx-auto max-w-[960px] text-center">
+    <section className="bg-[#F7F9FC] px-5 pb-20 pt-0 sm:px-10 sm:pb-24 lg:px-16 lg:pb-28">
+      <Reveal className="mx-auto max-w-[1180px] rounded-[32px] border border-[#E0E6EF] bg-white px-6 py-14 text-center shadow-[0_24px_70px_rgba(31,43,67,.055)] sm:px-10 sm:py-16">
         <div className="mx-auto grid h-11 w-11 place-items-center rounded-full bg-[#111827] text-white">
           <Sparkles size={18} />
         </div>
         <h2
-          className="mx-auto mt-5 max-w-[900px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111827] sm:text-[56px] lg:text-[66px]"
+          className="mx-auto mt-5 max-w-[820px] text-[38px] font-medium leading-[0.99] tracking-[-0.05em] text-[#111827] sm:text-[50px] lg:text-[58px]"
           style={{ fontFamily: DISPLAY }}
         >
           See how the pieces should fit
@@ -279,3 +277,4 @@ function FinalCta() {
     </section>
   );
 }
+
