@@ -146,15 +146,25 @@ function PrimaryButton() {
   );
 }
 
-function ProductBrand({ section }: { section: string }) {
+function ProductBrand({
+  section,
+  branded = false,
+}: {
+  section: string;
+  branded?: boolean;
+}) {
   return (
     <div className="flex min-w-0 items-center gap-3">
-      <img
-        src={ZAPLA_WORDMARK_URL}
-        alt="Zapla"
-        className="h-[18px] w-auto shrink-0 object-contain"
-      />
-      <span className="h-4 w-px bg-[#D9DEDA]" />
+      {branded ? (
+        <>
+          <img
+            src={ZAPLA_WORDMARK_URL}
+            alt="Zapla"
+            className="h-[18px] w-auto shrink-0 object-contain"
+          />
+          <span className="h-4 w-px bg-[#D9DEDA]" />
+        </>
+      ) : null}
       <span className="truncate text-[7px] font-bold uppercase tracking-[0.12em] text-[#7A837D]">
         {section}
       </span>
@@ -164,7 +174,7 @@ function ProductBrand({ section }: { section: string }) {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#DED8CF] bg-[#F7F3EC] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-24 lg:pt-[134px]">
+    <section className="relative overflow-hidden border-b border-[#E1E4E0] bg-[#FCFCFA] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[124px] lg:px-16 lg:pb-24 lg:pt-[134px]">
       <div className="pointer-events-none absolute -left-40 top-36 h-[440px] w-[440px] rounded-full bg-[#D7DFCE]/35 blur-[130px]" />
       <div className="pointer-events-none absolute -right-28 top-20 h-[380px] w-[380px] rounded-full bg-[#2563FF]/[0.045] blur-[120px]" />
 
@@ -188,7 +198,7 @@ function Hero() {
             <PrimaryButton />
             <a
               href="#how-it-works"
-              className="inline-flex h-[50px] items-center rounded-full border border-[#CEC7BC] bg-white/80 px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#B7ADA0]"
+              className="inline-flex h-[50px] items-center rounded-full border border-[#D9DEDA] bg-white/80 px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#BFC7C1]"
             >
               See how it works
             </a>
@@ -219,7 +229,7 @@ function HeroFlow() {
           className="overflow-hidden rounded-[22px] border border-black/[0.08] bg-[#FCFCFB] shadow-[0_24px_70px_rgba(39,44,38,.10)]"
         >
           <div className="flex min-h-[44px] items-center border-b border-[#E0E4DF] px-4">
-            <ProductBrand section="Smart list" />
+            <ProductBrand section="Smart list" branded />
           </div>
 
           <div className="p-5 sm:p-6">
@@ -270,8 +280,8 @@ function HeroFlow() {
             </div>
             <div className="mt-4 rounded-[18px] bg-[#F4F6FA] p-4">
               <div className="flex items-center gap-3">
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-[#111214]">
-                  <ZaplaPetal size={23} />
+                <div className="grid h-9 w-9 place-items-center rounded-full bg-[#263431] text-[11px] font-bold text-white">
+                  N
                 </div>
                 <div>
                   <div className="text-[12px] font-semibold">Northside</div>
@@ -373,26 +383,26 @@ function ProblemAwarenessSection() {
   return (
     <section
       id="how-it-works"
-      className="relative overflow-hidden border-b border-[#E0D8CD] bg-[#F0E8DE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28"
+      className="relative overflow-hidden border-b border-[#DFE3DE] bg-[#F7F8F5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28"
     >
-      <div className="pointer-events-none absolute -left-28 top-20 h-[360px] w-[360px] rounded-full bg-[#C9795B]/8 blur-[120px]" />
+      <div className="pointer-events-none absolute -left-28 top-20 h-[360px] w-[360px] rounded-full bg-[#C9795B]/5 blur-[120px]" />
       <div className="pointer-events-none absolute -right-24 bottom-0 h-[380px] w-[380px] rounded-full bg-[#99A36D]/12 blur-[130px]" />
 
       <div className="relative mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[940px]">
+        <Reveal className="max-w-[860px]">
           <Eyebrow>The problem</Eyebrow>
           <h2
-            className="mt-4 text-[45px] font-medium leading-[0.96] tracking-[-0.056em] sm:text-[60px] lg:text-[72px]"
+            className="mt-4 text-[39px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[50px] lg:text-[60px]"
             style={{ fontFamily: DISPLAY }}
           >
             You already did the work
             <span className="block">to win these customers.</span>
-            <span className="block text-[#9B624C]">Most databases barely get used.</span>
+            <span className="block text-[#A8644E]">Most databases barely get used.</span>
           </h2>
         </Reveal>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[0.76fr_1.24fr] lg:items-start lg:gap-14">
-          <Reveal className="border-y border-[#D8CDC0]">
+          <Reveal className="border-y border-[#DDE1DC]">
             <ProblemPoint
               index="01"
               title="They sit there."
@@ -412,15 +422,15 @@ function ProblemAwarenessSection() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <div className="overflow-hidden rounded-[24px] border border-[#D5CCC0] bg-[#FCFBF8] shadow-[0_30px_80px_rgba(69,55,43,.08)]">
-              <div className="flex min-h-[48px] items-center justify-between border-b border-[#E3DDD5] px-4 sm:px-5">
+            <div className="overflow-hidden rounded-[24px] border border-[#DDE1DC] bg-white shadow-[0_30px_80px_rgba(69,55,43,.08)]">
+              <div className="flex min-h-[48px] items-center justify-between border-b border-[#E2E6E1] px-4 sm:px-5">
                 <ProductBrand section="Customer database" />
                 <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#9A9188]">
                   Existing customers
                 </span>
               </div>
 
-              <div className="grid grid-cols-[1fr_auto] border-b border-[#E7E1DA] bg-[#F7F3ED] px-4 py-3 sm:px-5">
+              <div className="grid grid-cols-[1fr_auto] border-b border-[#E5E8E4] bg-[#F7F8F5] px-4 py-3 sm:px-5">
                 <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#91887F]">
                   Customer
                 </span>
@@ -429,7 +439,7 @@ function ProblemAwarenessSection() {
                 </span>
               </div>
 
-              <div className="divide-y divide-[#E9E4DD]">
+              <div className="divide-y divide-[#E7EAE6]">
                 {dormantRows.map((row, index) => (
                   <motion.div
                     key={row.name}
@@ -455,7 +465,7 @@ function ProblemAwarenessSection() {
                 ))}
               </div>
 
-              <div className="border-t border-[#E1DBD3] bg-[#1E2B29] px-5 py-4 text-[#F7F4EE]">
+              <div className="border-t border-[#E1E5E0] bg-[#1E2B29] px-5 py-4 text-[#F7F4EE]">
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-[10px] font-semibold">The customer data is already here.</span>
                   <span className="text-[9px] text-white/55">The opportunity is using it deliberately.</span>
@@ -481,7 +491,7 @@ function ProblemPoint({
   last?: boolean;
 }) {
   return (
-    <div className={"grid gap-4 py-6 sm:grid-cols-[56px_1fr] sm:gap-5 " + (last ? "" : "border-b border-[#D8CDC0]")}>
+    <div className={"grid gap-4 py-6 sm:grid-cols-[56px_1fr] sm:gap-5 " + (last ? "" : "border-b border-[#DDE1DC]")}>
       <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#9B7A69]">{index}</span>
       <div>
         <h3
@@ -715,7 +725,7 @@ function ContextRow({ label, value }: { label: string; value: string }) {
 
 function ChannelSection() {
   return (
-    <section className="bg-[#F3EEE6] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="grid gap-7 lg:grid-cols-[1.05fr_.95fr] lg:items-end lg:gap-16">
           <div>
@@ -743,9 +753,9 @@ function ChannelSection() {
 
 function ChannelSwitcher() {
   return (
-    <div className="overflow-hidden rounded-[26px] border border-[#D9D0C4] bg-[#FCFBF8] shadow-[0_24px_70px_rgba(55,44,33,.08)]">
+    <div className="overflow-hidden rounded-[26px] border border-[#DDE1DC] bg-white shadow-[0_24px_70px_rgba(55,44,33,.08)]">
       <div className="grid lg:grid-cols-[0.55fr_1.45fr]">
-        <div className="border-b border-[#E0D8CD] bg-[#F7F2EB] p-5 lg:border-b-0 lg:border-r sm:p-6">
+        <div className="border-b border-[#E2E5E1] bg-[#F7F8F5] p-5 lg:border-b-0 lg:border-r lg:border-[#E2E5E1] sm:p-6">
           <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#81786E]">Send through</div>
           <div className="mt-5 space-y-2">
             <ChannelChoice icon={<MessageSquareText size={15} />} label="SMS" active />
@@ -755,7 +765,7 @@ function ChannelSwitcher() {
         </div>
 
         <div className="grid gap-5 p-5 md:grid-cols-[1fr_0.92fr] sm:p-7">
-          <div className="rounded-[20px] border border-[#E1DDD6] bg-white p-5">
+          <div className="rounded-[20px] border border-[#E0E4DF] bg-white p-5">
             <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#858078]">Audience</div>
             <div className="mt-2 text-[20px] font-semibold tracking-[-0.03em]">Residential Sydney</div>
             <div className="mt-1 text-[10px] text-[#817C75]">86 customers</div>
@@ -808,8 +818,8 @@ function ChannelChoice({
         (active
           ? "border-[#9BAA8B] bg-white text-[#354034]"
           : muted
-            ? "border-[#E3DDD4] bg-[#F7F3ED] text-[#938C84]"
-            : "border-[#E3DDD4] bg-white/70 text-[#555B56]")
+            ? "border-[#E0E4DF] bg-[#F6F8F5] text-[#938C84]"
+            : "border-[#E0E4DF] bg-white/70 text-[#555B56]")
       }
     >
       {icon}
@@ -821,7 +831,7 @@ function ChannelChoice({
 
 function MiniRule({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-[#ECE9E3] pb-2.5">
+    <div className="flex items-center justify-between gap-3 border-b border-[#E7EAE6] pb-2.5">
       <span className="text-[8px] font-bold uppercase tracking-[0.11em] text-[#918A82]">{label}</span>
       <span className="text-[9px] font-semibold text-[#4B514D]">{value}</span>
     </div>
@@ -1089,17 +1099,17 @@ function SystemBoundarySection() {
 
 function GrowthStrip() {
   return (
-    <section className="bg-[#E6D8C7] px-5 py-12 sm:px-10 sm:py-14 lg:px-16">
+    <section className="bg-[#EEF1ED] px-5 py-12 sm:px-10 sm:py-14 lg:px-16">
       <Reveal className="mx-auto flex max-w-[1220px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#7D684F]">Zapla Growth</div>
+          <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#667069]">Zapla Growth</div>
           <h2
             className="mt-2 text-[30px] font-medium tracking-[-0.045em] text-[#252823] sm:text-[36px]"
             style={{ fontFamily: DISPLAY }}
           >
             Customer Marketing is part of Growth.
           </h2>
-          <p className="mt-2 max-w-[720px] text-[13px] leading-[1.65] text-[#6F665C]">
+          <p className="mt-2 max-w-[720px] text-[13px] leading-[1.65] text-[#69716B]">
             Growth adds proactive customer marketing and database reactivation to the follow-through system.
           </p>
         </div>
@@ -1120,7 +1130,7 @@ function Faq() {
   const reduced = !!useReducedMotion();
 
   return (
-    <section className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section className="bg-[#F7F8F5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto grid max-w-[1220px] gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-18">
         <Reveal className="self-start lg:sticky lg:top-28 lg:h-fit">
           <Eyebrow>Questions</Eyebrow>
@@ -1138,11 +1148,11 @@ function Faq() {
           </p>
         </Reveal>
 
-        <div className="border-y border-[#D8CFC3]">
+        <div className="border-y border-[#DDE1DC]">
           {FAQS.map((item, index) => {
             const active = open === index;
             return (
-              <div key={item.q} className="border-b border-[#D8CFC3] last:border-b-0">
+              <div key={item.q} className="border-b border-[#DDE1DC] last:border-b-0">
                 <button
                   type="button"
                   className="flex w-full items-center justify-between gap-5 py-6 text-left"
@@ -1218,7 +1228,7 @@ function FinalCta() {
           <PrimaryButton />
           <a
             href={PRICING_URL}
-            className="inline-flex h-[50px] w-full items-center justify-center rounded-full border border-[#E2DBD1] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA] sm:w-auto"
+            className="inline-flex h-[50px] w-full items-center justify-center rounded-full border border-[#DDE2DE] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#C6CEC8] sm:w-auto"
           >
             View pricing
           </a>
