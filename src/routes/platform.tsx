@@ -168,7 +168,7 @@ function PlatformMap() {
                       />
                     ))}
                   </div>
-                  <span className="-ml-1 rounded-full bg-[#F7F5F1] px-5 py-2.5 text-[9px] font-bold uppercase tracking-[0.22em] text-[#20242B] shadow-[0_8px_20px_rgba(0,0,0,.08)]">
+                  <span className="-ml-1 rounded-full bg-[#F7F5F1] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#20242B] shadow-[0_8px_20px_rgba(0,0,0,.08)]">
                     {system.badge}
                   </span>
                 </div>
@@ -206,7 +206,7 @@ function PlatformMap() {
         <div className="border-t border-white/[0.08] bg-[#192231] px-6 py-8 sm:px-9 lg:px-12">
           <Reveal className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:items-center">
             <div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#8EADFF]">Across the whole platform</div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8EADFF]">Across the whole platform</div>
               <div className="mt-2 text-[19px] font-semibold tracking-[-0.025em] text-white">
                 AI, reporting and integrations.
               </div>
@@ -220,7 +220,7 @@ function PlatformMap() {
               ].map(([title, copy]) => (
                 <div key={title} className="rounded-[16px] bg-white/[0.035] px-4 py-4 ring-1 ring-white/[0.06]">
                   <div className="text-[11px] font-semibold text-white/88">{title}</div>
-                  <div className="mt-2 text-[10px] leading-[1.6] text-white/46">{copy}</div>
+                  <div className="mt-2 text-[11px] leading-[1.6] text-white/52">{copy}</div>
                 </div>
               ))}
             </div>
@@ -233,28 +233,57 @@ function PlatformMap() {
 
 function Differentiators() {
   const items = [
-    ["Unlimited users", "The whole team can work from the same customer history."],
-    ["Unlimited stored contacts*", "Keep past leads and customers usable as the database grows."],
-    ["Guided Launch", "We map what moves, what connects and what should happen automatically."],
-    ["Works with your existing tools", "Keep specialist systems you still rely on and connect them around the same customer workflow."],
+    {
+      title: "Unlimited users",
+      copy: "Bring the whole team into the same customer history without paying per seat.",
+      accent: "#7E9DF8",
+      soft: "#E8EEFF",
+    },
+    {
+      title: "Unlimited stored contacts*",
+      copy: "Keep past leads and customers usable as your database grows.",
+      accent: "#829C8F",
+      soft: "#E9F0EC",
+    },
+    {
+      title: "Guided Launch",
+      copy: "We map what should move, what should connect and what should happen automatically.",
+      accent: "#C58B70",
+      soft: "#F3E7E0",
+    },
+    {
+      title: "Works with your existing tools",
+      copy: "Keep specialist systems you still rely on and connect them around the same customer workflow.",
+      accent: "#B6925F",
+      soft: "#F2EBDD",
+    },
   ];
 
   return (
-    <section className="bg-[#FCFCFA] px-5 pb-16 pt-1 sm:px-10 sm:pb-20 lg:px-16 lg:pb-24">
-      <div className="mx-auto max-w-[1320px] rounded-[28px] bg-[#2563FF] px-6 py-9 text-white shadow-[0_18px_50px_rgba(37,99,255,.14)] sm:px-8 sm:py-10">
-        <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
-          {items.map(([title, copy], index) => (
-            <Reveal
-              key={title}
-              className={"lg:px-7 " + (index ? "lg:border-l lg:border-white/20" : "")}
-              delay={index * 0.04}
+    <section className="bg-[#F7F8FA] px-5 pb-12 pt-2 sm:px-10 sm:pb-14 lg:px-16">
+      <div className="mx-auto max-w-[1320px] rounded-[30px] border border-[#E2E6EC] bg-[#FCFCFA] px-6 py-8 shadow-[0_18px_50px_rgba(31,43,67,.045)] sm:px-8 sm:py-9 lg:px-10">
+        <Reveal className="grid gap-7 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+          {items.map((item, index) => (
+            <div
+              key={item.title}
+              className={"lg:px-7 " + (index ? "lg:border-l lg:border-[#E3E6EA]" : "")}
             >
-              <div className="text-[15px] font-semibold tracking-[-0.02em]">{title}</div>
-              <div className="mt-2 text-[11px] leading-[1.6] text-white/72">{copy}</div>
-            </Reveal>
+              <div className="flex items-center gap-2.5">
+                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.accent }} />
+                <span
+                  className="rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em]"
+                  style={{ backgroundColor: item.soft, color: item.accent }}
+                >
+                  {index === 0 ? "Team" : index === 1 ? "Database" : index === 2 ? "Launch" : "Flexibility"}
+                </span>
+              </div>
+              <div className="mt-4 text-[16px] font-semibold tracking-[-0.025em] text-[#1D2738]">{item.title}</div>
+              <div className="mt-2 text-[12px] leading-[1.65] text-[#667083]">{item.copy}</div>
+            </div>
           ))}
-        </div>
-        <div className="mt-6 text-[9px] text-white/52">
+        </Reveal>
+
+        <div className="mt-7 border-t border-[#E6E8EC] pt-4 text-[10px] leading-[1.55] text-[#7A8492]">
           *Unlimited stored contacts are subject to fair use. Communications and other usage-based services are separate.
         </div>
       </div>
@@ -264,50 +293,107 @@ function Differentiators() {
 
 function IntentRouter() {
   const intents = [
-    ["Stop enquiries going quiet", "Follow-Up", "/follow-up", Workflow],
-    ["Answer more calls", "AI Receptionist", "/ai-receptionist", Phone],
-    ["Bring old leads back", "Reopen", "/reactivation", RefreshCw],
-    ["Market to existing customers", "Customer Marketing", "/customer-marketing", Send],
-    ["Get more reviews", "Reviews & Reputation", "/reviews", Star],
-    ["Manage customers and opportunities", "CRM", "/crm", UserRound],
+    {
+      title: "Stop enquiries going quiet",
+      product: "Follow-Up",
+      href: "/follow-up",
+      icon: Workflow,
+      accent: "#7E9DF8",
+      soft: "#E8EEFF",
+    },
+    {
+      title: "Answer more calls",
+      product: "AI Receptionist",
+      href: "/ai-receptionist",
+      icon: Phone,
+      accent: "#7F988D",
+      soft: "#E7EFEB",
+    },
+    {
+      title: "Bring old leads back",
+      product: "Reopen",
+      href: "/reactivation",
+      icon: RefreshCw,
+      accent: "#B07A8B",
+      soft: "#F0E5E9",
+    },
+    {
+      title: "Market to existing customers",
+      product: "Customer Marketing",
+      href: "/customer-marketing",
+      icon: Send,
+      accent: "#C58B70",
+      soft: "#F3E7E0",
+    },
+    {
+      title: "Get more reviews",
+      product: "Reviews & Reputation",
+      href: "/reviews",
+      icon: Star,
+      accent: "#B6925F",
+      soft: "#F2EBDD",
+    },
+    {
+      title: "Manage customers and opportunities",
+      product: "CRM",
+      href: "/crm",
+      icon: UserRound,
+      accent: "#6E8C9E",
+      soft: "#E7EEF1",
+    },
   ] as const;
 
   return (
-    <section className="border-t border-[#E2E7EF] bg-[#F7F9FC] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="grid gap-6 lg:grid-cols-[0.84fr_1.16fr] lg:items-end">
-          <div>
-            <Eyebrow>Go deeper</Eyebrow>
-            <h2
-              className="mt-4 text-[40px] font-medium leading-[0.98] tracking-[-0.052em] sm:text-[52px] lg:text-[60px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              What do you want
-              <span className="block text-[#2563FF]">to fix first?</span>
-            </h2>
-          </div>
-          <p className="max-w-[460px] text-[14px] leading-[1.7] text-[#657083] lg:justify-self-end">
+    <section className="bg-[#F7F8FA] px-5 pb-16 pt-4 sm:px-10 sm:pb-20 lg:px-16 lg:pb-24">
+      <div className="mx-auto max-w-[1320px] rounded-[34px] border border-[#E5DED4] bg-[#F5F1EA] px-6 py-12 shadow-[0_22px_60px_rgba(58,48,37,.05)] sm:px-9 sm:py-14 lg:px-12 lg:py-16">
+        <Reveal className="max-w-[760px]">
+          <Eyebrow>Go deeper</Eyebrow>
+          <h2
+            className="mt-4 text-[38px] font-medium leading-[1.0] tracking-[-0.05em] text-[#111318] sm:text-[44px] lg:text-[48px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            What do you want to fix first?
+          </h2>
+          <p className="mt-3 max-w-[520px] text-[13px] leading-[1.7] text-[#68716F] sm:text-[14px]">
             Start with the job that is getting stuck today.
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-3 md:grid-cols-2">
-          {intents.map(([title, product, href, Icon], index) => (
-            <a
-              key={title}
-              href={href}
-              className="group flex items-center gap-4 rounded-[18px] border border-[#DEE4ED] bg-white p-5 shadow-[0_10px_30px_rgba(31,43,67,.045)] transition-all hover:-translate-y-px hover:border-[#C8D5F1] hover:shadow-[0_16px_38px_rgba(31,43,67,.07)] sm:p-6"
-            >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#E8EFFF] text-[#2563FF]">
-                <Icon size={17} />
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="text-[16px] font-semibold tracking-[-0.025em] text-[#1D2738]">{title}</div>
-                <div className="mt-1 text-[9px] font-bold uppercase tracking-[0.13em] text-[#8A94A6]">{product}</div>
-              </div>
-              <ArrowRight size={15} className="shrink-0 text-[#A0A8B6] transition-transform group-hover:translate-x-1 group-hover:text-[#2563FF]" />
-            </a>
-          ))}
+        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {intents.map((intent, index) => {
+            const Icon = intent.icon;
+            return (
+              <Reveal key={intent.title} delay={index * 0.035}>
+                <a
+                  href={intent.href}
+                  className="group flex min-h-[154px] flex-col rounded-[22px] border border-[#E4DED4] bg-[#FFFEFB] p-5 shadow-[0_10px_28px_rgba(58,48,37,.035)] transition-all hover:-translate-y-1 hover:border-[#D6CEC1] hover:shadow-[0_16px_34px_rgba(58,48,37,.06)] sm:p-6"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <span
+                      className="grid h-10 w-10 place-items-center rounded-[13px]"
+                      style={{ backgroundColor: intent.soft, color: intent.accent }}
+                    >
+                      <Icon size={17} />
+                    </span>
+                    <ArrowRight
+                      size={14}
+                      className="mt-1 text-[#A0A7A3] transition-transform group-hover:translate-x-1"
+                    />
+                  </div>
+
+                  <div className="mt-7 text-[17px] font-semibold leading-[1.2] tracking-[-0.025em] text-[#1D2738]">
+                    {intent.title}
+                  </div>
+                  <div
+                    className="mt-2 text-[10px] font-bold uppercase tracking-[0.14em]"
+                    style={{ color: intent.accent }}
+                  >
+                    {intent.product}
+                  </div>
+                </a>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
