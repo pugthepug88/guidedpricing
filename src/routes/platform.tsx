@@ -7,12 +7,12 @@ import {
   Phone,
   RefreshCw,
   Send,
-  Sparkles,
   Star,
   UserRound,
   Workflow,
 } from "lucide-react";
 import { PlatformConnectedSystemScene } from "@/components/PlatformConnectedSystemScene";
+import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/platform")({
   staticData: { sitemap: false },
@@ -316,28 +316,38 @@ function IntentRouter() {
 
 function FinalCta() {
   return (
-    <section className="bg-[#F7F9FC] px-5 pb-20 pt-0 sm:px-10 sm:pb-24 lg:px-16 lg:pb-28">
-      <Reveal className="mx-auto max-w-[1180px] rounded-[32px] border border-[#E0E6EF] bg-white px-6 py-14 text-center shadow-[0_24px_70px_rgba(31,43,67,.055)] sm:px-10 sm:py-16">
-        <div className="mx-auto grid h-11 w-11 place-items-center rounded-full bg-[#111827] text-white">
-          <Sparkles size={18} />
+    <section className="overflow-hidden bg-[#FCFCFA] pb-20 pt-20 sm:pb-24 sm:pt-24 lg:pb-24 lg:pt-24">
+      <Reveal className="mx-auto max-w-[1120px] px-5 text-center sm:px-10">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+          <ZaplaPetal size={34} />
         </div>
+
+        <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">
+          Keep the next step moving
+        </p>
+
         <h2
-          className="mx-auto mt-5 max-w-[820px] text-[38px] font-medium leading-[0.99] tracking-[-0.05em] text-[#111827] sm:text-[50px] lg:text-[58px]"
+          className="mx-auto mt-3 max-w-[1080px] text-[40px] font-medium leading-[0.99] tracking-[-0.045em] text-[#111318] sm:text-[54px] lg:text-[64px]"
           style={{ fontFamily: DISPLAY }}
         >
-          See how the pieces should fit
-          <span className="block text-[#2563FF]">around your business.</span>
+          <span className="block lg:whitespace-nowrap">Turn more enquiries into customers.</span>
+          <span className="block lg:whitespace-nowrap">Keep more customers coming back.</span>
         </h2>
+
+        <p className="mx-auto mt-4 max-w-[760px] text-[15px] leading-[1.65] text-[#5F655F] sm:text-[16px]">
+          Book a call and we’ll show you where enquiries, follow-ups and repeat business are getting stuck, then map what Zapla can automate.
+        </p>
+
         <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href={BOOK_URL}
-            className="inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-full bg-[#111827] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px sm:w-auto"
+            className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px sm:w-auto"
           >
-            Book a Call <ArrowRight size={14} />
+            Book a Call <ArrowRight size={15} />
           </a>
           <a
             href={PRICING_URL}
-            className="inline-flex h-[50px] w-full items-center justify-center rounded-full border border-[#D8E0EC] bg-white px-6 text-[13px] font-semibold text-[#172033] transition-colors hover:border-[#2563FF] sm:w-auto"
+            className="inline-flex h-[52px] w-full items-center justify-center rounded-full border border-[#E2DBD1] bg-white px-7 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA] sm:w-auto"
           >
             View pricing
           </a>
