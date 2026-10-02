@@ -330,12 +330,12 @@ function FinalCta() {
           className="mx-auto mt-3 max-w-[1080px] text-[40px] font-medium leading-[0.99] tracking-[-0.045em] text-[#111318] sm:text-[54px] lg:text-[64px]"
           style={{ fontFamily: DISPLAY }}
         >
-          <span className="block lg:whitespace-nowrap">Turn more enquiries into customers.</span>
-          <span className="block lg:whitespace-nowrap">Keep more customers coming back.</span>
+          <span className="block lg:whitespace-nowrap">See how Zapla fits around your business.</span>
+          <span className="block lg:whitespace-nowrap">Keep every customer step connected.</span>
         </h2>
 
         <p className="mx-auto mt-4 max-w-[760px] text-[15px] leading-[1.65] text-[#5F655F] sm:text-[16px]">
-          Book a call and we’ll show you where enquiries, follow-ups and repeat business are getting stuck, then map what Zapla can automate.
+          Book a call and we’ll map how your customer records, conversations, bookings, automations and existing tools can work together.
         </p>
 
         <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
