@@ -603,32 +603,32 @@ function BusinessConnectedStory() {
     {
       label: "Customer record",
       value: selected.captured,
-      icon: <UserRound size={17} />,
+      icon: <UserRound size={18} />,
       accent: "#99A36D",
       href: "/crm",
-      x: 16,
-      y: 69,
-      size: "lg",
+      left: "11%",
+      top: "70%",
+      major: true,
     },
     {
       label: "Booking or route",
       value: selected.route,
-      icon: <Calendar size={17} />,
+      icon: <Calendar size={18} />,
       accent: "#9B86B8",
       href: null,
-      x: 36,
-      y: 54,
-      size: "md",
+      left: "31%",
+      top: "57%",
+      major: true,
     },
     {
       label: "Follow-up",
       value: "Next action moving",
-      icon: <MessageSquare size={17} />,
+      icon: <MessageSquare size={18} />,
       accent: "#DDA34B",
       href: "/follow-up",
-      x: 56,
-      y: 70,
-      size: "lg",
+      left: "53%",
+      top: "71%",
+      major: true,
     },
     {
       label: "Review",
@@ -636,9 +636,9 @@ function BusinessConnectedStory() {
       icon: <Star size={17} />,
       accent: "#C96C85",
       href: "/reviews",
-      x: 76,
-      y: 52,
-      size: "md",
+      left: "75%",
+      top: "59%",
+      major: false,
     },
     {
       label: "Repeat",
@@ -646,27 +646,27 @@ function BusinessConnectedStory() {
       icon: <RefreshCcw size={17} />,
       accent: "#788565",
       href: "/reactivation",
-      x: 91,
-      y: 68,
-      size: "md",
+      left: "91%",
+      top: "70%",
+      major: false,
     },
   ] as const;
 
   return (
     <section className="overflow-hidden bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[980px]">
+      <div className="mx-auto max-w-[1360px]">
+        <Reveal className="max-w-[1050px]">
           <Eyebrow>Built around your business</Eyebrow>
           <h2
-            className="mt-4 text-[46px] font-medium leading-[0.95] tracking-[-0.058em] text-[#111318] sm:text-[60px] lg:text-[72px]"
+            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.058em] text-[#111318] sm:text-[58px] lg:text-[68px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Built around your business.
-            <span className="block text-[#C96F55]">Connected beyond the call.</span>
+            Every business asks differently.
+            <span className="block text-[#C96F55]">What happens next stays connected.</span>
           </h2>
         </Reveal>
 
-        <div className="mt-9 flex flex-wrap gap-2">
+        <div className="mt-8 flex flex-wrap gap-2">
           {examples.map((example) => {
             const active = selected.key === example.key;
             return (
@@ -698,14 +698,17 @@ function BusinessConnectedStory() {
           })}
         </div>
 
-        <Reveal className="mt-10">
-          <div className="relative min-h-[650px] overflow-hidden rounded-[34px] border border-[#E3E7E2] bg-[radial-gradient(circle_at_26%_22%,rgba(201,111,85,.07),transparent_25%),radial-gradient(circle_at_70%_62%,rgba(153,163,109,.055),transparent_30%),linear-gradient(180deg,#FFFFFF_0%,#F7F8F5_100%)] shadow-[0_28px_80px_rgba(30,43,41,.06)]">
+        <Reveal className="mt-12">
+          <div className="relative min-h-[610px]">
+            <div className="pointer-events-none absolute left-[9%] top-[6%] h-[240px] w-[240px] rounded-full bg-[#E97D62]/[0.035] blur-3xl" />
+            <div className="pointer-events-none absolute right-[12%] top-[7%] h-[300px] w-[300px] rounded-full bg-[#99A36D]/[0.04] blur-3xl" />
+
             <motion.div
               key={selected.key + "-caller"}
-              initial={reduced ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
-              className="absolute left-[5%] top-[8%] w-[38%] rounded-[24px] border border-[#E5E7E3] bg-white/92 p-6 shadow-[0_18px_48px_rgba(30,43,41,.06)] backdrop-blur-sm"
+              initial={reduced ? false : { opacity: 0, x: -18, y: 8 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
+              className="absolute left-[2%] top-[5%] w-[39%] rounded-[26px] border border-[#E2E5E1] bg-white/96 p-6 shadow-[0_20px_54px_rgba(30,43,41,.065)]"
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
@@ -722,8 +725,9 @@ function BusinessConnectedStory() {
                 </div>
                 <span className="rounded-full bg-[#F4F5F2] px-2.5 py-1 text-[9px] font-semibold text-[#858B85]">Live enquiry</span>
               </div>
+
               <div
-                className="mt-6 text-[27px] font-medium leading-[1.25] tracking-[-0.04em] text-[#171A18]"
+                className="mt-6 max-w-[500px] text-[28px] font-medium leading-[1.22] tracking-[-0.04em] text-[#171A18]"
                 style={{ fontFamily: DISPLAY }}
               >
                 “{selected.caller}”
@@ -732,10 +736,10 @@ function BusinessConnectedStory() {
 
             <motion.div
               key={selected.key + "-reply"}
-              initial={reduced ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.06, ease: EASE }}
-              className="absolute right-[5%] top-[9%] w-[40%] rounded-[24px] bg-[#1E2B29] p-6 text-white shadow-[0_22px_58px_rgba(30,43,41,.14)]"
+              initial={reduced ? false : { opacity: 0, x: 18, y: 8 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.36, delay: reduced ? 0 : 0.06, ease: EASE }}
+              className="absolute right-[1%] top-[8%] w-[43%] rounded-[28px] bg-[#1E2B29] p-7 text-white shadow-[0_24px_66px_rgba(30,43,41,.15)]"
             >
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07]">
@@ -746,80 +750,99 @@ function BusinessConnectedStory() {
                   <div className="mt-1 text-[11px] font-semibold text-white/50">AI Receptionist</div>
                 </div>
               </div>
+
               <div
-                className="mt-6 text-[23px] font-medium leading-[1.35] tracking-[-0.03em] text-white/92"
+                className="mt-6 max-w-[540px] text-[24px] font-medium leading-[1.34] tracking-[-0.03em] text-white/92"
                 style={{ fontFamily: DISPLAY }}
               >
                 “{selected.reply}”
               </div>
             </motion.div>
 
-            <div className="pointer-events-none absolute left-[42.5%] top-[25%] h-px w-[12%] bg-[#D8DDD7]" />
+            <svg
+              className="pointer-events-none absolute left-0 top-[28%] h-[390px] w-full overflow-visible"
+              viewBox="0 0 1200 390"
+              preserveAspectRatio="none"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M1010 4 C965 58 900 78 820 92 C700 115 610 112 530 155 C446 200 364 235 270 246 C180 257 108 268 40 310"
+                stroke="#DDE1DC"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <motion.path
+                key={selected.key + "-connected-path"}
+                d="M1010 4 C965 58 900 78 820 92 C700 115 610 112 530 155 C446 200 364 235 270 246 C180 257 108 268 40 310"
+                stroke="url(#journeyGradient)"
+                strokeWidth="3"
+                strokeLinecap="round"
+                initial={reduced ? false : { pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 0.78 }}
+                viewport={{ once: true, amount: 0.55 }}
+                transition={{ duration: reduced ? 0 : 1.1, ease: EASE }}
+              />
+              <defs>
+                <linearGradient id="journeyGradient" x1="1000" y1="0" x2="40" y2="310" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor={selected.accent} />
+                  <stop offset="24%" stopColor="#99A36D" />
+                  <stop offset="46%" stopColor="#9B86B8" />
+                  <stop offset="67%" stopColor="#DDA34B" />
+                  <stop offset="84%" stopColor="#C96C85" />
+                  <stop offset="100%" stopColor="#788565" />
+                </linearGradient>
+              </defs>
+            </svg>
 
-            <div className="absolute left-[5%] right-[5%] top-[47%] h-px bg-[#DDE1DC]" />
             <motion.div
-              key={selected.key + "-journey-line"}
-              className="absolute left-[5%] right-[5%] top-[47%] h-[2px] origin-left"
-              style={{
-                background:
-                  "linear-gradient(90deg," +
-                  selected.accent +
-                  " 0%,#99A36D 20%,#9B86B8 40%,#DDA34B 61%,#C96C85 81%,#788565 100%)",
-              }}
+              key={selected.key + "-bridge"}
+              className="absolute left-[40%] top-[22%] h-px w-[17%] origin-left bg-[#D8DDD7]"
               initial={reduced ? false : { scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 0.7 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: reduced ? 0 : 0.95, ease: EASE }}
+              animate={{ scaleX: 1, opacity: 1 }}
+              transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.14, ease: EASE }}
             />
 
-            <div className="absolute left-[5%] top-[42%]">
-              <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#9A9F9A]">That same customer keeps moving</div>
+            <div className="absolute left-[2%] top-[43%] text-[9px] font-semibold uppercase tracking-[0.17em] text-[#9A9F9A]">
+              That same customer keeps moving
             </div>
 
             {journey.map((item, index) => {
-              const big = item.size === "lg";
-              const card = (
+              const body = (
                 <motion.div
-                  initial={reduced ? false : { opacity: 0, y: 12, scale: 0.97 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  initial={reduced ? false : { opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.7 }}
-                  transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.08 + index * 0.08, ease: EASE }}
-                  whileHover={item.href ? { y: -5 } : undefined}
+                  transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : 0.14 + index * 0.08, ease: EASE }}
+                  whileHover={item.href ? { y: -4 } : undefined}
                   className="group absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: item.x + "%", top: item.y + "%" }}
+                  style={{ left: item.left, top: item.top }}
                 >
-                  <div
-                    className={
-                      "relative rounded-[22px] border bg-white/96 shadow-[0_18px_50px_rgba(30,43,41,.07)] backdrop-blur-sm " +
-                      (big ? "min-w-[205px] p-5" : "min-w-[175px] p-4")
-                    }
-                    style={{ borderColor: item.accent + "38" }}
-                  >
+                  <div className="relative flex min-w-[170px] items-center gap-3">
                     <span
-                      className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-[calc(50%+1px)] rounded-full border-[3px] border-[#FCFCFA]"
-                      style={{ backgroundColor: item.accent, boxShadow: "0 0 0 1px " + item.accent + "38" }}
-                    />
-                    <div className="flex items-center gap-3">
-                      <span
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px]"
-                        style={{ color: item.accent, backgroundColor: item.accent + "14" }}
+                      className={
+                        "relative z-10 flex shrink-0 items-center justify-center rounded-full border-[6px] border-[#FCFCFA] shadow-[0_0_0_1px_rgba(30,43,41,.10),0_12px_28px_rgba(30,43,41,.06)] " +
+                        (item.major ? "h-[58px] w-[58px]" : "h-[50px] w-[50px]")
+                      }
+                      style={{ color: item.accent, backgroundColor: item.accent + "16" }}
+                    >
+                      {item.icon}
+                    </span>
+
+                    <div className="min-w-0">
+                      <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#9A9F99]">{item.label}</div>
+                      <div
+                        className={"mt-1 font-semibold leading-[1.18] tracking-[-0.026em] text-[#242824] " + (item.major ? "text-[18px]" : "text-[15px]")}
+                        style={{ fontFamily: DISPLAY }}
                       >
-                        {item.icon}
-                      </span>
-                      <div className="min-w-0">
-                        <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#9A9F99]">{item.label}</div>
-                        <div
-                          className={"mt-1 font-semibold leading-[1.18] tracking-[-0.025em] text-[#252A26] " + (big ? "text-[17px]" : "text-[15px]")}
-                          style={{ fontFamily: DISPLAY }}
-                        >
-                          {item.value}
-                        </div>
+                        {item.value}
                       </div>
                     </div>
+
                     {item.href && (
                       <ArrowRight
                         size={13}
-                        className="absolute bottom-4 right-4 text-[#9BA19B] transition-transform group-hover:translate-x-1 group-hover:text-[#444B45]"
+                        className="ml-1 shrink-0 text-[#A0A6A0] transition-transform group-hover:translate-x-1 group-hover:text-[#424943]"
                       />
                     )}
                   </div>
@@ -828,18 +851,18 @@ function BusinessConnectedStory() {
 
               return item.href ? (
                 <a key={item.label} href={item.href} aria-label={"Explore " + item.label}>
-                  {card}
+                  {body}
                 </a>
               ) : (
-                <div key={item.label}>{card}</div>
+                <div key={item.label}>{body}</div>
               );
             })}
 
-            <div className="absolute bottom-[6%] left-[5%] flex items-center gap-3 text-[11px] font-semibold text-[#737A74]">
+            <div className="absolute bottom-[4%] right-[1%] flex items-center gap-3 text-[11px] font-semibold text-[#737A74]">
               <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#1E2B29]">
                 <PetalMark size={17} />
               </span>
-              One connected customer journey.
+              One customer. One connected journey.
             </div>
           </div>
         </Reveal>
