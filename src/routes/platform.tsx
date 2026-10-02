@@ -180,7 +180,7 @@ function PlatformMap() {
                   {system.title}
                 </h3>
 
-                <p className="mt-4 max-w-[350px] text-[12.5px] leading-[1.72] text-white/56">
+                <p className="mt-4 max-w-[350px] text-[12.5px] leading-[1.72] text-white/56 lg:min-h-[88px]">
                   {system.copy}
                 </p>
 
@@ -188,7 +188,7 @@ function PlatformMap() {
                   {system.capabilities.map((capability) => (
                     <div
                       key={capability}
-                      className="flex items-center gap-3 rounded-[12px] bg-black/[0.08] px-3.5 py-3 text-[12px] font-medium text-white/82 ring-1 ring-white/[0.055]"
+                      className="flex min-h-[46px] items-center gap-3 rounded-[12px] bg-black/[0.08] px-3.5 py-3 text-[12px] font-medium text-white/82 ring-1 ring-white/[0.055]"
                     >
                       <span
                         className="h-1.5 w-1.5 shrink-0 rounded-full"
@@ -236,7 +236,7 @@ function Differentiators() {
     ["Unlimited users", "The whole team can work from the same customer history."],
     ["Unlimited stored contacts*", "Keep past leads and customers usable as the database grows."],
     ["Guided Launch", "We map what moves, what connects and what should happen automatically."],
-    ["Connect what you keep", "Specialist systems can stay where they still make sense."],
+    ["Works with your existing tools", "Keep specialist systems you still rely on and connect them around the same customer workflow."],
   ];
 
   return (
