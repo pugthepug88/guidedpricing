@@ -4,11 +4,16 @@ import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
+  Cable,
+  Database,
+  Infinity,
   Phone,
   RefreshCw,
+  Route as RouteIcon,
   Send,
   Star,
   UserRound,
+  UsersRound,
   Workflow,
 } from "lucide-react";
 import { PlatformConnectedSystemScene } from "@/components/PlatformConnectedSystemScene";
@@ -233,29 +238,66 @@ function PlatformMap() {
 
 function Differentiators() {
   const items = [
-    ["Unlimited users", "The whole team can work from the same customer history."],
-    ["Unlimited stored contacts*", "Keep past leads and customers usable as the database grows."],
-    ["Guided Launch", "We map what moves, what connects and what should happen automatically."],
-    ["Works with your existing tools", "Keep specialist systems you still rely on and connect them around the same customer workflow."],
+    {
+      title: "Unlimited users",
+      copy: "Bring the whole team. No per-seat pricing.",
+      icon: UsersRound,
+      secondaryIcon: Infinity,
+    },
+    {
+      title: "Unlimited contacts*",
+      copy: "Keep your customer database useful as it grows.",
+      icon: Database,
+      secondaryIcon: Infinity,
+    },
+    {
+      title: "Guided Launch",
+      copy: "We help map setup, connections and automation.",
+      icon: RouteIcon,
+      secondaryIcon: null,
+    },
+    {
+      title: "Works with your tools",
+      copy: "Keep specialist systems that still make sense.",
+      icon: Cable,
+      secondaryIcon: null,
+    },
   ];
 
   return (
     <section className="bg-[#FCFCFA] px-5 pb-16 pt-1 sm:px-10 sm:pb-20 lg:px-16 lg:pb-24">
       <div className="mx-auto max-w-[1320px] rounded-[28px] bg-[#2563FF] px-6 py-9 text-white shadow-[0_18px_50px_rgba(37,99,255,.14)] sm:px-8 sm:py-10">
-        <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
-          {items.map(([title, copy], index) => (
-            <Reveal
-              key={title}
-              className={"lg:px-7 " + (index ? "lg:border-l lg:border-white/20" : "")}
-              delay={index * 0.04}
-            >
-              <div className="text-[15px] font-semibold tracking-[-0.02em]">{title}</div>
-              <div className="mt-2 text-[11px] leading-[1.6] text-white/72">{copy}</div>
-            </Reveal>
-          ))}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+          {items.map((item, index) => {
+            const Icon = item.icon;
+            const SecondaryIcon = item.secondaryIcon;
+
+            return (
+              <Reveal
+                key={item.title}
+                className={"lg:px-8 " + (index ? "lg:border-l lg:border-white/18" : "")}
+                delay={index * 0.04}
+              >
+                <div className="flex min-h-[132px] flex-col">
+                  <div className="relative inline-flex h-11 w-11 items-center justify-center text-white/94">
+                    <Icon size={34} strokeWidth={1.65} />
+                    {SecondaryIcon ? (
+                      <span className="absolute -bottom-1.5 -right-2 grid h-6 w-6 place-items-center rounded-full bg-white text-[#2563FF] shadow-[0_4px_12px_rgba(16,46,130,.16)]">
+                        <SecondaryIcon size={15} strokeWidth={2} />
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <div className="mt-5 text-[16px] font-semibold tracking-[-0.025em]">{item.title}</div>
+                  <div className="mt-2 max-w-[240px] text-[11.5px] leading-[1.55] text-white/74">{item.copy}</div>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
-        <div className="mt-6 text-[9px] text-white/52">
-          *Unlimited stored contacts are subject to fair use. Communications and other usage-based services are separate.
+
+        <div className="mt-7 border-t border-white/16 pt-4 text-[9.5px] leading-[1.55] text-white/58">
+          *Unlimited contacts are subject to fair use. Communications and other usage-based services are separate.
         </div>
       </div>
     </section>
