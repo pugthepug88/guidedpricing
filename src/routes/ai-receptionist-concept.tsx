@@ -557,8 +557,6 @@ function BusinessConnectedStory() {
       label: "Allied health",
       icon: <Stethoscope size={15} />,
       accent: "#879667",
-      time: "6:12 PM",
-      callType: "New patient enquiry",
       quote: [
         { text: "I’m a ", marked: false },
         { text: "new patient", marked: true },
@@ -568,22 +566,14 @@ function BusinessConnectedStory() {
         { text: "shoulder pain", marked: true },
         { text: " for a few weeks.", marked: false },
       ],
-      reply: "I can help with that. I’ll check the right physio options and take the details the clinic needs.",
-      heard: [
-        ["01", "Patient", "New patient"],
-        ["02", "Constraint", "After 5pm"],
-        ["03", "Context", "Shoulder pain"],
-      ],
+      heard: ["New patient", "After 5pm", "Shoulder pain"],
       action: "Check suitable physio appointments",
-      did: ["Customer context captured", "Booking rules checked", "Next step ready"],
     },
     {
       key: "trades",
       label: "Trades",
       icon: <Hammer size={15} />,
       accent: "#C4913F",
-      time: "4:48 PM",
-      callType: "Urgent service enquiry",
       quote: [
         { text: "My ", marked: false },
         { text: "hot water stopped", marked: true },
@@ -593,22 +583,14 @@ function BusinessConnectedStory() {
         { text: "Parramatta", marked: true },
         { text: ".", marked: false },
       ],
-      reply: "Yep. I’ve got the issue, location and urgency. I’ll move this into the right job flow now.",
-      heard: [
-        ["01", "Issue", "Hot water failure"],
-        ["02", "Priority", "Same day"],
-        ["03", "Location", "Parramatta"],
-      ],
+      heard: ["Hot water failure", "Same day", "Parramatta"],
       action: "Start the urgent job flow",
-      did: ["Priority tagged", "Customer record created", "Team handoff prepared"],
     },
     {
       key: "real-estate",
       label: "Real estate",
       icon: <Home size={15} />,
       accent: "#C96F55",
-      time: "11:06 AM",
-      callType: "Seller enquiry",
       quote: [
         { text: "I’m ", marked: false },
         { text: "thinking of selling", marked: true },
@@ -618,22 +600,14 @@ function BusinessConnectedStory() {
         { text: "Glebe", marked: true },
         { text: ".", marked: false },
       ],
-      reply: "Absolutely. I’ll take the property details and move this into the appraisal process for the team.",
-      heard: [
-        ["01", "Intent", "Seller lead"],
-        ["02", "Request", "Property appraisal"],
-        ["03", "Area", "Glebe"],
-      ],
+      heard: ["Seller lead", "Property appraisal", "Glebe"],
       action: "Route to the appraisal workflow",
-      did: ["Seller intent captured", "Property context saved", "Appraisal next step queued"],
     },
     {
       key: "professional-services",
       label: "Professional services",
       icon: <Briefcase size={15} />,
       accent: "#8E7AA8",
-      time: "2:31 PM",
-      callType: "Service enquiry",
       quote: [
         { text: "I’m ", marked: false },
         { text: "not sure which service", marked: true },
@@ -643,45 +617,30 @@ function BusinessConnectedStory() {
         { text: "sign it", marked: true },
         { text: ".", marked: false },
       ],
-      reply: "Understood. I’ll take the key details and route the enquiry to the team that handles agreement reviews.",
-      heard: [
-        ["01", "Need", "Service guidance"],
-        ["02", "Matter", "Agreement review"],
-        ["03", "Timing", "Before signing"],
-      ],
+      heard: ["Service guidance", "Agreement review", "Before signing"],
       action: "Send it to the right specialist",
-      did: ["Matter classified", "Context attached", "Team route selected"],
     },
   ] as const;
 
   const reduced = !!useReducedMotion();
   const [selectedKey, setSelectedKey] = useState(examples[1].key);
   const selected = examples.find((example) => example.key === selectedKey) ?? examples[1];
-  const waveform = [16, 28, 20, 46, 64, 36, 26, 52, 76, 42, 22, 32, 58, 80, 50, 26, 40, 66, 34, 20, 48, 70, 38, 24, 56, 82, 46, 28, 62, 36, 18, 42, 68, 48, 26, 54];
 
   return (
     <section className="overflow-hidden bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1320px]">
-        <div className="grid items-end gap-8 lg:grid-cols-[1.25fr_.75fr] lg:gap-16">
-          <Reveal>
-            <Eyebrow>Built around your business</Eyebrow>
-            <h2
-              className="mt-4 max-w-[860px] text-[44px] font-medium leading-[0.95] tracking-[-0.06em] text-[#111318] sm:text-[58px] lg:text-[72px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              Real callers don’t follow a script.
-              <span className="block text-[#C96F55]">Zapla still knows what to do.</span>
-            </h2>
-          </Reveal>
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="max-w-[900px]">
+          <Eyebrow>Built around your business</Eyebrow>
+          <h2
+            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.06em] text-[#111318] sm:text-[58px] lg:text-[68px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            Real callers don’t follow a script.
+            <span className="block text-[#C96F55]">Zapla still knows what to do.</span>
+          </h2>
+        </Reveal>
 
-          <Reveal className="lg:pb-2">
-            <p className="max-w-[470px] text-[16px] leading-[1.72] text-[#697078] sm:text-[18px]">
-              Different businesses need different questions, rules and handoffs. Pick an industry and watch one ordinary call become structured work.
-            </p>
-          </Reveal>
-        </div>
-
-        <div className="mt-10 border-b border-[#DADDE1]">
+        <div className="mt-9 border-b border-[#DADDE1]">
           <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0">
             <div className="flex min-w-max items-end gap-7 sm:gap-9">
               {examples.map((example) => {
@@ -692,16 +651,16 @@ function BusinessConnectedStory() {
                     type="button"
                     onClick={() => setSelectedKey(example.key)}
                     aria-pressed={active}
-                    className="group relative flex h-[48px] items-center gap-2 text-[13px] font-semibold transition-colors duration-200"
-                    style={{ color: active ? "#111318" : "#7D838B" }}
+                    className="group relative flex h-[46px] items-center gap-2 text-[13px] font-semibold transition-colors duration-200"
+                    style={{ color: active ? "#111318" : "#858B92" }}
                   >
-                    <span style={{ color: active ? example.accent : "#A3A8AF" }}>{example.icon}</span>
+                    <span style={{ color: active ? example.accent : "#A8ADB3" }}>{example.icon}</span>
                     {example.label}
                     <motion.span
                       className="absolute inset-x-0 -bottom-px h-[2px] origin-left"
                       style={{ backgroundColor: example.accent }}
                       animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
-                      transition={{ duration: reduced ? 0 : 0.24, ease: EASE }}
+                      transition={{ duration: reduced ? 0 : 0.22, ease: EASE }}
                     />
                   </button>
                 );
@@ -710,175 +669,82 @@ function BusinessConnectedStory() {
           </div>
         </div>
 
-        <Reveal className="mt-12">
-          <motion.div
-            key={selected.key + "-story"}
-            initial={reduced ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
-            className="relative"
-          >
-            <div className="grid gap-12 lg:grid-cols-[1.42fr_.58fr] lg:gap-20">
-              <div>
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[#D9DDE0] bg-white text-[#111318]">
-                      <Phone size={14} />
-                      <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#FCFCFA] bg-[#06B6D4]" />
-                    </span>
-                    <div>
-                      <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#989EA5]">Live call</div>
-                      <div className="mt-1 text-[12px] font-semibold text-[#343940]">{selected.callType}</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.13em] text-[#9298A0]">
-                    <span>{selected.time}</span>
-                    <span className="h-3 w-px bg-[#D5D9DD]" />
-                    <span>00:34</span>
-                  </div>
-                </div>
-
-                <div className="mt-11 sm:mt-14">
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#92989F]">Caller</div>
-                  <div
-                    className="mt-4 max-w-[900px] text-[36px] font-medium leading-[1.06] tracking-[-0.052em] text-[#121519] sm:text-[48px] lg:text-[60px]"
-                    style={{ fontFamily: DISPLAY }}
+        <motion.div
+          key={selected.key}
+          initial={reduced ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduced ? 0 : 0.36, ease: EASE }}
+          className="grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.6fr_.4fr] lg:gap-20 lg:py-20"
+        >
+          <div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#969CA3]">Caller</div>
+            <div
+              className="mt-4 max-w-[900px] text-[38px] font-medium leading-[1.06] tracking-[-0.052em] text-[#111318] sm:text-[50px] lg:text-[60px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              “
+              {selected.quote.map((part, index) =>
+                part.marked ? (
+                  <motion.span
+                    key={index}
+                    className="inline"
+                    style={{ boxShadow: "inset 0 -0.15em 0 " + selected.accent + "22" }}
+                    initial={reduced ? false : { boxShadow: "inset 0 -0.02em 0 " + selected.accent + "00" }}
+                    animate={{ boxShadow: "inset 0 -0.15em 0 " + selected.accent + "22" }}
+                    transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.1 + index * 0.04, ease: EASE }}
                   >
-                    “
-                    {selected.quote.map((part, index) => {
-                      const marker = selected.quote.slice(0, index + 1).filter((item) => item.marked).length;
-                      return part.marked ? (
-                        <motion.span
-                          key={index}
-                          className="relative inline"
-                          style={{ boxShadow: "inset 0 -0.18em 0 " + selected.accent + "26" }}
-                          initial={reduced ? false : { boxShadow: "inset 0 -0.02em 0 " + selected.accent + "00" }}
-                          animate={{ boxShadow: "inset 0 -0.18em 0 " + selected.accent + "26" }}
-                          transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.12 + marker * 0.1, ease: EASE }}
-                        >
-                          {part.text}
-                          <sup
-                            className="ml-1 align-super text-[9px] font-bold tracking-normal"
-                            style={{ color: selected.accent }}
-                          >
-                            0{marker}
-                          </sup>
-                        </motion.span>
-                      ) : (
-                        <span key={index}>{part.text}</span>
-                      );
-                    })}
-                    ”
-                  </div>
-                </div>
+                    {part.text}
+                  </motion.span>
+                ) : (
+                  <span key={index}>{part.text}</span>
+                ),
+              )}
+              ”
+            </div>
+          </div>
 
-                <div className="mt-10 sm:mt-12">
-                  <div className="mb-3 flex items-center justify-between text-[9px] font-semibold uppercase tracking-[0.15em] text-[#A0A5AB]">
-                    <span>Voice signal</span>
-                    <span>Listening</span>
-                  </div>
-                  <div className="flex h-[48px] items-center gap-[4px] border-y border-[#E0E3E5] py-3">
-                    {waveform.map((height, index) => (
-                      <motion.span
-                        key={index}
-                        className="min-w-[2px] flex-1 rounded-full"
-                        style={{ backgroundColor: index % 7 === 0 ? selected.accent : "#C9CED2" }}
-                        initial={reduced ? false : { height: 4, opacity: 0.35 }}
-                        animate={{ height: Math.max(5, Math.round(height * 0.38)), opacity: index % 7 === 0 ? 0.9 : 0.54 }}
-                        transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : index * 0.018, ease: EASE }}
-                      />
-                    ))}
-                  </div>
-                </div>
-
+          <div className="lg:pt-2">
+            <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#969CA3]">Zapla picked up</div>
+            <div className="mt-4 space-y-2">
+              {selected.heard.map((item, index) => (
                 <motion.div
-                  initial={reduced ? false : { opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.38, ease: EASE }}
-                  className="mt-9 grid gap-3 sm:grid-cols-[92px_1fr] sm:gap-5"
+                  key={item}
+                  initial={reduced ? false : { opacity: 0, x: 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: reduced ? 0 : 0.26, delay: reduced ? 0 : 0.16 + index * 0.08, ease: EASE }}
+                  className="text-[20px] font-medium leading-[1.2] tracking-[-0.03em] text-[#24282D]"
+                  style={{ fontFamily: DISPLAY }}
                 >
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#0891B2]">Zapla</div>
-                  <div className="max-w-[710px] text-[17px] font-medium leading-[1.55] tracking-[-0.018em] text-[#454B52] sm:text-[19px]" style={{ fontFamily: DISPLAY }}>
-                    “{selected.reply}”
-                  </div>
+                  {item}
                 </motion.div>
-              </div>
-
-              <div className="lg:pt-12">
-                <div className="flex items-center justify-between gap-5">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#727981]">Zapla heard</div>
-                  <span className="text-[10px] font-semibold text-[#0891B2]">3 signals</span>
-                </div>
-
-                <div className="mt-5 border-t border-[#D9DDE0]">
-                  {selected.heard.map(([number, label, value], index) => (
-                    <motion.div
-                      key={label}
-                      initial={reduced ? false : { opacity: 0, x: 12 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.18 + index * 0.1, ease: EASE }}
-                      className="grid grid-cols-[46px_1fr] gap-3 border-b border-[#D9DDE0] py-6"
-                    >
-                      <div
-                        className="text-[20px] font-medium leading-none tracking-[-0.04em]"
-                        style={{ color: selected.accent, fontFamily: DISPLAY }}
-                      >
-                        {number}
-                      </div>
-                      <div>
-                        <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#989EA5]">{label}</div>
-                        <div className="mt-2 text-[22px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202428]" style={{ fontFamily: DISPLAY }}>
-                          {value}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
+          </div>
+        </motion.div>
 
-            <div className="mt-14 border-y border-[#D7DBDE] py-8 sm:py-9 lg:mt-16">
-              <div className="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-16">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="h-2 w-2 rounded-full bg-[#06B6D4]" />
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#727981]">Zapla did</div>
-                  </div>
-                  <motion.div
-                    initial={reduced ? false : { opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.48, ease: EASE }}
-                    className="mt-3 max-w-[720px] text-[34px] font-medium leading-[1.02] tracking-[-0.05em] text-[#111318] sm:text-[42px] lg:text-[48px]"
-                    style={{ fontFamily: DISPLAY }}
-                  >
-                    {selected.action}
-                  </motion.div>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  {selected.did.map((item, index) => (
-                    <motion.div
-                      key={item}
-                      initial={reduced ? false : { opacity: 0, x: 8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : 0.58 + index * 0.08, ease: EASE }}
-                      className="flex items-center gap-3 text-[12px] font-semibold text-[#5F666E]"
-                    >
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#BFC5CA] text-[#0891B2]">
-                        <Check size={11} strokeWidth={2.3} />
-                      </span>
-                      {item}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+        <motion.div
+          key={selected.key + "-action"}
+          initial={reduced ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : 0.36, ease: EASE }}
+          className="border-t border-[#DADDE1] pt-7 sm:pt-8"
+        >
+          <div className="grid gap-4 sm:grid-cols-[170px_1fr] sm:items-baseline">
+            <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#727981]">
+              <span className="h-2 w-2 rounded-full bg-[#06B6D4]" />
+              Zapla does
             </div>
-          </motion.div>
-        </Reveal>
+            <div
+              className="max-w-[760px] text-[30px] font-medium leading-[1.04] tracking-[-0.045em] text-[#111318] sm:text-[38px] lg:text-[44px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              {selected.action}
+            </div>
+          </div>
+        </motion.div>
 
-        <div className="mt-6 flex flex-col gap-3 text-[12px] leading-[1.6] text-[#7A8087] sm:flex-row sm:items-center sm:justify-between">
-          <span>Configured around your services, hours, FAQs, booking rules and escalation paths.</span>
-          <span className="font-semibold text-[#363B41]">Messy conversation in. Clear next step out.</span>
+        <div className="mt-10 text-[12px] leading-[1.6] text-[#7A8087]">
+          Configured around your services, hours, FAQs, booking rules and escalation paths.
         </div>
       </div>
     </section>
