@@ -15,7 +15,6 @@ import {
   ShieldCheck,
   Stethoscope,
   UserRound,
-  Star,
   RefreshCcw,
 } from "lucide-react";
 
