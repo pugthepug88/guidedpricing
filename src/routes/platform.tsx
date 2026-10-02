@@ -233,57 +233,28 @@ function PlatformMap() {
 
 function Differentiators() {
   const items = [
-    {
-      title: "Unlimited users",
-      copy: "Bring the whole team into the same customer history without paying per seat.",
-      accent: "#7E9DF8",
-      soft: "#E8EEFF",
-    },
-    {
-      title: "Unlimited stored contacts*",
-      copy: "Keep past leads and customers usable as your database grows.",
-      accent: "#829C8F",
-      soft: "#E9F0EC",
-    },
-    {
-      title: "Guided Launch",
-      copy: "We map what should move, what should connect and what should happen automatically.",
-      accent: "#C58B70",
-      soft: "#F3E7E0",
-    },
-    {
-      title: "Works with your existing tools",
-      copy: "Keep specialist systems you still rely on and connect them around the same customer workflow.",
-      accent: "#B6925F",
-      soft: "#F2EBDD",
-    },
+    ["Unlimited users", "The whole team can work from the same customer history."],
+    ["Unlimited stored contacts*", "Keep past leads and customers usable as the database grows."],
+    ["Guided Launch", "We map what moves, what connects and what should happen automatically."],
+    ["Works with your existing tools", "Keep specialist systems you still rely on and connect them around the same customer workflow."],
   ];
 
   return (
-    <section className="bg-[#F7F8FA] px-5 pb-12 pt-2 sm:px-10 sm:pb-14 lg:px-16">
-      <div className="mx-auto max-w-[1320px] rounded-[30px] border border-[#E2E6EC] bg-[#FCFCFA] px-6 py-8 shadow-[0_18px_50px_rgba(31,43,67,.045)] sm:px-8 sm:py-9 lg:px-10">
-        <Reveal className="grid gap-7 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
-          {items.map((item, index) => (
-            <div
-              key={item.title}
-              className={"lg:px-7 " + (index ? "lg:border-l lg:border-[#E3E6EA]" : "")}
+    <section className="bg-[#FCFCFA] px-5 pb-16 pt-1 sm:px-10 sm:pb-20 lg:px-16 lg:pb-24">
+      <div className="mx-auto max-w-[1320px] rounded-[28px] bg-[#2563FF] px-6 py-9 text-white shadow-[0_18px_50px_rgba(37,99,255,.14)] sm:px-8 sm:py-10">
+        <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+          {items.map(([title, copy], index) => (
+            <Reveal
+              key={title}
+              className={"lg:px-7 " + (index ? "lg:border-l lg:border-white/20" : "")}
+              delay={index * 0.04}
             >
-              <div className="flex items-center gap-2.5">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.accent }} />
-                <span
-                  className="rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em]"
-                  style={{ backgroundColor: item.soft, color: item.accent }}
-                >
-                  {index === 0 ? "Team" : index === 1 ? "Database" : index === 2 ? "Launch" : "Flexibility"}
-                </span>
-              </div>
-              <div className="mt-4 text-[16px] font-semibold tracking-[-0.025em] text-[#1D2738]">{item.title}</div>
-              <div className="mt-2 text-[12px] leading-[1.65] text-[#667083]">{item.copy}</div>
-            </div>
+              <div className="text-[15px] font-semibold tracking-[-0.02em]">{title}</div>
+              <div className="mt-2 text-[11px] leading-[1.6] text-white/72">{copy}</div>
+            </Reveal>
           ))}
-        </Reveal>
-
-        <div className="mt-7 border-t border-[#E6E8EC] pt-4 text-[10px] leading-[1.55] text-[#7A8492]">
+        </div>
+        <div className="mt-6 text-[9px] text-white/52">
           *Unlimited stored contacts are subject to fair use. Communications and other usage-based services are separate.
         </div>
       </div>
