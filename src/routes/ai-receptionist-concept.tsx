@@ -657,8 +657,7 @@ function BusinessConnectedStory() {
   const reduced = !!useReducedMotion();
   const [selectedKey, setSelectedKey] = useState(examples[1].key);
   const selected = examples.find((example) => example.key === selectedKey) ?? examples[1];
-
-  const waveform = [18, 30, 22, 46, 66, 38, 26, 54, 78, 44, 24, 34, 60, 82, 52, 28, 42, 68, 36, 22, 50, 72, 40, 26, 58, 84, 48, 30, 64, 38, 20, 44, 70, 50, 28, 56];
+  const waveform = [16, 28, 20, 46, 64, 36, 26, 52, 76, 42, 22, 32, 58, 80, 50, 26, 40, 66, 34, 20, 48, 70, 38, 24, 56, 82, 46, 28, 62, 36, 18, 42, 68, 48, 26, 54];
 
   return (
     <section className="overflow-hidden bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
@@ -667,7 +666,7 @@ function BusinessConnectedStory() {
           <Reveal>
             <Eyebrow>Built around your business</Eyebrow>
             <h2
-              className="mt-4 max-w-[850px] text-[44px] font-medium leading-[0.95] tracking-[-0.06em] text-[#111318] sm:text-[58px] lg:text-[72px]"
+              className="mt-4 max-w-[860px] text-[44px] font-medium leading-[0.95] tracking-[-0.06em] text-[#111318] sm:text-[58px] lg:text-[72px]"
               style={{ fontFamily: DISPLAY }}
             >
               Real callers don’t follow a script.
@@ -711,26 +710,21 @@ function BusinessConnectedStory() {
           </div>
         </div>
 
-        <Reveal className="mt-0">
-          <div className="relative overflow-hidden border-b border-[#DADDE1] bg-[#F7F7F3]">
-            <div className="grid lg:grid-cols-[1.36fr_.64fr]">
-              <motion.div
-                key={selected.key + "-call"}
-                initial={reduced ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
-                className="relative min-h-[560px] px-5 py-8 sm:px-9 sm:py-10 lg:min-h-[640px] lg:px-12 lg:py-12"
-              >
+        <Reveal className="mt-12">
+          <motion.div
+            key={selected.key + "-story"}
+            initial={reduced ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.4, ease: EASE }}
+            className="relative"
+          >
+            <div className="grid gap-12 lg:grid-cols-[1.42fr_.58fr] lg:gap-20">
+              <div>
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[#D9DDE0] bg-white text-[#111318]">
                       <Phone size={14} />
-                      <motion.span
-                        className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#F7F7F3] bg-[#06B6D4]"
-                        initial={reduced ? false : { scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: reduced ? 0 : 0.24, delay: reduced ? 0 : 0.12 }}
-                      />
+                      <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#FCFCFA] bg-[#06B6D4]" />
                     </span>
                     <div>
                       <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#989EA5]">Live call</div>
@@ -744,134 +738,142 @@ function BusinessConnectedStory() {
                   </div>
                 </div>
 
-                <div className="mt-12 max-w-[810px] sm:mt-14 lg:mt-16">
+                <div className="mt-11 sm:mt-14">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#92989F]">Caller</div>
                   <div
-                    className="mt-4 text-[34px] font-medium leading-[1.08] tracking-[-0.05em] text-[#121519] sm:text-[46px] lg:text-[56px]"
+                    className="mt-4 max-w-[900px] text-[36px] font-medium leading-[1.06] tracking-[-0.052em] text-[#121519] sm:text-[48px] lg:text-[60px]"
                     style={{ fontFamily: DISPLAY }}
                   >
                     “
-                    {selected.quote.map((part, index) =>
-                      part.marked ? (
+                    {selected.quote.map((part, index) => {
+                      const marker = selected.quote.slice(0, index + 1).filter((item) => item.marked).length;
+                      return part.marked ? (
                         <motion.span
                           key={index}
-                          className="mx-[0.02em] rounded-[3px] px-[0.04em]"
-                          style={{ backgroundColor: selected.accent + "20" }}
-                          initial={reduced ? false : { backgroundColor: selected.accent + "00" }}
-                          animate={{ backgroundColor: selected.accent + "20" }}
-                          transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.16 + index * 0.045, ease: EASE }}
+                          className="relative inline"
+                          style={{ boxShadow: "inset 0 -0.18em 0 " + selected.accent + "26" }}
+                          initial={reduced ? false : { boxShadow: "inset 0 -0.02em 0 " + selected.accent + "00" }}
+                          animate={{ boxShadow: "inset 0 -0.18em 0 " + selected.accent + "26" }}
+                          transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.12 + marker * 0.1, ease: EASE }}
                         >
                           {part.text}
+                          <sup
+                            className="ml-1 align-super text-[9px] font-bold tracking-normal"
+                            style={{ color: selected.accent }}
+                          >
+                            0{marker}
+                          </sup>
                         </motion.span>
                       ) : (
                         <span key={index}>{part.text}</span>
-                      ),
-                    )}
+                      );
+                    })}
                     ”
                   </div>
                 </div>
 
-                <motion.div
-                  initial={reduced ? false : { opacity: 0, y: 9 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : 0.44, ease: EASE }}
-                  className="mt-10 max-w-[710px] border-l-2 border-[#06B6D4] pl-5"
-                >
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#0891B2]">Zapla</div>
-                  <div className="mt-2 text-[17px] font-medium leading-[1.55] tracking-[-0.018em] text-[#454B52] sm:text-[19px]" style={{ fontFamily: DISPLAY }}>
-                    “{selected.reply}”
-                  </div>
-                </motion.div>
-
-                <div className="absolute inset-x-5 bottom-8 sm:inset-x-9 lg:inset-x-12 lg:bottom-11">
+                <div className="mt-10 sm:mt-12">
                   <div className="mb-3 flex items-center justify-between text-[9px] font-semibold uppercase tracking-[0.15em] text-[#A0A5AB]">
                     <span>Voice signal</span>
                     <span>Listening</span>
                   </div>
-                  <div className="flex h-[54px] items-center gap-[4px] border-y border-[#DEE1E3] py-3">
+                  <div className="flex h-[48px] items-center gap-[4px] border-y border-[#E0E3E5] py-3">
                     {waveform.map((height, index) => (
                       <motion.span
                         key={index}
                         className="min-w-[2px] flex-1 rounded-full"
-                        style={{ backgroundColor: index % 6 === 0 ? selected.accent : "#C8CDD1" }}
-                        initial={reduced ? false : { height: 4, opacity: 0.45 }}
-                        animate={{ height: Math.max(6, Math.round(height * 0.46)), opacity: index % 6 === 0 ? 0.9 : 0.58 }}
-                        transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.02 * index, ease: EASE }}
+                        style={{ backgroundColor: index % 7 === 0 ? selected.accent : "#C9CED2" }}
+                        initial={reduced ? false : { height: 4, opacity: 0.35 }}
+                        animate={{ height: Math.max(5, Math.round(height * 0.38)), opacity: index % 7 === 0 ? 0.9 : 0.54 }}
+                        transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : index * 0.018, ease: EASE }}
                       />
                     ))}
                   </div>
                 </div>
-              </motion.div>
 
-              <motion.div
-                key={selected.key + "-logic"}
-                initial={reduced ? false : { opacity: 0, x: 18 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.08, ease: EASE }}
-                className="border-t border-[#DADDE1] lg:border-l lg:border-t-0"
-              >
-                <div className="bg-[#F0F1EE] px-5 py-8 sm:px-9 sm:py-9 lg:px-9 lg:py-11">
-                  <div className="flex items-center justify-between gap-5">
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#727981]">Zapla heard</div>
-                    <span className="text-[10px] font-semibold text-[#0891B2]">3 signals</span>
+                <motion.div
+                  initial={reduced ? false : { opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.38, ease: EASE }}
+                  className="mt-9 grid gap-3 sm:grid-cols-[92px_1fr] sm:gap-5"
+                >
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#0891B2]">Zapla</div>
+                  <div className="max-w-[710px] text-[17px] font-medium leading-[1.55] tracking-[-0.018em] text-[#454B52] sm:text-[19px]" style={{ fontFamily: DISPLAY }}>
+                    “{selected.reply}”
                   </div>
+                </motion.div>
+              </div>
 
-                  <div className="mt-6 divide-y divide-[#D9DDDA] border-y border-[#D9DDDA]">
-                    {selected.heard.map(([number, label, value], index) => (
-                      <motion.div
-                        key={label}
-                        initial={reduced ? false : { opacity: 0, x: 9 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : 0.24 + index * 0.1, ease: EASE }}
-                        className="grid grid-cols-[34px_1fr] gap-3 py-5"
-                      >
-                        <div className="pt-0.5 text-[10px] font-semibold tabular-nums" style={{ color: selected.accent }}>
-                          {number}
-                        </div>
-                        <div>
-                          <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#969C9A]">{label}</div>
-                          <div className="mt-1.5 text-[17px] font-semibold leading-[1.2] tracking-[-0.025em] text-[#202428]" style={{ fontFamily: DISPLAY }}>
-                            {value}
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
+              <div className="lg:pt-12">
+                <div className="flex items-center justify-between gap-5">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#727981]">Zapla heard</div>
+                  <span className="text-[10px] font-semibold text-[#0891B2]">3 signals</span>
                 </div>
 
-                <div className="relative bg-[#16191D] px-5 py-8 text-white sm:px-9 sm:py-9 lg:min-h-[292px] lg:px-9 lg:py-10">
-                  <div className="absolute inset-x-0 top-0 h-[3px]" style={{ backgroundColor: selected.accent }} />
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/42">Zapla did</div>
+                <div className="mt-5 border-t border-[#D9DDE0]">
+                  {selected.heard.map(([number, label, value], index) => (
+                    <motion.div
+                      key={label}
+                      initial={reduced ? false : { opacity: 0, x: 12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.18 + index * 0.1, ease: EASE }}
+                      className="grid grid-cols-[46px_1fr] gap-3 border-b border-[#D9DDE0] py-6"
+                    >
+                      <div
+                        className="text-[20px] font-medium leading-none tracking-[-0.04em]"
+                        style={{ color: selected.accent, fontFamily: DISPLAY }}
+                      >
+                        {number}
+                      </div>
+                      <div>
+                        <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#989EA5]">{label}</div>
+                        <div className="mt-2 text-[22px] font-medium leading-[1.08] tracking-[-0.035em] text-[#202428]" style={{ fontFamily: DISPLAY }}>
+                          {value}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-14 border-y border-[#D7DBDE] py-8 sm:py-9 lg:mt-16">
+              <div className="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-16">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span className="h-2 w-2 rounded-full bg-[#06B6D4]" />
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#727981]">Zapla did</div>
+                  </div>
                   <motion.div
                     initial={reduced ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.5, ease: EASE }}
-                    className="mt-4 text-[28px] font-medium leading-[1.02] tracking-[-0.045em] text-white sm:text-[32px]"
+                    transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.48, ease: EASE }}
+                    className="mt-3 max-w-[720px] text-[34px] font-medium leading-[1.02] tracking-[-0.05em] text-[#111318] sm:text-[42px] lg:text-[48px]"
                     style={{ fontFamily: DISPLAY }}
                   >
                     {selected.action}
                   </motion.div>
-
-                  <div className="mt-7 space-y-3 border-t border-white/[0.09] pt-5">
-                    {selected.did.map((item, index) => (
-                      <motion.div
-                        key={item}
-                        initial={reduced ? false : { opacity: 0, x: 8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : 0.62 + index * 0.08, ease: EASE }}
-                        className="flex items-center gap-3 text-[12px] font-semibold text-white/64"
-                      >
-                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/[0.14] text-[#67D4E7]">
-                          <Check size={11} strokeWidth={2.3} />
-                        </span>
-                        {item}
-                      </motion.div>
-                    ))}
-                  </div>
                 </div>
-              </motion.div>
+
+                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+                  {selected.did.map((item, index) => (
+                    <motion.div
+                      key={item}
+                      initial={reduced ? false : { opacity: 0, x: 8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : 0.58 + index * 0.08, ease: EASE }}
+                      className="flex items-center gap-3 text-[12px] font-semibold text-[#5F666E]"
+                    >
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#BFC5CA] text-[#0891B2]">
+                        <Check size={11} strokeWidth={2.3} />
+                      </span>
+                      {item}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </Reveal>
 
         <div className="mt-6 flex flex-col gap-3 text-[12px] leading-[1.6] text-[#7A8087] sm:flex-row sm:items-center sm:justify-between">
