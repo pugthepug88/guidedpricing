@@ -555,235 +555,329 @@ function BusinessConnectedStory() {
     {
       key: "allied-health",
       label: "Allied health",
-      icon: <Stethoscope size={16} />,
-      transcript: [
-        { speaker: "Caller", text: "Are you taking new patients? I can only do after 5." },
-        { speaker: "Zapla", text: "I can help with that. Is this for physio or another service?" },
-        { speaker: "Caller", text: "Physio. I’ve had shoulder pain for a few weeks." },
-        { speaker: "Zapla", text: "Got it. I’ll check the after-hours physio options and take the details the clinic needs." },
+      icon: <Stethoscope size={15} />,
+      accent: "#879667",
+      time: "6:12 PM",
+      callType: "New patient enquiry",
+      quote: [
+        { text: "I’m a ", marked: false },
+        { text: "new patient", marked: true },
+        { text: ". I can only do ", marked: false },
+        { text: "after 5", marked: true },
+        { text: ". I’ve had ", marked: false },
+        { text: "shoulder pain", marked: true },
+        { text: " for a few weeks.", marked: false },
       ],
-      understood: [
-        ["Enquiry", "New patient · Physio"],
-        ["Constraint", "After 5pm"],
-        ["Context", "Shoulder pain"],
+      reply: "I can help with that. I’ll check the right physio options and take the details the clinic needs.",
+      heard: [
+        ["01", "Patient", "New patient"],
+        ["02", "Constraint", "After 5pm"],
+        ["03", "Context", "Shoulder pain"],
       ],
-      next: "Check suitable appointment options",
+      action: "Check suitable physio appointments",
+      did: ["Customer context captured", "Booking rules checked", "Next step ready"],
     },
     {
       key: "trades",
       label: "Trades",
-      icon: <Hammer size={16} />,
-      transcript: [
-        { speaker: "Caller", text: "My hot water has stopped. Can someone come out today?" },
-        { speaker: "Zapla", text: "I can help with that. What suburb are you in?" },
-        { speaker: "Caller", text: "Parramatta. It stopped working this morning." },
-        { speaker: "Zapla", text: "Thanks. I’ll treat this as an urgent hot-water enquiry and move it into the right job flow." },
+      icon: <Hammer size={15} />,
+      accent: "#C4913F",
+      time: "4:48 PM",
+      callType: "Urgent service enquiry",
+      quote: [
+        { text: "My ", marked: false },
+        { text: "hot water stopped", marked: true },
+        { text: " this morning. Can someone come ", marked: false },
+        { text: "today", marked: true },
+        { text: "? I’m in ", marked: false },
+        { text: "Parramatta", marked: true },
+        { text: ".", marked: false },
       ],
-      understood: [
-        ["Enquiry", "Hot water failure"],
-        ["Priority", "Urgent · Today"],
-        ["Location", "Parramatta"],
+      reply: "Yep. I’ve got the issue, location and urgency. I’ll move this into the right job flow now.",
+      heard: [
+        ["01", "Issue", "Hot water failure"],
+        ["02", "Priority", "Same day"],
+        ["03", "Location", "Parramatta"],
       ],
-      next: "Move into urgent job flow",
+      action: "Start the urgent job flow",
+      did: ["Priority tagged", "Customer record created", "Team handoff prepared"],
     },
     {
       key: "real-estate",
       label: "Real estate",
-      icon: <Home size={16} />,
-      transcript: [
-        { speaker: "Caller", text: "I’m thinking of selling and would like to organise an appraisal." },
-        { speaker: "Zapla", text: "Absolutely. What’s the property address?" },
-        { speaker: "Caller", text: "18 Wentworth Street, Glebe." },
-        { speaker: "Zapla", text: "Thanks. I’ll capture the property details and arrange the appraisal next step with the team." },
+      icon: <Home size={15} />,
+      accent: "#C96F55",
+      time: "11:06 AM",
+      callType: "Seller enquiry",
+      quote: [
+        { text: "I’m ", marked: false },
+        { text: "thinking of selling", marked: true },
+        { text: " and I’d like to organise an ", marked: false },
+        { text: "appraisal", marked: true },
+        { text: " for my place in ", marked: false },
+        { text: "Glebe", marked: true },
+        { text: ".", marked: false },
       ],
-      understood: [
-        ["Enquiry", "Seller lead"],
-        ["Intent", "Property appraisal"],
-        ["Property", "18 Wentworth St · Glebe"],
+      reply: "Absolutely. I’ll take the property details and move this into the appraisal process for the team.",
+      heard: [
+        ["01", "Intent", "Seller lead"],
+        ["02", "Request", "Property appraisal"],
+        ["03", "Area", "Glebe"],
       ],
-      next: "Route to appraisal workflow",
+      action: "Route to the appraisal workflow",
+      did: ["Seller intent captured", "Property context saved", "Appraisal next step queued"],
     },
     {
       key: "professional-services",
       label: "Professional services",
-      icon: <Briefcase size={16} />,
-      transcript: [
-        { speaker: "Caller", text: "I’m not sure which service I need. Can someone talk me through it?" },
-        { speaker: "Zapla", text: "Of course. Tell me briefly what you need help with and I’ll point the enquiry in the right direction." },
-        { speaker: "Caller", text: "We need help reviewing an agreement before we sign it." },
-        { speaker: "Zapla", text: "Understood. I’ll take the key details and route this to the team that handles agreement reviews." },
+      icon: <Briefcase size={15} />,
+      accent: "#8E7AA8",
+      time: "2:31 PM",
+      callType: "Service enquiry",
+      quote: [
+        { text: "I’m ", marked: false },
+        { text: "not sure which service", marked: true },
+        { text: " I need. We want someone to ", marked: false },
+        { text: "review an agreement", marked: true },
+        { text: " before we ", marked: false },
+        { text: "sign it", marked: true },
+        { text: ".", marked: false },
       ],
-      understood: [
-        ["Enquiry", "Service guidance"],
-        ["Need", "Agreement review"],
-        ["Route", "Relevant specialist"],
+      reply: "Understood. I’ll take the key details and route the enquiry to the team that handles agreement reviews.",
+      heard: [
+        ["01", "Need", "Service guidance"],
+        ["02", "Matter", "Agreement review"],
+        ["03", "Timing", "Before signing"],
       ],
-      next: "Send to the right team with context",
+      action: "Send it to the right specialist",
+      did: ["Matter classified", "Context attached", "Team route selected"],
     },
   ] as const;
 
   const reduced = !!useReducedMotion();
-  const [selectedKey, setSelectedKey] = useState(examples[0].key);
-  const selected = examples.find((example) => example.key === selectedKey) ?? examples[0];
+  const [selectedKey, setSelectedKey] = useState(examples[1].key);
+  const selected = examples.find((example) => example.key === selectedKey) ?? examples[1];
+
+  const waveform = [18, 30, 22, 46, 66, 38, 26, 54, 78, 44, 24, 34, 60, 82, 52, 28, 42, 68, 36, 22, 50, 72, 40, 26, 58, 84, 48, 30, 64, 38, 20, 44, 70, 50, 28, 56];
 
   return (
     <section className="overflow-hidden bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[980px]">
-          <Eyebrow>Built around your business</Eyebrow>
-          <h2
-            className="mt-4 max-w-[940px] text-[44px] font-medium leading-[0.96] tracking-[-0.058em] text-[#111318] sm:text-[58px] lg:text-[68px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Your callers don’t follow a script.
-            <span className="block text-[#59606A]">Neither should your receptionist.</span>
-          </h2>
-          <p className="mt-6 max-w-[760px] text-[16px] leading-[1.7] text-[#686F78] sm:text-[18px]">
-            A clinic, tradie, agent and adviser need different questions, rules and next steps. Switch industries to see what Zapla hears, understands and does next.
-          </p>
-        </Reveal>
+      <div className="mx-auto max-w-[1320px]">
+        <div className="grid items-end gap-8 lg:grid-cols-[1.25fr_.75fr] lg:gap-16">
+          <Reveal>
+            <Eyebrow>Built around your business</Eyebrow>
+            <h2
+              className="mt-4 max-w-[850px] text-[44px] font-medium leading-[0.95] tracking-[-0.06em] text-[#111318] sm:text-[58px] lg:text-[72px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Real callers don’t follow a script.
+              <span className="block text-[#C96F55]">Zapla still knows what to do.</span>
+            </h2>
+          </Reveal>
 
-        <div className="-mx-5 mt-8 overflow-x-auto px-5 pb-1 sm:mx-0 sm:px-0">
-          <div className="flex min-w-max gap-2">
-            {examples.map((example) => {
-              const active = selected.key === example.key;
-              return (
-                <button
-                  key={example.key}
-                  type="button"
-                  onClick={() => setSelectedKey(example.key)}
-                  aria-pressed={active}
-                  className={
-                    "inline-flex h-[42px] shrink-0 items-center gap-2 rounded-full border px-4 text-[12px] font-semibold transition-colors duration-200 " +
-                    (active
-                      ? "border-[#111318] bg-[#111318] text-white"
-                      : "border-[#DDE1E6] bg-white text-[#616872] hover:border-[#BFC5CC] hover:text-[#111318]")
-                  }
-                >
-                  {example.icon}
-                  {example.label}
-                </button>
-              );
-            })}
+          <Reveal className="lg:pb-2">
+            <p className="max-w-[470px] text-[16px] leading-[1.72] text-[#697078] sm:text-[18px]">
+              Different businesses need different questions, rules and handoffs. Pick an industry and watch one ordinary call become structured work.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="mt-10 border-b border-[#DADDE1]">
+          <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0">
+            <div className="flex min-w-max items-end gap-7 sm:gap-9">
+              {examples.map((example) => {
+                const active = selected.key === example.key;
+                return (
+                  <button
+                    key={example.key}
+                    type="button"
+                    onClick={() => setSelectedKey(example.key)}
+                    aria-pressed={active}
+                    className="group relative flex h-[48px] items-center gap-2 text-[13px] font-semibold transition-colors duration-200"
+                    style={{ color: active ? "#111318" : "#7D838B" }}
+                  >
+                    <span style={{ color: active ? example.accent : "#A3A8AF" }}>{example.icon}</span>
+                    {example.label}
+                    <motion.span
+                      className="absolute inset-x-0 -bottom-px h-[2px] origin-left"
+                      style={{ backgroundColor: example.accent }}
+                      animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
+                      transition={{ duration: reduced ? 0 : 0.24, ease: EASE }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        <Reveal className="mt-10">
-          <div className="overflow-hidden rounded-[16px] border border-[#E2E5E9] bg-white shadow-[0_18px_55px_rgba(17,19,24,.07)]">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#E8EAED] px-5 py-4 sm:px-7">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#F3F5F7] text-[#111318]">
-                  <Phone size={15} />
-                </span>
-                <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#9298A1]">Sample call</div>
-                  <div className="mt-0.5 text-[13px] font-semibold text-[#252930]">{selected.label}</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.13em] text-[#8A9099]">
-                <span className="h-2 w-2 rounded-full bg-[#06B6D4]" />
-                Zapla AI Receptionist
-              </div>
-            </div>
-
-            <div className="grid lg:grid-cols-[1.55fr_.85fr]">
+        <Reveal className="mt-0">
+          <div className="relative overflow-hidden border-b border-[#DADDE1] bg-[#F7F7F3]">
+            <div className="grid lg:grid-cols-[1.36fr_.64fr]">
               <motion.div
-                key={selected.key + "-transcript"}
-                initial={reduced ? false : { opacity: 0, y: 10 }}
+                key={selected.key + "-call"}
+                initial={reduced ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
-                className="px-5 py-7 sm:px-8 sm:py-9 lg:px-10 lg:py-10"
+                transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
+                className="relative min-h-[560px] px-5 py-8 sm:px-9 sm:py-10 lg:min-h-[640px] lg:px-12 lg:py-12"
               >
-                <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#969CA4]">Transcript</div>
-                <div className="mt-5 divide-y divide-[#ECEEF0]">
-                  {selected.transcript.map((line, index) => {
-                    const zapla = line.speaker === "Zapla";
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={reduced ? false : { opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                          duration: reduced ? 0 : 0.32,
-                          delay: reduced ? 0 : 0.06 + index * 0.08,
-                          ease: EASE,
-                        }}
-                        className="grid gap-2 py-5 sm:grid-cols-[92px_1fr] sm:gap-5"
-                      >
-                        <div
-                          className={
-                            "text-[10px] font-semibold uppercase tracking-[0.14em] " +
-                            (zapla ? "text-[#0891B2]" : "text-[#8A9099]")
-                          }
-                        >
-                          {line.speaker}
-                        </div>
-                        <div
-                          className={
-                            "max-w-[720px] font-medium tracking-[-0.025em] text-[#171A1F] " +
-                            (zapla ? "text-[18px] leading-[1.5] sm:text-[20px]" : "text-[20px] leading-[1.45] sm:text-[24px]")
-                          }
-                          style={{ fontFamily: DISPLAY }}
-                        >
-                          “{line.text}”
-                        </div>
-                      </motion.div>
-                    );
-                  })}
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-[#D9DDE0] bg-white text-[#111318]">
+                      <Phone size={14} />
+                      <motion.span
+                        className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#F7F7F3] bg-[#06B6D4]"
+                        initial={reduced ? false : { scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: reduced ? 0 : 0.24, delay: reduced ? 0 : 0.12 }}
+                      />
+                    </span>
+                    <div>
+                      <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#989EA5]">Live call</div>
+                      <div className="mt-1 text-[12px] font-semibold text-[#343940]">{selected.callType}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.13em] text-[#9298A0]">
+                    <span>{selected.time}</span>
+                    <span className="h-3 w-px bg-[#D5D9DD]" />
+                    <span>00:34</span>
+                  </div>
                 </div>
-              </motion.div>
 
-              <motion.aside
-                key={selected.key + "-understood"}
-                initial={reduced ? false : { opacity: 0, x: 12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: reduced ? 0 : 0.36, delay: reduced ? 0 : 0.08, ease: EASE }}
-                className="border-t border-[#E8EAED] bg-[#F8F9FA] px-5 py-7 sm:px-8 sm:py-9 lg:border-l lg:border-t-0 lg:px-8 lg:py-10"
-              >
-                <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#969CA4]">What Zapla understood</div>
-
-                <div className="mt-5 divide-y divide-[#E2E5E8] border-y border-[#E2E5E8]">
-                  {selected.understood.map(([label, value], index) => (
-                    <motion.div
-                      key={label}
-                      initial={reduced ? false : { opacity: 0, y: 7 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: reduced ? 0 : 0.3,
-                        delay: reduced ? 0 : 0.18 + index * 0.08,
-                        ease: EASE,
-                      }}
-                      className="flex items-start justify-between gap-5 py-4"
-                    >
-                      <span className="text-[11px] font-semibold text-[#8B919A]">{label}</span>
-                      <span className="max-w-[210px] text-right text-[13px] font-semibold leading-[1.45] text-[#22262C]">{value}</span>
-                    </motion.div>
-                  ))}
+                <div className="mt-12 max-w-[810px] sm:mt-14 lg:mt-16">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#92989F]">Caller</div>
+                  <div
+                    className="mt-4 text-[34px] font-medium leading-[1.08] tracking-[-0.05em] text-[#121519] sm:text-[46px] lg:text-[56px]"
+                    style={{ fontFamily: DISPLAY }}
+                  >
+                    “
+                    {selected.quote.map((part, index) =>
+                      part.marked ? (
+                        <motion.span
+                          key={index}
+                          className="mx-[0.02em] rounded-[3px] px-[0.04em]"
+                          style={{ backgroundColor: selected.accent + "20" }}
+                          initial={reduced ? false : { backgroundColor: selected.accent + "00" }}
+                          animate={{ backgroundColor: selected.accent + "20" }}
+                          transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.16 + index * 0.045, ease: EASE }}
+                        >
+                          {part.text}
+                        </motion.span>
+                      ) : (
+                        <span key={index}>{part.text}</span>
+                      ),
+                    )}
+                    ”
+                  </div>
                 </div>
 
                 <motion.div
-                  initial={reduced ? false : { opacity: 0, y: 8 }}
+                  initial={reduced ? false : { opacity: 0, y: 9 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.46, ease: EASE }}
-                  className="mt-7"
+                  transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : 0.44, ease: EASE }}
+                  className="mt-10 max-w-[710px] border-l-2 border-[#06B6D4] pl-5"
                 >
-                  <div className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#969CA4]">Next step</div>
-                  <div className="mt-3 flex items-start gap-3 rounded-[12px] border border-[#DCE1E5] bg-white p-4">
-                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#ECFEFF] text-[#0891B2]">
-                      <Check size={14} strokeWidth={2.2} />
-                    </span>
-                    <div className="text-[14px] font-semibold leading-[1.45] text-[#22262C]">{selected.next}</div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#0891B2]">Zapla</div>
+                  <div className="mt-2 text-[17px] font-medium leading-[1.55] tracking-[-0.018em] text-[#454B52] sm:text-[19px]" style={{ fontFamily: DISPLAY }}>
+                    “{selected.reply}”
                   </div>
                 </motion.div>
-              </motion.aside>
-            </div>
 
-            <div className="flex flex-col gap-2 border-t border-[#E8EAED] bg-white px-5 py-4 text-[11px] leading-[1.55] text-[#7C838C] sm:flex-row sm:items-center sm:justify-between sm:px-7">
-              <span>Configured around your services, hours, FAQs, booking rules and escalation paths.</span>
-              <span className="font-semibold text-[#434950]">One call. The right context attached.</span>
+                <div className="absolute inset-x-5 bottom-8 sm:inset-x-9 lg:inset-x-12 lg:bottom-11">
+                  <div className="mb-3 flex items-center justify-between text-[9px] font-semibold uppercase tracking-[0.15em] text-[#A0A5AB]">
+                    <span>Voice signal</span>
+                    <span>Listening</span>
+                  </div>
+                  <div className="flex h-[54px] items-center gap-[4px] border-y border-[#DEE1E3] py-3">
+                    {waveform.map((height, index) => (
+                      <motion.span
+                        key={index}
+                        className="min-w-[2px] flex-1 rounded-full"
+                        style={{ backgroundColor: index % 6 === 0 ? selected.accent : "#C8CDD1" }}
+                        initial={reduced ? false : { height: 4, opacity: 0.45 }}
+                        animate={{ height: Math.max(6, Math.round(height * 0.46)), opacity: index % 6 === 0 ? 0.9 : 0.58 }}
+                        transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.02 * index, ease: EASE }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                key={selected.key + "-logic"}
+                initial={reduced ? false : { opacity: 0, x: 18 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : 0.08, ease: EASE }}
+                className="border-t border-[#DADDE1] lg:border-l lg:border-t-0"
+              >
+                <div className="bg-[#F0F1EE] px-5 py-8 sm:px-9 sm:py-9 lg:px-9 lg:py-11">
+                  <div className="flex items-center justify-between gap-5">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#727981]">Zapla heard</div>
+                    <span className="text-[10px] font-semibold text-[#0891B2]">3 signals</span>
+                  </div>
+
+                  <div className="mt-6 divide-y divide-[#D9DDDA] border-y border-[#D9DDDA]">
+                    {selected.heard.map(([number, label, value], index) => (
+                      <motion.div
+                        key={label}
+                        initial={reduced ? false : { opacity: 0, x: 9 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : 0.24 + index * 0.1, ease: EASE }}
+                        className="grid grid-cols-[34px_1fr] gap-3 py-5"
+                      >
+                        <div className="pt-0.5 text-[10px] font-semibold tabular-nums" style={{ color: selected.accent }}>
+                          {number}
+                        </div>
+                        <div>
+                          <div className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#969C9A]">{label}</div>
+                          <div className="mt-1.5 text-[17px] font-semibold leading-[1.2] tracking-[-0.025em] text-[#202428]" style={{ fontFamily: DISPLAY }}>
+                            {value}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="relative bg-[#16191D] px-5 py-8 text-white sm:px-9 sm:py-9 lg:min-h-[292px] lg:px-9 lg:py-10">
+                  <div className="absolute inset-x-0 top-0 h-[3px]" style={{ backgroundColor: selected.accent }} />
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/42">Zapla did</div>
+                  <motion.div
+                    initial={reduced ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.5, ease: EASE }}
+                    className="mt-4 text-[28px] font-medium leading-[1.02] tracking-[-0.045em] text-white sm:text-[32px]"
+                    style={{ fontFamily: DISPLAY }}
+                  >
+                    {selected.action}
+                  </motion.div>
+
+                  <div className="mt-7 space-y-3 border-t border-white/[0.09] pt-5">
+                    {selected.did.map((item, index) => (
+                      <motion.div
+                        key={item}
+                        initial={reduced ? false : { opacity: 0, x: 8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : 0.62 + index * 0.08, ease: EASE }}
+                        className="flex items-center gap-3 text-[12px] font-semibold text-white/64"
+                      >
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/[0.14] text-[#67D4E7]">
+                          <Check size={11} strokeWidth={2.3} />
+                        </span>
+                        {item}
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </Reveal>
+
+        <div className="mt-6 flex flex-col gap-3 text-[12px] leading-[1.6] text-[#7A8087] sm:flex-row sm:items-center sm:justify-between">
+          <span>Configured around your services, hours, FAQs, booking rules and escalation paths.</span>
+          <span className="font-semibold text-[#363B41]">Messy conversation in. Clear next step out.</span>
+        </div>
       </div>
     </section>
   );
