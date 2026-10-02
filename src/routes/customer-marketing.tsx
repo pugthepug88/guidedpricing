@@ -7,8 +7,11 @@ import {
   ChevronDown,
   Mail,
   MessageSquareText,
+  Plus,
   Send,
+  Tag,
 } from "lucide-react";
+import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/customer-marketing")({
@@ -19,7 +22,7 @@ export const Route = createFileRoute("/customer-marketing")({
       {
         name: "description",
         content:
-          "Build targeted customer campaigns from the data already in Zapla, send by SMS or email, and keep replies connected to the customer record.",
+          "Build targeted customer campaigns from the data already in Zapla, send by SMS or email, organise campaign assets, and track what happened.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -45,15 +48,19 @@ const CUSTOMERS = [
 const FAQS = [
   {
     q: "What is Customer Marketing in Zapla?",
-    a: "It is the proactive side of Zapla. Build a relevant audience from customer data, send a targeted campaign, and keep the response connected to the same customer record.",
+    a: "It is the proactive side of Zapla. Use customer data to build a relevant audience, run a targeted campaign, keep the campaign assets together and track what happened.",
   },
   {
-    q: "Can I choose which customers receive a campaign?",
-    a: "Yes. Fields, tags, filters and saved lists can define who is included instead of treating the whole database as one audience.",
+    q: "Can I target customers using tags?",
+    a: "Yes. Tags, fields, filters and saved lists can help define who should be included in a campaign instead of treating the whole database as one audience.",
   },
   {
     q: "Which channels can I use?",
-    a: "SMS and email are core channels. Other connected channels depend on your setup.",
+    a: "SMS and email are core campaign channels. Other connected marketing assets depend on your setup.",
+  },
+  {
+    q: "What can sit inside a Campaign?",
+    a: "Campaigns can group relevant marketing assets such as forms, websites, funnels, landing pages, calendars, automations, pipelines, email templates, social posts and other supported assets.",
   },
   {
     q: "Is this the same as Reopen?",
@@ -69,12 +76,12 @@ function CustomerMarketingPage() {
       style={{ fontFamily: BODY }}
     >
       <Hero />
-      <Bridge />
       <CampaignFlow />
-      <CampaignMoments />
+      <CampaignExamples />
       <ConnectedDifference />
       <Faq />
       <GrowthCta />
+      <DominoFooter />
     </main>
   );
 }
@@ -114,13 +121,30 @@ function PrimaryButton() {
   );
 }
 
+function ProductBar({ label, right }: { label: string; right?: string }) {
+  return (
+    <div className="flex min-h-[46px] items-center justify-between border-b border-[#E3E7E3] bg-[#FCFCFB] px-4 sm:px-5">
+      <div className="flex items-center gap-3">
+        <img src={ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[18px] w-auto object-contain" />
+        <span className="h-4 w-px bg-[#D9DEDA]" />
+        <span className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#78817B]">{label}</span>
+      </div>
+      {right ? (
+        <span className="hidden text-[8px] font-bold uppercase tracking-[0.12em] text-[#929893] sm:block">
+          {right}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-16 pt-[106px] sm:px-10 sm:pb-20 sm:pt-[116px] lg:px-16 lg:pb-24 lg:pt-[120px]">
       <div className="pointer-events-none absolute -left-[14%] top-[8%] h-[560px] w-[560px] rounded-full bg-[#EDF2E9] blur-[135px]" />
       <div className="pointer-events-none absolute right-[1%] top-[4%] h-[440px] w-[440px] rounded-full bg-[#2563FF]/[0.035] blur-[120px]" />
 
-      <div className="relative mx-auto grid max-w-[1380px] items-center gap-12 lg:grid-cols-[0.76fr_1.24fr] lg:gap-16">
+      <div className="relative mx-auto grid max-w-[1380px] items-center gap-12 lg:grid-cols-[0.74fr_1.26fr] lg:gap-16">
         <Reveal className="max-w-[590px]">
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
             Customer Marketing
@@ -134,8 +158,8 @@ function Hero() {
             <span className="block text-[#2563FF]">your next campaign.</span>
           </h1>
 
-          <p className="mt-6 max-w-[565px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
-            Build an audience from the customer data already in Zapla, send targeted SMS or email, and keep every response connected to the customer record.
+          <p className="mt-6 max-w-[570px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
+            Use tags and customer data already in Zapla to build the right audience, reach them by SMS or email, and track the campaign from first touch to result.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -150,26 +174,26 @@ function Hero() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <CampaignBuilder />
+          <HeroCampaignWorkspace />
         </Reveal>
       </div>
     </section>
   );
 }
 
-function CampaignBuilder() {
-  const reduced = !!useReducedMotion();
-
+function HeroCampaignWorkspace() {
   return (
-    <div className="relative mx-auto w-full max-w-[820px] pb-12">
+    <div className="relative mx-auto w-full max-w-[840px] pb-12">
       <div className="pointer-events-none absolute inset-x-[7%] bottom-0 top-[15%] rounded-[34px] bg-[#D7E0CE]" />
 
       <div className="relative overflow-hidden rounded-[22px] border border-[#D9DEDA] bg-white shadow-[0_32px_82px_rgba(38,48,40,.13)]">
-        <ProductTopBar label="Campaign builder" />
+        <ProductBar label="Campaign" right="Service availability" />
 
-        <div className="grid min-h-[420px] lg:grid-cols-[0.62fr_1.18fr_0.72fr]">
+        <div className="grid min-h-[420px] lg:grid-cols-[0.66fr_1.34fr]">
           <div className="border-b border-[#E4E8E4] bg-[#F9FAF8] p-5 lg:border-b-0 lg:border-r">
-            <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Audience</div>
+            <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">
+              Audience
+            </div>
             <div className="mt-1.5 text-[16px] font-semibold tracking-[-0.025em]">Residential Sydney</div>
 
             <div className="mt-5 space-y-4">
@@ -185,16 +209,21 @@ function CampaignBuilder() {
               ))}
             </div>
 
-            <div className="mt-5 flex items-center gap-2 text-[9px] font-semibold text-[#66715F]">
-              <Check size={12} />
-              Matched audience
+            <div className="mt-5 flex items-end justify-between gap-3">
+              <div>
+                <div className="text-[22px] font-semibold tracking-[-0.04em]">86</div>
+                <div className="text-[8px] text-[#8B918D]">matched customers</div>
+              </div>
+              <Tag size={15} className="text-[#75816D]" />
             </div>
           </div>
 
-          <div className="border-b border-[#E4E8E4] p-5 lg:border-b-0 lg:border-r sm:p-6">
-            <div className="flex items-center justify-between gap-4">
+          <div className="p-5 sm:p-6">
+            <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Campaign</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">
+                  Campaign message
+                </div>
                 <div className="mt-1.5 text-[18px] font-semibold tracking-[-0.03em]">Service availability</div>
               </div>
 
@@ -215,84 +244,29 @@ function CampaignBuilder() {
               </p>
             </div>
 
-            <div className="mt-5 flex items-center justify-between border-t border-[#E7EAE7] pt-5">
-              <span className="text-[9px] font-semibold text-[#737B75]">Audience attached</span>
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              {[
+                ["Audience", "86 customers"],
+                ["Channel", "SMS"],
+                ["Campaign", "Service availability"],
+              ].map(([label, value]) => (
+                <div key={label} className="border-t border-[#E5E9E5] pt-3">
+                  <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#969C97]">{label}</div>
+                  <div className="mt-1 text-[9px] font-semibold text-[#4B534E]">{value}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex items-center justify-between border-t border-[#E7EAE7] pt-5">
+              <span className="text-[9px] font-semibold text-[#737B75]">Audience attached to campaign</span>
               <span className="inline-flex h-9 items-center gap-2 rounded-full bg-[#1E2B29] px-4 text-[9px] font-semibold text-white">
                 Send <Send size={11} />
               </span>
             </div>
           </div>
-
-          <div className="bg-[#FBFCFA] p-5">
-            <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Customer context</div>
-
-            <div className="mt-5 flex items-center gap-3">
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-[#EDE9E3] text-[10px] font-semibold text-[#5B534D]">
-                MT
-              </span>
-              <div>
-                <div className="text-[11px] font-semibold">Mia Thompson</div>
-                <div className="mt-0.5 text-[8px] text-[#8A918C]">Existing customer</div>
-              </div>
-            </div>
-
-            <div className="mt-5 space-y-3">
-              {[
-                ["Service", "Residential"],
-                ["Location", "Sydney"],
-                ["Status", "Existing customer"],
-              ].map(([label, value]) => (
-                <div key={label} className="border-b border-[#E6EAE6] pb-2.5">
-                  <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#959B96]">{label}</div>
-                  <div className="mt-1 text-[9px] font-semibold text-[#4C544F]">{value}</div>
-                </div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={reduced ? false : { opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.7 }}
-              transition={{ duration: reduced ? 0 : 0.34, delay: reduced ? 0 : 0.18, ease: EASE }}
-              className="mt-5 text-[8px] font-semibold leading-[1.5] text-[#6A736C]"
-            >
-              The campaign starts with what Zapla already knows about the customer.
-            </motion.div>
-          </div>
         </div>
       </div>
     </div>
-  );
-}
-
-function ProductTopBar({ label }: { label: string }) {
-  return (
-    <div className="flex min-h-[46px] items-center justify-between border-b border-[#E3E7E3] bg-[#FCFCFB] px-4 sm:px-5">
-      <div className="flex items-center gap-3">
-        <img src={ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[18px] w-auto object-contain" />
-        <span className="h-4 w-px bg-[#D9DEDA]" />
-        <span className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#78817B]">{label}</span>
-      </div>
-      <span className="hidden text-[8px] font-bold uppercase tracking-[0.12em] text-[#929893] sm:block">
-        Customer Marketing
-      </span>
-    </div>
-  );
-}
-
-function Bridge() {
-  return (
-    <section className="border-y border-[#E4E8E4] bg-white px-5 py-10 sm:px-10 lg:px-16">
-      <Reveal className="mx-auto max-w-[1040px] text-center">
-        <p
-          className="text-[24px] font-medium leading-[1.18] tracking-[-0.035em] text-[#2B312D] sm:text-[29px] lg:text-[32px]"
-          style={{ fontFamily: DISPLAY }}
-        >
-          You already paid to win the customer.
-          <span className="text-[#737C75]"> The opportunity is knowing who to contact next.</span>
-        </p>
-      </Reveal>
-    </section>
   );
 }
 
@@ -301,9 +275,10 @@ function CampaignFlow() {
   const beatOne = useRef<HTMLDivElement>(null);
   const beatTwo = useRef<HTMLDivElement>(null);
   const beatThree = useRef<HTMLDivElement>(null);
+  const beatFour = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const refs = [beatOne, beatTwo, beatThree];
+    const refs = [beatOne, beatTwo, beatThree, beatFour];
     const observers = refs.map((ref, index) => {
       if (!ref.current) return null;
 
@@ -324,29 +299,47 @@ function CampaignFlow() {
   return (
     <section id="campaign-flow" className="bg-[#F7F8F5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <div className="grid gap-12 lg:grid-cols-[0.66fr_1.34fr] lg:gap-20">
+        <Reveal className="max-w-[720px]">
+          <p
+            className="text-[24px] font-medium leading-[1.18] tracking-[-0.035em] text-[#303632] sm:text-[29px] lg:text-[32px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            You already paid to win the customer.
+            <span className="text-[#737C75]"> The opportunity is knowing who to contact next.</span>
+          </p>
+        </Reveal>
+
+        <div className="mt-8 grid gap-12 lg:grid-cols-[0.64fr_1.36fr] lg:gap-20">
           <div>
-            <div ref={beatOne} className="flex min-h-[62vh] items-center lg:min-h-[78vh]">
+            <div ref={beatOne} className="flex min-h-[62vh] items-center lg:min-h-[76vh]">
               <FlowBeat
                 active={active === 0}
-                title="Start with the customer, not the channel."
-                copy="Use fields, tags, location, service type and saved lists to find the people a campaign is actually relevant to."
+                title="Start with the customers the campaign is actually for."
+                copy="Tags, fields, filters and saved lists turn the contacts already in your CRM into a useful marketing audience."
               />
             </div>
 
-            <div ref={beatTwo} className="flex min-h-[62vh] items-center lg:min-h-[78vh]">
+            <div ref={beatTwo} className="flex min-h-[62vh] items-center lg:min-h-[76vh]">
               <FlowBeat
                 active={active === 1}
-                title="Now give them a reason to act."
-                copy="Send the campaign by SMS or email without rebuilding the audience somewhere else."
+                title="Now reach them with the campaign."
+                copy="Send targeted SMS or email without rebuilding the audience somewhere else."
               />
             </div>
 
-            <div ref={beatThree} className="flex min-h-[62vh] items-center lg:min-h-[78vh]">
+            <div ref={beatThree} className="flex min-h-[62vh] items-center lg:min-h-[76vh]">
               <FlowBeat
                 active={active === 2}
-                title="When someone responds, the campaign has done its job."
-                copy="The reply returns to the customer record with the existing history and context attached."
+                title="One campaign can be more than one message."
+                copy="Keep the supporting assets together, from forms and booking pages to automations, email templates and social posts."
+              />
+            </div>
+
+            <div ref={beatFour} className="flex min-h-[62vh] items-center lg:min-h-[76vh]">
+              <FlowBeat
+                active={active === 3}
+                title="Then see what the campaign actually did."
+                copy="Track reach, engagement, conversions, won deals, costs and return from the same campaign workspace."
               />
             </div>
           </div>
@@ -384,20 +377,36 @@ function FlowBeat({
 
 function FlowCanvas({ active }: { active: number }) {
   const reduced = !!useReducedMotion();
+  const labels = ["Audience builder", "SMS + email", "Campaign workspace", "Performance"];
 
   return (
     <div className="relative overflow-hidden rounded-[26px] border border-[#D8DED9] bg-white shadow-[0_30px_90px_rgba(38,48,40,.1)]">
-      <ProductTopBar label={active === 0 ? "Audience builder" : active === 1 ? "Campaign builder" : "Customer record"} />
+      <ProductBar label={labels[active]} right="Customer Marketing" />
 
-      <div className="relative min-h-[455px] bg-[#FBFCFA]">
+      <div className="flex items-center gap-2 border-b border-[#E6EAE6] bg-white px-5 py-3">
+        {labels.map((label, index) => (
+          <span
+            key={label}
+            className={
+              "h-1.5 rounded-full transition-all duration-300 " +
+              (active === index ? "w-7 bg-[#2563FF]" : "w-1.5 bg-[#D5DAD6]")
+            }
+          />
+        ))}
+      </div>
+
+      <div className="relative min-h-[470px] bg-[#FBFCFA]">
         <StateLayer active={active === 0} reduced={reduced}>
           <AudienceState />
         </StateLayer>
         <StateLayer active={active === 1} reduced={reduced}>
-          <CampaignState />
+          <MessagingState />
         </StateLayer>
         <StateLayer active={active === 2} reduced={reduced}>
-          <ReplyState />
+          <CampaignWorkspaceState />
+        </StateLayer>
+        <StateLayer active={active === 3} reduced={reduced}>
+          <PerformanceState />
         </StateLayer>
       </div>
     </div>
@@ -432,22 +441,28 @@ function AudienceState() {
     <div>
       <div className="flex items-end justify-between gap-4">
         <div>
-          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Build audience</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Audience</div>
           <div className="mt-1.5 text-[21px] font-semibold tracking-[-0.03em]">Residential Sydney</div>
         </div>
-        <div className="text-[9px] font-semibold text-[#65705F]">Matched customers</div>
+        <div className="text-right">
+          <div className="text-[26px] font-semibold tracking-[-0.04em]">86</div>
+          <div className="text-[8px] text-[#8C938E]">matched</div>
+        </div>
       </div>
 
       <div className="mt-6 grid gap-5 md:grid-cols-[0.72fr_1.28fr]">
         <div className="space-y-4 border-r border-[#E5E9E5] pr-5">
           {[
             ["Tag", "Existing customer"],
-            ["Service", "Residential"],
+            ["Tag", "Service due"],
             ["Location", "Sydney"],
-          ].map(([label, value]) => (
-            <div key={label} className="border-b border-[#E6EAE6] pb-3">
+          ].map(([label, value], index) => (
+            <div key={label + value + index} className="border-b border-[#E6EAE6] pb-3">
               <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#949A95]">{label}</div>
-              <div className="mt-1 text-[10px] font-semibold text-[#4A524D]">{value}</div>
+              <div className="mt-1 flex items-center gap-2 text-[10px] font-semibold text-[#4A524D]">
+                {label === "Tag" ? <Tag size={11} className="text-[#75816D]" /> : null}
+                {value}
+              </div>
             </div>
           ))}
         </div>
@@ -476,25 +491,25 @@ function AudienceState() {
   );
 }
 
-function CampaignState() {
+function MessagingState() {
   return (
-    <div className="grid gap-7 md:grid-cols-[0.72fr_1.28fr]">
+    <div className="grid gap-7 md:grid-cols-[0.7fr_1.3fr]">
       <div className="border-r border-[#E5E9E5] pr-5">
-        <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Audience</div>
+        <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Selected audience</div>
         <div className="mt-1.5 text-[19px] font-semibold tracking-[-0.03em]">Residential Sydney</div>
-        <div className="mt-1 text-[9px] text-[#8B918D]">Saved customer group</div>
+        <div className="mt-1 text-[9px] text-[#8B918D]">86 customers</div>
 
         <div className="mt-7 space-y-3">
           <div className="flex items-center gap-2 text-[10px] font-semibold text-[#2563FF]">
-            <MessageSquareText size={13} /> SMS selected
+            <MessageSquareText size={13} /> SMS campaign
           </div>
           <div className="flex items-center gap-2 text-[10px] text-[#8B918D]">
-            <Mail size={13} /> Email available
+            <Mail size={13} /> Email campaign
           </div>
         </div>
 
         <div className="mt-8 text-[8px] font-bold uppercase tracking-[0.12em] text-[#949A95]">
-          Audience stays attached to the campaign
+          Audience stays connected to the campaign
         </div>
       </div>
 
@@ -520,87 +535,170 @@ function CampaignState() {
   );
 }
 
-function ReplyState() {
-  return (
-    <div className="grid gap-7 md:grid-cols-[0.72fr_1.28fr]">
-      <div className="border-r border-[#E5E9E5] pr-5">
-        <span className="grid h-11 w-11 place-items-center rounded-full bg-[#EDE9E3] text-[11px] font-semibold text-[#5B534D]">
-          MT
-        </span>
-        <div className="mt-3 text-[15px] font-semibold">Mia Thompson</div>
-        <div className="mt-1 text-[9px] text-[#8A918C]">Existing customer · Residential</div>
+function CampaignWorkspaceState() {
+  const assets = [
+    ["Automation", "Follow up after campaign response"],
+    ["Calendar", "Service booking"],
+    ["Landing page", "Campaign offer"],
+    ["Email template", "Customer campaign"],
+    ["Social post", "Supporting campaign post"],
+  ] as const;
 
-        <div className="mt-7 space-y-4">
-          {[
-            ["Campaign", "Service availability"],
-            ["Channel", "SMS"],
-            ["Owner", "Ben Walker"],
-          ].map(([label, value]) => (
-            <div key={label} className="border-b border-[#E6EAE6] pb-3">
-              <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#959B96]">{label}</div>
-              <div className="mt-1 text-[9px] font-semibold text-[#4C544F]">{value}</div>
+  return (
+    <div>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="grid h-6 w-6 place-items-center rounded-full border border-[#CDD4CE] text-[11px]">◎</span>
+            <span className="text-[19px] font-semibold tracking-[-0.03em]">Service availability</span>
+          </div>
+          <div className="mt-2 text-[9px] text-[#8A918C]">
+            Draft · Influence window: 30 days
+          </div>
+        </div>
+
+        <span className="inline-flex h-9 items-center gap-2 rounded-[8px] bg-[#CDBB9D] px-4 text-[9px] font-bold uppercase tracking-[0.08em] text-[#2D2A26]">
+          <Plus size={12} /> Add assets
+        </span>
+      </div>
+
+      <div className="mt-6 flex gap-6 border-b border-[#E4E8E4] text-[9px] font-semibold text-[#7B837D]">
+        <span className="border-b-2 border-[#202622] pb-3 text-[#202622]">Assets</span>
+        <span className="pb-3">Members</span>
+        <span className="pb-3">Activity</span>
+        <span className="pb-3">Performance</span>
+        <span className="pb-3">Settings</span>
+      </div>
+
+      <div className="mt-5 grid gap-5 md:grid-cols-[1.15fr_0.85fr]">
+        <div className="border-y border-[#E5E9E5]">
+          {assets.map(([type, name]) => (
+            <div key={type} className="flex items-center justify-between gap-4 border-b border-[#E5E9E5] py-3.5 last:border-b-0">
+              <div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8B938D]">{type}</div>
+                <div className="mt-1 text-[10px] font-semibold text-[#404843]">{name}</div>
+              </div>
+              <Check size={12} className="text-[#708060]" />
             </div>
           ))}
         </div>
-      </div>
 
-      <div>
-        <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Conversation</div>
+        <div className="rounded-[16px] border border-[#E2E6E2] bg-white p-4">
+          <div className="text-[10px] font-semibold">Add assets</div>
+          <div className="mt-1 text-[8px] text-[#8A918C]">Bring the pieces of the campaign together.</div>
 
-        <div className="mt-5 ml-auto max-w-[88%] rounded-[16px] rounded-br-[5px] bg-[#EEF2FF] px-4 py-3.5 text-[11px] leading-[1.55] text-[#4A5668]">
-          Hi Mia, we have extra service appointments next week. Want the available times?
-        </div>
-
-        <div className="mt-3 max-w-[88%] rounded-[16px] rounded-bl-[5px] bg-[#EAF0E7] px-4 py-3.5 text-[11px] leading-[1.55] text-[#465146]">
-          Yes please. Thursday would be best.
-        </div>
-
-        <div className="mt-6 flex items-center gap-2 border-t border-[#E7EAE7] pt-5 text-[9px] font-semibold text-[#63705D]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#7E916B]" />
-          Customer context stays attached
+          <div className="mt-4 space-y-2.5">
+            {["Form", "Website", "Funnel", "Landing Page", "Calendar", "Automation", "Pipeline", "Email Template", "Social Post"].map((item) => (
+              <div key={item} className="flex items-center justify-between text-[9px]">
+                <span className="text-[#4A524D]">{item}</span>
+                <Plus size={10} className="text-[#949A95]" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function CampaignMoments() {
+function PerformanceState() {
+  const reach = ["Reached", "Engaged", "Converted", "Won deals"];
+  const returns = ["Won deal value", "Collected", "Costs", "Return on cost", "Value per unit spent", "Payments"];
+
+  return (
+    <div>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Campaign performance</div>
+          <div className="mt-1.5 text-[19px] font-semibold tracking-[-0.03em]">Service availability</div>
+        </div>
+        <div className="text-[9px] text-[#8A918C]">30 day influence window</div>
+      </div>
+
+      <div className="mt-6">
+        <div className="text-[9px] font-semibold text-[#39413C]">Reach</div>
+        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
+          {reach.map((metric) => (
+            <div key={metric} className="rounded-[12px] border border-[#E2E6E2] bg-white p-3">
+              <div className="text-[8px] text-[#8A918C]">{metric}</div>
+              <div className="mt-2 text-[11px] font-semibold text-[#404843]">Tracked</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <div className="text-[9px] font-semibold text-[#39413C]">Return</div>
+        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
+          {returns.map((metric) => (
+            <div key={metric} className="rounded-[12px] border border-[#E2E6E2] bg-white p-3">
+              <div className="text-[8px] text-[#8A918C]">{metric}</div>
+              <div className="mt-2 text-[10px] font-semibold text-[#59615B]">Campaign metric</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6 flex items-center gap-2 border-t border-[#E5E9E5] pt-5 text-[9px] font-semibold text-[#68726A]">
+        <Check size={12} className="text-[#708060]" />
+        Performance stays attached to the campaign
+      </div>
+    </div>
+  );
+}
+
+function CampaignExamples() {
+  const examples = [
+    {
+      label: "Seasonal service",
+      tags: ["Existing customer", "Service due", "Sydney"],
+      line: "Reach the customers the offer actually suits.",
+    },
+    {
+      label: "Rate update",
+      tags: ["Mortgage client", "Variable rate"],
+      line: "Build a campaign around the customers affected by the change.",
+    },
+    {
+      label: "New service launch",
+      tags: ["Existing customer", "Relevant service"],
+      line: "Tell the people most likely to care before telling everyone.",
+    },
+  ] as const;
+
   return (
     <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
-      <div className="mx-auto max-w-[1260px]">
-        <Reveal className="grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
-          <div className="max-w-[420px]">
-            <h2
-              className="text-[31px] font-medium leading-[1.04] tracking-[-0.044em] sm:text-[36px] lg:text-[39px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              One customer base.
-              <span className="block text-[#737C75]">Plenty of reasons to run a campaign.</span>
-            </h2>
-            <p className="mt-5 text-[14px] leading-[1.68] text-[#6B726C]">
-              The audience changes with the reason. The database does not have to.
-            </p>
-          </div>
-
-          <div className="border-t border-[#DDE2DE]">
-            {[
-              ["Seasonal campaign", "Customers relevant to a seasonal service", "Reach the people the offer actually suits."],
-              ["New service", "Customers who already know your business", "Give them another relevant reason to buy."],
-              ["Customer update", "Customers affected by a change", "Contact only the people who need to know."],
-              ["Targeted promotion", "A defined customer segment", "Run the offer against the audience it was meant for."],
-            ].map(([reason, audience, action], index) => (
-              <Reveal key={reason} delay={index * 0.025}>
-                <div className="grid gap-3 border-b border-[#DDE2DE] py-5 sm:grid-cols-[0.72fr_1fr] sm:gap-8">
-                  <div>
-                    <div className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#7B837D]">{reason}</div>
-                    <div className="mt-2 text-[15px] font-semibold tracking-[-0.02em] text-[#303733]">{audience}</div>
-                  </div>
-                  <div className="self-center text-[13px] leading-[1.62] text-[#69716B]">{action}</div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+      <div className="mx-auto max-w-[1240px]">
+        <Reveal className="max-w-[650px]">
+          <h2
+            className="text-[31px] font-medium leading-[1.04] tracking-[-0.044em] sm:text-[36px] lg:text-[39px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            The tags can change.
+            <span className="block text-[#737C75]">The campaign follows the audience.</span>
+          </h2>
         </Reveal>
+
+        <div className="mt-10 border-t border-[#DDE2DE]">
+          {examples.map((example, index) => (
+            <Reveal key={example.label} delay={index * 0.03}>
+              <div className="grid gap-4 border-b border-[#DDE2DE] py-6 md:grid-cols-[0.7fr_1.05fr_1.05fr] md:items-center md:gap-8">
+                <div className="text-[15px] font-semibold tracking-[-0.02em] text-[#303733]">{example.label}</div>
+
+                <div className="flex flex-wrap gap-2">
+                  {example.tags.map((tag) => (
+                    <span key={tag} className="inline-flex items-center gap-1.5 rounded-full bg-[#F0F3EE] px-3 py-1.5 text-[9px] font-semibold text-[#5B665C]">
+                      <Tag size={10} />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="text-[13px] leading-[1.62] text-[#69716B]">{example.line}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -609,29 +707,33 @@ function CampaignMoments() {
 function ConnectedDifference() {
   return (
     <section className="bg-[#1E2B29] px-5 py-16 text-white sm:px-10 sm:py-20 lg:px-16">
-      <Reveal className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20">
-        <div className="max-w-[600px]">
+      <Reveal className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-20">
+        <div className="max-w-[620px]">
           <h2
             className="text-[32px] font-medium leading-[1.04] tracking-[-0.045em] sm:text-[38px] lg:text-[41px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Campaign software sends messages.
-            <span className="block text-[#AFC3FF]">Zapla knows who you're sending them to.</span>
+            Most marketing tools start with the message.
+            <span className="block text-[#AFC3FF]">Zapla starts with the customer.</span>
           </h2>
+          <p className="mt-5 max-w-[560px] text-[14px] leading-[1.7] text-white/58">
+            Your tags, customer data, campaigns, campaign assets and results stay connected in the same system.
+          </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-0 sm:grid-cols-4">
           {[
             ["CRM", "Customer data"],
-            ["Campaign", "Audience + message"],
-            ["Conversation", "Reply + next step"],
+            ["Audience", "Tags + filters"],
+            ["Campaign", "Message + assets"],
+            ["Performance", "Engagement + results"],
           ].map(([title, copy], index) => (
             <div
               key={title}
-              className={"py-4 sm:px-5 " + (index < 2 ? "border-b border-white/12 sm:border-b-0 sm:border-r" : "")}
+              className={"py-4 sm:px-5 " + (index < 3 ? "border-b border-white/12 sm:border-b-0 sm:border-r" : "")}
             >
               <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#DDA34B]">{title}</div>
-              <div className="mt-2 text-[12px] leading-[1.55] text-white/58">{copy}</div>
+              <div className="mt-2 text-[11px] leading-[1.55] text-white/58">{copy}</div>
             </div>
           ))}
         </div>
@@ -660,6 +762,7 @@ function Faq() {
         <div className="border-y border-[#DDE2DE]">
           {FAQS.map((item, index) => {
             const active = open === index;
+
             return (
               <div key={item.q} className="border-b border-[#DDE2DE] last:border-b-0">
                 <button
@@ -671,6 +774,7 @@ function Faq() {
                   <span className="text-[14px] font-semibold tracking-[-0.015em] text-[#282E2A] sm:text-[15px]">
                     {item.q}
                   </span>
+
                   <motion.span
                     className={
                       "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border " +
@@ -719,7 +823,7 @@ function GrowthCta() {
             className="mt-2 text-[31px] font-medium leading-[1.04] tracking-[-0.045em] text-[#242A26] sm:text-[37px] lg:text-[40px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Put the customers you already know back to work.
+            Turn customer data into campaigns you can actually measure.
           </h2>
           <p className="mt-4 max-w-[620px] text-[14px] leading-[1.7] text-[#69706A]">
             Customer Marketing is part of Zapla Growth.
