@@ -73,7 +73,7 @@ const FAQS = [
   },
   {
     q: "How much does it cost?",
-    a: "AI Receptionist is A$199 per month plus GST as an add-on to an active Zapla plan. It includes 200 Voice AI minutes. Setup starts from A$997 plus GST, and additional Voice AI usage is A$0.90 plus GST per minute.",
+    a: "AI Receptionist is A$199 per month plus GST as an add-on to an active Zapla plan. Setup starts from A$997 plus GST, and additional Voice AI usage is A$0.90 plus GST per minute.",
   },
 ] as const;
 
@@ -1098,8 +1098,7 @@ function SetupAndPricing() {
             </div>
 
             <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
-              <PriceLine label="Included" value="200 Voice AI minutes" />
-              <PriceLine label="Additional usage" value="A$0.90 + GST / min" />
+              <PriceLine label="Voice usage" value="A$0.90 + GST / min" />
               <PriceLine label="Guided setup" value="from A$997 + GST" />
               <PriceLine label="Requires" value="an active Zapla plan" />
             </div>
