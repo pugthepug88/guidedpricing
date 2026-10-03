@@ -74,7 +74,6 @@ function AIReceptionistConcept() {
       <Hero />
       <StickyCallStory />
       <BusinessConnectedStory />
-      <ConnectedSystemBridge />
       <SetupControlPricing />
       <Faq />
       <FinalCta />
@@ -588,29 +587,28 @@ function BusinessConnectedStory() {
   ] as const;
 
   return (
-    <section className="bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+    <section className="bg-[#FCFCFA] px-5 pb-24 pt-16 sm:px-10 sm:pb-28 sm:pt-20 lg:px-16 lg:pb-32 lg:pt-24">
       <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[920px]">
-          <Eyebrow>Built around your business</Eyebrow>
-          <h2
-            className="mt-4 max-w-[900px] text-[42px] font-medium leading-[0.96] tracking-[-0.055em] text-[#111318] sm:text-[56px] lg:text-[64px]"
+        <Reveal className="grid gap-6 lg:grid-cols-[1.1fr_.9fr] lg:items-end lg:gap-16">
+          <p
+            className="max-w-[720px] text-[32px] font-medium leading-[1.02] tracking-[-0.045em] text-[#111318] sm:text-[40px] lg:text-[46px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Different businesses ask different questions.
-          </h2>
-          <p className="mt-5 max-w-[760px] text-[16px] leading-[1.72] text-[#666D75] sm:text-[18px]">
+            The questions change. The follow-through doesn’t.
+          </p>
+          <p className="max-w-[520px] text-[15px] leading-[1.72] text-[#687078] sm:text-[16px]">
             Zapla is configured around your services, terminology, booking rules and the calls that should reach a person.
           </p>
         </Reveal>
 
-        <Reveal className="mt-12 sm:mt-14">
+        <Reveal className="mt-10 sm:mt-12">
           <div className="border-y border-[#DADDE1]">
             <div className="grid lg:grid-cols-4">
               {examples.map((example, index) => (
                 <div
                   key={example.label}
                   className={
-                    "py-7 sm:py-8 lg:min-h-[300px] lg:px-7 lg:py-9 " +
+                    "py-7 sm:py-8 lg:min-h-[286px] lg:px-7 lg:py-9 " +
                     (index ? "border-t border-[#E2E5E7] lg:border-l lg:border-t-0" : "")
                   }
                 >
@@ -620,20 +618,17 @@ function BusinessConnectedStory() {
                   </div>
 
                   <div
-                    className="mt-8 max-w-[270px] text-[25px] font-medium leading-[1.12] tracking-[-0.04em] text-[#171A1F] sm:text-[28px]"
+                    className="mt-7 max-w-[270px] text-[24px] font-medium leading-[1.13] tracking-[-0.04em] text-[#171A1F] sm:text-[27px]"
                     style={{ fontFamily: DISPLAY }}
                   >
                     “{example.quote}”
                   </div>
 
-                  <div className="mt-9 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#999FA6]">
-                    Zapla uses
-                  </div>
-                  <div className="mt-2 text-[12px] leading-[1.55] text-[#6D747B]">
+                  <div className="mt-8 text-[11px] leading-[1.55] text-[#7A8188]">
                     {example.context}
                   </div>
 
-                  <div className="mt-5 flex items-center gap-2 text-[13px] font-semibold text-[#23272C]">
+                  <div className="mt-4 flex items-center gap-2 text-[13px] font-semibold text-[#23272C]">
                     <ArrowRight size={13} style={{ color: example.accent }} />
                     {example.outcome}
                   </div>
@@ -642,39 +637,21 @@ function BusinessConnectedStory() {
             </div>
           </div>
         </Reveal>
-      </div>
-    </section>
-  );
-}
 
-function ConnectedSystemBridge() {
-  return (
-    <section className="border-y border-[#E2E5E2] bg-[#F7F8F6] px-5 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-18">
-      <Reveal className="mx-auto grid max-w-[1240px] gap-7 lg:grid-cols-[1.05fr_.95fr] lg:items-end lg:gap-16">
-        <div>
-          <Eyebrow>The wider Zapla system</Eyebrow>
-          <h2
-            className="mt-4 max-w-[680px] text-[38px] font-medium leading-[0.98] tracking-[-0.05em] text-[#111318] sm:text-[48px] lg:text-[54px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            The phone call is just the front door.
-          </h2>
-        </div>
-
-        <div className="lg:pb-1">
-          <p className="max-w-[600px] text-[15px] leading-[1.72] text-[#626A71] sm:text-[16px]">
-            The caller does not disappear into a separate voice tool. Their customer record, booking and next step can continue inside Zapla.
+        <Reveal className="mt-9 flex flex-col gap-4 border-b border-[#DADDE1] pb-9 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-[760px] text-[17px] font-medium leading-[1.55] tracking-[-0.02em] text-[#3A4046]" style={{ fontFamily: DISPLAY }}>
+            However the call starts, the customer and the next step stay connected in Zapla.
           </p>
-          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-[13px] font-semibold">
-            <a href="/crm" className="inline-flex items-center gap-1.5 text-[#111318] hover:text-[#0891B2]">
-              See CRM <ArrowRight size={13} />
+          <div className="flex shrink-0 gap-5 text-[12px] font-semibold">
+            <a href="/crm" className="inline-flex items-center gap-1.5 text-[#111318] transition-colors hover:text-[#0891B2]">
+              CRM <ArrowRight size={12} />
             </a>
-            <a href="/follow-up" className="inline-flex items-center gap-1.5 text-[#111318] hover:text-[#0891B2]">
-              See Follow-Up <ArrowRight size={13} />
+            <a href="/follow-up" className="inline-flex items-center gap-1.5 text-[#111318] transition-colors hover:text-[#0891B2]">
+              Follow-Up <ArrowRight size={12} />
             </a>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -705,13 +682,11 @@ function SetupControlPricing() {
     <section className="bg-[#EEF2EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto grid max-w-[1240px] gap-12 lg:grid-cols-[1.08fr_.92fr] lg:gap-16">
         <Reveal>
-          <Eyebrow>Configured for your front desk</Eyebrow>
-          <h2 className="mt-4 max-w-[690px] text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
-            We set it up.
-            <span className="block">You decide where it stops.</span>
+          <h2 className="max-w-[690px] text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
+            You decide where AI stops.
           </h2>
           <p className="mt-5 max-w-[620px] text-[15px] leading-[1.7] text-[#606761] sm:text-[17px]">
-            We map the common calls, booking rules, handoffs and fallbacks before customers reach it.
+            We map the routine calls, booking rules, handoffs and fallbacks around the way your front desk already works.
           </p>
 
           <div className="mt-10 border-y border-[#CFD8CF]">
@@ -773,16 +748,13 @@ function Faq() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
-      <div className="mx-auto grid max-w-[1120px] gap-10 lg:grid-cols-[0.65fr_1.35fr] lg:gap-16">
-        <Reveal>
-          <Eyebrow>Questions</Eyebrow>
-          <h2 className="mt-4 text-[38px] font-medium leading-[0.98] tracking-[-0.05em] sm:text-[50px]" style={{ fontFamily: DISPLAY }}>
-            The practical stuff.
-          </h2>
-        </Reveal>
+    <section className="border-t border-[#D6DED6] bg-[#EEF2EE] px-5 pb-24 pt-4 sm:px-10 sm:pb-28 lg:px-16 lg:pb-28">
+      <div className="mx-auto grid max-w-[1240px] gap-6 lg:grid-cols-[0.42fr_1.58fr] lg:gap-16">
+        <div className="pt-6 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#788078]">
+          Common questions
+        </div>
 
-        <div className="divide-y divide-[#DDE2DD] border-y border-[#DDE2DD]">
+        <div className="divide-y divide-[#CFD8CF] border-b border-[#CFD8CF]">
           {FAQS.map((item, index) => {
             const isOpen = open === index;
             return (
@@ -790,18 +762,18 @@ function Faq() {
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : index)}
-                  className="flex w-full items-center justify-between gap-6 py-5 text-left"
+                  className="flex w-full items-center justify-between gap-6 py-6 text-left"
                   aria-expanded={isOpen}
                 >
                   <span className="text-[17px] font-semibold tracking-[-0.025em] text-[#111318]" style={{ fontFamily: DISPLAY }}>
                     {item.q}
                   </span>
-                  <ChevronDown size={17} className={"shrink-0 text-[#777168] transition-transform " + (isOpen ? "rotate-180" : "")} />
+                  <ChevronDown size={17} className={"shrink-0 text-[#777E77] transition-transform " + (isOpen ? "rotate-180" : "")} />
                 </button>
 
                 <div className={"grid transition-[grid-template-rows,opacity] duration-200 " + (isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
                   <div className="overflow-hidden">
-                    <p className="max-w-[720px] pb-5 text-[14px] leading-[1.7] text-[#626762]">{item.a}</p>
+                    <p className="max-w-[720px] pb-6 text-[14px] leading-[1.7] text-[#626962]">{item.a}</p>
                   </div>
                 </div>
               </div>
