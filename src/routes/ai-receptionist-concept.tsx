@@ -711,29 +711,17 @@ function SetupControlPricing() {
                 </div>
 
                 {rule.handoff && (
-                  <div className="mt-5 sm:ml-[64px] lg:ml-[64px]">
-                    <div className="flex max-w-[560px] items-center gap-3 sm:gap-4">
-                      <div className="min-w-0 flex-1 rounded-[14px] border border-[#CBD4CB] bg-white/55 px-3.5 py-3">
-                        <div className="flex items-center gap-3">
-                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1E2B29]">
-                            <PetalMark size={21} />
-                          </span>
-                          <div className="min-w-0">
-                            <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#7D857D]">Zapla</div>
-                            <div className="mt-0.5 truncate text-[11px] font-semibold text-[#2C322D]">Caller needs your team</div>
-                          </div>
-                        </div>
+                  <div className="mt-4 sm:ml-[64px] sm:grid sm:grid-cols-[210px_1fr] sm:gap-5">
+                    <div />
+                    <div className="flex items-center justify-between gap-5 border-t border-[#D9E0D9] pt-4">
+                      <div className="flex items-center gap-2 text-[11px] font-semibold text-[#59615A]">
+                        <ArrowRight size={13} className="text-[#C4913F]" />
+                        Moves to your team
                       </div>
-
-                      <ArrowRight size={16} className="shrink-0 text-[#C4913F]" />
-
-                      <div className="shrink-0 text-center">
-                        <div className="flex min-w-[104px] items-end justify-center -space-x-4">
-                          <TeamAvatar size={42} cell={7} className="z-0 opacity-80 !border-[#EEF2EE]" />
-                          <TeamAvatar size={50} cell={0} className="relative z-20 !border-[#EEF2EE]" />
-                          <TeamAvatar size={42} cell={14} className="z-10 opacity-80 !border-[#EEF2EE]" />
-                        </div>
-                        <div className="mt-1.5 text-[8px] font-semibold uppercase tracking-[0.12em] text-[#858D85]">Your team</div>
+                      <div className="flex items-center -space-x-3">
+                        <TeamAvatar size={34} cell={7} className="z-0 opacity-80 !border-[#EEF2EE]" />
+                        <TeamAvatar size={40} cell={0} className="relative z-20 !border-[#EEF2EE]" />
+                        <TeamAvatar size={34} cell={14} className="z-10 opacity-80 !border-[#EEF2EE]" />
                       </div>
                     </div>
                   </div>
@@ -842,7 +830,7 @@ function FinalCta() {
           className="mx-auto mt-3 max-w-[900px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[56px] lg:text-[64px]"
           style={{ fontFamily: DISPLAY }}
         >
-          Start with the calls your team shouldn’t have to stop for.
+          Show us your call flow.
         </h2>
 
         <p className="mx-auto mt-4 max-w-[700px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
