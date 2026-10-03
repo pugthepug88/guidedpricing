@@ -608,7 +608,7 @@ function BusinessConnectedStory() {
                 <div
                   key={example.label}
                   className={
-                    "py-7 sm:py-8 lg:min-h-[286px] lg:px-7 lg:py-9 " +
+                    "flex flex-col py-7 sm:py-8 lg:min-h-[300px] lg:px-7 lg:py-9 " +
                     (index ? "border-t border-[#E2E5E7] lg:border-l lg:border-t-0" : "")
                   }
                 >
@@ -624,13 +624,15 @@ function BusinessConnectedStory() {
                     “{example.quote}”
                   </div>
 
-                  <div className="mt-8 text-[11px] leading-[1.55] text-[#7A8188]">
-                    {example.context}
-                  </div>
+                  <div className="mt-8 lg:mt-auto">
+                    <div className="text-[11px] leading-[1.55] text-[#7A8188]">
+                      {example.context}
+                    </div>
 
-                  <div className="mt-4 flex items-center gap-2 text-[13px] font-semibold text-[#23272C]">
-                    <ArrowRight size={13} style={{ color: example.accent }} />
-                    {example.outcome}
+                    <div className="mt-4 flex items-center gap-2 text-[13px] font-semibold text-[#23272C]">
+                      <ArrowRight size={13} style={{ color: example.accent }} />
+                      {example.outcome}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -662,19 +664,17 @@ function SetupControlPricing() {
       icon: <MessageSquare size={17} />,
       title: "Handles the routine",
       copy: "Questions, simple enquiries and suitable bookings.",
-      accent: "#C96F55",
     },
     {
       icon: <PhoneForwarded size={17} />,
       title: "Hands off when it should",
       copy: "Calls needing judgement or a person move to your team.",
-      accent: "#9B86B8",
+      handoff: true,
     },
     {
       icon: <ShieldCheck size={17} />,
       title: "Falls back instead of guessing",
       copy: "Out-of-scope calls can become a message or escalation.",
-      accent: "#788565",
     },
   ];
 
@@ -682,8 +682,12 @@ function SetupControlPricing() {
     <section className="bg-[#EEF2EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto grid max-w-[1240px] gap-12 lg:grid-cols-[1.08fr_.92fr] lg:gap-16">
         <Reveal>
-          <h2 className="max-w-[690px] text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[62px]" style={{ fontFamily: DISPLAY }}>
-            You decide where AI stops.
+          <h2
+            className="max-w-[720px] text-[40px] font-medium leading-[0.97] tracking-[-0.055em] sm:text-[54px] lg:text-[62px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            The routine gets handled.
+            <span className="block">The calls that need you still reach you.</span>
           </h2>
           <p className="mt-5 max-w-[620px] text-[15px] leading-[1.7] text-[#606761] sm:text-[17px]">
             We map the routine calls, booking rules, handoffs and fallbacks around the way your front desk already works.
@@ -691,12 +695,49 @@ function SetupControlPricing() {
 
           <div className="mt-10 border-y border-[#CFD8CF]">
             {rules.map((rule, index) => (
-              <div key={rule.title} className={"grid gap-3 py-5 sm:grid-cols-[44px_210px_1fr] sm:items-center sm:gap-5 " + (index ? "border-t border-[#D9E0D9]" : "")}>
-                <span className="flex h-9 w-9 items-center justify-center rounded-[10px]" style={{ color: rule.accent, backgroundColor: rule.accent + "18" }}>
-                  {rule.icon}
-                </span>
-                <div className="text-[16px] font-semibold text-[#202420]">{rule.title}</div>
-                <div className="text-[12px] leading-[1.6] text-[#697069]">{rule.copy}</div>
+              <div
+                key={rule.title}
+                className={
+                  "py-5 " +
+                  (index ? "border-t border-[#D9E0D9]" : "")
+                }
+              >
+                <div className="grid gap-3 sm:grid-cols-[44px_210px_1fr] sm:items-center sm:gap-5">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#1E2B29] text-white">
+                    {rule.icon}
+                  </span>
+                  <div className="text-[16px] font-semibold text-[#202420]">{rule.title}</div>
+                  <div className="text-[12px] leading-[1.6] text-[#697069]">{rule.copy}</div>
+                </div>
+
+                {rule.handoff && (
+                  <div className="mt-5 sm:ml-[64px] lg:ml-[64px]">
+                    <div className="flex max-w-[560px] items-center gap-3 sm:gap-4">
+                      <div className="min-w-0 flex-1 rounded-[14px] border border-[#CBD4CB] bg-white/55 px-3.5 py-3">
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1E2B29]">
+                            <PetalMark size={21} />
+                          </span>
+                          <div className="min-w-0">
+                            <div className="text-[8px] font-semibold uppercase tracking-[0.14em] text-[#7D857D]">Zapla</div>
+                            <div className="mt-0.5 truncate text-[11px] font-semibold text-[#2C322D]">Caller needs your team</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <ArrowRight size={16} className="shrink-0 text-[#C4913F]" />
+
+                      <div className="shrink-0 text-center">
+                        <div className="flex min-w-[104px] items-end justify-center -space-x-4">
+                          <TeamAvatar size={42} cell={7} className="z-0 opacity-80 !border-[#EEF2EE]" />
+                          <TeamAvatar size={50} cell={0} className="relative z-20 !border-[#EEF2EE]" />
+                          <TeamAvatar size={42} cell={14} className="z-10 opacity-80 !border-[#EEF2EE]" />
+                        </div>
+                        <div className="mt-1.5 text-[8px] font-semibold uppercase tracking-[0.12em] text-[#858D85]">Your team</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -787,30 +828,37 @@ function Faq() {
 
 function FinalCta() {
   return (
-    <section className="border-t border-[#E5E8E4] bg-[#F7F8F6] px-5 py-16 sm:px-10 sm:py-18 lg:px-16 lg:py-20">
-      <Reveal className="mx-auto grid max-w-[1240px] gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
-        <div>
-          <h2
-            className="max-w-[720px] text-[42px] font-medium leading-[0.97] tracking-[-0.052em] text-[#111318] sm:text-[54px] lg:text-[60px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Show us your call flow.
-          </h2>
-          <p className="mt-4 max-w-[700px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
-            We’ll show you exactly what Zapla can answer, book, route or hand off before anything goes live.
-          </p>
+    <section className="bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-24">
+      <Reveal className="mx-auto max-w-[1080px] text-center">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+          <PetalMark size={34} />
         </div>
 
-        <div className="flex flex-wrap gap-3 lg:justify-end">
+        <div className="mt-5">
+          <Eyebrow>See where AI fits</Eyebrow>
+        </div>
+
+        <h2
+          className="mx-auto mt-3 max-w-[900px] text-[42px] font-medium leading-[0.98] tracking-[-0.052em] text-[#111318] sm:text-[56px] lg:text-[64px]"
+          style={{ fontFamily: DISPLAY }}
+        >
+          Start with the calls your team shouldn’t have to stop for.
+        </h2>
+
+        <p className="mx-auto mt-4 max-w-[700px] text-[15px] leading-[1.68] text-[#5F655F] sm:text-[16px]">
+          We’ll map your call flow and show exactly what Zapla can answer, book, route or hand off, and where a human should stay in control.
+        </p>
+
+        <div className="mt-7 flex flex-wrap justify-center gap-3">
           <a
             href={BOOK_URL}
-            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px"
+            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px"
           >
             Book a Call <ArrowRight size={15} />
           </a>
           <a
             href={PRICING_URL}
-            className="inline-flex h-[50px] items-center rounded-full border border-[#D7DDD7] bg-white px-6 text-[13px] font-semibold text-[#111318]"
+            className="inline-flex h-[50px] items-center rounded-full border border-[#E2DBD1] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA]"
           >
             View pricing
           </a>
