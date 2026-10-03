@@ -74,6 +74,7 @@ function AIReceptionistConcept() {
       <Hero />
       <StickyCallStory />
       <BusinessConnectedStory />
+      <ConnectedSystemBridge />
       <SetupControlPricing />
       <Faq />
       <FinalCta />
@@ -218,7 +219,7 @@ function Hero() {
             </div>
 
             <div className="mt-8 text-[12px] font-semibold text-[#59615A]">
-              A$199/mo + GST · 200 Voice AI minutes included
+              A$199/mo + GST · Voice usage billed separately
             </div>
           </Reveal>
 
@@ -553,200 +554,127 @@ function StickyCallStory() {
 function BusinessConnectedStory() {
   const examples = [
     {
-      key: "allied-health",
       label: "Allied health",
-      icon: <Stethoscope size={15} />,
+      icon: <Stethoscope size={16} />,
       accent: "#879667",
-      quote: [
-        { text: "I’m a ", marked: false },
-        { text: "new patient", marked: true },
-        { text: ". I can only do ", marked: false },
-        { text: "after 5", marked: true },
-        { text: ". I’ve had ", marked: false },
-        { text: "shoulder pain", marked: true },
-        { text: " for a few weeks.", marked: false },
-      ],
-      heard: ["New patient", "After 5pm", "Shoulder pain"],
-      action: "Check suitable physio appointments",
+      quote: "Do you have anything after 5?",
+      context: "Service · practitioner · availability",
+      outcome: "Booking",
     },
     {
-      key: "trades",
       label: "Trades",
-      icon: <Hammer size={15} />,
+      icon: <Hammer size={16} />,
       accent: "#C4913F",
-      quote: [
-        { text: "My ", marked: false },
-        { text: "hot water stopped", marked: true },
-        { text: " this morning. Can someone come ", marked: false },
-        { text: "today", marked: true },
-        { text: "? I’m in ", marked: false },
-        { text: "Parramatta", marked: true },
-        { text: ".", marked: false },
-      ],
-      heard: ["Hot water failure", "Same day", "Parramatta"],
-      action: "Start the urgent job flow",
+      quote: "My hot water stopped. Can someone come today?",
+      context: "Urgency · suburb · availability",
+      outcome: "Job flow",
     },
     {
-      key: "real-estate",
       label: "Real estate",
-      icon: <Home size={15} />,
+      icon: <Home size={16} />,
       accent: "#C96F55",
-      quote: [
-        { text: "I’m ", marked: false },
-        { text: "thinking of selling", marked: true },
-        { text: " and I’d like to organise an ", marked: false },
-        { text: "appraisal", marked: true },
-        { text: " for my place in ", marked: false },
-        { text: "Glebe", marked: true },
-        { text: ".", marked: false },
-      ],
-      heard: ["Seller lead", "Property appraisal", "Glebe"],
-      action: "Route to the appraisal workflow",
+      quote: "I’d like an appraisal for my place in Glebe.",
+      context: "Seller · property · availability",
+      outcome: "Appraisal",
     },
     {
-      key: "professional-services",
       label: "Professional services",
-      icon: <Briefcase size={15} />,
+      icon: <Briefcase size={16} />,
       accent: "#8E7AA8",
-      quote: [
-        { text: "I’m ", marked: false },
-        { text: "not sure which service", marked: true },
-        { text: " I need. We want someone to ", marked: false },
-        { text: "review an agreement", marked: true },
-        { text: " before we ", marked: false },
-        { text: "sign it", marked: true },
-        { text: ".", marked: false },
-      ],
-      heard: ["Service guidance", "Agreement review", "Before signing"],
-      action: "Send it to the right specialist",
+      quote: "I’m not sure which service I need.",
+      context: "Need · context · right specialist",
+      outcome: "Right person",
     },
   ] as const;
 
-  const reduced = !!useReducedMotion();
-  const [selectedKey, setSelectedKey] = useState(examples[1].key);
-  const selected = examples.find((example) => example.key === selectedKey) ?? examples[1];
-
   return (
-    <section className="overflow-hidden bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+    <section className="bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-[1280px]">
-        <Reveal className="max-w-[900px]">
+        <Reveal className="max-w-[920px]">
           <Eyebrow>Built around your business</Eyebrow>
           <h2
-            className="mt-4 text-[44px] font-medium leading-[0.95] tracking-[-0.06em] text-[#111318] sm:text-[58px] lg:text-[68px]"
+            className="mt-4 max-w-[900px] text-[42px] font-medium leading-[0.96] tracking-[-0.055em] text-[#111318] sm:text-[56px] lg:text-[64px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Real callers don’t follow a script.
-            <span className="block text-[#C96F55]">Zapla still knows what to do.</span>
+            Different businesses ask different questions.
           </h2>
+          <p className="mt-5 max-w-[760px] text-[16px] leading-[1.72] text-[#666D75] sm:text-[18px]">
+            Zapla is configured around your services, terminology, booking rules and the calls that should reach a person.
+          </p>
         </Reveal>
 
-        <div className="mt-9 border-b border-[#DADDE1]">
-          <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0">
-            <div className="flex min-w-max items-end gap-7 sm:gap-9">
-              {examples.map((example) => {
-                const active = selected.key === example.key;
-                return (
-                  <button
-                    key={example.key}
-                    type="button"
-                    onClick={() => setSelectedKey(example.key)}
-                    aria-pressed={active}
-                    className="group relative flex h-[46px] items-center gap-2 text-[13px] font-semibold transition-colors duration-200"
-                    style={{ color: active ? "#111318" : "#858B92" }}
-                  >
-                    <span style={{ color: active ? example.accent : "#A8ADB3" }}>{example.icon}</span>
-                    {example.label}
-                    <motion.span
-                      className="absolute inset-x-0 -bottom-px h-[2px] origin-left"
-                      style={{ backgroundColor: example.accent }}
-                      animate={{ scaleX: active ? 1 : 0, opacity: active ? 1 : 0 }}
-                      transition={{ duration: reduced ? 0 : 0.22, ease: EASE }}
-                    />
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        <motion.div
-          key={selected.key}
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.36, ease: EASE }}
-          className="grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.6fr_.4fr] lg:gap-20 lg:py-20"
-        >
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#969CA3]">Caller</div>
-            <div
-              className="mt-4 max-w-[900px] text-[38px] font-medium leading-[1.06] tracking-[-0.052em] text-[#111318] sm:text-[50px] lg:text-[60px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              “
-              {selected.quote.map((part, index) =>
-                part.marked ? (
-                  <motion.span
-                    key={index}
-                    className="inline"
-                    style={{ boxShadow: "inset 0 -0.15em 0 " + selected.accent + "22" }}
-                    initial={reduced ? false : { boxShadow: "inset 0 -0.02em 0 " + selected.accent + "00" }}
-                    animate={{ boxShadow: "inset 0 -0.15em 0 " + selected.accent + "22" }}
-                    transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.1 + index * 0.04, ease: EASE }}
-                  >
-                    {part.text}
-                  </motion.span>
-                ) : (
-                  <span key={index}>{part.text}</span>
-                ),
-              )}
-              ”
-            </div>
-          </div>
-
-          <div className="lg:pt-2">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#969CA3]">Zapla picked up</div>
-            <div className="mt-4 space-y-2">
-              {selected.heard.map((item, index) => (
-                <motion.div
-                  key={item}
-                  initial={reduced ? false : { opacity: 0, x: 8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: reduced ? 0 : 0.26, delay: reduced ? 0 : 0.16 + index * 0.08, ease: EASE }}
-                  className="text-[20px] font-medium leading-[1.2] tracking-[-0.03em] text-[#24282D]"
-                  style={{ fontFamily: DISPLAY }}
+        <Reveal className="mt-12 sm:mt-14">
+          <div className="border-y border-[#DADDE1]">
+            <div className="grid lg:grid-cols-4">
+              {examples.map((example, index) => (
+                <div
+                  key={example.label}
+                  className={
+                    "py-7 sm:py-8 lg:min-h-[300px] lg:px-7 lg:py-9 " +
+                    (index ? "border-t border-[#E2E5E7] lg:border-l lg:border-t-0" : "")
+                  }
                 >
-                  {item}
-                </motion.div>
+                  <div className="flex items-center gap-2.5 text-[12px] font-semibold text-[#4D545B]">
+                    <span style={{ color: example.accent }}>{example.icon}</span>
+                    {example.label}
+                  </div>
+
+                  <div
+                    className="mt-8 max-w-[270px] text-[25px] font-medium leading-[1.12] tracking-[-0.04em] text-[#171A1F] sm:text-[28px]"
+                    style={{ fontFamily: DISPLAY }}
+                  >
+                    “{example.quote}”
+                  </div>
+
+                  <div className="mt-9 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#999FA6]">
+                    Zapla uses
+                  </div>
+                  <div className="mt-2 text-[12px] leading-[1.55] text-[#6D747B]">
+                    {example.context}
+                  </div>
+
+                  <div className="mt-5 flex items-center gap-2 text-[13px] font-semibold text-[#23272C]">
+                    <ArrowRight size={13} style={{ color: example.accent }} />
+                    {example.outcome}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.div>
-
-        <motion.div
-          key={selected.key + "-action"}
-          initial={reduced ? false : { opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.32, delay: reduced ? 0 : 0.36, ease: EASE }}
-          className="border-t border-[#DADDE1] pt-7 sm:pt-8"
-        >
-          <div className="grid gap-4 sm:grid-cols-[170px_1fr] sm:items-baseline">
-            <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#727981]">
-              <span className="h-2 w-2 rounded-full bg-[#06B6D4]" />
-              Zapla does
-            </div>
-            <div
-              className="max-w-[760px] text-[30px] font-medium leading-[1.04] tracking-[-0.045em] text-[#111318] sm:text-[38px] lg:text-[44px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              {selected.action}
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="mt-10 text-[12px] leading-[1.6] text-[#7A8087]">
-          Configured around your services, hours, FAQs, booking rules and escalation paths.
-        </div>
+        </Reveal>
       </div>
+    </section>
+  );
+}
+
+function ConnectedSystemBridge() {
+  return (
+    <section className="border-y border-[#E2E5E2] bg-[#F7F8F6] px-5 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-18">
+      <Reveal className="mx-auto grid max-w-[1240px] gap-7 lg:grid-cols-[1.05fr_.95fr] lg:items-end lg:gap-16">
+        <div>
+          <Eyebrow>The wider Zapla system</Eyebrow>
+          <h2
+            className="mt-4 max-w-[680px] text-[38px] font-medium leading-[0.98] tracking-[-0.05em] text-[#111318] sm:text-[48px] lg:text-[54px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            The phone call is just the front door.
+          </h2>
+        </div>
+
+        <div className="lg:pb-1">
+          <p className="max-w-[600px] text-[15px] leading-[1.72] text-[#626A71] sm:text-[16px]">
+            The caller does not disappear into a separate voice tool. Their customer record, booking and next step can continue inside Zapla.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-[13px] font-semibold">
+            <a href="/crm" className="inline-flex items-center gap-1.5 text-[#111318] hover:text-[#0891B2]">
+              See CRM <ArrowRight size={13} />
+            </a>
+            <a href="/follow-up" className="inline-flex items-center gap-1.5 text-[#111318] hover:text-[#0891B2]">
+              See Follow-Up <ArrowRight size={13} />
+            </a>
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
@@ -812,8 +740,7 @@ function SetupControlPricing() {
             </div>
 
             <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
-              <PriceLine label="Included" value="200 Voice AI minutes" />
-              <PriceLine label="Additional" value="A$0.90 + GST / min" />
+              <PriceLine label="Voice usage" value="A$0.90 + GST / min" />
               <PriceLine label="Setup" value="from A$997 + GST" />
               <PriceLine label="Requires" value="an active Zapla plan" />
             </div>
