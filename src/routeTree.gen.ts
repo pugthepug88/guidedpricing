@@ -18,7 +18,6 @@ import { Route as FollowUpRouteImport } from './routes/follow-up'
 import { Route as CustomerMarketingRouteImport } from './routes/customer-marketing'
 import { Route as CrmRouteImport } from './routes/crm'
 import { Route as AiReceptionistV2RouteImport } from './routes/ai-receptionist-v2'
-import { Route as AiReceptionistConceptRouteImport } from './routes/ai-receptionist-concept'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
 import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as IndexRouteImport } from './routes/index'
@@ -73,11 +72,6 @@ const AiReceptionistV2Route = AiReceptionistV2RouteImport.update({
   path: '/ai-receptionist-v2',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AiReceptionistConceptRoute = AiReceptionistConceptRouteImport.update({
-  id: '/ai-receptionist-concept',
-  path: '/ai-receptionist-concept',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AiReceptionistRoute = AiReceptionistRouteImport.update({
   id: '/ai-receptionist',
   path: '/ai-receptionist',
@@ -128,7 +122,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/ai-receptionist-concept': typeof AiReceptionistConceptRoute
   '/ai-receptionist-v2': typeof AiReceptionistV2Route
   '/crm': typeof CrmRoute
   '/customer-marketing': typeof CustomerMarketingRoute
@@ -148,7 +141,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/ai-receptionist-concept': typeof AiReceptionistConceptRoute
   '/ai-receptionist-v2': typeof AiReceptionistV2Route
   '/crm': typeof CrmRoute
   '/customer-marketing': typeof CustomerMarketingRoute
@@ -169,7 +161,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
-  '/ai-receptionist-concept': typeof AiReceptionistConceptRoute
   '/ai-receptionist-v2': typeof AiReceptionistV2Route
   '/crm': typeof CrmRoute
   '/customer-marketing': typeof CustomerMarketingRoute
@@ -191,7 +182,6 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/ai-receptionist-concept'
     | '/ai-receptionist-v2'
     | '/crm'
     | '/customer-marketing'
@@ -211,7 +201,6 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/ai-receptionist-concept'
     | '/ai-receptionist-v2'
     | '/crm'
     | '/customer-marketing'
@@ -231,7 +220,6 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
-    | '/ai-receptionist-concept'
     | '/ai-receptionist-v2'
     | '/crm'
     | '/customer-marketing'
@@ -252,7 +240,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PricingV3Route: typeof PricingV3Route
   AiReceptionistRoute: typeof AiReceptionistRoute
-  AiReceptionistConceptRoute: typeof AiReceptionistConceptRoute
   AiReceptionistV2Route: typeof AiReceptionistV2Route
   CrmRoute: typeof CrmRoute
   CustomerMarketingRoute: typeof CustomerMarketingRoute
@@ -334,13 +321,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AiReceptionistV2RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ai-receptionist-concept': {
-      id: '/ai-receptionist-concept'
-      path: '/ai-receptionist-concept'
-      fullPath: '/ai-receptionist-concept'
-      preLoaderRoute: typeof AiReceptionistConceptRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/ai-receptionist': {
       id: '/ai-receptionist'
       path: '/ai-receptionist'
@@ -404,7 +384,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PricingV3Route: PricingV3Route,
   AiReceptionistRoute: AiReceptionistRoute,
-  AiReceptionistConceptRoute: AiReceptionistConceptRoute,
   AiReceptionistV2Route: AiReceptionistV2Route,
   CrmRoute: CrmRoute,
   CustomerMarketingRoute: CustomerMarketingRoute,
