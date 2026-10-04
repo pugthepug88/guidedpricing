@@ -172,7 +172,7 @@ function HeroLedger() {
           <div className="rounded-full border border-[#E3DDD4] bg-white px-3 py-1.5 text-[9px] font-semibold text-[#6C736D]">4 open</div>
         </div>
         <div className="grid border-b border-[#E5E0D9] bg-[#F7F5F1] sm:grid-cols-3">
-          {[["Open quote value", "A$28,850"], ["Needs action", "2"], ["Waiting", "2"]].map(([label, value], index) => (
+          {[["Open quote value", "A$28,850"], ["Needs action", "3"], ["Waiting", "1"]].map(([label, value], index) => (
             <div key={label} className={"px-5 py-4 " + (index ? "border-t border-[#E5E0D9] sm:border-l sm:border-t-0" : "")}>
               <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#90958F]">{label}</div>
               <div className="mt-1.5 text-[20px] font-semibold tracking-[-0.04em] text-[#253029]">{value}</div>
@@ -271,7 +271,13 @@ function OutstandingLedger() {
                   <div className="mt-5 space-y-4">
                     <HistoryItem marker="✓" title="Quote sent" meta="Tuesday · 9:24 AM" copy="Quote recorded against the customer." />
                     <HistoryItem marker="→" title="Follow-up scheduled" meta="Today · 10:30 AM" copy="Wait until the agreed decision window." />
-                    {active === 1 ? <HistoryItem marker="↗" title="Customer replied" meta="Today · 8:42 AM" copy="Can you confirm the warranty period?" active /> : <HistoryItem marker="•" title="Waiting" meta="Current" copy="No new customer response yet." active />}
+                    {active === 1 ? (
+                      <HistoryItem marker="↗" title="Customer replied" meta="Today · 8:42 AM" copy="Can you confirm the warranty period?" active />
+                    ) : active === 2 ? (
+                      <HistoryItem marker="•" title="Waiting" meta="Current" copy="No new customer response yet." active />
+                    ) : (
+                      <HistoryItem marker="!" title="Action due" meta={quote.next} copy="This quote needs the next agreed action." active />
+                    )}
                   </div>
                 </div>
               </div>
