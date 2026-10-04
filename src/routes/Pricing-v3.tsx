@@ -131,7 +131,7 @@ const COMPARISON_GROUPS = [
       ["Lead capture and response", "Included", "Included", "Scoped"],
       ["Lead Rescue", "Included", "Included", "Scoped"],
       ["Lead Follow-Through", "Included", "Included", "Scoped"],
-      ["Quote Chaser", "Included", "Included", "Scoped"],
+      ["Quote Follow-Up", "Included", "Included", "Scoped"],
       ["Appointment Recovery", "Included", "Included", "Scoped"],
       ["Review Engine", "Included", "Included", "Scoped"],
       ["Referral follow-through", "Included", "Included", "Scoped"],
