@@ -421,11 +421,11 @@ function ControlSection() {
               <p className="mt-4 max-w-[390px] text-[13px] leading-[1.7] text-white/52">Keep human judgement where it matters. Automation removes remembering, not responsibility.</p>
             </div>
             <div className="grid gap-0 sm:grid-cols-3">
-              {[
+              {([
                 ["Trigger", "Message received", MessageSquareText],
                 ["Action", "Create team task", UserRoundCheck],
                 ["State", "Follow-up paused", Pause],
-              ].map(([label, value, Icon], index) => (
+              ] as const).map(([label, value, Icon], index) => (
                 <div key={label as string} className={"p-7 sm:p-6 lg:p-8 " + (index ? "border-t border-white/10 sm:border-l sm:border-t-0" : "")}>
                   <span className="grid h-9 w-9 place-items-center rounded-[11px] bg-white/7 text-[#E1A77F]"><Icon size={15} /></span>
                   <div className="mt-8 text-[8px] font-bold uppercase tracking-[0.14em] text-white/30">{label as string}</div>
