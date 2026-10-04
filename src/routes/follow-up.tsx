@@ -586,13 +586,19 @@ function UseCases() {
             />
           </Reveal>
           <Reveal className="lg:col-span-5">
-            <UseCaseCard
-              number="02"
-              eyebrow="Quotes"
-              title="Keep the decision alive."
-              copy="Schedule relevant follow-up around a quote instead of relying on someone to remember the next touch."
-              className="min-h-[330px] bg-white"
-            />
+            <a
+              href="/quote-follow-up"
+              className="group block h-full rounded-[26px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/45 focus-visible:ring-offset-4"
+              aria-label="Explore Quote Follow-Up"
+            >
+              <UseCaseCard
+                number="02"
+                eyebrow="Quotes"
+                title="Keep the decision alive."
+                copy="Schedule relevant follow-up around a quote instead of relying on someone to remember the next touch. Explore the full Quote Follow-Up workflow →"
+                className="min-h-[330px] bg-white transition-transform duration-200 group-hover:-translate-y-1"
+              />
+            </a>
           </Reveal>
           <Reveal className="lg:col-span-5">
             <UseCaseCard
