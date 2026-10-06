@@ -352,7 +352,7 @@ function HeroStage() {
   );
 }
 
-function CapabilityExplorer()function CapabilityExplorer() {
+function CapabilityExplorer() {
   const [active, setActive] = useState(0);
 
   return (
