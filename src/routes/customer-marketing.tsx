@@ -162,6 +162,7 @@ function Hero() {
             Customer Marketing
           </div>
 
+          {/* LOCKED: do not change hero headline unless Andrew explicitly reopens copy. */}
           <h1
             className="mx-auto mt-4 max-w-[950px] text-[40px] font-medium leading-[0.98] tracking-[-0.055em] sm:text-[50px] lg:text-[62px]"
             style={{ fontFamily: DISPLAY }}
@@ -170,6 +171,7 @@ function Hero() {
             <span className="text-[#2563FF]"> your next campaign.</span>
           </h1>
 
+          {/* LOCKED: do not change hero subheading unless Andrew explicitly reopens copy. */}
           <p className="mx-auto mt-5 max-w-[760px] text-[14px] leading-[1.72] text-[#666C67] sm:text-[16px]">
             Use the data already in Zapla to choose who to contact, time the outreach, and create more business from your existing customer base.
           </p>
@@ -716,6 +718,7 @@ function Faq() {
   );
 }
 
+// LOCKED FOR NOW: preserve the final CTA section until Andrew explicitly reopens it.
 function GrowthCta() {
   return (
     <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
