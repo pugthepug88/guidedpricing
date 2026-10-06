@@ -211,12 +211,13 @@ function HeroAudienceScene() {
       return;
     }
 
-    const timer = window.setInterval(() => {
+    const durations = [1300, 1450, 1450, 2600] as const;
+    const timer = window.setTimeout(() => {
       setPhase((current) => (current + 1) % 4);
-    }, 1750);
+    }, durations[phase]);
 
-    return () => window.clearInterval(timer);
-  }, [reduced]);
+    return () => window.clearTimeout(timer);
+  }, [phase, reduced]);
 
   const customers = [
     {
@@ -378,7 +379,7 @@ function HeroAudienceScene() {
           className="mt-6 flex items-start justify-between gap-6 border-t border-white/12 pt-5"
         >
           <div className="max-w-[420px] text-[12px] leading-[1.65] text-white/54">
-            The audience comes from the customer record. No export. No second list.
+            The audience comes from the customer record. No export. No duplicate customer list.
           </div>
           <div className="hidden text-right text-[10px] font-semibold uppercase tracking-[0.15em] text-[#AFC3FF] sm:block">
             Relevant customers stay in focus
