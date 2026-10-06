@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Confirm `/ai-receptionist-concept` and `/ai-receptionist-v2` are absent from the website dropdown menus.
+- [ ] Transfer cinematic V5 and V6 to Zapla Structure & Redesign Draft, blocked because cross-project access is read-only; import must run from the destination project. Keep source pages until the transfer is verified.
+
 - [x] Correct the standalone `/Pricing-v3` content and visual architecture to the approved brief.
 - [x] Remove its duplicate local header and extend the existing light-glass header state safely.
 - [x] Verify TypeScript, build, desktop/mobile rendering, one-header rule, overflow, errors, key sections, and `/pricing-v2` smoke test.

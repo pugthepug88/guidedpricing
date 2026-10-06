@@ -628,7 +628,7 @@ function IndustryExamples() {
   ] as const;
 
   const reduced = !!useReducedMotion();
-  const [selectedKey, setSelectedKey] = useState(examples[0].key);
+   const [selectedKey, setSelectedKey] = useState<(typeof examples)[number]["key"]>(examples[0].key);
   const selected = examples.find((example) => example.key === selectedKey) ?? examples[0];
 
   return (
