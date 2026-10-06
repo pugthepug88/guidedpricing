@@ -9,78 +9,28 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ReviewsRouteImport } from './routes/reviews'
-import { Route as ReactivationRouteImport } from './routes/reactivation'
-import { Route as QuoteFollowUpRouteImport } from './routes/quote-follow-up'
-import { Route as PricingV2RouteImport } from './routes/pricing-v2'
-import { Route as PlatformRouteImport } from './routes/platform'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as FollowUpRouteImport } from './routes/follow-up'
-import { Route as CustomerMarketingRouteImport } from './routes/customer-marketing'
-import { Route as CrmRouteImport } from './routes/crm'
-import { Route as AiReceptionistV2RouteImport } from './routes/ai-receptionist-v2'
-import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
-import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
-import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
+import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
+import { Route as AiReceptionistV2RouteImport } from './routes/ai-receptionist-v2'
+import { Route as CrmRouteImport } from './routes/crm'
+import { Route as CustomerMarketingRouteImport } from './routes/customer-marketing'
+import { Route as FollowUpRouteImport } from './routes/follow-up'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as PricingV2RouteImport } from './routes/pricing-v2'
+import { Route as QuoteFollowUpRouteImport } from './routes/quote-follow-up'
+import { Route as ReactivationRouteImport } from './routes/reactivation'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
+import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
-const ReviewsRoute = ReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReactivationRoute = ReactivationRouteImport.update({
-  id: '/reactivation',
-  path: '/reactivation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QuoteFollowUpRoute = QuoteFollowUpRouteImport.update({
-  id: '/quote-follow-up',
-  path: '/quote-follow-up',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PricingV2Route = PricingV2RouteImport.update({
-  id: '/pricing-v2',
-  path: '/pricing-v2',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlatformRoute = PlatformRouteImport.update({
-  id: '/platform',
-  path: '/platform',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FollowUpRoute = FollowUpRouteImport.update({
-  id: '/follow-up',
-  path: '/follow-up',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CustomerMarketingRoute = CustomerMarketingRouteImport.update({
-  id: '/customer-marketing',
-  path: '/customer-marketing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CrmRoute = CrmRouteImport.update({
-  id: '/crm',
-  path: '/crm',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AiReceptionistV2Route = AiReceptionistV2RouteImport.update({
-  id: '/ai-receptionist-v2',
-  path: '/ai-receptionist-v2',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AiReceptionistRoute = AiReceptionistRouteImport.update({
-  id: '/ai-receptionist',
-  path: '/ai-receptionist',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingV3Route = PricingV3RouteImport.update({
@@ -88,21 +38,65 @@ const PricingV3Route = PricingV3RouteImport.update({
   path: '/Pricing-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AiReceptionistRoute = AiReceptionistRouteImport.update({
+  id: '/ai-receptionist',
+  path: '/ai-receptionist',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConceptCinematicFollowThroughV6Route =
-  ConceptCinematicFollowThroughV6RouteImport.update({
-    id: '/concept/cinematic-follow-through-v6',
-    path: '/concept/cinematic-follow-through-v6',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ConceptCinematicFollowThroughV5Route =
-  ConceptCinematicFollowThroughV5RouteImport.update({
-    id: '/concept/cinematic-follow-through-v5',
-    path: '/concept/cinematic-follow-through-v5',
+const AiReceptionistV2Route = AiReceptionistV2RouteImport.update({
+  id: '/ai-receptionist-v2',
+  path: '/ai-receptionist-v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CrmRoute = CrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerMarketingRoute = CustomerMarketingRouteImport.update({
+  id: '/customer-marketing',
+  path: '/customer-marketing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FollowUpRoute = FollowUpRouteImport.update({
+  id: '/follow-up',
+  path: '/follow-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformRoute = PlatformRouteImport.update({
+  id: '/platform',
+  path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingV2Route = PricingV2RouteImport.update({
+  id: '/pricing-v2',
+  path: '/pricing-v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteFollowUpRoute = QuoteFollowUpRouteImport.update({
+  id: '/quote-follow-up',
+  path: '/quote-follow-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReactivationRoute = ReactivationRouteImport.update({
+  id: '/reactivation',
+  path: '/reactivation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
     getParentRoute: () => rootRouteImport,
   } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
@@ -111,10 +105,16 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
+const ConceptCinematicFollowThroughV5Route =
+  ConceptCinematicFollowThroughV5RouteImport.update({
+    id: '/concept/cinematic-follow-through-v5',
+    path: '/concept/cinematic-follow-through-v5',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ConceptCinematicFollowThroughV6Route =
+  ConceptCinematicFollowThroughV6RouteImport.update({
+    id: '/concept/cinematic-follow-through-v6',
+    path: '/concept/cinematic-follow-through-v6',
     getParentRoute: () => rootRouteImport,
   } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
@@ -271,81 +271,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/reviews': {
-      id: '/reviews'
-      path: '/reviews'
-      fullPath: '/reviews'
-      preLoaderRoute: typeof ReviewsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reactivation': {
-      id: '/reactivation'
-      path: '/reactivation'
-      fullPath: '/reactivation'
-      preLoaderRoute: typeof ReactivationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/quote-follow-up': {
-      id: '/quote-follow-up'
-      path: '/quote-follow-up'
-      fullPath: '/quote-follow-up'
-      preLoaderRoute: typeof QuoteFollowUpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pricing-v2': {
-      id: '/pricing-v2'
-      path: '/pricing-v2'
-      fullPath: '/pricing-v2'
-      preLoaderRoute: typeof PricingV2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/platform': {
-      id: '/platform'
-      path: '/platform'
-      fullPath: '/platform'
-      preLoaderRoute: typeof PlatformRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/follow-up': {
-      id: '/follow-up'
-      path: '/follow-up'
-      fullPath: '/follow-up'
-      preLoaderRoute: typeof FollowUpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/customer-marketing': {
-      id: '/customer-marketing'
-      path: '/customer-marketing'
-      fullPath: '/customer-marketing'
-      preLoaderRoute: typeof CustomerMarketingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/crm': {
-      id: '/crm'
-      path: '/crm'
-      fullPath: '/crm'
-      preLoaderRoute: typeof CrmRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ai-receptionist-v2': {
-      id: '/ai-receptionist-v2'
-      path: '/ai-receptionist-v2'
-      fullPath: '/ai-receptionist-v2'
-      preLoaderRoute: typeof AiReceptionistV2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ai-receptionist': {
-      id: '/ai-receptionist'
-      path: '/ai-receptionist'
-      fullPath: '/ai-receptionist'
-      preLoaderRoute: typeof AiReceptionistRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Pricing-v3': {
@@ -355,25 +285,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingV3RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/ai-receptionist': {
+      id: '/ai-receptionist'
+      path: '/ai-receptionist'
+      fullPath: '/ai-receptionist'
+      preLoaderRoute: typeof AiReceptionistRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/concept/cinematic-follow-through-v6': {
-      id: '/concept/cinematic-follow-through-v6'
-      path: '/concept/cinematic-follow-through-v6'
-      fullPath: '/concept/cinematic-follow-through-v6'
-      preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
+    '/ai-receptionist-v2': {
+      id: '/ai-receptionist-v2'
+      path: '/ai-receptionist-v2'
+      fullPath: '/ai-receptionist-v2'
+      preLoaderRoute: typeof AiReceptionistV2RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/concept/cinematic-follow-through-v5': {
-      id: '/concept/cinematic-follow-through-v5'
-      path: '/concept/cinematic-follow-through-v5'
-      fullPath: '/concept/cinematic-follow-through-v5'
-      preLoaderRoute: typeof ConceptCinematicFollowThroughV5RouteImport
+    '/crm': {
+      id: '/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof CrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer-marketing': {
+      id: '/customer-marketing'
+      path: '/customer-marketing'
+      fullPath: '/customer-marketing'
+      preLoaderRoute: typeof CustomerMarketingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/follow-up': {
+      id: '/follow-up'
+      path: '/follow-up'
+      fullPath: '/follow-up'
+      preLoaderRoute: typeof FollowUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform': {
+      id: '/platform'
+      path: '/platform'
+      fullPath: '/platform'
+      preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing-v2': {
+      id: '/pricing-v2'
+      path: '/pricing-v2'
+      fullPath: '/pricing-v2'
+      preLoaderRoute: typeof PricingV2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote-follow-up': {
+      id: '/quote-follow-up'
+      path: '/quote-follow-up'
+      fullPath: '/quote-follow-up'
+      preLoaderRoute: typeof QuoteFollowUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reactivation': {
+      id: '/reactivation'
+      path: '/reactivation'
+      fullPath: '/reactivation'
+      preLoaderRoute: typeof ReactivationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.well-known/oauth-protected-resource': {
@@ -383,11 +376,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.mcp/list-tools': {
-      id: '/.mcp/list-tools'
-      path: '/.mcp/list-tools'
-      fullPath: '/.mcp/list-tools'
-      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+    '/concept/cinematic-follow-through-v5': {
+      id: '/concept/cinematic-follow-through-v5'
+      path: '/concept/cinematic-follow-through-v5'
+      fullPath: '/concept/cinematic-follow-through-v5'
+      preLoaderRoute: typeof ConceptCinematicFollowThroughV5RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/concept/cinematic-follow-through-v6': {
+      id: '/concept/cinematic-follow-through-v6'
+      path: '/concept/cinematic-follow-through-v6'
+      fullPath: '/concept/cinematic-follow-through-v6'
+      preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {
