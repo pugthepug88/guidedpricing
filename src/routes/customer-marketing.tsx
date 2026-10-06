@@ -183,7 +183,7 @@ function PrimaryButton() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-12 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[122px] lg:px-16 lg:pb-20 lg:pt-[132px]">
+    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-8 pt-[116px] sm:px-10 sm:pb-10 sm:pt-[126px] lg:px-16 lg:pb-12 lg:pt-[136px]">
       <div className="relative mx-auto max-w-[1280px]">
         <Reveal className="mx-auto max-w-[940px] text-center">
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
@@ -191,7 +191,7 @@ function Hero() {
           </div>
 
           <h1
-            className="mx-auto mt-5 max-w-[930px] text-[42px] font-medium leading-[0.98] tracking-[-0.055em] sm:text-[52px] lg:text-[61px]"
+            className="mx-auto mt-5 max-w-[880px] text-[40px] font-medium leading-[0.99] tracking-[-0.052em] sm:text-[49px] lg:text-[56px]"
             style={{ fontFamily: DISPLAY }}
           >
             Turn the customers you already know into
@@ -213,7 +213,7 @@ function Hero() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-12 sm:mt-14 lg:mt-16" delay={0.05}>
+        <Reveal className="mt-9 sm:mt-10 lg:mt-11" delay={0.05}>
           <HeroStage />
         </Reveal>
       </div>
@@ -225,134 +225,134 @@ function HeroStage() {
   const reduced = !!useReducedMotion();
 
   return (
-    <div className="relative mx-auto min-h-[390px] max-w-[1080px] sm:min-h-[440px] lg:min-h-[470px]">
-      <div className="absolute inset-x-[8%] bottom-[2%] top-[6%] rounded-[32px] bg-[#F7F4EE]" />
+    <div className="relative mx-auto min-h-[350px] max-w-[1040px] sm:min-h-[390px] lg:min-h-[420px]">
+      <div className="pointer-events-none absolute left-[14%] right-[12%] top-[55%] h-px bg-[#E4E7E4]" />
+
+      <div className="absolute left-[2%] top-[22%] z-10 hidden space-y-2 sm:block">
+        {[
+          ["Existing customer", "#99A36D"],
+          ["Service due", "#DDA34B"],
+          ["Sydney", "#9B86B8"],
+          ["Subscribed", "#C96C85"],
+        ].map(([label, color], index) => (
+          <motion.div
+            key={label}
+            initial={reduced ? false : { opacity: 0, x: -16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.06, ease: EASE }}
+            className="flex min-w-[160px] items-center gap-2.5 rounded-[12px] border border-[#E4E6E2] bg-white px-3.5 py-2.5 shadow-[0_10px_28px_rgba(34,42,36,.04)]"
+          >
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
+            <span className="text-[8px] font-semibold text-[#5D635E]">{label}</span>
+          </motion.div>
+        ))}
+      </div>
 
       <motion.div
-        initial={reduced ? false : { opacity: 0, y: 18 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.45 }}
-        transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-        className="absolute left-[7%] top-[7%] z-30 w-[330px] rounded-[16px] border border-[#DED9D0] bg-white px-4 py-3.5 shadow-[0_14px_40px_rgba(46,40,34,.07)] sm:left-[10%] sm:w-[390px]"
+        initial={reduced ? false : { opacity: 0, y: 18, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.42 }}
+        transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.08, ease: EASE }}
+        className="absolute left-[12%] top-[18%] z-30 w-[310px] rounded-[24px] bg-[#1E2B29] p-6 text-white shadow-[0_30px_75px_rgba(30,43,41,.20)] sm:left-[19%] sm:w-[350px]"
       >
-        <div className="flex items-center justify-between gap-4">
-          <span className="text-[9px] font-semibold text-[#6B6F6B]">Who should this campaign reach?</span>
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#111318] text-white">
-            <ArrowRight size={12} />
+        <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-[#BFC6AE]">Smart audience</div>
+
+        <div className="mt-5 flex items-end justify-between gap-4">
+          <div>
+            <div className="text-[54px] font-medium leading-none tracking-[-0.065em]">86</div>
+            <div className="mt-2 text-[10px] text-white/55">matching customers</div>
+          </div>
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-[#C7D0BA]">
+            <Check size={17} />
           </span>
         </div>
-        <div className="mt-2 text-[13px] font-semibold leading-[1.45] tracking-[-0.015em] text-[#2D332F]">
+
+        <div className="mt-6 border-t border-white/10 pt-4 text-[10px] leading-[1.55] text-white/65">
           Existing customers due for service in Sydney
         </div>
       </motion.div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 24, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.08, ease: EASE }}
-        className="absolute left-[6%] top-[33%] z-20 w-[350px] rounded-[24px] border border-[#DCE0CC] bg-[#F0F1EC] p-5 shadow-[0_22px_55px_rgba(72,79,66,.10)] sm:left-[12%] sm:w-[410px]"
-      >
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#737650]">Audience matched</div>
-            <div className="mt-2 text-[34px] font-semibold leading-none tracking-[-0.05em] text-[#30362E]">86</div>
-            <div className="mt-1 text-[9px] text-[#777E75]">customers ready for outreach</div>
-          </div>
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[#737650]">
-            <Check size={15} />
-          </span>
-        </div>
-
-        <div className="mt-5 flex flex-wrap gap-2">
-          {["Existing customer", "Service due", "Sydney", "Subscribed"].map((item) => (
-            <span
-              key={item}
-              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-[8px] font-semibold text-[#5E6559]"
-            >
-              <Tag size={9} className="text-[#737650]" />
-              {item}
-            </span>
-          ))}
-        </div>
-      </motion.div>
+      <div className="pointer-events-none absolute left-[44%] top-[54%] z-20 hidden h-px w-[9%] bg-[#BAC1BC] sm:block" />
+      <ArrowRight
+        size={14}
+        className="pointer-events-none absolute left-[52%] top-[calc(54%-7px)] z-20 hidden text-[#969E98] sm:block"
+      />
 
       <motion.div
-        initial={reduced ? false : { opacity: 0, x: 34 }}
+        initial={reduced ? false : { opacity: 0, x: 28 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: true, amount: 0.42 }}
         transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.18, ease: EASE }}
-        className="absolute right-[7%] top-[23%] z-30 w-[390px] rounded-[24px] border border-[#DCE5FF] bg-white p-5 shadow-[0_26px_65px_rgba(37,99,255,.09)] sm:right-[10%] sm:w-[430px]"
+        className="absolute right-[8%] top-[13%] z-40 w-[360px] overflow-hidden rounded-[24px] border border-[#DCE5FF] bg-white shadow-[0_32px_82px_rgba(37,99,255,.13)] sm:right-[12%] sm:w-[410px]"
       >
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between border-b border-[#E7EBF4] px-5 py-4">
           <div>
             <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Automation</div>
-            <div className="mt-1.5 text-[15px] font-semibold tracking-[-0.02em] text-[#303846]">Service availability</div>
+            <div className="mt-1 text-[14px] font-semibold tracking-[-0.02em] text-[#303846]">Service availability</div>
           </div>
           <span className="grid h-9 w-9 place-items-center rounded-full bg-[#EEF2FF] text-[#2563FF]">
             <MessageSquareText size={15} />
           </span>
         </div>
 
-        <div className="mt-4 rounded-[15px] bg-[#F5F7FB] px-4 py-3.5">
-          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">Send SMS</div>
-          <div className="mt-2 text-[11px] leading-[1.55] text-[#5F6978]">
-            We've opened extra service appointments next week. Want the available times?
+        <div className="px-5 py-5">
+          <div className="rounded-[15px] bg-[#F5F7FB] px-4 py-4">
+            <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">Send SMS</div>
+            <div className="mt-2 text-[11px] leading-[1.58] text-[#5E6876]">
+              We've opened extra service appointments next week. Want the available times?
+            </div>
           </div>
-        </div>
 
-        <div className="mt-4 flex items-center gap-3 text-[8px] font-semibold text-[#7D8580]">
-          <span>Audience selected</span>
-          <span className="text-[#B1B7B3]">→</span>
-          <span className="text-[#2563FF]">Outreach running</span>
+          <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+            <div className="rounded-[12px] border border-[#E5E8E5] px-3 py-3">
+              <div className="text-[7px] font-bold uppercase tracking-[0.11em] text-[#9A7B48]">Wait</div>
+              <div className="mt-1 text-[9px] font-semibold text-[#555C56]">2 days</div>
+            </div>
+            <ArrowRight size={12} className="text-[#A7ADA8]" />
+            <div className="rounded-[12px] border border-[#E5E8E5] px-3 py-3">
+              <div className="text-[7px] font-bold uppercase tracking-[0.11em] text-[#2563FF]">Email</div>
+              <div className="mt-1 text-[9px] font-semibold text-[#555C56]">If needed</div>
+            </div>
+          </div>
         </div>
       </motion.div>
 
       <motion.div
         initial={reduced ? false : { opacity: 0 }}
-        whileInView={{ opacity: 0.42 }}
+        whileInView={{ opacity: 0.38 }}
         viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.65, delay: reduced ? 0 : 0.2 }}
-        className="absolute right-[1%] top-[8%] z-10 hidden space-y-3 sm:block"
+        transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 0.24 }}
+        className="absolute right-[1%] top-[9%] z-10 hidden space-y-3 sm:block"
       >
         {[
-          ["Email follow-up", "#C96C85"],
           ["Landing page", "#9B86B8"],
-          ["Booking", "#DDA34B"],
-          ["Campaign tracked", "#99A36D"],
+          ["Booking page", "#DDA34B"],
+          ["Form submitted", "#E97D62"],
+          ["Campaign performance", "#99A36D"],
         ].map(([label, color], index) => (
           <motion.div
             key={label}
             animate={reduced ? undefined : { y: [0, index % 2 === 0 ? -4 : 4, 0] }}
-            transition={{ duration: 5 + index, repeat: Infinity, ease: "easeInOut" }}
-            className="flex min-w-[188px] items-center gap-3 rounded-[14px] border border-[#E4E1DB] bg-white/90 px-4 py-3"
+            transition={{ duration: 5.2 + index * 0.6, repeat: Infinity, ease: "easeInOut" }}
+            className="flex min-w-[178px] items-center gap-3 rounded-[12px] border border-[#E5E7E4] bg-white px-3.5 py-2.5"
           >
-            <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
-            <span className="text-[9px] font-semibold text-[#5E655F]">{label}</span>
+            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
+            <span className="text-[8px] font-semibold text-[#666C67]">{label}</span>
           </motion.div>
         ))}
       </motion.div>
 
-      <div className="pointer-events-none absolute left-[44%] top-[55%] hidden h-px w-[10%] bg-[#BFC6C1] sm:block" />
-      <ArrowRight
-        size={13}
-        className="pointer-events-none absolute left-[53%] top-[calc(55%-6px)] hidden text-[#9AA29C] sm:block"
-      />
-
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.45 }}
-        transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.34, ease: EASE }}
-        className="absolute bottom-[5%] left-1/2 z-20 -translate-x-1/2 rounded-full border border-[#E4DED3] bg-[#FCFAF5] px-4 py-2.5 text-[9px] font-semibold text-[#716A61]"
-      >
-        Forms, pages, bookings and results stay part of the campaign.
-      </motion.div>
+      <div className="absolute bottom-[4%] left-1/2 -translate-x-1/2 text-center text-[9px] font-semibold tracking-[0.01em] text-[#7A807A]">
+        Audience selected <span className="mx-2 text-[#B5BBB6]">→</span>
+        Outreach running <span className="mx-2 text-[#B5BBB6]">→</span>
+        Campaign stays connected
+      </div>
     </div>
   );
 }
 
-function CapabilityExplorer() {
+function CapabilityExplorer()function CapabilityExplorer() {
   const [active, setActive] = useState(0);
 
   return (
