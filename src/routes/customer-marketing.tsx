@@ -1,3 +1,4 @@
+// GitHub is the source of truth for this Zapla page.
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
