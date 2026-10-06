@@ -174,7 +174,7 @@ function PrimaryButton() {
   return (
     <a
       href={BOOK_URL}
-      className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#111318] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111318] focus-visible:ring-offset-2"
+      className="inline-flex h-[46px] items-center gap-2 rounded-[10px] bg-[#111318] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111318] focus-visible:ring-offset-2"
     >
       Book a Call <ArrowRight size={15} />
     </a>
@@ -183,7 +183,7 @@ function PrimaryButton() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-8 pt-[116px] sm:px-10 sm:pb-10 sm:pt-[126px] lg:px-16 lg:pb-12 lg:pt-[136px]">
+    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-7 pt-[96px] sm:px-10 sm:pb-8 sm:pt-[104px] lg:px-16 lg:pb-10 lg:pt-[108px]">
       <div className="relative mx-auto max-w-[1280px]">
         <Reveal className="mx-auto max-w-[940px] text-center">
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
@@ -191,29 +191,29 @@ function Hero() {
           </div>
 
           <h1
-            className="mx-auto mt-5 max-w-[880px] text-[40px] font-medium leading-[0.99] tracking-[-0.052em] sm:text-[49px] lg:text-[56px]"
+            className="mx-auto mt-4 max-w-[840px] text-[38px] font-medium leading-[1] tracking-[-0.05em] sm:text-[46px] lg:text-[52px]"
             style={{ fontFamily: DISPLAY }}
           >
             Turn the customers you already know into
             <span className="text-[#2563FF]"> your next campaign.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-[700px] text-[15px] leading-[1.72] text-[#636963] sm:text-[17px]">
+          <p className="mx-auto mt-4 max-w-[680px] text-[14px] leading-[1.65] text-[#636963] sm:text-[16px]">
             Use customer data to build the right audience, automate relevant outreach, and see what your marketing turns into.
           </p>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <PrimaryButton />
             <a
               href="#customer-marketing-system"
-              className="inline-flex h-[50px] items-center rounded-[10px] border border-[#D7DDD8] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#BBC5BD]"
+              className="inline-flex h-[46px] items-center rounded-[10px] border border-[#D7DDD8] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#BBC5BD]"
             >
               See how it works
             </a>
           </div>
         </Reveal>
 
-        <Reveal className="mt-9 sm:mt-10 lg:mt-11" delay={0.05}>
+        <Reveal className="mt-4 sm:mt-5 lg:mt-6" delay={0.05}>
           <HeroStage />
         </Reveal>
       </div>
@@ -262,8 +262,8 @@ function HeroStage() {
 
   return (
     <div className="mx-auto max-w-[1120px]">
-      <div className="grid min-h-[430px] overflow-hidden rounded-[30px] border border-[#DFE4ED] bg-[#F4F7FF] shadow-[0_24px_65px_rgba(37,99,255,.07)] lg:grid-cols-[1.5fr_0.5fr]">
-        <div className="relative min-h-[430px] border-b border-[#DFE4ED] bg-[#F4F7FF] p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+      <div className="grid min-h-[360px] overflow-hidden rounded-[28px] border border-[#DFE4ED] bg-[#F4F7FF] shadow-[0_22px_60px_rgba(37,99,255,.07)] lg:grid-cols-[1.5fr_0.5fr]">
+        <div className="relative min-h-[360px] border-b border-[#DFE4ED] bg-[#F4F7FF] p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={states[active].key}
@@ -271,7 +271,7 @@ function HeroStage() {
               animate={{ opacity: 1, y: 0 }}
               exit={reduced ? undefined : { opacity: 0, y: -8 }}
               transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
-              className="absolute inset-0 p-6 sm:p-8 lg:p-10"
+              className="absolute inset-0 p-5 sm:p-7 lg:p-8"
             >
               {active === 0 ? <HeroTargetState /> : null}
               {active === 1 ? <HeroReachState /> : null}
