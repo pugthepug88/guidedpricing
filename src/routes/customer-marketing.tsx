@@ -139,30 +139,29 @@ function ProductBar({ label, right }: { label: string; right?: string }) {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-16 pt-[106px] sm:px-10 sm:pb-20 sm:pt-[116px] lg:px-16 lg:pb-24 lg:pt-[120px]">
-      <div className="pointer-events-none absolute right-[4%] top-[7%] h-[440px] w-[440px] rounded-full bg-[#2563FF]/[0.045] blur-[125px]" />
-      <div className="pointer-events-none absolute right-[18%] bottom-[-12%] h-[300px] w-[300px] rounded-full bg-[#DDA34B]/[0.06] blur-[110px]" />
+    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-12 pt-[108px] sm:px-10 sm:pb-16 sm:pt-[118px] lg:px-16 lg:pb-20 lg:pt-[126px]">
+      <div className="pointer-events-none absolute left-1/2 top-[34%] h-[430px] w-[720px] -translate-x-1/2 rounded-full bg-[#2563FF]/[0.035] blur-[120px]" />
+      <div className="pointer-events-none absolute left-[58%] top-[56%] h-[300px] w-[360px] rounded-full bg-[#DDA34B]/[0.045] blur-[105px]" />
 
-      <div className="relative mx-auto grid max-w-[1380px] items-center gap-12 lg:grid-cols-[0.74fr_1.26fr] lg:gap-14">
-        <Reveal className="max-w-[625px]">
+      <div className="relative mx-auto max-w-[1260px]">
+        <Reveal className="mx-auto max-w-[900px] text-center">
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
             Customer Marketing
           </div>
 
           <h1
-            className="mt-5 text-[41px] font-medium leading-[0.99] tracking-[-0.052em] sm:text-[48px] lg:text-[53px]"
+            className="mx-auto mt-5 max-w-[900px] text-[43px] font-medium leading-[0.98] tracking-[-0.055em] text-[#111318] sm:text-[51px] lg:text-[59px]"
             style={{ fontFamily: DISPLAY }}
           >
-            <span className="block">Turn the customers</span>
-            <span className="block">you already know into</span>
-            <span className="block text-[#2563FF]">your next campaign.</span>
+            Turn the customers you already know into
+            <span className="text-[#2563FF]"> your next campaign.</span>
           </h1>
 
-          <p className="mt-6 max-w-[570px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
+          <p className="mx-auto mt-6 max-w-[720px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
             Use customer data and tags to choose the right audience, then run targeted SMS and email outreach through Zapla Automations.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <PrimaryButton />
             <a
               href="#customer-marketing-flow"
@@ -173,106 +172,141 @@ function Hero() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.05}>
-          <HeroAutomation />
+        <Reveal className="mt-12 sm:mt-14 lg:mt-16" delay={0.05}>
+          <HeroCampaignStage />
         </Reveal>
       </div>
     </section>
   );
 }
 
-function HeroAutomation() {
-  return (
-    <div className="relative mx-auto w-full max-w-[820px]">
-      <div className="pointer-events-none absolute -right-8 top-8 h-[300px] w-[300px] rounded-full bg-[#2563FF]/[0.045] blur-[90px]" />
-      <div className="pointer-events-none absolute -bottom-10 left-[20%] h-[220px] w-[220px] rounded-full bg-[#DDA34B]/[0.055] blur-[85px]" />
+function HeroCampaignStage() {
+  const reduced = !!useReducedMotion();
 
-      <div className="relative rounded-[28px] border border-[#E0E4E1] bg-white px-5 py-6 shadow-[0_34px_90px_rgba(30,43,41,.11)] sm:px-7 sm:py-7">
+  return (
+    <div className="relative mx-auto min-h-[420px] max-w-[1080px] sm:min-h-[470px] lg:min-h-[500px]">
+      <div className="pointer-events-none absolute left-1/2 top-[48%] h-[330px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#EEF2FF]/75 blur-[60px]" />
+
+      <motion.div
+        initial={reduced ? false : { opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.45 }}
+        transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+        className="absolute left-[7%] top-[4%] z-30 w-[330px] rounded-[16px] border border-[#DCE1DE] bg-white px-4 py-3.5 shadow-[0_14px_40px_rgba(40,49,43,.08)] sm:left-[10%] sm:w-[380px]"
+      >
         <div className="flex items-center justify-between gap-4">
+          <div className="text-[9px] font-semibold text-[#737B75]">Who should this campaign reach?</div>
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#111318] text-white">
+            <ArrowRight size={12} />
+          </span>
+        </div>
+        <div className="mt-2 text-[13px] font-semibold leading-[1.45] tracking-[-0.015em] text-[#2D332F]">
+          Existing customers due for service in Sydney
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={reduced ? false : { opacity: 0, y: 22, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.08, ease: EASE }}
+        className="absolute left-[7%] top-[31%] z-20 w-[360px] rounded-[24px] border border-[#DCE4D7] bg-[#F2F6EF] p-5 shadow-[0_24px_60px_rgba(53,64,55,.10)] sm:left-[12%] sm:w-[410px]"
+      >
+        <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#7E8781]">
-              Targeted outreach
-            </div>
-            <div className="mt-1 text-[18px] font-semibold tracking-[-0.03em] text-[#303632]">
-              Service availability
-            </div>
+            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#77836F]">Audience matched</div>
+            <div className="mt-2 text-[34px] font-semibold leading-none tracking-[-0.05em] text-[#2D352E]">86</div>
+            <div className="mt-1 text-[9px] text-[#7A837B]">customers ready for outreach</div>
           </div>
-          <span className="hidden rounded-full border border-[#DCE5FF] bg-[#F6F8FF] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#2563FF] sm:inline-flex">
-            Automation
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[#6D7B63] shadow-[0_4px_14px_rgba(43,55,45,.07)]">
+            <Check size={15} />
           </span>
         </div>
 
-        <div className="mt-6 grid items-center gap-5 lg:grid-cols-[0.72fr_auto_1.28fr]">
-          <div className="rounded-[18px] border border-[#DCE4D7] bg-[#F2F6EF] p-4 sm:p-5">
-            <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-[#7A8673]">
-              Audience
-            </div>
-            <div className="mt-1.5 flex items-end justify-between gap-4">
-              <div>
-                <div className="text-[26px] font-semibold leading-none tracking-[-0.04em] text-[#303832]">86</div>
-                <div className="mt-1 text-[9px] text-[#7E877F]">matching customers</div>
-              </div>
-              <Check size={16} className="text-[#708060]" />
-            </div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {["Existing customer", "Service due", "Sydney"].map((item) => (
+            <span
+              key={item}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-[8px] font-semibold text-[#586259] shadow-[0_3px_10px_rgba(45,55,47,.04)]"
+            >
+              <Tag size={9} className="text-[#718067]" />
+              {item}
+            </span>
+          ))}
+        </div>
+      </motion.div>
 
-            <div className="mt-4 flex flex-wrap gap-2">
-              {["Existing customer", "Service due", "Sydney"].map((item) => (
-                <span
-                  key={item}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1.5 text-[8px] font-semibold text-[#596458]"
-                >
-                  <Tag size={9} className="text-[#718067]" />
-                  {item}
-                </span>
-              ))}
-            </div>
+      <motion.div
+        initial={reduced ? false : { opacity: 0, x: 34 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.2, ease: EASE }}
+        className="absolute right-[8%] top-[23%] z-30 w-[390px] rounded-[24px] border border-[#DCE5FF] bg-white p-5 shadow-[0_28px_70px_rgba(37,99,255,.10)] sm:right-[10%] sm:w-[430px]"
+      >
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Send SMS</div>
+            <div className="mt-1.5 text-[15px] font-semibold tracking-[-0.02em] text-[#303846]">Service availability</div>
           </div>
-
-          <div className="hidden items-center lg:flex">
-            <span className="h-px w-10 bg-[#C8CECA]" />
-            <ArrowRight size={15} className="-ml-1 text-[#8D9690]" />
-          </div>
-
-          <div className="rounded-[20px] border border-[#DDE3E8] bg-[#FBFCFF] p-4 sm:p-5">
-            <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-stretch">
-              <div className="rounded-[15px] border border-[#DCE5FF] bg-white p-4 shadow-[0_8px_24px_rgba(37,99,255,.045)]">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">SMS</div>
-                  <MessageSquareText size={13} className="text-[#2563FF]" />
-                </div>
-                <div className="mt-2 text-[11px] font-semibold text-[#36414F]">Send message</div>
-                <div className="mt-2 text-[9px] leading-[1.45] text-[#798391]">
-                  Extra service appointments next week.
-                </div>
-              </div>
-
-              <div className="flex items-center justify-center">
-                <div className="rounded-full border border-[#EADBBE] bg-[#FFF9EE] px-3 py-2 text-center">
-                  <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#A66F20]">Wait</div>
-                  <div className="mt-0.5 text-[9px] font-semibold text-[#66583F]">2 days</div>
-                </div>
-              </div>
-
-              <div className="rounded-[15px] border border-[#DCE5FF] bg-white p-4 shadow-[0_8px_24px_rgba(37,99,255,.045)]">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">Email</div>
-                  <Mail size={13} className="text-[#2563FF]" />
-                </div>
-                <div className="mt-2 text-[11px] font-semibold text-[#36414F]">Follow up</div>
-                <div className="mt-2 text-[9px] leading-[1.45] text-[#798391]">
-                  Continue the outreach if needed.
-                </div>
-              </div>
-            </div>
-          </div>
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#F2F5FF] text-[#2563FF]">
+            <MessageSquareText size={15} />
+          </span>
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-[#E7EAE7] pt-4 text-[9px] font-semibold">
-          <span className="text-[#66715F]">CRM data chooses the audience.</span>
-          <span className="text-[#C4C9C5]">→</span>
-          <span className="text-[#2563FF]">Automation runs the outreach.</span>
+        <div className="mt-4 rounded-[15px] bg-[#F5F7FB] px-4 py-3.5 text-[11px] leading-[1.58] text-[#5F6978]">
+          We&apos;ve opened extra service appointments next week. Want the available times?
         </div>
+
+        <div className="mt-4 flex items-center justify-between border-t border-[#E8ECF0] pt-3">
+          <span className="text-[8px] font-semibold text-[#7D8580]">Audience · 86 customers</span>
+          <span className="text-[8px] font-semibold text-[#2563FF]">Automation active</span>
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={reduced ? false : { opacity: 0 }}
+        whileInView={{ opacity: 0.32 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: reduced ? 0 : 0.65, delay: reduced ? 0 : 0.18 }}
+        className="absolute right-[1%] top-[5%] z-10 hidden space-y-3 sm:block"
+      >
+        {[
+          ["Email follow-up", Mail],
+          ["Reply received", MessageSquareText],
+          ["Campaign tracked", Check],
+          ["Performance measured", Check],
+        ].map(([label, Icon], index) => {
+          const I = Icon as typeof Mail;
+          return (
+            <motion.div
+              key={label as string}
+              animate={reduced ? undefined : { y: [0, index % 2 === 0 ? -5 : 5, 0] }}
+              transition={{ duration: 5 + index, repeat: Infinity, ease: "easeInOut" }}
+              className="flex min-w-[190px] items-center gap-3 rounded-[14px] border border-[#E5E8E5] bg-white/80 px-4 py-3 shadow-[0_12px_32px_rgba(35,42,38,.05)]"
+            >
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#F5F6F4] text-[#7B837D]">
+                <I size={12} />
+              </span>
+              <span className="text-[9px] font-semibold text-[#5E655F]">{label as string}</span>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+
+      <div className="pointer-events-none absolute left-[43%] top-[52%] z-10 hidden h-px w-[11%] bg-[#BFC6C1] sm:block" />
+      <div className="pointer-events-none absolute left-[53.2%] top-[calc(52%-5px)] z-10 hidden sm:block">
+        <ArrowRight size={13} className="text-[#9AA29C]" />
       </div>
+
+      <motion.div
+        initial={reduced ? false : { opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.45 }}
+        transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.34, ease: EASE }}
+        className="absolute bottom-[5%] left-1/2 z-20 -translate-x-1/2 rounded-full border border-[#EADBBE] bg-[#FFF9EE] px-4 py-2.5 text-[9px] font-semibold text-[#7A633E] shadow-[0_12px_28px_rgba(125,91,41,.06)]"
+      >
+        Wait 2 days, then email if needed
+      </motion.div>
     </div>
   );
 }
