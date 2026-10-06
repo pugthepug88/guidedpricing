@@ -224,135 +224,139 @@ function Hero() {
 function HeroStage() {
   const reduced = !!useReducedMotion();
 
-  return (
-    <div className="relative mx-auto min-h-[350px] max-w-[1040px] sm:min-h-[390px] lg:min-h-[420px]">
-      <div className="pointer-events-none absolute left-[14%] right-[12%] top-[55%] h-px bg-[#E4E7E4]" />
+  const criteria = [
+    ["Existing customer", "#99A36D"],
+    ["Service due", "#DDA34B"],
+    ["Sydney", "#9B86B8"],
+    ["Subscribed", "#C96C85"],
+  ] as const;
 
-      <div className="absolute left-[2%] top-[22%] z-10 hidden space-y-2 sm:block">
-        {[
-          ["Existing customer", "#99A36D"],
-          ["Service due", "#DDA34B"],
-          ["Sydney", "#9B86B8"],
-          ["Subscribed", "#C96C85"],
-        ].map(([label, color], index) => (
+  const workflow = [
+    ["Match audience", "86 customers", "#99A36D"],
+    ["Send SMS", "Service availability", "#2563FF"],
+    ["Wait", "2 days if no response", "#DDA34B"],
+    ["Send email", "Follow up if needed", "#2563FF"],
+  ] as const;
+
+  return (
+    <div className="mx-auto max-w-[1120px]">
+      <div className="relative overflow-hidden rounded-[30px] border border-[#DDE5F2] bg-[#F1F5FF] px-5 py-8 shadow-[0_26px_70px_rgba(37,99,255,.07)] sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+        <div className="pointer-events-none absolute -left-24 top-[-80px] h-[260px] w-[260px] rounded-full bg-white/60 blur-[70px]" />
+        <div className="pointer-events-none absolute -right-20 bottom-[-110px] h-[300px] w-[300px] rounded-full bg-[#DCE7FF]/70 blur-[90px]" />
+
+        <div className="relative grid items-center gap-6 lg:grid-cols-[0.72fr_42px_1.45fr_42px_0.82fr] lg:gap-5">
+          <div>
+            <div className="mb-4 text-[8px] font-bold uppercase tracking-[0.14em] text-[#6F7890]">
+              Customer data
+            </div>
+            <div className="space-y-2.5">
+              {criteria.map(([label, color], index) => (
+                <motion.div
+                  key={label}
+                  initial={reduced ? false : { opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: reduced ? 0 : 0.38, delay: reduced ? 0 : index * 0.06, ease: EASE }}
+                  className="flex items-center gap-3 rounded-[12px] border border-white/90 bg-white px-4 py-3 shadow-[0_8px_22px_rgba(44,56,80,.05)]"
+                >
+                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
+                  <span className="text-[10px] font-semibold text-[#505965]">{label}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="hidden items-center justify-center lg:flex">
+            <ArrowRight size={18} className="text-[#8793A7]" />
+          </div>
+
           <motion.div
-            key={label}
-            initial={reduced ? false : { opacity: 0, x: -16 }}
+            initial={reduced ? false : { opacity: 0, y: 14, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: reduced ? 0 : 0.52, delay: reduced ? 0 : 0.1, ease: EASE }}
+            className="overflow-hidden rounded-[22px] border border-[#D6DEEC] bg-white shadow-[0_22px_58px_rgba(45,63,100,.10)]"
+          >
+            <div className="flex items-center justify-between border-b border-[#E8ECF3] px-5 py-4">
+              <div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Zapla automation</div>
+                <div className="mt-1 text-[15px] font-semibold tracking-[-0.02em] text-[#2F3742]">Service availability</div>
+              </div>
+              <span className="rounded-full bg-[#EEF2FF] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#2563FF]">
+                Active
+              </span>
+            </div>
+
+            <div className="divide-y divide-[#E9EDF3] px-5">
+              {workflow.map(([label, detail, color], index) => (
+                <motion.div
+                  key={label}
+                  initial={reduced ? false : { opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.45 }}
+                  transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 0.16 + index * 0.08, ease: EASE }}
+                  className="flex items-center justify-between gap-5 py-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-white" style={{ backgroundColor: color }}>
+                      <Check size={12} />
+                    </span>
+                    <div>
+                      <div className="text-[10px] font-semibold text-[#343C46]">{label}</div>
+                      <div className="mt-0.5 text-[8px] text-[#8A929D]">{detail}</div>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-semibold text-[#A0A7B0]">{String(index + 1).padStart(2, "0")}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <div className="hidden items-center justify-center lg:flex">
+            <ArrowRight size={18} className="text-[#8793A7]" />
+          </div>
+
+          <motion.div
+            initial={reduced ? false : { opacity: 0, x: 14 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : index * 0.06, ease: EASE }}
-            className="flex min-w-[160px] items-center gap-2.5 rounded-[12px] border border-[#E4E6E2] bg-white px-3.5 py-2.5 shadow-[0_10px_28px_rgba(34,42,36,.04)]"
+            transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : 0.46, ease: EASE }}
+            className="rounded-[20px] border border-[#E5D9DF] bg-white p-5 shadow-[0_18px_46px_rgba(94,59,76,.08)]"
           >
-            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
-            <span className="text-[8px] font-semibold text-[#5D635E]">{label}</span>
+            <div className="flex items-center gap-3">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-[#F7ECEF] text-[#C96C85]">
+                <MessageSquareText size={15} />
+              </span>
+              <div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#C96C85]">Reply received</div>
+                <div className="mt-1 text-[10px] font-semibold text-[#444A45]">Same customer record</div>
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-[14px] bg-[#F8F8F5] px-4 py-3.5 text-[11px] leading-[1.55] text-[#666D67]">
+              Yes please. Thursday would be best.
+            </div>
+
+            <div className="mt-4 flex items-center gap-2 text-[8px] font-semibold text-[#7B827C]">
+              <Check size={11} className="text-[#99A36D]" />
+              Team can continue from here
+            </div>
           </motion.div>
-        ))}
+        </div>
       </div>
 
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 18, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.42 }}
-        transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : 0.08, ease: EASE }}
-        className="absolute left-[12%] top-[18%] z-30 w-[310px] rounded-[24px] bg-[#1E2B29] p-6 text-white shadow-[0_30px_75px_rgba(30,43,41,.20)] sm:left-[19%] sm:w-[350px]"
-      >
-        <div className="text-[8px] font-bold uppercase tracking-[0.15em] text-[#BFC6AE]">Smart audience</div>
-
-        <div className="mt-5 flex items-end justify-between gap-4">
-          <div>
-            <div className="text-[54px] font-medium leading-none tracking-[-0.065em]">86</div>
-            <div className="mt-2 text-[10px] text-white/55">matching customers</div>
-          </div>
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-[#C7D0BA]">
-            <Check size={17} />
-          </span>
-        </div>
-
-        <div className="mt-6 border-t border-white/10 pt-4 text-[10px] leading-[1.55] text-white/65">
-          Existing customers due for service in Sydney
-        </div>
-      </motion.div>
-
-      <div className="pointer-events-none absolute left-[44%] top-[54%] z-20 hidden h-px w-[9%] bg-[#BAC1BC] sm:block" />
-      <ArrowRight
-        size={14}
-        className="pointer-events-none absolute left-[52%] top-[calc(54%-7px)] z-20 hidden text-[#969E98] sm:block"
-      />
-
-      <motion.div
-        initial={reduced ? false : { opacity: 0, x: 28 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.42 }}
-        transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.18, ease: EASE }}
-        className="absolute right-[8%] top-[13%] z-40 w-[360px] overflow-hidden rounded-[24px] border border-[#DCE5FF] bg-white shadow-[0_32px_82px_rgba(37,99,255,.13)] sm:right-[12%] sm:w-[410px]"
-      >
-        <div className="flex items-center justify-between border-b border-[#E7EBF4] px-5 py-4">
-          <div>
-            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Automation</div>
-            <div className="mt-1 text-[14px] font-semibold tracking-[-0.02em] text-[#303846]">Service availability</div>
-          </div>
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#EEF2FF] text-[#2563FF]">
-            <MessageSquareText size={15} />
-          </span>
-        </div>
-
-        <div className="px-5 py-5">
-          <div className="rounded-[15px] bg-[#F5F7FB] px-4 py-4">
-            <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">Send SMS</div>
-            <div className="mt-2 text-[11px] leading-[1.58] text-[#5E6876]">
-              We've opened extra service appointments next week. Want the available times?
-            </div>
-          </div>
-
-          <div className="mt-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-            <div className="rounded-[12px] border border-[#E5E8E5] px-3 py-3">
-              <div className="text-[7px] font-bold uppercase tracking-[0.11em] text-[#9A7B48]">Wait</div>
-              <div className="mt-1 text-[9px] font-semibold text-[#555C56]">2 days</div>
-            </div>
-            <ArrowRight size={12} className="text-[#A7ADA8]" />
-            <div className="rounded-[12px] border border-[#E5E8E5] px-3 py-3">
-              <div className="text-[7px] font-bold uppercase tracking-[0.11em] text-[#2563FF]">Email</div>
-              <div className="mt-1 text-[9px] font-semibold text-[#555C56]">If needed</div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={reduced ? false : { opacity: 0 }}
-        whileInView={{ opacity: 0.38 }}
-        viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 0.24 }}
-        className="absolute right-[1%] top-[9%] z-10 hidden space-y-3 sm:block"
-      >
-        {[
-          ["Landing page", "#9B86B8"],
-          ["Booking page", "#DDA34B"],
-          ["Form submitted", "#E97D62"],
-          ["Campaign performance", "#99A36D"],
-        ].map(([label, color], index) => (
-          <motion.div
-            key={label}
-            animate={reduced ? undefined : { y: [0, index % 2 === 0 ? -4 : 4, 0] }}
-            transition={{ duration: 5.2 + index * 0.6, repeat: Infinity, ease: "easeInOut" }}
-            className="flex min-w-[178px] items-center gap-3 rounded-[12px] border border-[#E5E7E4] bg-white px-3.5 py-2.5"
-          >
-            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: color }} />
-            <span className="text-[8px] font-semibold text-[#666C67]">{label}</span>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      <div className="absolute bottom-[4%] left-1/2 -translate-x-1/2 text-center text-[9px] font-semibold tracking-[0.01em] text-[#7A807A]">
-        Audience selected <span className="mx-2 text-[#B5BBB6]">→</span>
-        Outreach running <span className="mx-2 text-[#B5BBB6]">→</span>
-        Campaign stays connected
+      <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[9px] font-semibold text-[#747B75]">
+        <span>Customer data chooses who enters</span>
+        <span className="text-[#B3B8B4]">→</span>
+        <span>Automation runs the outreach</span>
+        <span className="text-[#B3B8B4]">→</span>
+        <span>Replies stay connected</span>
       </div>
     </div>
   );
 }
 
-function CapabilityExplorer() {
+function CapabilityExplorer()function CapabilityExplorer() {
   const [active, setActive] = useState(0);
 
   return (
