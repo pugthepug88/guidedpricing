@@ -28,6 +28,12 @@ export const Route = createFileRoute("/ai-receptionist-v2")({
           "A simplified product-led concept for Zapla AI Receptionist.",
       },
       { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: "AI Receptionist V2 | Zapla" },
+      { property: "og:description", content: "A simplified product-led concept for Zapla AI Receptionist." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://cdn.openart.ai/openart-uploads/production/attachment-transfers/befc6b19b694f24013c9255a9b9d14f5044236b772a28709c682c6cc47c7b696.png" },
+      { name: "twitter:image", content: "https://cdn.openart.ai/openart-uploads/production/attachment-transfers/befc6b19b694f24013c9255a9b9d14f5044236b772a28709c682c6cc47c7b696.png" },
     ],
     links: [{ rel: "preconnect", href: "https://cdn.openart.ai" }],
   }),
@@ -628,7 +634,7 @@ function IndustryExamples() {
   ] as const;
 
   const reduced = !!useReducedMotion();
-  const [selectedKey, setSelectedKey] = useState(examples[0].key);
+   const [selectedKey, setSelectedKey] = useState<(typeof examples)[number]["key"]>(examples[0].key);
   const selected = examples.find((example) => example.key === selectedKey) ?? examples[0];
 
   return (
