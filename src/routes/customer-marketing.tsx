@@ -223,17 +223,17 @@ function Hero() {
 
 function HeroStage() {
   const reduced = !!useReducedMotion();
-  const [phase, setPhase] = useState(reduced ? 7 : 0);
+  const [phase, setPhase] = useState(reduced ? 5 : 0);
 
   useEffect(() => {
     if (reduced) {
-      setPhase(7);
+      setPhase(5);
       return;
     }
 
     const timer = window.setInterval(() => {
-      setPhase((current) => (current + 1) % 8);
-    }, 1150);
+      setPhase((current) => (current + 1) % 6);
+    }, 1250);
 
     return () => window.clearInterval(timer);
   }, [reduced]);
@@ -245,172 +245,185 @@ function HeroStage() {
     { label: "Subscribed", color: "#C96C85" },
   ] as const;
 
-  const workflow = [
-    { label: "Match the right customers", detail: "86 customers", color: "#99A36D", at: 2 },
-    { label: "Send service availability SMS", detail: "Message sent", color: "#2563FF", at: 3 },
-    { label: "Wait if there is no response", detail: "2 days", color: "#DDA34B", at: 4 },
-    { label: "Follow up by email", detail: "Only if needed", color: "#2563FF", at: 5 },
-  ] as const;
-
   return (
     <div className="mx-auto max-w-[1120px]">
-      <div className="relative min-h-[390px] overflow-hidden rounded-[30px] border border-[#DDE5F5] bg-[#EEF3FF] px-5 py-8 shadow-[0_22px_64px_rgba(37,99,255,.08)] sm:px-8 sm:py-10 lg:px-10 lg:py-11">
-        <div className="relative grid min-h-[300px] items-center gap-7 lg:grid-cols-[0.72fr_1.5fr_0.78fr] lg:gap-10">
-          <div className="relative">
-            <div className="mb-4 text-[8px] font-bold uppercase tracking-[0.14em] text-[#6F7890]">
-              Customer data
+      <div className="relative overflow-hidden rounded-[30px] border border-[#DBE4F5] bg-[#EEF4FF] px-6 py-9 shadow-[0_22px_64px_rgba(37,99,255,.08)] sm:px-9 sm:py-11 lg:px-11">
+        <div className="relative grid items-center gap-7 lg:grid-cols-[0.62fr_44px_1.45fr_44px_0.76fr] lg:gap-5">
+          <div>
+            <div className="mb-4 text-[8px] font-bold uppercase tracking-[0.14em] text-[#75819A]">
+              Audience
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {criteria.map((item, index) => {
-                const active = phase >= index || phase === 7;
+                const active = phase >= index || phase === 5;
                 return (
                   <motion.div
                     key={item.label}
                     animate={{
-                      opacity: active ? 1 : 0.32,
-                      x: active ? 0 : -6,
-                      scale: active ? 1 : 0.985,
+                      opacity: active ? 1 : 0.72,
+                      x: active ? 0 : -3,
+                      borderColor: active ? "#FFFFFF" : "#E1E7F2",
                     }}
-                    transition={{ duration: reduced ? 0 : 0.28, ease: EASE }}
-                    className="flex items-center gap-3 rounded-[12px] border border-white/95 bg-white px-4 py-3 shadow-[0_8px_22px_rgba(44,56,80,.045)]"
+                    transition={{ duration: reduced ? 0 : 0.24, ease: EASE }}
+                    className="flex items-center gap-3 rounded-[12px] border bg-white px-4 py-3 shadow-[0_7px_20px_rgba(44,56,80,.045)]"
                   >
-                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.color }} />
-                    <span className="text-[10px] font-semibold text-[#4D5664]">{item.label}</span>
+                    <motion.span
+                      animate={{ scale: active ? 1 : 0.78 }}
+                      transition={{ duration: reduced ? 0 : 0.22, ease: EASE }}
+                      className="h-2.5 w-2.5 rounded-full"
+                      style={{ backgroundColor: item.color }}
+                    />
+                    <span className="text-[10px] font-semibold text-[#4E5765]">{item.label}</span>
                   </motion.div>
                 );
               })}
             </div>
-
-            <div className="pointer-events-none absolute right-[-42px] top-1/2 hidden h-px w-[34px] border-t border-dashed border-[#91A2C0] lg:block" />
-            <ArrowRight
-              size={13}
-              className="pointer-events-none absolute right-[-46px] top-[calc(50%-6px)] hidden text-[#788BAE] lg:block"
-            />
           </div>
 
-          <div className="relative">
-            <motion.div
-              animate={{ y: phase >= 2 ? 0 : 4 }}
-              transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
-              className="overflow-hidden rounded-[22px] border border-[#D8E0EF] bg-white shadow-[0_24px_58px_rgba(43,61,98,.10)]"
-            >
-              <div className="flex items-center justify-between border-b border-[#E8ECF3] px-5 py-4 sm:px-6">
-                <div className="flex items-center gap-3">
-                  <img
-                    src="/concept/zapla-logo-dark.svg"
-                    alt="Zapla"
-                    className="h-[20px] w-auto"
-                  />
-                  <span className="h-4 w-px bg-[#E1E5EB]" />
-                  <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A929D]">
-                    Customer Marketing
-                  </span>
+          <div className="hidden items-center justify-center lg:flex">
+            <div className="relative w-full border-t border-dashed border-[#91A3C0]">
+              <ArrowRight size={14} className="absolute -right-1 -top-[7px] text-[#7187AD]" />
+            </div>
+          </div>
+
+          <motion.div
+            animate={{
+              y: phase >= 3 ? -2 : 0,
+              boxShadow:
+                phase >= 3
+                  ? "0 28px 70px rgba(37,99,255,.13)"
+                  : "0 22px 56px rgba(43,61,98,.09)",
+            }}
+            transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
+            className="overflow-hidden rounded-[24px] border border-[#D8E1F0] bg-white"
+          >
+            <div className="flex items-center justify-between border-b border-[#E8ECF3] px-5 py-4 sm:px-6">
+              <div className="flex items-center gap-3">
+                <img
+                  src="/concept/zapla-logo-dark.svg"
+                  alt="Zapla"
+                  className="h-[21px] w-auto"
+                />
+                <span className="h-4 w-px bg-[#E1E5EB]" />
+                <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A929D]">
+                  Campaign
+                </span>
+              </div>
+
+              <motion.span
+                animate={{
+                  backgroundColor: phase >= 3 ? "#EEF2FF" : "#F3F5F4",
+                  color: phase >= 3 ? "#2563FF" : "#8F9791",
+                }}
+                className="rounded-full px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em]"
+              >
+                {phase >= 3 ? "Running" : "Ready"}
+              </motion.span>
+            </div>
+
+            <div className="px-5 py-5 sm:px-6 sm:py-6">
+              <div className="flex items-end justify-between gap-5">
+                <div>
+                  <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#75819A]">
+                    Service availability
+                  </div>
+                  <div className="mt-2 text-[23px] font-semibold tracking-[-0.035em] text-[#29313C]">
+                    86 customers
+                  </div>
                 </div>
 
                 <motion.span
                   animate={{
-                    backgroundColor: phase >= 2 ? "#EEF2FF" : "#F4F5F4",
-                    color: phase >= 2 ? "#2563FF" : "#9BA19C",
+                    scale: phase >= 3 ? 1 : 0.92,
+                    backgroundColor: phase >= 3 ? "#99A36D" : "#DDE1DC",
                   }}
-                  className="rounded-full px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em]"
+                  transition={{ duration: reduced ? 0 : 0.24, ease: EASE }}
+                  className="grid h-9 w-9 place-items-center rounded-full text-white"
                 >
-                  {phase >= 2 ? "Running" : "Ready"}
+                  <Check size={15} />
                 </motion.span>
               </div>
 
-              <div className="px-5 py-3 sm:px-6">
-                {workflow.map((step, index) => {
-                  const active = phase >= step.at || phase === 7;
-                  const current = phase === step.at;
-                  return (
-                    <div
-                      key={step.label}
-                      className="flex items-center justify-between gap-5 border-b border-[#E9EDF2] py-4 last:border-b-0"
-                    >
-                      <div className="flex items-center gap-3">
-                        <motion.span
-                          animate={{
-                            backgroundColor: active ? step.color : "#ECEFED",
-                            scale: current ? 1.08 : 1,
-                          }}
-                          transition={{ duration: reduced ? 0 : 0.24, ease: EASE }}
-                          className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-white"
-                        >
-                          {active ? <Check size={12} /> : <span className="h-1.5 w-1.5 rounded-full bg-[#B6BCB7]" />}
-                        </motion.span>
+              <div className="mt-5 rounded-[16px] bg-[#F5F7FB] px-4 py-4">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">
+                    SMS
+                  </div>
+                  <motion.div
+                    animate={{ opacity: phase >= 3 ? 1 : 0.42 }}
+                    className="flex items-center gap-1.5 text-[8px] font-semibold text-[#2563FF]"
+                  >
+                    <MessageSquareText size={11} />
+                    {phase >= 3 ? "Sent" : "Ready"}
+                  </motion.div>
+                </div>
 
-                        <div>
-                          <motion.div
-                            animate={{ color: active ? "#343B45" : "#92999A" }}
-                            className="text-[10px] font-semibold"
-                          >
-                            {step.label}
-                          </motion.div>
-                          <motion.div
-                            animate={{ opacity: active ? 1 : 0.48 }}
-                            className="mt-0.5 text-[8px] text-[#8B929B]"
-                          >
-                            {step.detail}
-                          </motion.div>
-                        </div>
-                      </div>
-
-                      <motion.span
-                        animate={{ opacity: active ? 1 : 0.24 }}
-                        className="text-[8px] font-semibold text-[#A3AAB3]"
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </motion.span>
-                    </div>
-                  );
-                })}
+                <div className="mt-2 text-[11px] leading-[1.58] text-[#5D6877]">
+                  We've opened extra service appointments next week. Want the available times?
+                </div>
               </div>
-            </motion.div>
 
-            <div className="pointer-events-none absolute right-[-42px] top-1/2 hidden h-px w-[34px] border-t border-dashed border-[#91A2C0] lg:block" />
-            <ArrowRight
-              size={13}
-              className="pointer-events-none absolute right-[-46px] top-[calc(50%-6px)] hidden text-[#788BAE] lg:block"
-            />
+              <div className="mt-4 flex items-center justify-between gap-4 border-t border-[#E9EDF2] pt-4">
+                <div className="flex items-center gap-2 text-[9px] font-semibold text-[#707A73]">
+                  <Mail size={12} className="text-[#2563FF]" />
+                  Email follow-up
+                </div>
+                <div className="text-[8px] text-[#979E98]">Only if there is no reply</div>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="hidden items-center justify-center lg:flex">
+            <div className="relative w-full border-t border-dashed border-[#91A3C0]">
+              <ArrowRight size={14} className="absolute -right-1 -top-[7px] text-[#7187AD]" />
+            </div>
           </div>
 
-          <div className="relative">
-            <div className="mb-4 text-[8px] font-bold uppercase tracking-[0.14em] text-[#6F7890]">
-              Customer action
+          <div>
+            <div className="mb-4 text-[8px] font-bold uppercase tracking-[0.14em] text-[#75819A]">
+              Customer reply
             </div>
 
             <motion.div
               animate={{
-                opacity: phase >= 6 || phase === 7 ? 1 : 0.2,
-                y: phase >= 6 || phase === 7 ? 0 : 10,
-                scale: phase >= 6 || phase === 7 ? 1 : 0.98,
+                opacity: phase >= 4 || phase === 5 ? 1 : 0.72,
+                y: phase >= 4 || phase === 5 ? 0 : 4,
+                borderColor: phase >= 4 || phase === 5 ? "#E4D9DF" : "#E2E7EF",
               }}
-              transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
-              className="rounded-[18px] border border-[#E5DDE2] bg-white p-5 shadow-[0_16px_40px_rgba(75,58,67,.07)]"
+              transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
+              className="rounded-[18px] border bg-white p-5 shadow-[0_15px_38px_rgba(69,57,64,.06)]"
             >
               <div className="flex items-center gap-3">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-[#F7ECEF] text-[#C96C85]">
-                  <CalendarDays size={15} />
-                </span>
+                <motion.span
+                  animate={{
+                    backgroundColor: phase >= 4 || phase === 5 ? "#F7ECEF" : "#F3F4F3",
+                    color: phase >= 4 || phase === 5 ? "#C96C85" : "#99A09B",
+                  }}
+                  className="grid h-9 w-9 place-items-center rounded-full"
+                >
+                  <MessageSquareText size={15} />
+                </motion.span>
+
                 <div>
                   <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#C96C85]">
-                    Booking created
+                    Reply received
                   </div>
-                  <div className="mt-1 text-[10px] font-semibold text-[#414742]">
-                    Thursday, 10:30am
-                  </div>
+                  <div className="mt-1 text-[9px] text-[#989D99]">Mia Thompson</div>
                 </div>
               </div>
 
-              <div className="mt-4 border-t border-[#ECE8EA] pt-4">
-                <div className="text-[9px] leading-[1.55] text-[#6C736D]">
-                  Mia Thompson
-                </div>
-                <div className="mt-1 text-[8px] text-[#9A9F9B]">
-                  Same customer record
-                </div>
+              <div className="mt-4 rounded-[13px] bg-[#F8F8F5] px-4 py-3.5 text-[11px] leading-[1.55] text-[#626963]">
+                Yes please. Thursday would be best.
               </div>
+
+              <motion.div
+                animate={{ opacity: phase >= 5 ? 1 : 0.5 }}
+                className="mt-4 flex items-center gap-2 text-[8px] font-semibold text-[#737B74]"
+              >
+                <Check size={11} className="text-[#99A36D]" />
+                Back on the same customer record
+              </motion.div>
             </motion.div>
           </div>
         </div>
