@@ -140,24 +140,25 @@ function ProductBar({ label, right }: { label: string; right?: string }) {
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-16 pt-[106px] sm:px-10 sm:pb-20 sm:pt-[116px] lg:px-16 lg:pb-24 lg:pt-[120px]">
-      <div className="pointer-events-none absolute -left-[14%] top-[7%] h-[560px] w-[560px] rounded-full bg-[#EDF2E9] blur-[135px]" />
-      <div className="pointer-events-none absolute right-[1%] top-[4%] h-[440px] w-[440px] rounded-full bg-[#2563FF]/[0.035] blur-[120px]" />
+      <div className="pointer-events-none absolute right-[4%] top-[7%] h-[440px] w-[440px] rounded-full bg-[#2563FF]/[0.045] blur-[125px]" />
+      <div className="pointer-events-none absolute right-[18%] bottom-[-12%] h-[300px] w-[300px] rounded-full bg-[#DDA34B]/[0.06] blur-[110px]" />
 
-      <div className="relative mx-auto grid max-w-[1380px] items-center gap-12 lg:grid-cols-[0.73fr_1.27fr] lg:gap-16">
-        <Reveal className="max-w-[590px]">
+      <div className="relative mx-auto grid max-w-[1380px] items-center gap-12 lg:grid-cols-[0.74fr_1.26fr] lg:gap-14">
+        <Reveal className="max-w-[625px]">
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
             Customer Marketing
           </div>
 
           <h1
-            className="mt-5 text-[42px] font-medium leading-[0.99] tracking-[-0.052em] sm:text-[49px] lg:text-[55px]"
+            className="mt-5 text-[41px] font-medium leading-[0.99] tracking-[-0.052em] sm:text-[48px] lg:text-[53px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Turn the customers you already know into
+            <span className="block">Turn the customers</span>
+            <span className="block">you already know into</span>
             <span className="block text-[#2563FF]">your next campaign.</span>
           </h1>
 
-          <p className="mt-6 max-w-[575px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
+          <p className="mt-6 max-w-[570px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
             Use customer data and tags to choose the right audience, run SMS or email outreach through automations, then see what your marketing actually produced.
           </p>
 
@@ -182,82 +183,155 @@ function Hero() {
 
 function HeroAutomation() {
   return (
-    <div className="relative mx-auto w-full max-w-[840px] pb-12">
-      <div className="pointer-events-none absolute inset-x-[7%] bottom-0 top-[15%] rounded-[34px] bg-[#D7E0CE]" />
+    <div className="relative mx-auto w-full max-w-[830px]">
+      <div className="pointer-events-none absolute -right-6 top-12 h-[280px] w-[280px] rounded-full bg-[#DDA34B]/[0.07] blur-[80px]" />
 
-      <div className="relative overflow-hidden rounded-[22px] border border-[#D9DEDA] bg-white shadow-[0_32px_82px_rgba(38,48,40,.13)]">
-        <ProductBar label="Automation" right="Service availability campaign" />
+      <div className="relative overflow-hidden rounded-[24px] border border-[#D9DEDA] bg-white shadow-[0_34px_90px_rgba(30,43,41,.12)]">
+        <ProductBar label="Automation" right="Service availability" />
 
-        <div className="grid min-h-[430px] lg:grid-cols-[0.62fr_1.38fr]">
-          <div className="border-b border-[#E4E8E4] bg-[#F9FAF8] p-5 lg:border-b-0 lg:border-r">
-            <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Audience</div>
-            <div className="mt-1.5 text-[16px] font-semibold tracking-[-0.025em]">Residential Sydney</div>
+        <div className="relative min-h-[470px] overflow-hidden px-5 py-6 sm:px-7 sm:py-7">
+          <div className="absolute bottom-0 right-0 top-0 w-[38%] bg-[#2563FF]/[0.018]" />
 
-            <div className="mt-5 space-y-3">
-              {["Existing customer", "Service due", "Sydney"].map((item) => (
-                <div key={item} className="flex items-center gap-2 border-b border-[#E5E9E5] pb-3 text-[9px] font-semibold text-[#4B534E]">
-                  <Tag size={11} className="text-[#75816D]" />
-                  {item}
+          <div className="relative mx-auto max-w-[680px]">
+            <div className="grid items-center gap-4 sm:grid-cols-[0.9fr_auto_1.1fr]">
+              <div className="rounded-[16px] border border-[#DCE4D7] bg-[#F2F6EF] px-4 py-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-[#7A8673]">
+                      Audience matched
+                    </div>
+                    <div className="mt-1 text-[16px] font-semibold tracking-[-0.025em] text-[#313831]">
+                      86 customers
+                    </div>
+                  </div>
+                  <Check size={15} className="text-[#708060]" />
                 </div>
-              ))}
-            </div>
 
-            <div className="mt-5 flex items-end justify-between gap-3">
-              <div>
-                <div className="text-[22px] font-semibold tracking-[-0.04em]">86</div>
-                <div className="text-[8px] text-[#8B918D]">matching customers</div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {["Existing customer", "Service due", "Sydney"].map((item) => (
+                    <span
+                      key={item}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1.5 text-[8px] font-semibold text-[#596458]"
+                    >
+                      <Tag size={9} className="text-[#718067]" />
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <Check size={15} className="text-[#708060]" />
-            </div>
-          </div>
 
-          <div className="relative p-5 sm:p-6">
-            <div className="flex items-center justify-between gap-4">
+              <div className="hidden h-px w-10 bg-[#B9C0BB] sm:block" />
+
               <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Automation flow</div>
-                <div className="mt-1.5 text-[18px] font-semibold tracking-[-0.03em]">Service availability</div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">
+                  Automation
+                </div>
+                <div className="mt-1 text-[19px] font-semibold tracking-[-0.03em]">
+                  Service availability
+                </div>
               </div>
-              <span className="rounded-full bg-[#EEF3EA] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#627157]">
-                Active
-              </span>
             </div>
 
-            <div className="relative mt-6 pl-5">
-              <div className="absolute bottom-6 left-[9px] top-6 w-px bg-[#D8DDD9]" />
-              <AutomationNode
-                dot="#7C8868"
-                eyebrow="Audience"
-                title="Residential Sydney"
-                meta="Existing customer · Service due · Sydney"
-              />
-              <AutomationNode
-                dot="#2563FF"
+            <div className="relative mt-7 pl-6 sm:pl-9">
+              <div className="absolute bottom-7 left-[11px] top-7 w-px bg-[#D7DCD8] sm:left-[14px]" />
+
+              <HeroFlowNode
+                tone="blue"
                 eyebrow="Action"
                 title="Send SMS"
                 meta="Service availability message"
-                icon={<MessageSquareText size={12} />}
+                body="We've opened extra service appointments next week. Want the available times?"
+                icon={<MessageSquareText size={14} />}
               />
-              <AutomationNode
-                dot="#C7A469"
+
+              <HeroFlowNode
+                tone="amber"
                 eyebrow="Wait"
                 title="2 days"
-                meta="Continue only if no response"
+                meta="Continue only if there is no response"
               />
-              <AutomationNode
-                dot="#2563FF"
+
+              <HeroFlowNode
+                tone="blue"
                 eyebrow="Action"
                 title="Send email"
                 meta="Follow-up email"
-                icon={<Mail size={12} />}
+                icon={<Mail size={14} />}
                 last
               />
             </div>
 
-            <div className="mt-4 border-t border-[#E6EAE6] pt-4 text-[9px] font-semibold text-[#69716B]">
-              Customer data decides who enters. Automation handles what happens next.
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[#E6EAE6] pt-4">
+              <span className="text-[9px] font-semibold text-[#6B736D]">
+                Customer data decides who enters.
+              </span>
+              <span className="text-[9px] font-semibold text-[#2563FF]">
+                Automation handles what happens next.
+              </span>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function HeroFlowNode({
+  tone,
+  eyebrow,
+  title,
+  meta,
+  body,
+  icon,
+  last = false,
+}: {
+  tone: "blue" | "amber";
+  eyebrow: string;
+  title: string;
+  meta: string;
+  body?: string;
+  icon?: ReactNode;
+  last?: boolean;
+}) {
+  const isBlue = tone === "blue";
+
+  return (
+    <div className={"relative grid grid-cols-[20px_1fr] gap-3 " + (last ? "" : "pb-4")}>
+      <span
+        className={
+          "relative z-10 mt-[18px] h-[10px] w-[10px] rounded-full border-2 border-white " +
+          (isBlue ? "bg-[#2563FF]" : "bg-[#DDA34B]")
+        }
+      />
+
+      <div
+        className={
+          "rounded-[16px] border px-4 py-3.5 shadow-[0_10px_30px_rgba(35,45,39,.045)] " +
+          (isBlue ? "border-[#DCE5FF] bg-[#F6F8FF]" : "border-[#EADBBE] bg-[#FFF9EE]")
+        }
+      >
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <div
+              className={
+                "text-[7px] font-bold uppercase tracking-[0.12em] " +
+                (isBlue ? "text-[#2563FF]" : "text-[#A66F20]")
+              }
+            >
+              {eyebrow}
+            </div>
+            <div className="mt-1 text-[12px] font-semibold text-[#353C38]">{title}</div>
+          </div>
+          {icon ? <span className={isBlue ? "text-[#2563FF]" : "text-[#A66F20]"}>{icon}</span> : null}
+        </div>
+
+        <div className="mt-1 text-[8.5px] text-[#7E8680]">{meta}</div>
+
+        {body ? (
+          <div className="mt-3 rounded-[12px] bg-white/80 px-3 py-2.5 text-[10px] leading-[1.5] text-[#566274]">
+            {body}
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -345,7 +419,7 @@ function CustomerMarketingFlow() {
   ] as const;
 
   return (
-    <section id="customer-marketing-flow" className="bg-[#F7F8F5] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section id="customer-marketing-flow" className="relative bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
       <div className="mx-auto max-w-[1320px]">
         <Reveal className="max-w-[760px]">
           <p
@@ -611,7 +685,7 @@ function CampaignsState() {
           <div className="mt-2 text-[9px] text-[#8A918C]">Draft · Influence window: 30 days</div>
         </div>
 
-        <span className="inline-flex h-9 items-center gap-2 rounded-[8px] bg-[#CDBB9D] px-4 text-[9px] font-bold uppercase tracking-[0.08em] text-[#2D2A26]">
+        <span className="inline-flex h-9 items-center gap-2 rounded-[8px] bg-[#DDA34B] px-4 text-[9px] font-bold uppercase tracking-[0.08em] text-[#2D2A26]">
           <Plus size={12} /> Add assets
         </span>
       </div>
@@ -664,7 +738,7 @@ function PerformanceState() {
     <div>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Performance</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#A66F20]">Performance</div>
           <div className="mt-1.5 text-[19px] font-semibold tracking-[-0.03em]">Service availability</div>
         </div>
         <div className="text-[9px] text-[#8A918C]">Influence window: 30 days</div>
@@ -674,7 +748,7 @@ function PerformanceState() {
         <span className="pb-3">Assets</span>
         <span className="pb-3">Members</span>
         <span className="pb-3">Activity</span>
-        <span className="border-b-2 border-[#202622] pb-3 text-[#202622]">Performance</span>
+        <span className="border-b-2 border-[#DDA34B] pb-3 text-[#202622]">Performance</span>
         <span className="pb-3">Settings</span>
       </div>
 
@@ -708,7 +782,8 @@ function PerformanceState() {
 
 function MetricCard({ label, compact = false }: { label: string; compact?: boolean }) {
   return (
-    <div className={"rounded-[10px] border border-[#E2E6E2] bg-white " + (compact ? "p-3" : "p-3.5")}>
+    <div className={"relative overflow-hidden rounded-[10px] border border-[#E4E5DF] bg-white " + (compact ? "p-3" : "p-3.5")}>
+      <span className="absolute inset-y-0 left-0 w-[2px] bg-[#DDA34B]" />
       <div className="text-[8px] text-[#8A918C]">{label}</div>
       <div className="mt-2 text-[13px] font-semibold tracking-[-0.02em] text-[#4A524D]">—</div>
     </div>
@@ -758,7 +833,7 @@ function CampaignExamples() {
                     {example.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-[#F0F3EE] px-3 py-1.5 text-[9px] font-semibold text-[#5B665C]"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-[#F2F6EF] px-3 py-1.5 text-[9px] font-semibold text-[#5B665C]"
                       >
                         <Tag size={10} />
                         {tag}
@@ -805,7 +880,7 @@ function ConnectedSystem() {
               key={title}
               className={"py-4 sm:px-5 " + (index < 3 ? "border-b border-white/12 sm:border-b-0 sm:border-r" : "")}
             >
-              <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#DDA34B]">{title}</div>
+              <div className={"text-[9px] font-bold uppercase tracking-[0.13em] " + (index < 2 ? "text-[#AFC3FF]" : "text-[#DDA34B]")}>{title}</div>
               <div className="mt-2 text-[11px] leading-[1.55] text-white/58">{copy}</div>
             </div>
           ))}
@@ -820,7 +895,7 @@ function Faq() {
   const reduced = !!useReducedMotion();
 
   return (
-    <section className="bg-[#F8F9F7] px-5 py-16 sm:px-10 sm:py-20 lg:px-16">
+    <section className="bg-[#FCFCFA] px-5 py-16 sm:px-10 sm:py-20 lg:px-16">
       <div className="mx-auto grid max-w-[1180px] gap-10 lg:grid-cols-[0.64fr_1.36fr] lg:gap-16">
         <Reveal className="max-w-[330px]">
           <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#68736C]">Questions</div>
