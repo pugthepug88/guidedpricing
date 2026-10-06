@@ -1,16 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   ArrowRight,
+  CalendarDays,
   Check,
   ChevronDown,
+  FileText,
   Mail,
   MessageSquareText,
+  MousePointer2,
   Plus,
   Tag,
 } from "lucide-react";
-import { DominoFooter } from "@/components/DominoFooter";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/customer-marketing")({
@@ -21,7 +23,7 @@ export const Route = createFileRoute("/customer-marketing")({
       {
         name: "description",
         content:
-          "Use customer data and tags to build relevant audiences, run SMS and email outreach through automations, and track campaign engagement, conversions and return in Zapla.",
+          "Use customer data to build the right audience, automate relevant outreach, connect the forms and pages behind a campaign, and track what converts in Zapla.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -34,32 +36,27 @@ const PRICING_URL = "/Pricing-v3";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
-const ZAPLA_WORDMARK_URL = "/concept/zapla-logo-dark.svg";
-
-const CUSTOMERS = [
-  { initials: "MT", name: "Mia Thompson", detail: "Residential · Sydney", selected: true },
-  { initials: "DK", name: "Daniel Kim", detail: "Residential · Sydney", selected: true },
-  { initials: "PS", name: "Priya Shah", detail: "Commercial · Sydney", selected: false },
-  { initials: "LM", name: "Lucas Martin", detail: "Residential · Newcastle", selected: false },
-  { initials: "SN", name: "Sophie Nguyen", detail: "Residential · Sydney", selected: true },
-] as const;
 
 const FAQS = [
   {
     q: "What is Customer Marketing in Zapla?",
-    a: "It is the proactive side of Zapla. Use customer data to build a relevant audience, run SMS or email outreach through automations, then use Campaigns to group the wider marketing initiative and track what it produced.",
+    a: "Customer Marketing is the proactive side of Zapla. Use customer data to define a relevant audience, run outreach through Automations, connect the assets behind the campaign, and use Campaigns to see what engaged and converted.",
   },
   {
-    q: "Can I target customers using tags?",
-    a: "Yes. Tags, fields, filters and saved lists can help define who should be included instead of treating the whole customer database as one audience.",
+    q: "How can I choose which customers receive a campaign?",
+    a: "Customer data such as tags, fields, filters, smart lists and subscription lists can help define the audience instead of treating the whole database as one group.",
   },
   {
     q: "Where do SMS and email campaigns run?",
-    a: "SMS and email outreach is built through Automations. The Campaigns area is used to group marketing assets and track engagement, conversions and performance across the wider campaign.",
+    a: "SMS and email outreach runs through Automations. The Campaigns area is the tracking and attribution layer that groups the wider initiative and the assets behind it.",
   },
   {
-    q: "What can sit inside a Campaign?",
-    a: "Campaigns can group supported assets such as forms, websites, funnels, landing pages, calendars, automations, pipelines, email templates, social posts and tracking links.",
+    q: "What can sit behind a campaign?",
+    a: "Supported assets can include automations, forms, websites, funnels, landing pages, calendars, tracking links, pipelines, email templates and social posts.",
+  },
+  {
+    q: "What can Campaigns track?",
+    a: "Campaigns can surface members, activity and performance measures such as reach, engagement, conversions, won deals, costs and return-related metrics.",
   },
   {
     q: "Is Customer Marketing the same as Reopen?",
@@ -67,20 +64,84 @@ const FAQS = [
   },
 ] as const;
 
+const CAPABILITIES = [
+  {
+    key: "audience",
+    title: "Reach the right customers",
+    copy: "Use tags, fields, smart lists and subscription status to define who this campaign is actually for.",
+  },
+  {
+    key: "automation",
+    title: "Automate what happens next",
+    copy: "Run SMS and email outreach through workflows that can respond to timing and customer actions.",
+  },
+  {
+    key: "convert",
+    title: "Give the campaign somewhere to convert",
+    copy: "Connect forms, landing pages, funnels and booking pages to the same marketing initiative.",
+  },
+  {
+    key: "performance",
+    title: "See what actually worked",
+    copy: "Group campaign assets together and track engagement, conversions, won deals, costs and return.",
+  },
+] as const;
+
+const USE_CASES = [
+  {
+    key: "seasonal",
+    label: "Seasonal service",
+    title: "Fill next week's service capacity.",
+    audience: ["Existing customer", "Service due", "Sydney", "Subscribed"],
+    outreach: "SMS first, then email if needed",
+    destination: "Service booking page",
+    result: "Booked appointment",
+  },
+  {
+    key: "update",
+    label: "Customer update",
+    title: "Tell the right customers when something changes.",
+    audience: ["Existing customer", "Relevant service", "Active customer"],
+    outreach: "Targeted customer update",
+    destination: "Information page",
+    result: "Reply or next action",
+  },
+  {
+    key: "service",
+    label: "New service",
+    title: "Give existing customers another reason to buy.",
+    audience: ["Existing customer", "Relevant service", "Eligible"],
+    outreach: "Launch sequence",
+    destination: "Offer landing page",
+    result: "Enquiry or booking",
+  },
+  {
+    key: "rate",
+    label: "Rate change",
+    title: "Reach customers affected by a change.",
+    audience: ["Mortgage client", "Variable rate", "Subscribed"],
+    outreach: "SMS + email update",
+    destination: "Review form / booking",
+    result: "Conversation started",
+  },
+] as const;
+
 function CustomerMarketingPage() {
   return (
     <main
       data-page="customer-marketing"
-      className="min-h-screen overflow-x-hidden bg-white text-[#111318] antialiased"
+      className="min-h-screen overflow-x-hidden bg-[#FCFCFA] text-[#111318] antialiased"
       style={{ fontFamily: BODY }}
     >
       <Hero />
-      <CinematicCampaignStory />
-      <CampaignExamples />
+      <CapabilityExplorer />
+      <SupportingCapabilities />
+      <ConnectedLoop />
+      <UseCaseSelector />
+      <PerformanceProof />
       <ConnectedSystem />
       <Faq />
       <GrowthCta />
-      <DominoFooter />
     </main>
   );
 }
@@ -99,10 +160,10 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 12 }}
+      initial={reduced ? false : { opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: reduced ? 0 : 0.44, delay: reduced ? 0 : delay, ease: EASE }}
+      transition={{ duration: reduced ? 0 : 0.48, delay: reduced ? 0 : delay, ease: EASE }}
     >
       {children}
     </motion.div>
@@ -113,59 +174,39 @@ function PrimaryButton() {
   return (
     <a
       href={BOOK_URL}
-      className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E2B29] focus-visible:ring-offset-2"
+      className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#111318] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111318] focus-visible:ring-offset-2"
     >
       Book a Call <ArrowRight size={15} />
     </a>
   );
 }
 
-function ProductBar({ label, right }: { label: string; right?: string }) {
-  return (
-    <div className="flex min-h-[46px] items-center justify-between border-b border-[#E3E7E3] bg-[#FCFCFB] px-4 sm:px-5">
-      <div className="flex min-w-0 items-center gap-3">
-        <img src={ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[18px] w-auto shrink-0 object-contain" />
-        <span className="h-4 w-px shrink-0 bg-[#D9DEDA]" />
-        <span className="truncate text-[7px] font-bold uppercase tracking-[0.12em] text-[#78817B]">{label}</span>
-      </div>
-      {right ? (
-        <span className="hidden text-[8px] font-bold uppercase tracking-[0.12em] text-[#929893] sm:block">
-          {right}
-        </span>
-      ) : null}
-    </div>
-  );
-}
-
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-12 pt-[108px] sm:px-10 sm:pb-16 sm:pt-[118px] lg:px-16 lg:pb-20 lg:pt-[126px]">
-      <div className="pointer-events-none absolute left-1/2 top-[34%] h-[430px] w-[720px] -translate-x-1/2 rounded-full bg-[#2563FF]/[0.035] blur-[120px]" />
-      <div className="pointer-events-none absolute left-[58%] top-[56%] h-[300px] w-[360px] rounded-full bg-[#DDA34B]/[0.045] blur-[105px]" />
-
-      <div className="relative mx-auto max-w-[1260px]">
-        <Reveal className="mx-auto max-w-[900px] text-center">
+    <section className="relative overflow-hidden bg-[#FCFCFA] px-5 pb-12 pt-[112px] sm:px-10 sm:pb-16 sm:pt-[122px] lg:px-16 lg:pb-20 lg:pt-[132px]">
+      <div className="relative mx-auto max-w-[1280px]">
+        <Reveal className="mx-auto max-w-[940px] text-center">
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
             Customer Marketing
           </div>
 
           <h1
-            className="mx-auto mt-5 max-w-[900px] text-[43px] font-medium leading-[0.98] tracking-[-0.055em] text-[#111318] sm:text-[51px] lg:text-[59px]"
+            className="mx-auto mt-5 max-w-[930px] text-[42px] font-medium leading-[0.98] tracking-[-0.055em] sm:text-[52px] lg:text-[61px]"
             style={{ fontFamily: DISPLAY }}
           >
             Turn the customers you already know into
             <span className="text-[#2563FF]"> your next campaign.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-[720px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
-            Use customer data and tags to choose the right audience, then run targeted SMS and email outreach through Zapla Automations.
+          <p className="mx-auto mt-6 max-w-[700px] text-[15px] leading-[1.72] text-[#636963] sm:text-[17px]">
+            Use customer data to build the right audience, automate relevant outreach, and see what your marketing turns into.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <PrimaryButton />
             <a
-              href="#customer-marketing-flow"
-              className="inline-flex h-[50px] items-center rounded-full border border-[#D7DDD8] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#BBC5BD]"
+              href="#customer-marketing-system"
+              className="inline-flex h-[50px] items-center rounded-[10px] border border-[#D7DDD8] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#BBC5BD]"
             >
               See how it works
             </a>
@@ -173,29 +214,29 @@ function Hero() {
         </Reveal>
 
         <Reveal className="mt-12 sm:mt-14 lg:mt-16" delay={0.05}>
-          <HeroCampaignStage />
+          <HeroStage />
         </Reveal>
       </div>
     </section>
   );
 }
 
-function HeroCampaignStage() {
+function HeroStage() {
   const reduced = !!useReducedMotion();
 
   return (
-    <div className="relative mx-auto min-h-[420px] max-w-[1080px] sm:min-h-[470px] lg:min-h-[500px]">
-      <div className="pointer-events-none absolute left-1/2 top-[48%] h-[330px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#EEF2FF]/75 blur-[60px]" />
+    <div className="relative mx-auto min-h-[390px] max-w-[1080px] sm:min-h-[440px] lg:min-h-[470px]">
+      <div className="absolute inset-x-[8%] bottom-[2%] top-[6%] rounded-[32px] bg-[#F7F4EE]" />
 
       <motion.div
-        initial={reduced ? false : { opacity: 0, y: 16 }}
+        initial={reduced ? false : { opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.45 }}
         transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
-        className="absolute left-[7%] top-[4%] z-30 w-[330px] rounded-[16px] border border-[#DCE1DE] bg-white px-4 py-3.5 shadow-[0_14px_40px_rgba(40,49,43,.08)] sm:left-[10%] sm:w-[380px]"
+        className="absolute left-[7%] top-[7%] z-30 w-[330px] rounded-[16px] border border-[#DED9D0] bg-white px-4 py-3.5 shadow-[0_14px_40px_rgba(46,40,34,.07)] sm:left-[10%] sm:w-[390px]"
       >
         <div className="flex items-center justify-between gap-4">
-          <div className="text-[9px] font-semibold text-[#737B75]">Who should this campaign reach?</div>
+          <span className="text-[9px] font-semibold text-[#6B6F6B]">Who should this campaign reach?</span>
           <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#111318] text-white">
             <ArrowRight size={12} />
           </span>
@@ -206,30 +247,30 @@ function HeroCampaignStage() {
       </motion.div>
 
       <motion.div
-        initial={reduced ? false : { opacity: 0, y: 22, scale: 0.98 }}
+        initial={reduced ? false : { opacity: 0, y: 24, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.08, ease: EASE }}
-        className="absolute left-[7%] top-[31%] z-20 w-[360px] rounded-[24px] border border-[#DCE4D7] bg-[#F2F6EF] p-5 shadow-[0_24px_60px_rgba(53,64,55,.10)] sm:left-[12%] sm:w-[410px]"
+        className="absolute left-[6%] top-[33%] z-20 w-[350px] rounded-[24px] border border-[#DCE0CC] bg-[#F0F1EC] p-5 shadow-[0_22px_55px_rgba(72,79,66,.10)] sm:left-[12%] sm:w-[410px]"
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#77836F]">Audience matched</div>
-            <div className="mt-2 text-[34px] font-semibold leading-none tracking-[-0.05em] text-[#2D352E]">86</div>
-            <div className="mt-1 text-[9px] text-[#7A837B]">customers ready for outreach</div>
+            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#737650]">Audience matched</div>
+            <div className="mt-2 text-[34px] font-semibold leading-none tracking-[-0.05em] text-[#30362E]">86</div>
+            <div className="mt-1 text-[9px] text-[#777E75]">customers ready for outreach</div>
           </div>
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[#6D7B63] shadow-[0_4px_14px_rgba(43,55,45,.07)]">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[#737650]">
             <Check size={15} />
           </span>
         </div>
 
         <div className="mt-5 flex flex-wrap gap-2">
-          {["Existing customer", "Service due", "Sydney"].map((item) => (
+          {["Existing customer", "Service due", "Sydney", "Subscribed"].map((item) => (
             <span
               key={item}
-              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-[8px] font-semibold text-[#586259] shadow-[0_3px_10px_rgba(45,55,47,.04)]"
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-[8px] font-semibold text-[#5E6559]"
             >
-              <Tag size={9} className="text-[#718067]" />
+              <Tag size={9} className="text-[#737650]" />
               {item}
             </span>
           ))}
@@ -240,612 +281,546 @@ function HeroCampaignStage() {
         initial={reduced ? false : { opacity: 0, x: 34 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.2, ease: EASE }}
-        className="absolute right-[8%] top-[23%] z-30 w-[390px] rounded-[24px] border border-[#DCE5FF] bg-white p-5 shadow-[0_28px_70px_rgba(37,99,255,.10)] sm:right-[10%] sm:w-[430px]"
+        transition={{ duration: reduced ? 0 : 0.58, delay: reduced ? 0 : 0.18, ease: EASE }}
+        className="absolute right-[7%] top-[23%] z-30 w-[390px] rounded-[24px] border border-[#DCE5FF] bg-white p-5 shadow-[0_26px_65px_rgba(37,99,255,.09)] sm:right-[10%] sm:w-[430px]"
       >
         <div className="flex items-center justify-between gap-4">
           <div>
-            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Send SMS</div>
+            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Automation</div>
             <div className="mt-1.5 text-[15px] font-semibold tracking-[-0.02em] text-[#303846]">Service availability</div>
           </div>
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#F2F5FF] text-[#2563FF]">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#EEF2FF] text-[#2563FF]">
             <MessageSquareText size={15} />
           </span>
         </div>
 
-        <div className="mt-4 rounded-[15px] bg-[#F5F7FB] px-4 py-3.5 text-[11px] leading-[1.58] text-[#5F6978]">
-          We&apos;ve opened extra service appointments next week. Want the available times?
+        <div className="mt-4 rounded-[15px] bg-[#F5F7FB] px-4 py-3.5">
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">Send SMS</div>
+          <div className="mt-2 text-[11px] leading-[1.55] text-[#5F6978]">
+            We've opened extra service appointments next week. Want the available times?
+          </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between border-t border-[#E8ECF0] pt-3">
-          <span className="text-[8px] font-semibold text-[#7D8580]">Audience · 86 customers</span>
-          <span className="text-[8px] font-semibold text-[#2563FF]">Automation active</span>
+        <div className="mt-4 flex items-center gap-3 text-[8px] font-semibold text-[#7D8580]">
+          <span>Audience selected</span>
+          <span className="text-[#B1B7B3]">→</span>
+          <span className="text-[#2563FF]">Outreach running</span>
         </div>
       </motion.div>
 
       <motion.div
         initial={reduced ? false : { opacity: 0 }}
-        whileInView={{ opacity: 0.32 }}
+        whileInView={{ opacity: 0.42 }}
         viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: reduced ? 0 : 0.65, delay: reduced ? 0 : 0.18 }}
-        className="absolute right-[1%] top-[5%] z-10 hidden space-y-3 sm:block"
+        transition={{ duration: reduced ? 0 : 0.65, delay: reduced ? 0 : 0.2 }}
+        className="absolute right-[1%] top-[8%] z-10 hidden space-y-3 sm:block"
       >
         {[
-          ["Email follow-up", Mail],
-          ["Reply received", MessageSquareText],
-          ["Campaign tracked", Check],
-          ["Performance measured", Check],
-        ].map(([label, Icon], index) => {
-          const I = Icon as typeof Mail;
-          return (
-            <motion.div
-              key={label as string}
-              animate={reduced ? undefined : { y: [0, index % 2 === 0 ? -5 : 5, 0] }}
-              transition={{ duration: 5 + index, repeat: Infinity, ease: "easeInOut" }}
-              className="flex min-w-[190px] items-center gap-3 rounded-[14px] border border-[#E5E8E5] bg-white/80 px-4 py-3 shadow-[0_12px_32px_rgba(35,42,38,.05)]"
-            >
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#F5F6F4] text-[#7B837D]">
-                <I size={12} />
-              </span>
-              <span className="text-[9px] font-semibold text-[#5E655F]">{label as string}</span>
-            </motion.div>
-          );
-        })}
+          ["Email follow-up", "#C96C85"],
+          ["Landing page", "#9B86B8"],
+          ["Booking", "#DDA34B"],
+          ["Campaign tracked", "#99A36D"],
+        ].map(([label, color], index) => (
+          <motion.div
+            key={label}
+            animate={reduced ? undefined : { y: [0, index % 2 === 0 ? -4 : 4, 0] }}
+            transition={{ duration: 5 + index, repeat: Infinity, ease: "easeInOut" }}
+            className="flex min-w-[188px] items-center gap-3 rounded-[14px] border border-[#E4E1DB] bg-white/90 px-4 py-3"
+          >
+            <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
+            <span className="text-[9px] font-semibold text-[#5E655F]">{label}</span>
+          </motion.div>
+        ))}
       </motion.div>
 
-      <div className="pointer-events-none absolute left-[43%] top-[52%] z-10 hidden h-px w-[11%] bg-[#BFC6C1] sm:block" />
-      <div className="pointer-events-none absolute left-[53.2%] top-[calc(52%-5px)] z-10 hidden sm:block">
-        <ArrowRight size={13} className="text-[#9AA29C]" />
-      </div>
+      <div className="pointer-events-none absolute left-[44%] top-[55%] hidden h-px w-[10%] bg-[#BFC6C1] sm:block" />
+      <ArrowRight
+        size={13}
+        className="pointer-events-none absolute left-[53%] top-[calc(55%-6px)] hidden text-[#9AA29C] sm:block"
+      />
 
       <motion.div
-        initial={reduced ? false : { opacity: 0, y: 18 }}
+        initial={reduced ? false : { opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.45 }}
         transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.34, ease: EASE }}
-        className="absolute bottom-[5%] left-1/2 z-20 -translate-x-1/2 rounded-full border border-[#EADBBE] bg-[#FFF9EE] px-4 py-2.5 text-[9px] font-semibold text-[#7A633E] shadow-[0_12px_28px_rgba(125,91,41,.06)]"
+        className="absolute bottom-[5%] left-1/2 z-20 -translate-x-1/2 rounded-full border border-[#E4DED3] bg-[#FCFAF5] px-4 py-2.5 text-[9px] font-semibold text-[#716A61]"
       >
-        Wait 2 days, then email if needed
+        Forms, pages, bookings and results stay part of the campaign.
       </motion.div>
     </div>
   );
 }
 
-function AutomationNode({
-  dot,
-  eyebrow,
-  title,
-  meta,
-  icon,
-  last = false,
-}: {
-  dot: string;
-  eyebrow: string;
-  title: string;
-  meta: string;
-  icon?: ReactNode;
-  last?: boolean;
-}) {
-  return (
-    <div className={"relative grid grid-cols-[18px_1fr] gap-3 " + (last ? "" : "pb-4")}>
-      <span className="relative z-10 mt-[13px] h-[9px] w-[9px] rounded-full border-2 border-white" style={{ backgroundColor: dot }} />
-      <div className="rounded-[13px] border border-[#E2E6E2] bg-white px-4 py-3 shadow-[0_8px_22px_rgba(34,44,37,.035)]">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#949A95]">{eyebrow}</div>
-            <div className="mt-1 text-[11px] font-semibold text-[#3D4540]">{title}</div>
-          </div>
-          {icon ? <span className="text-[#2563FF]">{icon}</span> : null}
-        </div>
-        <div className="mt-1 text-[8px] text-[#8A918C]">{meta}</div>
-      </div>
-    </div>
-  );
-}
-
-function CinematicCampaignStory() {
-  const scenes = [
-    { key: "audience", label: "Audience", eyebrow: "Start with the customer" },
-    { key: "automation", label: "Automation", eyebrow: "Put the audience into motion" },
-    { key: "campaign", label: "Campaigns", eyebrow: "Keep the initiative together" },
-    { key: "performance", label: "Performance", eyebrow: "See what it produced" },
-  ] as const;
+function CapabilityExplorer() {
+  const [active, setActive] = useState(0);
 
   return (
-    <section
-      id="customer-marketing-flow"
-      className="relative bg-[#F7F5F1] px-5 pb-28 pt-16 text-[#111318] sm:px-10 sm:pb-32 sm:pt-20 lg:px-12 lg:pb-[18vh] lg:pt-[92px]"
-    >
-      <div className="mx-auto max-w-[1360px]">
-        <div className="mb-12 flex flex-wrap items-end justify-between gap-6 border-b border-black/[0.08] pb-6 sm:mb-14 lg:mb-16">
-          <div className="max-w-[760px]">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.19em] text-[#77716A]">
-              One connected campaign
-            </div>
-            <p
-              className="mt-3 text-[27px] font-medium leading-[1.12] tracking-[-0.04em] text-[#242629] sm:text-[34px] lg:text-[38px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              The customer data, the outreach and the result
-              <span className="text-[#777B77]"> stay part of the same story.</span>
-            </p>
+    <section id="customer-marketing-system" className="bg-[#F7F4EE] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1260px]">
+        <Reveal className="mx-auto max-w-[760px] text-center">
+          <h2
+            className="text-[34px] font-medium leading-[1.02] tracking-[-0.048em] text-[#17191C] sm:text-[42px] lg:text-[48px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            More than sending another message.
+          </h2>
+          <p className="mx-auto mt-4 max-w-[650px] text-[14px] leading-[1.7] text-[#6A6F6A] sm:text-[15px]">
+            Customer Marketing connects who you know, what happens next, where the campaign converts and what it produced.
+          </p>
+        </Reveal>
+
+        <div className="mt-14 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
+          <div className="border-y border-[#D8D1C7]">
+            {CAPABILITIES.map((item, index) => {
+              const open = active === index;
+              return (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => setActive(index)}
+                  className="block w-full border-b border-[#D8D1C7] py-5 text-left last:border-b-0 sm:py-6"
+                  aria-pressed={open}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <span
+                      className={
+                        "text-[17px] font-semibold tracking-[-0.025em] transition-colors sm:text-[19px] " +
+                        (open ? "text-[#111318]" : "text-[#5F625F]")
+                      }
+                    >
+                      {item.title}
+                    </span>
+                    <span
+                      className={
+                        "grid h-8 w-8 shrink-0 place-items-center rounded-full border transition-colors " +
+                        (open
+                          ? "border-[#111318] bg-[#111318] text-white"
+                          : "border-[#CBC5BC] bg-transparent text-[#777B77]")
+                      }
+                    >
+                      {open ? <Check size={13} /> : <Plus size={13} />}
+                    </span>
+                  </div>
+
+                  <AnimatePresence initial={false}>
+                    {open ? (
+                      <motion.p
+                        initial={{ opacity: 0, height: 0, y: -4 }}
+                        animate={{ opacity: 1, height: "auto", y: 0 }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.24, ease: EASE }}
+                        className="max-w-[500px] overflow-hidden pr-8 text-[13px] leading-[1.7] text-[#6E726E]"
+                      >
+                        <span className="block pt-3">{item.copy}</span>
+                      </motion.p>
+                    ) : null}
+                  </AnimatePresence>
+                </button>
+              );
+            })}
           </div>
 
-          <div className="hidden items-center gap-2 lg:flex">
-            {scenes.map((scene, index) => (
-              <div key={scene.key} className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-[0.12em] text-[#8A8D89]">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <span>{scene.label}</span>
-                {index < scenes.length - 1 ? <span className="mx-1 h-px w-5 bg-[#C8CBC7]" /> : null}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="relative">
-          <AudienceScene index={0} />
-          <AutomationScene index={1} />
-          <CampaignScene index={2} />
-          <PerformanceScene index={3} />
+          <CapabilityStage active={active} />
         </div>
       </div>
     </section>
   );
 }
 
-function SceneShell({
-  index,
-  bg,
-  dark = false,
+function CapabilityStage({ active }: { active: number }) {
+  const reduced = !!useReducedMotion();
+
+  return (
+    <div className="relative min-h-[520px] overflow-hidden rounded-[26px] border border-[#DDD6CC] bg-[#FCFBF8] shadow-[0_24px_70px_rgba(51,45,39,.07)]">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={active}
+          initial={reduced ? false : { opacity: 0, x: 16 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={reduced ? undefined : { opacity: 0, x: -10 }}
+          transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
+          className="absolute inset-0"
+        >
+          {active === 0 ? <AudienceVisual /> : null}
+          {active === 1 ? <AutomationVisual /> : null}
+          {active === 2 ? <ConversionVisual /> : null}
+          {active === 3 ? <CampaignPerformanceVisual /> : null}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function AudienceVisual() {
+  const customers = [
+    ["Mia Thompson", "Residential · Sydney", true],
+    ["Daniel Kim", "Residential · Sydney", true],
+    ["Priya Shah", "Commercial · Sydney", false],
+    ["Lucas Martin", "Residential · Newcastle", false],
+    ["Sophie Nguyen", "Residential · Sydney", true],
+  ] as const;
+
+  return (
+    <div className="h-full p-6 sm:p-8">
+      <div className="flex items-end justify-between gap-5">
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#737650]">Smart audience</div>
+          <div className="mt-2 text-[22px] font-semibold tracking-[-0.03em]">Residential service due</div>
+        </div>
+        <div className="rounded-[14px] bg-[#F0F1EC] px-4 py-3 text-right">
+          <div className="text-[26px] font-semibold leading-none tracking-[-0.04em]">86</div>
+          <div className="mt-1 text-[8px] text-[#767D74]">matching customers</div>
+        </div>
+      </div>
+
+      <div className="mt-7 grid gap-6 md:grid-cols-[0.72fr_1.28fr]">
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#979B97]">Rules</div>
+          <div className="mt-3 space-y-2.5">
+            {["Existing customer", "Service due", "Sydney", "SMS subscribed"].map((item) => (
+              <div key={item} className="flex items-center justify-between rounded-[12px] border border-[#E3E5DF] bg-white px-3.5 py-3">
+                <div className="flex items-center gap-2 text-[9px] font-semibold text-[#4F5650]">
+                  <Tag size={10} className="text-[#737650]" />
+                  {item}
+                </div>
+                <Check size={11} className="text-[#737650]" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-y border-[#E1E4DF]">
+          {customers.map(([name, detail, selected]) => (
+            <div key={name} className={"flex items-center justify-between border-b border-[#E7E9E5] py-3.5 last:border-b-0 " + (selected ? "" : "opacity-30")}>
+              <div>
+                <div className="text-[10px] font-semibold text-[#373D38]">{name}</div>
+                <div className="mt-1 text-[8px] text-[#919691]">{detail}</div>
+              </div>
+              <span className={"text-[8px] font-semibold " + (selected ? "text-[#737650]" : "text-[#AEB2AE]")}>
+                {selected ? "Included" : "Filtered out"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AutomationVisual() {
+  return (
+    <div className="h-full bg-[#18191C] p-6 text-white sm:p-8">
+      <div className="flex items-start justify-between gap-5">
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#77A0FF]">Automation</div>
+          <div className="mt-2 text-[22px] font-semibold tracking-[-0.03em]">Service availability</div>
+          <div className="mt-1 text-[9px] text-white/42">Audience: Residential service due</div>
+        </div>
+        <span className="rounded-full bg-[#2563FF]/15 px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#8AA9FF]">
+          Active
+        </span>
+      </div>
+
+      <div className="mt-7 space-y-3">
+        <AutomationRow tone="blue" icon={<MessageSquareText size={14} />} label="Send SMS" copy="Extra service appointments next week." />
+        <AutomationRow tone="gold" label="If customer replies or books" copy="Stop the follow-up and continue the customer journey." />
+        <AutomationRow tone="blue" icon={<Mail size={14} />} label="If no response" copy="Send a follow-up email two days later." />
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-2">
+        {["Customer enters audience", "Timing", "Customer action", "Next step"].map((item, index) => (
+          <span
+            key={item}
+            className="rounded-full px-3 py-2 text-[8px] font-semibold"
+            style={{
+              backgroundColor: index === 1 ? "rgba(221,163,75,.10)" : "rgba(255,255,255,.06)",
+              color: index === 1 ? "#E7B96F" : "rgba(255,255,255,.56)",
+            }}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AutomationRow({
+  tone,
+  icon,
+  label,
+  copy,
+}: {
+  tone: "blue" | "gold";
+  icon?: ReactNode;
+  label: string;
+  copy: string;
+}) {
+  const blue = tone === "blue";
+  return (
+    <div
+      className={
+        "rounded-[16px] border px-4 py-4 " +
+        (blue
+          ? "border-[#456CF0]/30 bg-[#20263A]"
+          : "border-[#DDA34B]/24 bg-[#2A241B]")
+      }
+    >
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <div className={"text-[8px] font-bold uppercase tracking-[0.12em] " + (blue ? "text-[#7EA2FF]" : "text-[#E3B160]")}>
+            {label}
+          </div>
+          <div className="mt-1.5 text-[10px] leading-[1.55] text-white/58">{copy}</div>
+        </div>
+        {icon ? <span className={blue ? "text-[#7EA2FF]" : "text-[#E3B160]"}>{icon}</span> : null}
+      </div>
+    </div>
+  );
+}
+
+function ConversionVisual() {
+  return (
+    <div className="h-full p-6 sm:p-8">
+      <div>
+        <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#9B86B8]">Campaign destinations</div>
+        <div className="mt-2 text-[22px] font-semibold tracking-[-0.03em]">Turn attention into the next action.</div>
+      </div>
+
+      <div className="mt-7 grid gap-4 sm:grid-cols-2">
+        <ConversionCard
+          accent="#9B86B8"
+          icon={<MousePointer2 size={15} />}
+          label="Landing page"
+          title="Spring service offer"
+          copy="A focused page for the campaign."
+        />
+        <ConversionCard
+          accent="#E97D62"
+          icon={<FileText size={15} />}
+          label="Form"
+          title="Request a quote"
+          copy="Capture intent and customer data."
+        />
+        <ConversionCard
+          accent="#DDA34B"
+          icon={<CalendarDays size={15} />}
+          label="Calendar"
+          title="Book service"
+          copy="Turn interest into an appointment."
+        />
+        <ConversionCard
+          accent="#C96C85"
+          icon={<Check size={15} />}
+          label="Next step"
+          title="Customer record"
+          copy="Keep the action tied to the customer."
+        />
+      </div>
+    </div>
+  );
+}
+
+function ConversionCard({
+  accent,
+  icon,
+  label,
+  title,
+  copy,
+}: {
+  accent: string;
+  icon: ReactNode;
+  label: string;
+  title: string;
+  copy: string;
+}) {
+  return (
+    <div className="relative overflow-hidden rounded-[18px] border border-[#E3E0DA] bg-white p-5">
+      <span className="absolute inset-x-0 top-0 h-[3px]" style={{ backgroundColor: accent }} />
+      <div className="flex items-center justify-between">
+        <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8C908C]">{label}</div>
+        <span style={{ color: accent }}>{icon}</span>
+      </div>
+      <div className="mt-4 text-[14px] font-semibold tracking-[-0.02em] text-[#343936]">{title}</div>
+      <div className="mt-2 text-[9px] leading-[1.55] text-[#777D78]">{copy}</div>
+    </div>
+  );
+}
+
+function CampaignPerformanceVisual() {
+  const assets = ["Automation", "Landing page", "Form", "Calendar", "Social post"] as const;
+
+  return (
+    <div className="h-full p-6 sm:p-8">
+      <div className="flex items-start justify-between gap-5">
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#A66F20]">Campaigns</div>
+          <div className="mt-2 text-[22px] font-semibold tracking-[-0.03em]">Service availability</div>
+          <div className="mt-1 text-[9px] text-[#8A8E89]">Influence window: 30 days</div>
+        </div>
+        <span className="rounded-[8px] bg-[#DDA34B] px-3 py-2 text-[8px] font-bold uppercase tracking-[0.09em] text-[#2D2A26]">
+          Add assets
+        </span>
+      </div>
+
+      <div className="mt-6 flex gap-5 overflow-x-auto border-b border-[#E3E5E1] text-[8px] font-semibold text-[#7E837E]">
+        <span className="border-b-2 border-[#111318] pb-3 text-[#111318]">Assets</span>
+        <span className="pb-3">Members</span>
+        <span className="pb-3">Activity</span>
+        <span className="pb-3">Performance</span>
+        <span className="pb-3">Settings</span>
+      </div>
+
+      <div className="mt-5 grid gap-5 md:grid-cols-[0.8fr_1.2fr]">
+        <div className="divide-y divide-[#E6E8E4] border-y border-[#E6E8E4]">
+          {assets.map((asset) => (
+            <div key={asset} className="flex items-center justify-between py-3.5">
+              <span className="text-[9px] font-semibold text-[#4C524D]">{asset}</span>
+              <Check size={11} className="text-[#737650]" />
+            </div>
+          ))}
+        </div>
+
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#979B97]">Performance</div>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {["Reached", "Engaged", "Converted", "Won deals"].map((metric) => (
+              <div key={metric} className="rounded-[12px] border border-[#E4E5DF] bg-white p-3.5">
+                <div className="text-[8px] text-[#8A908B]">{metric}</div>
+                <div className="mt-2 text-[18px] font-semibold text-[#4A504B]">—</div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {["Costs", "Return on cost"].map((metric) => (
+              <div key={metric} className="rounded-[12px] border border-[#EADFCB] bg-[#FFF9EE] p-3.5">
+                <div className="text-[8px] text-[#9A7C4E]">{metric}</div>
+                <div className="mt-2 text-[18px] font-semibold text-[#6B5B42]">—</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SupportingCapabilities() {
+  return (
+    <section className="bg-[#F7F4EE] px-5 pb-20 sm:px-10 sm:pb-24 lg:px-16 lg:pb-28">
+      <div className="mx-auto grid max-w-[1260px] gap-4 lg:grid-cols-3">
+        <SupportCard
+          accent="#99A36D"
+          label="Audience"
+          title="Build the right list"
+          copy="Tags, smart lists and subscription lists help narrow who should receive the campaign."
+        >
+          <div className="mt-6 flex flex-wrap gap-2">
+            {["VIP", "Service due", "Subscribed", "Sydney"].map((tag) => (
+              <span key={tag} className="rounded-full bg-[#F0F1EC] px-3 py-2 text-[8px] font-semibold text-[#68705D]">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </SupportCard>
+
+        <SupportCard
+          accent="#9B86B8"
+          label="Conversion"
+          title="Capture the response"
+          copy="Forms, funnels, landing pages and booking pages give the campaign somewhere to convert."
+        >
+          <div className="mt-6 grid grid-cols-3 gap-2">
+            {[
+              ["Form", "#E97D62"],
+              ["Page", "#9B86B8"],
+              ["Book", "#DDA34B"],
+            ].map(([label, color]) => (
+              <div key={label} className="rounded-[12px] border border-[#E5E1DB] bg-white px-3 py-4 text-center">
+                <span className="mx-auto block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
+                <div className="mt-2 text-[8px] font-semibold text-[#555B56]">{label}</div>
+              </div>
+            ))}
+          </div>
+        </SupportCard>
+
+        <SupportCard
+          accent="#DDA34B"
+          label="Tracking"
+          title="Keep the initiative together"
+          copy="Campaigns can group automations, pages, forms, social posts and other assets behind one initiative."
+        >
+          <div className="mt-6 space-y-2">
+            {["Automation", "Landing page", "Form", "Social post"].map((item) => (
+              <div key={item} className="flex items-center justify-between border-b border-[#E8E3DB] py-2 text-[8px] font-semibold text-[#5B615C] last:border-b-0">
+                <span>{item}</span>
+                <Check size={10} className="text-[#A66F20]" />
+              </div>
+            ))}
+          </div>
+        </SupportCard>
+      </div>
+    </section>
+  );
+}
+
+function SupportCard({
+  accent,
+  label,
+  title,
+  copy,
   children,
 }: {
-  index: number;
-  bg: string;
-  dark?: boolean;
+  accent: string;
+  label: string;
+  title: string;
+  copy: string;
   children: ReactNode;
 }) {
   return (
-    <div
-      className="relative mb-8 lg:sticky lg:top-[92px] lg:mb-[12vh] lg:h-[calc(100vh-116px)] lg:min-h-[650px] lg:max-h-[850px]"
-      style={{ zIndex: 10 + index }}
-    >
-      <article
-        className={
-          "relative min-h-[720px] overflow-hidden rounded-[30px] border px-7 py-9 shadow-[0_26px_80px_rgba(28,25,30,.09)] sm:px-10 sm:py-11 lg:h-full lg:min-h-0 lg:px-[58px] lg:py-[52px] " +
-          (dark ? "border-white/[0.10] text-white" : "border-black/[0.06] text-[#111318]")
-        }
-        style={{ backgroundColor: bg }}
-      >
-        {children}
-      </article>
-    </div>
-  );
-}
-
-function SceneCopy({
-  step,
-  eyebrow,
-  title,
-  copy,
-  dark = false,
-  accent,
-}: {
-  step: string;
-  eyebrow: string;
-  title: ReactNode;
-  copy: string;
-  dark?: boolean;
-  accent: string;
-}) {
-  return (
-    <div className="relative z-20 flex h-full flex-col justify-center">
-      <div className="flex items-center gap-3 text-[9px] font-bold uppercase tracking-[0.17em]">
-        <span style={{ color: accent }}>{step}</span>
-        <span className={dark ? "h-px w-7 bg-white/20" : "h-px w-7 bg-black/15"} />
-        <span className={dark ? "text-white/46" : "text-[#797D78]"}>{eyebrow}</span>
+    <Reveal className="relative overflow-hidden rounded-[22px] border border-[#DDD7CE] bg-[#FCFBF8] p-6 sm:p-7">
+      <span className="absolute inset-x-0 top-0 h-[3px]" style={{ backgroundColor: accent }} />
+      <div className="text-[8px] font-bold uppercase tracking-[0.13em]" style={{ color: accent }}>
+        {label}
       </div>
-
-      <h2
-        className={
-          "mt-7 max-w-[500px] text-[43px] font-medium leading-[0.96] tracking-[-0.055em] sm:text-[54px] lg:text-[62px] " +
-          (dark ? "text-white" : "text-[#17191C]")
-        }
-        style={{ fontFamily: DISPLAY }}
-      >
-        {title}
-      </h2>
-
-      <p className={"mt-6 max-w-[470px] text-[16px] leading-[1.62] sm:text-[17px] " + (dark ? "text-white/60" : "text-[#666B66]")}>
-        {copy}
-      </p>
-    </div>
+      <h3 className="mt-3 text-[20px] font-semibold tracking-[-0.03em] text-[#252A26]">{title}</h3>
+      <p className="mt-3 text-[12px] leading-[1.65] text-[#707570]">{copy}</p>
+      {children}
+    </Reveal>
   );
 }
 
-function AudienceScene({ index }: { index: number }) {
-  const people = [
-    ["MT", "Mia Thompson", "Residential · Sydney", true],
-    ["DK", "Daniel Kim", "Residential · Sydney", true],
-    ["PS", "Priya Shah", "Commercial · Sydney", false],
-    ["LM", "Lucas Martin", "Residential · Newcastle", false],
-    ["SN", "Sophie Nguyen", "Residential · Sydney", true],
-    ["JW", "James Wong", "Residential · Sydney", true],
-  ] as const;
-
+function ConnectedLoop() {
   return (
-    <SceneShell index={index} bg="#F1EFE8">
-      <div className="pointer-events-none absolute -right-[10%] -top-[25%] h-[520px] w-[520px] rounded-full bg-[#DCE6D7]/55 blur-3xl" />
-      <div className="relative grid h-full gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-[72px]">
-        <SceneCopy
-          step="01"
-          eyebrow="Audience"
-          accent="#718067"
-          title={<>Your whole database isn't the audience.</>}
-          copy="Use tags, fields and saved lists to narrow the customers this campaign is actually for."
-        />
-
-        <div className="relative min-h-[480px] lg:min-h-[560px]">
-          <div className="absolute left-0 top-5 z-20 flex max-w-[520px] flex-wrap gap-2">
-            {["Existing customer", "Service due", "Sydney"].map((item, i) => (
-              <motion.span
-                key={item}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.45, delay: i * 0.08, ease: EASE }}
-                className="inline-flex items-center gap-2 rounded-full border border-black/[0.06] bg-white/90 px-4 py-2.5 text-[10px] font-semibold text-[#505B51] shadow-[0_8px_24px_rgba(53,64,55,.06)]"
-              >
-                <Tag size={11} className="text-[#718067]" />
-                {item}
-              </motion.span>
-            ))}
-          </div>
-
-          <div className="absolute inset-x-0 bottom-0 top-[88px] overflow-hidden">
-            <div className="absolute left-0 right-0 top-0 border-y border-black/[0.08]">
-              {people.map(([initials, name, detail, selected], i) => (
-                <motion.div
-                  key={name}
-                  initial={{ opacity: 0, x: 26 }}
-                  whileInView={{
-                    opacity: selected ? 1 : 0.22,
-                    x: selected ? 0 : 42,
-                    filter: selected ? "blur(0px)" : "blur(0.45px)",
-                  }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{ duration: 0.62, delay: 0.08 + i * 0.06, ease: EASE }}
-                  className="grid grid-cols-[48px_1fr_auto] items-center gap-4 border-b border-black/[0.08] py-4 last:border-b-0 sm:grid-cols-[54px_1fr_auto]"
-                >
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-white/75 text-[9px] font-semibold text-[#59605A] ring-1 ring-black/[0.04]">
-                    {initials}
-                  </span>
-                  <div>
-                    <div className="text-[14px] font-semibold tracking-[-0.02em] text-[#2E332F]">{name}</div>
-                    <div className="mt-1 text-[10px] text-[#858A85]">{detail}</div>
-                  </div>
-                  <span className={"mr-1 text-[10px] font-semibold " + (selected ? "text-[#667458]" : "text-[#B8BBB8]")}>
-                    {selected ? "Included" : "Filtered out"}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 18, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.6, delay: 0.48, ease: EASE }}
-              className="absolute bottom-3 right-3 rounded-[22px] bg-[#1E2B29] px-6 py-5 text-white shadow-[0_24px_60px_rgba(30,43,41,.20)]"
-            >
-              <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-white/50">Audience matched</div>
-              <div className="mt-2 text-[38px] font-semibold leading-none tracking-[-0.05em]">86</div>
-              <div className="mt-1 text-[10px] text-white/58">customers ready for outreach</div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </SceneShell>
-  );
-}
-
-function AutomationScene({ index }: { index: number }) {
-  return (
-    <SceneShell index={index} bg="#111820" dark>
-      <div className="pointer-events-none absolute right-[-10%] top-[-20%] h-[620px] w-[620px] rounded-full bg-[#2563FF]/20 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-[-30%] left-[34%] h-[520px] w-[520px] rounded-full bg-[#DDA34B]/10 blur-[130px]" />
-
-      <div className="relative grid h-full gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-center lg:gap-[64px]">
-        <SceneCopy
-          step="02"
-          eyebrow="Automations"
-          accent="#7EA2FF"
-          dark
-          title={<>Put the right audience into motion.</>}
-          copy="Run targeted SMS and email outreach through Automations, with the customer context already decided."
-        />
-
-        <div className="relative min-h-[480px] lg:min-h-[560px]">
-          <motion.div
-            initial={{ opacity: 0, y: -16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.55, ease: EASE }}
-            className="absolute left-[4%] top-[7%] rounded-[18px] border border-[#7D8A70]/35 bg-[#202A23] px-5 py-4 shadow-[0_20px_50px_rgba(0,0,0,.22)]"
+    <section className="bg-white px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+      <div className="mx-auto max-w-[1260px]">
+        <Reveal className="mx-auto max-w-[900px] text-center">
+          <h2
+            className="text-[35px] font-medium leading-[1.02] tracking-[-0.05em] text-[#151719] sm:text-[44px] lg:text-[50px]"
+            style={{ fontFamily: DISPLAY }}
           >
-            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#A8B59E]">Audience</div>
-            <div className="mt-1 text-[20px] font-semibold tracking-[-0.03em] text-white">86 customers</div>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {["Existing customer", "Service due", "Sydney"].map((item) => (
-                <span key={item} className="rounded-full bg-white/[0.07] px-2.5 py-1.5 text-[8px] font-semibold text-white/64">
-                  {item}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+            From customer data to campaign results,
+            <span className="text-[#2563FF]"> it stays connected.</span>
+          </h2>
+        </Reveal>
 
-          <motion.div
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
-            className="absolute left-[17%] top-[26%] h-[58%] w-px origin-top bg-gradient-to-b from-[#72816A] via-[#2563FF] to-[#2563FF]/30"
-          />
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: 0.62, delay: 0.22, ease: EASE }}
-            className="absolute left-[23%] top-[31%] w-[68%] rounded-[24px] border border-[#406FFF]/35 bg-[#162239] px-6 py-5 shadow-[0_30px_70px_rgba(0,0,0,.28)]"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#7EA2FF]">Send SMS</div>
-                <div className="mt-2 text-[16px] font-semibold text-white">Service availability</div>
-              </div>
-              <MessageSquareText size={18} className="text-[#7EA2FF]" />
-            </div>
-            <div className="mt-4 rounded-[14px] bg-white/[0.06] px-4 py-3 text-[11px] leading-[1.55] text-white/66">
-              We've opened extra service appointments next week. Want the available times?
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: 0.55, delay: 0.42, ease: EASE }}
-            className="absolute left-[10%] top-[61%] rounded-full border border-[#DDA34B]/35 bg-[#2A251D] px-5 py-3"
-          >
-            <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#E5B96E]">Wait</span>
-            <span className="ml-3 text-[11px] font-semibold text-white/82">2 days</span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 48 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.45 }}
-            transition={{ duration: 0.62, delay: 0.55, ease: EASE }}
-            className="absolute bottom-[7%] left-[31%] w-[55%] rounded-[22px] border border-[#406FFF]/30 bg-[#151F32] px-6 py-5"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#7EA2FF]">Send email</div>
-                <div className="mt-2 text-[14px] font-semibold text-white">Follow up if needed</div>
-              </div>
-              <Mail size={17} className="text-[#7EA2FF]" />
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </SceneShell>
-  );
-}
-
-function CampaignScene({ index }: { index: number }) {
-  const assets = [
-    ["Automation", "Service availability outreach"],
-    ["Calendar", "Service booking"],
-    ["Landing Page", "Campaign offer"],
-    ["Tracking Link", "Campaign link"],
-    ["Social Post", "Supporting post"],
-  ] as const;
-
-  return (
-    <SceneShell index={index} bg="#EFE2D2">
-      <div className="pointer-events-none absolute -right-[8%] -top-[22%] h-[520px] w-[520px] rounded-full bg-white/22 blur-3xl" />
-
-      <div className="relative grid h-full gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-center lg:gap-[64px]">
-        <SceneCopy
-          step="03"
-          eyebrow="Campaigns"
-          accent="#A66F20"
-          title={<>One campaign. Everything behind it.</>}
-          copy="Group the automation, booking links, forms, pages and other assets behind the initiative, then track them together."
-        />
-
-        <div className="relative min-h-[500px] lg:min-h-[570px]">
-          <motion.div
-            initial={{ opacity: 0, y: 22, rotate: -0.7 }}
-            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.68, ease: EASE }}
-            className="absolute left-0 top-[7%] w-[88%] overflow-hidden rounded-[24px] border border-black/[0.08] bg-white shadow-[0_30px_80px_rgba(65,48,29,.13)]"
-          >
-            <div className="flex items-center justify-between border-b border-black/[0.07] px-5 py-4">
-              <div>
-                <div className="text-[18px] font-semibold tracking-[-0.03em] text-[#26231F]">Service availability</div>
-                <div className="mt-1 text-[8px] text-[#8C8276]">Influence window: 30 days</div>
-              </div>
-              <span className="rounded-[8px] bg-[#DDA34B] px-4 py-2 text-[8px] font-bold uppercase tracking-[0.1em] text-[#2D2A26]">
-                Add assets
-              </span>
+        <Reveal className="mt-14" delay={0.05}>
+          <div className="relative mx-auto max-w-[1100px] rounded-[28px] border border-[#E2E4E1] bg-[#FCFCFA] px-5 py-8 sm:px-8 sm:py-10">
+            <div className="grid gap-3 md:grid-cols-5 md:items-center">
+              <LoopNode color="#99A36D" label="Audience" copy="Customer data + tags" />
+              <LoopNode color="#2563FF" label="Automate" copy="SMS + email" />
+              <LoopNode color="#9B86B8" label="Convert" copy="Page · form · booking" />
+              <LoopNode color="#E97D62" label="Customer action" copy="Reply · enquire · book" />
+              <LoopNode color="#DDA34B" label="Measure" copy="Engage · convert · return" />
             </div>
 
-            <div className="flex gap-6 border-b border-black/[0.07] px-5 pt-4 text-[8px] font-semibold text-[#837A70]">
-              <span className="border-b-2 border-[#26231F] pb-3 text-[#26231F]">Assets (5)</span>
-              <span className="pb-3">Members</span>
-              <span className="pb-3">Activity</span>
-              <span className="pb-3">Performance</span>
-              <span className="pb-3">Settings</span>
-            </div>
-
-            <div className="px-5 py-3">
-              {assets.map(([type, name], i) => (
-                <motion.div
-                  key={type}
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.48, delay: 0.08 + i * 0.06, ease: EASE }}
-                  className="flex items-center justify-between border-b border-black/[0.06] py-3.5 last:border-b-0"
-                >
-                  <div>
-                    <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#958B80]">{type}</div>
-                    <div className="mt-1 text-[10px] font-semibold text-[#413D37]">{name}</div>
-                  </div>
-                  <Check size={12} className="text-[#7A846E]" />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.7, delay: 0.36, ease: EASE }}
-            className="absolute bottom-[3%] right-[-2%] z-30 w-[42%] rounded-[22px] border border-black/[0.08] bg-[#FFFDF9] px-5 py-5 shadow-[0_26px_70px_rgba(65,48,29,.16)]"
-          >
-            <div className="text-[13px] font-semibold text-[#2F2A24]">Add assets</div>
-            <div className="mt-1 text-[8px] text-[#8D8377]">Pick what belongs to this campaign.</div>
-            <div className="mt-4 space-y-2.5">
-              {["Form", "Website", "Funnel", "Calendar", "Automation", "Pipeline", "Email Template", "Social Post"].map((item) => (
-                <div key={item} className="flex items-center justify-between text-[9px] text-[#514B44]">
-                  <span>{item}</span>
-                  <Plus size={10} className="text-[#9D9286]" />
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </SceneShell>
-  );
-}
-
-function PerformanceScene({ index }: { index: number }) {
-  const funnel = ["Reached", "Engaged", "Converted", "Won deals"] as const;
-  const returns = ["Won deal value", "Collected", "Costs", "Return on cost"] as const;
-
-  return (
-    <SceneShell index={index} bg="#10151B" dark>
-      <div className="pointer-events-none absolute right-[-10%] top-[-20%] h-[600px] w-[600px] rounded-full bg-[#DDA34B]/10 blur-[140px]" />
-      <div className="relative grid h-full gap-12 lg:grid-cols-[0.68fr_1.32fr] lg:items-center lg:gap-[64px]">
-        <SceneCopy
-          step="04"
-          eyebrow="Performance"
-          accent="#E3B160"
-          dark
-          title={<>See what turned into business.</>}
-          copy="Track engagement, conversions, won deals, costs and return from the same campaign."
-        />
-
-        <div className="relative min-h-[480px] lg:min-h-[560px]">
-          <div className="absolute left-0 right-0 top-[7%]">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#E3B160]">Performance</div>
-                <div className="mt-1 text-[17px] font-semibold text-white">Service availability</div>
-              </div>
-              <div className="text-[8px] text-white/35">30 day influence window</div>
-            </div>
-
-            <div className="mt-7 grid grid-cols-4 gap-3">
-              {funnel.map((metric, i) => (
-                <motion.div
-                  key={metric}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.45 }}
-                  transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease: EASE }}
-                  className="relative overflow-hidden rounded-[18px] border border-white/[0.09] bg-white/[0.045] px-4 py-5"
-                >
-                  <span className="absolute inset-x-0 top-0 h-[2px] bg-[#DDA34B]" />
-                  <div className="text-[9px] text-white/42">{metric}</div>
-                  <div className="mt-4 text-[34px] font-medium leading-none tracking-[-0.05em] text-white/90">—</div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="mt-8">
-              <div className="text-[9px] font-semibold text-white/60">Return</div>
-              <div className="mt-3 grid grid-cols-2 gap-px overflow-hidden rounded-[20px] border border-white/[0.09] bg-white/[0.08] sm:grid-cols-4">
-                {returns.map((metric, i) => (
-                  <motion.div
-                    key={metric}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.45 }}
-                    transition={{ duration: 0.45, delay: 0.42 + i * 0.06 }}
-                    className="bg-[#151B22] px-4 py-5"
-                  >
-                    <div className="text-[8px] leading-[1.35] text-white/40">{metric}</div>
-                    <div className="mt-3 text-[20px] font-semibold text-white/78">—</div>
-                  </motion.div>
-                ))}
+            <div className="mt-7 rounded-[18px] border border-[#E8DDC9] bg-[#FFF9EE] px-5 py-4 text-center">
+              <div className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#A66F20]">Campaigns</div>
+              <div className="mt-1 text-[11px] leading-[1.55] text-[#71634F]">
+                The tracking layer around the initiative: assets, members, activity and performance.
               </div>
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.45 }}
-              transition={{ duration: 0.55, delay: 0.65, ease: EASE }}
-              className="mt-7 flex items-center gap-3 rounded-[16px] border border-[#DDA34B]/25 bg-[#DDA34B]/[0.07] px-5 py-4"
-            >
-              <span className="h-2 w-2 rounded-full bg-[#DDA34B]" />
-              <div className="text-[10px] font-semibold text-[#F0D3A3]">From reach to return, the campaign stays measurable.</div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </SceneShell>
-  );
-}
-
-function CampaignExamples() {
-  const examples = [
-    ["Seasonal service", "Existing customer · Service due · Sydney"],
-    ["Rate update", "Mortgage client · Variable rate"],
-    ["New service", "Existing customer · Relevant service"],
-  ] as const;
-
-  return (
-    <section className="border-t border-[#ECEEEB] bg-white px-5 py-14 sm:px-10 sm:py-16 lg:px-16">
-      <div className="mx-auto max-w-[1240px]">
-        <Reveal className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-16">
-          <div>
-            <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#777F79]">Campaign ideas</div>
-            <h2
-              className="mt-3 max-w-[520px] text-[30px] font-medium leading-[1.03] tracking-[-0.045em] text-[#202326] sm:text-[35px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              Same customer base.
-              <span className="block text-[#747A75]">Different reasons to get in touch.</span>
-            </h2>
-          </div>
-
-          <div className="grid border-y border-[#E3E7E3] sm:grid-cols-3">
-            {examples.map(([title, tags], index) => (
-              <div
-                key={title}
-                className={"py-5 sm:px-5 " + (index < examples.length - 1 ? "border-b border-[#E3E7E3] sm:border-b-0 sm:border-r" : "")}
-              >
-                <div className="text-[13px] font-semibold tracking-[-0.02em] text-[#303733]">{title}</div>
-                <div className="mt-2 text-[10px] leading-[1.5] text-[#7A817B]">{tags}</div>
-              </div>
-            ))}
           </div>
         </Reveal>
       </div>
@@ -853,40 +828,232 @@ function CampaignExamples() {
   );
 }
 
-function ConnectedSystem() {
+function LoopNode({ color, label, copy }: { color: string; label: string; copy: string }) {
   return (
-    <section className="bg-[#1E2B29] px-5 py-16 text-white sm:px-10 sm:py-20 lg:px-16">
-      <Reveal className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20">
-        <div className="max-w-[620px]">
+    <div className="relative rounded-[16px] border border-[#E4E6E2] bg-white px-4 py-4 text-center md:min-h-[112px]">
+      <span className="mx-auto block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
+      <div className="mt-3 text-[11px] font-semibold tracking-[-0.015em] text-[#363C37]">{label}</div>
+      <div className="mt-1.5 text-[8px] leading-[1.45] text-[#858A85]">{copy}</div>
+    </div>
+  );
+}
+
+function UseCaseSelector() {
+  const [active, setActive] = useState(0);
+  const item = USE_CASES[active];
+  const reduced = !!useReducedMotion();
+
+  return (
+    <section className="bg-[#F6F0E8] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1260px]">
+        <Reveal className="text-center">
           <h2
-            className="text-[32px] font-medium leading-[1.04] tracking-[-0.045em] sm:text-[38px] lg:text-[41px]"
+            className="text-[34px] font-medium leading-[1.02] tracking-[-0.048em] text-[#17191C] sm:text-[42px] lg:text-[48px]"
             style={{ fontFamily: DISPLAY }}
           >
-            From customer data to campaign results,
-            <span className="block text-[#AFC3FF]">it stays connected.</span>
+            Different customers. Different reasons to get back in touch.
           </h2>
-          <p className="mt-5 max-w-[570px] text-[14px] leading-[1.7] text-white/58">
-            Build the audience in your CRM. Run the outreach through Automations. Group the initiative in Campaigns. Track what engaged and converted, while replies and customer history stay connected to the record.
-          </p>
-        </div>
+        </Reveal>
 
-        <div className="grid gap-0 sm:grid-cols-4">
-          {[
-            ["CRM", "Customer data + tags"],
-            ["Automations", "SMS + email outreach"],
-            ["Campaigns", "Assets + attribution"],
-            ["Performance", "Engagement + results"],
-          ].map(([title, copy], index) => (
-            <div
-              key={title}
-              className={"py-4 sm:px-5 " + (index < 3 ? "border-b border-white/12 sm:border-b-0 sm:border-r" : "")}
+        <div className="mx-auto mt-9 flex max-w-[900px] gap-6 overflow-x-auto border-b border-[#D6CEC3] text-[12px] font-semibold text-[#737771]">
+          {USE_CASES.map((useCase, index) => (
+            <button
+              key={useCase.key}
+              type="button"
+              onClick={() => setActive(index)}
+              className={
+                "shrink-0 border-b-2 pb-3 transition-colors " +
+                (active === index
+                  ? "border-[#111318] text-[#111318]"
+                  : "border-transparent hover:text-[#333833]")
+              }
             >
-              <div className={"text-[9px] font-bold uppercase tracking-[0.13em] " + (index < 2 ? "text-[#AFC3FF]" : "text-[#DDA34B]")}>{title}</div>
-              <div className="mt-2 text-[11px] leading-[1.55] text-white/58">{copy}</div>
-            </div>
+              {useCase.label}
+            </button>
           ))}
         </div>
-      </Reveal>
+
+        <div className="mt-8 overflow-hidden rounded-[26px] border border-[#DCD4C9] bg-white">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={item.key}
+              initial={reduced ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduced ? undefined : { opacity: 0, y: -6 }}
+              transition={{ duration: reduced ? 0 : 0.28, ease: EASE }}
+              className="grid lg:grid-cols-[0.72fr_1.28fr]"
+            >
+              <div className="flex flex-col justify-between border-b border-[#E4E1DC] p-7 sm:p-9 lg:min-h-[470px] lg:border-b-0 lg:border-r">
+                <div>
+                  <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#58706F]">{item.label}</div>
+                  <h3
+                    className="mt-4 max-w-[410px] text-[31px] font-medium leading-[1.02] tracking-[-0.045em] text-[#1B1D20] sm:text-[37px]"
+                    style={{ fontFamily: DISPLAY }}
+                  >
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="mt-10">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8B908B]">Audience</div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {item.audience.map((tag) => (
+                      <span key={tag} className="rounded-full bg-[#F0F1EC] px-3 py-2 text-[8px] font-semibold text-[#666E5D]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative min-h-[470px] overflow-hidden bg-[#FCFBF8] p-7 sm:p-9">
+                <UseCasePath item={item} />
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function UseCasePath({ item }: { item: (typeof USE_CASES)[number] }) {
+  const steps = [
+    { label: "Outreach", value: item.outreach, color: "#2563FF" },
+    { label: "Destination", value: item.destination, color: "#9B86B8" },
+    { label: "Customer action", value: item.result, color: "#DDA34B" },
+  ] as const;
+
+  return (
+    <div className="flex h-full flex-col justify-center">
+      <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#8A8F8A]">Campaign path</div>
+      <div className="mt-6 grid gap-4">
+        {steps.map((step, index) => (
+          <div key={step.label} className="grid grid-cols-[38px_1fr] items-center gap-4">
+            <span
+              className="grid h-9 w-9 place-items-center rounded-full text-[10px] font-bold text-white"
+              style={{ backgroundColor: step.color }}
+            >
+              {index + 1}
+            </span>
+            <div className="rounded-[16px] border border-[#E3E4E0] bg-white px-5 py-4">
+              <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8B908B]">{step.label}</div>
+              <div className="mt-1.5 text-[13px] font-semibold tracking-[-0.015em] text-[#3C423D]">{step.value}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PerformanceProof() {
+  return (
+    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto grid max-w-[1260px] gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:items-center lg:gap-16">
+        <Reveal>
+          <div className="max-w-[460px]">
+            <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#A66F20]">Campaign performance</div>
+            <h2
+              className="mt-4 text-[34px] font-medium leading-[1.02] tracking-[-0.048em] text-[#17191C] sm:text-[41px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              Know what the campaign actually did.
+            </h2>
+            <p className="mt-5 text-[14px] leading-[1.7] text-[#6A706A]">
+              Campaigns is the tracking and attribution layer. See who engaged, what converted, and how the initiative performed without pretending the send tool and the tracking tool are the same thing.
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05}>
+          <div className="overflow-hidden rounded-[24px] border border-[#E2E3DF] bg-[#FCFCFA] shadow-[0_24px_70px_rgba(38,42,39,.07)]">
+            <div className="flex items-start justify-between gap-5 border-b border-[#E5E7E3] px-6 py-5">
+              <div>
+                <div className="text-[18px] font-semibold tracking-[-0.03em]">Service availability</div>
+                <div className="mt-1 text-[8px] text-[#8A8F8A]">Influence window: 30 days</div>
+              </div>
+              <span className="rounded-[8px] bg-[#DDA34B] px-3 py-2 text-[8px] font-bold uppercase tracking-[0.09em] text-[#2D2A26]">
+                Campaign
+              </span>
+            </div>
+
+            <div className="flex gap-6 overflow-x-auto border-b border-[#E5E7E3] px-6 pt-4 text-[8px] font-semibold text-[#7D827D]">
+              <span className="pb-3">Assets</span>
+              <span className="pb-3">Members</span>
+              <span className="pb-3">Activity</span>
+              <span className="border-b-2 border-[#DDA34B] pb-3 text-[#111318]">Performance</span>
+              <span className="pb-3">Settings</span>
+            </div>
+
+            <div className="p-6">
+              <div className="text-[9px] font-semibold text-[#4E554F]">Reach</div>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {["Reached", "Engaged", "Converted", "Won deals"].map((metric) => (
+                  <Metric key={metric} label={metric} accent="#DDA34B" />
+                ))}
+              </div>
+
+              <div className="mt-6 text-[9px] font-semibold text-[#4E554F]">Return</div>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {["Won deal value", "Collected", "Costs", "Return on cost"].map((metric) => (
+                  <Metric key={metric} label={metric} accent="#9B86B8" />
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Metric({ label, accent }: { label: string; accent: string }) {
+  return (
+    <div className="relative overflow-hidden rounded-[12px] border border-[#E4E5E1] bg-white p-3.5">
+      <span className="absolute inset-x-0 top-0 h-[2px]" style={{ backgroundColor: accent }} />
+      <div className="text-[8px] leading-[1.35] text-[#858B86]">{label}</div>
+      <div className="mt-3 text-[18px] font-semibold text-[#4D534E]">—</div>
+    </div>
+  );
+}
+
+function ConnectedSystem() {
+  const modules = [
+    ["CRM", "Customer data + history", "#2563FF"],
+    ["Automations", "Outreach + next steps", "#E97D62"],
+    ["Campaigns", "Assets + attribution", "#DDA34B"],
+    ["Conversations", "Replies stay connected", "#C96C85"],
+    ["Performance", "Engagement + return", "#99A36D"],
+  ] as const;
+
+  return (
+    <section className="bg-[#18191C] px-5 py-20 text-white sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+      <div className="mx-auto max-w-[1260px]">
+        <Reveal className="mx-auto max-w-[880px] text-center">
+          <h2
+            className="text-[35px] font-medium leading-[1.02] tracking-[-0.05em] sm:text-[44px] lg:text-[50px]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            The campaign doesn't live in another
+            <span className="text-[#AFC3FF]"> marketing silo.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-[680px] text-[14px] leading-[1.7] text-white/55">
+            Customer data, outreach, replies, campaign activity and results stay connected to the same customer system.
+          </p>
+        </Reveal>
+
+        <div className="mx-auto mt-12 grid max-w-[1080px] gap-3 sm:grid-cols-5">
+          {modules.map(([title, copy, color], index) => (
+            <Reveal key={title} delay={index * 0.04}>
+              <div className="relative min-h-[150px] overflow-hidden rounded-[18px] border border-white/[0.09] bg-white/[0.035] p-5">
+                <span className="absolute inset-x-0 top-0 h-[3px]" style={{ backgroundColor: color }} />
+                <div className="text-[11px] font-semibold text-white/88">{title}</div>
+                <div className="mt-3 text-[9px] leading-[1.55] text-white/42">{copy}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -897,11 +1064,11 @@ function Faq() {
 
   return (
     <section className="bg-[#FCFCFA] px-5 py-16 sm:px-10 sm:py-20 lg:px-16">
-      <div className="mx-auto grid max-w-[1180px] gap-10 lg:grid-cols-[0.64fr_1.36fr] lg:gap-16">
+      <div className="mx-auto grid max-w-[1180px] gap-10 lg:grid-cols-[0.62fr_1.38fr] lg:gap-16">
         <Reveal className="max-w-[330px]">
           <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#68736C]">Questions</div>
           <h2
-            className="mt-3 text-[28px] font-medium leading-[1.04] tracking-[-0.042em] sm:text-[33px]"
+            className="mt-3 text-[29px] font-medium leading-[1.04] tracking-[-0.042em] sm:text-[34px]"
             style={{ fontFamily: DISPLAY }}
           >
             The practical stuff.
@@ -911,7 +1078,6 @@ function Faq() {
         <div className="border-y border-[#DDE2DE]">
           {FAQS.map((item, index) => {
             const active = open === index;
-
             return (
               <div key={item.q} className="border-b border-[#DDE2DE] last:border-b-0">
                 <button
@@ -923,7 +1089,6 @@ function Faq() {
                   <span className="text-[14px] font-semibold tracking-[-0.015em] text-[#282E2A] sm:text-[15px]">
                     {item.q}
                   </span>
-
                   <motion.span
                     className={
                       "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border " +
@@ -945,9 +1110,7 @@ function Faq() {
                   transition={{ duration: reduced ? 0 : 0.22, ease: EASE }}
                 >
                   <div className="min-h-0">
-                    <p className="max-w-[700px] pb-5 pr-10 text-[13px] leading-[1.7] text-[#6C736D]">
-                      {item.a}
-                    </p>
+                    <p className="max-w-[700px] pb-5 pr-10 text-[13px] leading-[1.7] text-[#6C736D]">{item.a}</p>
                   </div>
                 </motion.div>
               </div>
@@ -982,13 +1145,13 @@ function GrowthCta() {
         <div className="flex flex-wrap gap-3 lg:justify-end">
           <a
             href={PRICING_URL}
-            className="inline-flex h-[50px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-white"
+            className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-white"
           >
             View Growth pricing <ArrowRight size={14} />
           </a>
           <a
             href={BOOK_URL}
-            className="inline-flex h-[50px] items-center rounded-full border border-[#D7DDD8] px-6 text-[13px] font-semibold text-[#1E2B29]"
+            className="inline-flex h-[50px] items-center rounded-[10px] border border-[#D7DDD8] px-6 text-[13px] font-semibold text-[#1E2B29]"
           >
             Book a Call
           </a>
