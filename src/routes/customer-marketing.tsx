@@ -159,7 +159,7 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-[570px] text-[15px] leading-[1.72] text-[#626862] sm:text-[17px]">
-            Use customer data and tags to choose the right audience, run SMS or email outreach through automations, then see what your marketing actually produced.
+            Use customer data and tags to choose the right audience, then run targeted SMS and email outreach through Zapla Automations.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -183,155 +183,95 @@ function Hero() {
 
 function HeroAutomation() {
   return (
-    <div className="relative mx-auto w-full max-w-[830px]">
-      <div className="pointer-events-none absolute -right-6 top-12 h-[280px] w-[280px] rounded-full bg-[#DDA34B]/[0.07] blur-[80px]" />
+    <div className="relative mx-auto w-full max-w-[820px]">
+      <div className="pointer-events-none absolute -right-8 top-8 h-[300px] w-[300px] rounded-full bg-[#2563FF]/[0.045] blur-[90px]" />
+      <div className="pointer-events-none absolute -bottom-10 left-[20%] h-[220px] w-[220px] rounded-full bg-[#DDA34B]/[0.055] blur-[85px]" />
 
-      <div className="relative overflow-hidden rounded-[24px] border border-[#D9DEDA] bg-white shadow-[0_34px_90px_rgba(30,43,41,.12)]">
-        <ProductBar label="Automation" right="Service availability" />
-
-        <div className="relative min-h-[470px] overflow-hidden px-5 py-6 sm:px-7 sm:py-7">
-          <div className="absolute bottom-0 right-0 top-0 w-[38%] bg-[#2563FF]/[0.018]" />
-
-          <div className="relative mx-auto max-w-[680px]">
-            <div className="grid items-center gap-4 sm:grid-cols-[0.9fr_auto_1.1fr]">
-              <div className="rounded-[16px] border border-[#DCE4D7] bg-[#F2F6EF] px-4 py-4">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-[#7A8673]">
-                      Audience matched
-                    </div>
-                    <div className="mt-1 text-[16px] font-semibold tracking-[-0.025em] text-[#313831]">
-                      86 customers
-                    </div>
-                  </div>
-                  <Check size={15} className="text-[#708060]" />
-                </div>
-
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {["Existing customer", "Service due", "Sydney"].map((item) => (
-                    <span
-                      key={item}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1.5 text-[8px] font-semibold text-[#596458]"
-                    >
-                      <Tag size={9} className="text-[#718067]" />
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="hidden h-px w-10 bg-[#B9C0BB] sm:block" />
-
-              <div>
-                <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">
-                  Automation
-                </div>
-                <div className="mt-1 text-[19px] font-semibold tracking-[-0.03em]">
-                  Service availability
-                </div>
-              </div>
-            </div>
-
-            <div className="relative mt-7 pl-6 sm:pl-9">
-              <div className="absolute bottom-7 left-[11px] top-7 w-px bg-[#D7DCD8] sm:left-[14px]" />
-
-              <HeroFlowNode
-                tone="blue"
-                eyebrow="Action"
-                title="Send SMS"
-                meta="Service availability message"
-                body="We've opened extra service appointments next week. Want the available times?"
-                icon={<MessageSquareText size={14} />}
-              />
-
-              <HeroFlowNode
-                tone="amber"
-                eyebrow="Wait"
-                title="2 days"
-                meta="Continue only if there is no response"
-              />
-
-              <HeroFlowNode
-                tone="blue"
-                eyebrow="Action"
-                title="Send email"
-                meta="Follow-up email"
-                icon={<Mail size={14} />}
-                last
-              />
-            </div>
-
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[#E6EAE6] pt-4">
-              <span className="text-[9px] font-semibold text-[#6B736D]">
-                Customer data decides who enters.
-              </span>
-              <span className="text-[9px] font-semibold text-[#2563FF]">
-                Automation handles what happens next.
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HeroFlowNode({
-  tone,
-  eyebrow,
-  title,
-  meta,
-  body,
-  icon,
-  last = false,
-}: {
-  tone: "blue" | "amber";
-  eyebrow: string;
-  title: string;
-  meta: string;
-  body?: string;
-  icon?: ReactNode;
-  last?: boolean;
-}) {
-  const isBlue = tone === "blue";
-
-  return (
-    <div className={"relative grid grid-cols-[20px_1fr] gap-3 " + (last ? "" : "pb-4")}>
-      <span
-        className={
-          "relative z-10 mt-[18px] h-[10px] w-[10px] rounded-full border-2 border-white " +
-          (isBlue ? "bg-[#2563FF]" : "bg-[#DDA34B]")
-        }
-      />
-
-      <div
-        className={
-          "rounded-[16px] border px-4 py-3.5 shadow-[0_10px_30px_rgba(35,45,39,.045)] " +
-          (isBlue ? "border-[#DCE5FF] bg-[#F6F8FF]" : "border-[#EADBBE] bg-[#FFF9EE]")
-        }
-      >
+      <div className="relative rounded-[28px] border border-[#E0E4E1] bg-white px-5 py-6 shadow-[0_34px_90px_rgba(30,43,41,.11)] sm:px-7 sm:py-7">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <div
-              className={
-                "text-[7px] font-bold uppercase tracking-[0.12em] " +
-                (isBlue ? "text-[#2563FF]" : "text-[#A66F20]")
-              }
-            >
-              {eyebrow}
+            <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#7E8781]">
+              Targeted outreach
             </div>
-            <div className="mt-1 text-[12px] font-semibold text-[#353C38]">{title}</div>
+            <div className="mt-1 text-[18px] font-semibold tracking-[-0.03em] text-[#303632]">
+              Service availability
+            </div>
           </div>
-          {icon ? <span className={isBlue ? "text-[#2563FF]" : "text-[#A66F20]"}>{icon}</span> : null}
+          <span className="hidden rounded-full border border-[#DCE5FF] bg-[#F6F8FF] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#2563FF] sm:inline-flex">
+            Automation
+          </span>
         </div>
 
-        <div className="mt-1 text-[8.5px] text-[#7E8680]">{meta}</div>
+        <div className="mt-6 grid items-center gap-5 lg:grid-cols-[0.72fr_auto_1.28fr]">
+          <div className="rounded-[18px] border border-[#DCE4D7] bg-[#F2F6EF] p-4 sm:p-5">
+            <div className="text-[7px] font-bold uppercase tracking-[0.13em] text-[#7A8673]">
+              Audience
+            </div>
+            <div className="mt-1.5 flex items-end justify-between gap-4">
+              <div>
+                <div className="text-[26px] font-semibold leading-none tracking-[-0.04em] text-[#303832]">86</div>
+                <div className="mt-1 text-[9px] text-[#7E877F]">matching customers</div>
+              </div>
+              <Check size={16} className="text-[#708060]" />
+            </div>
 
-        {body ? (
-          <div className="mt-3 rounded-[12px] bg-white/80 px-3 py-2.5 text-[10px] leading-[1.5] text-[#566274]">
-            {body}
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["Existing customer", "Service due", "Sydney"].map((item) => (
+                <span
+                  key={item}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1.5 text-[8px] font-semibold text-[#596458]"
+                >
+                  <Tag size={9} className="text-[#718067]" />
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
-        ) : null}
+
+          <div className="hidden items-center lg:flex">
+            <span className="h-px w-10 bg-[#C8CECA]" />
+            <ArrowRight size={15} className="-ml-1 text-[#8D9690]" />
+          </div>
+
+          <div className="rounded-[20px] border border-[#DDE3E8] bg-[#FBFCFF] p-4 sm:p-5">
+            <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-stretch">
+              <div className="rounded-[15px] border border-[#DCE5FF] bg-white p-4 shadow-[0_8px_24px_rgba(37,99,255,.045)]">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">SMS</div>
+                  <MessageSquareText size={13} className="text-[#2563FF]" />
+                </div>
+                <div className="mt-2 text-[11px] font-semibold text-[#36414F]">Send message</div>
+                <div className="mt-2 text-[9px] leading-[1.45] text-[#798391]">
+                  Extra service appointments next week.
+                </div>
+              </div>
+
+              <div className="flex items-center justify-center">
+                <div className="rounded-full border border-[#EADBBE] bg-[#FFF9EE] px-3 py-2 text-center">
+                  <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#A66F20]">Wait</div>
+                  <div className="mt-0.5 text-[9px] font-semibold text-[#66583F]">2 days</div>
+                </div>
+              </div>
+
+              <div className="rounded-[15px] border border-[#DCE5FF] bg-white p-4 shadow-[0_8px_24px_rgba(37,99,255,.045)]">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#2563FF]">Email</div>
+                  <Mail size={13} className="text-[#2563FF]" />
+                </div>
+                <div className="mt-2 text-[11px] font-semibold text-[#36414F]">Follow up</div>
+                <div className="mt-2 text-[9px] leading-[1.45] text-[#798391]">
+                  Continue the outreach if needed.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-[#E7EAE7] pt-4 text-[9px] font-semibold">
+          <span className="text-[#66715F]">CRM data chooses the audience.</span>
+          <span className="text-[#C4C9C5]">→</span>
+          <span className="text-[#2563FF]">Automation runs the outreach.</span>
+        </div>
       </div>
     </div>
   );
