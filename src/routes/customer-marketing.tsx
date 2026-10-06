@@ -325,7 +325,7 @@ function CustomerMarketingFlow() {
         ([entry]) => {
           if (entry.isIntersecting) setActive(index);
         },
-        { rootMargin: "-30% 0px -55% 0px", threshold: 0.08 },
+        { rootMargin: "-30% 0px -54% 0px", threshold: 0.08 },
       );
 
       observer.observe(ref.current);
@@ -338,56 +338,70 @@ function CustomerMarketingFlow() {
   const beats = [
     {
       ref: beatOne,
+      label: "Audience",
       title: "Your whole database isn't the audience.",
-      copy: "Use tags, fields, filters and saved lists to turn the customer data already in Zapla into a relevant marketing audience.",
+      copy: "Use tags, fields and saved lists to narrow the people this campaign is actually for.",
     },
     {
       ref: beatTwo,
-      title: "Put that audience into motion.",
-      copy: "Run SMS and email outreach through automations, with the audience and customer context already decided.",
+      label: "Outreach",
+      title: "Put the right audience into motion.",
+      copy: "Run SMS and email outreach through Automations, with the customer context already decided.",
     },
     {
       ref: beatThree,
-      title: "Keep the whole campaign together.",
-      copy: "Group the forms, pages, automations, booking links, social posts and other assets behind the initiative in Campaigns.",
+      label: "Campaign",
+      title: "Keep the whole initiative together.",
+      copy: "Group the automation, forms, pages, booking links and other campaign assets in one place.",
     },
     {
       ref: beatFour,
+      label: "Performance",
       title: "See what turned into business.",
-      copy: "Track who engaged, who converted, won deals, costs and return without piecing the campaign together across separate tools.",
+      copy: "Track engagement, conversions, won deals, costs and return from the same campaign.",
     },
   ] as const;
 
   return (
-    <section id="customer-marketing-flow" className="relative border-t border-[#ECEEEB] bg-[#FCFCFA] px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+    <section
+      id="customer-marketing-flow"
+      className="relative border-t border-[#ECEEEB] bg-[#FCFCFA] px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24"
+    >
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[860px]">
+        <Reveal className="max-w-[760px]">
           <p
-            className="text-[25px] font-medium leading-[1.18] tracking-[-0.035em] text-[#303632] sm:text-[29px] lg:text-[32px]"
+            className="text-[23px] font-medium leading-[1.2] tracking-[-0.035em] text-[#303632] sm:text-[27px] lg:text-[30px]"
             style={{ fontFamily: DISPLAY }}
           >
-            You already paid to win the customer.
-            <span className="text-[#737C75]"> The opportunity is using what you know about them.</span>
+            One customer list.
+            <span className="text-[#737C75]"> One campaign moving through the same system.</span>
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[0.56fr_1.44fr] lg:gap-16">
+        <div className="mt-8 grid gap-10 lg:grid-cols-[0.5fr_1.5fr] lg:gap-14">
           <div>
             {beats.map((beat, index) => (
               <div
                 key={beat.title}
                 ref={beat.ref}
-                className="flex min-h-[50vh] flex-col items-start justify-center lg:min-h-[64vh]"
+                className="flex min-h-[48vh] flex-col items-start justify-center lg:min-h-[58vh]"
               >
-                <FlowBeat active={active === index} title={beat.title} copy={beat.copy} />
-                <div className="mt-8 lg:hidden">
+                <FlowBeat
+                  active={active === index}
+                  label={beat.label}
+                  index={index}
+                  title={beat.title}
+                  copy={beat.copy}
+                />
+
+                <div className="mt-8 w-full lg:hidden">
                   <FlowCanvas active={index} />
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="hidden lg:sticky lg:top-[92px] lg:block lg:h-fit lg:self-start">
+          <div className="hidden lg:sticky lg:top-[90px] lg:block lg:h-fit lg:self-start">
             <FlowCanvas active={active} />
           </div>
         </div>
@@ -398,58 +412,113 @@ function CustomerMarketingFlow() {
 
 function FlowBeat({
   active,
+  label,
+  index,
   title,
   copy,
 }: {
   active: boolean;
+  label: string;
+  index: number;
   title: string;
   copy: string;
 }) {
   return (
-    <div className={"max-w-[430px] transition-all duration-300 " + (active ? "translate-x-0 opacity-100" : "translate-x-[-4px] opacity-30")}>
+    <div
+      className={
+        "max-w-[410px] border-l-2 pl-5 transition-all duration-300 " +
+        (active
+          ? "translate-x-0 border-[#2563FF] opacity-100"
+          : "translate-x-[-4px] border-[#E1E5E2] opacity-34")
+      }
+    >
+      <div className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-[0.14em] text-[#7B847E]">
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        <span className="h-px w-5 bg-[#C9CFCA]" />
+        <span>{label}</span>
+      </div>
+
       <h2
-        className="text-[29px] font-medium leading-[1.05] tracking-[-0.042em] sm:text-[34px] lg:text-[36px]"
+        className="mt-3 text-[28px] font-medium leading-[1.06] tracking-[-0.042em] sm:text-[32px] lg:text-[34px]"
         style={{ fontFamily: DISPLAY }}
       >
         {title}
       </h2>
-      <p className="mt-4 max-w-[410px] text-[14px] leading-[1.7] text-[#6A726B]">{copy}</p>
+
+      <p className="mt-4 max-w-[390px] text-[14px] leading-[1.68] text-[#6A726B]">{copy}</p>
     </div>
   );
 }
 
 function FlowCanvas({ active }: { active: number }) {
   const reduced = !!useReducedMotion();
-  const labels = ["Contacts", "Automations", "Campaigns", "Performance"];
+  const stages = [
+    { label: "Audience", value: "86 customers" },
+    { label: "Automation", value: "SMS + email" },
+    { label: "Campaign", value: "5 assets" },
+    { label: "Performance", value: "Tracked" },
+  ] as const;
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-[#D8DED9] bg-white shadow-[0_32px_92px_rgba(38,48,40,.11)]">
-      <ProductBar label={labels[active]} right="Customer Marketing" />
-
-      <div className="flex items-center justify-between gap-4 border-b border-[#E6EAE6] bg-white px-5 py-3">
-        <div className="flex items-center gap-2">
-          {labels.map((label, index) => (
-            <span
-              key={label}
-              className={
-                "h-1.5 rounded-full transition-all duration-300 " +
-                (active === index
-                  ? index < 2
-                    ? "w-7 bg-[#2563FF]"
-                    : "w-7 bg-[#DDA34B]"
-                  : "w-1.5 bg-[#D5DAD6]")
-              }
-            />
-          ))}
+    <div className="relative overflow-hidden rounded-[26px] border border-[#D8DED9] bg-white shadow-[0_34px_96px_rgba(38,48,40,.11)]">
+      <div className="flex min-h-[48px] items-center justify-between border-b border-[#E5E8E5] bg-white px-5">
+        <div className="flex items-center gap-3">
+          <img src={ZAPLA_WORDMARK_URL} alt="Zapla" className="h-[18px] w-auto object-contain" />
+          <span className="h-4 w-px bg-[#D9DEDA]" />
+          <span className="text-[7px] font-bold uppercase tracking-[0.13em] text-[#7E8781]">
+            Customer Marketing
+          </span>
         </div>
-        <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#818984]">
-          {labels[active]}
-        </span>
+
+        <div className="text-right">
+          <div className="text-[9px] font-semibold text-[#39413C]">Service availability</div>
+          <div className="mt-0.5 text-[7px] uppercase tracking-[0.1em] text-[#979D98]">Same campaign</div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-4 border-b border-[#E5E8E5] bg-[#FCFCFB]">
+        {stages.map((stage, index) => {
+          const isActive = active === index;
+          const isWarm = index >= 2;
+
+          return (
+            <div
+              key={stage.label}
+              className={
+                "relative px-3 py-3.5 sm:px-4 " +
+                (index < stages.length - 1 ? "border-r border-[#E5E8E5]" : "")
+              }
+            >
+              <span
+                className={
+                  "absolute inset-x-0 top-0 h-[2px] transition-colors duration-300 " +
+                  (isActive ? (isWarm ? "bg-[#DDA34B]" : "bg-[#2563FF]") : "bg-transparent")
+                }
+              />
+              <div
+                className={
+                  "text-[7px] font-bold uppercase tracking-[0.12em] transition-colors " +
+                  (isActive ? "text-[#4A524D]" : "text-[#A0A6A1]")
+                }
+              >
+                {stage.label}
+              </div>
+              <div
+                className={
+                  "mt-1 text-[9px] font-semibold transition-colors " +
+                  (isActive ? "text-[#242A26]" : "text-[#A5ABA6]")
+                }
+              >
+                {stage.value}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <div
         className={
-          "relative min-h-[540px] transition-colors duration-500 " +
+          "relative min-h-[510px] transition-colors duration-500 " +
           (active === 0
             ? "bg-[#FBFCFA]"
             : active === 1
@@ -489,8 +558,8 @@ function StateLayer({
     <motion.div
       className="absolute inset-0 p-5 sm:p-6"
       initial={false}
-      animate={{ opacity: active ? 1 : 0, y: active ? 0 : 10 }}
-      transition={{ duration: reduced ? 0 : 0.38, ease: EASE }}
+      animate={{ opacity: active ? 1 : 0, y: active ? 0 : 8, scale: active ? 1 : 0.992 }}
+      transition={{ duration: reduced ? 0 : 0.36, ease: EASE }}
       style={{ pointerEvents: active ? "auto" : "none" }}
       aria-hidden={!active}
     >
@@ -504,50 +573,71 @@ function AudienceState() {
     <div>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Smart list</div>
-          <div className="mt-1.5 text-[21px] font-semibold tracking-[-0.03em]">Residential service due</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#7C867E]">Build audience</div>
+          <div className="mt-1.5 text-[22px] font-semibold tracking-[-0.03em]">Residential service due</div>
         </div>
-        <div className="text-right">
-          <div className="text-[26px] font-semibold tracking-[-0.04em]">86</div>
-          <div className="text-[8px] text-[#8C938E]">matching customers</div>
+
+        <div className="rounded-[14px] border border-[#DCE4D7] bg-[#F2F6EF] px-4 py-3 text-right">
+          <div className="text-[24px] font-semibold leading-none tracking-[-0.04em]">86</div>
+          <div className="mt-1 text-[8px] text-[#7C867E]">matching customers</div>
         </div>
       </div>
 
-      <div className="mt-6 grid gap-5 md:grid-cols-[0.72fr_1.28fr]">
-        <div className="space-y-4 border-r border-[#E5E9E5] pr-5">
-          {[
-            ["Tag", "Existing customer"],
-            ["Tag", "Service due"],
-            ["Location", "Sydney"],
-          ].map(([label, value], index) => (
-            <div key={label + value + index} className="border-b border-[#E6EAE6] pb-3">
-              <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#949A95]">{label}</div>
-              <div className="mt-1 flex items-center gap-2 text-[10px] font-semibold text-[#4A524D]">
-                {label === "Tag" ? <Tag size={11} className="text-[#75816D]" /> : null}
-                {value}
+      <div className="mt-7 grid gap-6 md:grid-cols-[0.68fr_1.32fr]">
+        <div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#919892]">Audience rules</div>
+          <div className="mt-3 space-y-2.5">
+            {[
+              ["Tag", "Existing customer"],
+              ["Tag", "Service due"],
+              ["Location", "Sydney"],
+            ].map(([label, value], index) => (
+              <div
+                key={label + value + index}
+                className="flex items-center justify-between gap-3 rounded-[12px] border border-[#E3E7E3] bg-white px-3.5 py-3"
+              >
+                <div>
+                  <div className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#9AA09B]">{label}</div>
+                  <div className="mt-1 flex items-center gap-1.5 text-[9px] font-semibold text-[#4B534E]">
+                    {label === "Tag" ? <Tag size={10} className="text-[#75816D]" /> : null}
+                    {value}
+                  </div>
+                </div>
+                <Check size={11} className="text-[#708060]" />
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        <div className="divide-y divide-[#E7EAE7]">
-          {CUSTOMERS.map((customer) => (
-            <div
-              key={customer.name}
-              className={"flex items-center justify-between gap-3 py-3 " + (customer.selected ? "" : "opacity-35")}
-            >
-              <div className="flex items-center gap-3">
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-[#EFF1ED] text-[8px] font-semibold text-[#5D655F]">
-                  {customer.initials}
-                </span>
-                <div>
-                  <div className="text-[10px] font-semibold">{customer.name}</div>
-                  <div className="mt-0.5 text-[8px] text-[#8A918C]">{customer.detail}</div>
+        <div>
+          <div className="flex items-center justify-between">
+            <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#919892]">Matching customers</div>
+            <div className="text-[8px] text-[#9AA09B]">3 shown</div>
+          </div>
+
+          <div className="mt-3 divide-y divide-[#E7EAE7] border-y border-[#E7EAE7]">
+            {CUSTOMERS.slice(0, 3).map((customer) => (
+              <div
+                key={customer.name}
+                className={"flex items-center justify-between gap-3 py-4 " + (customer.selected ? "" : "opacity-35")}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-[#EFF1ED] text-[8px] font-semibold text-[#5D655F]">
+                    {customer.initials}
+                  </span>
+                  <div>
+                    <div className="text-[10px] font-semibold">{customer.name}</div>
+                    <div className="mt-0.5 text-[8px] text-[#8A918C]">{customer.detail}</div>
+                  </div>
                 </div>
+                <Check size={12} className={customer.selected ? "text-[#6A7A59]" : "text-transparent"} />
               </div>
-              <Check size={12} className={customer.selected ? "text-[#6A7A59]" : "text-transparent"} />
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="mt-4 text-[9px] font-semibold text-[#68726A]">
+            The audience becomes the entry point for the automation.
+          </div>
         </div>
       </div>
     </div>
@@ -559,68 +649,99 @@ function AutomationState() {
     <div>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Automation</div>
-          <div className="mt-1.5 text-[20px] font-semibold tracking-[-0.03em]">Service availability</div>
-          <div className="mt-1 text-[9px] text-[#8B918D]">Audience: Residential service due</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#2563FF]">Run outreach</div>
+          <div className="mt-1.5 text-[22px] font-semibold tracking-[-0.03em]">Service availability</div>
+          <div className="mt-1 text-[9px] text-[#8B918D]">Audience: Residential service due · 86 customers</div>
         </div>
-        <span className="rounded-full bg-[#EEF3EA] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#627157]">
+
+        <span className="rounded-full border border-[#DCE5FF] bg-[#F6F8FF] px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em] text-[#2563FF]">
           Active
         </span>
       </div>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-[0.92fr_1.08fr]">
-        <div className="relative pl-4">
-          <div className="absolute bottom-5 left-[4px] top-5 w-px bg-[#D8DDD9]" />
-          <AutomationNode
-            dot="#7C8868"
-            eyebrow="Entry"
-            title="Customer enters smart list"
-            meta="Existing customer · Service due · Sydney"
+      <div className="relative mt-8">
+        <div className="absolute left-[49px] right-[49px] top-[52px] hidden h-px bg-[#D8DDD9] md:block" />
+
+        <div className="grid gap-3 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-start">
+          <AutomationStep
+            tone="blue"
+            eyebrow="SMS"
+            title="Send message"
+            copy="Extra service appointments next week."
+            icon={<MessageSquareText size={13} />}
           />
-          <AutomationNode
-            dot="#2563FF"
-            eyebrow="Action"
-            title="Send SMS"
-            meta="Service availability"
-            icon={<MessageSquareText size={12} />}
-          />
-          <AutomationNode
-            dot="#C7A469"
+
+          <div className="hidden items-center justify-center pt-[39px] md:flex">
+            <ArrowRight size={14} className="text-[#A0A7A2]" />
+          </div>
+
+          <AutomationStep
+            tone="amber"
             eyebrow="Wait"
-            title="Wait 2 days"
-            meta="Continue if no response"
+            title="2 days"
+            copy="Continue only if there is no response."
           />
-          <AutomationNode
-            dot="#2563FF"
-            eyebrow="Action"
-            title="Send email"
-            meta="Follow-up message"
-            icon={<Mail size={12} />}
-            last
+
+          <div className="hidden items-center justify-center pt-[39px] md:flex">
+            <ArrowRight size={14} className="text-[#A0A7A2]" />
+          </div>
+
+          <AutomationStep
+            tone="blue"
+            eyebrow="Email"
+            title="Follow up"
+            copy="Continue the outreach if needed."
+            icon={<Mail size={13} />}
           />
-        </div>
-
-        <div className="border-l border-[#E5E9E5] pl-5">
-          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#848C86]">Message preview</div>
-          <div className="mt-4 rounded-[16px] bg-[#F0F3F8] p-4">
-            <div className="text-[9px] font-semibold text-[#394556]">SMS</div>
-            <p className="mt-2 text-[11px] leading-[1.6] text-[#596575]">
-              Hi Mia, we have extra service appointments next week. Want the available times?
-            </p>
-          </div>
-
-          <div className="mt-4 rounded-[16px] border border-[#E3E7E3] bg-white p-4">
-            <div className="text-[9px] font-semibold text-[#394556]">Email</div>
-            <p className="mt-2 text-[10px] leading-[1.6] text-[#68716B]">
-              A follow-up can run later if the customer has not responded.
-            </p>
-          </div>
-
-          <div className="mt-5 text-[8px] font-bold uppercase tracking-[0.12em] text-[#949A95]">
-            Outreach runs through Automations
-          </div>
         </div>
       </div>
+
+      <div className="mt-8 rounded-[14px] border border-[#E3E7E3] bg-white px-4 py-3.5">
+        <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8B938D]">Connected customer context</div>
+        <div className="mt-1.5 text-[10px] leading-[1.55] text-[#59615B]">
+          The automation starts from the audience already defined in the CRM.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AutomationStep({
+  tone,
+  eyebrow,
+  title,
+  copy,
+  icon,
+}: {
+  tone: "blue" | "amber";
+  eyebrow: string;
+  title: string;
+  copy: string;
+  icon?: ReactNode;
+}) {
+  const isBlue = tone === "blue";
+
+  return (
+    <div
+      className={
+        "relative rounded-[16px] border p-4 " +
+        (isBlue ? "border-[#DCE5FF] bg-white" : "border-[#EADBBE] bg-[#FFF9EE]")
+      }
+    >
+      <span
+        className={
+          "absolute left-4 top-[-5px] h-[9px] w-[9px] rounded-full border-2 border-white " +
+          (isBlue ? "bg-[#2563FF]" : "bg-[#DDA34B]")
+        }
+      />
+      <div className="flex items-center justify-between gap-3">
+        <div className={"text-[8px] font-bold uppercase tracking-[0.12em] " + (isBlue ? "text-[#2563FF]" : "text-[#A66F20]")}>
+          {eyebrow}
+        </div>
+        {icon ? <span className={isBlue ? "text-[#2563FF]" : "text-[#A66F20]"}>{icon}</span> : null}
+      </div>
+      <div className="mt-2 text-[12px] font-semibold text-[#36413A]">{title}</div>
+      <div className="mt-2 text-[9px] leading-[1.5] text-[#7B837D]">{copy}</div>
     </div>
   );
 }
@@ -638,11 +759,9 @@ function CampaignsState() {
     <div>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="grid h-6 w-6 place-items-center rounded-full border border-[#CDD4CE] text-[11px]">◎</span>
-            <span className="text-[19px] font-semibold tracking-[-0.03em]">Service availability</span>
-          </div>
-          <div className="mt-2 text-[9px] text-[#8A918C]">Draft · Influence window: 30 days</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#A66F20]">Track initiative</div>
+          <div className="mt-1.5 text-[22px] font-semibold tracking-[-0.03em]">Service availability</div>
+          <div className="mt-1 text-[9px] text-[#8A918C]">Influence window: 30 days</div>
         </div>
 
         <span className="inline-flex h-9 items-center gap-2 rounded-[8px] bg-[#DDA34B] px-4 text-[9px] font-bold uppercase tracking-[0.08em] text-[#2D2A26]">
@@ -658,34 +777,28 @@ function CampaignsState() {
         <span className="shrink-0 pb-3">Settings</span>
       </div>
 
-      <div className="mt-5 grid gap-5 md:grid-cols-[1.12fr_0.88fr]">
-        <div>
-          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8B938D]">Attached assets</div>
-          <div className="mt-3 border-y border-[#E5E9E5]">
-            {assets.map(([type, name]) => (
-              <div key={type} className="flex items-center justify-between gap-4 border-b border-[#E5E9E5] py-3.5 last:border-b-0">
-                <div>
-                  <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8B938D]">{type}</div>
-                  <div className="mt-1 text-[10px] font-semibold text-[#404843]">{name}</div>
-                </div>
-                <Check size={12} className="text-[#708060]" />
+      <div className="mt-5 grid gap-5 md:grid-cols-[1.25fr_0.75fr]">
+        <div className="divide-y divide-[#E5E9E5] border-y border-[#E5E9E5]">
+          {assets.map(([type, name]) => (
+            <div key={type} className="flex items-center justify-between gap-4 py-3.5">
+              <div>
+                <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#8B938D]">{type}</div>
+                <div className="mt-1 text-[10px] font-semibold text-[#404843]">{name}</div>
               </div>
-            ))}
-          </div>
+              <Check size={12} className="text-[#708060]" />
+            </div>
+          ))}
         </div>
 
-        <div className="rounded-[12px] border border-[#D9DEDA] bg-white shadow-[0_12px_34px_rgba(37,46,40,.06)]">
-          <div className="border-b border-[#E5E9E5] px-4 py-3">
-            <div className="text-[11px] font-semibold">Add assets</div>
-            <div className="mt-1 text-[8px] text-[#8A918C]">Pick what belongs to this campaign.</div>
+        <div className="rounded-[14px] border border-[#E3D8C4] bg-[#FFFDF8] p-4">
+          <div className="text-[9px] font-semibold text-[#4A4337]">One campaign, multiple assets</div>
+          <div className="mt-2 text-[9px] leading-[1.55] text-[#7A7164]">
+            Forms, pages, automations, booking links and social posts can all sit behind the same initiative.
           </div>
-          <div className="max-h-[280px] overflow-hidden px-4 py-3">
-            {["Form", "Website", "Funnel", "Landing Page", "Calendar", "Tracking Link", "Automation", "Pipeline", "Email Template", "Social Post"].map((item) => (
-              <div key={item} className="flex items-center justify-between py-2 text-[9px]">
-                <span className="text-[#4A524D]">{item}</span>
-                <Plus size={10} className="text-[#949A95]" />
-              </div>
-            ))}
+
+          <div className="mt-4 border-t border-[#E9E0D1] pt-4">
+            <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#9C8A70]">Tracking</div>
+            <div className="mt-1 text-[10px] font-semibold text-[#4A4337]">Members · Activity · Performance</div>
           </div>
         </div>
       </div>
@@ -694,12 +807,15 @@ function CampaignsState() {
 }
 
 function PerformanceState() {
+  const reach = ["Reached", "Engaged", "Converted", "Won deals"];
+  const returns = ["Won deal value", "Collected", "Costs", "Return on cost"];
+
   return (
     <div>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#A66F20]">Performance</div>
-          <div className="mt-1.5 text-[19px] font-semibold tracking-[-0.03em]">Service availability</div>
+          <div className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#A66F20]">Measure impact</div>
+          <div className="mt-1.5 text-[22px] font-semibold tracking-[-0.03em]">Service availability</div>
         </div>
         <div className="text-[9px] text-[#8A918C]">Influence window: 30 days</div>
       </div>
@@ -712,13 +828,10 @@ function PerformanceState() {
         <span className="pb-3">Settings</span>
       </div>
 
-      <div className="mt-5">
-        <div className="flex items-center justify-between">
-          <div className="text-[9px] font-semibold text-[#39413C]">Reach</div>
-          <div className="text-[8px] text-[#929893]">Campaign measurement</div>
-        </div>
+      <div className="mt-6">
+        <div className="text-[9px] font-semibold text-[#39413C]">Reach</div>
         <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
-          {["Reached", "Engaged", "Converted", "Won deals"].map((metric) => (
+          {reach.map((metric) => (
             <MetricCard key={metric} label={metric} />
           ))}
         </div>
@@ -726,15 +839,18 @@ function PerformanceState() {
 
       <div className="mt-6">
         <div className="text-[9px] font-semibold text-[#39413C]">Return</div>
-        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
-          {["Won deal value", "Collected", "Costs", "Return on cost", "Value per unit spent", "Payments"].map((metric) => (
+        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
+          {returns.map((metric) => (
             <MetricCard key={metric} label={metric} compact />
           ))}
         </div>
       </div>
 
-      <div className="mt-5 border-t border-[#E5E9E5] pt-4 text-[9px] font-semibold text-[#68726A]">
-        Campaigns connects engagement and conversion activity back to the initiative.
+      <div className="mt-6 rounded-[14px] border border-[#E8DDC9] bg-[#FFF9EE] px-4 py-3.5">
+        <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#A66F20]">Commercial view</div>
+        <div className="mt-1.5 text-[10px] leading-[1.55] text-[#6E6250]">
+          See the campaign in terms of engagement, conversion and return, not just messages sent.
+        </div>
       </div>
     </div>
   );
