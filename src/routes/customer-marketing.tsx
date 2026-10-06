@@ -163,37 +163,42 @@ function PrimaryButton() {
 
 function Hero() {
   return (
-    <section className="bg-[#FCFCFA] px-5 pb-24 pt-[116px] sm:px-10 sm:pb-28 sm:pt-[126px] lg:px-16 lg:pb-32 lg:pt-[136px]">
-      <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.74fr_1.26fr] lg:items-center lg:gap-14 xl:gap-20">
-        <Reveal className="max-w-[610px]">
+    <section className="bg-[#FCFCFA] px-5 pb-20 pt-[116px] sm:px-10 sm:pb-24 sm:pt-[126px] lg:px-16 lg:pb-28 lg:pt-[134px]">
+      <div className="mx-auto max-w-[1280px]">
+        <Reveal className="mx-auto max-w-[980px] text-center">
           <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#58706F]">
             Customer Marketing
           </div>
 
           <h1
-            className="mt-5 text-[48px] font-medium leading-[0.95] tracking-[-0.058em] text-[#111318] sm:text-[60px] lg:text-[68px]"
+            className="mx-auto mt-5 max-w-[960px] text-[46px] font-medium leading-[0.96] tracking-[-0.056em] text-[#111318] sm:text-[60px] lg:text-[70px]"
             style={{ fontFamily: DISPLAY }}
           >
             There’s more business in
             <span className="block text-[#2563FF]">the customers you already have.</span>
           </h1>
 
-          <p className="mt-6 max-w-[560px] text-[15px] leading-[1.72] text-[#626964] sm:text-[16px]">
-            Use the history already in Zapla to choose the right customers, reach them by SMS or email, and keep every response connected to the same customer record.
+          <p className="mx-auto mt-6 max-w-[720px] text-[15px] leading-[1.72] text-[#626964] sm:text-[17px]">
+            Use the customer history already in Zapla to find the right people to contact, then reach them without rebuilding another list somewhere else.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <PrimaryButton />
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href={BOOK_URL}
+              className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] shadow-[0_12px_28px_rgba(30,43,41,.13)] transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E2B29] focus-visible:ring-offset-2 sm:w-auto"
+            >
+              Book a Call <ArrowRight size={15} />
+            </a>
             <a
               href="#how-it-works"
-              className="inline-flex h-[48px] items-center rounded-[10px] border border-[#D6DCD7] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#B9C1BA]"
+              className="inline-flex h-[52px] w-full items-center justify-center rounded-full border border-[#D8D0C5] bg-white px-7 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#C7BDAF] sm:w-auto"
             >
               See how it works
             </a>
           </div>
         </Reveal>
 
-        <Reveal delay={0.04}>
+        <Reveal className="mt-12 sm:mt-14 lg:mt-16" delay={0.04}>
           <HeroAudienceScene />
         </Reveal>
       </div>
@@ -211,7 +216,7 @@ function HeroAudienceScene() {
       return;
     }
 
-    const durations = [1300, 1450, 1450, 2600] as const;
+    const durations = [1250, 1400, 1400, 2800] as const;
     const timer = window.setTimeout(() => {
       setPhase((current) => (current + 1) % 4);
     }, durations[phase]);
@@ -260,131 +265,174 @@ function HeroAudienceScene() {
       sydney: true,
       subscribed: false,
     },
+    {
+      name: "Ava Brooks",
+      relationship: "Residential customer",
+      context: "Active · Newcastle · Subscribed",
+      due: false,
+      sydney: false,
+      subscribed: true,
+    },
   ] as const;
 
   const criteria = [
     {
       label: "Service due",
-      color: "#DDA34B",
+      detail: "Customer history says it is time to come back.",
       test: (customer: (typeof customers)[number]) => customer.due,
     },
     {
-      label: "Sydney",
-      color: "#9B86B8",
+      label: "In Sydney",
+      detail: "Only customers relevant to this location.",
       test: (customer: (typeof customers)[number]) => customer.sydney,
     },
     {
       label: "Subscribed",
-      color: "#99A36D",
+      detail: "Keep the audience to people you can contact.",
       test: (customer: (typeof customers)[number]) => customer.subscribed,
     },
   ] as const;
 
+  const stageCopy = [
+    "Start with the customer base.",
+    "Use what Zapla knows about them.",
+    "Keep narrowing by real customer context.",
+    "The relevant audience stays in focus.",
+  ] as const;
+
   return (
-    <div className="relative min-h-[600px] overflow-hidden rounded-[30px] bg-[#1E2B29] px-6 py-8 text-white sm:min-h-[640px] sm:px-9 sm:py-10 lg:min-h-[660px] lg:px-11 lg:py-12">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-24 h-[330px] w-[330px] rounded-full bg-[#2563FF]/10 blur-3xl"
-      />
+    <div className="overflow-hidden rounded-[30px] border border-[#DDD6CC] bg-[#F6F0E8]">
+      <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
+        <div className="border-b border-[#DDD6CC] px-6 py-8 sm:px-9 sm:py-10 lg:min-h-[600px] lg:border-b-0 lg:border-r lg:px-10 lg:py-12">
+          <div className="flex h-full flex-col">
+            <div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#7E756B]">
+                Who should hear from you?
+              </div>
+              <div
+                className="mt-4 max-w-[390px] text-[31px] font-medium leading-[1.02] tracking-[-0.045em] text-[#1D211E] sm:text-[37px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                {stageCopy[phase]}
+              </div>
+            </div>
 
-      <div className="relative flex h-full min-h-[536px] flex-col sm:min-h-[560px] lg:min-h-[564px]">
-        <div className="max-w-[610px]">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/42">
-            Build the audience from customer context
-          </div>
-          <div
-            className="mt-3 max-w-[590px] text-[28px] font-medium leading-[1.03] tracking-[-0.045em] text-white sm:text-[34px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Find the customers this is actually relevant to.
+            <div className="mt-10 border-y border-[#D8D0C5] lg:mt-auto">
+              {criteria.map((criterion, index) => {
+                const active = phase >= index + 1;
+
+                return (
+                  <motion.div
+                    key={criterion.label}
+                    animate={{
+                      opacity: active ? 1 : 0.42,
+                    }}
+                    transition={{ duration: reduced ? 0 : 0.28, ease: EASE }}
+                    className="grid grid-cols-[24px_1fr] gap-4 border-b border-[#D8D0C5] py-5 last:border-b-0"
+                  >
+                    <div
+                      className={
+                        "pt-[2px] text-[10px] font-semibold " +
+                        (active ? "text-[#2563FF]" : "text-[#A8A097]")
+                      }
+                    >
+                      0{index + 1}
+                    </div>
+                    <div>
+                      <div
+                        className={
+                          "text-[13px] font-semibold transition-colors " +
+                          (active ? "text-[#202520]" : "text-[#817A72]")
+                        }
+                      >
+                        {criterion.label}
+                      </div>
+                      <div className="mt-1.5 max-w-[300px] text-[11px] leading-[1.6] text-[#8B837A]">
+                        {criterion.detail}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap gap-x-7 gap-y-4 border-y border-white/12 py-4">
-          {criteria.map((criterion, index) => {
-            const active = phase >= index + 1;
-            return (
-              <motion.div
-                key={criterion.label}
-                animate={{
-                  opacity: active ? 1 : 0.38,
-                  color: active ? "#FFFFFF" : "rgba(255,255,255,.7)",
-                }}
-                transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
-                className="relative pb-2 text-[12px] font-semibold"
-              >
-                {criterion.label}
-                <motion.span
-                  className="absolute bottom-0 left-0 h-[2px]"
-                  style={{ backgroundColor: criterion.color }}
-                  animate={{ width: active ? "100%" : "16%" }}
-                  transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
+        <div className="bg-[#1C211F] px-6 py-8 text-white sm:px-9 sm:py-10 lg:min-h-[600px] lg:px-10 lg:py-12">
+          <div className="flex items-end justify-between gap-6 border-b border-white/12 pb-5">
+            <div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/38">
+                Customer base
+              </div>
+              <div className="mt-2 text-[13px] font-semibold text-white/78">
+                Customer history becomes the audience.
+              </div>
+            </div>
+            <motion.div
+              animate={{ opacity: phase === 3 ? 1 : 0.35 }}
+              transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
+              className="hidden text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-[#AFC3FF] sm:block"
+            >
+              Relevant customers
+            </motion.div>
+          </div>
 
-        <div className="mt-2 flex-1">
-          {customers.map((customer) => {
-            const activeCriteria = criteria.slice(0, phase);
-            const stillRelevant =
-              phase === 0 || activeCriteria.every((criterion) => criterion.test(customer));
-            const finalMatch = customer.due && customer.sydney && customer.subscribed;
+          <div className="mt-1">
+            {customers.map((customer) => {
+              const activeCriteria = criteria.slice(0, phase);
+              const stillRelevant =
+                phase === 0 || activeCriteria.every((criterion) => criterion.test(customer));
+              const finalMatch = customer.due && customer.sydney && customer.subscribed;
 
-            return (
-              <motion.div
-                key={customer.name}
-                animate={{
-                  opacity: stillRelevant ? 1 : 0.16,
-                  x: stillRelevant ? 0 : 10,
-                  filter: stillRelevant ? "blur(0px)" : "blur(1.4px)",
-                }}
-                transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
-                className="relative grid min-h-[82px] grid-cols-[1fr_auto] items-center gap-5 border-b border-white/10 py-4 first:border-t-0"
-              >
-                <motion.span
-                  aria-hidden="true"
-                  className="absolute -left-3 top-1/2 h-8 w-[2px] -translate-y-1/2 bg-[#2563FF]"
+              return (
+                <motion.div
+                  key={customer.name}
                   animate={{
-                    opacity: phase === 3 && finalMatch ? 1 : 0,
-                    scaleY: phase === 3 && finalMatch ? 1 : 0.35,
+                    opacity: stillRelevant ? 1 : 0.14,
+                    x: stillRelevant ? 0 : 12,
+                    filter: stillRelevant ? "blur(0px)" : "blur(1.2px)",
                   }}
-                  transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
-                />
+                  transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
+                  className="relative grid min-h-[78px] grid-cols-[1fr_auto] items-center gap-5 border-b border-white/10 py-4"
+                >
+                  <motion.span
+                    aria-hidden="true"
+                    className="absolute -left-3 top-1/2 h-9 w-[2px] -translate-y-1/2 bg-[#2563FF]"
+                    animate={{
+                      opacity: phase === 3 && finalMatch ? 1 : 0,
+                      scaleY: phase === 3 && finalMatch ? 1 : 0.4,
+                    }}
+                    transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
+                  />
 
-                <div>
-                  <div className="text-[18px] font-medium tracking-[-0.025em] text-white sm:text-[20px]">
-                    {customer.name}
+                  <div>
+                    <div className="text-[19px] font-medium tracking-[-0.028em] text-white sm:text-[21px]">
+                      {customer.name}
+                    </div>
+                    <div className="mt-1 text-[10px] text-white/34 sm:text-[11px]">
+                      {customer.relationship}
+                    </div>
                   </div>
-                  <div className="mt-1 text-[11px] text-white/36 sm:text-[12px]">
-                    {customer.relationship}
-                  </div>
-                </div>
 
-                <div className="max-w-[220px] text-right text-[10px] leading-[1.55] text-white/44 sm:text-[11px]">
-                  {customer.context}
-                </div>
-              </motion.div>
-            );
-          })}
+                  <div className="max-w-[230px] text-right text-[10px] leading-[1.55] text-white/40 sm:text-[11px]">
+                    {customer.context}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <motion.div
+            animate={{
+              opacity: phase === 3 || reduced ? 1 : 0.22,
+              y: phase === 3 || reduced ? 0 : 5,
+            }}
+            transition={{ duration: reduced ? 0 : 0.38, ease: EASE }}
+            className="mt-6 max-w-[560px] text-[12px] leading-[1.65] text-white/48"
+          >
+            Mia and Daniel stay in focus because the campaign matches what Zapla already knows about them.
+          </motion.div>
         </div>
-
-        <motion.div
-          animate={{
-            opacity: phase === 3 || reduced ? 1 : 0.2,
-            y: phase === 3 || reduced ? 0 : 6,
-          }}
-          transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
-          className="mt-6 flex items-start justify-between gap-6 border-t border-white/12 pt-5"
-        >
-          <div className="max-w-[420px] text-[12px] leading-[1.65] text-white/54">
-            The audience comes from the customer record. No export. No duplicate customer list.
-          </div>
-          <div className="hidden text-right text-[10px] font-semibold uppercase tracking-[0.15em] text-[#AFC3FF] sm:block">
-            Relevant customers stay in focus
-          </div>
-        </motion.div>
       </div>
     </div>
   );
