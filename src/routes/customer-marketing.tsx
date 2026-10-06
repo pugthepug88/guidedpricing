@@ -71,7 +71,7 @@ function CustomerMarketingPage() {
   return (
     <main
       data-page="customer-marketing"
-      className="min-h-screen overflow-hidden bg-white text-[#111318] antialiased"
+      className="min-h-screen overflow-x-hidden bg-white text-[#111318] antialiased"
       style={{ fontFamily: BODY }}
     >
       <Hero />
@@ -419,9 +419,9 @@ function CustomerMarketingFlow() {
   ] as const;
 
   return (
-    <section id="customer-marketing-flow" className="relative bg-[#FCFCFA] px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
+    <section id="customer-marketing-flow" className="relative border-t border-[#ECEEEB] bg-[#FCFCFA] px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
       <div className="mx-auto max-w-[1320px]">
-        <Reveal className="max-w-[760px]">
+        <Reveal className="max-w-[860px]">
           <p
             className="text-[25px] font-medium leading-[1.18] tracking-[-0.035em] text-[#303632] sm:text-[29px] lg:text-[32px]"
             style={{ fontFamily: DISPLAY }}
@@ -431,13 +431,13 @@ function CustomerMarketingFlow() {
           </p>
         </Reveal>
 
-        <div className="mt-8 grid gap-12 lg:grid-cols-[0.64fr_1.36fr] lg:gap-20">
+        <div className="mt-10 grid gap-10 lg:grid-cols-[0.56fr_1.44fr] lg:gap-16">
           <div>
             {beats.map((beat, index) => (
               <div
                 key={beat.title}
                 ref={beat.ref}
-                className="flex min-h-[64vh] items-center lg:min-h-[76vh]"
+                className="flex min-h-[50vh] flex-col items-start justify-center lg:min-h-[64vh]"
               >
                 <FlowBeat active={active === index} title={beat.title} copy={beat.copy} />
                 <div className="mt-8 lg:hidden">
@@ -447,7 +447,7 @@ function CustomerMarketingFlow() {
             ))}
           </div>
 
-          <div className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
+          <div className="hidden lg:sticky lg:top-[92px] lg:block lg:h-fit lg:self-start">
             <FlowCanvas active={active} />
           </div>
         </div>
@@ -466,14 +466,14 @@ function FlowBeat({
   copy: string;
 }) {
   return (
-    <div className={"max-w-[470px] transition-opacity duration-300 " + (active ? "opacity-100" : "opacity-42")}>
+    <div className={"max-w-[430px] transition-all duration-300 " + (active ? "translate-x-0 opacity-100" : "translate-x-[-4px] opacity-30")}>
       <h2
-        className="text-[30px] font-medium leading-[1.05] tracking-[-0.042em] sm:text-[35px] lg:text-[38px]"
+        className="text-[29px] font-medium leading-[1.05] tracking-[-0.042em] sm:text-[34px] lg:text-[36px]"
         style={{ fontFamily: DISPLAY }}
       >
         {title}
       </h2>
-      <p className="mt-4 max-w-[430px] text-[14px] leading-[1.7] text-[#6A726B]">{copy}</p>
+      <p className="mt-4 max-w-[410px] text-[14px] leading-[1.7] text-[#6A726B]">{copy}</p>
     </div>
   );
 }
@@ -483,22 +483,42 @@ function FlowCanvas({ active }: { active: number }) {
   const labels = ["Contacts", "Automations", "Campaigns", "Performance"];
 
   return (
-    <div className="relative overflow-hidden rounded-[26px] border border-[#D8DED9] bg-white shadow-[0_30px_90px_rgba(38,48,40,.1)]">
+    <div className="relative overflow-hidden rounded-[24px] border border-[#D8DED9] bg-white shadow-[0_32px_92px_rgba(38,48,40,.11)]">
       <ProductBar label={labels[active]} right="Customer Marketing" />
 
-      <div className="flex items-center gap-2 border-b border-[#E6EAE6] bg-white px-5 py-3">
-        {labels.map((label, index) => (
-          <span
-            key={label}
-            className={
-              "h-1.5 rounded-full transition-all duration-300 " +
-              (active === index ? "w-7 bg-[#2563FF]" : "w-1.5 bg-[#D5DAD6]")
-            }
-          />
-        ))}
+      <div className="flex items-center justify-between gap-4 border-b border-[#E6EAE6] bg-white px-5 py-3">
+        <div className="flex items-center gap-2">
+          {labels.map((label, index) => (
+            <span
+              key={label}
+              className={
+                "h-1.5 rounded-full transition-all duration-300 " +
+                (active === index
+                  ? index < 2
+                    ? "w-7 bg-[#2563FF]"
+                    : "w-7 bg-[#DDA34B]"
+                  : "w-1.5 bg-[#D5DAD6]")
+              }
+            />
+          ))}
+        </div>
+        <span className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#818984]">
+          {labels[active]}
+        </span>
       </div>
 
-      <div className="relative min-h-[492px] bg-[#FBFCFA]">
+      <div
+        className={
+          "relative min-h-[540px] transition-colors duration-500 " +
+          (active === 0
+            ? "bg-[#FBFCFA]"
+            : active === 1
+              ? "bg-[#FBFCFF]"
+              : active === 2
+                ? "bg-[#FFFCF7]"
+                : "bg-[#FFFCF8]")
+        }
+      >
         <StateLayer active={active === 0} reduced={reduced}>
           <AudienceState />
         </StateLayer>
@@ -810,12 +830,12 @@ function CampaignExamples() {
   ] as const;
 
   return (
-    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16">
+    <section className="border-t border-[#ECEEEB] bg-white px-5 py-16 sm:px-10 sm:py-20 lg:px-16">
       <div className="mx-auto max-w-[1240px]">
         <Reveal className="grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
           <div className="max-w-[420px]">
             <h2
-              className="text-[31px] font-medium leading-[1.04] tracking-[-0.044em] sm:text-[36px] lg:text-[39px]"
+              className="text-[29px] font-medium leading-[1.04] tracking-[-0.044em] sm:text-[34px] lg:text-[37px]"
               style={{ fontFamily: DISPLAY }}
             >
               Same customer base.
@@ -865,7 +885,7 @@ function ConnectedSystem() {
             <span className="block text-[#AFC3FF]">it stays connected.</span>
           </h2>
           <p className="mt-5 max-w-[570px] text-[14px] leading-[1.7] text-white/58">
-            Build the audience in your CRM. Run the outreach through Automations. Group the initiative in Campaigns. See what engaged, converted and produced business.
+            Build the audience in your CRM. Run the outreach through Automations. Group the initiative in Campaigns. Track what engaged and converted, while replies and customer history stay connected to the record.
           </p>
         </div>
 
