@@ -199,7 +199,7 @@ function Hero() {
           </h1>
 
           <p className="mx-auto mt-4 max-w-[680px] text-[14px] leading-[1.65] text-[#636963] sm:text-[16px]">
-            Use customer data to build the right audience, automate relevant outreach, and see what your marketing turns into.
+            Use what Zapla already knows about your customers to reach the right people, run relevant outreach, and see what turns into business.
           </p>
 
           <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -213,7 +213,7 @@ function Hero() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-4 sm:mt-5 lg:mt-6" delay={0.05}>
+        <Reveal className="mt-7 sm:mt-8 lg:mt-9" delay={0.05}>
           <HeroStage />
         </Reveal>
       </div>
@@ -223,268 +223,198 @@ function Hero() {
 
 function HeroStage() {
   const reduced = !!useReducedMotion();
-  const [active, setActive] = useState(0);
-
-  const states = [
-    {
-      key: "target",
-      label: "Target",
-      title: "Build the right audience",
-      accent: "#99A36D",
-    },
-    {
-      key: "reach",
-      label: "Reach",
-      title: "Run the outreach",
-      accent: "#2563FF",
-    },
-    {
-      key: "convert",
-      label: "Convert",
-      title: "Give them a next step",
-      accent: "#9B86B8",
-    },
-    {
-      key: "measure",
-      label: "Measure",
-      title: "See what it produced",
-      accent: "#DDA34B",
-    },
-  ] as const;
+  const [phase, setPhase] = useState(reduced ? 7 : 0);
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced) {
+      setPhase(7);
+      return;
+    }
+
     const timer = window.setInterval(() => {
-      setActive((current) => (current + 1) % states.length);
-    }, 3400);
+      setPhase((current) => (current + 1) % 8);
+    }, 1150);
+
     return () => window.clearInterval(timer);
-  }, [reduced, states.length]);
+  }, [reduced]);
+
+  const criteria = [
+    { label: "Existing customer", color: "#99A36D" },
+    { label: "Service due", color: "#DDA34B" },
+    { label: "Sydney", color: "#9B86B8" },
+    { label: "Subscribed", color: "#C96C85" },
+  ] as const;
+
+  const workflow = [
+    { label: "Match the right customers", detail: "86 customers", color: "#99A36D", at: 2 },
+    { label: "Send service availability SMS", detail: "Message sent", color: "#2563FF", at: 3 },
+    { label: "Wait if there is no response", detail: "2 days", color: "#DDA34B", at: 4 },
+    { label: "Follow up by email", detail: "Only if needed", color: "#2563FF", at: 5 },
+  ] as const;
 
   return (
     <div className="mx-auto max-w-[1120px]">
-      <div className="grid min-h-[360px] overflow-hidden rounded-[28px] border border-[#DFE4ED] bg-[#F4F7FF] shadow-[0_22px_60px_rgba(37,99,255,.07)] lg:grid-cols-[1.5fr_0.5fr]">
-        <div className="relative min-h-[360px] border-b border-[#DFE4ED] bg-[#F4F7FF] p-5 sm:p-7 lg:border-b-0 lg:border-r lg:p-8">
-          <AnimatePresence mode="wait" initial={false}>
+      <div className="relative min-h-[390px] overflow-hidden rounded-[30px] border border-[#DDE5F5] bg-[#EEF3FF] px-5 py-8 shadow-[0_22px_64px_rgba(37,99,255,.08)] sm:px-8 sm:py-10 lg:px-10 lg:py-11">
+        <div className="relative grid min-h-[300px] items-center gap-7 lg:grid-cols-[0.72fr_1.5fr_0.78fr] lg:gap-10">
+          <div className="relative">
+            <div className="mb-4 text-[8px] font-bold uppercase tracking-[0.14em] text-[#6F7890]">
+              Customer data
+            </div>
+
+            <div className="space-y-3">
+              {criteria.map((item, index) => {
+                const active = phase >= index || phase === 7;
+                return (
+                  <motion.div
+                    key={item.label}
+                    animate={{
+                      opacity: active ? 1 : 0.32,
+                      x: active ? 0 : -6,
+                      scale: active ? 1 : 0.985,
+                    }}
+                    transition={{ duration: reduced ? 0 : 0.28, ease: EASE }}
+                    className="flex items-center gap-3 rounded-[12px] border border-white/95 bg-white px-4 py-3 shadow-[0_8px_22px_rgba(44,56,80,.045)]"
+                  >
+                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.color }} />
+                    <span className="text-[10px] font-semibold text-[#4D5664]">{item.label}</span>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="pointer-events-none absolute right-[-42px] top-1/2 hidden h-px w-[34px] border-t border-dashed border-[#91A2C0] lg:block" />
+            <ArrowRight
+              size={13}
+              className="pointer-events-none absolute right-[-46px] top-[calc(50%-6px)] hidden text-[#788BAE] lg:block"
+            />
+          </div>
+
+          <div className="relative">
             <motion.div
-              key={states[active].key}
-              initial={reduced ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduced ? undefined : { opacity: 0, y: -8 }}
-              transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
-              className="absolute inset-0 p-5 sm:p-7 lg:p-8"
+              animate={{ y: phase >= 2 ? 0 : 4 }}
+              transition={{ duration: reduced ? 0 : 0.3, ease: EASE }}
+              className="overflow-hidden rounded-[22px] border border-[#D8E0EF] bg-white shadow-[0_24px_58px_rgba(43,61,98,.10)]"
             >
-              {active === 0 ? <HeroTargetState /> : null}
-              {active === 1 ? <HeroReachState /> : null}
-              {active === 2 ? <HeroConvertState /> : null}
-              {active === 3 ? <HeroMeasureState /> : null}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        <div className="flex flex-col justify-center bg-white px-5 py-6 sm:px-7 lg:px-8">
-          <div className="mb-5 text-[8px] font-bold uppercase tracking-[0.14em] text-[#9AA09B]">
-            Customer Marketing
-          </div>
-
-          <div className="space-y-2.5">
-            {states.map((state, index) => {
-              const selected = index === active;
-              return (
-                <button
-                  key={state.key}
-                  type="button"
-                  onClick={() => setActive(index)}
-                  className={
-                    "group flex w-full items-center gap-3 rounded-[14px] px-3.5 py-3 text-left transition-all duration-300 " +
-                    (selected
-                      ? "bg-[#F7F8F7] opacity-100 shadow-[0_8px_24px_rgba(31,37,33,.05)]"
-                      : "opacity-35 hover:opacity-65")
-                  }
-                  aria-pressed={selected}
-                >
-                  <span
-                    className={
-                      "h-2.5 w-2.5 shrink-0 rounded-full transition-transform duration-300 " +
-                      (selected ? "scale-100" : "scale-75")
-                    }
-                    style={{ backgroundColor: state.accent }}
+              <div className="flex items-center justify-between border-b border-[#E8ECF3] px-5 py-4 sm:px-6">
+                <div className="flex items-center gap-3">
+                  <img
+                    src="/concept/zapla-logo-dark.svg"
+                    alt="Zapla"
+                    className="h-[20px] w-auto"
                   />
-                  <div className="min-w-0">
-                    <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#808681]">
-                      {state.label}
-                    </div>
+                  <span className="h-4 w-px bg-[#E1E5EB]" />
+                  <span className="text-[8px] font-bold uppercase tracking-[0.13em] text-[#8A929D]">
+                    Customer Marketing
+                  </span>
+                </div>
+
+                <motion.span
+                  animate={{
+                    backgroundColor: phase >= 2 ? "#EEF2FF" : "#F4F5F4",
+                    color: phase >= 2 ? "#2563FF" : "#9BA19C",
+                  }}
+                  className="rounded-full px-3 py-1.5 text-[8px] font-bold uppercase tracking-[0.1em]"
+                >
+                  {phase >= 2 ? "Running" : "Ready"}
+                </motion.span>
+              </div>
+
+              <div className="px-5 py-3 sm:px-6">
+                {workflow.map((step, index) => {
+                  const active = phase >= step.at || phase === 7;
+                  const current = phase === step.at;
+                  return (
                     <div
-                      className={
-                        "mt-0.5 text-[11px] font-semibold tracking-[-0.015em] transition-colors " +
-                        (selected ? "text-[#2F3531]" : "text-[#757B76]")
-                      }
+                      key={step.label}
+                      className="flex items-center justify-between gap-5 border-b border-[#E9EDF2] py-4 last:border-b-0"
                     >
-                      {state.title}
+                      <div className="flex items-center gap-3">
+                        <motion.span
+                          animate={{
+                            backgroundColor: active ? step.color : "#ECEFED",
+                            scale: current ? 1.08 : 1,
+                          }}
+                          transition={{ duration: reduced ? 0 : 0.24, ease: EASE }}
+                          className="grid h-7 w-7 shrink-0 place-items-center rounded-full text-white"
+                        >
+                          {active ? <Check size={12} /> : <span className="h-1.5 w-1.5 rounded-full bg-[#B6BCB7]" />}
+                        </motion.span>
+
+                        <div>
+                          <motion.div
+                            animate={{ color: active ? "#343B45" : "#92999A" }}
+                            className="text-[10px] font-semibold"
+                          >
+                            {step.label}
+                          </motion.div>
+                          <motion.div
+                            animate={{ opacity: active ? 1 : 0.48 }}
+                            className="mt-0.5 text-[8px] text-[#8B929B]"
+                          >
+                            {step.detail}
+                          </motion.div>
+                        </div>
+                      </div>
+
+                      <motion.span
+                        animate={{ opacity: active ? 1 : 0.24 }}
+                        className="text-[8px] font-semibold text-[#A3AAB3]"
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </motion.span>
                     </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+
+            <div className="pointer-events-none absolute right-[-42px] top-1/2 hidden h-px w-[34px] border-t border-dashed border-[#91A2C0] lg:block" />
+            <ArrowRight
+              size={13}
+              className="pointer-events-none absolute right-[-46px] top-[calc(50%-6px)] hidden text-[#788BAE] lg:block"
+            />
+          </div>
+
+          <div className="relative">
+            <div className="mb-4 text-[8px] font-bold uppercase tracking-[0.14em] text-[#6F7890]">
+              Customer action
+            </div>
+
+            <motion.div
+              animate={{
+                opacity: phase >= 6 || phase === 7 ? 1 : 0.2,
+                y: phase >= 6 || phase === 7 ? 0 : 10,
+                scale: phase >= 6 || phase === 7 ? 1 : 0.98,
+              }}
+              transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
+              className="rounded-[18px] border border-[#E5DDE2] bg-white p-5 shadow-[0_16px_40px_rgba(75,58,67,.07)]"
+            >
+              <div className="flex items-center gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-[#F7ECEF] text-[#C96C85]">
+                  <CalendarDays size={15} />
+                </span>
+                <div>
+                  <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#C96C85]">
+                    Booking created
                   </div>
-                </button>
-              );
-            })}
+                  <div className="mt-1 text-[10px] font-semibold text-[#414742]">
+                    Thursday, 10:30am
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 border-t border-[#ECE8EA] pt-4">
+                <div className="text-[9px] leading-[1.55] text-[#6C736D]">
+                  Mia Thompson
+                </div>
+                <div className="mt-1 text-[8px] text-[#9A9F9B]">
+                  Same customer record
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function HeroTargetState() {
-  const rows = [
-    ["Mia Thompson", "Residential · Sydney", true],
-    ["Daniel Kim", "Residential · Sydney", true],
-    ["Priya Shah", "Commercial · Sydney", false],
-    ["Lucas Martin", "Residential · Newcastle", false],
-    ["Sophie Nguyen", "Residential · Sydney", true],
-  ] as const;
-
-  return (
-    <div className="flex h-full flex-col justify-center">
-      <div className="max-w-[560px]">
-        <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#737650]">Target</div>
-        <div className="mt-2 text-[24px] font-semibold tracking-[-0.035em] text-[#262D28]">86 customers matched</div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {["Existing customer", "Service due", "Sydney", "Subscribed"].map((item) => (
-            <span key={item} className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-2 text-[8px] font-semibold text-[#62695F] shadow-[0_4px_14px_rgba(52,63,54,.04)]">
-              <Tag size={9} className="text-[#737650]" />
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-7 max-w-[650px] overflow-hidden rounded-[18px] border border-[#DEE4DD] bg-white">
-        {rows.map(([name, detail, included]) => (
-          <div key={name} className={"flex items-center justify-between border-b border-[#E8EBE7] px-4 py-3.5 last:border-b-0 " + (included ? "" : "opacity-28")}>
-            <div>
-              <div className="text-[10px] font-semibold text-[#3C433E]">{name}</div>
-              <div className="mt-0.5 text-[8px] text-[#969B96]">{detail}</div>
-            </div>
-            <span className={"text-[8px] font-semibold " + (included ? "text-[#737650]" : "text-[#A9AEAA]")}>
-              {included ? "Included" : "Filtered out"}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function HeroReachState() {
-  return (
-    <div className="flex h-full flex-col justify-center">
-      <div>
-        <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#2563FF]">Reach</div>
-        <div className="mt-2 text-[24px] font-semibold tracking-[-0.035em] text-[#262D28]">Run the outreach automatically</div>
-        <div className="mt-1 text-[9px] text-[#858B86]">Audience: 86 matched customers</div>
-      </div>
-
-      <div className="mt-7 max-w-[660px] rounded-[20px] border border-[#DCE5FF] bg-white p-5 shadow-[0_18px_46px_rgba(37,99,255,.07)]">
-        <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-center">
-          <HeroStep accent="#2563FF" label="SMS" value="Send service availability" />
-          <ArrowRight size={13} className="hidden text-[#A2A9A4] sm:block" />
-          <HeroStep accent="#DDA34B" label="Wait" value="2 days if no response" />
-          <ArrowRight size={13} className="hidden text-[#A2A9A4] sm:block" />
-          <HeroStep accent="#2563FF" label="Email" value="Follow up if needed" />
-        </div>
-
-        <div className="mt-4 rounded-[13px] bg-[#F6F7FA] px-4 py-3 text-[10px] leading-[1.55] text-[#646E7C]">
-          “We’ve opened extra service appointments next week. Want the available times?”
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HeroConvertState() {
-  return (
-    <div className="flex h-full flex-col justify-center">
-      <div>
-        <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#9B86B8]">Convert</div>
-        <div className="mt-2 text-[24px] font-semibold tracking-[-0.035em] text-[#262D28]">Give the campaign somewhere to convert</div>
-      </div>
-
-      <div className="mt-7 grid max-w-[680px] gap-3 sm:grid-cols-3">
-        <HeroActionCard accent="#9B86B8" label="Landing page" title="Service offer" icon={<MousePointer2 size={15} />} />
-        <HeroActionCard accent="#E97D62" label="Form" title="Request a quote" icon={<FileText size={15} />} />
-        <HeroActionCard accent="#DDA34B" label="Booking" title="Choose a time" icon={<CalendarDays size={15} />} />
-      </div>
-
-      <div className="mt-5 max-w-[680px] rounded-[16px] border border-[#E4E5E1] bg-white px-5 py-4">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-[#C96C85]">Customer action</div>
-            <div className="mt-1 text-[11px] font-semibold text-[#414742]">Thursday, 10:30am booked</div>
-          </div>
-          <Check size={15} className="text-[#99A36D]" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HeroMeasureState() {
-  return (
-    <div className="flex h-full flex-col justify-center">
-      <div>
-        <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#A66F20]">Measure</div>
-        <div className="mt-2 text-[24px] font-semibold tracking-[-0.035em] text-[#262D28]">See what the campaign produced</div>
-        <div className="mt-1 text-[9px] text-[#858B86]">Campaigns · Service availability</div>
-      </div>
-
-      <div className="mt-7 max-w-[680px] overflow-hidden rounded-[20px] border border-[#E3E5E1] bg-white">
-        <div className="grid grid-cols-2 gap-px bg-[#E7E9E5] sm:grid-cols-4">
-          {["Reached", "Engaged", "Converted", "Won deals"].map((metric) => (
-            <div key={metric} className="bg-white p-4">
-              <div className="text-[8px] text-[#888E89]">{metric}</div>
-              <div className="mt-3 text-[22px] font-semibold text-[#505651]">—</div>
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-2 gap-px border-t border-[#E7E9E5] bg-[#E7E9E5]">
-          {["Costs", "Return on cost"].map((metric) => (
-            <div key={metric} className="bg-[#FFF9EE] p-4">
-              <div className="text-[8px] text-[#9B7D4F]">{metric}</div>
-              <div className="mt-3 text-[18px] font-semibold text-[#6D5E48]">—</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HeroStep({ accent, label, value }: { accent: string; label: string; value: string }) {
-  return (
-    <div className="rounded-[14px] border border-[#E5E8E5] bg-white p-4">
-      <span className="block h-2 w-2 rounded-full" style={{ backgroundColor: accent }} />
-      <div className="mt-3 text-[7px] font-bold uppercase tracking-[0.12em] text-[#888E89]">{label}</div>
-      <div className="mt-1 text-[9px] font-semibold leading-[1.45] text-[#4A514C]">{value}</div>
-    </div>
-  );
-}
-
-function HeroActionCard({
-  accent,
-  label,
-  title,
-  icon,
-}: {
-  accent: string;
-  label: string;
-  title: string;
-  icon: ReactNode;
-}) {
-  return (
-    <div className="rounded-[16px] border border-[#E3E4E0] bg-white p-4">
-      <div className="flex items-center justify-between">
-        <span className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#8B908B]">{label}</span>
-        <span style={{ color: accent }}>{icon}</span>
-      </div>
-      <div className="mt-4 text-[10px] font-semibold text-[#424843]">{title}</div>
     </div>
   );
 }
