@@ -179,7 +179,7 @@ function Hero() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-[760px] text-[14px] leading-[1.7] text-[#666C67] sm:text-[16px]">
-            Use the customer data already in Zapla to build the right audience, then reach them by SMS or email without exporting a list.
+            Use what Zapla already knows about your customers to reach the right people, run relevant outreach, and see what turns into business.
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-3">
