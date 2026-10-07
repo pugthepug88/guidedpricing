@@ -516,6 +516,7 @@ function HeroCustomerScene() {
                     </h3>
                     <div
                       className="mt-5 flex -space-x-2"
+                      role="group"
                       aria-label={members.map((person) => person.name).join(", ")}
                     >
                       {members.map((person, index) => (
