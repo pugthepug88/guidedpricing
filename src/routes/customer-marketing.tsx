@@ -438,7 +438,7 @@ function HeroCustomerScene() {
             <div data-automation-flow>
               {steps.map(({ label, Icon }, index) => (
                 <div key={label}>
-                  <div className="flex h-[54px] items-center gap-3 rounded-[12px] border border-[#1E2B29]/[0.12] bg-white px-4 shadow-[0_6px_18px_rgba(30,43,41,.05)]">
+                  <div className="flex h-[54px] items-center justify-center gap-3 rounded-[12px] border border-[#1E2B29]/[0.12] bg-white px-4 shadow-[0_6px_18px_rgba(30,43,41,.05)]">
                     <Icon size={19} strokeWidth={1.6} className="text-[#2563FF]" />
                     <span className="text-[12px] font-semibold text-[#1E2B29]">{label}</span>
                   </div>
