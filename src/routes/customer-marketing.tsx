@@ -234,9 +234,9 @@ function Hero() {
         </Reveal>
       </div>
 
-      <Reveal className="mt-16 sm:mt-20 lg:mt-20" delay={0.05}>
+      <div className="mt-16 sm:mt-20 lg:mt-20">
         <HeroCustomerScene />
-      </Reveal>
+      </div>
     </section>
   );
 }
@@ -300,68 +300,26 @@ function AudiencePortraits({
   );
 }
 
-const HERO_WORKFLOWS = [
-  {
-    title: "Service reminder",
-    first: "Send SMS reminder",
-    last: "Email if no reply",
-    firstChannel: "SMS",
-    lastChannel: "Email",
-    FirstIcon: MessageCircle,
-    LastIcon: Mail,
-  },
-  {
-    title: "VIP invitation",
-    first: "Email early access",
-    last: "Send SMS follow-up",
-    firstChannel: "Email",
-    lastChannel: "SMS",
-    FirstIcon: Mail,
-    LastIcon: MessageCircle,
-  },
-  {
-    title: "Premium offer",
-    first: "Email a tailored offer",
-    last: "AI follow-up call",
-    firstChannel: "Email",
-    lastChannel: "AI calls",
-    FirstIcon: Mail,
-    LastIcon: PhoneCall,
-  },
-  {
-    title: "Reconnect campaign",
-    first: "Send a check-in SMS",
-    last: "Email if no reply",
-    firstChannel: "SMS",
-    lastChannel: "Email",
-    FirstIcon: MessageCircle,
-    LastIcon: Mail,
-  },
-] as const;
-
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
-  const scene = useRef<HTMLDivElement>(null);
-  const visible = useInView(scene, { amount: 0.2 });
-  const [playhead, setPlayhead] = useState(0);
+  const audienceRow = useRef<HTMLDivElement>(null);
+  const visible = useInView(audienceRow, { amount: 0.5 });
+  const [audienceIndex, setAudienceIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   useEffect(() => {
     if (reduced || !visible || paused) return;
-    const timer = window.setInterval(() => setPlayhead((value) => value + 1), 1000);
+    const timer = window.setInterval(
+      () => setAudienceIndex((value) => (value + 1) % HERO_AUDIENCES.length),
+      6000,
+    );
     return () => window.clearInterval(timer);
   }, [reduced, visible, paused]);
-  const cursor = reduced ? 0 : Math.floor(playhead / 6);
-  const stage = reduced ? 2 : Math.min(2, Math.floor((playhead % 6) / 2));
-  const audienceIndex = [0, 1, 0, 3, 2][cursor % 5];
-  const audience = HERO_AUDIENCES[audienceIndex];
-  const workflow = HERO_WORKFLOWS[audienceIndex];
+  const audience = HERO_AUDIENCES[reduced ? 0 : audienceIndex];
   const steps = [
-    { label: workflow.first, Icon: workflow.FirstIcon },
+    { label: "Send SMS", Icon: MessageCircle },
     { label: "Wait 2 days", Icon: Clock3 },
-    { label: workflow.last, Icon: workflow.LastIcon },
+    { label: "Email if no reply", Icon: Mail },
   ];
-  const currentChannel =
-    stage === 2 ? workflow.lastChannel : stage === 0 ? workflow.firstChannel : "";
   const channels = [
     { label: "SMS", Icon: MessageCircle, tone: "#DDA34B" },
     { label: "Email", Icon: Mail, tone: "#9B86B8" },
@@ -376,29 +334,10 @@ function HeroCustomerScene() {
     "right-0 top-[286px] w-[59%]",
   ];
   return (
-    <div
-      ref={scene}
-      data-marketing-story
-      data-audience={audience.key}
-      data-story-stage={stage}
-      className="mx-auto max-w-[1360px] px-5 pb-20 sm:px-8 sm:pb-24"
-    >
+    <div data-marketing-story className="mx-auto max-w-[1360px] px-5 pb-20 sm:px-8 sm:pb-24">
       <div className="grid items-start gap-12 md:grid-cols-2 lg:grid-cols-[1.05fr_1.1fr_1fr] lg:gap-7">
         <div>
-          <div className="mb-7 flex h-5 items-center justify-center gap-3">
-            <h3 className="text-[14px] font-medium text-[#1E2B29]">Customers</h3>
-            {!reduced && (
-              <button
-                type="button"
-                onClick={() => setPaused((value) => !value)}
-                aria-label={paused ? "Play animation" : "Pause animation"}
-                title={paused ? "Play animation" : "Pause animation"}
-                className="rounded p-1 text-[#1E2B29]/45 hover:text-[#1E2B29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#2563FF]"
-              >
-                {paused ? <Play size={12} /> : <Pause size={12} />}
-              </button>
-            )}
-          </div>
+          <h3 className="mb-7 h-5 text-center text-[14px] font-medium text-[#1E2B29]">Customers</h3>
           <div className="relative isolate">
             <div
               aria-hidden="true"
@@ -409,25 +348,20 @@ function HeroCustomerScene() {
               }}
             />
             <div className="relative h-[402px] overflow-hidden">
-              {Array.from({ length: 7 }, (_, slot) => {
-                const occurrence = cursor + slot - 3;
-                const person = HERO_CUSTOMERS[(((occurrence + 2) % 5) + 5) % 5];
-                const distance = Math.abs(occurrence - cursor);
+              {HERO_CUSTOMERS.map((person, index) => {
+                const distance = Math.abs(index - 2);
                 const focus = distance === 0;
                 return (
-                  <motion.div
-                    key={occurrence}
-                    initial={false}
-                    aria-hidden={distance > 2}
-                    animate={{
-                      y: 164 + (occurrence - cursor) * 78,
-                      x: distance === 0 ? 0 : distance === 1 ? 14 : 30,
-                      opacity: focus ? 1 : distance === 1 ? 0.66 : distance === 2 ? 0.48 : 0,
+                  <div
+                    key={person.cell}
+                    style={{
+                      top: 8 + index * 78,
+                      left: distance === 0 ? 0 : distance === 1 ? 14 : 30,
+                      opacity: focus ? 1 : distance === 1 ? 0.66 : 0.48,
                       borderColor: focus ? "#2563FF" : "#FFFFFF",
                       width: focus ? "100%" : "calc(100% - 52px)",
                     }}
-                    transition={{ duration: reduced ? 0 : 1.1, ease: EASE }}
-                    className="absolute left-0 top-0 flex min-h-[68px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3"
+                    className="absolute flex min-h-[68px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3"
                   >
                     <MarketingAvatar cell={person.cell} size={40} className="shadow-none" />
                     <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
@@ -438,7 +372,7 @@ function HeroCustomerScene() {
                         ))}
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
@@ -449,58 +383,48 @@ function HeroCustomerScene() {
             Smart Lists
           </h3>
           <div className="relative mx-auto h-[410px] max-w-[420px]">
-            {HERO_AUDIENCES.map((list, index) => {
-              const selected = list.key === audience.key;
-              return (
-                <motion.article
-                  key={list.key}
-                  data-smart-list={list.key}
-                  data-selected={selected}
-                  initial={false}
-                  animate={{
-                    borderColor: selected ? list.tone + "88" : "#11131808",
-                    backgroundColor: selected ? list.tone + "12" : "#FFFFFF",
-                    boxShadow: selected
-                      ? "0 14px 34px -22px " + list.tone + "88"
-                      : "0 10px 30px -22px #1E2B2920",
-                  }}
-                  transition={{ duration: reduced ? 0 : 0.7 }}
-                  style={{ zIndex: selected ? 2 : 1 }}
-                  className={"absolute rounded-[18px] border p-4 " + positions[index]}
-                >
-                  <AudiencePill label={list.label} />
-                  <div className="mt-3">
-                    <AudiencePortraits members={list.members} more={list.more} />
-                  </div>
-                </motion.article>
-              );
-            })}
+            {HERO_AUDIENCES.map((list, index) => (
+              <article
+                key={list.key}
+                data-smart-list={list.key}
+                className={
+                  "absolute rounded-[18px] border border-[#111318]/[0.04] bg-white p-4 shadow-[0_10px_30px_-22px_rgba(30,43,41,.12)] " +
+                  positions[index]
+                }
+              >
+                <AudiencePill label={list.label} />
+                <div className="mt-3">
+                  <AudiencePortraits members={list.members} more={list.more} />
+                </div>
+              </article>
+            ))}
           </div>
         </div>
         <div
           data-outreach-example
           className="md:col-span-2 md:mx-auto md:w-full md:max-w-[460px] lg:col-span-1"
         >
-          <h3 className="mb-7 h-5 text-center text-[14px] font-medium text-[#1E2B29]">
-            Automated outreach
-          </h3>
+          <div className="mb-7 flex h-5 items-center justify-center gap-3">
+            <h3 className="text-[14px] font-medium text-[#1E2B29]">Automated outreach</h3>
+            {!reduced && (
+              <button
+                type="button"
+                onClick={() => setPaused((value) => !value)}
+                aria-label={paused ? "Play audience rotation" : "Pause audience rotation"}
+                title={paused ? "Play audience rotation" : "Pause audience rotation"}
+                className="rounded p-1 text-[#1E2B29]/45 hover:text-[#1E2B29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#2563FF]"
+              >
+                {paused ? <Play size={12} /> : <Pause size={12} />}
+              </button>
+            )}
+          </div>
           <div className="relative h-[410px]">
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 360 350"
-              preserveAspectRatio="none"
-              className="pointer-events-none absolute inset-x-0 top-0 h-[350px] w-full overflow-visible"
+            <div
+              ref={audienceRow}
+              data-audience-row
+              data-audience={audience.key}
+              className="relative h-[85px] overflow-hidden rounded-[14px] border border-[#111318]/[0.05] bg-white px-4 py-3 shadow-[0_12px_35px_-25px_rgba(30,43,41,.2)]"
             >
-              <path
-                d="M42 49 C20 75 116 75 110 115 S30 142 50 185 S130 222 116 274"
-                fill="none"
-                stroke="#9B86B8"
-                strokeOpacity=".18"
-                strokeWidth="8"
-                strokeLinecap="round"
-              />
-            </svg>
-            <div className="relative h-[85px] overflow-hidden rounded-full border border-[#111318]/[0.05] bg-white px-4 py-3 shadow-[0_12px_35px_-25px_rgba(30,43,41,.2)]">
               <AnimatePresence initial={false} mode="wait">
                 <motion.div
                   key={audience.key}
@@ -512,50 +436,41 @@ function HeroCustomerScene() {
                 >
                   <AudiencePortraits members={audience.members} more={audience.more} size={28} />
                   <div className="min-w-0">
-                    <h4 className="mb-2 text-[13px] font-semibold text-[#1E2B29]">
-                      {workflow.title}
-                    </h4>
+                    <p className="mb-2 text-[12px] font-semibold text-[#1E2B29]">
+                      Smart List audience
+                    </p>
                     <AudiencePill label={audience.label} />
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
-            <div className="relative mt-6 space-y-5">
+            <div
+              aria-hidden="true"
+              className="mx-auto h-6 w-0 border-l-2 border-dotted border-[#1E2B29]/25"
+            />
+            <div data-automation-flow>
               {steps.map(({ label, Icon }, index) => (
-                <motion.div
-                  key={index}
-                  initial={false}
-                  animate={{
-                    borderColor: stage === index ? "#2563FF35" : "#11131808",
-                    backgroundColor: stage === index ? "#2563FF06" : "#FFFFFF",
-                  }}
-                  transition={{ duration: reduced ? 0 : 0.6 }}
-                  className={
-                    "flex h-[54px] items-center gap-3 rounded-full border px-4 shadow-[0_8px_25px_-22px_rgba(30,43,41,.2)] " +
-                    (index === 1 ? "mr-7" : "ml-7")
-                  }
-                >
-                  <Icon
-                    size={19}
-                    strokeWidth={1.6}
-                    className={stage >= index ? "text-[#2563FF]" : "text-[#1E2B29]/50"}
-                  />
-                  <span className="text-[12px] font-semibold text-[#1E2B29]">{label}</span>
-                </motion.div>
+                <div key={label}>
+                  <div className="flex h-[54px] items-center gap-3 rounded-[12px] border border-[#111318]/[0.05] bg-white px-4 shadow-[0_8px_25px_-22px_rgba(30,43,41,.2)]">
+                    <Icon size={19} strokeWidth={1.6} className="text-[#2563FF]" />
+                    <span className="text-[12px] font-semibold text-[#1E2B29]">{label}</span>
+                  </div>
+                  {index < steps.length - 1 && (
+                    <div
+                      aria-hidden="true"
+                      className="mx-auto h-5 w-0 border-l-2 border-dotted border-[#1E2B29]/25"
+                    />
+                  )}
+                </div>
               ))}
             </div>
             <div className="mt-6 flex items-center justify-between gap-1 rounded-[16px] border border-[#111318]/[0.04] bg-white px-3 py-3 shadow-[0_10px_30px_-22px_rgba(30,43,41,.18)]">
               {channels.map(({ label, Icon, tone }) => (
                 <div
                   key={label}
-                  className="flex min-w-0 flex-col items-center gap-2"
-                  style={{ color: currentChannel === label ? "#2563FF" : "#1E2B29" }}
+                  className="flex min-w-0 flex-col items-center gap-2 text-[#1E2B29]"
                 >
-                  <Icon
-                    size={17}
-                    strokeWidth={1.6}
-                    style={{ color: currentChannel === label ? "#2563FF" : tone }}
-                  />
+                  <Icon size={17} strokeWidth={1.6} style={{ color: tone }} />
                   <span className="whitespace-nowrap text-[9px] font-medium sm:text-[10px]">
                     {label}
                   </span>
