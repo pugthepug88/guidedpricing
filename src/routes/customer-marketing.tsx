@@ -32,25 +32,25 @@ const HERO_CUSTOMERS = [
     name: "Mia Thompson",
     meta: "Sydney",
     cell: 9,
-    tags: ["Service due", "High spend"],
+    tags: ["Service due", "VIP"],
   },
   {
     name: "Daniel Brooks",
     meta: "Melbourne",
     cell: 4,
-    tags: ["VIP", "Past customer"],
+    tags: ["VIP"],
   },
   {
     name: "Priya Sharma",
     meta: "Sydney",
     cell: 13,
-    tags: ["Quote viewed", "Sydney"],
+    tags: ["High spend"],
   },
   {
     name: "Chloe Martin",
     meta: "Brisbane",
     cell: 2,
-    tags: ["No booking 90 days", "High spend"],
+    tags: ["Service due", "High spend"],
   },
 ] as const;
 
@@ -249,17 +249,107 @@ function Hero() {
   );
 }
 
-const HERO_PHASES = ["Customer", "Audience", "Message", "Booking", "Result"] as const;
+const HERO_PHASES = ["Customer", "Audience", "Message", "Action", "Result"] as const;
+const HERO_AUDIENCES = [
+  {
+    key: "service",
+    label: "Service due",
+    tag: "Service due",
+    tone: "#9A6B2C",
+    soft: "#F6EBD8",
+    members: [9, 2],
+    customer: 9,
+    campaign: "Service recall",
+    summary: "A timely reminder becomes the next booking.",
+    signal: "Her next service is due.",
+    field: "Next service",
+    value: "This week",
+    criterion: "Past customers due for service this week.",
+    excluded: "Customers who are not due stay out of this list.",
+    channel: "SMS",
+    timing: "When service is due",
+    message: "Hi Mia, your next service is due. Ready to choose a time? Book here.",
+    destination: "Service booking page",
+    actionTitle: "Mia books her next service.",
+    action: "Thursday, 10:30 am",
+    actionDetail: "Service appointment confirmed",
+    resultTitle: "A booking you can trace.",
+    result: "Mia booked a service",
+  },
+  {
+    key: "vip",
+    label: "VIP",
+    tag: "VIP",
+    tone: "#79648E",
+    soft: "#F0EAF5",
+    members: [9, 4],
+    customer: 4,
+    campaign: "VIP preview",
+    summary: "Give your best customers the first invitation.",
+    signal: "He is on your VIP list.",
+    field: "Customer tag",
+    value: "VIP",
+    criterion: "Customers tagged VIP, invited to preview a new maintenance plan.",
+    excluded: "The invitation goes to this audience, not everyone.",
+    channel: "Email",
+    timing: "Before the wider launch",
+    message:
+      "Hi Daniel, take an early look at our new maintenance plan before launch. Interested? Request your preview here.",
+    destination: "VIP preview page",
+    actionTitle: "Daniel requests an early look.",
+    action: "Preview request received",
+    actionDetail: "Submitted through the preview page",
+    resultTitle: "An invitation. A response.",
+    result: "Daniel requested a preview",
+  },
+  {
+    key: "spend",
+    label: "High spend",
+    tag: "High spend",
+    tone: "#697647",
+    soft: "#EDF0E3",
+    members: [13, 2],
+    customer: 13,
+    campaign: "Premium service launch",
+    summary: "A relevant offer reaches the right customers.",
+    signal: "Her history points to a fit.",
+    field: "Customer segment",
+    value: "High spend",
+    criterion: "High spend customers, selected for a premium maintenance plan.",
+    excluded: "The offer stays relevant to their customer history.",
+    channel: "Email",
+    timing: "At the premium launch",
+    message:
+      "Hi Priya, our new premium maintenance plan may suit you. Explore the plan and book a consultation to find out more.",
+    destination: "Premium service page",
+    actionTitle: "Priya books a consultation.",
+    action: "Consultation booked",
+    actionDetail: "Booked through the premium service page",
+    resultTitle: "An offer with a next step.",
+    result: "Priya booked a consultation",
+  },
+] as const;
 
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
   const stage = useRef<HTMLDivElement>(null);
   const visible = useInView(stage, { amount: 0.4 });
+  const [audienceIndex, setAudienceIndex] = useState(0);
   const [step, setStep] = useState(0);
   const [paused, setPaused] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
-  const [selected, setSelected] = useState(false);
+  const audience = HERO_AUDIENCES[audienceIndex];
+  const customer = HERO_CUSTOMERS.find((person) => person.cell === audience.customer)!;
   const shownStep = reduced && !paused ? 4 : step;
+  const members = HERO_CUSTOMERS.filter((person) =>
+    (audience.members as readonly number[]).includes(person.cell),
+  );
+  const orderedCustomers = [
+    ...members,
+    ...HERO_CUSTOMERS.filter(
+      (person) => !(audience.members as readonly number[]).includes(person.cell),
+    ),
+  ];
 
   useEffect(() => {
     const update = () => setPageVisible(document.visibilityState === "visible");
@@ -269,17 +359,13 @@ function HeroCustomerScene() {
   }, []);
 
   useEffect(() => {
-    if (visible) setSelected(true);
-  }, [visible]);
-
-  useEffect(() => {
     if (reduced || paused || !visible || !pageVisible || step === 4) return;
     const timer = window.setTimeout(
       () => setStep((current) => current + 1),
       step === 2 ? 4300 : 3300,
     );
     return () => window.clearTimeout(timer);
-  }, [reduced, paused, visible, pageVisible, step]);
+  }, [reduced, paused, visible, pageVisible, step, audienceIndex]);
 
   return (
     <div
@@ -287,64 +373,94 @@ function HeroCustomerScene() {
       data-marketing-story
       className="mx-auto max-w-[840px] px-5 pb-20 sm:px-8 sm:pb-24"
     >
-      <div className="mb-8 text-center sm:mb-10">
+      <div className="mb-6 text-center sm:mb-8">
         <p className="text-[18px] font-medium tracking-[-0.025em] text-[#1E2B29] sm:text-[21px]">
-          A service reminder becomes the next booking.
+          {audience.summary}
         </p>
-        <p className="mt-2 text-[12px] text-[#737A74]">Illustrative customer story</p>
+        <p className="mt-2 text-[12px] text-[#737A74]">Illustrative customer stories</p>
+        <div
+          className="mt-4 flex flex-wrap justify-center gap-1"
+          aria-label="Choose a Smart List example"
+        >
+          {HERO_AUDIENCES.map((item, index) => (
+            <button
+              key={item.key}
+              type="button"
+              aria-pressed={audienceIndex === index}
+              onClick={() => {
+                if (index === audienceIndex) return;
+                setAudienceIndex(index);
+                setStep(1);
+                setPaused(reduced);
+              }}
+              className={
+                "min-h-[44px] border-b-2 px-4 text-[12px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563FF] " +
+                (audienceIndex === index
+                  ? "border-[#1E2B29] text-[#1E2B29]"
+                  : "border-transparent text-[#69716B] hover:text-[#111318]")
+              }
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="grid items-center gap-5 md:grid-cols-[300px_1fr] md:gap-14">
         <div className="relative hidden h-[292px] overflow-hidden md:block" aria-hidden="true">
-          <motion.div
-            className="absolute inset-x-1 top-[94px] space-y-5"
-            initial={false}
-            animate={{ y: reduced || selected ? -84 : 0 }}
-            transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
-          >
-            {[HERO_CUSTOMERS[1], HERO_CUSTOMERS[0], HERO_CUSTOMERS[2], HERO_CUSTOMERS[3]].map(
-              (customer) => {
-                const active = customer.cell === 9;
-                return (
-                  <div
-                    key={customer.name}
-                    className={
-                      "flex h-[64px] items-center gap-3 rounded-[12px] border bg-white px-4 " +
-                      (active
-                        ? "border-[#2563FF]/50 shadow-[0_10px_26px_rgba(37,99,255,.09)]"
-                        : "border-[#E2E5E0] opacity-60")
-                    }
-                  >
-                    <MarketingAvatar cell={customer.cell} size={36} muted={!active} />
-                    <div className="min-w-0">
-                      <div className="truncate text-[12px] font-semibold text-[#1E2B29]">
-                        {customer.name}
-                      </div>
-                      <div className="mt-1 text-[11px] text-[#666E67]">
-                        {active
-                          ? "Next service due this week"
-                          : customer.cell === 4
-                            ? "Next service due next month"
-                            : customer.cell === 13
-                              ? "Serviced last week"
-                              : "Next service due in November"}
-                      </div>
+          <div className="absolute inset-x-1 top-[10px] space-y-5">
+            {orderedCustomers.map((person) => {
+              const match = (audience.members as readonly number[]).includes(person.cell);
+              const primary = person.cell === customer.cell;
+              return (
+                <motion.div
+                  key={person.cell}
+                  layout={reduced ? false : "position"}
+                  animate={{ opacity: match ? 1 : 0.6 }}
+                  transition={{ duration: reduced ? 0 : 0.5, ease: EASE }}
+                  className={
+                    "flex h-[64px] items-center gap-3 rounded-[12px] border bg-white px-4 " +
+                    (primary
+                      ? "border-[#2563FF]/50 shadow-[0_10px_26px_rgba(37,99,255,.09)]"
+                      : "border-[#E2E5E0]")
+                  }
+                >
+                  <MarketingAvatar cell={person.cell} size={36} muted={!match} />
+                  <div className="min-w-0">
+                    <p className="truncate text-[12px] font-semibold text-[#1E2B29]">
+                      {person.name}
+                    </p>
+                    <div className="mt-1 flex gap-1.5">
+                      {person.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-[4px] px-1.5 py-0.5 text-[10px] leading-[1.3]"
+                          style={{
+                            backgroundColor: tag === audience.tag ? audience.soft : "#F2F3EF",
+                            color: tag === audience.tag ? audience.tone : "#69716B",
+                            fontWeight: tag === audience.tag ? 600 : 400,
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                );
-              },
-            )}
-          </motion.div>
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-5 bg-gradient-to-b from-[#FCFCFA] to-transparent" />
+                </motion.div>
+              );
+            })}
+          </div>
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[#FCFCFA] to-transparent" />
         </div>
 
         <div className="relative overflow-hidden rounded-[18px] border border-[#DBE0DB] bg-white shadow-[0_18px_50px_-20px_rgba(30,43,41,.16)]">
           <div className="flex items-center gap-3 border-b border-[#E9ECE6] px-5 py-4 sm:px-6">
-            <MarketingAvatar cell={9} size={38} />
-            <div>
-              <div className="text-[13px] font-semibold text-[#1E2B29]">Mia Thompson</div>
-              <div className="mt-0.5 text-[12px] text-[#69716B]">Service recall</div>
+            <MarketingAvatar cell={customer.cell} size={38} />
+            <div className="min-w-0">
+              <div className="truncate text-[13px] font-semibold text-[#1E2B29]">
+                {customer.name}
+              </div>
+              <div className="mt-0.5 text-[12px] text-[#69716B]">{audience.campaign}</div>
             </div>
             <ZaplaPetal size={26} className="ml-auto shrink-0" />
           </div>
@@ -355,7 +471,7 @@ function HeroCustomerScene() {
           >
             <AnimatePresence initial={false} mode="wait">
               <motion.div
-                key={shownStep}
+                key={`${audience.key}-${shownStep}`}
                 data-story-phase={HERO_PHASES[shownStep]}
                 className="absolute inset-0 flex flex-col px-5 py-5 sm:px-6 sm:py-6"
                 initial={reduced ? false : { opacity: 0, y: 8 }}
@@ -365,80 +481,103 @@ function HeroCustomerScene() {
               >
                 {shownStep === 0 && (
                   <>
-                    <p className="text-[12px] font-semibold text-[#9A6B2C]">Customer context</p>
+                    <p className="text-[12px] font-semibold" style={{ color: audience.tone }}>
+                      Customer context
+                    </p>
                     <h3 className="mt-3 text-[25px] font-medium leading-[1.12] tracking-[-0.04em]">
-                      Her next service is due.
+                      {audience.signal}
                     </h3>
                     <dl className="mt-6 space-y-3 text-[12px]">
                       <div className="flex justify-between gap-4">
-                        <dt className="text-[#69716B]">Last service</dt>
-                        <dd>Six months ago</dd>
+                        <dt className="text-[#69716B]">{audience.field}</dt>
+                        <dd className="font-semibold text-[#2563FF]">{audience.value}</dd>
                       </div>
                       <div className="flex justify-between gap-4">
-                        <dt className="text-[#69716B]">Next service</dt>
-                        <dd className="font-semibold text-[#2563FF]">This week</dd>
+                        <dt className="text-[#69716B]">Relevant audience</dt>
+                        <dd>{audience.label}</dd>
                       </div>
                     </dl>
                     <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
-                      The right reason to reach out is already in her customer record.
+                      The reason to reach out is already in the customer record.
                     </p>
                   </>
                 )}
                 {shownStep === 1 && (
                   <>
-                    <p className="text-[12px] font-semibold text-[#9A6B2C]">Smart List</p>
+                    <p className="text-[12px] font-semibold" style={{ color: audience.tone }}>
+                      Smart List
+                    </p>
                     <h3 className="mt-3 text-[25px] font-medium leading-[1.12] tracking-[-0.04em]">
-                      Due for service this week.
+                      {audience.label === "Service due"
+                        ? "Due for service this week."
+                        : audience.label === "VIP"
+                          ? "Your VIP customers."
+                          : "Your high spend customers."}
                     </h3>
-                    <div className="mt-5 flex -space-x-2">
-                      {[9, 7, 16, 20].map((cell) => (
-                        <MarketingAvatar
-                          key={cell}
-                          cell={cell}
-                          size={42}
-                          className="border-[3px] border-white"
-                        />
+                    <div
+                      className="mt-5 flex -space-x-2"
+                      aria-label={members.map((person) => person.name).join(", ")}
+                    >
+                      {members.map((person, index) => (
+                        <motion.div
+                          key={person.cell}
+                          initial={reduced ? false : { opacity: 0, y: 14 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{
+                            duration: reduced ? 0 : 0.35,
+                            delay: reduced ? 0 : index * 0.12,
+                            ease: EASE,
+                          }}
+                        >
+                          <MarketingAvatar
+                            cell={person.cell}
+                            size={44}
+                            className="border-[3px] border-white"
+                          />
+                        </motion.div>
                       ))}
                     </div>
                     <p className="mt-4 text-[13px] leading-[1.6] text-[#4D5850]">
-                      Mia joins past customers whose next service is due this week.
+                      {audience.criterion}
                     </p>
-                    <p className="mt-auto text-[12px] text-[#69716B]">
-                      Recent customers stay out of this audience.
+                    <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
+                      {audience.excluded}
                     </p>
                   </>
                 )}
                 {shownStep === 2 && (
                   <>
                     <div className="flex justify-between gap-4 text-[12px]">
-                      <p className="font-semibold text-[#697647]">SMS automation</p>
-                      <span className="text-[#69716B]">When service is due</span>
+                      <p className="font-semibold text-[#697647]">{audience.channel} automation</p>
+                      <span className="text-right text-[#69716B]">{audience.timing}</span>
                     </div>
+                    {audience.channel === "Email" && (
+                      <p className="mt-3 text-[12px] font-semibold text-[#1E2B29]">
+                        Subject: {audience.campaign}
+                      </p>
+                    )}
                     <div className="mt-4 rounded-[12px] rounded-bl-[3px] bg-[#F2F4EC] px-4 py-3 text-[14px] leading-[1.6] text-[#1E2B29]">
-                      Hi Mia, your next service is due. Ready to choose a time? Book here.
+                      {audience.message}
                     </div>
                     <div className="mt-3 text-[12px] font-semibold text-[#2563FF]">
-                      Link to the service booking page
+                      {audience.destination}
                     </div>
-                    <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
-                      Relevant customer. Relevant timing. A clear next step.
-                    </p>
                   </>
                 )}
                 {shownStep === 3 && (
                   <>
-                    <p className="text-[12px] font-semibold text-[#79648E]">Booking page</p>
+                    <p className="text-[12px] font-semibold text-[#79648E]">
+                      {audience.destination}
+                    </p>
                     <h3 className="mt-3 text-[25px] font-medium leading-[1.12] tracking-[-0.04em]">
-                      Mia books her next service.
+                      {audience.actionTitle}
                     </h3>
                     <div className="mt-5 border-l-[3px] border-[#9B86B8] pl-4">
-                      <p className="text-[17px] font-semibold text-[#1E2B29]">Thursday, 10:30 am</p>
-                      <p className="mt-2 text-[12px] text-[#69716B]">
-                        Service appointment confirmed
-                      </p>
+                      <p className="text-[17px] font-semibold text-[#1E2B29]">{audience.action}</p>
+                      <p className="mt-2 text-[12px] text-[#69716B]">{audience.actionDetail}</p>
                     </div>
                     <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
-                      The message gives her somewhere to act.
+                      A clear next step, connected to the outreach.
                     </p>
                   </>
                 )}
@@ -448,20 +587,21 @@ function HeroCustomerScene() {
                       Campaigns attribution
                     </p>
                     <h3 className="mt-3 text-[25px] font-medium leading-[1.12] tracking-[-0.04em]">
-                      A booking you can trace.
+                      {audience.resultTitle}
                     </h3>
                     <dl className="mt-5 space-y-3 text-[12px]">
                       <div className="flex justify-between gap-4">
-                        <dt className="text-[#69716B]">Initiative</dt>
-                        <dd className="font-semibold">Service recall</dd>
+                        <dt className="shrink-0 text-[#69716B]">Initiative</dt>
+                        <dd className="text-right font-semibold">{audience.campaign}</dd>
                       </div>
                       <div className="flex justify-between gap-4">
-                        <dt className="text-[#69716B]">Customer action</dt>
-                        <dd className="font-semibold">Mia booked a service</dd>
+                        <dt className="shrink-0 text-[#69716B]">Customer action</dt>
+                        <dd className="text-right font-semibold">{audience.result}</dd>
                       </div>
                     </dl>
                     <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
-                      The audience, SMS and booking stay connected to the same campaign.
+                      The audience, {audience.channel.toLowerCase()} and customer action stay
+                      connected to the same campaign.
                     </p>
                   </>
                 )}
@@ -470,7 +610,6 @@ function HeroCustomerScene() {
           </div>
         </div>
       </div>
-
       <div
         className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1"
         aria-label="Explore the customer story"
