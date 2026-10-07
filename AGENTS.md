@@ -11,4 +11,6 @@
 
 ## Mandatory video/motion brief
 
+Comparison drafts keep page-specific content and styling in a dedicated comparison module with a leaf TanStack route; shared navigation and footer remain root-owned to isolate review work.
+
 Before generating or building any hero film, video generation, motion concept, footage replacement, or Remotion/Lovable video implementation, read and follow `docs/ZAPLA_VIDEO_CREATIVE_SYSTEM.md`. It is the authoritative source of truth for Zapla video/motion work.

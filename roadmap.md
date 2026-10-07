@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Build the isolated Zapla vs Pipedrive review draft with sourced comparison, workflows, costs, switching, FAQ and homepage-style CTA.
+- [ ] Verify the comparison draft on desktop/mobile, interactions, links, metadata and current build diagnostics without publishing.
+
 - [x] Confirm `/ai-receptionist-concept` and `/ai-receptionist-v2` are absent from the website dropdown menus.
 - [ ] Transfer cinematic V5 and V6 to Zapla Structure & Redesign Draft, blocked because cross-project access is read-only; import must run from the destination project. Keep source pages until the transfer is verified.
 
