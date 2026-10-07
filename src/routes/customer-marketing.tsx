@@ -258,135 +258,188 @@ function Hero() {
 
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
-  const [activeList, setActiveList] = useState(0);
+  const [scene, setScene] = useState(0);
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced) {
+      setScene(1);
+      return;
+    }
+
     const timer = window.setInterval(() => {
-      setActiveList((current) => (current + 1) % HERO_SMART_LISTS.length);
-    }, 2800);
+      setScene((current) => (current + 1) % 4);
+    }, 3800);
+
     return () => window.clearInterval(timer);
   }, [reduced]);
 
+  const customerFocus = scene === 0;
+  const listFocus = scene === 1;
+  const outreachFocus = scene === 2;
+  const resultFocus = scene === 3;
+
+  const stageTransition = {
+    duration: reduced ? 0 : 0.62,
+    ease: EASE,
+  };
+
   return (
     <div className="relative overflow-hidden bg-[#FCFCFA] pb-20 sm:pb-24 lg:pb-28">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[620px]">
-        <div className="absolute left-[8%] top-[14%] h-[300px] w-[420px] rounded-full bg-[#EAF1FF]/70 blur-[90px]" />
-        <div className="absolute right-[8%] top-[8%] h-[300px] w-[380px] rounded-full bg-[#F4EBDD]/70 blur-[100px]" />
-        <div className="absolute left-[43%] top-[42%] h-[240px] w-[360px] rounded-full bg-[#EEE8F6]/55 blur-[90px]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[650px] overflow-hidden">
+        <motion.div
+          animate={{
+            opacity: scene === 0 ? 0.62 : scene === 1 ? 0.48 : 0.34,
+            x: scene === 0 ? -18 : scene === 1 ? 20 : 44,
+          }}
+          transition={stageTransition}
+          className="absolute left-[3%] top-[19%] h-[280px] w-[430px] rounded-full bg-[#EAF1FF] blur-[100px]"
+        />
+        <motion.div
+          animate={{
+            opacity: scene === 2 ? 0.54 : scene === 3 ? 0.42 : 0.28,
+            x: scene >= 2 ? -20 : 20,
+          }}
+          transition={stageTransition}
+          className="absolute right-[4%] top-[15%] h-[300px] w-[430px] rounded-full bg-[#F4EBDD] blur-[110px]"
+        />
+        <div className="absolute left-[39%] top-[46%] h-[240px] w-[380px] rounded-full bg-[#EEE8F6]/58 blur-[95px]" />
       </div>
 
-      <div className="relative mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12">
-        <div className="grid items-start gap-5 lg:grid-cols-[0.98fr_1.04fr_0.78fr_0.72fr] lg:gap-6">
-          <div className="relative min-h-[530px] overflow-hidden pt-3">
-            <motion.div
-              animate={reduced ? undefined : { y: [0, -78, 0] }}
-              transition={
-                reduced
-                  ? undefined
-                  : { duration: 13, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.8 }
-              }
-              className="space-y-3"
-            >
-              {HERO_CUSTOMERS.map((customer, index) => (
-                <motion.div
-                  key={customer.name}
-                  initial={false}
-                  animate={{
-                    opacity: index === HERO_CUSTOMERS.length - 1 ? 0.35 : 1,
-                    scale: index === 0 ? 1.015 : 1,
-                  }}
-                  transition={{ duration: reduced ? 0 : 0.35, ease: EASE }}
-                  className="group relative flex min-h-[74px] items-center gap-3 rounded-[18px] border border-[#E8E8E2] bg-white/94 px-4 py-3 shadow-[0_16px_38px_rgba(31,35,31,.055)] backdrop-blur-sm"
-                >
-                  <img
-                    src={customer.avatar}
-                    alt=""
-                    className="h-12 w-12 shrink-0 rounded-[14px] object-cover"
-                    loading="eager"
-                  />
-
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-[13px] font-semibold tracking-[-0.018em] text-[#242925]">
-                      {customer.name}
-                    </div>
-                    <div className="mt-0.5 text-[9px] text-[#949A95]">{customer.meta}</div>
-                  </div>
-
-                  <div className="flex max-w-[156px] flex-wrap justify-end gap-1.5">
-                    {customer.tags.map((tag, tagIndex) => {
-                      const tones = [
-                        ["#EAF1FF", "#3267CF"],
-                        ["#FFF0E7", "#AA5A3F"],
-                        ["#ECF5E9", "#587257"],
-                        ["#F0EAFE", "#745DA1"],
-                      ] as const;
-                      const [backgroundColor, color] = tones[(index + tagIndex) % tones.length];
-
-                      return (
-                        <span
-                          key={tag}
-                          className="rounded-full px-2.5 py-1 text-[8px] font-semibold"
-                          style={{ backgroundColor, color }}
-                        >
-                          {tag}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FCFCFA] via-[#FCFCFA]/88 to-transparent" />
-          </div>
-
-          <div className="pt-9">
-            <div className="mb-4 text-[9px] font-bold uppercase tracking-[0.16em] text-[#8E948E]">
-              Smart Lists
+      <div className="relative mx-auto min-h-[590px] max-w-[1480px] px-3 sm:px-6 lg:px-10">
+        <div className="relative min-h-[560px]">
+          {/* Customer signal stream */}
+          <motion.div
+            animate={{
+              x: customerFocus ? 0 : listFocus ? -30 : -62,
+              y: customerFocus ? 0 : 20,
+              scale: customerFocus ? 1 : listFocus ? 0.94 : 0.88,
+              opacity: customerFocus ? 1 : listFocus ? 0.48 : 0.2,
+              filter: customerFocus ? "blur(0px)" : listFocus ? "blur(0.7px)" : "blur(1.6px)",
+            }}
+            transition={stageTransition}
+            className="absolute left-[1%] top-[28px] z-20 w-[330px] sm:w-[360px] lg:w-[390px]"
+          >
+            <div className="relative h-[500px] overflow-hidden">
+              <motion.div
+                animate={reduced ? undefined : { y: [0, -74, -148, -74, 0] }}
+                transition={
+                  reduced
+                    ? undefined
+                    : { duration: 14, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.6 }
+                }
+                className="space-y-3 pt-7"
+              >
+                {HERO_CUSTOMERS.map((customer, index) => {
+                  const selected = index === 1;
+                  return (
+                    <motion.div
+                      key={customer.name}
+                      animate={{
+                        scale: customerFocus && selected ? 1.035 : 1,
+                        opacity:
+                          customerFocus && selected
+                            ? 1
+                            : customerFocus
+                              ? index === 0 || index === HERO_CUSTOMERS.length - 1
+                                ? 0.48
+                                : 0.78
+                              : 0.75,
+                        borderColor: customerFocus && selected ? "#AFC3FF" : "#E9EAE5",
+                        boxShadow:
+                          customerFocus && selected
+                            ? "0 28px 68px rgba(37,99,255,.12)"
+                            : "0 14px 32px rgba(38,42,38,.05)",
+                      }}
+                      transition={stageTransition}
+                      className="flex min-h-[80px] items-center gap-3 rounded-[19px] border bg-white/95 px-4 py-3"
+                    >
+                      <img
+                        src={customer.avatar}
+                        alt=""
+                        className="h-12 w-12 shrink-0 rounded-[14px] object-cover"
+                        loading="eager"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate text-[13px] font-semibold tracking-[-0.018em] text-[#252A26]">
+                          {customer.name}
+                        </div>
+                        <div className="mt-0.5 text-[9px] text-[#979D98]">{customer.meta}</div>
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {customer.tags.map((tag, tagIndex) => {
+                            const tones = [
+                              ["#EAF1FF", "#3267CF"],
+                              ["#FFF0E7", "#AA5A3F"],
+                              ["#ECF5E9", "#587257"],
+                              ["#F0EAFE", "#745DA1"],
+                            ] as const;
+                            const [backgroundColor, color] = tones[(index + tagIndex) % tones.length];
+                            return (
+                              <span
+                                key={tag}
+                                className="rounded-full px-2.5 py-1 text-[8px] font-semibold"
+                                style={{ backgroundColor, color }}
+                              >
+                                {tag}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#FCFCFA] to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FCFCFA] via-[#FCFCFA]/90 to-transparent" />
             </div>
+          </motion.div>
 
+          {/* Smart Lists */}
+          <motion.div
+            animate={{
+              x: listFocus ? -20 : customerFocus ? 36 : outreachFocus ? -72 : -110,
+              y: listFocus ? 6 : customerFocus ? 46 : 30,
+              scale: listFocus ? 1 : customerFocus ? 0.92 : 0.86,
+              opacity: listFocus ? 1 : customerFocus ? 0.68 : outreachFocus ? 0.38 : 0.22,
+              filter: listFocus ? "blur(0px)" : outreachFocus ? "blur(0.8px)" : resultFocus ? "blur(1.5px)" : "blur(0.3px)",
+            }}
+            transition={stageTransition}
+            className="absolute left-[35%] top-[92px] z-30 w-[420px] -translate-x-1/2 sm:w-[470px] lg:left-[42%] lg:w-[510px]"
+          >
             <div className="space-y-4">
               {HERO_SMART_LISTS.map((list, index) => {
-                const active = activeList === index;
+                const selected = index === 1;
                 return (
                   <motion.div
                     key={list.title}
                     animate={{
-                      y: active ? -3 : 0,
-                      scale: active ? 1.018 : 1,
-                      boxShadow: active
-                        ? "0 26px 60px rgba(37,99,255,.12)"
-                        : "0 15px 36px rgba(40,43,39,.05)",
-                      borderColor: active ? "#BFD0FF" : "#E5E6E1",
+                      y: listFocus && selected ? -3 : 0,
+                      scale: listFocus && selected ? 1.025 : 1,
+                      borderColor: listFocus && selected ? "#9DB8FF" : "#E7E8E3",
+                      boxShadow:
+                        listFocus && selected
+                          ? "0 30px 70px rgba(37,99,255,.13)"
+                          : "0 16px 38px rgba(38,42,38,.05)",
                     }}
-                    transition={{ duration: reduced ? 0 : 0.38, ease: EASE }}
-                    className="relative overflow-hidden rounded-[22px] border bg-white/96 px-5 py-5"
+                    transition={stageTransition}
+                    className="relative overflow-hidden rounded-[22px] border bg-white/96 px-5 py-4"
                   >
-                    <motion.div
-                      className="absolute inset-0"
-                      animate={{ opacity: active ? 1 : 0.55 }}
-                      style={{ background: `linear-gradient(135deg, ${list.tone} 0%, rgba(255,255,255,0) 68%)` }}
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-55"
+                      style={{ background: `linear-gradient(120deg, ${list.tone} 0%, rgba(255,255,255,0) 58%)` }}
                     />
-
-                    <div className="relative">
-                      <div className="flex items-start justify-between gap-5">
-                        <div>
-                          <div className="text-[16px] font-semibold tracking-[-0.025em] text-[#292E2A]">
-                            {list.title}
-                          </div>
-                          <div className="mt-1 text-[10px] leading-[1.45] text-[#7B827C]">
-                            {list.subtitle}
-                          </div>
+                    <div className="relative flex items-center gap-4">
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[15px] font-semibold tracking-[-0.024em] text-[#282D29]">
+                          {list.title}
                         </div>
-                        <div className="text-right">
-                          <div className="text-[16px] font-semibold text-[#222722]">+{list.count}</div>
-                          <div className="mt-0.5 text-[8px] text-[#969C97]">customers</div>
+                        <div className="mt-1 text-[9px] leading-[1.45] text-[#858C86]">
+                          {list.subtitle}
                         </div>
                       </div>
 
-                      <div className="mt-5 flex -space-x-2">
-                        {list.avatars.map((avatar) => (
+                      <div className="flex -space-x-2">
+                        {list.avatars.slice(0, 3).map((avatar) => (
                           <img
                             key={avatar}
                             src={`https://i.pravatar.cc/120?img=${avatar}`}
@@ -395,100 +448,205 @@ function HeroCustomerScene() {
                           />
                         ))}
                       </div>
+
+                      <div className="min-w-[48px] text-right">
+                        <div className="text-[13px] font-semibold text-[#333933]">+{list.count}</div>
+                        <div className="text-[7px] text-[#A1A6A1]">people</div>
+                      </div>
                     </div>
                   </motion.div>
                 );
               })}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="pt-[76px]">
-            <div className="mb-4 text-[9px] font-bold uppercase tracking-[0.16em] text-[#8E948E]">
-              Automated outreach
-            </div>
+          {/* Outreach */}
+          <motion.div
+            animate={{
+              x: outreachFocus ? -10 : listFocus ? 78 : resultFocus ? -86 : 120,
+              y: outreachFocus ? 0 : listFocus ? 40 : 26,
+              scale: outreachFocus ? 1 : listFocus ? 0.9 : resultFocus ? 0.82 : 0.76,
+              opacity: outreachFocus ? 1 : listFocus ? 0.42 : resultFocus ? 0.28 : 0.15,
+              filter: outreachFocus ? "blur(0px)" : "blur(1.2px)",
+            }}
+            transition={stageTransition}
+            className="absolute right-[14%] top-[78px] z-40 w-[500px] lg:right-[12%] lg:w-[535px]"
+          >
+            <div className="rounded-[26px] border border-[#E4E6E1] bg-white/97 p-6 shadow-[0_34px_78px_rgba(36,40,36,.08)]">
+              <div className="flex items-start justify-between gap-6">
+                <div>
+                  <div className="text-[19px] font-semibold tracking-[-0.03em] text-[#272D28]">
+                    Reach this Smart List
+                  </div>
+                  <div className="mt-1 text-[10px] text-[#8B928C]">
+                    Service due this week · 189 customers
+                  </div>
+                </div>
+                <div className="flex -space-x-2">
+                  {[12, 44, 11].map((avatar) => (
+                    <img
+                      key={avatar}
+                      src={`https://i.pravatar.cc/120?img=${avatar}`}
+                      alt=""
+                      className="h-9 w-9 rounded-full border-[3px] border-white object-cover"
+                    />
+                  ))}
+                </div>
+              </div>
 
-            <div className="rounded-[24px] border border-[#E6E7E2] bg-white/96 p-3 shadow-[0_20px_46px_rgba(40,43,39,.055)]">
-              {HERO_OUTREACH.map((item, index) => (
-                <motion.div
-                  key={item.label}
-                  animate={{
-                    opacity: index === activeList || index === activeList + 1 ? 1 : 0.62,
-                    x: index === activeList ? 4 : 0,
-                  }}
-                  transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
-                  className="flex items-center gap-3 border-b border-[#ECEDE9] px-3 py-4 last:border-b-0"
-                >
-                  <div
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] text-[11px] font-bold text-[#273028]"
-                    style={{ backgroundColor: item.tone }}
+              <div className="mt-6 flex flex-wrap gap-2">
+                {HERO_OUTREACH.map((item, index) => (
+                  <motion.div
+                    key={item.label}
+                    animate={{
+                      backgroundColor: outreachFocus && index === 0 ? "#2563FF" : "#F7F7F4",
+                      color: outreachFocus && index === 0 ? "#FFFFFF" : "#5F675F",
+                    }}
+                    transition={stageTransition}
+                    className="rounded-[11px] px-4 py-2.5 text-[9px] font-semibold"
                   >
-                    {index === 0 ? "SMS" : index === 1 ? "@" : index === 2 ? "AI" : "DM"}
-                  </div>
-                  <div>
-                    <div className="text-[12px] font-semibold text-[#2A302B]">{item.label}</div>
-                    <div className="mt-0.5 text-[8px] leading-[1.5] text-[#939A94]">{item.detail}</div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {["Forms", "Pages", "Bookings"].map((asset) => (
-                <span
-                  key={asset}
-                  className="rounded-full border border-[#E3E5E0] bg-[#FBFAF7] px-3 py-2 text-[8px] font-semibold text-[#747C75]"
-                >
-                  {asset}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="pt-[104px]">
-            <div className="mb-4 text-[9px] font-bold uppercase tracking-[0.16em] text-[#8E948E]">
-              Campaign performance
-            </div>
-
-            <div className="rounded-[24px] border border-[#E6E7E2] bg-white/96 px-5 py-5 shadow-[0_20px_46px_rgba(40,43,39,.055)]">
-              <div className="text-[15px] font-semibold tracking-[-0.025em] text-[#292E2A]">
-                What happened next
-              </div>
-              <div className="mt-1 text-[9px] leading-[1.55] text-[#8D948E]">
-                Replies, bookings and revenue stay tied back to the campaign.
+                    {item.label}
+                  </motion.div>
+                ))}
               </div>
 
-              <div className="mt-6 space-y-5">
+              <div className="mt-5 rounded-[20px] bg-[#F5F7FB] p-5">
+                <div className="flex gap-3">
+                  <img
+                    src={HERO_CUSTOMERS[1].avatar}
+                    alt=""
+                    className="h-11 w-11 shrink-0 rounded-[13px] object-cover"
+                  />
+                  <div className="flex-1">
+                    <div className="text-[9px] font-semibold text-[#738078]">Message preview</div>
+                    <p className="mt-2 max-w-[350px] text-[13px] leading-[1.55] text-[#39403A]">
+                      Your next service is due this week. Want to see the available times?
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-5 flex gap-2">
+                {["Forms", "Pages", "Bookings"].map((asset) => (
+                  <span
+                    key={asset}
+                    className="rounded-full border border-[#E2E5DF] bg-[#FCFBF8] px-3 py-2 text-[8px] font-semibold text-[#757D76]"
+                  >
+                    {asset}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Campaign attribution */}
+          <motion.div
+            animate={{
+              x: resultFocus ? 0 : outreachFocus ? 130 : 210,
+              y: resultFocus ? 0 : 40,
+              scale: resultFocus ? 1 : outreachFocus ? 0.87 : 0.78,
+              opacity: resultFocus ? 1 : outreachFocus ? 0.36 : 0.14,
+              filter: resultFocus ? "blur(0px)" : "blur(1.5px)",
+            }}
+            transition={stageTransition}
+            className="absolute right-[1%] top-[84px] z-50 w-[410px] lg:w-[440px]"
+          >
+            <div className="rounded-[26px] border border-[#E4E6E1] bg-white/98 p-6 shadow-[0_34px_78px_rgba(36,40,36,.09)]">
+              <div className="text-[19px] font-semibold tracking-[-0.03em] text-[#272D28]">
+                Campaign performance
+              </div>
+              <div className="mt-1 text-[10px] text-[#8B928C]">
+                See what turned into business.
+              </div>
+
+              <div className="mt-7 space-y-6">
                 {[
-                  ["Replies", "#99A36D"],
-                  ["Bookings", "#2563FF"],
-                  ["Attributed revenue", "#DDA34B"],
-                ].map(([label, tone], index) => (
+                  ["Replies", "#99A36D", "Engaged"],
+                  ["Bookings", "#2563FF", "Converted"],
+                  ["Attributed revenue", "#DDA34B", "Won"],
+                ].map(([label, tone, outcome], index) => (
                   <div key={label}>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-semibold text-[#5E665F]">{label}</span>
-                      <span className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#A1A6A1]">
-                        Tracked
-                      </span>
+                    <div className="flex items-end justify-between gap-4">
+                      <div>
+                        <div className="text-[11px] font-semibold text-[#535B54]">{label}</div>
+                        <div className="mt-1 text-[8px] text-[#9AA19B]">{outcome}</div>
+                      </div>
+                      <div className="text-[8px] font-semibold uppercase tracking-[0.13em] text-[#A1A6A1]">
+                        Attributed
+                      </div>
                     </div>
                     <motion.div
-                      className="mt-2 h-[3px] origin-left rounded-full"
+                      className="mt-3 h-[4px] origin-left rounded-full"
                       style={{ backgroundColor: tone }}
-                      animate={{ scaleX: activeList === index ? 1 : 0.48 }}
-                      transition={{ duration: reduced ? 0 : 0.48, ease: EASE }}
+                      animate={{ scaleX: resultFocus ? [0.35, 1] : 0.35 }}
+                      transition={{
+                        duration: reduced ? 0 : 0.8,
+                        delay: reduced ? 0 : index * 0.12,
+                        ease: EASE,
+                      }}
                     />
                   </div>
                 ))}
               </div>
 
-              <div className="mt-7 border-t border-[#E8EAE6] pt-4 text-[8px] leading-[1.55] text-[#9AA09B]">
-                Campaigns connects the initiative, assets, activity and outcome.
+              <div className="mt-7 border-t border-[#E8EAE6] pt-4 text-[9px] leading-[1.65] text-[#8F9690]">
+                Forms, pages, bookings and customer activity stay tied to the campaign.
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
 
-        <div className="pointer-events-none absolute left-[31%] top-[132px] hidden h-px w-[60%] lg:block">
-          <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-[#C9D7FF] to-transparent opacity-70" />
+          {/* Subtle directional path, not a diagram */}
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-10 hidden h-full w-full lg:block"
+            viewBox="0 0 1400 560"
+            preserveAspectRatio="none"
+          >
+            <motion.path
+              d="M350 264 C 455 250, 515 250, 615 250"
+              fill="none"
+              stroke="#B8CBFF"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              animate={{ opacity: customerFocus || listFocus ? 0.9 : 0.25, pathLength: customerFocus ? 0.72 : 1 }}
+              transition={stageTransition}
+            />
+            <motion.path
+              d="M745 275 C 835 270, 860 250, 930 230"
+              fill="none"
+              stroke="#C9D5F6"
+              strokeWidth="1.5"
+              strokeDasharray="4 8"
+              strokeLinecap="round"
+              animate={{ opacity: listFocus || outreachFocus ? 0.8 : 0.18 }}
+              transition={stageTransition}
+            />
+            <motion.path
+              d="M1080 268 C 1180 260, 1220 245, 1310 232"
+              fill="none"
+              stroke="#E0CBA5"
+              strokeWidth="1.5"
+              strokeDasharray="4 8"
+              strokeLinecap="round"
+              animate={{ opacity: outreachFocus || resultFocus ? 0.78 : 0.12 }}
+              transition={stageTransition}
+            />
+          </svg>
+
+          {/* tiny stage indicator */}
+          <div className="absolute bottom-[10px] left-1/2 z-[60] flex -translate-x-1/2 items-center gap-2">
+            {[0, 1, 2, 3].map((step) => (
+              <motion.span
+                key={step}
+                animate={{
+                  width: scene === step ? 24 : 6,
+                  opacity: scene === step ? 1 : 0.28,
+                }}
+                transition={{ duration: reduced ? 0 : 0.28, ease: EASE }}
+                className="h-[3px] rounded-full bg-[#7F8A82]"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -508,7 +666,7 @@ function SignalScene() {
   const signals = [
     { label: "Last service", value: "6 months ago", tone: "#E97D62" },
     { label: "Location", value: "Sydney", tone: "#9B86B8" },
-    { label: "Status", value: "Subscribed", tone: "#99A36D" },
+    { label: "Engagement", value: "Quote viewed", tone: "#99A36D" },
     { label: "Lifecycle", value: "Due again", tone: "#DDA34B" },
   ] as const;
 
@@ -662,7 +820,7 @@ function MomentScene() {
               <div className="absolute left-[8%] top-[48%] max-w-[250px]">
                 <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#8C928D]">Customer context</div>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {["Existing customer", item.label, "Subscribed"].map((tag) => (
+                  {["Existing customer", item.label, "Relevant now"].map((tag) => (
                     <span key={tag} className="rounded-full bg-white px-3 py-2 text-[9px] font-semibold text-[#4D554F] shadow-[0_8px_22px_rgba(0,0,0,.05)]">
                       {tag}
                     </span>
