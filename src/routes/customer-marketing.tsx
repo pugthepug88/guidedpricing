@@ -239,7 +239,7 @@ function AudiencePortraits({
   return (
     <div
       className="flex shrink-0 -space-x-2"
-      aria-label={`${members.length}${more ? ` plus ${more} more` : ""} example contacts`}
+      aria-label={`${members.length}${more ? ` plus ${more} more` : ""} contacts`}
     >
       {members.map((cell) => (
         <MarketingAvatar
@@ -263,6 +263,9 @@ function AudiencePortraits({
 
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
+  const customerStack = useRef<HTMLDivElement>(null);
+  const customersVisible = useInView(customerStack, { amount: 0.5 });
+  const [customerOffset, setCustomerOffset] = useState(0);
   const audienceRow = useRef<HTMLDivElement>(null);
   const visible = useInView(audienceRow, { amount: 0.5 });
   const [audienceIndex, setAudienceIndex] = useState(0);
@@ -271,10 +274,16 @@ function HeroCustomerScene() {
     if (reduced || !visible || paused) return;
     const timer = window.setInterval(
       () => setAudienceIndex((value) => (value + 1) % HERO_AUDIENCES.length),
-      6000,
+      3800,
     );
     return () => window.clearInterval(timer);
   }, [reduced, visible, paused]);
+  useEffect(() => {
+    if (reduced || !customersVisible || paused) return;
+    const timer = window.setInterval(() => setCustomerOffset((value) => value + 1), 3800);
+    return () => window.clearInterval(timer);
+  }, [reduced, customersVisible, paused]);
+  const customerSlots = reduced ? [0, 1, 2, 3, 4] : [-1, 0, 1, 2, 3, 4, 5];
   const audience = HERO_AUDIENCES[reduced ? 0 : audienceIndex];
   const steps = [
     { label: "Send SMS", Icon: MessageCircle },
@@ -308,34 +317,51 @@ function HeroCustomerScene() {
                   "radial-gradient(ellipse at 25% 25%, #DDA34B55, transparent 65%), radial-gradient(ellipse at 80% 50%, #99A36D55, transparent 65%), radial-gradient(ellipse at 20% 85%, #9B86B855, transparent 65%)",
               }}
             />
-            <div className="relative h-[402px] overflow-hidden">
-              {HERO_CUSTOMERS.map((person, index) => {
-                const distance = Math.abs(index - 2);
-                const focus = distance === 0;
-                return (
-                  <div
-                    key={person.cell}
-                    style={{
-                      top: 8 + index * 78,
-                      left: distance === 0 ? 0 : distance === 1 ? 14 : 30,
-                      opacity: focus ? 1 : distance === 1 ? 0.66 : 0.48,
-                      borderColor: focus ? "#2563FF" : "#FFFFFF",
-                      width: focus ? "100%" : "calc(100% - 52px)",
-                    }}
-                    className="absolute flex min-h-[68px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3"
-                  >
-                    <MarketingAvatar cell={person.cell} size={40} className="shadow-none" />
-                    <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
-                      <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {person.tags.map((tag) => (
-                          <AudiencePill key={tag} label={tag} />
-                        ))}
+            <div
+              ref={customerStack}
+              data-customer-carousel
+              className="relative h-[402px] overflow-hidden"
+            >
+              <AnimatePresence initial={false}>
+                {customerSlots.map((slot) => {
+                  const entry = (reduced ? 0 : customerOffset) + slot;
+                  const person =
+                    HERO_CUSTOMERS[
+                      ((entry % HERO_CUSTOMERS.length) + HERO_CUSTOMERS.length) %
+                        HERO_CUSTOMERS.length
+                    ];
+                  const distance = Math.abs(slot - 2);
+                  const focus = distance === 0;
+                  return (
+                    <motion.div
+                      key={entry}
+                      data-customer-card={person.name}
+                      aria-hidden={slot < 0 || slot > 4}
+                      initial={false}
+                      animate={{
+                        y: 8 + slot * 78,
+                        x: distance === 0 ? 0 : distance === 1 ? 14 : 30,
+                        opacity: slot < 0 || slot > 4 ? 0 : focus ? 1 : distance === 1 ? 0.72 : 0.5,
+                        borderColor: focus ? "#2563FF" : "#DDE1DC",
+                        width: focus ? "100%" : "calc(100% - 52px)",
+                      }}
+                      exit={{ y: -70, opacity: 0 }}
+                      transition={{ duration: reduced ? 0 : 0.8, ease: EASE }}
+                      className="absolute left-0 top-0 flex min-h-[68px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3 shadow-[0_6px_16px_rgba(30,43,41,.07)]"
+                    >
+                      <MarketingAvatar cell={person.cell} size={40} className="shadow-none" />
+                      <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
+                        <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {person.tags.map((tag) => (
+                            <AudiencePill key={tag} label={tag} />
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
             </div>
           </div>
         </div>
@@ -349,7 +375,7 @@ function HeroCustomerScene() {
                 key={list.key}
                 data-smart-list={list.key}
                 className={
-                  "absolute rounded-[18px] border border-[#111318]/[0.04] bg-white p-4 shadow-[0_10px_30px_-22px_rgba(30,43,41,.12)] " +
+                  "absolute rounded-[18px] border border-[#1E2B29]/[0.12] bg-white p-4 shadow-[0_8px_24px_rgba(30,43,41,.06)] " +
                   positions[index]
                 }
               >
@@ -371,8 +397,8 @@ function HeroCustomerScene() {
               <button
                 type="button"
                 onClick={() => setPaused((value) => !value)}
-                aria-label={paused ? "Play audience rotation" : "Pause audience rotation"}
-                title={paused ? "Play audience rotation" : "Pause audience rotation"}
+                aria-label={paused ? "Play hero animation" : "Pause hero animation"}
+                title={paused ? "Play hero animation" : "Pause hero animation"}
                 className="rounded p-1 text-[#1E2B29]/45 hover:text-[#1E2B29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#2563FF]"
               >
                 {paused ? <Play size={12} /> : <Pause size={12} />}
@@ -384,7 +410,7 @@ function HeroCustomerScene() {
               ref={audienceRow}
               data-audience-row
               data-audience={audience.key}
-              className="relative h-[85px] overflow-hidden rounded-[14px] border border-[#111318]/[0.05] bg-white px-4 py-3 shadow-[0_12px_35px_-25px_rgba(30,43,41,.2)]"
+              className="relative h-[85px] overflow-hidden rounded-[14px] border border-[#1E2B29]/[0.12] bg-white px-4 py-3 shadow-[0_8px_24px_rgba(30,43,41,.06)]"
             >
               <AnimatePresence initial={false} mode="wait">
                 <motion.div
@@ -412,7 +438,7 @@ function HeroCustomerScene() {
             <div data-automation-flow>
               {steps.map(({ label, Icon }, index) => (
                 <div key={label}>
-                  <div className="flex h-[54px] items-center gap-3 rounded-[12px] border border-[#111318]/[0.05] bg-white px-4 shadow-[0_8px_25px_-22px_rgba(30,43,41,.2)]">
+                  <div className="flex h-[54px] items-center gap-3 rounded-[12px] border border-[#1E2B29]/[0.12] bg-white px-4 shadow-[0_6px_18px_rgba(30,43,41,.05)]">
                     <Icon size={19} strokeWidth={1.6} className="text-[#2563FF]" />
                     <span className="text-[12px] font-semibold text-[#1E2B29]">{label}</span>
                   </div>
@@ -425,7 +451,7 @@ function HeroCustomerScene() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 flex items-center justify-between gap-1 rounded-[16px] border border-[#111318]/[0.04] bg-white px-3 py-3 shadow-[0_10px_30px_-22px_rgba(30,43,41,.18)]">
+            <div className="mt-6 flex items-center justify-between gap-1 rounded-[16px] border border-[#1E2B29]/[0.12] bg-white px-3 py-3 shadow-[0_8px_24px_rgba(30,43,41,.06)]">
               {channels.map(({ label, Icon, tone }) => (
                 <div
                   key={label}
@@ -590,7 +616,12 @@ function MomentScene() {
               className="h-[460px] w-full rounded-[22px] object-cover object-[50%_50%] sm:h-[510px]"
             />
             <div className="absolute left-8 right-8 top-10 max-w-[310px] rounded-[18px] border-2 border-white/95 bg-[#FCFCFA]/85 p-5 shadow-[inset_0_0_0_1px_rgba(30,43,41,.22),0_12px_35px_rgba(30,43,41,.12)] backdrop-blur-[6px] sm:left-4 sm:top-16">
-              <p className="text-[12px] font-semibold text-[#69716B]">Service reminder · SMS</p>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[12px] font-semibold text-[#69716B]">Service reminder · SMS</p>
+                <span role="img" aria-label="Automated message by Zapla">
+                  <ZaplaPetal size={24} />
+                </span>
+              </div>
               <p className="mt-3 text-[14px] leading-[1.7]">
                 Hi Mia, your next service is due. You can choose a time that suits you here.
               </p>
@@ -657,7 +688,7 @@ function CampaignScene() {
           <div className="flex justify-between gap-4">
             <div>
               <p className="text-[12px] text-[#69716B]">Campaigns</p>
-              <h3 className="mt-2 text-[25px] font-medium tracking-[-.03em]">Service recall</h3>
+              <h3 className="mt-2 text-[25px] font-medium tracking-[-.03em]">Service reminder</h3>
             </div>
             <ZaplaPetal size={30} />
           </div>
@@ -691,7 +722,7 @@ function CampaignScene() {
             ))}
           </ol>
           <p className="mt-5 border-t border-[#E0E4DC] pt-4 text-[12px] font-medium">
-            Booking linked to Service recall
+            Booking linked to Service reminder
           </p>
         </div>
       </div>
@@ -759,36 +790,36 @@ function Faq() {
   );
 }
 
-// LOCKED FOR NOW: preserve the final CTA section until Andrew explicitly reopens it.
+// Copy preserved; presentation matches the homepage final CTA.
 function GrowthCta() {
   return (
-    <section className="bg-white px-5 py-20 sm:px-10 sm:py-24 lg:px-16 lg:py-28">
-      <Reveal className="mx-auto grid max-w-[1180px] gap-10 border-t border-[#DFE3DF] pt-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
-        <div className="max-w-[760px]">
-          <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#68736C]">
-            Zapla Growth
-          </div>
-          <h2
-            className="mt-3 text-[33px] font-medium leading-[1.03] tracking-[-0.046em] text-[#242A26] sm:text-[40px] lg:text-[45px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Put your customer data to work.
-          </h2>
-          <p className="mt-4 max-w-[620px] text-[14px] leading-[1.7] text-[#69706A]">
-            Customer Marketing is part of Zapla Growth.
-          </p>
+    <section className="overflow-hidden bg-[#FCFCFA] pt-20 sm:pt-24 lg:pt-24">
+      <Reveal className="mx-auto max-w-[1120px] px-5 text-center sm:px-10">
+        <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111214] ring-1 ring-black/[0.06]">
+          <ZaplaPetal size={34} />
         </div>
-
-        <div className="flex flex-wrap gap-3 lg:justify-end">
+        <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C96F55]">
+          Zapla Growth
+        </p>
+        <h2
+          className="mx-auto mt-3 max-w-[1080px] text-[40px] font-medium leading-[0.99] tracking-[-0.045em] text-[#111318] sm:text-[54px] lg:text-[64px]"
+          style={{ fontFamily: DISPLAY }}
+        >
+          Put your customer data to work.
+        </h2>
+        <p className="mx-auto mt-4 max-w-[760px] text-[15px] leading-[1.65] text-[#5F655F] sm:text-[16px]">
+          Customer Marketing is part of Zapla Growth.
+        </p>
+        <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href={PRICING_URL}
-            className="inline-flex h-[50px] items-center gap-2 rounded-[10px] bg-[#1E2B29] px-6 text-[13px] font-semibold text-white"
+            className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px sm:w-auto"
           >
-            View Growth pricing <ArrowRight size={14} />
+            View Growth pricing <ArrowRight size={15} />
           </a>
           <a
             href={BOOK_URL}
-            className="inline-flex h-[50px] items-center rounded-[10px] border border-[#D7DDD8] px-6 text-[13px] font-semibold text-[#1E2B29]"
+            className="inline-flex h-[52px] w-full items-center justify-center rounded-full border border-[#E2DBD1] bg-white px-7 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#CFC6BA] sm:w-auto"
           >
             Book a Call
           </a>
