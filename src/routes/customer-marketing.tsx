@@ -287,26 +287,34 @@ const HERO_AUDIENCES = [
 
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
+  const progress = (delay: number) => ({
+    quiet: { opacity: 0.35, y: 5 },
+    shown: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE },
+    },
+  });
   return (
-    <div data-marketing-story className="mx-auto max-w-[1000px] px-5 pb-20 sm:px-8 sm:pb-24">
+    <div data-marketing-story className="mx-auto max-w-[1240px] px-5 pb-20 sm:px-8 sm:pb-24">
       <div className="mb-8 text-center sm:mb-10">
         <p className="text-[18px] font-medium tracking-[-0.025em] text-[#1E2B29] sm:text-[21px]">
-          Different customers. Different reasons to reach out.
+          The right customers. The right outreach. A result you can trace.
         </p>
         <p className="mt-2 text-[12px] text-[#737A74]">
           Illustrative audiences and campaign outcomes
         </p>
       </div>
-      <div className="grid items-center gap-8 lg:grid-cols-[250px_1fr] lg:gap-14">
+      <div className="grid items-start gap-8 sm:grid-cols-2 lg:grid-cols-[0.8fr_1fr_1.25fr] lg:gap-7 xl:gap-10">
         <div>
-          <p className="mb-4 text-[13px] font-semibold text-[#1E2B29]">Your customers</p>
-          <div className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-1">
+          <h3 className="mb-5 text-[13px] font-semibold text-[#1E2B29]">Your customers</h3>
+          <div className="space-y-4">
             {HERO_CUSTOMERS.map((person) => (
               <div
                 key={person.cell}
-                className="flex min-h-[78px] items-center gap-3 border-b border-[#E2E5E0] py-3"
+                className="flex min-h-[74px] items-center gap-3 rounded-[12px] border border-[#E2E5E0] bg-white px-4 py-3"
               >
-                <MarketingAvatar cell={person.cell} size={40} />
+                <MarketingAvatar cell={person.cell} size={36} />
                 <div className="min-w-0">
                   <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5">
@@ -328,23 +336,20 @@ function HeroCustomerScene() {
             ))}
           </div>
         </div>
-        <div className="overflow-hidden rounded-[18px] border border-[#DBE0DB] bg-white shadow-[0_18px_50px_-20px_rgba(30,43,41,.16)]">
-          <div className="flex items-center justify-between border-b border-[#E9ECE6] px-5 py-4 sm:px-6">
-            <h3 className="text-[15px] font-semibold text-[#1E2B29]">Smart Lists</h3>
-            <ZaplaPetal size={26} />
-          </div>
-          {HERO_AUDIENCES.map((audience, index) => {
-            const members = HERO_CUSTOMERS.filter((person) =>
-              (audience.members as readonly number[]).includes(person.cell),
-            );
-            return (
-              <article
-                key={audience.key}
-                data-smart-list={audience.key}
-                className="border-b border-[#E9ECE6] px-5 py-5 last:border-b-0 sm:px-6"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap items-center gap-2.5">
+        <div>
+          <h3 className="mb-5 text-[13px] font-semibold text-[#1E2B29]">Smart Lists</h3>
+          <div className="overflow-hidden rounded-[16px] border border-[#DBE0DB] bg-white">
+            {HERO_AUDIENCES.map((audience) => {
+              const members = HERO_CUSTOMERS.filter((person) =>
+                (audience.members as readonly number[]).includes(person.cell),
+              );
+              return (
+                <article
+                  key={audience.key}
+                  data-smart-list={audience.key}
+                  className="border-b border-[#E9ECE6] px-5 py-5 last:border-b-0"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2">
                     <h4
                       className="rounded-[5px] px-2.5 py-1 text-[12px] font-semibold"
                       style={{ backgroundColor: audience.tone, color: audience.ink }}
@@ -356,59 +361,91 @@ function HeroCustomerScene() {
                     </span>
                   </div>
                   <div
-                    className="flex -space-x-2"
+                    className="mt-3 flex -space-x-2"
                     role="group"
                     aria-label={members.map((person) => person.name).join(", ")}
                   >
-                    {members.map((person, memberIndex) => (
-                      <motion.div
+                    {members.map((person) => (
+                      <MarketingAvatar
                         key={person.cell}
-                        initial={reduced ? false : { opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.5 }}
-                        transition={{
-                          duration: reduced ? 0 : 0.4,
-                          delay: reduced ? 0 : index * 0.35 + memberIndex * 0.12,
-                          ease: EASE,
-                        }}
-                      >
-                        <MarketingAvatar
-                          cell={person.cell}
-                          size={34}
-                          className="border-[2px] border-white"
-                        />
-                      </motion.div>
+                        cell={person.cell}
+                        size={34}
+                        className="border-[2px] border-white"
+                      />
                     ))}
                   </div>
-                </div>
-                <p className="mt-2.5 text-[12px] text-[#69716B]">{audience.criterion}</p>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2 sm:gap-6">
-                  <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#69716B]">
-                      {audience.channel} outreach
-                    </p>
-                    <p className="mt-1 text-[12px] leading-[1.6] text-[#1E2B29]">
-                      {audience.outreach}
-                    </p>
-                  </div>
-                  <div className="border-l-2 border-[#2563FF]/30 pl-3">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#2563FF]">
-                      Campaign result
-                    </p>
-                    <p className="mt-1 text-[12px] font-semibold leading-[1.6] text-[#1E2B29]">
-                      {audience.result}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+                  <p className="mt-3 text-[12px] leading-[1.6] text-[#69716B]">
+                    {audience.criterion}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+          <p className="mt-4 text-[12px] leading-[1.7] text-[#69716B]">
+            One customer can belong to more than one list.
+          </p>
         </div>
+        <motion.div
+          data-outreach-example
+          className="sm:col-span-2 lg:col-span-1"
+          initial={reduced ? false : "quiet"}
+          whileInView="shown"
+          viewport={{ once: true, amount: 0.35 }}
+        >
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+            <h3 className="text-[13px] font-semibold text-[#1E2B29]">Outreach</h3>
+            <p className="flex gap-4 text-[12px] font-semibold text-[#69716B]">
+              <span>SMS</span>
+              <span>Email</span>
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-[18px] border border-[#DBE0DB] bg-white shadow-[0_18px_50px_-20px_rgba(30,43,41,.16)]">
+            <div className="flex items-center gap-3 border-b border-[#E9ECE6] px-5 py-4">
+              <MarketingAvatar cell={9} size={36} />
+              <div>
+                <p className="text-[13px] font-semibold text-[#1E2B29]">Mia Thompson</p>
+                <p className="mt-0.5 text-[12px] text-[#69716B]">Service recall</p>
+              </div>
+              <ZaplaPetal size={26} className="ml-auto shrink-0" />
+            </div>
+            <div className="px-5 py-5">
+              <div className="flex flex-wrap justify-between gap-2 text-[11px]">
+                <p className="font-semibold text-[#697647]">SMS automation</p>
+                <p className="text-[#69716B]">When service is due</p>
+              </div>
+              <motion.div
+                data-outreach-message
+                variants={progress(0.3)}
+                className="mt-4 rounded-[12px] rounded-bl-[3px] bg-[#F2F4EC] px-4 py-3 text-[14px] leading-[1.6] text-[#1E2B29]"
+              >
+                Hi Mia, your next service is due. Ready to choose a time? Book here.
+              </motion.div>
+              <motion.div
+                data-outreach-action
+                variants={progress(1.4)}
+                className="mt-5 border-l-2 border-[#9B86B8] pl-3"
+              >
+                <p className="text-[11px] font-semibold text-[#79648E]">Service booking page</p>
+                <p className="mt-1.5 text-[14px] font-semibold text-[#1E2B29]">
+                  Thursday, 10:30 am
+                </p>
+                <p className="mt-1 text-[12px] text-[#69716B]">Mia confirms her next service.</p>
+              </motion.div>
+            </div>
+          </div>
+          <div className="mt-5 rounded-[14px] border border-[#D9E1DA] bg-[#F2F4EF] px-5 py-4">
+            <h4 className="text-[12px] font-semibold text-[#2563FF]">Campaign results</h4>
+            <motion.div data-outreach-result variants={progress(2.6)} className="mt-3">
+              <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1E2B29]">
+                Mia booked a service.
+              </p>
+              <p className="mt-1 text-[12px] leading-[1.6] text-[#69716B]">
+                Attributed to Service recall
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
-      <p className="mx-auto mt-6 max-w-[560px] text-center text-[12px] leading-[1.7] text-[#69716B]">
-        One customer can belong to more than one list. Each campaign connects the audience, outreach
-        and customer action.
-      </p>
     </div>
   );
 }
