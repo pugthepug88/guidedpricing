@@ -60,8 +60,8 @@ const FAQS = [
     a: "Yes. Automations can use timing, triggers and customer conditions to run multi-step outreach by SMS or email.",
   },
   {
-    q: "What does the Campaigns area do?",
-    a: "Campaigns is the tracking and attribution layer, not the send tool. It groups the assets behind an initiative and shows members, activity and performance.",
+    q: "What can I see after a campaign?",
+    a: "See the audience and customer activity connected to each campaign, including responses and linked bookings.",
   },
   {
     q: "Can forms, pages and bookings be part of a campaign?",
@@ -454,13 +454,13 @@ function SignalScene() {
       tone: "#DDA34B",
     },
     {
-      title: "Something changes.",
+      title: "A relevant update.",
       audience: "Customers affected by a rate or product change",
       message: "A relevant update with a clear next step",
       tone: "#9B86B8",
     },
     {
-      title: "You have something new.",
+      title: "A new offer.",
       audience: "Customers whose history matches the new offer",
       message: "An introduction worth paying attention to",
       tone: "#99A36D",
@@ -477,8 +477,8 @@ function SignalScene() {
             The next opportunity might already be in your database.
           </h2>
           <p className="max-w-[470px] text-[15px] leading-[1.8] text-[#69716B]">
-            You have already built the relationship. Customer Marketing gives you a relevant reason
-            to start the next conversation.
+            You have already built the relationship. Use what you know about your customers to reach
+            out when you have something relevant to offer.
           </p>
         </div>
         <div className="overflow-hidden rounded-[32px] bg-[#E2E4D2] p-6 sm:p-10 lg:p-14">
@@ -493,8 +493,9 @@ function SignalScene() {
                 The right people to hear it.
               </h2>
               <p className="mt-6 max-w-[410px] text-[14px] leading-[1.8] text-[#4F594B]">
-                Choose an audience from the history already in Zapla. Tags, customer details and
-                Smart Lists help you match the message to the people it matters to.
+                Tag customers by their interests, purchases or service history. Use those tags and
+                other customer details to build Smart Lists, so each message reaches the people it
+                matters to.
               </p>
               <p className="mt-8 max-w-[360px] text-[17px] font-medium leading-[1.5]">
                 Relevance starts before you press send.
@@ -553,13 +554,13 @@ function MomentScene() {
             className="max-w-[660px] text-[39px] font-medium leading-[1.03] tracking-[-.045em] sm:text-[52px]"
             style={{ fontFamily: DISPLAY }}
           >
-            Give the conversation
+            Turn relevant outreach
             <br />
-            somewhere to go.
+            into more business.
           </h2>
           <p className="max-w-[470px] text-[15px] leading-[1.8] text-[#69716B]">
-            Reach customers through SMS, email, voicemail, social DMs or AI calls. Connect the
-            outreach to a reply, a form, a page or a booking.
+            Reach customers through SMS, email, voicemail, social DMs or AI calls. Give them a clear
+            way to reply, enquire or book.
           </p>
         </div>
         <div className="grid gap-0 overflow-hidden rounded-[32px] bg-[#EFE2D2] lg:grid-cols-[.7fr_1.3fr]">
@@ -615,14 +616,13 @@ function MomentScene() {
         </div>
         <div className="grid gap-7 pb-2 pt-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
           <h3 className="max-w-[410px] text-[27px] font-medium leading-[1.15] tracking-[-.03em]">
-            When they reply,
+            Every reply stays connected
             <br />
-            the context comes with them.
+            to the customer.
           </h3>
           <p className="max-w-[650px] text-[14px] leading-[1.8] text-[#69716B]">
-            A campaign response becomes a customer conversation. Your team can see the history and
-            pick up the next step in Zapla, instead of piecing it together across a separate mailing
-            list, inbox and booking tool.
+            See the campaign message alongside the customer’s history, so your team can continue the
+            conversation and take the next step in Zapla.
           </p>
         </div>
       </div>
@@ -645,14 +645,12 @@ function CampaignScene() {
               <span className="text-[#DDA34B]">after the send.</span>
             </h2>
             <p className="mt-6 text-[14px] leading-[1.8] text-white/70">
-              Campaigns brings the audience, outreach and destination together so you can trace
-              customer activity back to the initiative.
+              Bring the audience, outreach and booking destination together. See which customers
+              responded and which bookings are linked to the campaign.
             </p>
           </div>
           <p className="mt-10 max-w-[340px] text-[17px] leading-[1.6]">
-            Sending is an action.
-            <br />
-            The next booking is the point.
+            See what the outreach led to.
           </p>
         </div>
         <div className="rounded-[22px] bg-[#FCFCFA] p-6 text-[#1E2B29] sm:p-8">
@@ -681,7 +679,7 @@ function CampaignScene() {
           </div>
           <ol className="ml-5 mt-5 space-y-0 border-l border-[#CCD2C6] text-[13px]">
             {[
-              ["Reached", "Service reminder sent"],
+              ["Sent", "Service reminder sent"],
               ["Responded", "Customer replied to the outreach"],
               ["Booked", "Next service appointment booked"],
             ].map(([label, detail]) => (
@@ -693,7 +691,7 @@ function CampaignScene() {
             ))}
           </ol>
           <p className="mt-5 border-t border-[#E0E4DC] pt-4 text-[12px] font-medium">
-            Appointment attributed to Service recall
+            Booking linked to Service recall
           </p>
         </div>
       </div>
