@@ -46,45 +46,6 @@ const HERO_CUSTOMERS = [
   { name: "Chloe Martin", cell: 2, tags: ["Service due"] },
 ] as const;
 
-const MOMENTS = [
-  {
-    label: "Service due",
-    tone: "#DDA34B",
-    title: "A customer is due again.",
-    audience: "Past customers with the right service history",
-    timing: "When the return window arrives",
-    action: "Start the recall outreach",
-    destination: "Booking page",
-  },
-  {
-    label: "Rate change",
-    tone: "#9B86B8",
-    title: "Something changes for a specific group.",
-    audience: "Only customers tied to the affected product",
-    timing: "When the change becomes relevant",
-    action: "Send the update and next step",
-    destination: "Form or appointment",
-  },
-  {
-    label: "New availability",
-    tone: "#E97D62",
-    title: "You have capacity to fill.",
-    audience: "Customers most likely to want the opening",
-    timing: "When availability appears",
-    action: "Reach the selected audience",
-    destination: "Booking page",
-  },
-  {
-    label: "New service",
-    tone: "#99A36D",
-    title: "You have something new to sell.",
-    audience: "Existing customers with relevant history",
-    timing: "At launch",
-    action: "Run a targeted campaign",
-    destination: "Landing page",
-  },
-] as const;
-
 const FAQS = [
   {
     q: "What is Customer Marketing in Zapla?",
@@ -485,180 +446,185 @@ function HeroCustomerScene() {
 }
 
 function SignalScene() {
-  const signals = [
-    { label: "Last service", value: "6 months ago", tone: "#E97D62" },
-    { label: "Location", value: "Sydney", tone: "#9B86B8" },
-    { label: "Engagement", value: "Quote viewed", tone: "#99A36D" },
-    { label: "Lifecycle", value: "Due again", tone: "#DDA34B" },
-  ] as const;
-
+  const occasions = [
+    {
+      title: "A service is due.",
+      audience: "Customers approaching their next service",
+      message: "A timely reminder with a way to book",
+      tone: "#DDA34B",
+    },
+    {
+      title: "Something changes.",
+      audience: "Customers affected by a rate or product change",
+      message: "A relevant update with a clear next step",
+      tone: "#9B86B8",
+    },
+    {
+      title: "You have something new.",
+      audience: "Customers whose history matches the new offer",
+      message: "An introduction worth paying attention to",
+      tone: "#99A36D",
+    },
+  ];
   return (
-    <section
-      id="how-it-works"
-      className="bg-[#F7F4EE] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32"
-    >
-      <div className="mx-auto grid max-w-[1240px] items-center gap-16 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20">
-        <Reveal>
-          <div
-            className="max-w-[560px] text-[40px] font-medium leading-[1.01] tracking-[-0.052em] text-[#1B1F1C] sm:text-[49px] lg:text-[56px]"
+    <section id="how-it-works" className="px-5 pb-12 pt-8 sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-[1240px]">
+        <div className="grid gap-6 pb-16 pt-6 lg:grid-cols-[1.1fr_.9fr] lg:items-end lg:gap-20">
+          <h2
+            className="max-w-[660px] text-[38px] font-medium leading-[1.04] tracking-[-.045em] sm:text-[50px]"
             style={{ fontFamily: DISPLAY }}
           >
-            A customer is more than a name in a list.
-          </div>
-          <p className="mt-6 max-w-[470px] text-[14px] leading-[1.78] text-[#6A716B]">
-            Every interaction leaves context behind. Zapla can use that context to decide when a
-            customer belongs in a campaign.
+            The next opportunity might already be in your database.
+          </h2>
+          <p className="max-w-[470px] text-[15px] leading-[1.8] text-[#69716B]">
+            You have already built the relationship. Customer Marketing gives you a relevant reason
+            to start the next conversation.
           </p>
-        </Reveal>
-
-        <Reveal delay={0.06}>
-          <div className="mx-auto max-w-[580px]">
-            <div className="flex items-center gap-5 border-b border-[#DADFD6] pb-7">
-              <MarketingAvatar cell={9} size={68} />
-              <div>
-                <p className="text-[23px] font-medium tracking-[-0.035em]">Mia Thompson</p>
-                <p className="mt-2 text-[13px] text-[#69716B]">
-                  The context behind the next campaign
-                </p>
-              </div>
+        </div>
+        <div className="overflow-hidden rounded-[32px] bg-[#E2E4D2] p-6 sm:p-10 lg:p-14">
+          <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
+            <div>
+              <h2
+                className="max-w-[430px] text-[36px] font-medium leading-[1.04] tracking-[-.045em] sm:text-[46px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                A reason to reach out.
+                <br />
+                The right people to hear it.
+              </h2>
+              <p className="mt-6 max-w-[410px] text-[14px] leading-[1.8] text-[#4F594B]">
+                Choose an audience from the history already in Zapla. Tags, customer details and
+                Smart Lists help you match the message to the people it matters to.
+              </p>
+              <p className="mt-8 max-w-[360px] text-[17px] font-medium leading-[1.5]">
+                Relevance starts before you press send.
+              </p>
             </div>
-            <dl className="divide-y divide-[#DADFD6]">
-              {signals.map((signal) => (
-                <div
-                  key={signal.label}
-                  className="flex items-center justify-between gap-6 py-5 text-[14px]"
-                >
-                  <dt className="text-[#69716B]">{signal.label}</dt>
-                  <dd
-                    className="font-semibold"
-                    style={{ color: signal.label === "Lifecycle" ? "#2563FF" : "#1E2B29" }}
-                  >
-                    {signal.value}
-                  </dd>
+            <div className="rounded-[22px] bg-white p-6 sm:p-8">
+              <div className="flex items-center gap-3 border-b border-[#E5E7E0] pb-5">
+                <MarketingAvatar cell={9} size={44} />
+                <div>
+                  <p className="text-[15px] font-semibold">Mia Thompson</p>
+                  <p className="mt-1 text-[12px] text-[#69716B]">
+                    Past customer · service history in Zapla
+                  </p>
                 </div>
-              ))}
-            </dl>
+              </div>
+              <div className="space-y-4 py-6 text-[13px]">
+                <div className="flex justify-between gap-4">
+                  <span className="text-[#69716B]">Last service</span>
+                  <span>6 months ago</span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span className="text-[#69716B]">Next service</span>
+                  <span>Due next week</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between gap-4 rounded-[14px] bg-[#F7F2EA] p-4">
+                <span className="text-[13px] font-medium">Smart List</span>
+                <AudiencePill label="Service due" />
+              </div>
+              <p className="mt-5 text-[13px] leading-[1.7] text-[#69716B]">
+                A service reminder belongs here. An unrelated offer does not.
+              </p>
+            </div>
           </div>
-        </Reveal>
+          <div className="mt-12 grid gap-7 border-t border-[#1E2B29]/15 pt-8 md:grid-cols-3 md:gap-10">
+            {occasions.map((item) => (
+              <div key={item.title}>
+                <h3 className="text-[20px] font-medium tracking-[-.025em]">{item.title}</h3>
+                <p className="mt-3 text-[13px] leading-[1.7] text-[#4F594B]">{item.audience}</p>
+                <p className="mt-3 text-[13px] font-medium leading-[1.7]">{item.message}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 function MomentScene() {
-  const reduced = !!useReducedMotion();
-  const [active, setActive] = useState(0);
-  const item = MOMENTS[active];
-
   return (
-    <section className="bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1260px]">
-        <div className="flex flex-wrap gap-x-8 gap-y-3 border-b border-[#DDE1DD] pb-4">
-          {MOMENTS.map((moment, index) => (
-            <button
-              key={moment.label}
-              type="button"
-              onClick={() => setActive(index)}
-              className={
-                "relative pb-3 text-[13px] font-semibold transition-colors " +
-                (active === index ? "text-[#111318]" : "text-[#8A908B]")
-              }
-            >
-              {moment.label}
-              <motion.span
-                animate={{ scaleX: active === index ? 1 : 0 }}
-                className="absolute inset-x-0 bottom-0 h-[2px] origin-left"
-                style={{ backgroundColor: moment.tone }}
-              />
-            </button>
-          ))}
-        </div>
-
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={active}
-            initial={reduced ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduced ? undefined : { opacity: 0, y: -10 }}
-            transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
-            className="grid gap-12 pt-14 lg:grid-cols-[0.72fr_1.28fr] lg:items-center lg:gap-20"
+    <section className="px-5 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-24">
+      <div className="mx-auto max-w-[1240px]">
+        <div className="mb-10 grid gap-6 lg:grid-cols-[1.1fr_.9fr] lg:gap-20 lg:items-end">
+          <h2
+            className="max-w-[660px] text-[39px] font-medium leading-[1.03] tracking-[-.045em] sm:text-[52px]"
+            style={{ fontFamily: DISPLAY }}
           >
+            Give the conversation
+            <br />
+            somewhere to go.
+          </h2>
+          <p className="max-w-[470px] text-[15px] leading-[1.8] text-[#69716B]">
+            Reach customers through SMS, email, voicemail, social DMs or AI calls. Connect the
+            outreach to a reply, a form, a page or a booking.
+          </p>
+        </div>
+        <div className="grid gap-0 overflow-hidden rounded-[32px] bg-[#EFE2D2] lg:grid-cols-[.7fr_1.3fr]">
+          <div className="flex flex-col justify-between p-7 sm:p-10 lg:p-12">
             <div>
-              <div
-                className="max-w-[510px] text-[40px] font-medium leading-[1.01] tracking-[-0.052em] text-[#1A1E1B] sm:text-[48px]"
-                style={{ fontFamily: DISPLAY }}
-              >
-                {item.title}
-              </div>
-
-              <div className="mt-10 space-y-7">
-                {[
-                  ["WHO", item.audience],
-                  ["WHEN", item.timing],
-                  ["THEN", item.action],
-                ].map(([label, copy]) => (
-                  <div key={label} className="grid grid-cols-[56px_1fr] gap-5">
-                    <div className="pt-1 text-[9px] font-bold tracking-[0.16em] text-[#9A9F9A]">
-                      {label}
-                    </div>
-                    <div className="text-[14px] leading-[1.6] text-[#454C46]">{copy}</div>
-                  </div>
-                ))}
+              <h3 className="text-[30px] font-medium leading-[1.12] tracking-[-.035em]">
+                From service reminder
+                <br />
+                to next appointment.
+              </h3>
+              <p className="mt-5 text-[14px] leading-[1.8] text-[#655B50]">
+                An automation handles the outreach. The customer can reply or book, and the next
+                step stays attached to their record.
+              </p>
+            </div>
+            <p className="mt-10 text-[14px] font-medium leading-[1.7]">
+              Your team sees the conversation.
+              <br />
+              The customer gets a clear next step.
+            </p>
+          </div>
+          <div className="relative min-h-[590px] p-5 sm:p-8 lg:p-10">
+            <img
+              src="/concept/customer-stories-v6/mechanic.webp"
+              alt="Mechanic in a working automotive workshop"
+              loading="lazy"
+              className="h-[460px] w-full rounded-[22px] object-cover object-[50%_28%] sm:h-[510px]"
+            />
+            <div className="absolute left-8 right-8 top-10 max-w-[310px] rounded-[18px] bg-white p-5 shadow-[0_12px_35px_rgba(30,43,41,.12)] sm:left-4 sm:top-16">
+              <p className="text-[12px] font-semibold text-[#69716B]">Service reminder · SMS</p>
+              <p className="mt-3 text-[14px] leading-[1.7]">
+                Hi Mia, your next service is due. You can choose a time that suits you here.
+              </p>
+              <div className="mt-4 border-t border-[#E5E7E0] pt-3 text-[12px] font-medium text-[#2563FF]">
+                Choose a service time
               </div>
             </div>
-
-            <div className="relative flex flex-col gap-7 overflow-hidden bg-[#F7F4EE] p-7 sm:p-10 lg:block lg:min-h-[520px]">
-              <div className="lg:absolute lg:left-[8%] lg:top-[12%]">
-                <MarketingAvatar
-                  cell={9}
-                  size={94}
-                  className="border-[3px] border-white shadow-[0_16px_34px_rgba(46,36,28,.14)]"
-                />
-                <div className="mt-3 text-[11px] font-semibold text-[#3D433E]">Mia Thompson</div>
-              </div>
-
-              <div className="max-w-[250px] lg:absolute lg:left-[8%] lg:top-[48%]">
-                <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#8C928D]">
-                  Customer context
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {["Existing customer", item.label, "Relevant now"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-white px-3 py-2 text-[9px] font-semibold text-[#4D554F] shadow-[0_8px_22px_rgba(0,0,0,.05)]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+            <div className="absolute bottom-8 left-8 right-8 rounded-[18px] bg-[#FCFCFA] p-5 shadow-[0_12px_35px_rgba(30,43,41,.12)] sm:left-auto sm:right-5 sm:w-[300px]">
+              <div className="flex items-center gap-3">
+                <MarketingAvatar cell={9} size={38} />
+                <div>
+                  <p className="text-[13px] font-semibold">Mia Thompson</p>
+                  <p className="mt-1 text-[12px] text-[#69716B]">Next service booked</p>
                 </div>
               </div>
-
-              <div className="w-full lg:absolute lg:right-[7%] lg:top-[17%] lg:w-[260px] bg-[#18191C] p-6 text-white shadow-[0_25px_65px_rgba(0,0,0,.18)] lg:w-[300px]">
-                <div
-                  className="text-[9px] font-bold uppercase tracking-[0.15em]"
-                  style={{ color: item.tone }}
-                >
-                  Automation
-                </div>
-                <div className="mt-3 text-[20px] font-semibold tracking-[-0.03em]">
-                  {item.action}
-                </div>
-                <div className="mt-6 text-[10px] leading-[1.7] text-white/46">
-                  Triggered when the customer context and timing match.
-                </div>
-              </div>
-
-              <div className="w-full lg:absolute lg:bottom-[10%] lg:right-[12%] lg:w-[220px] bg-white px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,.09)]">
-                <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#969C97]">
-                  Next action
-                </div>
-                <div className="mt-2 text-[14px] font-semibold text-[#282E29]">
-                  {item.destination}
-                </div>
-              </div>
+              <p className="mt-4 border-t border-[#E5E7E0] pt-4 text-[12px] leading-[1.7]">
+                Reminder, response and appointment.
+                <br />
+                Connected to the same customer.
+              </p>
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        </div>
+        <div className="grid gap-7 pb-2 pt-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+          <h3 className="max-w-[410px] text-[27px] font-medium leading-[1.15] tracking-[-.03em]">
+            When they reply,
+            <br />
+            the context comes with them.
+          </h3>
+          <p className="max-w-[650px] text-[14px] leading-[1.8] text-[#69716B]">
+            A campaign response becomes a customer conversation. Your team can see the history and
+            pick up the next step in Zapla, instead of piecing it together across a separate mailing
+            list, inbox and booking tool.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -666,58 +632,70 @@ function MomentScene() {
 
 function CampaignScene() {
   return (
-    <section className="bg-[#1E2B29] px-5 py-24 text-white sm:px-10 sm:py-28 lg:px-16 lg:py-32">
-      <div className="mx-auto max-w-[1260px]">
-        <Reveal className="max-w-[920px]">
-          <div
-            className="text-[42px] font-medium leading-[0.99] tracking-[-0.055em] sm:text-[53px] lg:text-[62px]"
-            style={{ fontFamily: DISPLAY }}
-          >
-            Sending is only half the job.
-            <span className="block text-[#DDA34B]">You should know what happened next.</span>
+    <section className="px-5 pb-16 sm:px-10 sm:pb-20 lg:px-16 lg:pb-24">
+      <div className="mx-auto grid max-w-[1240px] gap-12 overflow-hidden rounded-[32px] bg-[#1E2B29] p-7 text-[#FCFCFA] sm:p-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-16 lg:p-14">
+        <div className="flex flex-col justify-between">
+          <div>
+            <h2
+              className="text-[39px] font-medium leading-[1.04] tracking-[-.045em] sm:text-[49px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              See what happened
+              <br />
+              <span className="text-[#DDA34B]">after the send.</span>
+            </h2>
+            <p className="mt-6 text-[14px] leading-[1.8] text-white/70">
+              Campaigns brings the audience, outreach and destination together so you can trace
+              customer activity back to the initiative.
+            </p>
           </div>
-        </Reveal>
-
-        <Reveal className="mt-14" delay={0.05}>
-          <div className="grid gap-10 border-t border-white/20 pt-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <p className="mt-10 max-w-[340px] text-[17px] leading-[1.6]">
+            Sending is an action.
+            <br />
+            The next booking is the point.
+          </p>
+        </div>
+        <div className="rounded-[22px] bg-[#FCFCFA] p-6 text-[#1E2B29] sm:p-8">
+          <div className="flex justify-between gap-4">
             <div>
-              <p className="text-[13px] font-semibold text-[#DDA34B]">Campaigns</p>
-              <h3 className="mt-4 text-[29px] font-medium tracking-[-0.035em]">
-                One initiative. The whole story.
-              </h3>
-              <p className="mt-5 max-w-[420px] text-[14px] leading-[1.75] text-white/70">
-                Connect the audience, outreach and booking page to the campaign. See the customer
-                activity behind the result, without piecing it together across separate tools.
-              </p>
+              <p className="text-[12px] text-[#69716B]">Campaigns</p>
+              <h3 className="mt-2 text-[25px] font-medium tracking-[-.03em]">Service recall</h3>
             </div>
-            <div className="overflow-hidden rounded-[16px] bg-[#FCFCFA] p-6 text-[#1E2B29] sm:p-8">
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="text-[22px] font-medium tracking-[-0.035em]">Service recall</h3>
-                <ZaplaPetal size={28} />
-              </div>
-              <p className="mt-2 text-[12px] text-[#69716B]">Illustrative campaign attribution</p>
-              <dl className="mt-7 divide-y divide-[#DFE4DB] text-[13px]">
-                {[
-                  ["Audience", "Past customers due for service"],
-                  ["Outreach", "Service reminder by SMS"],
-                  ["Destination", "Service booking page"],
-                ].map(([label, value]) => (
-                  <div key={label} className="grid grid-cols-[86px_1fr] gap-4 py-4">
-                    <dt className="text-[#69716B]">{label}</dt>
-                    <dd>{value}</dd>
-                  </div>
-                ))}
-              </dl>
-              <div className="mt-5 flex items-center gap-4 border-l-[3px] border-[#99A36D] pl-4">
-                <MarketingAvatar cell={9} size={42} />
-                <div>
-                  <p className="text-[14px] font-semibold">Mia booked her next service.</p>
-                  <p className="mt-1 text-[12px] text-[#69716B]">Attributed to Service recall</p>
-                </div>
-              </div>
-            </div>
+            <ZaplaPetal size={30} />
           </div>
-        </Reveal>
+          <dl className="mt-6 grid gap-4 border-y border-[#E0E4DC] py-5 text-[12px] sm:grid-cols-3">
+            {[
+              ["Audience", "Service due"],
+              ["Outreach", "SMS reminder"],
+              ["Destination", "Service booking"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="text-[#69716B]">{label}</dt>
+                <dd className="mt-2 font-medium">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="mt-6 flex items-center gap-3">
+            <MarketingAvatar cell={9} size={40} />
+            <p className="text-[14px] font-semibold">Mia Thompson</p>
+          </div>
+          <ol className="ml-5 mt-5 space-y-0 border-l border-[#CCD2C6] text-[13px]">
+            {[
+              ["Reached", "Service reminder sent"],
+              ["Responded", "Customer replied to the outreach"],
+              ["Booked", "Next service appointment booked"],
+            ].map(([label, detail]) => (
+              <li key={label} className="relative py-3 pl-6">
+                <span className="absolute -left-[4px] top-[18px] h-[7px] w-[7px] rounded-full bg-[#99A36D]" />
+                <p className="font-medium">{label}</p>
+                <p className="mt-1 text-[12px] text-[#69716B]">{detail}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-5 border-t border-[#E0E4DC] pt-4 text-[12px] font-medium">
+            Appointment attributed to Service recall
+          </p>
+        </div>
       </div>
     </section>
   );
