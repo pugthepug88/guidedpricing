@@ -254,7 +254,8 @@ const HERO_AUDIENCES = [
     key: "service",
     label: "Service due",
     tone: "#DDA34B",
-    ink: "#402C11",
+    soft: "#F3E7D2",
+    ink: "#79531E",
     members: [9, 4, 2],
     criterion: "Due for service this week",
     channel: "SMS",
@@ -265,7 +266,8 @@ const HERO_AUDIENCES = [
     key: "vip",
     label: "VIP",
     tone: "#9B86B8",
-    ink: "#291A3D",
+    soft: "#EAE3F0",
+    ink: "#634B7B",
     members: [9, 4],
     criterion: "First access to a new maintenance plan",
     channel: "Email",
@@ -276,7 +278,8 @@ const HERO_AUDIENCES = [
     key: "spend",
     label: "High spend",
     tone: "#99A36D",
-    ink: "#243017",
+    soft: "#E7EBD9",
+    ink: "#4C5B31",
     members: [13],
     criterion: "A fit for the premium maintenance plan",
     channel: "Email",
@@ -312,7 +315,10 @@ function HeroCustomerScene() {
             {HERO_CUSTOMERS.map((person) => (
               <div
                 key={person.cell}
-                className="flex min-h-[74px] items-center gap-3 rounded-[12px] border border-[#E2E5E0] bg-white px-4 py-3"
+                className={
+                  "flex min-h-[74px] items-center gap-3 rounded-[12px] border px-4 py-3 " +
+                  (person.cell === 9 ? "border-[#CDD9FC] bg-white" : "border-[#E9ECE6] bg-white/70")
+                }
               >
                 <MarketingAvatar cell={person.cell} size={36} />
                 <div className="min-w-0">
@@ -324,7 +330,7 @@ function HeroCustomerScene() {
                         <span
                           key={tag}
                           className="rounded-[4px] px-2 py-1 text-[10px] font-semibold leading-[1.2]"
-                          style={{ backgroundColor: list.tone, color: list.ink }}
+                          style={{ backgroundColor: list.soft, color: list.ink }}
                         >
                           {tag}
                         </span>
@@ -338,7 +344,7 @@ function HeroCustomerScene() {
         </div>
         <div>
           <h3 className="mb-5 text-[13px] font-semibold text-[#1E2B29]">Smart Lists</h3>
-          <div className="overflow-hidden rounded-[16px] border border-[#DBE0DB] bg-white">
+          <div className="space-y-7 pt-1">
             {HERO_AUDIENCES.map((audience) => {
               const members = HERO_CUSTOMERS.filter((person) =>
                 (audience.members as readonly number[]).includes(person.cell),
@@ -347,12 +353,13 @@ function HeroCustomerScene() {
                 <article
                   key={audience.key}
                   data-smart-list={audience.key}
-                  className="border-b border-[#E9ECE6] px-5 py-5 last:border-b-0"
+                  className="border-l-2 px-5 py-1"
+                  style={{ borderColor: audience.tone }}
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <h4
-                      className="rounded-[5px] px-2.5 py-1 text-[12px] font-semibold"
-                      style={{ backgroundColor: audience.tone, color: audience.ink }}
+                      className="text-[17px] font-medium tracking-[-0.025em]"
+                      style={{ color: audience.ink }}
                     >
                       {audience.label}
                     </h4>
@@ -433,10 +440,10 @@ function HeroCustomerScene() {
               </motion.div>
             </div>
           </div>
-          <div className="mt-5 rounded-[14px] border border-[#D9E1DA] bg-[#F2F4EF] px-5 py-4">
+          <div className="mt-6 border-l-[3px] border-[#2563FF] py-1 pl-4">
             <h4 className="text-[12px] font-semibold text-[#2563FF]">Campaign results</h4>
             <motion.div data-outreach-result variants={progress(2.6)} className="mt-3">
-              <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1E2B29]">
+              <p className="text-[21px] font-medium tracking-[-0.035em] text-[#1E2B29]">
                 Mia booked a service.
               </p>
               <p className="mt-1 text-[12px] leading-[1.6] text-[#69716B]">
