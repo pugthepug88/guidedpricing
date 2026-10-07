@@ -11,7 +11,7 @@ export const Route = createFileRoute("/customer-marketing")({
       {
         name: "description",
         content:
-          "Use the data already in Zapla to choose who to contact, time the outreach, and create more business from your existing customer base.",
+          "Use the data already in Zapla to decide who to contact, reach them at the right time, and create more business from the customers you already have.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -25,13 +25,74 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const HERO_PEOPLE = [
-  { name: "Mia", initials: "MT", x: 8, y: 18, match: true, tone: "#E97D62", tag: "Service due" },
-  { name: "Daniel", initials: "DK", x: 31, y: 8, match: true, tone: "#DDA34B", tag: "Sydney" },
-  { name: "Sophie", initials: "SN", x: 40, y: 56, match: true, tone: "#9B86B8", tag: "Subscribed" },
-  { name: "Priya", initials: "PS", x: 8, y: 64, match: false, tone: "#99A36D", tag: "Active" },
-  { name: "Lucas", initials: "LM", x: 55, y: 20, match: false, tone: "#C96C85", tag: "Newcastle" },
-  { name: "Olivia", initials: "OL", x: 61, y: 69, match: false, tone: "#6F827A", tag: "Commercial" },
+const HERO_CUSTOMERS = [
+  {
+    name: "Sophie Carter",
+    meta: "Sydney",
+    avatar: "https://i.pravatar.cc/160?img=47",
+    tags: ["VIP", "Sydney"],
+  },
+  {
+    name: "Daniel Kim",
+    meta: "Melbourne",
+    avatar: "https://i.pravatar.cc/160?img=12",
+    tags: ["Service due", "High spend"],
+  },
+  {
+    name: "Mia Thompson",
+    meta: "Brisbane",
+    avatar: "https://i.pravatar.cc/160?img=44",
+    tags: ["No booking 90 days", "Haircare"],
+  },
+  {
+    name: "Olivia Tan",
+    meta: "Sydney",
+    avatar: "https://i.pravatar.cc/160?img=32",
+    tags: ["VIP", "High spend"],
+  },
+  {
+    name: "Liam Brooks",
+    meta: "Gold Coast",
+    avatar: "https://i.pravatar.cc/160?img=11",
+    tags: ["Service due", "Elite score"],
+  },
+  {
+    name: "Chloe Bennett",
+    meta: "Perth",
+    avatar: "https://i.pravatar.cc/160?img=45",
+    tags: ["No booking 90 days", "Sydney"],
+  },
+] as const;
+
+const HERO_SMART_LISTS = [
+  {
+    title: "VIP clients",
+    subtitle: "High spenders, frequent bookers",
+    count: 247,
+    tone: "#EEF3FF",
+    avatars: [47, 12, 44, 32],
+  },
+  {
+    title: "Service due this week",
+    subtitle: "Based on service history",
+    count: 189,
+    tone: "#FFF3EA",
+    avatars: [12, 44, 11, 47],
+  },
+  {
+    title: "Needs follow up",
+    subtitle: "No booking in 60–90 days",
+    count: 321,
+    tone: "#F2EEFF",
+    avatars: [11, 45, 32, 44],
+  },
+] as const;
+
+const HERO_OUTREACH = [
+  { label: "SMS", detail: "Send a personalised message", tone: "#EAF8EE" },
+  { label: "Email", detail: "Share an offer or reminder", tone: "#EEF4FF" },
+  { label: "AI outbound call", detail: "Personalised AI outreach", tone: "#FFF1E8" },
+  { label: "Social DM", detail: "Reach customers on social", tone: "#FCEEF4" },
 ] as const;
 
 const MOMENTS = [
@@ -197,160 +258,237 @@ function Hero() {
 
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
-  const [phase, setPhase] = useState(reduced ? 4 : 0);
+  const [activeList, setActiveList] = useState(0);
 
   useEffect(() => {
-    if (reduced) {
-      setPhase(4);
-      return;
-    }
-
+    if (reduced) return;
     const timer = window.setInterval(() => {
-      setPhase((current) => (current + 1) % 5);
-    }, 1450);
-
+      setActiveList((current) => (current + 1) % HERO_SMART_LISTS.length);
+    }, 2800);
     return () => window.clearInterval(timer);
   }, [reduced]);
 
   return (
-    <div className="relative min-h-[650px] overflow-hidden bg-[#17191D] text-white sm:min-h-[700px] lg:min-h-[760px]">
-      <div className="relative mx-auto min-h-[650px] max-w-[1320px] px-5 py-12 sm:min-h-[700px] sm:px-10 sm:py-14 lg:min-h-[760px] lg:px-16 lg:py-16">
-        <div className="grid min-h-[550px] items-center gap-10 lg:grid-cols-[0.36fr_0.64fr]">
-          <div className="relative z-20 max-w-[420px]">
-            <div className="text-[12px] font-semibold tracking-[-0.01em] text-white/58">
-              Your customer base is already full of signals.
+    <div className="relative overflow-hidden bg-[#FCFCFA] pb-20 sm:pb-24 lg:pb-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[620px]">
+        <div className="absolute left-[8%] top-[14%] h-[300px] w-[420px] rounded-full bg-[#EAF1FF]/70 blur-[90px]" />
+        <div className="absolute right-[8%] top-[8%] h-[300px] w-[380px] rounded-full bg-[#F4EBDD]/70 blur-[100px]" />
+        <div className="absolute left-[43%] top-[42%] h-[240px] w-[360px] rounded-full bg-[#EEE8F6]/55 blur-[90px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-[1440px] px-4 sm:px-8 lg:px-12">
+        <div className="grid items-start gap-5 lg:grid-cols-[0.98fr_1.04fr_0.78fr_0.72fr] lg:gap-6">
+          <div className="relative min-h-[530px] overflow-hidden pt-3">
+            <motion.div
+              animate={reduced ? undefined : { y: [0, -78, 0] }}
+              transition={
+                reduced
+                  ? undefined
+                  : { duration: 13, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.8 }
+              }
+              className="space-y-3"
+            >
+              {HERO_CUSTOMERS.map((customer, index) => (
+                <motion.div
+                  key={customer.name}
+                  initial={false}
+                  animate={{
+                    opacity: index === HERO_CUSTOMERS.length - 1 ? 0.35 : 1,
+                    scale: index === 0 ? 1.015 : 1,
+                  }}
+                  transition={{ duration: reduced ? 0 : 0.35, ease: EASE }}
+                  className="group relative flex min-h-[74px] items-center gap-3 rounded-[18px] border border-[#E8E8E2] bg-white/94 px-4 py-3 shadow-[0_16px_38px_rgba(31,35,31,.055)] backdrop-blur-sm"
+                >
+                  <img
+                    src={customer.avatar}
+                    alt=""
+                    className="h-12 w-12 shrink-0 rounded-[14px] object-cover"
+                    loading="eager"
+                  />
+
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-[13px] font-semibold tracking-[-0.018em] text-[#242925]">
+                      {customer.name}
+                    </div>
+                    <div className="mt-0.5 text-[9px] text-[#949A95]">{customer.meta}</div>
+                  </div>
+
+                  <div className="flex max-w-[156px] flex-wrap justify-end gap-1.5">
+                    {customer.tags.map((tag, tagIndex) => {
+                      const tones = [
+                        ["#EAF1FF", "#3267CF"],
+                        ["#FFF0E7", "#AA5A3F"],
+                        ["#ECF5E9", "#587257"],
+                        ["#F0EAFE", "#745DA1"],
+                      ] as const;
+                      const [backgroundColor, color] = tones[(index + tagIndex) % tones.length];
+
+                      return (
+                        <span
+                          key={tag}
+                          className="rounded-full px-2.5 py-1 text-[8px] font-semibold"
+                          style={{ backgroundColor, color }}
+                        >
+                          {tag}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FCFCFA] via-[#FCFCFA]/88 to-transparent" />
+          </div>
+
+          <div className="pt-9">
+            <div className="mb-4 text-[9px] font-bold uppercase tracking-[0.16em] text-[#8E948E]">
+              Smart Lists
             </div>
 
-            <h2
-              className="mt-4 text-[39px] font-medium leading-[0.98] tracking-[-0.05em] sm:text-[48px] lg:text-[54px]"
-              style={{ fontFamily: DISPLAY }}
-            >
-              See the signals.
-              <br />
-              <span className="text-[#AFC3FF]">Act on the moment.</span>
-            </h2>
+            <div className="space-y-4">
+              {HERO_SMART_LISTS.map((list, index) => {
+                const active = activeList === index;
+                return (
+                  <motion.div
+                    key={list.title}
+                    animate={{
+                      y: active ? -3 : 0,
+                      scale: active ? 1.018 : 1,
+                      boxShadow: active
+                        ? "0 26px 60px rgba(37,99,255,.12)"
+                        : "0 15px 36px rgba(40,43,39,.05)",
+                      borderColor: active ? "#BFD0FF" : "#E5E6E1",
+                    }}
+                    transition={{ duration: reduced ? 0 : 0.38, ease: EASE }}
+                    className="relative overflow-hidden rounded-[22px] border bg-white/96 px-5 py-5"
+                  >
+                    <motion.div
+                      className="absolute inset-0"
+                      animate={{ opacity: active ? 1 : 0.55 }}
+                      style={{ background: `linear-gradient(135deg, ${list.tone} 0%, rgba(255,255,255,0) 68%)` }}
+                    />
 
-            <p className="mt-6 max-w-[370px] text-[13px] leading-[1.75] text-white/48">
-              Customer history, tags and timing turn a broad database into the people worth contacting now.
-            </p>
+                    <div className="relative">
+                      <div className="flex items-start justify-between gap-5">
+                        <div>
+                          <div className="text-[16px] font-semibold tracking-[-0.025em] text-[#292E2A]">
+                            {list.title}
+                          </div>
+                          <div className="mt-1 text-[10px] leading-[1.45] text-[#7B827C]">
+                            {list.subtitle}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-[16px] font-semibold text-[#222722]">+{list.count}</div>
+                          <div className="mt-0.5 text-[8px] text-[#969C97]">customers</div>
+                        </div>
+                      </div>
 
-            <div className="mt-8 flex items-center gap-3">
-              {[0, 1, 2, 3, 4].map((step) => (
-                <motion.span
-                  key={step}
+                      <div className="mt-5 flex -space-x-2">
+                        {list.avatars.map((avatar) => (
+                          <img
+                            key={avatar}
+                            src={`https://i.pravatar.cc/120?img=${avatar}`}
+                            alt=""
+                            className="h-9 w-9 rounded-full border-[3px] border-white object-cover"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="pt-[76px]">
+            <div className="mb-4 text-[9px] font-bold uppercase tracking-[0.16em] text-[#8E948E]">
+              Automated outreach
+            </div>
+
+            <div className="rounded-[24px] border border-[#E6E7E2] bg-white/96 p-3 shadow-[0_20px_46px_rgba(40,43,39,.055)]">
+              {HERO_OUTREACH.map((item, index) => (
+                <motion.div
+                  key={item.label}
                   animate={{
-                    width: phase === step ? 34 : 8,
-                    opacity: phase >= step ? 1 : 0.28,
+                    opacity: index === activeList || index === activeList + 1 ? 1 : 0.62,
+                    x: index === activeList ? 4 : 0,
                   }}
-                  transition={{ duration: reduced ? 0 : 0.28, ease: EASE }}
-                  className="h-[3px] rounded-full bg-white"
-                />
+                  transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
+                  className="flex items-center gap-3 border-b border-[#ECEDE9] px-3 py-4 last:border-b-0"
+                >
+                  <div
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] text-[11px] font-bold text-[#273028]"
+                    style={{ backgroundColor: item.tone }}
+                  >
+                    {index === 0 ? "SMS" : index === 1 ? "@" : index === 2 ? "AI" : "DM"}
+                  </div>
+                  <div>
+                    <div className="text-[12px] font-semibold text-[#2A302B]">{item.label}</div>
+                    <div className="mt-0.5 text-[8px] leading-[1.5] text-[#939A94]">{item.detail}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["Forms", "Pages", "Bookings"].map((asset) => (
+                <span
+                  key={asset}
+                  className="rounded-full border border-[#E3E5E0] bg-[#FBFAF7] px-3 py-2 text-[8px] font-semibold text-[#747C75]"
+                >
+                  {asset}
+                </span>
               ))}
             </div>
           </div>
 
-          <div className="relative min-h-[440px] sm:min-h-[520px] lg:min-h-[610px]">
-            {HERO_PEOPLE.map((person, index) => {
-              const dim = phase >= 2 && !person.match;
-              const pull = phase >= 2 && person.match;
+          <div className="pt-[104px]">
+            <div className="mb-4 text-[9px] font-bold uppercase tracking-[0.16em] text-[#8E948E]">
+              Campaign performance
+            </div>
 
-              return (
-                <motion.div
-                  key={person.name}
-                  className="absolute"
-                  style={{ left: `${person.x}%`, top: `${person.y}%` }}
-                  animate={{
-                    x: pull ? 20 + index * 4 : 0,
-                    y: pull ? (index % 2 === 0 ? -8 : 8) : 0,
-                    opacity: dim ? 0.15 : 1,
-                    scale: dim ? 0.86 : pull ? 1.07 : 1,
-                    filter: dim ? "blur(2px)" : "blur(0px)",
-                  }}
-                  transition={{ duration: reduced ? 0 : 0.48, ease: EASE }}
-                >
-                  <div className="relative">
-                    <div
-                      className="flex h-[76px] w-[76px] items-center justify-center rounded-full border border-white/16 text-[15px] font-semibold text-white shadow-[0_18px_42px_rgba(0,0,0,.28)] sm:h-[90px] sm:w-[90px]"
-                      style={{ backgroundColor: person.tone }}
-                    >
-                      {person.initials}
+            <div className="rounded-[24px] border border-[#E6E7E2] bg-white/96 px-5 py-5 shadow-[0_20px_46px_rgba(40,43,39,.055)]">
+              <div className="text-[15px] font-semibold tracking-[-0.025em] text-[#292E2A]">
+                What happened next
+              </div>
+              <div className="mt-1 text-[9px] leading-[1.55] text-[#8D948E]">
+                Replies, bookings and revenue stay tied back to the campaign.
+              </div>
+
+              <div className="mt-6 space-y-5">
+                {[
+                  ["Replies", "#99A36D"],
+                  ["Bookings", "#2563FF"],
+                  ["Attributed revenue", "#DDA34B"],
+                ].map(([label, tone], index) => (
+                  <div key={label}>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-semibold text-[#5E665F]">{label}</span>
+                      <span className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#A1A6A1]">
+                        Tracked
+                      </span>
                     </div>
-
                     <motion.div
-                      initial={false}
-                      animate={{
-                        opacity: phase >= 1 ? 1 : 0,
-                        y: phase >= 1 ? 0 : 8,
-                      }}
-                      transition={{ duration: reduced ? 0 : 0.28, delay: reduced ? 0 : index * 0.035 }}
-                      className="absolute left-[54px] top-[-10px] whitespace-nowrap rounded-full bg-white px-3 py-2 text-[9px] font-semibold text-[#272B28] shadow-[0_12px_30px_rgba(0,0,0,.22)] sm:left-[66px]"
-                    >
-                      {person.tag}
-                    </motion.div>
-
-                    <div className="mt-3 text-center text-[10px] font-semibold text-white/68">{person.name}</div>
+                      className="mt-2 h-[3px] origin-left rounded-full"
+                      style={{ backgroundColor: tone }}
+                      animate={{ scaleX: activeList === index ? 1 : 0.48 }}
+                      transition={{ duration: reduced ? 0 : 0.48, ease: EASE }}
+                    />
                   </div>
-                </motion.div>
-              );
-            })}
+                ))}
+              </div>
 
-            <AnimatePresence>
-              {phase >= 3 ? (
-                <motion.div
-                  key="timing"
-                  initial={reduced ? false : { opacity: 0, scale: 0.92, y: 12 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.92, y: 12 }}
-                  transition={{ duration: reduced ? 0 : 0.34, ease: EASE }}
-                  className="absolute right-[7%] top-[27%] z-20 max-w-[210px]"
-                >
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#DDA34B]">Timing signal</div>
-                  <div
-                    className="mt-2 text-[30px] font-medium leading-[1] tracking-[-0.045em] text-white"
-                    style={{ fontFamily: DISPLAY }}
-                  >
-                    Due this week.
-                  </div>
-                  <div className="mt-3 text-[10px] leading-[1.6] text-white/45">
-                    The audience is relevant now, not just relevant in general.
-                  </div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-
-            <AnimatePresence>
-              {phase >= 4 ? (
-                <motion.div
-                  key="campaign"
-                  initial={reduced ? false : { opacity: 0, x: 34, y: 12 }}
-                  animate={{ opacity: 1, x: 0, y: 0 }}
-                  exit={{ opacity: 0, x: 34, y: 12 }}
-                  transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
-                  className="absolute bottom-[6%] right-[2%] z-30 w-[285px] overflow-hidden rounded-[22px] bg-white text-[#17191D] shadow-[0_26px_70px_rgba(0,0,0,.30)] sm:w-[330px]"
-                >
-                  <div className="px-6 py-5">
-                    <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#2563FF]">Campaign</div>
-                    <div className="mt-2 text-[20px] font-semibold tracking-[-0.035em]">Service availability</div>
-                    <div className="mt-4 text-[11px] leading-[1.65] text-[#6E746F]">
-                      Reach customers who are due, local and subscribed.
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between border-t border-[#E5E8E5] px-6 py-4">
-                    <span className="text-[9px] font-semibold text-[#7B827C]">Audience ready</span>
-                    <span className="text-[10px] font-semibold text-[#111318]">Run outreach →</span>
-                  </div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-
-            <motion.div
-              animate={{ opacity: phase >= 2 ? 1 : 0 }}
-              className="absolute bottom-[16%] left-[24%] hidden text-[10px] font-semibold uppercase tracking-[0.15em] text-[#AFC3FF] sm:block"
-            >
-              Relevant now
-            </motion.div>
+              <div className="mt-7 border-t border-[#E8EAE6] pt-4 text-[8px] leading-[1.55] text-[#9AA09B]">
+                Campaigns connects the initiative, assets, activity and outcome.
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div className="pointer-events-none absolute left-[31%] top-[132px] hidden h-px w-[60%] lg:block">
+          <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-[#C9D7FF] to-transparent opacity-70" />
         </div>
       </div>
     </div>
