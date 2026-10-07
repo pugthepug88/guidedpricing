@@ -584,12 +584,12 @@ function MomentScene() {
           </div>
           <div className="relative min-h-[590px] p-5 sm:p-8 lg:p-10">
             <img
-              src="/concept/customer-stories-v6/mechanic.webp"
-              alt="Mechanic in a working automotive workshop"
+              src="/concept/customer-marketing-service-arrival.svg"
+              alt="Customer handing her car keys to a mechanic at a service appointment"
               loading="lazy"
-              className="h-[460px] w-full rounded-[22px] object-cover object-[50%_28%] sm:h-[510px]"
+              className="h-[460px] w-full rounded-[22px] object-cover object-[50%_50%] sm:h-[510px]"
             />
-            <div className="absolute left-8 right-8 top-10 max-w-[310px] rounded-[18px] bg-white p-5 shadow-[0_12px_35px_rgba(30,43,41,.12)] sm:left-4 sm:top-16">
+            <div className="absolute left-8 right-8 top-10 max-w-[310px] rounded-[18px] border-2 border-white/95 bg-[#FCFCFA]/85 p-5 shadow-[inset_0_0_0_1px_rgba(30,43,41,.22),0_12px_35px_rgba(30,43,41,.12)] backdrop-blur-[6px] sm:left-4 sm:top-16">
               <p className="text-[12px] font-semibold text-[#69716B]">Service reminder · SMS</p>
               <p className="mt-3 text-[14px] leading-[1.7]">
                 Hi Mia, your next service is due. You can choose a time that suits you here.
@@ -598,7 +598,7 @@ function MomentScene() {
                 Choose a service time
               </div>
             </div>
-            <div className="absolute bottom-8 left-8 right-8 rounded-[18px] bg-[#FCFCFA] p-5 shadow-[0_12px_35px_rgba(30,43,41,.12)] sm:left-auto sm:right-5 sm:w-[300px]">
+            <div className="absolute bottom-8 left-8 right-8 rounded-[18px] border-2 border-white/95 bg-[#FCFCFA]/85 p-5 shadow-[inset_0_0_0_1px_rgba(30,43,41,.22),0_12px_35px_rgba(30,43,41,.12)] backdrop-blur-[6px] sm:left-auto sm:right-5 sm:w-[300px]">
               <div className="flex items-center gap-3">
                 <MarketingAvatar cell={9} size={38} />
                 <div>
