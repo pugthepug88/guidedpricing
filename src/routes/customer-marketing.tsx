@@ -234,22 +234,46 @@ const HERO_AUDIENCES = [
   { key: "service", label: "Service due", tone: "#DDA34B", members: [9, 2, 7, 16], more: 24 },
   { key: "vip", label: "VIP", tone: "#9B86B8", members: [9, 10, 7], more: 8 },
   { key: "spend", label: "High spend", tone: "#99A36D", members: [13, 11, 17], more: 12 },
-  { key: "inactive", label: "No contact · 90d", tone: "#E97D62", members: [4, 6, 14, 18], more: 36 },
+  {
+    key: "inactive",
+    label: "No contact · 90d",
+    tone: "#E97D62",
+    members: [4, 6, 14, 18],
+    more: 36,
+  },
 ] as const;
 
 function AudiencePill({ label }: { label: string }) {
   const audience = HERO_AUDIENCES.find((item) => item.label === label)!;
   return (
-    <span className="shrink-0 rounded-full px-3 py-2 text-[10px] font-semibold leading-none text-[#1E2B29]"
-      style={{ backgroundColor: audience.tone + "30" }}>{label}</span>
+    <span
+      className="shrink-0 rounded-full px-3 py-2 text-[10px] font-semibold leading-none text-[#1E2B29]"
+      style={{ backgroundColor: audience.tone + "30" }}
+    >
+      {label}
+    </span>
   );
 }
 
 function AudiencePortraits({ members, more }: { members: readonly number[]; more?: number }) {
   return (
-    <div className="flex shrink-0 -space-x-2" aria-label={`${members.length}${more ? ` plus ${more} more` : ""} example contacts`}>
-      {members.map((cell) => <MarketingAvatar key={cell} cell={cell} size={32} className="border-2 border-white shadow-none" />)}
-      {more !== undefined && <span className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-white bg-[#F7F4EE] text-[9px] font-semibold text-[#1E2B29]">+{more}</span>}
+    <div
+      className="flex shrink-0 -space-x-2"
+      aria-label={`${members.length}${more ? ` plus ${more} more` : ""} example contacts`}
+    >
+      {members.map((cell) => (
+        <MarketingAvatar
+          key={cell}
+          cell={cell}
+          size={32}
+          className="border-2 border-white shadow-none"
+        />
+      ))}
+      {more !== undefined && (
+        <span className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-white bg-[#F7F4EE] text-[9px] font-semibold text-[#1E2B29]">
+          +{more}
+        </span>
+      )}
     </div>
   );
 }
@@ -267,18 +291,44 @@ function HeroCustomerScene() {
         <div>
           <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">Customers</h3>
           <div className="relative isolate flex min-h-[360px] flex-col justify-center gap-3 py-2">
-            <div aria-hidden="true" className="pointer-events-none absolute -inset-x-5 inset-y-0 -z-10 opacity-60 blur-[36px]"
-              style={{ background: "radial-gradient(ellipse at 25% 25%, #DDA34B55, transparent 65%), radial-gradient(ellipse at 80% 50%, #99A36D55, transparent 65%), radial-gradient(ellipse at 20% 85%, #9B86B855, transparent 65%)" }} />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-x-5 inset-y-0 -z-10 opacity-60 blur-[36px]"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 25% 25%, #DDA34B55, transparent 65%), radial-gradient(ellipse at 80% 50%, #99A36D55, transparent 65%), radial-gradient(ellipse at 20% 85%, #9B86B855, transparent 65%)",
+              }}
+            />
             {HERO_CUSTOMERS.map((person, index) => {
               const focus = person.cell === 9;
               const inset = [30, 14, 0, 14, 30][index];
               return (
-                <div key={person.cell} className={"flex min-h-[62px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3 " + (focus ? "border-[#2563FF] shadow-[0_8px_26px_-14px_rgba(37,99,255,.2)]" : "border-white/80")}
-                  style={{ marginLeft: inset, marginRight: focus ? 0 : 22, opacity: focus ? 1 : index === 0 || index === 4 ? .48 : .66 }}>
-                  <MarketingAvatar cell={person.cell} size={focus ? 42 : 34} className="shadow-none" />
+                <div
+                  key={person.cell}
+                  className={
+                    "flex min-h-[62px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3 " +
+                    (focus
+                      ? "border-[#2563FF] shadow-[0_8px_26px_-14px_rgba(37,99,255,.2)]"
+                      : "border-white/80")
+                  }
+                  style={{
+                    marginLeft: inset,
+                    marginRight: focus ? 0 : 22,
+                    opacity: focus ? 1 : index === 0 || index === 4 ? 0.48 : 0.66,
+                  }}
+                >
+                  <MarketingAvatar
+                    cell={person.cell}
+                    size={focus ? 42 : 34}
+                    className="shadow-none"
+                  />
                   <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
                     <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
-                    <div className="flex flex-wrap gap-1.5">{person.tags.map((tag) => <AudiencePill key={tag} label={tag} />)}</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {person.tags.map((tag) => (
+                        <AudiencePill key={tag} label={tag} />
+                      ))}
+                    </div>
                   </div>
                 </div>
               );
@@ -289,7 +339,11 @@ function HeroCustomerScene() {
           <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">Smart Lists</h3>
           <div className="space-y-4 pt-5">
             {HERO_AUDIENCES.map((audience) => (
-              <article key={audience.key} data-smart-list={audience.key} className="flex min-h-[70px] flex-wrap items-center justify-between gap-3 rounded-[12px] border border-[#111318]/[0.06] bg-white px-4 py-3 shadow-[0_8px_24px_-16px_rgba(30,43,41,.14)]">
+              <article
+                key={audience.key}
+                data-smart-list={audience.key}
+                className="flex min-h-[70px] flex-wrap items-center justify-between gap-3 rounded-[12px] border border-[#111318]/[0.06] bg-white px-4 py-3 shadow-[0_8px_24px_-16px_rgba(30,43,41,.14)]"
+              >
                 <AudiencePortraits members={audience.members} more={audience.more} />
                 <AudiencePill label={audience.label} />
               </article>
@@ -297,23 +351,50 @@ function HeroCustomerScene() {
           </div>
         </div>
         <div data-outreach-example className="md:col-span-2 lg:col-span-1">
-          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">Automated outreach</h3>
-          <motion.div initial={reduced ? false : "quiet"} whileInView="shown" viewport={{ once: true, amount: .3 }} className="rounded-[18px] border border-[#111318]/[0.08] bg-white p-5 shadow-[0_18px_50px_-28px_rgba(30,43,41,.18)] sm:p-6">
-            <h4 className="text-[20px] font-medium tracking-[-0.035em] text-[#111318]">Service reminder</h4>
+          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">
+            Automated outreach
+          </h3>
+          <motion.div
+            initial={reduced ? false : "quiet"}
+            whileInView="shown"
+            viewport={{ once: true, amount: 0.3 }}
+            className="rounded-[18px] border border-[#111318]/[0.08] bg-white p-5 shadow-[0_18px_50px_-28px_rgba(30,43,41,.18)] sm:p-6"
+          >
+            <h4 className="text-[20px] font-medium tracking-[-0.035em] text-[#111318]">
+              Service reminder
+            </h4>
             <div className="mt-5 flex flex-wrap items-center gap-3 rounded-[10px] bg-[#F7F4EE]/70 px-3 py-3">
               <AudiencePortraits members={[9, 2, 7]} />
               <AudiencePill label="Service due" />
             </div>
             <div className="relative mt-4 space-y-3">
-              <div aria-hidden="true" className="absolute bottom-7 left-[24px] top-7 w-px bg-[#2563FF]/25" />
+              <div
+                aria-hidden="true"
+                className="absolute bottom-7 left-[24px] top-7 w-px bg-[#2563FF]/25"
+              />
               {steps.map(({ label, Icon, color }, index) => (
-                <motion.div key={label} variants={{ quiet: { opacity: .45 }, shown: { opacity: 1, transition: { duration: reduced ? 0 : .45, delay: reduced ? 0 : index * .65 } } }} className="relative flex min-h-[54px] items-center gap-4 rounded-[10px] border border-[#111318]/[0.04] bg-[#FCFCFA] px-4 py-3">
+                <motion.div
+                  key={label}
+                  variants={{
+                    quiet: { opacity: 0.45 },
+                    shown: {
+                      opacity: 1,
+                      transition: {
+                        duration: reduced ? 0 : 0.45,
+                        delay: reduced ? 0 : index * 0.65,
+                      },
+                    },
+                  }}
+                  className="relative flex min-h-[54px] items-center gap-4 rounded-[10px] border border-[#111318]/[0.04] bg-[#FCFCFA] px-4 py-3"
+                >
                   <Icon size={19} strokeWidth={1.65} style={{ color }} />
                   <p className="text-[12px] font-semibold text-[#1E2B29]">{label}</p>
                 </motion.div>
               ))}
             </div>
-            <p className="mt-5 border-t border-[#111318]/[0.08] pt-4 text-[11px] leading-[1.8] text-[#1E2B29]/65">SMS · Email · Voicemail · Social DMs · AI calls</p>
+            <p className="mt-5 border-t border-[#111318]/[0.08] pt-4 text-[11px] leading-[1.8] text-[#1E2B29]/65">
+              SMS · Email · Voicemail · Social DMs · AI calls
+            </p>
           </motion.div>
         </div>
       </div>
