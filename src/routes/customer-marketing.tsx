@@ -469,7 +469,7 @@ function HeroCustomerScene() {
             aria-live={paused || reduced ? "polite" : "off"}
             aria-atomic="true"
           >
-            <AnimatePresence initial={false} mode="wait">
+            <AnimatePresence initial={false} mode="sync">
               <motion.div
                 key={`${audience.key}-${shownStep}`}
                 data-story-phase={HERO_PHASES[shownStep]}
