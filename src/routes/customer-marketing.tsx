@@ -412,6 +412,9 @@ function HeroCustomerScene() {
               data-audience={audience.key}
               className="relative h-[85px] overflow-hidden rounded-[14px] border border-[#1E2B29]/[0.12] bg-white px-4 py-3 shadow-[0_8px_24px_rgba(30,43,41,.06)]"
             >
+              <p className="mb-2 text-center text-[12px] font-semibold text-[#1E2B29]">
+                Smart List audience
+              </p>
               <AnimatePresence initial={false} mode="wait">
                 <motion.div
                   key={audience.key}
@@ -419,13 +422,12 @@ function HeroCustomerScene() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -9 }}
                   transition={{ duration: reduced ? 0 : 0.25 }}
-                  className="flex h-full items-center gap-3"
+                  className="mx-auto grid h-7 w-fit grid-cols-[116px_132px] items-center gap-3"
                 >
-                  <AudiencePortraits members={audience.members} more={audience.more} size={28} />
-                  <div className="min-w-0">
-                    <p className="mb-2 text-[12px] font-semibold text-[#1E2B29]">
-                      Smart List audience
-                    </p>
+                  <div className="flex justify-center">
+                    <AudiencePortraits members={audience.members} more={audience.more} size={28} />
+                  </div>
+                  <div className="flex justify-center">
                     <AudiencePill label={audience.label} />
                   </div>
                 </motion.div>
