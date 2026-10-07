@@ -24,75 +24,64 @@ const PRICING_URL = "/Pricing-v3";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
+const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 const HERO_CUSTOMERS = [
   {
-    name: "Sophie Carter",
+    name: "Mia Thompson",
     meta: "Sydney",
-    avatar: "https://i.pravatar.cc/160?img=47",
-    tags: ["VIP", "Sydney"],
-  },
-  {
-    name: "Daniel Kim",
-    meta: "Melbourne",
-    avatar: "https://i.pravatar.cc/160?img=12",
+    cell: 9,
     tags: ["Service due", "High spend"],
   },
   {
-    name: "Mia Thompson",
-    meta: "Brisbane",
-    avatar: "https://i.pravatar.cc/160?img=44",
-    tags: ["No booking 90 days", "Haircare"],
+    name: "Daniel Brooks",
+    meta: "Melbourne",
+    cell: 4,
+    tags: ["VIP", "Past customer"],
   },
   {
-    name: "Olivia Tan",
+    name: "Priya Sharma",
     meta: "Sydney",
-    avatar: "https://i.pravatar.cc/160?img=32",
-    tags: ["VIP", "High spend"],
+    cell: 13,
+    tags: ["Quote viewed", "Sydney"],
   },
   {
-    name: "Liam Brooks",
-    meta: "Gold Coast",
-    avatar: "https://i.pravatar.cc/160?img=11",
-    tags: ["Service due", "Elite score"],
-  },
-  {
-    name: "Chloe Bennett",
-    meta: "Perth",
-    avatar: "https://i.pravatar.cc/160?img=45",
-    tags: ["No booking 90 days", "Sydney"],
+    name: "Chloe Martin",
+    meta: "Brisbane",
+    cell: 2,
+    tags: ["No booking 90 days", "High spend"],
   },
 ] as const;
 
-const HERO_SMART_LISTS = [
+const HERO_STORY = [
   {
-    title: "VIP clients",
-    subtitle: "High spenders, frequent bookers",
-    count: 247,
-    tone: "#EEF3FF",
-    avatars: [47, 12, 44, 32],
-  },
-  {
+    eyebrow: "Smart List",
     title: "Service due this week",
-    subtitle: "Based on service history",
-    count: 189,
-    tone: "#FFF3EA",
-    avatars: [12, 44, 11, 47],
+    copy: "Built from service history, timing and customer context.",
+    tone: "#DDA34B",
+    type: "list",
   },
   {
-    title: "Needs follow up",
-    subtitle: "No booking in 60–90 days",
-    count: 321,
-    tone: "#F2EEFF",
-    avatars: [11, 45, 32, 44],
+    eyebrow: "Automation",
+    title: "Reach them while it matters",
+    copy: "Choose the sequence once. Zapla handles the next step.",
+    tone: "#99A36D",
+    type: "outreach",
   },
-] as const;
-
-const HERO_OUTREACH = [
-  { label: "SMS", detail: "Send a personalised message", tone: "#EAF8EE" },
-  { label: "Email", detail: "Share an offer or reminder", tone: "#EEF4FF" },
-  { label: "AI outbound call", detail: "Personalised AI outreach", tone: "#FFF1E8" },
-  { label: "Social DM", detail: "Reach customers on social", tone: "#FCEEF4" },
+  {
+    eyebrow: "Customer action",
+    title: "Give them somewhere to act",
+    copy: "Forms, pages and bookings stay connected to the same initiative.",
+    tone: "#9B86B8",
+    type: "action",
+  },
+  {
+    eyebrow: "Campaigns",
+    title: "See what happened next",
+    copy: "Track engagement, conversion and won business back to the campaign.",
+    tone: "#2563FF",
+    type: "results",
+  },
 ] as const;
 
 const MOMENTS = [
@@ -214,6 +203,40 @@ function PrimaryButton() {
   );
 }
 
+function MarketingAvatar({
+  cell,
+  size,
+  muted = false,
+  className = "",
+}: {
+  cell: number;
+  size: number;
+  muted?: boolean;
+  className?: string;
+}) {
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+
+  return (
+    <span
+      className={
+        "block shrink-0 overflow-hidden rounded-full border border-black/[0.06] shadow-[0_10px_28px_rgba(46,36,28,.10)] " +
+        className
+      }
+      style={{
+        width: size,
+        height: size,
+        backgroundImage: "url(" + PORTRAIT_SHEET + ")",
+        backgroundPosition: (column / 5) * 100 + "% " + (row / 3) * 100 + "%",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "600% 400%",
+        filter: muted ? "grayscale(.72) saturate(.62)" : undefined,
+      }}
+      aria-hidden="true"
+    />
+  );
+}
+
 function Hero() {
   return (
     <section className="bg-[#FCFCFA] pt-[108px] sm:pt-[118px] lg:pt-[126px]">
@@ -249,7 +272,7 @@ function Hero() {
         </Reveal>
       </div>
 
-      <Reveal className="mt-14 sm:mt-16" delay={0.05}>
+      <Reveal className="mt-20 sm:mt-24 lg:mt-28" delay={0.05}>
         <HeroCustomerScene />
       </Reveal>
     </section>
@@ -258,396 +281,212 @@ function Hero() {
 
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
-  const [scene, setScene] = useState(0);
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     if (reduced) {
-      setScene(1);
+      setStep(0);
       return;
     }
 
     const timer = window.setInterval(() => {
-      setScene((current) => (current + 1) % 4);
-    }, 3800);
+      setStep((current) => (current + 1) % HERO_STORY.length);
+    }, 3600);
 
     return () => window.clearInterval(timer);
   }, [reduced]);
 
-  const customerFocus = scene === 0;
-  const listFocus = scene === 1;
-  const outreachFocus = scene === 2;
-  const resultFocus = scene === 3;
-
-  const stageTransition = {
-    duration: reduced ? 0 : 0.62,
-    ease: EASE,
-  };
+  const railStep = 126;
+  const transition = { duration: reduced ? 0 : 0.56, ease: EASE };
 
   return (
-    <div className="relative overflow-hidden bg-[#FCFCFA] pb-20 sm:pb-24 lg:pb-28">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[650px] overflow-hidden">
-        <motion.div
-          animate={{
-            opacity: scene === 0 ? 0.62 : scene === 1 ? 0.48 : 0.34,
-            x: scene === 0 ? -18 : scene === 1 ? 20 : 44,
-          }}
-          transition={stageTransition}
-          className="absolute left-[3%] top-[19%] h-[280px] w-[430px] rounded-full bg-[#EAF1FF] blur-[100px]"
-        />
-        <motion.div
-          animate={{
-            opacity: scene === 2 ? 0.54 : scene === 3 ? 0.42 : 0.28,
-            x: scene >= 2 ? -20 : 20,
-          }}
-          transition={stageTransition}
-          className="absolute right-[4%] top-[15%] h-[300px] w-[430px] rounded-full bg-[#F4EBDD] blur-[110px]"
-        />
-        <div className="absolute left-[39%] top-[46%] h-[240px] w-[380px] rounded-full bg-[#EEE8F6]/58 blur-[95px]" />
-      </div>
+    <div className="relative mx-auto min-h-[560px] max-w-[1240px] px-4 pb-10 sm:px-8 lg:px-10">
+      <div className="pointer-events-none absolute inset-x-[2%] bottom-[2%] top-[9%] rounded-[42px] bg-[#F7F2EA]" />
+      <div className="pointer-events-none absolute left-[7%] top-[20%] h-[300px] w-[360px] rounded-full bg-[#DCE0CC]/55 blur-[115px]" />
+      <motion.div
+        className="pointer-events-none absolute right-[8%] top-[18%] h-[260px] w-[390px] rounded-full bg-[#E7D8C5]/70 blur-[105px]"
+        animate={{ y: step * 16 }}
+        transition={transition}
+      />
 
-      <div className="relative mx-auto min-h-[590px] max-w-[1480px] px-3 sm:px-6 lg:px-10">
-        <div className="relative min-h-[560px]">
-          {/* Customer signal stream */}
-          <motion.div
-            animate={{
-              x: customerFocus ? 0 : listFocus ? -30 : -62,
-              y: customerFocus ? 0 : 20,
-              scale: customerFocus ? 1 : listFocus ? 0.94 : 0.88,
-              opacity: customerFocus ? 1 : listFocus ? 0.48 : 0.2,
-              filter: customerFocus ? "blur(0px)" : listFocus ? "blur(0.7px)" : "blur(1.6px)",
-            }}
-            transition={stageTransition}
-            className="absolute left-[1%] top-[28px] z-20 w-[330px] sm:w-[360px] lg:w-[390px]"
-          >
-            <div className="relative h-[500px] overflow-hidden">
-              <motion.div
-                animate={reduced ? undefined : { y: [0, -74, -148, -74, 0] }}
-                transition={
-                  reduced
-                    ? undefined
-                    : { duration: 14, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.6 }
-                }
-                className="space-y-3 pt-7"
-              >
-                {HERO_CUSTOMERS.map((customer, index) => {
-                  const selected = index === 1;
-                  return (
-                    <motion.div
-                      key={customer.name}
-                      animate={{
-                        scale: customerFocus && selected ? 1.035 : 1,
-                        opacity:
-                          customerFocus && selected
-                            ? 1
-                            : customerFocus
-                              ? index === 0 || index === HERO_CUSTOMERS.length - 1
-                                ? 0.48
-                                : 0.78
-                              : 0.75,
-                        borderColor: customerFocus && selected ? "#AFC3FF" : "#E9EAE5",
-                        boxShadow:
-                          customerFocus && selected
-                            ? "0 28px 68px rgba(37,99,255,.12)"
-                            : "0 14px 32px rgba(38,42,38,.05)",
-                      }}
-                      transition={stageTransition}
-                      className="flex min-h-[80px] items-center gap-3 rounded-[19px] border bg-white/95 px-4 py-3"
-                    >
-                      <img
-                        src={customer.avatar}
-                        alt=""
-                        className="h-12 w-12 shrink-0 rounded-[14px] object-cover"
-                        loading="eager"
-                      />
-                      <div className="min-w-0 flex-1">
-                        <div className="truncate text-[13px] font-semibold tracking-[-0.018em] text-[#252A26]">
-                          {customer.name}
-                        </div>
-                        <div className="mt-0.5 text-[9px] text-[#979D98]">{customer.meta}</div>
-                        <div className="mt-2 flex flex-wrap gap-1.5">
-                          {customer.tags.map((tag, tagIndex) => {
-                            const tones = [
-                              ["#EAF1FF", "#3267CF"],
-                              ["#FFF0E7", "#AA5A3F"],
-                              ["#ECF5E9", "#587257"],
-                              ["#F0EAFE", "#745DA1"],
-                            ] as const;
-                            const [backgroundColor, color] = tones[(index + tagIndex) % tones.length];
-                            return (
-                              <span
-                                key={tag}
-                                className="rounded-full px-2.5 py-1 text-[8px] font-semibold"
-                                style={{ backgroundColor, color }}
-                              >
-                                {tag}
-                              </span>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#FCFCFA] to-transparent" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FCFCFA] via-[#FCFCFA]/90 to-transparent" />
-            </div>
-          </motion.div>
+      <div className="relative grid min-h-[520px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-24">
+        <div className="relative mx-auto h-[410px] w-full max-w-[390px] overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-16 bg-gradient-to-b from-[#F7F2EA] via-[#F7F2EA]/92 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-20 bg-gradient-to-t from-[#F7F2EA] via-[#F7F2EA]/92 to-transparent" />
 
-          {/* Smart Lists */}
-          <motion.div
-            animate={{
-              x: listFocus ? -20 : customerFocus ? 36 : outreachFocus ? -72 : -110,
-              y: listFocus ? 6 : customerFocus ? 46 : 30,
-              scale: listFocus ? 1 : customerFocus ? 0.92 : 0.86,
-              opacity: listFocus ? 1 : customerFocus ? 0.68 : outreachFocus ? 0.38 : 0.22,
-              filter: listFocus ? "blur(0px)" : outreachFocus ? "blur(0.8px)" : resultFocus ? "blur(1.5px)" : "blur(0.3px)",
-            }}
-            transition={stageTransition}
-            className="absolute left-[35%] top-[92px] z-30 w-[420px] -translate-x-1/2 sm:w-[470px] lg:left-[42%] lg:w-[510px]"
-          >
-            <div className="space-y-4">
-              {HERO_SMART_LISTS.map((list, index) => {
-                const selected = index === 1;
-                return (
-                  <motion.div
-                    key={list.title}
-                    animate={{
-                      y: listFocus && selected ? -3 : 0,
-                      scale: listFocus && selected ? 1.025 : 1,
-                      borderColor: listFocus && selected ? "#9DB8FF" : "#E7E8E3",
-                      boxShadow:
-                        listFocus && selected
-                          ? "0 30px 70px rgba(37,99,255,.13)"
-                          : "0 16px 38px rgba(38,42,38,.05)",
-                    }}
-                    transition={stageTransition}
-                    className="relative overflow-hidden rounded-[22px] border bg-white/96 px-5 py-4"
-                  >
-                    <div
-                      className="pointer-events-none absolute inset-0 opacity-55"
-                      style={{ background: `linear-gradient(120deg, ${list.tone} 0%, rgba(255,255,255,0) 58%)` }}
-                    />
-                    <div className="relative flex items-center gap-4">
-                      <div className="min-w-0 flex-1">
-                        <div className="text-[15px] font-semibold tracking-[-0.024em] text-[#282D29]">
-                          {list.title}
-                        </div>
-                        <div className="mt-1 text-[9px] leading-[1.45] text-[#858C86]">
-                          {list.subtitle}
-                        </div>
-                      </div>
+          <div className="absolute inset-x-5 top-[34px] space-y-3">
+            {HERO_CUSTOMERS.map((customer, index) => {
+              const active = index === 1;
+              const muted = !active;
+              const tagTones = [
+                ["#F4DED5", "#9D573F"],
+                ["#E8EBD8", "#687249"],
+                ["#EEE5F2", "#735D83"],
+                ["#E7D8C5", "#765F46"],
+              ] as const;
 
-                      <div className="flex -space-x-2">
-                        {list.avatars.slice(0, 3).map((avatar) => (
-                          <img
-                            key={avatar}
-                            src={`https://i.pravatar.cc/120?img=${avatar}`}
-                            alt=""
-                            className="h-9 w-9 rounded-full border-[3px] border-white object-cover"
-                          />
-                        ))}
-                      </div>
-
-                      <div className="min-w-[48px] text-right">
-                        <div className="text-[13px] font-semibold text-[#333933]">+{list.count}</div>
-                        <div className="text-[7px] text-[#A1A6A1]">people</div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          {/* Outreach */}
-          <motion.div
-            animate={{
-              x: outreachFocus ? -10 : listFocus ? 78 : resultFocus ? -86 : 120,
-              y: outreachFocus ? 0 : listFocus ? 40 : 26,
-              scale: outreachFocus ? 1 : listFocus ? 0.9 : resultFocus ? 0.82 : 0.76,
-              opacity: outreachFocus ? 1 : listFocus ? 0.42 : resultFocus ? 0.28 : 0.15,
-              filter: outreachFocus ? "blur(0px)" : "blur(1.2px)",
-            }}
-            transition={stageTransition}
-            className="absolute right-[14%] top-[78px] z-40 w-[500px] lg:right-[12%] lg:w-[535px]"
-          >
-            <div className="rounded-[26px] border border-[#E4E6E1] bg-white/97 p-6 shadow-[0_34px_78px_rgba(36,40,36,.08)]">
-              <div className="flex items-start justify-between gap-6">
-                <div>
-                  <div className="text-[19px] font-semibold tracking-[-0.03em] text-[#272D28]">
-                    Reach this Smart List
-                  </div>
-                  <div className="mt-1 text-[10px] text-[#8B928C]">
-                    Service due this week · 189 customers
-                  </div>
-                </div>
-                <div className="flex -space-x-2">
-                  {[12, 44, 11].map((avatar) => (
-                    <img
-                      key={avatar}
-                      src={`https://i.pravatar.cc/120?img=${avatar}`}
-                      alt=""
-                      className="h-9 w-9 rounded-full border-[3px] border-white object-cover"
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {HERO_OUTREACH.map((item, index) => (
-                  <motion.div
-                    key={item.label}
-                    animate={{
-                      backgroundColor: outreachFocus && index === 0 ? "#2563FF" : "#F7F7F4",
-                      color: outreachFocus && index === 0 ? "#FFFFFF" : "#5F675F",
-                    }}
-                    transition={stageTransition}
-                    className="rounded-[11px] px-4 py-2.5 text-[9px] font-semibold"
-                  >
-                    {item.label}
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="mt-5 rounded-[20px] bg-[#F5F7FB] p-5">
-                <div className="flex gap-3">
-                  <img
-                    src={HERO_CUSTOMERS[1].avatar}
-                    alt=""
-                    className="h-11 w-11 shrink-0 rounded-[13px] object-cover"
+              return (
+                <motion.div
+                  key={customer.name}
+                  animate={{
+                    opacity: active ? 1 : index === 0 || index === HERO_CUSTOMERS.length - 1 ? 0.34 : 0.58,
+                    scale: active ? 1.015 : 0.96,
+                    y: active ? 0 : 0,
+                    filter: active ? "blur(0px)" : "blur(0.45px)",
+                  }}
+                  transition={transition}
+                  className={
+                    "relative flex min-h-[78px] items-center gap-3 rounded-[18px] border bg-white/95 px-4 py-3 " +
+                    (active
+                      ? "border-[#AFC3FF] shadow-[0_24px_58px_rgba(37,99,255,.12)]"
+                      : "border-[#E5E0D8] shadow-[0_12px_28px_rgba(46,36,28,.055)]")
+                  }
+                >
+                  <MarketingAvatar
+                    cell={customer.cell}
+                    size={48}
+                    muted={muted}
+                    className={active ? "border-2 border-white" : "border-2 border-white/80"}
                   />
-                  <div className="flex-1">
-                    <div className="text-[9px] font-semibold text-[#738078]">Message preview</div>
-                    <p className="mt-2 max-w-[350px] text-[13px] leading-[1.55] text-[#39403A]">
-                      Your next service is due this week. Want to see the available times?
-                    </p>
-                  </div>
-                </div>
-              </div>
 
-              <div className="mt-5 flex gap-2">
-                {["Forms", "Pages", "Bookings"].map((asset) => (
-                  <span
-                    key={asset}
-                    className="rounded-full border border-[#E2E5DF] bg-[#FCFBF8] px-3 py-2 text-[8px] font-semibold text-[#757D76]"
-                  >
-                    {asset}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Campaign attribution */}
-          <motion.div
-            animate={{
-              x: resultFocus ? 0 : outreachFocus ? 130 : 210,
-              y: resultFocus ? 0 : 40,
-              scale: resultFocus ? 1 : outreachFocus ? 0.87 : 0.78,
-              opacity: resultFocus ? 1 : outreachFocus ? 0.36 : 0.14,
-              filter: resultFocus ? "blur(0px)" : "blur(1.5px)",
-            }}
-            transition={stageTransition}
-            className="absolute right-[1%] top-[84px] z-50 w-[410px] lg:w-[440px]"
-          >
-            <div className="rounded-[26px] border border-[#E4E6E1] bg-white/98 p-6 shadow-[0_34px_78px_rgba(36,40,36,.09)]">
-              <div className="text-[19px] font-semibold tracking-[-0.03em] text-[#272D28]">
-                Campaign performance
-              </div>
-              <div className="mt-1 text-[10px] text-[#8B928C]">
-                See what turned into business.
-              </div>
-
-              <div className="mt-7 space-y-6">
-                {[
-                  ["Replies", "#99A36D", "Engaged"],
-                  ["Bookings", "#2563FF", "Converted"],
-                  ["Attributed revenue", "#DDA34B", "Won"],
-                ].map(([label, tone, outcome], index) => (
-                  <div key={label}>
-                    <div className="flex items-end justify-between gap-4">
-                      <div>
-                        <div className="text-[11px] font-semibold text-[#535B54]">{label}</div>
-                        <div className="mt-1 text-[8px] text-[#9AA19B]">{outcome}</div>
-                      </div>
-                      <div className="text-[8px] font-semibold uppercase tracking-[0.13em] text-[#A1A6A1]">
-                        Attributed
-                      </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-[13px] font-semibold tracking-[-0.018em] text-[#252A26]">
+                      {customer.name}
                     </div>
-                    <motion.div
-                      className="mt-3 h-[4px] origin-left rounded-full"
-                      style={{ backgroundColor: tone }}
-                      animate={{ scaleX: resultFocus ? [0.35, 1] : 0.35 }}
-                      transition={{
-                        duration: reduced ? 0 : 0.8,
-                        delay: reduced ? 0 : index * 0.12,
-                        ease: EASE,
-                      }}
-                    />
+                    <div className="mt-0.5 text-[9px] text-[#8C938D]">{customer.meta}</div>
+
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {customer.tags.map((tag, tagIndex) => {
+                        const [backgroundColor, color] = tagTones[(index + tagIndex) % tagTones.length];
+                        return (
+                          <span
+                            key={tag}
+                            className="rounded-full px-2.5 py-1 text-[8px] font-semibold"
+                            style={{ backgroundColor, color }}
+                          >
+                            {tag}
+                          </span>
+                        );
+                      })}
+                    </div>
                   </div>
-                ))}
-              </div>
-
-              <div className="mt-7 border-t border-[#E8EAE6] pt-4 text-[9px] leading-[1.65] text-[#8F9690]">
-                Forms, pages, bookings and customer activity stay tied to the campaign.
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Subtle directional path, not a diagram */}
-          <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-10 hidden h-full w-full lg:block"
-            viewBox="0 0 1400 560"
-            preserveAspectRatio="none"
-          >
-            <motion.path
-              d="M350 264 C 455 250, 515 250, 615 250"
-              fill="none"
-              stroke="#B8CBFF"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              animate={{ opacity: customerFocus || listFocus ? 0.9 : 0.25, pathLength: customerFocus ? 0.72 : 1 }}
-              transition={stageTransition}
-            />
-            <motion.path
-              d="M745 275 C 835 270, 860 250, 930 230"
-              fill="none"
-              stroke="#C9D5F6"
-              strokeWidth="1.5"
-              strokeDasharray="4 8"
-              strokeLinecap="round"
-              animate={{ opacity: listFocus || outreachFocus ? 0.8 : 0.18 }}
-              transition={stageTransition}
-            />
-            <motion.path
-              d="M1080 268 C 1180 260, 1220 245, 1310 232"
-              fill="none"
-              stroke="#E0CBA5"
-              strokeWidth="1.5"
-              strokeDasharray="4 8"
-              strokeLinecap="round"
-              animate={{ opacity: outreachFocus || resultFocus ? 0.78 : 0.12 }}
-              transition={stageTransition}
-            />
-          </svg>
-
-          {/* tiny stage indicator */}
-          <div className="absolute bottom-[10px] left-1/2 z-[60] flex -translate-x-1/2 items-center gap-2">
-            {[0, 1, 2, 3].map((step) => (
-              <motion.span
-                key={step}
-                animate={{
-                  width: scene === step ? 24 : 6,
-                  opacity: scene === step ? 1 : 0.28,
-                }}
-                transition={{ duration: reduced ? 0 : 0.28, ease: EASE }}
-                className="h-[3px] rounded-full bg-[#7F8A82]"
-              />
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
+
+        <div className="relative h-[430px] overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-[88px] bg-gradient-to-b from-[#F7F2EA] via-[#F7F2EA]/92 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[96px] bg-gradient-to-t from-[#F7F2EA] via-[#F7F2EA]/92 to-transparent" />
+
+          <motion.div
+            className="absolute inset-x-3 top-[148px] space-y-[18px] sm:inset-x-8"
+            animate={{ y: -(step * railStep) }}
+            transition={transition}
+          >
+            {HERO_STORY.map((item, index) => {
+              const distance = Math.abs(index - step);
+              const active = index === step;
+
+              return (
+                <motion.div
+                  key={item.title}
+                  animate={{
+                    opacity: active ? 1 : distance === 1 ? 0.34 : 0.16,
+                    scale: active ? 1 : distance === 1 ? 0.95 : 0.91,
+                    filter: active ? "blur(0px)" : distance === 1 ? "blur(0.7px)" : "blur(1.8px)",
+                  }}
+                  transition={transition}
+                  className={
+                    "relative min-h-[108px] rounded-[22px] border bg-white/96 px-5 py-4 sm:px-6 " +
+                    (active
+                      ? "border-[#CFC7BC] shadow-[0_28px_66px_rgba(46,36,28,.11)]"
+                      : "border-[#E5E0D8] shadow-[0_12px_28px_rgba(46,36,28,.045)]")
+                  }
+                >
+                  <span
+                    className="absolute inset-y-0 left-0 w-[4px] rounded-l-[22px]"
+                    style={{ backgroundColor: item.tone }}
+                  />
+
+                  <div className="flex min-h-[76px] items-center gap-5">
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A908B]">
+                        {item.eyebrow}
+                      </div>
+                      <div className="mt-2 text-[18px] font-semibold tracking-[-0.03em] text-[#252A26]">
+                        {item.title}
+                      </div>
+                      <div className="mt-1 max-w-[390px] text-[9px] leading-[1.55] text-[#7A817B]">
+                        {item.copy}
+                      </div>
+                    </div>
+
+                    {item.type === "list" ? (
+                      <div className="flex shrink-0 -space-x-2">
+                        {[9, 4, 13, 2].map((cell) => (
+                          <MarketingAvatar key={cell} cell={cell} size={34} className="border-[3px] border-white" />
+                        ))}
+                      </div>
+                    ) : null}
+
+                    {item.type === "outreach" ? (
+                      <div className="hidden shrink-0 items-center gap-3 text-[8px] font-semibold text-[#59615C] sm:flex">
+                        <span>SMS</span><span className="text-[#C2B7AA]">·</span>
+                        <span>Email</span><span className="text-[#C2B7AA]">·</span>
+                        <span>AI outbound</span><span className="text-[#C2B7AA]">·</span>
+                        <span>Social DM</span>
+                      </div>
+                    ) : null}
+
+                    {item.type === "action" ? (
+                      <div className="hidden shrink-0 items-center gap-3 text-[8px] font-semibold text-[#625B66] sm:flex">
+                        <span>Forms</span><span className="text-[#C7B9CA]">·</span>
+                        <span>Pages</span><span className="text-[#C7B9CA]">·</span>
+                        <span>Bookings</span>
+                      </div>
+                    ) : null}
+
+                    {item.type === "results" ? (
+                      <div className="hidden w-[150px] shrink-0 space-y-2 sm:block">
+                        {[
+                          ["Reached", "#DDA34B", "76%"],
+                          ["Engaged", "#99A36D", "58%"],
+                          ["Converted", "#2563FF", "42%"],
+                        ].map(([label, tone, width]) => (
+                          <div key={label}>
+                            <div className="text-[7px] font-semibold text-[#858C86]">{label}</div>
+                            <div className="mt-1 h-[3px] rounded-full bg-[#ECE8E1]">
+                              <div className="h-full rounded-full" style={{ width, backgroundColor: tone }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[31%] top-[210px] hidden h-[90px] w-[24%] lg:block"
+          viewBox="0 0 300 90"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M 8 46 C 96 46, 150 46, 286 46"
+            fill="none"
+            stroke="#AFC3FF"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+          <circle cx="8" cy="46" r="4" fill="#2563FF" />
+          <circle cx="286" cy="46" r="4" fill="#2563FF" />
+        </svg>
       </div>
     </div>
   );
@@ -689,8 +528,8 @@ function SignalScene() {
           <div className="relative mx-auto min-h-[560px] max-w-[620px]">
             <div className="absolute left-1/2 top-1/2 flex h-[210px] w-[210px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#2563FF] shadow-[0_30px_70px_rgba(37,99,255,.20)] sm:h-[240px] sm:w-[240px]">
               <div className="text-center">
-                <div className="mx-auto flex h-[82px] w-[82px] items-center justify-center rounded-full bg-[#E97D62] text-[19px] font-semibold text-white">
-                  MT
+                <div className="mx-auto w-fit">
+                  <MarketingAvatar cell={9} size={82} className="border-[3px] border-white/80 shadow-[0_16px_34px_rgba(0,0,0,.16)]" />
                 </div>
                 <div className="mt-4 text-[16px] font-semibold text-white">Mia Thompson</div>
                 <div className="mt-1 text-[10px] text-white/58">Existing customer</div>
@@ -811,9 +650,7 @@ function MomentScene() {
 
             <div className="relative min-h-[470px] overflow-hidden bg-[#F2F0EB] p-7 sm:min-h-[520px] sm:p-10">
               <div className="absolute left-[8%] top-[12%]">
-                <div className="flex h-[94px] w-[94px] items-center justify-center rounded-full text-[18px] font-semibold text-white" style={{ backgroundColor: item.tone }}>
-                  MT
-                </div>
+                <MarketingAvatar cell={9} size={94} className="border-[3px] border-white shadow-[0_16px_34px_rgba(46,36,28,.14)]" />
                 <div className="mt-3 text-[11px] font-semibold text-[#3D433E]">Mia Thompson</div>
               </div>
 
