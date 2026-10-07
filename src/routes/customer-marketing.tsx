@@ -10,6 +10,8 @@ import {
   Voicemail,
   MessagesSquare,
   PhoneCall,
+  Pause,
+  Play,
 } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
@@ -287,41 +289,105 @@ function AudiencePortraits({ members, more }: { members: readonly number[]; more
   );
 }
 
+const HERO_WORKFLOWS = [
+  {
+    title: "Service reminder",
+    first: "Send SMS reminder",
+    last: "Email if no reply",
+    firstChannel: "SMS",
+    lastChannel: "Email",
+    FirstIcon: MessageCircle,
+    LastIcon: Mail,
+  },
+  {
+    title: "VIP invitation",
+    first: "Email early access",
+    last: "Send SMS follow-up",
+    firstChannel: "Email",
+    lastChannel: "SMS",
+    FirstIcon: Mail,
+    LastIcon: MessageCircle,
+  },
+  {
+    title: "Premium offer",
+    first: "Email a tailored offer",
+    last: "AI follow-up call",
+    firstChannel: "Email",
+    lastChannel: "AI calls",
+    FirstIcon: Mail,
+    LastIcon: PhoneCall,
+  },
+  {
+    title: "Reconnect campaign",
+    first: "Send a check-in SMS",
+    last: "Email if no reply",
+    firstChannel: "SMS",
+    lastChannel: "Email",
+    FirstIcon: MessageCircle,
+    LastIcon: Mail,
+  },
+] as const;
+
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
   const scene = useRef<HTMLDivElement>(null);
   const visible = useInView(scene, { amount: 0.2 });
-  const [beat, setBeat] = useState(0);
-  const phase = reduced ? 6 : beat;
+  const [playhead, setPlayhead] = useState(0);
+  const [paused, setPaused] = useState(false);
   useEffect(() => {
-    if (reduced || !visible || beat >= 6) return;
-    const durations = [2200, 1800, 1600, 1200, 1700, 1400];
-    const timer = window.setTimeout(() => setBeat((value) => value + 1), durations[beat]);
-    return () => window.clearTimeout(timer);
-  }, [beat, reduced, visible]);
-  const focusIndex = phase >= 1 ? 2 : 1;
+    if (reduced || !visible || paused) return;
+    const timer = window.setInterval(() => setPlayhead((value) => value + 1), 1000);
+    return () => window.clearInterval(timer);
+  }, [reduced, visible, paused]);
+  const cursor = reduced ? 0 : Math.floor(playhead / 6);
+  const stage = reduced ? 2 : Math.min(2, Math.floor((playhead % 6) / 2));
+  const audienceIndex = [0, 1, 0, 3, 2][cursor % 5];
+  const audience = HERO_AUDIENCES[audienceIndex];
+  const workflow = HERO_WORKFLOWS[audienceIndex];
   const steps = [
-    { label: "Send SMS reminder", Icon: MessageCircle },
+    { label: workflow.first, Icon: workflow.FirstIcon },
     { label: "Wait 2 days", Icon: Clock3 },
-    { label: "Send email if no reply", Icon: Mail },
+    { label: workflow.last, Icon: workflow.LastIcon },
   ];
+  const currentChannel =
+    stage === 2 ? workflow.lastChannel : stage === 0 ? workflow.firstChannel : "";
   const channels = [
-    { label: "SMS", Icon: MessageCircle, tone: "#DDA34B", highlighted: phase === 4 },
-    { label: "Email", Icon: Mail, tone: "#9B86B8", highlighted: phase >= 6 },
-    { label: "Voicemail", Icon: Voicemail, tone: "#E97D62", highlighted: false },
-    { label: "Social DMs", Icon: MessagesSquare, tone: "#99A36D", highlighted: false },
-    { label: "AI calls", Icon: PhoneCall, tone: "#C96C85", highlighted: false },
+    { label: "SMS", Icon: MessageCircle, tone: "#DDA34B" },
+    { label: "Email", Icon: Mail, tone: "#9B86B8" },
+    { label: "Voicemail", Icon: Voicemail, tone: "#E97D62" },
+    { label: "Social DMs", Icon: MessagesSquare, tone: "#99A36D" },
+    { label: "AI calls", Icon: PhoneCall, tone: "#C96C85" },
+  ];
+  const positions = [
+    "left-0 top-[98px] w-[68%]",
+    "right-0 top-0 w-[53%]",
+    "left-0 top-[250px] w-[53%]",
+    "right-0 top-[286px] w-[59%]",
   ];
   return (
     <div
       ref={scene}
       data-marketing-story
-      data-story-phase={phase}
-      className="mx-auto max-w-[1320px] px-5 pb-20 sm:px-8 sm:pb-24"
+      data-audience={audience.key}
+      data-story-stage={stage}
+      className="mx-auto max-w-[1360px] px-5 pb-20 sm:px-8 sm:pb-24"
     >
-      <div className="grid items-start gap-12 md:grid-cols-2 lg:grid-cols-[1.12fr_1fr_1.16fr] lg:gap-8">
+      <div className="grid items-start gap-12 md:grid-cols-2 lg:grid-cols-[1.05fr_1.1fr_1fr] lg:gap-7">
         <div>
-          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">Customers</h3>
+          <div className="mb-7 flex h-5 items-center justify-center gap-3">
+            <h3 className="text-[14px] font-medium text-[#1E2B29]">Customers</h3>
+            {!reduced && (
+              <button
+                type="button"
+                onClick={() => setPaused((value) => !value)}
+                aria-label={paused ? "Play animation" : "Pause animation"}
+                title={paused ? "Play animation" : "Pause animation"}
+                className="rounded p-1 text-[#1E2B29]/45 hover:text-[#1E2B29] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#2563FF]"
+              >
+                {paused ? <Play size={12} /> : <Pause size={12} />}
+              </button>
+            )}
+          </div>
           <div className="relative isolate">
             <div
               aria-hidden="true"
@@ -332,17 +398,20 @@ function HeroCustomerScene() {
               }}
             />
             <div className="relative h-[402px] overflow-hidden">
-              {HERO_CUSTOMERS.map((person, index) => {
-                const distance = Math.abs(index - focusIndex);
+              {Array.from({ length: 7 }, (_, slot) => {
+                const occurrence = cursor + slot - 3;
+                const person = HERO_CUSTOMERS[(((occurrence + 2) % 5) + 5) % 5];
+                const distance = Math.abs(occurrence - cursor);
                 const focus = distance === 0;
                 return (
                   <motion.div
-                    key={person.cell}
+                    key={occurrence}
                     initial={false}
+                    aria-hidden={distance > 2}
                     animate={{
-                      y: 164 + (index - focusIndex) * 78,
+                      y: 164 + (occurrence - cursor) * 78,
                       x: distance === 0 ? 0 : distance === 1 ? 14 : 30,
-                      opacity: focus ? 1 : distance === 1 ? 0.66 : 0.48,
+                      opacity: focus ? 1 : distance === 1 ? 0.66 : distance === 2 ? 0.48 : 0,
                       borderColor: focus ? "#2563FF" : "#FFFFFF",
                       width: focus ? "100%" : "calc(100% - 52px)",
                     }}
@@ -352,16 +421,11 @@ function HeroCustomerScene() {
                     <MarketingAvatar cell={person.cell} size={40} className="shadow-none" />
                     <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
                       <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
-                      <motion.div
-                        initial={false}
-                        animate={{ opacity: person.cell === 9 && phase < 2 ? 0.65 : 1 }}
-                        transition={{ duration: reduced ? 0 : 0.6 }}
-                        className="flex flex-wrap gap-1.5"
-                      >
+                      <div className="flex flex-wrap gap-1.5">
                         {person.tags.map((tag) => (
                           <AudiencePill key={tag} label={tag} />
                         ))}
-                      </motion.div>
+                      </div>
                     </div>
                   </motion.div>
                 );
@@ -370,130 +434,122 @@ function HeroCustomerScene() {
           </div>
         </div>
         <div>
-          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">
-            Smart Lists{" "}
-            <span className="ml-1 text-[10px] font-normal text-[#1E2B29]/45">· sample</span>
+          <h3 className="mb-7 h-5 text-center text-[14px] font-medium text-[#1E2B29]">
+            Smart Lists
           </h3>
-          <div className="mx-auto max-w-[290px] space-y-5 pt-4">
-            {HERO_AUDIENCES.map((audience, index) => {
-              const selected = audience.key === "service" && phase >= 2;
+          <div className="relative mx-auto h-[410px] max-w-[420px]">
+            {HERO_AUDIENCES.map((list, index) => {
+              const selected = list.key === audience.key;
               return (
                 <motion.article
-                  key={audience.key}
-                  data-smart-list={audience.key}
+                  key={list.key}
+                  data-smart-list={list.key}
+                  data-selected={selected}
                   initial={false}
-                  animate={{ backgroundColor: selected ? "#DDA34B14" : "#DDA34B00" }}
+                  animate={{
+                    borderColor: selected ? list.tone + "88" : "#11131808",
+                    backgroundColor: selected ? list.tone + "12" : "#FFFFFF",
+                    boxShadow: selected
+                      ? "0 14px 34px -22px " + list.tone + "88"
+                      : "0 10px 30px -22px #1E2B2920",
+                  }}
                   transition={{ duration: reduced ? 0 : 0.7 }}
-                  style={{ marginLeft: [0, 24, 10, 30][index] }}
-                  className="w-fit rounded-[16px] px-4 py-2"
+                  style={{ zIndex: selected ? 2 : 1 }}
+                  className={"absolute rounded-[18px] border p-4 " + positions[index]}
                 >
-                  <AudiencePill label={audience.label} />
-                  <div
-                    className="mt-3 flex -space-x-2"
-                    aria-label={`${audience.members.length} plus ${audience.more} more example contacts`}
-                  >
-                    {audience.members.map((cell) => (
-                      <motion.span
-                        key={cell}
-                        className="block"
-                        initial={false}
-                        animate={{
-                          opacity: cell === 9 && phase < 2 ? 0.4 : 1,
-                          scale: cell === 9 && selected ? 1.08 : 1,
-                        }}
-                        transition={{ duration: reduced ? 0 : 0.6 }}
-                      >
-                        <MarketingAvatar
-                          cell={cell}
-                          size={36}
-                          className="border-2 border-[#FCFCFA] shadow-none"
-                        />
-                      </motion.span>
-                    ))}
-                    <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-[#FCFCFA] bg-[#F7F4EE] text-[10px] font-semibold text-[#1E2B29]">
-                      +{audience.more}
-                    </span>
+                  <AudiencePill label={list.label} />
+                  <div className="mt-3">
+                    <AudiencePortraits members={list.members} more={list.more} />
                   </div>
                 </motion.article>
               );
             })}
           </div>
         </div>
-        <div data-outreach-example className="md:col-span-2 lg:col-span-1">
-          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">
+        <div
+          data-outreach-example
+          className="md:col-span-2 md:mx-auto md:w-full md:max-w-[460px] lg:col-span-1"
+        >
+          <h3 className="mb-7 h-5 text-center text-[14px] font-medium text-[#1E2B29]">
             Automated outreach
           </h3>
-          <div className="rounded-[18px] border border-[#111318]/[0.08] bg-white p-5 shadow-[0_18px_50px_-28px_rgba(30,43,41,.18)] sm:p-6">
-            <h4 className="text-[20px] font-medium tracking-[-0.035em] text-[#111318]">
-              Service reminder
-            </h4>
-            <motion.div
-              initial={false}
-              animate={{
-                opacity: phase >= 3 ? 1 : 0.5,
-                backgroundColor: phase >= 3 ? "#DDA34B1A" : "#F7F4EE",
-              }}
-              transition={{ duration: reduced ? 0 : 0.8 }}
-              className="mt-5 flex flex-wrap items-center gap-3 rounded-[10px] px-3 py-3"
+          <div className="relative h-[410px]">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 360 350"
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-x-0 top-0 h-[350px] w-full overflow-visible"
             >
-              <motion.div
-                initial={false}
-                animate={{ x: phase >= 3 ? 0 : -8 }}
-                transition={{ duration: reduced ? 0 : 0.8, ease: EASE }}
-              >
-                <AudiencePortraits members={[9, 2, 7]} />
-              </motion.div>
-              <AudiencePill label="Service due" />
-            </motion.div>
-            <div className="relative mt-4 space-y-3">
-              <div
-                aria-hidden="true"
-                className="absolute bottom-7 left-[24px] top-7 w-px bg-[#2563FF]/25"
+              <path
+                d="M42 49 C20 75 116 75 110 115 S30 142 50 185 S130 222 116 274"
+                fill="none"
+                stroke="#9B86B8"
+                strokeOpacity=".18"
+                strokeWidth="8"
+                strokeLinecap="round"
               />
-              {steps.map(({ label, Icon }, index) => {
-                const reached = phase >= index + 4;
-                const current = phase === index + 4;
-                return (
-                  <motion.div
-                    key={label}
-                    initial={false}
-                    animate={{
-                      backgroundColor: current ? "#2563FF0A" : "#FCFCFA",
-                      borderColor: current ? "#2563FF40" : "#1113180A",
-                    }}
-                    transition={{ duration: reduced ? 0 : 0.5 }}
-                    className="relative flex min-h-[54px] items-center gap-4 rounded-[10px] border px-4 py-3"
-                  >
-                    <Icon
-                      size={19}
-                      strokeWidth={1.65}
-                      className={reached ? "text-[#2563FF]" : "text-[#1E2B29]/55"}
-                    />
-                    <p className="text-[12px] font-semibold text-[#1E2B29]">{label}</p>
-                  </motion.div>
-                );
-              })}
+            </svg>
+            <div className="relative h-[85px] overflow-hidden rounded-full border border-[#111318]/[0.05] bg-white px-5 py-3 shadow-[0_12px_35px_-25px_rgba(30,43,41,.2)]">
+              <AnimatePresence initial={false} mode="wait">
+                <motion.div
+                  key={audience.key}
+                  initial={reduced ? false : { opacity: 0, y: 9 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -9 }}
+                  transition={{ duration: reduced ? 0 : 0.25 }}
+                  className="flex h-full items-center gap-3"
+                >
+                  <AudiencePortraits members={audience.members.slice(0, 3)} />
+                  <div className="min-w-0">
+                    <h4 className="mb-2 text-[13px] font-semibold text-[#1E2B29]">
+                      {workflow.title}
+                    </h4>
+                    <AudiencePill label={audience.label} />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
-            <div className="mt-5 border-t border-[#111318]/[0.08] pt-4">
-              <div className="grid grid-cols-3 gap-x-3 gap-y-4">
-                {channels.map(({ label, Icon, tone, highlighted }) => (
-                  <motion.div
-                    key={label}
-                    initial={false}
-                    animate={{ color: highlighted ? "#2563FF" : "#1E2B29" }}
-                    transition={{ duration: reduced ? 0 : 0.4 }}
-                    className="flex flex-col items-start gap-2"
-                  >
-                    <span
-                      className="flex h-8 w-9 items-center justify-center rounded-[8px]"
-                      style={{ backgroundColor: tone + "25" }}
-                    >
-                      <Icon size={18} strokeWidth={1.6} />
-                    </span>
-                    <span className="text-[11px] font-semibold">{label}</span>
-                  </motion.div>
-                ))}
-              </div>
+            <div className="relative mt-6 space-y-5">
+              {steps.map(({ label, Icon }, index) => (
+                <motion.div
+                  key={index}
+                  initial={false}
+                  animate={{
+                    borderColor: stage === index ? "#2563FF35" : "#11131808",
+                    backgroundColor: stage === index ? "#2563FF06" : "#FFFFFF",
+                  }}
+                  transition={{ duration: reduced ? 0 : 0.6 }}
+                  className={
+                    "flex h-[54px] items-center gap-3 rounded-full border px-4 shadow-[0_8px_25px_-22px_rgba(30,43,41,.2)] " +
+                    (index === 1 ? "mr-7" : "ml-7")
+                  }
+                >
+                  <Icon
+                    size={19}
+                    strokeWidth={1.6}
+                    className={stage >= index ? "text-[#2563FF]" : "text-[#1E2B29]/50"}
+                  />
+                  <span className="text-[12px] font-semibold text-[#1E2B29]">{label}</span>
+                </motion.div>
+              ))}
+            </div>
+            <div className="mt-6 flex items-center justify-between gap-1 rounded-[16px] border border-[#111318]/[0.04] bg-white px-3 py-3 shadow-[0_10px_30px_-22px_rgba(30,43,41,.18)]">
+              {channels.map(({ label, Icon, tone }) => (
+                <div
+                  key={label}
+                  className="flex min-w-0 flex-col items-center gap-2"
+                  style={{ color: currentChannel === label ? "#2563FF" : "#1E2B29" }}
+                >
+                  <Icon
+                    size={17}
+                    strokeWidth={1.6}
+                    style={{ color: currentChannel === label ? "#2563FF" : tone }}
+                  />
+                  <span className="whitespace-nowrap text-[9px] font-medium sm:text-[10px]">
+                    {label}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
