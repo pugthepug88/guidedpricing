@@ -266,7 +266,15 @@ function AudiencePill({ label }: { label: string }) {
   );
 }
 
-function AudiencePortraits({ members, more }: { members: readonly number[]; more?: number }) {
+function AudiencePortraits({
+  members,
+  more,
+  size = 32,
+}: {
+  members: readonly number[];
+  more?: number;
+  size?: number;
+}) {
   return (
     <div
       className="flex shrink-0 -space-x-2"
@@ -276,12 +284,15 @@ function AudiencePortraits({ members, more }: { members: readonly number[]; more
         <MarketingAvatar
           key={cell}
           cell={cell}
-          size={32}
+          size={size}
           className="border-2 border-white shadow-none"
         />
       ))}
       {more !== undefined && (
-        <span className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-white bg-[#F7F4EE] text-[9px] font-semibold text-[#1E2B29]">
+        <span
+          style={{ width: size, height: size }}
+          className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-white bg-[#F7F4EE] text-[9px] font-semibold text-[#1E2B29]"
+        >
           +{more}
         </span>
       )}
@@ -489,7 +500,7 @@ function HeroCustomerScene() {
                 strokeLinecap="round"
               />
             </svg>
-            <div className="relative h-[85px] overflow-hidden rounded-full border border-[#111318]/[0.05] bg-white px-5 py-3 shadow-[0_12px_35px_-25px_rgba(30,43,41,.2)]">
+            <div className="relative h-[85px] overflow-hidden rounded-full border border-[#111318]/[0.05] bg-white px-4 py-3 shadow-[0_12px_35px_-25px_rgba(30,43,41,.2)]">
               <AnimatePresence initial={false} mode="wait">
                 <motion.div
                   key={audience.key}
@@ -499,7 +510,7 @@ function HeroCustomerScene() {
                   transition={{ duration: reduced ? 0 : 0.25 }}
                   className="flex h-full items-center gap-3"
                 >
-                  <AudiencePortraits members={audience.members.slice(0, 3)} />
+                  <AudiencePortraits members={audience.members} more={audience.more} size={28} />
                   <div className="min-w-0">
                     <h4 className="mb-2 text-[13px] font-semibold text-[#1E2B29]">
                       {workflow.title}
