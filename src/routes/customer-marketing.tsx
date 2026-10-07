@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, MessageCircle, Clock3, Mail } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/customer-marketing")({
@@ -28,30 +28,11 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 const HERO_CUSTOMERS = [
-  {
-    name: "Mia Thompson",
-    meta: "Sydney",
-    cell: 9,
-    tags: ["Service due", "VIP"],
-  },
-  {
-    name: "Daniel Brooks",
-    meta: "Melbourne",
-    cell: 4,
-    tags: ["Service due", "VIP"],
-  },
-  {
-    name: "Priya Sharma",
-    meta: "Sydney",
-    cell: 13,
-    tags: ["High spend"],
-  },
-  {
-    name: "Chloe Martin",
-    meta: "Brisbane",
-    cell: 2,
-    tags: ["Service due"],
-  },
+  { name: "Daniel Brooks", cell: 4, tags: ["No contact · 90d"] },
+  { name: "Priya Sharma", cell: 13, tags: ["High spend"] },
+  { name: "Mia Thompson", cell: 9, tags: ["Service due", "VIP"] },
+  { name: "James Carter", cell: 10, tags: ["VIP"] },
+  { name: "Chloe Martin", cell: 2, tags: ["Service due"] },
 ] as const;
 
 const MOMENTS = [
@@ -250,209 +231,174 @@ function Hero() {
 }
 
 const HERO_AUDIENCES = [
+  { key: "service", label: "Service due", tone: "#DDA34B", members: [9, 2, 7, 16], more: 24 },
+  { key: "vip", label: "VIP", tone: "#9B86B8", members: [9, 10, 7], more: 8 },
+  { key: "spend", label: "High spend", tone: "#99A36D", members: [13, 11, 17], more: 12 },
   {
-    key: "service",
-    label: "Service due",
-    tone: "#DDA34B",
-    soft: "#F3E7D2",
-    ink: "#79531E",
-    members: [9, 4, 2],
-    criterion: "Due for service this week",
-    channel: "SMS",
-    outreach: "A timely service reminder",
-    result: "Mia booked a service",
-  },
-  {
-    key: "vip",
-    label: "VIP",
-    tone: "#9B86B8",
-    soft: "#EAE3F0",
-    ink: "#634B7B",
-    members: [9, 4],
-    criterion: "First access to a new maintenance plan",
-    channel: "Email",
-    outreach: "An invitation before the wider launch",
-    result: "Daniel requested a preview",
-  },
-  {
-    key: "spend",
-    label: "High spend",
-    tone: "#99A36D",
-    soft: "#E7EBD9",
-    ink: "#4C5B31",
-    members: [13],
-    criterion: "A fit for the premium maintenance plan",
-    channel: "Email",
-    outreach: "A relevant premium offer",
-    result: "Priya booked a consultation",
+    key: "inactive",
+    label: "No contact · 90d",
+    tone: "#E97D62",
+    members: [4, 6, 14, 18],
+    more: 36,
   },
 ] as const;
 
+function AudiencePill({ label }: { label: string }) {
+  const audience = HERO_AUDIENCES.find((item) => item.label === label)!;
+  return (
+    <span
+      className="shrink-0 rounded-full px-3 py-2 text-[10px] font-semibold leading-none text-[#1E2B29]"
+      style={{ backgroundColor: audience.tone + "30" }}
+    >
+      {label}
+    </span>
+  );
+}
+
+function AudiencePortraits({ members, more }: { members: readonly number[]; more?: number }) {
+  return (
+    <div
+      className="flex shrink-0 -space-x-2"
+      aria-label={`${members.length}${more ? ` plus ${more} more` : ""} example contacts`}
+    >
+      {members.map((cell) => (
+        <MarketingAvatar
+          key={cell}
+          cell={cell}
+          size={32}
+          className="border-2 border-white shadow-none"
+        />
+      ))}
+      {more !== undefined && (
+        <span className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-white bg-[#F7F4EE] text-[9px] font-semibold text-[#1E2B29]">
+          +{more}
+        </span>
+      )}
+    </div>
+  );
+}
+
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
-  const progress = (delay: number) => ({
-    quiet: { opacity: 0.35, y: 5 },
-    shown: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE },
-    },
-  });
+  const steps = [
+    { label: "Send SMS reminder", Icon: MessageCircle, color: "#2563FF" },
+    { label: "Wait 2 days", Icon: Clock3, color: "#1E2B29" },
+    { label: "Send email if no reply", Icon: Mail, color: "#2563FF" },
+  ];
   return (
-    <div data-marketing-story className="mx-auto max-w-[1240px] px-5 pb-20 sm:px-8 sm:pb-24">
-      <div className="mb-8 text-center sm:mb-10">
-        <p className="text-[18px] font-medium tracking-[-0.025em] text-[#1E2B29] sm:text-[21px]">
-          The right customers. The right outreach. A result you can trace.
-        </p>
-        <p className="mt-2 text-[12px] text-[#737A74]">
-          Illustrative audiences and campaign outcomes
-        </p>
-      </div>
-      <div className="grid items-start gap-8 sm:grid-cols-2 lg:grid-cols-[0.8fr_1fr_1.25fr] lg:gap-7 xl:gap-10">
+    <div data-marketing-story className="mx-auto max-w-[1320px] px-5 pb-20 sm:px-8 sm:pb-24">
+      <div className="grid items-start gap-12 md:grid-cols-2 lg:grid-cols-[1.12fr_1fr_1.16fr] lg:gap-8">
         <div>
-          <h3 className="mb-5 text-[13px] font-semibold text-[#1E2B29]">Your customers</h3>
-          <div className="space-y-4">
-            {HERO_CUSTOMERS.map((person) => (
-              <div
-                key={person.cell}
-                className={
-                  "flex min-h-[74px] items-center gap-3 rounded-[12px] border px-4 py-3 " +
-                  (person.cell === 9 ? "border-[#CDD9FC] bg-white" : "border-[#E9ECE6] bg-white/70")
-                }
-              >
-                <MarketingAvatar cell={person.cell} size={36} />
-                <div className="min-w-0">
-                  <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
-                  <div className="mt-1.5 flex flex-wrap gap-1.5">
-                    {person.tags.map((tag) => {
-                      const list = HERO_AUDIENCES.find((item) => item.label === tag)!;
-                      return (
-                        <span
-                          key={tag}
-                          className="rounded-[4px] px-2 py-1 text-[10px] font-semibold leading-[1.2]"
-                          style={{ backgroundColor: list.soft, color: list.ink }}
-                        >
-                          {tag}
-                        </span>
-                      );
-                    })}
+          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">Customers</h3>
+          <div className="relative isolate flex min-h-[360px] flex-col justify-center gap-3 py-2">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-x-5 inset-y-0 -z-10 opacity-60 blur-[36px]"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 25% 25%, #DDA34B55, transparent 65%), radial-gradient(ellipse at 80% 50%, #99A36D55, transparent 65%), radial-gradient(ellipse at 20% 85%, #9B86B855, transparent 65%)",
+              }}
+            />
+            {HERO_CUSTOMERS.map((person, index) => {
+              const focus = person.cell === 9;
+              const inset = [30, 14, 0, 14, 30][index];
+              return (
+                <div
+                  key={person.cell}
+                  className={
+                    "flex min-h-[62px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3 " +
+                    (focus
+                      ? "border-[#2563FF] shadow-[0_8px_26px_-14px_rgba(37,99,255,.2)]"
+                      : "border-white/80")
+                  }
+                  style={{
+                    marginLeft: inset,
+                    marginRight: focus ? 0 : 22,
+                    opacity: focus ? 1 : index === 0 || index === 4 ? 0.48 : 0.66,
+                  }}
+                >
+                  <MarketingAvatar
+                    cell={person.cell}
+                    size={focus ? 42 : 34}
+                    className="shadow-none"
+                  />
+                  <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
+                    <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {person.tags.map((tag) => (
+                        <AudiencePill key={tag} label={tag} />
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h3 className="mb-5 text-[13px] font-semibold text-[#1E2B29]">Smart Lists</h3>
-          <div className="space-y-7 pt-1">
-            {HERO_AUDIENCES.map((audience) => {
-              const members = HERO_CUSTOMERS.filter((person) =>
-                (audience.members as readonly number[]).includes(person.cell),
-              );
-              return (
-                <article
-                  key={audience.key}
-                  data-smart-list={audience.key}
-                  className="border-l-2 px-5 py-1"
-                  style={{ borderColor: audience.tone }}
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h4
-                      className="text-[17px] font-medium tracking-[-0.025em]"
-                      style={{ color: audience.ink }}
-                    >
-                      {audience.label}
-                    </h4>
-                    <span className="text-[12px] text-[#69716B]">
-                      {members.length} {members.length === 1 ? "customer" : "customers"}
-                    </span>
-                  </div>
-                  <div
-                    className="mt-3 flex -space-x-2"
-                    role="group"
-                    aria-label={members.map((person) => person.name).join(", ")}
-                  >
-                    {members.map((person) => (
-                      <MarketingAvatar
-                        key={person.cell}
-                        cell={person.cell}
-                        size={34}
-                        className="border-[2px] border-white"
-                      />
-                    ))}
-                  </div>
-                  <p className="mt-3 text-[12px] leading-[1.6] text-[#69716B]">
-                    {audience.criterion}
-                  </p>
-                </article>
               );
             })}
           </div>
-          <p className="mt-4 text-[12px] leading-[1.7] text-[#69716B]">
-            One customer can belong to more than one list.
-          </p>
         </div>
-        <motion.div
-          data-outreach-example
-          className="sm:col-span-2 lg:col-span-1"
-          initial={reduced ? false : "quiet"}
-          whileInView="shown"
-          viewport={{ once: true, amount: 0.35 }}
-        >
-          <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-[13px] font-semibold text-[#1E2B29]">Outreach</h3>
-            <p className="flex gap-4 text-[12px] font-semibold text-[#69716B]">
-              <span>SMS</span>
-              <span>Email</span>
+        <div>
+          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">Smart Lists</h3>
+          <div className="space-y-4 pt-5">
+            {HERO_AUDIENCES.map((audience) => (
+              <article
+                key={audience.key}
+                data-smart-list={audience.key}
+                className="flex min-h-[70px] flex-wrap items-center justify-between gap-3 rounded-[12px] border border-[#111318]/[0.06] bg-white px-4 py-3 shadow-[0_8px_24px_-16px_rgba(30,43,41,.14)]"
+              >
+                <AudiencePortraits members={audience.members} more={audience.more} />
+                <AudiencePill label={audience.label} />
+              </article>
+            ))}
+          </div>
+        </div>
+        <div data-outreach-example className="md:col-span-2 lg:col-span-1">
+          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">
+            Automated outreach
+          </h3>
+          <motion.div
+            initial={reduced ? false : "quiet"}
+            whileInView="shown"
+            viewport={{ once: true, amount: 0.3 }}
+            className="rounded-[18px] border border-[#111318]/[0.08] bg-white p-5 shadow-[0_18px_50px_-28px_rgba(30,43,41,.18)] sm:p-6"
+          >
+            <h4 className="text-[20px] font-medium tracking-[-0.035em] text-[#111318]">
+              Service reminder
+            </h4>
+            <div className="mt-5 flex flex-wrap items-center gap-3 rounded-[10px] bg-[#F7F4EE]/70 px-3 py-3">
+              <AudiencePortraits members={[9, 2, 7]} />
+              <AudiencePill label="Service due" />
+            </div>
+            <div className="relative mt-4 space-y-3">
+              <div
+                aria-hidden="true"
+                className="absolute bottom-7 left-[24px] top-7 w-px bg-[#2563FF]/25"
+              />
+              {steps.map(({ label, Icon, color }, index) => (
+                <motion.div
+                  key={label}
+                  variants={{
+                    quiet: { opacity: 0.45 },
+                    shown: {
+                      opacity: 1,
+                      transition: {
+                        duration: reduced ? 0 : 0.45,
+                        delay: reduced ? 0 : index * 0.65,
+                      },
+                    },
+                  }}
+                  className="relative flex min-h-[54px] items-center gap-4 rounded-[10px] border border-[#111318]/[0.04] bg-[#FCFCFA] px-4 py-3"
+                >
+                  <Icon size={19} strokeWidth={1.65} style={{ color }} />
+                  <p className="text-[12px] font-semibold text-[#1E2B29]">{label}</p>
+                </motion.div>
+              ))}
+            </div>
+            <p className="mt-5 border-t border-[#111318]/[0.08] pt-4 text-[11px] leading-[1.8] text-[#1E2B29]/65">
+              SMS · Email · Voicemail · Social DMs · AI calls
             </p>
-          </div>
-          <div className="overflow-hidden rounded-[18px] border border-[#DBE0DB] bg-white shadow-[0_18px_50px_-20px_rgba(30,43,41,.16)]">
-            <div className="flex items-center gap-3 border-b border-[#E9ECE6] px-5 py-4">
-              <MarketingAvatar cell={9} size={36} />
-              <div>
-                <p className="text-[13px] font-semibold text-[#1E2B29]">Mia Thompson</p>
-                <p className="mt-0.5 text-[12px] text-[#69716B]">Service recall</p>
-              </div>
-              <ZaplaPetal size={26} className="ml-auto shrink-0" />
-            </div>
-            <div className="px-5 py-5">
-              <div className="flex flex-wrap justify-between gap-2 text-[11px]">
-                <p className="font-semibold text-[#697647]">SMS automation</p>
-                <p className="text-[#69716B]">When service is due</p>
-              </div>
-              <motion.div
-                data-outreach-message
-                variants={progress(0.3)}
-                className="mt-4 rounded-[12px] rounded-bl-[3px] bg-[#F2F4EC] px-4 py-3 text-[14px] leading-[1.6] text-[#1E2B29]"
-              >
-                Hi Mia, your next service is due. Ready to choose a time? Book here.
-              </motion.div>
-              <motion.div
-                data-outreach-action
-                variants={progress(1.4)}
-                className="mt-5 border-l-2 border-[#9B86B8] pl-3"
-              >
-                <p className="text-[11px] font-semibold text-[#79648E]">Service booking page</p>
-                <p className="mt-1.5 text-[14px] font-semibold text-[#1E2B29]">
-                  Thursday, 10:30 am
-                </p>
-                <p className="mt-1 text-[12px] text-[#69716B]">Mia confirms her next service.</p>
-              </motion.div>
-            </div>
-          </div>
-          <div className="mt-6 border-l-[3px] border-[#2563FF] py-1 pl-4">
-            <h4 className="text-[12px] font-semibold text-[#2563FF]">Campaign results</h4>
-            <motion.div data-outreach-result variants={progress(2.6)} className="mt-3">
-              <p className="text-[21px] font-medium tracking-[-0.035em] text-[#1E2B29]">
-                Mia booked a service.
-              </p>
-              <p className="mt-1 text-[12px] leading-[1.6] text-[#69716B]">
-                Attributed to Service recall
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
+      <p className="mt-6 text-right text-[10px] text-[#1E2B29]/45">Example audiences</p>
     </div>
   );
 }
