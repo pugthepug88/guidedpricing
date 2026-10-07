@@ -1,7 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown, MessageCircle, Clock3, Mail } from "lucide-react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
+import {
+  ArrowRight,
+  ChevronDown,
+  MessageCircle,
+  Clock3,
+  Mail,
+  Voicemail,
+  MessagesSquare,
+  PhoneCall,
+} from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/customer-marketing")({
@@ -280,17 +289,40 @@ function AudiencePortraits({ members, more }: { members: readonly number[]; more
 
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
+  const scene = useRef<HTMLDivElement>(null);
+  const visible = useInView(scene, { amount: 0.2 });
+  const [beat, setBeat] = useState(0);
+  const phase = reduced ? 6 : beat;
+  useEffect(() => {
+    if (reduced || !visible || beat >= 6) return;
+    const durations = [2200, 1800, 1600, 1200, 1700, 1400];
+    const timer = window.setTimeout(() => setBeat((value) => value + 1), durations[beat]);
+    return () => window.clearTimeout(timer);
+  }, [beat, reduced, visible]);
+  const focusIndex = phase >= 1 ? 2 : 1;
   const steps = [
-    { label: "Send SMS reminder", Icon: MessageCircle, color: "#2563FF" },
-    { label: "Wait 2 days", Icon: Clock3, color: "#1E2B29" },
-    { label: "Send email if no reply", Icon: Mail, color: "#2563FF" },
+    { label: "Send SMS reminder", Icon: MessageCircle },
+    { label: "Wait 2 days", Icon: Clock3 },
+    { label: "Send email if no reply", Icon: Mail },
+  ];
+  const channels = [
+    { label: "SMS", Icon: MessageCircle, tone: "#DDA34B", highlighted: phase === 4 },
+    { label: "Email", Icon: Mail, tone: "#9B86B8", highlighted: phase >= 6 },
+    { label: "Voicemail", Icon: Voicemail, tone: "#E97D62", highlighted: false },
+    { label: "Social DMs", Icon: MessagesSquare, tone: "#99A36D", highlighted: false },
+    { label: "AI calls", Icon: PhoneCall, tone: "#C96C85", highlighted: false },
   ];
   return (
-    <div data-marketing-story className="mx-auto max-w-[1320px] px-5 pb-20 sm:px-8 sm:pb-24">
+    <div
+      ref={scene}
+      data-marketing-story
+      data-story-phase={phase}
+      className="mx-auto max-w-[1320px] px-5 pb-20 sm:px-8 sm:pb-24"
+    >
       <div className="grid items-start gap-12 md:grid-cols-2 lg:grid-cols-[1.12fr_1fr_1.16fr] lg:gap-8">
         <div>
           <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">Customers</h3>
-          <div className="relative isolate flex min-h-[360px] flex-col justify-center gap-3 py-2">
+          <div className="relative isolate">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -inset-x-5 inset-y-0 -z-10 opacity-60 blur-[36px]"
@@ -299,106 +331,173 @@ function HeroCustomerScene() {
                   "radial-gradient(ellipse at 25% 25%, #DDA34B55, transparent 65%), radial-gradient(ellipse at 80% 50%, #99A36D55, transparent 65%), radial-gradient(ellipse at 20% 85%, #9B86B855, transparent 65%)",
               }}
             />
-            {HERO_CUSTOMERS.map((person, index) => {
-              const focus = person.cell === 9;
-              const inset = [30, 14, 0, 14, 30][index];
-              return (
-                <div
-                  key={person.cell}
-                  className={
-                    "flex min-h-[62px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3 " +
-                    (focus
-                      ? "border-[#2563FF] shadow-[0_8px_26px_-14px_rgba(37,99,255,.2)]"
-                      : "border-white/80")
-                  }
-                  style={{
-                    marginLeft: inset,
-                    marginRight: focus ? 0 : 22,
-                    opacity: focus ? 1 : index === 0 || index === 4 ? 0.48 : 0.66,
-                  }}
-                >
-                  <MarketingAvatar
-                    cell={person.cell}
-                    size={focus ? 42 : 34}
-                    className="shadow-none"
-                  />
-                  <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
-                    <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {person.tags.map((tag) => (
-                        <AudiencePill key={tag} label={tag} />
-                      ))}
+            <div className="relative h-[402px] overflow-hidden">
+              {HERO_CUSTOMERS.map((person, index) => {
+                const distance = Math.abs(index - focusIndex);
+                const focus = distance === 0;
+                return (
+                  <motion.div
+                    key={person.cell}
+                    initial={false}
+                    animate={{
+                      y: 164 + (index - focusIndex) * 78,
+                      x: distance === 0 ? 0 : distance === 1 ? 14 : 30,
+                      opacity: focus ? 1 : distance === 1 ? 0.66 : 0.48,
+                      borderColor: focus ? "#2563FF" : "#FFFFFF",
+                      width: focus ? "100%" : "calc(100% - 52px)",
+                    }}
+                    transition={{ duration: reduced ? 0 : 1.1, ease: EASE }}
+                    className="absolute left-0 top-0 flex min-h-[68px] items-center gap-3 rounded-[12px] border bg-white px-3 py-3"
+                  >
+                    <MarketingAvatar cell={person.cell} size={40} className="shadow-none" />
+                    <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
+                      <p className="text-[12px] font-semibold text-[#1E2B29]">{person.name}</p>
+                      <motion.div
+                        initial={false}
+                        animate={{ opacity: person.cell === 9 && phase < 2 ? 0.65 : 1 }}
+                        transition={{ duration: reduced ? 0 : 0.6 }}
+                        className="flex flex-wrap gap-1.5"
+                      >
+                        {person.tags.map((tag) => (
+                          <AudiencePill key={tag} label={tag} />
+                        ))}
+                      </motion.div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div>
-          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">Smart Lists</h3>
-          <div className="space-y-4 pt-5">
-            {HERO_AUDIENCES.map((audience) => (
-              <article
-                key={audience.key}
-                data-smart-list={audience.key}
-                className="flex min-h-[70px] flex-wrap items-center justify-between gap-3 rounded-[12px] border border-[#111318]/[0.06] bg-white px-4 py-3 shadow-[0_8px_24px_-16px_rgba(30,43,41,.14)]"
-              >
-                <AudiencePortraits members={audience.members} more={audience.more} />
-                <AudiencePill label={audience.label} />
-              </article>
-            ))}
+          <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">
+            Smart Lists{" "}
+            <span className="ml-1 text-[10px] font-normal text-[#1E2B29]/45">· sample</span>
+          </h3>
+          <div className="mx-auto max-w-[290px] space-y-5 pt-4">
+            {HERO_AUDIENCES.map((audience, index) => {
+              const selected = audience.key === "service" && phase >= 2;
+              return (
+                <motion.article
+                  key={audience.key}
+                  data-smart-list={audience.key}
+                  initial={false}
+                  animate={{ backgroundColor: selected ? "#DDA34B14" : "#DDA34B00" }}
+                  transition={{ duration: reduced ? 0 : 0.7 }}
+                  style={{ marginLeft: [0, 24, 10, 30][index] }}
+                  className="w-fit rounded-[16px] px-4 py-2"
+                >
+                  <AudiencePill label={audience.label} />
+                  <div
+                    className="mt-3 flex -space-x-2"
+                    aria-label={`${audience.members.length} plus ${audience.more} more example contacts`}
+                  >
+                    {audience.members.map((cell) => (
+                      <motion.span
+                        key={cell}
+                        className="block"
+                        initial={false}
+                        animate={{
+                          opacity: cell === 9 && phase < 2 ? 0.4 : 1,
+                          scale: cell === 9 && selected ? 1.08 : 1,
+                        }}
+                        transition={{ duration: reduced ? 0 : 0.6 }}
+                      >
+                        <MarketingAvatar
+                          cell={cell}
+                          size={36}
+                          className="border-2 border-[#FCFCFA] shadow-none"
+                        />
+                      </motion.span>
+                    ))}
+                    <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-[#FCFCFA] bg-[#F7F4EE] text-[10px] font-semibold text-[#1E2B29]">
+                      +{audience.more}
+                    </span>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
         <div data-outreach-example className="md:col-span-2 lg:col-span-1">
           <h3 className="mb-7 text-center text-[14px] font-medium text-[#1E2B29]">
             Automated outreach
           </h3>
-          <motion.div
-            initial={reduced ? false : "quiet"}
-            whileInView="shown"
-            viewport={{ once: true, amount: 0.3 }}
-            className="rounded-[18px] border border-[#111318]/[0.08] bg-white p-5 shadow-[0_18px_50px_-28px_rgba(30,43,41,.18)] sm:p-6"
-          >
+          <div className="rounded-[18px] border border-[#111318]/[0.08] bg-white p-5 shadow-[0_18px_50px_-28px_rgba(30,43,41,.18)] sm:p-6">
             <h4 className="text-[20px] font-medium tracking-[-0.035em] text-[#111318]">
               Service reminder
             </h4>
-            <div className="mt-5 flex flex-wrap items-center gap-3 rounded-[10px] bg-[#F7F4EE]/70 px-3 py-3">
-              <AudiencePortraits members={[9, 2, 7]} />
+            <motion.div
+              initial={false}
+              animate={{
+                opacity: phase >= 3 ? 1 : 0.5,
+                backgroundColor: phase >= 3 ? "#DDA34B1A" : "#F7F4EE",
+              }}
+              transition={{ duration: reduced ? 0 : 0.8 }}
+              className="mt-5 flex flex-wrap items-center gap-3 rounded-[10px] px-3 py-3"
+            >
+              <motion.div
+                initial={false}
+                animate={{ x: phase >= 3 ? 0 : -8 }}
+                transition={{ duration: reduced ? 0 : 0.8, ease: EASE }}
+              >
+                <AudiencePortraits members={[9, 2, 7]} />
+              </motion.div>
               <AudiencePill label="Service due" />
-            </div>
+            </motion.div>
             <div className="relative mt-4 space-y-3">
               <div
                 aria-hidden="true"
                 className="absolute bottom-7 left-[24px] top-7 w-px bg-[#2563FF]/25"
               />
-              {steps.map(({ label, Icon, color }, index) => (
-                <motion.div
-                  key={label}
-                  variants={{
-                    quiet: { opacity: 0.45 },
-                    shown: {
-                      opacity: 1,
-                      transition: {
-                        duration: reduced ? 0 : 0.45,
-                        delay: reduced ? 0 : index * 0.65,
-                      },
-                    },
-                  }}
-                  className="relative flex min-h-[54px] items-center gap-4 rounded-[10px] border border-[#111318]/[0.04] bg-[#FCFCFA] px-4 py-3"
-                >
-                  <Icon size={19} strokeWidth={1.65} style={{ color }} />
-                  <p className="text-[12px] font-semibold text-[#1E2B29]">{label}</p>
-                </motion.div>
-              ))}
+              {steps.map(({ label, Icon }, index) => {
+                const reached = phase >= index + 4;
+                const current = phase === index + 4;
+                return (
+                  <motion.div
+                    key={label}
+                    initial={false}
+                    animate={{
+                      backgroundColor: current ? "#2563FF0A" : "#FCFCFA",
+                      borderColor: current ? "#2563FF40" : "#1113180A",
+                    }}
+                    transition={{ duration: reduced ? 0 : 0.5 }}
+                    className="relative flex min-h-[54px] items-center gap-4 rounded-[10px] border px-4 py-3"
+                  >
+                    <Icon
+                      size={19}
+                      strokeWidth={1.65}
+                      className={reached ? "text-[#2563FF]" : "text-[#1E2B29]/55"}
+                    />
+                    <p className="text-[12px] font-semibold text-[#1E2B29]">{label}</p>
+                  </motion.div>
+                );
+              })}
             </div>
-            <p className="mt-5 border-t border-[#111318]/[0.08] pt-4 text-[11px] leading-[1.8] text-[#1E2B29]/65">
-              SMS · Email · Voicemail · Social DMs · AI calls
-            </p>
-          </motion.div>
+            <div className="mt-5 border-t border-[#111318]/[0.08] pt-4">
+              <div className="grid grid-cols-3 gap-x-3 gap-y-4">
+                {channels.map(({ label, Icon, tone, highlighted }) => (
+                  <motion.div
+                    key={label}
+                    initial={false}
+                    animate={{ color: highlighted ? "#2563FF" : "#1E2B29" }}
+                    transition={{ duration: reduced ? 0 : 0.4 }}
+                    className="flex flex-col items-start gap-2"
+                  >
+                    <span
+                      className="flex h-8 w-9 items-center justify-center rounded-[8px]"
+                      style={{ backgroundColor: tone + "25" }}
+                    >
+                      <Icon size={18} strokeWidth={1.6} />
+                    </span>
+                    <span className="text-[11px] font-semibold">{label}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <p className="mt-6 text-right text-[10px] text-[#1E2B29]/45">Example audiences</p>
     </div>
   );
 }
