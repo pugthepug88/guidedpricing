@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 export const Route = createFileRoute("/customer-marketing")({
   staticData: { sitemap: false },
@@ -50,37 +51,6 @@ const HERO_CUSTOMERS = [
     meta: "Brisbane",
     cell: 2,
     tags: ["No booking 90 days", "High spend"],
-  },
-] as const;
-
-const HERO_STORY = [
-  {
-    eyebrow: "Smart List",
-    title: "Service due this week",
-    copy: "Built from service history, timing and customer context.",
-    tone: "#DDA34B",
-    type: "list",
-  },
-  {
-    eyebrow: "Automation",
-    title: "Reach them while it matters",
-    copy: "Choose the sequence once. Zapla handles the next step.",
-    tone: "#99A36D",
-    type: "outreach",
-  },
-  {
-    eyebrow: "Customer action",
-    title: "Give them somewhere to act",
-    copy: "Forms, pages and bookings stay connected to the same initiative.",
-    tone: "#9B86B8",
-    type: "action",
-  },
-  {
-    eyebrow: "Campaigns",
-    title: "See what happened next",
-    copy: "Track engagement, conversion and won business back to the campaign.",
-    tone: "#2563FF",
-    type: "results",
   },
 ] as const;
 
@@ -161,7 +131,6 @@ function CustomerMarketingPage() {
       <SignalScene />
       <MomentScene />
       <CampaignScene />
-      <ConnectedPoster />
       <Faq />
       <GrowthCta />
     </main>
@@ -196,7 +165,7 @@ function PrimaryButton() {
   return (
     <a
       href={BOOK_URL}
-      className="inline-flex h-[48px] items-center gap-2 rounded-[10px] bg-[#111318] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111318] focus-visible:ring-offset-2"
+      className="inline-flex h-[48px] items-center gap-2 rounded-full bg-[#1E2B29] px-6 text-[13px] font-semibold text-white transition-transform hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111318] focus-visible:ring-offset-2"
     >
       Book a Call <ArrowRight size={15} />
     </a>
@@ -257,14 +226,15 @@ function Hero() {
 
           {/* LOCKED: do not change hero subheading unless Andrew explicitly reopens copy. */}
           <p className="mx-auto mt-5 max-w-[760px] text-[14px] leading-[1.72] text-[#666C67] sm:text-[16px]">
-            Use the data already in Zapla to choose who to contact, time the outreach, and create more business from your existing customer base.
+            Use the data already in Zapla to choose who to contact, time the outreach, and create
+            more business from your existing customer base.
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <PrimaryButton />
             <a
               href="#how-it-works"
-              className="inline-flex h-[48px] items-center rounded-[10px] border border-[#D6DCD7] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#B9C1BA]"
+              className="inline-flex h-[48px] items-center rounded-full border border-[#D6DCD7] bg-white px-6 text-[13px] font-semibold text-[#111318] transition-colors hover:border-[#B9C1BA]"
             >
               See how it works
             </a>
@@ -272,236 +242,276 @@ function Hero() {
         </Reveal>
       </div>
 
-      <Reveal className="mt-20 sm:mt-24 lg:mt-28" delay={0.05}>
+      <Reveal className="mt-16 sm:mt-20 lg:mt-20" delay={0.05}>
         <HeroCustomerScene />
       </Reveal>
     </section>
   );
 }
 
+const HERO_PHASES = ["Customer", "Audience", "Message", "Booking", "Result"] as const;
+
 function HeroCustomerScene() {
   const reduced = !!useReducedMotion();
+  const stage = useRef<HTMLDivElement>(null);
+  const visible = useInView(stage, { amount: 0.4 });
   const [step, setStep] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
+  const [selected, setSelected] = useState(false);
+  const shownStep = reduced && !paused ? 4 : step;
 
   useEffect(() => {
-    if (reduced) {
-      setStep(0);
-      return;
-    }
+    const update = () => setPageVisible(document.visibilityState === "visible");
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
 
-    const timer = window.setInterval(() => {
-      setStep((current) => (current + 1) % HERO_STORY.length);
-    }, 3600);
+  useEffect(() => {
+    if (visible) setSelected(true);
+  }, [visible]);
 
-    return () => window.clearInterval(timer);
-  }, [reduced]);
-
-  const railStep = 126;
-  const transition = { duration: reduced ? 0 : 0.56, ease: EASE };
+  useEffect(() => {
+    if (reduced || paused || !visible || !pageVisible || step === 4) return;
+    const timer = window.setTimeout(
+      () => setStep((current) => current + 1),
+      step === 2 ? 4300 : 3300,
+    );
+    return () => window.clearTimeout(timer);
+  }, [reduced, paused, visible, pageVisible, step]);
 
   return (
-    <div className="relative mx-auto min-h-[560px] max-w-[1240px] px-4 pb-10 sm:px-8 lg:px-10">
-      <div className="pointer-events-none absolute inset-x-[2%] bottom-[2%] top-[9%] rounded-[42px] bg-[#F7F2EA]" />
-      <div className="pointer-events-none absolute left-[7%] top-[20%] h-[300px] w-[360px] rounded-full bg-[#DCE0CC]/55 blur-[115px]" />
-      <motion.div
-        className="pointer-events-none absolute right-[8%] top-[18%] h-[260px] w-[390px] rounded-full bg-[#E7D8C5]/70 blur-[105px]"
-        animate={{ y: step * 16 }}
-        transition={transition}
-      />
+    <div
+      ref={stage}
+      data-marketing-story
+      className="mx-auto max-w-[840px] px-5 pb-20 sm:px-8 sm:pb-24"
+    >
+      <div className="mb-8 text-center sm:mb-10">
+        <p className="text-[18px] font-medium tracking-[-0.025em] text-[#1E2B29] sm:text-[21px]">
+          A service reminder becomes the next booking.
+        </p>
+        <p className="mt-2 text-[12px] text-[#737A74]">Illustrative customer story</p>
+      </div>
 
-      <div className="relative grid min-h-[520px] items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-24">
-        <div className="relative mx-auto h-[410px] w-full max-w-[390px] overflow-hidden">
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-16 bg-gradient-to-b from-[#F7F2EA] via-[#F7F2EA]/92 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-20 bg-gradient-to-t from-[#F7F2EA] via-[#F7F2EA]/92 to-transparent" />
-
-          <div className="absolute inset-x-5 top-[34px] space-y-3">
-            {HERO_CUSTOMERS.map((customer, index) => {
-              const active = index === 1;
-              const muted = !active;
-              const tagTones = [
-                ["#F4DED5", "#9D573F"],
-                ["#E8EBD8", "#687249"],
-                ["#EEE5F2", "#735D83"],
-                ["#E7D8C5", "#765F46"],
-              ] as const;
-
-              return (
-                <motion.div
-                  key={customer.name}
-                  animate={{
-                    opacity: active ? 1 : index === 0 || index === HERO_CUSTOMERS.length - 1 ? 0.34 : 0.58,
-                    scale: active ? 1.015 : 0.96,
-                    y: active ? 0 : 0,
-                    filter: active ? "blur(0px)" : "blur(0.45px)",
-                  }}
-                  transition={transition}
-                  className={
-                    "relative flex min-h-[78px] items-center gap-3 rounded-[18px] border bg-white/95 px-4 py-3 " +
-                    (active
-                      ? "border-[#AFC3FF] shadow-[0_24px_58px_rgba(37,99,255,.12)]"
-                      : "border-[#E5E0D8] shadow-[0_12px_28px_rgba(46,36,28,.055)]")
-                  }
-                >
-                  <MarketingAvatar
-                    cell={customer.cell}
-                    size={48}
-                    muted={muted}
-                    className={active ? "border-2 border-white" : "border-2 border-white/80"}
-                  />
-
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-[13px] font-semibold tracking-[-0.018em] text-[#252A26]">
-                      {customer.name}
-                    </div>
-                    <div className="mt-0.5 text-[9px] text-[#8C938D]">{customer.meta}</div>
-
-                    <div className="mt-2 flex flex-wrap gap-1.5">
-                      {customer.tags.map((tag, tagIndex) => {
-                        const [backgroundColor, color] = tagTones[(index + tagIndex) % tagTones.length];
-                        return (
-                          <span
-                            key={tag}
-                            className="rounded-full px-2.5 py-1 text-[8px] font-semibold"
-                            style={{ backgroundColor, color }}
-                          >
-                            {tag}
-                          </span>
-                        );
-                      })}
+      <div className="grid items-center gap-5 md:grid-cols-[300px_1fr] md:gap-14">
+        <div className="relative hidden h-[292px] overflow-hidden md:block" aria-hidden="true">
+          <motion.div
+            className="absolute inset-x-1 top-[94px] space-y-5"
+            initial={false}
+            animate={{ y: reduced || selected ? -84 : 0 }}
+            transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
+          >
+            {[HERO_CUSTOMERS[1], HERO_CUSTOMERS[0], HERO_CUSTOMERS[2], HERO_CUSTOMERS[3]].map(
+              (customer) => {
+                const active = customer.cell === 9;
+                return (
+                  <div
+                    key={customer.name}
+                    className={
+                      "flex h-[64px] items-center gap-3 rounded-[12px] border bg-white px-4 " +
+                      (active
+                        ? "border-[#2563FF]/50 shadow-[0_10px_26px_rgba(37,99,255,.09)]"
+                        : "border-[#E2E5E0] opacity-60")
+                    }
+                  >
+                    <MarketingAvatar cell={customer.cell} size={36} muted={!active} />
+                    <div className="min-w-0">
+                      <div className="truncate text-[12px] font-semibold text-[#1E2B29]">
+                        {customer.name}
+                      </div>
+                      <div className="mt-1 text-[11px] text-[#666E67]">
+                        {active
+                          ? "Next service due this week"
+                          : customer.cell === 4
+                            ? "Next service due next month"
+                            : customer.cell === 13
+                              ? "Serviced last week"
+                              : "Next service due in November"}
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              );
-            })}
+                );
+              },
+            )}
+          </motion.div>
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-5 bg-gradient-to-b from-[#FCFCFA] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-[#FCFCFA] to-transparent" />
+        </div>
+
+        <div className="relative overflow-hidden rounded-[18px] border border-[#DBE0DB] bg-white shadow-[0_18px_50px_-20px_rgba(30,43,41,.16)]">
+          <div className="flex items-center gap-3 border-b border-[#E9ECE6] px-5 py-4 sm:px-6">
+            <MarketingAvatar cell={9} size={38} />
+            <div>
+              <div className="text-[13px] font-semibold text-[#1E2B29]">Mia Thompson</div>
+              <div className="mt-0.5 text-[12px] text-[#69716B]">Service recall</div>
+            </div>
+            <ZaplaPetal size={26} className="ml-auto shrink-0" />
+          </div>
+          <div
+            className="relative h-[320px] sm:h-[300px]"
+            aria-live={paused || reduced ? "polite" : "off"}
+            aria-atomic="true"
+          >
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div
+                key={shownStep}
+                data-story-phase={HERO_PHASES[shownStep]}
+                className="absolute inset-0 flex flex-col px-5 py-5 sm:px-6 sm:py-6"
+                initial={reduced ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduced ? undefined : { opacity: 0, y: -6 }}
+                transition={{ duration: reduced ? 0 : 0.22, ease: EASE }}
+              >
+                {shownStep === 0 && (
+                  <>
+                    <p className="text-[12px] font-semibold text-[#9A6B2C]">Customer context</p>
+                    <h3 className="mt-3 text-[25px] font-medium leading-[1.12] tracking-[-0.04em]">
+                      Her next service is due.
+                    </h3>
+                    <dl className="mt-6 space-y-3 text-[12px]">
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#69716B]">Last service</dt>
+                        <dd>Six months ago</dd>
+                      </div>
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#69716B]">Next service</dt>
+                        <dd className="font-semibold text-[#2563FF]">This week</dd>
+                      </div>
+                    </dl>
+                    <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
+                      The right reason to reach out is already in her customer record.
+                    </p>
+                  </>
+                )}
+                {shownStep === 1 && (
+                  <>
+                    <p className="text-[12px] font-semibold text-[#9A6B2C]">Smart List</p>
+                    <h3 className="mt-3 text-[25px] font-medium leading-[1.12] tracking-[-0.04em]">
+                      Due for service this week.
+                    </h3>
+                    <div className="mt-5 flex -space-x-2">
+                      {[9, 7, 16, 20].map((cell) => (
+                        <MarketingAvatar
+                          key={cell}
+                          cell={cell}
+                          size={42}
+                          className="border-[3px] border-white"
+                        />
+                      ))}
+                    </div>
+                    <p className="mt-4 text-[13px] leading-[1.6] text-[#4D5850]">
+                      Mia joins past customers whose next service is due this week.
+                    </p>
+                    <p className="mt-auto text-[12px] text-[#69716B]">
+                      Recent customers stay out of this audience.
+                    </p>
+                  </>
+                )}
+                {shownStep === 2 && (
+                  <>
+                    <div className="flex justify-between gap-4 text-[12px]">
+                      <p className="font-semibold text-[#697647]">SMS automation</p>
+                      <span className="text-[#69716B]">When service is due</span>
+                    </div>
+                    <div className="mt-4 rounded-[12px] rounded-bl-[3px] bg-[#F2F4EC] px-4 py-3 text-[14px] leading-[1.6] text-[#1E2B29]">
+                      Hi Mia, your next service is due. Ready to choose a time? Book here.
+                    </div>
+                    <div className="mt-3 text-[12px] font-semibold text-[#2563FF]">
+                      Link to the service booking page
+                    </div>
+                    <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
+                      Relevant customer. Relevant timing. A clear next step.
+                    </p>
+                  </>
+                )}
+                {shownStep === 3 && (
+                  <>
+                    <p className="text-[12px] font-semibold text-[#79648E]">Booking page</p>
+                    <h3 className="mt-3 text-[25px] font-medium leading-[1.12] tracking-[-0.04em]">
+                      Mia books her next service.
+                    </h3>
+                    <div className="mt-5 border-l-[3px] border-[#9B86B8] pl-4">
+                      <p className="text-[17px] font-semibold text-[#1E2B29]">Thursday, 10:30 am</p>
+                      <p className="mt-2 text-[12px] text-[#69716B]">
+                        Service appointment confirmed
+                      </p>
+                    </div>
+                    <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
+                      The message gives her somewhere to act.
+                    </p>
+                  </>
+                )}
+                {shownStep === 4 && (
+                  <>
+                    <p className="text-[12px] font-semibold text-[#2563FF]">
+                      Campaigns attribution
+                    </p>
+                    <h3 className="mt-3 text-[25px] font-medium leading-[1.12] tracking-[-0.04em]">
+                      A booking you can trace.
+                    </h3>
+                    <dl className="mt-5 space-y-3 text-[12px]">
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#69716B]">Initiative</dt>
+                        <dd className="font-semibold">Service recall</dd>
+                      </div>
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#69716B]">Customer action</dt>
+                        <dd className="font-semibold">Mia booked a service</dd>
+                      </div>
+                    </dl>
+                    <p className="mt-auto text-[12px] leading-[1.6] text-[#69716B]">
+                      The audience, SMS and booking stay connected to the same campaign.
+                    </p>
+                  </>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
+      </div>
 
-        <div className="relative h-[430px] overflow-hidden">
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-[88px] bg-gradient-to-b from-[#F7F2EA] via-[#F7F2EA]/92 to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-[96px] bg-gradient-to-t from-[#F7F2EA] via-[#F7F2EA]/92 to-transparent" />
-
-          <motion.div
-            className="absolute inset-x-3 top-[148px] space-y-[18px] sm:inset-x-8"
-            animate={{ y: -(step * railStep) }}
-            transition={transition}
+      <div
+        className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1"
+        aria-label="Explore the customer story"
+      >
+        {HERO_PHASES.map((label, index) => (
+          <button
+            key={label}
+            type="button"
+            aria-pressed={shownStep === index}
+            onClick={() => {
+              setStep(index);
+              setPaused(true);
+            }}
+            className={
+              "min-h-[44px] rounded-full px-3 text-[12px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563FF] " +
+              (shownStep === index
+                ? "bg-[#EDF2FF] text-[#2563FF]"
+                : "text-[#69716B] hover:text-[#111318]")
+            }
           >
-            {HERO_STORY.map((item, index) => {
-              const distance = Math.abs(index - step);
-              const active = index === step;
-
-              return (
-                <motion.div
-                  key={item.title}
-                  animate={{
-                    opacity: active ? 1 : distance === 1 ? 0.34 : 0.16,
-                    scale: active ? 1 : distance === 1 ? 0.95 : 0.91,
-                    filter: active ? "blur(0px)" : distance === 1 ? "blur(0.7px)" : "blur(1.8px)",
-                  }}
-                  transition={transition}
-                  className={
-                    "relative min-h-[108px] rounded-[22px] border bg-white/96 px-5 py-4 sm:px-6 " +
-                    (active
-                      ? "border-[#CFC7BC] shadow-[0_28px_66px_rgba(46,36,28,.11)]"
-                      : "border-[#E5E0D8] shadow-[0_12px_28px_rgba(46,36,28,.045)]")
-                  }
-                >
-                  <span
-                    className="absolute inset-y-0 left-0 w-[4px] rounded-l-[22px]"
-                    style={{ backgroundColor: item.tone }}
-                  />
-
-                  <div className="flex min-h-[76px] items-center gap-5">
-                    <div className="min-w-0 flex-1">
-                      <div className="text-[8px] font-bold uppercase tracking-[0.14em] text-[#8A908B]">
-                        {item.eyebrow}
-                      </div>
-                      <div className="mt-2 text-[18px] font-semibold tracking-[-0.03em] text-[#252A26]">
-                        {item.title}
-                      </div>
-                      <div className="mt-1 max-w-[390px] text-[9px] leading-[1.55] text-[#7A817B]">
-                        {item.copy}
-                      </div>
-                    </div>
-
-                    {item.type === "list" ? (
-                      <div className="flex shrink-0 -space-x-2">
-                        {[9, 4, 13, 2].map((cell) => (
-                          <MarketingAvatar key={cell} cell={cell} size={34} className="border-[3px] border-white" />
-                        ))}
-                      </div>
-                    ) : null}
-
-                    {item.type === "outreach" ? (
-                      <div className="hidden shrink-0 items-center gap-3 text-[8px] font-semibold text-[#59615C] sm:flex">
-                        <span>SMS</span><span className="text-[#C2B7AA]">·</span>
-                        <span>Email</span><span className="text-[#C2B7AA]">·</span>
-                        <span>AI outbound</span><span className="text-[#C2B7AA]">·</span>
-                        <span>Social DM</span>
-                      </div>
-                    ) : null}
-
-                    {item.type === "action" ? (
-                      <div className="hidden shrink-0 items-center gap-3 text-[8px] font-semibold text-[#625B66] sm:flex">
-                        <span>Forms</span><span className="text-[#C7B9CA]">·</span>
-                        <span>Pages</span><span className="text-[#C7B9CA]">·</span>
-                        <span>Bookings</span>
-                      </div>
-                    ) : null}
-
-                    {item.type === "results" ? (
-                      <div className="hidden w-[150px] shrink-0 space-y-2 sm:block">
-                        {[
-                          ["Reached", "#DDA34B", "76%"],
-                          ["Engaged", "#99A36D", "58%"],
-                          ["Converted", "#2563FF", "42%"],
-                        ].map(([label, tone, width]) => (
-                          <div key={label}>
-                            <div className="text-[7px] font-semibold text-[#858C86]">{label}</div>
-                            <div className="mt-1 h-[3px] rounded-full bg-[#ECE8E1]">
-                              <div className="h-full rounded-full" style={{ width, backgroundColor: tone }} />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-
-        <svg
-          aria-hidden="true"
-          className="pointer-events-none absolute left-[31%] top-[210px] hidden h-[90px] w-[24%] lg:block"
-          viewBox="0 0 300 90"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M 8 46 C 96 46, 150 46, 286 46"
-            fill="none"
-            stroke="#AFC3FF"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-          <circle cx="8" cy="46" r="4" fill="#2563FF" />
-          <circle cx="286" cy="46" r="4" fill="#2563FF" />
-        </svg>
+            {label}
+          </button>
+        ))}
+        {!reduced && (
+          <button
+            type="button"
+            onClick={() => {
+              if (step === 4) setStep(0);
+              setPaused(step === 4 ? false : !paused);
+            }}
+            className="min-h-[44px] rounded-full px-3 text-[12px] text-[#69716B] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-[#2563FF]"
+          >
+            {step === 4 ? "Replay" : paused ? "Play" : "Pause"}
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
 function SignalScene() {
-  const reduced = !!useReducedMotion();
-  const [focus, setFocus] = useState(0);
-
-  useEffect(() => {
-    if (reduced) return;
-    const timer = window.setInterval(() => setFocus((current) => (current + 1) % 4), 1850);
-    return () => window.clearInterval(timer);
-  }, [reduced]);
-
   const signals = [
     { label: "Last service", value: "6 months ago", tone: "#E97D62" },
     { label: "Location", value: "Sydney", tone: "#9B86B8" },
@@ -510,7 +520,10 @@ function SignalScene() {
   ] as const;
 
   return (
-    <section id="how-it-works" className="bg-[#F7F4EE] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32">
+    <section
+      id="how-it-works"
+      className="bg-[#F7F4EE] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-32"
+    >
       <div className="mx-auto grid max-w-[1240px] items-center gap-16 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20">
         <Reveal>
           <div
@@ -520,67 +533,38 @@ function SignalScene() {
             A customer is more than a name in a list.
           </div>
           <p className="mt-6 max-w-[470px] text-[14px] leading-[1.78] text-[#6A716B]">
-            Every interaction leaves context behind. Zapla can use that context to decide when a customer belongs in a campaign.
+            Every interaction leaves context behind. Zapla can use that context to decide when a
+            customer belongs in a campaign.
           </p>
         </Reveal>
 
         <Reveal delay={0.06}>
-          <div className="relative mx-auto min-h-[560px] max-w-[620px]">
-            <div className="absolute left-1/2 top-1/2 flex h-[210px] w-[210px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#2563FF] shadow-[0_30px_70px_rgba(37,99,255,.20)] sm:h-[240px] sm:w-[240px]">
-              <div className="text-center">
-                <div className="mx-auto w-fit">
-                  <MarketingAvatar cell={9} size={82} className="border-[3px] border-white/80 shadow-[0_16px_34px_rgba(0,0,0,.16)]" />
-                </div>
-                <div className="mt-4 text-[16px] font-semibold text-white">Mia Thompson</div>
-                <div className="mt-1 text-[10px] text-white/58">Existing customer</div>
+          <div className="mx-auto max-w-[580px]">
+            <div className="flex items-center gap-5 border-b border-[#DADFD6] pb-7">
+              <MarketingAvatar cell={9} size={68} />
+              <div>
+                <p className="text-[23px] font-medium tracking-[-0.035em]">Mia Thompson</p>
+                <p className="mt-2 text-[13px] text-[#69716B]">
+                  The context behind the next campaign
+                </p>
               </div>
             </div>
-
-            {signals.map((signal, index) => {
-              const positions = [
-                "left-[2%] top-[12%]",
-                "right-[1%] top-[18%]",
-                "left-[0%] bottom-[12%]",
-                "right-[2%] bottom-[9%]",
-              ];
-              const active = focus === index || reduced;
-
-              return (
-                <motion.div
+            <dl className="divide-y divide-[#DADFD6]">
+              {signals.map((signal) => (
+                <div
                   key={signal.label}
-                  className={"absolute " + positions[index]}
-                  animate={{
-                    scale: active ? 1.06 : 0.96,
-                    opacity: active ? 1 : 0.46,
-                    y: active ? 0 : 4,
-                  }}
-                  transition={{ duration: reduced ? 0 : 0.32, ease: EASE }}
+                  className="flex items-center justify-between gap-6 py-5 text-[14px]"
                 >
-                  <div className="min-w-[180px] rounded-[20px] bg-white px-5 py-4 shadow-[0_18px_44px_rgba(42,36,30,.08)] sm:min-w-[205px]">
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#8B918C]">
-                      {signal.label}
-                    </div>
-                    <div className="mt-2 flex items-center gap-3">
-                      <span className="h-3 w-3 rounded-full" style={{ backgroundColor: signal.tone }} />
-                      <span className="text-[14px] font-semibold tracking-[-0.02em] text-[#272C28]">{signal.value}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={focus}
-                initial={reduced ? false : { opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduced ? undefined : { opacity: 0, y: -8 }}
-                transition={{ duration: reduced ? 0 : 0.28, ease: EASE }}
-                className="absolute left-1/2 top-[3%] -translate-x-1/2 whitespace-nowrap text-[11px] font-semibold text-[#5C655E]"
-              >
-                Zapla reads the context, not just the contact.
-              </motion.div>
-            </AnimatePresence>
+                  <dt className="text-[#69716B]">{signal.label}</dt>
+                  <dd
+                    className="font-semibold"
+                    style={{ color: signal.label === "Lifecycle" ? "#2563FF" : "#1E2B29" }}
+                  >
+                    {signal.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </Reveal>
       </div>
@@ -641,43 +625,63 @@ function MomentScene() {
                   ["THEN", item.action],
                 ].map(([label, copy]) => (
                   <div key={label} className="grid grid-cols-[56px_1fr] gap-5">
-                    <div className="pt-1 text-[9px] font-bold tracking-[0.16em] text-[#9A9F9A]">{label}</div>
+                    <div className="pt-1 text-[9px] font-bold tracking-[0.16em] text-[#9A9F9A]">
+                      {label}
+                    </div>
                     <div className="text-[14px] leading-[1.6] text-[#454C46]">{copy}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative min-h-[470px] overflow-hidden bg-[#F2F0EB] p-7 sm:min-h-[520px] sm:p-10">
-              <div className="absolute left-[8%] top-[12%]">
-                <MarketingAvatar cell={9} size={94} className="border-[3px] border-white shadow-[0_16px_34px_rgba(46,36,28,.14)]" />
+            <div className="relative flex flex-col gap-7 overflow-hidden bg-[#F7F4EE] p-7 sm:p-10 lg:block lg:min-h-[520px]">
+              <div className="lg:absolute lg:left-[8%] lg:top-[12%]">
+                <MarketingAvatar
+                  cell={9}
+                  size={94}
+                  className="border-[3px] border-white shadow-[0_16px_34px_rgba(46,36,28,.14)]"
+                />
                 <div className="mt-3 text-[11px] font-semibold text-[#3D433E]">Mia Thompson</div>
               </div>
 
-              <div className="absolute left-[8%] top-[48%] max-w-[250px]">
-                <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#8C928D]">Customer context</div>
+              <div className="max-w-[250px] lg:absolute lg:left-[8%] lg:top-[48%]">
+                <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#8C928D]">
+                  Customer context
+                </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {["Existing customer", item.label, "Relevant now"].map((tag) => (
-                    <span key={tag} className="rounded-full bg-white px-3 py-2 text-[9px] font-semibold text-[#4D554F] shadow-[0_8px_22px_rgba(0,0,0,.05)]">
+                    <span
+                      key={tag}
+                      className="rounded-full bg-white px-3 py-2 text-[9px] font-semibold text-[#4D554F] shadow-[0_8px_22px_rgba(0,0,0,.05)]"
+                    >
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div className="absolute right-[7%] top-[17%] w-[260px] bg-[#18191C] p-6 text-white shadow-[0_25px_65px_rgba(0,0,0,.18)] sm:w-[300px]">
-                <div className="text-[9px] font-bold uppercase tracking-[0.15em]" style={{ color: item.tone }}>
+              <div className="w-full lg:absolute lg:right-[7%] lg:top-[17%] lg:w-[260px] bg-[#18191C] p-6 text-white shadow-[0_25px_65px_rgba(0,0,0,.18)] lg:w-[300px]">
+                <div
+                  className="text-[9px] font-bold uppercase tracking-[0.15em]"
+                  style={{ color: item.tone }}
+                >
                   Automation
                 </div>
-                <div className="mt-3 text-[20px] font-semibold tracking-[-0.03em]">{item.action}</div>
+                <div className="mt-3 text-[20px] font-semibold tracking-[-0.03em]">
+                  {item.action}
+                </div>
                 <div className="mt-6 text-[10px] leading-[1.7] text-white/46">
                   Triggered when the customer context and timing match.
                 </div>
               </div>
 
-              <div className="absolute bottom-[10%] right-[12%] w-[220px] bg-white px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,.09)]">
-                <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#969C97]">Next action</div>
-                <div className="mt-2 text-[14px] font-semibold text-[#282E29]">{item.destination}</div>
+              <div className="w-full lg:absolute lg:bottom-[10%] lg:right-[12%] lg:w-[220px] bg-white px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,.09)]">
+                <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#969C97]">
+                  Next action
+                </div>
+                <div className="mt-2 text-[14px] font-semibold text-[#282E29]">
+                  {item.destination}
+                </div>
               </div>
             </div>
           </motion.div>
@@ -701,94 +705,47 @@ function CampaignScene() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-16" delay={0.05}>
-          <div className="grid overflow-hidden bg-[#F8F8F6] text-[#202420] lg:grid-cols-[0.32fr_0.68fr]">
-            <div className="border-b border-[#E2E4E0] bg-[#F0EFEA] p-7 lg:border-b-0 lg:border-r lg:p-9">
-              <img src="/concept/zapla-logo-dark.svg" alt="Zapla" className="h-[23px] w-auto" />
-              <div className="mt-10 text-[9px] font-bold uppercase tracking-[0.15em] text-[#8C928D]">Campaign</div>
-              <div className="mt-3 text-[24px] font-semibold tracking-[-0.035em]">Service availability</div>
-
-              <div className="mt-9 space-y-5">
-                {["SMS automation", "Booking page", "Customer Smart List"].map((asset) => (
-                  <div key={asset} className="border-t border-[#D9DCD8] pt-4 text-[11px] font-semibold text-[#59605A]">
-                    {asset}
+        <Reveal className="mt-14" delay={0.05}>
+          <div className="grid gap-10 border-t border-white/20 pt-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+            <div>
+              <p className="text-[13px] font-semibold text-[#DDA34B]">Campaigns</p>
+              <h3 className="mt-4 text-[29px] font-medium tracking-[-0.035em]">
+                One initiative. The whole story.
+              </h3>
+              <p className="mt-5 max-w-[420px] text-[14px] leading-[1.75] text-white/70">
+                Connect the audience, outreach and booking page to the campaign. See the customer
+                activity behind the result, without piecing it together across separate tools.
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-[16px] bg-[#FCFCFA] p-6 text-[#1E2B29] sm:p-8">
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="text-[22px] font-medium tracking-[-0.035em]">Service recall</h3>
+                <ZaplaPetal size={28} />
+              </div>
+              <p className="mt-2 text-[12px] text-[#69716B]">Illustrative campaign attribution</p>
+              <dl className="mt-7 divide-y divide-[#DFE4DB] text-[13px]">
+                {[
+                  ["Audience", "Past customers due for service"],
+                  ["Outreach", "Service reminder by SMS"],
+                  ["Destination", "Service booking page"],
+                ].map(([label, value]) => (
+                  <div key={label} className="grid grid-cols-[86px_1fr] gap-4 py-4">
+                    <dt className="text-[#69716B]">{label}</dt>
+                    <dd>{value}</dd>
                   </div>
                 ))}
-              </div>
-            </div>
-
-            <div>
-              <div className="flex gap-7 border-b border-[#E1E4E0] px-6 text-[10px] font-semibold text-[#8A908B] sm:px-8">
-                <div className="py-5">Assets</div>
-                <div className="py-5">Members</div>
-                <div className="py-5">Activity</div>
-                <div className="border-b-2 border-[#111318] py-5 text-[#111318]">Performance</div>
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <div className="grid gap-px bg-[#E0E3DF] sm:grid-cols-4">
-                  {["Reached", "Engaged", "Converted", "Won deals"].map((metric) => (
-                    <div key={metric} className="min-h-[130px] bg-white p-5">
-                      <div className="text-[10px] font-semibold text-[#5E655F]">{metric}</div>
-                      <div className="mt-10 h-[3px] w-12 bg-[#99A36D]" />
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-8 grid gap-8 sm:grid-cols-[1.1fr_0.9fr]">
-                  <div>
-                    <div className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#8D938E]">Return</div>
-                    <div className="mt-4 grid gap-px bg-[#E0E3DF] sm:grid-cols-3">
-                      {["Collected", "Costs", "Return on cost"].map((metric) => (
-                        <div key={metric} className="min-h-[100px] bg-[#FFF9EE] p-4">
-                          <div className="text-[9px] text-[#7C6D55]">{metric}</div>
-                          <div className="mt-7 h-[2px] w-8 bg-[#DDA34B]" />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex items-end">
-                    <p className="max-w-[320px] text-[12px] leading-[1.75] text-[#737A74]">
-                      Campaigns groups the assets, members and activity behind an initiative so the result stays connected to the work that created it.
-                    </p>
-                  </div>
+              </dl>
+              <div className="mt-5 flex items-center gap-4 border-l-[3px] border-[#99A36D] pl-4">
+                <MarketingAvatar cell={9} size={42} />
+                <div>
+                  <p className="text-[14px] font-semibold">Mia booked her next service.</p>
+                  <p className="mt-1 text-[12px] text-[#69716B]">Attributed to Service recall</p>
                 </div>
               </div>
             </div>
           </div>
         </Reveal>
       </div>
-    </section>
-  );
-}
-
-function ConnectedPoster() {
-  return (
-    <section className="bg-[#FCFCFA] px-5 py-24 sm:px-10 sm:py-28 lg:px-16 lg:py-36">
-      <Reveal className="mx-auto max-w-[1180px]">
-        <div
-          className="text-[43px] font-medium leading-[1.01] tracking-[-0.055em] text-[#1A1F1B] sm:text-[56px] lg:text-[72px]"
-          style={{ fontFamily: DISPLAY }}
-        >
-          <span className="text-[#2563FF]">Know who.</span>
-          <br />
-          <span className="text-[#9B86B8]">Know when.</span>
-          <br />
-          <span className="text-[#99A36D]">Run the outreach.</span>
-          <br />
-          <span className="text-[#DDA34B]">See what came back.</span>
-        </div>
-
-        <div className="mt-14 grid gap-8 border-t border-[#DDE1DD] pt-7 sm:grid-cols-[1fr_1fr] sm:gap-14">
-          <p className="max-w-[500px] text-[14px] leading-[1.75] text-[#666D67]">
-            CRM context, Smart Lists, Automations, forms, bookings and Campaigns stay connected inside Zapla.
-          </p>
-          <p className="max-w-[500px] text-[14px] leading-[1.75] text-[#666D67] sm:justify-self-end">
-            No exporting contacts into one tool, sending from another, then guessing what happened in a third.
-          </p>
-        </div>
-      </Reveal>
     </section>
   );
 }
@@ -839,7 +796,9 @@ function Faq() {
                   transition={{ duration: reduced ? 0 : 0.22, ease: EASE }}
                 >
                   <div className="min-h-0">
-                    <p className="max-w-[700px] pb-5 pr-10 text-[13px] leading-[1.7] text-[#6C736D]">{item.a}</p>
+                    <p className="max-w-[700px] pb-5 pr-10 text-[13px] leading-[1.7] text-[#6C736D]">
+                      {item.a}
+                    </p>
                   </div>
                 </motion.div>
               </div>
