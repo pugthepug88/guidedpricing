@@ -26,6 +26,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
+import { Route as IndustriesMechanicsRouteImport } from './routes/industries/mechanics'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
 const IndexRoute = IndexRouteImport.update({
@@ -117,6 +118,11 @@ const ConceptCinematicFollowThroughV6Route =
     path: '/concept/cinematic-follow-through-v6',
     getParentRoute: () => rootRouteImport,
   } as any)
+const IndustriesMechanicsRoute = IndustriesMechanicsRouteImport.update({
+  id: '/industries/mechanics',
+  path: '/industries/mechanics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -142,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -162,6 +169,7 @@ export interface FileRoutesByTo {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -183,6 +191,7 @@ export interface FileRoutesById {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/mechanics'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -225,6 +235,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/mechanics'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/mechanics'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -266,6 +278,7 @@ export interface RootRouteChildren {
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
+  IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -390,6 +403,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/industries/mechanics': {
+      id: '/industries/mechanics'
+      path: '/industries/mechanics'
+      fullPath: '/industries/mechanics'
+      preLoaderRoute: typeof IndustriesMechanicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -419,6 +439,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareZaplaVsPipedriveRoute: CompareZaplaVsPipedriveRoute,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
+  IndustriesMechanicsRoute: IndustriesMechanicsRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
