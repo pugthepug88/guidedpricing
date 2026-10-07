@@ -3,26 +3,33 @@ import { useReducedMotion } from "motion/react";
 
 const FOOTER_GROUPS = [
   {
-    label: "Company",
+    label: "Platform",
     links: [
-      ["Book a Call", "https://zapla.io/booking"],
-      ["Pricing", "/Pricing-v3"],
+      ["Overview", "/platform"],
+      ["CRM", "/crm"],
+      ["Customer Marketing", "/customer-marketing"],
+      ["AI Receptionist", "/ai-receptionist"],
     ],
   },
   {
-    label: "Resources",
+    label: "Solutions",
     links: [
+      ["Follow-Up", "/follow-up"],
+      ["Reactivation", "/reactivation"],
+      ["Reviews & Reputation", "/reviews"],
+    ],
+  },
+  {
+    label: "Company",
+    links: [
+      ["Pricing", "/Pricing-v3"],
+      ["Book a Call", "https://zapla.io/booking"],
       ["Blog", "https://zapla.io/blog"],
-      ["Request feature", "https://zapla.canny.io/feature-request"],
+      ["Contact us", "mailto:hello@zapla.io"],
       ["Terms & conditions", "https://zapla.io/terms-and-conditions"],
       ["Privacy policy", "https://zapla.io/privacy-policy"],
       ["Refund policy", "https://zapla.io/refund-policy"],
-      ["Contact us", "mailto:hello@zapla.io"],
     ],
-  },
-  {
-    label: "Compare",
-    links: [["Zapla Vs Hubspot", "https://zapla.io/comparison/zapla-vs-hubspot"]],
   },
 ] as const;
 
