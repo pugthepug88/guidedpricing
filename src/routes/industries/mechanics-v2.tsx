@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronRight, Pause, Play, RotateCcw } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import mechanicsV2Css from "@/styles/mechanics-v2.css?url";
 
@@ -232,88 +232,30 @@ function MechanicsV2Page() {
 }
 
 const QUOTE_STAGES = ["Quote sent", "Follow-up sent", "Customer replied", "Reception follows up"];
-const HERO_STAGES = ["New enquiry", "Request captured", "Reception follows up"];
 const ENQUIRY_STAGES = ["Customer asks", "Workshop replies", "Reception follows up"];
 const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
 
-// One finite sequence per scene. It pauses offscreen and never resets without a user action.
+// Each brief scene progresses once, pauses offscreen and holds its final state.
 function useScene(stages: string[], timings: number[]) {
   const ref = useRef<HTMLDivElement>(null);
   const visible = useInView(ref, { amount: 0.25 });
   const prefersReduced = useReducedMotion();
-  const [reduced, setReduced] = useState(false);
   const [step, setStep] = useState(0);
-  const [playing, setPlaying] = useState(true);
   const last = stages.length - 1;
   useEffect(() => {
-    setReduced(Boolean(prefersReduced));
-    if (prefersReduced) {
-      setStep(last);
-      setPlaying(false);
-    }
+    if (prefersReduced) setStep(last);
   }, [prefersReduced, last]);
-  const delay = timings[step] ?? 2000;
+  const delay = timings[step] ?? 1400;
   useEffect(() => {
-    if (!visible || !playing || prefersReduced || step >= last) return;
+    if (!visible || prefersReduced || step >= last) return;
     const timer = window.setTimeout(() => setStep((s) => Math.min(s + 1, last)), delay);
     return () => window.clearTimeout(timer);
-  }, [visible, playing, prefersReduced, step, last, delay]);
-  return {
-    ref,
-    step,
-    playing,
-    reduced,
-    last,
-    select: (i: number) => {
-      setStep(i);
-      setPlaying(false);
-    },
-    toggle: () => setPlaying((p) => !p),
-    replay: () => {
-      setStep(0);
-      setPlaying(!reduced);
-    },
-  };
-}
-type Scene = ReturnType<typeof useScene>;
-function SceneControls({ scene, stages, name }: { scene: Scene; stages: string[]; name: string }) {
-  return (
-    <div className="m2-controls" aria-label={`${name} demonstration controls`}>
-      <select
-        className="m2-stage-select"
-        aria-label={`Review ${name} stage`}
-        value={scene.step}
-        onChange={(event) => scene.select(Number(event.target.value))}
-      >
-        {stages.map((stage, i) => (
-          <option key={stage} value={i}>
-            {stage}
-          </option>
-        ))}
-      </select>
-      <div className="m2-playback">
-        {scene.step < scene.last && !scene.reduced ? (
-          <button
-            type="button"
-            aria-label={`${scene.playing ? "Pause" : "Play"} ${name}`}
-            onClick={scene.toggle}
-          >
-            {scene.playing ? <Pause size={13} /> : <Play size={13} />}{" "}
-            {scene.playing ? "Pause" : "Play"}
-          </button>
-        ) : (
-          <button type="button" aria-label={`Replay ${name}`} onClick={scene.replay}>
-            <RotateCcw size={13} /> {scene.reduced ? "Review" : "Replay"}
-          </button>
-        )}
-      </div>
-    </div>
-  );
+  }, [visible, prefersReduced, step, last, delay]);
+  return { ref, step };
 }
 function HeroEnquiry() {
-  const scene = useScene(HERO_STAGES, [2000, 2400]);
   return (
-    <div ref={scene.ref} className="m2-hero-event" data-step={scene.step}>
+    <div className="m2-hero-event">
       <div className="m2-glass m2-hero-event-body">
         <div className="m2-customer-heading">
           <span className="m2-person-avatar" />
@@ -323,21 +265,13 @@ function HeroEnquiry() {
           </div>
         </div>
         <p>“My brakes are squeaking. Could you take a look this week?”</p>
-        <p className="m2-hero-context">2019 Toyota RAV4</p>
-        <p className="m2-hero-next">
-          {scene.step >= 2
-            ? "Reception to confirm a time."
-            : scene.step >= 1
-              ? "Request captured for reception."
-              : "A new enquiry while you’re on the tools."}
-        </p>
+        <p className="m2-hero-next">Captured for reception.</p>
       </div>
-      <SceneControls scene={scene} stages={HERO_STAGES} name="hero enquiry" />
     </div>
   );
 }
 function EnquiryScene() {
-  const scene = useScene(ENQUIRY_STAGES, [2300, 2800]);
+  const scene = useScene(ENQUIRY_STAGES, [1400, 1400]);
   return (
     <div ref={scene.ref} className="m2-enquiry-scene" data-step={scene.step}>
       <div className="m2-dialogue-row">
@@ -369,12 +303,11 @@ function EnquiryScene() {
           ? "Reception has the request and vehicle details."
           : "The customer gets a reply while your team keeps working."}
       </p>
-      <SceneControls scene={scene} stages={ENQUIRY_STAGES} name="enquiry capture" />
     </div>
   );
 }
 function QuoteSceneV2() {
-  const scene = useScene(QUOTE_STAGES, [2200, 2600, 2200]);
+  const scene = useScene(QUOTE_STAGES, [1400, 1400, 1400]);
   return (
     <div ref={scene.ref} className="m2-quote-scene" data-step={scene.step}>
       <div className="m2-quote-composition">
@@ -423,12 +356,11 @@ function QuoteSceneV2() {
           </p>
         </div>
       </div>
-      <SceneControls scene={scene} stages={QUOTE_STAGES} name="quote follow-up" />
     </div>
   );
 }
 function ReturnScene() {
-  const scene = useScene(RETURN_STAGES, [2400, 2800]);
+  const scene = useScene(RETURN_STAGES, [1600, 1600]);
   return (
     <div ref={scene.ref} className="m2-return-visual" data-step={scene.step}>
       <img
@@ -467,13 +399,12 @@ function ReturnScene() {
         <p>“Yes please. A Friday would be great.”</p>
         <span className="m2-overlay-caption">Reception to confirm a time with Mia.</span>
       </div>
-      <SceneControls scene={scene} stages={RETURN_STAGES} name="service reminder" />
     </div>
   );
 }
 const REVIEW_STAGES = ["Service completed", "Invitation sent"];
 function ReviewScene() {
-  const scene = useScene(REVIEW_STAGES, [2600]);
+  const scene = useScene(REVIEW_STAGES, [1600]);
   return (
     <section className="m2-reviews m2-wrap" aria-labelledby="review-title">
       <div ref={scene.ref} className="m2-review-scene" data-step={scene.step}>
@@ -497,7 +428,6 @@ function ReviewScene() {
             Leave a Google review <ArrowRight size={15} aria-hidden="true" />
           </span>
         </div>
-        <SceneControls scene={scene} stages={REVIEW_STAGES} name="review invitation" />
       </div>
       <div className="m2-scene-copy">
         <Eyebrow>After the job is done</Eyebrow>

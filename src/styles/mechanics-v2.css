@@ -90,7 +90,7 @@
 }
 .m2-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   gap: 64px;
   align-items: center;
   padding-top: 136px;
@@ -168,12 +168,12 @@
 .m2-hero-visual {
   position: relative;
   min-width: 0;
-  padding-bottom: 58px;
+  padding-bottom: 24px;
 }
 .m2-workshop-photo {
   display: block;
   width: 100%;
-  height: 470px;
+  height: 520px;
   object-fit: cover;
   object-position: 55% center;
   border-radius: 24px;
@@ -208,12 +208,12 @@
 }
 .m2-hero-event {
   position: absolute;
-  left: -24px;
+  left: -16px;
   bottom: 0;
-  width: 330px;
+  width: 280px;
 }
 .m2-hero-event-body {
-  padding: 22px;
+  padding: 18px;
 }
 .m2-hero-event-body > p {
   font-size: 14px;
@@ -231,11 +231,6 @@
   color: #435534;
   margin-top: 8px;
 }
-.m2-hero-event > .m2-controls {
-  border: 0;
-  background: transparent;
-  padding: 5px 3px;
-}
 
 .m2-person-avatar {
   display: block;
@@ -246,17 +241,6 @@
   background-image: url("/concept/revenue/soft-autumn-portraits-v1.webp");
   background-size: 600% 400%;
   background-position: 60% 33.333%;
-}
-.m2-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  border-top: 1px solid var(--m2-line);
-  padding: 8px 20px;
-  background: #fcfcfa;
-  font-size: 12px;
-  color: #536247;
 }
 .m2-stage-select {
   font: inherit;
@@ -271,9 +255,6 @@
   padding: 4px 18px 4px 0;
   cursor: pointer;
 }
-.m2-playback {
-  flex-shrink: 0;
-}
 .m2-playback button {
   display: inline-flex;
   align-items: center;
@@ -286,9 +267,6 @@
   border: 0;
   background: transparent;
   cursor: pointer;
-}
-.m2-current-stage {
-  min-width: 0;
 }
 .m2-enquiry,
 .m2-return {
@@ -370,11 +348,6 @@
   font-size: 13px;
   color: var(--m2-muted);
   margin: 24px 0 18px 48px !important;
-}
-.m2-enquiry-scene > .m2-controls {
-  background: transparent;
-  padding-inline: 0;
-  border-color: #e4e5de;
 }
 
 .m2-estimate-section {
@@ -512,11 +485,6 @@
   margin-top: 19px !important;
   min-height: 45px;
 }
-.m2-quote-scene > .m2-controls {
-  background: transparent;
-  padding-inline: 0;
-  border-color: #c5cbb7;
-}
 
 .m2-demo-note {
   font-size: 12px;
@@ -538,7 +506,7 @@
 .m2-return-visual {
   position: relative;
   min-width: 0;
-  padding: 0 0 48px;
+  padding: 0;
 }
 .m2-return-visual > img {
   display: block;
@@ -585,7 +553,7 @@
 .m2-return-reply {
   position: absolute;
   right: -14px;
-  bottom: 74px;
+  bottom: 26px;
   width: 285px;
   padding: 20px;
   opacity: 0;
@@ -593,15 +561,6 @@
 }
 .m2-return-reply.is-arrived {
   opacity: 1;
-}
-.m2-return-visual > .m2-controls {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border: 0;
-  background: transparent;
-  padding: 0;
 }
 
 .m2-reviews {
@@ -650,11 +609,6 @@
   padding-top: 15px;
   margin-top: 20px;
   font-size: 14px;
-}
-.m2-review-scene > .m2-controls {
-  margin-top: 24px;
-  background: transparent;
-  padding-inline: 0;
 }
 .m2-fit {
   display: grid;
@@ -942,15 +896,15 @@
     flex-direction: column;
   }
   .m2-hero-visual {
-    padding-bottom: 142px;
+    padding-bottom: 30px;
   }
   .m2-workshop-photo {
-    height: 350px;
+    height: 380px;
     border-radius: 20px;
   }
   .m2-hero-event {
     left: 10px;
-    width: calc(100% - 20px);
+    width: min(280px, calc(100% - 20px));
   }
   .m2-hero-event-body {
     padding: 20px;
@@ -1002,10 +956,6 @@
   }
   .m2-enquiry-next {
     margin-left: 40px !important;
-  }
-  .m2-controls {
-    padding-inline: 0;
-    gap: 9px;
   }
   .m2-stage-select {
     max-width: calc(100% - 78px);
@@ -1083,10 +1033,6 @@
     bottom: auto;
     margin: -64px 0 0 24px;
     padding: 18px;
-  }
-  .m2-return-visual > .m2-controls {
-    position: static;
-    margin-top: 10px;
   }
   .m2-review-completed {
     padding: 20px;

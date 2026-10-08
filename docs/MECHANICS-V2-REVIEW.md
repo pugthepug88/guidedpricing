@@ -4,7 +4,7 @@ Route: `/industries/mechanics-v2`. This revision changes V2 only. The original m
 
 ## Redesign decisions
 
-- **Hero:** restored the established Customer Marketing glass surface: white outer border, inset dark keyline, translucent warm white, 6px backdrop blur and soft shadow. The enquiry uses the approved customer portrait. Automated workshop actions use the Zapla petal. Removed the software reassurance from the hero.
+- **Hero:** restored the established Customer Marketing glass surface: white outer border, inset dark keyline, translucent warm white, 6px backdrop blur and soft shadow. The enquiry uses the approved customer portrait. Automated workshop actions use the Zapla petal. Removed the software reassurance from the hero. The hero illustration is static, with a smaller 280px enquiry card and a taller photograph.
 - **Enquiry:** two separate avatar/message rows on the open page, without a containing panel or nested inspection record. The request and acknowledgement stay concise; reception confirms availability.
 - **Quote:** replaced the estimate conversation with a brake-work quote summary and decision states. A customer reply visibly cancels the next reminder. The quote status changes when the reply arrives. Reception confirms the actual booking.
 - **Return visit:** a large workshop photograph leads the section. A small glass November service reminder and customer reply occupy opposite corners. Mobile places the reply across the lower image edge instead of squeezing two large panels above a tiny photograph.
@@ -29,13 +29,13 @@ These are the author's assessments, not external approvals or measured conversio
 | Brand/Creative    | Customer Marketing glass specifications, approved portraits, petal, existing photographs, homepage launch image, palette, medium display headings and pill CTAs reused.     |
 | Product Marketing | Unanswered enquiries, open quotes, the next service and post-job reviews provide recognisable workshop moments. Human confirmation remains explicit.                        |
 | Conversion        | Concrete workflow demonstrations and monthly price context clarify why to consider the service. Verified workshop proof is still needed to substantiate willingness to pay. |
-| Motion            | Finite scene progression, explicit reply/cancellation states, manual stage selection, pause/replay, offscreen pause and reduced-motion access. No looping spectacle.        |
+| Motion            | Brief finite scene progression, explicit reply/cancellation states, offscreen pause and complete reduced-motion states. No stage dropdowns, playback controls or loops.        |
 | SME buyer         | Existing workshop system retained; setup and reception responsibilities explained. No universal integration or automatic booking claim.                                     |
 | Buyer psychology  | Customer replies stop the chase. Review requests remain neutral. Price framing is simple while preserving its revenue-only meaning.                                         |
 | AI-slop critic    | Removed nested containers, oversized month cards, generic dark launch columns, decorative numbering and overbuilt calculations. No fabricated performance claims.           |
 
 ## Validation
 
-Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks cover local font loading, revenue calculation for both plans, empty/zero and very large job values, scope text, enquiry acknowledgement, quote reminder cancellation, manual stage selection, playback and reduced motion, original page rendering and page errors. No horizontal document overflow at 320, 390, 768, 1024 or 1440 pixels. Every section was rendered and visually inspected at 390 and 1440 pixels, with additional scene-state checks.
+Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks cover local font loading, revenue calculation for both plans, empty/zero and very large job values, scope text, enquiry acknowledgement, quote reminder cancellation, automatic progression and reduced motion, original page rendering and page errors. No horizontal document overflow at 320, 390, 768, 1024 or 1440 pixels. Every section was rendered and visually inspected at 390 and 1440 pixels, with additional scene-state checks. A subsequent focused check verified removal of scene controls and the revised hero proportions.
 
 Comparison references were the Customer Marketing hero/scene and homepage launch/final CTA. Inter Tight and Manrope remain locally served under page-scoped aliases. No booking form was submitted.
