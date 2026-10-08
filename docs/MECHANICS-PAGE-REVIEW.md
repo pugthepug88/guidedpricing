@@ -26,7 +26,7 @@ Whole-page desktop and mobile renders were inspected, then enquiry, quote, servi
 
 The page retains Inter Tight and Manrope, locally served; approved portrait sprite; Zapla petal; warm white, sage and cream surfaces; and the exact white double-border glass treatment. Cards remain subordinate to photographs. Enquiry and quote message offsets were reduced, and layouts stack below 900px to prevent narrow tablet dialogue columns. Unused scene-selector, playback, calculator and former quote styles were removed. Service overlay divider lines were removed.
 
-Scenes progress once, pause offscreen and hold the outcome. Enquiry completes in 1.4 seconds; quote in 2.8 seconds; service in 3.2 seconds; reviews in 2.8 seconds. Stable geometry avoids layout jumps. Reduced motion shows the complete story without animation. No dropdowns, playback controls, looping decorative motion or fake dashboard metrics.
+Scenes progress once, pause offscreen and hold the outcome. Scenes start when 10% enters a viewport extended 80px below its visible edge. The first dialogue appears after 0.45 seconds; multi-step scenes reach their final state after 1.1 seconds. Dialogue fades take 0.25 seconds, so all content is fully visible within about 1.35 seconds of activation. This replaces the previous 1.4–3.2 second sequencing delays. Stable geometry avoids layout jumps. Reduced motion shows the complete story without animation. No dropdowns, playback controls, looping decorative motion or fake dashboard metrics.
 
 ## Eight-lens re-audit
 

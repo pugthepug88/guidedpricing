@@ -303,7 +303,7 @@
 }
 .mc-enquiry-ack {
   opacity: 0;
-  transition: opacity 0.5s;
+  transition: opacity 0.25s;
 }
 .mc-enquiry-ack.is-revealed {
   opacity: 1;
@@ -345,7 +345,7 @@
 .mc-quote-message,
 .mc-quote-reply {
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.25s;
   margin-top: 24px;
   margin-right: 0;
 }
@@ -424,7 +424,7 @@
   width: 285px;
   padding: 20px;
   opacity: 0;
-  transition: opacity 0.5s;
+  transition: opacity 0.25s;
 }
 .mc-return-reply.is-arrived {
   opacity: 1;
@@ -490,7 +490,7 @@
   padding: 24px;
   background: rgba(255, 255, 255, 0.92);
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.25s;
 }
 .mc-google-review-screen.is-visible {
   opacity: 1;

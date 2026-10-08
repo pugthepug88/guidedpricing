@@ -234,14 +234,14 @@ const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
 // Each brief scene progresses once, pauses offscreen and holds its final state.
 function useScene(stages: string[], timings: number[]) {
   const ref = useRef<HTMLDivElement>(null);
-  const visible = useInView(ref, { amount: 0.25 });
+  const visible = useInView(ref, { amount: 0.1, margin: "0px 0px 80px 0px" });
   const prefersReduced = useReducedMotion();
   const [step, setStep] = useState(0);
   const last = stages.length - 1;
   useEffect(() => {
     if (prefersReduced) setStep(last);
   }, [prefersReduced, last]);
-  const delay = timings[step] ?? 1400;
+  const delay = timings[step] ?? 650;
   useEffect(() => {
     if (!visible || prefersReduced || step >= last) return;
     const timer = window.setTimeout(() => setStep((s) => Math.min(s + 1, last)), delay);
@@ -267,7 +267,7 @@ function HeroEnquiry() {
   );
 }
 function EnquiryScene() {
-  const scene = useScene(ENQUIRY_STAGES, [1400]);
+  const scene = useScene(ENQUIRY_STAGES, [450]);
   return (
     <div
       ref={scene.ref}
@@ -309,7 +309,7 @@ function EnquiryScene() {
   );
 }
 function QuoteScene() {
-  const scene = useScene(QUOTE_STAGES, [1400, 1400]);
+  const scene = useScene(QUOTE_STAGES, [450, 650]);
   return (
     <div ref={scene.ref} className="mc-quote-scene" data-step={scene.step}>
       <div className="mc-glass mc-quote-summary">
@@ -356,7 +356,7 @@ function QuoteScene() {
   );
 }
 function ReturnScene() {
-  const scene = useScene(RETURN_STAGES, [1600, 1600]);
+  const scene = useScene(RETURN_STAGES, [450, 650]);
   return (
     <div
       ref={scene.ref}
@@ -419,7 +419,7 @@ function GoogleWordmark() {
   );
 }
 function ReviewScene() {
-  const scene = useScene(REVIEW_STAGES, [1400, 1400]);
+  const scene = useScene(REVIEW_STAGES, [450, 650]);
   return (
     <section className="mc-reviews mc-wrap" aria-labelledby="review-title">
       <div ref={scene.ref} className="mc-review-scene" data-step={scene.step}>
