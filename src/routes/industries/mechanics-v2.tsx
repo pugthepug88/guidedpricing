@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, Check, ChevronRight, Pause, Play, RotateCcw, Wrench } from "lucide-react";
+import { ArrowRight, Check, ChevronRight, Pause, Play, RotateCcw } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import mechanicsV2Css from "@/styles/mechanics-v2.css?url";
 
@@ -52,9 +52,9 @@ function MechanicsV2Page() {
             <span>Zapla follows through.</span>
           </h1>
           <p className="m2-intro">
-            An enquiry while you’re under the bonnet. An estimate the customer hasn’t answered. A
-            service customer who hasn’t returned. Keep the next conversation moving without making
-            your team chase every step.
+            Capture workshop enquiries, follow up unanswered estimates and remind customers when
+            their next service is due. Keep the customer side moving while your team stays on the
+            tools.
           </p>
           <div className="m2-actions">
             <a className="m2-button m2-primary" href={BOOK}>
@@ -85,11 +85,12 @@ function MechanicsV2Page() {
         <section className="m2-enquiry m2-wrap" aria-labelledby="enquiry-title">
           <EnquiryScene />
           <div className="m2-scene-copy">
-            <Eyebrow>01 / While you’re on the tools</Eyebrow>
+            <Eyebrow>While you’re on the tools</Eyebrow>
             <h2 id="enquiry-title">The enquiry shouldn’t have to wait for you.</h2>
             <p>
-              A customer needs help while your team is busy. Bring their request and vehicle details
-              into one conversation, with a clear next step for the person handling it.
+              Give an interested customer a next step while your team is busy. Acknowledge their
+              request, capture their vehicle details and give reception the conversation to follow
+              up.
             </p>
             <p className="m2-aside">
               Want help answering calls too? AI Receptionist is an optional add-on, configured
@@ -103,7 +104,7 @@ function MechanicsV2Page() {
           <div className="m2-wrap">
             <div className="m2-estimate-intro">
               <div>
-                <Eyebrow>02 / After the estimate goes out</Eyebrow>
+                <Eyebrow>After the estimate goes out</Eyebrow>
                 <h2 id="estimate-title">
                   An estimate sent isn’t
                   <br />a decision made.
@@ -111,9 +112,9 @@ function MechanicsV2Page() {
               </div>
               <div>
                 <p>
-                  Silence doesn’t tell you whether the customer is busy, unsure or ready to proceed.
-                  A well timed follow-up gives them a way to answer. When they reply, the chase
-                  stops.
+                  Your team has already spent time inspecting the car and preparing the estimate.
+                  Give the customer a way to make a decision, without another round of manual
+                  chasing. When they reply, the automated reminders stop.
                 </p>
                 <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
               </div>
@@ -128,12 +129,12 @@ function MechanicsV2Page() {
 
         <section className="m2-return m2-wrap" aria-labelledby="return-title">
           <div className="m2-scene-copy">
-            <Eyebrow>03 / Long after the keys go back</Eyebrow>
-            <h2 id="return-title">The next visit starts before they need to call.</h2>
+            <Eyebrow>Long after the keys go back</Eyebrow>
+            <h2 id="return-title">Bring customers back for their next service.</h2>
             <p>
-              They already know your workshop. Give them a relevant reason to return. Use the right
-              vehicle’s service date to send a timely reminder, then pick up the conversation when
-              they reply.
+              They already trust you with their car. Remind the right owner when their vehicle is
+              due, then give reception the reply to arrange a time. Turn a service date into a
+              conversation about the next visit.
             </p>
             <ActionLink href="/customer-marketing">Explore Customer Marketing</ActionLink>
             <div className="m2-return-support">
@@ -147,7 +148,7 @@ function MechanicsV2Page() {
               </p>
             </div>
           </div>
-          <div className="m2-return-visual">
+          <div className="m2-return-visual m2-return-focused">
             <img
               src="/concept/customer-marketing-service-arrival.svg"
               alt="A customer handing her keys to a mechanic at a workshop reception desk"
@@ -169,9 +170,6 @@ function MechanicsV2Page() {
         </h2>
         <div className="m2-fit-columns">
           <div>
-            <span className="m2-icon-circle">
-              <Wrench size={20} aria-hidden="true" />
-            </span>
             <h3>Your workshop system</h3>
             <p>
               Jobs, vehicle history, parts and the workshop diary stay with the tools your team
@@ -179,9 +177,6 @@ function MechanicsV2Page() {
             </p>
           </div>
           <div>
-            <span className="m2-icon-circle m2-icon-petal">
-              <ZaplaPetal />
-            </span>
             <h3>Zapla</h3>
             <p>
               Customer enquiries, conversations, relevant context and agreed follow-up stay
@@ -213,7 +208,7 @@ function MechanicsV2Page() {
           </div>
           <ol className="m2-launch-steps">
             <li>
-              <span>01</span>
+              <span>1</span>
               <h3>Map</h3>
               <p>
                 Look at how enquiries, estimates and return visits work today. Choose the gaps to
@@ -221,7 +216,7 @@ function MechanicsV2Page() {
               </p>
             </li>
             <li>
-              <span>02</span>
+              <span>2</span>
               <h3>Build</h3>
               <p>
                 Set up the agreed flows, customer information and handoffs. Give every next step an
@@ -229,7 +224,7 @@ function MechanicsV2Page() {
               </p>
             </li>
             <li>
-              <span>03</span>
+              <span>3</span>
               <h3>Launch</h3>
               <p>
                 Test the customer journey, train your team and check that messages stop when they
@@ -254,18 +249,20 @@ function MechanicsV2Page() {
         </div>
       </section>
 
+      <WorkshopCostCheck />
+
       <section className="m2-final m2-wrap" aria-labelledby="final-title">
         <span className="m2-final-petal">
           <ZaplaPetal />
         </span>
         <h2 id="final-title">
-          See where Zapla fits
+          Find the customer work
           <br />
-          in your workshop.
+          slipping through your workshop.
         </h2>
         <p>
-          We’ll look at your enquiries, estimate follow-up and existing systems, then agree which
-          customer steps are worth automating.
+          We’ll look at unanswered enquiries, outstanding estimates and upcoming services, then
+          assess whether an agreed Zapla setup is worth the cost.
         </p>
         <div className="m2-actions">
           <a className="m2-button m2-primary" href={BOOK}>
@@ -282,7 +279,7 @@ function MechanicsV2Page() {
 }
 
 const ESTIMATE_STAGES = ["Estimate sent", "Reminder sent", "Reply received", "Team takes over"];
-const ENQUIRY_STAGES = ["Customer asks", "Details captured", "Reception takes over"];
+const ENQUIRY_STAGES = ["Customer asks", "Request acknowledged", "Reception takes over"];
 const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
 
 // One finite sequence per scene. It pauses offscreen and never resets without a user action.
@@ -352,7 +349,6 @@ function SceneControls({
               className={scene.step === i ? "is-current" : scene.step > i ? "is-complete" : ""}
               onClick={() => scene.select(i)}
             >
-              <span>{String(i + 1).padStart(2, "0")}</span>
               {stage}
             </button>
           ))}
@@ -426,6 +422,16 @@ function EnquiryScene() {
           {scene.step === 0
             ? "A customer starts the conversation"
             : "The useful details stay together"}
+        </p>
+      </div>
+      <div
+        className={`m2-enquiry-ack ${scene.step >= 1 ? "is-revealed" : ""}`}
+        aria-hidden={scene.step < 1}
+      >
+        <strong>Your workshop replied</strong>
+        <p>
+          Thanks Mia, we’ve received your request. Reception will check availability and confirm a
+          time with you.
         </p>
       </div>
       <div className={`m2-enquiry-record ${scene.step >= 1 ? "is-captured" : ""}`}>
@@ -571,11 +577,11 @@ function ReturnScene() {
       <div className="m2-service-record">
         <div>
           <span className="m2-person-avatar" />
-          <strong>Mia’s RAV4</strong>
+          <strong>Mia Thompson</strong>
         </div>
         <span>2019 Toyota RAV4</span>
         <p>
-          <span>Next service</span>
+          <span>Service due</span>
           <strong>November</strong>
         </p>
       </div>
@@ -603,5 +609,133 @@ function ReturnScene() {
       </div>
       <SceneControls scene={scene} stages={RETURN_STAGES} name="service reminder" compact />
     </div>
+  );
+}
+
+// Prices match Pricing-v3. This is a cost threshold, not a forecast of workshop results.
+const WORKSHOP_PLANS = {
+  follow: { name: "Follow-Through", monthly: 399, setup: 1997 },
+  growth: { name: "Growth", monthly: 699, setup: 2997 },
+} as const;
+function WorkshopCostCheck() {
+  const [planKey, setPlanKey] = useState<keyof typeof WORKSHOP_PLANS>("growth");
+  const [usage, setUsage] = useState("");
+  const [contribution, setContribution] = useState("");
+  const plan = WORKSHOP_PLANS[planKey];
+  const usageValue = usage.trim() === "" ? 0 : Number(usage);
+  const jobValue = Number(contribution);
+  const validUsage = Number.isFinite(usageValue) && usageValue >= 0;
+  const validJob = contribution.trim() !== "" && Number.isFinite(jobValue) && jobValue > 0;
+  const ready = validUsage && validJob;
+  const ongoing = plan.monthly + usageValue;
+  const jobs = ready ? Math.ceil(ongoing / jobValue) : null;
+  const firstYearJobs = ready ? Math.ceil((ongoing + plan.setup / 12) / jobValue) : null;
+  const money = (amount: number) =>
+    `A$${amount.toLocaleString("en-AU", { maximumFractionDigits: 2 })}`;
+  return (
+    <section className="m2-cost m2-wrap" aria-labelledby="cost-title">
+      <div className="m2-cost-intro">
+        <Eyebrow>Make the cost concrete</Eyebrow>
+        <h2 id="cost-title">What would this need to earn back?</h2>
+        <p>
+          Use your own numbers to check the ongoing cost against the contribution from an additional
+          completed job.
+        </p>
+        <p className="m2-cost-capacity">
+          Already at capacity? The value may be less time chasing customers. Compare the staff time
+          you could realistically save with the cost instead.
+        </p>
+        <ActionLink href="/Pricing-v3">Check plans, inclusions and setup</ActionLink>
+      </div>
+      <div className="m2-cost-tool">
+        <div className="m2-cost-fields">
+          <label htmlFor="workshop-plan">
+            Plan
+            <select
+              id="workshop-plan"
+              value={planKey}
+              onChange={(event) => setPlanKey(event.target.value as keyof typeof WORKSHOP_PLANS)}
+            >
+              <option value="follow">Follow-Through · A$399/month</option>
+              <option value="growth">Growth · A$699/month</option>
+            </select>
+          </label>
+          <p className="m2-cost-scope">
+            {planKey === "growth"
+              ? "Includes proactive service recall and reactivation, alongside enquiry and estimate follow-up."
+              : "Incoming enquiries and active follow-up. Proactive service recall and reactivation require Growth."}
+          </p>
+          <label htmlFor="workshop-usage">
+            Estimated monthly usage and extras (A$)
+            <input
+              id="workshop-usage"
+              type="number"
+              min="0"
+              step="any"
+              inputMode="decimal"
+              placeholder="Enter your estimate"
+              value={usage}
+              aria-describedby="workshop-usage-help"
+              onChange={(event) => setUsage(event.target.value)}
+            />
+          </label>
+          <p id="workshop-usage-help" className="m2-cost-help">
+            Blank counts as A$0. Include messaging, optional add-ons and other recurring costs you
+            expect.
+          </p>
+          <label htmlFor="workshop-contribution">
+            Contribution per additional completed job (A$)
+            <input
+              id="workshop-contribution"
+              type="number"
+              min="0.01"
+              step="any"
+              inputMode="decimal"
+              placeholder="Enter your workshop’s figure"
+              value={contribution}
+              aria-describedby="workshop-contribution-help"
+              onChange={(event) => setContribution(event.target.value)}
+            />
+          </label>
+          <p id="workshop-contribution-help" className="m2-cost-help">
+            What remains after parts, additional labour and other variable costs. Use contribution,
+            not the invoice total.
+          </p>
+        </div>
+        <div className="m2-cost-result" aria-live="polite" aria-atomic="true">
+          {ready ? (
+            <>
+              <p>To cover the ongoing monthly cost</p>
+              <strong>
+                {jobs} <span>{jobs === 1 ? "additional job" : "additional jobs"} / month</span>
+              </strong>
+              <p>
+                {money(ongoing)} monthly cost ÷ {money(jobValue)} contribution, rounded up.
+              </p>
+              <p className="m2-cost-first-year">
+                Including minimum setup spread over the first 12 months:{" "}
+                <b>
+                  {firstYearJobs} {firstYearJobs === 1 ? "job" : "jobs"} / month
+                </b>
+                .
+              </p>
+            </>
+          ) : (
+            <p>
+              {!validUsage
+                ? "Enter a monthly usage estimate of zero or more."
+                : contribution !== "" && !validJob
+                  ? "Enter a contribution greater than zero."
+                  : "Enter your contribution per job to see the cost threshold."}
+            </p>
+          )}
+        </div>
+        <p className="m2-cost-disclosure">
+          All figures exclude GST. {plan.name} setup starts at {money(plan.setup)} and is paid
+          separately. Actual setup scope and usage can increase the cost. This is a cost check, not
+          a forecast or a promise of additional jobs.
+        </p>
+      </div>
+    </section>
   );
 }
