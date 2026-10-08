@@ -1,17 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import {
-  ArrowRight,
-  Check,
-  CheckCheck,
-  ChevronRight,
-  MessageCircle,
-  Pause,
-  Play,
-  RotateCcw,
-  Wrench,
-} from "lucide-react";
+import { ArrowRight, ChevronRight, Star } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import mechanicsCss from "@/styles/mechanics.css?url";
 
@@ -21,8 +11,18 @@ export const Route = createFileRoute("/industries/mechanics")({
     links: [
       { rel: "stylesheet", href: mechanicsCss },
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&display=swap",
+        rel: "preload",
+        href: "/concept/industries/fonts/inter-tight-latin-500-normal.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/concept/industries/fonts/manrope-latin-400-normal.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
     ],
     meta: [
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/industries/mechanics")({
       {
         name: "description",
         content:
-          "Keep workshop enquiries, estimate follow-up and customer return visits moving with Zapla. Built around your team and your existing workshop systems.",
+          "Keep workshop enquiries, quote follow-up and customer return visits moving with Zapla. Built around your team and your existing workshop systems.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -62,8 +62,8 @@ function MechanicsPage() {
             <span>Zapla follows through.</span>
           </h1>
           <p className="mc-intro">
-            Handle incoming enquiries, follow up unanswered estimates and bring the right customers
-            back. Zapla helps keep the customer side moving while your team gets on with the work.
+            Turn enquiries into bookings, follow up unanswered quotes and bring customers back when
+            their next service is due. Zapla keeps the next step moving while you stay on the tools.
           </p>
           <div className="mc-actions">
             <a className="mc-button mc-primary" href={BOOK}>
@@ -75,7 +75,6 @@ function MechanicsPage() {
               <ChevronRight size={17} aria-hidden="true" />
             </a>
           </div>
-          <p className="mc-hero-note">Keep your workshop software for jobs, vehicles and parts.</p>
         </div>
         <div className="mc-hero-visual">
           <img
@@ -86,275 +85,133 @@ function MechanicsPage() {
             height="1024"
             fetchPriority="high"
           />
-          <div className="mc-enquiry-overlay">
-            <div className="mc-card-top">
-              <span className="mc-petal-mini">
-                <ZaplaPetal />
-              </span>
-              <span>New workshop enquiry</span>
-              <span className="mc-status-dot" />
-            </div>
-            <p className="mc-card-name">
-              Mia Thompson <span>Brake inspection</span>
-            </p>
-            <div className="mc-detail-row">
-              <span>Vehicle supplied</span>
-              <strong>2019 Toyota RAV4</strong>
-            </div>
-            <div className="mc-detail-row">
-              <span>Next step</span>
-              <strong>Team to confirm availability</strong>
-            </div>
-            <div className="mc-card-foot">
-              <Check size={14} aria-hidden="true" />
-              Booking request captured
-            </div>
-          </div>
+          <HeroEnquiry />
         </div>
       </section>
 
       <div id="workshop-flow" className="mc-story">
         <section className="mc-enquiry mc-wrap" aria-labelledby="enquiry-title">
-          <div className="mc-request-panel">
-            <div className="mc-request-header">
-              <span className="mc-icon-circle">
-                <MessageCircle size={21} aria-hidden="true" />
-              </span>
-              <div>
-                <strong>A customer needs help.</strong>
-                <span>Your team is on the tools.</span>
-              </div>
-            </div>
-            <div className="mc-customer-message">
-              “My brakes have started squeaking. Could you take a look this week?”
-            </div>
-            <div className="mc-capture">
-              <p className="mc-small-label">Ready for your team</p>
-              <dl>
-                <div>
-                  <dt>Customer</dt>
-                  <dd>Mia Thompson</dd>
-                </div>
-                <div>
-                  <dt>Vehicle</dt>
-                  <dd>2019 Toyota RAV4</dd>
-                </div>
-                <div>
-                  <dt>Request</dt>
-                  <dd>Brake inspection this week</dd>
-                </div>
-                <div>
-                  <dt>Owner</dt>
-                  <dd>Workshop reception</dd>
-                </div>
-              </dl>
-              <p className="mc-capture-next">
-                <Check size={15} aria-hidden="true" />
-                Confirm a suitable time with Mia
-              </p>
-            </div>
-            <p className="mc-panel-note">
-              A request for your team to confirm. Your diary stays in charge.
-            </p>
-          </div>
+          <EnquiryScene />
           <div className="mc-scene-copy">
-            <Eyebrow>01 / While you’re on the tools</Eyebrow>
+            <Eyebrow>While you’re on the tools</Eyebrow>
             <h2 id="enquiry-title">The enquiry shouldn’t have to wait for you.</h2>
             <p>
-              Give the customer a clear next step and give your team the details they need to
-              respond. Keep the conversation, the supplied vehicle information and the person
-              responsible together.
+              Reply automatically, capture the vehicle details and send a link to available
+              inspection times in your configured booking calendar. Customers can choose a time
+              without waiting for someone to call back.
             </p>
             <p className="mc-aside">
-              Want help answering calls too? AI Receptionist is an optional add-on, configured
-              around what your workshop can handle.
+              Want help answering calls too? <a href="/ai-receptionist">AI Receptionist</a> is an
+              optional add-on, configured around what your workshop can handle.
             </p>
-            <ActionLink href="/ai-receptionist">Explore AI Receptionist</ActionLink>
+            <ActionLink href="/follow-up">Explore enquiry follow-through</ActionLink>
           </div>
         </section>
 
         <section className="mc-estimate-section" aria-labelledby="estimate-title">
-          <div className="mc-wrap">
-            <div className="mc-estimate-intro">
-              <div>
-                <Eyebrow>02 / After the estimate goes out</Eyebrow>
-                <h2 id="estimate-title">
-                  An estimate sent isn’t
-                  <br />a decision made.
-                </h2>
-              </div>
-              <div>
-                <p>
-                  A busy day can leave an estimate unanswered. Agree when to follow up, what to say
-                  and when your team should take over.
-                </p>
-                <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
-              </div>
+          <div className="mc-wrap mc-quote-layout">
+            <div className="mc-scene-copy">
+              <Eyebrow>After the quote goes out</Eyebrow>
+              <h2 id="estimate-title">Follow up quotes before they go cold.</h2>
+              <p>
+                A quote sitting in an inbox is work you’ve already put time into. Zapla follows up
+                automatically and stops the reminders when the customer replies. If they have a
+                question about the work, your team gets the conversation.
+              </p>
+              <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
             </div>
-            <EstimateScene />
-            <p className="mc-demo-note">
-              Illustrative workshop flows. Triggers, data connections and handoffs are agreed during
-              setup. Estimate details stay in your workshop system.
-            </p>
+            <QuoteScene />
           </div>
         </section>
 
         <section className="mc-return mc-wrap" aria-labelledby="return-title">
           <div className="mc-scene-copy">
-            <Eyebrow>03 / Long after the keys go back</Eyebrow>
-            <h2 id="return-title">The next visit starts before they need to call.</h2>
+            <Eyebrow>Service and inspection reminders</Eyebrow>
+            <h2 id="return-title">The right reminder. Before the next service is due.</h2>
             <p>
-              When you have reliable service information for the right vehicle, use it to send a
-              relevant reminder. Give the customer a simple way to reply and your team a clear
-              request to handle.
+              Know who’s due back and why. Zapla uses recorded service dates or NSW pink slip due
+              dates to send a relevant reminder automatically, with a link to book. Ask about the
+              right service at the right time, rather than sending another generic “checking in”.
             </p>
             <ActionLink href="/customer-marketing">Explore Customer Marketing</ActionLink>
-            <div className="mc-return-support">
-              <p>
-                <strong>Someone you haven’t heard from?</strong> An agreed{" "}
-                <a href="/reactivation">reactivation campaign</a> can reopen the conversation.
-              </p>
-              <p>
-                <strong>A job just completed?</strong> Ask for honest feedback with a neutral{" "}
-                <a href="/reviews">review request</a>.
-              </p>
-            </div>
+            <p className="mc-return-support">
+              Reconnect with customers you haven’t heard from through a relevant{" "}
+              <a href="/reactivation">reactivation campaign</a>.
+            </p>
           </div>
-          <div className="mc-return-visual">
-            <img
-              src="/concept/customer-marketing-service-arrival.svg"
-              alt="A customer handing her keys to a mechanic at a workshop reception desk"
-              width="1024"
-              height="768"
-              loading="lazy"
-            />
-            <div className="mc-reminder">
-              <div className="mc-card-top">
-                <span className="mc-petal-mini">
-                  <ZaplaPetal />
-                </span>
-                <strong>Your workshop</strong>
-                <span className="mc-small-label">SMS reminder</span>
-              </div>
-              <p>
-                Hi Mia, our records show your RAV4’s next service is due in November. Would you like
-                us to find a suitable time?
-              </p>
-              <div className="mc-reminder-footer">
-                <CheckCheck size={15} aria-hidden="true" />
-                <span>Sent using agreed service records</span>
-              </div>
-            </div>
-          </div>
+          <ReturnScene />
         </section>
       </div>
 
+      <ReviewScene />
+
       <section className="mc-fit mc-wrap" aria-labelledby="fit-title">
-        <Eyebrow>Works around the way you work</Eyebrow>
         <h2 id="fit-title">
-          Your workshop system runs the job.
+          Keep your workshop system.
           <br />
-          <span>Zapla handles the customer follow-through.</span>
+          <span>Add the customer follow-through.</span>
         </h2>
-        <div className="mc-fit-columns">
-          <div>
-            <span className="mc-icon-circle">
-              <Wrench size={20} aria-hidden="true" />
-            </span>
-            <h3>Your workshop system</h3>
-            <p>
-              Jobs, vehicle history, parts and the workshop diary stay with the tools your team
-              already uses.
-            </p>
-          </div>
-          <div>
-            <span className="mc-icon-circle mc-icon-petal">
-              <ZaplaPetal />
-            </span>
-            <h3>Zapla</h3>
-            <p>
-              Customer enquiries, conversations, relevant context and agreed follow-up stay
-              connected to the next person who needs to act.
-            </p>
-          </div>
-        </div>
-        <p className="mc-fit-note">
-          During setup, we agree what information Zapla needs, how it gets there and who owns each
-          next step.
+        <p>
+          Jobs, vehicles and parts stay where they are. During setup, we agree how Zapla gets the
+          customer information it needs.
         </p>
       </section>
 
       <section className="mc-launch" aria-labelledby="launch-title">
-        <div className="mc-wrap">
-          <div className="mc-launch-heading">
-            <div>
-              <Eyebrow>Guided Launch</Eyebrow>
-              <h2 id="launch-title">
-                Start with the gaps
-                <br />
-                worth fixing.
-              </h2>
-            </div>
+        <div className="mc-wrap mc-launch-layout">
+          <div className="mc-launch-copy">
+            <Eyebrow>Guided Launch</Eyebrow>
+            <h2 id="launch-title">
+              Built around
+              <br />
+              your workshop.
+            </h2>
+            <p>We map your process, build the agreed flows and get your team ready to use them.</p>
             <p>
-              Build around your workshop’s capacity, your existing tools and the customer steps that
-              need attention.
+              We configure your booking calendar, reminder timing and the questions that need a
+              human reply.
             </p>
+            <ActionLink href="/Pricing-v3">Explore plans and Guided Launch</ActionLink>
           </div>
-          <ol className="mc-launch-steps">
-            <li>
-              <span>01</span>
-              <h3>Map</h3>
-              <p>
-                Look at how enquiries, estimates and return visits work today. Choose the gaps to
-                address first.
-              </p>
-            </li>
-            <li>
-              <span>02</span>
-              <h3>Build</h3>
-              <p>
-                Set up the agreed flows, customer information and handoffs. Give every next step an
-                owner.
-              </p>
-            </li>
-            <li>
-              <span>03</span>
-              <h3>Launch</h3>
-              <p>
-                Test the customer journey, train your team and check that messages stop when they
-                should.
-              </p>
-            </li>
-          </ol>
-          <div className="mc-commercial">
-            <p>
-              <strong>Choose the scope that fits.</strong> Follow-Through supports incoming
-              enquiries and active customer follow-up. Growth adds proactive campaigns and
-              reactivation. AI Receptionist is optional.
-            </p>
-            <div>
-              <p>
-                Unlimited users. Stored contacts subject to fair use. Messaging and other usage are
-                charged separately.
-              </p>
-              <ActionLink href="/Pricing-v3">Compare plans and setup</ActionLink>
+          <div className="mc-launch-plan" aria-label="Illustrative workshop launch plan">
+            <div className="mc-launch-plan-heading">
+              <span>Your workshop launch plan</span>
+            </div>
+            <h3>
+              Start with the gaps
+              <br />
+              in your workshop.
+            </h3>
+            <div className="mc-launch-plan-row">
+              <strong>Quotes going quiet</strong>
+              <p>Agree when to follow up and when to stop.</p>
+            </div>
+            <div className="mc-launch-plan-row">
+              <strong>Customers due back</strong>
+              <p>Choose the service dates and reminder timing.</p>
+            </div>
+            <div className="mc-launch-plan-row">
+              <strong>Bookings without the back-and-forth</strong>
+              <p>Test the enquiry, booking link and confirmation together.</p>
             </div>
           </div>
         </div>
       </section>
+
+      <WorkshopPlans />
 
       <section className="mc-final mc-wrap" aria-labelledby="final-title">
         <span className="mc-final-petal">
           <ZaplaPetal />
         </span>
         <h2 id="final-title">
-          See where Zapla fits
+          Find the follow-up
           <br />
-          in your workshop.
+          your workshop is missing.
         </h2>
         <p>
-          We’ll look at your enquiries, estimate follow-up and existing systems, then agree which
-          customer steps are worth automating.
+          Show us how enquiries, quotes and service reminders work today. We’ll map what Zapla can
+          automate, what your team handles and which plan fits your workshop.
         </p>
         <div className="mc-actions">
           <a className="mc-button mc-primary" href={BOOK}>
@@ -370,132 +227,300 @@ function MechanicsPage() {
   );
 }
 
-const STAGES = ["Waiting for an answer", "Follow-up sent", "Customer replies", "Team takes over"];
-function EstimateScene() {
+const QUOTE_STAGES = ["Quote sent", "Follow-up sent", "Customer replied"];
+const ENQUIRY_STAGES = ["Customer asks", "Booking link sent"];
+const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
+
+// Each brief scene progresses once, pauses offscreen and holds its final state.
+function useScene(stages: string[], timings: number[]) {
   const ref = useRef<HTMLDivElement>(null);
-  const visible = useInView(ref, { once: true, amount: 0.35 });
-  const reduced = useReducedMotion();
+  const visible = useInView(ref, { amount: 0.25 });
+  const prefersReduced = useReducedMotion();
   const [step, setStep] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const [reduceActive, setReduceActive] = useState(false);
+  const last = stages.length - 1;
   useEffect(() => {
-    setReduceActive(Boolean(reduced));
-    if (reduced) {
-      setStep(3);
-      setPlaying(false);
-      return;
-    }
-  }, [reduced]);
+    if (prefersReduced) setStep(last);
+  }, [prefersReduced, last]);
+  const delay = timings[step] ?? 1400;
   useEffect(() => {
-    if (reduced || !visible || !playing || step >= 3) return;
-    const timer = window.setTimeout(() => setStep((s) => Math.min(s + 1, 3)), 2800);
+    if (!visible || prefersReduced || step >= last) return;
+    const timer = window.setTimeout(() => setStep((s) => Math.min(s + 1, last)), delay);
     return () => window.clearTimeout(timer);
-  }, [visible, playing, step, reduced]);
+  }, [visible, prefersReduced, step, last, delay]);
+  return { ref, step };
+}
+function HeroEnquiry() {
   return (
-    <div className="mc-estimate-demo" ref={ref}>
-      <div className="mc-demo-sidebar">
-        <div className="mc-demo-brand">
-          <ZaplaPetal />
-          <strong>Estimate follow-up</strong>
-        </div>
-        <p className="mc-small-label">Customer journey</p>
-        <div className="mc-stage-list">
-          {STAGES.map((stage, i) => (
-            <button
-              type="button"
-              key={stage}
-              aria-pressed={step === i}
-              onClick={() => {
-                setPlaying(false);
-                setStep(i);
-              }}
-              className={step === i ? "is-current" : step > i ? "is-complete" : ""}
-            >
-              <span>{step > i ? <Check size={13} aria-hidden="true" /> : `0${i + 1}`}</span>
-              {stage}
-            </button>
-          ))}
-        </div>
-        <div className="mc-scene-controls">
-          {step < 3 && !reduceActive ? (
-            <button type="button" onClick={() => setPlaying((p) => !p)}>
-              {playing ? (
-                <Pause size={14} aria-hidden="true" />
-              ) : (
-                <Play size={14} aria-hidden="true" />
-              )}
-              {playing ? "Pause" : "Play"}
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => {
-                setStep(0);
-                setPlaying(!reduceActive);
-              }}
-            >
-              <RotateCcw size={14} aria-hidden="true" />
-              {reduceActive ? "Review steps" : "Replay"}
-            </button>
-          )}
-        </div>
-      </div>
-      <div className="mc-demo-conversation">
-        <div className="mc-conversation-head">
-          <span className="mc-avatar" aria-hidden="true" />
+    <div className="mc-hero-event">
+      <div className="mc-glass mc-hero-event-body">
+        <div className="mc-customer-heading">
+          <span className="mc-person-avatar" />
           <div>
             <strong>Mia Thompson</strong>
-            <span>2019 Toyota RAV4 · Brake inspection</span>
-          </div>
-          <span className="mc-owner">Workshop reception</span>
-        </div>
-        <div className="mc-thread">
-          <div className="mc-estimate-record">
-            <span className="mc-record-icon">
-              <Wrench size={17} aria-hidden="true" />
-            </span>
-            <div>
-              <strong>Estimate sent by your workshop</strong>
-              <p>Brake work · Awaiting customer decision</p>
-            </div>
-          </div>
-          <div
-            className={`mc-message-slot ${step >= 1 ? "is-visible" : ""}`}
-            aria-hidden={step < 1}
-          >
-            <div className="mc-sender">
-              <ZaplaPetal />
-              Your workshop · Automated follow-up
-            </div>
-            <div className="mc-outbound">
-              Hi Mia, just checking you received our brake estimate. Any questions before you
-              decide?
-            </div>
-          </div>
-          <div
-            className={`mc-message-slot mc-inbound-slot ${step >= 2 ? "is-visible" : ""}`}
-            aria-hidden={step < 2}
-          >
-            <span className="mc-message-time">Mia replied</span>
-            <div className="mc-inbound">Thanks! Can I drop the car off on Thursday?</div>
+            <span>Workshop enquiry</span>
           </div>
         </div>
-        <div className={`mc-handoff ${step >= 3 ? "is-done" : ""}`}>
-          <Check size={16} aria-hidden="true" />
-          <div>
-            <strong>
-              {step >= 3
-                ? "Follow-up paused. Your team takes over."
-                : "Your team owns the next decision."}
-            </strong>
+        <p>“My brakes are squeaking. Could you take a look this week?”</p>
+        <p className="mc-hero-next">Inspection booking link sent automatically.</p>
+      </div>
+    </div>
+  );
+}
+function EnquiryScene() {
+  const scene = useScene(ENQUIRY_STAGES, [1400]);
+  return (
+    <div
+      ref={scene.ref}
+      className="mc-enquiry-scene"
+      data-step={scene.step}
+      role="img"
+      aria-label="Illustrative enquiry: Mia asks about her brakes and receives an automatic inspection booking link"
+    >
+      <div className="mc-dialogue-row">
+        <span className="mc-person-avatar" />
+        <div className="mc-dialogue-content">
+          <strong>Mia Thompson</strong>
+          <p className="mc-glass mc-dialogue-bubble">
+            Hi, my brakes have started squeaking. Could you take a look this week? It’s a 2019 RAV4.
+          </p>
+        </div>
+      </div>
+      <div
+        className={`mc-dialogue-row mc-dialogue-outgoing mc-enquiry-ack ${scene.step >= 1 ? "is-revealed" : ""}`}
+        aria-hidden={scene.step < 1}
+      >
+        <span className="mc-zapla-avatar">
+          <ZaplaPetal />
+        </span>
+        <div className="mc-dialogue-content">
+          <strong>Your workshop · Automated reply</strong>
+          <div className="mc-glass mc-dialogue-bubble">
             <p>
-              {step >= 3
-                ? "Check the diary and confirm a time with Mia."
-                : "A reply stops the chase. A booking still needs confirmation."}
+              Thanks Mia. Choose an available inspection time here and we’ll get your RAV4 booked
+              in.
             </p>
+            <span className="mc-message-link">
+              Book an inspection <ArrowRight size={15} aria-hidden="true" />
+            </span>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+function QuoteScene() {
+  const scene = useScene(QUOTE_STAGES, [1400, 1400]);
+  return (
+    <div ref={scene.ref} className="mc-quote-scene" data-step={scene.step}>
+      <div className="mc-glass mc-quote-summary">
+        <div className="mc-customer-heading">
+          <span className="mc-person-avatar" />
+          <div>
+            <strong>Mia Thompson</strong>
+            <span>2019 Toyota RAV4</span>
+          </div>
+        </div>
+        <div className="mc-quote-jobline">
+          <strong>Brake work quote</strong>
+          <span>{scene.step >= 2 ? "Customer replied" : "Awaiting response"}</span>
+        </div>
+      </div>
+      <div
+        className={`mc-dialogue-row mc-quote-message ${scene.step >= 1 ? "is-visible" : ""}`}
+        aria-hidden={scene.step < 1}
+      >
+        <span className="mc-zapla-avatar">
+          <ZaplaPetal />
+        </span>
+        <div className="mc-dialogue-content">
+          <strong>Your workshop · Follow-up sent</strong>
+          <p className="mc-glass mc-dialogue-bubble">
+            Hi Mia, did you have any questions about the brake work we quoted? Reply here and we’ll
+            help.
+          </p>
+        </div>
+      </div>
+      <div
+        className={`mc-dialogue-row mc-quote-reply ${scene.step >= 2 ? "is-visible" : ""}`}
+        aria-hidden={scene.step < 2}
+      >
+        <span className="mc-person-avatar" />
+        <div className="mc-dialogue-content">
+          <strong>Mia Thompson</strong>
+          <p className="mc-glass mc-dialogue-bubble">
+            Does the quote include both the pads and discs?
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+function ReturnScene() {
+  const scene = useScene(RETURN_STAGES, [1600, 1600]);
+  return (
+    <div
+      ref={scene.ref}
+      className="mc-return-visual"
+      data-step={scene.step}
+      role="img"
+      aria-label="Illustrative service reminder with a booking link, followed by Mia confirming she has booked"
+    >
+      <img
+        src="/concept/customer-marketing-service-arrival.svg"
+        alt="A customer handing her keys to a mechanic at workshop reception"
+        width="1024"
+        height="768"
+        loading="lazy"
+      />
+      <div className="mc-glass mc-service-reminder">
+        <div className="mc-overlay-heading">
+          <span>Service due in November</span>
+          <ZaplaPetal />
+        </div>
+        <p>
+          Hi Mia, your RAV4’s next service is due in November. Book a time that suits you below.
+        </p>
+        <span className="mc-message-link">
+          Book your next service <ArrowRight size={15} aria-hidden="true" />
+        </span>
+        <span className="mc-overlay-caption">
+          {scene.step >= 1
+            ? "Reminder sent by your workshop"
+            : "Based on the vehicle’s service date"}
+        </span>
+      </div>
+      <div
+        className={`mc-glass mc-return-reply ${scene.step >= 2 ? "is-arrived" : ""}`}
+        aria-hidden={scene.step < 2}
+      >
+        <div className="mc-customer-heading">
+          <span className="mc-person-avatar" />
+          <div>
+            <strong>Mia Thompson</strong>
+            <span>Replied to the reminder</span>
+          </div>
+        </div>
+        <p>“I’ve booked Friday. See you then!”</p>
+      </div>
+    </div>
+  );
+}
+const REVIEW_STAGES = ["Service completed", "Invitation sent", "Review screen"];
+function GoogleWordmark() {
+  return (
+    <span className="mc-google-wordmark" aria-label="Google">
+      <span>G</span>
+      <span>o</span>
+      <span>o</span>
+      <span>g</span>
+      <span>l</span>
+      <span>e</span>
+    </span>
+  );
+}
+function ReviewScene() {
+  const scene = useScene(REVIEW_STAGES, [1400, 1400]);
+  return (
+    <section className="mc-reviews mc-wrap" aria-labelledby="review-title">
+      <div ref={scene.ref} className="mc-review-scene" data-step={scene.step}>
+        <div className="mc-review-completed">
+          <span className="mc-person-avatar" />
+          <span>
+            Mia’s RAV4 <strong>Service completed</strong>
+          </span>
+        </div>
+        <div className="mc-review-message">
+          <span className="mc-zapla-avatar">
+            <ZaplaPetal />
+          </span>
+          <div className="mc-glass mc-review-invitation">
+            <span className="mc-review-sender">
+              Your workshop · {scene.step >= 1 ? "Invitation sent" : "Invitation prepared"}
+            </span>
+            <p>Thanks for bringing your RAV4 in, Mia. Would you share your experience on Google?</p>
+            <span className="mc-google-link">
+              Leave a Google review <ArrowRight size={15} aria-hidden="true" />
+            </span>
+          </div>
+        </div>
+        <div
+          className={`mc-glass mc-google-review-screen ${scene.step >= 2 ? "is-visible" : ""}`}
+          aria-hidden={scene.step < 2}
+        >
+          <GoogleWordmark />
+          <h3>How was your visit?</h3>
+          <div
+            className="mc-google-stars"
+            aria-label="Five unselected rating stars in an illustrative review screen"
+          >
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star key={star} size={28} strokeWidth={1.6} aria-hidden="true" />
+            ))}
+          </div>
+          <span className="mc-google-write">Share your experience</span>
+        </div>
+      </div>
+      <div className="mc-scene-copy">
+        <Eyebrow>After the job is done</Eyebrow>
+        <h2 id="review-title">
+          Let your good work
+          <br />
+          build your reputation.
+        </h2>
+        <p>
+          Automatically invite customers to leave a Google review after their visit. Make it easy
+          for them to share their experience and help the next customer feel confident choosing your
+          workshop.
+        </p>
+        <ActionLink href="/reviews">Explore review automation</ActionLink>
+      </div>
+    </section>
+  );
+}
+
+function WorkshopPlans() {
+  return (
+    <section className="mc-plans mc-wrap" aria-labelledby="plans-title">
+      <div>
+        <Eyebrow>Monthly plans</Eyebrow>
+        <h2 id="plans-title">
+          Plans for
+          <br />
+          your workshop.
+        </h2>
+        <p className="mc-plan-value">
+          One setup for the customer work that’s easy to put off: enquiries, quote follow-up and
+          review requests. Growth adds a reason for existing customers to book again.
+        </p>
+      </div>
+      <div className="mc-plan-options">
+        <div className="mc-plan-option">
+          <div>
+            <strong>Follow-Through</strong>
+            <p>
+              Automatic enquiry replies, online booking, quote follow-up and Google review requests.
+            </p>
+          </div>
+          <span>
+            A$399<small>/month</small>
+          </span>
+        </div>
+        <div className="mc-plan-option">
+          <div>
+            <strong>Growth</strong>
+            <p>Everything in Follow-Through, plus service reminders and customer reactivation.</p>
+          </div>
+          <span>
+            A$699<small>/month</small>
+          </span>
+        </div>
+        <p className="mc-plan-note">
+          GST, usage and setup extra.{" "}
+          <a href="/Pricing-v3">
+            Compare plans and inclusions <ArrowRight size={14} aria-hidden="true" />
+          </a>
+        </p>
+      </div>
+    </section>
   );
 }
