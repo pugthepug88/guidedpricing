@@ -30,7 +30,7 @@ export const Route = createFileRoute("/industries/mechanics-v2")({
       {
         name: "description",
         content:
-          "Keep workshop enquiries, estimate follow-up and customer return visits moving with Zapla. Built around your team and your existing workshop systems.",
+          "Keep workshop enquiries, quote follow-up and customer return visits moving with Zapla. Built around your team and your existing workshop systems.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -62,9 +62,8 @@ function MechanicsV2Page() {
             <span>Zapla follows through.</span>
           </h1>
           <p className="m2-intro">
-            Capture workshop enquiries, follow up unanswered estimates and remind customers when
-            their next service is due. Keep the customer side moving while your team stays on the
-            tools.
+            Capture workshop enquiries, follow up unanswered quotes and remind customers when their
+            next service is due. Keep the customer side moving while your team stays on the tools.
           </p>
           <div className="m2-actions">
             <a className="m2-button m2-primary" href={BOOK}>
@@ -76,7 +75,6 @@ function MechanicsV2Page() {
               <ChevronRight size={17} aria-hidden="true" />
             </a>
           </div>
-          <p className="m2-hero-note">Keep your workshop software for jobs, vehicles and parts.</p>
         </div>
         <div className="m2-hero-visual">
           <img
@@ -114,25 +112,24 @@ function MechanicsV2Page() {
           <div className="m2-wrap">
             <div className="m2-estimate-intro">
               <div>
-                <Eyebrow>After the estimate goes out</Eyebrow>
+                <Eyebrow>After the quote goes out</Eyebrow>
                 <h2 id="estimate-title">
-                  An estimate sent isn’t
+                  A quote sent isn’t
                   <br />a decision made.
                 </h2>
               </div>
               <div>
                 <p>
-                  Your team has already spent time inspecting the car and preparing the estimate.
-                  Give the customer a way to make a decision, without another round of manual
-                  chasing. When they reply, the automated reminders stop.
+                  You’ve inspected the car and sent the quote. Zapla follows up while the decision
+                  is open, then stops the reminders when the customer replies.
                 </p>
                 <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
               </div>
             </div>
-            <EstimateSceneV2 />
+            <QuoteSceneV2 />
             <p className="m2-demo-note">
               Illustrative workshop flows. Triggers, data connections and handoffs are agreed during
-              setup. Estimate details stay in your workshop system.
+              setup. Quotes stay in your workshop system.
             </p>
           </div>
         </section>
@@ -142,120 +139,66 @@ function MechanicsV2Page() {
             <Eyebrow>Long after the keys go back</Eyebrow>
             <h2 id="return-title">Bring customers back for their next service.</h2>
             <p>
-              They already trust you with their car. Remind the right owner when their vehicle is
-              due, then give reception the reply to arrange a time. Turn a service date into a
-              conversation about the next visit.
+              A timely reminder gives an existing customer a reason to return. Use the right
+              vehicle’s service date, then pick up the conversation when they reply.
             </p>
             <ActionLink href="/customer-marketing">Explore Customer Marketing</ActionLink>
-            <div className="m2-return-support">
-              <p>
-                <strong>Someone you haven’t heard from?</strong> An agreed{" "}
-                <a href="/reactivation">reactivation campaign</a> can reopen the conversation.
-              </p>
-              <p>
-                <strong>A job just completed?</strong> Ask for honest feedback with a neutral{" "}
-                <a href="/reviews">review request</a>.
-              </p>
-            </div>
+            <p className="m2-return-support">
+              For customers you haven’t heard from, an agreed{" "}
+              <a href="/reactivation">reactivation campaign</a> can reopen the conversation.
+            </p>
           </div>
-          <div className="m2-return-visual m2-return-focused">
-            <img
-              src="/concept/customer-marketing-service-arrival.svg"
-              alt="A customer handing her keys to a mechanic at a workshop reception desk"
-              width="1024"
-              height="768"
-              loading="lazy"
-            />
-            <ReturnScene />
-          </div>
+          <ReturnScene />
         </section>
       </div>
 
+      <ReviewScene />
+
       <section className="m2-fit m2-wrap" aria-labelledby="fit-title">
-        <Eyebrow>Works around the way you work</Eyebrow>
         <h2 id="fit-title">
-          Your workshop system runs the job.
+          Keep your workshop system.
           <br />
-          <span>Zapla handles the customer follow-through.</span>
+          <span>Add the customer follow-through.</span>
         </h2>
-        <div className="m2-fit-columns">
-          <div>
-            <h3>Your workshop system</h3>
-            <p>
-              Jobs, vehicle history, parts and the workshop diary stay with the tools your team
-              already uses.
-            </p>
-          </div>
-          <div>
-            <h3>Zapla</h3>
-            <p>
-              Customer enquiries, conversations, relevant context and agreed follow-up stay
-              connected to the next person who needs to act.
-            </p>
-          </div>
-        </div>
-        <p className="m2-fit-note">
-          During setup, we agree what information Zapla needs, how it gets there and who owns each
-          next step.
+        <p>
+          Jobs, vehicles and parts stay where they are. During setup, we agree how Zapla gets the
+          customer information it needs.
         </p>
       </section>
 
       <section className="m2-launch" aria-labelledby="launch-title">
-        <div className="m2-wrap">
-          <div className="m2-launch-heading">
-            <div>
-              <Eyebrow>Guided Launch</Eyebrow>
-              <h2 id="launch-title">
-                Start with the gaps
-                <br />
-                worth fixing.
-              </h2>
-            </div>
-            <p>
-              Build around your workshop’s capacity, your existing tools and the customer steps that
-              need attention.
-            </p>
+        <div className="m2-wrap m2-launch-layout">
+          <div className="m2-launch-copy">
+            <Eyebrow>Guided Launch</Eyebrow>
+            <h2 id="launch-title">
+              Built around
+              <br />
+              your workshop.
+            </h2>
+            <p>We map your process, build the agreed flows and get your team ready to use them.</p>
+            <ol className="m2-launch-steps">
+              <li>
+                <strong>Map</strong>
+                <span>Choose the customer steps worth fixing.</span>
+              </li>
+              <li>
+                <strong>Build</strong>
+                <span>Connect the information and agree who acts next.</span>
+              </li>
+              <li>
+                <strong>Launch</strong>
+                <span>Test the journey and train your team.</span>
+              </li>
+            </ol>
+            <ActionLink href="/Pricing-v3">Explore plans and Guided Launch</ActionLink>
           </div>
-          <ol className="m2-launch-steps">
-            <li>
-              <span>1</span>
-              <h3>Map</h3>
-              <p>
-                Look at how enquiries, estimates and return visits work today. Choose the gaps to
-                address first.
-              </p>
-            </li>
-            <li>
-              <span>2</span>
-              <h3>Build</h3>
-              <p>
-                Set up the agreed flows, customer information and handoffs. Give every next step an
-                owner.
-              </p>
-            </li>
-            <li>
-              <span>3</span>
-              <h3>Launch</h3>
-              <p>
-                Test the customer journey, train your team and check that messages stop when they
-                should.
-              </p>
-            </li>
-          </ol>
-          <div className="m2-commercial">
-            <p>
-              <strong>Choose the scope that fits.</strong> Follow-Through supports incoming
-              enquiries and active customer follow-up. Growth adds proactive campaigns and
-              reactivation. AI Receptionist is optional.
-            </p>
-            <div>
-              <p>
-                Unlimited users. Stored contacts subject to fair use. Messaging and other usage are
-                charged separately.
-              </p>
-              <ActionLink href="/Pricing-v3">Compare plans and setup</ActionLink>
-            </div>
-          </div>
+          <img
+            src="/concept/guided-launch-natural-v6-760.webp"
+            width="760"
+            height="570"
+            alt="A business owner and launch specialist working through the setup together"
+            loading="lazy"
+          />
         </div>
       </section>
 
@@ -271,8 +214,8 @@ function MechanicsV2Page() {
           your workshop is missing.
         </h2>
         <p>
-          We’ll look at unanswered enquiries, outstanding estimates and upcoming services, then
-          assess whether an agreed Zapla setup is worth the cost.
+          We’ll look at unanswered enquiries, unanswered quotes and upcoming services, then assess
+          whether an agreed Zapla setup is worth the cost.
         </p>
         <div className="m2-actions">
           <a className="m2-button m2-primary" href={BOOK}>
@@ -288,9 +231,9 @@ function MechanicsV2Page() {
   );
 }
 
-const ESTIMATE_STAGES = ["Estimate sent", "Reminder sent", "Reply received", "Team takes over"];
-const HERO_STAGES = ["New enquiry", "Details captured", "Reception takes over"];
-const ENQUIRY_STAGES = ["Customer asks", "Request acknowledged", "Reception takes over"];
+const QUOTE_STAGES = ["Quote sent", "Follow-up sent", "Customer replied", "Reception follows up"];
+const HERO_STAGES = ["New enquiry", "Request captured", "Reception follows up"];
+const ENQUIRY_STAGES = ["Customer asks", "Workshop replies", "Reception follows up"];
 const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
 
 // One finite sequence per scene. It pauses offscreen and never resets without a user action.
@@ -368,218 +311,241 @@ function SceneControls({ scene, stages, name }: { scene: Scene; stages: string[]
   );
 }
 function HeroEnquiry() {
-  const scene = useScene(HERO_STAGES, [1800, 2100]);
+  const scene = useScene(HERO_STAGES, [2000, 2400]);
   return (
     <div ref={scene.ref} className="m2-hero-event" data-step={scene.step}>
-      <div className="m2-hero-event-body">
-        <div className="m2-event-sender">
-          <ZaplaPetal />
-          <span>{scene.step === 0 ? "New workshop enquiry" : "Enquiry captured"}</span>
+      <div className="m2-glass m2-hero-event-body">
+        <div className="m2-customer-heading">
+          <span className="m2-person-avatar" />
+          <div>
+            <strong>Mia Thompson</strong>
+            <span>Workshop enquiry</span>
+          </div>
         </div>
-        <strong>Mia’s brakes are squeaking.</strong>
-        <p className="m2-hero-event-quote">“Could you take a look this week?”</p>
-        <div className={`m2-hero-context ${scene.step >= 1 ? "is-revealed" : ""}`}>
-          <span>Vehicle supplied</span>
-          <strong>2019 Toyota RAV4</strong>
-        </div>
-        <div className={`m2-hero-next ${scene.step >= 2 ? "is-revealed" : ""}`}>
-          <strong>Reception to confirm a time</strong>
-        </div>
+        <p>“My brakes are squeaking. Could you take a look this week?”</p>
+        <p className="m2-hero-context">2019 Toyota RAV4</p>
+        <p className="m2-hero-next">
+          {scene.step >= 2
+            ? "Reception to confirm a time."
+            : scene.step >= 1
+              ? "Request captured for reception."
+              : "A new enquiry while you’re on the tools."}
+        </p>
       </div>
       <SceneControls scene={scene} stages={HERO_STAGES} name="hero enquiry" />
     </div>
   );
 }
 function EnquiryScene() {
-  const scene = useScene(ENQUIRY_STAGES, [1900, 2300]);
+  const scene = useScene(ENQUIRY_STAGES, [2300, 2800]);
   return (
     <div ref={scene.ref} className="m2-enquiry-scene" data-step={scene.step}>
-      <div className="m2-enquiry-source">
+      <div className="m2-dialogue-row">
         <span className="m2-person-avatar" />
-        <div>
+        <div className="m2-dialogue-content">
           <strong>Mia Thompson</strong>
-          <span>Workshop enquiry</span>
+          <p className="m2-dialogue-bubble">
+            Hi, my brakes have started squeaking. Could you take a look this week? It’s a 2019 RAV4.
+          </p>
         </div>
       </div>
-      <blockquote>
-        “My brakes have started squeaking. Could you take a look this week? It’s a 2019 RAV4.”
-      </blockquote>
       <div
-        className={`m2-enquiry-ack ${scene.step >= 1 ? "is-revealed" : ""}`}
+        className={`m2-dialogue-row m2-dialogue-outgoing m2-enquiry-ack ${scene.step >= 1 ? "is-revealed" : ""}`}
         aria-hidden={scene.step < 1}
       >
-        <strong>Your workshop replied</strong>
-        <p>
-          Thanks Mia, we’ve received your request. Reception will check availability and confirm a
-          time with you.
-        </p>
-      </div>
-      <div className={`m2-enquiry-record ${scene.step >= 1 ? "is-captured" : ""}`}>
-        <div className="m2-record-heading">
-          <strong>Brake inspection</strong>
-          <span>2019 Toyota RAV4</span>
+        <span className="m2-zapla-avatar">
+          <ZaplaPetal />
+        </span>
+        <div className="m2-dialogue-content">
+          <strong>Your workshop · Automated reply</strong>
+          <p className="m2-dialogue-bubble">
+            Thanks Mia, we’ve received your request. Reception will check availability and confirm a
+            time with you.
+          </p>
         </div>
-        <p className={`m2-reception-owner ${scene.step >= 2 ? "is-owned" : ""}`}>
-          {scene.step >= 2
-            ? "Reception: check availability and confirm a time."
-            : "Request captured for workshop reception."}
-        </p>
       </div>
+      <p className="m2-enquiry-next">
+        {scene.step >= 2
+          ? "Reception has the request and vehicle details."
+          : "The customer gets a reply while your team keeps working."}
+      </p>
       <SceneControls scene={scene} stages={ENQUIRY_STAGES} name="enquiry capture" />
     </div>
   );
 }
-function EstimateSceneV2() {
-  const scene = useScene(ESTIMATE_STAGES, [2200, 3000, 2200]);
+function QuoteSceneV2() {
+  const scene = useScene(QUOTE_STAGES, [2200, 2600, 2200]);
   return (
-    <div ref={scene.ref} className="m2-estimate-scene" data-step={scene.step}>
-      <div className="m2-estimate-summary">
-        <span className="m2-person-avatar" />
-        <div>
-          <strong>Mia Thompson</strong>
-          <span>2019 Toyota RAV4</span>
-        </div>
-        <p>
-          Brake work <span>Estimate sent</span>
-        </p>
-      </div>
-      <div className="m2-estimate-conversation">
-        <div className="m2-estimate-thread">
-          <div
-            className={`m2-awaiting ${scene.step === 0 ? "is-waiting" : ""}`}
-            aria-hidden={scene.step !== 0}
-          >
-            <h3>
-              The estimate is out.
-              <br />
-              The decision is still open.
-            </h3>
-            <p>Mia has the estimate. An agreed follow-up gives her a way to answer.</p>
-          </div>
-          <div
-            className={`m2-outgoing-message ${scene.step >= 1 ? "is-arrived" : ""}`}
-            aria-hidden={scene.step < 1}
-          >
-            <div className="m2-event-sender">
-              <ZaplaPetal />
-              <span>Your workshop · Automated SMS</span>
+    <div ref={scene.ref} className="m2-quote-scene" data-step={scene.step}>
+      <div className="m2-quote-composition">
+        <div className="m2-quote-paper">
+          <div className="m2-customer-heading">
+            <span className="m2-person-avatar" />
+            <div>
+              <strong>Mia Thompson</strong>
+              <span>2019 Toyota RAV4</span>
             </div>
+          </div>
+          <div className="m2-quote-job">
+            <span>Workshop quote</span>
+            <h3>Brake work</h3>
             <p>
-              Hi Mia, just checking you received our brake estimate. Any questions before you
-              decide?
+              {scene.step >= 2
+                ? "Sent to Mia. Her response is with reception."
+                : "Sent to Mia. Waiting for her decision."}
             </p>
           </div>
-          <div
-            className={`m2-incoming-message ${scene.step >= 2 ? "is-arrived" : ""}`}
-            aria-hidden={scene.step < 2}
-          >
-            <strong>Mia replied</strong>
-            <p>Thanks! Can I drop the car off on Thursday?</p>
+          <div className={`m2-quote-state ${scene.step >= 2 ? "has-reply" : ""}`}>
+            <span>Customer response</span>
+            <strong>{scene.step >= 2 ? "Mia replied" : "Still open"}</strong>
+            <p>
+              {scene.step >= 2
+                ? "“Can I drop the car off on Thursday?”"
+                : "The next step shouldn’t depend on another phone call."}
+            </p>
           </div>
         </div>
-        <div className={`m2-next-reminder ${scene.step >= 2 ? "is-cancelled" : ""}`}>
-          <strong>
-            {scene.step >= 2
-              ? "Mia replied. Next reminder cancelled."
-              : "Next reminder: only if Mia hasn’t replied."}
-          </strong>
+        <div className="m2-quote-action">
+          <span className="m2-quote-connector" aria-hidden="true" />
+          <div className="m2-quote-followup">
+            <ZaplaPetal />
+            <span>{scene.step >= 1 ? "Follow-up sent" : "Follow-up agreed"}</span>
+          </div>
+          <h3>{scene.step >= 2 ? "The reply stops the chase." : "Give the quote a next step."}</h3>
+          <div className={`m2-next-reminder ${scene.step >= 2 ? "is-cancelled" : ""}`}>
+            <span>Next reminder</span>
+            <strong>{scene.step >= 2 ? "Cancelled" : "Only if there’s no reply"}</strong>
+          </div>
+          <p className="m2-quote-owner">
+            {scene.step >= 3
+              ? "Reception checks Thursday and confirms with Mia."
+              : "Reception handles availability and the booking."}
+          </p>
         </div>
-        <p className={`m2-team-handoff ${scene.step >= 3 ? "is-owned" : ""}`}>
-          {scene.step >= 3
-            ? "Reception: check the diary and confirm Thursday with Mia."
-            : "Reception handles availability and the booking."}
-        </p>
       </div>
-      <SceneControls scene={scene} stages={ESTIMATE_STAGES} name="estimate follow-up" />
+      <SceneControls scene={scene} stages={QUOTE_STAGES} name="quote follow-up" />
     </div>
   );
 }
 function ReturnScene() {
-  const scene = useScene(RETURN_STAGES, [2300, 2600]);
+  const scene = useScene(RETURN_STAGES, [2400, 2800]);
   return (
-    <div ref={scene.ref} className="m2-return-scene" data-step={scene.step}>
-      <div className="m2-service-record">
-        <div>
-          <span className="m2-person-avatar" />
-          <strong>Mia Thompson</strong>
-        </div>
-        <span>2019 Toyota RAV4</span>
-        <p>
-          <span>Service due</span>
-          <strong>November</strong>
-        </p>
-      </div>
-      <div className={`m2-return-message ${scene.step >= 1 ? "is-sent" : ""}`}>
-        <div className="m2-event-sender">
+    <div ref={scene.ref} className="m2-return-visual" data-step={scene.step}>
+      <img
+        src="/concept/customer-marketing-service-arrival.svg"
+        alt="A customer handing her keys to a mechanic at workshop reception"
+        width="1024"
+        height="768"
+        loading="lazy"
+      />
+      <div className="m2-glass m2-service-reminder">
+        <div className="m2-overlay-heading">
+          <span>Service due in November</span>
           <ZaplaPetal />
-          <strong>
-            {scene.step >= 1 ? "Reminder sent by your workshop" : "Service reminder prepared"}
-          </strong>
         </div>
         <p>
-          Hi Mia, our records show your RAV4’s next service is due in November. Would you like us to
-          find a suitable time?
+          Hi Mia, your RAV4’s next service is due in November. Would you like us to find a suitable
+          time?
         </p>
-        <div
-          className={`m2-return-reply ${scene.step >= 2 ? "is-arrived" : ""}`}
-          aria-hidden={scene.step < 2}
-        >
-          <strong>Mia replied</strong>
-          <span>Yes please. A Friday would be great.</span>
+        <span className="m2-overlay-caption">
+          {scene.step >= 1
+            ? "Reminder sent by your workshop"
+            : "Based on the vehicle’s service date"}
+        </span>
+      </div>
+      <div
+        className={`m2-glass m2-return-reply ${scene.step >= 2 ? "is-arrived" : ""}`}
+        aria-hidden={scene.step < 2}
+      >
+        <div className="m2-customer-heading">
+          <span className="m2-person-avatar" />
+          <div>
+            <strong>Mia Thompson</strong>
+            <span>Replied to the reminder</span>
+          </div>
         </div>
-        <div className="m2-service-caption">
-          {scene.step >= 2
-            ? "Reception to check a Friday with Mia"
-            : "Based on the right vehicle’s service record"}
-        </div>
+        <p>“Yes please. A Friday would be great.”</p>
+        <span className="m2-overlay-caption">Reception to confirm a time with Mia.</span>
       </div>
       <SceneControls scene={scene} stages={RETURN_STAGES} name="service reminder" />
     </div>
   );
 }
+const REVIEW_STAGES = ["Service completed", "Invitation sent"];
+function ReviewScene() {
+  const scene = useScene(REVIEW_STAGES, [2600]);
+  return (
+    <section className="m2-reviews m2-wrap" aria-labelledby="review-title">
+      <div ref={scene.ref} className="m2-review-scene" data-step={scene.step}>
+        <div className="m2-review-completed">
+          <div className="m2-customer-heading">
+            <span className="m2-person-avatar" />
+            <div>
+              <strong>Mia’s RAV4</strong>
+              <span>Service completed</span>
+            </div>
+          </div>
+        </div>
+        <span className="m2-review-connector" aria-hidden="true" />
+        <div className={`m2-review-invitation ${scene.step >= 1 ? "is-sent" : ""}`}>
+          <div className="m2-overlay-heading">
+            <span>{scene.step >= 1 ? "Review invitation sent" : "Review invitation prepared"}</span>
+            <ZaplaPetal />
+          </div>
+          <p>Thanks for bringing your RAV4 in, Mia. Would you share your experience on Google?</p>
+          <span className="m2-google-link">
+            Leave a Google review <ArrowRight size={15} aria-hidden="true" />
+          </span>
+        </div>
+        <SceneControls scene={scene} stages={REVIEW_STAGES} name="review invitation" />
+      </div>
+      <div className="m2-scene-copy">
+        <Eyebrow>After the job is done</Eyebrow>
+        <h2 id="review-title">
+          Don’t leave the review
+          <br />
+          to chance.
+        </h2>
+        <p>
+          Send a Google review invitation after completed work, while the visit is still fresh. Make
+          it easy for customers to share an honest experience.
+        </p>
+        <ActionLink href="/reviews">Explore review automation</ActionLink>
+        <p className="m2-demo-note">
+          Illustrative invitation. The completion trigger and timing are agreed during setup.
+        </p>
+      </div>
+    </section>
+  );
+}
 
-// Prices match Pricing-v3. This is a cost threshold, not a forecast of workshop results.
+// Prices match Pricing-v3. This compares revenue, not profit or forecast results.
 const WORKSHOP_PLANS = {
   follow: { name: "Follow-Through", monthly: 399, setup: 1997 },
   growth: { name: "Growth", monthly: 699, setup: 2997 },
 } as const;
 function WorkshopCostCheck() {
   const [planKey, setPlanKey] = useState<keyof typeof WORKSHOP_PLANS>("growth");
-  const [usage, setUsage] = useState("");
-  const [contribution, setContribution] = useState("");
+  const [jobValue, setJobValue] = useState("");
   const plan = WORKSHOP_PLANS[planKey];
-  const usageValue = usage.trim() === "" ? 0 : Number(usage);
-  const jobValue = Number(contribution);
-  const validUsage = Number.isFinite(usageValue) && usageValue >= 0;
-  const validJob = contribution.trim() !== "" && Number.isFinite(jobValue) && jobValue > 0;
-  const ready = validUsage && validJob;
-  const ongoing = plan.monthly + usageValue;
-  const jobs = ready ? Math.ceil(ongoing / jobValue) : null;
-  const firstYearJobs = ready ? Math.ceil((ongoing + plan.setup / 12) / jobValue) : null;
-  const money = (amount: number) =>
-    `A$${amount.toLocaleString("en-AU", { maximumFractionDigits: 2 })}`;
+  const value = Number(jobValue);
+  const valid = jobValue.trim() !== "" && Number.isFinite(value) && value >= 0.01;
+  const equivalent = valid ? plan.monthly / value : null;
+  const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
   return (
     <section className="m2-cost m2-wrap" aria-labelledby="cost-title">
       <div className="m2-cost-intro">
-        <Eyebrow>Make the cost concrete</Eyebrow>
-        <h2 id="cost-title">What would this need to earn back?</h2>
-        <p>
-          Use your own numbers to check the ongoing cost against the contribution from an additional
-          completed job.
-        </p>
-        <details className="m2-cost-capacity">
-          <summary>Already at capacity?</summary>
-          <p>
-            Compare the staff time you could realistically save with the cost. More bookings may not
-            be your priority.
-          </p>
-        </details>
-        <ActionLink href="/Pricing-v3">Check plans, inclusions and setup</ActionLink>
+        <Eyebrow>Put the monthly price in perspective</Eyebrow>
+        <h2 id="cost-title">
+          Put the price in
+          <br />
+          workshop terms.
+        </h2>
       </div>
       <div className="m2-cost-tool">
         <div className="m2-cost-fields">
           <label htmlFor="workshop-plan">
-            Plan
+            Your plan
             <select
               id="workshop-plan"
               value={planKey}
@@ -589,84 +555,53 @@ function WorkshopCostCheck() {
               <option value="growth">Growth · A$699/month</option>
             </select>
           </label>
-          <p className="m2-cost-scope">
-            {planKey === "growth"
-              ? "Adds proactive service recall and reactivation."
-              : "Enquiries and active follow-up. Proactive recall requires Growth."}
-          </p>
-          <label htmlFor="workshop-usage">
-            Monthly usage and extras (A$)
+          <label htmlFor="workshop-job-value">
+            Average job value (A$)
             <input
-              id="workshop-usage"
-              type="number"
-              min="0"
-              step="any"
-              inputMode="decimal"
-              placeholder="Enter your estimate"
-              value={usage}
-              aria-describedby="workshop-usage-help"
-              onChange={(event) => setUsage(event.target.value)}
-            />
-          </label>
-          <p id="workshop-usage-help" className="m2-cost-help">
-            Include messaging and recurring add-ons. Blank counts as A$0.
-          </p>
-          <label htmlFor="workshop-contribution">
-            Contribution per completed job (A$)
-            <input
-              id="workshop-contribution"
+              id="workshop-job-value"
               type="number"
               min="0.01"
               step="any"
               inputMode="decimal"
-              placeholder="Enter your workshop’s figure"
-              value={contribution}
-              aria-describedby="workshop-contribution-help"
-              onChange={(event) => setContribution(event.target.value)}
+              placeholder="What you typically charge"
+              value={jobValue}
+              onChange={(event) => setJobValue(event.target.value)}
             />
           </label>
-          <p id="workshop-contribution-help" className="m2-cost-help">
-            After parts, additional labour and other variable costs, not the invoice total.
+          <p className="m2-cost-scope">
+            {planKey === "growth"
+              ? "Growth includes proactive recall and reactivation."
+              : "Proactive recall and reactivation require Growth."}
           </p>
         </div>
-        <div
-          className={`m2-cost-result ${ready ? "has-result" : ""}`}
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {ready ? (
+        <div className="m2-cost-result" aria-live="polite" aria-atomic="true">
+          {valid && equivalent !== null ? (
             <>
-              <p>To cover the ongoing monthly cost</p>
+              <p>The monthly plan is equivalent to</p>
               <strong>
-                {jobs} <span>{jobs === 1 ? "additional job" : "additional jobs"} / month</span>
+                {equivalent < 0.1
+                  ? "<0.1"
+                  : equivalent.toLocaleString("en-AU", { maximumFractionDigits: 1 })}
+                <span>average {equivalent === 1 ? "job" : "jobs"} in revenue</span>
               </strong>
               <p>
-                {money(ongoing)} monthly cost ÷ {money(jobValue)} contribution, rounded up.
-              </p>
-              <p className="m2-cost-first-year">
-                Including minimum setup spread over the first 12 months:{" "}
-                <b>
-                  {firstYearJobs} {firstYearJobs === 1 ? "job" : "jobs"} / month
-                </b>
-                .
+                {money(plan.monthly)} monthly plan ÷ {money(value)} average job value.
               </p>
             </>
           ) : (
-            <p className="m2-cost-empty">
-              {!validUsage
-                ? "Enter a monthly usage estimate of zero or more."
-                : contribution !== "" && !validJob
-                  ? "Enter a contribution greater than zero."
-                  : "Enter your contribution per job to see the cost threshold."}
+            <p>
+              {jobValue !== ""
+                ? "Enter an average job value of A$0.01 or more."
+                : "Enter your average job value to compare."}
             </p>
           )}
         </div>
-        <p className="m2-cost-disclosure">
-          All figures exclude GST. {plan.name} setup starts at {money(plan.setup)} and is paid
-          separately. Actual setup scope and usage can increase the cost. This is a cost check, not
-          a forecast or a promise of additional jobs.
-        </p>
       </div>
+      <p className="m2-cost-disclosure">
+        Revenue comparison, not profit or break-even. Excludes job costs, GST, usage and setup.{" "}
+        {plan.name} setup starts at {money(plan.setup)} + GST. <a href="/Pricing-v3">See pricing</a>
+        .
+      </p>
     </section>
   );
 }

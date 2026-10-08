@@ -1,41 +1,41 @@
 # Mechanics V2 review
 
-Route: `/industries/mechanics-v2`. The original `/industries/mechanics` route and stylesheet are unchanged. Navigation and footer remain root-owned.
+Route: `/industries/mechanics-v2`. This revision changes V2 only. The original mechanics route, root navigation and footer are unchanged. Both mechanics pages remain noindex and excluded from the sitemap.
 
-## Current implementation
+## Redesign decisions
 
-- Enquiry: customer message, outbound acknowledgement and concise reception follow-up. Removed decorative bridge, repeated initials and ownership labels.
-- Estimate: one summary header and conversation, with reply cancellation immediately beneath the thread. Removed the desktop sidebar/mobile context stack. Reception confirms availability; the demo does not claim a completed booking.
-- Return visit: large service due month, correct vehicle, reminder and reply. Photography supports the customer action.
-- Playback: one stage selector and pause/replay row per scene. Keyboard and manual access to every stage, including reduced-motion mode. Finite progression, offscreen pause and no automatic looping.
-- Typography: Inter Tight at weight 500 for headings; Manrope for body. Page-scoped font family aliases and locally served Latin WOFF2 assets remove reliance on external font loading. Font licence notices included. Essential scene text is at least 12px.
-- Styling: replaced inherited V1 rules and successive overrides with a single V2 stylesheet. Consistent spacing, borders, buttons and scene surfaces. Shorter mobile estimate and enquiry panels.
-- Cost check: current plan, recurring usage/extras and owner-entered job contribution. Result has a distinct visual area; assumptions and setup costs remain visible. Capacity explanation is expandable. No default job contribution or forecast.
-- Closing CTA: “Find the follow-up your workshop is missing.”
+- **Hero:** restored the established Customer Marketing glass surface: white outer border, inset dark keyline, translucent warm white, 6px backdrop blur and soft shadow. The enquiry uses the approved customer portrait. Automated workshop actions use the Zapla petal. Removed the software reassurance from the hero.
+- **Enquiry:** two separate avatar/message rows on the open page, without a containing panel or nested inspection record. The request and acknowledgement stay concise; reception confirms availability.
+- **Quote:** replaced the estimate conversation with a brake-work quote summary and decision states. A customer reply visibly cancels the next reminder. The quote status changes when the reply arrives. Reception confirms the actual booking.
+- **Return visit:** a large workshop photograph leads the section. A small glass November service reminder and customer reply occupy opposite corners. Mobile places the reply across the lower image edge instead of squeezing two large panels above a tiny photograph.
+- **Google reviews:** a completed-service state leads to a neutral review invitation. The invitation asks for an honest experience and shows a Google review link as an illustrative, noninteractive element. No invented reviews, stars, incentives or selective positive-review requests.
+- **Fit:** compact reassurance about existing jobs, vehicles and parts software, with data access agreed during setup. This is supporting information lower on the page, not the hero proposition.
+- **Guided Launch:** reused the homepage's established collaborative image and cream treatment. Map, Build and Launch describe actual setup work without decorative step numbers or a heavy dark panel.
+- **Price comparison:** only plan and owner-entered average job value. Monthly price divided by job revenue is shown as an average-job revenue equivalent, never profit, break-even or a forecast. Small fractions display below 0.1 instead of rounding to zero. No prefilled job value.
 
 ## Commercial accuracy
 
-Pricing matches current Pricing-v3: Follow-Through A$399/month with setup from A$1,997; Growth A$699/month with setup from A$2,997. All exclude GST. Recurring usage/add-ons are separate inputs. Minimum setup is paid separately and spread over twelve months only for the first-year comparison.
+Prices match Pricing-v3: Follow-Through A$399/month and setup from A$1,997; Growth A$699/month and setup from A$2,997, excluding GST. Growth is the default because proactive recall and reactivation belong to that plan. Selecting Follow-Through exposes that scope limitation. The comparison excludes job costs, GST, usage and setup; the setup price and pricing link remain visible beneath it.
 
-Growth is the default because proactive service recall and reactivation belong to that plan. Follow-Through displays that scope limitation. The calculation is a cost threshold, not a performance promise. Verified workshop results and real integration validation remain outstanding.
+The flows are illustrative. Workshop data connections, triggers, timing and human handoffs must be agreed during setup. An invitation is not evidence of an actual customer review. Workshop case studies, measured commercial results and validated integrations remain absent; those cannot be solved with layout or invented claims.
 
-## Review lenses
+## Eight review lenses
 
-These are the author's reviews, not external stakeholder approvals or measured conversion results.
+These are the author's assessments, not external approvals or measured conversion results.
 
-| Lens              | Assessment                                                                                                                                                                                        |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UI/UX             | Readable essential detail, one-row controls and compact mobile conversation. Every section inspected on desktop/mobile; no horizontal document overflow at five tested widths.                    |
-| Brand/Creative    | Incumbent palette, portraits, photography, petal, medium display typography and pill CTAs retained. Compared with homepage and Customer Marketing renders. Locally served fonts confirmed loaded. |
-| Product Marketing | Enquiry response, estimate decisions and next-service conversations lead the story. Technical mechanisms remain supporting detail.                                                                |
-| Conversion        | Commercial copy and owner-entered economics support the buying decision. Case-study proof remains absent.                                                                                         |
-| Motion            | Reply and reminder cancellation are adjacent. Stable finite scenes; manual selection, playback, offscreen pause and reduced motion supported.                                                     |
-| SME buyer         | Existing job/vehicle/parts system retained. Reception owns availability and booking confirmation; no implied universal integration.                                                               |
-| Buyer psychology  | Customer choice preserved, replies stop chasing, clear human next steps. Costs and scope remain explicit.                                                                                         |
-| AI-slop critic    | Removed repeated initials, arrows, decorative bridge and extra scene chrome. No invented metrics, testimonials or results.                                                                        |
+| Lens              | Assessment                                                                                                                                                                  |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UI/UX             | Clearer scene hierarchy, separate dialogue rows, smaller overlays and a two-input price comparison. Every section inspected at desktop and mobile sizes.                    |
+| Brand/Creative    | Customer Marketing glass specifications, approved portraits, petal, existing photographs, homepage launch image, palette, medium display headings and pill CTAs reused.     |
+| Product Marketing | Unanswered enquiries, open quotes, the next service and post-job reviews provide recognisable workshop moments. Human confirmation remains explicit.                        |
+| Conversion        | Concrete workflow demonstrations and monthly price context clarify why to consider the service. Verified workshop proof is still needed to substantiate willingness to pay. |
+| Motion            | Finite scene progression, explicit reply/cancellation states, manual stage selection, pause/replay, offscreen pause and reduced-motion access. No looping spectacle.        |
+| SME buyer         | Existing workshop system retained; setup and reception responsibilities explained. No universal integration or automatic booking claim.                                     |
+| Buyer psychology  | Customer replies stop the chase. Review requests remain neutral. Price framing is simple while preserving its revenue-only meaning.                                         |
+| AI-slop critic    | Removed nested containers, oversized month cards, generic dark launch columns, decorative numbering and overbuilt calculations. No fabricated performance claims.           |
 
 ## Validation
 
-Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser assertions checked calculator rounding and exact boundaries, both plan scopes, empty/zero/negative inputs, local font loading, acknowledgement, reply cancellation, manual/play transitions, reduced-motion states, original page rendering and no page errors. No horizontal document overflow at 320, 390, 768, 1024 or 1440 pixels. Mobile enquiry and estimate scene heights were checked at 390px. Each V2 section was inspected on desktop/mobile; comparison renders included the homepage final CTA and Customer Marketing hero/scene.
+Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks cover local font loading, revenue calculation for both plans, empty/zero and very large job values, scope text, enquiry acknowledgement, quote reminder cancellation, manual stage selection, playback and reduced motion, original page rendering and page errors. No horizontal document overflow at 320, 390, 768, 1024 or 1440 pixels. Every section was rendered and visually inspected at 390 and 1440 pixels, with additional scene-state checks.
 
-Both pages remain review drafts with noindex and sitemap exclusion. No booking form was submitted. Workflow illustrations do not validate a real workshop integration or demonstrate measured conversion uplift.
+Comparison references were the Customer Marketing hero/scene and homepage launch/final CTA. Inter Tight and Manrope remain locally served under page-scoped aliases. No booking form was submitted.
