@@ -26,6 +26,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
+import { Route as IndustriesDentalRouteImport } from './routes/industries/dental'
 import { Route as IndustriesMechanicsRouteImport } from './routes/industries/mechanics'
 import { Route as IndustriesMechanicsV2RouteImport } from './routes/industries/mechanics-v2'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -119,6 +120,11 @@ const ConceptCinematicFollowThroughV6Route =
     path: '/concept/cinematic-follow-through-v6',
     getParentRoute: () => rootRouteImport,
   } as any)
+const IndustriesDentalRoute = IndustriesDentalRouteImport.update({
+  id: '/industries/dental',
+  path: '/industries/dental',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesMechanicsRoute = IndustriesMechanicsRouteImport.update({
   id: '/industries/mechanics',
   path: '/industries/mechanics',
@@ -154,6 +160,7 @@ export interface FileRoutesByFullPath {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -176,6 +183,7 @@ export interface FileRoutesByTo {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -199,6 +207,7 @@ export interface FileRoutesById {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -223,6 +232,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
     | '/.mcp/invoke-tool/$tool'
@@ -245,6 +255,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
     | '/.mcp/invoke-tool/$tool'
@@ -267,6 +278,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
     | '/.mcp/invoke-tool/$tool'
@@ -290,6 +302,7 @@ export interface RootRouteChildren {
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
+  IndustriesDentalRoute: typeof IndustriesDentalRoute
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
   IndustriesMechanicsV2Route: typeof IndustriesMechanicsV2Route
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -416,6 +429,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/industries/dental': {
+      id: '/industries/dental'
+      path: '/industries/dental'
+      fullPath: '/industries/dental'
+      preLoaderRoute: typeof IndustriesDentalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/mechanics': {
       id: '/industries/mechanics'
       path: '/industries/mechanics'
@@ -459,6 +479,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareZaplaVsPipedriveRoute: CompareZaplaVsPipedriveRoute,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
+  IndustriesDentalRoute: IndustriesDentalRoute,
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
   IndustriesMechanicsV2Route: IndustriesMechanicsV2Route,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,

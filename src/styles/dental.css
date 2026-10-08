@@ -1,0 +1,701 @@
+@font-face {
+  font-family: "Dental Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/concept/industries/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Dental Body";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Dental Body";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-600-normal.woff2") format("woff2");
+}
+.dental-page {
+  background: #fcfcfa;
+  color: #111318;
+  font:
+    15px "Dental Body",
+    Manrope,
+    sans-serif;
+  overflow: clip;
+}
+.dental-page * {
+  box-sizing: border-box;
+}
+.dental-page h1,
+.dental-page h2,
+.dental-page h3 {
+  font-family: "Dental Display", "Inter Tight", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
+  margin: 0;
+}
+.dental-page h2 {
+  font-size: clamp(36px, 3.8vw, 54px);
+}
+.dental-page p {
+  margin: 0;
+  line-height: 1.75;
+}
+.dental-page a {
+  color: inherit;
+}
+.dental-page strong {
+  font-weight: 600;
+}
+.dental-page :is(a, button, summary):focus-visible {
+  outline: 2px solid #2563ff;
+  outline-offset: 5px;
+}
+.dn-wrap {
+  max-width: 1280px;
+  margin: auto;
+  padding-inline: 40px;
+}
+.dental-page .dn-label {
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #695e50;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+.dn-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px;
+  align-items: center;
+  padding-top: 140px;
+  padding-bottom: 100px;
+}
+.dn-hero h1 {
+  font-size: clamp(46px, 4.55vw, 65px);
+}
+.dn-hero h1 span {
+  color: #596947;
+}
+.dental-page .dn-intro {
+  font-size: 16px;
+  max-width: 465px;
+  color: #5f655f;
+  margin-top: 26px;
+}
+.dn-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.dn-button {
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 999px;
+  padding: 0 26px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.dental-page .dn-primary {
+  color: #fcfcfa;
+  background: #1e2b29;
+}
+.dn-primary:hover {
+  background: #35443e;
+}
+.dn-secondary {
+  background: white;
+  border: 1px solid #ded8ce;
+}
+.dn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+.dn-link:hover {
+  color: #2563ff;
+}
+.dn-copy > .dn-link {
+  border-bottom: 1px solid #bfc6b6;
+  margin-top: 20px;
+}
+.dental-page .dn-hero-boundary {
+  font-size: 12px;
+  color: #5f655f;
+  margin-top: 22px;
+  max-width: 390px;
+}
+.dn-hero-scene {
+  position: relative;
+  padding-bottom: 26px;
+  min-width: 0;
+}
+.dn-hero-scene > img {
+  width: 100%;
+  height: 530px;
+  object-fit: cover;
+  object-position: 61% center;
+  border-radius: 26px;
+  display: block;
+}
+.dn-glass {
+  background: rgba(252, 252, 250, 0.91);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 0 0 1px #1e2b2930,
+    0 14px 35px #1e2b291a;
+  backdrop-filter: blur(6px);
+  border-radius: 18px;
+}
+.dn-hero-note {
+  position: absolute;
+  bottom: 0;
+  left: -26px;
+  width: 292px;
+  padding: 22px;
+}
+.dn-note-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #536247;
+}
+.dn-hero-note > p {
+  font-size: 15px;
+  margin-top: 14px;
+}
+.dn-note-result {
+  font-size: 12px;
+  color: #536247;
+  margin-top: 14px;
+  line-height: 1.6;
+}
+.dn-gap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  padding-block: 0 90px;
+}
+.dn-gap h2 {
+  font-size: clamp(32px, 3vw, 42px);
+}
+.dn-gap-rows p {
+  border-bottom: 1px solid #dedfd5;
+  padding: 17px 0;
+  font-size: 14px;
+  color: #5f655f;
+}
+.dn-gap-rows p:first-child {
+  padding-top: 0;
+}
+.dn-gap-rows span {
+  display: block;
+  color: #111318;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.dn-split,
+.dn-return {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+  padding-block: 76px;
+  scroll-margin-top: 80px;
+}
+#patient-flow {
+  scroll-margin-top: 75px;
+}
+.dn-copy > p:not(.dn-label) {
+  color: #5f655f;
+  margin-top: 22px;
+  max-width: 465px;
+}
+.dn-copy > .dn-aside {
+  border-left: 2px solid #b6c09b;
+  padding-left: 18px;
+  font-size: 13px;
+}
+.dn-aside a {
+  text-underline-offset: 3px;
+}
+.dn-dialogue {
+  padding: 30px;
+  border-radius: 26px;
+  min-width: 0;
+  background: #e2e4d2;
+}
+.dental-page .dn-scene-heading {
+  font-size: 13px;
+  color: #4f5947;
+  font-weight: 600;
+  margin-bottom: 26px;
+}
+.dn-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 20px;
+  transition: opacity 0.22s;
+}
+.dn-message > div {
+  flex: 1;
+  min-width: 0;
+}
+.dn-message strong {
+  display: block;
+  font-size: 12px;
+  color: #4f5947;
+  margin: 0 0 9px;
+}
+.dn-bubble {
+  background: #fcfcfa;
+  border: 1px solid #d0d4c8;
+  border-radius: 4px 18px 18px 18px;
+  padding: 18px 20px;
+  box-shadow: 0 6px 20px #1e2b2905;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.dn-outgoing {
+  margin-left: 22px;
+}
+.dn-avatar {
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: url("/concept/revenue/soft-autumn-portraits-v1.webp") 60% 33.333% / 600% 400%;
+}
+.dn-petal {
+  flex-shrink: 0;
+  width: 31px;
+  display: flex;
+  justify-content: center;
+}
+.dn-hidden {
+  opacity: 0;
+}
+.dn-visible {
+  opacity: 1;
+}
+.dental-page .dn-handoff {
+  margin: 20px 0 0 42px;
+  color: #3d5036;
+  font-size: 12px;
+  line-height: 1.5;
+  transition: opacity 0.22s;
+}
+.dn-follow {
+  background: #f7f2ea;
+}
+.dn-follow .dn-copy h2 span {
+  color: #9f5c48;
+}
+.dn-follow-scene {
+  background: #efe2d2;
+}
+.dn-follow-context {
+  border-bottom: 1px solid #b9a994;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 13px;
+  color: #695e50;
+}
+.dn-follow-context strong {
+  color: #493f34;
+}
+.dn-return {
+  padding-block: 90px;
+}
+.dn-return-scene {
+  background: #e5e0eb;
+}
+.dn-audience {
+  padding: 20px;
+  background: #fcfcfa;
+  border: 1px solid #cfc6d8;
+  border-radius: 16px;
+  margin-bottom: 25px;
+}
+.dn-audience > span {
+  font-size: 12px;
+  color: #685b73;
+}
+.dn-audience > strong {
+  display: block;
+  font-size: 16px;
+  margin-top: 6px;
+}
+.dn-audience > p {
+  font-size: 12px;
+  color: #5f655f;
+  margin-top: 8px;
+}
+.dn-boundary {
+  background: #1e2b29;
+  color: #fcfcfa;
+  padding-block: 76px;
+}
+.dn-boundary .dn-label {
+  color: #cbcdad;
+}
+.dn-boundary h2 {
+  max-width: 800px;
+}
+.dn-boundary h2 span {
+  color: #cbcdad;
+}
+.dn-responsibilities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-top: 42px;
+}
+.dn-responsibilities > div {
+  border-top: 1px solid #788479;
+  padding-top: 24px;
+}
+.dn-responsibilities h3 {
+  font-size: 24px;
+  letter-spacing: -0.025em;
+}
+.dn-responsibilities p {
+  font-size: 15px;
+  color: #dbdfd5;
+  margin-top: 15px;
+  max-width: 470px;
+}
+.dental-page .dn-boundary-note {
+  font-size: 13px;
+  color: #dbdfd5;
+  max-width: 820px;
+  margin-top: 32px;
+}
+.dn-launch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding-block: 90px;
+}
+.dn-launch-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dn-launch-list li {
+  display: flex;
+  gap: 22px;
+  border-bottom: 1px solid #dedfd5;
+  padding: 25px 0;
+}
+.dn-launch-list li:first-child {
+  padding-top: 0;
+}
+.dn-launch-list li > span {
+  font:
+    22px "Dental Display",
+    sans-serif;
+  color: #9f5c48;
+}
+.dn-launch-list h3 {
+  font-size: 25px;
+  letter-spacing: -0.025em;
+}
+.dn-launch-list p {
+  font-size: 14px;
+  color: #5f655f;
+  margin-top: 12px;
+}
+.dn-value {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  padding-block: 45px 80px;
+  border-bottom: 1px solid #dedfd5;
+}
+.dn-value h2 {
+  font-size: clamp(34px, 3.2vw, 45px);
+}
+.dn-value > div > p:not(.dn-label) {
+  max-width: 460px;
+  color: #5f655f;
+}
+.dental-page .dn-value-note {
+  font-size: 12px;
+  margin-top: 18px;
+}
+.dn-value .dn-link {
+  margin-top: 14px;
+}
+.dn-faq {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 80px;
+  padding-block: 88px;
+}
+.dn-faq h2 {
+  font-size: clamp(36px, 3.5vw, 48px);
+}
+.dn-faq details {
+  border-bottom: 1px solid #dedfd5;
+}
+.dn-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 21px 0;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.dn-faq summary::-webkit-details-marker {
+  display: none;
+}
+.dn-faq summary svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.dn-faq details[open] svg {
+  transform: rotate(180deg);
+}
+.dn-faq details p {
+  color: #5f655f;
+  font-size: 14px;
+  padding-bottom: 22px;
+}
+.dn-final {
+  text-align: center;
+  padding-block: 25px 70px;
+}
+.dn-final-petal {
+  background: #111318;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+.dn-final h2 {
+  font-size: clamp(38px, 4.5vw, 64px);
+}
+.dn-final > p {
+  max-width: 680px;
+  color: #5f655f;
+  font-size: 16px;
+  margin: 23px auto 0;
+}
+.dn-final .dn-actions {
+  justify-content: center;
+}
+@media (max-width: 1100px) {
+  .dn-hero {
+    gap: 40px;
+  }
+  .dn-hero h1 {
+    font-size: 50px;
+  }
+  .dn-hero-scene > img {
+    height: 500px;
+  }
+  .dn-split,
+  .dn-return,
+  .dn-launch,
+  .dn-gap,
+  .dn-value,
+  .dn-faq {
+    gap: 40px;
+  }
+  .dn-wrap {
+    padding-inline: 30px;
+  }
+  .dn-dialogue {
+    padding: 24px;
+  }
+  .dn-outgoing {
+    margin-left: 10px;
+  }
+  .dn-bubble {
+    padding: 16px;
+  }
+  .dn-follow-context {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+@media (max-width: 800px) {
+  .dn-wrap {
+    padding-inline: 24px;
+  }
+  .dn-hero {
+    grid-template-columns: 1fr;
+    padding-top: 108px;
+    padding-bottom: 60px;
+    gap: 32px;
+  }
+  .dn-hero h1 {
+    font-size: clamp(40px, 8vw, 58px);
+  }
+  .dn-hero h1 span br {
+    display: none;
+  }
+  .dental-page .dn-label {
+    font-size: 10px;
+    margin-bottom: 16px;
+  }
+  .dn-hero-scene > img {
+    height: 400px;
+    object-position: 65% center;
+  }
+  .dn-hero-note {
+    left: 12px;
+    width: min(290px, calc(100% - 24px));
+    padding: 20px;
+  }
+  .dn-hero-boundary {
+    max-width: 100%;
+  }
+  .dn-gap,
+  .dn-split,
+  .dn-return,
+  .dn-launch,
+  .dn-value,
+  .dn-faq,
+  .dn-responsibilities {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .dn-gap {
+    padding-bottom: 25px;
+  }
+  .dn-gap h2 {
+    font-size: 34px;
+  }
+  .dn-split,
+  .dn-return {
+    padding-block: 45px;
+  }
+  .dn-split > .dn-copy {
+    order: -1;
+  }
+  .dental-page h2 {
+    font-size: clamp(34px, 7.8vw, 44px);
+  }
+  .dn-copy > p:not(.dn-label) {
+    margin-top: 18px;
+  }
+  .dn-dialogue {
+    padding: 22px;
+  }
+  .dn-outgoing {
+    margin-left: 10px;
+  }
+  .dn-message {
+    gap: 9px;
+  }
+  .dn-bubble {
+    padding: 16px;
+    font-size: 14px;
+  }
+  .dental-page .dn-handoff {
+    margin-left: 40px;
+  }
+  .dn-boundary {
+    padding-block: 50px;
+  }
+  .dn-boundary h2 {
+    font-size: 36px;
+  }
+  .dn-responsibilities {
+    gap: 28px;
+    margin-top: 30px;
+  }
+  .dn-launch {
+    padding-block: 55px;
+  }
+  .dn-value {
+    padding-block: 18px 48px;
+  }
+  .dn-faq {
+    padding-block: 50px;
+  }
+  .dn-faq summary {
+    font-size: 14px;
+  }
+  .dn-final {
+    padding-block: 20px 50px;
+  }
+  .dn-final h2 {
+    font-size: clamp(36px, 8vw, 48px);
+  }
+  .dn-final .dn-button {
+    width: 100%;
+  }
+  .dn-final .dn-actions {
+    gap: 12px;
+  }
+  .dn-final > p {
+    font-size: 15px;
+  }
+  .dn-hero .dn-actions {
+    gap: 12px;
+  }
+  .dn-hero .dn-link {
+    font-size: 12px;
+  }
+}
+@media (max-width: 380px) {
+  .dn-wrap {
+    padding-inline: 20px;
+  }
+  .dn-dialogue {
+    padding: 18px;
+  }
+  .dn-message {
+    gap: 7px;
+  }
+  .dn-outgoing {
+    margin-left: 0;
+  }
+  .dn-bubble {
+    padding: 14px;
+  }
+  .dn-hero-scene > img {
+    height: 380px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dental-page * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
