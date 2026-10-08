@@ -352,11 +352,6 @@ function QuoteSceneV2() {
           </p>
         </div>
       </div>
-      <p className="m2-quote-stop">
-        {scene.step >= 2
-          ? "Mia’s question reaches your team. Further reminders stop."
-          : "Follow-up continues only while the quote is unanswered."}
-      </p>
     </div>
   );
 }
