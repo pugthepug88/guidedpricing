@@ -82,9 +82,9 @@ function CustomerMarketingPage() {
     >
       <Hero />
       <SignalScene />
-      <CustomerEvidence />
       <MomentScene />
       <CampaignScene />
+      <CustomerEvidence />
       <Faq />
       <GrowthCta />
     </main>
@@ -574,25 +574,17 @@ function SignalScene() {
   );
 }
 
+// Evidence record retained for maintainers; no public source links or citations.
+// Twilio, Blueprint for SMS Marketing, updated April 26, 2022:
+// https://www.twilio.com/content/dam/twilio-com/global/en/10_resource_center/legacy/downloadable-assets/whitepaper/Blueprint%20for%20SMS%20Marketing.pdf
+// p. 3: published 98% SMS open and 90% read-within-three-minutes industry claims.
+// The guide does not establish their underlying methodology; SMS opens are not directly measurable.
+// p. 4: HomeFinder's 10x review likelihood for SMS vs email, a named case study, not Zapla performance.
 function CustomerEvidence() {
-  const source =
-    "https://www.twilio.com/content/dam/twilio-com/global/en/10_resource_center/legacy/downloadable-assets/whitepaper/Blueprint%20for%20SMS%20Marketing.pdf";
-  const sourceLink = (number: 1 | 2) => (
-    <sup className="ml-1 align-super text-[16px] font-medium tracking-normal">
-      <a
-        href={`#customer-marketing-source-${number}`}
-        aria-label={`Read source ${number}`}
-        className="rounded-sm underline decoration-current/40 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
-      >
-        {number}
-      </a>
-    </sup>
-  );
-
   return (
     <section
       aria-labelledby="customer-evidence-heading"
-      className="px-5 pt-12 pb-4 sm:px-10 sm:pt-16 lg:px-16"
+      className="px-5 pb-16 pt-2 sm:px-10 sm:pb-20 lg:px-16 lg:pb-24"
     >
       <div className="mx-auto max-w-[1240px]">
         <h2
@@ -624,51 +616,71 @@ function CustomerEvidence() {
               className="h-[260px] w-full object-cover sm:h-[380px]"
             />
           </div>
-          <div className="flex flex-col justify-center rounded-[26px] bg-[#BFAAD9] p-5 sm:p-6 lg:col-span-4 lg:px-8">
+          <div className="flex flex-col items-center justify-center rounded-[26px] bg-[#BFAAD9] p-5 sm:p-6 lg:col-span-4 lg:px-8">
             <p
               className="text-[44px] font-medium leading-none tracking-[-.065em] sm:text-[76px] lg:text-[88px]"
               style={{ fontFamily: DISPLAY }}
             >
-              98%{sourceLink(1)}
+              98%
             </p>
-            <p className="mt-3 text-[16px] font-medium leading-[1.35] sm:text-[19px]">
+            <p className="mt-3 text-center text-[16px] font-medium leading-[1.35] sm:text-[19px]">
               SMS open rate
             </p>
           </div>
-          <div className="flex flex-col justify-center rounded-[26px] bg-[#B7C58E] p-5 sm:p-6 lg:col-span-4 lg:px-8">
+          <div className="flex flex-col items-center justify-center rounded-[26px] bg-[#B7C58E] p-5 sm:p-6 lg:col-span-4 lg:px-8">
             <p
               className="text-[44px] font-medium leading-none tracking-[-.065em] sm:text-[76px] lg:text-[88px]"
               style={{ fontFamily: DISPLAY }}
             >
-              90%{sourceLink(1)}
+              90%
             </p>
-            <p className="mt-3 text-[16px] font-medium leading-[1.35] sm:text-[19px]">
+            <p className="mt-3 text-center text-[16px] font-medium leading-[1.35] sm:text-[19px]">
               Read within 3 minutes
             </p>
           </div>
-          <div className="col-span-2 flex flex-col justify-center rounded-[26px] bg-[#E97D62] p-7 lg:col-span-3 lg:p-8">
+          <div className="col-span-2 flex flex-col items-center justify-center rounded-[26px] bg-[#E97D62] p-7 lg:col-span-3 lg:p-8">
             <p
               className="text-[64px] font-medium leading-none tracking-[-.065em] lg:text-[72px] xl:text-[88px]"
               style={{ fontFamily: DISPLAY }}
             >
-              10×{sourceLink(2)}
+              10×
             </p>
-            <p className="mt-3 max-w-[230px] text-[19px] font-medium leading-[1.35]">
+            <p className="mt-3 max-w-[230px] text-center text-[19px] font-medium leading-[1.35]">
               More likely to leave a review
             </p>
-            <p className="mt-4 text-[13px] leading-[1.6] text-[#3E2923]">
+            <p className="mt-4 text-center text-[13px] leading-[1.6] text-[#3E2923]">
               HomeFinder: SMS vs email
             </p>
           </div>
-          <div className="col-span-2 flex flex-col justify-center gap-6 rounded-[26px] bg-[#F7F2EA] p-7 lg:col-span-3 lg:p-8">
-            {["A service is due.", "A relevant update.", "A new offer."].map((reason) => (
-              <p
-                key={reason}
-                className="text-[20px] font-medium leading-[1.3] tracking-[-.025em]"
-                style={{ fontFamily: DISPLAY }}
+          <div className="col-span-2 flex flex-col justify-center rounded-[26px] bg-[#F7F2EA] px-7 py-5 lg:col-span-3 lg:px-8">
+            {[
+              { text: "A service is due.", color: "#E97D62" },
+              { text: "A relevant update.", color: "#DDA34B" },
+              { text: "A new offer.", color: "#9B86B8" },
+            ].map((reason) => (
+              <div
+                key={reason.text}
+                className="flex items-center gap-3 border-b border-[#1E2B29]/10 py-5 last:border-b-0"
               >
-                {reason}
-              </p>
+                <svg
+                  width="19"
+                  height="25"
+                  viewBox="48 10 64 76"
+                  aria-hidden="true"
+                  className="shrink-0 -rotate-45"
+                >
+                  <path
+                    d="M80 14 C95 14 104 25 102 42 C100 58 92 70 80 82 C68 70 60 58 58 42 C56 25 65 14 80 14 Z"
+                    fill={reason.color}
+                  />
+                </svg>
+                <p
+                  className="text-[19px] font-medium leading-[1.3] tracking-[-.025em] lg:text-[18px] xl:text-[20px]"
+                  style={{ fontFamily: DISPLAY }}
+                >
+                  {reason.text}
+                </p>
+              </div>
             ))}
           </div>
           <div className="col-span-2 rounded-[26px] border border-[#D8DCD4] bg-white p-6 lg:col-span-6 sm:p-8">
@@ -685,32 +697,6 @@ function CustomerEvidence() {
               <p className="text-[15px] leading-[1.7]">Yes, Thursday works.</p>
             </div>
           </div>
-        </div>
-        <div className="mt-5 max-w-[1080px] text-[12px] leading-[1.8] text-[#69716B]">
-          <p id="customer-marketing-source-1" className="scroll-mt-28">
-            <span className="mr-1">¹</span>
-            <a
-              href={`${source}#page=3`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-[#69716B]/40 underline-offset-2"
-            >
-              Twilio, Blueprint for SMS Marketing, April 2022, p. 3.
-            </a>{" "}
-            Published industry figures; SMS opens are not directly measurable.
-          </p>
-          <p id="customer-marketing-source-2" className="scroll-mt-28">
-            <span className="mr-1">²</span>
-            <a
-              href={`${source}#page=4`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-[#69716B]/40 underline-offset-2"
-            >
-              HomeFinder case study in the same guide, p. 4.
-            </a>{" "}
-            A named customer result, not a Zapla performance claim.
-          </p>
         </div>
       </div>
     </section>
