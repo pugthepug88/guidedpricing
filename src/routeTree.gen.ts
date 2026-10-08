@@ -29,6 +29,7 @@ import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/co
 import { Route as IndustriesDentalRouteImport } from './routes/industries/dental'
 import { Route as IndustriesMechanicsRouteImport } from './routes/industries/mechanics'
 import { Route as IndustriesMechanicsV2RouteImport } from './routes/industries/mechanics-v2'
+import { Route as IndustriesTradesRouteImport } from './routes/industries/trades'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
 const IndexRoute = IndexRouteImport.update({
@@ -135,6 +136,11 @@ const IndustriesMechanicsV2Route = IndustriesMechanicsV2RouteImport.update({
   path: '/industries/mechanics-v2',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndustriesTradesRoute = IndustriesTradesRouteImport.update({
+  id: '/industries/trades',
+  path: '/industries/trades',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -163,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
+  '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -186,6 +193,7 @@ export interface FileRoutesByTo {
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
+  '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -210,6 +218,7 @@ export interface FileRoutesById {
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
+  '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
+    | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
+    | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -281,6 +292,7 @@ export interface FileRouteTypes {
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
+    | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -305,6 +317,7 @@ export interface RootRouteChildren {
   IndustriesDentalRoute: typeof IndustriesDentalRoute
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
   IndustriesMechanicsV2Route: typeof IndustriesMechanicsV2Route
+  IndustriesTradesRoute: typeof IndustriesTradesRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -450,6 +463,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesMechanicsV2RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/industries/trades': {
+      id: '/industries/trades'
+      path: '/industries/trades'
+      fullPath: '/industries/trades'
+      preLoaderRoute: typeof IndustriesTradesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -482,6 +502,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesDentalRoute: IndustriesDentalRoute,
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
   IndustriesMechanicsV2Route: IndustriesMechanicsV2Route,
+  IndustriesTradesRoute: IndustriesTradesRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport

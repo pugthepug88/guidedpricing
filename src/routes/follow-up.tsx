@@ -620,6 +620,12 @@ function UseCases() {
             />
           </Reveal>
         </div>
+        <a
+          href="/industries/trades"
+          className="mt-8 inline-flex min-h-[44px] items-center gap-2 text-[14px] font-semibold text-[#1E2B29] underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] focus-visible:ring-offset-4"
+        >
+          See follow-through for Trades &amp; Home Services <ArrowRight size={16} aria-hidden="true" />
+        </a>
       </div>
     </section>
   );
