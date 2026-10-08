@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight, Star, Wrench } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import mechanicsV2Css from "@/styles/mechanics-v2.css?url";
 
@@ -176,29 +176,33 @@ function MechanicsV2Page() {
               your workshop.
             </h2>
             <p>We map your process, build the agreed flows and get your team ready to use them.</p>
-            <ol className="m2-launch-steps">
-              <li>
-                <strong>Map</strong>
-                <span>Choose the customer steps worth fixing.</span>
-              </li>
-              <li>
-                <strong>Build</strong>
-                <span>Connect the information and agree who acts next.</span>
-              </li>
-              <li>
-                <strong>Launch</strong>
-                <span>Test the journey and train your team.</span>
-              </li>
-            </ol>
+            <p>You decide what runs automatically and what comes back to reception.</p>
             <ActionLink href="/Pricing-v3">Explore plans and Guided Launch</ActionLink>
           </div>
-          <img
-            src="/concept/guided-launch-natural-v6-760.webp"
-            width="760"
-            height="570"
-            alt="A business owner and launch specialist working through the setup together"
-            loading="lazy"
-          />
+          <div className="m2-launch-plan" aria-label="Illustrative workshop launch plan">
+            <div className="m2-launch-plan-heading">
+              <Wrench size={21} aria-hidden="true" />
+              <span>Your workshop launch plan</span>
+            </div>
+            <h3>
+              Start with the gaps
+              <br />
+              in your workshop.
+            </h3>
+            <div className="m2-launch-plan-row">
+              <strong>Quotes going quiet</strong>
+              <p>Agree when to follow up and when to stop.</p>
+            </div>
+            <div className="m2-launch-plan-row">
+              <strong>Customers due back</strong>
+              <p>Choose the service dates and reminder timing.</p>
+            </div>
+            <div className="m2-launch-plan-row">
+              <strong>Reception taking over</strong>
+              <p>Test the reply and booking handoff together.</p>
+            </div>
+            <span className="m2-launch-plan-note">Example plan. Built around your team.</span>
+          </div>
         </div>
       </section>
 
@@ -278,7 +282,7 @@ function EnquiryScene() {
         <span className="m2-person-avatar" />
         <div className="m2-dialogue-content">
           <strong>Mia Thompson</strong>
-          <p className="m2-dialogue-bubble">
+          <p className="m2-glass m2-dialogue-bubble">
             Hi, my brakes have started squeaking. Could you take a look this week? It’s a 2019 RAV4.
           </p>
         </div>
@@ -292,7 +296,7 @@ function EnquiryScene() {
         </span>
         <div className="m2-dialogue-content">
           <strong>Your workshop · Automated reply</strong>
-          <p className="m2-dialogue-bubble">
+          <p className="m2-glass m2-dialogue-bubble">
             Thanks Mia, we’ve received your request. Reception will check availability and confirm a
             time with you.
           </p>
@@ -402,31 +406,59 @@ function ReturnScene() {
     </div>
   );
 }
-const REVIEW_STAGES = ["Service completed", "Invitation sent"];
+const REVIEW_STAGES = ["Service completed", "Invitation sent", "Review screen"];
+function GoogleWordmark() {
+  return (
+    <span className="m2-google-wordmark" aria-label="Google">
+      <span>G</span>
+      <span>o</span>
+      <span>o</span>
+      <span>g</span>
+      <span>l</span>
+      <span>e</span>
+    </span>
+  );
+}
 function ReviewScene() {
-  const scene = useScene(REVIEW_STAGES, [1600]);
+  const scene = useScene(REVIEW_STAGES, [1400, 1400]);
   return (
     <section className="m2-reviews m2-wrap" aria-labelledby="review-title">
       <div ref={scene.ref} className="m2-review-scene" data-step={scene.step}>
         <div className="m2-review-completed">
-          <div className="m2-customer-heading">
-            <span className="m2-person-avatar" />
-            <div>
-              <strong>Mia’s RAV4</strong>
-              <span>Service completed</span>
-            </div>
+          <span className="m2-person-avatar" />
+          <span>
+            Mia’s RAV4 <strong>Service completed</strong>
+          </span>
+        </div>
+        <div className="m2-review-message">
+          <span className="m2-zapla-avatar">
+            <ZaplaPetal />
+          </span>
+          <div className="m2-glass m2-review-invitation">
+            <span className="m2-review-sender">
+              Your workshop · {scene.step >= 1 ? "Invitation sent" : "Invitation prepared"}
+            </span>
+            <p>Thanks for bringing your RAV4 in, Mia. Would you share your experience on Google?</p>
+            <span className="m2-google-link">
+              Leave a Google review <ArrowRight size={15} aria-hidden="true" />
+            </span>
           </div>
         </div>
-        <span className="m2-review-connector" aria-hidden="true" />
-        <div className={`m2-review-invitation ${scene.step >= 1 ? "is-sent" : ""}`}>
-          <div className="m2-overlay-heading">
-            <span>{scene.step >= 1 ? "Review invitation sent" : "Review invitation prepared"}</span>
-            <ZaplaPetal />
+        <div
+          className={`m2-glass m2-google-review-screen ${scene.step >= 2 ? "is-visible" : ""}`}
+          aria-hidden={scene.step < 2}
+        >
+          <GoogleWordmark />
+          <h3>How was your visit?</h3>
+          <div
+            className="m2-google-stars"
+            aria-label="Five unselected rating stars in an illustrative review screen"
+          >
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star key={star} size={28} strokeWidth={1.6} aria-hidden="true" />
+            ))}
           </div>
-          <p>Thanks for bringing your RAV4 in, Mia. Would you share your experience on Google?</p>
-          <span className="m2-google-link">
-            Leave a Google review <ArrowRight size={15} aria-hidden="true" />
-          </span>
+          <span className="m2-google-write">Share your experience</span>
         </div>
       </div>
       <div className="m2-scene-copy">
@@ -442,7 +474,7 @@ function ReviewScene() {
         </p>
         <ActionLink href="/reviews">Explore review automation</ActionLink>
         <p className="m2-demo-note">
-          Illustrative invitation. The completion trigger and timing are agreed during setup.
+          Example invitation and review screen. Timing is agreed during setup.
         </p>
       </div>
     </section>
@@ -528,9 +560,7 @@ function WorkshopCostCheck() {
         </div>
       </div>
       <p className="m2-cost-disclosure">
-        Revenue comparison, not profit or break-even. Excludes job costs, GST, usage and setup.{" "}
-        {plan.name} setup starts at {money(plan.setup)} + GST. <a href="/Pricing-v3">See pricing</a>
-        .
+        Monthly plan only. GST, usage and setup extra. <a href="/Pricing-v3">View pricing</a>.
       </p>
     </section>
   );
