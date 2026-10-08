@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronRight, Star, Wrench } from "lucide-react";
+import { ArrowRight, ChevronRight, Star } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import mechanicsV2Css from "@/styles/mechanics-v2.css?url";
 
@@ -109,43 +109,33 @@ function MechanicsV2Page() {
         </section>
 
         <section className="m2-estimate-section" aria-labelledby="estimate-title">
-          <div className="m2-wrap">
-            <div className="m2-estimate-intro">
-              <div>
-                <Eyebrow>After the quote goes out</Eyebrow>
-                <h2 id="estimate-title">
-                  A quote sent isn’t
-                  <br />a decision made.
-                </h2>
-              </div>
-              <div>
-                <p>
-                  You’ve inspected the car and sent the quote. Zapla follows up while the decision
-                  is open, then stops the reminders when the customer replies.
-                </p>
-                <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
-              </div>
+          <div className="m2-wrap m2-quote-layout">
+            <div className="m2-scene-copy">
+              <Eyebrow>After the quote goes out</Eyebrow>
+              <h2 id="estimate-title">Follow up quotes before they go cold.</h2>
+              <p>
+                Zapla follows up unanswered quotes, gives customers an easy way to ask questions,
+                and brings replies back to reception so your team can agree the next step.
+              </p>
+              <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
             </div>
             <QuoteSceneV2 />
-            <p className="m2-demo-note">
-              Illustrative workshop flows. Triggers, data connections and handoffs are agreed during
-              setup. Quotes stay in your workshop system.
-            </p>
           </div>
         </section>
 
         <section className="m2-return m2-wrap" aria-labelledby="return-title">
           <div className="m2-scene-copy">
-            <Eyebrow>Long after the keys go back</Eyebrow>
-            <h2 id="return-title">Bring customers back for their next service.</h2>
+            <Eyebrow>Service and inspection reminders</Eyebrow>
+            <h2 id="return-title">The right reminder. Before the next service is due.</h2>
             <p>
-              A timely reminder gives an existing customer a reason to return. Use the right
-              vehicle’s service date, then pick up the conversation when they reply.
+              Use each vehicle’s recorded due dates to send automatic reminders for its next service
+              or, for NSW customers, its pink slip inspection. Give customers a specific reason to
+              book, at the time it matters.
             </p>
             <ActionLink href="/customer-marketing">Explore Customer Marketing</ActionLink>
             <p className="m2-return-support">
-              For customers you haven’t heard from, an agreed{" "}
-              <a href="/reactivation">reactivation campaign</a> can reopen the conversation.
+              Reconnect with customers you haven’t heard from through a relevant{" "}
+              <a href="/reactivation">reactivation campaign</a>.
             </p>
           </div>
           <ReturnScene />
@@ -181,7 +171,6 @@ function MechanicsV2Page() {
           </div>
           <div className="m2-launch-plan" aria-label="Illustrative workshop launch plan">
             <div className="m2-launch-plan-heading">
-              <Wrench size={21} aria-hidden="true" />
               <span>Your workshop launch plan</span>
             </div>
             <h3>
@@ -201,12 +190,11 @@ function MechanicsV2Page() {
               <strong>Reception taking over</strong>
               <p>Test the reply and booking handoff together.</p>
             </div>
-            <span className="m2-launch-plan-note">Example plan. Built around your team.</span>
           </div>
         </div>
       </section>
 
-      <WorkshopCostCheck />
+      <WorkshopPlans />
 
       <section className="m2-final m2-wrap" aria-labelledby="final-title">
         <span className="m2-final-petal">
@@ -314,52 +302,53 @@ function QuoteSceneV2() {
   const scene = useScene(QUOTE_STAGES, [1400, 1400, 1400]);
   return (
     <div ref={scene.ref} className="m2-quote-scene" data-step={scene.step}>
-      <div className="m2-quote-composition">
-        <div className="m2-quote-paper">
-          <div className="m2-customer-heading">
-            <span className="m2-person-avatar" />
-            <div>
-              <strong>Mia Thompson</strong>
-              <span>2019 Toyota RAV4</span>
-            </div>
-          </div>
-          <div className="m2-quote-job">
-            <span>Workshop quote</span>
-            <h3>Brake work</h3>
-            <p>
-              {scene.step >= 2
-                ? "Sent to Mia. Her response is with reception."
-                : "Sent to Mia. Waiting for her decision."}
-            </p>
-          </div>
-          <div className={`m2-quote-state ${scene.step >= 2 ? "has-reply" : ""}`}>
-            <span>Customer response</span>
-            <strong>{scene.step >= 2 ? "Mia replied" : "Still open"}</strong>
-            <p>
-              {scene.step >= 2
-                ? "“Can I drop the car off on Thursday?”"
-                : "The next step shouldn’t depend on another phone call."}
-            </p>
+      <div className="m2-glass m2-quote-summary">
+        <div className="m2-customer-heading">
+          <span className="m2-person-avatar" />
+          <div>
+            <strong>Mia Thompson</strong>
+            <span>2019 Toyota RAV4</span>
           </div>
         </div>
-        <div className="m2-quote-action">
-          <span className="m2-quote-connector" aria-hidden="true" />
-          <div className="m2-quote-followup">
-            <ZaplaPetal />
-            <span>{scene.step >= 1 ? "Follow-up sent" : "Follow-up agreed"}</span>
-          </div>
-          <h3>{scene.step >= 2 ? "The reply stops the chase." : "Give the quote a next step."}</h3>
-          <div className={`m2-next-reminder ${scene.step >= 2 ? "is-cancelled" : ""}`}>
-            <span>Next reminder</span>
-            <strong>{scene.step >= 2 ? "Cancelled" : "Only if there’s no reply"}</strong>
-          </div>
-          <p className="m2-quote-owner">
-            {scene.step >= 3
-              ? "Reception checks Thursday and confirms with Mia."
-              : "Reception handles availability and the booking."}
+        <div className="m2-quote-jobline">
+          <strong>Brake work quote</strong>
+          <span>{scene.step >= 2 ? "Customer replied" : "Awaiting response"}</span>
+        </div>
+      </div>
+      <div
+        className={`m2-dialogue-row m2-quote-message ${scene.step >= 1 ? "is-visible" : ""}`}
+        aria-hidden={scene.step < 1}
+      >
+        <span className="m2-zapla-avatar">
+          <ZaplaPetal />
+        </span>
+        <div className="m2-dialogue-content">
+          <strong>Your workshop · Follow-up sent</strong>
+          <p className="m2-glass m2-dialogue-bubble">
+            Hi Mia, any questions about your brake quote? We’re happy to help with the next step.
           </p>
         </div>
       </div>
+      <div
+        className={`m2-dialogue-row m2-quote-reply ${scene.step >= 2 ? "is-visible" : ""}`}
+        aria-hidden={scene.step < 2}
+      >
+        <span className="m2-person-avatar" />
+        <div className="m2-dialogue-content">
+          <strong>Mia Thompson</strong>
+          <p className="m2-glass m2-dialogue-bubble">Can I drop the car off on Thursday?</p>
+        </div>
+      </div>
+      <p className="m2-quote-handoff">
+        {scene.step >= 3
+          ? "Reception checks Thursday and confirms with Mia."
+          : "Replies come back to reception to agree the next step."}
+      </p>
+      <p className="m2-quote-stop">
+        {scene.step >= 2
+          ? "Further reminders stop when Mia replies."
+          : "Follow-up continues only while the quote is unanswered."}
+      </p>
     </div>
   );
 }
@@ -464,104 +453,58 @@ function ReviewScene() {
       <div className="m2-scene-copy">
         <Eyebrow>After the job is done</Eyebrow>
         <h2 id="review-title">
-          Don’t leave the review
+          Let your good work
           <br />
-          to chance.
+          build your reputation.
         </h2>
         <p>
-          Send a Google review invitation after completed work, while the visit is still fresh. Make
-          it easy for customers to share an honest experience.
+          Automatically invite customers to leave a Google review after their visit. Make it easy
+          for them to share their experience and help the next customer feel confident choosing your
+          workshop.
         </p>
         <ActionLink href="/reviews">Explore review automation</ActionLink>
-        <p className="m2-demo-note">
-          Example invitation and review screen. Timing is agreed during setup.
-        </p>
       </div>
     </section>
   );
 }
 
-// Prices match Pricing-v3. This compares revenue, not profit or forecast results.
-const WORKSHOP_PLANS = {
-  follow: { name: "Follow-Through", monthly: 399, setup: 1997 },
-  growth: { name: "Growth", monthly: 699, setup: 2997 },
-} as const;
-function WorkshopCostCheck() {
-  const [planKey, setPlanKey] = useState<keyof typeof WORKSHOP_PLANS>("growth");
-  const [jobValue, setJobValue] = useState("");
-  const plan = WORKSHOP_PLANS[planKey];
-  const value = Number(jobValue);
-  const valid = jobValue.trim() !== "" && Number.isFinite(value) && value >= 0.01;
-  const equivalent = valid ? plan.monthly / value : null;
-  const money = (amount: number) => `A$${amount.toLocaleString("en-AU")}`;
+function WorkshopPlans() {
   return (
-    <section className="m2-cost m2-wrap" aria-labelledby="cost-title">
-      <div className="m2-cost-intro">
-        <Eyebrow>Put the monthly price in perspective</Eyebrow>
-        <h2 id="cost-title">
-          Put the price in
+    <section className="m2-plans m2-wrap" aria-labelledby="plans-title">
+      <div>
+        <Eyebrow>Monthly plans</Eyebrow>
+        <h2 id="plans-title">
+          Plans for
           <br />
-          workshop terms.
+          your workshop.
         </h2>
       </div>
-      <div className="m2-cost-tool">
-        <div className="m2-cost-fields">
-          <label htmlFor="workshop-plan">
-            Your plan
-            <select
-              id="workshop-plan"
-              value={planKey}
-              onChange={(event) => setPlanKey(event.target.value as keyof typeof WORKSHOP_PLANS)}
-            >
-              <option value="follow">Follow-Through · A$399/month</option>
-              <option value="growth">Growth · A$699/month</option>
-            </select>
-          </label>
-          <label htmlFor="workshop-job-value">
-            Average job value (A$)
-            <input
-              id="workshop-job-value"
-              type="number"
-              min="0.01"
-              step="any"
-              inputMode="decimal"
-              placeholder="What you typically charge"
-              value={jobValue}
-              onChange={(event) => setJobValue(event.target.value)}
-            />
-          </label>
-          <p className="m2-cost-scope">
-            {planKey === "growth"
-              ? "Growth includes proactive recall and reactivation."
-              : "Proactive recall and reactivation require Growth."}
-          </p>
+      <div className="m2-plan-options">
+        <div className="m2-plan-option">
+          <div>
+            <strong>Follow-Through</strong>
+            <p>Enquiries, open quotes and review requests.</p>
+          </div>
+          <span>
+            A$399<small>/month</small>
+          </span>
         </div>
-        <div className="m2-cost-result" aria-live="polite" aria-atomic="true">
-          {valid && equivalent !== null ? (
-            <>
-              <p>The monthly plan is equivalent to</p>
-              <strong>
-                {equivalent < 0.1
-                  ? "<0.1"
-                  : equivalent.toLocaleString("en-AU", { maximumFractionDigits: 1 })}
-                <span>average {equivalent === 1 ? "job" : "jobs"} in revenue</span>
-              </strong>
-              <p>
-                {money(plan.monthly)} monthly plan ÷ {money(value)} average job value.
-              </p>
-            </>
-          ) : (
-            <p>
-              {jobValue !== ""
-                ? "Enter an average job value of A$0.01 or more."
-                : "Enter your average job value to compare."}
-            </p>
-          )}
+        <div className="m2-plan-option">
+          <div>
+            <strong>Growth</strong>
+            <p>Add service reminders and customer reactivation.</p>
+          </div>
+          <span>
+            A$699<small>/month</small>
+          </span>
         </div>
+        <p className="m2-plan-note">
+          GST, usage and setup extra.{" "}
+          <a href="/Pricing-v3">
+            Compare plans and inclusions <ArrowRight size={14} aria-hidden="true" />
+          </a>
+        </p>
       </div>
-      <p className="m2-cost-disclosure">
-        Monthly plan only. GST, usage and setup extra. <a href="/Pricing-v3">View pricing</a>.
-      </p>
     </section>
   );
 }
