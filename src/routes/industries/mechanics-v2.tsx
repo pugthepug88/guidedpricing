@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, Check, ChevronRight, Pause, Play, RotateCcw } from "lucide-react";
+import { ArrowRight, ChevronRight, Pause, Play, RotateCcw } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import mechanicsV2Css from "@/styles/mechanics-v2.css?url";
 
@@ -11,8 +11,18 @@ export const Route = createFileRoute("/industries/mechanics-v2")({
     links: [
       { rel: "stylesheet", href: mechanicsV2Css },
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&display=swap",
+        rel: "preload",
+        href: "/concept/industries/fonts/inter-tight-latin-500-normal.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/concept/industries/fonts/manrope-latin-400-normal.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
     ],
     meta: [
@@ -256,9 +266,9 @@ function MechanicsV2Page() {
           <ZaplaPetal />
         </span>
         <h2 id="final-title">
-          Find the customer work
+          Find the follow-up
           <br />
-          slipping through your workshop.
+          your workshop is missing.
         </h2>
         <p>
           We’ll look at unanswered enquiries, outstanding estimates and upcoming services, then
@@ -279,6 +289,7 @@ function MechanicsV2Page() {
 }
 
 const ESTIMATE_STAGES = ["Estimate sent", "Reminder sent", "Reply received", "Team takes over"];
+const HERO_STAGES = ["New enquiry", "Details captured", "Reception takes over"];
 const ENQUIRY_STAGES = ["Customer asks", "Request acknowledged", "Reception takes over"];
 const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
 
@@ -322,40 +333,22 @@ function useScene(stages: string[], timings: number[]) {
   };
 }
 type Scene = ReturnType<typeof useScene>;
-function SceneControls({
-  scene,
-  stages,
-  name,
-  compact = false,
-}: {
-  scene: Scene;
-  stages: string[];
-  name: string;
-  compact?: boolean;
-}) {
+function SceneControls({ scene, stages, name }: { scene: Scene; stages: string[]; name: string }) {
   return (
-    <div
-      className={`m2-controls ${compact ? "m2-controls-compact" : ""}`}
-      aria-label={`${name} demonstration controls`}
-    >
-      {!compact && (
-        <div className="m2-scene-stages">
-          {stages.map((stage, i) => (
-            <button
-              key={stage}
-              type="button"
-              aria-label={`${name}: ${stage}`}
-              aria-pressed={scene.step === i}
-              className={scene.step === i ? "is-current" : scene.step > i ? "is-complete" : ""}
-              onClick={() => scene.select(i)}
-            >
-              {stage}
-            </button>
-          ))}
-        </div>
-      )}
+    <div className="m2-controls" aria-label={`${name} demonstration controls`}>
+      <select
+        className="m2-stage-select"
+        aria-label={`Review ${name} stage`}
+        value={scene.step}
+        onChange={(event) => scene.select(Number(event.target.value))}
+      >
+        {stages.map((stage, i) => (
+          <option key={stage} value={i}>
+            {stage}
+          </option>
+        ))}
+      </select>
       <div className="m2-playback">
-        <span>{stages[scene.step]}</span>
         {scene.step < scene.last && !scene.reduced ? (
           <button
             type="button"
@@ -375,7 +368,7 @@ function SceneControls({
   );
 }
 function HeroEnquiry() {
-  const scene = useScene(ENQUIRY_STAGES, [1800, 2100]);
+  const scene = useScene(HERO_STAGES, [1800, 2100]);
   return (
     <div ref={scene.ref} className="m2-hero-event" data-step={scene.step}>
       <div className="m2-hero-event-body">
@@ -390,14 +383,10 @@ function HeroEnquiry() {
           <strong>2019 Toyota RAV4</strong>
         </div>
         <div className={`m2-hero-next ${scene.step >= 2 ? "is-revealed" : ""}`}>
-          <span className="m2-owner-initials">WR</span>
-          <div>
-            <strong>Reception to confirm a time</strong>
-            <span>Request captured. Team owns the booking.</span>
-          </div>
+          <strong>Reception to confirm a time</strong>
         </div>
       </div>
-      <SceneControls scene={scene} stages={ENQUIRY_STAGES} name="hero enquiry" compact />
+      <SceneControls scene={scene} stages={HERO_STAGES} name="hero enquiry" />
     </div>
   );
 }
@@ -415,15 +404,6 @@ function EnquiryScene() {
       <blockquote>
         “My brakes have started squeaking. Could you take a look this week? It’s a 2019 RAV4.”
       </blockquote>
-      <div className="m2-capture-bridge">
-        <span className={scene.step >= 1 ? "is-filled" : ""} />
-        <ZaplaPetal />
-        <p>
-          {scene.step === 0
-            ? "A customer starts the conversation"
-            : "The useful details stay together"}
-        </p>
-      </div>
       <div
         className={`m2-enquiry-ack ${scene.step >= 1 ? "is-revealed" : ""}`}
         aria-hidden={scene.step < 1}
@@ -437,134 +417,78 @@ function EnquiryScene() {
       <div className={`m2-enquiry-record ${scene.step >= 1 ? "is-captured" : ""}`}>
         <div className="m2-record-heading">
           <strong>Brake inspection</strong>
-          <span>Customer request</span>
+          <span>2019 Toyota RAV4</span>
         </div>
-        <div className="m2-vehicle-line">
-          <span>Vehicle supplied</span>
-          <strong>2019 Toyota RAV4</strong>
-        </div>
-        <div className={`m2-reception-owner ${scene.step >= 2 ? "is-owned" : ""}`}>
-          <span className="m2-owner-initials">WR</span>
-          <div>
-            <strong>Workshop reception</strong>
-            <span>
-              {scene.step >= 2
-                ? "Next: check the diary and confirm a time"
-                : "Responsible for the next step"}
-            </span>
-          </div>
-          <ArrowRight size={17} />
-        </div>
+        <p className={`m2-reception-owner ${scene.step >= 2 ? "is-owned" : ""}`}>
+          {scene.step >= 2
+            ? "Reception: check availability and confirm a time."
+            : "Request captured for workshop reception."}
+        </p>
       </div>
       <SceneControls scene={scene} stages={ENQUIRY_STAGES} name="enquiry capture" />
     </div>
   );
 }
 function EstimateSceneV2() {
-  const scene = useScene(ESTIMATE_STAGES, [1800, 2600, 1700]);
+  const scene = useScene(ESTIMATE_STAGES, [2200, 3000, 2200]);
   return (
     <div ref={scene.ref} className="m2-estimate-scene" data-step={scene.step}>
-      <div className="m2-estimate-workspace">
-        <aside className="m2-job-context">
-          <div className="m2-event-sender">
-            <ZaplaPetal />
-            <strong>Customer follow-up</strong>
-          </div>
-          <div className="m2-job-person">
-            <span className="m2-person-avatar" />
-            <strong>Mia Thompson</strong>
-            <span>2019 Toyota RAV4</span>
-          </div>
-          <div className="m2-job-summary">
-            <span>Workshop estimate</span>
-            <h3>Brake work</h3>
-            <p>
-              Estimate sent.
+      <div className="m2-estimate-summary">
+        <span className="m2-person-avatar" />
+        <div>
+          <strong>Mia Thompson</strong>
+          <span>2019 Toyota RAV4</span>
+        </div>
+        <p>
+          Brake work <span>Estimate sent</span>
+        </p>
+      </div>
+      <div className="m2-estimate-conversation">
+        <div className="m2-estimate-thread">
+          <div
+            className={`m2-awaiting ${scene.step === 0 ? "is-waiting" : ""}`}
+            aria-hidden={scene.step !== 0}
+          >
+            <h3>
+              The estimate is out.
               <br />
-              Customer decision requested.
-            </p>
+              The decision is still open.
+            </h3>
+            <p>Mia has the estimate. An agreed follow-up gives her a way to answer.</p>
           </div>
-          <div className={`m2-next-reminder ${scene.step >= 2 ? "is-cancelled" : ""}`}>
-            <span>Next reminder</span>
-            <strong>
-              {scene.step >= 2 ? "Cancelled after Mia replied" : "Scheduled if there’s no reply"}
-            </strong>
-            <div className="m2-queued-message">Check in with Mia</div>
+          <div
+            className={`m2-outgoing-message ${scene.step >= 1 ? "is-arrived" : ""}`}
+            aria-hidden={scene.step < 1}
+          >
+            <div className="m2-event-sender">
+              <ZaplaPetal />
+              <span>Your workshop · Automated SMS</span>
+            </div>
             <p>
-              {scene.step >= 2
-                ? "No more automated chasing."
-                : "Only while the estimate is unanswered."}
+              Hi Mia, just checking you received our brake estimate. Any questions before you
+              decide?
             </p>
           </div>
-        </aside>
-        <div className="m2-estimate-conversation">
-          <div className="m2-inbox-title">
-            <strong>The conversation stays connected.</strong>
-            <span>Workshop reception</span>
-          </div>
-          <div className="m2-estimate-thread">
-            <div
-              className={`m2-awaiting ${scene.step === 0 ? "is-waiting" : ""}`}
-              aria-hidden={scene.step !== 0}
-            >
-              <span className="m2-awaiting-line" />
-              <h3>
-                An estimate.
-                <br />
-                An unanswered decision.
-              </h3>
-              <p>
-                Mia has the estimate. Your team is busy.
-                <br />
-                The agreed follow-up is the next step.
-              </p>
-            </div>
-            <div
-              className={`m2-outgoing-message ${scene.step >= 1 ? "is-arrived" : ""}`}
-              aria-hidden={scene.step < 1}
-            >
-              <div className="m2-event-sender">
-                <ZaplaPetal />
-                <span>Your workshop · Automated SMS</span>
-              </div>
-              <p>
-                Hi Mia, just checking you received our brake estimate. Any questions before you
-                decide?
-              </p>
-              <span className="m2-message-caption">
-                A useful prompt, without another phone call.
-              </span>
-            </div>
-            <div
-              className={`m2-incoming-message ${scene.step >= 2 ? "is-arrived" : ""}`}
-              aria-hidden={scene.step < 2}
-            >
-              <div>
-                <span className="m2-person-avatar" />
-                <strong>Mia replied</strong>
-              </div>
-              <p>Thanks! Can I drop the car off on Thursday?</p>
-            </div>
-          </div>
-          <div className={`m2-team-handoff ${scene.step >= 3 ? "is-owned" : ""}`}>
-            <span className="m2-owner-initials">WR</span>
-            <div>
-              <strong>
-                {scene.step >= 3
-                  ? "Your team takes it from here."
-                  : scene.step >= 2
-                    ? "Reply received. Follow-up stopped."
-                    : "Your team owns the next decision."}
-              </strong>
-              <p>
-                {scene.step >= 2
-                  ? "Check the diary and confirm Thursday with Mia."
-                  : "A customer reply stops the automated chase."}
-              </p>
-            </div>
-            <ArrowRight size={19} />
+          <div
+            className={`m2-incoming-message ${scene.step >= 2 ? "is-arrived" : ""}`}
+            aria-hidden={scene.step < 2}
+          >
+            <strong>Mia replied</strong>
+            <p>Thanks! Can I drop the car off on Thursday?</p>
           </div>
         </div>
+        <div className={`m2-next-reminder ${scene.step >= 2 ? "is-cancelled" : ""}`}>
+          <strong>
+            {scene.step >= 2
+              ? "Mia replied. Next reminder cancelled."
+              : "Next reminder: only if Mia hasn’t replied."}
+          </strong>
+        </div>
+        <p className={`m2-team-handoff ${scene.step >= 3 ? "is-owned" : ""}`}>
+          {scene.step >= 3
+            ? "Reception: check the diary and confirm Thursday with Mia."
+            : "Reception handles availability and the booking."}
+        </p>
       </div>
       <SceneControls scene={scene} stages={ESTIMATE_STAGES} name="estimate follow-up" />
     </div>
@@ -588,7 +512,9 @@ function ReturnScene() {
       <div className={`m2-return-message ${scene.step >= 1 ? "is-sent" : ""}`}>
         <div className="m2-event-sender">
           <ZaplaPetal />
-          <strong>{scene.step >= 1 ? "Your workshop" : "Prepared service reminder"}</strong>
+          <strong>
+            {scene.step >= 1 ? "Reminder sent by your workshop" : "Service reminder prepared"}
+          </strong>
         </div>
         <p>
           Hi Mia, our records show your RAV4’s next service is due in November. Would you like us to
@@ -607,7 +533,7 @@ function ReturnScene() {
             : "Based on the right vehicle’s service record"}
         </div>
       </div>
-      <SceneControls scene={scene} stages={RETURN_STAGES} name="service reminder" compact />
+      <SceneControls scene={scene} stages={RETURN_STAGES} name="service reminder" />
     </div>
   );
 }
@@ -641,10 +567,13 @@ function WorkshopCostCheck() {
           Use your own numbers to check the ongoing cost against the contribution from an additional
           completed job.
         </p>
-        <p className="m2-cost-capacity">
-          Already at capacity? The value may be less time chasing customers. Compare the staff time
-          you could realistically save with the cost instead.
-        </p>
+        <details className="m2-cost-capacity">
+          <summary>Already at capacity?</summary>
+          <p>
+            Compare the staff time you could realistically save with the cost. More bookings may not
+            be your priority.
+          </p>
+        </details>
         <ActionLink href="/Pricing-v3">Check plans, inclusions and setup</ActionLink>
       </div>
       <div className="m2-cost-tool">
@@ -662,11 +591,11 @@ function WorkshopCostCheck() {
           </label>
           <p className="m2-cost-scope">
             {planKey === "growth"
-              ? "Includes proactive service recall and reactivation, alongside enquiry and estimate follow-up."
-              : "Incoming enquiries and active follow-up. Proactive service recall and reactivation require Growth."}
+              ? "Adds proactive service recall and reactivation."
+              : "Enquiries and active follow-up. Proactive recall requires Growth."}
           </p>
           <label htmlFor="workshop-usage">
-            Estimated monthly usage and extras (A$)
+            Monthly usage and extras (A$)
             <input
               id="workshop-usage"
               type="number"
@@ -680,11 +609,10 @@ function WorkshopCostCheck() {
             />
           </label>
           <p id="workshop-usage-help" className="m2-cost-help">
-            Blank counts as A$0. Include messaging, optional add-ons and other recurring costs you
-            expect.
+            Include messaging and recurring add-ons. Blank counts as A$0.
           </p>
           <label htmlFor="workshop-contribution">
-            Contribution per additional completed job (A$)
+            Contribution per completed job (A$)
             <input
               id="workshop-contribution"
               type="number"
@@ -698,11 +626,14 @@ function WorkshopCostCheck() {
             />
           </label>
           <p id="workshop-contribution-help" className="m2-cost-help">
-            What remains after parts, additional labour and other variable costs. Use contribution,
-            not the invoice total.
+            After parts, additional labour and other variable costs, not the invoice total.
           </p>
         </div>
-        <div className="m2-cost-result" aria-live="polite" aria-atomic="true">
+        <div
+          className={`m2-cost-result ${ready ? "has-result" : ""}`}
+          aria-live="polite"
+          aria-atomic="true"
+        >
           {ready ? (
             <>
               <p>To cover the ongoing monthly cost</p>
@@ -721,7 +652,7 @@ function WorkshopCostCheck() {
               </p>
             </>
           ) : (
-            <p>
+            <p className="m2-cost-empty">
               {!validUsage
                 ? "Enter a monthly usage estimate of zero or more."
                 : contribution !== "" && !validJob
