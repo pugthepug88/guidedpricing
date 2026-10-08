@@ -62,8 +62,8 @@ function MechanicsV2Page() {
             <span>Zapla follows through.</span>
           </h1>
           <p className="m2-intro">
-            Capture workshop enquiries, follow up unanswered quotes and remind customers when their
-            next service is due. Keep the customer side moving while your team stays on the tools.
+            Turn enquiries into bookings, follow up unanswered quotes and bring customers back when
+            their next service is due. Zapla keeps the next step moving while you stay on the tools.
           </p>
           <div className="m2-actions">
             <a className="m2-button m2-primary" href={BOOK}>
@@ -96,15 +96,15 @@ function MechanicsV2Page() {
             <Eyebrow>While you’re on the tools</Eyebrow>
             <h2 id="enquiry-title">The enquiry shouldn’t have to wait for you.</h2>
             <p>
-              Give an interested customer a next step while your team is busy. Acknowledge their
-              request, capture their vehicle details and give reception the conversation to follow
-              up.
+              Reply automatically, capture the vehicle details and send a link to available
+              inspection times in your configured booking calendar. Customers can choose a time
+              without waiting for someone to call back.
             </p>
             <p className="m2-aside">
-              Want help answering calls too? AI Receptionist is an optional add-on, configured
-              around what your workshop can handle.
+              Want help answering calls too? <a href="/ai-receptionist">AI Receptionist</a> is an
+              optional add-on, configured around what your workshop can handle.
             </p>
-            <ActionLink href="/ai-receptionist">Explore AI Receptionist</ActionLink>
+            <ActionLink href="/follow-up">Explore enquiry follow-through</ActionLink>
           </div>
         </section>
 
@@ -114,8 +114,9 @@ function MechanicsV2Page() {
               <Eyebrow>After the quote goes out</Eyebrow>
               <h2 id="estimate-title">Follow up quotes before they go cold.</h2>
               <p>
-                Zapla follows up unanswered quotes, gives customers an easy way to ask questions,
-                and brings replies back to reception so your team can agree the next step.
+                A quote sitting in an inbox is work you’ve already put time into. Zapla follows up
+                automatically and stops the reminders when the customer replies. If they have a
+                question about the work, your team gets the conversation.
               </p>
               <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
             </div>
@@ -128,9 +129,9 @@ function MechanicsV2Page() {
             <Eyebrow>Service and inspection reminders</Eyebrow>
             <h2 id="return-title">The right reminder. Before the next service is due.</h2>
             <p>
-              Use each vehicle’s recorded due dates to send automatic reminders for its next service
-              or, for NSW customers, its pink slip inspection. Give customers a specific reason to
-              book, at the time it matters.
+              Know who’s due back and why. Zapla uses recorded service dates or NSW pink slip due
+              dates to send a relevant reminder automatically, with a link to book. Ask about the
+              right service at the right time, rather than sending another generic “checking in”.
             </p>
             <ActionLink href="/customer-marketing">Explore Customer Marketing</ActionLink>
             <p className="m2-return-support">
@@ -166,7 +167,10 @@ function MechanicsV2Page() {
               your workshop.
             </h2>
             <p>We map your process, build the agreed flows and get your team ready to use them.</p>
-            <p>You decide what runs automatically and what comes back to reception.</p>
+            <p>
+              We configure your booking calendar, reminder timing and the questions that need a
+              human reply.
+            </p>
             <ActionLink href="/Pricing-v3">Explore plans and Guided Launch</ActionLink>
           </div>
           <div className="m2-launch-plan" aria-label="Illustrative workshop launch plan">
@@ -187,8 +191,8 @@ function MechanicsV2Page() {
               <p>Choose the service dates and reminder timing.</p>
             </div>
             <div className="m2-launch-plan-row">
-              <strong>Reception taking over</strong>
-              <p>Test the reply and booking handoff together.</p>
+              <strong>Bookings without the back-and-forth</strong>
+              <p>Test the enquiry, booking link and confirmation together.</p>
             </div>
           </div>
         </div>
@@ -206,8 +210,8 @@ function MechanicsV2Page() {
           your workshop is missing.
         </h2>
         <p>
-          We’ll look at unanswered enquiries, unanswered quotes and upcoming services, then assess
-          whether an agreed Zapla setup is worth the cost.
+          Show us how enquiries, quotes and service reminders work today. We’ll map what Zapla can
+          automate, what your team handles and which plan fits your workshop.
         </p>
         <div className="m2-actions">
           <a className="m2-button m2-primary" href={BOOK}>
@@ -223,8 +227,8 @@ function MechanicsV2Page() {
   );
 }
 
-const QUOTE_STAGES = ["Quote sent", "Follow-up sent", "Customer replied", "Reception follows up"];
-const ENQUIRY_STAGES = ["Customer asks", "Workshop replies", "Reception follows up"];
+const QUOTE_STAGES = ["Quote sent", "Follow-up sent", "Customer replied"];
+const ENQUIRY_STAGES = ["Customer asks", "Booking link sent"];
 const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
 
 // Each brief scene progresses once, pauses offscreen and holds its final state.
@@ -257,15 +261,21 @@ function HeroEnquiry() {
           </div>
         </div>
         <p>“My brakes are squeaking. Could you take a look this week?”</p>
-        <p className="m2-hero-next">Captured for reception.</p>
+        <p className="m2-hero-next">Inspection booking link sent automatically.</p>
       </div>
     </div>
   );
 }
 function EnquiryScene() {
-  const scene = useScene(ENQUIRY_STAGES, [1400, 1400]);
+  const scene = useScene(ENQUIRY_STAGES, [1400]);
   return (
-    <div ref={scene.ref} className="m2-enquiry-scene" data-step={scene.step}>
+    <div
+      ref={scene.ref}
+      className="m2-enquiry-scene"
+      data-step={scene.step}
+      role="img"
+      aria-label="Illustrative enquiry: Mia asks about her brakes and receives an automatic inspection booking link"
+    >
       <div className="m2-dialogue-row">
         <span className="m2-person-avatar" />
         <div className="m2-dialogue-content">
@@ -284,22 +294,22 @@ function EnquiryScene() {
         </span>
         <div className="m2-dialogue-content">
           <strong>Your workshop · Automated reply</strong>
-          <p className="m2-glass m2-dialogue-bubble">
-            Thanks Mia, we’ve received your request. Reception will check availability and confirm a
-            time with you.
-          </p>
+          <div className="m2-glass m2-dialogue-bubble">
+            <p>
+              Thanks Mia. Choose an available inspection time here and we’ll get your RAV4 booked
+              in.
+            </p>
+            <span className="m2-message-link">
+              Book an inspection <ArrowRight size={15} aria-hidden="true" />
+            </span>
+          </div>
         </div>
       </div>
-      <p className="m2-enquiry-next">
-        {scene.step >= 2
-          ? "Reception has the request and vehicle details."
-          : "The customer gets a reply while your team keeps working."}
-      </p>
     </div>
   );
 }
 function QuoteSceneV2() {
-  const scene = useScene(QUOTE_STAGES, [1400, 1400, 1400]);
+  const scene = useScene(QUOTE_STAGES, [1400, 1400]);
   return (
     <div ref={scene.ref} className="m2-quote-scene" data-step={scene.step}>
       <div className="m2-glass m2-quote-summary">
@@ -325,7 +335,8 @@ function QuoteSceneV2() {
         <div className="m2-dialogue-content">
           <strong>Your workshop · Follow-up sent</strong>
           <p className="m2-glass m2-dialogue-bubble">
-            Hi Mia, any questions about your brake quote? We’re happy to help with the next step.
+            Hi Mia, did you have any questions about the brake work we quoted? Reply here and we’ll
+            help.
           </p>
         </div>
       </div>
@@ -336,17 +347,14 @@ function QuoteSceneV2() {
         <span className="m2-person-avatar" />
         <div className="m2-dialogue-content">
           <strong>Mia Thompson</strong>
-          <p className="m2-glass m2-dialogue-bubble">Can I drop the car off on Thursday?</p>
+          <p className="m2-glass m2-dialogue-bubble">
+            Does the quote include both the pads and discs?
+          </p>
         </div>
       </div>
-      <p className="m2-quote-handoff">
-        {scene.step >= 3
-          ? "Reception checks Thursday and confirms with Mia."
-          : "Replies come back to reception to agree the next step."}
-      </p>
       <p className="m2-quote-stop">
         {scene.step >= 2
-          ? "Further reminders stop when Mia replies."
+          ? "Mia’s question reaches your team. Further reminders stop."
           : "Follow-up continues only while the quote is unanswered."}
       </p>
     </div>
@@ -355,7 +363,13 @@ function QuoteSceneV2() {
 function ReturnScene() {
   const scene = useScene(RETURN_STAGES, [1600, 1600]);
   return (
-    <div ref={scene.ref} className="m2-return-visual" data-step={scene.step}>
+    <div
+      ref={scene.ref}
+      className="m2-return-visual"
+      data-step={scene.step}
+      role="img"
+      aria-label="Illustrative service reminder with a booking link, followed by Mia confirming she has booked"
+    >
       <img
         src="/concept/customer-marketing-service-arrival.svg"
         alt="A customer handing her keys to a mechanic at workshop reception"
@@ -369,9 +383,11 @@ function ReturnScene() {
           <ZaplaPetal />
         </div>
         <p>
-          Hi Mia, your RAV4’s next service is due in November. Would you like us to find a suitable
-          time?
+          Hi Mia, your RAV4’s next service is due in November. Book a time that suits you below.
         </p>
+        <span className="m2-message-link">
+          Book your next service <ArrowRight size={15} aria-hidden="true" />
+        </span>
         <span className="m2-overlay-caption">
           {scene.step >= 1
             ? "Reminder sent by your workshop"
@@ -389,8 +405,7 @@ function ReturnScene() {
             <span>Replied to the reminder</span>
           </div>
         </div>
-        <p>“Yes please. A Friday would be great.”</p>
-        <span className="m2-overlay-caption">Reception to confirm a time with Mia.</span>
+        <p>“I’ve booked Friday. See you then!”</p>
       </div>
     </div>
   );
@@ -478,12 +493,18 @@ function WorkshopPlans() {
           <br />
           your workshop.
         </h2>
+        <p className="m2-plan-value">
+          One setup for the customer work that’s easy to put off: enquiries, quote follow-up and
+          review requests. Growth adds a reason for existing customers to book again.
+        </p>
       </div>
       <div className="m2-plan-options">
         <div className="m2-plan-option">
           <div>
             <strong>Follow-Through</strong>
-            <p>Enquiries, open quotes and review requests.</p>
+            <p>
+              Automatic enquiry replies, online booking, quote follow-up and Google review requests.
+            </p>
           </div>
           <span>
             A$399<small>/month</small>
@@ -492,7 +513,7 @@ function WorkshopPlans() {
         <div className="m2-plan-option">
           <div>
             <strong>Growth</strong>
-            <p>Add service reminders and customer reactivation.</p>
+            <p>Everything in Follow-Through, plus service reminders and customer reactivation.</p>
           </div>
           <span>
             A$699<small>/month</small>

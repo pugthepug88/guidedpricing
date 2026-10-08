@@ -1,42 +1,50 @@
 # Mechanics V2 review
 
-Route `/industries/mechanics-v2`. Original mechanics route and stylesheet, shared navigation and footer are unchanged. V2 remains noindex and sitemap-excluded.
+Route `/industries/mechanics-v2`. Original mechanics route and stylesheet, shared navigation and footer remain unchanged. V2 stays noindex and sitemap-excluded.
 
-## Whole-page decisions
+## Story and product accuracy
 
-The page tells a customer journey: enquiry, unanswered quote, next service, Google review, existing-system reassurance, workshop launch, plan choice and call. The price calculator was removed because job revenue equivalence encouraged a cost-recovery interpretation without reflecting reviews, retention, staff time or job delivery costs. A compact price summary replaces it; no second benefit grid repeats the examples above.
+The journey is enquiry → quote → next service → review → implementation → plans → call. Routine bookings no longer default to a receptionist checking availability. Enquiries receive an inspection booking link using a configured Zapla calendar. Recorded vehicle dates trigger relevant service or NSW pink slip reminders with a service booking link. Human help is reserved for questions about the work: Mia asks whether her quote includes pads and discs, and further reminders stop when she replies.
 
-The quote scene was rebuilt around the actual follow-up and customer response. A compact brake-work quote summary, short outbound message and Mia's reply replace the oversized quote card, competing headline and prominent “Cancelled” result. Reception owns the next step; reminders stopping is secondary. Three short monotonic transitions complete once, pause offscreen and retain the final state. Reduced motion shows the complete outcome. No dropdown or playback controls.
+These are illustrative customer conversations, not records of a real customer's booking or a live integration demonstration. Booking labels inside scenes are noninteractive spans, not links to the Zapla sales calendar. Screen-reader descriptions identify the enquiry and service scenes as illustrations. No universal workshop-system availability sync is claimed. Pricing-v3 includes calendars and online booking, with calendar configuration during Guided Launch. Vehicle dates must be available in Zapla; setup agrees the data path.
 
-Service copy leads with recorded dates and relevant timing. Pink slip inspections are explicitly a NSW example, not an Australia-wide requirement. The November service reminder remains recognisable in the glass photo overlay. Review copy connects completed work to reputation and prospective customer confidence. The Google wordmark and five unselected stars illustrate a review request without inventing a rating or testimonial.
+The hero shows an automatic next step instead of “Captured for reception”. The redundant enquiry footer and quote handoff paragraph have been removed. The service reply illustrates a customer who has used the booking link. The launch plan tests enquiry, booking link and confirmation. Its human-reply scope remains explicit.
 
-Repeated “Example…” footnotes were removed. Existing-system reassurance explains that data access is agreed during setup. The launch plan addresses quote timing, service dates and reception handoffs without reusing the homepage image or duplicating a Map/Build/Launch list.
+The primary enquiry-section link now leads to Follow-Up; the optional phone answering add-on has its own inline AI Receptionist link. This avoids sending a buyer interested in routine enquiry automation to a separate add-on.
 
-## Brand and layout
+## Commercial clarity
 
-Inter Tight 500 and Manrope remain locally served with page-scoped aliases. Existing palette, portraits, petal, glass specification, pill CTAs and root-owned footer remain. Hero photo leads with a compact 280px glass enquiry card. Enquiry and quote use light glass messages over sage; reviews use warm taupe. Cream quote and launch bands establish section rhythm, with white photograph and pricing sections between them.
+Quote copy makes the investment already made in quoting concrete. Service copy explains who is due, why they should hear from the workshop and why timing matters. Reviews connect completed work to reputation and prospective customer confidence without guaranteeing ratings or new customers.
 
-Full-page desktop and mobile renders were visually inspected, alongside section detail. Homepage and Customer Marketing full-page comparison renders were inspected for palette, surfaces, typography hierarchy and closing CTA/footer continuity. The homepage's long scroll-driven area is not judged solely from its static full-page capture. The comparison session exposed a pre-existing Customer Marketing hydration mismatch involving its animated hero; that route was not modified. V2/V1 browser error assertions are scoped to those routes.
+The revenue calculator remains removed. Plan summaries explain what the monthly price covers across enquiries, online booking, quotes and Google reviews. Growth adds service reminders and reactivation. Prices remain A$399 and A$699 per month, with GST, usage and setup extra and a link to full inclusions. No fabricated price per review, invented job uplift or revenue/profit equivalence.
 
-## Eight independent review lenses
+The closing call has a specific agenda: map existing processes, automation, human responsibilities and plan fit. This makes the next action more concrete than a vague assessment of whether Zapla is worth the cost.
 
-These are the author's assessments, not stakeholder approvals or measured conversion results.
+## Visual and motion review
 
-| Lens              | Final assessment                                                                                                                                                            |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| UI/UX             | One main headline per scene, clear avatar/message relationships, compact quote summary, readable pricing and consistent mobile stacking. Full-page rhythm inspected.        |
-| Brand/Creative    | Existing soft autumn palette and glass treatment retained. Photographs and message surfaces have distinct roles; no copied homepage launch image.                           |
-| Product Marketing | Each scene explains a recognisable workshop moment and the action Zapla takes. Quotes lead to conversation, recorded dates drive reminders, completed work prompts reviews. |
-| Conversion        | Relevant customer actions lead to setup and transparent plan choice. Removed misleadingly narrow revenue equivalence. Verified workshop proof remains absent.               |
-| Motion            | Short finite causal progression, stable geometry, offscreen pause and complete reduced-motion states. Customer response is the quote payoff.                                |
-| SME buyer         | Existing workshop system and reception responsibilities preserved. Service dates must be recorded. No invented booking confirmation or universal integration.               |
-| Buyer psychology  | Relevant timing, customer questions and review reputation replace operational status emphasis. Price is disclosed without making cost recovery the central story.           |
-| AI-slop critic    | Removed decorative connectors, competing quote headline, cancelled-status emphasis, repeated footnotes and calculator complexity. No fabricated results or revenue uplift.  |
+Whole-page desktop and mobile renders were inspected, then enquiry, quote, service, reviews, launch, pricing and closing details. Existing homepage and Customer Marketing render comparisons from the preceding review establish palette, typography, glass, portraits and footer continuity.
 
-## Pricing and validation
+The page retains Inter Tight and Manrope, locally served; approved portrait sprite; Zapla petal; warm white, sage and cream surfaces; and the exact white double-border glass treatment. Cards remain subordinate to photographs. Enquiry and quote message offsets were reduced, and layouts stack below 900px to prevent narrow tablet dialogue columns. Unused scene-selector, playback, calculator and former quote styles were removed. Service overlay divider lines were removed.
 
-Plan summary matches Pricing-v3: Follow-Through A$399/month and Growth A$699/month. Follow-Through summary includes enquiries, open quotes and review requests. Growth adds service reminders and customer reactivation. GST, usage and setup are additional; the full pricing page carries detailed inclusions and setup costs. Prices are not attributed to a dollar value per review or customer return.
+Scenes progress once, pause offscreen and hold the outcome. Enquiry completes in 1.4 seconds; quote in 2.8 seconds; service in 3.2 seconds; reviews in 2.8 seconds. Stable geometry avoids layout jumps. Reduced motion shows the complete story without animation. No dropdowns, playback controls, looping decorative motion or fake dashboard metrics.
 
-Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks cover removal of calculator/scene controls/footnotes, plan prices, NSW scope, reduced-motion final states, finite quote progression, V1 rendering and page errors. No horizontal document overflow at 320, 390, 768, 1024 or 1440 pixels. Complete V2 desktop/mobile captures and detailed renders were inspected for image/card sizing, message alignment, heading wrapping, section pacing and final CTA. No booking form submitted.
+## Eight-lens re-audit
 
-This design review does not validate a live workshop integration or establish measurable conversion uplift. Actual workshop case studies and operational results remain the evidence gap.
+Author assessments, not independent stakeholder approvals or conversion-test results. A requested score is not evidence that the score has been earned.
+
+| Lens              | Assessment | Remaining limit                                                                                                              |
+| ----------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| UI/UX             | 9          | Clear scene hierarchy, avatars, booking paths and five-width responsive checks.                                              |
+| Brand/Creative    | 9          | Established palette, glass and type; original V2 compositions within the site's visual language.                             |
+| Product Marketing | 9          | Routine automation and human questions have distinct roles; configured calendar and recorded-date dependencies are explicit. |
+| Conversion        | 8          | Relevant value and clear plan choice are present. Verified workshop outcomes and customer evidence remain absent.            |
+| Motion            | 9          | Finite causal progression, stable composition, offscreen pause and complete reduced-motion state.                            |
+| SME buyer         | 9          | Recognisable brake enquiry, quote question, due service, Google review and existing-system reassurance.                      |
+| Buyer psychology  | 8.5        | Relevant timing and a concrete sales-call agenda reduce uncertainty; credible social proof is still missing.                 |
+| AI-slop critic    | 9          | No synthetic metrics, control chrome, repeated example footnotes or invented ROI.                                            |
+
+All-lens 9 is not honestly supportable without credible workshop proof. The next commercial improvement should be a verified workshop example documenting its previous process, deployed automation and observed result, rather than invented claims or another benefit grid. Operational validation must also confirm the eventual workshop configuration; this page review alone cannot certify it.
+
+## Verification
+
+Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks cover five widths (320, 390, 768, 1024, 1440), document overflow, booking-path copy, removal of routine manual handoffs and scene controls, pricing, NSW wording, reduced-motion outcomes, finite quote progression and final hold, V1 rendering and no V2/V1 page errors. No booking form submitted. Previous comparison review observed a Customer Marketing hydration mismatch; that route remains outside this change and was not modified.

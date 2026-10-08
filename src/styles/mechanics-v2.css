@@ -160,11 +160,6 @@
 .m2-flow-link:hover {
   color: #356a9a;
 }
-.m2-hero-note {
-  font-size: 12px;
-  color: var(--m2-muted);
-  margin-top: 23px !important;
-}
 .m2-hero-visual {
   position: relative;
   min-width: 0;
@@ -219,13 +214,6 @@
   font-size: 14px;
   margin-top: 16px;
 }
-.m2-hero-event-body > .m2-hero-context {
-  font-size: 12px;
-  color: var(--m2-muted);
-  margin-top: 13px;
-  border-top: 1px solid #dedfd5;
-  padding-top: 12px;
-}
 .m2-hero-event-body > .m2-hero-next {
   font-size: 12px;
   color: #435534;
@@ -241,32 +229,6 @@
   background-image: url("/concept/revenue/soft-autumn-portraits-v1.webp");
   background-size: 600% 400%;
   background-position: 60% 33.333%;
-}
-.m2-stage-select {
-  font: inherit;
-  color: inherit;
-  border: 0;
-  background: transparent;
-  border-radius: 4px;
-  min-width: 0;
-  width: auto;
-  max-width: calc(100% - 82px);
-  min-height: 44px;
-  padding: 4px 18px 4px 0;
-  cursor: pointer;
-}
-.m2-playback button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 8px 3px;
-  font: inherit;
-  color: inherit;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
 }
 .m2-enquiry,
 .m2-return {
@@ -301,7 +263,7 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  margin-right: 42px;
+  margin-right: 20px;
 }
 .m2-dialogue-content {
   min-width: 0;
@@ -321,7 +283,7 @@
   font-size: 15px;
 }
 .m2-dialogue-outgoing {
-  margin: 32px 0 0 40px;
+  margin: 28px 0 0 20px;
 }
 .m2-dialogue-outgoing .m2-dialogue-bubble {
   background: rgba(252, 252, 250, 0.9);
@@ -345,11 +307,6 @@
 }
 .m2-enquiry-ack.is-revealed {
   opacity: 1;
-}
-.m2-enquiry-next {
-  font-size: 13px;
-  color: var(--m2-muted);
-  margin: 24px 0 18px 48px !important;
 }
 
 .m2-estimate-section {
@@ -402,11 +359,6 @@
 .m2-quote-scene .m2-dialogue-bubble {
   padding: 17px 19px;
   font-size: 14px;
-}
-.m2-quote-handoff {
-  font-size: 13px;
-  color: #4c5b44;
-  margin-top: 22px !important;
 }
 .m2-quote-stop {
   font-size: 12px;
@@ -466,9 +418,7 @@
 }
 .m2-overlay-caption {
   display: block;
-  border-top: 1px solid #dedfd5;
-  padding-top: 12px;
-  margin-top: 15px;
+  margin-top: 14px;
   font-size: 12px;
   color: var(--m2-muted);
 }
@@ -654,30 +604,6 @@
   margin-top: 5px;
   color: #62705d;
 }
-.m2-launch-plan-note {
-  display: block;
-  font-size: 12px;
-  color: #626b5e;
-  margin-top: 20px;
-}
-.m2-launch-steps {
-  list-style: none;
-  margin: 27px 0 15px;
-  padding: 0;
-  max-width: 470px;
-}
-.m2-launch-steps li {
-  display: grid;
-  grid-template-columns: 65px 1fr;
-  gap: 18px;
-  padding: 12px 0;
-  border-top: 1px solid #dfd7ca;
-  font-size: 13px;
-  color: var(--m2-muted);
-}
-.m2-launch-steps strong {
-  color: var(--m2-ink);
-}
 
 .m2-plans {
   display: grid;
@@ -788,12 +714,6 @@
   .m2-reviews {
     gap: 45px;
   }
-  .m2-quote-composition {
-    gap: 45px;
-  }
-  .m2-quote-action h3 {
-    font-size: 33px;
-  }
   .m2-service-reminder {
     width: 260px;
     left: -12px;
@@ -809,7 +729,7 @@
     gap: 30px;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .m2-wrap {
     padding-inline: 24px;
   }
@@ -897,39 +817,8 @@
     font-size: 12px;
     line-height: 1.6;
   }
-  .m2-enquiry-next {
-    margin-left: 40px !important;
-  }
-  .m2-stage-select {
-    max-width: calc(100% - 78px);
-  }
   .m2-estimate-section {
     padding-block: 42px;
-  }
-  .m2-estimate-intro h2 br {
-    display: none;
-  }
-  .m2-quote-paper {
-    padding: 24px;
-  }
-  .m2-quote-state {
-    padding: 18px;
-    min-height: 145px;
-  }
-  .m2-quote-connector {
-    display: none;
-  }
-  .m2-next-reminder {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-top: 18px;
-    padding-top: 16px;
-  }
-  .m2-quote-owner {
-    margin-top: 13px !important;
-    min-height: 0;
   }
   .m2-return-visual {
     padding-bottom: 0;
@@ -994,18 +883,6 @@
     grid-template-columns: 1fr;
     gap: 25px;
   }
-  .m2-launch-steps {
-    margin-top: 23px;
-  }
-  .m2-cost-intro {
-    margin-bottom: 24px;
-  }
-  .m2-cost-result {
-    padding-top: 19px;
-  }
-  .m2-cost-result > strong span {
-    font-size: 17px;
-  }
   .m2-final {
     padding-block: 16px 55px;
   }
@@ -1035,7 +912,7 @@
     gap: 45px;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .m2-quote-layout,
   .m2-plans {
     grid-template-columns: 1fr;
@@ -1074,5 +951,41 @@
   }
   .m2-plan-option > span {
     font-size: 28px;
+  }
+}
+
+/* Booking links are part of the illustrated conversation, not demo controls. */
+.m2-message-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #356a9a;
+}
+.m2-plan-value {
+  max-width: 430px;
+  margin-top: 22px !important;
+  color: var(--m2-muted);
+  font-size: 15px;
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .m2-quote-layout {
+    gap: 36px;
+  }
+  .m2-dialogue-row {
+    margin-right: 0;
+  }
+  .m2-dialogue-outgoing {
+    margin-left: 0;
+  }
+  .m2-dialogue-bubble {
+    padding: 17px;
+    font-size: 14px;
+  }
+  .m2-enquiry-scene,
+  .m2-review-scene {
+    padding: 24px;
   }
 }
