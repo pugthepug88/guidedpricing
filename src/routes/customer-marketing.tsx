@@ -82,6 +82,7 @@ function CustomerMarketingPage() {
     >
       <Hero />
       <SignalScene />
+      <CustomerEvidence />
       <MomentScene />
       <CampaignScene />
       <Faq />
@@ -567,6 +568,149 @@ function SignalScene() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CustomerEvidence() {
+  const source =
+    "https://www.twilio.com/content/dam/twilio-com/global/en/10_resource_center/legacy/downloadable-assets/whitepaper/Blueprint%20for%20SMS%20Marketing.pdf";
+  const sourceLink = (number: 1 | 2) => (
+    <sup className="ml-1 align-super text-[16px] font-medium tracking-normal">
+      <a
+        href={`#customer-marketing-source-${number}`}
+        aria-label={`Read source ${number}`}
+        className="rounded-sm underline decoration-current/40 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+      >
+        {number}
+      </a>
+    </sup>
+  );
+
+  return (
+    <section
+      aria-labelledby="customer-evidence-heading"
+      className="px-5 pt-12 pb-4 sm:px-10 sm:pt-16 lg:px-16"
+    >
+      <div className="mx-auto max-w-[1240px]">
+        <h2
+          id="customer-evidence-heading"
+          className="mb-8 max-w-[900px] text-[36px] font-medium leading-[1.08] tracking-[-.045em] sm:text-[46px]"
+          style={{ fontFamily: DISPLAY }}
+        >
+          A familiar business. A relevant message. The right moment.
+        </h2>
+        <div data-customer-evidence className="grid grid-cols-2 gap-3 lg:grid-cols-12 lg:gap-4">
+          <div className="col-span-2 grid overflow-hidden rounded-[26px] bg-[#F7F2EA] sm:grid-cols-2 lg:col-span-8 lg:row-span-2">
+            <div className="flex flex-col justify-center p-7 sm:p-8 lg:p-10">
+              <h3
+                className="max-w-[330px] text-[34px] font-medium leading-[1.07] tracking-[-.045em] sm:text-[40px] lg:text-[46px]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                They already know your business.
+              </h3>
+              <p className="mt-5 max-w-[280px] text-[17px] leading-[1.6] text-[#515A52]">
+                Give them a useful reason to come back.
+              </p>
+            </div>
+            <img
+              src="/concept/customer-marketing-customer-message.webp"
+              alt="Customer reading a message on her phone at a café"
+              loading="lazy"
+              width={640}
+              height={800}
+              className="h-[260px] w-full object-cover sm:h-[380px]"
+            />
+          </div>
+          <div className="flex flex-col justify-center rounded-[26px] bg-[#BFAAD9] p-5 sm:p-6 lg:col-span-4 lg:px-8">
+            <p
+              className="text-[44px] font-medium leading-none tracking-[-.065em] sm:text-[76px] lg:text-[88px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              98%{sourceLink(1)}
+            </p>
+            <p className="mt-3 text-[16px] font-medium leading-[1.35] sm:text-[19px]">
+              SMS open rate
+            </p>
+          </div>
+          <div className="flex flex-col justify-center rounded-[26px] bg-[#B7C58E] p-5 sm:p-6 lg:col-span-4 lg:px-8">
+            <p
+              className="text-[44px] font-medium leading-none tracking-[-.065em] sm:text-[76px] lg:text-[88px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              90%{sourceLink(1)}
+            </p>
+            <p className="mt-3 text-[16px] font-medium leading-[1.35] sm:text-[19px]">
+              Read within 3 minutes
+            </p>
+          </div>
+          <div className="col-span-2 flex flex-col justify-center rounded-[26px] bg-[#E97D62] p-7 lg:col-span-3 lg:p-8">
+            <p
+              className="text-[64px] font-medium leading-none tracking-[-.065em] lg:text-[72px] xl:text-[88px]"
+              style={{ fontFamily: DISPLAY }}
+            >
+              10×{sourceLink(2)}
+            </p>
+            <p className="mt-3 max-w-[230px] text-[19px] font-medium leading-[1.35]">
+              More likely to leave a review
+            </p>
+            <p className="mt-4 text-[13px] leading-[1.6] text-[#3E2923]">
+              HomeFinder: SMS vs email
+            </p>
+          </div>
+          <div className="col-span-2 flex flex-col justify-center gap-6 rounded-[26px] bg-[#F7F2EA] p-7 lg:col-span-3 lg:p-8">
+            {["A service is due.", "A relevant update.", "A new offer."].map((reason) => (
+              <p
+                key={reason}
+                className="text-[20px] font-medium leading-[1.3] tracking-[-.025em]"
+                style={{ fontFamily: DISPLAY }}
+              >
+                {reason}
+              </p>
+            ))}
+          </div>
+          <div className="col-span-2 rounded-[26px] border border-[#D8DCD4] bg-white p-6 lg:col-span-6 sm:p-8">
+            <div className="flex items-center gap-3">
+              <ZaplaPetal size={32} />
+              <p className="text-[14px] font-semibold">Automated SMS</p>
+            </div>
+            <div className="mt-5 max-w-[380px] rounded-[18px] rounded-bl-[5px] bg-[#F0F0F2] px-5 py-4">
+              <p className="text-[15px] leading-[1.7]">
+                Hi Mia, your next service is due. Would you like to book this week?
+              </p>
+            </div>
+            <div className="ml-auto mt-3 w-fit max-w-[90%] rounded-[18px] rounded-br-[5px] bg-[#E2E4D2] px-5 py-3">
+              <p className="text-[15px] leading-[1.7]">Yes, Thursday works.</p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-5 max-w-[1080px] text-[12px] leading-[1.8] text-[#69716B]">
+          <p id="customer-marketing-source-1" className="scroll-mt-28">
+            <span className="mr-1">¹</span>
+            <a
+              href={`${source}#page=3`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-[#69716B]/40 underline-offset-2"
+            >
+              Twilio, Blueprint for SMS Marketing, April 2022, p. 3.
+            </a>{" "}
+            Published industry figures; SMS opens are not directly measurable.
+          </p>
+          <p id="customer-marketing-source-2" className="scroll-mt-28">
+            <span className="mr-1">²</span>
+            <a
+              href={`${source}#page=4`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-[#69716B]/40 underline-offset-2"
+            >
+              HomeFinder case study in the same guide, p. 4.
+            </a>{" "}
+            A named customer result, not a Zapla performance claim.
+          </p>
         </div>
       </div>
     </section>
