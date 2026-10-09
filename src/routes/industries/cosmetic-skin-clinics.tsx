@@ -58,7 +58,7 @@ const FAQS = [
   ],
   [
     "How is Zapla priced?",
-    "Unlimited users and stored contacts under fair use, with a flat platform price for your chosen plan. Guided Launch and SMS, email and voice usage are separate. AI Receptionist is optional. See the current pricing page for inclusions and GST details; we agree the plan and implementation scope before you commit.",
+    "Follow-Through is A$399 per month, with Guided Launch from A$1,997. Growth is A$699 per month, with Guided Launch from A$2,997. Prices exclude GST. Both include unlimited users and stored contacts under fair use. SMS, email and voice usage are separate. AI Receptionist is optional. The clinic data flow and any extra integration work are scoped before you commit.",
   ],
 ] as const;
 function Label({ children }: { children: ReactNode }) {
@@ -145,8 +145,7 @@ function SkinClinicsPage() {
             <br />
             <span>
               More time
-              <br />
-              with clients.
+              <br /> with clients.
             </span>
           </h1>
           <p className="sk-intro">
@@ -170,7 +169,7 @@ function SkinClinicsPage() {
           <div className="sk-hero-note sk-glass">
             <div className="sk-note-heading">
               <ZaplaPetal size={25} />
-              <span>New consultation enquiry</span>
+              <span>Example · Consultation enquiry</span>
             </div>
             <p>“I’m thinking about a first visit. How do I get started?”</p>
             <div className="sk-note-result">
@@ -405,6 +404,18 @@ function SkinClinicsPage() {
             Reception, the clinic manager and client coordinators share the same conversations
             without another seat charge.
           </p>
+          <div className="sk-plan-prices" aria-label="Current clinic platform plans">
+            <div>
+              <strong>Follow-Through</strong>
+              <span>A$399/month</span>
+              <small>Guided Launch from A$1,997</small>
+            </div>
+            <div>
+              <strong>Growth</strong>
+              <span>A$699/month</span>
+              <small>Guided Launch from A$2,997</small>
+            </div>
+          </div>
           <p className="sk-value-note">
             Unlimited stored contacts under fair use. GST, Guided Launch and SMS, email and voice
             usage are separate. AI Receptionist is optional.
@@ -592,7 +603,7 @@ function EnquiryScene() {
       data-step={step}
       aria-label="Illustrative web enquiry, automatic acknowledgement and clinic handoff"
     >
-      <p className="sk-scene-heading">Website enquiry received</p>
+      <p className="sk-scene-heading">Example · Website enquiry</p>
       <Message sender="Mia">Hi, I’m thinking about a first visit. How do I get started?</Message>
       <Message automated sender="Your clinic · Automated reply" visible={step >= 1}>
         Hi Mia, thanks for getting in touch. Our team can help you arrange a consultation. Would you

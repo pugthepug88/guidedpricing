@@ -1019,3 +1019,25 @@
     animation: none !important;
   }
 }
+
+.sk-plan-prices {
+  margin-top: 24px;
+  display: grid;
+  gap: 18px;
+}
+.sk-plan-prices > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  border-top: 1px solid #d2d6ca;
+  padding-top: 15px;
+}
+.sk-plan-prices strong,
+.sk-plan-prices span {
+  font-size: 16px;
+}
+.sk-plan-prices small {
+  font-size: 13px;
+  color: #5f655f;
+  grid-column: 1/-1;
+}
