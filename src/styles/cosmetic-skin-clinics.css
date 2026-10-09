@@ -1,0 +1,906 @@
+@font-face {
+  font-family: "Skin Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/concept/industries/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Skin Body";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Skin Body";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-600-normal.woff2") format("woff2");
+}
+.skin-clinics-page {
+  background: #fcfcfa;
+  color: #111318;
+  font:
+    15px "Skin Body",
+    Manrope,
+    sans-serif;
+  overflow: clip;
+}
+.skin-clinics-page * {
+  box-sizing: border-box;
+}
+.skin-clinics-page h1,
+.skin-clinics-page h2,
+.skin-clinics-page h3 {
+  font-family: "Skin Display", "Inter Tight", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
+  margin: 0;
+}
+.skin-clinics-page h2 {
+  font-size: clamp(36px, 3.8vw, 54px);
+}
+.skin-clinics-page p {
+  margin: 0;
+  line-height: 1.75;
+}
+.skin-clinics-page a {
+  color: inherit;
+}
+.skin-clinics-page strong {
+  font-weight: 600;
+}
+.skin-clinics-page :is(a, button, summary):focus-visible {
+  outline: 2px solid #2563ff;
+  outline-offset: 5px;
+}
+.sk-wrap {
+  max-width: 1280px;
+  margin: auto;
+  padding-inline: 40px;
+}
+.skin-clinics-page .sk-label {
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #695e50;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+.sk-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px;
+  align-items: center;
+  padding-top: 140px;
+  padding-bottom: 100px;
+}
+.sk-hero h1 {
+  font-size: clamp(46px, 4.55vw, 65px);
+}
+.sk-hero h1 span {
+  color: #596947;
+}
+.skin-clinics-page .sk-intro {
+  font-size: 16px;
+  max-width: 465px;
+  color: #5f655f;
+  margin-top: 26px;
+}
+.sk-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.sk-button {
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 999px;
+  padding: 0 26px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.skin-clinics-page .sk-primary {
+  color: #fcfcfa;
+  background: #1e2b29;
+}
+.sk-primary:hover {
+  background: #35443e;
+}
+.sk-secondary {
+  background: white;
+  border: 1px solid #ded8ce;
+}
+.sk-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+.sk-link:hover {
+  color: #2563ff;
+}
+.sk-copy > .sk-link {
+  border-bottom: 1px solid #bfc6b6;
+  margin-top: 20px;
+}
+.skin-clinics-page .sk-hero-boundary {
+  font-size: 12px;
+  color: #5f655f;
+  margin-top: 22px;
+  max-width: 390px;
+}
+.sk-hero-scene {
+  position: relative;
+  padding-bottom: 26px;
+  min-width: 0;
+}
+.sk-hero-scene > img {
+  width: 100%;
+  height: 530px;
+  object-fit: cover;
+  object-position: 61% center;
+  border-radius: 26px;
+  display: block;
+}
+.sk-glass {
+  background: rgba(252, 252, 250, 0.91);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 0 0 1px #1e2b2930,
+    0 14px 35px #1e2b291a;
+  backdrop-filter: blur(6px);
+  border-radius: 18px;
+}
+.sk-hero-note {
+  position: absolute;
+  bottom: 0;
+  left: -26px;
+  width: 292px;
+  padding: 22px;
+}
+.sk-note-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #536247;
+}
+.sk-hero-note > p {
+  font-size: 15px;
+  margin-top: 14px;
+}
+.sk-note-result {
+  font-size: 12px;
+  color: #536247;
+  margin-top: 14px;
+  line-height: 1.6;
+}
+.sk-gap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  padding-block: 0 90px;
+}
+.sk-gap h2 {
+  font-size: clamp(32px, 3vw, 42px);
+}
+.sk-gap-rows p {
+  border-bottom: 1px solid #dedfd5;
+  padding: 17px 0;
+  font-size: 14px;
+  color: #5f655f;
+}
+.sk-gap-rows p:first-child {
+  padding-top: 0;
+}
+.sk-gap-rows span {
+  display: block;
+  color: #111318;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.sk-split,
+.sk-return {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+  padding-block: 76px;
+  scroll-margin-top: 80px;
+}
+#clinic-flow {
+  scroll-margin-top: 75px;
+}
+.sk-copy > p:not(.sk-label) {
+  color: #5f655f;
+  margin-top: 22px;
+  max-width: 465px;
+}
+.sk-copy > .sk-aside {
+  border-left: 2px solid #b6c09b;
+  padding-left: 18px;
+  font-size: 13px;
+}
+.sk-aside a {
+  text-underline-offset: 3px;
+}
+.sk-dialogue {
+  padding: 30px;
+  border-radius: 26px;
+  min-width: 0;
+  background: #e2e4d2;
+}
+.skin-clinics-page .sk-scene-heading {
+  font-size: 13px;
+  color: #4f5947;
+  font-weight: 600;
+  margin-bottom: 26px;
+}
+.sk-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 20px;
+  transition: opacity 0.22s;
+}
+.sk-message > div {
+  flex: 1;
+  min-width: 0;
+}
+.sk-message strong {
+  display: block;
+  font-size: 12px;
+  color: #4f5947;
+  margin: 0 0 9px;
+}
+.sk-bubble {
+  background: #fcfcfa;
+  border: 1px solid #d0d4c8;
+  border-radius: 4px 18px 18px 18px;
+  padding: 18px 20px;
+  box-shadow: 0 6px 20px #1e2b2905;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.sk-outgoing {
+  margin-left: 22px;
+}
+.sk-avatar {
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: url("/concept/revenue/soft-autumn-portraits-v1.webp") 60% 33.333% / 600% 400%;
+}
+.sk-petal {
+  flex-shrink: 0;
+  width: 31px;
+  display: flex;
+  justify-content: center;
+}
+.sk-hidden {
+  opacity: 0;
+}
+.sk-visible {
+  opacity: 1;
+}
+.skin-clinics-page .sk-handoff {
+  margin: 20px 0 0 42px;
+  color: #3d5036;
+  font-size: 12px;
+  line-height: 1.5;
+  transition: opacity 0.22s;
+}
+.sk-consider {
+  background: #f7f2ea;
+}
+.sk-consider .sk-copy h2 span {
+  color: #9f5c48;
+}
+.sk-consider-scene {
+  background: #efe2d2;
+}
+.sk-consider-context {
+  border-bottom: 1px solid #b9a994;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 13px;
+  color: #695e50;
+}
+.sk-consider-context strong {
+  color: #493f34;
+}
+.sk-return {
+  padding-block: 90px;
+}
+.sk-return-flow {
+  background: #e5e0eb;
+}
+.sk-audience {
+  padding: 20px;
+  background: #fcfcfa;
+  border: 1px solid #cfc6d8;
+  border-radius: 16px;
+  margin-bottom: 25px;
+}
+.sk-audience > span {
+  font-size: 12px;
+  color: #685b73;
+}
+.sk-audience > strong {
+  display: block;
+  font-size: 16px;
+  margin-top: 6px;
+}
+.sk-audience > p {
+  font-size: 12px;
+  color: #5f655f;
+  margin-top: 8px;
+}
+.sk-fit {
+  background: #1e2b29;
+  color: #fcfcfa;
+  padding-block: 76px;
+}
+.sk-fit .sk-label {
+  color: #cbcdad;
+}
+.sk-fit h2 {
+  max-width: 800px;
+}
+.sk-fit h2 span {
+  color: #cbcdad;
+}
+.sk-responsibilities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-top: 42px;
+}
+.sk-responsibilities > div {
+  border-top: 1px solid #788479;
+  padding-top: 24px;
+}
+.sk-responsibilities h3 {
+  font-size: 24px;
+  letter-spacing: -0.025em;
+}
+.sk-responsibilities p {
+  font-size: 15px;
+  color: #dbdfd5;
+  margin-top: 15px;
+  max-width: 470px;
+}
+.skin-clinics-page .sk-fit-note {
+  font-size: 13px;
+  color: #dbdfd5;
+  max-width: 820px;
+  margin-top: 32px;
+}
+.sk-launch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding-block: 90px;
+}
+.sk-launch-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sk-launch-list li {
+  display: flex;
+  gap: 22px;
+  border-bottom: 1px solid #dedfd5;
+  padding: 25px 0;
+}
+.sk-launch-list li:first-child {
+  padding-top: 0;
+}
+.sk-launch-list li > span {
+  font:
+    22px "Skin Display",
+    sans-serif;
+  color: #9f5c48;
+}
+.sk-launch-list h3 {
+  font-size: 25px;
+  letter-spacing: -0.025em;
+}
+.sk-launch-list p {
+  font-size: 14px;
+  color: #5f655f;
+  margin-top: 12px;
+}
+.sk-value {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  padding-block: 45px 80px;
+  border-bottom: 1px solid #dedfd5;
+}
+.sk-value h2 {
+  font-size: clamp(34px, 3.2vw, 45px);
+}
+.sk-value > div > p:not(.sk-label) {
+  max-width: 460px;
+  color: #5f655f;
+}
+.skin-clinics-page .sk-value-note {
+  font-size: 12px;
+  margin-top: 18px;
+}
+.sk-value .sk-link {
+  margin-top: 14px;
+}
+.sk-faq {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 80px;
+  padding-block: 88px;
+}
+.sk-faq h2 {
+  font-size: clamp(36px, 3.5vw, 48px);
+}
+.sk-faq details {
+  border-bottom: 1px solid #dedfd5;
+}
+.sk-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 21px 0;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.sk-faq summary::-webkit-details-marker {
+  display: none;
+}
+.sk-faq summary svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.sk-faq details[open] svg {
+  transform: rotate(180deg);
+}
+.sk-faq details p {
+  color: #5f655f;
+  font-size: 14px;
+  padding-bottom: 22px;
+}
+.sk-final {
+  text-align: center;
+  padding-block: 25px 70px;
+}
+.sk-final-petal {
+  background: #111318;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+.sk-final h2 {
+  font-size: clamp(38px, 4.5vw, 64px);
+}
+.sk-final > p {
+  max-width: 680px;
+  color: #5f655f;
+  font-size: 16px;
+  margin: 23px auto 0;
+}
+.sk-final .sk-actions {
+  justify-content: center;
+}
+@media (max-width: 1100px) {
+  .sk-hero {
+    gap: 40px;
+  }
+  .sk-hero h1 {
+    font-size: 50px;
+  }
+  .sk-hero-scene > img {
+    height: 500px;
+  }
+  .sk-split,
+  .sk-return,
+  .sk-launch,
+  .sk-gap,
+  .sk-value,
+  .sk-faq {
+    gap: 40px;
+  }
+  .sk-wrap {
+    padding-inline: 30px;
+  }
+  .sk-dialogue {
+    padding: 24px;
+  }
+  .sk-outgoing {
+    margin-left: 10px;
+  }
+  .sk-bubble {
+    padding: 16px;
+  }
+  .sk-consider-context {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+@media (max-width: 800px) {
+  .sk-wrap {
+    padding-inline: 24px;
+  }
+  .sk-hero {
+    grid-template-columns: 1fr;
+    padding-top: 108px;
+    padding-bottom: 60px;
+    gap: 32px;
+  }
+  .sk-hero h1 {
+    font-size: clamp(40px, 8vw, 58px);
+  }
+  .sk-hero h1 span br {
+    display: none;
+  }
+  .skin-clinics-page .sk-label {
+    font-size: 10px;
+    margin-bottom: 16px;
+  }
+  .sk-hero-scene > img {
+    height: 400px;
+    object-position: 65% center;
+  }
+  .sk-hero-note {
+    left: 12px;
+    width: min(290px, calc(100% - 24px));
+    padding: 20px;
+  }
+  .sk-hero-boundary {
+    max-width: 100%;
+  }
+  .sk-gap,
+  .sk-split,
+  .sk-return,
+  .sk-launch,
+  .sk-value,
+  .sk-faq,
+  .sk-responsibilities {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .sk-gap {
+    padding-bottom: 25px;
+  }
+  .sk-gap h2 {
+    font-size: 34px;
+  }
+  .sk-split,
+  .sk-return {
+    padding-block: 45px;
+  }
+  .sk-split > .sk-copy {
+    order: -1;
+  }
+  .skin-clinics-page h2 {
+    font-size: clamp(34px, 7.8vw, 44px);
+  }
+  .sk-copy > p:not(.sk-label) {
+    margin-top: 18px;
+  }
+  .sk-dialogue {
+    padding: 22px;
+  }
+  .sk-outgoing {
+    margin-left: 10px;
+  }
+  .sk-message {
+    gap: 9px;
+  }
+  .sk-bubble {
+    padding: 16px;
+    font-size: 14px;
+  }
+  .skin-clinics-page .sk-handoff {
+    margin-left: 40px;
+  }
+  .sk-fit {
+    padding-block: 50px;
+  }
+  .sk-fit h2 {
+    font-size: 36px;
+  }
+  .sk-responsibilities {
+    gap: 28px;
+    margin-top: 30px;
+  }
+  .sk-launch {
+    padding-block: 55px;
+  }
+  .sk-value {
+    padding-block: 18px 48px;
+  }
+  .sk-faq {
+    padding-block: 50px;
+  }
+  .sk-faq summary {
+    font-size: 14px;
+  }
+  .sk-final {
+    padding-block: 20px 50px;
+  }
+  .sk-final h2 {
+    font-size: clamp(36px, 8vw, 48px);
+  }
+  .sk-final .sk-button {
+    width: 100%;
+  }
+  .sk-final .sk-actions {
+    gap: 12px;
+  }
+  .sk-final > p {
+    font-size: 15px;
+  }
+  .sk-hero .sk-actions {
+    gap: 12px;
+  }
+  .sk-hero .sk-link {
+    font-size: 12px;
+  }
+}
+@media (max-width: 380px) {
+  .sk-wrap {
+    padding-inline: 20px;
+  }
+  .sk-dialogue {
+    padding: 18px;
+  }
+  .sk-message {
+    gap: 7px;
+  }
+  .sk-outgoing {
+    margin-left: 0;
+  }
+  .sk-bubble {
+    padding: 14px;
+  }
+  .sk-hero-scene > img {
+    height: 380px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skin-clinics-page * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+/* Clinic-specific composition: open recognition, calm dark check-in, horizontal return flow. */
+.skin-clinics-page h1 {
+  font-size: clamp(44px, 4.25vw, 61px);
+}
+.sk-hero {
+  grid-template-columns: 1.02fr 1fr;
+  gap: 54px;
+}
+.sk-hero h1 span,
+.sk-copy h2 span,
+.sk-gap h2 span,
+.sk-return h2 span,
+.sk-faq h2 span {
+  color: #9f5c48;
+}
+.sk-hero-scene > img {
+  height: 560px;
+  object-position: 65% center;
+}
+.sk-hero-note {
+  width: 310px;
+  bottom: 16px;
+}
+.sk-gap h2 {
+  line-height: 1.13;
+}
+.sk-gap h2 span {
+  font-size: 0.83em;
+}
+.sk-consider {
+  background: #1e2b29;
+  color: #fcfcfa;
+}
+.sk-consider .sk-label,
+.sk-consider .sk-copy h2 span {
+  color: #d8c4ad;
+}
+.sk-consider .sk-copy > p:not(.sk-label) {
+  color: #d9ddd5;
+}
+.sk-consider .sk-copy > .sk-link {
+  border-color: #788479;
+}
+.sk-consider-scene {
+  background: #efe2d2;
+  color: #111318;
+}
+.sk-consider-scene .sk-scene-heading {
+  color: #695e50;
+}
+.sk-handoff-panel {
+  padding: 18px 20px;
+  border-top: 1px solid #b9a994;
+}
+.sk-handoff-panel strong,
+.sk-handoff-panel span {
+  display: block;
+}
+.sk-handoff-panel span {
+  margin-top: 6px;
+  color: #695e50;
+}
+.sk-return {
+  display: block;
+  padding-block: 96px;
+}
+.sk-return-heading {
+  max-width: 750px;
+}
+.sk-return-heading > p:not(.sk-label) {
+  max-width: 580px;
+  margin-top: 24px;
+  color: #5f655f;
+}
+.sk-return-heading .sk-link {
+  margin-top: 16px;
+}
+.sk-return-flow {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 54px;
+  margin-top: 40px;
+  padding: 40px;
+  border-radius: 26px;
+  background: #e2e4d2;
+  align-items: center;
+}
+.sk-audience {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.sk-audience > span {
+  color: #4f5947;
+}
+.sk-audience h3 {
+  font-size: 32px;
+  margin-top: 17px;
+  line-height: 1.15;
+}
+.sk-audience > p {
+  font-size: 13px;
+  line-height: 1.9;
+  margin-top: 20px;
+}
+.sk-audience-rule {
+  font-size: 12px;
+  color: #4f5947;
+  border-top: 1px solid #b2b9a0;
+  margin-top: 30px;
+  padding-top: 18px;
+  max-width: 300px;
+}
+.sk-return-conversation .sk-message:first-child {
+  margin-top: 0;
+}
+.skin-clinics-page .sk-return-footnote {
+  max-width: 890px;
+  font-size: 12px;
+  color: #5f655f;
+  margin: 22px 0 0;
+}
+.sk-fit {
+  background: #f7f2ea;
+  color: #111318;
+  padding-block: 70px;
+}
+.sk-fit .sk-label {
+  color: #695e50;
+}
+.sk-fit .sk-responsibilities > div {
+  border-color: #cdc6ba;
+}
+.sk-fit .sk-responsibilities p,
+.skin-clinics-page .sk-fit-note {
+  color: #5f655f;
+}
+.sk-fit .sk-fit-note {
+  font-size: 13px;
+  margin-top: 32px;
+  max-width: 800px;
+}
+.sk-fit h2 {
+  font-size: clamp(36px, 3.5vw, 50px);
+}
+.sk-message,
+.sk-handoff {
+  transition: opacity 0.18s ease-out;
+}
+@media (max-width: 1100px) {
+  .sk-hero {
+    gap: 36px;
+  }
+  .sk-return-flow {
+    gap: 30px;
+    padding: 30px;
+  }
+}
+@media (max-width: 800px) {
+  .sk-hero {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .skin-clinics-page h1 {
+    font-size: clamp(39px, 7.6vw, 57px);
+  }
+  .sk-hero-scene > img {
+    height: 440px;
+    object-position: 65% center;
+  }
+  .sk-hero-note {
+    width: min(310px, calc(100% - 24px));
+    bottom: 0;
+  }
+  .sk-return {
+    padding-block: 55px;
+  }
+  .sk-return-flow {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 24px;
+    margin-top: 28px;
+  }
+  .sk-audience h3 {
+    font-size: 28px;
+  }
+  .sk-audience h3 br {
+    display: none;
+  }
+  .sk-audience > p {
+    margin-top: 14px;
+  }
+  .sk-audience-rule {
+    margin-top: 18px;
+    padding-top: 14px;
+    max-width: none;
+  }
+  .sk-fit {
+    padding-block: 50px;
+  }
+  .sk-consider .sk-copy {
+    order: -1;
+  }
+}
