@@ -23,23 +23,23 @@ Local painting, garage doors, cleaning, landscaping, handyman and tree-service b
 
 Compared three directions:
 
-| Direction | Strength | Weakness | Decision |
-| --- | --- | --- | --- |
-| Gaps between stages | Commercial focus across several trades | Abstract diagrams can feel generic | Use as organising idea, not as a giant pipeline diagram |
-| Owner on the tools | Immediate recognition and human context | Can reduce the entire product to answering calls | Use in hero only, paired with an enquiry reply |
-| One customer through every stage | Clear product causality | Forces repeat work onto trades where it is unnatural | Use separate, bounded customers and needs |
+| Direction                        | Strength                                | Weakness                                             | Decision                                                |
+| -------------------------------- | --------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------- |
+| Gaps between stages              | Commercial focus across several trades  | Abstract diagrams can feel generic                   | Use as organising idea, not as a giant pipeline diagram |
+| Owner on the tools               | Immediate recognition and human context | Can reduce the entire product to answering calls     | Use in hero only, paired with an enquiry reply          |
+| One customer through every stage | Clear product causality                 | Forces repeat work onto trades where it is unnatural | Use separate, bounded customers and needs               |
 
 The implemented page combines a human work scene with a sequence of discrete, trade-specific customer stories. The hero is “Don’t let the next job slip through the gaps.” The original roof scene remains a still; the operator does not pause to check a phone. Product overlays explain the software role. No new generated imagery, footage or synthetic dashboard was introduced.
 
 ## Buyer understanding and page jobs
 
-| Awareness | Likely thinking | Page response |
-| --- | --- | --- |
-| Unaware | We are busy; admin gets done later | Hero and enquiry scene expose an unanswered next step |
-| Problem aware | Quotes go quiet and calls arrive at inconvenient times | Specific hot-water enquiry and split-system quote |
-| Solution aware | My job software may already do this | Existing-system section recognises overlap and targets remaining gaps |
-| Product aware | How would Zapla work with my team and data? | Data-trigger boundary, reply handoff and Guided Launch |
-| Most aware | What am I paying for and what happens next? | Plan costs, extras and a concrete sales-call agenda |
+| Awareness      | Likely thinking                                        | Page response                                                         |
+| -------------- | ------------------------------------------------------ | --------------------------------------------------------------------- |
+| Unaware        | We are busy; admin gets done later                     | Hero and enquiry scene expose an unanswered next step                 |
+| Problem aware  | Quotes go quiet and calls arrive at inconvenient times | Specific hot-water enquiry and split-system quote                     |
+| Solution aware | My job software may already do this                    | Existing-system section recognises overlap and targets remaining gaps |
+| Product aware  | How would Zapla work with my team and data?            | Data-trigger boundary, reply handoff and Guided Launch                |
+| Most aware     | What am I paying for and what happens next?            | Plan costs, extras and a concrete sales-call agenda                   |
 
 Functional job: capture context and keep the next action visible. Emotional job: reduce forgotten follow-up and evening setup work. Social job: respond like an organised local business without robotic chasing. Risk-reduction job: retain job software, define ownership, limit messages and test the data path before launch.
 
@@ -65,18 +65,18 @@ The commercial alternative is to configure and use the incumbent's capabilities 
 
 The current repository's CRM, Follow-Up, Customer Marketing, AI Receptionist, Reactivation, Reviews and Pricing pages establish the public product scope used here. They are evidence of the incumbent website's positioning, not runtime certification of a customer's deployment. The named NextGen announcement document was not included in these attachments or found in the inspected repository. No claim that migration is complete or that a native integration is confirmed is made.
 
-| Capability | Confidence | Page boundary |
-| --- | --- | --- |
-| Customer records, fields, inbox, stages | Confirmed in current site; deployment not exercised | Enquiry, suburb, request and next action remain together |
-| SMS follow-up and response rules | Confirmed in current site; configuration required | Agreed sequence stops on reply and returns to the team |
-| Quote-sent or job-complete trigger | Conditional; external data connection unknown | Recorded Zapla stage or scoped data path is explicitly required |
-| AI Receptionist | Confirmed current optional offer; deployment not exercised | Capture, routing and agreed rules; no diagnosis or emergency arrival promises |
-| Calendar booking | Confirmed current site; trade capacity sync unknown | No automatic dispatch, technician availability or trade-job booking is demonstrated |
-| Customer groups and date-based outreach | Confirmed current site; source data required | Genuine service need, recorded date or relevant seasonal reason |
-| Reactivation | Confirmed current Growth offer | Eligible selected customers, not indiscriminate database contact |
-| Google review requests | Confirmed current site; configured completion stage required | Neutral invitation; no happy-customer filtering or guaranteed rating |
-| ServiceM8, Simpro, Fergus, Tradify integrations | Unknown | No native connection or universal sync claim |
-| Dispatch, job costing, materials, field certificates | Not established as Zapla scope | Remain in specialised operational software |
+| Capability                                           | Confidence                                                   | Page boundary                                                                       |
+| ---------------------------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
+| Customer records, fields, inbox, stages              | Confirmed in current site; deployment not exercised          | Enquiry, suburb, request and next action remain together                            |
+| SMS follow-up and response rules                     | Confirmed in current site; configuration required            | Agreed sequence stops on reply and returns to the team                              |
+| Quote-sent or job-complete trigger                   | Conditional; external data connection unknown                | Recorded Zapla stage or scoped data path is explicitly required                     |
+| AI Receptionist                                      | Confirmed current optional offer; deployment not exercised   | Capture, routing and agreed rules; no diagnosis or emergency arrival promises       |
+| Calendar booking                                     | Confirmed current site; trade capacity sync unknown          | No automatic dispatch, technician availability or trade-job booking is demonstrated |
+| Customer groups and date-based outreach              | Confirmed current site; source data required                 | Genuine service need, recorded date or relevant seasonal reason                     |
+| Reactivation                                         | Confirmed current Growth offer                               | Eligible selected customers, not indiscriminate database contact                    |
+| Google review requests                               | Confirmed current site; configured completion stage required | Neutral invitation; no happy-customer filtering or guaranteed rating                |
+| ServiceM8, Simpro, Fergus, Tradify integrations      | Unknown                                                      | No native connection or universal sync claim                                        |
+| Dispatch, job costing, materials, field certificates | Not established as Zapla scope                               | Remain in specialised operational software                                          |
 
 Website form capture, messaging and pipeline automation are used conservatively from the incumbent site scope. The implementation does not establish whether any backend behaviour remains legacy-GHL dependent. That must be verified before promising an actual deployment.
 
@@ -108,21 +108,21 @@ Mechanics owns workshop-specific vehicle details, service dates and workshop boo
 
 These are author assessments, not independent panel approvals, customer interview results or measured conversion outcomes. The requested threshold is not evidence that a score has been earned.
 
-| Lens | Score / 10 | Challenge and response | Remaining limitation |
-| --- | --- | --- | --- |
-| Product Marketing Director | 9 | Specific customer gaps; optional AI separated; job-software overlap acknowledged | Requires deployment validation |
-| Conversion Director | 8.5 | Concrete CTA, workflow proof and total cost boundaries | No verified trade customer result or conversion test |
-| Brand / Creative Director | 9 | Real work context; restrained autumn palette; distinct page rhythm | Uses incumbent roofing still rather than a new photographic campaign |
-| UI/UX Director | 9 | Stable stories, responsive stacking, native FAQs and keyboard tabs | Automated and author inspection, not user testing |
-| Motion Director | 9 | Finite causal stories, short timings, offscreen pause and reduced motion | No live backend activity is shown |
-| Australian Trade Business Owner | 9 | Site visit, hot water enquiry, old-unit removal and local-service language | Informed role review, not an interviewed owner |
-| Office Manager / Dispatcher | 9 | Customer context and ownership visible; scheduling remains operational | Data handoff must be validated for the actual stack |
-| Buyer Psychologist | 8.5 | Reduces migration, spam and setup fears without absolute promises | Trusted customer evidence is absent |
-| CFO | 8.5 | Shows setup, usage and exclusions; contribution-based assessment | Implementation cost and realised benefit remain unmeasured |
-| Sales Director | 9 | Qualifies the use case and gives a specific fit-call agenda | Prospect response has not been observed |
-| Competitor | 8.5 | Rejects reminder uniqueness and accepts incumbent alternative | No verified comparative outcome or integration advantage |
-| SEO Director | 9 for draft readiness | Clear topic, stable route, metadata and contextual internal links | Intentionally noindexed; no rankings or keyword demand validated |
-| AI-Slop Critic | 9 | No synthetic performance, jargon-rich dashboard or industrial cliché | Existing demonstration imagery is not customer evidence |
+| Lens                            | Score / 10            | Challenge and response                                                           | Remaining limitation                                                 |
+| ------------------------------- | --------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Product Marketing Director      | 9                     | Specific customer gaps; optional AI separated; job-software overlap acknowledged | Requires deployment validation                                       |
+| Conversion Director             | 8.5                   | Concrete CTA, workflow proof and total cost boundaries                           | No verified trade customer result or conversion test                 |
+| Brand / Creative Director       | 9                     | Real work context; restrained autumn palette; distinct page rhythm               | Uses incumbent roofing still rather than a new photographic campaign |
+| UI/UX Director                  | 9                     | Stable stories, responsive stacking, native FAQs and keyboard tabs               | Automated and author inspection, not user testing                    |
+| Motion Director                 | 9                     | Finite causal stories, short timings, offscreen pause and reduced motion         | No live backend activity is shown                                    |
+| Australian Trade Business Owner | 9                     | Site visit, hot water enquiry, old-unit removal and local-service language       | Informed role review, not an interviewed owner                       |
+| Office Manager / Dispatcher     | 9                     | Customer context and ownership visible; scheduling remains operational           | Data handoff must be validated for the actual stack                  |
+| Buyer Psychologist              | 8.5                   | Reduces migration, spam and setup fears without absolute promises                | Trusted customer evidence is absent                                  |
+| CFO                             | 8.5                   | Shows setup, usage and exclusions; contribution-based assessment                 | Implementation cost and realised benefit remain unmeasured           |
+| Sales Director                  | 9                     | Qualifies the use case and gives a specific fit-call agenda                      | Prospect response has not been observed                              |
+| Competitor                      | 8.5                   | Rejects reminder uniqueness and accepts incumbent alternative                    | No verified comparative outcome or integration advantage             |
+| SEO Director                    | 9 for draft readiness | Clear topic, stable route, metadata and contextual internal links                | Intentionally noindexed; no rankings or keyword demand validated     |
+| AI-Slop Critic                  | 9                     | No synthetic performance, jargon-rich dashboard or industrial cliché             | Existing demonstration imagery is not customer evidence              |
 
 An honest all-lens 9 is not achieved. More visual polishing does not resolve the evidence gap. The next material improvement is a real trade deployment: document the old process, configured data path, messages and stop rules, customer responses and attributable jobs or office time over a stated period. Get permission before presenting it as public customer proof. This is preferable to inventing numbers or using a stock testimonial.
 
@@ -145,3 +145,27 @@ Added an optional, collapsed cost check below pricing. The owner supplies monthl
 This improves financial clarity and qualification without pretending to provide real-world conversion evidence. The commercial scores above remain bounded by the same missing customer evidence. An all-lens 9 has not been substantiated.
 
 Follow-up verification: TypeScript and production build passed. Browser tests verified both plan calculations, editable inputs, cents, empty/zero/negative inputs, five viewport widths from 320 to 1440px, keyboard audience switching, one H1 and no page-script errors. Desktop full-page, desktop cost-check and mobile viewport renders were inspected. No document or cost-field horizontal overflow was found. The published lovable.app address currently serves an older site and returns 404 for this route; the authenticated editor preview cannot be verified from the available signed-out browser. GitHub remains the implementation source of truth.
+
+## Visual consistency correction, 9 October 2026
+
+This revision supersedes the earlier visual assessment. The previous page used the brand fonts and colours, but its wide hero, separate call band, physical quote layout, audience selector, dark review panel and operational comparison created a different visual system. That was not an acceptable interpretation of the industry series. The previous Brand, UI/UX and Motion scores did not adequately test consistency with the incumbent Mechanics page.
+
+The new page adapts Mechanics as the design foundation: split hero, photograph with a single customer overlay, sage conversation scenes, warm quote band, photographic return scene, light review demonstration, compact existing-system explanation, Guided Launch panel and open pricing rows. The current Dental and Mechanics pages were rendered alongside Trades for comparison. Industry content changes; the established visual hierarchy, spacing, typography, surfaces and motion behaviour remain consistent.
+
+Trade-specific demonstrations cover a hot water enquiry, a quote question about removing the old unit, a separate customer's air conditioning service reminder and a review request after completion. The enquiry gathers details instead of implying verified technician availability. Quote triggers require a recorded Zapla stage or agreed connection. The service example invites a visit rather than asserting live dispatch or calendar sync. Existing software, data connections, consent, optional AI Receptionist and financial qualification remain explained in the native FAQs. Dense operational comparisons, the customer selector and interactive cost calculator were removed from this industry landing page; detailed plan comparison remains linked.
+
+### Required lens review
+
+These are implementation assessments, not independent reviewers or measured customer results.
+
+| Lens                       | Assessment                                                                                                                                                                                    |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Motion Director            | Same early viewport trigger as Mechanics; 450ms first beat, 650ms second beat, finite progression, offscreen pause and final hold. Reduced motion reveals every scene.                        |
+| Brand / Creative Director  | Same industry-page composition and surface language; existing plumbing photograph matches the enquiry, customer photography supports the return message. No separate creative concept.        |
+| Product Marketing Director | Clear enquiry, quote, return-service and reputation jobs; job operations remain in existing software. No technician scheduling or integration promise.                                        |
+| Conversion Director        | A single call CTA, concrete demonstrations, setup explanation, plan amounts and exclusions, objection handling and final invitation. Real conversion effectiveness remains unmeasured.        |
+| UI/UX Director             | Desktop and mobile layouts follow Mechanics; stable reserved scene layouts; native FAQs, visible focus and no horizontal overflow at five widths.                                             |
+| Copywriter / Trade owner   | Plain operational examples, automatic replies rather than receptionist checking, useful customer questions and a relevant future service reason. No decorative slogans inside demonstrations. |
+| Whole website consistency  | Compared full-page rendered Trades, Mechanics and current Dental; the common layout and demonstration language are now explicit acceptance criteria. Shared navigation and footer unchanged.  |
+
+Verification: production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks at 320, 390, 768, 1024 and 1440px found one H1, no page-script errors, no missing route images and no document overflow. Reduced-motion states are complete; normal quote progression reaches its final state after scrolling into view; offscreen quote starts at zero. Native FAQ expansion works. Full-page desktop and mobile screenshots were inspected. A final photography crop and portrait adjustment was made after visual inspection. No external booking or review was submitted.

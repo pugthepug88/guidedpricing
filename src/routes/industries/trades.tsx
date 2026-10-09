@@ -1,24 +1,49 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronRight, ChevronDown, Star } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import tradesCss from "@/styles/trades.css?url";
 
-const TITLE = "CRM for Trades & Home Services in Australia | Zapla";
-const DESCRIPTION =
-  "Capture enquiries, follow up quiet quotes and bring service customers back. Zapla customer follow-through for trades, alongside your job management software.";
 export const Route = createFileRoute("/industries/trades")({
   staticData: { sitemap: false },
   head: () => ({
-    links: [{ rel: "stylesheet", href: tradesCss }],
+    links: [
+      { rel: "stylesheet", href: tradesCss },
+      {
+        rel: "preload",
+        href: "/concept/industries/fonts/inter-tight-latin-500-normal.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/concept/industries/fonts/manrope-latin-400-normal.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+    ],
     meta: [
-      { title: TITLE },
-      { name: "description", content: DESCRIPTION },
-      { property: "og:title", content: TITLE },
-      { property: "og:description", content: DESCRIPTION },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
+      { title: "Customer Follow-Up for Trades & Home Services | Zapla" },
+      {
+        name: "description",
+        content:
+          "Capture trade enquiries, follow up quotes and bring service customers back. Customer communication alongside your existing job management software.",
+      },
+      { property: "og:title", content: "Customer Follow-Up for Trades & Home Services | Zapla" },
+      {
+        property: "og:description",
+        content:
+          "Capture trade enquiries, follow up quotes and bring service customers back. Customer communication alongside your existing job management software.",
+      },
+      { name: "twitter:title", content: "Customer Follow-Up for Trades & Home Services | Zapla" },
+      {
+        name: "twitter:description",
+        content:
+          "Capture trade enquiries, follow up quotes and bring service customers back. Customer communication alongside your existing job management software.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -26,11 +51,7 @@ export const Route = createFileRoute("/industries/trades")({
 });
 
 const BOOK = "https://zapla.io/booking";
-const PRICING = "/Pricing-v3";
-function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="tr-eyebrow">{children}</p>;
-}
-function TextLink({ href, children }: { href: string; children: ReactNode }) {
+function ActionLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a className="tr-text-link" href={href}>
       {children}
@@ -38,772 +59,498 @@ function TextLink({ href, children }: { href: string; children: ReactNode }) {
     </a>
   );
 }
-function Button({
-  children = "Book a Call",
-  href = BOOK,
-  secondary = false,
-}: {
-  children?: ReactNode;
-  href?: string;
-  secondary?: boolean;
-}) {
-  return (
-    <a className={`tr-button ${secondary ? "tr-secondary" : "tr-primary"}`} href={href}>
-      {children}
-      {!secondary && <ArrowRight size={16} aria-hidden="true" />}
-    </a>
-  );
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return <p className="tr-eyebrow">{children}</p>;
 }
-function Sender({ children = "Zapla · SMS" }: { children?: ReactNode }) {
-  return (
-    <div className="tr-sender">
-      <ZaplaPetal size={25} />
-      <span>{children}</span>
-    </div>
-  );
-}
-function Portrait({ cell = 9 }: { cell?: number }) {
-  return (
-    <span
-      className="tr-portrait"
-      aria-hidden="true"
-      style={{ backgroundPosition: `${(cell % 6) * 20}% ${Math.floor(cell / 6) * (100 / 3)}%` }}
-    />
-  );
-}
-
-// Finite customer stories: resume only while visible and hold the last state.
-function useStory(delays: readonly number[]) {
-  const ref = useRef<HTMLDivElement>(null);
-  const visible = useInView(ref, { amount: 0.15 });
-  const reduced = useReducedMotion();
-  const [step, setStep] = useState(0);
-  const final = delays.length;
-  useEffect(() => {
-    if (reduced) setStep(final);
-  }, [reduced, final]);
-  useEffect(() => {
-    if (!visible || reduced || step >= final) return;
-    const timer = window.setTimeout(
-      () => setStep((value) => Math.min(value + 1, final)),
-      delays[step],
-    );
-    return () => window.clearTimeout(timer);
-  }, [visible, reduced, step, final, delays]);
-  return { ref, step };
-}
-const ENQUIRY_DELAYS = [650, 850] as const;
-const QUOTE_DELAYS = [700, 1000] as const;
-
 function TradesPage() {
   return (
     <main className="trades-page" data-page="trades">
       <section className="tr-hero tr-wrap" aria-labelledby="trades-title">
-        <div className="tr-hero-heading">
-          <div>
-            <Eyebrow>Trades &amp; Home Services</Eyebrow>
-            <h1 id="trades-title">
-              Don’t let the next job
-              <br />
-              <span>slip through the gaps.</span>
-            </h1>
-          </div>
-          <div className="tr-hero-intro">
-            <p>
-              Capture enquiries while you’re on site. Follow up the quotes you’ve already sent. Give
-              past customers a reason to book again.
-            </p>
-            <div className="tr-actions">
-              <Button />
-              <a className="tr-flow-link" href="#customer-flow">
-                See it in action <ChevronDown size={16} aria-hidden="true" />
-              </a>
-            </div>
+        <div className="tr-hero-copy">
+          <Eyebrow>For trades &amp; home services</Eyebrow>
+          <h1 id="trades-title">
+            You do the work.
+            <br />
+            <span>Zapla follows through.</span>
+          </h1>
+          <p className="tr-intro">
+            Reply to enquiries while you’re on site. Follow up quotes before they go quiet. Bring
+            customers back when their next service is due.
+          </p>
+          <div className="tr-actions">
+            <a className="tr-button tr-primary" href={BOOK}>
+              Book a Call
+              <ArrowRight size={17} aria-hidden="true" />
+            </a>
+            <a className="tr-flow-link" href="#customer-flow">
+              See the customer flow
+              <ChevronRight size={17} aria-hidden="true" />
+            </a>
           </div>
         </div>
-        <div className="tr-hero-scene">
+        <div className="tr-hero-visual">
           <img
-            src="/concept/cinematic-v5/roofing.jpg"
-            alt="Roofers working on a tiled roof at a residential property"
-            width="1280"
-            height="720"
+            className="tr-workshop-photo"
+            src="/concept/customer-stories-v6/plumber.webp"
+            alt="A plumber working on pipework"
+            width="900"
+            height="1200"
             fetchPriority="high"
           />
-          <p className="tr-photo-line">
-            You stay on the job.
-            <br />
-            <span>Zapla keeps the next step moving.</span>
-          </p>
-          <div
-            className="tr-hero-message tr-glass"
-            role="img"
-            aria-label="Illustrative automatic reply to a roofing enquiry"
-          >
-            <Sender>Zapla · Enquiry reply</Sender>
+          <HeroEnquiry />
+        </div>
+      </section>
+
+      <div id="customer-flow" className="tr-story">
+        <section className="tr-enquiry tr-wrap" aria-labelledby="enquiry-title">
+          <EnquiryScene />
+          <div className="tr-scene-copy">
+            <Eyebrow>While you’re on the tools</Eyebrow>
+            <h2 id="enquiry-title">The enquiry shouldn’t have to wait for you.</h2>
             <p>
-              Hi Alex, thanks for getting in touch about the roof inspection. What’s the property
-              address?
+              A homeowner asks for a quote while you’re on a job. Zapla replies automatically and
+              asks for the property address and job details. Your team picks up the conversation
+              with the context already there.
             </p>
-            <div className="tr-hero-message-foot">
-              A conversation started.
+            <p className="tr-aside">
+              Want help answering calls too? <a href="/ai-receptionist">AI Receptionist</a> is an
+              optional add-on for agreed enquiries and callback requests. Urgent dispatch stays with
+              your team.
+            </p>
+            <ActionLink href="/follow-up">Explore enquiry follow-through</ActionLink>
+          </div>
+        </section>
+
+        <section className="tr-estimate-section" aria-labelledby="estimate-title">
+          <div className="tr-wrap tr-quote-layout">
+            <div className="tr-scene-copy">
+              <Eyebrow>After the quote goes out</Eyebrow>
+              <h2 id="estimate-title">Follow up quotes before they go cold.</h2>
+              <p>
+                You’ve done the site visit and sent the quote. Zapla sends the agreed follow-up so
+                the customer can ask a question or take the next step. Reminders stop when they
+                reply, and your team gets the conversation.
+              </p>
+              <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
+              <p className="tr-aside">
+                Starts from a quote stage recorded in Zapla or a connection agreed during setup.
+              </p>
+            </div>
+            <QuoteScene />
+          </div>
+        </section>
+
+        <section className="tr-return tr-wrap" aria-labelledby="return-title">
+          <div className="tr-scene-copy">
+            <Eyebrow>Service and inspection reminders</Eyebrow>
+            <h2 id="return-title">The right reminder. Before the next service is due.</h2>
+            <p>
+              An air conditioning service, pest inspection or pool maintenance visit can create a
+              genuine reason to contact a past customer. Use the recorded service date to send a
+              relevant reminder and invite them to arrange the next visit.
+            </p>
+            <ActionLink href="/customer-marketing">Explore Customer Marketing</ActionLink>
+            <p className="tr-return-support">
+              Reconnect with customers you haven’t heard from through a relevant{" "}
+              <a href="/reactivation">reactivation campaign</a>.
+            </p>
+          </div>
+          <ReturnScene />
+        </section>
+      </div>
+
+      <ReviewScene />
+
+      <section className="tr-fit tr-wrap" aria-labelledby="fit-title">
+        <h2 id="fit-title">
+          Keep your job software.
+          <br />
+          <span>Add the customer follow-through.</span>
+        </h2>
+        <p>
+          Scheduling, dispatch, quoting and invoicing stay in your existing system. During setup, we
+          confirm how Zapla gets the customer details and status updates it needs. Add it where
+          customer communication still needs attention.
+        </p>
+      </section>
+
+      <section className="tr-launch" aria-labelledby="launch-title">
+        <div className="tr-wrap tr-launch-layout">
+          <div className="tr-launch-copy">
+            <Eyebrow>Guided Launch</Eyebrow>
+            <h2 id="launch-title">
+              Built around
               <br />
-              <strong>Without stopping the work.</strong>
+              your business.
+            </h2>
+            <p>We map your process, build the agreed flows and get your team ready to use them.</p>
+            <p>
+              We confirm the enquiry questions, quote triggers, service dates and who handles
+              customer replies. Then we test the whole flow with your team.
+            </p>
+            <ActionLink href="/Pricing-v3">Explore plans and Guided Launch</ActionLink>
+          </div>
+          <div className="tr-launch-plan" aria-label="Illustrative trade business launch plan">
+            <div className="tr-launch-plan-heading">
+              <span>Your customer follow-up plan</span>
+            </div>
+            <h3>
+              Start with the gaps
+              <br />
+              in your business.
+            </h3>
+            <div className="tr-launch-plan-row">
+              <strong>Quotes going quiet</strong>
+              <p>Agree when to follow up and when to stop.</p>
+            </div>
+            <div className="tr-launch-plan-row">
+              <strong>Customers due back</strong>
+              <p>Choose relevant service dates and eligible customers.</p>
+            </div>
+            <div className="tr-launch-plan-row">
+              <strong>Enquiries while you’re on site</strong>
+              <p>Test the automatic reply, job details and team handoff.</p>
             </div>
           </div>
         </div>
-        <div className="tr-trade-strip" aria-label="Representative service trades">
-          <span>Plumbing</span>
-          <span>Electrical</span>
-          <span>Air conditioning</span>
-          <span>Pest control</span>
-          <span>Pool services</span>
-          <span>Roofing</span>
-        </div>
-        <p className="tr-hero-boundary">
-          Customer follow-through for local service businesses. Your job management software stays
-          in place.
-        </p>
       </section>
 
-      <section
-        id="customer-flow"
-        className="tr-enquiry tr-wrap tr-split"
-        aria-labelledby="enquiry-title"
-      >
-        <div className="tr-copy">
-          <Eyebrow>From the first enquiry</Eyebrow>
-          <h2 id="enquiry-title">
-            You can be busy.
-            <br />
-            The customer shouldn’t
-            <br />
-            be left waiting.
-          </h2>
-          <p>
-            A website enquiry arrives while you’re on site. Zapla sends the first reply, gathers the
-            job details and keeps the conversation with the customer record.
-          </p>
-          <p>
-            Your office can see the suburb, the request and the next action. They don’t have to ask
-            you what happened.
-          </p>
-          <TextLink href="/crm">See the connected customer record</TextLink>
-        </div>
-        <EnquiryScene />
-      </section>
-
-      <section className="tr-call-band tr-wrap" aria-labelledby="call-title">
-        <div>
-          <Eyebrow>When the phone rings instead</Eyebrow>
-          <h3 id="call-title">
-            Someone can answer.
-            <br />
-            Even when you can’t.
-          </h3>
-        </div>
-        <div>
-          <p>
-            The optional <a href="/ai-receptionist">AI Receptionist</a> answers calls, captures the
-            request and passes the next step to the right person. You set the service area, hours
-            and handoff rules.
-          </p>
-          <p className="tr-note">Technical advice and urgent dispatch stay with your team.</p>
-          <TextLink href="/ai-receptionist">Explore AI Receptionist</TextLink>
-        </div>
-      </section>
-
-      <section className="tr-quote-section" aria-labelledby="quote-title">
-        <div className="tr-wrap tr-split">
-          <QuoteScene />
-          <div className="tr-copy">
-            <Eyebrow>After the quote goes out</Eyebrow>
-            <h2 id="quote-title">
-              You’ve done the visit.
-              <br />
-              You’ve written the quote.
-              <br />
-              <span>Don’t leave it there.</span>
-            </h2>
-            <p>
-              The customer gets busy too. A well timed follow-up gives them an easy way to ask a
-              question or take the next step.
-            </p>
-            <p>
-              Zapla sends the agreed message. When they reply, further reminders stop and the
-              conversation goes to your team.
-            </p>
-            <TextLink href="/follow-up">Explore quote follow-up</TextLink>
-            <p className="tr-note">
-              Triggered by a quote stage recorded in Zapla or an agreed data connection. No assumed
-              sync with your quoting software.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <RepeatSection />
-      <section className="tr-reviews tr-wrap" aria-labelledby="review-title">
-        <div className="tr-review-panel">
-          <div className="tr-copy">
-            <Eyebrow>After the work is done</Eyebrow>
-            <h2 id="review-title">
-              Make asking for a review
-              <br />
-              part of finishing the job.
-            </h2>
-            <p>
-              Your next customer wants to know what it’s like to hire you. Send a neutral Google
-              review request after the agreed completion step, while the job is still fresh.
-            </p>
-            <TextLink href="/reviews">Explore Reviews &amp; Reputation</TextLink>
-          </div>
-          <div
-            className="tr-review-note"
-            role="img"
-            aria-label="Illustrative review request after a completed plumbing job"
-          >
-            <Sender />
-            <p>
-              Hi Daniel, thanks for having us out to replace the hot water unit. Would you share
-              your experience on Google?
-            </p>
-            <span className="tr-inline-action">
-              Leave a Google review <ArrowRight size={14} aria-hidden="true" />
-            </span>
-            <small>Sent after the job is marked complete in Zapla.</small>
-          </div>
-        </div>
-      </section>
-
-      <section className="tr-fit tr-wrap" aria-labelledby="fit-title">
-        <div className="tr-fit-heading">
-          <Eyebrow>Fits around the way you work</Eyebrow>
-          <h2 id="fit-title">
-            Keep the system
-            <br />
-            that runs the job.
-          </h2>
-          <p>
-            ServiceM8, Simpro, Fergus or Tradify may already handle parts of your customer journey.
-            Start with what works. Add Zapla where enquiries, conversations or repeat business still
-            need attention.
-          </p>
-        </div>
-        <div className="tr-fit-comparison">
-          <div>
-            <h3>Your job management system</h3>
-            <p>
-              Scheduling and dispatch
-              <br />
-              Job cards and technician time
-              <br />
-              Materials and job costing
-              <br />
-              Quotes, invoices and payments
-            </p>
-          </div>
-          <div>
-            <h3>Zapla’s customer layer</h3>
-            <p>
-              Enquiry capture and conversations
-              <br />
-              Customer records and next actions
-              <br />
-              Agreed follow-up and handoffs
-              <br />
-              Reviews and relevant return campaigns
-            </p>
-          </div>
-        </div>
-        <p className="tr-fit-foot">
-          Connections are scoped during Guided Launch. We confirm what can be linked, what needs
-          importing and what your team updates.
-        </p>
-        <div className="tr-fit-decision">
-          <h3>Another system should earn its place.</h3>
-          <p>
-            If your job software already handles the follow-up you need, use it. Zapla makes sense
-            when enquiries across channels, customer conversations and return campaigns need one
-            shared process that your current setup doesn’t cover.
-          </p>
-        </div>
-      </section>
-
-      <section className="tr-launch-section">
-        <div className="tr-wrap tr-launch">
-          <div className="tr-copy">
-            <Eyebrow>Guided Launch</Eyebrow>
-            <h2>
-              Start with one gap.
-              <br />
-              <span>Get it working properly.</span>
-            </h2>
-            <p>
-              You don’t need another system to set up after dinner. We map the agreed process,
-              configure the workflow and test it with your team before it goes live.
-            </p>
-            <TextLink href={PRICING}>See plans and Guided Launch</TextLink>
-          </div>
-          <ol className="tr-launch-steps">
-            <li>
-              <span>01</span>
-              <div>
-                <h3>Find the gap</h3>
-                <p>Look at real enquiries, quote follow-up and customer return opportunities.</p>
-              </div>
-            </li>
-            <li>
-              <span>02</span>
-              <div>
-                <h3>Agree the handoffs</h3>
-                <p>Confirm where the data comes from, who owns replies and when messages stop.</p>
-              </div>
-            </li>
-            <li>
-              <span>03</span>
-              <div>
-                <h3>Test the whole journey</h3>
-                <p>Walk through the enquiry, message, reply and team action together.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <Plans />
+      <TradesPlans />
       <Faq />
+
       <section className="tr-final tr-wrap" aria-labelledby="final-title">
         <span className="tr-final-petal">
-          <ZaplaPetal size={34} />
+          <ZaplaPetal />
         </span>
         <h2 id="final-title">
-          The next job deserves
+          Find the follow-up
           <br />
-          <span>a proper follow-through.</span>
+          your business is missing.
         </h2>
         <p>
-          Show us how an enquiry becomes a job today. We’ll identify the gaps, check your existing
-          tools and map the first workflow worth fixing.
+          Show us how enquiries, quotes and service reminders work today. We’ll map what Zapla can
+          automate, what your team handles and which plan fits your business.
         </p>
         <div className="tr-actions">
-          <Button />
-          <Button href={PRICING} secondary>
+          <a className="tr-button tr-primary" href={BOOK}>
+            Book a Call
+            <ArrowRight size={17} aria-hidden="true" />
+          </a>
+          <a className="tr-button tr-secondary" href="/Pricing-v3">
             View pricing
-          </Button>
+          </a>
         </div>
       </section>
     </main>
   );
 }
 
-function EnquiryScene() {
-  const { ref, step } = useStory(ENQUIRY_DELAYS);
+const QUOTE_STAGES = ["Quote sent", "Follow-up sent", "Customer replied"];
+const ENQUIRY_STAGES = ["Customer asks", "Automatic reply sent"];
+const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
+
+// Each brief scene progresses once, pauses offscreen and holds its final state.
+function useScene(stages: string[], timings: number[]) {
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useInView(ref, { amount: 0.1, margin: "0px 0px 80px 0px" });
+  const prefersReduced = useReducedMotion();
+  const [step, setStep] = useState(0);
+  const last = stages.length - 1;
+  useEffect(() => {
+    if (prefersReduced) setStep(last);
+  }, [prefersReduced, last]);
+  const delay = timings[step] ?? 650;
+  useEffect(() => {
+    if (!visible || prefersReduced || step >= last) return;
+    const timer = window.setTimeout(() => setStep((s) => Math.min(s + 1, last)), delay);
+    return () => window.clearTimeout(timer);
+  }, [visible, prefersReduced, step, last, delay]);
+  return { ref, step };
+}
+function HeroEnquiry() {
   return (
-    <div
-      ref={ref}
-      className="tr-enquiry-scene"
-      role="img"
-      aria-label="Illustrative enquiry: a homeowner requests a hot water replacement, Zapla asks for the address, and the office receives the customer context"
-    >
-      <div className="tr-message tr-customer-message">
-        <div className="tr-person">
-          <Portrait cell={10} />
+    <div className="tr-hero-event">
+      <div className="tr-glass tr-hero-event-body">
+        <div className="tr-customer-heading">
+          <span className="tr-person-avatar" />
           <div>
             <strong>Daniel Brooks</strong>
             <span>Website enquiry</span>
           </div>
         </div>
-        <p>Hi, can you quote to replace our hot water unit in Marrickville?</p>
+        <p>“Can you quote to replace our hot water unit?”</p>
+        <p className="tr-hero-next">Automatic reply sent. Job details requested.</p>
       </div>
-      <div className={`tr-message tr-auto-message tr-beat ${step >= 1 ? "tr-visible" : ""}`}>
-        <Sender />
-        <p>Hi Daniel, we can help with that. What’s the address, and is the unit still working?</p>
-      </div>
-      <div className={`tr-context tr-beat ${step >= 2 ? "tr-visible" : ""}`}>
-        <div className="tr-context-heading">
-          <img src="/concept/zapla-logo-dark.svg" alt="" />
-          <span>Ready for your office</span>
+    </div>
+  );
+}
+function EnquiryScene() {
+  const scene = useScene(ENQUIRY_STAGES, [450]);
+  return (
+    <div
+      ref={scene.ref}
+      className="tr-enquiry-scene"
+      data-step={scene.step}
+      role="img"
+      aria-label="Illustrative enquiry: Daniel asks about hot water replacement and receives an automatic request for job details"
+    >
+      <div className="tr-dialogue-row">
+        <span className="tr-person-avatar" />
+        <div className="tr-dialogue-content">
+          <strong>Daniel Brooks</strong>
+          <p className="tr-glass tr-dialogue-bubble">
+            Hi, can you quote to replace our hot water unit in Marrickville?
+          </p>
         </div>
-        <dl>
-          <div>
-            <dt>Customer</dt>
-            <dd>Daniel Brooks</dd>
+      </div>
+      <div
+        className={`tr-dialogue-row tr-dialogue-outgoing tr-enquiry-ack ${scene.step >= 1 ? "is-revealed" : ""}`}
+        aria-hidden={scene.step < 1}
+      >
+        <span className="tr-zapla-avatar">
+          <ZaplaPetal />
+        </span>
+        <div className="tr-dialogue-content">
+          <strong>Your business · Automated reply</strong>
+          <div className="tr-glass tr-dialogue-bubble">
+            <p>
+              Thanks Daniel. What’s the property address? If you can send a photo of the existing
+              unit, that will help us prepare for the quote.
+            </p>
           </div>
-          <div>
-            <dt>Request</dt>
-            <dd>Hot water replacement</dd>
-          </div>
-          <div>
-            <dt>Suburb</dt>
-            <dd>Marrickville</dd>
-          </div>
-          <div>
-            <dt>Next step</dt>
-            <dd>Confirm scope and arrange a visit</dd>
-          </div>
-        </dl>
+        </div>
       </div>
     </div>
   );
 }
 function QuoteScene() {
-  const { ref, step } = useStory(QUOTE_DELAYS);
+  const scene = useScene(QUOTE_STAGES, [450, 650]);
   return (
     <div
-      ref={ref}
+      ref={scene.ref}
       className="tr-quote-scene"
+      data-step={scene.step}
       role="img"
-      aria-label="Illustrative air conditioning quote follow-up. Zapla sends a reminder, Jess asks whether old unit removal is included, and further reminders stop for a team reply"
+      aria-label="Illustrative quote follow-up: Daniel asks whether removal is included; further reminders stop and his question goes to the team"
     >
-      <div className="tr-quote-document">
-        <span>QUOTE SENT</span>
-        <h3>
-          Split system
-          <br />
-          replacement
-        </h3>
-        <p>Prepared for Jess Mitchell</p>
-        <div className="tr-quote-lines">
-          <span>New unit and installation</span>
-          <span>Electrical connection</span>
-          <span>Site clean up</span>
-        </div>
-        <div className="tr-quote-document-foot">Waiting for a decision</div>
-      </div>
-      <div className={`tr-message tr-quote-follow tr-beat ${step >= 1 ? "tr-visible" : ""}`}>
-        <Sender />
-        <p>
-          Hi Jess, any questions about the split system quote? Happy to help with the next step.
-        </p>
-      </div>
-      <div className={`tr-message tr-quote-reply tr-beat ${step >= 2 ? "tr-visible" : ""}`}>
-        <div className="tr-person">
-          <Portrait cell={2} />
+      <div className="tr-glass tr-quote-summary">
+        <div className="tr-customer-heading">
+          <span className="tr-person-avatar" />
           <div>
-            <strong>Jess Mitchell</strong>
-            <span>Customer reply</span>
+            <strong>Daniel Brooks</strong>
+            <span>Marrickville · Hot water replacement</span>
           </div>
         </div>
-        <p>Thanks! Does it include taking the old unit away?</p>
-        <div className="tr-handoff">Further reminders stopped · With your team</div>
+        <div className="tr-quote-jobline">
+          <strong>Hot water replacement quote</strong>
+          <span>{scene.step >= 2 ? "Customer replied" : "Awaiting response"}</span>
+        </div>
+      </div>
+      <div
+        className={`tr-dialogue-row tr-quote-message ${scene.step >= 1 ? "is-visible" : ""}`}
+        aria-hidden={scene.step < 1}
+      >
+        <span className="tr-zapla-avatar">
+          <ZaplaPetal />
+        </span>
+        <div className="tr-dialogue-content">
+          <strong>Your business · Follow-up sent</strong>
+          <p className="tr-glass tr-dialogue-bubble">
+            Hi Daniel, did you have any questions about the hot water replacement quote? Reply here
+            and we’ll help.
+          </p>
+        </div>
+      </div>
+      <div
+        className={`tr-dialogue-row tr-quote-reply ${scene.step >= 2 ? "is-visible" : ""}`}
+        aria-hidden={scene.step < 2}
+      >
+        <span className="tr-person-avatar" />
+        <div className="tr-dialogue-content">
+          <strong>Daniel Brooks</strong>
+          <p className="tr-glass tr-dialogue-bubble">Does that include taking the old unit away?</p>
+        </div>
       </div>
     </div>
   );
 }
-
-const RETURN_EXAMPLES = [
-  {
-    trade: "Air conditioning",
-    audience: "Customers with a recorded service date",
-    reason: "Before the next service is due",
-    message: "Hi Priya, your air con service is coming up. Would you like us to arrange a time?",
-    note: "Use recorded service dates and the interval your business recommends.",
-  },
-  {
-    trade: "Pest control",
-    audience: "Customers due for their next inspection",
-    reason: "At the agreed inspection interval",
-    message:
-      "Hi Priya, it’s time to arrange your next pest inspection. Would you like a call to organise it?",
-    note: "Use the inspection schedule agreed with each customer.",
-  },
-  {
-    trade: "Pool services",
-    audience: "Past customers who may need seasonal care",
-    reason: "Before the season gets busy",
-    message:
-      "Hi Priya, would you like help getting the pool ready for summer? Reply here and we’ll organise the next step.",
-    note: "Choose eligible customers and a relevant seasonal reason to reach out.",
-  },
-  {
-    trade: "Plumbing & electrical",
-    audience: "Past customers with an agreed maintenance need",
-    reason: "When their recorded check is due",
-    message:
-      "Hi Priya, your agreed maintenance check is coming up. Would you like us to arrange a visit?",
-    note: "Only send a maintenance reminder when there is a genuine recorded need.",
-  },
-] as const;
-function RepeatSection() {
-  const [selected, setSelected] = useState(0);
-  const example = RETURN_EXAMPLES[selected];
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+function ReturnScene() {
+  const scene = useScene(RETURN_STAGES, [450, 650]);
   return (
-    <section className="tr-repeat tr-wrap" aria-labelledby="repeat-title">
-      <div className="tr-repeat-heading">
-        <div>
-          <Eyebrow>When there’s a reason to return</Eyebrow>
-          <h2 id="repeat-title">
-            The next job might
-            <br />
-            <span>already know your name.</span>
-          </h2>
+    <div
+      ref={scene.ref}
+      className="tr-return-visual"
+      data-step={scene.step}
+      role="img"
+      aria-label="Illustrative air conditioning service reminder, followed by a customer asking to arrange a visit"
+    >
+      <img
+        src="/concept/customer-marketing-customer-message.webp"
+        alt="A customer reading a message on her phone"
+        width="733"
+        height="1100"
+        loading="lazy"
+      />
+      <div className="tr-glass tr-service-reminder">
+        <div className="tr-overlay-heading">
+          <span>Air conditioning service due</span>
+          <ZaplaPetal />
         </div>
-        <div>
-          <p>
-            Past customers don’t all need the same message. Use the service history, dates and
-            interests recorded in Zapla to contact the right people at the right time.
-          </p>
-          <TextLink href="/customer-marketing">Explore Customer Marketing</TextLink>
-        </div>
+        <p>
+          Hi Alex, your air conditioning service is due next month. Want us to arrange a visit
+          before the warmer weather?
+        </p>
+        <span className="tr-message-link">
+          Arrange a service <ArrowRight size={15} aria-hidden="true" />
+        </span>
+        <span className="tr-overlay-caption">
+          {scene.step >= 1 ? "Reminder sent automatically" : "Based on the recorded service date"}
+        </span>
       </div>
-      <div className="tr-repeat-body">
-        <div
-          className="tr-trade-tabs"
-          role="tablist"
-          aria-label="Repeat business examples"
-          aria-orientation="vertical"
-        >
-          {RETURN_EXAMPLES.map((item, index) => (
-            <button
-              key={item.trade}
-              ref={(node) => {
-                tabs.current[index] = node;
-              }}
-              type="button"
-              role="tab"
-              id={`trade-tab-${index}`}
-              aria-controls="trade-return-panel"
-              aria-selected={selected === index}
-              tabIndex={selected === index ? 0 : -1}
-              onClick={() => setSelected(index)}
-              onKeyDown={(event) => {
-                const key = event.key;
-                if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(key)) return;
-                event.preventDefault();
-                const next =
-                  key === "Home"
-                    ? 0
-                    : key === "End"
-                      ? RETURN_EXAMPLES.length - 1
-                      : (index + (key === "ArrowDown" ? 1 : -1) + RETURN_EXAMPLES.length) %
-                        RETURN_EXAMPLES.length;
-                setSelected(next);
-                tabs.current[next]?.focus();
-              }}
-            >
-              {item.trade}
-              <ArrowRight size={17} aria-hidden="true" />
-            </button>
-          ))}
-        </div>
-        <div
-          className="tr-return-panel"
-          id="trade-return-panel"
-          role="tabpanel"
-          aria-labelledby={`trade-tab-${selected}`}
-          tabIndex={0}
-        >
-          <div className="tr-audience">
-            <Portrait cell={9} />
-            <div>
-              <span>{example.reason}</span>
-              <h3>{example.audience}</h3>
-            </div>
+      <div
+        className={`tr-glass tr-return-reply ${scene.step >= 2 ? "is-arrived" : ""}`}
+        aria-hidden={scene.step < 2}
+      >
+        <div className="tr-customer-heading">
+          <span className="tr-person-avatar" />
+          <div>
+            <strong>Alex Chen</strong>
+            <span>Replied to the reminder</span>
           </div>
-          <div className="tr-return-message">
-            <Sender />
-            <p>{example.message}</p>
-          </div>
-          <p className="tr-return-note">{example.note}</p>
         </div>
+        <p>“Yes please. Do you have a time next week?”</p>
       </div>
-      <p className="tr-repeat-foot">
-        Older enquiries gone quiet? <a href="/reactivation">Reactivation</a> starts a fresh
-        conversation with the eligible customers you choose.
-      </p>
-    </section>
+    </div>
   );
 }
-function Plans() {
+const REVIEW_STAGES = ["Job completed", "Invitation sent", "Review screen"];
+function GoogleWordmark() {
   return (
-    <section className="tr-plans tr-wrap" aria-labelledby="plans-title">
-      <div className="tr-plans-heading">
-        <Eyebrow>One platform price. Your whole team.</Eyebrow>
-        <h2 id="plans-title">
-          Bring the office and
+    <span className="tr-google-wordmark" aria-label="Google">
+      <span>G</span>
+      <span>o</span>
+      <span>o</span>
+      <span>g</span>
+      <span>l</span>
+      <span>e</span>
+    </span>
+  );
+}
+function ReviewScene() {
+  const scene = useScene(REVIEW_STAGES, [450, 650]);
+  return (
+    <section className="tr-reviews tr-wrap" aria-labelledby="review-title">
+      <div
+        ref={scene.ref}
+        className="tr-review-scene"
+        data-step={scene.step}
+        role="img"
+        aria-label="Illustrative review request after a completed hot water replacement; unselected review stars"
+      >
+        <div className="tr-review-completed">
+          <span className="tr-person-avatar" />
+          <span>
+            Hot water replacement <strong>Job completed</strong>
+          </span>
+        </div>
+        <div className="tr-review-message">
+          <span className="tr-zapla-avatar">
+            <ZaplaPetal />
+          </span>
+          <div className="tr-glass tr-review-invitation">
+            <span className="tr-review-sender">
+              Your business · {scene.step >= 1 ? "Invitation sent" : "Invitation prepared"}
+            </span>
+            <p>Thanks for having us out, Daniel. Would you share your experience on Google?</p>
+            <span className="tr-google-link">
+              Leave a Google review <ArrowRight size={15} aria-hidden="true" />
+            </span>
+          </div>
+        </div>
+        <div
+          className={`tr-glass tr-google-review-screen ${scene.step >= 2 ? "is-visible" : ""}`}
+          aria-hidden={scene.step < 2}
+        >
+          <GoogleWordmark />
+          <h3>How did we do?</h3>
+          <div
+            className="tr-google-stars"
+            aria-label="Five unselected rating stars in an illustrative review screen"
+          >
+            {[1, 2, 3, 4, 5].map((star) => (
+              <Star key={star} size={28} strokeWidth={1.6} aria-hidden="true" />
+            ))}
+          </div>
+          <span className="tr-google-write">Share your experience</span>
+        </div>
+      </div>
+      <div className="tr-scene-copy">
+        <Eyebrow>After the job is done</Eyebrow>
+        <h2 id="review-title">
+          Let your good work
           <br />
-          the owner onto the same page.
+          build your reputation.
         </h2>
         <p>
-          Unlimited users. Unlimited stored contacts under fair use. No extra platform seat fee when
-          another person needs access.
+          Send a Google review request after the job is marked complete in Zapla or through the
+          agreed connection. Make it easy to share feedback and help the next homeowner feel
+          confident choosing your business.
         </p>
+        <ActionLink href="/reviews">Explore review automation</ActionLink>
       </div>
-      <div className="tr-plan-pair">
-        <article>
-          <h3>Follow-Through</h3>
-          <p>For the business already coming to you.</p>
-          <div className="tr-price">
-            A$399<span>/mo + GST</span>
-          </div>
-          <p className="tr-plan-scope">
-            Enquiry capture, customer conversations, quote follow-up and review requests.
-          </p>
-          <p className="tr-launch-price">Guided Launch from A$1,997 + GST</p>
-          <TextLink href={PRICING}>View full inclusions</TextLink>
-        </article>
-        <article>
-          <h3>Growth</h3>
-          <p>For bringing the right customers back.</p>
-          <div className="tr-price">
-            A$699<span>/mo + GST</span>
-          </div>
-          <p className="tr-plan-scope">
-            Everything in Follow-Through, plus reactivation and targeted customer campaigns.
-          </p>
-          <p className="tr-launch-price">Guided Launch from A$2,997 + GST</p>
-          <TextLink href={PRICING}>View Growth inclusions</TextLink>
-        </article>
-      </div>
-      <p className="tr-pricing-note">
-        Communications usage, AI Receptionist and custom connections are extra. Scope and total
-        costs are agreed before launch.
-      </p>
-      <CostCheck />
     </section>
   );
 }
 
-function CostCheck() {
-  const [plan, setPlan] = useState("follow-through");
-  const [months, setMonths] = useState("12");
-  const [launch, setLaunch] = useState("1997");
-  const [extras, setExtras] = useState("");
-  const [contribution, setContribution] = useState("");
-  const monthly = plan === "growth" ? 699 : 399;
-  const period = Number(months);
-  const setup = Number(launch);
-  const additional = Number(extras);
-  const margin = Number(contribution);
-  const total = monthly * period + setup + additional * period;
-  const valid =
-    [months, launch, extras, contribution].every((value) => value.trim() !== "") &&
-    [period, setup, additional, margin].every(Number.isFinite) &&
-    period >= 1 &&
-    Number.isInteger(period) &&
-    setup >= 0 &&
-    additional >= 0 &&
-    margin > 0 &&
-    Number.isSafeInteger(Math.ceil(total / margin)) &&
-    Number.isFinite(total);
-  const money = (value: number) =>
-    value.toLocaleString("en-AU", {
-      style: "currency",
-      currency: "AUD",
-      minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
-      maximumFractionDigits: 2,
-    });
-
+function TradesPlans() {
   return (
-    <details className="tr-cost-check">
-      <summary>
-        What would it need to earn back?
-        <ChevronDown size={18} aria-hidden="true" />
-      </summary>
-      <div className="tr-cost-body">
-        <div>
-          <p className="tr-cost-intro">
-            Use your own numbers. Start with the money left from a job after direct labour,
-            materials and other job costs, rather than the invoice total.
-          </p>
-          <div className="tr-cost-fields">
-            <label htmlFor="tr-cost-plan">
-              Plan
-              <select
-                id="tr-cost-plan"
-                value={plan}
-                onChange={(event) => {
-                  const next = event.target.value;
-                  setPlan(next);
-                  setLaunch(next === "growth" ? "2997" : "1997");
-                }}
-              >
-                <option value="follow-through">Follow-Through · A$399/mo</option>
-                <option value="growth">Growth · A$699/mo</option>
-              </select>
-            </label>
-            <label htmlFor="tr-cost-months">
-              Period in months
-              <input
-                id="tr-cost-months"
-                type="number"
-                min="1"
-                step="1"
-                value={months}
-                onChange={(event) => setMonths(event.target.value)}
-              />
-            </label>
-            <label htmlFor="tr-cost-launch">
-              Launch and connection setup · A$
-              <input
-                id="tr-cost-launch"
-                type="number"
-                min="0"
-                step="0.01"
-                value={launch}
-                onChange={(event) => setLaunch(event.target.value)}
-              />
-            </label>
-            <label htmlFor="tr-cost-extras">
-              Monthly usage and add ons · A$
-              <input
-                id="tr-cost-extras"
-                type="number"
-                min="0"
-                step="0.01"
-                value={extras}
-                onChange={(event) => setExtras(event.target.value)}
-                aria-describedby="tr-cost-help"
-              />
-            </label>
-            <label htmlFor="tr-cost-margin">
-              Contribution per extra job · A$
-              <input
-                id="tr-cost-margin"
-                type="number"
-                min="0.01"
-                step="0.01"
-                value={contribution}
-                onChange={(event) => setContribution(event.target.value)}
-              />
-            </label>
-          </div>
-          <p className="tr-cost-help" id="tr-cost-help">
-            All amounts exclude GST. Setup starts at the shown amount; replace it with your scoped
-            quote. Include usage, optional services and ongoing connection costs.
-          </p>
-        </div>
-        <div className="tr-cost-result" role="status" aria-live="polite" aria-atomic="true">
-          {valid ? (
-            <>
-              <span>
-                To cover {money(total)} over {period} months
-              </span>
-              <strong>{Math.ceil(total / margin).toLocaleString("en-AU")} extra jobs</strong>
-              <p>At {money(margin)} contribution per job.</p>
-              <small>
-                Plan × months + setup + monthly extras × months, divided by contribution per job.
-                Rounded up to whole jobs.
-              </small>
-            </>
-          ) : (
-            <>
-              <h3>Would it stack up for you?</h3>
-              <p>
-                Enter your costs and job contribution to see the extra work needed to cover them.
-              </p>
-            </>
-          )}
-          <small>
-            This is a cost check, not a forecast. Count only additional work you can attribute. Your
-            team’s setup and running time can add to the cost.
-          </small>
-        </div>
+    <section className="tr-plans tr-wrap" aria-labelledby="plans-title">
+      <div>
+        <Eyebrow>Monthly plans</Eyebrow>
+        <h2 id="plans-title">
+          Plans for
+          <br />
+          your business.
+        </h2>
+        <p className="tr-plan-value">
+          One setup for the customer work that’s easy to put off: enquiries, quote follow-up and
+          review requests. Growth adds a reason for existing customers to book again.
+        </p>
       </div>
-    </details>
+      <div className="tr-plan-options">
+        <div className="tr-plan-option">
+          <div>
+            <strong>Follow-Through</strong>
+            <p>
+              Automatic enquiry replies, customer conversations, quote follow-up and Google review
+              requests.
+            </p>
+          </div>
+          <span>
+            A$399<small>/month</small>
+          </span>
+        </div>
+        <div className="tr-plan-option">
+          <div>
+            <strong>Growth</strong>
+            <p>Everything in Follow-Through, plus service reminders and customer reactivation.</p>
+          </div>
+          <span>
+            A$699<small>/month</small>
+          </span>
+        </div>
+        <p className="tr-plan-note">
+          Unlimited users and stored contacts under fair use. GST, usage and Guided Launch setup
+          extra. AI Receptionist is optional.{" "}
+          <a href="/Pricing-v3">
+            Compare plans and inclusions <ArrowRight size={14} aria-hidden="true" />
+          </a>
+        </p>
+      </div>
+    </section>
   );
 }
+
 const FAQS = [
   [
     "Do I have to replace ServiceM8, Simpro, Fergus or Tradify?",
