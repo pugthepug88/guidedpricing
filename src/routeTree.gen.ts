@@ -26,6 +26,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
+import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
 import { Route as IndustriesDentalRouteImport } from './routes/industries/dental'
 import { Route as IndustriesMechanicsRouteImport } from './routes/industries/mechanics'
 import { Route as IndustriesMechanicsV2RouteImport } from './routes/industries/mechanics-v2'
@@ -121,6 +122,11 @@ const ConceptCinematicFollowThroughV6Route =
     path: '/concept/cinematic-follow-through-v6',
     getParentRoute: () => rootRouteImport,
   } as any)
+const IndustriesAlliedHealthRoute = IndustriesAlliedHealthRouteImport.update({
+  id: '/industries/allied-health',
+  path: '/industries/allied-health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesDentalRoute = IndustriesDentalRouteImport.update({
   id: '/industries/dental',
   path: '/industries/dental',
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
@@ -190,6 +197,7 @@ export interface FileRoutesByTo {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
@@ -215,6 +223,7 @@ export interface FileRoutesById {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
+  '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
@@ -241,6 +250,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/allied-health'
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
@@ -265,6 +275,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/allied-health'
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
@@ -289,6 +300,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
+    | '/industries/allied-health'
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
@@ -314,6 +326,7 @@ export interface RootRouteChildren {
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
+  IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
   IndustriesDentalRoute: typeof IndustriesDentalRoute
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
   IndustriesMechanicsV2Route: typeof IndustriesMechanicsV2Route
@@ -442,6 +455,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/industries/allied-health': {
+      id: '/industries/allied-health'
+      path: '/industries/allied-health'
+      fullPath: '/industries/allied-health'
+      preLoaderRoute: typeof IndustriesAlliedHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/dental': {
       id: '/industries/dental'
       path: '/industries/dental'
@@ -499,6 +519,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareZaplaVsPipedriveRoute: CompareZaplaVsPipedriveRoute,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
+  IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
   IndustriesDentalRoute: IndustriesDentalRoute,
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
   IndustriesMechanicsV2Route: IndustriesMechanicsV2Route,

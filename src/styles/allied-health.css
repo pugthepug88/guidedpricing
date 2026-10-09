@@ -1,0 +1,840 @@
+@font-face {
+  font-family: "Allied Display";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/concept/industries/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Allied Body";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Allied Body";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-600-normal.woff2") format("woff2");
+}
+.allied-health-page {
+  --ah-ink: #111318;
+  --ah-muted: #5f655f;
+  --ah-green: #1e2b29;
+  --ah-line: #dedfd5;
+  background: #fcfcfa;
+  color: var(--ah-ink);
+  font-family: "Allied Body", Manrope, sans-serif;
+  font-size: 15px;
+  overflow: clip;
+}
+.allied-health-page * {
+  box-sizing: border-box;
+}
+.allied-health-page h1,
+.allied-health-page h2,
+.allied-health-page h3,
+.allied-health-page p {
+  margin: 0;
+}
+.allied-health-page h1,
+.allied-health-page h2 {
+  font-family: "Allied Display", "Inter Tight", Manrope, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+.allied-health-page h1 {
+  font-size: clamp(44px, 4.5vw, 66px);
+  line-height: 1.02;
+}
+.allied-health-page h2 {
+  font-size: clamp(38px, 4vw, 54px);
+  line-height: 1.04;
+}
+.allied-health-page h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.4;
+}
+.allied-health-page p {
+  line-height: 1.75;
+  color: var(--ah-muted);
+}
+.allied-health-page a {
+  color: inherit;
+  text-decoration: none;
+}
+.allied-health-page :is(a, button, summary):focus-visible {
+  outline: 3px solid #2563ff;
+  outline-offset: 5px;
+}
+.ah-wrap {
+  width: min(1200px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.allied-health-page .ah-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #a2533d;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.ah-hero {
+  display: grid;
+  grid-template-columns: 1.03fr 1fr;
+  align-items: center;
+  gap: 64px;
+  padding-top: 155px;
+  padding-bottom: 95px;
+}
+.allied-health-page .ah-intro {
+  font-size: 16px;
+  max-width: 490px;
+  margin-top: 24px;
+}
+.ah-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.ah-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 26px;
+  min-height: 52px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition:
+    background 0.18s,
+    border-color 0.18s;
+}
+.allied-health-page .ah-primary {
+  background: var(--ah-green);
+  color: #fcfcfa;
+}
+.allied-health-page .ah-primary:hover {
+  background: #324640;
+}
+.ah-secondary {
+  background: #fff;
+  border-color: #d9d4c9;
+}
+.ah-secondary:hover {
+  border-color: #8d988f;
+}
+.ah-text-link {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 44px;
+}
+.ah-text-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.allied-health-page .ah-reassurance {
+  font-size: 12px;
+  max-width: 380px;
+  margin-top: 22px;
+  line-height: 1.6;
+}
+.ah-hero-visual {
+  position: relative;
+  padding-bottom: 66px;
+  margin-right: -14px;
+}
+.ah-hero-visual > img {
+  display: block;
+  width: 100%;
+  height: 475px;
+  object-fit: cover;
+  object-position: 52% center;
+  border-radius: 22px;
+}
+.ah-hero-note {
+  position: absolute;
+  bottom: 0;
+  left: -27px;
+  width: 318px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #e0dfd5;
+  border-radius: 16px;
+  box-shadow: 0 14px 36px #263c2f0d;
+  padding: 19px 22px;
+}
+.ah-sender {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #536152;
+}
+.ah-hero-note > p {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--ah-ink);
+}
+.ah-note-outcome {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid #e7e8e0;
+  padding-top: 12px;
+  margin-top: 13px;
+  font-size: 11px;
+  color: var(--ah-muted);
+}
+.ah-note-outcome strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: #263c31;
+}
+.ah-fit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  border-top: 1px solid var(--ah-line);
+  padding-block: 70px 90px;
+}
+.ah-fit-roles > div {
+  padding-bottom: 22px;
+}
+.ah-fit-roles > div + div {
+  border-top: 1px solid var(--ah-line);
+  padding-top: 22px;
+}
+.ah-fit-roles h3 {
+  margin-bottom: 7px;
+  color: #314537;
+}
+.ah-fit-roles p {
+  max-width: 490px;
+  font-size: 14px;
+}
+.allied-health-page .ah-small {
+  font-size: 12px;
+  line-height: 1.8;
+}
+.ah-story-section {
+  background: #f7f4ee;
+  padding-block: 94px;
+  scroll-margin-top: 90px;
+}
+.ah-story-layout {
+  display: grid;
+  grid-template-columns: 0.86fr 1.14fr;
+  gap: 86px;
+  align-items: center;
+}
+.ah-copy > p:not(.ah-eyebrow) {
+  margin-top: 24px;
+  max-width: 430px;
+}
+.ah-copy .ah-text-link,
+.ah-copy .ah-button {
+  margin-top: 22px;
+}
+.ah-enquiry-demo {
+  background: #fff;
+  border: 1px solid #e0dfd6;
+  border-radius: 22px;
+  box-shadow: 0 18px 46px #263c2f08;
+  overflow: hidden;
+}
+.ah-demo-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #ecebe5;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ah-demo-top span:last-child {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--ah-muted);
+}
+.ah-message-thread {
+  padding: 23px 26px 16px;
+  min-height: 580px;
+}
+.ah-message {
+  border-radius: 13px;
+  padding: 14px 17px;
+  font-size: 12px;
+  line-height: 1.65;
+  max-width: 89%;
+  margin-bottom: 17px;
+}
+.ah-message p {
+  color: var(--ah-ink);
+  line-height: 1.75;
+}
+.ah-message > span:first-child {
+  font-size: 10px;
+  color: #657163;
+  display: block;
+  margin-bottom: 6px;
+}
+.ah-patient {
+  background: #f2f0e9;
+  margin-left: auto;
+  border-bottom-right-radius: 3px;
+  max-width: 82%;
+}
+.ah-zapla {
+  background: #f4f6ee;
+  border-bottom-left-radius: 3px;
+}
+.ah-message .ah-sender {
+  margin-bottom: 8px;
+}
+.ah-booking-link {
+  display: inline-block;
+  margin-top: 9px;
+  color: #2456cc;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 11px;
+}
+.ah-progress-beat {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease;
+}
+.ah-progress-beat.ah-shown {
+  opacity: 1;
+  visibility: visible;
+}
+.ah-reception-task {
+  border: 1px solid #d5dbcb;
+  border-radius: 12px;
+  margin-top: 8px;
+  font-size: 12px;
+  overflow: hidden;
+}
+.ah-reception-task > div:first-child {
+  padding: 13px 16px;
+}
+.ah-reception-task span {
+  display: block;
+  color: #657163;
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+.ah-reception-task strong {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+}
+.ah-reception-task p {
+  font-size: 11px;
+  margin-top: 5px;
+}
+.ah-stop-note {
+  background: #e9ecdf;
+  padding: 10px 16px;
+  color: #35452d;
+  font-size: 10px;
+  font-weight: 600;
+}
+.ah-demo-steps {
+  display: flex;
+  border-top: 1px solid #ecebe5;
+  padding: 8px 12px;
+}
+.ah-demo-steps button {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: #687264;
+  flex: 1;
+  min-height: 44px;
+  padding: 7px 6px;
+  font-family: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+.ah-demo-steps button:hover {
+  background: #f6f7f1;
+}
+.ah-demo-steps .ah-step-selected {
+  border-color: #73824f;
+  color: #263c31;
+  font-weight: 600;
+}
+.allied-health-page .ah-demo-caption {
+  border-top: 1px solid #ecebe5;
+  padding: 13px 24px;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.ah-call {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 106px;
+  padding-block: 110px;
+}
+.ah-call-scene {
+  background: #e2e4d2;
+  border-radius: 23px;
+  padding: 36px 34px 23px;
+}
+.allied-health-page .ah-call-label {
+  font-size: 12px;
+  color: #3b4b33;
+}
+.allied-health-page .ah-call-quote {
+  color: #35422f;
+  font-family: "Allied Display", sans-serif;
+  font-size: 29px;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  margin-block: 24px 30px;
+  max-width: 350px;
+}
+.ah-callback {
+  border-radius: 15px;
+  background: #fcfcfa;
+  border: 1px solid #d5d8c8;
+  padding: 23px;
+  box-shadow: 0 8px 24px #25332108;
+}
+.ah-callback h3 {
+  margin-top: 16px;
+}
+.ah-callback p {
+  font-size: 12px;
+  margin-top: 10px;
+}
+.ah-task-line {
+  border-top: 1px solid #dedfd5;
+  margin-top: 19px;
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 11px;
+  color: #5f655f;
+}
+.ah-task-line strong {
+  font-weight: 600;
+  color: #30432f;
+}
+.allied-health-page .ah-example {
+  font-size: 10px;
+  margin-top: 13px;
+  text-align: center;
+  color: #53604a;
+}
+.allied-health-page .ah-aside {
+  font-size: 13px;
+  line-height: 1.75;
+}
+.ah-control {
+  background: #1e2b29;
+  color: #fcfcfa;
+  padding-block: 90px 60px;
+}
+.ah-control .ah-eyebrow {
+  color: #d5ac77;
+}
+.ah-control h2 {
+  font-size: clamp(36px, 4vw, 53px);
+  line-height: 1.1;
+  max-width: 900px;
+}
+.ah-control h2 span {
+  color: #bfc9ab;
+}
+.ah-control-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  margin-top: 56px;
+}
+.ah-control-columns > div + div {
+  border-left: 1px solid #45524b;
+  padding-left: 50px;
+}
+.ah-control h3 {
+  font-size: 17px;
+  color: #f5f4eb;
+}
+.ah-control ul {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+}
+.ah-control li {
+  padding: 12px 0;
+  border-bottom: 1px solid #394640;
+  font-size: 13px;
+  line-height: 1.75;
+  color: #cbd2c8;
+}
+.allied-health-page .ah-control-bottom {
+  font-size: 12px;
+  color: #bbc5b8;
+  border-top: 1px solid #45524b;
+  margin-top: 40px;
+  padding-top: 24px;
+  max-width: 940px;
+}
+.ah-launch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  padding-block: 110px;
+}
+.ah-launch-stages > div {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 20px;
+  padding: 23px 0;
+  border-top: 1px solid var(--ah-line);
+}
+.ah-launch-stages h3 {
+  color: #a2533d;
+  font-size: 21px;
+  font-family: "Allied Display", sans-serif;
+  font-weight: 500;
+}
+.ah-launch-stages p {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.ah-commercial {
+  background: #efe2d2;
+  padding-block: 82px;
+}
+.ah-commercial-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+}
+.ah-commercial .ah-button {
+  background: #fcfcfa;
+}
+.ah-scope-list > div {
+  border-bottom: 1px solid #d5caba;
+  padding-bottom: 22px;
+  margin-bottom: 22px;
+}
+.ah-scope-list h3 {
+  margin-bottom: 7px;
+}
+.ah-scope-list p {
+  font-size: 13px;
+  color: #5d6054;
+}
+.ah-faq {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 85px;
+  padding-block: 110px 70px;
+}
+.ah-faq-list details {
+  border-top: 1px solid var(--ah-line);
+}
+.ah-faq-list details:last-child {
+  border-bottom: 1px solid var(--ah-line);
+}
+.ah-faq-list summary {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding-block: 23px;
+  align-items: center;
+}
+.ah-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+.ah-faq-list summary svg {
+  flex-shrink: 0;
+  transition: transform 0.18s;
+}
+.ah-faq-list details[open] summary svg {
+  transform: rotate(180deg);
+}
+.ah-faq-list details > p {
+  font-size: 13px;
+  padding-bottom: 24px;
+  max-width: 510px;
+}
+.ah-final {
+  text-align: center;
+  padding-block: 64px 8px;
+}
+.ah-petal-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111214;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 24px;
+}
+.ah-final h2 {
+  font-size: clamp(44px, 5.2vw, 68px);
+}
+.ah-final > p {
+  margin: 22px auto 0;
+  max-width: 540px;
+}
+.ah-final .ah-actions {
+  justify-content: center;
+  margin-top: 28px;
+}
+@media (max-width: 1050px) {
+  .ah-wrap {
+    width: calc(100% - 64px);
+  }
+  .ah-hero {
+    gap: 35px;
+    padding-top: 135px;
+  }
+  .allied-health-page h1 {
+    font-size: 52px;
+  }
+  .ah-hero-visual {
+    margin-right: 0;
+  }
+  .ah-hero-visual > img {
+    height: 450px;
+  }
+  .ah-hero-note {
+    left: -15px;
+    width: 290px;
+  }
+  .ah-fit,
+  .ah-call,
+  .ah-launch,
+  .ah-commercial-layout {
+    gap: 55px;
+  }
+  .ah-story-layout {
+    gap: 44px;
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+  .ah-control-columns {
+    gap: 45px;
+  }
+  .ah-control-columns > div + div {
+    padding-left: 35px;
+  }
+  .ah-faq {
+    gap: 45px;
+  }
+  .ah-message-thread {
+    padding: 20px;
+    min-height: 620px;
+  }
+  .ah-call-scene {
+    padding: 28px 25px;
+  }
+}
+@media (max-width: 760px) {
+  .ah-wrap {
+    width: calc(100% - 40px);
+  }
+  .ah-hero {
+    grid-template-columns: 1fr;
+    padding-top: 115px;
+    padding-bottom: 60px;
+    gap: 36px;
+  }
+  .allied-health-page h1 {
+    font-size: clamp(43px, 8vw, 60px);
+    max-width: 580px;
+  }
+  .allied-health-page h2 {
+    font-size: 40px;
+  }
+  .allied-health-page .ah-intro {
+    font-size: 15px;
+    margin-top: 20px;
+  }
+  .ah-actions {
+    gap: 17px;
+    margin-top: 24px;
+  }
+  .ah-hero-visual {
+    padding-bottom: 40px;
+    margin-left: 15px;
+  }
+  .ah-hero-visual > img {
+    height: 350px;
+    object-position: 50% center;
+    border-radius: 18px;
+  }
+  .ah-hero-note {
+    left: -15px;
+    bottom: 0;
+    width: min(310px, 90%);
+    padding: 17px 20px;
+  }
+  .ah-fit {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 55px 65px;
+  }
+  .ah-fit h2 br {
+    display: none;
+  }
+  .ah-story-section {
+    padding-block: 60px;
+  }
+  .ah-story-layout {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .ah-copy > p:not(.ah-eyebrow) {
+    max-width: 540px;
+    margin-top: 20px;
+  }
+  .ah-enquiry-demo {
+    max-width: 560px;
+    width: 100%;
+    margin: auto;
+  }
+  .ah-message-thread {
+    min-height: 600px;
+    padding: 20px;
+  }
+  .ah-message {
+    max-width: 92%;
+  }
+  .ah-call {
+    grid-template-columns: 1fr;
+    gap: 33px;
+    padding-block: 65px;
+  }
+  .ah-call > .ah-copy {
+    order: -1;
+  }
+  .ah-call-scene {
+    max-width: 560px;
+    width: 100%;
+    margin: auto;
+    padding: 29px;
+  }
+  .ah-control {
+    padding-block: 60px 45px;
+  }
+  .ah-control h2 {
+    font-size: 38px;
+  }
+  .ah-control-columns {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin-top: 36px;
+  }
+  .ah-control-columns > div + div {
+    border: 0;
+    padding-left: 0;
+  }
+  .ah-control ul {
+    margin-top: 12px;
+  }
+  .ah-launch {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 65px;
+  }
+  .ah-launch-stages > div {
+    grid-template-columns: 66px 1fr;
+    gap: 20px;
+  }
+  .ah-commercial {
+    padding-block: 60px;
+  }
+  .ah-commercial-layout {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+  .ah-faq {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-block: 65px 30px;
+  }
+  .ah-final {
+    padding-top: 55px;
+  }
+  .ah-final h2 {
+    font-size: 46px;
+  }
+  .ah-final > p {
+    font-size: 14px;
+    max-width: 470px;
+  }
+  .ah-faq-list summary {
+    font-size: 13px;
+  }
+}
+@media (max-width: 390px) {
+  .ah-wrap {
+    width: calc(100% - 32px);
+  }
+  .allied-health-page h1 {
+    font-size: 41px;
+  }
+  .allied-health-page h2 {
+    font-size: 36px;
+  }
+  .ah-hero-visual > img {
+    height: 315px;
+  }
+  .ah-message-thread {
+    padding: 17px 15px;
+    min-height: 635px;
+  }
+  .ah-demo-top {
+    font-size: 11px;
+    padding-inline: 16px;
+  }
+  .ah-demo-top span:last-child {
+    font-size: 9px;
+  }
+  .ah-message {
+    padding: 12px 14px;
+    font-size: 11px;
+  }
+  .ah-demo-steps button {
+    font-size: 9px;
+    padding-inline: 4px;
+  }
+  .ah-control h2 {
+    font-size: 35px;
+  }
+  .ah-final h2 {
+    font-size: 42px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .allied-health-page * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
