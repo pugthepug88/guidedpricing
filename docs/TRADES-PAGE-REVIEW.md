@@ -135,3 +135,13 @@ The latest upstream mechanics motion change and new Dental page were checked and
 ## Final recommendation
 
 Keep the page as a reviewable, noindexed industry page. Use it to qualify local service businesses with genuine customer gaps. Do not sell universal integrations, dispatch or guaranteed returns. Validate one real trade workflow and gather credible outcome evidence before declaring the commercial lenses 9 or publishing the page as proven performance marketing.
+
+## Follow-up review: financial decision and incumbent alternative
+
+Added a visible fit check beneath the operational comparison: use the existing job system when it already covers the gap; consider Zapla when enquiries across channels, customer conversations and return campaigns need a shared process the current setup does not cover. This makes the incumbent alternative explicit before the launch and pricing sections.
+
+Added an optional, collapsed cost check below pricing. The owner supplies monthly usage and add-ons and contribution per additional job. Plan pricing and minimum launch fees match the current Pricing-v3 route. The period defaults to 12 months and is editable, as is the scoped setup cost. No job-margin estimate or usage allowance is fabricated. The output divides plan cost over the selected period, setup and recurring extras by job contribution, rounding up to whole jobs. It is explicitly a cost check rather than a forecast, excludes GST consistently and notes that team time can add to cost. Blank, non-finite, negative and zero-contribution entries do not yield a result; monetary precision is preserved.
+
+This improves financial clarity and qualification without pretending to provide real-world conversion evidence. The commercial scores above remain bounded by the same missing customer evidence. An all-lens 9 has not been substantiated.
+
+Follow-up verification: TypeScript and production build passed. Browser tests verified both plan calculations, editable inputs, cents, empty/zero/negative inputs, five viewport widths from 320 to 1440px, keyboard audience switching, one H1 and no page-script errors. Desktop full-page, desktop cost-check and mobile viewport renders were inspected. No document or cost-field horizontal overflow was found. The published lovable.app address currently serves an older site and returns 404 for this route; the authenticated editor preview cannot be verified from the available signed-out browser. GitHub remains the implementation source of truth.

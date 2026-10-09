@@ -319,6 +319,14 @@ function TradesPage() {
           Connections are scoped during Guided Launch. We confirm what can be linked, what needs
           importing and what your team updates.
         </p>
+        <div className="tr-fit-decision">
+          <h3>Another system should earn its place.</h3>
+          <p>
+            If your job software already handles the follow-up you need, use it. Zapla makes sense
+            when enquiries across channels, customer conversations and return campaigns need one
+            shared process that your current setup doesn’t cover.
+          </p>
+        </div>
       </section>
 
       <section className="tr-launch-section">
@@ -652,7 +660,148 @@ function Plans() {
         Communications usage, AI Receptionist and custom connections are extra. Scope and total
         costs are agreed before launch.
       </p>
+      <CostCheck />
     </section>
+  );
+}
+
+function CostCheck() {
+  const [plan, setPlan] = useState("follow-through");
+  const [months, setMonths] = useState("12");
+  const [launch, setLaunch] = useState("1997");
+  const [extras, setExtras] = useState("");
+  const [contribution, setContribution] = useState("");
+  const monthly = plan === "growth" ? 699 : 399;
+  const period = Number(months);
+  const setup = Number(launch);
+  const additional = Number(extras);
+  const margin = Number(contribution);
+  const total = monthly * period + setup + additional * period;
+  const valid =
+    [months, launch, extras, contribution].every((value) => value.trim() !== "") &&
+    [period, setup, additional, margin].every(Number.isFinite) &&
+    period >= 1 &&
+    Number.isInteger(period) &&
+    setup >= 0 &&
+    additional >= 0 &&
+    margin > 0 &&
+    Number.isSafeInteger(Math.ceil(total / margin)) &&
+    Number.isFinite(total);
+  const money = (value: number) =>
+    value.toLocaleString("en-AU", {
+      style: "currency",
+      currency: "AUD",
+      minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+      maximumFractionDigits: 2,
+    });
+
+  return (
+    <details className="tr-cost-check">
+      <summary>
+        What would it need to earn back?
+        <ChevronDown size={18} aria-hidden="true" />
+      </summary>
+      <div className="tr-cost-body">
+        <div>
+          <p className="tr-cost-intro">
+            Use your own numbers. Start with the money left from a job after direct labour,
+            materials and other job costs, rather than the invoice total.
+          </p>
+          <div className="tr-cost-fields">
+            <label htmlFor="tr-cost-plan">
+              Plan
+              <select
+                id="tr-cost-plan"
+                value={plan}
+                onChange={(event) => {
+                  const next = event.target.value;
+                  setPlan(next);
+                  setLaunch(next === "growth" ? "2997" : "1997");
+                }}
+              >
+                <option value="follow-through">Follow-Through · A$399/mo</option>
+                <option value="growth">Growth · A$699/mo</option>
+              </select>
+            </label>
+            <label htmlFor="tr-cost-months">
+              Period in months
+              <input
+                id="tr-cost-months"
+                type="number"
+                min="1"
+                step="1"
+                value={months}
+                onChange={(event) => setMonths(event.target.value)}
+              />
+            </label>
+            <label htmlFor="tr-cost-launch">
+              Launch and connection setup · A$
+              <input
+                id="tr-cost-launch"
+                type="number"
+                min="0"
+                step="0.01"
+                value={launch}
+                onChange={(event) => setLaunch(event.target.value)}
+              />
+            </label>
+            <label htmlFor="tr-cost-extras">
+              Monthly usage and add ons · A$
+              <input
+                id="tr-cost-extras"
+                type="number"
+                min="0"
+                step="0.01"
+                value={extras}
+                onChange={(event) => setExtras(event.target.value)}
+                aria-describedby="tr-cost-help"
+              />
+            </label>
+            <label htmlFor="tr-cost-margin">
+              Contribution per extra job · A$
+              <input
+                id="tr-cost-margin"
+                type="number"
+                min="0.01"
+                step="0.01"
+                value={contribution}
+                onChange={(event) => setContribution(event.target.value)}
+              />
+            </label>
+          </div>
+          <p className="tr-cost-help" id="tr-cost-help">
+            All amounts exclude GST. Setup starts at the shown amount; replace it with your scoped
+            quote. Include usage, optional services and ongoing connection costs.
+          </p>
+        </div>
+        <div className="tr-cost-result" role="status" aria-live="polite" aria-atomic="true">
+          {valid ? (
+            <>
+              <span>
+                To cover {money(total)} over {period} months
+              </span>
+              <strong>{Math.ceil(total / margin).toLocaleString("en-AU")} extra jobs</strong>
+              <p>At {money(margin)} contribution per job.</p>
+              <small>
+                Plan × months + setup + monthly extras × months, divided by contribution per job.
+                Rounded up to whole jobs.
+              </small>
+            </>
+          ) : (
+            <>
+              <h3>Would it stack up for you?</h3>
+              <p>
+                Enter your costs and job contribution to see the extra work needed to cover them.
+              </p>
+            </>
+          )}
+          <small>
+            This is a cost check, not a forecast. Count only additional work you can attribute. Your
+            team’s setup and running time can add to the cost.
+          </small>
+        </div>
+      </div>
+    </details>
   );
 }
 const FAQS = [
