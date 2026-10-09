@@ -7,7 +7,7 @@ import dentalCss from "@/styles/dental.css?url";
 
 const TITLE = "Patient Communication & Follow-Up for Dental Practices | Zapla";
 const DESCRIPTION =
-  "Keep dental enquiries and patient follow-up moving with Zapla. Support reception, reconnect with eligible patients and keep your existing dental software.";
+  "Automate dental enquiry replies, registration forms, patient follow-up and review requests with Zapla. Keep your existing dental software.";
 export const Route = createFileRoute("/industries/dental")({
   staticData: { sitemap: false },
   head: () => ({
@@ -47,6 +47,14 @@ const FAQS = [
   [
     "Can we contact inactive patients or ask for reviews?",
     "Select eligible recipients and check communication permissions before any campaign. Marketing messages need the appropriate consent, sender identification and opt-out process. For reviews, agree a neutral request process and check healthcare advertising rules. Collecting independent feedback and republishing clinical testimonials in advertising are different activities. No automatic testimonial widgets are part of this dental proposal.",
+  ],
+  [
+    "Can Zapla send new patient forms?",
+    "Yes. Use a digital form for agreed administrative registration details, or send a link to your existing dental form. Reminders can stop when a verified completion event is received. Sending an external link alone does not tell Zapla that the form is complete. Medical histories, treatment consent and clinical records remain in your approved clinical system unless suitability and handling have been separately verified.",
+  ],
+  [
+    "Can we automate check-up reminders and appointment confirmations?",
+    "Where current recall dates, appointments and booking updates can be reliably supplied, we can configure reminders, confirmations and reception alerts. Your dentist sets the recall interval. We agree which system sends each message and test updates and exclusions to prevent duplicate or stale reminders. Zapla does not assume a live connection to your dental diary.",
   ],
   [
     "What does it cost?",
@@ -132,17 +140,17 @@ function DentalPage() {
         <div className="dn-hero-copy">
           <Label>For independent dental practices</Label>
           <h1 id="dental-title">
-            Care in the chair.
+            You care for patients.
             <br />
             <span>
-              Follow-through
+              Zapla handles
               <br />
-              between visits.
+              the follow-up.
             </span>
           </h1>
           <p className="dn-intro">
-            Respond to new patient enquiries. Keep agreed follow-up moving. Help reception stay on
-            top of the conversations that bring patients back.
+            Reply to new enquiries, send registration forms and follow up patients due back. Keep
+            patient communication moving without adding more chasing to reception’s day.
           </p>
           <Actions />
           <p className="dn-hero-boundary">
@@ -173,9 +181,9 @@ function DentalPage() {
       </section>
       <section className="dn-gap dn-wrap" aria-labelledby="gap-title">
         <h2 id="gap-title">
-          The appointment is only
+          Less chasing for reception.
           <br />
-          part of the relationship.
+          Fewer conversations missed.
         </h2>
         <div className="dn-gap-rows">
           <p>
@@ -183,12 +191,12 @@ function DentalPage() {
             someone.
           </p>
           <p>
-            <span>After the discussion</span>A patient needs time. The next conversation never
-            happens.
+            <span>Before the appointment</span>Registration forms still need completing. Reception
+            has another reminder to send.
           </p>
           <p>
-            <span>Between appointments</span>A reminder goes out. A reply still needs someone to act
-            on it.
+            <span>After the visit</span>There are enquiries to follow up, patients due back and
+            feedback requests to send.
           </p>
         </div>
       </section>
@@ -198,11 +206,9 @@ function DentalPage() {
           <div className="dn-copy">
             <Label>New patient enquiries</Label>
             <h2 id="enquiry-title">
-              A warm welcome.
+              Respond to new patients
               <br />
-              Even when reception
-              <br />
-              is busy.
+              while reception is busy.
             </h2>
             <p>
               Acknowledge a web enquiry automatically and keep the reply with the patient’s contact
@@ -217,23 +223,42 @@ function DentalPage() {
             </p>
           </div>
         </section>
+        <section className="dn-split dn-wrap" aria-labelledby="forms-title">
+          <div className="dn-copy">
+            <Label>Before the first appointment</Label>
+            <h2 id="forms-title">
+              Send new patient forms.
+              <br />
+              Before they arrive.
+            </h2>
+            <p>
+              Send a digital registration link ahead of the visit. Remind patients who haven’t
+              completed it and notify reception when it’s ready, so your team spends less time
+              chasing details at the desk.
+            </p>
+            <p className="dn-aside">
+              Use a Zapla form for agreed administrative details or send your existing dental form
+              link. Medical history and treatment consent stay in your approved clinical process.
+              Completion reminders need a verified submission signal.
+            </p>
+            <TextLink href="/crm">Explore forms and patient records</TextLink>
+          </div>
+          <FormScene />
+        </section>
         <section className="dn-follow" aria-labelledby="follow-title">
           <div className="dn-wrap dn-split">
+            <FollowScene />
             <div className="dn-copy">
-              <Label>When a patient asks for time</Label>
+              <Label>Treatment enquiry follow-up</Label>
               <h2 id="follow-title">
-                Leave the door open.
+                Follow up treatment
                 <br />
-                <span>
-                  Leave the choice
-                  <br />
-                  with the patient.
-                </span>
+                enquiries automatically.
               </h2>
               <p>
-                Agree a gentle check-in after a treatment discussion, without including clinical
-                details in the message. Give patients an easy way to ask a question or speak to your
-                team.
+                When a patient asks for time after discussing treatment, schedule a follow-up
+                instead of leaving reception to remember. Invite them to ask questions or arrange a
+                call with your team.
               </p>
               <p>
                 When they reply, the configured reminders stop and your team takes over. Your
@@ -241,33 +266,106 @@ function DentalPage() {
               </p>
               <TextLink href="/crm">Keep the conversation together</TextLink>
             </div>
-            <FollowScene />
           </div>
         </section>
-        <section className="dn-return dn-wrap" aria-labelledby="return-title">
+        <section className="dn-split dn-wrap" aria-labelledby="recall-title">
           <div className="dn-copy">
-            <Label>Reconnecting between visits</Label>
-            <h2 id="return-title">
-              A relevant invitation.
-              <br />A conversation
+            <Label>Patients due for their next visit</Label>
+            <h2 id="recall-title">
+              Remind patients when
               <br />
-              your team can finish.
+              their next check-up is due.
             </h2>
             <p>
-              For patients your practice has approved to contact, run a carefully scoped return
-              campaign. Keep the invitation simple, respect communication preferences and bring
-              replies back to reception.
+              Use the recall date set by your dentist to send a timely reminder. Follow up patients
+              who haven’t arranged their next visit and bring their replies back to reception.
             </p>
             <p className="dn-aside">
-              Your dental system sets recall dates. Zapla uses only the agreed information supplied
-              to it. We confirm how bookings, replies and opt-outs will be kept current before
-              outreach begins.
+              We check how Zapla receives current recall dates and booking updates. If your dental
+              software already handles recall well, keep it there rather than send duplicate
+              reminders.
+            </p>
+            <TextLink href="/customer-marketing">Explore scheduled patient reminders</TextLink>
+          </div>
+          <RecallScene />
+        </section>
+        <section className="dn-return dn-wrap" aria-labelledby="return-title">
+          <ReturnScene />
+          <div className="dn-copy">
+            <Label>Inactive patient reactivation</Label>
+            <h2 id="return-title">
+              Reconnect with patients
+              <br />
+              who haven’t returned.
+            </h2>
+            <p>
+              Reach eligible patients who haven’t visited for a while with a separate reactivation
+              campaign. Send an invitation to arrange a visit, follow up unanswered messages and let
+              reception continue the conversation when they reply.
+            </p>
+            <p className="dn-aside">
+              This is separate from routine recall. Exclude patients already booked, people who have
+              opted out and anyone your practice should not contact. We verify the records and
+              communication permissions before a campaign starts.
             </p>
             <TextLink href="/reactivation">Explore patient reactivation</TextLink>
           </div>
-          <ReturnScene />
+        </section>
+        <section className="dn-reviews" aria-labelledby="reviews-title">
+          <div className="dn-split dn-wrap">
+            <div className="dn-copy">
+              <Label>After the appointment</Label>
+              <h2 id="reviews-title">
+                Make it easy to leave
+                <br />a Google review.
+              </h2>
+              <p>
+                Send a neutral review invitation after a completed visit, with a direct link to your
+                practice’s Google review page. Reception doesn’t have to remember to ask each
+                patient.
+              </p>
+              <p className="dn-aside">
+                Agree the completion trigger and request wording during setup. No incentives or
+                screening for positive reviews. Clinical testimonials are not automatically
+                republished on your website or in advertising.
+              </p>
+              <TextLink href="/reviews">Explore review requests</TextLink>
+            </div>
+            <ReviewScene />
+          </div>
         </section>
       </div>
+      <section className="dn-support dn-wrap" aria-labelledby="support-title">
+        <Label>More support for reception</Label>
+        <h2 id="support-title">Keep appointment admin moving.</h2>
+        <p className="dn-support-intro">
+          Where reliable appointment updates are available, configure these around your existing
+          dental diary.
+        </p>
+        <div className="dn-support-grid">
+          <div>
+            <h3>Confirmations</h3>
+            <p>
+              Send a confirmation request before the visit and flag unanswered messages for
+              reception.
+            </p>
+          </div>
+          <div>
+            <h3>Before-visit messages</h3>
+            <p>
+              Send directions, arrival details and links to the practice’s approved preparation
+              information.
+            </p>
+          </div>
+          <div>
+            <h3>Cancellation alerts</h3>
+            <p>
+              Notify reception when a patient asks to cancel or reschedule. Your team updates the
+              dental diary.
+            </p>
+          </div>
+        </div>
+      </section>
       <section className="dn-boundary" aria-labelledby="boundary-title">
         <div className="dn-wrap">
           <Label>Two clear responsibilities</Label>
@@ -287,8 +385,8 @@ function DentalPage() {
             <div>
               <h3>Zapla</h3>
               <p>
-                Enquiry conversations, agreed follow-up, eligible patient campaigns and the next
-                administrative step for your team.
+                Enquiry replies, registration form delivery, treatment enquiry follow-up, agreed
+                recall campaigns, reactivation and review invitations.
               </p>
             </div>
           </div>
@@ -302,15 +400,14 @@ function DentalPage() {
         <div className="dn-copy">
           <Label>Guided Launch</Label>
           <h2 id="launch-title">
-            Start with one gap.
+            Set up the workflows
             <br />
-            Get the whole
-            <br />
-            practice comfortable.
+            your practice needs.
           </h2>
           <p>
-            We map how reception works today and agree the first workflow worth improving. Then we
-            build, test and walk your team through it.
+            We map how reception works today, choose the workflows worth improving and build them
+            around your practice. Your team tests the messages, replies and stop rules before
+            launch.
           </p>
           <TextLink href="/Pricing-v3">Explore plans and Guided Launch</TextLink>
         </div>
@@ -320,8 +417,9 @@ function DentalPage() {
             <div>
               <h3>Confirm the fit</h3>
               <p>
-                Check what your dental software already does. Agree where Zapla adds value and how
-                information stays current.
+                Check what your dental software already does. Agree the data flow, setup cost and
+                ongoing work. Confirmations, preparation messages and cancellation alerts can be
+                included where appointment updates are reliable.
               </p>
             </div>
           </li>
@@ -340,8 +438,8 @@ function DentalPage() {
             <div>
               <h3>Test with your team</h3>
               <p>
-                Walk through an enquiry, a reply and an opt-out. Confirm appointment handling,
-                urgent-call escalation and who owns the next step.
+                Test each trigger, reply and opt-out. Agree who handles exceptions, then track
+                reception time, completed forms and responses against your starting point.
               </p>
             </div>
           </li>
@@ -394,13 +492,13 @@ function DentalPage() {
           <ZaplaPetal />
         </span>
         <h2 id="final-title">
-          Find the follow-through
+          See what Zapla can
           <br />
-          your practice is missing.
+          automate for your practice.
         </h2>
         <p>
-          Show us how enquiries and patient communication work today. We’ll map the gaps, check the
-          fit with your dental software and agree a sensible first step.
+          Show us how enquiries, forms and patient follow-up work today. We’ll identify useful
+          automations, check the fit with your dental software and explain the setup and costs.
         </p>
         <Actions secondary />
       </section>
@@ -447,7 +545,7 @@ function FollowScene() {
       </div>
       <Message sender="Your practice · Automated check-in" automated visible={step >= 1}>
         Hi Mia, as agreed, just checking whether you’d like to speak with our team about your next
-        step. No rush. Reply here whenever you’re ready.
+        step. Reply here if you’d like us to arrange a call.
       </Message>
       <Message sender="Mia" visible={step >= 2}>
         Could someone call me tomorrow? I have a couple of questions.
@@ -483,6 +581,102 @@ function ReturnScene() {
       <p className={`dn-handoff ${step >= 2 ? "dn-visible" : "dn-hidden"}`} aria-hidden={step < 2}>
         Reply with reception · Campaign follow-up stopped
       </p>
+    </div>
+  );
+}
+
+function FormScene() {
+  const { ref, step } = useDialogue();
+  return (
+    <div
+      ref={ref}
+      className="dn-dialogue dn-form-scene"
+      data-step={step}
+      aria-label="Illustrative administrative registration form delivery and completion"
+    >
+      <p className="dn-scene-heading">Before Mia’s first visit</p>
+      <div className="dn-form-preview">
+        <span className="dn-preview-tag">Example registration form</span>
+        <h3>New patient details</h3>
+        <div>
+          <span>Full name</span>
+          <strong>Mia Thompson</strong>
+        </div>
+        <div>
+          <span>Preferred contact</span>
+          <strong>SMS</strong>
+        </div>
+        <div>
+          <span>Email address</span>
+          <strong>mia@example.com</strong>
+        </div>
+      </div>
+      <Message sender="Your practice · Automatic message" automated visible={step >= 1}>
+        Hi Mia, please complete your registration details before your first visit.
+        <span className="dn-example-link">
+          Complete registration <ArrowRight size={14} />
+        </span>
+      </Message>
+      <p className={`dn-handoff ${step >= 2 ? "dn-visible" : "dn-hidden"}`} aria-hidden={step < 2}>
+        Form submitted · Reminder stopped · Reception notified
+      </p>
+    </div>
+  );
+}
+function RecallScene() {
+  const { ref, step } = useDialogue();
+  return (
+    <div
+      ref={ref}
+      className="dn-dialogue dn-recall-scene"
+      data-step={step}
+      aria-label="Illustrative reminder using a dentist-set recall date"
+    >
+      <p className="dn-scene-heading">A recorded recall date triggers a reminder</p>
+      <div className="dn-recall-record">
+        <span>Mia Thompson</span>
+        <h3>Next check-up due</h3>
+        <strong>November</strong>
+        <p>Recall date supplied by the practice</p>
+      </div>
+      <Message sender="Your practice · Automatic reminder" automated visible={step >= 1}>
+        Hi Mia, our records show your next check-up is due in November. Reply here and reception can
+        help arrange a time.
+      </Message>
+      <Message sender="Mia" visible={step >= 2}>
+        Could I come in on a Friday?
+      </Message>
+      <p className={`dn-handoff ${step >= 2 ? "dn-visible" : "dn-hidden"}`} aria-hidden={step < 2}>
+        Reply received · Follow-up stopped · Reception notified
+      </p>
+    </div>
+  );
+}
+function ReviewScene() {
+  const { ref, step } = useDialogue();
+  return (
+    <div
+      ref={ref}
+      className="dn-dialogue dn-review-scene"
+      data-step={step}
+      aria-label="Illustrative neutral Google review invitation after a completed visit"
+    >
+      <p className="dn-scene-heading">Appointment marked complete</p>
+      <Message sender="Your practice · Review invitation" automated visible={step >= 1}>
+        Thanks for visiting, Mia. If you’d like to share your experience, you can leave a Google
+        review here.
+        <span className="dn-example-link">
+          Leave a Google review <ArrowRight size={14} />
+        </span>
+      </Message>
+      <div
+        className={`dn-review-preview ${step >= 2 ? "dn-visible" : "dn-hidden"}`}
+        aria-hidden={step < 2}
+      >
+        <span>Google review link</span>
+        <h3>Share your experience</h3>
+        <p>Your patient chooses the rating and what to write.</p>
+      </div>
     </div>
   );
 }

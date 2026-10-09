@@ -699,3 +699,112 @@
     animation: none !important;
   }
 }
+
+/* Administrative form, recall record and review link are illustrative product scenes. */
+.dn-form-scene {
+  background: #e8e4db;
+}
+.dn-recall-scene {
+  background: #e1e8e2;
+}
+.dn-reviews {
+  background: #f3f0e9;
+}
+.dn-review-scene {
+  background: #e5e0eb;
+}
+.dn-form-preview,
+.dn-recall-record,
+.dn-review-preview {
+  background: #fcfcfa;
+  border: 1px solid #d5d4cc;
+  border-radius: 16px;
+  padding: 24px;
+  margin-block: 22px;
+}
+.dental-page .dn-preview-tag {
+  font-size: 11px;
+  color: #5f655f;
+}
+.dn-form-preview h3,
+.dn-recall-record h3,
+.dn-review-preview h3 {
+  font-size: 26px;
+  margin-block: 12px 20px;
+}
+.dn-form-preview > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid #e0e0d8;
+  padding-block: 12px;
+  font-size: 12px;
+}
+.dn-form-preview > div strong {
+  text-align: right;
+}
+.dental-page .dn-example-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: #234fb7;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.dn-recall-record > strong {
+  font-size: 34px;
+  color: #596947;
+}
+.dn-recall-record p,
+.dn-review-preview p {
+  font-size: 12px;
+  color: #5f655f;
+}
+@media (max-width: 800px) {
+  .dn-return > .dn-copy {
+    order: -1;
+  }
+  .dn-form-preview,
+  .dn-recall-record,
+  .dn-review-preview {
+    padding: 18px;
+  }
+}
+.dn-support {
+  padding-block: 76px;
+}
+.dn-support h2 {
+  max-width: 720px;
+}
+.dental-page .dn-support-intro {
+  max-width: 660px;
+  margin-top: 24px;
+  color: #5f655f;
+}
+.dn-support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px;
+  margin-top: 40px;
+}
+.dn-support-grid > div {
+  border-top: 1px solid #c7cbbf;
+  padding-top: 22px;
+}
+.dn-support-grid h3 {
+  font-size: 26px;
+  margin-bottom: 14px;
+}
+.dn-support-grid p {
+  color: #5f655f;
+}
+@media (max-width: 800px) {
+  .dn-support {
+    padding-block: 45px;
+  }
+  .dn-support-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
