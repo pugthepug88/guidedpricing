@@ -53,14 +53,6 @@ function BookButton() {
 function Avatar({ broker = false }: { broker?: boolean }) {
   return <span className={`mb-avatar ${broker ? "mb-avatar-broker" : ""}`} aria-hidden="true" />;
 }
-function PetalAvatar() {
-  return (
-    <span className="mb-petal-avatar">
-      <ZaplaPetal size={27} />
-    </span>
-  );
-}
-
 // A brief, one-way story. It pauses offscreen and in background tabs, then holds the result.
 function useStory(last: number, interval = 900) {
   const ref = useRef<HTMLDivElement>(null);
@@ -124,10 +116,10 @@ function HeroScene() {
     >
       <div className="mb-hero-photo">
         <img
-          src="/concept/human-work/broker.jpg"
+          src="/concept/industries/mortgage-broker-consultation.webp"
           alt="Clients discussing their property plans with a mortgage broker"
-          width="1280"
-          height="720"
+          width="1122"
+          height="1402"
           fetchPriority="high"
         />
       </div>
@@ -163,69 +155,57 @@ function HeroScene() {
   );
 }
 function ProspectScene() {
-  const story = useStory(2);
+  const story = useStory(2, 700);
   return (
-    <div ref={story.ref} className="mb-prospect-scene" data-step={story.step}>
-      <div className="mb-scene-top">
-        <span>From “not yet” to a conversation</span>
-        <StoryControls story={story} />
+    <div ref={story.ref} className="mb-prospect-photo-scene" data-step={story.step}>
+      <img
+        className="mb-property-photo"
+        src="/concept/industries/mortgage-property-search.webp"
+        alt="A couple viewing a light-filled home and discussing the garden"
+        width="1536"
+        height="1024"
+        loading="lazy"
+      />
+      {!story.reduced && (
+        <div className="mb-prospect-controls">
+          <StoryControls story={story} />
+        </div>
+      )}
+      <div
+        className={`mb-prospect-invitation mb-glass ${story.step >= 1 ? "is-visible" : ""}`}
+        aria-hidden={story.step < 1}
+      >
+        <div className="mb-photo-sender">
+          <ZaplaPetal size={25} />
+          <span>Your brokerage · Agreed check-in</span>
+        </div>
+        <h3>
+          Still looking.
+          <br />
+          Still in touch.
+        </h3>
+        <p>
+          Hi Alex, you asked us to reconnect this month. How’s the property search going? Reply here
+          if you’d like to arrange a chat.
+        </p>
+        <small>Reply STOP to opt out.</small>
+        <span className="mb-photo-context">Sent at the timing agreed with your client.</span>
       </div>
-      <ol className="mb-timeline" aria-label="Example stages">
-        <li className="is-current">Agreed timing</li>
-        <li className={story.step >= 1 ? "is-current" : ""}>Check-in sent</li>
-        <li className={story.step >= 2 ? "is-current" : ""}>Client replies</li>
-      </ol>
-      <div className="mb-record">
+      <div
+        className={`mb-prospect-reply mb-glass ${story.step >= 2 ? "is-visible" : ""}`}
+        aria-hidden={story.step < 2}
+      >
         <div className="mb-person">
           <Avatar />
           <div>
             <strong>Alex Chen</strong>
-            <span>Asked us to reconnect next month</span>
+            <span>Replied to your check-in</span>
           </div>
         </div>
-        <span>Next conversation with your broker</span>
+        <p>“Good timing. We’ve found a place we like. Can we talk tomorrow?”</p>
+        <span className="mb-photo-context">Your broker picks up the conversation.</span>
       </div>
-      <div
-        className={`mb-dialogue mb-outgoing ${story.step >= 1 ? "is-visible" : ""}`}
-        aria-hidden={story.step < 1}
-      >
-        <PetalAvatar />
-        <div>
-          <span className="mb-sender">Your brokerage · Scheduled check-in</span>
-          <div className="mb-message">
-            <p>
-              Hi Alex, you asked us to reconnect this month. How’s the property search going? If
-              you’d like to talk through your next steps, reply here and we’ll arrange a chat.
-            </p>
-            <small>Reply STOP to opt out.</small>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`mb-dialogue mb-incoming ${story.step >= 2 ? "is-visible" : ""}`}
-        aria-hidden={story.step < 2}
-      >
-        <Avatar />
-        <div>
-          <span className="mb-sender">Alex Chen</span>
-          <div className="mb-message">
-            <p>Good timing. We’ve found a place we like. Can we talk tomorrow?</p>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`mb-handoff ${story.step >= 2 ? "is-visible" : ""}`}
-        aria-hidden={story.step < 2}
-      >
-        <Avatar broker />
-        <p>
-          <strong>Your broker takes it from here.</strong>
-          <span>The previous conversation stays alongside the reply.</span>
-        </p>
-      </div>
-      <p className="mb-example-note">
-        Illustrative flow. Timing, messages and reply handling are agreed and tested during setup.
-      </p>
+      <p className="mb-example-note">Illustrative client conversation.</p>
     </div>
   );
 }
@@ -234,50 +214,62 @@ function ReviewScene() {
   const annual = mode === "annual";
   return (
     <div className="mb-review-scene">
-      <div className="mb-review-tabs" role="group" aria-label="Choose a client review example">
-        <button type="button" aria-pressed={annual} onClick={() => setMode("annual")}>
-          Annual review
-        </button>
-        <button type="button" aria-pressed={!annual} onClick={() => setMode("fixed")}>
-          Fixed rate ending
-        </button>
-      </div>
-      <div className="mb-review-record">
-        <div className="mb-person">
-          <span className="mb-avatar mb-avatar-priya" aria-hidden="true" />
-          <div>
-            <strong>Priya Shah</strong>
-            <span>Settled client</span>
-          </div>
+      <img
+        className="mb-settled-photo"
+        src="/concept/industries/mortgage-client-review.webp"
+        alt="A settled client and her partner talking at home about their future plans"
+        width="1672"
+        height="941"
+        loading="lazy"
+      />
+      <div className="mb-review-invitation mb-glass">
+        <div className="mb-review-tabs" role="group" aria-label="Choose a client review example">
+          <button type="button" aria-pressed={annual} onClick={() => setMode("annual")}>
+            Annual review
+          </button>
+          <button type="button" aria-pressed={!annual} onClick={() => setMode("fixed")}>
+            Fixed rate ending
+          </button>
         </div>
+        <div className="mb-photo-sender">
+          <ZaplaPetal size={25} />
+          <span>Your brokerage · Review invitation</span>
+        </div>
+        <h3>
+          {annual ? (
+            <>
+              A year later.
+              <br />A reason to reconnect.
+            </>
+          ) : (
+            <>
+              Fixed rate ending.
+              <br />A conversation ahead.
+            </>
+          )}
+        </h3>
         <p>
-          {annual ? "Annual review date" : "Verified fixed rate end date"}
-          <strong>{annual ? "Time to reconnect" : "Conversation due before expiry"}</strong>
+          {annual
+            ? "Hi Priya, it’s been a year since we helped with your home loan. Would you like to arrange a review with your broker and talk through anything that’s changed?"
+            : "Hi Priya, your recorded fixed rate period is coming to an end. Would you like to arrange a conversation with your broker about your next steps?"}
         </p>
+        <span className="mb-message-link">Arrange a conversation</span>
+        <small>Reply STOP to opt out.</small>
+        <span className="mb-photo-context">
+          {annual
+            ? "Based on the agreed annual review date."
+            : "Based on your broker’s verified fixed rate end date."}
+        </span>
       </div>
-      <div className="mb-dialogue is-visible">
-        <PetalAvatar />
+      <div className="mb-review-response mb-glass">
+        <span className="mb-avatar mb-avatar-priya" aria-hidden="true" />
         <div>
-          <span className="mb-sender">Your brokerage · Review invitation</span>
-          <div className="mb-message">
-            <p>
-              {annual
-                ? "Hi Priya, it’s been a year since we helped with your home loan. Would you like to arrange a review with your broker and talk through anything that’s changed?"
-                : "Hi Priya, your recorded fixed rate period is coming to an end. Would you like to arrange a conversation with your broker about your next steps?"}
-            </p>
-            <span className="mb-message-link">Arrange a conversation</span>
-            <small>Reply STOP to opt out.</small>
-          </div>
+          <strong>Priya Shah</strong>
+          <p>“Yes please. Our plans have changed since we last spoke.”</p>
+          <span>Your broker handles the review and advice.</span>
         </div>
       </div>
-      <div className="mb-review-response">
-        <span className="mb-avatar mb-avatar-priya" aria-hidden="true" />
-        <p>“Yes please. Our plans have changed since we last spoke.”</p>
-      </div>
-      <p className="mb-example-note">
-        Illustrative invitation. Your broker verifies dates, approves the wording and handles the
-        advice.
-      </p>
+      <p className="mb-example-note">Illustrative review invitation.</p>
     </div>
   );
 }
@@ -394,18 +386,26 @@ function MortgageBrokersPage() {
       </section>
       <section className="mb-retention" aria-labelledby="retention-title">
         <div className="mb-wrap mb-retention-inner">
-          <div className="mb-section-copy">
-            <Eyebrow>After settlement</Eyebrow>
-            <h2 id="retention-title">Settlement shouldn’t end the conversation.</h2>
-            <p>
-              An annual review. A fixed rate period approaching its end. A change in the client’s
-              plans.
-            </p>
-            <p>
-              Use broker verified dates to invite the next conversation. Your team decides who to
-              contact and what to say. Your broker handles the review and advice.
-            </p>
-            <TextLink href="/customer-marketing">Explore Customer Marketing</TextLink>
+          <div className="mb-retention-heading">
+            <div>
+              <Eyebrow>After settlement</Eyebrow>
+              <h2 id="retention-title">
+                Settlement shouldn’t
+                <br />
+                end the conversation.
+              </h2>
+            </div>
+            <div>
+              <p>
+                An annual review. A fixed rate period approaching its end. A change in the client’s
+                plans.
+              </p>
+              <p>
+                Use broker verified dates to invite the next conversation. Your team chooses who to
+                contact. Your broker handles the review and advice.
+              </p>
+              <TextLink href="/customer-marketing">Explore Customer Marketing</TextLink>
+            </div>
           </div>
           <ReviewScene />
         </div>

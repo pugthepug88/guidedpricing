@@ -1365,3 +1365,467 @@
     font-size: 14px;
   }
 }
+
+/* Editorial photographs and the shared Dental glass treatment. */
+.mb-hero {
+  max-width: 1360px;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 44px;
+}
+.mb-hero-scene {
+  height: 620px;
+}
+.mb-hero-photo {
+  inset: 0 0 65px 20px;
+  border-radius: 145px 30px 30px 30px;
+}
+.mb-hero-photo img {
+  object-position: center 20%;
+  filter: none;
+}
+.mb-hero-photo:after {
+  background: linear-gradient(transparent 75%, rgba(30, 43, 41, 0.1));
+}
+.mb-glass {
+  background: rgba(252, 252, 250, 0.91);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 0 0 1px #1e2b2930,
+    0 14px 35px #1e2b291a;
+  backdrop-filter: blur(6px);
+  border-radius: 18px;
+}
+.mb-prospect {
+  grid-template-columns: 1.15fr 1fr;
+  gap: 78px;
+}
+.mb-prospect-photo-scene {
+  position: relative;
+  height: 620px;
+  min-width: 0;
+}
+.mb-property-photo {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  object-position: 68% center;
+  border-radius: 30px;
+}
+.mb-prospect-controls {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  border-radius: 30px;
+  background: #fcfcfae3;
+  padding: 3px;
+}
+.mb-prospect-invitation {
+  position: absolute;
+  left: -16px;
+  bottom: 52px;
+  width: 310px;
+  padding: 22px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.35s,
+    transform 0.35s;
+}
+.mb-photo-sender {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #57634d;
+}
+.mb-photo-sender svg {
+  flex: none;
+}
+.mb-prospect-invitation h3 {
+  font-size: 30px;
+  line-height: 1.07;
+  margin: 16px 0;
+}
+.mb-prospect-invitation > p,
+.mb-review-invitation > p {
+  font-size: 14px;
+  line-height: 1.65;
+}
+.mb-prospect-invitation > small,
+.mb-review-invitation > small {
+  display: block;
+  font-size: 10px;
+  color: #6d7665;
+  margin-top: 13px;
+}
+.mb-photo-context {
+  display: block;
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid #dce0d2;
+  color: #626d57;
+  font-size: 11px;
+  line-height: 1.55;
+}
+.mb-prospect-reply {
+  position: absolute;
+  right: -12px;
+  bottom: 0;
+  width: 235px;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.35s,
+    transform 0.35s;
+}
+.mb-prospect-reply > p {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-top: 16px;
+}
+.mb-prospect-invitation.is-visible,
+.mb-prospect-reply.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.mb-prospect-photo-scene > .mb-example-note {
+  position: absolute;
+  bottom: -28px;
+  left: 0;
+  margin: 0 !important;
+  max-width: 100%;
+}
+.mb-retention {
+  background: #f4f1e9;
+}
+.mb-retention-inner {
+  display: block;
+  padding: 72px 52px 78px;
+}
+.mb-retention-heading {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 85px;
+  align-items: end;
+  margin-bottom: 36px;
+}
+.mb-retention-heading > div > p:not(.mb-eyebrow) {
+  font-size: 15px;
+  color: #5f685e;
+  line-height: 1.7;
+}
+.mb-retention-heading > div > p + p {
+  margin-top: 14px;
+}
+.mb-retention-heading .mb-text-link {
+  margin-top: 18px;
+}
+.mb-review-scene {
+  position: relative;
+  background: none;
+  border: 0;
+  padding: 0;
+  border-radius: 30px;
+  max-width: none;
+  min-height: 590px;
+}
+.mb-settled-photo {
+  width: 100%;
+  height: 590px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 30px;
+}
+.mb-review-invitation {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  width: 350px;
+  padding: 24px;
+}
+.mb-review-tabs {
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.mb-review-invitation h3 {
+  font-size: 32px;
+  line-height: 1.07;
+  margin: 19px 0;
+  min-height: 70px;
+}
+.mb-review-invitation .mb-message-link {
+  font-size: 13px;
+}
+.mb-review-response {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+  margin: 0;
+  padding: 20px;
+  width: 310px;
+  align-items: flex-start;
+}
+.mb-review-response strong {
+  font-size: 12px;
+}
+.mb-review-response p {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+.mb-review-response div > span {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #626d57;
+}
+.mb-review-scene > .mb-example-note {
+  position: absolute;
+  bottom: -27px;
+  left: 0;
+  margin: 0 !important;
+}
+@media (min-width: 801px) and (max-width: 1100px) {
+  .mb-hero-scene {
+    height: 590px;
+  }
+  .mb-hero-request {
+    bottom: 210px;
+  }
+  .mb-hero-photo {
+    left: 10px;
+  }
+  .mb-prospect {
+    gap: 48px;
+    grid-template-columns: 1.15fr 1fr;
+  }
+  .mb-prospect-photo-scene {
+    height: 720px;
+  }
+  .mb-property-photo {
+    height: 480px;
+    object-position: 75% center;
+  }
+  .mb-prospect-invitation {
+    bottom: 250px;
+    left: 0;
+    width: 280px;
+    padding: 20px;
+  }
+  .mb-prospect-reply {
+    right: 0;
+    bottom: 0;
+    width: 255px;
+  }
+  .mb-retention-inner {
+    padding: 65px 38px 75px;
+  }
+  .mb-retention-heading {
+    gap: 40px;
+  }
+  .mb-settled-photo {
+    object-position: 65% center;
+    height: 610px;
+  }
+  .mb-review-invitation {
+    width: 310px;
+    left: 22px;
+    top: 22px;
+    padding: 22px;
+  }
+  .mb-review-invitation h3 {
+    font-size: 30px;
+  }
+  .mb-review-response {
+    width: 280px;
+    right: 22px;
+    bottom: 22px;
+  }
+}
+@media (max-width: 800px) {
+  .mb-hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .mb-hero-scene {
+    height: 620px;
+    max-width: 650px;
+  }
+  .mb-hero-photo {
+    left: 20px;
+    bottom: 65px;
+    border-radius: 125px 28px 28px 28px;
+  }
+  .mb-hero-request {
+    bottom: 50px;
+  }
+  .mb-prospect {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .mb-prospect-photo-scene {
+    height: 620px;
+    max-width: 650px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .mb-property-photo {
+    height: 500px;
+    object-position: center;
+  }
+  .mb-retention-inner {
+    padding: 52px 24px 65px;
+  }
+  .mb-retention-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .mb-retention-heading > div > p:not(.mb-eyebrow) {
+    max-width: 600px;
+  }
+  .mb-review-scene {
+    min-height: 0;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .mb-settled-photo {
+    height: 400px;
+    object-position: 70% center;
+  }
+  .mb-review-invitation {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: calc(100% - 36px);
+    max-width: 450px;
+    margin: -45px 0 0 18px;
+    z-index: 1;
+  }
+  .mb-review-invitation h3 {
+    min-height: 0;
+  }
+  .mb-review-response {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    align-self: flex-end;
+    width: 310px;
+    max-width: calc(100% - 36px);
+    margin: 20px 18px 0 0;
+  }
+  .mb-review-scene > .mb-example-note {
+    position: static;
+    margin: 16px 18px 0 !important;
+  }
+}
+@media (max-width: 620px) {
+  .mb-hero-scene {
+    height: 630px;
+  }
+  .mb-hero-photo {
+    left: 10px;
+    bottom: 180px;
+    border-radius: 95px 25px 25px 25px;
+  }
+  .mb-hero-photo img {
+    object-position: center 15%;
+  }
+  .mb-hero-request {
+    bottom: 215px;
+    left: 0;
+    width: 262px;
+    padding: 18px;
+  }
+  .mb-hero-return {
+    width: 235px;
+    right: 0;
+    bottom: 0;
+  }
+  .mb-prospect-photo-scene {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .mb-property-photo {
+    height: 360px;
+    object-position: 75% center;
+    border-radius: 25px;
+  }
+  .mb-prospect-invitation {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: calc(100% - 16px);
+    max-width: 350px;
+    margin: -45px 0 0;
+    padding: 22px;
+  }
+  .mb-prospect-reply {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: flex-end;
+    max-width: calc(100% - 16px);
+    width: 280px;
+    margin-top: 20px;
+    padding: 20px;
+  }
+  .mb-prospect-photo-scene > .mb-example-note {
+    position: static;
+    margin: 18px 0 0 !important;
+  }
+  .mb-prospect-invitation h3 {
+    font-size: 30px;
+  }
+  .mb-retention {
+    margin-inline: 12px;
+  }
+  .mb-retention-inner {
+    padding-inline: 16px;
+  }
+  .mb-retention-heading h2 {
+    font-size: 37px;
+  }
+  .mb-retention-heading h2 br {
+    display: none;
+  }
+  .mb-settled-photo {
+    height: 320px;
+    object-position: 72% center;
+    border-radius: 24px;
+  }
+  .mb-review-invitation {
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    padding: 20px;
+  }
+  .mb-review-tabs {
+    gap: 15px;
+  }
+  .mb-review-tabs button {
+    font-size: 11px;
+  }
+  .mb-review-invitation h3 {
+    font-size: 29px;
+  }
+  .mb-review-invitation > p {
+    font-size: 14px;
+  }
+  .mb-review-response {
+    width: 280px;
+    max-width: calc(100% - 20px);
+    margin-right: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-prospect-invitation,
+  .mb-prospect-reply {
+    transform: none;
+  }
+}
