@@ -447,6 +447,182 @@
   font-size: 13px;
   line-height: 1.75;
 }
+.ah-admin,
+.ah-return-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+.ah-admin {
+  padding-block: 100px;
+}
+.ah-form-scene {
+  background: #f7f4ee;
+  border-radius: 22px;
+  padding: 32px;
+}
+.ah-form-sheet {
+  background: #fff;
+  border: 1px solid #dedfd5;
+  border-radius: 15px;
+  padding: 26px;
+}
+.allied-health-page .ah-scene-label {
+  font-size: 10px;
+  color: #657163;
+  margin-bottom: 13px;
+}
+.ah-form-sheet h3 {
+  font-family: "Allied Display", sans-serif;
+  font-size: 27px;
+  font-weight: 500;
+}
+.allied-health-page .ah-form-intro {
+  font-size: 12px;
+  margin-top: 9px;
+}
+.ah-form-fields {
+  margin: 23px 0 0;
+}
+.ah-form-fields > div {
+  margin-top: 16px;
+}
+.ah-form-fields dt {
+  font-size: 11px;
+  color: #5f655f;
+  margin-bottom: 7px;
+}
+.ah-form-fields dd {
+  margin: 0;
+  background: #fcfcfa;
+  border: 1px solid #e2e4db;
+  padding: 11px 13px;
+  border-radius: 7px;
+  font-size: 12px;
+  color: #111318;
+}
+.allied-health-page .ah-form-privacy {
+  font-size: 10px;
+  margin-top: 18px;
+}
+.ah-form-submitted {
+  background: #e9ecdf;
+  border-radius: 7px;
+  margin-top: 17px;
+  padding: 12px;
+  font-size: 11px;
+  color: #35452d;
+  text-align: center;
+}
+.ah-form-result {
+  padding: 23px 8px 0;
+}
+.ah-form-result strong {
+  display: block;
+  font-size: 13px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+.ah-form-result p {
+  font-size: 11px;
+  margin-top: 7px;
+}
+.ah-return-section {
+  background: #efe2d2;
+  padding-block: 90px;
+}
+.ah-return-scene {
+  padding: 27px;
+  background: #fcfcfa;
+  border: 1px solid #dfd7ca;
+  border-radius: 22px;
+}
+.ah-return-context {
+  padding-bottom: 24px;
+  margin-bottom: 21px;
+  border-bottom: 1px solid #dedfd5;
+}
+.ah-return-context span {
+  display: block;
+  font-size: 10px;
+  color: #7a6046;
+  margin-bottom: 9px;
+}
+.ah-return-context strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}
+.ah-return-context p {
+  font-size: 11px;
+  margin-top: 9px;
+}
+.ah-return-scene .ah-message {
+  max-width: 92%;
+}
+.ah-feedback {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  padding-block: 75px;
+}
+.ah-feedback h2 {
+  font-size: 43px;
+}
+.ah-feedback > div:last-child p {
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+.ah-feedback .ah-text-link {
+  margin-top: 5px;
+}
+@media (max-width: 1050px) {
+  .ah-admin,
+  .ah-return-layout,
+  .ah-feedback {
+    gap: 55px;
+  }
+  .ah-form-scene {
+    padding: 25px;
+  }
+  .ah-feedback h2 {
+    font-size: 39px;
+  }
+}
+@media (max-width: 760px) {
+  .ah-admin,
+  .ah-return-layout,
+  .ah-feedback {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .ah-admin {
+    padding-block: 60px;
+  }
+  .ah-admin > .ah-copy {
+    order: -1;
+  }
+  .ah-form-scene,
+  .ah-return-scene {
+    width: 100%;
+    max-width: 560px;
+    margin: auto;
+    padding: 22px;
+  }
+  .ah-form-sheet {
+    padding: 23px;
+  }
+  .ah-return-section {
+    padding-block: 60px;
+  }
+  .ah-feedback {
+    padding-block: 60px;
+  }
+  .ah-feedback h2 {
+    font-size: 38px;
+  }
+}
 .ah-control {
   background: #1e2b29;
   color: #fcfcfa;

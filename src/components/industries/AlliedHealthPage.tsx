@@ -72,9 +72,9 @@ export function AlliedHealthPage() {
         <div>
           <Label>Around your existing practice software</Label>
           <h2 id="ah-fit-title">
-            Your clinical system
+            Keep your practice software.
             <br />
-            stays in charge.
+            Connect the admin around it.
           </h2>
         </div>
         <div className="ah-fit-roles">
@@ -100,11 +100,11 @@ export function AlliedHealthPage() {
       <section id="enquiry-story" className="ah-story-section" aria-labelledby="ah-story-title">
         <div className="ah-wrap ah-story-layout">
           <div className="ah-copy">
-            <Label>From enquiry to a human handoff</Label>
+            <Label>New patient enquiries</Label>
             <h2 id="ah-story-title">
-              A booking link isn’t
+              Reply to the enquiry.
               <br />
-              the end of an enquiry.
+              Follow up until it’s resolved.
             </h2>
             <p>
               Your practice software may already handle online bookings and reminders. The gap is
@@ -153,13 +153,82 @@ export function AlliedHealthPage() {
           <TextLink href="/ai-receptionist">Explore AI Receptionist</TextLink>
         </div>
       </section>
+      <section className="ah-admin ah-wrap" aria-labelledby="ah-admin-title">
+        <AdminFormScene />
+        <div className="ah-copy">
+          <Label>Digital new patient forms</Label>
+          <h2 id="ah-admin-title">Collect the admin details before reception calls.</h2>
+          <p>
+            Send a digital form for the agreed administrative details, such as contact information
+            and the best time to call. Keep the submission with the enquiry so reception can pick up
+            the conversation without asking for the same information again.
+          </p>
+          <p>
+            Route completed forms to the right person. If a form is still outstanding, send the
+            agreed reminder and stop it when the submission arrives.
+          </p>
+          <p className="ah-aside">
+            Keep medical histories, symptoms and clinical consent in your practice system. If its
+            existing forms already do the job, use those rather than create a second process.
+          </p>
+          <TextLink href="/crm">Explore forms and enquiry records</TextLink>
+        </div>
+      </section>
+      <section className="ah-return-section" aria-labelledby="ah-return-title">
+        <div className="ah-wrap ah-return-layout">
+          <div className="ah-copy">
+            <Label>Approved return reminders</Label>
+            <h2 id="ah-return-title">Follow up when a patient is due back.</h2>
+            <p>
+              When a practitioner has recommended another appointment, Zapla can send an agreed
+              reminder using the due date your practice supplies. Give the patient a booking link or
+              an easy way to ask reception for help.
+            </p>
+            <p>
+              For a return campaign, your team chooses who is appropriate to contact. Check current
+              bookings, recent replies and contact permissions before the sequence starts. Stop on a
+              reply, opt out or recorded booking.
+            </p>
+            <p className="ah-aside">
+              Your practitioner decides who needs follow up. We confirm how due dates and booking
+              status stay current before automating messages. A patient being inactive is not a
+              clinical reason to invite them back.
+            </p>
+            <TextLink href="/reactivation">Explore approved return campaigns</TextLink>
+          </div>
+          <ReturnScene />
+        </div>
+      </section>
+      <section className="ah-feedback ah-wrap" aria-labelledby="ah-feedback-title">
+        <div>
+          <Label>Patient feedback</Label>
+          <h2 id="ah-feedback-title">
+            Ask about the experience.
+            <br />
+            Give your team the reply.
+          </h2>
+        </div>
+        <div>
+          <p>
+            Send a neutral feedback request after an agreed visit event and route replies to a named
+            person. Reception can respond to concerns about communication or administration;
+            clinical concerns go to the appropriate practitioner.
+          </p>
+          <p>
+            Google review requests can be included in a practice approved process. Ask consistently,
+            without incentives or filtering people by how positive their feedback is. Check the
+            healthcare advertising rules before using reviews in your own marketing.
+          </p>
+          <TextLink href="/reviews">Explore feedback and review requests</TextLink>
+        </div>
+      </section>
       <section className="ah-control" aria-labelledby="ah-control-title">
         <div className="ah-wrap">
           <Label>Built around your team’s judgement</Label>
           <h2 id="ah-control-title">
-            Routine communication can move automatically.
+            Automate the admin.
             <br />
-            <span>Your team stays in control.</span>
+            <span>Keep care decisions with your team.</span>
           </h2>
           <div className="ah-control-columns">
             <div>
@@ -168,6 +237,7 @@ export function AlliedHealthPage() {
                 <li>Send your configured acknowledgement and booking link.</li>
                 <li>Follow through at the timing your practice agrees.</li>
                 <li>Route replies and create a task with a named owner.</li>
+                <li>Send agreed form and return reminders using the supplied records.</li>
                 <li>Stop scheduled follow ups on reply, opt out or recorded resolution.</li>
               </ul>
             </div>
@@ -224,7 +294,7 @@ export function AlliedHealthPage() {
       <section className="ah-commercial" aria-labelledby="ah-commercial-title">
         <div className="ah-wrap ah-commercial-layout">
           <div className="ah-copy">
-            <Label>A scope that earns its place</Label>
+            <Label>Plans and setup</Label>
             <h2 id="ah-commercial-title">
               Choose the scope
               <br />
@@ -242,15 +312,14 @@ export function AlliedHealthPage() {
             <div>
               <h3>Follow Through</h3>
               <p>
-                The starting point for configured enquiry replies, follow ups and reception
-                handoffs.
+                Configured enquiry replies, administrative forms, follow ups and reception tasks.
               </p>
             </div>
             <div>
-              <h3>Growth, when it fits</h3>
+              <h3>Growth</h3>
               <p>
-                Optional proactive communication to appropriate audiences, with contact permissions
-                and practice approval.
+                Practice approved return campaigns and feedback requests, using eligible audiences
+                and the agreed contact permissions.
               </p>
             </div>
             <div>
@@ -272,9 +341,9 @@ export function AlliedHealthPage() {
         <div>
           <Label>Before you get started</Label>
           <h2 id="ah-faq-title">
-            Good questions.
+            Questions before
             <br />
-            Clear boundaries.
+            you get started.
           </h2>
         </div>
         <div className="ah-faq-list">
@@ -310,6 +379,112 @@ export function AlliedHealthPage() {
         </div>
       </section>
     </main>
+  );
+}
+function useWorkflowReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useInView(ref, { amount: 0.1, margin: "0px 0px 80px 0px" });
+  const reduced = useReducedMotion();
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    if (reduced) setStep(2);
+  }, [reduced]);
+  useEffect(() => {
+    if (!visible || reduced || step >= 2) return;
+    const timer = window.setTimeout(
+      () => setStep((s) => Math.min(s + 1, 2)),
+      step === 0 ? 350 : 600,
+    );
+    return () => window.clearTimeout(timer);
+  }, [visible, reduced, step]);
+  return { ref, step };
+}
+function AdminFormScene() {
+  const { ref, step } = useWorkflowReveal();
+  return (
+    <div
+      ref={ref}
+      className="ah-form-scene"
+      aria-label="Illustrative administrative form submission and reception task"
+      data-step={step}
+    >
+      <div className="ah-form-sheet">
+        <p className="ah-scene-label">Illustrative digital form</p>
+        <h3>Before reception calls</h3>
+        <p className="ah-form-intro">Tell us how best to reach you.</p>
+        <dl className="ah-form-fields">
+          <div>
+            <dt>Name</dt>
+            <dd>Mia</dd>
+          </div>
+          <div>
+            <dt>Preferred contact method</dt>
+            <dd>Phone call</dd>
+          </div>
+          <div>
+            <dt>Best time to call</dt>
+            <dd>Tomorrow morning</dd>
+          </div>
+        </dl>
+        <p className="ah-form-privacy">The live form includes your practice’s privacy notice.</p>
+        <div
+          className={"ah-form-submitted ah-progress-beat " + (step >= 1 ? "ah-shown" : "")}
+          aria-hidden={step < 1}
+        >
+          Administrative details submitted
+        </div>
+      </div>
+      <div
+        className={"ah-form-result ah-progress-beat " + (step >= 2 ? "ah-shown" : "")}
+        aria-hidden={step < 2}
+      >
+        <Sender>Configured Zapla action</Sender>
+        <strong>Callback details added to Mia’s enquiry.</strong>
+        <p>Reception task updated. Form reminder stopped.</p>
+      </div>
+    </div>
+  );
+}
+function ReturnScene() {
+  const { ref, step } = useWorkflowReveal();
+  return (
+    <div
+      ref={ref}
+      className="ah-return-scene"
+      aria-label="Illustrative practitioner approved reminder and patient reply"
+      data-step={step}
+    >
+      <div className="ah-return-context">
+        <span>Practitioner approved follow up</span>
+        <strong>Due date supplied by the practice</strong>
+        <p>Check current bookings and contact permissions before sending.</p>
+      </div>
+      <div
+        className={"ah-message ah-zapla ah-progress-beat " + (step >= 1 ? "ah-shown" : "")}
+        aria-hidden={step < 1}
+      >
+        <Sender>Your practice, via Zapla</Sender>
+        <p>
+          Hi Mia, your practice asked us to contact you about arranging your next appointment. Reply
+          here if you’d like reception to help. Reply STOP to opt out.
+        </p>
+      </div>
+      <div className={"ah-progress-beat " + (step >= 2 ? "ah-shown" : "")} aria-hidden={step < 2}>
+        <div className="ah-message ah-patient">
+          <p>Could someone call me about a time next week?</p>
+        </div>
+        <div className="ah-reception-task">
+          <div>
+            <span>Reception task</span>
+            <strong>Help Mia arrange her next appointment</strong>
+          </div>
+          <div className="ah-stop-note">Reply received · Reminder sequence stopped</div>
+        </div>
+      </div>
+      <p className="ah-example">
+        Illustrative reminder using practice supplied eligibility and records
+      </p>
+    </div>
   );
 }
 function EnquiryStory() {
@@ -415,5 +590,13 @@ const faqs = [
   [
     "Can we contact past patients?",
     "Only where the purpose, audience and contact permissions are appropriate. Your practice decides eligibility and approves communication. Clinical recalls need practitioner oversight. Marketing needs appropriate consent, sender identification and a working opt out. A past appointment alone is not a reason to start a marketing sequence.",
+  ],
+  [
+    "Can Zapla handle digital new patient forms?",
+    "An agreed administrative form can collect the details needed for reception, route the submission and stop outstanding form reminders. We check what your current software already does and where submissions should go. Medical history, symptoms, clinical consent and treatment records stay in the clinical system.",
+  ],
+  [
+    "Can we automate feedback and Google review requests?",
+    "We can configure a neutral request after an agreed event and route replies to your team. The practice approves eligibility, wording and communication permissions. Do not offer incentives or restrict review invitations to satisfied patients. Independent patient reviews and republishing clinical testimonials in healthcare advertising are different activities; review the advertising requirements before using feedback in marketing.",
   ],
 ];
