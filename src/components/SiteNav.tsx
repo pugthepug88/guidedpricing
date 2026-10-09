@@ -116,6 +116,7 @@ export function SiteNav() {
                 <a href="/industries/mechanics" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mechanics &amp; Workshops</a>
                 <a href="/industries/dental" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Dental Practices</a>
                 <a href="/industries/cosmetic-skin-clinics" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Skin &amp; Cosmetic Clinics</a>
+                <a href="/industries/allied-health" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Allied Health</a>
                 <a href="/industries/trades" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Trades &amp; Home Services</a>
               </div></div>
             )}
@@ -161,6 +162,7 @@ export function SiteNav() {
               <a href="/industries/mechanics" className="py-1.5">Mechanics &amp; Workshops</a><a href="/industries/dental" className="py-1.5">Dental Practices</a>
                 <a href="/industries/cosmetic-skin-clinics" className="py-1.5">Skin &amp; Cosmetic Clinics</a>
               <a href="/industries/trades" className="py-1.5">Trades &amp; Home Services</a>
+              <a href="/industries/allied-health" className="py-1.5">Allied Health</a>
             </div></details>
             <a href="/Pricing-v3" className="py-2">Pricing</a><a href="https://my.zapla.io/" className="py-2">Log In</a>
             <div className="mt-2 grid gap-2"><a href="https://zapla.io/booking" className="inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2.5 text-[13px] font-extrabold text-white">Book a Call</a></div>

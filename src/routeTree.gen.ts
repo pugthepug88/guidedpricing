@@ -26,10 +26,11 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
-import { Route as IndustriesCosmeticSkinClinicsRouteImport } from './routes/industries/cosmetic-skin-clinics'
+import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
 import { Route as IndustriesDentalRouteImport } from './routes/industries/dental'
 import { Route as IndustriesMechanicsRouteImport } from './routes/industries/mechanics'
 import { Route as IndustriesMechanicsV2RouteImport } from './routes/industries/mechanics-v2'
+import { Route as IndustriesTradesRouteImport } from './routes/industries/trades'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
 const IndexRoute = IndexRouteImport.update({
@@ -121,12 +122,11 @@ const ConceptCinematicFollowThroughV6Route =
     path: '/concept/cinematic-follow-through-v6',
     getParentRoute: () => rootRouteImport,
   } as any)
-const IndustriesCosmeticSkinClinicsRoute =
-  IndustriesCosmeticSkinClinicsRouteImport.update({
-    id: '/industries/cosmetic-skin-clinics',
-    path: '/industries/cosmetic-skin-clinics',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+const IndustriesAlliedHealthRoute = IndustriesAlliedHealthRouteImport.update({
+  id: '/industries/allied-health',
+  path: '/industries/allied-health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesDentalRoute = IndustriesDentalRouteImport.update({
   id: '/industries/dental',
   path: '/industries/dental',
@@ -140,6 +140,11 @@ const IndustriesMechanicsRoute = IndustriesMechanicsRouteImport.update({
 const IndustriesMechanicsV2Route = IndustriesMechanicsV2RouteImport.update({
   id: '/industries/mechanics-v2',
   path: '/industries/mechanics-v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesTradesRoute = IndustriesTradesRouteImport.update({
+  id: '/industries/trades',
+  path: '/industries/trades',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
@@ -167,10 +172,11 @@ export interface FileRoutesByFullPath {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
-  '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
+  '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
+  '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -191,10 +197,11 @@ export interface FileRoutesByTo {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
-  '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
+  '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
+  '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -216,10 +223,11 @@ export interface FileRoutesById {
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
-  '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
+  '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
+  '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -242,10 +250,11 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
-    | '/industries/cosmetic-skin-clinics'
+    | '/industries/allied-health'
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
+    | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -266,10 +275,11 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
-    | '/industries/cosmetic-skin-clinics'
+    | '/industries/allied-health'
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
+    | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -290,10 +300,11 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
-    | '/industries/cosmetic-skin-clinics'
+    | '/industries/allied-health'
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mechanics-v2'
+    | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -315,10 +326,11 @@ export interface RootRouteChildren {
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
-  IndustriesCosmeticSkinClinicsRoute: typeof IndustriesCosmeticSkinClinicsRoute
+  IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
   IndustriesDentalRoute: typeof IndustriesDentalRoute
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
   IndustriesMechanicsV2Route: typeof IndustriesMechanicsV2Route
+  IndustriesTradesRoute: typeof IndustriesTradesRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -443,11 +455,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/industries/cosmetic-skin-clinics': {
-      id: '/industries/cosmetic-skin-clinics'
-      path: '/industries/cosmetic-skin-clinics'
-      fullPath: '/industries/cosmetic-skin-clinics'
-      preLoaderRoute: typeof IndustriesCosmeticSkinClinicsRouteImport
+    '/industries/allied-health': {
+      id: '/industries/allied-health'
+      path: '/industries/allied-health'
+      fullPath: '/industries/allied-health'
+      preLoaderRoute: typeof IndustriesAlliedHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/industries/dental': {
@@ -469,6 +481,13 @@ declare module '@tanstack/react-router' {
       path: '/industries/mechanics-v2'
       fullPath: '/industries/mechanics-v2'
       preLoaderRoute: typeof IndustriesMechanicsV2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries/trades': {
+      id: '/industries/trades'
+      path: '/industries/trades'
+      fullPath: '/industries/trades'
+      preLoaderRoute: typeof IndustriesTradesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {
@@ -500,10 +519,11 @@ const rootRouteChildren: RootRouteChildren = {
   CompareZaplaVsPipedriveRoute: CompareZaplaVsPipedriveRoute,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
-  IndustriesCosmeticSkinClinicsRoute: IndustriesCosmeticSkinClinicsRoute,
+  IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
   IndustriesDentalRoute: IndustriesDentalRoute,
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
   IndustriesMechanicsV2Route: IndustriesMechanicsV2Route,
+  IndustriesTradesRoute: IndustriesTradesRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
