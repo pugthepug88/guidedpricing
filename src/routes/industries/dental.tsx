@@ -604,7 +604,7 @@ function FormScene() {
         height="1024"
         loading="lazy"
       />
-      <div className="dn-registration-overlay">
+      <div className="dn-registration-overlay dn-glass">
         <div className="dn-overlay-kicker">
           <ZaplaPetal size={24} />
           <span>New patient registration</span>
@@ -650,7 +650,7 @@ function RecallScene() {
         height="1024"
         loading="lazy"
       />
-      <div className="dn-recall-reminder">
+      <div className="dn-recall-reminder dn-glass">
         <div className="dn-overlay-kicker">
           <ZaplaPetal size={25} />
           <span>Your practice · Recall reminder</span>
@@ -673,7 +673,7 @@ function RecallScene() {
         </div>
       </div>
       <div
-        className={`dn-recall-reply ${step >= 2 ? "dn-visible" : "dn-hidden"}`}
+        className={`dn-recall-reply dn-glass ${step >= 2 ? "dn-visible" : "dn-hidden"}`}
         aria-hidden={step < 2}
       >
         <span className="dn-avatar" />

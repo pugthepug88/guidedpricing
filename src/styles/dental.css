@@ -846,12 +846,8 @@
   position: absolute;
   bottom: 0;
   left: -24px;
-  width: min(340px, 90%);
-  background: #fcfcfa;
-  padding: 24px;
-  border-radius: 20px;
-  box-shadow: 0 16px 40px #3028191c;
-  border: 1px solid #ffffffa0;
+  width: min(290px, 85%);
+  padding: 20px;
 }
 .dn-overlay-kicker {
   display: flex;
@@ -861,8 +857,8 @@
   color: #5f655f;
 }
 .dn-registration-overlay h3 {
-  font-size: 25px;
-  margin-block: 20px;
+  font-size: 22px;
+  margin-block: 16px;
 }
 .dn-form-lines > span {
   display: flex;
@@ -972,11 +968,7 @@
   top: 36px;
   left: 36px;
   width: 350px;
-  background: #fcfcfaed;
-  backdrop-filter: blur(16px);
   padding: 26px;
-  border-radius: 22px;
-  box-shadow: 0 14px 40px #30281918;
 }
 .dn-recall-reminder h3 {
   font-size: 32px;
@@ -1008,10 +1000,6 @@
   gap: 12px;
   padding: 20px;
   width: 325px;
-  background: #fcfcfaf2;
-  backdrop-filter: blur(16px);
-  border-radius: 20px;
-  box-shadow: 0 14px 40px #30281918;
 }
 .dn-recall-reply strong {
   font-size: 11px;
@@ -1066,7 +1054,6 @@
   padding: 22px;
   border-radius: 18px;
   box-shadow: 0 8px 24px #3430390c;
-  margin-right: 18px;
 }
 .dental-page .dn-review-invitation > p {
   font-size: 13px;
@@ -1077,12 +1064,11 @@
 }
 .dn-google-screen {
   background: #fff;
-  margin: 24px 0 0 auto;
-  width: 85%;
+  margin: 24px auto 0;
+  width: 100%;
   padding: 28px;
   border-radius: 20px;
   box-shadow: 0 18px 34px #3430391c;
-  transform: rotate(-2deg);
 }
 .dn-google {
   font-family: Arial, sans-serif;
@@ -1160,8 +1146,8 @@
   }
   .dn-registration-overlay {
     position: relative;
-    margin: -100px 12px 0;
-    width: calc(100% - 24px);
+    margin: -80px 12px 0;
+    width: min(290px, calc(100% - 24px));
     left: auto;
     bottom: auto;
     padding: 20px;
@@ -1225,7 +1211,7 @@
   }
   .dn-google-screen {
     padding: 24px;
-    width: 90%;
+    width: 100%;
   }
   .dn-google-stars {
     gap: 6px;
@@ -1243,7 +1229,7 @@
     padding: 20px;
   }
   .dn-google-screen {
-    width: 95%;
+    width: 100%;
     padding: 20px;
   }
   .dn-google-stars svg {
