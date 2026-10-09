@@ -808,3 +808,450 @@
     gap: 24px;
   }
 }
+
+/* Whole-page art direction: open dialogue, enclosed form, dark flow, human image,
+   sage campaign and recognisable review destination. */
+.dn-feature {
+  padding-block: 30px;
+}
+.dn-panel {
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  align-items: center;
+  gap: 64px;
+  padding: 56px;
+  border-radius: 32px;
+  min-width: 0;
+}
+.dn-panel .dn-copy h2 {
+  font-size: clamp(36px, 3.5vw, 50px);
+}
+.dn-registration-panel {
+  background: #eee6d9;
+}
+.dn-registration-visual {
+  position: relative;
+  min-width: 0;
+  padding-bottom: 36px;
+}
+.dn-registration-visual > img {
+  display: block;
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+  object-position: 67% center;
+  border-radius: 22px;
+}
+.dn-registration-overlay {
+  position: absolute;
+  bottom: 0;
+  left: -24px;
+  width: min(340px, 90%);
+  background: #fcfcfa;
+  padding: 24px;
+  border-radius: 20px;
+  box-shadow: 0 16px 40px #3028191c;
+  border: 1px solid #ffffffa0;
+}
+.dn-overlay-kicker {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: #5f655f;
+}
+.dn-registration-overlay h3 {
+  font-size: 25px;
+  margin-block: 20px;
+}
+.dn-form-lines > span {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding-block: 10px;
+  border-top: 1px solid #e4e3da;
+  font-size: 11px;
+}
+.dental-page .dn-registration-overlay > p {
+  font-size: 11px;
+  color: #5f655f;
+  margin-top: 14px;
+}
+.dn-form-complete {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 11px;
+  color: #486338;
+}
+.dn-form-outcomes {
+  display: grid;
+  gap: 13px;
+  margin-top: 36px;
+}
+.dn-form-outcomes > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  color: #5b604b;
+}
+.dn-treatment-panel {
+  background: #1e2b29;
+  color: #fcfcfa;
+  margin-block: 28px;
+}
+.dental-page .dn-treatment-panel .dn-label {
+  color: #d9b08d;
+}
+.dental-page .dn-treatment-panel .dn-copy > p:not(.dn-label) {
+  color: #c9d0c8;
+}
+.dn-treatment-panel .dn-link {
+  border-color: #62706c;
+  color: #fcfcfa;
+}
+.dn-treatment-panel .dn-dialogue {
+  background: #2c3936;
+  padding: 28px;
+  border: 1px solid #52615b;
+}
+.dental-page .dn-treatment-panel .dn-scene-heading {
+  color: #e3e8dc;
+}
+.dn-treatment-panel .dn-follow-context {
+  border-color: #53635b;
+  color: #c9d0c8;
+}
+.dn-treatment-panel .dn-follow-context strong {
+  color: #dce8c7;
+}
+.dn-treatment-panel .dn-message strong {
+  color: #e3e8dc;
+}
+.dn-treatment-panel .dn-bubble {
+  color: #111318;
+  background: #f2f0e9;
+}
+.dn-treatment-panel .dn-handoff {
+  color: #c4d2af;
+}
+.dn-recall-feature {
+  padding-block: 72px;
+}
+.dn-recall-heading {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: end;
+  gap: 80px;
+  margin-bottom: 36px;
+}
+.dn-recall-heading h2 {
+  font-size: clamp(36px, 3.6vw, 52px);
+}
+.dn-recall-heading > div > p {
+  color: #5f655f;
+}
+.dn-recall-photo {
+  position: relative;
+  min-width: 0;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #d9c7af;
+}
+.dn-recall-photo > img {
+  display: block;
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  object-position: center 38%;
+}
+.dn-recall-reminder {
+  position: absolute;
+  top: 36px;
+  left: 36px;
+  width: 350px;
+  background: #fcfcfaed;
+  backdrop-filter: blur(16px);
+  padding: 26px;
+  border-radius: 22px;
+  box-shadow: 0 14px 40px #30281918;
+}
+.dn-recall-reminder h3 {
+  font-size: 32px;
+  margin-block: 20px;
+}
+.dn-recall-reminder p {
+  font-size: 13px;
+}
+.dn-photo-note {
+  display: block;
+  font-size: 10px;
+  color: #6d705f;
+  margin-top: 17px;
+}
+.dn-photo-sent {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 17px;
+  color: #486338;
+  font-size: 11px;
+}
+.dn-recall-reply {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px;
+  width: 325px;
+  background: #fcfcfaf2;
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  box-shadow: 0 14px 40px #30281918;
+}
+.dn-recall-reply strong {
+  font-size: 11px;
+}
+.dental-page .dn-recall-reply p {
+  font-size: 15px;
+  margin-top: 7px;
+}
+.dn-recall-reply div > span {
+  display: block;
+  margin-top: 7px;
+  color: #5f655f;
+  font-size: 10px;
+}
+.dn-reactivation-panel {
+  background: #dfe4cd;
+}
+.dn-reactivation-panel .dn-dialogue {
+  padding: 0;
+  background: transparent;
+}
+.dn-reactivation-panel .dn-audience {
+  background: #fcfcfa;
+  border: 1px solid #c8ceba;
+}
+.dn-reactivation-panel .dn-bubble {
+  background: #fcfcfa;
+}
+.dn-review-feature {
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  align-items: center;
+  gap: 80px;
+  padding-block: 90px;
+}
+.dn-review-visual {
+  min-width: 0;
+  border-radius: 30px;
+  background: #e5deeb;
+  padding: 36px;
+}
+.dn-review-event {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #53604a;
+  font-size: 12px;
+  margin-bottom: 25px;
+}
+.dn-review-invitation {
+  background: #fcfcfa;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px #3430390c;
+  margin-right: 18px;
+}
+.dental-page .dn-review-invitation > p {
+  font-size: 13px;
+  margin-top: 17px;
+}
+.dn-review-invitation .dn-example-link {
+  font-size: 12px;
+}
+.dn-google-screen {
+  background: #fff;
+  margin: 24px 0 0 auto;
+  width: 85%;
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 18px 34px #3430391c;
+  transform: rotate(-2deg);
+}
+.dn-google {
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  letter-spacing: -1.5px;
+  font-weight: 600;
+}
+.dn-google > span:nth-child(1),
+.dn-google > span:nth-child(4) {
+  color: #4285f4;
+}
+.dn-google > span:nth-child(2),
+.dn-google > span:nth-child(6) {
+  color: #ea4335;
+}
+.dn-google > span:nth-child(3) {
+  color: #fbbc05;
+}
+.dn-google > span:nth-child(5) {
+  color: #34a853;
+}
+.dn-google-screen h3 {
+  font-size: 26px;
+  margin-top: 24px;
+}
+.dn-google-stars {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  color: #bd8d27;
+  margin-block: 20px;
+}
+.dental-page .dn-google-screen p {
+  color: #73736a;
+  font-size: 12px;
+}
+.dn-registration-overlay .dn-hidden,
+.dn-registration-overlay .dn-visible,
+.dn-recall-photo .dn-hidden,
+.dn-recall-photo .dn-visible,
+.dn-review-visual .dn-hidden,
+.dn-review-visual .dn-visible {
+  transition: opacity 0.22s ease;
+}
+@media (max-width: 1100px) {
+  .dn-panel {
+    padding: 36px;
+    gap: 36px;
+  }
+  .dn-recall-heading {
+    gap: 40px;
+  }
+  .dn-review-feature {
+    gap: 40px;
+  }
+  .dn-google-stars {
+    gap: 5px;
+  }
+}
+@media (max-width: 800px) {
+  .dn-feature {
+    padding-block: 16px;
+  }
+  .dn-panel {
+    grid-template-columns: 1fr;
+    padding: 26px;
+    gap: 32px;
+    border-radius: 24px;
+  }
+  .dn-panel .dn-copy h2 {
+    font-size: clamp(33px, 7.8vw, 44px);
+  }
+  .dn-registration-visual > img {
+    height: 370px;
+  }
+  .dn-registration-overlay {
+    position: relative;
+    margin: -100px 12px 0;
+    width: calc(100% - 24px);
+    left: auto;
+    bottom: auto;
+    padding: 20px;
+  }
+  .dn-registration-visual {
+    padding-bottom: 0;
+  }
+  .dn-form-outcomes {
+    margin-top: 26px;
+    gap: 10px;
+  }
+  .dn-treatment-panel {
+    margin-block: 8px;
+  }
+  .dn-treatment-panel .dn-dialogue {
+    padding: 20px;
+  }
+  .dn-recall-feature {
+    padding-block: 48px;
+  }
+  .dn-recall-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .dn-recall-photo {
+    padding-bottom: 22px;
+    border-radius: 24px;
+  }
+  .dn-recall-photo > img {
+    height: 370px;
+    object-position: 63% center;
+  }
+  .dn-recall-reminder {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    margin: -70px 16px 0;
+    padding: 22px;
+  }
+  .dn-recall-reply {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: auto;
+    margin: 16px 16px 0;
+    padding: 18px;
+  }
+  .dn-review-feature {
+    grid-template-columns: 1fr;
+    padding-block: 50px;
+    gap: 30px;
+  }
+  .dn-review-feature > .dn-copy {
+    order: -1;
+  }
+  .dn-review-visual {
+    padding: 24px;
+    border-radius: 24px;
+  }
+  .dn-google-screen {
+    padding: 24px;
+    width: 90%;
+  }
+  .dn-google-stars {
+    gap: 6px;
+  }
+  .dn-google-stars svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+@media (max-width: 380px) {
+  .dn-panel {
+    padding: 20px;
+  }
+  .dn-review-visual {
+    padding: 20px;
+  }
+  .dn-google-screen {
+    width: 95%;
+    padding: 20px;
+  }
+  .dn-google-stars svg {
+    width: 24px;
+    height: 24px;
+  }
+  .dn-form-lines > span {
+    font-size: 10px;
+    gap: 10px;
+  }
+}
