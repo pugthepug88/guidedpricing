@@ -62,3 +62,8 @@ Preview source verification is recorded after the GitHub connected-branch update
 The user reported a 404 on the direct hosted V2 URL. Source synchronization and local rendering had been verified, but those checks did not verify that the direct hosted URL was reachable. Hosted browser inspection was redirected to Lovable login and the secure sign-in request was declined, so the exact hosted failure remains unconfirmed.
 
 Added Mortgage Brokers and Mortgage Brokers V2 entries to the existing root-owned desktop and mobile Solutions menu. These links and V2’s original comparison links use the TanStack router to navigate within the loaded preview. This gives a menu entry point without a full-document deep-link request. Both canonical page content and original stylesheet remain unchanged. Local menu navigation and direct route rendering are tested separately. The direct hosted 404 must not be reported as resolved without hosted evidence.
+
+
+## Client book economics refinement
+
+Following the owner review, keep the relationship-led hero headline and strengthen the supporting copy: the client book represents ongoing income and future opportunities. Mention trail income once in the owner framing, alongside repeat business and referrals. The mechanism remains useful client contact and shared team follow through; no promise to protect commission, retain an existing loan or prevent suitable refinancing is made. This refines the incumbent strategy rather than replacing it with commission-led messaging. Original page remains unchanged.

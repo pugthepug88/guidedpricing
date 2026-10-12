@@ -277,8 +277,9 @@ export function MortgageBrokersV2Page() {
             <span>And recommend.</span>
           </h1>
           <p className="mv-intro">
-            Keep your client book connected with relevant check-ins, review invitations and
-            consistent follow through from your whole team.
+            Your client book represents ongoing income and future opportunities. Zapla keeps the
+            relationships behind it connected with relevant check-ins, review invitations and shared
+            team follow through.
           </p>
           <Actions />
           <p className="mv-hero-note">
@@ -320,8 +321,9 @@ export function MortgageBrokersV2Page() {
           <span>Not a list only you remember.</span>
         </h2>
         <p>
-          Clients should hear from your brokerage at useful moments, get a clear next step and feel
-          known when they return. That takes a shared process, not just a broker with a good memory.
+          Clients hear from you at useful moments and know who to speak to when their plans change.
+          That consistency supports the relationships behind trail income, repeat business and
+          referrals.
         </p>
       </section>
       <section id="client-book" className="mv-retention" aria-labelledby="mv-review-title">
