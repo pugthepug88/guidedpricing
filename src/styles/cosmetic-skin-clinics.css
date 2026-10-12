@@ -538,13 +538,13 @@
 }
 .sk-google-wordmark > span:nth-child(2),
 .sk-google-wordmark > span:nth-child(6) {
-  color: #c5221f;
+  color: #ea4335;
 }
 .sk-google-wordmark > span:nth-child(3) {
-  color: #996b00;
+  color: #fbbc05;
 }
 .sk-google-wordmark > span:nth-child(5) {
-  color: #188038;
+  color: #34a853;
 }
 .sk-google-card h3 {
   font-size: 27px;
@@ -553,7 +553,7 @@
 .sk-stars {
   display: flex;
   gap: 12px;
-  color: #5f6368;
+  color: #bd8d27;
 }
 .sk-google-card > p {
   font-size: 13px;
