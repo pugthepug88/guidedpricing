@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown, Star, Check, FileText } from "lucide-react";
+import { ArrowRight, ChevronDown, Star, Check } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import skinCss from "@/styles/cosmetic-skin-clinics.css?url";
 
 const TITLE = "CRM & Client Follow-Up for Skin & Cosmetic Clinics | Zapla";
 const DESCRIPTION =
-  "Automate skin clinic enquiry replies, pre-visit admin, consultation follow-up and eligible client reactivation. Keep your existing clinic software.";
+  "Automate skin clinic enquiry replies, pre-visit admin, consultation follow-up and eligible client reactivation. Start from spreadsheets and inboxes or keep your existing clinic software.";
 export const Route = createFileRoute("/industries/cosmetic-skin-clinics")({
   staticData: { sitemap: false },
   head: () => ({
@@ -24,6 +24,10 @@ export const Route = createFileRoute("/industries/cosmetic-skin-clinics")({
 });
 const BOOK = "https://zapla.io/booking";
 const FAQS = [
+  [
+    "We use spreadsheets and inboxes. Can we start with Zapla?",
+    "Yes. Bring suitable contact records into Zapla and give your team one place for enquiries and follow-up. We review the data before importing it, connect the agreed communication channels and build the first workflows. Clinical records, treatment advice and consent still need an appropriate clinical system. You do not need another CRM to start.",
+  ],
   [
     "We already use Timely, Fresha, Kitomba or Pabau. Why add Zapla?",
     "Keep the workflows your existing software handles well. Zapla earns its place where new enquiries, agreed follow-up or campaign replies are still slipping between people and channels. We map that gap first. If your current system already solves it, adding another tool may not make sense.",
@@ -58,7 +62,7 @@ const FAQS = [
   ],
   [
     "How is Zapla priced?",
-    "Follow-Through is A$399 per month, with Guided Launch from A$1,997. Growth is A$699 per month, with Guided Launch from A$2,997. Prices exclude GST. Both include unlimited users and stored contacts under fair use. SMS, email and voice usage are separate. AI Receptionist is optional. The clinic data flow and any extra integration work are scoped before you commit.",
+    "Follow-Through is A$399 per month, with Guided Launch from A$1,997. Growth is A$699 per month, with Guided Launch from A$2,997. Prices exclude GST. Both include unlimited users and stored contacts under fair use. Communication usage is separate: outbound SMS is A$0.13 per carrier segment and inbound SMS is A$0.02, excluding GST. AI Receptionist is A$199 per month plus setup from A$997, excluding GST, with 200 Voice AI minutes. See the pricing page for email allowances and overages. The clinic data flow and any extra integration work are scoped before you commit.",
   ],
 ] as const;
 function Label({ children }: { children: ReactNode }) {
@@ -121,17 +125,24 @@ function useDialogue() {
   const inView = useInView(ref, { amount: 0.05, margin: "0px 0px 100px 0px" });
   const reduced = useReducedMotion();
   const [step, setStep] = useState(0);
+  const [foreground, setForeground] = useState(true);
+  useEffect(() => {
+    const update = () => setForeground(!document.hidden);
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
   useEffect(() => {
     if (reduced) setStep(2);
   }, [reduced]);
   useEffect(() => {
-    if (!inView || reduced || step >= 2) return;
+    if (!inView || !foreground || reduced || step >= 2) return;
     const timer = window.setTimeout(
       () => setStep((s) => Math.min(2, s + 1)),
       step === 0 ? 200 : 450,
     );
     return () => window.clearTimeout(timer);
-  }, [inView, reduced, step]);
+  }, [inView, foreground, reduced, step]);
   return { ref, step };
 }
 function SkinClinicsPage() {
@@ -155,7 +166,7 @@ function SkinClinicsPage() {
           </p>
           <Actions />
           <p className="sk-hero-boundary">
-            Keep your clinic software. Add the client follow-up around it.
+            Start from spreadsheets and inboxes, or keep the CRM you already use.
           </p>
         </div>
         <div className="sk-hero-scene">
@@ -168,14 +179,12 @@ function SkinClinicsPage() {
           />
           <div className="sk-hero-note sk-glass">
             <div className="sk-note-heading">
-              <ZaplaPetal size={25} />
-              <span>Example · Consultation enquiry</span>
+              <span className="sk-avatar" aria-hidden="true" />
+              <span>Mia · Consultation enquiry</span>
             </div>
             <p>“I’m thinking about a first visit. How do I get started?”</p>
             <div className="sk-note-result">
-              Automatic reply sent.
-              <br />
-              Callback request with your clinic team.
+              <ZaplaPetal size={22} /> Automatic reply sent.
             </div>
           </div>
         </div>
@@ -233,12 +242,13 @@ function SkinClinicsPage() {
               Before they arrive.
             </h2>
             <p>
-              Once the consultation is confirmed, send directions, arrival details and a link to the
-              clinic’s administrative form. Reception has less information to send by hand.
+              A confirmed consultation triggers the arrival details and an administrative form link.
+              When the form is submitted, reception is notified. Less information to send and chase
+              by hand.
             </p>
             <p className="sk-supporting">
-              Appointment messages use verified booking updates. Health histories and treatment
-              consent stay in your clinical system.
+              Appointment messages need current booking updates. Completion alerts need a connected
+              form. Health histories and treatment consent stay in your clinical system.
             </p>
             <Link href="/crm">Explore forms and client records</Link>
           </div>
@@ -311,8 +321,8 @@ function SkinClinicsPage() {
             a simple way to share their experience.
           </p>
           <p className="sk-supporting">
-            Review requests depend on your services and the rules that apply. Clinical testimonials
-            are not automatically republished in your advertising.
+            Review requests must suit the services you offer. See the FAQ for clinical testimonial
+            limits.
           </p>
           <Link href="/reviews">Explore review requests</Link>
         </div>
@@ -320,29 +330,29 @@ function SkinClinicsPage() {
       <section className="sk-fit sk-wrap" aria-labelledby="fit-title">
         <Label>Works around your clinic</Label>
         <h2 id="fit-title">
-          Your clinic system stays.
+          One place for client follow-up.
           <br />
-          <span>The chasing doesn’t have to.</span>
+          <span>However you work today.</span>
         </h2>
         <div className="sk-responsibilities">
           <div>
-            <h3>Your clinic software</h3>
+            <h3>Spreadsheets and inboxes?</h3>
             <p>
-              The appointment diary, health histories, treatment notes, consent and clinical
-              photographs.
+              Bring suitable contacts into Zapla. Keep enquiries, replies and the next follow-up
+              together so your team can see what needs attention.
             </p>
           </div>
           <div>
-            <h3>Zapla</h3>
+            <h3>Already using a CRM?</h3>
             <p>
-              Enquiry replies, pre-visit admin, consultation follow-up, eligible client campaigns
-              and conversations your team can pick up.
+              Keep the workflows it handles well. Add Zapla where enquiry replies, consultation
+              follow-up or client campaigns still need manual chasing.
             </p>
           </div>
         </div>
         <p className="sk-fit-note">
-          No native connection to Timely, Fresha, Kitomba or Pabau is assumed. We check the
-          available data flow before agreeing the scope.
+          Clinical records and treatment decisions stay with your clinic. Connections to Timely,
+          Fresha, Kitomba or Pabau are checked before they are promised.
         </p>
       </section>
       <section className="sk-launch" aria-labelledby="launch-title">
@@ -407,18 +417,27 @@ function SkinClinicsPage() {
           <div className="sk-plan-prices" aria-label="Current clinic platform plans">
             <div>
               <strong>Follow-Through</strong>
-              <span>A$399/month</span>
-              <small>Guided Launch from A$1,997</small>
+              <span>A$399/month + GST</span>
+              <small>
+                Enquiry replies, consultation follow-up and review requests.
+                <br />
+                Guided Launch from A$1,997 + GST
+              </small>
             </div>
             <div>
               <strong>Growth</strong>
-              <span>A$699/month</span>
-              <small>Guided Launch from A$2,997</small>
+              <span>A$699/month + GST</span>
+              <small>
+                Everything in Follow-Through, plus eligible client reactivation and campaigns.
+                <br />
+                Guided Launch from A$2,997 + GST
+              </small>
             </div>
           </div>
           <p className="sk-value-note">
-            Unlimited stored contacts under fair use. GST, Guided Launch and SMS, email and voice
-            usage are separate. AI Receptionist is optional.
+            Unlimited stored contacts under fair use. Guided Launch and communication usage are
+            separate. AI Receptionist is optional. Standard launch includes up to three agreed
+            follow-through automations; extra clinic connections or workflows are scoped separately.
           </p>
           <Link href="/Pricing-v3">Compare plans and costs</Link>
         </div>
@@ -469,7 +488,7 @@ function AdminScene() {
       ref={ref}
       className="sk-admin-scene"
       data-step={step}
-      aria-label="Illustrative pre-visit admin message and form delivery"
+      aria-label="Demonstration: confirmed consultation sends admin form; Mia submits contact details and reception is notified"
     >
       <img
         src="/concept/industries/skin-clinic-previsit.webp"
@@ -480,23 +499,26 @@ function AdminScene() {
       />
       <div className="sk-admin-note sk-glass">
         <div className="sk-note-heading">
-          <FileText size={18} aria-hidden="true" />
-          Before your consultation
+          <ZaplaPetal size={24} />
+          <span>Your clinic · Before your visit</span>
         </div>
-        <h3>
-          Your first visit.
-          <br />
-          The essentials, sent.
-        </h3>
-        <p>Hi Mia, here are our arrival details and a short form for your contact preferences.</p>
-        <span className="sk-example-link">View arrival details</span>
-        <span className="sk-example-link">Complete contact details</span>
+        <p>Hi Mia, here are our arrival details and your contact details form.</p>
         <div
-          className={`sk-status ${step >= 1 ? "sk-visible" : "sk-hidden"}`}
+          className={`sk-admin-response ${step >= 1 ? "sk-visible" : "sk-hidden"}`}
           aria-hidden={step < 1}
         >
+          <span className="sk-avatar" aria-hidden="true" />
+          <div>
+            <strong>Mia</strong>
+            <span>Contact details submitted</span>
+          </div>
+        </div>
+        <div
+          className={`sk-status ${step >= 2 ? "sk-visible" : "sk-hidden"}`}
+          aria-hidden={step < 2}
+        >
           <Check size={16} aria-hidden="true" />
-          Pre-visit message sent
+          Reception notified
         </div>
       </div>
     </div>
@@ -523,35 +545,22 @@ function ReturnPhoto() {
           <ZaplaPetal size={25} />
           <span>Your clinic · Client invitation</span>
         </div>
-        <h3>
-          It’s been a while.
-          <br />
-          Would you like to talk?
-        </h3>
         <p>
           Hi Mia, it’s your skin clinic. If you’d like to arrange another visit, reply here and our
           team can help.
         </p>
         <small>Reply STOP to opt out.</small>
-        <div
-          className={`sk-status ${step >= 1 ? "sk-visible" : "sk-hidden"}`}
-          aria-hidden={step < 1}
-        >
-          Sent to clients approved to contact
-        </div>
       </div>
       <div
         className={`sk-return-reply sk-glass ${step >= 2 ? "sk-visible" : "sk-hidden"}`}
         aria-hidden={step < 2}
       >
-        <span className="sk-avatar" />
+        <span className="sk-avatar" aria-hidden="true" />
         <div>
           <strong>Mia · Replied</strong>
           <p>“Could someone call me about a time next week?”</p>
-          <small>Reply with your team. Follow-up stopped.</small>
         </div>
       </div>
-      <span className="sk-illustration">Illustrative client communication</span>
     </div>
   );
 }
@@ -564,7 +573,12 @@ function ReviewScene() {
       data-step={step}
       aria-label="Illustrative Google invitation with five unselected rating stars, not a customer rating"
     >
-      <p className="sk-review-trigger">Visit recorded as completed</p>
+      <div className="sk-review-trigger">
+        <span className="sk-avatar" aria-hidden="true" />
+        <span>
+          <strong>Mia</strong>Visit completed
+        </span>
+      </div>
       <div className="sk-review-invite sk-glass">
         <div className="sk-note-heading">
           <ZaplaPetal size={24} />
@@ -582,6 +596,10 @@ function ReviewScene() {
             <span key={i}>{l}</span>
           ))}
         </span>
+        <div className="sk-google-client">
+          <span className="sk-avatar" aria-hidden="true" />
+          <strong>Mia</strong>
+        </div>
         <h3>How was your visit?</h3>
         <div className="sk-stars" aria-label="Five unselected rating stars">
           {[1, 2, 3, 4, 5].map((n) => (
@@ -590,7 +608,6 @@ function ReviewScene() {
         </div>
         <p>Share your experience</p>
       </div>
-      <p className="sk-example-caption">Illustrative invitation, not customer evidence</p>
     </div>
   );
 }
@@ -603,7 +620,7 @@ function EnquiryScene() {
       data-step={step}
       aria-label="Illustrative web enquiry, automatic acknowledgement and clinic handoff"
     >
-      <p className="sk-scene-heading">Example · Website enquiry</p>
+      <p className="sk-scene-heading">Website enquiry received</p>
       <Message sender="Mia">Hi, I’m thinking about a first visit. How do I get started?</Message>
       <Message automated sender="Your clinic · Automated reply" visible={step >= 1}>
         Hi Mia, thanks for getting in touch. Our team can help you arrange a consultation. Would you
@@ -612,9 +629,6 @@ function EnquiryScene() {
       <Message sender="Mia" visible={step >= 2}>
         Afternoon, please. I’d love to ask a few questions first.
       </Message>
-      <p className={`sk-handoff ${step >= 2 ? "sk-visible" : "sk-hidden"}`} aria-hidden={step < 2}>
-        Callback request with your clinic team
-      </p>
     </div>
   );
 }
@@ -639,8 +653,7 @@ function ConsiderScene() {
         className={`sk-handoff sk-handoff-panel ${step >= 2 ? "sk-visible" : "sk-hidden"}`}
         aria-hidden={step < 2}
       >
-        <strong>Conversation with your team</strong>
-        <span>Further reminders stopped</span>
+        <strong>Callback requested</strong>
       </div>
     </div>
   );
