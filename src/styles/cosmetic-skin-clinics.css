@@ -158,7 +158,8 @@
   border-radius: 110px 26px 26px 26px;
   display: block;
 }
-.sk-glass {
+.sk-glass,
+.sk-bubble {
   background: rgba(252, 252, 250, 0.91);
   border: 2px solid rgba(255, 255, 255, 0.95);
   box-shadow:
@@ -269,16 +270,9 @@
   margin-bottom: 9px;
 }
 .sk-bubble {
-  background: rgba(252, 252, 250, 0.91);
-  border: 2px solid rgba(255, 255, 255, 0.95);
-  border-radius: 18px;
   padding: 16px 18px;
-  box-shadow:
-    inset 0 0 0 1px #1e2b2920,
-    0 8px 20px #1e2b2910;
   font-size: 14px;
   line-height: 1.7;
-  backdrop-filter: blur(6px);
 }
 .sk-outgoing {
   margin-left: 18px;
@@ -455,8 +449,8 @@
   position: absolute;
   left: 28px;
   bottom: 65px;
-  width: 320px;
-  padding: 24px;
+  width: 294px;
+  padding: 22px;
 }
 .sk-return-note h3 {
   font-size: 30px;
@@ -980,7 +974,7 @@
   }
   .sk-return-photo > img {
     height: 340px;
-    object-position: 65% center;
+    object-position: 90% center;
   }
   .sk-return-note {
     position: relative;
@@ -1040,4 +1034,137 @@
   font-size: 13px;
   color: #5f655f;
   grid-column: 1/-1;
+}
+
+/* Shared hero/Dental glass with compact, consistent sender and client identities. */
+.sk-note-heading svg {
+  flex-shrink: 0;
+}
+.sk-note-heading > span:not(.sk-avatar) {
+  min-width: 0;
+}
+.sk-note-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sk-note-result svg {
+  flex-shrink: 0;
+}
+.sk-return-note > p {
+  margin-top: 14px;
+}
+.sk-admin-note > p {
+  margin-top: 14px;
+}
+.sk-admin-response {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin-top: 16px;
+  transition: opacity 0.18s;
+}
+.sk-admin-response > div {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+}
+.sk-admin-response strong {
+  font-size: 13px;
+}
+.sk-review-trigger {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.sk-review-trigger > span:last-child {
+  display: grid;
+  gap: 3px;
+}
+.sk-review-trigger strong {
+  font-size: 13px;
+}
+.sk-avatar {
+  width: 31px;
+  height: 31px;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+.sk-petal {
+  width: 31px;
+  flex-shrink: 0;
+}
+.sk-plan-prices > div {
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+.sk-plan-prices small {
+  line-height: 1.7;
+}
+.sk-plan-prices > div > span {
+  color: #596947;
+}
+@media (max-width: 480px) {
+  .sk-google-card {
+    margin-left: 0;
+    padding: 18px;
+  }
+  .sk-stars {
+    gap: 8px;
+  }
+  .sk-stars svg {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+  .sk-avatar {
+    width: 28px;
+    height: 28px;
+  }
+  .sk-petal {
+    width: 28px;
+  }
+  .sk-return-note {
+    padding: 20px;
+  }
+  .sk-hero-note,
+  .sk-admin-note {
+    padding: 18px;
+  }
+}
+@media (max-width: 360px) {
+  .sk-hero h1 {
+    font-size: 42px;
+  }
+  .sk-dialogue,
+  .sk-follow-panel .sk-dialogue {
+    padding: 18px 12px;
+  }
+  .sk-message {
+    gap: 7px;
+  }
+  .sk-bubble {
+    padding: 13px;
+    font-size: 14px;
+  }
+  .sk-hero .sk-actions {
+    align-items: flex-start;
+    gap: 8px;
+    flex-direction: column;
+  }
+  .sk-review-scene {
+    padding: 22px 14px;
+  }
+  .sk-note-heading {
+    font-size: 12px;
+  }
+}
+
+.sk-google-client {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  font-size: 13px;
 }
