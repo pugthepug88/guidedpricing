@@ -79,3 +79,27 @@ Google feedback now matches Dental's separate invitation and white rating panel:
 
 
 Cleanup verification: production build and TypeScript/scoped lint pass. Full renders checked at 1440, 1024, 768, 390 and 320px; no horizontal overflow, visible draft/illustrative/opt-out footers or browser errors. Loan-review and prospect selectors still work. Browser-computed glass background, border, inset shadow, drop shadow and blur match Dental exactly. Google panel background, radius and shadow match Dental, with the same coloured wordmark and outlined star system. Full page inspected at reduced scale and targeted review/Google scenes inspected at readable scale. Original mortgage route and stylesheet retain their pre-change hashes.
+
+## Incumbent combined review brief, 12 October 2026
+
+Carry these decisions together across subsequent turns. A new comment or reference does not replace earlier accepted decisions. Change positioning only with new evidence or a material improvement judged against the same criteria. The latest visual cleanup is not a fresh approval through every strategic lens; that systematic whole-page review remains outstanding.
+
+### Broker buying questions
+
+Read the whole page as an established brokerage principal: will clients return and refer others; does the process support relationships behind ongoing income; can the team deliver consistent service without everything depending on the principal; what does Zapla add around an existing mortgage CRM; is that improvement worth the subscription, setup cost and operational effort? The weakest current argument is incremental value alongside existing software. Do not invent competitor deficiencies or unique capabilities. Demonstrate a real gap between recording clients and consistently acting on relevant next steps, and acknowledge when the existing system already does it well.
+
+### Five buyer awareness stages
+
+Review unaware, problem aware, solution aware, product aware and most aware visitors. Prioritise problem and solution awareness for this industry page without assuming every visitor already recognises a gap or wants automation. Use familiar situations to establish missed contact, stalled opportunities and principal dependency; connect these to commercial consequences without invented figures. Demonstrate the shared process, establish why Zapla earns a place alongside the existing CRM, then explain scope, price and the call. Do not force five awareness stages into five sections. Actual traffic awareness is an assumption until validated.
+
+### Preserve and assess the staggered section
+
+The reference requested a visual break, not an automatic content endorsement. Retain the staggered visual only if it earns its place in the full page. Its job is the bridge between the hero's relationship promise and the mechanisms below. The incumbent proposed revision, not yet implemented, is: “Your client book holds more than past settlements.” Three distinct commercial roles: “Stay their first call” (returning clients), “Earn the next introduction” (referrals), “Be there when plans move” (paused and future opportunities). Avoid implying every new opportunity is already inside the client book. Assess these words for specificity and broker comprehension before adopting them; avoid generic slogans and unnecessary repetition of following sections.
+
+### Positioning and presentation retained
+
+Keep the relationship-led headline and established-principal client-book outcome, repeat and referred business, shared team ownership, and trail income mentioned once as commercial context without guaranteeing commission or discouraging appropriate refinancing. Preserve the separate V2 and unchanged original. Keep the selected staggered layout, editorial human photos, compact Dental-matched glass and consistent Google review visual. Do not restore draft captions, sample opt-out footers or setup commentary in demonstrations. Calls support the mortgage proposition rather than leading it; reactivation is one substantial supporting mechanism, not the entire offer.
+
+### Complete review before approval
+
+Review the complete page and overall website fit through strategy, broker/principal, frontline, client experience, five awareness stages, product marketing, sales/conversion, CFO/competitor, copy, brand/art direction, whole-page rhythm, UI/accessibility, motion, product/data/claims, reputation/referrals and delivery perspectives. Every section must have a distinct buyer job, a supported mechanism where relevant and a reason for its order. Inspect actual desktop/mobile renders, zoomed out and readable details. Identify weaknesses before edits; assess the whole page again after changes. Self-review is not independent broker validation, and scores must not be inflated to satisfy a target.
