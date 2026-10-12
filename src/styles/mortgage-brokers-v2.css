@@ -162,7 +162,7 @@
   border-radius: 145px 30px 30px 30px;
 }
 .mv-glass {
-  background: rgba(252, 252, 250, 0.91);
+  background: rgba(252, 252, 250, 0.84);
   border: 2px solid rgba(255, 255, 255, 0.95);
   box-shadow:
     inset 0 0 0 1px #1e2b2930,
@@ -492,7 +492,8 @@
   height: 43px;
   border-radius: 50%;
   flex-shrink: 0;
-  background: url("/concept/revenue/soft-autumn-portraits-v1.webp") 40% 66.666%/600% 400%;
+  background-image: url("/concept/revenue/soft-autumn-portraits-v1.webp");
+  background-size: 600% 400%;
 }
 .mv-team-record blockquote {
   font-size: 19px;
@@ -1484,5 +1485,113 @@
   }
   .mv-fit-intro {
     margin-bottom: 0 !important;
+  }
+}
+
+/* Photo messages share one glass surface and the Dental reply hierarchy.
+   Portraits identify clients; the Zapla petal identifies automated messages. */
+.mv-avatar-priya {
+  background-position: 80% 0;
+}
+.mv-avatar-alex {
+  background-position: 100% 0;
+}
+.mv-avatar-sam {
+  background-position: 20% 0;
+}
+.mv-client-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.mv-client-card > .mv-avatar {
+  width: 32px;
+  height: 32px;
+}
+.mv-client-card > div {
+  flex: 1;
+  min-width: 0;
+}
+.mv-client-card strong {
+  font-size: 11px;
+  line-height: 1.5;
+}
+.mv-hero-client p {
+  font-size: 15px;
+  line-height: 1.55;
+  margin-top: 7px;
+}
+.mv-glass {
+  padding: 20px;
+}
+.mv-review-controls {
+  margin-bottom: 16px;
+}
+.mv-review-message {
+  width: 300px;
+}
+.mv-review-message h3,
+.mv-prospect-message h3 {
+  font-size: 24px;
+  line-height: 1.15;
+  margin: 14px 0 12px;
+}
+.mv-review-message > p,
+.mv-prospect-message > p {
+  font-size: 13px;
+  line-height: 1.65;
+}
+.mv-review-reply {
+  width: 290px;
+}
+.mv-review-reply p {
+  margin: 7px 0 0;
+}
+.mv-prospect-message {
+  width: 290px;
+}
+@media (max-width: 800px) {
+  .mv-review-message {
+    width: auto;
+  }
+  .mv-review-reply {
+    width: auto;
+  }
+  .mv-prospect-message {
+    width: 310px;
+  }
+}
+@media (max-width: 520px) {
+  .mv-review-controls {
+    margin-inline: 8px;
+  }
+  .mv-review-message h3,
+  .mv-prospect-message h3 {
+    font-size: 24px;
+  }
+}
+@media (min-width: 801px) and (max-width: 1100px) {
+  .mv-hero-client {
+    width: 250px;
+  }
+  .mv-hero-owner {
+    width: 205px;
+    right: 0;
+  }
+}
+.mv-prospect-scene {
+  min-width: 0;
+}
+@media (max-width: 800px) {
+  .mv-prospect {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mv-prospect-message {
+    max-width: calc(100% - 28px);
+  }
+}
+@media (max-width: 520px) {
+  .mv-prospect-message {
+    max-width: calc(100% - 20px);
   }
 }

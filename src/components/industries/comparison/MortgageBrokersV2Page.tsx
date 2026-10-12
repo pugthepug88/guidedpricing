@@ -34,6 +34,10 @@ function Sender({ children }: { children: ReactNode }) {
     </div>
   );
 }
+type Client = "priya" | "alex" | "sam";
+function Avatar({ person }: { person: Client }) {
+  return <span className={`mv-avatar mv-avatar-${person}`} aria-hidden="true" />;
+}
 function Choice({
   options,
   selected,
@@ -63,40 +67,48 @@ function Choice({
 function ReviewScene() {
   const [mode, setMode] = useState(0);
   return (
-    <div className="mv-review-scene">
-      <img
-        src="/concept/industries/mortgage-client-review.webp"
-        alt="A client and her partner discussing their plans at home"
-        width="1672"
-        height="941"
-        loading="lazy"
-      />
-      <div className="mv-glass mv-review-message">
+    <>
+      <div className="mv-review-controls">
         <Choice
           options={["Annual review", "Fixed rate ending"]}
           selected={mode}
           onSelect={setMode}
           label="Choose a loan review invitation example"
         />
-        <Sender>Your brokerage · Review invitation</Sender>
-        <h3>{mode === 0 ? "Time for your annual review." : "Your fixed rate is ending."}</h3>
-        <p>
-          {mode === 0
-            ? "Hi Priya, it’s been a year since your home loan settled. Would you like to catch up and review your plans?"
-            : "Hi Priya, your fixed rate period is coming to an end. Would you like to catch up and talk through your next steps?"}
-        </p>
       </div>
-      <div className="mv-glass mv-review-reply">
-        <strong>Priya Shah · Client reply</strong>
-        <p>“Yes please. We’re thinking about our next move.”</p>
+      <div className="mv-review-scene">
+        <img
+          src="/concept/industries/mortgage-client-review.webp"
+          alt="A client and her partner discussing their plans at home"
+          width="1672"
+          height="941"
+          loading="lazy"
+        />
+        <div className="mv-glass mv-review-message">
+          <Sender>Your brokerage · Review invitation</Sender>
+          <h3>{mode === 0 ? "Time for your annual review." : "Your fixed rate is ending."}</h3>
+          <p>
+            {mode === 0
+              ? "Hi Priya, it’s been a year since your home loan settled. Would you like to catch up and review your plans?"
+              : "Hi Priya, your fixed rate period is coming to an end. Would you like to catch up and talk through your next steps?"}
+          </p>
+        </div>
+        <div className="mv-glass mv-review-reply mv-client-card">
+          <Avatar person="priya" />
+          <div>
+            <strong>Priya Shah · Client reply</strong>
+            <p>“Yes please. We’re thinking about our next move.”</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 const TEAM = [
   {
     title: "New enquiry",
     person: "Alex Chen",
+    avatar: "alex" as const,
     context: "Asked about buying a first home",
     message: "Can we speak after work?",
     action: "Arrange an initial conversation",
@@ -106,6 +118,7 @@ const TEAM = [
   {
     title: "Client review",
     person: "Priya Shah",
+    avatar: "priya" as const,
     context: "Invited to an annual review",
     message: "We’re thinking about our next move.",
     action: "Arrange the review and discuss her plans",
@@ -115,6 +128,7 @@ const TEAM = [
   {
     title: "Referral conversation",
     person: "Sam Taylor",
+    avatar: "sam" as const,
     context: "Replied to a referral invitation",
     message: "My sister is looking to buy. Can I introduce you?",
     action: "Agree an introduction with Sam",
@@ -135,6 +149,7 @@ function TeamScene() {
       />
       <div className="mv-team-record" aria-live="polite">
         <div className="mv-record-person">
+          <Avatar person={item.avatar} />
           <div>
             <h3>{item.person}</h3>
             <p>{item.context}</p>
@@ -270,9 +285,12 @@ export function MortgageBrokersV2Page() {
             height="1402"
             fetchPriority="high"
           />
-          <div className="mv-glass mv-hero-client">
-            <strong>Priya Shah · Returning client</strong>
-            <p>“You helped us with our first home. Can we talk about our next move?”</p>
+          <div className="mv-glass mv-hero-client mv-client-card">
+            <Avatar person="priya" />
+            <div>
+              <strong>Priya Shah · Returning client</strong>
+              <p>“You helped us with our first home. Can we talk about our next move?”</p>
+            </div>
           </div>
           <div className="mv-glass mv-hero-owner">
             <Sender>Daniel · Broker</Sender>
@@ -405,9 +423,12 @@ export function MortgageBrokersV2Page() {
               If someone you know is thinking about their next property move, you’re welcome to
               introduce us.
             </p>
-            <div className="mv-referral-reply">
-              <strong>Sam · Client reply</strong>
-              <p>“My sister is looking to buy. Can I introduce you?”</p>
+            <div className="mv-referral-reply mv-client-card">
+              <Avatar person="sam" />
+              <div>
+                <strong>Sam Taylor · Client reply</strong>
+                <p>“My sister is looking to buy. Can I introduce you?”</p>
+              </div>
             </div>
           </div>
         </div>
