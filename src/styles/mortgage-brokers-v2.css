@@ -1,0 +1,1184 @@
+@font-face {
+  font-family: MortgageV2Display;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/concept/industries/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: MortgageV2Body;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: MortgageV2Body;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-600-normal.woff2") format("woff2");
+}
+.mortgage-v2-page {
+  background: #fcfcfa;
+  color: #111318;
+  font-family: MortgageV2Body, Manrope, sans-serif;
+  font-size: 16px;
+  overflow: clip;
+}
+.mortgage-v2-page * {
+  box-sizing: border-box;
+}
+.mortgage-v2-page h1,
+.mortgage-v2-page h2,
+.mortgage-v2-page h3 {
+  font-family: MortgageV2Display, "Inter Tight", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
+  margin: 0;
+}
+.mortgage-v2-page h2 {
+  font-size: clamp(38px, 3.65vw, 52px);
+}
+.mortgage-v2-page h3 {
+  font-size: 25px;
+}
+.mortgage-v2-page p {
+  margin: 0;
+  line-height: 1.7;
+}
+.mortgage-v2-page strong {
+  font-weight: 600;
+}
+.mortgage-v2-page a {
+  color: inherit;
+}
+.mortgage-v2-page a:focus-visible,
+.mortgage-v2-page button:focus-visible,
+.mortgage-v2-page summary:focus-visible {
+  outline: 3px solid #2563ff;
+  outline-offset: 5px;
+}
+.mv-wrap {
+  max-width: 1360px;
+  padding-inline: 40px;
+  margin-inline: auto;
+}
+.mv-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #95503b;
+  margin-bottom: 18px !important;
+}
+.mv-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.mv-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 25px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  background: #1e2b29;
+  color: #fcfcfa !important;
+}
+.mv-button:hover {
+  background: #334540;
+}
+.mv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 44px;
+  text-decoration: none;
+  border-bottom: 1px solid #a5ada4;
+}
+.mv-hero {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 40px;
+  align-items: center;
+  padding-top: 160px;
+  padding-bottom: 96px;
+}
+.mv-hero h1 {
+  font-size: clamp(55px, 5.05vw, 73px);
+  line-height: 1.01;
+  letter-spacing: -0.055em;
+}
+.mv-hero h1 span,
+.mv-outcome h2 span,
+.mv-fit h2 span {
+  color: #6c784d;
+}
+.mv-intro {
+  font-size: 18px;
+  color: #505951;
+  max-width: 470px;
+  margin-top: 26px !important;
+}
+.mv-hero-note {
+  font-size: 13px;
+  max-width: 380px;
+  color: #60685e;
+  margin-top: 24px !important;
+}
+.mv-compare {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  font-size: 12px;
+  color: #62685f !important;
+  margin-top: 15px;
+  text-underline-offset: 4px;
+}
+.mv-hero-scene {
+  position: relative;
+  min-width: 0;
+  height: 620px;
+}
+.mv-hero-scene > img {
+  position: absolute;
+  inset: 0 0 65px 20px;
+  width: calc(100% - 20px);
+  height: 555px;
+  object-fit: cover;
+  object-position: 50% 47%;
+  border-radius: 145px 30px 30px 30px;
+}
+.mv-glass {
+  background: rgba(252, 252, 250, 0.91);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 0 0 1px #1e2b2930,
+    0 14px 35px #1e2b291a;
+  backdrop-filter: blur(6px);
+  border-radius: 18px;
+  padding: 22px;
+}
+.mv-hero-client {
+  position: absolute;
+  left: 0;
+  bottom: 68px;
+  width: 300px;
+}
+.mv-hero-client strong {
+  font-size: 13px;
+}
+.mv-hero-client p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+.mv-hero-owner {
+  position: absolute;
+  right: -4px;
+  bottom: 6px;
+  width: 250px;
+}
+.mv-sender {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.mv-sender svg {
+  flex-shrink: 0;
+}
+.mv-hero-owner p {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 12px;
+}
+.mv-example {
+  font-size: 11px !important;
+  color: #6d746b;
+  line-height: 1.5 !important;
+}
+.mv-hero-scene > .mv-example {
+  position: absolute;
+  bottom: -30px;
+  left: 20px;
+}
+.mv-outcome {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 85px;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 90px;
+}
+.mv-outcome h2 {
+  font-size: 35px;
+  line-height: 1.13;
+}
+.mv-outcome > p {
+  color: #535c52;
+  max-width: 450px;
+}
+.mv-retention {
+  background: #f7f4ee;
+  border-radius: 44px;
+  margin: 0 24px;
+  padding-block: 76px;
+}
+.mv-wide-heading {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.mv-wide-heading > div > p:not(.mv-label) {
+  color: #535c52;
+  margin-bottom: 15px;
+}
+.mv-review-scene {
+  position: relative;
+  height: 560px;
+  padding-bottom: 30px;
+}
+.mv-review-scene > img {
+  width: 100%;
+  height: 530px;
+  object-fit: cover;
+  border-radius: 26px;
+  object-position: 50% 50%;
+}
+.mv-review-message {
+  position: absolute;
+  left: 28px;
+  top: 26px;
+  width: 350px;
+}
+.mv-choices {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.mv-choices button {
+  border: 1px solid #d5d8cc;
+  background: transparent;
+  color: inherit;
+  border-radius: 22px;
+  padding: 10px 12px;
+  min-height: 44px;
+  font:
+    600 11px MortgageV2Body,
+    sans-serif;
+  cursor: pointer;
+}
+.mv-choices button[aria-pressed="true"] {
+  background: #1e2b29;
+  border-color: #1e2b29;
+  color: #fff;
+}
+.mv-review-message .mv-choices {
+  margin-bottom: 20px;
+}
+.mv-review-message h3,
+.mv-prospect-message h3 {
+  font-size: 29px;
+  margin: 16px 0;
+}
+.mv-review-message > p,
+.mv-prospect-message > p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.mv-message-action {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  margin-top: 15px;
+}
+.mv-glass small {
+  display: block;
+  font-size: 10px;
+  margin-top: 12px;
+  color: #656d62;
+}
+.mv-message-context {
+  display: block;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #d8dace;
+  font-size: 11px;
+  color: #61695f;
+  line-height: 1.55;
+}
+.mv-review-reply {
+  position: absolute;
+  right: 28px;
+  bottom: 50px;
+  width: 290px;
+  padding: 18px 22px;
+}
+.mv-review-reply strong {
+  font-size: 12px;
+}
+.mv-review-reply p {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 7px 0;
+}
+.mv-review-reply span {
+  font-size: 11px;
+  color: #61695f;
+}
+.mv-review-scene > .mv-example {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.mv-reputation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 95px;
+  align-items: center;
+  padding-block: 110px;
+}
+.mv-copy > p:not(.mv-label) {
+  color: #535c52;
+  margin-top: 22px;
+  max-width: 460px;
+}
+.mv-copy > .mv-link {
+  margin-top: 20px;
+}
+.mv-reputation-scene {
+  background: #e6e0ed;
+  border-radius: 28px;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.mv-reputation-scene .mv-glass {
+  padding: 20px;
+  min-width: 0;
+}
+.mv-feedback {
+  grid-column: 1/-1;
+  margin-right: 92px;
+}
+.mv-feedback > p,
+.mv-referral > p {
+  font-size: 14px;
+  margin-top: 13px;
+  line-height: 1.6;
+}
+.mv-google {
+  margin-top: 20px;
+  border-top: 1px solid #d8dace;
+  padding-top: 15px;
+}
+.mv-google > strong {
+  font-family: Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+}
+.mv-google > strong span {
+  color: #2563ff;
+}
+.mv-google p {
+  font-size: 12px;
+  margin: 6px 0;
+}
+.mv-google > div {
+  display: flex;
+  gap: 5px;
+  color: #a66d16;
+}
+.mv-referral {
+  grid-column: 1/-1;
+  margin-left: 64px;
+  margin-top: 0;
+}
+.mv-referral-reply {
+  border-top: 1px solid #d8dace;
+  margin-top: 18px;
+  padding-top: 14px;
+}
+.mv-referral-reply strong {
+  font-size: 11px;
+}
+.mv-referral-reply p {
+  font-size: 14px;
+  margin-top: 6px;
+}
+.mv-reputation-scene > .mv-example {
+  grid-column: 1/-1;
+}
+.mv-team {
+  background: #1e2b29;
+  color: #fcfcfa;
+  padding-block: 84px;
+}
+.mv-team-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 90px;
+  align-items: center;
+}
+.mv-team .mv-label {
+  color: #e7a48b;
+}
+.mv-team .mv-copy > p:not(.mv-label) {
+  color: #c5cec2;
+}
+.mv-team .mv-link {
+  border-color: #89968a;
+}
+.mv-team-scene {
+  background: #34433d;
+  border-radius: 24px;
+  padding: 28px;
+}
+.mv-team .mv-choices {
+  margin-bottom: 20px;
+}
+.mv-team .mv-choices button {
+  color: #f8f9f4;
+  border-color: #879286;
+}
+.mv-team .mv-choices button[aria-pressed="true"] {
+  background: #e1e5d3;
+  color: #1e2b29;
+  border-color: #e1e5d3;
+}
+.mv-team-record {
+  background: #fcfcfa;
+  color: #111318;
+  border-radius: 16px;
+  padding: 25px;
+  min-height: 330px;
+}
+.mv-record-person {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.mv-record-person h3 {
+  font-size: 25px;
+}
+.mv-record-person p {
+  font-size: 12px;
+  color: #60695f;
+  margin-top: 4px;
+}
+.mv-avatar {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: url("/concept/revenue/soft-autumn-portraits-v1.webp") 40% 66.666%/600% 400%;
+}
+.mv-team-record blockquote {
+  font-size: 19px;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  margin: 24px 0;
+}
+.mv-team-record dl {
+  margin: 0;
+  border-block: 1px solid #e0e2d8;
+  padding: 15px 0;
+}
+.mv-team-record dl > div {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 10px;
+  margin: 5px 0;
+}
+.mv-team-record dt {
+  font-size: 11px;
+  color: #687062;
+}
+.mv-team-record dd {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.5;
+}
+.mv-record-history {
+  font-size: 11px;
+  color: #65705f;
+  margin-top: 16px !important;
+}
+.mv-team-scene > .mv-example {
+  color: #c0c9b9;
+  margin-top: 16px;
+}
+.mv-prospect {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 85px;
+  align-items: center;
+  padding-block: 110px;
+}
+.mv-prospect-scene {
+  position: relative;
+  height: 510px;
+  padding-bottom: 30px;
+}
+.mv-prospect-scene > img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  border-radius: 28px;
+  object-position: 60% center;
+}
+.mv-prospect-message {
+  position: absolute;
+  bottom: 35px;
+  left: -12px;
+  width: 310px;
+}
+.mv-prospect-scene > .mv-example {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.mv-prospect .mv-choices {
+  margin-top: 25px;
+}
+.mv-prospect-detail {
+  margin-top: 24px;
+  min-height: 235px;
+}
+.mv-prospect-detail h3 {
+  font-size: 26px;
+}
+.mv-prospect-detail p {
+  color: #535c52;
+  margin: 14px 0;
+}
+.mv-prospect-detail .mv-link {
+  margin-top: 5px;
+}
+.mv-fit {
+  background: #e4e7d6;
+  padding-block: 66px;
+}
+.mv-fit-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 90px;
+  align-items: center;
+}
+.mv-fit h2 {
+  font-size: 42px;
+}
+.mv-fit-layout > div > p:not(.mv-label) {
+  color: #4f594c;
+  margin-bottom: 16px;
+}
+.mv-support {
+  font-size: 13px;
+  border-top: 1px solid #c0c8ad;
+  padding-top: 16px;
+  margin-bottom: 0 !important;
+}
+.mv-support a {
+  text-underline-offset: 3px;
+}
+.mv-launch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: start;
+  padding-block: 85px;
+}
+.mv-launch > div > p:not(.mv-label) {
+  color: #535c52;
+  margin: 22px 0;
+}
+.mv-launch ol {
+  list-style: none;
+  counter-reset: launch;
+  margin: 0;
+  padding: 0;
+}
+.mv-launch li {
+  counter-increment: launch;
+  position: relative;
+  padding: 22px 0 22px 45px;
+  border-bottom: 1px solid #dedfd5;
+}
+.mv-launch li:first-child {
+  padding-top: 0;
+}
+.mv-launch li:before {
+  content: "0" counter(launch);
+  position: absolute;
+  left: 0;
+  color: #a66249;
+  font-size: 13px;
+  font-weight: 600;
+}
+.mv-launch h3 {
+  font-size: 23px;
+}
+.mv-launch li p {
+  font-size: 14px;
+  color: #626b60;
+  margin-top: 10px;
+}
+.mv-commercial {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 100px;
+  padding-top: 30px;
+  padding-bottom: 85px;
+}
+.mv-commercial > div > p:not(.mv-label) {
+  color: #535c52;
+  margin-top: 22px;
+  max-width: 400px;
+}
+.mv-plans article {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 25px 0;
+  border-top: 1px solid #dedfd5;
+}
+.mv-plans h3 {
+  font-size: 25px;
+}
+.mv-plans article p {
+  font-size: 13px;
+  max-width: 310px;
+  margin-top: 10px;
+  color: #596353;
+}
+.mv-plans small {
+  font-size: 11px;
+  color: #65705f;
+  display: block;
+  margin-top: 13px;
+}
+.mv-plans article > strong {
+  font-family: MortgageV2Display, sans-serif;
+  font-size: 32px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.mv-plans article > strong span {
+  display: block;
+  font-family: MortgageV2Body, sans-serif;
+  font-size: 10px;
+  color: #697263;
+  text-align: right;
+  margin-top: 3px;
+}
+.mv-plan-note {
+  font-size: 12px;
+  color: #65705f;
+  margin: 12px 0 !important;
+}
+.mv-faq {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 100px;
+  border-top: 1px solid #dedfd5;
+  padding-block: 65px;
+}
+.mv-faq details {
+  border-bottom: 1px solid #dedfd5;
+  padding: 17px 0;
+}
+.mv-faq summary {
+  font-size: 14px;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-height: 32px;
+}
+.mv-faq summary::-webkit-details-marker {
+  display: none;
+}
+.mv-faq summary svg {
+  flex-shrink: 0;
+}
+.mv-faq details[open] summary svg {
+  transform: rotate(45deg);
+}
+.mv-faq details > p {
+  font-size: 14px;
+  color: #535c52;
+  margin-top: 15px;
+}
+.mv-final {
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 100px;
+}
+.mv-final > svg {
+  margin: 0 auto 24px;
+}
+.mv-final h2 {
+  font-size: clamp(39px, 4.4vw, 60px);
+}
+.mv-final > p {
+  max-width: 570px;
+  margin: 24px auto;
+  color: #60685e;
+}
+.mv-final .mv-actions {
+  justify-content: center;
+}
+.mv-final > .mv-link {
+  font-size: 12px;
+  margin-top: 22px;
+  color: #697060;
+}
+@media (min-width: 1600px) {
+  .mv-hero h1 {
+    font-size: 73px;
+  }
+}
+@media (max-width: 1100px) {
+  .mv-wrap {
+    padding-inline: 32px;
+  }
+  .mv-hero {
+    gap: 25px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .mv-hero h1 {
+    font-size: clamp(47px, 5.1vw, 62px);
+  }
+  .mv-hero-scene {
+    height: 580px;
+  }
+  .mv-hero-scene > img {
+    height: 480px;
+  }
+  .mv-hero-client {
+    width: 260px;
+    bottom: 95px;
+  }
+  .mv-hero-owner {
+    width: 225px;
+    bottom: -8px;
+  }
+  .mv-wide-heading,
+  .mv-team-layout,
+  .mv-prospect,
+  .mv-reputation,
+  .mv-fit-layout,
+  .mv-launch,
+  .mv-commercial,
+  .mv-faq {
+    gap: 45px;
+  }
+  .mv-review-message {
+    width: 320px;
+    padding: 18px;
+  }
+  .mv-review-reply {
+    width: 245px;
+  }
+  .mv-feedback {
+    margin-right: 30px;
+  }
+  .mv-referral {
+    margin-left: 30px;
+  }
+  .mv-reputation-scene {
+    padding: 22px;
+  }
+  .mv-team-scene {
+    padding: 20px;
+  }
+  .mv-team-record {
+    padding: 20px;
+  }
+  .mv-outcome {
+    gap: 45px;
+  }
+  .mv-fit h2 {
+    font-size: 37px;
+  }
+}
+@media (max-width: 800px) {
+  .mv-wrap {
+    padding-inline: 24px;
+  }
+  .mv-hero {
+    grid-template-columns: 1fr;
+    padding-top: 125px;
+    padding-bottom: 75px;
+    gap: 40px;
+  }
+  .mv-hero h1 {
+    font-size: clamp(49px, 8.5vw, 68px);
+  }
+  .mv-hero-copy {
+    max-width: 620px;
+  }
+  .mv-hero-scene {
+    height: 570px;
+    max-width: 650px;
+    width: 100%;
+    margin: auto;
+  }
+  .mv-hero-scene > img {
+    height: 485px;
+  }
+  .mv-hero-client {
+    bottom: 70px;
+    width: 290px;
+  }
+  .mv-hero-owner {
+    bottom: 0;
+    width: 245px;
+  }
+  .mv-outcome {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-top: 10px;
+    padding-bottom: 65px;
+  }
+  .mv-outcome h2 {
+    font-size: 34px;
+  }
+  .mv-retention {
+    margin: 0 12px;
+    padding-block: 50px;
+    border-radius: 28px;
+  }
+  .mv-retention .mv-wrap {
+    padding-inline: 20px;
+  }
+  .mv-wide-heading {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+  .mv-wide-heading > div > p {
+    max-width: 560px;
+  }
+  .mv-review-scene {
+    height: auto;
+    padding-bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .mv-review-scene > img {
+    grid-column: 1/-1;
+    height: 370px;
+    object-position: 60% center;
+  }
+  .mv-review-message {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    margin-top: -55px;
+    margin-left: 14px;
+  }
+  .mv-review-reply {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    align-self: end;
+    margin-bottom: 35px;
+    margin-right: 14px;
+  }
+  .mv-review-scene > .mv-example {
+    position: static;
+    grid-column: 1/-1;
+  }
+  .mv-reputation,
+  .mv-team-layout,
+  .mv-prospect,
+  .mv-fit-layout,
+  .mv-launch,
+  .mv-commercial,
+  .mv-faq {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .mv-reputation,
+  .mv-prospect {
+    padding-block: 70px;
+  }
+  .mv-reputation-scene {
+    max-width: 580px;
+    width: 100%;
+    margin: auto;
+  }
+  .mv-team {
+    padding-block: 60px;
+  }
+  .mv-team-scene {
+    max-width: 580px;
+    width: 100%;
+    margin: auto;
+  }
+  .mv-prospect-scene {
+    order: 2;
+    max-width: 650px;
+    width: 100%;
+    margin: auto;
+    height: auto;
+  }
+  .mv-prospect-scene > img {
+    height: 390px;
+  }
+  .mv-prospect-message {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 330px;
+    max-width: 90%;
+    margin-top: -120px;
+    margin-left: 18px;
+  }
+  .mv-prospect-scene > .mv-example {
+    position: static;
+    margin-top: 16px;
+  }
+  .mv-prospect-detail {
+    min-height: 0;
+  }
+  .mv-fit {
+    padding-block: 50px;
+  }
+  .mv-launch {
+    padding-block: 60px;
+  }
+  .mv-commercial {
+    padding-top: 0;
+    padding-bottom: 65px;
+  }
+  .mv-faq {
+    padding-block: 50px;
+    gap: 25px;
+  }
+  .mv-final {
+    padding-top: 45px;
+    padding-bottom: 75px;
+  }
+  .mv-final h2 {
+    font-size: 43px;
+  }
+}
+@media (max-width: 520px) {
+  .mv-wrap {
+    padding-inline: 20px;
+  }
+  .mv-hero {
+    padding-top: 120px;
+    gap: 32px;
+  }
+  .mv-hero h1 {
+    font-size: clamp(43px, 10.8vw, 55px);
+  }
+  .mv-intro {
+    font-size: 16px;
+  }
+  .mv-actions {
+    gap: 16px;
+  }
+  .mv-actions > .mv-link {
+    font-size: 12px;
+  }
+  .mv-hero-scene {
+    height: 535px;
+  }
+  .mv-hero-scene > img {
+    height: 405px;
+    inset: 0 0 100px 0;
+    width: 100%;
+    border-radius: 85px 24px 24px 24px;
+    object-position: 50% 38%;
+  }
+  .mv-hero-client {
+    left: -5px;
+    bottom: 89px;
+    width: 235px;
+    padding: 18px;
+  }
+  .mv-hero-client p {
+    font-size: 14px;
+  }
+  .mv-hero-owner {
+    right: -4px;
+    bottom: -15px;
+    width: 222px;
+    padding: 16px;
+  }
+  .mv-hero-owner p {
+    font-size: 12px;
+  }
+  .mv-hero-scene > .mv-example {
+    left: 0;
+    bottom: -43px;
+  }
+  .mv-outcome {
+    padding-top: 25px;
+  }
+  .mv-outcome h2 {
+    font-size: 30px;
+  }
+  .mortgage-v2-page h2 {
+    font-size: 37px;
+  }
+  .mv-retention .mv-wrap {
+    padding-inline: 14px;
+  }
+  .mv-review-scene {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .mv-review-scene > img {
+    height: 290px;
+    object-position: 70% center;
+  }
+  .mv-review-message {
+    margin-top: -35px;
+    margin-inline: 8px;
+    padding: 20px;
+  }
+  .mv-review-reply {
+    margin: 0 8px;
+    width: auto;
+  }
+  .mv-review-scene > .mv-example {
+    margin: 2px 8px 0;
+  }
+  .mv-review-message h3 {
+    font-size: 28px;
+  }
+  .mv-reputation-scene {
+    padding: 18px;
+    gap: 16px;
+  }
+  .mv-feedback {
+    margin-right: 14px;
+  }
+  .mv-referral {
+    margin-left: 14px;
+  }
+  .mv-team-scene {
+    padding: 18px;
+  }
+  .mv-team-record {
+    padding: 19px;
+  }
+  .mv-team-record blockquote {
+    font-size: 18px;
+    min-height: 52px;
+  }
+  .mv-team .mv-choices {
+    gap: 6px;
+  }
+  .mv-team .mv-choices button {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .mv-prospect-scene > img {
+    height: 300px;
+  }
+  .mv-prospect-message {
+    margin-left: 10px;
+    margin-top: -70px;
+    padding: 20px;
+    max-width: 95%;
+  }
+  .mv-fit h2 {
+    font-size: 35px;
+  }
+  .mv-plans article {
+    gap: 12px;
+  }
+  .mv-plans article > strong {
+    font-size: 29px;
+  }
+  .mv-plans article p {
+    font-size: 12px;
+  }
+  .mv-plans h3 {
+    font-size: 23px;
+  }
+  .mv-final h2 {
+    font-size: 38px;
+  }
+  .mv-final > p {
+    font-size: 15px;
+  }
+  .mv-faq summary {
+    font-size: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mortgage-v2-page * {
+    scroll-behavior: auto;
+  }
+}
+/* Keep both hero messages readable even when the client quote wraps at 320px. */
+@media (max-width: 520px) {
+  .mv-hero-scene {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .mv-hero-scene > img {
+    position: static;
+    width: 100%;
+    height: 405px;
+  }
+  .mv-hero-client {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin-top: -60px;
+    z-index: 1;
+  }
+  .mv-hero-owner {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-left: auto;
+    margin-top: 12px;
+  }
+  .mv-hero-scene > .mv-example {
+    position: static;
+    margin-top: 14px;
+  }
+}
+@media (max-width: 360px) {
+  .mv-hero h1 {
+    font-size: 36px;
+  }
+}
