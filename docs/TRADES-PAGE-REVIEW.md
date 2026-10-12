@@ -1,171 +1,81 @@
-# Trades & Home Services page
+# Trades & Home Services: editorial rebuild
 
-## Decision and scope
+Completed 12 October 2026. Route: `/industries/trades`.
 
-Build one service-business page at `/industries/trades`. The category is defensible when grouped by customer journey rather than by licensing or equipment: local enquiry, assessment or quote, decision, completed work and a possible future service need. The organising problem is customer opportunities slipping between those steps. It is not a replacement for field-service operations.
+## What this page needs to sell
 
-The strongest objection is that trade businesses vary substantially, and existing job software already automates some of this work. The page addresses that directly instead of presenting quote reminders as unique to Zapla. If the incumbent solves the customer's entire problem, another platform is unnecessary.
+Local trade businesses have three distinct customer gaps: new enquiries while someone is on site, questions after a quote, and relevant future service needs. A completed job also creates a useful moment to request a review. The page demonstrates these four jobs rather than listing the entire platform. Office staff get customer context and a clear human handoff; customers get a reply and a way to ask a question.
 
-The strongest case for grouping is that the customer-facing gaps can be explained with a few recognisable service scenarios. The page uses roofing for the occupied operator, plumbing for enquiry capture, air conditioning for a quote question, and air conditioning, pest control and pool services for future work. Electrical appears with genuine recorded maintenance needs. The examples do not imply identical quote values, service intervals or buying behaviour.
+The stronger alternative to adding Zapla can be configuring the existing job system properly. The fit section and FAQ say so. Scheduling, dispatch, costing and invoicing remain with the operational system. This is not a claim that those systems lack messaging, nor a promise of native connections.
 
-Priority ranking is strategic judgment, not measured demand or conversion research:
+## Reference decisions and actual inspection
 
-1. Air conditioning: quotes and recorded service needs support the full story.
-2. Plumbing: enquiries and assessment requests are recognisable; urgent dispatch stays separate.
-3. Electrical: quote and office handoff fit; repeat outreach requires a real maintenance reason.
-4. Pest control: agreed future inspections support relevant return contact.
-5. Pool services: recurring and seasonal customer relationships support database value.
-6. Roofing: higher-consideration quotes fit; generic recurring service is not assumed.
+Read AGENTS, build protocol, design guardrails, editorial photo style and motion creative system before changing the implementation. Read the current Homepage, Dental, Mechanics, target Trades, CRM, Follow-Up, AI Receptionist and Pricing implementations. Rendered Homepage, Dental and Mechanics locally from the current repository, then compared them with the rebuilt Trades page. Desktop and mobile full-page renders and individual section renders were inspected.
 
-Local painting, garage doors, cleaning, landscaping, handyman and tree-service businesses can fit when their customer journey meets the same criteria. They are not given equal visual prominence. Large construction, major renovations, kitchen and bathroom projects, solar sales and emergency dispatch-only businesses need separate qualification or a separate page. Builders and renovators should eventually be considered independently because long project sales, estimating, change orders and project delivery alter the journey.
+- USE: Dental's Inter Tight and Manrope typography, warm white/autumn palette, generous space and exact compact glass treatment.
+- ADAPT: its broad human photography and occasional enclosed dark/cream panels to the trade customer journey.
+- REJECT: cloning the Mechanics layout, copying Dental section for section, reusing a posed plumber portrait, hiding faces behind cards, an uninterrupted alternating dialogue sequence, duplicate opening summaries and poetic benefit headings.
 
-## Positioning and creative choice
+Composition: asymmetric human hero, open office photograph with enquiry context, dark quote panel, broad service photograph, lavender Google review illustration, open software fit, warm launch panel, open value/pricing rows, native FAQs and final call invitation. The opening summary was removed after the first visual pass because it repeated the hero rather than adding a distinct point.
 
-Compared three directions:
+## Photography and glass
 
-| Direction                        | Strength                                | Weakness                                             | Decision                                                |
-| -------------------------------- | --------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------- |
-| Gaps between stages              | Commercial focus across several trades  | Abstract diagrams can feel generic                   | Use as organising idea, not as a giant pipeline diagram |
-| Owner on the tools               | Immediate recognition and human context | Can reduce the entire product to answering calls     | Use in hero only, paired with an enquiry reply          |
-| One customer through every stage | Clear product causality                 | Forces repeat work onto trades where it is unnatural | Use separate, bounded customers and needs               |
+Three new photographs were generated with the built-in image-generation tool and encoded as WebP. They are illustrative editorial assets, not photographs of Zapla customers or evidence of results. Overlays remain HTML; no product screens were generated inside the photos.
 
-The implemented page combines a human work scene with a sequence of discrete, trade-specific customer stories. The hero is “Don’t let the next job slip through the gaps.” The original roof scene remains a still; the operator does not pause to check a phone. Product overlays explain the software role. No new generated imagery, footage or synthetic dashboard was introduced.
+| Project asset                                         | Dimensions  | Bytes  |
+| ----------------------------------------------------- | ----------- | ------ |
+| `public/concept/industries/trades-technician.webp`    | 1122 × 1402 | 283126 |
+| `public/concept/industries/trades-office.webp`        | 1536 × 1024 | 112832 |
+| `public/concept/industries/trades-service-visit.webp` | 1672 × 941  | 212982 |
 
-## Buyer understanding and page jobs
+Generation briefs: portrait Australian air conditioning technician inspecting an outdoor condenser, navy workwear, headroom and calm lower-left foreground; landscape local trade office coordinator at an oak desk, face upper right and clear foreground; broad Sydney homeowner and service technician conversation on a verandah, people on the right and calm cream wall left. Each specified natural editorial/documentary photography, cream/sage/navy/oak tones, believable anatomy, no posing, no phone checking, no text, logos or baked-in UI. Source masters were generated separately from the web assets.
 
-| Awareness      | Likely thinking                                        | Page response                                                         |
-| -------------- | ------------------------------------------------------ | --------------------------------------------------------------------- |
-| Unaware        | We are busy; admin gets done later                     | Hero and enquiry scene expose an unanswered next step                 |
-| Problem aware  | Quotes go quiet and calls arrive at inconvenient times | Specific hot-water enquiry and split-system quote                     |
-| Solution aware | My job software may already do this                    | Existing-system section recognises overlap and targets remaining gaps |
-| Product aware  | How would Zapla work with my team and data?            | Data-trigger boundary, reply handoff and Guided Launch                |
-| Most aware     | What am I paying for and what happens next?            | Plan costs, extras and a concrete sales-call agenda                   |
+Glass follows Dental: warm white at 91% opacity, 2px light border, subtle inset edge, 6px blur, soft shadow and 18px corners. Supporting photos lazy-load. Mobile overlays move into document flow; tablet photo positions were corrected so faces remain in frame.
 
-Functional job: capture context and keep the next action visible. Emotional job: reduce forgotten follow-up and evening setup work. Social job: respond like an organised local business without robotic chasing. Risk-reduction job: retain job software, define ownership, limit messages and test the data path before launch.
+## Capability and commercial evidence
 
-The primary sales argument is improving handling of demand and customer relationships already entering the business. Pricing differentiation is secondary, positioned near plans when the office and owner access question becomes relevant. Unlimited stored contacts carries fair-use wording; platform pricing is not confused with unlimited communications.
+Read the current `NextGen CRM everything Andrew Mark has announced.md` source, including CRM/messaging, forms and automation sections. The notes establish announced forms, fields, customer records, inbox channels and flows. The current website establishes the published Zapla offer and workflow positioning. Neither source is a live deployment test.
 
-Page order: hero → enquiry capture → optional call answering → quote question and handoff → relevant future service → neutral review request → existing systems → Guided Launch → plans → FAQs → specific call invitation.
+| Workflow       | Trigger and action shown                                                                | Human / data boundary                                                                                  |
+| -------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Enquiry        | New enquiry, automatic request for address and service details, customer reply captured | Team arranges the assessment and confirms scope; no diagnosis or technician availability assumed       |
+| Quote          | Recorded quote stage, agreed follow-up, reply stops further reminders                   | Team answers the scope question; external acceptance needs a verified update/connection                |
+| Repeat service | Reliable recorded service date, relevant reminder, customer reply                       | Team confirms the visit; eligible customers and permissions are required; no universal annual interval |
+| Review         | Job completion recorded in Zapla or supplied through agreed connection, neutral request | No filtering for favourable customers, guaranteed ratings or claim of a genuine submitted review       |
 
-## Research and competitor challenge
+AI Receptionist is an optional add-on; technical safety decisions and urgent dispatch stay with people. FAQs explain external status updates, software overlap, fields, permissions and total-cost assessment. There are no invented metrics, testimonials, integration badges, quote values or outcome counts.
 
-Primary sources checked during implementation:
+Plan amounts match current Pricing-v3: Follow-Through A$399/month + GST, Growth A$699/month + GST; Guided Launch from A$1,997 and A$2,997 + GST respectively. Usage, AI Receptionist and custom connections are separate. Unlimited users and stored contacts under fair use do not mean unlimited communications.
 
-- [ServiceM8 quote follow-up automation](https://support.servicem8.com/help-center/servicem8-add-ons/automation/quote-follow-up-automation)
-- [ServiceM8 Australia pricing and capabilities](https://www.servicem8.com/au/pricing)
-- [Tradify automatic quote reminders](https://help.tradifyhq.com/hc/en-us/articles/360049096213-Turn-on-Quote-Reminders)
-- [Tradify Australia quoting software](https://www.tradifyhq.com/au/features/quoting-software)
-- [Simpro job management](https://www.simprogroup.com/solutions/job-management-software)
+## Final lens review
 
-ServiceM8 and Tradify already support automatic quote follow-up; Simpro provides specialised job-management functionality. The page does not imply those systems lack customer communication. There is no claim that Zapla is the only product that connects customer steps. Fergus is referenced as existing customer software, not as a researched feature comparison or a certified integration.
+These are author assessments of observable page execution, not an independent panel, customer interviews, formal certification or measured commercial performance. Scores for communication do not establish that the corresponding real-world business outcome scores 9.
 
-The commercial alternative is to configure and use the incumbent's capabilities properly. That can be preferable to adding Zapla. A fit call should identify a gap that remains before recommending the extra subscription. Broad claims that every tradie needs marketing automation or that one extra job pays for the system are rejected.
+| Lens                       | Execution / 10         | Observable evidence                                                                                                                                          | Evidence still needed                                        |
+| -------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
+| Copywriting                | 9                      | Concrete enquiries, quote question, service date and review triggers; revised direct service heading; removed redundant summary                              | Customer language testing                                    |
+| Industry customer          | 9                      | On-site work, local service request, assessment, removal question and recurring service examples; one-off work not treated as annual                         | Trade-owner interviews                                       |
+| Frontline operations       | 9                      | Address and request captured; assessment, scope and visit confirmation owned by the team                                                                     | Real staff workflow test                                     |
+| Automation logic           | 9                      | Trigger, automatic message, reply, stop rule and handoff are explicit; recorded dates and external status dependencies qualified                             | Actual account configuration and backend tests               |
+| Art direction              | 9                      | Three fresh photographic stories with different framing; photos dominate; compact overlays keep faces clear                                                  | No claim of real customer photography                        |
+| Visual hierarchy           | 9                      | Outcome-first hero, early enquiry proof, one focused quote panel, broad service image and restrained review scene                                            | Eye-tracking/user observation not performed                  |
+| Brand consistency          | 9                      | Rendered comparison with Dental and Mechanics; same local fonts, palette and exact Dental glass styling                                                      | None material within this route's scope                      |
+| Product Marketing Director | 9                      | Four prioritised commercial jobs and existing-software fit; optional AI separated from standard offer                                                        | Deployment capability validation                             |
+| Conversion Director        | 9 for communication    | Specific call invitation, visual mechanism, objections, cost inclusions and linked plan comparison                                                           | Conversion and acquisition data remain unmeasured            |
+| CFO / value                | 9 for decision clarity | Monthly price, minimum launch cost, GST/usage/add-on boundaries and contribution-based assessment in FAQ                                                     | Real implementation effort, margins and attributable returns |
+| Credibility                | 9                      | Visible illustrative labels, no invented proof, data-path boundaries close to claims                                                                         | Verified trade customer case study                           |
+| Accessibility              | 9 for implementation   | No scoped axe WCAG A/AA violations at desktop/mobile; native keyboard FAQs, focus styles, 44px controls, alt text, no focusable hidden content               | Formal audit and assistive-technology user testing           |
+| Responsive UI/UX           | 9                      | Five widths from 320 to 1440px without overflow; mobile text precedes demos; overlay placement and tablet crops corrected                                    | Wider device/user testing                                    |
+| Motion Director            | 9                      | 350ms first beat, 650ms second beat, 250ms opacity transition; prompt reveal, final hold, offscreen pause, pause/replay controls and complete reduced motion | Does not demonstrate live backend execution                  |
 
-## Product and claims audit
+The missing backend, customer and conversion evidence cannot be solved by visual polish. Those remain explicitly unverified, not silently given a 9.
 
-The current repository's CRM, Follow-Up, Customer Marketing, AI Receptionist, Reactivation, Reviews and Pricing pages establish the public product scope used here. They are evidence of the incumbent website's positioning, not runtime certification of a customer's deployment. The named NextGen announcement document was not included in these attachments or found in the inspected repository. No claim that migration is complete or that a native integration is confirmed is made.
+## Verification and corrections
 
-| Capability                                           | Confidence                                                   | Page boundary                                                                       |
-| ---------------------------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------- |
-| Customer records, fields, inbox, stages              | Confirmed in current site; deployment not exercised          | Enquiry, suburb, request and next action remain together                            |
-| SMS follow-up and response rules                     | Confirmed in current site; configuration required            | Agreed sequence stops on reply and returns to the team                              |
-| Quote-sent or job-complete trigger                   | Conditional; external data connection unknown                | Recorded Zapla stage or scoped data path is explicitly required                     |
-| AI Receptionist                                      | Confirmed current optional offer; deployment not exercised   | Capture, routing and agreed rules; no diagnosis or emergency arrival promises       |
-| Calendar booking                                     | Confirmed current site; trade capacity sync unknown          | No automatic dispatch, technician availability or trade-job booking is demonstrated |
-| Customer groups and date-based outreach              | Confirmed current site; source data required                 | Genuine service need, recorded date or relevant seasonal reason                     |
-| Reactivation                                         | Confirmed current Growth offer                               | Eligible selected customers, not indiscriminate database contact                    |
-| Google review requests                               | Confirmed current site; configured completion stage required | Neutral invitation; no happy-customer filtering or guaranteed rating                |
-| ServiceM8, Simpro, Fergus, Tradify integrations      | Unknown                                                      | No native connection or universal sync claim                                        |
-| Dispatch, job costing, materials, field certificates | Not established as Zapla scope                               | Remain in specialised operational software                                          |
+Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser tests at 320, 390, 768, 1024 and 1440 CSS pixels found one H1, no horizontal overflow, no missing page photos and no page-script/hydration errors. Lazy photos were scrolled into view and decoded before screenshot inspection. Reduced-motion mode exposes all four final states.
 
-Website form capture, messaging and pipeline automation are used conservatively from the incumbent site scope. The implementation does not establish whether any backend behaviour remains legacy-GHL dependent. That must be verified before promising an actual deployment.
+Normal-motion quote demonstration remained at step 0 offscreen, reached step 2 when visible, held while paused and completed after resuming. Replay and keyboard FAQ expansion passed. Actual visual inspection covered hero, office scene, quote panel, service photograph, reviews, pricing and full-page rhythm. The final desktop and mobile axe scans report zero violations for the scoped page under WCAG 2 A/AA and 2.1 AA tags.
 
-Demonstration customers, quotes and messages are illustrative product explanations. Their screen-reader labels make this explicit. They are not testimonials, completed live jobs or performance evidence. Static action text inside messages is not a deceptive clickable booking or review control. No invented audience counts, job values, conversion rates, savings or ROI figures appear.
+Corrections made during review: reduced-motion controls initially caused a server/client mismatch; preference-dependent controls now update after hydration. Low-contrast illustration labels and launch numbers were darkened. Review stars now have an appropriate image role for their accessible description. Tablet photo crops preserve both faces. No booking or review was submitted.
 
-The only numerical commercial claims are the current pricing-page amounts: Follow-Through A$399 per month plus GST and Guided Launch from A$1,997 plus GST; Growth A$699 and Guided Launch from A$2,997. Usage, optional AI Receptionist and custom connections are separate. These should change with the pricing source if the offer changes.
-
-## Visual, motion and implementation review
-
-Compared rendered Homepage, Customer Marketing and Mechanics at desktop size before final review. Read AGENTS.md, website build protocol, design guardrails, video creative system, root shell, SiteNav and DominoFooter. Other requested industries were absent from the checked initial main tree; their existence was not assumed.
-
-Inter Tight and Manrope are locally served. Warm white, sage, peach and deep green follow the incumbent brand. The actual logo and petal are reused. Photography is selected from existing project assets. The page mixes a broad human scene, offset enquiry cards, a physical quote document, selectable customer return examples, one dark review panel and open implementation sections. Pricing is the only intentionally equal pair of cards. No construction palette, tool-icon grid, glowing badges, fabricated metrics or dancing UI.
-
-Enquiry and quote scenes progress once, pause offscreen and hold their final state. Enquiry timing is 650ms + 850ms; quote timing is 700ms + 1,000ms, plus short visual transitions. Reduced motion exposes the complete story. Layout is reserved for later messages. The reduced-motion state was moved into an effect after a browser pass found server/client class differences. No repeating page animation requires a pause control.
-
-Mobile review tightened the hero headline to prevent a single-word orphan and corrected the return-customer portrait. Below 900px, quote copy precedes the demonstration. Customer examples are native buttons with vertical tab semantics, arrow-key navigation and Home/End support. FAQs use native details/summary. Focus indicators are visible. All page classes are scoped to the route stylesheet; root-owned navigation and footer remain shared. The existing Solutions menu's industry links now include Trades on desktop and mobile.
-
-## Website-level fit and SEO
-
-Route: `/industries/trades`. Topic: Australian trade/customer CRM and follow-through. Title: “CRM for Trades & Home Services in Australia | Zapla”. Description covers enquiry capture, quote follow-up, service return and existing job software. Open Graph and Twitter titles/descriptions are route-specific.
-
-The route follows the site's internal-review convention: noindex/nofollow and excluded from sitemap. SEO assessment below refers to topic, copy and linking readiness, not current indexability, ranking or search traffic. No search-volume claims were made.
-
-Added an incoming contextual link from Follow-Up, without replacing its established Quote Follow-Up link. The page links to CRM, AI Receptionist, Follow-Up, Customer Marketing, Reactivation, Reviews, Pricing and Mechanics. The generated route tree includes the route so it can be recognised by the connected preview. During implementation the upstream repository added Dental and industry links under Solutions. That newer structure is preserved, and Trades is added beside those existing links.
-
-Mechanics owns workshop-specific vehicle details, service dates and workshop booking. Trades owns on-site enquiry capture, site assessment and quoting, office handoff and variable home-service return needs. The latest header information architecture is preserved; a separate Industries mega-menu is not introduced. Future campaign pages can share the shell, CTA, accessible interaction and setup pattern, but should develop their own customer problems and scenes.
-
-## Thirteen-lens re-audit
-
-These are author assessments, not independent panel approvals, customer interview results or measured conversion outcomes. The requested threshold is not evidence that a score has been earned.
-
-| Lens                            | Score / 10            | Challenge and response                                                           | Remaining limitation                                                 |
-| ------------------------------- | --------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| Product Marketing Director      | 9                     | Specific customer gaps; optional AI separated; job-software overlap acknowledged | Requires deployment validation                                       |
-| Conversion Director             | 8.5                   | Concrete CTA, workflow proof and total cost boundaries                           | No verified trade customer result or conversion test                 |
-| Brand / Creative Director       | 9                     | Real work context; restrained autumn palette; distinct page rhythm               | Uses incumbent roofing still rather than a new photographic campaign |
-| UI/UX Director                  | 9                     | Stable stories, responsive stacking, native FAQs and keyboard tabs               | Automated and author inspection, not user testing                    |
-| Motion Director                 | 9                     | Finite causal stories, short timings, offscreen pause and reduced motion         | No live backend activity is shown                                    |
-| Australian Trade Business Owner | 9                     | Site visit, hot water enquiry, old-unit removal and local-service language       | Informed role review, not an interviewed owner                       |
-| Office Manager / Dispatcher     | 9                     | Customer context and ownership visible; scheduling remains operational           | Data handoff must be validated for the actual stack                  |
-| Buyer Psychologist              | 8.5                   | Reduces migration, spam and setup fears without absolute promises                | Trusted customer evidence is absent                                  |
-| CFO                             | 8.5                   | Shows setup, usage and exclusions; contribution-based assessment                 | Implementation cost and realised benefit remain unmeasured           |
-| Sales Director                  | 9                     | Qualifies the use case and gives a specific fit-call agenda                      | Prospect response has not been observed                              |
-| Competitor                      | 8.5                   | Rejects reminder uniqueness and accepts incumbent alternative                    | No verified comparative outcome or integration advantage             |
-| SEO Director                    | 9 for draft readiness | Clear topic, stable route, metadata and contextual internal links                | Intentionally noindexed; no rankings or keyword demand validated     |
-| AI-Slop Critic                  | 9                     | No synthetic performance, jargon-rich dashboard or industrial cliché             | Existing demonstration imagery is not customer evidence              |
-
-An honest all-lens 9 is not achieved. More visual polishing does not resolve the evidence gap. The next material improvement is a real trade deployment: document the old process, configured data path, messages and stop rules, customer responses and attributable jobs or office time over a stated period. Get permission before presenting it as public customer proof. This is preferable to inventing numbers or using a stock testimonial.
-
-## Verification
-
-Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks passed at 320, 390, 768, 1024 and 1440 pixels: no document overflow, one H1, local image loading, pricing paths, noindex metadata, complete reduced-motion scenes, keyboard tab selection and native FAQ expansion. Normal-motion checks verified finite quote progression, final hold, offscreen pause and resume. The incoming Follow-Up link was verified. No script or hydration errors or failed local assets remained. External Google font and shared footer-social requests were unavailable in the restricted test environment; the trades route uses local fonts. No sales booking or review form was submitted.
-
-The latest upstream mechanics motion change and new Dental page were checked and preserved when preparing the GitHub commit. This work does not overwrite those routes or stylesheets. Full-page desktop and mobile renders plus mobile section renders were inspected; the changes include mobile headline wrapping and the customer portrait correction.
-
-## Final recommendation
-
-Keep the page as a reviewable, noindexed industry page. Use it to qualify local service businesses with genuine customer gaps. Do not sell universal integrations, dispatch or guaranteed returns. Validate one real trade workflow and gather credible outcome evidence before declaring the commercial lenses 9 or publishing the page as proven performance marketing.
-
-## Follow-up review: financial decision and incumbent alternative
-
-Added a visible fit check beneath the operational comparison: use the existing job system when it already covers the gap; consider Zapla when enquiries across channels, customer conversations and return campaigns need a shared process the current setup does not cover. This makes the incumbent alternative explicit before the launch and pricing sections.
-
-Added an optional, collapsed cost check below pricing. The owner supplies monthly usage and add-ons and contribution per additional job. Plan pricing and minimum launch fees match the current Pricing-v3 route. The period defaults to 12 months and is editable, as is the scoped setup cost. No job-margin estimate or usage allowance is fabricated. The output divides plan cost over the selected period, setup and recurring extras by job contribution, rounding up to whole jobs. It is explicitly a cost check rather than a forecast, excludes GST consistently and notes that team time can add to cost. Blank, non-finite, negative and zero-contribution entries do not yield a result; monetary precision is preserved.
-
-This improves financial clarity and qualification without pretending to provide real-world conversion evidence. The commercial scores above remain bounded by the same missing customer evidence. An all-lens 9 has not been substantiated.
-
-Follow-up verification: TypeScript and production build passed. Browser tests verified both plan calculations, editable inputs, cents, empty/zero/negative inputs, five viewport widths from 320 to 1440px, keyboard audience switching, one H1 and no page-script errors. Desktop full-page, desktop cost-check and mobile viewport renders were inspected. No document or cost-field horizontal overflow was found. The published lovable.app address currently serves an older site and returns 404 for this route; the authenticated editor preview cannot be verified from the available signed-out browser. GitHub remains the implementation source of truth.
-
-## Visual consistency correction, 9 October 2026
-
-This revision supersedes the earlier visual assessment. The previous page used the brand fonts and colours, but its wide hero, separate call band, physical quote layout, audience selector, dark review panel and operational comparison created a different visual system. That was not an acceptable interpretation of the industry series. The previous Brand, UI/UX and Motion scores did not adequately test consistency with the incumbent Mechanics page.
-
-The new page adapts Mechanics as the design foundation: split hero, photograph with a single customer overlay, sage conversation scenes, warm quote band, photographic return scene, light review demonstration, compact existing-system explanation, Guided Launch panel and open pricing rows. The current Dental and Mechanics pages were rendered alongside Trades for comparison. Industry content changes; the established visual hierarchy, spacing, typography, surfaces and motion behaviour remain consistent.
-
-Trade-specific demonstrations cover a hot water enquiry, a quote question about removing the old unit, a separate customer's air conditioning service reminder and a review request after completion. The enquiry gathers details instead of implying verified technician availability. Quote triggers require a recorded Zapla stage or agreed connection. The service example invites a visit rather than asserting live dispatch or calendar sync. Existing software, data connections, consent, optional AI Receptionist and financial qualification remain explained in the native FAQs. Dense operational comparisons, the customer selector and interactive cost calculator were removed from this industry landing page; detailed plan comparison remains linked.
-
-### Required lens review
-
-These are implementation assessments, not independent reviewers or measured customer results.
-
-| Lens                       | Assessment                                                                                                                                                                                    |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Motion Director            | Same early viewport trigger as Mechanics; 450ms first beat, 650ms second beat, finite progression, offscreen pause and final hold. Reduced motion reveals every scene.                        |
-| Brand / Creative Director  | Same industry-page composition and surface language; existing plumbing photograph matches the enquiry, customer photography supports the return message. No separate creative concept.        |
-| Product Marketing Director | Clear enquiry, quote, return-service and reputation jobs; job operations remain in existing software. No technician scheduling or integration promise.                                        |
-| Conversion Director        | A single call CTA, concrete demonstrations, setup explanation, plan amounts and exclusions, objection handling and final invitation. Real conversion effectiveness remains unmeasured.        |
-| UI/UX Director             | Desktop and mobile layouts follow Mechanics; stable reserved scene layouts; native FAQs, visible focus and no horizontal overflow at five widths.                                             |
-| Copywriter / Trade owner   | Plain operational examples, automatic replies rather than receptionist checking, useful customer questions and a relevant future service reason. No decorative slogans inside demonstrations. |
-| Whole website consistency  | Compared full-page rendered Trades, Mechanics and current Dental; the common layout and demonstration language are now explicit acceptance criteria. Shared navigation and footer unchanged.  |
-
-Verification: production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks at 320, 390, 768, 1024 and 1440px found one H1, no page-script errors, no missing route images and no document overflow. Reduced-motion states are complete; normal quote progression reaches its final state after scrolling into view; offscreen quote starts at zero. Native FAQ expansion works. Full-page desktop and mobile screenshots were inspected. A final photography crop and portrait adjustment was made after visual inspection. No external booking or review was submitted.
+The authenticated Lovable editor preview presented a sign-in page in the available browser. Local rendered verification covers the implementation; authenticated remote preview access is not claimed. Delivery uses GitHub's connected main branch so the existing Lovable project can sync. Shared navigation, footer and other industry routes are preserved. This route remains noindexed and excluded from the sitemap, as before.
