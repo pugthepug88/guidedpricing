@@ -30,23 +30,43 @@ function Sender({ children }: { children: ReactNode }) {
     </div>
   );
 }
+function PatientIdentity({ detail }: { detail?: string }) {
+  return (
+    <div className="ah-patient-identity">
+      <span className="ah-avatar" aria-hidden="true" />
+      <div>
+        <strong>Mia</strong>
+        {detail && <span>{detail}</span>}
+      </div>
+    </div>
+  );
+}
 function useWorkflow() {
   const ref = useRef<HTMLDivElement>(null);
   const visible = useInView(ref, { amount: 0.15, margin: "0px 0px 60px 0px" });
-  const reduced = useReducedMotion();
+  const motionPreference = useReducedMotion();
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => setReduced(Boolean(motionPreference)), [motionPreference]);
   const [step, setStep] = useState(0);
   const [manual, setManual] = useState(false);
+  const [foreground, setForeground] = useState(true);
   useEffect(() => {
-    if (!visible || reduced || manual || step >= 2) return;
+    const update = () => setForeground(!document.hidden);
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
+  useEffect(() => {
+    if (!visible || !foreground || reduced || manual || step >= 2) return;
     const timer = window.setTimeout(
       () => setStep((s) => Math.min(s + 1, 2)),
       step === 0 ? 450 : 1100,
     );
     return () => window.clearTimeout(timer);
-  }, [visible, reduced, manual, step]);
+  }, [visible, foreground, reduced, manual, step]);
   return {
     ref,
-    step: reduced ? 2 : step,
+    step: reduced && !manual ? 2 : step,
     choose: (n: number) => {
       setManual(true);
       setStep(n);
@@ -73,8 +93,8 @@ export function AlliedHealthPage() {
           <h1 id="ah-title">Keep patient enquiries moving between appointments.</h1>
           <p className="ah-intro">
             Reply to new enquiries, follow up unanswered messages and give reception a clear next
-            step. Zapla works around your existing practice software while your team focuses on
-            care.
+            step. Zapla brings enquiries, replies and reception tasks together while your team
+            focuses on care.
           </p>
           <div className="ah-actions">
             <BookButton />
@@ -93,13 +113,11 @@ export function AlliedHealthPage() {
             alt="A physiotherapist guiding a seated patient through a shoulder movement"
           />
           <div className="ah-hero-note ah-glass">
-            <Sender>Zapla follows through</Sender>
+            <PatientIdentity detail="Appointment enquiry" />
             <p>“Could reception help me find a time?”</p>
             <div className="ah-task-line">
-              <span>Next step</span>
-              <strong>Reception callback</strong>
+              <Sender>Callback assigned to reception</Sender>
             </div>
-            <small>Illustrative enquiry handover</small>
           </div>
         </figure>
       </section>
@@ -158,14 +176,13 @@ export function AlliedHealthPage() {
             same questions again.
           </p>
           <p>
-            An outstanding form can trigger an agreed reminder. When it is submitted, the reminder
-            stops and the task is updated.
+            Send a reminder if the form is still outstanding. A verified submission stops the
+            reminders and updates reception’s task.
           </p>
           <TextLink href="/crm">Explore forms and enquiry records</TextLink>
           <p className="ah-aside">
-            For external forms, stopping reminders needs a verified completion signal. Use your
-            existing forms where they already do the job. Medical history, symptoms and clinical
-            consent stay in your practice system.
+            Medical history, symptoms and clinical consent stay in your practice system. Use its
+            existing forms where they already do the job.
           </p>
         </div>
       </section>
@@ -183,8 +200,8 @@ export function AlliedHealthPage() {
               Give the patient a booking link or an easy way to ask reception for help.
             </p>
             <p className="ah-aside">
-              Your practitioner decides who is due back. Booking status and contact permissions must
-              be current. Being inactive alone is not a clinical reason for a reminder.
+              Your practitioner decides who is due back. Reminders use current booking records and
+              contact permissions.
             </p>
             <TextLink href="/reactivation">Explore approved return campaigns</TextLink>
           </div>
@@ -200,8 +217,8 @@ export function AlliedHealthPage() {
             Give your team the reply.
           </h2>
           <p>
-            After an agreed visit event, send a neutral feedback or review request. Route direct
-            replies to a named person so reception can address administration concerns and a
+            After a completed visit, Zapla can send a neutral feedback or review request. Direct
+            replies reach a named person so reception can address administration concerns and a
             practitioner can handle clinical questions.
           </p>
           <TextLink href="/reviews">Explore feedback and review requests</TextLink>
@@ -215,21 +232,32 @@ export function AlliedHealthPage() {
       <section className="ah-control" aria-labelledby="ah-control-title">
         <div className="ah-wrap ah-control-layout">
           <div>
-            <Label>Around your existing practice software</Label>
+            <Label>Fit for your starting point</Label>
             <h2 id="ah-control-title">
-              Keep the diary.
+              Organise the enquiry.
               <br />
-              Connect the admin.
-              <br />
-              <span>Leave care with people.</span>
+              <span>Keep the tools you need.</span>
             </h2>
-            <p>
-              Your practice system remains the home for clinical records and appointments. Zapla
-              carries the agreed communication steps around it.
-            </p>
+            <div className="ah-starting-points">
+              <div>
+                <h3>Using spreadsheets and inboxes?</h3>
+                <p>
+                  Bring contact details, enquiry status, replies and tasks into one shared workflow.
+                  Give reception a clear owner and next step without another spreadsheet to
+                  maintain.
+                </p>
+              </div>
+              <div>
+                <h3>Already have a CRM or practice system?</h3>
+                <p>
+                  Keep the workflows that work. Add Zapla where enquiries or callbacks still need
+                  chasing, without replacing your clinical records or diary.
+                </p>
+              </div>
+            </div>
             <p className="ah-aside">
-              Connections are checked before they are promised. Direct diary updates require a
-              supported, tested workflow.
+              Clinical records and appointments stay in your practice system. Direct diary updates
+              require a supported, tested connection.
             </p>
           </div>
           <div className="ah-control-right">
@@ -249,8 +277,8 @@ export function AlliedHealthPage() {
               </p>
               <TextLink href="/ai-receptionist">Explore call support</TextLink>
               <p className="ah-aside">
-                AI does not diagnose, recommend treatment or assess urgency. Agree a human fallback
-                and urgent call process before launch.
+                Clinical questions and urgent concerns need your practice’s human response process.
+                AI does not assess urgency.
               </p>
             </div>
           </div>
@@ -271,12 +299,12 @@ export function AlliedHealthPage() {
         </div>
         <div className="ah-value-notes">
           <div>
-            <h3>Fewer enquiries waiting for a reply.</h3>
-            <p>Review unresolved enquiries and whether each has a next step and an owner.</p>
+            <h3>Know which enquiry needs attention.</h3>
+            <p>See the conversation, the next task and who will handle it.</p>
           </div>
           <div>
-            <h3>Less repeated reception work.</h3>
-            <p>Review duplicate questions, manual reminders and time spent chasing replies.</p>
+            <h3>Give reception less to chase.</h3>
+            <p>Collect callback details once and let agreed reminders run automatically.</p>
           </div>
           <div>
             <h3>A scope you can assess.</h3>
@@ -285,9 +313,6 @@ export function AlliedHealthPage() {
               are separate. Unlimited users keeps the whole team involved.
             </p>
           </div>
-          <p className="ah-small">
-            These are measures to review with your practice, not promised results.
-          </p>
         </div>
       </section>
       <section className="ah-faq ah-wrap" aria-labelledby="ah-faq-title">
@@ -336,10 +361,20 @@ export function AlliedHealthPage() {
 function EnquiryStory() {
   const { ref, step, choose } = useWorkflow();
   return (
-    <div ref={ref} className="ah-enquiry-demo" aria-label="Illustrative enquiry follow through">
-      <p className="ah-example">Illustrative workflow · fictional patient</p>
+    <div
+      ref={ref}
+      className="ah-enquiry-demo"
+      aria-label="Sample patient enquiry and automated follow through"
+    >
+      <div className="ah-demo-steps" role="group" aria-label="Explore the enquiry workflow">
+        {["Enquiry", "Follow up", "Handover"].map((label, n) => (
+          <button key={label} type="button" aria-pressed={step === n} onClick={() => choose(n)}>
+            {label}
+          </button>
+        ))}
+      </div>
       <div className="ah-message ah-patient">
-        <span>Patient enquiry</span>
+        <PatientIdentity detail="New patient enquiry" />
         <p>Do you have physio appointments after 5?</p>
       </div>
       <div className="ah-message ah-zapla">
@@ -352,29 +387,24 @@ function EnquiryStory() {
           View appointment times <ArrowRight size={14} aria-hidden="true" />
         </span>
       </div>
-      <Beat active={step >= 1}>
-        <div className="ah-message ah-zapla">
-          <span>Agreed follow up, if unresolved</span>
+      <div className="ah-message ah-zapla">
+        <Beat active={step >= 1}>
+          <Sender>Your practice, via Zapla</Sender>
           <p>Still looking for a suitable time? Reply if you’d like reception to call.</p>
-        </div>
-      </Beat>
-      <Beat active={step >= 2}>
-        <div className="ah-message ah-patient">
+        </Beat>
+      </div>
+      <div className="ah-message ah-patient">
+        <Beat active={step >= 2}>
+          <PatientIdentity />
           <p>Yes please. Tomorrow morning would be great.</p>
-        </div>
-        <div className="ah-reception-task">
-          <span>Reception task</span>
-          <strong>Call about appointment options</strong>
-          <p>Owner: reception · Tomorrow morning</p>
-          <small>Reply received. Scheduled follow ups stopped.</small>
-        </div>
-      </Beat>
-      <div className="ah-demo-steps" aria-label="Explore the enquiry workflow">
-        {["Enquiry", "Follow up", "Handover"].map((label, n) => (
-          <button key={label} type="button" aria-pressed={step === n} onClick={() => choose(n)}>
-            {label}
-          </button>
-        ))}
+        </Beat>
+      </div>
+      <div className="ah-reception-task">
+        <Beat active={step >= 2}>
+          <PatientIdentity detail="Reception callback" />
+          <strong>Call Mia tomorrow morning</strong>
+          <small>Follow ups stopped on reply</small>
+        </Beat>
       </div>
     </div>
   );
@@ -385,7 +415,7 @@ function AdminScene() {
     <div
       ref={ref}
       className="ah-admin-visual"
-      aria-label="Illustrative administrative form and reception task"
+      aria-label="Sample administrative form submission updates a reception task"
     >
       <img
         src={ASSETS + "allied-health-form.webp"}
@@ -395,13 +425,9 @@ function AdminScene() {
         alt="A woman completing a short form on her phone at home"
       />
       <div className="ah-form-overlay ah-glass">
-        <p className="ah-example">Illustrative administrative form</p>
         <h3>Before we call</h3>
+        <PatientIdentity detail="Appointment enquiry" />
         <dl>
-          <div>
-            <dt>Name</dt>
-            <dd>Mia</dd>
-          </div>
           <div>
             <dt>Best time to call</dt>
             <dd>Tomorrow morning</dd>
@@ -410,16 +436,12 @@ function AdminScene() {
         <Beat active={step >= 1}>
           <p className="ah-form-submitted">Details submitted</p>
         </Beat>
-        <Beat active={step >= 2}>
-          <div className="ah-form-outcome">
-            <Sender>Zapla follows through</Sender>
-            <p>
-              Reception task updated.
-              <br />
-              Form reminder stopped.
-            </p>
-          </div>
-        </Beat>
+        <div className="ah-form-outcome">
+          <Beat active={step >= 2}>
+            <Sender>Callback task updated</Sender>
+            <p>Form reminder stopped.</p>
+          </Beat>
+        </div>
       </div>
     </div>
   );
@@ -430,7 +452,7 @@ function ReturnScene() {
     <div
       ref={ref}
       className="ah-return-visual"
-      aria-label="Illustrative approved return reminder and reception handover"
+      aria-label="Sample practitioner approved reminder and patient reply"
     >
       <img
         src={ASSETS + "allied-health-reception.webp"}
@@ -440,24 +462,24 @@ function ReturnScene() {
         alt="A patient speaking with reception at a contemporary allied health practice"
       />
       <div className="ah-return-reminder ah-glass">
-        <p className="ah-example">Illustrative approved reminder</p>
         <Sender>Your practice, via Zapla</Sender>
         <p>
-          Your practice asked us to contact you about your next appointment. Reply if you’d like
-          reception to help.
+          Hi Mia, your practice asked us to contact you about your next appointment. Reply if you’d
+          like reception to help.
         </p>
         <small>Reply STOP to opt out.</small>
       </div>
-      <Beat active={step >= 1} className="ah-return-reply ah-glass">
-        <span>Patient reply</span>
-        <p>Could someone call me about a time next week?</p>
-        <Beat active={step >= 2}>
-          <div className="ah-task-line">
-            <strong>Reception takes over</strong>
-            <small>Reply received. Reminder sequence stopped.</small>
-          </div>
+      <div className="ah-return-reply ah-glass">
+        <Beat active={step >= 1}>
+          <PatientIdentity />
+          <p>Could someone call me about a time next week?</p>
         </Beat>
-      </Beat>
+        <div className="ah-task-line">
+          <Beat active={step >= 2}>
+            <Sender>Reception callback assigned</Sender>
+          </Beat>
+        </div>
+      </div>
     </div>
   );
 }
@@ -467,24 +489,21 @@ function ReviewScene() {
     <div
       ref={ref}
       className="ah-review-scene"
-      aria-label="Illustrative Google review invitation, not a real patient review"
+      aria-label="Sample Google review request with no submitted patient review or rating"
     >
-      <p className="ah-review-trigger">Agreed completed visit event</p>
-      <Beat active={step >= 1}>
-        <div className="ah-review-invite ah-glass">
+      <p className="ah-review-trigger">After a completed visit</p>
+      <div className="ah-review-invite ah-glass">
+        <Beat active={step >= 1}>
           <Sender>Your practice, via Zapla</Sender>
-          <p>
-            Thanks for visiting. If you’d like to share your experience, you can leave a Google
-            review.
-          </p>
+          <p>Thanks for visiting, Mia. Would you share your experience on Google?</p>
           <span className="ah-example-link">
-            Leave a review <ArrowRight size={14} aria-hidden="true" />
+            Leave a Google review <ArrowRight size={14} aria-hidden="true" />
           </span>
-        </div>
-      </Beat>
-      <Beat active={step >= 2}>
-        <div className="ah-google-screen">
-          <div className="ah-google" aria-label="Google">
+        </Beat>
+      </div>
+      <div className="ah-google-screen">
+        <Beat active={step >= 2}>
+          <div className="ah-google" role="img" aria-label="Google">
             {"Google".split("").map((letter, n) => (
               <span key={n} aria-hidden="true">
                 {letter}
@@ -492,26 +511,25 @@ function ReviewScene() {
             ))}
           </div>
           <h3>Your practice</h3>
-          <div className="ah-google-stars" aria-label="Five unselected rating stars">
+          <div className="ah-google-stars" role="img" aria-label="Five unselected rating stars">
             {Array.from({ length: 5 }, (_, n) => (
               <Star key={n} size={29} strokeWidth={1.5} aria-hidden="true" />
             ))}
           </div>
           <p>Share your experience</p>
-        </div>
-      </Beat>
-      <p className="ah-example">Illustrative invitation. No patient review or rating shown.</p>
+        </Beat>
+      </div>
     </div>
   );
 }
 const faqs = [
   [
     "What does it cost?",
-    "Follow Through is A$399 per month with Guided Launch from A$1,997. Growth is A$699 per month with Guided Launch from A$2,997. Prices exclude GST. SMS, email and voice usage are separate. AI Receptionist is optional, and custom connections are scoped separately. We confirm the workflow, plan and setup cost before you commit.",
+    "Follow Through covers configured enquiry follow ups, forms and review requests at A$399 per month, with Guided Launch from A$1,997. Growth adds ongoing return and nurture campaigns at A$699 per month, with Guided Launch from A$2,997. Prices exclude GST. Communication usage is separate from the platform fee. AI Receptionist is an optional A$199 per month add-on with setup from A$997, excluding GST. It includes 200 Voice AI minutes; additional voice usage is separate. Custom connections are scoped separately. We confirm the workflow, plan and setup cost before you commit.",
   ],
   [
     "Can we keep our practice software?",
-    "Yes. We first check which enquiry tasks it already handles, so Zapla addresses a real gap. If your current system handles the workflow well, keep it there. We confirm any required connections before committing to them.",
+    "Yes. Keep your clinical records and appointment diary. We check which enquiry tasks your current tools already handle and add Zapla only where there is a useful gap. If you use spreadsheets and inboxes for enquiries, Zapla can provide the shared contact record, conversation and task workflow. No native practice system connection is promised without verification.",
   ],
   [
     "Does Zapla confirm appointments in our diary?",
@@ -531,7 +549,7 @@ const faqs = [
   ],
   [
     "Can Zapla handle digital new patient forms?",
-    "An agreed administrative form can collect the details needed for reception, route the submission and stop outstanding form reminders. We check what your current software already does and where submissions should go. Medical history, symptoms, clinical consent and treatment records stay in the clinical system.",
+    "An administrative form can collect callback details, keep the submission with the enquiry and update reception’s task. Reminders stop on a verified submission. Sending a link to an external form does not tell Zapla it is complete; that requires a verified completion signal. Use existing forms when they already solve the need. Medical history, symptoms, clinical consent and treatment records stay in the clinical system.",
   ],
   [
     "Can we automate feedback and Google review requests?",

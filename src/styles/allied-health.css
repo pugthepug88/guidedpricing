@@ -22,7 +22,6 @@
   font-family: AHManrope, Manrope, sans-serif;
   font-size: 15px;
   line-height: 1.7;
-  overflow: clip;
 }
 .allied-health-page * {
   box-sizing: border-box;
@@ -174,7 +173,7 @@
   position: absolute;
   left: -24px;
   bottom: 0;
-  width: 276px;
+  width: 260px;
   padding: 22px;
 }
 .ah-sender {
@@ -353,7 +352,7 @@
 .ah-demo-steps {
   display: flex;
   gap: 6px;
-  margin-top: 18px;
+  margin: 0 0 20px;
   flex-wrap: wrap;
 }
 .ah-demo-steps button {
@@ -396,7 +395,7 @@
   position: absolute;
   bottom: 0;
   left: 24px;
-  width: 280px;
+  width: 260px;
   padding: 22px;
 }
 .ah-form-overlay h3 {
@@ -474,11 +473,11 @@
   position: absolute;
   left: 28px;
   bottom: 28px;
-  width: 310px;
-  padding: 24px;
+  width: 290px;
+  padding: 20px;
 }
 .ah-return-reminder .ah-sender {
-  margin-top: 12px;
+  margin-top: 0;
 }
 .allied-health-page .ah-return-reminder > p:not(.ah-example) {
   font-size: 13px;
@@ -490,10 +489,10 @@
   position: absolute;
   right: 28px;
   bottom: 28px;
-  width: 294px;
+  width: 270px;
   padding: 22px;
 }
-.allied-health-page .ah-return-reply > p {
+.allied-health-page .ah-return-reply p {
   font-size: 15px;
   color: #2d3b31;
   margin-top: 8px;
@@ -563,7 +562,7 @@
 .ah-google-stars {
   display: flex;
   gap: 10px;
-  color: #a7791c;
+  color: #bd8d27;
   margin-block: 16px;
 }
 .allied-health-page .ah-google-screen p {
@@ -835,7 +834,7 @@
     object-position: 60% 25%;
   }
   .ah-form-overlay {
-    width: 280px;
+    width: 260px;
     left: 20px;
   }
   .ah-copy > p:not(.ah-eyebrow) {
@@ -866,7 +865,7 @@
     right: auto;
     bottom: auto;
     width: auto;
-    max-width: 430px;
+    max-width: 320px;
     margin-inline: 18px;
   }
   .ah-return-reminder {
@@ -1008,7 +1007,7 @@
     bottom: auto;
     left: auto;
     width: calc(100% - 32px);
-    max-width: 290px;
+    max-width: 260px;
     margin: -75px 16px 0;
     padding: 22px;
   }
@@ -1105,5 +1104,156 @@
   }
   .allied-health-page .ah-enquiry-panel p {
     color: #fcfcfa;
+  }
+}
+
+/* One identity per sample patient; glass surfaces never fade with the workflow. */
+.ah-patient-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: #28372f;
+}
+.ah-avatar {
+  display: block;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: url("/concept/revenue/soft-autumn-portraits-v1.webp") 100% 100% / 600% 400%;
+}
+.ah-patient-identity > div {
+  min-width: 0;
+}
+.ah-patient-identity strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.ah-patient-identity div > span {
+  display: block;
+  font-size: 10px;
+  color: #596159;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+.ah-form-overlay .ah-patient-identity {
+  margin-top: 15px;
+}
+.ah-form-overlay h3 {
+  font-size: 22px;
+  margin-top: 0;
+}
+.ah-hero-note,
+.ah-form-overlay,
+.ah-return-reminder,
+.ah-return-reply {
+  padding: 20px;
+}
+.ah-hero-note {
+  width: min(260px, calc(100% - 24px));
+}
+.ah-form-overlay {
+  max-width: 260px;
+}
+.ah-reception-task > .ah-beat > strong {
+  font-size: 13px;
+  margin-top: 12px;
+}
+.ah-reception-task > .ah-beat > small {
+  border: 0;
+  margin-top: 5px;
+  padding: 0;
+  font-size: 10px;
+}
+.allied-health-page .ah-message p {
+  margin-top: 11px;
+}
+.allied-health-page .ah-return-reply p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.ah-form-outcome .ah-sender {
+  font-size: 11px;
+}
+.ah-starting-points {
+  display: grid;
+  gap: 26px;
+  margin-top: 30px;
+  max-width: 490px;
+}
+.ah-starting-points h3 {
+  font-size: 25px;
+}
+.allied-health-page .ah-starting-points p {
+  font-size: 14px;
+  margin-top: 12px;
+}
+.ah-message .ah-beat {
+  color: #354238;
+}
+.ah-review-invite .ah-beat {
+  color: #3f4940;
+}
+.ah-return-reply .ah-beat {
+  color: #2d3b31;
+}
+.ah-enquiry-panel,
+.ah-control-layout,
+.ah-value,
+.ah-faq {
+  min-width: 0;
+}
+.ah-enquiry-panel > *,
+.ah-control-layout > *,
+.ah-value > *,
+.ah-faq > * {
+  min-width: 0;
+}
+.ah-example-link {
+  cursor: default;
+}
+@media (max-width: 380px) {
+  .allied-health-page h1 {
+    font-size: 40px;
+  }
+  .allied-health-page h2 {
+    font-size: 34px;
+  }
+  .ah-enquiry-panel {
+    padding: 24px 16px;
+  }
+  .ah-review-scene {
+    padding: 20px;
+  }
+  .ah-review-invite {
+    padding: 18px;
+  }
+  .ah-google-screen {
+    margin-left: 0;
+    padding: 20px;
+  }
+  .ah-google-stars {
+    gap: 8px;
+  }
+  .ah-google-stars svg {
+    width: 26px;
+    height: 26px;
+  }
+  .ah-return-reminder,
+  .ah-return-reply {
+    margin-inline: 12px;
+    width: calc(100% - 24px);
+  }
+  .ah-return-reply {
+    margin-left: auto;
+  }
+  .ah-actions {
+    gap: 10px 16px;
+  }
+  .ah-final .ah-button {
+    min-width: 0;
   }
 }
