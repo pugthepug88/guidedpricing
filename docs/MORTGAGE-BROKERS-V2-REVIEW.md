@@ -103,3 +103,52 @@ Keep the relationship-led headline and established-principal client-book outcome
 ### Complete review before approval
 
 Review the complete page and overall website fit through strategy, broker/principal, frontline, client experience, five awareness stages, product marketing, sales/conversion, CFO/competitor, copy, brand/art direction, whole-page rhythm, UI/accessibility, motion, product/data/claims, reputation/referrals and delivery perspectives. Every section must have a distinct buyer job, a supported mechanism where relevant and a reason for its order. Inspect actual desktop/mobile renders, zoomed out and readable details. Identify weaknesses before edits; assess the whole page again after changes. Self-review is not independent broker validation, and scores must not be inflated to satisfy a target.
+
+## Approved dual audience revision and completed holistic review
+
+Implemented the proposal approved after the combined broker and buyer-awareness review. This section supersedes earlier notes saying the fresh systematic review is outstanding. Software starting point is independent of buyer awareness or brokerage maturity: both spreadsheet/inbox users and existing-CRM users are addressed.
+
+### Final page sequence and buyer job
+
+| Section | Buyer job |
+| --- | --- |
+| Relationship-led hero | Establish returning/recommending clients as the outcome and explain CRM plus automation in plain language. Explicitly welcome spreadsheet and existing-CRM users. |
+| Original staggered recognition | Recognise a review due, an introduction and a prospect who asks for later contact. Connect each situation to a distinct commercial purpose. |
+| Connected client record, moved earlier | Show conversations, history, owner and next action together. Relevant to a solo broker and a brokerage team. New enquiry is the default example. |
+| After-settlement relationship | Show an annual/fixed-period review invitation and reply. One mention of trail income alongside repeat business, with no commission guarantee. |
+| Reputation and introductions | Show neutral Google feedback and a separate personal introduction. Match Dental's visual pattern, without claiming a positive rating or automatic referral engine. |
+| Warm and dormant prospects | Distinguish an agreed future contact from relevant reconnection with a past enquiry. Reduce repeated introductory copy. |
+| Two software starting points | Zapla as the client CRM for spreadsheet users, or assessed follow-through gaps around an existing CRM. Keep useful existing workflows in place. Lending tools and broker advice retain their roles. |
+| Guided Launch | Explain agreeing the first workflow, importing scoped contacts, configuring messages and response owners, testing and training. |
+| Plans | Show CRM, inbox and pipelines in Follow-Through; Growth adds client marketing and eligible reactivation. Preserve current prices, setup costs, unlimited users, contact fair use and separate usage. |
+| Practical FAQs | Answer spreadsheet and existing-CRM objections separately, plus connections, response handling, optional calls/forms, invitations and message control. |
+| Final call | Identify the first workflow worth fixing and explain setup scope and cost, rather than promise unspecified transformation. |
+
+### Five awareness stages
+
+Unaware: familiar situations in the staggered layout and disconnected inbox/spreadsheet/next-action example. Problem aware: missed contact and unclear ownership are recognisable without invented loss figures. Solution aware: the connected record and specific invitation/reply scenes show a practical process. Product aware: the fit section explains both starting points, Guided Launch explains delivery, and pricing makes the CRM foundation visible. Most aware: plan inclusions, setup/usage, FAQs and a concrete call agenda support the next decision. No assumption that all spreadsheet users are unaware or all CRM users are product aware. No five extra awareness sections.
+
+### Lens review after implementation
+
+These are editorial judgments about the implemented marketing page, not independent broker validation, measured conversion rates or verification of a customer's configured automation.
+
+| Lens | Assessment | Evidence and limit |
+| --- | --- | --- |
+| Strategy and brokerage owner | 9/10 | Returning clients, referrals and client-book continuity remain incumbent; reactivation and calls support the wider proposition. |
+| Dual audience and buying awareness | 9/10 | Spreadsheet and CRM entry points appear in the opening, fit and FAQs. Situation recognition precedes most product demonstrations. |
+| Frontline and solo/team use | 9/10 | One record, named responsibility and next action; solo brokers explicitly included. Lending work stays in its appropriate tools. |
+| Customer experience and buyer psychology | 9/10 | Relevant invitations, a simple reply and a personal next conversation; no pressure, implied loan advice or savings promises. |
+| Copywriting and AI-slop critic | 8.5/10 | Concrete scenarios and product explanation replace abstract opening copy. Some relationship-led language remains deliberately for brand continuity. |
+| Product marketing and sales | 8.5/10 | Clear mechanisms, implementation offer and two starting points; no feature-uniqueness claim. A verified brokerage case would strengthen the buying argument. |
+| CFO, competitor and investor | 8.5/10 | Explicit software/setup/usage scope; adding Zapla must solve a useful gap. Import and connections are scoped, not assumed. Incremental customer value remains to be measured. |
+| Brand, art direction and whole-page rhythm | 9/10 | Approved original photos, staggered break, early dark record scene, cream relationship photo, Dental-matched Google panel, open prospect scene and sage fit band. |
+| UI, accessibility and motion | 9/10 | Responsive full-page renders, readable next-action record, native pressed-state buttons and keyboard FAQs. Full states are immediate with no forced reveal delay. |
+| Product, data and claim accuracy | 9/10 | No invented native integrations, settlements, commission protection, approval, savings, performance metrics or customer testimonials. Current site product/pricing source supports the offered scope. |
+| Reputation, referrals and boundaries | 9/10 | Unselected Google stars and personal introductions, distinct from referral attribution/rewards; borrower permission and advice remain human responsibilities. |
+| Website and SEO fit | 9/10 | Same shared brand and relevant product links. V2 remains a separate noindex comparison route and the original page is unchanged. |
+
+### Validation and remaining evidence
+
+Production build, TypeScript and scoped lint passed. Full-page browser renders checked at 1440, 1024, 768, 390 and 320px, including whole-page overview and readable detail crops. No horizontal overflow, visible illustrative/draft/opt-out captions or browser errors. Final mobile fit layouts inspected at 390 and 320px. All three record examples, both prospect modes, fixed-rate review and keyboard spreadsheet FAQ tested. Glass and Google screen computed styles continue to match Dental. Trail income appears once. Original mortgage route and stylesheet retain their pre-change SHA-256 hashes.
+
+The remaining commercial evidence gap is an approved brokerage case demonstrating measured incremental value. Do not fill it with simulated settlements, invented revenue or an assertion that every lens is 9/10. Hosted source sync is checked separately from local visual QA; this review does not claim a signed-in hosted-browser test.

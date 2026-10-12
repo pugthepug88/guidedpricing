@@ -123,7 +123,7 @@ const TEAM = [
   },
 ];
 function TeamScene() {
-  const [selected, setSelected] = useState(1);
+  const [selected, setSelected] = useState(0);
   const item = TEAM[selected];
   return (
     <div className="mv-team-scene">
@@ -185,10 +185,7 @@ function ProspectSection() {
       <div className="mv-copy">
         <Label>Before they’re ready</Label>
         <h2 id="mv-prospect-title">A pause shouldn’t end the relationship.</h2>
-        <p>
-          Some clients are still searching. Others put their plans on hold. Keep a useful next
-          conversation in view.
-        </p>
+        <p>Some clients are still searching. Others have put their plans on hold.</p>
         <Choice
           options={["Not ready yet", "Gone quiet"]}
           selected={selected}
@@ -197,7 +194,7 @@ function ProspectSection() {
         />
         <div className="mv-prospect-detail" aria-live="polite">
           <h3>
-            {selected === 0 ? "Keep the conversation going." : "Reconnect for a relevant reason."}
+            {selected === 0 ? "Keep the agreed next step." : "Reconnect for a relevant reason."}
           </h3>
           <p>
             {selected === 0
@@ -214,8 +211,12 @@ function ProspectSection() {
 }
 const FAQS = [
   [
-    "Will this replace our mortgage CRM?",
-    "Zapla works alongside your lending system. Research, applications and submissions stay there. We start with the client communication and team follow through your current setup is missing.",
+    "We use spreadsheets. Can Zapla be our CRM?",
+    "Yes. Zapla can hold your client contacts, conversations and next actions, with follow up configured around your process. Guided Launch can include importing the agreed contacts from spreadsheets or exports. Loan applications and lender research stay in the appropriate lending tools.",
+  ],
+  [
+    "We already have a CRM. Why add Zapla?",
+    "Only where there is a useful gap to fix. We look at enquiry response, ongoing client contact, reactivation and reply ownership against what your current system already does. The data approach and scope are confirmed before setup. If your existing workflow handles the work well, keep using it.",
   ],
   [
     "Does Zapla connect to our existing software?",
@@ -252,13 +253,13 @@ export function MortgageBrokersV2Page() {
             <span>And recommend.</span>
           </h1>
           <p className="mv-intro">
-            Your client book represents ongoing income and future opportunities. Zapla keeps the
-            relationships behind it connected with relevant contact, review invitations and shared
-            team follow through.
+            Keep client records, conversations and next steps together. Zapla automates enquiry
+            follow up, review invitations and ongoing contact, so you can spend more time with
+            clients.
           </p>
           <Actions />
           <p className="mv-hero-note">
-            You handle the lending. Zapla keeps the client relationship moving.
+            From spreadsheets or an existing CRM. Built around how you work.
           </p>
         </div>
         <div className="mv-hero-scene">
@@ -287,50 +288,72 @@ export function MortgageBrokersV2Page() {
         <div>
           <Label>The client relationship</Label>
           <h2 id="mv-outcome-title">
-            Your next opportunity
+            Your client book
             <br />
-            is already in
+            holds more than
             <br />
-            your client book.
+            past settlements.
           </h2>
         </div>
         <div className="mv-moments">
           <article>
-            <span>After settlement</span>
+            <span>A review is due</span>
             <h3>
-              Stay the broker
+              Stay their
               <br />
-              they come back to.
+              first call.
             </h3>
             <p>
-              Useful contact keeps the relationships behind trail income and repeat business in
-              view.
+              Reviews can slip when work gets busy. Keep invitations moving and replies with the
+              right broker.
             </p>
           </article>
           <article>
-            <span>When they recommend you</span>
+            <span>A client recommends you</span>
             <h3>
-              Make the
+              Earn the next
               <br />
-              introduction easy.
+              introduction.
             </h3>
             <p>
-              Give clients a simple way to share their experience and introduce someone who needs
-              your help.
+              Give clients a simple way to recommend you, then give the introduction a clear next
+              step.
             </p>
           </article>
           <article>
-            <span>When plans change</span>
+            <span>They’re not ready yet</span>
             <h3>
-              Keep the next
+              Follow up when
               <br />
-              conversation open.
+              they’re ready.
             </h3>
             <p>
-              Still searching or ready for their next move. Give each client a clear next step with
-              your team.
+              A prospect asks you to reconnect next month. Keep that next step attached to the
+              conversation.
             </p>
           </article>
+        </div>
+      </section>
+      <section className="mv-team" aria-labelledby="mv-team-title">
+        <div className="mv-wrap mv-team-layout">
+          <div className="mv-copy">
+            <Label>Client records and follow through</Label>
+            <h2 id="mv-team-title">
+              One client record.
+              <br />A clear next step.
+            </h2>
+            <p>
+              A reply in one inbox. A follow up date in a spreadsheet. An introduction waiting for a
+              call. It’s easy for the next step to lose its owner.
+            </p>
+            <p>
+              Zapla brings client records, conversations and next actions together. Whether it’s
+              just you or your whole team, each client has a history and someone responsible for
+              what happens next.
+            </p>
+            <Link href="/crm">Explore the connected CRM</Link>
+          </div>
+          <TeamScene />
         </div>
       </section>
       <section id="client-book" className="mv-retention" aria-labelledby="mv-review-title">
@@ -346,12 +369,13 @@ export function MortgageBrokersV2Page() {
             </div>
             <div>
               <p>
-                An annual review. A fixed rate period approaching its end. A change in the client’s
-                plans.
+                Annual reviews and fixed rate end dates give you a reason to reconnect, without
+                waiting for clients to ask first.
               </p>
               <p>
-                Zapla sends timely review invitations and brings replies back to your broker. The
-                client relationship keeps moving after settlement.
+                Zapla sends invitations on your review schedule and returns replies to your broker.
+                Consistent service supports the relationships behind trail income and repeat
+                business.
               </p>
               <Link href="/customer-marketing">Explore Customer Marketing</Link>
             </div>
@@ -367,10 +391,12 @@ export function MortgageBrokersV2Page() {
             <br />
             to recommend you.
           </h2>
-          <p>Help clients share their experience and introduce someone who needs your help.</p>
           <p>
-            After settlement, Zapla sends your Google review invitation. A later message can invite
-            an introduction, with replies going to your team.
+            An honest review helps future clients decide whether to contact you. A personal
+            introduction starts a new conversation.
+          </p>
+          <p>
+            Zapla sends the invitation at the time you choose and brings replies back to your team.
           </p>
           <Link href="/reviews">Explore Reviews &amp; Reputation</Link>
           <div className="mv-referral-conversation">
@@ -413,47 +439,42 @@ export function MortgageBrokersV2Page() {
           </div>
         </div>
       </section>
-      <section className="mv-team" aria-labelledby="mv-team-title">
-        <div className="mv-wrap mv-team-layout">
-          <div className="mv-copy">
-            <Label>Your whole team follows through</Label>
-            <h2 id="mv-team-title">
-              The relationship is yours.
-              <br />
-              The next step is shared.
-            </h2>
-            <p>
-              A new enquiry, a returning client or a referral reply shouldn’t rely on the principal
-              noticing it first.
-            </p>
-            <p>
-              Keep conversations, client context and next actions connected. Give each response a
-              clear owner, so another team member can pick up without making the client start again.
-            </p>
-            <Link href="/crm">Explore the connected CRM</Link>
-          </div>
-          <TeamScene />
-        </div>
-      </section>
       <ProspectSection />
       <section className="mv-fit" aria-labelledby="mv-fit-title">
         <div className="mv-wrap mv-fit-layout">
           <div>
-            <Label>Alongside your lending system</Label>
+            <Label>Your starting point</Label>
             <h2 id="mv-fit-title">
-              Keep your broking tools.
+              Built around
               <br />
-              <span>Strengthen the client experience.</span>
+              <span>your current setup.</span>
             </h2>
-          </div>
-          <div>
-            <p>
-              Research, applications and submissions stay in your specialist mortgage software.
-              Advice stays with your broker.
+            <p className="mv-fit-intro">
+              Zapla can become your client CRM, or fill specific follow through gaps around the
+              system you already use.
             </p>
+          </div>
+          <div className="mv-fit-options">
+            <article>
+              <h3>Using spreadsheets and inboxes?</h3>
+              <p>
+                Bring your client contacts into Zapla. Keep records, conversations and next steps
+                together, with your first follow up workflows configured during Guided Launch.
+              </p>
+            </article>
+            <article>
+              <h3>Already using a CRM?</h3>
+              <p>
+                Start with the follow through your current setup doesn’t handle well. We assess the
+                data and connection approach before adding anything. If a workflow already works
+                well, keep it there.
+              </p>
+            </article>
+          </div>
+          <div className="mv-fit-boundary">
             <p>
-              Zapla connects the communication around that work: enquiries, follow up, ongoing
-              contact and team ownership. We confirm the data and connection approach before setup.
+              Lender research, loan applications and submissions stay in your lending tools. Advice
+              stays with your broker.
             </p>
             <p className="mv-support">
               Need call coverage too? <a href="/ai-receptionist">AI Receptionist</a> is optional,
@@ -466,32 +487,36 @@ export function MortgageBrokersV2Page() {
         <div>
           <Label>Guided Launch</Label>
           <h2 id="mv-launch-title">
-            Start with the relationships
+            Your first workflows.
             <br />
-            worth protecting.
+            Set up with you.
           </h2>
           <p>
-            We map where your client experience breaks down, configure the agreed flows and test
-            them with your team.
+            Start with a useful first journey. We bring in the agreed contacts, configure the flows
+            and help you and your team put them to work.
           </p>
           <Link href={BOOK}>Map your brokerage’s gaps</Link>
         </div>
         <ol>
           <li>
-            <h3>Choose the first client journey.</h3>
+            <h3>Choose the first workflow.</h3>
             <p>
               Start where contact is being missed, ownership is unclear or clients have no next
               step.
             </p>
           </li>
           <li>
-            <h3>Build around your brokerage.</h3>
-            <p>Agree the data, messages, timing and who takes over when a client responds.</p>
+            <h3>Bring your contacts and build it.</h3>
+            <p>
+              Import the agreed contacts from spreadsheets or exports. Configure messages, timing
+              and who handles each reply.
+            </p>
           </li>
           <li>
-            <h3>Test the whole conversation.</h3>
+            <h3>Test it and get your team ready.</h3>
             <p>
-              Walk through the invitation, reply, handoff and stop rules before your team goes live.
+              Walk through the message, reply and next action. Train the people using Zapla and test
+              the flow before going live.
             </p>
           </li>
         </ol>
@@ -514,7 +539,8 @@ export function MortgageBrokersV2Page() {
             <div>
               <h3>Follow-Through</h3>
               <p>
-                Essential enquiry and follow up flows, team ownership and Google review requests.
+                CRM, shared inbox and pipelines, plus essential enquiry follow up and Google review
+                requests.
               </p>
               <small>Guided Launch from A$1,997 + GST</small>
             </div>
@@ -525,7 +551,10 @@ export function MortgageBrokersV2Page() {
           <article>
             <div>
               <h3>Growth</h3>
-              <p>Add ongoing client marketing and eligible reactivation for your client book.</p>
+              <p>
+                Everything in Follow-Through, plus ongoing client marketing and eligible
+                reactivation.
+              </p>
               <small>Guided Launch from A$2,997 + GST</small>
             </div>
             <strong>
@@ -568,8 +597,8 @@ export function MortgageBrokersV2Page() {
           you’ve worked hard to earn.
         </h2>
         <p>
-          Show us how your brokerage stays in touch today. We’ll identify the gaps, who owns the
-          next step and where Zapla can earn its place.
+          Show us how you manage clients today, in spreadsheets or a CRM. We’ll identify the first
+          workflow worth fixing and explain the setup scope and cost.
         </p>
         <Actions final />
       </section>

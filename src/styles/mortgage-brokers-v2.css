@@ -1427,3 +1427,62 @@
     margin: 0 8px;
   }
 }
+/* Two software starting points share the same client relationship outcome. */
+.mv-fit-layout {
+  align-items: start;
+  row-gap: 28px;
+}
+.mv-fit-intro {
+  max-width: 450px;
+  margin-top: 22px !important;
+}
+.mv-fit-options article + article {
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #c0c8ad;
+}
+.mv-fit-options h3 {
+  font-size: 25px;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.mv-fit-options p {
+  color: #4f594c;
+  font-size: 15px;
+}
+.mv-fit-boundary {
+  grid-column: 1/-1;
+  border-top: 1px solid #c0c8ad;
+  padding-top: 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 90px;
+}
+.mv-fit-boundary > p {
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 0 !important;
+}
+.mv-fit-boundary .mv-support {
+  border-top: 0;
+  padding-top: 0;
+}
+.mv-record-person p,
+.mv-record-history,
+.mv-team-record dt {
+  font-size: 12px;
+}
+@media (max-width: 1100px) {
+  .mv-fit-boundary {
+    gap: 45px;
+  }
+}
+@media (max-width: 800px) {
+  .mv-fit-boundary {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .mv-fit-intro {
+    margin-bottom: 0 !important;
+  }
+}
