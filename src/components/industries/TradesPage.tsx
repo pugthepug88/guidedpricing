@@ -79,9 +79,9 @@ function useStory(last = 2) {
 }
 type Story = ReturnType<typeof useStory>;
 function Controls({ story, name }: { story: Story; name: string }) {
+  if (story.reduced) return null;
   return (
     <div className="tr-story-controls">
-      <span>Illustrative workflow</span>
       {!story.reduced && (
         <div>
           <button
@@ -117,7 +117,8 @@ export function TradesPage() {
           </h1>
           <p className="tr-intro">
             Keep new enquiries, unanswered quotes and repeat service moving while you’re on the job.
-            Zapla handles the customer follow-up around your existing job software.
+            Zapla keeps requests and replies together, whether you’re using spreadsheets and inboxes
+            or already have a CRM.
           </p>
           <Actions />
           <p className="tr-hero-foot">
@@ -144,7 +145,6 @@ export function TradesPage() {
                 Job details requested.
               </span>
             </div>
-            <small>Illustrative enquiry</small>
           </div>
         </div>
       </section>
@@ -165,8 +165,8 @@ export function TradesPage() {
             the address and service details your team needs to take the next step.
           </p>
           <p>
-            The conversation stays with the customer record. Your office can arrange the assessment,
-            and the person replying can see what’s already been asked.
+            The conversation stays with the customer record. You or your office can arrange the
+            assessment, and the person replying can see what’s already been asked.
           </p>
           <Link href="/crm">See the connected customer record</Link>
           <p className="tr-aside">
@@ -200,7 +200,8 @@ export function TradesPage() {
             </p>
             <Link href="/follow-up">Explore quote follow-up</Link>
             <p className="tr-qualification">
-              Starts from a quote stage recorded in Zapla or a connection agreed during setup.
+              Quote status needs to reach Zapla before a follow-up can start.{" "}
+              <a href="#trade-faq">How connections work</a>.
             </p>
           </div>
           <QuoteScene />
@@ -257,7 +258,7 @@ export function TradesPage() {
           </p>
           <Link href="/reviews">Explore Google review requests</Link>
           <p className="tr-aside">
-            Uses the completion status recorded in Zapla or supplied through your agreed connection.
+            The job must be marked complete in Zapla or through a verified connection.
           </p>
         </div>
         <ReviewScene />
@@ -265,22 +266,33 @@ export function TradesPage() {
 
       <section className="tr-fit tr-wrap" aria-labelledby="fit-title">
         <div>
-          <Label>Your existing tools</Label>
+          <Label>Your starting point</Label>
           <h2 id="fit-title">
-            Keep the software
+            Bring the customer work
             <br />
-            that runs the job.
+            into one place.
           </h2>
+          <p className="tr-fit-intro">
+            Start with what you use today. Zapla can become your customer CRM or fill a gap
+            alongside the tools you keep.
+          </p>
         </div>
-        <div>
-          <p>
-            Scheduling, dispatch, job costing and invoicing stay in your operational system. Zapla
-            adds customer records, conversations and follow-up where your current process has a gap.
-          </p>
-          <p>
-            Already using ServiceM8, Simpro, Fergus or Tradify? Start with what it does well.
-            There’s no reason to duplicate a workflow it already handles.
-          </p>
+        <div className="tr-fit-options">
+          <div>
+            <h3>Using spreadsheets and inboxes?</h3>
+            <p>
+              Bring your contacts, enquiries and conversations together. Give each quote a visible
+              next step and automate the follow-up that currently depends on you remembering.
+            </p>
+          </div>
+          <div>
+            <h3>Already using a CRM or job system?</h3>
+            <p>
+              Keep what works. Add Zapla where customer replies, quote follow-up or repeat-service
+              campaigns still need attention. Your scheduling, dispatch, costing and invoicing can
+              stay in place.
+            </p>
+          </div>
           <Link href="#trade-faq">Read about connections and fit</Link>
         </div>
       </section>
@@ -354,7 +366,13 @@ export function TradesPage() {
 function EnquiryScene() {
   const story = useStory();
   return (
-    <div className="tr-enquiry-story" ref={story.ref} data-step={story.step}>
+    <div
+      className="tr-enquiry-story"
+      ref={story.ref}
+      data-step={story.step}
+      role="group"
+      aria-label="Example workflow: Daniel’s website enquiry triggers an automatic reply; his details return to the customer record for an assessment"
+    >
       <div className="tr-office-photo">
         <img
           src={`${PHOTOS}trades-office.webp`}
@@ -364,13 +382,19 @@ function EnquiryScene() {
           loading="lazy"
         />
         <div className="tr-enquiry-note tr-glass">
-          <Sender>Automatic enquiry reply</Sender>
-          <p>Thanks Daniel. What’s the property address, and which room needs the new system?</p>
+          <Sender customer="daniel">Daniel · Split system enquiry</Sender>
           <div
-            className={`tr-note-answer tr-beat ${story.step >= 1 ? "is-visible" : ""}`}
+            className={`tr-enquiry-auto tr-beat ${story.step >= 1 ? "is-visible" : ""}`}
             aria-hidden={story.step < 1}
           >
-            <strong>Daniel</strong>
+            <Sender>Automatic reply</Sender>
+            <p>Thanks Daniel. What’s the property address?</p>
+          </div>
+          <div
+            className={`tr-note-answer tr-beat ${story.step >= 2 ? "is-visible" : ""}`}
+            aria-hidden={story.step < 2}
+          >
+            <Sender customer="daniel">Daniel Brooks</Sender>
             <p>14 Banksia Street, Ashfield. It’s for the lounge room.</p>
           </div>
         </div>
@@ -379,8 +403,8 @@ function EnquiryScene() {
         className={`tr-enquiry-handoff tr-beat ${story.step >= 2 ? "is-visible" : ""}`}
         aria-hidden={story.step < 2}
       >
-        <span>Address and request captured</span>
-        <strong>Ready for your team to arrange an assessment</strong>
+        <Sender customer="daniel">Daniel’s customer record</Sender>
+        <p>Next action: arrange an assessment.</p>
       </div>
       <Controls story={story} name="enquiry" />
     </div>
@@ -389,12 +413,18 @@ function EnquiryScene() {
 function QuoteScene() {
   const story = useStory();
   return (
-    <div className="tr-quote-story" ref={story.ref} data-step={story.step}>
+    <div
+      className="tr-quote-story"
+      ref={story.ref}
+      data-step={story.step}
+      role="group"
+      aria-label="Example quote workflow: automatic follow-up leads to Daniel’s question, reminders stop and the team answers"
+    >
       <div className="tr-quote-context">
         <Sender customer="daniel">Daniel Brooks</Sender>
         <div>
           <strong>Split system replacement</strong>
-          <span>{story.step >= 2 ? "Customer replied" : "Quote sent"}</span>
+          <span>{story.step >= 2 ? "Team reply needed" : "Quote sent"}</span>
         </div>
       </div>
       <div
@@ -414,12 +444,6 @@ function QuoteScene() {
         <Sender customer="daniel">Daniel Brooks</Sender>
         <p className="tr-glass">Does that include removing the old system?</p>
       </div>
-      <p
-        className={`tr-quote-handoff tr-beat ${story.step >= 2 ? "is-visible" : ""}`}
-        aria-hidden={story.step < 2}
-      >
-        With your team. Further reminders stopped.
-      </p>
       <Controls story={story} name="quote follow-up" />
     </div>
   );
@@ -427,7 +451,13 @@ function QuoteScene() {
 function ReturnScene() {
   const story = useStory();
   return (
-    <div className="tr-return-story" ref={story.ref} data-step={story.step}>
+    <div
+      className="tr-return-story"
+      ref={story.ref}
+      data-step={story.step}
+      role="group"
+      aria-label="Example service workflow: a recorded due date triggers a reminder; Alex replies and the team confirms a visit"
+    >
       <div className="tr-return-photo">
         <img
           src={`${PHOTOS}trades-service-visit.webp`}
@@ -436,21 +466,14 @@ function ReturnScene() {
           height="941"
           loading="lazy"
         />
-        <div className="tr-service-note tr-glass">
-          <Sender>Recorded service date</Sender>
-          <h3>
-            Air conditioning
-            <br />
-            service due
-          </h3>
+        <div
+          className={`tr-service-note tr-glass tr-beat ${story.step >= 1 ? "is-visible" : ""}`}
+          aria-hidden={story.step < 1}
+        >
+          <Sender>Automatic service reminder</Sender>
           <p>
             Hi Alex, your air conditioning service is due next month. Want us to arrange a visit?
           </p>
-          <span className="tr-service-status">
-            {story.step >= 1
-              ? "Reminder sent automatically"
-              : "Based on your customer’s service record"}
-          </span>
         </div>
         <div
           className={`tr-service-reply tr-glass tr-beat ${story.step >= 2 ? "is-visible" : ""}`}
@@ -458,7 +481,6 @@ function ReturnScene() {
         >
           <Sender customer="alex">Alex · Customer reply</Sender>
           <p>“Yes please. Do you have a time next week?”</p>
-          <small>Your team confirms the visit.</small>
         </div>
       </div>
       <Controls story={story} name="service reminder" />
@@ -480,11 +502,18 @@ function GoogleWordmark() {
 function ReviewScene() {
   const story = useStory();
   return (
-    <div className="tr-review-story" ref={story.ref} data-step={story.step}>
+    <div
+      className="tr-review-story"
+      ref={story.ref}
+      data-step={story.step}
+      role="group"
+      aria-label="Example review workflow: a completed installation triggers a Google review invitation; the review stars are unselected"
+    >
       <div className="tr-review-example">
-        <p className="tr-review-trigger">
-          Split system installed <strong>Job marked complete</strong>
-        </p>
+        <div className="tr-review-trigger">
+          <Sender customer="daniel">Daniel Brooks</Sender>
+          <p>Split system installation completed</p>
+        </div>
         <div
           className={`tr-review-request tr-glass tr-beat ${story.step >= 1 ? "is-visible" : ""}`}
           aria-hidden={story.step < 1}
@@ -562,8 +591,8 @@ function Plans() {
 }
 const FAQS = [
   [
-    "Does this replace our job management software?",
-    "No. Keep ServiceM8, Simpro, Fergus, Tradify or your current system for the job operations it handles well. Zapla should fill an agreed customer communication gap. If your current tools already cover it, use them rather than paying for duplicate automation.",
+    "Do we need a CRM before using Zapla?",
+    "No. Zapla can be your customer CRM if you currently use spreadsheets, email and messages. We can bring across the agreed contacts and organise enquiries, quotes and conversations. If you already use ServiceM8, Simpro, Fergus, Tradify or another CRM, keep the workflows that work. We assess the remaining gap and the data path before recommending another system. No native connection is assumed.",
   ],
   [
     "Will Zapla know when a quote is sent or a job is completed?",

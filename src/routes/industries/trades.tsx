@@ -3,7 +3,7 @@ import { TradesPage } from "@/components/industries/TradesPage";
 import tradesCss from "@/styles/trades.css?url";
 const TITLE = "Customer Follow-Up for Trades & Home Services | Zapla";
 const DESCRIPTION =
-  "Reply to trade enquiries, follow up quotes, send relevant service reminders and request Google reviews. Zapla works around your existing job software.";
+  "Reply to trade enquiries, follow up quotes, send relevant service reminders and request Google reviews. Bring customer work together from spreadsheets and inboxes, or alongside the tools you keep.";
 export const Route = createFileRoute("/industries/trades")({
   staticData: { sitemap: false },
   head: () => ({

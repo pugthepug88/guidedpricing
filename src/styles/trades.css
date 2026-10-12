@@ -448,7 +448,6 @@
   padding: 16px 18px;
   font-size: 13px;
   line-height: 1.65;
-  box-shadow: inset 0 0 0 1px #1e2b2920;
 }
 .trades-page .tr-quote-handoff {
   font-size: 11px;
@@ -1166,7 +1165,6 @@
     width: calc(100% - 32px);
     margin: -42px 16px 0;
     padding: 22px;
-    background: rgba(252, 252, 250, 0.96);
   }
   .tr-service-note h3 {
     font-size: 29px;
@@ -1341,5 +1339,76 @@
   .tr-return-photo > img,
   .tr-office-photo > img {
     object-position: 100% center;
+  }
+}
+
+/* Shared glass stays consistent across the hero, photography and dialogue. */
+.tr-story-controls {
+  justify-content: flex-end;
+}
+.tr-enquiry-note {
+  padding: 18px;
+}
+.tr-enquiry-auto {
+  margin-top: 14px;
+}
+.tr-enquiry-auto > p {
+  font-size: 13px;
+  margin-top: 8px;
+}
+.tr-note-answer {
+  margin-top: 12px;
+  padding-top: 12px;
+}
+.tr-note-answer > p {
+  margin-top: 8px;
+}
+.tr-enquiry-handoff > p {
+  font-size: 12px;
+  color: #535f49;
+  margin: 8px 0 0 37px;
+}
+.tr-service-note {
+  padding: 20px;
+  width: 286px;
+}
+.tr-service-note > p {
+  margin-top: 13px;
+}
+.tr-fit-intro {
+  margin-top: 24px !important;
+  font-size: 14px;
+  color: #5f655f;
+  max-width: 450px;
+}
+.tr-fit-options > div + div {
+  border-top: 1px solid #dedfd5;
+  padding-top: 24px;
+  margin-top: 24px;
+}
+.tr-fit-options h3 {
+  font-size: 23px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.tr-review-trigger > p {
+  font-size: 12px;
+  margin-top: 10px;
+}
+.tr-qualification a {
+  text-underline-offset: 3px;
+}
+@media (max-width: 900px) {
+  .tr-service-note {
+    width: 265px;
+  }
+}
+@media (max-width: 700px) {
+  .tr-service-note {
+    width: calc(100% - 32px);
+    padding: 20px;
+  }
+  .tr-fit-options h3 {
+    font-size: 23px;
   }
 }
