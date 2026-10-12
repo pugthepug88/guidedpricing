@@ -1,3 +1,4 @@
+import { Link as RouterLink } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { ArrowRight, Plus, Star } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
@@ -7,6 +8,14 @@ function Label({ children }: { children: ReactNode }) {
   return <p className="mv-label">{children}</p>;
 }
 function Link({ href, children }: { href: string; children: ReactNode }) {
+  if (href === "/industries/mortgage-brokers") {
+    return (
+      <RouterLink className="mv-link" to="/industries/mortgage-brokers">
+        {children}
+        <ArrowRight size={16} aria-hidden="true" />
+      </RouterLink>
+    );
+  }
   return (
     <a className="mv-link" href={href}>
       {children}
@@ -275,9 +284,9 @@ export function MortgageBrokersV2Page() {
           <p className="mv-hero-note">
             You handle the lending. Zapla keeps the client relationship moving.
           </p>
-          <a className="mv-compare" href="/industries/mortgage-brokers">
+          <RouterLink className="mv-compare" to="/industries/mortgage-brokers">
             V2 comparison draft · View original page <ArrowRight size={14} aria-hidden="true" />
-          </a>
+          </RouterLink>
         </div>
         <div className="mv-hero-scene">
           <img

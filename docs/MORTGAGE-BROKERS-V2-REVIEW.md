@@ -55,3 +55,10 @@ This is an implementation review, not independent customer validation or proof t
 Production build, TypeScript check and scoped ESLint completed successfully. Browser checks covered 1440, 1024, 768, 390 and 320px, including full-page screenshots and zoomed-out comparison with Dental, Mechanics and the original mortgage page. All three photos loaded, no horizontal overflow, no page errors. Tested both review invitation states, both prospect states, all three team states, keyboard FAQ opening and navigation from V2 to the original and back. The small-phone hero overlap was found during review and corrected before the final pass. Original route and CSS SHA-256 hashes match their pre-change copies.
 
 Preview source verification is recorded after the GitHub connected-branch update. A signed-in Lovable session may be needed to open the private draft preview; local browser verification uses the same source.
+
+
+## Preview access follow up
+
+The user reported a 404 on the direct hosted V2 URL. Source synchronization and local rendering had been verified, but those checks did not verify that the direct hosted URL was reachable. Hosted browser inspection was redirected to Lovable login and the secure sign-in request was declined, so the exact hosted failure remains unconfirmed.
+
+Added Mortgage Brokers and Mortgage Brokers V2 entries to the existing root-owned desktop and mobile Solutions menu. These links and V2’s original comparison links use the TanStack router to navigate within the loaded preview. This gives a menu entry point without a full-document deep-link request. Both canonical page content and original stylesheet remain unchanged. Local menu navigation and direct route rendering are tested separately. The direct hosted 404 must not be reported as resolved without hosted evidence.

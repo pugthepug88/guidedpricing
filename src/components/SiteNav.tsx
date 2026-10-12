@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 
 export const ZAPLA_LOGO = "/concept/zapla-logo-dark.svg";
 
@@ -106,13 +106,15 @@ export function SiteNav() {
             )}
           </div>
           <div className="relative" onMouseEnter={() => setOpenMenu("solutions")} onMouseLeave={() => setOpenMenu(null)}>
-            <button className={linkCls} type="button">Solutions <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+            <button className={linkCls} type="button" aria-expanded={openMenu === "solutions"} onClick={() => setOpenMenu("solutions")}>Solutions <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
             {openMenu === "solutions" && (
               <div className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3"><div className="rounded-2xl border border-zapla-line bg-white p-2 shadow-zapla">
                 <a href="/follow-up" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Follow-Up</a>
                 <a href="/reactivation" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Reactivation</a>
                 <a href="/reviews" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Reviews &amp; Reputation</a>
                 <div className="mx-3 my-2 border-t border-zapla-line" />
+                <Link to="/industries/mortgage-brokers" onClick={() => setOpenMenu(null)} className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mortgage Brokers</Link>
+                <Link to="/industries/mortgage-brokers-v2" onClick={() => setOpenMenu(null)} className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mortgage Brokers V2</Link>
                 <a href="/industries/mechanics" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mechanics &amp; Workshops</a>
                 <a href="/industries/dental" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Dental Practices</a>
                 <a href="/industries/cosmetic-skin-clinics" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Skin &amp; Cosmetic Clinics</a>
@@ -159,6 +161,8 @@ export function SiteNav() {
             </div></details>
             <details className="group"><summary className="flex cursor-pointer list-none items-center justify-between py-2">Solutions<span className="text-zapla-muted group-open:rotate-180 transition">▾</span></summary><div className="ml-3 grid gap-1 pb-2 text-[14px] text-zapla-muted">
               <a href="/follow-up" className="py-1.5">Follow-Up</a><a href="/reactivation" className="py-1.5">Reactivation</a><a href="/reviews" className="py-1.5">Reviews &amp; Reputation</a>
+              <Link to="/industries/mortgage-brokers" onClick={() => setMobileOpen(false)} className="py-1.5">Mortgage Brokers</Link>
+              <Link to="/industries/mortgage-brokers-v2" onClick={() => setMobileOpen(false)} className="py-1.5">Mortgage Brokers V2</Link>
               <a href="/industries/mechanics" className="py-1.5">Mechanics &amp; Workshops</a><a href="/industries/dental" className="py-1.5">Dental Practices</a>
                 <a href="/industries/cosmetic-skin-clinics" className="py-1.5">Skin &amp; Cosmetic Clinics</a>
               <a href="/industries/trades" className="py-1.5">Trades &amp; Home Services</a>
