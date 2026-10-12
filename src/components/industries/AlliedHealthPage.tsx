@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, Star } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 const BOOK = "https://zapla.io/booking";
+const ASSETS = "/concept/industries/";
 function Label({ children }: { children: ReactNode }) {
   return <p className="ah-eyebrow">{children}</p>;
 }
@@ -24,326 +25,278 @@ function TextLink({ href, children }: { href: string; children: ReactNode }) {
 function Sender({ children }: { children: ReactNode }) {
   return (
     <div className="ah-sender">
-      <ZaplaPetal size={26} />
+      <ZaplaPetal size={24} />
       <span>{children}</span>
     </div>
   );
+}
+function useWorkflow() {
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useInView(ref, { amount: 0.15, margin: "0px 0px 60px 0px" });
+  const reduced = useReducedMotion();
+  const [step, setStep] = useState(0);
+  const [manual, setManual] = useState(false);
+  useEffect(() => {
+    if (!visible || reduced || manual || step >= 2) return;
+    const timer = window.setTimeout(
+      () => setStep((s) => Math.min(s + 1, 2)),
+      step === 0 ? 450 : 1100,
+    );
+    return () => window.clearTimeout(timer);
+  }, [visible, reduced, manual, step]);
+  return {
+    ref,
+    step: reduced ? 2 : step,
+    choose: (n: number) => {
+      setManual(true);
+      setStep(n);
+    },
+  };
+}
+function Beat({
+  active,
+  children,
+  className = "",
+}: {
+  active: boolean;
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={"ah-beat " + (active ? "ah-beat-on " : "") + className}>{children}</div>;
 }
 export function AlliedHealthPage() {
   return (
     <main className="allied-health-page" data-page="allied-health">
       <section className="ah-hero ah-wrap" aria-labelledby="ah-title">
-        <div>
-          <Label>Zapla for allied health</Label>
-          <h1 id="ah-title">
-            Keep new patient enquiries moving while your team is caring for people.
-          </h1>
+        <div className="ah-hero-copy">
+          <Label>Zapla for allied health practices</Label>
+          <h1 id="ah-title">Keep patient enquiries moving between appointments.</h1>
           <p className="ah-intro">
-            Capture enquiries, give patients a clear next step and help reception follow through,
-            alongside your existing practice software.
+            Reply to new enquiries, follow up unanswered messages and give reception a clear next
+            step. Zapla works around your existing practice software while your team focuses on
+            care.
           </p>
           <div className="ah-actions">
             <BookButton />
             <TextLink href="#enquiry-story">See how it works</TextLink>
           </div>
           <p className="ah-reassurance">
-            Keep your practice software. Start with the gaps worth fixing.
+            For appointment based practices, including physiotherapy.
           </p>
         </div>
-        <div className="ah-hero-visual">
+        <figure className="ah-hero-visual">
           <img
-            src="/concept/cinematic-v5/physio.jpg"
-            width={800}
-            height={450}
+            src={ASSETS + "allied-health-care.webp"}
+            width={1536}
+            height={1024}
             fetchPriority="high"
-            alt="A physiotherapist guiding a patient through a movement in a naturally lit practice"
+            alt="A physiotherapist guiding a seated patient through a shoulder movement"
           />
-          <div className="ah-hero-note">
+          <div className="ah-hero-note ah-glass">
             <Sender>Zapla follows through</Sender>
-            <p>“Can someone help me find a time?”</p>
-            <div className="ah-note-outcome">
-              <span>Callback task</span>
-              <strong>Assigned to reception</strong>
+            <p>“Could reception help me find a time?”</p>
+            <div className="ah-task-line">
+              <span>Next step</span>
+              <strong>Reception callback</strong>
             </div>
+            <small>Illustrative enquiry handover</small>
           </div>
-        </div>
+        </figure>
       </section>
-      <section className="ah-fit ah-wrap" aria-labelledby="ah-fit-title">
+      <section className="ah-opening ah-wrap" aria-label="Where Zapla helps">
+        <p>
+          The diary handles appointments.
+          <br />
+          <strong>What happens before someone books?</strong>
+        </p>
         <div>
-          <Label>Around your existing practice software</Label>
-          <h2 id="ah-fit-title">
-            Keep your practice software.
-            <br />
-            Connect the admin around it.
-          </h2>
+          <h3>A reply while you’re with patients.</h3>
+          <p>Give a new enquiry a useful next step.</p>
         </div>
-        <div className="ah-fit-roles">
-          <div>
-            <h3>Your practice software</h3>
-            <p>
-              Clinical records, your appointment diary and the booking tools your team already uses.
-            </p>
-          </div>
-          <div>
-            <h3>Zapla</h3>
-            <p>
-              Enquiry replies, agreed follow through and a clear owner when reception needs to step
-              in.
-            </p>
-          </div>
-          <p className="ah-small">
-            We check your current setup first. Booking links can be a starting point; deeper
-            connections depend on your software and the agreed scope.
-          </p>
+        <div>
+          <h3>A handover reception can act on.</h3>
+          <p>Keep the request, reply and owner together.</p>
         </div>
       </section>
-      <section id="enquiry-story" className="ah-story-section" aria-labelledby="ah-story-title">
-        <div className="ah-wrap ah-story-layout">
+      <section id="enquiry-story" className="ah-enquiry ah-wrap" aria-labelledby="ah-enquiry-title">
+        <div className="ah-enquiry-panel">
           <div className="ah-copy">
             <Label>New patient enquiries</Label>
-            <h2 id="ah-story-title">
-              Reply to the enquiry.
-              <br />
-              Follow up until it’s resolved.
+            <h2 id="ah-enquiry-title">
+              Don’t leave the next appointment in an unanswered message.
             </h2>
             <p>
-              Your practice software may already handle online bookings and reminders. The gap is
-              the person who asks a question, doesn’t choose a time or needs someone to help.
+              A patient asks about evening appointments. Reception is busy. Without a reply or
+              follow up, the enquiry can sit there even when your diary has room.
             </p>
             <p>
-              Zapla can send the agreed reply, follow through while the enquiry is unresolved and
-              put the conversation in reception’s hands when the person replies.
+              Zapla sends your agreed reply and booking link. If the enquiry stays unresolved, it
+              follows up. When the patient replies, scheduled follow ups stop and reception gets the
+              conversation.
             </p>
             <TextLink href="/follow-up">Explore enquiry follow through</TextLink>
+            <p className="ah-aside">
+              Appointment confirmation stays with your booking system. A link click does not mean a
+              booking.
+            </p>
           </div>
           <EnquiryStory />
         </div>
       </section>
-      <section className="ah-call ah-wrap" aria-labelledby="ah-call-title">
-        <div className="ah-call-scene">
-          <p className="ah-call-label">When reception is unavailable</p>
-          <p className="ah-call-quote">
-            “I’d like someone to call me about making an appointment.”
-          </p>
-          <div className="ah-callback">
-            <Sender>Optional AI Receptionist</Sender>
-            <h3>A clear message for reception.</h3>
-            <p>
-              Appointment enquiry
-              <br />
-              Preferred callback time: tomorrow morning
-            </p>
-            <div className="ah-task-line">
-              Next step <strong>Reception callback</strong>
-            </div>
-          </div>
-          <p className="ah-example">Illustrative call summary</p>
-        </div>
-        <div className="ah-copy">
-          <Label>Optional call support</Label>
-          <h2 id="ah-call-title">When reception can’t answer, give callers a next step.</h2>
-          <p>
-            AI Receptionist can handle configured administrative questions and collect a callback
-            request. Your team decides what it can answer and when a person should take over.
-          </p>
-          <p className="ah-aside">
-            Clinical questions stay with your team. Agree a clear human fallback and an urgent call
-            process before launch. AI does not assess urgency.
-          </p>
-          <TextLink href="/ai-receptionist">Explore AI Receptionist</TextLink>
-        </div>
-      </section>
       <section className="ah-admin ah-wrap" aria-labelledby="ah-admin-title">
-        <AdminFormScene />
+        <AdminScene />
         <div className="ah-copy">
-          <Label>Digital new patient forms</Label>
-          <h2 id="ah-admin-title">Collect the admin details before reception calls.</h2>
+          <Label>Before reception calls</Label>
+          <h2 id="ah-admin-title">
+            Ask once.
+            <br />
+            Pick up the conversation with the details ready.
+          </h2>
           <p>
-            Send a digital form for the agreed administrative details, such as contact information
-            and the best time to call. Keep the submission with the enquiry so reception can pick up
-            the conversation without asking for the same information again.
+            Send a short administrative form for contact details and the best time to call. The
+            submission stays with the enquiry, so reception can follow through without asking the
+            same questions again.
           </p>
           <p>
-            Route completed forms to the right person. If a form is still outstanding, send the
-            agreed reminder and stop it when the submission arrives.
-          </p>
-          <p className="ah-aside">
-            Keep medical histories, symptoms and clinical consent in your practice system. If its
-            existing forms already do the job, use those rather than create a second process.
+            An outstanding form can trigger an agreed reminder. When it is submitted, the reminder
+            stops and the task is updated.
           </p>
           <TextLink href="/crm">Explore forms and enquiry records</TextLink>
+          <p className="ah-aside">
+            For external forms, stopping reminders needs a verified completion signal. Use your
+            existing forms where they already do the job. Medical history, symptoms and clinical
+            consent stay in your practice system.
+          </p>
         </div>
       </section>
-      <section className="ah-return-section" aria-labelledby="ah-return-title">
-        <div className="ah-wrap ah-return-layout">
-          <div className="ah-copy">
-            <Label>Approved return reminders</Label>
-            <h2 id="ah-return-title">Follow up when a patient is due back.</h2>
+      <section className="ah-return ah-wrap" aria-labelledby="ah-return-title">
+        <div className="ah-return-heading">
+          <div>
+            <Label>Practitioner approved return reminders</Label>
+            <h2 id="ah-return-title">
+              When another visit is recommended, help the patient take the next step.
+            </h2>
+          </div>
+          <div>
             <p>
-              When a practitioner has recommended another appointment, Zapla can send an agreed
-              reminder using the due date your practice supplies. Give the patient a booking link or
-              an easy way to ask reception for help.
-            </p>
-            <p>
-              For a return campaign, your team chooses who is appropriate to contact. Check current
-              bookings, recent replies and contact permissions before the sequence starts. Stop on a
-              reply, opt out or recorded booking.
+              Use the due date and eligibility your practice supplies to send an agreed reminder.
+              Give the patient a booking link or an easy way to ask reception for help.
             </p>
             <p className="ah-aside">
-              Your practitioner decides who needs follow up. We confirm how due dates and booking
-              status stay current before automating messages. A patient being inactive is not a
-              clinical reason to invite them back.
+              Your practitioner decides who is due back. Booking status and contact permissions must
+              be current. Being inactive alone is not a clinical reason for a reminder.
             </p>
             <TextLink href="/reactivation">Explore approved return campaigns</TextLink>
           </div>
-          <ReturnScene />
         </div>
+        <ReturnScene />
       </section>
       <section className="ah-feedback ah-wrap" aria-labelledby="ah-feedback-title">
-        <div>
-          <Label>Patient feedback</Label>
+        <div className="ah-copy">
+          <Label>Patient feedback and reviews</Label>
           <h2 id="ah-feedback-title">
             Ask about the experience.
             <br />
             Give your team the reply.
           </h2>
-        </div>
-        <div>
           <p>
-            Send a neutral feedback request after an agreed visit event and route replies to a named
-            person. Reception can respond to concerns about communication or administration;
-            clinical concerns go to the appropriate practitioner.
-          </p>
-          <p>
-            Google review requests can be included in a practice approved process. Ask consistently,
-            without incentives or filtering people by how positive their feedback is. Check the
-            healthcare advertising rules before using reviews in your own marketing.
+            After an agreed visit event, send a neutral feedback or review request. Route direct
+            replies to a named person so reception can address administration concerns and a
+            practitioner can handle clinical questions.
           </p>
           <TextLink href="/reviews">Explore feedback and review requests</TextLink>
-        </div>
-      </section>
-      <section className="ah-control" aria-labelledby="ah-control-title">
-        <div className="ah-wrap">
-          <Label>Built around your team’s judgement</Label>
-          <h2 id="ah-control-title">
-            Automate the admin.
-            <br />
-            <span>Keep care decisions with your team.</span>
-          </h2>
-          <div className="ah-control-columns">
-            <div>
-              <h3>Let Zapla carry the routine steps.</h3>
-              <ul>
-                <li>Send your configured acknowledgement and booking link.</li>
-                <li>Follow through at the timing your practice agrees.</li>
-                <li>Route replies and create a task with a named owner.</li>
-                <li>Send agreed form and return reminders using the supplied records.</li>
-                <li>Stop scheduled follow ups on reply, opt out or recorded resolution.</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Keep care decisions with people.</h3>
-              <ul>
-                <li>Clinical questions and treatment advice.</li>
-                <li>Whether an appointment or practitioner is appropriate.</li>
-                <li>Who is eligible for a clinical recall.</li>
-                <li>Exceptions, cancellations and sensitive conversations.</li>
-              </ul>
-            </div>
-          </div>
-          <p className="ah-control-bottom">
-            A cancellation request can reach reception for review. Changing the diary or offering
-            the slot requires an agreed, supported booking workflow.
+          <p className="ah-aside">
+            Invite people consistently, without incentives or filtering by positive feedback. Check
+            healthcare advertising requirements before reusing reviews in your marketing.
           </p>
         </div>
+        <ReviewScene />
       </section>
-      <section className="ah-launch ah-wrap" aria-labelledby="ah-launch-title">
-        <div className="ah-copy">
-          <Label>Guided Launch</Label>
-          <h2 id="ah-launch-title">
-            Start with one gap
-            <br />
-            worth fixing.
-          </h2>
-          <p>Choose a useful first workflow, prove it with your team and expand from there.</p>
-        </div>
-        <div className="ah-launch-stages">
+      <section className="ah-control" aria-labelledby="ah-control-title">
+        <div className="ah-wrap ah-control-layout">
           <div>
-            <h3>Map</h3>
-            <p>
-              Walk through your enquiry flow, existing tools and reception workload. Agree what
-              success looks like.
-            </p>
-          </div>
-          <div>
-            <h3>Build</h3>
-            <p>
-              Configure messages, timing, responsibilities and contact permissions. Check the data
-              and connections needed.
-            </p>
-          </div>
-          <div>
-            <h3>Launch</h3>
-            <p>
-              Test the reply, handoff, opt out and stop conditions with reception before going live.
-              Review what needs attention.
-            </p>
-          </div>
-        </div>
-      </section>
-      <section className="ah-commercial" aria-labelledby="ah-commercial-title">
-        <div className="ah-wrap ah-commercial-layout">
-          <div className="ah-copy">
-            <Label>Plans and setup</Label>
-            <h2 id="ah-commercial-title">
-              Choose the scope
+            <Label>Around your existing practice software</Label>
+            <h2 id="ah-control-title">
+              Keep the diary.
               <br />
-              your practice needs.
+              Connect the admin.
+              <br />
+              <span>Leave care with people.</span>
             </h2>
             <p>
-              Start with enquiry follow through. Add more only where there is a clear operational
-              reason.
+              Your practice system remains the home for clinical records and appointments. Zapla
+              carries the agreed communication steps around it.
             </p>
-            <a className="ah-button ah-secondary" href="/Pricing-v3">
-              View plans and pricing <ArrowRight size={16} aria-hidden="true" />
-            </a>
-          </div>
-          <div className="ah-scope-list">
-            <div>
-              <h3>Follow Through</h3>
-              <p>
-                Configured enquiry replies, administrative forms, follow ups and reception tasks.
-              </p>
-            </div>
-            <div>
-              <h3>Growth</h3>
-              <p>
-                Practice approved return campaigns and feedback requests, using eligible audiences
-                and the agreed contact permissions.
-              </p>
-            </div>
-            <div>
-              <h3>AI Receptionist, if you need it</h3>
-              <p>
-                Optional incoming call support with an administrative scope and a clear route to
-                your team.
-              </p>
-            </div>
-            <p className="ah-small">
-              A platform fee and Guided Launch setup apply. Communication usage and any custom
-              integration work are separate. Unlimited users lets reception and practice owners
-              share the workflow.
+            <p className="ah-aside">
+              Connections are checked before they are promised. Direct diary updates require a
+              supported, tested workflow.
             </p>
           </div>
+          <div className="ah-control-right">
+            <div>
+              <h3>Routine steps, with a clear owner.</h3>
+              <p>
+                Configured replies, reminders and reception tasks. Stop on a reply, opt out or
+                recorded resolution. Sensitive conversations and clinical decisions go to your team.
+              </p>
+            </div>
+            <div className="ah-call-card">
+              <Sender>Optional AI Receptionist</Sender>
+              <h3>When reception can’t answer.</h3>
+              <p>
+                Handle agreed administrative questions and capture a callback request. A named
+                person picks up what needs human help.
+              </p>
+              <TextLink href="/ai-receptionist">Explore call support</TextLink>
+              <p className="ah-aside">
+                AI does not diagnose, recommend treatment or assess urgency. Agree a human fallback
+                and urgent call process before launch.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="ah-value ah-wrap" aria-labelledby="ah-value-title">
+        <div>
+          <Label>Guided Launch</Label>
+          <h2 id="ah-value-title">Start with the gap that costs your team the most time.</h2>
+          <p>
+            Walk through a real enquiry with us. Choose one workflow, test it with reception and
+            expand when it earns its place.
+          </p>
+          <div className="ah-actions">
+            <BookButton />
+            <TextLink href="/Pricing-v3">View plans and pricing</TextLink>
+          </div>
+        </div>
+        <div className="ah-value-notes">
+          <div>
+            <h3>Fewer enquiries waiting for a reply.</h3>
+            <p>Review unresolved enquiries and whether each has a next step and an owner.</p>
+          </div>
+          <div>
+            <h3>Less repeated reception work.</h3>
+            <p>Review duplicate questions, manual reminders and time spent chasing replies.</p>
+          </div>
+          <div>
+            <h3>A scope you can assess.</h3>
+            <p>
+              Platform and Guided Launch fees apply. Communication usage and custom integration work
+              are separate. Unlimited users keeps the whole team involved.
+            </p>
+          </div>
+          <p className="ah-small">
+            These are measures to review with your practice, not promised results.
+          </p>
         </div>
       </section>
       <section className="ah-faq ah-wrap" aria-labelledby="ah-faq-title">
         <div>
           <Label>Before you get started</Label>
           <h2 id="ah-faq-title">
-            Questions before
+            How it fits
             <br />
-            you get started.
+            your practice.
           </h2>
         </div>
         <div className="ah-faq-list">
@@ -363,13 +316,12 @@ export function AlliedHealthPage() {
           <ZaplaPetal size={34} />
         </div>
         <h2 id="ah-final-title">
-          See where Zapla fits
-          <br />
-          in your practice.
+          Give your next enquiry
+          <br />a clear next step.
         </h2>
         <p>
-          Bring your current enquiry process. We’ll map where the next step gets stuck and what is
-          worth improving.
+          Book a call to map where patient enquiries get stuck and which steps Zapla can carry for
+          your team.
         </p>
         <div className="ah-actions">
           <BookButton />
@@ -381,196 +333,182 @@ export function AlliedHealthPage() {
     </main>
   );
 }
-function useWorkflowReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  const visible = useInView(ref, { amount: 0.1, margin: "0px 0px 80px 0px" });
-  const reduced = useReducedMotion();
-  const [step, setStep] = useState(0);
-  useEffect(() => {
-    if (reduced) setStep(2);
-  }, [reduced]);
-  useEffect(() => {
-    if (!visible || reduced || step >= 2) return;
-    const timer = window.setTimeout(
-      () => setStep((s) => Math.min(s + 1, 2)),
-      step === 0 ? 350 : 600,
-    );
-    return () => window.clearTimeout(timer);
-  }, [visible, reduced, step]);
-  return { ref, step };
+function EnquiryStory() {
+  const { ref, step, choose } = useWorkflow();
+  return (
+    <div ref={ref} className="ah-enquiry-demo" aria-label="Illustrative enquiry follow through">
+      <p className="ah-example">Illustrative workflow · fictional patient</p>
+      <div className="ah-message ah-patient">
+        <span>Patient enquiry</span>
+        <p>Do you have physio appointments after 5?</p>
+      </div>
+      <div className="ah-message ah-zapla">
+        <Sender>Your practice, via Zapla</Sender>
+        <p>
+          You can see our available times using our booking link. Reply here if you’d like reception
+          to help.
+        </p>
+        <span className="ah-example-link">
+          View appointment times <ArrowRight size={14} aria-hidden="true" />
+        </span>
+      </div>
+      <Beat active={step >= 1}>
+        <div className="ah-message ah-zapla">
+          <span>Agreed follow up, if unresolved</span>
+          <p>Still looking for a suitable time? Reply if you’d like reception to call.</p>
+        </div>
+      </Beat>
+      <Beat active={step >= 2}>
+        <div className="ah-message ah-patient">
+          <p>Yes please. Tomorrow morning would be great.</p>
+        </div>
+        <div className="ah-reception-task">
+          <span>Reception task</span>
+          <strong>Call about appointment options</strong>
+          <p>Owner: reception · Tomorrow morning</p>
+          <small>Reply received. Scheduled follow ups stopped.</small>
+        </div>
+      </Beat>
+      <div className="ah-demo-steps" aria-label="Explore the enquiry workflow">
+        {["Enquiry", "Follow up", "Handover"].map((label, n) => (
+          <button key={label} type="button" aria-pressed={step === n} onClick={() => choose(n)}>
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 }
-function AdminFormScene() {
-  const { ref, step } = useWorkflowReveal();
+function AdminScene() {
+  const { ref, step } = useWorkflow();
   return (
     <div
       ref={ref}
-      className="ah-form-scene"
-      aria-label="Illustrative administrative form submission and reception task"
-      data-step={step}
+      className="ah-admin-visual"
+      aria-label="Illustrative administrative form and reception task"
     >
-      <div className="ah-form-sheet">
-        <p className="ah-scene-label">Illustrative digital form</p>
-        <h3>Before reception calls</h3>
-        <p className="ah-form-intro">Tell us how best to reach you.</p>
-        <dl className="ah-form-fields">
+      <img
+        src={ASSETS + "allied-health-form.webp"}
+        width={1122}
+        height={1402}
+        loading="lazy"
+        alt="A woman completing a short form on her phone at home"
+      />
+      <div className="ah-form-overlay ah-glass">
+        <p className="ah-example">Illustrative administrative form</p>
+        <h3>Before we call</h3>
+        <dl>
           <div>
             <dt>Name</dt>
             <dd>Mia</dd>
-          </div>
-          <div>
-            <dt>Preferred contact method</dt>
-            <dd>Phone call</dd>
           </div>
           <div>
             <dt>Best time to call</dt>
             <dd>Tomorrow morning</dd>
           </div>
         </dl>
-        <p className="ah-form-privacy">The live form includes your practice’s privacy notice.</p>
-        <div
-          className={"ah-form-submitted ah-progress-beat " + (step >= 1 ? "ah-shown" : "")}
-          aria-hidden={step < 1}
-        >
-          Administrative details submitted
-        </div>
-      </div>
-      <div
-        className={"ah-form-result ah-progress-beat " + (step >= 2 ? "ah-shown" : "")}
-        aria-hidden={step < 2}
-      >
-        <Sender>Configured Zapla action</Sender>
-        <strong>Callback details added to Mia’s enquiry.</strong>
-        <p>Reception task updated. Form reminder stopped.</p>
+        <Beat active={step >= 1}>
+          <p className="ah-form-submitted">Details submitted</p>
+        </Beat>
+        <Beat active={step >= 2}>
+          <div className="ah-form-outcome">
+            <Sender>Zapla follows through</Sender>
+            <p>
+              Reception task updated.
+              <br />
+              Form reminder stopped.
+            </p>
+          </div>
+        </Beat>
       </div>
     </div>
   );
 }
 function ReturnScene() {
-  const { ref, step } = useWorkflowReveal();
+  const { ref, step } = useWorkflow();
   return (
     <div
       ref={ref}
-      className="ah-return-scene"
-      aria-label="Illustrative practitioner approved reminder and patient reply"
-      data-step={step}
+      className="ah-return-visual"
+      aria-label="Illustrative approved return reminder and reception handover"
     >
-      <div className="ah-return-context">
-        <span>Practitioner approved follow up</span>
-        <strong>Due date supplied by the practice</strong>
-        <p>Check current bookings and contact permissions before sending.</p>
-      </div>
-      <div
-        className={"ah-message ah-zapla ah-progress-beat " + (step >= 1 ? "ah-shown" : "")}
-        aria-hidden={step < 1}
-      >
+      <img
+        src={ASSETS + "allied-health-reception.webp"}
+        width={1536}
+        height={1024}
+        loading="lazy"
+        alt="A patient speaking with reception at a contemporary allied health practice"
+      />
+      <div className="ah-return-reminder ah-glass">
+        <p className="ah-example">Illustrative approved reminder</p>
         <Sender>Your practice, via Zapla</Sender>
         <p>
-          Hi Mia, your practice asked us to contact you about arranging your next appointment. Reply
-          here if you’d like reception to help. Reply STOP to opt out.
+          Your practice asked us to contact you about your next appointment. Reply if you’d like
+          reception to help.
         </p>
+        <small>Reply STOP to opt out.</small>
       </div>
-      <div className={"ah-progress-beat " + (step >= 2 ? "ah-shown" : "")} aria-hidden={step < 2}>
-        <div className="ah-message ah-patient">
-          <p>Could someone call me about a time next week?</p>
-        </div>
-        <div className="ah-reception-task">
-          <div>
-            <span>Reception task</span>
-            <strong>Help Mia arrange her next appointment</strong>
+      <Beat active={step >= 1} className="ah-return-reply ah-glass">
+        <span>Patient reply</span>
+        <p>Could someone call me about a time next week?</p>
+        <Beat active={step >= 2}>
+          <div className="ah-task-line">
+            <strong>Reception takes over</strong>
+            <small>Reply received. Reminder sequence stopped.</small>
           </div>
-          <div className="ah-stop-note">Reply received · Reminder sequence stopped</div>
-        </div>
-      </div>
-      <p className="ah-example">
-        Illustrative reminder using practice supplied eligibility and records
-      </p>
+        </Beat>
+      </Beat>
     </div>
   );
 }
-function EnquiryStory() {
-  const ref = useRef<HTMLDivElement>(null);
-  const visible = useInView(ref, { amount: 0.1, margin: "0px 0px 80px 0px" });
-  const reduced = useReducedMotion();
-  const [step, setStep] = useState(0);
-  const [manual, setManual] = useState(false);
-  useEffect(() => {
-    if (reduced) setStep(2);
-  }, [reduced]);
-  useEffect(() => {
-    if (!visible || reduced || manual || step >= 2) return;
-    const timer = window.setTimeout(
-      () => setStep((s) => Math.min(s + 1, 2)),
-      step === 0 ? 350 : 600,
-    );
-    return () => window.clearTimeout(timer);
-  }, [visible, reduced, manual, step]);
+function ReviewScene() {
+  const { ref, step } = useWorkflow();
   return (
     <div
       ref={ref}
-      className="ah-enquiry-demo"
-      aria-label="Illustrative enquiry follow through"
-      data-step={step}
+      className="ah-review-scene"
+      aria-label="Illustrative Google review invitation, not a real patient review"
     >
-      <div className="ah-demo-top">
-        <span>Appointment enquiry</span>
-        <span>Illustrative workflow</span>
-      </div>
-      <div className="ah-message-thread">
-        <div className="ah-message ah-patient">
-          <span>Patient enquiry</span>
-          <p>Do you have physio appointments after 5?</p>
-        </div>
-        <div className="ah-message ah-zapla">
+      <p className="ah-review-trigger">Agreed completed visit event</p>
+      <Beat active={step >= 1}>
+        <div className="ah-review-invite ah-glass">
           <Sender>Your practice, via Zapla</Sender>
           <p>
-            Thanks for getting in touch. You can see our available times using our booking link.
-            Reply here if you’d like reception to help.
+            Thanks for visiting. If you’d like to share your experience, you can leave a Google
+            review.
           </p>
-          <span className="ah-booking-link">Practice booking link</span>
+          <span className="ah-example-link">
+            Leave a review <ArrowRight size={14} aria-hidden="true" />
+          </span>
         </div>
-        <div className={"ah-progress-beat " + (step >= 1 ? "ah-shown" : "")} aria-hidden={step < 1}>
-          <div className="ah-message ah-zapla">
-            <Sender>Agreed follow up</Sender>
-            <p>Still looking for a suitable time? Reply if you’d like reception to call you.</p>
+      </Beat>
+      <Beat active={step >= 2}>
+        <div className="ah-google-screen">
+          <div className="ah-google" aria-label="Google">
+            {"Google".split("").map((letter, n) => (
+              <span key={n} aria-hidden="true">
+                {letter}
+              </span>
+            ))}
           </div>
+          <h3>Your practice</h3>
+          <div className="ah-google-stars" aria-label="Five unselected rating stars">
+            {Array.from({ length: 5 }, (_, n) => (
+              <Star key={n} size={29} strokeWidth={1.5} aria-hidden="true" />
+            ))}
+          </div>
+          <p>Share your experience</p>
         </div>
-        <div className={"ah-progress-beat " + (step >= 2 ? "ah-shown" : "")} aria-hidden={step < 2}>
-          <div className="ah-message ah-patient">
-            <p>Yes please. Tomorrow morning would be great.</p>
-          </div>
-          <div className="ah-reception-task">
-            <div>
-              <span>Reception task</span>
-              <strong>Call about appointment options</strong>
-              <p>Owner: reception · Tomorrow morning</p>
-            </div>
-            <div className="ah-stop-note">Reply received · Scheduled follow ups stopped</div>
-          </div>
-        </div>
-      </div>
-      <div className="ah-demo-steps" aria-label="Explore the workflow">
-        {["Enquiry received", "Clear next step", "Reception takes over"].map((label, index) => (
-          <button
-            type="button"
-            key={label}
-            aria-pressed={step === index}
-            onClick={() => {
-              setManual(true);
-              setStep(index);
-            }}
-            className={step === index ? "ah-step-selected" : ""}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-      <p className="ah-demo-caption">
-        A reply triggers the handoff. Appointment confirmation stays with your booking system.
-      </p>
+      </Beat>
+      <p className="ah-example">Illustrative invitation. No patient review or rating shown.</p>
     </div>
   );
 }
 const faqs = [
+  [
+    "What does it cost?",
+    "Follow Through is A$399 per month with Guided Launch from A$1,997. Growth is A$699 per month with Guided Launch from A$2,997. Prices exclude GST. SMS, email and voice usage are separate. AI Receptionist is optional, and custom connections are scoped separately. We confirm the workflow, plan and setup cost before you commit.",
+  ],
   [
     "Can we keep our practice software?",
     "Yes. We first check which enquiry tasks it already handles, so Zapla addresses a real gap. If your current system handles the workflow well, keep it there. We confirm any required connections before committing to them.",

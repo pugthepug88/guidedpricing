@@ -1,85 +1,59 @@
-# Allied health page review
+# Allied Health rebuild review
 
-Route: `/industries/allied-health`
+Updated 12 October 2026. This is a working review of the rebuild, not independent approval or evidence of customer results.
 
-## Status
+## Positioning and strongest use cases
 
-Implemented review draft. Production build, TypeScript and scoped ESLint pass. Rendered desktop, mobile, zoomed out composition and motion QA remain blocked by the Lovable preview login wall. The cloud browser cannot access the local development server. No claim of 9/10 visual approval or external approval is made.
+Target: appointment based private allied health practices, with physiotherapy as the concrete example. The buying problem is residual enquiry and reception administration around an existing practice system. It is not a replacement for clinical records, claiming, the diary or treatment decisions.
 
-## October 9 revision following the dental review critique
+The strongest alternative is to use the practice system's existing forms, reminders and booking tools. That remains the right choice wherever those tools already solve the problem. Zapla should earn its place through unresolved enquiries, named callback ownership or an agreed communication gap.
 
-Applied the visible dental review requirements: plain task-specific copy, practical forms and follow-up workflows, feedback and Google review requests, stronger practice workflow coverage and deliberate section rhythm. Retrieval of the latest separate conversation failed, so this revision does not claim access to unseen subsequent discussion.
+| Workflow              | Trigger                                             | Zapla action                                                               | Next step and boundary                                                                                                                                    |
+| --------------------- | --------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| New enquiry           | Patient asks about available appointments           | Configured reply and existing booking link; agreed follow up if unresolved | Reply stops the sequence and gives reception a task. The booking system confirms appointments.                                                            |
+| Administrative form   | Reception needs callback details                    | Collect agreed details, associate submission with enquiry, update task     | Submission stops form reminders. An external form needs a verified completion signal. Clinical histories and consent remain in the clinical system.       |
+| Return reminder       | Practice supplies approved eligibility and due date | Agreed reminder using current records and contact permissions              | Reply stops reminders and reception arranges the next step. Practitioners determine eligibility.                                                          |
+| Feedback or reviews   | Agreed completed visit event                        | Neutral invitation and route direct replies to a named person              | Reception handles admin concerns; practitioners handle clinical questions. No incentives, positive screening or automatic reuse of clinical testimonials. |
+| Optional call support | Reception cannot answer                             | Agreed administrative answers or callback request                          | Human fallback required. No diagnosis, treatment advice or urgency assessment.                                                                            |
 
-The original page was too concentrated on enquiries and callbacks. It underexplained the breadth relevant to a practice manager and overused abstract headings. The revision adds:
+Capability support was checked against current repository CRM, Follow Up and Reviews content. This is first party website support, not a live product acceptance test. Practice system connections, source freshness, submission events, patient data handling and actual workflow operation still require product verification.
 
-- Digital administrative new patient form: contact preference, callback timing, submission attached to enquiry, reception task update and form reminder stop.
-- Practitioner approved return reminder: practice supplies eligibility and due date; current appointments and contact permissions checked before messaging; reply or opt out stops the sequence.
-- Neutral feedback and optional Google review requests: named staff owner; no incentives, positive-only selection or automatic clinical testimonial publication.
-- Clearer headings for enquiry follow-up, software fit, care decisions and FAQs.
-- Alternating enquiry, form and return scene layouts with a smaller supporting feedback section.
+## Composition and brand
 
-### Explicit scoring
+Read the homepage, Dental and Mechanics implementations plus the mandatory build protocol, design guardrails and video creative system.
 
-Scores below are subjective editorial assessments of copy and source-defined workflows, not rendered visual scores, clinical approval, product certification or measured conversion predictions.
+USE: local Inter Tight and Manrope fonts, autumn palette, editorial human photographs, shared root navigation/footer and Dental glass treatment.
 
-| Lens | Original | Revised | Remaining limitation |
-| --- | ---: | ---: | --- |
-| Copywriting | 7 | 9 | Final rendered headline breaks and density unverified |
-| Allied health practice workflow | 6 | 9 | Real configuration and connections must be scoped |
-| Practice manager | 7 | 9 | Reception acceptance testing remains practice-specific |
-| Product marketing | 7 | 8.5 | No verified case study or distinct integration proof |
-| Conversion and sales | 7 | 8.5 | No live conversion evidence or rendered hierarchy review |
-| Buyer psychology | 7.5 | 8.5 | Requires scan review with actual page |
-| CFO | 8 | 8.5 | No practice-specific economics or ROI data |
-| Competitor | 8 | 9 | Explicitly acknowledges existing PMS forms and messaging |
-| Australian healthcare risk in copy | 8.5 | 9 | Actual privacy, providers, consent and deployment review still required |
-| SEO content | 8 | 8.5 | Review draft remains noindex; no search performance evidence |
-| UI/UX, Brand/Creative, whole-page art direction | Unverified | Unverified | Rendered desktop, mobile and zoomed out inspection blocked |
-| Motion presentation | Unverified | Unverified | Source timing checked; actual scrolling and readability unverified |
-| AI slop visual critic | Unverified | Unverified | Must see the real render before assigning a score |
+ADAPT: dark enquiry demonstration followed by a portrait form scene, broad reception photography, violet review demonstration and sage software boundary. A smaller opening strip introduces the enquiry gap. Optional call support is a supporting point instead of a separate phone centred hero.
 
-A 9 across all lenses has not been achieved or verified. The missing proof cannot be replaced by raising scores to match a target.
+REJECT: a repetitive run of alternating dialogue panels, clinical advice automation, unverified native practice integrations and invented metrics/testimonials.
 
-### Source checks for the new scope
+The glass matches Dental: 91% warm white, light 2px outer border, subtle inset border, 6px backdrop blur, soft shadow and 18px corners. All three photographs were generated for this draft and are illustrative, not real customer evidence. WebP assets are local. The main photo loads with high priority; supporting photos lazy load. Faces are placed above the overlay areas in the image sources. Mobile overlays move into normal document flow.
 
-- [Cliniko automatic patient forms](https://help.cliniko.com/en/articles/4447434-automatically-send-forms-to-patients): existing PMS can already send forms. Keep a working incumbent process.
-- [Cliniko patient follow-up messaging](https://www.cliniko.com/features/appointments/patient-follow-ups/): follow-up is not automatically a differentiator. Start with a documented gap.
-- [Ahpra advertising FAQ](https://www.ahpra.gov.au/Resources/Advertising-hub/Frequently-asked-questions): independent reviews and clinical testimonials used in advertising differ.
-- [OAIC collecting health information](https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/health-service-providers/guide-to-health-privacy/chapter-2-collecting-health-information): collection purpose, consent and notice matter for online forms.
+## Review by lens
 
-## Direction and review findings
+Scores below assess observable copy and source implementation only. A score cannot replace rendered inspection. No claim is made that every lens has reached 9/10.
 
-The approved positioning is enquiry follow through around existing practice software, led by a physiotherapy example. A phone-first AI page was considered and rejected because it narrows the proposition and overlaps the AI Receptionist page. Replacing the clinical system was rejected because the software connections and clinical capabilities are unverified.
+| Lens                 | Assessment              | Evidence and remaining limitation                                                                                                                                                                              |
+| -------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Copywriting          | 9/10, editorial         | Direct enquiry outcome, concrete evening appointment example, trigger/action/handover shown; detailed qualifications in supporting copy and FAQ.                                                               |
+| Industry customer    | 9/10, editorial         | Physiotherapy journey is concrete, existing practice tools retained, patients have an easy route to reception. Not validated in customer interviews.                                                           |
+| Frontline operations | 9/10, editorial         | Named task owner, callback timing, submission events and reply stops; clinical exceptions stay with people. Live acceptance testing pending.                                                                   |
+| Automation logic     | 9/10, specification     | Trigger, next action and stop conditions are explicit; a link click is not a booking; external form completion is qualified. Live connections unverified.                                                      |
+| Art direction        | Pending rendered review | Three inspected generated photographs with coherent cream/oak/sage styling. Actual page crops and composition not yet visually signed off.                                                                     |
+| Visual hierarchy     | Pending rendered review | Dominant hero image, one primary heading per section and varied media scale in source. Actual full scroll and zoomed out review pending.                                                                       |
+| Brand consistency    | 9/10, source comparison | Dental glass values, incumbent palette and local typography retained; shared shell unchanged. Rendered comparison pending.                                                                                     |
+| Conversion           | 8.5/10, editorial       | Consistent call CTA, workflow examples, pricing access and objections. No conversion data or real customer proof supplied.                                                                                     |
+| CFO/value            | 8.5/10, editorial       | Platform/setup/usage costs separated; useful measures named. No verified labour savings, marginal appointments or customer ROI evidence.                                                                       |
+| Credibility          | 8.5/10, editorial       | Illustrative labels, no results/statistics/testimonials invented, connection limits near claims. Live product evidence and healthcare data suitability pending.                                                |
+| Accessibility        | Pending rendered checks | Native FAQ, semantic headings, visible focus, 44px controls, alt text and reduced motion in source. Keyboard, contrast and screen reader checks still needed in the actual browser.                            |
+| Responsive           | Pending rendered checks | Dedicated 1100/800/480 breakpoints and mobile card flow. No claim of measured overflow or crop verification.                                                                                                   |
+| Motion               | Pending rendered checks | One way state emphasis completes promptly and holds; inactive content remains readable; timer clears offscreen, manual enquiry controls, reduced motion displays the final story. Actual pacing not inspected. |
 
-| Lens | Implemented evidence | Remaining gate |
-| --- | --- | --- |
-| Brand and creative | Existing Zapla palette, local Inter Tight and Manrope, real petal component, incumbent physiotherapy photograph, asymmetric hero and warm section rhythm | Compare actual desktop and mobile renders with homepage and mechanics page |
-| UI and UX | One enquiry sequence, early software fit, semantic headings, focus styles, native FAQs, 44px workflow controls | Inspect line breaks, crop, overflow, touch targets and whole-page composition |
-| Motion | Pre-trigger near viewport, 350ms then 600ms progression, pause when offscreen, hold final state, reduced motion final state, explicit manual controls | Observe actual scrolling and interactions at normal speed |
-| Product marketing | Separates booking/reminders already in PMS from unresolved enquiry ownership; no unsupported integration strip | Buyer comprehension review on rendered page |
-| Conversion | Book a Call, See how it works anchor, pricing link and final CTA | Check visible CTA hierarchy and mobile journey |
-| Allied health owner | Preserve practice software; start with an agreed gap; care decisions remain human | Practice-specific implementation evidence needed before service claims are expanded |
-| Practice manager | Reception task owner, reply handoff, stop conditions and launch testing | Confirm proposed workflow with real reception process |
-| Buyer psychology | Reassurance early, optional AI, bounded first scope | Rendered scan and objections review |
-| CFO | Platform, setup, usage and custom integration separation; scope must earn its place | No fabricated ROI or revenue proof; commercial validation remains practice-specific |
-| Sales | Fit-first discovery and supported booking connections | No assumed booking sync or named integration promises |
-| Competitor | Acknowledges current software may handle bookings and reminders well | Demonstrate incremental value in discovery rather than feature overlap |
-| Australian healthcare risk | No treatment claims, testimonials or compliance badges; clinical questions remain human; minimum data, provider review and consent boundaries | Actual privacy/provider/booking configuration review before deployment with patient data |
-| SEO | Unique title/description and H1; noindex and excluded sitemap during review | Indexability remains deliberately pending launch approval and proof |
-| AI slop critic | No invented metrics, generic icon grids, floating animation or dashboard garnish | Judge actual rendered hierarchy and visual density |
+## Validation and blockers
 
-## Illustrative workflow
+Production build, TypeScript, page-specific ESLint and diff checks passed during restoration. The final production build passed after the copy and route edits.
 
-Enquiry asks about appointment times. Configured reply provides the practice booking link and offers reception help. Agreed follow up prompts an unresolved enquiry. Reply creates the reception callback task and stops scheduled follow ups. Appointment confirmation remains with the existing booking system. Link clicks are not treated as booking proof.
+The direct Lovable Allied Health preview was opened on 12 October and redirected to Lovable sign-in. The same preview access barrier prevented rendered inspection of Dental, Mechanics and the homepage. No authentication bypass, visibility change or separate production deployment was performed. Desktop, tablet, mobile, whole page and zoomed out sign-off remain outstanding. Source review and generated image inspection are not rendered page review.
 
-All conversation data is fictional. Optional AI is administrative and does not diagnose, recommend treatment or assess urgency.
-
-## Verification
-
-- `npm run build`: passed.
-- `npx tsc --noEmit`: passed.
-- Scoped ESLint for the new component and route: passed.
-- `git diff --check`: passed.
-- New route generated by TanStack.
-- Desktop and mobile navigation entries added without changing existing entries.
-- Visual and interaction verification: pending authenticated preview access.
+The 9/10 goal is not achieved across all lenses. Remaining checks require preview access; commercial/product evidence requires actual verification, not extra decorative polish.

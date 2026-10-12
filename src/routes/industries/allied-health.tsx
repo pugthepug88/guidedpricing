@@ -7,7 +7,23 @@ const description =
 export const Route = createFileRoute("/industries/allied-health")({
   staticData: { sitemap: false },
   head: () => ({
-    links: [{ rel: "stylesheet", href: pageCss }],
+    links: [
+      { rel: "stylesheet", href: pageCss },
+      {
+        rel: "preload",
+        href: "/concept/industries/fonts/inter-tight-latin-500-normal.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/concept/industries/fonts/manrope-latin-400-normal.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+    ],
     meta: [
       { title },
       { name: "description", content: description },
