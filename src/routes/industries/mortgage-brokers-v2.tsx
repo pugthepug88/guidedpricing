@@ -7,11 +7,11 @@ export const Route = createFileRoute("/industries/mortgage-brokers-v2")({
   head: () => ({
     links: [{ rel: "stylesheet", href: pageCss }],
     meta: [
-      { title: "Mortgage Brokers V2: Client Relationships & Follow Through | Zapla" },
+      { title: "Client Relationships & Follow Through for Mortgage Brokers | Zapla" },
       {
         name: "description",
         content:
-          "Keep client relationships, repeat business and referral conversations moving with Zapla. A separate mortgage brokers comparison page.",
+          "Keep client relationships, repeat business and referral conversations moving with Zapla, alongside your specialist mortgage software.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],

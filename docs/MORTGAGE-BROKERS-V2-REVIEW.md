@@ -67,3 +67,15 @@ Added Mortgage Brokers and Mortgage Brokers V2 entries to the existing root-owne
 ## Client book economics refinement
 
 Following the owner review, keep the relationship-led hero headline and strengthen the supporting copy: the client book represents ongoing income and future opportunities. Mention trail income once in the owner framing, alongside repeat business and referrals. The mechanism remains useful client contact and shared team follow through; no promise to protect commission, retain an existing loan or prevent suitable refinancing is made. This refines the incumbent strategy rather than replacing it with commission-led messaging. Original page remains unchanged.
+
+
+## Production presentation cleanup
+
+Restore the user's selected staggered recognition layout from the original mortgage page, with the lead relationship outcome and three steps for repeat contact, introductions and changing plans. Preserve the client-book strategy and mention trail income once.
+
+Remove all visible illustrative captions, comparison-draft labels, sample opt-out footers and implementation notes from the marketing scenes. Loan review messages invite a conversation and still make no advice, savings or approval claim. Actual contact permissions and timing remain workflow requirements covered by the practical FAQs, not copy on simulated message cards. These are designed demonstrations, not fabricated customer proof.
+
+Google feedback now matches Dental's separate invitation and white rating panel: full coloured wordmark, five unselected 31px outlined stars at 1.5 stroke, 20px panel radius and matching shadow. Referral invitation has its own conversation beside the review scene. Glass surfaces retain exactly Dental's rgba(252,252,250,.91), 2px light double border, inset outline, shadow and 6px blur; card density is reduced so the treatment reads consistently.
+
+
+Cleanup verification: production build and TypeScript/scoped lint pass. Full renders checked at 1440, 1024, 768, 390 and 320px; no horizontal overflow, visible draft/illustrative/opt-out footers or browser errors. Loan-review and prospect selectors still work. Browser-computed glass background, border, inset shadow, drop shadow and blur match Dental exactly. Google panel background, radius and shadow match Dental, with the same coloured wordmark and outlined star system. Full page inspected at reduced scale and targeted review/Google scenes inspected at readable scale. Original mortgage route and stylesheet retain their pre-change hashes.

@@ -1,4 +1,3 @@
-import { Link as RouterLink } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { ArrowRight, Plus, Star } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
@@ -8,14 +7,6 @@ function Label({ children }: { children: ReactNode }) {
   return <p className="mv-label">{children}</p>;
 }
 function Link({ href, children }: { href: string; children: ReactNode }) {
-  if (href === "/industries/mortgage-brokers") {
-    return (
-      <RouterLink className="mv-link" to="/industries/mortgage-brokers">
-        {children}
-        <ArrowRight size={16} aria-hidden="true" />
-      </RouterLink>
-    );
-  }
   return (
     <a className="mv-link" href={href}>
       {children}
@@ -88,28 +79,17 @@ function ReviewScene() {
           label="Choose a loan review invitation example"
         />
         <Sender>Your brokerage · Review invitation</Sender>
-        <h3>
-          {mode === 0 ? "A year later. Still their broker." : "A date worth getting ahead of."}
-        </h3>
+        <h3>{mode === 0 ? "Time for your annual review." : "Your fixed rate is ending."}</h3>
         <p>
           {mode === 0
-            ? "Hi Priya, it’s been a year since we helped with your home loan. Has anything changed? Let’s arrange a review with your broker."
-            : "Hi Priya, your recorded fixed rate period is coming to an end. Would you like to arrange a conversation with your broker about your next steps?"}
+            ? "Hi Priya, it’s been a year since your home loan settled. Would you like to catch up and review your plans?"
+            : "Hi Priya, your fixed rate period is coming to an end. Would you like to catch up and talk through your next steps?"}
         </p>
-        <span className="mv-message-action">Reply to arrange a conversation</span>
-        <small>Reply STOP to opt out.</small>
-        <span className="mv-message-context">
-          {mode === 0
-            ? "Sent on the agreed review date."
-            : "Uses a fixed rate end date verified by your broker."}
-        </span>
       </div>
       <div className="mv-glass mv-review-reply">
         <strong>Priya Shah · Client reply</strong>
         <p>“Yes please. We’re thinking about our next move.”</p>
-        <span>Your broker handles the review and advice.</span>
       </div>
-      <p className="mv-example">Illustrative client conversation</p>
     </div>
   );
 }
@@ -139,7 +119,7 @@ const TEAM = [
     message: "My sister is looking to buy. Can I introduce you?",
     action: "Agree an introduction with Sam",
     owner: "Mei · Client services",
-    history: "Approved invitation sent → Client replied → Team picks up",
+    history: "Invitation sent → Client replied → Team picks up",
   },
 ];
 function TeamScene() {
@@ -173,7 +153,6 @@ function TeamScene() {
         </dl>
         <p className="mv-record-history">{item.history}</p>
       </div>
-      <p className="mv-example">Illustrative connected record and team handoff</p>
     </div>
   );
 }
@@ -190,7 +169,7 @@ function ProspectSection() {
           loading="lazy"
         />
         <div className="mv-glass mv-prospect-message">
-          <Sender>Your brokerage · {selected === 0 ? "Agreed check-in" : "Reconnection"}</Sender>
+          <Sender>Your brokerage · {selected === 0 ? "Checking in" : "Reconnecting"}</Sender>
           <h3>
             {selected === 0
               ? "Still looking. Still in touch."
@@ -201,9 +180,7 @@ function ProspectSection() {
               ? "Hi Alex, you asked us to reconnect this month. How’s the property search going? Reply here if you’d like to arrange a chat."
               : "Hi Alex, we spoke about your property plans a while ago. If those plans are back on the table, would you like to reconnect with your broker?"}
           </p>
-          <small>Reply STOP to opt out.</small>
         </div>
-        <p className="mv-example">Illustrative message</p>
       </div>
       <div className="mv-copy">
         <Label>Before they’re ready</Label>
@@ -220,14 +197,12 @@ function ProspectSection() {
         />
         <div className="mv-prospect-detail" aria-live="polite">
           <h3>
-            {selected === 0
-              ? "Keep the check-in you agreed to."
-              : "Reconnect for a relevant reason."}
+            {selected === 0 ? "Keep the conversation going." : "Reconnect for a relevant reason."}
           </h3>
           <p>
             {selected === 0
               ? "Zapla sends the agreed check-in at the right time. When the client replies, your broker takes over and further reminders stop."
-              : "Select eligible past enquiries for an approved invitation. Leave out active conversations, opted out contacts and anyone already being followed up. Replies return to the team with context."}
+              : "Reconnect with past enquiries through a relevant message. When someone responds, your team picks up with the earlier conversation in view."}
           </p>
           <Link href={selected === 0 ? "/follow-up" : "/reactivation"}>
             {selected === 0 ? "Explore Follow-Up" : "Explore Reactivation"}
@@ -240,27 +215,27 @@ function ProspectSection() {
 const FAQS = [
   [
     "Will this replace our mortgage CRM?",
-    "Your lending system stays responsible for research, applications, submissions and loan processing. Zapla adds agreed client communication and team follow through. If your current CRM already handles those journeys well, the call should establish whether there is a real gap worth fixing.",
+    "Zapla works alongside your lending system. Research, applications and submissions stay there. We start with the client communication and team follow through your current setup is missing.",
   ],
   [
     "Does Zapla connect to our existing software?",
-    "We assess the required information, available exports or APIs and update responsibilities before agreeing the scope. No native connection or automatic two-way sync is assumed. Review dates must be current and verified by your brokerage.",
+    "We review your software and available connection options before setup. The approach depends on your existing system, so we confirm how client information and review dates will stay up to date rather than promise a connection we have not checked.",
   ],
   [
     "What happens when a client replies or books?",
-    "The configured flow routes the conversation to an agreed team member and stops the relevant reminders. We test reply, opt-out and booking handling before launch. A booking is only treated as confirmed when the configured calendar or verified connection supplies that event, not when someone clicks an external link.",
+    "Replies return to the team member responsible for the client, with the conversation history attached. Relevant reminders stop when the client responds. Booking handling depends on your calendar and connection, which we confirm and test during setup.",
   ],
   [
     "Can you help with missed calls and document reminders?",
-    "AI Receptionist is an optional add-on for agreed routine questions, details and callback requests, with a tested human handoff. It does not give lending advice. We can also configure approved form or portal-link reminders where useful. Financial documents stay in your approved lending portal; an external link alone does not verify receipt or completion.",
+    "AI Receptionist is optional and can capture routine enquiries and callback requests for your team. Zapla can also send reminders for agreed forms or portal links. Financial documents stay in your lending portal, and reminders stop on completion where that update is available.",
   ],
   [
     "How do review and referral invitations work?",
-    "Your brokerage agrees the event, timing and neutral request wording. Google review invitations ask for an honest experience, without rewards or filtering for positive feedback. Referral invitations make it easy for an existing client to introduce someone. They do not imply reward tracking, a native referral management engine or permission to contact another person.",
+    "Choose when to invite an honest Google review or ask whether a client would like to make an introduction. Replies return to your team. Your team handles introductions personally and contacts the referred person once they have agreed to be contacted.",
   ],
   [
     "Who decides what gets sent?",
-    "Your brokerage approves the audiences, timing, message wording and contact permissions. Opt-outs and exclusions are configured and tested. Loan reviews and financial advice stay with your broker. Outreach does not promise approval, savings or a better rate.",
+    "Your brokerage chooses the clients, messages and timing. We configure contact preferences, exclusions and opt-outs around your process. Loan reviews and financial advice stay with your broker.",
   ],
 ];
 export function MortgageBrokersV2Page() {
@@ -278,16 +253,13 @@ export function MortgageBrokersV2Page() {
           </h1>
           <p className="mv-intro">
             Your client book represents ongoing income and future opportunities. Zapla keeps the
-            relationships behind it connected with relevant check-ins, review invitations and shared
+            relationships behind it connected with relevant contact, review invitations and shared
             team follow through.
           </p>
           <Actions />
           <p className="mv-hero-note">
             You handle the lending. Zapla keeps the client relationship moving.
           </p>
-          <RouterLink className="mv-compare" to="/industries/mortgage-brokers">
-            V2 comparison draft · View original page <ArrowRight size={14} aria-hidden="true" />
-          </RouterLink>
         </div>
         <div className="mv-hero-scene">
           <img
@@ -302,29 +274,64 @@ export function MortgageBrokersV2Page() {
             <p>“You helped us with our first home. Can we talk about our next move?”</p>
           </div>
           <div className="mv-glass mv-hero-owner">
-            <Sender>Conversation to your broker</Sender>
+            <Sender>Daniel · Broker</Sender>
             <p>
-              Client history.
+              Priya’s reply and client history.
               <br />
-              Clear next action.
-              <br />
-              <strong>A relationship to build on.</strong>
+              <strong>Ready for the next conversation.</strong>
             </p>
           </div>
-          <p className="mv-example">Illustrative client relationship</p>
         </div>
       </section>
-      <section className="mv-outcome mv-wrap" aria-labelledby="mv-outcome-title">
-        <h2 id="mv-outcome-title">
-          Your client book should be an asset.
-          <br />
-          <span>Not a list only you remember.</span>
-        </h2>
-        <p>
-          Clients hear from you at useful moments and know who to speak to when their plans change.
-          That consistency supports the relationships behind trail income, repeat business and
-          referrals.
-        </p>
+      <section className="mv-recognition mv-wrap" aria-labelledby="mv-outcome-title">
+        <div>
+          <Label>The client relationship</Label>
+          <h2 id="mv-outcome-title">
+            Your next opportunity
+            <br />
+            is already in
+            <br />
+            your client book.
+          </h2>
+        </div>
+        <div className="mv-moments">
+          <article>
+            <span>After settlement</span>
+            <h3>
+              Stay the broker
+              <br />
+              they come back to.
+            </h3>
+            <p>
+              Useful contact keeps the relationships behind trail income and repeat business in
+              view.
+            </p>
+          </article>
+          <article>
+            <span>When they recommend you</span>
+            <h3>
+              Make the
+              <br />
+              introduction easy.
+            </h3>
+            <p>
+              Give clients a simple way to share their experience and introduce someone who needs
+              your help.
+            </p>
+          </article>
+          <article>
+            <span>When plans change</span>
+            <h3>
+              Keep the next
+              <br />
+              conversation open.
+            </h3>
+            <p>
+              Still searching or ready for their next move. Give each client a clear next step with
+              your team.
+            </p>
+          </article>
+        </div>
       </section>
       <section id="client-book" className="mv-retention" aria-labelledby="mv-review-title">
         <div className="mv-wrap">
@@ -343,8 +350,8 @@ export function MortgageBrokersV2Page() {
                 plans.
               </p>
               <p>
-                Zapla uses your agreed, verified dates to send a relevant invitation. Your broker
-                picks up the reply and handles the conversation.
+                Zapla sends timely review invitations and brings replies back to your broker. The
+                client relationship keeps moving after settlement.
               </p>
               <Link href="/customer-marketing">Explore Customer Marketing</Link>
             </div>
@@ -360,35 +367,14 @@ export function MortgageBrokersV2Page() {
             <br />
             to recommend you.
           </h2>
+          <p>Help clients share their experience and introduce someone who needs your help.</p>
           <p>
-            Make it easy for clients to share an honest experience and introduce someone who needs
-            your help.
-          </p>
-          <p>
-            Send a neutral Google review invitation after an agreed milestone. At a suitable later
-            moment, invite an introduction. Your team handles the response personally.
+            After settlement, Zapla sends your Google review invitation. A later message can invite
+            an introduction, with replies going to your team.
           </p>
           <Link href="/reviews">Explore Reviews &amp; Reputation</Link>
-        </div>
-        <div className="mv-reputation-scene">
-          <div className="mv-glass mv-feedback">
-            <Sender>After settlement</Sender>
-            <p>Thanks for working with us, Sam. Would you share your experience on Google?</p>
-            <span className="mv-message-action">Leave an honest review</span>
-            <div className="mv-google">
-              <strong>
-                <span>G</span>oogle
-              </strong>
-              <p>Share your experience</p>
-              <div aria-label="Five empty stars, no rating selected">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} size={23} aria-hidden="true" />
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="mv-glass mv-referral">
-            <Sender>A later referral invitation</Sender>
+          <div className="mv-referral-conversation">
+            <Sender>Your brokerage · Staying in touch</Sender>
             <p>
               If someone you know is thinking about their next property move, you’re welcome to
               introduce us.
@@ -398,7 +384,33 @@ export function MortgageBrokersV2Page() {
               <p>“My sister is looking to buy. Can I introduce you?”</p>
             </div>
           </div>
-          <p className="mv-example">Illustrative invitations, not customer results</p>
+        </div>
+        <div
+          className="mv-reputation-scene"
+          aria-label="Google review invitation and five unselected rating stars"
+        >
+          <div className="mv-review-event">Settlement completed</div>
+          <div className="mv-feedback">
+            <Sender>Your brokerage · Invitation sent</Sender>
+            <p>Thanks for working with us, Sam. Would you share your experience on Google?</p>
+            <span className="mv-message-action">
+              Leave a Google review <ArrowRight size={14} aria-hidden="true" />
+            </span>
+          </div>
+          <div className="mv-google-screen">
+            <span className="mv-google-wordmark" aria-label="Google">
+              {["G", "o", "o", "g", "l", "e"].map((letter, i) => (
+                <span key={i}>{letter}</span>
+              ))}
+            </span>
+            <h3>How was your experience?</h3>
+            <div className="mv-google-stars" aria-label="Five unselected rating stars">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <Star key={n} size={31} strokeWidth={1.5} aria-hidden="true" />
+              ))}
+            </div>
+            <p>Share your experience</p>
+          </div>
         </div>
       </section>
       <section className="mv-team" aria-labelledby="mv-team-title">
@@ -560,7 +572,6 @@ export function MortgageBrokersV2Page() {
           next step and where Zapla can earn its place.
         </p>
         <Actions final />
-        <Link href="/industries/mortgage-brokers">Compare with the original page</Link>
       </section>
     </main>
   );
