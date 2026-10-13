@@ -588,4 +588,3 @@ function ConsiderScene() {
     </div>
   );
 }
-

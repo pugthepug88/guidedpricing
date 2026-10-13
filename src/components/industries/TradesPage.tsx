@@ -607,4 +607,3 @@ function Faq() {
     </section>
   );
 }
-
