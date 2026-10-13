@@ -118,8 +118,7 @@ export function TradesPage() {
           </h1>
           <p className="tr-intro">
             Keep new enquiries, unanswered quotes and repeat service moving while you’re on the job.
-            Zapla keeps requests and replies together, whether you’re using spreadsheets and inboxes
-            or already have a CRM.
+            Zapla keeps requests, replies and the next step in one place.
           </p>
           <Actions />
           <p className="tr-hero-foot">
@@ -201,7 +200,7 @@ export function TradesPage() {
             </p>
             <Link href="/follow-up">Explore quote follow-up</Link>
             <p className="tr-qualification">
-              Quote status needs to reach Zapla before a follow-up can start.{" "}
+              Follow-up starts when the quote is recorded in Zapla.{" "}
               <a href="#trade-faq">How connections work</a>.
             </p>
           </div>
@@ -250,17 +249,14 @@ export function TradesPage() {
             is still fresh.
           </h2>
           <p>
-            A completed job can trigger a Google review request. Zapla sends the message and gives
-            the customer a direct way to share their experience.
+            When a job is marked complete in Zapla, it can trigger a Google review request. Zapla
+            sends the message and gives the customer a direct way to share their experience.
           </p>
           <p>
             Make asking part of finishing the job, rather than another thing to remember at the end
             of the week.
           </p>
           <Link href="/reviews">Explore Google review requests</Link>
-          <p className="tr-aside">
-            The job must be marked complete in Zapla or through a verified connection.
-          </p>
         </div>
         <ReviewScene />
       </section>

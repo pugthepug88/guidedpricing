@@ -8,7 +8,7 @@ import skinCss from "@/styles/cosmetic-skin-clinics.css?url";
 
 const TITLE = "CRM & Client Follow-Up for Skin & Cosmetic Clinics | Zapla";
 const DESCRIPTION =
-  "Automate skin clinic enquiry replies, pre-visit admin, consultation follow-up and eligible client reactivation. Start from spreadsheets and inboxes or keep your existing clinic software.";
+  "Automate skin clinic enquiry replies, pre-visit admin, consultation follow-up and eligible client reactivation.";
 export const Route = createFileRoute("/industries/cosmetic-skin-clinics")({
   staticData: { sitemap: false },
   head: () => ({
@@ -35,7 +35,7 @@ const FAQS = [
   ],
   [
     "Does Zapla integrate with our clinic software?",
-    "No native connection to Timely, Fresha, Kitomba or Pabau is promised here. We verify your system, available APIs or exports, permissions and update process before recommending a workflow. A contact import is not a live sync. Your team continues to confirm appointments in your existing diary unless a booking connection has been tested.",
+    "Connection options depend on your clinic software. We check the available APIs or exports, permissions and update process before recommending a workflow. A contact import is not a live sync. Your team continues to confirm appointments in your existing diary unless a booking connection has been tested.",
   ],
   [
     "Can AI recommend a treatment or answer suitability questions?",
@@ -51,11 +51,11 @@ const FAQS = [
   ],
   [
     "Do we move our clinical records into Zapla?",
-    "This proposal is for client communication, not replacing clinical records. Treatment notes, consent forms, health histories and clinical photographs stay in your existing system. Agree the minimum administrative information for each workflow. Enquiries can still contain sensitive health information, so privacy, access, providers, hosting and retention need review before any client data is imported.",
+    "Zapla handles client communication rather than clinical records. Treatment notes, consent forms, health histories and clinical photographs stay in your existing system. Agree the minimum administrative information for each workflow. Enquiries can still contain sensitive health information, so privacy, access, providers, hosting and retention need review before any client data is imported.",
   ],
   [
     "What about reviews and testimonials?",
-    "Agree the approach for your services before using review requests or publishing feedback. Independent feedback and using clinical testimonials in healthcare advertising are different activities. This page does not promise automated clinical testimonial widgets or reputation campaigns for regulated services.",
+    "Agree the approach for your services before using review requests or publishing feedback. Independent feedback and using clinical testimonials in healthcare advertising are different activities. Clinical testimonials are not automatically republished in website widgets or advertising.",
   ],
   [
     "Can Zapla send forms and pre-visit information?",
@@ -166,9 +166,6 @@ function SkinClinicsPage() {
             clinic.
           </p>
           <Actions />
-          <p className="sk-hero-boundary">
-            Start from spreadsheets and inboxes, or keep the CRM you already use.
-          </p>
         </div>
         <div className="sk-hero-scene">
           <img
@@ -247,10 +244,7 @@ function SkinClinicsPage() {
               When the form is submitted, reception is notified. Less information to send and chase
               by hand.
             </p>
-            <p className="sk-supporting">
-              Appointment messages need current booking updates. Completion alerts need a connected
-              form. Health histories and treatment consent stay in your clinical system.
-            </p>
+
             <Link href="/crm">Explore forms and client records</Link>
           </div>
           <AdminScene />
@@ -298,10 +292,6 @@ function SkinClinicsPage() {
               invitation. Replies go to your team to discuss the next visit.
             </p>
             <Link href="/reactivation">Explore client reactivation</Link>
-            <p className="sk-supporting">
-              Use current bookings and communication permissions. Campaigns must be appropriate for
-              your services and advertising rules.
-            </p>
           </div>
         </div>
         <ReturnPhoto />
@@ -321,10 +311,7 @@ function SkinClinicsPage() {
             A recorded completed visit can trigger a neutral Google review invitation. Give clients
             a simple way to share their experience.
           </p>
-          <p className="sk-supporting">
-            Review requests must suit the services you offer. See the FAQ for clinical testimonial
-            limits.
-          </p>
+
           <Link href="/reviews">Explore review requests</Link>
         </div>
       </section>
@@ -344,7 +331,7 @@ function SkinClinicsPage() {
             </p>
           </div>
           <div>
-            <h3>Already using a CRM?</h3>
+            <h3>Already using clinic software?</h3>
             <p>
               Keep the workflows it handles well. Add Zapla where enquiry replies, consultation
               follow-up or client campaigns still need manual chasing.
@@ -352,8 +339,8 @@ function SkinClinicsPage() {
           </div>
         </div>
         <p className="sk-fit-note">
-          Clinical records and treatment decisions stay with your clinic. Connections to Timely,
-          Fresha, Kitomba or Pabau are checked before they are promised.
+          Zapla brings client enquiries and follow up together. Your clinical records stay in your
+          clinic software.
         </p>
       </section>
       <section className="sk-launch" aria-labelledby="launch-title">

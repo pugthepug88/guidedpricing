@@ -1,0 +1,28 @@
+# Industry copy and placement review
+
+13 October 2026. Approved scope: apply the audience-placement edits discussed in the mortgage comparison conversation, replace the Skin Clinics software caveat with the agreed short line, and review all current industry pages for similar internal or repetitive language.
+
+## Shared rule
+
+Consider the relevant starting points when assessing audience and fit. Do not require a spreadsheet-versus-CRM message in every hero. Lead with the industry's commercial priority. Put setup alternatives in the fit section and FAQs. A specific software-replacement concern can warrant early reassurance, as on Dental. Clinical and operational systems remain distinct from customer communication. Do not turn compatible workflow positioning into an unverified integration claim.
+
+## Changes applied
+
+| Page                | Approved changes                                                                                                                          | Further cleanup                                                                                                                                                                                                                                                           |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mortgage Brokers V2 | Removed the hero spreadsheet/CRM note. Preserved the later fit section and both relevant FAQs.                                            | No further copy rewrite warranted. Relationship, repeat-business and referral positioning retained.                                                                                                                                                                       |
+| Trades              | Hero now ends with requests, replies and the next step in one place.                                                                      | Quote trigger expressed as a recorded quote; review trigger folded into the main explanation as a job marked complete in Zapla. Removed the duplicate verified-connection footnote. Search description leads with trade outcomes.                                         |
+| Skin Clinics        | Removed hero spreadsheet/CRM note. Fit heading says clinic software. Fit note uses the agreed client-enquiry/clinical-record distinction. | Removed repeated setup caveats beside pre-visit, reactivation and review examples. Relevant form, connection, campaign and testimonial limits remain in FAQs. Removed proposal/promise wording from selected FAQ answers. Search description leads with clinic workflows. |
+| Allied Health       | Later headings now distinguish enquiry management across spreadsheets/inboxes from existing practice software.                            | Form submission described in plain language. Fit note retains the clinical-record/appointment boundary; direct-update conditions remain in the booking FAQ. Routine reply/reminder paragraph now uses complete cause-and-effect sentences.                                |
+| Dental              | Kept early dental-software reassurance; no generic audience split added.                                                                  | Appointment support introduction describes supplied booking details rather than instructing someone to configure features. Removed redundant setup note beneath system responsibilities; connections and fit remain in FAQs and Guided Launch.                            |
+| Mechanics           | Retained hero and later workshop-system fit placement.                                                                                    | Replaced the setup/data instruction with a plain explanation of workshop records and customer communication.                                                                                                                                                              |
+
+Original Mortgage page remains unchanged for comparison. Mechanics V2 remains a redirect. No Real Estate industry page exists in the reviewed project. Shared navigation, footer, review components, photographs, prices, headlines were not edited. Allied Health mobile hero top spacing was corrected after rendering exposed the fixed navigation covering its eyebrow.
+
+## What remains deliberately
+
+Human ownership of clinical and lending decisions; conditional booking and integration capabilities; communication permissions and appropriate campaign use; privacy considerations; usage/setup costs; automation stop conditions; and implementation steps inside Guided Launch. These details answer buying and implementation questions. Removing internal-sounding copy does not justify promising an unsupported workflow.
+
+## Validation
+
+Production build, TypeScript and scoped ESLint passed. Local browser QA covers all six edited industry pages at 1440, 390 and 320px, normal and reduced motion, image loading, heading bounds, page overflow and keyboard FAQs. Full-page desktop and mobile renders inspected, including the expanded Allied Health heading and shortened hero sections. Source sync is verified separately from local rendering. This does not certify real customer automations or completion of the external booking journey.
