@@ -1,6 +1,7 @@
+import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown, Pause, Play, RotateCcw, Star } from "lucide-react";
+import { ArrowRight, ChevronDown, Pause, Play, RotateCcw } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 const BOOK = "https://zapla.io/booking";
@@ -487,18 +488,6 @@ function ReturnScene() {
     </div>
   );
 }
-function GoogleWordmark() {
-  return (
-    <span className="tr-google" aria-label="Google">
-      <span>G</span>
-      <span>o</span>
-      <span>o</span>
-      <span>g</span>
-      <span>l</span>
-      <span>e</span>
-    </span>
-  );
-}
 function ReviewScene() {
   const story = useStory();
   return (
@@ -514,34 +503,10 @@ function ReviewScene() {
           <Sender customer="daniel">Daniel Brooks</Sender>
           <p>Split system installation completed</p>
         </div>
-        <div
-          className={`tr-review-request tr-glass tr-beat ${story.step >= 1 ? "is-visible" : ""}`}
-          aria-hidden={story.step < 1}
-        >
-          <Sender>Automatic review request</Sender>
-          <p>Thanks for having us out, Daniel. Would you share your experience on Google?</p>
-          <span className="tr-illustrative-link">
-            Leave a Google review
-            <ArrowRight size={14} aria-hidden="true" />
-          </span>
-        </div>
-        <div
-          className={`tr-review-screen tr-glass tr-beat ${story.step >= 2 ? "is-visible" : ""}`}
-          aria-hidden={story.step < 2}
-        >
-          <GoogleWordmark />
-          <h3>How did we do?</h3>
-          <div
-            className="tr-stars"
-            role="img"
-            aria-label="Five unselected rating stars in an illustrative Google review screen"
-          >
-            {[1, 2, 3, 4, 5].map((i) => (
-              <Star key={i} size={27} strokeWidth={1.5} aria-hidden="true" />
-            ))}
-          </div>
-          <p>Share your experience</p>
-        </div>
+        <ReviewInvitation sender="Your business · Review invitation" visible={story.step >= 1}>
+          Thanks for having us out, Daniel. Would you share your experience on Google?
+        </ReviewInvitation>
+        <GoogleReviewCard heading="How did we do?" visible={story.step >= 2} />
       </div>
       <Controls story={story} name="review request" />
     </div>

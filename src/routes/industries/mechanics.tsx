@@ -1,7 +1,8 @@
+import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronRight, Star } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import mechanicsCss from "@/styles/mechanics.css?url";
 
@@ -406,18 +407,6 @@ function ReturnScene() {
   );
 }
 const REVIEW_STAGES = ["Service completed", "Invitation sent", "Review screen"];
-function GoogleWordmark() {
-  return (
-    <span className="mc-google-wordmark" aria-label="Google">
-      <span>G</span>
-      <span>o</span>
-      <span>o</span>
-      <span>g</span>
-      <span>l</span>
-      <span>e</span>
-    </span>
-  );
-}
 function ReviewScene() {
   const scene = useScene(REVIEW_STAGES, [450, 650]);
   return (
@@ -429,36 +418,12 @@ function ReviewScene() {
             Mia’s RAV4 <strong>Service completed</strong>
           </span>
         </div>
-        <div className="mc-review-message">
-          <span className="mc-zapla-avatar">
-            <ZaplaPetal />
-          </span>
-          <div className="mc-glass mc-review-invitation">
-            <span className="mc-review-sender">
-              Your workshop · {scene.step >= 1 ? "Invitation sent" : "Invitation prepared"}
-            </span>
-            <p>Thanks for bringing your RAV4 in, Mia. Would you share your experience on Google?</p>
-            <span className="mc-google-link">
-              Leave a Google review <ArrowRight size={15} aria-hidden="true" />
-            </span>
-          </div>
-        </div>
-        <div
-          className={`mc-glass mc-google-review-screen ${scene.step >= 2 ? "is-visible" : ""}`}
-          aria-hidden={scene.step < 2}
+        <ReviewInvitation
+          sender={`Your workshop · ${scene.step >= 1 ? "Invitation sent" : "Invitation prepared"}`}
         >
-          <GoogleWordmark />
-          <h3>How was your visit?</h3>
-          <div
-            className="mc-google-stars"
-            aria-label="Five unselected rating stars in an illustrative review screen"
-          >
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Star key={star} size={28} strokeWidth={1.6} aria-hidden="true" />
-            ))}
-          </div>
-          <span className="mc-google-write">Share your experience</span>
-        </div>
+          Thanks for bringing your RAV4 in, Mia. Would you share your experience on Google?
+        </ReviewInvitation>
+        <GoogleReviewCard visible={scene.step >= 2} />
       </div>
       <div className="mc-scene-copy">
         <Eyebrow>After the job is done</Eyebrow>
