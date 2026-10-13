@@ -8,7 +8,7 @@ export const sources = [
   { title: "Mobile calling and call logging", url: "https://support.pipedrive.com/en/article/calling-and-logging-calls-in-the-mobile-app", date: "Researched 28 Sep 2026." },
   { title: "Exporting data from Pipedrive", url: "https://support.pipedrive.com/en/article/exporting-data-from-pipedrive", date: "Researched 28 Sep 2026." },
   { title: "Current Pipedrive pricing", url: "https://www.pipedrive.com/en/pricing", date: "Live vendor pricing. Australian checkout amount, currency and GST not verified." },
-  { title: "Current Zapla plan packaging", url: "/Pricing-v3", date: "Pricing implementation read 7 Oct 2026." },
+  { title: "Current Zapla plan packaging", url: "/pricing-review-v3", date: "Pricing implementation read 7 Oct 2026." },
   { title: "TNZ SMS Marketplace example", url: "https://www.pipedrive.com/en/marketplace/app/tnz-sms-send-sms-to-nz-au/6c18dc3c92b4432e", date: "External SMS provider example, researched 28 Sep 2026." },
 ];
 

@@ -41,7 +41,7 @@ const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
 const HERO_IMAGE =
-  "https://cdn.openart.ai/openart-uploads/production/attachment-transfers/befc6b19b694f24013c9255a9b9d14f5044236b772a28709c682c6cc47c7b696.png";
+  "/concept/industries/allied-health-care.webp";
 const PETAL_COLORS = ["#E97D62", "#C96C85", "#DDA34B", "#99A36D", "#9B86B8", "#D58C75"] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
@@ -87,7 +87,7 @@ function Reveal({ children, className = "" }: { children: ReactNode; className?:
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 12 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: reduced ? 0 : 0.42, ease: EASE }}
@@ -190,7 +190,7 @@ function Hero() {
           <Reveal className="max-w-[620px]">
             <Eyebrow>AI Receptionist</Eyebrow>
             <h1
-              className="mt-4 text-[50px] font-medium leading-[0.93] tracking-[-0.06em] sm:text-[66px] lg:text-[80px]"
+              className="mt-4 text-[50px] font-medium leading-[0.93] tracking-[-0.06em] sm:text-[58px] lg:text-[66px]"
               style={{ fontFamily: DISPLAY }}
             >
               Your phone rings.
@@ -231,7 +231,7 @@ function Hero() {
                 height={1086}
                 loading="eager"
                 fetchPriority="high"
-                className="h-[520px] w-full object-cover object-center lg:h-[610px]"
+                className="h-[420px] w-full object-cover object-center lg:h-[520px]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 max-w-[420px] rounded-[18px] border border-white/55 bg-[#F7F4EE]/78 p-4 shadow-[0_16px_40px_rgba(0,0,0,.16)] backdrop-blur-xl">

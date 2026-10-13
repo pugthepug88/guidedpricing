@@ -96,7 +96,7 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 14 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.16 }}
       transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : delay, ease: EASE }}

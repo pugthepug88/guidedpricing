@@ -97,7 +97,7 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 16 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE }}
@@ -275,10 +275,10 @@ function ReactivationHeroVisual() {
   }, []);
 
   const archiveCards = [
-    { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.0, y: 6.5, w: 31.5, rz: 0.40, ry: 9.5, opacity: 0.69, blur: 0.08, z: 8 },
+    { cell: 10, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.0, y: 6.5, w: 31.5, rz: 0.40, ry: 9.5, opacity: 0.69, blur: 0.08, z: 8 },
     { cell: 2, name: "Chloe Martin", type: "Past customer", quiet: "156 days quiet", x: 15.0, y: 0.0, w: 33.0, rz: 0.22, ry: 9.0, opacity: 0.34, blur: 0.72, z: 1 },
     { cell: 16, name: "James Wilson", type: "Enquiry", quiet: "111 days quiet", x: 23.0, y: 7.5, w: 33.0, rz: 0.32, ry: 9.2, opacity: 0.38, blur: 0.58, z: 2 },
-    { cell: 13, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 31.5, y: 15.0, w: 32.0, rz: 0.42, ry: 9.5, opacity: 0.67, blur: 0.08, z: 9 },
+    { cell: 19, name: "Priya Sharma", type: "Quote sent", quiet: "96 days quiet", x: 31.5, y: 15.0, w: 32.0, rz: 0.42, ry: 9.5, opacity: 0.67, blur: 0.08, z: 9 },
     { cell: 6, name: "Sofia Patel", type: "Quote sent", quiet: "118 days quiet", x: 9.5, y: 25.5, w: 33.0, rz: 0.28, ry: 9.2, opacity: 0.35, blur: 0.68, z: 2 },
     { cell: 18, name: "Marcus Lee", type: "Enquiry", quiet: "201 days quiet", x: -1.5, y: 34.5, w: 31.5, rz: 0.42, ry: 9.5, opacity: 0.67, blur: 0.08, z: 7 },
     { cell: 23, name: "Noah Taylor", type: "Past customer", quiet: "173 days quiet", x: 18.0, y: 34.5, w: 33.0, rz: 0.28, ry: 9.2, opacity: 0.33, blur: 0.74, z: 2 },

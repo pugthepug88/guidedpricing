@@ -122,7 +122,7 @@ function DesktopContextScene() {
   const endLabelOpacity = smoothstep(0.84, 0.96, progress);
 
   return (
-    <div ref={ref} className="relative mt-12 h-[285vh]">
+    <div ref={ref} className="relative mt-12 h-[180vh]">
       <div className="sticky top-[66px] flex h-[calc(100vh-66px)] items-center overflow-hidden">
         <div className="relative mx-auto h-[700px] max-h-[calc(100vh-90px)] min-h-[560px] w-full max-w-[1320px]">
           <div
@@ -138,23 +138,11 @@ function DesktopContextScene() {
             className="pointer-events-none absolute left-1/2 top-[59%] h-[82%]"
             style={{ transform: `translate(-50%, -50%) scale(${personScale})` }}
           >
-            <motion.img
-              src={"/concept/customer-context-v3.svg"}
-              alt=""
-              aria-hidden="true"
-              draggable={false}
-              className="absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 select-none object-contain"
-              animate={{ opacity: sketchOpacity }}
-              transition={{ duration: 0.06 }}
-            />
-            <motion.img
-              src={"/concept/customer-context-v3.svg"}
-              alt="A customer at the centre of a connected customer journey"
-              draggable={false}
-              className="absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 select-none object-contain"
-              animate={{ opacity: colourOpacity }}
-              transition={{ duration: 0.06 }}
-            />
+            <div className="absolute left-1/2 top-1/2 flex w-[250px] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center">
+              <HomepageAvatar size={144} cell={0} />
+              <p className="mt-5 text-[24px] font-semibold tracking-[-.035em] text-[#111318]">Emma Thompson</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-[#5F655F]">One customer record.<br />Their history and next step.</p>
+            </div>
           </div>
 
           {MOMENTS.map((moment) => {
@@ -381,7 +369,7 @@ function StaticContextScene() {
     <div className="mx-auto mt-12 max-w-[980px]">
       <div className="relative mx-auto h-[350px] w-[270px]">
         <div className="absolute inset-6 rounded-full bg-[radial-gradient(circle,rgba(37,99,255,0.08),rgba(214,150,114,0.035)_42%,transparent_72%)]" />
-        <img src={"/concept/customer-context-v3.svg"} alt="A customer at the centre of a connected customer journey" className="relative h-full w-full object-contain" />
+        <div className="relative flex h-full flex-col items-center justify-center text-center"><HomepageAvatar size={144} cell={0}/><p className="mt-5 text-[24px] font-semibold tracking-[-.035em]">Emma Thompson</p><p className="mt-2 text-[14px] leading-relaxed text-[#5F655F]">One customer record.<br />Their history and next step.</p></div>
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">

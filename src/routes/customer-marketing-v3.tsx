@@ -39,10 +39,10 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 
 const HERO_CUSTOMERS = [
-  { name: "Daniel Brooks", cell: 4, tags: ["No contact · 90d"] },
-  { name: "Priya Sharma", cell: 13, tags: ["High spend"] },
+  { name: "Daniel Brooks", cell: 10, tags: ["No contact · 90d"] },
+  { name: "Priya Sharma", cell: 19, tags: ["High spend"] },
   { name: "Mia Thompson", cell: 9, tags: ["Service due", "VIP"] },
-  { name: "James Carter", cell: 10, tags: ["VIP"] },
+  { name: "James Carter", cell: 13, tags: ["VIP"] },
   { name: "Chloe Martin", cell: 2, tags: ["Service due"] },
 ] as const;
 
@@ -105,7 +105,7 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 18 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.16 }}
       transition={{ duration: reduced ? 0 : 0.56, delay: reduced ? 0 : delay, ease: EASE }}

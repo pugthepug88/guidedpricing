@@ -1361,3 +1361,5 @@
 .tr3-faq details[id] {
   scroll-margin-top: 110px;
 }
+
+.tr3-hero{padding-top:64px}@media(max-width:800px){.tr3-hero{padding-top:36px}}

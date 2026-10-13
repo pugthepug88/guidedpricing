@@ -82,7 +82,7 @@ function Actions({ secondary = false }: { secondary?: boolean }) {
       </a>
       <a
         className={secondary ? "dn3-button dn3-secondary" : "dn3-link"}
-        href={secondary ? "/Pricing-v3" : "#patient-flow"}
+        href={secondary ? "/pricing-review-v3" : "#patient-flow"}
       >
         {secondary ? "View pricing" : "See the patient flow"}
         {!secondary && <ArrowRight size={16} aria-hidden="true" />}

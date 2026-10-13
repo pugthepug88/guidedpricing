@@ -1278,3 +1278,7 @@
     padding: 14px;
   }
 }
+
+@media(max-width:800px){.ah3-hero{padding-top:36px}}
+
+.ah3-hero{padding-top:64px}@media(max-width:800px){.ah3-hero{padding-top:36px}}

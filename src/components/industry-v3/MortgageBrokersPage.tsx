@@ -22,7 +22,7 @@ function Actions({ final = false }: { final?: boolean }) {
       <a className="mv3-button" href={BOOK}>
         Book a call <ArrowRight size={17} aria-hidden="true" />
       </a>
-      <Link href={final ? "/Pricing-v3" : "#client-book"}>
+      <Link href={final ? "/pricing-review-v3" : "#client-book"}>
         {final ? "View pricing" : "See the client journey"}
       </Link>
     </div>
@@ -218,7 +218,7 @@ function ProspectSection() {
               ? "Zapla sends the agreed check-in at the right time. When the client replies, your broker takes over and further reminders stop."
               : "Reconnect with past enquiries through a relevant message. When someone responds, your team picks up with the earlier conversation in view."}
           </p>
-          <Link href={selected === 0 ? "/follow-up" : "/reactivation"}>
+          <Link href={selected === 0 ? "/follow-up-v3" : "/reactivation-v3"}>
             {selected === 0 ? "Explore Follow-Up" : "Explore Reactivation"}
           </Link>
         </div>

@@ -99,7 +99,7 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 12 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
       transition={{ duration: reduced ? 0 : 0.42, delay: reduced ? 0 : delay, ease: EASE }}
@@ -395,10 +395,10 @@ function CustomerWorkbench() {
 
 function SegmentSurface() {
   const matches=[
-    {name:"Mia Thompson",cell:9,owner:"Ben",stage:"Quote sent",activity:"3 days",tags:["VIP","Residential"]},
+    {name:"Mia Thompson",cell: 9,owner:"Ben",stage:"Quote sent",activity:"3 days",tags:["VIP","Residential"]},
     {name:"Aisha Moore",cell:14,owner:"Alex",stage:"Quote sent",activity:"4 days",tags:["VIP","Electrical"]},
-    {name:"Daniel Brooks",cell:5,owner:"Sam",stage:"Quote sent",activity:"5 days",tags:["VIP","Commercial"]},
-    {name:"Priya Shah",cell:0,owner:"Ben",stage:"Quote sent",activity:"6 days",tags:["VIP","Repeat"]},
+    {name:"Daniel Brooks",cell: 10,owner:"Sam",stage:"Quote sent",activity:"5 days",tags:["VIP","Commercial"]},
+    {name:"Priya Shah",cell: 4,owner:"Ben",stage:"Quote sent",activity:"6 days",tags:["VIP","Repeat"]},
   ];
 
   return (
@@ -477,10 +477,10 @@ function SegmentSurface() {
 
 function ConversationSurface() {
   const customers=[
-    {name:"Mia Thompson",cell:9,preview:"Does the quote include installation?",channel:"SMS",active:true},
-    {name:"Daniel Brooks",cell:5,preview:"Thanks, I have paid the invoice.",channel:"Email",active:false},
+    {name:"Mia Thompson",cell: 9,preview:"Does the quote include installation?",channel:"SMS",active:true},
+    {name:"Daniel Brooks",cell: 10,preview:"Thanks, I have paid the invoice.",channel:"Email",active:false},
     {name:"John Smith",cell:3,preview:"Can we move the booking to Friday?",channel:"SMS",active:false},
-    {name:"Priya Shah",cell:0,preview:"Perfect. See you then.",channel:"Email",active:false},
+    {name:"Priya Shah",cell: 4,preview:"Perfect. See you then.",channel:"Email",active:false},
   ];
 
   return (
@@ -545,9 +545,9 @@ function PipelineRail() {
   const stages = [
     { name: "Lead", count: 4, tone: "#85845D", people: [{ name: "Alex Chen", value: "A$1,450", cell: 8 }, { name: "Lena Parker", value: "A$780", cell: 11 }] },
     { name: "Contacted", count: 3, tone: "#BF7458", people: [{ name: "Sam Nguyen", value: "A$3,200", cell: 16 }, { name: "Ivy Harris", value: "A$950", cell: 7 }] },
-    { name: "Proposal", count: 2, tone: "#C89A5D", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 3 }, { name: "Aisha Moore", value: "A$1,900", cell: 14, stale: true }] },
-    { name: "Negotiation", count: 2, tone: "#58706F", people: [{ name: "Priya Shah", value: "A$520", cell: 0 }, { name: "Ben Lewis", value: "A$2,250", cell: 18 }] },
-    { name: "Closed won", count: 3, tone: "#99A36D", people: [{ name: "Daniel Brooks", value: "A$4,100", cell: 5 }, { name: "Grace Tan", value: "A$1,680", cell: 2 }] },
+    { name: "Proposal", count: 2, tone: "#C89A5D", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 9 }, { name: "Aisha Moore", value: "A$1,900", cell: 14, stale: true }] },
+    { name: "Negotiation", count: 2, tone: "#58706F", people: [{ name: "Priya Shah", value: "A$520", cell: 4 }, { name: "Ben Lewis", value: "A$2,250", cell: 18 }] },
+    { name: "Closed won", count: 3, tone: "#99A36D", people: [{ name: "Daniel Brooks", value: "A$4,100", cell: 10 }, { name: "Grace Tan", value: "A$1,680", cell: 2 }] },
   ];
 
   return (

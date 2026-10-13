@@ -984,3 +984,5 @@
     padding: 24px;
   }
 }
+
+.mc3-hero{padding-top:64px}@media(max-width:800px){.mc3-hero{padding-top:36px}}

@@ -86,7 +86,7 @@ function Actions({ final = false }: { final?: boolean }) {
       </a>
       <a
         className={final ? "sk3-button sk3-secondary" : "sk3-link"}
-        href={final ? "/Pricing-v3" : "#clinic-flow"}
+        href={final ? "/pricing-review-v3" : "#clinic-flow"}
       >
         {final ? "View pricing" : "See the client flow"}
         {!final && <ArrowRight size={16} aria-hidden="true" />}

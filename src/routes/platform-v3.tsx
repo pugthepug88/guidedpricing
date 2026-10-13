@@ -69,7 +69,7 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 14 }}
+      initial={false}
       whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.48, delay, ease: [0.22, 1, 0.36, 1] }}
@@ -309,7 +309,7 @@ function IntentRouter() {
     {
       title: "Stop enquiries going quiet",
       product: "Follow-Up",
-      href: "/follow-up",
+      href: "/follow-up-v3",
       icon: Workflow,
       accent: "#7E9DF8",
       soft: "#E8EEFF",
@@ -317,7 +317,7 @@ function IntentRouter() {
     {
       title: "Answer more calls",
       product: "AI Receptionist",
-      href: "/ai-receptionist",
+      href: "/ai-receptionist-v3",
       icon: Phone,
       accent: "#7F988D",
       soft: "#E7EFEB",
@@ -325,7 +325,7 @@ function IntentRouter() {
     {
       title: "Bring old leads back",
       product: "Reopen",
-      href: "/reactivation",
+      href: "/reactivation-v3",
       icon: RefreshCw,
       accent: "#B07A8B",
       soft: "#F0E5E9",
@@ -333,7 +333,7 @@ function IntentRouter() {
     {
       title: "Market to existing customers",
       product: "Customer Marketing",
-      href: "/customer-marketing",
+      href: "/customer-marketing-v3",
       icon: Send,
       accent: "#C58B70",
       soft: "#F3E7E0",
@@ -341,7 +341,7 @@ function IntentRouter() {
     {
       title: "Get more reviews",
       product: "Reviews & Reputation",
-      href: "/reviews",
+      href: "/reviews-v3",
       icon: Star,
       accent: "#B6925F",
       soft: "#F2EBDD",
@@ -349,7 +349,7 @@ function IntentRouter() {
     {
       title: "Manage customers and opportunities",
       product: "CRM",
-      href: "/crm",
+      href: "/crm-v3",
       icon: UserRound,
       accent: "#6E8C9E",
       soft: "#E7EEF1",
