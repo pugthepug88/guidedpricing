@@ -30,7 +30,6 @@ import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/
 import { Route as IndustriesCosmeticSkinClinicsRouteImport } from './routes/industries/cosmetic-skin-clinics'
 import { Route as IndustriesDentalRouteImport } from './routes/industries/dental'
 import { Route as IndustriesMechanicsRouteImport } from './routes/industries/mechanics'
-import { Route as IndustriesMechanicsV2RouteImport } from './routes/industries/mechanics-v2'
 import { Route as IndustriesMortgageBrokersRouteImport } from './routes/industries/mortgage-brokers'
 import { Route as IndustriesMortgageBrokersV2RouteImport } from './routes/industries/mortgage-brokers-v2'
 import { Route as IndustriesTradesRouteImport } from './routes/industries/trades'
@@ -146,11 +145,6 @@ const IndustriesMechanicsRoute = IndustriesMechanicsRouteImport.update({
   path: '/industries/mechanics',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndustriesMechanicsV2Route = IndustriesMechanicsV2RouteImport.update({
-  id: '/industries/mechanics-v2',
-  path: '/industries/mechanics-v2',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndustriesMortgageBrokersRoute =
   IndustriesMortgageBrokersRouteImport.update({
     id: '/industries/mortgage-brokers',
@@ -197,7 +191,6 @@ export interface FileRoutesByFullPath {
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
-  '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/mortgage-brokers-v2': typeof IndustriesMortgageBrokersV2Route
   '/industries/trades': typeof IndustriesTradesRoute
@@ -225,7 +218,6 @@ export interface FileRoutesByTo {
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
-  '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/mortgage-brokers-v2': typeof IndustriesMortgageBrokersV2Route
   '/industries/trades': typeof IndustriesTradesRoute
@@ -254,7 +246,6 @@ export interface FileRoutesById {
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
-  '/industries/mechanics-v2': typeof IndustriesMechanicsV2Route
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/mortgage-brokers-v2': typeof IndustriesMortgageBrokersV2Route
   '/industries/trades': typeof IndustriesTradesRoute
@@ -284,7 +275,6 @@ export interface FileRouteTypes {
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
     | '/industries/mechanics'
-    | '/industries/mechanics-v2'
     | '/industries/mortgage-brokers'
     | '/industries/mortgage-brokers-v2'
     | '/industries/trades'
@@ -312,7 +302,6 @@ export interface FileRouteTypes {
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
     | '/industries/mechanics'
-    | '/industries/mechanics-v2'
     | '/industries/mortgage-brokers'
     | '/industries/mortgage-brokers-v2'
     | '/industries/trades'
@@ -340,7 +329,6 @@ export interface FileRouteTypes {
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
     | '/industries/mechanics'
-    | '/industries/mechanics-v2'
     | '/industries/mortgage-brokers'
     | '/industries/mortgage-brokers-v2'
     | '/industries/trades'
@@ -369,7 +357,6 @@ export interface RootRouteChildren {
   IndustriesCosmeticSkinClinicsRoute: typeof IndustriesCosmeticSkinClinicsRoute
   IndustriesDentalRoute: typeof IndustriesDentalRoute
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
-  IndustriesMechanicsV2Route: typeof IndustriesMechanicsV2Route
   IndustriesMortgageBrokersRoute: typeof IndustriesMortgageBrokersRoute
   IndustriesMortgageBrokersV2Route: typeof IndustriesMortgageBrokersV2Route
   IndustriesTradesRoute: typeof IndustriesTradesRoute
@@ -525,13 +512,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesMechanicsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/industries/mechanics-v2': {
-      id: '/industries/mechanics-v2'
-      path: '/industries/mechanics-v2'
-      fullPath: '/industries/mechanics-v2'
-      preLoaderRoute: typeof IndustriesMechanicsV2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/industries/mortgage-brokers': {
       id: '/industries/mortgage-brokers'
       path: '/industries/mortgage-brokers'
@@ -586,7 +566,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesCosmeticSkinClinicsRoute: IndustriesCosmeticSkinClinicsRoute,
   IndustriesDentalRoute: IndustriesDentalRoute,
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
-  IndustriesMechanicsV2Route: IndustriesMechanicsV2Route,
   IndustriesMortgageBrokersRoute: IndustriesMortgageBrokersRoute,
   IndustriesMortgageBrokersV2Route: IndustriesMortgageBrokersV2Route,
   IndustriesTradesRoute: IndustriesTradesRoute,

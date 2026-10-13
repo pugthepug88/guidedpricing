@@ -1,6 +1,6 @@
 # Mechanics page review
 
-The revised design now owns `/industries/mechanics`, replacing the original page and stylesheet. `/industries/mechanics-v2` is a permanent redirect to the canonical page. The shared navigation and footer remain unchanged. Both routes remain sitemap-excluded, and the canonical page retains its existing noindex setting.
+The revised design now owns `/industries/mechanics`, replacing the original page and stylesheet. The obsolete `/industries/mechanics-v2` route has been deleted, including its redirect, so only the canonical mechanics page is registered. The shared navigation and footer remain unchanged. The canonical route remains sitemap-excluded and retains its existing noindex setting.
 
 ## Story and product accuracy
 
@@ -47,4 +47,4 @@ All-lens 9 is not honestly supportable without credible workshop proof. The next
 
 ## Verification
 
-Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks cover five widths (320, 390, 768, 1024, 1440), document overflow, booking-path copy, removal of routine manual handoffs and scene controls, pricing, NSW wording, reduced-motion outcomes, finite quote progression and final hold, the legacy URL redirect and no mechanics page errors. No booking form submitted. Previous comparison review observed a Customer Marketing hydration mismatch; that route remains outside this change and was not modified.
+Production build, TypeScript, scoped ESLint and whitespace checks passed. Browser checks cover five widths (320, 390, 768, 1024, 1440), document overflow, booking-path copy, removal of routine manual handoffs and scene controls, pricing, NSW wording, reduced-motion outcomes, finite quote progression and final hold, the then-existing legacy URL redirect and no mechanics page errors. No booking form submitted. Previous comparison review observed a Customer Marketing hydration mismatch; that route remains outside this change and was not modified.

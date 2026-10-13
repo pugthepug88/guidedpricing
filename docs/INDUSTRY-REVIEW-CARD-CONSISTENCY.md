@@ -16,7 +16,6 @@ Removed the client portrait/name from inside Skin's Google rating panel. Client 
 | trades | Shared cards; industry wording and playback controls retained |
 | mortgage-brokers-v2 | Shared cards; settlement/referral composition retained |
 | mortgage-brokers | No Google rating example existed. Removed its two STOP captions; did not insert an unrelated review section |
-| mechanics-v2 | Existing redirect to canonical mechanics uses the same implementation |
 
 ## Evidence
 Production build, TypeScript, scoped ESLint and whitespace checks passed.
