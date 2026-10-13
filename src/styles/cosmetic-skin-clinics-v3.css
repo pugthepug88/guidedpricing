@@ -1168,3 +1168,5 @@
   margin-top: 14px;
   font-size: 13px;
 }
+
+@media(min-width:801px){.sk3-admin-panel{padding:40px 48px;background:transparent;border-top:1px solid #dedfd5;border-bottom:1px solid #dedfd5;border-radius:0}.sk3-admin-scene>img{height:340px}.sk3-admin-note{left:-12px;padding:18px}}

@@ -96,8 +96,8 @@ export function TradesPage() {
           </p>
           <Actions />
           <p className="tr3-hero-foot">
-            For local service businesses, from plumbing and electrical to air conditioning, roofing,
-            pest control and pool services.
+            For quote-led work and services customers need again: plumbing, electrical, air conditioning,
+            roofing, pest control and pool services. Urgent dispatch and technical decisions stay with your team.
           </p>
         </div>
         <div className="tr3-hero-photo">
@@ -327,6 +327,7 @@ export function TradesPage() {
         </p>
         <Actions final />
       </section>
+    <p className="v3-scope-note">Standard Follow-Through Guided Launch includes up to three agreed automations. Growth campaign scope, additional workflows and connections are agreed before you commit. The stories above are illustrative examples, not customer results.</p>
     </main>
   );
 }

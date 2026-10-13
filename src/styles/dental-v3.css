@@ -1241,3 +1241,6 @@
     gap: 10px;
   }
 }
+
+.dn3-patient-portrait{display:block;width:32px;height:32px;border-radius:50%;flex:none;background:url('/concept/revenue/soft-autumn-portraits-v1.webp') 60% 33.333% / 600% 400%}
+.dn3-inactive-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;padding-block:64px;border-top:1px solid #dce0d4;border-bottom:1px solid #dce0d4}.dn3-inactive-row p+p{margin-top:16px}.dn3-inactive-row .dn3-link{margin-top:20px}@media(max-width:800px){.dn3-inactive-row{grid-template-columns:1fr;gap:24px;padding-block:44px}}

@@ -238,8 +238,9 @@ function SkinClinicsPage() {
             <Label>Before the first visit</Label>
             <h2 id="admin-title">Send appointment details and forms automatically.</h2>
             <p>
-              Once a consultation is confirmed, Zapla sends your arrival information and contact
-              details form. When the form is submitted, reception gets a notification.
+              Using the confirmed appointment details your clinic supplies, Zapla sends your arrival
+              information and contact details form. A connected form submission stops reminders
+              and notifies reception.
             </p>
 
             <Link href="/crm">Explore forms and client records</Link>
@@ -434,6 +435,7 @@ function SkinClinicsPage() {
         </p>
         <Actions final />
       </section>
+    <p className="v3-scope-note">Standard Follow-Through Guided Launch includes up to three agreed automations. Growth campaign scope, additional workflows and connections are agreed before you commit. The stories above are illustrative examples, not customer results.</p>
     </main>
   );
 }

@@ -275,6 +275,7 @@ export function AlliedHealthPage() {
           </a>
         </div>
       </section>
+    <p className="v3-scope-note">Standard Follow-Through Guided Launch includes up to three agreed automations. Growth campaign scope, additional workflows and connections are agreed before you commit. The stories above are illustrative examples, not customer results.</p>
     </main>
   );
 }
@@ -416,8 +417,8 @@ function ReturnScene() {
       <div className="ah3-return-reminder ah3-glass">
         <Sender>Your practice, via Zapla</Sender>
         <p>
-          Hi Mia, your practice asked us to contact you about your next appointment. Reply if you’d
-          like reception to help.
+          Hi Mia, your practitioner recommended another visit. Would you like reception to help
+          you arrange a time?
         </p>
       </div>
       <div className="ah3-return-reply ah3-glass">

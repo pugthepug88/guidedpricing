@@ -169,8 +169,8 @@ function DentalPage() {
           />
           <div className="dn3-hero-note dn3-glass">
             <div className="dn3-note-heading">
-              <ZaplaPetal size={25} />
-              <span>New patient enquiry</span>
+              <span className="dn3-patient-portrait" aria-hidden="true" />
+              <span>Mia · New patient enquiry</span>
             </div>
             <p>“We’ve just moved nearby. Are you taking new patients?”</p>
             <div className="dn3-note-result">
@@ -263,8 +263,8 @@ function DentalPage() {
                 enquiries. Automatically.
               </h2>
               <p>
-                A patient needs time to decide. Zapla sends the follow-up at the time your team
-                chooses, so the conversation doesn’t get forgotten.
+                A patient asks for time to decide. Zapla sends the follow-up at the time agreed
+                with them.
               </p>
               <p>
                 When they reply, reminders stop and your team gets the conversation. Questions about
@@ -295,27 +295,9 @@ function DentalPage() {
           </div>
           <RecallScene />
         </section>
-        <section className="dn3-feature dn3-wrap" aria-labelledby="return-title">
-          <div className="dn3-panel dn3-reactivation-panel">
-            <div className="dn3-copy">
-              <Label>Inactive patient reactivation</Label>
-              <h2 id="return-title">
-                Reconnect with patients
-                <br />
-                who haven’t returned.
-              </h2>
-              <p>
-                Reconnect with eligible patients who haven’t returned. Send a relevant invitation,
-                follow up unanswered messages and bring replies straight to reception.
-              </p>
-              <p>
-                Routine recall keeps patients on schedule. Reactivation reaches the people who have
-                drifted away.
-              </p>
-              <TextLink href="/reactivation">Explore patient reactivation</TextLink>
-            </div>
-            <ReturnScene />
-          </div>
+        <section className="dn3-inactive-row dn3-wrap" aria-labelledby="return-title">
+          <div><Label>Inactive patient follow-up</Label><h2 id="return-title">Reconnect with patients who haven’t returned.</h2></div>
+          <div><p>Recall reminders contact patients who are due for their next check-up. Inactive patient follow-up is for eligible patients who have not booked another visit.</p><p>Your practice chooses recipients, checks contact permissions and agrees a relevant invitation. Replies return to reception; reminders stop on a reply or opt-out.</p><TextLink href="/reactivation">Explore patient reactivation</TextLink></div>
         </section>
         <section className="dn3-review-feature dn3-wrap" aria-labelledby="reviews-title">
           <ReviewScene />
@@ -499,6 +481,7 @@ function DentalPage() {
         </p>
         <Actions secondary />
       </section>
+    <p className="v3-scope-note">Standard Follow-Through Guided Launch includes up to three agreed automations. Growth campaign scope, additional workflows and connections are agreed before you commit. The stories above are illustrative examples, not customer results.</p>
     </main>
   );
 }

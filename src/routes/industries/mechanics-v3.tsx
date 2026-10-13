@@ -232,12 +232,13 @@ function MechanicsPage() {
           </a>
         </div>
       </section>
+    <p className="v3-scope-note">Standard Follow-Through Guided Launch includes up to three agreed automations. Growth campaign scope, additional workflows and connections are agreed before you commit. The stories above are illustrative examples, not customer results.</p>
     </main>
   );
 }
 
 const QUOTE_STAGES = ["Quote sent", "Follow-up sent", "Customer replied"];
-const ENQUIRY_STAGES = ["Customer asks", "Booking link sent"];
+const ENQUIRY_STAGES = ["Customer asks", "Automatic reply sent"];
 const RETURN_STAGES = ["Service record", "Reminder sent", "Customer replies"];
 
 // Each brief scene progresses once, pauses offscreen and holds its final state.
@@ -331,7 +332,7 @@ function QuoteScene() {
         </div>
         <div className="mc3-quote-jobline">
           <strong>Brake work quote</strong>
-          <span>{scene.step >= 2 ? "Customer replied" : "Awaiting response"}</span>
+          <span>{scene.step >= 2 ? "Workshop team · Reply needed" : "Awaiting response"}</span>
         </div>
       </div>
       <div

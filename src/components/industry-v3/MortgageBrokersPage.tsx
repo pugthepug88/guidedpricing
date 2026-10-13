@@ -87,7 +87,7 @@ function ReviewScene() {
           loading="lazy"
         />
         <div className="mv3-glass mv3-review-message">
-          <Sender>Your brokerage · Review invitation</Sender>
+          <Sender>Your brokerage · Loan review invitation</Sender>
           <h3>{mode === 0 ? "Time for your annual review." : "Your fixed rate is ending."}</h3>
           <p>
             {mode === 0
@@ -436,7 +436,7 @@ export function MortgageBrokersPage() {
           aria-label="Google review invitation and five unselected rating stars"
         >
           <div className="mv3-review-event">Settlement completed</div>
-          <ReviewInvitation sender="Your brokerage · Review invitation">
+          <ReviewInvitation sender="Your brokerage · Google review request">
             Thanks for working with us, Sam. Would you share your experience on Google?
           </ReviewInvitation>
           <GoogleReviewCard heading="How was your experience?" />
@@ -602,6 +602,7 @@ export function MortgageBrokersPage() {
         </p>
         <Actions final />
       </section>
+    <p className="v3-scope-note">Standard Follow-Through Guided Launch includes up to three agreed automations. Growth campaign scope, additional workflows and connections are agreed before you commit. The stories above are illustrative examples, not customer results.</p>
     </main>
   );
 }
