@@ -3,6 +3,7 @@
    oversized foreground compositions on top of quiet product scenery. */
 import { motion, AnimatePresence, type Transition } from "motion/react";
 import type { ReactNode, CSSProperties } from "react";
+import { portraitStyle } from "./faces";
 import { cn } from "@/lib/utils";
 
 export const EASE_OUT = [0.16, 1, 0.3, 1] as const;
@@ -106,13 +107,7 @@ export function Avatar({
   className?: string;
 }) {
   return (
-    <img
-      src={src}
-      alt=""
-      aria-hidden
-      style={{ width: size, height: size }}
-      className={cn("shrink-0 rounded-full object-cover ring-2 ring-white", className)}
-    />
+    <span aria-hidden="true" style={{...portraitStyle(src),width:size,height:size}} className={cn("shrink-0 rounded-full ring-2 ring-white",className)} />
   );
 }
 

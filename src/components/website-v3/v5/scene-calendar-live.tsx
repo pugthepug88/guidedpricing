@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { CalendarCheck, ChevronLeft, ChevronRight, Clock3, MessageSquare, Plus } from "lucide-react";
-import { FACE } from "@/components/website-v3/v5/faces";
+import { FACE, portraitStyle } from "@/components/website-v3/v5/faces";
 import { type SceneProps } from "@/components/website-v3/v5/motion-kit";
 import { ZaplaDemoCursor, type CursorPoint } from "@/components/website-v3/v5/zapla-demo-cursor";
 
@@ -85,7 +85,7 @@ function NinaChip({ destination = false, lifted = false, large = false }: { dest
       }}
       transition={{ duration: 0.2 }}
     >
-      <img src={FACE.nina} alt="" className={large ? "h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-slate-100" : "h-5 w-5 shrink-0 rounded-full object-cover ring-1 ring-slate-100"} />
+      <span style={portraitStyle(FACE.nina)} aria-hidden="true" className={large ? "h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-slate-100" : "h-5 w-5 shrink-0 rounded-full object-cover ring-1 ring-slate-100"} />
       <div className="min-w-0 flex-1">
         <div className={large ? "truncate text-[10px] font-black text-slate-800" : "truncate text-[7.2px] font-black leading-tight text-slate-800"}>Nina Alvarez</div>
         <div className={large ? "mt-0.5 truncate text-[7px] font-semibold text-slate-400" : "mt-0.5 truncate text-[5.9px] font-semibold leading-tight text-slate-400"}>
@@ -264,7 +264,7 @@ function MessageThreadOverlay({ beat, reduced }: { beat: number; reduced: boolea
           <div className="grid h-[58px] grid-cols-[1fr_auto_1fr] items-center border-b border-slate-200 bg-white px-4">
             <div className="text-[9px] font-semibold text-blue-600">‹ Messages</div>
             <div className="text-center">
-              <img src={FACE.nina} alt="" className="mx-auto h-7 w-7 rounded-full object-cover ring-1 ring-slate-100" />
+              <span style={portraitStyle(FACE.nina)} aria-hidden="true" className="mx-auto h-7 w-7 rounded-full object-cover ring-1 ring-slate-100" />
               <div className="mt-0.5 text-[8px] font-black text-slate-900">Nina Alvarez</div>
             </div>
             <div className="text-right text-[9px] font-semibold text-blue-600">Contact</div>

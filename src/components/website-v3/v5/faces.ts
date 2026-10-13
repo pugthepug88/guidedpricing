@@ -25,3 +25,10 @@ export const FACE = {
 } as const;
 
 export type FaceKey = keyof typeof FACE;
+
+export function portraitStyle(src: string) {
+  const cells = [0, 5, 4, 15, 16, 6, 20, 1, 7, 22];
+  const index = Math.max(0, (Object.values(FACE) as string[]).indexOf(src));
+  const cell = cells[index] ?? 0;
+  return {display: "block", backgroundImage: "url(/concept/revenue/soft-autumn-portraits-v1.webp)", backgroundSize: "600% 400%", backgroundPosition: `${(cell % 6 / 5) * 100}% ${Math.floor(cell / 6) / 3 * 100}%`, backgroundRepeat: "no-repeat"};
+}

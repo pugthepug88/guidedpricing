@@ -131,7 +131,7 @@ function Eyebrow({
 }
 
 function ExampleAvatar({
-  column = 2,
+  column = 3,
   row = 1,
   className = "h-11 w-11",
 }: {
@@ -235,7 +235,7 @@ function ReviewHeroScene() {
         className="absolute left-0 top-[3%] z-10 w-[73%] rounded-[20px] border border-[#DCE5ED] bg-white p-4 shadow-[0_18px_44px_rgba(31,49,68,.08)] sm:left-[2%]"
       >
         <div className="flex items-center gap-3">
-          <ExampleAvatar column={1} row={0} className="h-10 w-10 shrink-0" />
+          <ExampleAvatar column={3} row={1} className="h-10 w-10 shrink-0" />
           <div className="min-w-0 flex-1">
             <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#7C8995]">Customer record</div>
             <div className="mt-0.5 truncate text-[14px] font-semibold text-[#26313B]">Mia Thompson</div>
@@ -289,7 +289,7 @@ function ReviewHeroScene() {
           <span className="text-[8px] font-semibold uppercase tracking-[0.1em] text-[#9AA5AE]">Example</span>
         </div>
         <div className="mt-4 flex items-center gap-3">
-          <ExampleAvatar column={1} row={0} className="h-9 w-9 shrink-0" />
+          <ExampleAvatar column={3} row={1} className="h-9 w-9 shrink-0" />
           <div>
             <div className="text-[11px] font-semibold text-[#343A3F]">Mia T.</div>
             <div className="mt-0.5"><Stars small /></div>
@@ -1055,7 +1055,7 @@ function FeedbackSection() {
               <div className="mt-auto pt-8">
                 <div className="flex min-h-[154px] flex-col justify-between rounded-[20px] bg-[#FFF9ED] p-5 shadow-[0_16px_38px_rgba(79,57,28,.10)] sm:h-[154px]">
                   <div className="flex items-center gap-3">
-                    <ExampleAvatar column={4} row={0} className="h-10 w-10" />
+                    <ExampleAvatar column={1} row={0} className="h-10 w-10" />
                     <div className="flex-1">
                       <div className="text-[11px] font-semibold text-[#33342F]">
                         Daniel K.
@@ -1090,7 +1090,7 @@ function FeedbackSection() {
               <div className="mt-auto pt-8">
                 <div className="flex min-h-[154px] flex-col justify-between rounded-[20px] border border-white/60 bg-[#FFF9F5]/80 p-5 shadow-[0_16px_38px_rgba(89,56,44,.055)] sm:h-[154px]">
                   <div className="flex items-start gap-3">
-                    <ExampleAvatar column={1} row={0} className="h-10 w-10" />
+                    <ExampleAvatar column={3} row={1} className="h-10 w-10" />
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                         <span className="text-[11px] font-semibold text-[#403632]">

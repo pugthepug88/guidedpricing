@@ -167,34 +167,34 @@ function HeroLedger() {
         <div className="flex items-center justify-between border-b border-[#E5E0D9] px-5 py-4 sm:px-6">
           <div className="flex items-center gap-3">
             <span className="grid h-9 w-9 place-items-center rounded-[11px] bg-[#1E2B29] text-white"><FileText size={15} /></span>
-            <div><div className="text-[11px] font-semibold text-[#2B302C]">Outstanding quotes</div><div className="mt-0.5 text-[8px] text-[#858B86]">Example workspace</div></div>
+            <div><div className="text-[11px] font-semibold text-[#2B302C]">Outstanding quotes</div><div className="mt-0.5 text-[11px] text-[#858B86]">Example workspace</div></div>
           </div>
-          <div className="rounded-full border border-[#E3DDD4] bg-white px-3 py-1.5 text-[9px] font-semibold text-[#6C736D]">4 open</div>
+          <div className="rounded-full border border-[#E3DDD4] bg-white px-3 py-1.5 text-[11px] font-semibold text-[#6C736D]">4 open</div>
         </div>
         <div className="grid border-b border-[#E5E0D9] bg-[#F7F5F1] sm:grid-cols-3">
           {[["Open quote value", "A$28,850"], ["Needs action", "3"], ["Waiting", "1"]].map(([label, value], index) => (
             <div key={label} className={"px-5 py-4 " + (index ? "border-t border-[#E5E0D9] sm:border-l sm:border-t-0" : "")}>
-              <div className="text-[7px] font-bold uppercase tracking-[0.12em] text-[#90958F]">{label}</div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#90958F]">{label}</div>
               <div className="mt-1.5 text-[20px] font-semibold tracking-[-0.04em] text-[#253029]">{value}</div>
             </div>
           ))}
         </div>
         <div className="px-4 py-3 sm:px-5 sm:py-4">
-          <div className="hidden grid-cols-[1.25fr_.72fr_.6fr_.85fr] gap-3 px-3 pb-2 text-[7px] font-bold uppercase tracking-[0.12em] text-[#9A9F99] sm:grid">
+          <div className="hidden grid-cols-[1.25fr_.72fr_.6fr_.85fr] gap-3 px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#9A9F99] sm:grid">
             <span>Customer</span><span>Value</span><span>Age</span><span>Next</span>
           </div>
           <div className="space-y-2">
-            {SAMPLE_QUOTES.slice(0, 3).map((quote, index) => (
+            {SAMPLE_QUOTES.map((quote, index) => (
               <div key={quote.customer} className={"grid gap-2 rounded-[14px] border px-3 py-3 sm:grid-cols-[1.25fr_.72fr_.6fr_.85fr] sm:items-center " + (index === 0 ? "border-[#E1C3AE] bg-[#FFF7F1]" : "border-[#E8E5E0] bg-white")}>
-                <div><div className="text-[10px] font-semibold text-[#29312C]">{quote.customer}</div><div className="mt-0.5 text-[8px] text-[#858C86]">{quote.service}</div></div>
+                <div><div className="text-[13px] font-semibold text-[#29312C]">{quote.customer}</div><div className="mt-0.5 text-[11px] text-[#858C86]">{quote.service}</div></div>
                 <div className="text-[11px] font-semibold text-[#29312C]">{quote.value}</div>
-                <div className="text-[9px] font-medium text-[#69716B]">{quote.age}</div>
-                <div><div className="text-[9px] font-semibold text-[#A76446]">{quote.state}</div><div className="mt-0.5 text-[7px] text-[#90958F]">{quote.next}</div></div>
+                <div className="text-[11px] font-medium text-[#69716B]">{quote.age}</div>
+                <div><div className="text-[11px] font-semibold text-[#A76446]">{quote.state}</div><div className="mt-0.5 text-[10px] text-[#90958F]">{quote.next}</div></div>
               </div>
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-2 border-t border-[#E5E0D9] bg-[#F7F8F5] px-5 py-3 text-[8px] font-medium text-[#747B75] sm:px-6">
+        <div className="flex items-center gap-2 border-t border-[#E5E0D9] bg-[#F7F8F5] px-5 py-3 text-[11px] font-medium text-[#747B75] sm:px-6">
           <Clock3 size={11} className="text-[#BF7458]" /> Every open quote has a next action or a clear waiting state.
         </div>
       </div>

@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/zapla-logo-green.png.asset.json";
-import { FACE } from "@/components/website-v3/v5/faces";
+import { FACE, portraitStyle } from "@/components/website-v3/v5/faces";
 
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -73,9 +73,9 @@ export function AppShell({
             </div>
           );
         })}
-        <img
-          src={FACE.alex}
-          alt=""
+        <span
+          style={portraitStyle(FACE.alex)}
+          aria-hidden="true"
           className="mt-auto h-7 w-7 rounded-full object-cover ring-1 ring-slate-200"
         />
       </div>
@@ -167,7 +167,7 @@ export function Face({
   ring?: boolean;
 }) {
   return (
-    <span aria-hidden="true" className={cn("block shrink-0 rounded-full",className)} style={{width:size,height:size,backgroundImage:"url(/concept/revenue/soft-autumn-portraits-v1.webp)",backgroundSize:"600% 400%",backgroundPosition:`${(Math.max(0,Object.values(FACE).indexOf(src as never))%6/5)*100}% ${Math.floor(Math.max(0,Object.values(FACE).indexOf(src as never))/6)/3*100}%`}} />
+    <span aria-hidden="true" className={cn("shrink-0 rounded-full",className)} style={{...portraitStyle(src),width:size,height:size}} />
   );
 }
 

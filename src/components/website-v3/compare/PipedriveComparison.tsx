@@ -30,7 +30,7 @@ function Hero() {
           <p className="compare-muted mt-3">Pipeline, activities, email follow-up and scheduling, with automation on the appropriate plan.<Refs items={[1]} /></p>
         </div>
         <div>
-          <div className="flex items-center gap-2"><img src={"/concept/zapla-logo-dark.svg"} alt="" width={28} height={28} className="h-7 w-7 object-contain" /><p className="compare-label">Zapla</p></div>
+          <div className="flex items-center gap-2"><span className="block h-7 w-7 shrink-0 overflow-hidden"><img src="/concept/zapla-logo-dark.svg" alt="" aria-hidden="true" className="h-7 w-auto max-w-none" /></span><p className="compare-label">Zapla</p></div>
           <h3 className="mt-3">The customer journey, shared by the team.</h3>
           <p className="compare-muted mt-3">CRM, inbox, forms, booking and follow-through with unlimited users.<Refs items={[10]} /></p>
         </div>

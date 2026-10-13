@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { FACE } from "@/components/website-v3/v5/faces";
+import { FACE, portraitStyle } from "@/components/website-v3/v5/faces";
 import { SceneAutomations as AutomationsScene } from "@/components/website-v3/v5/scene-automations";
 import { type SceneProps } from "@/components/website-v3/v5/motion-kit";
 import { ZaplaDemoCursor, type CursorPoint } from "@/components/website-v3/v5/zapla-demo-cursor";
@@ -18,10 +18,9 @@ function TeamAvatarCluster({ show, reduced }: { show: boolean; reduced: boolean 
           transition={{ duration: reduced ? 0 : 0.3 }}
         >
           {team.map((face, index) => (
-            <motion.img
+            <motion.span
               key={face}
-              src={face}
-              alt=""
+              style={portraitStyle(face)}
               aria-hidden
               className={`h-[18px] w-[18px] rounded-full border-2 border-white object-cover shadow-sm ${index > 0 ? "-ml-[5px]" : ""}`}
               initial={reduced ? false : { opacity: 0, scale: 0.65, x: 4 }}

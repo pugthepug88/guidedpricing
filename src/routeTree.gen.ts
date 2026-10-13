@@ -30,6 +30,7 @@ import { Route as QuoteFollowUpRouteImport } from './routes/quote-follow-up'
 import { Route as QuoteFollowUpV3RouteImport } from './routes/quote-follow-up-v3'
 import { Route as ReactivationRouteImport } from './routes/reactivation'
 import { Route as ReactivationV3RouteImport } from './routes/reactivation-v3'
+import { Route as ReviewV3RouteImport } from './routes/review-v3'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ReviewsV3RouteImport } from './routes/reviews-v3'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -155,6 +156,11 @@ const ReactivationRoute = ReactivationRouteImport.update({
 const ReactivationV3Route = ReactivationV3RouteImport.update({
   id: '/reactivation-v3',
   path: '/reactivation-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewV3Route = ReviewV3RouteImport.update({
+  id: '/review-v3',
+  path: '/review-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -296,6 +302,7 @@ export interface FileRoutesByFullPath {
   '/quote-follow-up-v3': typeof QuoteFollowUpV3Route
   '/reactivation': typeof ReactivationRoute
   '/reactivation-v3': typeof ReactivationV3Route
+  '/review-v3': typeof ReviewV3Route
   '/reviews': typeof ReviewsRoute
   '/reviews-v3': typeof ReviewsV3Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -340,6 +347,7 @@ export interface FileRoutesByTo {
   '/quote-follow-up-v3': typeof QuoteFollowUpV3Route
   '/reactivation': typeof ReactivationRoute
   '/reactivation-v3': typeof ReactivationV3Route
+  '/review-v3': typeof ReviewV3Route
   '/reviews': typeof ReviewsRoute
   '/reviews-v3': typeof ReviewsV3Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -385,6 +393,7 @@ export interface FileRoutesById {
   '/quote-follow-up-v3': typeof QuoteFollowUpV3Route
   '/reactivation': typeof ReactivationRoute
   '/reactivation-v3': typeof ReactivationV3Route
+  '/review-v3': typeof ReviewV3Route
   '/reviews': typeof ReviewsRoute
   '/reviews-v3': typeof ReviewsV3Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -431,6 +440,7 @@ export interface FileRouteTypes {
     | '/quote-follow-up-v3'
     | '/reactivation'
     | '/reactivation-v3'
+    | '/review-v3'
     | '/reviews'
     | '/reviews-v3'
     | '/.mcp/list-tools'
@@ -475,6 +485,7 @@ export interface FileRouteTypes {
     | '/quote-follow-up-v3'
     | '/reactivation'
     | '/reactivation-v3'
+    | '/review-v3'
     | '/reviews'
     | '/reviews-v3'
     | '/.mcp/list-tools'
@@ -519,6 +530,7 @@ export interface FileRouteTypes {
     | '/quote-follow-up-v3'
     | '/reactivation'
     | '/reactivation-v3'
+    | '/review-v3'
     | '/reviews'
     | '/reviews-v3'
     | '/.mcp/list-tools'
@@ -564,6 +576,7 @@ export interface RootRouteChildren {
   QuoteFollowUpV3Route: typeof QuoteFollowUpV3Route
   ReactivationRoute: typeof ReactivationRoute
   ReactivationV3Route: typeof ReactivationV3Route
+  ReviewV3Route: typeof ReviewV3Route
   ReviewsRoute: typeof ReviewsRoute
   ReviewsV3Route: typeof ReviewsV3Route
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
@@ -734,6 +747,13 @@ declare module '@tanstack/react-router' {
       path: '/reactivation-v3'
       fullPath: '/reactivation-v3'
       preLoaderRoute: typeof ReactivationV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/review-v3': {
+      id: '/review-v3'
+      path: '/review-v3'
+      fullPath: '/review-v3'
+      preLoaderRoute: typeof ReviewV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -908,6 +928,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuoteFollowUpV3Route: QuoteFollowUpV3Route,
   ReactivationRoute: ReactivationRoute,
   ReactivationV3Route: ReactivationV3Route,
+  ReviewV3Route: ReviewV3Route,
   ReviewsRoute: ReviewsRoute,
   ReviewsV3Route: ReviewsV3Route,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
