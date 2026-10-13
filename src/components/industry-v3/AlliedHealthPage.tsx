@@ -124,7 +124,7 @@ export function AlliedHealthPage() {
               someone replies, reminders stop and reception gets the conversation and callback
               details.
             </p>
-            <TextLink href="/follow-up">Explore enquiry follow up</TextLink>
+            <TextLink href="/follow-up-v3">Explore enquiry follow up</TextLink>
             <p className="ah3-aside">Your existing diary confirms appointments.</p>
           </div>
           <EnquiryStory />
@@ -140,7 +140,7 @@ export function AlliedHealthPage() {
             submission with the enquiry, reminds people with outstanding forms and updates
             reception’s task when details arrive.
           </p>
-          <TextLink href="/crm">Explore forms and enquiry records</TextLink>
+          <TextLink href="/crm-v3">Explore forms and enquiry records</TextLink>
           <p className="ah3-aside">Clinical forms and records stay in your practice system.</p>
         </div>
       </section>
@@ -159,7 +159,7 @@ export function AlliedHealthPage() {
               Your practitioner decides who is due back. Reminders need current booking records and
               contact permissions.
             </p>
-            <TextLink href="/reactivation">Explore return reminders</TextLink>
+            <TextLink href="/reactivation-v3">Explore return reminders</TextLink>
           </div>
         </div>
         <ReturnScene />
@@ -172,7 +172,7 @@ export function AlliedHealthPage() {
             After a completed visit, Zapla sends a neutral feedback or review request. Direct
             replies reach reception, with clinical questions passed to a practitioner.
           </p>
-          <TextLink href="/reviews">Explore feedback and review requests</TextLink>
+          <TextLink href="/reviews-v3">Explore feedback and review requests</TextLink>
           <p className="ah3-aside">
             Healthcare advertising rules apply when reusing patient reviews in marketing.
           </p>
@@ -185,7 +185,7 @@ export function AlliedHealthPage() {
             <Label>Fit for your starting point</Label>
             <h2 id="ah3-control-title">
               Fit around the tools
-              <br />
+              <br />{" "}
               <span>your practice uses.</span>
             </h2>
             <div className="ah3-starting-points">
@@ -220,7 +220,7 @@ export function AlliedHealthPage() {
           </p>
           <div className="ah3-actions">
             <BookButton />
-            <TextLink href="/Pricing-v3">View plans and pricing</TextLink>
+            <TextLink href="/pricing-review-v3">View plans and pricing</TextLink>
           </div>
         </div>
         <div className="ah3-launch-cost">
@@ -240,7 +240,7 @@ export function AlliedHealthPage() {
           <Label>Before you get started</Label>
           <h2 id="ah3-faq-title">
             How it fits
-            <br />
+            <br />{" "}
             your practice.
           </h2>
         </div>
@@ -262,7 +262,7 @@ export function AlliedHealthPage() {
         </div>
         <h2 id="ah3-final-title">
           Give your next enquiry
-          <br />a clear next step.
+          <br />{" "}a clear next step.
         </h2>
         <p>
           Book a call to map where patient enquiries get stuck and which steps Zapla can carry for
@@ -270,7 +270,7 @@ export function AlliedHealthPage() {
         </p>
         <div className="ah3-actions">
           <BookButton />
-          <a className="ah3-button ah3-secondary" href="/Pricing-v3">
+          <a className="ah3-button ah3-secondary" href="/pricing-review-v3">
             View pricing
           </a>
         </div>
@@ -354,7 +354,7 @@ function CallSupport() {
           <Sender>Reception callback · Afternoon</Sender>
         </div>
       </div>
-      <TextLink href="/ai-receptionist">Explore AI Receptionist</TextLink>
+      <TextLink href="/ai-receptionist-v3">Explore AI Receptionist</TextLink>
       <p className="ah3-aside">
         Clinical questions and urgent concerns need your team. AI does not assess urgency. Setup and
         usage charges apply.

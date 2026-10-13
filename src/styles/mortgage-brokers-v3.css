@@ -1597,3 +1597,5 @@
 }
 
 .mv3-moments article:nth-child(2),.mv3-moments article:nth-child(3){margin-top:0}.mv3-moments article{align-self:start}
+
+.mv3-moments article:nth-child(2),.mv3-moments article:nth-child(3){padding-top:0}

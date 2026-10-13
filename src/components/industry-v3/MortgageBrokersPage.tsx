@@ -264,9 +264,9 @@ export function MortgageBrokersPage() {
           <Label>For mortgage brokers</Label>
           <h1 id="mv3-title">
             Be the broker
-            <br />
+            <br />{" "}
             they come back to.
-            <br />
+            <br />{" "}
             <span>And recommend.</span>
           </h1>
           <p className="mv3-intro">
@@ -295,7 +295,7 @@ export function MortgageBrokersPage() {
             <div className="mv3-human-owner">Client record · Assigned to Daniel</div>
             <p>
               Priya’s reply and client history.
-              <br />
+              <br />{" "}
               <strong>Ready for the next conversation.</strong>
             </p>
           </div>
@@ -306,9 +306,9 @@ export function MortgageBrokersPage() {
           <Label>The client relationship</Label>
           <h2 id="mv3-outcome-title">
             Your client book
-            <br />
+            <br />{" "}
             holds more than
-            <br />
+            <br />{" "}
             past settlements.
           </h2>
         </div>
@@ -317,7 +317,7 @@ export function MortgageBrokersPage() {
             <span>A review is due</span>
             <h3>
               Stay their
-              <br />
+              <br />{" "}
               first call.
             </h3>
             <p>
@@ -329,7 +329,7 @@ export function MortgageBrokersPage() {
             <span>A client recommends you</span>
             <h3>
               Earn the next
-              <br />
+              <br />{" "}
               introduction.
             </h3>
             <p>
@@ -341,7 +341,7 @@ export function MortgageBrokersPage() {
             <span>They’re not ready yet</span>
             <h3>
               Follow up when
-              <br />
+              <br />{" "}
               they’re ready.
             </h3>
             <p>
@@ -357,7 +357,7 @@ export function MortgageBrokersPage() {
             <Label>Client records and follow through</Label>
             <h2 id="mv3-team-title">
               One client record.
-              <br />A clear next step.
+              <br />{" "}A clear next step.
             </h2>
             <p>
               A reply in one inbox. A follow up date in a spreadsheet. An introduction waiting for a
@@ -368,7 +368,7 @@ export function MortgageBrokersPage() {
               just you or your whole team, each client has a history and someone responsible for
               what happens next.
             </p>
-            <Link href="/crm">Explore the connected CRM</Link>
+            <Link href="/crm-v3">Explore the connected CRM</Link>
           </div>
           <TeamScene />
         </div>
@@ -380,7 +380,7 @@ export function MortgageBrokersPage() {
               <Label>After settlement</Label>
               <h2 id="mv3-review-title">
                 Stay their broker.
-                <br />
+                <br />{" "}
                 Long after the loan settles.
               </h2>
             </div>
@@ -394,7 +394,7 @@ export function MortgageBrokersPage() {
                 Consistent service supports the relationships behind trail income and repeat
                 business.
               </p>
-              <Link href="/customer-marketing">Explore Customer Marketing</Link>
+              <Link href="/customer-marketing-v3">Explore Customer Marketing</Link>
             </div>
           </div>
           <ReviewScene />
@@ -405,7 +405,7 @@ export function MortgageBrokersPage() {
           <Label>Trust that carries forward</Label>
           <h2 id="mv3-reputation-title">
             Make it easy
-            <br />
+            <br />{" "}
             to recommend you.
           </h2>
           <p>
@@ -415,7 +415,7 @@ export function MortgageBrokersPage() {
           <p>
             Zapla sends the invitation at the time you choose and brings replies back to your team.
           </p>
-          <Link href="/reviews">Explore Reviews &amp; Reputation</Link>
+          <Link href="/reviews-v3">Explore Reviews &amp; Reputation</Link>
           <div className="mv3-referral-conversation">
             <Sender>Your brokerage · Staying in touch</Sender>
             <p>
@@ -450,7 +450,7 @@ export function MortgageBrokersPage() {
             <Label>Your starting point</Label>
             <h2 id="mv3-fit-title">
               Built around
-              <br />
+              <br />{" "}
               <span>your current setup.</span>
             </h2>
             <p className="mv3-fit-intro">
@@ -488,7 +488,7 @@ export function MortgageBrokersPage() {
           <Label>Guided Launch</Label>
           <h2 id="mv3-launch-title">
             Your first workflows.
-            <br />
+            <br />{" "}
             Set up with you.
           </h2>
           <p>
@@ -526,7 +526,7 @@ export function MortgageBrokersPage() {
           <Label>Plans for your brokerage</Label>
           <h2 id="mv3-plans-title">
             Your whole team.
-            <br />
+            <br />{" "}
             One platform price.
           </h2>
           <p>
@@ -565,7 +565,7 @@ export function MortgageBrokersPage() {
             Usage and optional AI Receptionist are separate. We confirm final scope and inclusions
             before setup.
           </p>
-          <Link href="/Pricing-v3">Compare plans and Guided Launch</Link>
+          <Link href="/pricing-review-v3">Compare plans and Guided Launch</Link>
         </div>
       </section>
       <section className="mv3-faq mv3-wrap" aria-labelledby="mv3-faq-title">
@@ -573,7 +573,7 @@ export function MortgageBrokersPage() {
           <Label>A few practical questions</Label>
           <h2 id="mv3-faq-title">
             Before we
-            <br />
+            <br />{" "}
             get started.
           </h2>
         </div>
@@ -593,7 +593,7 @@ export function MortgageBrokersPage() {
         <ZaplaPetal size={36} />
         <h2 id="mv3-final-title">
           Build on the client book
-          <br />
+          <br />{" "}
           you’ve worked hard to earn.
         </h2>
         <p>

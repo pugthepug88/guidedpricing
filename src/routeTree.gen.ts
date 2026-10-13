@@ -12,19 +12,30 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PricingV3RouteImport } from './routes/Pricing-v3'
 import { Route as AiReceptionistRouteImport } from './routes/ai-receptionist'
+import { Route as AiReceptionistV3RouteImport } from './routes/ai-receptionist-v3'
 import { Route as CrmRouteImport } from './routes/crm'
+import { Route as CrmV3RouteImport } from './routes/crm-v3'
 import { Route as CustomerMarketingRouteImport } from './routes/customer-marketing'
+import { Route as CustomerMarketingV3RouteImport } from './routes/customer-marketing-v3'
 import { Route as FollowUpRouteImport } from './routes/follow-up'
+import { Route as FollowUpV3RouteImport } from './routes/follow-up-v3'
+import { Route as HomepageV3RouteImport } from './routes/homepage-v3'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as PlatformV3RouteImport } from './routes/platform-v3'
 import { Route as PreviewV3RouteImport } from './routes/preview-v3'
+import { Route as PricingReviewV3RouteImport } from './routes/pricing-review-v3'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as QuoteFollowUpRouteImport } from './routes/quote-follow-up'
+import { Route as QuoteFollowUpV3RouteImport } from './routes/quote-follow-up-v3'
 import { Route as ReactivationRouteImport } from './routes/reactivation'
+import { Route as ReactivationV3RouteImport } from './routes/reactivation-v3'
 import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as ReviewsV3RouteImport } from './routes/reviews-v3'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
+import { Route as CompareZaplaVsPipedriveV3RouteImport } from './routes/compare.zapla-vs-pipedrive-v3'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
 import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
@@ -56,9 +67,19 @@ const AiReceptionistRoute = AiReceptionistRouteImport.update({
   path: '/ai-receptionist',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AiReceptionistV3Route = AiReceptionistV3RouteImport.update({
+  id: '/ai-receptionist-v3',
+  path: '/ai-receptionist-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CrmRoute = CrmRouteImport.update({
   id: '/crm',
   path: '/crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CrmV3Route = CrmV3RouteImport.update({
+  id: '/crm-v3',
+  path: '/crm-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CustomerMarketingRoute = CustomerMarketingRouteImport.update({
@@ -66,9 +87,24 @@ const CustomerMarketingRoute = CustomerMarketingRouteImport.update({
   path: '/customer-marketing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CustomerMarketingV3Route = CustomerMarketingV3RouteImport.update({
+  id: '/customer-marketing-v3',
+  path: '/customer-marketing-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FollowUpRoute = FollowUpRouteImport.update({
   id: '/follow-up',
   path: '/follow-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FollowUpV3Route = FollowUpV3RouteImport.update({
+  id: '/follow-up-v3',
+  path: '/follow-up-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomepageV3Route = HomepageV3RouteImport.update({
+  id: '/homepage-v3',
+  path: '/homepage-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -81,9 +117,19 @@ const PlatformRoute = PlatformRouteImport.update({
   path: '/platform',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformV3Route = PlatformV3RouteImport.update({
+  id: '/platform-v3',
+  path: '/platform-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PreviewV3Route = PreviewV3RouteImport.update({
   id: '/preview-v3',
   path: '/preview-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingReviewV3Route = PricingReviewV3RouteImport.update({
+  id: '/pricing-review-v3',
+  path: '/pricing-review-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingV2Route = PricingV2RouteImport.update({
@@ -96,14 +142,29 @@ const QuoteFollowUpRoute = QuoteFollowUpRouteImport.update({
   path: '/quote-follow-up',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuoteFollowUpV3Route = QuoteFollowUpV3RouteImport.update({
+  id: '/quote-follow-up-v3',
+  path: '/quote-follow-up-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReactivationRoute = ReactivationRouteImport.update({
   id: '/reactivation',
   path: '/reactivation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReactivationV3Route = ReactivationV3RouteImport.update({
+  id: '/reactivation-v3',
+  path: '/reactivation-v3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsV3Route = ReviewsV3RouteImport.update({
+  id: '/reviews-v3',
+  path: '/reviews-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -123,6 +184,12 @@ const CompareZaplaVsPipedriveRoute = CompareZaplaVsPipedriveRouteImport.update({
   path: '/compare/zapla-vs-pipedrive',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompareZaplaVsPipedriveV3Route =
+  CompareZaplaVsPipedriveV3RouteImport.update({
+    id: '/compare/zapla-vs-pipedrive-v3',
+    path: '/compare/zapla-vs-pipedrive-v3',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ConceptCinematicFollowThroughV5Route =
   ConceptCinematicFollowThroughV5RouteImport.update({
     id: '/concept/cinematic-follow-through-v5',
@@ -211,19 +278,30 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
+  '/ai-receptionist-v3': typeof AiReceptionistV3Route
   '/crm': typeof CrmRoute
+  '/crm-v3': typeof CrmV3Route
   '/customer-marketing': typeof CustomerMarketingRoute
+  '/customer-marketing-v3': typeof CustomerMarketingV3Route
   '/follow-up': typeof FollowUpRoute
+  '/follow-up-v3': typeof FollowUpV3Route
+  '/homepage-v3': typeof HomepageV3Route
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
+  '/platform-v3': typeof PlatformV3Route
   '/preview-v3': typeof PreviewV3Route
+  '/pricing-review-v3': typeof PricingReviewV3Route
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
+  '/quote-follow-up-v3': typeof QuoteFollowUpV3Route
   '/reactivation': typeof ReactivationRoute
+  '/reactivation-v3': typeof ReactivationV3Route
   '/reviews': typeof ReviewsRoute
+  '/reviews-v3': typeof ReviewsV3Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
+  '/compare/zapla-vs-pipedrive-v3': typeof CompareZaplaVsPipedriveV3Route
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -244,19 +322,30 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
+  '/ai-receptionist-v3': typeof AiReceptionistV3Route
   '/crm': typeof CrmRoute
+  '/crm-v3': typeof CrmV3Route
   '/customer-marketing': typeof CustomerMarketingRoute
+  '/customer-marketing-v3': typeof CustomerMarketingV3Route
   '/follow-up': typeof FollowUpRoute
+  '/follow-up-v3': typeof FollowUpV3Route
+  '/homepage-v3': typeof HomepageV3Route
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
+  '/platform-v3': typeof PlatformV3Route
   '/preview-v3': typeof PreviewV3Route
+  '/pricing-review-v3': typeof PricingReviewV3Route
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
+  '/quote-follow-up-v3': typeof QuoteFollowUpV3Route
   '/reactivation': typeof ReactivationRoute
+  '/reactivation-v3': typeof ReactivationV3Route
   '/reviews': typeof ReviewsRoute
+  '/reviews-v3': typeof ReviewsV3Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
+  '/compare/zapla-vs-pipedrive-v3': typeof CompareZaplaVsPipedriveV3Route
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -278,19 +367,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/Pricing-v3': typeof PricingV3Route
   '/ai-receptionist': typeof AiReceptionistRoute
+  '/ai-receptionist-v3': typeof AiReceptionistV3Route
   '/crm': typeof CrmRoute
+  '/crm-v3': typeof CrmV3Route
   '/customer-marketing': typeof CustomerMarketingRoute
+  '/customer-marketing-v3': typeof CustomerMarketingV3Route
   '/follow-up': typeof FollowUpRoute
+  '/follow-up-v3': typeof FollowUpV3Route
+  '/homepage-v3': typeof HomepageV3Route
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
+  '/platform-v3': typeof PlatformV3Route
   '/preview-v3': typeof PreviewV3Route
+  '/pricing-review-v3': typeof PricingReviewV3Route
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
+  '/quote-follow-up-v3': typeof QuoteFollowUpV3Route
   '/reactivation': typeof ReactivationRoute
+  '/reactivation-v3': typeof ReactivationV3Route
   '/reviews': typeof ReviewsRoute
+  '/reviews-v3': typeof ReviewsV3Route
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
+  '/compare/zapla-vs-pipedrive-v3': typeof CompareZaplaVsPipedriveV3Route
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -313,19 +413,30 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
+    | '/ai-receptionist-v3'
     | '/crm'
+    | '/crm-v3'
     | '/customer-marketing'
+    | '/customer-marketing-v3'
     | '/follow-up'
+    | '/follow-up-v3'
+    | '/homepage-v3'
     | '/mcp'
     | '/platform'
+    | '/platform-v3'
     | '/preview-v3'
+    | '/pricing-review-v3'
     | '/pricing-v2'
     | '/quote-follow-up'
+    | '/quote-follow-up-v3'
     | '/reactivation'
+    | '/reactivation-v3'
     | '/reviews'
+    | '/reviews-v3'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/zapla-vs-pipedrive'
+    | '/compare/zapla-vs-pipedrive-v3'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
@@ -346,19 +457,30 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
+    | '/ai-receptionist-v3'
     | '/crm'
+    | '/crm-v3'
     | '/customer-marketing'
+    | '/customer-marketing-v3'
     | '/follow-up'
+    | '/follow-up-v3'
+    | '/homepage-v3'
     | '/mcp'
     | '/platform'
+    | '/platform-v3'
     | '/preview-v3'
+    | '/pricing-review-v3'
     | '/pricing-v2'
     | '/quote-follow-up'
+    | '/quote-follow-up-v3'
     | '/reactivation'
+    | '/reactivation-v3'
     | '/reviews'
+    | '/reviews-v3'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/zapla-vs-pipedrive'
+    | '/compare/zapla-vs-pipedrive-v3'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
@@ -379,19 +501,30 @@ export interface FileRouteTypes {
     | '/'
     | '/Pricing-v3'
     | '/ai-receptionist'
+    | '/ai-receptionist-v3'
     | '/crm'
+    | '/crm-v3'
     | '/customer-marketing'
+    | '/customer-marketing-v3'
     | '/follow-up'
+    | '/follow-up-v3'
+    | '/homepage-v3'
     | '/mcp'
     | '/platform'
+    | '/platform-v3'
     | '/preview-v3'
+    | '/pricing-review-v3'
     | '/pricing-v2'
     | '/quote-follow-up'
+    | '/quote-follow-up-v3'
     | '/reactivation'
+    | '/reactivation-v3'
     | '/reviews'
+    | '/reviews-v3'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/zapla-vs-pipedrive'
+    | '/compare/zapla-vs-pipedrive-v3'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
@@ -413,19 +546,30 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PricingV3Route: typeof PricingV3Route
   AiReceptionistRoute: typeof AiReceptionistRoute
+  AiReceptionistV3Route: typeof AiReceptionistV3Route
   CrmRoute: typeof CrmRoute
+  CrmV3Route: typeof CrmV3Route
   CustomerMarketingRoute: typeof CustomerMarketingRoute
+  CustomerMarketingV3Route: typeof CustomerMarketingV3Route
   FollowUpRoute: typeof FollowUpRoute
+  FollowUpV3Route: typeof FollowUpV3Route
+  HomepageV3Route: typeof HomepageV3Route
   McpRoute: typeof McpRoute
   PlatformRoute: typeof PlatformRoute
+  PlatformV3Route: typeof PlatformV3Route
   PreviewV3Route: typeof PreviewV3Route
+  PricingReviewV3Route: typeof PricingReviewV3Route
   PricingV2Route: typeof PricingV2Route
   QuoteFollowUpRoute: typeof QuoteFollowUpRoute
+  QuoteFollowUpV3Route: typeof QuoteFollowUpV3Route
   ReactivationRoute: typeof ReactivationRoute
+  ReactivationV3Route: typeof ReactivationV3Route
   ReviewsRoute: typeof ReviewsRoute
+  ReviewsV3Route: typeof ReviewsV3Route
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
+  CompareZaplaVsPipedriveV3Route: typeof CompareZaplaVsPipedriveV3Route
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
@@ -466,11 +610,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AiReceptionistRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ai-receptionist-v3': {
+      id: '/ai-receptionist-v3'
+      path: '/ai-receptionist-v3'
+      fullPath: '/ai-receptionist-v3'
+      preLoaderRoute: typeof AiReceptionistV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/crm': {
       id: '/crm'
       path: '/crm'
       fullPath: '/crm'
       preLoaderRoute: typeof CrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/crm-v3': {
+      id: '/crm-v3'
+      path: '/crm-v3'
+      fullPath: '/crm-v3'
+      preLoaderRoute: typeof CrmV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/customer-marketing': {
@@ -480,11 +638,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CustomerMarketingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/customer-marketing-v3': {
+      id: '/customer-marketing-v3'
+      path: '/customer-marketing-v3'
+      fullPath: '/customer-marketing-v3'
+      preLoaderRoute: typeof CustomerMarketingV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/follow-up': {
       id: '/follow-up'
       path: '/follow-up'
       fullPath: '/follow-up'
       preLoaderRoute: typeof FollowUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/follow-up-v3': {
+      id: '/follow-up-v3'
+      path: '/follow-up-v3'
+      fullPath: '/follow-up-v3'
+      preLoaderRoute: typeof FollowUpV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/homepage-v3': {
+      id: '/homepage-v3'
+      path: '/homepage-v3'
+      fullPath: '/homepage-v3'
+      preLoaderRoute: typeof HomepageV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -501,11 +680,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform-v3': {
+      id: '/platform-v3'
+      path: '/platform-v3'
+      fullPath: '/platform-v3'
+      preLoaderRoute: typeof PlatformV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/preview-v3': {
       id: '/preview-v3'
       path: '/preview-v3'
       fullPath: '/preview-v3'
       preLoaderRoute: typeof PreviewV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing-review-v3': {
+      id: '/pricing-review-v3'
+      path: '/pricing-review-v3'
+      fullPath: '/pricing-review-v3'
+      preLoaderRoute: typeof PricingReviewV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing-v2': {
@@ -522,6 +715,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuoteFollowUpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quote-follow-up-v3': {
+      id: '/quote-follow-up-v3'
+      path: '/quote-follow-up-v3'
+      fullPath: '/quote-follow-up-v3'
+      preLoaderRoute: typeof QuoteFollowUpV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reactivation': {
       id: '/reactivation'
       path: '/reactivation'
@@ -529,11 +729,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReactivationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reactivation-v3': {
+      id: '/reactivation-v3'
+      path: '/reactivation-v3'
+      fullPath: '/reactivation-v3'
+      preLoaderRoute: typeof ReactivationV3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reviews': {
       id: '/reviews'
       path: '/reviews'
       fullPath: '/reviews'
       preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews-v3': {
+      id: '/reviews-v3'
+      path: '/reviews-v3'
+      fullPath: '/reviews-v3'
+      preLoaderRoute: typeof ReviewsV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -555,6 +769,13 @@ declare module '@tanstack/react-router' {
       path: '/compare/zapla-vs-pipedrive'
       fullPath: '/compare/zapla-vs-pipedrive'
       preLoaderRoute: typeof CompareZaplaVsPipedriveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/zapla-vs-pipedrive-v3': {
+      id: '/compare/zapla-vs-pipedrive-v3'
+      path: '/compare/zapla-vs-pipedrive-v3'
+      fullPath: '/compare/zapla-vs-pipedrive-v3'
+      preLoaderRoute: typeof CompareZaplaVsPipedriveV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/concept/cinematic-follow-through-v5': {
@@ -669,20 +890,31 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PricingV3Route: PricingV3Route,
   AiReceptionistRoute: AiReceptionistRoute,
+  AiReceptionistV3Route: AiReceptionistV3Route,
   CrmRoute: CrmRoute,
+  CrmV3Route: CrmV3Route,
   CustomerMarketingRoute: CustomerMarketingRoute,
+  CustomerMarketingV3Route: CustomerMarketingV3Route,
   FollowUpRoute: FollowUpRoute,
+  FollowUpV3Route: FollowUpV3Route,
+  HomepageV3Route: HomepageV3Route,
   McpRoute: McpRoute,
   PlatformRoute: PlatformRoute,
+  PlatformV3Route: PlatformV3Route,
   PreviewV3Route: PreviewV3Route,
+  PricingReviewV3Route: PricingReviewV3Route,
   PricingV2Route: PricingV2Route,
   QuoteFollowUpRoute: QuoteFollowUpRoute,
+  QuoteFollowUpV3Route: QuoteFollowUpV3Route,
   ReactivationRoute: ReactivationRoute,
+  ReactivationV3Route: ReactivationV3Route,
   ReviewsRoute: ReviewsRoute,
+  ReviewsV3Route: ReviewsV3Route,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   CompareZaplaVsPipedriveRoute: CompareZaplaVsPipedriveRoute,
+  CompareZaplaVsPipedriveV3Route: CompareZaplaVsPipedriveV3Route,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,

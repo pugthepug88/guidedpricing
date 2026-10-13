@@ -6,7 +6,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 const BOOK = "https://zapla.io/booking";
-const PRICING = "/Pricing-v3";
+const PRICING = "/pricing-review-v3";
 const PHOTOS = "/concept/industries/";
 
 function Label({ children }: { children: ReactNode }) {
@@ -85,9 +85,9 @@ export function TradesPage() {
           <Label>Trades &amp; home services</Label>
           <h1 id="trades-title">
             Reply to enquiries.
-            <br />
+            <br />{" "}
             <span>Follow up quotes.</span>
-            <br />
+            <br />{" "}
             Stay on the tools.
           </h1>
           <p className="tr3-intro">
@@ -115,7 +115,7 @@ export function TradesPage() {
               <ZaplaPetal size={18} />
               <span>
                 Automatic reply sent.
-                <br />
+                <br />{" "}
                 Job details requested.
               </span>
             </div>
@@ -129,9 +129,9 @@ export function TradesPage() {
           <Label>A new enquiry comes in</Label>
           <h2 id="enquiry-title">
             Get the details.
-            <br />
+            <br />{" "}
             Without stopping
-            <br />
+            <br />{" "}
             the job.
           </h2>
           <p>
@@ -142,7 +142,7 @@ export function TradesPage() {
             The conversation stays with the customer record. You or your office can arrange the
             assessment, and the person replying can see what’s already been asked.
           </p>
-          <Link href="/crm">See the connected customer record</Link>
+          <Link href="/crm-v3">See the connected customer record</Link>
         </div>
       </section>
 
@@ -153,10 +153,10 @@ export function TradesPage() {
             <Label>After the quote goes out</Label>
             <h2 id="quote-title">
               Follow up the quote.
-              <br />
+              <br />{" "}
               <span>
                 Stop when
-                <br />
+                <br />{" "}
                 they reply.
               </span>
             </h2>
@@ -169,7 +169,7 @@ export function TradesPage() {
               further quote reminders and goes to your team to confirm scope, price and the next
               step.
             </p>
-            <Link href="/quote-follow-up">Explore quote follow-up</Link>
+            <Link href="/quote-follow-up-v3">Explore quote follow-up</Link>
             <p className="tr3-qualification">
               Follow-up starts when the quote is recorded in Zapla.{" "}
               <a href="#trade-faq">How connections work</a>.
@@ -185,7 +185,7 @@ export function TradesPage() {
             <Label>For services customers need again</Label>
             <h2 id="return-title">
               Remind customers
-              <br />
+              <br />{" "}
               <span>when service is due.</span>
             </h2>
           </div>
@@ -195,14 +195,14 @@ export function TradesPage() {
               pest inspections or pool servicing. They reply to arrange a visit; your team confirms
               the time.
             </p>
-            <Link href="/customer-marketing">Explore service reminders</Link>
+            <Link href="/customer-marketing-v3">Explore service reminders</Link>
           </div>
         </div>
         <ReturnScene />
         <div className="tr3-return-support">
           <strong>Haven’t heard from them in a while?</strong>
           <p>
-            A relevant <a href="/reactivation">reactivation campaign</a> can reopen the
+            A relevant <a href="/reactivation-v3">reactivation campaign</a> can reopen the
             conversation. Contact eligible customers with a real service reason, rather than chasing
             every past job.
           </p>
@@ -214,9 +214,9 @@ export function TradesPage() {
           <Label>After the work is finished</Label>
           <h2 id="reviews-title">
             Ask for the review.
-            <br />
+            <br />{" "}
             While the job
-            <br />
+            <br />{" "}
             is still fresh.
           </h2>
           <p>
@@ -227,7 +227,7 @@ export function TradesPage() {
             Make asking part of finishing the job, rather than another thing to remember at the end
             of the week.
           </p>
-          <Link href="/reviews">Explore Google review requests</Link>
+          <Link href="/reviews-v3">Explore Google review requests</Link>
         </div>
         <ReviewScene />
       </section>
@@ -237,7 +237,7 @@ export function TradesPage() {
           <Label>Your starting point</Label>
           <h2 id="fit-title">
             Bring the customer work
-            <br />
+            <br />{" "}
             into one place.
           </h2>
           <p className="tr3-fit-intro">
@@ -274,7 +274,7 @@ export function TradesPage() {
           <div className="tr3-copy">
             <Label>Guided Launch</Label>
             <h2 id="launch-title">
-              Get your first <br /> workflow working.
+              Get your first <br />{" "} workflow working.
             </h2>
             <p>
               Start with the enquiry or follow-up gap that matters most. We map the process, build
@@ -317,7 +317,7 @@ export function TradesPage() {
         </div>
         <h2 id="final-title">
           See what Zapla can automate
-          <br />
+          <br />{" "}
           for your trade business.
         </h2>
         <p>
@@ -473,7 +473,7 @@ function Plans() {
         <Label>Room for the whole team</Label>
         <h2 id="plans-title">
           Unlimited users.
-          <br />
+          <br />{" "}
           <span>One flat platform price.</span>
         </h2>
         <p>
@@ -563,12 +563,12 @@ function Faq() {
         <Label>Before you add another system</Label>
         <h2 id="faq-title">
           The practical
-          <br />
+          <br />{" "}
           questions.
         </h2>
         <p>
           Running a workshop?
-          <br />
+          <br />{" "}
           <a href="/industries/mechanics">See Zapla for mechanics</a>.
         </p>
       </div>

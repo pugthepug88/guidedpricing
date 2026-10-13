@@ -144,11 +144,11 @@ export function AIReceptionistSection({
           </Heading>
           <p className="za3-description">{item.copy}</p>
           <p className="za3-boundary">{item.boundary}</p>
-          <a className="za3-link" href="/ai-receptionist">
+          <a className="za3-link" href="/ai-receptionist-v3">
             Explore AI Receptionist <ArrowRight size={16} aria-hidden="true" />
           </a>
           <p className="za3-cost">
-            Optional add-on. <a href="/Pricing-v3">Setup and usage charges apply.</a>
+            Optional add-on. <a href="/pricing-review-v3">Setup and usage charges apply.</a>
           </p>
         </div>
         <div

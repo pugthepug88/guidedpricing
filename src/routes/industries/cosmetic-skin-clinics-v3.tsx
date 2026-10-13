@@ -155,10 +155,10 @@ function SkinClinicsPage() {
           <Label>For skin & cosmetic clinics</Label>
           <h1 id="skin-title">
             Less chasing.
-            <br />
+            <br />{" "}
             <span>
               More time
-              <br /> with clients.
+              <br />{" "} with clients.
             </span>
           </h1>
           <p className="sk3-intro">
@@ -191,7 +191,7 @@ function SkinClinicsPage() {
       <section className="sk3-gap sk3-wrap" aria-labelledby="gap-title">
         <h2 id="gap-title">
           The appointment is only
-          <br />
+          <br />{" "}
           part of the work.
         </h2>
         <div className="sk3-gap-grid">
@@ -228,7 +228,7 @@ function SkinClinicsPage() {
             callback. Your team receives their response and arranges the consultation. Unanswered
             enquiries receive the follow-up you’ve agreed.
           </p>
-          <Link href="/follow-up">Explore enquiry follow-up</Link>
+          <Link href="/follow-up-v3">Explore enquiry follow-up</Link>
         </div>
       </section>
       <AIReceptionistSection industry="skin" />
@@ -243,7 +243,7 @@ function SkinClinicsPage() {
               and notifies reception.
             </p>
 
-            <Link href="/crm">Explore forms and client records</Link>
+            <Link href="/crm-v3">Explore forms and client records</Link>
           </div>
           <AdminScene />
         </div>
@@ -258,7 +258,7 @@ function SkinClinicsPage() {
               reply stops further reminders and goes to your team. Treatment questions stay with
               your clinician.
             </p>
-            <Link href="/follow-up">Explore automatic follow-up</Link>
+            <Link href="/follow-up-v3">Explore automatic follow-up</Link>
           </div>
           <ConsiderScene />
         </div>
@@ -274,7 +274,7 @@ function SkinClinicsPage() {
               Choose clients your clinic has approved to contact. Zapla sends your invitation and
               brings replies back to your team to discuss their next visit.
             </p>
-            <Link href="/reactivation">Explore client reactivation</Link>
+            <Link href="/reactivation-v3">Explore client reactivation</Link>
           </div>
         </div>
         <ReturnPhoto />
@@ -289,7 +289,7 @@ function SkinClinicsPage() {
             doesn’t have to send each message.
           </p>
 
-          <Link href="/reviews">Explore review requests</Link>
+          <Link href="/reviews-v3">Explore review requests</Link>
         </div>
       </section>
       <section className="sk3-fit sk3-wrap" aria-labelledby="fit-title">
@@ -325,7 +325,7 @@ function SkinClinicsPage() {
               Choose the messages you want automated. We build the workflows and test replies,
               reminders and staff handoffs with your team before launch.
             </p>
-            <Link href="/Pricing-v3">Explore Guided Launch</Link>
+            <Link href="/pricing-review-v3">Explore Guided Launch</Link>
           </div>
           <ol className="sk3-launch-list">
             <li>
@@ -362,7 +362,7 @@ function SkinClinicsPage() {
           <Label>Room for your whole team</Label>
           <h2 id="value-title">
             Unlimited users.
-            <br />
+            <br />{" "}
             One flat platform price.
           </h2>
         </div>
@@ -377,7 +377,7 @@ function SkinClinicsPage() {
               <span>A$399/month + GST</span>
               <small>
                 Enquiry replies, consultation follow-up and review requests.
-                <br />
+                <br />{" "}
                 Guided Launch from A$1,997 + GST
               </small>
             </div>
@@ -386,7 +386,7 @@ function SkinClinicsPage() {
               <span>A$699/month + GST</span>
               <small>
                 Everything in Follow-Through, plus eligible client reactivation and campaigns.
-                <br />
+                <br />{" "}
                 Guided Launch from A$2,997 + GST
               </small>
             </div>
@@ -396,7 +396,7 @@ function SkinClinicsPage() {
             separate. AI Receptionist is optional. Standard launch includes up to three agreed
             follow-through automations; extra clinic connections or workflows are scoped separately.
           </p>
-          <Link href="/Pricing-v3">Compare plans and costs</Link>
+          <Link href="/pricing-review-v3">Compare plans and costs</Link>
         </div>
       </section>
       <section className="sk3-faq sk3-wrap" aria-labelledby="faq-title">
@@ -404,7 +404,7 @@ function SkinClinicsPage() {
           <Label>A few practical questions</Label>
           <h2 id="faq-title">
             Before you add
-            <br />
+            <br />{" "}
             anything new.
           </h2>
         </div>
@@ -426,7 +426,7 @@ function SkinClinicsPage() {
         </span>
         <h2 id="final-title">
           See what Zapla can
-          <br />
+          <br />{" "}
           automate for your clinic.
         </h2>
         <p>

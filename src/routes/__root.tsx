@@ -140,7 +140,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const { pathname } = useLocation();
-  const isV3 = pathname === "/preview-v3" || /^\/industries\/[^/]+-v3$/.test(pathname);
+  const isV3 = pathname === "/preview-v3" || /^\/industries\/[^/]+-v3$/.test(pathname) || ["/homepage-v3","/platform-v3","/crm-v3","/customer-marketing-v3","/ai-receptionist-v3","/pricing-review-v3","/follow-up-v3","/reactivation-v3","/reviews-v3","/quote-follow-up-v3","/compare/zapla-vs-pipedrive-v3"].includes(pathname);
 
   return (
     <QueryClientProvider client={queryClient}>

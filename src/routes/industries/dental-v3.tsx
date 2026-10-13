@@ -143,10 +143,10 @@ function DentalPage() {
           <Label>For independent dental practices</Label>
           <h1 id="dental-title">
             You care for patients.
-            <br />
+            <br />{" "}
             <span>
               Zapla handles
-              <br />
+              <br />{" "}
               the follow-up.
             </span>
           </h1>
@@ -175,7 +175,7 @@ function DentalPage() {
             <p>“We’ve just moved nearby. Are you taking new patients?”</p>
             <div className="dn3-note-result">
               Automatic reply sent.
-              <br />
+              <br />{" "}
               Conversation ready for reception.
             </div>
           </div>
@@ -184,7 +184,7 @@ function DentalPage() {
       <section className="dn3-gap dn3-wrap" aria-labelledby="gap-title">
         <h2 id="gap-title">
           Less chasing for reception.
-          <br />
+          <br />{" "}
           Fewer conversations missed.
         </h2>
         <div className="dn3-gap-rows">
@@ -209,7 +209,7 @@ function DentalPage() {
             <Label>New patient enquiries</Label>
             <h2 id="enquiry-title">
               Respond to new patients
-              <br />
+              <br />{" "}
               while reception is busy.
             </h2>
             <p>
@@ -217,7 +217,7 @@ function DentalPage() {
               record. Reception can pick up the conversation and arrange the right appointment in
               your dental diary.
             </p>
-            <TextLink href="/follow-up">Explore Follow-Up</TextLink>
+            <TextLink href="/follow-up-v3">Explore Follow-Up</TextLink>
           </div>
         </section>
         <AIReceptionistSection industry="dental" tone="cream" />
@@ -227,14 +227,14 @@ function DentalPage() {
               <Label>Before the first appointment</Label>
               <h2 id="forms-title">
                 New patient forms.
-                <br />
+                <br />{" "}
                 Done before they arrive.
               </h2>
               <p>
                 Send a registration link before the visit. Remind patients who haven’t completed it
                 and let reception know when it’s ready. Less paperwork to chase at the desk.
               </p>
-              <TextLink href="/crm">Explore forms and patient records</TextLink>
+              <TextLink href="/crm-v3">Explore forms and patient records</TextLink>
               <div className="dn3-form-outcomes" aria-label="Registration workflow">
                 <span>
                   <FileText size={17} aria-hidden="true" />
@@ -259,7 +259,7 @@ function DentalPage() {
               <Label>After a treatment discussion</Label>
               <h2 id="follow-title">
                 Follow up treatment
-                <br />
+                <br />{" "}
                 enquiries. Automatically.
               </h2>
               <p>
@@ -270,7 +270,7 @@ function DentalPage() {
                 When they reply, reminders stop and your team gets the conversation. Questions about
                 treatment go to your clinicians.
               </p>
-              <TextLink href="/follow-up">Explore automatic follow-up</TextLink>
+              <TextLink href="/follow-up-v3">Explore automatic follow-up</TextLink>
             </div>
             <FollowScene />
           </div>
@@ -281,7 +281,7 @@ function DentalPage() {
               <Label>Patients due back</Label>
               <h2 id="recall-title">
                 Their next check-up.
-                <br />
+                <br />{" "}
                 One less reminder to remember.
               </h2>
             </div>
@@ -290,14 +290,14 @@ function DentalPage() {
                 Use the recall dates supplied by your practice to remind patients when they’re due.
                 Bring replies back to reception to arrange the next visit.
               </p>
-              <TextLink href="/customer-marketing">Explore scheduled reminders</TextLink>
+              <TextLink href="/customer-marketing-v3">Explore scheduled reminders</TextLink>
             </div>
           </div>
           <RecallScene />
         </section>
         <section className="dn3-inactive-row dn3-wrap" aria-labelledby="return-title">
           <div><Label>Inactive patient follow-up</Label><h2 id="return-title">Reconnect with patients who haven’t returned.</h2></div>
-          <div><p>Recall reminders contact patients who are due for their next check-up. Inactive patient follow-up is for eligible patients who have not booked another visit.</p><p>Your practice chooses recipients, checks contact permissions and agrees a relevant invitation. Replies return to reception; reminders stop on a reply or opt-out.</p><TextLink href="/reactivation">Explore patient reactivation</TextLink></div>
+          <div><p>Recall reminders contact patients who are due for their next check-up. Inactive patient follow-up is for eligible patients who have not booked another visit.</p><p>Your practice chooses recipients, checks contact permissions and agrees a relevant invitation. Replies return to reception; reminders stop on a reply or opt-out.</p><TextLink href="/reactivation-v3">Explore patient reactivation</TextLink></div>
         </section>
         <section className="dn3-review-feature dn3-wrap" aria-labelledby="reviews-title">
           <ReviewScene />
@@ -305,16 +305,16 @@ function DentalPage() {
             <Label>After the appointment</Label>
             <h2 id="reviews-title">
               Ask for Google reviews.
-              <br />
+              <br />{" "}
               After the visit.
-              <br />
+              <br />{" "}
               Automatically.
             </h2>
             <p>
               Send patients a review link after their appointment, so reception doesn’t have to
               remember to ask. Make it easy for them to share their experience.
             </p>
-            <TextLink href="/reviews">Explore review requests</TextLink>
+            <TextLink href="/reviews-v3">Explore review requests</TextLink>
           </div>
         </section>
       </div>
@@ -353,7 +353,7 @@ function DentalPage() {
           <Label>Two clear responsibilities</Label>
           <h2 id="boundary-title">
             Keep the clinical system.
-            <br />
+            <br />{" "}
             <span>Close the communication gaps.</span>
           </h2>
           <div className="dn3-responsibilities">
@@ -379,7 +379,7 @@ function DentalPage() {
           <Label>Guided Launch</Label>
           <h2 id="launch-title">
             Set up the workflows
-            <br />
+            <br />{" "}
             your practice needs.
           </h2>
           <p>
@@ -387,7 +387,7 @@ function DentalPage() {
             around your practice. Your team tests the messages, replies and stop rules before
             launch.
           </p>
-          <TextLink href="/Pricing-v3">Explore plans and Guided Launch</TextLink>
+          <TextLink href="/pricing-review-v3">Explore plans and Guided Launch</TextLink>
         </div>
         <ol className="dn3-launch-list">
           <li>
@@ -428,7 +428,7 @@ function DentalPage() {
           <Label>Room for the whole team</Label>
           <h2 id="value-title">
             Unlimited users.
-            <br />
+            <br />{" "}
             One flat platform price.
           </h2>
         </div>
@@ -442,7 +442,7 @@ function DentalPage() {
             with Guided Launch from A$2,997. Prices exclude GST. Unlimited stored contacts under
             fair use. Communication usage and optional AI Receptionist are separate.
           </p>
-          <TextLink href="/Pricing-v3">Compare current plans</TextLink>
+          <TextLink href="/pricing-review-v3">Compare current plans</TextLink>
         </div>
       </section>
       <section className="dn3-faq dn3-wrap" aria-labelledby="faq-title">
@@ -450,7 +450,7 @@ function DentalPage() {
           <Label>A few practical questions</Label>
           <h2 id="faq-title">
             Before you add
-            <br />
+            <br />{" "}
             anything new.
           </h2>
         </div>
@@ -472,7 +472,7 @@ function DentalPage() {
         </span>
         <h2 id="final-title">
           See what Zapla can
-          <br />
+          <br />{" "}
           automate for your practice.
         </h2>
         <p>
@@ -588,7 +588,7 @@ function FormScene() {
         </div>
         <h3>
           Your first visit.
-          <br />A little less paperwork.
+          <br />{" "}A little less paperwork.
         </h3>
         <div className="dn3-form-lines">
           <span>
@@ -634,7 +634,7 @@ function RecallScene() {
         </div>
         <h3>
           Next check-up due
-          <br />
+          <br />{" "}
           in November.
         </h3>
         <p>

@@ -60,7 +60,7 @@ function MechanicsPage() {
           <Eyebrow>For independent mechanics and repair workshops</Eyebrow>
           <h1 id="mechanics-title">
             You fix the cars.
-            <br />
+            <br />{" "}
             <span>Zapla follows through.</span>
           </h1>
           <p className="mc3-intro">
@@ -102,7 +102,7 @@ function MechanicsPage() {
               where the available times and booking process have been verified. Otherwise, collect
               a preferred time for your team to confirm in the workshop diary.
             </p>
-            <ActionLink href="/follow-up">Explore enquiry follow-through</ActionLink>
+            <ActionLink href="/follow-up-v3">Explore enquiry follow-through</ActionLink>
           </div>
         </section>
 
@@ -117,7 +117,7 @@ function MechanicsPage() {
                 automatically and stops the reminders when the customer replies. If they have a
                 question about the work, your team gets the conversation.
               </p>
-              <ActionLink href="/follow-up">Explore Follow-Up</ActionLink>
+              <ActionLink href="/follow-up-v3">Explore Follow-Up</ActionLink>
             </div>
             <QuoteScene />
           </div>
@@ -132,10 +132,10 @@ function MechanicsPage() {
               dates to send a relevant reminder automatically, with a link to book. Ask about the
               right service at the right time, rather than sending another generic “checking in”.
             </p>
-            <ActionLink href="/customer-marketing">Explore Customer Marketing</ActionLink>
+            <ActionLink href="/customer-marketing-v3">Explore Customer Marketing</ActionLink>
             <p className="mc3-return-support">
               Reconnect with customers you haven’t heard from through a relevant{" "}
-              <a href="/reactivation">reactivation campaign</a>.
+              <a href="/reactivation-v3">reactivation campaign</a>.
             </p>
           </div>
           <ReturnScene />
@@ -147,7 +147,7 @@ function MechanicsPage() {
       <section className="mc3-fit mc3-wrap" aria-labelledby="fit-title">
         <h2 id="fit-title">
           Keep your workshop system.
-          <br />
+          <br />{" "}
           <span>Add the customer follow-through.</span>
         </h2>
         <p>
@@ -162,7 +162,7 @@ function MechanicsPage() {
             <Eyebrow>Guided Launch</Eyebrow>
             <h2 id="launch-title">
               Built around
-              <br />
+              <br />{" "}
               your workshop.
             </h2>
             <p>We map your process, build the agreed flows and get your team ready to use them.</p>
@@ -170,7 +170,7 @@ function MechanicsPage() {
               We agree how booking requests reach your team, when reminders stop, and which questions
               need a human reply. Any connection to your workshop diary is checked before we promise it.
             </p>
-            <ActionLink href="/Pricing-v3">Explore plans and Guided Launch</ActionLink>
+            <ActionLink href="/pricing-review-v3">Explore plans and Guided Launch</ActionLink>
           </div>
           <div className="mc3-launch-plan" aria-label="Illustrative workshop launch plan">
             <div className="mc3-launch-plan-heading">
@@ -178,7 +178,7 @@ function MechanicsPage() {
             </div>
             <h3>
               Start with the gaps
-              <br />
+              <br />{" "}
               in your workshop.
             </h3>
             <div className="mc3-launch-plan-row">
@@ -215,7 +215,7 @@ function MechanicsPage() {
         </span>
         <h2 id="final-title">
           Find the follow-up
-          <br />
+          <br />{" "}
           your workshop is missing.
         </h2>
         <p>
@@ -227,7 +227,7 @@ function MechanicsPage() {
             Book a call
             <ArrowRight size={17} aria-hidden="true" />
           </a>
-          <a className="mc3-button mc3-secondary" href="/Pricing-v3">
+          <a className="mc3-button mc3-secondary" href="/pricing-review-v3">
             View pricing
           </a>
         </div>
@@ -271,7 +271,7 @@ function HeroEnquiry() {
           </div>
         </div>
         <p>“My brakes are squeaking. Could you take a look this week?”</p>
-        <p className="mc3-hero-next">Inspection booking link sent automatically.</p>
+        <p className="mc3-hero-next">Automatic reply sent. Inspection requested.</p>
       </div>
     </div>
   );
@@ -332,7 +332,7 @@ function QuoteScene() {
         </div>
         <div className="mc3-quote-jobline">
           <strong>Brake work quote</strong>
-          <span>{scene.step >= 2 ? "Workshop team · Reply needed" : "Awaiting response"}</span>
+          <span>{scene.step >= 2 ? "Team reply needed" : "Awaiting response"}</span>
         </div>
       </div>
       <div
@@ -438,7 +438,7 @@ function ReviewScene() {
         <Eyebrow>After the job is done</Eyebrow>
         <h2 id="review-title">
           Let your good work
-          <br />
+          <br />{" "}
           build your reputation.
         </h2>
         <p>
@@ -446,7 +446,7 @@ function ReviewScene() {
           for them to share their experience and help the next customer feel confident choosing your
           workshop.
         </p>
-        <ActionLink href="/reviews">Explore review automation</ActionLink>
+        <ActionLink href="/reviews-v3">Explore review automation</ActionLink>
       </div>
     </section>
   );
@@ -459,7 +459,7 @@ function WorkshopPlans() {
         <Eyebrow>Monthly plans</Eyebrow>
         <h2 id="plans-title">
           Plans for
-          <br />
+          <br />{" "}
           your workshop.
         </h2>
         <p className="mc3-plan-value">
@@ -490,8 +490,8 @@ function WorkshopPlans() {
         </div>
         <p className="mc3-plan-note">
           Prices exclude GST. Guided Launch from A$1,997 for Follow-Through or A$2,997 for Growth.
-          Communication usage and optional AI Receptionist are separate. Standard launch includes up to three agreed automations.{" "}
-          <a href="/Pricing-v3">
+          Communication usage and optional AI Receptionist are separate. Standard Follow-Through launch includes up to three agreed automations.{" "}
+          <a href="/pricing-review-v3">
             Compare plans and inclusions <ArrowRight size={14} aria-hidden="true" />
           </a>
         </p>
