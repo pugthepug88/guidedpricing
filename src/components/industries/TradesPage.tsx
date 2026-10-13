@@ -12,9 +12,17 @@ const PHOTOS = "/concept/industries/";
 function Label({ children }: { children: ReactNode }) {
   return <p className="tr-label">{children}</p>;
 }
-function Link({ href, children }: { href: string; children: ReactNode }) {
+function Link({
+  href,
+  children,
+  onClick,
+}: {
+  href: string;
+  children: ReactNode;
+  onClick?: () => void;
+}) {
   return (
-    <a className="tr-link" href={href}>
+    <a className="tr-link" href={href} onClick={onClick}>
       {children}
       <ArrowRight size={16} aria-hidden="true" />
     </a>
@@ -83,8 +91,8 @@ export function TradesPage() {
             Stay on the tools.
           </h1>
           <p className="tr-intro">
-            Keep new enquiries, unanswered quotes and repeat service moving while you’re on the job.
-            Zapla keeps requests, replies and the next step in one place.
+            Reply to new enquiries, follow up unanswered quotes and remind customers when service is
+            due. Zapla handles the routine messages while you’re on the job.
           </p>
           <Actions />
           <p className="tr-hero-foot">
@@ -127,8 +135,8 @@ export function TradesPage() {
             the job.
           </h2>
           <p>
-            A homeowner asks about a replacement or repair. Zapla replies automatically and gathers
-            the address and service details your team needs to take the next step.
+            A homeowner asks about a leaking tap, extra power points or a replacement air
+            conditioner. Zapla replies automatically and requests the address and job details.
           </p>
           <p>
             The conversation stays with the customer record. You or your office can arrange the
@@ -153,12 +161,13 @@ export function TradesPage() {
               </span>
             </h2>
             <p>
-              A quiet quote still needs a next step. Zapla sends a relevant follow-up so the
-              customer can ask a question or move ahead.
+              You’ve already spent time preparing a quote for a hot water replacement, switchboard
+              upgrade or new air conditioner. Zapla follows up automatically.
             </p>
             <p>
-              When they reply, further reminders stop and the conversation goes to your team. You
-              handle the scope, price and decision about the work.
+              The customer can ask a question or say they want to go ahead. Their reply stops
+              further quote reminders and goes to your team to confirm scope, price and the next
+              step.
             </p>
             <Link href="/follow-up">Explore quote follow-up</Link>
             <p className="tr-qualification">
@@ -211,8 +220,8 @@ export function TradesPage() {
             is still fresh.
           </h2>
           <p>
-            When a job is marked complete in Zapla, it can trigger a Google review request. Zapla
-            sends the message and gives the customer a direct way to share their experience.
+            Mark the job complete in Zapla and an agreed workflow sends a Google review request. The
+            customer gets a direct link to share their experience.
           </p>
           <p>
             Make asking part of finishing the job, rather than another thing to remember at the end
@@ -252,6 +261,10 @@ export function TradesPage() {
               stay in place.
             </p>
           </div>
+          <p className="tr-fit-check">
+            If your current system already handles these well, keep that workflow there. Zapla
+            should solve a gap, without duplicating messages.
+          </p>
           <Link href="#trade-faq">Read about connections and fit</Link>
         </div>
       </section>
@@ -261,16 +274,11 @@ export function TradesPage() {
           <div className="tr-copy">
             <Label>Guided Launch</Label>
             <h2 id="launch-title">
-              Built around
-              <br />
-              how your business
-              <br />
-              actually works.
+              Get your first <br /> workflow working.
             </h2>
             <p>
-              We map the customer process, build the agreed automations and test the journey with
-              your team. You get help getting it working, rather than another system to configure
-              after dinner.
+              Start with the enquiry or follow-up gap that matters most. We map the process, build
+              the agreed automation and test it with your team before launch.
             </p>
             <Link href={PRICING}>See Guided Launch</Link>
           </div>
@@ -279,7 +287,7 @@ export function TradesPage() {
               <span>01</span>
               <div>
                 <h3>Find the gap</h3>
-                <p>Identify the enquiries, quotes or service reminders that need attention.</p>
+                <p>Choose the enquiry, quote or service follow-up you want to improve first.</p>
               </div>
             </li>
             <li>
@@ -313,8 +321,9 @@ export function TradesPage() {
           for your trade business.
         </h2>
         <p>
-          Bring your current enquiry and follow-up process. We’ll check the gaps, the tools you
-          already use and the first workflow worth improving.
+          On the call, we’ll look at how you handle enquiries and quotes, what your current tools
+          already cover and where Zapla could help. You’ll understand the proposed first workflow
+          and the costs before deciding.
         </p>
         <Actions final />
       </section>
@@ -470,6 +479,24 @@ function Plans() {
           The owner, office and people handling customer replies can work from the same record. No
           extra platform seat fee when another person needs access.
         </p>
+        <div className="tr-value-check">
+          <h3>What would make it worth it?</h3>
+          <p>
+            Compare the total cost with the margin from extra jobs, after labour and materials.
+            Track office time saved separately. If wages stay the same, that time frees your team
+            for other work rather than reducing your wage bill.
+          </p>
+          <Link
+            href="#trade-value-faq"
+            onClick={() =>
+              document
+                .querySelector<HTMLDetailsElement>("#trade-value-faq")
+                ?.setAttribute("open", "")
+            }
+          >
+            How to assess the value
+          </Link>
+        </div>
       </div>
       <div className="tr-plan-options">
         <div>
@@ -525,7 +552,7 @@ const FAQS = [
   ],
   [
     "How do we judge whether it is worth the extra cost?",
-    "Pick a specific gap. Include the plan, setup, usage, optional services and any extra team time in the cost. Measure the enquiries handled, replies, office time and additional work you can actually attribute. Compare the contribution from that work, rather than its full invoice value, with the total cost. No increase in jobs or return is guaranteed.",
+    "Pick a specific gap. Include the plan, setup, usage, optional services and any extra team time in the cost. Measure the enquiries handled, replies, office time and additional work you can actually attribute. Compare the contribution from that work, rather than its full invoice value, with the total cost. Keep office time saved separate from cash savings unless it reduces paid hours or another cost.",
   ],
 ] as const;
 function Faq() {
@@ -546,7 +573,14 @@ function Faq() {
       </div>
       <div>
         {FAQS.map(([q, a]) => (
-          <details key={q}>
+          <details
+            key={q}
+            id={
+              q === "How do we judge whether it is worth the extra cost?"
+                ? "trade-value-faq"
+                : undefined
+            }
+          >
             <summary>
               {q}
               <ChevronDown size={18} aria-hidden="true" />

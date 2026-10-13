@@ -129,3 +129,72 @@ Production build, TypeScript, scoped ESLint and whitespace checks passed. Fresh 
 Prices and inclusions cross-checked against the current repository’s Pricing-v3 source: A$399/A$699 monthly plus GST; launch from A$1,997/A$2,997 plus GST; usage and optional services separate. This is the current published-offer implementation, not an independent billing-contract verification.
 
 Remaining limits from the preceding review still apply: real automation execution, customer-specific connections, verified trade outcomes/ROI, conversion data and completed-booking confirmation. Earlier booking-destination testing reached the appointment-details form; this revision does not claim a completed booking. Lovable preview requires authentication in the available browser, so remote synchronization/rendering must not be represented as independently verified.
+
+## Commercial and full-page correction pass — 13 October 2026
+
+### Review scope and scoring standard
+
+This pass assesses the page's execution, not demonstrated business performance. A 9 means a strong production candidate with the stated lens criteria met and no material unresolved page issue observed within the tested scope. It does not mean perfect, independently user-tested, formally accessibility-certified or proven to convert. The earlier impressionistic scores are retained above as history, not presented as measured benchmarks.
+
+A page can communicate a commercially useful value assessment without verified customer ROI. It can have a clear, tested call invitation without a completed booking. It can accurately show an agreed automation design without claiming a customer account has executed it. Those distinctions are essential to the scores below.
+
+### Implemented changes
+
+1. Hero support copy now names the actions directly: reply to enquiries, follow up unanswered quotes and remind customers when service is due. Retained the headline and human hero.
+2. Enquiry copy now includes leaking taps, extra power points and replacement air conditioners. Quote copy includes hot water replacements, switchboard upgrades and air conditioners. The coherent Daniel installation story and portraits remain unchanged; breadth comes from relevant applications, not unrelated photographs or additional card grids.
+3. Replaced “A quiet quote still needs a next step” with the time already spent preparing a quote. The next paragraph explicitly connects customer questions/acceptance, stopped quote reminders and the team's scope/price decision.
+4. Review copy now states the recorded completion trigger, agreed workflow and customer review link directly. Retained neutral shared invitation, Google branding and unselected stars.
+5. Added the existing-system objection to the visible fit section: keep a workflow your system already handles well; Zapla should fill a gap without duplicate messages. Both spreadsheet/inbox and existing CRM/job-system paths remain.
+6. Shortened the launch heading from four lines to “Get your first workflow working.” Shortened the paragraph and focused the first step on the workflow worth improving first. The existing cream panel and three-step process remain.
+7. Added a compact, open value explanation within pricing, rather than another section or card. Buyers compare total cost with margin after labour/materials, track office time separately, and understand that unchanged wages mean saved time creates capacity rather than cash savings.
+8. The value link scrolls to and opens the relevant FAQ. Keyboard Enter activation works. Native FAQ toggling remains available; anchor has a header offset.
+9. Replaced the generic no-return-guarantee sentence in the value FAQ with the useful distinction between time saved and actual cost reductions.
+10. Final call copy now states what will be discussed: enquiries/quotes, existing tools, the proposed first workflow and costs before deciding. No call duration, deliverable guarantee or sales result was invented.
+
+### Alternatives considered
+
+- A dedicated HVAC-only page would align every photograph tightly with the audience, but would narrow the current Trades & Home Services scope. Retained a single realistic installation narrative and added a few recognisable plumbing/electrical examples.
+- More trade cards or a new ROI calculator would enlarge the page and require assumptions. Used existing sections, a short value explanation and an actionable FAQ link instead.
+- A full visual rebuild would discard the established human photography and rhythm. Retained the art direction, compact glass and shared components, and shortened the weaker launch copy.
+
+### Lens assessment
+
+| Lens                           | Score /10 | Acceptance criterion and observable evidence                                                                                                                                                                                                  |
+| ------------------------------ | --------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Owner priorities               |         9 | Enquiries and quoted work lead; calls, relevant repeat service and reviews support the commercial journey. Reactivation is secondary.                                                                                                         |
+| Industry/customer fit          |         9 | Specific plumbing, electrical, air conditioning, pest and pool use cases; no universal annual-service assumption or emergency-dispatch promise.                                                                                               |
+| Frontline operations           |         9 | Customer details stay with the record. People assess work, answer scope/price questions, confirm visits and handle urgent dispatch.                                                                                                           |
+| Automation logic / explanation |         9 | Each example has a stated trigger, automated action, response and next step; quote stop conditions and external status dependencies are addressed. This rates the explained design, not live execution.                                       |
+| Copywriting                    |         9 | Concrete verbs and trade terms, shorter launch copy, removed quiet-quote metaphor, direct review trigger and explicit call expectations.                                                                                                      |
+| Product marketing              |         9 | Use cases sell customer follow-up and office work, rather than a catalogue of Zapla features. Unlimited-user value and optional AI cost remain distinct.                                                                                      |
+| Awareness journey              |         9 | Hero problem/outcome, workflow explanations, demonstrations, software fit, launch/cost/value, FAQ objections and call invitation form a complete buyer path.                                                                                  |
+| Art direction                  |         9 | Three coherent editorial human photographs, unobstructed faces, compact enquiry messages, large service frame and a restrained autumn palette; actual desktop/tablet/mobile renders inspected.                                                |
+| Visual hierarchy               |         9 | Dominant human hero, tight large headings, proportionate photo cards, concise launch headline and a subordinate open value block.                                                                                                             |
+| Brand consistency              |         9 | Same typography/palette as Dental/Mechanics, computed 6px glass blur, shared review and receptionist components, consistent approved portraits and Zapla petals.                                                                              |
+| Whole-page rhythm              |         9 | Open hero and office scene, cream call panel, dark quote panel, broad photograph, lavender review, open fit/pricing and shorter warm launch. Full scroll compared with current references.                                                    |
+| UI/UX                          |         9 | No Pause/Replay or fake review controls; clear sender identities, compact message layouts, native FAQs and a working value-to-answer link.                                                                                                    |
+| Motion direction               |         9 | Every story traces monotonically through its expected states and holds. Reduced motion reveals complete examples. Stable geometry and short timing preserve reading time.                                                                     |
+| Conversion readiness           |         9 | Specific call purpose, coherent primary destination, pricing links, workflow anchors and working value FAQ. This is readiness, not measured conversion performance.                                                                           |
+| CFO/value communication        |         9 | Subscription, launch, GST and extras remain visible. Value uses job margin rather than invoice totals and separates staff capacity from cash savings.                                                                                         |
+| Credibility of presentation    |         9 | No invented testimonial, outcome, metric, native integration or guaranteed dispatch/booking. Capability and pricing source scope is documented; evidence-dependent outcomes remain unverified.                                                |
+| Buyer psychology               |         9 | Main-page acknowledgement of working existing tools and duplicate-message concern, both starting points, guided implementation and clear cost discussion before deciding.                                                                     |
+| Accessibility in tested scope  |         9 | One H1, descriptive image alternatives, decorative petals hidden, native controls, visible focus styles, reduced-motion states and zero scoped axe violations across five widths. No certification or unperformed assistive-technology claim. |
+| Responsive execution           |         9 | Actual visible element bounds checked at 1440, 1024, 768, 390 and 320px; images load, no clipping outside viewport and all examples reach final states.                                                                                       |
+| AI-slop / unnecessary content  |         9 | No invented dashboards, badges, statistics or new equal-weight card grids. Existing strong copy retained; weak slogans and redundant player controls removed.                                                                                 |
+
+These are the author's qualitative page-readiness judgments supported by the listed observations, not independent panel ratings or fabricated customer scores. Real performance and platform verification have not been promoted to 9 by this review.
+
+### Verification and source boundaries
+
+- Read the current Library contents of `NextGen CRM everything Andrew Mark has announced.md`, especially CRM, inbox, fields, forms, flows, reviews and AI sections. This is a September 2026 compilation of announcements, not a live acceptance test. The wording makes agreed workflows and data paths explicit; no new technical integration was claimed.
+- Cross-checked current repository Pricing-v3 and Follow-Up implementations. Follow-Through remains A$399/month plus GST; Growth A$699/month plus GST; launch from A$1,997/A$2,997 plus GST. Usage, optional AI Receptionist and custom connections remain separate.
+- Fresh whole-page screenshots inspected at 1440, 1024, 768, 390 and 320px, with close renders of fit, launch, pricing/value, final CTA, enquiry and quote sections. Compared whole desktop layouts against current Dental and Mechanics.
+- Five-width browser checks: no page-script errors, no visible child outside viewport bounds, all three photos decoded, one H1, all glass surfaces computed 6px blur and zero scoped WCAG 2 A/AA and 2.1 AA axe violations.
+- Fresh normal-motion traces: each Trades example 0 → 1 → 2; shared AI call 0 → 1 → 2 → 3. Reduced-motion final states complete.
+- All eight internal destinations returned HTTP 200 locally. The new value link opened its FAQ with Enter and landed around 110px below the viewport top at every width; the FAQ then closed with Enter.
+- At 1440 and 320px, all seven FAQ summaries opened and closed with Enter; every page link and summary accepted focus with a visible 2px or 3px solid outline.
+- Production build, TypeScript, scoped ESLint and whitespace checks passed. No changes to shared navigation, other industry pages or existing route noindex/sitemap settings.
+
+### Still unverified, irrespective of page scores
+
+Live account execution, real customer data connections, actual trade outcomes/ROI, measured conversion performance, completed-booking confirmation and authenticated remote preview rendering remain unverified. Earlier booking testing reached the appointment-details form only. Real trade-owner usability feedback and wider browser/assistive-technology testing would provide independent evidence beyond this implementation review. Do not present the page scores as verification of any of these items.
