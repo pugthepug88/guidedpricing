@@ -1,3 +1,4 @@
+import { AIReceptionistSection } from "@/components/industries/AIReceptionistSection";
 import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
@@ -269,19 +270,7 @@ export function AlliedHealthPage() {
                 conversations and clinical decisions go to your team.
               </p>
             </div>
-            <div className="ah-call-card">
-              <Sender>Optional AI Receptionist</Sender>
-              <h3>When reception can’t answer.</h3>
-              <p>
-                Handle agreed administrative questions and capture a callback request. A named
-                person picks up what needs human help.
-              </p>
-              <TextLink href="/ai-receptionist">Explore call support</TextLink>
-              <p className="ah-aside">
-                Clinical questions and urgent concerns need your practice’s human response process.
-                AI does not assess urgency.
-              </p>
-            </div>
+            <AIReceptionistSection industry="allied" tone="open" compact inline />
           </div>
         </div>
       </section>

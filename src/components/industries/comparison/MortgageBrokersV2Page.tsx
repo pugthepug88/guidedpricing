@@ -1,3 +1,4 @@
+import { AIReceptionistSection } from "@/components/industries/AIReceptionistSection";
 import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { useState, type ReactNode } from "react";
 import { ArrowRight, Plus } from "lucide-react";
@@ -442,6 +443,7 @@ export function MortgageBrokersV2Page() {
         </div>
       </section>
       <ProspectSection />
+      <AIReceptionistSection industry="mortgage" tone="open" compact />
       <section className="mv-fit" aria-labelledby="mv-fit-title">
         <div className="mv-wrap mv-fit-layout">
           <div>
@@ -477,10 +479,6 @@ export function MortgageBrokersV2Page() {
             <p>
               Lender research, loan applications and submissions stay in your lending tools. Advice
               stays with your broker.
-            </p>
-            <p className="mv-support">
-              Need call coverage too? <a href="/ai-receptionist">AI Receptionist</a> is optional,
-              with routine capture and a human handoff.
             </p>
           </div>
         </div>

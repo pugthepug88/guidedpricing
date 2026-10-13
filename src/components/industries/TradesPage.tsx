@@ -1,3 +1,4 @@
+import { AIReceptionistSection } from "@/components/industries/AIReceptionistSection";
 import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
@@ -169,14 +170,10 @@ export function TradesPage() {
             assessment, and the person replying can see what’s already been asked.
           </p>
           <Link href="/crm">See the connected customer record</Link>
-          <p className="tr-aside">
-            Need help with calls too? <a href="/ai-receptionist">AI Receptionist</a> is an optional
-            add-on for enquiries and callback requests. Technical advice and urgent dispatch stay
-            with your team.
-          </p>
         </div>
       </section>
 
+      <AIReceptionistSection industry="trades" tone="cream" />
       <section className="tr-wrap tr-quote-section" aria-labelledby="quote-title">
         <div className="tr-quote-panel">
           <div className="tr-copy">

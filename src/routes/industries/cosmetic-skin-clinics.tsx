@@ -1,3 +1,4 @@
+import { AIReceptionistSection } from "@/components/industries/AIReceptionistSection";
 import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -27,39 +28,39 @@ const BOOK = "https://zapla.io/booking";
 const FAQS = [
   [
     "We use spreadsheets and inboxes. Can we start with Zapla?",
-    "Yes. Bring suitable contact records into Zapla and give your team one place for enquiries and follow-up. We review the data before importing it, connect the agreed communication channels and build the first workflows. Clinical records, treatment advice and consent still need an appropriate clinical system. You do not need another CRM to start.",
+    "Yes. Your team can keep contact details, enquiries, replies and follow-up in Zapla. We help import suitable contacts and set up the agreed messages. Clinical records and consent stay in your clinical system. You do not need another CRM to start.",
   ],
   [
     "We already use Timely, Fresha, Kitomba or Pabau. Why add Zapla?",
-    "Keep the workflows your existing software handles well. Zapla earns its place where new enquiries, agreed follow-up or campaign replies are still slipping between people and channels. We map that gap first. If your current system already solves it, adding another tool may not make sense.",
+    "Keep the functions that work well. Zapla can help where your team still handles enquiry replies, consultation follow-up or client campaigns manually. If your existing software already does these jobs well, you may not need another tool.",
   ],
   [
     "Does Zapla integrate with our clinic software?",
-    "Connection options depend on your clinic software. We check the available APIs or exports, permissions and update process before recommending a workflow. A contact import is not a live sync. Your team continues to confirm appointments in your existing diary unless a booking connection has been tested.",
+    "We check your clinic software before confirming a connection. Importing contacts does not automatically keep records updated between systems. Your team continues to manage appointments in its existing diary unless a booking connection has been tested.",
   ],
   [
     "Can AI recommend a treatment or answer suitability questions?",
-    "No. Configure AI Receptionist for approved administrative questions such as opening hours, location and callback requests. Treatment suitability, risks, symptoms and clinical recommendations belong with your qualified team. We agree escalation and fallback procedures before enabling calls. Direct appointment booking depends on a verified connection.",
+    "No. AI Receptionist handles approved routine questions, such as opening hours and location, and collects callback requests. Treatment suitability, risks, symptoms and recommendations go to your qualified team. We agree how calls needing a person are handled before launch. Direct appointment booking requires a verified connection.",
   ],
   [
     "Can we run campaigns for every treatment we offer?",
-    "No. The clinic must approve the audience, purpose, wording and timing for each campaign. Prescription medicine advertising and regulated healthcare advertising have specific restrictions. Communication consent does not make an otherwise prohibited promotion permissible. The return invitation shown here is an administrative illustration, not a pre-approved template for every clinic or service.",
+    "No. Your clinic must approve who is contacted, what the message says and when it is sent. Messages must comply with the advertising rules for your services. Permission to contact someone does not make every treatment promotion appropriate.",
   ],
   [
     "What happens when someone replies or opts out?",
-    "Set the relevant sequence to stop and bring the reply back to the conversation for your team. During launch we test replies, opt-outs and staff handoffs. Current bookings and communication preferences must be reflected through the agreed update process. We do not assume your existing diary automatically updates Zapla.",
+    "The agreed reminders stop when the client replies or opts out. Your team receives replies in the conversation. We test both before launch. Current bookings and contact preferences must be kept up to date using the process agreed with your clinic.",
   ],
   [
     "Do we move our clinical records into Zapla?",
-    "Zapla handles client communication rather than clinical records. Treatment notes, consent forms, health histories and clinical photographs stay in your existing system. Agree the minimum administrative information for each workflow. Enquiries can still contain sensitive health information, so privacy, access, providers, hosting and retention need review before any client data is imported.",
+    "Treatment notes, consent forms, health histories and clinical photographs stay in your clinical system. Zapla uses the administrative information needed for the agreed communication. Enquiries may contain sensitive information, so data handling, access, storage and retention need review before client information is imported.",
   ],
   [
     "What about reviews and testimonials?",
-    "Agree the approach for your services before using review requests or publishing feedback. Independent feedback and using clinical testimonials in healthcare advertising are different activities. Clinical testimonials are not automatically republished in website widgets or advertising.",
+    "Collecting client feedback and using clinical testimonials in advertising have different requirements. Check what is appropriate for your services before sending review requests or publishing feedback. A Google review request does not automatically republish a testimonial on your website.",
   ],
   [
     "Can Zapla send forms and pre-visit information?",
-    "Yes. Send a link to an administrative form or your existing clinic form, plus approved arrival information. Completion-based reminders need a verified form-submission event; sending an external link does not prove completion. Medical histories, treatment consent, clinical photographs and treatment advice stay in your approved clinical system. Appointment messages depend on reliable booking updates and are tested before launch.",
+    "Yes. Zapla can send your approved arrival information and an administrative form link. A connected form is needed to tell when it has been submitted and stop reminders. Sending an external link alone does not confirm completion. Clinical forms stay in your clinical system. Appointment messages require reliable booking information.",
   ],
   [
     "How is Zapla priced?",
@@ -195,16 +196,25 @@ function SkinClinicsPage() {
         </h2>
         <div className="sk-gap-grid">
           <div>
-            <span>Before they book</span>
-            <p>A first enquiry arrives while reception is helping someone else.</p>
+            <span>Enquiries left unanswered</span>
+            <p>
+              Someone asks about a consultation. A delayed reply can mean they book with another
+              clinic.
+            </p>
           </div>
           <div>
-            <span>Before they arrive</span>
-            <p>There are forms, directions and appointment details to send.</p>
+            <span>Forms to chase</span>
+            <p>
+              Your team sends form links, checks what’s missing and contacts clients again before
+              their visit.
+            </p>
           </div>
           <div>
-            <span>After they leave</span>
-            <p>A consultation needs a follow-up. A past client hasn’t returned.</p>
+            <span>Follow-up forgotten</span>
+            <p>
+              A client asks for time to think after a consultation. Your team has another follow-up
+              to remember.
+            </p>
           </div>
         </div>
       </section>
@@ -212,37 +222,24 @@ function SkinClinicsPage() {
         <EnquiryScene />
         <div className="sk-copy">
           <Label>New client enquiries</Label>
-          <h2 id="enquiry-title">
-            Respond while
-            <br />
-            reception is busy.
-          </h2>
+          <h2 id="enquiry-title">Reply to new enquiries automatically.</h2>
           <p>
-            A website enquiry triggers an automatic reply. Capture a callback preference and keep
-            the conversation with the client’s contact record, ready for your team to arrange a
-            consultation.
+            When someone submits a website enquiry, Zapla replies and asks when they would prefer a
+            callback. Your team receives their response and arranges the consultation. Unanswered
+            enquiries receive the follow-up you’ve agreed.
           </p>
           <Link href="/follow-up">Explore enquiry follow-up</Link>
-          <p className="sk-aside">
-            Need help with calls too? Optional <a href="/ai-receptionist">AI Receptionist</a>{" "}
-            handles approved routine questions and callback requests. Clinical questions go to your
-            qualified team.
-          </p>
         </div>
       </section>
+      <AIReceptionistSection industry="skin" />
       <section className="sk-feature sk-wrap" aria-labelledby="admin-title">
         <div className="sk-admin-panel">
           <div className="sk-copy">
             <Label>Before the first visit</Label>
-            <h2 id="admin-title">
-              Send the essentials.
-              <br />
-              Before they arrive.
-            </h2>
+            <h2 id="admin-title">Send appointment details and forms automatically.</h2>
             <p>
-              A confirmed consultation triggers the arrival details and an administrative form link.
-              When the form is submitted, reception is notified. Less information to send and chase
-              by hand.
+              Once a consultation is confirmed, Zapla sends your arrival information and contact
+              details form. When the form is submitted, reception gets a notification.
             </p>
 
             <Link href="/crm">Explore forms and client records</Link>
@@ -254,20 +251,11 @@ function SkinClinicsPage() {
         <div className="sk-follow-panel">
           <div className="sk-copy">
             <Label>After a consultation</Label>
-            <h2 id="consider-title">
-              Follow up the enquiry.
-              <br />
-              Keep advice
-              <br />
-              with the clinician.
-            </h2>
+            <h2 id="consider-title">Send the follow-up your client agreed to.</h2>
             <p>
-              A client wants time to think. Zapla sends the check-in your team agreed with them, so
-              reception doesn’t have to remember another callback.
-            </p>
-            <p>
-              When they reply, automated reminders stop and your team gets the conversation.
-              Treatment decisions stay between the clinician and client.
+              If a client asks for time to think, Zapla contacts them at the agreed time. Their
+              reply stops further reminders and goes to your team. Treatment questions stay with
+              your clinician.
             </p>
             <Link href="/follow-up">Explore automatic follow-up</Link>
           </div>
@@ -278,18 +266,12 @@ function SkinClinicsPage() {
         <div className="sk-return-heading">
           <div>
             <Label>Clients who haven’t returned</Label>
-            <h2 id="return-title">
-              Restart the conversation.
-              <br />
-              Without another
-              <br />
-              list to chase.
-            </h2>
+            <h2 id="return-title">Invite past clients to arrange another visit.</h2>
           </div>
           <div>
             <p>
-              Contact eligible clients who haven’t returned with a relevant, clinic-approved
-              invitation. Replies go to your team to discuss the next visit.
+              Choose clients your clinic has approved to contact. Zapla sends your invitation and
+              brings replies back to your team to discuss their next visit.
             </p>
             <Link href="/reactivation">Explore client reactivation</Link>
           </div>
@@ -300,16 +282,10 @@ function SkinClinicsPage() {
         <ReviewScene />
         <div className="sk-copy">
           <Label>After a completed visit</Label>
-          <h2 id="review-title">
-            Ask for feedback.
-            <br />
-            Without asking
-            <br />
-            reception to remember.
-          </h2>
+          <h2 id="review-title">Request Google reviews automatically.</h2>
           <p>
-            A recorded completed visit can trigger a neutral Google review invitation. Give clients
-            a simple way to share their experience.
+            After a visit is marked complete, Zapla can send a Google review request. Your team
+            doesn’t have to send each message.
           </p>
 
           <Link href="/reviews">Explore review requests</Link>
@@ -317,24 +293,20 @@ function SkinClinicsPage() {
       </section>
       <section className="sk-fit sk-wrap" aria-labelledby="fit-title">
         <Label>Works around your clinic</Label>
-        <h2 id="fit-title">
-          One place for client follow-up.
-          <br />
-          <span>However you work today.</span>
-        </h2>
+        <h2 id="fit-title">One place for enquiries and client follow-up.</h2>
         <div className="sk-responsibilities">
           <div>
             <h3>Spreadsheets and inboxes?</h3>
             <p>
-              Bring suitable contacts into Zapla. Keep enquiries, replies and the next follow-up
-              together so your team can see what needs attention.
+              Keep contact details, enquiries and replies together. Your team can see who needs a
+              response and what happens next.
             </p>
           </div>
           <div>
             <h3>Already using clinic software?</h3>
             <p>
-              Keep the workflows it handles well. Add Zapla where enquiry replies, consultation
-              follow-up or client campaigns still need manual chasing.
+              Keep the functions that work well. Use Zapla for replies, reminders and client
+              follow-up your team still handles manually.
             </p>
           </div>
         </div>
@@ -347,14 +319,10 @@ function SkinClinicsPage() {
         <div className="sk-wrap sk-launch-inner">
           <div className="sk-copy">
             <Label>Guided Launch</Label>
-            <h2 id="launch-title">
-              Built around
-              <br />
-              your reception desk.
-            </h2>
+            <h2 id="launch-title">We set up your clinic’s follow-up.</h2>
             <p>
-              We map the work your team is doing by hand, build the useful automations and test them
-              with your clinic before launch.
+              Choose the messages you want automated. We build the workflows and test replies,
+              reminders and staff handoffs with your team before launch.
             </p>
             <Link href="/Pricing-v3">Explore Guided Launch</Link>
           </div>
