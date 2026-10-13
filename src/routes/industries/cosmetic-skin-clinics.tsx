@@ -1,7 +1,8 @@
+import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown, Star, Check } from "lucide-react";
+import { ArrowRight, ChevronDown, Check } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import skinCss from "@/styles/cosmetic-skin-clinics.css?url";
 
@@ -549,7 +550,6 @@ function ReturnPhoto() {
           Hi Mia, it’s your skin clinic. If you’d like to arrange another visit, reply here and our
           team can help.
         </p>
-        <small>Reply STOP to opt out.</small>
       </div>
       <div
         className={`sk-return-reply sk-glass ${step >= 2 ? "sk-visible" : "sk-hidden"}`}
@@ -579,35 +579,10 @@ function ReviewScene() {
           <strong>Mia</strong>Visit completed
         </span>
       </div>
-      <div className="sk-review-invite sk-glass">
-        <div className="sk-note-heading">
-          <ZaplaPetal size={24} />
-          Your clinic · Review invitation
-        </div>
-        <p>Thanks for visiting, Mia. Would you share your experience on Google?</p>
-        <span className="sk-example-link">Leave a Google review</span>
-      </div>
-      <div
-        className={`sk-google-card sk-glass ${step >= 1 ? "sk-visible" : "sk-hidden"}`}
-        aria-hidden={step < 1}
-      >
-        <span className="sk-google-wordmark" aria-label="Google">
-          {["G", "o", "o", "g", "l", "e"].map((l, i) => (
-            <span key={i}>{l}</span>
-          ))}
-        </span>
-        <div className="sk-google-client">
-          <span className="sk-avatar" aria-hidden="true" />
-          <strong>Mia</strong>
-        </div>
-        <h3>How was your visit?</h3>
-        <div className="sk-stars" aria-label="Five unselected rating stars">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <Star key={n} size={29} strokeWidth={1.5} aria-hidden="true" />
-          ))}
-        </div>
-        <p>Share your experience</p>
-      </div>
+      <ReviewInvitation sender="Your clinic · Review invitation">
+        Thanks for visiting, Mia. Would you share your experience on Google?
+      </ReviewInvitation>
+      <GoogleReviewCard visible={step >= 1} />
     </div>
   );
 }

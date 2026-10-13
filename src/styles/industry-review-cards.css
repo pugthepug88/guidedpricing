@@ -1,0 +1,131 @@
+.zapla-review-card {
+  box-sizing: border-box;
+  min-width: 0;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  background: rgba(252, 252, 250, 0.91);
+  box-shadow:
+    inset 0 0 0 1px #1e2b2930,
+    0 14px 35px #1e2b291a;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #111318;
+  transition: opacity 0.18s ease;
+}
+.zapla-review-card.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.zapla-review-card.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+.zapla-review-invitation {
+  width: 100%;
+  max-width: 370px;
+  padding: 20px;
+}
+.zapla-review-card .zapla-review-sender {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #53604a;
+}
+.zapla-review-sender > svg {
+  flex-shrink: 0;
+}
+.zapla-review-card .zapla-review-message {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #313a35;
+  margin: 15px 0 0;
+}
+.zapla-review-card .zapla-review-link {
+  display: inline-block;
+  color: #356a9a;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 16px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.zapla-review-rating {
+  width: 100%;
+  max-width: 315px;
+  padding: 24px;
+  margin: 22px 0 0 auto;
+}
+.zapla-review-card .zapla-review-google {
+  display: inline-flex;
+  font:
+    600 23px Arial,
+    sans-serif;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+.zapla-review-google > span:nth-child(1),
+.zapla-review-google > span:nth-child(4) {
+  color: #4285f4;
+}
+.zapla-review-google > span:nth-child(2),
+.zapla-review-google > span:nth-child(6) {
+  color: #ea4335;
+}
+.zapla-review-google > span:nth-child(3) {
+  color: #fbbc05;
+}
+.zapla-review-google > span:nth-child(5) {
+  color: #34a853;
+}
+.zapla-review-card .zapla-review-heading {
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 15px 0;
+  color: #111318;
+}
+.zapla-review-card .zapla-review-stars {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  color: #bd8d27;
+}
+.zapla-review-stars > svg {
+  flex: 0 0 29px;
+  width: 29px;
+  height: 29px;
+  fill: none;
+}
+.zapla-review-card .zapla-review-prompt {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #5f655f;
+  margin: 17px 0 0;
+}
+@media (max-width: 600px) {
+  .zapla-review-rating {
+    width: 100%;
+    margin-left: 0;
+    padding: 18px;
+  }
+  .zapla-review-invitation {
+    padding: 18px;
+  }
+  .zapla-review-card .zapla-review-stars {
+    gap: 8px;
+  }
+  .zapla-review-stars > svg {
+    flex-basis: 26px;
+    width: 26px;
+    height: 26px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zapla-review-card {
+    transition: none;
+  }
+}

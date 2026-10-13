@@ -1,5 +1,6 @@
+import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { useState, type ReactNode } from "react";
-import { ArrowRight, Plus, Star } from "lucide-react";
+import { ArrowRight, Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 const BOOK = "https://zapla.io/booking";
@@ -437,27 +438,10 @@ export function MortgageBrokersV2Page() {
           aria-label="Google review invitation and five unselected rating stars"
         >
           <div className="mv-review-event">Settlement completed</div>
-          <div className="mv-feedback">
-            <Sender>Your brokerage · Invitation sent</Sender>
-            <p>Thanks for working with us, Sam. Would you share your experience on Google?</p>
-            <span className="mv-message-action">
-              Leave a Google review <ArrowRight size={14} aria-hidden="true" />
-            </span>
-          </div>
-          <div className="mv-google-screen">
-            <span className="mv-google-wordmark" aria-label="Google">
-              {["G", "o", "o", "g", "l", "e"].map((letter, i) => (
-                <span key={i}>{letter}</span>
-              ))}
-            </span>
-            <h3>How was your experience?</h3>
-            <div className="mv-google-stars" aria-label="Five unselected rating stars">
-              {[1, 2, 3, 4, 5].map((n) => (
-                <Star key={n} size={31} strokeWidth={1.5} aria-hidden="true" />
-              ))}
-            </div>
-            <p>Share your experience</p>
-          </div>
+          <ReviewInvitation sender="Your brokerage · Review invitation">
+            Thanks for working with us, Sam. Would you share your experience on Google?
+          </ReviewInvitation>
+          <GoogleReviewCard heading="How was your experience?" />
         </div>
       </section>
       <ProspectSection />

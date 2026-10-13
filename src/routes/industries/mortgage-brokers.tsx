@@ -188,7 +188,6 @@ function ProspectScene() {
           Hi Alex, you asked us to reconnect this month. How’s the property search going? Reply here
           if you’d like to arrange a chat.
         </p>
-        <small>Reply STOP to opt out.</small>
         <span className="mb-photo-context">Sent at the timing agreed with your client.</span>
       </div>
       <div
@@ -254,7 +253,6 @@ function ReviewScene() {
             : "Hi Priya, your recorded fixed rate period is coming to an end. Would you like to arrange a conversation with your broker about your next steps?"}
         </p>
         <span className="mb-message-link">Arrange a conversation</span>
-        <small>Reply STOP to opt out.</small>
         <span className="mb-photo-context">
           {annual
             ? "Based on the agreed annual review date."

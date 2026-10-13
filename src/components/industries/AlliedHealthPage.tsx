@@ -1,6 +1,7 @@
+import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown, Star } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 const BOOK = "https://zapla.io/booking";
 const ASSETS = "/concept/industries/";
@@ -467,7 +468,6 @@ function ReturnScene() {
           Hi Mia, your practice asked us to contact you about your next appointment. Reply if you’d
           like reception to help.
         </p>
-        <small>Reply STOP to opt out.</small>
       </div>
       <div className="ah-return-reply ah-glass">
         <Beat active={step >= 1}>
@@ -492,33 +492,10 @@ function ReviewScene() {
       aria-label="Sample Google review request with no submitted patient review or rating"
     >
       <p className="ah-review-trigger">After a completed visit</p>
-      <div className="ah-review-invite ah-glass">
-        <Beat active={step >= 1}>
-          <Sender>Your practice, via Zapla</Sender>
-          <p>Thanks for visiting, Mia. Would you share your experience on Google?</p>
-          <span className="ah-example-link">
-            Leave a Google review <ArrowRight size={14} aria-hidden="true" />
-          </span>
-        </Beat>
-      </div>
-      <div className="ah-google-screen">
-        <Beat active={step >= 2}>
-          <div className="ah-google" role="img" aria-label="Google">
-            {"Google".split("").map((letter, n) => (
-              <span key={n} aria-hidden="true">
-                {letter}
-              </span>
-            ))}
-          </div>
-          <h3>Your practice</h3>
-          <div className="ah-google-stars" role="img" aria-label="Five unselected rating stars">
-            {Array.from({ length: 5 }, (_, n) => (
-              <Star key={n} size={29} strokeWidth={1.5} aria-hidden="true" />
-            ))}
-          </div>
-          <p>Share your experience</p>
-        </Beat>
-      </div>
+      <ReviewInvitation sender="Your practice · Review invitation" visible={step >= 1}>
+        Thanks for visiting, Mia. Would you share your experience on Google?
+      </ReviewInvitation>
+      <GoogleReviewCard visible={step >= 2} />
     </div>
   );
 }

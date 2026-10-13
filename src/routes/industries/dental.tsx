@@ -1,7 +1,8 @@
+import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown, Star, Check, FileText } from "lucide-react";
+import { ArrowRight, ChevronDown, Check, FileText } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import dentalCss from "@/styles/dental.css?url";
 
@@ -576,7 +577,7 @@ function ReturnScene() {
       </div>
       <Message sender="Your practice · Automated invitation" automated visible={step >= 1}>
         Hi Mia, it’s your dental practice. If you’d like to arrange your next visit, reply here and
-        reception can help. Reply STOP to opt out.
+        reception can help.
       </Message>
       <Message sender="Mia" visible={step >= 2}>
         Thanks. Could reception call me about a time next week?
@@ -686,15 +687,6 @@ function RecallScene() {
     </div>
   );
 }
-function GoogleWordmark() {
-  return (
-    <span className="dn-google" aria-label="Google">
-      {["G", "o", "o", "g", "l", "e"].map((letter, i) => (
-        <span key={i}>{letter}</span>
-      ))}
-    </span>
-  );
-}
 function ReviewScene() {
   const { ref, step } = useDialogue();
   return (
@@ -705,35 +697,15 @@ function ReviewScene() {
       aria-label="Illustrative Google review invitation and five unselected rating stars; no customer rating is claimed"
     >
       <div className="dn-review-event">
-        <Check size={17} aria-hidden="true" />
-        <span>Visit completed</span>
-      </div>
-      <div
-        className={`dn-review-invitation ${step >= 1 ? "dn-visible" : "dn-hidden"}`}
-        aria-hidden={step < 1}
-      >
-        <div className="dn-overlay-kicker">
-          <ZaplaPetal size={23} />
-          <span>Your practice · Invitation sent</span>
-        </div>
-        <p>Thanks for visiting, Mia. Would you share your experience on Google?</p>
-        <span className="dn-example-link">
-          Leave a Google review <ArrowRight size={14} aria-hidden="true" />
+        <span className="dn-avatar" aria-hidden="true" />
+        <span>
+          <strong>Mia</strong> · Visit completed
         </span>
       </div>
-      <div
-        className={`dn-google-screen ${step >= 2 ? "dn-visible" : "dn-hidden"}`}
-        aria-hidden={step < 2}
-      >
-        <GoogleWordmark />
-        <h3>How was your visit?</h3>
-        <div className="dn-google-stars" aria-label="Five unselected rating stars">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <Star key={n} size={31} strokeWidth={1.5} aria-hidden="true" />
-          ))}
-        </div>
-        <p>Share your experience</p>
-      </div>
+      <ReviewInvitation sender="Your practice · Review invitation" visible={step >= 1}>
+        Thanks for visiting, Mia. Would you share your experience on Google?
+      </ReviewInvitation>
+      <GoogleReviewCard visible={step >= 2} />
     </div>
   );
 }
