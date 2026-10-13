@@ -151,8 +151,8 @@ function MechanicsPage() {
           <span>Add the customer follow-through.</span>
         </h2>
         <p>
-          Jobs, vehicles and parts stay where they are. During setup, we agree how Zapla gets the
-          customer information it needs.
+          Keep jobs, vehicles and parts in your workshop system. Zapla keeps customer enquiries and
+          follow-up together.
         </p>
       </section>
 
@@ -487,3 +487,4 @@ function WorkshopPlans() {
     </section>
   );
 }
+

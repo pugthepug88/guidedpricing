@@ -275,9 +275,6 @@ export function MortgageBrokersV2Page() {
             clients.
           </p>
           <Actions />
-          <p className="mv-hero-note">
-            From spreadsheets or an existing CRM. Built around how you work.
-          </p>
         </div>
         <div className="mv-hero-scene">
           <img
@@ -608,3 +605,4 @@ export function MortgageBrokersV2Page() {
     </main>
   );
 }
+

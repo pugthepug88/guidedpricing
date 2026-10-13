@@ -340,8 +340,7 @@ function DentalPage() {
         <Label>More support for reception</Label>
         <h2 id="support-title">Keep appointment admin moving.</h2>
         <p className="dn-support-intro">
-          Where reliable appointment updates are available, configure these around your existing
-          dental diary.
+          Send appointment messages using the booking details supplied by your practice.
         </p>
         <div className="dn-support-grid">
           <div>
@@ -391,10 +390,6 @@ function DentalPage() {
               </p>
             </div>
           </div>
-          <p className="dn-boundary-note">
-            During setup, we check what your dental software already handles and how Zapla gets the
-            information it needs.
-          </p>
         </div>
       </section>
       <section className="dn-launch dn-wrap" aria-labelledby="launch-title">
@@ -706,3 +701,4 @@ function ReviewScene() {
     </div>
   );
 }
+

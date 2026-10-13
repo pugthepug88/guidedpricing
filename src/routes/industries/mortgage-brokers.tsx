@@ -150,7 +150,6 @@ function HeroScene() {
         </p>
         <span className="mb-owner">Client reply → Your broker</span>
       </div>
-      <span className="mb-hero-example">Illustrative example</span>
       <StoryControls story={story} />
     </div>
   );
@@ -205,7 +204,6 @@ function ProspectScene() {
         <p>“Good timing. We’ve found a place we like. Can we talk tomorrow?”</p>
         <span className="mb-photo-context">Your broker picks up the conversation.</span>
       </div>
-      <p className="mb-example-note">Illustrative client conversation.</p>
     </div>
   );
 }
@@ -268,7 +266,6 @@ function ReviewScene() {
           <span>Your broker handles the review and advice.</span>
         </div>
       </div>
-      <p className="mb-example-note">Illustrative review invitation.</p>
     </div>
   );
 }

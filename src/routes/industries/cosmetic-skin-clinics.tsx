@@ -9,7 +9,7 @@ import skinCss from "@/styles/cosmetic-skin-clinics.css?url";
 
 const TITLE = "CRM & Client Follow-Up for Skin & Cosmetic Clinics | Zapla";
 const DESCRIPTION =
-  "Automate skin clinic enquiry replies, pre-visit admin, consultation follow-up and eligible client reactivation. Start from spreadsheets and inboxes or keep your existing clinic software.";
+  "Automate skin clinic enquiry replies, pre-visit admin, consultation follow-up and eligible client reactivation.";
 export const Route = createFileRoute("/industries/cosmetic-skin-clinics")({
   staticData: { sitemap: false },
   head: () => ({
@@ -167,9 +167,6 @@ function SkinClinicsPage() {
             clinic.
           </p>
           <Actions />
-          <p className="sk-hero-boundary">
-            Start from spreadsheets and inboxes, or keep the CRM you already use.
-          </p>
         </div>
         <div className="sk-hero-scene">
           <img
@@ -244,11 +241,7 @@ function SkinClinicsPage() {
               Once a consultation is confirmed, Zapla sends your arrival information and contact
               details form. When the form is submitted, reception gets a notification.
             </p>
-            <p className="sk-supporting">
-              Appointment messages require current booking information. Submission notifications
-              require a connected form. Health histories and treatment consent stay in your clinical
-              system.
-            </p>
+
             <Link href="/crm">Explore forms and client records</Link>
           </div>
           <AdminScene />
@@ -281,10 +274,6 @@ function SkinClinicsPage() {
               brings replies back to your team to discuss their next visit.
             </p>
             <Link href="/reactivation">Explore client reactivation</Link>
-            <p className="sk-supporting">
-              Use current booking records and contact permissions. Invitations must be appropriate
-              for your services.
-            </p>
           </div>
         </div>
         <ReturnPhoto />
@@ -298,10 +287,7 @@ function SkinClinicsPage() {
             After a visit is marked complete, Zapla can send a Google review request. Your team
             doesn’t have to send each message.
           </p>
-          <p className="sk-supporting">
-            Review requests must be appropriate for your services. The FAQ explains the distinction
-            between collecting feedback and using clinical testimonials.
-          </p>
+
           <Link href="/reviews">Explore review requests</Link>
         </div>
       </section>
@@ -317,7 +303,7 @@ function SkinClinicsPage() {
             </p>
           </div>
           <div>
-            <h3>Already using a CRM?</h3>
+            <h3>Already using clinic software?</h3>
             <p>
               Keep the functions that work well. Use Zapla for replies, reminders and client
               follow-up your team still handles manually.
@@ -325,8 +311,8 @@ function SkinClinicsPage() {
           </div>
         </div>
         <p className="sk-fit-note">
-          Clinical records stay in your existing system. We check connections to your clinic
-          software before recommending them.
+          Zapla brings client enquiries and follow up together. Your clinical records stay in your
+          clinic software.
         </p>
       </section>
       <section className="sk-launch" aria-labelledby="launch-title">
@@ -602,3 +588,4 @@ function ConsiderScene() {
     </div>
   );
 }
+

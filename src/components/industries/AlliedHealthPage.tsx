@@ -178,8 +178,8 @@ export function AlliedHealthPage() {
             same questions again.
           </p>
           <p>
-            Send a reminder if the form is still outstanding. A verified submission stops the
-            reminders and updates reception’s task.
+            Send a reminder if the form is still outstanding. When the form is submitted, reminders
+            stop and reception’s task is updated.
           </p>
           <TextLink href="/crm">Explore forms and enquiry records</TextLink>
           <p className="ah-aside">
@@ -242,7 +242,7 @@ export function AlliedHealthPage() {
             </h2>
             <div className="ah-starting-points">
               <div>
-                <h3>Using spreadsheets and inboxes?</h3>
+                <h3>Managing enquiries across spreadsheets and inboxes?</h3>
                 <p>
                   Bring contact details, enquiry status, replies and tasks into one shared workflow.
                   Give reception a clear owner and next step without another spreadsheet to
@@ -250,7 +250,7 @@ export function AlliedHealthPage() {
                 </p>
               </div>
               <div>
-                <h3>Already have a CRM or practice system?</h3>
+                <h3>Already using practice software?</h3>
                 <p>
                   Keep the workflows that work. Add Zapla where enquiries or callbacks still need
                   chasing, without replacing your clinical records or diary.
@@ -258,16 +258,16 @@ export function AlliedHealthPage() {
               </div>
             </div>
             <p className="ah-aside">
-              Clinical records and appointments stay in your practice system. Direct diary updates
-              require a supported, tested connection.
+              Clinical records and appointments stay in your practice system.
             </p>
           </div>
           <div className="ah-control-right">
             <div>
               <h3>Routine steps, with a clear owner.</h3>
               <p>
-                Configured replies, reminders and reception tasks. Stop on a reply, opt out or
-                recorded resolution. Sensitive conversations and clinical decisions go to your team.
+                Zapla sends routine replies and reminders and keeps reception tasks together. Follow
+                up stops when someone replies, opts out or the enquiry is marked resolved. Sensitive
+                conversations and clinical decisions go to your team.
               </p>
             </div>
             <AIReceptionistSection industry="allied" tone="open" compact inline />
@@ -522,3 +522,4 @@ const faqs = [
     "We can configure a neutral request after an agreed event and route replies to your team. The practice approves eligibility, wording and communication permissions. Do not offer incentives or restrict review invitations to satisfied patients. Independent patient reviews and republishing clinical testimonials in healthcare advertising are different activities; review the advertising requirements before using feedback in marketing.",
   ],
 ];
+
