@@ -16,8 +16,7 @@ const examples = {
     business: "Your clinic",
     owner: "Reception",
     question: "I’d like to arrange a first consultation.",
-    answer:
-      "I’m the clinic’s AI assistant. I can ask the team to call you. May I take your name and preferred callback time?",
+    answer: "I’m the clinic’s AI assistant. May I take your name and a good time for a callback?",
     request: "First consultation enquiry",
   },
   dental: {
@@ -31,7 +30,7 @@ const examples = {
     owner: "Reception",
     question: "Are you taking new patients?",
     answer:
-      "I’m the practice’s AI assistant. Yes, we welcome new patients. May I take your name and preferred callback time?",
+      "I’m the practice’s AI assistant. Yes, we welcome new patients. May I take your name and a good time for a callback?",
     request: "New patient enquiry",
   },
   mechanics: {
@@ -44,8 +43,7 @@ const examples = {
     business: "Your workshop",
     owner: "Workshop team",
     question: "Could you look at my brakes? It’s a 2019 Toyota RAV4.",
-    answer:
-      "I’m the workshop’s AI assistant. I’ll pass your request and vehicle details to the team. May I take your name and preferred callback time?",
+    answer: "I’m the workshop’s AI assistant. May I take your name and a good time for a callback?",
     request: "Brake inspection enquiry · 2019 Toyota RAV4",
   },
   trades: {
@@ -57,8 +55,7 @@ const examples = {
     business: "Your business",
     owner: "Your team",
     question: "Can someone quote for a split system installation?",
-    answer:
-      "I’m the team’s AI assistant. I can collect your enquiry for them. May I take your name and preferred callback time?",
+    answer: "I’m the AI assistant. May I take your name and a good time for a callback?",
     request: "Split system installation quote request",
   },
   allied: {
@@ -71,8 +68,7 @@ const examples = {
     business: "Your practice",
     owner: "Reception",
     question: "Could reception help me find a physio appointment?",
-    answer:
-      "I’m the practice’s AI assistant. I can ask reception to call you. May I take your name and preferred callback time?",
+    answer: "I’m the practice’s AI assistant. May I take your name and a good time for a callback?",
     request: "Physiotherapy appointment enquiry",
   },
   mortgage: {
@@ -85,7 +81,7 @@ const examples = {
     owner: "Your broker",
     question: "Can I speak to someone about buying my first home?",
     answer:
-      "I’m the brokerage’s AI assistant. I can ask a broker to call you. May I take your name and preferred callback time?",
+      "I’m the brokerage’s AI assistant. May I take your name and a good time for a callback?",
     request: "First home buyer enquiry",
   },
   mortgageOriginal: {
@@ -98,7 +94,7 @@ const examples = {
     owner: "Your broker",
     question: "Can I speak to someone about buying my first home?",
     answer:
-      "I’m the brokerage’s AI assistant. I can ask a broker to call you. May I take your name and preferred callback time?",
+      "I’m the brokerage’s AI assistant. May I take your name and a good time for a callback?",
     request: "First home buyer enquiry",
   },
 } satisfies Record<Industry, Record<string, string>>;
