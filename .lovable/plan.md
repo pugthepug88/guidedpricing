@@ -1,31 +1,19 @@
-# Side-by-side Zapla visual audit
+# Editor page dropdown: diagnosis and remedy
 
-## Scope
-Read-only inspection of the current rendered pages at `/`, `/follow-up`, `/ai-receptionist`, `/reactivation`, `/reviews`, `/Pricing-v3`, and `/crm_v2`. No project files, assets, routes, settings, or configuration will be changed.
+## What is verified
+- The app has 21 real page routes registered in the route tree, including `/industries/allied-health`. The route exists and is correctly named.
+- 18 of those page files set `staticData: { sitemap: false }`: allied-health, cosmetic-skin-clinics, dental, mechanics, mechanics-v2, mortgage-brokers, mortgage-brokers-v2, trades, ai-receptionist, crm, customer-marketing, follow-up, platform, quote-follow-up, reactivation, reviews, Pricing-v3, compare/zapla-vs-pipedrive.
+- Only `/`, `/pricing-v2` and the two `/concept/cinematic-follow-through-*` pages do NOT carry that flag.
 
-## Audit approach
-1. Render every route at the same desktop viewport and capture comparable views through the full page.
-2. Revisit motion-led sections after their animations settle so the audit reflects both initial and established states.
-3. Compare each page on:
-   - background colour and atmosphere
-   - successive large rounded containers
-   - section transitions
-   - framing of product interfaces and mockups
-   - accent colour discipline
-   - card and grid density
-   - headline scale and rhythm
-   - dark-section usage
-   - whitespace and pacing
-   - motion or implied motion
-   - editorial, product-real, or template-driven character
-4. Inspect `/crm_v2` section by section against the strongest recurring Zapla patterns.
-5. Report only visible evidence, including:
-   - five strongest principles on the best pages
-   - five specific CRM violations
-   - exact CRM sections to simplify, flatten, merge, recolour, or reframe
-   - whether pipeline, automation, and commercial reads as stacked containers
-   - which CRM sections should and should not remain large rounded containers
-   - a concise premium CRM direction with monday CRM-level visual cleanliness
+## Likely cause (not confirmed by docs)
+Lovable's documentation does not say how the editor page selector builds its list. The pattern strongly suggests it uses the same page discovery as the generated sitemap, so pages flagged `sitemap: false` are left out. That explains why allied-health and the other review drafts are missing while the root and concept pages appear.
 
-## Output
-A compact comparison matrix followed by prioritized CRM findings and creative direction. No implementation work.
+## What I cannot do
+I have no tool that controls, refreshes or reindexes the editor's page selector. Refresh only reloads the preview; it does not rescan the list.
+
+## Remedies (no code change from me)
+1. Immediate workaround: type the path into the selector, e.g. `/industries/allied-health`. Lovable documents this for missing pages.
+2. If you want them listed: in GitHub, remove `staticData: { sitemap: false }` from the pages you want shown. Trade-off: they would then be included in the public sitemap. The `noindex, nofollow` meta tags still keep them out of search results, but they would no longer be hidden from crawlers' page list. Test this on one page (allied-health) first to confirm the cause before changing the rest.
+3. Ask Lovable support to confirm whether the selector honors `sitemap: false`, if you prefer to keep drafts out of the sitemap.
+
+No source, navigation, design or content changes, and no publishing.
