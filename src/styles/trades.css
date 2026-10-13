@@ -134,8 +134,8 @@
   box-shadow:
     inset 0 0 0 1px #1e2b2930,
     0 14px 35px #1e2b291a;
-  backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   border-radius: 18px;
   color: #111318;
 }
@@ -285,7 +285,7 @@
 }
 .tr-office-photo {
   position: relative;
-  padding-bottom: 70px;
+  padding-bottom: 88px;
 }
 .tr-office-photo > img {
   display: block;
@@ -295,80 +295,7 @@
   object-position: 68% center;
   border-radius: 26px;
 }
-.tr-enquiry-note {
-  position: absolute;
-  left: 22px;
-  bottom: 0;
-  width: 298px;
-  padding: 20px;
-}
-.tr-enquiry-note > p {
-  font-size: 13px;
-  margin-top: 12px;
-}
-.tr-note-answer {
-  border-top: 1px solid #d8dbd1;
-  margin-top: 15px;
-  padding-top: 12px;
-}
-.tr-note-answer strong {
-  font-size: 11px;
-  color: #596947;
-}
-.tr-note-answer p {
-  font-size: 12px;
-  margin-top: 4px;
-}
-.tr-enquiry-handoff {
-  margin: 20px 22px 0;
-  border-left: 2px solid #99a36d;
-  padding-left: 14px;
-  min-height: 48px;
-}
-.tr-enquiry-handoff span {
-  display: block;
-  font-size: 11px;
-  color: #68715e;
-}
-.tr-enquiry-handoff strong {
-  display: block;
-  font-size: 13px;
-  margin-top: 3px;
-  color: #3b453a;
-}
-.tr-story-controls {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-  font-size: 10px;
-  color: #686d60;
-  min-height: 44px;
-}
-.tr-story-controls > div {
-  display: flex;
-  gap: 4px;
-}
-.tr-story-controls button {
-  display: inline-flex;
-  gap: 5px;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  min-width: 64px;
-  background: none;
-  border: 0;
-  padding: 0 7px;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  border-radius: 6px;
-}
-.tr-story-controls button:hover {
-  background: #eceee6;
-  color: #394c37;
-}
+
 .tr-beat {
   opacity: 0;
   visibility: hidden;
@@ -455,14 +382,7 @@
   margin-top: 18px;
   line-height: 1.6;
 }
-.tr-quote-story .tr-story-controls {
-  color: #c8d1c3;
-  margin-top: 9px;
-}
-.tr-quote-story .tr-story-controls button:hover {
-  background: #3a4a40;
-  color: #fff;
-}
+
 .tr-return {
   padding-block: 65px 75px;
 }
@@ -919,7 +839,7 @@
   }
   .tr-gaps {
     gap: 35px;
-    padding-bottom: 70px;
+    padding-bottom: 88px;
   }
   .tr-enquiry {
     gap: 35px;
@@ -931,14 +851,7 @@
   .tr-office-photo > img {
     height: 425px;
   }
-  .tr-enquiry-note {
-    left: 12px;
-    width: 270px;
-    padding: 18px;
-  }
-  .tr-enquiry-handoff {
-    margin-inline: 12px;
-  }
+
   .tr-quote-panel {
     grid-template-columns: 1fr;
     gap: 36px;
@@ -1096,19 +1009,7 @@
     height: 350px;
     object-position: 65% center;
   }
-  .tr-enquiry-note {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    margin: -70px 16px 0;
-    width: min(310px, calc(100% - 32px));
-  }
-  .tr-enquiry-handoff {
-    margin: 20px 16px 0;
-  }
-  .tr-story-controls {
-    font-size: 10px;
-  }
+
   .tr-quote-section {
     padding-bottom: 25px;
   }
@@ -1131,10 +1032,7 @@
     padding: 14px;
     font-size: 12px;
   }
-  .tr-quote-story .tr-story-controls {
-    flex-wrap: wrap;
-    gap: 0;
-  }
+
   .tr-return {
     padding-block: 42px 50px;
   }
@@ -1342,31 +1240,53 @@
   }
 }
 
-/* Shared glass stays consistent across the hero, photography and dialogue. */
-.tr-story-controls {
-  justify-content: flex-end;
-}
-.tr-enquiry-note {
+/* Compact enquiry messages share the hero's glass treatment. */
+.tr-enquiry-auto,
+.tr-note-answer {
+  position: absolute;
+  width: min(278px, calc(100% - 44px));
   padding: 18px;
 }
 .tr-enquiry-auto {
-  margin-top: 14px;
-}
-.tr-enquiry-auto > p {
-  font-size: 13px;
-  margin-top: 8px;
+  left: 22px;
+  bottom: 174px;
 }
 .tr-note-answer {
-  margin-top: 12px;
-  padding-top: 12px;
+  left: 54px;
+  bottom: 12px;
 }
+.tr-enquiry-auto > p,
 .tr-note-answer > p {
-  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.65;
+  margin-top: 11px;
 }
-.tr-enquiry-handoff > p {
-  font-size: 12px;
-  color: #535f49;
-  margin: 8px 0 0 37px;
+@media (max-width: 900px) and (min-width: 701px) {
+  .tr-enquiry-auto,
+  .tr-note-answer {
+    width: calc(100% - 36px);
+  }
+  .tr-enquiry-auto {
+    left: 12px;
+  }
+  .tr-note-answer {
+    left: 24px;
+  }
+}
+@media (max-width: 700px) {
+  .tr-enquiry-auto,
+  .tr-note-answer {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: min(310px, calc(100% - 32px));
+  }
+  .tr-enquiry-auto {
+    margin: -58px 16px 0;
+  }
+  .tr-note-answer {
+    margin: 14px 16px 0 auto;
+  }
 }
 .tr-service-note {
   padding: 20px;

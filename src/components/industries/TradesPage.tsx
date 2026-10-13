@@ -2,7 +2,7 @@ import { AIReceptionistSection } from "@/components/industries/AIReceptionistSec
 import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { ArrowRight, ChevronDown, Pause, Play, RotateCcw } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
 const BOOK = "https://zapla.io/booking";
@@ -55,53 +55,18 @@ function useStory(last = 2) {
   const [reduced, setReduced] = useState(false);
   useEffect(() => setReduced(Boolean(preference)), [preference]);
   const [step, setStep] = useState(0);
-  const [paused, setPaused] = useState(false);
   useEffect(() => {
     if (reduced) setStep(last);
   }, [reduced, last]);
   useEffect(() => {
-    if (!visible || reduced || paused || step >= last) return;
+    if (!visible || reduced || step >= last) return;
     const timer = window.setTimeout(
       () => setStep((s) => Math.min(last, s + 1)),
       step === 0 ? 350 : 650,
     );
     return () => window.clearTimeout(timer);
-  }, [visible, reduced, paused, step, last]);
-  return {
-    ref,
-    step,
-    reduced,
-    paused,
-    setPaused,
-    replay: () => {
-      setStep(0);
-      setPaused(false);
-    },
-  };
-}
-type Story = ReturnType<typeof useStory>;
-function Controls({ story, name }: { story: Story; name: string }) {
-  if (story.reduced) return null;
-  return (
-    <div className="tr-story-controls">
-      {!story.reduced && (
-        <div>
-          <button
-            type="button"
-            aria-label={`${story.paused ? "Play" : "Pause"} ${name} demonstration`}
-            onClick={() => story.setPaused(!story.paused)}
-          >
-            {story.paused ? <Play size={13} /> : <Pause size={13} />}
-            <span>{story.paused ? "Play" : "Pause"}</span>
-          </button>
-          <button type="button" aria-label={`Replay ${name} demonstration`} onClick={story.replay}>
-            <RotateCcw size={13} />
-            <span>Replay</span>
-          </button>
-        </div>
-      )}
-    </div>
-  );
+  }, [visible, reduced, step, last]);
+  return { ref, step };
 }
 
 export function TradesPage() {
@@ -375,32 +340,21 @@ function EnquiryScene() {
           height="1024"
           loading="lazy"
         />
-        <div className="tr-enquiry-note tr-glass">
-          <Sender customer="daniel">Daniel · Split system enquiry</Sender>
-          <div
-            className={`tr-enquiry-auto tr-beat ${story.step >= 1 ? "is-visible" : ""}`}
-            aria-hidden={story.step < 1}
-          >
-            <Sender>Automatic reply</Sender>
-            <p>Thanks Daniel. What’s the property address?</p>
-          </div>
-          <div
-            className={`tr-note-answer tr-beat ${story.step >= 2 ? "is-visible" : ""}`}
-            aria-hidden={story.step < 2}
-          >
-            <Sender customer="daniel">Daniel Brooks</Sender>
-            <p>14 Banksia Street, Ashfield. It’s for the lounge room.</p>
-          </div>
+        <div
+          className={`tr-enquiry-auto tr-glass tr-beat ${story.step >= 1 ? "is-visible" : ""}`}
+          aria-hidden={story.step < 1}
+        >
+          <Sender>Automatic reply</Sender>
+          <p>Thanks Daniel. What’s the property address?</p>
+        </div>
+        <div
+          className={`tr-note-answer tr-glass tr-beat ${story.step >= 2 ? "is-visible" : ""}`}
+          aria-hidden={story.step < 2}
+        >
+          <Sender customer="daniel">Daniel Brooks</Sender>
+          <p>14 Banksia Street, Ashfield. It’s for the lounge room.</p>
         </div>
       </div>
-      <div
-        className={`tr-enquiry-handoff tr-beat ${story.step >= 2 ? "is-visible" : ""}`}
-        aria-hidden={story.step < 2}
-      >
-        <Sender customer="daniel">Daniel’s customer record</Sender>
-        <p>Next action: arrange an assessment.</p>
-      </div>
-      <Controls story={story} name="enquiry" />
     </div>
   );
 }
@@ -438,7 +392,6 @@ function QuoteScene() {
         <Sender customer="daniel">Daniel Brooks</Sender>
         <p className="tr-glass">Does that include removing the old system?</p>
       </div>
-      <Controls story={story} name="quote follow-up" />
     </div>
   );
 }
@@ -477,7 +430,6 @@ function ReturnScene() {
           <p>“Yes please. Do you have a time next week?”</p>
         </div>
       </div>
-      <Controls story={story} name="service reminder" />
     </div>
   );
 }
@@ -501,7 +453,6 @@ function ReviewScene() {
         </ReviewInvitation>
         <GoogleReviewCard heading="How did we do?" visible={story.step >= 2} />
       </div>
-      <Controls story={story} name="review request" />
     </div>
   );
 }
