@@ -87,6 +87,10 @@ References such as Clay, monday.com, Keap, Pipedrive, Creatio or others are evid
 
 ## Review gate
 
+### Industry Google review demonstrations
+
+Use `src/components/industries/ReviewCards.tsx` and its shared stylesheet for review invitations and the Google rating panel. Do not recreate page-specific versions of their glass, typography, Google wordmark or unselected stars. Keep client portraits beside client messages and completion records, outside the Google rating panel. Use the Zapla petal for the automated invitation. Industry-specific wording, triggers, motion and section composition remain with the page. The displayed review link and stars are illustrative, not live review submission controls.
+
 Before any visual is considered ready, review it independently through:
 - UI/UX Director
 - Brand / Creative Director
