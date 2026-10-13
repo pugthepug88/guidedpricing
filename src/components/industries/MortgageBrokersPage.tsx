@@ -256,9 +256,9 @@ const FAQS = [
     "Your brokerage chooses the clients, messages and timing. We configure contact preferences, exclusions and opt-outs around your process. Loan reviews and financial advice stay with your broker.",
   ],
 ];
-export function MortgageBrokersV2Page() {
+export function MortgageBrokersPage() {
   return (
-    <main className="mortgage-v2-page" data-page="mortgage-brokers-v2">
+    <main className="mortgage-brokers-page" data-page="mortgage-brokers">
       <section className="mv-hero mv-wrap" aria-labelledby="mv-title">
         <div className="mv-hero-copy">
           <Label>For mortgage brokers</Label>

@@ -114,7 +114,6 @@ export function SiteNav() {
                 <a href="/reviews" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Reviews &amp; Reputation</a>
                 <div className="mx-3 my-2 border-t border-zapla-line" />
                 <Link to="/industries/mortgage-brokers" onClick={() => setOpenMenu(null)} className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mortgage Brokers</Link>
-                <Link to="/industries/mortgage-brokers-v2" onClick={() => setOpenMenu(null)} className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mortgage Brokers V2</Link>
                 <a href="/industries/mechanics" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mechanics &amp; Workshops</a>
                 <a href="/industries/dental" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Dental Practices</a>
                 <a href="/industries/cosmetic-skin-clinics" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Skin &amp; Cosmetic Clinics</a>
@@ -162,7 +161,6 @@ export function SiteNav() {
             <details className="group"><summary className="flex cursor-pointer list-none items-center justify-between py-2">Solutions<span className="text-zapla-muted group-open:rotate-180 transition">▾</span></summary><div className="ml-3 grid gap-1 pb-2 text-[14px] text-zapla-muted">
               <a href="/follow-up" className="py-1.5">Follow-Up</a><a href="/reactivation" className="py-1.5">Reactivation</a><a href="/reviews" className="py-1.5">Reviews &amp; Reputation</a>
               <Link to="/industries/mortgage-brokers" onClick={() => setMobileOpen(false)} className="py-1.5">Mortgage Brokers</Link>
-              <Link to="/industries/mortgage-brokers-v2" onClick={() => setMobileOpen(false)} className="py-1.5">Mortgage Brokers V2</Link>
               <a href="/industries/mechanics" className="py-1.5">Mechanics &amp; Workshops</a><a href="/industries/dental" className="py-1.5">Dental Practices</a>
                 <a href="/industries/cosmetic-skin-clinics" className="py-1.5">Skin &amp; Cosmetic Clinics</a>
               <a href="/industries/trades" className="py-1.5">Trades &amp; Home Services</a>
