@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -13,6 +14,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteNav } from "../components/SiteNav";
+import { VersionNav, VersionFooter } from "../components/industry-v3/VersionShell";
 import { DominoFooter } from "../components/DominoFooter";
 
 function NotFoundComponent() {
@@ -137,13 +139,15 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { pathname } = useLocation();
+  const isV3 = pathname === "/preview-v3" || /^\/industries\/[^/]+-v3$/.test(pathname);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SiteNav />
+      {isV3 ? <VersionNav /> : <SiteNav />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <DominoFooter />
+      {isV3 ? <VersionFooter /> : <DominoFooter />}
     </QueryClientProvider>
   );
 }

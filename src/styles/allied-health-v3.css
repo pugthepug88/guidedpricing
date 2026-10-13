@@ -1,0 +1,1280 @@
+@font-face {
+  font-family: AHInterTight;
+  src: url("/concept/industries/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: AHManrope;
+  src: url("/concept/industries/fonts/manrope-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: AHManrope;
+  src: url("/concept/industries/fonts/manrope-latin-600-normal.woff2") format("woff2");
+  font-weight: 600 800;
+  font-display: swap;
+}
+.allied-health-v3-page {
+  background: #fcfcfa;
+  color: #111318;
+  font-family: AHManrope, Manrope, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.allied-health-v3-page * {
+  box-sizing: border-box;
+}
+.allied-health-v3-page :is(h1, h2, h3, p, figure, dl, dd) {
+  margin: 0;
+}
+.allied-health-v3-page :is(h1, h2, h3) {
+  font-family: AHInterTight, "Inter Tight", sans-serif;
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.allied-health-v3-page h1 {
+  font-size: clamp(46px, 5.4vw, 72px);
+  line-height: 1.01;
+}
+.allied-health-v3-page h2 {
+  font-size: clamp(38px, 4.4vw, 58px);
+}
+.allied-health-v3-page h3 {
+  font-size: 25px;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.allied-health-v3-page p {
+  color: #596159;
+}
+.allied-health-v3-page a {
+  text-decoration: none;
+  color: inherit;
+}
+.ah3-wrap {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 40px;
+}
+.allied-health-v3-page .ah3-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9b513a;
+  margin-bottom: 20px;
+}
+.ah3-copy > p:not(.ah3-eyebrow),
+.ah3-return-heading > div > p {
+  margin-top: 22px;
+  max-width: 490px;
+}
+.ah3-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-top: 30px;
+}
+.ah3-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 14px 26px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.allied-health-v3-page .ah3-primary {
+  background: #1e2b29;
+  color: #fcfcfa;
+}
+.allied-health-v3-page .ah3-primary:hover {
+  background: #344641;
+}
+.ah3-secondary {
+  border: 1px solid #bfc5b9;
+  background: transparent;
+}
+.ah3-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 44px;
+}
+.ah3-copy > .ah3-text-link,
+.ah3-return-heading .ah3-text-link {
+  margin-top: 20px;
+}
+.allied-health-v3-page a:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.allied-health-v3-page .ah3-button:hover {
+  text-decoration: none;
+}
+.allied-health-v3-page :is(a, button, summary):focus-visible {
+  outline: 3px solid #2563ff;
+  outline-offset: 5px;
+}
+.ah3-hero {
+  display: grid;
+  grid-template-columns: 0.9fr 1.2fr;
+  align-items: center;
+  gap: 54px;
+  padding-top: 74px;
+  padding-bottom: 54px;
+}
+.ah3-hero-copy {
+  padding-block: 20px;
+}
+.allied-health-v3-page .ah3-intro {
+  font-size: 16px;
+  line-height: 1.75;
+  margin-top: 26px;
+  max-width: 455px;
+}
+.allied-health-v3-page .ah3-reassurance {
+  font-size: 12px;
+  margin-top: 24px;
+}
+.ah3-hero-visual {
+  position: relative;
+  min-width: 0;
+  padding-bottom: 28px;
+}
+.ah3-hero-visual > img {
+  width: 100%;
+  height: 565px;
+  object-fit: cover;
+  object-position: 61% center;
+  border-radius: 30px;
+  display: block;
+}
+.ah3-glass {
+  background: rgba(252, 252, 250, 0.91);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 0 0 1px #1e2b2930,
+    0 14px 35px #1e2b291a;
+  backdrop-filter: blur(6px);
+  border-radius: 18px;
+}
+.ah3-hero-note {
+  position: absolute;
+  left: -24px;
+  bottom: 0;
+  width: 260px;
+  padding: 22px;
+}
+.ah3-sender {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #28372f;
+}
+.ah3-sender svg {
+  flex: none;
+}
+.allied-health-v3-page .ah3-hero-note > p {
+  font-size: 16px;
+  color: #26352d;
+  line-height: 1.45;
+  margin-top: 16px;
+}
+.ah3-task3-line {
+  border-top: 1px solid #1e2b2924;
+  margin-top: 16px;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1.5;
+}
+.ah3-task3-line > span {
+  font-size: 10px;
+  color: #606a60;
+}
+.ah3-task3-line > strong {
+  font-size: 12px;
+  font-weight: 600;
+}
+.ah3-task3-line small,
+.ah3-hero-note > small,
+.ah3-return-reminder > small {
+  font-size: 10px;
+  color: #596159;
+}
+.ah3-hero-note > small {
+  display: block;
+  margin-top: 14px;
+}
+.ah3-enquiry {
+  padding-block: 20px 80px;
+  scroll-margin-top: 90px;
+}
+.ah3-enquiry-panel {
+  display: grid;
+  grid-template-columns: 1fr 1.12fr;
+  gap: 50px;
+  align-items: center;
+  padding: 40px;
+  border-radius: 34px;
+  background: #1e2b29;
+  color: #fcfcfa;
+}
+.allied-health-v3-page .ah3-enquiry-panel .ah3-eyebrow {
+  color: #e7a18a;
+}
+.allied-health-v3-page .ah3-enquiry-panel .ah3-copy > p:not(.ah3-eyebrow) {
+  color: #d7dfd5;
+}
+.allied-health-v3-page .ah3-enquiry-panel .ah3-copy > .ah3-aside {
+  color: #b9c6b6;
+  font-size: 12px;
+}
+.ah3-enquiry-demo {
+  min-width: 0;
+}
+.allied-health-v3-page .ah3-example {
+  font-size: 10px;
+  line-height: 1.6;
+  color: #5d665c;
+}
+.allied-health-v3-page .ah3-enquiry-demo > .ah3-example {
+  color: #d4dccf;
+  margin-bottom: 16px;
+}
+.ah3-message {
+  border-radius: 16px;
+  padding: 18px 20px;
+  background: #fcfcfa;
+  margin-bottom: 12px;
+  color: #1e2b29;
+}
+.ah3-message > span,
+.ah3-return-reply > span {
+  font-size: 10px;
+  font-weight: 600;
+  color: #596159;
+}
+.allied-health-v3-page .ah3-message p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #354238;
+  margin-top: 7px;
+}
+.ah3-patient {
+  margin-left: 38px;
+  background: #e2e4d2;
+}
+.ah3-zapla {
+  margin-right: 20px;
+}
+.ah3-example-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #29482b !important;
+  font-size: 11px !important;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 10px;
+}
+.ah3-beat {
+  opacity: 0.82;
+  transition: opacity 0.3s ease;
+}
+.ah3-beat-on {
+  opacity: 1;
+}
+.ah3-admin {
+  display: grid;
+  grid-template-columns: 1.07fr 1fr;
+  align-items: center;
+  gap: 75px;
+  padding-block: 25px 60px;
+}
+.ah3-admin-visual {
+  position: relative;
+  min-width: 0;
+  padding-bottom: 22px;
+}
+.ah3-admin-visual > img {
+  width: 100%;
+  height: 450px;
+  display: block;
+  object-fit: cover;
+  object-position: 60% 20%;
+  border-radius: 30px;
+}
+.ah3-form-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  width: 260px;
+  padding: 22px;
+}
+.ah3-form-overlay h3 {
+  font-size: 25px;
+  margin-top: 10px;
+}
+.ah3-form-overlay dl {
+  margin-top: 14px;
+}
+.ah3-form-overlay dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 8px;
+  border-bottom: 1px solid #1e2b291a;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.ah3-form-overlay dt {
+  color: #66705f;
+}
+.ah3-form-overlay dd {
+  font-weight: 600;
+  color: #29372e;
+  text-align: right;
+}
+.allied-health-v3-page .ah3-form-submitted {
+  font-size: 11px;
+  color: #35552f;
+  margin-top: 12px;
+}
+.ah3-form-outcome {
+  border-top: 1px solid #1e2b2920;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+.allied-health-v3-page .ah3-form-outcome p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #43543d;
+  margin-top: 6px;
+}
+.allied-health-v3-page .ah3-aside {
+  font-size: 12px;
+  line-height: 1.75;
+}
+.ah3-return {
+  padding-block: 35px 65px;
+}
+.ah3-return-heading {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 70px;
+  align-items: center;
+  margin-bottom: 36px;
+}
+.ah3-return-heading > div > p:first-child {
+  margin-top: 0;
+}
+.ah3-return-visual {
+  position: relative;
+  min-width: 0;
+  border-radius: 30px;
+  background: #efe2d2;
+}
+.ah3-return-visual > img {
+  width: 100%;
+  height: 520px;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 30px;
+}
+.ah3-return-reminder {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  width: 290px;
+  padding: 20px;
+}
+.ah3-return-reminder .ah3-sender {
+  margin-top: 0;
+}
+.allied-health-v3-page .ah3-return-reminder > p:not(.ah3-example) {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #344238;
+  margin-block: 14px 8px;
+}
+.ah3-return-reply {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  width: 270px;
+  padding: 22px;
+}
+.allied-health-v3-page .ah3-return-reply p {
+  font-size: 15px;
+  color: #2d3b31;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.ah3-return-reply .ah3-task3-line {
+  margin-top: 14px;
+}
+.ah3-feedback {
+  display: grid;
+  grid-template-columns: 1fr 1.03fr;
+  gap: 70px;
+  align-items: center;
+  padding-block: 35px 70px;
+}
+.ah3-review-scene {
+  background: #e5deeb;
+  padding: 34px;
+  border-radius: 30px;
+  min-width: 0;
+}
+.allied-health-v3-page .ah3-review-trigger {
+  font-size: 12px;
+  color: #4f4d56;
+  margin-bottom: 20px;
+}
+.ah3-control {
+  background: #e2e4d2;
+  padding-block: 60px;
+}
+.ah3-control-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 70px;
+  align-items: start;
+}
+.ah3-control h2 span {
+  color: #52653d;
+}
+.ah3-control-layout > div > p:not(.ah3-eyebrow) {
+  margin-top: 26px;
+  max-width: 470px;
+}
+.ah3-control-right > div:first-child {
+  padding-block: 14px 30px;
+}
+.ah3-control-right h3 {
+  font-size: 28px;
+}
+.ah3-control-right p {
+  margin-top: 16px;
+}
+.ah3-call-card {
+  border-top: 1px solid #b1ba9d;
+  padding-top: 30px;
+}
+.ah3-call-card h3 {
+  margin-top: 18px;
+}
+.ah3-call-card .ah3-text-link {
+  margin-top: 16px;
+}
+.ah3-value {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 70px;
+  padding-block: 65px;
+}
+.ah3-value > div > p:not(.ah3-eyebrow) {
+  margin-top: 24px;
+  max-width: 475px;
+}
+.allied-health-v3-page .ah3-small {
+  font-size: 11px;
+  line-height: 1.7;
+}
+.ah3-faq {
+  display: grid;
+  grid-template-columns: 0.9fr 1.3fr;
+  gap: 85px;
+  padding-block: 20px 55px;
+}
+.ah3-faq-list details {
+  border-bottom: 1px solid #d9ddd2;
+}
+.ah3-faq-list summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 72px;
+  padding-block: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.ah3-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+.ah3-faq-list summary svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.ah3-faq-list details[open] summary svg {
+  transform: rotate(180deg);
+}
+.allied-health-v3-page .ah3-faq-list details > p {
+  padding-block: 0 22px;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.ah3-final {
+  text-align: center;
+  padding-block: 55px 65px;
+}
+.ah3-petal-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #111318;
+  margin: 0 auto 26px;
+}
+.ah3-final h2 {
+  font-size: clamp(40px, 5.2vw, 66px);
+}
+.allied-health-v3-page .ah3-final > p {
+  max-width: 570px;
+  margin: 24px auto 0;
+}
+.ah3-final .ah3-actions {
+  justify-content: center;
+}
+@media (min-width: 1450px) {
+  .ah3-wrap {
+    max-width: 1320px;
+  }
+  .ah3-hero {
+    gap: 65px;
+  }
+  .ah3-hero-visual > img {
+    height: 585px;
+  }
+}
+@media (max-width: 1100px) {
+  .ah3-wrap {
+    padding-inline: 30px;
+  }
+  .ah3-hero {
+    gap: 36px;
+    grid-template-columns: 1fr 1.15fr;
+  }
+  .allied-health-v3-page h1 {
+    font-size: 58px;
+  }
+  .ah3-hero-visual > img {
+    height: 545px;
+  }
+  .ah3-hero-note {
+    left: -16px;
+    width: 260px;
+  }
+  .ah3-enquiry-panel {
+    padding: 40px;
+    gap: 40px;
+  }
+  .ah3-admin,
+  .ah3-feedback,
+  .ah3-control-layout,
+  .ah3-value {
+    gap: 50px;
+  }
+  .ah3-return-heading {
+    gap: 50px;
+  }
+  .ah3-admin-visual > img {
+    height: 535px;
+  }
+  .ah3-form-overlay {
+    left: 16px;
+    width: 260px;
+  }
+  .ah3-return-visual > img {
+    height: 570px;
+  }
+  .ah3-return-reminder {
+    width: 285px;
+    left: 24px;
+  }
+  .ah3-return-reply {
+    width: 270px;
+    right: 24px;
+  }
+  .ah3-faq {
+    gap: 50px;
+  }
+}
+@media (max-width: 800px) {
+  .ah3-wrap {
+    padding-inline: 24px;
+  }
+  .allied-health-v3-page h1 {
+    font-size: clamp(44px, 7.6vw, 62px);
+  }
+  .allied-health-v3-page h2 {
+    font-size: clamp(36px, 6.6vw, 50px);
+  }
+  .ah3-hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-top: 110px;
+    padding-bottom: 36px;
+  }
+  .ah3-hero-copy {
+    max-width: 630px;
+    padding-block: 12px;
+  }
+  .allied-health-v3-page .ah3-intro {
+    max-width: 600px;
+  }
+  .ah3-hero-visual > img {
+    height: 440px;
+    object-position: 58% center;
+  }
+  .ah3-hero-note {
+    left: 18px;
+    bottom: 0;
+    width: 270px;
+  }
+  .ah3-enquiry {
+    padding-block: 20px 45px;
+  }
+  .ah3-enquiry-panel {
+    grid-template-columns: 1fr;
+    padding: 30px;
+    border-radius: 26px;
+    gap: 32px;
+  }
+  .ah3-enquiry-panel .ah3-copy > p {
+    max-width: none;
+  }
+  .ah3-enquiry-demo {
+    max-width: 560px;
+    width: 100%;
+    margin: auto;
+  }
+  .ah3-admin {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-block: 35px 55px;
+  }
+  .ah3-admin > .ah3-copy {
+    order: -1;
+  }
+  .ah3-admin-visual {
+    max-width: 580px;
+    width: 100%;
+    margin: auto;
+  }
+  .ah3-admin-visual > img {
+    height: 540px;
+    object-position: 60% 25%;
+  }
+  .ah3-form-overlay {
+    width: 260px;
+    left: 20px;
+  }
+  .ah3-copy > p:not(.ah3-eyebrow) {
+    max-width: 600px;
+  }
+  .ah3-return {
+    padding-block: 35px 55px;
+  }
+  .ah3-return-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .ah3-return-heading > div > p {
+    max-width: 600px;
+  }
+  .ah3-return-visual {
+    padding-bottom: 20px;
+  }
+  .ah3-return-visual > img {
+    height: 400px;
+    object-position: 58% top;
+  }
+  .ah3-return-reminder,
+  .ah3-return-reply {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    max-width: 320px;
+    margin-inline: 18px;
+  }
+  .ah3-return-reminder {
+    margin-top: -65px;
+  }
+  .ah3-return-reply {
+    margin-top: 14px;
+    margin-left: auto;
+    margin-right: 18px;
+    width: calc(100% - 52px);
+  }
+  .ah3-feedback {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-block: 35px 60px;
+  }
+  .ah3-review-scene {
+    max-width: 580px;
+    width: 100%;
+    margin: auto;
+  }
+  .ah3-control {
+    padding-block: 55px;
+  }
+  .ah3-control-layout,
+  .ah3-value,
+  .ah3-faq {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .ah3-control-right > div:first-child {
+    padding-top: 0;
+  }
+  .ah3-value {
+    padding-block: 65px;
+  }
+  .ah3-faq {
+    padding-block: 15px 40px;
+  }
+  .ah3-final {
+    padding-block: 60px;
+  }
+  .ah3-faq-list summary {
+    min-height: 74px;
+  }
+}
+@media (max-width: 480px) {
+  .ah3-wrap {
+    padding-inline: 20px;
+  }
+  .ah3-hero {
+    padding-top: 100px;
+    gap: 24px;
+  }
+  .allied-health-v3-page h1 {
+    font-size: 44px;
+  }
+  .allied-health-v3-page h2 {
+    font-size: 36px;
+  }
+  .allied-health-v3-page .ah3-intro {
+    font-size: 14px;
+    margin-top: 22px;
+  }
+  .allied-health-v3-page .ah3-eyebrow {
+    font-size: 10px;
+    margin-bottom: 17px;
+  }
+  .ah3-actions {
+    gap: 12px 20px;
+    margin-top: 24px;
+  }
+  .ah3-hero-visual > img {
+    height: 325px;
+    object-position: 60% center;
+    border-radius: 24px;
+  }
+  .ah3-hero-note {
+    position: relative;
+    margin: -40px 12px 0;
+    left: auto;
+    bottom: auto;
+    width: min(270px, calc(100% - 24px));
+    padding: 20px;
+  }
+  .ah3-hero-visual {
+    padding-bottom: 0;
+  }
+  .ah3-enquiry {
+    padding-inline: 12px;
+  }
+  .ah3-enquiry-panel {
+    padding: 26px 20px;
+    gap: 28px;
+  }
+  .ah3-copy > p:not(.ah3-eyebrow) {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  .allied-health-v3-page .ah3-copy > .ah3-aside {
+    font-size: 12px;
+  }
+  .ah3-message {
+    padding: 16px;
+  }
+  .ah3-patient {
+    margin-left: 25px;
+  }
+  .ah3-zapla {
+    margin-right: 8px;
+  }
+  .ah3-admin-visual > img {
+    height: 395px;
+    object-position: 63% top;
+    border-radius: 24px;
+  }
+  .ah3-form-overlay {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: calc(100% - 32px);
+    max-width: 260px;
+    margin: -75px 16px 0;
+    padding: 22px;
+  }
+  .ah3-admin-visual {
+    padding-bottom: 0;
+  }
+  .ah3-return-visual > img {
+    height: 310px;
+    object-position: 58% top;
+    border-radius: 24px;
+  }
+  .ah3-return-visual {
+    border-radius: 24px;
+  }
+  .ah3-return-reminder {
+    margin-top: -35px;
+    padding: 22px;
+  }
+  .ah3-return-reply {
+    padding: 20px;
+  }
+  .ah3-return-heading > div > p {
+    font-size: 14px;
+  }
+  .allied-health-v3-page .ah3-return-heading > div > .ah3-aside {
+    font-size: 12px;
+  }
+  .ah3-review-scene {
+    padding: 22px;
+    border-radius: 24px;
+  }
+  .ah3-control-layout > div > p:not(.ah3-eyebrow) {
+    font-size: 14px;
+  }
+  .allied-health-v3-page .ah3-control-layout > div > .ah3-aside {
+    font-size: 12px;
+  }
+  .ah3-control-right p {
+    font-size: 14px;
+  }
+  .allied-health-v3-page .ah3-call-card > .ah3-aside {
+    font-size: 12px;
+  }
+  .ah3-faq-list summary {
+    font-size: 13px;
+  }
+  .ah3-final h2 {
+    font-size: 40px;
+  }
+  .ah3-final > p {
+    font-size: 14px;
+  }
+  .ah3-final .ah3-actions {
+    gap: 12px;
+  }
+  .ah3-final .ah3-button {
+    min-width: 140px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .allied-health-v3-page * {
+    transition: none !important;
+    animation: none !important;
+  }
+  .ah3-beat {
+    opacity: 1;
+  }
+}
+@media (prefers-contrast: more) {
+  .ah3-glass {
+    background: #fcfcfa;
+    border-color: #566150;
+  }
+  .allied-health-v3-page p,
+  .allied-health-v3-page .ah3-example {
+    color: #334033;
+  }
+  .ah3-beat {
+    opacity: 1;
+  }
+  .allied-health-v3-page .ah3-enquiry-panel p {
+    color: #fcfcfa;
+  }
+}
+
+/* One identity per sample patient; glass surfaces never fade with the workflow. */
+.ah3-patient-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: #28372f;
+}
+.ah3-avatar {
+  display: block;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: url("/concept/revenue/soft-autumn-portraits-v1.webp") 100% 100% / 600% 400%;
+}
+.ah3-patient-identity > div {
+  min-width: 0;
+}
+.ah3-patient-identity strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.ah3-patient-identity div > span {
+  display: block;
+  font-size: 10px;
+  color: #596159;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+.ah3-form-overlay .ah3-patient-identity {
+  margin-top: 15px;
+}
+.ah3-form-overlay h3 {
+  font-size: 22px;
+  margin-top: 0;
+}
+.ah3-hero-note,
+.ah3-form-overlay,
+.ah3-return-reminder,
+.ah3-return-reply {
+  padding: 20px;
+}
+.ah3-hero-note {
+  width: min(260px, calc(100% - 24px));
+}
+.ah3-form-overlay {
+  max-width: 260px;
+}
+.allied-health-v3-page .ah3-message p {
+  margin-top: 11px;
+}
+.allied-health-v3-page .ah3-return-reply p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.ah3-form-outcome .ah3-sender {
+  font-size: 11px;
+}
+.ah3-starting-points {
+  display: grid;
+  gap: 26px;
+  margin-top: 30px;
+  max-width: 490px;
+}
+.ah3-starting-points h3 {
+  font-size: 25px;
+}
+.allied-health-v3-page .ah3-starting-points p {
+  font-size: 14px;
+  margin-top: 12px;
+}
+.ah3-message .ah3-beat {
+  color: #354238;
+}
+.ah3-return-reply .ah3-beat {
+  color: #2d3b31;
+}
+.ah3-enquiry-panel,
+.ah3-control-layout,
+.ah3-value,
+.ah3-faq {
+  min-width: 0;
+}
+.ah3-enquiry-panel > *,
+.ah3-control-layout > *,
+.ah3-value > *,
+.ah3-faq > * {
+  min-width: 0;
+}
+.ah3-example-link {
+  cursor: default;
+}
+@media (max-width: 380px) {
+  .allied-health-v3-page h1 {
+    font-size: 40px;
+  }
+  .allied-health-v3-page h2 {
+    font-size: 34px;
+  }
+  .ah3-enquiry-panel {
+    padding: 24px 16px;
+  }
+  .ah3-review-scene {
+    padding: 20px;
+  }
+  .ah3-return-reminder,
+  .ah3-return-reply {
+    margin-inline: 12px;
+    width: calc(100% - 24px);
+  }
+  .ah3-return-reply {
+    margin-left: auto;
+  }
+  .ah3-actions {
+    gap: 10px 16px;
+  }
+  .ah3-final .ah3-button {
+    min-width: 0;
+  }
+}
+
+/* Keep the enquiry story short and human photography dominant. */
+.allied-health-v3-page .ah3-enquiry-panel h2 {
+  font-size: clamp(36px, 4vw, 50px);
+  max-width: 440px;
+}
+.ah3-enquiry-demo .ah3-message {
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+}
+.ah3-enquiry-demo .ah3-patient {
+  margin-left: 24px;
+}
+.ah3-enquiry-demo .ah3-zapla {
+  margin-right: 14px;
+}
+.ah3-enquiry-demo .ah3-avatar {
+  width: 28px;
+  height: 28px;
+}
+.allied-health-v3-page .ah3-enquiry-demo p {
+  font-size: 12px;
+  line-height: 1.55;
+  margin-top: 8px;
+}
+.ah3-enquiry-follow {
+  border-top: 1px solid #1e2b2924;
+  margin-top: 12px;
+  padding-top: 10px;
+}
+.ah3-enquiry-follow span {
+  font-size: 10px;
+  color: #596159;
+}
+.ah3-enquiry-outcome {
+  border-top: 1px solid #1e2b2924;
+  margin-top: 12px;
+  padding-top: 10px;
+}
+.ah3-enquiry-outcome .ah3-sender {
+  font-size: 10px;
+}
+.ah3-enquiry-outcome svg {
+  width: 21px;
+  height: 21px;
+}
+.allied-health-v3-page #ah3-admin-title {
+  font-size: clamp(34px, 3.5vw, 46px);
+}
+.ah3-call-support h3 {
+  font-size: 30px;
+}
+.ah3-call-summary {
+  padding: 20px;
+  margin-block: 22px;
+}
+.allied-health-v3-page .ah3-call-summary p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 10px;
+  color: #354238;
+}
+.ah3-call-response {
+  border-top: 1px solid #1e2b2924;
+  margin-top: 14px;
+  padding-top: 15px;
+}
+.ah3-call-patient-reply {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.ah3-call-patient-reply .ah3-avatar {
+  width: 26px;
+  height: 26px;
+}
+.allied-health-v3-page .ah3-call-patient-reply p {
+  margin: 0;
+}
+.ah3-call-patient-reply strong {
+  display: block;
+}
+.ah3-starting-points {
+  gap: 24px;
+}
+.ah3-starting-points h3 {
+  font-size: 23px;
+}
+.ah3-launch-cost {
+  border-left: 1px solid #d9ddd2;
+  padding-left: 30px;
+}
+.ah3-launch-cost h3 {
+  font-size: 25px;
+}
+.allied-health-v3-page .ah3-launch-cost p {
+  font-size: 14px;
+  max-width: 430px;
+}
+@media (max-width: 800px) {
+  .ah3-admin {
+    padding-block: 25px 45px;
+  }
+  .ah3-admin-visual > img {
+    height: 440px;
+  }
+  .ah3-control-layout {
+    gap: 28px;
+  }
+  .ah3-value {
+    gap: 30px;
+    padding-block: 50px;
+  }
+  .ah3-control {
+    padding-block: 45px;
+  }
+  .ah3-launch-cost {
+    border-left: 0;
+    border-top: 1px solid #d9ddd2;
+    padding-left: 0;
+    padding-top: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .ah3-enquiry-panel {
+    padding: 26px 20px;
+  }
+  .allied-health-v3-page .ah3-enquiry-panel h2 {
+    font-size: 36px;
+  }
+  .ah3-admin-visual > img {
+    height: 395px;
+  }
+  .ah3-call-summary {
+    padding: 18px;
+  }
+  .ah3-call-support h3 {
+    font-size: 28px;
+  }
+}
+@media (max-width: 380px) {
+  .ah3-enquiry-panel {
+    padding: 24px 16px;
+  }
+  .allied-health-v3-page .ah3-enquiry-panel h2 {
+    font-size: 33px;
+  }
+  .ah3-enquiry-demo .ah3-patient {
+    margin-left: 12px;
+  }
+  .ah3-enquiry-demo .ah3-message {
+    padding: 13px 14px;
+  }
+}
+
+/* A single conversation surface; patient speech and reception work stay separate. */
+.ah3-enquiry-conversation {
+  background: #e2e4d2;
+  border-radius: 24px;
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+  color: #28372f;
+}
+.ah3-enquiry-patient-row {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+.ah3-enquiry-patient-row strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.allied-health-v3-page .ah3-enquiry-patient-row p {
+  margin-top: 4px;
+  color: #354238;
+}
+.ah3-enquiry-reply {
+  padding: 16px;
+  margin-left: 20px;
+}
+.allied-health-v3-page .ah3-enquiry-reply p,
+.allied-health-v3-page .ah3-enquiry-reminder p {
+  color: #354238;
+}
+.ah3-enquiry-reminder {
+  padding-left: 38px;
+}
+.ah3-enquiry-record {
+  margin-top: 12px;
+  padding: 14px 18px;
+  border: 1px solid #ffffff30;
+  border-radius: 16px;
+}
+.ah3-enquiry-record .ah3-sender {
+  color: #fcfcfa;
+}
+.ah3-enquiry-record-details {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 7px;
+  font-size: 11px;
+  color: #d7dfd5;
+}
+@media (max-width: 480px) {
+  .ah3-enquiry-conversation {
+    padding: 18px;
+    gap: 16px;
+    border-radius: 20px;
+  }
+  .ah3-enquiry-reply {
+    margin-left: 0;
+    padding: 14px;
+  }
+  .ah3-enquiry-reminder {
+    padding-left: 0;
+  }
+  .ah3-enquiry-record {
+    padding: 14px;
+  }
+}
