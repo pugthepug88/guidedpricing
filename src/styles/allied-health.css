@@ -1207,3 +1207,74 @@
     padding: 13px 14px;
   }
 }
+
+/* A single conversation surface; patient speech and reception work stay separate. */
+.ah-enquiry-conversation {
+  background: #e2e4d2;
+  border-radius: 24px;
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+  color: #28372f;
+}
+.ah-enquiry-patient-row {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+.ah-enquiry-patient-row strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.allied-health-page .ah-enquiry-patient-row p {
+  margin-top: 4px;
+  color: #354238;
+}
+.ah-enquiry-reply {
+  padding: 16px;
+  margin-left: 20px;
+}
+.allied-health-page .ah-enquiry-reply p,
+.allied-health-page .ah-enquiry-reminder p {
+  color: #354238;
+}
+.ah-enquiry-reminder {
+  padding-left: 38px;
+}
+.ah-enquiry-record {
+  margin-top: 12px;
+  padding: 14px 18px;
+  border: 1px solid #ffffff30;
+  border-radius: 16px;
+}
+.ah-enquiry-record .ah-sender {
+  color: #fcfcfa;
+}
+.ah-enquiry-record-details {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 7px;
+  font-size: 11px;
+  color: #d7dfd5;
+}
+@media (max-width: 480px) {
+  .ah-enquiry-conversation {
+    padding: 18px;
+    gap: 16px;
+    border-radius: 20px;
+  }
+  .ah-enquiry-reply {
+    margin-left: 0;
+    padding: 14px;
+  }
+  .ah-enquiry-reminder {
+    padding-left: 0;
+  }
+  .ah-enquiry-record {
+    padding: 14px;
+  }
+}

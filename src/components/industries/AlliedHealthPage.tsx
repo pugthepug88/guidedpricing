@@ -285,29 +285,41 @@ function EnquiryStory() {
       className="ah-enquiry-demo"
       aria-label="Sample patient enquiry, automatic reply, follow up and reception callback"
     >
-      <div className="ah-message ah-patient">
-        <PatientIdentity detail="New patient enquiry" />
-        <p>Do you have physio appointments after 5?</p>
-      </div>
-      <div className="ah-message ah-zapla">
-        <Sender>Your practice, via Zapla</Sender>
-        <p>Hi Mia, you can see available times using our booking link.</p>
-        <span className="ah-example-link">
-          View appointment times <ArrowRight size={14} aria-hidden="true" />
-        </span>
-        <div className="ah-enquiry-follow">
-          <Beat active={step >= 1}>
-            <span>If the enquiry is still unresolved</span>
-            <p>Still need a time? Reply if you’d like reception to call.</p>
-          </Beat>
+      <div className="ah-enquiry-conversation">
+        <div className="ah-enquiry-patient-row">
+          <span className="ah-avatar" aria-hidden="true" />
+          <div>
+            <strong>Mia</strong>
+            <p>Do you have physio appointments after 5?</p>
+          </div>
         </div>
-      </div>
-      <div className="ah-message ah-patient">
+        <div className="ah-enquiry-reply ah-glass">
+          <Sender>Your practice, via Zapla</Sender>
+          <p>Hi Mia, you can see available times using our booking link.</p>
+          <span className="ah-example-link">
+            View appointment times <ArrowRight size={14} aria-hidden="true" />
+          </span>
+        </div>
+        <Beat active={step >= 1} className="ah-enquiry-reminder">
+          <Sender>Follow up</Sender>
+          <p>Still need a time? Reply if you’d like reception to call.</p>
+        </Beat>
         <Beat active={step >= 2}>
-          <PatientIdentity />
-          <p>Yes please. Tomorrow morning would be great.</p>
-          <div className="ah-enquiry-outcome">
-            <Sender>Callback assigned to reception</Sender>
+          <div className="ah-enquiry-patient-row">
+            <span className="ah-avatar" aria-hidden="true" />
+            <div>
+              <strong>Mia</strong>
+              <p>Yes please. Tomorrow morning would be great.</p>
+            </div>
+          </div>
+        </Beat>
+      </div>
+      <div className="ah-enquiry-record">
+        <Beat active={step >= 2}>
+          <Sender>Reception callback</Sender>
+          <div className="ah-enquiry-record-details">
+            <span>Mia · Tomorrow morning</span>
+            <span>Reminders stopped</span>
           </div>
         </Beat>
       </div>
