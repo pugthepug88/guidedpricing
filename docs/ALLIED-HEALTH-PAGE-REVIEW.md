@@ -92,3 +92,48 @@ The restored source changes also correct two motion details: motion preference i
 Overlay width caps were checked for CSS precedence so the common padding rule does not override the mobile caps. Hero/form remain compact and mobile return cards retain their 320px cap. The page-level overflow clipping was removed rather than relied on to conceal an oversized element.
 
 Final production build, TypeScript, page-specific lint and diff checks passed. Existing route/anchor and local photo/avatar asset checks passed. No new browser visual verification was obtained; the sign-in limitation documented above still applies.
+
+## Shorter page revision, 13 October 2026
+
+This is a synced review draft, not rendered visual sign-off. It supersedes the earlier opening-strip and manual-selector descriptions. The user rejected the excessive enquiry height and tiring repetition while approving the human imagery.
+
+### Implemented
+
+- Removed the opening strip that repeated the hero and enquiry benefits.
+- Cut the enquiry story from five card surfaces to three. One card groups the automated reply with its conditional follow up; the patient's reply includes the reception outcome. All essential content remains readable, emphasis advances once and holds, and reduced motion presents the final state. Removed the stage selectors.
+- Shortened the enquiry heading and supporting copy to one paragraph. The existing diary remains the appointment authority; the FAQ distinguishes a booking link from a confirmed appointment and specifies reply/opt-out/resolution stop rules.
+- Shortened the form, return-reminder, feedback, fit and Guided Launch copy. Replaced the repeated three-part benefit list with one cost explanation.
+- Reduced enquiry padding, form-photo height and several desktop section gaps. Retained broad photography, open sections, the dark enquiry panel, lavender review scene and sage fit section. Photography and hero assets are unchanged.
+- Replaced this page's tall shared AI call demonstration with one local compact callback example showing the caller, AI disclosure, caller response and reception task. Other industries' shared call examples are unchanged. Clinical questions and urgent concerns need the team; AI does not assess urgency.
+- Retained the shared ReviewCards component and unselected Google rating stars. Mia uses the same local portrait cell throughout. Photo glass values remain identical to Dental, and workflow emphasis never changes those surfaces.
+
+### Lens assessment
+
+These are provisional editorial/source assessments, not measurements of a rendered result. No whole-page score or 9/10 certification is assigned.
+
+| Lens                           | Rating/status          | Observable evidence and limitation                                                                                                                                                   |
+| ------------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Copywriting                    | 8.5/10                 | Shorter direct headings, one paragraph per main use case and fewer repeated benefits. Actual wrapping and scan readability pending.                                                  |
+| Owner/commercial focus         | 8.5/10                 | Enquiry response and reception workload lead; return reminders remain supporting. No quantified business impact evidence.                                                            |
+| Industry customer              | 8.5/10                 | Appointment requests, callback timing and practitioner-approved returns; clinical scope stays human. Patient interviews absent.                                                      |
+| Frontline operations           | 8.5/10                 | Replies, form completion and callback details feed reception tasks. Real task routing and exceptions untested.                                                                       |
+| Automation logic               | 8.5/10                 | Trigger, conditional follow up, reply, stop rules and human task are explicit. Illustrations are not live acceptance tests.                                                          |
+| Art direction                  | Pending render         | Existing human imagery retained and competing card surfaces reduced. Actual crops, dominance and visual comparison remain unverified.                                                |
+| Visual hierarchy/rhythm        | Pending render         | Opening strip removed, enquiry heading shortened, compact demonstration and varied section treatments retained. Full-scroll and zoomed-out inspection blocked.                       |
+| Brand consistency              | Pending render         | Dental glass properties, typography, palette, shared reviews and root shell retained. Matching source values do not prove photo-backed consistency.                                  |
+| Conversion                     | 8/10, editorial        | Hero, workflow anchor, pricing, FAQ and consistent call CTA cover discovery through action. No funnel or conversion evidence.                                                        |
+| CFO/value                      | 8/10, editorial        | Plan, Guided Launch, optional AI, usage and custom work distinguished. No verified practice ROI or labour savings.                                                                   |
+| Credibility                    | 8/10, editorial        | Prices checked against current repository Pricing-v3; no invented integrations, testimonials, guarantees or results. Live capabilities and data suitability still need verification. |
+| Accessibility                  | Pending browser checks | Semantic headings, native FAQs, focus styles, alt text and reduced-motion support remain. Actual keyboard, screen-reader and contrast checks outstanding.                            |
+| Responsive                     | Pending browser checks | Tablet/mobile/320px rules and normal-flow mobile overlays retained; no overflow concealment introduced. Actual bounds and overlaps not measured.                                     |
+| Motion                         | Pending render         | Short monotonic emphasis, offscreen/background pause and final hold. Shared reviews keep their established reveal treatment. Real timing not inspected.                              |
+| Buyer psychology/AI repetition | 8/10, editorial        | Concrete examples and fewer duplicated benefits reduce reading effort. Buyer comprehension and visual fatigue require rendered/user review.                                          |
+| SEO                            | Draft status           | Route metadata retained; page remains intentionally noindex for review. No ranking outcome claimed.                                                                                  |
+
+### Validation
+
+Production build, TypeScript, page-specific ESLint and diff checks passed. Local image/font/avatar assets and internal route/anchor targets were checked. Pricing and plan details match current Pricing-v3 source, including optional AI charges and included minutes.
+
+The direct Allied Health preview was opened again on 13 October and redirected to Lovable login. The prior authentication refusal was respected; no access setting or visibility change was made. Desktop/tablet/mobile/320px, image loading, runtime/hydration, FAQ interaction, keyboard, reduced-motion timing, full-page rhythm and rendered comparison with Dental/Mechanics cannot be signed off. The last observed booking calendar opening remains destination evidence only; no booking or confirmation was submitted.
+
+This revision addresses the known length and repetition problems in source. The 9/10 target remains unproven where render access, live product verification, customer evidence or conversion data are required.
