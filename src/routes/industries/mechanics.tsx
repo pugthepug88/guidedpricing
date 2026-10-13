@@ -1,3 +1,4 @@
+import { AIReceptionistSection } from "@/components/industries/AIReceptionistSection";
 import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
@@ -101,14 +102,11 @@ function MechanicsPage() {
               inspection times in your configured booking calendar. Customers can choose a time
               without waiting for someone to call back.
             </p>
-            <p className="mc-aside">
-              Want help answering calls too? <a href="/ai-receptionist">AI Receptionist</a> is an
-              optional add-on, configured around what your workshop can handle.
-            </p>
             <ActionLink href="/follow-up">Explore enquiry follow-through</ActionLink>
           </div>
         </section>
 
+        <AIReceptionistSection industry="mechanics" tone="dark" />
         <section className="mc-estimate-section" aria-labelledby="estimate-title">
           <div className="mc-wrap mc-quote-layout">
             <div className="mc-scene-copy">

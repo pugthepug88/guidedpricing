@@ -1,3 +1,4 @@
+import { AIReceptionistSection } from "@/components/industries/AIReceptionistSection";
 import { GoogleReviewCard, ReviewInvitation } from "@/components/industries/ReviewCards";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -217,13 +218,9 @@ function DentalPage() {
               your dental diary.
             </p>
             <TextLink href="/follow-up">Explore Follow-Up</TextLink>
-            <p className="dn-aside">
-              Need help with incoming calls? Optional <a href="/ai-receptionist">AI Receptionist</a>{" "}
-              can handle agreed routine questions and callback requests. Clinical questions stay
-              with your team.
-            </p>
           </div>
         </section>
+        <AIReceptionistSection industry="dental" tone="cream" />
         <section className="dn-feature dn-wrap" aria-labelledby="forms-title">
           <div className="dn-panel dn-registration-panel">
             <div className="dn-copy">

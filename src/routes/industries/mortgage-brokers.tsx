@@ -1,3 +1,4 @@
+import { AIReceptionistSection } from "@/components/industries/AIReceptionistSection";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
@@ -382,6 +383,7 @@ function MortgageBrokersPage() {
           </div>
         </div>
       </section>
+      <AIReceptionistSection industry="mortgageOriginal" tone="open" compact />
       <section className="mb-retention" aria-labelledby="retention-title">
         <div className="mb-wrap mb-retention-inner">
           <div className="mb-retention-heading">
