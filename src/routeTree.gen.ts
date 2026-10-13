@@ -31,7 +31,6 @@ import { Route as IndustriesCosmeticSkinClinicsRouteImport } from './routes/indu
 import { Route as IndustriesDentalRouteImport } from './routes/industries/dental'
 import { Route as IndustriesMechanicsRouteImport } from './routes/industries/mechanics'
 import { Route as IndustriesMortgageBrokersRouteImport } from './routes/industries/mortgage-brokers'
-import { Route as IndustriesMortgageBrokersV2RouteImport } from './routes/industries/mortgage-brokers-v2'
 import { Route as IndustriesTradesRouteImport } from './routes/industries/trades'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
@@ -151,12 +150,6 @@ const IndustriesMortgageBrokersRoute =
     path: '/industries/mortgage-brokers',
     getParentRoute: () => rootRouteImport,
   } as any)
-const IndustriesMortgageBrokersV2Route =
-  IndustriesMortgageBrokersV2RouteImport.update({
-    id: '/industries/mortgage-brokers-v2',
-    path: '/industries/mortgage-brokers-v2',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const IndustriesTradesRoute = IndustriesTradesRouteImport.update({
   id: '/industries/trades',
   path: '/industries/trades',
@@ -192,7 +185,6 @@ export interface FileRoutesByFullPath {
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
-  '/industries/mortgage-brokers-v2': typeof IndustriesMortgageBrokersV2Route
   '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -219,7 +211,6 @@ export interface FileRoutesByTo {
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
-  '/industries/mortgage-brokers-v2': typeof IndustriesMortgageBrokersV2Route
   '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -247,7 +238,6 @@ export interface FileRoutesById {
   '/industries/dental': typeof IndustriesDentalRoute
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
-  '/industries/mortgage-brokers-v2': typeof IndustriesMortgageBrokersV2Route
   '/industries/trades': typeof IndustriesTradesRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -276,7 +266,6 @@ export interface FileRouteTypes {
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
-    | '/industries/mortgage-brokers-v2'
     | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
@@ -303,7 +292,6 @@ export interface FileRouteTypes {
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
-    | '/industries/mortgage-brokers-v2'
     | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   id:
@@ -330,7 +318,6 @@ export interface FileRouteTypes {
     | '/industries/dental'
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
-    | '/industries/mortgage-brokers-v2'
     | '/industries/trades'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
@@ -358,7 +345,6 @@ export interface RootRouteChildren {
   IndustriesDentalRoute: typeof IndustriesDentalRoute
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
   IndustriesMortgageBrokersRoute: typeof IndustriesMortgageBrokersRoute
-  IndustriesMortgageBrokersV2Route: typeof IndustriesMortgageBrokersV2Route
   IndustriesTradesRoute: typeof IndustriesTradesRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -519,13 +505,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesMortgageBrokersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/industries/mortgage-brokers-v2': {
-      id: '/industries/mortgage-brokers-v2'
-      path: '/industries/mortgage-brokers-v2'
-      fullPath: '/industries/mortgage-brokers-v2'
-      preLoaderRoute: typeof IndustriesMortgageBrokersV2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/industries/trades': {
       id: '/industries/trades'
       path: '/industries/trades'
@@ -567,7 +546,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesDentalRoute: IndustriesDentalRoute,
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
   IndustriesMortgageBrokersRoute: IndustriesMortgageBrokersRoute,
-  IndustriesMortgageBrokersV2Route: IndustriesMortgageBrokersV2Route,
   IndustriesTradesRoute: IndustriesTradesRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
