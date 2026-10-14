@@ -557,7 +557,7 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
           className="mt-3 text-[10px] font-semibold uppercase tracking-[0.19em]"
           style={{ color: eyebrowColor }}
         >
-          Service businesses. One connected customer journey.
+          {mobile ? "One connected customer journey." : "Service businesses. One connected customer journey."}
         </motion.div>
       </motion.div>
     </>

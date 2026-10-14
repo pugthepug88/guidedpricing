@@ -138,7 +138,23 @@ export function InboxScene({ interactive = false, complete = false }: { interact
   });
 
   return (
-    <div className="absolute inset-0 flex overflow-hidden bg-[#F8FAFC]">
+    <>
+      <div className="absolute inset-0 flex flex-col gap-2 overflow-hidden bg-white px-3 py-3 sm:hidden">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-2"><SarahIdentity detail="Website + SMS" size={30} /><span className="text-[10px] font-semibold text-slate-600">Owner: James</span></div>
+        {[
+          { who: "SARAH · 10:42 AM", text: "Hi, I’m interested in a quote. Are you available Thursday afternoon?", outgoing: false },
+          { who: "AUTOMATIC REPLY", text: "Thanks, Sarah. What time works best? Our team will confirm availability.", outgoing: true },
+          { who: "NEXT DAY · AUTOMATIC FOLLOW-UP", text: "Still interested in a quote? Reply here and our team will help.", outgoing: true },
+          { who: "SARAH · 9:05 AM", text: "Thursday 2:30 works perfectly. Thanks!", outgoing: false },
+          { who: "JAMES · TEAM REPLY · 9:07 AM", text: "I’ve confirmed your booking for Thursday at 2:30 PM.", outgoing: true },
+        ].map((message, index) => (
+          <motion.div key={message.who} initial={interactive || complete ? false : { opacity: 0 }} animate={{ opacity: index === 0 || [replyVisible, followupVisible, customerReplyVisible, ackVisible][index - 1] ? 1 : 0 }} className={cn("max-w-[92%] rounded-xl px-3 py-2", message.outgoing ? "ml-auto bg-blue-50 text-slate-800" : "bg-slate-100 text-slate-700")}>
+            <div className="mb-1 text-[9px] font-bold tracking-[.02em] text-slate-600">{message.who}</div><div className="text-[12px] leading-[1.4]">{message.text}</div>
+          </motion.div>
+        ))}
+        <div className="mt-auto flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700"><UserCheck className="h-3.5 w-3.5" />Reply received: reminders stop; James takes over.</div>
+      </div>
+      <div className="absolute inset-0 hidden overflow-hidden bg-[#F8FAFC] sm:flex">
       <div className="hidden w-[124px] shrink-0 flex-col border-r border-slate-200/80 bg-white/85 px-2 py-2.5 sm:flex lg:w-[142px]">
         <div className="px-1 pb-1.5 text-[9.5px] font-bold uppercase tracking-[0.1em] text-slate-400">Inbox</div>
         <NavItem label="Inbox" count={12} active Icon={InboxIcon} /><NavItem label="Unread" count={3} Icon={Mail} /><NavItem label="Assigned to me" count={4} Icon={UserCheck} />
@@ -199,5 +215,6 @@ export function InboxScene({ interactive = false, complete = false }: { interact
         </div>
       </div>
     </div>
+    </>
   );
 }

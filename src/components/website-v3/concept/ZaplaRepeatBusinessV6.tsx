@@ -21,7 +21,7 @@ const STORIES: Story[] = [
     key: "return",
     label: "Return",
     headline: "Bring customers back at the right time.",
-    copy: "Zapla remembers when the next visit is due and makes coming back easy.",
+    copy: "Use an agreed service date to send a timely reminder and help your team arrange the next visit.",
     bg: "#E7E0EA",
     accent: "#7E687F",
     accentSoft: "#D5C8DA",
@@ -49,7 +49,7 @@ const STORIES: Story[] = [
 function Avatar({ muted = false }: { muted?: boolean }) {
   return (
     <div
-      className="relative h-[84px] w-[84px] shrink-0 overflow-hidden rounded-full border border-black/[0.07] bg-[#C89A5D] shadow-[0_12px_30px_rgba(35,28,24,.10)]"
+      className="relative h-[60px] w-[60px] sm:h-[84px] sm:w-[84px] shrink-0 overflow-hidden rounded-full border border-black/[0.07] bg-[#C89A5D] shadow-[0_12px_30px_rgba(35,28,24,.10)]"
       style={muted ? { filter: "grayscale(.62) saturate(.62)" } : undefined}
     >
       <div
@@ -112,22 +112,22 @@ function ReturnVisual({ story }: { story: Story }) {
         <Avatar />
         <div>
           <div className="text-[24px] font-semibold tracking-[-0.035em] text-[#1A191D]">Sarah Nguyen</div>
-          <div className="mt-1 text-[13px] text-[#66616A]">Last visit · 8 months ago</div>
+          <div className="mt-1 text-[13px] text-[#66616A]">Service due date · agreed with your team</div>
         </div>
       </div>
 
-      <div className="mt-10 max-w-[480px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(42,33,45,.09)]">
+      <div className="mt-6 sm:mt-10 max-w-[480px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(42,33,45,.09)]">
         <ZaplaSender accent={story.accent} />
         <div className="mt-3 text-[19px] leading-[1.45] tracking-[-0.022em] text-[#242127]">
-          “Hi Sarah, you’re due for your next service. I have Thursday at 10:30 available. Want me to book it?”
+          “Hi Sarah, your next service is due. Reply here and our team will help you arrange a time.”
         </div>
       </div>
 
       <div className="ml-auto mt-5 flex w-full max-w-[340px] items-center gap-4 rounded-[18px] bg-[#19191D] px-5 py-5 text-white shadow-[0_20px_50px_rgba(30,25,31,.16)]">
         <span className="flex h-11 w-11 items-center justify-center rounded-full" style={{ backgroundColor: story.accent }}><Check size={21} strokeWidth={2.4} /></span>
         <div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/46">Booked again</div>
-          <div className="mt-1 text-[19px] font-semibold tracking-[-0.02em]">Thursday · 10:30 AM</div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/70">Customer replied</div>
+          <div className="mt-1 text-[19px] font-semibold tracking-[-0.02em]">Team arranges the booking</div>
         </div>
       </div>
     </div>
@@ -141,11 +141,11 @@ function ReactivateVisual({ story }: { story: Story }) {
         <Avatar muted />
         <div>
           <div className="text-[24px] font-semibold tracking-[-0.035em] text-[#1A191D]">Sarah Nguyen</div>
-          <div className="mt-1 text-[13px] text-[#626456]">120 days since last visit</div>
+          <div className="mt-1 text-[13px] text-[#626456]">120 days since the quote</div>
         </div>
       </div>
 
-      <div className="mt-10 max-w-[485px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(43,46,31,.08)]">
+      <div className="mt-6 sm:mt-10 max-w-[485px] rounded-[18px] bg-white px-6 py-5 shadow-[0_18px_48px_rgba(43,46,31,.08)]">
         <ZaplaSender accent={story.accent} />
         <div className="mt-3 text-[19px] leading-[1.45] tracking-[-0.02em] text-[#23251D]">
           “Hi Sarah, it’s been a while. Still thinking about your renovation? Happy to help whenever you’re ready.”
@@ -188,7 +188,7 @@ function ReputationVisual({ story }: { story: Story }) {
           {[0, 1, 2, 3, 4].map((i) => <Star key={i} size={21} fill="currentColor" strokeWidth={1.5} />)}
         </div>
         <div className="mt-4 text-[24px] font-medium leading-[1.25] tracking-[-0.035em] text-[#28221E]">“Made the whole process easy.”</div>
-        <div className="mt-4 text-[12px] font-semibold text-[#81766E]">New Google review</div>
+        <div className="mt-4 text-[12px] font-semibold text-[#81766E]">Illustrative customer review</div>
       </div>
     </div>
   );
@@ -201,30 +201,30 @@ function StoryPanel({ story, index }: { story: Story; index: number }) {
       style={{ zIndex: 10 + index }}
     >
       <article
-        className="relative min-h-[760px] overflow-hidden rounded-[28px] border border-black/[0.06] px-7 py-9 shadow-[0_24px_70px_rgba(28,25,30,.08)] sm:px-10 sm:py-11 lg:h-full lg:min-h-0 lg:px-[60px] lg:py-[54px]"
+        className="relative min-h-0 sm:min-h-[760px] overflow-hidden rounded-[28px] border border-black/[0.06] px-7 py-9 shadow-[0_24px_70px_rgba(28,25,30,.08)] sm:px-10 sm:py-11 lg:h-full lg:min-h-0 lg:px-[60px] lg:py-[54px]"
         style={{ backgroundColor: story.bg }}
       >
         <div className="pointer-events-none absolute right-[-12%] top-[-22%] h-[480px] w-[480px] rounded-full bg-white/18 blur-3xl" aria-hidden="true" />
-        <div className="relative grid h-full gap-12 lg:grid-cols-[.78fr_1.22fr] lg:items-center lg:gap-[76px]">
+        <div className="relative grid h-full gap-7 sm:gap-12 lg:grid-cols-[.78fr_1.22fr] lg:items-center lg:gap-[76px]">
           <div className="flex h-full flex-col justify-center">
             <PetalTag story={story} />
             <h3
-              className="mt-10 max-w-[520px] text-[46px] font-medium leading-[0.95] tracking-[-0.06em] text-[#17161A] sm:text-[58px] lg:text-[66px]"
+              className="mt-6 sm:mt-10 max-w-[520px] text-[36px] font-medium leading-[0.95] tracking-[-0.06em] text-[#17161A] sm:text-[58px] lg:text-[66px]"
               style={{ fontFamily: DISPLAY }}
             >
               {story.headline}
             </h3>
-            <p className="mt-7 max-w-[480px] text-[17px] leading-[1.65] text-[#615D64] sm:text-[18px]">
+            <p className="mt-5 sm:mt-7 max-w-[480px] text-[17px] leading-[1.65] text-[#615D64] sm:text-[18px]">
               {story.copy}
             </p>
             {story.key === "reputation" && (
               <div className="mt-5 text-[13px] font-semibold text-[#755D50]">
-                Google and 50+ other review platforms
+                Link to your chosen review platform
               </div>
             )}
           </div>
 
-          <div className="relative h-[440px] lg:h-full lg:min-h-[520px]">
+          <div className="relative min-h-[390px] sm:h-[440px] lg:h-full lg:min-h-[520px]">
             {story.key === "return" && <ReturnVisual story={story} />}
             {story.key === "reactivate" && <ReactivateVisual story={story} />}
             {story.key === "reputation" && <ReputationVisual story={story} />}
@@ -242,7 +242,7 @@ export default function ZaplaRepeatBusinessV6() {
     <section className="relative bg-[#F7F5F1] px-5 pb-28 pt-24 text-[#111318] sm:px-10 sm:pb-32 sm:pt-28 lg:px-12 lg:pb-[22vh] lg:pt-[120px]">
       <div className="mx-auto max-w-[1320px]">
         <motion.div
-          initial={reduced ? false : { opacity: 0, y: 20 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: reduced ? 0 : 0.65, ease: EASE }}
@@ -257,6 +257,7 @@ export default function ZaplaRepeatBusinessV6() {
           </p>
         </motion.div>
 
+        <p className="mb-5 text-[12px] leading-relaxed text-[#615D64]">Illustrative workflows for different customer situations. Reply, booking or opt-out stops the agreed follow-up sequence.</p>
         <div className="relative">
           {STORIES.map((story, index) => (
             <StoryPanel key={story.key} story={story} index={index} />

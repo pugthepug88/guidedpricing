@@ -30,10 +30,10 @@ const PORTRAIT_SHEET = "/concept/revenue/soft-autumn-portraits-v1.webp";
 function useCycle(inView: boolean, reduced: boolean, count: number, ms: number, initial = 0) {
   const [index, setIndex] = useState(initial);
   useEffect(() => {
-    if (reduced || !inView) return;
-    const timer = window.setInterval(() => setIndex((value) => (value + 1) % count), ms);
-    return () => window.clearInterval(timer);
-  }, [count, inView, ms, reduced]);
+    if (reduced || !inView || index >= count - 1) return;
+    const timer = window.setTimeout(() => setIndex((value) => Math.min(value + 1, count - 1)), ms);
+    return () => window.clearTimeout(timer);
+  }, [count, inView, ms, reduced, index]);
   return index;
 }
 
@@ -113,8 +113,8 @@ function channelDelta(index: number, active: number, count: number) {
 
 function TerritoryHeading({ icon, label, color }: { icon: React.ReactNode; label: string; color: string }) {
   const subtitle = {
-    Conversations: "Every interaction, captured.",
-    Context: "Everything it needs to know.",
+    Conversations: "Connected conversations, together.",
+    Context: "Customer records and agreed rules.",
     "AI Agent": "The right follow-up, handled.",
   }[label];
 
@@ -124,7 +124,7 @@ function TerritoryHeading({ icon, label, color }: { icon: React.ReactNode; label
         <span style={{ color }}>{icon}</span>
         {label}
       </div>
-      {subtitle && <div className="mt-1.5 text-[11px] leading-none text-white/38">{subtitle}</div>}
+      {subtitle && <div className="mt-1.5 text-[11px] leading-none text-white/65">{subtitle}</div>}
     </div>
   );
 }
@@ -199,7 +199,7 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
                           className="w-[3px] shrink-0 rounded-full"
                           style={{ backgroundColor: barIndex % 5 === 0 ? channel.color : "rgba(255,255,255,.34)" }}
                           animate={inView && !reduced ? { height: [height * 0.58, height, height * 0.68] } : { height: height * 0.72 }}
-                          transition={{ duration: 1.2, repeat: inView && !reduced ? Infinity : 0, delay: barIndex * 0.04, ease: "easeInOut" }}
+                          transition={{ duration: 1.2, repeat: inView && !reduced ? 2 : 0, delay: barIndex * 0.04, ease: "easeInOut" }}
                         />
                       ))}
                     </div>
@@ -217,7 +217,7 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
                         <span>{channel.label === "SOCIAL" ? "Saw your work on Instagram." : "Hi, just checking in."}</span>
                       </div>
                       <div className="flex max-w-[82%] items-center gap-2 rounded-[15px] border px-3 py-2.5 text-[10px] leading-[1.4] text-white/90" style={{ borderColor: `${channel.color}42`, backgroundColor: `${channel.color}10` }}>
-                        <span className="flex-1">{channel.label === "SOCIAL" ? "Do you service my area?" : "Can we move forward this week?"}</span>
+                        <span className="flex-1">{channel.label === "SOCIAL" ? "Thanks for your enquiry. Our team will check your area." : "Thanks. Our team will help with the next step."}</span>
                         <TinyFlowerAvatar color={channel.color} size={22} />
                       </div>
                     </div>
@@ -243,7 +243,7 @@ function ConversationVisual({ inView, reduced }: { inView: boolean; reduced: boo
                 );
               })}
             </div>
-            <div className="mt-2 flex items-center gap-2 text-[11px] text-white/52">
+            <div className="mt-2 flex items-center gap-2 text-[11px] text-white/70">
               <span className="h-2 w-2 rounded-full" style={{ backgroundColor: current.color }} />
               Captured as context
             </div>
@@ -301,7 +301,7 @@ function ArtifactSurface({ artifact }: { artifact: ContextArtifact }) {
         <div className="flex items-center gap-2 text-[10px] font-semibold text-white/90"><CalendarDays size={13} color={artifact.color} /> Appointment</div>
         <div className="mt-3 flex items-center gap-3">
           <div className="rounded-[11px] border border-white/[0.10] bg-[#17181B] px-3 py-2 text-center">
-            <div className="text-[7px] uppercase tracking-[0.10em] text-white/38">THU</div>
+            <div className="text-[7px] uppercase tracking-[0.10em] text-white/65">THU</div>
             <div className="mt-0.5 text-[17px] font-semibold text-white/90">2:30</div>
           </div>
           <div className="flex-1 space-y-2">
@@ -379,7 +379,7 @@ function ArtifactSurface({ artifact }: { artifact: ContextArtifact }) {
 
 function ContextVisual({ inView, reduced }: { inView: boolean; reduced: boolean }) {
   const step = useCycle(inView, reduced, 10, 1100, 0);
-  const filled = step <= 6 ? step : step === 7 ? 6 : 0;
+  const filled = reduced || step >= 6 ? 6 : step;
   const spinTarget = step === 7 ? 360 : 0;
 
   const artifacts: ContextArtifact[] = [
@@ -554,7 +554,11 @@ function MobileStage({ inView, reduced }: { inView: boolean; reduced: boolean })
   return (
     <div className="space-y-3 lg:hidden">
       <div className="overflow-hidden rounded-[24px] border border-white/[0.13]" style={{ backgroundColor: STAGE }}><ConversationVisual inView={inView} reduced={reduced} /></div>
-      <div className="h-[540px] overflow-hidden rounded-[24px] border border-white/[0.13]" style={{ backgroundColor: STAGE }}><ContextVisual inView={inView} reduced={reduced} /></div>
+      <div className="overflow-hidden rounded-[24px] border border-white/[0.13] px-6 py-7" style={{ backgroundColor: STAGE }}>
+        <TerritoryHeading icon={<Layers3 size={18} />} label="Context" color={AMBER} />
+        <div className="mt-7 flex justify-center"><PetalFlower size={72} /></div>
+        <div className="mt-6 space-y-3">{[{ title: "The customer", copy: "Contact details and relevant history." }, { title: "The conversation", copy: "Enquiries and replies from connected channels." }, { title: "The next step", copy: "Agreed follow-up rules and a person to take over." }].map(item => <div key={item.title} className="border-t border-white/10 pt-3"><div className="text-[14px] font-semibold text-white/90">{item.title}</div><p className="mt-1 text-[13px] leading-relaxed text-white/70">{item.copy}</p></div>)}</div>
+      </div>
       <div className="h-[430px] overflow-hidden rounded-[24px] border border-white/[0.13]" style={{ backgroundColor: STAGE }}><AIAgentVisual inView={inView} reduced={reduced} /></div>
     </div>
   );
@@ -580,7 +584,7 @@ export function ZaplaAIConversationsV6() {
             Turn every conversation into the next action.
           </h2>
           <p className="mx-auto mt-6 max-w-[720px] text-[16px] leading-[1.62] text-white/62 sm:text-[18px]">
-            Conversations become context. Context becomes a decision. Zapla follows through.
+            Bring connected conversations and customer records together. Use agreed rules for routine replies and follow-up, with your team handling decisions.
           </p>
         </header>
 

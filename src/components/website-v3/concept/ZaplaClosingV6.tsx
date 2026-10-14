@@ -30,7 +30,8 @@ export function ZaplaGuidedLaunchV6() {
             <span className="mt-[0.16em] block">We build it</span>
             <span className="block text-[#C96F55]">around how you work.</span>
           </h2>
-          <p className="mt-7 max-w-[560px] text-[17px] leading-[1.65] text-[#64645F] sm:text-[18px]" style={{ fontFamily: GUIDED_BODY }}>We map your process, build what matters, and launch it with your team.</p>
+          <p className="mt-7 max-w-[560px] text-[17px] leading-[1.65] text-[#64645F] sm:text-[18px]" style={{ fontFamily: GUIDED_BODY }}>We map your process, agree the scope, build the workflows and launch them with your team.</p>
+          <p className="mt-4 max-w-[560px] text-[13px] leading-relaxed text-[#64645F]">Follow Through Guided Launch covers up to three agreed automations. Growth campaign scope is agreed separately. <a href="/pricing-review-v3" className="underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#2563FF]">See plans and setup costs</a>.</p>
           <div className="mt-8 flex flex-wrap gap-3" style={{ fontFamily: GUIDED_BODY }}>
             {stages.map((stage) => {
               const StageIcon = stage.icon;

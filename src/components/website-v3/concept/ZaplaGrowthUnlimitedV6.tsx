@@ -76,9 +76,9 @@ function portraitPosition(cell: number) {
 
 function HumanAvatar({ member, index }: { member: UnlimitedTeamMember; index: number }) {
   return (
-    <div className={`relative shrink-0 text-center ${index === 0 ? "" : "-ml-7 sm:-ml-9 lg:-ml-11"}`} style={{ zIndex: 20 - index }}>
+    <div className={`relative shrink-0 text-center ${index === 0 ? "" : "lg:-ml-11"}`} style={{ zIndex: 20 - index }}>
       <div
-        className="h-[108px] w-[108px] rounded-full border-2 border-[#1E2B29] shadow-[0_18px_42px_rgba(0,0,0,.18)] sm:h-[132px] sm:w-[132px] lg:h-[156px] lg:w-[156px]"
+        className="mx-auto h-[72px] w-[72px] rounded-full border-2 border-[#1E2B29] shadow-[0_18px_42px_rgba(0,0,0,.18)] sm:h-[96px] sm:w-[96px] lg:h-[156px] lg:w-[156px]"
         style={{
           backgroundColor: member.bg,
           backgroundImage: `url(${PORTRAIT_SHEET})`,
@@ -143,12 +143,12 @@ export function ZaplaUnlimitedV6() {
 
         <div className="relative z-10 mt-12 sm:mt-14 lg:mt-16">
           <div className="overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex min-w-max items-center pl-1 pr-4 sm:pl-2 lg:justify-center lg:px-0">
+            <div className="grid grid-cols-3 items-center gap-y-6 lg:flex lg:min-w-max lg:justify-center lg:gap-y-0 lg:px-0">
               {UNLIMITED_TEAM.map((member, index) => (
                 <HumanAvatar key={member.label} member={member} index={index} />
               ))}
 
-              <div className="ml-0 flex items-center sm:ml-1 lg:ml-2">
+              <div className="hidden items-center lg:ml-2 lg:flex">
                 {GHOST_TEAM.map((member, index) => <GhostAvatar key={`${member.cell}-${index}`} {...member} index={index} />)}
                 <div className="ml-4 whitespace-nowrap text-[22px] font-medium tracking-[-0.025em] text-[#F7F2EA] sm:text-[26px] lg:text-[30px]">
                   + unlimited
