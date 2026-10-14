@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { LayoutGroup, motion } from "motion/react";
 import { Check, Clock, Globe2, MessageSquare, MoreHorizontal, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FACE } from "@/components/website-v3/v5/faces";
+import { FACE, portraitStyle } from "@/components/website-v3/v5/faces";
 import { EASE, RevenueAvatar } from "@/components/website-v3/concept/journey-v6/shared";
 
 type NodeState = "idle" | "active" | "done";
@@ -103,12 +103,11 @@ function CrowdStack({ crowd, hasSarah, interactive }: { crowd: string[]; hasSara
       aria-hidden="true"
     >
       {crowd.map((src, index) => (
-        <img
+        <span
           key={`${src}-${index}`}
-          src={src}
-          alt=""
+          aria-hidden="true"
           className="absolute top-0 rounded-full object-cover ring-2 ring-white shadow-[0_4px_10px_-6px_rgba(15,23,42,.45)]"
-          style={{
+          style={{ ...portraitStyle(src ?? ""),
             width: AVATAR_SIZE,
             height: AVATAR_SIZE,
             left: index * AVATAR_STEP,

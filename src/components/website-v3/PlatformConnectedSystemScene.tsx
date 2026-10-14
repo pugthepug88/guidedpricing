@@ -140,7 +140,7 @@ function DesktopContextScene() {
           >
             <div className="absolute left-1/2 top-1/2 flex w-[250px] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center">
               <HomepageAvatar size={144} cell={0} />
-              <p className="mt-5 text-[24px] font-semibold tracking-[-.035em] text-[#111318]">Emma Thompson</p>
+              <p className="mt-5 text-[24px] font-semibold tracking-[-.035em] text-[#111318]">Emma Wilson</p>
               <p className="mt-2 text-[14px] leading-relaxed text-[#5F655F]">One customer record.<br />Their history and next step.</p>
             </div>
           </div>
@@ -260,7 +260,7 @@ function MomentBody({ moment }: { moment: Moment }) {
       <div className="p-3.5">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <div className="text-[10.5px] font-semibold text-[#27313F]">Bathroom renovation</div>
+            <div className="text-[10.5px] font-semibold text-[#27313F]">Property maintenance</div>
             <div className="mt-0.5 text-[8.5px] text-[#8A918E]">$4,800 opportunity</div>
           </div>
           <Workflow size={14} style={{ color: moment.accent }} />
@@ -283,7 +283,7 @@ function MomentBody({ moment }: { moment: Moment }) {
 
         <div className="mt-2.5 flex items-center gap-2 rounded-[9px] bg-[#F7F7F5] px-2.5 py-2">
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: moment.accent }} />
-          <span className="text-[8.5px] font-medium text-[#68706C]">Follow up automatically in 2 days</span>
+          <span className="text-[8.5px] font-medium text-[#68706C]">Follow-up stopped · booking confirmed</span>
         </div>
       </div>
     );
@@ -369,7 +369,7 @@ function StaticContextScene() {
     <div className="mx-auto mt-12 max-w-[980px]">
       <div className="relative mx-auto h-[350px] w-[270px]">
         <div className="absolute inset-6 rounded-full bg-[radial-gradient(circle,rgba(37,99,255,0.08),rgba(214,150,114,0.035)_42%,transparent_72%)]" />
-        <div className="relative flex h-full flex-col items-center justify-center text-center"><HomepageAvatar size={144} cell={0}/><p className="mt-5 text-[24px] font-semibold tracking-[-.035em]">Emma Thompson</p><p className="mt-2 text-[14px] leading-relaxed text-[#5F655F]">One customer record.<br />Their history and next step.</p></div>
+        <div className="relative flex h-full flex-col items-center justify-center text-center"><HomepageAvatar size={144} cell={0}/><p className="mt-5 text-[24px] font-semibold tracking-[-.035em]">Emma Wilson</p><p className="mt-2 text-[14px] leading-relaxed text-[#5F655F]">One customer record.<br />Their history and next step.</p></div>
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { CalendarCheck, ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FACE } from "@/components/website-v3/v5/faces";
+import { FACE, portraitStyle } from "@/components/website-v3/v5/faces";
 import { EASE, RevenueAvatar } from "@/components/website-v3/concept/journey-v6/shared";
 
 type Accent = "blue" | "violet" | "amber" | "green" | "rose";
@@ -37,7 +37,7 @@ const ACCENT: Record<Accent,string> = { blue:"border-l-blue-500", violet:"border
 function AppointmentChip({ appointment }: { appointment: Appointment }) {
   return (
     <div className={cn("flex min-w-0 items-center gap-1.5 rounded-[9px] border border-slate-200 border-l-[3px] bg-white px-1.5 py-1.5 shadow-[0_8px_20px_-16px_rgba(15,23,42,.5)]", ACCENT[appointment.accent])}>
-      {appointment.sarah ? <RevenueAvatar size={20} /> : <img src={appointment.face} alt="" aria-hidden className="h-5 w-5 shrink-0 rounded-full object-cover ring-1 ring-slate-100" />}
+      {appointment.sarah ? <RevenueAvatar size={20} /> : <span  aria-hidden className="h-5 w-5 shrink-0 rounded-full object-cover ring-1 ring-slate-100" style={portraitStyle(appointment.face ?? "")} />}
       <div className="min-w-0 flex-1"><div className="truncate text-[7.2px] font-black leading-tight text-slate-800">{appointment.title}</div><div className="mt-0.5 truncate text-[5.9px] font-semibold leading-tight text-slate-400">{appointment.time}</div></div>
     </div>
   );

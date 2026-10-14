@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { CalendarCheck, Inbox as InboxIcon, Mail, MessageSquare, Plus, Send, UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FACE } from "@/components/website-v3/v5/faces";
+import { FACE, portraitStyle } from "@/components/website-v3/v5/faces";
 import { FacebookMark, InstagramMark, LinkedInMark, TikTokMark } from "@/components/website-v3/v5/social-brands";
 import { EASE, RevenueAvatar, SarahIdentity } from "@/components/website-v3/concept/journey-v6/shared";
 
@@ -33,7 +33,7 @@ function ChannelTile({ channel, size = 15 }: { channel: Channel; size?: number }
 function AvatarWithChannel({ row }: { row: Row }) {
   return (
     <div className="relative shrink-0">
-      {row.active ? <RevenueAvatar size={28} /> : <img src={row.face} alt="" aria-hidden className="h-7 w-7 rounded-full object-cover ring-1 ring-slate-100" />}
+      {row.active ? <RevenueAvatar size={28} /> : <span  aria-hidden className="h-7 w-7 rounded-full object-cover ring-1 ring-slate-100" style={portraitStyle(row.face ?? "")} />}
       <span className="absolute -bottom-0.5 -right-0.5 rounded-[4px] bg-white p-[1px] shadow-sm ring-1 ring-white"><ChannelTile channel={row.channel} size={12} /></span>
     </div>
   );

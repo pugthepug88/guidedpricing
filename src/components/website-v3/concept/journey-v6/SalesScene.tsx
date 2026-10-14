@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { LayoutGroup, motion } from "motion/react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { FACE } from "@/components/website-v3/v5/faces";
+import { FACE, portraitStyle } from "@/components/website-v3/v5/faces";
 import { EASE, RevenueAvatar } from "@/components/website-v3/concept/journey-v6/shared";
 
 type SalesCard = { id: string; name: string; value: string; source: string; touch: string; face?: string; sarah?: boolean };
@@ -52,7 +52,7 @@ function DealCard({ card }: { card: SalesCard }) {
   return (
     <motion.div layout layoutId={card.sarah ? "sarah-native-opportunity" : `section4-${card.id}`} className={cn("relative rounded-xl border bg-white p-2.5 transition-shadow duration-300", card.sarah ? "border-zapla-blue/60 shadow-[0_0_0_3px_rgba(37,99,255,0.10),0_1px_2px_rgba(15,23,42,.05)]" : "border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,.05)]")} transition={{ layout: { duration: 0.9, ease: EASE } }}>
       <div className="flex items-center gap-2">
-        {card.sarah ? <RevenueAvatar size={24} /> : <img src={card.face} alt="" aria-hidden className="h-6 w-6 shrink-0 rounded-full object-cover ring-2 ring-white" />}
+        {card.sarah ? <RevenueAvatar size={24} /> : <span  aria-hidden className="h-6 w-6 shrink-0 rounded-full object-cover ring-2 ring-white" style={portraitStyle(card.face ?? "")} />}
         <div className="min-w-0 flex-1"><div className="text-[11.5px] font-semibold leading-[1.2] text-slate-800">{card.name}</div>{card.sarah ? <div className="truncate text-[10px] font-medium text-slate-400">Website enquiry</div> : null}</div>
       </div>
       <div className="mt-1.5 flex items-center justify-between gap-1.5"><span className="text-[12.5px] font-bold tracking-tight text-slate-900">{card.value}</span><span className="truncate text-[9.5px] font-medium text-slate-400">{card.touch}</span></div>

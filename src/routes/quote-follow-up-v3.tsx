@@ -71,7 +71,7 @@ const FAQS = [
   },
   {
     q: "What if a quote has genuinely gone cold?",
-    a: "That is where Reopen becomes more relevant. Quote Follow-Up is for active quoted work that still needs a decision. Reopen is for opportunities that have already gone dormant and need a fresh conversation later.",
+    a: "That is where Reactivation becomes more relevant. Quote Follow-Up is for active quoted work that still needs a decision. Reactivation is for opportunities that have already gone dormant and need a fresh conversation later.",
   },
 ] as const;
 
@@ -128,7 +128,7 @@ function PrimaryButton({ light = false }: { light?: boolean }) {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#E2D8CC] bg-[#F6F0E8] px-5 pb-16 pt-[112px] sm:px-10 sm:pb-20 sm:pt-[122px] lg:px-16 lg:pb-24 lg:pt-[130px]">
+    <section className="relative overflow-hidden border-b border-[#E2D8CC] bg-[#F6F0E8] px-5 pb-16 pt-14 sm:px-10 sm:pb-20 sm:pt-20 lg:px-16 lg:pb-24 lg:pt-[130px]">
       <div className="pointer-events-none absolute -right-[8%] top-[8%] h-[620px] w-[620px] rounded-full bg-[#E2C9B7]/35 blur-[170px]" />
       <div className="pointer-events-none absolute -left-[8%] bottom-[-28%] h-[520px] w-[520px] rounded-full bg-[#DDE4CF]/45 blur-[150px]" />
       <div className="relative mx-auto grid max-w-[1380px] gap-12 lg:grid-cols-[0.84fr_1.16fr] lg:items-center lg:gap-14">
@@ -171,7 +171,7 @@ function HeroLedger() {
           </div>
           <div className="rounded-full border border-[#E3DDD4] bg-white px-3 py-1.5 text-[11px] font-semibold text-[#6C736D]">4 open</div>
         </div>
-        <div className="grid border-b border-[#E5E0D9] bg-[#F7F5F1] sm:grid-cols-3">
+        <div className="grid border-b border-[#E5E0D9] bg-[#F7F5F1] grid-cols-[1.4fr_1fr_1fr]">
           {[["Open quote value", "A$28,850"], ["Needs action", "3"], ["Waiting", "1"]].map(([label, value], index) => (
             <div key={label} className={"px-5 py-4 " + (index ? "border-t border-[#E5E0D9] sm:border-l sm:border-t-0" : "")}>
               <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#90958F]">{label}</div>
