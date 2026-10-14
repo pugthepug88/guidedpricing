@@ -1,5 +1,33 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "@tanstack/react-router";
+import { INDUSTRY_LINKS } from "@/lib/industries";
+
+const NAV_GROUPS = [
+  {
+    id: "platform",
+    label: "Platform",
+    links: [
+      { name: "Overview", href: "/platform" },
+      { name: "CRM", href: "/crm" },
+      { name: "Customer Marketing", href: "/customer-marketing" },
+      { name: "AI Receptionist", href: "/ai-receptionist" },
+    ],
+  },
+  {
+    id: "solutions",
+    label: "Solutions",
+    links: [
+      { name: "Follow-Up", href: "/follow-up" },
+      { name: "Reactivation", href: "/reactivation" },
+      { name: "Reviews & Reputation", href: "/reviews" },
+    ],
+  },
+  {
+    id: "industries",
+    label: "Industries",
+    links: [...INDUSTRY_LINKS, { name: "View all industries", href: "/industries" }],
+  },
+] as const;
 
 export const ZAPLA_LOGO = "/concept/zapla-logo-dark.svg";
 
@@ -11,11 +39,7 @@ function CinematicZaplaLogo() {
           a white container around the blue mark. */}
       <span className="relative block h-8 w-8 shrink-0 overflow-hidden">
         <span className="absolute left-[7px] top-[6px] h-[20px] w-[19px] rounded-[5px] bg-white" />
-        <img
-          src={ZAPLA_LOGO}
-          alt="Zapla"
-          className="absolute left-0 top-0 h-8 w-auto max-w-none"
-        />
+        <img src={ZAPLA_LOGO} alt="Zapla" className="absolute left-0 top-0 h-8 w-auto max-w-none" />
       </span>
 
       {/* Reuse the real wordmark artwork rather than recreating it as text. */}
@@ -33,17 +57,28 @@ function CinematicZaplaLogo() {
 
 export function SiteNav() {
   const location = useLocation();
+  const navRef = useRef<HTMLElement>(null);
   const cinematicV5 =
-    location.pathname === "/" ||
-    location.pathname === "/concept/cinematic-follow-through-v5";
+    location.pathname === "/" || location.pathname === "/concept/cinematic-follow-through-v5";
   // Every non-home route inherits the homepage header geometry. Light pages begin in
   // the same glass state the homepage uses after its cinematic hero.
   const lightSitePage = !cinematicV5;
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [cinematicPastHero, setCinematicPastHero] = useState(false);
   const lightGlassState = cinematicPastHero || lightSitePage;
-  const [openMenu, setOpenMenu] = useState<null | "platform" | "solutions">(null);
+  const [openMenu, setOpenMenu] = useState<null | "platform" | "solutions" | "industries">(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const closeOutside = (event: PointerEvent) => {
+      if (!navRef.current?.contains(event.target as Node)) {
+        setOpenMenu(null);
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    return () => document.removeEventListener("pointerdown", closeOutside);
+  }, []);
 
   useEffect(() => {
     if (!cinematicV5) {
@@ -81,10 +116,20 @@ export function SiteNav() {
     : "inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#1D4ED8] hover:shadow-zapla-blue";
 
   return (
-    <nav className={cinematicNavClass}>
-      <div
-        className="flex w-full items-center justify-between gap-4 px-[6vw] py-2.5 lg:px-[5.5vw]"
-      >
+    <nav
+      ref={navRef}
+      className={cinematicNavClass}
+      aria-label="Main navigation"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          setOpenMenu(null);
+          setMobileOpen(false);
+          const group = (event.target as HTMLElement).closest("[data-nav-group]");
+          (group?.querySelector("button") as HTMLButtonElement | null)?.focus();
+        }
+      }}
+    >
+      <div className="flex w-full items-center justify-between gap-4 px-[6vw] py-2.5 lg:px-[5.5vw]">
         <a href="https://zapla.io/" className="flex items-center">
           {lightGlassState ? (
             <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto" />
@@ -94,36 +139,68 @@ export function SiteNav() {
         </a>
 
         <div className="hidden items-center gap-7 lg:flex">
-          <div className="relative" onMouseEnter={() => setOpenMenu("platform")} onMouseLeave={() => setOpenMenu(null)}>
-            <button className={linkCls} type="button">Platform <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
-            {openMenu === "platform" && (
-              <div className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3"><div className="rounded-2xl border border-zapla-line bg-white p-2 shadow-zapla">
-                <a href="/platform" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Overview</a>
-                <a href="/crm" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">CRM</a>
-                <a href="/customer-marketing" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Customer Marketing</a>
-                <a href="/ai-receptionist" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">AI Receptionist</a>
-              </div></div>
-            )}
-          </div>
-          <div className="relative" onMouseEnter={() => setOpenMenu("solutions")} onMouseLeave={() => setOpenMenu(null)}>
-            <button className={linkCls} type="button" aria-expanded={openMenu === "solutions"} onClick={() => setOpenMenu("solutions")}>Solutions <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
-            {openMenu === "solutions" && (
-              <div className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3"><div className="rounded-2xl border border-zapla-line bg-white p-2 shadow-zapla">
-                <a href="/follow-up" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Follow-Up</a>
-                <a href="/reactivation" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Reactivation</a>
-                <a href="/reviews" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Reviews &amp; Reputation</a>
-                <div className="mx-3 my-2 border-t border-zapla-line" />
-                <Link to="/industries/mortgage-brokers" onClick={() => setOpenMenu(null)} className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mortgage Brokers</Link>
-                <a href="/industries/mechanics" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Mechanics &amp; Workshops</a>
-                <a href="/industries/dental" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Dental Practices</a>
-                <a href="/industries/cosmetic-skin-clinics" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Skin &amp; Cosmetic Clinics</a>
-                <a href="/industries/allied-health" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Allied Health</a>
-                <a href="/industries/trades" className="block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue">Trades &amp; Home Services</a>
-              </div></div>
-            )}
-          </div>
-          <a href="/Pricing-v3" className={linkCls}>Pricing</a>
-          <a href="https://my.zapla.io/" className={linkCls}>Log In</a>
+          {NAV_GROUPS.map((group) => (
+            <div
+              key={group.id}
+              data-nav-group
+              className="relative"
+              onMouseEnter={() => setOpenMenu(group.id)}
+              onMouseLeave={(event) => {
+                if (!event.currentTarget.contains(document.activeElement)) setOpenMenu(null);
+              }}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) setOpenMenu(null);
+              }}
+            >
+              <button
+                className={linkCls}
+                type="button"
+                aria-expanded={openMenu === group.id}
+                aria-controls={`nav-${group.id}`}
+                onClick={(event) =>
+                  setOpenMenu((current) =>
+                    event.detail === 0 && current === group.id ? null : group.id,
+                  )
+                }
+              >
+                {group.label}
+                <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path
+                    d="M2 4l4 4 4-4"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              {openMenu === group.id && (
+                <div
+                  id={`nav-${group.id}`}
+                  className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3"
+                >
+                  <div className="rounded-2xl border border-zapla-line bg-white p-2 shadow-zapla">
+                    {group.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setOpenMenu(null)}
+                        className={`block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue focus-visible:outline-2 focus-visible:outline-zapla-blue ${link.href === "/industries" ? "mt-2 border-t border-zapla-line pt-3" : ""}`}
+                      >
+                        {link.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+          <a href="/Pricing-v3" className={linkCls}>
+            Pricing
+          </a>
+          <a href="https://my.zapla.io/" className={linkCls}>
+            Log In
+          </a>
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
@@ -134,40 +211,83 @@ export function SiteNav() {
 
         <button
           type="button"
-          aria-label="Menu"
-          className={lightGlassState
-            ? "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white/80 text-zapla-ink lg:hidden"
-            : cinematicAtTop
-              ? "grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-transparent text-white lg:hidden"
-              : "grid h-10 w-10 place-items-center rounded-xl border border-white/22 bg-white/[0.06] text-white backdrop-blur-[8px] lg:hidden"}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
+          className={
+            lightGlassState
+              ? "grid h-10 w-10 place-items-center rounded-xl border border-zapla-line bg-white/80 text-zapla-ink lg:hidden"
+              : cinematicAtTop
+                ? "grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-transparent text-white lg:hidden"
+                : "grid h-10 w-10 place-items-center rounded-xl border border-white/22 bg-white/[0.06] text-white backdrop-blur-[8px] lg:hidden"
+          }
           onClick={() => setMobileOpen((v) => !v)}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             {mobileOpen ? (
-              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M6 6l12 12M18 6L6 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             ) : (
-              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             )}
           </svg>
         </button>
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-zapla-line bg-white lg:hidden">
+        <div
+          id="mobile-navigation"
+          className="max-h-[calc(100dvh-60px)] overflow-y-auto border-t border-zapla-line bg-white lg:hidden"
+        >
           <div className="mx-auto grid max-w-[1240px] gap-1 px-5 py-4 text-[15px] font-semibold text-zapla-ink">
-            <details className="group"><summary className="flex cursor-pointer list-none items-center justify-between py-2">Platform<span className="text-zapla-muted group-open:rotate-180 transition">▾</span></summary><div className="ml-3 grid gap-1 pb-2 text-[14px] text-zapla-muted">
-              <a href="/platform" className="py-1.5">Overview</a><a href="/crm" className="py-1.5">CRM</a><a href="/customer-marketing" className="py-1.5">Customer Marketing</a><a href="/ai-receptionist" className="py-1.5">AI Receptionist</a>
-            </div></details>
-            <details className="group"><summary className="flex cursor-pointer list-none items-center justify-between py-2">Solutions<span className="text-zapla-muted group-open:rotate-180 transition">▾</span></summary><div className="ml-3 grid gap-1 pb-2 text-[14px] text-zapla-muted">
-              <a href="/follow-up" className="py-1.5">Follow-Up</a><a href="/reactivation" className="py-1.5">Reactivation</a><a href="/reviews" className="py-1.5">Reviews &amp; Reputation</a>
-              <Link to="/industries/mortgage-brokers" onClick={() => setMobileOpen(false)} className="py-1.5">Mortgage Brokers</Link>
-              <a href="/industries/mechanics" className="py-1.5">Mechanics &amp; Workshops</a><a href="/industries/dental" className="py-1.5">Dental Practices</a>
-                <a href="/industries/cosmetic-skin-clinics" className="py-1.5">Skin &amp; Cosmetic Clinics</a>
-              <a href="/industries/trades" className="py-1.5">Trades &amp; Home Services</a>
-              <a href="/industries/allied-health" className="py-1.5">Allied Health</a>
-            </div></details>
-            <a href="/Pricing-v3" className="py-2">Pricing</a><a href="https://my.zapla.io/" className="py-2">Log In</a>
-            <div className="mt-2 grid gap-2"><a href="https://zapla.io/booking" className="inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2.5 text-[13px] font-extrabold text-white">Book a Call</a></div>
+            {NAV_GROUPS.map((group) => (
+              <details key={group.id} className="group">
+                <summary className="flex cursor-pointer list-none items-center justify-between py-2">
+                  {group.label}
+                  <span
+                    aria-hidden="true"
+                    className="text-zapla-muted group-open:rotate-180 transition"
+                  >
+                    ▾
+                  </span>
+                </summary>
+                <div className="ml-3 grid gap-1 pb-2 text-[14px] text-zapla-muted">
+                  {group.links.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="py-1.5"
+                    >
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
+              </details>
+            ))}
+            <a href="/Pricing-v3" className="py-2">
+              Pricing
+            </a>
+            <a href="https://my.zapla.io/" className="py-2">
+              Log In
+            </a>
+            <div className="mt-2 grid gap-2">
+              <a
+                href="https://zapla.io/booking"
+                className="inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2.5 text-[13px] font-extrabold text-white"
+              >
+                Book a Call
+              </a>
+            </div>
           </div>
         </div>
       )}
