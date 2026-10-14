@@ -1,0 +1,380 @@
+@font-face {
+  font-family: "Industries Display";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/concept/industries/fonts/inter-tight-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Industries Body";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Industries Body";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/concept/industries/fonts/manrope-latin-600-normal.woff2") format("woff2");
+}
+.industries-hub {
+  background: #fcfcfa;
+  color: #111318;
+  font-family: "Industries Body", "Manrope", sans-serif;
+}
+.industries-hub * {
+  box-sizing: border-box;
+}
+.industries-hub h1,
+.industries-hub h2,
+.industries-hub h3 {
+  font-family: "Industries Display", "Inter Tight", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+  margin: 0;
+}
+.industries-hub p {
+  margin: 0;
+  line-height: 1.7;
+  color: #5f685e;
+}
+.industries-hub a {
+  text-decoration: none;
+  color: inherit;
+}
+.industries-hub a:focus-visible {
+  outline: 2px solid #2563ff;
+  outline-offset: 6px;
+}
+.ih-wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 40px;
+}
+.ih-hero {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 64px;
+  align-items: end;
+  padding-top: 140px;
+  padding-bottom: 72px;
+}
+.industries-hub .ih-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #687264;
+  margin-bottom: 20px;
+}
+.ih-hero h1 {
+  font-size: clamp(44px, 4.9vw, 66px);
+}
+.ih-hero h1 span {
+  color: #788364;
+}
+.ih-intro {
+  max-width: 400px;
+  font-size: 16px;
+  padding-bottom: 4px;
+}
+.ih-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid #bfc6b6;
+  margin-top: 18px;
+}
+.ih-text-link:hover {
+  color: #2563ff;
+}
+.ih-directory {
+  scroll-margin-top: 90px;
+}
+.ih-group {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 48px;
+  padding: 46px 0;
+  border-top: 1px solid #dedfd5;
+}
+.ih-group-heading h2 {
+  font-size: 32px;
+}
+.ih-group-heading p {
+  font-size: 14px;
+  margin-top: 15px;
+  max-width: 230px;
+}
+.ih-entries {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 34px;
+}
+.ih-entry {
+  display: block;
+  min-width: 0;
+}
+.ih-entry img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2.15;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: 18px;
+}
+.ih-entry h3 {
+  font-size: 25px;
+  margin-top: 19px;
+}
+.ih-entry p {
+  font-size: 14px;
+  margin-top: 10px;
+  max-width: 410px;
+}
+.ih-entry-link {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 9px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ih-entry-link svg {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.ih-entry:hover .ih-entry-link {
+  color: #2563ff;
+}
+.ih-entry:hover .ih-entry-link svg {
+  transform: translateX(3px);
+}
+.ih-group-practices-clinics .ih-entries {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.ih-group-practices-clinics .ih-entry img {
+  aspect-ratio: 1.5;
+}
+.ih-group-practices-clinics .ih-entry h3 {
+  font-size: 23px;
+}
+.ih-group-client-relationships .ih-entry {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px;
+  align-items: center;
+  grid-column: 1/-1;
+}
+.ih-group-client-relationships .ih-entry img {
+  aspect-ratio: 1.8;
+}
+.ih-group-client-relationships .ih-entry h3 {
+  margin-top: 0;
+}
+.ih-fit {
+  margin-top: 30px;
+  background: #f7f4ee;
+  padding: 64px 0;
+}
+.ih-fit-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 100px;
+}
+.ih-fit h2 {
+  font-size: clamp(34px, 3.7vw, 46px);
+}
+.ih-starting-points {
+  display: grid;
+  gap: 30px;
+}
+.ih-starting-points h3 {
+  font-size: 25px;
+}
+.ih-starting-points p {
+  font-size: 15px;
+  margin-top: 12px;
+  max-width: 510px;
+}
+.ih-final {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  padding-top: 70px;
+  padding-bottom: 36px;
+}
+.ih-final h2 {
+  font-size: 36px;
+}
+.ih-final p {
+  font-size: 15px;
+  max-width: 650px;
+  margin-top: 15px;
+}
+.industries-hub .ih-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 50px;
+  white-space: nowrap;
+  background: #1e2b29;
+  color: #fcfcfa;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ih-button:hover {
+  background: #33423d;
+}
+@media (max-width: 1050px) {
+  .ih-hero {
+    gap: 35px;
+  }
+  .ih-group {
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 30px;
+  }
+  .ih-group-practices-clinics .ih-entries {
+    gap: 18px;
+  }
+  .ih-group-practices-clinics .ih-entry h3 {
+    font-size: 21px;
+  }
+  .ih-fit-layout {
+    gap: 50px;
+  }
+}
+@media (max-width: 760px) {
+  .ih-wrap {
+    padding-inline: 24px;
+  }
+  .ih-hero {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding-top: 112px;
+    padding-bottom: 42px;
+  }
+  .ih-hero h1 {
+    font-size: clamp(40px, 7vw, 54px);
+  }
+  .ih-intro {
+    max-width: 540px;
+  }
+  .ih-group {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 34px 0;
+  }
+  .ih-group-heading p {
+    max-width: 480px;
+    margin-top: 10px;
+  }
+  .ih-group-heading h2 {
+    font-size: 29px;
+  }
+  .ih-group-practices-clinics .ih-entries {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .ih-group-practices-clinics .ih-entry {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+  .ih-group-practices-clinics .ih-entry h3 {
+    margin-top: 0;
+    font-size: 25px;
+  }
+  .ih-group-practices-clinics .ih-entry img {
+    aspect-ratio: 1.15;
+  }
+  .ih-group-client-relationships .ih-entry {
+    gap: 22px;
+  }
+  .ih-fit-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .ih-fit {
+    padding: 45px 0;
+  }
+  .ih-final {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding-top: 48px;
+  }
+  .ih-final h2 {
+    font-size: 32px;
+  }
+}
+@media (max-width: 480px) {
+  .ih-entries {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .ih-entry img {
+    aspect-ratio: 1.9;
+  }
+  .ih-group-practices-clinics .ih-entry,
+  .ih-group-client-relationships .ih-entry {
+    display: block;
+  }
+  .ih-group-practices-clinics .ih-entry img,
+  .ih-group-client-relationships .ih-entry img {
+    aspect-ratio: 1.9;
+  }
+  .ih-group-practices-clinics .ih-entry h3,
+  .ih-group-client-relationships .ih-entry h3 {
+    margin-top: 19px;
+  }
+  .ih-final .ih-button {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ih-entry-link svg {
+    transition: none;
+  }
+  .ih-entry:hover .ih-entry-link svg {
+    transform: none;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1050px) {
+  .ih-group-practices-clinics .ih-entries {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .ih-group-practices-clinics .ih-entry {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+  .ih-group-practices-clinics .ih-entry img {
+    aspect-ratio: 1.15;
+  }
+  .ih-group-practices-clinics .ih-entry h3 {
+    margin-top: 0;
+    font-size: 25px;
+  }
+}
+.ih-group-local-services .ih-entry:last-child img {
+  object-position: center 15%;
+}

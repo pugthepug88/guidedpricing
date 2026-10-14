@@ -28,6 +28,7 @@ import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.za
 import { Route as CompareZaplaVsPipedriveSimpleRouteImport } from './routes/compare.zapla-vs-pipedrive-simple'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
+import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
 import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
 import { Route as IndustriesCosmeticSkinClinicsRouteImport } from './routes/industries/cosmetic-skin-clinics'
 import { Route as IndustriesDentalRouteImport } from './routes/industries/dental'
@@ -136,6 +137,11 @@ const ConceptCinematicFollowThroughV6Route =
     path: '/concept/cinematic-follow-through-v6',
     getParentRoute: () => rootRouteImport,
   } as any)
+const IndustriesIndexRoute = IndustriesIndexRouteImport.update({
+  id: '/industries/',
+  path: '/industries/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesAlliedHealthRoute = IndustriesAlliedHealthRouteImport.update({
   id: '/industries/allied-health',
   path: '/industries/allied-health',
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/trades': typeof IndustriesTradesRoute
+  '/industries/': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -229,6 +236,7 @@ export interface FileRoutesByTo {
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/trades': typeof IndustriesTradesRoute
+  '/industries': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -258,6 +266,7 @@ export interface FileRoutesById {
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/trades': typeof IndustriesTradesRoute
+  '/industries/': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -288,6 +297,7 @@ export interface FileRouteTypes {
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
     | '/industries/trades'
+    | '/industries/'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -316,6 +326,7 @@ export interface FileRouteTypes {
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
     | '/industries/trades'
+    | '/industries'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -344,6 +355,7 @@ export interface FileRouteTypes {
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
     | '/industries/trades'
+    | '/industries/'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -373,6 +385,7 @@ export interface RootRouteChildren {
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
   IndustriesMortgageBrokersRoute: typeof IndustriesMortgageBrokersRoute
   IndustriesTradesRoute: typeof IndustriesTradesRoute
+  IndustriesIndexRoute: typeof IndustriesIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -511,6 +524,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/industries/': {
+      id: '/industries/'
+      path: '/industries'
+      fullPath: '/industries/'
+      preLoaderRoute: typeof IndustriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/allied-health': {
       id: '/industries/allied-health'
       path: '/industries/allied-health'
@@ -590,6 +610,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
   IndustriesMortgageBrokersRoute: IndustriesMortgageBrokersRoute,
   IndustriesTradesRoute: IndustriesTradesRoute,
+  IndustriesIndexRoute: IndustriesIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
