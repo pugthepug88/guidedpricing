@@ -119,20 +119,27 @@ function Message({
 // One short causal sequence. Pre-trigger near the viewport, pause offscreen, hold the result.
 function useDialogue() {
   const ref = useRef<HTMLDivElement>(null);
-  const visible = useInView(ref, { amount: 0.1, margin: "0px 0px 80px 0px" });
+  const visible = useInView(ref, { amount: 0.05, margin: "0px 0px 120px 0px" });
   const reduced = useReducedMotion();
   const [step, setStep] = useState(0);
+  const [foreground, setForeground] = useState(true);
+  useEffect(() => {
+    const update = () => setForeground(!document.hidden);
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
   useEffect(() => {
     if (reduced) setStep(2);
   }, [reduced]);
   useEffect(() => {
-    if (!visible || reduced || step >= 2) return;
+    if (!visible || !foreground || reduced || step >= 2) return;
     const timer = window.setTimeout(
       () => setStep((s) => Math.min(s + 1, 2)),
-      step === 0 ? 350 : 550,
+      step === 0 ? 200 : 450,
     );
     return () => window.clearTimeout(timer);
-  }, [visible, reduced, step]);
+  }, [visible, foreground, reduced, step]);
   return { ref, step };
 }
 function DentalPage() {
@@ -523,7 +530,7 @@ function FollowScene() {
         <span>Mia’s follow-up</span>
         <strong>{step >= 2 ? "Reply with your team" : "Check-in agreed"}</strong>
       </div>
-      <Message sender="Your practice · Automated check-in" automated visible={step >= 1}>
+      <Message sender="Your practice · Automated check-in" automated>
         Hi Mia, as agreed, just checking whether you’d like to speak with our team about your next
         step. Reply here if you’d like us to arrange a call.
       </Message>
