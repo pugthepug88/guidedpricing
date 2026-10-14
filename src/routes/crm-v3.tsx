@@ -800,8 +800,8 @@ function TeamWorkspaceVisual() {
   ];
 
   return (
-    <div className="relative min-h-[650px]">
-      <div className="absolute inset-[9%_7%_8%_7%] overflow-hidden rounded-[26px] bg-white shadow-[0_34px_92px_rgba(0,0,0,.28)]">
+    <div className="relative lg:min-h-[650px]">
+      <div className="relative overflow-hidden rounded-[26px] bg-white shadow-[0_34px_92px_rgba(0,0,0,.28)] lg:absolute lg:inset-[9%_7%_8%_7%]">
         <ProductShellBar
           section="Team workspace"
           right={
@@ -837,7 +837,7 @@ function TeamWorkspaceVisual() {
               </div>
               <div className="grid grid-cols-[92px_1fr] py-3">
                 <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Next task</span>
-                <span className="text-[9px] font-semibold text-[#3E4842]">Confirm site visit · Tuesday</span>
+                <span className="text-[9px] font-semibold text-[#3E4842]">Answer installation question</span>
               </div>
               <div className="grid grid-cols-[92px_1fr] py-3">
                 <span className="text-[7px] font-bold uppercase tracking-[0.1em] text-[#7B847E]">Payment</span>
@@ -884,7 +884,7 @@ function TeamWorkspaceVisual() {
       {people.map((person,index)=>(
         <motion.div
           key={person.name}
-          className="absolute"
+          className="absolute hidden lg:block"
           style={{left:person.x,top:person.y,translateX:"-50%",translateY:"-50%"}}
           initial={{opacity:0,scale:.84,y:10}}
           whileInView={{opacity:1,scale:1,y:0}}
