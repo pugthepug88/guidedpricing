@@ -1,0 +1,241 @@
+{
+  "updated": "2026-10-14",
+  "implementation_commit": "5e550edfe222d42bd3def090ee4b6ea86ddd8401",
+  "status": "in progress; not an exhaustive sign-off; no 9/10 certification",
+  "authoritative_preview": "https://guidedpricing.jinrcao.workers.dev",
+  "preservation": {
+    "baseline": "c0d0a68b1e8072600103ce7627c9dff305769506",
+    "github_compare_verified": true,
+    "existing_modified_files": [
+      "src/routes/__root.tsx",
+      "src/routeTree.gen.ts"
+    ],
+    "original_pages_components_styles": "unchanged"
+  },
+  "coverage": {
+    "allied-health": {
+      "desktop": [
+        "hero",
+        "return reminder initial and completed",
+        "admin forms",
+        "fit",
+        "launch"
+      ],
+      "mobile": [
+        "enquiry completed",
+        "admin forms completed",
+        "return reminder completed",
+        "review initial and completed",
+        "fit",
+        "AI callback",
+        "launch pricing",
+        "FAQs closed",
+        "booking FAQ keyboard expanded"
+      ],
+      "tablet": []
+    },
+    "cosmetic-skin-clinics": {
+      "desktop": [
+        "hero",
+        "AI initial",
+        "compact pre-visit section"
+      ],
+      "mobile": [
+        "hero",
+        "recognition",
+        "enquiry completed",
+        "AI callback",
+        "form completed",
+        "consultation follow-up completed",
+        "reactivation completed",
+        "review completed",
+        "fit",
+        "launch",
+        "plans",
+        "FAQs closed",
+        "integration FAQ keyboard expanded",
+        "remaining FAQ rows",
+        "final CTA",
+        "scope note",
+        "footer top"
+      ],
+      "tablet": []
+    },
+    "dental": {
+      "desktop": [
+        "hero",
+        "recall initial"
+      ],
+      "mobile": [
+        "hero"
+      ],
+      "tablet": [
+        "hero"
+      ]
+    },
+    "mechanics": {
+      "desktop": [
+        "hero",
+        "quote initial and completed",
+        "plans",
+        "FAQ closed"
+      ],
+      "mobile": [],
+      "tablet": [
+        "hero",
+        "enquiry completed",
+        "AI callback",
+        "quote completed",
+        "service reminder completed",
+        "review completed",
+        "fit"
+      ]
+    },
+    "mortgage-brokers": {
+      "desktop": [
+        "hero",
+        "recognition",
+        "loan-review choice",
+        "fixed-rate choice completed",
+        "gone-quiet choice completed"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "trades": {
+      "desktop": [
+        "hero",
+        "quote initial"
+      ],
+      "mobile": [
+        "hero",
+        "enquiry completed",
+        "AI callback",
+        "quote completed",
+        "service reminder completed",
+        "review completed",
+        "fit",
+        "launch",
+        "team value",
+        "plans",
+        "FAQ closed",
+        "dispatch FAQ keyboard expanded",
+        "final CTA",
+        "scope note",
+        "footer"
+      ],
+      "tablet": []
+    },
+    "homepage": {
+      "desktop": [
+        "hero film loaded",
+        "industry montage",
+        "research section",
+        "inbox initial and completed",
+        "calendar completed",
+        "manual automation selection completed",
+        "integration qualification"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "platform": {
+      "desktop": [
+        "hero",
+        "orbit portrait and cards"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "crm": {
+      "desktop": [
+        "initial render only; completed hero not verified"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "customer-marketing": {
+      "desktop": [
+        "hero completed; locked copy preserved"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "ai-receptionist": {
+      "desktop": [
+        "repaired hero photograph and callback"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "pricing-review": {
+      "desktop": [
+        "hero plans",
+        "final CTA",
+        "footer"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "follow-up": {
+      "desktop": [
+        "hero"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "reactivation": {
+      "desktop": [
+        "hero"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "reviews": {
+      "desktop": [
+        "hero before last avatar repair; recheck pending"
+      ],
+      "mobile": [],
+      "tablet": []
+    },
+    "quote-follow-up": {
+      "desktop": [
+        "hero before last ledger repair"
+      ],
+      "mobile": [
+        "hero",
+        "four-row ledger top and total"
+      ],
+      "tablet": []
+    },
+    "zapla-vs-pipedrive": {
+      "desktop": [
+        "hero before last logo repair"
+      ],
+      "mobile": [],
+      "tablet": []
+    }
+  },
+  "checks": {
+    "typescript_qa3": "passed exit 0",
+    "production_build_qa3": "passed exit 0",
+    "cloudflare_5e550ed": "success",
+    "trades_mobile_overflow": "none observed; content width 360 within 375px iframe",
+    "mechanics_tablet_overflow": "none observed; content width 753 within 768px iframe",
+    "homepage_mounted_inbox_broken_images": "none after deployed repair",
+    "cosmetic_mobile_overflow": "none observed; content width 360 within 375px iframe"
+  },
+  "limitations": [
+    "full-page and clipped screenshot APIs time out; viewport screenshots used",
+    "all sections and all devices not yet checked; arrays list only observed views",
+    "reduced-motion runtime OS emulation unavailable; source guards inspected only",
+    "external booking and confirmation journey unverified; existing booking destination retained",
+    "specialist assistive-technology testing not performed",
+    "integration list, public-review matching, campaign commercial scope and sourced statistics need confirmation before unconditional approval"
+  ],
+  "pending_local_changes": [
+    "homepage illustrative workflow qualification",
+    "staff booking sender label",
+    "follow-up next business day and explicit stop/handoff"
+  ]
+}

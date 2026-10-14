@@ -47,7 +47,7 @@ const STEPS: Step[] = [
     icon: Clock,
     kind: "Wait",
     title: "No reply",
-    detail: "30 minutes",
+    detail: "Next business day",
     crowd: [FACE.daniel, FACE.priya],
   },
   {
@@ -55,7 +55,7 @@ const STEPS: Step[] = [
     icon: MessageSquare,
     kind: "Action",
     title: "Send follow-up",
-    detail: "SMS · 11:12 AM",
+    detail: "SMS · next day, 9:00 AM",
     crowd: [FACE.daniel],
   },
   {
@@ -63,7 +63,7 @@ const STEPS: Step[] = [
     icon: Check,
     kind: "Condition",
     title: "Reply detected",
-    detail: "Thursday 2:30",
+    detail: "Stop reminders · hand to James",
     crowd: [FACE.priya, FACE.sophie],
   },
 ];

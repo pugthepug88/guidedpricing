@@ -77,7 +77,7 @@ function BookingConfirmation() {
           <CalendarCheck className="h-3.5 w-3.5" strokeWidth={2.5} />
         </span>
         <div className="min-w-0">
-          <div className="text-[7px] font-black uppercase tracking-[.11em] text-[#2563FF]">Automatic booking confirmation</div>
+          <div className="text-[7px] font-black uppercase tracking-[.11em] text-[#2563FF]">Confirmation after team booking</div>
           <div className="text-[10.5px] font-black text-slate-800">Booking confirmed ✓</div>
         </div>
       </div>
@@ -177,15 +177,15 @@ export function InboxScene({ interactive = false, complete = false }: { interact
             </motion.div>
 
             <motion.div initial={false} animate={{ opacity: followupVisible ? 1 : 0, y: followupVisible ? 0 : 7, scale: followupVisible ? 1 : 0.985 }} transition={{ duration: 0.36, ease: EASE }}>
-              <OutgoingMessage time="11:12 AM" label="AUTOMATIC FOLLOW-UP">Just following up in case you missed this. I can hold Thursday afternoon for you.</OutgoingMessage>
+              <OutgoingMessage time="Next day · 9:00 AM" label="AUTOMATIC FOLLOW-UP">Did you still want to arrange a quote? Reply here and our team will help.</OutgoingMessage>
             </motion.div>
 
             <motion.div initial={false} animate={{ opacity: customerReplyVisible ? 1 : 0, y: customerReplyVisible ? 0 : 7, scale: customerReplyVisible ? 1 : 0.985 }} transition={{ duration: 0.36, ease: EASE }}>
-              <IncomingMessage time="11:16 AM">Thursday 2:30 works perfectly. Thanks!</IncomingMessage>
+              <IncomingMessage time="9:05 AM">Thursday 2:30 works perfectly. Thanks!</IncomingMessage>
             </motion.div>
 
             <motion.div initial={false} animate={{ opacity: ackVisible ? 1 : 0, y: ackVisible ? 0 : 7, scale: ackVisible ? 1 : 0.985 }} transition={{ duration: 0.36, ease: EASE }}>
-              <OutgoingMessage time="11:17 AM">Perfect, Sarah. I’ve booked you in for Thursday at 2:30 PM.</OutgoingMessage>
+              <OutgoingMessage time="9:07 AM" label="JAMES · TEAM REPLY">Perfect, Sarah. I’ve booked you in for Thursday at 2:30 PM.</OutgoingMessage>
             </motion.div>
 
             <motion.div initial={false} animate={{ opacity: bookingConfirmationVisible ? 1 : 0, y: bookingConfirmationVisible ? 0 : 7, scale: bookingConfirmationVisible ? 1 : 0.985 }} transition={{ duration: 0.4, ease: EASE }}>

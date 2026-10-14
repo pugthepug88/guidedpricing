@@ -107,6 +107,7 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
           <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#58706F]">The platform behind the follow-through</div>
           <h2 className="mt-5 text-[40px] leading-[0.98] tracking-[-0.05em] text-[#111318] sm:text-[58px] lg:text-[68px]" style={{ fontFamily: DISPLAY, fontWeight: 500 }}>One platform. Every customer step connected.</h2>
           <p className="mt-5 max-w-[760px] text-[16px] leading-[1.65] text-[#6D736F] sm:text-[17px]">Follow one enquiry from first contact to booked next step, all in one connected flow.</p>
+          <p className="mt-3 max-w-[760px] text-[12px] leading-relaxed text-[#5F655F]">Illustrative workflow: automatic messages collect the request, then James confirms the time. Booking status and reminders depend on the booking process and connections agreed for your business.</p>
         </div>
 
         <div className="mt-10 lg:mt-14">
