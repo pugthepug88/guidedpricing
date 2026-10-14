@@ -1,0 +1,52 @@
+import type { ComparisonDefinition } from './types';
+
+export const pipedriveSimple = {
+  competitor: 'Pipedrive',
+  headline: 'Compare the tools, the team cost and the setup.',
+  introduction: 'Pipedrive centres on sales pipeline work and follow-up. Zapla brings customer enquiries, messages and bookings together, with shared team access and Guided Launch.',
+  fit: [
+    { title: 'Sales pipeline first', description: 'Pipedrive gives sales teams a daily workspace for contacts, deals, activities and follow-up. Its plans add email, automation, scheduling and reporting as your needs grow.', consideration: 'Stay with a working Pipedrive setup, or choose it when its mobile apps, integrations and reports fit how your team sells.' },
+    { title: 'Customer work across the team', description: 'Zapla combines CRM and follow-up with a shared inbox, forms and calendars. It may suit teams handling enquiries, replies and bookings across several people.', consideration: 'Whether you use spreadsheets, separate inboxes or an existing CRM, Guided Launch helps shape the agreed setup around your customer work.' },
+  ],
+  rows: [
+    { id: 'team', label: 'Team price', competitor: { text: 'Per paid seat, with monthly or annual billing choices.', status: 'plan-dependent', sources: ['billing'] }, zapla: { text: 'Unlimited users in both standard plans; one monthly platform price.', status: 'included', sources: ['offer'] } },
+    { id: 'crm', label: 'CRM and pipelines', competitor: { text: 'Contacts, deals and sales pipelines across all plans.', status: 'included', sources: ['plans'] }, zapla: { text: 'Customer records and pipelines included in Follow-Through.', status: 'included', sources: ['crm', 'offer'] } },
+    { id: 'email', label: 'Email follow-up', competitor: { text: 'Growth adds email sync, sequences and automations.', status: 'plan-dependent', sources: ['plans'] }, zapla: { text: 'Inbox and agreed follow-up automations included in Follow-Through.', status: 'included', sources: ['inbox', 'platform', 'offer'] } },
+    { id: 'replies', label: 'Shared replies', competitor: { text: 'Premium adds a team inbox for shared email conversations.', status: 'plan-dependent', sources: ['plans'] }, zapla: { text: 'Shared multi-channel inbox brings customer conversations together for the team.', status: 'included', sources: ['inbox', 'offer'] } },
+    { id: 'forms', label: 'Forms and booking', competitor: { text: 'Scheduler on Growth; LeadBooster forms paid on Growth, included on Premium/Ultimate.', status: 'plan-dependent', sources: ['plans', 'leadbooster'] }, zapla: { text: 'Forms, surveys and booking calendars included; setup agreed during Guided Launch.', status: 'included', sources: ['platform', 'offer'] } },
+    { id: 'phone', label: 'SMS and business calling', competitor: { text: 'Business phone and SMS via providers; native mobile calling also available.', status: 'separate', sources: ['calling', 'mobilecalling'] }, zapla: { text: 'Phone access included; usage separate. AI Receptionist is an optional call-answering service.', status: 'separate', sources: ['phone', 'offer'] } },
+    { id: 'marketing', label: 'Ongoing marketing', competitor: { text: 'Campaigns is a separate add-on across all plans.', status: 'separate', sources: ['plans'] }, zapla: { text: 'Growth includes ongoing marketing and database reactivation, beyond Follow-Through.', status: 'plan-dependent', sources: ['offer', 'platform'] } },
+    { id: 'mobile', label: 'Mobile and integrations', competitor: { text: 'Documented iOS and Android apps, Marketplace integrations and plan-dependent reports.', status: 'documented', sources: ['plans'] }, zapla: { text: 'Discuss the mobile access, connections and reports your team needs before choosing.', status: 'scoped', sources: ['offer'] } },
+    { id: 'setup', label: 'First setup', competitor: { text: 'Onboarding is available; eligibility and scope vary with the offer.', status: 'scoped', sources: ['onboarding'] }, zapla: { text: 'Required Guided Launch shapes and sets up the agreed customer process.', status: 'scoped', sources: ['offer'] } },
+  ],
+  offer: { monthly: 399, launch: 1997, growthMonthly: 699, growthLaunch: 2997, unlimitedUsers: true, trial: false },
+  foundations: [
+    { title: 'Australian regional hosting', description: 'Australian core account data and backups stay in Australia; global login services and connected AI or communications may process overseas.', sources: ['dpa'] },
+    { title: 'Separate account database', description: 'NextGen documents a separate database for each account, keeping core customer records apart from other accounts.', sources: ['platform', 'dpa'] },
+    { title: 'Designed for responsive everyday use', description: 'NextGen describes an architecture built for responsive customer work; that is a design intention, not a tested speed advantage.', sources: ['platform'] },
+  ],
+  faqs: [
+    { question: 'Which Zapla plan should I consider?', answer: 'Start with Follow-Through for enquiries, replies, quotes and bookings. Choose Growth when ongoing marketing and database reactivation are part of the requirement.' },
+    { question: 'Is Guided Launch required?', answer: 'Yes, a new standard setup requires Guided Launch, from A$1,997 + GST for Follow-Through or A$2,997 + GST for Growth. We agree the scope before you commit.' },
+    { question: 'What if I already have a CRM?', answer: 'We agree what moves, what stays and the setup work before launch.' },
+    { question: 'Can I try Zapla for free?', answer: 'No, Zapla does not offer a free trial. Book a Call to discuss your team, the plan and the launch scope.' },
+  ],
+  sources: [
+    { id: 'plans', title: 'Pipedrive plan features', url: 'https://support.pipedrive.com/en/article/what-features-do-the-pipedrive-plans-have' },
+    { id: 'leadbooster', title: 'Pipedrive LeadBooster', url: 'https://support.pipedrive.com/en/article/leadbooster-add-on' },
+    { id: 'billing', title: 'Pipedrive billing and paid seats', url: 'https://support.pipedrive.com/en/article/how-does-pricing-work-in-pipedrive' },
+    { id: 'pricing', title: 'Current Pipedrive pricing', url: 'https://www.pipedrive.com/en/pricing' },
+    { id: 'calling', title: 'Pipedrive business calling', url: 'https://support.pipedrive.com/en/article/how-can-i-make-calls-in-pipedrive' },
+    { id: 'mobilecalling', title: 'Pipedrive mobile calling', url: 'https://support.pipedrive.com/en/article/calling-and-logging-calls-in-the-mobile-app' },
+    { id: 'onboarding', title: 'Pipedrive onboarding options', url: 'https://www.pipedrive.com/en/onboarding' },
+    { id: 'security', title: 'Pipedrive data security and hosting', url: 'https://support.pipedrive.com/en/article/how-secure-is-my-data-in-pipedrive' },
+    { id: 'crm', title: 'NextGen customer records and pipelines', url: 'https://thenextgencrm.com/features/crm/' },
+    { id: 'inbox', title: 'NextGen shared inbox', url: 'https://thenextgencrm.com/features/inbox/' },
+    { id: 'phone', title: 'NextGen phone and AI voice', url: 'https://thenextgencrm.com/features/phone/' },
+    { id: 'platform', title: 'NextGen platform features and architecture', url: 'https://thenextgencrm.com/' },
+    { id: 'dpa', title: 'NextGen data processing agreement and regional exceptions', url: 'https://thenextgencrm.com/dpa/' },
+    { id: 'offer', title: 'Zapla current plans and Guided Launch', url: '/Pricing-v3' },
+  ],
+  updated: '14 Oct 2026',
+  pricingUrl: '/Pricing-v3',
+} as const satisfies ComparisonDefinition;
