@@ -41,17 +41,11 @@ import { Route as CompareZaplaVsPipedriveV3RouteImport } from './routes/compare.
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
 import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
-import { Route as IndustriesAlliedHealthV3RouteImport } from './routes/industries/allied-health-v3'
 import { Route as IndustriesCosmeticSkinClinicsRouteImport } from './routes/industries/cosmetic-skin-clinics'
-import { Route as IndustriesCosmeticSkinClinicsV3RouteImport } from './routes/industries/cosmetic-skin-clinics-v3'
 import { Route as IndustriesDentalRouteImport } from './routes/industries/dental'
-import { Route as IndustriesDentalV3RouteImport } from './routes/industries/dental-v3'
 import { Route as IndustriesMechanicsRouteImport } from './routes/industries/mechanics'
-import { Route as IndustriesMechanicsV3RouteImport } from './routes/industries/mechanics-v3'
 import { Route as IndustriesMortgageBrokersRouteImport } from './routes/industries/mortgage-brokers'
-import { Route as IndustriesMortgageBrokersV3RouteImport } from './routes/industries/mortgage-brokers-v3'
 import { Route as IndustriesTradesRouteImport } from './routes/industries/trades'
-import { Route as IndustriesTradesV3RouteImport } from './routes/industries/trades-v3'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
 const IndexRoute = IndexRouteImport.update({
@@ -220,22 +214,10 @@ const IndustriesAlliedHealthRoute = IndustriesAlliedHealthRouteImport.update({
   path: '/industries/allied-health',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndustriesAlliedHealthV3Route =
-  IndustriesAlliedHealthV3RouteImport.update({
-    id: '/industries/allied-health-v3',
-    path: '/industries/allied-health-v3',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const IndustriesCosmeticSkinClinicsRoute =
   IndustriesCosmeticSkinClinicsRouteImport.update({
     id: '/industries/cosmetic-skin-clinics',
     path: '/industries/cosmetic-skin-clinics',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const IndustriesCosmeticSkinClinicsV3Route =
-  IndustriesCosmeticSkinClinicsV3RouteImport.update({
-    id: '/industries/cosmetic-skin-clinics-v3',
-    path: '/industries/cosmetic-skin-clinics-v3',
     getParentRoute: () => rootRouteImport,
   } as any)
 const IndustriesDentalRoute = IndustriesDentalRouteImport.update({
@@ -243,19 +225,9 @@ const IndustriesDentalRoute = IndustriesDentalRouteImport.update({
   path: '/industries/dental',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndustriesDentalV3Route = IndustriesDentalV3RouteImport.update({
-  id: '/industries/dental-v3',
-  path: '/industries/dental-v3',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndustriesMechanicsRoute = IndustriesMechanicsRouteImport.update({
   id: '/industries/mechanics',
   path: '/industries/mechanics',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndustriesMechanicsV3Route = IndustriesMechanicsV3RouteImport.update({
-  id: '/industries/mechanics-v3',
-  path: '/industries/mechanics-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndustriesMortgageBrokersRoute =
@@ -264,20 +236,9 @@ const IndustriesMortgageBrokersRoute =
     path: '/industries/mortgage-brokers',
     getParentRoute: () => rootRouteImport,
   } as any)
-const IndustriesMortgageBrokersV3Route =
-  IndustriesMortgageBrokersV3RouteImport.update({
-    id: '/industries/mortgage-brokers-v3',
-    path: '/industries/mortgage-brokers-v3',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const IndustriesTradesRoute = IndustriesTradesRouteImport.update({
   id: '/industries/trades',
   path: '/industries/trades',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndustriesTradesV3Route = IndustriesTradesV3RouteImport.update({
-  id: '/industries/trades-v3',
-  path: '/industries/trades-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
@@ -320,17 +281,11 @@ export interface FileRoutesByFullPath {
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
-  '/industries/allied-health-v3': typeof IndustriesAlliedHealthV3Route
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
-  '/industries/cosmetic-skin-clinics-v3': typeof IndustriesCosmeticSkinClinicsV3Route
   '/industries/dental': typeof IndustriesDentalRoute
-  '/industries/dental-v3': typeof IndustriesDentalV3Route
   '/industries/mechanics': typeof IndustriesMechanicsRoute
-  '/industries/mechanics-v3': typeof IndustriesMechanicsV3Route
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
-  '/industries/mortgage-brokers-v3': typeof IndustriesMortgageBrokersV3Route
   '/industries/trades': typeof IndustriesTradesRoute
-  '/industries/trades-v3': typeof IndustriesTradesV3Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -366,17 +321,11 @@ export interface FileRoutesByTo {
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
-  '/industries/allied-health-v3': typeof IndustriesAlliedHealthV3Route
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
-  '/industries/cosmetic-skin-clinics-v3': typeof IndustriesCosmeticSkinClinicsV3Route
   '/industries/dental': typeof IndustriesDentalRoute
-  '/industries/dental-v3': typeof IndustriesDentalV3Route
   '/industries/mechanics': typeof IndustriesMechanicsRoute
-  '/industries/mechanics-v3': typeof IndustriesMechanicsV3Route
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
-  '/industries/mortgage-brokers-v3': typeof IndustriesMortgageBrokersV3Route
   '/industries/trades': typeof IndustriesTradesRoute
-  '/industries/trades-v3': typeof IndustriesTradesV3Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -413,17 +362,11 @@ export interface FileRoutesById {
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
-  '/industries/allied-health-v3': typeof IndustriesAlliedHealthV3Route
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
-  '/industries/cosmetic-skin-clinics-v3': typeof IndustriesCosmeticSkinClinicsV3Route
   '/industries/dental': typeof IndustriesDentalRoute
-  '/industries/dental-v3': typeof IndustriesDentalV3Route
   '/industries/mechanics': typeof IndustriesMechanicsRoute
-  '/industries/mechanics-v3': typeof IndustriesMechanicsV3Route
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
-  '/industries/mortgage-brokers-v3': typeof IndustriesMortgageBrokersV3Route
   '/industries/trades': typeof IndustriesTradesRoute
-  '/industries/trades-v3': typeof IndustriesTradesV3Route
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -461,17 +404,11 @@ export interface FileRouteTypes {
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
-    | '/industries/allied-health-v3'
     | '/industries/cosmetic-skin-clinics'
-    | '/industries/cosmetic-skin-clinics-v3'
     | '/industries/dental'
-    | '/industries/dental-v3'
     | '/industries/mechanics'
-    | '/industries/mechanics-v3'
     | '/industries/mortgage-brokers'
-    | '/industries/mortgage-brokers-v3'
     | '/industries/trades'
-    | '/industries/trades-v3'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -507,17 +444,11 @@ export interface FileRouteTypes {
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
-    | '/industries/allied-health-v3'
     | '/industries/cosmetic-skin-clinics'
-    | '/industries/cosmetic-skin-clinics-v3'
     | '/industries/dental'
-    | '/industries/dental-v3'
     | '/industries/mechanics'
-    | '/industries/mechanics-v3'
     | '/industries/mortgage-brokers'
-    | '/industries/mortgage-brokers-v3'
     | '/industries/trades'
-    | '/industries/trades-v3'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -553,17 +484,11 @@ export interface FileRouteTypes {
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
-    | '/industries/allied-health-v3'
     | '/industries/cosmetic-skin-clinics'
-    | '/industries/cosmetic-skin-clinics-v3'
     | '/industries/dental'
-    | '/industries/dental-v3'
     | '/industries/mechanics'
-    | '/industries/mechanics-v3'
     | '/industries/mortgage-brokers'
-    | '/industries/mortgage-brokers-v3'
     | '/industries/trades'
-    | '/industries/trades-v3'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -600,17 +525,11 @@ export interface RootRouteChildren {
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
-  IndustriesAlliedHealthV3Route: typeof IndustriesAlliedHealthV3Route
   IndustriesCosmeticSkinClinicsRoute: typeof IndustriesCosmeticSkinClinicsRoute
-  IndustriesCosmeticSkinClinicsV3Route: typeof IndustriesCosmeticSkinClinicsV3Route
   IndustriesDentalRoute: typeof IndustriesDentalRoute
-  IndustriesDentalV3Route: typeof IndustriesDentalV3Route
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
-  IndustriesMechanicsV3Route: typeof IndustriesMechanicsV3Route
   IndustriesMortgageBrokersRoute: typeof IndustriesMortgageBrokersRoute
-  IndustriesMortgageBrokersV3Route: typeof IndustriesMortgageBrokersV3Route
   IndustriesTradesRoute: typeof IndustriesTradesRoute
-  IndustriesTradesV3Route: typeof IndustriesTradesV3Route
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -840,25 +759,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesAlliedHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/industries/allied-health-v3': {
-      id: '/industries/allied-health-v3'
-      path: '/industries/allied-health-v3'
-      fullPath: '/industries/allied-health-v3'
-      preLoaderRoute: typeof IndustriesAlliedHealthV3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/industries/cosmetic-skin-clinics': {
       id: '/industries/cosmetic-skin-clinics'
       path: '/industries/cosmetic-skin-clinics'
       fullPath: '/industries/cosmetic-skin-clinics'
       preLoaderRoute: typeof IndustriesCosmeticSkinClinicsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/industries/cosmetic-skin-clinics-v3': {
-      id: '/industries/cosmetic-skin-clinics-v3'
-      path: '/industries/cosmetic-skin-clinics-v3'
-      fullPath: '/industries/cosmetic-skin-clinics-v3'
-      preLoaderRoute: typeof IndustriesCosmeticSkinClinicsV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/industries/dental': {
@@ -868,25 +773,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesDentalRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/industries/dental-v3': {
-      id: '/industries/dental-v3'
-      path: '/industries/dental-v3'
-      fullPath: '/industries/dental-v3'
-      preLoaderRoute: typeof IndustriesDentalV3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/industries/mechanics': {
       id: '/industries/mechanics'
       path: '/industries/mechanics'
       fullPath: '/industries/mechanics'
       preLoaderRoute: typeof IndustriesMechanicsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/industries/mechanics-v3': {
-      id: '/industries/mechanics-v3'
-      path: '/industries/mechanics-v3'
-      fullPath: '/industries/mechanics-v3'
-      preLoaderRoute: typeof IndustriesMechanicsV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/industries/mortgage-brokers': {
@@ -896,25 +787,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesMortgageBrokersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/industries/mortgage-brokers-v3': {
-      id: '/industries/mortgage-brokers-v3'
-      path: '/industries/mortgage-brokers-v3'
-      fullPath: '/industries/mortgage-brokers-v3'
-      preLoaderRoute: typeof IndustriesMortgageBrokersV3RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/industries/trades': {
       id: '/industries/trades'
       path: '/industries/trades'
       fullPath: '/industries/trades'
       preLoaderRoute: typeof IndustriesTradesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/industries/trades-v3': {
-      id: '/industries/trades-v3'
-      path: '/industries/trades-v3'
-      fullPath: '/industries/trades-v3'
-      preLoaderRoute: typeof IndustriesTradesV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {
@@ -961,17 +838,11 @@ const rootRouteChildren: RootRouteChildren = {
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
-  IndustriesAlliedHealthV3Route: IndustriesAlliedHealthV3Route,
   IndustriesCosmeticSkinClinicsRoute: IndustriesCosmeticSkinClinicsRoute,
-  IndustriesCosmeticSkinClinicsV3Route: IndustriesCosmeticSkinClinicsV3Route,
   IndustriesDentalRoute: IndustriesDentalRoute,
-  IndustriesDentalV3Route: IndustriesDentalV3Route,
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
-  IndustriesMechanicsV3Route: IndustriesMechanicsV3Route,
   IndustriesMortgageBrokersRoute: IndustriesMortgageBrokersRoute,
-  IndustriesMortgageBrokersV3Route: IndustriesMortgageBrokersV3Route,
   IndustriesTradesRoute: IndustriesTradesRoute,
-  IndustriesTradesV3Route: IndustriesTradesV3Route,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
