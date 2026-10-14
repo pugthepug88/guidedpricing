@@ -994,3 +994,9 @@
   .mc3-return-visual .mc3-service-reminder { position: relative; order: 0; top: auto; left: auto; width: 100%; margin-bottom: 20px; }
   .mc3-return-visual .mc3-return-reply { order: 2; }
 }
+@media (max-width: 600px) {
+  .mc3-workshop-photo { object-position: 78% center; }
+}
+@media (max-width: 600px) {
+  .mc3-return-visual > img { height: auto; aspect-ratio: 4 / 3; object-position: center; }
+}

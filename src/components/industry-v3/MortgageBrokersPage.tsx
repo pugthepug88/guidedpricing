@@ -118,7 +118,7 @@ const TEAM = [
     history: "Enquiry received → Automatic acknowledgement → Client replied",
   },
   {
-    title: "Client review",
+    title: "Loan review",
     person: "Priya Shah",
     avatar: "priya" as const,
     context: "Invited to an annual review",
@@ -314,14 +314,14 @@ export function MortgageBrokersPage() {
         </div>
         <div className="mv3-moments">
           <article>
-            <span>A review is due</span>
+            <span>A loan review is due</span>
             <h3>
               Stay their
               <br />{" "}
               first call.
             </h3>
             <p>
-              Reviews can slip when work gets busy. Keep invitations moving and replies with the
+              Loan reviews can slip when work gets busy. Keep invitations moving and replies with the
               right broker.
             </p>
           </article>

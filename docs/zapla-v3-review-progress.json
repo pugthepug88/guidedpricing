@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-14",
-  "implementation_commit": "5e550edfe222d42bd3def090ee4b6ea86ddd8401",
+  "implementation_commit": "42688e12566dece53c31968b2206019e984d4bda",
   "status": "in progress; not an exhaustive sign-off; no 9/10 certification",
   "authoritative_preview": "https://guidedpricing.jinrcao.workers.dev",
   "preservation": {
@@ -30,9 +30,21 @@
         "AI callback",
         "launch pricing",
         "FAQs closed",
-        "booking FAQ keyboard expanded"
+        "booking FAQ keyboard expanded",
+        "hero",
+        "hero patient callback record",
+        "enquiry reply/stop/handoff completed",
+        "final CTA",
+        "scope note",
+        "footer"
       ],
-      "tablet": []
+      "tablet": [
+        "hero",
+        "enquiry completed",
+        "admin form completed",
+        "practitioner-approved return reminder completed",
+        "review heading and qualification"
+      ]
     },
     "cosmetic-skin-clinics": {
       "desktop": [
@@ -67,7 +79,25 @@
         "recall initial"
       ],
       "mobile": [
-        "hero"
+        "hero",
+        "recognition",
+        "enquiry completed",
+        "AI callback",
+        "registration form completed",
+        "treatment follow-up completed",
+        "recall completed",
+        "short inactive-patient section",
+        "review completed",
+        "appointment admin cards",
+        "software fit",
+        "launch",
+        "pricing",
+        "FAQ closed",
+        "existing-software FAQ keyboard expanded",
+        "remaining FAQ rows",
+        "final CTA",
+        "scope note",
+        "footer"
       ],
       "tablet": [
         "hero"
@@ -80,7 +110,23 @@
         "plans",
         "FAQ closed"
       ],
-      "mobile": [],
+      "mobile": [
+        "hero",
+        "enquiry completed",
+        "AI callback",
+        "quote completed",
+        "service reminder completed; card above photo deployed",
+        "review completed",
+        "software fit",
+        "launch",
+        "plans",
+        "starting points",
+        "FAQ closed",
+        "multi-vehicle FAQ keyboard expanded",
+        "final CTA",
+        "scope note",
+        "footer"
+      ],
       "tablet": [
         "hero",
         "enquiry completed",
@@ -99,7 +145,28 @@
         "fixed-rate choice completed",
         "gone-quiet choice completed"
       ],
-      "mobile": [],
+      "mobile": [
+        "hero",
+        "recognition",
+        "new enquiry record",
+        "loan review record selected",
+        "referral record selected",
+        "annual review completed",
+        "fixed-rate completed",
+        "referral invitation",
+        "Google review completed",
+        "unready prospect",
+        "dormant prospect selected",
+        "AI callback",
+        "software fit",
+        "launch",
+        "plans",
+        "FAQs closed",
+        "reply-and-booking FAQ keyboard expanded",
+        "final CTA",
+        "scope note",
+        "footer"
+      ],
       "tablet": []
     },
     "trades": {
@@ -223,7 +290,13 @@
     "trades_mobile_overflow": "none observed; content width 360 within 375px iframe",
     "mechanics_tablet_overflow": "none observed; content width 753 within 768px iframe",
     "homepage_mounted_inbox_broken_images": "none after deployed repair",
-    "cosmetic_mobile_overflow": "none observed; content width 360 within 375px iframe"
+    "cosmetic_mobile_overflow": "none observed; content width 360 within 375px iframe",
+    "dental_mobile_overflow": "none; content width 360 within 375px iframe",
+    "mortgage_mobile_overflow": "none; content width 360 within 375px iframe",
+    "mechanics_mobile_overflow": "none; content width 360 within 375px iframe",
+    "allied_mobile_overflow": "none; content width 360 within 375px iframe",
+    "typescript_qa6": "passed exit 0",
+    "production_build_qa6": "passed exit 0"
   },
   "limitations": [
     "full-page and clipped screenshot APIs time out; viewport screenshots used",
@@ -233,9 +306,13 @@
     "specialist assistive-technology testing not performed",
     "integration list, public-review matching, campaign commercial scope and sourced statistics need confirmation before unconditional approval"
   ],
-  "pending_local_changes": [
-    "homepage illustrative workflow qualification",
-    "staff booking sender label",
-    "follow-up next business day and explicit stop/handoff"
+  "pending_render_verification": [
+    "mortgage narrow hero card widths",
+    "explicit loan-review labels",
+    "mechanic mobile photo crops",
+    "mechanic booking request launch label",
+    "mechanic multi-vehicle FAQ copy",
+    "mechanic FAQ disclosure chevrons",
+    "allied closing call explains setup scope and cost"
   ]
 }

@@ -1601,3 +1601,9 @@
 .mv3-moments article:nth-child(2),.mv3-moments article:nth-child(3){padding-top:0}
 
 .mv3-hero{padding-top:64px}@media(max-width:800px){.mv3-hero{padding-top:36px}}
+
+/* Keep the client quote and assigned owner compact and readable on narrow screens. */
+@media (max-width: 520px) {
+  .mv3-hero-client { width: calc(100% - 24px); margin-left: 12px; }
+  .mv3-hero-owner { width: calc(100% - 48px); margin-right: 12px; }
+}

@@ -3,3 +3,7 @@
 .v3-scope-note{max-width:920px;margin:0 auto!important;padding:24px 24px 40px;font:13px/1.7 Manrope,sans-serif;color:#566058;text-align:center}
 
 @media(max-width:800px){.v3-navigation nav>a[href="/preview-v3"]{display:none}.v3-navigation nav{justify-content:flex-start;gap:30px}}
+.v3-practical summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none}
+.v3-practical summary::-webkit-details-marker{display:none}
+.v3-practical summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);flex-shrink:0;margin-right:3px}
+.v3-practical details[open]>summary::after{transform:rotate(225deg)}

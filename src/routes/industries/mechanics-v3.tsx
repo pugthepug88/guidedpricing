@@ -190,8 +190,8 @@ function MechanicsPage() {
               <p>Choose the service dates and reminder timing.</p>
             </div>
             <div className="mc3-launch-plan-row">
-              <strong>Bookings without the back-and-forth</strong>
-              <p>Test the enquiry, booking link and confirmation together.</p>
+              <strong>Clear booking requests</strong>
+              <p>Test how the enquiry reaches your team and who confirms the time.</p>
             </div>
           </div>
         </div>
@@ -204,7 +204,7 @@ function MechanicsPage() {
         <div>
           <details><summary>Will it connect to our workshop software?</summary><p>We check the available APIs, exports and permissions before agreeing a connection. An import is not a live sync. If a connection is unavailable, we agree who keeps bookings and service dates current.</p></details>
           <details><summary>What happens when a customer replies?</summary><p>The agreed reminders stop and the conversation goes to your team. Repair advice, quote changes and appointment confirmation remain with the workshop. We test replies, opt-outs and staff handoffs before launch.</p></details>
-          <details><summary>What about customers with more than one vehicle?</summary><p>Agree a vehicle-specific service date, registration and eligible recipient for each reminder. A customer’s last visit alone is not a reliable due date. Remove sold vehicles and update bookings so reminders remain relevant.</p></details>
+          <details><summary>What about customers with more than one vehicle?</summary><p>Each reminder needs the right vehicle, service date and current owner. We check that your records can distinguish vehicles before offering these reminders. A customer’s last visit alone is not a reliable service due date.</p></details>
           <details><summary>Can we start with one workflow?</summary><p>Yes. Choose the gap that matters most: enquiries, unanswered quotes or service reminders. We agree the messages, reliable trigger, stop conditions and staff owner before building it. We confirm the plan, launch scope and separate usage costs before you commit.</p></details>
         </div>
       </section>

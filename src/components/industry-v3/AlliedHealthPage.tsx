@@ -265,8 +265,8 @@ export function AlliedHealthPage() {
           <br />{" "}a clear next step.
         </h2>
         <p>
-          Book a call to map where patient enquiries get stuck and which steps Zapla can carry for
-          your team.
+          Book a call to review how reception handles patient enquiries. We’ll identify one useful
+          workflow and explain the setup scope and cost.
         </p>
         <div className="ah3-actions">
           <BookButton />
