@@ -437,11 +437,11 @@ function DentalPage() {
             Give reception, the practice manager and the people responsible for follow-up access to
             the same conversation.
           </p>
-          <p className="dn3-value-note">
-            Follow-Through: A$399/month, with Guided Launch from A$1,997. Growth: A$699/month,
-            with Guided Launch from A$2,997. Prices exclude GST. Unlimited stored contacts under
-            fair use. Communication usage and optional AI Receptionist are separate.
-          </p>
+          <div className="dn3-plan-summary" aria-label="Current dental practice platform plans">
+            <div><strong>Follow-Through</strong><span>A$399/month + GST</span><p>Guided Launch from A$1,997 + GST</p></div>
+            <div><strong>Growth</strong><span>A$699/month + GST</span><p>Guided Launch from A$2,997 + GST</p></div>
+          </div>
+          <p className="dn3-value-note">Unlimited stored contacts under fair use. Communication usage and optional AI Receptionist are separate.</p>
           <TextLink href="/pricing-review-v3">Compare current plans</TextLink>
         </div>
       </section>

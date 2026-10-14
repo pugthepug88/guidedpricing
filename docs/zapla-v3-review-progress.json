@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-14",
-  "implementation_commit": "42688e12566dece53c31968b2206019e984d4bda",
+  "implementation_commit": "c68f93cf233e13666c56cc0b99b146f4227d335b",
   "status": "in progress; not an exhaustive sign-off; no 9/10 certification",
   "authoritative_preview": "https://guidedpricing.jinrcao.workers.dev",
   "preservation": {
@@ -43,7 +43,16 @@
         "enquiry completed",
         "admin form completed",
         "practitioner-approved return reminder completed",
-        "review heading and qualification"
+        "review heading and qualification",
+        "review completed",
+        "fit",
+        "AI callback",
+        "launch and costs",
+        "FAQs closed",
+        "existing software FAQ keyboard expanded",
+        "final CTA",
+        "scope note",
+        "footer"
       ]
     },
     "cosmetic-skin-clinics": {
@@ -71,7 +80,25 @@
         "scope note",
         "footer top"
       ],
-      "tablet": []
+      "tablet": [
+        "hero",
+        "recognition",
+        "enquiry completed",
+        "AI callback",
+        "pre-visit form completed",
+        "consultation follow-up completed",
+        "reactivation completed",
+        "review completed",
+        "fit",
+        "launch",
+        "pricing",
+        "FAQ closed",
+        "clinical advice FAQ keyboard expanded",
+        "remaining FAQ rows",
+        "final CTA",
+        "scope note",
+        "footer"
+      ]
     },
     "dental": {
       "desktop": [
@@ -100,7 +127,25 @@
         "footer"
       ],
       "tablet": [
-        "hero"
+        "hero",
+        "recognition",
+        "enquiry initial and completed",
+        "AI initial and completed",
+        "registration form completed",
+        "treatment follow-up initial and completed",
+        "recall initial and completed",
+        "inactive patient follow-up",
+        "review initial capture had transient repaint tiles; settled capture checked",
+        "appointment admin",
+        "software fit",
+        "launch",
+        "team costs",
+        "FAQ closed",
+        "booking FAQ keyboard expanded",
+        "remaining FAQ rows",
+        "final CTA",
+        "scope note",
+        "footer"
       ]
     },
     "mechanics": {
@@ -167,7 +212,19 @@
         "scope note",
         "footer"
       ],
-      "tablet": []
+      "tablet": [
+        "hero",
+        "recognition",
+        "new enquiry record",
+        "loan review keyboard selected",
+        "annual review completed",
+        "fixed-rate keyboard selected and completed",
+        "referral invitation",
+        "Google review completed",
+        "unready prospect",
+        "dormant prospect keyboard selected",
+        "AI initial, intermediate and completed"
+      ]
     },
     "trades": {
       "desktop": [
@@ -191,7 +248,25 @@
         "scope note",
         "footer"
       ],
-      "tablet": []
+      "tablet": [
+        "hero two columns",
+        "enquiry initial and completed",
+        "AI initial and completed",
+        "quote initial and completed",
+        "service reminder initial and completed",
+        "reactivation text",
+        "review initial and completed",
+        "software fit",
+        "launch",
+        "team and margin value",
+        "plans",
+        "FAQ closed",
+        "status trigger FAQ keyboard expanded",
+        "remaining FAQ rows",
+        "final CTA",
+        "scope note",
+        "footer"
+      ]
     },
     "homepage": {
       "desktop": [
@@ -296,7 +371,14 @@
     "mechanics_mobile_overflow": "none; content width 360 within 375px iframe",
     "allied_mobile_overflow": "none; content width 360 within 375px iframe",
     "typescript_qa6": "passed exit 0",
-    "production_build_qa6": "passed exit 0"
+    "production_build_qa6": "passed exit 0",
+    "cloudflare_c68f93c": "success",
+    "allied_tablet_overflow": "none observed; content width 753 within 768px iframe",
+    "cosmetic_tablet_overflow": "none observed; content width 753 within 768px iframe; no broken images",
+    "dental_tablet_overflow": "none observed; content width 753 within 768px iframe; no broken images",
+    "trades_tablet_overflow": "none observed; content width 753 within 768px iframe; no broken images",
+    "typescript_qa8": "passed exit 0",
+    "production_build_qa8": "passed exit 0"
   },
   "limitations": [
     "full-page and clipped screenshot APIs time out; viewport screenshots used",
@@ -313,6 +395,12 @@
     "mechanic booking request launch label",
     "mechanic multi-vehicle FAQ copy",
     "mechanic FAQ disclosure chevrons",
-    "allied closing call explains setup scope and cost"
+    "allied closing call explains setup scope and cost",
+    "cosmetic tablet pre-visit open layout and shorter image",
+    "dental tablet registration open layout and shorter image",
+    "dental scan-friendly plan and setup rows",
+    "dental tablet CTA widths",
+    "trades fit heading natural wrapping",
+    "trades reliable quote/job status FAQ plain language"
   ]
 }

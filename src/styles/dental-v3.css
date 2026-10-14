@@ -1246,3 +1246,17 @@
 .dn3-inactive-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;padding-block:64px;border-top:1px solid #dce0d4;border-bottom:1px solid #dce0d4}.dn3-inactive-row p+p{margin-top:16px}.dn3-inactive-row .dn3-link{margin-top:20px}@media(max-width:800px){.dn3-inactive-row{grid-template-columns:1fr;gap:24px;padding-block:44px}}
 
 .dn3-hero{padding-top:64px}@media(max-width:800px){.dn3-hero{padding-top:36px}}
+/* Keep registration secondary to the enquiry and recall stories on tablet. */
+@media (min-width: 601px) and (max-width: 800px) {
+  .dn3-registration-panel { padding: 32px 0; background: transparent; border-top: 1px solid #dedfd5; border-bottom: 1px solid #dedfd5; border-radius: 0; }
+  .dn3-registration-visual > img { height: 320px; }
+}
+
+.dn3-plan-summary{display:grid;gap:18px;margin-top:26px}
+.dn3-plan-summary>div{display:grid;grid-template-columns:1fr auto;gap:8px 14px;border-top:1px solid #dedfd5;padding-top:18px}
+.dn3-plan-summary strong{font-size:15px;font-weight:600}
+.dn3-plan-summary span{font-size:15px;color:#53604a}
+.dental-v3-page .dn3-plan-summary p{grid-column:1/-1;font-size:13px;margin:0;line-height:1.6}
+@media (min-width: 601px) and (max-width: 800px) {
+  .dn3-final .dn3-button { width: auto; min-width: 145px; }
+}

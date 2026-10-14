@@ -1172,3 +1172,8 @@
 @media(min-width:801px){.sk3-admin-panel{padding:40px 48px;background:transparent;border-top:1px solid #dedfd5;border-bottom:1px solid #dedfd5;border-radius:0}.sk3-admin-scene>img{height:340px}.sk3-admin-note{left:-12px;padding:18px}}
 
 .sk3-hero{padding-top:64px}@media(max-width:800px){.sk3-hero{padding-top:36px}}
+/* A shorter open section separates the larger call and consultation stories on tablet. */
+@media (min-width: 601px) and (max-width: 800px) {
+  .sk3-admin-panel { padding: 32px 0; background: transparent; border-top: 1px solid #dedfd5; border-bottom: 1px solid #dedfd5; border-radius: 0; }
+  .sk3-admin-scene > img { height: 320px; }
+}

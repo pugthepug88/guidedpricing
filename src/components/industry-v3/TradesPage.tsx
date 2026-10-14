@@ -236,9 +236,7 @@ export function TradesPage() {
         <div>
           <Label>Your starting point</Label>
           <h2 id="fit-title">
-            Bring the customer work
-            <br />{" "}
-            into one place.
+            Bring the customer work into one place.
           </h2>
           <p className="tr3-fit-intro">
             Start with what you use today. Zapla can become your customer CRM or fill a gap
@@ -533,7 +531,7 @@ const FAQS = [
   ],
   [
     "Will Zapla know when a quote is sent or a job is completed?",
-    "A workflow needs the relevant stage or date in Zapla. It can come from a team update, an agreed import or a connection verified during Guided Launch. We do not assume a native integration, live sync or automatic access to your job software. We check the data path before enabling messages.",
+    "Zapla needs a reliable quote or job status before it sends a message. That can come from your team or a supported connection. During Guided Launch, we check how updates arrive and who keeps them current. Importing a contact list alone does not tell Zapla when a job is completed.",
   ],
   [
     "What happens when a customer replies or accepts the quote?",
