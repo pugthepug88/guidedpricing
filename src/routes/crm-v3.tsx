@@ -370,11 +370,11 @@ function CustomerWorkbench() {
               Segment by tags, pipeline stage, owner, activity or custom fields. Save the audience, then open any customer without losing their conversation or history.
             </p>
             <div className="mt-6 flex gap-6 border-b border-[#DADFDA]">
-              <button type="button" onClick={()=>setMode("segment")} className={"relative pb-3 text-[11px] font-semibold "+(mode==="segment"?"text-[#111318]":"text-[#8A918C]")}>
+              <button type="button" onClick={()=>setMode("segment")} aria-pressed={mode==="segment"} className={"relative min-h-[44px] pb-3 text-[11px] font-semibold "+(mode==="segment"?"text-[#111318]":"text-[#8A918C]")}>
                 Segment customers
                 {mode==="segment"?<span className="absolute inset-x-0 bottom-[-1px] h-[2px] bg-[#111318]" />:null}
               </button>
-              <button type="button" onClick={()=>setMode("customer")} className={"relative pb-3 text-[11px] font-semibold "+(mode==="customer"?"text-[#111318]":"text-[#8A918C]")}>
+              <button type="button" onClick={()=>setMode("customer")} aria-pressed={mode==="customer"} className={"relative min-h-[44px] pb-3 text-[11px] font-semibold "+(mode==="customer"?"text-[#111318]":"text-[#8A918C]")}>
                 Open customer
                 {mode==="customer"?<span className="absolute inset-x-0 bottom-[-1px] h-[2px] bg-[#111318]" />:null}
               </button>
@@ -408,7 +408,7 @@ function SegmentSurface() {
           <div>
             <div className="flex items-center gap-3">
               <div className="text-[17px] font-semibold text-[#26302A]">VIP quotes waiting on a reply</div>
-              <span className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#2563FF]">23 matches</span>
+              <span className="text-[8px] font-bold uppercase tracking-[0.1em] text-[#2563FF]">4 example matches</span>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {[
@@ -467,7 +467,7 @@ function SegmentSurface() {
 
         <button type="button" className="mt-4 inline-flex items-center gap-2 text-[8px] font-semibold text-[#58706F]">+ Add another condition</button>
         <div className="mt-5 flex items-center justify-between border-t border-[#DED8CE] pt-4">
-          <div className="flex items-center gap-2 text-[9px] font-semibold text-[#111318]"><span className="h-2 w-2 rounded-full bg-[#DDA34B]"/>23 customers match</div>
+          <div className="flex items-center gap-2 text-[9px] font-semibold text-[#111318]"><span className="h-2 w-2 rounded-full bg-[#DDA34B]"/>4 customers match</div>
           <span className="text-[8px] font-semibold text-[#7B847E]">Match all conditions</span>
         </div>
       </div>
@@ -543,11 +543,11 @@ function ConversationSurface() {
 
 function PipelineRail() {
   const stages = [
-    { name: "Lead", count: 4, tone: "#85845D", people: [{ name: "Alex Chen", value: "A$1,450", cell: 8 }, { name: "Lena Parker", value: "A$780", cell: 11 }] },
-    { name: "Contacted", count: 3, tone: "#BF7458", people: [{ name: "Sam Nguyen", value: "A$3,200", cell: 16 }, { name: "Ivy Harris", value: "A$950", cell: 7 }] },
+    { name: "Lead", count: 2, tone: "#85845D", people: [{ name: "Alex Chen", value: "A$1,450", cell: 8 }, { name: "Lena Parker", value: "A$780", cell: 11 }] },
+    { name: "Contacted", count: 2, tone: "#BF7458", people: [{ name: "Sam Nguyen", value: "A$3,200", cell: 16 }, { name: "Ivy Harris", value: "A$950", cell: 7 }] },
     { name: "Proposal", count: 2, tone: "#C89A5D", people: [{ name: "Mia Thompson", value: "A$2,850", cell: 9 }, { name: "Aisha Moore", value: "A$1,900", cell: 14, stale: true }] },
     { name: "Negotiation", count: 2, tone: "#58706F", people: [{ name: "Priya Shah", value: "A$520", cell: 4 }, { name: "Ben Lewis", value: "A$2,250", cell: 18 }] },
-    { name: "Closed won", count: 3, tone: "#99A36D", people: [{ name: "Daniel Brooks", value: "A$4,100", cell: 10 }, { name: "Grace Tan", value: "A$1,680", cell: 2 }] },
+    { name: "Closed won", count: 2, tone: "#99A36D", people: [{ name: "Daniel Brooks", value: "A$4,100", cell: 10 }, { name: "Grace Tan", value: "A$1,680", cell: 2 }] },
   ];
 
   return (
@@ -574,7 +574,7 @@ function PipelineRail() {
                 <div className="hidden h-7 w-px bg-[#E1E5E1] sm:block" />
                 <div>
                   <div className="text-[12px] font-semibold text-[#26313B]">Sales pipeline</div>
-                  <div className="mt-1 text-[8px] text-[#6E7984]">10 opportunities · A$18,630 open value</div>
+                  <div className="mt-1 text-[8px] text-[#6E7984]">10 opportunities · A$13,900 open value</div>
                 </div>
               </div>
               <div className="rounded-[8px] border border-[#DDE3E9] bg-white px-3 py-2 text-[8px] font-semibold text-[#59646E]">Filter pipeline</div>
