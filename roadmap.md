@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Build separate concise comparison template and Pipedrive page, preserving originals and adding the review-list entry.
+- [ ] Verify concise comparison pricing rules, desktop/mobile interactions, accessibility and evidence; record review guidance without publishing.
+
 - [ ] Build the isolated Zapla vs Pipedrive review draft with sourced comparison, workflows, costs, switching, FAQ and homepage-style CTA.
 - [ ] Verify the comparison draft on desktop/mobile, interactions, links, metadata and current build diagnostics without publishing.
 
