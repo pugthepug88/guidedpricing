@@ -6,6 +6,12 @@ export interface ComparisonDefinition {
   competitor: string;
   headline: string;
   introduction: string;
+  tableIntroduction: string;
+  tableCaption: string;
+  vendorPricingUrl: string;
+  costCaution: string;
+  foundationNote: string;
+  methodology: string;
   fit: readonly { title: string; description: string; consideration: string }[];
   rows: readonly ComparisonRow[];
   offer: { monthly: number; launch: number; growthMonthly: number; growthLaunch: number; unlimitedUsers: boolean; trial: boolean };
