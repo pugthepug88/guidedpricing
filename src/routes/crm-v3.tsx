@@ -62,11 +62,11 @@ const FAQS = [
   },
   {
     q: "How many users and contacts can I have?",
-    a: "Zapla CRM includes unlimited users and unlimited contacts. Communications and other usage-based services are separate from stored contact and user limits.",
+    a: "Zapla CRM includes unlimited users and stored contacts under fair use. Communication usage and optional services are charged separately.",
   },
   {
     q: "Where can I see pricing?",
-    a: "Pricing is kept on the dedicated Zapla pricing page so this page can stay focused on the CRM itself.",
+    a: "View plans, Guided Launch fees and separate usage charges on the pricing page. We confirm the scope and costs before setup.",
   },
 ] as const;
 
@@ -583,7 +583,7 @@ function PipelineRail() {
 
             <div className="grid gap-0 overflow-x-auto bg-[#F6F7F8] md:grid-cols-2 xl:grid-cols-5">
               {stages.map((stage, stageIndex) => (
-                <div key={stage.name} className="min-h-[330px] min-w-[220px] border-r border-[#DDE2E7] p-2.5 last:border-r-0">
+                <div key={stage.name} className="min-h-0 min-w-[220px] md:min-h-[330px] border-r border-[#DDE2E7] p-2.5 last:border-r-0">
                   <div className="flex items-center justify-between rounded-[10px] px-3 py-2.5 text-white" style={{ backgroundColor: stage.tone }}>
                     <span className="text-[9px] font-bold">{stage.name}</span>
                     <span className="text-[8px] font-semibold">{stage.count}</span>
@@ -639,12 +639,12 @@ function Automation() {
           <div className="max-w-[790px]">
             <Eyebrow dark>CRM that can act</Eyebrow>
             <h2 className="mt-5 text-[42px] font-medium leading-[.96] tracking-[-0.055em] text-white sm:text-[54px] lg:text-[64px]" style={{fontFamily:DISPLAY}}>
-              When customer state changes,
-              <span className="block text-[#74DFE1]">the next action can start.</span>
+              When a quote is sent,
+              <span className="block text-[#74DFE1]">the follow-up can start.</span>
             </h2>
           </div>
           <p className="max-w-[470px] text-[15px] font-medium leading-[1.72] text-white/58 lg:justify-self-end">
-            Stage changes, tags, timing and customer events can become workflow triggers instead of another thing someone has to remember.
+            Use a recorded quote, enquiry or due date to start an agreed workflow. Stop reminders when a customer replies or the job is resolved.
           </p>
         </Reveal>
 
@@ -721,7 +721,7 @@ function Automation() {
                   <div className="relative z-10 grid w-full gap-7 xl:grid-cols-3 xl:gap-20">
                     <BuilderNode label="Trigger" title="Pipeline stage changed" copy="Stage becomes Quote sent" tone="blue"/>
                     <BuilderNode label="Wait" title="2 days" copy="Give the customer time to decide" tone="neutral"/>
-                    <BuilderNode label="Action" title="Send follow-up" copy="Message goes out if still in stage" tone="sage"/>
+                    <BuilderNode label="Action" title="Send follow-up" copy="Only if the quote is unresolved, with no reply or opt-out" tone="sage"/>
                   </div>
                 </div>
 
