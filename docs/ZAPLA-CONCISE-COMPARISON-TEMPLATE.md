@@ -2,13 +2,13 @@
 
 Date: 14 October 2026. Review route: `/compare/zapla-vs-pipedrive-simple`.
 
-The original comparison and its existing V3 sibling are preserved. This is a separate draft, with no publication. Owner confirmed no free trial, Follow-Through A$399/month plus GST with required launch from A$1,997 plus GST, and Growth A$699/month plus GST with required launch from A$2,997 plus GST. Usage and migration stay brief by instruction.
+The original comparison is preserved. This is a separate draft with no production publication. The later cleanup of V3 siblings and viewers remains intact. Owner confirmed no free trial, Follow-Through A$399/month plus GST with required launch from A$1,997 plus GST, and Growth A$699/month plus GST with required launch from A$2,997 plus GST. Usage and migration stay brief by instruction.
 
 ## Template contract
 
-Use `src/components/compare/simple/ComparisonPage.tsx` with typed competitor data. Heading, fit, comparison introduction/caption, row text/status/source IDs, competitor pricing URL, cost caution, platform qualification, methodology, FAQs and source list are data-driven. Current team-pricing scene is suitable for competitors charging per user. For contact-based, account-based or bundled competitors, replace or disable the seat scene; do not force a seat comparison onto Mailchimp, Klaviyo or other different pricing models. Do not mechanically duplicate the Pipedrive fit or rows for another competitor.
+Use `src/components/compare/simple/ComparisonPage.tsx` with typed competitor data. Heading, fit, comparison introduction/caption, row text/status/source IDs, competitor pricing URL, cost caution, platform qualification, methodology, FAQs and source list are data-driven. Describe each competitor’s actual pricing basis, whether per user, per account or per contact. Do not force a per-user comparison onto other pricing models. Do not mechanically duplicate the Pipedrive fit or rows for another competitor.
 
-Page sequence: explicit comparison H1; two short fit summaries; one concise table; one interactive team-pricing scene; small platform foundations; four practical FAQs; call/pricing CTA; expandable sources. Preserve plan qualifications beside each claim. Required launch and usage exclusions stay visible, not hidden in sources.
+Page sequence: explicit comparison H1; two short fit summaries; one concise table; one compact pricing-model comparison; small platform foundations; four practical FAQs; call/pricing CTA; expandable sources. Preserve plan qualifications beside each claim. Required launch and usage exclusions stay visible, not hidden in sources.
 
 Pricing is a compact factual comparison of subscription models, with Zapla’s required launch visible beside its monthly price. Do not use seat selectors unless they calculate a useful, verified comparison. The removed selector changed only a seat label and did not answer a buying question. This section needs no animation. Competitor pricing headings and explanations belong in typed competitor data.
 
