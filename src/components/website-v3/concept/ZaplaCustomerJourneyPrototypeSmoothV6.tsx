@@ -15,6 +15,14 @@ const STAGE_MS = [4600, 4200, 4800, 4000, 3800] as const;
 type JourneyKey = "contacts" | "inbox" | "automations" | "opportunities" | "calendar";
 type JourneyStage = { key: JourneyKey; action: string; module: string; title: string; subtitle: string };
 
+const STAGE_DESCRIPTIONS = [
+  "Sarah’s website quote enquiry becomes one contact record with its source and assigned owner.",
+  "Zapla acknowledges Sarah’s enquiry and follows up the next business day if she has not replied. Her reply stops reminders. James confirms the booking and takes over the conversation.",
+  "A new website enquiry triggers an automatic reply. If no reply arrives by the next business day, Zapla sends a follow-up. A reply stops the reminders and hands the conversation to James.",
+  "Sarah’s quote request moves from New Enquiry to Follow-up in the same sales pipeline, with James still responsible for the next step.",
+  "After James confirms Sarah’s time, her Thursday 2:30 PM booking appears in the calendar and a confirmation is sent.",
+];
+
 const STAGES: JourneyStage[] = [
   { key: "contacts", action: "Capture", module: "Contacts", title: "Contacts", subtitle: "A website enquiry becomes one customer record" },
   { key: "inbox", action: "Respond", module: "Unified Inbox", title: "Unified Inbox", subtitle: "An immediate reply starts the conversation" },
@@ -113,8 +121,8 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
 
         <div className="mt-10 lg:mt-14">
           <div className="rounded-[18px] border border-[#DDD5CA] bg-white p-1.5 shadow-[0_28px_70px_-38px_rgba(74,56,39,.34)]">
-            <div ref={canvasRef} id="zapla-v3-journey-panel" role="tabpanel" aria-labelledby={`zapla-v3-journey-tab-${activeStage.key}`} className="h-[470px] sm:h-[560px] lg:h-[640px]">
-              <p className="sr-only">Illustrative workflow: {activeStage.subtitle}.</p>
+            <div ref={canvasRef} id="zapla-v3-journey-panel" role="tabpanel" aria-labelledby={`zapla-v3-journey-tab-${activeStage.key}`} className="h-[520px] sm:h-[560px] lg:h-[640px]">
+              <p className="sr-only">Illustrative workflow: {STAGE_DESCRIPTIONS[activeIndex]}</p>
               <div inert aria-hidden="true" className="relative h-full">
               <AppShell activeKey={activeStage.key} title={activeStage.title} subtitle={activeStage.subtitle}>
                 <div className="absolute inset-0"><JourneyScene key={`${activeStage.key}-${manualIndex != null ? "manual" : `story-${replayKey}`}`} stageIndex={activeIndex} interactive={manualIndex != null || !playing} journeyComplete={journeyCompleted} onJourneyComplete={markJourneyComplete} /></div>

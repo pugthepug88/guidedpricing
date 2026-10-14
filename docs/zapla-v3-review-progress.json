@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-14",
-  "implementation_commit": "3f2f9f70d8c85e9727a8164774f83f72851c659c",
+  "implementation_commit": "65f7fd0c1fe15db16d9ad7bffb34cb0a63d82ce2",
   "status": "in progress; not an exhaustive sign-off; no 9/10 certification",
   "authoritative_preview": "https://guidedpricing.jinrcao.workers.dev",
   "preservation": {
@@ -412,7 +412,15 @@
     "production_build_qa13": "passed exit 0",
     "homepage_keyboard_video_pause": "all 11 mounted videos paused; resume observed",
     "homepage_journey_keyboard": "ArrowRight selects Unified Inbox; visible blue focus outline",
-    "homepage_mobile_hero": "both CTAs visible in first screen after higher copy placement"
+    "homepage_mobile_hero": "both CTAs visible in first screen after higher copy placement",
+    "cloudflare_65f7fd0": "success",
+    "typescript_qa14": "passed exit 0",
+    "production_build_qa14": "passed exit 0",
+    "typescript_qa15": "passed exit 0",
+    "production_build_qa15": "passed exit 0",
+    "mechanics_mobile_photos": "hero mechanic and service reminder both people visible",
+    "mechanics_tablet_cta": "compact side-by-side buttons verified",
+    "homepage_research_mobile": "79% Australian and 80% US survey cards, source links and non-Zapla qualification visible"
   },
   "limitations": [
     "full-page and clipped screenshot APIs time out; viewport screenshots used",
@@ -449,7 +457,12 @@
     "Quiet renovation enquiry date and illustrative review label",
     "Mobile and tablet six-role avatar grid",
     "Finite AI story states and readable mobile context records",
-    "Guided Launch scope and pricing link"
+    "Guided Launch scope and pricing link",
+    "Mobile contact record and sales stage replace clipped tables",
+    "Full inbox stop/handoff line in taller mobile canvas",
+    "Automation stop label wraps fully",
+    "Screen-reader text explains each illustrative journey stage",
+    "Shorter mobile research diagram"
   ],
   "latest_observations": [
     "All six industry pages traversed hero to footer on mobile and tablet; only representative FAQ expansions checked.",

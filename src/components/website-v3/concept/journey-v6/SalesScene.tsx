@@ -78,7 +78,14 @@ export function SalesScene({ interactive = false }: { interactive?: boolean }) {
   });
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden bg-slate-50/70">
+    <>
+      <div className="absolute inset-0 flex flex-col gap-5 bg-slate-50 px-4 py-5 sm:hidden">
+        <div className="text-[12px] font-bold text-slate-700">Sales pipeline · Sarah’s enquiry</div>
+        <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4"><RevenueAvatar size={36} /><div><div className="text-[15px] font-semibold text-slate-900">Sarah Nguyen</div><div className="mt-1 text-[12px] text-slate-600">Quote request · Website enquiry</div></div></div>
+        <div className="space-y-3">{["New Enquiry", "Follow-up", "Booking confirmed"].map((label,index)=><div key={label} className={cn("flex items-center gap-3 rounded-xl border px-4 py-3 text-[13px] font-semibold", index === (moved ? 1 : 0) ? "border-blue-400 bg-blue-50 text-blue-800" : "border-slate-200 bg-white text-slate-600")}><span className="text-[11px]">0{index+1}</span>{label}</div>)}</div>
+        <div className="mt-auto border-t border-slate-200 pt-4 text-[12px] leading-relaxed text-slate-700"><strong>Owner: James.</strong> The same enquiry and conversation stay together as the next step progresses.</div>
+      </div>
+      <div className="absolute inset-0 hidden flex-col overflow-hidden bg-slate-50/70 sm:flex">
       <div className="flex items-center gap-3 border-b border-slate-200/80 bg-white/85 px-3.5 py-2"><span className="text-[12px] font-bold tracking-tight text-slate-700">Sales Pipeline</span><div className="ml-auto flex items-center gap-2"><span className="text-[10px] font-medium uppercase tracking-[0.08em] text-slate-400">Open pipeline</span><span className="text-[13px] font-extrabold tracking-tight text-slate-900">$47,200</span></div></div>
       <div className="zapla-scroll-hide min-h-0 flex-1 overflow-x-auto overflow-y-hidden">
         <LayoutGroup id="section4-native-sales">
@@ -95,5 +102,6 @@ export function SalesScene({ interactive = false }: { interactive?: boolean }) {
       </div>
       {moved ? <motion.div className="absolute bottom-4 right-4 z-20 flex items-center gap-2 rounded-lg border border-zapla-blue/30 bg-white px-2.5 py-1.5 shadow-[0_14px_28px_-14px_rgba(15,23,42,.35)]" initial={interactive ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}><span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500 text-white"><Check className="h-2.5 w-2.5" strokeWidth={3.5} /></span><span className="text-[10px] font-medium text-slate-500">Stage updated</span><span className="text-[11px] font-extrabold tracking-tight text-teal-700">Follow-up</span></motion.div> : null}
     </div>
+    </>
   );
 }

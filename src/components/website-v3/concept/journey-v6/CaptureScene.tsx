@@ -33,7 +33,17 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
   }, [interactive]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#F8FAFF]">
+    <>
+      <div className="absolute inset-0 flex flex-col gap-5 bg-slate-50 px-4 py-5 sm:hidden">
+        <div className="flex items-center gap-2 text-[12px] font-semibold text-blue-700"><Globe2 className="h-4 w-4" /> New website enquiry</div>
+        <div className="rounded-xl border border-slate-200 bg-white p-4">
+          <SarahIdentity detail="sarah.nguyen@example.com" size={40} />
+          <dl className="mt-5 space-y-3 text-[12px] text-slate-700"><div className="flex justify-between gap-3"><dt>Source</dt><dd className="font-semibold">Website</dd></div><div className="flex justify-between gap-3"><dt>Owner</dt><dd className="font-semibold">James</dd></div><div className="flex justify-between gap-3"><dt>Stage</dt><dd className="font-semibold">New Enquiry</dd></div></dl>
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-4"><div className="text-[10px] font-semibold uppercase tracking-wide text-slate-600">Sarah’s message</div><p className="mt-3 text-[14px] leading-relaxed text-slate-800">“Hi, I’m interested in getting a quote. Are you available Thursday afternoon?”</p></div>
+        <div className="mt-auto flex items-center gap-2 text-[12px] font-semibold text-emerald-700"><Check className="h-4 w-4" /> Customer record created</div>
+      </div>
+      <div className="absolute inset-0 hidden overflow-hidden bg-[#F8FAFF] sm:block">
       <div className="absolute inset-0 saturate-[.82]">
         <SceneContacts phase={0} elapsedMs={0} reduced />
       </div>
@@ -75,7 +85,7 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
       >
         <div className="grid h-full w-full items-center gap-2 px-3 py-[9px]" style={{ gridTemplateColumns: CONTACT_COLS }}>
           <span className="flex h-[13px] w-[13px] rounded-[3px] border border-slate-300 bg-white" />
-          <SarahIdentity detail="sarah.nguyen@email.com" />
+          <SarahIdentity detail="sarah.nguyen@example.com" />
           <span className="truncate text-[11px] tabular-nums text-slate-500">0412 481 229</span>
           <div className="flex min-w-0 flex-wrap gap-1">
             <span className="rounded-full bg-slate-100 px-2 py-[2px] text-[10px] font-bold text-slate-600">New enquiry</span>
@@ -123,7 +133,7 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
               <div className="text-[12.5px] font-bold tracking-tight text-slate-900">Sarah Nguyen</div>
               <div className="mt-1.5 flex items-center gap-1.5 text-[9.5px] font-medium text-slate-400">
                 <Mail className="h-3 w-3" />
-                <span className="truncate">sarah.nguyen@email.com</span>
+                <span className="truncate">sarah.nguyen@example.com</span>
               </div>
               <div className="mt-1 flex items-center gap-1.5 text-[9.5px] font-medium text-slate-400">
                 <Phone className="h-3 w-3" />
@@ -152,5 +162,6 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
         </motion.div>
       ) : null}
     </div>
+    </>
   );
 }

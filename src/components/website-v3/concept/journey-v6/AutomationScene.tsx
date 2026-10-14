@@ -173,7 +173,7 @@ function Node({ step, state, interactive }: { step: Step; state: NodeState; inte
         <div className="min-w-0 flex-1 pr-8">
           <div className="text-[8.5px] font-bold uppercase tracking-[0.12em] text-slate-400">{kind}</div>
           <div className="truncate text-[12.5px] font-bold leading-tight tracking-tight text-slate-900">{title}</div>
-          <div className="mt-1 truncate text-[9px] font-semibold text-slate-400">{detail}</div>
+          <div className="mt-1 whitespace-normal text-[10px] leading-[1.35] font-semibold text-slate-600">{detail}</div>
         </div>
       </div>
 

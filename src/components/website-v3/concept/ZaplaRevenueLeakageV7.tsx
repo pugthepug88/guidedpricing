@@ -307,7 +307,7 @@ function MobileStream() {
 
   return (
     <div
-      className="relative mx-auto h-[520px] w-full max-w-[390px] overflow-visible sm:hidden"
+      className="relative mx-auto h-[400px] w-full max-w-[390px] overflow-visible sm:hidden"
       aria-hidden="true"
     >
       <svg
