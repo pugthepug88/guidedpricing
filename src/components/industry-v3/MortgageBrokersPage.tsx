@@ -36,9 +36,9 @@ function Sender({ children }: { children: ReactNode }) {
     </div>
   );
 }
-type Client = "priya" | "alex" | "sam";
+type Client = "priya" | "alex" | "sam" | "lina";
 function Avatar({ person }: { person: Client }) {
-  return <span className={`mv3-avatar mv3-avatar-${person}`} aria-hidden="true" />;
+  return <span className={`mv3-avatar mv3-avatar-${person}`} style={person === "lina" ? { backgroundPosition: "0% 0%" } : undefined} aria-hidden="true" />;
 }
 function Choice({
   options,
@@ -285,16 +285,16 @@ export function MortgageBrokersPage() {
             fetchPriority="high"
           />
           <div className="mv3-glass mv3-hero-client mv3-client-card">
-            <Avatar person="priya" />
+            <Avatar person="lina" />
             <div>
-              <strong>Priya Shah · Returning client</strong>
+              <strong>Lina Chen · Returning client</strong>
               <p>“You helped us with our first home. Can we talk about our next move?”</p>
             </div>
           </div>
           <div className="mv3-glass mv3-hero-owner">
             <div className="mv3-human-owner">Client record · Assigned to Daniel</div>
             <p>
-              Priya’s reply and client history.
+              Lina’s reply and client history.
               <br />{" "}
               <strong>Ready for the next conversation.</strong>
             </p>
