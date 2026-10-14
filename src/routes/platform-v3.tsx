@@ -430,7 +430,6 @@ function FinalCta() {
           style={{ fontFamily: DISPLAY }}
         >
           <span className="block lg:whitespace-nowrap">See how Zapla fits around your business.</span>
-          <span className="block lg:whitespace-nowrap">Keep every customer step connected.</span>
         </h2>
 
         <p className="mx-auto mt-4 max-w-[760px] text-[15px] leading-[1.65] text-[#5F655F] sm:text-[16px]">
