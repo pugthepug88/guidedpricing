@@ -366,7 +366,8 @@ function MomentBody({ moment }: { moment: Moment }) {
 
 function StaticContextScene() {
   return (
-    <div className="mx-auto mt-12 max-w-[980px]">
+    <div className="platform-v3-static mx-auto mt-12 max-w-[980px]">
+      <style>{`.platform-v3-static [class*="text-[7"], .platform-v3-static [class*="text-[8"], .platform-v3-static [class*="text-[9"] { font-size: 12px; line-height: 1.5; } .platform-v3-static .truncate { white-space: normal; overflow: visible; }`}</style>
       <div className="relative mx-auto h-[350px] w-[270px]">
         <div className="absolute inset-6 rounded-full bg-[radial-gradient(circle,rgba(37,99,255,0.08),rgba(214,150,114,0.035)_42%,transparent_72%)]" />
         <div className="relative flex h-full flex-col items-center justify-center text-center"><HomepageAvatar size={144} cell={0}/><p className="mt-5 text-[24px] font-semibold tracking-[-.035em]">Emma Wilson</p><p className="mt-2 text-[14px] leading-relaxed text-[#5F655F]">One customer record.<br />Their history and next step.</p></div>
