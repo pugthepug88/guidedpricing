@@ -286,6 +286,16 @@ html {
 }
 
 :root {
+  --comparison-paper: oklch(0.990 0.003 106.4);
+  --comparison-warm: oklch(0.968 0.009 85.9);
+  --comparison-ink: oklch(0.187 0.011 266);
+  --comparison-green: oklch(0.276 0.019 182);
+  --comparison-blue: oklch(0.557 0.244 264);
+  --comparison-muted: oklch(0.472 0.014 145);
+  --comparison-line: oklch(0.867 0.012 96);
+  --comparison-coral: oklch(0.522 0.111 40);
+  --comparison-gold: oklch(0.755 0.119 75);
+  --comparison-dark-note: oklch(0.824 0.019 145);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
