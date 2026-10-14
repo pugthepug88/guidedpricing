@@ -57,7 +57,7 @@ export function AppShell({
     <div className="flex h-full w-full overflow-hidden rounded-[16px] bg-white">
       {/* light icon-only rail */}
       <div className="hidden w-[56px] shrink-0 flex-col items-center gap-1.5 border-r border-slate-200/80 bg-[#FBFCFF] py-3 shadow-[1px_0_0_rgba(15,23,42,0.02)] sm:flex">
-        <img src={"/concept/zapla-logo-dark.svg"} alt="Zapla" className="mb-2.5 h-7 w-7 rounded-[9px]" />
+        <span className="mb-2.5 block h-7 w-7 shrink-0 overflow-hidden" role="img" aria-label="Zapla"><img src="/concept/zapla-logo-dark.svg" alt="" aria-hidden="true" className="h-7 w-auto max-w-none" /></span>
         {RAIL.map(({ icon: Icon, key, label }) => {
           const on = key === activeKey;
           return (

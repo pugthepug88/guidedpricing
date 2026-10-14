@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type MutableRefObject, type RefObject } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { motion, useMotionValue, useReducedMotion, useInView, useSpring, useTransform, type MotionValue } from "motion/react";
+import { ArrowRight, Pause, Play } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ZaplaPlatformShowcase } from "@/components/website-v3/concept/ZaplaPlatformShowcase";
 
@@ -329,7 +329,7 @@ function FilmMedia({ f, play, reduced, mobile }: { f: Film; play: boolean; reduc
       data-support-video={f.key}
       poster={f.poster}
       muted
-      autoPlay={!reduced}
+      autoPlay={!reduced && play}
       playsInline
       loop={false}
       preload="metadata"
@@ -444,6 +444,8 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
   mobile: boolean;
   armed: boolean;
 }) {
+  const tileRef = useRef<HTMLDivElement>(null);
+  const tileVisible = useInView(tileRef, { amount: 0.01 });
   const f = support(tile.key);
   const from = tile.from ?? SUPPORT_IN;
   const e: Entrance = tile.enter ?? { x: 0, y: 12, scale: 0.9, rotate: 0, span: 0.06 };
@@ -459,6 +461,7 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
 
   return (
     <motion.div
+      ref={tileRef}
       data-support-tile={tile.key}
       className="absolute overflow-hidden rounded-[14px] bg-[#0A0E14]"
       style={{
@@ -475,7 +478,7 @@ function SupportTile({ tile, p, reduced, mobile, armed }: {
         boxShadow: "0 18px 46px -18px rgba(0,0,0,.62)",
       }}
     >
-      <FilmMedia f={f} play={armed} reduced={reduced} mobile={mobile} />
+      <FilmMedia f={f} play={armed && tileVisible} reduced={reduced} mobile={mobile} />
       <span className="pointer-events-none absolute inset-0 bg-[#070B14]/[0.07]" />
     </motion.div>
   );
@@ -539,7 +542,7 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
         <SupportTile key={tile.key} tile={tile} p={p} reduced={reduced} mobile={mobile} armed={armed} />
       ))}
       <motion.div
-        className={mobile ? "absolute left-[6%] top-[45%] z-[40] w-[84%]" : "absolute left-[37.5%] top-[42%] z-[40] w-[35%]"}
+        className={mobile ? "absolute left-[6%] top-[43%] z-[40] w-[60%]" : "absolute left-[37.5%] top-[42%] z-[40] w-[35%]"}
         style={{ opacity: statementOpacity, y: statementY }}
       >
         <motion.h2
@@ -548,7 +551,7 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
             : "text-[41px] leading-[0.97] tracking-[-0.05em] 2xl:text-[50px] 2xl:leading-[0.95]"}
           style={{ color: statementColor, fontFamily: DISPLAY, fontWeight: 500, textShadow: "0 2px 30px rgba(0,0,0,.78)" }}
         >
-          Different work.<br />{" "}Same follow-through.
+          Different work.<br />{mobile ? <>Same<br />follow-through.</> : <>Same follow-through.</>}
         </motion.h2>
         <motion.div
           className="mt-3 text-[10px] font-semibold uppercase tracking-[0.19em]"
@@ -564,6 +567,7 @@ function RecognitionCollage({ p, reduced, mobile, armed }: {
 function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const reduced = !!useReducedMotion();
+  const [paused, setPaused] = useState(false);
   const { p, stageVisible, collageArmed } = useStoryScroll(wrap);
   const smoothP = useSpring(p, {
     stiffness: 72,
@@ -571,7 +575,7 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
     mass: 0.5,
     restDelta: 0.0008,
   });
-  const { videos, layers } = useHeroSequencer(stageVisible, reduced, smoothP);
+  const { videos, layers } = useHeroSequencer(stageVisible && !paused, reduced, smoothP);
   const anchor = useMemo(() => (mobile ? MOBILE_ANCHOR : DESKTOP_ANCHOR), [mobile]);
 
   const heroOpacity = useTransform(smoothP, [0, 0.06, 0.25], [1, 1, 0]);
@@ -581,6 +585,9 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
     <div ref={wrap} data-v5-stage className={mobile ? "relative h-[390vh]" : "relative h-[380vh]"}>
       <div className="sticky top-0 h-screen overflow-hidden bg-[#080B10]">
         <HeroAnchorCard tile={anchor} p={smoothP} mobile={mobile} videos={videos} layers={layers} />
+        {!reduced && <button type="button" onClick={() => setPaused(value => !value)} aria-pressed={paused} aria-label={paused ? "Play background videos" : "Pause background videos"} className="absolute right-4 top-4 z-[50] grid h-11 w-11 place-items-center rounded-full border border-white/35 bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+          {paused ? <Play size={18} aria-hidden="true"/> : <Pause size={18} aria-hidden="true"/>}
+        </button>}
 
         <motion.div className="pointer-events-none absolute inset-0 z-[28]" style={{ opacity: gradeOpacity }}>
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,8,13,.78)_0%,rgba(5,8,13,.54)_34%,rgba(5,8,13,.16)_64%,rgba(5,8,13,.36)_100%)]" />
@@ -589,14 +596,14 @@ function StoryStage({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
 
         <motion.div
           className={mobile
-            ? "absolute left-[6%] right-[6%] top-[46%] z-[32]"
+            ? "absolute left-[6%] right-[6%] top-[32%] z-[32]"
             : "absolute left-[5.5%] top-1/2 z-[32] w-[48%] -translate-y-1/2"}
           style={{ opacity: heroOpacity }}
         >
           <HeroCopy mobile={mobile} eyebrow={eyebrow} />
         </motion.div>
 
-        <RecognitionCollage p={smoothP} reduced={reduced} mobile={mobile} armed={stageVisible && collageArmed} />
+        <RecognitionCollage p={smoothP} reduced={reduced} mobile={mobile} armed={stageVisible && collageArmed && !paused} />
       </div>
     </div>
   );

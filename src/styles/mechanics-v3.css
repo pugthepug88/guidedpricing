@@ -1000,3 +1000,6 @@
 @media (max-width: 600px) {
   .mc3-return-visual > img { height: auto; aspect-ratio: 4 / 3; object-position: center; }
 }
+@media (min-width: 601px) and (max-width: 900px) {
+  .mc3-final .mc3-button { width: auto; min-width: 145px; }
+}

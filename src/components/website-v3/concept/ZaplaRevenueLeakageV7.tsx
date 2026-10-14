@@ -66,20 +66,23 @@ const PROOF = [
   {
     label: "Never asked",
     stat: "64%",
-    text: "of businesses don't ask the lead to buy or book.",
+    text: "of businesses in Invoca’s analysis did not ask the lead to buy or book.",
     source: "Invoca · 2026",
+    url: "https://www.invoca.com/blog/5-insights-60-million-phone-conversations",
   },
   {
     label: "Too slow",
     stat: "79%",
-    text: "would take their business elsewhere after poor or slow service.",
-    source: "ServiceNow / Lonergan Research · Australian consumers",
+    text: "of surveyed Australians said they would switch after poor or slow service.",
+    source: "ServiceNow / Lonergan · 2025 · Australia",
+    url: "https://newsroom.servicenow.com/press-releases/details/2025/Australian-wait-times-soar-to-123-million-hours-on-hold/default.aspx",
   },
   {
     label: "Reviews shape choice",
-    stat: "89%",
-    text: "are more likely to use a local business that responds to its reviews.",
-    source: "BrightLocal · 2025",
+    stat: "80%",
+    text: "of US respondents said they were likely to use a business that replies to every review.",
+    source: "BrightLocal · 2026 · US adults",
+    url: "https://www.brightlocal.com/research/local-consumer-review-survey/",
   },
 ] as const;
 
@@ -410,7 +413,7 @@ export function ZaplaRevenueLeakageV7() {
 
   return (
     <section
-      aria-label="Where revenue gets lost"
+      aria-label="Customer experience research"
       className="bg-zapla-paper text-zapla-ink"
     >
       <div className="mx-auto max-w-[1240px] px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
@@ -420,30 +423,30 @@ export function ZaplaRevenueLeakageV7() {
               className="text-[10px] font-semibold uppercase tracking-[0.3em] text-zapla-muted"
               style={{ fontFamily: MONO }}
             >
-              Where revenue gets lost
+              Customer experience research
             </p>
             <h2
               className="mt-6 text-[36px] leading-[0.98] tracking-[-0.05em] sm:text-[48px] lg:text-[60px] lg:leading-[0.96]"
               style={{ fontFamily: DISPLAY, fontWeight: 500 }}
             >
-              44% of inbound callers don&apos;t reach a person.
+              44% of calls didn’t reach a person.
               <br className="hidden lg:block" />
-              <span className="text-zapla-muted2"> That&apos;s only the first step lost.</span>
+              <span className="text-zapla-muted2"> A reply still needs a next step.</span>
             </h2>
             <p className="mx-auto mt-6 max-w-[760px] text-[16px] leading-[1.58] text-zapla-muted sm:text-[18px]">
-              Missed calls are only the start. Leads aren&apos;t asked to book.
-              Slow service sends customers elsewhere. Review responses influence
-              which local business customers choose.
+              When the next step is unclear, an enquiry can stall. Timely replies,
+              useful follow-up and review responses help customers decide what to do next.
             </p>
             <p
-              className="mt-4 text-[9px] uppercase tracking-[0.16em] text-zapla-muted2"
+              className="mt-4 text-[12px] leading-relaxed text-[#5F655F]"
               style={{ fontFamily: MONO }}
             >
-              Invoca · 2026 · 70M+ calls
+              Invoca · 2026 · 70M+ calls across its customer base
             </p>
           </header>
         </Reveal>
 
+        <p className="mt-7 text-center text-[12px] leading-relaxed text-[#5F655F]">Illustrative customer flow</p>
         <FadeFilterVisual />
 
         <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-3">
@@ -477,16 +480,14 @@ export function ZaplaRevenueLeakageV7() {
                 <p className="mx-auto mt-2 max-w-[280px] text-[13px] leading-[1.55] text-zapla-ink/65">
                   {proof.text}
                 </p>
-                <p
-                  className="mt-auto pt-6 text-[8px] uppercase leading-[1.45] tracking-[0.12em] text-zapla-ink/45"
-                  style={{ fontFamily: MONO }}
-                >
-                  {proof.source}
-                </p>
+                <a href={proof.url} target="_blank" rel="noopener noreferrer" className="mt-auto flex min-h-11 items-end justify-center pt-5 text-[12px] leading-[1.5] text-[#5F655F] underline decoration-[#8E968C] underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2563FF]">
+                  {proof.source} ↗
+                </a>
               </article>
             </Reveal>
           ))}
         </div>
+        <p className="mx-auto mt-5 max-w-[800px] text-center text-[12px] leading-relaxed text-[#5F655F]">Industry research, not Zapla customer results. These studies cover different markets and samples; use your own enquiry data to assess the gap.</p>
       </div>
     </section>
   );

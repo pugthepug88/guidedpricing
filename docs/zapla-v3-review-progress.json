@@ -1,6 +1,6 @@
 {
   "updated": "2026-10-14",
-  "implementation_commit": "c68f93cf233e13666c56cc0b99b146f4227d335b",
+  "implementation_commit": "b0b0c1297d9575059589cccfac9fd458f68c361b",
   "status": "in progress; not an exhaustive sign-off; no 9/10 certification",
   "authoritative_preview": "https://guidedpricing.jinrcao.workers.dev",
   "preservation": {
@@ -179,7 +179,12 @@
         "quote completed",
         "service reminder completed",
         "review completed",
-        "fit"
+        "fit",
+        "launch booking requests label",
+        "plans",
+        "multi-vehicle FAQ keyboard expanded",
+        "final CTA",
+        "footer"
       ]
     },
     "mortgage-brokers": {
@@ -223,7 +228,13 @@
         "Google review completed",
         "unready prospect",
         "dormant prospect keyboard selected",
-        "AI initial, intermediate and completed"
+        "AI initial, intermediate and completed",
+        "fit",
+        "launch",
+        "plans",
+        "integration FAQ keyboard expanded",
+        "final CTA",
+        "footer"
       ]
     },
     "trades": {
@@ -378,7 +389,10 @@
     "dental_tablet_overflow": "none observed; content width 753 within 768px iframe; no broken images",
     "trades_tablet_overflow": "none observed; content width 753 within 768px iframe; no broken images",
     "typescript_qa8": "passed exit 0",
-    "production_build_qa8": "passed exit 0"
+    "production_build_qa8": "passed exit 0",
+    "typescript_qa10": "passed exit 0",
+    "production_build_qa10": "passed exit 0",
+    "cloudflare_b0b0c12": "success"
   },
   "limitations": [
     "full-page and clipped screenshot APIs time out; viewport screenshots used",
@@ -401,6 +415,20 @@
     "dental scan-friendly plan and setup rows",
     "dental tablet CTA widths",
     "trades fit heading natural wrapping",
-    "trades reliable quote/job status FAQ plain language"
+    "trades reliable quote/job status FAQ plain language",
+    "Homepage higher mobile hero proposition and CTA",
+    "Homepage pause and offscreen video behaviour",
+    "Homepage mobile montage text does not cover faces",
+    "Homepage current research source links and sample qualifications",
+    "Homepage visible keyboard journey tabs and inert illustrative controls",
+    "Homepage journey rail label wrapping",
+    "Product sidebar recognisable logo icon",
+    "Mechanics tablet CTA widths"
+  ],
+  "latest_observations": [
+    "All six industry pages traversed hero to footer on mobile and tablet; only representative FAQ expansions checked.",
+    "Dental tablet CTA and registration layout, skin tablet registration layout and dental mobile plan rows visually verified after b0b0c12.",
+    "Homepage mobile rail labels overlap; corrected label wrapping pending deployment.",
+    "External Pipedrive concise comparison added concurrently and preserved; not counted as a revised V3 page."
   ]
 }

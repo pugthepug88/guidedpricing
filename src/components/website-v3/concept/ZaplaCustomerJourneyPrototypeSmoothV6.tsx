@@ -32,10 +32,10 @@ function JourneyScene({ stageIndex, interactive = false, journeyComplete = false
   return <CalendarScene interactive={interactive} onConfirmed={onJourneyComplete} />;
 }
 
-function JourneyRail({ activeIndex, onSelect }: { activeIndex: number; onSelect: (index: number) => void }) {
+function JourneyRail({ activeIndex, onSelect, tabRefs, onTabKeyDown }: { activeIndex: number; onSelect: (index: number) => void; tabRefs: { current: Array<HTMLButtonElement | null> }; onTabKeyDown: (event: KeyboardEvent<HTMLButtonElement>, index: number) => void }) {
   const progress = (activeIndex / (STAGES.length - 1)) * 80;
   return (
-    <div className="relative mt-5 pt-4">
+    <div className="relative mt-5 pt-4" role="tablist" aria-label="Customer journey">
       <div className="pointer-events-none absolute left-[10%] right-[10%] top-[28px] h-px bg-[#D8CFC3]" />
       <motion.div className="pointer-events-none absolute left-[10%] top-[28px] h-[2px] origin-left bg-[#2563FF]" animate={{ width: `${progress}%` }} transition={{ duration: 0.75, ease: EASE }} />
       <div className="relative grid grid-cols-5 gap-2">
@@ -43,9 +43,9 @@ function JourneyRail({ activeIndex, onSelect }: { activeIndex: number; onSelect:
           const completed = index < activeIndex;
           const active = index === activeIndex;
           return (
-            <button key={stage.key} type="button" onClick={() => onSelect(index)} className="group flex min-w-0 flex-col items-center text-center">
+            <button key={stage.key} id={`zapla-v3-journey-tab-${stage.key}`} ref={element => { tabRefs.current[index] = element; }} type="button" role="tab" aria-label={stage.module} aria-selected={active} aria-controls="zapla-v3-journey-panel" tabIndex={active ? 0 : -1} onFocus={() => onSelect(index)} onKeyDown={event => onTabKeyDown(event, index)} onClick={() => onSelect(index)} className="group flex min-w-0 flex-col items-center text-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2563FF]">
               <span className={cn("relative z-10 flex h-6 w-6 items-center justify-center rounded-full border text-[8px] font-black transition-colors", active && "border-[#2563FF] bg-[#2563FF] text-white", completed && "border-[#BFC6AE] bg-[#DCE0CC] text-[#56604D]", !active && !completed && "border-[#D5CCBF] bg-[#F7F4EE] text-[#998F83]")}>{completed ? <Check className="h-3 w-3" strokeWidth={3} /> : `0${index + 1}`}</span>
-              <div className="mt-2 min-w-0"><div className={cn("text-[8px] font-black uppercase tracking-[.12em]", active ? "text-[#2563FF]" : completed ? "text-[#69735D]" : "text-[#9B9288]")}>{stage.action}</div><div className="mt-0.5 truncate text-[11px] font-semibold text-[#4E4A45]">{stage.module}</div></div>
+              <div className="mt-2 w-full min-w-0"><div className={cn("text-[9px] font-black uppercase tracking-[.04em]", active ? "text-[#2563FF]" : completed ? "text-[#69735D]" : "text-[#9B9288]")}>{stage.action}</div><div className="mt-0.5 min-h-7 whitespace-normal text-[11px] leading-[14px] font-semibold text-[#4E4A45]">{stage.module}</div></div>
             </button>
           );
         })}
@@ -57,7 +57,8 @@ function JourneyRail({ activeIndex, onSelect }: { activeIndex: number; onSelect:
 export function ZaplaCustomerJourneyPrototypeSmoothV6() {
   const reduced = !!useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
-  const inView = useInView(sectionRef, { amount: 0.3, once: false });
+  const canvasRef = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(canvasRef, { amount: 0.5, once: false });
   const [stageIndex, setStageIndex] = useState(0);
   const [manualIndex, setManualIndex] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
@@ -112,17 +113,20 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
 
         <div className="mt-10 lg:mt-14">
           <div className="rounded-[18px] border border-[#DDD5CA] bg-white p-1.5 shadow-[0_28px_70px_-38px_rgba(74,56,39,.34)]">
-            <div className="h-[470px] sm:h-[560px] lg:h-[640px]">
+            <div ref={canvasRef} id="zapla-v3-journey-panel" role="tabpanel" aria-labelledby={`zapla-v3-journey-tab-${activeStage.key}`} className="h-[470px] sm:h-[560px] lg:h-[640px]">
+              <p className="sr-only">Illustrative workflow: {activeStage.subtitle}.</p>
+              <div inert aria-hidden="true" className="relative h-full">
               <AppShell activeKey={activeStage.key} title={activeStage.title} subtitle={activeStage.subtitle}>
                 <div className="absolute inset-0"><JourneyScene key={`${activeStage.key}-${manualIndex != null ? "manual" : `story-${replayKey}`}`} stageIndex={activeIndex} interactive={manualIndex != null || !playing} journeyComplete={journeyCompleted} onJourneyComplete={markJourneyComplete} /></div>
               </AppShell>
+              </div>
             </div>
           </div>
 
-          <div role="tablist" aria-label="Customer journey" className="relative">
-            <JourneyRail activeIndex={activeIndex} onSelect={selectStage} />
+          <div className="relative">
+            <JourneyRail activeIndex={activeIndex} onSelect={selectStage} tabRefs={tabRefs} onTabKeyDown={onTabKeyDown} />
             <div className="mt-5 flex items-center justify-between gap-4"><p className="max-w-[760px] text-[12px] leading-[1.55] text-[#7D756C]">Sarah stays the same customer record from first enquiry through follow-up, opportunity and booking.</p><button type="button" onClick={replay} className="hidden shrink-0 items-center gap-1.5 text-[11px] font-semibold text-[#5F5A53] transition-colors hover:text-[#111318] sm:inline-flex"><RefreshCw className="h-3.5 w-3.5" /> Replay journey</button></div>
-            <div className="sr-only">{STAGES.map((stage, index) => <button key={stage.key} ref={(element) => { tabRefs.current[index] = element; }} role="tab" aria-selected={index === activeIndex} tabIndex={index === activeIndex ? 0 : -1} onKeyDown={(event) => onTabKeyDown(event, index)} onClick={() => selectStage(index)}>{stage.module}</button>)}</div>
+
           </div>
         </div>
 
