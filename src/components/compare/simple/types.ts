@@ -6,6 +6,8 @@ export interface ComparisonDefinition {
   competitor: string;
   headline: string;
   introduction: string;
+  differences: readonly { title: string; competitor: string; zapla: string }[];
+  example: { title: string; steps: readonly { label: string; text: string }[]; caption: string };
   tableIntroduction: string;
   tableCaption: string;
   vendorPricingUrl: string;

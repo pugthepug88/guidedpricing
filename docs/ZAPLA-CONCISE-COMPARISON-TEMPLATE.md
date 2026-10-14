@@ -8,7 +8,7 @@ The original comparison is preserved. This is a separate draft with no productio
 
 Use `src/components/compare/simple/ComparisonPage.tsx` with typed competitor data. Heading, fit, comparison introduction/caption, row text/status/source IDs, competitor pricing URL, cost caution, platform qualification, methodology, FAQs and source list are data-driven. Describe each competitor’s actual pricing basis, whether per user, per account or per contact. Do not force a per-user comparison onto other pricing models. Do not mechanically duplicate the Pipedrive fit or rows for another competitor.
 
-Page sequence: explicit comparison H1; two short fit summaries; one concise table; one compact pricing-model comparison; small platform foundations; four practical FAQs; call/pricing CTA; expandable sources. Preserve plan qualifications beside each claim. Required launch and usage exclusions stay visible, not hidden in sources.
+Page sequence: explicit comparison H1 with buyer headline and labelled workflow illustration; three buying differences; one concise table; one compact pricing-model comparison; two short fit summaries; small platform foundations; four practical FAQs; call/pricing CTA; expandable sources. Preserve plan qualifications beside each claim. Required launch and usage exclusions stay visible, not hidden in sources.
 
 Pricing is a compact factual comparison of subscription models, with Zapla’s required launch visible beside its monthly price. Do not use seat selectors unless they calculate a useful, verified comparison. The removed selector changed only a seat label and did not answer a buying question. This section needs no animation. Competitor pricing headings and explanations belong in typed competitor data.
 
@@ -80,3 +80,12 @@ Owner's no-trial decision is implemented in the new draft. Public terms/refund p
 ## Pricing correction, 14 October 2026
 
 Removed the meaningless seat-count selector, roles and count animation. Replaced it with a compact two-column pricing-model comparison. Preserved required launch, Growth and the brief usage note. Applied corrections on top of current main, preserving the separate V3 cleanup. Rendered QA is still pending until the preview is accessible.
+
+
+## Applied competitor review, 14 October 2026
+
+Applied the subsequent browser review of the 16 named vendors plus HighLevel and NextGen (18 total). The earlier twenty-vendor table above was a content benchmark, not that later browser review. Borrowed the clearer opening and focused differences seen on monday, explicit fit from Close, and implementation emphasis from Keap. No vendor-authored performance or savings claims were imported.
+
+The hero now explains enquiries, replies and bookings with a clearly labelled illustrative workflow. It is not a screenshot, a customer testimonial or a promise of automatic booking. A one-shot border highlight follows the enquiry/reply/booking sequence; all text is immediately visible, with no looping, hiding or movement, and reduced motion disables it. Three typed differences precede the factual table. Fit summaries are shorter and follow pricing. Pricing still has no seat selector or invented savings calculation.
+
+This revision preserves the source-level checks and remaining release flags above. Build and TypeScript verification are required before sync. Rendered sign-off remains conditional on actual preview access; no numerical design rating is assigned from source code.

@@ -2,8 +2,18 @@ import type { ComparisonDefinition } from './types';
 
 export const pipedriveSimple = {
   competitor: 'Pipedrive',
-  headline: 'Compare the tools, the team cost and the setup.',
-  introduction: 'Pipedrive centres on sales pipeline work and follow-up. Zapla brings customer enquiries, messages and bookings together, with shared team access and Guided Launch.',
+  headline: 'Enquiries, replies and bookings. A shared setup for your team.',
+  introduction: 'Compare Pipedrive’s sales pipeline tools with Zapla’s shared customer tools, unlimited users and Guided Launch.',
+  differences: [
+    { title: 'One price for the team', competitor: 'Pipedrive subscriptions are charged per paid seat.', zapla: 'Zapla includes unlimited users in both standard plans.' },
+    { title: 'Conversations and bookings', competitor: 'Pipedrive adds Scheduler on Growth and a team email inbox on Premium.', zapla: 'Zapla Follow-Through includes a shared inbox, forms and booking calendars.' },
+    { title: 'An agreed launch', competitor: 'Pipedrive onboarding is available; eligibility and scope vary.', zapla: 'Zapla requires Guided Launch to set up the agreed customer process.' },
+  ],
+  example: { title: 'From enquiry to booking', steps: [
+    { label: 'Enquiry', text: '“Can I book a consultation?”' },
+    { label: 'Team reply', text: '“Here’s the link to choose a time.”' },
+    { label: 'Booking', text: 'Consultation confirmed.' },
+  ], caption: 'Illustrative workflow, not a product screenshot. Inbox and booking setup agreed during Guided Launch.' },
   tableIntroduction: 'Both handle CRM and follow-up. Compare the plan, how your team shares customer work and the tools you need to add.',
   tableCaption: 'Pipedrive plan features alongside Zapla’s current standard offer.',
   vendorPricingUrl: 'https://www.pipedrive.com/en/pricing',
@@ -13,8 +23,8 @@ export const pipedriveSimple = {
   foundationNote: 'AI, communications and global login services can involve overseas processing. Pipedrive also documents Australian hosting and separate company databases.',
   methodology: 'The table compares current Pipedrive plan features with Zapla’s standard offer. NextGen provides Zapla’s underlying platform. Its data processing documentation qualifies regional hosting claims. No measured speed advantage or total-cost saving is claimed.',
   fit: [
-    { title: 'Sales pipeline first', description: 'Pipedrive gives sales teams a daily workspace for contacts, deals, activities and follow-up. Its plans add email, automation, scheduling and reporting as your needs grow.', consideration: 'Stay with a working Pipedrive setup, or choose it when its mobile apps, integrations and reports fit how your team sells.' },
-    { title: 'Customer work across the team', description: 'Zapla combines CRM and follow-up with a shared inbox, forms and calendars. It may suit teams handling enquiries, replies and bookings across several people.', consideration: 'Whether you use spreadsheets, separate inboxes or an existing CRM, Guided Launch helps shape the agreed setup around your customer work.' },
+    { title: 'Sales pipeline first', description: 'Pipedrive suits teams focused on deals, sales activities and pipeline reporting.', consideration: 'Keep a working setup when its mobile apps, integrations and reports fit how you sell.' },
+    { title: 'Customer work across the team', description: 'Zapla may suit teams sharing enquiries, replies and bookings across several people.', consideration: 'Guided Launch shapes the agreed setup, whether you start with spreadsheets, separate inboxes or a CRM.' },
   ],
   rows: [
     { id: 'team', label: 'Team price', competitor: { text: 'Per paid seat, with monthly or annual billing choices.', status: 'plan-dependent', sources: ['billing'] }, zapla: { text: 'Unlimited users in both standard plans; one monthly platform price.', status: 'included', sources: ['offer'] } },

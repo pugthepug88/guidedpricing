@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,19 +10,34 @@ const money = (amount: number) => `A$${amount.toLocaleString('en-AU')}`;
 function CallButton() { return <Button asChild className="cc-button"><a href="https://zapla.io/booking">Book a Call <ArrowRight size={16}/></a></Button>; }
 
 export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
+  const exampleRef = useRef<HTMLElement>(null);
+  const [exampleActive, setExampleActive] = useState(false);
+  useEffect(() => {
+    const element = exampleRef.current;
+    if (!element || !('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setExampleActive(true); observer.disconnect(); }
+    }, { threshold: 0.4 });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
   return <main className="concise-comparison" data-page="concise-comparison">
-    <section className="cc-hero"><div className="cc-inner">
-      <h1>Zapla vs {data.competitor}.</h1>
-      <p className="cc-hero-line">{data.headline}</p>
-      <p className="cc-hero-copy">{data.introduction}</p>
-      <div className="cc-actions"><CallButton/><a href="#comparison">Compare the setup ↓</a></div>
+    <section className="cc-hero"><div className="cc-inner cc-hero-grid">
+      <div><h1>Zapla vs {data.competitor}.</h1>
+        <p className="cc-hero-line">{data.headline}</p>
+        <p className="cc-hero-copy">{data.introduction}</p>
+        <div className="cc-actions"><CallButton/><a href="#comparison">Compare side by side ↓</a></div>
+      </div>
+      <figure ref={exampleRef} className="cc-example" data-active={exampleActive}>
+        <div className="cc-example-heading"><img src={zaplaLogo.url} alt="" width={28} height={28}/><span>{data.example.title}</span></div>
+        <ol>{data.example.steps.map(step => <li key={step.label}><strong>{step.label}</strong><p>{step.text}</p></li>)}</ol>
+        <figcaption>{data.example.caption}</figcaption>
+      </figure>
     </div></section>
-    <div className="cc-inner"><section className="cc-fit" aria-label="At a glance">
-      {data.fit.map((item, index) => <article key={item.title}>
-        <div className="cc-vendor">{index === 1 && <img src={zaplaLogo.url} alt="" width={32} height={32}/>}<span>{index === 0 ? data.competitor : 'Zapla'}</span></div>
-        <h2>{item.title}</h2><p>{item.description}</p><p className="cc-consideration">{item.consideration}</p>
-      </article>)}
-    </section></div>
+    <section className="cc-differences"><div className="cc-inner">
+      <h2>Three differences to weigh.</h2>
+      <div className="cc-difference-grid">{data.differences.map(item => <article key={item.title}><h3>{item.title}</h3><p><strong>{data.competitor}:</strong> {item.competitor}</p><p><strong>Zapla:</strong> {item.zapla}</p></article>)}</div>
+    </div></section>
     <section id="comparison" className="cc-table-band"><div className="cc-inner">
       <h2>The setup, side by side.</h2>
       <p className="cc-table-intro">{data.tableIntroduction}</p>
@@ -47,6 +63,12 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
       <p className="cc-growth"><strong>Need ongoing marketing or reactivation?</strong> Zapla Growth is {money(data.offer.growthMonthly)}/month + GST, with required Guided Launch from {money(data.offer.growthLaunch)} + GST.</p>
       <p className="cc-usage">SMS, email, voice and optional services are charged separately.</p>
     </div></section>
+    <div className="cc-inner"><section className="cc-fit" aria-label="Which setup suits your team">
+      {data.fit.map((item, index) => <article key={item.title}>
+        <div className="cc-vendor">{index === 1 && <img src={zaplaLogo.url} alt="" width={32} height={32}/>}<span>{index === 0 ? data.competitor : 'Zapla'}</span></div>
+        <h2>{item.title}</h2><p>{item.description}</p><p className="cc-consideration">{item.consideration}</p>
+      </article>)}
+    </section></div>
     <section className="cc-foundations"><div className="cc-inner"><h2>What sits behind Zapla.</h2>
       <div className="cc-foundation-list">{data.foundations.map(item => <article key={item.title}><h3>{item.title}</h3><p>{item.description}</p></article>)}</div>
       <p className="cc-foundation-note">{data.foundationNote}</p>
