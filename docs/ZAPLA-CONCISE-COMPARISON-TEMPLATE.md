@@ -135,3 +135,20 @@ All before tax treatment, add-ons, usage and setup. Pipedrive annual upfront bil
 Visual gate remains incomplete for the revised pricing section. The supplied desktop screenshots establish that the existing hero/table/setup render cleanly and consistently enough to assess them, not that the entire page or mobile is 9/10. No browser sign-in workaround, production publishing or shared-shell changes.
 
 Verification for this pricing correction: TypeScript exited 0, production build exited 0, diff check passed. Executable arithmetic checks verified all 18 recurring/first-year values, all nine source-linked rows and unchanged Zapla subscription/launch prices.
+
+
+## Scan-first table revision after Zoho and HubSpot screenshots
+
+The owner explicitly rejected paragraph-heavy cells and supplied actual rendered references from Zoho vs Creatio and HubSpot vs Zoho. Both screenshots were personally inspected. Adopt the compact feature-name plus tick/cross/short-label matrix. Prior long explanations were defensible evidence handling but poor primary-table presentation.
+
+The new matrix has 13 feature rows, with Zapla first and blue-highlighted. All 13 Zapla entries have ticks; Email marketing is visibly marked Growth and its A$699/month price plus required Growth launch are adjacent. Pipedrive Premium has seven included ticks, four crosses for the specifically named unlimited-users/native-builder/native-phone capabilities, and two text entries for invoicing Integration and Campaigns Paid add-on. This is intentional positioning using verified inclusion differences, not a fabricated universal-capability verdict. Crosses do not deny the existence of external integrations. Contacts remain a shared tick; forms, scheduler, shared email inbox and proposals retain Pipedrive ticks. Do not turn those into false negatives or add unsupported Zapla courses/apps/AI inclusions to inflate counts.
+
+Cell explanations moved to a closed Feature details and plan notes disclosure immediately below the table. Source mappings remain below the page. Expanded Guided Launch prose is now in a pricing disclosure, reducing default page reading burden. The table stays three columns on mobile; visible check/cross icons have accessible text equivalents. No animation is needed for static comparison data.
+
+Pricing now leads with Pipedrive Premium A$109/user/month billed monthly, the owner-reported current AUD rate. Its A$79 annual-billing equivalent remains directly beneath, supported by the owner's supplied official-price screenshot. Both billing bases remain in the team examples, with lower Pipedrive plans disclosed. Team figures are 5/10/20 users: Premium monthly 545/1090/2180; Premium annual monthly-equivalent 395/790/1580; Zapla monthly 399 for each. First-year scenarios are 6540/13080/26160, 4740/9480/18960 and minimum Zapla6785. Launch and usage are still disclosed; no total-package savings guarantee or priced third-party stack is invented.
+
+Public-source recheck: Pipedrive's invoicing interface is included on all plans but requires an invoicing app; existing accounting subscriptions may mean no extra marginal cost. Mark it Integration, not a misleading cross. Zapla native invoicing is not an accounting-software replacement. Campaigns comparisons require Zapla Growth. Provider-documented native builder differences are based on catalogues, not hands-on absence testing.
+
+Rendered inspection of the newly revised matrix remains pending because preview login/remote-control access is unresolved and Lovable QA credits are unavailable. The supplied reference screenshots and old draft screenshots are not proof of the new render.
+
+Verification: TypeScript and production build exited 0. Executable data checks passed for all 13 feature rows, source-ID coverage, seven competitor ticks/four crosses/two text entries, Growth marking, and all 18 subscription/first-year amounts. Visual QA of the new preview remains unverified.
