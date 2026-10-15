@@ -45,7 +45,7 @@ function JourneyRail({ activeIndex, onSelect }: { activeIndex: number; onSelect:
           return (
             <button key={stage.key} type="button" onClick={() => onSelect(index)} className="group flex min-w-0 flex-col items-center text-center">
               <span className={cn("relative z-10 flex h-6 w-6 items-center justify-center rounded-full border text-[8px] font-black transition-colors", active && "border-[#2563FF] bg-[#2563FF] text-white", completed && "border-[#BFC6AE] bg-[#DCE0CC] text-[#56604D]", !active && !completed && "border-[#D5CCBF] bg-[#F7F4EE] text-[#998F83]")}>{completed ? <Check className="h-3 w-3" strokeWidth={3} /> : `0${index + 1}`}</span>
-              <div className="mt-2 min-w-0"><div className={cn("text-[8px] font-black uppercase tracking-[.12em]", active ? "text-[#2563FF]" : completed ? "text-[#69735D]" : "text-[#9B9288]")}>{stage.action}</div><div className="mt-0.5 truncate text-[11px] font-semibold text-[#4E4A45]">{stage.module}</div></div>
+              <div className="mt-2 w-full min-w-0"><div className={cn("text-[8px] font-black uppercase tracking-[.12em]", active ? "text-[#2563FF]" : completed ? "text-[#69735D]" : "text-[#9B9288]")}>{stage.action}</div><div className="mt-0.5 break-words text-[10px] font-semibold leading-[1.35] text-[#4E4A45] sm:text-[11px]">{stage.module}</div></div>
             </button>
           );
         })}
