@@ -61,9 +61,16 @@
 .cc-mobile-vendor { display:none; }
 .cc-table-key { font-size:13px; color:var(--comparison-muted); margin:16px 0 0; }
 .cc-table-key a,.cc-upgrade-note a,.cc-more-tools>a { color:var(--comparison-green); text-decoration:underline; text-underline-offset:4px; }
-.cc-upgrade-note { margin:24px 0 0; padding:20px 24px; background:#F3F4F0; border-radius:10px; }
-.cc-upgrade-note p { font-size:14px; color:var(--comparison-muted); margin:0; }
+.cc-upgrade-note { display:grid; grid-template-columns:1.3fr 1fr; gap:32px; margin:28px 0 0; padding:28px; background:#F3F4F0; border-radius:12px; }
+.cc-upgrade-note h3 { font-size:26px; margin:0 0 10px; }
+.cc-upgrade-note p { font-size:14px; color:var(--comparison-muted); margin:0 0 10px; }
 .cc-upgrade-note strong { color:var(--comparison-ink); }
+.cc-upgrade-features ul { display:grid; grid-template-columns:1fr 1fr; gap:8px 24px; list-style:disc; padding-left:18px; margin:16px 0 0; font-size:14px; }
+.cc-upgrade-note .cc-upgrade-plan { color:var(--comparison-ink); font-weight:600; }
+.cc-upgrade-amount strong { font:500 36px/1 'Inter Tight',sans-serif; letter-spacing:-.03em; }
+.cc-upgrade-amount span { display:block; margin-top:7px; font-size:13px; }
+.cc-upgrade-note .cc-upgrade-price>p:nth-last-child(2) { font-size:13px; }
+.cc-upgrade-price>a { display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600; }
 .cc-more-tools { margin-top:22px; border-top:1px solid var(--comparison-line); }
 .concise-comparison summary { min-height:52px; padding:16px 0; font-size:15px; font-weight:600; cursor:pointer; }
 .cc-feature-notes { display:grid; grid-template-columns:1fr 1fr; gap:24px 36px; padding:12px 0 24px; }
@@ -180,7 +187,8 @@
  .cc-table thead img { width:74px; max-width:100%; height:auto; }
  .cc-table-plan { font-size:11px; }
  .cc-short-label { font-size:12px; overflow-wrap:normal; }
- .cc-upgrade-note { padding:18px; }
+ .cc-upgrade-note { grid-template-columns:1fr; gap:24px; padding:22px; }
+ .cc-upgrade-features ul { grid-template-columns:1fr; }
  .cc-feature-notes { grid-template-columns:1fr; gap:20px; }
  .cc-commercial { padding:52px 0 44px; }
  .cc-commercial .cc-section-heading h2 { font-size:44px; }
