@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, Clock3, Video } from "lucide-react";
+import { ArrowRight, Clock3, Video } from "lucide-react";
+import { ZaplaPetal } from "@/components/ZaplaPetal";
 import bookingCss from "@/styles/booking.css?url";
 
 const TITLE = "Book a Call | Find Your First Useful Zapla Workflow";
@@ -43,7 +44,6 @@ function BookingCalendar() {
   return (
     <div className="bk-calendar-slot" data-booking-embed="pending">
       <div className="bk-calendar-fallback">
-        <CalendarDays size={28} strokeWidth={1.5} aria-hidden="true" />
         <h3>Online scheduling is coming soon.</h3>
         <p>For now, email us and we’ll find a time that works for you.</p>
         <a
@@ -66,7 +66,10 @@ function BookingPage() {
       </a>
       <main id="booking-main" className="bk-main bk-wrap">
         <div className="bk-introduction">
-          <p className="bk-eyebrow">Book a Call</p>
+          <div className="bk-brand-line">
+            <ZaplaPetal size={56} />
+            <p className="bk-eyebrow">Book a Call</p>
+          </div>
           <h1>Let’s talk about your business.</h1>
           <p className="bk-intro">
             Tell us what takes up your team’s time. We’ll explore where Zapla could help, using the
