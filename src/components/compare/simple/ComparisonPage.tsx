@@ -47,7 +47,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
           <p className="cc-hero-launch">Required Guided Launch<br /><strong>from {money(data.offer.launch)} + GST</strong></p>
         </aside>
       </div>
-      <div className="cc-highlights">{data.highlights.map(item => <div key={item.title}><h2>{item.title}</h2><p>{item.description}</p></div>)}</div>
+      <div className="cc-reasons" aria-labelledby="why-zapla-heading"><h2 id="why-zapla-heading">Why choose Zapla?</h2><div className="cc-highlights">{data.highlights.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.description}</p>{item.link && <a className="cc-reason-link" href={item.link.href}>{item.link.label} <ArrowRight size={15} aria-hidden="true" /></a>}</div>)}</div></div>
     </div></section>
 
     <section id="comparison" className="cc-table-band" aria-labelledby="comparison-heading"><div className="cc-inner">
@@ -64,7 +64,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     </div></section>
 
     <section id="pricing-comparison" className="cc-commercial" aria-labelledby="price-heading"><div className="cc-inner">
-      <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">Add people.<br />Keep the same plan price.</h2><p>Explore how team size affects the subscription for each named plan.</p></div>
+      <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">Add people.<br />Keep the same plan price.</h2><p>{data.competitor} {data.vendorPlan} charges per paid user. Zapla Follow-Through includes unlimited users for {money(data.offer.monthly)}/month + GST. Adjust your team size to compare the subscriptions.</p></div>
       <TeamPricing data={data} />
       <details className="cc-cost-examples cc-first-year">
         <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>

@@ -7,7 +7,7 @@ export interface ComparisonDefinition {
   headline: string;
   headlineAccent: string;
   introduction: string;
-  highlights: readonly { title: string; description: string }[];
+  highlights: readonly { title: string; description: string; link?: { href: string; label: string } }[];
   tableIntroduction: string;
   tableCaption: string;
   vendorPricingUrl: string;

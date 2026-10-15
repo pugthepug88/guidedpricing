@@ -10,11 +10,11 @@ export const pipedriveSimple = {
   headlineAccent: 'One CRM subscription.',
   introduction: 'Bring enquiries, conversations, quotes and bookings together. Zapla includes unlimited users and stored contacts, with Guided Launch to get your first setup working.',
   highlights: [
-    { title: 'Bring the whole team', description: 'Give reception, sales and the owner access without extra user subscription fees.' },
-    { title: 'Keep customer tools together', description: 'Keep customer records, conversations, forms and bookings in one platform.' },
-    { title: 'Get help with the first setup', description: 'Agree the process, build the first automations and train your team.' },
+    { title: 'Give your whole team access', description: 'Give reception, sales and the owner access to the same customer information without paying for another CRM seat.' },
+    { title: 'Keep enquiries, quotes and bookings moving', description: 'Capture new enquiries, automate routine follow-ups and keep replies with the customer record, so your team can pick up the conversation.', link: { href: '/crm#crm-workbench', label: 'Explore customer records and conversations' } },
+    { title: 'Get your first setup working', description: 'Guided Launch maps your process, configures the agreed first workflows and trains your team. Launch is required and priced separately.' },
   ],
-  tableIntroduction: 'Zapla Follow-Through and Pipedrive Premium. The same plans from the first feature to the final price.',
+  tableIntroduction: 'Compare Zapla Follow-Through and Pipedrive Premium for team access, customer tools and automation limits.',
   tableCaption: 'Pipedrive Premium compared with Zapla Follow-Through; optional services are labeled.',
   vendorPricingUrl: 'https://www.pipedrive.com/en/pricing',
   vendorPlan: 'Premium',
@@ -58,7 +58,7 @@ export const pipedriveSimple = {
 
   fit: [
     { title: 'Sales pipeline first', description: 'A strong option when sales activities, deals and pipeline reporting drive your day.', consideration: 'If your existing Pipedrive setup works well, there may be no reason to replace it.' },
-    { title: 'Customer follow-up together', description: 'For businesses that want reception, sales and the owner working from connected customer records, conversations and bookings.', consideration: 'The strongest fit is when you need these tools together and want help setting up the first version.' },
+    { title: 'One system for your customer-facing team', description: 'Capture enquiries, follow up on quotes and manage bookings with reception, sales and the owner working from the same customer history.', consideration: 'A strong fit when you want unlimited team access, connected tools and help configuring the first workflows.' },
   ],
   rows: [
     { id: 'team', label: 'Unlimited users', competitor: { text: '', mark: 'cross', detail: 'Pipedrive charges per paid seat.', status: 'plan-dependent', sources: ['billing', 'pricing'] }, zapla: { text: '', mark: 'tick', detail: 'Unlimited users on both Zapla plans.', status: 'included', sources: ['offer'] } },

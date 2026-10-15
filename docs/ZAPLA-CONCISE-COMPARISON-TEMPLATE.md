@@ -227,3 +227,29 @@ Design brief: whole comparison page; inspiration-only external references, exist
 Replaced the accumulated CSS overrides with one coherent stylesheet. Near-white editorial base, white feature matrix, restrained sage for named Zapla offer/column, one deep-green pricing chapter with a single white calculator. Pricing results are adjacent data columns rather than nested colourful cards. Blue limited to links/functional controls and focus. Removed decorative coloured rules. Fit section is now asymmetric heading plus compact Zapla-first and Pipedrive entries; no line-topped twin blocks. Existing shared final CTA retained by explicit owner instruction even where older book petal semantics differ. Typography, space and grouped content create hierarchy rather than more badges, icons, glows or decoration. Mobile has native three-column feature matrix, stacked pricing results and compact fit entries at767px; tablet reduces gaps at1023px. No animation added.
 
 Review: brand follows fuller book without restoring blanket beige; UI/UX retains one job per section; product marketing/conversion preserve concise fixed-plan decision sequence; buyer lens keeps price/setup visible; critic removes arbitrary accents and nested box styling; motion stays user-controlled. Build and TypeScript exited0. CSS parsed successfully. Actual React server render assertions passed for fixed-plan table structure, unchanged399/545defaultpricing,150active/unlimited labels, Growth scope and Zapla-first fit. New browser-rendered desktop/mobile inspection remains unavailable behind established preview authentication boundary. These technical checks are not visual approval and no9rating is assigned.
+
+## Buyer argument and fixed-plan template pass
+
+Decision persists: Follow-Through vs Premium throughout, a compact reasons group replacing incumbent highlights, clearer billing model, tighter fit copy. Considered adding a broad end-to-end journey section or changing hero positioning; rejected because it repeats the comparison and risks importing Growth nurture/campaign scope into the399plan. Broader journey feedback improved the mechanism copy, not the selected plan or page architecture. Follow-Through covers incoming demand, capture, quotes/bookings and configured follow-up; proactive database campaigns remain Growth. No guaranteed sales, revenue or workload outcome claimed.
+
+Why choose Zapla now has three concrete reasons: access for reception/sales/owner without another seat charge; capture, routine follow-ups and shared customer context; agreed setup and training through required Guided Launch. No new cards, icons, decorative rules, animation or major colour changes. Changed highlight child headings to h3 under one h2; responsive CSS keeps open columns then stacked text. Pricing introduction names both charging models. Fit title now One system for your customer-facing team. Sources, tiers, exclusions, matrix rows, prices and optional AI remain unchanged.
+
+Product evidence search: inspected public/concept/CRM image.png; it is a contextual office photograph, not a product screenshot. Do not present it as evidence of capability. Existing /crm has a crm-workbench demonstration for customer records/conversations; linked directly there from the relevant reason. This supplies an optional route to existing product explanation without copying a large UI scene or inventing an apparent real screenshot. A verified real product screenshot is still an evidence gap. Do not claim that a new product screenshot/demo was added to the comparison.
+
+Calculator: latest remote and local component initialise users=5. React server render confirms range value5,545monthlyPremium,395annualalternative,399Zapla. Supplied screenshot showing1could reflect interaction; its cause is unconfirmed. No forced reset, higher minimum or misleading pricing default introduced.
+
+Review criteria and findings:
+- Buyer psychology: lead with ownership/access, concrete work and implementation confidence; no prediction of purchase or conversion uplift.
+- Product marketing: show capture and follow-up continuity without saying entire journey is exclusive or fully included in Follow-Through.
+- Commercial/CFO: setup remains required, annual alternative remains visible, and subscriptions remain distinct from total cost.
+- Competitor: no claim that Premium cannot automate, retain context or provide implementation help.
+- Brand/design: preserve the supplied approved editorial direction, use open typography, avoid another panel or borrowed HubSpot statistic.
+- Conversion: explain the commercial model before interaction and provide a low-commitment product exploration link; booking remains primary.
+- Copy: replace awkward fit phrase and internal same-plans-from-first-to-final phrasing with buyer-facing language.
+- Accessibility/mobile: semantic heading group, existing native controls and no new motion; rendered responsive testing is still outstanding.
+- Evidence/critic: link to existing product explanation, reject unrelated photograph and fake data. Full visual sign-off remains pending a new render.
+- Reuse: optional highlight link belongs to typed competitor data; fixed-plan shell stays reusable. Future competitors require their own differences and evidence rather than copying Pipedrive negatives.
+
+Verification: production build exited0, PostCSS parsed, and actual React SSR assertions passed for reason count, default state, arithmetic, fit text and product link. Deep comparison of all unchanged data keys confirms identical price inputs, feature rows, source mapping, FAQs and offer scope. TypeScript result follows. No new visually verified9rating or live interaction claim.
+
+TypeScript for this pass exited0. Targeted diff whitespace check passed.
