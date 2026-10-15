@@ -21,7 +21,8 @@
 }
 
 .booking-page {
-  background: #fff;
+  background: #f7f4ee;
+  padding: 136px 48px 72px;
   color: #111318;
   font-family: "Booking Body", "Manrope", sans-serif;
 }
@@ -40,32 +41,43 @@
   outline-offset: 5px;
 }
 .bk-wrap {
-  max-width: 1280px;
+  max-width: 1184px;
   margin-inline: auto;
-  padding-inline: 48px;
+  padding-inline: 0;
 }
 .bk-main {
   display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   grid-template-areas: "intro calendar" "agenda calendar" "starting calendar";
   align-items: start;
-  column-gap: clamp(48px, 7vw, 104px);
-  padding-top: 160px;
-  padding-bottom: 88px;
+  column-gap: 0;
+  padding: 0;
+  background: #1e2b29;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px #1e2b2910;
 }
 .bk-introduction {
   grid-area: intro;
+  padding: 34px 40px 0;
+  color: #fcfcfa;
+}
+.bk-brand-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
 }
 .booking-page .bk-eyebrow {
-  margin-bottom: 24px;
+  margin-bottom: 0;
   font-size: 12px;
   font-weight: 600;
-  color: #555b65;
+  color: #ddd9cb;
 }
 .booking-page h1 {
   max-width: 380px;
   font-family: "Booking Display", "Inter Tight", sans-serif;
-  font-size: clamp(40px, 3.5vw, 50px);
+  font-size: clamp(40px, 3.5vw, 48px);
   font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 1.08;
@@ -75,14 +87,14 @@
   margin-top: 22px;
   font-size: 15px;
   line-height: 1.8;
-  color: #555b65;
+  color: #d2d9d4;
 }
 .bk-call-details {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 24px;
   margin-top: 25px;
-  color: #444b55;
+  color: #d2d9d4;
   font-size: 12px;
 }
 .bk-call-details span {
@@ -92,12 +104,14 @@
 }
 .bk-agenda {
   grid-area: agenda;
-  margin-top: 38px;
+  margin-top: 30px;
+  padding-inline: 40px;
+  color: #fcfcfa;
 }
 .bk-agenda h2 {
   font-size: 12px;
   font-weight: 600;
-  color: #555b65;
+  color: #ddd9cb;
 }
 .bk-agenda ol {
   list-style: none;
@@ -116,26 +130,30 @@
   margin-top: 5px;
   font-size: 12px;
   line-height: 1.8;
-  color: #555b65;
+  color: #c5cfc8;
 }
 .booking-page .bk-starting-point {
   grid-area: starting;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #ffffff26;
   padding-top: 18px;
+  margin: 0 40px 32px;
   font-size: 12px;
   line-height: 1.8;
-  color: #555b65;
+  color: #c5cfc8;
 }
 .bk-booking-panel {
   grid-area: calendar;
   min-width: 0;
-  background: #f7f8fa;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
+  background: #fcfcfa;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
 }
 .bk-panel-heading {
-  padding: 30px 32px 26px;
+  padding: 42px 36px 30px;
   border-bottom: 1px solid #e5e7eb;
 }
 .bk-panel-heading h2 {
@@ -153,7 +171,8 @@
 }
 .bk-calendar-slot {
   min-width: 0;
-  min-height: 470px;
+  min-height: 420px;
+  flex: 1;
   display: grid;
   align-items: center;
   padding: 32px;
@@ -168,11 +187,8 @@
   margin: 0 auto;
   padding-block: 36px;
 }
-.bk-calendar-fallback > svg {
-  color: #687180;
-}
 .bk-calendar-fallback h3 {
-  margin-top: 20px;
+  margin-top: 0;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
@@ -233,33 +249,39 @@
   top: 12px;
 }
 @media (max-width: 1000px) {
-  .bk-wrap {
-    padding-inline: 32px;
+  .booking-page {
+    padding: 124px 32px 56px;
   }
-  .bk-main {
-    column-gap: 40px;
-    padding-top: 132px;
+  .bk-introduction {
+    padding: 28px 28px 0;
+  }
+  .bk-agenda {
+    padding-inline: 28px;
+  }
+  .booking-page .bk-starting-point {
+    margin-inline: 28px;
   }
   .bk-panel-heading {
-    padding: 26px 24px;
+    padding: 36px 28px 28px;
   }
   .bk-calendar-slot {
-    padding: 24px;
+    padding: 28px;
   }
 }
 @media (max-width: 760px) {
-  .bk-wrap {
-    padding-inline: 24px;
+  .booking-page {
+    padding: 108px 20px 40px;
   }
   .bk-main {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "intro" "calendar" "agenda" "starting";
-    padding-top: 116px;
-    padding-bottom: 48px;
-    gap: 30px;
+    border-radius: 20px;
   }
-  .booking-page .bk-eyebrow {
-    margin-bottom: 18px;
+  .bk-introduction {
+    padding: 28px 28px 32px;
+  }
+  .bk-brand-line {
+    margin-bottom: 24px;
   }
   .booking-page h1 {
     max-width: 430px;
@@ -270,7 +292,7 @@
     margin-top: 18px;
   }
   .bk-agenda {
-    margin-top: 4px;
+    margin-top: 30px;
   }
   .bk-calendar-slot {
     min-height: 360px;
@@ -278,17 +300,26 @@
   }
 }
 @media (max-width: 380px) {
-  .bk-wrap {
-    padding-inline: 20px;
+  .booking-page {
+    padding-inline: 14px;
+  }
+  .bk-introduction {
+    padding-inline: 22px;
+  }
+  .bk-agenda {
+    padding-inline: 22px;
+  }
+  .booking-page .bk-starting-point {
+    margin-inline: 22px;
   }
   .bk-panel-heading {
-    padding: 24px 20px;
+    padding: 28px 22px 24px;
   }
   .bk-panel-heading h2 {
     font-size: 25px;
   }
   .bk-calendar-slot {
-    padding-inline: 20px;
+    padding-inline: 22px;
   }
   .bk-email-button {
     width: 100%;
