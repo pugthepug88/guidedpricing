@@ -21,7 +21,7 @@
 }
 
 .booking-page {
-  background: #f7f4ee;
+  background: linear-gradient(to bottom, #f7f4ee 0%, #f7f4ee calc(100% - 160px), #fcfcfa 100%);
   padding: 136px 48px 72px;
   color: #111318;
   font-family: "Booking Body", "Manrope", sans-serif;
