@@ -12,6 +12,8 @@ export interface ComparisonDefinition {
   tableCaption: string;
   vendorPricingUrl: string;
   vendorPlan: string;
+  vendorEntryPrice: number;
+  vendorEntryPlan: string;
   vendorPrice: number;
   vendorPriceUnit: string;
   vendorBilling: string;
@@ -25,6 +27,12 @@ export interface ComparisonDefinition {
     introduction: string;
     columns: readonly string[];
     rows: readonly { label: string; values: readonly number[] }[];
+    note: string;
+  };
+  launch: {
+    headline: string;
+    introduction: string;
+    steps: readonly { title: string; description: string }[];
     note: string;
   };
   foundationNote: string;

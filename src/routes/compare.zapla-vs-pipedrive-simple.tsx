@@ -4,7 +4,7 @@ import { pipedriveSimple } from '@/components/compare/simple/pipedrive';
 import simpleCss from '@/components/compare/simple/simple.css?url';
 
 const title = 'Zapla vs Pipedrive: Pricing, Features and Team Access | Zapla';
-const description = 'A concise comparison of Pipedrive and Zapla, including CRM, shared customer work, paid seats, unlimited users and required Guided Launch pricing.';
+const description = 'Compare Zapla and Pipedrive for team access, customer tools, Guided Launch and first-year costs in AUD. See plan inclusions and source-linked pricing.';
 export const Route = createFileRoute('/compare/zapla-vs-pipedrive-simple')({
   staticData: { sitemap: false },
   head: () => ({

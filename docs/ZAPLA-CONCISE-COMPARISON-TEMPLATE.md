@@ -1,87 +1,112 @@
-# Concise comparison template
+# Zapla concise comparison template and review
 
-Updated 15 October 2026. Draft route: `/compare/zapla-vs-pipedrive-simple`.
+Updated 15 October 2026. Draft: `/compare/zapla-vs-pipedrive-simple`.
 
-## Scope and commercial decisions
+## Scope
 
-This is a separate draft; the original comparison remains intact. No production publication. Preserve the separate removal of V3 drafts and the current shared header/footer.
+Improve the existing Pipedrive draft as the reusable comparison template. Preserve the original comparison, shared header/footer, existing preview-menu registration and other conversations' route deletions. No production publication. Keep competitor evidence and data separate from the typed page shell.
 
-Owner-confirmed Zapla offer: no free trial; Follow-Through A$399/month + GST, unlimited users, required Guided Launch from A$1,997 + GST. Growth A$699/month + GST, required launch from A$2,997 + GST. Keep usage charges and variable migration scope brief.
+## Customer decision and positioning
 
-## Redesign decision
+The primary decision is whether the business needs a sales-focused CRM or connected customer tools for a wider team with an agreed first setup. Zapla's strongest defensible proposition is the combination of unlimited users, connected tools and required Guided Launch. Neither contact storage, automation, onboarding nor regional hosting is exclusive to Zapla. Do not claim Zapla is always cheaper.
 
-The owner's four desktop screenshots revealed a flat composition, generic booking illustration, repetitive differences, long table cells and an unresolved mobile/integrations row. This is new rendered evidence, not a change based only on a competing idea. Remove the illustrative enquiry/reply/booking panel and its animation, remove the unresolved row and move phone/AI details to a brief FAQ. The replacement hero is a factual commercial visual: unlimited users, actual monthly price and required launch.
+The strongest objection: a small team can get a capable Pipedrive plan for materially less and may already have suitable website/marketing tools. Buying a broader package has no financial value if those capabilities are not needed. The page therefore makes the fit and smaller-team cases explicit. Do not manufacture the price of a hypothetical competitor stack, implementation fee or lost revenue.
 
-Page sequence: explicit Zapla-versus-competitor label; buyer headline and factual team-offer panel; three short benefit summaries; six concise comparison rows; actual competitor and Zapla prices with billing terms; honest fit; three brief platform foundations; practical FAQs; call/pricing CTA; expandable sources.
+Alternative considered: price-led hero with a headline saving against Premium. Rejected because Growth can be sufficient and launch materially affects year-one costs. Keep the approved unlimited-team headline and make the full offer and pricing evidence easier to understand.
 
-Use short primary answers with immediately adjacent plan labels/details. The Zapla column has a restrained blue background for scanning. On mobile, a row heading sits above two side-by-side vendor cells with explicit visible vendor labels. Preserve semantic table roles and scope attributes. Never introduce blanket crosses for unknown features.
+## Commercial source of truth
 
-Motion decision: prices and feature comparisons remain immediately visible and static. Remove the old border-highlight sequence because the booking illustration does not prove the comparison argument. No counters, seat selector, fake UI, invented outcomes, testimonials or savings claims.
+Owner-confirmed prices and current `/Pricing-v3`:
 
-## Typed template contract
+- Follow-Through A$399/month + GST; required Guided Launch from A$1,997 + GST.
+- Growth A$699/month + GST; required Guided Launch from A$2,997 + GST.
+- Unlimited users and unlimited stored contacts, with the existing fair-use qualification.
+- No Zapla free trial.
+- Communications, optional services and payment-provider charges separate.
+- Growth is tools for self-service marketing/reactivation, not an unqualified managed-marketing service.
+- Additional project work and migration scope vary; describe briefly rather than reproducing detailed launch quotas.
 
-Use `src/components/compare/simple/ComparisonPage.tsx`, `types.ts` and competitor-specific data. Headline/accent, hero introduction, benefits, table rows/details/source IDs, pricing headline, vendor plan/price/unit/billing explanation, lower-plan context, fit, hosting qualification, FAQs and sources belong in typed data.
+Guided Launch description uses actual pricing-page scope: agree the process; configure agreed CRM/inbox/forms/calendars/automations; test, train and go live. The subscription, platform capabilities and configured launch work remain distinct. Pipedrive onboarding and eligible free implementation are acknowledged.
 
-Do not impose Pipedrive's per-user annual pricing model on another vendor. The price unit and billing explanation are data fields. Re-evaluate the actual buying differences for each competitor, especially vendors that also offer unlimited users.
+## Research actually used
 
-## Exact new reference inspection, 15 October 2026
+Read `project_sources/06-pipedrive-pricing-features.md` in full. This is the Kimi source, captured 30 June 2026 in USD with annual-billing monthly rates 14/39/59/79. Rechecked current official AUD pricing and plan documentation on 15 October 2026. Current AUD rates 19/49/79/109 are a different currency/date snapshot, not evidence of a price rise. Do not convert the USD figures or carry old plan/support details forward without verification.
 
-The earlier work included a representative twenty-vendor content benchmark and a separate browser review of the sixteen named competitors plus HighLevel and NextGen (18). Neither meant every link on every vendor's website was inspected.
+Reopened NextGen homepage, pricing, features catalogue, inbox, payments and DPA, plus comparisons with HighLevel and Zoho. The previously inspected HubSpot comparison could not be reopened by web retrieval on this pass. Do not say all public pages are continuously accessible or independently product-tested.
 
-This additional pass opened the exact supplied Zoho comparison directory and HubSpot page in the browser. Followed all five CRM destinations linked from Zoho's Sales/CRM group. The directory contains many unrelated product categories; this pass does not claim exhaustive review of finance, HR, legal and other app comparisons.
+Competitor reference review already recorded in this project: monday comparison; Zoho directory and CRM comparisons against Salesforce, HubSpot, Dynamics and Creatio; HubSpot vs Zoho. On this pass reopened the Zoho directory and HubSpot vs Zoho; monday's exact supplied campaign URL returned a retrieval error. Prior browser interaction is not a new rendered inspection. Design references inform composition, not product facts.
 
-| Reference | Observed pattern and decision |
-|---|---|
-| https://www.zoho.com/compare-alternatives.html | Browser-reviewed directory and actual comparison links. Use product/competitor organization when a comparison directory is needed; do not add the whole directory to one landing page. |
-| https://www.zoho.com/crm/compare/hubspot.html | Strong centered comparison identity and contrasting sections. Adapt concise plan-labelled comparison; reject copying the massive table and stale December 2024 competitor-pricing snapshot. |
-| https://www.zoho.com/crm/compare/salesforce.html | Direct buyer argument and pricing basis. Adapt prominent commercial argument; reject unsupported attacks, survey metrics and unproven savings. |
-| https://www.zoho.com/crm/compare/microsoft-dynamics.html | Same reusable structure with competitor-specific context. Adapt consistency rather than duplicating every row. |
-| https://www.zoho.com/crm/zwitch/sugar-crm-alternative.html | Redirected in the browser to https://www.zoho.com/crm/compare/; reviewed that destination, not a nonexistent separate SugarCRM page. |
-| https://www.zoho.com/crm/compare/creatio.html | Opened the omnichannel disclosure and inspected table composition. Adapt short, distinct table answers. Reject enormous feature encyclopedias and importing vendor-authored competitor verdicts. |
-| https://www.hubspot.com/comparisons/zoho-vs-hubspot | Viewed hero, table, product sections and FAQ interaction. Adapt clear comparison identity, hierarchy and limited primary arguments; do not copy percentages, third-party verdicts, trial CTAs or blanket crosses. |
+The other 15 attached pricing reports are available for subsequent competitor-specific pages. This revision does not publish or certify those vendors' prices or imply that every attached report has been revalidated.
 
-These references inform design and presentation, not Zapla product claims.
+## Claim ledger
 
-## Evidence and pricing
+| Page claim | Evidence | Decision / qualification |
+| --- | --- | --- |
+| Zapla unlimited users | Owner confirmation; `/Pricing-v3` | Prominent hero and comparison. No claim of unlimited locations or services. |
+| Unlimited contacts in both | Zapla pricing; NextGen pricing; Pipedrive usage limits | Shared inclusion, not a unique win. Lead/deal quotas and campaign subscribers are different measures. |
+| Sales pipelines in both | Both feature catalogues | Shared inclusion. No false negative for Pipedrive. |
+| Pipedrive automations/sequences Growth+ | Official current plan matrix | Keep paid-tier label; do not imply Zapla alone automates follow-up. |
+| Pipedrive shared email inbox Premium+ | Official current plan matrix | Zapla multi-channel inbox described separately; setup and usage qualified. |
+| Scheduler Growth+; forms via LeadBooster | Official Pipedrive plan matrix | LeadBooster paid on Lite/Growth, included Premium/Ultimate. Never double-charge Premium. |
+| Website/funnel building in Zapla | NextGen catalogue + Zapla pricing | Self-service builder, not a done-for-you website. Pipedrive's documented offering uses separate tools/forms/integrations. This is catalogue evidence, not a hands-on absence test. |
+| Proposals/invoicing in Zapla | NextGen pricing/payments + Zapla pricing | Keep provider fees separate. Smart Docs included Pipedrive Premium/Ultimate and paid on Lite/Growth. |
+| Marketing | Pipedrive plan matrix; Zapla pricing | Pipedrive Campaigns paid; Zapla Growth tools. Do not equate packages or unlimited delivery. |
+| Regional core data/backups | NextGen DPA, 8 Oct version 2.4 | US, EEA, AU live. UK, Canada, Singapore rolling out. Homepage four-live-region wording conflicts; DPA governs this copy. Overseas/global processing exceptions remain. |
+| Account isolation and local app/database | NextGen DPA | Provider-documented architecture, not an independently measured speed/security advantage. Pipedrive also documents regional hosting and separate databases. |
+| Guided Launch | Zapla pricing scope | Required, priced separately, agreed scope. Competitor onboarding is acknowledged. |
+| Reviews, recovery and phone tools | Zapla pricing; NextGen phone/communications catalogue | Brief secondary inclusion. No claims that every workflow or optional AI Receptionist is already configured/included. |
 
-Pipedrive official Australian pricing, checked 15 October 2026, lists annual-billing monthly equivalents: Lite A$19, Growth A$49, Premium A$79 and Ultimate A$109 per seat. Premium's A$948 per user/year is displayed beside its annual billing label. Premium is selected because the team email inbox and LeadBooster forms are included, not because it is feature-equivalent to Zapla. Lower-priced plans remain visible. Zapla is monthly and required launch is prominent. No currency conversion, usage comparison, artificial team-size calculation or total-cost saving is claimed. Vendor taxes/final pricing are qualified at checkout.
+Source URLs are in `pipedrive.ts`. The page's expandable source area now maps each comparison row to its supporting sources.
 
-The attached Pipedrive research is a June 2026 USD snapshot; today's official AUD page takes precedence. Sources:
+## Pricing arithmetic
 
-- https://www.pipedrive.com/en/pricing
-- https://support.pipedrive.com/en/article/what-features-do-the-pipedrive-plans-have
-- https://support.pipedrive.com/en/article/leadbooster-add-on
-- https://support.pipedrive.com/en/article/how-does-pricing-work-in-pipedrive
-- https://thenextgencrm.com/
-- https://thenextgencrm.com/features/crm/
-- https://thenextgencrm.com/features/inbox/
-- https://thenextgencrm.com/features/phone/
-- https://thenextgencrm.com/dpa/
-- Owner confirmation and current `/Pricing-v3` for Zapla inclusions/prices.
+Current AUD annual-billing equivalents: Pipedrive Growth 49 and Premium 79 per user/month. Zapla Follow-Through: 399 monthly, with launch from 1997.
 
-Retain NextGen's DPA exceptions: Australian hosting is available, not confirmation of this customer's actual selected region. AI, communications and login processing can involve overseas services. Pipedrive also documents Australian hosting and separate company databases. No exclusive-hosting, fastest, microsecond UI, blanket compliance or four-live-region claim.
+| Users | Pipedrive Growth, year 1 | Pipedrive Premium, year 1 | Zapla Follow-Through, year 1 minimum |
+| --- | ---: | ---: | ---: |
+| 5 | 2940 | 4740 | 6785 |
+| 10 | 5880 | 9480 | 6785 |
+| 20 | 11760 | 18960 | 6785 |
 
-## QA status and remaining limits
+Zapla formula: `399 * 12 + 1997 = 6785`. Subsequent 12-month subscription at current price: `399 * 12 = 4788`, before usage/extras and without a repeat charge for the original launch. No future price guarantee. Pipedrive rates are annually billed, Zapla monthly. Zapla excludes GST; applicable Pipedrive tax is confirmed at checkout. These are listed-price scenarios, not tax-normalized final quotes, equivalent packages or total-cost guarantees.
 
-The previous revision received actual Lovable browser QA at 1670×1000 and 390×844. It found and corrected a mobile caption layout defect and a 12px illustration note. This was remote-browser evidence; screenshots were not exposed as images by the connector. The owner then provided four desktop screenshots which were personally inspected and motivated this redesign.
+The actual amounts are visible. No decorative seat selector, unsupported ROI claim or artificial competitor setup charge. Include lower-priced Lite context as well as both Growth and Premium, so Premium is not a cherry-picked substitute for the whole product.
 
-This redesign requires build, TypeScript, and another actual desktop/mobile rendered pass. Do not label source review or a successful build as visual sign-off. Never assign numerical visual ratings without inspecting the resulting images.
+## Design decisions
 
-Review lenses: buyer comprehension, copy, product marketing, conversion, buyer psychology, UI/UX, brand/creative, motion, AI-slop critic, evidence/fairness, accessibility, SEO/performance. Qualify what is observed versus inferred. Check real image load, text wrapping, offer prominence, mobile labels, focus/disclosures, no overflow, pricing units, launch visibility, no trial promise, route metadata and existing shell consistency.
+Retain Zapla blue, ink, warm white, neutral and deep green; actual logo; shared shell; incumbent fonts. Reference patterns: USE clear vendor identity and adjacent plan labels; ADAPT concise comparison tables and a clear commercial focal point; REJECT enormous feature encyclopedias, blanket red crosses, unverified ratings and fake testimonials.
 
-Known remaining site-wide flag: global footer social icons point to generic service homepages. Correct only with verified Zapla profiles or a separately scoped removal; do not invent URLs. Preview sign-in and user-control handoff remain unavailable to this chat's user, so do not repeat the failed login route. Actual product enablement and customer hosting selection need owner/provider confirmation. Existing public trial/refund terms require separate reconciliation before public release.
+Page order: hero/team offer; three short benefits; eight practical comparison rows; three-step Guided Launch; pricing and visible team examples; fit; three brief infrastructure facts; practical FAQs; CTA; expandable evidence.
 
+The table and pricing are static so buyers can read and compare without waiting for an animation. Native disclosure states reveal supporting details. No timers, autoplay, decorative motion, fake controls or layout shifts were added. Mobile compares two vendors side by side below each row heading; pricing plans stack; cost scenarios retain explicit vendor labels. Keyboard focus and native details/summary controls retained.
 
-## Contacts, regions and price-comparison correction, 15 October 2026
+## Review lenses and acceptance criteria
 
-Unlimited stored contacts were omitted from the comparison hero despite existing CRM/Pricing-v3 inclusion. Added them with the current fair-use qualification. Pipedrive also explicitly has no contact usage limit, so the existing CRM row now states unlimited contacts for both. Never confuse Pipedrive leads/deals limits with stored contacts or Campaigns subscriber limits.
+These are editorial criteria, not independent panel reviews or measured conversion scores.
 
-Changed Australia-only hosting emphasis to selected live data region: US, EEA and Australia. NextGen's DPA lists UK, Canada and Singapore as rolling out, despite four-live-region claims elsewhere. Retain overseas-service exceptions and do not claim regional hosting or account isolation is exclusive over Pipedrive.
+| Lens | What was checked / revised | Acceptance state |
+| --- | --- | --- |
+| SME buyer / five awareness stages | Recognise team-cost/customer-follow-up issue, understand the package, compare tools/cost, assess fit, book a discussion | Content pass; user comprehension not tested |
+| Copywriting / AI-slop critic | Plain task nouns, concise primary answers, clear plan labels, no metaphors or inflated performance promises | Content pass |
+| Product marketing | Unlimited team access + connected tools + actual launch work, rather than price alone | Content pass |
+| Conversion / buyer psychology | Show required setup cost early, visible first-year amounts, honest fit, clear call and pricing paths | Structural pass; no conversion uplift claim |
+| CFO / competitor / evidence critic | Correct currencies, billing, launch, contact parity, included add-ons and competitor onboarding | Documentation and arithmetic pass |
+| Brand / creative / UI/UX | Brand tokens, typography, deliberate section rhythm, readable short rows, no pointless illustration or fake controls | Source reviewed; rendered sign-off pending |
+| Accessibility | Semantic headings/tables/row headers, explicit labels, visible focus, native disclosures; responsive table roles retained | Source reviewed; browser/screen-reader tests pending |
+| Motion | Static comparison, meaningful disclosures, no autoplay or mandatory animation | Source pass |
+| SEO / performance | Draft noindex retained, route metadata updated, no new dependencies or image/video payload | Build/source pass |
+| Cross-page consistency | Read CRM, Customer Marketing and Pricing-v3; preserve shared shell and current commercial plan boundary | Source pass; rendered cross-page comparison pending |
 
-Re-read the attached Kimi Pipedrive file (June 30, 2026; USD annual-billing rates 14/39/59/79) and current official AUD pricing (19/49/79/109). They are different currency/date snapshots; do not treat them as competing AUD price lists or perform an undocumented conversion. Added expandable static first-year examples for 5/10/20 users, showing both Growth and Premium, alongside Zapla's 12 monthly payments plus minimum launch. The examples deliberately include cases where Pipedrive is cheaper. No interactive seat control or equivalent-package/savings claim. Zapla first-year minimum is A$6,785 excluding GST; subscription-only renewal-year amount is A$4,788 before usage. Larger/variable setup and taxes are qualified.
+## Verification limits and confirmation flags
 
-Rechecked NextGen's pricing/catalog plus its GHL, Zoho and HubSpot comparisons. The first-party inclusion catalog supports broader tools than this concise table shows. Added website/funnel building and payments/invoicing/proposals under a brief expandable disclosure because these are also explicit on Zapla's Pricing-v3. Do not imply courses, ticketing or branded app availability is absent simply because it is not on this buyer shortlist. Do not mechanically import wholesale agency pricing, no-onboarding/trial promises, GHL verdicts, regional absolutes, or performance claims from NextGen into Zapla's packaged offer.
+Verification completed for this revision: `npx tsc --noEmit` exited 0; `npm run build` exited 0; `git diff --check` passed. A separate executable arithmetic/source audit passed all nine first-year figures, the renewal amount, no-trial setting, eight comparison rows and every source reference. No new dependency or shared-shell edit. Source checks do not count as visual QA.
 
-Evidence flags: Social Planner and Ad Manager appear on Zapla's pricing draft, but were not independently established by the public NextGen inclusion pages checked in this pass; reconcile actual enablement before using them as competitor differentiators. Growth wording refers to tools and campaigns, not an unqualified managed-marketing service. Broad platform capabilities, configured launch work, and optional paid services must remain distinct in meaning.
+Actual attempted visual verification: cloud preview redirects to Lovable login; no further login handoff loop. A read-only Lovable QA request returned the explicit error that the workspace is out of credits. The supported shared-file browser navigation is blocked by browser URL security policy. Stop that path; do not bypass the restriction or install/control another browser. No visual screenshots of this revision were available, so an overall 9/10 or visual 9/10 is NOT certified.
 
-Sources: https://support.pipedrive.com/en/article/usage-limits-in-pipedrive ; https://thenextgencrm.com/pricing/ ; https://thenextgencrm.com/compare/nextgen-vs-highlevel/ ; https://thenextgencrm.com/compare/nextgen-vs-zoho/ ; https://thenextgencrm.com/compare/nextgen-vs-hubspot/ ; https://thenextgencrm.com/dpa/ .
+Owner/provider confirmation still needed before using the following as differentiated claims:
+- Social Planner and Ad Manager: Zapla draft lists them; public NextGen catalogue checked does not clearly establish enablement. Excluded here.
+- Courses/communities, ticketing and branded apps: NextGen documents platform capability, but Zapla retail-plan enablement remains unverified. Excluded from the comparison shortlist without claiming absence.
+- Actual account region and configured services: customer-specific, not assumed from available regions.
+- Any performance guarantee, compliance certification, testimonial, ROI or claimed measured superiority: not evidenced here and not added.
+
+Before public release, reconcile the separate existing trial/refund legal copy and generic footer social destinations. Do not invent replacement links or change site-wide policies inside this comparison task.
