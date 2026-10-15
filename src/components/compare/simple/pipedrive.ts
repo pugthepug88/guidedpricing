@@ -14,8 +14,8 @@ export const pipedriveSimple = {
     { title: 'Keep customer tools together', description: 'Keep customer records, conversations, forms and bookings in one platform.' },
     { title: 'Get help with the first setup', description: 'Agree the process, build the first automations and train your team.' },
   ],
-  tableIntroduction: 'Compare everyday customer tools first, then the marketing tools included with Growth.',
-  tableCaption: 'Pipedrive’s current plans compared with Zapla Follow-Through and Growth.',
+  tableIntroduction: 'Zapla Follow-Through and Pipedrive Premium. The same plans from the first feature to the final price.',
+  tableCaption: 'Pipedrive Premium compared with Zapla Follow-Through; optional services are labeled.',
   vendorPricingUrl: 'https://www.pipedrive.com/en/pricing',
   vendorPlan: 'Premium',
   vendorEntryPrice: annualBilledRates.Growth,
@@ -54,7 +54,7 @@ export const pipedriveSimple = {
     note: 'Your launch scope and price are confirmed before you commit. Compare the agreed setup work alongside the software subscription.',
   },
   foundationNote: 'AI, communications and global login services can involve overseas processing. Pipedrive also documents regional hosting and separate company databases.',
-  methodology: 'The tables compare Pipedrive Premium with Zapla Follow-Through; marketing tools are shown separately under Zapla Growth, and AI Receptionist is optional. Prices are in AUD. The A$79 Pipedrive annual rate is supported by the supplied pricing screenshot; A$109 monthly was reported by the owner and has not been independently reproduced in our USD-defaulting session. Confirm the current location-specific quote before purchase. The calculator shows subscriptions, not equivalent feature bundles or total running costs. Required Zapla launch, taxes, communications usage, optional services and third-party fees are separate. Crosses refer to the named native inclusion; integrations may be available. Unlimited workflows means the number of workflows, not unlimited sending, executions or setup work. Pipedrive also offers implementation assistance. This is a vendor-documentation comparison, not an independent product test.',
+  methodology: 'The main table and calculator compare Pipedrive Premium with Zapla Follow-Through throughout. A separate upgrade note describes marketing tools in Zapla Growth; they are not Follow-Through inclusions. AI Receptionist is optional. Prices are in AUD. The A$79 Pipedrive annual rate is supported by the supplied pricing screenshot; A$109 monthly was reported by the owner and has not been independently reproduced in our USD-defaulting session. Confirm the current location-specific quote before purchase. The calculator shows subscriptions, not equivalent feature bundles or total running costs. Required Zapla launch, taxes, communications usage, optional services and third-party fees are separate. Crosses refer to the named native inclusion; integrations may be available. Unlimited workflows means the number of workflows, not unlimited sending, executions or setup work. Pipedrive also offers implementation assistance. This is a vendor-documentation comparison, not an independent product test.',
 
   fit: [
     { title: 'Sales pipeline first', description: 'A strong option when sales activities, deals and pipeline reporting drive your day.', consideration: 'If your existing Pipedrive setup works well, there may be no reason to replace it.' },

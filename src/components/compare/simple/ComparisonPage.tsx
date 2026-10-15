@@ -53,14 +53,10 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     <section id="comparison" className="cc-table-band" aria-labelledby="comparison-heading"><div className="cc-inner">
       <div className="cc-section-heading"><p className="cc-section-label">The comparison</p><h2 id="comparison-heading">Compare what’s included.</h2><p>{data.tableIntroduction}</p></div>
       <div className="cc-table-group-heading"><h3>Everyday customer work</h3><p><strong>Follow-Through: {money(data.offer.monthly)}/month + GST.</strong> Unlimited users. Required launch from {money(data.offer.launch)} + GST.</p></div>
-      <FeatureTable rows={data.rows} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Follow-Through" caption={`${data.competitor} ${data.vendorPlan} compared with Zapla Follow-Through.`} />
+      <FeatureTable rows={[...data.rows, ...data.optionalRows]} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Follow-Through" caption={`${data.competitor} ${data.vendorPlan} compared with Zapla Follow-Through.`} />
       <p className="cc-table-key">✓ Included · × Not included as named. Integrations may be available. Zapla contacts are subject to fair use. Phone numbers and communications usage are separate.</p>
-      <div className="cc-table-group-heading cc-growth-heading"><h3>Marketing with Growth</h3><p><strong>{money(data.offer.growthMonthly)}/month + GST in total.</strong> Includes Follow-Through and the tools below. Required launch from {money(data.offer.growthLaunch)} + GST.</p></div>
-      <FeatureTable rows={data.growthRows} competitor={data.competitor} vendorPlan={`${data.vendorPlan} · extras shown`} zaplaPlan="Growth" caption={`Marketing tools in Zapla Growth and additional tools used with ${data.competitor}.`} />
-      <p className="cc-table-key">{data.marketingNote}</p>
-      <div className="cc-table-group-heading cc-optional-heading"><h3>Optional call answering</h3><p>AI Receptionist answers calls, captures details and can book or route enquiries.</p></div>
-      <FeatureTable rows={data.optionalRows} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Optional service" caption="AI Receptionist is separately priced and is not included in either Zapla subscription." />
-      <p className="cc-table-key">AI Receptionist is separately priced, with setup and usage terms. <Link to={data.pricingUrl}>See AI Receptionist pricing ↗</Link></p>
+      <aside className="cc-upgrade-note" aria-label="Optional Zapla plan upgrade"><p><strong>Need marketing and database reactivation?</strong> Growth adds email/SMS campaigns, social scheduling and database reactivation. {money(data.offer.growthMonthly)}/month + GST in total, with required launch from {money(data.offer.growthLaunch)} + GST. <Link to={data.pricingUrl}>Explore Growth ↗</Link></p></aside>
+      <p className="cc-table-key">AI Receptionist is an optional paid service; setup and usage terms are separate. <Link to={data.pricingUrl}>See pricing ↗</Link></p>
       <details className="cc-more-tools"><summary>Feature details and plan notes</summary>
         <div className="cc-feature-notes">{allRows.map(row => <div key={row.id}><h3>{row.label}</h3><p><strong>{data.competitor}:</strong> {row.competitor.detail || row.competitor.text}</p><p><strong>Zapla:</strong> {row.zapla.detail || row.zapla.text}</p></div>)}</div>
         <Link to={data.pricingUrl}>See full Zapla plan inclusions ↗</Link>
@@ -80,7 +76,6 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
         <p className="cc-renewal">After the original launch, Zapla’s subscription is {money(data.offer.monthly * 12)} + GST for 12 months at today’s price, before usage and extras.</p>
       </details>
       <details className="cc-more-launch"><summary>What does Guided Launch cover?</summary><p>{data.launch.introduction}</p><ol>{data.launch.steps.map(item => <li key={item.title}><strong>{item.title}.</strong> {item.description}</li>)}</ol><Link to={data.pricingUrl}>See full launch inclusions ↗</Link></details>
-      <p className="cc-growth"><strong>Choose Growth for email/SMS campaigns, social scheduling and reactivation.</strong> Everything in Follow-Through, with unlimited users. {money(data.offer.growthMonthly)}/month + GST. Required Guided Launch from {money(data.offer.growthLaunch)} + GST.</p>
       <p className="cc-usage">SMS, email, WhatsApp, voice and optional services are charged separately. Payment-provider charges also apply.</p>
     </div></section>
 

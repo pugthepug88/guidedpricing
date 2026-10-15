@@ -320,3 +320,70 @@
  .cc-final--canonical .cc-actions { flex-direction:column; align-items:stretch; }
  .cc-final--canonical .cc-actions > * { width:100%; }
 }
+
+/* A lighter editorial rhythm; the real comparison is the focal object. */
+.cc-hero { padding-bottom:64px; }
+.cc-hero-grid { gap:80px; }
+.cc-hero-message h1 { line-height:1.01; }
+.cc-team-offer { box-shadow:0 18px 48px -36px #29488366; }
+.cc-highlights { margin-top:56px; gap:40px; }
+.cc-table-band { padding:72px 0; }
+.cc-table-band .cc-section-heading { margin-bottom:32px; }
+.cc-upgrade-note { margin:26px 0 14px; padding:18px 22px; border-left:3px solid #DDA34B; background:#F0EBDD; }
+.cc-upgrade-note p { margin:0; font-size:14px; line-height:1.6; color:#4D544D; }
+.cc-upgrade-note strong { color:#111318; }
+.cc-upgrade-note a { color:#1E2B29; text-decoration:underline; text-underline-offset:3px; white-space:nowrap; }
+.cc-commercial { padding:88px 0 64px; background:#FCFCFA; color:#111318; }
+.cc-commercial .cc-section-heading { max-width:900px; margin:0 0 34px; }
+.cc-commercial .cc-section-heading h2 { font-size:clamp(40px,5vw,64px); line-height:1; letter-spacing:-.04em; }
+.cc-commercial .cc-section-label { color:#2563FF; }
+.cc-commercial a { color:#1E2B29; }
+.cc-team-pricing { padding:30px; border:1px solid #DEDCD5; border-radius:28px; background:#F7F4EE; box-shadow:0 28px 70px -54px #1E2B2966; }
+.cc-team-controls { max-width:none; margin:0 0 28px; }
+.cc-team-controls > label { font-size:18px; }
+.cc-team-controls output { color:#2563FF; font-size:48px; }
+.cc-team-controls input[type=range] { min-height:44px; margin:12px 0 0; accent-color:#2563FF; }
+.cc-range-labels { color:#5F655F; }
+.cc-billing-control { padding-top:18px; margin-top:18px; border-top:1px solid #D9D6CF; }
+.cc-billing-control input { accent-color:#2563FF; }
+.cc-team-results { gap:16px; border:0; }
+.cc-team-results article { padding:30px; border:1px solid #DEDCD5; border-radius:18px; background:#FCFCFA; }
+.cc-team-results article + article { border:1px solid #DEDCD5; }
+.cc-team-results .cc-team-zapla { background:#2563FF; color:#FFF; border-color:#2563FF; }
+.cc-team-results h3 { font-size:22px; }
+.cc-team-results .cc-team-total { font-size:clamp(44px,5.5vw,72px); margin:26px 0 20px; line-height:1; }
+.cc-team-results .cc-team-total span { font-size:14px; line-height:1.5; }
+.cc-team-results .cc-team-billing,.cc-team-results .cc-team-alternative { color:#5F655F; }
+.cc-team-zapla .cc-team-total,.cc-team-zapla .cc-team-billing { color:#FFF; }
+.cc-team-zapla .cc-same-price { color:#FFF; }
+.cc-team-qualification { color:#5F655F; margin:20px 0 0; }
+.cc-team-plan-notes { color:#5F655F; margin:12px 0 0; }
+.cc-team-plan-notes summary { color:#1E2B29; }
+.cc-team-controls input:focus-visible { outline-color:#2563FF; }
+.cc-commercial .cc-first-year,.cc-commercial .cc-more-launch { border-color:#D9D6CF; color:#1E2B29; }
+.cc-commercial .cc-first-year summary,.cc-commercial .cc-more-launch summary { color:#1E2B29; }
+.cc-commercial .cc-first-year p,.cc-commercial .cc-more-launch p,.cc-commercial .cc-renewal,.cc-commercial .cc-usage { color:#5F655F; }
+.cc-commercial .cc-cost-table th,.cc-commercial .cc-cost-table td { border-color:#D9D6CF; color:#111318; }
+.cc-commercial .cc-cost-table td:last-child { background:#EAF0FF; color:#111318; }
+.cc-commercial .cc-cost-note,.cc-commercial .cc-cost-vendor,.cc-commercial .cc-cost-from { color:#5F655F; }
+.cc-fit-section { padding:64px 0; background:#F7F4EE; }
+.cc-faq { padding:64px 0 36px; }
+@media (max-width:900px) { .cc-hero-grid { gap:36px; } }
+@media (max-width:700px) {
+ .cc-hero { padding-bottom:38px; }
+ .cc-highlights { margin-top:32px; gap:22px; }
+ .cc-table-band { padding:44px 0; }
+ .cc-commercial { padding:52px 0 40px; }
+ .cc-team-pricing { padding:18px; border-radius:22px; }
+ .cc-team-controls > label { font-size:15px; }
+ .cc-team-controls output { font-size:40px; }
+ .cc-team-results { gap:12px; }
+ .cc-team-results article { padding:24px 20px; }
+ .cc-team-results .cc-team-total { font-size:52px; }
+ .cc-upgrade-note { padding:16px; }
+ .cc-fit-section,.cc-faq { padding-top:44px; padding-bottom:36px; }
+}
+.cc-commercial .cc-more-launch li { color:#5F655F; }
+.cc-commercial .cc-cost-table thead th:last-child { background:#EAF0FF; color:#111318; }
+.cc-commercial .cc-cost-table td:last-child .cc-cost-vendor { color:#5F655F; }
+.cc-commercial .cc-first-year { margin-top:28px; }
