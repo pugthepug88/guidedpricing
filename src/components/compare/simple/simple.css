@@ -300,3 +300,23 @@
  .cc-billing-control legend { float:none; margin:0 0 10px; }
 }
 @media (prefers-reduced-motion:reduce) { .cc-team-pricing * { animation:none!important; transition:none!important; } }
+
+/* Match the incumbent CRM and Customer Marketing final CTA presentation. */
+.cc-final.cc-final--canonical { background:#FCFCFA; padding:80px 0 0; overflow:hidden; }
+.cc-final--canonical .cc-final-petal { display:flex; align-items:center; justify-content:center; width:52px; height:52px; background:#111214; border-radius:50%; margin:0 auto 24px; }
+.cc-final.cc-final--canonical h2 { max-width:1080px; margin:0 auto 20px; font-size:64px; line-height:.99; letter-spacing:-.045em; }
+.cc-final.cc-final--canonical p { max-width:760px; font-size:16px; line-height:1.65; }
+.cc-final--canonical .cc-actions { margin-top:28px; gap:12px; }
+.cc-final--canonical .cc-button { min-height:52px; font-size:13px; padding:14px 28px; }
+.cc-final-secondary { display:inline-flex; align-items:center; justify-content:center; min-height:52px; border:1px solid #E2DBD1; border-radius:999px; background:white; padding:14px 28px; font-size:13px; font-weight:600; color:#111318; text-decoration:none; }
+.cc-final-secondary:hover { border-color:#CFC6BA; }
+.cc-notes { padding:0; }
+.cc-notes > .cc-inner > details > summary { font-size:14px; }
+@media (max-width:1023px) { .cc-final.cc-final--canonical h2 { font-size:54px; } }
+@media (max-width:639px) {
+ .cc-final.cc-final--canonical { padding-top:64px; }
+ .cc-final.cc-final--canonical h2 { font-size:40px; }
+ .cc-final.cc-final--canonical p { font-size:15px; }
+ .cc-final--canonical .cc-actions { flex-direction:column; align-items:stretch; }
+ .cc-final--canonical .cc-actions > * { width:100%; }
+}
