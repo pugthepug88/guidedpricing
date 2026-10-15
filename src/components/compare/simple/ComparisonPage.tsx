@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { ArrowRight, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ZaplaPetal } from '@/components/ZaplaPetal';
+import { TeamPricing } from './TeamPricing';
 import type { ComparisonCell, ComparisonDefinition, ComparisonRow } from './types';
 
 const money = (amount: number) => `A$${amount.toLocaleString('en-AU')}`;
@@ -67,21 +68,8 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     </div></section>
 
     <section id="pricing-comparison" className="cc-commercial" aria-labelledby="price-heading"><div className="cc-inner">
-      <div className="cc-section-heading"><p className="cc-section-label">The price, with context</p><h2 id="price-heading">{data.pricingHeadline}</h2></div>
-      <div className="cc-price-grid">
-        <article><h3>{data.competitor} {data.vendorPlan}</h3><p className="cc-price">{money(data.vendorPrice)}<span>{data.vendorPriceUnit}</span></p><p className="cc-billing">{data.vendorBilling}</p><p className="cc-plan-reason">{data.vendorPlanReason}</p><p className="cc-plan-scope">{data.vendorScope}</p></article>
-        <article className="cc-zapla-price"><h3>Zapla Follow-Through</h3><p className="cc-price" data-testid="zapla-monthly">{money(data.offer.monthly)}<span>/month + GST · unlimited users</span></p><p className="cc-billing">Billed monthly.</p><p className="cc-plan-scope">{data.offerScope}</p><p className="cc-launch" data-testid="required-launch">Required Guided Launch<br /><strong>from {money(data.offer.launch)} + GST</strong></p></article>
-      </div>
-      <p className="cc-price-context">{data.vendorLowerPlans} {data.costCaution} <a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current {data.competitor} prices ↗</a></p>
-      <div className="cc-cost-examples">
-        <h3>Follow-Through vs {data.vendorPlan}: team subscription</h3>
-        <p>For the everyday tools compared above. Monthly billing first, with {data.competitor}’s annual discount alongside. Before setup, usage, extra tools and applicable taxes.</p>
-        <table className="cc-cost-table" role="table"><caption>{data.competitor} {data.vendorPlan} monthly and annual billing against Zapla Follow-Through monthly billing, in Australian dollars.</caption>
-          <thead><tr role="row"><th scope="col" role="columnheader">Team size</th>{data.costExamples.columns.map(name => <th scope="col" role="columnheader" key={name}>{name}</th>)}</tr></thead>
-          <tbody role="rowgroup">{data.recurringExamples.map(row => <tr role="row" key={row.label}><th scope="row" role="rowheader">{row.label}</th>{row.values.map((value, index) => <td role="cell" key={data.costExamples.columns[index]}><span className="cc-cost-vendor" aria-hidden="true">{data.costExamples.columns[index]}</span><span className="cc-cost-amount">{money(value)}</span></td>)}</tr>)}</tbody>
-        </table>
-        <p className="cc-cost-note">Zapla excludes GST. {data.competitor} taxes and location-specific quotes are confirmed at checkout. These plans include different tools; the figures are not a complete matching-package quote.</p>
-      </div>
+      <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">Add people.<br />Keep the same plan price.</h2><p>Explore how team size affects the subscription for each named plan.</p></div>
+      <TeamPricing data={data} />
       <details className="cc-cost-examples cc-first-year">
         <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>
         <table className="cc-cost-table" role="table"><caption>Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars.</caption>
@@ -97,11 +85,11 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     </div></section>
 
     <section className="cc-fit-section" aria-labelledby="fit-heading"><div className="cc-inner"><h2 id="fit-heading">Which fits the way you work?</h2><div className="cc-fit">{data.fit.map((item, index) => <article key={item.title}><p className="cc-vendor">{index === 0 ? data.competitor : 'Zapla'}</p><h3>{item.title}</h3><p>{item.description}</p><p className="cc-consideration">{item.consideration}</p></article>)}</div></div></section>
-    <section className="cc-foundations" aria-labelledby="platform-heading"><div className="cc-inner"><div className="cc-section-heading"><p className="cc-section-label">The platform underneath</p><h2 id="platform-heading">Choose where your core data is hosted.</h2></div><div className="cc-foundation-list">{data.foundations.map(item => <article key={item.title}><h3>{item.title}</h3><p>{item.description}</p></article>)}</div><p className="cc-foundation-note">{data.foundationNote}</p></div></section>
     <section className="cc-faq" aria-labelledby="faq-heading"><div className="cc-inner cc-faq-grid"><h2 id="faq-heading">A few practical questions.</h2><div>{data.faqs.map(faq => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div></div></section>
     <section className="cc-final" aria-labelledby="cta-heading"><div className="cc-inner"><ZaplaPetal size={36} /><h2 id="cta-heading">See how Zapla would work<br />for your business.</h2><p>Bring your current tools and the follow-up you want to improve. We’ll discuss the fit, plan and launch before you decide.</p><div className="cc-actions"><CallButton /><Link className="cc-text-link" to={data.pricingUrl}>View all Zapla pricing <ArrowRight size={17} aria-hidden="true" /></Link></div></div></section>
     <section className="cc-notes"><div className="cc-inner"><details><summary>Sources and comparison notes</summary><p>Checked {data.updated}. Prepared by Zapla from first-party vendor documentation and the owner-confirmed Zapla offer. This is not an independent product test.</p><p>{data.methodology}</p>
       <details className="cc-claim-sources"><summary>Check the sources for each comparison</summary>{allRows.map(row => <div key={row.id}><strong>{row.label}</strong><p>{[...new Set([...row.competitor.sources, ...row.zapla.sources])].map(id => { const source = data.sources.find(item => item.id === id); return source ? <a key={id} href={source.url} target={source.url.startsWith('/') ? undefined : '_blank'} rel="noopener noreferrer">{source.title} ↗</a> : null; })}</p></div>)}</details>
+      <details className="cc-security-notes"><summary>Hosting and data handling</summary>{data.foundations.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.description}</p></div>)}<p>{data.foundationNote}</p></details>
       <ul className="cc-source-list">{data.sources.map(source => <li key={source.id}>{source.url === data.pricingUrl ? <Link to={data.pricingUrl}>{source.title}</Link> : <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title} ↗</a>}</li>)}</ul>
     </details></div></section>
   </main>;

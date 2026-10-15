@@ -169,3 +169,20 @@ Review lenses: buyer comprehension (plan and price beside each group); commercia
 Visual design/mobile rating remains unverified. Source inspection and a successful build are not visual QA or proof of9/10. No user login workaround is attempted. Draft route remains noindex and production publishing is not requested.
 
 Verification for grouped revision: TypeScript and production build exited0; executable checks passed for12core/3Growth/1optional rows, unique identifiers, source mapping, correct marker semantics and all18price values. Newly added capabilities do not change core pricing examples.
+
+
+## Team-size interaction and supplied full-page visual review
+
+Personally inspected the supplied Zoho price-slider screenshot image(20261015-061324).png and actual Zapla full-page desktop screenshot image(20261015-072516).png. The current matrix is coherent, but the price cards plus team table require duplicated reading. Hosting has disproportionate prominence without an established comparative advantage. These are observations of the supplied incumbent render, not the newly revised render.
+
+Implemented a single customer-controlled team-size input,1to25people, default5. Named baseline remains Pipedrive Premium versus Zapla Follow-Through. Monthly/annual radio options are native keyboard controls. Pipedrive total is users times the selected per-user rate; annual option clearly says monthly equivalent and the upfront annual total. The alternate billing amount stays visible in both states. Zapla subscription remains399, unlimited users, requiredlaunchfrom1997. No savings badge, artificial cost bars, inflated scale or total-cost guarantee. USD numbers are not substituted. The109monthlyAUDinput remains owner-reported,79annualAUDsupported by the supplied screenshot.
+
+Replaced the old pricing cards and recurring team table rather than adding another section. First-year examples remain collapsed and use the original disclosed assumptions. Growth still has its separate699totalprice and its marketing capabilities. Required setup, separate usage, tax handling and non-equivalent feature bundles stay visible. Lower Pipedrive plans are available in Compared plans and current prices. Headline Add people. Keep the same plan price refers to adding users within the selected Zapla plan, not future price guarantees or stable total bills. Qualification makes this explicit.
+
+Hosting is now an expandable item inside sources/comparison notes, not a full standalone section. It retains the DPA qualifications and acknowledgement of competitor regional hosting. No HIPAA tick introduced.
+
+Lens review: customer understanding (one input, two named subscription results); commercial accuracy (actual arithmetic and visible billing basis); competitor fairness (annual price can be lower, no universal-cheaper claim); product scope (Follow-Through only, Growth separate); conversion (personal team size without lengthening the main flow); brand/design (incumbent green section, restrained blue Zapla emphasis, no fake avatars); motion (user-controlled update, no loop or decorative animation, reduced-motion rule); accessibility (labeled range, radio group, native keyboard operation, semantic results); template reuse (annual price typed separately, competitor data separate). No invented conversion prediction or visually verified9rating.
+
+Structural verification uses the real React render with a memory router: default5seats produces545monthly and395annualalternative; Zapla399 stays fixed, requiredlaunch is present, named plans/captions/native controls are present, recurring table and standalone hosting heading are absent. New desktop/mobile render and hands-on slider operation remain unverified behind the preview authentication boundary. The supplied screenshot cannot prove the new render. Production build and TypeScript results are recorded separately below.
+
+Interaction verification: production build exited0; TypeScript exited0; diff check passed. Real React server-render assertions passed. No live desktop/mobile interaction test or screenshot of the new revision has been claimed.

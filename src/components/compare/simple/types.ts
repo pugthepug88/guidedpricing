@@ -15,6 +15,7 @@ export interface ComparisonDefinition {
   vendorEntryPrice: number;
   vendorEntryPlan: string;
   vendorPrice: number;
+  vendorAnnualPrice: number;
   vendorPriceUnit: string;
   vendorBilling: string;
   pricingHeadline: string;

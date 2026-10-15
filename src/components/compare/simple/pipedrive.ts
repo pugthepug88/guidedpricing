@@ -21,6 +21,7 @@ export const pipedriveSimple = {
   vendorEntryPrice: annualBilledRates.Growth,
   vendorEntryPlan: 'Growth',
   vendorPrice: monthlyPremium,
+  vendorAnnualPrice: annualBilledRates.Premium,
   vendorPriceUnit: 'per user/month, billed monthly',
   vendorBilling: 'Or A$79 per user/month, billed annually (A$948 per user/year).',
   pricingHeadline: 'One team price. More tools included.',
