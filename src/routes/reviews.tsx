@@ -26,6 +26,18 @@ export const Route = createFileRoute("/reviews")({
           "Zapla automates review requests after completed work, keeps customer feedback connected to the CRM, and helps service businesses manage reviews and responses.",
       },
       { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: "Reviews & Reputation for Service Businesses | Zapla" },
+      {
+        property: "og:description",
+        content:
+          "Zapla automates review requests after completed work, keeps customer feedback connected to the CRM, and helps service businesses manage reviews and responses.",
+      },
+      { name: "twitter:title", content: "Reviews & Reputation for Service Businesses | Zapla" },
+      {
+        name: "twitter:description",
+        content:
+          "Zapla automates review requests after completed work, keeps customer feedback connected to the CRM, and helps service businesses manage reviews and responses.",
+      },
     ],
   }),
   component: ReviewsPage,

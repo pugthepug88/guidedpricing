@@ -82,26 +82,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Zapla Guided Launch Pricing — One flat price, launched with you" },
+      { title: "Zapla | Customer Communication and Follow Through" },
       {
         name: "description",
         content:
-          "Zapla is the AI operating system for growing businesses. Unlimited users, one flat platform price, launched with you. See Guided Launch pricing.",
+          "Keep customer enquiries, conversations and follow-up moving with Zapla. One platform for your team, launched with you.",
       },
       { name: "author", content: "Zapla" },
-      { property: "og:title", content: "Zapla Guided Launch Pricing — One flat price, launched with you" },
+      { property: "og:title", content: "Zapla | Customer Communication and Follow Through" },
       {
         property: "og:description",
         content:
-          "Zapla is the AI operating system for growing businesses. Unlimited users, one flat platform price, launched with you. See Guided Launch pricing.",
+          "Keep customer enquiries, conversations and follow-up moving with Zapla. One platform for your team, launched with you.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Zapla" },
-      { name: "twitter:title", content: "Zapla Guided Launch Pricing — One flat price, launched with you" },
-      { name: "twitter:description", content: "Zapla is the AI operating system for growing businesses. Unlimited users, one flat platform price, launched with you. See Guided Launch pricing." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/WVOw0apWNMOB0CvYuvbXcppr97q2/social-images/social-1783863902686-Screenshot_2026-07-12_234444.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/WVOw0apWNMOB0CvYuvbXcppr97q2/social-images/social-1783863902686-Screenshot_2026-07-12_234444.webp" },
+      { name: "twitter:title", content: "Zapla | Customer Communication and Follow Through" },
+      {
+        name: "twitter:description",
+        content:
+          "Keep customer enquiries, conversations and follow-up moving with Zapla. One platform for your team, launched with you.",
+      },
     ],
     links: [
       {

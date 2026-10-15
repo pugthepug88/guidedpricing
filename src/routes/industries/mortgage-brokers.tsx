@@ -14,6 +14,24 @@ export const Route = createFileRoute("/industries/mortgage-brokers")({
           "Keep client relationships, repeat business and referral conversations moving with Zapla, alongside your specialist mortgage software.",
       },
       { name: "robots", content: "noindex, nofollow" },
+      {
+        property: "og:title",
+        content: "Client Relationships & Follow Through for Mortgage Brokers | Zapla",
+      },
+      {
+        property: "og:description",
+        content:
+          "Keep client relationships, repeat business and referral conversations moving with Zapla, alongside your specialist mortgage software.",
+      },
+      {
+        name: "twitter:title",
+        content: "Client Relationships & Follow Through for Mortgage Brokers | Zapla",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Keep client relationships, repeat business and referral conversations moving with Zapla, alongside your specialist mortgage software.",
+      },
     ],
   }),
   component: MortgageBrokersPage,

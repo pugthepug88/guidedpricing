@@ -30,6 +30,8 @@ export const Route = createFileRoute("/industries/allied-health")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { name: "robots", content: "noindex, nofollow" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
     ],
   }),
   component: AlliedHealthPage,

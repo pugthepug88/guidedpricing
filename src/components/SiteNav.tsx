@@ -58,6 +58,7 @@ function CinematicZaplaLogo() {
 export function SiteNav() {
   const location = useLocation();
   const navRef = useRef<HTMLElement>(null);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const cinematicV5 =
     location.pathname === "/" || location.pathname === "/concept/cinematic-follow-through-v5";
   // Every non-home route inherits the homepage header geometry. Light pages begin in
@@ -125,12 +126,15 @@ export function SiteNav() {
           setOpenMenu(null);
           setMobileOpen(false);
           const group = (event.target as HTMLElement).closest("[data-nav-group]");
-          (group?.querySelector("button") as HTMLButtonElement | null)?.focus();
+          const trigger =
+            group?.querySelector<HTMLButtonElement>("button") ??
+            (mobileOpen ? mobileToggleRef.current : null);
+          trigger?.focus();
         }
       }}
     >
       <div className="flex w-full items-center justify-between gap-4 px-[6vw] py-2.5 lg:px-[5.5vw]">
-        <a href="https://zapla.io/" className="flex items-center">
+        <a href="/" className="flex items-center">
           {lightGlassState ? (
             <img src={ZAPLA_LOGO} alt="Zapla" className="h-8 w-auto" />
           ) : (
@@ -211,6 +215,7 @@ export function SiteNav() {
 
         <button
           type="button"
+          ref={mobileToggleRef}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           aria-controls="mobile-navigation"

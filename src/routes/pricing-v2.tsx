@@ -12,6 +12,16 @@ export const Route = createFileRoute("/pricing-v2")({
         content: "Compare Zapla plans, Guided Launch, optional services and communication usage.",
       },
       { name: "robots", content: "noindex" },
+      { property: "og:title", content: "Pricing & Guided Launch | Zapla" },
+      {
+        property: "og:description",
+        content: "Compare Zapla plans, Guided Launch, optional services and communication usage.",
+      },
+      { name: "twitter:title", content: "Pricing & Guided Launch | Zapla" },
+      {
+        name: "twitter:description",
+        content: "Compare Zapla plans, Guided Launch, optional services and communication usage.",
+      },
     ],
   }),
   component: PricingPage,
