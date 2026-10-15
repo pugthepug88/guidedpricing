@@ -1,40 +1,130 @@
-# Comparison reference review, 15 October 2026
+# Comparison reference review — 15 October 2026
 
-## Scope and evidence limits
+## Scope
 
-Read public comparison-page content from the vendors below. This is a representative page review across the named brands, not an exhaustive review of every comparison URL on every site. Search results alone are not counted as an opened page. Browser-rendered layouts of all these pages were not inspected in this pass. The supplied Zoho and HubSpot screenshots were personally inspected and are the primary rendered references for the compact matrix. The newly edited Zapla preview remains behind the unresolved preview access boundary; a passing build does not constitute visual QA.
+Opened 94 distinct reference URLs in this pass, including comparison landing pages, editorial comparisons and related resources/indexes. The 18 identified brands are Keap, Salesforce, Close, Creatio, Mailchimp, Pipedrive, ActiveCampaign, Nutshell, Zoho, SugarAI/SugarCRM, monday, EngageBay, Copper, Klaviyo, HubSpot, Vendasta, HighLevel and NextGen. This is not every comparison URL on every site.
 
-| Brand | Opened reference | Observation / status |
+Expanded visible hub links for Keap, Mailchimp, ActiveCampaign, HubSpot and HighLevel. Other brands received representative multi-page reviews, except NextGen's homepage matrix and Sugar's public comparison resources. Search snippets alone do not count as opened pages.
+
+Rendered reference inspections include Zoho vs HubSpot, Close vs Pipedrive, HubSpot vs Pipedrive, Keap vs Pipedrive and the exact supplied monday ad landing page. Other pages received content/structure review rather than rendered visual QA.
+
+## Applied findings
+
+| Pattern | References | Zapla decision |
 | --- | --- | --- |
-| Keap | https://keap.com/compare/hubspot | Benefit-led pitch, named plan comparison and feature/value section, with detailed support below. |
-| Salesforce | https://www.salesforce.com/compare/salesforce-vs-hubspot/ | Six main differentiators and linked comparison sheet; does not lead with a dense feature essay. |
-| Close | https://close.com/compare/pipedrive-alternative | Dedicated competitor landing page. Choose differences relevant to the buyer rather than every generic CRM feature. |
-| Creatio | https://www.creatio.com/glossary/salesforce-alternatives | Longer alternatives article, not the compact sales-page model to use here. |
-| Mailchimp | https://mailchimp.com/resources/mailchimp-vs-constant-contact/ | Named Standard plans and compact included/not-included comparison. Retrieval redirected to Spanish; English search extract also available. |
-| Pipedrive | https://www.pipedrive.com/en/crm-comparison/pipedrive-vs-hubspot | Dedicated competitor page with product/value case and conversion path. |
-| ActiveCampaign | https://www.activecampaign.com/compare/hubspot | At-a-glance introduction followed by extensive feature and workflow detail. Use the initial comparison principle, not its overall length. |
-| Nutshell | https://www.nutshell.com/nutshell-vs-pipedrive | Dedicated comparison with feature/value framing. |
-| Zoho | https://www.zoho.com/compare-alternatives.html and https://www.zoho.com/crm/compare/hubspot.html | Opened hub and child comparison. Child names compared Enterprise plans and uses short feature labels within categories. Supplied Creatio screenshot confirms the desired tick/cross visual language. |
-| SugarAI / SugarCRM | https://www.sugarcrm.com/au/solutions/sugar-sell/ | Redirects to sugarai.com/product/sugar-sell. Product page inspected; guessed comparison endpoint failed and no usable direct Salesforce comparison was established. This brand's dedicated comparison review remains incomplete. |
-| monday | https://monday.com/ap/crm/monday-vs-hubspot-push and https://monday.com/blog/crm-and-sales/monday-crm-vs-hubspot-crm/ | Exact supplied ad landing URL returned no readable content in this retrieval. Official comparison article opened and read; at-a-glance table precedes longer explanation. Do not represent the article as a rendered inspection of the supplied ad landing page. |
-| EngageBay | https://www.engagebay.com/blog/engagebay-vs-hubspot/ | Long editorial comparison with quick verdict, pricing and plan-level sections. Not a suitable length model for Zapla's main landing page. |
-| Copper | https://www.copper.com/resources/copper-crm-vs-hubspot | Organizes the case around four meaningful differences. Supports selecting two or three compelling commercial themes above a short matrix. |
-| Klaviyo | https://www.klaviyo.com/compare/klaviyo-vs-mailchimp | Feature comparison, differentiated outcomes, migration guidance and FAQs. Retrieval can redirect to AU version. |
-| HubSpot | https://www.hubspot.com/comparisons/zoho-vs-hubspot?hs_amp=false | At-a-glance matrix uses short feature names and expandable rows, followed by focused differentiators. Supplied screenshot confirms symbols and scannability. |
-| Vendasta | https://www.vendasta.com/compare/vendasta-vs-gohighlevel/ | Dedicated competitor comparison. Agency/reseller context is different from Zapla's SMB retail offer. |
-| HighLevel | https://www.gohighlevel.com/highlevel-hubspot-comparison-chart | Explicit feature-by-feature sales page and links to more competitor comparisons. Some chart symbols are image-based and not reliably represented by extracted text. No attempt to copy vendor negatives as facts about another vendor. |
-| NextGen | https://thenextgencrm.com/ | Opened and read its NextGen vs HighLevel matrix. Agency pricing, white-label licenses and compliance claims require separate verification and retail-plan eligibility before reuse. |
+| Short reasons and scannable matrix | Zoho, HubSpot, monday landing | Retain three reasons and fixed-plan rows. |
+| A concrete visual explains the benefit | Close/Pipedrive product imagery; HubSpot illustrations | One static customer record within the reasons section. |
+| Proof needs an actual source | monday customer quote/review evidence; Keap customer proof | No invented ratings, testimonials, logos or results. |
+| Named scope and transparent costs | Named-plan comparisons; dated Sugar 2023 PDF | Follow-Through vs Premium; required launch and annual alternative visible. Do not reuse Sugar's historical figures. |
+| Marketing scope differs from core CRM | Mailchimp, ActiveCampaign, HighLevel, Vendasta | Growth stays a separate upgrade block. |
+| Editorial comparison articles are a different format | Creatio, EngageBay, Copper, ActiveCampaign | Do not copy their length. |
+| FAQs and migration support address objections | Pipedrive, Nutshell, Klaviyo, HubSpot | Retain four short FAQs and collapsed scope-sensitive detail. |
 
-## Applied design and commercial decisions
+Vendor comparisons are sales copy, not independent fact checks. Old HubSpot capability claims, generic Pipedrive add-on claims that ignore Premium inclusions, and agency/white-label features require current first-party plan verification before reuse.
 
-- Use a short, three-column matrix with Zapla first and visibly highlighted. Short row names plus ticks/crosses, with Integration, Paid add-on and Growth only where needed.
-- Keep source evidence and plan explanations in closed disclosures. Keep required launch prices and the Growth price visible.
-- Lead with three relevant themes: whole-team access, connected customer tools and assisted setup.
-- Compare monthly billing with monthly billing, show the competitor's annual discount alongside, and disclose lower plans. Do not inflate costs by treating optional add-ons as mandatory.
-- No artificial Zapla feature ticks. No false Pipedrive crosses for contacts, forms, booking, shared email or Smart Docs in Premium.
-- No animation on static comparison data. Keep mobile as a readable three-column table rather than long stacked cards.
-- NextGen marketing claims about speed, regional isolation and certifications are not independent evidence of comparative superiority. Do not import them verbatim or imply that Pipedrive lacks regional hosting or separated customer databases.
+## Implemented visual and lenses
 
-## Remaining confirmations
+The static customer-record illustration reuses the existing CRM visual language and approved portrait asset. It shows an enquiry, quote follow-up and customer reply together. The caption explicitly identifies illustrative messages and variable configuration. It is not an actual product capture, customer result, guaranteed outcome or exclusive capability claim against Pipedrive.
 
-Pipedrive A$109 monthly billing is owner-reported, not independently reproduced in the agent's USD-defaulting session. Its A$79 annual-billing equivalent is supported by the supplied screenshot. No exact AUD Campaigns/provider package quote has been established. Newly revised Zapla desktop/mobile rendering remains unreviewed. Sugar's dedicated comparison and monday's exact ad-page content remain gaps. No claim of a complete all-pages competitor audit or a visually verified 9/10 is justified.
+Buyer comprehension: explain connected context with one example. Differentiation: keep commercial reasons separate from capability explanation. Offer integrity: preserve fixed main tiers and separate Growth scope. Pricing fairness: retain annual alternative, launch and usage disclosures. Evidence: no fabricated proof or compliance ticks. Design: white canvas, restrained sage/green, existing CRM vocabulary. Accessibility: semantic figure/caption, decorative portrait hidden, responsive CSS. Conversion: booking remains primary; no new demo requirement. Reuse: preserve the typed competitor comparison shell.
+
+## Limits
+
+A verified real product screenshot and Zapla customer proof remain gaps. HIPAA needs actual contractual/configuration/service-scope confirmation before an unqualified tick. No exact AUD Campaigns/provider package quote is established, so no invented all-in marketing total is asserted. The new mobile render has not been visually inspected. Build/type checks do not establish a 9/10 or conversion performance.
+
+## Opened URL inventory
+
+- https://keap.com/compare/pipedrive
+- https://keap.com/compare/hubspot
+- https://keap.com/compare/salesforce
+- https://close.com/compare/pipedrive-alternative
+- https://close.com/compare/hubspot-alternative
+- https://close.com/compare/salesforce-alternative
+- https://www.creatio.com/glossary/creatio-vs-hubspot
+- https://www.creatio.com/glossary/creatio-vs-salesforce
+- https://www.salesforce.com/compare/salesforce-vs-hubspot/
+- https://www.salesforce.com/crm/zoho-vs-salesforce/
+- https://mailchimp.com/resources/mailchimp-vs-klaviyo/
+- https://mailchimp.com/resources/mailchimp-vs-hubspot/
+- https://www.activecampaign.com/compare/hubspot
+- https://www.activecampaign.com/compare/mailchimp
+- https://www.nutshell.com/nutshell-vs-pipedrive
+- https://www.nutshell.com/nutshell-vs-close-crm
+- https://www.zoho.com/crm/compare/hubspot.html
+- https://www.zoho.com/crm/compare/salesforce.html
+- https://monday.com/blog/crm-and-sales/monday-crm-vs-hubspot-crm/
+- https://monday.com/blog/crm-and-sales/pipedrive-vs-hubspot/
+- https://www.engagebay.com/blog/engagebay-vs-hubspot/
+- https://www.engagebay.com/blog/hubspot-vs-activecampaign/
+- https://www.copper.com/resources/copper-crm-vs-pipedrive
+- https://www.copper.com/resources/copper-crm-vs-hubspot
+- https://www.klaviyo.com/compare/klaviyo-vs-mailchimp
+- https://www.klaviyo.com/compare/klaviyo-vs-attentive
+- https://www.hubspot.com/comparisons/pipedrive-vs-hubspot
+- https://www.hubspot.com/comparisons/zoho-vs-hubspot
+- https://www.vendasta.com/compare/vendasta-vs-gohighlevel/
+- https://www.vendasta.com/compare/vendasta-vs-hubspot/
+- https://www.gohighlevel.com/highlevel-vs-keap
+- https://www.gohighlevel.com/highlevel-vs-activecampaign
+- https://www.pipedrive.com/en/crm-comparison/pipedrive-vs-hubspot
+- https://www.pipedrive.com/en/crm-comparison/attio-vs-pipedrive
+- https://thenextgencrm.com/
+- https://sugarai.com/resources/nucleus-research-sfa-technology-value-matrix-2025/thanks
+- https://keap.com/compare/activecampaign
+- https://keap.com/compare/mailchimp
+- https://keap.com/compare/ontraport
+- https://keap.com/compare/aweber
+- https://keap.com/compare/constant-contact
+- https://mailchimp.com/resources/mailchimp-vs-activecampaign/
+- https://mailchimp.com/resources/mailchimp-vs-attentive/
+- https://mailchimp.com/resources/mailchimp-vs-ez-texting/
+- https://mailchimp.com/resources/mailchimp-vs-getresponse/
+- https://mailchimp.com/resources/mailchimp-vs-amazon-ses/
+- https://mailchimp.com/resources/mailchimp-vs-mailgun/
+- https://mailchimp.com/resources/mailchimp-vs-postmark/
+- https://mailchimp.com/resources/mailchimp-vs-brevo/
+- https://mailchimp.com/resources/mailchimp-vs-mailerlite/
+- https://www.activecampaign.com/compare/klaviyo
+- https://www.activecampaign.com/compare/convertkit
+- https://www.activecampaign.com/compare/rd-station
+- https://www.activecampaign.com/compare/marketo
+- https://www.activecampaign.com/compare/keap
+- https://www.activecampaign.com/compare/brevo
+- https://www.activecampaign.com/compare/salesforce
+- https://www.activecampaign.com/compare/constant-contact
+- https://www.activecampaign.com/compare/aweber
+- https://www.activecampaign.com/compare/campaign-monitor
+- https://www.activecampaign.com/compare/pipedrive
+- https://www.activecampaign.com/compare/omnisend
+- https://www.activecampaign.com/compare/markethero
+- https://www.activecampaign.com/compare/getresponse
+- https://www.hubspot.com/comparisons/salesforce-service-cloud-vs-hubspot
+- https://www.hubspot.com/comparisons/salesforce-marketing-cloud-vs-hubspot-marketing-hub
+- https://www.hubspot.com/comparisons/marketo-vs-hubspot
+- https://www.hubspot.com/comparisons/active-campaign-vs-hubspot
+- https://www.hubspot.com/comparisons/mailchimp-vs-hubspot
+- https://www.hubspot.com/comparisons/salesloft-vs-hubspot
+- https://www.hubspot.com/comparisons/outreach-vs-hubspot
+- https://www.hubspot.com/comparisons/best-crm
+- https://www.hubspot.com/comparisons/hubspot-vs-freshdesk
+- https://www.hubspot.com/comparisons/hubspot-vs-monday
+- https://www.hubspot.com/comparisons/wordpress-vs-hubspot
+- https://www.hubspot.com/comparisons/microsoft-dynamics-vs-hubspot
+- https://www.hubspot.com/comparisons/zendesk-vs-hubspot
+- https://www.hubspot.com/comparisons/klaviyo-vs-hubspot
+- https://www.hubspot.com/comparisons/microsoft-dynamics-marketing-vs-hubspot
+- https://www.hubspot.com/comparisons/intercom-vs-hubspot
+- https://www.hubspot.com/comparisons/zoho-desk-vs-hubspot
+- https://www.hubspot.com/comparisons/microsoft-dynamics-customer-service-vs-hubspot
+- https://www.hubspot.com/comparisons/hubspot-vs-customer-success-platforms
+- https://www.hubspot.com/comparisons/ai-coded-crms-vs-hubspot
+- https://www.hubspot.com/comparisons/highlevel-vs-hubspot
+- https://www.gohighlevel.com/highlevel-vs-hubspot
+- https://www.gohighlevel.com/highlevel-vs-clickfunnels
+- https://www.gohighlevel.com/highlevel-vs-linktree
+- https://www.gohighlevel.com/highlevel-vs-kartra
+- https://www.gohighlevel.com/highlevel-vs-vendasta
+- https://www.gohighlevel.com/highlevel-vs-sharpspring
+- https://www.gohighlevel.com/highlevel-vs-klaviyo
+- https://www.gohighlevel.com/highlevel-vs-zoho
+- https://www.gohighlevel.com/highlevel-vs-salesforce
