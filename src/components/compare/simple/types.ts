@@ -22,6 +22,10 @@ export interface ComparisonDefinition {
   vendorLowerPlans: string;
   costCaution: string;
   additionalTools: readonly { title: string; description: string; sources: readonly string[] }[];
+  vendorEntryScope: string;
+  vendorScope: string;
+  offerScope: string;
+  recurringExamples: readonly { label: string; values: readonly number[] }[];
   costExamples: {
     title: string;
     introduction: string;

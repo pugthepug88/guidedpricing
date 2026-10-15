@@ -62,20 +62,29 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     <section id="pricing-comparison" className="cc-commercial" aria-labelledby="price-heading"><div className="cc-inner">
       <div className="cc-section-heading"><p className="cc-section-label">The price, with context</p><h2 id="price-heading">{data.pricingHeadline}</h2></div>
       <div className="cc-price-grid">
-        <article><h3>{data.competitor} {data.vendorEntryPlan}</h3><p className="cc-price">{money(data.vendorEntryPrice)}<span>per user/month equivalent</span></p><p className="cc-billing">Billed annually.</p><p className="cc-plan-reason">Email sync, automations and scheduler.</p></article>
-        <article><h3>{data.competitor} {data.vendorPlan}</h3><p className="cc-price">{money(data.vendorPrice)}<span>{data.vendorPriceUnit}</span></p><p className="cc-billing">{data.vendorBilling}</p><p className="cc-plan-reason">{data.vendorPlanReason}</p></article>
-        <article className="cc-zapla-price"><h3>Zapla Follow-Through</h3><p className="cc-price" data-testid="zapla-monthly">{money(data.offer.monthly)}<span>/month + GST · unlimited users</span></p><p className="cc-billing">Billed monthly.</p><p className="cc-launch" data-testid="required-launch">Required Guided Launch<br /><strong>from {money(data.offer.launch)} + GST</strong></p></article>
+        <article><h3>{data.competitor} {data.vendorEntryPlan}</h3><p className="cc-price">{money(data.vendorEntryPrice)}<span>per user/month equivalent</span></p><p className="cc-billing">Billed annually.</p><p className="cc-plan-reason">Email sync, automations and scheduler.</p><p className="cc-plan-scope">{data.vendorEntryScope}</p></article>
+        <article><h3>{data.competitor} {data.vendorPlan}</h3><p className="cc-price">{money(data.vendorPrice)}<span>{data.vendorPriceUnit}</span></p><p className="cc-billing">{data.vendorBilling}</p><p className="cc-plan-reason">{data.vendorPlanReason}</p><p className="cc-plan-scope">{data.vendorScope}</p></article>
+        <article className="cc-zapla-price"><h3>Zapla Follow-Through</h3><p className="cc-price" data-testid="zapla-monthly">{money(data.offer.monthly)}<span>/month + GST · unlimited users</span></p><p className="cc-billing">Billed monthly.</p><p className="cc-plan-scope">{data.offerScope}</p><p className="cc-launch" data-testid="required-launch">Required Guided Launch<br /><strong>from {money(data.offer.launch)} + GST</strong></p></article>
       </div>
       <p className="cc-price-context">{data.vendorLowerPlans} {data.costCaution} <a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current {data.competitor} prices ↗</a></p>
       <div className="cc-cost-examples">
-        <h3>{data.costExamples.title}</h3><p>{data.costExamples.introduction}</p>
+        <h3>What does the software cost for your team?</h3>
+        <p>Monthly subscription amounts or equivalents, before add-ons, usage and setup. Pipedrive requires annual upfront payment for these rates.</p>
+        <table className="cc-cost-table" role="table"><caption>Monthly software subscription amounts or annual-plan monthly equivalents, in Australian dollars.</caption>
+          <thead><tr role="row"><th scope="col" role="columnheader">Team size</th>{data.costExamples.columns.map(name => <th scope="col" role="columnheader" key={name}>{name}</th>)}</tr></thead>
+          <tbody role="rowgroup">{data.recurringExamples.map(row => <tr role="row" key={row.label}><th scope="row" role="rowheader">{row.label}</th>{row.values.map((value, index) => <td role="cell" key={data.costExamples.columns[index]}><span className="cc-cost-vendor" aria-hidden="true">{data.costExamples.columns[index]}</span><span className="cc-cost-amount">{money(value)}</span></td>)}</tr>)}</tbody>
+        </table>
+        <p className="cc-cost-note">Zapla excludes GST. Pipedrive taxes and location-specific quotes are confirmed at checkout. These plans include different tools; the figures are not a complete matching-package quote.</p>
+      </div>
+      <details className="cc-cost-examples cc-first-year">
+        <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>
         <table className="cc-cost-table" role="table"><caption>Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars.</caption>
           <thead><tr role="row"><th scope="col" role="columnheader">Team size</th>{data.costExamples.columns.map(name => <th scope="col" role="columnheader" key={name}>{name}</th>)}</tr></thead>
           <tbody role="rowgroup">{data.costExamples.rows.map(row => <tr role="row" key={row.label}><th scope="row" role="rowheader">{row.label}</th>{row.values.map((value, index) => <td role="cell" key={data.costExamples.columns[index]}><span className="cc-cost-vendor" aria-hidden="true">{data.costExamples.columns[index]}</span>{index === row.values.length - 1 && <span className="cc-cost-from">From </span>}<span className="cc-cost-amount">{money(value)}</span></td>)}</tr>)}</tbody>
         </table>
         <p className="cc-cost-note">{data.costExamples.note}</p>
         <p className="cc-renewal">After the original launch, Zapla’s subscription is {money(data.offer.monthly * 12)} + GST for 12 months at today’s price, before usage and extras.</p>
-      </div>
+      </details>
       <p className="cc-growth"><strong>Need marketing and reactivation tools?</strong> Growth: {money(data.offer.growthMonthly)}/month + GST. Required Guided Launch from {money(data.offer.growthLaunch)} + GST.</p>
       <p className="cc-usage">SMS, email, WhatsApp, voice and optional services are charged separately. Payment-provider charges also apply.</p>
     </div></section>

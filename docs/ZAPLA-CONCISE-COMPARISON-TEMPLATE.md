@@ -110,3 +110,28 @@ Owner/provider confirmation still needed before using the following as different
 - Any performance guarantee, compliance certification, testimonial, ROI or claimed measured superiority: not evidenced here and not added.
 
 Before public release, reconcile the separate existing trial/refund legal copy and generic footer social destinations. Do not invent replacement links or change site-wide policies inside this comparison task.
+
+
+## Pricing scope correction after owner screenshots, 15 October 2026
+
+Personally inspected four supplied screenshots: hero, comparison upper/lower rows and Guided Launch section. The subscription/launch figures were not changed, but the displayed first-year cash outlay overemphasized launch while understating platform breadth and ongoing per-user costs. It was a cash outlay example, not a complete capability-matched total. Do not use it to claim Pipedrive is categorically cheaper or Zapla universally cheaper.
+
+Rechecked official Pipedrive billing, LeadBooster, Smart Docs, Campaigns subscription/tier pages and calling documentation. Current billing documentation includes LeadBooster, Smart Docs AND Projects in Premium/Ultimate. Kimi's Projects-paid-on-all-plans entry is superseded. LeadBooster also enables the meeting scheduler on Lite; corrected the forms/booking row. Campaigns remains separate on all plans and is priced by subscriber limit and Campaigns tier. It must be compared with Zapla Growth at A$699 plus usage, not smuggled into a claim that Follow-Through includes proactive marketing. Web Visitors remains extra but no directly equivalent Zapla inclusion is established, so do not add it to a supposed matching quote.
+
+The live Pipedrive browser displayed USD: annual Lite14/Growth39/Premium59/Ultimate79, monthly Lite24/Growth49/Premium79/Ultimate99. Billing toggle actually operated and changed visible amounts. Do not relabel these monthly USD figures as AUD, or mix USD add-ons with the earlier verified AUD annual rates. AUD monthly-billing and subscriber-specific add-on quotes remain unverified. A fresh official AUD quote should be retained before public release.
+
+Revised presentation: recurring team costs are primary; original first-year arithmetic remains an expandable disclosure, with required launch still prominent in the hero and pricing. Show what is included/extra adjacent to each plan rate. Add business phone/SMS as a ninth practical comparison row, preserving Pipedrive mobile calling/logging and explaining its connected web calling providers. Zapla phone access includes neither free numbers nor unlimited usage. Do not assign an arbitrary price to a competitor website or telephony subscription. Clarify Campaigns tier/subscriber charges in the comparison and add its primary source.
+
+Recurring figures using the existing recorded AUD annual Pipedrive rates and Zapla monthly rate:
+
+| Users | Growth annual-plan monthly equivalent | Premium annual-plan monthly equivalent | Zapla Follow-Through monthly |
+| --- | ---: | ---: | ---: |
+| 5 | 245 | 395 | 399 |
+| 10 | 490 | 790 | 399 |
+| 20 | 980 | 1580 | 399 |
+
+All before tax treatment, add-ons, usage and setup. Pipedrive annual upfront billing applies. At 5 Premium seats the software difference is only A$4/month; launch makes Zapla's year-one minimum materially higher. At 10 Premium seats Zapla's subscription is A$391/month lower before extras, but no complete package/ROI saving is proven. This is the commercially useful distinction the previous first-year-only emphasis obscured.
+
+Visual gate remains incomplete for the revised pricing section. The supplied desktop screenshots establish that the existing hero/table/setup render cleanly and consistently enough to assess them, not that the entire page or mobile is 9/10. No browser sign-in workaround, production publishing or shared-shell changes.
+
+Verification for this pricing correction: TypeScript exited 0, production build exited 0, diff check passed. Executable arithmetic checks verified all 18 recurring/first-year values, all nine source-linked rows and unchanged Zapla subscription/launch prices.

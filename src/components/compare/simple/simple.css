@@ -194,3 +194,7 @@
 }
 
 @media(max-width:767px) { .cc-cost-from { display:block; font-size:12px; line-height:1.4; } }
+
+.cc-plan-scope { font-size:14px; line-height:1.55; color:#FCFCFA; padding-top:14px; border-top:1px solid #64716B; margin:16px 0; }
+.cc-first-year { padding-top:0; }
+.cc-first-year summary { color:#FCFCFA; }
