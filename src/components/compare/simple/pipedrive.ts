@@ -1,10 +1,13 @@
 import type { ComparisonDefinition } from './types';
 
+const offer = { monthly: 399, launch: 1997, growthMonthly: 699, growthLaunch: 2997, unlimitedUsers: true, unlimitedContacts: true, trial: false } as const;
+const annualBilledRates = { Growth: 49, Premium: 79 } as const;
+
 export const pipedriveSimple = {
   competitor: 'Pipedrive',
   headline: 'Your whole team.',
   headlineAccent: 'One CRM subscription.',
-  introduction: 'Pipedrive charges per paid seat. Zapla includes unlimited users, CRM, a shared inbox and booking calendars, with help getting set up.',
+  introduction: 'Pipedrive charges per paid seat. Zapla includes unlimited users and stored contacts, CRM, a shared inbox and bookings, with help getting set up.',
   highlights: [
     { title: 'Bring the whole team', description: 'Give people access without adding user subscription fees.' },
     { title: 'Keep customer tools together', description: 'Manage customer records, conversations and bookings in one platform.' },
@@ -14,30 +17,41 @@ export const pipedriveSimple = {
   tableCaption: 'Pipedrive’s current plans compared with Zapla Follow-Through and Growth.',
   vendorPricingUrl: 'https://www.pipedrive.com/en/pricing',
   vendorPlan: 'Premium',
-  vendorPrice: 79,
+  vendorPrice: annualBilledRates.Premium,
   vendorPriceUnit: 'per user/month equivalent',
   vendorBilling: 'A$948 per user/year, billed annually.',
   pricingHeadline: 'Per user. Or for the team.',
   vendorPlanReason: 'Shown because it includes the team email inbox and LeadBooster forms.',
   vendorLowerPlans: 'Pipedrive also lists Lite at A$19 and Growth at A$49 per user/month, billed annually.',
-  costCaution: 'Pipedrive may cost less for smaller teams. Features, billing terms and setup differ; no total-cost saving is claimed.',
-  foundationNote: 'AI, communications and global login services can involve overseas processing. Pipedrive also documents Australian hosting and separate company databases.',
-  methodology: 'Pipedrive AUD annual-billing prices were checked on 15 October 2026: Lite A$19, Growth A$49, Premium A$79 per seat/month equivalent. Premium is shown for its team email inbox and included LeadBooster, not as an equivalent feature bundle. Zapla prices are monthly and require Guided Launch. NextGen provides Zapla’s underlying platform; its DPA qualifies hosting claims. No measured speed advantage or total-cost saving is claimed.',
+  costCaution: 'Pipedrive may cost less for smaller teams. Features, billing terms and setup differ.',
+  additionalTools: [
+    { title: 'Website and funnel builder', description: 'Self-service tools included in both Zapla plans.', sources: ['platform-pricing', 'offer'] },
+    { title: 'Payments, invoices and proposals', description: 'Included platform tools; payment-provider and usage charges are separate.', sources: ['platform-pricing', 'offer'] },
+  ],
+  costExamples: {
+    title: 'See the first-year amounts for your team',
+    introduction: '12 months of subscription, plus Zapla’s minimum required Guided Launch. Pipedrive Growth and Premium are billed annually; the feature bundles differ.',
+    columns: ['Pipedrive Growth', 'Pipedrive Premium', 'Zapla Follow-Through'],
+    rows: [5, 10, 20].map(users => ({ label: `${users} users`, values: [users * annualBilledRates.Growth * 12, users * annualBilledRates.Premium * 12, offer.monthly * 12 + offer.launch] })),
+    note: 'Zapla: A$399 × 12 + launch from A$1,997 = from A$6,785, excluding GST. Pipedrive: A$49 or A$79 × users × 12; applicable taxes confirmed at checkout. Usage, add-ons and additional setup/services are excluded. These are listed-price examples, not equivalent packages or final quotes.',
+  },
+  foundationNote: 'AI, communications and global login services can involve overseas processing. Pipedrive also documents regional hosting and separate company databases.',
+  methodology: 'Pipedrive AUD annual-billing prices were checked on 15 October 2026: Lite A$19, Growth A$49, Premium A$79 per seat/month equivalent. Premium is shown for its team email inbox and included LeadBooster, not as an equivalent feature bundle. Zapla prices are monthly and require Guided Launch. NextGen provides Zapla’s underlying platform; its DPA qualifies hosting claims. Contacts are unlimited in both products; lead/deal or marketing-subscriber limits are different measures. Team examples use listed annual Pipedrive subscriptions and 12 Zapla monthly payments plus its minimum launch; taxes, usage and extra services are excluded or qualified. No measured speed advantage or equivalent-package savings is claimed.',
   fit: [
     { title: 'Sales pipeline first', description: 'A strong option when sales activities, deals and pipeline reporting drive your day.', consideration: 'If your existing Pipedrive setup works well, there may be no reason to replace it.' },
     { title: 'Customer follow-up together', description: 'For teams who want CRM, shared conversations and bookings under one subscription.', consideration: 'Start from spreadsheets, separate inboxes or an existing CRM. Guided Launch helps with the transition.' },
   ],
   rows: [
     { id: 'team', label: 'Team access', competitor: { text: 'Per paid seat', detail: 'Across all plans', status: 'plan-dependent', sources: ['billing', 'pricing'] }, zapla: { text: 'Unlimited users', detail: 'Both Zapla plans', status: 'included', sources: ['offer'] } },
-    { id: 'crm', label: 'CRM and pipelines', competitor: { text: 'Included', detail: 'All plans', status: 'included', sources: ['plans'] }, zapla: { text: 'Included', detail: 'Follow-Through', status: 'included', sources: ['crm', 'offer'] } },
+    { id: 'crm', label: 'CRM, pipelines and contacts', competitor: { text: 'Unlimited contacts', detail: 'CRM and pipelines on all plans', status: 'included', sources: ['plans', 'limits'] }, zapla: { text: 'Unlimited stored contacts', detail: 'Follow-Through; fair use applies', status: 'included', sources: ['crm', 'platform-pricing', 'offer'] } },
     { id: 'email', label: 'Email follow-up', competitor: { text: 'Growth and above', detail: 'Email sync, sequences and automations', status: 'plan-dependent', sources: ['plans'] }, zapla: { text: 'Follow-Through', detail: 'Inbox and configured follow-up automations', status: 'included', sources: ['inbox', 'platform', 'offer'] } },
     { id: 'replies', label: 'Shared inbox', competitor: { text: 'Premium and above', detail: 'Shared email conversations', status: 'plan-dependent', sources: ['plans'] }, zapla: { text: 'Follow-Through', detail: 'Customer conversations across channels', status: 'included', sources: ['inbox', 'offer'] } },
     { id: 'forms', label: 'Forms and booking', competitor: { text: 'Scheduler: Growth and above', detail: 'Forms: LeadBooster add-on on Lite/Growth; included on Premium/Ultimate.', status: 'plan-dependent', sources: ['plans', 'leadbooster'] }, zapla: { text: 'Follow-Through', detail: 'Forms, surveys and booking calendars', status: 'included', sources: ['platform', 'offer'] } },
-    { id: 'marketing', label: 'Ongoing marketing', competitor: { text: 'Paid Campaigns add-on', status: 'separate', sources: ['plans'] }, zapla: { text: 'Growth', detail: 'Marketing and database reactivation', status: 'plan-dependent', sources: ['offer', 'platform'] } },
+    { id: 'marketing', label: 'Ongoing marketing', competitor: { text: 'Paid Campaigns add-on', status: 'separate', sources: ['plans'] }, zapla: { text: 'Growth', detail: 'Marketing tools and reactivation campaigns', status: 'plan-dependent', sources: ['offer', 'platform'] } },
   ],
-  offer: { monthly: 399, launch: 1997, growthMonthly: 699, growthLaunch: 2997, unlimitedUsers: true, trial: false },
+  offer,
   foundations: [
-    { title: 'Australian hosting', description: 'Regional hosting in Australia is available for core account data and backups.', sources: ['dpa'] },
+    { title: 'Choose your data region', description: 'Core account data and backups stay in the selected live region. US, EEA and Australian regions are currently available.', sources: ['dpa'] },
     { title: 'A separate account database', description: 'Your customer records are stored in an account database separate from other accounts.', sources: ['platform', 'dpa'] },
     { title: 'App and data in one region', description: 'The application and account database run together in the selected region.', sources: ['dpa'] },
   ],
@@ -49,6 +63,8 @@ export const pipedriveSimple = {
     { question: 'Can I try Zapla for free?', answer: 'No, Zapla does not offer a free trial. Book a Call to discuss your team, the plan and the launch scope.' },
   ],
   sources: [
+    { id: 'platform-pricing', title: 'NextGen core platform inclusions', url: 'https://thenextgencrm.com/pricing/' },
+    { id: 'limits', title: 'Pipedrive contacts and usage limits', url: 'https://support.pipedrive.com/en/article/usage-limits-in-pipedrive' },
     { id: 'plans', title: 'Pipedrive plan features', url: 'https://support.pipedrive.com/en/article/what-features-do-the-pipedrive-plans-have' },
     { id: 'leadbooster', title: 'Pipedrive LeadBooster', url: 'https://support.pipedrive.com/en/article/leadbooster-add-on' },
     { id: 'billing', title: 'Pipedrive billing and paid seats', url: 'https://support.pipedrive.com/en/article/how-does-pricing-work-in-pipedrive' },

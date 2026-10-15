@@ -22,6 +22,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
           <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width={109} height={32}/>
           <p className="cc-offer-name">Follow-Through</p>
           <p className="cc-unlimited">Unlimited<br/>users.</p>
+          {data.offer.unlimitedContacts && <p className="cc-offer-contacts">Unlimited stored contacts, subject to fair use.</p>}
           <div className="cc-hero-price"><strong>{money(data.offer.monthly)}</strong><span>/month + GST</span></div>
           <p className="cc-hero-launch">Required Guided Launch<br/><strong>from {money(data.offer.launch)} + GST</strong></p>
         </aside>
@@ -34,6 +35,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
         <thead><tr role="row"><th scope="col" role="columnheader">For your team</th><th scope="col" role="columnheader">{data.competitor}</th><th scope="col" role="columnheader"><img src="/concept/zapla-logo-dark.svg" alt="Zapla" width={99} height={29}/></th></tr></thead>
         <tbody role="rowgroup">{data.rows.map(row => <tr key={row.id} role="row"><th scope="row" role="rowheader">{row.label}</th><Cell value={row.competitor} vendor={data.competitor}/><Cell value={row.zapla} vendor="Zapla"/></tr>)}</tbody>
       </table>
+      <details className="cc-more-tools"><summary>More tools included with Zapla</summary><div className="cc-extra-tools">{data.additionalTools.map(item => <p key={item.title}><strong>{item.title}</strong><span>{item.description}</span></p>)}</div><Link to={data.pricingUrl}>See full Zapla plan inclusions ↗</Link></details>
     </div></section>
     <section className="cc-commercial" aria-labelledby="price-heading"><div className="cc-inner">
       <div className="cc-section-heading"><p className="cc-section-label">Subscription pricing</p><h2 id="price-heading">{data.pricingHeadline}</h2></div>
@@ -42,7 +44,8 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
         <article className="cc-zapla-price"><h3>Zapla Follow-Through</h3><p className="cc-price" data-testid="zapla-monthly">{money(data.offer.monthly)}<span>/month + GST · unlimited users</span></p><p className="cc-billing">Billed monthly.</p><p className="cc-launch" data-testid="required-launch">Required Guided Launch<br/><strong>from {money(data.offer.launch)} + GST</strong></p></article>
       </div>
       <p className="cc-price-context">{data.vendorLowerPlans} {data.costCaution}</p>
-      <p className="cc-growth"><strong>Need ongoing marketing?</strong> Growth: {money(data.offer.growthMonthly)}/month + GST. Required Guided Launch from {money(data.offer.growthLaunch)} + GST.</p>
+      <details className="cc-cost-examples"><summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p><table className="cc-cost-table" role="table"><caption>Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars.</caption><thead><tr role="row"><th scope="col">Team size</th>{data.costExamples.columns.map(name => <th scope="col" key={name}>{name}</th>)}</tr></thead><tbody>{data.costExamples.rows.map(row => <tr role="row" key={row.label}><th scope="row">{row.label}</th>{row.values.map((value,index) => <td role="cell" key={data.costExamples.columns[index]}><span className="cc-cost-vendor" aria-hidden="true">{data.costExamples.columns[index]}</span>{index===row.values.length-1?'From ':''}{money(value)}</td>)}</tr>)}</tbody></table><p className="cc-cost-note">{data.costExamples.note}</p></details>
+      <p className="cc-growth"><strong>Need marketing and reactivation tools?</strong> Growth: {money(data.offer.growthMonthly)}/month + GST. Required Guided Launch from {money(data.offer.growthLaunch)} + GST.</p>
       <p className="cc-usage">SMS, email, voice and optional services are charged separately. Vendor taxes and final pricing are confirmed at checkout.</p>
     </div></section>
     <section className="cc-fit-section"><div className="cc-inner"><h2>Which fits the way you work?</h2><div className="cc-fit">{data.fit.map((item,index) => <article key={item.title}><p className="cc-vendor">{index===0?data.competitor:'Zapla'}</p><h3>{item.title}</h3><p>{item.description}</p><p className="cc-consideration">{item.consideration}</p></article>)}</div></div></section>

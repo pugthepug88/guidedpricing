@@ -19,11 +19,19 @@ export interface ComparisonDefinition {
   vendorPlanReason: string;
   vendorLowerPlans: string;
   costCaution: string;
+  additionalTools: readonly { title: string; description: string; sources: readonly string[] }[];
+  costExamples: {
+    title: string;
+    introduction: string;
+    columns: readonly string[];
+    rows: readonly { label: string; values: readonly number[] }[];
+    note: string;
+  };
   foundationNote: string;
   methodology: string;
   fit: readonly { title: string; description: string; consideration: string }[];
   rows: readonly ComparisonRow[];
-  offer: { monthly: number; launch: number; growthMonthly: number; growthLaunch: number; unlimitedUsers: boolean; trial: boolean };
+  offer: { monthly: number; launch: number; growthMonthly: number; growthLaunch: number; unlimitedUsers: boolean; unlimitedContacts: boolean; trial: boolean };
   foundations: readonly { title: string; description: string; sources: readonly string[] }[];
   faqs: readonly { question: string; answer: string }[];
   sources: readonly ComparisonSource[];
