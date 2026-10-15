@@ -34,29 +34,6 @@ const FOOTER_GROUPS = [
   },
 ] as const;
 
-const FOOTER_SOCIALS = [
-  {
-    href: "https://facebook.com/",
-    icon: "https://stcdn.leadconnectorhq.com/funnel/icons/dark/facebook-dark.svg",
-    alt: "Facebook",
-  },
-  {
-    href: "https://instagram.com/",
-    icon: "https://stcdn.leadconnectorhq.com/funnel/icons/dark/instagram-dark.svg",
-    alt: "Instagram",
-  },
-  {
-    href: "https://linkedin.com/",
-    icon: "https://stcdn.leadconnectorhq.com/funnel/icons/dark/linkedin-dark.svg",
-    alt: "LinkedIn",
-  },
-  {
-    href: "https://youtube.com/",
-    icon: "https://stcdn.leadconnectorhq.com/funnel/icons/dark/youtube-dark.svg",
-    alt: "YouTube",
-  },
-] as const;
-
 export function DominoFooter() {
   const reduced = !!useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -137,19 +114,6 @@ export function DominoFooter() {
                     </span>
                     Review us on G2
                   </a>
-                </div>
-
-                <div className="mt-6 flex items-center gap-3">
-                  {FOOTER_SOCIALS.map((social) => (
-                    <a
-                      key={social.alt}
-                      href={social.href}
-                      aria-label={social.alt}
-                      className="grid h-9 w-9 place-items-center rounded-full border border-[#E2DBD1] bg-white/80 transition-colors hover:border-[#2563FF]"
-                    >
-                      <img src={social.icon} alt="" className="h-4 w-4" />
-                    </a>
-                  ))}
                 </div>
               </div>
 

@@ -18,6 +18,18 @@ export const Route = createFileRoute("/follow-up")({
           "Zapla keeps new enquiries, quotes, bookings and past customers moving with connected follow-up across the channels you use.",
       },
       { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: "Follow-Up Automation for Service Businesses | Zapla" },
+      {
+        property: "og:description",
+        content:
+          "Zapla keeps new enquiries, quotes, bookings and past customers moving with connected follow-up across the channels you use.",
+      },
+      { name: "twitter:title", content: "Follow-Up Automation for Service Businesses | Zapla" },
+      {
+        name: "twitter:description",
+        content:
+          "Zapla keeps new enquiries, quotes, bookings and past customers moving with connected follow-up across the channels you use.",
+      },
     ],
   }),
   component: FollowUpPage,

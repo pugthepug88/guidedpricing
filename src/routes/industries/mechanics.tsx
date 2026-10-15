@@ -35,6 +35,24 @@ export const Route = createFileRoute("/industries/mechanics")({
           "Keep workshop enquiries, quote follow-up and customer return visits moving with Zapla. Built around your team and your existing workshop systems.",
       },
       { name: "robots", content: "noindex, nofollow" },
+      {
+        property: "og:title",
+        content: "Customer Follow-Up for Mechanics & Repair Workshops | Zapla",
+      },
+      {
+        property: "og:description",
+        content:
+          "Keep workshop enquiries, quote follow-up and customer return visits moving with Zapla. Built around your team and your existing workshop systems.",
+      },
+      {
+        name: "twitter:title",
+        content: "Customer Follow-Up for Mechanics & Repair Workshops | Zapla",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Keep workshop enquiries, quote follow-up and customer return visits moving with Zapla. Built around your team and your existing workshop systems.",
+      },
     ],
   }),
   component: MechanicsPage,

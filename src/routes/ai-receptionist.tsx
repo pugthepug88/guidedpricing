@@ -29,6 +29,18 @@ export const Route = createFileRoute("/ai-receptionist")({
           "Zapla answers incoming calls, handles routine enquiries, books or routes the next step, and keeps follow-up connected.",
       },
       { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: "AI Receptionist for Service Businesses | Zapla" },
+      {
+        property: "og:description",
+        content:
+          "Zapla answers incoming calls, handles routine enquiries, books or routes the next step, and keeps follow-up connected.",
+      },
+      { name: "twitter:title", content: "AI Receptionist for Service Businesses | Zapla" },
+      {
+        name: "twitter:description",
+        content:
+          "Zapla answers incoming calls, handles routine enquiries, books or routes the next step, and keeps follow-up connected.",
+      },
     ],
     links: [{ rel: "preconnect", href: "https://cdn.openart.ai" }],
   }),

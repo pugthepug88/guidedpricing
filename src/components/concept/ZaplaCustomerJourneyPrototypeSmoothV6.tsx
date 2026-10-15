@@ -101,7 +101,7 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
   };
 
   return (
-    <section ref={sectionRef} id="zapla-product-prototype-b" className="relative overflow-hidden bg-[#F7F4EE] px-5 py-20 text-[#0D1117] sm:px-8 sm:py-28">
+    <section ref={sectionRef} id="customer-journey" className="relative overflow-hidden bg-[#F7F4EE] px-5 py-20 text-[#0D1117] sm:px-8 sm:py-28">
       <div className="relative mx-auto max-w-[1240px]">
         <div className="max-w-[900px]">
           <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#58706F]">The platform behind the follow-through</div>

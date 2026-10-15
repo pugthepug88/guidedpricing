@@ -20,6 +20,8 @@ export const Route = createFileRoute("/industries/cosmetic-skin-clinics")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { name: "robots", content: "noindex, nofollow" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
     ],
   }),
   component: SkinClinicsPage,

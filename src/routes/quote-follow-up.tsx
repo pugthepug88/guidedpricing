@@ -30,6 +30,18 @@ export const Route = createFileRoute("/quote-follow-up")({
           "Keep outstanding quotes visible, give each one a clear next action, and follow up without relying on staff memory. Zapla connects quote follow-up to the customer record.",
       },
       { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: "Quote Follow-Up for Service Businesses | Zapla" },
+      {
+        property: "og:description",
+        content:
+          "Keep outstanding quotes visible, give each one a clear next action, and follow up without relying on staff memory. Zapla connects quote follow-up to the customer record.",
+      },
+      { name: "twitter:title", content: "Quote Follow-Up for Service Businesses | Zapla" },
+      {
+        name: "twitter:description",
+        content:
+          "Keep outstanding quotes visible, give each one a clear next action, and follow up without relying on staff memory. Zapla connects quote follow-up to the customer record.",
+      },
     ],
   }),
   component: QuoteFollowUpPage,

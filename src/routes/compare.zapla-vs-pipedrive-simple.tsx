@@ -5,11 +5,27 @@ import simpleCss from '@/components/compare/simple/simple.css?url';
 
 const title = 'Zapla vs Pipedrive: Pricing, Features and Team Access | Zapla';
 const description = 'Compare Zapla and Pipedrive for team access, customer tools, Guided Launch and first-year costs in AUD. See plan inclusions and source-linked pricing.';
-export const Route = createFileRoute('/compare/zapla-vs-pipedrive-simple')({
+export const Route = createFileRoute("/compare/zapla-vs-pipedrive-simple")({
   staticData: { sitemap: false },
   head: () => ({
-    meta: [{ title }, { name: 'description', content: description }, { name: 'robots', content: 'noindex, nofollow' }, { property: 'og:title', content: title }, { property: 'og:description', content: description }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary_large_image' }],
-    links: [{ rel: 'stylesheet', href: simpleCss }, { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Outfit:wght@500;600&display=swap' }],
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { name: "robots", content: "noindex, nofollow" },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+    ],
+    links: [
+      { rel: "stylesheet", href: simpleCss },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Outfit:wght@500;600&display=swap",
+      },
+    ],
   }),
   component: ConcisePipedrivePage,
 });
