@@ -211,7 +211,7 @@ export function ZaplaPlatformShowcase({ variant = "legacy" }: { variant?: "legac
             The interface is the proof: your team can see the customer, the conversation and what happens next without stitching together another stack of disconnected tools.
           </p>
           <a
-            href="https://zapla.io/booking"
+            href="/booking"
             className="inline-flex h-[48px] w-fit shrink-0 items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[14px] font-semibold text-white"
           >
             Book a Call <ArrowRight className="h-4 w-4" />

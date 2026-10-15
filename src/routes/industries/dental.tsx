@@ -24,7 +24,7 @@ export const Route = createFileRoute("/industries/dental")({
   }),
   component: DentalPage,
 });
-const BOOK = "https://zapla.io/booking";
+const BOOK = "/booking";
 const FAQS = [
   [
     "Our dental software already sends reminders. Why add Zapla?",

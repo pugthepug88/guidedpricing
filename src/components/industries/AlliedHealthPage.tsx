@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
-const BOOK = "https://zapla.io/booking";
+const BOOK = "/booking";
 const ASSETS = "/concept/industries/";
 function Label({ children }: { children: ReactNode }) {
   return <p className="ah-eyebrow">{children}</p>;

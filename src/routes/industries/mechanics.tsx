@@ -40,7 +40,7 @@ export const Route = createFileRoute("/industries/mechanics")({
   component: MechanicsPage,
 });
 
-const BOOK = "https://zapla.io/booking";
+const BOOK = "/booking";
 function ActionLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a className="mc-text-link" href={href}>

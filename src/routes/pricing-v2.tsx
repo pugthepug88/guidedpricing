@@ -17,7 +17,7 @@ export const Route = createFileRoute("/pricing-v2")({
   component: PricingPage,
 });
 
-const BOOK_URL = "https://zapla.io/booking";
+const BOOK_URL = "/booking";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;

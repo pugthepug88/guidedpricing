@@ -11,7 +11,7 @@ import {
 
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const EASE = [0.22, 1, 0.36, 1] as const;
-const BOOK_URL = "https://zapla.io/booking";
+const BOOK_URL = "/booking";
 
 const BG = "#111214";
 const CORAL = "#E97D62";

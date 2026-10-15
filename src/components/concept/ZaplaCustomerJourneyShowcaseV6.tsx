@@ -893,7 +893,7 @@ export function ZaplaCustomerJourneyShowcaseV6() {
           <p className="max-w-[720px] text-[14px] leading-[1.6] text-slate-500">
             One customer record follows the conversation, automation, pipeline and booking. After the journey, use the tabs to explore the rest of the platform.
           </p>
-          <a href="https://zapla.io/booking" className="inline-flex h-[48px] w-fit shrink-0 items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[14px] font-semibold text-white">
+          <a href="/booking" className="inline-flex h-[48px] w-fit shrink-0 items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[14px] font-semibold text-white">
             Book a Call <ArrowRight className="h-4 w-4" />
           </a>
         </div>

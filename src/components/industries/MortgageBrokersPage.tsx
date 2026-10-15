@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 import { ArrowRight, Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
-const BOOK = "https://zapla.io/booking";
+const BOOK = "/booking";
 function Label({ children }: { children: ReactNode }) {
   return <p className="mv-label">{children}</p>;
 }

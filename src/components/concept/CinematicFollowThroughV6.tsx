@@ -726,7 +726,7 @@ function HeroCopy({ mobile, eyebrow }: { mobile: boolean; eyebrow: string }) {
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-3">
         <a
-          href="https://zapla.io/booking"
+          href="/booking"
           className="inline-flex h-[48px] items-center gap-2 rounded-[10px] bg-white px-5 text-[14px] font-semibold text-[#111318]"
         >
           Book a Call <ArrowRight className="h-4 w-4" />

@@ -5,7 +5,7 @@ import { useInView, useReducedMotion } from "motion/react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 
-const BOOK = "https://zapla.io/booking";
+const BOOK = "/booking";
 const PRICING = "/Pricing-v3";
 const PHOTOS = "/concept/industries/";
 
