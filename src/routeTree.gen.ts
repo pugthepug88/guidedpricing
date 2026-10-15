@@ -23,6 +23,8 @@ import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as QuoteFollowUpRouteImport } from './routes/quote-follow-up'
 import { Route as ReactivationRouteImport } from './routes/reactivation'
 import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
@@ -106,6 +108,16 @@ const ReactivationRoute = ReactivationRouteImport.update({
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -202,6 +214,8 @@ export interface FileRoutesByFullPath {
   '/quote-follow-up': typeof QuoteFollowUpRoute
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
@@ -232,6 +246,8 @@ export interface FileRoutesByTo {
   '/quote-follow-up': typeof QuoteFollowUpRoute
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
@@ -263,6 +279,8 @@ export interface FileRoutesById {
   '/quote-follow-up': typeof QuoteFollowUpRoute
   '/reactivation': typeof ReactivationRoute
   '/reviews': typeof ReviewsRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
@@ -295,6 +313,8 @@ export interface FileRouteTypes {
     | '/quote-follow-up'
     | '/reactivation'
     | '/reviews'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/zapla-vs-pipedrive'
@@ -325,6 +345,8 @@ export interface FileRouteTypes {
     | '/quote-follow-up'
     | '/reactivation'
     | '/reviews'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/zapla-vs-pipedrive'
@@ -355,6 +377,8 @@ export interface FileRouteTypes {
     | '/quote-follow-up'
     | '/reactivation'
     | '/reviews'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/zapla-vs-pipedrive'
@@ -386,6 +410,8 @@ export interface RootRouteChildren {
   QuoteFollowUpRoute: typeof QuoteFollowUpRoute
   ReactivationRoute: typeof ReactivationRoute
   ReviewsRoute: typeof ReviewsRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
@@ -500,6 +526,20 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/reviews'
       preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -618,6 +658,8 @@ const rootRouteChildren: RootRouteChildren = {
   QuoteFollowUpRoute: QuoteFollowUpRoute,
   ReactivationRoute: ReactivationRoute,
   ReviewsRoute: ReviewsRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,

@@ -18,8 +18,6 @@ export const Route = createFileRoute("/industries/")({
       { property: "og:description", content: DESCRIPTION },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
-      // Release indexing with the approved industry estate in the production SEO pass.
-      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: IndustriesPage,

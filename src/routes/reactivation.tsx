@@ -14,7 +14,6 @@ export const Route = createFileRoute("/reactivation")({
         content:
           "Zapla Reopen helps service businesses bring old enquiries, stale quotes and past customers back into conversation with controlled lead and customer reactivation.",
       },
-      { name: "robots", content: "noindex, nofollow" },
       {
         property: "og:title",
         content: "Lead & Customer Reactivation for Service Businesses | Zapla",

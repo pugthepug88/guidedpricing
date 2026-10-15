@@ -18,7 +18,6 @@ export const Route = createFileRoute("/booking")({
       { property: "og:description", content: DESCRIPTION },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
-      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: BookingPage,

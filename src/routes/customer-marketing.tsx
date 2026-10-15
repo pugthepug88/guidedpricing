@@ -25,7 +25,6 @@ export const Route = createFileRoute("/customer-marketing")({
         content:
           "Use the data already in Zapla to decide who to contact, reach them at the right time, and create more business from the customers you already have.",
       },
-      { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Customer Marketing Software for Small Business | Zapla" },
       {
         property: "og:description",

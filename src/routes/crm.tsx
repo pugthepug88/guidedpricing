@@ -28,7 +28,6 @@ export const Route = createFileRoute("/crm")({
         content:
           "Zapla CRM keeps customer records, conversations, pipelines and automations connected, with unlimited users, unlimited contacts and Guided Launch.",
       },
-      { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "CRM for Service Businesses | Zapla" },
       {
         property: "og:description",
