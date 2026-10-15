@@ -197,8 +197,6 @@ function MechanicsPage() {
         </div>
       </section>
 
-      <WorkshopPlans />
-
       <section className="mc-final mc-wrap" aria-labelledby="final-title">
         <span className="mc-final-petal">
           <ZaplaPetal />
@@ -436,53 +434,6 @@ function ReviewScene() {
           workshop.
         </p>
         <ActionLink href="/reviews">Explore review automation</ActionLink>
-      </div>
-    </section>
-  );
-}
-
-function WorkshopPlans() {
-  return (
-    <section className="mc-plans mc-wrap" aria-labelledby="plans-title">
-      <div>
-        <Eyebrow>Monthly plans</Eyebrow>
-        <h2 id="plans-title">
-          Plans for
-          <br />
-          your workshop.
-        </h2>
-        <p className="mc-plan-value">
-          One setup for the customer work that’s easy to put off: enquiries, quote follow-up and
-          review requests. Growth adds a reason for existing customers to book again.
-        </p>
-      </div>
-      <div className="mc-plan-options">
-        <div className="mc-plan-option">
-          <div>
-            <strong>Follow-Through</strong>
-            <p>
-              Automatic enquiry replies, online booking, quote follow-up and Google review requests.
-            </p>
-          </div>
-          <span>
-            A$399<small>/month</small>
-          </span>
-        </div>
-        <div className="mc-plan-option">
-          <div>
-            <strong>Growth</strong>
-            <p>Everything in Follow-Through, plus service reminders and customer reactivation.</p>
-          </div>
-          <span>
-            A$699<small>/month</small>
-          </span>
-        </div>
-        <p className="mc-plan-note">
-          GST, usage and setup extra.{" "}
-          <a href="/Pricing-v3">
-            Compare plans and inclusions <ArrowRight size={14} aria-hidden="true" />
-          </a>
-        </p>
       </div>
     </section>
   );

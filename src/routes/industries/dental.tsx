@@ -58,10 +58,6 @@ const FAQS = [
     "Can we automate check-up reminders and appointment confirmations?",
     "Where current recall dates, appointments and booking updates can be reliably supplied, we can configure reminders, confirmations and reception alerts. Your dentist sets the recall interval. We agree which system sends each message and test updates and exclusions to prevent duplicate or stale reminders. Zapla does not assume a live connection to your dental diary.",
   ],
-  [
-    "What does it cost?",
-    "Follow-Through is A$399 per month and Growth is A$699 per month, excluding GST. Both include unlimited users and stored contacts under fair use. Guided Launch, SMS, email and voice usage are separate. AI Receptionist is an optional add-on. We confirm the plan and implementation scope with your practice before you commit.",
-  ],
 ] as const;
 function Label({ children }: { children: ReactNode }) {
   return <p className="dn-label">{children}</p>;

@@ -6,10 +6,10 @@ import { ArrowRight, Check, ChevronDown, Map, Boxes, Rocket } from "lucide-react
 export const Route = createFileRoute("/pricing-v2")({
   head: () => ({
     meta: [
-      { title: "Pricing V2 — Zapla" },
+      { title: "Pricing & Guided Launch | Zapla" },
       {
         name: "description",
-        content: "Draft pricing page for Zapla. Commercial terms mirror the current pricing page while presentation and copy are being redesigned.",
+        content: "Compare Zapla plans, Guided Launch, optional services and communication usage.",
       },
       { name: "robots", content: "noindex" },
     ],

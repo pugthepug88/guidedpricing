@@ -1358,6 +1358,14 @@
 .tr-value-check .tr-link {
   margin-top: 16px;
 }
+.tr-team-value .tr-value-check {
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+.tr-team-value > .tr-link {
+  margin-top: 24px;
+}
 .tr-faq details[id] {
   scroll-margin-top: 110px;
 }

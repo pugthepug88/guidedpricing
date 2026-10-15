@@ -523,7 +523,7 @@ export function MortgageBrokersPage() {
       </section>
       <section className="mv-commercial mv-wrap" aria-labelledby="mv-plans-title">
         <div>
-          <Label>Plans for your brokerage</Label>
+          <Label>Room for your whole team</Label>
           <h2 id="mv-plans-title">
             Your whole team.
             <br />
@@ -535,32 +535,6 @@ export function MortgageBrokersPage() {
           </p>
         </div>
         <div className="mv-plans">
-          <article>
-            <div>
-              <h3>Follow-Through</h3>
-              <p>
-                CRM, shared inbox and pipelines, plus essential enquiry follow up and Google review
-                requests.
-              </p>
-              <small>Guided Launch from A$1,997 + GST</small>
-            </div>
-            <strong>
-              A$399<span>/month + GST</span>
-            </strong>
-          </article>
-          <article>
-            <div>
-              <h3>Growth</h3>
-              <p>
-                Everything in Follow-Through, plus ongoing client marketing and eligible
-                reactivation.
-              </p>
-              <small>Guided Launch from A$2,997 + GST</small>
-            </div>
-            <strong>
-              A$699<span>/month + GST</span>
-            </strong>
-          </article>
           <p className="mv-plan-note">
             Usage and optional AI Receptionist are separate. We confirm final scope and inclusions
             before setup.

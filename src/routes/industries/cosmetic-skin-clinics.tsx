@@ -62,10 +62,6 @@ const FAQS = [
     "Can Zapla send forms and pre-visit information?",
     "Yes. Zapla can send your approved arrival information and an administrative form link. A connected form is needed to tell when it has been submitted and stop reminders. Sending an external link alone does not confirm completion. Clinical forms stay in your clinical system. Appointment messages require reliable booking information.",
   ],
-  [
-    "How is Zapla priced?",
-    "Follow-Through is A$399 per month, with Guided Launch from A$1,997. Growth is A$699 per month, with Guided Launch from A$2,997. Prices exclude GST. Both include unlimited users and stored contacts under fair use. Communication usage is separate: outbound SMS is A$0.13 per carrier segment and inbound SMS is A$0.02, excluding GST. AI Receptionist is A$199 per month plus setup from A$997, excluding GST, with 200 Voice AI minutes. See the pricing page for email allowances and overages. The clinic data flow and any extra integration work are scoped before you commit.",
-  ],
 ] as const;
 function Label({ children }: { children: ReactNode }) {
   return <p className="sk-label">{children}</p>;
@@ -370,26 +366,6 @@ function SkinClinicsPage() {
             Reception, the clinic manager and client coordinators share the same conversations
             without another seat charge.
           </p>
-          <div className="sk-plan-prices" aria-label="Current clinic platform plans">
-            <div>
-              <strong>Follow-Through</strong>
-              <span>A$399/month + GST</span>
-              <small>
-                Enquiry replies, consultation follow-up and review requests.
-                <br />
-                Guided Launch from A$1,997 + GST
-              </small>
-            </div>
-            <div>
-              <strong>Growth</strong>
-              <span>A$699/month + GST</span>
-              <small>
-                Everything in Follow-Through, plus eligible client reactivation and campaigns.
-                <br />
-                Guided Launch from A$2,997 + GST
-              </small>
-            </div>
-          </div>
           <p className="sk-value-note">
             Unlimited stored contacts under fair use. Guided Launch and communication usage are
             separate. AI Receptionist is optional. Standard launch includes up to three agreed

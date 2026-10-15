@@ -451,10 +451,6 @@ function ReviewScene() {
 }
 const faqs = [
   [
-    "What does it cost?",
-    "Follow Through covers configured enquiry follow ups, forms and review requests at A$399 per month, with Guided Launch from A$1,997. Growth adds ongoing return and nurture campaigns at A$699 per month, with Guided Launch from A$2,997. Prices exclude GST. Communication usage is separate from the platform fee. AI Receptionist is an optional A$199 per month add-on with setup from A$997, excluding GST. It includes 200 Voice AI minutes; additional voice usage is separate. Custom connections are scoped separately. We confirm the workflow, plan and setup cost before you commit.",
-  ],
-  [
     "Can we keep our practice software?",
     "Yes. Keep your clinical records and appointment diary. We check which enquiry tasks your current tools already handle and add Zapla only where there is a useful gap. If you use spreadsheets and inboxes for enquiries, Zapla can provide the shared contact record, conversation and task workflow. No native practice system connection is promised without verification.",
   ],
