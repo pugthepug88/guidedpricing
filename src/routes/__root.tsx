@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteNav } from "../components/SiteNav";
 import { VersionNav, VersionFooter } from "../components/industry-v3/VersionShell";
 import { DominoFooter } from "../components/DominoFooter";
+import { getSocialImageUrl } from "../lib/social";
 
 function NotFoundComponent() {
   return (
@@ -96,6 +97,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Keep customer enquiries, conversations and follow-up moving with Zapla. One platform for your team, launched with you.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: getSocialImageUrl() },
+      { property: "og:image:type", content: "image/png" },
+      { property: "og:image:width", content: "1733" },
+      { property: "og:image:height", content: "907" },
+      {
+        property: "og:image:alt",
+        content:
+          "Zapla. You lead. Zapla follows through. Unlimited users. One flat price. Blue Zapla dominoes cross a warm autumn landscape.",
+      },
+      { name: "twitter:image", content: getSocialImageUrl() },
+      {
+        name: "twitter:image:alt",
+        content: "Zapla. You lead. Zapla follows through. Unlimited users. One flat price.",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Zapla | Customer Communication and Follow Through" },
       {

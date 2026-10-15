@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
+import { INDUSTRY_LINKS } from "@/lib/industries";
 
 const FOOTER_GROUPS = [
   {
@@ -20,10 +21,16 @@ const FOOTER_GROUPS = [
     ],
   },
   {
+    label: "Industries",
+    links: [
+      ...INDUSTRY_LINKS.map(({ name, href }) => [name, href] as const),
+      ["View all industries", "/industries"],
+    ],
+  },
+  {
     label: "Company",
     links: [
       ["Pricing", "/Pricing-v3"],
-      ["Industries", "/industries"],
       ["Book a Call", "/booking"],
       ["Blog", "https://zapla.io/blog"],
       ["Contact us", "mailto:hello@zapla.io"],
@@ -36,7 +43,7 @@ const FOOTER_GROUPS = [
 
 export function DominoFooter() {
   const reduced = !!useReducedMotion();
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const dominoVideo = "/concept/zapla-domino-web.mp4";
   const dominoPoster = "/concept/zapla-domino-first-frame.jpg";
@@ -61,7 +68,7 @@ export function DominoFooter() {
   }, [reduced]);
 
   return (
-    <div ref={sectionRef} className="relative isolate overflow-hidden">
+    <footer ref={sectionRef} aria-label="Site footer" className="relative isolate overflow-hidden">
       <div className="relative min-h-[760px] sm:min-h-[840px] lg:min-h-[900px] xl:min-h-[940px]">
         <img
           src={dominoPoster}
@@ -91,11 +98,17 @@ export function DominoFooter() {
 
         <div className="relative z-20 px-4 pt-[240px] sm:px-8 lg:absolute lg:inset-x-0 lg:bottom-0 lg:px-12 lg:pt-0">
           <div className="mx-auto w-full max-w-[1240px] rounded-t-[34px] border border-b-0 border-white/75 bg-[#F8F5EF]/[0.97] p-7 pb-8 shadow-[0_-18px_70px_rgba(45,37,28,.16)] backdrop-blur-[12px] sm:p-9 sm:pb-10 lg:p-10 lg:pb-12">
-            <div className="grid gap-9 lg:grid-cols-[1.15fr_.8fr_1.05fr_.7fr] lg:gap-10">
-              <div>
+            <div className="grid gap-9 sm:grid-cols-2 lg:grid-cols-[1.25fr_.8fr_1.05fr_1.2fr_.95fr] lg:gap-6 xl:gap-9">
+              <div className="sm:col-span-2 lg:col-span-1">
                 <a href="/" className="inline-flex items-center">
                   <img src="/concept/zapla-logo-dark.svg" alt="Zapla" className="h-9 w-auto" />
                 </a>
+
+                <p className="mt-4 text-[15px] font-medium leading-[1.6] text-[#454C46]">
+                  You lead.
+                  <br />
+                  Zapla follows through.
+                </p>
 
                 <div className="mt-6 grid gap-3">
                   <a
@@ -143,7 +156,7 @@ export function DominoFooter() {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }
 
