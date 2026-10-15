@@ -24,7 +24,6 @@ export const Route = createFileRoute("/industries/trades")({
       { property: "og:description", content: DESCRIPTION },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
-      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: TradesPage,

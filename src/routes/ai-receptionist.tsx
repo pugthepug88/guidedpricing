@@ -28,7 +28,6 @@ export const Route = createFileRoute("/ai-receptionist")({
         content:
           "Zapla answers incoming calls, handles routine enquiries, books or routes the next step, and keeps follow-up connected.",
       },
-      { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "AI Receptionist for Service Businesses | Zapla" },
       {
         property: "og:description",

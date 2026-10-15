@@ -29,7 +29,6 @@ export const Route = createFileRoute("/industries/allied-health")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { name: "robots", content: "noindex, nofollow" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],

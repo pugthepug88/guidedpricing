@@ -29,7 +29,6 @@ export const Route = createFileRoute("/platform")({
         content:
           "See how Zapla connects CRM, customer marketing, AI reception, reviews and follow-through around one customer history.",
       },
-      { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Zapla Platform | One Customer. One Connected System." },
       {
         property: "og:description",

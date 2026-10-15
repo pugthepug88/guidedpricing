@@ -19,7 +19,6 @@ export const Route = createFileRoute("/industries/cosmetic-skin-clinics")({
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
-      { name: "robots", content: "noindex, nofollow" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESCRIPTION },
     ],
