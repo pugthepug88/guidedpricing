@@ -43,6 +43,9 @@ export interface ComparisonDefinition {
   methodology: string;
   fit: readonly { title: string; description: string; consideration: string }[];
   rows: readonly ComparisonRow[];
+  growthRows: readonly ComparisonRow[];
+  marketingNote: string;
+  optionalRows: readonly ComparisonRow[];
   offer: { monthly: number; launch: number; growthMonthly: number; growthLaunch: number; unlimitedUsers: boolean; unlimitedContacts: boolean; trial: boolean };
   foundations: readonly { title: string; description: string; sources: readonly string[] }[];
   faqs: readonly { question: string; answer: string }[];

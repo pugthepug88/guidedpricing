@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { ArrowRight, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ZaplaPetal } from '@/components/ZaplaPetal';
-import type { ComparisonCell, ComparisonDefinition } from './types';
+import type { ComparisonCell, ComparisonDefinition, ComparisonRow } from './types';
 
 const money = (amount: number) => `A$${amount.toLocaleString('en-AU')}`;
 
@@ -18,7 +18,15 @@ function Cell({ value, vendor }: { value: ComparisonCell; vendor: string }) {
   </td>;
 }
 
+function FeatureTable({ rows, competitor, vendorPlan, zaplaPlan, caption }: { rows: readonly ComparisonRow[]; competitor: string; vendorPlan: string; zaplaPlan: string; caption: string }) {
+  return <table className="cc-table"><caption>{caption}</caption>
+    <thead><tr><th scope="col">Features</th><th scope="col"><img src="/concept/zapla-logo-dark.svg" alt="Zapla" width={99} height={29} /><span className="cc-table-plan">{zaplaPlan}</span></th><th scope="col">{competitor}<span className="cc-table-plan">{vendorPlan}</span></th></tr></thead>
+    <tbody>{rows.map(row => <tr key={row.id}><th scope="row">{row.label}</th><Cell value={row.zapla} vendor="Zapla" /><Cell value={row.competitor} vendor={competitor} /></tr>)}</tbody>
+  </table>;
+}
+
 export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
+  const allRows = [...data.rows, ...data.growthRows, ...data.optionalRows];
   return <main className="concise-comparison" data-page="concise-comparison">
     <section className="cc-hero"><div className="cc-inner">
       <p className="cc-comparison-name">Zapla vs {data.competitor}</p>
@@ -43,14 +51,17 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
 
     <section id="comparison" className="cc-table-band" aria-labelledby="comparison-heading"><div className="cc-inner">
       <div className="cc-section-heading"><p className="cc-section-label">The comparison</p><h2 id="comparison-heading">Compare what’s included.</h2><p>{data.tableIntroduction}</p></div>
-      <table className="cc-table" role="table"><caption>{data.tableCaption}</caption>
-        <thead><tr role="row"><th scope="col" role="columnheader">Features</th><th scope="col" role="columnheader"><img src="/concept/zapla-logo-dark.svg" alt="Zapla" width={99} height={29} /><span className="cc-table-plan">Follow-Through · Growth marked</span></th><th scope="col" role="columnheader">{data.competitor}<span className="cc-table-plan">{data.vendorPlan}</span></th></tr></thead>
-        <tbody role="rowgroup">{data.rows.map(row => <tr key={row.id} role="row"><th scope="row" role="rowheader">{row.label}</th><Cell value={row.zapla} vendor="Zapla" /><Cell value={row.competitor} vendor={data.competitor} /></tr>)}</tbody>
-      </table>
-      <p className="cc-table-key">✓ Included · × Not included as named · Integrations may be available. Contacts: fair use applies to Zapla. Communications usage is separate.</p>
-      <p className="cc-table-growth">Growth: {money(data.offer.growthMonthly)}/month + GST, with required launch from {money(data.offer.growthLaunch)} + GST.</p>
+      <div className="cc-table-group-heading"><h3>Everyday customer work</h3><p><strong>Follow-Through: {money(data.offer.monthly)}/month + GST.</strong> Unlimited users. Required launch from {money(data.offer.launch)} + GST.</p></div>
+      <FeatureTable rows={data.rows} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Follow-Through" caption={`${data.competitor} ${data.vendorPlan} compared with Zapla Follow-Through.`} />
+      <p className="cc-table-key">✓ Included · × Not included as named. Integrations may be available. Zapla contacts are subject to fair use. Phone numbers and communications usage are separate.</p>
+      <div className="cc-table-group-heading cc-growth-heading"><h3>Marketing with Growth</h3><p><strong>{money(data.offer.growthMonthly)}/month + GST in total.</strong> Includes Follow-Through and the tools below. Required launch from {money(data.offer.growthLaunch)} + GST.</p></div>
+      <FeatureTable rows={data.growthRows} competitor={data.competitor} vendorPlan={`${data.vendorPlan} · extras shown`} zaplaPlan="Growth" caption={`Marketing tools in Zapla Growth and additional tools used with ${data.competitor}.`} />
+      <p className="cc-table-key">{data.marketingNote}</p>
+      <div className="cc-table-group-heading cc-optional-heading"><h3>Optional call answering</h3><p>AI Receptionist answers calls, captures details and can book or route enquiries.</p></div>
+      <FeatureTable rows={data.optionalRows} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Optional service" caption="AI Receptionist is separately priced and is not included in either Zapla subscription." />
+      <p className="cc-table-key">AI Receptionist is separately priced, with setup and usage terms. <Link to={data.pricingUrl}>See AI Receptionist pricing ↗</Link></p>
       <details className="cc-more-tools"><summary>Feature details and plan notes</summary>
-        <div className="cc-feature-notes">{data.rows.map(row => <div key={row.id}><h3>{row.label}</h3><p><strong>{data.competitor}:</strong> {row.competitor.detail || row.competitor.text}</p><p><strong>Zapla:</strong> {row.zapla.detail || row.zapla.text}</p></div>)}</div>
+        <div className="cc-feature-notes">{allRows.map(row => <div key={row.id}><h3>{row.label}</h3><p><strong>{data.competitor}:</strong> {row.competitor.detail || row.competitor.text}</p><p><strong>Zapla:</strong> {row.zapla.detail || row.zapla.text}</p></div>)}</div>
         <Link to={data.pricingUrl}>See full Zapla plan inclusions ↗</Link>
       </details>
     </div></section>
@@ -63,13 +74,13 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
       </div>
       <p className="cc-price-context">{data.vendorLowerPlans} {data.costCaution} <a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current {data.competitor} prices ↗</a></p>
       <div className="cc-cost-examples">
-        <h3>What does the software cost for your team?</h3>
-        <p>Monthly billing first, with Pipedrive’s annual discount alongside. Before usage, extra tools, setup and applicable taxes.</p>
-        <table className="cc-cost-table" role="table"><caption>Pipedrive Premium monthly and annual billing against Zapla Follow-Through monthly billing, in Australian dollars.</caption>
+        <h3>Follow-Through vs {data.vendorPlan}: team subscription</h3>
+        <p>For the everyday tools compared above. Monthly billing first, with {data.competitor}’s annual discount alongside. Before setup, usage, extra tools and applicable taxes.</p>
+        <table className="cc-cost-table" role="table"><caption>{data.competitor} {data.vendorPlan} monthly and annual billing against Zapla Follow-Through monthly billing, in Australian dollars.</caption>
           <thead><tr role="row"><th scope="col" role="columnheader">Team size</th>{data.costExamples.columns.map(name => <th scope="col" role="columnheader" key={name}>{name}</th>)}</tr></thead>
           <tbody role="rowgroup">{data.recurringExamples.map(row => <tr role="row" key={row.label}><th scope="row" role="rowheader">{row.label}</th>{row.values.map((value, index) => <td role="cell" key={data.costExamples.columns[index]}><span className="cc-cost-vendor" aria-hidden="true">{data.costExamples.columns[index]}</span><span className="cc-cost-amount">{money(value)}</span></td>)}</tr>)}</tbody>
         </table>
-        <p className="cc-cost-note">Zapla excludes GST. Pipedrive taxes and location-specific quotes are confirmed at checkout. These plans include different tools; the figures are not a complete matching-package quote.</p>
+        <p className="cc-cost-note">Zapla excludes GST. {data.competitor} taxes and location-specific quotes are confirmed at checkout. These plans include different tools; the figures are not a complete matching-package quote.</p>
       </div>
       <details className="cc-cost-examples cc-first-year">
         <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>
@@ -81,7 +92,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
         <p className="cc-renewal">After the original launch, Zapla’s subscription is {money(data.offer.monthly * 12)} + GST for 12 months at today’s price, before usage and extras.</p>
       </details>
       <details className="cc-more-launch"><summary>What does Guided Launch cover?</summary><p>{data.launch.introduction}</p><ol>{data.launch.steps.map(item => <li key={item.title}><strong>{item.title}.</strong> {item.description}</li>)}</ol><Link to={data.pricingUrl}>See full launch inclusions ↗</Link></details>
-      <p className="cc-growth"><strong>Need marketing and reactivation tools?</strong> Growth: {money(data.offer.growthMonthly)}/month + GST. Required Guided Launch from {money(data.offer.growthLaunch)} + GST.</p>
+      <p className="cc-growth"><strong>Choose Growth for email/SMS campaigns, social scheduling and reactivation.</strong> Everything in Follow-Through, with unlimited users. {money(data.offer.growthMonthly)}/month + GST. Required Guided Launch from {money(data.offer.growthLaunch)} + GST.</p>
       <p className="cc-usage">SMS, email, WhatsApp, voice and optional services are charged separately. Payment-provider charges also apply.</p>
     </div></section>
 
@@ -90,7 +101,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     <section className="cc-faq" aria-labelledby="faq-heading"><div className="cc-inner cc-faq-grid"><h2 id="faq-heading">A few practical questions.</h2><div>{data.faqs.map(faq => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div></div></section>
     <section className="cc-final" aria-labelledby="cta-heading"><div className="cc-inner"><ZaplaPetal size={36} /><h2 id="cta-heading">See how Zapla would work<br />for your business.</h2><p>Bring your current tools and the follow-up you want to improve. We’ll discuss the fit, plan and launch before you decide.</p><div className="cc-actions"><CallButton /><Link className="cc-text-link" to={data.pricingUrl}>View all Zapla pricing <ArrowRight size={17} aria-hidden="true" /></Link></div></div></section>
     <section className="cc-notes"><div className="cc-inner"><details><summary>Sources and comparison notes</summary><p>Checked {data.updated}. Prepared by Zapla from first-party vendor documentation and the owner-confirmed Zapla offer. This is not an independent product test.</p><p>{data.methodology}</p>
-      <details className="cc-claim-sources"><summary>Check the sources for each comparison</summary>{data.rows.map(row => <div key={row.id}><strong>{row.label}</strong><p>{[...new Set([...row.competitor.sources, ...row.zapla.sources])].map(id => { const source = data.sources.find(item => item.id === id); return source ? <a key={id} href={source.url} target={source.url.startsWith('/') ? undefined : '_blank'} rel="noopener noreferrer">{source.title} ↗</a> : null; })}</p></div>)}</details>
+      <details className="cc-claim-sources"><summary>Check the sources for each comparison</summary>{allRows.map(row => <div key={row.id}><strong>{row.label}</strong><p>{[...new Set([...row.competitor.sources, ...row.zapla.sources])].map(id => { const source = data.sources.find(item => item.id === id); return source ? <a key={id} href={source.url} target={source.url.startsWith('/') ? undefined : '_blank'} rel="noopener noreferrer">{source.title} ↗</a> : null; })}</p></div>)}</details>
       <ul className="cc-source-list">{data.sources.map(source => <li key={source.id}>{source.url === data.pricingUrl ? <Link to={data.pricingUrl}>{source.title}</Link> : <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title} ↗</a>}</li>)}</ul>
     </details></div></section>
   </main>;

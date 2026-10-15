@@ -245,3 +245,16 @@
 .cc-table tbody tr:last-child td:nth-child(2) { border-radius:0 0 14px 14px; }
 .cc-table td:nth-child(2) .cc-mark--tick { color:var(--comparison-blue); }
 .cc-table td:last-child .cc-mark--tick { color:#18704B; }
+
+/* Plan groups keep the price and inclusion scope beside each compact matrix. */
+.cc-table-group-heading { margin:28px 0 12px; }
+.cc-table-group-heading h3 { font-size:24px; margin:0 0 8px; }
+.cc-table-group-heading p { font-size:14px; color:var(--comparison-muted); margin:0; max-width:760px; }
+.cc-table-group-heading strong { color:var(--comparison-ink); font-weight:600; }
+.cc-growth-heading { border-top:1px solid var(--comparison-line); padding-top:30px; margin-top:34px; }
+.cc-optional-heading { margin-top:32px; }
+@media (max-width:700px) {
+ .cc-table-group-heading h3 { font-size:22px; }
+ .cc-table-group-heading p { font-size:13px; }
+ .cc-optional-heading + .cc-table .cc-short-label { font-size:11px; }
+}
