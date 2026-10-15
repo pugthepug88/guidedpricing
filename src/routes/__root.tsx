@@ -141,14 +141,13 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const { pathname } = useLocation();
   const isV3 = pathname === "/pricing-review-v3";
-  const isBooking = pathname === "/booking" || pathname === "/booking/";
 
   return (
     <QueryClientProvider client={queryClient}>
-      {isBooking ? null : isV3 ? <VersionNav /> : <SiteNav />}
+      {isV3 ? <VersionNav /> : <SiteNav />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      {isBooking ? null : isV3 ? <VersionFooter /> : <DominoFooter />}
+      {isV3 ? <VersionFooter /> : <DominoFooter />}
     </QueryClientProvider>
   );
 }

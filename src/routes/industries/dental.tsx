@@ -301,8 +301,8 @@ function DentalPage() {
                 who haven’t returned.
               </h2>
               <p>
-                Reconnect with eligible patients who haven’t returned. Send a relevant invitation,
-                follow up unanswered messages and bring replies straight to reception.
+                Send a relevant invitation to patients your practice has approved for a return
+                campaign. Follow up unanswered messages and bring replies to reception.
               </p>
               <p>
                 Routine recall keeps patients on schedule. Reactivation reaches the people who have

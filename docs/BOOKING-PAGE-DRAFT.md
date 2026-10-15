@@ -4,9 +4,9 @@ The existing booking destination uses a different page experience from the curre
 
 ## Design
 
-The headline is “See where Zapla fits your business.” A short introduction and a three-part agenda explain the call: current process, relevant workflows, and setup/costs. The calendar occupies the primary panel. Desktop places the explanation beside it; mobile places the calendar after the introduction and before the detailed agenda, in the same order as the document.
+The headline is “Let’s talk about your business.” It uses a single ink colour on white, with a compact call introduction and understated duration/online details. A narrower explanation column and wider scheduling panel replace the industry-style split-colour hero. The three-part agenda explains the current process, relevant workflows and setup/costs without numbered feature rows. Desktop places the explanation beside the calendar; mobile places the calendar after the introduction and before the agenda.
 
-Uses existing logo artwork, local Inter Tight/Manrope fonts, warm neutral/white, sage and deep green. It has a minimal header and legal/contact footer. The shared navigation and domino footer continue to render on other routes; `/booking` supplies its own shell. No additional animation or photography is needed for selecting an appointment.
+The root-owned SiteNav and DominoFooter render unchanged on this route. The page uses existing local Inter Tight/Manrope typography, ink text, neutral surfaces and functional blue links/buttons. There is no additional booking-page animation or photography.
 
 ## Calendar integration
 
@@ -22,11 +22,11 @@ These are distinct reviews by the implementing agent, not independent people or 
 
 | Lens                         | Decision                                                                                                                            |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Brand / Creative             | Existing identity and palette; focused typography; calendar is the focal area.                                                      |
+| Brand / Creative             | Existing identity and typography; ink-only heading; wider calendar is the focal area.                                               |
 | Product Marketing            | Promises a fit conversation and useful starting workflow rather than a bespoke strategy deliverable.                                |
-| Conversion                   | Explains the call before asking for a time; avoids full sales navigation, speculative results and a second form.                    |
+| Conversion                   | Explains the call before asking for a time; retains shared navigation; avoids speculative results and a second form.                |
 | UI/UX                        | Responsive grid, calendar before detailed agenda on mobile, skip link and visible focus. Actual rendered and embed QA remains open. |
-| Motion                       | No entrance delays, looping movement or animated footer on this task-oriented page.                                                 |
+| Motion                       | No page-specific entrance delays or loops; shared footer behavior is preserved.                                                     |
 | SME buyer / buyer psychology | Starts with the current setup and discusses scope/costs before a decision.                                                          |
 | Copy / AI-slop critic        | Concrete agenda; no fabricated customer proof, urgency, guarantees or feature list.                                                 |
 

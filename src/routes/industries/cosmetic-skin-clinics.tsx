@@ -317,8 +317,8 @@ function SkinClinicsPage() {
             <Label>Guided Launch</Label>
             <h2 id="launch-title">We set up your clinic’s follow-up.</h2>
             <p>
-              Choose the messages you want automated. We build the workflows and test replies,
-              reminders and staff handoffs with your team before launch.
+              We build and test your agreed enquiry and follow-up workflows with your team before
+              launch.
             </p>
             <Link href="/Pricing-v3">Explore Guided Launch</Link>
           </div>
