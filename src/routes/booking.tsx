@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import { ZaplaPetal } from "@/components/ZaplaPetal";
+import { ArrowRight, CalendarDays, Clock3, Video } from "lucide-react";
 import bookingCss from "@/styles/booking.css?url";
 
 const TITLE = "Book a Call | Find Your First Useful Zapla Workflow";
@@ -44,9 +43,9 @@ function BookingCalendar() {
   return (
     <div className="bk-calendar-slot" data-booking-embed="pending">
       <div className="bk-calendar-fallback">
-        <ZaplaPetal size={48} />
-        <h3>Let’s find a time to talk.</h3>
-        <p>Online scheduling will be available here soon. You can email us to arrange your call.</p>
+        <CalendarDays size={28} strokeWidth={1.5} aria-hidden="true" />
+        <h3>Online scheduling is coming soon.</h3>
+        <p>For now, email us and we’ll find a time that works for you.</p>
         <a
           className="bk-email-button"
           href="mailto:hello@zapla.io?subject=Arrange%20a%20Zapla%20call"
@@ -65,34 +64,30 @@ function BookingPage() {
       <a className="bk-skip" href="#booking-main">
         Skip to content
       </a>
-      <header className="bk-header bk-wrap">
-        <a href="/" aria-label="Zapla home" className="bk-brand">
-          <img src="/concept/zapla-logo-dark.svg" width="112" height="32" alt="Zapla" />
-        </a>
-        <a className="bk-return" href="/platform">
-          Explore Zapla <ArrowRight size={15} aria-hidden="true" />
-        </a>
-      </header>
-
       <main id="booking-main" className="bk-main bk-wrap">
         <div className="bk-introduction">
           <p className="bk-eyebrow">Book a Call</p>
-          <h1>
-            See where Zapla
-            <br />
-            fits <span>your business.</span>
-          </h1>
+          <h1>Let’s talk about your business.</h1>
           <p className="bk-intro">
-            Less time chasing. More enquiries followed up. Customers who hear from you at the right
-            time. Let’s look at where Zapla could help your business.
+            Tell us what takes up your team’s time. We’ll explore where Zapla could help, using the
+            tools and processes you already have.
           </p>
-          <p className="bk-duration">A 30 minute conversation about how you work.</p>
+          <div className="bk-call-details" aria-label="Call details">
+            <span>
+              <Clock3 size={16} aria-hidden="true" />
+              30 minutes
+            </span>
+            <span>
+              <Video size={17} aria-hidden="true" />
+              Online call
+            </span>
+          </div>
         </div>
 
         <section className="bk-booking-panel" aria-labelledby="choose-time">
           <div className="bk-panel-heading">
-            <h2 id="choose-time">Choose a time to talk.</h2>
-            <p>Tell us a little about your business when you book.</p>
+            <h2 id="choose-time">Find a time that suits you.</h2>
+            <p>A conversation about your current setup and where to go next.</p>
           </div>
           <BookingCalendar />
           <p className="bk-calendar-note">
@@ -102,11 +97,8 @@ function BookingPage() {
         <section className="bk-agenda" aria-labelledby="call-agenda">
           <h2 id="call-agenda">What we’ll cover</h2>
           <ol>
-            {AGENDA.map((item, index) => (
+            {AGENDA.map((item) => (
               <li key={item.title}>
-                <span className="bk-step" aria-hidden="true">
-                  0{index + 1}
-                </span>
                 <div>
                   <h3>{item.title}</h3>
                   <p>{item.copy}</p>
@@ -119,14 +111,6 @@ function BookingPage() {
           Using spreadsheets, a CRM or specialist software? We’ll start with your current setup.
         </p>
       </main>
-
-      <footer className="bk-footer bk-wrap">
-        <p>© {new Date().getFullYear()} Zapla</p>
-        <nav aria-label="Booking page footer">
-          <a href="https://zapla.io/privacy-policy">Privacy policy</a>
-          <a href="https://zapla.io/terms-and-conditions">Terms &amp; conditions</a>
-        </nav>
-      </footer>
     </div>
   );
 }
