@@ -17,8 +17,6 @@ type ResultCard = {
   image?: string;
   imageAlt?: string;
 };
-// Cards 2–6 are explicitly labelled prototype testimonials, not customer claims.
-// Replace draft quotes, illustrative metrics and portraits with approved material.
 const RESULT_CARDS: ResultCard[] = [
   {
     id: "broker",

@@ -479,6 +479,8 @@ function Plans() {
           The owner, office and people handling customer replies can work from the same record. No
           extra platform seat fee when another person needs access.
         </p>
+      </div>
+      <div className="tr-team-value">
         <div className="tr-value-check">
           <h3>What would make it worth it?</h3>
           <p>
@@ -497,29 +499,6 @@ function Plans() {
             How to assess the value
           </Link>
         </div>
-      </div>
-      <div className="tr-plan-options">
-        <div>
-          <strong>Follow-Through</strong>
-          <p>Enquiry replies, customer conversations, quote follow-up and review requests.</p>
-          <span>
-            A$399<small>/month + GST</small>
-          </span>
-        </div>
-        <div>
-          <strong>Growth</strong>
-          <p>
-            Everything in Follow-Through, plus repeat-service campaigns and customer reactivation.
-          </p>
-          <span>
-            A$699<small>/month + GST</small>
-          </span>
-        </div>
-        <p className="tr-price-note">
-          Guided Launch from A$1,997 + GST for Follow-Through or A$2,997 + GST for Growth. SMS,
-          email, voice usage, optional AI Receptionist and custom connections are separate. Stored
-          contacts are unlimited under fair use.
-        </p>
         <Link href={PRICING}>Compare plans and total costs</Link>
       </div>
     </section>

@@ -7,10 +7,10 @@ export const Route = createFileRoute("/pricing-review-v3")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
-      { title: "Pricing V3 Internal Draft | Zapla" },
+      { title: "Pricing & Guided Launch | Zapla" },
       {
         name: "description",
-        content: "Internal Zapla pricing draft covering Follow-Through, Growth and custom requirements.",
+        content: "Compare Zapla plans, Guided Launch, optional services and communication usage.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
