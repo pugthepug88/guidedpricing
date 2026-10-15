@@ -24,7 +24,7 @@ const FOOTER_GROUPS = [
     links: [
       ["Pricing", "/Pricing-v3"],
       ["Industries", "/industries"],
-      ["Book a Call", "https://zapla.io/booking"],
+      ["Book a Call", "/booking"],
       ["Blog", "https://zapla.io/blog"],
       ["Contact us", "mailto:hello@zapla.io"],
       ["Terms & conditions", "https://zapla.io/terms-and-conditions"],

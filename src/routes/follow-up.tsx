@@ -23,7 +23,7 @@ export const Route = createFileRoute("/follow-up")({
   component: FollowUpPage,
 });
 
-const BOOK_URL = "https://zapla.io/booking";
+const BOOK_URL = "/booking";
 const PRICING_URL = "/Pricing-v3";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const BODY = '"Manrope", system-ui, sans-serif';

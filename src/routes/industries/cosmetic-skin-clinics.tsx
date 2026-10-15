@@ -24,7 +24,7 @@ export const Route = createFileRoute("/industries/cosmetic-skin-clinics")({
   }),
   component: SkinClinicsPage,
 });
-const BOOK = "https://zapla.io/booking";
+const BOOK = "/booking";
 const FAQS = [
   [
     "We use spreadsheets and inboxes. Can we start with Zapla?",

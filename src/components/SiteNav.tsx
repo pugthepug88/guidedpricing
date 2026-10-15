@@ -204,7 +204,7 @@ export function SiteNav() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <a href="https://zapla.io/booking" className={headerCtaCls}>
+          <a href="/booking" className={headerCtaCls}>
             Book a Call
           </a>
         </div>
@@ -282,7 +282,7 @@ export function SiteNav() {
             </a>
             <div className="mt-2 grid gap-2">
               <a
-                href="https://zapla.io/booking"
+                href="/booking"
                 className="inline-flex items-center justify-center rounded-full bg-[#2563FF] px-4 py-2.5 text-[13px] font-extrabold text-white"
               >
                 Book a Call

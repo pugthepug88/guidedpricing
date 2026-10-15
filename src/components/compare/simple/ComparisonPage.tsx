@@ -8,7 +8,7 @@ import type { ComparisonCell, ComparisonDefinition, ComparisonRow } from './type
 const money = (amount: number) => `A$${amount.toLocaleString('en-AU')}`;
 
 function CallButton() {
-  return <Button asChild className="cc-button"><a href="https://zapla.io/booking">Book a Call <ArrowRight size={17} aria-hidden="true" /></a></Button>;
+  return <Button asChild className="cc-button"><a href="/booking">Book a Call <ArrowRight size={17} aria-hidden="true" /></a></Button>;
 }
 
 function Cell({ value, vendor }: { value: ComparisonCell; vendor: string }) {

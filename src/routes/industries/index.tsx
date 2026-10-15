@@ -124,7 +124,7 @@ function IndustriesPage() {
             starting workflow and check what’s needed to set it up.
           </p>
         </div>
-        <a className="ih-button" href="https://zapla.io/booking">
+        <a className="ih-button" href="/booking">
           Book a Call <ArrowRight size={17} aria-hidden="true" />
         </a>
       </section>

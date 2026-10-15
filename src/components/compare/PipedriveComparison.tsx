@@ -11,7 +11,7 @@ function Refs({ items }: { items: number[] }) {
 }
 
 function BookButton() {
-  return <Button asChild className="compare-primary"><a href="https://zapla.io/booking">Book a Call <ArrowRight size={16} /></a></Button>;
+  return <Button asChild className="compare-primary"><a href="/booking">Book a Call <ArrowRight size={16} /></a></Button>;
 }
 
 function Hero() {

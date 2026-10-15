@@ -34,7 +34,7 @@ function HomeFinalCta() {
 
         <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
-            href="https://zapla.io/booking"
+            href="/booking"
             className="inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#1E2B29] px-7 text-[13px] font-semibold text-[#F7F4EE] transition-transform hover:-translate-y-px sm:w-auto"
           >
             Book a Call <ArrowRight size={15} />

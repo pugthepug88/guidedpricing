@@ -127,7 +127,7 @@ export function ZaplaCustomerJourneyPrototypeSmoothV6() {
 
         <div className="mt-9 flex flex-col gap-4 border-t border-[#DDD4C8] pt-7 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-[720px] text-[14px] leading-[1.6] text-[#766F66]">CRM · Conversations · Bookings · Payments · Reviews · Websites · AI · and more.</p>
-          <a href="https://zapla.io/booking" className="inline-flex h-[48px] w-fit shrink-0 items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[14px] font-semibold text-white">Book a Call <ArrowRight className="h-4 w-4" /></a>
+          <a href="/booking" className="inline-flex h-[48px] w-fit shrink-0 items-center gap-2 rounded-[10px] bg-[#111318] px-5 text-[14px] font-semibold text-white">Book a Call <ArrowRight className="h-4 w-4" /></a>
         </div>
       </div>
     </section>

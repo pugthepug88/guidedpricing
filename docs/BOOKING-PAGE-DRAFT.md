@@ -12,9 +12,9 @@ The root-owned SiteNav and DominoFooter render unchanged on this route. The page
 
 `BookingCalendar` in `src/routes/booking.tsx` is the single replacement point for the supplied embed. Until it is integrated, the page honestly offers an email fallback. There are no simulated calendar dates, duplicate enquiry forms or claimed confirmations.
 
-Keep existing booking CTAs pointing to the working external booking destination until the new embed is connected, inspected and tested. This draft is noindex and excluded from sitemap.
+Per Andrew’s instruction, website booking CTAs now point to the internal `/booking` page, including shared desktop/mobile navigation, footer, product, industry, pricing and comparison CTAs. The calendar embed and end-to-end booking tests are intentionally deferred until the final step. The page retains its email fallback, noindex and sitemap exclusion.
 
-When the embed arrives: inspect the supplied provider/code; add the actual supported embed and required loader; verify iframe title, width/height, mobile scrolling, timezone, available times, validation, privacy/consent, confirmation and attribution. Do not treat an embed load or CTA click as a completed booking. Update the site destination only after verification.
+When the embed arrives: inspect the supplied provider/code; add the actual supported embed and required loader; verify iframe title, width/height, mobile scrolling, timezone, available times, validation, privacy/consent, confirmation and attribution. Do not treat an embed load or CTA click as a completed booking. The site destination is already `/booking`; complete booking verification once the calendar is supplied.
 
 ## Review perspectives
 

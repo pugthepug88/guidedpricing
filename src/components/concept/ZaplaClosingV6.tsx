@@ -5,7 +5,7 @@ import { Boxes, Map, Rocket } from "lucide-react";
 const DISPLAY = '"Inter Tight", "Outfit", "Manrope", system-ui, sans-serif';
 const GUIDED_DISPLAY = '"Outfit", "Manrope", system-ui, sans-serif';
 const GUIDED_BODY = '"Manrope", system-ui, sans-serif';
-const BOOK_URL = "https://zapla.io/booking";
+const BOOK_URL = "/booking";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {

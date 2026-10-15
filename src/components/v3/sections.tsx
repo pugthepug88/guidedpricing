@@ -28,7 +28,7 @@ import portraitTeam2 from "@/assets/portrait-team-2.jpg.asset.json";
 import portraitTeam3 from "@/assets/portrait-team-3.jpg.asset.json";
 import portraitTeam4 from "@/assets/portrait-team-4.jpg.asset.json";
 
-const BOOK_URL = "https://zapla.io/booking";
+const BOOK_URL = "/booking";
 
 /* ---------- shared primitives (V3-scoped, tiny) --------------------- */
 

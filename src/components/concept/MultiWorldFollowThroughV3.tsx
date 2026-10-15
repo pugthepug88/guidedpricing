@@ -161,7 +161,7 @@ function HeroCopy({ mobile }: { mobile: boolean }) {
         Your team does the work. Zapla keeps customers moving — enquiries, replies, bookings, payments, reviews and everything between.
       </p>
       <div className={cn("flex flex-wrap items-center gap-3", mobile ? "mt-5" : "mt-7")}>
-        <a href="https://zapla.io/booking" className="inline-flex h-[46px] items-center gap-2 rounded-[10px] px-5 text-[14px] font-semibold text-white md:h-[49px] md:px-6" style={{ background: CYAN }}>
+        <a href="/booking" className="inline-flex h-[46px] items-center gap-2 rounded-[10px] px-5 text-[14px] font-semibold text-white md:h-[49px] md:px-6" style={{ background: CYAN }}>
           Book a demo <ArrowRight className="h-4 w-4" />
         </a>
         <a href="#zapla-product-v3" className="inline-flex h-[46px] items-center rounded-[10px] border border-white/25 px-5 text-[14px] font-semibold text-white md:h-[49px]">See how it works</a>
@@ -400,7 +400,7 @@ export function MultiWorldFollowThroughV3() {
             <h2 className="max-w-[700px] text-[30px] leading-[1.08] tracking-[-0.035em] md:text-[38px]" style={{ fontFamily: DISPLAY, fontWeight: 500, color: INK }}>While you do the work, Zapla handles the follow-through.</h2>
             <p className="mt-3 max-w-[650px] text-[14.5px] leading-[1.6] text-slate-500">Every enquiry, message, booking, payment and review stays connected in one customer record.</p>
           </div>
-          <a href="https://zapla.io/booking" className="inline-flex h-[49px] shrink-0 items-center gap-2 rounded-[10px] px-6 text-[14.5px] font-semibold text-white" style={{ background: CYAN }}>Book a demo <ArrowRight className="h-4 w-4" /></a>
+          <a href="/booking" className="inline-flex h-[49px] shrink-0 items-center gap-2 rounded-[10px] px-6 text-[14.5px] font-semibold text-white" style={{ background: CYAN }}>Book a demo <ArrowRight className="h-4 w-4" /></a>
         </div>
       </section>
     </div>
