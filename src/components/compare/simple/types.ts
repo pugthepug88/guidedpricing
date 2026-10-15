@@ -1,18 +1,23 @@
 export type ComparisonStatus = 'included' | 'plan-dependent' | 'separate' | 'scoped' | 'documented';
-export interface ComparisonCell { text: string; status: ComparisonStatus; sources: readonly string[] }
+export interface ComparisonCell { text: string; detail?: string; status: ComparisonStatus; sources: readonly string[] }
 export interface ComparisonRow { id: string; label: string; competitor: ComparisonCell; zapla: ComparisonCell }
 export interface ComparisonSource { id: string; title: string; url: string }
 export interface ComparisonDefinition {
   competitor: string;
   headline: string;
+  headlineAccent: string;
   introduction: string;
-  differences: readonly { title: string; competitor: string; zapla: string }[];
-  example: { title: string; steps: readonly { label: string; text: string }[]; caption: string };
+  highlights: readonly { title: string; description: string }[];
   tableIntroduction: string;
   tableCaption: string;
   vendorPricingUrl: string;
-  vendorPriceHeading: string;
-  vendorPriceDescription: string;
+  vendorPlan: string;
+  vendorPrice: number;
+  vendorPriceUnit: string;
+  vendorBilling: string;
+  pricingHeadline: string;
+  vendorPlanReason: string;
+  vendorLowerPlans: string;
   costCaution: string;
   foundationNote: string;
   methodology: string;

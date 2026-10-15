@@ -1,91 +1,72 @@
 # Concise comparison template
 
-Date: 14 October 2026. Review route: `/compare/zapla-vs-pipedrive-simple`.
+Updated 15 October 2026. Draft route: `/compare/zapla-vs-pipedrive-simple`.
 
-The original comparison is preserved. This is a separate draft with no production publication. The later cleanup of V3 siblings and viewers remains intact. Owner confirmed no free trial, Follow-Through A$399/month plus GST with required launch from A$1,997 plus GST, and Growth A$699/month plus GST with required launch from A$2,997 plus GST. Usage and migration stay brief by instruction.
+## Scope and commercial decisions
 
-## Template contract
+This is a separate draft; the original comparison remains intact. No production publication. Preserve the separate removal of V3 drafts and the current shared header/footer.
 
-Use `src/components/compare/simple/ComparisonPage.tsx` with typed competitor data. Heading, fit, comparison introduction/caption, row text/status/source IDs, competitor pricing URL, cost caution, platform qualification, methodology, FAQs and source list are data-driven. Describe each competitor’s actual pricing basis, whether per user, per account or per contact. Do not force a per-user comparison onto other pricing models. Do not mechanically duplicate the Pipedrive fit or rows for another competitor.
+Owner-confirmed Zapla offer: no free trial; Follow-Through A$399/month + GST, unlimited users, required Guided Launch from A$1,997 + GST. Growth A$699/month + GST, required launch from A$2,997 + GST. Keep usage charges and variable migration scope brief.
 
-Page sequence: explicit comparison H1 with buyer headline and labelled workflow illustration; three buying differences; one concise table; one compact pricing-model comparison; two short fit summaries; small platform foundations; four practical FAQs; call/pricing CTA; expandable sources. Preserve plan qualifications beside each claim. Required launch and usage exclusions stay visible, not hidden in sources.
+## Redesign decision
 
-Pricing is a compact factual comparison of subscription models, with Zapla’s required launch visible beside its monthly price. Do not use seat selectors unless they calculate a useful, verified comparison. The removed selector changed only a seat label and did not answer a buying question. This section needs no animation. Competitor pricing headings and explanations belong in typed competitor data.
+The owner's four desktop screenshots revealed a flat composition, generic booking illustration, repetitive differences, long table cells and an unresolved mobile/integrations row. This is new rendered evidence, not a change based only on a competing idea. Remove the illustrative enquiry/reply/booking panel and its animation, remove the unresolved row and move phone/AI details to a brief FAQ. The replacement hero is a factual commercial visual: unlimited users, actual monthly price and required launch.
 
-## Evidence boundaries
+Page sequence: explicit Zapla-versus-competitor label; buyer headline and factual team-offer panel; three short benefit summaries; six concise comparison rows; actual competitor and Zapla prices with billing terms; honest fit; three brief platform foundations; practical FAQs; call/pricing CTA; expandable sources.
 
-Current first-party product documentation is authoritative for competitor features. Competitor-authored comparison pages inform structure only. The attached June 2026 Pipedrive pricing research is a historical USD snapshot with stale tier details; do not use it over today's matrix. Commercial approval proves the offered price, not hands-on performance.
+Use short primary answers with immediately adjacent plan labels/details. The Zapla column has a restrained blue background for scanning. On mobile, a row heading sits above two side-by-side vendor cells with explicit visible vendor labels. Preserve semantic table roles and scope attributes. Never introduce blanket crosses for unknown features.
 
-- Pipedrive: [plan matrix](https://support.pipedrive.com/en/article/what-features-do-the-pipedrive-plans-have), [billing](https://support.pipedrive.com/en/article/how-does-pricing-work-in-pipedrive), [LeadBooster](https://support.pipedrive.com/en/article/leadbooster-add-on), [onboarding](https://www.pipedrive.com/en/products/sales/onboarding), [data security](https://support.pipedrive.com/en/article/how-secure-is-my-data-in-pipedrive).
-- NextGen: [CRM](https://thenextgencrm.com/features/crm/), [inbox](https://thenextgencrm.com/features/inbox/), [phone](https://thenextgencrm.com/features/phone/), [platform](https://thenextgencrm.com/), [DPA](https://thenextgencrm.com/dpa/), [sub-processors](https://thenextgencrm.com/subprocessors/).
-- Zapla offer: owner confirmation in this task and current `/Pricing-v3`.
+Motion decision: prices and feature comparisons remain immediately visible and static. Remove the old border-highlight sequence because the booking illustration does not prove the comparison argument. No counters, seat selector, fake UI, invented outcomes, testimonials or savings claims.
 
-Do not present Australian hosting or separated account databases as exclusive over Pipedrive: it documents both. NextGen's DPA qualifies the homepage's cross-border absolute, lists overseas services and says only US, EEA and Australia are currently live. Use the DPA for the regional statement. No fastest, microsecond user-interface, universal compliance, no-cloud-provider, four-live-region or guaranteed-savings claims. Local storage design is a documented foundation, not a speed benchmark.
+## Typed template contract
 
-The row-specific source identifiers remain in competitor data even though the user-facing page uses one expandable source list rather than repeated superscript links. Add a source for every new claim; do not turn an unknown into an absent-feature cross.
+Use `src/components/compare/simple/ComparisonPage.tsx`, `types.ts` and competitor-specific data. Headline/accent, hero introduction, benefits, table rows/details/source IDs, pricing headline, vendor plan/price/unit/billing explanation, lower-plan context, fit, hosting qualification, FAQs and sources belong in typed data.
 
-## Twenty-vendor content/structure benchmark
+Do not impose Pipedrive's per-user annual pricing model on another vendor. The price unit and billing explanation are data fields. Re-evaluate the actual buying differences for each competitor, especially vendors that also offer unlimited users.
 
-This is a representative sample, not a ranked top-20 list or a visual/browser audit of all twenty vendors. Vendor content and structures were retrieved on 14 October 2026; gated report contents were not downloaded. Borrow patterns, never claims or art.
+## Exact new reference inspection, 15 October 2026
 
-| Vendor | First-party reference | Use, adapt or reject |
-|---|---|---|
-| Pipedrive | https://www.pipedrive.com/en/crm-comparison/pipedrive-vs-hubspot | Use the early comparison table and labelled pricing basis. Reduce the long feature list. |
-| HubSpot | https://www.hubspot.com/comparisons/salesforce-vs-hubspot | Adapt a few benefit-led sections; reject borrowing its research percentages without Zapla evidence. |
-| Salesforce | https://www.salesforce.com/compare/salesforce-vs-hubspot/ | Adapt short reasons and clear next steps. Keep the answer on-page rather than gating a datasheet. |
-| monday CRM | https://monday.com/blog/crm-and-sales/pipedrive-vs-monday/ | Adapt plain categories and FAQs; reject blog-length copy for this landing page. |
-| Zoho | https://www.zoho.com/crm/compare/salesforce.html | Use explicit plan names. Reject savings sliders without comparable verified costs. |
-| Freshsales | https://www.freshworks.com/compare/freshsales-vs-pipedrive/ | Adapt focused communication benefits; reject blanket competitor weakness claims. |
-| Close | https://close.com/compare | Use honest fit limits. Reject its broad tier-free feature verdicts as authority. |
-| Keap | https://keap.com/compare | Adapt setup/support as a buying consideration. Do not invent switcher testimonials. |
-| Copper | https://www.copper.com/resources/copper-crm-vs-hubspot | Adapt four understandable differences, not a general feature encyclopedia. |
-| Nutshell | https://www.nutshell.com/nutshell-vs-pipedrive | Use the verdict-first hierarchy; reject copying its Premium plus separately charged LeadBooster example. |
-| ActiveCampaign | https://www.activecampaign.com/compare/hubspot | Use clear fit and channel categories; reject exhausting repeated explanatory blocks. |
-| EngageBay | https://www.engagebay.com/hubspot-alternative | Adapt visible feature comparison; reject blanket cross marks, stale pricing and combative language. |
-| Creatio | https://www.creatio.com/glossary/creatio-vs-salesforce | Use specific differences and plan context. Avoid enterprise architecture essays. |
-| Insightly | https://insightly.com/comparison-lp-hubspot/ | Use labels for tier-limited features. Keep migration reassurance brief and scoped. |
-| Bitrix24 | https://www.bitrix24.com/alternatives/free-pipedrive-alternative.php | Adapt breadth versus specialist fit. Reject enormous checkmark matrices. |
-| Capsule | https://capsulecrm.com/blog/capsule-crm-vs-pipedrive/ | Use section navigation and buyer questions. Older Essential-plan claims are not current Pipedrive evidence. |
-| Less Annoying CRM | https://lessannoyingcrm.com/comparison/pipedrive-vs-less-annoying-crm | Adapt plain small-business language. Reject outdated plan names/support limits. |
-| Attio | https://attio.com/f/hubspot-crm-alternatives | Use concise evaluation criteria and explicit fit. Do not expand into a category-ranking article. |
-| Folk | https://www.folk.app/articles/hubspot-vs-less-annoying-crm | Adapt feature grouping. Avoid a long article that introduces a third winner after comparison. |
-| SugarAI | https://sugarai.com/resources/nucleus-research-anatomy-of-a-decision-sugar-vs-salesforce | Treat a gated analyst-report landing page as a different conversion format; do not hide this comparison behind a form. |
+The earlier work included a representative twenty-vendor content benchmark and a separate browser review of the sixteen named competitors plus HighLevel and NextGen (18). Neither meant every link on every vendor's website was inspected.
 
-Observed evidence trap: Nutshell's annual example charges LeadBooster alongside Pipedrive Premium, while Pipedrive's current matrix includes it. Close's blanket email-automation add-on wording conflicts with Growth inclusion. Structure can be useful while specific competitor claims remain unreliable.
+This additional pass opened the exact supplied Zoho comparison directory and HubSpot page in the browser. Followed all five CRM destinations linked from Zoho's Sales/CRM group. The directory contains many unrelated product categories; this pass does not claim exhaustive review of finance, HR, legal and other app comparisons.
 
-## Lens review and limitations
+| Reference | Observed pattern and decision |
+|---|---|
+| https://www.zoho.com/compare-alternatives.html | Browser-reviewed directory and actual comparison links. Use product/competitor organization when a comparison directory is needed; do not add the whole directory to one landing page. |
+| https://www.zoho.com/crm/compare/hubspot.html | Strong centered comparison identity and contrasting sections. Adapt concise plan-labelled comparison; reject copying the massive table and stale December 2024 competitor-pricing snapshot. |
+| https://www.zoho.com/crm/compare/salesforce.html | Direct buyer argument and pricing basis. Adapt prominent commercial argument; reject unsupported attacks, survey metrics and unproven savings. |
+| https://www.zoho.com/crm/compare/microsoft-dynamics.html | Same reusable structure with competitor-specific context. Adapt consistency rather than duplicating every row. |
+| https://www.zoho.com/crm/zwitch/sugar-crm-alternative.html | Redirected in the browser to https://www.zoho.com/crm/compare/; reviewed that destination, not a nonexistent separate SugarCRM page. |
+| https://www.zoho.com/crm/compare/creatio.html | Opened the omnichannel disclosure and inspected table composition. Adapt short, distinct table answers. Reject enormous feature encyclopedias and importing vendor-authored competitor verdicts. |
+| https://www.hubspot.com/comparisons/zoho-vs-hubspot | Viewed hero, table, product sections and FAQ interaction. Adapt clear comparison identity, hierarchy and limited primary arguments; do not copy percentages, third-party verdicts, trial CTAs or blanket crosses. |
 
-| Lens | Source-level review | Remaining rendered verification |
-|---|---|---|
-| SME buyer | Names the buying choice; covers spreadsheets/inboxes and a working CRM; no forced switch | Three-second scan and mobile fatigue |
-| Copywriting | Plain language; removed the workflow audit, rate card and detailed migration scope | Actual wrapping and reading rhythm |
-| Product marketing | Team access, bundled customer tools and required launch are visible | Visual emphasis and scan order |
-| Conversion | Clear call and pricing links; no trial promise; launch visible with price | Call handoff and link interaction |
-| Buyer psychology | Acknowledges Pipedrive strengths and smaller-team cost possibilities | Whether scope notes feel reassuring rather than defensive |
-| UI/UX | Short table, visible mobile vendor labels and four disclosures | Desktop/tablet/mobile reflow and real keyboard operation |
-| Brand/creative | Exact Zapla palette; dedicated module; root-owned shell | Compare rendered result against current CRM and Customer Marketing |
-| Motion | No artificial count interaction or race; content remains static | Real pacing and motion preference check |
-| AI-slop critic | No fake stats, quotes, badges, floating dashboard garnish or superiority slogans | Screenshot-level composition |
-| Evidence/fairness | Current sources, tier labels, hosting nuance and no savings claim | Actual customer product performance is not tested |
-| Accessibility | Semantic headings/table, native details and focus styles | Screen-reader table, zoom and focus checks |
-| SEO/performance | Route registered, draft noindex, no invented canonical, no new video payload | Deployed head/routing and performance measurements |
+These references inform design and presentation, not Zapla product claims.
 
-The first Lovable turn ended with a missing Vitest import. The unnecessary generated test file was removed rather than adding a test framework. Build and TypeScript passed after correction. Static React server markup was inspected for headline, table, visible pricing, sources and controls. This is not rendered browser QA. Public preview redirects to sign-in; secure sign-in was declined. The local Vite URL could not be reached by the browser or local HTTP client despite the dev process reporting ready. Lovable credits were exhausted, preventing a further remote QA turn. No numerical visual/motion score is claimed.
+## Evidence and pricing
 
-## Remaining owner/release flags
+Pipedrive official Australian pricing, checked 15 October 2026, lists annual-billing monthly equivalents: Lite A$19, Growth A$49, Premium A$79 and Ultimate A$109 per seat. Premium's A$948 per user/year is displayed beside its annual billing label. Premium is selected because the team email inbox and LeadBooster forms are included, not because it is feature-equivalent to Zapla. Lower-priced plans remain visible. Zapla is monthly and required launch is prominent. No currency conversion, usage comparison, artificial team-size calculation or total-cost saving is claimed. Vendor taxes/final pricing are qualified at checkout.
 
-Owner's no-trial decision is implemented in the new draft. Public terms/refund policies previously promising a trial need separate reconciliation. Do not change unrelated public legal pages during this comparison build. Live customer enablement and performance are not independently tested; no measured outcome is claimed. Migration is agreed per customer. Canonical host must be verified only when this draft is approved for public indexing. Existing original comparison copy remains intact for comparison.
+The attached Pipedrive research is a June 2026 USD snapshot; today's official AUD page takes precedence. Sources:
 
+- https://www.pipedrive.com/en/pricing
+- https://support.pipedrive.com/en/article/what-features-do-the-pipedrive-plans-have
+- https://support.pipedrive.com/en/article/leadbooster-add-on
+- https://support.pipedrive.com/en/article/how-does-pricing-work-in-pipedrive
+- https://thenextgencrm.com/
+- https://thenextgencrm.com/features/crm/
+- https://thenextgencrm.com/features/inbox/
+- https://thenextgencrm.com/features/phone/
+- https://thenextgencrm.com/dpa/
+- Owner confirmation and current `/Pricing-v3` for Zapla inclusions/prices.
 
-## Pricing correction, 14 October 2026
+Retain NextGen's DPA exceptions: Australian hosting is available, not confirmation of this customer's actual selected region. AI, communications and login processing can involve overseas services. Pipedrive also documents Australian hosting and separate company databases. No exclusive-hosting, fastest, microsecond UI, blanket compliance or four-live-region claim.
 
-Removed the meaningless seat-count selector, roles and count animation. Replaced it with a compact two-column pricing-model comparison. Preserved required launch, Growth and the brief usage note. Applied corrections on top of current main, preserving the separate V3 cleanup. Rendered QA is still pending until the preview is accessible.
+## QA status and remaining limits
 
+The previous revision received actual Lovable browser QA at 1670×1000 and 390×844. It found and corrected a mobile caption layout defect and a 12px illustration note. This was remote-browser evidence; screenshots were not exposed as images by the connector. The owner then provided four desktop screenshots which were personally inspected and motivated this redesign.
 
-## Applied competitor review, 14 October 2026
+This redesign requires build, TypeScript, and another actual desktop/mobile rendered pass. Do not label source review or a successful build as visual sign-off. Never assign numerical visual ratings without inspecting the resulting images.
 
-Applied the subsequent browser review of the 16 named vendors plus HighLevel and NextGen (18 total). The earlier twenty-vendor table above was a content benchmark, not that later browser review. Borrowed the clearer opening and focused differences seen on monday, explicit fit from Close, and implementation emphasis from Keap. No vendor-authored performance or savings claims were imported.
+Review lenses: buyer comprehension, copy, product marketing, conversion, buyer psychology, UI/UX, brand/creative, motion, AI-slop critic, evidence/fairness, accessibility, SEO/performance. Qualify what is observed versus inferred. Check real image load, text wrapping, offer prominence, mobile labels, focus/disclosures, no overflow, pricing units, launch visibility, no trial promise, route metadata and existing shell consistency.
 
-The hero now explains enquiries, replies and bookings with a clearly labelled illustrative workflow. It is not a screenshot, a customer testimonial or a promise of automatic booking. A one-shot border highlight follows the enquiry/reply/booking sequence; all text is immediately visible, with no looping, hiding or movement, and reduced motion disables it. Three typed differences precede the factual table. Fit summaries are shorter and follow pricing. Pricing still has no seat selector or invented savings calculation.
-
-This revision preserves the source-level checks and remaining release flags above. Build and TypeScript verification are required before sync. Rendered sign-off remains conditional on actual preview access; no numerical design rating is assigned from source code.
+Known remaining site-wide flag: global footer social icons point to generic service homepages. Correct only with verified Zapla profiles or a separately scoped removal; do not invent URLs. Preview sign-in and user-control handoff remain unavailable to this chat's user, so do not repeat the failed login route. Actual product enablement and customer hosting selection need owner/provider confirmation. Existing public trial/refund terms require separate reconciliation before public release.
