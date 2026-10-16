@@ -74,3 +74,12 @@ Credit HubSpot for included calling, shared inbox, forms, free website/landing-p
 Reuse the shell with data-specific workflow notes, seat labels, commitment wording and optional onboarding. Preserve Pipedrive defaults. No new security/hosting claims.
 
 Draft review access: `/compare/review` provides a comparison dropdown and real iframe viewports at375,390,768,1440px. This is an internal reviewer, outside navigation and the production sitemap. HubSpot leaf permits editor discovery without sitemap:false; noindex and explicit SEARCH_PAGES exclusion remain authoritative. Do not infer that the native Lovable selector was visually verified unless it was.
+
+
+HubSpot verification record (16 October 2026):
+- Standalone Smart CRM Professional also supports advanced workflows. Sales Hub Professional is the fixed sales-feature comparison, not HubSpot's minimum automation purchase. This qualification is visible in table/pricing notes and FAQs.
+- Final hosted revision 6dfd531: 24 calculator states passed across 375,390,768,1440px, monthly/annual and 1,5,25 full Sales seats. Eight collapsed/expanded layout states passed with no horizontal overflow; long calculator amounts stay on one line. First-year setup totals, loaded images and noindex assertions passed.
+- Rendered desktop, mobile calculator/expanded first-year table and tablet FAQs inspected. Pipedrive monthly/annual five-seat defaults remain545/395, annual upfront4740. CTA/CRM anchor destinations checked. Existing booking destination still offers email scheduling.
+- Build, TypeScript, SEO policy checks and diff whitespace check passed. SEO retains17 production pages and excludes both comparison drafts and reviewer. No app-specific console errors observed after excluding browser-extension metadata/hydration noise.
+- Focus and reduced-motion CSS reviewed; OS-level reduced-motion emulation, account-level product testing, video playback and the native Lovable editor page selector were not verified. The comparison-only dropdown and its direct draft links were verified.
+- GitHub is synchronized to the Lovable preview. No production publish action performed.
