@@ -216,7 +216,7 @@ const LAUNCH_SCOPES = [
 const USAGE = [
   ["Outbound SMS", "A$0.13 + GST", "per carrier segment"],
   ["Inbound SMS", "A$0.02 + GST", "per carrier segment"],
-  ["Voice AI overage", "A$0.90 + GST", "per additional minute"],
+  ["Voice AI usage", "Quoted separately", "confirmed before activation"],
   ["Email overage", "A$1.00 + GST", "per 1,000 events"],
   ["WhatsApp", "Provider + activation", "shown before enablement"],
 ] as const;
@@ -227,7 +227,7 @@ const ADDONS = [
     price: "A$199/mo + GST",
     secondaryPrice: null,
     setup: "Setup from A$997 + GST",
-    copy: "Answers calls, captures details and can book or route enquiries. Includes 200 Voice AI minutes.",
+    copy: "Answers calls, captures details and can book or route enquiries. Voice usage terms are confirmed before activation.",
     background: "#EFE2D2",
     accent: COLORS.apricot,
   },

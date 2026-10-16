@@ -229,7 +229,7 @@ function Hero() {
             </div>
 
             <div className="mt-8 text-[12px] font-semibold text-[#59615A]">
-              A$199/mo + GST · Voice usage billed separately
+              A$199/mo + GST · Voice usage terms confirmed before activation
             </div>
           </Reveal>
 
@@ -755,7 +755,7 @@ function SetupControlPricing() {
             </div>
 
             <div className="mt-8 divide-y divide-white/10 border-y border-white/10">
-              <PriceLine label="Voice usage" value="A$0.90 + GST / min" />
+              <PriceLine label="Voice usage" value="Confirmed before activation" />
               <PriceLine label="Setup" value="from A$997 + GST" />
               <PriceLine label="Requires" value="an active Zapla plan" />
             </div>
