@@ -36,7 +36,7 @@ function ComparisonReview() {
     setChecking(true);
     setReport('');
     const results: string[] = [];
-    const pause = () => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+    const pause = () => new Promise<void>(resolve => window.setTimeout(resolve, 50));
     const money = (n: number) => 'A$' + n.toLocaleString('en-AU', { minimumFractionDigits: Number.isInteger(n) ? 0 : 2 });
     try {
       const doc = frame.current?.contentDocument;
