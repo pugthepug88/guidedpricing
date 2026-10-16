@@ -71,7 +71,7 @@ function ComparisonReview() {
       </div>
       <div ref={stage}>
         <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>
-          <iframe ref={frame} title="Comparison preview" src={path} style={{ position: 'absolute', top: 0, left: 0, width, height, border: '1px solid #DEE2DC', transform: `scale(${scale})`, transformOrigin: 'top left', background: 'white' }} />
+          <iframe ref={frame} title="Comparison preview" src={path} style={{ position: 'absolute', top: 0, left: 0, width, height, border: 0, outline: '1px solid #DEE2DC', transform: `scale(${scale})`, transformOrigin: 'top left', background: 'white' }} />
         </div>
       </div>
     </div>
