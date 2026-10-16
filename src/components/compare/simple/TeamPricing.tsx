@@ -21,7 +21,7 @@ export function TeamPricing({ data }: { data: ComparisonDefinition }) {
       </fieldset>
     </div>
     <div className="cc-team-results" aria-live="polite" aria-atomic="true">
-      <article className="cc-team-zapla"><h3>Zapla Follow-Through</h3><p className="cc-seat-result">{users} people. Unlimited users included.</p>
+      <article className="cc-team-zapla"><h3>Zapla Follow-Through</h3><p className="cc-seat-result">{users} {users === 1 ? 'person' : 'people'}. Unlimited users included.</p>
         <p className="cc-team-total">{money(data.offer.monthly)}<span>/month + GST</span></p>
         <p className="cc-same-price">Same subscription as you add users.</p>
         <p className="cc-team-billing">Billed monthly. Required Guided Launch<br /><strong>from {money(data.offer.launch)} + GST.</strong></p>

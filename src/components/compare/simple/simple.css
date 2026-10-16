@@ -91,7 +91,7 @@
 .cc-range-labels { display:flex; justify-content:space-between; font-size:12px; color:var(--comparison-muted); }
 .cc-billing-control { display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px; border:0; padding:0; margin:24px 0 0; }
 .cc-billing-control legend { float:left; margin-right:24px; font-size:14px; }
-.cc-billing-control label { display:inline-flex; align-items:center; gap:8px; font-size:14px; cursor:pointer; }
+.cc-billing-control label { min-height:44px; display:inline-flex; align-items:center; gap:8px; font-size:14px; cursor:pointer; }
 .cc-billing-control input { accent-color:#2563FF; width:18px; height:18px; }
 .cc-team-results { display:grid; grid-template-columns:1fr 1fr; gap:0; border-block:1px solid var(--comparison-line); }
 .cc-team-results article { min-width:0; padding:28px; }
@@ -248,7 +248,7 @@
 .cc-context-message--sent { margin-left:12px; color:#FFFFFF; background:#1E2B29; border-bottom-right-radius:3px; }
 .cc-context-message--reply { margin-right:12px; background:#FFFFFF; border:1px solid #E0E4DD; border-bottom-left-radius:3px; }
 .cc-context-handoff { margin:24px 0 0; font-size:12px; line-height:1.6; color:#5B625E; }
-.cc-context-visual figcaption { font-size:11px; line-height:1.5; color:#626A65; margin-top:12px; }
+.cc-context-visual figcaption { font-size:12px; line-height:1.5; color:#626A65; margin-top:12px; }
 @media(max-width:1023px) {
  .cc-reasons-layout { grid-template-columns:1fr 1.3fr; gap:32px; }
  .cc-context-body { grid-template-columns:1fr; }

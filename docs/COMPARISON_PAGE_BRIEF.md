@@ -1,0 +1,68 @@
+# Zapla comparison page operating brief
+Last updated: 16 October 2026. Read this entire file before competitor work.
+
+## Objective and working style
+Create concise, persuasive and accurate comparison pages that help a buyer choose Zapla. Use the approved Pipedrive page as the structural and visual baseline. Form independent recommendations. Do not change direction simply because Cao suggests an alternative. Explain material changes in reasoning. Never manufacture claims or crosses. Give exact before/after wording before significant copy or structure changes. Execute approved work without repeatedly seeking approval. Work only on drafts; do not publish unless explicitly instructed.
+
+## Source of truth and project
+Repository: pugthepug88/guidedpricing. Lovable project b1bef4bc-7c76-4229-924e-e0e5b64a632b.
+Baseline: /compare/zapla-vs-pipedrive-simple.
+Reusable module: src/components/compare/simple/ComparisonPage.tsx, types.ts, TeamPricing.tsx, simple.css.
+Competitor data: src/components/compare/simple/pipedrive.ts. Use separate data and a leaf route for each competitor.
+Read AGENTS.md and applicable local instructions. Other chats edit this repository. Fetch current main, isolate changes and use a safe branch lease. Never overwrite unrelated changes or rewrite published history.
+Draft review listings are managed through widerVersions; inspect current implementation before adding entries. Ensure each new page appears in Lovable review dropdowns, without duplicate versions.
+
+## Current offer
+Follow-Through: A$399/month excluding GST, unlimited users and stored contacts subject to fair use. Required Guided Launch from A$1,997 excluding GST.
+Growth: A$699/month TOTAL excluding GST; includes Follow-Through. Required Guided Launch from A$2,997 excluding GST.
+No free trial.
+Follow-Through includes CRM, shared inbox, pipelines, forms, bookings, quotes/proposals, invoices, self-service website/funnel builders, business phone access, two-way SMS, review management and missed-call text-back.
+Cao explicitly confirmed review management and missed-call text-back in Follow-Through on 16 October 2026. Do not overstate exact review channel/reply/AI functionality beyond that confirmation.
+Growth adds database reactivation tools, email campaigns, bulk SMS/WhatsApp campaigns and social scheduling. These must not appear as Follow-Through inclusions.
+AI Receptionist is an optional paid service. Do not invent voice allowances. Read current pricing before quoting its price.
+Phone numbers, communication usage, payment-provider fees and optional managed services are separate. Included tools do not mean unlimited sending or unlimited setup.
+Guided Launch is finite scoped work; current pricing page lists initial import and build quantities. Do not confuse setup quantities with software capacity.
+The current platform source in this work is NextGen (thenextgencrm.com), not historical GHL assumptions in older memories. Recheck platform and offer evidence rather than transferring GHL features.
+Unlimited workflow COUNT is documented. Do not claim no execution, rate, step, storage, leads/deals or processing limits without proof.
+
+## Editorial and design template
+One fixed named competitor tier versus Follow-Through throughout the main table and calculator. Choose and justify that competitor tier per competitor; never switch tiers row by row.
+Separate compact Growth upgrade block showing total price. AI Receptionist clearly optional.
+Short feature names, ticks, crosses and compact labels such as Via integration, Paid add-on, Unlimited, 150 active. Detailed qualifications go in expandable notes.
+A cross applies only to the precisely named inclusion. If a competitor achieves an outcome via integration, say so. Never imply an outcome is impossible because it is not native.
+Lead with commercially relevant differences, not a count of crosses. No generic mobile/integration rows or exhaustive technical limits without a compelling buyer reason.
+Keep the hero, three Why choose reasons, contextual customer visual, concise table, pricing calculator, optional first-year examples, fit section, short FAQs, collapsed sources and consistent final CTA/footer.
+Use the existing white, dark green, restrained sage and Zapla-blue system. No beige wash, decorative connector lines, generic AI art or gratuitous animations. Reuse established branding. No additional demo section by default.
+Keep copy concrete and understandable to SMB owners. Avoid jargon and unexplained metaphors. Preserve concise page length.
+
+## Comparison integrity
+Use current official pricing, plan matrices, help docs and integration-provider documentation. Research files from Kimi, Perplexity and Claude are leads, not proof. Resolve conflicts using current authoritative evidence.
+Inspect competitors' actual comparison pages and relevant individual comparisons for messaging, table design, proof, objections, pricing framing and visual hierarchy. Record URLs actually reviewed. Do not claim all competitors or all pages reviewed unless done.
+Compare same currency, billing cadence and tax basis. Show annual upfront commitment beside annual monthly equivalents.
+Do not inflate competitor costs: exclude products included in chosen tier, count a shared provider once, distinguish optional tools and usage. Use a matched cost stack only when justified and verified.
+Identify evidence as official documentation, account test, vendor/owner confirmation, assumption or unresolved. Keep precise unresolved questions out of public definitive claims.
+Do not add HIPAA, security, hosting, compliance or performance claims without evidence for exact product, region, plan and scope.
+No invented ratings, testimonials, results, ROI or guaranteed conversion. A design audit score is judgment, not measured conversion performance.
+
+## Pipedrive decisions and findings
+Premium A$109/user/month monthly; A$79/user/month annual equivalent, A$948/user/year. Cao confirmed both exclude GST on 16 October 2026. Annual screenshot supplied; AUD checkout not independently reproduced.
+Premium includes 150 ACTIVE automations per company; inactive workflows excluded, paid top-ups available. Pipelines and contacts unlimited. Leads/deals have separate limits.
+Premium includes shared email inbox, LeadBooster forms, Smart Docs and Projects. Do not add charges for them.
+SMS and automated SMS via providers such as JustCall; missed-call text-back via integration; review management via integrations such as Trophy Jar. These are not absent capabilities.
+Campaigns is a paid marketing add-on; sales email sequences/workflows already included. Reactivation is possible with Pipedrive workflows.
+Do not add leads/deals, reporting, fields, API or workflow-structure-limit rows to the main page. Decision: insufficient incremental buyer value and/or unverified matching Zapla capacity.
+No new content sections are currently required.
+
+## Completion and publication checks
+Inspect rendered desktop, tablet and mobile, including narrow 375/390px widths, every section, expanded details and first-year tables. Check overflow, wrapping, contrast, logo/avatar integrity, focus, touch targets and reduced motion.
+Test calculator monthly/annual at 1,5,25 users; validate first-year launch inclusion and all tax labels.
+Test FAQs/details, CTA destinations, anchors, source links, pricing consistency and review dropdown discoverability.
+Run appropriate build and runtime checks. State actual coverage and any limitations; never claim an unperformed check passed.
+Keep fixes scoped and synchronize GitHub/Lovable. Give the exact draft link when done.
+Baseline responsive QA on 16 October passed all 24 calculator states at 375,390,768,1440px, no horizontal overflow or runtime errors. Lovable inspected screenshots and reported automatic build OK; root also checked hosted desktop interactions and links. This baseline pass does not certify future competitors.
+Known site-wide caveat: /booking currently offers email to arrange a call and says online scheduling coming soon. No live calendar flow tested. Footer artwork renders; video playback was not verified in automated QA. No account-level feature testing performed.
+
+## Next competitor workflow
+Use one competitor chat per page in this same Project, with this file as the shared brief. Keep cross-page template decisions in a central chat and update this file when they change. Do not let a competitor-specific change silently alter all pages.
+Initial proposed priority is GHL, HubSpot, Zoho, monday CRM and Salesforce, based on strategic coverage, not verified search demand. Confirm remaining priorities using buyer/traffic/lead evidence rather than committing to ten for volume.
+For each competitor: audit current template and pricing; research vendor and comparison pages; choose matched tier; show proposed changes; implement approved page; verify desktop/mobile/calculator/links; report evidence and unresolved items.
