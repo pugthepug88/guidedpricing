@@ -77,7 +77,7 @@ const FAQS = [
   },
   {
     q: "Where can I see pricing?",
-    a: "Pricing is kept on the dedicated Zapla pricing page so this page can stay focused on the CRM itself.",
+    a: "Visit the Zapla pricing page to compare plans, see what is included, and review Guided Launch and usage costs.",
   },
 ] as const;
 
