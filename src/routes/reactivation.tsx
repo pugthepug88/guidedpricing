@@ -185,7 +185,10 @@ function Hero() {
 
       <div className="relative mx-auto grid min-h-[700px] max-w-[1700px] items-center gap-4 lg:grid-cols-[1.24fr_.76fr] lg:gap-2">
         <Reveal className="order-2 lg:order-1">
-          <ReopenHeroVisual />
+          <MobileReopenHeroVisual />
+          <div className="hidden lg:block">
+            <ReopenHeroVisual />
+          </div>
         </Reveal>
 
         <Reveal className="order-1 max-w-[650px] lg:order-2 lg:justify-self-end lg:pl-5" delay={0.04}>
@@ -226,6 +229,43 @@ function Hero() {
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function MobileReopenHeroVisual() {
+  return (
+    <div className="mx-auto mt-6 max-w-[520px] pb-6 lg:hidden">
+      <div className="rounded-[24px] border border-white/85 bg-[#FCF9F4] p-5 shadow-[0_18px_45px_rgba(76,55,40,.12)]">
+        <div className="flex items-center gap-4">
+          <AutumnAvatar cell={9} size={64} />
+          <div className="min-w-0">
+            <div className="text-[20px] font-semibold tracking-[-0.035em] text-[#282522]">Sarah Mitchell</div>
+            <div className="mt-1 text-[12px] text-[#69615A]">Quote sent · A$4,800</div>
+            <div className="mt-1 text-[11px] text-[#766E67]">167 days quiet</div>
+          </div>
+        </div>
+      </div>
+      <div className="ml-8 border-l border-[#C98D74] py-5 pl-5">
+        <div className="rounded-[18px] border border-[#E6D9CF] bg-white p-4 shadow-[0_10px_25px_rgba(74,53,39,.07)]">
+          <div className="mb-3 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#86756A]">
+            <ZaplaPetal size={22} /> Reopen
+          </div>
+          <p className="text-[13px] leading-[1.6] text-[#292623]">Hi Sarah, we sent you a quote earlier this year. If you’re still considering it, I can send an updated version.</p>
+        </div>
+        <div className="ml-3 mt-4 rounded-[18px] border border-[#C7D0A7] bg-[#E8EBD9] p-4">
+          <p className="text-[13px] font-semibold leading-[1.6] text-[#2E3128]">Yes please. Send it through.</p>
+          <div className="mt-2 flex items-center gap-2 text-[10px] text-[#7B8367]">10:27 AM <Check size={12} /></div>
+        </div>
+      </div>
+      <div className="flex items-center gap-3 rounded-[18px] border border-[#D5D7C5] bg-[#FAF8F2] p-4">
+        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#879653]" />
+        <div className="flex-1">
+          <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#637044]">Reopened</div>
+          <div className="mt-1 text-[13px] font-semibold text-[#373631]">Sarah is back</div>
+        </div>
+        <ArrowRight size={18} className="shrink-0 text-[#5E6257]" />
+      </div>
+    </div>
   );
 }
 
