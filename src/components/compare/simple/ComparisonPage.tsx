@@ -55,11 +55,12 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
       <div className="cc-section-heading"><p className="cc-section-label">The comparison</p><h2 id="comparison-heading">Compare what’s included.</h2><p>{data.tableIntroduction}</p></div>
       <div className="cc-table-group-heading"><h3>Everyday customer work</h3><p><strong>Follow-Through: {money(data.offer.monthly)}/month + GST.</strong> Unlimited users. Required launch from {money(data.offer.launch)} + GST.</p></div>
       <FeatureTable rows={[...data.rows, ...data.optionalRows]} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Follow-Through" caption={`${data.competitor} ${data.vendorPlan} compared with Zapla Follow-Through.`} />
-      <p className="cc-table-key">✓ Included · × Not included as named. Integrations may be available. Zapla contacts are subject to fair use. Phone numbers and communications usage are separate.</p>
+      <p className="cc-table-key">✓ Included · × Not included as named. Via integration = a connected third-party service. ¹ Phone numbers and SMS usage are extra. Other communications usage is separate; Zapla contacts are subject to fair use.</p>
       <aside className="cc-upgrade-note" aria-labelledby="growth-upgrade-heading">
         <div className="cc-upgrade-features"><h3 id="growth-upgrade-heading">Need marketing too?</h3><p>Growth includes everything in Follow-Through, plus:</p><ul>{data.growthRows.map(row => <li key={row.id}>{row.label}</li>)}</ul></div>
         <div className="cc-upgrade-price"><p className="cc-upgrade-plan">Zapla Growth</p><p className="cc-upgrade-amount"><strong>{money(data.offer.growthMonthly)}</strong><span>/month + GST, total subscription</span></p><p>Required Guided Launch<br /><strong>from {money(data.offer.growthLaunch)} + GST</strong></p><p>Sending usage is separate.</p><Link to={data.pricingUrl}>Explore Growth <ArrowRight size={15} aria-hidden="true" /></Link></div>
       </aside>
+      <p className="cc-table-key">Pipedrive Premium includes 150 active automations per company; paid top-ups are available. Zapla’s unlimited allowance refers to workflow count.</p>
       <p className="cc-table-key">AI Receptionist is an optional paid service; setup and usage terms are separate. <Link to={data.pricingUrl}>See pricing ↗</Link></p>
       <details className="cc-more-tools"><summary>Feature details and plan notes</summary>
         <div className="cc-feature-notes">{allRows.map(row => <div key={row.id}><h3>{row.label}</h3><p><strong>{data.competitor}:</strong> {row.competitor.detail || row.competitor.text}</p><p><strong>Zapla:</strong> {row.zapla.detail || row.zapla.text}</p></div>)}</div>
