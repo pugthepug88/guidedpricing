@@ -6,7 +6,7 @@ import simpleCss from '@/components/compare/simple/simple.css?url';
 const title = 'Zapla vs HubSpot: Pricing, Features and Team Access | Zapla';
 const description = 'Compare Zapla and HubSpot for team access, customer tools, Guided Launch and first-year costs in AUD. See plan inclusions and source-linked pricing.';
 export const Route = createFileRoute("/compare/zapla-vs-hubspot-simple")({
-  staticData: { sitemap: false },
+// Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
     meta: [
       { title },

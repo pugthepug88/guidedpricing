@@ -19,6 +19,7 @@ const fs = require("fs"),
       "/pricing-v2",
       "/compare/zapla-vs-pipedrive-simple",
     "/compare/zapla-vs-hubspot-simple",
+    "/compare/review",
     ])
       assert.equal(off.getPageSeo(origin, path).robots, "noindex, nofollow");
     assert.equal(off.getRobotsTxt(origin), "User-agent: *\nDisallow: /\n");
@@ -38,6 +39,7 @@ const fs = require("fs"),
     "/compare/zapla-vs-pipedrive",
     "/compare/zapla-vs-pipedrive-simple",
     "/compare/zapla-vs-hubspot-simple",
+    "/compare/review",
     "/unknown",
   ])
     assert.equal(on.getPageSeo("https://zapla.io", path).robots, "noindex, nofollow");
