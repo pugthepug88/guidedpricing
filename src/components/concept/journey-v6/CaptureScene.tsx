@@ -34,7 +34,7 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#F8FAFF]">
-      <div className="absolute inset-0 saturate-[.82]">
+      <div className="absolute inset-0 min-w-[900px] saturate-[.82]">
         <SceneContacts phase={0} elapsedMs={0} reduced />
       </div>
 
@@ -48,7 +48,7 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
           />
 
           <motion.div
-            className="pointer-events-none absolute inset-0 z-[9] saturate-[.82]"
+            className="pointer-events-none absolute inset-0 z-[9] min-w-[900px] saturate-[.82]"
             style={{ clipPath: "inset(74px 0 0 0)" }}
             initial={interactive ? false : { y: 0 }}
             animate={{ y: 58 }}
@@ -73,7 +73,7 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
         transition={{ duration: interactive ? 0 : 0.2, ease: EASE }}
         style={{ pointerEvents: handoff ? "auto" : "none" }}
       >
-        <div className="grid h-full w-full items-center gap-2 px-3 py-[9px]" style={{ gridTemplateColumns: CONTACT_COLS }}>
+        <div className="grid h-full w-full min-w-[868px] items-center gap-2 px-3 py-[9px]" style={{ gridTemplateColumns: CONTACT_COLS }}>
           <span className="flex h-[13px] w-[13px] rounded-[3px] border border-slate-300 bg-white" />
           <SarahIdentity detail="sarah.nguyen@email.com" />
           <span className="truncate text-[11px] tabular-nums text-slate-500">0412 481 229</span>
@@ -90,7 +90,7 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
       </motion.div>
 
       <motion.div
-        className="absolute left-1/2 top-[26px] z-40 h-[232px] w-[324px] overflow-hidden rounded-[14px] border border-slate-200 bg-white shadow-[0_24px_58px_-30px_rgba(15,23,42,.32)]"
+        className="absolute left-1/2 top-[26px] z-40 h-[232px] w-[324px] max-w-[calc(100%-16px)] overflow-hidden rounded-[14px] border border-slate-200 bg-white shadow-[0_24px_58px_-30px_rgba(15,23,42,.32)]"
         initial={false}
         animate={{
           x: "-50%",
