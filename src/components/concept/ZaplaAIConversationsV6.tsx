@@ -580,7 +580,7 @@ export function ZaplaAIConversationsV6() {
             Turn every conversation into the next action.
           </h2>
           <p className="mx-auto mt-6 max-w-[720px] text-[16px] leading-[1.62] text-white/62 sm:text-[18px]">
-            Conversations become context. Context becomes a decision. Zapla follows through.
+            Conversations and customer history give Zapla the context to send relevant follow-ups and hand replies to your team.
           </p>
         </header>
 
