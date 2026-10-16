@@ -270,7 +270,9 @@ function MobileReopenHeroVisual() {
 }
 
 function ReopenHeroVisual() {
+  const frameRef = useRef<HTMLDivElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
+  const [canvasScale, setCanvasScale] = useState(1);
   const sarahRef = useRef<HTMLDivElement>(null);
   const outgoingRef = useRef<HTMLDivElement>(null);
   const replyRef = useRef<HTMLDivElement>(null);
@@ -282,6 +284,18 @@ function ReopenHeroVisual() {
     greenOne: { start: { x: number; y: number }; end: { x: number; y: number } };
     greenTwo: { start: { x: number; y: number }; end: { x: number; y: number } };
   } | null>(null);
+
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+    const resize = () => {
+      if (frame.clientWidth > 0) setCanvasScale(frame.clientWidth / 1000);
+    };
+    resize();
+    const observer = new ResizeObserver(resize);
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const updateConnectors = () => {
@@ -329,7 +343,7 @@ function ReopenHeroVisual() {
       observer.disconnect();
       window.removeEventListener("resize", updateConnectors);
     };
-  }, []);
+  }, [canvasScale]);
 
   const archiveCards = [
     { cell: 4, name: "Daniel Brooks", type: "Enquiry", quiet: "132 days quiet", x: 0.0, y: 6.5, w: 31.5, rz: 0.40, ry: 9.5, opacity: 0.69, blur: 0.08, z: 8 },
@@ -363,7 +377,8 @@ function ReopenHeroVisual() {
   };
 
   return (
-    <div ref={visualRef} className="relative mx-auto aspect-[1000/780] w-full max-w-[1040px] lg:-top-[18px] lg:mx-0 lg:max-w-none" style={{ width: "min(94%, 980px)", left: "clamp(26px, calc(26px + (100vw - 1600px) * 0.065), 78px)", marginLeft: "min(0px, calc((1700px - 100vw) / 2))" }}>
+    <div ref={frameRef} className="relative aspect-[1000/780] w-full lg:-top-[18px]">
+    <div ref={visualRef} className="absolute left-0 top-0 h-[780px] w-[1000px]" style={{ zoom: canvasScale }}>
       <svg
         className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-hidden"
         viewBox="0 0 1000 780"
@@ -564,6 +579,7 @@ function ReopenHeroVisual() {
           <ArrowRight size={16} className="shrink-0 text-[#5E6257]" />
         </div>
       </div>
+    </div>
     </div>
   );
 }
