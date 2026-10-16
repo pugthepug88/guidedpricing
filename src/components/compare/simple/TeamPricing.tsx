@@ -27,13 +27,13 @@ export function TeamPricing({ data }: { data: ComparisonDefinition }) {
         <p className="cc-team-billing">Billed monthly. Required Guided Launch<br /><strong>from {money(data.offer.launch)} + GST.</strong></p>
       </article>
       <article><h3>{data.competitor} {data.vendorPlan}</h3><p className="cc-seat-result">{users} paid {users === 1 ? 'seat' : 'seats'}</p>
-        <p className="cc-team-total">{money(vendorTotal)}<span>/month{billing === 'annual' ? ' equivalent' : ''}</span></p>
+        <p className="cc-team-total">{money(vendorTotal)}<span>/month{billing === 'annual' ? ' equivalent' : ''} + GST</span></p>
         <p>{users} × {money(rate)} per user/month.</p>
         <p className="cc-team-billing">{billing === 'annual' ? `${money(vendorTotal * 12)} paid upfront each year.` : 'Billed monthly.'}</p>
         <p className="cc-team-alternative">{billing === 'monthly' ? `Or ${money(users * annualRate)}/month equivalent with annual billing.` : `Or ${money(users * data.vendorPrice)}/month with monthly billing.`}</p>
       </article>
     </div>
-    <p className="cc-team-qualification">Subscription comparison for the named plans. Features differ. Adding users does not increase your Zapla plan price; usage, optional services and plan changes can affect your total bill. Zapla excludes GST; {data.competitor} tax treatment is confirmed at checkout.</p>
+    <p className="cc-team-qualification">Subscription comparison for the named plans. Features differ. Adding users does not increase your Zapla plan price; usage, optional services and plan changes can affect your total bill. All amounts shown exclude GST.</p>
     <details className="cc-team-plan-notes"><summary>Compared plans and current prices</summary><p>{data.vendorPlanReason} {data.vendorScope}</p><p>Zapla Follow-Through: {data.offerScope}</p><p>{data.vendorLowerPlans}</p><p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current {data.competitor} prices ↗</a></p></details>
   </div>;
 }
