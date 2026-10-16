@@ -26,6 +26,7 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as CompareZaplaVsHubspotSimpleRouteImport } from './routes/compare.zapla-vs-hubspot-simple'
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
 import { Route as CompareZaplaVsPipedriveSimpleRouteImport } from './routes/compare.zapla-vs-pipedrive-simple'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
@@ -126,6 +127,12 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
+const CompareZaplaVsHubspotSimpleRoute =
+  CompareZaplaVsHubspotSimpleRouteImport.update({
+    id: '/compare/zapla-vs-hubspot-simple',
+    path: '/compare/zapla-vs-hubspot-simple',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CompareZaplaVsPipedriveRoute = CompareZaplaVsPipedriveRouteImport.update({
   id: '/compare/zapla-vs-pipedrive',
   path: '/compare/zapla-vs-pipedrive',
@@ -211,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
@@ -242,6 +250,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
@@ -274,6 +283,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
@@ -307,6 +317,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
     | '/concept/cinematic-follow-through-v5'
@@ -338,6 +349,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
     | '/concept/cinematic-follow-through-v5'
@@ -369,6 +381,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
     | '/concept/cinematic-follow-through-v5'
@@ -401,6 +414,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  CompareZaplaVsHubspotSimpleRoute: typeof CompareZaplaVsHubspotSimpleRoute
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
   CompareZaplaVsPipedriveSimpleRoute: typeof CompareZaplaVsPipedriveSimpleRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
@@ -536,6 +550,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compare/zapla-vs-hubspot-simple': {
+      id: '/compare/zapla-vs-hubspot-simple'
+      path: '/compare/zapla-vs-hubspot-simple'
+      fullPath: '/compare/zapla-vs-hubspot-simple'
+      preLoaderRoute: typeof CompareZaplaVsHubspotSimpleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/compare/zapla-vs-pipedrive': {
       id: '/compare/zapla-vs-pipedrive'
       path: '/compare/zapla-vs-pipedrive'
@@ -642,6 +663,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  CompareZaplaVsHubspotSimpleRoute: CompareZaplaVsHubspotSimpleRoute,
   CompareZaplaVsPipedriveRoute: CompareZaplaVsPipedriveRoute,
   CompareZaplaVsPipedriveSimpleRoute: CompareZaplaVsPipedriveSimpleRoute,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,

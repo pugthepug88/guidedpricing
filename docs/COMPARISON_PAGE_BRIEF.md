@@ -10,7 +10,7 @@ Baseline: /compare/zapla-vs-pipedrive-simple.
 Reusable module: src/components/compare/simple/ComparisonPage.tsx, types.ts, TeamPricing.tsx, simple.css.
 Competitor data: src/components/compare/simple/pipedrive.ts. Use separate data and a leaf route for each competitor.
 Read AGENTS.md and applicable local instructions. Other chats edit this repository. Fetch current main, isolate changes and use a safe branch lease. Never overwrite unrelated changes or rewrite published history.
-Draft review listings are managed through widerVersions; inspect current implementation before adding entries. Ensure each new page appears in Lovable review dropdowns, without duplicate versions.
+The former widerVersions list and industry-v3/VersionShell.tsx were deleted during V3 cleanup. There is currently no in-app review viewer to register. Use a leaf route and verify discovery in the Lovable editor page selector; its internals are not controlled by a repository list. Keep drafts noindex and excluded from the production sitemap. Provide the direct preview URL and state any editor-selector verification limitation. Do not recreate deleted V3 pages.
 
 ## Current offer
 Follow-Through: A$399/month excluding GST, unlimited users and stored contacts subject to fair use. Required Guided Launch from A$1,997 excluding GST.
@@ -66,3 +66,9 @@ Known site-wide caveat: /booking currently offers email to arrange a call and sa
 Use one competitor chat per page in this same Project, with this file as the shared brief. Keep cross-page template decisions in a central chat and update this file when they change. Do not let a competitor-specific change silently alter all pages.
 Initial proposed priority is GHL, HubSpot, Zoho, monday CRM and Salesforce, based on strategic coverage, not verified search demand. Confirm remaining priorities using buyer/traffic/lead evidence rather than committing to ten for volume.
 For each competitor: audit current template and pricing; research vendor and comparison pages; choose matched tier; show proposed changes; implement approved page; verify desktop/mobile/calculator/links; report evidence and unresolved items.
+
+## HubSpot draft decisions (16 October 2026)
+Baseline: `/compare/zapla-vs-hubspot-simple`; HubSpot Sales Hub Professional consistently versus Follow-Through. AUD observed in HubSpot pricing UI:155/full Sales seat/month paid monthly with ANNUAL commitment; headline annual equivalent rounds to140 but bundle quotes1674/seat/year (139.50/month), confirmed at8370/year for five Sales seats. Required onboarding2160 once/account. All examples exclude GST, usage and optional products.
+Calculator assigns each selected person a full Sales seat. Core and free view-only seats may lower actual cost. Annual Core-seat rate72/month observed; no unverified monthly Core rate used. Starter has up to50 restricted workflows and may meet simpler needs; Professional300 fully customisable workflows, paid limit increases. Current Professional matrix lists100 total pipelines across object types.
+Credit HubSpot for included calling, shared inbox, forms, free website/landing-page tools and invoicing. Australian SMS through integration; native Sales/Service SMS add-on limited to US sending and US/Canada recipients. Review-management integrations exist. Current CPQ requires Revenue Hub/seat; preserve legacy quoting qualification. Customer Agent calling is documented beta using credits, not an absent capability. Do not assert Australian AI-call availability or tested feature equivalence. No hypothetical extra product stack added to price.
+Reuse the shell with data-specific workflow notes, seat labels, commitment wording and optional onboarding. Preserve Pipedrive defaults. No new security/hosting claims.

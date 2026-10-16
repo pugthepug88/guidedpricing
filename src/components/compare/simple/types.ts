@@ -18,6 +18,19 @@ export interface ComparisonDefinition {
   vendorAnnualPrice: number;
   vendorPriceUnit: string;
   vendorBilling: string;
+  workflowNote: string;
+  tableNotes?: readonly string[];
+  pricingIntroduction?: string;
+  calculator?: {
+    teamSizeLabel: string;
+    monthlyLabel: string;
+    annualLabel: string;
+    monthlyCommitment: string;
+    seatName: string;
+    qualification: string;
+    annualRateNote: string;
+    onboarding: number;
+  };
   pricingHeadline: string;
   vendorPlanReason: string;
   vendorLowerPlans: string;
@@ -33,6 +46,8 @@ export interface ComparisonDefinition {
     columns: readonly string[];
     rows: readonly { label: string; values: readonly number[] }[];
     note: string;
+    caption?: string;
+    teamHeading?: string;
   };
   launch: {
     headline: string;

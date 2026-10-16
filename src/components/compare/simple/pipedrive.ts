@@ -23,6 +23,7 @@ export const pipedriveSimple = {
   vendorPrice: monthlyPremium,
   vendorAnnualPrice: annualBilledRates.Premium,
   vendorPriceUnit: 'per user/month, billed monthly',
+  workflowNote: 'Pipedrive Premium includes 150 active automations per company; paid top-ups are available. Zapla’s unlimited allowance refers to workflow count.',
   vendorBilling: 'Or A$79 per user/month, billed annually (A$948 per user/year).',
   pricingHeadline: 'One team price. More tools included.',
   vendorPlanReason: 'Adds a team email inbox, LeadBooster forms and Smart Docs.',

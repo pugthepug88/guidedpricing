@@ -60,7 +60,8 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
         <div className="cc-upgrade-features"><h3 id="growth-upgrade-heading">Need marketing too?</h3><p>Growth includes everything in Follow-Through, plus:</p><ul>{data.growthRows.map(row => <li key={row.id}>{row.label}</li>)}</ul></div>
         <div className="cc-upgrade-price"><p className="cc-upgrade-plan">Zapla Growth</p><p className="cc-upgrade-amount"><strong>{money(data.offer.growthMonthly)}</strong><span>/month + GST, total subscription</span></p><p>Required Guided Launch<br /><strong>from {money(data.offer.growthLaunch)} + GST</strong></p><p>Sending usage is separate.</p><Link to={data.pricingUrl}>Explore Growth <ArrowRight size={15} aria-hidden="true" /></Link></div>
       </aside>
-      <p className="cc-table-key">Pipedrive Premium includes 150 active automations per company; paid top-ups are available. Zapla’s unlimited allowance refers to workflow count.</p>
+      <p className="cc-table-key">{data.workflowNote}</p>
+      {data.tableNotes?.map(note => <p className="cc-table-key" key={note}>{note}</p>)}
       <p className="cc-table-key">AI Receptionist is an optional paid service; setup and usage terms are separate. <Link to={data.pricingUrl}>See pricing ↗</Link></p>
       <details className="cc-more-tools"><summary>Feature details and plan notes</summary>
         <div className="cc-feature-notes">{allRows.map(row => <div key={row.id}><h3>{row.label}</h3><p><strong>{data.competitor}:</strong> {row.competitor.detail || row.competitor.text}</p><p><strong>Zapla:</strong> {row.zapla.detail || row.zapla.text}</p></div>)}</div>
@@ -69,12 +70,12 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     </div></section>
 
     <section id="pricing-comparison" className="cc-commercial" aria-labelledby="price-heading"><div className="cc-inner">
-      <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">Add people.<br />Keep the same plan price.</h2><p>{data.competitor} {data.vendorPlan} charges per paid user. Zapla Follow-Through includes unlimited users for {money(data.offer.monthly)}/month + GST. Compare subscription prices below, then consider the included tools and required setup.</p></div>
+      <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">Add people.<br />Keep the same plan price.</h2><p>{data.pricingIntroduction ?? `${data.competitor} ${data.vendorPlan} charges per paid user. Zapla Follow-Through includes unlimited users for ${money(data.offer.monthly)}/month + GST. Compare subscription prices below, then consider the included tools and required setup.`}</p></div>
       <TeamPricing data={data} />
       <details className="cc-cost-examples cc-first-year">
         <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>
-        <table className="cc-cost-table" role="table"><caption>Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars.</caption>
-          <thead><tr role="row"><th scope="col" role="columnheader">Team size</th>{data.costExamples.columns.map(name => <th scope="col" role="columnheader" key={name}>{name}</th>)}</tr></thead>
+        <table className="cc-cost-table" role="table"><caption>{data.costExamples.caption ?? "Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars."}</caption>
+          <thead><tr role="row"><th scope="col" role="columnheader">{data.costExamples.teamHeading ?? "Team size"}</th>{data.costExamples.columns.map(name => <th scope="col" role="columnheader" key={name}>{name}</th>)}</tr></thead>
           <tbody role="rowgroup">{data.costExamples.rows.map(row => <tr role="row" key={row.label}><th scope="row" role="rowheader">{row.label}</th>{row.values.map((value, index) => <td role="cell" key={data.costExamples.columns[index]}><span className="cc-cost-vendor" aria-hidden="true">{data.costExamples.columns[index]}</span>{index === row.values.length - 1 && <span className="cc-cost-from">From </span>}<span className="cc-cost-amount">{money(value)}</span></td>)}</tr>)}</tbody>
         </table>
         <p className="cc-cost-note">{data.costExamples.note}</p>
@@ -88,7 +89,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     <section className="cc-faq" aria-labelledby="faq-heading"><div className="cc-inner cc-faq-grid"><h2 id="faq-heading">A few practical questions.</h2><div>{data.faqs.map(faq => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div></div></section>
     <section className="cc-notes"><div className="cc-inner"><details><summary>Comparison details &amp; sources</summary><p>Checked {data.updated}. Based on official vendor documentation and Zapla’s current offer.</p><p>{data.methodology}</p>
       <details className="cc-claim-sources"><summary>Check the sources for each comparison</summary>{allRows.map(row => <div key={row.id}><strong>{row.label}</strong><p>{[...new Set([...row.competitor.sources, ...row.zapla.sources])].map(id => { const source = data.sources.find(item => item.id === id); return source ? <a key={id} href={source.url} target={source.url.startsWith('/') ? undefined : '_blank'} rel="noopener noreferrer">{source.title} ↗</a> : null; })}</p></div>)}</details>
-      <details className="cc-security-notes"><summary>Hosting and data handling</summary>{data.foundations.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.description}</p></div>)}<p>{data.foundationNote}</p></details>
+      {data.foundations.length > 0 && <details className="cc-security-notes"><summary>Hosting and data handling</summary>{data.foundations.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.description}</p></div>)}<p>{data.foundationNote}</p></details>}
       <ul className="cc-source-list">{data.sources.map(source => <li key={source.id}>{source.url === data.pricingUrl ? <Link to={data.pricingUrl}>{source.title}</Link> : <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title} ↗</a>}</li>)}</ul>
     </details></div></section>
     <section className="cc-final cc-final--canonical" aria-labelledby="cta-heading"><div className="cc-inner"><div className="cc-final-petal"><ZaplaPetal size={34} /></div><h2 id="cta-heading">See how Zapla would work<br />for your business.</h2><p>Bring your current tools and the follow-up you want to improve. We’ll discuss the fit, plan and launch before you decide.</p><div className="cc-actions"><CallButton /><Link className="cc-final-secondary" to={data.pricingUrl}>View pricing</Link></div></div></section>
