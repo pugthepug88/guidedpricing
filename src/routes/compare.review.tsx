@@ -62,6 +62,12 @@ function ComparisonReview() {
             const total = vendor?.querySelector('.cc-team-total')?.textContent ?? '';
             const text = vendor?.textContent ?? '';
             const expected = money(people * (annual ? 139.5 : 155));
+            const price = vendor?.querySelector('.cc-team-total');
+            if (price?.firstChild) {
+              const priceRange = doc.createRange();
+              priceRange.selectNodeContents(price.firstChild);
+              if (priceRange.getClientRects().length > 1) throw new Error('Price wraps across lines at ' + viewport + 'px.');
+            }
             if (!total.startsWith(expected)) throw new Error(viewport + 'px / ' + people + ' seats / ' + (annual ? 'annual' : 'monthly') + ': ' + total);
             if (annual && !text.includes(money(people * 1674) + ' paid upfront each year.')) throw new Error('Annual upfront total mismatch.');
             if (!annual && !text.includes('Billed monthly with an annual commitment.')) throw new Error('Missing annual commitment.');

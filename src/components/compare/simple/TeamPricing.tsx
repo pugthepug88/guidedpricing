@@ -11,7 +11,7 @@ export function TeamPricing({ data }: { data: ComparisonDefinition }) {
   const rate = billing === 'annual' ? annualRate : data.vendorPrice;
   const vendorTotal = users * rate;
 
-  return <div className="cc-team-pricing">
+  return <div className="cc-team-pricing" data-pricing-details={Boolean(config)}>
     <div className="cc-team-controls">
       <label htmlFor="comparison-team-size">{config?.teamSizeLabel ?? "People who need CRM access"} <output htmlFor="comparison-team-size">{users}</output></label>
       <input id="comparison-team-size" type="range" min={1} max={25} step={1} value={users} onChange={event => setUsers(Number(event.target.value))} />
