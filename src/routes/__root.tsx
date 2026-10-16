@@ -4,7 +4,6 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  useLocation,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -14,7 +13,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteNav } from "../components/SiteNav";
-import { VersionNav, VersionFooter } from "../components/industry-v3/VersionShell";
 import { DominoFooter } from "../components/DominoFooter";
 import { getSocialImageUrl, getSiteOrigin } from "../lib/social";
 import { getPageSeo } from "../lib/seo";
@@ -169,15 +167,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const { pathname } = useLocation();
-  const isV3 = pathname === "/pricing-review-v3";
 
   return (
     <QueryClientProvider client={queryClient}>
-      {isV3 ? <VersionNav /> : <SiteNav />}
+      <SiteNav />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      {isV3 ? <VersionFooter /> : <DominoFooter />}
+      <DominoFooter />
     </QueryClientProvider>
   );
 }

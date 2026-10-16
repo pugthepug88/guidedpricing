@@ -34,7 +34,6 @@ const fs = require("fs"),
   for (const path of [
     "/booking",
     "/pricing-v2",
-    "/pricing-review-v3",
     "/compare/zapla-vs-pipedrive",
     "/compare/zapla-vs-pipedrive-simple",
     "/unknown",

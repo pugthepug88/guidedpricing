@@ -18,7 +18,6 @@ import { Route as CustomerMarketingRouteImport } from './routes/customer-marketi
 import { Route as FollowUpRouteImport } from './routes/follow-up'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PlatformRouteImport } from './routes/platform'
-import { Route as PricingReviewV3RouteImport } from './routes/pricing-review-v3'
 import { Route as PricingV2RouteImport } from './routes/pricing-v2'
 import { Route as QuoteFollowUpRouteImport } from './routes/quote-follow-up'
 import { Route as ReactivationRouteImport } from './routes/reactivation'
@@ -83,11 +82,6 @@ const McpRoute = McpRouteImport.update({
 const PlatformRoute = PlatformRouteImport.update({
   id: '/platform',
   path: '/platform',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PricingReviewV3Route = PricingReviewV3RouteImport.update({
-  id: '/pricing-review-v3',
-  path: '/pricing-review-v3',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingV2Route = PricingV2RouteImport.update({
@@ -209,7 +203,6 @@ export interface FileRoutesByFullPath {
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
-  '/pricing-review-v3': typeof PricingReviewV3Route
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
   '/reactivation': typeof ReactivationRoute
@@ -241,7 +234,6 @@ export interface FileRoutesByTo {
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
-  '/pricing-review-v3': typeof PricingReviewV3Route
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
   '/reactivation': typeof ReactivationRoute
@@ -274,7 +266,6 @@ export interface FileRoutesById {
   '/follow-up': typeof FollowUpRoute
   '/mcp': typeof McpRoute
   '/platform': typeof PlatformRoute
-  '/pricing-review-v3': typeof PricingReviewV3Route
   '/pricing-v2': typeof PricingV2Route
   '/quote-follow-up': typeof QuoteFollowUpRoute
   '/reactivation': typeof ReactivationRoute
@@ -308,7 +299,6 @@ export interface FileRouteTypes {
     | '/follow-up'
     | '/mcp'
     | '/platform'
-    | '/pricing-review-v3'
     | '/pricing-v2'
     | '/quote-follow-up'
     | '/reactivation'
@@ -340,7 +330,6 @@ export interface FileRouteTypes {
     | '/follow-up'
     | '/mcp'
     | '/platform'
-    | '/pricing-review-v3'
     | '/pricing-v2'
     | '/quote-follow-up'
     | '/reactivation'
@@ -372,7 +361,6 @@ export interface FileRouteTypes {
     | '/follow-up'
     | '/mcp'
     | '/platform'
-    | '/pricing-review-v3'
     | '/pricing-v2'
     | '/quote-follow-up'
     | '/reactivation'
@@ -405,7 +393,6 @@ export interface RootRouteChildren {
   FollowUpRoute: typeof FollowUpRoute
   McpRoute: typeof McpRoute
   PlatformRoute: typeof PlatformRoute
-  PricingReviewV3Route: typeof PricingReviewV3Route
   PricingV2Route: typeof PricingV2Route
   QuoteFollowUpRoute: typeof QuoteFollowUpRoute
   ReactivationRoute: typeof ReactivationRoute
@@ -491,13 +478,6 @@ declare module '@tanstack/react-router' {
       path: '/platform'
       fullPath: '/platform'
       preLoaderRoute: typeof PlatformRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pricing-review-v3': {
-      id: '/pricing-review-v3'
-      path: '/pricing-review-v3'
-      fullPath: '/pricing-review-v3'
-      preLoaderRoute: typeof PricingReviewV3RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing-v2': {
@@ -653,7 +633,6 @@ const rootRouteChildren: RootRouteChildren = {
   FollowUpRoute: FollowUpRoute,
   McpRoute: McpRoute,
   PlatformRoute: PlatformRoute,
-  PricingReviewV3Route: PricingReviewV3Route,
   PricingV2Route: PricingV2Route,
   QuoteFollowUpRoute: QuoteFollowUpRoute,
   ReactivationRoute: ReactivationRoute,
