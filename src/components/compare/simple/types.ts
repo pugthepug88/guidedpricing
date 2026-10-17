@@ -4,6 +4,7 @@ export interface ComparisonRow { id: string; label: string; competitor: Comparis
 export interface ComparisonSource { id: string; title: string; url: string }
 export interface ComparisonDefinition {
   competitor: string;
+  customerVisual?: 'missed-call';
   headline: string;
   headlineAccent: string;
   introduction: string;
@@ -48,7 +49,9 @@ export interface ComparisonDefinition {
     seatName: string;
     qualification: string;
     annualRateNote: string;
-    onboarding: number;
+    onboarding?: number;
+    rateUnit?: string;
+    annualCommitment?: boolean;
   };
   pricingHeadline: string;
   vendorPlanReason: string;

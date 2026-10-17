@@ -49,7 +49,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
           <p className="cc-hero-launch">Required Guided Launch<br /><strong>from {money(data.offer.launch)} + GST</strong></p>
         </aside>
       </div>
-      <div className="cc-reasons" aria-labelledby="why-zapla-heading"><h2 id="why-zapla-heading">Why choose Zapla?</h2><div className="cc-reasons-layout"><div className="cc-highlights">{data.highlights.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.description}</p>{item.link && <a className="cc-reason-link" href={item.link.href}>{item.link.label} <ArrowRight size={15} aria-hidden="true" /></a>}</div>)}</div><CustomerContextVisual /></div></div>
+      <div className="cc-reasons" aria-labelledby="why-zapla-heading"><h2 id="why-zapla-heading">Why choose Zapla?</h2><div className="cc-reasons-layout"><div className="cc-highlights">{data.highlights.map(item => <div key={item.title}><h3>{item.title}</h3><p>{item.description}</p>{item.link && <a className="cc-reason-link" href={item.link.href}>{item.link.label} <ArrowRight size={15} aria-hidden="true" /></a>}</div>)}</div><CustomerContextVisual variant={data.customerVisual} /></div></div>
     </div></section>
 
     <section id="comparison" className="cc-table-band" aria-labelledby="comparison-heading"><div className="cc-inner">

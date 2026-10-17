@@ -48,10 +48,10 @@ export function TeamPricing({ data }: { data: ComparisonDefinition }) {
           <p className="cc-team-billing">Pricing for the selected team is confirmed by {data.competitor}.</p>
         </div> : <>
         <p className="cc-team-total">{money(vendorTotal)}<span>/month{billing === 'annual' ? ' equivalent' : ''} + GST</span></p>
-        <p>{users} × {money(rate)} per {config ? 'Sales seat' : 'user'}/month.</p>
+        <p>{users} × {money(rate)} per {config?.rateUnit ?? (config ? 'Sales seat' : 'user')}/month.</p>
         <p className="cc-team-billing">{billing === 'annual' ? `${money(vendorTotal * 12)} paid upfront each year.` : (config?.monthlyCommitment ?? 'Billed monthly.')}</p>
-        <p className="cc-team-alternative">{billing === 'monthly' ? `Or ${money(users * annualRate)}/month equivalent with annual billing.` : `Or ${money(users * data.vendorPrice)}/month with monthly billing${config ? ', annual commitment' : ''}.`}</p>
-        {config && <p className="cc-team-billing">Required onboarding: {money(config.onboarding)} + GST.</p>}
+        <p className="cc-team-alternative">{billing === 'monthly' ? `Or ${money(users * annualRate)}/month equivalent with annual billing.` : `Or ${money(users * data.vendorPrice)}/month with monthly billing${config && config.annualCommitment !== false ? ', annual commitment' : ''}.`}</p>
+        {config?.onboarding !== undefined && <p className="cc-team-billing">Required onboarding: {money(config.onboarding)} + GST.</p>}
         </>}
       </article>
     </div>
