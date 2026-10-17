@@ -27,6 +27,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as CompareReviewRouteImport } from './routes/compare.review'
+import { Route as CompareZaplaVsCreatioSimpleRouteImport } from './routes/compare.zapla-vs-creatio-simple'
 import { Route as CompareZaplaVsHubspotSimpleRouteImport } from './routes/compare.zapla-vs-hubspot-simple'
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
 import { Route as CompareZaplaVsPipedriveSimpleRouteImport } from './routes/compare.zapla-vs-pipedrive-simple'
@@ -133,6 +134,12 @@ const CompareReviewRoute = CompareReviewRouteImport.update({
   path: '/compare/review',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompareZaplaVsCreatioSimpleRoute =
+  CompareZaplaVsCreatioSimpleRouteImport.update({
+    id: '/compare/zapla-vs-creatio-simple',
+    path: '/compare/zapla-vs-creatio-simple',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CompareZaplaVsHubspotSimpleRoute =
   CompareZaplaVsHubspotSimpleRouteImport.update({
     id: '/compare/zapla-vs-hubspot-simple',
@@ -225,6 +232,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/review': typeof CompareReviewRoute
+  '/compare/zapla-vs-creatio-simple': typeof CompareZaplaVsCreatioSimpleRoute
   '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
@@ -258,6 +266,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/review': typeof CompareReviewRoute
+  '/compare/zapla-vs-creatio-simple': typeof CompareZaplaVsCreatioSimpleRoute
   '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
@@ -292,6 +301,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/compare/review': typeof CompareReviewRoute
+  '/compare/zapla-vs-creatio-simple': typeof CompareZaplaVsCreatioSimpleRoute
   '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
@@ -327,6 +337,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/review'
+    | '/compare/zapla-vs-creatio-simple'
     | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
@@ -360,6 +371,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/review'
+    | '/compare/zapla-vs-creatio-simple'
     | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
@@ -393,6 +405,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/compare/review'
+    | '/compare/zapla-vs-creatio-simple'
     | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
@@ -427,6 +440,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CompareReviewRoute: typeof CompareReviewRoute
+  CompareZaplaVsCreatioSimpleRoute: typeof CompareZaplaVsCreatioSimpleRoute
   CompareZaplaVsHubspotSimpleRoute: typeof CompareZaplaVsHubspotSimpleRoute
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
   CompareZaplaVsPipedriveSimpleRoute: typeof CompareZaplaVsPipedriveSimpleRoute
@@ -570,6 +584,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compare/zapla-vs-creatio-simple': {
+      id: '/compare/zapla-vs-creatio-simple'
+      path: '/compare/zapla-vs-creatio-simple'
+      fullPath: '/compare/zapla-vs-creatio-simple'
+      preLoaderRoute: typeof CompareZaplaVsCreatioSimpleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/compare/zapla-vs-hubspot-simple': {
       id: '/compare/zapla-vs-hubspot-simple'
       path: '/compare/zapla-vs-hubspot-simple'
@@ -684,6 +705,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   CompareReviewRoute: CompareReviewRoute,
+  CompareZaplaVsCreatioSimpleRoute: CompareZaplaVsCreatioSimpleRoute,
   CompareZaplaVsHubspotSimpleRoute: CompareZaplaVsHubspotSimpleRoute,
   CompareZaplaVsPipedriveRoute: CompareZaplaVsPipedriveRoute,
   CompareZaplaVsPipedriveSimpleRoute: CompareZaplaVsPipedriveSimpleRoute,

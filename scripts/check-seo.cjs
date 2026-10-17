@@ -19,6 +19,7 @@ const fs = require("fs"),
       "/pricing-v2",
       "/compare/zapla-vs-pipedrive-simple",
     "/compare/zapla-vs-hubspot-simple",
+    "/compare/zapla-vs-creatio-simple",
     "/compare/review",
     ])
       assert.equal(off.getPageSeo(origin, path).robots, "noindex, nofollow");
@@ -39,6 +40,7 @@ const fs = require("fs"),
     "/compare/zapla-vs-pipedrive",
     "/compare/zapla-vs-pipedrive-simple",
     "/compare/zapla-vs-hubspot-simple",
+    "/compare/zapla-vs-creatio-simple",
     "/compare/review",
     "/unknown",
   ])
@@ -68,3 +70,4 @@ const fs = require("fs"),
       " production pages; launch off, preview isolation, draft/booking/404 exclusion, canonicals and sitemap.",
   );
 })();
+

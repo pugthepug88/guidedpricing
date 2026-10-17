@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const drafts = [
   { name: 'Zapla vs HubSpot', path: '/compare/zapla-vs-hubspot-simple' },
+  { name: 'Zapla vs Creatio', path: '/compare/zapla-vs-creatio-simple' },
   { name: 'Zapla vs Pipedrive', path: '/compare/zapla-vs-pipedrive-simple' },
 ] as const;
 
@@ -99,6 +100,62 @@ function ComparisonReview() {
     }
   }
 
+
+  async function runCreatioChecks() {
+    setChecking(true);
+    setReport('');
+    const results: string[] = [];
+    const pause = () => new Promise<void>(resolve => window.setTimeout(resolve, 80));
+    try {
+      const doc = frame.current?.contentDocument;
+      const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
+      if (!doc || !win || path !== '/compare/zapla-vs-creatio-simple') throw new Error('Select Creatio and let the draft load.');
+      const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
+      if (!range) throw new Error('Calculator not loaded.');
+      if (doc.querySelector('input[name="comparison-billing"]')) throw new Error('Quote-only comparison must not invent billing options.');
+      for (const viewport of [375, 390, 768, 1440]) {
+        setWidth(viewport);
+        await pause();
+        if (win.innerWidth !== viewport) throw new Error('Viewport did not settle.');
+        for (const people of [1, 5, 25]) {
+          Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(range, String(people));
+          range.dispatchEvent(new win.Event('input', { bubbles: true }));
+          range.dispatchEvent(new win.Event('change', { bubbles: true }));
+          await pause();
+          const cards = doc.querySelectorAll('.cc-team-results article');
+          const zapla = cards[0]?.textContent ?? '';
+          const vendor = cards[1]?.textContent ?? '';
+          if (!zapla.includes('A$399') || !zapla.includes('A$1,997')) throw new Error('Zapla price or launch mismatch.');
+          if (!vendor.includes(people + (people === 1 ? ' person in your team' : ' people in your team'))) throw new Error('Team slider did not update.');
+          if (!vendor.includes('Creatio Growth + Sales') || !vendor.includes('Australian quote required')) throw new Error('Wrong competitor configuration.');
+          if (/A\$0|NaN|Infinity/.test(vendor)) throw new Error('Invalid quote price.');
+          results.push(viewport + 'px · ' + people + ' people · quote calculator PASS');
+        }
+        for (const expanded of [false, true]) {
+          doc.querySelectorAll('main details').forEach(item => { (item as HTMLDetailsElement).open = expanded; });
+          await pause();
+          if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Overflow at ' + viewport + 'px.');
+          results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
+        }
+        const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
+        if ((year.match(/A\$6,785/g) || []).length < 3 || !year.includes('Quote required')) throw new Error('First-year amounts incorrect.');
+        if ([...doc.images].some(image => !image.complete || image.naturalWidth === 0)) throw new Error('Image not loaded.');
+        if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Draft noindex missing.');
+        for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) {
+          if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken section anchor.');
+        }
+      }
+      const links = [...doc.querySelectorAll<HTMLAnchorElement>('main a')];
+      if (links.some(link => !link.getAttribute('href'))) throw new Error('Empty link.');
+      if (links.filter(link => link.pathname === '/booking').length < 2) throw new Error('Missing call CTAs.');
+      results.push('First-year launch totals, images, noindex, anchors and CTA destinations PASS');
+      setReport('12 quote-calculator states and 8 layout states passed.\n' + results.join('\n'));
+    } catch (error) {
+      setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n'));
+    } finally {
+      setChecking(false);
+    }
+  }
   return <main style={{ padding: '120px 24px 48px', background: '#FCFCFA', color: '#111318', fontFamily: 'Manrope, sans-serif' }}>
     <div style={{ maxWidth: 1440, margin: '0 auto' }}>
       <h1 style={{ fontSize: 32, fontWeight: 600, margin: '0 0 12px' }}>Comparison draft review</h1>
@@ -118,6 +175,7 @@ function ComparisonReview() {
       </div>
       <button type="button" disabled={checking} onClick={() => { setRefresh(Date.now()); setReport(''); }} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginRight: 12, marginBottom: 16 }}>Refresh preview</button>
       <button type="button" onClick={runChecks} disabled={checking || path !== drafts[0].path} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
+      {path === '/compare/zapla-vs-creatio-simple' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
       {report && <details open><summary>Verification results</summary><pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginBottom: 24 }}>{report}</pre></details>}
       <div ref={stage}>
         <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>
@@ -127,3 +185,4 @@ function ComparisonReview() {
     </div>
   </main>;
 }
+

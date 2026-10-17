@@ -22,6 +22,7 @@ export interface ComparisonDefinition {
   tableNotes?: readonly string[];
   pricingIntroduction?: string;
   pricingHeading?: string;
+  quotePricing?: { message: string; detail: string; qualification: string };
   calculator?: {
     teamSizeLabel: string;
     monthlyLabel: string;
@@ -45,7 +46,7 @@ export interface ComparisonDefinition {
     title: string;
     introduction: string;
     columns: readonly string[];
-    rows: readonly { label: string; values: readonly number[] }[];
+    rows: readonly { label: string; values: readonly (number | string)[] }[];
     note: string;
     caption?: string;
     teamHeading?: string;
@@ -71,3 +72,4 @@ export interface ComparisonDefinition {
   updated: string;
   pricingUrl: '/Pricing-v3';
 }
+

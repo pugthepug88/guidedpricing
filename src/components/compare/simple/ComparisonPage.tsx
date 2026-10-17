@@ -75,9 +75,9 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
       <TeamPricing data={data} />
       <details className="cc-cost-examples cc-first-year">
         <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>
-        <table className="cc-cost-table" role="table"><caption>{data.costExamples.caption ?? "Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars."}</caption>
+        <table className={`cc-cost-table${data.quotePricing ? ' cc-cost-table--quote' : ''}`} role="table"><caption>{data.costExamples.caption ?? "Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars."}</caption>
           <thead><tr role="row"><th scope="col" role="columnheader">{data.costExamples.teamHeading ?? "Team size"}</th>{data.costExamples.columns.map(name => <th scope="col" role="columnheader" key={name}>{name}</th>)}</tr></thead>
-          <tbody role="rowgroup">{data.costExamples.rows.map(row => <tr role="row" key={row.label}><th scope="row" role="rowheader">{row.label}</th>{row.values.map((value, index) => <td role="cell" key={data.costExamples.columns[index]}><span className="cc-cost-vendor" aria-hidden="true">{data.costExamples.columns[index]}</span>{index === row.values.length - 1 && <span className="cc-cost-from">From </span>}<span className="cc-cost-amount">{money(value)}</span></td>)}</tr>)}</tbody>
+          <tbody role="rowgroup">{data.costExamples.rows.map(row => <tr role="row" key={row.label}><th scope="row" role="rowheader">{row.label}</th>{row.values.map((value, index) => <td role="cell" key={data.costExamples.columns[index]}><span className="cc-cost-vendor" aria-hidden="true">{data.costExamples.columns[index]}</span>{index === row.values.length - 1 && <span className="cc-cost-from">From </span>}<span className="cc-cost-amount">{typeof value === 'number' ? money(value) : value}</span></td>)}</tr>)}</tbody>
         </table>
         <p className="cc-cost-note">{data.costExamples.note}</p>
         <p className="cc-renewal">After the original launch, Zapla’s subscription is {money(data.offer.monthly * 12)} + GST for 12 months at today’s price, before usage and extras.</p>
@@ -96,3 +96,4 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     <section className="cc-final cc-final--canonical" aria-labelledby="cta-heading"><div className="cc-inner"><div className="cc-final-petal"><ZaplaPetal size={34} /></div><h2 id="cta-heading">See how Zapla would work<br />for your business.</h2><p>Bring your current tools and the follow-up you want to improve. We’ll discuss the fit, plan and launch before you decide.</p><div className="cc-actions"><CallButton /><Link className="cc-final-secondary" to={data.pricingUrl}>View pricing</Link></div></div></section>
   </main>;
 }
+
