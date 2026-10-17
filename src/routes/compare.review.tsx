@@ -151,6 +151,7 @@ function ComparisonReview() {
           doc.querySelectorAll('main details').forEach(item => { (item as HTMLDetailsElement).open = expanded; });
           await pause();
           if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Overflow at ' + viewport + 'px.');
+          if (expanded && [...doc.querySelectorAll<HTMLElement>('.cc-first-year td')].some(cell => cell.scrollWidth > cell.clientWidth + 1)) throw new Error('Annual cost text clips inside a cell at ' + viewport + 'px.');
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';

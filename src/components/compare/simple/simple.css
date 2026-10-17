@@ -278,5 +278,6 @@
 .cc-purchase-minimum p { margin:0 0 10px; }
 .cc-purchase-minimum p:first-child { color:#1E2B29; }
 .cc-licence-subtotal { font-size:14px; line-height:1.65; }
+.cc-cost-table--quote .cc-cost-amount { white-space:normal; }
 @media(max-width:767px) { .cc-cost-table--quote tr { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
