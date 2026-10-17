@@ -71,7 +71,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
     </div></section>
 
     <section id="pricing-comparison" className="cc-commercial" aria-labelledby="price-heading"><div className="cc-inner">
-      <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">Add people.<br />Keep the same plan price.</h2><p>{data.pricingIntroduction ?? `${data.competitor} ${data.vendorPlan} charges per paid user. Zapla Follow-Through includes unlimited users for ${money(data.offer.monthly)}/month + GST. Compare subscription prices below, then consider the included tools and required setup.`}</p></div>
+      <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">{data.pricingHeading ?? <>Add people.<br />Keep the same plan price.</>}</h2><p>{data.pricingIntroduction ?? `${data.competitor} ${data.vendorPlan} charges per paid user. Zapla Follow-Through includes unlimited users for ${money(data.offer.monthly)}/month + GST. Compare subscription prices below, then consider the included tools and required setup.`}</p></div>
       <TeamPricing data={data} />
       <details className="cc-cost-examples cc-first-year">
         <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>

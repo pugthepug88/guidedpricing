@@ -21,6 +21,7 @@ export interface ComparisonDefinition {
   workflowNote: string;
   tableNotes?: readonly string[];
   pricingIntroduction?: string;
+  pricingHeading?: string;
   calculator?: {
     teamSizeLabel: string;
     monthlyLabel: string;
