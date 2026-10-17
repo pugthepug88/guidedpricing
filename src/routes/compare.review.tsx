@@ -17,6 +17,7 @@ function ComparisonReview() {
   const [width, setWidth] = useState(1440);
   const [checking, setChecking] = useState(false);
   const [report, setReport] = useState('');
+  const [refresh, setRefresh] = useState(0);
   const frame = useRef<HTMLIFrameElement>(null);
   const height = 900;
   const [available, setAvailable] = useState(1440);
@@ -115,11 +116,12 @@ function ComparisonReview() {
         </label>
         <a href={path} style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: '#2563FF', textDecoration: 'underline' }}>Open selected draft</a>
       </div>
+      <button type="button" disabled={checking} onClick={() => { setRefresh(Date.now()); setReport(''); }} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginRight: 12, marginBottom: 16 }}>Refresh preview</button>
       <button type="button" onClick={runChecks} disabled={checking || path !== drafts[0].path} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
       {report && <details open><summary>Verification results</summary><pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginBottom: 24 }}>{report}</pre></details>}
       <div ref={stage}>
         <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>
-          <iframe ref={frame} title="Comparison preview" src={path} style={{ position: 'absolute', top: 0, left: 0, width, height, border: 0, outline: '1px solid #DEE2DC', transform: `scale(${scale})`, transformOrigin: 'top left', background: 'white' }} />
+          <iframe ref={frame} title="Comparison preview" src={`${path}?review=${refresh}`} style={{ position: 'absolute', top: 0, left: 0, width, height, border: 0, outline: '1px solid #DEE2DC', transform: `scale(${scale})`, transformOrigin: 'top left', background: 'white' }} />
         </div>
       </div>
     </div>
