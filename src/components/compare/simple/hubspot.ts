@@ -41,7 +41,7 @@ export const hubspotSimple = {
     annualLabel: 'Pay annually',
     monthlyCommitment: 'Billed monthly with an annual commitment.',
     seatName: 'Sales seat',
-    qualification: 'This example assigns every selected person a full HubSpot Sales seat. People needing only Core or view-only access may cost less.',
+    qualification: 'At the rates shown, Zapla’s subscription is lower from three full Sales seats. This calculator gives each person a full HubSpot Sales seat; a mix of Core and free view-only seats may cost less.',
     annualRateNote: 'The live AUD bundle calculator returned A$1,674 per Sales seat/year (A$139.50/month equivalent), and A$8,370/year for five Sales seats. HubSpot’s headline rounds the equivalent to A$140. The calculator here uses the exact annual total. HubSpot’s annual-billing bundle view also listed Professional Core seats at A$72/month; view-only seats have no additional seat charge. Seat capabilities differ.',
     onboarding,
   },
