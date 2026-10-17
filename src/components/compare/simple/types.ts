@@ -22,6 +22,13 @@ export interface ComparisonDefinition {
   tableNotes?: readonly string[];
   pricingIntroduction?: string;
   pricingHeading?: string;
+  verifiedConfigurations?: readonly {
+    label: string;
+    users: number;
+    contacts: number;
+    monthly: number;
+    annual: number;
+  }[];
   quotePricing?: { message: string; detail: string; qualification: string };
   publishedPricing?: {
     currencyPrefix: string;

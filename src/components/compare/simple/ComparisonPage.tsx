@@ -3,6 +3,7 @@ import { ArrowRight, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ZaplaPetal } from '@/components/ZaplaPetal';
 import { TeamPricing } from './TeamPricing';
+import { ConfigurationPricing } from './ConfigurationPricing';
 import { CustomerContextVisual } from './CustomerContextVisual';
 import type { ComparisonCell, ComparisonDefinition, ComparisonRow } from './types';
 
@@ -72,7 +73,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
 
     <section id="pricing-comparison" className="cc-commercial" aria-labelledby="price-heading"><div className="cc-inner">
       <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">{data.pricingHeading ?? <>Add people.<br />Keep the same plan price.</>}</h2><p>{data.pricingIntroduction ?? `${data.competitor} ${data.vendorPlan} charges per paid user. Zapla Follow-Through includes unlimited users for ${money(data.offer.monthly)}/month + GST. Compare subscription prices below, then consider the included tools and required setup.`}</p></div>
-      <TeamPricing data={data} />
+      {data.verifiedConfigurations ? <ConfigurationPricing data={data} /> : <TeamPricing data={data} />}
       <details className="cc-cost-examples cc-first-year">
         <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>
         <table className={`cc-cost-table${data.quotePricing || data.publishedPricing ? ' cc-cost-table--quote' : ''}`} role="table"><caption>{data.costExamples.caption ?? "Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars."}</caption>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 const drafts = [
   { name: 'Zapla vs HubSpot', path: '/compare/zapla-vs-hubspot-simple' },
   { name: 'Zapla vs Creatio', path: '/compare/zapla-vs-creatio-simple' },
+  { name: 'Zapla vs ActiveCampaign', path: '/compare/zapla-vs-activecampaign-simple' },
   { name: 'Zapla vs Pipedrive', path: '/compare/zapla-vs-pipedrive-simple' },
 ] as const;
 
@@ -101,6 +102,67 @@ function ComparisonReview() {
   }
 
 
+  async function runActiveCampaignChecks() {
+    setChecking(true);
+    setReport('');
+    const results: string[] = [];
+    const pause = () => new Promise<void>(resolve => window.setTimeout(resolve, 100));
+    const money = (n: number) => 'A$' + n.toLocaleString('en-AU', { maximumFractionDigits: 2 });
+    try {
+      const doc = frame.current?.contentDocument;
+      const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
+      if (!doc || !win || path !== '/compare/zapla-vs-activecampaign-simple') throw new Error('Select ActiveCampaign and let it load.');
+      const select = doc.querySelector<HTMLSelectElement>('#comparison-configuration');
+      const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
+      if (!select || radios.length !== 2) throw new Error('Configuration calculator not loaded.');
+      const quotes = [{monthly:163, annual:1596, users:1, contacts:1000}, {monthly:279, annual:2700, users:5, contacts:1000}, {monthly:433, annual:4116, users:1, contacts:10000}];
+      for (const viewport of [375, 390, 768, 1440]) {
+        setWidth(viewport);
+        await pause();
+        if (win.innerWidth !== viewport) throw new Error('Viewport did not settle.');
+        for (const annual of [false, true]) {
+          radios[annual ? 1 : 0].click();
+          for (const [index, quote] of quotes.entries()) {
+            Object.getOwnPropertyDescriptor(win.HTMLSelectElement.prototype, 'value')?.set?.call(select, String(index));
+            select.dispatchEvent(new win.Event('change', {bubbles:true}));
+            await pause();
+            const cards = doc.querySelectorAll('.cc-team-results article');
+            const vendor = cards[1]?.textContent ?? '';
+            const total = cards[1]?.querySelector('.cc-team-total');
+            if (!total?.textContent?.startsWith(money(annual ? quote.annual / 12 : quote.monthly))) throw new Error('Incorrect package total.');
+            if (!vendor.includes(quote.contacts.toLocaleString('en-AU') + ' contacts') || !vendor.includes(quote.users + ' user')) throw new Error('Incorrect configuration context.');
+            if (annual && !vendor.includes(money(quote.annual) + ' paid upfront each year. Annual commitment.')) throw new Error('Annual upfront mismatch.');
+            if (!annual && !vendor.includes('Month-to-month subscription.')) throw new Error('Monthly terms incorrect.');
+            if (!vendor.includes('Pipelines add-on') || !vendor.includes('GST')) throw new Error('Tier or tax missing.');
+            if (!cards[0]?.textContent?.includes('A$399') || !cards[0]?.textContent?.includes('A$1,997')) throw new Error('Zapla subscription or launch mismatch.');
+            if (total.firstChild) { const r = doc.createRange(); r.selectNodeContents(total.firstChild); if (r.getClientRects().length > 1) throw new Error('Price wraps at ' + viewport); }
+            if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Calculator overflow.');
+            results.push(viewport + 'px · configuration ' + (index+1) + ' · ' + (annual ? 'annual' : 'monthly') + ' PASS');
+          }
+        }
+        for (const expanded of [false, true]) {
+          doc.querySelectorAll<HTMLDetailsElement>('main details').forEach(item => { item.open = expanded; });
+          await pause();
+          if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Layout overflow at ' + viewport);
+          if (expanded && [...doc.querySelectorAll<HTMLElement>('.cc-first-year td')].some(cell => cell.scrollWidth > cell.clientWidth + 1)) throw new Error('First-year cell clips.');
+          results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
+        }
+        const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
+        for (const n of [1956,1596,3348,2700,5196,4116,6785]) if (!year.includes(money(n))) throw new Error('First-year amount missing: ' + n);
+        if ([...doc.images].some(img => !img.complete || img.naturalWidth === 0)) throw new Error('Broken/unloaded image.');
+        if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Missing noindex.');
+        for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken anchor.');
+      }
+      const main = doc.querySelector('.cc-hero');
+      const labels = [...doc.querySelectorAll('.cc-table tbody th')].map(node => node.textContent);
+      for (const label of ['Unlimited users','Unlimited contacts','Unlimited pipelines','Forms','Quotes & proposals','Invoicing']) if (!labels.includes(label)) throw new Error('Missing consistent label: ' + label);
+      if (main?.textContent?.includes('Pipedrive') || main?.textContent?.includes('HubSpot')) throw new Error('Leaked competitor copy.');
+      results.push('First-year totals, noindex, loaded images, anchors and consistent feature labels PASS');
+      setReport('24 ActiveCampaign calculator states and 8 layout states passed.\n' + results.join('\n'));
+    } catch (error) { setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n')); }
+    finally { setChecking(false); }
+  }
+
   async function runCreatioChecks() {
     setChecking(true);
     setReport('');
@@ -193,6 +255,7 @@ function ComparisonReview() {
       <button type="button" disabled={checking} onClick={() => { setRefresh(Date.now()); setReport(''); }} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginRight: 12, marginBottom: 16 }}>Refresh preview</button>
       <button type="button" onClick={runChecks} disabled={checking || path !== drafts[0].path} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
       {path === '/compare/zapla-vs-creatio-simple' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
+      {path === '/compare/zapla-vs-activecampaign-simple' && <button type="button" onClick={runActiveCampaignChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run ActiveCampaign checks'}</button>}
       {report && <details open><summary>Verification results</summary><pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginBottom: 24 }}>{report}</pre></details>}
       <div ref={stage}>
         <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>
