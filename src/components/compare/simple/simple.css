@@ -266,3 +266,6 @@
 }
 
 @media(prefers-reduced-motion:reduce) { .concise-comparison * { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+
+/* Optional competitor-specific marketing context; baseline pages are unchanged. */
+.cc-growth-comparison{margin:0 0 24px;padding:20px 24px;background:#fff;border:1px solid #dce4df;border-radius:12px;font-size:14px;line-height:1.65;color:#43534b}.cc-growth-comparison p{margin:0 0 10px}.cc-growth-comparison p:last-child{margin-bottom:0}.cc-growth-comparison a{color:#245a44;text-decoration:underline;text-underline-offset:3px}

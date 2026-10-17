@@ -57,9 +57,10 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
       <FeatureTable rows={[...data.rows, ...data.optionalRows]} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Follow-Through" caption={`${data.competitor} ${data.vendorPlan} compared with Zapla Follow-Through.`} />
       <p className="cc-table-key">✓ Included · × Not included as named. Via integration = a connected third-party service. ¹ Phone numbers and SMS usage are extra. Other communications usage is separate; Zapla contacts are subject to fair use.</p>
       <aside className="cc-upgrade-note" aria-labelledby="growth-upgrade-heading">
-        <div className="cc-upgrade-features"><h3 id="growth-upgrade-heading">Need marketing too?</h3><p>Growth includes everything in Follow-Through, plus:</p><ul>{data.growthRows.map(row => <li key={row.id}>{row.label}</li>)}</ul></div>
+        <div className="cc-upgrade-features"><h3 id="growth-upgrade-heading">{data.growthComparison?.headline ?? "Need marketing too?"}</h3>{data.growthComparison && <p>{data.growthComparison.description}</p>}<p>Growth includes everything in Follow-Through, plus:</p><ul>{data.growthRows.map(row => <li key={row.id}>{row.label}</li>)}</ul></div>
         <div className="cc-upgrade-price"><p className="cc-upgrade-plan">Zapla Growth</p><p className="cc-upgrade-amount"><strong>{money(data.offer.growthMonthly)}</strong><span>/month + GST, total subscription</span></p><p>Required Guided Launch<br /><strong>from {money(data.offer.growthLaunch)} + GST</strong></p><p>Sending usage is separate.</p><Link to={data.pricingUrl}>Explore Growth <ArrowRight size={15} aria-hidden="true" /></Link></div>
       </aside>
+      {data.growthComparison && <div className="cc-growth-comparison"><p><strong>{data.growthComparison.vendorPrice}</strong> <a href={data.growthComparison.url} target="_blank" rel="noopener noreferrer">See Marketing Hub pricing ↗</a></p><p>{data.growthComparison.qualification}</p><p>{data.marketingNote}</p></div>}
       <p className="cc-table-key">{data.workflowNote}</p>
       {data.tableNotes?.map(note => <p className="cc-table-key" key={note}>{note}</p>)}
       <p className="cc-table-key">AI Receptionist is an optional paid service; setup and usage terms are separate. <Link to={data.pricingUrl}>See pricing ↗</Link></p>

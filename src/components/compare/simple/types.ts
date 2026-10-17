@@ -61,6 +61,7 @@ export interface ComparisonDefinition {
   rows: readonly ComparisonRow[];
   growthRows: readonly ComparisonRow[];
   marketingNote: string;
+  growthComparison?: { headline: string; description: string; vendorPrice: string; qualification: string; url: string };
   optionalRows: readonly ComparisonRow[];
   offer: { monthly: number; launch: number; growthMonthly: number; growthLaunch: number; unlimitedUsers: boolean; unlimitedContacts: boolean; trial: boolean };
   foundations: readonly { title: string; description: string; sources: readonly string[] }[];
