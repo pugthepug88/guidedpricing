@@ -23,6 +23,16 @@ export interface ComparisonDefinition {
   pricingIntroduction?: string;
   pricingHeading?: string;
   quotePricing?: { message: string; detail: string; qualification: string };
+  publishedPricing?: {
+    currencyPrefix: string;
+    platformRate: number;
+    productRate: number;
+    minimumUsers: number;
+    minimumAnnualPurchase: number;
+    standardTermYears: number;
+    qualification: string;
+    historicalReference: string;
+  };
   calculator?: {
     teamSizeLabel: string;
     monthlyLabel: string;

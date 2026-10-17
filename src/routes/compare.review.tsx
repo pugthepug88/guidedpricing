@@ -112,12 +112,12 @@ function ComparisonReview() {
       if (!doc || !win || path !== '/compare/zapla-vs-creatio-simple') throw new Error('Select Creatio and let the draft load.');
       const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
       if (!range) throw new Error('Calculator not loaded.');
-      if (doc.querySelector('input[name="comparison-billing"]')) throw new Error('Quote-only comparison must not invent billing options.');
+      if (doc.querySelector('input[name="comparison-billing"]')) throw new Error('Published-reference comparison must not invent billing options.');
       for (const viewport of [375, 390, 768, 1440]) {
         setWidth(viewport);
         await pause();
         if (win.innerWidth !== viewport) throw new Error('Viewport did not settle.');
-        for (const people of [1, 5, 25]) {
+        for (const people of [1, 5, 15, 16, 25]) {
           Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(range, String(people));
           range.dispatchEvent(new win.Event('input', { bubbles: true }));
           range.dispatchEvent(new win.Event('change', { bubbles: true }));
@@ -126,10 +126,26 @@ function ComparisonReview() {
           const zapla = cards[0]?.textContent ?? '';
           const vendor = cards[1]?.textContent ?? '';
           if (!zapla.includes('A$399') || !zapla.includes('A$1,997')) throw new Error('Zapla price or launch mismatch.');
-          if (!vendor.includes(people + (people === 1 ? ' person in your team' : ' people in your team'))) throw new Error('Team slider did not update.');
-          if (!vendor.includes('Creatio Growth + Sales') || !vendor.includes('Australian quote required')) throw new Error('Wrong competitor configuration.');
-          if (/A\$0|NaN|Infinity/.test(vendor)) throw new Error('Invalid quote price.');
-          results.push(viewport + 'px · ' + people + ' people · quote calculator PASS');
+          const licences = Math.max(5, people);
+          const subtotal = licences * 55;
+          const usd = (n: number) => 'US$' + n.toLocaleString('en-AU');
+          if (!vendor.includes(licences + ' licences modelled')) throw new Error('Minimum licence count incorrect.');
+          if (people < 5 && !vendor.includes('for ' + people + ' person')) throw new Error('Small-team minimum missing.');
+          if (!vendor.includes('Creatio Growth + Sales') || !vendor.includes('US$55')) throw new Error('Wrong tier or published rate.');
+          if (!vendor.includes(usd(subtotal) + '/month licence subtotal') || !vendor.includes(usd(subtotal * 12) + '/year')) throw new Error('Licence subtotal incorrect.');
+          if (!vendor.includes('US$10,000/year minimum purchase') || !vendor.includes('Standard 3-year contract')) throw new Error('Purchase conditions hidden.');
+          if (!vendor.includes(subtotal * 12 < 10000 ? 'below this minimum' : 'exceeds this minimum')) throw new Error('Minimum-purchase explanation incorrect.');
+          if (!vendor.includes('USD reference') || !vendor.includes('Prices exclude applicable taxes')) throw new Error('Currency or tax labels incorrect.');
+          const qualification = doc.querySelector('.cc-team-qualification')?.textContent ?? '';
+          if (!qualification.includes('not a same-currency savings comparison')) throw new Error('Mixed-currency disclosure missing.');
+          const price = cards[1]?.querySelector('.cc-team-total');
+          if (price?.firstChild) {
+            const priceRange = doc.createRange();
+            priceRange.selectNodeContents(price.firstChild);
+            if (priceRange.getClientRects().length > 1) throw new Error('Price wraps at ' + viewport + 'px.');
+          }
+          if (/A\$0|NaN|Infinity|Australian quote required/.test(vendor)) throw new Error('Invalid or blank published price.');
+          results.push(viewport + 'px · ' + people + ' people / ' + licences + ' licences · published pricing PASS');
         }
         for (const expanded of [false, true]) {
           doc.querySelectorAll('main details').forEach(item => { (item as HTMLDetailsElement).open = expanded; });
@@ -138,7 +154,7 @@ function ComparisonReview() {
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        if ((year.match(/A\$6,785/g) || []).length < 3 || !year.includes('Quote required')) throw new Error('First-year amounts incorrect.');
+        if ((year.match(/A\$6,785/g) || []).length < 3 || !year.includes('US$10,000 minimum') || !year.includes('US$16,500') || !year.includes('implementation') || !year.includes('different currencies')) throw new Error('First-year amounts incorrect.');
         if ([...doc.images].some(image => !image.complete || image.naturalWidth === 0)) throw new Error('Image not loaded.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Draft noindex missing.');
         for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) {
@@ -149,7 +165,7 @@ function ComparisonReview() {
       if (links.some(link => !link.getAttribute('href'))) throw new Error('Empty link.');
       if (links.filter(link => link.pathname === '/booking').length < 2) throw new Error('Missing call CTAs.');
       results.push('First-year launch totals, images, noindex, anchors and CTA destinations PASS');
-      setReport('12 quote-calculator states and 8 layout states passed.\n' + results.join('\n'));
+      setReport('20 published-pricing states and 8 layout states passed.\n' + results.join('\n'));
     } catch (error) {
       setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n'));
     } finally {

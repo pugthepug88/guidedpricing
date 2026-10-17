@@ -273,5 +273,10 @@
 /* Quote-only comparisons preserve the numeric calculators on other drafts. */
 .cc-quote-heading { font-size:clamp(25px,3vw,38px); line-height:1.15; font-weight:600; letter-spacing:-.025em; margin:20px 0; }
 .cc-quote-result { overflow-wrap:anywhere; }
+.cc-published-result { overflow-wrap:anywhere; }
+.cc-purchase-minimum { border-top:1px solid #CBD4CF; margin-top:20px; padding-top:16px; }
+.cc-purchase-minimum p { margin:0 0 10px; }
+.cc-purchase-minimum p:first-child { color:#1E2B29; }
+.cc-licence-subtotal { font-size:14px; line-height:1.65; }
 @media(max-width:767px) { .cc-cost-table--quote tr { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
