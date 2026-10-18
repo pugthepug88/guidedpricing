@@ -9,18 +9,18 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
   const [users, setUsers] = useState(5);
   const [annual, setAnnual] = useState(false);
   const configurations = data.verifiedConfigurations!;
+  const contactBands = [...new Set(configurations.map(item => item.contacts))];
   const quote = configurations.find(item => item.contacts === contacts && item.users === users)!;
   return <div className="cc-team-pricing cc-configuration-pricing">
     <div className="cc-team-controls">
-      <p>Example configuration</p>
-      <label htmlFor="comparison-contacts">Contacts</label>
-      <select id="comparison-contacts" value={contacts} onChange={event => setContacts(Number(event.target.value))}>
-        {[...new Set(configurations.map(item => item.contacts))].map(value => <option key={value} value={value}>{value.toLocaleString('en-AU')}</option>)}
-      </select>
-      <label htmlFor="comparison-users">Users</label>
-      <select id="comparison-users" value={users} onChange={event => setUsers(Number(event.target.value))}>
-        {[...new Set(configurations.map(item => item.users))].map(value => <option key={value} value={value}>{value}</option>)}
-      </select>
+      <label htmlFor="comparison-users">People who need CRM access <output htmlFor="comparison-users">{users}</output></label>
+      <input id="comparison-users" type="range" min={1} max={25} step={1} value={users} onChange={event => setUsers(Number(event.target.value))} />
+      <div className="cc-range-labels" aria-hidden="true"><span>1 person</span><span>25 people</span></div>
+      <div className="cc-contact-control">
+        <label htmlFor="comparison-contacts">Contacts <output htmlFor="comparison-contacts">{contacts.toLocaleString('en-AU')}</output></label>
+        <input id="comparison-contacts" type="range" min={0} max={contactBands.length - 1} step={1} value={contactBands.indexOf(contacts)} aria-valuetext={`${contacts.toLocaleString('en-AU')} contacts`} onChange={event => setContacts(contactBands[Number(event.target.value)])} />
+        <div className="cc-range-labels" aria-hidden="true">{contactBands.map(value => <span key={value}>{value.toLocaleString('en-AU')}</span>)}</div>
+      </div>
       <fieldset className="cc-billing-control"><legend>{data.competitor} billing</legend>
         <label><input type="radio" name="comparison-billing" checked={!annual} onChange={() => setAnnual(false)} /> Monthly</label>
         <label><input type="radio" name="comparison-billing" checked={annual} onChange={() => setAnnual(true)} /> Annual</label>
@@ -39,11 +39,11 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
         <p>Includes the selected users, Pipelines and {(quote.contacts * 10).toLocaleString('en-AU')} marketing email sends/month. SMS, WhatsApp and connected apps are separate.</p>
         <p className="cc-team-billing">{annual ? `${money(quote.annual)} paid upfront each year. Annual commitment.` : 'Billed monthly. Month-to-month subscription.'}</p>
         <p className="cc-team-alternative">{annual ? `Or ${money(quote.monthly)}/month with monthly billing.` : `Or ${money(quote.annual / 12)}/month equivalent, ${money(quote.annual)} paid annually.`}</p>
-        <p>No mandatory onboarding fee is added.</p>
+        <p>No mandatory setup fee. Onboarding format and migration scope depend on eligibility.</p>
       </article>
     </div>
     <p className="cc-team-qualification"><strong>Need automated 1:1 sales email?</strong> At 5,000 contacts and five users, Plus + Sales Engagement is A$633/month, or A$508/month equivalent, A$6,096 paid annually, before applicable taxes. It replaces Pipelines.</p>
-    <p className="cc-team-qualification">These six configurations were checked in ActiveCampaign’s AUD purchase configurator on 18 October 2026. Other combinations require a current quote; additional users are not priced by a single fixed rate. Features differ. ActiveCampaign includes email campaigns; Zapla campaigns require Growth. ActiveCampaign amounts are before applicable taxes; Zapla amounts exclude GST. Usage, optional services and Zapla’s required launch are separate.</p>
+    <p className="cc-team-qualification">All 75 configurations shown were checked in ActiveCampaign’s AUD purchase configurator on 18 October 2026. The contact slider shows three verified allowances, not every available band. Other contact bands and packages require a current quote. Features differ. ActiveCampaign includes email campaigns; Zapla campaigns require Growth. ActiveCampaign amounts are before applicable taxes; Zapla amounts exclude GST. Usage, optional services and Zapla’s required launch are separate.</p>
     <details className="cc-team-plan-notes"><summary>Compared plans and current prices</summary>
       <p>{data.vendorPlanReason} {data.vendorScope}</p><p>{data.vendorLowerPlans}</p>
       <p>Zapla Follow-Through: {data.offerScope}</p>

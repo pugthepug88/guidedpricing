@@ -1,14 +1,9 @@
 import type { ComparisonDefinition, ComparisonRow } from './types';
 import { pipedriveSimple } from './pipedrive';
+import { activecampaignQuotes } from './activecampaign-quotes';
 
-const configurations = [
-  { label: '1,000 contacts · 1 user', contacts: 1000, users: 1, monthly: 163, annual: 1596 },
-  { label: '1,000 contacts · 5 users', contacts: 1000, users: 5, monthly: 279, annual: 2700 },
-  { label: '5,000 contacts · 1 user', contacts: 5000, users: 1, monthly: 343, annual: 3324 },
-  { label: '5,000 contacts · 5 users', contacts: 5000, users: 5, monthly: 459, annual: 4428 },
-  { label: '10,000 contacts · 1 user', contacts: 10000, users: 1, monthly: 433, annual: 4116 },
-  { label: '10,000 contacts · 5 users', contacts: 10000, users: 5, monthly: 549, annual: 5220 },
-] as const;
+const configurations = activecampaignQuotes;
+const costConfigurations = configurations.filter(item => item.users === 1 || item.users === 5);
 const zapla = (detail: string, text = '', sources = ['offer']) => ({ text, detail, mark: 'tick' as const, status: 'included' as const, sources });
 const integration = (detail: string, source: string) => ({ text: 'Separate app', detail, mark: 'cross' as const, status: 'separate' as const, sources: [source] });
 const rows: ComparisonRow[] = [
@@ -60,12 +55,12 @@ export const activecampaignSimple = {
   vendorEntryScope: 'Plus alone does not include the paid Pipelines add-on used in this comparison.',
   vendorScope: 'Plus includes email campaigns, marketing automation, forms and landing pages. Pipelines adds deals and pipeline automation. Additional channels and connected services are separate.',
   offerScope: 'CRM, shared inbox, pipelines, forms, booking, quotes, invoices, self-service website/funnel builders, review management and phone access. Sending usage is separate; marketing campaigns require Growth.',
-  recurringExamples: configurations.map(item => ({ label: item.label, values: [item.monthly, item.annual / 12, 399] })),
+  recurringExamples: costConfigurations.map(item => ({ label: item.label, values: [item.monthly, item.annual / 12, 399] })),
   costExamples: {
     title: 'See the first-year cash outlay, including launch',
     introduction: 'Twelve months of the named subscription, plus Zapla’s minimum required Guided Launch. ActiveCampaign already includes marketing campaigns; the feature bundles differ.',
     columns: ['Plus + Pipelines · monthly', 'Plus + Pipelines · annual', 'Zapla Follow-Through'],
-    rows: configurations.map(item => ({ label: item.label, values: [item.monthly * 12, item.annual, 6785] })),
+    rows: costConfigurations.map(item => ({ label: item.label, values: [item.monthly * 12, item.annual, 6785] })),
     teamHeading: 'Contacts and users',
     caption: 'Verified Australian-dollar package examples; first-year subscriptions and minimum Zapla launch, before applicable ActiveCampaign taxes; Zapla amounts exclude GST.',
     note: 'ActiveCampaign annual amounts are paid upfront; monthly examples use twelve monthly payments. Zapla uses twelve A$399 payments plus minimum launch of A$1,997. No mandatory ActiveCampaign onboarding fee is added. Usage, optional services and connected-provider fees are excluded. Features and included email-sending allowances differ.',
@@ -94,7 +89,7 @@ export const activecampaignSimple = {
     { id: 'ai', label: 'AI call answering', zapla: { text: 'Optional paid service', status: 'separate', sources: ['offer'], detail: 'Zapla AI Receptionist is an optional paid service, separate from both software plans. Setup and usage terms are confirmed before activation; no voice allowance is assumed.' }, competitor: { ...integration('AI call answering is not listed as a native Plus + Pipelines inclusion. Separate connected calling providers offer additional AI services; availability, Australian deployment, compatibility and charges must be confirmed. ActiveCampaign marketing AI is not an AI receptionist.', 'calling'), mark: undefined } },
   ],
   foundations: [], foundationNote: '',
-  methodology: 'Checked 18 October 2026. Fixed comparison: ActiveCampaign Plus + Pipelines versus Zapla Follow-Through. Current official pricing, help and integration-provider documentation support feature claims; Zapla packaging includes owner-confirmed review management and missed-call text-back. Six AUD package configurations and both billing choices were observed by the researcher in the live ActiveCampaign purchase configurator, without creating an account or buying. Summary explicitly excluded applicable taxes. Monthly Plus was month-to-month; annual amounts require annual upfront payment. No linear seat-price assumption, FX conversion or hypothetical extra-provider stack is used. Sales Engagement is an alternative CRM package, not an additional mandatory charge. ActiveCampaign marketing and landing pages are credited; campaigns require Zapla Growth. Zapla launch is required and finite; sending, phone numbers, payment-provider fees and optional services are separate. Unlimited refers to the precisely named capacity, not unlimited processing, message sends or setup work. This is a documentation and purchase-configurator comparison, not account-level feature testing. Comparison pages reviewed: ActiveCampaign versus Mailchimp, ActiveCampaign versus HubSpot and HubSpot versus ActiveCampaign. Their marketing claims are not independent proof; current contact-counting help documentation takes precedence over conflicting comparison-page copy.',
+  methodology: 'Checked 18 October 2026. Fixed comparison: ActiveCampaign Plus + Pipelines versus Zapla Follow-Through. Current official pricing, help and integration-provider documentation support feature claims; Zapla packaging includes owner-confirmed review management and missed-call text-back. Seventy-five AUD package configurations and both billing choices (150 totals) were observed by the researcher in the live ActiveCampaign purchase configurator, without creating an account or buying. Summary explicitly excluded applicable taxes. Monthly Plus was month-to-month; annual amounts require annual upfront payment. Every user count from one through 25 at the three shown contact allowances was checked; no extrapolation to other packages or contact bands, FX conversion or hypothetical extra-provider stack is used. Sales Engagement is an alternative CRM package, not an additional mandatory charge. ActiveCampaign marketing and landing pages are credited; campaigns require Zapla Growth. Zapla launch is required and finite; sending, phone numbers, payment-provider fees and optional services are separate. Unlimited refers to the precisely named capacity, not unlimited processing, message sends or setup work. This is a documentation and purchase-configurator comparison, not account-level feature testing. Comparison pages reviewed: ActiveCampaign versus Mailchimp, ActiveCampaign versus HubSpot and HubSpot versus ActiveCampaign. Their marketing claims are not independent proof; current contact-counting help documentation takes precedence over conflicting comparison-page copy.',
   faqs: [
     { question: 'Why does ActiveCampaign’s price change?', answer: 'Your quote depends on the product, contact allowance, users, billing choice and selected add-ons. Email plans include a monthly sending allowance. SMS and WhatsApp use separate credits.' },
     { question: 'Why compare Plus with Pipelines?', answer: 'Plus is the lowest current email tier supporting the CRM add-on used here. Pipelines adds deals and pipeline automation. Pro is available for more advanced marketing capabilities. Automated individual 1:1 sales emails require Sales Engagement instead of Pipelines; that different configuration is not silently included in these prices.' },
@@ -107,6 +102,7 @@ export const activecampaignSimple = {
     { id: 'offer', title: 'Zapla plans and scoped Guided Launch', url: '/Pricing-v3' },
     { id: 'platform-pricing', title: 'NextGen platform capacities', url: 'https://thenextgencrm.com/pricing/' },
     { id: 'pricing', title: 'ActiveCampaign pricing and feature matrix', url: 'https://www.activecampaign.com/pricing' },
+    { id: 'onboarding', title: 'ActiveCampaign free onboarding formats and migration scope', url: 'https://www.activecampaign.com/services/onboarding' },
     { id: 'configurator', title: 'ActiveCampaign AUD purchase configurator', url: 'https://www.activecampaign.com/signup/?code=ac&tier=plus&contacts=1000&currency=AUD' },
     { id: 'plans', title: 'ActiveCampaign plans and CRM add-ons', url: 'https://help.activecampaign.com/hc/en-us/articles/14251311251356-Overview-of-ActiveCampaign-plans' },
     { id: 'crm', title: 'ActiveCampaign CRM and unlimited pipelines', url: 'https://www.activecampaign.com/compare/hubspot' },

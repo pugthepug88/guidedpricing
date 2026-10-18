@@ -113,11 +113,16 @@ function ComparisonReview() {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
       if (!doc || !win || path !== '/compare/zapla-vs-activecampaign-simple') throw new Error('Select ActiveCampaign and let it load.');
-      const contacts = doc.querySelector<HTMLSelectElement>('#comparison-contacts');
-      const users = doc.querySelector<HTMLSelectElement>('#comparison-users');
+      const contacts = doc.querySelector<HTMLInputElement>('#comparison-contacts');
+      const users = doc.querySelector<HTMLInputElement>('#comparison-users');
       const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
       if (!contacts || !users || radios.length !== 2) throw new Error('Configuration calculator not loaded.');
-      const quotes = [{monthly:163, annual:1596, users:1, contacts:1000}, {monthly:279, annual:2700, users:5, contacts:1000}, {monthly:343, annual:3324, users:1, contacts:5000}, {monthly:459, annual:4428, users:5, contacts:5000}, {monthly:433, annual:4116, users:1, contacts:10000}, {monthly:549, annual:5220, users:5, contacts:10000}];
+      const quotes = [
+        {contacts:1000, monthly:163, annual:1596},
+        {contacts:5000, monthly:343, annual:3324},
+        {contacts:10000, monthly:433, annual:4116},
+      ].flatMap(base => Array.from({length:25}, (_,i) => ({contacts:base.contacts, users:i+1, monthly:base.monthly+29*i, annual:base.annual+276*i})));
+
       for (const viewport of [375, 390, 768, 1440]) {
         setWidth(viewport);
         await pause();
@@ -125,8 +130,9 @@ function ComparisonReview() {
         for (const annual of [false, true]) {
           radios[annual ? 1 : 0].click();
           for (const [index, quote] of quotes.entries()) {
-            for (const [select, value] of [[contacts, quote.contacts], [users, quote.users]] as const) {
-              Object.getOwnPropertyDescriptor(win.HTMLSelectElement.prototype, 'value')?.set?.call(select, String(value));
+            for (const [select, value] of [[contacts, [1000,5000,10000].indexOf(quote.contacts)], [users, quote.users]] as const) {
+              Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(select, String(value));
+              select.dispatchEvent(new win.Event('input', {bubbles:true}));
               select.dispatchEvent(new win.Event('change', {bubbles:true}));
               await pause();
             }
@@ -163,7 +169,7 @@ function ComparisonReview() {
       for (const label of ['Unlimited users','Unlimited contacts','Unlimited pipelines','Forms','Quotes & proposals','Invoicing']) if (!labels.includes(label)) throw new Error('Missing consistent label: ' + label);
       if (main?.textContent?.includes('Pipedrive') || main?.textContent?.includes('HubSpot')) throw new Error('Leaked competitor copy.');
       results.push('First-year totals, noindex, loaded images, anchors and consistent feature labels PASS');
-      setReport('48 ActiveCampaign calculator states and 8 layout states passed.\n' + results.join('\n'));
+      setReport('600 ActiveCampaign calculator states and 8 layout states passed.\n' + results.join('\n'));
     } catch (error) { setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n')); }
     finally { setChecking(false); }
   }
