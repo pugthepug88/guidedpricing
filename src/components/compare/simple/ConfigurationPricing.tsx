@@ -19,7 +19,7 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
       <input id="comparison-users" type="range" min={1} max={Math.max(100, users)} step={1} value={users} onChange={event => setUsers(Number(event.target.value))} />
       <div className="cc-range-labels" aria-hidden="true"><span>1 person</span><span>{Math.max(100, users)} people</span></div>
       <div className="cc-contact-control">
-        <div className="cc-control-heading"><label htmlFor="comparison-contacts">Contacts</label><input aria-label="Number of contacts" className="cc-value-input" type="number" min={1} value={contacts} onChange={event => setContacts(Math.max(1, Number(event.target.value) || 1))} /></div>
+        <div className="cc-control-heading"><label htmlFor="comparison-contacts">Email & WhatsApp contacts</label><input aria-label="Number of contacts" className="cc-value-input" type="number" min={1} value={contacts} onChange={event => setContacts(Math.max(1, Number(event.target.value) || 1))} /></div>
         <input id="comparison-contacts" type="range" min={0} max={contactBands.length - 1} step={1} value={contactIndex} aria-valuetext={`${contacts.toLocaleString('en-AU')} contacts`} onChange={event => setContacts(contactBands[Number(event.target.value)])} />
         <div className="cc-range-labels" aria-hidden="true"><span>{contactBands[0].toLocaleString('en-AU')}</span><span>{contactBands.at(-1)!.toLocaleString('en-AU')}</span></div>
       </div>
@@ -32,13 +32,13 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
       <article className="cc-team-zapla"><h3>Zapla Follow-Through</h3>
         <p className="cc-seat-result">{users} {users === 1 ? 'person' : 'people'}. Unlimited users included.</p>
         <p className="cc-team-total">{money(data.offer.monthly)}<span>/month + GST</span></p>
-        <p className="cc-same-price">Unlimited users and stored contacts. Fair use applies.</p>
+        <p className="cc-same-price">Unlimited users and WhatsApp contacts. 8 connected WhatsApp numbers.</p>
       </article>
       <article><h3>{data.competitor} {data.vendorPlan}</h3>
-        <p className="cc-seat-result">{contacts.toLocaleString('en-AU')} contacts · {users} {users === 1 ? 'user' : 'users'}</p>
+        <p className="cc-seat-result">{contacts.toLocaleString('en-AU')} email contacts · {Math.max(5000, contacts).toLocaleString('en-AU')} WhatsApp contacts · {users} {users === 1 ? 'user' : 'users'}</p>
         {quote ? <>
           <p className="cc-team-total">{money(annual ? quote.annual / 12 : quote.monthly)}<span>/month{annual ? ' equivalent' : ''} before taxes</span></p>
-          <p>Pipelines included.</p>
+          <p>Pipelines + WhatsApp included.</p>
           <p className="cc-team-billing">{annual ? `${money(quote.annual)} paid annually. One-year commitment.` : 'Monthly billing. No annual commitment.'}</p>
           {!annual && <p className="cc-team-alternative">Or {money(quote.annual / 12)}/month equivalent, {money(quote.annual)} paid annually.</p>}
         </> : <>
@@ -52,7 +52,7 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
     <p className="cc-team-qualification">Required Guided Launch from {money(data.offer.launch)} + GST. Usage extra. Different feature bundles. <a href="/Pricing-v3">Zapla plan details ↗</a></p>
     <details className="cc-cost-examples cc-first-year">
       <summary>First-year costs, including setup</summary>
-      <p>{contacts.toLocaleString('en-AU')} contacts · {users} {users === 1 ? 'user' : 'users'} · {annual ? 'annual' : 'monthly'} ActiveCampaign billing.</p>
+      <p>{contacts.toLocaleString('en-AU')} email contacts · {Math.max(5000, contacts).toLocaleString('en-AU')} WhatsApp contacts · {users} {users === 1 ? 'user' : 'users'} · {annual ? 'annual' : 'monthly'} ActiveCampaign billing.</p>
       <table className="cc-selected-cost-table">
         <caption>Selected configuration. Before applicable taxes and usage; feature bundles differ.</caption>
         <thead><tr><th scope="col">Cost</th><th scope="col">Zapla Follow-Through</th><th scope="col">ActiveCampaign {data.vendorPlan}</th></tr></thead>
@@ -64,16 +64,16 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
       <p className="cc-cost-note">Zapla: twelve {money(data.offer.monthly)} payments plus minimum Guided Launch of {money(data.offer.launch)}, excluding GST. ActiveCampaign: {annual ? 'one annual payment upfront with a one-year commitment' : 'twelve monthly payments'}, before applicable taxes. No mandatory ActiveCampaign setup fee is added. Usage, optional services and connected-provider fees are excluded. Ongoing subscription figures use today's prices.</p>
     </details>
     <details className="cc-team-plan-notes"><summary>Plan details, allowances & pricing notes</summary>
-      <p>Drag the sliders or type your own numbers. These controls are comparison tools, not product capacity limits. Exact contact allowances and team sizes outside the verified examples require a current ActiveCampaign quote; Zapla stored contacts remain subject to fair use.</p>
-      <p>ActiveCampaign Plus includes a monthly marketing email allowance of ten times the purchased contact band. SMS, WhatsApp and connected apps are separate. Zapla email campaigns require Growth.</p>
+      <p>Drag the sliders or type your own numbers. These controls are comparison tools, not product capacity limits. Contact allowances and team sizes outside the checked pricing components require a current ActiveCampaign quote. WhatsApp has a minimum 5,000-contact allowance.</p>
+      <p>ActiveCampaign Plus includes a monthly marketing email allowance of ten times the purchased contact band. The price includes Pipelines and the WhatsApp subscription for the same contact count, with a minimum 5,000 WhatsApp contacts and five connected numbers. Messaging usage, SMS and connected apps are separate. Zapla email and bulk WhatsApp campaigns require Growth.</p>
       <p>No mandatory ActiveCampaign setup fee. Onboarding format and migration scope depend on eligibility. Zapla’s required launch is finite scoped work.</p>
-      <p><strong>Need automated 1:1 sales email?</strong> At 5,000 contacts and five users, Plus + Sales Engagement is A$633/month, or A$508/month equivalent, A$6,096 paid annually, before applicable taxes. It replaces Pipelines. This is a fixed example, not a quote for every slider selection.</p>
-      <p>Checked in the live AUD purchase configurator on 18 October 2026. Prices are for Plus + Pipelines with no optional channels, extra sends or reporting. ActiveCampaign amounts are before applicable taxes; Zapla excludes GST. Other packages and allowances require a current quote.</p>
+      <p><strong>Need automated 1:1 sales email?</strong> At 5,000 email and WhatsApp contacts and five users, Plus + Sales Engagement + WhatsApp calculates to A$805/month, or A$7,231 paid annually (A$602.58/month equivalent), before applicable taxes. This adds the checked WhatsApp fee to the previously checked Sales Engagement package. Sales Engagement replaces Pipelines; it is not added on top. This is a fixed example, not every slider selection.</p>
+      <p>Calculated from AUD Plus + Pipelines package quotes and separate WhatsApp subscription fees checked in the live purchase configurator on 18 October 2026. Five WhatsApp numbers included; no prepaid messaging credits, SMS, extra sends or reporting selected. ActiveCampaign amounts are before applicable taxes; Zapla excludes GST. Other packages and allowances require a current quote.</p>
       <p>{data.vendorPlanReason} {data.vendorScope}</p><p>{data.vendorLowerPlans}</p>
       <p>Zapla Follow-Through: {data.offerScope}</p>
-      <p>At 1,000 contacts and one user, Plus is A$74/month equivalent and Pipelines A$59/month equivalent, both paid annually: A$1,596 upfront in total. Monthly billing is A$89 + A$74 = A$163/month.</p>
-      <p>Sales Engagement instead of Pipelines was A$176/month equivalent, A$2,112 paid annually, at 1,000 contacts and one user. It is not the configuration priced above. Do not add both CRM packages together.</p>
-      <p>Optional channels, checked on annual billing: SMS with 1,000 credits/month adds A$307/year. The WhatsApp bundle at 5,000 contacts with 1,000 credits/month adds A$1,405/year. These are separate from the main quote and before applicable taxes. Credits are not a message count; country, message type and length affect usage.</p>
+      <p>At 1,000 email contacts and one user, Plus + Pipelines is A$1,596/year and the minimum 5,000-contact WhatsApp subscription adds A$1,135/year: A$2,731 paid annually in total. Monthly billing totals A$163 + A$172 = A$335. Messaging usage extra.</p>
+
+
       <p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current ActiveCampaign prices ↗</a></p>
     </details>
   </div>;

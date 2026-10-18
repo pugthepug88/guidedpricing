@@ -186,11 +186,11 @@ function ComparisonReview() {
       const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
       if (!contacts || !users || radios.length !== 2) throw new Error('Configuration calculator not loaded.');
       const quotes = [
-        {contacts:1000, monthly:163, annual:1596},
-        {contacts:5000, monthly:343, annual:3324},
-        {contacts:10000, monthly:433, annual:4116},
-        {contacts:25000, monthly:808, annual:7716},
-        {contacts:50000, monthly:1213, annual:11676},
+        {contacts:1000, monthly:335, annual:2731},
+        {contacts:5000, monthly:515, annual:4459},
+        {contacts:10000, monthly:1097, annual:7739},
+        {contacts:25000, monthly:1994, annual:15343},
+        {contacts:50000, monthly:3963, annual:25560},
       ].flatMap(base => Array.from({length:50}, (_,i) => ({contacts:base.contacts, users:i+1, monthly:base.monthly+29*i, annual:base.annual+276*i})));
 
       for (const viewport of [375, 390, 768, 1440]) {
@@ -211,10 +211,10 @@ function ComparisonReview() {
             const vendor = cards[1]?.textContent ?? '';
             const total = cards[1]?.querySelector('.cc-team-total');
             if (!total?.textContent?.startsWith(money(annual ? quote.annual / 12 : quote.monthly))) throw new Error('Incorrect package total.');
-            if (!vendor.includes(quote.contacts.toLocaleString('en-AU') + ' contacts') || !vendor.includes(quote.users + ' user')) throw new Error('Incorrect configuration context.');
+            if (!vendor.includes(quote.contacts.toLocaleString('en-AU') + ' email contacts') || !vendor.includes(quote.users + ' user')) throw new Error('Incorrect configuration context.');
             if (annual && !vendor.includes(money(quote.annual) + ' paid annually. One-year commitment.')) throw new Error('Annual upfront mismatch.');
             if (!annual && !vendor.includes('Monthly billing. No annual commitment.')) throw new Error('Monthly terms incorrect.');
-            if (!vendor.includes('Pipelines') || !vendor.includes('before taxes')) throw new Error('Tier or tax missing.');
+            if (!vendor.includes('Pipelines + WhatsApp included.') || !vendor.includes('before taxes') || !vendor.includes(Math.max(5000, quote.contacts).toLocaleString('en-AU') + ' WhatsApp contacts')) throw new Error('Tier or tax missing.');
             if (!cards[0]?.textContent?.includes('A$399') || !doc.querySelector('.cc-configuration-pricing > .cc-team-qualification')?.textContent?.includes('A$1,997')) throw new Error('Zapla subscription or launch mismatch.');
             const selectedYear = doc.querySelector('.cc-first-year')?.textContent ?? '';
             for (const amount of [6785, 4788, annual ? quote.annual : quote.monthly * 12]) if (!selectedYear.includes(money(amount))) throw new Error('Selected first-year amount missing: ' + amount);
@@ -232,7 +232,7 @@ function ComparisonReview() {
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        for (const n of [6785,4788,25200]) if (!year.includes(money(n))) throw new Error('First-year amount missing: ' + n);
+        for (const n of [6785,4788,39084]) if (!year.includes(money(n))) throw new Error('First-year amount missing: ' + n);
         if ([...doc.images].some(img => !img.complete || img.naturalWidth === 0)) throw new Error('Broken/unloaded image.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Missing noindex.');
         for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken anchor.');
