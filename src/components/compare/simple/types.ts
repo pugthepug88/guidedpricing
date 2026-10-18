@@ -23,6 +23,8 @@ export interface ComparisonDefinition {
   tableNotes?: readonly string[];
   pricingIntroduction?: string;
   pricingHeading?: string;
+  usageNote?: string;
+  showMarketingNote?: boolean;
   verifiedConfigurations?: readonly {
     label: string;
     users: number;

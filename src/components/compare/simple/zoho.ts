@@ -253,7 +253,7 @@ export const zohoSimple = {
       "id": "replies",
       "label": "Shared email inbox",
       "competitor": {
-        "text": "Via integration",
+        "text": "Separate app",
         "detail": "Professional includes email integration and sharing. Zoho TeamInbox provides a separate collaborative shared inbox and CRM integration. Scope and subscription requirements differ; SalesInbox is not assumed equivalent to a collaborative team inbox.",
         "sources": [
           "teaminbox",
@@ -277,7 +277,7 @@ export const zohoSimple = {
       "id": "sms",
       "label": "Two-way SMS",
       "competitor": {
-        "text": "Via integration",
+        "text": "Separate app",
         "detail": "Australian two-way texting is available through providers such as Guni SMS for Zoho CRM. Provider charges, configuration and message usage vary.",
         "sources": [
           "zoho-sms"
