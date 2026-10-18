@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 
 const drafts = [
+  { name: 'Zapla vs Zoho V2', path: '/compare/zapla-vs-zoho-v2' },
   { name: 'Zapla vs Zoho', path: '/compare/zapla-vs-zoho-simple' },
   { name: 'Zapla vs HubSpot', path: '/compare/zapla-vs-hubspot-simple' },
   { name: 'Zapla vs Creatio', path: '/compare/zapla-vs-creatio-simple' },
@@ -322,7 +323,7 @@ function ComparisonReview() {
     try {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
-      if (!doc || !win || path !== '/compare/zapla-vs-zoho-simple') throw new Error('Select the Zoho draft and let it load first.');
+      if (!doc || !win || !['/compare/zapla-vs-zoho-simple', '/compare/zapla-vs-zoho-v2'].includes(path)) throw new Error('Select the Zoho draft and let it load first.');
       const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
       const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
       if (!range || radios.length !== 2) throw new Error('The comparison calculator has not loaded.');
@@ -402,7 +403,7 @@ function ComparisonReview() {
       {path === '/compare/zapla-vs-pipedrive-v2' && <button type="button" onClick={runPipedriveV2Checks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Pipedrive V2 checks'}</button>}
       {path === '/compare/zapla-vs-creatio-simple' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
       {path === '/compare/zapla-vs-activecampaign-simple' && <button type="button" onClick={runActiveCampaignChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run ActiveCampaign checks'}</button>}
-      {path === '/compare/zapla-vs-zoho-simple' && <button type="button" onClick={runZohoChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Zoho checks'}</button>}
+      {['/compare/zapla-vs-zoho-simple', '/compare/zapla-vs-zoho-v2'].includes(path) && <button type="button" onClick={runZohoChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Zoho checks'}</button>}
       {report && <details open><summary>Verification results</summary><pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginBottom: 24 }}>{report}</pre></details>}
       <div ref={stage}>
         <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>

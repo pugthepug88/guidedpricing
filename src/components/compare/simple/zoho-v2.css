@@ -1,0 +1,7 @@
+.cc-zoho-v2-pricing .cc-zv2-difference { padding:24px 0; border-bottom:1px solid var(--comparison-line); }
+.cc-zoho-v2-pricing .cc-zv2-difference>strong { display:block; font:500 clamp(23px,3vw,30px)/1.25 'Inter Tight',sans-serif; color:var(--comparison-green); }
+.cc-zoho-v2-pricing .cc-zv2-difference>p { font-size:14px; line-height:1.65; margin:12px 0 0; max-width:760px; }
+.cc-zoho-v2-pricing .cc-zv2-first-year { display:flex; flex-wrap:wrap; gap:8px 28px; }
+.cc-zoho-v2-pricing .cc-zv2-first-year span:first-child { font-weight:600; }
+.cc-zoho-v2-pricing .cc-zv2-first-year b { white-space:nowrap; }
+@media(max-width:600px) { .cc-zoho-v2-pricing .cc-zv2-first-year span:first-child { flex-basis:100%; } }

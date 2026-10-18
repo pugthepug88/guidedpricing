@@ -34,6 +34,7 @@ import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.za
 import { Route as CompareZaplaVsPipedriveSimpleRouteImport } from './routes/compare.zapla-vs-pipedrive-simple'
 import { Route as CompareZaplaVsPipedriveV2RouteImport } from './routes/compare.zapla-vs-pipedrive-v2'
 import { Route as CompareZaplaVsZohoSimpleRouteImport } from './routes/compare.zapla-vs-zoho-simple'
+import { Route as CompareZaplaVsZohoV2RouteImport } from './routes/compare.zapla-vs-zoho-v2'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
@@ -178,6 +179,11 @@ const CompareZaplaVsZohoSimpleRoute =
     path: '/compare/zapla-vs-zoho-simple',
     getParentRoute: () => rootRouteImport,
   } as any)
+const CompareZaplaVsZohoV2Route = CompareZaplaVsZohoV2RouteImport.update({
+  id: '/compare/zapla-vs-zoho-v2',
+  path: '/compare/zapla-vs-zoho-v2',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConceptCinematicFollowThroughV5Route =
   ConceptCinematicFollowThroughV5RouteImport.update({
     id: '/concept/cinematic-follow-through-v5',
@@ -260,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
   '/compare/zapla-vs-pipedrive-v2': typeof CompareZaplaVsPipedriveV2Route
   '/compare/zapla-vs-zoho-simple': typeof CompareZaplaVsZohoSimpleRoute
+  '/compare/zapla-vs-zoho-v2': typeof CompareZaplaVsZohoV2Route
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -297,6 +304,7 @@ export interface FileRoutesByTo {
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
   '/compare/zapla-vs-pipedrive-v2': typeof CompareZaplaVsPipedriveV2Route
   '/compare/zapla-vs-zoho-simple': typeof CompareZaplaVsZohoSimpleRoute
+  '/compare/zapla-vs-zoho-v2': typeof CompareZaplaVsZohoV2Route
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -335,6 +343,7 @@ export interface FileRoutesById {
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
   '/compare/zapla-vs-pipedrive-v2': typeof CompareZaplaVsPipedriveV2Route
   '/compare/zapla-vs-zoho-simple': typeof CompareZaplaVsZohoSimpleRoute
+  '/compare/zapla-vs-zoho-v2': typeof CompareZaplaVsZohoV2Route
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -374,6 +383,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive-simple'
     | '/compare/zapla-vs-pipedrive-v2'
     | '/compare/zapla-vs-zoho-simple'
+    | '/compare/zapla-vs-zoho-v2'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
@@ -411,6 +421,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive-simple'
     | '/compare/zapla-vs-pipedrive-v2'
     | '/compare/zapla-vs-zoho-simple'
+    | '/compare/zapla-vs-zoho-v2'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
@@ -448,6 +459,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-pipedrive-simple'
     | '/compare/zapla-vs-pipedrive-v2'
     | '/compare/zapla-vs-zoho-simple'
+    | '/compare/zapla-vs-zoho-v2'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
@@ -486,6 +498,7 @@ export interface RootRouteChildren {
   CompareZaplaVsPipedriveSimpleRoute: typeof CompareZaplaVsPipedriveSimpleRoute
   CompareZaplaVsPipedriveV2Route: typeof CompareZaplaVsPipedriveV2Route
   CompareZaplaVsZohoSimpleRoute: typeof CompareZaplaVsZohoSimpleRoute
+  CompareZaplaVsZohoV2Route: typeof CompareZaplaVsZohoV2Route
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
@@ -675,6 +688,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareZaplaVsZohoSimpleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compare/zapla-vs-zoho-v2': {
+      id: '/compare/zapla-vs-zoho-v2'
+      path: '/compare/zapla-vs-zoho-v2'
+      fullPath: '/compare/zapla-vs-zoho-v2'
+      preLoaderRoute: typeof CompareZaplaVsZohoV2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/concept/cinematic-follow-through-v5': {
       id: '/concept/cinematic-follow-through-v5'
       path: '/concept/cinematic-follow-through-v5'
@@ -776,6 +796,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareZaplaVsPipedriveSimpleRoute: CompareZaplaVsPipedriveSimpleRoute,
   CompareZaplaVsPipedriveV2Route: CompareZaplaVsPipedriveV2Route,
   CompareZaplaVsZohoSimpleRoute: CompareZaplaVsZohoSimpleRoute,
+  CompareZaplaVsZohoV2Route: CompareZaplaVsZohoV2Route,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
