@@ -76,7 +76,7 @@ export function ComparisonPage({ data, pricingContent }: { data: ComparisonDefin
     <section id="pricing-comparison" className="cc-commercial" aria-labelledby="price-heading"><div className="cc-inner">
       <div className="cc-section-heading"><p className="cc-section-label">Your team, your subscription</p><h2 id="price-heading">{data.pricingHeading ?? <>Add people.<br />Keep the same plan price.</>}</h2><p>{data.pricingIntroduction ?? `${data.competitor} ${data.vendorPlan} charges per paid user. Zapla Follow-Through includes unlimited users for ${money(data.offer.monthly)}/month + GST. Compare subscription prices below, then consider the included tools and required setup.`}</p></div>
       {pricingContent ?? (data.verifiedConfigurations ? <ConfigurationPricing data={data} /> : <TeamPricing data={data} />)}
-      <details className="cc-cost-examples cc-first-year">
+      {!data.verifiedConfigurations && <details className="cc-cost-examples cc-first-year">
         <summary>{data.costExamples.title}</summary><p>{data.costExamples.introduction}</p>
         <table className={`cc-cost-table${data.quotePricing || data.publishedPricing ? ' cc-cost-table--quote' : ''}`} role="table"><caption>{data.costExamples.caption ?? "Listed first-year subscription amounts and minimum Zapla Guided Launch, in Australian dollars."}</caption>
           <thead><tr role="row"><th scope="col" role="columnheader">{data.costExamples.teamHeading ?? "Team size"}</th>{data.costExamples.columns.map(name => <th scope="col" role="columnheader" key={name}>{name}</th>)}</tr></thead>
@@ -84,7 +84,7 @@ export function ComparisonPage({ data, pricingContent }: { data: ComparisonDefin
         </table>
         <p className="cc-cost-note">{data.costExamples.note}</p>
         <p className="cc-renewal">After the original launch, Zapla’s subscription is {money(data.offer.monthly * 12)} + GST for 12 months at today’s price, before usage and extras.</p>
-      </details>
+      </details>}
       <details className="cc-more-launch"><summary>What does Guided Launch cover?</summary><p>{data.launch.introduction}</p><ol>{data.launch.steps.map(item => <li key={item.title}><strong>{item.title}.</strong> {item.description}</li>)}</ol><Link to={data.pricingUrl}>See full launch inclusions ↗</Link></details>
       <p className="cc-usage">{data.usageNote ?? 'Zapla communications usage, phone numbers, optional services and payment-provider fees are extra.'}</p>
     </div></section>

@@ -215,7 +215,10 @@ function ComparisonReview() {
             if (annual && !vendor.includes(money(quote.annual) + ' paid annually. One-year commitment.')) throw new Error('Annual upfront mismatch.');
             if (!annual && !vendor.includes('Monthly billing. No annual commitment.')) throw new Error('Monthly terms incorrect.');
             if (!vendor.includes('Pipelines') || !vendor.includes('before taxes')) throw new Error('Tier or tax missing.');
-            if (!cards[0]?.textContent?.includes('A$399') || !cards[0]?.textContent?.includes('A$1,997')) throw new Error('Zapla subscription or launch mismatch.');
+            if (!cards[0]?.textContent?.includes('A$399') || !doc.querySelector('.cc-configuration-pricing > .cc-team-qualification')?.textContent?.includes('A$1,997')) throw new Error('Zapla subscription or launch mismatch.');
+            const selectedYear = doc.querySelector('.cc-first-year')?.textContent ?? '';
+            for (const amount of [6785, 4788, annual ? quote.annual : quote.monthly * 12]) if (!selectedYear.includes(money(amount))) throw new Error('Selected first-year amount missing: ' + amount);
+            if (doc.querySelectorAll('.cc-first-year').length !== 1) throw new Error('Duplicate first-year sections.');
             if (total.firstChild) { const r = doc.createRange(); r.selectNodeContents(total.firstChild); if (r.getClientRects().length > 1) throw new Error('Price wraps at ' + viewport); }
             if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Calculator overflow.');
             results.push(viewport + 'px · configuration ' + (index+1) + ' · ' + (annual ? 'annual' : 'monthly') + ' PASS');
@@ -229,7 +232,7 @@ function ComparisonReview() {
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        for (const n of [1956,1596,3348,2700,4116,3324,5508,4428,5196,6588,5220,6785]) if (!year.includes(money(n))) throw new Error('First-year amount missing: ' + n);
+        for (const n of [6785,4788,25200]) if (!year.includes(money(n))) throw new Error('First-year amount missing: ' + n);
         if ([...doc.images].some(img => !img.complete || img.naturalWidth === 0)) throw new Error('Broken/unloaded image.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Missing noindex.');
         for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken anchor.');
@@ -241,7 +244,7 @@ function ComparisonReview() {
         input.dispatchEvent(new win.Event('change', {bubbles:true}));
         await pause();
       }
-      if (!doc.querySelector('.cc-team-results')?.textContent?.includes('Current quote required')) throw new Error('Missing larger-selection quote state.');
+      if (!doc.querySelector('.cc-team-results')?.textContent?.includes('Current quote required') || !doc.querySelector('.cc-first-year')?.textContent?.includes('Current quote required')) throw new Error('Missing larger-selection quote state.');
       if (!doc.querySelector('.cc-team-zapla')?.textContent?.includes('A$399')) throw new Error('Zapla changed for larger selection.');
       results.push('Larger custom selections: current quote required, no fabricated AC price PASS');
       const main = doc.querySelector('.cc-hero');

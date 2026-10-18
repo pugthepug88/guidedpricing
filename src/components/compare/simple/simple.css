@@ -302,3 +302,12 @@
 
 .cc-control-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; font-size:17px; font-weight:600; }
 .cc-control-heading label { flex:1; }
+
+/* Selected configuration costs stay compact on small screens. */
+.cc-selected-cost-table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:15px; }
+.cc-selected-cost-table caption { text-align:left; padding:0 0 16px; font-size:14px; }
+.cc-selected-cost-table th,.cc-selected-cost-table td { padding:16px 12px; text-align:left; vertical-align:top; border-bottom:1px solid #DEE2DC; overflow-wrap:anywhere; }
+.cc-selected-cost-table thead th { font-weight:600; }
+@media(max-width:600px) { .cc-selected-cost-table { font-size:13px; } .cc-selected-cost-table th,.cc-selected-cost-table td { padding:12px 6px; } }
+
+.cc-configuration-pricing .cc-first-year p { color:var(--comparison-muted); }

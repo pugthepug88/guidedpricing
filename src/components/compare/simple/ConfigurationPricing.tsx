@@ -33,7 +33,6 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
         <p className="cc-seat-result">{users} {users === 1 ? 'person' : 'people'}. Unlimited users included.</p>
         <p className="cc-team-total">{money(data.offer.monthly)}<span>/month + GST</span></p>
         <p className="cc-same-price">Unlimited users and stored contacts. Fair use applies.</p>
-        <p className="cc-team-billing">Required Guided Launch<br /><strong>from {money(data.offer.launch)} + GST.</strong></p>
       </article>
       <article><h3>{data.competitor} {data.vendorPlan}</h3>
         <p className="cc-seat-result">{contacts.toLocaleString('en-AU')} contacts · {users} {users === 1 ? 'user' : 'users'}</p>
@@ -50,7 +49,20 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
 
       </article>
     </div>
-    <p className="cc-team-qualification">Different feature bundles. Usage and optional services are extra. <a href="/Pricing-v3">Zapla plan details ↗</a></p>
+    <p className="cc-team-qualification">Required Guided Launch from {money(data.offer.launch)} + GST. Usage extra. Different feature bundles. <a href="/Pricing-v3">Zapla plan details ↗</a></p>
+    <details className="cc-cost-examples cc-first-year">
+      <summary>First-year costs, including setup</summary>
+      <p>{contacts.toLocaleString('en-AU')} contacts · {users} {users === 1 ? 'user' : 'users'} · {annual ? 'annual' : 'monthly'} ActiveCampaign billing.</p>
+      <table className="cc-selected-cost-table">
+        <caption>Selected configuration. Before applicable taxes and usage; feature bundles differ.</caption>
+        <thead><tr><th scope="col">Cost</th><th scope="col">Zapla Follow-Through</th><th scope="col">ActiveCampaign {data.vendorPlan}</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">First year, including required setup</th><td>From {money(data.offer.monthly * 12 + data.offer.launch)}</td><td>{quote ? money(annual ? quote.annual : quote.monthly * 12) : 'Current quote required'}</td></tr>
+          <tr><th scope="row">Ongoing subscription per year</th><td>{money(data.offer.monthly * 12)}</td><td>{quote ? money(annual ? quote.annual : quote.monthly * 12) : 'Current quote required'}</td></tr>
+        </tbody>
+      </table>
+      <p className="cc-cost-note">Zapla: twelve {money(data.offer.monthly)} payments plus minimum Guided Launch of {money(data.offer.launch)}, excluding GST. ActiveCampaign: {annual ? 'one annual payment upfront with a one-year commitment' : 'twelve monthly payments'}, before applicable taxes. No mandatory ActiveCampaign setup fee is added. Usage, optional services and connected-provider fees are excluded. Ongoing subscription figures use today's prices.</p>
+    </details>
     <details className="cc-team-plan-notes"><summary>Plan details, allowances & pricing notes</summary>
       <p>Drag the sliders or type your own numbers. These controls are comparison tools, not product capacity limits. Exact contact allowances and team sizes outside the verified examples require a current ActiveCampaign quote; Zapla stored contacts remain subject to fair use.</p>
       <p>ActiveCampaign Plus includes a monthly marketing email allowance of ten times the purchased contact band. SMS, WhatsApp and connected apps are separate. Zapla email campaigns require Growth.</p>
