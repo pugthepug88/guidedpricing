@@ -1,4 +1,4 @@
-// Every total checked in the live AUD Plus + Pipelines configurator on 18 October 2026.
+// Each displayed total checked in the live AUD Plus + Pipelines configurator on 18 October 2026.
 // Fixed package, no optional channels, extra sends or reporting. Annual amounts are upfront.
 export const activecampaignQuotes = [
   {
@@ -177,6 +177,181 @@ export const activecampaignQuotes = [
     "annual": 8220
   },
   {
+    "label": "1,000 contacts \u00b7 26 users",
+    "contacts": 1000,
+    "users": 26,
+    "monthly": 888,
+    "annual": 8496
+  },
+  {
+    "label": "1,000 contacts \u00b7 27 users",
+    "contacts": 1000,
+    "users": 27,
+    "monthly": 917,
+    "annual": 8772
+  },
+  {
+    "label": "1,000 contacts \u00b7 28 users",
+    "contacts": 1000,
+    "users": 28,
+    "monthly": 946,
+    "annual": 9048
+  },
+  {
+    "label": "1,000 contacts \u00b7 29 users",
+    "contacts": 1000,
+    "users": 29,
+    "monthly": 975,
+    "annual": 9324
+  },
+  {
+    "label": "1,000 contacts \u00b7 30 users",
+    "contacts": 1000,
+    "users": 30,
+    "monthly": 1004,
+    "annual": 9600
+  },
+  {
+    "label": "1,000 contacts \u00b7 31 users",
+    "contacts": 1000,
+    "users": 31,
+    "monthly": 1033,
+    "annual": 9876
+  },
+  {
+    "label": "1,000 contacts \u00b7 32 users",
+    "contacts": 1000,
+    "users": 32,
+    "monthly": 1062,
+    "annual": 10152
+  },
+  {
+    "label": "1,000 contacts \u00b7 33 users",
+    "contacts": 1000,
+    "users": 33,
+    "monthly": 1091,
+    "annual": 10428
+  },
+  {
+    "label": "1,000 contacts \u00b7 34 users",
+    "contacts": 1000,
+    "users": 34,
+    "monthly": 1120,
+    "annual": 10704
+  },
+  {
+    "label": "1,000 contacts \u00b7 35 users",
+    "contacts": 1000,
+    "users": 35,
+    "monthly": 1149,
+    "annual": 10980
+  },
+  {
+    "label": "1,000 contacts \u00b7 36 users",
+    "contacts": 1000,
+    "users": 36,
+    "monthly": 1178,
+    "annual": 11256
+  },
+  {
+    "label": "1,000 contacts \u00b7 37 users",
+    "contacts": 1000,
+    "users": 37,
+    "monthly": 1207,
+    "annual": 11532
+  },
+  {
+    "label": "1,000 contacts \u00b7 38 users",
+    "contacts": 1000,
+    "users": 38,
+    "monthly": 1236,
+    "annual": 11808
+  },
+  {
+    "label": "1,000 contacts \u00b7 39 users",
+    "contacts": 1000,
+    "users": 39,
+    "monthly": 1265,
+    "annual": 12084
+  },
+  {
+    "label": "1,000 contacts \u00b7 40 users",
+    "contacts": 1000,
+    "users": 40,
+    "monthly": 1294,
+    "annual": 12360
+  },
+  {
+    "label": "1,000 contacts \u00b7 41 users",
+    "contacts": 1000,
+    "users": 41,
+    "monthly": 1323,
+    "annual": 12636
+  },
+  {
+    "label": "1,000 contacts \u00b7 42 users",
+    "contacts": 1000,
+    "users": 42,
+    "monthly": 1352,
+    "annual": 12912
+  },
+  {
+    "label": "1,000 contacts \u00b7 43 users",
+    "contacts": 1000,
+    "users": 43,
+    "monthly": 1381,
+    "annual": 13188
+  },
+  {
+    "label": "1,000 contacts \u00b7 44 users",
+    "contacts": 1000,
+    "users": 44,
+    "monthly": 1410,
+    "annual": 13464
+  },
+  {
+    "label": "1,000 contacts \u00b7 45 users",
+    "contacts": 1000,
+    "users": 45,
+    "monthly": 1439,
+    "annual": 13740
+  },
+  {
+    "label": "1,000 contacts \u00b7 46 users",
+    "contacts": 1000,
+    "users": 46,
+    "monthly": 1468,
+    "annual": 14016
+  },
+  {
+    "label": "1,000 contacts \u00b7 47 users",
+    "contacts": 1000,
+    "users": 47,
+    "monthly": 1497,
+    "annual": 14292
+  },
+  {
+    "label": "1,000 contacts \u00b7 48 users",
+    "contacts": 1000,
+    "users": 48,
+    "monthly": 1526,
+    "annual": 14568
+  },
+  {
+    "label": "1,000 contacts \u00b7 49 users",
+    "contacts": 1000,
+    "users": 49,
+    "monthly": 1555,
+    "annual": 14844
+  },
+  {
+    "label": "1,000 contacts \u00b7 50 users",
+    "contacts": 1000,
+    "users": 50,
+    "monthly": 1584,
+    "annual": 15120
+  },
+  {
     "label": "5,000 contacts \u00b7 1 user",
     "contacts": 5000,
     "users": 1,
@@ -352,6 +527,181 @@ export const activecampaignQuotes = [
     "annual": 9948
   },
   {
+    "label": "5,000 contacts \u00b7 26 users",
+    "contacts": 5000,
+    "users": 26,
+    "monthly": 1068,
+    "annual": 10224
+  },
+  {
+    "label": "5,000 contacts \u00b7 27 users",
+    "contacts": 5000,
+    "users": 27,
+    "monthly": 1097,
+    "annual": 10500
+  },
+  {
+    "label": "5,000 contacts \u00b7 28 users",
+    "contacts": 5000,
+    "users": 28,
+    "monthly": 1126,
+    "annual": 10776
+  },
+  {
+    "label": "5,000 contacts \u00b7 29 users",
+    "contacts": 5000,
+    "users": 29,
+    "monthly": 1155,
+    "annual": 11052
+  },
+  {
+    "label": "5,000 contacts \u00b7 30 users",
+    "contacts": 5000,
+    "users": 30,
+    "monthly": 1184,
+    "annual": 11328
+  },
+  {
+    "label": "5,000 contacts \u00b7 31 users",
+    "contacts": 5000,
+    "users": 31,
+    "monthly": 1213,
+    "annual": 11604
+  },
+  {
+    "label": "5,000 contacts \u00b7 32 users",
+    "contacts": 5000,
+    "users": 32,
+    "monthly": 1242,
+    "annual": 11880
+  },
+  {
+    "label": "5,000 contacts \u00b7 33 users",
+    "contacts": 5000,
+    "users": 33,
+    "monthly": 1271,
+    "annual": 12156
+  },
+  {
+    "label": "5,000 contacts \u00b7 34 users",
+    "contacts": 5000,
+    "users": 34,
+    "monthly": 1300,
+    "annual": 12432
+  },
+  {
+    "label": "5,000 contacts \u00b7 35 users",
+    "contacts": 5000,
+    "users": 35,
+    "monthly": 1329,
+    "annual": 12708
+  },
+  {
+    "label": "5,000 contacts \u00b7 36 users",
+    "contacts": 5000,
+    "users": 36,
+    "monthly": 1358,
+    "annual": 12984
+  },
+  {
+    "label": "5,000 contacts \u00b7 37 users",
+    "contacts": 5000,
+    "users": 37,
+    "monthly": 1387,
+    "annual": 13260
+  },
+  {
+    "label": "5,000 contacts \u00b7 38 users",
+    "contacts": 5000,
+    "users": 38,
+    "monthly": 1416,
+    "annual": 13536
+  },
+  {
+    "label": "5,000 contacts \u00b7 39 users",
+    "contacts": 5000,
+    "users": 39,
+    "monthly": 1445,
+    "annual": 13812
+  },
+  {
+    "label": "5,000 contacts \u00b7 40 users",
+    "contacts": 5000,
+    "users": 40,
+    "monthly": 1474,
+    "annual": 14088
+  },
+  {
+    "label": "5,000 contacts \u00b7 41 users",
+    "contacts": 5000,
+    "users": 41,
+    "monthly": 1503,
+    "annual": 14364
+  },
+  {
+    "label": "5,000 contacts \u00b7 42 users",
+    "contacts": 5000,
+    "users": 42,
+    "monthly": 1532,
+    "annual": 14640
+  },
+  {
+    "label": "5,000 contacts \u00b7 43 users",
+    "contacts": 5000,
+    "users": 43,
+    "monthly": 1561,
+    "annual": 14916
+  },
+  {
+    "label": "5,000 contacts \u00b7 44 users",
+    "contacts": 5000,
+    "users": 44,
+    "monthly": 1590,
+    "annual": 15192
+  },
+  {
+    "label": "5,000 contacts \u00b7 45 users",
+    "contacts": 5000,
+    "users": 45,
+    "monthly": 1619,
+    "annual": 15468
+  },
+  {
+    "label": "5,000 contacts \u00b7 46 users",
+    "contacts": 5000,
+    "users": 46,
+    "monthly": 1648,
+    "annual": 15744
+  },
+  {
+    "label": "5,000 contacts \u00b7 47 users",
+    "contacts": 5000,
+    "users": 47,
+    "monthly": 1677,
+    "annual": 16020
+  },
+  {
+    "label": "5,000 contacts \u00b7 48 users",
+    "contacts": 5000,
+    "users": 48,
+    "monthly": 1706,
+    "annual": 16296
+  },
+  {
+    "label": "5,000 contacts \u00b7 49 users",
+    "contacts": 5000,
+    "users": 49,
+    "monthly": 1735,
+    "annual": 16572
+  },
+  {
+    "label": "5,000 contacts \u00b7 50 users",
+    "contacts": 5000,
+    "users": 50,
+    "monthly": 1764,
+    "annual": 16848
+  },
+  {
     "label": "10,000 contacts \u00b7 1 user",
     "contacts": 10000,
     "users": 1,
@@ -525,5 +875,880 @@ export const activecampaignQuotes = [
     "users": 25,
     "monthly": 1129,
     "annual": 10740
+  },
+  {
+    "label": "10,000 contacts \u00b7 26 users",
+    "contacts": 10000,
+    "users": 26,
+    "monthly": 1158,
+    "annual": 11016
+  },
+  {
+    "label": "10,000 contacts \u00b7 27 users",
+    "contacts": 10000,
+    "users": 27,
+    "monthly": 1187,
+    "annual": 11292
+  },
+  {
+    "label": "10,000 contacts \u00b7 28 users",
+    "contacts": 10000,
+    "users": 28,
+    "monthly": 1216,
+    "annual": 11568
+  },
+  {
+    "label": "10,000 contacts \u00b7 29 users",
+    "contacts": 10000,
+    "users": 29,
+    "monthly": 1245,
+    "annual": 11844
+  },
+  {
+    "label": "10,000 contacts \u00b7 30 users",
+    "contacts": 10000,
+    "users": 30,
+    "monthly": 1274,
+    "annual": 12120
+  },
+  {
+    "label": "10,000 contacts \u00b7 31 users",
+    "contacts": 10000,
+    "users": 31,
+    "monthly": 1303,
+    "annual": 12396
+  },
+  {
+    "label": "10,000 contacts \u00b7 32 users",
+    "contacts": 10000,
+    "users": 32,
+    "monthly": 1332,
+    "annual": 12672
+  },
+  {
+    "label": "10,000 contacts \u00b7 33 users",
+    "contacts": 10000,
+    "users": 33,
+    "monthly": 1361,
+    "annual": 12948
+  },
+  {
+    "label": "10,000 contacts \u00b7 34 users",
+    "contacts": 10000,
+    "users": 34,
+    "monthly": 1390,
+    "annual": 13224
+  },
+  {
+    "label": "10,000 contacts \u00b7 35 users",
+    "contacts": 10000,
+    "users": 35,
+    "monthly": 1419,
+    "annual": 13500
+  },
+  {
+    "label": "10,000 contacts \u00b7 36 users",
+    "contacts": 10000,
+    "users": 36,
+    "monthly": 1448,
+    "annual": 13776
+  },
+  {
+    "label": "10,000 contacts \u00b7 37 users",
+    "contacts": 10000,
+    "users": 37,
+    "monthly": 1477,
+    "annual": 14052
+  },
+  {
+    "label": "10,000 contacts \u00b7 38 users",
+    "contacts": 10000,
+    "users": 38,
+    "monthly": 1506,
+    "annual": 14328
+  },
+  {
+    "label": "10,000 contacts \u00b7 39 users",
+    "contacts": 10000,
+    "users": 39,
+    "monthly": 1535,
+    "annual": 14604
+  },
+  {
+    "label": "10,000 contacts \u00b7 40 users",
+    "contacts": 10000,
+    "users": 40,
+    "monthly": 1564,
+    "annual": 14880
+  },
+  {
+    "label": "10,000 contacts \u00b7 41 users",
+    "contacts": 10000,
+    "users": 41,
+    "monthly": 1593,
+    "annual": 15156
+  },
+  {
+    "label": "10,000 contacts \u00b7 42 users",
+    "contacts": 10000,
+    "users": 42,
+    "monthly": 1622,
+    "annual": 15432
+  },
+  {
+    "label": "10,000 contacts \u00b7 43 users",
+    "contacts": 10000,
+    "users": 43,
+    "monthly": 1651,
+    "annual": 15708
+  },
+  {
+    "label": "10,000 contacts \u00b7 44 users",
+    "contacts": 10000,
+    "users": 44,
+    "monthly": 1680,
+    "annual": 15984
+  },
+  {
+    "label": "10,000 contacts \u00b7 45 users",
+    "contacts": 10000,
+    "users": 45,
+    "monthly": 1709,
+    "annual": 16260
+  },
+  {
+    "label": "10,000 contacts \u00b7 46 users",
+    "contacts": 10000,
+    "users": 46,
+    "monthly": 1738,
+    "annual": 16536
+  },
+  {
+    "label": "10,000 contacts \u00b7 47 users",
+    "contacts": 10000,
+    "users": 47,
+    "monthly": 1767,
+    "annual": 16812
+  },
+  {
+    "label": "10,000 contacts \u00b7 48 users",
+    "contacts": 10000,
+    "users": 48,
+    "monthly": 1796,
+    "annual": 17088
+  },
+  {
+    "label": "10,000 contacts \u00b7 49 users",
+    "contacts": 10000,
+    "users": 49,
+    "monthly": 1825,
+    "annual": 17364
+  },
+  {
+    "label": "10,000 contacts \u00b7 50 users",
+    "contacts": 10000,
+    "users": 50,
+    "monthly": 1854,
+    "annual": 17640
+  },
+  {
+    "label": "25,000 contacts \u00b7 1 user",
+    "contacts": 25000,
+    "users": 1,
+    "monthly": 808,
+    "annual": 7716
+  },
+  {
+    "label": "25,000 contacts \u00b7 2 users",
+    "contacts": 25000,
+    "users": 2,
+    "monthly": 837,
+    "annual": 7992
+  },
+  {
+    "label": "25,000 contacts \u00b7 3 users",
+    "contacts": 25000,
+    "users": 3,
+    "monthly": 866,
+    "annual": 8268
+  },
+  {
+    "label": "25,000 contacts \u00b7 4 users",
+    "contacts": 25000,
+    "users": 4,
+    "monthly": 895,
+    "annual": 8544
+  },
+  {
+    "label": "25,000 contacts \u00b7 5 users",
+    "contacts": 25000,
+    "users": 5,
+    "monthly": 924,
+    "annual": 8820
+  },
+  {
+    "label": "25,000 contacts \u00b7 6 users",
+    "contacts": 25000,
+    "users": 6,
+    "monthly": 953,
+    "annual": 9096
+  },
+  {
+    "label": "25,000 contacts \u00b7 7 users",
+    "contacts": 25000,
+    "users": 7,
+    "monthly": 982,
+    "annual": 9372
+  },
+  {
+    "label": "25,000 contacts \u00b7 8 users",
+    "contacts": 25000,
+    "users": 8,
+    "monthly": 1011,
+    "annual": 9648
+  },
+  {
+    "label": "25,000 contacts \u00b7 9 users",
+    "contacts": 25000,
+    "users": 9,
+    "monthly": 1040,
+    "annual": 9924
+  },
+  {
+    "label": "25,000 contacts \u00b7 10 users",
+    "contacts": 25000,
+    "users": 10,
+    "monthly": 1069,
+    "annual": 10200
+  },
+  {
+    "label": "25,000 contacts \u00b7 11 users",
+    "contacts": 25000,
+    "users": 11,
+    "monthly": 1098,
+    "annual": 10476
+  },
+  {
+    "label": "25,000 contacts \u00b7 12 users",
+    "contacts": 25000,
+    "users": 12,
+    "monthly": 1127,
+    "annual": 10752
+  },
+  {
+    "label": "25,000 contacts \u00b7 13 users",
+    "contacts": 25000,
+    "users": 13,
+    "monthly": 1156,
+    "annual": 11028
+  },
+  {
+    "label": "25,000 contacts \u00b7 14 users",
+    "contacts": 25000,
+    "users": 14,
+    "monthly": 1185,
+    "annual": 11304
+  },
+  {
+    "label": "25,000 contacts \u00b7 15 users",
+    "contacts": 25000,
+    "users": 15,
+    "monthly": 1214,
+    "annual": 11580
+  },
+  {
+    "label": "25,000 contacts \u00b7 16 users",
+    "contacts": 25000,
+    "users": 16,
+    "monthly": 1243,
+    "annual": 11856
+  },
+  {
+    "label": "25,000 contacts \u00b7 17 users",
+    "contacts": 25000,
+    "users": 17,
+    "monthly": 1272,
+    "annual": 12132
+  },
+  {
+    "label": "25,000 contacts \u00b7 18 users",
+    "contacts": 25000,
+    "users": 18,
+    "monthly": 1301,
+    "annual": 12408
+  },
+  {
+    "label": "25,000 contacts \u00b7 19 users",
+    "contacts": 25000,
+    "users": 19,
+    "monthly": 1330,
+    "annual": 12684
+  },
+  {
+    "label": "25,000 contacts \u00b7 20 users",
+    "contacts": 25000,
+    "users": 20,
+    "monthly": 1359,
+    "annual": 12960
+  },
+  {
+    "label": "25,000 contacts \u00b7 21 users",
+    "contacts": 25000,
+    "users": 21,
+    "monthly": 1388,
+    "annual": 13236
+  },
+  {
+    "label": "25,000 contacts \u00b7 22 users",
+    "contacts": 25000,
+    "users": 22,
+    "monthly": 1417,
+    "annual": 13512
+  },
+  {
+    "label": "25,000 contacts \u00b7 23 users",
+    "contacts": 25000,
+    "users": 23,
+    "monthly": 1446,
+    "annual": 13788
+  },
+  {
+    "label": "25,000 contacts \u00b7 24 users",
+    "contacts": 25000,
+    "users": 24,
+    "monthly": 1475,
+    "annual": 14064
+  },
+  {
+    "label": "25,000 contacts \u00b7 25 users",
+    "contacts": 25000,
+    "users": 25,
+    "monthly": 1504,
+    "annual": 14340
+  },
+  {
+    "label": "25,000 contacts \u00b7 26 users",
+    "contacts": 25000,
+    "users": 26,
+    "monthly": 1533,
+    "annual": 14616
+  },
+  {
+    "label": "25,000 contacts \u00b7 27 users",
+    "contacts": 25000,
+    "users": 27,
+    "monthly": 1562,
+    "annual": 14892
+  },
+  {
+    "label": "25,000 contacts \u00b7 28 users",
+    "contacts": 25000,
+    "users": 28,
+    "monthly": 1591,
+    "annual": 15168
+  },
+  {
+    "label": "25,000 contacts \u00b7 29 users",
+    "contacts": 25000,
+    "users": 29,
+    "monthly": 1620,
+    "annual": 15444
+  },
+  {
+    "label": "25,000 contacts \u00b7 30 users",
+    "contacts": 25000,
+    "users": 30,
+    "monthly": 1649,
+    "annual": 15720
+  },
+  {
+    "label": "25,000 contacts \u00b7 31 users",
+    "contacts": 25000,
+    "users": 31,
+    "monthly": 1678,
+    "annual": 15996
+  },
+  {
+    "label": "25,000 contacts \u00b7 32 users",
+    "contacts": 25000,
+    "users": 32,
+    "monthly": 1707,
+    "annual": 16272
+  },
+  {
+    "label": "25,000 contacts \u00b7 33 users",
+    "contacts": 25000,
+    "users": 33,
+    "monthly": 1736,
+    "annual": 16548
+  },
+  {
+    "label": "25,000 contacts \u00b7 34 users",
+    "contacts": 25000,
+    "users": 34,
+    "monthly": 1765,
+    "annual": 16824
+  },
+  {
+    "label": "25,000 contacts \u00b7 35 users",
+    "contacts": 25000,
+    "users": 35,
+    "monthly": 1794,
+    "annual": 17100
+  },
+  {
+    "label": "25,000 contacts \u00b7 36 users",
+    "contacts": 25000,
+    "users": 36,
+    "monthly": 1823,
+    "annual": 17376
+  },
+  {
+    "label": "25,000 contacts \u00b7 37 users",
+    "contacts": 25000,
+    "users": 37,
+    "monthly": 1852,
+    "annual": 17652
+  },
+  {
+    "label": "25,000 contacts \u00b7 38 users",
+    "contacts": 25000,
+    "users": 38,
+    "monthly": 1881,
+    "annual": 17928
+  },
+  {
+    "label": "25,000 contacts \u00b7 39 users",
+    "contacts": 25000,
+    "users": 39,
+    "monthly": 1910,
+    "annual": 18204
+  },
+  {
+    "label": "25,000 contacts \u00b7 40 users",
+    "contacts": 25000,
+    "users": 40,
+    "monthly": 1939,
+    "annual": 18480
+  },
+  {
+    "label": "25,000 contacts \u00b7 41 users",
+    "contacts": 25000,
+    "users": 41,
+    "monthly": 1968,
+    "annual": 18756
+  },
+  {
+    "label": "25,000 contacts \u00b7 42 users",
+    "contacts": 25000,
+    "users": 42,
+    "monthly": 1997,
+    "annual": 19032
+  },
+  {
+    "label": "25,000 contacts \u00b7 43 users",
+    "contacts": 25000,
+    "users": 43,
+    "monthly": 2026,
+    "annual": 19308
+  },
+  {
+    "label": "25,000 contacts \u00b7 44 users",
+    "contacts": 25000,
+    "users": 44,
+    "monthly": 2055,
+    "annual": 19584
+  },
+  {
+    "label": "25,000 contacts \u00b7 45 users",
+    "contacts": 25000,
+    "users": 45,
+    "monthly": 2084,
+    "annual": 19860
+  },
+  {
+    "label": "25,000 contacts \u00b7 46 users",
+    "contacts": 25000,
+    "users": 46,
+    "monthly": 2113,
+    "annual": 20136
+  },
+  {
+    "label": "25,000 contacts \u00b7 47 users",
+    "contacts": 25000,
+    "users": 47,
+    "monthly": 2142,
+    "annual": 20412
+  },
+  {
+    "label": "25,000 contacts \u00b7 48 users",
+    "contacts": 25000,
+    "users": 48,
+    "monthly": 2171,
+    "annual": 20688
+  },
+  {
+    "label": "25,000 contacts \u00b7 49 users",
+    "contacts": 25000,
+    "users": 49,
+    "monthly": 2200,
+    "annual": 20964
+  },
+  {
+    "label": "25,000 contacts \u00b7 50 users",
+    "contacts": 25000,
+    "users": 50,
+    "monthly": 2229,
+    "annual": 21240
+  },
+  {
+    "label": "50,000 contacts \u00b7 1 user",
+    "contacts": 50000,
+    "users": 1,
+    "monthly": 1213,
+    "annual": 11676
+  },
+  {
+    "label": "50,000 contacts \u00b7 2 users",
+    "contacts": 50000,
+    "users": 2,
+    "monthly": 1242,
+    "annual": 11952
+  },
+  {
+    "label": "50,000 contacts \u00b7 3 users",
+    "contacts": 50000,
+    "users": 3,
+    "monthly": 1271,
+    "annual": 12228
+  },
+  {
+    "label": "50,000 contacts \u00b7 4 users",
+    "contacts": 50000,
+    "users": 4,
+    "monthly": 1300,
+    "annual": 12504
+  },
+  {
+    "label": "50,000 contacts \u00b7 5 users",
+    "contacts": 50000,
+    "users": 5,
+    "monthly": 1329,
+    "annual": 12780
+  },
+  {
+    "label": "50,000 contacts \u00b7 6 users",
+    "contacts": 50000,
+    "users": 6,
+    "monthly": 1358,
+    "annual": 13056
+  },
+  {
+    "label": "50,000 contacts \u00b7 7 users",
+    "contacts": 50000,
+    "users": 7,
+    "monthly": 1387,
+    "annual": 13332
+  },
+  {
+    "label": "50,000 contacts \u00b7 8 users",
+    "contacts": 50000,
+    "users": 8,
+    "monthly": 1416,
+    "annual": 13608
+  },
+  {
+    "label": "50,000 contacts \u00b7 9 users",
+    "contacts": 50000,
+    "users": 9,
+    "monthly": 1445,
+    "annual": 13884
+  },
+  {
+    "label": "50,000 contacts \u00b7 10 users",
+    "contacts": 50000,
+    "users": 10,
+    "monthly": 1474,
+    "annual": 14160
+  },
+  {
+    "label": "50,000 contacts \u00b7 11 users",
+    "contacts": 50000,
+    "users": 11,
+    "monthly": 1503,
+    "annual": 14436
+  },
+  {
+    "label": "50,000 contacts \u00b7 12 users",
+    "contacts": 50000,
+    "users": 12,
+    "monthly": 1532,
+    "annual": 14712
+  },
+  {
+    "label": "50,000 contacts \u00b7 13 users",
+    "contacts": 50000,
+    "users": 13,
+    "monthly": 1561,
+    "annual": 14988
+  },
+  {
+    "label": "50,000 contacts \u00b7 14 users",
+    "contacts": 50000,
+    "users": 14,
+    "monthly": 1590,
+    "annual": 15264
+  },
+  {
+    "label": "50,000 contacts \u00b7 15 users",
+    "contacts": 50000,
+    "users": 15,
+    "monthly": 1619,
+    "annual": 15540
+  },
+  {
+    "label": "50,000 contacts \u00b7 16 users",
+    "contacts": 50000,
+    "users": 16,
+    "monthly": 1648,
+    "annual": 15816
+  },
+  {
+    "label": "50,000 contacts \u00b7 17 users",
+    "contacts": 50000,
+    "users": 17,
+    "monthly": 1677,
+    "annual": 16092
+  },
+  {
+    "label": "50,000 contacts \u00b7 18 users",
+    "contacts": 50000,
+    "users": 18,
+    "monthly": 1706,
+    "annual": 16368
+  },
+  {
+    "label": "50,000 contacts \u00b7 19 users",
+    "contacts": 50000,
+    "users": 19,
+    "monthly": 1735,
+    "annual": 16644
+  },
+  {
+    "label": "50,000 contacts \u00b7 20 users",
+    "contacts": 50000,
+    "users": 20,
+    "monthly": 1764,
+    "annual": 16920
+  },
+  {
+    "label": "50,000 contacts \u00b7 21 users",
+    "contacts": 50000,
+    "users": 21,
+    "monthly": 1793,
+    "annual": 17196
+  },
+  {
+    "label": "50,000 contacts \u00b7 22 users",
+    "contacts": 50000,
+    "users": 22,
+    "monthly": 1822,
+    "annual": 17472
+  },
+  {
+    "label": "50,000 contacts \u00b7 23 users",
+    "contacts": 50000,
+    "users": 23,
+    "monthly": 1851,
+    "annual": 17748
+  },
+  {
+    "label": "50,000 contacts \u00b7 24 users",
+    "contacts": 50000,
+    "users": 24,
+    "monthly": 1880,
+    "annual": 18024
+  },
+  {
+    "label": "50,000 contacts \u00b7 25 users",
+    "contacts": 50000,
+    "users": 25,
+    "monthly": 1909,
+    "annual": 18300
+  },
+  {
+    "label": "50,000 contacts \u00b7 26 users",
+    "contacts": 50000,
+    "users": 26,
+    "monthly": 1938,
+    "annual": 18576
+  },
+  {
+    "label": "50,000 contacts \u00b7 27 users",
+    "contacts": 50000,
+    "users": 27,
+    "monthly": 1967,
+    "annual": 18852
+  },
+  {
+    "label": "50,000 contacts \u00b7 28 users",
+    "contacts": 50000,
+    "users": 28,
+    "monthly": 1996,
+    "annual": 19128
+  },
+  {
+    "label": "50,000 contacts \u00b7 29 users",
+    "contacts": 50000,
+    "users": 29,
+    "monthly": 2025,
+    "annual": 19404
+  },
+  {
+    "label": "50,000 contacts \u00b7 30 users",
+    "contacts": 50000,
+    "users": 30,
+    "monthly": 2054,
+    "annual": 19680
+  },
+  {
+    "label": "50,000 contacts \u00b7 31 users",
+    "contacts": 50000,
+    "users": 31,
+    "monthly": 2083,
+    "annual": 19956
+  },
+  {
+    "label": "50,000 contacts \u00b7 32 users",
+    "contacts": 50000,
+    "users": 32,
+    "monthly": 2112,
+    "annual": 20232
+  },
+  {
+    "label": "50,000 contacts \u00b7 33 users",
+    "contacts": 50000,
+    "users": 33,
+    "monthly": 2141,
+    "annual": 20508
+  },
+  {
+    "label": "50,000 contacts \u00b7 34 users",
+    "contacts": 50000,
+    "users": 34,
+    "monthly": 2170,
+    "annual": 20784
+  },
+  {
+    "label": "50,000 contacts \u00b7 35 users",
+    "contacts": 50000,
+    "users": 35,
+    "monthly": 2199,
+    "annual": 21060
+  },
+  {
+    "label": "50,000 contacts \u00b7 36 users",
+    "contacts": 50000,
+    "users": 36,
+    "monthly": 2228,
+    "annual": 21336
+  },
+  {
+    "label": "50,000 contacts \u00b7 37 users",
+    "contacts": 50000,
+    "users": 37,
+    "monthly": 2257,
+    "annual": 21612
+  },
+  {
+    "label": "50,000 contacts \u00b7 38 users",
+    "contacts": 50000,
+    "users": 38,
+    "monthly": 2286,
+    "annual": 21888
+  },
+  {
+    "label": "50,000 contacts \u00b7 39 users",
+    "contacts": 50000,
+    "users": 39,
+    "monthly": 2315,
+    "annual": 22164
+  },
+  {
+    "label": "50,000 contacts \u00b7 40 users",
+    "contacts": 50000,
+    "users": 40,
+    "monthly": 2344,
+    "annual": 22440
+  },
+  {
+    "label": "50,000 contacts \u00b7 41 users",
+    "contacts": 50000,
+    "users": 41,
+    "monthly": 2373,
+    "annual": 22716
+  },
+  {
+    "label": "50,000 contacts \u00b7 42 users",
+    "contacts": 50000,
+    "users": 42,
+    "monthly": 2402,
+    "annual": 22992
+  },
+  {
+    "label": "50,000 contacts \u00b7 43 users",
+    "contacts": 50000,
+    "users": 43,
+    "monthly": 2431,
+    "annual": 23268
+  },
+  {
+    "label": "50,000 contacts \u00b7 44 users",
+    "contacts": 50000,
+    "users": 44,
+    "monthly": 2460,
+    "annual": 23544
+  },
+  {
+    "label": "50,000 contacts \u00b7 45 users",
+    "contacts": 50000,
+    "users": 45,
+    "monthly": 2489,
+    "annual": 23820
+  },
+  {
+    "label": "50,000 contacts \u00b7 46 users",
+    "contacts": 50000,
+    "users": 46,
+    "monthly": 2518,
+    "annual": 24096
+  },
+  {
+    "label": "50,000 contacts \u00b7 47 users",
+    "contacts": 50000,
+    "users": 47,
+    "monthly": 2547,
+    "annual": 24372
+  },
+  {
+    "label": "50,000 contacts \u00b7 48 users",
+    "contacts": 50000,
+    "users": 48,
+    "monthly": 2576,
+    "annual": 24648
+  },
+  {
+    "label": "50,000 contacts \u00b7 49 users",
+    "contacts": 50000,
+    "users": 49,
+    "monthly": 2605,
+    "annual": 24924
+  },
+  {
+    "label": "50,000 contacts \u00b7 50 users",
+    "contacts": 50000,
+    "users": 50,
+    "monthly": 2634,
+    "annual": 25200
   }
 ] as const;

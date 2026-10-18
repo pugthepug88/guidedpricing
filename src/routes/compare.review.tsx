@@ -175,7 +175,7 @@ function ComparisonReview() {
     setChecking(true);
     setReport('');
     const results: string[] = [];
-    const pause = () => new Promise<void>(resolve => window.setTimeout(resolve, 100));
+    const pause = () => new Promise<void>(resolve => window.setTimeout(resolve, 35));
     const money = (n: number) => 'A$' + n.toLocaleString('en-AU', { maximumFractionDigits: 2 });
     try {
       const doc = frame.current?.contentDocument;
@@ -189,7 +189,9 @@ function ComparisonReview() {
         {contacts:1000, monthly:163, annual:1596},
         {contacts:5000, monthly:343, annual:3324},
         {contacts:10000, monthly:433, annual:4116},
-      ].flatMap(base => Array.from({length:25}, (_,i) => ({contacts:base.contacts, users:i+1, monthly:base.monthly+29*i, annual:base.annual+276*i})));
+        {contacts:25000, monthly:808, annual:7716},
+        {contacts:50000, monthly:1213, annual:11676},
+      ].flatMap(base => Array.from({length:50}, (_,i) => ({contacts:base.contacts, users:i+1, monthly:base.monthly+29*i, annual:base.annual+276*i})));
 
       for (const viewport of [375, 390, 768, 1440]) {
         setWidth(viewport);
@@ -198,7 +200,7 @@ function ComparisonReview() {
         for (const annual of [false, true]) {
           radios[annual ? 1 : 0].click();
           for (const [index, quote] of quotes.entries()) {
-            for (const [select, value] of [[contacts, [1000,5000,10000].indexOf(quote.contacts)], [users, quote.users]] as const) {
+            for (const [select, value] of [[contacts, [1000,5000,10000,25000,50000].indexOf(quote.contacts)], [users, quote.users]] as const) {
               Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(select, String(value));
               select.dispatchEvent(new win.Event('input', {bubbles:true}));
               select.dispatchEvent(new win.Event('change', {bubbles:true}));
@@ -210,9 +212,9 @@ function ComparisonReview() {
             const total = cards[1]?.querySelector('.cc-team-total');
             if (!total?.textContent?.startsWith(money(annual ? quote.annual / 12 : quote.monthly))) throw new Error('Incorrect package total.');
             if (!vendor.includes(quote.contacts.toLocaleString('en-AU') + ' contacts') || !vendor.includes(quote.users + ' user')) throw new Error('Incorrect configuration context.');
-            if (annual && !vendor.includes(money(quote.annual) + ' paid upfront each year. Annual commitment.')) throw new Error('Annual upfront mismatch.');
-            if (!annual && !vendor.includes('Month-to-month subscription.')) throw new Error('Monthly terms incorrect.');
-            if (!vendor.includes('Pipelines') || !vendor.includes('before applicable taxes')) throw new Error('Tier or tax missing.');
+            if (annual && !vendor.includes(money(quote.annual) + ' paid annually. One-year commitment.')) throw new Error('Annual upfront mismatch.');
+            if (!annual && !vendor.includes('Monthly billing. No annual commitment.')) throw new Error('Monthly terms incorrect.');
+            if (!vendor.includes('Pipelines') || !vendor.includes('before taxes')) throw new Error('Tier or tax missing.');
             if (!cards[0]?.textContent?.includes('A$399') || !cards[0]?.textContent?.includes('A$1,997')) throw new Error('Zapla subscription or launch mismatch.');
             if (total.firstChild) { const r = doc.createRange(); r.selectNodeContents(total.firstChild); if (r.getClientRects().length > 1) throw new Error('Price wraps at ' + viewport); }
             if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Calculator overflow.');
@@ -232,12 +234,22 @@ function ComparisonReview() {
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Missing noindex.');
         for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken anchor.');
       }
+      for (const [control, value] of [['Number of people', '150'], ['Number of contacts', '100000']] as const) {
+        const input = doc.querySelector<HTMLInputElement>(`input[aria-label="${control}"]`)!;
+        Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(input, value);
+        input.dispatchEvent(new win.Event('input', {bubbles:true}));
+        input.dispatchEvent(new win.Event('change', {bubbles:true}));
+        await pause();
+      }
+      if (!doc.querySelector('.cc-team-results')?.textContent?.includes('Current quote required')) throw new Error('Missing larger-selection quote state.');
+      if (!doc.querySelector('.cc-team-zapla')?.textContent?.includes('A$399')) throw new Error('Zapla changed for larger selection.');
+      results.push('Larger custom selections: current quote required, no fabricated AC price PASS');
       const main = doc.querySelector('.cc-hero');
       const labels = [...doc.querySelectorAll('.cc-table tbody th')].map(node => node.textContent);
       for (const label of ['Unlimited users','Unlimited contacts','Unlimited pipelines','Forms','Quotes & proposals','Invoicing']) if (!labels.includes(label)) throw new Error('Missing consistent label: ' + label);
       if (main?.textContent?.includes('Pipedrive') || main?.textContent?.includes('HubSpot')) throw new Error('Leaked competitor copy.');
       results.push('First-year totals, noindex, loaded images, anchors and consistent feature labels PASS');
-      setReport('600 ActiveCampaign calculator states and 8 layout states passed.\n' + results.join('\n'));
+      setReport('2000 ActiveCampaign calculator states and 8 layout states passed.\n' + results.join('\n'));
     } catch (error) { setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n')); }
     finally { setChecking(false); }
   }
