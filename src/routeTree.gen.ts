@@ -32,6 +32,7 @@ import { Route as CompareZaplaVsCreatioSimpleRouteImport } from './routes/compar
 import { Route as CompareZaplaVsHubspotSimpleRouteImport } from './routes/compare.zapla-vs-hubspot-simple'
 import { Route as CompareZaplaVsPipedriveRouteImport } from './routes/compare.zapla-vs-pipedrive'
 import { Route as CompareZaplaVsPipedriveSimpleRouteImport } from './routes/compare.zapla-vs-pipedrive-simple'
+import { Route as CompareZaplaVsPipedriveV2RouteImport } from './routes/compare.zapla-vs-pipedrive-v2'
 import { Route as CompareZaplaVsZohoSimpleRouteImport } from './routes/compare.zapla-vs-zoho-simple'
 import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
 import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
@@ -165,6 +166,12 @@ const CompareZaplaVsPipedriveSimpleRoute =
     path: '/compare/zapla-vs-pipedrive-simple',
     getParentRoute: () => rootRouteImport,
   } as any)
+const CompareZaplaVsPipedriveV2Route =
+  CompareZaplaVsPipedriveV2RouteImport.update({
+    id: '/compare/zapla-vs-pipedrive-v2',
+    path: '/compare/zapla-vs-pipedrive-v2',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CompareZaplaVsZohoSimpleRoute =
   CompareZaplaVsZohoSimpleRouteImport.update({
     id: '/compare/zapla-vs-zoho-simple',
@@ -251,6 +258,7 @@ export interface FileRoutesByFullPath {
   '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
+  '/compare/zapla-vs-pipedrive-v2': typeof CompareZaplaVsPipedriveV2Route
   '/compare/zapla-vs-zoho-simple': typeof CompareZaplaVsZohoSimpleRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
@@ -287,6 +295,7 @@ export interface FileRoutesByTo {
   '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
+  '/compare/zapla-vs-pipedrive-v2': typeof CompareZaplaVsPipedriveV2Route
   '/compare/zapla-vs-zoho-simple': typeof CompareZaplaVsZohoSimpleRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
@@ -324,6 +333,7 @@ export interface FileRoutesById {
   '/compare/zapla-vs-hubspot-simple': typeof CompareZaplaVsHubspotSimpleRoute
   '/compare/zapla-vs-pipedrive': typeof CompareZaplaVsPipedriveRoute
   '/compare/zapla-vs-pipedrive-simple': typeof CompareZaplaVsPipedriveSimpleRoute
+  '/compare/zapla-vs-pipedrive-v2': typeof CompareZaplaVsPipedriveV2Route
   '/compare/zapla-vs-zoho-simple': typeof CompareZaplaVsZohoSimpleRoute
   '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
   '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
@@ -362,6 +372,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
+    | '/compare/zapla-vs-pipedrive-v2'
     | '/compare/zapla-vs-zoho-simple'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
@@ -398,6 +409,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
+    | '/compare/zapla-vs-pipedrive-v2'
     | '/compare/zapla-vs-zoho-simple'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
@@ -434,6 +446,7 @@ export interface FileRouteTypes {
     | '/compare/zapla-vs-hubspot-simple'
     | '/compare/zapla-vs-pipedrive'
     | '/compare/zapla-vs-pipedrive-simple'
+    | '/compare/zapla-vs-pipedrive-v2'
     | '/compare/zapla-vs-zoho-simple'
     | '/concept/cinematic-follow-through-v5'
     | '/concept/cinematic-follow-through-v6'
@@ -471,6 +484,7 @@ export interface RootRouteChildren {
   CompareZaplaVsHubspotSimpleRoute: typeof CompareZaplaVsHubspotSimpleRoute
   CompareZaplaVsPipedriveRoute: typeof CompareZaplaVsPipedriveRoute
   CompareZaplaVsPipedriveSimpleRoute: typeof CompareZaplaVsPipedriveSimpleRoute
+  CompareZaplaVsPipedriveV2Route: typeof CompareZaplaVsPipedriveV2Route
   CompareZaplaVsZohoSimpleRoute: typeof CompareZaplaVsZohoSimpleRoute
   ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
   ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
@@ -647,6 +661,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareZaplaVsPipedriveSimpleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compare/zapla-vs-pipedrive-v2': {
+      id: '/compare/zapla-vs-pipedrive-v2'
+      path: '/compare/zapla-vs-pipedrive-v2'
+      fullPath: '/compare/zapla-vs-pipedrive-v2'
+      preLoaderRoute: typeof CompareZaplaVsPipedriveV2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/compare/zapla-vs-zoho-simple': {
       id: '/compare/zapla-vs-zoho-simple'
       path: '/compare/zapla-vs-zoho-simple'
@@ -753,6 +774,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareZaplaVsHubspotSimpleRoute: CompareZaplaVsHubspotSimpleRoute,
   CompareZaplaVsPipedriveRoute: CompareZaplaVsPipedriveRoute,
   CompareZaplaVsPipedriveSimpleRoute: CompareZaplaVsPipedriveSimpleRoute,
+  CompareZaplaVsPipedriveV2Route: CompareZaplaVsPipedriveV2Route,
   CompareZaplaVsZohoSimpleRoute: CompareZaplaVsZohoSimpleRoute,
   ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
   ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
