@@ -56,11 +56,12 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
       <div className="cc-section-heading"><p className="cc-section-label">The comparison</p><h2 id="comparison-heading">Compare what’s included.</h2><p>{data.tableIntroduction}</p></div>
       <div className="cc-table-group-heading"><h3>Everyday customer work</h3><p><strong>Follow-Through: {money(data.offer.monthly)}/month + GST.</strong> Unlimited users. Required launch from {money(data.offer.launch)} + GST.</p></div>
       <FeatureTable rows={[...data.rows, ...data.optionalRows]} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Follow-Through" caption={`${data.competitor} ${data.vendorPlan} compared with Zapla Follow-Through.`} />
-      <p className="cc-table-key">✓ Included · × Not included as named. Via integration = a connected third-party service. ¹ Phone numbers and SMS usage are extra. Other communications usage is separate; Zapla contacts are subject to fair use.</p>
+      <p className="cc-table-key">✓ Included in the named package. × Not included in the named package; a connected app may provide it. Separate apps have their own terms and charges. ¹ Phone numbers and message usage are extra.</p>
       <aside className="cc-upgrade-note" aria-labelledby="growth-upgrade-heading">
         <div className="cc-upgrade-features"><h3 id="growth-upgrade-heading">{data.growthComparison?.headline ?? "Need marketing too?"}</h3>{data.growthComparison && <p>{data.growthComparison.description}</p>}<p>Growth includes everything in Follow-Through, plus:</p><ul>{data.growthRows.map(row => <li key={row.id}>{row.label}</li>)}</ul></div>
         <div className="cc-upgrade-price"><p className="cc-upgrade-plan">Zapla Growth</p><p className="cc-upgrade-amount"><strong>{money(data.offer.growthMonthly)}</strong><span>/month + GST, total subscription</span></p><p>Required Guided Launch<br /><strong>from {money(data.offer.growthLaunch)} + GST</strong></p><p>Sending usage is separate.</p><Link to={data.pricingUrl}>Explore Growth <ArrowRight size={15} aria-hidden="true" /></Link></div>
       </aside>
+      {data.showMarketingNote && !data.growthComparison && <p className="cc-usage">{data.marketingNote}</p>}
       {data.growthComparison && <div className="cc-growth-comparison"><p><strong>{data.growthComparison.vendorPrice}</strong> <a href={data.growthComparison.url} target="_blank" rel="noopener noreferrer">See Marketing Hub pricing ↗</a></p><p>{data.growthComparison.qualification}</p><p>{data.marketingNote}</p></div>}
       <p className="cc-table-key">{data.workflowNote}</p>
       {data.tableNotes?.map(note => <p className="cc-table-key" key={note}>{note}</p>)}
@@ -84,7 +85,7 @@ export function ComparisonPage({ data }: { data: ComparisonDefinition }) {
         <p className="cc-renewal">After the original launch, Zapla’s subscription is {money(data.offer.monthly * 12)} + GST for 12 months at today’s price, before usage and extras.</p>
       </details>
       <details className="cc-more-launch"><summary>What does Guided Launch cover?</summary><p>{data.launch.introduction}</p><ol>{data.launch.steps.map(item => <li key={item.title}><strong>{item.title}.</strong> {item.description}</li>)}</ol><Link to={data.pricingUrl}>See full launch inclusions ↗</Link></details>
-      <p className="cc-usage">SMS, email, WhatsApp, voice and optional services are charged separately. Payment-provider charges also apply.</p>
+      <p className="cc-usage">{data.usageNote ?? 'Zapla communications usage, phone numbers, optional services and payment-provider fees are extra.'}</p>
     </div></section>
 
     <section className="cc-fit-section" aria-labelledby="fit-heading"><div className="cc-inner cc-fit-layout"><h2 id="fit-heading">Which fits the way you work?</h2><div className="cc-fit">{data.fit.map((item, index) => ({ item, vendor: index === 0 ? data.competitor : 'Zapla' })).reverse().map(({ item, vendor }) => <article key={item.title}><p className="cc-vendor">{vendor}</p><div className="cc-fit-copy"><h3>{item.title}</h3><p>{item.description}</p>{item.consideration && <p className="cc-consideration">{item.consideration}</p>}</div></article>)}</div></div></section>

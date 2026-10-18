@@ -113,10 +113,11 @@ function ComparisonReview() {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
       if (!doc || !win || path !== '/compare/zapla-vs-activecampaign-simple') throw new Error('Select ActiveCampaign and let it load.');
-      const select = doc.querySelector<HTMLSelectElement>('#comparison-configuration');
+      const contacts = doc.querySelector<HTMLSelectElement>('#comparison-contacts');
+      const users = doc.querySelector<HTMLSelectElement>('#comparison-users');
       const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
-      if (!select || radios.length !== 2) throw new Error('Configuration calculator not loaded.');
-      const quotes = [{monthly:163, annual:1596, users:1, contacts:1000}, {monthly:279, annual:2700, users:5, contacts:1000}, {monthly:433, annual:4116, users:1, contacts:10000}];
+      if (!contacts || !users || radios.length !== 2) throw new Error('Configuration calculator not loaded.');
+      const quotes = [{monthly:163, annual:1596, users:1, contacts:1000}, {monthly:279, annual:2700, users:5, contacts:1000}, {monthly:343, annual:3324, users:1, contacts:5000}, {monthly:459, annual:4428, users:5, contacts:5000}, {monthly:433, annual:4116, users:1, contacts:10000}, {monthly:549, annual:5220, users:5, contacts:10000}];
       for (const viewport of [375, 390, 768, 1440]) {
         setWidth(viewport);
         await pause();
@@ -124,8 +125,11 @@ function ComparisonReview() {
         for (const annual of [false, true]) {
           radios[annual ? 1 : 0].click();
           for (const [index, quote] of quotes.entries()) {
-            Object.getOwnPropertyDescriptor(win.HTMLSelectElement.prototype, 'value')?.set?.call(select, String(index));
-            select.dispatchEvent(new win.Event('change', {bubbles:true}));
+            for (const [select, value] of [[contacts, quote.contacts], [users, quote.users]] as const) {
+              Object.getOwnPropertyDescriptor(win.HTMLSelectElement.prototype, 'value')?.set?.call(select, String(value));
+              select.dispatchEvent(new win.Event('change', {bubbles:true}));
+              await pause();
+            }
             await pause();
             const cards = doc.querySelectorAll('.cc-team-results article');
             const vendor = cards[1]?.textContent ?? '';
@@ -134,7 +138,7 @@ function ComparisonReview() {
             if (!vendor.includes(quote.contacts.toLocaleString('en-AU') + ' contacts') || !vendor.includes(quote.users + ' user')) throw new Error('Incorrect configuration context.');
             if (annual && !vendor.includes(money(quote.annual) + ' paid upfront each year. Annual commitment.')) throw new Error('Annual upfront mismatch.');
             if (!annual && !vendor.includes('Month-to-month subscription.')) throw new Error('Monthly terms incorrect.');
-            if (!vendor.includes('Pipelines add-on') || !vendor.includes('GST')) throw new Error('Tier or tax missing.');
+            if (!vendor.includes('Pipelines') || !vendor.includes('before applicable taxes')) throw new Error('Tier or tax missing.');
             if (!cards[0]?.textContent?.includes('A$399') || !cards[0]?.textContent?.includes('A$1,997')) throw new Error('Zapla subscription or launch mismatch.');
             if (total.firstChild) { const r = doc.createRange(); r.selectNodeContents(total.firstChild); if (r.getClientRects().length > 1) throw new Error('Price wraps at ' + viewport); }
             if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Calculator overflow.');
@@ -149,7 +153,7 @@ function ComparisonReview() {
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        for (const n of [1956,1596,3348,2700,5196,4116,6785]) if (!year.includes(money(n))) throw new Error('First-year amount missing: ' + n);
+        for (const n of [1956,1596,3348,2700,4116,3324,5508,4428,5196,6588,5220,6785]) if (!year.includes(money(n))) throw new Error('First-year amount missing: ' + n);
         if ([...doc.images].some(img => !img.complete || img.naturalWidth === 0)) throw new Error('Broken/unloaded image.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Missing noindex.');
         for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken anchor.');
@@ -159,7 +163,7 @@ function ComparisonReview() {
       for (const label of ['Unlimited users','Unlimited contacts','Unlimited pipelines','Forms','Quotes & proposals','Invoicing']) if (!labels.includes(label)) throw new Error('Missing consistent label: ' + label);
       if (main?.textContent?.includes('Pipedrive') || main?.textContent?.includes('HubSpot')) throw new Error('Leaked competitor copy.');
       results.push('First-year totals, noindex, loaded images, anchors and consistent feature labels PASS');
-      setReport('24 ActiveCampaign calculator states and 8 layout states passed.\n' + results.join('\n'));
+      setReport('48 ActiveCampaign calculator states and 8 layout states passed.\n' + results.join('\n'));
     } catch (error) { setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n')); }
     finally { setChecking(false); }
   }
@@ -241,39 +245,7 @@ function ComparisonReview() {
     setReport('');
     const results: string[] = [];
     const pause = () => new Promise<void>(resolve => window.setTimeout(resolve, 50));
-    const money = (n: number) => 'A{{ padding: '120px 24px 48px', background: '#FCFCFA', color: '#111318', fontFamily: 'Manrope, sans-serif' }}>
-    <div style={{ maxWidth: 1440, margin: '0 auto' }}>
-      <h1 style={{ fontSize: 32, fontWeight: 600, margin: '0 0 12px' }}>Comparison draft review</h1>
-      <p style={{ margin: '0 0 24px' }}>Choose a comparison and a screen width. These are unpublished drafts.</p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'end', marginBottom: 24 }}>
-        <label style={{ display: 'grid', gap: 8 }}>Comparison
-          <select aria-label="Comparison draft" value={path} onChange={event => setPath(event.target.value)} style={{ minHeight: 44, padding: '8px 12px', border: '1px solid #A2AEA6', borderRadius: 8, background: 'white', maxWidth: '100%' }}>
-            {drafts.map(draft => <option key={draft.path} value={draft.path}>{draft.name}</option>)}
-          </select>
-        </label>
-        <label style={{ display: 'grid', gap: 8 }}>Screen width
-          <select aria-label="Screen width" value={width} onChange={event => setWidth(Number(event.target.value))} style={{ minHeight: 44, padding: '8px 12px', border: '1px solid #A2AEA6', borderRadius: 8, background: 'white' }}>
-            <option value={375}>Mobile · 375px</option><option value={390}>Mobile · 390px</option><option value={768}>Tablet · 768px</option><option value={1440}>Desktop · 1440px</option>
-          </select>
-        </label>
-        <a href={path} style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: '#2563FF', textDecoration: 'underline' }}>Open selected draft</a>
-      </div>
-      <button type="button" disabled={checking} onClick={() => { setRefresh(Date.now()); setReport(''); }} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginRight: 12, marginBottom: 16 }}>Refresh preview</button>
-      <button type="button" onClick={runChecks} disabled={checking || path !== '/compare/zapla-vs-hubspot-simple'} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
-      {path === '/compare/zapla-vs-creatio-simple' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
-      {path === '/compare/zapla-vs-activecampaign-simple' && <button type="button" onClick={runActiveCampaignChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run ActiveCampaign checks'}</button>}
-      {path === '/compare/zapla-vs-zoho-simple' && <button type="button" onClick={runZohoChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Zoho checks'}</button>}
-      {report && <details open><summary>Verification results</summary><pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginBottom: 24 }}>{report}</pre></details>}
-      <div ref={stage}>
-        <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>
-          <iframe ref={frame} title="Comparison preview" src={`${path}?review=${refresh}`} style={{ position: 'absolute', top: 0, left: 0, width, height, border: 0, outline: '1px solid #DEE2DC', transform: `scale(${scale})`, transformOrigin: 'top left', background: 'white' }} />
-        </div>
-      </div>
-    </div>
-  </main>;
-}
-
- + n.toLocaleString('en-AU', { minimumFractionDigits: Number.isInteger(n) ? 0 : 2 });
+    const money = (n: number) => 'A$' + n.toLocaleString('en-AU', { minimumFractionDigits: Number.isInteger(n) ? 0 : 2 });
     try {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
@@ -356,6 +328,7 @@ function ComparisonReview() {
       <button type="button" onClick={runChecks} disabled={checking || path !== '/compare/zapla-vs-hubspot-simple'} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
       {path === '/compare/zapla-vs-creatio-simple' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
       {path === '/compare/zapla-vs-activecampaign-simple' && <button type="button" onClick={runActiveCampaignChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run ActiveCampaign checks'}</button>}
+      {path === '/compare/zapla-vs-zoho-simple' && <button type="button" onClick={runZohoChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Zoho checks'}</button>}
       {report && <details open><summary>Verification results</summary><pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginBottom: 24 }}>{report}</pre></details>}
       <div ref={stage}>
         <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>
