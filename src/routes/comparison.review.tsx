@@ -285,7 +285,10 @@ function ComparisonReview() {
           const total = cards[1]?.querySelector('.cc-team-total');
           if (!total?.textContent?.startsWith(money(annual < 16000 ? 16000 : annual))) throw new Error('Wrong price at ' + people);
           if (!vendor.includes(annual < 16000 ? '/year minimum purchase' : '/year licence subtotal')) throw new Error('Minimum confused with quote.');
-          if (!vendor.includes('A$88') || !vendor.includes('Standard three-year contract') || !vendor.includes('Taxes extra')) throw new Error('Missing rates or terms.');
+          if (!vendor.includes('Standard three-year contract') || !vendor.includes('Taxes extra')) throw new Error('Missing terms.');
+          const billingNotes = doc.querySelector('.cc-team-plan-notes')?.textContent ?? '';
+          if (!billingNotes.includes('A$88 per full user/month') || !billingNotes.includes('not an extra fee or a five-user package price')) throw new Error('Missing collapsed rate or minimum explanation.');
+          if (vendor.includes('A$88')) throw new Error('Per-user rate should remain in the billing details.');
           const breakdown = doc.querySelector('.cc-licence-subtotal')?.textContent ?? '';
           if (!breakdown.includes(money(annual) + '/year') || !breakdown.includes(people + ' Sales × A$24')) throw new Error('Wrong Sales quantity or licence subtotal.');
           if (!zapla.includes('A$399') || !zapla.includes('A$4,788') || !zapla.includes('A$1,997')) throw new Error('Zapla pricing mismatch.');

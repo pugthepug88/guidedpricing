@@ -28,13 +28,14 @@ export function CreatioPricing({ data }: { data: ComparisonDefinition }) {
         <h3>Creatio Growth + Sales</h3>
         <p className="cc-seat-result">{belowMinimum ? 'Published new-customer purchase minimum' : `${users} full Sales users at published rates`}</p>
         <p className="cc-team-total">{money(belowMinimum ? 16000 : annual)}<span>{belowMinimum ? '/year minimum purchase' : '/year licence subtotal'}</span></p>
-        <p><strong>A$88 per full user/month, billed annually.</strong></p>
-        <p>{belowMinimum ? 'Your selected licences fall below the minimum. A sales-confirmed offer or an eligible configuration is required.' : 'This licence subtotal meets the published purchase minimum.'}</p>
+        <p>{belowMinimum ? 'New customers must meet the annual purchase minimum.' : 'Per-user pricing. Your subscription grows with your team.'}</p>
         <p className="cc-team-billing">Minimum five platform users.<br />Standard three-year contract. Taxes extra.</p>
       </article>
     </div>
-    <p className="cc-team-qualification">Different feature bundles. Zapla launch, usage and optional services are separate. Creatio’s annual minimum is a purchase condition, not an extra setup fee or a quoted five-user package.</p>
+    <p className="cc-team-qualification">Software subscriptions compared; feature bundles differ. Zapla launch, usage and optional services are additional.</p>
     <details className="cc-team-plan-notes"><summary>See the licence calculation and billing details</summary>
+      <p>Creatio’s minimum is an annual purchase requirement, not an extra fee or a five-user package price. A smaller licence subtotal does not meet the published new-customer purchasing conditions.</p>
+      <p><strong>A$88 per full user/month, billed annually:</strong> A$64 Growth platform + A$24 Sales.</p>
       <p className="cc-licence-subtotal">{platforms} Growth × A$64 + {users} Sales × A$24 = <strong>{money(annual / 12)}/month equivalent · {money(annual)}/year</strong>.</p>
       <p>{belowMinimum ? 'This licence subtotal is below A$16,000/year. The public checkout does not allow this configuration to be bought as shown.' : 'This is list-price arithmetic for the named configuration, not a negotiated quote.'} Each selected person receives Sales; five platform licences are retained for smaller teams. Restricted-access users and different product mixes can change your quote.</p>
       <p>Creatio’s 16-user checkout showed A$16,896/year. Card payment added 4%; invoice payment removed that fee. Final taxes, invoice schedule and contract terms depend on your order. Implementation, if required, is quoted separately. Marketing, Service, paid support and AI are not automatically added.</p>
