@@ -30,6 +30,7 @@ import { Route as ComparisonIndexRouteImport } from './routes/comparison.index'
 import { Route as ComparisonReviewRouteImport } from './routes/comparison.review'
 import { Route as ComparisonZaplaVsActivecampaignRouteImport } from './routes/comparison.zapla-vs-activecampaign'
 import { Route as ComparisonZaplaVsCreatioRouteImport } from './routes/comparison.zapla-vs-creatio'
+import { Route as ComparisonZaplaVsGhlRouteImport } from './routes/comparison.zapla-vs-ghl'
 import { Route as ComparisonZaplaVsHubspotRouteImport } from './routes/comparison.zapla-vs-hubspot'
 import { Route as ComparisonZaplaVsPipedriveRouteImport } from './routes/comparison.zapla-vs-pipedrive'
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
@@ -151,6 +152,11 @@ const ComparisonZaplaVsCreatioRoute =
     path: '/comparison/zapla-vs-creatio',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ComparisonZaplaVsGhlRoute = ComparisonZaplaVsGhlRouteImport.update({
+  id: '/comparison/zapla-vs-ghl',
+  path: '/comparison/zapla-vs-ghl',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ComparisonZaplaVsHubspotRoute =
   ComparisonZaplaVsHubspotRouteImport.update({
     id: '/comparison/zapla-vs-hubspot',
@@ -233,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/comparison/review': typeof ComparisonReviewRoute
   '/comparison/zapla-vs-activecampaign': typeof ComparisonZaplaVsActivecampaignRoute
   '/comparison/zapla-vs-creatio': typeof ComparisonZaplaVsCreatioRoute
+  '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
@@ -267,6 +274,7 @@ export interface FileRoutesByTo {
   '/comparison/review': typeof ComparisonReviewRoute
   '/comparison/zapla-vs-activecampaign': typeof ComparisonZaplaVsActivecampaignRoute
   '/comparison/zapla-vs-creatio': typeof ComparisonZaplaVsCreatioRoute
+  '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
@@ -302,6 +310,7 @@ export interface FileRoutesById {
   '/comparison/review': typeof ComparisonReviewRoute
   '/comparison/zapla-vs-activecampaign': typeof ComparisonZaplaVsActivecampaignRoute
   '/comparison/zapla-vs-creatio': typeof ComparisonZaplaVsCreatioRoute
+  '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
@@ -338,6 +347,7 @@ export interface FileRouteTypes {
     | '/comparison/review'
     | '/comparison/zapla-vs-activecampaign'
     | '/comparison/zapla-vs-creatio'
+    | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
@@ -372,6 +382,7 @@ export interface FileRouteTypes {
     | '/comparison/review'
     | '/comparison/zapla-vs-activecampaign'
     | '/comparison/zapla-vs-creatio'
+    | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
@@ -406,6 +417,7 @@ export interface FileRouteTypes {
     | '/comparison/review'
     | '/comparison/zapla-vs-activecampaign'
     | '/comparison/zapla-vs-creatio'
+    | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
@@ -441,6 +453,7 @@ export interface RootRouteChildren {
   ComparisonReviewRoute: typeof ComparisonReviewRoute
   ComparisonZaplaVsActivecampaignRoute: typeof ComparisonZaplaVsActivecampaignRoute
   ComparisonZaplaVsCreatioRoute: typeof ComparisonZaplaVsCreatioRoute
+  ComparisonZaplaVsGhlRoute: typeof ComparisonZaplaVsGhlRoute
   ComparisonZaplaVsHubspotRoute: typeof ComparisonZaplaVsHubspotRoute
   ComparisonZaplaVsPipedriveRoute: typeof ComparisonZaplaVsPipedriveRoute
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
@@ -604,6 +617,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComparisonZaplaVsCreatioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/comparison/zapla-vs-ghl': {
+      id: '/comparison/zapla-vs-ghl'
+      path: '/comparison/zapla-vs-ghl'
+      fullPath: '/comparison/zapla-vs-ghl'
+      preLoaderRoute: typeof ComparisonZaplaVsGhlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/comparison/zapla-vs-hubspot': {
       id: '/comparison/zapla-vs-hubspot'
       path: '/comparison/zapla-vs-hubspot'
@@ -706,6 +726,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonReviewRoute: ComparisonReviewRoute,
   ComparisonZaplaVsActivecampaignRoute: ComparisonZaplaVsActivecampaignRoute,
   ComparisonZaplaVsCreatioRoute: ComparisonZaplaVsCreatioRoute,
+  ComparisonZaplaVsGhlRoute: ComparisonZaplaVsGhlRoute,
   ComparisonZaplaVsHubspotRoute: ComparisonZaplaVsHubspotRoute,
   ComparisonZaplaVsPipedriveRoute: ComparisonZaplaVsPipedriveRoute,
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,

@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 
 const drafts = [
+  { name: 'Zapla vs GoHighLevel', path: '/comparison/zapla-vs-ghl' },
   { name: 'Zapla vs Zoho', path: '/comparison/zapla-vs-zoho' },
   { name: 'Zapla vs HubSpot', path: '/comparison/zapla-vs-hubspot' },
   { name: 'Zapla vs Creatio', path: '/comparison/zapla-vs-creatio' },
