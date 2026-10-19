@@ -3,7 +3,7 @@ import type { ComparisonDefinition } from './types';
 
 const money = (n: number) => `A$${n.toLocaleString('en-AU')}`;
 
-export function ZohoV2Pricing({ data }: { data: ComparisonDefinition }) {
+export function ZohoPricing({ data }: { data: ComparisonDefinition }) {
   const [users, setUsers] = useState(5);
   const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
   const rate = billing === 'annual' ? data.vendorAnnualPrice : data.vendorPrice;

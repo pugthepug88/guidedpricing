@@ -1,12 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { ComparisonPage } from '@/components/compare/simple/ComparisonPage';
-import { pipedriveSimple } from '@/components/compare/simple/pipedrive';
+import { hubspotSimple } from '@/components/compare/simple/hubspot';
 import simpleCss from '@/components/compare/simple/simple.css?url';
 
-const title = 'Zapla vs Pipedrive: Pricing, Features and Team Access | Zapla';
-const description = 'Compare Zapla and Pipedrive for team access, customer tools, Guided Launch and first-year costs in AUD. See plan inclusions and source-linked pricing.';
-export const Route = createFileRoute("/compare/zapla-vs-pipedrive-simple")({
-  staticData: { sitemap: false },
+const title = 'Zapla vs HubSpot: Unlimited Users, Tools and Pricing | Zapla';
+const description = 'Compare Zapla and HubSpot for team access, customer tools, Guided Launch and first-year costs in AUD. See plan inclusions and source-linked pricing.';
+export const Route = createFileRoute("/comparison/zapla-vs-hubspot")({
+// Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
     meta: [
       { title },
@@ -27,6 +27,6 @@ export const Route = createFileRoute("/compare/zapla-vs-pipedrive-simple")({
       },
     ],
   }),
-  component: ConcisePipedrivePage,
+  component: ConciseHubSpotPage,
 });
-function ConcisePipedrivePage() { return <ComparisonPage data={pipedriveSimple}/>; }
+function ConciseHubSpotPage() { return <ComparisonPage data={hubspotSimple}/>; }

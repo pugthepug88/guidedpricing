@@ -3,28 +3,28 @@ import type { ComparisonDefinition } from './types';
 export const zohoSimple = {
   "competitor": "Zoho CRM",
   "headline": "Your whole team.",
-  "headlineAccent": "One CRM subscription.",
-  "introduction": "Give reception, sales and the owner access to customer conversations, quotes, bookings and automated follow-ups. Zapla Follow-Through is A$399/month + GST, with unlimited users and no extra seat fees.",
+  "headlineAccent": "No extra seat fees.",
+  "introduction": "Give reception, sales and the owner the tools to follow up every enquiry. Shared inbox, two-way SMS, quotes, bookings and reviews, with unlimited users for A$399/month + GST.",
   "customerVisual": "missed-call",
   "highlights": [
     {
-      "title": "Give everyone handling customers their own access.",
-      "description": "Reception, sales and the owner can work from the same customer history. Give each person their own login without adding seat fees."
+      "title": "Add people without adding licence fees.",
+      "description": "Give everyone handling customers their own login. Zapla stays A$399/month as your team grows, with unlimited stored contacts subject to fair use."
     },
     {
-      "title": "Handle missed calls, quote follow-ups and bookings in the same system.",
-      "description": "Shared inbox, two-way SMS, missed-call text-back, review management and booking tools are included. Phone numbers, communications usage and payment-provider charges are separate.",
+      "title": "Keep the follow-up tools in your CRM plan.",
+      "description": "Shared inbox, two-way SMS, missed-call text-back, reviews and website builders are included in Follow-Through. Numbers and communications usage are separate.",
       "link": {
         "href": "/crm#crm-workbench",
         "label": "Explore customer records and conversations"
       }
     },
     {
-      "title": "Get an agreed setup built and tested with you.",
+      "title": "Get your first setup built with you.",
       "description": "We import your agreed customer data, connect your tools, configure your first workflows, and test them with your team."
     }
   ],
-  "tableIntroduction": "Zapla Follow-Through vs Zoho CRM Professional. See what is included and what uses a connected service.",
+  "tableIntroduction": "Everyday customer tools, included team access and room to grow. Follow-Through compared with the standalone Zoho CRM Professional plan.",
   "tableCaption": "Zoho CRM Professional compared with Zapla Follow-Through.",
   "vendorPricingUrl": "https://www.zoho.com/crm/zohocrm-pricing.html",
   "vendorPlan": "Professional",
@@ -36,10 +36,10 @@ export const zohoSimple = {
   "vendorBilling": "Or A$32 per regular user/month equivalent, billed annually (A$384 per user/year upfront).",
   "workflowNote": "Zoho Professional includes workflow rules, cadences and Blueprint, with separate limits. Zapla’s unlimited allowance refers to workflow count, not executions, messages or setup work.",
   "tableNotes": [
-    "Zoho also offers broader CRM Plus and Zoho One bundles. This table compares the standalone Professional CRM subscription."
+    "Zoho One and CRM Plus bundle additional apps. Their inclusions are not mixed into the standalone Professional column. See bundle pricing below."
   ],
-  "pricingHeading": "Compare the tools. Then compare your team price.",
-  "pricingIntroduction": "Zapla combines customer follow-up tools and unlimited users for A$399/month + GST. Compare the named subscriptions below and the tools your team needs.",
+  "pricingHeading": "More people. Same Zapla subscription.",
+  "pricingIntroduction": "Zapla costs less than Professional from 8 regular users on monthly billing, or 13 on annual billing, before launch and usage. Choose your team size to see both the subscription and first-year costs.",
   "calculator": {
     "teamSizeLabel": "People needing regular CRM access",
     "monthlyLabel": "Monthly",
@@ -49,10 +49,10 @@ export const zohoSimple = {
     "rateUnit": "regular user",
     "annualCommitment": false,
     "qualification": "Each selected person is assigned a regular Zoho CRM licence. Lower-cost Team User licences may suit restricted access, so actual licence mixes can cost less.",
-    "annualRateNote": "Professional: A$50 per regular user/month billed monthly, or A$32/month equivalent paid annually (A$384/user/year upfront). Prices exclude GST. Zoho’s Australian display adds 10% GST: A$55 and A$35.20. The vendor feed and display code were verified; account checkout was not tested."
+    "annualRateNote": "Professional list pricing: A$50 per regular user/month billed monthly, or A$384 per user/year upfront, excluding GST. The Australian pricing page displays A$55 and A$35.20 including GST. Checked 18 October 2026. The public calculator produced inconsistent final totals; account checkout was not verified."
   },
   "pricingHeadline": "One subscription for your customer-facing team.",
-  "vendorPlanReason": "Professional is selected for included quotes, invoices, CPQ and Blueprint alongside CRM automation.",
+  "vendorPlanReason": "Professional is the lowest standalone Zoho CRM edition with quotes and invoices alongside workflows and Calendar Booking. It also includes CPQ and Blueprint. This is a comparison of overlapping needs, not identical feature bundles.",
   "vendorLowerPlans": "Zoho Standard already includes workflows and may suit simpler needs. Its annual rate is A$20 per regular user/month excluding GST. Free CRM supports up to three users with restricted functionality. Zoho One and CRM Plus bundle additional apps; Zoho One’s discounted all-employee model requires licences for every payroll employee.",
   "costCaution": "Prices are AUD excluding GST; features, setup and usage differ.",
   "additionalTools": [],
@@ -143,17 +143,17 @@ export const zohoSimple = {
   },
   "foundationNote": "",
   "foundations": [],
-  "methodology": "Compared tier: Zoho CRM Professional versus Zapla Follow-Through throughout. Research checked 17 October 2026. Pricing is AUD excluding GST, from Zoho’s official pricing feed and Australian display code; AU display adds 10% GST. Account checkout and account-level feature equivalence were not tested. Calculator assigns regular CRM licences; restricted Team User licences can reduce actual cost. Standard supports workflows and broader Zoho bundles can include additional products. Annual Zoho subscriptions are prepaid; monthly billing is not an annual commitment. No mandatory Zoho onboarding or hypothetical add-on stack is charged in the examples. Required Zapla launch, communications usage, numbers, optional services and provider fees are separate. Growth marketing tools and optional AI Receptionist are not Follow-Through inclusions. Review management and missed-call text-back were confirmed by Zapla on 16 October 2026, not independently account-tested. Unlimited workflows means count, not unlimited executions or sending. Crosses apply to the precisely named inclusion. This is a vendor-documentation comparison, not an independent product test.",
+  "methodology": "Compared tier: Zoho CRM Professional versus Zapla Follow-Through throughout. Research checked 18 October 2026. Pricing is AUD excluding GST, from Zoho’s official pricing feed and Australian display code; AU display adds 10% GST. Account checkout and account-level feature equivalence were not tested. Calculator assigns regular CRM licences; restricted Team User licences can reduce actual cost. Standard supports workflows and broader Zoho bundles can include additional products. Annual Zoho subscriptions are prepaid; monthly billing is not an annual commitment. No mandatory Zoho onboarding or hypothetical add-on stack is charged in the examples. Required Zapla launch, communications usage, numbers, optional services and provider fees are separate. Growth marketing tools and optional AI Receptionist are not Follow-Through inclusions. Review management and missed-call text-back were confirmed by Zapla on 16 October 2026, not independently account-tested. Unlimited workflows means count, not unlimited executions or sending. Crosses apply to the precisely named inclusion. This is a vendor-documentation comparison, not an independent product test. Public Australian list prices were inspected alongside monthly and annual calculator configurations. The vendor calculator final totals did not reconcile with its line items, so this page uses list rates, not an asserted checkout quote. Zoho One and CRM Plus are alternative bundles, not added to standalone CRM. No feature equivalence is inferred for advanced CPQ, Blueprint enforcement, approvals or sandbox capabilities. The slider starts at five as an editable illustration, not a claim about average team size.",
   "fit": [
     {
-      "title": "A configurable CRM with a broader software ecosystem",
-      "description": "A strong fit when you want a lower entry cost, structured sales processes or connections to other Zoho applications.",
-      "consideration": "Check the access and applications included in the configuration you choose."
+      "title": "A smaller sales team or a broader Zoho suite",
+      "description": "Professional includes structured sales tools; Zoho One adds a broader suite of business applications.",
+      "consideration": "Check which people need regular CRM access and whether restricted Team User licences fit the work they do."
     },
     {
-      "title": "Customer follow-up across your team",
-      "description": "Handle missed calls, quote follow-ups and bookings with reception, sales and the owner working from the same customer history.",
-      "consideration": "Choose Zapla for included customer tools, unlimited users and help configuring your first workflows."
+      "title": "One customer workflow for the whole team",
+      "description": "Choose Zapla when reception, sales and the owner need shared conversations, SMS, quotes and bookings, with an agreed first setup built and tested together.",
+      "consideration": "Add users without increasing your software subscription."
     }
   ],
   "rows": [
@@ -173,74 +173,6 @@ export const zohoSimple = {
       "zapla": {
         "text": "",
         "detail": "Unlimited users, with no additional seat fees on the named plan.",
-        "sources": [
-          "offer",
-          "platform-pricing"
-        ],
-        "status": "included",
-        "mark": "tick"
-      }
-    },
-    {
-      "id": "email",
-      "label": "Automation workflows",
-      "competitor": {
-        "text": "Included · limits",
-        "detail": "Professional includes workflows, cadences and Blueprint. Workflow rules: 80 per module, maximum 40 active per module; organisation maximum 2,500 rules, 2,000 active. Execution, action and sending limits are separate.",
-        "sources": [
-          "zoho-features"
-        ],
-        "status": "included",
-        "mark": "tick"
-      },
-      "zapla": {
-        "text": "Unlimited",
-        "detail": "Unlimited workflow count. Executions, communications usage and scoped done-for-you setup are not unlimited.",
-        "sources": [
-          "offer",
-          "platform-pricing"
-        ],
-        "status": "included",
-        "mark": "tick"
-      }
-    },
-    {
-      "id": "contacts",
-      "label": "Unlimited contacts",
-      "competitor": {
-        "text": "Storage limits",
-        "detail": "Professional has a 10GB data-storage allowance across CRM modules for organisations with up to 200 users. Additional storage is available. This is not a marketing-contact subscription charge.",
-        "sources": [
-          "zoho-features"
-        ],
-        "status": "included"
-      },
-      "zapla": {
-        "text": "",
-        "detail": "Unlimited stored contacts, subject to fair use. Message usage is separate.",
-        "sources": [
-          "offer",
-          "platform-pricing"
-        ],
-        "status": "included",
-        "mark": "tick"
-      }
-    },
-    {
-      "id": "crm",
-      "label": "Sales pipelines",
-      "competitor": {
-        "text": "Included · limits",
-        "detail": "Multiple sales pipelines are available; edition-specific limits apply. This is not an absence of pipeline management.",
-        "sources": [
-          "zoho-guide"
-        ],
-        "status": "included",
-        "mark": "tick"
-      },
-      "zapla": {
-        "text": "Unlimited",
-        "detail": "Unlimited pipelines on both Zapla plans.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -322,16 +254,109 @@ export const zohoSimple = {
       "id": "reviews",
       "label": "Review management",
       "competitor": {
-        "text": "Via Zoho Publish",
-        "detail": "Zoho Publish integrates review insights and Google Business location information with CRM. Product scope and charges should be checked separately.",
+        "text": "Separate app",
+        "detail": "Zoho Publish provides review management and connects review insights with CRM. It is separate from Professional and included in Zoho One subject to bundle limits. Detailed review-request and response capabilities are not assumed identical.",
         "sources": [
-          "publish"
+          "publish",
+          "one-plans"
+        ],
+        "status": "separate"
+      },
+      "zapla": {
+        "text": "",
+        "detail": "Review management tools are included in Follow-Through.",
+        "sources": [
+          "offer",
+          "platform-pricing"
+        ],
+        "status": "included",
+        "mark": "tick"
+      }
+    },
+    {
+      "id": "website",
+      "label": "Websites & funnels",
+      "competitor": {
+        "text": "Separate products",
+        "detail": "Website and landing-page builders are not included in the standalone Professional CRM subscription. Zoho offers separate products and broader bundles. No additional subscription cost is assumed here.",
+        "sources": [
+          "zoho-guide",
+          "zoho-one"
+        ],
+        "status": "separate"
+      },
+      "zapla": {
+        "text": "",
+        "detail": "Self-service website and funnel-page builders included. Done-for-you website builds are separate.",
+        "sources": [
+          "offer",
+          "platform-pricing"
+        ],
+        "status": "included",
+        "mark": "tick"
+      }
+    },
+    {
+      "id": "email",
+      "label": "Automation workflows",
+      "competitor": {
+        "text": "40 active/module",
+        "detail": "Professional includes workflows, cadences and Blueprint. Workflow rules: 80 per module, maximum 40 active per module; organisation maximum 2,500 rules, 2,000 active. Execution, action and sending limits are separate.",
+        "sources": [
+          "zoho-features"
+        ],
+        "status": "included",
+        "mark": "tick"
+      },
+      "zapla": {
+        "text": "Unlimited",
+        "detail": "Unlimited workflow count. Executions, communications usage and scoped done-for-you setup are not unlimited.",
+        "sources": [
+          "offer",
+          "platform-pricing",
+          "platform-workflows"
+        ],
+        "status": "included",
+        "mark": "tick"
+      }
+    },
+    {
+      "id": "crm",
+      "label": "Unlimited pipelines",
+      "competitor": {
+        "text": "10 pipelines",
+        "detail": "Professional includes 10 sales pipelines. The cross applies to unlimited pipelines, not pipeline management.",
+        "sources": [
+          "zoho-features"
+        ],
+        "status": "included",
+        "mark": "cross"
+      },
+      "zapla": {
+        "text": "Unlimited",
+        "detail": "Unlimited pipelines on both Zapla plans.",
+        "sources": [
+          "offer",
+          "platform-pricing"
+        ],
+        "status": "included",
+        "mark": "tick"
+      }
+    },
+    {
+      "id": "contacts",
+      "label": "Unlimited contacts",
+      "competitor": {
+        "text": "Storage limits",
+        "detail": "Professional has a 10GB data-storage allowance across CRM modules for organisations with up to 200 users. Additional storage is available. This is not a marketing-contact subscription charge.",
+        "sources": [
+          "zoho-features"
         ],
         "status": "included"
       },
       "zapla": {
         "text": "",
-        "detail": "Review management tools are included in Follow-Through.",
+        "detail": "Unlimited stored contacts, subject to fair use. Message usage is separate.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -390,7 +415,7 @@ export const zohoSimple = {
       "id": "proposals",
       "label": "Quotes & proposals",
       "competitor": {
-        "text": "",
+        "text": "Quotes included",
         "detail": "Professional includes quotes and CPQ. This does not imply identical proposal design, electronic signatures or document functionality.",
         "sources": [
           "zoho-guide"
@@ -424,29 +449,6 @@ export const zohoSimple = {
       "zapla": {
         "text": "",
         "detail": "Create and send invoices from your CRM.",
-        "sources": [
-          "offer",
-          "platform-pricing"
-        ],
-        "status": "included",
-        "mark": "tick"
-      }
-    },
-    {
-      "id": "website",
-      "label": "Website & funnel builders",
-      "competitor": {
-        "text": "Separate products",
-        "detail": "Website and landing-page builders are not included in the standalone Professional CRM subscription. Zoho offers separate products and broader bundles. No additional subscription cost is assumed here.",
-        "sources": [
-          "zoho-guide",
-          "zoho-one"
-        ],
-        "status": "separate"
-      },
-      "zapla": {
-        "text": "",
-        "detail": "Self-service website and funnel-page builders included. Done-for-you website builds are separate.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -507,10 +509,10 @@ export const zohoSimple = {
       "label": "Email campaigns",
       "competitor": {
         "text": "Separate product",
-        "detail": "CRM sales emails and campaign records are not equivalent to the separate Zoho Campaigns marketing product. Broader bundles may include marketing tools.",
+        "detail": "Zoho Campaigns is a separate product with free and paid tiers. The published free tier includes 2,000 contacts and 6,000 emails/month. CRM sales emails and campaign records are different from marketing campaign tools. Zoho bundles may include Campaigns.",
         "sources": [
-          "zoho-features",
-          "zoho-guide"
+          "campaigns-pricing",
+          "zoho-features"
         ],
         "status": "separate"
       },
@@ -530,12 +532,12 @@ export const zohoSimple = {
       "label": "Bulk SMS & WhatsApp campaigns",
       "competitor": {
         "text": "Connected services",
-        "detail": "SMS uses connected providers. WhatsApp functionality and message-credit charges differ by product and configuration.",
+        "detail": "SMS campaigns use connected providers. CRM includes WhatsApp messaging in paid editions with separate credits; this does not establish equivalent bulk marketing campaign scope.",
         "sources": [
           "zoho-sms",
           "zoho-features"
         ],
-        "status": "included"
+        "status": "separate"
       },
       "zapla": {
         "text": "",
@@ -571,7 +573,7 @@ export const zohoSimple = {
       }
     }
   ],
-  "marketingNote": "Growth marketing tools are separate from Follow-Through. Zoho CRM supports sales emails and automation; broader bundles may include separate marketing applications.",
+  "marketingNote": "Zoho Professional includes sales emails and follow-up automation. Zoho Campaigns is a separate product; Zoho One and CRM Plus bundle marketing apps with their own allowances. Growth is A$699/month total, not an extra A$699 on top of Follow-Through.",
   "optionalRows": [
     {
       "id": "ai-receptionist",
@@ -607,11 +609,11 @@ export const zohoSimple = {
   "faqs": [
     {
       "question": "Is Zapla cheaper than Zoho?",
-      "answer": "It depends on your team and requirements. Small teams can pay less for Zoho Professional. Zapla’s subscription stays A$399/month + GST as users are added, but required launch and usage also matter. The calculator models regular CRM licences; cheaper restricted Team User mixes may lower Zoho’s cost."
+      "answer": "For regular Professional licences, Zapla has the lower subscription from 8 users billed monthly or 13 billed annually. Including minimum Zapla launch, the first-year crossover is 12 or 18 regular users respectively. Smaller teams, restricted Team User mixes and other Zoho plans can cost less. Features differ; usage and optional services are excluded."
     },
     {
       "question": "Why compare Professional instead of Standard or Zoho One?",
-      "answer": "Professional includes quotes, invoices, CPQ and Blueprint alongside automation. Standard already supports workflows and may meet simpler needs. Zoho One is a broader bundle with different licensing conditions, so its inclusions are not mixed into the Professional column. Its discounted all-employee model requires a licence for every payroll employee."
+      "answer": "Professional is the lowest standalone Zoho CRM edition with quotes and invoices alongside workflows and Calendar Booking. It also includes CPQ and Blueprint. This is a comparison of overlapping needs, not identical feature bundles. Standard already supports workflows. Zoho One and CRM Plus include additional applications, so compare their bundle prices before buying separate apps."
     },
     {
       "question": "Can I move from Zoho and keep existing tools?",
@@ -707,8 +709,34 @@ export const zohoSimple = {
       "id": "offer",
       "title": "Zapla plans and scoped Guided Launch",
       "url": "/Pricing-v3"
+    },
+    {
+      "id": "one-pricing",
+      "title": "Zoho One Australian pricing",
+      "url": "https://www.zoho.com/one/pricing/"
+    },
+    {
+      "id": "one-plans",
+      "title": "Zoho One included apps and limits",
+      "url": "https://www.zoho.com/one/plan-details.html"
+    },
+    {
+      "id": "plus-pricing",
+      "title": "Zoho CRM Plus pricing",
+      "url": "https://www.zoho.com/crm/crmplus/pricing.html"
+    },
+    {
+      "id": "campaigns-pricing",
+      "title": "Zoho Campaigns free and paid plans",
+      "url": "https://www.zoho.com/campaigns/pricing.html"
+    },
+    {
+      "id": "platform-workflows",
+      "title": "NextGen workflow capabilities",
+      "url": "https://thenextgencrm.com/features/workflows/"
     }
   ],
-  "updated": "17 Oct 2026",
-  "pricingUrl": "/Pricing-v3"
+  "updated": "18 Oct 2026",
+  "pricingUrl": "/Pricing-v3",
+  "showMarketingNote": true
 } as const satisfies ComparisonDefinition;

@@ -2,18 +2,14 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 
 const drafts = [
-  { name: 'Zapla vs Zoho V2', path: '/compare/zapla-vs-zoho-v2' },
-  { name: 'Zapla vs Zoho', path: '/compare/zapla-vs-zoho-simple' },
-  { name: 'Zapla vs HubSpot V2', path: '/compare/zapla-vs-hubspot-v2' },
-  { name: 'Zapla vs HubSpot', path: '/compare/zapla-vs-hubspot-simple' },
-  { name: 'Zapla vs Creatio', path: '/compare/zapla-vs-creatio-simple' },
-  { name: 'Zapla vs Creatio V2', path: '/compare/zapla-vs-creatio-v2' },
-  { name: 'Zapla vs ActiveCampaign', path: '/compare/zapla-vs-activecampaign-simple' },
-  { name: 'Zapla vs Pipedrive', path: '/compare/zapla-vs-pipedrive-simple' },
-  { name: 'Zapla vs Pipedrive V2', path: '/compare/zapla-vs-pipedrive-v2' },
+  { name: 'Zapla vs Zoho', path: '/comparison/zapla-vs-zoho' },
+  { name: 'Zapla vs HubSpot', path: '/comparison/zapla-vs-hubspot' },
+  { name: 'Zapla vs Creatio', path: '/comparison/zapla-vs-creatio' },
+  { name: 'Zapla vs ActiveCampaign', path: '/comparison/zapla-vs-activecampaign' },
+  { name: 'Zapla vs Pipedrive', path: '/comparison/zapla-vs-pipedrive' },
 ] as const;
 
-export const Route = createFileRoute('/compare/review')({
+export const Route = createFileRoute('/comparison/review')({
   head: () => ({ meta: [{ title: 'Comparison draft review | Zapla' }, { name: 'robots', content: 'noindex, nofollow' }] }),
   component: ComparisonReview,
 });
@@ -49,7 +45,7 @@ function ComparisonReview() {
     try {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
-      if (!doc || !win || !['/compare/zapla-vs-hubspot-simple', '/compare/zapla-vs-hubspot-v2'].includes(path)) throw new Error('Select the HubSpot draft and let it load first.');
+      if (!doc || !win || path !== '/comparison/zapla-vs-hubspot') throw new Error('Select the HubSpot draft and let it load first.');
       const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
       const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
       if (!range || radios.length !== 2) throw new Error('The comparison calculator has not loaded.');
@@ -107,7 +103,7 @@ function ComparisonReview() {
   }
 
 
-  async function runPipedriveV2Checks() {
+  async function runPipedriveChecks() {
     setChecking(true);
     setReport('');
     const results: string[] = [];
@@ -116,7 +112,7 @@ function ComparisonReview() {
     try {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
-      if (!doc || !win || path !== '/compare/zapla-vs-pipedrive-v2') throw new Error('Select the Pipedrive V2 draft and let it load first.');
+      if (!doc || !win || path !== '/comparison/zapla-vs-pipedrive') throw new Error('Select the Pipedrive draft and let it load first.');
       const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
       const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
       if (!range || radios.length !== 2) throw new Error('The comparison calculator has not loaded.');
@@ -182,7 +178,7 @@ function ComparisonReview() {
     try {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
-      if (!doc || !win || path !== '/compare/zapla-vs-activecampaign-simple') throw new Error('Select ActiveCampaign and let it load.');
+      if (!doc || !win || path !== '/comparison/zapla-vs-activecampaign') throw new Error('Select ActiveCampaign and let it load.');
       const contacts = doc.querySelector<HTMLInputElement>('#comparison-contacts');
       const users = doc.querySelector<HTMLInputElement>('#comparison-users');
       const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
@@ -260,7 +256,7 @@ function ComparisonReview() {
     finally { setChecking(false); }
   }
 
-  async function runCreatioV2Checks() {
+  async function runCreatioChecks() {
     setChecking(true);
     setReport('');
     const results: string[] = [];
@@ -269,9 +265,9 @@ function ComparisonReview() {
     try {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
-      if (!doc || !win || path !== '/compare/zapla-vs-creatio-v2') throw new Error('Select Creatio V2 and let it load.');
+      if (!doc || !win || path !== '/comparison/zapla-vs-creatio') throw new Error('Select Creatio and let it load.');
       const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
-      if (!range || range.max !== '100') throw new Error('V2 calculator has not loaded.');
+      if (!range || range.max !== '100') throw new Error('The comparison calculator has not loaded.');
       if (doc.querySelector('input[name="comparison-billing"]')) throw new Error('Invented Creatio billing choice.');
       for (const viewport of [375, 390, 768, 1440]) {
         setWidth(viewport);
@@ -315,7 +311,7 @@ function ComparisonReview() {
       for (const amount of [4128, 5280, 16896, 26400, 105600, 6785]) if (!year.includes(money(amount))) throw new Error('Missing annual amount ' + amount);
       if ([...doc.querySelectorAll<HTMLAnchorElement>('main a')].filter(link => link.pathname === '/booking').length < 2) throw new Error('Missing call CTA.');
       results.push('Annual examples, images, anchors, CTA destinations and noindex PASS');
-      setReport('28 Creatio V2 calculator states and 8 layout states passed.\n' + results.join('\n'));
+      setReport('28 Creatio calculator states and 8 layout states passed.\n' + results.join('\n'));
       doc.querySelectorAll('main details').forEach(item => { (item as HTMLDetailsElement).open = false; });
       Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(range, '5');
       range.dispatchEvent(new win.Event('input', { bubbles: true }));
@@ -324,78 +320,6 @@ function ComparisonReview() {
     finally { setChecking(false); }
   }
 
-  async function runCreatioChecks() {
-    setChecking(true);
-    setReport('');
-    const results: string[] = [];
-    const pause = () => new Promise<void>(resolve => window.setTimeout(resolve, 80));
-    try {
-      const doc = frame.current?.contentDocument;
-      const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
-      if (!doc || !win || path !== '/compare/zapla-vs-creatio-simple') throw new Error('Select Creatio and let the draft load.');
-      const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
-      if (!range) throw new Error('Calculator not loaded.');
-      if (doc.querySelector('input[name="comparison-billing"]')) throw new Error('Published-reference comparison must not invent billing options.');
-      for (const viewport of [375, 390, 768, 1440]) {
-        setWidth(viewport);
-        await pause();
-        if (win.innerWidth !== viewport) throw new Error('Viewport did not settle.');
-        for (const people of [1, 5, 15, 16, 25]) {
-          Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(range, String(people));
-          range.dispatchEvent(new win.Event('input', { bubbles: true }));
-          range.dispatchEvent(new win.Event('change', { bubbles: true }));
-          await pause();
-          const cards = doc.querySelectorAll('.cc-team-results article');
-          const zapla = cards[0]?.textContent ?? '';
-          const vendor = cards[1]?.textContent ?? '';
-          if (!zapla.includes('A$399') || !zapla.includes('A$1,997')) throw new Error('Zapla price or launch mismatch.');
-          const licences = Math.max(5, people);
-          const subtotal = licences * 55;
-          const usd = (n: number) => 'US$' + n.toLocaleString('en-AU');
-          if (!vendor.includes(licences + ' licences modelled')) throw new Error('Minimum licence count incorrect.');
-          if (people < 5 && !vendor.includes('for ' + people + ' person')) throw new Error('Small-team minimum missing.');
-          if (!vendor.includes('Creatio Growth + Sales') || !vendor.includes('US$55')) throw new Error('Wrong tier or published rate.');
-          if (!vendor.includes(usd(subtotal) + '/month licence subtotal') || !vendor.includes(usd(subtotal * 12) + '/year')) throw new Error('Licence subtotal incorrect.');
-          if (!vendor.includes('US$10,000/year minimum purchase') || !vendor.includes('Standard 3-year contract')) throw new Error('Purchase conditions hidden.');
-          if (!vendor.includes(subtotal * 12 < 10000 ? 'below this minimum' : 'exceeds this minimum')) throw new Error('Minimum-purchase explanation incorrect.');
-          if (!vendor.includes('USD reference') || !vendor.includes('Prices exclude applicable taxes')) throw new Error('Currency or tax labels incorrect.');
-          const qualification = doc.querySelector('.cc-team-qualification')?.textContent ?? '';
-          if (!qualification.includes('not a same-currency savings comparison')) throw new Error('Mixed-currency disclosure missing.');
-          const price = cards[1]?.querySelector('.cc-team-total');
-          if (price?.firstChild) {
-            const priceRange = doc.createRange();
-            priceRange.selectNodeContents(price.firstChild);
-            if (priceRange.getClientRects().length > 1) throw new Error('Price wraps at ' + viewport + 'px.');
-          }
-          if (/A\$0|NaN|Infinity|Australian quote required/.test(vendor)) throw new Error('Invalid or blank published price.');
-          results.push(viewport + 'px · ' + people + ' people / ' + licences + ' licences · published pricing PASS');
-        }
-        for (const expanded of [false, true]) {
-          doc.querySelectorAll('main details').forEach(item => { (item as HTMLDetailsElement).open = expanded; });
-          await pause();
-          if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Overflow at ' + viewport + 'px.');
-          if (expanded && [...doc.querySelectorAll<HTMLElement>('.cc-first-year td')].some(cell => cell.scrollWidth > cell.clientWidth + 1)) throw new Error('Annual cost text clips inside a cell at ' + viewport + 'px.');
-          results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
-        }
-        const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        if ((year.match(/A\$6,785/g) || []).length < 3 || !year.includes('US$10,000 minimum') || !year.includes('US$16,500') || year.includes('+ implementation') || !year.includes('different currencies')) throw new Error('First-year amounts incorrect.');
-        if ([...doc.images].some(image => !image.complete || image.naturalWidth === 0)) throw new Error('Image not loaded.');
-        if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Draft noindex missing.');
-        for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) {
-          if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken section anchor.');
-        }
-      }
-      const links = [...doc.querySelectorAll<HTMLAnchorElement>('main a')];
-      if (links.some(link => !link.getAttribute('href'))) throw new Error('Empty link.');
-      if (links.filter(link => link.pathname === '/booking').length < 2) throw new Error('Missing call CTAs.');
-      results.push('First-year launch totals, images, noindex, anchors and CTA destinations PASS');
-      setReport('20 published-pricing states and 8 layout states passed.\n' + results.join('\n'));
-    } catch (error) {
-      setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n'));
-    } finally {
-      setChecking(false);
-    }
-  }
   async function runZohoChecks() {
     setChecking(true);
     setReport('');
@@ -405,7 +329,7 @@ function ComparisonReview() {
     try {
       const doc = frame.current?.contentDocument;
       const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
-      if (!doc || !win || !['/compare/zapla-vs-zoho-simple', '/compare/zapla-vs-zoho-v2'].includes(path)) throw new Error('Select the Zoho draft and let it load first.');
+      if (!doc || !win || path !== '/comparison/zapla-vs-zoho') throw new Error('Select the Zoho draft and let it load first.');
       const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
       const radios = doc.querySelectorAll<HTMLInputElement>('input[name="comparison-billing"]');
       if (!range || radios.length !== 2) throw new Error('The comparison calculator has not loaded.');
@@ -481,12 +405,11 @@ function ComparisonReview() {
         <a href={path} style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: '#2563FF', textDecoration: 'underline' }}>Open selected draft</a>
       </div>
       <button type="button" disabled={checking} onClick={() => { setRefresh(Date.now()); setReport(''); }} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginRight: 12, marginBottom: 16 }}>Refresh preview</button>
-      <button type="button" onClick={runChecks} disabled={checking || !['/compare/zapla-vs-hubspot-simple', '/compare/zapla-vs-hubspot-v2'].includes(path)} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
-      {path === '/compare/zapla-vs-pipedrive-v2' && <button type="button" onClick={runPipedriveV2Checks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Pipedrive V2 checks'}</button>}
-      {path === '/compare/zapla-vs-creatio-v2' && <button type="button" onClick={runCreatioV2Checks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio V2 checks'}</button>}
-      {path === '/compare/zapla-vs-creatio-simple' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
-      {path === '/compare/zapla-vs-activecampaign-simple' && <button type="button" onClick={runActiveCampaignChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run ActiveCampaign checks'}</button>}
-      {['/compare/zapla-vs-zoho-simple', '/compare/zapla-vs-zoho-v2'].includes(path) && <button type="button" onClick={runZohoChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Zoho checks'}</button>}
+      <button type="button" onClick={runChecks} disabled={checking || path !== '/comparison/zapla-vs-hubspot'} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
+      {path === '/comparison/zapla-vs-pipedrive' && <button type="button" onClick={runPipedriveChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Pipedrive checks'}</button>}
+      {path === '/comparison/zapla-vs-creatio' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
+      {path === '/comparison/zapla-vs-activecampaign' && <button type="button" onClick={runActiveCampaignChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run ActiveCampaign checks'}</button>}
+      {path === '/comparison/zapla-vs-zoho' && <button type="button" onClick={runZohoChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Zoho checks'}</button>}
       {report && <details open><summary>Verification results</summary><pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginBottom: 24 }}>{report}</pre></details>}
       <div ref={stage}>
         <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>

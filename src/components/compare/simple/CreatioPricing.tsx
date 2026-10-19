@@ -4,7 +4,7 @@ import type { ComparisonDefinition } from './types';
 const money = (amount: number) => `A$${amount.toLocaleString('en-AU')}`;
 export const creatioAnnualLicences = (people: number) => (Math.max(5, people) * 64 + people * 24) * 12;
 
-export function CreatioV2Pricing({ data }: { data: ComparisonDefinition }) {
+export function CreatioPricing({ data }: { data: ComparisonDefinition }) {
   const [users, setUsers] = useState(5);
   const platforms = Math.max(5, users);
   const annual = creatioAnnualLicences(users);

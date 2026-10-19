@@ -1,11 +1,13 @@
+import { ZohoPricing } from '@/components/compare/simple/ZohoPricing';
+import zohoSimpleCss from '@/components/compare/simple/zoho.css?url';
 import { createFileRoute } from '@tanstack/react-router';
 import { ComparisonPage } from '@/components/compare/simple/ComparisonPage';
-import { activecampaignSimple } from '@/components/compare/simple/activecampaign';
+import { zohoSimple } from '@/components/compare/simple/zoho';
 import simpleCss from '@/components/compare/simple/simple.css?url';
 
-const title = 'Zapla vs ActiveCampaign: Pricing and Customer Tools | Zapla';
-const description = 'Compare Zapla and ActiveCampaign Plus with Pipelines: users, contacts, customer tools and AUD subscription prices and 12-month subscription totals.';
-export const Route = createFileRoute("/compare/zapla-vs-activecampaign-simple")({
+const title = 'Zapla vs Zoho: Pricing, Features and Team Access | Zapla';
+const description = 'Compare Zapla and Zoho for team access, customer tools, Guided Launch and first-year costs in AUD. See plan inclusions and source-linked pricing.';
+export const Route = createFileRoute("/comparison/zapla-vs-zoho")({
 // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
     meta: [
@@ -21,12 +23,13 @@ export const Route = createFileRoute("/compare/zapla-vs-activecampaign-simple")(
     ],
     links: [
       { rel: "stylesheet", href: simpleCss },
+      { rel: "stylesheet", href: zohoSimpleCss },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Outfit:wght@500;600&display=swap",
       },
     ],
   }),
-  component: ConciseActiveCampaignPage,
+  component: ConciseZohoPage,
 });
-function ConciseActiveCampaignPage() { return <ComparisonPage data={activecampaignSimple}/>; }
+function ConciseZohoPage() { return <ComparisonPage data={zohoSimple} pricingContent={<ZohoPricing data={zohoSimple} />} />; }

@@ -1,11 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { ComparisonPage } from '@/components/compare/simple/ComparisonPage';
 import { creatioSimple } from '@/components/compare/simple/creatio';
+import { CreatioPricing } from '@/components/compare/simple/CreatioPricing';
 import simpleCss from '@/components/compare/simple/simple.css?url';
 
-const title = 'Zapla vs Creatio: Pricing, Features and Customer Tools | Zapla';
-const description = 'Compare Zapla Follow-Through with Creatio Growth + Sales for users, customer tools and Guided Launch. See included tools and Australian quote requirements.';
-export const Route = createFileRoute("/compare/zapla-vs-creatio-simple")({
+const title = 'Zapla vs Creatio: AUD Pricing and Included Customer Tools | Zapla';
+const description = 'Compare Zapla Follow-Through with Creatio Growth + Sales for users, customer tools and Guided Launch. See A$399/month team pricing and Creatio’s A$16,000 annual new-customer purchase minimum.';
+export const Route = createFileRoute("/comparison/zapla-vs-creatio")({
 // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
     meta: [
@@ -29,4 +30,4 @@ export const Route = createFileRoute("/compare/zapla-vs-creatio-simple")({
   }),
   component: ConciseCreatioPage,
 });
-function ConciseCreatioPage() { return <ComparisonPage data={creatioSimple}/>; }
+function ConciseCreatioPage() { return <ComparisonPage data={creatioSimple} pricingContent={<CreatioPricing data={creatioSimple} />} />; }

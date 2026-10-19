@@ -1,11 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { ComparisonPage } from '@/components/compare/simple/ComparisonPage';
-import { zohoSimple } from '@/components/compare/simple/zoho';
+import { activecampaignSimple } from '@/components/compare/simple/activecampaign';
 import simpleCss from '@/components/compare/simple/simple.css?url';
 
-const title = 'Zapla vs Zoho: Pricing, Features and Team Access | Zapla';
-const description = 'Compare Zapla and Zoho for team access, customer tools, Guided Launch and first-year costs in AUD. See plan inclusions and source-linked pricing.';
-export const Route = createFileRoute("/compare/zapla-vs-zoho-simple")({
+const title = 'Zapla vs ActiveCampaign: Pricing and Customer Tools | Zapla';
+const description = 'Compare Zapla and ActiveCampaign Plus with Pipelines: users, contacts, customer tools and AUD subscription prices and 12-month subscription totals.';
+export const Route = createFileRoute("/comparison/zapla-vs-activecampaign")({
 // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
     meta: [
@@ -27,6 +27,6 @@ export const Route = createFileRoute("/compare/zapla-vs-zoho-simple")({
       },
     ],
   }),
-  component: ConciseZohoPage,
+  component: ConciseActiveCampaignPage,
 });
-function ConciseZohoPage() { return <ComparisonPage data={zohoSimple}/>; }
+function ConciseActiveCampaignPage() { return <ComparisonPage data={activecampaignSimple}/>; }

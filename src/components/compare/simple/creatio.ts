@@ -1,117 +1,729 @@
-import type { ComparisonCell, ComparisonDefinition, ComparisonRow } from './types';
-import { pipedriveSimple } from './pipedrive';
+import type { ComparisonDefinition } from './types';
 
-// Fixed Growth + Sales match. USD reference prices and purchase conditions stay visible.
-// The supplied AUD capture is dated evidence, not a current Australian quote.
-const base = pipedriveSimple;
-const source = (text: string, detail: string, sources: string[], mark?: 'tick' | 'cross'): ComparisonCell => ({
-  text, detail, sources, mark, status: mark === 'tick' ? 'included' : 'plan-dependent',
-});
-function row(id: string, label: string, competitor: ComparisonCell): ComparisonRow {
-  const original = base.rows.find(item => item.id === id);
-  if (!original) throw new Error('Missing shared Zapla feature: ' + id);
-  return { id, label, competitor, zapla: original.zapla };
-}
-const notListed = 'Not identified as a packaged Growth + Sales inclusion in the reviewed catalogue. Custom workflows or connected services may support this outcome; scope and charges must be confirmed. This is not a claim that the outcome is impossible.';
-
-export const creatioSimple: ComparisonDefinition = {
-  ...base,
-  competitor: 'Creatio',
-  vendorPlan: 'Growth + Sales',
-  tableIntroduction: 'Zapla Follow-Through vs Creatio Growth + Sales. See what’s included, what’s limited and what needs another tool.',
-  tableCaption: 'Creatio Growth + Sales compared with Zapla Follow-Through.',
-  vendorPricingUrl: 'https://www.creatio.com/products/pricing',
-  // Legacy AUD fields are unused in the explicitly labelled USD-reference mode.
-  vendorEntryPrice: 0,
-  vendorEntryPlan: 'Growth + Sales',
-  vendorPrice: 0,
-  vendorAnnualPrice: 0,
-  vendorPriceUnit: 'US$55 per user/month; purchase minimum applies',
-  vendorBilling: 'Minimum five platform users; US$10,000 annual new-customer purchase minimum; standard three-year contract. Australian terms require confirmation.',
-  vendorPlanReason: 'The named configuration combines the Growth platform with the Sales product.',
-  vendorLowerPlans: '',
-  vendorEntryScope: 'Growth platform plus Sales product. Published US reference: US$40 + US$15 per user/month, subject to purchase conditions.',
-  vendorScope: 'CRM, workflow designers, shared mailbox configuration, quotes and invoices. Connected services and additional products have their own scope.',
-  pricingHeading: 'Compare the tools. Then the team price.',
-  pricingIntroduction: 'Creatio Growth + Sales is US$55 per user/month at the published US reference rates. A five-user minimum and US$10,000 annual minimum purchase apply to new customers, with a standard three-year contract. Zapla Follow-Through is A$399/month + GST with unlimited users. Currencies differ; no savings calculation is made.',
-  quotePricing: undefined,
-  publishedPricing: {
-    currencyPrefix: 'US$',
-    platformRate: 40,
-    productRate: 15,
-    minimumUsers: 5,
-    minimumAnnualPurchase: 10000,
-    standardTermYears: 3,
-    qualification: 'Creatio amounts are published USD references; Zapla amounts are AUD excluding GST. They are not a same-currency savings comparison. The model assigns Growth + Sales to each licensed user and starts at five licences, even for a smaller team. Other user types have different access. Licence arithmetic alone does not override Creatio’s annual purchase minimum or establish a payment schedule. Usage, implementation and optional services are separate; final regional terms require a quote.',
-    historicalReference: 'Dated Australian reference (1 July 2026): A$64 Growth + A$24 Sales per user/month, with a stated A$16,000 annual new-customer minimum and standard three-year term. These AUD figures have not been reconfirmed and are not used as current calculator rates or an exchange-rate conversion. Basic support is listed as free; paid support upgrades, extra AI packages and connected services are not automatically added to the model.',
+// Current AUD comparison, promoted from the approved v2 draft.
+export const creatioSimple = {
+  "competitor": "Creatio",
+  "headline": "Your whole team.",
+  "headlineAccent": "One CRM subscription.",
+  "introduction": "Give reception, sales and the owner customer conversations, quotes, bookings and automated follow-ups for A$399/month + GST. Unlimited users. No extra seat fees.",
+  "highlights": [
+    {
+      "title": "A lower subscription commitment.",
+      "description": "Zapla is A$399/month, with month-to-month software after launch. Creatio publishes an A$16,000 annual minimum purchase for new customers and a standard three-year contract.",
+      "link": {
+        "href": "#pricing-comparison",
+        "label": "Compare the prices and terms"
+      }
+    },
+    {
+      "title": "Everyday customer tools included.",
+      "description": "Two-way SMS, missed-call text-back, reviews and bookings sit alongside your CRM. Phone numbers and communications usage are extra.",
+      "link": {
+        "href": "/crm#crm-workbench",
+        "label": "Explore customer records and conversations"
+      }
+    },
+    {
+      "title": "Your first workflows built and tested.",
+      "description": "We import your agreed customer data, connect your tools, configure your first workflows, and test them with your team."
+    }
+  ],
+  "tableIntroduction": "Zapla Follow-Through vs Creatio Growth + Sales. Compare team access and the tools you use to respond, book and follow up.",
+  "tableCaption": "Creatio Growth + Sales compared with Zapla Follow-Through.",
+  "vendorPricingUrl": "https://www.creatio.com/products/pricing",
+  "vendorPlan": "Growth + Sales",
+  "vendorEntryPrice": 88,
+  "vendorEntryPlan": "Growth + Sales",
+  "vendorPrice": 88,
+  "vendorAnnualPrice": 88,
+  "vendorPriceUnit": "per full user/month, billed annually",
+  "workflowNote": "Both plans document unlimited workflow count. Creatio Growth has a separate custom-process execution allowance. Unlimited workflows do not mean unlimited executions, sending or setup work.",
+  "vendorBilling": "Minimum five platform users. A$16,000 annual new-customer purchase minimum. Standard three-year contract.",
+  "pricingHeadline": "One team price. More tools included.",
+  "vendorPlanReason": "Growth supplies the workflow and application platform. Sales adds packaged sales processes, quotes and invoice records. Enterprise adds higher capacity and governance; it is not required for the workflow designer.",
+  "vendorLowerPlans": "",
+  "costCaution": "The annual minimum is a purchase condition, not a quoted five-user package. Features and setup scopes differ.",
+  "additionalTools": [
+    {
+      "title": "Phone access and invoicing",
+      "description": "Built into both plans. Communications usage and payment-provider charges are separate.",
+      "sources": [
+        "platform-pricing",
+        "offer"
+      ]
+    },
+    {
+      "title": "Reviews and customer follow-up",
+      "description": "Follow-Through includes review requests, quote follow-up and appointment recovery tools. Launch configuration is agreed with you.",
+      "sources": [
+        "offer"
+      ]
+    }
+  ],
+  "vendorEntryScope": "Growth A$64 + Sales A$24 per full user/month, billed annually. Purchase minimum applies.",
+  "vendorScope": "CRM, workflow designers, shared mailbox configuration, quotes and invoices. Connected services and additional products have their own scope.",
+  "offerScope": "CRM, inbox, forms, bookings, website/funnel builder, invoicing and phone access. Usage is separate.",
+  "recurringExamples": [],
+  "costExamples": {
+    "title": "See annual subscriptions and required setup",
+    "introduction": "Zapla’s first-year examples include 12 monthly payments and minimum Guided Launch. Creatio shows licence arithmetic separately from purchase eligibility.",
+    "columns": [
+      "Creatio · annual licences",
+      "Zapla · first year with launch"
+    ],
+    "rows": [
+      {
+        "label": "1 person",
+        "values": [
+          "A$4,128; below A$16,000 minimum",
+          6785
+        ]
+      },
+      {
+        "label": "5 people",
+        "values": [
+          "A$5,280; below A$16,000 minimum",
+          6785
+        ]
+      },
+      {
+        "label": "16 people",
+        "values": [
+          "A$16,896",
+          6785
+        ]
+      },
+      {
+        "label": "25 people",
+        "values": [
+          "A$26,400",
+          6785
+        ]
+      },
+      {
+        "label": "100 people",
+        "values": [
+          "A$105,600",
+          6785
+        ]
+      }
+    ],
+    "caption": "AUD annual licence subtotals and purchase eligibility compared with Zapla’s first year including minimum launch.",
+    "note": "Zapla: A$399 × 12 + minimum launch A$1,997 = A$6,785. Creatio: A$64 per platform licence + A$24 per Sales licence per month, annual billing. One person uses five platform licences and one Sales licence. Below-minimum subtotals are not purchasable offers; other configurations or sales-confirmed terms are required. Larger totals use published rates, not negotiated quotes. Creatio implementation, if required, is not priced here. All figures exclude tax, usage, optional services and payment fees. Feature bundles and setup scopes differ."
   },
-  costCaution: 'Published USD licence subtotals are not final purchase quotes or AUD savings figures. The annual minimum and regional terms apply.',
-  recurringExamples: [],
-  costExamples: {
-    title: 'See the annual costs and required setup',
-    introduction: 'Creatio’s licence subtotal and minimum purchase are separate figures. The USD reference below applies the published annual purchase floor to Growth + Sales licence arithmetic. Zapla includes 12 monthly subscriptions and minimum Guided Launch in AUD. These are different currencies, not savings examples.',
-    columns: ['Creatio · USD reference', 'Zapla · AUD including launch'],
-    rows: [1, 5, 25].map(users => ({ label: users + (users === 1 ? ' person' : ' people'), values: [users <= 5 ? 'US$10,000 minimum' : 'US$16,500', 6785] })),
-    caption: 'Annual published-reference purchase floor for Creatio in USD versus Zapla first-year subscription and minimum launch in AUD. Currencies and scope differ.',
-    note: 'For one or five people, five Growth + Sales licences total US$3,300/year, below the published US$10,000 annual purchase minimum. For 25 full users, licences total US$16,500/year, above that floor. These are illustrative purchase-floor calculations, not checkout quotes; payment timing and qualifying purchases require confirmation. Creatio’s standard term is three years, not monthly cancellation. Zapla: A$399 × 12 + A$1,997 minimum Guided Launch = A$6,785, excluding GST. Usage, optional products and extra work are excluded. No FX conversion or savings claim is made.',
+  "launch": {
+    "headline": "Get your first setup working.",
+    "introduction": "Guided Launch turns the software into an agreed setup for your business. It is required and priced separately from the subscription.",
+    "steps": [
+      {
+        "title": "Agree the process",
+        "description": "Choose the enquiries, quotes or bookings to follow up, and agree what moves from your current tools."
+      },
+      {
+        "title": "Build and connect",
+        "description": "Import up to 5,000 clean contacts and configure up to two pipelines, three forms, two calendars and three agreed automations."
+      },
+      {
+        "title": "Test and train",
+        "description": "Test the agreed setup, train your team and take the first version live."
+      }
+    ],
+    "note": "Your launch scope and price are confirmed before you commit. Compare the agreed setup work alongside the software subscription."
   },
-  workflowNote: 'Both plans document unlimited workflow count. Creatio Growth separately lists 50,000 executed process elements per month. Zapla’s allowance does not mean unlimited executions, sending or setup work.',
-  tableNotes: ['“Not listed” means not identified as a packaged Growth + Sales inclusion in the reviewed catalogue. Customisation or connected services may support the outcome.'],
-  rows: [
-    row('team', 'Unlimited users', source('Per-user pricing', 'This row applies only to the named Growth platform + Sales configuration, which charges per licensed user. Growth starts at five platform users. The calculator models Growth + Sales licences, with the licence subtotal, annual purchase minimum and standard term shown separately. Limited-access user types and final regional terms can differ.', ['pricing', 'plans'])),
-    row('sms', 'Two-way SMS', source('Separate app', 'Creatio’s Twilio Services connector supports sending and receiving SMS inside Creatio. Connector scope, provider accounts, numbers and usage charges must be confirmed separately.', ['twilio'])),
-    row('missed-call', 'Missed-call text-back', source('Not listed', notListed, ['pricing', 'sales', 'twilio'])),
-    row('reviews', 'Review management', source('Not listed', notListed, ['pricing', 'sales'])),
-    row('website', 'Websites & funnels', source('Separate tools', 'Growth + Sales does not include the separate Marketing product’s advertised landing-page builder. The no-code application designer is not evidence of an included public website builder. Website services and connections can be scoped separately.', ['pricing', 'marketing', 'plans'])),
-    row('phone', 'Built-in business phone', source('Separate app', 'Calling can run inside Creatio using a connected provider such as Twilio. Connector licensing, regional availability, numbers and call usage depend on the agreed setup.', ['twilio', 'voice'])),
-    row('email', 'Automation workflows', source('Unlimited', 'The Growth plan lists unlimited workflow count, with a separate allowance of 50,000 executed process elements per month. This is not a limit of 50,000 complete workflows.', ['plans'], 'tick')),
-    row('contacts', 'Unlimited contacts', source('', 'Creatio Growth lists unlimited records. Database and attachment storage allocations are separate; marketing contacts, if the Marketing product is purchased, have separate commercial terms.', ['plans'], 'tick')),
-    row('replies', 'Shared email inbox', source('', 'Creatio documents shared mailbox access, permissions and sending from a shared address across products. Mailbox connection and configuration are required. The cited mailbox guide is legacy documentation; current account-level behaviour has not been independently tested.', ['mailbox'], 'tick')),
-    row('forms', 'Forms', source('Connected forms', 'Creatio documents web-to-object integration to create CRM records from connected web forms. This credits form capture, not an assumed identical native form-builder experience. The cited guide is legacy documentation and deployment scope should be confirmed.', ['forms'])),
-    row('proposals', 'Quotes & proposals', source('', 'Creatio Sales advertises quote creation and sharing. Its Sales objects include orders, contracts and documents. Templates and any advanced proposal, signature or CPQ requirements must be scoped; no additional quote tool is automatically charged.', ['sales', 'artifacts'], 'tick')),
-    row('invoices', 'Invoicing', source('', 'Creatio Sales includes an Invoice object and order, contract and invoice approval workflows. Payment processing and accounting connections are separate; neither platform is presented as replacing accounting software.', ['artifacts'], 'tick')),
+  "foundationNote": "",
+  "methodology": "Checked 18 October 2026. Fixed comparison: Creatio Growth + Sales versus Zapla Follow-Through. AUD rates of A$64 Growth and A$24 Sales, the five-platform-user starting quantity, A$16,000 annual new-customer purchase minimum and standard three-year term were observed in the public pricing configurator. Five-user and 15-user full Sales configurations were below the minimum with Buy unavailable; 16 users reached an A$16,896 annual checkout total. A 4% card fee was removed by selecting invoice. No invoice was issued and final GST treatment, billing schedule and terms require the order. The headline minimum is not a quoted five-user package. Each selected person receives Sales; the platform quantity is at least five. Five platform plus one Sales was independently observed. Other product mixes and access types differ. Values above tested configurations are transparent list-price arithmetic, not negotiated quotes. Marketing, Service, paid support, ongoing AI and integrations are separate where required and are not silently stacked. Zapla’s required launch, usage and optional services are separate. Documentation establishes capabilities, not account-tested parity; shared-mailbox and connector behaviour needs current deployment confirmation. Zapla reviews and missed-call text-back are owner-confirmed inclusions. Unlimited workflow count does not mean unlimited execution, storage, sending or setup. Creatio Growth’s custom-process soft cap is 50,000 executed elements per month per environment, with unchanged standard processes excluded. No security, speed, hosting or ROI superiority is claimed.",
+  "fit": [
+    {
+      "title": "Custom applications and complex processes",
+      "description": "A strong fit when your organisation needs configurable applications, approvals and cross-team processes, with implementation resources to shape the system around your requirements.",
+      "consideration": "Choose the platform around the capacity, governance and deployment features you need."
+    },
+    {
+      "title": "Everyday follow-up, with your team included",
+      "description": "Give reception, sales and the owner shared customer history, two-way SMS, missed-call text-back, reviews, bookings and quotes, with help building the first workflows.",
+      "consideration": "A$399/month + GST brings everyday customer tools and unlimited users into one subscription."
+    }
   ],
-  growthRows: [
-    { ...base.growthRows[0], label: 'Database reactivation', competitor: source('Configured workflows', 'Creatio workflows can be configured for re-engagement. Broader marketing campaigns and sending channels depend on the selected products and connections. This is not marked unavailable.', ['plans', 'marketing', 'artifacts']) },
-    { ...base.growthRows[1], label: 'Email campaigns', competitor: source('Marketing product', 'Campaigns, segmentation and marketing email are documented in the separately selected Marketing product, outside the fixed Growth + Sales configuration. No Marketing subscription is added to the price comparison.', ['pricing', 'marketing', 'artifacts']) },
-    { ...base.growthRows[2], label: 'Bulk SMS / WhatsApp campaigns', competitor: source('Product / integration', 'Creatio Marketing and suitable connected messaging providers support campaigns. Product entitlement, consent, channel setup and sending costs require confirmation.', ['marketing', 'artifacts', 'twilio']) },
-    { ...base.growthRows[3], label: 'Social scheduling', competitor: source('Not listed', 'A social publishing scheduler was not identified as a packaged Growth + Sales inclusion. Do not confuse social messaging or advertising analytics with a publishing scheduler.', ['pricing', 'sales', 'marketing']) },
+  "rows": [
+    {
+      "id": "team",
+      "label": "Unlimited users",
+      "competitor": {
+        "text": "Per-user pricing",
+        "detail": "Growth + Sales charges per licensed user. At least five platform users and a separate A$16,000 annual purchase minimum apply to new customers. The calculator gives each selected person a Sales licence. Other access types and product mixes can change the quote.",
+        "sources": [
+          "pricing",
+          "plans"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Unlimited users on both Zapla plans.",
+        "status": "included",
+        "sources": [
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "sms",
+      "label": "Two-way SMS",
+      "competitor": {
+        "text": "Separate app",
+        "detail": "Creatio’s Twilio Services connector supports sending and receiving SMS inside Creatio. Connector scope, provider accounts, numbers and usage charges must be confirmed separately.",
+        "sources": [
+          "twilio"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "Included¹",
+        "mark": "tick",
+        "detail": "Two-way SMS is included in Follow-Through. Number and message usage charges are separate. Bulk marketing campaigns are in Growth.",
+        "status": "included",
+        "sources": [
+          "inbox",
+          "phone",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "missed-call",
+      "label": "Missed-call text-back",
+      "competitor": {
+        "text": "Not listed",
+        "detail": "Not identified as a packaged Growth + Sales inclusion in the reviewed catalogue. Custom workflows or connected services may support this outcome; scope and charges must be confirmed. This is not a claim that the outcome is impossible.",
+        "sources": [
+          "pricing",
+          "sales",
+          "twilio"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "Included¹",
+        "mark": "tick",
+        "detail": "Automatically send a text when your business misses a call.",
+        "status": "included",
+        "sources": [
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "reviews",
+      "label": "Review management",
+      "competitor": {
+        "text": "Not listed",
+        "detail": "A packaged review-request and management feature was not identified in Growth + Sales. A listed YouScan integration brings reputation-monitoring results into case workflows, with a paid YouScan subscription. It does not establish an equivalent review-request workflow.",
+        "sources": [
+          "pricing",
+          "sales",
+          "youscan"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Review management tools are included in Follow-Through.",
+        "status": "included",
+        "sources": [
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "booking",
+      "label": "Online booking",
+      "competitor": {
+        "text": "Separate app",
+        "status": "separate",
+        "sources": [
+          "calendly"
+        ],
+        "detail": "A listed Calendly connector brings scheduled or cancelled meetings into Creatio. Connector licensing and an eligible Calendly subscription are separate. Compatibility and current provider requirements need checking; this is not an included Growth + Sales booking service."
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Calendars and booking tools included on both plans.",
+        "status": "included",
+        "sources": [
+          "platform-pricing",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "website",
+      "label": "Websites & funnels",
+      "competitor": {
+        "text": "Separate tools",
+        "detail": "Growth + Sales does not include the separate Marketing product’s advertised landing-page builder. The no-code application designer is not evidence of an included public website builder. Website services and connections can be scoped separately.",
+        "sources": [
+          "pricing",
+          "marketing",
+          "plans"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Self-service website and funnel builders are included. A done-for-you website build is separately scoped and priced.",
+        "status": "included",
+        "sources": [
+          "platform-pricing",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "phone",
+      "label": "Built-in business phone",
+      "competitor": {
+        "text": "Separate app",
+        "detail": "Calling can run inside Creatio using a connected provider such as Twilio. Connector licensing, regional availability, numbers and call usage depend on the agreed setup.",
+        "sources": [
+          "twilio",
+          "voice"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "Included¹",
+        "mark": "tick",
+        "detail": "Phone access included; numbers and usage are charged separately.",
+        "status": "included",
+        "sources": [
+          "phone",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "email",
+      "label": "Automation workflows",
+      "competitor": {
+        "text": "Unlimited",
+        "detail": "Growth documents unlimited workflow count, with a soft cap of 50,000 executed custom process elements per month per environment. Unchanged standard processes are excluded. This is not 50,000 complete workflows; higher capacity requires an appropriate plan.",
+        "sources": [
+          "plans"
+        ],
+        "mark": "tick",
+        "status": "included"
+      },
+      "zapla": {
+        "text": "Unlimited",
+        "mark": "tick",
+        "detail": "Unlimited workflow/automation count on the underlying platform. This does not mean unlimited messages, usage or done-for-you setup; Guided Launch covers the agreed initial configuration.",
+        "status": "included",
+        "sources": [
+          "platform-pricing",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "contacts",
+      "label": "Unlimited contacts",
+      "competitor": {
+        "text": "",
+        "detail": "Creatio Growth lists unlimited records. Database and attachment storage allocations are separate; marketing contacts, if the Marketing product is purchased, have separate commercial terms.",
+        "sources": [
+          "plans"
+        ],
+        "mark": "tick",
+        "status": "included"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Unlimited stored contacts, subject to fair use. Message usage is separate.",
+        "status": "included",
+        "sources": [
+          "platform-pricing",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "replies",
+      "label": "Shared email inbox",
+      "competitor": {
+        "text": "Shared mailbox",
+        "detail": "Creatio documents shared mailbox access, permissions and sending from a shared address across products. Mailbox connection and configuration are required. The cited mailbox guide is legacy documentation; current account-level behaviour has not been independently tested.",
+        "sources": [
+          "mailbox"
+        ],
+        "mark": "tick",
+        "status": "included"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Included on both plans; channels are connected during the agreed setup.",
+        "status": "included",
+        "sources": [
+          "inbox",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "forms",
+      "label": "Forms",
+      "competitor": {
+        "text": "Connected forms",
+        "detail": "Current Creatio documentation supports importing external web-form submissions through webhooks. Form-provider setup and field mapping are required. This credits connected form capture, not an identical built-in public form builder.",
+        "sources": [
+          "forms"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Forms and surveys included on both plans.",
+        "status": "included",
+        "sources": [
+          "platform-pricing",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "proposals",
+      "label": "Quotes & proposals",
+      "competitor": {
+        "text": "",
+        "detail": "Creatio Sales advertises quote creation and sharing. Its Sales objects include orders, contracts and documents. Templates and any advanced proposal, signature or CPQ requirements must be scoped; no additional quote tool is automatically charged.",
+        "sources": [
+          "sales",
+          "artifacts"
+        ],
+        "mark": "tick",
+        "status": "included"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Proposal tools included on both plans.",
+        "status": "included",
+        "sources": [
+          "platform-pricing",
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "invoices",
+      "label": "Invoicing",
+      "competitor": {
+        "text": "",
+        "detail": "Creatio Sales includes an Invoice object and order, contract and invoice approval workflows. Payment processing and accounting connections are separate; neither platform is presented as replacing accounting software.",
+        "sources": [
+          "artifacts"
+        ],
+        "mark": "tick",
+        "status": "included"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Create and send invoices from your CRM.",
+        "status": "included",
+        "sources": [
+          "platform-pricing",
+          "offer"
+        ]
+      }
+    }
   ],
-  marketingNote: 'Creatio’s Marketing product and connected providers support campaign work. They are outside this fixed Growth + Sales comparison; no hypothetical additional stack is charged.',
-  optionalRows: [{
-    id: 'ai', label: 'AI call answering',
-    competitor: source('AI Studio setup', 'Creatio AI Studio documents voice agents that answer inbound calls and transfer live calls through configured Twilio connections. Licensing, AI consumption, regional availability and feature equivalence have not been account-tested; this is not marked absent.', ['voice', 'pricing']),
-    zapla: { text: 'Optional paid service', detail: 'AI Receptionist is separately priced, outside both software subscriptions. Setup, scope and communications usage are agreed separately; no voice allowance is assumed.', status: 'separate', sources: ['offer', 'phone'] },
-  }],
-  fit: [
-    { title: 'Custom applications and complex processes', description: 'A strong fit when your organisation needs to build and adapt applications, approvals and workflows around more complex operational requirements.', consideration: 'Assess the configuration, connected services and implementation alongside your Creatio quote.' },
-    { title: 'One system for everyday customer follow-up', description: 'Manage enquiries, conversations, quotes, bookings, invoices and reviews with reception, sales and the owner working from the same customer history.', consideration: 'A$399/month + GST brings everyday customer tools and unlimited users into one subscription.' },
+  "growthRows": [
+    {
+      "id": "reactivation",
+      "label": "Database reactivation",
+      "competitor": {
+        "text": "Configured workflows",
+        "detail": "Creatio workflows can be configured for re-engagement. Broader marketing campaigns and sending channels depend on the selected products and connections. This is not marked unavailable.",
+        "sources": [
+          "plans",
+          "marketing",
+          "artifacts"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Database reactivation tools included in Growth, using targeted email, SMS or WhatsApp campaigns. Sending usage and separately managed campaign services are additional; results are not guaranteed.",
+        "status": "included",
+        "sources": [
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "marketing",
+      "label": "Email campaigns",
+      "competitor": {
+        "text": "Marketing product",
+        "detail": "Campaigns, segmentation and marketing email are documented in the separately selected Marketing product, outside the fixed Growth + Sales configuration. No Marketing subscription is added to the price comparison.",
+        "sources": [
+          "pricing",
+          "marketing",
+          "artifacts"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Email campaign tools included in Growth, not Follow-Through. Sending usage is separate.",
+        "status": "included",
+        "sources": [
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "sms-marketing",
+      "label": "Bulk SMS campaigns",
+      "competitor": {
+        "text": "Product / integration",
+        "detail": "Creatio Marketing and suitable connected messaging providers support campaigns. Product entitlement, consent, channel setup and sending costs require confirmation.",
+        "sources": [
+          "marketing",
+          "artifacts",
+          "twilio"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Bulk SMS campaign tools included in Growth. Message usage is charged separately; this is not unlimited sending.",
+        "status": "included",
+        "sources": [
+          "offer"
+        ]
+      }
+    },
+    {
+      "id": "social",
+      "label": "Social scheduling",
+      "competitor": {
+        "text": "Not listed",
+        "detail": "A social publishing scheduler was not identified as a packaged Growth + Sales inclusion. Do not confuse social messaging or advertising analytics with a publishing scheduler.",
+        "sources": [
+          "pricing",
+          "sales",
+          "marketing"
+        ],
+        "status": "plan-dependent"
+      },
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "detail": "Social scheduling included in Growth. Supported channels must be connected.",
+        "status": "included",
+        "sources": [
+          "offer"
+        ]
+      }
+    }
   ],
-  faqs: [
-    { question: 'Why compare Creatio Growth + Sales?', answer: 'Growth supplies the workflow platform and Sales adds the sales product used in this comparison. It is a fixed named configuration, not a promise that the two platforms have identical capabilities.' },
-    { question: 'Is the minimum five users or US$10,000 a year?', answer: 'Both conditions are published. Growth starts at five platform users. Five Growth + Sales licences calculate to US$275/month or US$3,300/year at the published US rates, but new customers also face a US$10,000 annual minimum purchase. The minimum is a spending floor, not an extra US$10,000 setup fee. The standard contract term is three years. Confirm eligible purchases, payment timing, Australian rates, taxes and implementation in your quote.' },
-    { question: 'Why show USD prices on an Australian comparison?', answer: 'The published US reference gives a visible price without inventing an AUD conversion. An Australian pricing reference dated 1 July 2026 lists A$64 Growth + A$24 Sales per user/month and an A$16,000 annual minimum; these local figures have not been reconfirmed currently. We show them as dated reference evidence in the pricing notes, not as today’s Australian quote. Different currencies are not used to calculate savings.' },
-    { question: 'What happens if I’m moving from Creatio?', answer: 'We agree which data to move, which tools to keep and which workflows to rebuild before you commit. Existing workflows, conversation history and integrations are assessed individually. Guided Launch covers the agreed initial setup; extra migration or integration work is scoped and priced separately.' },
-    { question: 'Which plan includes marketing and AI Receptionist?', answer: 'Growth includes Follow-Through plus database reactivation, email campaigns, bulk SMS/WhatsApp campaigns and social scheduling for A$699/month + GST total, with required Guided Launch from A$2,997 + GST. Sending usage is separate. AI Receptionist is an optional paid service on either plan.' },
+  "marketingNote": "Growth also includes WhatsApp campaigns. Creatio Marketing is separately priced at A$24 per marketing user/month on top of the platform, with marketing-contact and email allowances. Add Sales only when its packaged features are needed; the platform is counted once.",
+  "optionalRows": [
+    {
+      "id": "ai",
+      "label": "AI call answering",
+      "competitor": {
+        "text": "AI package + setup",
+        "status": "separate",
+        "sources": [
+          "voice",
+          "pricing",
+          "ai-packages"
+        ],
+        "detail": "Creatio documents inbound AI voice agents with configured telephony. Beyond the initial allowance, ongoing AI requires a separately purchased package; Start is listed at A$8,000/year. Setup, carrier charges and Australian deployment requirements are separate. Feature equivalence has not been account-tested."
+      },
+      "zapla": {
+        "text": "Optional paid service",
+        "detail": "AI Receptionist is separately priced, outside both software subscriptions. Setup, scope and communications usage are agreed separately; no voice allowance is assumed.",
+        "status": "separate",
+        "sources": [
+          "offer",
+          "phone"
+        ]
+      }
+    }
   ],
-  foundations: [],
-  foundationNote: '',
-  methodology: 'The table and pricing section compare Creatio Growth platform + Sales product with Zapla Follow-Through throughout. Only this named Creatio configuration is evaluated; this is not a catalogue of all Creatio offers. The visible pricing uses the published USD40 Growth + USD15 Sales per user/month reference, a five-user platform minimum, USD10000 annual new-customer minimum and standard three-year contract. The licence subtotal is not the minimum purchase or a promise of monthly billing. Annual examples apply the published spending floor to the modelled licence subtotal and exclude implementation; they are illustrative, not checkout quotes. The supplied pricing guide captured on 1 July 2026 lists AUD64 + AUD24 and AUD16000 minimum. This dated Australian evidence is acknowledged in the pricing notes; it has not been reconfirmed and is not substituted for current rates. USD documentation is not a verified Australian contract. No same-currency savings or monthly cancellation claim is made. Basic support is listed as free; no paid support or AI package is assumed mandatory. Zapla prices exclude GST; launch, communications usage, optional services and payment-provider fees are separate. Feature bundles differ. Creatio receives credit for unlimited workflow count and records, shared mailbox documentation, quotes, invoices and connected calling/SMS. “Not listed” is a catalogue observation, not proof that a custom workflow or integration is impossible. Some mailbox/form evidence is legacy documentation and current account behaviour has not been tested. Zapla review management and missed-call text-back are owner-confirmed Follow-Through inclusions on 16 October 2026. Unlimited workflow count does not mean unlimited executions, sending, storage or setup work. This is a vendor-documentation comparison, not an independent account-level product test. No comparative security, hosting, performance or ROI claim is made.',
-  sources: [
-    ...base.sources.filter(item => ['platform-pricing', 'offer', 'inbox', 'phone', 'crm'].includes(item.id)),
-    { id: 'pricing', title: 'Creatio pricing and commercial terms', url: 'https://www.creatio.com/products/pricing' },
-    { id: 'support', title: 'Creatio support options and paid upgrades', url: 'https://www.creatio.com/services/support/options' },
-    { id: 'plans', title: 'Creatio platform plan features and allowances', url: 'https://www.creatio.com/products/pricing/compare-platform-plans' },
-    { id: 'sales', title: 'Creatio Sales and quoting', url: 'https://www.creatio.com/sales' },
-    { id: 'artifacts', title: 'Creatio v10 Sales and Marketing objects and workflows', url: 'https://academy.creatio.com/guides/creatio-apps/overview/creatio-artifacts-overview' },
-    { id: 'marketing', title: 'Creatio Marketing and landing pages', url: 'https://www.creatio.com/marketing' },
-    { id: 'mailbox', title: 'Creatio shared mailbox documentation (legacy guide)', url: 'https://academy.creatio.com/docs/user/setup_and_administration/base_integrations/mailbox_setup/set_up_a_shared_mailbox/configure_a_shared_mailbox' },
-    { id: 'forms', title: 'Creatio connected web forms (legacy guide)', url: 'https://academy.creatio.com/docs/developer/application_components/landings/web_to_object/overview' },
-    { id: 'twilio', title: 'Twilio Services for Creatio', url: 'https://marketplace.creatio.com/app/twilio-services-creatio' },
-    { id: 'voice', title: 'Creatio AI Studio telephony and inbound routing', url: 'https://academy.creatio.com/guides/ai-studio/connectivity/set-up-telephony' },
-    { id: 'comparison-reference', title: 'Reference reviewed: Creatio competitor comparison', url: 'https://www.creatio.com/landings/creatio-vs-competitors' },
-    { id: 'salesforce-reference', title: 'Reference reviewed: Creatio versus Salesforce', url: 'https://www.creatio.com/glossary/creatio-vs-salesforce' },
+  "offer": {
+    "monthly": 399,
+    "launch": 1997,
+    "growthMonthly": 699,
+    "growthLaunch": 2997,
+    "unlimitedUsers": true,
+    "unlimitedContacts": true,
+    "trial": false
+  },
+  "foundations": [],
+  "faqs": [
+    {
+      "question": "Is Zapla cheaper than Creatio?",
+      "answer": "For the published new-customer offer compared here, Zapla has the lower subscription commitment: A$4,788 for 12 months of Follow-Through, paid monthly, versus Creatio’s A$16,000 annual minimum purchase. Zapla’s first year starts at A$6,785 including minimum Guided Launch. These amounts exclude tax, usage and extras; bundles and implementation scopes differ. Existing-customer or negotiated Creatio terms can differ."
+    },
+    {
+      "question": "Is the minimum five users or A$16,000 a year?",
+      "answer": "Both conditions apply to the published offer. Five Growth + Sales licences total A$5,280/year, but the public checkout does not allow that below-minimum configuration to be bought as shown. The A$16,000 annual minimum is a purchase condition, not an extra setup fee or a quoted five-user package. Other configurations or sales-confirmed terms are required."
+    },
+    {
+      "question": "Why compare Growth + Sales?",
+      "answer": "Growth supplies the workflow and application platform. Sales adds the packaged sales processes, quotes and invoice records used in this comparison. The bundles overlap but are not identical. Marketing, Service, paid support and AI are not automatically added to the comparison price."
+    },
+    {
+      "question": "Can I pay Creatio monthly?",
+      "answer": "The public checkout inspected on 18 October 2026 showed an annual order total, not a month-to-month subscription. Creatio states a standard three-year contract. Your signed order sets the commitment and payment schedule. Card payment added 4%; invoice payment removed that fee."
+    },
+    {
+      "question": "What happens if I’m moving from Creatio?",
+      "answer": "We agree which data to move, which tools to keep and which workflows to rebuild before you commit. Follow-Through Guided Launch covers up to 5,000 clean contacts, two pipelines, three forms, two calendars and three agreed automations, plus testing and training. Existing workflows, conversation history and integrations are assessed individually. Extra work is scoped and priced separately."
+    },
+    {
+      "question": "Which plan includes marketing and AI Receptionist?",
+      "answer": "Zapla Growth includes Follow-Through plus database reactivation, email campaigns, bulk SMS and WhatsApp campaigns, and social scheduling for A$699/month + GST total. Required Guided Launch starts at A$2,997 + GST; sending usage is separate. AI Receptionist is an optional paid service on either plan."
+    }
   ],
-  updated: '17 October 2026',
-};
-
+  "sources": [
+    {
+      "id": "platform-pricing",
+      "title": "NextGen core platform inclusions",
+      "url": "https://thenextgencrm.com/pricing/"
+    },
+    {
+      "id": "crm",
+      "title": "NextGen customer records and pipelines",
+      "url": "https://thenextgencrm.com/features/crm/"
+    },
+    {
+      "id": "inbox",
+      "title": "NextGen shared inbox",
+      "url": "https://thenextgencrm.com/features/inbox/"
+    },
+    {
+      "id": "phone",
+      "title": "NextGen phone and AI voice",
+      "url": "https://thenextgencrm.com/features/phone/"
+    },
+    {
+      "id": "offer",
+      "title": "Zapla current plans and Guided Launch",
+      "url": "/Pricing-v3"
+    },
+    {
+      "id": "pricing",
+      "title": "Creatio pricing and commercial terms",
+      "url": "https://www.creatio.com/products/pricing"
+    },
+    {
+      "id": "support",
+      "title": "Creatio support options and paid upgrades",
+      "url": "https://www.creatio.com/services/support/options"
+    },
+    {
+      "id": "plans",
+      "title": "Creatio platform plan features and allowances",
+      "url": "https://www.creatio.com/products/pricing/compare-platform-plans"
+    },
+    {
+      "id": "sales",
+      "title": "Creatio Sales and quoting",
+      "url": "https://www.creatio.com/sales"
+    },
+    {
+      "id": "artifacts",
+      "title": "Creatio v10 Sales and Marketing objects and workflows",
+      "url": "https://academy.creatio.com/guides/creatio-apps/overview/creatio-artifacts-overview"
+    },
+    {
+      "id": "marketing",
+      "title": "Creatio Marketing and landing pages",
+      "url": "https://www.creatio.com/marketing"
+    },
+    {
+      "id": "mailbox",
+      "title": "Creatio shared mailbox documentation (legacy guide)",
+      "url": "https://academy.creatio.com/docs/user/setup_and_administration/base_integrations/mailbox_setup/set_up_a_shared_mailbox/configure_a_shared_mailbox"
+    },
+    {
+      "id": "twilio",
+      "title": "Twilio Services for Creatio",
+      "url": "https://marketplace.creatio.com/app/twilio-services-creatio"
+    },
+    {
+      "id": "voice",
+      "title": "Creatio AI Studio telephony and inbound routing",
+      "url": "https://academy.creatio.com/guides/ai-studio/connectivity/set-up-telephony"
+    },
+    {
+      "id": "comparison-reference",
+      "title": "Reference reviewed: Creatio competitor comparison",
+      "url": "https://www.creatio.com/landings/creatio-vs-competitors"
+    },
+    {
+      "id": "salesforce-reference",
+      "title": "Reference reviewed: Creatio versus Salesforce",
+      "url": "https://www.creatio.com/glossary/creatio-vs-salesforce"
+    },
+    {
+      "id": "forms",
+      "title": "Creatio: integrate a WordPress web form",
+      "url": "https://academy.creatio.com/guides/creatio-apps/creatio-basics/business-data/data-import/web-forms-and-pages/wordpress-import"
+    },
+    {
+      "id": "calendly",
+      "title": "Calendly connector for Creatio",
+      "url": "https://marketplace.creatio.com/app/calendly-connector-creatio"
+    },
+    {
+      "id": "youscan",
+      "title": "YouScan for Creatio",
+      "url": "https://marketplace.creatio.com/app/social-media-cases-creatio"
+    },
+    {
+      "id": "ai-packages",
+      "title": "Creatio AI package entitlements and credit terms",
+      "url": "https://www.creatio.com/products/pricing/compare-ai-packages"
+    },
+    {
+      "id": "limits",
+      "title": "Creatio platform pricing model and limits",
+      "url": "https://academy.creatio.com/guides/setup-and-administration/administration/pricing-model-limits"
+    }
+  ],
+  "updated": "18 October 2026",
+  "pricingUrl": "/Pricing-v3",
+  "pricingHeading": "A smaller CRM bill. Your whole team included.",
+  "pricingIntroduction": "Zapla’s software is A$4,788 for 12 months, paid monthly. Creatio publishes an A$16,000 annual minimum purchase for new customers. Compare the commitment below, then the tools and setup you need.",
+  "publishedPricing": {
+    "currencyPrefix": "A$",
+    "platformRate": 64,
+    "productRate": 24,
+    "minimumUsers": 5,
+    "minimumAnnualPurchase": 16000,
+    "standardTermYears": 3,
+    "qualification": "AUD list prices before applicable taxes. Purchase conditions and different feature bundles apply.",
+    "historicalReference": ""
+  },
+  "tableNotes": [
+    "“Not listed” means not identified as a packaged Growth + Sales inclusion in the reviewed catalogue. Customisation or connected services may support the outcome."
+  ],
+  "customerVisual": "missed-call",
+  "showMarketingNote": true
+} satisfies ComparisonDefinition;
