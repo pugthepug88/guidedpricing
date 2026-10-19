@@ -26,6 +26,7 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as ComparisonIndexRouteImport } from './routes/comparison.index'
 import { Route as ComparisonReviewRouteImport } from './routes/comparison.review'
 import { Route as ComparisonZaplaVsActivecampaignRouteImport } from './routes/comparison.zapla-vs-activecampaign'
 import { Route as ComparisonZaplaVsCreatioRouteImport } from './routes/comparison.zapla-vs-creatio'
@@ -130,6 +131,11 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ComparisonIndexRoute = ComparisonIndexRouteImport.update({
+  id: '/comparison/',
+  path: '/comparison/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ComparisonReviewRoute = ComparisonReviewRouteImport.update({
   id: '/comparison/review',
   path: '/comparison/review',
@@ -252,6 +258,7 @@ export interface FileRoutesByFullPath {
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/trades': typeof IndustriesTradesRoute
+  '/comparison/': typeof ComparisonIndexRoute
   '/industries/': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -287,6 +294,7 @@ export interface FileRoutesByTo {
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/trades': typeof IndustriesTradesRoute
+  '/comparison': typeof ComparisonIndexRoute
   '/industries': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -323,6 +331,7 @@ export interface FileRoutesById {
   '/industries/mechanics': typeof IndustriesMechanicsRoute
   '/industries/mortgage-brokers': typeof IndustriesMortgageBrokersRoute
   '/industries/trades': typeof IndustriesTradesRoute
+  '/comparison/': typeof ComparisonIndexRoute
   '/industries/': typeof IndustriesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -360,6 +369,7 @@ export interface FileRouteTypes {
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
     | '/industries/trades'
+    | '/comparison/'
     | '/industries/'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
@@ -395,6 +405,7 @@ export interface FileRouteTypes {
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
     | '/industries/trades'
+    | '/comparison'
     | '/industries'
     | '/.mcp/invoke-tool/$tool'
   id:
@@ -430,6 +441,7 @@ export interface FileRouteTypes {
     | '/industries/mechanics'
     | '/industries/mortgage-brokers'
     | '/industries/trades'
+    | '/comparison/'
     | '/industries/'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
@@ -466,6 +478,7 @@ export interface RootRouteChildren {
   IndustriesMechanicsRoute: typeof IndustriesMechanicsRoute
   IndustriesMortgageBrokersRoute: typeof IndustriesMortgageBrokersRoute
   IndustriesTradesRoute: typeof IndustriesTradesRoute
+  ComparisonIndexRoute: typeof ComparisonIndexRoute
   IndustriesIndexRoute: typeof IndustriesIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -589,6 +602,13 @@ declare module '@tanstack/react-router' {
       path: '/.well-known/oauth-protected-resource'
       fullPath: '/.well-known/oauth-protected-resource'
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comparison/': {
+      id: '/comparison/'
+      path: '/comparison'
+      fullPath: '/comparison/'
+      preLoaderRoute: typeof ComparisonIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comparison/review': {
@@ -739,6 +759,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesMechanicsRoute: IndustriesMechanicsRoute,
   IndustriesMortgageBrokersRoute: IndustriesMortgageBrokersRoute,
   IndustriesTradesRoute: IndustriesTradesRoute,
+  ComparisonIndexRoute: ComparisonIndexRoute,
   IndustriesIndexRoute: IndustriesIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
