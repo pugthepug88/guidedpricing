@@ -21,7 +21,7 @@ export const zohoSimple = {
     },
     {
       "title": "Get an agreed setup built and tested with you.",
-      "description": "Through required Guided Launch, we agree the process, configure and test the scoped setup, and train your team. Launch is priced separately."
+      "description": "We import your agreed customer data, connect your tools, configure your first workflows, and test them with your team."
     }
   ],
   "tableIntroduction": "Zapla Follow-Through vs Zoho CRM Professional. See what is included and what uses a connected service.",
@@ -39,7 +39,7 @@ export const zohoSimple = {
     "Zoho also offers broader CRM Plus and Zoho One bundles. This table compares the standalone Professional CRM subscription."
   ],
   "pricingHeading": "Compare the tools. Then compare your team price.",
-  "pricingIntroduction": "Small teams can pay less for Zoho Professional. Zapla combines customer follow-up tools, unlimited team access and separately priced Guided Launch. Compare the named subscriptions below, then consider the tools and setup you need.",
+  "pricingIntroduction": "Zapla combines customer follow-up tools and unlimited users for A$399/month + GST. Compare the named subscriptions below and the tools your team needs.",
   "calculator": {
     "teamSizeLabel": "People needing regular CRM access",
     "monthlyLabel": "Monthly",
@@ -148,12 +148,12 @@ export const zohoSimple = {
     {
       "title": "A configurable CRM with a broader software ecosystem",
       "description": "A strong fit when you want a lower entry cost, structured sales processes or connections to other Zoho applications.",
-      "consideration": "Consider Zoho One when you also need finance, HR and other business tools."
+      "consideration": "Check the access and applications included in the configuration you choose."
     },
     {
       "title": "Customer follow-up across your team",
       "description": "Handle missed calls, quote follow-ups and bookings with reception, sales and the owner working from the same customer history.",
-      "consideration": "A strong fit when you want included customer tools, unlimited access and help building the agreed first setup. Required launch and usage are separate."
+      "consideration": "Choose Zapla for included customer tools, unlimited users and help configuring your first workflows."
     }
   ],
   "rows": [
@@ -309,7 +309,7 @@ export const zohoSimple = {
       },
       "zapla": {
         "text": "Included¹",
-        "detail": "Included in Follow-Through, confirmed by Zapla on 16 October 2026. Requires a configured phone connection and workflow; number and SMS usage charges are separate.",
+        "detail": "Automatically send a text when your business misses a call.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -331,7 +331,7 @@ export const zohoSimple = {
       },
       "zapla": {
         "text": "",
-        "detail": "Review management included, confirmed by Zapla on 16 October 2026. Connected channels and initial configuration are agreed during launch; sending usage is separate.",
+        "detail": "Review management tools are included in Follow-Through.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -423,7 +423,7 @@ export const zohoSimple = {
       },
       "zapla": {
         "text": "",
-        "detail": "Invoicing tools included; payment-provider charges are separate.",
+        "detail": "Create and send invoices from your CRM.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -615,7 +615,7 @@ export const zohoSimple = {
     },
     {
       "question": "Can I move from Zoho and keep existing tools?",
-      "answer": "We agree which data to move and which tools to retain or connect. Initial import and configuration are limited to the Guided Launch scope. Historical records, workflows and integration transfers are assessed individually; extra work is agreed separately. We do not promise automatic migration of everything."
+      "answer": "We assess the data, workflows, history and integrations you want to bring across, then agree the migration scope and price before work starts."
     },
     {
       "question": "Which plan includes marketing and AI Receptionist?",

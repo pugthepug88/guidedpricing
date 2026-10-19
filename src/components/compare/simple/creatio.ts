@@ -85,7 +85,7 @@ export const creatioSimple: ComparisonDefinition = {
   }],
   fit: [
     { title: 'Custom applications and complex processes', description: 'A strong fit when your organisation needs to build and adapt applications, approvals and workflows around more complex operational requirements.', consideration: 'Assess the configuration, connected services and implementation alongside your Creatio quote.' },
-    { title: 'One system for everyday customer follow-up', description: 'Manage enquiries, conversations, quotes, bookings, invoices and reviews with reception, sales and the owner working from the same customer history.', consideration: 'A$399/month + GST includes unlimited users. Required Guided Launch is separately scoped and priced; communications usage and optional services are extra.' },
+    { title: 'One system for everyday customer follow-up', description: 'Manage enquiries, conversations, quotes, bookings, invoices and reviews with reception, sales and the owner working from the same customer history.', consideration: 'A$399/month + GST brings everyday customer tools and unlimited users into one subscription.' },
   ],
   faqs: [
     { question: 'Why compare Creatio Growth + Sales?', answer: 'Growth supplies the workflow platform and Sales adds the sales product used in this comparison. It is a fixed named configuration, not a promise that the two platforms have identical capabilities.' },

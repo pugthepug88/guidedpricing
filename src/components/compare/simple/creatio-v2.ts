@@ -11,7 +11,7 @@ feature('forms').competitor.detail = 'Current Creatio documentation supports imp
 feature('replies').competitor.text = 'Shared mailbox';
 feature('reviews').competitor.detail = 'A packaged review-request and management feature was not identified in Growth + Sales. A listed YouScan integration brings reputation-monitoring results into case workflows, with a paid YouScan subscription. It does not establish an equivalent review-request workflow.';
 feature('reviews').competitor.sources = ['pricing', 'sales', 'youscan'];
-feature('phone').zapla.text = 'Usage extra';
+feature('phone').zapla.text = 'Included¹';
 const booking = pipedriveSimple.rows.find(row => row.id === 'booking')!;
 rows.splice(4, 0, { ...booking, competitor: { text: 'Separate app', status: 'separate', sources: ['calendly'], detail: 'A listed Calendly connector brings scheduled or cancelled meetings into Creatio. Connector licensing and an eligible Calendly subscription are separate. Compatibility and current provider requirements need checking; this is not an included Growth + Sales booking service.' } });
 
@@ -24,7 +24,7 @@ export const creatioV2: ComparisonDefinition = {
   highlights: [
     { title: 'A lower subscription commitment.', description: 'Zapla is A$399/month, with month-to-month software after launch. Creatio publishes an A$16,000 annual minimum purchase for new customers and a standard three-year contract.', link: { href: '#pricing-comparison', label: 'Compare the prices and terms' } },
     { title: 'Everyday customer tools included.', description: 'Two-way SMS, missed-call text-back, reviews and bookings sit alongside your CRM. Phone numbers and communications usage are extra.', link: { href: '/crm#crm-workbench', label: 'Explore customer records and conversations' } },
-    { title: 'Your first workflows built and tested.', description: 'Guided Launch includes importing up to 5,000 clean contacts, building and testing up to three agreed automations, and training your team. Required launch is priced separately.' },
+    { title: 'Your first workflows built and tested.', description: 'We import your agreed customer data, connect your tools, configure your first workflows, and test them with your team.' },
   ],
   rows,
   tableIntroduction: 'Zapla Follow-Through vs Creatio Growth + Sales. Compare team access and the tools you use to respond, book and follow up.',
@@ -62,7 +62,7 @@ export const creatioV2: ComparisonDefinition = {
   optionalRows: [{ ...creatioSimple.optionalRows[0], competitor: { text: 'AI package + setup', status: 'separate', sources: ['voice', 'pricing', 'ai-packages'], detail: 'Creatio documents inbound AI voice agents with configured telephony. Beyond the initial allowance, ongoing AI requires a separately purchased package; Start is listed at A$8,000/year. Setup, carrier charges and Australian deployment requirements are separate. Feature equivalence has not been account-tested.' } }],
   fit: [
     { title: 'Custom applications and complex processes', description: 'A strong fit when your organisation needs configurable applications, approvals and cross-team processes, with implementation resources to shape the system around your requirements.', consideration: 'Choose the platform around the capacity, governance and deployment features you need.' },
-    { title: 'Everyday follow-up, with your team included', description: 'Give reception, sales and the owner shared customer history, two-way SMS, missed-call text-back, reviews, bookings and quotes, with help building the first workflows.', consideration: 'A$399/month + GST includes unlimited users. Required Guided Launch and communications usage are separate.' },
+    { title: 'Everyday follow-up, with your team included', description: 'Give reception, sales and the owner shared customer history, two-way SMS, missed-call text-back, reviews, bookings and quotes, with help building the first workflows.', consideration: 'A$399/month + GST brings everyday customer tools and unlimited users into one subscription.' },
   ],
   faqs: [
     { question: 'Is Zapla cheaper than Creatio?', answer: 'For the published new-customer offer compared here, Zapla has the lower subscription commitment: A$4,788 for 12 months of Follow-Through, paid monthly, versus Creatio’s A$16,000 annual minimum purchase. Zapla’s first year starts at A$6,785 including minimum Guided Launch. These amounts exclude tax, usage and extras; bundles and implementation scopes differ. Existing-customer or negotiated Creatio terms can differ.' },

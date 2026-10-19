@@ -31,6 +31,7 @@ function FeatureTable({ rows, competitor, vendorPlan, zaplaPlan, caption }: { ro
 
 export function ComparisonPage({ data, pricingContent }: { data: ComparisonDefinition; pricingContent?: ReactNode }) {
   const allRows = [...data.rows, ...data.growthRows, ...data.optionalRows];
+  const growthInclusions = [...new Set([...data.growthRows.map(row => row.label), "Campaign attribution & conversion tracking"])];
   return <main className="concise-comparison" data-page="concise-comparison">
     <section className="cc-hero"><div className="cc-inner">
       <p className="cc-comparison-name">Zapla vs {data.competitor}</p>
@@ -59,7 +60,7 @@ export function ComparisonPage({ data, pricingContent }: { data: ComparisonDefin
       <FeatureTable rows={[...data.rows, ...data.optionalRows]} competitor={data.competitor} vendorPlan={data.vendorPlan} zaplaPlan="Follow-Through" caption={`${data.competitor} ${data.vendorPlan} compared with Zapla Follow-Through.`} />
       <p className="cc-table-key">✓ Included in the named package. × Not included in the named package; a connected app may provide it. Separate apps have their own terms and charges. ¹ Phone numbers and message usage are extra.</p>
       <aside className="cc-upgrade-note" aria-labelledby="growth-upgrade-heading">
-        <div className="cc-upgrade-features"><h3 id="growth-upgrade-heading">{data.growthComparison?.headline ?? "Need marketing too?"}</h3>{data.growthComparison && <p>{data.growthComparison.description}</p>}<p>Growth includes everything in Follow-Through, plus:</p><ul>{data.growthRows.map(row => <li key={row.id}>{row.label}</li>)}</ul></div>
+        <div className="cc-upgrade-features"><h3 id="growth-upgrade-heading">{data.growthComparison?.headline ?? "Need marketing too?"}</h3>{data.growthComparison && <p>{data.growthComparison.description}</p>}<p>Growth includes everything in Follow-Through, plus:</p><ul>{growthInclusions.map(label => <li key={label}>{label}</li>)}</ul></div>
         <div className="cc-upgrade-price"><p className="cc-upgrade-plan">Zapla Growth</p><p className="cc-upgrade-amount"><strong>{money(data.offer.growthMonthly)}</strong><span>/month + GST, total subscription</span></p><p>Required Guided Launch<br /><strong>from {money(data.offer.growthLaunch)} + GST</strong></p><p>Sending usage is separate.</p><Link to={data.pricingUrl}>Explore Growth <ArrowRight size={15} aria-hidden="true" /></Link></div>
       </aside>
       {data.showMarketingNote && !data.growthComparison && <p className="cc-usage">{data.marketingNote}</p>}

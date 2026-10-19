@@ -1,7 +1,7 @@
 /** A static illustration of documented CRM/inbox capabilities, not a product capture. */
 export function CustomerContextVisual({ variant }: { variant?: 'missed-call' } = {}) {
   const missed = variant === 'missed-call';
-  return <figure className="cc-context-visual" aria-labelledby="cc-context-caption">
+  return <figure className="cc-context-visual" aria-label="Example customer record and conversation">
     <div className="cc-context-window">
       <div className="cc-context-header"><img src="/concept/zapla-logo-dark.svg" alt="Zapla" width={82} height={24} /><span>Customer record</span></div>
       <div className="cc-context-body">
@@ -18,6 +18,5 @@ export function CustomerContextVisual({ variant }: { variant?: 'missed-call' } =
         </div>
       </div>
     </div>
-    <figcaption id="cc-context-caption">Illustrative customer record and messages. Configuration varies.</figcaption>
   </figure>;
 }

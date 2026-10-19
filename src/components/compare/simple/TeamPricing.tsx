@@ -55,7 +55,7 @@ export function TeamPricing({ data }: { data: ComparisonDefinition }) {
         </>}
       </article>
     </div>
-    <p className="cc-team-qualification">{published ? published.qualification : <>{config && <>{config.qualification} </>}Subscription comparison for the named plans. Features differ. Adding users does not increase your Zapla plan price; usage, optional services and plan changes can affect your total bill. {data.quotePricing ? 'Zapla amounts exclude GST. Creatio’s Australian price and tax treatment require confirmation.' : 'All amounts shown exclude GST.'}</>}</p>
+    <p className="cc-team-qualification">{published ? published.qualification : <>{config && <>{config.qualification} </>}Subscription comparison for the named plans. Features differ. Add users without increasing your software subscription. {data.quotePricing ? 'Zapla amounts exclude GST. Creatio’s Australian price and tax treatment require confirmation.' : 'All amounts shown exclude GST.'}</>}</p>
     <details className="cc-team-plan-notes"><summary>Compared plans and current prices</summary><p>{data.vendorPlanReason} {data.vendorScope}</p><p>Zapla Follow-Through: {data.offerScope}</p>{data.vendorLowerPlans && <p>{data.vendorLowerPlans}</p>}{data.quotePricing && <p>{data.quotePricing.qualification}</p>}{published && <p>{published.historicalReference}</p>}{config && <p>{config.annualRateNote}</p>}<p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current {data.competitor} prices ↗</a></p></details>
   </div>;
 }

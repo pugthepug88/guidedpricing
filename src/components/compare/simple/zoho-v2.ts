@@ -21,7 +21,7 @@ export const zohoV2 = {
     },
     {
       "title": "Get your first setup built with you.",
-      "description": "Agree the process, configure the scoped workflows, test the handovers and train your team through required Guided Launch. From A$1,997 + GST, scoped before you commit."
+      "description": "We import your agreed customer data, connect your tools, configure your first workflows, and test them with your team."
     }
   ],
   "tableIntroduction": "Everyday customer tools, included team access and room to grow. Follow-Through compared with the standalone Zoho CRM Professional plan.",
@@ -147,13 +147,13 @@ export const zohoV2 = {
   "fit": [
     {
       "title": "A smaller sales team or a broader Zoho suite",
-      "description": "Zoho can cost less for small teams. Professional includes structured sales tools; Zoho One adds a broader suite of business applications.",
+      "description": "Professional includes structured sales tools; Zoho One adds a broader suite of business applications.",
       "consideration": "Check which people need regular CRM access and whether restricted Team User licences fit the work they do."
     },
     {
       "title": "One customer workflow for the whole team",
       "description": "Choose Zapla when reception, sales and the owner need shared conversations, SMS, quotes and bookings, with an agreed first setup built and tested together.",
-      "consideration": "Unlimited users keep the subscription steady as you add people. Required launch, communications usage and optional services are separate."
+      "consideration": "Add users without increasing your software subscription."
     }
   ],
   "rows": [
@@ -241,7 +241,7 @@ export const zohoV2 = {
       },
       "zapla": {
         "text": "Included¹",
-        "detail": "Included in Follow-Through, confirmed by Zapla on 16 October 2026. Requires a configured phone connection and workflow; number and SMS usage charges are separate.",
+        "detail": "Automatically send a text when your business misses a call.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -264,7 +264,7 @@ export const zohoV2 = {
       },
       "zapla": {
         "text": "",
-        "detail": "Review management included, confirmed by Zapla on 16 October 2026. Connected channels and initial configuration are agreed during launch; sending usage is separate.",
+        "detail": "Review management tools are included in Follow-Through.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -448,7 +448,7 @@ export const zohoV2 = {
       },
       "zapla": {
         "text": "",
-        "detail": "Invoicing tools included; payment-provider charges are separate.",
+        "detail": "Create and send invoices from your CRM.",
         "sources": [
           "offer",
           "platform-pricing"
@@ -617,7 +617,7 @@ export const zohoV2 = {
     },
     {
       "question": "Can I move from Zoho and keep existing tools?",
-      "answer": "We agree which data to move and which tools to retain or connect. Initial import and configuration are limited to the Guided Launch scope. Historical records, workflows and integration transfers are assessed individually; extra work is agreed separately. We do not promise automatic migration of everything."
+      "answer": "We assess the data, workflows, history and integrations you want to bring across, then agree the migration scope and price before work starts."
     },
     {
       "question": "Which plan includes marketing and AI Receptionist?",
