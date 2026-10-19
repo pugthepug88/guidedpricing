@@ -251,7 +251,7 @@ export const zohoSimple = {
       "id": "email",
       "label": "Automation workflows",
       "competitor": {
-        "text": "40 active/module",
+        "text": "40 active / module",
         "detail": "Professional includes workflows, cadences and Blueprint. Workflow rules: 80 per module, maximum 40 active per module; organisation maximum 2,500 rules, 2,000 active. Execution, action and sending limits are separate.",
         "sources": [
           "zoho-features"
