@@ -160,16 +160,7 @@ export const zohoSimple = {
     {
       "id": "team",
       "label": "Unlimited users",
-      "competitor": {
-        "text": "",
-        "detail": "Zoho charges per regular CRM user. Lower-cost Team User licences offer restricted access; this is not unlimited free access.",
-        "sources": [
-          "zoho-pricing",
-          "team-users"
-        ],
-        "status": "plan-dependent",
-        "mark": "cross"
-      },
+      "competitor": {"text":"Paid users","detail":"Zoho charges per regular CRM user. Lower-cost Team User licences offer restricted access; this is not unlimited free access.","sources":["zoho-pricing","team-users"],"status":"plan-dependent","mark":"cross"},
       "zapla": {
         "text": "",
         "detail": "Unlimited users, with no additional seat fees on the named plan.",
@@ -184,16 +175,7 @@ export const zohoSimple = {
     {
       "id": "replies",
       "label": "Shared email inbox",
-      "competitor": {
-        "text": "Separate app",
-        "detail": "Professional includes email integration and sharing. Zoho TeamInbox provides a separate collaborative shared inbox and CRM integration. Scope and subscription requirements differ; SalesInbox is not assumed equivalent to a collaborative team inbox.",
-        "sources": [
-          "teaminbox",
-          "teaminbox-pricing",
-          "zoho-features"
-        ],
-        "status": "separate"
-      },
+      "competitor": {"text":"Separate product","detail":"Professional includes email integration and sharing. Zoho TeamInbox provides a separate collaborative shared inbox and CRM integration. Scope and subscription requirements differ; SalesInbox is not assumed equivalent to a collaborative team inbox.","sources":["teaminbox","teaminbox-pricing","zoho-features"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "",
         "detail": "Shared inbox included; channels and initial configuration are agreed during launch.",
@@ -208,14 +190,7 @@ export const zohoSimple = {
     {
       "id": "sms",
       "label": "Two-way SMS",
-      "competitor": {
-        "text": "Separate app",
-        "detail": "Australian two-way texting is available through providers such as Guni SMS for Zoho CRM. Provider charges, configuration and message usage vary.",
-        "sources": [
-          "zoho-sms"
-        ],
-        "status": "separate"
-      },
+      "competitor": {"text":"Via integration","detail":"Australian two-way texting is available through providers such as Guni SMS for Zoho CRM. Provider charges, configuration and message usage vary.","sources":["zoho-sms"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "Included¹",
         "detail": "Two-way SMS tools included. Phone numbers and message usage are separate. Bulk marketing campaigns are in Growth.",
@@ -230,15 +205,7 @@ export const zohoSimple = {
     {
       "id": "missed-call",
       "label": "Missed-call text-back",
-      "competitor": {
-        "text": "Configured integration",
-        "detail": "Zoho documents missed-call workflow triggers. A suitable connected phone/SMS provider and configured workflow can support text-back. Exact provider, edition and workflow scope must be checked; no account-level setup was tested.",
-        "sources": [
-          "call-workflows",
-          "zoho-sms"
-        ],
-        "status": "separate"
-      },
+      "competitor": {"text":"Via integration","detail":"Zoho documents missed-call workflow triggers. A suitable connected phone/SMS provider and configured workflow can support text-back. Exact provider, edition and workflow scope must be checked; no account-level setup was tested.","sources":["call-workflows","zoho-sms"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "Included¹",
         "detail": "Automatically send a text when your business misses a call.",
@@ -253,15 +220,7 @@ export const zohoSimple = {
     {
       "id": "reviews",
       "label": "Review management",
-      "competitor": {
-        "text": "Separate app",
-        "detail": "Zoho Publish provides review management and connects review insights with CRM. It is separate from Professional and included in Zoho One subject to bundle limits. Detailed review-request and response capabilities are not assumed identical.",
-        "sources": [
-          "publish",
-          "one-plans"
-        ],
-        "status": "separate"
-      },
+      "competitor": {"text":"Separate product","detail":"Zoho Publish provides review management and connects review insights with CRM. It is separate from Professional and included in Zoho One subject to bundle limits. Detailed review-request and response capabilities are not assumed identical.","sources":["publish","one-plans"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "",
         "detail": "Review management tools are included in Follow-Through.",
@@ -276,15 +235,7 @@ export const zohoSimple = {
     {
       "id": "website",
       "label": "Websites & funnels",
-      "competitor": {
-        "text": "Separate products",
-        "detail": "Website and landing-page builders are not included in the standalone Professional CRM subscription. Zoho offers separate products and broader bundles. No additional subscription cost is assumed here.",
-        "sources": [
-          "zoho-guide",
-          "zoho-one"
-        ],
-        "status": "separate"
-      },
+      "competitor": {"text":"Separate product","detail":"Website and landing-page builders are not included in the standalone Professional CRM subscription. Zoho offers separate products and broader bundles. No additional subscription cost is assumed here.","sources":["zoho-guide","zoho-one"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "",
         "detail": "Self-service website and funnel-page builders included. Done-for-you website builds are separate.",
@@ -323,25 +274,8 @@ export const zohoSimple = {
     {
       "id": "crm",
       "label": "Unlimited pipelines",
-      "competitor": {
-        "text": "10 pipelines",
-        "detail": "Professional includes 10 sales pipelines. The cross applies to unlimited pipelines, not pipeline management.",
-        "sources": [
-          "zoho-features"
-        ],
-        "status": "included",
-        "mark": "cross"
-      },
-      "zapla": {
-        "text": "Unlimited",
-        "detail": "Unlimited pipelines on both Zapla plans.",
-        "sources": [
-          "offer",
-          "platform-pricing"
-        ],
-        "status": "included",
-        "mark": "tick"
-      }
+      "competitor": {"text":"10 pipelines","detail":"Professional includes 10 sales pipelines. The cross applies to unlimited pipelines, not pipeline management.","sources":["zoho-features"],"status":"plan-dependent","mark":"cross"},
+      "zapla": {"text":"","detail":"Unlimited pipelines on both Zapla plans.","sources":["offer","platform-pricing"],"status":"included","mark":"tick"}
     },
     {
       "id": "contacts",
@@ -391,15 +325,7 @@ export const zohoSimple = {
     {
       "id": "booking",
       "label": "Online booking",
-      "competitor": {
-        "text": "Calendar Booking",
-        "detail": "Calendar Booking is included. No separate Zoho Bookings subscription is assumed necessary for this named capability.",
-        "sources": [
-          "zoho-features"
-        ],
-        "status": "included",
-        "mark": "tick"
-      },
+      "competitor": {"text":"","detail":"Calendar Booking is included. No separate Zoho Bookings subscription is assumed necessary for this named capability.","sources":["zoho-features"],"status":"included","mark":"tick"},
       "zapla": {
         "text": "",
         "detail": "Calendars and booking tools included.",
@@ -460,15 +386,7 @@ export const zohoSimple = {
     {
       "id": "phone",
       "label": "Built-in business phone",
-      "competitor": {
-        "text": "Built-in · usage extra",
-        "detail": "Zoho CRM offers Twilio-backed built-in telephony, including number purchase, incoming routing and outbound calls. Numbers, credits and usage are charged separately. A separate Zoho Voice subscription is not assumed mandatory.",
-        "sources": [
-          "telephony"
-        ],
-        "status": "included",
-        "mark": "tick"
-      },
+      "competitor": {"text":"Usage extra¹","detail":"Zoho CRM offers Twilio-backed built-in telephony, including number purchase, incoming routing and outbound calls. Numbers, credits and usage are charged separately. A separate Zoho Voice subscription is not assumed mandatory.","sources":["telephony"],"status":"included","mark":"tick"},
       "zapla": {
         "text": "Included¹",
         "detail": "Business phone access included; numbers and usage are charged separately.",
@@ -507,15 +425,7 @@ export const zohoSimple = {
     {
       "id": "marketing",
       "label": "Email campaigns",
-      "competitor": {
-        "text": "Separate product",
-        "detail": "Zoho Campaigns is a separate product with free and paid tiers. The published free tier includes 2,000 contacts and 6,000 emails/month. CRM sales emails and campaign records are different from marketing campaign tools. Zoho bundles may include Campaigns.",
-        "sources": [
-          "campaigns-pricing",
-          "zoho-features"
-        ],
-        "status": "separate"
-      },
+      "competitor": {"text":"Separate product","detail":"Zoho Campaigns is a separate product with free and paid tiers. The published free tier includes 2,000 contacts and 6,000 emails/month. CRM sales emails and campaign records are different from marketing campaign tools. Zoho bundles may include Campaigns.","sources":["campaigns-pricing","zoho-features"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "",
         "detail": "Email campaign tools included in Growth. Sending usage is separate.",
@@ -553,14 +463,7 @@ export const zohoSimple = {
     {
       "id": "social",
       "label": "Social scheduling",
-      "competitor": {
-        "text": "Separate product",
-        "detail": "Zoho Social and broader bundles provide social publishing tools. The CRM social integration should not be assumed equivalent to a full publishing scheduler.",
-        "sources": [
-          "zoho-guide"
-        ],
-        "status": "separate"
-      },
+      "competitor": {"text":"Separate product","detail":"Zoho Social and broader bundles provide social publishing tools. The CRM social integration should not be assumed equivalent to a full publishing scheduler.","sources":["zoho-guide"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "",
         "detail": "Social scheduling tools included in Growth. Supported channels must be connected.",
@@ -578,23 +481,8 @@ export const zohoSimple = {
     {
       "id": "ai-receptionist",
       "label": "AI call answering",
-      "competitor": {
-        "text": "External service",
-        "detail": "Zoho Voice can route calls to external voice AI providers such as ElevenLabs or Retell via SIP. Separate service subscriptions, setup and usage apply; Australian account-level availability and equivalence were not tested.",
-        "sources": [
-          "voice-ai"
-        ],
-        "status": "separate"
-      },
-      "zapla": {
-        "text": "Optional add-on",
-        "detail": "AI Receptionist is a separately priced service, not included in either CRM plan. Scope, setup and usage terms are confirmed separately.",
-        "status": "separate",
-        "sources": [
-          "offer",
-          "phone"
-        ]
-      }
+      "competitor": {"text":"External service","detail":"Zoho Voice can route calls to external voice AI providers such as ElevenLabs or Retell via SIP. Separate service subscriptions, setup and usage apply; Australian account-level availability and equivalence were not tested.","sources":["voice-ai"],"status":"separate","mark":"cross"},
+      "zapla": {"text":"Optional paid service","detail":"AI Receptionist is a separately priced service, not included in either CRM plan. Scope, setup and usage terms are confirmed separately.","status":"separate","sources":["offer","phone"]}
     }
   ],
   "offer": {

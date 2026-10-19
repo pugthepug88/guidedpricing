@@ -148,15 +148,7 @@ export const creatioSimple = {
     {
       "id": "team",
       "label": "Unlimited users",
-      "competitor": {
-        "text": "Per-user pricing",
-        "detail": "Growth + Sales charges per licensed user. At least five platform users and a separate A$16,000 annual purchase minimum apply to new customers. The calculator gives each selected person a Sales licence. Other access types and product mixes can change the quote.",
-        "sources": [
-          "pricing",
-          "plans"
-        ],
-        "status": "plan-dependent"
-      },
+      "competitor": {"text":"Paid users","detail":"Growth + Sales charges per licensed user. At least five platform users and a separate A$16,000 annual purchase minimum apply to new customers. The calculator gives each selected person a Sales licence. Other access types and product mixes can change the quote.","sources":["pricing","plans"],"status":"plan-dependent","mark":"cross"},
       "zapla": {
         "text": "",
         "mark": "tick",
@@ -170,14 +162,7 @@ export const creatioSimple = {
     {
       "id": "sms",
       "label": "Two-way SMS",
-      "competitor": {
-        "text": "Separate app",
-        "detail": "Creatio’s Twilio Services connector supports sending and receiving SMS inside Creatio. Connector scope, provider accounts, numbers and usage charges must be confirmed separately.",
-        "sources": [
-          "twilio"
-        ],
-        "status": "plan-dependent"
-      },
+      "competitor": {"text":"Paid app","detail":"Creatio’s own Twilio Services app provides native two-way SMS inside Creatio. The Marketplace lists it as paid, with pricing on demand; it is not treated as an included Growth + Sales feature. This does not establish an additional fixed subscription fee or a requirement to use a third-party interface.","sources":["twilio"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "Included¹",
         "mark": "tick",
@@ -191,62 +176,9 @@ export const creatioSimple = {
       }
     },
     {
-      "id": "missed-call",
-      "label": "Missed-call text-back",
-      "competitor": {
-        "text": "Not listed",
-        "detail": "Not identified as a packaged Growth + Sales inclusion in the reviewed catalogue. Custom workflows or connected services may support this outcome; scope and charges must be confirmed. This is not a claim that the outcome is impossible.",
-        "sources": [
-          "pricing",
-          "sales",
-          "twilio"
-        ],
-        "status": "plan-dependent"
-      },
-      "zapla": {
-        "text": "Included¹",
-        "mark": "tick",
-        "detail": "Automatically send a text when your business misses a call.",
-        "status": "included",
-        "sources": [
-          "offer"
-        ]
-      }
-    },
-    {
-      "id": "reviews",
-      "label": "Review management",
-      "competitor": {
-        "text": "Not listed",
-        "detail": "A packaged review-request and management feature was not identified in Growth + Sales. A listed YouScan integration brings reputation-monitoring results into case workflows, with a paid YouScan subscription. It does not establish an equivalent review-request workflow.",
-        "sources": [
-          "pricing",
-          "sales",
-          "youscan"
-        ],
-        "status": "plan-dependent"
-      },
-      "zapla": {
-        "text": "",
-        "mark": "tick",
-        "detail": "Review management tools are included in Follow-Through.",
-        "status": "included",
-        "sources": [
-          "offer"
-        ]
-      }
-    },
-    {
       "id": "booking",
       "label": "Online booking",
-      "competitor": {
-        "text": "Separate app",
-        "status": "separate",
-        "sources": [
-          "calendly"
-        ],
-        "detail": "A listed Calendly connector brings scheduled or cancelled meetings into Creatio. Connector licensing and an eligible Calendly subscription are separate. Compatibility and current provider requirements need checking; this is not an included Growth + Sales booking service."
-      },
+      "competitor": {"text":"Via integration","status":"separate","sources":["calendly"],"detail":"A listed Calendly connector brings scheduled or cancelled meetings into Creatio. Connector licensing and an eligible Calendly subscription are separate. Compatibility and current provider requirements need checking; this is not an included Growth + Sales booking service.","mark":"cross"},
       "zapla": {
         "text": "",
         "mark": "tick",
@@ -261,16 +193,7 @@ export const creatioSimple = {
     {
       "id": "website",
       "label": "Websites & funnels",
-      "competitor": {
-        "text": "Separate tools",
-        "detail": "Growth + Sales does not include the separate Marketing product’s advertised landing-page builder. The no-code application designer is not evidence of an included public website builder. Website services and connections can be scoped separately.",
-        "sources": [
-          "pricing",
-          "marketing",
-          "plans"
-        ],
-        "status": "plan-dependent"
-      },
+      "competitor": {"text":"Separate product","detail":"Growth + Sales does not include the separate Marketing product’s advertised landing-page builder. The no-code application designer is not evidence of an included public website builder. Website services and connections can be scoped separately.","sources":["pricing","marketing","plans"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "",
         "mark": "tick",
@@ -285,15 +208,7 @@ export const creatioSimple = {
     {
       "id": "phone",
       "label": "Built-in business phone",
-      "competitor": {
-        "text": "Separate app",
-        "detail": "Calling can run inside Creatio using a connected provider such as Twilio. Connector licensing, regional availability, numbers and call usage depend on the agreed setup.",
-        "sources": [
-          "twilio",
-          "voice"
-        ],
-        "status": "plan-dependent"
-      },
+      "competitor": {"text":"Paid app","detail":"Creatio offers native calling through its own Twilio Services and Voice Telephony apps. The Marketplace lists these as paid; Voice Telephony is consumption-based, with per-minute pricing on demand. No extra fixed subscription or mandatory third-party interface is assumed.","sources":["twilio","voice-telephony"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "Included¹",
         "mark": "tick",
@@ -354,15 +269,7 @@ export const creatioSimple = {
     {
       "id": "replies",
       "label": "Shared email inbox",
-      "competitor": {
-        "text": "Shared mailbox",
-        "detail": "Creatio documents shared mailbox access, permissions and sending from a shared address across products. Mailbox connection and configuration are required. The cited mailbox guide is legacy documentation; current account-level behaviour has not been independently tested.",
-        "sources": [
-          "mailbox"
-        ],
-        "mark": "tick",
-        "status": "included"
-      },
+      "competitor": {"text":"","detail":"Creatio documents shared mailbox access, permissions and sending from a shared address across products. Mailbox connection and configuration are required. The cited mailbox guide is legacy documentation; current account-level behaviour has not been independently tested.","sources":["mailbox"],"mark":"tick","status":"included"},
       "zapla": {
         "text": "",
         "mark": "tick",
@@ -377,14 +284,7 @@ export const creatioSimple = {
     {
       "id": "forms",
       "label": "Forms",
-      "competitor": {
-        "text": "Connected forms",
-        "detail": "Current Creatio documentation supports importing external web-form submissions through webhooks. Form-provider setup and field mapping are required. This credits connected form capture, not an identical built-in public form builder.",
-        "sources": [
-          "forms"
-        ],
-        "status": "plan-dependent"
-      },
+      "competitor": {"text":"Via integration","detail":"Current Creatio documentation supports importing external web-form submissions through webhooks. Form-provider setup and field mapping are required. This credits connected form capture, not an identical built-in public form builder.","sources":["forms"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "",
         "mark": "tick",
@@ -471,16 +371,7 @@ export const creatioSimple = {
     {
       "id": "marketing",
       "label": "Email campaigns",
-      "competitor": {
-        "text": "Marketing product",
-        "detail": "Campaigns, segmentation and marketing email are documented in the separately selected Marketing product, outside the fixed Growth + Sales configuration. No Marketing subscription is added to the price comparison.",
-        "sources": [
-          "pricing",
-          "marketing",
-          "artifacts"
-        ],
-        "status": "plan-dependent"
-      },
+      "competitor": {"text":"Separate product","detail":"Campaigns, segmentation and marketing email are documented in the separately selected Marketing product, outside the fixed Growth + Sales configuration. No Marketing subscription is added to the price comparison.","sources":["pricing","marketing","artifacts"],"status":"separate","mark":"cross"},
       "zapla": {
         "text": "",
         "mark": "tick",
@@ -495,7 +386,8 @@ export const creatioSimple = {
       "id": "sms-marketing",
       "label": "Bulk SMS campaigns",
       "competitor": {
-        "text": "Product / integration",
+        "text": "Separate product / integration",
+        "mark": "cross",
         "detail": "Creatio Marketing and suitable connected messaging providers support campaigns. Product entitlement, consent, channel setup and sending costs require confirmation.",
         "sources": [
           "marketing",
@@ -514,45 +406,13 @@ export const creatioSimple = {
         ]
       }
     },
-    {
-      "id": "social",
-      "label": "Social scheduling",
-      "competitor": {
-        "text": "Not listed",
-        "detail": "A social publishing scheduler was not identified as a packaged Growth + Sales inclusion. Do not confuse social messaging or advertising analytics with a publishing scheduler.",
-        "sources": [
-          "pricing",
-          "sales",
-          "marketing"
-        ],
-        "status": "plan-dependent"
-      },
-      "zapla": {
-        "text": "",
-        "mark": "tick",
-        "detail": "Social scheduling included in Growth. Supported channels must be connected.",
-        "status": "included",
-        "sources": [
-          "offer"
-        ]
-      }
-    }
   ],
   "marketingNote": "Growth also includes WhatsApp campaigns. Creatio Marketing is separately priced at A$24 per marketing user/month on top of the platform, with marketing-contact and email allowances. Add Sales only when its packaged features are needed; the platform is counted once.",
   "optionalRows": [
     {
       "id": "ai",
       "label": "AI call answering",
-      "competitor": {
-        "text": "AI package + setup",
-        "status": "separate",
-        "sources": [
-          "voice",
-          "pricing",
-          "ai-packages"
-        ],
-        "detail": "Creatio documents inbound AI voice agents with configured telephony. Beyond the initial allowance, ongoing AI requires a separately purchased package; Start is listed at A$8,000/year. Setup, carrier charges and Australian deployment requirements are separate. Feature equivalence has not been account-tested."
-      },
+      "competitor": {"text":"Paid AI package","status":"separate","sources":["voice","pricing","ai-packages"],"detail":"Creatio documents inbound AI voice agents with configured telephony. Beyond the initial allowance, ongoing AI requires a separately purchased package; Start is listed at A$8,000/year. Setup, carrier charges and Australian deployment requirements are separate. Feature equivalence has not been account-tested."},
       "zapla": {
         "text": "Optional paid service",
         "detail": "AI Receptionist is separately priced, outside both software subscriptions. Setup, scope and communications usage are agreed separately; no voice allowance is assumed.",
@@ -601,6 +461,11 @@ export const creatioSimple = {
     }
   ],
   "sources": [
+    {
+      "id": "voice-telephony",
+      "title": "Creatio Voice Telephony: native calling and consumption-based pricing",
+      "url": "https://marketplace.creatio.com/app/voice-telephony"
+    },
     {
       "id": "platform-pricing",
       "title": "NextGen core platform inclusions",
@@ -721,9 +586,7 @@ export const creatioSimple = {
     "qualification": "AUD list prices before applicable taxes. Purchase conditions and different feature bundles apply.",
     "historicalReference": ""
   },
-  "tableNotes": [
-    "“Not listed” means not identified as a packaged Growth + Sales inclusion in the reviewed catalogue. Customisation or connected services may support the outcome."
-  ],
+  "tableNotes": [],
   "customerVisual": "missed-call",
   "showMarketingNote": true
 } satisfies ComparisonDefinition;
