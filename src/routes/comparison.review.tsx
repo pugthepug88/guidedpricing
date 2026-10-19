@@ -1,8 +1,10 @@
+import { reviewKeap } from '@/components/compare/simple/keap-review';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 
 const drafts = [
   { name: 'Zapla vs Podium', path: '/comparison/zapla-vs-podium' },
+  { name: 'Zapla vs Keap', path: '/comparison/zapla-vs-keap' },
   { name: 'Zapla vs GoHighLevel', path: '/comparison/zapla-vs-ghl' },
   { name: 'Zapla vs Zoho', path: '/comparison/zapla-vs-zoho' },
   { name: 'Zapla vs HubSpot', path: '/comparison/zapla-vs-hubspot' },
@@ -37,6 +39,13 @@ function ComparisonReview() {
     return () => observer.disconnect();
   }, []);
 
+
+  async function runKeapChecks() {
+    setChecking(true); setReport('Checking Keap…');
+    try { if (!frame.current) throw new Error('Preview missing'); await reviewKeap(frame.current, setWidth, setReport); }
+    catch (error) { setReport('FAIL: ' + (error instanceof Error ? error.message : String(error))); }
+    finally { setChecking(false); }
+  }
 
   async function runChecks() {
     setChecking(true);
@@ -414,6 +423,7 @@ function ComparisonReview() {
         <a href={path} style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: '#2563FF', textDecoration: 'underline' }}>Open selected draft</a>
       </div>
       <button type="button" disabled={checking} onClick={() => { setRefresh(Date.now()); setReport(''); }} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginRight: 12, marginBottom: 16 }}>Refresh preview</button>
+      {path === '/comparison/zapla-vs-keap' && <button type="button" onClick={runKeapChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Keap checks'}</button>}
       <button type="button" onClick={runChecks} disabled={checking || path !== '/comparison/zapla-vs-hubspot'} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
       {path === '/comparison/zapla-vs-pipedrive' && <button type="button" onClick={runPipedriveChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Pipedrive checks'}</button>}
       {path === '/comparison/zapla-vs-creatio' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
