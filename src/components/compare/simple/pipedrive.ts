@@ -33,7 +33,7 @@ export const pipedriveSimple = {
   "rateUnit": "user",
   "annualCommitment": false,
   "qualification": "Zapla’s subscription is lower from 4 Premium users billed monthly, or 6 billed annually. Setup and usage are priced separately.",
-  "annualRateNote": "Premium is A$109 per user/month billed monthly, or A$948 per user/year paid upfront (A$79/month equivalent). Public AUD pricing observed 18 October 2026; final checkout and add-on quotes were not tested."
+  "annualRateNote": "Premium is A$109 per user/month billed monthly, or A$948 per user/year paid upfront (A$79/month equivalent). Public AUD list pricing rechecked 19 October 2026. Optional add-ons are priced separately."
 },
   vendorBilling: 'Or A$79 per user/month, billed annually (A$948 per user/year).',
   pricingHeadline: 'One team price. More tools included.',

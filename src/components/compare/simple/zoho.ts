@@ -49,7 +49,7 @@ export const zohoSimple = {
     "rateUnit": "regular user",
     "annualCommitment": false,
     "qualification": "Each selected person is assigned a regular Zoho CRM licence. Lower-cost Team User licences may suit restricted access, so actual licence mixes can cost less.",
-    "annualRateNote": "Professional list pricing: A$50 per regular user/month billed monthly, or A$384 per user/year upfront, excluding GST. The Australian pricing page displays A$55 and A$35.20 including GST. Checked 18 October 2026. The public calculator produced inconsistent final totals; account checkout was not verified."
+    "annualRateNote": "Professional list pricing: A$50 per regular user/month billed monthly, or A$384 per user/year upfront, excluding GST. The Australian pricing page displays A$55 and A$35.20 including GST. Australian list prices rechecked 19 October 2026. Examples use the published regular-licence rates."
   },
   "pricingHeadline": "One subscription for your customer-facing team.",
   "vendorPlanReason": "Professional is the lowest standalone Zoho CRM edition with quotes and invoices alongside workflows and Calendar Booking. It also includes CPQ and Blueprint. This is a comparison of overlapping needs, not identical feature bundles.",
@@ -458,7 +458,7 @@ export const zohoSimple = {
     {
       "id": "ai-receptionist",
       "label": "AI call answering",
-      "competitor": {"text":"External service","detail":"Zoho Voice can route calls to external voice AI providers such as ElevenLabs or Retell via SIP. Separate service subscriptions, setup and usage apply; Australian account-level availability and equivalence were not tested.","sources":["voice-ai"],"status":"separate","mark":"cross"},
+      "competitor": {"text":"External service","detail":"Zoho Voice can route calls to external voice AI providers such as ElevenLabs or Retell via SIP. Separate service subscriptions, setup and usage apply. Deployment depends on the calling setup and supported providers.","sources":["voice-ai"],"status":"separate","mark":"cross"},
       "zapla": {"text":"Optional paid service","detail":"AI Receptionist is a separately priced service, not included in either CRM plan. Scope, setup and usage terms are confirmed separately.","status":"separate","sources":["offer","phone"]}
     }
   ],

@@ -140,7 +140,7 @@ export const hubspotSimple = {
     url: 'https://www.hubspot.com/pricing/marketing?currencyCode=AUD',
   },
   optionalRows: [
-    { id: 'ai', label: 'AI call answering', competitor: {"text":"Beta³","detail":"HubSpot documents Customer Agent deployment to calling in beta with Sales Hub Professional among eligible subscriptions. Credits, a supported calling setup and deployment requirements apply. Australian account availability and equivalence to Zapla AI Receptionist were not account-tested. This is not marked absent or unlimited.","status":"plan-dependent","sources":["customer-agent","credits"]}, zapla: { text: 'Optional paid service', detail: 'AI Receptionist is separately priced and is not included in the A$399 or A$699 software subscription. Scope, setup and usage allowances are confirmed separately; no voice allowance is invented.', status: 'separate', sources: ['offer'] } },
+    { id: 'ai', label: 'AI call answering', competitor: {"text":"Beta³","detail":"HubSpot documents Customer Agent deployment to calling in beta with Sales Hub Professional among eligible subscriptions. Credits, a supported calling setup and deployment requirements apply. Availability depends on the supported calling setup and beta access.","status":"plan-dependent","sources":["customer-agent","credits"]}, zapla: { text: 'Optional paid service', detail: 'AI Receptionist is separately priced and is not included in the A$399 or A$699 software subscription. Scope, setup and usage allowances are agreed separately.', status: 'separate', sources: ['offer'] } },
   ],
   offer,
   faqs: [

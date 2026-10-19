@@ -48,7 +48,7 @@ export function ZohoPricing({ data }: { data: ComparisonDefinition }) {
     <details className="cc-team-plan-notes"><summary>Considering Zoho One or CRM Plus?</summary>
       <p>Zoho One includes CRM plus TeamInbox, Bookings, Campaigns, Social, Sites and other apps. All-employee pricing is A$65/employee/month or A$55/month equivalent annually (A$660/year upfront). Every payroll employee must be licensed. Flexible-user pricing is A$145 monthly or A$125/month equivalent annually (A$1,500/year upfront). All exclude GST.</p>
       <p>For five total employees, Zoho One costs A$325/month or A$275/month equivalent annually, excluding GST. It can be a cheaper way to buy several Zoho apps; included apps are not extra subscriptions.</p>
-      <p>CRM Plus Enterprise is A$97/user/month or A$80/month equivalent annually (A$960/year upfront), excluding GST. It bundles CRM, marketing, support and analytics. CRM Plus Starter is also listed in AUD with a more limited CRM feature set; paid Australian checkout was not verified.</p>
+      <p>CRM Plus Enterprise is A$97/user/month or A$80/month equivalent annually (A$960/year upfront), excluding GST. It bundles CRM, marketing, support and analytics. CRM Plus Starter has a more limited CRM feature set.</p>
       <p><a href="https://www.zoho.com/one/pricing/" target="_blank" rel="noopener noreferrer">Zoho One pricing ↗</a>{' · '}<a href="https://www.zoho.com/crm/crmplus/pricing.html" target="_blank" rel="noopener noreferrer">CRM Plus pricing ↗</a></p>
     </details>
   </div>;
