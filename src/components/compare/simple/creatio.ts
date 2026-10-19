@@ -65,51 +65,51 @@ export const creatioSimple = {
   "offerScope": "CRM, inbox, forms, bookings, website/funnel builder, invoicing and phone access. Usage is separate.",
   "recurringExamples": [],
   "costExamples": {
-    "title": "See annual subscriptions and required setup",
-    "introduction": "Zapla’s first-year examples include 12 monthly payments and minimum Guided Launch. Creatio shows licence arithmetic separately from purchase eligibility.",
+    "title": "See annual subscription comparisons",
+    "introduction": "Compare 12 months of Zapla software with Creatio’s published annual purchase minimum or the higher licence subtotal for the selected team.",
     "columns": [
-      "Creatio · annual licences",
-      "Zapla · first year with launch"
+      "Creatio · annual minimum or licences",
+      "Zapla · 12 months of software"
     ],
     "rows": [
       {
         "label": "1 person",
         "values": [
-          "A$4,128; below A$16,000 minimum",
-          6785
+          "A$16,000 minimum purchase",
+          4788
         ]
       },
       {
         "label": "5 people",
         "values": [
-          "A$5,280; below A$16,000 minimum",
-          6785
+          "A$16,000 minimum purchase",
+          4788
         ]
       },
       {
         "label": "16 people",
         "values": [
           "A$16,896",
-          6785
+          4788
         ]
       },
       {
         "label": "25 people",
         "values": [
           "A$26,400",
-          6785
+          4788
         ]
       },
       {
         "label": "100 people",
         "values": [
           "A$105,600",
-          6785
+          4788
         ]
       }
     ],
-    "caption": "AUD annual licence subtotals and purchase eligibility compared with Zapla’s first year including minimum launch.",
-    "note": "Zapla: A$399 × 12 + minimum launch A$1,997 = A$6,785. Creatio: A$64 per platform licence + A$24 per Sales licence per month, annual billing. One person uses five platform licences and one Sales licence. Below-minimum subtotals are not purchasable offers; other configurations or sales-confirmed terms are required. Larger totals use published rates, not negotiated quotes. Creatio implementation, if required, is not priced here. All figures exclude tax, usage, optional services and payment fees. Feature bundles and setup scopes differ."
+    "caption": "AUD annual software subscription comparison. Creatio’s published minimum is a purchase requirement, not a quote for the selected team.",
+    "note": "Zapla: A$399 × 12 = A$4,788, paid monthly. Required Guided Launch starts at A$1,997 + GST separately. Creatio: A$64 per platform licence + A$24 per Sales licence per month, subject to an A$16,000 annual new-customer purchase minimum. The minimum is not added on top of licence spending. Below-minimum licence subtotals do not qualify for public online purchase; the minimum is not a quoted package for the selected team. Larger amounts use published rates, not negotiated quotes. All figures exclude tax, usage, optional services and payment fees. Feature bundles differ."
   },
   "launch": {
     "headline": "Get your first setup working.",
@@ -131,7 +131,7 @@ export const creatioSimple = {
     "note": "Your launch scope and price are confirmed before you commit. Compare the agreed setup work alongside the software subscription."
   },
   "foundationNote": "",
-  "methodology": "Checked 18 October 2026. Fixed comparison: Creatio Growth + Sales versus Zapla Follow-Through. AUD rates of A$64 Growth and A$24 Sales, the five-platform-user starting quantity, A$16,000 annual new-customer purchase minimum and standard three-year term were observed in the public pricing configurator. Five-user and 15-user full Sales configurations were below the minimum with Buy unavailable; 16 users reached an A$16,896 annual checkout total. A 4% card fee was removed by selecting invoice. No invoice was issued and final GST treatment, billing schedule and terms require the order. The headline minimum is not a quoted five-user package. Each selected person receives Sales; the platform quantity is at least five. Five platform plus one Sales was independently observed. Other product mixes and access types differ. Values above tested configurations are transparent list-price arithmetic, not negotiated quotes. Marketing, Service, paid support, ongoing AI and integrations are separate where required and are not silently stacked. Zapla’s required launch, usage and optional services are separate. Documentation establishes capabilities, not account-tested parity; shared-mailbox and connector behaviour needs current deployment confirmation. Zapla reviews and missed-call text-back are owner-confirmed inclusions. Unlimited workflow count does not mean unlimited execution, storage, sending or setup. Creatio Growth’s custom-process soft cap is 50,000 executed elements per month per environment, with unchanged standard processes excluded. No security, speed, hosting or ROI superiority is claimed.",
+  "methodology": "Pricing and checkout rechecked 19 October 2026; feature documentation reviewed 18 October 2026. Fixed comparison: Creatio Growth + Sales versus Zapla Follow-Through. AUD rates of A$64 Growth and A$24 Sales, the five-platform-user starting quantity, A$16,000 annual new-customer purchase minimum and standard three-year term were observed in the public pricing configurator. Five-user and 15-user full Sales configurations were below the minimum with Buy unavailable; 16 users reached an A$16,896 annual checkout total. A 4% card fee was removed by selecting invoice. No invoice was issued and final GST treatment, billing schedule and terms require the order. The headline minimum is not a quoted five-user package. Each selected person receives Sales; the platform quantity is at least five. Five platform plus one Sales was independently observed. Other product mixes and access types differ. Values above tested configurations are transparent list-price arithmetic, not negotiated quotes. Marketing, Service, paid support, ongoing AI and integrations are separate where required and are not silently stacked. Zapla’s required launch, usage and optional services are separate. Documentation establishes capabilities, not account-tested parity; shared-mailbox and connector behaviour needs current deployment confirmation. Zapla reviews and missed-call text-back are owner-confirmed inclusions. Unlimited workflow count does not mean unlimited execution, storage, sending or setup. Creatio Growth’s custom-process soft cap is 50,000 executed elements per month per environment, with unchanged standard processes excluded. No security, speed, hosting or ROI superiority is claimed.",
   "fit": [
     {
       "title": "Custom applications and complex processes",
@@ -437,7 +437,7 @@ export const creatioSimple = {
   "faqs": [
     {
       "question": "Is Zapla cheaper than Creatio?",
-      "answer": "For the published new-customer offer compared here, Zapla has the lower subscription commitment: A$4,788 for 12 months of Follow-Through, paid monthly, versus Creatio’s A$16,000 annual minimum purchase. Zapla’s first year starts at A$6,785 including minimum Guided Launch. These amounts exclude tax, usage and extras; bundles and implementation scopes differ. Existing-customer or negotiated Creatio terms can differ."
+      "answer": "For the published new-customer offer compared here, Zapla has the lower subscription commitment: A$4,788 for 12 months of Follow-Through, paid monthly, versus Creatio’s A$16,000 annual minimum purchase. Zapla’s required Guided Launch is priced separately. These subscription comparisons exclude tax, usage and optional services; feature bundles differ. Existing-customer or negotiated Creatio terms can differ."
     },
     {
       "question": "Is the minimum five users or A$16,000 a year?",
@@ -572,7 +572,7 @@ export const creatioSimple = {
       "url": "https://academy.creatio.com/guides/setup-and-administration/administration/pricing-model-limits"
     }
   ],
-  "updated": "18 October 2026",
+  "updated": "19 October 2026",
   "pricingUrl": "/Pricing-v3",
   "pricingHeading": "A smaller CRM bill. Your whole team included.",
   "pricingIntroduction": "Zapla’s software is A$4,788 for 12 months, paid monthly. Creatio publishes an A$16,000 annual minimum purchase for new customers. Compare the commitment below, then the tools and setup you need.",

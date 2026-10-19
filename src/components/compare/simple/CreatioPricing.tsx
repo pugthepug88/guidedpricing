@@ -28,7 +28,7 @@ export function CreatioPricing({ data }: { data: ComparisonDefinition }) {
         <h3>Creatio Growth + Sales</h3>
         <p className="cc-seat-result">{belowMinimum ? 'Published new-customer purchase minimum' : `${users} full Sales users at published rates`}</p>
         <p className="cc-team-total">{money(belowMinimum ? 16000 : annual)}<span>{belowMinimum ? '/year minimum purchase' : '/year licence subtotal'}</span></p>
-        <p>{belowMinimum ? 'New customers must meet the annual purchase minimum.' : 'Per-user pricing. Your subscription grows with your team.'}</p>
+        <p>{belowMinimum ? 'Minimum purchase, not an extra fee on top of licences.' : 'Per-user pricing. Your subscription grows with your team.'}</p>
         <p className="cc-team-billing">Minimum five platform users.<br />Standard three-year contract. Taxes extra.</p>
       </article>
     </div>
@@ -37,8 +37,8 @@ export function CreatioPricing({ data }: { data: ComparisonDefinition }) {
       <p>Creatio’s minimum is an annual purchase requirement, not an extra fee or a five-user package price. A smaller licence subtotal does not meet the published new-customer purchasing conditions.</p>
       <p><strong>A$88 per full user/month, billed annually:</strong> A$64 Growth platform + A$24 Sales.</p>
       <p className="cc-licence-subtotal">{platforms} Growth × A$64 + {users} Sales × A$24 = <strong>{money(annual / 12)}/month equivalent · {money(annual)}/year</strong>.</p>
-      <p>{belowMinimum ? 'This licence subtotal is below A$16,000/year. The public checkout does not allow this configuration to be bought as shown.' : 'This is list-price arithmetic for the named configuration, not a negotiated quote.'} Each selected person receives Sales; five platform licences are retained for smaller teams. Restricted-access users and different product mixes can change your quote.</p>
-      <p>Creatio’s 16-user checkout showed A$16,896/year. Card payment added 4%; invoice payment removed that fee. Final taxes, invoice schedule and contract terms depend on your order. Implementation, if required, is quoted separately. Marketing, Service, paid support and AI are not automatically added.</p>
+      <p>{belowMinimum ? 'This licence subtotal is below A$16,000/year. The public calculator disables Buy for this below-minimum selection.' : 'This is list-price arithmetic for the named configuration, not a negotiated quote.'} The model gives every selected person a Growth platform licence and Sales access, with a minimum of five platform licences.</p>
+      <p>Checkout adds a 4% card processing fee; choosing invoice removes that fee. Taxes and payment fees are excluded from this comparison. Marketing, Service, paid support and paid AI packages are not added to the model. AI Studio and the platform’s included AI credits remain included.</p>
       <p>{data.vendorPlanReason}</p>
       <p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current Creatio pricing ↗</a></p>
     </details>

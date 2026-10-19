@@ -311,7 +311,8 @@ function ComparisonReview() {
         for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken anchor.');
       }
       const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-      for (const amount of [4128, 5280, 16896, 26400, 105600, 6785]) if (!year.includes(money(amount))) throw new Error('Missing annual amount ' + amount);
+      for (const amount of [16000, 16896, 26400, 105600, 4788, 1997]) if (!year.includes(money(amount))) throw new Error('Missing annual amount ' + amount);
+      if (doc.querySelector('.cc-first-year table')?.textContent?.includes('A$6,785')) throw new Error('Launch included in subscription table.');
       if ([...doc.querySelectorAll<HTMLAnchorElement>('main a')].filter(link => link.pathname === '/booking').length < 2) throw new Error('Missing call CTA.');
       results.push('Annual examples, images, anchors, CTA destinations and noindex PASS');
       setReport('28 Creatio calculator states and 8 layout states passed.\n' + results.join('\n'));
