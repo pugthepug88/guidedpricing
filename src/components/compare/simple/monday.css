@@ -1,0 +1,6 @@
+.cc-monday-pricing .cc-monday-difference { padding:20px 24px; margin:24px 0 0; background:#EDF1E7; border-radius:12px; font-weight:600; }
+.cc-monday-pricing .cc-monday-quote { font:500 32px/1.15 'Inter Tight',sans-serif; overflow-wrap:anywhere; }
+.cc-monday-pricing .cc-team-total { white-space:nowrap; }
+.cc-monday-pricing .cc-team-total span { white-space:normal; }
+.cc-monday-pricing a { text-decoration:underline; text-underline-offset:4px; }
+.cc-monday-pricing .cc-billing-control label { min-height:44px; align-items:center; }

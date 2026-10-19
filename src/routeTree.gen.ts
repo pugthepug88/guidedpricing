@@ -32,6 +32,7 @@ import { Route as ComparisonZaplaVsActivecampaignRouteImport } from './routes/co
 import { Route as ComparisonZaplaVsCreatioRouteImport } from './routes/comparison.zapla-vs-creatio'
 import { Route as ComparisonZaplaVsGhlRouteImport } from './routes/comparison.zapla-vs-ghl'
 import { Route as ComparisonZaplaVsHubspotRouteImport } from './routes/comparison.zapla-vs-hubspot'
+import { Route as ComparisonZaplaVsMondayCrmRouteImport } from './routes/comparison.zapla-vs-monday-crm'
 import { Route as ComparisonZaplaVsPipedriveRouteImport } from './routes/comparison.zapla-vs-pipedrive'
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
@@ -163,6 +164,12 @@ const ComparisonZaplaVsHubspotRoute =
     path: '/comparison/zapla-vs-hubspot',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ComparisonZaplaVsMondayCrmRoute =
+  ComparisonZaplaVsMondayCrmRouteImport.update({
+    id: '/comparison/zapla-vs-monday-crm',
+    path: '/comparison/zapla-vs-monday-crm',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ComparisonZaplaVsPipedriveRoute =
   ComparisonZaplaVsPipedriveRouteImport.update({
     id: '/comparison/zapla-vs-pipedrive',
@@ -241,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-creatio': typeof ComparisonZaplaVsCreatioRoute
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
+  '/comparison/zapla-vs-monday-crm': typeof ComparisonZaplaVsMondayCrmRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -276,6 +284,7 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-creatio': typeof ComparisonZaplaVsCreatioRoute
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
+  '/comparison/zapla-vs-monday-crm': typeof ComparisonZaplaVsMondayCrmRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -312,6 +321,7 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-creatio': typeof ComparisonZaplaVsCreatioRoute
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
+  '/comparison/zapla-vs-monday-crm': typeof ComparisonZaplaVsMondayCrmRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -349,6 +359,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-creatio'
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
+    | '/comparison/zapla-vs-monday-crm'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
     | '/industries/allied-health'
@@ -384,6 +395,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-creatio'
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
+    | '/comparison/zapla-vs-monday-crm'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
     | '/industries/allied-health'
@@ -419,6 +431,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-creatio'
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
+    | '/comparison/zapla-vs-monday-crm'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
     | '/industries/allied-health'
@@ -455,6 +468,7 @@ export interface RootRouteChildren {
   ComparisonZaplaVsCreatioRoute: typeof ComparisonZaplaVsCreatioRoute
   ComparisonZaplaVsGhlRoute: typeof ComparisonZaplaVsGhlRoute
   ComparisonZaplaVsHubspotRoute: typeof ComparisonZaplaVsHubspotRoute
+  ComparisonZaplaVsMondayCrmRoute: typeof ComparisonZaplaVsMondayCrmRoute
   ComparisonZaplaVsPipedriveRoute: typeof ComparisonZaplaVsPipedriveRoute
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
@@ -631,6 +645,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComparisonZaplaVsHubspotRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/comparison/zapla-vs-monday-crm': {
+      id: '/comparison/zapla-vs-monday-crm'
+      path: '/comparison/zapla-vs-monday-crm'
+      fullPath: '/comparison/zapla-vs-monday-crm'
+      preLoaderRoute: typeof ComparisonZaplaVsMondayCrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/comparison/zapla-vs-pipedrive': {
       id: '/comparison/zapla-vs-pipedrive'
       path: '/comparison/zapla-vs-pipedrive'
@@ -728,6 +749,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsCreatioRoute: ComparisonZaplaVsCreatioRoute,
   ComparisonZaplaVsGhlRoute: ComparisonZaplaVsGhlRoute,
   ComparisonZaplaVsHubspotRoute: ComparisonZaplaVsHubspotRoute,
+  ComparisonZaplaVsMondayCrmRoute: ComparisonZaplaVsMondayCrmRoute,
   ComparisonZaplaVsPipedriveRoute: ComparisonZaplaVsPipedriveRoute,
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
