@@ -388,7 +388,7 @@ export const zohoSimple = {
     },
     {
       "id": "proposals",
-      "label": "Quotes",
+      "label": "Quotes & proposals",
       "competitor": {
         "text": "",
         "detail": "Professional includes quotes and CPQ. This does not imply identical proposal design, electronic signatures or document functionality.",
@@ -457,7 +457,7 @@ export const zohoSimple = {
     },
     {
       "id": "phone",
-      "label": "Business calling",
+      "label": "Built-in business phone",
       "competitor": {
         "text": "Built-in · usage extra",
         "detail": "Zoho CRM offers Twilio-backed built-in telephony, including number purchase, incoming routing and outbound calls. Numbers, credits and usage are charged separately. A separate Zoho Voice subscription is not assumed mandatory.",

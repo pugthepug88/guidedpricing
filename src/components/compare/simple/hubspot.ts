@@ -104,7 +104,7 @@ export const hubspotSimple = {
   marketingNote: 'Marketing Hub Professional includes Smart CRM Professional, so Sales Hub is not automatically required too. Free and Starter marketing tools are also available.',
   growthComparison: {
     headline: 'CRM and marketing tools. One subscription.',
-    description: 'Your CRM, unlimited team access and campaign tools in one subscription.',
+    description: 'Your CRM, unlimited users and campaign tools in one subscription.',
     vendorPrice: 'HubSpot Marketing Hub Professional starts at A$1,241/month paid annually.',
     qualification: 'Or A$1,380/month paid monthly, with an annual commitment. Includes 3 Core seats and 2,000 marketing contacts. Required onboarding: A$4,320. All amounts exclude GST. Features, allowances and setup differ. This marketing price is separate from the Sales Hub comparison below.',
     url: 'https://www.hubspot.com/pricing/marketing?currencyCode=AUD',
