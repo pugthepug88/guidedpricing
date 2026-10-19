@@ -1,8 +1,10 @@
+import { checkSalesforce } from '../components/compare/simple/salesforce-review';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 
 const drafts = [
   { name: 'Zapla vs Podium', path: '/comparison/zapla-vs-podium' },
+  { name: 'Zapla vs Salesforce', path: '/comparison/zapla-vs-salesforce' },
   { name: 'Zapla vs GoHighLevel', path: '/comparison/zapla-vs-ghl' },
   { name: 'Zapla vs Zoho', path: '/comparison/zapla-vs-zoho' },
   { name: 'Zapla vs HubSpot', path: '/comparison/zapla-vs-hubspot' },
@@ -419,6 +421,12 @@ function ComparisonReview() {
       {path === '/comparison/zapla-vs-creatio' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
       {path === '/comparison/zapla-vs-activecampaign' && <button type="button" onClick={runActiveCampaignChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run ActiveCampaign checks'}</button>}
       {path === '/comparison/zapla-vs-zoho' && <button type="button" onClick={runZohoChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Zoho checks'}</button>}
+      {path === '/comparison/zapla-vs-salesforce' && <button type="button" disabled={checking} style={{ minHeight: 44, padding: '8px 16px', marginLeft: 12, marginBottom: 16 }} onClick={async () => {
+        setChecking(true); setReport('');
+        try { if (!frame.current) throw new Error('Preview missing.'); setReport(await checkSalesforce(frame.current, setWidth)); }
+        catch (error) { setReport('CHECK FAILED: ' + String(error)); }
+        finally { setChecking(false); }
+      }}>{checking ? 'Checking…' : 'Run Salesforce checks'}</button>}
       {report && <details open><summary>Verification results</summary><pre style={{ whiteSpace: 'pre-wrap', fontSize: 13, marginBottom: 24 }}>{report}</pre></details>}
       <div ref={stage}>
         <div style={{ width: width * scale, height: height * scale, margin: 'auto', position: 'relative' }}>

@@ -1,0 +1,15 @@
+.cc-salesforce-pricing .cc-control-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.cc-salesforce-pricing .cc-control-heading label { font-size:17px; font-weight:600; }
+.cc-salesforce-pricing .cc-value-input { flex:0 0 88px; width:88px; min-height:44px; padding:8px; border:1px solid #A2AEA6; border-radius:8px; font-size:22px; }
+.cc-salesforce-pricing .sf-large-team { min-height:44px; padding:8px 14px; border:1px solid #A2AEA6; border-radius:8px; background:white; color:#1E2B29; cursor:pointer; font-size:14px; }
+.cc-salesforce-pricing .sf-large-team:focus-visible { outline:3px solid #2563FF; outline-offset:4px; }
+.cc-salesforce-pricing .sf-input-note { font-size:12px; color:#5B625E; }
+.cc-salesforce-pricing .sf-difference { margin-top:24px; font-size:16px; }
+.cc-salesforce-pricing .sf-difference p { font-size:13px; color:#5B625E; }
+.cc-salesforce-pricing .cc-team-total { white-space:nowrap; font-size:clamp(38px,4.5vw,64px); }
+.cc-salesforce-pricing .cc-team-total span { white-space:normal; }
+.cc-salesforce-pricing a { display:inline-flex; align-items:center; min-height:44px; }
+@media(max-width:767px) {
+ .cc-salesforce-pricing .cc-control-heading { gap:12px; }
+ .cc-salesforce-pricing .cc-team-results .cc-team-total { font-size:44px; }
+}
