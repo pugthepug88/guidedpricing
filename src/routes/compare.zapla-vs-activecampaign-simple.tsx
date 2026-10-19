@@ -4,7 +4,7 @@ import { activecampaignSimple } from '@/components/compare/simple/activecampaign
 import simpleCss from '@/components/compare/simple/simple.css?url';
 
 const title = 'Zapla vs ActiveCampaign: Pricing and Customer Tools | Zapla';
-const description = 'Compare Zapla and ActiveCampaign Plus with Pipelines: users, contacts, customer tools and verified AUD subscription and first-year costs.';
+const description = 'Compare Zapla and ActiveCampaign Plus with Pipelines: users, contacts, customer tools and AUD subscription prices and 12-month subscription totals.';
 export const Route = createFileRoute("/compare/zapla-vs-activecampaign-simple")({
 // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({

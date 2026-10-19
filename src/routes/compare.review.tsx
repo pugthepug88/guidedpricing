@@ -218,9 +218,10 @@ function ComparisonReview() {
             if (!annual && !vendor.includes('Monthly billing. No annual commitment.')) throw new Error('Monthly terms incorrect.');
             if (!vendor.includes('Pipelines + WhatsApp included.') || !vendor.includes('before taxes') || !vendor.includes(Math.max(5000, quote.contacts).toLocaleString('en-AU') + ' WhatsApp contacts')) throw new Error('Tier or tax missing.');
             if (!cards[0]?.textContent?.includes('A$399') || !doc.querySelector('.cc-configuration-pricing > .cc-team-qualification')?.textContent?.includes('A$1,997')) throw new Error('Zapla subscription or launch mismatch.');
-            const selectedYear = doc.querySelector('.cc-first-year')?.textContent ?? '';
-            for (const amount of [6785, 4788, annual ? quote.annual : quote.monthly * 12]) if (!selectedYear.includes(money(amount))) throw new Error('Selected first-year amount missing: ' + amount);
-            if (doc.querySelectorAll('.cc-first-year').length !== 1) throw new Error('Duplicate first-year sections.');
+            const selectedYear = doc.querySelector('.cc-subscription-costs')?.textContent ?? '';
+            for (const amount of [4788, annual ? quote.annual : quote.monthly * 12]) if (!selectedYear.includes(money(amount))) throw new Error('Selected subscription amount missing: ' + amount);
+            if (doc.querySelector('.cc-subscription-costs table')?.textContent?.includes(money(6785))) throw new Error('Launch included in subscription total.');
+            if (doc.querySelector('.cc-configuration-pricing details') || doc.querySelectorAll('.cc-subscription-costs').length !== 1) throw new Error('Duplicate subscription sections.');
             if (total.firstChild) { const r = doc.createRange(); r.selectNodeContents(total.firstChild); if (r.getClientRects().length > 1) throw new Error('Price wraps at ' + viewport); }
             if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Calculator overflow.');
             results.push(viewport + 'px · configuration ' + (index+1) + ' · ' + (annual ? 'annual' : 'monthly') + ' PASS');
@@ -230,11 +231,11 @@ function ComparisonReview() {
           doc.querySelectorAll<HTMLDetailsElement>('main details').forEach(item => { item.open = expanded; });
           await pause();
           if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Layout overflow at ' + viewport);
-          if (expanded && [...doc.querySelectorAll<HTMLElement>('.cc-first-year td')].some(cell => cell.scrollWidth > cell.clientWidth + 1)) throw new Error('First-year cell clips.');
+          if (expanded && [...doc.querySelectorAll<HTMLElement>('.cc-subscription-costs td')].some(cell => cell.scrollWidth > cell.clientWidth + 1)) throw new Error('Subscription cell clips.');
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
         }
-        const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        for (const n of [6785,4788,39084]) if (!year.includes(money(n))) throw new Error('First-year amount missing: ' + n);
+        const year = doc.querySelector('.cc-subscription-costs')?.textContent ?? '';
+        for (const n of [4788,39084]) if (!year.includes(money(n))) throw new Error('Subscription amount missing: ' + n);
         if ([...doc.images].some(img => !img.complete || img.naturalWidth === 0)) throw new Error('Broken/unloaded image.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Missing noindex.');
         for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken anchor.');
@@ -246,14 +247,14 @@ function ComparisonReview() {
         input.dispatchEvent(new win.Event('change', {bubbles:true}));
         await pause();
       }
-      if (!doc.querySelector('.cc-team-results')?.textContent?.includes('Current quote required') || !doc.querySelector('.cc-first-year')?.textContent?.includes('Current quote required')) throw new Error('Missing larger-selection quote state.');
+      if (!doc.querySelector('.cc-team-results')?.textContent?.includes('Current quote required') || !doc.querySelector('.cc-subscription-costs')?.textContent?.includes('Current quote required')) throw new Error('Missing larger-selection quote state.');
       if (!doc.querySelector('.cc-team-zapla')?.textContent?.includes('A$399')) throw new Error('Zapla changed for larger selection.');
       results.push('Larger custom selections: current quote required, no fabricated AC price PASS');
       const main = doc.querySelector('.cc-hero');
       const labels = [...doc.querySelectorAll('.cc-table tbody th')].map(node => node.textContent);
       for (const label of ['Unlimited users','Unlimited contacts','Unlimited pipelines','Forms','Quotes & proposals','Invoicing']) if (!labels.includes(label)) throw new Error('Missing consistent label: ' + label);
       if (main?.textContent?.includes('Pipedrive') || main?.textContent?.includes('HubSpot')) throw new Error('Leaked competitor copy.');
-      results.push('First-year totals, noindex, loaded images, anchors and consistent feature labels PASS');
+      results.push('Subscription totals, noindex, loaded images, anchors and consistent feature labels PASS');
       setReport('2000 ActiveCampaign calculator states and 8 layout states passed.\n' + results.join('\n'));
     } catch (error) { setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n')); }
     finally { setChecking(false); }

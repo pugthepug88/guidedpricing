@@ -64,13 +64,13 @@ export const activecampaignSimple = {
   offerScope: 'CRM, shared inbox, pipelines, forms, booking, quotes, invoices, self-service website/funnel builders, review management, phone access and WhatsApp messaging with eight connected numbers and no separate WhatsApp contact-band fee. Sending usage is separate; marketing campaigns require Growth.',
   recurringExamples: costConfigurations.map(item => ({ label: item.label, values: [item.monthly, item.annual / 12, 399] })),
   costExamples: {
-    title: 'See the first-year cash outlay, including launch',
-    introduction: 'Twelve months of the named subscription, plus Zapla’s minimum required Guided Launch. ActiveCampaign already includes marketing campaigns; the feature bundles differ.',
+    title: 'Compare 12-month subscriptions',
+    introduction: 'Twelve months of the named subscription only. Required Zapla launch is additional. ActiveCampaign already includes marketing campaigns; the feature bundles differ.',
     columns: ['Plus + Pipelines + WhatsApp · monthly', 'Plus + Pipelines + WhatsApp · annual', 'Zapla Follow-Through'],
-    rows: costConfigurations.map(item => ({ label: item.label, values: [item.monthly * 12, item.annual, 6785] })),
+    rows: costConfigurations.map(item => ({ label: item.label, values: [item.monthly * 12, item.annual, 4788] })),
     teamHeading: 'Contacts and users',
-    caption: 'Australian-dollar totals composed from checked package and WhatsApp component prices; first-year subscriptions and minimum Zapla launch, before applicable ActiveCampaign taxes; Zapla amounts exclude GST.',
-    note: 'ActiveCampaign annual amounts are paid upfront; monthly examples use twelve monthly payments. Zapla uses twelve A$399 payments plus minimum launch of A$1,997. No mandatory ActiveCampaign onboarding fee is added. Usage, optional services and connected-provider fees are excluded. Features and included email-sending allowances differ.',
+    caption: 'Australian-dollar totals composed from checked package and WhatsApp component prices; 12-month subscriptions excluding setup, before applicable ActiveCampaign taxes; Zapla amounts exclude GST.',
+    note: 'ActiveCampaign annual amounts are paid upfront; monthly examples use twelve monthly payments. Zapla uses twelve A$399 subscription payments. Required Guided Launch from A$1,997 + GST is additional. No mandatory ActiveCampaign onboarding fee is added. Usage, optional services and connected-provider fees are excluded. Features and included email-sending allowances differ.',
   },
   launch: {
     ...pipedriveSimple.launch,
@@ -104,7 +104,7 @@ export const activecampaignSimple = {
     { question: 'Does Follow-Through include email campaigns?', answer: 'No. Proactive email campaigns and database reactivation are included in Growth at A$699/month + GST total, with required Guided Launch from A$2,997 + GST. ActiveCampaign Plus already includes email campaigns and marketing automation. Sending allowances and usage differ.' },
     { question: 'Does ActiveCampaign charge for unsubscribed contacts?', answer: 'For accounts created on or after 3 November 2025, its documentation says all contacts count towards the contact limit regardless of list status. Older accounts follow different counting rules; archiving has separate conditions. Check which rules apply to your existing account.' },
     { question: 'What happens if I’m moving from ActiveCampaign?', answer: 'We agree which tools to keep, connections to check and data to move before you commit. Follow-Through Guided Launch includes up to 5,000 clean contacts and the agreed initial setup quantities. Existing automations, history and integrations are assessed individually, not promised as automatic transfers. Extra work is scoped and priced separately.' },
-    { question: 'Is AI Receptionist included?', answer: 'No. AI Receptionist is an optional paid service. Phone numbers, communication usage and payment-provider fees are also separate. The calculator compares named subscriptions; the expanded first-year examples include the minimum Follow-Through Guided Launch.' },
+    { question: 'Is AI Receptionist included?', answer: 'No. AI Receptionist is an optional paid service. Phone numbers, communication usage and payment-provider fees are also separate. The calculator compares named subscriptions; the subscription totals exclude setup, and required Follow-Through Guided Launch is disclosed separately.' },
   ],
   sources: [
     { id: 'offer', title: 'Zapla plans and scoped Guided Launch', url: '/Pricing-v3' },

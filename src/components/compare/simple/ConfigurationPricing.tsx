@@ -13,7 +13,8 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
   const matchedBand = contactBands.findIndex(value => value >= contacts);
   const contactIndex = matchedBand < 0 ? contactBands.length - 1 : matchedBand;
   const quote = configurations.find(item => item.contacts === contacts && item.users === users);
-  return <div className="cc-team-pricing cc-configuration-pricing">
+  return <>
+  <div className="cc-team-pricing cc-configuration-pricing">
     <div className="cc-team-controls">
       <div className="cc-control-heading"><label htmlFor="comparison-users">People who need CRM access</label><input aria-label="Number of people" className="cc-value-input" type="number" min={1} value={users} onChange={event => setUsers(Math.max(1, Number(event.target.value) || 1))} /></div>
       <input id="comparison-users" type="range" min={1} max={Math.max(100, users)} step={1} value={users} onChange={event => setUsers(Number(event.target.value))} />
@@ -50,23 +51,21 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
       </article>
     </div>
     <p className="cc-team-qualification">Required Guided Launch from {money(data.offer.launch)} + GST. Usage extra. Different feature bundles. <a href="/Pricing-v3">Zapla plan details ↗</a></p>
-    <details className="cc-cost-examples cc-first-year">
-      <summary>First-year costs, including setup</summary>
+  </div>
+    <details className="cc-cost-examples cc-subscription-costs">
+      <summary>Subscription totals & plan details</summary>
       <p>{contacts.toLocaleString('en-AU')} email contacts · {Math.max(5000, contacts).toLocaleString('en-AU')} WhatsApp contacts · {users} {users === 1 ? 'user' : 'users'} · {annual ? 'annual' : 'monthly'} ActiveCampaign billing.</p>
       <table className="cc-selected-cost-table">
-        <caption>Selected configuration. Before applicable taxes and usage; feature bundles differ.</caption>
+        <caption>12-month subscription comparison. Setup and usage excluded; feature bundles differ.</caption>
         <thead><tr><th scope="col">Cost</th><th scope="col">Zapla Follow-Through</th><th scope="col">ActiveCampaign {data.vendorPlan}</th></tr></thead>
         <tbody>
-          <tr><th scope="row">First year, including required setup</th><td>From {money(data.offer.monthly * 12 + data.offer.launch)}</td><td>{quote ? money(annual ? quote.annual : quote.monthly * 12) : 'Current quote required'}</td></tr>
-          <tr><th scope="row">Ongoing subscription per year</th><td>{money(data.offer.monthly * 12)}</td><td>{quote ? money(annual ? quote.annual : quote.monthly * 12) : 'Current quote required'}</td></tr>
+          <tr><th scope="row">12-month subscription</th><td data-label="Zapla">{money(data.offer.monthly * 12)}</td><td data-label="ActiveCampaign">{quote ? money(annual ? quote.annual : quote.monthly * 12) : 'Current quote required'}</td></tr>
         </tbody>
       </table>
-      <p className="cc-cost-note">Zapla: twelve {money(data.offer.monthly)} payments plus minimum Guided Launch of {money(data.offer.launch)}, excluding GST. ActiveCampaign: {annual ? 'one annual payment upfront with a one-year commitment' : 'twelve monthly payments'}, before applicable taxes. No mandatory ActiveCampaign setup fee is added. Usage, optional services and connected-provider fees are excluded. Ongoing subscription figures use today's prices.</p>
-    </details>
-    <details className="cc-team-plan-notes"><summary>Plan details, allowances & pricing notes</summary>
+      <p className="cc-cost-note">Subscription only. Zapla excludes GST; ActiveCampaign is before applicable taxes. Required Zapla Guided Launch from {money(data.offer.launch)} + GST is additional. Messaging usage and optional services are extra. {annual ? 'ActiveCampaign is paid annually upfront with a one-year commitment.' : 'ActiveCampaign total uses twelve monthly payments.'}</p>
       <p>Drag the sliders or type your own numbers. These controls are comparison tools, not product capacity limits. Contact allowances and team sizes outside the checked pricing components require a current ActiveCampaign quote. WhatsApp has a minimum 5,000-contact allowance.</p>
       <p>ActiveCampaign Plus includes a monthly marketing email allowance of ten times the purchased contact band. The price includes Pipelines and the WhatsApp subscription for the same contact count, with a minimum 5,000 WhatsApp contacts and five connected numbers. Messaging usage, SMS and connected apps are separate. Zapla email and bulk WhatsApp campaigns require Growth.</p>
-      <p>No mandatory ActiveCampaign setup fee. Onboarding format and migration scope depend on eligibility. Zapla’s required launch is finite scoped work.</p>
+      <p>ActiveCampaign includes free onboarding on paid plans; live 1:1 sessions or an AI course depend on the plan, and migration scope is limited. Optional services may cost extra. Zapla’s required launch covers finite scoped work.</p>
       <p><strong>Need automated 1:1 sales email?</strong> At 5,000 email and WhatsApp contacts and five users, Plus + Sales Engagement + WhatsApp calculates to A$805/month, or A$7,231 paid annually (A$602.58/month equivalent), before applicable taxes. This adds the checked WhatsApp fee to the previously checked Sales Engagement package. Sales Engagement replaces Pipelines; it is not added on top. This is a fixed example, not every slider selection.</p>
       <p>Calculated from AUD Plus + Pipelines package quotes and separate WhatsApp subscription fees checked in the live purchase configurator on 18 October 2026. Five WhatsApp numbers included; no prepaid messaging credits, SMS, extra sends or reporting selected. ActiveCampaign amounts are before applicable taxes; Zapla excludes GST. Other packages and allowances require a current quote.</p>
       <p>{data.vendorPlanReason} {data.vendorScope}</p><p>{data.vendorLowerPlans}</p>
@@ -76,5 +75,5 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
 
       <p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current ActiveCampaign prices ↗</a></p>
     </details>
-  </div>;
+  </>;
 }
