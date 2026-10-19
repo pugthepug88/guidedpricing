@@ -15,3 +15,8 @@
 .podium-fineprint { font-size: 14px; color: #4f5c53; }
 .podium-pricing a { color: #234fc4; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 600px) { .podium-results { grid-template-columns: 1fr; gap: 16px; } .podium-results article { padding: 22px; } }
+/* The shared pricing section has a dark background. Keep local cards and controls legible. */
+.podium-results article { color: #1f2d28; }
+.podium-billing label:has(input:checked) { color: #1f2d28; }
+.podium-fineprint { color: #d5dfd9; }
+.podium-pricing a { color: #b9cdff; }
