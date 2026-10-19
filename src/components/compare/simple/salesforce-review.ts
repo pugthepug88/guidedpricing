@@ -18,6 +18,8 @@ export async function checkSalesforce(frame: HTMLIFrameElement, setWidth: (width
   const layout = () => {
     if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth) throw new Error('Page overflow.');
     for (const el of doc.querySelectorAll<HTMLElement>('main td, main th, main article, main summary, .cc-team-total, .sf-difference')) {
+      // Mobile subscription tables deliberately hide desktop headings; data labels remain visible.
+      if (el.closest('thead')?.getBoundingClientRect().width === 1) continue;
       if (el.getClientRects().length && el.scrollWidth > el.clientWidth + 2) throw new Error('Cell clipping: ' + el.textContent?.slice(0, 100));
     }
   };
