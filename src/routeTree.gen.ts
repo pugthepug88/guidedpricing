@@ -33,8 +33,6 @@ import { Route as ComparisonZaplaVsCreatioRouteImport } from './routes/compariso
 import { Route as ComparisonZaplaVsHubspotRouteImport } from './routes/comparison.zapla-vs-hubspot'
 import { Route as ComparisonZaplaVsPipedriveRouteImport } from './routes/comparison.zapla-vs-pipedrive'
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
-import { Route as ConceptCinematicFollowThroughV5RouteImport } from './routes/concept/cinematic-follow-through-v5'
-import { Route as ConceptCinematicFollowThroughV6RouteImport } from './routes/concept/cinematic-follow-through-v6'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
 import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
 import { Route as IndustriesCosmeticSkinClinicsRouteImport } from './routes/industries/cosmetic-skin-clinics'
@@ -170,18 +168,6 @@ const ComparisonZaplaVsZohoRoute = ComparisonZaplaVsZohoRouteImport.update({
   path: '/comparison/zapla-vs-zoho',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConceptCinematicFollowThroughV5Route =
-  ConceptCinematicFollowThroughV5RouteImport.update({
-    id: '/concept/cinematic-follow-through-v5',
-    path: '/concept/cinematic-follow-through-v5',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ConceptCinematicFollowThroughV6Route =
-  ConceptCinematicFollowThroughV6RouteImport.update({
-    id: '/concept/cinematic-follow-through-v6',
-    path: '/concept/cinematic-follow-through-v6',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const IndustriesIndexRoute = IndustriesIndexRouteImport.update({
   id: '/industries/',
   path: '/industries/',
@@ -250,8 +236,6 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
-  '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
-  '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -286,8 +270,6 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
-  '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
-  '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -323,8 +305,6 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
-  '/concept/cinematic-follow-through-v5': typeof ConceptCinematicFollowThroughV5Route
-  '/concept/cinematic-follow-through-v6': typeof ConceptCinematicFollowThroughV6Route
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -361,8 +341,6 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
-    | '/concept/cinematic-follow-through-v5'
-    | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -397,8 +375,6 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
-    | '/concept/cinematic-follow-through-v5'
-    | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -433,8 +409,6 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-zoho'
-    | '/concept/cinematic-follow-through-v5'
-    | '/concept/cinematic-follow-through-v6'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -470,8 +444,6 @@ export interface RootRouteChildren {
   ComparisonZaplaVsHubspotRoute: typeof ComparisonZaplaVsHubspotRoute
   ComparisonZaplaVsPipedriveRoute: typeof ComparisonZaplaVsPipedriveRoute
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
-  ConceptCinematicFollowThroughV5Route: typeof ConceptCinematicFollowThroughV5Route
-  ConceptCinematicFollowThroughV6Route: typeof ConceptCinematicFollowThroughV6Route
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
   IndustriesCosmeticSkinClinicsRoute: typeof IndustriesCosmeticSkinClinicsRoute
   IndustriesDentalRoute: typeof IndustriesDentalRoute
@@ -653,20 +625,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComparisonZaplaVsZohoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/concept/cinematic-follow-through-v5': {
-      id: '/concept/cinematic-follow-through-v5'
-      path: '/concept/cinematic-follow-through-v5'
-      fullPath: '/concept/cinematic-follow-through-v5'
-      preLoaderRoute: typeof ConceptCinematicFollowThroughV5RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/concept/cinematic-follow-through-v6': {
-      id: '/concept/cinematic-follow-through-v6'
-      path: '/concept/cinematic-follow-through-v6'
-      fullPath: '/concept/cinematic-follow-through-v6'
-      preLoaderRoute: typeof ConceptCinematicFollowThroughV6RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/industries/': {
       id: '/industries/'
       path: '/industries'
@@ -751,8 +709,6 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsHubspotRoute: ComparisonZaplaVsHubspotRoute,
   ComparisonZaplaVsPipedriveRoute: ComparisonZaplaVsPipedriveRoute,
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,
-  ConceptCinematicFollowThroughV5Route: ConceptCinematicFollowThroughV5Route,
-  ConceptCinematicFollowThroughV6Route: ConceptCinematicFollowThroughV6Route,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
   IndustriesCosmeticSkinClinicsRoute: IndustriesCosmeticSkinClinicsRoute,
   IndustriesDentalRoute: IndustriesDentalRoute,

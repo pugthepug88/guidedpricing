@@ -60,7 +60,7 @@ export function SiteNav() {
   const navRef = useRef<HTMLElement>(null);
   const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const cinematicV5 =
-    location.pathname === "/" || location.pathname === "/concept/cinematic-follow-through-v5";
+    location.pathname === "/";
   // Every non-home route inherits the homepage header geometry. Light pages begin in
   // the same glass state the homepage uses after its cinematic hero.
   const lightSitePage = !cinematicV5;
