@@ -1,0 +1,22 @@
+.keap-pricing { margin-block: 32px; }
+.keap-pricing p { line-height: 1.6; }
+.keap-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.keap-controls > div { min-width: 0; }
+.keap-controls label { display: block; font-weight: 600; margin-bottom: 10px; }
+.keap-controls input[type=number], .keap-controls select { display: block; width: 100%; min-height: 48px; background: white; border: 1px solid #8c988f; border-radius: 8px; padding: 10px 12px; color: #20382a; font: inherit; }
+.keap-controls input[type=range] { width: 100%; min-height: 44px; accent-color: #2563ff; }
+.keap-billing { border: 0; padding: 0; display: flex; gap: 12px; flex-wrap: wrap; margin-block: 24px; }
+.keap-billing legend { font-weight: 600; margin-bottom: 12px; }
+.keap-billing label { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 10px 18px; border: 1px solid #8c988f; border-radius: 8px; cursor: pointer; }
+.keap-billing label:has(input:checked) { border-color: #2563ff; background: #edf2ff; color: #1f2d28; }
+.keap-pricing input:focus-visible, .keap-pricing select:focus-visible, .keap-billing label:focus-within { outline: 3px solid #2563ff; outline-offset: 3px; }
+.keap-billing input { accent-color: #2563ff; width: 18px; height: 18px; }
+.keap-results { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.keap-results article { min-width: 0; padding: 28px; border: 1px solid #d3d9d4; border-radius: 16px; background: #fff; color: #1f2d28; }
+.keap-results h3 { font-size: 21px; margin: 0 0 18px; }
+.keap-price { font-size: clamp(32px, 4vw, 46px); font-weight: 600; margin: 0 0 18px; white-space: nowrap; }
+.keap-price span { display: block; font-size: 15px; font-weight: 400; white-space: normal; }
+.keap-quote { font-size: 23px; font-weight: 600; }
+.keap-fineprint { font-size: 14px; color: #d5dfd9; }
+.keap-pricing a { color: #234fc4; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 600px) { .keap-results, .keap-controls { grid-template-columns: 1fr; gap: 16px; } .keap-results article { padding: 22px; } }

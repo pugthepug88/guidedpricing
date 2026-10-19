@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { ArrowUpRight } from 'lucide-react';
 import hubCss from '@/styles/comparison-hub.css?url';
 
-const competitors = ['ActiveCampaign', 'Creatio', 'GoHighLevel', 'HubSpot', 'Pipedrive', 'Podium', 'Salesforce', 'Zoho'] as const;
+const competitors = ['ActiveCampaign', 'Creatio', 'GoHighLevel', 'HubSpot', 'Keap', 'Pipedrive', 'Podium', 'Salesforce', 'Zoho'] as const;
 
 export const Route = createFileRoute('/comparison/')({
   staticData: { sitemap: false },
