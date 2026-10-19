@@ -28,6 +28,8 @@ export async function reviewKeap(
     assert(doc.documentElement.scrollWidth <= doc.documentElement.clientWidth, `Page overflow at ${width}`);
     for (const cell of doc.querySelectorAll<HTMLElement>('.cc-table td, .cc-table th, .cc-cost-table td, .cc-cost-table th, .keap-results article')) {
       if (!cell.getClientRects().length) continue;
+      const head = cell.closest('thead');
+      if (head && win.getComputedStyle(head).clipPath === 'inset(50%)') continue;
       assert(cell.scrollWidth <= cell.clientWidth + 1, `Cell clipping at ${width}: ${cell.textContent}`);
     }
     for (const price of doc.querySelectorAll('.keap-price')) {
