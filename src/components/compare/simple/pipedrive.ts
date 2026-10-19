@@ -25,11 +25,16 @@ export const pipedriveSimple = {
   vendorPriceUnit: 'per user/month, billed monthly',
   workflowNote: 'Pipedrive Premium includes 150 active automations per company; paid top-ups are available. Zapla’s unlimited allowance refers to workflow count.',
   calculator: {
-    teamSizeLabel: 'People who need CRM access', monthlyLabel: 'Monthly', annualLabel: 'Annual',
-    monthlyCommitment: 'Billed monthly.', seatName: 'paid seat', rateUnit: 'user', annualCommitment: false,
-    qualification: 'Zapla’s subscription is lower from 4 Premium users billed monthly, or 6 billed annually. Required Guided Launch changes the first-year comparison.',
-    annualRateNote: 'Premium is A$109 per user/month billed monthly, or A$948 per user/year paid upfront (A$79/month equivalent). Public AUD pricing observed 18 October 2026; final checkout and add-on quotes were not tested.',
-  },
+  "teamSizeLabel": "People who need CRM access",
+  "monthlyLabel": "Monthly",
+  "annualLabel": "Annual",
+  "monthlyCommitment": "Billed monthly.",
+  "seatName": "paid seat",
+  "rateUnit": "user",
+  "annualCommitment": false,
+  "qualification": "Zapla’s subscription is lower from 4 Premium users billed monthly, or 6 billed annually. Setup and usage are priced separately.",
+  "annualRateNote": "Premium is A$109 per user/month billed monthly, or A$948 per user/year paid upfront (A$79/month equivalent). Public AUD pricing observed 18 October 2026; final checkout and add-on quotes were not tested."
+},
   vendorBilling: 'Or A$79 per user/month, billed annually (A$948 per user/year).',
   pricingHeadline: 'One team price. More tools included.',
   vendorPlanReason: 'Adds a team email inbox, LeadBooster forms and Smart Docs.',
@@ -44,12 +49,42 @@ export const pipedriveSimple = {
   offerScope: 'CRM, inbox, forms, bookings, website/funnel builder, invoicing and phone access. Usage is separate.',
   recurringExamples: [5, 10, 20].map(users => ({ label: `${users} users`, values: [users * monthlyPremium, users * annualBilledRates.Premium, offer.monthly] })),
   costExamples: {
-    title: 'See the first-year cash outlay, including launch',
-    introduction: '12 months of subscription, plus Zapla’s minimum required Guided Launch. Choose the features you need before comparing the amounts.',
-    columns: ['Premium · monthly billing', 'Premium · annual billing', 'Zapla Follow-Through'],
-    rows: [5, 10, 20].map(users => ({ label: `${users} users`, values: [users * monthlyPremium * 12, users * annualBilledRates.Premium * 12, offer.monthly * 12 + offer.launch] })),
-    note: 'AUD listed-price examples. Pipedrive monthly and annual billing are shown separately; Zapla uses 12 monthly payments plus minimum launch. All amounts exclude GST. Usage, add-ons and extra services are excluded. Feature bundles differ.',
-  },
+  "title": "See annual subscription comparisons",
+  "introduction": "Twelve months of the named software subscriptions. Setup, usage and optional services are disclosed separately.",
+  "columns": [
+    "Premium · monthly billing",
+    "Premium · annual billing",
+    "Zapla Follow-Through"
+  ],
+  "rows": [
+    {
+      "label": "5 users",
+      "values": [
+        6540,
+        4740,
+        4788
+      ]
+    },
+    {
+      "label": "10 users",
+      "values": [
+        13080,
+        9480,
+        4788
+      ]
+    },
+    {
+      "label": "20 users",
+      "values": [
+        26160,
+        18960,
+        4788
+      ]
+    }
+  ],
+  "note": "Pipedrive monthly billing uses twelve monthly payments; annual subscriptions are paid upfront. Zapla uses twelve A$399 monthly payments. Required Guided Launch from A$1,997 + GST is additional. All subscription totals exclude GST, usage, optional products and services. Feature bundles differ.",
+  "caption": "AUD 12-month software subscription comparison, excluding GST, setup and usage. Feature bundles differ."
+},
   launch: {
     headline: 'Get your first setup working.',
     introduction: 'Guided Launch turns the software into an agreed setup for your business. It is required and priced separately from the subscription.',
@@ -61,7 +96,7 @@ export const pipedriveSimple = {
     note: 'Your launch scope and price are confirmed before you commit. Compare the agreed setup work alongside the software subscription.',
   },
   foundationNote: 'AI, communications and global login services can involve overseas processing. Pipedrive also documents regional hosting and separate company databases.',
-  methodology: 'The main table and calculator compare Pipedrive Premium with Zapla Follow-Through throughout. A separate upgrade note describes marketing tools in Zapla Growth; they are not Follow-Through inclusions. AI Receptionist is optional. Prices are in AUD and exclude GST. Pipedrive Premium public AUD pricing was independently observed on 18 October 2026 at A$109 per user/month billed monthly, or A$79 per user/month equivalent paid annually (A$948 per user/year). Final checkout, account-specific offers and add-on configurations were not tested and may differ. The calculator shows subscriptions, not equivalent feature bundles or total running costs. Required Zapla launch, taxes, communications usage, optional services and third-party fees are separate. Crosses refer to the named native inclusion; integrations may be available. Zapla confirmed review management and missed-call text-back as Follow-Through inclusions on 16 October 2026; these have not been independently account-tested. Pipedrive supports SMS workflows, missed-call follow-up and review management through integrations. Unlimited workflows means the number of workflows, not unlimited sending, executions or setup work. Pipedrive also offers implementation assistance. This is a vendor-documentation comparison, not an independent product test.',
+  methodology: "Pipedrive Premium versus Zapla Follow-Through. AUD software subscriptions exclude GST, setup, usage and optional services. Premium is A$109/user/month paid monthly or A$948/user/year paid upfront. Monthly and annual list rates were rechecked on 19 October 2026. Premium includes 150 active automations, shared email inbox, forms and document tools; Campaigns and connected services are separate. Integrations are labelled and are not automatically added to the calculator. Zapla Growth marketing and optional AI Receptionist are separate from Follow-Through. Unlimited workflow count does not mean unlimited executions or sending. Required Zapla Guided Launch is disclosed separately. Final account entitlements and quotes may vary.",
 
   fit: [
     { title: 'Sales pipeline first', description: 'A strong fit when your priority is sales pipeline management and your other customer tools already work well together.', consideration: '' },
@@ -86,7 +121,7 @@ export const pipedriveSimple = {
   growthRows: [
     { id: 'reactivation', label: 'Database reactivation', competitor: { text: 'Email workflows', mark: 'tick', detail: 'Premium email workflows can re-engage inactive contacts. Broadcast marketing campaigns use the paid Campaigns add-on; SMS outreach uses a connected provider. Pipedrive documents reactivation workflows, so this capability is not marked unavailable.', status: 'included', sources: ['reactivation', 'plans', 'campaigns', 'sms-marketplace'] }, zapla: { text: '', mark: 'tick', detail: 'Database reactivation tools included in Growth, using targeted email, SMS or WhatsApp campaigns. Sending usage and separately managed campaign services are additional; results are not guaranteed.', status: 'included', sources: ['offer'] } },
     { id: 'marketing', label: 'Email campaigns', competitor: {"text":"Paid add-on","detail":"Campaigns is separate on every CRM plan. Price depends on tier and subscribed contacts. Sales email sync, bulk sales emails and nurturing sequences are different features and are included in Premium.","status":"separate","sources":["billing","campaigns","pricing"],"mark":"cross"}, zapla: { text: '', mark: 'tick', detail: 'Email campaign tools included in Growth, not Follow-Through. Sending usage is separate.', status: 'included', sources: ['offer'] } },
-    { id: 'sms-marketing', label: "Bulk SMS & WhatsApp campaigns", competitor: {"text":"Via integration","detail":"SMS campaign services are available through connected providers, including the Australian SMS marketplace app. Pipedrive also documents native WhatsApp conversations in beta on Growth and above; equivalent bulk WhatsApp campaign functionality has not been established. Provider subscriptions and message costs vary; no extra cost is assumed here.","status":"separate","sources":["sms-marketplace","plans","whatsapp"],"mark":"cross"}, zapla: { text: '', mark: 'tick', detail: 'Bulk SMS and WhatsApp campaign tools included in Growth. Message usage is charged separately; this is not unlimited sending.', status: 'included', sources: ['offer'] } },
+    { id: 'sms-marketing', label: "Bulk SMS campaigns", competitor: {"text":"Via integration","detail":"SMS campaigns use a connected provider, including the Australian SMS Marketplace app. This row compares SMS campaigns; Pipedrive’s native WhatsApp conversations in beta are a separate capability. Provider terms and messaging usage vary.","status":"separate","sources":["sms-marketplace","plans","whatsapp"],"mark":"cross"}, zapla: {"text":"","mark":"tick","detail":"Bulk SMS campaign tools included in Growth. Sending usage is separate.","status":"included","sources":["offer"]} },
     { id: 'social', label: 'Social scheduling', competitor: {"text":"Via integration","detail":"A native social publishing scheduler is not listed in the current CRM plan catalogue. Pipedrive documents separate social scheduling tools such as Hootsuite. This is a catalogue-based distinction, not a claim that social tools cannot connect.","status":"separate","sources":["plans","pricing","social-tools"],"mark":"cross"}, zapla: { text: '', mark: 'tick', detail: 'Social scheduling included in Growth. Supported channels must be connected.', status: 'included', sources: ['offer'] } },
   ],
   showMarketingNote: true,
@@ -101,11 +136,23 @@ export const pipedriveSimple = {
     { title: 'App and data in one region', description: 'The application and account database run together in the selected region.', sources: ['dpa'] },
   ],
   faqs: [
-    { question: 'Which plan includes marketing and reactivation?', answer: 'Growth includes everything in Follow-Through, plus database reactivation, email campaigns, bulk SMS/WhatsApp campaigns and social scheduling. It is A$699/month + GST, with required Guided Launch from A$2,997 + GST. Sending usage is separate.' },
-    { question: 'Does the calculator include setup and usage?', answer: 'No. It compares subscriptions for the named plans. Zapla requires Guided Launch; usage and optional services are separate. Open the first-year cost examples above to include the minimum Follow-Through launch price.' },
-    { question: 'Can I move from Pipedrive and keep my existing tools?', answer: 'We assess the data and tools you want to bring across, then agree the migration and connections in Guided Launch before you commit.' },
-    { question: 'Is AI Receptionist included?', answer: 'AI Receptionist is available as an optional paid service on either Zapla plan. Business phone access is included; phone numbers and communications usage are separate.' },
-  ],
+  {
+    "question": "Which plan includes marketing and reactivation?",
+    "answer": "Growth includes everything in Follow-Through, plus database reactivation, email campaigns, bulk SMS/WhatsApp campaigns and social scheduling. It is A$699/month + GST, with required Guided Launch from A$2,997 + GST. Sending usage is separate."
+  },
+  {
+    "question": "Does the calculator include setup and usage?",
+    "answer": "No. The calculator and annual table compare software subscriptions for the named plans. Required Zapla Guided Launch from A$1,997 + GST is disclosed separately. Usage and optional services are additional."
+  },
+  {
+    "question": "Can I move from Pipedrive and keep my existing tools?",
+    "answer": "We assess the data and tools you want to bring across, then agree the migration and connections in Guided Launch before you commit."
+  },
+  {
+    "question": "Is AI Receptionist included?",
+    "answer": "AI Receptionist is available as an optional paid service on either Zapla plan. Business phone access is included; phone numbers and communications usage are separate."
+  }
+],
   sources: [
     { id: 'whatsapp', title: 'Pipedrive WhatsApp beta availability', url: 'https://support.pipedrive.com/en/article/whatsapp-integration' },
     { id: 'top-ups', title: 'Pipedrive paid automation top-ups', url: 'https://support.pipedrive.com/en/article/top-ups' },

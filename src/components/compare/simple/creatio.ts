@@ -131,7 +131,7 @@ export const creatioSimple = {
     "note": "Your launch scope and price are confirmed before you commit. Compare the agreed setup work alongside the software subscription."
   },
   "foundationNote": "",
-  "methodology": "Pricing and checkout rechecked 19 October 2026; feature documentation reviewed 18 October 2026. Fixed comparison: Creatio Growth + Sales versus Zapla Follow-Through. AUD rates of A$64 Growth and A$24 Sales, the five-platform-user starting quantity, A$16,000 annual new-customer purchase minimum and standard three-year term were observed in the public pricing configurator. Five-user and 15-user full Sales configurations were below the minimum with Buy unavailable; 16 users reached an A$16,896 annual checkout total. A 4% card fee was removed by selecting invoice. No invoice was issued and final GST treatment, billing schedule and terms require the order. The headline minimum is not a quoted five-user package. Each selected person receives Sales; the platform quantity is at least five. Five platform plus one Sales was independently observed. Other product mixes and access types differ. Values above tested configurations are transparent list-price arithmetic, not negotiated quotes. Marketing, Service, paid support, ongoing AI and integrations are separate where required and are not silently stacked. Zapla’s required launch, usage and optional services are separate. Documentation establishes capabilities, not account-tested parity; shared-mailbox and connector behaviour needs current deployment confirmation. Zapla reviews and missed-call text-back are owner-confirmed inclusions. Unlimited workflow count does not mean unlimited execution, storage, sending or setup. Creatio Growth’s custom-process soft cap is 50,000 executed elements per month per environment, with unchanged standard processes excluded. No security, speed, hosting or ROI superiority is claimed.",
+  "methodology": "Creatio Growth + Sales versus Zapla Follow-Through. Australian pricing and checkout rechecked on 19 October 2026: Growth A$64/platform user/month plus Sales A$24/Sales user/month, with at least five platform licences. Creatio publishes an A$16,000 annual purchase minimum for new customers and a standard three-year term. The public calculator disables Buy below the purchase minimum. Sixteen Growth plus sixteen Sales licences reached A$16,896/year in checkout; invoice selection removed the 4% card fee. No purchase was made. The minimum is not added to licence spending and is not a quoted small-team package. Above-threshold examples are list-price arithmetic; final quotes, tax and payment schedules depend on the order. Marketing, Service, paid support and paid AI packages are excluded from the model; included AI Studio and platform credits remain included. Zapla launch, usage and optional services are separate.",
   "fit": [
     {
       "title": "Custom applications and complex processes",
@@ -385,17 +385,7 @@ export const creatioSimple = {
     {
       "id": "sms-marketing",
       "label": "Bulk SMS campaigns",
-      "competitor": {
-        "text": "Separate product / integration",
-        "mark": "cross",
-        "detail": "Creatio Marketing and suitable connected messaging providers support campaigns. Product entitlement, consent, channel setup and sending costs require confirmation.",
-        "sources": [
-          "marketing",
-          "artifacts",
-          "twilio"
-        ],
-        "status": "plan-dependent"
-      },
+      "competitor": {"text":"Separate products / integrations","mark":"cross","detail":"Creatio Marketing and suitable connected messaging providers support campaigns. Product entitlement, consent, channel setup and sending costs require confirmation.","sources":["marketing","artifacts","twilio"],"status":"separate"},
       "zapla": {
         "text": "",
         "mark": "tick",
@@ -435,31 +425,31 @@ export const creatioSimple = {
   },
   "foundations": [],
   "faqs": [
-    {
-      "question": "Is Zapla cheaper than Creatio?",
-      "answer": "For the published new-customer offer compared here, Zapla has the lower subscription commitment: A$4,788 for 12 months of Follow-Through, paid monthly, versus Creatio’s A$16,000 annual minimum purchase. Zapla’s required Guided Launch is priced separately. These subscription comparisons exclude tax, usage and optional services; feature bundles differ. Existing-customer or negotiated Creatio terms can differ."
-    },
-    {
-      "question": "Is the minimum five users or A$16,000 a year?",
-      "answer": "Both conditions apply to the published offer. Five Growth + Sales licences total A$5,280/year, but the public checkout does not allow that below-minimum configuration to be bought as shown. The A$16,000 annual minimum is a purchase condition, not an extra setup fee or a quoted five-user package. Other configurations or sales-confirmed terms are required."
-    },
-    {
-      "question": "Why compare Growth + Sales?",
-      "answer": "Growth supplies the workflow and application platform. Sales adds the packaged sales processes, quotes and invoice records used in this comparison. The bundles overlap but are not identical. Marketing, Service, paid support and AI are not automatically added to the comparison price."
-    },
-    {
-      "question": "Can I pay Creatio monthly?",
-      "answer": "The public checkout inspected on 18 October 2026 showed an annual order total, not a month-to-month subscription. Creatio states a standard three-year contract. Your signed order sets the commitment and payment schedule. Card payment added 4%; invoice payment removed that fee."
-    },
-    {
-      "question": "What happens if I’m moving from Creatio?",
-      "answer": "We agree which data to move, which tools to keep and which workflows to rebuild before you commit. Follow-Through Guided Launch covers up to 5,000 clean contacts, two pipelines, three forms, two calendars and three agreed automations, plus testing and training. Existing workflows, conversation history and integrations are assessed individually. Extra work is scoped and priced separately."
-    },
-    {
-      "question": "Which plan includes marketing and AI Receptionist?",
-      "answer": "Zapla Growth includes Follow-Through plus database reactivation, email campaigns, bulk SMS and WhatsApp campaigns, and social scheduling for A$699/month + GST total. Required Guided Launch starts at A$2,997 + GST; sending usage is separate. AI Receptionist is an optional paid service on either plan."
-    }
-  ],
+  {
+    "question": "Is Zapla cheaper than Creatio?",
+    "answer": "For the published new-customer offer compared here, Zapla has the lower subscription commitment: A$4,788 for 12 months of Follow-Through, paid monthly, versus Creatio’s A$16,000 annual minimum purchase. Zapla’s required Guided Launch is priced separately. These subscription comparisons exclude tax, usage and optional services; feature bundles differ. Existing-customer or negotiated Creatio terms can differ."
+  },
+  {
+    "question": "Is the minimum five users or A$16,000 a year?",
+    "answer": "Both conditions apply to the published new-customer offer. Five Growth + Sales licences total A$5,280/year, but the public calculator disables Buy below the A$16,000 annual purchase minimum. Licence spending counts toward the minimum; the minimum is not added on top. It is not a quoted five-user package."
+  },
+  {
+    "question": "Why compare Growth + Sales?",
+    "answer": "Growth supplies the workflow and application platform. Sales adds the packaged sales processes, quotes and invoice records used in this comparison. Marketing, Service, paid support and paid AI packages are excluded from the model; AI Studio and included platform AI credits remain included. Feature bundles differ."
+  },
+  {
+    "question": "Can I pay Creatio monthly?",
+    "answer": "The public checkout rechecked on 19 October 2026 shows an annual order total. Creatio states a standard three-year contract; monthly equivalent pricing does not mean a month-to-month contract. Card payment adds 4%; selecting invoice removes that fee. Your order sets the final payment schedule and terms."
+  },
+  {
+    "question": "What happens if I’m moving from Creatio?",
+    "answer": "We agree which data to move, which tools to keep and which workflows to rebuild before you commit. Follow-Through Guided Launch covers up to 5,000 clean contacts, two pipelines, three forms, two calendars and three agreed automations, plus testing and training. Existing workflows, conversation history and integrations are assessed individually. Extra work is scoped and priced separately."
+  },
+  {
+    "question": "Which plan includes marketing and AI Receptionist?",
+    "answer": "Zapla Growth includes Follow-Through plus database reactivation, email campaigns, bulk SMS and WhatsApp campaigns, and social scheduling for A$699/month + GST total. Required Guided Launch starts at A$2,997 + GST; sending usage is separate. AI Receptionist is an optional paid service on either plan."
+  }
+],
   "sources": [
     {
       "id": "voice-telephony",

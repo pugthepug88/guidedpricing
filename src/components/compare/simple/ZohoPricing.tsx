@@ -9,7 +9,7 @@ export function ZohoPricing({ data }: { data: ComparisonDefinition }) {
   const rate = billing === 'annual' ? data.vendorAnnualPrice : data.vendorPrice;
   const total = users * rate;
   const difference = total - data.offer.monthly;
-  const firstYear = data.offer.monthly * 12 + data.offer.launch;
+  const annualSubscription = data.offer.monthly * 12;
   return <div className="cc-team-pricing cc-zoho-v2-pricing" data-pricing-details="true">
     <div className="cc-team-controls">
       <label htmlFor="comparison-team-size">People needing regular CRM access <output htmlFor="comparison-team-size">{users}</output></label>
@@ -34,11 +34,11 @@ export function ZohoPricing({ data }: { data: ComparisonDefinition }) {
       </article>
     </div>
     <div className="cc-zv2-difference" aria-live="polite" aria-atomic="true">
-      <strong>{difference > 0 ? `Zapla subscription is ${money(difference)}/month less.` : difference < 0 ? `Zoho subscription is ${money(-difference)}/month less at this team size.` : 'The subscription prices are equal at this team size.'}</strong>
-      <p>{difference > 0 ? `${money(difference * 12)} less over 12 months of subscriptions. Required Zapla launch changes the first-year comparison below.` : 'Zapla includes the shared inbox, two-way SMS tools, reviews and website builders alongside your CRM. Compare the work your team needs to do.'}</p>
-      <p className="cc-zv2-first-year"><span>First year at this team size</span><span>Zapla <b>from {money(firstYear)}</b></span><span>Zoho <b>{money(total * 12)}</b></span></p>
+      <strong>{difference > 0 ? `Zapla subscription is ${money(difference)}/month less.` : difference < 0 ? 'Zapla includes your whole team.' : 'The subscription prices are equal at this team size.'}</strong>
+      <p>{difference > 0 ? `${money(difference * 12)} less over 12 months of software. Required Guided Launch is priced separately.` : 'Zapla includes the shared inbox, two-way SMS tools, reviews and website builders alongside your CRM. Compare the work your team needs to do.'}</p>
+      <p className="cc-zv2-first-year"><span>12-month software subscriptions</span><span>Zapla <b>{money(annualSubscription)}</b></span><span>Zoho <b>{money(total * 12)}</b></span></p>
     </div>
-    <p className="cc-team-qualification">AUD excluding GST, usage and optional extras. Features differ. First year includes 12 months of subscriptions and Zapla’s minimum launch; Zoho implementation is optional and excluded. Each person is modelled with a regular CRM licence. Restricted Team User mixes can cost less.</p>
+    <p className="cc-team-qualification">AUD excluding GST, setup, usage and optional services. Features differ. Required Zapla Guided Launch starts at A$1,997 + GST separately. Each person is modelled with a regular CRM licence; restricted-access licences are explained below.</p>
     <details className="cc-team-plan-notes"><summary>Compared plans, Team Users and price verification</summary>
       <p>{data.vendorPlanReason}</p><p>{data.calculator?.annualRateNote}</p>
       <p>Team Users cost A$16/month or A$13/month equivalent annually, excluding GST. They can work within Team Modules but have restricted access to organisation modules, including record editing, ownership and manual emails. They are not interchangeable with full customer-facing CRM users.</p>

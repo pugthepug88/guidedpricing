@@ -87,13 +87,14 @@ function ComparisonReview() {
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout · PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        for (const amount of ['A$4,020', 'A$3,834', 'A$11,460', 'A$10,530', 'A$48,660', 'A$44,010', 'A$6,785']) {
-          if (!year.includes(amount)) throw new Error('Missing first-year amount: ' + amount);
+        if (doc.querySelector('.cc-first-year table')?.textContent?.includes('A$6,785')) throw new Error('Launch included in software subscription table.');
+        for (const amount of ['A$1,860', 'A$1,674', 'A$9,300', 'A$8,370', 'A$46,500', 'A$41,850', 'A$4,788', 'A$2,160', 'A$1,997']) {
+          if (!year.includes(amount)) throw new Error('Missing annual subscription amount: ' + amount);
         }
         if ([...doc.images].some(image => image.complete && image.naturalWidth === 0)) throw new Error('Broken image.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Draft indexing changed.');
       }
-      results.push('First-year setup totals, images and noindex · PASS');
+      results.push('Annual subscriptions, separate setup disclosures, images and noindex · PASS');
       setReport('24 calculator states and 8 layout states passed.\n' + results.join('\n'));
     } catch (error) {
       setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n'));
@@ -153,13 +154,14 @@ function ComparisonReview() {
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout · PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        for (const amount of ['A$6,540', 'A$4,740', 'A$13,080', 'A$9,480', 'A$26,160', 'A$18,960', 'A$6,785']) {
-          if (!year.includes(amount)) throw new Error('Missing first-year amount: ' + amount);
+        if (doc.querySelector('.cc-first-year table')?.textContent?.includes('A$6,785')) throw new Error('Launch included in software subscription table.');
+        for (const amount of ['A$6,540', 'A$4,740', 'A$13,080', 'A$9,480', 'A$26,160', 'A$18,960', 'A$4,788', 'A$1,997']) {
+          if (!year.includes(amount)) throw new Error('Missing annual subscription amount: ' + amount);
         }
         if ([...doc.images].some(image => image.complete && image.naturalWidth === 0)) throw new Error('Broken image.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Draft indexing changed.');
       }
-      results.push('First-year setup totals, images and noindex · PASS');
+      results.push('Annual subscriptions, separate setup disclosures, images and noindex · PASS');
       setReport('24 calculator states and 8 layout states passed.\n' + results.join('\n'));
     } catch (error) {
       setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n'));
@@ -375,13 +377,14 @@ function ComparisonReview() {
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout · PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        for (const amount of ['A$3,000', 'A$1,920', 'A$6,000', 'A$3,840', 'A$12,000', 'A$7,680', 'A$6,785']) {
-          if (!year.includes(amount)) throw new Error('Missing first-year amount: ' + amount);
+        if (doc.querySelector('.cc-first-year table')?.textContent?.includes('A$6,785')) throw new Error('Launch included in software subscription table.');
+        for (const amount of ['A$3,000', 'A$1,920', 'A$6,000', 'A$3,840', 'A$12,000', 'A$7,680', 'A$4,788', 'A$1,997']) {
+          if (!year.includes(amount)) throw new Error('Missing annual subscription amount: ' + amount);
         }
         if ([...doc.images].some(image => image.complete && image.naturalWidth === 0)) throw new Error('Broken image.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Draft indexing changed.');
       }
-      results.push('First-year setup totals, images and noindex · PASS');
+      results.push('Annual subscriptions, separate setup disclosures, images and noindex · PASS');
       setReport('24 Zoho calculator states and 8 layout states passed.\n' + results.join('\n'));
     } catch (error) {
       setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n'));

@@ -54,14 +54,43 @@ export const hubspotSimple = {
   offerScope: 'CRM, shared inbox, forms, bookings, quotes, website/funnel builders, invoices, review management, missed-call text-back and phone access. Usage is separate.',
   recurringExamples: [1, 5, 25].map(users => ({ label: `${users} full Sales ${users === 1 ? 'user' : 'users'}`, values: [users * monthlySalesSeat, users * annualSalesSeat / 12, offer.monthly] })),
   costExamples: {
-    title: 'See the first-year cash outlay, including setup',
-    introduction: 'Each selected person receives a full HubSpot Sales seat. Includes 12 months of subscription, HubSpot’s listed required onboarding and Zapla’s minimum required Guided Launch. Core or view-only access can reduce HubSpot costs.',
-    caption: 'First-year subscription and listed required setup for full HubSpot Sales-seat scenarios versus Zapla Follow-Through, in Australian dollars excluding GST.',
-    teamHeading: 'Full Sales users',
-    columns: ['HubSpot · paid monthly¹', 'HubSpot · paid annually', 'Zapla Follow-Through'],
-    rows: [1, 5, 25].map(users => ({ label: `${users} ${users === 1 ? 'user' : 'users'}`, values: [users * monthlySalesSeat * 12 + onboarding, users * annualSalesSeat + onboarding, offer.monthly * 12 + offer.launch] })),
-    note: '¹ HubSpot paid monthly has an annual commitment. Annual subscription is paid upfront; the examples add the listed A$2,160 required onboarding once per account. Zapla uses 12 monthly subscriptions plus minimum launch from A$1,997. All amounts exclude GST, usage, additional products, integrations and extra services. Setup scopes and feature bundles differ. These are full Sales-seat examples, not universal savings claims or final checkout quotes.',
-  },
+  "title": "See annual subscription comparisons",
+  "introduction": "Twelve months of the named software subscriptions. Setup, usage and optional services are disclosed separately.",
+  "caption": "AUD 12-month software subscription comparison, excluding GST, setup and usage. Feature bundles differ.",
+  "teamHeading": "Full Sales users",
+  "columns": [
+    "HubSpot · monthly billing",
+    "HubSpot · annual billing",
+    "Zapla Follow-Through"
+  ],
+  "rows": [
+    {
+      "label": "1 user",
+      "values": [
+        1860,
+        1674,
+        4788
+      ]
+    },
+    {
+      "label": "5 users",
+      "values": [
+        9300,
+        8370,
+        4788
+      ]
+    },
+    {
+      "label": "25 users",
+      "values": [
+        46500,
+        41850,
+        4788
+      ]
+    }
+  ],
+  "note": "HubSpot paid monthly still requires an annual commitment; annual subscriptions are paid upfront. Required HubSpot Sales Hub Professional onboarding is A$2,160 + GST. Zapla uses twelve A$399 monthly payments. Required Guided Launch from A$1,997 + GST is additional. All subscription totals exclude GST, usage, optional products and services. Feature bundles differ."
+},
   launch: {
     headline: 'Get your first setup working.',
     introduction: 'Guided Launch turns the software into an agreed setup for your business. It is required and priced separately from the subscription.',
@@ -74,7 +103,7 @@ export const hubspotSimple = {
   },
   foundationNote: '',
   foundations: [],
-  methodology: 'Checked 18 October 2026. The main table and calculator consistently compare HubSpot Sales Hub Professional with Zapla Follow-Through. Zapla Growth is a separate upgrade; AI Receptionist is optional. Evidence: current official HubSpot plan catalogue, pricing UI, help documentation and integration-provider documentation; Zapla packaging is owner-confirmed and supported by its current pricing page and NextGen platform documentation. No account-level product test was performed. HubSpot AUD pricing was observed directly in the public pricing UI: A$155 per full Sales seat/month paid monthly with an annual commitment; annual bundle calculator A$1,674/seat/year and A$8,370/year for five seats, before listed required onboarding of A$2,160. The A$140 annual monthly headline is rounded; exact annual totals are used here. All examples exclude GST; HubSpot calculates GST before purchase. Promotional eligibility, optional products, legacy entitlements, regional availability and final quotes vary. Every selected person in the calculator is assigned a full Sales seat; Core and free view-only access may lower an actual team quote. Unlimited Zapla contacts are stored contacts subject to fair use, not unlimited marketing sending. Unlimited workflow count does not mean unlimited executions or configuration. Included free HubSpot tools are not charged again, and no hypothetical provider stack is priced. Comparisons describe documented inclusions, not equivalent products or guaranteed savings. Integrations can achieve outcomes not included natively. HubSpot Customer Agent supports calling in beta and uses credits; its Australian deployment and feature equivalence to Zapla AI Receptionist have not been tested. Legacy HubSpot quotes differ from Revenue Hub CPQ and are not universally marked absent. The dedicated-database row is based on NextGen’s privacy policy and HubSpot’s DPA. It describes documented architecture, not a comparative security or speed guarantee. No fastest-CRM, hosting superiority or HIPAA claim is made. The detailed Marketing Hub estimate is A$1,240.45/month annual equivalent (A$14,885.40/year); the headline rounds to A$1,241. The Growth block compares monthly-payment prices and discloses annual commitments; it does not imply identical features or that Sales Hub is a mandatory additional purchase. Actual comparison pages reviewed: Pipedrive versus HubSpot, HubSpot versus Pipedrive, NextGen versus HubSpot, HubSpot versus Salesforce and the HubSpot comparison library. Their marketing claims are not treated as independent product evidence.',
+  methodology: "HubSpot Sales Hub Professional versus Zapla Follow-Through. Each selected person receives a full Sales seat; Core and view-only seats provide different access. AUD subscription rates use A$155/seat/month paid monthly with an annual commitment, or the previously checked A$1,674/seat/year upfront; the A$140 headline is rounded. The annual commitment and A$2,160 required onboarding were rechecked on 19 October 2026. Both vendors’ required setup charges are disclosed separately from subscription totals. Marketing Hub is a separate comparison in the Growth block, not added to the Sales Hub calculator. Free tools and included products are not charged again. Customer Agent calling is labelled beta; regional availability, credits and deployment requirements apply. The database row describes documented storage architecture, not a security or speed ranking. Prices exclude GST, usage and optional services; quotes and legacy entitlements may differ.",
   fit: [
     { title: 'A dedicated sales team with deeper sales-management needs', description: 'A strong fit when forecasting, sales sequences, coaching and sales reporting are central to how your team works.', consideration: '' },
     { title: 'Your team’s everyday follow-up, in one system', description: 'Choose Zapla when reception, sales and the owner need shared customer history, two-way SMS, missed-call text-back, reviews, bookings and quotes, with help building the first workflows.', consideration: 'Follow-Through brings these customer tools and unlimited users into one subscription.' },
@@ -115,15 +144,39 @@ export const hubspotSimple = {
   ],
   offer,
   faqs: [
-    { question: 'Could a smaller HubSpot team cost less?', answer: 'Yes. One full Sales seat costs A$1,674/year plus A$2,160 required onboarding. One Sales seat plus four Professional Core seats costs A$5,130/year (A$427.50/month equivalent), plus A$2,160 onboarding. Zapla is A$399/month with unlimited users and launch from A$1,997. Access and features differ. Free view-only seats may reduce HubSpot costs further; they do not provide full working-seat access.' },
-    { question: 'What happens as my marketing database grows?', answer: 'Zapla Growth includes unlimited stored contacts subject to fair use; sending usage is separate. Marketing Hub Professional includes 2,000 marketing contacts. The next 5,000-contact block adds A$351/month with annual billing or A$390 paid monthly. A contact-tier increase can apply for the remainder of the contract; reductions generally take effect at renewal. Non-marketing contacts are treated differently.' },
-    { question: 'Why compare Sales Hub Professional?', answer: 'It includes fully customisable workflows and sales sequences relevant to this comparison. HubSpot also offers free tools and a cheaper Starter bundle. Starter includes up to 50 workflows with restricted triggers and actions. Standalone Smart CRM Professional also supports advanced workflows without full Sales Hub features. Sales Hub Professional is not HubSpot’s minimum purchase for automation.' },
-    { question: 'Does HubSpot require five Sales seats?', answer: 'No. Current new-customer Sales Hub Professional pricing has no five-seat minimum; you can start with one. Not everyone needs a full Sales seat. HubSpot offers different access levels, including Core and free view-only seats. Our calculator models people needing full Sales Hub Professional features. Your actual seat mix may cost less.' },
-    { question: 'Can HubSpot handle SMS and reviews?', answer: 'Yes, through supported products and integrations. For Australian SMS, check a suitable connected provider. Review services can also connect to HubSpot. Provider plans, configuration and usage vary.' },
-    { question: 'Is Marketing Hub included in Sales Hub Professional?', answer: 'No. Marketing Hub covers marketing campaigns, lead nurturing, social publishing and reporting. Professional is separately priced unless bundled in your quote, and includes Smart CRM Professional. You do not automatically need Sales Hub too. Zapla’s email campaigns, database reactivation and social scheduling are included in Growth at A$699/month + GST total, with required launch from A$2,997 + GST. Usage is separate; features and allowances differ.' },
-    { question: 'What happens if I’m moving from HubSpot?', answer: 'We agree what to bring across and what to rebuild before you commit. Follow-Through Guided Launch includes importing up to 5,000 clean contacts and configuring up to two pipelines, three forms, two calendars and three agreed automations, then testing and team training. We assess your existing workflows, conversation history and integrations, then agree the migration scope and price before work starts.' },
-    { question: 'Does the calculator include setup?', answer: 'No. It compares subscriptions. The expandable first-year examples include HubSpot’s listed required onboarding and Zapla’s minimum required Guided Launch. Usage, optional services and extra configuration are excluded.' },
-  ],
+  {
+    "question": "Could a smaller HubSpot team cost less?",
+    "answer": "Yes. One full Sales seat costs A$1,674/year plus A$2,160 required onboarding. One Sales seat plus four Professional Core seats costs A$5,130/year (A$427.50/month equivalent), plus A$2,160 onboarding. Zapla is A$399/month with unlimited users and launch from A$1,997. Access and features differ. Free view-only seats may reduce HubSpot costs further; they do not provide full working-seat access."
+  },
+  {
+    "question": "What happens as my marketing database grows?",
+    "answer": "Zapla Growth includes unlimited stored contacts subject to fair use; sending usage is separate. Marketing Hub Professional includes 2,000 marketing contacts. The next 5,000-contact block adds A$351/month with annual billing or A$390 paid monthly. A contact-tier increase can apply for the remainder of the contract; reductions generally take effect at renewal. Non-marketing contacts are treated differently."
+  },
+  {
+    "question": "Why compare Sales Hub Professional?",
+    "answer": "It includes fully customisable workflows and sales sequences relevant to this comparison. HubSpot also offers free tools and a cheaper Starter bundle. Starter includes up to 50 workflows with restricted triggers and actions. Standalone Smart CRM Professional also supports advanced workflows without full Sales Hub features. Sales Hub Professional is not HubSpot’s minimum purchase for automation."
+  },
+  {
+    "question": "Does HubSpot require five Sales seats?",
+    "answer": "No. Current new-customer Sales Hub Professional pricing has no five-seat minimum; you can start with one. Not everyone needs a full Sales seat. HubSpot offers different access levels, including Core and free view-only seats. Our calculator models people needing full Sales Hub Professional features. Your actual seat mix may cost less."
+  },
+  {
+    "question": "Can HubSpot handle SMS and reviews?",
+    "answer": "Yes, through supported products and integrations. For Australian SMS, check a suitable connected provider. Review services can also connect to HubSpot. Provider plans, configuration and usage vary."
+  },
+  {
+    "question": "Is Marketing Hub included in Sales Hub Professional?",
+    "answer": "No. Marketing Hub covers marketing campaigns, lead nurturing, social publishing and reporting. Professional is separately priced unless bundled in your quote, and includes Smart CRM Professional. You do not automatically need Sales Hub too. Zapla’s email campaigns, database reactivation and social scheduling are included in Growth at A$699/month + GST total, with required launch from A$2,997 + GST. Usage is separate; features and allowances differ."
+  },
+  {
+    "question": "What happens if I’m moving from HubSpot?",
+    "answer": "We agree what to bring across and what to rebuild before you commit. Follow-Through Guided Launch includes importing up to 5,000 clean contacts and configuring up to two pipelines, three forms, two calendars and three agreed automations, then testing and team training. We assess your existing workflows, conversation history and integrations, then agree the migration scope and price before work starts."
+  },
+  {
+    "question": "Does the calculator include setup?",
+    "answer": "No. The calculator and annual table compare software subscriptions. HubSpot’s listed required onboarding is A$2,160 + GST; Zapla Guided Launch starts at A$1,997 + GST. Both are disclosed separately from subscription totals. Usage, optional services and extra configuration are additional."
+  }
+],
   sources: [
     { id: 'renewal', title: 'HubSpot subscription renewal and commitments', url: 'https://knowledge.hubspot.com/account-management/manage-your-subscription-renewal' },
     { id: 'marketing-billing', title: 'HubSpot marketing-contact billing', url: 'https://knowledge.hubspot.com/records/understand-marketing-contacts-billing' },
