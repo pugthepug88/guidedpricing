@@ -20,3 +20,8 @@
 .keap-fineprint { font-size: 14px; color: #d5dfd9; }
 .keap-pricing a { color: #234fc4; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 600px) { .keap-results, .keap-controls { grid-template-columns: 1fr; gap: 16px; } .keap-results article { padding: 22px; } }
+
+@media (max-width: 600px) {
+  .concise-comparison:has(.keap-pricing) .cc-cost-table tr { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .concise-comparison:has(.keap-pricing) .cc-cost-amount { white-space: normal; }
+}
