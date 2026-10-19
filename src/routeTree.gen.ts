@@ -33,6 +33,7 @@ import { Route as ComparisonZaplaVsCreatioRouteImport } from './routes/compariso
 import { Route as ComparisonZaplaVsGhlRouteImport } from './routes/comparison.zapla-vs-ghl'
 import { Route as ComparisonZaplaVsHubspotRouteImport } from './routes/comparison.zapla-vs-hubspot'
 import { Route as ComparisonZaplaVsPipedriveRouteImport } from './routes/comparison.zapla-vs-pipedrive'
+import { Route as ComparisonZaplaVsPodiumRouteImport } from './routes/comparison.zapla-vs-podium'
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
 import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
@@ -169,6 +170,11 @@ const ComparisonZaplaVsPipedriveRoute =
     path: '/comparison/zapla-vs-pipedrive',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ComparisonZaplaVsPodiumRoute = ComparisonZaplaVsPodiumRouteImport.update({
+  id: '/comparison/zapla-vs-podium',
+  path: '/comparison/zapla-vs-podium',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ComparisonZaplaVsZohoRoute = ComparisonZaplaVsZohoRouteImport.update({
   id: '/comparison/zapla-vs-zoho',
   path: '/comparison/zapla-vs-zoho',
@@ -242,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
+  '/comparison/zapla-vs-podium': typeof ComparisonZaplaVsPodiumRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
@@ -277,6 +284,7 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
+  '/comparison/zapla-vs-podium': typeof ComparisonZaplaVsPodiumRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
@@ -313,6 +321,7 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
+  '/comparison/zapla-vs-podium': typeof ComparisonZaplaVsPodiumRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
@@ -350,6 +359,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
+    | '/comparison/zapla-vs-podium'
     | '/comparison/zapla-vs-zoho'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
@@ -385,6 +395,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
+    | '/comparison/zapla-vs-podium'
     | '/comparison/zapla-vs-zoho'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
@@ -420,6 +431,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-pipedrive'
+    | '/comparison/zapla-vs-podium'
     | '/comparison/zapla-vs-zoho'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
@@ -456,6 +468,7 @@ export interface RootRouteChildren {
   ComparisonZaplaVsGhlRoute: typeof ComparisonZaplaVsGhlRoute
   ComparisonZaplaVsHubspotRoute: typeof ComparisonZaplaVsHubspotRoute
   ComparisonZaplaVsPipedriveRoute: typeof ComparisonZaplaVsPipedriveRoute
+  ComparisonZaplaVsPodiumRoute: typeof ComparisonZaplaVsPodiumRoute
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
   IndustriesCosmeticSkinClinicsRoute: typeof IndustriesCosmeticSkinClinicsRoute
@@ -638,6 +651,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComparisonZaplaVsPipedriveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/comparison/zapla-vs-podium': {
+      id: '/comparison/zapla-vs-podium'
+      path: '/comparison/zapla-vs-podium'
+      fullPath: '/comparison/zapla-vs-podium'
+      preLoaderRoute: typeof ComparisonZaplaVsPodiumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/comparison/zapla-vs-zoho': {
       id: '/comparison/zapla-vs-zoho'
       path: '/comparison/zapla-vs-zoho'
@@ -729,6 +749,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsGhlRoute: ComparisonZaplaVsGhlRoute,
   ComparisonZaplaVsHubspotRoute: ComparisonZaplaVsHubspotRoute,
   ComparisonZaplaVsPipedriveRoute: ComparisonZaplaVsPipedriveRoute,
+  ComparisonZaplaVsPodiumRoute: ComparisonZaplaVsPodiumRoute,
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
   IndustriesCosmeticSkinClinicsRoute: IndustriesCosmeticSkinClinicsRoute,
