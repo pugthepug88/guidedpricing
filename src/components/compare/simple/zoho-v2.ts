@@ -573,7 +573,7 @@ export const zohoV2 = {
       }
     }
   ],
-  "marketingNote": "Zoho Professional includes sales emails and follow-up automation. Separate Zoho Campaigns has a free tier; Zoho One and CRM Plus bundle marketing apps with their own allowances. Growth is A$699/month total, not an extra A$699 on top of Follow-Through.",
+  "marketingNote": "Zoho Professional includes sales emails and follow-up automation. Zoho Campaigns is a separate product; Zoho One and CRM Plus bundle marketing apps with their own allowances. Growth is A$699/month total, not an extra A$699 on top of Follow-Through.",
   "optionalRows": [
     {
       "id": "ai-receptionist",

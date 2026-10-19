@@ -49,10 +49,10 @@ export const creatioSimple: ComparisonDefinition = {
   recurringExamples: [],
   costExamples: {
     title: 'See the annual costs and required setup',
-    introduction: 'Creatio’s licence subtotal and minimum purchase are separate figures. The USD reference below applies the published annual purchase floor to Growth + Sales licence arithmetic; implementation is additional. Zapla includes 12 monthly subscriptions and minimum Guided Launch in AUD. These are different currencies, not savings examples.',
+    introduction: 'Creatio’s licence subtotal and minimum purchase are separate figures. The USD reference below applies the published annual purchase floor to Growth + Sales licence arithmetic. Zapla includes 12 monthly subscriptions and minimum Guided Launch in AUD. These are different currencies, not savings examples.',
     columns: ['Creatio · USD reference', 'Zapla · AUD including launch'],
-    rows: [1, 5, 25].map(users => ({ label: users + (users === 1 ? ' person' : ' people'), values: [users <= 5 ? 'US$10,000 minimum + implementation' : 'US$16,500 + implementation', 6785] })),
-    caption: 'Annual published-reference purchase floor for Creatio in USD, with implementation extra, versus Zapla first-year subscription and minimum launch in AUD. Currencies and scope differ.',
+    rows: [1, 5, 25].map(users => ({ label: users + (users === 1 ? ' person' : ' people'), values: [users <= 5 ? 'US$10,000 minimum' : 'US$16,500', 6785] })),
+    caption: 'Annual published-reference purchase floor for Creatio in USD versus Zapla first-year subscription and minimum launch in AUD. Currencies and scope differ.',
     note: 'For one or five people, five Growth + Sales licences total US$3,300/year, below the published US$10,000 annual purchase minimum. For 25 full users, licences total US$16,500/year, above that floor. These are illustrative purchase-floor calculations, not checkout quotes; payment timing and qualifying purchases require confirmation. Creatio’s standard term is three years, not monthly cancellation. Zapla: A$399 × 12 + A$1,997 minimum Guided Launch = A$6,785, excluding GST. Usage, optional products and extra work are excluded. No FX conversion or savings claim is made.',
   },
   workflowNote: 'Both plans document unlimited workflow count. Creatio Growth separately lists 50,000 executed process elements per month. Zapla’s allowance does not mean unlimited executions, sending or setup work.',

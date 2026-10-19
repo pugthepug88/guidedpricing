@@ -101,7 +101,7 @@ export const hubspotSimple = {
     { id: 'bulk', label: 'Bulk SMS / WhatsApp campaigns', competitor: { text: 'Other products / integrations', detail: 'Suitable providers and HubSpot product entitlements can support campaigns. The native Sales and Service SMS add-on is restricted to US sending numbers and US/Canada recipients. Do not infer Australian SMS coverage from a generic native-SMS checkmark.', status: 'separate', sources: ['addons', 'justcall', 'marketing'] }, zapla: { text: '', mark: 'tick', detail: 'Bulk SMS and WhatsApp campaign tools included in Growth. Sending usage is charged separately; numbers and channels must be configured.', status: 'included', sources: ['offer'] } },
     { id: 'social', label: 'Social scheduling', competitor: { text: 'Marketing Hub', detail: 'Social publishing/scheduling is a Marketing Hub Professional/Enterprise feature, not a Sales Hub Professional inclusion. No marketing bundle is added to the calculator.', status: 'separate', sources: ['marketing'] }, zapla: { text: '', mark: 'tick', detail: 'Social scheduling included in Growth, not Follow-Through. Supported channels must be connected.', status: 'included', sources: ['offer'] } },
   ],
-  marketingNote: 'Marketing Hub Professional includes Smart CRM Professional, so Sales Hub is not automatically required too. Free and Starter marketing tools are also available.',
+  marketingNote: 'Marketing Hub Professional includes Smart CRM Professional, so Sales Hub is not automatically required too.',
   growthComparison: {
     headline: 'CRM and marketing tools. One subscription.',
     description: 'Your CRM, unlimited users and campaign tools in one subscription.',

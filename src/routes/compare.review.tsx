@@ -378,7 +378,7 @@ function ComparisonReview() {
           results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
         }
         const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
-        if ((year.match(/A\$6,785/g) || []).length < 3 || !year.includes('US$10,000 minimum') || !year.includes('US$16,500') || !year.includes('implementation') || !year.includes('different currencies')) throw new Error('First-year amounts incorrect.');
+        if ((year.match(/A\$6,785/g) || []).length < 3 || !year.includes('US$10,000 minimum') || !year.includes('US$16,500') || year.includes('+ implementation') || !year.includes('different currencies')) throw new Error('First-year amounts incorrect.');
         if ([...doc.images].some(image => !image.complete || image.naturalWidth === 0)) throw new Error('Image not loaded.');
         if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Draft noindex missing.');
         for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) {
