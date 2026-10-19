@@ -20,6 +20,7 @@ const fs = require("fs"),
       "/compare/zapla-vs-pipedrive-simple",
     "/compare/zapla-vs-hubspot-simple",
     "/compare/zapla-vs-creatio-simple",
+    "/compare/zapla-vs-creatio-v2",
     "/compare/review",
     ])
       assert.equal(off.getPageSeo(origin, path).robots, "noindex, nofollow");
@@ -41,6 +42,7 @@ const fs = require("fs"),
     "/compare/zapla-vs-pipedrive-simple",
     "/compare/zapla-vs-hubspot-simple",
     "/compare/zapla-vs-creatio-simple",
+    "/compare/zapla-vs-creatio-v2",
     "/compare/review",
     "/unknown",
   ])

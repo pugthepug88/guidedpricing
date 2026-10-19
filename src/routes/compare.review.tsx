@@ -7,6 +7,7 @@ const drafts = [
   { name: 'Zapla vs HubSpot V2', path: '/compare/zapla-vs-hubspot-v2' },
   { name: 'Zapla vs HubSpot', path: '/compare/zapla-vs-hubspot-simple' },
   { name: 'Zapla vs Creatio', path: '/compare/zapla-vs-creatio-simple' },
+  { name: 'Zapla vs Creatio V2', path: '/compare/zapla-vs-creatio-v2' },
   { name: 'Zapla vs ActiveCampaign', path: '/compare/zapla-vs-activecampaign-simple' },
   { name: 'Zapla vs Pipedrive', path: '/compare/zapla-vs-pipedrive-simple' },
   { name: 'Zapla vs Pipedrive V2', path: '/compare/zapla-vs-pipedrive-v2' },
@@ -258,6 +259,70 @@ function ComparisonReview() {
     finally { setChecking(false); }
   }
 
+  async function runCreatioV2Checks() {
+    setChecking(true);
+    setReport('');
+    const results: string[] = [];
+    const pause = () => new Promise<void>(resolve => window.setTimeout(resolve, 100));
+    const money = (n: number) => 'A$' + n.toLocaleString('en-AU');
+    try {
+      const doc = frame.current?.contentDocument;
+      const win = frame.current?.contentWindow as (Window & typeof globalThis) | null;
+      if (!doc || !win || path !== '/compare/zapla-vs-creatio-v2') throw new Error('Select Creatio V2 and let it load.');
+      const range = doc.querySelector<HTMLInputElement>('#comparison-team-size');
+      if (!range || range.max !== '100') throw new Error('V2 calculator has not loaded.');
+      if (doc.querySelector('input[name="comparison-billing"]')) throw new Error('Invented Creatio billing choice.');
+      for (const viewport of [375, 390, 768, 1440]) {
+        setWidth(viewport);
+        await pause();
+        if (win.innerWidth !== viewport) throw new Error('Viewport did not settle.');
+        for (const people of [1, 4, 5, 15, 16, 25, 100]) {
+          Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(range, String(people));
+          range.dispatchEvent(new win.Event('input', { bubbles: true }));
+          range.dispatchEvent(new win.Event('change', { bubbles: true }));
+          await pause();
+          const annual = (Math.max(5, people) * 64 + people * 24) * 12;
+          const cards = doc.querySelectorAll('.cc-team-results article');
+          const zapla = cards[0]?.textContent ?? '';
+          const vendor = cards[1]?.textContent ?? '';
+          const total = cards[1]?.querySelector('.cc-team-total');
+          if (!total?.textContent?.startsWith(money(annual < 16000 ? 16000 : annual))) throw new Error('Wrong price at ' + people);
+          if (!vendor.includes(annual < 16000 ? '/year minimum purchase' : '/year licence subtotal')) throw new Error('Minimum confused with quote.');
+          if (!vendor.includes('A$88') || !vendor.includes('Standard three-year contract') || !vendor.includes('Taxes extra')) throw new Error('Missing rates or terms.');
+          const breakdown = doc.querySelector('.cc-licence-subtotal')?.textContent ?? '';
+          if (!breakdown.includes(money(annual) + '/year') || !breakdown.includes(people + ' Sales × A$24')) throw new Error('Wrong Sales quantity or licence subtotal.');
+          if (!zapla.includes('A$399') || !zapla.includes('A$4,788') || !zapla.includes('A$1,997')) throw new Error('Zapla pricing mismatch.');
+          if (/US\$|NaN|Infinity|A\$0/.test(vendor)) throw new Error('Invalid price.');
+          if (total.firstChild) {
+            const r = doc.createRange(); r.selectNodeContents(total.firstChild);
+            if (r.getClientRects().length > 1) throw new Error('Price wraps at ' + viewport);
+          }
+          results.push(viewport + 'px · ' + people + ' people · pricing PASS');
+        }
+        for (const expanded of [false, true]) {
+          doc.querySelectorAll('main details').forEach(item => { (item as HTMLDetailsElement).open = expanded; });
+          await pause();
+          if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth + 1) throw new Error('Page overflow at ' + viewport);
+          if ([...doc.querySelectorAll<HTMLElement>('.cc-first-year td, .cc-table td')].some(cell => cell.scrollWidth > cell.clientWidth + 1)) throw new Error('Cell clipping at ' + viewport);
+          results.push(viewport + 'px · ' + (expanded ? 'expanded' : 'collapsed') + ' layout PASS');
+        }
+        if ([...doc.images].some(image => !image.complete || image.naturalWidth === 0)) throw new Error('Image not loaded.');
+        if (doc.querySelector('meta[name="robots"]')?.getAttribute('content') !== 'noindex, nofollow') throw new Error('Noindex missing.');
+        for (const link of doc.querySelectorAll<HTMLAnchorElement>('main a[href^="#"]')) if (!doc.getElementById(link.hash.slice(1))) throw new Error('Broken anchor.');
+      }
+      const year = doc.querySelector('.cc-first-year')?.textContent ?? '';
+      for (const amount of [4128, 5280, 16896, 26400, 105600, 6785]) if (!year.includes(money(amount))) throw new Error('Missing annual amount ' + amount);
+      if ([...doc.querySelectorAll<HTMLAnchorElement>('main a')].filter(link => link.pathname === '/booking').length < 2) throw new Error('Missing call CTA.');
+      results.push('Annual examples, images, anchors, CTA destinations and noindex PASS');
+      setReport('28 Creatio V2 calculator states and 8 layout states passed.\n' + results.join('\n'));
+      doc.querySelectorAll('main details').forEach(item => { (item as HTMLDetailsElement).open = false; });
+      Object.getOwnPropertyDescriptor(win.HTMLInputElement.prototype, 'value')?.set?.call(range, '5');
+      range.dispatchEvent(new win.Event('input', { bubbles: true }));
+      range.dispatchEvent(new win.Event('change', { bubbles: true }));
+    } catch (error) { setReport('CHECK FAILED: ' + (error instanceof Error ? error.message : String(error)) + '\n' + results.join('\n')); }
+    finally { setChecking(false); }
+  }
+
   async function runCreatioChecks() {
     setChecking(true);
     setReport('');
@@ -417,6 +482,7 @@ function ComparisonReview() {
       <button type="button" disabled={checking} onClick={() => { setRefresh(Date.now()); setReport(''); }} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginRight: 12, marginBottom: 16 }}>Refresh preview</button>
       <button type="button" onClick={runChecks} disabled={checking || !['/compare/zapla-vs-hubspot-simple', '/compare/zapla-vs-hubspot-v2'].includes(path)} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginBottom: 16 }}>{checking ? 'Checking…' : 'Run HubSpot checks'}</button>
       {path === '/compare/zapla-vs-pipedrive-v2' && <button type="button" onClick={runPipedriveV2Checks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Pipedrive V2 checks'}</button>}
+      {path === '/compare/zapla-vs-creatio-v2' && <button type="button" onClick={runCreatioV2Checks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio V2 checks'}</button>}
       {path === '/compare/zapla-vs-creatio-simple' && <button type="button" onClick={runCreatioChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Creatio checks'}</button>}
       {path === '/compare/zapla-vs-activecampaign-simple' && <button type="button" onClick={runActiveCampaignChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run ActiveCampaign checks'}</button>}
       {['/compare/zapla-vs-zoho-simple', '/compare/zapla-vs-zoho-v2'].includes(path) && <button type="button" onClick={runZohoChecks} disabled={checking} style={{ minHeight: 44, padding: '8px 16px', borderRadius: 8, border: '1px solid #A2AEA6', background: 'white', marginLeft: 12, marginBottom: 16 }}>{checking ? 'Checking…' : 'Run Zoho checks'}</button>}
