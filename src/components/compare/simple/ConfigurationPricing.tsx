@@ -14,7 +14,7 @@ export function ConfigurationPricing({ data }: { data: ComparisonDefinition }) {
   const contactIndex = matchedBand < 0 ? contactBands.length - 1 : matchedBand;
   const quote = configurations.find(item => item.contacts === contacts && item.users === users);
   return <>
-  <div className="cc-team-pricing cc-configuration-pricing">
+  <div className="cc-team-pricing cc-configuration-pricing" data-pricing-details="true">
     <div className="cc-team-controls">
       <div className="cc-control-heading"><label htmlFor="comparison-users">People who need CRM access</label><input aria-label="Number of people" className="cc-value-input" type="number" min={1} value={users} onChange={event => setUsers(Math.max(1, Number(event.target.value) || 1))} /></div>
       <input id="comparison-users" type="range" min={1} max={Math.max(100, users)} step={1} value={users} onChange={event => setUsers(Number(event.target.value))} />
