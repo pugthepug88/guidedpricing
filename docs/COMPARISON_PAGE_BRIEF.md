@@ -6,11 +6,11 @@ Create concise, persuasive and accurate comparison pages that help a buyer choos
 
 ## Source of truth and project
 Repository: pugthepug88/guidedpricing. Lovable project b1bef4bc-7c76-4229-924e-e0e5b64a632b.
-Baseline: /compare/zapla-vs-pipedrive-simple.
+Baseline: /comparison/zapla-vs-pipedrive.
 Reusable module: src/components/compare/simple/ComparisonPage.tsx, types.ts, TeamPricing.tsx, simple.css.
 Competitor data: src/components/compare/simple/pipedrive.ts. Use separate data and a leaf route for each competitor.
 Read AGENTS.md and applicable local instructions. Other chats edit this repository. Fetch current main, isolate changes and use a safe branch lease. Never overwrite unrelated changes or rewrite published history.
-The former widerVersions list and industry-v3/VersionShell.tsx were deleted during V3 cleanup. The comparison-only draft selector is `/compare/review`; register each approved comparison once in its local drafts list. Use a leaf route and verify discovery in the Lovable editor page selector; its internals are not controlled by a repository list. Keep drafts noindex and excluded from the production sitemap. Provide the direct preview URL and state any editor-selector verification limitation. Do not recreate deleted V3 pages.
+The former widerVersions list and industry-v3/VersionShell.tsx were deleted during V3 cleanup. The comparison-only draft selector is `/comparison/review`; register each approved comparison once in its local drafts list. Use a leaf route and verify discovery in the Lovable editor page selector; its internals are not controlled by a repository list. Keep drafts noindex and excluded from the production sitemap. Provide the direct preview URL and state any editor-selector verification limitation. Do not recreate deleted V3 pages.
 
 ## Current offer
 Follow-Through: A$399/month excluding GST, unlimited users and stored contacts subject to fair use. Required Guided Launch from A$1,997 excluding GST.
@@ -231,3 +231,6 @@ ActiveCampaign implementation verification (17 October 2026):
 ## Clean comparison URLs (19 October 2026)
 - Cao superseded the retained -simple URL decision during consolidation. Keep exactly five current pages under /comparison/zapla-vs-pipedrive, /comparison/zapla-vs-hubspot, /comparison/zapla-vs-creatio, /comparison/zapla-vs-zoho and /comparison/zapla-vs-activecampaign. Reviewer is /comparison/review. No simple/v1/v2 suffixes remain in active comparison URLs. Old /compare routes and duplicates are removed, with no active aliases.
 - Latest former-v2 content/calculators for the four companies and the current AC page remain unchanged. No production publishing; noindex and production SEO whitelist exclusion remain. All future comparison work uses the clean /comparison namespace.
+- Hosted6e6a5af verification: all five clean URLs render the retained latest content, expected default prices, noindex, removed caption and last Growth attribution inclusion. All eleven retired /compare URLs (reviewer, five -simple pages, four -v2 pages, legacy Pipedrive) render the404 page. The clean reviewer has exactly five competitor entries.
+- Current-URL suites passed100 calculator states and32 collapsed/expanded layouts at375/390/768/1440px: Pipedrive24+8, HubSpot24+8, Creatio28+8, Zoho24+8. Initial Zoho image check during preview replacement failed; after stable preview/load inspection showed no broken images, its rerun passed. AC new URL default631monthly and463.58annual equivalent/5563upfront verified; its full2000-state suite was not repeated for this route-only change.
+- Native Lovable page menu remains a known stale-metadata limitation: after editor reload it still lists deleted /compare paths, despite those routes rendering404. Lovable agent verified workspace6e6a5af and reported no available tool to reindex that native menu; it made no edits and did not publish. Do not mistake stale menu entries for surviving pages. Root left the user's editor on /comparison/review, whose in-page selector provides all five current pages.
