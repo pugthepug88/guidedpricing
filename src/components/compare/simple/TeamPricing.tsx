@@ -16,7 +16,7 @@ export function TeamPricing({ data }: { data: ComparisonDefinition }) {
   const rate = billing === 'annual' ? annualRate : data.vendorPrice;
   const vendorTotal = users * rate;
 
-  return <div className="cc-team-pricing" data-pricing-details={Boolean(config)}>
+  return <><div className="cc-team-pricing" data-pricing-details={Boolean(config)}>
     <div className="cc-team-controls">
       <label htmlFor="comparison-team-size">{config?.teamSizeLabel ?? "People who need CRM access"} <output htmlFor="comparison-team-size">{users}</output></label>
       <input id="comparison-team-size" type="range" min={1} max={25} step={1} value={users} onChange={event => setUsers(Number(event.target.value))} />
@@ -55,8 +55,10 @@ export function TeamPricing({ data }: { data: ComparisonDefinition }) {
         </>}
       </article>
     </div>
-    <p className="cc-team-qualification">{published ? published.qualification : <>{config && <>{config.qualification} </>}Subscription comparison for the named plans. Features differ. Add users without increasing your software subscription. {data.quotePricing ? 'Zapla amounts exclude GST. Creatio’s Australian price and tax treatment require confirmation.' : 'All amounts shown exclude GST.'}</>}</p>
-    <details className="cc-team-plan-notes"><summary>Compared plans and current prices</summary><p>{data.vendorPlanReason} {data.vendorScope}</p><p>Zapla Follow-Through: {data.offerScope}</p>{data.vendorLowerPlans && <p>{data.vendorLowerPlans}</p>}{data.quotePricing && <p>{data.quotePricing.qualification}</p>}{published && <p>{published.historicalReference}</p>}{config && <p>{config.annualRateNote}</p>}<p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current {data.competitor} prices ↗</a></p></details>
-  </div>;
+
+  </div>
+    <details className="cc-cost-examples"><summary>Compared plans and current prices</summary>
+    <p>{published ? published.qualification : <>{config && <>{config.qualification} </>}Subscription comparison for the named plans. Features differ. Add users without increasing your software subscription. {data.quotePricing ? 'Zapla amounts exclude GST. Creatio’s Australian price and tax treatment require confirmation.' : 'All amounts shown exclude GST.'}</>}</p><p>{data.vendorPlanReason} {data.vendorScope}</p><p>Zapla Follow-Through: {data.offerScope}</p>{data.vendorLowerPlans && <p>{data.vendorLowerPlans}</p>}{data.quotePricing && <p>{data.quotePricing.qualification}</p>}{published && <p>{published.historicalReference}</p>}{config && <p>{config.annualRateNote}</p>}<p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current {data.competitor} prices ↗</a></p></details>
+  </>;
 }
 
