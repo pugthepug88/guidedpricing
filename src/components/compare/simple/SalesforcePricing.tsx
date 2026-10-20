@@ -10,8 +10,7 @@ export function SalesforcePricing({ data }: { data: ComparisonDefinition }) {
   const valid = users !== '' && Number.isSafeInteger(people) && people >= 1 && people <= 100;
   const quoted = largeTeam || people > 100;
   const monthly = people * data.vendorAnnualPrice;
-  const difference = monthly - data.offer.monthly;
-  return <div className="cc-team-pricing cc-salesforce-pricing" data-pricing-details="true">
+  return <><div className="cc-team-pricing cc-salesforce-pricing" data-pricing-details="true">
     <div className="cc-team-controls">
       <div className="cc-control-heading">
         <label htmlFor="salesforce-people">People needing full Pro Suite access</label>
@@ -37,17 +36,17 @@ export function SalesforcePricing({ data }: { data: ComparisonDefinition }) {
           <p className="cc-team-total">{money(monthly)}<span>/month equivalent, before taxes</span></p>
           <p className="cc-team-billing">{money(monthly * 12)} billed annually. Annual contract.</p>
           <p>{people} × {money(data.vendorAnnualPrice)} per user/month.</p>
-          <p>Published list-price calculation.</p>
         </> : <p role="status">Enter a whole number from 1 to 100, or choose the larger-team option.</p>}
       </article>
     </div>
-    {valid && !quoted && <div className="sf-difference" aria-live="polite" aria-atomic="true"><strong>{difference > 0 ? `Zapla’s subscription is ${money(difference)}/month less.` : difference < 0 ? `Salesforce’s subscription is ${money(-difference)}/month less.` : 'The subscription prices are equal.'}</strong><p>Feature bundles differ. Setup, taxes, usage and optional services are separate.</p></div>}
-    <p className="cc-team-qualification">Zapla’s subscription is lower from three Pro users at these list rates. Required Guided Launch is additional, so subscription savings are not first-year total savings.</p>
-    <details className="cc-team-plan-notes"><summary>Compared plan and billing details</summary>
+
+  </div>
+    <details className="cc-cost-examples"><summary>Compared plan and billing details</summary>
+    <p>Zapla’s subscription is lower from three Pro users at these list rates. Required Guided Launch is additional, so subscription savings are not first-year total savings.</p>
       <p>{data.vendorPlanReason} {data.vendorLowerPlans}</p>
       <p>Each selected person is modelled with a full Pro licence. The calculation uses published AUD list pricing. Discounts, different access requirements and your order can change the amount payable. Salesforce’s standard subscription terms generally prevent reducing purchased quantities during the term.</p>
       <p>No additional cloud, paid support plan or connected-app subscription is added to this calculation.</p>
       <a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check Salesforce pricing ↗</a>
     </details>
-  </div>;
+  </>;
 }
