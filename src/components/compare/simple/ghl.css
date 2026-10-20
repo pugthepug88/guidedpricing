@@ -15,3 +15,6 @@
 .ghl-fineprint { font-size: 14px; color: #4f5c53; }
 .ghl-pricing a { color: #234fc4; text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 600px) { .ghl-results { grid-template-columns: 1fr; gap: 16px; } .ghl-results article { padding: 22px; } }
+
+/* Keep the approved speed wording inside narrow comparison cells. */
+.concise-comparison:has(.ghl-pricing) .cc-table .cc-short-label { overflow-wrap: anywhere; }
