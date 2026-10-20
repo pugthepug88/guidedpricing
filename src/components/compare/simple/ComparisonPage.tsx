@@ -63,12 +63,12 @@ export function ComparisonPage({ data, pricingContent }: { data: ComparisonDefin
         <div className="cc-upgrade-features"><h3 id="growth-upgrade-heading">{data.growthComparison?.headline ?? "Need marketing too?"}</h3>{data.growthComparison && <p>{data.growthComparison.description}</p>}<p>Growth includes everything in Follow-Through, plus:</p><ul>{growthInclusions.map(label => <li key={label}>{label}</li>)}</ul></div>
         <div className="cc-upgrade-price"><p className="cc-upgrade-plan">Zapla Growth</p><p className="cc-upgrade-amount"><strong>{money(data.offer.growthMonthly)}</strong><span>/month + GST, total subscription</span></p><p>Required Guided Launch<br /><strong>from {money(data.offer.growthLaunch)} + GST</strong></p><p>Sending usage is separate.</p><Link to={data.pricingUrl}>Explore Growth <ArrowRight size={15} aria-hidden="true" /></Link></div>
       </aside>
-      {data.showMarketingNote && !data.growthComparison && <p className="cc-usage">{data.marketingNote}</p>}
       {data.growthComparison && <div className="cc-growth-comparison"><p><strong>{data.growthComparison.vendorPrice}</strong> <a href={data.growthComparison.url} target="_blank" rel="noopener noreferrer">See Marketing Hub pricing ↗</a></p><p>{data.growthComparison.qualification}</p><p>{data.marketingNote}</p></div>}
-      <p className="cc-table-key">{data.workflowNote}</p>
       {data.tableNotes?.map(note => <p className="cc-table-key" key={note}>{note}</p>)}
       <p className="cc-table-key">AI Receptionist is an optional paid service; setup and usage terms are separate. <Link to={data.pricingUrl}>See pricing ↗</Link></p>
       <details className="cc-more-tools"><summary>Feature details and plan notes</summary>
+      {data.showMarketingNote && !data.growthComparison && <p className="cc-usage">{data.marketingNote}</p>}
+      <p className="cc-table-key">{data.workflowNote}</p>
         <div className="cc-feature-notes">{allRows.map(row => <div key={row.id}><h3>{row.label}</h3><p><strong>{data.competitor}:</strong> {row.competitor.detail || row.competitor.text}</p><p><strong>Zapla:</strong> {row.zapla.detail || row.zapla.text}</p></div>)}</div>
         <Link to={data.pricingUrl}>See full Zapla plan inclusions ↗</Link>
       </details>
