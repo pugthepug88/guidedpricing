@@ -19,26 +19,26 @@ export const ghlComparison = {
       "description": "Follow-Through is A$399/month + GST. Required launch, communications usage and optional services are priced separately."
     }
   ],
-  "tableIntroduction": "Zapla Follow-Through vs GoHighLevel Starter. Both include a broad set of customer-management tools. Compare the included software, chargeable services and setup approach.",
-  "tableCaption": "GoHighLevel Starter compared with Zapla Follow-Through.",
+  "tableIntroduction": "Zapla Follow-Through vs GoHighLevel Starter + HIPAA. Compare the included software, chargeable services and setup approach.",
+  "tableCaption": "GoHighLevel Starter + HIPAA compared with Zapla Follow-Through.",
   "vendorPricingUrl": "https://www.gohighlevel.com/pricing",
-  "vendorPlan": "Starter",
+  "vendorPlan": "Starter + HIPAA",
   "vendorEntryPrice": 97,
   "vendorEntryPlan": "Starter",
-  "vendorPrice": 97,
-  "vendorAnnualPrice": 80.83333333333333,
-  "vendorPriceUnit": "USD per month, billed monthly",
-  "vendorBilling": "US$970/year paid upfront.",
+  "vendorPrice": 394,
+  "vendorAnnualPrice": 377.8333333333333,
+  "vendorPriceUnit": "USD per month, including HIPAA, billed monthly",
+  "vendorBilling": "Starter US$970/year upfront plus HIPAA US$297/month.",
   "workflowNote": "Zapla’s unlimited allowance refers to workflow count, not unlimited executions, sending or setup. GoHighLevel includes workflows; premium actions, AI and communications can generate additional charges.",
   "pricingHeading": "Compare the subscription. Then compare the setup.",
   "pricingIntroduction": "Both plans include unlimited users. Compare subscription costs below, with setup and usage shown separately.",
   "pricingHeadline": "Compare the subscription. Then compare the setup.",
-  "vendorPlanReason": "Starter includes the core features compared here. Agency and reseller upgrades are excluded.",
-  "vendorLowerPlans": "Annual Starter is the lower-priced billing alternative for the same package.",
+  "vendorPlanReason": "This configuration includes Starter and the HIPAA add-on. Agency and reseller upgrades are excluded.",
+  "vendorLowerPlans": "Starter can be purchased without the HIPAA add-on; the selected configuration includes it.",
   "costCaution": "Published subscription calculations, not checkout quotations.",
   "additionalTools": [],
   "vendorEntryScope": "Single-business Starter subscription.",
-  "vendorScope": "Core CRM and customer tools; usage and optional services are separate.",
+  "vendorScope": "Starter with HIPAA; communications usage and other optional services are separate.",
   "offerScope": "CRM and customer tools with separately priced Guided Launch.",
   "recurringExamples": [],
   "costExamples": {
@@ -51,17 +51,17 @@ export const ghlComparison = {
     ],
     "rows": [
       {
-        "label": "GHL Starter · 12 monthly payments",
+        "label": "GHL Starter + HIPAA · monthly billing",
         "values": [
-          "US$1,164",
-          "A$1,668.82"
+          "US$4,728",
+          "A$6,778.49"
         ]
       },
       {
-        "label": "GHL Starter · annual upfront",
+        "label": "GHL Starter + HIPAA · annual Starter billing",
         "values": [
-          "US$970",
-          "A$1,390.68"
+          "US$4,534",
+          "A$6,500.36"
         ]
       },
       {
@@ -72,7 +72,7 @@ export const ghlComparison = {
         ]
       }
     ],
-    "note": "Subscription totals exclude tax, setup and usage. Zapla requires Guided Launch from A$1,997 + GST. GHL offers optional implementation services, which are not included in these totals. Annual GHL billing requires upfront payment; the Zapla total represents twelve monthly payments at today’s price. AUD estimates use A$1 = US$0.6975, RBA, 19 October 2026.",
+    "note": "Subscription totals exclude tax, setup and usage. Zapla requires Guided Launch from A$1,997 + GST. GHL offers optional implementation services, which are not included in these totals. Annual GHL billing requires upfront payment; the Zapla total represents twelve monthly payments at today’s price. AUD estimates use A$1 = US$0.6975, RBA, 19 October 2026. GHL totals include HIPAA at US$297/month. Annual billing discounts Starter only; HIPAA is billed monthly.",
     "caption": "Twelve-month software subscriptions only; indicative AUD conversion, excluding tax, setup and usage."
   },
   "launch": {
@@ -96,7 +96,7 @@ export const ghlComparison = {
   },
   "usageNote": "Communications usage, phone numbers, payment-provider charges and optional services are additional. Ongoing hands-on changes through Managed Success are separately scoped and priced.",
   "foundationNote": "",
-  "methodology": "This comparison uses Zapla Follow-Through and GoHighLevel Starter for one business. Both include unlimited users. Subscription totals exclude setup, communications usage, optional services and applicable taxes. GHL prices are in USD; indicative AUD conversions use the dated RBA reference rate shown above. Annual GHL pricing is paid upfront. Zapla Growth and AI Receptionist are separate choices. Feature ticks identify included capabilities, not identical functionality or unlimited usage. A cross identifies an inclusion absent from the selected package. Implementation scope and final billing terms should be checked before purchase.",
+  "methodology": "This comparison uses Zapla Follow-Through and GoHighLevel Starter with its HIPAA add-on for one business. Both include unlimited users. Subscription totals exclude setup, communications usage, optional services and applicable taxes. GHL prices are in USD; indicative AUD conversions use the dated RBA reference rate shown above. Annual Starter pricing is paid upfront; HIPAA remains US$297/month. Zapla Growth and AI Receptionist are separate choices. Feature ticks identify included capabilities, not identical functionality or unlimited usage. A cross identifies an inclusion absent from the selected package. Implementation scope and final billing terms should be checked before purchase.",
   "fit": [
     {
       "title": "You want to configure your own CRM.",
@@ -437,6 +437,49 @@ export const ghlComparison = {
           "ghl-missed"
         ]
       }
+    },
+    {
+      "id": "hipaa",
+      "label": "HIPAA",
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "status": "included",
+        "detail": "HIPAA availability is subject to the applicable agreement and account configuration. Customers remain responsible for their own compliance obligations.",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "A$425/month add-on",
+        "mark": "tick",
+        "status": "included",
+        "detail": "Included in the Starter + HIPAA subscription total shown below, not charged twice. The add-on is US$297/month; A$425 is a rounded AUD estimate. BAA signing and account activation are required. HighLevel states the add-on cannot be removed once enabled.",
+        "sources": [
+          "ghl-hipaa"
+        ]
+      }
+    },
+    {
+      "id": "pipeda",
+      "label": "PIPEDA",
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "status": "included",
+        "detail": "PIPEDA support is included, subject to the applicable agreement and account configuration. Customers remain responsible for their own privacy obligations.",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "Privacy rights documented",
+        "status": "documented",
+        "detail": "HighLevel’s privacy policy documents Canadian privacy rights under PIPEDA. This does not establish equivalent coverage for every customer use case.",
+        "sources": [
+          "ghl-privacy"
+        ]
+      }
     }
   ],
   "growthRows": [],
@@ -478,8 +521,8 @@ export const ghlComparison = {
   "foundations": [],
   "faqs": [
     {
-      "question": "Why does this comparison use GHL Starter?",
-      "answer": "Starter includes the core CRM, communications, booking, workflow and marketing tools relevant to a single business, with unlimited users and contacts. Unlimited and Agency Pro add agency and reseller functions that are not needed for this comparison."
+      "question": "Which GoHighLevel package is compared?",
+      "answer": "Starter with the optional HIPAA add-on. The displayed total includes both. Starter can also be purchased without HIPAA; the itemised cost is shown in pricing details."
     },
     {
       "question": "What should I compare beyond the subscription?",
@@ -660,9 +703,19 @@ export const ghlComparison = {
       "id": "ghl-agent-limits",
       "title": "GoHighLevel Voice AI agent and concurrency limits",
       "url": "https://help.gohighlevel.com/support/solutions/articles/155000006056/create_ticket"
+    },
+    {
+      "id": "ghl-hipaa",
+      "title": "GoHighLevel HIPAA add-on and billing",
+      "url": "https://help.gohighlevel.com/support/solutions/articles/48000983084-hipaa-compliance-with-highlevel"
+    },
+    {
+      "id": "ghl-privacy",
+      "title": "GoHighLevel Canadian privacy rights",
+      "url": "https://www.gohighlevel.com/privacy-policy"
     }
   ],
-  "updated": "19 October 2026",
+  "updated": "20 October 2026",
   "pricingUrl": "/Pricing-v3",
   "tableNotes": []
 } satisfies ComparisonDefinition;
