@@ -20,3 +20,8 @@
 .podium-billing label:has(input:checked) { color: #1f2d28; }
 .podium-fineprint { color: #d5dfd9; }
 .podium-pricing a { color: #b9cdff; }
+
+.podium-plan-notes { border-top: 1px solid #8c988f; margin-top: 20px; }
+.podium-plan-notes summary { min-height: 48px; padding: 16px 0; cursor: pointer; font-weight: 600; }
+.podium-plan-notes summary:focus-visible { outline: 3px solid #b9cdff; outline-offset: 4px; }
+.podium-plan-notes p { font-size: 14px; color: #d5dfd9; }

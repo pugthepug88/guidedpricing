@@ -6,7 +6,7 @@ import { podiumComparison } from '@/components/compare/simple/podium';
 import simpleCss from '@/components/compare/simple/simple.css?url';
 
 const title = 'Zapla vs Podium: Pricing, Features and Guided Launch | Zapla';
-const description = 'Compare Zapla Follow-Through with Podium Standard’s Australian package. See included features, subscription prices and separate setup costs.';
+const description = 'Compare Zapla Follow-Through with Podium Professional’s Australian package. See included features, subscription prices and separate setup costs.';
 export const Route = createFileRoute("/comparison/zapla-vs-podium")({
 // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
