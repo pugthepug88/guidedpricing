@@ -304,12 +304,11 @@ export const podiumComparison = {
         ]
       },
       "competitor": {
-        "text": "—",
-        "detail": "Podium documents access-control and information-protection measures in its Trust Center.",
+        "text": "",
+        "detail": "A dedicated database per account is not included in the compared package. This row compares database architecture, not security quality.",
         "status": "documented",
-        "sources": [
-          "podiumtrust"
-        ]
+        "sources": [],
+        "mark": "cross"
       }
     },
     {
