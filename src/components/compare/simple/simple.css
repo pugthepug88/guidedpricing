@@ -114,7 +114,8 @@
 .cc-more-launch ol { padding-left:20px; }
 .cc-more-launch li+li { margin-top:10px; }
 .cc-more-launch a { font-size:14px; }
-.cc-usage { margin:16px 0 0; font-size:13px; color:#D0DBD5; }
+.cc-usage { margin:16px 0 0; font-size:14px; line-height:1.6; color:var(--comparison-muted); }
+.cc-commercial .cc-usage { color:#D0DBD5; }
 .cc-cost-table { width:100%; table-layout:fixed; border-collapse:collapse; text-align:left; margin:0 0 18px; }
 .cc-cost-table th,.cc-cost-table td { padding:14px 12px; border-bottom:1px solid #61716A; vertical-align:top; overflow-wrap:anywhere; }
 .cc-cost-table th:first-child { width:16%; padding-left:0; }
