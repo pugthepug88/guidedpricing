@@ -134,7 +134,7 @@ export const ghlComparison = {
     },
     {
       "id": "contacts",
-      "label": "Unlimited stored contacts",
+      "label": "Unlimited contacts",
       "zapla": {
         "text": "Subject to fair use",
         "detail": "Unlimited stored contacts, subject to fair use. Sending usage is separate.",
@@ -156,7 +156,7 @@ export const ghlComparison = {
     },
     {
       "id": "crm",
-      "label": "CRM and pipelines",
+      "label": "CRM & pipelines",
       "zapla": {
         "text": "",
         "detail": "CRM and pipelines are included. Guided Launch includes up to two pipelines in the agreed initial scope.",
@@ -177,8 +177,28 @@ export const ghlComparison = {
       }
     },
     {
+      "id": "speed",
+      "label": "Interface responsiveness",
+      "zapla": {
+        "text": "Ultra fast. Instantaneous response.²",
+        "detail": "NextGen describes its interface as feeling instant. The wording summarises the underlying platform’s performance positioning, not a response-time guarantee. Actual responsiveness varies with the device, connection, data and task.",
+        "status": "documented",
+        "sources": [
+          "nextgen-performance"
+        ]
+      },
+      "competitor": {
+        "text": "—",
+        "detail": "No speed ranking is assigned to GoHighLevel. This row does not establish a measured performance difference between the platforms.",
+        "status": "documented",
+        "sources": [
+          "ghl-pricing"
+        ]
+      }
+    },
+    {
       "id": "inbox",
-      "label": "Shared inbox",
+      "label": "Unified inbox",
       "zapla": {
         "text": "",
         "detail": "Bring supported customer conversations into a shared workspace. Channel setup and usage terms apply.",
@@ -189,7 +209,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "",
+        "text": "All channels in one inbox",
         "detail": "Conversations supports shared customer communications, assignment and filtering. Connected channels have their own setup and usage requirements.",
         "status": "included",
         "mark": "tick",
@@ -200,9 +220,9 @@ export const ghlComparison = {
     },
     {
       "id": "sms",
-      "label": "Two-way SMS¹",
+      "label": "Two-way SMS",
       "zapla": {
-        "text": "",
+        "text": "¹",
         "detail": "Two-way SMS access is included. Numbers and messaging usage cost extra.",
         "status": "included",
         "mark": "tick",
@@ -211,7 +231,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "",
+        "text": "¹",
         "detail": "Two-way SMS is native through the phone system. Numbers and messaging usage cost extra.",
         "status": "included",
         "mark": "tick",
@@ -222,9 +242,9 @@ export const ghlComparison = {
     },
     {
       "id": "missed",
-      "label": "Missed-call text-back¹",
+      "label": "Missed-call text-back",
       "zapla": {
-        "text": "",
+        "text": "¹",
         "detail": "Missed-call text-back is included; SMS usage is separate.",
         "status": "included",
         "mark": "tick",
@@ -233,7 +253,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "",
+        "text": "¹",
         "detail": "Native missed-call text-back is available; SMS usage and messaging settings apply.",
         "status": "included",
         "mark": "tick",
@@ -266,7 +286,7 @@ export const ghlComparison = {
     },
     {
       "id": "booking",
-      "label": "Appointment booking",
+      "label": "Online booking",
       "zapla": {
         "text": "",
         "detail": "Booking tools are included. Guided Launch includes up to two calendars.",
@@ -288,7 +308,7 @@ export const ghlComparison = {
     },
     {
       "id": "quotes",
-      "label": "Quotes and proposals",
+      "label": "Quotes & proposals",
       "zapla": {
         "text": "",
         "detail": "Quote and proposal tools are included. Initial configuration is scoped during launch.",
@@ -332,7 +352,7 @@ export const ghlComparison = {
     },
     {
       "id": "website",
-      "label": "Website and funnel builder",
+      "label": "Websites & funnels",
       "zapla": {
         "text": "",
         "detail": "Self-service website and funnel tools are included. Custom build work is separately scoped.",
@@ -354,7 +374,7 @@ export const ghlComparison = {
     },
     {
       "id": "reviews",
-      "label": "Review management¹",
+      "label": "Review management",
       "zapla": {
         "text": "",
         "detail": "Review-management tools are included. Communications usage is separate.",
@@ -378,7 +398,7 @@ export const ghlComparison = {
       "id": "workflows",
       "label": "Automation workflows",
       "zapla": {
-        "text": "Unlimited workflow count",
+        "text": "Unlimited",
         "detail": "Unlimited workflow count. Guided Launch includes up to three agreed automations built and tested. Further setup work and usage are separate.",
         "status": "included",
         "mark": "tick",
@@ -398,9 +418,9 @@ export const ghlComparison = {
     },
     {
       "id": "phone",
-      "label": "Phone access¹",
+      "label": "Built-in business phone",
       "zapla": {
-        "text": "",
+        "text": "¹",
         "detail": "Phone access is included; numbers and usage are additional. Number setup or forwarding is agreed during launch.",
         "status": "included",
         "mark": "tick",
@@ -409,7 +429,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "",
+        "text": "¹",
         "detail": "Native calling and phone-number services are available; regional number and usage charges apply.",
         "status": "included",
         "mark": "tick",
@@ -420,9 +440,9 @@ export const ghlComparison = {
     },
     {
       "id": "whatsapp",
-      "label": "WhatsApp connection¹",
+      "label": "Connected WhatsApp numbers",
       "zapla": {
-        "text": "Up to 8 numbers",
+        "text": "8",
         "detail": "Up to eight connected numbers, with unlimited WhatsApp contacts and no separate contact-band fee. Initial connection work is scoped; messaging usage is extra. Bulk campaigns are part of Growth.",
         "status": "included",
         "mark": "tick",
@@ -445,7 +465,7 @@ export const ghlComparison = {
   "optionalRows": [
     {
       "id": "ai",
-      "label": "AI Receptionist",
+      "label": "AI call answering",
       "zapla": {
         "text": "Optional paid service",
         "detail": "Optional at A$199/month + GST, with setup from A$997 + GST. Usage terms are quoted separately.",
@@ -600,8 +620,16 @@ export const ghlComparison = {
       "id": "rba",
       "title": "RBA exchange rates",
       "url": "https://www.rba.gov.au/statistics/frequency/exchange-rates.html"
+    },
+    {
+      "id": "nextgen-performance",
+      "title": "NextGen interface and performance positioning",
+      "url": "https://thenextgencrm.com/"
     }
   ],
   "updated": "19 October 2026",
-  "pricingUrl": "/Pricing-v3"
+  "pricingUrl": "/Pricing-v3",
+  "tableNotes": [
+    "² Speed wording describes NextGen’s published platform positioning, not a guaranteed response time or a measured comparison with GoHighLevel."
+  ]
 } satisfies ComparisonDefinition;
