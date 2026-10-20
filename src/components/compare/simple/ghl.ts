@@ -329,6 +329,28 @@ export const ghlComparison = {
       }
     },
     {
+      "id": "whiteboards",
+      "label": "Whiteboards",
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "status": "included",
+        "detail": "Built-in whiteboards for planning and organising ideas.",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "",
+        "mark": "cross",
+        "status": "separate",
+        "detail": "A native collaborative whiteboard is outside the compared package. Separate whiteboard tools can be used alongside the CRM.",
+        "sources": [
+          "ghl-pricing"
+        ]
+      }
+    },
+    {
       "id": "ticketing",
       "label": "Support ticketing system",
       "zapla": {
@@ -347,28 +369,6 @@ export const ghlComparison = {
         "mark": "cross",
         "sources": [
           "ghl-ticketing"
-        ]
-      }
-    },
-    {
-      "id": "meetings",
-      "label": "Built-in video meetings",
-      "zapla": {
-        "text": "",
-        "detail": "Host video meetings within the platform.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "HighLevel Meetings provides native video rooms with reusable links. Applicable video usage is separate.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-meetings"
         ]
       }
     },
