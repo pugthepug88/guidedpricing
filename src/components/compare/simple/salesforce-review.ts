@@ -33,9 +33,8 @@ export async function checkSalesforce(frame: HTMLIFrameElement, setWidth: (width
       if (!vendor.textContent?.includes(money(people * 1680) + ' billed annually. Annual contract.')) throw new Error('Annual total: ' + people);
       const zapla = doc.querySelector('.cc-team-zapla')?.textContent ?? '';
       for (const value of ['A$399', 'A$4,788', 'A$1,997']) if (!zapla.includes(value)) throw new Error('Zapla price: ' + value);
-      const difference = doc.querySelector('.sf-difference')?.textContent ?? '';
-      if (!difference.includes(people < 3 ? 'Salesforce’s subscription' : 'Zapla’s subscription')) throw new Error('Crossover direction.');
-      if (!difference.includes(money(Math.abs(people * 140 - 399)))) throw new Error('Difference amount.');
+      if (doc.querySelector('.sf-difference')) throw new Error('Prominent difference callout returned.');
+      if (doc.querySelector('.cc-team-pricing details')) throw new Error('Pricing notes belong outside the white calculator.');
       layout();
     }
     for (const invalid of ['', '0', '-1', '1.5']) {
