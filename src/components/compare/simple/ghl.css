@@ -25,3 +25,6 @@
 .ghl-pricing .ghl-fineprint { color: #d0dbd5; }
 .ghl-pricing a { color: inherit; }
 .concise-comparison:has(.ghl-pricing) .cc-table-band .cc-usage { color: #4f5c53; }
+
+/* GHL usage detail is presented inside its collapsed subscription breakdown. */
+.concise-comparison:has(.ghl-pricing) .cc-commercial > .cc-inner > .cc-usage { display: none; }
