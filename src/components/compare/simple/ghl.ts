@@ -31,9 +31,9 @@ export const ghlComparison = {
   "vendorBilling": "US$970/year paid upfront.",
   "workflowNote": "Zapla’s unlimited allowance refers to workflow count, not unlimited executions, sending or setup. GoHighLevel includes workflows; premium actions, AI and communications can generate additional charges.",
   "pricingHeading": "Compare the subscription. Then compare the setup.",
-  "pricingIntroduction": "Both plans include unlimited users. GoHighLevel Starter has the lower software subscription. Zapla’s offer combines a fixed AUD subscription with a separately priced, agreed Guided Launch.",
+  "pricingIntroduction": "Both plans include unlimited users. Compare subscription costs below, with setup and usage shown separately.",
   "pricingHeadline": "Compare the subscription. Then compare the setup.",
-  "vendorPlanReason": "Starter includes the core tools used in this comparison. Unlimited and Agency Pro add agency and reseller capabilities that are not required for this single-business setup.",
+  "vendorPlanReason": "Starter includes the core features compared here. Agency and reseller upgrades are excluded.",
   "vendorLowerPlans": "Annual Starter is the lower-priced billing alternative for the same package.",
   "costCaution": "Published subscription calculations, not checkout quotations.",
   "additionalTools": [],
@@ -99,14 +99,14 @@ export const ghlComparison = {
   "methodology": "This comparison uses Zapla Follow-Through and GoHighLevel Starter for one business. Both include unlimited users. Subscription totals exclude setup, communications usage, optional services and applicable taxes. GHL prices are in USD; indicative AUD conversions use the dated RBA reference rate shown above. Annual GHL pricing is paid upfront. Zapla Growth and AI Receptionist are separate choices. Feature ticks identify included capabilities, not identical functionality or unlimited usage. A cross identifies an inclusion absent from the selected package. Implementation scope and final billing terms should be checked before purchase.",
   "fit": [
     {
-      "title": "You want broad software at a lower subscription price.",
+      "title": "You want to configure your own CRM.",
       "description": "Choose GHL Starter when its native tools fit and you are comfortable configuring them yourself or selecting an implementation service.",
       "consideration": "You do not need an agency-tier subscription just to run one business with multiple staff."
     },
     {
       "title": "You want an agreed first setup and handover.",
       "description": "Choose Zapla when you want your initial customer process mapped, configured, tested and introduced to your team through a defined Guided Launch.",
-      "consideration": "The subscription is higher than GHL Starter; compare the launch scope and ongoing support arrangements before deciding."
+      "consideration": "Your Guided Launch scope and price are agreed before you commit."
     }
   ],
   "rows": [
@@ -385,7 +385,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "Global",
+        "text": "Offshore",
         "detail": "GoHighLevel provides global customer support.",
         "status": "included",
         "mark": "tick",
@@ -482,8 +482,8 @@ export const ghlComparison = {
       "answer": "Starter includes the core CRM, communications, booking, workflow and marketing tools relevant to a single business, with unlimited users and contacts. Unlimited and Agency Pro add agency and reseller functions that are not needed for this comparison."
     },
     {
-      "question": "Is Zapla cheaper than GoHighLevel?",
-      "answer": "Not for the software subscription shown here. GHL Starter has the lower price. Zapla’s case is its defined launch scope and whether that approach suits your business—not a claim of universal savings."
+      "question": "What should I compare beyond the subscription?",
+      "answer": "Compare the tools your business needs, where account data is hosted, available support and the work required to get started. Zapla provides Australian-based support and a separately priced Guided Launch covering an agreed first setup, testing and team training."
     },
     {
       "question": "Does GHL include setup help?",
