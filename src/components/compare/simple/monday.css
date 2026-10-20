@@ -5,11 +5,9 @@
 .cc-monday-pricing a { text-decoration:underline; text-underline-offset:4px; }
 .cc-monday-pricing .cc-billing-control label { min-height:44px; align-items:center; }
 
-/* Match the established dark-section disclosure hierarchy on this page only. */
-.cc-monday-pricing .cc-team-plan-notes { margin:24px -32px -32px; padding:0 32px 24px; background:#1E2B29; color:#D0DBD5; border-top:1px solid #61716A; }
-.cc-monday-pricing .cc-team-plan-notes summary { color:#fff; min-height:56px; font-size:15px; }
-.cc-monday-pricing .cc-team-plan-notes p, .cc-commercial .cc-monday-pricing .cc-team-plan-notes a { color:#D0DBD5; }
+/* All pricing disclosures share the dark chapter and the same left edge. */
+.cc-monday-notes p { margin:12px 0; }
+.cc-monday-notes a { color:inherit; text-decoration:underline; text-underline-offset:4px; }
 .cc-monday-pricing .cc-team-billing { color:#4F5C53; }
 .concise-comparison:has(.cc-monday-pricing) .cc-commercial > .cc-inner > .cc-usage:empty,
 .concise-comparison:has(.cc-monday-pricing) .cc-table-key:empty { display:none; }
-@media(max-width:767px) { .cc-monday-pricing .cc-team-plan-notes { margin-left:-20px; margin-right:-20px; margin-bottom:-20px; padding:0 20px 24px; } }

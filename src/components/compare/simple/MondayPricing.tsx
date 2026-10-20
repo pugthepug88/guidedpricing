@@ -6,7 +6,7 @@ export function MondayPricing() {
   const seats = [3, 5, 10, 15, 20, 25, 30, 40].find(n => n >= users);
   const total = seats === undefined ? undefined : seats * (annual ? 45 : 53);
   const difference = total === undefined ? undefined : total - 399;
-  return <div className="cc-team-pricing cc-monday-pricing" data-pricing-details="true">
+  return <><div className="cc-team-pricing cc-monday-pricing" data-pricing-details="true">
     <div className="cc-team-controls">
       <label htmlFor="comparison-team-size">People who need full CRM access <output htmlFor="comparison-team-size">{users}</output></label>
       <input id="comparison-team-size" type="range" min={1} max={100} step={1} value={users} onChange={e => setUsers(Number(e.target.value))} />
@@ -24,7 +24,8 @@ export function MondayPricing() {
         <p className="cc-team-billing">{annual ? `${money(seats * 540)} paid annually upfront.` : 'A$53 per paid seat/month. Billed monthly.'}</p><p>Before applicable taxes.</p>
       </> : <><p className="cc-monday-quote">Current quote required</p><p>monday’s public pricing directs larger teams to sales. Request a quote for your team size.</p><a href="https://monday.com/crm/pricing" target="_blank" rel="noopener noreferrer">Check monday CRM pricing ↗</a></>}</article>
     </div>
-    <details className="cc-team-plan-notes"><summary>Billing and calculation details</summary>
+    </div>
+    <details className="cc-cost-examples cc-monday-notes"><summary>Billing and calculation details</summary>
       {difference !== undefined && <p className="cc-monday-difference">{difference > 0 ? `Zapla’s subscription is ${money(difference)}/month less at this team size.` : difference < 0 ? `monday CRM’s subscription is ${money(-difference)}/month less at this team size.` : 'The subscription prices are equal at this team size.'}</p>}
       <p>Zapla’s subscription is lower from 6 full Pro users at these list rates. Required launch, usage and optional services are separate. At six to ten users, minimum first-year Zapla cost including launch is A$6,785 before GST, compared with A$6,360 for twelve monthly Pro payments or A$5,400 paid annually, before applicable taxes and usage.</p>
       <p>Count people who need full CRM access. monday’s free viewers and restricted guests may cover some other collaborators.</p>
@@ -35,5 +36,5 @@ export function MondayPricing() {
       <p>Phone numbers, communications usage, optional services and payment-provider fees are extra. monday CRM can be configured self-service; any implementation or connected-provider charges depend on your arrangements.</p>
       <p><a href="https://monday.com/crm/pricing" target="_blank" rel="noopener noreferrer">Check monday CRM pricing ↗</a></p>
     </details>
-  </div>;
+  </>;
 }
