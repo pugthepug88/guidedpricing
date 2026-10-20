@@ -9,7 +9,7 @@ export function CreatioPricing({ data }: { data: ComparisonDefinition }) {
   const platforms = Math.max(5, users);
   const annual = creatioAnnualLicences(users);
   const belowMinimum = annual < 16000;
-  return <div className="cc-team-pricing cc-creatio-v2-pricing" data-pricing-details="true">
+  return <><div className="cc-team-pricing cc-creatio-v2-pricing" data-pricing-details="true">
     <div className="cc-team-controls">
       <label htmlFor="comparison-team-size">People needing full sales features <output htmlFor="comparison-team-size">{users}</output></label>
       <input id="comparison-team-size" type="range" min={1} max={100} step={1} value={users} onChange={event => setUsers(Number(event.target.value))} />
@@ -32,8 +32,10 @@ export function CreatioPricing({ data }: { data: ComparisonDefinition }) {
         <p className="cc-team-billing">Minimum five platform users.<br />Standard three-year contract. Taxes extra.</p>
       </article>
     </div>
-    <p className="cc-team-qualification">Software subscriptions compared; feature bundles differ. Zapla launch, usage and optional services are additional.</p>
-    <details className="cc-team-plan-notes"><summary>See the licence calculation and billing details</summary>
+
+  </div>
+    <details className="cc-cost-examples"><summary>See the licence calculation and billing details</summary>
+    <p>Software subscriptions compared; feature bundles differ. Zapla launch, usage and optional services are additional.</p>
       <p>Creatio’s minimum is an annual purchase requirement, not an extra fee or a five-user package price. A smaller licence subtotal does not meet the published new-customer purchasing conditions.</p>
       <p><strong>A$88 per full user/month, billed annually:</strong> A$64 Growth platform + A$24 Sales.</p>
       <p className="cc-licence-subtotal">{platforms} Growth × A$64 + {users} Sales × A$24 = <strong>{money(annual / 12)}/month equivalent · {money(annual)}/year</strong>.</p>
@@ -42,5 +44,5 @@ export function CreatioPricing({ data }: { data: ComparisonDefinition }) {
       <p>{data.vendorPlanReason}</p>
       <p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check current Creatio pricing ↗</a></p>
     </details>
-  </div>;
+  </>;
 }
