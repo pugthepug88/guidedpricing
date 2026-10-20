@@ -177,6 +177,28 @@ export const ghlComparison = {
       }
     },
     {
+      "id": "workflows",
+      "label": "Automation workflows",
+      "zapla": {
+        "text": "Unlimited",
+        "detail": "Unlimited workflow count. Guided Launch includes up to three agreed automations built and tested. Further setup work and usage are separate.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "nextgen-workflows"
+        ]
+      },
+      "competitor": {
+        "text": "",
+        "detail": "Workflows are included. Premium triggers and actions, AI and communications may generate usage charges.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "ghl-workflows"
+        ]
+      }
+    },
+    {
       "id": "speed",
       "label": "Interface responsiveness",
       "zapla": {
@@ -215,6 +237,182 @@ export const ghlComparison = {
         "mark": "tick",
         "sources": [
           "ghl-inbox"
+        ]
+      }
+    },
+    {
+      "id": "website",
+      "label": "Websites & funnels",
+      "zapla": {
+        "text": "",
+        "detail": "Self-service website and funnel tools are included. Custom build work is separately scoped.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "",
+        "detail": "Native website and funnel builders are included. Optional WordPress hosting is a separate service.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "ghl-pricing"
+        ]
+      }
+    },
+    {
+      "id": "database",
+      "label": "Dedicated database per account",
+      "zapla": {
+        "text": "",
+        "detail": "Each account has its own separate database.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "nextgen-privacy"
+        ]
+      },
+      "competitor": {
+        "text": "",
+        "detail": "GoHighLevel uses a multi-tenant architecture with logical separation and access controls. This compares database architecture, not security quality.",
+        "status": "documented",
+        "mark": "cross",
+        "sources": [
+          "ghl-security"
+        ]
+      }
+    },
+    {
+      "id": "hosting",
+      "label": "Australian data hosting",
+      "zapla": {
+        "text": "",
+        "detail": "Account data and backups for the Australian region are stored in Sydney. Connected services, messaging and AI providers may process data outside Australia.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "nextgen-privacy"
+        ]
+      },
+      "competitor": {
+        "text": "",
+        "detail": "GoHighLevel documents its product infrastructure as hosted in the United States.",
+        "status": "documented",
+        "mark": "cross",
+        "sources": [
+          "ghl-security"
+        ]
+      }
+    },
+    {
+      "id": "qr",
+      "label": "Dynamic QR codes",
+      "zapla": {
+        "text": "",
+        "detail": "Create QR codes with editable destinations.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "",
+        "detail": "Native QR codes support changing the destination without generating a new QR image.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "ghl-qr"
+        ]
+      }
+    },
+    {
+      "id": "telegram",
+      "label": "Telegram messaging",
+      "zapla": {
+        "text": "",
+        "detail": "Connect Telegram conversations to the shared inbox.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "nextgen-inbox"
+        ]
+      },
+      "competitor": {
+        "text": "Via integration",
+        "detail": "Telegram is available through a Marketplace connector. Provider terms apply.",
+        "status": "separate",
+        "mark": "cross",
+        "sources": [
+          "ghl-telegram"
+        ]
+      }
+    },
+    {
+      "id": "ticketing",
+      "label": "Support ticketing",
+      "zapla": {
+        "text": "",
+        "detail": "Manage customer support tickets inside the platform, including escalation where configured.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "nextgen-privacy"
+        ]
+      },
+      "competitor": {
+        "text": "Via integration",
+        "detail": "Dedicated support ticketing can be added through integrations such as SupportDesk. CRM pipelines can also be configured to track service requests.",
+        "status": "separate",
+        "mark": "cross",
+        "sources": [
+          "ghl-ticketing"
+        ]
+      }
+    },
+    {
+      "id": "meetings",
+      "label": "Built-in video meetings",
+      "zapla": {
+        "text": "",
+        "detail": "Host video meetings within the platform.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "",
+        "detail": "HighLevel Meetings provides native video rooms with reusable links. Applicable video usage is separate.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "ghl-meetings"
+        ]
+      }
+    },
+    {
+      "id": "support",
+      "label": "Support",
+      "zapla": {
+        "text": "Australian-based",
+        "detail": "Australian-based support for product questions and access or fault issues. Managed implementation changes are scoped separately.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "Global",
+        "detail": "GoHighLevel provides global customer support.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "ghl-support"
         ]
       }
     },
@@ -325,50 +523,6 @@ export const ghlComparison = {
         "mark": "tick",
         "sources": [
           "ghl-documents"
-        ]
-      }
-    },
-    {
-      "id": "website",
-      "label": "Websites & funnels",
-      "zapla": {
-        "text": "",
-        "detail": "Self-service website and funnel tools are included. Custom build work is separately scoped.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Native website and funnel builders are included. Optional WordPress hosting is a separate service.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-pricing"
-        ]
-      }
-    },
-    {
-      "id": "workflows",
-      "label": "Automation workflows",
-      "zapla": {
-        "text": "Unlimited",
-        "detail": "Unlimited workflow count. Guided Launch includes up to three agreed automations built and tested. Further setup work and usage are separate.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "nextgen-workflows"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Workflows are included. Premium triggers and actions, AI and communications may generate usage charges.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-workflows"
         ]
       }
     }
@@ -539,6 +693,41 @@ export const ghlComparison = {
       "id": "nextgen-performance",
       "title": "NextGen interface and performance positioning",
       "url": "https://thenextgencrm.com/"
+    },
+    {
+      "id": "nextgen-privacy",
+      "title": "NextGen account databases and regional hosting",
+      "url": "https://thenextgencrm.com/privacy/"
+    },
+    {
+      "id": "ghl-security",
+      "title": "GoHighLevel hosting and tenant separation",
+      "url": "https://help.gohighlevel.com/support/solutions/articles/155000000574-highlevel-security-and-compliance-overview"
+    },
+    {
+      "id": "ghl-qr",
+      "title": "GoHighLevel dynamic QR codes",
+      "url": "https://help.gohighlevel.com/support/solutions/articles/155000004583"
+    },
+    {
+      "id": "ghl-telegram",
+      "title": "GoHighLevel Telegram Marketplace connector",
+      "url": "https://marketplace.gohighlevel.com/integration/69b67036e65bf138703a31d7/versions/69cd720d516a315c8f08c6e4"
+    },
+    {
+      "id": "ghl-ticketing",
+      "title": "SupportDesk integration for GoHighLevel",
+      "url": "https://ghlplugins.com/ghl-support-desk-ticketing"
+    },
+    {
+      "id": "ghl-meetings",
+      "title": "GoHighLevel native video meetings",
+      "url": "https://help.gohighlevel.com/support/solutions/articles/155000008369-highlevel-meetings-reusable-links-for-one-time-recurring-calls"
+    },
+    {
+      "id": "ghl-support",
+      "title": "GoHighLevel support",
+      "url": "https://help.gohighlevel.com/support/home"
     }
   ],
   "updated": "19 October 2026",
