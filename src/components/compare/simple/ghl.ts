@@ -231,7 +231,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "All channels in one inbox",
+        "text": "All channels in one conversation feed",
         "detail": "Conversations supports shared customer communications, assignment and filtering. Connected channels have their own setup and usage requirements.",
         "status": "included",
         "mark": "tick",
