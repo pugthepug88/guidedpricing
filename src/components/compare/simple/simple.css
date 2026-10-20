@@ -207,6 +207,7 @@
  .cc-cost-table,.cc-cost-table tbody { display:block; }
  .cc-cost-table thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
  .cc-cost-table tr { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; padding:16px 0; border-bottom:1px solid #61716A; }
+ .cc-cost-table tbody tr:has(> td:nth-child(3):last-child) { grid-template-columns:repeat(2,minmax(0,1fr)); }
  .cc-cost-table th:first-child { grid-column:1/-1; width:auto; }
  .cc-cost-table th,.cc-cost-table td { border:0; padding:8px; font-size:14px; }
  .cc-cost-table th:first-child { padding-left:0; }
