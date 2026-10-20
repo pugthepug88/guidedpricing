@@ -8,7 +8,7 @@ export function ghlSubscription(annual: boolean) {
   return { nativeAnnual, audAnnual: nativeAnnual / ghlReferenceRate, audMonthly: nativeAnnual / ghlReferenceRate / 12 };
 }
 // Round headline estimates to the nearest A$5; annual totals retain full conversion precision.
-const aud = (value: number) => `A${(Math.round(value / 5) * 5).toLocaleString('en-AU')}`;
+const aud = (value: number) => 'A$' + (Math.round(value / 5) * 5).toLocaleString('en-AU');
 
 export function GhlPricing() {
   const [annual, setAnnual] = useState(false);
