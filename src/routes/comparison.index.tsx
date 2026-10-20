@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { ArrowUpRight } from 'lucide-react';
 import hubCss from '@/styles/comparison-hub.css?url';
 
-const competitors = ['ActiveCampaign', 'Creatio', 'GoHighLevel', 'HubSpot', 'Keap', 'Pipedrive', 'Podium', 'Salesforce', 'Zoho'] as const;
+const competitors = ['ActiveCampaign', 'Creatio', 'GoHighLevel', 'HubSpot', 'Keap', 'monday CRM', 'Pipedrive', 'Podium', 'Salesforce', 'Zoho'] as const;
 
 export const Route = createFileRoute('/comparison/')({
   // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
@@ -28,7 +28,7 @@ function ComparisonHub() {
         </header>
         <nav className="ch-list" aria-label="Zapla comparisons">
           {competitors.map((competitor) => (
-            <a key={competitor} href={`/comparison/zapla-vs-${competitor === 'GoHighLevel' ? 'ghl' : competitor.toLowerCase()}`}>
+            <a key={competitor} href={`/comparison/zapla-vs-${competitor === 'GoHighLevel' ? 'ghl' : competitor === 'monday CRM' ? 'monday-crm' : competitor.toLowerCase()}`}>
               <span>Zapla <span className="ch-versus">vs</span> {competitor}</span>
               <ArrowUpRight aria-hidden="true" size={24} />
             </a>

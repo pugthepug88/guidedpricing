@@ -33,6 +33,7 @@ import { Route as ComparisonZaplaVsCreatioRouteImport } from './routes/compariso
 import { Route as ComparisonZaplaVsGhlRouteImport } from './routes/comparison.zapla-vs-ghl'
 import { Route as ComparisonZaplaVsHubspotRouteImport } from './routes/comparison.zapla-vs-hubspot'
 import { Route as ComparisonZaplaVsKeapRouteImport } from './routes/comparison.zapla-vs-keap'
+import { Route as ComparisonZaplaVsMondayCrmRouteImport } from './routes/comparison.zapla-vs-monday-crm'
 import { Route as ComparisonZaplaVsPipedriveRouteImport } from './routes/comparison.zapla-vs-pipedrive'
 import { Route as ComparisonZaplaVsPodiumRouteImport } from './routes/comparison.zapla-vs-podium'
 import { Route as ComparisonZaplaVsSalesforceRouteImport } from './routes/comparison.zapla-vs-salesforce'
@@ -171,6 +172,12 @@ const ComparisonZaplaVsKeapRoute = ComparisonZaplaVsKeapRouteImport.update({
   path: '/comparison/zapla-vs-keap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComparisonZaplaVsMondayCrmRoute =
+  ComparisonZaplaVsMondayCrmRouteImport.update({
+    id: '/comparison/zapla-vs-monday-crm',
+    path: '/comparison/zapla-vs-monday-crm',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ComparisonZaplaVsPipedriveRoute =
   ComparisonZaplaVsPipedriveRouteImport.update({
     id: '/comparison/zapla-vs-pipedrive',
@@ -261,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-keap': typeof ComparisonZaplaVsKeapRoute
+  '/comparison/zapla-vs-monday-crm': typeof ComparisonZaplaVsMondayCrmRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-podium': typeof ComparisonZaplaVsPodiumRoute
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
@@ -299,6 +307,7 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-keap': typeof ComparisonZaplaVsKeapRoute
+  '/comparison/zapla-vs-monday-crm': typeof ComparisonZaplaVsMondayCrmRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-podium': typeof ComparisonZaplaVsPodiumRoute
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
@@ -338,6 +347,7 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-ghl': typeof ComparisonZaplaVsGhlRoute
   '/comparison/zapla-vs-hubspot': typeof ComparisonZaplaVsHubspotRoute
   '/comparison/zapla-vs-keap': typeof ComparisonZaplaVsKeapRoute
+  '/comparison/zapla-vs-monday-crm': typeof ComparisonZaplaVsMondayCrmRoute
   '/comparison/zapla-vs-pipedrive': typeof ComparisonZaplaVsPipedriveRoute
   '/comparison/zapla-vs-podium': typeof ComparisonZaplaVsPodiumRoute
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
@@ -378,6 +388,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-keap'
+    | '/comparison/zapla-vs-monday-crm'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-podium'
     | '/comparison/zapla-vs-salesforce'
@@ -416,6 +427,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-keap'
+    | '/comparison/zapla-vs-monday-crm'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-podium'
     | '/comparison/zapla-vs-salesforce'
@@ -454,6 +466,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-ghl'
     | '/comparison/zapla-vs-hubspot'
     | '/comparison/zapla-vs-keap'
+    | '/comparison/zapla-vs-monday-crm'
     | '/comparison/zapla-vs-pipedrive'
     | '/comparison/zapla-vs-podium'
     | '/comparison/zapla-vs-salesforce'
@@ -493,6 +506,7 @@ export interface RootRouteChildren {
   ComparisonZaplaVsGhlRoute: typeof ComparisonZaplaVsGhlRoute
   ComparisonZaplaVsHubspotRoute: typeof ComparisonZaplaVsHubspotRoute
   ComparisonZaplaVsKeapRoute: typeof ComparisonZaplaVsKeapRoute
+  ComparisonZaplaVsMondayCrmRoute: typeof ComparisonZaplaVsMondayCrmRoute
   ComparisonZaplaVsPipedriveRoute: typeof ComparisonZaplaVsPipedriveRoute
   ComparisonZaplaVsPodiumRoute: typeof ComparisonZaplaVsPodiumRoute
   ComparisonZaplaVsSalesforceRoute: typeof ComparisonZaplaVsSalesforceRoute
@@ -678,6 +692,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComparisonZaplaVsKeapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/comparison/zapla-vs-monday-crm': {
+      id: '/comparison/zapla-vs-monday-crm'
+      path: '/comparison/zapla-vs-monday-crm'
+      fullPath: '/comparison/zapla-vs-monday-crm'
+      preLoaderRoute: typeof ComparisonZaplaVsMondayCrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/comparison/zapla-vs-pipedrive': {
       id: '/comparison/zapla-vs-pipedrive'
       path: '/comparison/zapla-vs-pipedrive'
@@ -790,6 +811,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsGhlRoute: ComparisonZaplaVsGhlRoute,
   ComparisonZaplaVsHubspotRoute: ComparisonZaplaVsHubspotRoute,
   ComparisonZaplaVsKeapRoute: ComparisonZaplaVsKeapRoute,
+  ComparisonZaplaVsMondayCrmRoute: ComparisonZaplaVsMondayCrmRoute,
   ComparisonZaplaVsPipedriveRoute: ComparisonZaplaVsPipedriveRoute,
   ComparisonZaplaVsPodiumRoute: ComparisonZaplaVsPodiumRoute,
   ComparisonZaplaVsSalesforceRoute: ComparisonZaplaVsSalesforceRoute,
