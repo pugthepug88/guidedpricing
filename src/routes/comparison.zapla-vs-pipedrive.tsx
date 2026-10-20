@@ -6,7 +6,7 @@ import simpleCss from '@/components/compare/simple/simple.css?url';
 const title = 'Zapla vs Pipedrive: Pricing, Features and Unlimited Users | Zapla';
 const description = 'Compare Zapla and Pipedrive for team access, customer tools, Guided Launch and first-year costs in AUD. See plan inclusions and source-linked pricing.';
 export const Route = createFileRoute("/comparison/zapla-vs-pipedrive")({
-  staticData: { sitemap: false },
+  // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
     meta: [
       { title },

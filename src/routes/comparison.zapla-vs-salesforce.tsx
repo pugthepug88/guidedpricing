@@ -8,7 +8,7 @@ import simpleCss from '@/components/compare/simple/simple.css?url';
 const title = 'Zapla vs Salesforce: Pricing, Features and Unlimited Users | Zapla';
 const description = 'Compare Zapla and Salesforce for team access, customer tools, Guided Launch and annual subscriptions in AUD. See plan inclusions and source-linked pricing.';
 export const Route = createFileRoute("/comparison/zapla-vs-salesforce")({
-  staticData: { sitemap: false },
+  // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
     meta: [
       { title },
