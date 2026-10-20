@@ -10,7 +10,7 @@ export function ZohoPricing({ data }: { data: ComparisonDefinition }) {
   const total = users * rate;
   const difference = total - data.offer.monthly;
   const annualSubscription = data.offer.monthly * 12;
-  return <div className="cc-team-pricing cc-zoho-v2-pricing" data-pricing-details="true">
+  return <><div className="cc-team-pricing cc-zoho-v2-pricing" data-pricing-details="true">
     <div className="cc-team-controls">
       <label htmlFor="comparison-team-size">People needing regular CRM access <output htmlFor="comparison-team-size">{users}</output></label>
       <input id="comparison-team-size" type="range" min={1} max={100} step={1} value={users} onChange={event => setUsers(Number(event.target.value))} />
@@ -38,18 +38,20 @@ export function ZohoPricing({ data }: { data: ComparisonDefinition }) {
       <p>{difference > 0 ? `${money(difference * 12)} less over 12 months of software. Required Guided Launch is priced separately.` : 'Zapla includes the shared inbox, two-way SMS tools, reviews and website builders alongside your CRM. Compare the work your team needs to do.'}</p>
       <p className="cc-zv2-first-year"><span>12-month software subscriptions</span><span>Zapla <b>{money(annualSubscription)}</b></span><span>Zoho <b>{money(total * 12)}</b></span></p>
     </div>
-    <p className="cc-team-qualification">AUD excluding GST, setup, usage and optional services. Features differ. Required Zapla Guided Launch starts at A$1,997 + GST separately. Each person is modelled with a regular CRM licence; restricted-access licences are explained below.</p>
-    <details className="cc-team-plan-notes"><summary>Compared plans, Team Users and price verification</summary>
+
+  </div>
+    <details className="cc-cost-examples"><summary>Compared plans, Team Users and price verification</summary>
+    <p>AUD excluding GST, setup, usage and optional services. Features differ. Required Zapla Guided Launch starts at A$1,997 + GST separately. Each person is modelled with a regular CRM licence; restricted-access licences are explained below.</p>
       <p>{data.vendorPlanReason}</p><p>{data.calculator?.annualRateNote}</p>
       <p>Team Users cost A$16/month or A$13/month equivalent annually, excluding GST. They can work within Team Modules but have restricted access to organisation modules, including record editing, ownership and manual emails. They are not interchangeable with full customer-facing CRM users.</p>
       <p>Standard starts at A$30/month or A$20/month equivalent annually per regular user, excluding GST, and already includes workflows. Free CRM supports up to three users with restricted functionality.</p>
       <p><a href={data.vendorPricingUrl} target="_blank" rel="noopener noreferrer">Check Zoho CRM pricing ↗</a></p>
     </details>
-    <details className="cc-team-plan-notes"><summary>Considering Zoho One or CRM Plus?</summary>
+    <details className="cc-cost-examples"><summary>Considering Zoho One or CRM Plus?</summary>
       <p>Zoho One includes CRM plus TeamInbox, Bookings, Campaigns, Social, Sites and other apps. All-employee pricing is A$65/employee/month or A$55/month equivalent annually (A$660/year upfront). Every payroll employee must be licensed. Flexible-user pricing is A$145 monthly or A$125/month equivalent annually (A$1,500/year upfront). All exclude GST.</p>
       <p>For five total employees, Zoho One costs A$325/month or A$275/month equivalent annually, excluding GST. It can be a cheaper way to buy several Zoho apps; included apps are not extra subscriptions.</p>
       <p>CRM Plus Enterprise is A$97/user/month or A$80/month equivalent annually (A$960/year upfront), excluding GST. It bundles CRM, marketing, support and analytics. CRM Plus Starter has a more limited CRM feature set.</p>
       <p><a href="https://www.zoho.com/one/pricing/" target="_blank" rel="noopener noreferrer">Zoho One pricing ↗</a>{' · '}<a href="https://www.zoho.com/crm/crmplus/pricing.html" target="_blank" rel="noopener noreferrer">CRM Plus pricing ↗</a></p>
     </details>
-  </div>;
+  </>;
 }
