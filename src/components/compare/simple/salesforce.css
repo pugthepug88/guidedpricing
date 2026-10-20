@@ -8,6 +8,7 @@
 .cc-salesforce-pricing .cc-team-total span { white-space:normal; }
 .cc-salesforce-pricing a { display:inline-flex; align-items:center; min-height:44px; }
 @media(max-width:767px) {
+ .concise-comparison:has(.cc-salesforce-pricing) .cc-table thead th:last-child { font-size:14px; overflow-wrap:normal; }
  .cc-salesforce-pricing .cc-control-heading { gap:12px; }
  .cc-salesforce-pricing .cc-team-results .cc-team-total { font-size:44px; }
 }
