@@ -9,20 +9,20 @@ export const salesforceComparison = {
   "introduction": "Give reception, sales and the owner one place for enquiries, two-way SMS, quotes, bookings and automated follow-ups. A$399/month + GST, with unlimited users and no extra seat fees.",
   "highlights": [
     {
-      "title": "Add people without adding seat fees.",
-      "description": "Give reception, sales and the owner their own access. Your subscription stays the same as more people join."
+      "title": "Give your whole team access.",
+      "description": "Reception, sales and the owner can each work from the same customer records. Add people without adding seat fees."
     },
     {
-      "title": "Keep missed calls and follow-ups together.",
-      "description": "Two-way SMS, missed-call text-back and review management are included alongside your CRM. Phone numbers and communications usage are separate.",
+      "title": "Keep enquiries moving after the first contact.",
+      "description": "Reply by SMS, follow up a missed call and keep the next action with the customer record. Follow-Through brings these everyday tools together.",
       "link": {
         "href": "/crm#crm-workbench",
         "label": "Explore customer records and conversations"
       }
     },
     {
-      "title": "Get your first setup built with you.",
-      "description": "We import your agreed customer data, configure your first workflows, and test them with your team. Guided Launch is required and priced separately."
+      "title": "Get your first workflows built and tested.",
+      "description": "We agree your process, import your clean customer data and configure your first follow-up workflows. Then we test the setup and train your team."
     }
   ],
   "tableIntroduction": "Zapla Follow-Through vs Salesforce Pro Suite. Compare team access and everyday customer tools, then check the package limits and billing terms.",
@@ -36,15 +36,15 @@ export const salesforceComparison = {
   "vendorPriceUnit": "per user/month equivalent, billed annually",
   "vendorBilling": "Annual contract. A$1,680 per user/year before taxes.",
   "workflowNote": "Zapla’s unlimited allowance refers to workflow count. Executions, sending, usage and setup scope are separate. Salesforce applies different limits to custom flows, marketing automation and integration runs.",
-  "pricingHeading": "Add people. Keep the same plan price.",
-  "pricingHeadline": "Add people. Keep the same plan price.",
+  "pricingHeading": "Compare the cost for your whole team.",
+  "pricingHeadline": "Compare the cost for your whole team.",
   "pricingIntroduction": "Salesforce Pro Suite charges per paid user and requires an annual contract. Zapla Follow-Through includes unlimited users for A$399/month + GST. Compare subscriptions below, then consider the included tools and required setup.",
-  "vendorPlanReason": "Pro Suite is selected for quoting, forecasting, enhanced web chat, customisation and AppExchange access.",
+  "vendorPlanReason": "Pro Suite includes opportunity management and is selected for quoting, forecasting, enhanced web chat, customisation and AppExchange access.",
   "vendorLowerPlans": "Starter Suite is available from A$35 per user/month with monthly or annual billing and may be sufficient for simpler requirements. Free Suite supports two users.",
   "costCaution": "Feature bundles differ. Setup, taxes, usage and optional services are separate.",
   "additionalTools": [],
   "vendorEntryScope": "CRM, service and email marketing.",
-  "vendorScope": "Quoting, forecasting, enhanced web chat, customisation and AppExchange access alongside bundled CRM, service and marketing.",
+  "vendorScope": "Opportunity management, quoting, forecasting, enhanced web chat, customisation and AppExchange access alongside bundled CRM, service and marketing.",
   "offerScope": "CRM, shared inbox, forms, bookings, quotes and automated follow-ups. Usage is separate.",
   "recurringExamples": [],
   "costExamples": {
@@ -118,12 +118,12 @@ export const salesforceComparison = {
   "fit": [
     {
       "title": "Sales management and a wider app ecosystem",
-      "description": "Choose Salesforce when quoting, forecasting, customisation and its app ecosystem are central to your requirements.",
-      "consideration": "Starter may be enough for a simpler setup. Pro includes marketing and service capabilities alongside sales."
+      "description": "Salesforce Pro Suite suits businesses that prioritise sales forecasting, customisation and the Salesforce app ecosystem.",
+      "consideration": "Pro includes sales, service and marketing tools, with their own allowances."
     },
     {
       "title": "One system for your customer-facing team",
-      "description": "Choose Zapla when reception, sales and the owner need shared customer history, everyday follow-up tools and help getting the first workflows working.",
+      "description": "Choose Zapla when reception, sales and the owner need customer conversations, quotes, bookings and follow-ups in one place, with an agreed initial setup built and tested with your team.",
       "consideration": "Unlimited users keep the software subscription steady as more people join."
     }
   ],
@@ -133,7 +133,7 @@ export const salesforceComparison = {
       "label": "Unlimited users",
       "zapla": {
         "text": "",
-        "detail": "Unlimited users are included in both plans.",
+        "detail": "Unlimited users are included in Zapla Follow-Through and Growth.",
         "status": "included",
         "sources": [
           "offer",
@@ -176,9 +176,9 @@ export const salesforceComparison = {
     },
     {
       "id": "whatsapp",
-      "label": "WhatsApp conversations",
+      "label": "Connected WhatsApp numbers",
       "zapla": {
-        "text": "8 connected numbers¹",
+        "text": "8",
         "detail": "Eight connected WhatsApp numbers and unlimited WhatsApp contacts are included, with no separate contact-band fee. Messaging usage is extra. Bulk campaigns require Growth.",
         "status": "included",
         "sources": [
@@ -195,6 +195,29 @@ export const salesforceComparison = {
           "messaging"
         ],
         "mark": "cross"
+      }
+    },
+    {
+      "id": "contract",
+      "label": "Month-to-month subscription",
+      "zapla": {
+        "text": "",
+        "mark": "tick",
+        "status": "included",
+        "detail": "Standard Zapla subscriptions are month-to-month after launch. Required Guided Launch is separate.",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "",
+        "mark": "cross",
+        "status": "plan-dependent",
+        "detail": "Pro Suite requires an annual contract and is billed annually. A monthly equivalent is not a month-to-month subscription.",
+        "sources": [
+          "pricing",
+          "terms"
+        ]
       }
     },
     {
@@ -224,9 +247,9 @@ export const salesforceComparison = {
     },
     {
       "id": "email",
-      "label": "Email conversations",
+      "label": "Shared email inbox",
       "zapla": {
-        "text": "Shared inbox",
+        "text": "",
         "detail": "Connected email conversations can be managed in the shared inbox alongside supported messaging channels.",
         "status": "included",
         "sources": [
@@ -236,8 +259,31 @@ export const salesforceComparison = {
         "mark": "tick"
       },
       "competitor": {
-        "text": "Email and case tools",
-        "detail": "Email integration and email-based case handling are included. These are different tools from an all-channel shared inbox.",
+        "text": "Email-to-case",
+        "detail": "Pro includes email-to-case routing and case management, so incoming support emails can be assigned and handled by the team. This credits that included capability without treating it as an identical shared email inbox.",
+        "status": "included",
+        "sources": [
+          "features",
+          "pro"
+        ]
+      }
+    },
+    {
+      "id": "quotes",
+      "label": "Quotes & proposals",
+      "zapla": {
+        "text": "",
+        "detail": "Quote and proposal tools are included.",
+        "status": "included",
+        "sources": [
+          "offer",
+          "platform"
+        ],
+        "mark": "tick"
+      },
+      "competitor": {
+        "text": "Quotes included",
+        "detail": "Pro includes quote creation and management. Proposal design, electronic signatures and advanced CPQ have different product requirements; identical document functionality is not implied.",
         "status": "included",
         "sources": [
           "features",
@@ -270,30 +316,6 @@ export const salesforceComparison = {
       }
     },
     {
-      "id": "quotes",
-      "label": "Quotes",
-      "zapla": {
-        "text": "",
-        "detail": "Quote and proposal tools are included.",
-        "status": "included",
-        "sources": [
-          "offer",
-          "platform"
-        ],
-        "mark": "tick"
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Pro includes quote creation and management. Advanced CPQ products are separate.",
-        "status": "included",
-        "sources": [
-          "features",
-          "pro"
-        ],
-        "mark": "tick"
-      }
-    },
-    {
       "id": "chat",
       "label": "Web chat",
       "zapla": {
@@ -317,43 +339,20 @@ export const salesforceComparison = {
       }
     },
     {
-      "id": "pipelines",
-      "label": "Sales pipelines",
-      "zapla": {
-        "text": "",
-        "detail": "Pipeline tools are included. This comparison does not imply identical forecasting capabilities.",
-        "status": "included",
-        "sources": [
-          "offer",
-          "platform"
-        ],
-        "mark": "tick"
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Opportunity management and forecasting are included in Pro.",
-        "status": "included",
-        "sources": [
-          "features",
-          "pro"
-        ],
-        "mark": "tick"
-      }
-    },
-    {
       "id": "contacts",
-      "label": "Stored contacts",
+      "label": "Unlimited contacts",
       "zapla": {
-        "text": "Unlimited, subject to fair use",
+        "text": "",
         "detail": "Unlimited stored contacts are subject to fair use. Sending and usage are separate.",
         "status": "included",
         "sources": [
           "offer",
           "platform"
-        ]
+        ],
+        "mark": "tick"
       },
       "competitor": {
-        "text": "Storage limits apply",
+        "text": "Storage limits",
         "detail": "CRM storage and marketing allowances are separate. The published Pro data-storage allocation is 10 GB per organisation.",
         "status": "included",
         "sources": [
@@ -431,12 +430,16 @@ export const salesforceComparison = {
       "answer": "Pro adds quoting, forecasting, enhanced web chat, customisation and AppExchange access. Starter already includes useful CRM, service and email marketing tools at a lower price. Choose the package that fits the work you need to do."
     },
     {
-      "question": "Is Zapla always cheaper?",
-      "answer": "No. One or two Pro users cost less in subscription fees than Follow-Through, and Starter is cheaper for many small teams. Follow-Through’s subscription becomes lower at three Pro users, before required launch and usage. Compare the tools, access and setup you need."
+      "question": "When is Zapla’s subscription lower?",
+      "answer": "From three paid Pro Suite users at the published list rate. Five users cost A$700/month equivalent with Salesforce, billed A$8,400 annually. Follow-Through costs A$399/month + GST with unlimited users. Required Zapla Guided Launch is separate, so this is a subscription comparison, not a first-year total-cost claim. Salesforce Starter and smaller Pro teams can cost less."
     },
     {
       "question": "Does Salesforce already include marketing?",
       "answer": "Yes. Pro includes email campaigns, segmentation and campaign analytics, with sending allowances. Zapla’s marketing tools are in Growth at A$699/month + GST total, with required Guided Launch from A$2,997 + GST. Sending usage is separate."
+    },
+    {
+      "question": "What can increase the Salesforce price?",
+      "answer": "More paid users increase the subscription. Optional Premier support, API access, extra marketing email capacity and connected apps can also add cost when needed. Standard support is included; Premier is priced at 30% of net licence fees. At the published list rate, five Pro users plus Premier would be A$910/month equivalent before tax, subject to the order. These optional extras are not added to the calculator."
     },
     {
       "question": "Does the calculator include setup and usage?",
@@ -444,7 +447,7 @@ export const salesforceComparison = {
     },
     {
       "question": "Can I move from Salesforce and keep my existing tools?",
-      "answer": "We assess the data, workflows and tools you want to bring across, then agree the migration and connections in Guided Launch before you commit."
+      "answer": "We agree which data to move, which tools to keep and which workflows to rebuild before you commit. Guided Launch covers the agreed initial import, configuration, testing and team training. Existing automations, conversation history and integrations are assessed individually, with scope and price agreed before work starts."
     },
     {
       "question": "Is AI Receptionist included?",
@@ -521,8 +524,13 @@ export const salesforceComparison = {
       "id": "offer",
       "title": "Zapla current plans and Guided Launch",
       "url": "/Pricing-v3"
+    },
+    {
+      "id": "support",
+      "title": "Salesforce Success Plans pricing",
+      "url": "https://www.salesforce.com/services/pricing/"
     }
   ],
-  "updated": "19 October 2026",
+  "updated": "20 October 2026",
   "pricingUrl": "/Pricing-v3"
 } as const satisfies ComparisonDefinition;
