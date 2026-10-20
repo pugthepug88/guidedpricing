@@ -19,7 +19,7 @@ export async function checkMonday(frame: HTMLIFrameElement, resize: (width: numb
   const geometry = () => {
     if (doc.documentElement.scrollWidth > doc.documentElement.clientWidth + 1) throw new Error('Page overflow at ' + win.innerWidth);
     for (const cell of doc.querySelectorAll<HTMLElement>('.cc-table th,.cc-table td,.cc-cost-table th,.cc-cost-table td,.cc-team-results article')) {
-      if (!cell.getClientRects().length || (cell.closest('thead') && cell.getBoundingClientRect().height <= 1)) continue;
+      if (!cell.getClientRects().length || (cell.closest('thead') && cell.closest('thead')!.getBoundingClientRect().height <= 1)) continue;
       if (cell.scrollWidth > cell.clientWidth + 1) throw new Error('Cell overflow: ' + cell.textContent);
       const bounds = cell.getBoundingClientRect();
       const walker = doc.createTreeWalker(cell, win.NodeFilter.SHOW_TEXT);
