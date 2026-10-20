@@ -292,11 +292,32 @@ export const podiumComparison = {
       }
     },
     {
+      "id": "database",
+      "label": "Dedicated database per account",
+      "zapla": {
+        "text": "",
+        "detail": "Each account has its own physically separate database. This does not mean a dedicated server.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "platformprivacy"
+        ]
+      },
+      "competitor": {
+        "text": "—",
+        "detail": "Podium documents access-control and information-protection measures in its Trust Center.",
+        "status": "documented",
+        "sources": [
+          "podiumtrust"
+        ]
+      }
+    },
+    {
       "id": "residency",
       "label": "Data residency & sovereignty",
       "zapla": {
         "text": "",
-        "detail": "Australian-region account data and backups are stored in Australia. Connected messaging, voice and AI services may process data overseas.",
+        "detail": "This row compares Australian storage of account data and backups. Zapla’s Australian region stores these in Sydney. Connected services may process data overseas; this is not a claim that all processing stays in Australia.",
         "status": "documented",
         "sources": [
           "platformprivacy"
@@ -304,12 +325,13 @@ export const podiumComparison = {
         "mark": "tick"
       },
       "competitor": {
-        "text": "—",
-        "detail": "Podium’s Australian terms allow customer data to be stored or processed in the United States and other countries. The dash does not claim that every data category is stored overseas.",
+        "text": "",
+        "detail": "Podium’s Privacy Policy, section 11, states that its services are primarily hosted in the United States. This row compares Australian storage of account data and backups, not whether either platform has security controls.",
         "status": "documented",
         "sources": [
-          "terms"
-        ]
+          "podiumprivacy"
+        ],
+        "mark": "cross"
       }
     }
   ],
@@ -367,8 +389,9 @@ export const podiumComparison = {
     },
     {
       "title": "Podium data handling",
-      "description": "Podium’s Australian terms allow customer data to be stored or processed in the United States and other countries. For applicable HIPAA-regulated customers, those terms provide a Business Associate Agreement; HIPAA is not a Zapla-only advantage.",
+      "description": "Podium’s Privacy Policy states that its services are primarily hosted in the United States. For applicable HIPAA-regulated customers, its terms provide a Business Associate Agreement; HIPAA is not a Zapla-only advantage.",
       "sources": [
+        "podiumprivacy",
         "terms"
       ]
     }
@@ -453,6 +476,16 @@ export const podiumComparison = {
       "id": "platformprivacy",
       "title": "NextGen data storage and database architecture",
       "url": "https://thenextgencrm.com/privacy/"
+    },
+    {
+      "id": "podiumprivacy",
+      "title": "Podium Privacy Policy, section 11: Data Transfers",
+      "url": "https://legal.podium.com/#privacy-policy"
+    },
+    {
+      "id": "podiumtrust",
+      "title": "Podium Trust Center",
+      "url": "https://trust.podium.com/"
     }
   ],
   "updated": "20 October 2026",
