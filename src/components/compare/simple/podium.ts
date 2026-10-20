@@ -8,7 +8,7 @@ export const podiumComparison = {
   "highlights": [
     {
       "title": "Bring more of the work into one system.",
-      "description": "Websites & funnels, Forms, bookings, pipelines, quotes and invoices are included in Follow-Through. Capture an enquiry, answer common questions and keep the next step with the customer record."
+      "description": "Websites & funnels, Forms, bookings, pipelines, quotes and invoices are included in Follow-Through. Keep the enquiry and its next step together."
     },
     {
       "title": "Pay less for the compared subscription.",
@@ -16,10 +16,10 @@ export const podiumComparison = {
     },
     {
       "title": "Keep your ongoing commitment flexible.",
-      "description": "Zapla is month-to-month after launch. Podium’s standard terms require a 12-month agreement unless your order specifies otherwise. Guided Launch gets your agreed first workflows configured, tested and handed over."
+      "description": "Zapla is month-to-month after launch. Podium’s standard agreement is 12 months. Guided Launch gets your agreed first workflows configured, tested and handed over."
     }
   ],
-  "tableIntroduction": "Zapla Follow-Through versus Podium Professional, selected for its automated FAQ replies. Both cover customer messaging and reviews; compare the workflow, phone and contract details too.",
+  "tableIntroduction": "Zapla Follow-Through versus Podium Professional.",
   "tableCaption": "Podium Professional compared with Zapla Follow-Through.",
   "vendorPricingUrl": "https://www.podium.com.au/packages-local",
   "vendorPlan": "Professional",
@@ -29,10 +29,10 @@ export const podiumComparison = {
   "vendorAnnualPrice": 699,
   "vendorPriceUnit": "AUD per month equivalent, excluding GST",
   "vendorBilling": "12-month agreement. Annual upfront unless the order specifies otherwise.",
-  "workflowNote": "Unlimited workflows means workflow count, not unlimited executions, messages or setup.",
-  "pricingHeading": "A$300 less per month. More tools for everyday work.",
-  "pricingIntroduction": "Zapla Follow-Through versus Podium Professional at its published Australian rate. Both include unlimited users and automated FAQ replies. Setup and usage are separate.",
-  "pricingHeadline": "A$300 less per month. More tools for everyday work.",
+  "workflowNote": "",
+  "pricingHeading": "A$300 less per month.",
+  "pricingIntroduction": "Compare the software subscriptions. Launch, usage and optional services are separate.",
+  "pricingHeadline": "A$300 less per month.",
   "vendorPlanReason": "Professional includes personalised automated FAQs and round-robin lead routing. Automated FAQ replies are part of this comparison.",
   "vendorLowerPlans": "Standard starts at a published A$499/month equivalent ex GST for messaging, reviews and one-click automations. It is the cheaper alternative when you do not need Professional’s FAQ automation and routing.",
   "costCaution": "These are subscription comparisons, not total-cost savings.",
@@ -86,12 +86,12 @@ export const podiumComparison = {
     {
       "title": "Messaging, reviews and an established industry setup",
       "description": "Podium Professional may suit you when messaging, reviews, automated FAQs and routing are your priorities, and your existing business tools already work well together.",
-      "consideration": "Standard is a cheaper alternative for simpler messaging and review needs. Industry-specific AI packages need their own quote."
+      "consideration": ""
     },
     {
       "title": "Customer conversations and the work that follows",
       "description": "Choose Zapla when you want websites, funnels, enquiries, pipelines, Forms, bookings, quotes and invoices in one system, with help configuring the first workflows.",
-      "consideration": "A$300/month below the published Professional subscription, with month-to-month flexibility after launch."
+      "consideration": ""
     }
   ],
   "rows": [
@@ -188,7 +188,7 @@ export const podiumComparison = {
       "label": "Built-in business phone",
       "competitor": {
         "text": "Paid add-on",
-        "detail": "Podium Phones is purchased alongside a platform subscription. Australian licensed-user bundles, hardware and service terms apply.",
+        "detail": "Podium’s Australian Phones service requires both a platform subscription and a separate Phones subscription. Licensed-user bundles and service terms apply.",
         "mark": "cross",
         "status": "separate",
         "sources": [
@@ -295,16 +295,17 @@ export const podiumComparison = {
       "id": "residency",
       "label": "Data residency & sovereignty",
       "zapla": {
-        "text": "Australian storage",
-        "detail": "For Australian-region accounts, account data and backups are stored in Australia. Connected services can process data overseas. This is not a promise that all processing remains in Australia or immunity from foreign laws.",
+        "text": "",
+        "detail": "Australian-region account data and backups are stored in Australia. Connected messaging, voice and AI services may process data overseas.",
         "status": "documented",
         "sources": [
           "platformprivacy"
-        ]
+        ],
+        "mark": "tick"
       },
       "competitor": {
-        "text": "International transfers",
-        "detail": "Podium’s Australian terms permit transfer of client data to the United States and other countries for storage, processing and use. This describes the terms, not a claim about every data category or a security ranking.",
+        "text": "—",
+        "detail": "Podium’s Australian terms allow customer data to be stored or processed in the United States and other countries. The dash does not claim that every data category is stored overseas.",
         "status": "documented",
         "sources": [
           "terms"
@@ -339,7 +340,7 @@ export const podiumComparison = {
   ],
   "optionalRows": [],
   "showMarketingNote": true,
-  "marketingNote": "Podium Professional includes a 500-credit monthly bulk messaging allowance. Zapla’s campaign tools require Growth; sending usage is separate.",
+  "marketingNote": "Podium Professional includes 500 bulk messaging credits/month.",
   "offer": {
     "monthly": 399,
     "launch": 1997,
@@ -363,6 +364,13 @@ export const podiumComparison = {
       "sources": [
         "platformprivacy"
       ]
+    },
+    {
+      "title": "Podium data handling",
+      "description": "Podium’s Australian terms allow customer data to be stored or processed in the United States and other countries. For applicable HIPAA-regulated customers, those terms provide a Business Associate Agreement; HIPAA is not a Zapla-only advantage.",
+      "sources": [
+        "terms"
+      ]
     }
   ],
   "faqs": [
@@ -379,12 +387,8 @@ export const podiumComparison = {
       "answer": "Zapla is month-to-month after launch, with cancellation effective at the end of the current paid billing period. Podium’s published Professional package has a 12-month agreement. Its default terms include automatic renewal and require at least 30 days’ written non-renewal notice, unless the order specifies otherwise."
     },
     {
-      "question": "What if I already have a website and only need messaging?",
-      "answer": "Keep tools that already work for you. Zapla makes more sense when you also want websites, funnels, bookings, pipelines and everyday follow-through in one system. If you only need messaging and reviews, compare Podium Standard and your existing setup before deciding."
-    },
-    {
-      "question": "Does Podium support HIPAA requirements?",
-      "answer": "Podium’s Australian terms provide a Business Associate Agreement for applicable HIPAA-regulated customers. HIPAA is not presented here as a Zapla-only advantage. Confirm the covered services, agreement and configuration for your intended use."
+      "question": "Can I keep my existing website?",
+      "answer": "Yes. Use Zapla for customer conversations, bookings, pipelines and follow-through alongside your existing website. Guided Launch agrees which tools to keep and which connections to configure before work starts."
     },
     {
       "question": "Which Zapla plan includes marketing and WhatsApp?",

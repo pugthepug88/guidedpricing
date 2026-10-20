@@ -29,3 +29,8 @@
 @media (max-width: 767px) {
   .concise-comparison:has(.podium-pricing) .cc-cost-table tbody tr { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Match the established comparison disclosure hierarchy without changing other pages. */
+.concise-comparison:has(.podium-pricing) .cc-table-band .cc-usage { color: #4f5c53; }
+.concise-comparison:has(.podium-pricing) .cc-table-key:empty { display: none; }
+.concise-comparison:has(.podium-pricing) .cc-commercial > .cc-inner > .cc-usage { display: none; }
