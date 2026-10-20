@@ -136,7 +136,7 @@ export const ghlComparison = {
       "id": "contacts",
       "label": "Unlimited contacts",
       "zapla": {
-        "text": "Subject to fair use",
+        "text": "",
         "detail": "Unlimited stored contacts, subject to fair use. Sending usage is separate.",
         "status": "included",
         "mark": "tick",
@@ -180,7 +180,7 @@ export const ghlComparison = {
       "id": "speed",
       "label": "Interface responsiveness",
       "zapla": {
-        "text": "Ultra fast. Instantaneous response.²",
+        "text": "Ultra fast. Instantaneous response.",
         "detail": "NextGen describes its interface as feeling instant. The wording summarises the underlying platform’s performance positioning, not a response-time guarantee. Actual responsiveness varies with the device, connection, data and task.",
         "status": "documented",
         "sources": [
@@ -329,28 +329,6 @@ export const ghlComparison = {
       }
     },
     {
-      "id": "invoicing",
-      "label": "Invoicing",
-      "zapla": {
-        "text": "",
-        "detail": "Invoicing is included. Payment-provider charges are separate.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Native invoicing is available. Payment-provider charges are separate.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-pricing"
-        ]
-      }
-    },
-    {
       "id": "website",
       "label": "Websites & funnels",
       "zapla": {
@@ -369,28 +347,6 @@ export const ghlComparison = {
         "mark": "tick",
         "sources": [
           "ghl-pricing"
-        ]
-      }
-    },
-    {
-      "id": "reviews",
-      "label": "Review management",
-      "zapla": {
-        "text": "",
-        "detail": "Review-management tools are included. Communications usage is separate.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Native review requests and reputation-management tools are included. Communications usage is separate.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-reviews"
         ]
       }
     },
@@ -415,50 +371,6 @@ export const ghlComparison = {
           "ghl-workflows"
         ]
       }
-    },
-    {
-      "id": "phone",
-      "label": "Built-in business phone",
-      "zapla": {
-        "text": "¹",
-        "detail": "Phone access is included; numbers and usage are additional. Number setup or forwarding is agreed during launch.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "¹",
-        "detail": "Native calling and phone-number services are available; regional number and usage charges apply.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-phone"
-        ]
-      }
-    },
-    {
-      "id": "whatsapp",
-      "label": "Connected WhatsApp numbers",
-      "zapla": {
-        "text": "8",
-        "detail": "Up to eight connected numbers, with unlimited WhatsApp contacts and no separate contact-band fee. Initial connection work is scoped; messaging usage is extra. Bulk campaigns are part of Growth.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "Paid add-on",
-        "detail": "WhatsApp costs US$10/month per enabled sub-account, plus messaging usage. The add-on is excluded from the Starter subscription shown in the calculator.",
-        "status": "separate",
-        "mark": "cross",
-        "sources": [
-          "ghl-whatsapp"
-        ]
-      }
     }
   ],
   "growthRows": [],
@@ -467,20 +379,22 @@ export const ghlComparison = {
       "id": "ai",
       "label": "AI call answering",
       "zapla": {
-        "text": "Optional paid service",
+        "text": "",
         "detail": "Optional at A$199/month + GST, with setup from A$997 + GST. Usage terms are quoted separately.",
         "status": "separate",
         "sources": [
           "offer"
-        ]
+        ],
+        "mark": "tick"
       },
       "competitor": {
-        "text": "Native Voice AI; usage extra",
+        "text": "",
         "detail": "Native Voice AI has pay-per-use and optional subscription arrangements. AI and telephony charges depend on the configuration.",
         "status": "separate",
         "sources": [
           "ghl-ai"
-        ]
+        ],
+        "mark": "tick"
       }
     }
   ],
@@ -629,7 +543,5 @@ export const ghlComparison = {
   ],
   "updated": "19 October 2026",
   "pricingUrl": "/Pricing-v3",
-  "tableNotes": [
-    "² Speed wording describes NextGen’s published platform positioning, not a guaranteed response time or a measured comparison with GoHighLevel."
-  ]
+  "tableNotes": []
 } satisfies ComparisonDefinition;
