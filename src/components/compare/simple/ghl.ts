@@ -210,8 +210,8 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "—",
-        "detail": "No speed ranking is assigned to GoHighLevel. This row does not establish a measured performance difference between the platforms.",
+        "text": "Fast",
+        "detail": "Qualitative interface description; no measured response-time comparison is claimed.",
         "status": "documented",
         "sources": [
           "ghl-pricing"
@@ -244,8 +244,8 @@ export const ghlComparison = {
       "id": "website",
       "label": "Websites & funnels",
       "zapla": {
-        "text": "",
-        "detail": "Self-service website and funnel tools are included. Custom build work is separately scoped.",
+        "text": "Drag, resize and adjust spacing on the canvas",
+        "detail": "Move and resize elements directly on the canvas, including padding and margin controls. Self-service website and funnel tools are included; custom build work is separately scoped.",
         "status": "included",
         "mark": "tick",
         "sources": [
@@ -286,10 +286,10 @@ export const ghlComparison = {
     },
     {
       "id": "hosting",
-      "label": "Australian data hosting",
+      "label": "Data residency & sovereignty",
       "zapla": {
         "text": "",
-        "detail": "Account data and backups for the Australian region are stored in Sydney. Connected services, messaging and AI providers may process data outside Australia.",
+        "detail": "This row compares Australian storage of account data and backups. Zapla’s Australian region stores these in Sydney. Connected services, messaging and AI providers may process data overseas; this is not a claim that all processing stays in Australia or that foreign laws cannot apply.",
         "status": "included",
         "mark": "tick",
         "sources": [
@@ -308,23 +308,23 @@ export const ghlComparison = {
     },
     {
       "id": "qr",
-      "label": "Dynamic QR codes",
+      "label": "Dynamic QR ticketing system",
       "zapla": {
         "text": "",
-        "detail": "Create QR codes with editable destinations.",
+        "detail": "Generate QR-coded event tickets and track attendee check-in.",
         "status": "included",
         "mark": "tick",
         "sources": [
-          "offer"
+          "nextgen-ticketing"
         ]
       },
       "competitor": {
         "text": "",
-        "detail": "Native QR codes support changing the destination without generating a new QR image.",
+        "detail": "HighLevel Events supports ticket sales, registration, unique QR tickets and scanning attendees in, including duplicate-ticket detection.",
         "status": "included",
         "mark": "tick",
         "sources": [
-          "ghl-qr"
+          "ghl-events"
         ]
       }
     },
@@ -341,7 +341,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "Via integration",
+        "text": "",
         "detail": "Telegram is available through a Marketplace connector. Provider terms apply.",
         "status": "separate",
         "mark": "cross",
@@ -352,7 +352,7 @@ export const ghlComparison = {
     },
     {
       "id": "ticketing",
-      "label": "Support ticketing",
+      "label": "Support ticketing system",
       "zapla": {
         "text": "",
         "detail": "Manage customer support tickets inside the platform, including escalation where configured.",
@@ -363,7 +363,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "Via integration",
+        "text": "",
         "detail": "Dedicated support ticketing can be added through integrations such as SupportDesk. CRM pipelines can also be configured to track service requests.",
         "status": "separate",
         "mark": "cross",
@@ -420,7 +420,7 @@ export const ghlComparison = {
       "id": "sms",
       "label": "Two-way SMS",
       "zapla": {
-        "text": "¹",
+        "text": "",
         "detail": "Two-way SMS access is included. Numbers and messaging usage cost extra.",
         "status": "included",
         "mark": "tick",
@@ -429,7 +429,7 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "¹",
+        "text": "",
         "detail": "Two-way SMS is native through the phone system. Numbers and messaging usage cost extra.",
         "status": "included",
         "mark": "tick",
@@ -442,7 +442,7 @@ export const ghlComparison = {
       "id": "missed",
       "label": "Missed-call text-back",
       "zapla": {
-        "text": "¹",
+        "text": "",
         "detail": "Missed-call text-back is included; SMS usage is separate.",
         "status": "included",
         "mark": "tick",
@@ -451,78 +451,12 @@ export const ghlComparison = {
         ]
       },
       "competitor": {
-        "text": "¹",
+        "text": "",
         "detail": "Native missed-call text-back is available; SMS usage and messaging settings apply.",
         "status": "included",
         "mark": "tick",
         "sources": [
           "ghl-missed"
-        ]
-      }
-    },
-    {
-      "id": "forms",
-      "label": "Forms",
-      "zapla": {
-        "text": "",
-        "detail": "Forms are included. Guided Launch includes up to three forms or surveys.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Native forms and surveys are included.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-pricing"
-        ]
-      }
-    },
-    {
-      "id": "booking",
-      "label": "Online booking",
-      "zapla": {
-        "text": "",
-        "detail": "Booking tools are included. Guided Launch includes up to two calendars.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Native appointment calendars and booking tools are included.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-pricing"
-        ]
-      }
-    },
-    {
-      "id": "quotes",
-      "label": "Quotes & proposals",
-      "zapla": {
-        "text": "",
-        "detail": "Quote and proposal tools are included. Initial configuration is scoped during launch.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "offer"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "Native documents and contracts support proposals, estimates and signatures.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-documents"
         ]
       }
     }
@@ -728,6 +662,16 @@ export const ghlComparison = {
       "id": "ghl-support",
       "title": "GoHighLevel support",
       "url": "https://help.gohighlevel.com/support/home"
+    },
+    {
+      "id": "nextgen-ticketing",
+      "title": "NextGen event ticketing",
+      "url": "https://thenextgencrm.com/features/"
+    },
+    {
+      "id": "ghl-events",
+      "title": "GoHighLevel event tickets and QR check-in",
+      "url": "https://help.gohighlevel.com/support/solutions/articles/155000008294-check-in-experience-for-in-person-events"
     }
   ],
   "updated": "19 October 2026",
