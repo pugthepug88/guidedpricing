@@ -219,24 +219,24 @@ export const ghlComparison = {
       }
     },
     {
-      "id": "inbox",
-      "label": "Unified inbox",
+      "id": "ai-agents",
+      "label": "Unlimited AI agents",
       "zapla": {
         "text": "",
-        "detail": "Bring supported customer conversations into a shared workspace. Channel setup and usage terms apply.",
-        "status": "included",
         "mark": "tick",
+        "status": "included",
+        "detail": "Unlimited agent count. AI usage and implementation work are separate. AI Receptionist remains an optional paid service.",
         "sources": [
-          "nextgen-inbox"
+          "nextgen-agents"
         ]
       },
       "competitor": {
-        "text": "All channels in one conversation feed",
-        "detail": "Conversations supports shared customer communications, assignment and filtering. Connected channels have their own setup and usage requirements.",
-        "status": "included",
-        "mark": "tick",
+        "text": "",
+        "mark": "cross",
+        "status": "documented",
+        "detail": "Agent limits depend on the agent type. GoHighLevel’s Voice AI Chat Widget documentation specifies up to 100 Voice AI agents; its 20 limit is simultaneous browser calls, not total agents. AI usage is charged separately.",
         "sources": [
-          "ghl-inbox"
+          "ghl-agent-limits"
         ]
       }
     },
@@ -303,28 +303,6 @@ export const ghlComparison = {
         "mark": "cross",
         "sources": [
           "ghl-security"
-        ]
-      }
-    },
-    {
-      "id": "qr",
-      "label": "Dynamic QR ticketing system",
-      "zapla": {
-        "text": "",
-        "detail": "Generate QR-coded event tickets and track attendee check-in.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "nextgen-ticketing"
-        ]
-      },
-      "competitor": {
-        "text": "",
-        "detail": "HighLevel Events supports ticket sales, registration, unique QR tickets and scanning attendees in, including duplicate-ticket detection.",
-        "status": "included",
-        "mark": "tick",
-        "sources": [
-          "ghl-events"
         ]
       }
     },
@@ -672,6 +650,16 @@ export const ghlComparison = {
       "id": "ghl-events",
       "title": "GoHighLevel event tickets and QR check-in",
       "url": "https://help.gohighlevel.com/support/solutions/articles/155000008294-check-in-experience-for-in-person-events"
+    },
+    {
+      "id": "nextgen-agents",
+      "title": "NextGen unlimited AI agent count",
+      "url": "https://thenextgencrm.com/pricing/"
+    },
+    {
+      "id": "ghl-agent-limits",
+      "title": "GoHighLevel Voice AI agent and concurrency limits",
+      "url": "https://help.gohighlevel.com/support/solutions/articles/155000006056/create_ticket"
     }
   ],
   "updated": "19 October 2026",
