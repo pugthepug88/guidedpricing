@@ -18,3 +18,10 @@
 
 /* Keep the approved speed wording inside narrow comparison cells. */
 .concise-comparison:has(.ghl-pricing) .cc-table .cc-short-label { overflow-wrap: anywhere; }
+
+/* Explicit foregrounds for light surfaces inside the dark pricing section. */
+.ghl-results article { color: #1e2b29; }
+.ghl-billing label:has(input:checked) { color: #1e2b29; }
+.ghl-pricing .ghl-fineprint { color: #d0dbd5; }
+.ghl-pricing a { color: inherit; }
+.concise-comparison:has(.ghl-pricing) .cc-table-band .cc-usage { color: #4f5c53; }
