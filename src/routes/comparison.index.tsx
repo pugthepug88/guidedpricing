@@ -5,7 +5,7 @@ import hubCss from '@/styles/comparison-hub.css?url';
 const competitors = ['ActiveCampaign', 'Creatio', 'GoHighLevel', 'HubSpot', 'Keap', 'Pipedrive', 'Podium', 'Salesforce', 'Zoho'] as const;
 
 export const Route = createFileRoute('/comparison/')({
-  staticData: { sitemap: false },
+  // Draft remains noindex and outside the explicit sitemap whitelist; allow editor route discovery.
   head: () => ({
     meta: [
       { title: 'Compare Zapla | Pricing and Features' },
