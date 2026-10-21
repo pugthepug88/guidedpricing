@@ -39,6 +39,7 @@ import { Route as ComparisonZaplaVsPodiumRouteImport } from './routes/comparison
 import { Route as ComparisonZaplaVsSalesforceRouteImport } from './routes/comparison.zapla-vs-salesforce'
 import { Route as ComparisonZaplaVsThryvRouteImport } from './routes/comparison.zapla-vs-thryv'
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
+import { Route as FeaturesUnifiedInboxRouteImport } from './routes/features.unified-inbox'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
 import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
 import { Route as IndustriesCosmeticSkinClinicsRouteImport } from './routes/industries/cosmetic-skin-clinics'
@@ -206,6 +207,11 @@ const ComparisonZaplaVsZohoRoute = ComparisonZaplaVsZohoRouteImport.update({
   path: '/comparison/zapla-vs-zoho',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeaturesUnifiedInboxRoute = FeaturesUnifiedInboxRouteImport.update({
+  id: '/features/unified-inbox',
+  path: '/features/unified-inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesIndexRoute = IndustriesIndexRouteImport.update({
   id: '/industries/',
   path: '/industries/',
@@ -280,6 +286,7 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
+  '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -320,6 +327,7 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
+  '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -361,6 +369,7 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
+  '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -403,6 +412,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-salesforce'
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
+    | '/features/unified-inbox'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -443,6 +453,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-salesforce'
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
+    | '/features/unified-inbox'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -483,6 +494,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-salesforce'
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
+    | '/features/unified-inbox'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -524,6 +536,7 @@ export interface RootRouteChildren {
   ComparisonZaplaVsSalesforceRoute: typeof ComparisonZaplaVsSalesforceRoute
   ComparisonZaplaVsThryvRoute: typeof ComparisonZaplaVsThryvRoute
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
+  FeaturesUnifiedInboxRoute: typeof FeaturesUnifiedInboxRoute
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
   IndustriesCosmeticSkinClinicsRoute: typeof IndustriesCosmeticSkinClinicsRoute
   IndustriesDentalRoute: typeof IndustriesDentalRoute
@@ -747,6 +760,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComparisonZaplaVsZohoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/features/unified-inbox': {
+      id: '/features/unified-inbox'
+      path: '/features/unified-inbox'
+      fullPath: '/features/unified-inbox'
+      preLoaderRoute: typeof FeaturesUnifiedInboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/': {
       id: '/industries/'
       path: '/industries'
@@ -837,6 +857,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsSalesforceRoute: ComparisonZaplaVsSalesforceRoute,
   ComparisonZaplaVsThryvRoute: ComparisonZaplaVsThryvRoute,
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,
+  FeaturesUnifiedInboxRoute: FeaturesUnifiedInboxRoute,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
   IndustriesCosmeticSkinClinicsRoute: IndustriesCosmeticSkinClinicsRoute,
   IndustriesDentalRoute: IndustriesDentalRoute,

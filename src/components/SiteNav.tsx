@@ -14,6 +14,11 @@ const NAV_GROUPS = [
     ],
   },
   {
+    id: "features",
+    label: "Features",
+    links: [{ name: "Unified Inbox", href: "/features/unified-inbox" }],
+  },
+  {
     id: "solutions",
     label: "Solutions",
     links: [
@@ -67,7 +72,7 @@ export function SiteNav() {
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [cinematicPastHero, setCinematicPastHero] = useState(false);
   const lightGlassState = cinematicPastHero || lightSitePage;
-  const [openMenu, setOpenMenu] = useState<null | "platform" | "solutions" | "industries">(null);
+  const [openMenu, setOpenMenu] = useState<null | "platform" | "features" | "solutions" | "industries">(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
