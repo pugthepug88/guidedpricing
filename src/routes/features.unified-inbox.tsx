@@ -15,7 +15,7 @@ export const Route = createFileRoute("/features/unified-inbox")({
       {
         property: "og:description",
         content:
-          "The conversation is here. So is the context. Customer messages and history together for your team.",
+          "Every message. The whole conversation. SMS, email and customer history together for your team.",
       },
     ],
   }),

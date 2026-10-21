@@ -22,3 +22,11 @@ Keep global footer unchanged and calendar embed last. Booking CTAs /booking. New
 
 ## Verification
 npm run build and TypeScript check pass. Live Lovable preview route loaded after GitHub sync. Desktop inspected: hero, context and handover views, editorial photo, dark CRM section, setup, FAQ and CTA/sky transition. All three conversation selectors update their thread/context; all three explainer views work; FAQ expansion and Features link tested. Main images loaded; no horizontal page overflow at desktop or 390px content width; browser console reported no errors. Mobile hero visually inspected, mobile conversation switching and Features navigation tested. Full lower-page mobile screenshot inspection remains incomplete because screenshot capture was unreliable after viewport scrolling. No live calendar integration tested (intentionally deferred). No production publication performed. Do not describe this as exhaustive device QA or verified live product functionality.
+
+
+## Superseding visual revision, 21 October 2026
+User approved rebuilding after live visual review of Birdeye, ActiveCampaign and monday. Replaced the centred dashboard hero with a split headline and a focused frosted conversation scene, with the related quote record beneath. The full selectable inbox now appears in the second major content section, after a compact benefits strip. Removed the repetitive three-view explainer. Header/footer and Platform architecture unchanged.
+
+Reference decisions: ADAPT Birdeye's layered material depth; USE monday's legible product detail and distinct section purposes; REJECT ActiveCampaign's dark neon treatment for the overall Zapla page. No mascot or unsupported product claims added. No new automatic animation.
+
+Validation: production build and TypeScript pass. Inspected rendered desktop hero and full page, and responsive full-page capture at 390 CSS pixels. All page images loaded, no horizontal overflow, desktop Daniel and mobile Priya selectors update messages and records, FAQ expands, booking links point to /booking. No browser error logs during desktop check. Mobile viewport captures have a browser capture defect after scrolling, so used full-page captures plus DOM geometry rather than treating the clipped viewport images as layout defects. Shared footer retained. Synced to Lovable preview; no production publish performed.
