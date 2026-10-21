@@ -1,5 +1,5 @@
 export type ComparisonStatus = 'included' | 'plan-dependent' | 'separate' | 'scoped' | 'documented';
-export interface ComparisonCell { text: string; detail?: string; mark?: 'tick' | 'cross'; status: ComparisonStatus; sources: readonly string[] }
+export interface ComparisonCell { text: string; detail?: string; mark?: 'tick' | 'cross'; status: ComparisonStatus; sources: readonly string[]; subLines?: readonly string[] }
 export interface ComparisonRow { id: string; label: string; competitor: ComparisonCell; zapla: ComparisonCell }
 export interface ComparisonSource { id: string; title: string; url: string }
 export interface ComparisonDefinition {

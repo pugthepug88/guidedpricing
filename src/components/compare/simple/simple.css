@@ -59,6 +59,8 @@
 .cc-mark--tick { color:#236341; }
 .cc-mark--cross { color:#8D4C42; }
 .cc-short-label { display:block; font-size:13px; line-height:1.4; font-weight:600; }
+.cc-sub-lines { display:block; margin-top:6px; }
+.cc-sub-line { display:block; font-size:12px; line-height:1.45; color:var(--comparison-muted); }
 .cc-mobile-vendor { display:none; }
 .cc-table-key { font-size:13px; color:var(--comparison-muted); margin:16px 0 0; }
 .cc-table-key a,.cc-upgrade-note a,.cc-more-tools>a { color:var(--comparison-green); text-decoration:underline; text-underline-offset:4px; }

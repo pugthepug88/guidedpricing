@@ -19,6 +19,7 @@ function Cell({ value, vendor }: { value: ComparisonCell; vendor: string }) {
     <span className="cc-mobile-vendor" aria-hidden="true">{vendor}</span>
     {value.mark && <span className={`cc-mark cc-mark--${value.mark}`}><span className="sr-only">{value.mark === 'tick' ? 'Included' : 'Not included in the compared package or stated allowance'}</span>{value.mark === 'tick' ? <Check size={25} strokeWidth={2.6} aria-hidden="true" /> : <X size={23} strokeWidth={2} aria-hidden="true" />}</span>}
     {value.text && <strong className="cc-short-label">{value.text}</strong>}
+    {value.subLines && <span className="cc-sub-lines">{value.subLines.map(line => <span className="cc-sub-line" key={line}>{line}</span>)}</span>}
   </td>;
 }
 
