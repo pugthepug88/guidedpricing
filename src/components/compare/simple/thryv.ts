@@ -264,7 +264,7 @@ export const thryvComparison = {
       "id": "commitment",
       "label": "Month-to-month subscription",
       "zapla": {
-        "text": "After launch",
+        "text": "",
         "detail": "Zapla is monthly after launch. Required Guided Launch is separately priced.",
         "status": "included",
         "sources": [
