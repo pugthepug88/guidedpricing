@@ -30,7 +30,7 @@ export const mondayComparison = {
   costExamples: {
     title: 'See annual CRM-only subscription comparisons', introduction: 'Twelve months of the named software subscriptions. Setup, usage and optional services are disclosed separately.',
     columns: ['Pro · monthly billing', 'Pro · annual billing', 'Zapla Follow-Through'], teamHeading: 'Team size',
-    rows: [{ label: '5 people', values: [3180, 2700, 4788] }, { label: '6 people', values: [6360, 5400, 4788] }, { label: '11 people', values: [9540, 8100, 4788] }],
+    rows: [
     caption: 'AUD 12-month software subscription comparison, excluding tax, setup and usage. Feature bundles differ.',
     note: 'Monthly billing uses twelve monthly payments; monday’s annual subscription is paid upfront. Required Zapla Guided Launch from A$1,997 + GST is additional. At six to ten users, this launch fee makes Zapla’s minimum first-year outlay higher than monday CRM Pro alone, despite its lower subscription.',
   },
@@ -66,6 +66,7 @@ export const mondayComparison = {
     row('crm', 'Unlimited pipelines', '', 'Unlimited pipelines on both Zapla plans. Stored contacts are subject to fair use.', '', 'Unlimited customisable pipelines are included. Contact and deal record allowances are separate.', ['plans']),
     row('quotes', 'Quotes & proposals', 'Unlimited', 'Unlimited quotes and proposals are included. Payment-provider fees and communications usage are separate.', '250 shared monthly', 'Pro includes a combined allowance of 250 quotes and invoices per month. Payment links can connect customers to your payment service.', ['pricing', 'quotes']),
     row('invoices', 'Invoicing', 'Unlimited', 'Unlimited invoices are included. Payment-provider fees and communications usage are separate.', '250 shared monthly', 'Pro’s combined allowance is 250 quotes and invoices per month, not 250 of each. Invoices can include a link to your payment service.', ['pricing', 'quotes']),
+    row('residency', 'Data residency & sovereignty', '', 'Australian account data and backups are stored in Sydney under NextGen’s DPA. The tick refers to Australian data storage, not a guarantee that every connected service processes data only in Australia or that foreign laws cannot apply.', '', 'Australian hosting is available through monday’s AWS Sydney/APAC region, including for CRM. Availability depends on the account’s assigned region; some data and subprocessors operate outside Australia. The tick indicates Australian hosting availability, not guaranteed Australian-only processing or legal sovereignty.', ['residency', 'sydney', 'platform-dpa']),{ label: '5 people', values: [3180, 2700, 4788] }, { label: '6 people', values: [6360, 5400, 4788] }, { label: '11 people', values: [9540, 8100, 4788] }],
   ],
   growthRows: [], optionalRows: [], showMarketingNote: true,
   marketingNote: 'monday CRM Pro includes sales emails and sequences. Add Campaigns Pro for dedicated email marketing, priced by marketing contacts. Growth has no contact-band subscription fees; sending usage is separate. Compare CRM + marketing below.',
