@@ -125,11 +125,7 @@ function Context({ selected = 0 }: { selected?: number }) {
 function InboxScene() {
   const [selected, setSelected] = useState(0);
   return (
-    <div className="ui-blue-stage" id="inbox-demo">
-      <div className="ui-stage-caption">
-        <span>One place to pick up the conversation.</span>
-        <span>Messages + customer context</span>
-      </div>
+    <div className="ui-blue-stage">
       <div className="ui-glass-shell">
         <div className="ui-shell-bar">
           <img src="/concept/zapla-logo-dark.svg" alt="Zapla" />
@@ -164,92 +160,74 @@ function InboxScene() {
     </div>
   );
 }
-const views = [
-  {
-    label: "Read the conversation",
-    title: "Start with what the customer actually said.",
-    copy: "Open the message and see the exchange around it. Your reply starts with the conversation, rather than a search through someone else’s inbox.",
-  },
-  {
-    label: "See the customer context",
-    title: "Know what the message relates to.",
-    copy: "Keep the customer profile, notes and pipeline stage beside the conversation. Check the history before answering a question about a quote or appointment.",
-  },
-  {
-    label: "Pick up as a team",
-    title: "The next person can see what happened.",
-    copy: "A visible contact owner and shared customer history help your team understand who is involved and what has already been discussed.",
-  },
-];
-function Explore() {
-  const [active, setActive] = useState(0);
+function HeroScene() {
   return (
-    <section className="ui-section ui-explore" aria-labelledby="explore-heading">
+    <div className="ui-hero-scene" aria-label="Customer conversation connected to a quote">
+      <div className="ui-sculpture" aria-hidden="true" />
+      <div className="ui-hero-glass">
+        <div className="ui-hero-brand">
+          <img src="/concept/zapla-logo-dark.svg" alt="Zapla" />
+          <span>Unified Inbox</span>
+        </div>
+        <div className="ui-hero-customer">
+          <Avatar cell={9} large />
+          <div>
+            <strong>Mia Thompson</strong>
+            <span>SMS conversation</span>
+          </div>
+        </div>
+        <div className="ui-hero-question">
+          <p>Does the quote include taking the old unit away?</p>
+        </div>
+        <div className="ui-hero-answer">
+          <span>
+            Ben <Avatar cell={13} />
+          </span>
+          <p>Yes, removal of the old unit is included in your quote.</p>
+        </div>
+      </div>
+      <div className="ui-hero-record">
+        <span className="ui-record-rule" aria-hidden="true" />
+        <div>
+          <span>Customer record</span>
+          <strong>Hot water replacement</strong>
+          <p>
+            Quote sent <span>·</span> Ben Walker
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+function Explore() {
+  return (
+    <section className="ui-section ui-explore" id="inbox-demo" aria-labelledby="explore-heading">
       <div className="ui-wrap">
-        <div className="ui-section-intro">
-          <p className="ui-eyebrow">A better starting point for every reply</p>
-          <h2 id="explore-heading">
-            See the message.
-            <br />
-            Understand the customer.
-          </h2>
-        </div>
-        <div className="ui-view-buttons" aria-label="Explore the inbox">
-          {views.map((view, i) => (
-            <button
-              type="button"
-              key={view.label}
-              aria-pressed={active === i}
-              aria-controls="inbox-view"
-              onClick={() => setActive(i)}
-            >
-              <span>0{i + 1}</span>
-              {view.label}
-            </button>
-          ))}
-        </div>
-        <div id="inbox-view" className="ui-explore-layout" aria-live="polite">
-          <div className="ui-explore-copy">
-            <h3>{views[active].title}</h3>
-            <p>{views[active].copy}</p>
-            <a href="/crm" className="ui-text-link">
-              Explore Zapla CRM <ArrowRight size={17} />
-            </a>
+        <div className="ui-explore-intro">
+          <div>
+            <p className="ui-eyebrow">Inside your inbox</p>
+            <h2 id="explore-heading">
+              The message is only
+              <br />
+              half the conversation.
+            </h2>
           </div>
-          <div className="ui-explore-surface">
-            {active === 0 ? (
-              <Thread compact />
-            ) : active === 1 ? (
-              <Context />
-            ) : (
-              <div className="ui-handover">
-                <span className="ui-small-label">Same customer. Shared history.</span>
-                <div className="ui-handover-people">
-                  <Avatar cell={13} large />
-                  <span>
-                    Ben Walker
-                    <br />
-                    <small>Contact owner</small>
-                  </span>
-                </div>
-                <div className="ui-handover-note">
-                  <span>Customer note</span>
-                  <p>Mia asked whether the quote includes removal. Ben confirmed that it does.</p>
-                </div>
-                <div className="ui-handover-people">
-                  <Avatar cell={8} large />
-                  <span>
-                    Alex Chen
-                    <br />
-                    <small>Can pick up with the context</small>
-                  </span>
-                </div>
-                <p className="ui-handover-end">
-                  The conversation stays with Mia’s customer record.
-                </p>
-              </div>
-            )}
-          </div>
+          <p>
+            See who you’re speaking to, what they need and where things stand. Choose a customer
+            below to explore their conversation and record.
+          </p>
+        </div>
+        <InboxScene />
+        <div className="ui-scene-key">
+          <span>
+            <b>01</b> Find the conversation
+          </span>
+          <span>
+            <b>02</b> Read the exchange
+          </span>
+          <span>
+            <b>03</b> Check the customer record
+          </span>
         </div>
       </div>
     </section>
@@ -285,58 +263,44 @@ export function UnifiedInboxPage() {
   return (
     <main className="zapla-inbox" data-page="unified-inbox">
       <section className="ui-hero">
-        <div className="ui-wrap">
+        <div className="ui-wrap ui-hero-grid">
           <div className="ui-hero-copy">
             <p className="ui-eyebrow">Unified Inbox</p>
             <h1>
-              The conversation is here.
+              Every message.
               <br />
-              So is the context.
+              The whole
+              <br />
+              <span>conversation.</span>
             </h1>
             <p className="ui-lead">
-              Bring customer messages and customer history together, so your team can pick up the
-              conversation without asking people to repeat themselves.
+              Bring SMS, email and customer history together. Give your team the context to answer
+              without asking the customer to start again.
             </p>
             <div className="ui-actions">
               <Cta />
               <a className="ui-secondary" href="#inbox-demo">
-                See the inbox <span aria-hidden="true">↓</span>
+                Explore the inbox <span aria-hidden="true">↓</span>
               </a>
             </div>
-            <p className="ui-hero-note">
-              Unlimited users. Customer history included. Guided Launch.
-            </p>
+            <p className="ui-hero-note">Unlimited users. One shared customer history.</p>
           </div>
-          <InboxScene />
+          <HeroScene />
         </div>
       </section>
-      <section className="ui-section ui-problems">
-        <div className="ui-wrap ui-problem-layout">
-          <h2>
-            Less searching.
-            <br />
-            More useful replies.
-          </h2>
-          <div className="ui-benefit-list">
-            {[
-              [
-                "The message is easy to find.",
-                "Bring SMS and email conversations into a shared view, instead of checking separate inboxes.",
-              ],
-              [
-                "The context is already there.",
-                "See the customer record around the message, rather than asking the customer to explain everything again.",
-              ],
-              [
-                "The conversation stays with the business.",
-                "Keep customer history available when another team member needs to pick up.",
-              ],
-            ].map(([title, copy]) => (
-              <div key={title}>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </div>
-            ))}
+      <section className="ui-problems" aria-label="What changes for your team">
+        <div className="ui-wrap ui-benefit-strip">
+          <div>
+            <span>Bring it together</span>
+            <p>SMS and email in one place.</p>
+          </div>
+          <div>
+            <span>Reply with context</span>
+            <p>The customer history alongside.</p>
+          </div>
+          <div>
+            <span>Keep the team connected</span>
+            <p>Conversations stay with the business.</p>
           </div>
         </div>
       </section>
@@ -358,11 +322,11 @@ export function UnifiedInboxPage() {
             </div>
           </div>
           <div className="ui-human-copy">
-            <p className="ui-eyebrow">Built around the people replying</p>
+            <p className="ui-eyebrow">Shared customer history</p>
             <h2>
-              A familiar customer.
+              Someone else picks up.
               <br />
-              Even to the next person.
+              The history stays.
             </h2>
             <p>
               When a colleague is on a job, on leave or simply busy, the customer’s history should
@@ -372,6 +336,15 @@ export function UnifiedInboxPage() {
               Give the person replying the messages, notes and customer information they need to
               continue the conversation.
             </p>
+            <div className="ui-team-line">
+              <Avatar cell={13} />
+              <Avatar cell={8} />
+              <span>
+                One customer record.
+                <br />
+                <strong>Available to the people who need it.</strong>
+              </span>
+            </div>
             <div className="ui-fit-note">
               <strong>Start from where you are.</strong>
               <p>
@@ -387,9 +360,9 @@ export function UnifiedInboxPage() {
           <div>
             <p className="ui-eyebrow">Connected to the next step</p>
             <h2>
-              A reply is part
+              Keep the conversation
               <br />
-              of the customer story.
+              close to the work.
             </h2>
             <p>
               A question about a quote. A change to an appointment. A response to a follow up. Keep
@@ -498,9 +471,9 @@ export function UnifiedInboxPage() {
         <div className="ui-wrap">
           <p className="ui-eyebrow">See it around your business</p>
           <h2>
-            Let’s look at how
+            Better replies start
             <br />
-            your enquiries come in.
+            with the full picture.
           </h2>
           <p>
             We’ll show you where the inbox fits, what your team would see and how Guided Launch
