@@ -1,0 +1,36 @@
+.thryv-pricing { margin-block: 32px; }
+.thryv-pricing p { line-height: 1.6; }
+.thryv-billing { border: 0; padding: 0; display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+.thryv-billing legend { font-weight: 600; margin-bottom: 12px; }
+.thryv-billing label { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 10px 18px; border: 1px solid #8c988f; border-radius: 8px; cursor: pointer; }
+.thryv-billing label:has(input:checked) { border-color: #2563ff; background: #edf2ff; }
+.thryv-billing label:focus-within { outline: 3px solid #2563ff; outline-offset: 3px; }
+.thryv-billing input { accent-color: #2563ff; width: 18px; height: 18px; }
+.thryv-results { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.thryv-results article { min-width: 0; padding: 28px; border: 1px solid #d3d9d4; border-radius: 16px; background: #fff; }
+.thryv-results h3 { font-size: 21px; margin: 0 0 18px; }
+.thryv-price { font-size: clamp(32px, 4vw, 46px); font-weight: 600; margin: 0 0 18px; white-space: nowrap; }
+.thryv-price span { display: block; font-size: 15px; font-weight: 400; white-space: normal; }
+.thryv-difference { padding: 18px 0; border-bottom: 1px solid #d3d9d4; }
+.thryv-fineprint { font-size: 14px; color: #4f5c53; }
+.thryv-pricing a { color: #234fc4; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 600px) { .thryv-results { grid-template-columns: 1fr; gap: 16px; } .thryv-results article { padding: 22px; } }
+/* The shared pricing section has a dark background. Keep local cards and controls legible. */
+.thryv-results article { color: #1f2d28; }
+.thryv-billing label:has(input:checked) { color: #1f2d28; }
+.thryv-fineprint { color: #d5dfd9; }
+.thryv-pricing a { color: #b9cdff; }
+
+.thryv-plan-notes { border-top: 1px solid #8c988f; margin-top: 20px; }
+.thryv-plan-notes summary { min-height: 48px; padding: 16px 0; cursor: pointer; font-weight: 600; }
+.thryv-plan-notes summary:focus-visible { outline: 3px solid #b9cdff; outline-offset: 4px; }
+.thryv-plan-notes p { font-size: 14px; color: #d5dfd9; }
+
+@media (max-width: 767px) {
+  .concise-comparison:has(.thryv-pricing) .cc-cost-table tbody tr { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Match the established comparison disclosure hierarchy without changing other pages. */
+.concise-comparison:has(.thryv-pricing) .cc-table-band .cc-usage { color: #4f5c53; }
+.concise-comparison:has(.thryv-pricing) .cc-table-key:empty { display: none; }
+.concise-comparison:has(.thryv-pricing) .cc-commercial > .cc-inner > .cc-usage { display: none; }
