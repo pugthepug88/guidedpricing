@@ -11,3 +11,16 @@
 .cc-monday-pricing .cc-team-billing { color:#4F5C53; }
 .concise-comparison:has(.cc-monday-pricing) .cc-commercial > .cc-inner > .cc-usage:empty,
 .concise-comparison:has(.cc-monday-pricing) .cc-table-key:empty { display:none; }
+
+.cc-monday-mode { border:0; padding:0; margin:0 0 24px; display:flex; flex-wrap:wrap; gap:8px; }
+.cc-monday-mode legend { margin-bottom:10px; font-weight:600; }
+.cc-monday-mode button { min-height:44px; border:1px solid #536357; border-radius:8px; padding:10px 14px; color:#173728; background:#fff; font:inherit; cursor:pointer; }
+.cc-monday-mode button[aria-pressed="true"] { background:#173728; color:#fff; }
+.cc-monday-mode button:focus-visible, .cc-monday-marketing-controls :is(input,select):focus-visible { outline:3px solid #176bdb; outline-offset:3px; }
+.cc-monday-marketing-controls { display:grid; gap:10px; margin-top:24px; }
+.cc-monday-marketing-controls label { display:block; font-weight:600; }
+.cc-monday-marketing-controls :is(input,select) { width:100%; min-width:0; min-height:48px; padding:10px; border:1px solid #536357; border-radius:6px; background:#fff; color:#173728; font:inherit; }
+.cc-monday-marketing-controls p { font-size:14px; line-height:1.5; color:#4F5C53; }
+.cc-monday-pricing .cc-team-results h3 { overflow-wrap:anywhere; }
+
+.cc-monday-pricing .cc-team-results .cc-monday-large-total { font-size:28px; }
