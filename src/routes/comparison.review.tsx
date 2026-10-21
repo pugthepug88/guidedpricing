@@ -5,6 +5,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 
 const drafts = [
+  { name: 'Zapla vs Thryv', path: '/comparison/zapla-vs-thryv' },
   { name: 'Zapla vs monday CRM', path: '/comparison/zapla-vs-monday-crm' },
   { name: 'Zapla vs Keap', path: '/comparison/zapla-vs-keap' },
   { name: 'Zapla vs Podium', path: '/comparison/zapla-vs-podium' },
