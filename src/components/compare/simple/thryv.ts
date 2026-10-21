@@ -31,7 +31,7 @@ export const thryvComparison = {
   "vendorBilling": "Six-month initial term on monthly billing. Annual option has a twelve-month initial term.",
   "workflowNote": "",
   "pricingHeading": "One team price. Follow-up tools included.",
-  "pricingIntroduction": "Compare Zapla Follow-Through with Thryv Signature’s published monthly subscription.",
+  "pricingIntroduction": "Follow-Through is A$161/month less than Signature’s monthly subscription. Compare the included tools and separately priced setup below.",
   "pricingHeadline": "One team price. Follow-up tools included.",
   "vendorPlanReason": "Signature is the broader advertised website and marketing offer.",
   "vendorLowerPlans": "Starter is a lower-priced option for basic online visibility.",
@@ -88,7 +88,7 @@ export const thryvComparison = {
     "note": "Your launch scope and price are confirmed before you commit."
   },
   "foundationNote": "",
-  "methodology": "This comparison uses Thryv Signature’s Australian published offer and Zapla’s current plans. Subscription totals exclude setup, usage and optional services. Features and service scopes differ. Business Center, Keap and advertising services are not added to Signature’s subscription. Starter is a cheaper alternative for basic online visibility.",
+  "methodology": "Thryv Signature’s Australian offer versus Zapla Follow-Through. AUD subscriptions exclude GST, setup, usage and optional services. Features and service scopes differ. No additional Thryv products are added to Signature’s price. Starter is a cheaper option for basic online visibility.",
   "fit": [
     {
       "title": "Build your online presence.",
@@ -183,7 +183,7 @@ export const thryvComparison = {
         "mark": "tick"
       },
       "competitor": {
-        "text": "Website booking",
+        "text": "",
         "detail": "Thryv’s professional website offering includes online scheduling. This does not imply identical calendar-management capabilities.",
         "status": "included",
         "sources": [
@@ -265,7 +265,7 @@ export const thryvComparison = {
       "label": "Month-to-month subscription",
       "zapla": {
         "text": "",
-        "detail": "Zapla is monthly after launch. Required Guided Launch is separately priced.",
+        "detail": "Zapla has a month-to-month subscription. Required Guided Launch is separately priced.",
         "status": "included",
         "sources": [
           "offer"
@@ -327,7 +327,7 @@ export const thryvComparison = {
     }
   ],
   "optionalRows": [],
-  "showMarketingNote": true,
+  "showMarketingNote": false,
   "marketingNote": "Social scheduling is already included in Thryv Signature.",
   "offer": {
     "monthly": 399,
@@ -342,7 +342,7 @@ export const thryvComparison = {
   "faqs": [
     {
       "question": "Which Thryv package is compared?",
-      "answer": "Thryv Signature at its published Australian monthly price. The comparison does not add Business Center, Keap or advertising services."
+      "answer": "Thryv Signature at A$560/month + GST, with a six-month initial term. Starter is a cheaper option for basic online visibility; Signature adds a professionally designed website and broader marketing tools."
     },
     {
       "question": "What happens when I miss a call?",
@@ -358,23 +358,15 @@ export const thryvComparison = {
     },
     {
       "question": "Is Zapla’s subscription cheaper?",
-      "answer": "Follow-Through is A$399/month + GST. Its subscription is lower than Signature’s monthly and annual-equivalent rates. Required Zapla launch and differences in the included services mean this is not a claim of lower total cost."
-    },
-    {
-      "question": "Does Thryv have a cheaper plan?",
-      "answer": "Yes. Starter is a lower-priced option for basic online visibility. This page compares Signature’s broader website and marketing offer."
+      "answer": "Yes. Follow-Through is A$399/month + GST: A$161 less than Signature’s monthly rate, or A$77 less than its annual-equivalent rate. Required Zapla Guided Launch starts at A$1,997 + GST; subscription differences are not total-cost savings."
     },
     {
       "question": "Does Zapla include marketing?",
       "answer": "Growth adds campaign and social tools for A$699/month + GST in total, including Follow-Through. Signature already includes social scheduling. The packages provide different marketing capabilities."
     },
     {
-      "question": "Can I keep my existing website?",
-      "answer": "Yes. We can agree how Zapla’s forms, bookings and customer follow-up work alongside your current website."
-    },
-    {
-      "question": "What happens to my existing customer data?",
-      "answer": "We agree what to migrate, check the available export and confirm the scope and launch price before work starts."
+      "question": "Can I keep my website and move my customer data?",
+      "answer": "Yes. We agree how Zapla works with your existing website, check the available customer-data export and confirm what to migrate before work starts. Workflow, history and integration transfers are assessed within your agreed launch scope."
     },
     {
       "question": "Is AI Receptionist included?",
@@ -382,7 +374,7 @@ export const thryvComparison = {
     },
     {
       "question": "Am I locked into an annual Zapla contract?",
-      "answer": "Follow-Through is monthly after launch. Required launch is separate from the subscription."
+      "answer": "No. Follow-Through has a month-to-month subscription. Required Guided Launch is priced separately."
     }
   ],
   "sources": [
