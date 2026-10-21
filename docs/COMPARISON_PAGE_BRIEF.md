@@ -634,3 +634,7 @@ Actual verification: code c73834035b41816b538ce91fb6a65b938517e7f7 rendered in f
 
 ### Correction: reject product-name placeholders in Signature table
 Owner rejected Business Center and CRM / lead tools cells. Those labels fail to answer inclusion in the fixed A$560 Signature package and should never have been inserted as a workaround for unresolved scope. Removed the four newly added rows (CRM & pipelines, Shared inbox, Quotes & proposals, Invoicing). Their Zapla capabilities remain in the approved benefits copy; support ticketing benefit and FAQ retained. Do not re-add the comparison rows until Signature entitlements are established, or replace them with guessed ticks/crosses. No price/shared-shell/other-page changes. No publication.
+
+
+### Thryv Forms cell simplified
+Owner requested tick only rather than Website forms. Removed that sublabel only; included tick and website scope in expandable notes retained. This is a display clarification, not expanded feature parity. Website/funnel row, other rows, prices and shared components unchanged. No publication.

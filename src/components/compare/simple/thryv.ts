@@ -161,7 +161,7 @@ export const thryvComparison = {
         "mark": "tick"
       },
       "competitor": {
-        "text": "Website forms",
+        "text": "",
         "detail": "Thryv’s professional website offering includes forms. This does not imply identical form logic or workflow capabilities.",
         "status": "included",
         "sources": [
