@@ -7,8 +7,8 @@ export const thryvComparison = {
   "introduction": "Give reception, sales and the owner one place for enquiries, two-way SMS, quotes, bookings and automated follow-ups. A$399/month + GST, with unlimited users and no extra seat fees.",
   "highlights": [
     {
-      "title": "Keep enquiries moving towards a booking.",
-      "description": "Bring customer conversations, quotes and appointments together. Automate the next step so your team can see what needs attention."
+      "title": "Turn a missed call into a conversation.",
+      "description": "When you cannot answer, Zapla sends a text so the caller can reply. Your team can pick up the conversation and book the next step."
     },
     {
       "title": "Add people without adding seat fees.",
@@ -19,7 +19,7 @@ export const thryvComparison = {
       "description": "We import your agreed customer data, connect your tools, configure your first workflows and test them with your team."
     }
   ],
-  "tableIntroduction": "Zapla Follow-Through versus Thryv Signature. Compare the tools for customer follow-up, website enquiries and reviews.",
+  "tableIntroduction": "Zapla Follow-Through versus Thryv Signature. Compare missed-call recovery, customer follow-up, reporting and the tools your team uses every day.",
   "tableCaption": "Thryv Signature compared with Zapla Follow-Through.",
   "vendorPricingUrl": "https://www.thryv.com.au/pricing/",
   "vendorPlan": "Signature",
@@ -97,11 +97,33 @@ export const thryvComparison = {
     },
     {
       "title": "Bring customer follow-up together.",
-      "description": "Choose Zapla when your priority is giving the whole team one place to manage enquiries, quotes, bookings and the next follow-up.",
+      "description": "Choose Zapla to recover missed calls, bring enquiries, quotes and bookings together, and configure the next follow-up for your team.",
       "consideration": ""
     }
   ],
   "rows": [
+    {
+      "id": "missed-call",
+      "label": "Missed-call text-back",
+      "zapla": {
+        "text": "Included¹",
+        "detail": "Automatically send a text when your business misses a call. Phone numbers and messaging usage are separate.",
+        "status": "included",
+        "sources": [
+          "offer"
+        ],
+        "mark": "tick"
+      },
+      "competitor": {
+        "text": "",
+        "detail": "Thryv’s published HighLevel comparison marks missed-call text-back as unavailable. The table is dated 9 October 2025. Call tracking and incoming-call notifications are different capabilities.",
+        "status": "documented",
+        "sources": [
+          "highlevel-comparison"
+        ],
+        "mark": "cross"
+      }
+    },
     {
       "id": "workflows",
       "label": "Automation workflows",
@@ -117,11 +139,12 @@ export const thryvComparison = {
       },
       "competitor": {
         "text": "Marketing automations",
-        "detail": "Thryv includes marketing automation and documents a Keap connection for configurable lead-follow-up workflows.",
+        "detail": "Thryv advertises workflow automation across its product family. Its Lead Flow documentation connects configurable lead-follow-up workflows to Keap. No additional Keap subscription is included in the price shown.",
         "status": "documented",
         "sources": [
           "features",
-          "leadflow"
+          "leadflow",
+          "highlevel-comparison"
         ]
       }
     },
@@ -205,12 +228,36 @@ export const thryvComparison = {
       },
       "competitor": {
         "text": "Website included",
-        "detail": "Signature includes a professionally designed website. This cell credits the website without implying equivalent funnel tools.",
+        "detail": "Signature includes a professionally designed website. Thryv also advertises funnels and landing pages in its broader HighLevel comparison; the named Signature offer is credited here for its custom website.",
         "status": "documented",
         "sources": [
           "pricing",
-          "website"
+          "website",
+          "highlevel-comparison"
         ]
+      }
+    },
+    {
+      "id": "dashboards",
+      "label": "Custom dashboards",
+      "zapla": {
+        "text": "",
+        "detail": "Create dashboards for your team’s reporting. Bespoke reporting configuration is scoped separately from software access.",
+        "status": "included",
+        "sources": [
+          "platform"
+        ],
+        "mark": "tick"
+      },
+      "competitor": {
+        "text": "",
+        "detail": "Thryv’s published HubSpot comparison marks custom dashboards as unavailable. Signature includes digital performance and lead insights; those reports are not the same as custom dashboards. The comparison table is dated 9 October 2025.",
+        "status": "documented",
+        "sources": [
+          "hubspot-comparison",
+          "pricing"
+        ],
+        "mark": "cross"
       }
     },
     {
@@ -298,6 +345,14 @@ export const thryvComparison = {
       "answer": "Thryv Signature at its published Australian monthly price. The comparison does not add Business Center, Keap or advertising services."
     },
     {
+      "question": "What happens when I miss a call?",
+      "answer": "Zapla can automatically text the caller so they can reply while your team is busy. The conversation stays with the customer record for your team to follow up. Phone numbers and messaging usage are separate."
+    },
+    {
+      "question": "Does Thryv also offer CRM, invoicing and automation?",
+      "answer": "Yes. Thryv offers these capabilities across its product family. This page prices the Australian Signature package; it does not combine Business Center, Keap or other subscriptions into that price. Confirm the exact products and allowances in your Thryv order."
+    },
+    {
       "question": "Is Zapla’s subscription cheaper?",
       "answer": "Follow-Through is A$399/month + GST. Its subscription is lower than Signature’s monthly and annual-equivalent rates. Required Zapla launch and differences in the included services mean this is not a claim of lower total cost."
     },
@@ -361,8 +416,24 @@ export const thryvComparison = {
       "id": "offer",
       "title": "Zapla current plans and Guided Launch",
       "url": "/Pricing-v3"
+    },
+    {
+      "id": "highlevel-comparison",
+      "title": "Thryv’s own HighLevel feature comparison",
+      "url": "https://www.thryv.com.au/compare/highlevel-vs-thryv-software/"
+    },
+    {
+      "id": "hubspot-comparison",
+      "title": "Thryv’s own HubSpot feature comparison",
+      "url": "https://www.thryv.com.au/compare/hubspot-vs-thryv-small-businesses/"
+    },
+    {
+      "id": "platform",
+      "title": "NextGen platform dashboards and core capabilities",
+      "url": "https://thenextgencrm.com/pricing/"
     }
   ],
   "updated": "21 October 2026",
-  "pricingUrl": "/Pricing-v3"
+  "pricingUrl": "/Pricing-v3",
+  "customerVisual": "missed-call"
 } satisfies ComparisonDefinition;
