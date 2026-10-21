@@ -624,3 +624,7 @@ Limitations: native Lovable page selector search for thryv still returns only Go
 
 ### Thryv subscription cell clarification
 Owner requested removing the confusing After launch sublabel. Removed only that text from the Zapla Month-to-month subscription cell; tick retained. Separately disclosed Guided Launch and pricing remain unchanged. Additional core rows and support ticketing are under investigation, not approved negative claims or implemented rows. No publication. Preview verification pending for this narrow edit.
+
+
+### Thryv practical feature additions approved
+Owner approved adding practical core capabilities. Added CRM & pipelines, Shared inbox, Quotes & proposals and Invoicing rows. Zapla ticks; document counts Unlimited per approved owner packaging. Thryv neutral labels CRM / lead tools or Business Center credit documented capabilities without asserting Signature inclusion/exclusion. Expanded notes tie supplied products to order; no added subscription stack. Support ticketing is a positive Zapla highlight and FAQ, not an unsupported Thryv cross. Current sources: Thryv AU invoice-software and Business Center inbox help; NextGen DPA support-record scope and current offer. No whiteboards/Telegram/WhatsApp rows, new hosting crosses or price changes. Existing After launch cell removal retained. No shared shell changes. Preview verification follows.

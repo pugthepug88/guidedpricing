@@ -15,8 +15,8 @@ export const thryvComparison = {
       "description": "Give reception, sales and the owner their own access. Your Zapla subscription stays the same as your team grows."
     },
     {
-      "title": "Get your first workflows working.",
-      "description": "We import your agreed customer data, connect your tools, configure your first workflows and test them with your team."
+      "title": "Keep customer work in one place.",
+      "description": "CRM & pipelines, a shared inbox, quotes, invoices and a support ticketing system are included. Give each customer issue an owner and track it through to resolution."
     }
   ],
   "tableIntroduction": "Zapla Follow-Through versus Thryv Signature. Compare missed-call recovery, customer follow-up, reporting and the tools your team uses every day.",
@@ -145,6 +145,91 @@ export const thryvComparison = {
           "features",
           "leadflow",
           "highlevel-comparison"
+        ]
+      }
+    },
+    {
+      "id": "crm",
+      "label": "CRM & pipelines",
+      "zapla": {
+        "text": "",
+        "detail": "Track contacts, enquiries and deals through your sales process.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "CRM / lead tools",
+        "detail": "Thryv advertises CRM and opportunity management, with configurable lead pipelines documented through its Keap connection. Thryv documents this capability in its wider product range. The products and allowances supplied with Signature are governed by your order; no extra subscription is added to the price shown.",
+        "status": "documented",
+        "sources": [
+          "highlevel-comparison",
+          "leadflow"
+        ]
+      }
+    },
+    {
+      "id": "inbox",
+      "label": "Shared inbox",
+      "zapla": {
+        "text": "",
+        "detail": "Keep customer conversations together so your team can respond and follow up.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "Business Center",
+        "detail": "Business Center has a client communication inbox. Thryv documents this capability in its wider product range. The products and allowances supplied with Signature are governed by your order; no extra subscription is added to the price shown.",
+        "status": "documented",
+        "sources": [
+          "bc-inbox"
+        ]
+      }
+    },
+    {
+      "id": "quotes",
+      "label": "Quotes & proposals",
+      "zapla": {
+        "text": "Unlimited",
+        "detail": "Create and send quotes and proposals. Unlimited document count; sending and setup are separate.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "Business Center",
+        "detail": "Thryv offers estimates, customer approvals and electronic signatures. Thryv documents this capability in its wider product range. The products and allowances supplied with Signature are governed by your order; no extra subscription is added to the price shown.",
+        "status": "documented",
+        "sources": [
+          "thryv-invoices"
+        ]
+      }
+    },
+    {
+      "id": "invoicing",
+      "label": "Invoicing",
+      "zapla": {
+        "text": "Unlimited",
+        "detail": "Create and send invoices. Unlimited invoice count; payment-provider and communications fees are separate.",
+        "status": "included",
+        "mark": "tick",
+        "sources": [
+          "offer"
+        ]
+      },
+      "competitor": {
+        "text": "Business Center",
+        "detail": "Thryv offers invoices, payment collection and an estimates-to-invoices workflow. Thryv documents this capability in its wider product range. The products and allowances supplied with Signature are governed by your order; no extra subscription is added to the price shown.",
+        "status": "documented",
+        "sources": [
+          "thryv-invoices"
         ]
       }
     },
@@ -353,6 +438,10 @@ export const thryvComparison = {
       "answer": "Yes. Thryv offers these capabilities across its product family. This page prices the Australian Signature package; it does not combine Business Center, Keap or other subscriptions into that price. Confirm the exact products and allowances in your Thryv order."
     },
     {
+      "question": "Can my team manage customer support tickets?",
+      "answer": "Yes. Follow-Through includes a support ticketing system to organise customer issues, assign responsibility and track progress. Configuration and automation are agreed as part of your launch scope."
+    },
+    {
       "question": "Is Zapla’s subscription cheaper?",
       "answer": "Follow-Through is A$399/month + GST. Its subscription is lower than Signature’s monthly and annual-equivalent rates. Required Zapla launch and differences in the included services mean this is not a claim of lower total cost."
     },
@@ -431,6 +520,21 @@ export const thryvComparison = {
       "id": "platform",
       "title": "NextGen platform dashboards and core capabilities",
       "url": "https://thenextgencrm.com/pricing/"
+    },
+    {
+      "id": "bc-inbox",
+      "title": "Thryv Business Center client inbox",
+      "url": "https://learn.thryv.com/hc/en-us/articles/360001653032-Manage-All-Your-Client-Messages-from-the-Thryv-Business-Center-Inbox"
+    },
+    {
+      "id": "thryv-invoices",
+      "title": "Thryv estimates and invoices",
+      "url": "https://www.thryv.com.au/features/invoice-software/"
+    },
+    {
+      "id": "nextgen-dpa",
+      "title": "NextGen platform scope, including support records",
+      "url": "https://thenextgencrm.com/dpa/"
     }
   ],
   "updated": "21 October 2026",
