@@ -698,3 +698,5 @@ Actual authenticated Lovable preview source e9415b69d72a6a2b69c3c29bcc066345f489
 
 ### 22 October 2026 — owner approved silver hero; remove visible pause control
 Owner accepted the silver hero and requested removal of the pause button. Removed the visible control and its React state/imports/styles only. Hover pause and reduced-motion static layout retained. Exact approved eyebrow, heading, subheading and CTA unchanged. No publication. Actual preview check pending below.
+
+Actual authenticated Lovable preview verified after refresh: silver hero present, zero visible motion-toggle controls, two logo tracks retained, approved heading/subheading unchanged. Screenshot visually inspected. Verified source revision 235328fef36c331e553051b57f04adb464ca4a95. No publication; no broader regression rerun for this control-only removal.
