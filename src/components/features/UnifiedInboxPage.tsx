@@ -227,19 +227,22 @@ export function UnifiedInboxPage() {
         </div>
       </section>
       <section className="ui-problems" aria-label="What changes for your team">
-        <div className="ui-wrap ui-benefit-strip">
-          <div>
-            <span>Bring it together</span>
-            <p>Your connected channels in one place.</p>
-          </div>
-          <div>
-            <span>Reply with context</span>
-            <p>The customer history alongside.</p>
-          </div>
-          <div>
-            <span>Keep the team connected</span>
-            <p>Conversations stay with the business.</p>
-          </div>
+        <div className="ui-wrap ui-benefit-cards">
+          <article className="ui-benefit-card ui-benefit-channels">
+            <MessagesSquare size={34} strokeWidth={1.6} aria-hidden="true" />
+            <h2>Your channels, together.</h2>
+            <p>Handle messages from your connected channels in one inbox.</p>
+          </article>
+          <article className="ui-benefit-card ui-benefit-context">
+            <FileText size={34} strokeWidth={1.6} aria-hidden="true" />
+            <h2>Know the conversation.</h2>
+            <p>See customer history alongside the message you’re answering.</p>
+          </article>
+          <article className="ui-benefit-card ui-benefit-team">
+            <Users size={34} strokeWidth={1.6} aria-hidden="true" />
+            <h2>Bring your team in.</h2>
+            <p>Talk with colleagues in Team Chat and keep customer replies separate.</p>
+          </article>
         </div>
       </section>
       <Channels />

@@ -74,3 +74,7 @@ Hero white panel now shows the quote detail that supports Ben's answer: old unit
 
 ## Approved Team Chat section, 22 October 2026
 Replaced the repetitive dark customer-record scene with customer and internal Team Chat conversations. Mia asks about Friday, Ben checks with Alex internally, then Ben replies to Mia. Separate labelled colour surfaces make the audiences explicit. Based on user-confirmed Team Chat capability; no automatic forwarding, linked threads, scheduling integration or assignment claimed. No new automatic animation. Hero unchanged in this approval.
+
+
+## Hero benefit cards, 22 October 2026
+User rejected the thin divided benefit strip and supplied a Clay three-card reference. Adapted its clear icon/heading/body hierarchy into compact Zapla blue, sage and stone cards; no copied decorative 3D assets or extra section heading. Three distinct benefits: connected channels, customer context and Team Chat. Mobile uses a compact icon-and-copy stack.
