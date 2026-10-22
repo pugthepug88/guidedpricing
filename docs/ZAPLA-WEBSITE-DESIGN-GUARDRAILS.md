@@ -106,3 +106,7 @@ If any lens cannot explain what the buyer is supposed to understand within a few
 
 ## No decorative accent bars
 Avoid decorative vertical accent bars, coloured edge strips and arbitrary lines beside text or inside cards. Use spacing, typography and alignment for hierarchy. Only use colour or lines when they communicate a clear meaning, such as a selected control, a genuine category/state, a structural divider or a workflow connection. Do not invent a meaning to justify an ornament. The orange stripe on the Inbox customer record and the blue stripe on Pipeline's next-step text were removed under this rule.
+
+
+## No decorative numbered steps
+Do not use 01/02/03 labels as the default layout for Guided Launch, feature explanations or benefits. Use a composition appropriate to the content. User explicitly rejected the numbered Inbox setup and explanatory key. Numerals are appropriate only where actual sequence or data requires them, not visual garnish.

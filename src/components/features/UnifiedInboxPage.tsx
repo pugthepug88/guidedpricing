@@ -2,53 +2,10 @@ import { useState, type ReactNode } from "react";
 import { ArrowRight, ChevronDown, Mail, MessageCircle, MessagesSquare, Users, Slack, Clock3 } from "lucide-react";
 import { siWhatsapp, siTelegram, siMessenger, siInstagram } from "simple-icons";
 import { motion, useReducedMotion } from "motion/react";
+import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/unified-inbox.css";
 
-const people = [
-  {
-    name: "Mia Thompson",
-    cell: 9,
-    channel: "SMS",
-    subject: "Hot water replacement",
-    stage: "Quote sent",
-    owner: "Ben Walker",
-    note: "Prefers an afternoon visit.",
-    messages: [
-      "Hi Mia, I’ve emailed your hot water replacement quote. Let me know if you have any questions.",
-      "Thanks Ben. Does it include taking the old unit away?",
-      "Yes, removal of the old unit is included in your quote.",
-    ],
-  },
-  {
-    name: "Daniel Brooks",
-    cell: 5,
-    channel: "Email",
-    subject: "Office maintenance",
-    stage: "Site visit booked",
-    owner: "Alex Chen",
-    note: "Reception can arrange access.",
-    messages: [
-      "Hi Daniel, your site visit is booked for Thursday afternoon.",
-      "Thanks. Should I arrange access through reception?",
-      "Yes please. I’ll ask for you at reception when I arrive.",
-    ],
-  },
-  {
-    name: "Priya Shah",
-    cell: 4,
-    channel: "SMS",
-    subject: "Kitchen renovation",
-    stage: "Enquiry received",
-    owner: "Ben Walker",
-    note: "Customer can send photos of the space.",
-    messages: [
-      "Hi Priya, thanks for getting in touch about your kitchen renovation.",
-      "Would photos help before we arrange a visit?",
-      "Absolutely. Send them through and we can discuss the next step.",
-    ],
-  },
-];
 function Avatar({ cell, large = false }: { cell: number; large?: boolean }) {
   return (
     <span
@@ -68,99 +25,6 @@ function Cta({ children = "Book a Call" }: { children?: ReactNode }) {
       {children}
       <ArrowRight size={17} aria-hidden="true" />
     </a>
-  );
-}
-function Thread({ selected = 0, compact = false }: { selected?: number; compact?: boolean }) {
-  const person = people[selected];
-  return (
-    <div className={`ui-thread ${compact ? "ui-thread-compact" : ""}`}>
-      <div className="ui-thread-heading">
-        <Avatar cell={person.cell} />
-        <div>
-          <strong>{person.name}</strong>
-          <span>{person.channel} conversation</span>
-        </div>
-      </div>
-      <div className="ui-messages">
-        {person.messages.map((message, index) => (
-          <div key={message} className={`ui-message-row ${index !== 1 ? "ui-outgoing" : ""}`}>
-            <Avatar cell={index === 1 ? person.cell : selected === 1 ? 8 : 13} />
-            <div>
-              <span className="ui-message-author">
-                {index === 1 ? person.name.split(" ")[0] : person.owner.split(" ")[0]}
-              </span>
-              <p>{message}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-function Context({ selected = 0 }: { selected?: number }) {
-  const person = people[selected];
-  return (
-    <div className="ui-context">
-      <span className="ui-small-label">Customer context</span>
-      <div className="ui-context-person">
-        <Avatar cell={person.cell} large />
-        <strong>{person.name}</strong>
-      </div>
-      <dl>
-        {[
-          ["Enquiry", person.subject],
-          ["Pipeline stage", person.stage],
-          ["Contact owner", person.owner],
-        ].map(([label, value]) => (
-          <div key={label}>
-            <dt>{label}</dt>
-            <dd>{value}</dd>
-          </div>
-        ))}
-      </dl>
-      <div className="ui-record-note">
-        <span>Customer note</span>
-        <p>{person.note}</p>
-      </div>
-    </div>
-  );
-}
-function InboxScene() {
-  const [selected, setSelected] = useState(0);
-  return (
-    <div className="ui-blue-stage">
-      <div className="ui-glass-shell">
-        <div className="ui-shell-bar">
-          <img src="/concept/zapla-logo-dark.svg" alt="Zapla" />
-          <span>Unified Inbox</span>
-        </div>
-        <div className="ui-inbox-grid">
-          <div className="ui-conversation-list">
-            <h2>Conversations</h2>
-            <p className="ui-list-hint">Choose a conversation</p>
-            <div className="ui-conversation-options">
-              {people.map((person, i) => (
-                <button
-                  key={person.name}
-                  type="button"
-                  aria-pressed={selected === i}
-                  onClick={() => setSelected(i)}
-                >
-                  <Avatar cell={person.cell} />
-                  <span>
-                    <strong>{person.name}</strong>
-                    <small>{person.subject}</small>
-                    <em>{person.channel}</em>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-          <Thread selected={selected} />
-          <Context selected={selected} />
-        </div>
-      </div>
-    </div>
   );
 }
 function HeroScene() {
@@ -201,40 +65,6 @@ function HeroScene() {
     </div>
   );
 }
-function Explore() {
-  return (
-    <section className="ui-section ui-explore" id="inbox-demo" aria-labelledby="explore-heading">
-      <div className="ui-wrap">
-        <div className="ui-explore-intro">
-          <div>
-            <p className="ui-eyebrow">Inside your inbox</p>
-            <h2 id="explore-heading">
-              The message is only
-              <br />
-              half the conversation.
-            </h2>
-          </div>
-          <p>
-            See who you’re speaking to, what they need and where things stand. Choose a customer
-            below to explore their conversation and record.
-          </p>
-        </div>
-        <InboxScene />
-        <div className="ui-scene-key">
-          <span>
-            <b>01</b> Find the conversation
-          </span>
-          <span>
-            <b>02</b> Read the exchange
-          </span>
-          <span>
-            <b>03</b> Check the customer record
-          </span>
-        </div>
-      </div>
-    </section>
-  );
-}
 const channels = [
   { name: "WhatsApp", brand: siWhatsapp, colour: "#168c52" },
   { name: "Email", icon: Mail, colour: "#3764ab" },
@@ -246,29 +76,41 @@ const channels = [
   { name: "Slack", icon: Slack, colour: "#654568" },
   { name: "Team chat", icon: Users, colour: "#4f706c" },
 ];
+function ChannelMark({ index }: { index: number }) {
+  const channel = channels[index];
+  return <span className="ui-channel-icon" style={{ color: channel.colour }} aria-hidden="true">{channel.brand ? <svg viewBox="0 0 24 24"><path fill="currentColor" d={channel.brand.path} /></svg> : channel.icon ? <channel.icon strokeWidth={1.7} /> : null}</span>;
+}
 function Channels() {
   return (
-    <section className="ui-channels" aria-labelledby="channels-heading">
-      <div className="ui-wrap ui-channel-layout">
-        <div className="ui-channel-copy">
-          <p className="ui-eyebrow">Your connected channels</p>
-          <h2 id="channels-heading">Different channels.<br />One place to keep up.</h2>
-          <p>Bring the places people contact you into Zapla, with team conversations close at hand.</p>
+    <section className="ui-section ui-unified-story" id="inbox-demo" aria-labelledby="channels-heading">
+      <div className="ui-wrap">
+        <div className="ui-explore-intro">
+          <div><p className="ui-eyebrow">Inside your inbox</p><h2 id="channels-heading">The channel changes.<br />The context stays.</h2></div>
+          <p>A quote goes out by email. A question comes back by SMS. See both alongside the customer’s details, so your team can pick up where the conversation left off.</p>
         </div>
-        <div className="ui-channel-stage">
-          <div className="ui-channel-directory">
-            <div className="ui-channel-brand"><img src="/concept/zapla-logo-dark.svg" alt="Zapla" /><span>Unified Inbox</span></div>
-            <ul aria-label="Channels you can connect">
-              {channels.map(channel => (
-                <li key={channel.name}>
-                  <span className="ui-channel-icon" style={{ color: channel.colour }} aria-hidden="true">
-                    {channel.brand ? <svg viewBox="0 0 24 24"><path fill="currentColor" d={channel.brand.path} /></svg> : channel.icon ? <channel.icon strokeWidth={1.7} /> : null}
-                  </span>
-                  <span>{channel.name}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="ui-unified-stage">
+          <div className="ui-channel-ribbon">
+            <p>Connect the places people contact you</p>
+            <ul aria-label="Channels you can connect">{channels.map((channel, index) => <li key={channel.name}><ChannelMark index={index} /><span>{channel.name}</span></li>)}</ul>
           </div>
+          <div className="ui-history-window">
+            <div className="ui-history-title"><img src="/concept/zapla-logo-dark.svg" alt="Zapla" /><span>One customer. Their conversation and context.</span></div>
+            <div className="ui-history-grid">
+              <div className="ui-history-conversation">
+                <div className="ui-history-person"><Avatar cell={9} large /><div><h3>Mia Thompson</h3><p>Hot water replacement</p></div></div>
+                <div className="ui-history-event"><div className="ui-event-channel"><Mail size={17} /><span>Email · Ben to Mia</span></div><h4>Your hot water replacement quote</h4><p>Hi Mia, your quote includes installation and removal of the old unit. Let me know if you have any questions.</p></div>
+                <div className="ui-history-event ui-history-incoming"><div className="ui-event-channel"><MessageCircle size={17} /><span>SMS · Mia to your team</span></div><p>Thanks for the quote. Could you come in the afternoon?</p></div>
+                <div className="ui-history-reply"><Avatar cell={13} /><div><span>Ben’s reply · SMS</span><p>Absolutely. Which afternoon works best for you?</p></div></div>
+              </div>
+              <aside className="ui-history-context" aria-label="Customer context alongside the conversation">
+                <p className="ui-eyebrow">In view while you reply</p>
+                <h3>The details behind<br />the message.</h3>
+                <dl><div><dt>Customer</dt><dd>Mia Thompson</dd></div><div><dt>Enquiry</dt><dd>Hot water replacement</dd></div><div><dt>Pipeline stage</dt><dd>Quote sent</dd></div><div><dt>Contact owner</dt><dd><Avatar cell={13} />Ben Walker</dd></div></dl>
+                <div className="ui-context-note"><span>Customer note</span><p>Prefers an afternoon visit.</p></div>
+              </aside>
+            </div>
+          </div>
+          <p className="ui-history-payoff">The email, the reply and the customer details. Together when your team needs them.</p>
         </div>
       </div>
     </section>
@@ -405,7 +247,6 @@ export function UnifiedInboxPage() {
         </div>
       </section>
       <Channels />
-      <Explore />
       <ReplyTools />
       <section className="ui-section ui-human">
         <div className="ui-wrap ui-human-grid">
@@ -479,71 +320,33 @@ export function UnifiedInboxPage() {
               </a>
             </div>
           </div>
-          <div className="ui-story">
-            <div className="ui-story-message">
-              <Avatar cell={9} />
-              <div>
-                <span>Mia · SMS</span>
-                <p>Does it include taking the old unit away?</p>
-              </div>
+          <div className="ui-work-scene">
+            <div className="ui-visit-sheet">
+              <div className="ui-visit-person"><Avatar cell={5} large /><div><span>Daniel Brooks</span><h3>Office maintenance</h3></div></div>
+              <dl><div><dt>Site visit</dt><dd>Thursday afternoon</dd></div><div><dt>Access note</dt><dd>Ask for Daniel at reception.</dd></div></dl>
+              <p className="ui-visit-question">“Should I arrange access through reception?”</p>
             </div>
-            <div className="ui-story-line" aria-hidden="true" />
-            <div className="ui-story-record">
-              <span>Attached to Mia’s record</span>
-              <h3>Hot water replacement</h3>
-              <dl>
-                <div>
-                  <dt>Stage</dt>
-                  <dd>Quote sent</dd>
-                </div>
-                <div>
-                  <dt>Owner</dt>
-                  <dd>Ben Walker</dd>
-                </div>
-              </dl>
-              <p>Ben can answer with the quote and conversation in view.</p>
+            <div className="ui-work-reply">
+              <div><Avatar cell={8} /><span>Alex’s reply</span><Mail size={16} aria-hidden="true" /></div>
+              <p>Yes please, Daniel. I’ll ask for you at reception when I arrive on Thursday afternoon.</p>
             </div>
           </div>
         </div>
       </section>
       <section className="ui-section ui-setup">
-        <div className="ui-wrap">
-          <div className="ui-setup-heading">
-            <div>
-              <p className="ui-eyebrow">Guided Launch</p>
-              <h2>
-                Make it work
-                <br />
-                the way your team does.
-              </h2>
-            </div>
-            <p>
-              We help you work through the setup, starting with the conversations your business
-              handles every day.
-            </p>
+        <div className="ui-wrap ui-launch-layout">
+          <div className="ui-launch-copy">
+            <p className="ui-eyebrow">Guided Launch</p>
+            <h2>Your inbox.<br />Set up with you.</h2>
+            <p>We work through the channels, customer information and team access your business needs. You bring the way you work. We help turn it into a practical setup.</p>
+            <a href="/booking" className="ui-launch-link">Talk through your setup <ArrowRight size={17} /></a>
           </div>
-          <ol className="ui-steps">
-            {[
-              [
-                "Choose your channels",
-                "Agree which messages and accounts your team needs to manage.",
-              ],
-              [
-                "Connect the context",
-                "Bring across the agreed customer information and map the fields you use.",
-              ],
-              [
-                "Bring in your team",
-                "Set up access and walk through how enquiries and replies will be handled.",
-              ],
-            ].map(([title, copy], i) => (
-              <li key={title}>
-                <span>0{i + 1}</span>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="ui-launch-plan">
+            <div className="ui-launch-plan-heading"><ZaplaPetal size={36} /><div><span>Built around your business</span><h3>Your inbox setup</h3></div></div>
+            <div className="ui-launch-row"><div className="ui-launch-channel-marks"><ChannelMark index={0} /><ChannelMark index={1} /><ChannelMark index={2} /></div><div><h4>The channels you use</h4><p>Agree which accounts and conversations belong in your inbox.</p></div></div>
+            <div className="ui-launch-row"><div className="ui-launch-record"><span>Name</span><span>History</span><span>Notes</span></div><div><h4>The context you need</h4><p>Map your customer details and bring across the information you rely on.</p></div></div>
+            <div className="ui-launch-row"><div className="ui-launch-people"><Avatar cell={13} /><Avatar cell={8} /></div><div><h4>The people who reply</h4><p>Set up team access and walk through how enquiries will be handled.</p></div></div>
+          </div>
         </div>
       </section>
       <section className="ui-section ui-faq">
@@ -571,6 +374,7 @@ export function UnifiedInboxPage() {
       </section>
       <section className="ui-final">
         <div className="ui-wrap">
+          <div className="ui-final-petal"><ZaplaPetal size={34} /></div>
           <p className="ui-eyebrow">See it around your business</p>
           <h2>
             Better replies start
