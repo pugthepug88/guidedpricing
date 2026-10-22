@@ -1469,7 +1469,14 @@
 .ui-launch-plan .ui-launch-channel-marks .ui-channel-icon { background:#fff; border-radius:8px; padding:5px; box-sizing:content-box; }
 .ui-launch-plan .ui-launch-channel-marks { gap:7px; }
 .ui-launch-plan .ui-launch-channel-marks svg { width:21px; height:21px; }
-.ui-launch-plan .ui-launch-record { background:#ffffff12; border:1px solid #ffffff40; color:#fff; }
+.ui-launch-plan .ui-launch-record { background:transparent; border:0; border-radius:0; padding:0; gap:7px; font-size:12px; line-height:1.4; font-weight:500; color:#e1ebf4; }
 .zapla-inbox .ui-launch-link { color:#245fa1; }
 .zapla-inbox .ui-faq { background:#f2f5f7; border-top:0; }
 .ui-faq details,.ui-faq details:first-child { border-color:#cdd7de; }
+
+/* Alternate Guided Launch against the preceding Team Chat section. */
+@media (min-width:751px) {
+ .ui-launch-layout { grid-template-columns:1.1fr 1fr; }
+ .ui-launch-plan { grid-column:1; grid-row:1; }
+ .ui-launch-copy { grid-column:2; grid-row:1; }
+}
