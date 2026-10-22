@@ -81,3 +81,8 @@
 .ch-zapla-mark{position:relative;overflow:hidden}
 .ch-zapla-mark img{position:absolute;width:139.33%;height:139.33%;max-width:none;left:-19.67%;top:-21.56%}
 @media(max-width:600px){.comparison-hub .ch-cta{padding-top:56px}}
+
+/* Keep each brand name beside its recognisable symbol in the directory. */
+.ch-logo--activecampaign,.ch-logo--pipedrive{gap:12px}
+.ch-logo img.ch-brand-symbol{width:44px;height:48px;flex-shrink:0;object-position:center}
+.ch-logo--activecampaign img.ch-brand-symbol{width:30px}
