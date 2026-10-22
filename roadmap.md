@@ -1,5 +1,8 @@
 # Roadmap
 
+- [ ] Implement approved comparison hub, Platform nav/footer links and shared return link in current preview.
+- [ ] Verify comparison navigation at 375/390/768/1440, logo/link coverage, shell/home regression and SEO; record actual checks without publishing.
+
 - [ ] Build separate concise comparison template and Pipedrive page, preserving originals and adding the review-list entry.
 - [ ] Verify concise comparison pricing rules, desktop/mobile interactions, accessibility and evidence; record review guidance without publishing.
 

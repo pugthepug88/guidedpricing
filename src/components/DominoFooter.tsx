@@ -10,6 +10,7 @@ const FOOTER_GROUPS = [
       ["CRM", "/crm"],
       ["Customer Marketing", "/customer-marketing"],
       ["AI Receptionist", "/ai-receptionist"],
+      ["Compare Zapla", "/comparison"],
     ],
   },
   {
@@ -140,7 +141,7 @@ export function DominoFooter() {
                       <a
                         key={label}
                         href={href}
-                        className="text-[13px] font-medium text-[#676B65] transition-colors hover:text-[#2563FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF]"
+                        className={`text-[13px] font-medium text-[#676B65] transition-colors hover:text-[#2563FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF]/40 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F8F5EF] ${href === "/comparison" ? "flex min-h-11 items-center" : ""}`}
                       >
                         {label}
                       </a>

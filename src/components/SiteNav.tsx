@@ -11,6 +11,7 @@ const NAV_GROUPS = [
       { name: "CRM", href: "/crm" },
       { name: "Customer Marketing", href: "/customer-marketing" },
       { name: "AI Receptionist", href: "/ai-receptionist" },
+      { name: "Compare Zapla →", href: "/comparison" },
     ],
   },
   {
@@ -197,7 +198,7 @@ export function SiteNav() {
                         key={link.href}
                         href={link.href}
                         onClick={() => setOpenMenu(null)}
-                        className={`block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue focus-visible:outline-2 focus-visible:outline-zapla-blue ${link.href === "/industries" ? "mt-2 border-t border-zapla-line pt-3" : ""}`}
+                        className={`block rounded-xl px-3 py-2 text-[14px] font-medium text-zapla-ink hover:bg-zapla-faint hover:text-zapla-blue focus-visible:outline-2 focus-visible:outline-zapla-blue ${link.href === "/industries" || link.href === "/comparison" ? "mt-2 border-t border-zapla-line pt-3" : ""} ${link.href === "/comparison" ? "min-h-11 text-zapla-blue" : ""}`}
                       >
                         {link.name}
                       </a>
@@ -279,7 +280,7 @@ export function SiteNav() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="py-1.5"
+                      className={link.href === "/comparison" ? "mt-2 flex min-h-11 items-center border-t border-zapla-line py-2 text-zapla-blue focus-visible:outline-2 focus-visible:outline-zapla-blue" : "py-1.5"}
                     >
                       {link.name}
                     </a>
