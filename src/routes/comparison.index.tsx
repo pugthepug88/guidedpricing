@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ArrowRight, ArrowDown } from 'lucide-react';
+import { useState } from 'react';
+import { heroMarks } from '@/components/compare/heroMarks';
+import { ArrowRight, ArrowDown, Pause, Play } from 'lucide-react';
 import { comparisonLogos } from '@/components/compare/comparisonLogos';
 import hubCss from '@/styles/comparison-hub.css?url';
 
@@ -30,20 +32,32 @@ export const Route = createFileRoute('/comparison/')({
 });
 
 function ComparisonHub() {
+  const [paused, setPaused] = useState(false);
   return <main className="comparison-hub">
     <section className="ch-intro ch-logo-hero">
       <div className="ch-wrap ch-vs-layout">
-        <div className="ch-vs-copy"><p className="ch-eyebrow">A clearer choice for your business</p>
-        <h1>Your next CRM.<br /><span>See how Zapla compares.</span></h1>
-        <p className="ch-intro-copy">The tools. The costs. The fit for your team.<br />Explore the differences before you decide.</p>
-        <a className="ch-button ch-explore" href="#comparisons">Find your comparison <ArrowDown size={18} aria-hidden="true" /></a>
-        </div><div className="ch-vs-panel"><img className="ch-vs-zapla" src="/concept/zapla-logo-white.png" alt="Zapla" width="210" height="62" /><div className="ch-vs-divider"><span>VS</span></div>
-        <nav className="ch-logo-mosaic" aria-label="Quick competitor comparisons">
-          {competitors.map(item => <a key={item.slug} className={`ch-logo-tile ch-logo-tile--${item.slug}`} href={`/comparison/zapla-vs-${item.slug}`} aria-label={`Compare Zapla with ${item.name}`}>
-            <span className={`ch-logo ch-logo--${item.slug}`}><img src={comparisonLogos[`${item.slug}${item.slug === "activecampaign" ? "-mark" : item.slug === "pipedrive" ? "-symbol" : ""}.${item.slug === "creatio" ? "jpg" : item.slug === "thryv" ? "png" : item.slug === "monday-crm" ? "webp" : "svg"}`]} alt={item.name} width="180" height="48" /></span>
-            {(item.slug === "activecampaign" || item.slug === "pipedrive") && <span className="ch-symbol-name">{item.name}</span>}
-          </a>)}
-        </nav></div>
+        <div className="ch-vs-copy"><p className="ch-eyebrow">Compare Zapla</p>
+        <h1>See how Zapla<br />compares.</h1>
+        <p className="ch-intro-copy">Compare features, subscription costs and what’s included. Choose a platform below to explore the differences.</p>
+        <a className="ch-button ch-explore" href="#comparisons">Explore comparisons <ArrowDown size={18} aria-hidden="true" /></a>
+        </div><div className="ch-silver-panel" data-paused={paused}>
+          <img className="ch-zapla-mark" src={heroMarks.zapla} alt="Zapla" width="132" height="132" />
+          <div className="ch-silver-vs" aria-hidden="true">VS</div>
+          <div className="ch-marquees" aria-hidden="true">
+            {[competitors.slice(0, 6), competitors.slice(6)].map((row, rowIndex) => <div className="ch-marquee" key={rowIndex}>
+              <div className={`ch-track ch-track--${rowIndex}`}>
+                {[0, 1].map(copy => <div className="ch-logo-run" key={copy}>
+                  {row.map(item => <div className={`ch-mark-tile ch-mark-tile--${item.slug}`} key={item.slug}>
+                    <img src={heroMarks[item.slug] || comparisonLogos[`${item.slug}${item.slug === 'activecampaign' ? '-mark' : item.slug === 'pipedrive' ? '-symbol' : ''}.${item.slug === 'creatio' ? 'jpg' : item.slug === 'thryv' ? 'png' : item.slug === 'monday-crm' ? 'webp' : 'svg'}`]} alt="" width="68" height="68" />
+                  </div>)}
+                </div>)}
+              </div>
+            </div>)}
+          </div>
+          <button className="ch-motion-toggle" type="button" onClick={() => setPaused(!paused)} aria-label={paused ? 'Play logo animation' : 'Pause logo animation'} aria-pressed={paused}>
+            {paused ? <Play size={16} aria-hidden="true" /> : <Pause size={16} aria-hidden="true" />}
+          </button>
+        </div>
       </div>
     </section>
     <section id="comparisons" className="ch-directory" aria-label="Choose a comparison"><div className="ch-wrap">
