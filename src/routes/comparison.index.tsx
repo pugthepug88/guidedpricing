@@ -36,10 +36,10 @@ function ComparisonHub() {
         <h1>Your next CRM.<br /><span>See how Zapla compares.</span></h1>
         <p className="ch-intro-copy">The tools. The costs. The fit for your team.<br />Explore the differences before you decide.</p>
         <a className="ch-button ch-explore" href="#comparisons">Find your comparison <ArrowDown size={18} aria-hidden="true" /></a>
-        </div><div className="ch-vs-panel"><img className="ch-vs-zapla" src="/concept/zapla-logo-dark.svg" alt="Zapla" width="210" height="62" /><div className="ch-vs-divider"><span>VS</span></div>
+        </div><div className="ch-vs-panel"><img className="ch-vs-zapla" src="/concept/zapla-logo-white.png" alt="Zapla" width="210" height="62" /><div className="ch-vs-divider"><span>VS</span></div>
         <nav className="ch-logo-mosaic" aria-label="Quick competitor comparisons">
           {competitors.map(item => <a key={item.slug} className={`ch-logo-tile ch-logo-tile--${item.slug}`} href={`/comparison/zapla-vs-${item.slug}`} aria-label={`Compare Zapla with ${item.name}`}>
-            <span className={`ch-logo ch-logo--${item.slug}`}><img src={`/comparisons/${item.slug}${item.slug === "activecampaign" || item.slug === "pipedrive" ? "-symbol" : ""}.${item.slug === "creatio" ? "jpg" : item.slug === "thryv" ? "png" : item.slug === "monday-crm" ? "webp" : "svg"}`} alt={item.name} width="180" height="48" /></span>
+            <span className={`ch-logo ch-logo--${item.slug}`}><img src={`/comparisons/${item.slug}${item.slug === "activecampaign" ? "-mark" : item.slug === "pipedrive" ? "-symbol" : ""}.${item.slug === "creatio" ? "jpg" : item.slug === "thryv" ? "png" : item.slug === "monday-crm" ? "webp" : "svg"}`} alt={item.name} width="180" height="48" /></span>
             {(item.slug === "activecampaign" || item.slug === "pipedrive") && <span className="ch-symbol-name">{item.name}</span>}
           </a>)}
         </nav></div>
@@ -49,7 +49,7 @@ function ComparisonHub() {
       <div className="ch-directory-heading"><h2>Find your comparison.</h2></div>
       <nav className="ch-grid" aria-label="Zapla comparisons">
         {competitors.map(item => <a className="ch-card" key={item.slug} href={`/comparison/zapla-vs-${item.slug}`}>
-          <div className={`ch-logo ch-logo--${item.slug}`}><img src={`/comparisons/${item.slug}.${item.slug === "creatio" ? "jpg" : item.slug === "thryv" ? "png" : item.slug === "monday-crm" ? "webp" : "svg"}`} alt={`${item.name} logo`} width="180" height="48" /></div>
+          <div className={`ch-logo ch-logo--${item.slug}`}><img src={`/comparisons/${item.slug}${item.slug === "activecampaign" ? "-wordmark" : ""}.${item.slug === "creatio" ? "jpg" : item.slug === "thryv" ? "png" : item.slug === "monday-crm" ? "webp" : "svg"}`} alt={`${item.name} logo`} width="180" height="48" /></div>
           <h3>Zapla <span>vs</span> {item.name}</h3>
           <p>{item.description}</p>
           <span className="ch-card-link">View comparison <ArrowRight size={18} aria-hidden="true" /></span>

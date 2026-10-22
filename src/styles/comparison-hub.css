@@ -113,3 +113,21 @@
 .ch-directory{background:#fff}
 @media(max-width:1000px){.ch-vs-layout{gap:30px}.ch-vs-panel{padding:30px 18px 20px}.ch-logo-hero h1{font-size:49px}.ch-vs-panel .ch-logo-tile:nth-child(n){height:68px}.ch-vs-panel .ch-logo-tile .ch-logo--creatio img{width:110px;height:110px}}
 @media(max-width:700px){.ch-logo-hero{padding:100px 0 40px}.ch-vs-layout{grid-template-columns:1fr;gap:34px}.ch-logo-hero h1{font-size:48px;max-width:500px}.ch-logo-hero .ch-intro-copy{font-size:17px}.ch-vs-panel{padding:30px 20px 24px}.ch-vs-zapla{width:170px}.ch-vs-panel .ch-logo-tile:nth-child(n){height:70px}.ch-vs-panel .ch-logo-tile .ch-logo img{max-height:29px}.ch-vs-panel .ch-logo-tile .ch-logo--creatio img{max-height:none}.ch-vs-panel .ch-logo-tile .ch-logo--salesforce img{max-height:39px}.ch-vs-panel .ch-logo-tile--activecampaign .ch-logo img,.ch-vs-panel .ch-logo-tile--pipedrive .ch-logo img{max-height:32px}.ch-symbol-name{font-size:9px}}
+
+/* Clear contrast and Zapla blue: supersedes the muted autumn hero. */
+.ch-logo-hero{background:#fff;color:#17191c;padding:116px 0 64px}
+.ch-logo-hero .ch-eyebrow{color:#56616f;font-weight:600}
+.ch-logo-hero h1,.ch-logo-hero h1 span{color:#17191c;font-weight:600}
+.ch-logo-hero .ch-intro-copy{color:#5b6069}
+.ch-vs-layout{gap:64px}
+.ch-vs-panel{background:#2563ff;border:0;border-radius:22px;padding:40px 28px 30px;box-shadow:none}
+.ch-vs-zapla{width:210px;max-height:72px;object-fit:contain}
+.ch-vs-divider{color:#fff;font-size:17px;font-weight:600;margin:28px auto;max-width:190px;letter-spacing:.06em}
+.ch-vs-divider:before,.ch-vs-divider:after{background:#ffffff50}
+.ch-vs-panel .ch-logo-tile:nth-child(n){background:#fff;border:0;border-radius:8px;box-shadow:none}
+.ch-vs-panel .ch-logo-tile:hover{box-shadow:0 0 0 3px #ffffff55}
+.ch-vs-panel .ch-logo-tile:focus-visible{outline-color:#fff}
+.ch-vs-panel .ch-logo-tile--activecampaign .ch-logo img{width:29px;height:38px;max-height:38px}
+.ch-symbol-name{color:#454a53}
+@media(max-width:1000px){.ch-vs-layout{gap:30px}.ch-vs-panel{padding:32px 18px 24px}.ch-vs-zapla{width:180px}}
+@media(max-width:700px){.ch-logo-hero{padding:100px 0 42px}.ch-vs-layout{gap:34px}.ch-vs-panel{padding:32px 20px 26px}.ch-vs-zapla{width:180px}.ch-vs-panel .ch-logo-tile--activecampaign .ch-logo img{max-height:33px}}
