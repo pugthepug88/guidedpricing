@@ -1208,14 +1208,14 @@
 .ui-reply-columns article { min-width:0; }
 .ui-reply-columns article > h3 { margin:26px 0 12px; }
 .ui-reply-columns article > p { max-width:500px; }
-.ui-saved-example,.ui-schedule-example { min-height:375px; padding:32px; border-radius:26px; display:flex; flex-direction:column; justify-content:center; }
+.ui-saved-example,.ui-schedule-example { min-height:420px; padding:32px; border-radius:26px; display:flex; flex-direction:column; justify-content:center; }
 .ui-saved-example { background:#dbe5f1; }
 .ui-schedule-example { background:#e6e3d7; }
 .zapla-inbox .ui-demo-instruction { font-size:12px; color:#4e606f; margin:0 0 14px; }
 .ui-shortcut-options,.ui-time-options { display:flex; gap:8px; flex-wrap:wrap; }
 .ui-shortcut-options button,.ui-time-options button { min-height:42px; border:1px solid transparent; border-radius:9px; padding:9px 14px; font-size:14px; color:#4e647b; background:#ffffff66; cursor:pointer; transition:background .2s,color .2s; }
 .ui-shortcut-options button[aria-pressed="true"] { background:#315c91; color:white; box-shadow:0 4px 12px #315c9118; }
-.ui-shortcut-options button:hover { background:#c1d1e5; color:#213d60; }
+.ui-shortcut-options button:not([aria-pressed="true"]):hover { background:#c1d1e5; color:#213d60; }
 .ui-shortcut-options button:focus-visible,.ui-time-options button:focus-visible { outline:2px solid #2563ff; outline-offset:3px; }
 .ui-response-paper,.ui-scheduled-paper { background:#ffffffdc; border:1px solid #fff; border-radius:16px; padding:23px; box-shadow:0 12px 30px #4157710c; }
 .ui-response-paper { margin-top:20px; }
@@ -1227,7 +1227,7 @@
 .ui-time-picker { margin-top:22px; }
 .ui-time-options button { color:#4c5949; }
 .ui-time-options button[aria-pressed="true"] { background:#3c574a; color:white; }
-.ui-time-options button:hover { background:#ced7c9; color:#243d30; }
+.ui-time-options button:not([aria-pressed="true"]):hover { background:#ced7c9; color:#243d30; }
 .ui-schedule-confirmation { display:flex; gap:10px; align-items:center; margin-top:20px; font-size:12px; color:#3c574a; min-height:25px; }
 @media(max-width:900px) {
  .ui-channel-layout { gap:32px; }
