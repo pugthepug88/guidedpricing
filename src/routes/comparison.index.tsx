@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
 import { heroMarks } from '@/components/compare/heroMarks';
-import { ArrowRight, ArrowDown, Pause, Play } from 'lucide-react';
+import { ArrowRight, ArrowDown } from 'lucide-react';
 import { comparisonLogos } from '@/components/compare/comparisonLogos';
 import hubCss from '@/styles/comparison-hub.css?url';
 
@@ -32,7 +31,6 @@ export const Route = createFileRoute('/comparison/')({
 });
 
 function ComparisonHub() {
-  const [paused, setPaused] = useState(false);
   return <main className="comparison-hub">
     <section className="ch-intro ch-logo-hero">
       <div className="ch-wrap ch-vs-layout">
@@ -40,7 +38,7 @@ function ComparisonHub() {
         <h1>See how Zapla<br />compares.</h1>
         <p className="ch-intro-copy">Compare features, subscription costs and what’s included. Choose a platform below to explore the differences.</p>
         <a className="ch-button ch-explore" href="#comparisons">Explore comparisons <ArrowDown size={18} aria-hidden="true" /></a>
-        </div><div className="ch-silver-panel" data-paused={paused}>
+        </div><div className="ch-silver-panel">
           <img className="ch-zapla-mark" src={heroMarks.zapla} alt="Zapla" width="132" height="132" />
           <div className="ch-silver-vs" aria-hidden="true">VS</div>
           <div className="ch-marquees" aria-hidden="true">
@@ -54,9 +52,6 @@ function ComparisonHub() {
               </div>
             </div>)}
           </div>
-          <button className="ch-motion-toggle" type="button" onClick={() => setPaused(!paused)} aria-label={paused ? 'Play logo animation' : 'Pause logo animation'} aria-pressed={paused}>
-            {paused ? <Play size={16} aria-hidden="true" /> : <Pause size={16} aria-hidden="true" />}
-          </button>
         </div>
       </div>
     </section>
