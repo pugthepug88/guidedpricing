@@ -90,3 +90,14 @@ Removed rejected pastel fills and matching stock outline feature icons. Cards no
 
 ## Lower-page colour rhythm, 22 October 2026
 User rejected green followed by successive beige/off-white sections. Guided Launch now uses a white canvas and a legible blue setup panel related to the hero; FAQ uses a cool neutral. Existing green Team Chat, final CTA and sky/footer preserved. No pastel benefit-card pattern reintroduced.
+
+## Approved AI Chatbot direction, 22 October 2026
+User approved the eight-section proposal: enquiry-led hero, business knowledge, booking action, human handover, supported messaging channels, Guided Launch, FAQs and established final CTA. Route /features/ai-chatbot, noindex, outside SEARCH_PAGES, no sitemap:false so it remains available to the Lovable selector. Platform architecture and shared navigation/footer unchanged. All booking CTAs /booking. Calendar embed still deferred.
+
+Distinct ownership: Chatbot handles customer messages automatically; Inbox is the human conversation workspace; Receptionist handles phone calls; Assistant supports staff inside the platform. Website enquiries are the main visual story, with SMS/WhatsApp/email supporting breadth. Do not copy all Inbox channels into chatbot claims.
+
+Evidence read: original September NextGen announcement compilation; current public https://thenextgencrm.com/features/ai-agents/ ; help centre Agent Builder (#/agents/[id]), Create AI Agent (#/agents/create), Agent Chat (#/p/agent/[id]) and AI Assistant Settings (#/AI) at https://app.thenextgencrm.com/help-centre.html?lang=en . Help documents embed options, text/document/URL knowledge, contact tools, availability and booking tools, restricted resources and testing. Public AI page documents SMS/WhatsApp/email and human escalation with conversation context. Provider documentation, not live product acceptance testing. Exact social channel support, handover notification mechanism, automatic pause behaviour and retail usage allowances are not asserted. No unlimited AI/usage inclusion claim.
+
+Approved shared direction: retain one Zapla palette and feature illustration roles; purposeful aligned surfaces, portraits for people and petal for AI; no decorative motion, fake send controls or unrelated-conversation selectors; show automated replies and human review distinctly. Plain example conversations are explanatory illustrations, not testimonials or performance evidence. This page uses static scenes and native FAQ disclosure, with no autoplay or invented metrics.
+
+Implementation validation in progress: build and TypeScript pass. Local Vite/browser preview unavailable (network interface error and connection refused); draft sync needed for rendered review. Do not treat this initial entry as completed visual QA. No production publication.

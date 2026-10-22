@@ -39,6 +39,7 @@ import { Route as ComparisonZaplaVsPodiumRouteImport } from './routes/comparison
 import { Route as ComparisonZaplaVsSalesforceRouteImport } from './routes/comparison.zapla-vs-salesforce'
 import { Route as ComparisonZaplaVsThryvRouteImport } from './routes/comparison.zapla-vs-thryv'
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
+import { Route as FeaturesAiChatbotRouteImport } from './routes/features.ai-chatbot'
 import { Route as FeaturesPipelineManagementRouteImport } from './routes/features.pipeline-management'
 import { Route as FeaturesUnifiedInboxRouteImport } from './routes/features.unified-inbox'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
@@ -208,6 +209,11 @@ const ComparisonZaplaVsZohoRoute = ComparisonZaplaVsZohoRouteImport.update({
   path: '/comparison/zapla-vs-zoho',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeaturesAiChatbotRoute = FeaturesAiChatbotRouteImport.update({
+  id: '/features/ai-chatbot',
+  path: '/features/ai-chatbot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FeaturesPipelineManagementRoute =
   FeaturesPipelineManagementRouteImport.update({
     id: '/features/pipeline-management',
@@ -293,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
+  '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -335,6 +342,7 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
+  '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -378,6 +386,7 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-salesforce': typeof ComparisonZaplaVsSalesforceRoute
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
+  '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
@@ -422,6 +431,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-salesforce'
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
+    | '/features/ai-chatbot'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/industries/allied-health'
@@ -464,6 +474,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-salesforce'
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
+    | '/features/ai-chatbot'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/industries/allied-health'
@@ -506,6 +517,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-salesforce'
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
+    | '/features/ai-chatbot'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/industries/allied-health'
@@ -549,6 +561,7 @@ export interface RootRouteChildren {
   ComparisonZaplaVsSalesforceRoute: typeof ComparisonZaplaVsSalesforceRoute
   ComparisonZaplaVsThryvRoute: typeof ComparisonZaplaVsThryvRoute
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
+  FeaturesAiChatbotRoute: typeof FeaturesAiChatbotRoute
   FeaturesPipelineManagementRoute: typeof FeaturesPipelineManagementRoute
   FeaturesUnifiedInboxRoute: typeof FeaturesUnifiedInboxRoute
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
@@ -774,6 +787,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComparisonZaplaVsZohoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/features/ai-chatbot': {
+      id: '/features/ai-chatbot'
+      path: '/features/ai-chatbot'
+      fullPath: '/features/ai-chatbot'
+      preLoaderRoute: typeof FeaturesAiChatbotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/features/pipeline-management': {
       id: '/features/pipeline-management'
       path: '/features/pipeline-management'
@@ -878,6 +898,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsSalesforceRoute: ComparisonZaplaVsSalesforceRoute,
   ComparisonZaplaVsThryvRoute: ComparisonZaplaVsThryvRoute,
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,
+  FeaturesAiChatbotRoute: FeaturesAiChatbotRoute,
   FeaturesPipelineManagementRoute: FeaturesPipelineManagementRoute,
   FeaturesUnifiedInboxRoute: FeaturesUnifiedInboxRoute,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
