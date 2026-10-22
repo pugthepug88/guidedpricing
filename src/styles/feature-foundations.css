@@ -1,0 +1,17 @@
+/* Shared colour roles for feature marketing pages. Accent colours belong to
+   illustrations; controls and customer states retain consistent meanings. */
+.zapla-feature,
+.zapla-inbox {
+  --feature-paper: #fcfcfa;
+  --feature-cream: #f7f4ee;
+  --feature-ink: #111318;
+  --feature-muted: #57625e;
+  --feature-green: #1e2b29;
+  --feature-blue: #2563ff;
+  --feature-stone-light: #eee9e0;
+  --feature-stone-mid: #ddd4c6;
+  --feature-stone-dark: #c5b9a6;
+  --feature-sage-light: #e4e9dc;
+  --feature-sage-mid: #bdc9b2;
+  --feature-sage-dark: #809379;
+}

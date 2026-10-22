@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
+import "@/styles/feature-foundations.css";
 import "@/styles/unified-inbox.css";
 
 const people = [

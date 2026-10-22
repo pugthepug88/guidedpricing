@@ -16,7 +16,10 @@ const NAV_GROUPS = [
   {
     id: "features",
     label: "Features",
-    links: [{ name: "Unified Inbox", href: "/features/unified-inbox" }],
+    links: [
+      { name: "Unified Inbox", href: "/features/unified-inbox" },
+      { name: "Pipeline Management", href: "/features/pipeline-management" },
+    ],
   },
   {
     id: "solutions",

@@ -30,3 +30,22 @@ User approved rebuilding after live visual review of Birdeye, ActiveCampaign and
 Reference decisions: ADAPT Birdeye's layered material depth; USE monday's legible product detail and distinct section purposes; REJECT ActiveCampaign's dark neon treatment for the overall Zapla page. No mascot or unsupported product claims added. No new automatic animation.
 
 Validation: production build and TypeScript pass. Inspected rendered desktop hero and full page, and responsive full-page capture at 390 CSS pixels. All page images loaded, no horizontal overflow, desktop Daniel and mobile Priya selectors update messages and records, FAQ expands, booking links point to /booking. No browser error logs during desktop check. Mobile viewport captures have a browser capture defect after scrolling, so used full-page captures plus DOM geometry rather than treating the clipped viewport images as layout defects. Shared footer retained. Synced to Lovable preview; no production publish performed.
+
+## Approved feature colour roles, 22 October 2026
+The user approved a single shared Zapla palette with controlled feature illustration accents, updating Inbox and building the first green feature as a comparison. Implementation uses src/styles/feature-foundations.css.
+
+| Role | Colour | Usage |
+| --- | --- | --- |
+| Foundation | warm white, cream, ink, deep green | shared page backgrounds, typography and supporting sections |
+| Brand / interaction | Zapla blue #2563FF | links, focus, selected controls and primary product actions |
+| Conversations | muted blue | Inbox and future Chatbot hero illustration |
+| Sales / automation | sage, muted green | Pipeline, future Automation and Calendars illustrations |
+| Marketing | terracotta, warm peach | future marketing, Social and Website illustrations |
+| Operations | warm stone with restrained blue/green detail | future reporting, ticketing and documents illustrations |
+
+These are illustration defaults, not public categories or whole-page themes. Feature states retain their meaning across pages. Most supporting backgrounds stay neutral; headings predominantly ink. Each feature needs its own appropriate composition, not the same glass layout recoloured.
+
+Inbox: blue hero retained; fuller inbox surround, shell and list changed to warm stone. Product selection and outgoing message blues retained.
+Pipeline Management: /features/pipeline-management; sage full-width pipeline scene, neutral interactive opportunity journey, editorial photograph, deep green stage-triggered workflow, Guided Launch, FAQs and booking CTA. Header adds only this completed feature destination alongside Inbox; Platform and footer unchanged. Noindex, outside public sitemap, available in preview selector.
+
+Product scope is based on existing approved CRM PipelineRail/Automation content and Follow-Up reply handling: stages, owners, customer records, pipeline-triggered workflows and configurable reply handling. Customer names/work records are explanatory scenes; no arbitrary financial totals, metrics, testimonials or performance promises. Stage buttons update a marketing illustration and do not modify a live CRM. No automatic stage movement, predictive scoring, AI forecasting or automatic routing claimed. No production publish authorised.

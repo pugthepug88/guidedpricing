@@ -305,16 +305,21 @@
   position: relative;
   isolation: isolate;
   padding: 30px;
-  background: linear-gradient(130deg, #dbe6ed, #a5c0d8 60%, #86a8c6);
+  background: linear-gradient(
+    130deg,
+    var(--feature-stone-light),
+    var(--feature-stone-mid) 60%,
+    var(--feature-stone-dark)
+  );
   border-radius: 26px;
 }
 .ui-glass-shell {
   padding: 8px;
   border: 1px solid #ffffffd0;
   border-radius: 20px;
-  background: #eef6ff8c;
+  background: #fffcf58c;
   box-shadow:
-    0 20px 45px #234c7020,
+    0 20px 45px #65543d20,
     inset 0 0 0 4px #ffffff38;
 }
 .ui-shell-bar {
@@ -329,7 +334,7 @@
 .ui-shell-bar > span {
   font-size: 12px;
   color: #2c4359;
-  border-left: 1px solid #8aa4ba;
+  border-left: 1px solid #aa9b87;
   padding-left: 20px;
 }
 .ui-inbox-grid {
@@ -342,7 +347,7 @@
 }
 .ui-conversation-list {
   padding: 26px 12px;
-  background: #f1f5f8;
+  background: #f6f4ef;
   border-right: 1px solid #dde5ec;
 }
 .zapla-inbox .ui-conversation-list h2 {
