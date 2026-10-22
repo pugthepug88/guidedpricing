@@ -1458,3 +1458,18 @@
 .ui-context-history > span { font-size:10px; color:#53665c; }
 .ui-context-history p { font-size:13px; color:#243b30; line-height:1.5; margin:5px 0 0; }
 @media(max-width:600px) { .ui-context-heading strong { font-size:14px; } .ui-context-people { gap:8px; font-size:11px; } .ui-context-people > span:last-child { font-size:10px; } .ui-context-history p { font-size:12px; } }
+
+/* Lower-page contrast: green conversation, white launch, cool FAQ, existing sky CTA. */
+.zapla-inbox .ui-setup { background:#fff; }
+.zapla-inbox .ui-launch-plan { background:linear-gradient(135deg,#356f9d,#244f79); border:1px solid #7399b9; box-shadow:0 20px 45px #244f791a; color:#fff; }
+.ui-launch-plan .ui-launch-plan-heading h3,.ui-launch-plan .ui-launch-row h4 { color:#fff; }
+.ui-launch-plan .ui-launch-plan-heading span { color:#d7e5f0; }
+.ui-launch-plan .ui-launch-row p { color:#e1ebf4; }
+.ui-launch-plan .ui-launch-row { border-color:#ffffff30; }
+.ui-launch-plan .ui-launch-channel-marks .ui-channel-icon { background:#fff; border-radius:8px; padding:5px; box-sizing:content-box; }
+.ui-launch-plan .ui-launch-channel-marks { gap:7px; }
+.ui-launch-plan .ui-launch-channel-marks svg { width:21px; height:21px; }
+.ui-launch-plan .ui-launch-record { background:#ffffff12; border:1px solid #ffffff40; color:#fff; }
+.zapla-inbox .ui-launch-link { color:#245fa1; }
+.zapla-inbox .ui-faq { background:#f2f5f7; border-top:0; }
+.ui-faq details,.ui-faq details:first-child { border-color:#cdd7de; }

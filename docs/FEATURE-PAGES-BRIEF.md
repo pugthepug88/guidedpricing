@@ -86,3 +86,7 @@ Replaced the confusing quote excerpt with a Customer context panel retaining the
 
 ## Benefit-card correction, 22 October 2026
 Removed rejected pastel fills and matching stock outline feature icons. Cards now share a white surface with a restrained border and use existing channel marks, Mia's customer/history identity and Ben/Alex portraits. Preserve headline/copy hierarchy. This supersedes the earlier three-colour card treatment; no new product claims or animation.
+
+
+## Lower-page colour rhythm, 22 October 2026
+User rejected green followed by successive beige/off-white sections. Guided Launch now uses a white canvas and a legible blue setup panel related to the hero; FAQ uses a cool neutral. Existing green Team Chat, final CTA and sky/footer preserved. No pastel benefit-card pattern reintroduced.
