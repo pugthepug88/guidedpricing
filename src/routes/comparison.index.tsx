@@ -61,7 +61,7 @@ function ComparisonHub() {
       <div className="ch-directory-heading"><h2>Find your comparison.</h2></div>
       <nav className="ch-grid" aria-label="Zapla comparisons">
         {competitors.map(item => <a className="ch-card" key={item.slug} href={`/comparison/zapla-vs-${item.slug}`}>
-          <div className={`ch-logo ch-logo--${item.slug}`}><img src={comparisonLogos[`${item.slug}${item.slug === "activecampaign" ? "-wordmark" : ""}.${item.slug === "creatio" ? "jpg" : item.slug === "thryv" ? "png" : item.slug === "monday-crm" ? "webp" : "svg"}`]} alt={`${item.name} logo`} width="180" height="48" /></div>
+          <div className={`ch-logo ch-logo--${item.slug}`}><img src={item.slug === "activecampaign" ? comparisonLogos["activecampaign-mark.svg"] : item.slug === "pipedrive" ? comparisonLogos["pipedrive-symbol.svg"] : comparisonLogos[`${item.slug}.${item.slug === "creatio" ? "jpg" : item.slug === "thryv" ? "png" : item.slug === "monday-crm" ? "webp" : "svg"}`]} alt={`${item.name} logo`} width="180" height="48" /></div>
           <h3>Zapla <span>vs</span> {item.name}</h3>
           <p>{item.description}</p>
           <span className="ch-card-link">View comparison <ArrowRight size={18} aria-hidden="true" /></span>
