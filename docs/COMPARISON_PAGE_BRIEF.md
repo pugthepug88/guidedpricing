@@ -709,3 +709,6 @@ Actual preview verification: source 2851b319fc5816e5dbe11fe5ac9431fb305e63da con
 
 ### 22 October 2026 — directory logo symbols correction
 Owner clarified that ActiveCampaign/Pipedrive directory cards must display the same blue/green symbols as hero, rather than wordmarks. Changed only those two directory image sources. Actual fresh authenticated preview 9bd3c44be86c3172bfd52cea9700512c23774618 confirmed both images loaded and source-identical to hero marks; desktop cards visually inspected. Build, TypeScript and diff checks passed. No shared/data/calculator changes or publication; full responsive regression not repeated for image-source-only edit.
+
+### 22 October 2026 — correction: symbol AND brand wordmark
+Owner clarified directory must retain brand names alongside logo symbols. Previous symbol-only edit misunderstood intent and is superseded. ActiveCampaign blue symbol now beside official ActiveCampaign wordmark; Pipedrive green symbol beside official Pipedrive wordmark. Existing comparison headings remain. Build/TypeScript/diff checks passed. Actual preview verification pending sync; no publication.
