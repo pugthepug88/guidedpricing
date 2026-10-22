@@ -110,3 +110,7 @@ Avoid decorative vertical accent bars, coloured edge strips and arbitrary lines 
 
 ## No decorative numbered steps
 Do not use 01/02/03 labels as the default layout for Guided Launch, feature explanations or benefits. Use a composition appropriate to the content. User explicitly rejected the numbered Inbox setup and explanatory key. Numerals are appropriate only where actual sequence or data requires them, not visual garnish.
+
+
+## No tilted product cards
+User rejected rotated, overlapping paper-card compositions as dated. Keep product panels aligned; create hierarchy through content, typography, spacing and purposeful surface contrast, not rotation.

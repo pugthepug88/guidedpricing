@@ -66,3 +66,7 @@ User rejected the plain channel directory and flat response examples. Replaced t
 
 ## Inbox story revision, 22 October 2026
 User rejected the standalone channel grid, unrelated-customer selector, weak dark record scene and numbered launch steps. Combined channel breadth and inbox proof in one composition: recognisable channel marks lead into one customer's email/SMS history beside their note, owner and stage. No arbitrary selector or numbered key. This explains connected history, not automatic cross-channel identity matching. Dark scene now shows a distinct office visit record informing Alex's email reply, with higher contrast and layered sage/blue surfaces. Guided Launch uses a concrete setup plan with channels, customer fields and people, no numbered steps. Final CTA matches CRM/Customer Marketing Inter Tight/Outfit display stack, 40/54/64px sizes, .99 line height, petal, eyebrow and spacing. Copy preserved there. No new automatic motion. Existing reply-tool interactions retained. Header/footer unchanged, no production publish.
+
+
+## Inbox panel refinement, 22 October 2026
+Hero white panel now shows the quote detail that supports Ben's answer: old unit removal included, plus job title and owner. This replaces the visually empty job summary without decorative bars or invented metrics. Dark section replaces the rejected tilted paper stack with one aligned workspace containing visit details, Daniel's question and Alex's reply. No rotation or overlapping panels. Shared navigation/footer preserved.

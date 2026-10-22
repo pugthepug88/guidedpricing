@@ -1279,20 +1279,6 @@
 .ui-context-note span { font-size:11px; color:#706844; }
 .ui-context-note p { font-size:14px; color:#514d37; margin-top:7px; }
 .ui-history-payoff { text-align:center; font-size:13px!important; margin-top:25px!important; color:#4e6257!important; }
-.ui-work-scene { position:relative; padding:28px 26px 40px 0; }
-.ui-visit-sheet { margin-right:38px; padding:30px 30px 60px; background:#e9eee0; border:1px solid #f7faee; border-radius:24px; transform:rotate(-2deg); color:#294334; }
-.ui-visit-person { display:flex; align-items:center; gap:14px; }
-.ui-visit-person span:not(.ui-avatar) { font-size:12px; }
-.ui-visit-person h3 { font-size:20px; margin-top:5px; }
-.ui-visit-sheet dl { margin:28px 0 24px; display:grid; gap:16px; }
-.ui-visit-sheet dl > div { padding-top:16px; border-top:1px solid #c3cfbe; }
-.ui-visit-sheet dt { font-size:11px; color:#5b715e; }
-.ui-visit-sheet dd { margin:6px 0 0; font-size:16px; }
-.zapla-inbox .ui-visit-question { font-size:18px; line-height:1.6; color:#3c5646; }
-.ui-work-reply { position:relative; margin:-25px 0 0 55px; padding:25px; border:1px solid #b9cfdf; border-radius:18px; background:#d9e8f3; box-shadow:0 20px 35px #0b1c242b; }
-.ui-work-reply > div { display:flex; align-items:center; gap:10px; color:#3c6177; font-size:12px; }
-.ui-work-reply svg { margin-left:auto; }
-.ui-work-reply p { margin-top:15px; color:#203f52; font-size:17px; line-height:1.6; }
 .ui-setup { background:#f7f4ee; }
 .ui-launch-layout { display:grid; grid-template-columns:1fr 1.1fr; gap:85px; align-items:center; }
 .ui-launch-copy > p:not(.ui-eyebrow) { margin-top:25px; max-width:440px; }
@@ -1357,11 +1343,6 @@
  .ui-history-context dd { font-size:12px; }
  .ui-context-note { margin-top:14px; }
  .ui-history-payoff { font-size:12px!important; padding:0 8px; margin-top:20px!important; }
- .ui-work-scene { padding:10px 0 0; }
- .ui-visit-sheet { margin-right:12px; padding:24px 22px 55px; transform:rotate(-1deg); }
- .ui-visit-person h3 { font-size:17px; }
- .ui-work-reply { margin-left:24px; padding:22px; }
- .ui-work-reply p { font-size:15px; }
  .ui-launch-plan { padding:22px; }
  .ui-launch-row { grid-template-columns:75px 1fr; gap:16px; }
  .ui-launch-row h4 { font-size:14px; }
@@ -1372,4 +1353,53 @@
  .zapla-inbox .ui-final { padding-top:80px; }
  .zapla-inbox .ui-final h2 { font-size:40px; }
  .zapla-inbox .ui-final p:not(.ui-eyebrow) { font-size:15px; }
+}
+
+/* Quote evidence completes the hero story; no decorative accent stripe. */
+.zapla-inbox .ui-hero-record { display:block; padding:20px 23px 16px; left:13%; right:5%; bottom:22px; background:#f9fcfdf5; }
+.ui-quote-title { display:flex; align-items:center; gap:13px; }
+.ui-quote-title > svg { color:#527a9a; flex-shrink:0; }
+.ui-quote-title > div { min-width:0; }
+.ui-hero-record .ui-quote-title strong { font-size:16px; margin:5px 0 0; }
+.ui-hero-record .ui-quote-title span { font-size:10px; color:#637c8c; }
+.ui-quote-detail { display:flex; align-items:center; justify-content:space-between; gap:16px; background:#e7eee8; padding:10px 13px; margin-top:15px; border-radius:8px; }
+.ui-hero-record .ui-quote-detail > span { color:#45614e; font-size:12px; }
+.ui-hero-record .ui-quote-detail strong { color:#30573d; font-size:12px; margin:0; }
+.ui-quote-owner { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-top:11px; }
+.ui-quote-owner > div { display:flex; align-items:center; gap:7px; }
+.ui-hero-record .ui-quote-owner span:not(.ui-avatar) { font-size:10px; color:#5a6e7b; }
+.ui-quote-owner .ui-avatar { width:22px; height:22px; flex-basis:22px; }
+/* Straight, integrated record and conversation surface. */
+.ui-workspace-scene { overflow:hidden; border-radius:24px; background:#f8faf6; border:1px solid #cad8cf; box-shadow:0 22px 50px #0d201a20; }
+.ui-workspace-header { padding:28px; display:flex; align-items:center; gap:14px; color:#243f36; }
+.ui-workspace-header span:not(.ui-avatar) { font-size:12px; color:#587267; }
+.ui-workspace-header h3 { font-size:21px; margin-top:5px; color:#243f36; }
+.ui-workspace-header > svg { margin-left:auto; color:#607e71; flex-shrink:0; }
+.ui-workspace-details { margin:0 28px; display:grid; grid-template-columns:1fr 1.25fr; gap:22px; padding:21px 0; border-top:1px solid #d5dfd7; border-bottom:1px solid #d5dfd7; }
+.ui-workspace-details span { font-size:11px; color:#657d70; display:block; }
+.ui-workspace-details strong { display:block; font-size:14px; font-weight:500; line-height:1.6; color:#344f41; margin-top:6px; }
+.ui-workspace-thread { padding:26px 28px 30px; background:linear-gradient(#f8faf6,#eef2ec); }
+.ui-workspace-question { max-width:88%; }
+.ui-workspace-question > span { font-size:11px; color:#688074; }
+.ui-workspace-question p { background:#e4ebe2; padding:17px 20px; border-radius:0 14px 14px 14px; margin-top:8px; color:#314c3b; font-size:16px; line-height:1.6; }
+.ui-workspace-answer { margin:24px 0 0 35px; }
+.ui-workspace-answer > div { display:flex; align-items:center; justify-content:flex-end; gap:9px; flex-direction:row-reverse; color:#60798e; font-size:11px; }
+.ui-workspace-answer p { background:#dce9f5; color:#294c6c; border-radius:14px 0 14px 14px; padding:19px 22px; font-size:16px; line-height:1.65; margin-top:9px; }
+@media(max-width:600px) {
+ .ui-hero-scene { height:595px; }
+ .zapla-inbox .ui-hero-record { left:7%; right:5%; bottom:17px; padding:17px; }
+ .ui-hero-record .ui-quote-title strong { font-size:14px; }
+ .ui-quote-title { gap:10px; }
+ .ui-quote-title > svg { width:21px; }
+ .ui-quote-detail { margin-top:12px; }
+ .ui-workspace-header { padding:22px 18px; gap:11px; }
+ .ui-workspace-header h3 { font-size:17px; }
+ .ui-workspace-header .ui-avatar-large { width:40px; height:40px; flex-basis:40px; }
+ .ui-workspace-header > svg { width:16px; }
+ .ui-workspace-details { margin:0 20px; gap:16px; }
+ .ui-workspace-details strong { font-size:12px; }
+ .ui-workspace-thread { padding:23px 18px; }
+ .ui-workspace-question { max-width:94%; }
+ .ui-workspace-question p,.ui-workspace-answer p { font-size:14px; padding:15px; }
+ .ui-workspace-answer { margin-left:18px; }
 }

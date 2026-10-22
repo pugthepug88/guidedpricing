@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { ArrowRight, ChevronDown, Mail, MessageCircle, MessagesSquare, Users, Slack, Clock3 } from "lucide-react";
+import { ArrowRight, ChevronDown, Mail, MessageCircle, MessagesSquare, Users, Slack, Clock3, FileText } from "lucide-react";
 import { siWhatsapp, siTelegram, siMessenger, siInstagram } from "simple-icons";
 import { motion, useReducedMotion } from "motion/react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
@@ -54,13 +54,9 @@ function HeroScene() {
         </div>
       </div>
       <div className="ui-hero-record">
-        <div>
-          <span>Customer record</span>
-          <strong>Hot water replacement</strong>
-          <p>
-            Quote sent <span>·</span> Ben Walker
-          </p>
-        </div>
+        <div className="ui-quote-title"><FileText size={25} strokeWidth={1.5} aria-hidden="true" /><div><span>From Mia’s quote</span><strong>Hot water replacement</strong></div></div>
+        <div className="ui-quote-detail"><span>Old unit removal</span><strong>Included</strong></div>
+        <div className="ui-quote-owner"><span>Quote sent</span><div><Avatar cell={13} /><span>Ben Walker</span></div></div>
       </div>
     </div>
   );
@@ -320,15 +316,12 @@ export function UnifiedInboxPage() {
               </a>
             </div>
           </div>
-          <div className="ui-work-scene">
-            <div className="ui-visit-sheet">
-              <div className="ui-visit-person"><Avatar cell={5} large /><div><span>Daniel Brooks</span><h3>Office maintenance</h3></div></div>
-              <dl><div><dt>Site visit</dt><dd>Thursday afternoon</dd></div><div><dt>Access note</dt><dd>Ask for Daniel at reception.</dd></div></dl>
-              <p className="ui-visit-question">“Should I arrange access through reception?”</p>
-            </div>
-            <div className="ui-work-reply">
-              <div><Avatar cell={8} /><span>Alex’s reply</span><Mail size={16} aria-hidden="true" /></div>
-              <p>Yes please, Daniel. I’ll ask for you at reception when I arrive on Thursday afternoon.</p>
+          <div className="ui-workspace-scene">
+            <div className="ui-workspace-header"><Avatar cell={5} large /><div><span>Daniel Brooks</span><h3>Office maintenance</h3></div><Mail size={20} aria-label="Email conversation" /></div>
+            <div className="ui-workspace-details"><div><span>Site visit</span><strong>Thursday afternoon</strong></div><div><span>Access note</span><strong>Ask for Daniel at reception.</strong></div></div>
+            <div className="ui-workspace-thread">
+              <div className="ui-workspace-question"><span>Daniel</span><p>Should I arrange access through reception?</p></div>
+              <div className="ui-workspace-answer"><div><Avatar cell={8} /><span>Alex’s reply</span></div><p>Yes please, Daniel. I’ll ask for you at reception when I arrive on Thursday afternoon.</p></div>
             </div>
           </div>
         </div>
