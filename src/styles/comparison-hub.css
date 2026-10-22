@@ -31,4 +31,5 @@
 @media(max-width:600px){.ch-wrap{width:calc(100% - 40px)}.ch-intro{padding:112px 0 48px}.ch-intro-copy{font-size:17px}.ch-directory{padding:38px 0 52px}.ch-directory-heading{display:block;margin-bottom:24px}.ch-directory-heading p{margin-top:10px}.ch-grid{grid-template-columns:1fr;gap:16px}.ch-card{padding:26px}.ch-logo{margin-bottom:18px;height:60px}.ch-cta{padding:48px 0}.ch-cta-layout{display:block}.ch-button{margin-top:28px}.ch-cta p:last-child{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.ch-card{transition:none}.ch-card:hover{transform:none}}
 
-.comparison-hub .ch-logo--creatio img { max-height: 70px; max-width: 70px; border-radius: 8px; }
+.comparison-hub .ch-logo--creatio { overflow: hidden; }
+.comparison-hub .ch-logo--creatio img { width: 240px; height: 240px; max-height: none; max-width: none; flex-shrink: 0; margin-left: -32px; }
