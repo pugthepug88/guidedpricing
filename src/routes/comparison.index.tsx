@@ -31,7 +31,6 @@ export const Route = createFileRoute('/comparison/')({
 function ComparisonHub() {
   return <main className="comparison-hub">
     <section className="ch-intro ch-logo-hero">
-      <div className="ch-hero-colour ch-hero-colour--peach" aria-hidden="true" /><div className="ch-hero-colour ch-hero-colour--blue" aria-hidden="true" />
       <div className="ch-wrap">
         <p className="ch-eyebrow">A clearer choice for your business</p>
         <h1>Your next CRM.<br /><span>See how Zapla compares.</span></h1>
@@ -43,11 +42,10 @@ function ComparisonHub() {
             <ArrowRight className="ch-tile-arrow" size={16} aria-hidden="true" />
           </a>)}
         </nav>
-        <p className="ch-hero-caption">11 platforms. One place to compare.</p>
       </div>
     </section>
     <section id="comparisons" className="ch-directory" aria-label="Choose a comparison"><div className="ch-wrap">
-      <div className="ch-directory-heading"><h2>Find your comparison.</h2><p>{competitors.length} platforms. A clearer choice.</p></div>
+      <div className="ch-directory-heading"><h2>Find your comparison.</h2></div>
       <nav className="ch-grid" aria-label="Zapla comparisons">
         {competitors.map(item => <a className="ch-card" key={item.slug} href={`/comparison/zapla-vs-${item.slug}`}>
           <div className={`ch-logo ch-logo--${item.slug}`}><img src={`/comparisons/${item.slug}.${item.slug === "creatio" ? "jpg" : item.slug === "thryv" ? "png" : item.slug === "monday-crm" ? "webp" : "svg"}`} alt={`${item.name} logo`} width="180" height="48" /></div>

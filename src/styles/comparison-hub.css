@@ -69,3 +69,21 @@
 @media(max-width:1000px){.ch-logo-tile{width:139px;height:76px}.ch-logo-mosaic{gap:13px}.ch-logo-tile .ch-logo{width:113px}.ch-logo-tile .ch-logo img{max-width:110px}.ch-logo-tile .ch-logo--creatio img{max-width:none}}
 @media(max-width:600px){.ch-logo-hero{padding:96px 0 28px}.ch-logo-hero h1{font-size:45px;line-height:1.06}.ch-logo-hero .ch-eyebrow{font-size:10px;letter-spacing:.1em}.ch-logo-hero .ch-intro-copy{font-size:16px}.ch-explore{margin-top:22px}.ch-logo-mosaic{gap:12px;margin-top:27px;padding:6px 0}.ch-logo-tile{width:calc((100% - 24px)/3);height:64px;border-radius:12px}.ch-logo-tile .ch-logo{width:86%;height:52px}.ch-logo-tile .ch-logo img{max-width:100%;max-height:27px}.ch-logo-tile .ch-logo--salesforce img{max-height:38px}.ch-logo-tile .ch-logo--creatio img{width:126px;height:126px;max-width:none;max-height:none}.ch-logo-tile .ch-logo--thryv img{max-width:65px}.ch-logo-tile .ch-logo--keap img{max-height:30px}.ch-hero-colour--peach{left:-480px;top:150px}.ch-hero-colour--blue{right:-530px;top:240px}.ch-hero-caption{font-size:11px}.ch-directory{padding-top:34px}}
 @media(prefers-reduced-motion:reduce){.ch-logo-tile{transition:none}.ch-logo-tile:hover{transform:rotate(0)}}
+
+/* Restrained premium direction: one dark field, disciplined logo alignment. */
+.ch-logo-hero{background:#101c2d;color:#fff;padding:116px 0 52px;border-bottom:0}
+.ch-logo-hero .ch-eyebrow{color:#b1bfcf;font-size:11px;letter-spacing:.16em;font-weight:500;margin-bottom:24px}
+.ch-logo-hero h1{font-size:clamp(46px,4.8vw,70px);font-weight:500;letter-spacing:-.05em;line-height:1.08;margin-bottom:24px}
+.ch-logo-hero h1 span{color:#fff}
+.ch-logo-hero .ch-intro-copy{color:#b7c3d0;font-size:18px;line-height:1.7}
+.ch-explore{border-radius:7px;background:#2563ff;font-weight:500;margin-top:26px}
+.ch-logo-mosaic{max-width:1080px;gap:12px;margin-top:48px;padding:32px 0 0;border-top:1px solid #ffffff20}
+.ch-logo-tile,.ch-logo-tile:nth-child(n){transform:none;background:#fff;border:1px solid #e6e9ed;border-radius:7px;width:162px;height:76px;box-shadow:none;transition:border-color .18s,box-shadow .18s}
+.ch-logo-tile:hover,.ch-logo-tile:nth-child(n):hover{transform:none;border-color:#7d9fea;box-shadow:0 0 0 3px #628df22b}
+.ch-logo-tile:focus-visible{transform:none;outline:3px solid #84aaff;outline-offset:4px}
+.ch-directory{padding-top:58px;background:#fafbf9}
+.ch-card{border-radius:10px;border-color:#e0e5e0;box-shadow:none}
+.ch-card:hover{transform:none;box-shadow:0 5px 16px #1e2b2908}
+@media(max-width:1000px){.ch-logo-tile,.ch-logo-tile:nth-child(n){width:138px;height:72px}.ch-logo-mosaic{gap:12px}}
+@media(max-width:600px){.ch-logo-hero{padding:100px 0 36px}.ch-logo-hero h1{font-size:44px}.ch-logo-hero .ch-eyebrow{font-size:9px;letter-spacing:.13em;margin-bottom:22px}.ch-logo-hero .ch-intro-copy{font-size:16px}.ch-logo-mosaic{margin-top:32px;padding-top:26px;gap:10px}.ch-logo-tile,.ch-logo-tile:nth-child(n){width:calc((100% - 20px)/3);height:62px;border-radius:5px}.ch-directory{padding-top:36px}}
+@media(prefers-reduced-motion:reduce){.ch-logo-tile{transition:none}}
