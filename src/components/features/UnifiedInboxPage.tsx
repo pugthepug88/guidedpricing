@@ -188,7 +188,6 @@ function HeroScene() {
         </div>
       </div>
       <div className="ui-hero-record">
-        <span className="ui-record-rule" aria-hidden="true" />
         <div>
           <span>Customer record</span>
           <strong>Hot water replacement</strong>

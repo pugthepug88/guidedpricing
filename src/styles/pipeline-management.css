@@ -345,10 +345,6 @@
   margin: 6px 0 0;
   font-weight: 600;
 }
-.pf-next {
-  border-left: 3px solid var(--feature-blue);
-  padding-left: 14px;
-}
 .pf-next span {
   display: block;
   font-size: 11px;

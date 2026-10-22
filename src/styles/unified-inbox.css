@@ -240,13 +240,6 @@
   border-radius: 16px;
   box-shadow: 0 18px 45px #163b6d35;
 }
-.ui-record-rule {
-  width: 4px;
-  height: 67px;
-  background: #dda34b;
-  border-radius: 3px;
-  flex-shrink: 0;
-}
 .ui-hero-record div > span {
   font-size: 11px;
   color: #626d69;
@@ -1011,9 +1004,6 @@
   }
   .ui-hero-record p {
     font-size: 11px;
-  }
-  .ui-record-rule {
-    height: 62px;
   }
   .ui-benefit-strip {
     grid-template-columns: 1fr;

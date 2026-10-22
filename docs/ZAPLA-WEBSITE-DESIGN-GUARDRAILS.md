@@ -102,3 +102,7 @@ Before any visual is considered ready, review it independently through:
 - AI-slop critic
 
 If any lens cannot explain what the buyer is supposed to understand within a few seconds, the visual is not ready.
+
+
+## No decorative accent bars
+Avoid decorative vertical accent bars, coloured edge strips and arbitrary lines beside text or inside cards. Use spacing, typography and alignment for hierarchy. Only use colour or lines when they communicate a clear meaning, such as a selected control, a genuine category/state, a structural divider or a workflow connection. Do not invent a meaning to justify an ornament. The orange stripe on the Inbox customer record and the blue stripe on Pipeline's next-step text were removed under this rule.
