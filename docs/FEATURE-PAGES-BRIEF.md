@@ -101,3 +101,12 @@ Evidence read: original September NextGen announcement compilation; current publ
 Approved shared direction: retain one Zapla palette and feature illustration roles; purposeful aligned surfaces, portraits for people and petal for AI; no decorative motion, fake send controls or unrelated-conversation selectors; show automated replies and human review distinctly. Plain example conversations are explanatory illustrations, not testimonials or performance evidence. This page uses static scenes and native FAQ disclosure, with no autoplay or invented metrics.
 
 Implementation validation in progress: build and TypeScript pass. Local Vite/browser preview unavailable (network interface error and connection refused); draft sync needed for rendered review. Do not treat this initial entry as completed visual QA. No production publication.
+
+## Approved AI Chatbot refinements, 22 October 2026
+User approved targeted refinement of the existing eight-section page after a rendered review. Keep the hero headline and supporting copy, section headings, colour sequence, final CTA wording, Platform structure, shared navigation and footer. No new sections, automatic animation or external integration claims.
+
+The mobile/tablet hero now condenses the repeated scene introduction to website context, service name and service area, bringing the conversation forward without reducing message type. Desktop retains the fuller business context. Booking and final-CTA text wrap naturally without joining words when line breaks change. The narrow two-column hero stacks at tablet width.
+
+The chat identifies itself as Zapla AI Chatbot, keeping AI Assistant reserved for the staff-facing product. The booking exchange asks for the customer's name and receives explicit agreement before the resulting appointment. Handover shows the original customer question for team review, without implying a generated summary or named assignment. Guided Launch and FAQs use customer language rather than agent/tool terminology, and supplier naming is removed from customer-facing copy. Supported channel scope remains website chat, SMS, WhatsApp and email, with configuration and usage terms confirmed during setup.
+
+New shared continuity and mobile-reading rules are recorded in ZAPLA-WEBSITE-DESIGN-GUARDRAILS.md. All booking CTAs remain /booking; no calendar embed or production publication is part of this refinement. Rendered verification results will be recorded after the updated preview is inspected.

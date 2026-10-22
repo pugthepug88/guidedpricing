@@ -118,3 +118,10 @@ User rejected rotated, overlapping paper-card compositions as dated. Keep produc
 
 ## No generic pastel cards with matching outline icons
 Standing user instruction, 22 October 2026: never use washed-out, low-saturation powder-blue, pale-sage and beige feature-card fills paired with darker colour-matched stock outline icons. Do not default to this generic SaaS card treatment. This supersedes the rejected Inbox benefit-card colour treatment. It does not ban Zapla's soft autumn palette or meaningful functional icons. Use deliberate contrast, brand-specific assets and content-specific visuals; do not recreate the same treatment under different colour names.
+
+## Product-scene continuity and mobile reading order
+Approved with the AI Chatbot refinements, 22 October 2026:
+- A result must use details established in the visible example or its supplied business context. If a booking uses a customer's full name, show that name being supplied before the booking is created. Do not add unsupported data to make a result look complete.
+- Show the customer's original question and conversation context for human handover. Do not imply an AI-generated summary, notification, assignment, instant human response or automatic pause unless that behaviour has been verified.
+- On small screens, bring the primary product explanation forward by condensing duplicate scene introductions and secondary context. Keep the conversation itself readable. Check tablet and narrow-phone layouts as well as desktop.
+- Responsive line-break changes must preserve spaces and natural reading order. A page-level overflow check does not prove that nested panels or text are unclipped; inspect the rendered content too.
