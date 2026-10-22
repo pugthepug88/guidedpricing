@@ -1441,3 +1441,14 @@
 @media(max-width:600px) { .ui-benefit-cards { grid-template-columns:1fr; gap:13px; } .ui-benefit-card { display:grid; grid-template-columns:32px 1fr; column-gap:17px; padding:24px 21px; border-radius:20px; } .ui-benefit-card > svg { grid-row:1 / 3; width:29px; margin:0; } .zapla-inbox .ui-benefit-card h2 { font-size:19px; margin-bottom:8px; } .ui-benefit-card p { font-size:14px; } }
 
 .ui-quote-title > svg.ui-quote-petal { width:34px; height:34px; flex-shrink:0; }
+
+/* Context is conversation history, not a separate quote feature. */
+.ui-context-heading { display:flex; align-items:center; gap:10px; }
+.ui-context-heading strong { font-size:15px; color:#23352e; }
+.ui-context-people { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:10px 0 12px; color:#34483e; font-size:12px; }
+.ui-context-people > span:last-child { display:flex; align-items:center; gap:7px; font-size:11px; }
+.ui-context-people .ui-avatar { width:22px; height:22px; }
+.ui-context-history { border-top:1px solid #d8e0df; padding-top:11px; }
+.ui-context-history > span { font-size:10px; color:#53665c; }
+.ui-context-history p { font-size:13px; color:#243b30; line-height:1.5; margin:5px 0 0; }
+@media(max-width:600px) { .ui-context-heading strong { font-size:14px; } .ui-context-people { gap:8px; font-size:11px; } .ui-context-people > span:last-child { font-size:10px; } .ui-context-history p { font-size:12px; } }

@@ -78,3 +78,7 @@ Replaced the repetitive dark customer-record scene with customer and internal Te
 
 ## Hero benefit cards, 22 October 2026
 User rejected the thin divided benefit strip and supplied a Clay three-card reference. Adapted its clear icon/heading/body hierarchy into compact Zapla blue, sage and stone cards; no copied decorative 3D assets or extra section heading. Three distinct benefits: connected channels, customer context and Team Chat. Mobile uses a compact icon-and-copy stack.
+
+
+## Approved hero customer context, 22 October 2026
+Replaced the confusing quote excerpt with a Customer context panel retaining the Zapla petal. Mia's name, Ben as her contact and an earlier email explain what informs Ben's SMS reply. No separate quote management or AI-generated response implied.

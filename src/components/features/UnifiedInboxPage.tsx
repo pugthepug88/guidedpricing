@@ -29,7 +29,7 @@ function Cta({ children = "Book a Call" }: { children?: ReactNode }) {
 }
 function HeroScene() {
   return (
-    <div className="ui-hero-scene" aria-label="Customer conversation connected to a quote">
+    <div className="ui-hero-scene" aria-label="Customer conversation with earlier messages and contact details">
       <div className="ui-sculpture" aria-hidden="true" />
       <div className="ui-hero-glass">
         <div className="ui-hero-brand">
@@ -53,10 +53,10 @@ function HeroScene() {
           <p>Yes, removal of the old unit is included in your quote.</p>
         </div>
       </div>
-      <div className="ui-hero-record">
-        <div className="ui-quote-title"><ZaplaPetal size={34} className="ui-quote-petal" /><div><span>From Mia’s quote</span><strong>Hot water replacement</strong></div></div>
-        <div className="ui-quote-detail"><span>Old unit removal</span><strong>Included</strong></div>
-        <div className="ui-quote-owner"><span>Quote sent</span><div><Avatar cell={13} /><span>Ben Walker</span></div></div>
+      <div className="ui-hero-record ui-customer-context">
+        <div className="ui-context-heading"><ZaplaPetal size={30} /><strong>Customer context</strong></div>
+        <div className="ui-context-people"><span>Mia Thompson</span><span><Avatar cell={13} />Your contact: Ben</span></div>
+        <div className="ui-context-history"><span>Earlier email · Ben to Mia</span><p>“We’ll remove the old hot water unit when we install the replacement.”</p></div>
       </div>
     </div>
   );
