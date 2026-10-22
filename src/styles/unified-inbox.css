@@ -1469,7 +1469,10 @@
 .ui-launch-plan .ui-launch-channel-marks .ui-channel-icon { background:#fff; border-radius:8px; padding:5px; box-sizing:content-box; }
 .ui-launch-plan .ui-launch-channel-marks { gap:7px; }
 .ui-launch-plan .ui-launch-channel-marks svg { width:21px; height:21px; }
-.ui-launch-plan .ui-launch-record { background:transparent; border:0; border-radius:0; padding:0; gap:7px; font-size:12px; line-height:1.4; font-weight:500; color:#e1ebf4; }
+.ui-launch-plan .ui-launch-record { background:#fff; border:1px solid #ffffff; border-radius:14px; padding:13px 14px; gap:0; font-size:12px; line-height:1.4; font-weight:500; color:#244f79; box-shadow:0 5px 14px #102f4820; }
+.ui-launch-record span { padding:6px 0; }
+.ui-launch-record span + span { border-top:1px solid #e5ebf0; }
+@media(max-width:600px) { .ui-launch-plan .ui-launch-record { padding:8px 10px; font-size:10px; border-radius:11px; } }
 .zapla-inbox .ui-launch-link { color:#245fa1; }
 .zapla-inbox .ui-faq { background:#f2f5f7; border-top:0; }
 .ui-faq details,.ui-faq details:first-child { border-color:#cdd7de; }
