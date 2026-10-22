@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
-import { ArrowRight, Check, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ZaplaPetal } from '@/components/ZaplaPetal';
 import { TeamPricing } from './TeamPricing';
@@ -35,6 +35,7 @@ export function ComparisonPage({ data, pricingContent }: { data: ComparisonDefin
   const growthInclusions = ["Database reactivation", "Email campaigns", "Bulk SMS & WhatsApp campaigns", "Social scheduling", "Campaign attribution & conversion tracking"];
   return <main className="concise-comparison" data-page="concise-comparison">
     <section className="cc-hero"><div className="cc-inner">
+      <Link to="/comparison" className="cc-all-comparisons"><ArrowLeft size={15} aria-hidden="true" /> All comparisons</Link>
       <p className="cc-comparison-name">Zapla vs {data.competitor}</p>
       <div className="cc-hero-grid">
         <div className="cc-hero-message">
