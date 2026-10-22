@@ -1,4 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { ZaplaPetal } from '@/components/ZaplaPetal';
+import { zaplaOwnerLogo } from '@/components/compare/zaplaOwnerLogo';
 import { heroMarks } from '@/components/compare/heroMarks';
 import { ArrowRight, ArrowDown } from 'lucide-react';
 import { comparisonLogos } from '@/components/compare/comparisonLogos';
@@ -39,7 +41,7 @@ function ComparisonHub() {
         <p className="ch-intro-copy">Compare features, subscription costs and what’s included. Choose a platform below to explore the differences.</p>
         <a className="ch-button ch-explore" href="#comparisons">Explore comparisons <ArrowDown size={18} aria-hidden="true" /></a>
         </div><div className="ch-silver-panel">
-          <img className="ch-zapla-mark" src={heroMarks.zapla} alt="Zapla" width="132" height="132" />
+          <div className="ch-zapla-mark"><img src={zaplaOwnerLogo} alt="Zapla" width="1280" height="1280" /></div>
           <div className="ch-silver-vs" aria-hidden="true">VS</div>
           <div className="ch-marquees" aria-hidden="true">
             {[competitors.slice(0, 6), competitors.slice(6)].map((row, rowIndex) => <div className="ch-marquee" key={rowIndex}>
@@ -66,6 +68,6 @@ function ComparisonHub() {
         </a>)}
       </nav>
     </div></section>
-    <section className="ch-cta"><div className="ch-wrap ch-cta-layout"><div><p className="ch-eyebrow">Make the right choice for your team</p><h2>Let’s look at how<br />your business works.</h2><p>Bring your current tools and the follow-up you want to improve. We’ll discuss the fit, plan and launch before you decide.</p></div><a className="ch-button" href="/booking">Book a Call <ArrowRight size={18} aria-hidden="true" /></a></div></section>
+    <section className="ch-cta"><div className="ch-wrap ch-cta-layout"><div className="ch-final-petal"><ZaplaPetal size={34} /></div><div><p className="ch-eyebrow">Make the right choice for your team</p><h2>Let’s look at how<br />your business works.</h2><p>Bring your current tools and the follow-up you want to improve. We’ll discuss the fit, plan and launch before you decide.</p></div><a className="ch-button" href="/booking">Book a Call <ArrowRight size={18} aria-hidden="true" /></a></div></section>
   </main>;
 }

@@ -69,3 +69,15 @@
 @media(max-width:1000px){.ch-vs-layout{gap:30px}.ch-logo-hero h1{font-size:46px}.ch-silver-panel{padding-top:36px}.ch-zapla-mark{width:112px;height:112px}.ch-mark-tile{width:86px;height:86px}.ch-mark-tile img{max-width:68px}.ch-mark-tile--creatio img{max-width:none}.ch-silver-vs{margin:28px 0;font-size:36px}}
 @media(max-width:700px){.ch-logo-hero{padding:100px 0 28px}.ch-vs-layout{grid-template-columns:1fr;gap:36px}.ch-logo-hero h1{font-size:46px;margin-bottom:22px}.ch-logo-hero .ch-intro-copy{font-size:17px}.ch-logo-hero .ch-eyebrow{margin-bottom:20px}.ch-explore{margin-top:24px}.ch-silver-panel{padding:32px 0 40px}.ch-zapla-mark{width:100px;height:100px}.ch-silver-vs{font-size:32px;margin:24px 0}.ch-mark-tile{width:78px;height:78px;border-radius:12px}.ch-mark-tile img{width:54px;height:54px}.ch-mark-tile--activecampaign img,.ch-mark-tile--keap img{width:36px}.ch-mark-tile--creatio img{width:120px;height:120px}.ch-mark-tile--monday-crm img,.ch-mark-tile--thryv img{width:66px}.ch-logo-run{gap:12px;padding-right:12px}.ch-marquees{gap:12px}}
 @media(prefers-reduced-motion:reduce){.ch-track{animation:none;transform:none;will-change:auto}.ch-logo-run+ .ch-logo-run{display:none}.ch-track{width:100%}.ch-logo-run{width:100%;padding:0 16px;flex-wrap:wrap;justify-content:center;gap:10px}.ch-mark-tile{width:64px;height:64px}.ch-mark-tile img{width:46px;height:46px}.ch-mark-tile--creatio img{width:100px;height:100px}}
+
+/* Match the established light, centred closing CTA without changing its copy. */
+.comparison-hub .ch-cta{background:#FCFCFA;color:#17191c;padding:80px 0 0;text-align:center}
+.ch-cta .ch-cta-layout{display:block}
+.ch-final-petal{display:flex;align-items:center;justify-content:center;width:52px;height:52px;background:#111214;border-radius:50%;margin:0 auto 24px}
+.ch-cta .ch-eyebrow{color:#606773;margin-bottom:20px}
+.ch-cta h2{font-size:clamp(38px,5vw,64px);line-height:1.04;max-width:1080px;margin:0 auto 20px}
+.ch-cta p:last-child{max-width:760px;margin:auto;color:#5b6069;font-size:16px;line-height:1.65}
+.ch-cta .ch-button{margin-top:28px;font-size:13px;padding:14px 28px}
+.ch-zapla-mark{position:relative;overflow:hidden}
+.ch-zapla-mark img{position:absolute;width:144.14%;height:144.14%;max-width:none;left:-20.72%;top:-22.52%}
+@media(max-width:600px){.comparison-hub .ch-cta{padding-top:56px}}

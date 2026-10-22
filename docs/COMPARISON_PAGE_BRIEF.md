@@ -700,3 +700,7 @@ Actual authenticated Lovable preview source e9415b69d72a6a2b69c3c29bcc066345f489
 Owner accepted the silver hero and requested removal of the pause button. Removed the visible control and its React state/imports/styles only. Hover pause and reduced-motion static layout retained. Exact approved eyebrow, heading, subheading and CTA unchanged. No publication. Actual preview check pending below.
 
 Actual authenticated Lovable preview verified after refresh: silver hero present, zero visible motion-toggle controls, two logo tracks retained, approved heading/subheading unchanged. Screenshot visually inspected. Verified source revision 235328fef36c331e553051b57f04adb464ca4a95. No publication; no broader regression rerun for this control-only removal.
+
+
+### 22 October 2026 — comparison hub closing CTA and supplied logo
+Owner requested replacing the rough hero logo with supplied Zapla logo to represnt AI (2).png and questioned the green closing CTA. Hub-only changes: use original supplied PNG pixels, CSS framing removes transparent outer padding; light centred closing CTA matches canonical comparison treatment, with existing Zapla petal and blue booking button. All current copy preserved, including hero and closing CTA. No shared component changes, no publication. Verification follows.
