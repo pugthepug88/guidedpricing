@@ -82,3 +82,7 @@ User rejected the thin divided benefit strip and supplied a Clay three-card refe
 
 ## Approved hero customer context, 22 October 2026
 Replaced the confusing quote excerpt with a Customer context panel retaining the Zapla petal. Mia's name, Ben as her contact and an earlier email explain what informs Ben's SMS reply. No separate quote management or AI-generated response implied.
+
+
+## Benefit-card correction, 22 October 2026
+Removed rejected pastel fills and matching stock outline feature icons. Cards now share a white surface with a restrained border and use existing channel marks, Mia's customer/history identity and Ben/Alex portraits. Preserve headline/copy hierarchy. This supersedes the earlier three-colour card treatment; no new product claims or animation.

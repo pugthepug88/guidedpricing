@@ -1428,17 +1428,23 @@
  .ui-team-colleague { margin-left:20px; }
 }
 
-/* Compact benefit cards give the hero summary a readable hierarchy. */
+/* Benefit summaries share a neutral material with the hero's context panel. */
 .ui-benefit-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
-.ui-benefit-card { padding:30px 30px 32px; border:1px solid #25372e12; border-radius:25px; }
-.ui-benefit-channels { background:#edf3f9; color:#356b9a; }
-.ui-benefit-context { background:#eef1e6; color:#637844; }
-.ui-benefit-team { background:#f4eee6; color:#8c6849; }
-.ui-benefit-card > svg { display:block; margin-bottom:25px; }
-.zapla-inbox .ui-benefit-card h2 { font-family:Manrope,sans-serif; font-size:22px; font-weight:600; letter-spacing:-.7px; line-height:1.25; color:#17221e; margin:0 0 13px; }
-.ui-benefit-card p { font-size:15px; line-height:1.65; color:#4e5c54; margin:0; max-width:320px; }
+.ui-benefit-card { padding:28px 30px 30px; background:#fff; border:1px solid #dce2e5; border-radius:22px; box-shadow:0 8px 24px #18344b06; }
+.ui-benefit-visual { height:62px; display:flex; align-items:center; margin-bottom:25px; }
+.ui-benefit-brands { gap:12px; }
+.ui-benefit-brands .ui-channel-icon { width:50px; height:50px; border:1px solid #e0e6e8; background:#fff; border-radius:14px; box-shadow:0 4px 10px #17385509; }
+.ui-benefit-brands .ui-channel-icon svg { width:27px; height:27px; }
+.ui-benefit-person { gap:13px; }
+.ui-benefit-visual .ui-avatar { width:48px; height:48px; flex:0 0 48px; border:2px solid white; }
+.ui-benefit-person strong { display:block; font-size:13px; color:#172b3f; }
+.ui-benefit-person span:not(.ui-avatar) { display:block; margin-top:5px; font-size:11px; color:#526777; }
+.ui-benefit-portraits .ui-avatar + .ui-avatar { margin-left:-10px; }
+.ui-benefit-portraits > span:last-child { margin-left:14px; font-size:12px; color:#294f75; font-weight:600; }
+.zapla-inbox .ui-benefit-card h2 { font-family:Manrope,sans-serif; font-size:22px; font-weight:600; letter-spacing:-.7px; line-height:1.25; color:#111318; margin:0 0 13px; }
+.ui-benefit-card p { font-size:15px; line-height:1.65; color:#4a565e; margin:0; max-width:320px; }
 @media(max-width:900px) { .ui-benefit-card { padding:25px 22px; } .zapla-inbox .ui-benefit-card h2 { font-size:20px; } }
-@media(max-width:600px) { .ui-benefit-cards { grid-template-columns:1fr; gap:13px; } .ui-benefit-card { display:grid; grid-template-columns:32px 1fr; column-gap:17px; padding:24px 21px; border-radius:20px; } .ui-benefit-card > svg { grid-row:1 / 3; width:29px; margin:0; } .zapla-inbox .ui-benefit-card h2 { font-size:19px; margin-bottom:8px; } .ui-benefit-card p { font-size:14px; } }
+@media(max-width:600px) { .ui-benefit-cards { grid-template-columns:1fr; gap:15px; } .ui-benefit-card { padding:22px 24px; } .ui-benefit-visual { height:48px; margin-bottom:18px; } .zapla-inbox .ui-benefit-card h2 { font-size:21px; margin-bottom:9px; } .ui-benefit-card p { font-size:14px; } }
 
 .ui-quote-title > svg.ui-quote-petal { width:34px; height:34px; flex-shrink:0; }
 

@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { ArrowRight, ChevronDown, Mail, MessageCircle, MessagesSquare, Users, Slack, Clock3, FileText } from "lucide-react";
+import { ArrowRight, ChevronDown, Mail, MessageCircle, MessagesSquare, Users, Slack, Clock3 } from "lucide-react";
 import { siWhatsapp, siTelegram, siMessenger, siInstagram } from "simple-icons";
 import { motion, useReducedMotion } from "motion/react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
@@ -229,17 +229,17 @@ export function UnifiedInboxPage() {
       <section className="ui-problems" aria-label="What changes for your team">
         <div className="ui-wrap ui-benefit-cards">
           <article className="ui-benefit-card ui-benefit-channels">
-            <MessagesSquare size={34} strokeWidth={1.6} aria-hidden="true" />
+            <div className="ui-benefit-visual ui-benefit-brands" aria-label="WhatsApp, Telegram and Messenger"><ChannelMark index={0} /><ChannelMark index={3} /><ChannelMark index={4} /></div>
             <h2>Your channels, together.</h2>
             <p>Handle messages from your connected channels in one inbox.</p>
           </article>
           <article className="ui-benefit-card ui-benefit-context">
-            <FileText size={34} strokeWidth={1.6} aria-hidden="true" />
+            <div className="ui-benefit-visual ui-benefit-person"><Avatar cell={9} large /><div><strong>Mia Thompson</strong><span>Email + SMS history</span></div></div>
             <h2>Know the conversation.</h2>
             <p>See customer history alongside the message you’re answering.</p>
           </article>
           <article className="ui-benefit-card ui-benefit-team">
-            <Users size={34} strokeWidth={1.6} aria-hidden="true" />
+            <div className="ui-benefit-visual ui-benefit-portraits"><Avatar cell={13} large /><Avatar cell={8} large /><span>Team Chat</span></div>
             <h2>Bring your team in.</h2>
             <p>Talk with colleagues in Team Chat and keep customer replies separate.</p>
           </article>
