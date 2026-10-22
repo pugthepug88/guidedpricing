@@ -61,7 +61,7 @@
 .ch-mark-tile--creatio img{width:140px;height:140px;max-width:none;flex-shrink:0}
 .ch-mark-tile--monday-crm img,.ch-mark-tile--thryv img{width:84px}
 .ch-silver-panel:hover .ch-track,.ch-silver-panel:focus-within .ch-track,.ch-silver-panel[data-paused="true"] .ch-track{animation-play-state:paused}
-.ch-motion-toggle{position:absolute;right:8px;bottom:0;width:44px;height:40px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:#4f5660;cursor:pointer;border-radius:8px}
+.ch-motion-toggle{position:absolute;right:8px;bottom:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:#4f5660;cursor:pointer;border-radius:8px}
 .ch-motion-toggle:focus-visible{outline:2px solid #2563ff;outline-offset:-4px}
 .ch-directory{scroll-margin-top:76px;background:#fff;padding-top:38px}
 .ch-card{border-radius:12px}.ch-directory-heading h2{color:#17191c}
