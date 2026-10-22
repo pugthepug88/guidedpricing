@@ -1187,3 +1187,43 @@
     font-size: 15px;
   }
 }
+
+/* Channel breadth is a directory, not a set of decorative logo cards. */
+.ui-channels { padding: 64px 0 0; }
+.ui-channel-layout { display:grid; grid-template-columns:1fr 1.1fr; gap:70px; align-items:center; }
+.ui-channels h2 { font-size:clamp(28px,3vw,40px); }
+.ui-channels p { max-width:440px; margin-top:20px; }
+.ui-channel-directory { padding:30px 0; border-top:1px solid #d9ded5; border-bottom:1px solid #d9ded5; }
+.ui-channel-directory h3 { font-size:13px; color:var(--ui-muted); margin-bottom:24px; }
+.ui-channel-directory ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px 20px; list-style:none; padding:0; margin:0; }
+.ui-channel-directory li { font-size:15px; font-weight:600; line-height:1.5; }
+.ui-reply-tools { padding-top:0; }
+.ui-reply-columns { display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+.ui-reply-columns article > h3 { margin:26px 0 12px; }
+.ui-reply-columns article > p { max-width:500px; }
+.ui-saved-example,.ui-schedule-example { min-height:260px; padding:36px; border-radius:24px; display:flex; flex-direction:column; justify-content:center; }
+.ui-saved-example { background:#edf1f7; }
+.ui-saved-example code { font-size:24px; color:#285397; }
+.ui-saved-example p { margin:20px 0; font-size:20px; color:var(--ui-ink); line-height:1.55; max-width:360px; }
+.ui-saved-example > span { font-size:12px; color:var(--ui-muted); }
+.ui-schedule-example { background:var(--feature-cream); }
+.ui-schedule-example > p { font-size:20px; color:var(--ui-ink); line-height:1.55; }
+.ui-schedule-example > div { margin-top:26px; padding-top:20px; border-top:1px solid #d9d4c9; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.ui-schedule-example span { font-size:12px; color:var(--ui-muted); }
+.ui-schedule-example strong { font-size:17px; font-weight:600; }
+.ui-schedule-example strong span { font-weight:400; margin:0 4px; }
+@media(max-width:800px) {
+ .ui-channel-layout { grid-template-columns:1fr; gap:24px; }
+ .ui-channel-directory ul { gap:20px 12px; }
+ .ui-channel-directory li { font-size:14px; }
+ .ui-reply-columns { gap:30px; }
+ .ui-saved-example,.ui-schedule-example { padding:24px; min-height:280px; }
+ .ui-schedule-example > div { align-items:flex-start; flex-direction:column; }
+}
+@media(max-width:600px) {
+ .ui-channels { padding-top:40px; }
+ .ui-channel-directory ul { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .ui-reply-columns { grid-template-columns:1fr; gap:40px; }
+ .ui-saved-example,.ui-schedule-example { min-height:230px; }
+ .ui-saved-example p,.ui-schedule-example > p { font-size:18px; }
+}

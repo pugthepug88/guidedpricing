@@ -233,10 +233,63 @@ function Explore() {
     </section>
   );
 }
+function Channels() {
+  return (
+    <section className="ui-channels" aria-labelledby="channels-heading">
+      <div className="ui-wrap ui-channel-layout">
+        <div>
+          <h2 id="channels-heading">Different channels.<br />One place to keep up.</h2>
+          <p>Bring the places people contact you into Zapla, with team conversations close at hand.</p>
+        </div>
+        <div className="ui-channel-directory">
+          <h3>Connect your conversations</h3>
+          <ul>
+            {["WhatsApp", "Email", "SMS", "Telegram", "Facebook Messenger", "Instagram", "Live web chat", "Slack", "Team chat"].map(channel => <li key={channel}>{channel}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+function ReplyTools() {
+  return (
+    <section className="ui-section ui-reply-tools" aria-labelledby="reply-tools-heading">
+      <div className="ui-wrap">
+        <div className="ui-explore-intro">
+          <h2 id="reply-tools-heading">Less retyping.<br />Better timing.</h2>
+          <p>Keep useful answers ready to go, and prepare a message when it suits you without having to send it straight away.</p>
+        </div>
+        <div className="ui-reply-columns">
+          <article>
+            <div className="ui-saved-example" aria-label="Example saved response using the slash shortcut">
+              <code>/welcome</code>
+              <p>Thanks for getting in touch. How can we help you today?</p>
+              <span>One shortcut. Your saved response.</span>
+            </div>
+            <h3>A familiar question. An answer ready.</h3>
+            <p>Save responses you use often and insert them with a <strong>/</strong> shortcut. Spend less time typing the same opening hours, next steps or welcome message.</p>
+          </article>
+          <article>
+            <div className="ui-schedule-example" aria-label="Example message scheduled for tomorrow at 9 am">
+              <p>Hi Mia, just checking whether you had any questions about your quote.</p>
+              <div><span>Scheduled for</span><strong>Tomorrow <span>at</span> 9:00 am</strong></div>
+            </div>
+            <h3>Write it now. Send it later.</h3>
+            <p>Prepare your message, then choose the date and time to send it. Get the next conversation ready while the details are still fresh.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
 const faqs = [
   [
+    "Can I save replies and schedule messages?",
+    "Yes. Create reusable saved responses with slash shortcuts such as /welcome. You can also prepare a message and choose a date and time to send it later.",
+  ],
+  [
     "Which messages can I manage in Zapla?",
-    "SMS and email conversations can sit alongside the customer record. During Guided Launch, we confirm the channels and accounts you want to connect and how your team will use them.",
+    "Connect WhatsApp, email, SMS, Slack, Telegram, Facebook Messenger, Instagram, team chat and live web chat. During Guided Launch, we confirm the account connections and setup your business needs.",
   ],
   [
     "Can I see customer information alongside a conversation?",
@@ -274,7 +327,7 @@ export function UnifiedInboxPage() {
               <span>conversation.</span>
             </h1>
             <p className="ui-lead">
-              Bring SMS, email and customer history together. Give your team the context to answer
+              Bring customer messages, team conversations and customer history together. Give your team the context to answer
               without asking the customer to start again.
             </p>
             <div className="ui-actions">
@@ -292,7 +345,7 @@ export function UnifiedInboxPage() {
         <div className="ui-wrap ui-benefit-strip">
           <div>
             <span>Bring it together</span>
-            <p>SMS and email in one place.</p>
+            <p>Your connected channels in one place.</p>
           </div>
           <div>
             <span>Reply with context</span>
@@ -304,7 +357,9 @@ export function UnifiedInboxPage() {
           </div>
         </div>
       </section>
+      <Channels />
       <Explore />
+      <ReplyTools />
       <section className="ui-section ui-human">
         <div className="ui-wrap ui-human-grid">
           <div className="ui-human-photo">

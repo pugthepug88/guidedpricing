@@ -15,7 +15,7 @@ export const Route = createFileRoute("/features/unified-inbox")({
       {
         property: "og:description",
         content:
-          "Every message. The whole conversation. SMS, email and customer history together for your team.",
+          "Connect your channels, use saved responses and schedule messages. Customer conversations and context together in Zapla.",
       },
     ],
   }),
