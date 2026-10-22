@@ -54,7 +54,7 @@ function HeroScene() {
         </div>
       </div>
       <div className="ui-hero-record">
-        <div className="ui-quote-title"><FileText size={25} strokeWidth={1.5} aria-hidden="true" /><div><span>From Mia’s quote</span><strong>Hot water replacement</strong></div></div>
+        <div className="ui-quote-title"><ZaplaPetal size={34} className="ui-quote-petal" /><div><span>From Mia’s quote</span><strong>Hot water replacement</strong></div></div>
         <div className="ui-quote-detail"><span>Old unit removal</span><strong>Included</strong></div>
         <div className="ui-quote-owner"><span>Quote sent</span><div><Avatar cell={13} /><span>Ben Walker</span></div></div>
       </div>
