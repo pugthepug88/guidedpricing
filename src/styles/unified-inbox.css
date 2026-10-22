@@ -1188,42 +1188,68 @@
   }
 }
 
-/* Channel breadth is a directory, not a set of decorative logo cards. */
-.ui-channels { padding: 64px 0 0; }
-.ui-channel-layout { display:grid; grid-template-columns:1fr 1.1fr; gap:70px; align-items:center; }
-.ui-channels h2 { font-size:clamp(28px,3vw,40px); }
-.ui-channels p { max-width:440px; margin-top:20px; }
-.ui-channel-directory { padding:30px 0; border-top:1px solid #d9ded5; border-bottom:1px solid #d9ded5; }
-.ui-channel-directory h3 { font-size:13px; color:var(--ui-muted); margin-bottom:24px; }
-.ui-channel-directory ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px 20px; list-style:none; padding:0; margin:0; }
-.ui-channel-directory li { font-size:15px; font-weight:600; line-height:1.5; }
+
+/* Recognisable channel marks sit together in one material surface. */
+.ui-channels { padding:72px 0 10px; }
+.ui-channel-layout { display:grid; grid-template-columns:.85fr 1.15fr; gap:70px; align-items:center; }
+.ui-channels h2 { font-size:clamp(30px,3.3vw,46px); }
+.ui-channel-copy > p:last-child { max-width:410px; margin-top:24px; }
+.ui-channel-stage { padding:26px; border-radius:30px; background:linear-gradient(135deg,#e6ede8,#b9cbd3 55%,#93acc3); box-shadow:inset 0 0 0 1px #cedbdc; }
+.ui-channel-directory { padding:26px 32px 32px; background:#ffffffb8; border:1px solid #fff; border-radius:20px; box-shadow:0 18px 40px #345b7414,inset 0 0 0 4px #ffffff38; }
+.ui-channel-brand { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-bottom:25px; border-bottom:1px solid #b7c7ce70; }
+.ui-channel-brand img { width:90px; }
+.ui-channel-brand > span { font-size:12px; color:#536573; }
+.ui-channel-directory ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:29px 18px; list-style:none; padding:29px 0 0; margin:0; }
+.ui-channel-directory li { display:flex; flex-direction:column; align-items:center; gap:11px; font-size:12px; font-weight:600; text-align:center; line-height:1.4; }
+.ui-channel-icon { display:grid; place-items:center; height:38px; }
+.ui-channel-icon svg { width:32px; height:32px; }
 .ui-reply-tools { padding-top:0; }
-.ui-reply-columns { display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+.ui-reply-columns { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+.ui-reply-columns article { min-width:0; }
 .ui-reply-columns article > h3 { margin:26px 0 12px; }
 .ui-reply-columns article > p { max-width:500px; }
-.ui-saved-example,.ui-schedule-example { min-height:260px; padding:36px; border-radius:24px; display:flex; flex-direction:column; justify-content:center; }
-.ui-saved-example { background:#edf1f7; }
-.ui-saved-example code { font-size:24px; color:#285397; }
-.ui-saved-example p { margin:20px 0; font-size:20px; color:var(--ui-ink); line-height:1.55; max-width:360px; }
-.ui-saved-example > span { font-size:12px; color:var(--ui-muted); }
-.ui-schedule-example { background:var(--feature-cream); }
-.ui-schedule-example > p { font-size:20px; color:var(--ui-ink); line-height:1.55; }
-.ui-schedule-example > div { margin-top:26px; padding-top:20px; border-top:1px solid #d9d4c9; display:flex; justify-content:space-between; align-items:center; gap:12px; }
-.ui-schedule-example span { font-size:12px; color:var(--ui-muted); }
-.ui-schedule-example strong { font-size:17px; font-weight:600; }
-.ui-schedule-example strong span { font-weight:400; margin:0 4px; }
-@media(max-width:800px) {
- .ui-channel-layout { grid-template-columns:1fr; gap:24px; }
- .ui-channel-directory ul { gap:20px 12px; }
- .ui-channel-directory li { font-size:14px; }
- .ui-reply-columns { gap:30px; }
- .ui-saved-example,.ui-schedule-example { padding:24px; min-height:280px; }
- .ui-schedule-example > div { align-items:flex-start; flex-direction:column; }
+.ui-saved-example,.ui-schedule-example { min-height:375px; padding:32px; border-radius:26px; display:flex; flex-direction:column; justify-content:center; }
+.ui-saved-example { background:#dbe5f1; }
+.ui-schedule-example { background:#e6e3d7; }
+.zapla-inbox .ui-demo-instruction { font-size:12px; color:#4e606f; margin:0 0 14px; }
+.ui-shortcut-options,.ui-time-options { display:flex; gap:8px; flex-wrap:wrap; }
+.ui-shortcut-options button,.ui-time-options button { min-height:42px; border:1px solid transparent; border-radius:9px; padding:9px 14px; font-size:14px; color:#4e647b; background:#ffffff66; cursor:pointer; transition:background .2s,color .2s; }
+.ui-shortcut-options button[aria-pressed="true"] { background:#315c91; color:white; box-shadow:0 4px 12px #315c9118; }
+.ui-shortcut-options button:hover { background:#c1d1e5; color:#213d60; }
+.ui-shortcut-options button:focus-visible,.ui-time-options button:focus-visible { outline:2px solid #2563ff; outline-offset:3px; }
+.ui-response-paper,.ui-scheduled-paper { background:#ffffffdc; border:1px solid #fff; border-radius:16px; padding:23px; box-shadow:0 12px 30px #4157710c; }
+.ui-response-paper { margin-top:20px; }
+.ui-response-person { display:flex; gap:10px; align-items:center; color:#526375; font-size:12px; }
+.ui-response-person .ui-avatar { width:30px; height:30px; flex-basis:30px; }
+.zapla-inbox .ui-response-paper p,.zapla-inbox .ui-scheduled-paper > p { margin:16px 0 0; font-size:18px; line-height:1.65; color:#20354c; }
+#saved-response-preview { min-height:113px; }
+.ui-response-caption { font-size:11px; color:#607286; display:block; margin-top:15px; }
+.ui-time-picker { margin-top:22px; }
+.ui-time-options button { color:#4c5949; }
+.ui-time-options button[aria-pressed="true"] { background:#3c574a; color:white; }
+.ui-time-options button:hover { background:#ced7c9; color:#243d30; }
+.ui-schedule-confirmation { display:flex; gap:10px; align-items:center; margin-top:20px; font-size:12px; color:#3c574a; min-height:25px; }
+@media(max-width:900px) {
+ .ui-channel-layout { gap:32px; }
+ .ui-channel-stage { padding:18px; }
+ .ui-channel-directory { padding:20px; }
+ .ui-reply-columns { gap:24px; }
+ .ui-saved-example,.ui-schedule-example { padding:22px; min-height:420px; }
+ .ui-shortcut-options button,.ui-time-options button { padding:9px 10px; font-size:12px; }
 }
-@media(max-width:600px) {
+@media(max-width:650px) {
  .ui-channels { padding-top:40px; }
- .ui-channel-directory ul { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .ui-channel-layout { grid-template-columns:1fr; }
+ .ui-channel-directory ul { gap:26px 12px; }
+ .ui-channel-directory li { font-size:11px; }
+ .ui-channel-icon svg { width:29px; height:29px; }
  .ui-reply-columns { grid-template-columns:1fr; gap:40px; }
- .ui-saved-example,.ui-schedule-example { min-height:230px; }
- .ui-saved-example p,.ui-schedule-example > p { font-size:18px; }
+ .ui-saved-example,.ui-schedule-example { padding:20px; min-height:0; border-radius:22px; }
+ .ui-response-paper,.ui-scheduled-paper { padding:18px; }
+ .zapla-inbox .ui-response-paper p,.zapla-inbox .ui-scheduled-paper > p { font-size:16px; }
+ .ui-schedule-confirmation { font-size:11px; gap:8px; align-items:flex-start; }
+ .ui-schedule-confirmation svg { flex-shrink:0; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .ui-shortcut-options button,.ui-time-options button { transition:none; }
 }

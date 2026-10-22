@@ -1,5 +1,7 @@
 import { useState, type ReactNode } from "react";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, Mail, MessageCircle, MessagesSquare, Users, Slack, Clock3 } from "lucide-react";
+import { siWhatsapp, siTelegram, siMessenger, siInstagram } from "simple-icons";
+import { motion, useReducedMotion } from "motion/react";
 import "@/styles/feature-foundations.css";
 import "@/styles/unified-inbox.css";
 
@@ -233,25 +235,55 @@ function Explore() {
     </section>
   );
 }
+const channels = [
+  { name: "WhatsApp", brand: siWhatsapp, colour: "#168c52" },
+  { name: "Email", icon: Mail, colour: "#3764ab" },
+  { name: "SMS", icon: MessageCircle, colour: "#56804d" },
+  { name: "Telegram", brand: siTelegram, colour: "#258bb7" },
+  { name: "Messenger", brand: siMessenger, colour: "#5260d9" },
+  { name: "Instagram", brand: siInstagram, colour: "#b04f79" },
+  { name: "Live web chat", icon: MessagesSquare, colour: "#b36d44" },
+  { name: "Slack", icon: Slack, colour: "#654568" },
+  { name: "Team chat", icon: Users, colour: "#4f706c" },
+];
 function Channels() {
   return (
     <section className="ui-channels" aria-labelledby="channels-heading">
       <div className="ui-wrap ui-channel-layout">
-        <div>
+        <div className="ui-channel-copy">
+          <p className="ui-eyebrow">Your connected channels</p>
           <h2 id="channels-heading">Different channels.<br />One place to keep up.</h2>
           <p>Bring the places people contact you into Zapla, with team conversations close at hand.</p>
         </div>
-        <div className="ui-channel-directory">
-          <h3>Connect your conversations</h3>
-          <ul>
-            {["WhatsApp", "Email", "SMS", "Telegram", "Facebook Messenger", "Instagram", "Live web chat", "Slack", "Team chat"].map(channel => <li key={channel}>{channel}</li>)}
-          </ul>
+        <div className="ui-channel-stage">
+          <div className="ui-channel-directory">
+            <div className="ui-channel-brand"><img src="/concept/zapla-logo-dark.svg" alt="Zapla" /><span>Unified Inbox</span></div>
+            <ul aria-label="Channels you can connect">
+              {channels.map(channel => (
+                <li key={channel.name}>
+                  <span className="ui-channel-icon" style={{ color: channel.colour }} aria-hidden="true">
+                    {channel.brand ? <svg viewBox="0 0 24 24"><path fill="currentColor" d={channel.brand.path} /></svg> : channel.icon ? <channel.icon strokeWidth={1.7} /> : null}
+                  </span>
+                  <span>{channel.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+const responseExamples = [
+  { shortcut: "/welcome", text: "Thanks for getting in touch. How can we help you today?" },
+  { shortcut: "/photos", text: "Could you send through a few photos? That will help us understand what you need before we arrange a visit." },
+  { shortcut: "/quote", text: "Your quote is ready. Let me know if you have any questions and I’ll be happy to help." },
+];
 function ReplyTools() {
+  const [response, setResponse] = useState(0);
+  const [time, setTime] = useState("9:00 am");
+  const reduced = useReducedMotion();
+  const reveal = { initial: { opacity: reduced ? 1 : 0, y: reduced ? 0 : 8 }, animate: { opacity: 1, y: 0 }, transition: { duration: reduced ? 0 : 0.28 } };
   return (
     <section className="ui-section ui-reply-tools" aria-labelledby="reply-tools-heading">
       <div className="ui-wrap">
@@ -261,18 +293,33 @@ function ReplyTools() {
         </div>
         <div className="ui-reply-columns">
           <article>
-            <div className="ui-saved-example" aria-label="Example saved response using the slash shortcut">
-              <code>/welcome</code>
-              <p>Thanks for getting in touch. How can we help you today?</p>
-              <span>One shortcut. Your saved response.</span>
+            <div className="ui-saved-example">
+              <p className="ui-demo-instruction">Choose a shortcut to see the response</p>
+              <div className="ui-shortcut-options" aria-label="Saved response examples">
+                {responseExamples.map((item, index) => <button key={item.shortcut} type="button" aria-pressed={response === index} aria-controls="saved-response-preview" onClick={() => setResponse(index)}><code>{item.shortcut}</code></button>)}
+              </div>
+              <div className="ui-response-paper">
+                <div className="ui-response-person"><Avatar cell={13} /><span>Your saved response</span></div>
+                <div id="saved-response-preview" aria-live="polite"><motion.p key={response} {...reveal}>{responseExamples[response].text}</motion.p></div>
+                <span className="ui-response-caption">Ready to use in your conversation</span>
+              </div>
             </div>
             <h3>A familiar question. An answer ready.</h3>
             <p>Save responses you use often and insert them with a <strong>/</strong> shortcut. Spend less time typing the same opening hours, next steps or welcome message.</p>
           </article>
           <article>
-            <div className="ui-schedule-example" aria-label="Example message scheduled for tomorrow at 9 am">
-              <p>Hi Mia, just checking whether you had any questions about your quote.</p>
-              <div><span>Scheduled for</span><strong>Tomorrow <span>at</span> 9:00 am</strong></div>
+            <div className="ui-schedule-example">
+              <div className="ui-scheduled-paper">
+                <div className="ui-response-person"><Avatar cell={9} /><span>To Mia Thompson</span></div>
+                <p>Hi Mia, just checking whether you had any questions about your quote.</p>
+              </div>
+              <div className="ui-time-picker">
+                <p className="ui-demo-instruction">Try a send time for tomorrow</p>
+                <div className="ui-time-options" aria-label="Scheduled message example times">
+                  {["9:00 am", "1:00 pm", "4:00 pm"].map(item => <button key={item} type="button" aria-pressed={time === item} aria-controls="scheduled-time-preview" onClick={() => setTime(item)}>{item}</button>)}
+                </div>
+                <div className="ui-schedule-confirmation" id="scheduled-time-preview" aria-live="polite"><Clock3 size={19} aria-hidden="true" /><motion.span key={time} {...reveal}>Scheduled for tomorrow at <strong>{time}</strong></motion.span></div>
+              </div>
             </div>
             <h3>Write it now. Send it later.</h3>
             <p>Prepare your message, then choose the date and time to send it. Get the next conversation ready while the details are still fresh.</p>
