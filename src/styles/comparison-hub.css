@@ -87,3 +87,29 @@
 @media(max-width:1000px){.ch-logo-tile,.ch-logo-tile:nth-child(n){width:138px;height:72px}.ch-logo-mosaic{gap:12px}}
 @media(max-width:600px){.ch-logo-hero{padding:100px 0 36px}.ch-logo-hero h1{font-size:44px}.ch-logo-hero .ch-eyebrow{font-size:9px;letter-spacing:.13em;margin-bottom:22px}.ch-logo-hero .ch-intro-copy{font-size:16px}.ch-logo-mosaic{margin-top:32px;padding-top:26px;gap:10px}.ch-logo-tile,.ch-logo-tile:nth-child(n){width:calc((100% - 20px)/3);height:62px;border-radius:5px}.ch-directory{padding-top:36px}}
 @media(prefers-reduced-motion:reduce){.ch-logo-tile{transition:none}}
+
+/* Owner-approved soft-autumn Zapla VS composition. */
+.ch-logo-hero{background:#f8f6f0;color:#20382e;padding:116px 0 64px;text-align:left}
+.ch-vs-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center}
+.ch-logo-hero .ch-eyebrow{color:#68715e;letter-spacing:.12em}
+.ch-logo-hero h1{font-size:clamp(48px,4.5vw,65px);line-height:1.06;letter-spacing:-.05em}
+.ch-logo-hero h1 span{color:#42634f}
+.ch-logo-hero .ch-intro-copy{color:#5b675f;margin:0;font-size:18px}
+.ch-explore{border-radius:999px;padding:14px 24px}
+.ch-vs-panel{background:#e5eadc;border:1px solid #dce2d2;border-radius:22px;padding:38px 28px 28px;box-shadow:0 16px 45px #34463108;text-align:center}
+.ch-vs-zapla{display:block;width:190px;height:auto;margin:0 auto}
+.ch-vs-divider{display:flex;align-items:center;gap:18px;max-width:220px;margin:25px auto;color:#8c6956;font-size:13px;letter-spacing:.12em;font-weight:600}
+.ch-vs-divider:before,.ch-vs-divider:after{content:"";height:1px;flex:1;background:#cbd2c2}
+.ch-vs-panel .ch-logo-mosaic{border:0;padding:0;margin:0;gap:10px;display:flex;justify-content:center}
+.ch-vs-panel .ch-logo-tile:nth-child(n){width:calc((100% - 20px)/3);height:74px;border-radius:9px;border:1px solid #f5f4ed;background:#fffdfa;display:flex;flex-direction:column;box-shadow:0 3px 8px #30403105}
+.ch-vs-panel .ch-logo-tile .ch-logo{width:90%;height:50px}
+.ch-vs-panel .ch-logo-tile .ch-logo img{max-width:100%;max-height:33px}
+.ch-vs-panel .ch-logo-tile .ch-logo--salesforce img{max-height:43px}
+.ch-vs-panel .ch-logo-tile .ch-logo--creatio img{width:160px;height:160px;max-width:none;max-height:none}
+.ch-vs-panel .ch-logo-tile--activecampaign .ch-logo,.ch-vs-panel .ch-logo-tile--pipedrive .ch-logo{height:42px}
+.ch-vs-panel .ch-logo-tile--activecampaign .ch-logo img,.ch-vs-panel .ch-logo-tile--pipedrive .ch-logo img{width:34px;height:34px;max-height:34px;object-fit:contain}
+.ch-symbol-name{font-size:10px;line-height:1.2;color:#3e4e44;margin-top:2px}
+.ch-vs-panel .ch-logo-tile:focus-visible{outline-color:#2563ff}
+.ch-directory{background:#fff}
+@media(max-width:1000px){.ch-vs-layout{gap:30px}.ch-vs-panel{padding:30px 18px 20px}.ch-logo-hero h1{font-size:49px}.ch-vs-panel .ch-logo-tile:nth-child(n){height:68px}.ch-vs-panel .ch-logo-tile .ch-logo--creatio img{width:134px;height:134px}}
+@media(max-width:700px){.ch-logo-hero{padding:100px 0 40px}.ch-vs-layout{grid-template-columns:1fr;gap:34px}.ch-logo-hero h1{font-size:48px;max-width:500px}.ch-logo-hero .ch-intro-copy{font-size:17px}.ch-vs-panel{padding:30px 20px 24px}.ch-vs-zapla{width:170px}.ch-vs-panel .ch-logo-tile:nth-child(n){height:70px}.ch-vs-panel .ch-logo-tile .ch-logo img{max-height:29px}.ch-vs-panel .ch-logo-tile .ch-logo--creatio img{max-height:none}.ch-vs-panel .ch-logo-tile .ch-logo--salesforce img{max-height:39px}.ch-vs-panel .ch-logo-tile--activecampaign .ch-logo img,.ch-vs-panel .ch-logo-tile--pipedrive .ch-logo img{max-height:32px}.ch-symbol-name{font-size:9px}}

@@ -17,3 +17,5 @@ Retrieved 22 October 2026. Logos identify the compared vendors, not endorsements
 | Zoho | https://www.zohowebstatic.com/sites/zweb/images/commonroot/zoho-logo-web.svg |
 
 Inline SVGs have namespace/viewBox normalization and inherited monochrome colours made explicit for standalone rendering. White monochrome HighLevel/Podium lettering is rendered dark on the white cards; geometry preserved. monday uses the corporate wordmark with the adjacent monday CRM comparison title, not a Work Management product logo.
+
+VS hero symbols: official ActiveCampaign favicon https://www.activecampaign.com/dist/favicon-192x192.png and Pipedrive icon https://cdn.was-1.pipedriveassets.com/www-main-renderer/_next/static/media/favicon-196x196.98c71512.png retrieved22October2026. Original PNG bytes embedded in local SVG wrappers. Directory wordmarks preserved.
