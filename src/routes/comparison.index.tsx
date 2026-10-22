@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowDown, Check } from 'lucide-react';
 import hubCss from '@/styles/comparison-hub.css?url';
 
 const competitors = [
@@ -30,12 +30,24 @@ export const Route = createFileRoute('/comparison/')({
 
 function ComparisonHub() {
   return <main className="comparison-hub">
-    <section className="ch-intro"><div className="ch-wrap">
-      <p className="ch-eyebrow">Compare Zapla</p>
-      <h1>How does Zapla<br /><span>compare?</span></h1>
-      <p className="ch-intro-copy">Compare subscriptions, included tools and setup before you choose. Find the platform you’re considering below.</p>
+    <section className="ch-intro"><div className="ch-wrap ch-hero-grid">
+      <div className="ch-hero-message">
+        <p className="ch-eyebrow">Compare Zapla</p>
+        <h1>How does<br />Zapla <span>compare?</span></h1>
+        <p className="ch-intro-copy">Compare subscriptions, included tools and setup before you choose. Find the platform you’re considering below.</p>
+        <div className="ch-hero-actions"><a className="ch-button" href="#comparisons">Explore comparisons <ArrowDown size={18} aria-hidden="true" /></a><a className="ch-hero-secondary" href="/booking">Book a Call <ArrowRight size={17} aria-hidden="true" /></a></div>
+        <p className="ch-hero-footnote">11 platforms. Features, pricing and the details that matter.</p>
+      </div>
+      <aside className="ch-position-card" aria-label="The Zapla difference">
+        <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="122" height="36" />
+        <p className="ch-position-label">The Zapla difference</p>
+        <h2>Unlimited<br />users.</h2>
+        <p className="ch-position-sub">Your whole team.<br />No per-user fees.</p>
+        <ul><li><Check size={18} aria-hidden="true" /> CRM and customer follow-up</li><li><Check size={18} aria-hidden="true" /> Setup around your business</li><li><Check size={18} aria-hidden="true" /> Bookings, quotes and invoices</li></ul>
+        <a href="/Pricing-v3">Explore Zapla plans <ArrowRight size={18} aria-hidden="true" /></a>
+      </aside>
     </div></section>
-    <section className="ch-directory" aria-label="Choose a comparison"><div className="ch-wrap">
+    <section id="comparisons" className="ch-directory" aria-label="Choose a comparison"><div className="ch-wrap">
       <div className="ch-directory-heading"><h2>Find your comparison.</h2><p>{competitors.length} platforms. A clearer choice.</p></div>
       <nav className="ch-grid" aria-label="Zapla comparisons">
         {competitors.map(item => <a className="ch-card" key={item.slug} href={`/comparison/zapla-vs-${item.slug}`}>
