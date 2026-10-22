@@ -284,11 +284,11 @@ export function PipelineManagementPage() {
             </div>
             <div className="pf-photo">
               <img
-                src="/concept/industries/trades-office.webp"
-                alt="A business team member reviewing customer work in the office"
+                src="/concept/industries/trades-service-visit.webp"
+                alt="A service professional discussing the work with a customer"
                 loading="lazy"
-                width="1536"
-                height="1024"
+                width="1672"
+                height="941"
               />
               <div className="pf-photo-note">
                 <span>One shared view</span>
