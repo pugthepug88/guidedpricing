@@ -1403,3 +1403,27 @@
  .ui-workspace-question p,.ui-workspace-answer p { font-size:14px; padding:15px; }
  .ui-workspace-answer { margin-left:18px; }
 }
+
+/* Team Chat: visibly separate internal discussion from customer messages. */
+.ui-team-scene { border:1px solid #ffffff38; border-radius:26px; overflow:hidden; background:#f8faf6; box-shadow:0 24px 60px #0d1c1930; }
+.ui-team-customer { padding:26px 30px; color:#293e47; }
+.ui-team-label { display:flex; align-items:center; gap:9px; font-size:12px; font-weight:600; margin-bottom:19px; }
+.ui-team-label small { margin-left:auto; font-size:10px; font-weight:400; color:#566650; }
+.ui-team-message { display:flex; gap:13px; align-items:flex-start; }
+.ui-team-message > .ui-avatar { flex-shrink:0; }
+.ui-team-message > div { flex:1; }
+.ui-team-message strong { display:block; font-size:12px; font-weight:600; margin:2px 0 7px; }
+.ui-team-message strong span { font-weight:400; margin-left:5px; color:#63735c; }
+.ui-team-message p { margin:0; font-size:15px; line-height:1.55; }
+.ui-team-internal { background:#e3e9d9; border-block:1px solid #cbd5bf; padding:26px 30px; color:#35452d; }
+.ui-team-colleague { margin-top:18px; margin-left:45px; }
+.ui-team-confirmation { background:#edf3f8; }
+.ui-team-confirmation .ui-team-message p { color:#284d70; }
+.ui-connected-grid > div > p.ui-team-benefit { font-size:15px; color:#bac9be; margin-top:24px; max-width:390px; }
+@media(max-width:600px) {
+ .ui-team-customer,.ui-team-internal { padding:23px 20px; }
+ .ui-team-label { flex-wrap:wrap; font-size:11px; }
+ .ui-team-label small { margin-left:0; flex-basis:100%; padding-left:27px; }
+ .ui-team-message p { font-size:14px; }
+ .ui-team-colleague { margin-left:20px; }
+}

@@ -70,3 +70,7 @@ User rejected the standalone channel grid, unrelated-customer selector, weak dar
 
 ## Inbox panel refinement, 22 October 2026
 Hero white panel now shows the quote detail that supports Ben's answer: old unit removal included, plus job title and owner. This replaces the visually empty job summary without decorative bars or invented metrics. Dark section replaces the rejected tilted paper stack with one aligned workspace containing visit details, Daniel's question and Alex's reply. No rotation or overlapping panels. Shared navigation/footer preserved.
+
+
+## Approved Team Chat section, 22 October 2026
+Replaced the repetitive dark customer-record scene with customer and internal Team Chat conversations. Mia asks about Friday, Ben checks with Alex internally, then Ben replies to Mia. Separate labelled colour surfaces make the audiences explicit. Based on user-confirmed Team Chat capability; no automatic forwarding, linked threads, scheduling integration or assignment claimed. No new automatic animation. Hero unchanged in this approval.

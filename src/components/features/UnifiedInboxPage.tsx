@@ -297,31 +297,24 @@ export function UnifiedInboxPage() {
       <section className="ui-section ui-connected">
         <div className="ui-wrap ui-connected-grid">
           <div>
-            <p className="ui-eyebrow">Connected to the next step</p>
-            <h2>
-              Keep the conversation
-              <br />
-              close to the work.
-            </h2>
-            <p>
-              A question about a quote. A change to an appointment. A response to a follow up. Keep
-              that conversation connected to the customer and the work around them.
-            </p>
-            <div className="ui-dark-links">
-              <a href="/crm">
-                Customer records <ArrowRight size={16} />
-              </a>
-              <a href="/follow-up">
-                Follow up <ArrowRight size={16} />
-              </a>
-            </div>
+            <p className="ui-eyebrow">Team Chat</p>
+            <h2>Keep your team<br />in the conversation.</h2>
+            <p>Message customers and talk with your team from one inbox. Keep internal discussions separate from customer replies.</p>
+            <p className="ui-team-benefit">Check a detail with a colleague. Agree on the next step. Give your customer a clear answer.</p>
           </div>
-          <div className="ui-workspace-scene">
-            <div className="ui-workspace-header"><Avatar cell={5} large /><div><span>Daniel Brooks</span><h3>Office maintenance</h3></div><Mail size={20} aria-label="Email conversation" /></div>
-            <div className="ui-workspace-details"><div><span>Site visit</span><strong>Thursday afternoon</strong></div><div><span>Access note</span><strong>Ask for Daniel at reception.</strong></div></div>
-            <div className="ui-workspace-thread">
-              <div className="ui-workspace-question"><span>Daniel</span><p>Should I arrange access through reception?</p></div>
-              <div className="ui-workspace-answer"><div><Avatar cell={8} /><span>Alex’s reply</span></div><p>Yes please, Daniel. I’ll ask for you at reception when I arrive on Thursday afternoon.</p></div>
+          <div className="ui-team-scene">
+            <div className="ui-team-customer">
+              <div className="ui-team-label"><MessageCircle size={17} /><span>Customer conversation</span></div>
+              <div className="ui-team-message"><Avatar cell={9} /><div><strong>Mia</strong><p>Can someone come out on Friday?</p></div></div>
+            </div>
+            <div className="ui-team-internal">
+              <div className="ui-team-label"><Users size={18} /><span>Team Chat</span><small>Internal conversation</small></div>
+              <div className="ui-team-message"><Avatar cell={13} /><div><strong>Ben <span>to Alex</span></strong><p>Can you take Mia’s booking on Friday?</p></div></div>
+              <div className="ui-team-message ui-team-colleague"><Avatar cell={8} /><div><strong>Alex</strong><p>Yes, I’m available after 2.</p></div></div>
+            </div>
+            <div className="ui-team-customer ui-team-confirmation">
+              <div className="ui-team-label"><MessageCircle size={17} /><span>Reply to Mia</span></div>
+              <div className="ui-team-message"><Avatar cell={13} /><div><strong>Ben</strong><p>Alex can come out after 2 on Friday. Does that suit you?</p></div></div>
             </div>
           </div>
         </div>
