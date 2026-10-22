@@ -1447,7 +1447,7 @@
 .ui-context-heading strong { font-size:15px; color:#23352e; }
 .ui-context-people { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:10px 0 12px; color:#34483e; font-size:12px; }
 .ui-context-people > span:last-child { display:flex; align-items:center; gap:7px; font-size:11px; }
-.ui-context-people .ui-avatar { width:22px; height:22px; }
+.ui-context-people .ui-avatar { width:22px; height:22px; flex:0 0 22px; }
 .ui-context-history { border-top:1px solid #d8e0df; padding-top:11px; }
 .ui-context-history > span { font-size:10px; color:#53665c; }
 .ui-context-history p { font-size:13px; color:#243b30; line-height:1.5; margin:5px 0 0; }
