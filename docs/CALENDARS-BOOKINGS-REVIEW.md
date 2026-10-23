@@ -1,5 +1,7 @@
 # Calendars & Bookings: implementation review
 
+> Historical initial implementation. The owner’s later capability correction and visual revision supersede this review where they differ. See [the current revision review](CALENDARS-BOOKINGS-REVISION-REVIEW.md) and the updated capability matrix.
+
 Review date: **23 October 2026 (Australia/Sydney)**. Destination: `/features/calendars-bookings`.
 
 This records the completed marketing-page implementation and the checks performed before its GitHub sync. Source review, rendered website checks and product evidence are separate. Product capability evidence and its limits are in [CALENDARS-BOOKINGS-EVIDENCE.md](CALENDARS-BOOKINGS-EVIDENCE.md). This is not a production release or live-product acceptance sign-off.
