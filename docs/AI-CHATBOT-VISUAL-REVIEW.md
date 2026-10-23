@@ -117,3 +117,37 @@ Initial validation: production build, TypeScript, targeted component ESLint, for
 Generation prompt (built-in image tool):
 
 > Use case: photorealistic-natural. Asset type: a fresh panoramic editorial photograph for the human-handover section of Zapla's AI Chatbot website feature page. Create one premium, convincingly real contemporary documentary photograph, wide 3:1 landscape composition, ideally 3072 x 1024. Scene: a small Sydney air-conditioning service business office, calm and modern, tactile pale oak desk, warm plaster walls, muted stone and olive details, soft directional late-morning window light. Subject: a new South Asian male service coordinator about 36, short black hair, subtle natural stubble, wearing an unbranded light blue cotton shirt. He occupies the rightmost third and is attentively reviewing an enquiry on an open plain silver laptop at his desk, seen three-quarter profile, candid concentration rather than smiling at camera. His face and both hands must be natural and unobstructed. The laptop and keyboard are physically plausible; screen faces away from the viewer, no visible application UI. The left 40 percent of the frame is quiet darker warm-stone office space with soft depth and a little desk foreground, deliberately clear for later HTML heading overlay. Keep the entire person, head, shoulders and laptop within the right half so a phone crop can retain them. This image accompanies the moment a human considers a customer request requiring judgement. Rich but restrained autumn colour, natural skin texture, gentle film grain, refined editorial photography, not generic glossy stock. No other people, no phones, no sci-fi motifs, no AI illustrations, no charts, no logos, no signage, no text, no watermark. Generate a completely new person and setting, do not reuse the website's existing woman at a laptop or homeowner and installer photograph.
+
+
+### Rendered review and corrections completed
+
+The public branch preview became available and was reviewed in the connected Chrome browser. Two visual problems were found and corrected: white copy on the lighter hero backdrop lacked contrast, so the hero now uses ink text on a lighter blue/stone field; and the narrow hero headline took too much vertical space, so the tablet opening stacks and the phone headline uses deliberate phrase breaks with preserved spaces. A mobile selector-specificity error that hid the outside-business-hours line was also corrected.
+
+A native-scroll test found a functional issue that static screenshots did not reveal: bottom padding did not give the sticky panel actual travel. Replaced it with an in-flow spacer on enhanced desktop layouts. The same native test then measured the panel at 120px on approach, 94px through successive scroll movements, and below that anchor after release. Reverse scrolling retained the completed contact at full opacity. The hold adds only 120px of native travel. The record reveals once; no messages are replaced, no timer or reset loop is involved.
+
+Rendered coverage:
+
+- **1366 × 900 desktop:** final hero; qualification/contact capture; configured pipeline/task; expanded optional booking; knowledge source/answer; loaded panoramic photograph and separate handover; open Guided Launch; FAQ; final CTA and sky transition. The full conversation and result are legible.
+- **1101 × 820:** the 352.65px contact scene fits below the fixed header, with the enhancement enabled and a real 120px spacer.
+- **1366 × 720:** the enhancement turns off, the scene is static, the contact remains at opacity 1 and the page has no horizontal overflow.
+- **834 × 900 tablet:** corrected broad headline/opening, grouped contact record and fresh human photograph/copy. The normal-flow layout is enabled; no clipped main text or horizontal overflow appeared in the DOM geometry check. This was a key-scene tablet review, not every lower-page tablet interaction.
+- **393 × 852 phone (378px document content):** complete opening and qualification/capture reading order, contact record, pipeline/task, expanded optional booking, knowledge source/answer, fresh photograph, original-question handover, setup, FAQs, final CTA and sky/footer transition. No horizontal overflow, clipped main text or unloaded main image was found after scrolling through the page.
+- **320 × 852 (305px document content):** final phrase-based hero, contact name/email/original request and photograph/copy inspected. The name wraps naturally; the face remains unobstructed. The all-main-text geometry check found no clipped headings, paragraphs, sales links or summaries and no document overflow.
+
+The booking disclosure and qualification FAQ opened by click and closed with Enter on desktop. The phone booking disclosure opened and retained availability, explicit agreement and the booking result in order. All three rendered sales CTAs point to `/booking`. The calendar embed remains intentionally deferred. This is marketing-page UI review, not a live chatbot, contact-creation or calendar acceptance test.
+
+Role checks were conducted as separate review passes by the same agent, not independent reviewers:
+
+| Lens | Evidence and result |
+| --- | --- |
+| UI/UX | One dominant conversation stage; no competing website headline/photo; readable wide and narrow layouts; native disclosures. |
+| Brand / Creative | Zapla type, palette, petal, portrait continuity and final CTA retained; broad smooth product surfaces on a local textured field; a new panorama supplies the human break. |
+| Product Marketing | Website answer, need/timing, explicit contact details, customer record and configured continuation remain visible; no new capability or performance claim. |
+| Conversion | Primary booking and secondary demonstration entry are clear; optional appointment detail is disclosed; setup cost qualification remains visible. |
+| Motion | Fitting desktop scene reveals once, holds and releases under native scrolling; complete normal-flow phone/short-height baseline. |
+| SME buyer | The same enquiry can be followed from the visitor's words to a named contact and a review task without decoding diagram arrows. |
+| Buyer psychology | Business-information proof and conditional human handover address control and trust; no claim that every visitor becomes a qualified customer. |
+| AI-slop critique | Removed the nested website/photo collage, scattered connector/CTA arrows and full-width middle colour bands; no extra status chips, counters or fake controls. |
+| Technical | Production build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Shared navigation/footer and unrelated sources are unchanged. |
+
+The desktop hero capture is retained in [qa/ai-chatbot-product-stage.png](qa/ai-chatbot-product-stage.png). Remaining limits: no physical-device/cross-browser matrix or screen-reader session; reduced-motion and unavailable-JavaScript behaviour were checked in source rather than separate browser modes. No measured conversion result or final owner approval is implied. Local development preview remained unreachable from the connected browser; rendered review used the existing repository's public branch preview. Lovable stays read-only, with no builder prompt or separate production Publish action.
