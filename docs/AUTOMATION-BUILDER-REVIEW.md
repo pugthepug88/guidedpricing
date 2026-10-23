@@ -226,3 +226,14 @@ Final product-code commit: `14490abac1372ae3ccb4f8f00ae822f284c0c9ea`. GitHub's 
 The refreshed phone HELP paragraph was checked in the live DOM. A later attempt to capture that section and reopen the revised reply FAQ was interrupted by an editor-preview reset and browser timeout; the mismatched homepage/blank captures were rejected. No completed new FAQ keyboard test or full lower-page responsive pass is claimed. The unchanged editorial photograph and lower-page sections retain prior evidence, not a claim of fresh whole-page verification.
 
 A requested narrow viewport override did not change the measured direct-page width and was reset; it supplies no 320px visual proof. Remaining limits: complete 320px, reduced-motion/JavaScript-disabled browser sessions, normal-speed motion recording, assistive technology, physical/cross-browser devices and live NextGen execution/delivery. These limits do not turn the completed desktop/tablet/phone workflow checks into account acceptance. Shared navigation/footer, unrelated feature work, Platform structure and `/booking` are preserved. Lovable was used read-only; no builder prompt or Publish action was used.
+
+
+## Superseding compact enquiry hero, 23 October 2026
+
+The owner found the installation workflow too long and visually heavy. Its earlier positive assessment did not establish owner approval. This correction removes six of ten nodes, the installation/keyword/timeout terminology and the secondary construction explanation.
+
+The four-node hero is **New website enquiry → Phone call requested? → Yes: Call the customer task / No: Enquiry received email**. Phone/email preference is established in the trigger before the condition. A task leads to a person making the requested call; an email preference receives a configured acknowledgement. This is understandable across service businesses and does not depend on specialised installation knowledge. A quote-reminder variant was rejected because it duplicates Quote Follow-Up and would need additional timing/context.
+
+The same warm stone grain, smooth glass, large readable type, petal and quiet neutral topology remain. One short reveal introduces each visible step once; the alternatives stay readable and no controls or loop are added. The page uses normal flow. The next chapter is reduced to the callback request and editorial photograph, making the human role clear without another mini workflow. The original photograph belongs to this page and is retained; no existing website photograph is substituted.
+
+Technical and refreshed desktop/tablet/phone checks are in progress. Prior ten-node screenshots do not verify this compact composition. Shared navigation/footer, other feature work, H1, final CTA and `/booking` are preserved.

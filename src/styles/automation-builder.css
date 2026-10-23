@@ -106,14 +106,14 @@
   grid-template-columns: 0.92fr 1.28fr;
   column-gap: 72px;
   row-gap: 54px;
-  align-items: start;
+  align-items: center;
 }
 .ab-hero-intro {
   min-height: 510px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 30px;
+  padding-bottom: 0;
 }
 .ab-hero-description {
   margin-top: 25px !important;
@@ -128,8 +128,8 @@
 }
 .ab-scene {
   grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: stretch;
+  grid-row: 1;
+  align-self: center;
   scroll-margin-top: 106px;
 }
 /* Quiet grain supports the smooth nodes. Connections express topology only. */
@@ -188,50 +188,40 @@
   line-height: 1.4;
 }
 .ab-trigger,
-.ab-common-step,
 .ab-condition {
   max-width: 360px;
-  padding: 13px 19px;
+  padding: 16px 21px;
 }
 .ab-trigger strong,
-.ab-common-step h3,
 .ab-condition h3 {
   display: block;
-  margin-top: 4px;
+  margin-top: 5px;
   color: #171d23;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 650;
   line-height: 1.4;
   letter-spacing: -0.025em;
 }
-.zapla-automation .ab-common-step p,
-.zapla-automation .ab-condition p {
-  margin-top: 5px;
+.zapla-automation .ab-trigger p {
+  margin-top: 7px;
   font-size: 13px;
   line-height: 1.55;
   color: #3c474e;
-}
-.zapla-automation .ab-message-step p {
-  font-size: 14px;
-  line-height: 1.6;
-}
-.ab-message-step strong {
-  font-weight: 700;
 }
 .ab-condition {
   background: linear-gradient(138deg, #fffffff0, #f8f8f4db);
 }
 .ab-condition h3 {
-  font-size: 20px;
+  font-size: 22px;
 }
 .ab-connection {
   width: 1px;
-  height: 18px;
+  height: 26px;
   margin: 0 auto;
   background: #f5f3ecab;
 }
 .ab-split {
-  height: 34px;
+  height: 42px;
 }
 .ab-split svg {
   display: block;
@@ -249,68 +239,52 @@
 }
 .ab-branch-outcomes {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
 }
 .ab-track {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
 }
-.ab-branch-label {
-  min-height: 43px;
-  margin: 0;
+.zapla-automation .ab-branch-label {
+  margin-bottom: 13px;
   color: #242c32;
   font-size: 12px;
   font-weight: 650;
   line-height: 1.4;
   text-align: center;
 }
-.ab-branch-label span {
-  display: block;
-  font-size: 11px;
-  font-weight: 500;
-}
-.ab-track-nodes {
-  display: grid;
-  grid-template-rows: auto 18px 1fr;
-}
 .ab-step {
+  flex: 1;
   width: 100%;
-  padding: 14px 13px 15px;
+  padding: 19px 21px 21px;
 }
 .ab-step h3 {
   margin-top: 6px;
   color: #171d23;
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 650;
   line-height: 1.4;
   letter-spacing: -0.02em;
 }
 .zapla-automation .ab-step p {
-  margin-top: 7px;
+  margin-top: 10px;
   color: #303c43;
   font-size: 14px;
   line-height: 1.6;
 }
-.zapla-automation .ab-step .ab-record-value {
-  margin-top: 7px;
-  font-size: 14px;
-  font-weight: 600;
-}
-.ab-first-step {
-  min-height: 113px;
-}
-.ab-next-step {
-  background: linear-gradient(138deg, #ffffffe8, #f4f4f0cf);
-}
-/* A short material reveal introduces each step once as it enters view.
-   All words and all alternative paths remain present, including without JS. */
+/* Introduce the configured steps once. All alternatives remain readable. */
 @media (prefers-reduced-motion: no-preference) {
   .ab-node[data-entered="true"],
   .ab-track[data-entered="true"] .ab-node {
     animation: ab-step-enter 0.7s ease-out both;
   }
-  .ab-track[data-entered="true"] .ab-next-step {
-    animation-delay: 0.35s;
+  .ab-condition[data-entered="true"] {
+    animation-delay: 0.2s;
+  }
+  .ab-track[data-entered="true"] .ab-node {
+    animation-delay: 0.4s;
   }
 }
 @keyframes ab-step-enter {
@@ -322,16 +296,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-.ab-build-copy {
-  grid-column: 1;
-  padding: 12px 0 30px;
-}
-.ab-build-copy > p:not(.ab-eyebrow) {
-  margin-top: 23px;
-}
-.ab-build-copy > .ab-text-link {
-  margin-top: 17px;
 }
 /* A wide editorial scene breaks the two-column product rhythm. */
 .ab-human {
@@ -374,38 +338,6 @@
   font-size: 21px;
   line-height: 1.5;
   margin-top: 17px;
-}
-.ab-review-task {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  margin-top: 25px;
-  padding-left: 24px;
-}
-.ab-review-task::before {
-  content: "";
-  position: absolute;
-  top: -25px;
-  left: 38px;
-  height: 25px;
-  width: 1px;
-  background: #9aaa90;
-}
-.ab-review-task svg {
-  flex-shrink: 0;
-}
-.ab-label {
-  color: #58635f;
-  font-size: 12px;
-  line-height: 1.5;
-}
-.ab-review-task strong {
-  display: block;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  margin-top: 4px;
 }
 .ab-human-photo {
   position: relative;
@@ -701,13 +633,6 @@
     width: 100%;
     max-width: 760px;
   }
-  .ab-build-copy {
-    grid-row: 3;
-    padding: 12px 0 0;
-  }
-  .ab-build-copy h2 {
-    max-width: 650px;
-  }
   .ab-branch-stage {
     padding: 25px;
   }
@@ -828,99 +753,32 @@
     font-size: 13px;
   }
   .ab-trigger,
-  .ab-common-step,
   .ab-condition {
     max-width: 290px;
-    padding: 14px 16px;
+    padding: 15px 17px;
   }
-  .ab-trigger strong,
-  .ab-common-step h3 {
-    font-size: 16px;
+  .ab-trigger strong {
+    font-size: 17px;
   }
   .ab-condition h3 {
-    font-size: 19px;
+    font-size: 20px;
   }
   .ab-node-label {
     font-size: 11px;
   }
-  .ab-split {
-    display: none;
-  }
   .ab-branch-outcomes {
-    position: relative;
-    display: block;
-    margin: 0 0 0 3px;
-    padding: 27px 0 0 17px;
-  }
-  .ab-branch-outcomes::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 1px;
-    background: #f5f3ecab;
-  }
-  .ab-branch-outcomes::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    border-top: 1px solid #f5f3ecab;
-  }
-  .ab-track {
-    position: relative;
-    margin-bottom: 25px;
-  }
-  .ab-track:last-child {
-    margin-bottom: 0;
-  }
-  .ab-track::before {
-    content: "";
-    position: absolute;
-    top: 9px;
-    left: -17px;
-    width: 12px;
-    border-top: 1px solid #f5f3ecab;
-  }
-  .ab-branch-label {
-    min-height: 0;
-    margin-bottom: 11px;
-    font-size: 12px;
-    text-align: left;
-  }
-  .ab-branch-label span {
-    display: inline;
-    margin-left: 5px;
-  }
-  .ab-track-nodes {
-    grid-template-columns: 0.85fr 12px 1.15fr;
-    grid-template-rows: 1fr;
-    align-items: stretch;
-  }
-  .ab-track-nodes .ab-connection {
-    align-self: center;
-    width: 12px;
-    height: 1px;
+    gap: 12px;
   }
   .ab-step {
-    padding: 13px 11px 15px;
+    padding: 16px 13px 18px;
     border-radius: 12px;
   }
   .ab-step h3 {
-    font-size: 15px;
-  }
-  .ab-first-step {
-    min-height: 0;
+    font-size: 17px;
   }
   .zapla-automation .ab-step p {
     font-size: 14px;
-    line-height: 1.55;
-    margin-top: 8px;
-  }
-  .ab-build-copy {
-    padding-top: 10px;
+    line-height: 1.6;
   }
   .ab-section {
     padding: 64px 0;
@@ -1061,16 +919,14 @@
   .ab-canvas-heading {
     font-size: 12px;
   }
-  .ab-track-nodes {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 16px auto;
-  }
-  .ab-track-nodes .ab-connection {
-    width: 1px;
-    height: 16px;
+  .ab-branch-outcomes {
+    gap: 9px;
   }
   .ab-step {
-    padding-inline: 14px;
+    padding-inline: 11px;
+  }
+  .ab-step h3 {
+    font-size: 16px;
   }
   .ab-lifecycle {
     padding-inline: 17px;

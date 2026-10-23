@@ -1,6 +1,6 @@
 # Automation Builder: evidence and claim boundaries
 
-**Current implementation:** see “Accepted-job preparation workflow” at the end. It supersedes the rejected urgent-repair/floor-plan scenario and blue path animation. Historical sections below record earlier decisions, not current recommendations. No live execution test is claimed.
+**Current implementation:** see “Simple enquiry preference workflow” at the end. It supersedes the heavy installation sequence as well as the earlier rejected examples. Historical sections record previous attempts, not current recommendations. No live execution test is claimed.
 
 Checked **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -130,3 +130,14 @@ The downloaded public client remains SHA-256 `c2c7f1218c21474c6f3486bfb26b9e0567
 The branch uses **literal configured keywords**, not inferred intent or AI classification. “No matched reply after 2 days” intentionally includes an unrecognised response; the illustration does not silently turn every message into READY or HELP. The site does not promise immediate handling of all other wording, case/punctuation semantics, retries, deduplication, in-flight cancellation or account permissions. Those require account-level configuration and testing. This evidence narrows the earlier unresolved wait/reply limits; it does not establish general stop-on-reply behaviour for unrelated timed workflows.
 
 The later human scene now follows the **same HELP branch**, with the original “HELP. Do we need an electrician before you install the unit?” question and the matching preparation task. It no longer introduces an unnecessary separate workflow or implies that a question is automatically answered.
+
+
+## Simple enquiry preference workflow, 23 October 2026
+
+The owner found the ten-node installation process too long and heavy. The hero now has only **Form submitted → Phone call requested? → Yes: Create a callback task / No: Send an acknowledgement email**. The form's two contact preferences, phone or email, are visible before the decision. The No branch therefore represents the email preference, not an unexplained absence of urgency or a need for unrelated documents.
+
+This configuration uses the previously verified form-to-contact custom-field mapping, custom-field equality condition, True/False outputs, task creation and Send Email action. A two-choice Contact preference field is mapped before testing Phone. The evidence is the current official form/help documentation and imported public builder client described above. This does not require reply-keyword matching, a timeout, appointment creation, automatic urgency detection or a multi-day sequence. Those capabilities are not withdrawn; they are unnecessary for this introduction.
+
+The callback task is work for a person. It does not place a call, assign a staff member, set a deadline or promise instant contact. The email is a configured acknowledgement, not an automated answer to the enquiry. Sending, field mapping and execution still require account-level setup/testing. The later editorial case shows the original callback request for the team to review; no additional workflow or generated summary is introduced.
+
+The installation/readiness branch, checklist, READY/HELP choices, timing and customer-update nodes are removed from the hero. The secondary construction explanation is removed too. No blue tracing, controls, loop or original rejected caption is restored.

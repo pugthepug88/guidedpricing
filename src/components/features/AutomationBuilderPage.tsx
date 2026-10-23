@@ -12,9 +12,9 @@ function BookingLink({ children = "Book a Call" }: { children?: ReactNode }) {
   );
 }
 
-/** An illustrative configured process. Keyword replies and a timeout are separate
- * builder outputs, not AI intent detection or a claim that a booking was made.
- * Every node is server-rendered. Motion only introduces the configured steps.
+/** A compact configured example: a form records phone/email preference;
+ * a customer-field condition connects the appropriate next action.
+ * All content is server-rendered. The illustration never sends or calls.
  */
 function WorkflowDemo() {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -33,7 +33,7 @@ function WorkflowDemo() {
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.2, rootMargin: "0px 0px -70px 0px" },
+      { threshold: 0.4, rootMargin: "0px 0px -70px 0px" },
     );
     canvas.querySelectorAll("[data-sequence]").forEach((element) => observer.observe(element));
     return () => observer.disconnect();
@@ -43,122 +43,59 @@ function WorkflowDemo() {
     <div className="ab-branch-stage" ref={canvasRef}>
       <div className="ab-canvas-heading">
         <ZaplaPetal size={26} />
-        <span>From accepted quote to installation</span>
+        <span>New enquiry workflow</span>
       </div>
-      <div className="ab-setup-sequence">
-        <div
-          className="ab-node ab-trigger"
-          data-sequence="accepted"
-          data-entered={entered.includes("accepted")}
-        >
-          <span className="ab-node-label">Pipeline stage changes</span>
-          <strong>Quote accepted</strong>
-        </div>
-        <div className="ab-connection" aria-hidden="true" />
-        <div
-          className="ab-node ab-common-step"
-          data-sequence="email"
-          data-entered={entered.includes("email")}
-        >
-          <span className="ab-node-label">Send email</span>
-          <h3>Your installation checklist</h3>
-        </div>
-        <div className="ab-connection" aria-hidden="true" />
-        <div
-          className="ab-node ab-common-step ab-message-step"
-          data-sequence="sms"
-          data-entered={entered.includes("sms")}
-        >
-          <span className="ab-node-label">Send SMS</span>
-          <p>
-            We’ve emailed your checklist. Reply <strong>READY</strong> when your site is prepared,
-            or <strong>HELP</strong> if you have a question.
-          </p>
-        </div>
-        <div className="ab-connection" aria-hidden="true" />
-        <div
-          className="ab-node ab-condition"
-          data-sequence="reply"
-          data-entered={entered.includes("reply")}
-        >
-          <span className="ab-node-label">Wait for SMS reply</span>
-          <h3>Which response comes back?</h3>
-          <p>Match READY or HELP · wait up to 2 days</p>
-        </div>
+      <div
+        className="ab-node ab-trigger"
+        data-sequence="enquiry"
+        data-entered={entered.includes("enquiry")}
+      >
+        <span className="ab-node-label">Form submitted</span>
+        <strong>New website enquiry</strong>
+        <p>Contact preference: phone or email</p>
+      </div>
+      <div className="ab-connection" aria-hidden="true" />
+      <div
+        className="ab-node ab-condition"
+        data-sequence="condition"
+        data-entered={entered.includes("condition")}
+      >
+        <span className="ab-node-label">Condition</span>
+        <h3>Phone call requested?</h3>
       </div>
       <div className="ab-split" aria-hidden="true">
-        <svg viewBox="0 0 600 38" preserveAspectRatio="none">
-          <path d="M300 0 V12 Q300 18 294 18 H106 Q100 18 100 24 V38 M300 0 V38 M300 12 Q300 18 306 18 H494 Q500 18 500 24 V38" />
+        <svg viewBox="0 0 600 42" preserveAspectRatio="none">
+          <path d="M300 0 V12 Q300 20 292 20 H158 Q150 20 150 28 V42 M300 12 Q300 20 308 20 H442 Q450 20 450 28 V42" />
         </svg>
       </div>
       <div className="ab-branch-outcomes">
         <div
           className="ab-track"
           role="group"
-          aria-label="Customer replies READY"
-          data-sequence="ready"
-          data-entered={entered.includes("ready")}
+          aria-label="Yes, phone call requested"
+          data-sequence="call"
+          data-entered={entered.includes("call")}
         >
-          <h4 className="ab-branch-label">Replies READY</h4>
-          <div className="ab-track-nodes">
-            <article className="ab-node ab-step ab-first-step">
-              <span className="ab-node-label">Update customer</span>
-              <h3>Site readiness</h3>
-              <p className="ab-record-value">Ready</p>
-            </article>
-            <div className="ab-connection" aria-hidden="true" />
-            <article className="ab-node ab-step ab-next-step">
-              <span className="ab-node-label">Send SMS</span>
-              <h3>Choose an installation time</h3>
-              <p>Send the customer your booking link.</p>
-            </article>
-          </div>
+          <p className="ab-branch-label">Yes</p>
+          <article className="ab-node ab-step">
+            <span className="ab-node-label">Create a task</span>
+            <h3>Call the customer</h3>
+            <p>Review their enquiry before you call.</p>
+          </article>
         </div>
         <div
           className="ab-track"
           role="group"
-          aria-label="Customer replies HELP"
-          data-sequence="help"
-          data-entered={entered.includes("help")}
+          aria-label="No, email preferred"
+          data-sequence="email"
+          data-entered={entered.includes("email")}
         >
-          <h4 className="ab-branch-label">Replies HELP</h4>
-          <div className="ab-track-nodes">
-            <article className="ab-node ab-step ab-first-step">
-              <span className="ab-node-label">Update customer</span>
-              <h3>Site readiness</h3>
-              <p className="ab-record-value">Needs discussion</p>
-            </article>
-            <div className="ab-connection" aria-hidden="true" />
-            <article className="ab-node ab-step ab-next-step">
-              <span className="ab-node-label">Create a task</span>
-              <h3>Discuss the preparation question</h3>
-              <p>Your team reviews the reply and gets in touch.</p>
-            </article>
-          </div>
-        </div>
-        <div
-          className="ab-track"
-          role="group"
-          aria-label="No matching reply within two days"
-          data-sequence="timeout"
-          data-entered={entered.includes("timeout")}
-        >
-          <h4 className="ab-branch-label">
-            No READY or HELP <span>after 2 days</span>
-          </h4>
-          <div className="ab-track-nodes">
-            <article className="ab-node ab-step ab-first-step">
-              <span className="ab-node-label">Update customer</span>
-              <h3>Site readiness</h3>
-              <p className="ab-record-value">Unconfirmed</p>
-            </article>
-            <div className="ab-connection" aria-hidden="true" />
-            <article className="ab-node ab-step ab-next-step">
-              <span className="ab-node-label">Create a task</span>
-              <h3>Confirm readiness before scheduling</h3>
-              <p>Your team checks what is still needed.</p>
-            </article>
-          </div>
+          <p className="ab-branch-label">No</p>
+          <article className="ab-node ab-step">
+            <span className="ab-node-label">Send email</span>
+            <h3>Enquiry received</h3>
+            <p>Thanks for getting in touch. We’ll reply by email.</p>
+          </article>
         </div>
       </div>
     </div>
@@ -184,32 +121,16 @@ function OpeningStory() {
           <div className="ab-actions">
             <BookingLink />
             <a className="ab-text-link" href="#automation-workflow">
-              Explore the workflow <ArrowDown size={16} aria-hidden="true" />
+              See the workflow <ArrowDown size={16} aria-hidden="true" />
             </a>
           </div>
         </header>
         <div
           className="ab-scene"
           id="automation-workflow"
-          aria-label="Illustrative installation workflow with READY, HELP and timeout paths"
+          aria-label="A website enquiry branches by the customer's phone or email preference"
         >
           <WorkflowDemo />
-        </div>
-        <div className="ab-build-copy">
-          <p className="ab-eyebrow">A visual way to build</p>
-          <h2>
-            A customer says yes.
-            <br />
-            The next steps are ready.
-          </h2>
-          <p>
-            Acceptance starts the preparation. Zapla sends the checklist, asks for a reply and gives
-            each response its own path. Ready customers get a booking link. Questions and
-            unconfirmed preparation become clear work for your team.
-          </p>
-          <a className="ab-text-link" href="/crm">
-            See the CRM behind the workflow <ArrowRight size={16} aria-hidden="true" />
-          </a>
         </div>
       </div>
     </section>
@@ -253,11 +174,10 @@ export function AutomationBuilderPage() {
           <div className="ab-human-grid">
             <div className="ab-human-content">
               <p className="ab-eyebrow">Keep people in the process</p>
-              <h2 id="ab-human-heading">Some questions need your expertise.</h2>
+              <h2 id="ab-human-heading">Your team takes it from here.</h2>
               <p className="ab-human-intro">
-                The HELP path gives your team a specific question to resolve. They read the
-                customer’s original reply, discuss what is needed and agree the next step before
-                arranging the installation.
+                Zapla creates the callback task. Your team reads the enquiry, calls the customer and
+                talks through what they need.
               </p>
               <a className="ab-text-link" href="/features/unified-inbox">
                 See where your team replies <ArrowRight size={16} aria-hidden="true" />
@@ -265,23 +185,16 @@ export function AutomationBuilderPage() {
             </div>
             <div
               className="ab-reply-flow"
-              aria-label="The HELP branch creates a task for a customer preparation question"
+              aria-label="The original enquiry for your team to review before calling"
             >
               <div className="ab-customer-reply">
                 <div className="ab-person">
                   <div>
-                    <strong>A customer replies</strong>
-                    <span>SMS reply · HELP path</span>
+                    <strong>The customer’s enquiry</strong>
+                    <span>Requested a phone call</span>
                   </div>
                 </div>
-                <p>HELP. Do we need an electrician before you install the unit?</p>
-              </div>
-              <div className="ab-review-task">
-                <ZaplaPetal size={29} />
-                <div>
-                  <span className="ab-label">This workflow creates a task</span>
-                  <strong>Discuss the preparation question</strong>
-                </div>
+                <p>Can you call me to talk through the options?</p>
               </div>
             </div>
           </div>
