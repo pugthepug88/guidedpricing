@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowDown, ArrowRight, ChevronDown, Globe } from "lucide-react";
+import { Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/ai-chatbot.css";
@@ -29,7 +29,6 @@ function Cta({ children = "Book a Call" }: { children?: ReactNode }) {
   return (
     <a className="cb-cta" href="/booking">
       {children}
-      <ArrowRight size={17} aria-hidden="true" />
     </a>
   );
 }
@@ -61,53 +60,53 @@ function Message({
 function WebsiteHero() {
   return (
     <section className="cb-opening" aria-labelledby="chatbot-title">
-      <div className="cb-wrap cb-hero-grid">
-        <header className="cb-hero">
-          <p className="cb-eyebrow">AI Chatbot</p>
-          <h1 id="chatbot-title">Customer questions shouldn’t have to wait.</h1>
-          <p className="cb-hero-description">
-            Answer routine enquiries, collect the details you need and book suitable appointments
-            with Zapla’s AI Chatbot. Bring your team in when the conversation needs a person.
-          </p>
-          <div className="cb-actions">
-            <Cta />
-            <a className="cb-text-link" href="#chatbot-enquiry">
-              See how it works <ArrowDown size={16} aria-hidden="true" />
-            </a>
-          </div>
-          <p className="cb-hours">On your website, even outside business hours.</p>
-        </header>
-
-        <div className="cb-web-stage" aria-label="An AI chat widget embedded on a business website">
-          <div className="cb-business-page">
-            <div className="cb-site-context">
-              <Globe size={15} aria-hidden="true" />
-              <span>On your website</span>
+      <div className="cb-wrap">
+        <div className="cb-hero-grid">
+          <header className="cb-hero">
+            <p className="cb-eyebrow">AI Chatbot</p>
+            <h1 id="chatbot-title">
+              <span>Customer questions</span>{" "}
+              <span>
+                shouldn’t have <span className="cb-title-tail">to wait.</span>
+              </span>
+            </h1>
+          </header>
+          <div className="cb-hero-intro">
+            <p className="cb-hero-description">
+              Answer routine enquiries, collect the details you need and book suitable appointments
+              with Zapla’s AI Chatbot. Bring your team in when the conversation needs a person.
+            </p>
+            <div className="cb-actions">
+              <Cta />
+              <a className="cb-text-link" href="#chatbot-enquiry">
+                See how it works
+              </a>
             </div>
-            <div className="cb-site-hero">
-              <img
-                src="/concept/industries/trades-service-visit.webp"
-                alt="A homeowner speaking with an air conditioning installer"
-                width="1672"
-                height="941"
-                fetchPriority="high"
-              />
-              <div className="cb-site-copy">
-                <p>Air conditioning · Sydney’s Inner West</p>
-                <h2>
-                  Comfort, right
-                  <br />
-                  where you live.
-                </h2>
-              </div>
-            </div>
-            <p className="cb-site-service">Installations &amp; replacements</p>
           </div>
+        </div>
 
+        <div
+          className="cb-web-stage"
+          aria-label="A visitor getting an answer from your website chatbot"
+        >
+          <div className="cb-web-context">
+            <p className="cb-eyebrow">On your website</p>
+            <h2>
+              A visitor has
+              <br />
+              one more question.
+            </h2>
+            <p>Give them a useful answer while they’re deciding what to do next.</p>
+            <div className="cb-site-information">
+              <span>Business information</span>
+              <p>Air conditioning installations and replacements across Sydney’s Inner West.</p>
+            </div>
+            <p className="cb-hours">Even outside business hours.</p>
+          </div>
           <div className="cb-widget">
             <div className="cb-widget-heading">
               <span className="cb-ai-mark">
-                <ZaplaPetal size={29} />
+                <ZaplaPetal size={34} />
               </span>
               <div>
                 <strong>Ask us a question</strong>
@@ -119,6 +118,7 @@ function WebsiteHero() {
               Yes, we cover Sydney’s Inner West, including Marrickville. Is this a new installation
               or a replacement?
             </Message>
+            <Message introduce>{ENQUIRY.request}</Message>
           </div>
         </div>
       </div>
@@ -128,7 +128,6 @@ function WebsiteHero() {
 
 function ContactCapture() {
   const sceneRef = useRef<HTMLDivElement>(null);
-  const payoffRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState({ enhanced: false, captured: false });
 
   useEffect(() => {
@@ -139,11 +138,10 @@ function ContactCapture() {
     let completed = false;
     const update = () => {
       frame = 0;
+      const scene = sceneRef.current;
       const height = window.innerHeight;
-      completed =
-        completed || (payoffRef.current?.getBoundingClientRect().top ?? Infinity) < height * 0.78;
-      const enhanced =
-        media.matches && (sceneRef.current?.offsetHeight ?? Infinity) <= height - 120;
+      const enhanced = media.matches && !!scene && scene.offsetHeight <= height - 130;
+      completed = completed || (!!scene && scene.getBoundingClientRect().top < height * 0.48);
       setProgress((previous) =>
         previous.enhanced === enhanced && previous.captured === completed
           ? previous
@@ -172,48 +170,46 @@ function ContactCapture() {
     <section
       className="cb-section cb-capture"
       id="chatbot-enquiry"
-      aria-label="Qualification and contact capture"
+      aria-labelledby="chatbot-capture-heading"
     >
-      <div
-        className="cb-wrap cb-intake-grid"
-        data-enhanced={progress.enhanced}
-        data-captured={progress.captured}
-      >
-        <div className="cb-intake-intro">
-          <p className="cb-eyebrow">Lead qualification</p>
-          <h2>
-            Know what they need
-            <br className="cb-desktop-break" /> before you call.
-          </h2>
-          <p>
-            A new customer shouldn’t have to explain everything twice. Ask about the service,
-            location and timing before your team gets involved.
-          </p>
-          <p>
-            Choose the questions that matter to your business. That might include budget for a
-            project, or the type of appointment someone needs.
-          </p>
+      <div className="cb-wrap">
+        <div className="cb-chapter-intro">
+          <div>
+            <p className="cb-eyebrow">Lead qualification &amp; contact capture</p>
+            <h2 id="chatbot-capture-heading">
+              Know what they need
+              <br className="cb-desktop-break" /> before you call.
+            </h2>
+          </div>
+          <div>
+            <p>
+              Ask about the service, location and timing as part of the conversation. Collect their
+              contact details so your team has someone to follow up with.
+            </p>
+            <p>
+              Choose the questions that matter to your business, including budget where it makes
+              sense.
+            </p>
+          </div>
         </div>
-
-        <div className="cb-intake-scene">
-          <div className="cb-intake-pin" ref={sceneRef}>
+        <div
+          className="cb-capture-track"
+          data-enhanced={progress.enhanced}
+          data-captured={progress.captured}
+        >
+          <div className="cb-capture-stage" ref={sceneRef}>
             <div className="cb-intake-conversation">
               <p className="cb-scene-label">Continuing Mia’s website enquiry</p>
-              <Message>{ENQUIRY.request}</Message>
-              <Message ai>
+              <Message ai introduce>
                 We can arrange an assessment. What’s your name and email so our team can follow up?
               </Message>
-              <Message>
+              <Message introduce>
                 {ENQUIRY.name}. {ENQUIRY.email}.
               </Message>
             </div>
-            <div className="cb-capture-connection" aria-hidden="true">
-              <span />
-              <ArrowDown size={19} />
-            </div>
             <div className="cb-contact-record">
               <div className="cb-record-label">
-                <ZaplaPetal size={24} />
+                <ZaplaPetal size={27} />
                 <span>Contact created in Zapla</span>
               </div>
               <div className="cb-record-person">
@@ -230,21 +226,10 @@ function ContactCapture() {
             </div>
           </div>
         </div>
-
-        <div className="cb-intake-payoff" ref={payoffRef}>
-          <p className="cb-eyebrow">Contact capture</p>
-          <h2>
-            A useful enquiry.
-            <br />
-            Already in your CRM.
-          </h2>
-          <p>
-            Collect a name and contact details as part of the conversation. Create the contact in
-            Zapla so your team has someone to follow up with.
-          </p>
-          <p>Helpful answers first. Relevant details gathered along the way.</p>
+        <div className="cb-capture-payoff">
+          <h3>A useful enquiry. Already in your CRM.</h3>
           <a className="cb-text-link" href="/crm">
-            Explore Zapla CRM <ArrowRight size={16} aria-hidden="true" />
+            Explore Zapla CRM
           </a>
         </div>
       </div>
@@ -283,11 +268,6 @@ function ConnectedNextStep() {
             <h3>Air conditioning replacement</h3>
             <p>Marrickville · Website chat</p>
           </div>
-          <div className="cb-next-connection" aria-hidden="true">
-            <span />
-            <ArrowRight size={24} />
-            <span />
-          </div>
           <div className="cb-review-task">
             <p className="cb-next-label">Your configured follow-up</p>
             <h3>Review Mia’s enquiry</h3>
@@ -298,7 +278,7 @@ function ConnectedNextStep() {
         <div className="cb-next-caption">
           <p>You choose the pipeline, stage and follow-up during setup.</p>
           <a className="cb-text-link" href="/features/automation-builder">
-            Explore Automation Builder <ArrowRight size={16} aria-hidden="true" />
+            Explore Automation Builder
           </a>
         </div>
 
@@ -308,7 +288,7 @@ function ConnectedNextStep() {
               <span>Ready for an appointment?</span>
               <strong>See how the chatbot can book an assessment.</strong>
             </div>
-            <ChevronDown size={22} aria-hidden="true" />
+            <Plus size={22} aria-hidden="true" />
           </summary>
           <div className="cb-booking-demo-content">
             <div className="cb-booking-transcript">
@@ -366,11 +346,6 @@ function BusinessAnswers() {
               From your website, documents or written instructions.
             </p>
           </div>
-          <div className="cb-knowledge-connection" aria-hidden="true">
-            <span />
-            <ArrowRight size={22} />
-            <span />
-          </div>
           <div className="cb-informed-answer">
             <Message introduce>How much would a replacement cost?</Message>
             <Message ai introduce>
@@ -390,10 +365,10 @@ function HumanHandover() {
       <div className="cb-wrap">
         <div className="cb-human-editorial">
           <img
-            src="/concept/industries/trades-office.webp"
-            alt="A team member reviewing a customer enquiry at her desk"
-            width="1536"
-            height="1024"
+            src="/concept/features/chatbot-human-handover-v2.webp"
+            alt="A service coordinator reviewing an enquiry in his office"
+            width="2172"
+            height="724"
             loading="lazy"
           />
           <div className="cb-human-title">
@@ -426,7 +401,7 @@ function HumanHandover() {
                 The original question and conversation context help your team pick it up.
               </p>
               <a className="cb-text-link" href="/features/unified-inbox">
-                Explore Unified Inbox <ArrowRight size={16} aria-hidden="true" />
+                Explore Unified Inbox
               </a>
             </div>
           </div>
@@ -551,7 +526,7 @@ export function AIChatbotPage() {
               <details key={question}>
                 <summary>
                   {question}
-                  <ChevronDown size={18} aria-hidden="true" />
+                  <Plus size={18} aria-hidden="true" />
                 </summary>
                 <p>{answer}</p>
               </details>
