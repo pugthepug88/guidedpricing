@@ -201,3 +201,10 @@ The stage remains local warm stone/graphite grain with smooth glass. All blue pa
 The newly generated panorama remains appropriate to the installation preparation story and is retained. No additional asset or reused editorial person is introduced. The human example now belongs to the same HELP path, reducing conceptual repetition.
 
 Initial technical checks: TypeScript, targeted ESLint and whitespace checks passed. Build/SEO and actual refreshed-preview rendering are being checked. This entry does not treat the previous two-path captures as proof of the new composition.
+
+
+### Initial rendered findings and finishing changes
+
+The actual synced preview of `a51bc62dc2fbc936391c189ff580405b9640d3e5` was inspected at a measured 1692 × 769 desktop and in the editor's 834px tablet and 393px phone views (819px/378px content widths). The complete trunk and three alternatives were reviewed across native scroll positions. All ten nodes remain connected in normal flow. The scene measured about 867px on desktop, 872px on tablet and 1167px on phone. These are deliberately scrollable page content, never a pinned oversized canvas. The phone's labelled alternatives each keep their customer update and next action in the same row, without horizontal overflow.
+
+This review produced two finishing changes: removing the redundant three-row construction explanation so the longer process does not create longer supporting copy; and increasing desktop action paragraphs from 13px to 14px. The timeout label becomes the plainer “No READY or HELP / after 2 days” to make the keyword boundary explicit. These final source refinements require a refreshed visual check. Build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Vercel succeeded for the initial implementation commit; Lovable reported it ready and the actual page displayed its new content.

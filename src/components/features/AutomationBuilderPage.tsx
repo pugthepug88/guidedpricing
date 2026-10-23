@@ -144,7 +144,7 @@ function WorkflowDemo() {
           data-entered={entered.includes("timeout")}
         >
           <h4 className="ab-branch-label">
-            No matched reply <span>after 2 days</span>
+            No READY or HELP <span>after 2 days</span>
           </h4>
           <div className="ab-track-nodes">
             <article className="ab-node ab-step ab-first-step">
@@ -207,25 +207,6 @@ function OpeningStory() {
             each response its own path. Ready customers get a booking link. Questions and
             unconfirmed preparation become clear work for your team.
           </p>
-          <dl className="ab-building-blocks">
-            <div>
-              <dt>Connect the whole process</dt>
-              <dd>Start from a stage change, then connect messages, customer updates and tasks.</dd>
-            </div>
-            <div>
-              <dt>Give each response a next step</dt>
-              <dd>
-                Set the reply keywords and the waiting period. Decide what happens on each path.
-              </dd>
-            </div>
-            <div>
-              <dt>Keep the decision with the right person</dt>
-              <dd>
-                A booking link lets the customer choose. A question gives your team something
-                specific to resolve.
-              </dd>
-            </div>
-          </dl>
           <a className="ab-text-link" href="/crm">
             See the CRM behind the workflow <ArrowRight size={16} aria-hidden="true" />
           </a>
