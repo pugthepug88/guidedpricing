@@ -41,6 +41,7 @@ import { Route as ComparisonZaplaVsThryvRouteImport } from './routes/comparison.
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
 import { Route as FeaturesAiChatbotRouteImport } from './routes/features.ai-chatbot'
 import { Route as FeaturesAutomationBuilderRouteImport } from './routes/features.automation-builder'
+import { Route as FeaturesCalendarsBookingsRouteImport } from './routes/features.calendars-bookings'
 import { Route as FeaturesPipelineManagementRouteImport } from './routes/features.pipeline-management'
 import { Route as FeaturesUnifiedInboxRouteImport } from './routes/features.unified-inbox'
 import { Route as FeaturesWebsitesFunnelsFormsRouteImport } from './routes/features.websites-funnels-forms'
@@ -222,6 +223,12 @@ const FeaturesAutomationBuilderRoute =
     path: '/features/automation-builder',
     getParentRoute: () => rootRouteImport,
   } as any)
+const FeaturesCalendarsBookingsRoute =
+  FeaturesCalendarsBookingsRouteImport.update({
+    id: '/features/calendars-bookings',
+    path: '/features/calendars-bookings',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const FeaturesPipelineManagementRoute =
   FeaturesPipelineManagementRouteImport.update({
     id: '/features/pipeline-management',
@@ -315,6 +322,7 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
+  '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -360,6 +368,7 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
+  '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -406,6 +415,7 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
+  '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -453,6 +463,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
     | '/features/automation-builder'
+    | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -498,6 +509,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
     | '/features/automation-builder'
+    | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -543,6 +555,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
     | '/features/automation-builder'
+    | '/features/calendars-bookings'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -589,6 +602,7 @@ export interface RootRouteChildren {
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
   FeaturesAiChatbotRoute: typeof FeaturesAiChatbotRoute
   FeaturesAutomationBuilderRoute: typeof FeaturesAutomationBuilderRoute
+  FeaturesCalendarsBookingsRoute: typeof FeaturesCalendarsBookingsRoute
   FeaturesPipelineManagementRoute: typeof FeaturesPipelineManagementRoute
   FeaturesUnifiedInboxRoute: typeof FeaturesUnifiedInboxRoute
   FeaturesWebsitesFunnelsFormsRoute: typeof FeaturesWebsitesFunnelsFormsRoute
@@ -829,6 +843,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeaturesAutomationBuilderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/features/calendars-bookings': {
+      id: '/features/calendars-bookings'
+      path: '/features/calendars-bookings'
+      fullPath: '/features/calendars-bookings'
+      preLoaderRoute: typeof FeaturesCalendarsBookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/features/pipeline-management': {
       id: '/features/pipeline-management'
       path: '/features/pipeline-management'
@@ -942,6 +963,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,
   FeaturesAiChatbotRoute: FeaturesAiChatbotRoute,
   FeaturesAutomationBuilderRoute: FeaturesAutomationBuilderRoute,
+  FeaturesCalendarsBookingsRoute: FeaturesCalendarsBookingsRoute,
   FeaturesPipelineManagementRoute: FeaturesPipelineManagementRoute,
   FeaturesUnifiedInboxRoute: FeaturesUnifiedInboxRoute,
   FeaturesWebsitesFunnelsFormsRoute: FeaturesWebsitesFunnelsFormsRoute,

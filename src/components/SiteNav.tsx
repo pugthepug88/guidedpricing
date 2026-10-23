@@ -22,6 +22,7 @@ const NAV_GROUPS = [
       { name: "Pipeline Management", href: "/features/pipeline-management" },
       { name: "Websites, Funnels & Forms", href: "/features/websites-funnels-forms" },
       { name: "Automation Builder", href: "/features/automation-builder" },
+      { name: "Calendars & Bookings", href: "/features/calendars-bookings" },
     ],
   },
   {
