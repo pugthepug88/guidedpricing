@@ -127,13 +127,20 @@ function EnquiryStory() {
           </p>
           <div className="cb-actions">
             <Cta />
-            <a className="cb-text-link" href="#chatbot-answers">
+            <a className="cb-text-link cb-link-story" href="#chatbot-answers">
+              See how it works <span aria-hidden="true">↓</span>
+            </a>
+            <a className="cb-text-link cb-link-conversation" href="#chatbot-conversation">
               See how it works <span aria-hidden="true">↓</span>
             </a>
           </div>
         </header>
 
-        <div className="cb-scene" aria-label="An example website enquiry, from question to booking">
+        <div
+          className="cb-scene"
+          id="chatbot-conversation"
+          aria-label="An example website enquiry, from question to booking"
+        >
           <div className="cb-scene-pin" ref={sceneRef}>
             <div className="cb-story-start">
               <p className="cb-example-label">
