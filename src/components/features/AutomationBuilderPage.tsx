@@ -32,7 +32,7 @@ function WorkflowDemo() {
           observer.disconnect();
         }
       },
-      { threshold: 0.75, rootMargin: "0px 0px -22% 0px" },
+      { threshold: 0.75, rootMargin: "0px 0px -96px 0px" },
     );
     // Start at the decision, so a phone visitor sees the animation after
     // reading the introduction rather than spending it below the fold.
