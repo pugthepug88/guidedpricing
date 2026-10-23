@@ -138,7 +138,23 @@ Use one short, bounded desktop sticky enquiry with cumulative conversation state
 
 Product scope stays website chat, SMS, WhatsApp and email with setup qualification. All booking CTAs remain /booking; the calendar embed remains deferred. Shared header/footer, Platform architecture, navigation and unrelated pages stay unchanged. Code changes go through GitHub; Lovable remains read-only.
 
-Verification is in progress. The preceding verification record applies to the earlier static refinement, not this redesign. Do not claim rendered desktop/mobile approval, interaction verification or successful preview sync for this revision until those checks are completed and recorded.
+### AI Chatbot redesign verification, 23 October 2026
+
+The core redesign was pushed in `8c5b6e4f53c37a83d79fb7747181eae51b81804c`. Final visual and scroll refinements end at `44c0fbe868916c5239981d74f2b3625d363388cb`. The implementation changes only the Chatbot component and stylesheet, with approved shared rules and this record in the two feature/design documents. Concurrent work on other pages was preserved by updating current main without rewriting history.
+
+Rendered verification used the actual Lovable preview in Chrome. Desktop opening and enquiry states were inspected at 1440 × 900 and 1327 × 944, with the final cumulative sequence checked at the minimum enhanced size of 1101 × 820. The final direct-preview hero was also inspected at the browser's normal wide viewport. Desktop handover, Guided Launch and final CTA/sky transition were inspected. Mobile review used the 393 × 820 Lovable iframe, with 378px document width where the scrollbar was present, and covered the hero, knowledge source, full booking exchange/result, channels, human photograph/handover, setup, expanded FAQ and final CTA/sky transition. The tablet hero was inspected at 834 × 820; this is not a full lower-page tablet sign-off.
+
+Native scrolling was observed through stages 1, 2 and 3. The conversation is cumulative; reverse scrolling retains completed messages. At the minimum desktop size the final conversation occupies y=88–758px while the booking heading remains readable at y=133px. The completed scene releases before the human section: the scene bottom was at 62px when that section began at 225px. The connected blue chapter is approximately 2320px, or 2.83 viewports, at that size. No scroll capture, snapping or internal transcript scroll is used.
+
+Review produced three specific corrections: enlarge the first desktop question/reply to 22px/20px; give the final desktop beat enough room and align its explanation earlier so the complete conversation remains visible; keep the phone's Friday request, available-time answer, customer agreement and booking together, with the explanatory heading below the result. The final desktop and reordered mobile captures were independently reviewed, alongside the lower mobile sections. No material visual or buyer-understanding blocker was identified in those inspected views. This is an implementation review, not a record of the owner's final approval.
+
+No horizontal document overflow appeared in the checked desktop/mobile views. The human photograph loaded and retained the person's face. All three Chatbot sales CTAs target `/booking`; the final CTA was followed and the existing booking page rendered with its calendar still deferred. Native FAQ disclosure was checked by click and Enter. The final direct preview returned no browser error logs.
+
+Production build, TypeScript, targeted component ESLint, Prettier and whitespace checks passed. The repository's `Workers Builds: guidedpricing` check succeeded for `44c0fbe868916c5239981d74f2b3625d363388cb`. Lovable metadata reported that implementation commit ready, and the direct route visibly included the final stylesheet. These are distinct observations; no separate Lovable Publish action or builder prompt was used, and historic editor build warnings are not represented as resolved.
+
+Verification limits: this is a marketing-page and browser review, not a live NextGen chatbot, calendar or channel acceptance test. Mobile normal-flow behaviour was visually checked; short-height, reduced-motion and unavailable-JavaScript fallbacks were reviewed in source, without separate browser preference/JavaScript-disabled sessions. Screen-reader testing, a 320px visual pass, full lower-page tablet review and a physical-device/cross-browser matrix were not completed. Local browser access to the development server failed, so rendered verification used the actual Lovable preview.
+
+Review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ai-chatbot
 
 ## Automation Builder implementation, 23 October 2026
 
