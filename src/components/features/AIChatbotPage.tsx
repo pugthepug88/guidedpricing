@@ -55,6 +55,7 @@ function Message({
 function EnquiryStory() {
   const detailsRef = useRef<HTMLElement>(null);
   const bookingRef = useRef<HTMLElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
   const [story, setStory] = useState({ enhanced: false, stage: 0 });
 
   useEffect(() => {
@@ -80,10 +81,14 @@ function EnquiryStory() {
 
       // A completed enquiry stays completed when the reader scrolls back.
       highestStage = Math.max(highestStage, stage);
+      // Font loading, zoom and translated browser text can change the scene's
+      // height. Fall back to ordinary reading rather than pin clipped content.
+      const fits = (sceneRef.current?.offsetHeight ?? Infinity) <= height - 112;
+      const enhanced = media.matches && fits;
       setStory((previous) =>
-        previous.enhanced === media.matches && previous.stage === highestStage
+        previous.enhanced === enhanced && previous.stage === highestStage
           ? previous
-          : { enhanced: media.matches, stage: highestStage },
+          : { enhanced, stage: highestStage },
       );
     };
     const requestUpdate = () => {
@@ -94,16 +99,20 @@ function EnquiryStory() {
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
     media.addEventListener("change", requestUpdate);
+    const observer = new ResizeObserver(requestUpdate);
+    if (sceneRef.current) observer.observe(sceneRef.current);
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
       media.removeEventListener("change", requestUpdate);
+      observer.disconnect();
     };
   }, []);
 
   return (
     <section className="cb-opening" aria-label="AI Chatbot">
+      <div className="cb-opening-texture" aria-hidden="true" />
       <div
         className="cb-wrap cb-story-grid"
         data-enhanced={story.enhanced}
@@ -125,7 +134,7 @@ function EnquiryStory() {
         </header>
 
         <div className="cb-scene" aria-label="An example website enquiry, from question to booking">
-          <div className="cb-scene-pin">
+          <div className="cb-scene-pin" ref={sceneRef}>
             <div className="cb-story-start">
               <p className="cb-example-label">
                 <Globe size={16} aria-hidden="true" /> Website enquiry

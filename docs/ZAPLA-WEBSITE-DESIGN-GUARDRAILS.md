@@ -136,3 +136,14 @@ Approved with the superseding AI Chatbot redesign, 22 October 2026:
 - Provide the complete story in normal reading order on mobile, short-height screens, reduced motion and without JavaScript. Sticky behaviour and motion are enhancements, never prerequisites for understanding or reaching the content.
 - Present human handover as a conditional case when a request needs the team. Do not imply that every successful booking must then be handed over, or invent unverified handover mechanics.
 - Recheck the rendered cumulative states, scene entry/exit and static fallbacks after a redesign. Previous visual approval does not verify a new composition or interaction.
+
+
+## Feature harmony, visual rhythm and colour coverage
+
+User correction, 23 October 2026: the AI Chatbot's full-width blue opening was too dominant. This supersedes that page's earlier full-blue direction; permission to use a strong colour is not approval to fill several screens with it.
+
+- Create family resemblance through the shared palette, typography, spacing, portraits, petal, controls and final CTA. Each feature still needs a composition that explains its own behaviour. Do not repeat an existing hero, section order or scroll device simply to look consistent.
+- Keep the page canvas and feature-illustration accents distinct. Evaluate colour coverage across consecutive viewports, not a single screenshot. A feature colour must not become an automatic whole-page theme.
+- Plan visual rhythm using content density, scale, open space, purposeful product surfaces, photography and selective dark sections. Changing the background at every heading does not by itself solve page fatigue.
+- Texture may create restrained material depth around a focal scene. Keep it still, local and subordinate to text contrast. Do not add arbitrary shapes, neon, floating elements or decorative animation to make a quiet section feel busy.
+- Use a bounded sticky sequence only when continuity explains a useful product relationship. Test the complete scene against the available viewport height, including loaded fonts and browser zoom. If it cannot fit, show the complete story in ordinary flow.
