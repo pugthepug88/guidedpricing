@@ -253,6 +253,15 @@ The broad title/copy introduction now leads into one large contained chat demons
 
 Rendered checks include desktop, the minimum enhanced capture size, a short-window fallback, key tablet scenes, a complete phone pass and targeted 320px checks. Scroll testing found and fixed missing sticky travel. The bounded contact scene now reveals once, holds briefly and releases naturally; completion remains when reversing. Exact coverage, corrections, role reviews, image provenance and remaining limits are in `AI-CHATBOT-VISUAL-REVIEW.md`. This is an implementation for owner review, not final whole-page approval or live-product acceptance. Shared navigation/footer, route/indexing, Platform structure and `/booking` are unchanged. Code goes through GitHub; Lovable remains read-only and no separate Publish action is used.
 
+
+## Automation Builder causal-logic correction, 23 October 2026
+
+The owner rejected the urgent-repair/floor-plan logic and blue lines. This supersedes that scenario and its blue trace/border flashes. The H1, final CTA, neutral material, original panorama, shared page architecture and GitHub-only workflow remain.
+
+The longer example starts after a pipeline stage changes to Quote accepted: email the installation checklist, send an SMS asking for READY or HELP, then wait up to two days. READY updates Site readiness and sends the configured booking link; HELP records Needs discussion and creates a question-review task; no matching reply records Unconfirmed and creates a readiness-check task. Sending a link is not a completed booking. The later human case continues the same HELP path. Public vendor client evidence supports keyword reply outputs and timeout settings; boundaries are in AUTOMATION-BUILDER-EVIDENCE.md.
+
+Thin neutral connections stay static. One brief material reveal introduces nodes as they enter view and holds; no blue tracing, result controls, loop or execution badges. The longer tree uses normal document flow so its final steps can never be trapped below a pinned viewport. Responsive and rendered findings are recorded separately in AUTOMATION-BUILDER-REVIEW.md. Existing photographs are not reused for new pages; the original Automation panorama is retained for this correction.
+
 ## AI Chatbot integrated hero and editorial scroll, 23 October 2026
 
 The owner requested a stronger visual revision after the product-stage version. This supersedes the detached hero title/chat stage and laptop photograph. The approved H1, hero supporting paragraph and final CTA stay unchanged. The opening now places the promise and chat together within one contained light material scene, removing the repeated scene headline. Open qualification/contact proof, a dark continuation chapter with one record, asymmetric source/answer proof, fresh unobstructed work photography and an open launch plan give the scroll distinct compositions. No changes to shared navigation/footer, other pages, route/indexing or `/booking`.

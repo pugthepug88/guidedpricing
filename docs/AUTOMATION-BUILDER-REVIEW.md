@@ -188,3 +188,16 @@ Remaining limits are full lower-page tablet/phone rechecks, a complete 320px pas
 After the editor refreshed from its static iframe to `live-preview-panel`, the 393px phone check resumed against `9ca211184896134f55e330307b1fc3e0c2c76d48`. Both complete action columns were captured with the shortened SMS, and the tree measured 712.61px at 378px content width. The fresh photograph was rechecked with both faces visible; the live caption text contained “people on” with its explicit space. The complete Draft/Live and validation/run-history layout, upper Guided Launch, all three launch rows, setup CTA/terms and FAQ introduction were also inspected. The reply FAQ opened; its later Enter/capture check and the final phone CTA view were interrupted by another preview reset. This extends the phone coverage above without asserting an uninterrupted whole-phone sign-off. Full lower-page tablet, 320px and preference/device/live-product limits still apply.
 
 The final source commit's Vercel check succeeded and Lovable reported that commit ready. A limited direct-preview read returned no error/warning log entries; the editor's separate issues banner was not audited or assumed resolved. The main working tree was synchronized with the remote implementation. No additional product code was changed after these checks.
+
+
+## Superseding accepted-job workflow, 23 October 2026
+
+The owner rejected the urgency/floor-plan logic and blue connection treatment. Previous positive assessments of that business scenario are withdrawn. Source and screenshot checks did not substitute for evaluating whether the decision made commercial sense.
+
+The replacement connects acceptance, preparation, requested customer response and the appropriate next work. It contains ten visible configured steps across a common four-step trunk and three two-step alternatives. READY gives the customer a booking link after updating readiness; HELP and timeout create distinct, specific work for the team. The original HELP reply and matching task continue below. Quote Follow-Up retains ownership of quote chasing. The main headline and final CTA wording are retained.
+
+The stage remains local warm stone/graphite grain with smooth glass. All blue path overlays and blue border flashes are removed; thin neutral connectors explain topology. A short one-shot opacity/material entry follows viewport entry, with complete server-rendered content, reduced-motion fallback and no controls or loops. The taller diagram is in normal flow, avoiding an oversized pinned scene. Phone layout presents labelled alternatives from a common side connection and keeps both actions together; narrow phones stack the two nodes within each alternative.
+
+The newly generated panorama remains appropriate to the installation preparation story and is retained. No additional asset or reused editorial person is introduced. The human example now belongs to the same HELP path, reducing conceptual repetition.
+
+Initial technical checks: TypeScript, targeted ESLint and whitespace checks passed. Build/SEO and actual refreshed-preview rendering are being checked. This entry does not treat the previous two-path captures as proof of the new composition.
