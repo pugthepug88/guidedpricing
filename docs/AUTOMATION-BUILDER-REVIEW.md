@@ -136,7 +136,7 @@ This revision removes the wait toggle, optional Wait node, Yes/No selectors and 
 
 ### Motion and fallback
 
-The connections draw once when at least a quarter of the canvas enters the viewport. Nodes stay readable throughout. There is no timer loop, execution badge, result counter, interaction or layout movement. The animation briefly emphasizes each connected node and holds the full topology. A neutral connection is always present behind the tracing overlay, including before hydration and without JavaScript. Reduced-motion CSS shows the full diagram without animation. The measured desktop sticky enhancement remains bounded and falls back to ordinary flow whenever the complete scene cannot fit.
+The connections draw once when the decision node is substantially visible above the bottom of the viewport. This avoids spending the animation below the fold while a phone visitor reads the introduction. Nodes stay readable throughout. There is no timer loop, execution badge, result counter, interaction or layout movement. The animation briefly emphasizes each connected node and holds the full topology. A neutral connection is always present behind the tracing overlay, including before hydration and without JavaScript. Reduced-motion CSS shows the full diagram without animation. The measured desktop sticky enhancement remains bounded and falls back to ordinary flow whenever the complete scene cannot fit.
 
 ### Fresh photograph
 
