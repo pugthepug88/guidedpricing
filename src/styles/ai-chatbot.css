@@ -262,7 +262,7 @@
   margin-top: 9px;
   max-width: 300px;
 }
-.cb-web-context > .cb-hours {
+.cb-web-context > p.cb-hours {
   font-size: 11px !important;
   color: #263f50 !important;
   margin-top: 30px !important;
@@ -935,7 +935,7 @@
     font-size: 54px;
   }
 }
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .cb-opening {
     padding-top: 110px;
   }
@@ -971,7 +971,7 @@
   .cb-site-information {
     display: none;
   }
-  .cb-web-context > .cb-hours {
+  .cb-web-context > p.cb-hours {
     display: block;
     margin: 0 !important;
   }
@@ -1127,7 +1127,7 @@
     padding-bottom: 0;
   }
   .cb-hero h1 {
-    font-size: 46px;
+    font-size: 40px;
     max-width: 17ch;
   }
   .cb-hero-grid {
@@ -1155,7 +1155,7 @@
   .cb-web-context .cb-eyebrow {
     font-size: 12px;
   }
-  .cb-web-context > .cb-hours {
+  .cb-web-context > p.cb-hours {
     font-size: 11px !important;
   }
   .cb-widget {
@@ -1348,7 +1348,7 @@
     padding-inline: 18px;
   }
   .cb-hero h1 {
-    font-size: 41px;
+    font-size: 38px;
   }
   .cb-actions {
     gap: 18px;
