@@ -151,3 +151,54 @@ Role checks were conducted as separate review passes by the same agent, not inde
 | Technical | Production build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Shared navigation/footer and unrelated sources are unchanged. |
 
 The desktop hero capture is retained in [qa/ai-chatbot-product-stage.png](qa/ai-chatbot-product-stage.png). Remaining limits: no physical-device/cross-browser matrix or screen-reader session; reduced-motion and unavailable-JavaScript behaviour were checked in source rather than separate browser modes. No measured conversion result or final owner approval is implied. Local development preview remained unreachable from the connected browser; rendered review used the existing repository's public branch preview. Lovable stays read-only, with no builder prompt or separate production Publish action.
+
+## Integrated hero and editorial scroll revision, 23 October 2026
+
+The owner requested a more appealing hero and rest of the Chatbot page after seeing the product-stage revision. This supersedes that revision's detached title/stage, repeated broad boxed scenes and laptop photograph. The H1, hero supporting paragraph and final CTA remain locked. Scope stays on the Chatbot page; shared header/footer, other pages, route/indexing and `/booking` are preserved. Current base is `e00bd676b97241b7eb5ab314d69979f5500dfe4a`.
+
+Reference assessment: ADAPT Birdeye AI Search's unified contained opening, decisive scale, material contrast and alternating open/product-heavy views. Its current hero, proof/report area and anchored product chapter were inspected in the browser. REJECT copying its mascot, enterprise navigation, claims, statistics or giving every Zapla section a blue background. USE Zapla's type, actual petal, portrait continuity, neutral foundation, selective deep green and established closing CTA. Existing Inbox and Customer Marketing source and rendered references inform family resemblance, not a shared section template.
+
+Design: combine the approved hero wording and large chat in one light blue/stone material scene; remove the redundant second headline and business-information preamble. Qualification is open on the page beside a smooth created-contact record with local stone texture. A distinct dark chapter holds explanatory copy and one continuous opportunity/task paper rather than two competing cards. Business information and its answer form an asymmetric editorial spread. The fresh panoramic work photograph has no text overlay. Setup uses an open two-column plan, rather than three equal cards. Functional plus disclosures remain; no decorative arrows, fake inputs, metrics, floating icons or automatic animation are added. The existing measured, bounded contact enhancement is retained subject to fresh rendered testing.
+
+New image: built-in image generation, `photorealistic-natural`; master `/workspace/scratch/f1a59e780d84/generated_images/exec-5718437b-d608-45bf-bfe4-3a01c0ce1ac7.png`; web asset `public/concept/features/chatbot-team-review-v3.webp`, 2020 × 778, 164,366 bytes. People were directed by work, setting and composition. This is an explanatory editorial illustration, not customers or a testimonial. The original master is preserved. The old photo is no longer used by this page.
+
+Generation prompt:
+
+> Use case: photorealistic-natural. Asset type: wide editorial photograph for the human-handover section of a premium small-business software website. Primary request: a candid service team reviewing an unusual air-conditioning installation request together, concentrating on a large technical installation drawing and an unbranded equipment specification sheet on a worktable. Scene: a contemporary Australian air-conditioning service business, bright understated studio beside a clean workshop, timber worktable, neutral plaster, softly blurred modern equipment samples. Subjects: a female service coordinator in her late forties in a charcoal overshirt and a male technical colleague in his fifties in a navy work shirt, standing side by side and naturally discussing the drawing; believable relaxed professional posture, engaged in the work, not smiling at camera. Composition: panoramic landscape around 2.6:1, medium-wide observational photograph, both people grouped near the centre-right, enough room around them for an intentional crop, faces and hands clearly visible and anatomically correct, open table across foreground, no text overlay area required. Lighting: generous natural side light, warm daylight, soft real shadows, tactile editorial quality and rich but restrained contrast. Materials: oak, linen, matte paper, charcoal and ink blue. Constraints: no logos, no readable written words, no website UI, no testimonial, no phone, no computer screen, no stock-photo posing, no artificial bokeh, no decorative floating objects. This is an explanatory work scene, not real customers.
+
+Initial code checks: production build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace pass. The connected browser cannot reach this container's local server, as established in the preceding review. This draft commit enables rendered branch-preview inspection; it is not a visual sign-off. Fresh desktop/tablet/phone, scene fit and sticky release, image crop, native disclosures and final CTA checks remain pending before main merge. Lovable remains read-only; no builder prompt or separate production Publish action.
+
+### Rendered review completed on the branch preview
+
+The existing repository Workers preview was inspected in Chrome. Implementation through `f172f57138713891764415788e407c6f0ceb9e08` passed its Workers deployment. This entry supersedes the pending rendered-review status above. It is an implementation review, not owner approval or a measured conversion result.
+
+Coverage:
+
+- **1707 × 769 normal wide viewport:** complete integrated opening, open capture, dark continuation, source/answer composition, new photograph, original-question handover and launch rhythm.
+- **1366 × 900:** hero, bounded capture, expanded optional booking and its result, final CTA/sky. The contact scene measured 386.6px high. Native scrolling measured its top at 142px on approach, then 94px at successive positions, then -8px after release. Reverse travel retained the completed record at opacity 1. The scene adds only 120px of travel.
+- **1101 × 820 minimum enhanced size:** complete opening and measured 384px capture scene, enhancement enabled, no horizontal overflow.
+- **1366 × 720 short-window fallback:** enhancement disabled, static scene and fully visible contact at opacity 1.
+- **834 × 900 tablet:** stacked hero, contact, the opportunity/task record's two-column layout, fresh photograph with both faces visible and open setup. This was key-scene coverage, not every lower-page tablet interaction.
+- **393 × 852 phone (378px content):** full opening, conversation, qualification and contact; pipeline/task, expanded booking and explicit agreement, knowledge example, photograph and handover, complete launch plan, FAQ and final CTA/sky.
+- **320 × 852 (305px content):** hero, name/email/original request, both people in the photo, and expanded booking with the result. Final main-text geometry check found no clipping or horizontal overflow.
+
+A small real defect was found during the phone geometry review: the disclosure plus rotated to a cross about 4.6px outside its original SVG layout box. Six pixels of right padding now reserve its drawn extent. Rechecked the rendered 320px expanded state: no overflow or clipped checked headings, paragraphs, links or summaries. All main images loaded. The photo is unobstructed in the inspected desktop/tablet/phone crops.
+
+The booking example opens by click and closes with Enter on desktop; phone disclosure was also opened. The qualification FAQ opens by click and closes with Enter. All three sales CTAs point to `/booking`; the final CTA was followed and the existing booking page rendered. No form submission, message, contact or live appointment was made. The calendar embed stays deferred.
+
+Role reviews were separate passes by the same agent:
+
+| Lens | Finding |
+| --- | --- |
+| UI/UX | One hero promise and one readable exchange. The repeated internal headline is gone. Contact and task relationships remain understandable without connectors. Narrow disclosure extent was corrected. |
+| Brand / Creative | Zapla type, petal, portrait continuity, warm white and selective deep green hold the family together. Integrated material opening, open capture, dark record, editorial knowledge and unobstructed work photography create distinct compositions. |
+| Product Marketing | Visible need/timing and supplied name/email precede the contact. Configured pipeline/task, optional booking with agreement, supplied-information answer and conditional human review retain their separate meanings. No new claims. |
+| Conversion | A clear primary call destination, practical setup qualification and the established close remain. The broad Chatbot request is not narrowed to booking only. |
+| Motion | One measured native hold, one contact reveal, no reset. Phone/tablet and short-height remain complete in normal flow. No decorative animation was introduced. |
+| SME buyer | The page shows an answered question, who gets captured, where the enquiry goes and when a person is needed. No software architecture or internal agent terminology is introduced. |
+| Buyer psychology | Business-information proof and a visible human exception address control and trust without fabricated metrics, endorsements or guarantees. |
+| AI-slop critique | No fake inputs, counters, random badges, icon grid, arrows, tilted cards or website collage. Surfaces correspond to the widget, contact, opportunity/task, supplied information or team context. |
+
+Production build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Concurrent Automation work was preserved in the branch integration; subsequent unrelated Automation changes remain on main for the ordinary merge. Screenshot: [qa/ai-chatbot-integrated-hero.png](qa/ai-chatbot-integrated-hero.png).
+
+Limits: Chrome review, not a physical-device/cross-browser matrix, screen-reader session or live-product acceptance test. Reduced motion and unavailable-JavaScript baselines were checked in source rather than separate browser sessions. A browser connection timeout interrupted one diagnostic call; the browser was reconnected and the responsive/disclosure checks resumed. No error-log result is claimed for that interrupted call. Lovable remains read-only; no builder prompt or separate production Publish action. Target review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ai-chatbot
