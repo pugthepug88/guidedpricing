@@ -190,6 +190,9 @@
   line-height: 1.02;
   letter-spacing: -0.052em;
 }
+.cb-hero h1 > span {
+  display: block;
+}
 .cb-hero-intro {
   padding-bottom: 4px;
 }
@@ -851,7 +854,7 @@
     grid-template-columns: 1.1fr 0.9fr;
   }
   .cb-hero h1 {
-    font-size: 54px;
+    font-size: clamp(42px, 4.7vw, 52px);
   }
   .cb-hero-intro .cb-hero-description {
     font-size: 14px;
@@ -1127,8 +1130,11 @@
     padding-bottom: 0;
   }
   .cb-hero h1 {
-    font-size: 40px;
-    max-width: 17ch;
+    font-size: clamp(30px, 9.65vw, 38px);
+    max-width: none;
+  }
+  .cb-title-tail {
+    display: block;
   }
   .cb-hero-grid {
     gap: 21px;
@@ -1346,9 +1352,6 @@
 @media (max-width: 360px) {
   .cb-wrap {
     padding-inline: 18px;
-  }
-  .cb-hero h1 {
-    font-size: 38px;
   }
   .cb-actions {
     gap: 18px;

@@ -64,7 +64,12 @@ function WebsiteHero() {
         <div className="cb-hero-grid">
           <header className="cb-hero">
             <p className="cb-eyebrow">AI Chatbot</p>
-            <h1 id="chatbot-title">Customer questions shouldn’t have to wait.</h1>
+            <h1 id="chatbot-title">
+              <span>Customer questions</span>{" "}
+              <span>
+                shouldn’t have <span className="cb-title-tail">to wait.</span>
+              </span>
+            </h1>
           </header>
           <div className="cb-hero-intro">
             <p className="cb-hero-description">
