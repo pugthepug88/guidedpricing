@@ -139,3 +139,15 @@ Use one short, bounded desktop sticky enquiry with cumulative conversation state
 Product scope stays website chat, SMS, WhatsApp and email with setup qualification. All booking CTAs remain /booking; the calendar embed remains deferred. Shared header/footer, Platform architecture, navigation and unrelated pages stay unchanged. Code changes go through GitHub; Lovable remains read-only.
 
 Verification is in progress. The preceding verification record applies to the earlier static refinement, not this redesign. Do not claim rendered desktop/mobile approval, interaction verification or successful preview sync for this revision until those checks are completed and recorded.
+
+## Automation Builder implementation, 23 October 2026
+
+Built `/features/automation-builder` around workflow construction and control. Follow-Up, Quote Follow-Up and Reactivation retain ownership of their business use cases. The seven-section story is: owner control with an interactive example; visual construction; a customer's question and human response; Draft/Live, validation and run history; Guided Launch; practical FAQs; established final booking CTA and sky/footer transition.
+
+The main example is **Form submitted → optional Wait → Send SMS or Create callback task**. Visitors configure the action and timing; the connected steps and outcome update together. These are supported builder choices, not a simulated customer-field condition. Current supplier material confirms conditional paths but does not enumerate workflow condition operands. The initially considered preference-field branch was therefore excluded. The later SMS reply scene explicitly starts a separate workflow that creates a review task; a person reads and responds. No automatic stop-on-reply, assignment, AI decision, business-hours rule or universal channel support is implied.
+
+The page uses a green workflow stage, open white builder explanation, deep-green human section, cool-neutral control section, white Guided Launch with a blue setup panel, cool-neutral FAQ and the established final CTA. Existing fonts, portraits, photograph, Zapla petal, header, footer and Platform structure remain. Small demo labels and mobile CTA word spacing were corrected during review. Motion is a short, user-triggered result transition; there is no autoplay or forced scrolling, and reduced-motion CSS disables the transition.
+
+Only Automation Builder is added to the existing Features menu. The route has `noindex, nofollow`, stays outside `SEARCH_PAGES`, and intentionally has no `staticData.sitemap: false` so it remains eligible for the Lovable selector. Booking links target `/booking`; the calendar embed remains deferred. This is a completed implementation for review, not an assertion of user approval or live-product acceptance.
+
+Product sources and limits are recorded in `AUTOMATION-BUILDER-EVIDENCE.md`. Rendered checks, review findings and remaining verification limits are recorded in `AUTOMATION-BUILDER-REVIEW.md`. No production publication is authorised or performed as part of this work.

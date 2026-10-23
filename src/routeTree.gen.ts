@@ -40,6 +40,7 @@ import { Route as ComparisonZaplaVsSalesforceRouteImport } from './routes/compar
 import { Route as ComparisonZaplaVsThryvRouteImport } from './routes/comparison.zapla-vs-thryv'
 import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.zapla-vs-zoho'
 import { Route as FeaturesAiChatbotRouteImport } from './routes/features.ai-chatbot'
+import { Route as FeaturesAutomationBuilderRouteImport } from './routes/features.automation-builder'
 import { Route as FeaturesPipelineManagementRouteImport } from './routes/features.pipeline-management'
 import { Route as FeaturesUnifiedInboxRouteImport } from './routes/features.unified-inbox'
 import { Route as FeaturesWebsitesFunnelsFormsRouteImport } from './routes/features.websites-funnels-forms'
@@ -215,6 +216,12 @@ const FeaturesAiChatbotRoute = FeaturesAiChatbotRouteImport.update({
   path: '/features/ai-chatbot',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeaturesAutomationBuilderRoute =
+  FeaturesAutomationBuilderRouteImport.update({
+    id: '/features/automation-builder',
+    path: '/features/automation-builder',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const FeaturesPipelineManagementRoute =
   FeaturesPipelineManagementRouteImport.update({
     id: '/features/pipeline-management',
@@ -307,6 +314,7 @@ export interface FileRoutesByFullPath {
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
+  '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -351,6 +359,7 @@ export interface FileRoutesByTo {
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
+  '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -396,6 +405,7 @@ export interface FileRoutesById {
   '/comparison/zapla-vs-thryv': typeof ComparisonZaplaVsThryvRoute
   '/comparison/zapla-vs-zoho': typeof ComparisonZaplaVsZohoRoute
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
+  '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -442,6 +452,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
+    | '/features/automation-builder'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -486,6 +497,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
+    | '/features/automation-builder'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -530,6 +542,7 @@ export interface FileRouteTypes {
     | '/comparison/zapla-vs-thryv'
     | '/comparison/zapla-vs-zoho'
     | '/features/ai-chatbot'
+    | '/features/automation-builder'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -575,6 +588,7 @@ export interface RootRouteChildren {
   ComparisonZaplaVsThryvRoute: typeof ComparisonZaplaVsThryvRoute
   ComparisonZaplaVsZohoRoute: typeof ComparisonZaplaVsZohoRoute
   FeaturesAiChatbotRoute: typeof FeaturesAiChatbotRoute
+  FeaturesAutomationBuilderRoute: typeof FeaturesAutomationBuilderRoute
   FeaturesPipelineManagementRoute: typeof FeaturesPipelineManagementRoute
   FeaturesUnifiedInboxRoute: typeof FeaturesUnifiedInboxRoute
   FeaturesWebsitesFunnelsFormsRoute: typeof FeaturesWebsitesFunnelsFormsRoute
@@ -808,6 +822,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeaturesAiChatbotRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/features/automation-builder': {
+      id: '/features/automation-builder'
+      path: '/features/automation-builder'
+      fullPath: '/features/automation-builder'
+      preLoaderRoute: typeof FeaturesAutomationBuilderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/features/pipeline-management': {
       id: '/features/pipeline-management'
       path: '/features/pipeline-management'
@@ -920,6 +941,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonZaplaVsThryvRoute: ComparisonZaplaVsThryvRoute,
   ComparisonZaplaVsZohoRoute: ComparisonZaplaVsZohoRoute,
   FeaturesAiChatbotRoute: FeaturesAiChatbotRoute,
+  FeaturesAutomationBuilderRoute: FeaturesAutomationBuilderRoute,
   FeaturesPipelineManagementRoute: FeaturesPipelineManagementRoute,
   FeaturesUnifiedInboxRoute: FeaturesUnifiedInboxRoute,
   FeaturesWebsitesFunnelsFormsRoute: FeaturesWebsitesFunnelsFormsRoute,
