@@ -132,14 +132,18 @@
   align-self: stretch;
   scroll-margin-top: 106px;
 }
+/* Grain belongs to the material behind the smooth, readable glass nodes. */
 .ab-branch-stage {
   position: relative;
   isolation: isolate;
   border-radius: 28px;
-  padding: 27px 26px 23px;
-  background: radial-gradient(ellipse at 15% 0, #91a082, #526b55 66%, #344f43);
-  border: 1px solid #6f856a;
-  box-shadow: inset 0 0 0 1px #e6f0df4d;
+  padding: 27px 26px 28px;
+  background:
+    radial-gradient(ellipse at 13% 8%, #d8cdb9b3, transparent 56%),
+    radial-gradient(ellipse at 92% 87%, #65718099, transparent 67%),
+    linear-gradient(135deg, #a9a6a1, #8b8c8e 57%, #b6b2ac);
+  border: 1px solid #a5a19b;
+  box-shadow: inset 0 0 0 1px #ffffff3d;
 }
 .ab-branch-stage::before {
   content: "";
@@ -148,172 +152,93 @@
   z-index: -1;
   border-radius: inherit;
   pointer-events: none;
-  opacity: 0.16;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23n)' opacity='.7' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
+  opacity: 0.53;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23777' filter='url(%23grain)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
 }
 .ab-canvas-heading {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-bottom: 23px;
-  color: #fff;
+  gap: 10px;
+  margin-bottom: 24px;
+  color: #252a2e;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 650;
+  line-height: 1.4;
 }
-.ab-canvas-heading > span {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+.ab-canvas-heading svg {
+  flex-shrink: 0;
 }
-.ab-wait-control {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
+.ab-canvas-heading .ab-example-label {
+  margin-left: auto;
+  color: #353a3d;
+  font-size: 11px;
   font-weight: 500;
-  cursor: pointer;
-  min-height: 30px;
-}
-.ab-wait-control input {
-  width: 16px;
-  height: 16px;
-  margin: 0;
-  accent-color: #2563ff;
 }
 .ab-node {
-  margin-inline: auto;
   position: relative;
-  background: #fcfef9ef;
-  border: 1px solid #ffffffb3;
-  border-radius: 14px;
+  margin-inline: auto;
+  border: 1px solid #ffffffb8;
+  border-radius: 15px;
+  background: linear-gradient(138deg, #ffffffc9, #f4f4f0a8);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   box-shadow:
-    0 7px 22px #142f2420,
-    inset 0 0 0 1px #fff8;
-}
-.ab-trigger {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  max-width: 338px;
-  padding: 17px 19px;
-}
-.ab-avatar {
-  display: inline-block;
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background-size: 600% 400%;
-  background-repeat: no-repeat;
+    0 9px 23px #252c3421,
+    inset 0 1px 1px #fffffff0;
 }
 .ab-node-label {
   display: block;
-  color: #52614e;
+  color: #4c565c;
   font-size: 12px;
   line-height: 1.4;
 }
-.ab-trigger strong {
+.ab-trigger,
+.ab-condition {
+  max-width: 350px;
+  padding: 16px 21px;
+}
+.ab-trigger strong,
+.ab-condition h3 {
   display: block;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
   margin-top: 4px;
+  color: #171d23;
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
 }
-.ab-connection {
-  width: 1px;
-  height: 21px;
-  background: #e6eedbd9;
-  margin: 0 auto;
-}
-.ab-wait-slot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 50px;
-}
-.ab-wait-node {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 13px 20px;
-  border-radius: 10px;
-  font-size: 13px;
+.zapla-automation .ab-trigger p,
+.zapla-automation .ab-condition p {
+  margin-top: 5px;
+  font-size: 12px;
   line-height: 1.5;
-}
-.ab-wait-node > span {
-  color: #536348;
-}
-.ab-wait-node strong {
-  font-weight: 600;
-}
-.zapla-automation .ab-no-wait {
-  color: #fff;
-  font-size: 13px;
-  border-block: 1px solid #d8e4d45c;
-  padding: 10px 18px;
+  color: #4c565c;
 }
 .ab-condition {
-  width: min(100%, 338px);
-  min-width: 0;
-  padding: 17px 21px 15px;
-  border: 1px solid #fff;
-  background: #fff;
+  background: linear-gradient(138deg, #fffffff0, #f8f8f4db);
 }
 .ab-condition h3 {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.03em;
-  margin-top: 4px;
+  font-size: 21px;
 }
-.ab-result-choices {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 13px;
-}
-.ab-result-choices label {
+.ab-connection {
   position: relative;
-  cursor: pointer;
+  width: 2px;
+  height: 23px;
+  margin: 0 auto;
+  background: #ffffff9c;
 }
-.ab-result-choices input {
+.ab-connection::after {
+  content: "";
   position: absolute;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  cursor: pointer;
-}
-.ab-result-choices label > span {
-  display: block;
-  padding: 8px 19px;
-  min-height: 38px;
-  border: 1px solid #cbd5ca;
-  border-radius: 7px;
-  color: #42543d;
-  font-size: 14px;
-  line-height: 1.4;
-}
-.ab-result-choices input:checked + span {
+  inset: 0;
   background: #2563ff;
-  color: #fff;
-  border-color: #2563ff;
-}
-.ab-result-choices input:focus-visible + span {
-  outline: 3px solid #2563ff;
-  outline-offset: 3px;
-}
-.ab-try-label {
-  color: #5d675b;
-  font-size: 11px;
-  line-height: 1.4;
-  margin-left: 3px;
+  transform-origin: top;
+  opacity: 0;
 }
 .ab-split {
   position: relative;
-  height: 66px;
+  height: 62px;
 }
 .ab-split svg {
   display: block;
@@ -328,109 +253,140 @@
   vector-effect: non-scaling-stroke;
 }
 .ab-path-base {
-  stroke: #d8e4d4;
-  stroke-width: 1.5;
+  stroke: #ffffffad;
+  stroke-width: 2;
 }
-.ab-path-selected {
+.ab-path-trace {
   stroke: #2563ff;
-  stroke-width: 3.5;
+  stroke-width: 2;
   opacity: 0;
-}
-.ab-path-selected.ab-path-active {
-  opacity: 1;
-}
-.ab-branch-stage[data-interacted="true"] .ab-path-active {
-  animation: ab-trace-path 500ms ease-out both;
-}
-@keyframes ab-trace-path {
-  from {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 0;
-  }
 }
 .ab-yes-label,
 .ab-no-label {
   position: absolute;
-  top: 5px;
+  top: 33px;
+  color: #222a31;
   font-size: 12px;
   line-height: 1.4;
-  color: #fff;
+  font-weight: 600;
 }
 .ab-yes-label {
-  left: 27%;
+  left: calc(25% + 12px);
 }
 .ab-no-label {
-  right: 27%;
+  left: calc(75% + 12px);
 }
 .ab-branch-outcomes {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
 }
-.ab-outcome {
-  padding: 19px 19px 18px;
-  border: 2px solid #edf5e5a6;
-  border-radius: 14px;
-  background: #ecf2e6e6;
-  box-shadow: inset 0 0 0 1px #ffffff80;
-  transition:
-    background-color 0.2s,
-    border-color 0.2s;
+.ab-track {
+  min-width: 0;
 }
-.ab-branch-stage[data-result="yes"] .ab-outcome-sms,
-.ab-branch-stage[data-result="no"] .ab-outcome-task {
-  background: #fff;
-  border-color: #2563ff;
-  box-shadow: 0 7px 18px #17362926;
+.ab-step {
+  padding: 17px 18px 18px;
 }
-.ab-outcome-title {
+.ab-step-title {
   display: flex;
   align-items: center;
-  gap: 9px;
-  margin-bottom: 13px;
+  gap: 8px;
 }
-.ab-outcome-title svg {
+.ab-step-title svg {
   flex-shrink: 0;
 }
-.ab-outcome-title h3 {
-  font-size: 17px;
+.ab-step h3 {
+  color: #171d23;
+  font-size: 16px;
+  font-weight: 650;
   line-height: 1.4;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
-.zapla-automation .ab-outcome p {
-  font-size: 15px;
-  line-height: 1.6;
-  color: #24382e;
+.zapla-automation .ab-step p {
+  margin-top: 11px;
+  color: #303c43;
+  font-size: 14px;
+  line-height: 1.65;
 }
-.ab-outcome-note {
-  display: block;
-  font-size: 11px;
-  line-height: 1.6;
-  color: #53614d;
-  margin-top: 13px;
+.ab-field-update {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-.zapla-automation .ab-canvas-caption {
-  color: #fff;
+.ab-field-update span {
   font-size: 12px;
-  line-height: 1.6;
-  text-align: center;
-  margin-top: 19px;
 }
-.ab-sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.ab-field-update strong {
+  font-size: 19px;
+  font-weight: 600;
+  color: #202d37;
+}
+.ab-next-step {
+  background: linear-gradient(138deg, #ffffffe3, #f4f4f0bf);
+}
+/* Draw the configured topology once. No execution counts or running states. */
+@media (prefers-reduced-motion: no-preference) {
+  .ab-branch-stage[data-animate="true"] > .ab-connection::after {
+    animation: ab-connect 0.65s 0.25s ease-out both;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-path-trace {
+    animation: ab-trace 1s 1s ease-out both;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-path-no {
+    animation-delay: 1.4s;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-next-connection::after {
+    animation: ab-connect 0.65s 2.2s ease-out both;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-track-planned .ab-next-connection::after {
+    animation-delay: 2.6s;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-condition {
+    animation: ab-focus 0.85s 0.7s both;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-first-step {
+    animation: ab-focus 0.85s 1.8s both;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-track-planned .ab-first-step {
+    animation-delay: 2.2s;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-next-step {
+    animation: ab-focus 0.85s 2.7s both;
+  }
+  .ab-branch-stage[data-animate="true"] .ab-track-planned .ab-next-step {
+    animation-delay: 3.1s;
+  }
+}
+@keyframes ab-connect {
+  from {
+    opacity: 1;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+@keyframes ab-trace {
+  from {
+    opacity: 1;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    opacity: 1;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes ab-focus {
+  0%,
+  100% {
+    border-color: #ffffffb8;
+  }
+  45% {
+    border-color: #2563ff;
+  }
 }
 .ab-build-copy {
   grid-column: 1;
@@ -460,35 +416,28 @@
 .ab-build-copy > .ab-text-link {
   margin-top: 7px;
 }
+/* A wide editorial scene breaks the two-column product rhythm. */
 .ab-human {
   background: #f7f4ee;
 }
 .ab-human-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: "photo copy";
   gap: 90px;
   align-items: center;
-}
-.ab-human-content {
-  grid-area: copy;
+  margin-bottom: 46px;
 }
 .ab-human-intro {
   margin-top: 23px !important;
 }
-.ab-reply-flow {
-  margin: 27px 0 19px;
+.ab-human-content > .ab-text-link {
+  margin-top: 16px;
 }
 .ab-customer-reply {
-  padding: 22px 24px;
-  border: 1px solid #d6dcd5;
-  border-radius: 16px;
+  padding: 24px 27px;
+  border: 1px solid #d9dcd8;
+  border-radius: 17px;
   background: #ffffffb8;
-}
-.ab-person {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 .ab-person strong {
   display: block;
@@ -496,32 +445,33 @@
   font-weight: 600;
   line-height: 1.45;
 }
-.ab-person span:not(.ab-avatar) {
+.ab-person span {
   display: block;
-  color: #52614e;
+  color: #58635f;
   font-size: 12px;
-  margin-top: 3px;
+  line-height: 1.5;
+  margin-top: 4px;
 }
 .zapla-automation .ab-customer-reply p {
-  font-size: 19px;
-  line-height: 1.6;
   color: #26392f;
+  font-size: 21px;
+  line-height: 1.5;
   margin-top: 17px;
 }
 .ab-review-task {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 13px;
-  margin-top: 22px;
+  margin-top: 25px;
   padding-left: 24px;
-  position: relative;
 }
 .ab-review-task::before {
   content: "";
   position: absolute;
-  top: -22px;
+  top: -25px;
   left: 38px;
-  height: 22px;
+  height: 25px;
   width: 1px;
   background: #9aaa90;
 }
@@ -529,9 +479,9 @@
   flex-shrink: 0;
 }
 .ab-label {
+  color: #58635f;
   font-size: 12px;
   line-height: 1.5;
-  color: #52614e;
 }
 .ab-review-task strong {
   display: block;
@@ -541,39 +491,36 @@
   margin-top: 4px;
 }
 .ab-human-photo {
-  grid-area: photo;
   position: relative;
-  min-height: 580px;
-  align-self: stretch;
-  border-radius: 24px;
+  border-radius: 28px;
   overflow: hidden;
-  background: #48554d;
+  background: #40473b;
+  aspect-ratio: 3 / 1;
 }
 .ab-human-photo img {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 76% center;
+  object-position: center;
 }
 .ab-human-photo::after {
   content: "";
   position: absolute;
-  inset: 55% 0 0;
-  background: linear-gradient(transparent, #10221de8);
+  inset: 0;
+  background: linear-gradient(90deg, #0d1c19b8, #12211b24 42%, transparent 65%);
 }
 .ab-human-photo figcaption {
   position: absolute;
-  bottom: 32px;
-  left: 30px;
-  right: 30px;
+  bottom: 46px;
+  left: 42px;
   z-index: 1;
-  font-size: 28px;
-  line-height: 1.3;
+  max-width: 400px;
   color: #fff;
+  font-size: 32px;
   font-weight: 500;
-  letter-spacing: -0.035em;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
 }
 .ab-control {
   background: #1e2b29;
@@ -795,23 +742,20 @@
   .ab-control-grid {
     gap: 45px;
   }
-  .ab-canvas-heading {
-    font-size: 13px;
-  }
   .ab-branch-stage {
     padding-inline: 20px;
   }
+  .ab-canvas-heading {
+    font-size: 13px;
+  }
+  .ab-step {
+    padding-inline: 14px;
+  }
+  .ab-step h3 {
+    font-size: 15px;
+  }
   .ab-branch-outcomes {
     gap: 14px;
-  }
-  .ab-outcome {
-    padding-inline: 15px;
-  }
-  .ab-outcome-title {
-    gap: 6px;
-  }
-  .ab-outcome-title h3 {
-    font-size: 16px;
   }
   .ab-lifecycle {
     gap: 17px;
@@ -819,6 +763,11 @@
   }
   .ab-faq-grid {
     gap: 60px;
+  }
+  .ab-human-photo figcaption {
+    font-size: 28px;
+    left: 32px;
+    bottom: 34px;
   }
 }
 @media (max-width: 1100px) {
@@ -862,16 +811,16 @@
   .ab-building-blocks > div {
     padding-bottom: 0;
   }
-  .ab-canvas-heading {
-    font-size: 14px;
-  }
   .ab-branch-stage {
     padding: 25px;
   }
-  .ab-outcome {
+  .ab-canvas-heading {
+    font-size: 14px;
+  }
+  .ab-step {
     padding-inline: 22px;
   }
-  .ab-outcome-title h3 {
+  .ab-step h3 {
     font-size: 18px;
   }
   .ab-section {
@@ -879,14 +828,14 @@
   }
   .ab-human-grid {
     gap: 36px;
+    align-items: start;
   }
   .ab-human-photo {
-    min-height: 560px;
+    aspect-ratio: 2.4 / 1;
   }
   .ab-human-photo figcaption {
-    font-size: 24px;
-    left: 25px;
-    right: 25px;
+    font-size: 25px;
+    max-width: 285px;
   }
   .ab-control-intro {
     grid-template-columns: 1fr;
@@ -973,104 +922,64 @@
     scroll-margin-top: 93px;
   }
   .ab-branch-stage {
-    padding: 18px 13px 18px;
+    padding: 20px 13px 22px;
     border-radius: 22px;
   }
   .ab-canvas-heading {
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 21px;
     font-size: 12px;
   }
-  .ab-canvas-heading > span {
-    gap: 7px;
+  .ab-canvas-heading .ab-example-label {
+    font-size: 10px;
   }
-  .ab-canvas-heading svg {
-    width: 24px;
-  }
-  .ab-wait-control {
-    font-size: 11px;
-    gap: 6px;
-    min-height: 36px;
-  }
-  .ab-wait-control input {
-    width: 15px;
-    height: 15px;
-  }
-  .ab-trigger {
+  .ab-trigger,
+  .ab-condition {
     max-width: 276px;
-    padding: 15px;
-    gap: 10px;
-  }
-  .ab-avatar {
-    width: 34px;
-    height: 34px;
+    padding: 15px 17px;
   }
   .ab-trigger strong {
-    font-size: 14px;
+    font-size: 15px;
   }
   .ab-node-label {
     font-size: 11px;
   }
-  .ab-connection {
-    height: 19px;
-  }
-  .ab-condition {
-    max-width: 276px;
-    padding: 16px 17px;
-  }
   .ab-condition h3 {
-    font-size: 18px;
+    font-size: 19px;
   }
-  .ab-result-choices {
-    gap: 8px;
-    margin-top: 13px;
-  }
-  .ab-result-choices label > span {
-    padding: 9px 17px;
-    min-height: 40px;
-  }
-  .ab-try-label {
-    font-size: 11px;
+  .ab-connection {
+    height: 22px;
   }
   .ab-split {
-    height: 66px;
-  }
-  .ab-yes-label {
-    left: 23%;
-  }
-  .ab-no-label {
-    right: 23%;
+    height: 60px;
   }
   .ab-branch-outcomes {
     gap: 10px;
   }
-  .ab-outcome {
-    padding: 15px 12px;
-    border-radius: 11px;
+  .ab-step {
+    padding: 15px 12px 16px;
+    border-radius: 12px;
   }
-  .ab-outcome-title {
+  .ab-step-title {
     display: block;
-    margin-bottom: 11px;
   }
-  .ab-outcome-title svg {
+  .ab-step-title svg {
     margin-bottom: 7px;
   }
-  .ab-outcome-title h3 {
+  .ab-step h3 {
     font-size: 15px;
     line-height: 1.4;
   }
-  .zapla-automation .ab-outcome p {
+  .zapla-automation .ab-step p {
     font-size: 14px;
     line-height: 1.65;
+    margin-top: 10px;
   }
-  .ab-outcome-note {
-    font-size: 11px;
-    margin-top: 11px;
+  .ab-field-update strong {
+    font-size: 19px;
   }
-  .zapla-automation .ab-canvas-caption {
-    font-size: 11px;
-    line-height: 1.65;
-    margin-top: 17px;
+  .ab-field-update span {
+    font-size: 12px;
   }
   .ab-build-copy {
     padding-top: 10px;
@@ -1092,25 +1001,41 @@
   }
   .ab-human-grid {
     grid-template-columns: 1fr;
-    grid-template-areas: "copy" "photo";
-    gap: 32px;
+    gap: 30px;
+    margin-bottom: 33px;
   }
   .ab-customer-reply {
     padding: 20px;
   }
   .zapla-automation .ab-customer-reply p {
-    font-size: 18px;
+    font-size: 20px;
   }
   .ab-human-photo {
-    min-height: 390px;
+    aspect-ratio: auto;
+    padding-top: 320px;
     border-radius: 20px;
   }
   .ab-human-photo img {
-    object-position: 78% center;
+    position: absolute;
+    inset: 0;
+    height: 320px;
+    object-position: 80% center;
+  }
+  .ab-human-photo::after {
+    background: linear-gradient(transparent 48%, #14231ae6);
+    height: 320px;
   }
   .ab-human-photo figcaption {
-    font-size: 25px;
-    bottom: 27px;
+    position: relative;
+    padding: 23px 24px 26px;
+    bottom: auto;
+    left: auto;
+    max-width: none;
+    font-size: 27px;
+    background: #22322b;
+  }
+  .ab-human-photo figcaption br {
+    display: none;
   }
   .ab-control-grid {
     grid-template-columns: 1fr;
@@ -1208,16 +1133,16 @@
     padding-inline: 11px;
   }
   .ab-canvas-heading {
-    gap: 5px;
+    gap: 6px;
     font-size: 11px;
   }
-  .ab-wait-control {
-    font-size: 10px;
+  .ab-canvas-heading .ab-example-label {
+    font-size: 9px;
   }
-  .ab-outcome {
+  .ab-step {
     padding-inline: 10px;
   }
-  .ab-outcome-title h3 {
+  .ab-step h3 {
     font-size: 14px;
   }
   .ab-branch-outcomes {
@@ -1229,6 +1154,10 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .ab-path-trace,
+  .ab-connection::after {
+    opacity: 1;
+  }
   .zapla-automation *,
   .zapla-automation *::before,
   .zapla-automation *::after {
