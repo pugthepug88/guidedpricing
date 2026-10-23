@@ -2,7 +2,6 @@
   background: #fcfcfa;
   color: #111318;
   font-family: Manrope, system-ui, sans-serif;
-  overflow: clip;
 }
 .zapla-chatbot * {
   box-sizing: border-box;
@@ -10,7 +9,6 @@
 .zapla-chatbot h1,
 .zapla-chatbot h2,
 .zapla-chatbot h3,
-.zapla-chatbot h4,
 .zapla-chatbot p {
   margin: 0;
 }
@@ -20,8 +18,7 @@
   padding: 0 36px;
 }
 .cb-wrap > *,
-.cb-hero-stage > *,
-.cb-booking-scene > * {
+.cb-message > * {
   min-width: 0;
 }
 .zapla-chatbot h1,
@@ -32,47 +29,28 @@
   line-height: 1.02;
   text-wrap: balance;
 }
-.zapla-chatbot h1 {
-  font-size: clamp(46px, 4vw, 60px);
-}
 .zapla-chatbot h2 {
-  font-size: clamp(36px, 3.6vw, 52px);
+  font-size: clamp(38px, 3.7vw, 54px);
 }
 .zapla-chatbot p {
   font-size: 16px;
   line-height: 1.75;
   color: #536168;
 }
-.cb-eyebrow {
-  font-size: 10px !important;
-  letter-spacing: 0.18em;
+.zapla-chatbot .cb-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
   font-weight: 600;
-  color: #9b583f !important;
-  margin-bottom: 18px !important;
-}
-.cb-hero {
-  padding: 148px 0 48px;
-}
-.cb-hero-intro {
-  display: grid;
-  grid-template-columns: 1.45fr 1fr;
-  gap: 45px;
-  align-items: end;
-  margin-bottom: 44px;
-}
-.cb-hero-copy p {
-  max-width: 470px;
+  color: #9b583f;
+  margin-bottom: 18px;
 }
 .cb-actions {
   display: flex;
   gap: 25px;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 26px;
-}
-.cb-actions .cb-text-link {
-  min-height: 44px;
+  margin-top: 28px;
 }
 .cb-cta {
   display: inline-flex;
@@ -87,6 +65,7 @@
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
+  transition: background-color 160ms;
 }
 .cb-cta:hover {
   background: #29463f;
@@ -95,6 +74,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  min-height: 44px;
   font-size: 13px;
   font-weight: 600;
   color: #245fa1;
@@ -109,287 +89,366 @@
   outline: 3px solid #2563ff;
   outline-offset: 5px;
 }
-.cb-hero-stage {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 70px;
-  padding: 48px 54px;
-  border-radius: 30px;
-  background:
-    radial-gradient(ellipse at 0 0, #a9c7dd80, transparent 65%),
-    linear-gradient(120deg, #437b9f, #23527f);
-  border: 1px solid #618eae;
-  box-shadow:
-    inset 0 0 0 1px #ffffff26,
-    0 24px 60px #25456814;
-  align-items: center;
-}
-.cb-scene-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  margin-bottom: 20px;
-}
-.cb-site-context {
-  color: white;
-}
-.cb-site-context h2 {
-  font-size: 42px;
-}
-.cb-site-context > p {
-  color: #e3edf4;
-  margin-top: 20px;
-  max-width: 350px;
-}
-.cb-service {
-  margin-top: 34px;
-  border-top: 1px solid #ffffff45;
-  padding-top: 24px;
-}
-.cb-service > span {
-  font-size: 11px;
-  color: #d8e7f2;
-}
-.cb-service h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 10px;
-}
-.cb-service p {
-  color: #e3edf4;
-  font-size: 14px;
-  line-height: 1.7;
-  margin-top: 10px;
-}
-.cb-service-detail {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 22px;
-  color: #d8e7f2;
-  font-size: 12px;
-}
-.cb-service-detail strong {
-  color: #fff;
-  font-weight: 500;
-}
-.cb-chat {
-  border: 1px solid #ffffffb0;
-  outline: 1px solid #ffffff20;
-  outline-offset: 5px;
-  background: #f7fbffed;
-  border-radius: 22px;
-  box-shadow: 0 24px 50px #0a2b4d30;
+.cb-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
-.cb-chat-heading {
+
+/* One blue chapter; the enquiry, rather than a mock app window, is the visual. */
+.cb-opening {
+  background: #2563ff;
+  color: #fff;
+}
+.cb-opening .cb-wrap {
+  max-width: 1400px;
+  padding-inline: 48px;
+}
+.cb-opening p,
+.cb-opening .cb-eyebrow,
+.cb-opening .cb-text-link {
+  color: #fff;
+}
+.cb-opening .cb-eyebrow {
+  color: #dce7ff;
+}
+.cb-opening a:focus-visible {
+  outline-color: #fff;
+}
+.cb-opening .cb-cta,
+.cb-setup .cb-cta {
+  background: #fcfcfa;
+  color: #152c2a;
+}
+.cb-opening .cb-cta:hover,
+.cb-setup .cb-cta:hover {
+  background: #e9efff;
+}
+.cb-story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  column-gap: clamp(44px, 6vw, 88px);
+}
+.cb-hero {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 154px 0 80px;
+  align-self: center;
+}
+.cb-hero h1 {
+  font-size: clamp(64px, 5.8vw, 84px);
+  line-height: 0.99;
+  max-width: 11.5ch;
+}
+.cb-hero .cb-hero-description {
+  margin-top: 28px;
+  max-width: 470px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #f2f5ff;
+}
+.cb-scene,
+.cb-scene-pin {
+  display: contents;
+}
+.cb-story-start {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  padding-top: 75px;
+}
+.zapla-chatbot .cb-example-label {
   display: flex;
-  gap: 12px;
   align-items: center;
-  background: #fff;
-  padding: 22px 25px;
-  border-bottom: 1px solid #dbe4ed;
-}
-.cb-chat-heading strong {
-  display: block;
-  font-size: 15px;
-}
-.cb-chat-heading span {
-  display: block;
+  gap: 9px;
   font-size: 11px;
-  color: #5c6c78;
-  margin-top: 4px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 21px;
 }
-.cb-chat-body {
-  padding: 24px;
+.cb-opening .cb-example-label {
+  color: #dce7ff;
+  margin-left: 52px;
 }
-.cb-message + .cb-message {
-  margin-top: 22px;
+.cb-message {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
 }
-.cb-speaker {
+.cb-message + .cb-message,
+.cb-story-consent {
+  margin-top: 17px;
+}
+.cb-message-mark {
+  width: 38px;
+  min-height: 38px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  color: #526270;
-  margin-bottom: 8px;
+  justify-content: center;
+  margin-top: 8px;
+}
+.cb-message-ai .cb-message-mark {
+  background: #152c3a;
+  border-radius: 50%;
+  margin-top: 0;
 }
 .cb-avatar {
-  display: inline-block;
-  width: 26px;
-  height: 26px;
-  flex: 0 0 26px;
+  display: block;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
   border-radius: 50%;
   background-size: 600% 400%;
   background-repeat: no-repeat;
 }
-.cb-message > p {
-  font-size: 14px;
+.cb-message-copy {
+  background: #fcfcfa;
+  color: #182a34;
+  border-radius: 17px;
+  padding: 14px 18px;
+}
+.cb-speaker {
+  display: block;
+  color: #526170;
+  font-size: 10px;
+  line-height: 1.5;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.cb-message .cb-message-copy p {
+  color: inherit;
+  font-size: 17px;
+  line-height: 1.5;
+}
+.cb-message-ai .cb-message-copy {
+  background: transparent;
+  padding: 0 4px 0 0;
+  color: #fff;
+}
+.cb-message-ai .cb-speaker {
+  color: #dce7ff;
+}
+.cb-story-note,
+.cb-story-action {
+  grid-column: 1;
+  padding: 62px 0;
+  align-self: center;
+  scroll-margin-top: 105px;
+}
+.cb-story-note {
+  grid-row: 2;
+}
+.cb-story-action {
+  grid-row: 3;
+}
+.cb-story-note h2,
+.cb-story-action h2 {
+  max-width: 15ch;
+  font-size: clamp(38px, 3.8vw, 52px);
+}
+.cb-story-note > p:not(.cb-eyebrow),
+.cb-story-action > p:not(.cb-eyebrow) {
+  margin-top: 24px;
+  max-width: 435px;
+  color: #f0f4ff;
+}
+.cb-source {
+  margin-top: 28px;
+  padding: 20px 23px;
+  border: 1px solid #ffffff52;
+  border-radius: 15px;
+  max-width: 435px;
+}
+.cb-source > span {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #dce7ff;
+  margin-bottom: 7px;
+}
+.cb-source > p {
+  font-size: 13px;
   line-height: 1.65;
-  background: #fff;
-  border: 1px solid #dde5ec;
-  border-radius: 0 13px 13px 13px;
-  padding: 13px 16px;
-  color: #283e50;
 }
-.cb-message-ai {
-  margin-left: 20px;
+.cb-story-detail {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
 }
-.cb-message-ai > p {
-  background: #e0edf8;
-  border-color: #c8ddec;
-  color: #234d70;
+.cb-story-finish {
+  grid-column: 2;
+  grid-row: 3;
+  align-self: center;
 }
-.cb-hero-caption {
-  text-align: center;
-  font-size: 13px !important;
-  margin-top: 23px !important;
-  color: #536168;
+.cb-booking-result {
+  background: #fcfcfa;
+  color: #153e34;
+  border-radius: 17px;
+  padding: 17px 21px;
+  margin: 17px 0 0 52px;
 }
-.cb-section {
-  padding: 100px 0;
-}
-.cb-two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 88px;
+.cb-result-head {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.cb-appointment-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.cb-booking-result h3 {
+  font-family: "Inter Tight", Manrope, sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.cb-booking-result .cb-appointment-heading p {
+  font-size: 14px;
+  color: #153e34;
+  font-weight: 600;
+}
+.cb-booking-result .cb-appointment-details {
+  font-size: 12px;
+  color: #3b5650;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+.cb-booking-result .cb-appointment-enquiry {
+  font-size: 11px;
+  color: #53665f;
+  margin-top: 3px;
+  line-height: 1.5;
+}
+.cb-channels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  padding-block: 45px 55px !important;
+}
+.cb-channels > p {
+  font-size: 13px;
+  color: #e0e9ff;
+}
+.cb-channel-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+.cb-channel-list li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.cb-channel-list svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Enhancement has no wheel handling, scroll snapping or internal scroll area. */
+@media (min-width: 1100px) and (min-height: 820px) and (prefers-reduced-motion: no-preference) {
+  .cb-story-start {
+    align-self: start;
+    padding-top: 154px;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-scene {
+    display: block;
+    grid-column: 2;
+    grid-row: 1 / 4;
+    padding-top: 154px;
+    padding-bottom: 70px;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-scene-pin {
+    display: block;
+    position: sticky;
+    top: 88px;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-story-start {
+    padding-top: 0;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-story-note,
+  .cb-story-grid[data-enhanced="true"] .cb-story-action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-story-note {
+    min-height: 68svh;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-story-action {
+    min-height: 70svh;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-story-detail,
+  .cb-story-grid[data-enhanced="true"] .cb-story-finish {
+    margin-top: 17px;
+  }
+  .cb-story-grid[data-enhanced="true"] .cb-reveal {
+    transition:
+      opacity 280ms ease-out,
+      transform 280ms ease-out;
+  }
+  .cb-story-grid[data-enhanced="true"][data-stage="0"] [data-reveal],
+  .cb-story-grid[data-enhanced="true"][data-stage="1"] [data-reveal="2"],
+  .cb-story-grid[data-enhanced="true"][data-stage="1"] [data-reveal="3"],
+  .cb-story-grid[data-enhanced="true"][data-stage="2"] [data-reveal="3"] {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: none;
+  }
+  .cb-story-grid[data-enhanced="true"][data-stage="3"] .cb-booking-result {
+    animation: cb-booking-arrives 350ms 160ms both ease-out;
+  }
+}
+@keyframes cb-booking-arrives {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cb-section {
+  padding: 108px 0;
 }
 .cb-copy > p:not(.cb-eyebrow) {
   margin-top: 24px;
   max-width: 470px;
 }
-.cb-copy > .cb-cta,
 .cb-copy > .cb-text-link {
-  margin-top: 28px;
-}
-.cb-knowledge {
-  background: #fff;
-}
-.cb-knowledge-scene {
-  border: 1px solid #d7e1e8;
-  border-radius: 22px;
-  overflow: hidden;
-}
-.cb-source {
-  padding: 30px;
-  background: #f1f4f5;
-}
-.cb-source > span {
-  font-size: 11px;
-  font-weight: 600;
-  color: #576975;
-}
-.cb-source h3 {
-  font-size: 19px;
-  font-weight: 600;
-  margin: 12px 0 !important;
-}
-.cb-source p {
-  font-size: 15px;
-  color: #405562;
-}
-.cb-answer {
-  padding: 28px;
-}
-.cb-knowledge-question {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #1c3449;
-  margin-bottom: 24px;
-}
-.cb-answer .cb-message-ai {
-  margin-left: 0;
-}
-.cb-booking {
-  background: #1e2b29;
-  color: white;
-}
-.cb-section-intro {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 90px;
-  align-items: end;
-  margin-bottom: 45px;
-}
-.cb-booking .cb-eyebrow {
-  color: #dba98c !important;
-}
-.cb-section-intro > p {
-  color: #d2dcd8;
-}
-.cb-booking-scene {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 0;
-  border: 1px solid #cedbd6;
-  border-radius: 24px;
-  overflow: hidden;
-  background: #f9fcfa;
-}
-.cb-booking-thread {
-  padding: 36px 44px;
-  color: #243e36;
-}
-.cb-booking-thread .cb-scene-label {
-  color: #4a6659;
-}
-.cb-booking-thread .cb-message > p {
-  max-width: 430px;
-}
-.cb-booking-result {
-  padding: 36px 44px;
-  background: #e5ece2;
-  color: #243e36;
-  border-left: 1px solid #cbd8c7;
-}
-.cb-result-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-.cb-booking-result h3 {
-  font-family: "Inter Tight", Manrope, sans-serif;
-  font-size: 38px;
-  letter-spacing: -0.04em;
-  font-weight: 500;
-  line-height: 1.05;
-  max-width: 10ch;
-}
-.cb-booking-result .cb-appointment {
-  font-size: 22px;
-  color: #294a3e;
-  margin: 15px 0 24px;
-}
-.cb-booking-result dl {
-  margin: 0;
-}
-.cb-booking-result dl > div {
-  display: grid;
-  grid-template-columns: 95px 1fr;
-  gap: 10px;
-  border-top: 1px solid #c3d0bd;
-  padding: 14px 0;
-  font-size: 13px;
-  line-height: 1.5;
-}
-.cb-booking-result dt {
-  color: #536a55;
-}
-.cb-booking-result dd {
-  margin: 0;
-}
-.cb-result-note {
-  font-size: 12px !important;
-  color: #506650 !important;
-  margin-top: 18px !important;
+  margin-top: 24px;
 }
 .cb-human {
-  background: #fff;
+  background: #fcfcfa;
 }
 .cb-human-grid {
   display: grid;
@@ -400,7 +459,7 @@
 .cb-human-photo {
   position: relative;
   align-self: stretch;
-  min-height: 600px;
+  min-height: 610px;
   border-radius: 90px 20px 20px 20px;
   overflow: hidden;
   background: #e5e3da;
@@ -433,15 +492,31 @@
 .cb-handover {
   margin-top: 28px;
 }
-.cb-handover .cb-message > p {
+.cb-handover .cb-example-label {
+  color: #66736e;
+  font-size: 10px;
+  margin-bottom: 16px;
+}
+.cb-handover .cb-message-copy {
+  background: #f0f1ec;
+}
+.cb-handover .cb-message .cb-message-copy p {
   font-size: 14px;
+  line-height: 1.65;
+}
+.cb-handover .cb-message-ai .cb-message-copy {
+  background: transparent;
+  color: #243e36;
+}
+.cb-handover .cb-message-ai .cb-speaker {
+  color: #53665f;
 }
 .cb-human-next {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: center;
   border-top: 1px solid #d9e0dd;
-  margin-top: 23px;
+  margin: 22px 0 0 52px;
   padding-top: 20px;
 }
 .cb-human-next p {
@@ -454,83 +529,52 @@
   font-weight: 600;
   margin-bottom: 3px;
 }
-.cb-human-next .cb-avatar {
-  width: 36px;
-  height: 36px;
-  flex-basis: 36px;
+.cb-setup {
+  background: #1e2b29;
+  color: #fff;
 }
-.cb-channels {
-  background: #edf2f5;
-  padding: 70px 0;
+.cb-setup .cb-eyebrow {
+  color: #dba98c;
 }
-.cb-channels-layout {
+.cb-setup a:focus-visible {
+  outline-color: #fff;
+}
+.cb-launch-heading {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1.05fr;
   gap: 80px;
   align-items: center;
 }
-.cb-channel-list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin: 28px 0 0;
-  padding: 0;
+.cb-launch-heading h2 {
+  font-size: clamp(40px, 4.6vw, 62px);
 }
-.cb-channel-list li {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #284c69;
+.cb-launch-copy p {
+  color: #d7e0dc;
 }
-.cb-channel-list svg {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
+.cb-launch-copy p + p {
+  margin-top: 18px;
 }
-.cb-channel-list li:nth-child(3) svg {
-  color: #168c52;
+.cb-launch-copy .cb-cta {
+  margin-top: 27px;
 }
-.cb-setup {
-  background: #fff;
+.cb-setup-scope {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 45px;
+  border-top: 1px solid #ffffff35;
+  margin-top: 66px;
+  padding-top: 36px;
 }
-.cb-setup-plan {
-  background: linear-gradient(135deg, #376f99, #234d76);
-  color: white;
-  border-radius: 24px;
-  padding: 34px 36px;
-  box-shadow: 0 20px 50px #1e527c16;
-  border: 1px solid #6489a7;
-}
-.cb-plan-heading {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 25px;
-}
-.cb-plan-heading h3 {
-  font-size: 23px;
+.cb-setup-scope h3 {
+  font-size: 18px;
   font-weight: 500;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
 }
-.cb-setup-plan > div:not(:first-child) {
-  border-top: 1px solid #ffffff30;
-  padding: 21px 0;
-}
-.cb-setup-plan > div:last-child {
-  padding-bottom: 0;
-}
-.cb-setup-plan h4 {
-  font-size: 15px;
-  font-weight: 600;
-}
-.cb-setup-plan p {
-  font-size: 13px;
-  line-height: 1.7;
-  color: #e1ebf3;
-  margin-top: 7px;
+.cb-setup-scope p {
+  color: #c7d3cd;
+  font-size: 14px;
+  line-height: 1.75;
+  margin-top: 13px;
 }
 .cb-faq {
   background: #f2f5f7;
@@ -588,7 +632,7 @@
   border-radius: 50%;
 }
 .cb-final .cb-eyebrow {
-  margin-bottom: 12px !important;
+  margin-bottom: 12px;
 }
 .cb-final h2 {
   font-size: 64px;
@@ -601,176 +645,229 @@
   font-size: 16px;
   line-height: 1.65;
 }
-@media (max-width: 1000px) {
-  .cb-hero-intro {
-    gap: 32px;
-    grid-template-columns: 1.1fr 1fr;
+
+@media (max-width: 1099px) {
+  .cb-opening .cb-wrap {
+    padding-inline: 36px;
   }
-  .cb-hero-stage {
-    gap: 35px;
-    padding: 35px;
+  .cb-story-grid {
+    column-gap: 40px;
   }
-  .cb-site-context h2 {
-    font-size: 35px;
+  .cb-hero h1 {
+    font-size: clamp(52px, 6.4vw, 68px);
   }
-  .cb-two-col,
+  .cb-message .cb-message-copy p {
+    font-size: 16px;
+  }
   .cb-human-grid,
-  .cb-section-intro,
-  .cb-channels-layout,
+  .cb-launch-heading,
   .cb-faq-grid {
     gap: 40px;
-  }
-  .cb-booking-thread,
-  .cb-booking-result {
-    padding: 30px;
   }
   .cb-final h2 {
     font-size: 54px;
   }
 }
-@media (max-width: 900px) {
-  .cb-hero-intro,
-  .cb-hero-stage {
+@media (max-width: 800px) {
+  .cb-story-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  .cb-hero-intro {
-    gap: 24px;
+  .cb-hero {
+    padding: 114px 0 42px;
   }
-  .cb-hero-copy p {
-    max-width: 620px;
+  .cb-hero h1 {
+    max-width: 14ch;
+    font-size: clamp(48px, 7.8vw, 64px);
   }
-  .cb-hero-stage {
-    gap: 22px;
-    padding: 30px;
+  .cb-hero .cb-hero-description {
+    max-width: 590px;
+    margin-top: 24px;
   }
-  /* Keep the primary conversation ahead of secondary service information. */
-  .cb-site-context h2,
-  .cb-site-context > p,
-  .cb-service > span,
-  .cb-service > p {
-    display: none;
+  .cb-story-start,
+  .cb-story-detail,
+  .cb-story-finish,
+  .cb-story-note,
+  .cb-story-action {
+    grid-column: 1;
+    width: 100%;
+    max-width: 600px;
+    justify-self: center;
   }
-  .cb-site-context .cb-scene-label {
-    margin-bottom: 10px;
+  .cb-story-start {
+    grid-row: 2;
+    padding: 0;
   }
-  .cb-service {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: 0;
+  .cb-story-note {
+    grid-row: 3;
+    padding: 58px 0 28px;
   }
-  .cb-service h3 {
-    font-size: 17px;
-    margin-top: 0;
+  .cb-story-detail {
+    grid-row: 4;
   }
-  .cb-service-detail {
-    margin-top: 8px;
-    font-size: 12px;
-    gap: 8px;
+  .cb-story-action {
+    grid-row: 5;
+    padding: 58px 0 28px;
+  }
+  .cb-story-finish {
+    grid-row: 6;
+  }
+  .cb-story-note h2,
+  .cb-story-action h2 {
+    font-size: 40px;
+    max-width: 16ch;
+  }
+  .cb-story-note > p:not(.cb-eyebrow),
+  .cb-story-action > p:not(.cb-eyebrow),
+  .cb-source {
+    max-width: none;
+  }
+  .cb-human-grid,
+  .cb-launch-heading,
+  .cb-faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 38px;
+  }
+  .cb-human-photo {
+    min-height: 440px;
+  }
+  .cb-human-photo img {
+    object-position: center 45%;
+  }
+  .cb-setup-scope {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .cb-setup-scope h3 {
+    font-size: 16px;
   }
 }
-@media (max-width: 750px) {
-  .cb-wrap {
-    padding: 0 22px;
+@media (max-width: 600px) {
+  .cb-wrap,
+  .cb-opening .cb-wrap {
+    padding-inline: 22px;
   }
   .cb-hero {
-    padding: 112px 0 38px;
+    padding-top: 104px;
   }
-  .cb-hero-intro,
-  .cb-hero-stage,
-  .cb-two-col,
-  .cb-human-grid,
-  .cb-section-intro,
-  .cb-channels-layout,
-  .cb-faq-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
+  .cb-hero h1 {
+    font-size: 49px;
+    line-height: 1.01;
+    max-width: 12ch;
   }
-  .zapla-chatbot h1 {
-    font-size: 48px;
+  .cb-hero .cb-hero-description {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .cb-actions {
+    gap: 14px 22px;
+    margin-top: 24px;
+  }
+  .cb-cta {
+    padding: 13px 20px;
+  }
+  .cb-message {
+    grid-template-columns: 31px minmax(0, 1fr);
+    gap: 10px;
+  }
+  .cb-message-mark,
+  .cb-avatar {
+    width: 31px;
+    height: 31px;
+    min-height: 31px;
+    flex-basis: 31px;
+  }
+  .cb-message-ai .cb-message-mark svg {
+    width: 25px;
+    height: 25px;
+  }
+  .cb-message-copy {
+    padding: 13px 15px;
+    border-radius: 15px;
+  }
+  .cb-message .cb-message-copy p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .cb-opening .cb-example-label {
+    margin-left: 41px;
+    font-size: 10px;
+  }
+  .cb-source {
+    margin-top: 22px;
+    padding: 18px 20px;
+  }
+  .cb-booking-result {
+    margin-left: 41px;
+    padding: 18px;
+  }
+  .cb-appointment-heading {
+    display: block;
+  }
+  .cb-booking-result h3 {
+    font-size: 25px;
+    margin-top: 9px;
+  }
+  .cb-booking-result .cb-appointment-heading p {
+    font-size: 17px;
+    margin-top: 8px;
+  }
+  .cb-booking-result .cb-appointment-details {
+    font-size: 12px;
+    margin-top: 16px;
+  }
+  .cb-channels {
+    gap: 22px;
+    padding-block: 42px 44px !important;
+  }
+  .cb-channel-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 28px;
+    width: 100%;
+  }
+  .cb-section {
+    padding: 68px 0;
   }
   .zapla-chatbot h2 {
     font-size: 40px;
   }
-  .cb-hero-intro {
-    margin-bottom: 34px;
-    gap: 23px;
-  }
-  .cb-hero-copy p {
-    max-width: none;
-  }
-  .cb-hero-stage {
-    padding: 22px 18px;
-    border-radius: 24px;
-    gap: 18px;
-  }
-  .cb-chat-heading {
-    padding: 18px;
-  }
-  .cb-chat-body {
-    padding: 20px 15px;
-  }
-  .cb-message-ai {
-    margin-left: 10px;
-  }
-  .cb-message > p {
-    font-size: 14px;
-    padding: 12px;
-  }
-  .cb-hero-caption {
-    font-size: 12px !important;
-    margin-inline: 12px !important;
-  }
-  .cb-section {
-    padding: 65px 0;
-  }
-  .cb-copy > p:not(.cb-eyebrow) {
-    margin-top: 20px;
-  }
-  .cb-source,
-  .cb-answer {
-    padding: 24px;
-  }
-  .cb-booking-scene {
-    grid-template-columns: 1fr;
-  }
-  .cb-booking-thread,
-  .cb-booking-result {
-    padding: 25px;
-  }
-  .cb-booking-result {
-    border-left: 0;
-    border-top: 1px solid #cbd8c7;
-  }
-  .cb-booking-result h3 {
-    font-size: 30px;
-    max-width: none;
-  }
-  .cb-booking-result .cb-appointment {
-    font-size: 21px;
-  }
   .cb-human-photo {
-    min-height: 380px;
+    min-height: 365px;
     border-radius: 60px 18px 18px 18px;
+  }
+  .cb-human-photo img {
+    object-position: 80% center;
   }
   .cb-photo-caption {
     font-size: 23px;
     bottom: 26px;
     left: 26px;
   }
-  .cb-channels {
-    padding: 55px 0;
+  .cb-copy > p:not(.cb-eyebrow) {
+    margin-top: 20px;
   }
-  .cb-channel-list {
-    gap: 20px 24px;
+  .cb-human-next {
+    margin-left: 41px;
   }
-  .cb-setup .cb-copy {
-    grid-row: 1;
+  .cb-launch-heading {
+    gap: 26px;
   }
-  .cb-setup-plan {
-    padding: 28px;
+  .cb-launch-heading h2 {
+    font-size: 44px;
+  }
+  .cb-setup-scope {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+  .cb-setup-scope h3 {
+    font-size: 18px;
+  }
+  .cb-setup-scope p {
+    margin-top: 8px;
   }
   .cb-faq summary {
-    font-size: 14px;
     padding: 20px 0;
   }
   .cb-final {
@@ -786,8 +883,41 @@
     font-size: 15px;
   }
 }
+@media (max-width: 359px) {
+  .cb-hero h1 {
+    font-size: 43px;
+  }
+  .cb-actions {
+    gap: 9px 17px;
+  }
+  .cb-actions .cb-text-link,
+  .cb-actions .cb-cta {
+    font-size: 12px;
+  }
+  .cb-message {
+    grid-template-columns: 27px minmax(0, 1fr);
+    gap: 8px;
+  }
+  .cb-message-mark,
+  .cb-avatar {
+    width: 27px;
+    height: 27px;
+    min-height: 27px;
+    flex-basis: 27px;
+  }
+  .cb-booking-result,
+  .cb-opening .cb-example-label,
+  .cb-human-next {
+    margin-left: 35px;
+  }
+  .cb-message-copy {
+    padding-inline: 12px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .zapla-chatbot * {
+    animation: none !important;
+    transition: none !important;
     scroll-behavior: auto !important;
   }
 }

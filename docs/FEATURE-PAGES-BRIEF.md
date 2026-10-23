@@ -125,3 +125,17 @@ Independent visual review of 13 updated desktop/tablet/mobile captures found no 
 Verification limits: this is a marketing-page review in Chrome, not exhaustive physical-device/browser QA or a live chatbot/calendar/channel acceptance test. Full lower-page tablet inspection and a 320px visual pass were not completed. Local-server browser access failed, so rendered verification used the live Lovable preview instead. Lovable's editor history continues to display “Build unsuccessful / Preview is out of date” for this and earlier GitHub commits, although project metadata reports ready at the current commit and the route displays the updated content. That editor-status discrepancy remains unresolved; do not represent it as a successful Lovable static build. No Lovable builder prompt or separate Publish action was used.
 
 Review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ai-chatbot
+
+## Superseding AI Chatbot redesign, 22 October 2026
+
+User rejected the dull, segmented treatment and its resemblance to Unified Inbox, then approved this revised direction. This entry supersedes the earlier static eight-section layout, contained muted-blue opening and requirement to preserve that section order and colour sequence. The hero headline, hero supporting copy and final CTA wording remain locked.
+
+Six substantial parts: the hero with an immediate customer question and AI answer; the continued enquiry leading to a booking; a separate conditional human-handover case; one consolidated Guided Launch section covering business knowledge, permitted actions and testing; FAQs; and the established final CTA flowing into the existing sky/footer. Hero and continued enquiry form one connected opening. Channel breadth supports the story within these parts rather than requiring another standalone section.
+
+Colour sequence: stronger full-width Zapla blue under the unchanged white header, then warm white for handover, deep green for consolidated setup, cool neutral for FAQs, and the existing final CTA/sky treatment. Keep Zapla typography, portraits and petal assets. Unified Inbox remains a quality reference, not a composition to repeat.
+
+Use one short, bounded desktop sticky enquiry with cumulative conversation states. Show the relevant details and explicit customer agreement before the illustrative booking result. Scrolling stays native: no scroll capture, traps, snapping, nested scroll requirement, autoplay reset, typewriter effect or floating decoration. Mobile, short-height viewports, reduced-motion preferences and unavailable JavaScript must retain a complete, normally readable sequence. Handover is a separate conditional example, not an inevitable step after every booking; no unverified assignment, summary, alert or automatic-pause behaviour.
+
+Product scope stays website chat, SMS, WhatsApp and email with setup qualification. All booking CTAs remain /booking; the calendar embed remains deferred. Shared header/footer, Platform architecture, navigation and unrelated pages stay unchanged. Code changes go through GitHub; Lovable remains read-only.
+
+Verification is in progress. The preceding verification record applies to the earlier static refinement, not this redesign. Do not claim rendered desktop/mobile approval, interaction verification or successful preview sync for this revision until those checks are completed and recorded.

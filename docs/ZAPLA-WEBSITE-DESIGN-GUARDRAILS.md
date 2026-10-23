@@ -125,3 +125,14 @@ Approved with the AI Chatbot refinements, 22 October 2026:
 - Show the customer's original question and conversation context for human handover. Do not imply an AI-generated summary, notification, assignment, instant human response or automatic pause unless that behaviour has been verified.
 - On small screens, bring the primary product explanation forward by condensing duplicate scene introductions and secondary context. Keep the conversation itself readable. Check tablet and narrow-phone layouts as well as desktop.
 - Responsive line-break changes must preserve spaces and natural reading order. A page-level overflow check does not prove that nested panels or text are unclipped; inspect the rendered content too.
+
+## Connected feature stories and bounded scroll progression
+
+Approved with the superseding AI Chatbot redesign, 22 October 2026:
+
+- Use existing feature pages as quality references, not section templates. Consolidate related knowledge, control and setup content when separate sections fragment the buyer's story. A stronger full-width Zapla-blue opening is allowed when neutral space and the established palette give the whole page a deliberate rhythm.
+- Show a useful customer question and answer immediately. If a conversation progresses with scrolling, keep its earlier messages and established details visible as context; do not swap in unrelated examples. A booking result follows explicit customer agreement in the illustration.
+- Limit desktop sticky progression to one short, bounded scene that releases naturally into the next section. Keep native page scrolling. No scroll capture, traps, snapping or nested scroll requirement; no autoplay resets, typewriter effects or floating decoration.
+- Provide the complete story in normal reading order on mobile, short-height screens, reduced motion and without JavaScript. Sticky behaviour and motion are enhancements, never prerequisites for understanding or reaching the content.
+- Present human handover as a conditional case when a request needs the team. Do not imply that every successful booking must then be handed over, or invent unverified handover mechanics.
+- Recheck the rendered cumulative states, scene entry/exit and static fallbacks after a redesign. Previous visual approval does not verify a new composition or interaction.
