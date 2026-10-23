@@ -91,3 +91,12 @@ The owner approved the eight-part recommendation after reviewing the previous op
 This revision changes the Chatbot component and stylesheet, the feature brief and page-specific evidence/review documents. Website context, contact capture and pipeline/task continuation replace the stretched opening transcript. The human photograph now changes scale; source/answer proof is a separate open composition. H1, hero supporting copy, final CTA, root navigation/footer, route and booking destination remain.
 
 Build, TypeScript, targeted ESLint and SEO checks pass for the first draft. The local development server started successfully on loopback, but this browser cannot inspect that local address. A GitHub draft preview is needed for rendered review. Do not treat this entry, source review or a deployment-success status as visual approval. Desktop, tablet, phone, interaction and motion checks remain pending at this stage.
+
+
+### Preview access result
+
+The implementation is on GitHub as `fff5594ca8674726aef96b83c8203693fbac7aa8` in draft PR #179. The Vercel integration already connected to this repository automatically built the branch successfully. No Vercel hosting configuration or new Vercel connection was created.
+
+Rendered verification remains blocked. The connected browser timed out, local browser access was unavailable, and the branch preview required Vercel sign-in. A secure sign-in request returned `declined` and was not retried. The user asked why Vercel was involved; clarified that it was an existing automatic draft-preview route, not a new hosting requirement. Do not reopen authentication without a new user request.
+
+Read-only Lovable metadata still reports main commit `5be3e602ae13795b9e99c6f8ced15c8fae051efd`, so its existing preview does not verify this branch. No Lovable builder command, hosting change, Publish action or main merge was performed. Production build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Desktop/tablet/phone visual quality, sticky entry/exit, image crops, native disclosures and booking navigation remain unverified for this redesign. Do not claim 9/10 or completion until those checks can be made.
