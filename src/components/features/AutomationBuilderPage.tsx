@@ -109,7 +109,7 @@ function WorkflowDemo() {
               <ZaplaPetal size={22} />
               <h3>Send SMS</h3>
             </div>
-            <p>Thanks for your enquiry. Send us a floor plan and we’ll prepare your assessment.</p>
+            <p>Send us a floor plan so we can prepare your assessment.</p>
           </article>
           <div className="ab-connection ab-next-connection" aria-hidden="true" />
           <article className="ab-node ab-step ab-next-step">
@@ -303,8 +303,7 @@ export function AutomationBuilderPage() {
               loading="lazy"
             />
             <figcaption>
-              Keep your people
-              <br />
+              Keep your people <br />
               on the work that needs them.
             </figcaption>
           </figure>
