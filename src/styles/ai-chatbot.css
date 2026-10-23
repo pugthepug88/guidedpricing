@@ -715,11 +715,12 @@
     grid-row: 4;
   }
   .cb-story-action {
-    grid-row: 5;
+    grid-row: 6;
     padding: 58px 0 28px;
   }
   .cb-story-finish {
-    grid-row: 6;
+    grid-row: 5;
+    margin-top: 17px;
   }
   .cb-story-note h2,
   .cb-story-action h2 {
