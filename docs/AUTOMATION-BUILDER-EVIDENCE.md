@@ -72,3 +72,13 @@ Existing Zapla CRM, Follow-Up, Quote Follow-Up, Reactivation and Pipeline market
 - [Messages: `inbox`](https://app.thenextgencrm.com/help-centre.html?lang=en#/inbox)
 
 Implementation and rendered QA results are to be recorded separately after the page is built. This evidence review does not certify the website preview or the underlying product configuration.
+
+## Superseding branching illustration, 23 October 2026
+
+The owner requested visible branches and a stronger page composition after reviewing the initial implementation. Rechecked the official Workflows feature page and Automation Builder help on the same date. The source still explicitly documents conditional if/else paths and True/False connections, without enumerating the condition operands.
+
+The current illustration uses **Form submitted → optional Wait → Condition → Yes: Send SMS / No: Create a review task**. The visitor supplies the **condition result**, using labelled Yes/No radios. This demonstrates the documented connection semantics. It does not evaluate a form answer, contact field, tag, consent flag, engagement event or invented AI decision. No unsupported business comparator is presented. The wait control adds or removes a documented wait, without asserting a specific duration catalogue or business-hours rule.
+
+Both configured branches and their content remain visible. Selecting an outcome highlights and traces its connecting path; it does not transmit a message, create a task or run NextGen. A task remains work for a person, without assignment or completion claims. The separate later message-received example remains independent of this workflow and does not imply cancellation, pausing or branch changes in the original execution.
+
+This entry supersedes the initial action/timing-only demonstration, but does not resolve the field-comparison and reply-handling limits above. The illustration is a marketing explanation of documented builder behaviour, not live-product acceptance evidence.

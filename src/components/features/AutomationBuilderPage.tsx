@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowDown, ArrowRight, ChevronDown } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
@@ -155,6 +155,31 @@ function WorkflowDemo() {
 }
 
 function OpeningStory() {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const [canPin, setCanPin] = useState(false);
+
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    const media = window.matchMedia(
+      "(min-width: 1101px) and (min-height: 820px) and (prefers-reduced-motion: no-preference)",
+    );
+    const measure = () => {
+      // Keep the complete canvas visible after fonts, zoom or viewport changes.
+      setCanPin(media.matches && scene.getBoundingClientRect().height <= window.innerHeight - 128);
+    };
+    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
+    observer?.observe(scene);
+    window.addEventListener("resize", measure);
+    media.addEventListener("change", measure);
+    measure();
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", measure);
+      media.removeEventListener("change", measure);
+    };
+  }, []);
+
   return (
     <section className="ab-opening" aria-label="Automation Builder">
       <div className="ab-wrap ab-story-grid">
@@ -163,7 +188,8 @@ function OpeningStory() {
           <h1>
             Set the rules.
             <br />
-            Zapla handles the routine work.
+            Zapla handles <br />
+            the routine work.
           </h1>
           <p className="ab-hero-description">
             Build workflows that send agreed messages, update customer information and create tasks.
@@ -178,10 +204,11 @@ function OpeningStory() {
         </header>
         <div
           className="ab-scene"
+          data-pin={canPin}
           id="automation-workflow"
           aria-label="Interactive example of a workflow with two conditional paths"
         >
-          <div className="ab-scene-pin">
+          <div className="ab-scene-pin" ref={sceneRef}>
             <WorkflowDemo />
           </div>
         </div>
