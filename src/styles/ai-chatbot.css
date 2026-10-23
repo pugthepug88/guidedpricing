@@ -414,6 +414,8 @@
   }
   .cb-story-grid[data-enhanced="true"] .cb-story-action {
     min-height: 100svh;
+    justify-content: flex-start;
+    padding-top: 14svh;
   }
   .cb-story-grid[data-enhanced="true"] .cb-story-detail,
   .cb-story-grid[data-enhanced="true"] .cb-story-finish {
