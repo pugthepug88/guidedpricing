@@ -42,6 +42,7 @@ import { Route as ComparisonZaplaVsZohoRouteImport } from './routes/comparison.z
 import { Route as FeaturesAiChatbotRouteImport } from './routes/features.ai-chatbot'
 import { Route as FeaturesPipelineManagementRouteImport } from './routes/features.pipeline-management'
 import { Route as FeaturesUnifiedInboxRouteImport } from './routes/features.unified-inbox'
+import { Route as FeaturesWebsitesFunnelsFormsRouteImport } from './routes/features.websites-funnels-forms'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
 import { Route as IndustriesAlliedHealthRouteImport } from './routes/industries/allied-health'
 import { Route as IndustriesCosmeticSkinClinicsRouteImport } from './routes/industries/cosmetic-skin-clinics'
@@ -225,6 +226,12 @@ const FeaturesUnifiedInboxRoute = FeaturesUnifiedInboxRouteImport.update({
   path: '/features/unified-inbox',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeaturesWebsitesFunnelsFormsRoute =
+  FeaturesWebsitesFunnelsFormsRouteImport.update({
+    id: '/features/websites-funnels-forms',
+    path: '/features/websites-funnels-forms',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const IndustriesIndexRoute = IndustriesIndexRouteImport.update({
   id: '/industries/',
   path: '/industries/',
@@ -302,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
+  '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -345,6 +353,7 @@ export interface FileRoutesByTo {
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
+  '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -389,6 +398,7 @@ export interface FileRoutesById {
   '/features/ai-chatbot': typeof FeaturesAiChatbotRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
+  '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
   '/industries/allied-health': typeof IndustriesAlliedHealthRoute
   '/industries/cosmetic-skin-clinics': typeof IndustriesCosmeticSkinClinicsRoute
   '/industries/dental': typeof IndustriesDentalRoute
@@ -434,6 +444,7 @@ export interface FileRouteTypes {
     | '/features/ai-chatbot'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
+    | '/features/websites-funnels-forms'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -477,6 +488,7 @@ export interface FileRouteTypes {
     | '/features/ai-chatbot'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
+    | '/features/websites-funnels-forms'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -520,6 +532,7 @@ export interface FileRouteTypes {
     | '/features/ai-chatbot'
     | '/features/pipeline-management'
     | '/features/unified-inbox'
+    | '/features/websites-funnels-forms'
     | '/industries/allied-health'
     | '/industries/cosmetic-skin-clinics'
     | '/industries/dental'
@@ -564,6 +577,7 @@ export interface RootRouteChildren {
   FeaturesAiChatbotRoute: typeof FeaturesAiChatbotRoute
   FeaturesPipelineManagementRoute: typeof FeaturesPipelineManagementRoute
   FeaturesUnifiedInboxRoute: typeof FeaturesUnifiedInboxRoute
+  FeaturesWebsitesFunnelsFormsRoute: typeof FeaturesWebsitesFunnelsFormsRoute
   IndustriesAlliedHealthRoute: typeof IndustriesAlliedHealthRoute
   IndustriesCosmeticSkinClinicsRoute: typeof IndustriesCosmeticSkinClinicsRoute
   IndustriesDentalRoute: typeof IndustriesDentalRoute
@@ -808,6 +822,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeaturesUnifiedInboxRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/features/websites-funnels-forms': {
+      id: '/features/websites-funnels-forms'
+      path: '/features/websites-funnels-forms'
+      fullPath: '/features/websites-funnels-forms'
+      preLoaderRoute: typeof FeaturesWebsitesFunnelsFormsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/': {
       id: '/industries/'
       path: '/industries'
@@ -901,6 +922,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesAiChatbotRoute: FeaturesAiChatbotRoute,
   FeaturesPipelineManagementRoute: FeaturesPipelineManagementRoute,
   FeaturesUnifiedInboxRoute: FeaturesUnifiedInboxRoute,
+  FeaturesWebsitesFunnelsFormsRoute: FeaturesWebsitesFunnelsFormsRoute,
   IndustriesAlliedHealthRoute: IndustriesAlliedHealthRoute,
   IndustriesCosmeticSkinClinicsRoute: IndustriesCosmeticSkinClinicsRoute,
   IndustriesDentalRoute: IndustriesDentalRoute,

@@ -20,6 +20,7 @@ const NAV_GROUPS = [
     links: [
       { name: "Unified Inbox", href: "/features/unified-inbox" },
       { name: "Pipeline Management", href: "/features/pipeline-management" },
+      { name: "Websites, Funnels & Forms", href: "/features/websites-funnels-forms" },
     ],
   },
   {
