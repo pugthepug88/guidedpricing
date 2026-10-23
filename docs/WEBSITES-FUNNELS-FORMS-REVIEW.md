@@ -31,12 +31,36 @@ No GHL parity, guaranteed SEO/conversion outcome, universal attribution, automat
 - Initial production build passed. It emitted existing dependency module-directive and bundle warnings; no build error.
 - TypeScript `--noEmit` passed.
 - SEO policy checks passed: draft route remains outside `SEARCH_PAGES`, with `noindex, nofollow` and no `staticData.sitemap: false` flag that would hide it from the Lovable selector.
-- Targeted source formatting and lint are part of the final check.
+- Targeted Prettier formatting and ESLint checks passed for the new component and route. `git diff --check` passed. A second production build with the original application configuration also passed.
+- Build, TypeScript, targeted ESLint, SEO and whitespace checks were rerun successfully after fast-forwarding through concurrent AI Chatbot and Automation Builder commits to `9098a5f830dfd470912c208fc8c4d5364b03d1d5`. Their code, menu entry, route registration and later guidance were preserved.
 - Only this completed feature destination is added to the shared Features menu; Platform structure, header/footer implementation and other page content remain unchanged.
-- Desktop rendering of the hero and enquiry proof was observed. The demo's expanded state was confirmed. Full responsive, repeated interaction and final sky-transition verification require a stable preview, as described below.
+- Desktop rendering of the hero and enquiry proof was observed. A later fresh preview supported the responsive checks below before the environment became unstable again.
+
+### Rendered and interaction checks completed
+
+The responsive views used a temporary local iframe review surface, not physical devices. The surface and local host allowance are excluded from the committed application.
+
+| View / interaction | Observed result |
+| --- | --- |
+| Wide desktop | Hero, photographic business-page scene and enquiry proof rendered. The expanded demo state was confirmed. |
+| 834px tablet frame | Hero, two-column enquiry and connected record were readable. The image crop retains the customer and installer context. |
+| 600px narrow tablet frame | Both proof panels remained readable; enquiry content and mapped result fit without clipped text. |
+| 390px phone frame | All nine sections were visually inspected through scrolling, including the paid design distinction, FAQ and closing CTA. The result appears directly below the enquiry. |
+| 320px narrow phone frame | Hero, actions and mobile menu remained usable. The feature destination fit in the open Features menu. |
+| DOM geometry at phone widths | No overflowing main-content elements; document scroll width matched client width (375px / 305px inside frames with scrollbars). This supplements the visual review rather than replacing it. |
+| Local demo | Button reveals the same name, email, service and enquiry text. Enter activated reset and reveal with `aria-expanded` changing false/true. Focus remained visibly outlined. |
+| FAQ | Opening the existing-website answer displayed its content without overlap. |
+| Links / data safety | All three page sales CTAs point to `/booking`. No form, input or textarea exists in the demo. The page uses fixed example data and local React state only. |
+| Reduced motion | Source review confirms the `prefers-reduced-motion` rule disables animation and transitions. OS-level preference emulation was not performed. |
+
+The mobile menu's destination href was verified. A subsequent navigation coincided with another local 404/reconnect, so stable repeated navigation is not signed off. The full desktop lower-page composition, authenticated Lovable page selector and rendered sky transition remain verification limits.
 
 ## Preview limitation during initial review
 
 The managed local preview repeatedly disconnected and later served a root 404 for this new route after initially rendering it. Browser logs explicitly showed Vite connection loss/reconnect events. Source registration was intact and the production build passed. A stale or different preview snapshot is a plausible explanation, not a verified diagnosis. The routing code and dependencies were left alone.
 
-The Lovable preview redirected the review browser to sign-in. A connector's ready status or matching commit is not equivalent to rendered approval. Do not describe desktop/tablet/mobile review, the Lovable page selector, or live NextGen end-to-end behaviour as fully verified until they are actually checked. No production publish is authorised or performed by this work.
+The Lovable connector confirmed commit `5d6226ad5715426d1ef7f060179182fa744bdf79` as its latest commit, reported the project ready, and returned the correct new route file at that commit. This verifies source sync, not a complete rendered approval.
+
+The direct Lovable preview redirected the review browser to sign-in. Automatic approval review rejected initiating secure authentication because account sign-in was not explicitly authorised. No credentials were entered and no attempt was made to bypass the rejection. Finishing that authenticated review requires user approval for sign-in.
+
+No live NextGen account end-to-end test was performed. No production publish is authorised or performed by this work.

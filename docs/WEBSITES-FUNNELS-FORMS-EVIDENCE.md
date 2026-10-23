@@ -65,6 +65,7 @@ Do not invent traffic, conversion or revenue figures. The help does not establis
 
 Existing repository evidence consistently distinguishes the software tools from a delivered website:
 
+- `src/routes/Pricing-v3.tsx`: self-service website/funnel tools and forms are platform features; Guided Launch is required for new standard setups and covers a finite, agreed initial build separately from the monthly plan.
 - `src/components/compare/simple/pipedrive.ts`: self-service website/funnel builders are included; done-for-you builds are separately scoped and priced.
 - `src/components/compare/simple/monday.ts`: website projects are separately scoped and priced and are not automatically part of Guided Launch.
 - `src/components/compare/simple/hubspot.ts`: the same self-service versus separately priced build distinction.
