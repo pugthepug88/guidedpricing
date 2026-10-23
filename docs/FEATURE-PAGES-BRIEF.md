@@ -226,6 +226,24 @@ Family resemblance comes from Zapla type, palette, portraits, petal, spacing and
 
 Evidence and exact rendered coverage/limits are in `AUTOMATION-BUILDER-EVIDENCE.md` and `AUTOMATION-BUILDER-REVIEW.md`. This remains an implementation for owner review, not final owner approval or live NextGen acceptance. Existing Features link/indexing rules, Platform, shared header/footer and booking destination are preserved. Lovable remains read-only; no builder prompt or Publish action was used.
 
+## AI Chatbot enquiry and visual-story expansion, 23 October 2026
+
+The owner approved the proposal following the Birdeye scroll review and supplied the missing commercial scope: a website widget that answers around the clock, asks relevant qualification questions, captures contacts and connects new enquiries to pipelines and automations. This supersedes the previous six-part booking-focused composition. Keep the approved H1, hero supporting copy, final CTA and warm-white colour balance.
+
+Eight parts: a recognisable website/widget opening; conversational qualification and contact capture; customer/pipeline context with a configured review task and optional booking demonstration; business information supporting an answer; a separate conditional human-handover/photo chapter; Guided Launch; practical FAQs; established CTA/sky. The main bounded scroll enhancement now explains contact capture. Do not stretch the old transcript or reproduce the Inbox workspace. Photography, open source/answer proof and selective dark result surfaces give the page distinct compositions within the shared Zapla system.
+
+Contact details must be visibly supplied. Original qualification answers are quoted rather than presented as an AI summary or unverified field mapping. Pipeline/task continuation is configured, not a default. Optional booking needs availability and explicit agreement. Source support and excluded claims are recorded in `AI-CHATBOT-CAPABILITIES.md`. All code changes go through GitHub; shared navigation/footer, unrelated pages, existing indexing and `/booking` are preserved. The initial draft preview is pending rendered verification, with findings to be recorded in `AI-CHATBOT-VISUAL-REVIEW.md` before main is updated.
+
+## Automation Builder owner correction, 23 October 2026
+
+This supersedes the optional Wait/result selectors, generic condition, green hero illustration and reused photograph above. The owner requested a passive animated tree, a commercially useful scenario, grain/glass contrast and new generated people for each feature page. The main headline and established final CTA remain unchanged.
+
+The service-enquiry workflow compares a configured Enquiry type customer field with Urgent repair. Yes updates Service priority to Urgent and creates a callback task. No sends an SMS asking for a floor plan and creates an assessment-preparation task. Both alternative paths stay visible. Connections draw once on entry, then hold; no controls, execution statuses or loop. The original caption is removed. A deeper check of the supplier's explicitly imported public builder client confirmed custom-field criteria and equals; detailed evidence and runtime limits are recorded separately.
+
+The local illustration is warm stone/graphite grain behind smooth frosted nodes, with functional blue paths. A freshly generated panoramic site-assessment photograph replaces the reused office woman and creates a wide break below the separate incoming-question case. No existing human portraits are reused on this page. Fonts, petal, spacing, deep-green controls, open Guided Launch, cool FAQ and shared final CTA/footer provide continuity.
+
+Code checks pass. Current rendered verification status and browser limitations belong in `AUTOMATION-BUILDER-REVIEW.md`; previous captures do not verify the new tree, material or photo crop. Changes stay scoped to this page, its asset and project guidance. Lovable stays read-only and booking links stay `/booking`.
+
 
 ## Calendars & Bookings capability and visual revision, 23 October 2026
 
@@ -238,3 +256,13 @@ Availability and named calendar connections are consolidated into a deep-green c
 The visual direction ADAPTS the Chatbot session’s local texture, neutral canvas, product-proof emphasis and bounded native anchoring; it does not copy its conversation or section layout. Portraits, Manrope/Inter Tight, shared palette, petal, header/footer and Platform architecture remain. Source changes stay isolated to the calendar component, stylesheet and route metadata. No navigation or route-indexing change is needed because the completed destination already exists. All sales CTAs remain `/booking`; Lovable is read-only and no Publish action is authorised.
 
 Current capability detail is in `CALENDARS-BOOKINGS-EVIDENCE.md`; the scoped review, corrective work and verification limits are in `CALENDARS-BOOKINGS-REVISION-REVIEW.md`. Numerical lens assessments there are the implementation agent’s review judgement, not independent-agent approval, customer research, owner acceptance or measured conversion performance.
+
+## Calendars & Bookings connected visual rebuild, 23 October 2026
+
+The owner was viewing the original main page because PR #180 had not been merged. The prior unmerged eight-part revision also remained too segmented. This entry supersedes that layout, not the verified capability boundaries, retained H1/final CTA or website architecture.
+
+All five calendar types now appear in the opening. A single textured-sage/glass scene changes participant relationships alongside the five explanations on suitable desktop screens; direct choices take precedence. Group, Collective and Round robin visibly differ. Event has a fixed date and selectable time slots. A measured fit guard, bounded hold through Event and natural release preserve native scrolling. Mobile, tablet, short-height, reduced-motion and unavailable-JavaScript content remain available without sticky progression.
+
+Seven substantial parts connect the opening/formats, wide customer booking/confirmation/reminder journey, availability/connections, fresh editorial customer-context/photo chapter, Guided Launch, FAQs and the established final CTA/sky. Redundant continuation headings are removed. The reused photograph is replaced by a new ImageGen studio consultation. Named interface portraits remain for story continuity, not as a substitute for new human imagery.
+
+Current reference decisions, scoped lens review, exact responsive/state/fallback coverage, screenshots and verification limits are in `CALENDARS-BOOKINGS-SCROLL-REVIEW.md`. Product evidence remains in `CALENDARS-BOOKINGS-EVIDENCE.md`. The PR must be merged before Lovable shows this revision. Source goes through GitHub; Lovable remains read-only, all sales links remain `/booking`, and no production Publish action is authorised.

@@ -83,3 +83,20 @@ Production build, TypeScript, targeted component ESLint, Prettier and Git whites
 Limits: Chrome-based marketing-page review, not a physical-device/browser matrix or live NextGen acceptance test. A new 320px pass, separate reduced-motion preference and JavaScript-disabled sessions, screen-reader testing, and the lower FAQ/final-CTA tablet pass were not completed in this turn. Reduced-motion/no-JavaScript paths were reviewed in source; the complete conversation remains the baseline. The browser stopped one late capture request; completed earlier desktop/mobile and tablet checks above remain the actual coverage. Temporary viewport overrides were reset.
 
 Review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ai-chatbot
+
+## Enquiry-story expansion: draft for rendered review, 23 October 2026
+
+The owner approved the eight-part recommendation after reviewing the previous opening. Current base: `5be3e602ae13795b9e99c6f8ced15c8fae051efd`, preserving the newer Automation Builder work. Source and claim boundaries are in `AI-CHATBOT-CAPABILITIES.md`.
+
+This revision changes the Chatbot component and stylesheet, the feature brief and page-specific evidence/review documents. Website context, contact capture and pipeline/task continuation replace the stretched opening transcript. The human photograph now changes scale; source/answer proof is a separate open composition. H1, hero supporting copy, final CTA, root navigation/footer, route and booking destination remain.
+
+Build, TypeScript, targeted ESLint and SEO checks pass for the first draft. The local development server started successfully on loopback, but this browser cannot inspect that local address. A GitHub draft preview is needed for rendered review. Do not treat this entry, source review or a deployment-success status as visual approval. Desktop, tablet, phone, interaction and motion checks remain pending at this stage.
+
+
+### Preview access result
+
+The implementation is on GitHub as `fff5594ca8674726aef96b83c8203693fbac7aa8` in draft PR #179. The Vercel integration already connected to this repository automatically built the branch successfully. No Vercel hosting configuration or new Vercel connection was created.
+
+Rendered verification remains blocked. The connected browser timed out, local browser access was unavailable, and the branch preview required Vercel sign-in. A secure sign-in request returned `declined` and was not retried. The user asked why Vercel was involved; clarified that it was an existing automatic draft-preview route, not a new hosting requirement. Do not reopen authentication without a new user request.
+
+Read-only Lovable metadata still reports main commit `5be3e602ae13795b9e99c6f8ced15c8fae051efd`, so its existing preview does not verify this branch. No Lovable builder command, hosting change, Publish action or main merge was performed. Production build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Desktop/tablet/phone visual quality, sticky entry/exit, image crops, native disclosures and booking navigation remain unverified for this redesign. Do not claim 9/10 or completion until those checks can be made.

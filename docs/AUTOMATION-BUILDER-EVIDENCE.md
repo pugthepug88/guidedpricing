@@ -1,5 +1,7 @@
 # Automation Builder: evidence and claim boundaries
 
+**Current implementation:** see “Business-field example and deeper source evidence” at the end. That section supersedes earlier condition-operand uncertainty and both interactive demonstrations below. No live execution test is claimed.
+
 Checked **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
 This record separates current NextGen supplier documentation, historical Zapla marketing and the configured examples used to explain the feature. Documentation review does not constitute a live account or workflow execution test.
@@ -82,3 +84,24 @@ The current illustration uses **Form submitted → optional Wait → Condition �
 Both configured branches and their content remain visible. Selecting an outcome highlights and traces its connecting path; it does not transmit a message, create a task or run NextGen. A task remains work for a person, without assignment or completion claims. The separate later message-received example remains independent of this workflow and does not imply cancellation, pausing or branch changes in the original execution.
 
 This entry supersedes the initial action/timing-only demonstration, but does not resolve the field-comparison and reply-handling limits above. The illustration is a marketing explanation of documented builder behaviour, not live-product acceptance evidence.
+
+## Business-field example and deeper source evidence, 23 October 2026
+
+The owner rejected the abstract condition and unnecessary controls. A deeper check now resolves the missing operand evidence. The supplier app's public HTML explicitly imports [this route manifest](https://app.thenextgencrm.com/_app/immutable/entry/app.DI17g0Sx.js), which maps `automations/create` to [node 27](https://app.thenextgencrm.com/_app/immutable/nodes/27.BNaUmQtw.js). That node imports [the public workflow implementation](https://app.thenextgencrm.com/_app/immutable/chunks/D4OdHGBS.js). No authentication, private API or account data was accessed. These hashed asset URLs may change with future releases.
+
+Retrieved workflow-client SHA-256: `c2c7f1218c21474c6f3486bfb26b9e0567268d530a46513e6756391b39d07b33`.
+
+The inspector selected for action/node type `condition` edits a criteria collection. Its property selector includes standard contact fields, tags and custom fields addressed as `custom.<field id>`. Its operators include `equals`, string comparisons and presence tests, with AND/OR groups. The connection logic gives Condition True and False outputs. This supports a configured customer-field equality comparison, superseding the earlier help-only uncertainty. It does not prove successful execution, form-mapping order or field/action permissions in a particular account.
+
+The current example is **Form submitted → Urgent repair requested? → two alternative paths**. The illustrative form has two enquiry choices, Urgent repair and Planned installation; Enquiry type is mapped to a custom customer field before the condition compares it with Urgent repair. Form mapping is separately supported by the help articles above.
+
+| Result | Connected actions | Purpose |
+| --- | --- | --- |
+| Yes: urgent repair | Update the custom Service priority field to Urgent; create “Call about the breakdown.” | Record urgency and create the work for a person. |
+| No: planned installation | Send the configured SMS requesting a floor plan; create “Prepare the installation assessment.” | Ask for useful detail and create the preparation task. |
+
+The task is created after the SMS action; it does **not** wait for a floor plan to arrive. A person checks available detail. No automatic callback, assignee, deadline, readiness, appointment or completed assessment is illustrated. The business defines its enquiry choices and rules; no AI diagnosis or automatic urgency detection is claimed.
+
+The animation draws the configured topology once, rather than showing one customer executing both paths. Both alternatives remain readable. No visitor controls, execution status, loop, data collection or external action. A later, separate message-received workflow creates a review task for an installation question; it does not imply cancellation or pausing of the original workflow.
+
+The optional Wait node, wait toggle, Yes/No controls and original “One condition. Two connected paths. Your rules decide.” caption are removed. Waits remain a documented optional builder capability in supporting copy. Earlier reply-handling, channel-parity, usage, timing and live-execution limits still apply. Competitor references provide presentation evidence only.

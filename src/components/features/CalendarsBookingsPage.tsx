@@ -174,10 +174,6 @@ function BookingDemo({
           </div>
         </div>
       </div>
-      <p className="cal-demo-next">
-        Next, the customer adds their details and reviews the appointment. Confirmation appears
-        after they complete the booking.
-      </p>
     </div>
   );
 }
@@ -260,178 +256,223 @@ function Person({
   );
 }
 
-function BookingFormats() {
+/** Five separate formats. Native scrolling explains the relationship, never a live booking. */
+function CalendarOpening() {
   const [selected, setSelected] = useState<FormatId>("one");
   const [eventTime, setEventTime] = useState("10:00 am");
   const [canPin, setCanPin] = useState(false);
   const sceneRef = useRef<HTMLDivElement>(null);
+  const notesRef = useRef<HTMLDivElement>(null);
+  const manualChoice = useRef(false);
   const format = bookingFormats.find((item) => item.id === selected)!;
+
   useEffect(() => {
     const media = window.matchMedia(
-      "(min-width: 1100px) and (min-height: 760px) and (prefers-reduced-motion: no-preference)",
+      "(min-width: 1100px) and (min-height: 780px) and (prefers-reduced-motion: no-preference)",
     );
-    const check = () =>
-      setCanPin(
-        media.matches && (sceneRef.current?.offsetHeight ?? Infinity) < window.innerHeight - 130,
-      );
-    check();
-    const observer = new ResizeObserver(check);
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const fits = (sceneRef.current?.offsetHeight ?? Infinity) <= window.innerHeight - 116;
+      const enhanced = media.matches && fits;
+      setCanPin(enhanced);
+      if (!enhanced || manualChoice.current) return;
+      const notes = notesRef.current?.querySelectorAll<HTMLElement>("[data-format]");
+      let active: FormatId = "one";
+      notes?.forEach((note) => {
+        if (note.getBoundingClientRect().top < window.innerHeight * 0.64) {
+          active = note.dataset.format as FormatId;
+        }
+      });
+      setSelected(active);
+    };
+    const requestUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    const observer = new ResizeObserver(requestUpdate);
     if (sceneRef.current) observer.observe(sceneRef.current);
-    window.addEventListener("resize", check);
-    media.addEventListener("change", check);
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    media.addEventListener("change", requestUpdate);
     return () => {
+      window.cancelAnimationFrame(frame);
       observer.disconnect();
-      window.removeEventListener("resize", check);
-      media.removeEventListener("change", check);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      media.removeEventListener("change", requestUpdate);
     };
   }, []);
 
+  function chooseFormat(id: FormatId) {
+    // A deliberate choice always wins over passive scroll progression.
+    manualChoice.current = true;
+    setSelected(id);
+  }
+
   return (
-    <section
-      className="cal-section cal-formats"
-      id="booking-formats"
-      aria-labelledby="cal-formats-title"
-    >
-      <div className="cal-wrap">
-        <div className="cal-section-heading">
-          <div>
-            <p className="cal-eyebrow">More ways to meet</p>
-            <h2 id="cal-formats-title">
-              Book the way
-              <br />
-              your business works.
-            </h2>
-          </div>
+    <section className="cal-opening" aria-label="Calendars and five booking formats">
+      <div className="cal-wrap cal-opening-grid" data-pin={canPin}>
+        <header className="cal-hero-intro">
+          <p className="cal-eyebrow">Calendars &amp; Bookings</p>
+          <h1>
+            A good time <span className="cal-hero-phrase">for them.</span>
+            <br />A day that <span className="cal-hero-phrase">works for you.</span>
+          </h1>
           <p>
-            A private consultation and a group session need different setups. Choose a format to see
-            who comes together.
+            Individual appointments, group sessions, team meetings and events. Give customers a
+            booking link, with availability you control and the right people involved.
           </p>
-        </div>
-        <div className="cal-formats-layout" data-pin={canPin}>
-          <div
-            className="cal-format-options"
-            role="group"
-            aria-label="Explore five booking formats"
-          >
-            {bookingFormats.map((item) => (
-              <button
-                type="button"
-                key={item.id}
-                aria-pressed={item.id === selected}
-                aria-controls="cal-format-illustration"
-                onClick={() => setSelected(item.id)}
-              >
-                <span className="cal-format-option-title">
-                  {item.name}
-                  <ArrowRight size={19} aria-hidden="true" />
-                </span>
-                <span className="cal-format-purpose">{item.purpose}</span>
-                <span className="cal-format-use">{item.use}</span>
-              </button>
-            ))}
+          <div className="cal-hero-actions">
+            <Cta />
+            <a className="cal-text-link" href="#booking-example">
+              Try the booking journey <ArrowRight size={16} aria-hidden="true" />
+            </a>
           </div>
-          <div className="cal-formats-scene" ref={sceneRef} id="cal-format-illustration">
-            <div className="cal-format-scene-title">
-              <span>Booking format</span>
-              <h3>{format.name}</h3>
-            </div>
-            <div className="cal-mobile-format-copy">
-              <p>{format.purpose}</p>
-              <span>{format.use}</span>
-            </div>
-            {selected === "event" ? (
-              <div className="cal-event-demo">
-                <div className="cal-event-date">
-                  <span>November</span>
-                  <strong>18</strong>
-                  <span>Wednesday · 2026</span>
-                </div>
-                <h4>Project open day</h4>
-                <p>A specific date. A choice of times.</p>
-                <div
-                  className="cal-event-times"
-                  role="group"
-                  aria-label="Illustrative event time slots"
+          <a
+            className="cal-formats-link"
+            href="#booking-formats"
+            onClick={() => {
+              manualChoice.current = false;
+            }}
+          >
+            Five ways to bring people together <span aria-hidden="true">↓</span>
+          </a>
+        </header>
+
+        <div className="cal-opening-visual" id="booking-formats">
+          <div className="cal-format-stage" ref={sceneRef}>
+            <div className="cal-format-tabs" role="group" aria-label="Explore five calendar types">
+              {bookingFormats.map((item) => (
+                <button
+                  type="button"
+                  key={item.id}
+                  aria-pressed={item.id === selected}
+                  aria-controls="cal-format-illustration"
+                  onClick={() => chooseFormat(item.id)}
                 >
-                  {["10:00 am", "2:00 pm"].map((time) => (
-                    <button
-                      key={time}
-                      type="button"
-                      aria-pressed={eventTime === time}
-                      onClick={() => setEventTime(time)}
-                    >
-                      {time}
-                      <Check size={15} aria-hidden="true" />
-                    </button>
-                  ))}
-                </div>
-                <p role="status" className="cal-event-selection">
-                  Example selection: 18 November at {eventTime}
-                </p>
+                  {item.name}
+                </button>
+              ))}
+            </div>
+            <div className="cal-format-glass" id="cal-format-illustration">
+              <div className="cal-format-scene-title">
+                <h2>{format.name}</h2>
+                <p>{format.purpose}</p>
               </div>
-            ) : (
-              <div className={`cal-format-map cal-map-${selected}`} key={selected}>
-                <svg viewBox="0 0 600 360" preserveAspectRatio="none" aria-hidden="true">
+              {selected === "event" ? (
+                <div className="cal-event-demo" key="event">
+                  <div className="cal-event-date">
+                    <span>November</span>
+                    <strong>18</strong>
+                    <span>Wednesday · 2026</span>
+                  </div>
+                  <div className="cal-event-copy">
+                    <h3>Project open day</h3>
+                    <p>A specific occasion, with its own time slots.</p>
+                    <div
+                      className="cal-event-times"
+                      role="group"
+                      aria-label="Illustrative event time slots"
+                    >
+                      {["10:00 am", "2:00 pm"].map((time) => (
+                        <button
+                          key={time}
+                          type="button"
+                          aria-pressed={eventTime === time}
+                          onClick={() => setEventTime(time)}
+                        >
+                          {time}
+                          <Check size={15} aria-hidden="true" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className={`cal-format-map cal-map-${selected}`} key={selected}>
+                  <svg viewBox="0 0 600 330" preserveAspectRatio="none" aria-hidden="true">
+                    {selected === "collective" ? (
+                      <>
+                        <path
+                          pathLength="1"
+                          d="M195 105 V116 Q195 127 212 127 H282 Q300 127 300 142"
+                        />
+                        <path
+                          pathLength="1"
+                          d="M405 105 V116 Q405 127 388 127 H318 Q300 127 300 142"
+                        />
+                      </>
+                    ) : (
+                      <path
+                        pathLength="1"
+                        d={
+                          selected === "round"
+                            ? "M120 105 V116 Q120 127 140 127 H280 Q300 127 300 142"
+                            : "M300 105 V142"
+                        }
+                      />
+                    )}
+                    {selected === "group" ? (
+                      <>
+                        <path
+                          pathLength="1"
+                          d="M300 205 V215 Q300 227 280 227 H140 Q120 227 120 245"
+                        />
+                        <path pathLength="1" d="M300 205 V245" />
+                        <path
+                          pathLength="1"
+                          d="M300 205 V215 Q300 227 320 227 H460 Q480 227 480 245"
+                        />
+                      </>
+                    ) : (
+                      <path pathLength="1" d="M300 205 V245" />
+                    )}
+                  </svg>
                   {selected === "collective" ? (
                     <>
-                      <path pathLength="1" d="M195 112 V118 Q195 127 210 127 H300 V137" />
-                      <path pathLength="1" d="M405 112 V118 Q405 127 390 127 H300 V137" />
+                      <Person name="Alex" cell={8} role="Host" position={32.5} />
+                      <Person name="Ben" cell={13} role="Host" position={67.5} />
+                    </>
+                  ) : selected === "round" ? (
+                    <>
+                      <Person name="Alex" cell={8} role="Booked host" position={20} selected />
+                      <Person name="Ben" cell={13} role="Team member" position={50} />
+                      <Person name="Sam" cell={15} role="Team member" position={80} />
                     </>
                   ) : (
-                    <path
-                      pathLength="1"
-                      d={
-                        selected === "round"
-                          ? "M120 112 V118 Q120 127 140 127 H280 Q300 127 300 137"
-                          : "M300 112 V137"
-                      }
-                    />
+                    <Person name="Alex" cell={8} role="Host" position={50} />
                   )}
+                  <div className="cal-format-meeting">
+                    <h3>{format.meeting}</h3>
+                    <p>One appointment</p>
+                  </div>
                   {selected === "group" ? (
                     <>
-                      <path
-                        pathLength="1"
-                        d="M300 227 V239 Q300 247 280 247 H140 Q120 247 120 264"
-                      />
-                      <path pathLength="1" d="M300 227 V264" />
-                      <path
-                        pathLength="1"
-                        d="M300 227 V239 Q300 247 320 247 H460 Q480 247 480 264"
-                      />
+                      <Person name="Priya" cell={4} role="Attendee" position={20} customer />
+                      <Person name="Mia" cell={9} role="Attendee" position={50} customer />
+                      <Person name="Daniel" cell={5} role="Attendee" position={80} customer />
                     </>
                   ) : (
-                    <path pathLength="1" d="M300 227 V264" />
+                    <Person name="Priya" cell={4} role="Customer" position={50} customer />
                   )}
-                </svg>
-                {selected === "collective" ? (
-                  <>
-                    <Person name="Alex" cell={8} role="Host" position={32.5} />
-                    <Person name="Ben" cell={13} role="Host" position={67.5} />
-                  </>
-                ) : selected === "round" ? (
-                  <>
-                    <Person name="Alex" cell={8} role="Booked host" position={20} selected />
-                    <Person name="Ben" cell={13} role="Team member" position={50} />
-                    <Person name="Sam" cell={15} role="Team member" position={80} />
-                  </>
-                ) : (
-                  <Person name="Alex" cell={8} role="Host" position={50} />
-                )}
-                <div className="cal-format-meeting">
-                  <h4>{format.meeting}</h4>
-                  <p>One appointment</p>
                 </div>
-                {selected === "group" ? (
-                  <>
-                    <Person name="Priya" cell={4} role="Attendee" position={20} customer />
-                    <Person name="Mia" cell={9} role="Attendee" position={50} customer />
-                    <Person name="Daniel" cell={5} role="Attendee" position={80} customer />
-                  </>
-                ) : (
-                  <Person name="Priya" cell={4} role="Customer" position={50} customer />
-                )}
+              )}
+              <div
+                className="cal-format-appointment"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <span>
+                  {selected === "event" ? "Wednesday 18 November" : "Tuesday 10 November"}
+                </span>
+                <strong>
+                  {selected === "event" ? eventTime : "10:30 am"}
+                  <span>Sydney time</span>
+                </strong>
               </div>
-            )}
+            </div>
             <p
               className="cal-format-description"
               role="status"
@@ -441,9 +482,27 @@ function BookingFormats() {
               {format.detail}
             </p>
             <p className="cal-format-disclaimer">
-              Illustrative people and sessions. No bookings are made.
+              Illustrative people and sessions. No appointments are created.
             </p>
           </div>
+        </div>
+
+        <div className="cal-format-index" ref={notesRef}>
+          <div className="cal-format-index-intro">
+            <p className="cal-eyebrow">More ways to meet</p>
+            <h2>
+              Book the way
+              <br />
+              your business works.
+            </h2>
+          </div>
+          {bookingFormats.map((item) => (
+            <article key={item.id} data-format={item.id} data-current={selected === item.id}>
+              <h3>{item.name}</h3>
+              <p>{item.purpose}</p>
+              <span>{item.use}</span>
+            </article>
+          ))}
         </div>
         <noscript>
           <dl className="cal-static-formats">
@@ -600,32 +659,22 @@ export function CalendarsBookingsPage() {
 
   return (
     <main className="zapla-feature zapla-calendars">
-      <section className="cal-hero">
+      <CalendarOpening />
+
+      <section className="cal-booking-journey" aria-labelledby="cal-journey-title">
         <div className="cal-wrap">
-          <div className="cal-hero-intro">
-            <p className="cal-eyebrow">Calendars &amp; Bookings</p>
-            <h1>
-              <span>
-                A good time <span className="cal-hero-phrase">for them.</span>
-              </span>
-              <span>
-                A day that <span className="cal-hero-phrase">works for you.</span>
-              </span>
-            </h1>
-            <p>
-              Offer individual appointments, group sessions, team bookings and events. Share a
-              booking link or add it to your website, with availability you control.
-            </p>
-            <div className="cal-hero-actions">
-              <Cta />
-              <a className="cal-text-link" href="#booking-example">
-                Try a date and time
-                <ArrowRight size={16} aria-hidden="true" />
-              </a>
+          <div className="cal-journey-intro">
+            <div>
+              <p className="cal-eyebrow">From your link to their appointment</p>
+              <h2 id="cal-journey-title">
+                A time chosen.
+                <br />A customer expected.
+              </h2>
             </div>
-            <a className="cal-formats-link" href="#booking-formats">
-              Explore all five booking formats <span aria-hidden="true">↓</span>
-            </a>
+            <p>
+              Share your booking page or embed it on your website. Customers choose a service, a
+              date and a time, then add their details and complete the booking.
+            </p>
           </div>
           <BookingDemo
             selectedDay={selectedDay}
@@ -634,151 +683,112 @@ export function CalendarsBookingsPage() {
             onTimeChange={setSelectedTime}
           />
         </div>
-      </section>
-
-      <BookingFormats />
-      <Availability />
-
-      <section className="cal-section cal-follow-through" aria-labelledby="cal-follow-title">
-        <div className="cal-wrap">
-          <div className="cal-follow-heading">
-            <p className="cal-eyebrow">Around the appointment</p>
-            <h2 id="cal-follow-title">
-              A time chosen.
-              <br />A customer expected.
-            </h2>
-            <p>
-              {selectedTime
-                ? "Next, Priya Shah adds her details and completes the appointment you selected."
-                : "Choose a time in the example above to follow Priya Shah’s appointment through the next part of the journey."}
-            </p>
-          </div>
-          <div className="cal-follow-scenes">
-            <article className="cal-confirmation-scene">
-              <div className="cal-scene-copy">
-                <h3>A clear confirmation.</h3>
-                <p>
-                  Customers review their details and complete the booking, then see confirmation on
-                  screen. Link a custom form to ask what you need before the appointment.
-                </p>
-              </div>
-              {selectedTime ? (
-                <div className="cal-confirmation-ticket">
-                  <span className="cal-example-label">Completed booking example</span>
-                  <div className="cal-confirmation-check">
-                    <Check size={22} aria-hidden="true" />
-                  </div>
-                  <h4>Appointment booked</h4>
-                  <p>Project consultation</p>
-                  <dl>
-                    <div>
-                      <dt>Customer</dt>
-                      <dd>Priya Shah</dd>
-                    </div>
-                    <div>
-                      <dt>When</dt>
-                      <dd>
-                        {selectedDate} 2026
-                        <br />
-                        {selectedTime} · Sydney
-                      </dd>
-                    </div>
-                    <div>
-                      <dt>Duration</dt>
-                      <dd>30 minutes</dd>
-                    </div>
-                  </dl>
-                </div>
-              ) : (
-                <div className="cal-pending-example">
-                  <p>A date is selected. Choose a time to see the completed-booking example.</p>
-                  <a href="#booking-example">
-                    Choose an example time
-                    <ArrowRight size={15} aria-hidden="true" />
-                  </a>
-                </div>
-              )}
-            </article>
-            <article className="cal-reminder-scene">
-              <div className="cal-scene-copy">
-                <h3>A useful reminder.</h3>
-                <p>
-                  Send appointment reminders by email or SMS, so the time stays in mind as the day
-                  approaches.
-                </p>
-              </div>
-              {selectedTime ? (
-                <div className="cal-reminder-example">
-                  <span className="cal-example-label">Illustrative SMS reminder</span>
-                  <div className="cal-reminder-message">
-                    <p>
-                      Hi Priya, a reminder of your project consultation on {selectedDate}
-                      {` at ${selectedTime}, Sydney time`}. We look forward to speaking with you.
-                    </p>
-                  </div>
-                  <p className="cal-reminder-note">
-                    Message content and timing are agreed during setup. Usage is charged separately.
+        <div className="cal-follow-through" aria-label="Confirmation and reminders">
+          <div className="cal-wrap">
+            <div className="cal-follow-heading">
+              <p>
+                {selectedTime
+                  ? "Next, Priya Shah adds her details and completes the appointment you selected."
+                  : "Choose a time in the example above to follow Priya Shah’s appointment through the next part of the journey."}
+              </p>
+            </div>
+            <div className="cal-follow-scenes">
+              <article className="cal-confirmation-scene">
+                <div className="cal-scene-copy">
+                  <h3>A clear confirmation.</h3>
+                  <p>
+                    Customers review their details and complete the booking, then see confirmation
+                    on screen. Link a custom form to ask what you need before the appointment.
                   </p>
                 </div>
-              ) : (
-                <div className="cal-pending-example">
-                  <p>The reminder example will use the same appointment once you choose a time.</p>
+                {selectedTime ? (
+                  <div className="cal-confirmation-ticket">
+                    <span className="cal-example-label">Completed booking example</span>
+                    <div className="cal-confirmation-check">
+                      <Check size={22} aria-hidden="true" />
+                    </div>
+                    <h4>Appointment booked</h4>
+                    <p>Project consultation</p>
+                    <dl>
+                      <div>
+                        <dt>Customer</dt>
+                        <dd>Priya Shah</dd>
+                      </div>
+                      <div>
+                        <dt>When</dt>
+                        <dd>
+                          {selectedDate} 2026
+                          <br />
+                          {selectedTime} · Sydney
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>Duration</dt>
+                        <dd>30 minutes</dd>
+                      </div>
+                    </dl>
+                  </div>
+                ) : (
+                  <div className="cal-pending-example">
+                    <p>A date is selected. Choose a time to see the completed-booking example.</p>
+                    <a href="#booking-example">
+                      Choose an example time
+                      <ArrowRight size={15} aria-hidden="true" />
+                    </a>
+                  </div>
+                )}
+              </article>
+              <article className="cal-reminder-scene">
+                <div className="cal-scene-copy">
+                  <h3>A useful reminder.</h3>
+                  <p>
+                    Send appointment reminders by email or SMS, so the time stays in mind as the day
+                    approaches.
+                  </p>
                 </div>
-              )}
-            </article>
+                {selectedTime ? (
+                  <div className="cal-reminder-example">
+                    <span className="cal-example-label">Illustrative SMS reminder</span>
+                    <div className="cal-reminder-message">
+                      <p>
+                        Hi Priya, a reminder of your project consultation on {selectedDate}
+                        {` at ${selectedTime}, Sydney time`}. We look forward to speaking with you.
+                      </p>
+                    </div>
+                    <p className="cal-reminder-note">
+                      Message content and timing are agreed during setup. Usage is charged
+                      separately.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="cal-pending-example">
+                    <p>
+                      The reminder example will use the same appointment once you choose a time.
+                    </p>
+                  </div>
+                )}
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
+      <Availability />
+
       <section className="cal-section cal-team" aria-labelledby="cal-team-title">
         <div className="cal-wrap cal-team-layout">
-          <div className="cal-team-photo">
-            <img
-              src="/concept/industries/mortgage-broker-consultation.webp"
-              width="1122"
-              height="1402"
-              loading="lazy"
-              alt="A business owner and customers discussing a project around a table"
-            />
-            <p>Arrive with the customer’s context.</p>
-          </div>
           <div className="cal-team-content">
             <div className="cal-copy">
               <p className="cal-eyebrow">In your team’s hands</p>
               <h2 id="cal-team-title">
-                Prepare for <span className="cal-keep">the person.</span>
+                Make the appointment
                 <br />
-                Handle the changes.
+                about the person.
               </h2>
               <p>
                 Keep appointments connected to the customer record, alongside the conversations and
                 details behind the visit.
               </p>
-            </div>
-            <div className="cal-customer-example">
-              <div className="cal-customer-heading">
-                <Avatar cell={4} />
-                <div>
-                  <strong>Priya Shah</strong>
-                  <span>Project consultation</span>
-                </div>
-              </div>
-              {selectedTime ? (
-                <dl>
-                  <div>
-                    <dt>Appointment</dt>
-                    <dd>
-                      {selectedDay} November · {selectedTime}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Team member</dt>
-                    <dd>Alex Chen</dd>
-                  </div>
-                </dl>
-              ) : (
-                <p>Choose a time above to see the appointment alongside Priya’s details.</p>
-              )}
             </div>
             <div className="cal-team-changes">
               <h3>When plans change, your team can update the booking.</h3>
@@ -791,6 +801,28 @@ export function CalendarsBookingsPage() {
               Explore the connected CRM
               <ArrowRight size={16} aria-hidden="true" />
             </a>
+          </div>
+          <div className="cal-team-photo">
+            <img
+              src="/concept/calendars/consultation-studio-v1.webp"
+              width="1536"
+              height="1024"
+              loading="lazy"
+              alt="An interior designer and a customer considering material samples together"
+            />
+            <div className="cal-photo-record">
+              <Avatar cell={4} />
+              <div>
+                <span>Appointment and customer, together</span>
+                <strong>Priya Shah</strong>
+                <p>
+                  Project consultation ·{" "}
+                  {selectedTime
+                    ? `${selectedDay} November, ${selectedTime}`
+                    : "Choose an example time above"}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

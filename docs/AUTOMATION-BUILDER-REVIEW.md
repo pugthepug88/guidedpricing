@@ -1,5 +1,7 @@
 # Automation Builder: implementation and review
 
+**Current revision:** see “Owner correction: animation, scenario and material” at the end. Earlier rendered captures cover superseded designs and are not visual proof for the new tree or photograph.
+
 Reviewed **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
 This record covers the marketing page, its local rendered preview and the checks completed during implementation. It does not certify a live NextGen account, message delivery or workflow execution. Product sources and claim boundaries are recorded in [AUTOMATION-BUILDER-EVIDENCE.md](AUTOMATION-BUILDER-EVIDENCE.md).
@@ -121,3 +123,62 @@ The actual preview was rechecked at implementation commit `ce859899303d30146785a
 The final 834px tablet recheck confirmed the deliberate three-line headline, normal-flow (`data-pin=false`) fallback and the final CTA/sky transition. The final 393px phone recheck confirmed the updated headline, shortened SMS, 14px outcome text and normal-flow fallback; the measured main width and scroll width were both 378px. The alternative branch remains fully present. Earlier lower-page phone and tablet captures still apply because those sections did not change in the finishing commit.
 
 Lovable metadata reported the implementation commit ready, and the rendered route displayed its final source changes. GitHub's Vercel check succeeded for that commit. The historical Lovable build-error cards were still visible, so this record does not represent those as resolved. The last mobile menu-link check hit a browser-service timeout and remains uncompleted; no new navigation defect was established. The remaining preference, narrow-phone and live-product test limits above still apply. No Lovable builder prompt or Publish action was performed.
+
+## Owner correction: animation, scenario and material, 23 October 2026
+
+This revision removes the wait toggle, optional Wait node, Yes/No selectors and “One condition. Two connected paths. Your rules decide.” caption. The retained H1 leads into a real business-field example: urgent repairs update Service priority and create a callback task; planned installations send a floor-plan request and create an assessment task. See the deeper primary-source evidence in `AUTOMATION-BUILDER-EVIDENCE.md`. The node topology represents two alternatives, not one execution taking both paths.
+
+### Reference decisions
+
+- **USE:** legible branching, deliberate negative space and a wide editorial photograph as a change of scale.
+- **ADAPT:** Birdeye's grainy neutral material behind smooth frosted panels, using Zapla ink/type, petal and functional blue. The green illustration role was a default and has been reopened by the owner. The supplied blue Inbox scene remains a harmony reference, not a texture to repeat.
+- **REJECT:** unnecessary demo controls, an abstract condition, the rejected caption, reused human photography, decorative motion and copying the same section arrangement onto unrelated pages.
+
+### Motion and fallback
+
+The connections draw once when the decision node is substantially visible above the bottom of the viewport. This avoids spending the animation below the fold while a phone visitor reads the introduction. Nodes stay readable throughout. There is no timer loop, execution badge, result counter, interaction or layout movement. The animation briefly emphasizes each connected node and holds the full topology. A neutral connection is always present behind the tracing overlay, including before hydration and without JavaScript. Reduced-motion CSS shows the full diagram without animation. The measured desktop sticky enhancement remains bounded and falls back to ordinary flow whenever the complete scene cannot fit.
+
+### Fresh photograph
+
+`public/concept/automation/site-assessment-v1.webp` is a newly generated 2172 × 724 panoramic scene of an air-conditioning specialist assessing a property with a homeowner. It replaces `trades-office.webp`; the unnecessary reused interface portraits were also removed from this page. The image is an editorial illustration, never a customer endorsement. Generated with the built-in image tool; the exact final prompt is in [automation-site-assessment-prompt.txt](automation-site-assessment-prompt.txt). Web encoding is 208,042 bytes. The native generated scene was inspected for composition, faces, hands, profession, modernity and the human/product role distinction. Rendered desktop/tablet/phone crop checks remain separate.
+
+The human stays focused on skilled assessment; Zapla's diagram shows the administrative follow-through. A laptop-review scene was rejected because it repeats the incumbent and makes the person look responsible for the same administrative work. The wide photo has a quiet left area for copy and the specialist on the right; phone styling moves the caption below the image rather than obscuring a face.
+
+### Review findings so far
+
+| Lens | Source and asset finding; rendered sign-off remains open |
+| --- | --- |
+| UI/UX | Named rule and two connected steps per branch replace the abstract selector. Primary action text stays at least 14px on phones; no click is needed to understand the tree. |
+| Brand / Creative | Local warm stone/graphite grain and smooth glass replace the rejected green. The wide original photo changes scale; existing typography, petal, page spacing, selective deep green and final CTA provide continuity. |
+| Product Marketing / Accuracy | The diagram connects customer updates, messaging and team work around a service enquiry. Supplier public inspector supports custom-field equality. No AI triage, instant callback, assignment, completed assessment or waiting-for-plans behaviour is claimed. |
+| Conversion / Buyer psychology | The owner can see different service needs receiving different configured next steps. Draft, validation, run history and Guided Launch continue to address control and setup effort. No conversion lift is asserted. |
+| SME buyer / Copy | The enquiry type and actions explain a familiar business process without reading a technical manual. The later property question explicitly starts a separate workflow and stays with the human team. |
+| Motion | One cause-and-connection idea, no floating, loop, reset or moving layout. Static/reduced-motion content is complete in source; current browser motion states are still unverified. |
+
+### Current technical and visual status
+
+Production build, TypeScript, targeted ESLint, formatting, SEO policy and whitespace checks pass. No dependency, lockfile, Vite config, shared header/footer or unrelated-page change is included. The current build produced updated server output. Code goes through GitHub only; Lovable is read-only and no builder prompt or Publish action was used.
+
+Initial access was blocked: the connected browser timed out, the cloud fallback reached Lovable's sign-in screen and the local server was not reachable by the browser. No authentication was initiated. The original connected browser subsequently recovered, allowing the actual synced draft to be reviewed as recorded below.
+
+### Recovered rendered review
+
+The actual draft displayed the new implementation from `4d4da0f86921a1f16f8f0e2a7a3517e9d75b5a4f`, followed by the text/caption refinements in `670b1773041a9f28bfcd43a9f7656629b5cebd62`. The later animation-trigger change preserves the same static composition. It begins when 75% of the decision node is visible above a 96px bottom margin, rather than when the top of a tall canvas appears.
+
+| Surface | Observed coverage |
+| --- | --- |
+| Desktop | New hero, complete tree, construction continuation and pinned fit, natural release into the human case, full new photograph, open Guided Launch, FAQ and final CTA/sky transition. The actual main width was 2115px at a 962px viewport height in the later default-window checks. A 1692px-wide, 769px-high check used normal flow; an override produced measured 1781px × 1125px rather than the requested dimensions. Do not label that a 1440px test. |
+| Tablet | 834px editor iframe, 819px main content: hero and complete branching canvas. The canvas measured approximately 640px and fitted at y=106–746px with normal flow. This is not a complete new lower-page tablet review. |
+| Phone | 393px editor iframe, 378px main content: hero, named rule, both path texts, human-case introduction and full new photograph with both faces visible. Action paragraphs were 14px and their text scroll widths matched their 131px content widths. The main width equalled its scroll width. This is not a complete new lower-page phone review. |
+
+The local grain and smooth foreground contrast were visually inspected, not accepted from source alone. There are no wait/result controls in the rendered canvas. At suitable desktop size the complete tree stayed at y=102–743px while the construction copy advanced, then released before the human chapter. The photo loaded at its native 2172px width and the desktop 3:1 composition and phone crop retained their intended subjects.
+
+Review found and fixed three concrete details: the phone caption joined “people” and “on” when its line break disappeared; the desktop photo caption orphaned “them”; and the SMS made the phone branch unnecessarily tall. An explicit space, wider desktop caption and shorter SMS fixed these without shrinking action text. The final desktop captures show the shortened SMS and corrected two-line photo caption. The final phone reload/caption recheck was interrupted by browser timeouts, so no final whole-phone sign-off is asserted.
+
+The browser reported the trace overlay at its completed state with one animation iteration, and the complete blue topology was visible. Intermediate motion timing and the final decision-entry trigger were source-reviewed; a separate normal-speed motion recording, reduced-motion preference session and JavaScript-disabled session were not completed. Viewport overrides sometimes produced stale or mismatched captures; those were rejected as visual evidence and reset. Editor iframe checks supplied the measured tablet/phone coverage above.
+
+The reply FAQ opened by click and closed with Enter. The final CTA/sky transition was inspected and its Book a Call link was followed to `/booking`. No booking was submitted. GitHub's Vercel check succeeded for the caption/message refinement. Local production build, TypeScript, targeted ESLint, formatting, SEO policy and whitespace checks passed; the final motion-margin refinement was rebuilt too.
+
+The rendered views support the UI/UX, Brand, Copy, Product Marketing, Conversion and SME conclusions above: a named business rule leads to distinct configured work; smooth glass remains readable over local material; original human imagery and varied scale break the product-panel rhythm; Draft/Live, Guided Launch and the consistent call destination retain control and a clear next step. These are design-review findings, not numerical quality scores or conversion evidence.
+
+Remaining limits are full lower-page tablet/phone rechecks, a complete 320px pass, physical-device/cross-browser coverage, assistive-technology testing and live NextGen workflow execution/delivery. Browser interruptions are not treated as site defects or as successful checks. No Lovable builder prompt or Publish action was used. Shared header/footer, other feature work and Platform architecture remain preserved.

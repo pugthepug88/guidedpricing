@@ -147,3 +147,12 @@ User correction, 23 October 2026: the AI Chatbot's full-width blue opening was t
 - Plan visual rhythm using content density, scale, open space, purposeful product surfaces, photography and selective dark sections. Changing the background at every heading does not by itself solve page fatigue.
 - Texture may create restrained material depth around a focal scene. Keep it still, local and subordinate to text contrast. Do not add arbitrary shapes, neon, floating elements or decorative animation to make a quiet section feel busy.
 - Use a bounded sticky sequence only when continuity explains a useful product relationship. Test the complete scene against the available viewport height, including loaded fonts and browser zoom. If it cannot fit, show the complete story in ordinary flow.
+
+## Fresh human imagery and purposeful animation
+
+Owner correction, 23 October 2026:
+
+- Generate fresh human imagery for each new feature page. Do not reuse an existing website editorial photograph because it is convenient. Give the new people, environment and composition a job in that page's story. An interface portrait retained for explicit story continuity does not substitute for fresh editorial imagery.
+- A wide landscape photograph can break a page's visual rhythm when it supports the story. Do not force the same crop or photo section into every feature page. Never present generated people as customers or add invented testimonials.
+- An animated explanatory decision tree does not need configuration controls. Do not add optional wait toggles, Yes/No selectors or instructional captions when the requested experience is simply a readable animation.
+- Grain and glass have distinct roles: restrained static texture behind the scene, smooth legible foreground panels. Sales/automation illustration colours are defaults, not a requirement to retain a green treatment the owner has rejected.
