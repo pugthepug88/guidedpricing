@@ -1,6 +1,6 @@
 # Automation Builder: evidence and claim boundaries
 
-**Current implementation:** see “Business-field example and deeper source evidence” at the end. That section supersedes earlier condition-operand uncertainty and both interactive demonstrations below. No live execution test is claimed.
+**Current implementation:** see “Accepted-job preparation workflow” at the end. It supersedes the rejected urgent-repair/floor-plan scenario and blue path animation. Historical sections below record earlier decisions, not current recommendations. No live execution test is claimed.
 
 Checked **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -105,3 +105,28 @@ The task is created after the SMS action; it does **not** wait for a floor plan 
 The animation draws the configured topology once, rather than showing one customer executing both paths. Both alternatives remain readable. No visitor controls, execution status, loop, data collection or external action. A later, separate message-received workflow creates a review task for an installation question; it does not imply cancellation or pausing of the original workflow.
 
 The optional Wait node, wait toggle, Yes/No controls and original “One condition. Two connected paths. Your rules decide.” caption are removed. Waits remain a documented optional builder capability in supporting copy. Earlier reply-handling, channel-parity, usage, timing and live-execution limits still apply. Competitor references provide presentation evidence only.
+
+
+## Accepted-job preparation workflow, 23 October 2026
+
+The owner rejected the urgency/floor-plan split as commercially incoherent and requested a longer automation with no blue lines. That example is withdrawn. A quote-reminder sequence was considered but rejected as the main example because it would duplicate Quote Follow-Up. The replacement demonstrates a connected preparation process after acceptance, rather than adding unrelated actions to the previous split.
+
+**Configured pipeline stage changes to Quote accepted → send installation checklist by email → send an SMS asking for READY or HELP → wait for an SMS reply, up to two days.** The three configured outputs lead to:
+
+| Output | Customer update | Next action |
+| --- | --- | --- |
+| READY keyword | Custom Site readiness field = Ready | Send an SMS containing the business's configured installation booking link. The customer still chooses and makes the booking. |
+| HELP keyword | Site readiness = Needs discussion | Create “Discuss the preparation question.” A person reviews the original message and contacts the customer. |
+| Timeout with no matched keyword | Site readiness = Unconfirmed | Create “Confirm readiness before scheduling.” A person checks what is still needed. |
+
+This is a marketing illustration of a configuration, not a product screenshot or a claim that a real installation/calendar/quote was created. The named stage is an agreed pipeline stage; acceptance is already recorded before this workflow begins. The email checklist, SMS and calendar link are prepared by the business. No AI-generated checklist, quote acceptance detection, automatic booking, skill-based technician allocation, instant call, assignee, task deadline or completed human response is implied.
+
+### Additional primary-source verification
+
+The same officially imported public workflow implementation linked above explicitly renders the `wait_for_reply` inspector. It provides channel values `all`, `sms` and `whatsapp`, editable `reply_branches` with a `keyword`, and a timeout configured using `duration` plus `minutes`, `hours` or `days`. Connection validation creates `reply-<index>` outputs plus `timeout`. The action palette and inspectors include `send_email`, `send_sms` and `update_contact`. The public Workflows page separately confirms task creation. The custom-field editor and previous field-criteria evidence support the example's named customer field.
+
+The downloaded public client remains SHA-256 `c2c7f1218c21474c6f3486bfb26b9e0567268d530a46513e6756391b39d07b33`; the wait-for-reply inspector is near byte 1,546,000. This is vendor UI implementation evidence, not a server execution or delivery test. The public Help Centre's `calendar` article explicitly documents copying a public booking link and the customer-facing calendar page. The example sends that configured link as message content. It does not assert that sending it books an appointment.
+
+The branch uses **literal configured keywords**, not inferred intent or AI classification. “No matched reply after 2 days” intentionally includes an unrecognised response; the illustration does not silently turn every message into READY or HELP. The site does not promise immediate handling of all other wording, case/punctuation semantics, retries, deduplication, in-flight cancellation or account permissions. Those require account-level configuration and testing. This evidence narrows the earlier unresolved wait/reply limits; it does not establish general stop-on-reply behaviour for unrelated timed workflows.
+
+The later human scene now follows the **same HELP branch**, with the original “HELP. Do we need an electrician before you install the unit?” question and the matching preparation task. It no longer introduces an unnecessary separate workflow or implies that a question is automatically answered.
