@@ -508,6 +508,7 @@
   gap: 25px;
   align-items: center;
   padding-block: 24px;
+  padding-right: 6px;
   list-style: none;
   cursor: pointer;
 }
@@ -781,6 +782,7 @@
   align-items: center;
   gap: 20px;
   padding-block: 24px;
+  padding-right: 6px;
   font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
