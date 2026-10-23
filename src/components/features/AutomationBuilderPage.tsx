@@ -129,10 +129,7 @@ function WorkflowDemo() {
             <ZaplaPetal size={24} />
             <h3>Send SMS</h3>
           </div>
-          <p>
-            Hi Mia, an assessment lets us check your space and discuss installation options. Reply
-            with any questions.
-          </p>
+          <p>Hi Mia, an assessment lets us check your space. Reply with any questions.</p>
           <span className="ab-outcome-note">Your configured message</span>
         </article>
         <article className="ab-outcome ab-outcome-task" aria-label="No path: create a task">
