@@ -393,7 +393,7 @@
     grid-column: 2;
     grid-row: 1 / 4;
     padding-top: 182px;
-    padding-bottom: 70px;
+    padding-bottom: 40px;
   }
   .cb-story-grid[data-enhanced="true"] .cb-scene-pin {
     display: block;
@@ -413,7 +413,7 @@
     min-height: 68svh;
   }
   .cb-story-grid[data-enhanced="true"] .cb-story-action {
-    min-height: 70svh;
+    min-height: 100svh;
   }
   .cb-story-grid[data-enhanced="true"] .cb-story-detail,
   .cb-story-grid[data-enhanced="true"] .cb-story-finish {
