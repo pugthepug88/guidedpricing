@@ -404,6 +404,17 @@
 
 /* Enhancement has no wheel handling, scroll snapping or internal scroll area. */
 @media (min-width: 801px) {
+  /* In the ordinary two-column story, keep each explanation beside the
+     matching exchange. Phones retain one uninterrupted transcript. */
+  .cb-scene,
+  .cb-scene-pin {
+    display: contents;
+  }
+  .cb-story-start {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
   .cb-story-start .cb-message:not(.cb-message-ai) .cb-message-copy p {
     font-size: 22px;
     line-height: 1.45;
@@ -414,6 +425,11 @@
   }
 }
 @media (min-width: 1100px) and (min-height: 820px) and (prefers-reduced-motion: no-preference) {
+  /* Keep the measured box stable while checking whether pinning can fit. */
+  .cb-scene,
+  .cb-scene-pin {
+    display: block;
+  }
   .cb-scene-pin .cb-message .cb-message-copy p {
     font-size: 16px;
     line-height: 1.5;
