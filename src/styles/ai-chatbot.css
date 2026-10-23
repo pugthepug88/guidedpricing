@@ -367,10 +367,20 @@
 }
 
 /* Enhancement has no wheel handling, scroll snapping or internal scroll area. */
+@media (min-width: 801px) {
+  .cb-story-start .cb-message:not(.cb-message-ai) .cb-message-copy p {
+    font-size: 22px;
+    line-height: 1.45;
+  }
+  .cb-story-start .cb-message-ai .cb-message-copy p {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+}
 @media (min-width: 1100px) and (min-height: 820px) and (prefers-reduced-motion: no-preference) {
   .cb-story-start {
     align-self: start;
-    padding-top: 154px;
+    padding-top: 182px;
   }
   .cb-story-grid[data-enhanced="true"] .cb-hero {
     min-height: 100svh;
@@ -382,7 +392,7 @@
     display: block;
     grid-column: 2;
     grid-row: 1 / 4;
-    padding-top: 154px;
+    padding-top: 182px;
     padding-bottom: 70px;
   }
   .cb-story-grid[data-enhanced="true"] .cb-scene-pin {
