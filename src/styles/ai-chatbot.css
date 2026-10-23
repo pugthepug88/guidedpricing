@@ -415,8 +415,10 @@
   letter-spacing: -0.025em;
 }
 @media (min-width: 1100px) and (min-height: 800px) and (prefers-reduced-motion: no-preference) {
-  .cb-capture-track[data-enhanced="true"] {
-    padding-bottom: 120px;
+  .cb-capture-track[data-enhanced="true"]::after {
+    content: "";
+    display: block;
+    height: 120px;
   }
   .cb-capture-track[data-enhanced="true"] .cb-capture-stage {
     position: sticky;
