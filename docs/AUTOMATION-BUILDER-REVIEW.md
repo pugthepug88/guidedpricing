@@ -3,7 +3,7 @@
 **Latest revision:** the nurture revamp dated 25 October 2026 at the end supersedes earlier compact and installation examples. Earlier positive assessments are historical, not owner approval.
 
 
-**Current revision:** see “Owner correction: animation, scenario and material” at the end. Earlier rendered captures cover superseded designs and are not visual proof for the new tree or photograph.
+**Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the 25 October nurture entry and its verification at the end.
 
 Reviewed **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -266,3 +266,32 @@ Fresh assets were generated with the built-in image tool. The exact selected AC 
 Draft/Live, validation and run history are now part of one practical Guided Launch plan rather than two large generic sections. Fewer background changes, a wide real-work scene, open explanatory copy and one deep-green planning surface create rhythm. The shared final CTA and root-owned footer remain.
 
 Initial TypeScript, targeted ESLint, build, SEO and whitespace checks pass. Final rendering, sticky travel/release, responsive crops, typography, controls and asset loading are pending the authorised GitHub-to-Lovable preview sync. No old screenshot is accepted as evidence of the new design. The unrelated cinematic download file in the shared workspace is preserved.
+
+### Nurture revamp: final rendered verification
+
+Product implementation: `a8f739b3a217ab859c867f042f14731ac6f7a33d`; final measured-fit and wording refinement: `ae6b1ab0baff52a0f675fcd908ffbb813c0347c7`. Both had successful Vercel checks and ready Lovable metadata. The actual synced route, rather than metadata alone, displayed the final alternative-trigger label and “Send a welcome” action. The initial review found that an inherited 820px minimum-height media query unnecessarily prevented anchoring even when this smaller board fitted. It was removed in favour of the measured-height guard, width requirement and reduced-motion preference.
+
+| Surface | Actual observed coverage |
+| --- | --- |
+| Desktop | 1692px page width and 769px viewport height. Complete board: 693.53 × 556.73px, initially y=134–690.73px. Message cards were approximately 74.63, 96.32 and 96.32px high. Native movement to the second and third copy beats held the board at y=100–656.73px and changed the focused card to Day 2 and Day 5 respectively. It then released naturally before the editorial chapter. No horizontal document overflow. Full new panorama, consolidated setup plan, all FAQ rows and final CTA/sky transition were inspected. |
+| Tablet | 834px editor iframe, 819px main width. The native sequence anchor brought the complete 754.67 × 557.73px board into view. Normal flow (`data-pin=false`), all three entry events and complete message texts were inspected; main width equalled scroll width. This is an opening/board check, not a fresh full lower-page tablet pass. |
+| Phone | 393px editor iframe, 378px main width. Hero, full 350 × 577.42px board, commercial photo crop, setup introduction, complete planning panel, FAQ introduction and channel question, and final CTA/sky transition were inspected. All message paragraphs were 14px; each message card was approximately 96.32px high. The complete board remained normal flow. Heading, paragraph, definition and entry-card checks found no horizontal text overflow; main width equalled scroll width. Both fresh faces and the printer remained visible in the tighter crop. |
+
+The photograph loaded from its new local WebP at native width 2172px. Its desktop panorama and phone `78% center` crop were visually assessed. The channel FAQ opened by click and closed with Enter on desktop and phone. The desktop final Book a Call was followed to `/booking`, then returned; no form was submitted. The phone final link also retained `/booking`. The direct preview is kept open as the deliverable.
+
+| Review lens | Finding grounded in the rendered revision |
+| --- | --- |
+| UI/UX Director | Three alternative entries merge into one clear timed sequence. The smaller cards fit together, the waits explain timing, and the native anchor exposes the complete board. Pinning is bounded and releases without capturing scrolling. |
+| Brand / Creative Director | Warm stone-to-slate grain, smooth glass and the clearer double frame give the board definition. Existing Zapla ink, paper, petal, typography and selective deep green retain harmony. Open copy, one wide commercial photo and the single plan surface vary scale without repetitive bands. |
+| Product Marketing Director | Welcome, useful information and invitation are illustrative configured messages. Channel marks are choices or combinations, not a claim that nine messages automatically send. Grouped cards explain a sequence rather than reproducing the vendor editor. No AI triage, automatic preferred-channel routing or universal reply cancellation is claimed. |
+| Conversion Director | The visual shows what the owner gains from one enquiry without needing technical vocabulary. One practical setup plan addresses entry, timing and human replies. The separately priced Guided Launch disclosure and consistent booking destination remain clear. |
+| Motion Director | Actual native scroll states showed Day 2 and Day 5 emphasis and natural release. One-shot material entry and quiet static connectors avoid the rejected blue traces and controls. All text stays present. No full motion recording or separate browser preference session is claimed. |
+| SME buyer | The process reads as welcome now, useful information later, then a clear invitation. It applies across SMEs without air-conditioning urgency, floor-plan requirements, keyword rules or a large decision tree. |
+| Buyer psychologist | Clear timing, configurable channels and an agreed reply plan make the workflow feel controllable. The new real-work scene supports the benefit of time for skilled work without fake metrics or an endorsement. |
+| AI-slop critic | No invented dashboard results, floating controls, decorative accent bars, recycled people, numbered benefit cards or endless repeated panels. The exact topology and text are code; generated assets supply only material and an editorial business scene. |
+
+Final source checks passed: production build, TypeScript, targeted component/route ESLint, formatting, SEO policy and whitespace. No dependencies, lockfile, shared header/footer, booking route, Platform architecture or unrelated feature implementation was changed. Concurrent Calendars work was preserved while synchronising main. The remaining workspace cinematic download was left untouched.
+
+The screenshot at [nurture-desktop-20261025.jpg](review-assets/automation-builder/nurture-desktop-20261025.jpg) records the final actual opening. It is visual proof of this revision, not an older design or generated mockup. Asset prompts and generation mode are in [automation-nurture-assets-2026-10-25.md](automation-nurture-assets-2026-10-25.md).
+
+Remaining limits: complete lower-page tablet and 320px passes, physical devices/cross-browser testing, assistive technology, separate reduced-motion and JavaScript-disabled browser sessions, and live NextGen execution/delivery. Normal-flow and reduced-motion fallbacks are implemented and source-reviewed. Browser interruptions and stale captures were rejected as proof; no site defect was inferred from them. The editor's independent historical issue cards were not audited or assumed resolved. Lovable remained read-only; no builder prompt or Publish action was used.
