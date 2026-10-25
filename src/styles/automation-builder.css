@@ -105,15 +105,15 @@
   display: grid;
   grid-template-columns: 0.92fr 1.28fr;
   column-gap: 72px;
-  row-gap: 76px;
-  align-items: start;
+  row-gap: 54px;
+  align-items: center;
 }
 .ab-hero-intro {
-  min-height: 650px;
+  min-height: 510px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 30px;
+  padding-bottom: 0;
 }
 .ab-hero-description {
   margin-top: 25px !important;
@@ -128,16 +128,16 @@
 }
 .ab-scene {
   grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: stretch;
+  grid-row: 1;
+  align-self: center;
   scroll-margin-top: 106px;
 }
-/* Grain belongs to the material behind the smooth, readable glass nodes. */
+/* Quiet grain supports the smooth nodes. Connections express topology only. */
 .ab-branch-stage {
   position: relative;
   isolation: isolate;
   border-radius: 28px;
-  padding: 27px 26px 28px;
+  padding: 25px 22px 26px;
   background:
     radial-gradient(ellipse at 13% 8%, #d8cdb9b3, transparent 56%),
     radial-gradient(ellipse at 92% 87%, #65718099, transparent 67%),
@@ -160,7 +160,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   color: #252a2e;
   font-size: 14px;
   font-weight: 650;
@@ -169,22 +169,16 @@
 .ab-canvas-heading svg {
   flex-shrink: 0;
 }
-.ab-canvas-heading .ab-example-label {
-  margin-left: auto;
-  color: #353a3d;
-  font-size: 11px;
-  font-weight: 500;
-}
 .ab-node {
   position: relative;
   margin-inline: auto;
   border: 1px solid #ffffffb8;
-  border-radius: 15px;
-  background: linear-gradient(138deg, #ffffffc9, #f4f4f0a8);
+  border-radius: 14px;
+  background: linear-gradient(138deg, #ffffffd6, #f4f4f0bd);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   box-shadow:
-    0 9px 23px #252c3421,
+    0 8px 20px #252c341a,
     inset 0 1px 1px #fffffff0;
 }
 .ab-node-label {
@@ -195,50 +189,39 @@
 }
 .ab-trigger,
 .ab-condition {
-  max-width: 350px;
+  max-width: 360px;
   padding: 16px 21px;
 }
 .ab-trigger strong,
 .ab-condition h3 {
   display: block;
-  margin-top: 4px;
+  margin-top: 5px;
   color: #171d23;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 650;
   line-height: 1.4;
   letter-spacing: -0.025em;
 }
-.zapla-automation .ab-trigger p,
-.zapla-automation .ab-condition p {
-  margin-top: 5px;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #4c565c;
+.zapla-automation .ab-trigger p {
+  margin-top: 7px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #3c474e;
 }
 .ab-condition {
   background: linear-gradient(138deg, #fffffff0, #f8f8f4db);
 }
 .ab-condition h3 {
-  font-size: 21px;
+  font-size: 22px;
 }
 .ab-connection {
-  position: relative;
-  width: 2px;
-  height: 23px;
+  width: 1px;
+  height: 26px;
   margin: 0 auto;
-  background: #ffffff9c;
-}
-.ab-connection::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #2563ff;
-  transform-origin: top;
-  opacity: 0;
+  background: #f5f3ecab;
 }
 .ab-split {
-  position: relative;
-  height: 62px;
+  height: 42px;
 }
 .ab-split svg {
   display: block;
@@ -248,173 +231,71 @@
 }
 .ab-split path {
   fill: none;
+  stroke: #f5f3ecab;
+  stroke-width: 1;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
 }
-.ab-path-base {
-  stroke: #ffffffad;
-  stroke-width: 2;
-}
-.ab-path-trace {
-  stroke: #2563ff;
-  stroke-width: 2;
-  opacity: 0;
-}
-.ab-yes-label,
-.ab-no-label {
-  position: absolute;
-  top: 33px;
-  color: #222a31;
-  font-size: 12px;
-  line-height: 1.4;
-  font-weight: 600;
-}
-.ab-yes-label {
-  left: calc(25% + 12px);
-}
-.ab-no-label {
-  left: calc(75% + 12px);
-}
 .ab-branch-outcomes {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 18px;
 }
 .ab-track {
-  min-width: 0;
-}
-.ab-step {
-  padding: 17px 18px 18px;
-}
-.ab-step-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.ab-step-title svg {
-  flex-shrink: 0;
-}
-.ab-step h3 {
-  color: #171d23;
-  font-size: 16px;
-  font-weight: 650;
-  line-height: 1.4;
-  letter-spacing: -0.025em;
-}
-.zapla-automation .ab-step p {
-  margin-top: 11px;
-  color: #303c43;
-  font-size: 14px;
-  line-height: 1.65;
-}
-.ab-field-update {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  min-width: 0;
 }
-.ab-field-update span {
+.zapla-automation .ab-branch-label {
+  margin-bottom: 13px;
+  color: #242c32;
   font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+  text-align: center;
 }
-.ab-field-update strong {
+.ab-step {
+  flex: 1;
+  width: 100%;
+  padding: 19px 21px 21px;
+}
+.ab-step h3 {
+  margin-top: 6px;
+  color: #171d23;
   font-size: 19px;
-  font-weight: 600;
-  color: #202d37;
+  font-weight: 650;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
 }
-.ab-next-step {
-  background: linear-gradient(138deg, #ffffffe3, #f4f4f0bf);
-}
-/* Draw the configured topology once. No execution counts or running states. */
-@media (prefers-reduced-motion: no-preference) {
-  .ab-branch-stage[data-animate="true"] > .ab-connection::after {
-    animation: ab-connect 0.65s 0.25s ease-out both;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-path-trace {
-    animation: ab-trace 1s 1s ease-out both;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-path-no {
-    animation-delay: 1.4s;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-next-connection::after {
-    animation: ab-connect 0.65s 2.2s ease-out both;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-track-planned .ab-next-connection::after {
-    animation-delay: 2.6s;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-condition {
-    animation: ab-focus 0.85s 0.7s both;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-first-step {
-    animation: ab-focus 0.85s 1.8s both;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-track-planned .ab-first-step {
-    animation-delay: 2.2s;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-next-step {
-    animation: ab-focus 0.85s 2.7s both;
-  }
-  .ab-branch-stage[data-animate="true"] .ab-track-planned .ab-next-step {
-    animation-delay: 3.1s;
-  }
-}
-@keyframes ab-connect {
-  from {
-    opacity: 1;
-    transform: scaleY(0);
-  }
-  to {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-@keyframes ab-trace {
-  from {
-    opacity: 1;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-  }
-  to {
-    opacity: 1;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes ab-focus {
-  0%,
-  100% {
-    border-color: #ffffffb8;
-  }
-  45% {
-    border-color: #2563ff;
-  }
-}
-.ab-build-copy {
-  grid-column: 1;
-  padding: 12px 0 30px;
-}
-.ab-build-copy > p:not(.ab-eyebrow) {
-  margin-top: 23px;
-}
-.zapla-automation .ab-building-blocks {
-  margin-top: 27px;
-}
-.ab-building-blocks > div {
-  border-top: 1px solid #d8dfd8;
-  padding: 19px 0;
-}
-.ab-building-blocks dt {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.45;
-}
-.ab-building-blocks dd {
-  margin: 8px 0 0;
-  color: #53615d;
+.zapla-automation .ab-step p {
+  margin-top: 10px;
+  color: #303c43;
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.6;
 }
-.ab-build-copy > .ab-text-link {
-  margin-top: 7px;
+/* Introduce the configured steps once. All alternatives remain readable. */
+@media (prefers-reduced-motion: no-preference) {
+  .ab-node[data-entered="true"],
+  .ab-track[data-entered="true"] .ab-node {
+    animation: ab-step-enter 0.7s ease-out both;
+  }
+  .ab-condition[data-entered="true"] {
+    animation-delay: 0.2s;
+  }
+  .ab-track[data-entered="true"] .ab-node {
+    animation-delay: 0.4s;
+  }
+}
+@keyframes ab-step-enter {
+  from {
+    opacity: 0.72;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 /* A wide editorial scene breaks the two-column product rhythm. */
 .ab-human {
@@ -457,38 +338,6 @@
   font-size: 21px;
   line-height: 1.5;
   margin-top: 17px;
-}
-.ab-review-task {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  margin-top: 25px;
-  padding-left: 24px;
-}
-.ab-review-task::before {
-  content: "";
-  position: absolute;
-  top: -25px;
-  left: 38px;
-  height: 25px;
-  width: 1px;
-  background: #9aaa90;
-}
-.ab-review-task svg {
-  flex-shrink: 0;
-}
-.ab-label {
-  color: #58635f;
-  font-size: 12px;
-  line-height: 1.5;
-}
-.ab-review-task strong {
-  display: block;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  margin-top: 4px;
 }
 .ab-human-photo {
   position: relative;
@@ -723,12 +572,6 @@
   font-size: 16px;
   line-height: 1.65;
 }
-@media (min-width: 1101px) and (min-height: 820px) and (prefers-reduced-motion: no-preference) {
-  .ab-scene[data-pin="true"] .ab-scene-pin {
-    position: sticky;
-    top: 102px;
-  }
-}
 @media (max-width: 1200px) {
   .ab-wrap {
     padding-inline: 32px;
@@ -750,12 +593,6 @@
   }
   .ab-step {
     padding-inline: 14px;
-  }
-  .ab-step h3 {
-    font-size: 15px;
-  }
-  .ab-branch-outcomes {
-    gap: 14px;
   }
   .ab-lifecycle {
     gap: 17px;
@@ -796,21 +633,6 @@
     width: 100%;
     max-width: 760px;
   }
-  .ab-build-copy {
-    grid-row: 3;
-    padding: 12px 0 0;
-  }
-  .ab-build-copy h2 {
-    max-width: 650px;
-  }
-  .ab-building-blocks {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
-  .ab-building-blocks > div {
-    padding-bottom: 0;
-  }
   .ab-branch-stage {
     padding: 25px;
   }
@@ -818,10 +640,10 @@
     font-size: 14px;
   }
   .ab-step {
-    padding-inline: 22px;
+    padding-inline: 17px;
   }
   .ab-step h3 {
-    font-size: 18px;
+    font-size: 17px;
   }
   .ab-section {
     padding: 80px 0;
@@ -922,79 +744,41 @@
     scroll-margin-top: 93px;
   }
   .ab-branch-stage {
-    padding: 20px 13px 22px;
+    padding: 20px 15px 23px;
     border-radius: 22px;
   }
   .ab-canvas-heading {
     gap: 8px;
     margin-bottom: 21px;
-    font-size: 12px;
-  }
-  .ab-canvas-heading .ab-example-label {
-    font-size: 10px;
+    font-size: 13px;
   }
   .ab-trigger,
   .ab-condition {
-    max-width: 276px;
+    max-width: 290px;
     padding: 15px 17px;
   }
   .ab-trigger strong {
-    font-size: 15px;
+    font-size: 17px;
+  }
+  .ab-condition h3 {
+    font-size: 20px;
   }
   .ab-node-label {
     font-size: 11px;
   }
-  .ab-condition h3 {
-    font-size: 19px;
-  }
-  .ab-connection {
-    height: 22px;
-  }
-  .ab-split {
-    height: 60px;
-  }
   .ab-branch-outcomes {
-    gap: 10px;
+    gap: 12px;
   }
   .ab-step {
-    padding: 15px 12px 16px;
+    padding: 16px 13px 18px;
     border-radius: 12px;
   }
-  .ab-step-title {
-    display: block;
-  }
-  .ab-step-title svg {
-    margin-bottom: 7px;
-  }
   .ab-step h3 {
-    font-size: 15px;
-    line-height: 1.4;
+    font-size: 17px;
   }
   .zapla-automation .ab-step p {
     font-size: 14px;
-    line-height: 1.65;
-    margin-top: 10px;
-  }
-  .ab-field-update strong {
-    font-size: 19px;
-  }
-  .ab-field-update span {
-    font-size: 12px;
-  }
-  .ab-build-copy {
-    padding-top: 10px;
-  }
-  .ab-building-blocks {
-    display: block;
-  }
-  .ab-building-blocks > div {
-    padding: 20px 0;
-  }
-  .ab-building-blocks dt {
-    font-size: 17px;
-  }
-  .ab-building-blocks dd {
-    font-size: 14px;
+    line-height: 1.6;
   }
   .ab-section {
     padding: 64px 0;
@@ -1133,20 +917,16 @@
     padding-inline: 11px;
   }
   .ab-canvas-heading {
-    gap: 6px;
-    font-size: 11px;
-  }
-  .ab-canvas-heading .ab-example-label {
-    font-size: 9px;
-  }
-  .ab-step {
-    padding-inline: 10px;
-  }
-  .ab-step h3 {
-    font-size: 14px;
+    font-size: 12px;
   }
   .ab-branch-outcomes {
-    gap: 8px;
+    gap: 9px;
+  }
+  .ab-step {
+    padding-inline: 11px;
+  }
+  .ab-step h3 {
+    font-size: 16px;
   }
   .ab-lifecycle {
     padding-inline: 17px;
@@ -1154,10 +934,6 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ab-path-trace,
-  .ab-connection::after {
-    opacity: 1;
-  }
   .zapla-automation *,
   .zapla-automation *::before,
   .zapla-automation *::after {

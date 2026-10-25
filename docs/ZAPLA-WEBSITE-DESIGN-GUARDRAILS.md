@@ -156,3 +156,12 @@ Owner correction, 23 October 2026:
 - A wide landscape photograph can break a page's visual rhythm when it supports the story. Do not force the same crop or photo section into every feature page. Never present generated people as customers or add invented testimonials.
 - An animated explanatory decision tree does not need configuration controls. Do not add optional wait toggles, Yes/No selectors or instructional captions when the requested experience is simply a readable animation.
 - Grain and glass have distinct roles: restrained static texture behind the scene, smooth legible foreground panels. Sales/automation illustration colours are defaults, not a requirement to retain a green treatment the owner has rejected.
+
+
+## Causal automation examples and restrained connections
+
+Owner correction, 23 October 2026:
+
+- Test the business logic before styling a decision tree. Each decision must lead to an action justified by the known customer situation. Do not equate urgency with one generic task and absence of urgency with an unrelated information request.
+- A longer example should advance one customer process through meaningful stages. More boxes alone do not demonstrate sophistication. Show the starting fact, the requested response, the alternative outcomes and where a person must act.
+- Do not use bright blue tracing or flashing blue borders on the Automation Builder tree. Keep necessary topology quiet and neutral; animate a meaningful progression without making the connections decorative.

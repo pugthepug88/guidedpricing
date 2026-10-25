@@ -182,3 +182,69 @@ The reply FAQ opened by click and closed with Enter. The final CTA/sky transitio
 The rendered views support the UI/UX, Brand, Copy, Product Marketing, Conversion and SME conclusions above: a named business rule leads to distinct configured work; smooth glass remains readable over local material; original human imagery and varied scale break the product-panel rhythm; Draft/Live, Guided Launch and the consistent call destination retain control and a clear next step. These are design-review findings, not numerical quality scores or conversion evidence.
 
 Remaining limits are full lower-page tablet/phone rechecks, a complete 320px pass, physical-device/cross-browser coverage, assistive-technology testing and live NextGen workflow execution/delivery. Browser interruptions are not treated as site defects or as successful checks. No Lovable builder prompt or Publish action was used. Shared header/footer, other feature work and Platform architecture remain preserved.
+
+### Final live-preview phone extension
+
+After the editor refreshed from its static iframe to `live-preview-panel`, the 393px phone check resumed against `9ca211184896134f55e330307b1fc3e0c2c76d48`. Both complete action columns were captured with the shortened SMS, and the tree measured 712.61px at 378px content width. The fresh photograph was rechecked with both faces visible; the live caption text contained “people on” with its explicit space. The complete Draft/Live and validation/run-history layout, upper Guided Launch, all three launch rows, setup CTA/terms and FAQ introduction were also inspected. The reply FAQ opened; its later Enter/capture check and the final phone CTA view were interrupted by another preview reset. This extends the phone coverage above without asserting an uninterrupted whole-phone sign-off. Full lower-page tablet, 320px and preference/device/live-product limits still apply.
+
+The final source commit's Vercel check succeeded and Lovable reported that commit ready. A limited direct-preview read returned no error/warning log entries; the editor's separate issues banner was not audited or assumed resolved. The main working tree was synchronized with the remote implementation. No additional product code was changed after these checks.
+
+
+## Superseding accepted-job workflow, 23 October 2026
+
+The owner rejected the urgency/floor-plan logic and blue connection treatment. Previous positive assessments of that business scenario are withdrawn. Source and screenshot checks did not substitute for evaluating whether the decision made commercial sense.
+
+The replacement connects acceptance, preparation, requested customer response and the appropriate next work. It contains ten visible configured steps across a common four-step trunk and three two-step alternatives. READY gives the customer a booking link after updating readiness; HELP and timeout create distinct, specific work for the team. The original HELP reply and matching task continue below. Quote Follow-Up retains ownership of quote chasing. The main headline and final CTA wording are retained.
+
+The stage remains local warm stone/graphite grain with smooth glass. All blue path overlays and blue border flashes are removed; thin neutral connectors explain topology. A short one-shot opacity/material entry follows viewport entry, with complete server-rendered content, reduced-motion fallback and no controls or loops. The taller diagram is in normal flow, avoiding an oversized pinned scene. Phone layout presents labelled alternatives from a common side connection and keeps both actions together; narrow phones stack the two nodes within each alternative.
+
+The newly generated panorama remains appropriate to the installation preparation story and is retained. No additional asset or reused editorial person is introduced. The human example now belongs to the same HELP path, reducing conceptual repetition.
+
+Initial technical checks: TypeScript, targeted ESLint and whitespace checks passed. Build/SEO and actual refreshed-preview rendering are being checked. This entry does not treat the previous two-path captures as proof of the new composition.
+
+
+### Initial rendered findings and finishing changes
+
+The actual synced preview of `a51bc62dc2fbc936391c189ff580405b9640d3e5` was inspected at a measured 1692 × 769 desktop and in the editor's 834px tablet and 393px phone views (819px/378px content widths). The complete trunk and three alternatives were reviewed across native scroll positions. All ten nodes remain connected in normal flow. The scene measured about 867px on desktop, 872px on tablet and 1167px on phone. These are deliberately scrollable page content, never a pinned oversized canvas. The phone's labelled alternatives each keep their customer update and next action in the same row, without horizontal overflow.
+
+This review produced two finishing changes: removing the redundant three-row construction explanation so the longer process does not create longer supporting copy; and increasing desktop action paragraphs from 13px to 14px. The timeout label becomes the plainer “No READY or HELP / after 2 days” to make the keyword boundary explicit. These final source refinements require a refreshed visual check. Build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Vercel succeeded for the initial implementation commit; Lovable reported it ready and the actual page displayed its new content.
+
+
+### Final refreshed-preview verification
+
+Final product-code commit: `14490abac1372ae3ccb4f8f00ae822f284c0c9ea`. GitHub's Vercel check succeeded and Lovable reported this commit ready. The actual desktop preview shows the final larger action text, explicit timeout label and removed three-row explanation. A final 393px phone iframe (378px content width) confirmed the same labels, zero construction rows and no overflow in any workflow node, heading or paragraph. The final HELP/timeout rows and transition into the shorter construction copy were visually captured. The canvas remained approximately 1167px in normal flow; no nested or forced scrolling is introduced.
+
+| Review lens | Current finding |
+| --- | --- |
+| Business logic / SME buyer | Acceptance justifies preparation. READY can lead to customer booking; HELP produces a specific question task; an unconfirmed site is checked before scheduling. These are causally related steps in one process. |
+| UI/UX | Four common steps lead to three labelled alternatives. All paths stay present; the phone keeps both actions in each alternative together. The rendered workflow has no text or document overflow at the measured widths. |
+| Copy / Product Marketing | The requested keywords are visible in the SMS before they appear as outputs. The timeout wording includes unrecognised replies. Sending a booking link is distinct from a completed appointment. The later HELP question and task match this workflow. |
+| Brand / Creative | Zapla type, ink, paper, petal and smooth glass remain. Static local stone grain and restrained connectors provide material depth without the rejected blue path effects. The original panoramic editorial photograph is retained. |
+| Conversion / Buyer psychology | The example makes the benefit concrete: preparation moves forward, ready customers can choose a time, and uncertainty becomes specific human work. Draft, validation and run history retain control. The longer diagram is balanced by removing repetitive supporting copy. |
+| Motion / AI-slop | One short material entry per visible node/group, no controls, loop, floating decoration, execution badges or invented metrics. Neutral connections remain static. All content exists before JavaScript; reduced motion disables the entry animation. |
+
+The refreshed phone HELP paragraph was checked in the live DOM. A later attempt to capture that section and reopen the revised reply FAQ was interrupted by an editor-preview reset and browser timeout; the mismatched homepage/blank captures were rejected. No completed new FAQ keyboard test or full lower-page responsive pass is claimed. The unchanged editorial photograph and lower-page sections retain prior evidence, not a claim of fresh whole-page verification.
+
+A requested narrow viewport override did not change the measured direct-page width and was reset; it supplies no 320px visual proof. Remaining limits: complete 320px, reduced-motion/JavaScript-disabled browser sessions, normal-speed motion recording, assistive technology, physical/cross-browser devices and live NextGen execution/delivery. These limits do not turn the completed desktop/tablet/phone workflow checks into account acceptance. Shared navigation/footer, unrelated feature work, Platform structure and `/booking` are preserved. Lovable was used read-only; no builder prompt or Publish action was used.
+
+
+## Superseding compact enquiry hero, 23 October 2026
+
+The owner found the installation workflow too long and visually heavy. Its earlier positive assessment did not establish owner approval. This correction removes six of ten nodes, the installation/keyword/timeout terminology and the secondary construction explanation.
+
+The four-node hero is **New website enquiry → Phone call requested? → Yes: Call the customer task / No: Enquiry received email**. Phone/email preference is established in the trigger before the condition. A task leads to a person making the requested call; an email preference receives a configured acknowledgement. This is understandable across service businesses and does not depend on specialised installation knowledge. A quote-reminder variant was rejected because it duplicates Quote Follow-Up and would need additional timing/context.
+
+The same warm stone grain, smooth glass, large readable type, petal and quiet neutral topology remain. One short reveal introduces each visible step once; the alternatives stay readable and no controls or loop are added. The page uses normal flow. The next chapter is reduced to the callback request and editorial photograph, making the human role clear without another mini workflow. The original photograph belongs to this page and is retained; no existing website photograph is substituted.
+
+Technical and refreshed desktop/tablet/phone checks are in progress. Prior ten-node screenshots do not verify this compact composition. Shared navigation/footer, other feature work, H1, final CTA and `/booking` are preserved.
+
+
+### Compact hero rendered verification
+
+Implementation commit `a9989fb998bcf15a125885749e27fa907d304943` passed production build, TypeScript, targeted component/route ESLint, formatting, SEO policy and whitespace checks. GitHub's Vercel check succeeded. Lovable reported the commit ready and the actual page displayed the new four-node scene.
+
+The desktop opening was visually inspected at measured 1692 × 825: the complete 538px tree fits in the hero and the opening is about 770px high. Tablet review used the 834px editor iframe (819px content), with the complete approximately 512px tree visible after its native anchor link. Phone review used the 393px iframe (378px content), with the entire approximately 553px tree visible at once, compared with about 1167px for the superseded example. All four nodes, Yes/No labels and both full outcomes were inspected. Document and node/heading/paragraph measurements showed no horizontal overflow. One black/stale tablet capture during a preview reset was rejected; a later full-editor capture provided actual tablet visual proof.
+
+UI/UX and SME review: one familiar stated preference explains both actions, with no specialised installation knowledge or multi-day sequence. Copy/product review: the form establishes phone or email before the condition; the task is a human callback, and the email is only an acknowledgement. Brand/creative review: the existing stone/glass contrast, petal and large type remain legible with more space. Conversion/buyer-psychology review: the visual explains a practical starting workflow without implying automation is complicated; the existing Guided Launch and booking CTAs retain the next step. Motion/slop review: passive one-shot node entry, quiet structural connections, no blue traces, fake controls, metrics, loop or status garnish. All content is present before JavaScript and reduced-motion disables animation.
+
+The changed phone human introduction and start of the callback card were inspected after the workflow: the human responsibility is readable and the additional task diagram is gone. The complete request remains present in source; no fresh full-photo/lower-page check is claimed. The original editorial photograph and lower sections retain their previous checks. This is a scoped rendered review, not a fresh whole-page device matrix or live-product execution test. Separate 320px, reduced-motion/JavaScript-disabled sessions, assistive technology, physical/cross-browser and supplier sending/call execution remain untested. Shared header/footer and concurrent Chatbot work were preserved. Lovable stayed read-only; no builder prompt or Publish action was used.

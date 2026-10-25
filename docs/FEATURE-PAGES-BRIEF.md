@@ -245,6 +245,35 @@ The local illustration is warm stone/graphite grain behind smooth frosted nodes,
 Code checks pass. Current rendered verification status and browser limitations belong in `AUTOMATION-BUILDER-REVIEW.md`; previous captures do not verify the new tree, material or photo crop. Changes stay scoped to this page, its asset and project guidance. Lovable stays read-only and booking links stay `/booking`.
 
 
+## AI Chatbot product-stage correction, 23 October 2026
+
+The owner rejected the photograph/website collage in the hero, repeated editorial photography, scattered arrows and a fragmented middle. This supersedes the website-photo opening in the enquiry expansion above. Preserve the approved H1, hero supporting paragraph and final CTA wording.
+
+The broad title/copy introduction now leads into one large contained chat demonstration with written website/business context. The visitor supplies need and timing, then name/email in a grouped capture scene. Pipeline/task and supplied-information/answer relationships use alignment and grouping. Local arrow icons, including CTA arrows, are removed; native disclosures use a plus. The page remains warm white with local blue/stone, selective deep-green results and a fresh panoramic human-handover photograph. Guided Launch is open rather than another full-width dark band. Existing interface portraits remain for enquiry continuity; neither old editorial photograph is reused.
+
+Rendered checks include desktop, the minimum enhanced capture size, a short-window fallback, key tablet scenes, a complete phone pass and targeted 320px checks. Scroll testing found and fixed missing sticky travel. The bounded contact scene now reveals once, holds briefly and releases naturally; completion remains when reversing. Exact coverage, corrections, role reviews, image provenance and remaining limits are in `AI-CHATBOT-VISUAL-REVIEW.md`. This is an implementation for owner review, not final whole-page approval or live-product acceptance. Shared navigation/footer, route/indexing, Platform structure and `/booking` are unchanged. Code goes through GitHub; Lovable remains read-only and no separate Publish action is used.
+
+
+## Automation Builder causal-logic correction, 23 October 2026
+
+The owner rejected the urgent-repair/floor-plan logic and blue lines. This supersedes that scenario and its blue trace/border flashes. The H1, final CTA, neutral material, original panorama, shared page architecture and GitHub-only workflow remain.
+
+The longer example starts after a pipeline stage changes to Quote accepted: email the installation checklist, send an SMS asking for READY or HELP, then wait up to two days. READY updates Site readiness and sends the configured booking link; HELP records Needs discussion and creates a question-review task; no matching reply records Unconfirmed and creates a readiness-check task. Sending a link is not a completed booking. The later human case continues the same HELP path. Public vendor client evidence supports keyword reply outputs and timeout settings; boundaries are in AUTOMATION-BUILDER-EVIDENCE.md.
+
+Thin neutral connections stay static. One brief material reveal introduces nodes as they enter view and holds; no blue tracing, result controls, loop or execution badges. The longer tree uses normal document flow so its final steps can never be trapped below a pinned viewport. Responsive and rendered findings are recorded separately in AUTOMATION-BUILDER-REVIEW.md. Existing photographs are not reused for new pages; the original Automation panorama is retained for this correction.
+
+## AI Chatbot integrated hero and editorial scroll, 23 October 2026
+
+The owner requested a stronger visual revision after the product-stage version. This supersedes the detached hero title/chat stage and laptop photograph. The approved H1, hero supporting paragraph and final CTA stay unchanged. The opening now places the promise and chat together within one contained light material scene, removing the repeated scene headline. Open qualification/contact proof, a dark continuation chapter with one record, asymmetric source/answer proof, fresh unobstructed work photography and an open launch plan give the scroll distinct compositions. No changes to shared navigation/footer, other pages, route/indexing or `/booking`.
+
+ADAPT Birdeye's integrated hierarchy, large product scale and open/enclosed rhythm; REJECT copied claims, mascot, navigation and dominant page-wide blue. Use Zapla's own type/palette/petal and explicit customer-story continuity. No new capabilities, fake controls, metrics or automatic animation. New photograph, reference interpretation, rendered coverage and remaining limits are recorded in `AI-CHATBOT-VISUAL-REVIEW.md`. Production build, TypeScript, targeted lint, SEO, formatting and whitespace checks pass. Rendered review covered wide/standard desktop, minimum enhanced and short-height layouts, key tablet scenes, the complete phone page and targeted 320px views. A rotated disclosure extent was corrected and rechecked. Bounded contact travel/release, native disclosures, photo crops and booking navigation were verified; precise coverage and remaining limits are in the review. This is an implementation for owner review, not a claim of approval or live-product acceptance. Lovable remains read-only.
+
+
+## Automation Builder simplicity correction, 23 October 2026
+
+The owner rejected the installation sequence as too long and heavy. Supersede it with one familiar four-node example: website enquiry with phone/email preference → Phone call requested? → Yes creates a callback task; No sends an email acknowledgement. Keep the stated preference visible so the branches make sense. Remove the extra construction explanation. The human chapter shows the original callback request for the team, without another task diagram or reply workflow. Preserve the existing H1, final CTA, stone/glass material, neutral connections, original panorama and surrounding page. Motion remains a short passive entry with complete static fallback. Current evidence and rendered checks are recorded in the Automation evidence/review files. GitHub only; Lovable read-only.
+
+
 ## Calendars & Bookings capability and visual revision, 23 October 2026
 
 The owner identified that the initial calendar page underrepresented the actual scheduling range and supplied current builder evidence for **1-on-1, Group Booking, Collective, Round Robin and Event**. This supersedes the initial omission of round robin, without establishing allocation fairness, weighting, capacity or conflict-prevention guarantees. The live builder was sign-in gated; the current UI screenshot plus explicitly confirmed types supply the format evidence. Rendered Help Centre articles were read separately for the documented controls and customer/staff journey. The current screenshot takes precedence over help’s stale four-format enumeration.

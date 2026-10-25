@@ -12,14 +12,13 @@ function BookingLink({ children = "Book a Call" }: { children?: ReactNode }) {
   );
 }
 
-/** A simplified configured workflow, not a live execution. The supplier's public
- * builder implements custom-field criteria with equals and True/False outputs.
- * Motion draws the two alternative connections once; it never runs both paths
- * for an illustrated customer. All content is readable before hydration.
+/** A compact configured example: a form records phone/email preference;
+ * a customer-field condition connects the appropriate next action.
+ * All content is server-rendered. The illustration never sends or calls.
  */
 function WorkflowDemo() {
   const canvasRef = useRef<HTMLDivElement>(null);
-  const [animate, setAnimate] = useState(false);
+  const [entered, setEntered] = useState<string[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -27,99 +26,75 @@ function WorkflowDemo() {
     if (!canvas || media.matches || typeof IntersectionObserver === "undefined") return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setAnimate(true);
-          observer.disconnect();
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const key = (entry.target as HTMLElement).dataset.sequence;
+          if (key) setEntered((current) => (current.includes(key) ? current : [...current, key]));
+          observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.75, rootMargin: "0px 0px -96px 0px" },
+      { threshold: 0.4, rootMargin: "0px 0px -70px 0px" },
     );
-    // Start at the decision, so a phone visitor sees the animation after
-    // reading the introduction rather than spending it below the fold.
-    observer.observe(canvas.querySelector(".ab-condition") || canvas);
+    canvas.querySelectorAll("[data-sequence]").forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="ab-branch-stage" data-animate={animate} ref={canvasRef}>
+    <div className="ab-branch-stage" ref={canvasRef}>
       <div className="ab-canvas-heading">
         <ZaplaPetal size={26} />
-        <span>Service enquiry workflow</span>
-        <span className="ab-example-label">Example</span>
+        <span>New enquiry workflow</span>
       </div>
-
-      <div className="ab-node ab-trigger">
+      <div
+        className="ab-node ab-trigger"
+        data-sequence="enquiry"
+        data-entered={entered.includes("enquiry")}
+      >
         <span className="ab-node-label">Form submitted</span>
-        <strong>New air conditioning enquiry</strong>
-        <p>Urgent repair or planned installation</p>
+        <strong>New website enquiry</strong>
+        <p>Contact preference: phone or email</p>
       </div>
       <div className="ab-connection" aria-hidden="true" />
-      <div className="ab-node ab-condition">
+      <div
+        className="ab-node ab-condition"
+        data-sequence="condition"
+        data-entered={entered.includes("condition")}
+      >
         <span className="ab-node-label">Condition</span>
-        <h3>Urgent repair requested?</h3>
-        <p>Enquiry type = Urgent repair</p>
+        <h3>Phone call requested?</h3>
       </div>
-
       <div className="ab-split" aria-hidden="true">
-        <svg viewBox="0 0 600 62" preserveAspectRatio="none">
-          <path
-            className="ab-path-base"
-            d="M300 0 V19 Q300 27 290 27 H160 Q150 27 150 37 V62 M300 0 V19 Q300 27 310 27 H440 Q450 27 450 37 V62"
-          />
-          <path
-            className="ab-path-trace ab-path-yes"
-            pathLength="1"
-            d="M300 0 V19 Q300 27 290 27 H160 Q150 27 150 37 V62"
-          />
-          <path
-            className="ab-path-trace ab-path-no"
-            pathLength="1"
-            d="M300 0 V19 Q300 27 310 27 H440 Q450 27 450 37 V62"
-          />
+        <svg viewBox="0 0 600 42" preserveAspectRatio="none">
+          <path d="M300 0 V12 Q300 20 292 20 H158 Q150 20 150 28 V42 M300 12 Q300 20 308 20 H442 Q450 20 450 28 V42" />
         </svg>
-        <span className="ab-yes-label">Yes</span>
-        <span className="ab-no-label">No</span>
       </div>
       <div className="ab-branch-outcomes">
-        <div className="ab-track ab-track-urgent" role="group" aria-label="Yes: urgent repair">
-          <article className="ab-node ab-step ab-first-step">
-            <div className="ab-step-title">
-              <ZaplaPetal size={22} />
-              <h3>Update customer</h3>
-            </div>
-            <p className="ab-field-update">
-              <span>Service priority</span>
-              <strong>Urgent</strong>
-            </p>
-          </article>
-          <div className="ab-connection ab-next-connection" aria-hidden="true" />
-          <article className="ab-node ab-step ab-next-step">
-            <div className="ab-step-title">
-              <ZaplaPetal size={22} />
-              <h3>Create a task</h3>
-            </div>
-            <p>Call about the breakdown.</p>
+        <div
+          className="ab-track"
+          role="group"
+          aria-label="Yes, phone call requested"
+          data-sequence="call"
+          data-entered={entered.includes("call")}
+        >
+          <p className="ab-branch-label">Yes</p>
+          <article className="ab-node ab-step">
+            <span className="ab-node-label">Create a task</span>
+            <h3>Call the customer</h3>
+            <p>Review their enquiry before you call.</p>
           </article>
         </div>
         <div
-          className="ab-track ab-track-planned"
+          className="ab-track"
           role="group"
-          aria-label="No: planned installation"
+          aria-label="No, email preferred"
+          data-sequence="email"
+          data-entered={entered.includes("email")}
         >
-          <article className="ab-node ab-step ab-first-step">
-            <div className="ab-step-title">
-              <ZaplaPetal size={22} />
-              <h3>Send SMS</h3>
-            </div>
-            <p>Send us a floor plan so we can prepare your assessment.</p>
-          </article>
-          <div className="ab-connection ab-next-connection" aria-hidden="true" />
-          <article className="ab-node ab-step ab-next-step">
-            <div className="ab-step-title">
-              <ZaplaPetal size={22} />
-              <h3>Create a task</h3>
-            </div>
-            <p>Prepare the installation assessment.</p>
+          <p className="ab-branch-label">No</p>
+          <article className="ab-node ab-step">
+            <span className="ab-node-label">Send email</span>
+            <h3>Enquiry received</h3>
+            <p>Thanks for getting in touch. We’ll reply by email.</p>
           </article>
         </div>
       </div>
@@ -128,31 +103,6 @@ function WorkflowDemo() {
 }
 
 function OpeningStory() {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const [canPin, setCanPin] = useState(false);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene) return;
-    const media = window.matchMedia(
-      "(min-width: 1101px) and (min-height: 820px) and (prefers-reduced-motion: no-preference)",
-    );
-    const measure = () => {
-      // Keep the complete canvas visible after fonts, zoom or viewport changes.
-      setCanPin(media.matches && scene.getBoundingClientRect().height <= window.innerHeight - 128);
-    };
-    const observer = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(measure);
-    observer?.observe(scene);
-    window.addEventListener("resize", measure);
-    media.addEventListener("change", measure);
-    measure();
-    return () => {
-      observer?.disconnect();
-      window.removeEventListener("resize", measure);
-      media.removeEventListener("change", measure);
-    };
-  }, []);
-
   return (
     <section className="ab-opening" aria-label="Automation Builder">
       <div className="ab-wrap ab-story-grid">
@@ -171,56 +121,16 @@ function OpeningStory() {
           <div className="ab-actions">
             <BookingLink />
             <a className="ab-text-link" href="#automation-workflow">
-              Explore the branches <ArrowDown size={16} aria-hidden="true" />
+              See the workflow <ArrowDown size={16} aria-hidden="true" />
             </a>
           </div>
         </header>
         <div
           className="ab-scene"
-          data-pin={canPin}
           id="automation-workflow"
-          aria-label="Animated example of a service enquiry workflow with two alternative paths"
+          aria-label="A website enquiry branches by the customer's phone or email preference"
         >
-          <div className="ab-scene-pin" ref={sceneRef}>
-            <WorkflowDemo />
-          </div>
-        </div>
-        <div className="ab-build-copy">
-          <p className="ab-eyebrow">A visual way to build</p>
-          <h2>
-            One enquiry.
-            <br />
-            The right next steps.
-          </h2>
-          <p>
-            An urgent breakdown needs a different response from a planned installation. Use the
-            enquiry details to set the path, then connect the customer updates, messages and tasks
-            that belong together.
-          </p>
-          <dl className="ab-building-blocks">
-            <div>
-              <dt>Start with what happens</dt>
-              <dd>
-                A form submission, a new contact, a pipeline stage change or an incoming message.
-              </dd>
-            </div>
-            <div>
-              <dt>Make the decision once</dt>
-              <dd>
-                Set conditions using customer fields, then connect the next steps for each result.
-              </dd>
-            </div>
-            <div>
-              <dt>Carry the process forward</dt>
-              <dd>
-                Send the agreed message, update the record and create the work for your team. Add a
-                delay where a later step needs one.
-              </dd>
-            </div>
-          </dl>
-          <a className="ab-text-link" href="/crm">
-            See the CRM behind the workflow <ArrowRight size={16} aria-hidden="true" />
-          </a>
+          <WorkflowDemo />
         </div>
       </div>
     </section>
@@ -238,7 +148,7 @@ const faqs = [
   ],
   [
     "What happens when a customer replies?",
-    "A received message can start a workflow, such as creating a review task for your team. We agree and check the reply handling for the particular process during setup.",
+    "A workflow can wait for an SMS or WhatsApp reply, use configured keywords for different paths and set a timeout. A received message can also start a separate workflow. We check the reply rules and account connections for your process during setup.",
   ],
   [
     "What actions can a workflow take?",
@@ -264,11 +174,10 @@ export function AutomationBuilderPage() {
           <div className="ab-human-grid">
             <div className="ab-human-content">
               <p className="ab-eyebrow">Keep people in the process</p>
-              <h2 id="ab-human-heading">Some questions need your expertise.</h2>
+              <h2 id="ab-human-heading">Your team takes it from here.</h2>
               <p className="ab-human-intro">
-                A customer replies with a question about their property. A separate workflow can
-                create a review task when their message arrives. Your team reads the conversation
-                and decides what to do next.
+                Zapla creates the callback task. Your team reads the enquiry, calls the customer and
+                talks through what they need.
               </p>
               <a className="ab-text-link" href="/features/unified-inbox">
                 See where your team replies <ArrowRight size={16} aria-hidden="true" />
@@ -276,23 +185,16 @@ export function AutomationBuilderPage() {
             </div>
             <div
               className="ab-reply-flow"
-              aria-label="A separate workflow for an incoming customer question"
+              aria-label="The original enquiry for your team to review before calling"
             >
               <div className="ab-customer-reply">
                 <div className="ab-person">
                   <div>
-                    <strong>A customer replies</strong>
-                    <span>Message received · separate workflow</span>
+                    <strong>The customer’s enquiry</strong>
+                    <span>Requested a phone call</span>
                   </div>
                 </div>
-                <p>We’ve got two storeys. Can one system cover both?</p>
-              </div>
-              <div className="ab-review-task">
-                <ZaplaPetal size={29} />
-                <div>
-                  <span className="ab-label">This workflow creates a task</span>
-                  <strong>Review the installation question</strong>
-                </div>
+                <p>Can you call me to talk through the options?</p>
               </div>
             </div>
           </div>

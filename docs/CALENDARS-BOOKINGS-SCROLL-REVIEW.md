@@ -73,3 +73,7 @@ This is a marketing-page review. No live NextGen appointment, connected-calendar
 The connected Lovable preview remains on main until this review branch is merged. PR #180 is the concrete review result. Do not present its URL as proof that the new revision is already hosted there. No separate production Publish action is authorised or performed.
 
 Repository validation passed: final production build, TypeScript, targeted component ESLint, SEO policy, formatting for the component/stylesheet/new review documents, and whitespace checks. The shared feature brief retains current main formatting outside the appended calendar notes. The build emitted existing dependency/module-directive notices; no source or build failure remained. The temporary local preview host setting was restored before the final build.
+
+## Integration refresh, 25 October 2026
+
+Current main `36eb1be` was merged into the review branch. The only manual conflict was the shared feature brief: its current Chatbot/Automation additions and both calendar entries were retained. The calendar component, stylesheet, route metadata and photograph are byte-identical to reviewed commit `e4f4812`. Other main files retain their current-main versions. This integration refresh does not claim a new visual or live-product test; the recorded rendered-review scope above still applies.
