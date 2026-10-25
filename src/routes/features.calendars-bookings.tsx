@@ -4,11 +4,11 @@ import { CalendarsBookingsPage } from "@/components/features/CalendarsBookingsPa
 export const Route = createFileRoute("/features/calendars-bookings")({
   head: () => ({
     meta: [
-      { title: "Calendars & Bookings | Customer Appointments | Zapla" },
+      { title: "Calendars & Bookings | Appointments, Teams & Events | Zapla" },
       {
         name: "description",
         content:
-          "Let customers choose a suitable appointment. Set availability, connect calendars and manage bookings and reminders with Zapla.",
+          "Offer 1-on-1, group, collective, round robin and event bookings. Set availability, connect calendars and manage appointments with Zapla.",
       },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Calendars & Bookings | Zapla" },
