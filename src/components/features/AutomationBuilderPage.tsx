@@ -8,7 +8,7 @@ import "@/styles/automation-builder.css";
 const nurtureSteps = [
   {
     day: "Day 0",
-    title: "Welcome the enquiry",
+    title: "Send a welcome",
     message: "Thanks for getting in touch. Here’s how we can help.",
   },
   {
@@ -68,7 +68,7 @@ function WorkflowBoard({ phase, introduced }: { phase: number; introduced: boole
         <ZaplaPetal size={25} />
         <span>New enquiry nurture</span>
       </div>
-      <p className="ab-entry-label">Start from an agreed event</p>
+      <p className="ab-entry-label">Start with one of these events</p>
       <div className="ab-entry-events" aria-label="Alternative workflow starting events">
         <div>
           <span>Sales pipeline</span>
@@ -135,7 +135,7 @@ function OpeningStory() {
     const board = boardRef.current;
     if (!root || !board) return;
     const media = window.matchMedia(
-      "(min-width: 1101px) and (min-height: 820px) and (prefers-reduced-motion: no-preference)",
+      "(min-width: 1101px) and (prefers-reduced-motion: no-preference)",
     );
     let frame = 0;
     let enabled = false;
