@@ -76,4 +76,4 @@ Repository validation passed: final production build, TypeScript, targeted compo
 
 ## Integration refresh, 25 October 2026
 
-Current main `36eb1be` was merged into the review branch. The only manual conflict was the shared feature brief: its current Chatbot/Automation additions and both calendar entries were retained. The calendar component, stylesheet, route metadata and photograph are byte-identical to reviewed commit `e4f4812`. Other main files retain their current-main versions. This integration refresh does not claim a new visual or live-product test; the recorded rendered-review scope above still applies.
+Current main `a8f739b`, including the latest Automation nurture revision, was merged into the review branch. The only manual conflict was the shared feature brief: its current Chatbot/Automation additions and both calendar entries were retained. The calendar component, stylesheet, route metadata and photograph are byte-identical to reviewed commit `e4f4812`. Other main files retain their current-main versions. This integration refresh does not claim a new visual or live-product test; the recorded rendered-review scope above still applies.

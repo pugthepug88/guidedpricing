@@ -1,6 +1,6 @@
 # Automation Builder: evidence and claim boundaries
 
-**Current implementation:** see “Simple enquiry preference workflow” at the end. It supersedes the heavy installation sequence as well as the earlier rejected examples. Historical sections record previous attempts, not current recommendations. No live execution test is claimed.
+**Current implementation:** see “Nurture sequence and channel choices, 25 October 2026” at the end. This supersedes the compact callback/email hero and earlier attempts. Historical sections record previous decisions, not the current design. No live account execution test is claimed.
 
 Checked **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -141,3 +141,22 @@ This configuration uses the previously verified form-to-contact custom-field map
 The callback task is work for a person. It does not place a call, assign a staff member, set a deadline or promise instant contact. The email is a configured acknowledgement, not an automated answer to the enquiry. Sending, field mapping and execution still require account-level setup/testing. The later editorial case shows the original callback request for the team to review; no additional workflow or generated summary is introduced.
 
 The installation/readiness branch, checklist, READY/HELP choices, timing and customer-update nodes are removed from the hero. The secondary construction explanation is removed too. No blue tracing, controls, loop or original rejected caption is restored.
+
+
+## Nurture sequence and channel choices, 25 October 2026
+
+The owner reopened the whole page and supplied a current builder screenshot with Tag Changed (Added), Pipeline Item Created and Form Submitted. The replacement illustration is one configured nurture sequence: **an agreed pipeline/form/tag event → welcome on Day 0 → wait 2 days → useful information on Day 2 → wait 3 days → invitation on Day 5**. Each message row shows email, SMS and WhatsApp as configuration choices. A row is a concise messaging stage, not a claim that one literal application node automatically sends on every channel. The channels or combination are chosen during setup. No visitor message or account action is submitted.
+
+The example content is: “Thanks for getting in touch. Here’s how we can help.”; “Here’s what’s included, plus answers to the questions we hear most.”; “Ready to talk it through? Choose a time, or reply with a question.” The business supplies its actual message content and links. The screenshot is an illustration of the sequence, not evidence of delivered messages or a customer's response.
+
+### Current primary sources
+
+The official [Workflows page](https://thenextgencrm.com/features/workflows/) still documents visual construction, triggers, messaging actions, conditions and waits. The [English Help Centre payload](https://app.thenextgencrm.com/help-content/en.json), retrieved again on 25 October, contains 183 articles including `automations/create`, `automations/[id]` and `automations/[id]/logs`.
+
+The current public app explicitly imports [app.mXDaSoBh.js](https://app.thenextgencrm.com/_app/immutable/entry/app.mXDaSoBh.js), which imports [node 27.CVDlZdxy.js](https://app.thenextgencrm.com/_app/immutable/nodes/27.CVDlZdxy.js). That node imports [DjnVWOMi.js](https://app.thenextgencrm.com/_app/immutable/chunks/DjnVWOMi.js), the current builder implementation. Retrieved SHA-256: `29b953bd99027af42ef1f2fac55a6b84212d1d4af62a6a1d0b92aedce6db77ad`. The previously recorded D4OdHGBS asset is still retrievable but is not treated as the current import.
+
+The current builder includes `pipeline_item_created`, `tag_changed` with added/removed configuration, form triggers, `send_email`, `send_sms`, `send_whatsapp`, and duration/unit wait settings including days. The WhatsApp inspector includes connected-channel configuration. These support the illustrated building blocks. The supplied screenshot separately supports the entry events. No private account, API, credentials or customer data was accessed.
+
+The three entry cards show alternatives; they do not assert default deduplication, re-enrolment protection or that all three triggers should be enabled for every business. The tag in the illustration is specifically Nurture. Entry rules, connected accounts, channel choices, reply handling and any required exits are agreed before activation. No universal automatic stop-on-reply, queued-message cancellation, automatic booking, AI-generated message, performance result, usage allowance or channel parity is promised. UI/source evidence remains distinct from live account testing.
+
+The page still owns construction and control. Nurture is one explanation of triggers, waits and actions; Follow-Up and Reactivation retain their business-use-case pages. Draft, validation and run history are consolidated with Guided Launch in one practical plan. The commercial photograph is an original generated print-studio scene, not a customer testimonial; full prompts and exact edit-target provenance are in `automation-nurture-assets-2026-10-25.md`.

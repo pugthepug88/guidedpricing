@@ -1,0 +1,16 @@
+# Automation nurture artwork, 25 October 2026
+
+Created with the built-in image generation tool. The first asset is an edit of the exact selected reference at `/workspace/scratch/694bc483978b/upload/image-edit-target-99fd7f2f568a655e.png`; it is only a background material. All precise workflow content and borders are rendered in code. The second is a new editorial scene with a fresh cast, with no source people reused. Neither is a customer endorsement.
+
+## Background
+
+Final project asset: `public/concept/automation/nurture-material-v2.webp`.
+
+Use case: style-transfer. Edit target: the supplied exact ActiveCampaign workflow image. Create an EMPTY premium material backdrop for a live HTML workflow board. Remove all existing text, logos, UI controls, cards, icons, diagram nodes, connector lines, dots and neon pink/blue edges completely. Preserve the broad layered material depth and rounded rectangular visual character of the source, but render the result as a clean edge-to-edge warm stone and slate-blue surface with very fine photographic grain and gently diffused light, a little warmer at upper left and cooler at lower right. Low contrast, still and restrained, no objects, no shapes, no interface, no words, no bright glow. The actual precise frame, text and workflow will be created in code over this asset, so the entire centre must remain visually quiet. Colour family: warm pale stone, soft graphite, desaturated slate; medium-light value suitable behind white glass. Output approximately square landscape matching the source proportions. This is a background texture asset, not a diagram.
+
+## Commercial photograph
+
+Final project asset: `public/concept/automation/print-studio-v2.webp`.
+
+Use case: photorealistic-natural. Asset type: panoramic editorial photograph for Zapla's Automation Builder website. Generate a completely new cast and scene, not the people or house in earlier website pictures. A clearly COMMERCIAL small printing and signage production studio: an East Asian male business owner in his early forties with short dark hair and a navy work shirt, and a female print specialist in her thirties with dark curly hair tied back and an olive utility apron, actively checking a physical colour proof beside a modern large-format printer. Hands occupied with the real work; relaxed concentrated expressions; nobody looking at camera, no phone or laptop use. Unmistakable commercial setting: paper rolls, wide-format printer, organised material shelves and industrial workbench, high workshop ceiling, professional lighting. No domestic furniture, garden, home kitchen or house architecture. Premium observational documentary-commercial photo, subtle natural grain, realistic anatomy and hands, directional late-afternoon window light, soft autumn colour family, charcoal/slate equipment and warm neutral paper. Wide 3:1 composition, around 2400x800. Place both new people together within the right half, their faces unobstructed, and leave the left third as quiet darker workshop context suitable for website text. Show enough machinery that the business is recognisable without a label. No text, logos, watermark, UI, illustration, posed stock-photo smiles or futuristic effects.
+
