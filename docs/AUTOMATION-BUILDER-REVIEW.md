@@ -1,5 +1,8 @@
 # Automation Builder: implementation and review
 
+**Latest revision:** the nurture revamp dated 25 October 2026 at the end supersedes earlier compact and installation examples. Earlier positive assessments are historical, not owner approval.
+
+
 **Current revision:** see “Owner correction: animation, scenario and material” at the end. Earlier rendered captures cover superseded designs and are not visual proof for the new tree or photograph.
 
 Reviewed **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
@@ -248,3 +251,18 @@ The desktop opening was visually inspected at measured 1692 × 825: the complete
 UI/UX and SME review: one familiar stated preference explains both actions, with no specialised installation knowledge or multi-day sequence. Copy/product review: the form establishes phone or email before the condition; the task is a human callback, and the email is only an acknowledgement. Brand/creative review: the existing stone/glass contrast, petal and large type remain legible with more space. Conversion/buyer-psychology review: the visual explains a practical starting workflow without implying automation is complicated; the existing Guided Launch and booking CTAs retain the next step. Motion/slop review: passive one-shot node entry, quiet structural connections, no blue traces, fake controls, metrics, loop or status garnish. All content is present before JavaScript and reduced-motion disables animation.
 
 The changed phone human introduction and start of the callback card were inspected after the workflow: the human responsibility is readable and the additional task diagram is gone. The complete request remains present in source; no fresh full-photo/lower-page check is claimed. The original editorial photograph and lower sections retain their previous checks. This is a scoped rendered review, not a fresh whole-page device matrix or live-product execution test. Separate 320px, reduced-motion/JavaScript-disabled sessions, assistive technology, physical/cross-browser and supplier sending/call execution remain untested. Shared header/footer and concurrent Chatbot work were preserved. Lovable stayed read-only; no builder prompt or Publish action was used.
+
+
+## Nurture, compact proportions and connected scroll, 25 October 2026
+
+The owner reopened the whole page after rejecting oversized boxes, overly separated sections, a domestic-looking image and weak control/setup content. The four-node design's earlier technical/render checks did not establish visual approval. The new page keeps the main H1 and final CTA while replacing the body story and compositions.
+
+The agreed story is a new-enquiry nurture: an alternative pipeline, form or Nurture-tag event starts a welcome; a two-day wait precedes useful information; another three-day wait precedes an invitation. Email, SMS and WhatsApp are visible configuration choices or combinations. The live AC page was reviewed at its hero, capability transition and branching spotlight, alongside the supplied screenshots. USE its meaningful hierarchy and compact connected steps; ADAPT restrained frame/material depth and pacing into Zapla; REJECT the neon theme, fake metrics, copied claims and pause controls. Its branching illustration is static; no unsupported claim that this graphic itself animates is made.
+
+The opening is one white-canvas chapter. A complete compact board can pin only when its loaded height fits the viewport; two short copy beats focus Day 2 and Day 5, then release into the editorial scene. Progress latches rather than resetting as a customer story, and all text stays visible. Native scrolling, no capture/trap, no nested scrolling or loop. Mobile, short-height, reduced-motion and unavailable-JavaScript layouts use the full board in normal reading order. A short opacity entry supports the initial composition.
+
+Fresh assets were generated with the built-in image tool. The exact selected AC image is the edit source for a quiet background material only; the precise nodes, text, frame and connectors are code. A separate new cast actively checks a colour proof beside a commercial printer, clearly placing the work in a business rather than a home. Both native outputs were inspected for composition, people, hands and usable crop. Web assets are 42,348 bytes (1390 × 1132 material) and 211,698 bytes (2172 × 724 photograph). See `automation-nurture-assets-2026-10-25.md` for complete prompts, mode and project paths. They are not customer endorsements.
+
+Draft/Live, validation and run history are now part of one practical Guided Launch plan rather than two large generic sections. Fewer background changes, a wide real-work scene, open explanatory copy and one deep-green planning surface create rhythm. The shared final CTA and root-owned footer remain.
+
+Initial TypeScript, targeted ESLint, build, SEO and whitespace checks pass. Final rendering, sticky travel/release, responsive crops, typography, controls and asset loading are pending the authorised GitHub-to-Lovable preview sync. No old screenshot is accepted as evidence of the new design. The unrelated cinematic download file in the shared workspace is preserved.
