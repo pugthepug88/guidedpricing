@@ -216,3 +216,7 @@ For the route handoff, a recognisable phone silhouette and separated app header 
 ## Calendar divider and provider-mark correction, 26 October 2026
 
 The owner rejected stacked full-width rules that made availability and calendar connections feel detached from the page. Prefer grouping, spacing and alignment to repeated section separators. Native provider app marks are useful recognition aids beside visible names; use actual sourced artwork, not generic calendar outline icons or invented brand variants. Functional FAQ boundaries and product-state distinctions remain valid.
+
+## Automation AI interface depth, 27 October 2026
+
+The owner approved replacing the heavy flat-green AI scene with a cooler ink workspace, compact composer and finer draft nodes after rechecking the supplied AC recording. The prompt, actual Watch control, connected result and eight idea choices belong to one canvas. Keep ordinary page flow and full readable static content. A restrained blue/lavender highlight may identify the active prompt or selected idea; this scoped approval supersedes the general glow restriction for those elements only. No moving outer rim, decorative particles, bright connector trace, fake attachment/submit controls, perpetual generation or unsupported autonomous claims. The hero's approved silver border and white message cards remain unchanged.
