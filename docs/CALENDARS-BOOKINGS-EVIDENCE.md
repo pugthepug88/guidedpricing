@@ -35,7 +35,15 @@ The owner supplied current Meeting Rooms list, creation, guest preview and help 
 | Restricted invitations | The Contacts selection permits up to four contacts and errors on a fifth; Team selection is separate, with no limit shown there. | The FAQ identifies four as a restricted contact invitation limit. It is not an established simultaneous-call capacity or proof of unlimited participants. |
 | Room management | Name/edit, active/inactive state, link copying and deletion are documented; inactive rooms cannot be copied or joined. | Supporting context only; no need for another software-management section. |
 
-The help also documents a recording control and REC indicator. It does not establish saved-file storage, retention, downloading, transcription or compliance. Recording is not marketed on this page. The newer guest screenshot shows name plus email/phone fields, while the article gives older name-entry guidance; exact identity-field and no-login promises are omitted.
+The help also documents a recording control and REC indicator. At this stage it did not establish saved-file storage or transcription; the initial omission of those claims is superseded by the owner's explicit correction below. Retention, downloading and compliance remain unestablished. The newer guest screenshot shows name plus email/phone fields, while the article gives older name-entry guidance; exact identity-field and no-login promises are omitted.
+
+## Recorded meetings and attendee transcripts, 26 October 2026
+
+The owner explicitly confirmed in the next instruction that all meetings are recorded and saved and that transcriptions are also saved against attendees in the CRM. This is new owner-confirmed product scope, not an inference from other meeting platforms. It supersedes the earlier omission of saved recordings and CRM transcripts above and in the preceding review/brief entries.
+
+The live official Meeting Room article was reread on 26 October. It still documents a start/stop recording control and a visible REC indicator, alongside video, microphone and screen sharing. It does not independently establish the storage or attendee-transcript mapping. Current marketing therefore uses the owner's confirmation for those two capabilities and does not turn this into a claim of verified automatic recording defaults, permanent retention, unlimited storage, downloadable files, AI summaries or compliance.
+
+The page now says: “Meetings are recorded and saved, with transcripts saved to attendees’ CRM records.” A labelled illustration shows the same Alex/Emma consultation, followed by a recording and a short original transcript on Emma's attendee record. These excerpts are invented explanatory dialogue, not customer testimony, actual transcripts or an AI summary. The visuals do not invoke media devices, create a room, submit a booking or exercise live storage. Exact product layout is simplified for marketing rather than presented as a literal application screenshot.
 
 ## Source hierarchy
 

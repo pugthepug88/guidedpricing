@@ -524,6 +524,7 @@
 /* The human meeting and business-side working view form one chapter. */
 .cal-business {
   padding: 80px 0 60px;
+  scroll-margin-top: 90px;
 }
 .cal-business-meet {
   display: grid;
@@ -531,21 +532,10 @@
   gap: 70px;
   align-items: center;
 }
-.cal-consultation-photo {
-  overflow: hidden;
-  border-radius: 16px;
-  background: #aea694;
-}
-.cal-consultation-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: 50% 28%;
-}
 .cal-meeting-rooms h2 {
-  font-size: clamp(40px, 4.3vw, 60px);
+  font-size: clamp(38px, 3.8vw, 54px);
   line-height: 1.08;
+  text-wrap: balance;
 }
 .cal-meeting-rooms p {
   max-width: 390px;
@@ -553,6 +543,179 @@
   color: var(--feature-muted);
   font-size: 16px;
   line-height: 1.8;
+}
+.cal-meeting-rooms .cal-meeting-payoff {
+  color: var(--feature-ink);
+  font-size: 17px;
+}
+.cal-meeting-demo {
+  min-width: 0;
+}
+.cal-meeting-window {
+  overflow: hidden;
+  border: 1px solid #bfc5c0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 16px 40px #17221c0d;
+}
+.cal-meeting-call {
+  padding: 17px 17px 0;
+  background: #172421;
+  color: #fcfcfa;
+}
+.cal-meeting-call-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 1px 3px 16px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.cal-recording-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.cal-recording-indicator::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f08e7f;
+}
+.cal-meeting-video {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.cal-meeting-video img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2.3;
+  object-fit: cover;
+  object-position: 50% 15%;
+}
+.cal-meeting-video::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 2px);
+  width: 4px;
+  background: #172421;
+}
+.cal-meeting-names {
+  position: absolute;
+  inset: auto 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: linear-gradient(transparent, #000000b0);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.cal-meeting-names > span {
+  padding: 24px 14px 11px;
+}
+.cal-meeting-tools {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  min-height: 55px;
+  padding-block: 13px;
+  color: #e2e8e1;
+}
+.cal-meeting-tools > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.cal-meeting-tools svg {
+  flex: 0 0 auto;
+}
+.cal-meeting-saved {
+  padding: 24px;
+}
+.cal-meeting-contact {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+}
+.cal-meeting-contact p {
+  color: #65706b;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.cal-meeting-contact h3 {
+  margin-top: 6px;
+  font-size: 28px;
+  line-height: 1.15;
+}
+.cal-meeting-contact > span {
+  padding-bottom: 3px;
+  color: #65706b;
+  font-size: 12px;
+}
+.cal-meeting-history {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 28px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--cal-line);
+}
+.cal-meeting-recording,
+.cal-meeting-transcript {
+  min-width: 0;
+}
+.cal-meeting-history > div > span {
+  color: #56635b;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.cal-meeting-recording > p {
+  margin-top: 9px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.cal-meeting-recording > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 13px;
+  font-size: 11px;
+  color: #56635b;
+}
+.cal-meeting-recording svg {
+  flex: 0 0 auto;
+}
+.cal-meeting-transcript p {
+  display: grid;
+  grid-template-columns: 33px 1fr;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.cal-meeting-transcript strong {
+  padding-top: 1px;
+  color: #56635b;
+  font-size: 11px;
+  font-weight: 600;
+}
+.cal-meeting-demo figcaption {
+  margin-top: 12px;
+  color: #65706b;
+  font-size: 10px;
+  line-height: 1.6;
 }
 .cal-business-sheet {
   position: relative;
@@ -566,45 +729,23 @@
 .cal-appointment-record {
   min-width: 0;
 }
-.cal-record-person {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  margin-top: 20px;
+.cal-appointment-record h3 {
+  max-width: 460px;
+  font-size: 30px;
+  line-height: 1.15;
 }
-.cal-record-person .cal-avatar {
-  width: 46px;
-  height: 46px;
-}
-.cal-record-person h3 {
-  font-size: 29px;
-}
-.cal-record-person p {
-  margin-top: 5px;
-  color: #65706b;
-  font-size: 12px;
-}
-.cal-record-time {
-  margin-top: 18px !important;
-  font-size: 15px;
-  line-height: 1.6;
-}
-.cal-record-changes {
-  margin-top: 27px;
-  padding-top: 23px;
-  border-top: 1px solid var(--cal-line);
-}
-.cal-record-changes h4 {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.6;
-}
-.cal-record-changes p {
-  max-width: 380px;
-  margin-top: 9px;
+.cal-appointment-record > p {
+  max-width: 400px;
+  margin-top: 13px;
   color: #65706b;
   font-size: 13px;
   line-height: 1.8;
+}
+.cal-appointment-record > .cal-record-time {
+  margin-top: 18px !important;
+  color: var(--feature-ink);
+  font-size: 15px;
+  line-height: 1.6;
 }
 .cal-appointment-record > .cal-text-link {
   margin-top: 14px;
@@ -886,15 +1027,22 @@
     gap: 22px;
   }
   .cal-business-meet {
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .cal-meeting-demo {
+    grid-row: 2;
+  }
+  .cal-meeting-rooms {
+    grid-row: 1;
   }
   .cal-meeting-rooms h2 {
-    font-size: 34px;
+    font-size: 46px;
   }
   .cal-meeting-rooms p {
+    max-width: 620px;
     margin-top: 18px;
-    font-size: 14px;
+    font-size: 15px;
   }
   .cal-business-sheet {
     column-gap: 30px;
@@ -1108,10 +1256,10 @@
     padding: 55px 0 30px;
   }
   .cal-business-meet {
-    display: block;
+    gap: 28px;
   }
   .cal-meeting-rooms {
-    margin-top: 30px;
+    margin-top: 0;
   }
   .cal-meeting-rooms h2 {
     font-size: clamp(34px, 9.3vw, 40px);
@@ -1120,14 +1268,65 @@
     max-width: 500px;
     font-size: 15px;
   }
-  .cal-consultation-photo {
-    margin-inline: -20px !important;
-    border-radius: 0;
+  .cal-meeting-call {
+    padding: 13px 12px 0;
   }
-  .cal-consultation-photo img {
-    height: auto;
-    aspect-ratio: 1.35;
-    object-position: 50% 40%;
+  .cal-meeting-call-heading {
+    gap: 10px;
+    padding-bottom: 12px;
+    font-size: 12px;
+  }
+  .cal-recording-indicator {
+    gap: 5px;
+    font-size: 10px;
+  }
+  .cal-meeting-names > span {
+    padding: 20px 9px 8px;
+    font-size: 10px;
+  }
+  .cal-meeting-tools {
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 54px;
+  }
+  .cal-meeting-tools > span {
+    flex-direction: column;
+    gap: 5px;
+    font-size: 10px;
+  }
+  .cal-meeting-saved {
+    padding: 22px 19px;
+  }
+  .cal-meeting-contact {
+    display: block;
+  }
+  .cal-meeting-contact p {
+    max-width: 220px;
+    font-size: 11px;
+  }
+  .cal-meeting-contact > span {
+    display: block;
+    margin-top: 9px;
+    font-size: 12px;
+  }
+  .cal-meeting-history {
+    grid-template-columns: 1fr;
+    gap: 21px;
+    margin-top: 19px;
+  }
+  .cal-meeting-history > div > span {
+    font-size: 12px;
+  }
+  .cal-meeting-transcript {
+    padding-top: 19px;
+    border-top: 1px solid var(--cal-line);
+  }
+  .cal-meeting-transcript p {
+    grid-template-columns: 37px 1fr;
+    font-size: 13px;
+  }
+  .cal-meeting-transcript strong {
+    font-size: 11px;
   }
   .cal-business-sheet {
     display: block;
@@ -1139,19 +1338,7 @@
     box-shadow: none;
     background: transparent;
   }
-  .cal-record-person h3 {
-    font-size: 31px;
-  }
-  .cal-record-time {
-    font-size: 15px;
-  }
-  .cal-record-changes {
-    margin-top: 23px;
-  }
-  .cal-record-changes h4 {
-    font-size: 15px;
-  }
-  .cal-record-changes p {
+  .cal-appointment-record > p:not(.cal-record-time) {
     font-size: 14px;
   }
   .cal-availability {
@@ -1278,9 +1465,6 @@
   .cal-follow-copy h2,
   .cal-formats-intro h2 {
     font-size: 38px;
-  }
-  .cal-consultation-photo {
-    margin-inline: -16px !important;
   }
   .cal-day-ranges > div {
     display: grid;
