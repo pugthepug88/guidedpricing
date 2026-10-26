@@ -518,19 +518,17 @@
   line-height: 1.75;
 }
 
-
-/* Secondary controls stay compact: useful proof without turning Pipeline into
-   a catalogue of settings. */
+/* Supporting product proof: filled Zapla colours carry readable white UI.
+   All three scenes are static and complete, including without JavaScript. */
 .zapla-pipeline .pf-fit {
-  padding: 8px 0 82px;
+  padding: 8px 0 62px;
 }
 .zapla-pipeline .pf-fit-heading {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   align-items: end;
   gap: 80px;
-  padding-top: 42px;
-  border-top: 1px solid #d9e0d8;
+  padding-top: 24px;
 }
 .zapla-pipeline .pf-fit-heading h2 {
   max-width: 620px;
@@ -545,141 +543,214 @@
 .zapla-pipeline .pf-fit-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 30px;
+  gap: 18px;
+  margin-top: 32px;
 }
 .zapla-pipeline .pf-fit-card {
-  display: flex;
-  min-height: 292px;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 28px;
-  padding: 25px;
-  border: 1px solid #dce2dd;
-  border-radius: 17px;
-  background: #fff;
-  box-shadow: 0 12px 34px -28px #21382a5c;
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  min-width: 0;
+  gap: 26px;
+  padding: 26px;
+  border-radius: 24px;
+  color: #1b2021;
 }
-.zapla-pipeline .pf-fit-label {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: #6b756e;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.zapla-pipeline .pf-fit-fields {
+  background: #e97d62;
 }
-.zapla-pipeline .pf-fit-card h3 {
-  max-width: 300px;
-  color: #17231e;
-  font-size: 20px;
+.zapla-pipeline .pf-fit-actions {
+  background: #dda34b;
 }
-.zapla-pipeline .pf-fit-card-copy > p {
-  margin-top: 11px;
-  font-size: 13px;
-  line-height: 1.72;
+.zapla-pipeline .pf-fit-tags {
+  background: #9b86b8;
 }
-.zapla-pipeline .pf-field-preview,
-.zapla-pipeline .pf-action-preview {
+.zapla-pipeline .pf-fit-scene {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  min-height: 70px;
-  padding: 14px 15px;
-  border: 1px solid #e0e5e1;
-  border-radius: 11px;
-  background: #fbfcfb;
+  justify-content: center;
+  min-height: 244px;
+  padding: 8px 0;
 }
-.zapla-pipeline .pf-field-preview > div,
-.zapla-pipeline .pf-action-preview > div {
+.zapla-pipeline .pf-fit-record {
+  width: 100%;
+  max-width: 340px;
   min-width: 0;
+  padding: 20px;
+  border: 1px solid #fff;
+  border-radius: 15px;
+  background: #ffffff;
+  color: #26332f;
+  box-shadow:
+    0 18px 28px -18px #30282c73,
+    0 2px 5px #30282c0d;
 }
-.zapla-pipeline .pf-field-preview div > span,
-.zapla-pipeline .pf-action-preview div > span {
-  display: block;
-  color: #778078;
-  font-size: 10px;
-  line-height: 1.4;
-}
-.zapla-pipeline .pf-field-preview strong,
-.zapla-pipeline .pf-action-preview strong {
-  display: block;
-  margin-top: 3px;
-  color: #26372e;
-  font-size: 12px;
-  line-height: 1.45;
-}
-.zapla-pipeline .pf-field-state {
-  flex: 0 0 auto;
-  padding: 5px 8px;
-  border-radius: 999px;
-  background: #e9f1ec;
-  color: #315840;
-  font-size: 9px;
+.zapla-pipeline .pf-fit-record-title {
+  font-size: 15px;
   font-weight: 650;
   line-height: 1.4;
+  letter-spacing: -0.025em;
 }
-.zapla-pipeline .pf-action-preview {
-  justify-content: flex-start;
+.zapla-pipeline .pf-fit-person {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 7px;
+  color: #59645f;
+  font-size: 12px;
+  line-height: 1.5;
 }
-.zapla-pipeline .pf-action-icon {
+.zapla-pipeline .pf-custom-values {
   display: grid;
-  flex: 0 0 34px;
-  width: 34px;
+  gap: 9px;
+  margin: 16px 0 0;
+}
+.zapla-pipeline .pf-custom-values > div {
+  padding: 9px 12px;
+  border: 1px solid #e1e4df;
+  border-radius: 7px;
+  background: #f8f9f6;
+}
+.zapla-pipeline :is(.pf-custom-values, .pf-action-settings) dt,
+.zapla-pipeline .pf-fit-ui-label {
+  display: block;
+  color: #59645f;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-custom-values dd {
+  margin: 3px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.zapla-pipeline .pf-action-settings {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 14px;
+  margin: 0;
+}
+.zapla-pipeline .pf-action-settings > div:first-child {
+  grid-column: 1 / -1;
+}
+.zapla-pipeline .pf-action-settings dd {
+  margin: 7px 0 0;
+}
+.zapla-pipeline .pf-action-name {
+  padding: 9px 10px;
+  border: 1px solid #dce1dc;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-chosen-icon {
+  display: grid;
+  width: 36px;
   height: 34px;
   place-items: center;
-  border-radius: 9px;
-  background: #354a63;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
+  border: 1px solid #dce1dc;
+  border-radius: 6px;
+  color: #354b60;
 }
-.zapla-pipeline .pf-action-preview > div {
-  flex: 1;
+.zapla-pipeline .pf-action-colours {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 34px;
 }
-.zapla-pipeline .pf-action-swatch {
-  flex: 0 0 18px;
-  width: 18px;
-  height: 18px;
-  border: 4px solid #fff;
+.zapla-pipeline .pf-action-colours > span {
+  display: block;
+  width: 23px;
+  height: 23px;
   border-radius: 50%;
-  background: #3b82f6;
-  box-shadow: 0 0 0 1px #cfd7d1;
 }
-.zapla-pipeline .pf-tag-preview {
+.zapla-pipeline .pf-colour-blue {
+  border: 3px solid #fff;
+  background: #2563ff;
+  box-shadow: 0 0 0 1.5px #2563ff;
+}
+.zapla-pipeline .pf-colour-ink {
+  background: #1e2b29;
+}
+.zapla-pipeline .pf-colour-coral {
+  background: #e97d62;
+}
+.zapla-pipeline .pf-action-result {
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid #e3e6e1;
+}
+.zapla-pipeline .pf-custom-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 39px;
+  padding: 9px 10px;
+  border-radius: 7px;
+  background: #2563ff;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-custom-action svg {
+  flex-shrink: 0;
+}
+.zapla-pipeline .pf-opportunity-tags {
+  margin-top: 22px;
+}
+.zapla-pipeline .pf-tag-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  min-height: 70px;
-  align-content: center;
-  padding: 14px 15px;
-  border: 1px solid #e0e5e1;
-  border-radius: 11px;
-  background: #fbfcfb;
+  gap: 7px;
+  margin-top: 9px;
 }
 .zapla-pipeline .pf-tag {
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-.zapla-pipeline .pf-tag-vip {
-  background: #d85c3c;
-  color: #fff;
+  min-height: 29px;
+  padding: 5px 11px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.5;
 }
 .zapla-pipeline .pf-tag-urgent {
-  background: #f2d39b;
-  color: #684615;
+  background: #af432e;
+  color: #fff;
 }
 .zapla-pipeline .pf-tag-install {
-  background: #dceaf5;
-  color: #31566e;
+  background: #31566e;
+  color: #fff;
+}
+.zapla-pipeline .pf-fit-assignee {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+  margin-top: 22px;
+  padding-top: 13px;
+  border-top: 1px solid #e1e4df;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.zapla-pipeline .pf-fit-assignee .pf-fit-person {
+  margin: 0;
+}
+.zapla-pipeline .pf-fit-card h3 {
+  color: #1b2021;
+  font-size: 23px;
+  line-height: 1.25;
+}
+.zapla-pipeline .pf-fit-card-copy > p {
+  margin-top: 10px;
+  color: #25272a;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 /* An open human context scene follows the darker route demonstration. */
@@ -1040,10 +1111,14 @@
     gap: 42px;
   }
   .zapla-pipeline .pf-fit-grid {
-    gap: 11px;
+    gap: 14px;
   }
   .zapla-pipeline .pf-fit-card {
-    padding: 21px;
+    gap: 20px;
+    padding: 20px;
+  }
+  .zapla-pipeline .pf-fit-record {
+    padding: 16px;
   }
   .zapla-pipeline .pf-context-layout {
     grid-template-columns: 0.95fr 1fr;
@@ -1250,16 +1325,24 @@
   }
   .zapla-pipeline .pf-fit-grid {
     grid-template-columns: 1fr;
-    gap: 10px;
-    margin-top: 23px;
+    gap: 16px;
+    margin-top: 26px;
   }
   .zapla-pipeline .pf-fit-card {
-    min-height: 0;
     gap: 22px;
-    padding: 21px;
+    padding: 24px;
+  }
+  .zapla-pipeline .pf-fit-scene {
+    min-height: 230px;
+    padding: 0;
+  }
+  .zapla-pipeline .pf-fit-card-copy {
+    width: 100%;
+    max-width: 340px;
+    margin-inline: auto;
   }
   .zapla-pipeline .pf-fit-card h3 {
-    max-width: 420px;
+    font-size: 22px;
   }
   .zapla-pipeline .pf-context {
     padding-top: 0;

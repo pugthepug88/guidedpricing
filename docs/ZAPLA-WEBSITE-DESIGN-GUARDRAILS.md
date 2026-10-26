@@ -216,3 +216,7 @@ For the route handoff, a recognisable phone silhouette and separated app header 
 ## Calendar divider and provider-mark correction, 26 October 2026
 
 The owner rejected stacked full-width rules that made availability and calendar connections feel detached from the page. Prefer grouping, spacing and alignment to repeated section separators. Native provider app marks are useful recognition aids beside visible names; use actual sourced artwork, not generic calendar outline icons or invented brand variants. Functional FAQ boundaries and product-state distinctions remain valid.
+
+## Pipeline supporting UI cards, 26 October 2026
+
+The owner rejected the plain white custom-fields, quick-actions and tags strip. Each supporting card now needs a filled Zapla colour and a substantial, readable UI scene, with concise copy below. Use coral, gold and lavender locally; this does not reopen the whole page's colour coverage or the rejected pastel-plus-stock-icon treatment. Keep stages and route planning as the main story. Quick-action name/icon/colour configuration may be shown, but do not infer what the underlying action executes. Static proof is sufficient; add no decorative animation or extra viewing clicks. The supplied ActiveCampaign images inform scene scale and surface contrast, not Zapla's palette, page theme or claims. Review: `PIPELINE-FIT-VISUAL-REVIEW-20261026.md`.
