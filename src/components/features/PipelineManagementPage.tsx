@@ -13,6 +13,81 @@ function BookCall() {
   );
 }
 
+
+function PipelineFitTools() {
+  return (
+    <section className="pf-fit" aria-labelledby="pipeline-fit-heading">
+      <div className="pf-wrap">
+        <header className="pf-fit-heading">
+          <div>
+            <p className="pf-eyebrow">Built around your team</p>
+            <h2 id="pipeline-fit-heading">Make the pipeline fit how you work.</h2>
+          </div>
+          <p>
+            Keep the extra detail your team needs, make important opportunities easier to spot and
+            put repeated actions closer to the record.
+          </p>
+        </header>
+
+        <div className="pf-fit-grid">
+          <article className="pf-fit-card">
+            <div className="pf-fit-card-copy">
+              <span className="pf-fit-label">Custom fields</span>
+              <h3>Track the details that matter to the job.</h3>
+              <p>
+                Add your own fields, choose which pipeline types use them and decide whether a value
+                should appear directly on the board card.
+              </p>
+            </div>
+            <div className="pf-field-preview" aria-label="Custom field shown on a pipeline card">
+              <div>
+                <span>Job address</span>
+                <strong>24 King Street</strong>
+              </div>
+              <span className="pf-field-state">Visible on card</span>
+            </div>
+          </article>
+
+          <article className="pf-fit-card">
+            <div className="pf-fit-card-copy">
+              <span className="pf-fit-label">Quick actions</span>
+              <h3>Keep repeated actions one click closer.</h3>
+              <p>
+                Create custom quick-action buttons with the name, icon and colour your team
+                recognises, so common work is easier to reach from the record.
+              </p>
+            </div>
+            <div className="pf-action-preview" aria-label="Custom quick action button">
+              <span className="pf-action-icon" aria-hidden="true">↗</span>
+              <div>
+                <span>Quick action</span>
+                <strong>Follow up customer</strong>
+              </div>
+              <span className="pf-action-swatch" aria-hidden="true" />
+            </div>
+          </article>
+
+          <article className="pf-fit-card">
+            <div className="pf-fit-card-copy">
+              <span className="pf-fit-label">Tags</span>
+              <h3>Make priority and type visible at a glance.</h3>
+              <p>
+                Add colour-coded tags to pipeline items so the team can quickly recognise the work
+                that needs a different kind of attention.
+              </p>
+            </div>
+            <div className="pf-tag-preview" aria-label="Tags on a pipeline opportunity">
+              <span className="pf-tag pf-tag-vip">VIP</span>
+              <span className="pf-tag pf-tag-urgent">Urgent</span>
+              <span className="pf-tag pf-tag-install">Install</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CustomerContext() {
   return (
     <section className="pf-section pf-context" aria-labelledby="pipeline-context-heading">
@@ -228,6 +303,7 @@ export function PipelineManagementPage() {
           </div>
         </div>
       </section>
+      <PipelineFitTools />
       <PipelineRoutes />
       <CustomerContext />
       <GuidedLaunch />

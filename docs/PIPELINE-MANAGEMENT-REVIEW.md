@@ -165,3 +165,14 @@ This is marketing-page QA, not live NextGen account acceptance testing. Reduced-
 The review does not assign an automatic quality score or imply final design approval. No material blocker was found in the revised views and interactions actually inspected. Remaining limits are the shared preview instability, live-account acceptance testing and the separately reported Lovable sync/render status.
 
 Review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/pipeline-management
+
+
+## Supporting controls, 26 October 2026
+
+The owner supplied current product screenshots for three secondary Pipeline controls and approved a compact supporting treatment rather than another large feature chapter.
+
+- **Custom fields:** the current Pipeline Fields UI supports a field name and type, global or selected pipeline-type association, a “Show on Board Card” setting and a required-field setting. The public card explains this as keeping business-specific details on the opportunity and optionally surfacing a value on the board.
+- **Quick actions:** the current Quick Actions UI supports a custom action name, icon and background colour and presents a configurable action beneath those controls. The public card deliberately does not enumerate unverified execution types; it positions the feature as a custom shortcut that keeps repeated work closer to the record.
+- **Tags:** the current Pipeline Tags UI supports named, colour-coded tags. The public treatment uses short prepared labels (VIP, Urgent, Install) to demonstrate scanning and prioritisation without making tags a primary reason to buy Pipeline Management.
+
+These controls are intentionally subordinate to stages, responsibility, next action, customer history and route planning. The section heading is “Make the pipeline fit how you work.” It uses three compact white cards with small UI fragments rather than screenshots or another dashboard-sized demonstration. This preserves the page hierarchy and the owner’s “click less” direction while adding credible depth.
