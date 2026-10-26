@@ -2,6 +2,8 @@
 
 **Latest revision:** the nurture revamp dated 25 October 2026 at the end supersedes earlier compact and installation examples. Earlier positive assessments are historical, not owner approval.
 
+**Colour refinement, 26 October 2026:** the owner requested colour within the small workflow containers and asked whether an AC-like neon border would help. See the local colour/rim entry at the end. This reopens the previously neutral illustration treatment, not the page layout or copy.
+
 
 **Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the 25 October nurture entry and its verification at the end.
 
@@ -295,3 +297,11 @@ Final source checks passed: production build, TypeScript, targeted component/rou
 The screenshot at [nurture-desktop-20261025.jpg](review-assets/automation-builder/nurture-desktop-20261025.jpg) records the final actual opening. It is visual proof of this revision, not an older design or generated mockup. Asset prompts and generation mode are in [automation-nurture-assets-2026-10-25.md](automation-nurture-assets-2026-10-25.md).
 
 Remaining limits: complete lower-page tablet and 320px passes, physical devices/cross-browser testing, assistive technology, separate reduced-motion and JavaScript-disabled browser sessions, and live NextGen execution/delivery. Normal-flow and reduced-motion fallbacks are implemented and source-reviewed. Browser interruptions and stale captures were rejected as proof; no site defect was inferred from them. The editor's independent historical issue cards were not audited or assumed resolved. Lovable remained read-only; no builder prompt or Publish action was used.
+
+## Local workflow colour and luminous rim, 26 October 2026
+
+The owner supplied the current Zapla hero and AC's dark workflow reference, requesting a splash of colour within the small containers and an opinion about a neon border. The existing rendered Zapla hero and current source were inspected. USE colour that distinguishes workflow categories and channels; ADAPT the thin luminous outer edge to the light Zapla page; REJECT the stronger all-over neon halo and separate bright outlines around every node. A monochrome glass-only alternative preserves restraint but remains too uniform for this request. Random colour by day would imply differences the workflow does not establish.
+
+The three alternative starting events share a warm amber glass surface. Messages share cool blue glass, waits use violet, and existing email/SMS/WhatsApp marks gain their own blue/rose/green colour fields. The colours classify actual content rather than inventing a state or adding new icons. A static two-pixel coral-to-blue edge and soft local light separate the board from the page; the necessary connectors remain neutral and no line tracing, border flashing or new animation is added. All labels and accessible channel text remain. The previous scroll progression, copy, photography, card proportions and page structure are retained.
+
+Production build, TypeScript, targeted component/route ESLint, formatting and whitespace checks passed. Refreshed rendered desktop/phone fit, material contrast, the edge/glow strength and anchored emphasis are pending sync and will be recorded below. This is a scoped illustration refinement, not a new product-capability claim or full device certification. No new generated asset is needed.

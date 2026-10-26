@@ -39,15 +39,15 @@ function ChannelChoices() {
       role="group"
       aria-label="Choose email, SMS and/or WhatsApp for this step"
     >
-      <span>
+      <span className="ab-channel-email">
         <Mail size={13} aria-hidden="true" />
         <span className="ab-channel-name">Email</span>
       </span>
-      <span>
+      <span className="ab-channel-sms">
         <MessageSquare size={13} aria-hidden="true" />
         <span className="ab-channel-name">SMS</span>
       </span>
-      <span>
+      <span className="ab-channel-whatsapp">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path fill="currentColor" d={siWhatsapp.path} />
         </svg>

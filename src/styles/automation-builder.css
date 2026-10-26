@@ -138,10 +138,16 @@
   isolation: isolate;
   border-radius: 27px;
   padding: 23px 25px 26px;
-  border: 1px solid #71818e;
-  background: #a9b2bb url("/concept/automation/nurture-material-v2.webp") center / cover;
+  border: 2px solid transparent;
+  background:
+    url("/concept/automation/nurture-material-v2.webp") center / cover padding-box,
+    linear-gradient(135deg, #e8af82 0%, #db91ab 30%, #a7baff 65%, #3977ee 100%) border-box;
+  background-color: #a9b2bb;
   box-shadow:
     inset 0 0 0 1px #ffffffe0,
+    0 0 0 1px #ffffffb3,
+    -6px -4px 24px #e97d621a,
+    8px 12px 28px #2563ff24,
     0 18px 48px #23384c1a;
 }
 .ab-flow-board::before {
@@ -178,16 +184,16 @@
 }
 .ab-entry-events > div {
   padding: 10px 12px 11px;
-  border: 1px solid #ffffffd9;
+  border: 1px solid #fff0ce;
   border-radius: 10px;
-  background: linear-gradient(140deg, #fffffff0, #f4f7f9cf);
+  background: linear-gradient(140deg, #fff8ebf5, #f6dca9e8);
   box-shadow:
     0 4px 10px #25364313,
     inset 0 1px 0 #fff;
 }
 .ab-entry-events span {
   display: block;
-  color: #6c5545;
+  color: #7c4b20;
   font-size: 10px;
   font-weight: 600;
   line-height: 1.4;
@@ -220,9 +226,9 @@
 }
 .ab-message-node {
   padding: 12px 17px 14px;
-  border: 1px solid #ffffffef;
+  border: 1px solid #e2ecff;
   border-radius: 11px;
-  background: linear-gradient(130deg, #ffffffec, #f4f8fbea);
+  background: linear-gradient(130deg, #fffffff5, #dceafbf0);
   box-shadow:
     0 5px 16px #1b354e14,
     inset 0 1px 0 #fff;
@@ -235,7 +241,7 @@
   flex-wrap: wrap;
 }
 .ab-day {
-  color: #6f503b;
+  color: #315d99;
   font-size: 11px;
   font-weight: 700;
   line-height: 1.5;
@@ -248,13 +254,27 @@
   gap: 8px;
   color: #4e626b;
 }
-.ab-channel-choices span {
+.ab-channel-choices > span {
   display: inline-flex;
   align-items: center;
   gap: 3px;
+  padding: 2px 4px;
+  border-radius: 4px;
   font-size: 10px;
   line-height: 1.5;
   white-space: nowrap;
+}
+.ab-channel-email {
+  color: #2456a0;
+  background: #e3ecff;
+}
+.ab-channel-sms {
+  color: #963251;
+  background: #f6e0e8;
+}
+.ab-channel-whatsapp {
+  color: #146544;
+  background: #dbefe3;
 }
 .ab-channel-choices svg {
   width: 13px;
@@ -298,11 +318,11 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  border: 1px solid #dbe5eb;
+  border: 1px solid #dfd5ee;
   border-radius: 7px;
   padding: 5px 11px;
-  background: #f0f3f5;
-  color: #3b4c58;
+  background: #eee7f6;
+  color: #5a456f;
   font-size: 11px;
   line-height: 1.4;
   box-shadow: 0 2px 6px #2938460a;
@@ -353,7 +373,7 @@
 }
 .ab-opening[data-pin="true"] .ab-message-node[data-focus="true"] {
   border-color: #4f6b7d;
-  background: #fff;
+  background: linear-gradient(130deg, #fff, #edf4ff);
   box-shadow:
     0 6px 20px #1c344d1c,
     inset 0 0 0 1px #ffffff;
