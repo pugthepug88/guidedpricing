@@ -43,6 +43,7 @@ import { Route as FeaturesAiChatbotRouteImport } from './routes/features.ai-chat
 import { Route as FeaturesAutomationBuilderRouteImport } from './routes/features.automation-builder'
 import { Route as FeaturesCalendarsBookingsRouteImport } from './routes/features.calendars-bookings'
 import { Route as FeaturesPipelineManagementRouteImport } from './routes/features.pipeline-management'
+import { Route as FeaturesQuotesInvoicesSignaturesRouteImport } from './routes/features.quotes-invoices-signatures'
 import { Route as FeaturesTicketingRouteImport } from './routes/features.ticketing'
 import { Route as FeaturesUnifiedInboxRouteImport } from './routes/features.unified-inbox'
 import { Route as FeaturesWebsitesFunnelsFormsRouteImport } from './routes/features.websites-funnels-forms'
@@ -236,6 +237,12 @@ const FeaturesPipelineManagementRoute =
     path: '/features/pipeline-management',
     getParentRoute: () => rootRouteImport,
   } as any)
+const FeaturesQuotesInvoicesSignaturesRoute =
+  FeaturesQuotesInvoicesSignaturesRouteImport.update({
+    id: '/features/quotes-invoices-signatures',
+    path: '/features/quotes-invoices-signatures',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const FeaturesTicketingRoute = FeaturesTicketingRouteImport.update({
   id: '/features/ticketing',
   path: '/features/ticketing',
@@ -330,6 +337,7 @@ export interface FileRoutesByFullPath {
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
+  '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
   '/features/ticketing': typeof FeaturesTicketingRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -377,6 +385,7 @@ export interface FileRoutesByTo {
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
+  '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
   '/features/ticketing': typeof FeaturesTicketingRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -425,6 +434,7 @@ export interface FileRoutesById {
   '/features/automation-builder': typeof FeaturesAutomationBuilderRoute
   '/features/calendars-bookings': typeof FeaturesCalendarsBookingsRoute
   '/features/pipeline-management': typeof FeaturesPipelineManagementRoute
+  '/features/quotes-invoices-signatures': typeof FeaturesQuotesInvoicesSignaturesRoute
   '/features/ticketing': typeof FeaturesTicketingRoute
   '/features/unified-inbox': typeof FeaturesUnifiedInboxRoute
   '/features/websites-funnels-forms': typeof FeaturesWebsitesFunnelsFormsRoute
@@ -474,6 +484,7 @@ export interface FileRouteTypes {
     | '/features/automation-builder'
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
+    | '/features/quotes-invoices-signatures'
     | '/features/ticketing'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -521,6 +532,7 @@ export interface FileRouteTypes {
     | '/features/automation-builder'
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
+    | '/features/quotes-invoices-signatures'
     | '/features/ticketing'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -568,6 +580,7 @@ export interface FileRouteTypes {
     | '/features/automation-builder'
     | '/features/calendars-bookings'
     | '/features/pipeline-management'
+    | '/features/quotes-invoices-signatures'
     | '/features/ticketing'
     | '/features/unified-inbox'
     | '/features/websites-funnels-forms'
@@ -616,6 +629,7 @@ export interface RootRouteChildren {
   FeaturesAutomationBuilderRoute: typeof FeaturesAutomationBuilderRoute
   FeaturesCalendarsBookingsRoute: typeof FeaturesCalendarsBookingsRoute
   FeaturesPipelineManagementRoute: typeof FeaturesPipelineManagementRoute
+  FeaturesQuotesInvoicesSignaturesRoute: typeof FeaturesQuotesInvoicesSignaturesRoute
   FeaturesTicketingRoute: typeof FeaturesTicketingRoute
   FeaturesUnifiedInboxRoute: typeof FeaturesUnifiedInboxRoute
   FeaturesWebsitesFunnelsFormsRoute: typeof FeaturesWebsitesFunnelsFormsRoute
@@ -870,6 +884,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeaturesPipelineManagementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/features/quotes-invoices-signatures': {
+      id: '/features/quotes-invoices-signatures'
+      path: '/features/quotes-invoices-signatures'
+      fullPath: '/features/quotes-invoices-signatures'
+      preLoaderRoute: typeof FeaturesQuotesInvoicesSignaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/features/ticketing': {
       id: '/features/ticketing'
       path: '/features/ticketing'
@@ -985,6 +1006,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesAutomationBuilderRoute: FeaturesAutomationBuilderRoute,
   FeaturesCalendarsBookingsRoute: FeaturesCalendarsBookingsRoute,
   FeaturesPipelineManagementRoute: FeaturesPipelineManagementRoute,
+  FeaturesQuotesInvoicesSignaturesRoute: FeaturesQuotesInvoicesSignaturesRoute,
   FeaturesTicketingRoute: FeaturesTicketingRoute,
   FeaturesUnifiedInboxRoute: FeaturesUnifiedInboxRoute,
   FeaturesWebsitesFunnelsFormsRoute: FeaturesWebsitesFunnelsFormsRoute,
