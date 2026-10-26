@@ -62,7 +62,9 @@ function EnquiryOpening() {
         <div className="cb-hero-layout">
           <header className="cb-hero-copy">
             <p className="cb-eyebrow">AI Chatbot</p>
-            <h1 id="chatbot-title">Answer the question. Capture the enquiry.</h1>
+            <h1 id="chatbot-title">
+              <span>Answer the question.</span> <span>Capture the enquiry.</span>
+            </h1>
             <p>
               You’re with a customer. Your next enquiry is on your website. Let Zapla answer, find
               out what they need and collect their details, even after hours.

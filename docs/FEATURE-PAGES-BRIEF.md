@@ -405,3 +405,12 @@ Remove public “illustrative/example” disclaimers, placeholder addresses and 
 The broader source sweep also removes fictitious addresses from the homepage's contact scenes and the CRM page, including retained journey variants. Keep the customer's name and useful enquiry context, preserve row geometry and existing animation timing, and retain the actual Zapla business email.
 
 This instruction supersedes earlier requirements to label every product scene publicly. Data provenance, sources, review scores and execution limits belong in internal evidence/review records; setup/usage terms and required asset attribution remain. Exact rendered checks and limits are recorded in `CALENDARS-CLARITY-REVIEW-20261026.md`. GitHub remains the source of truth; Lovable stays read-only, with no builder prompt or separate Publish action.
+
+
+## AI Chatbot interface scale and composition, 26 October 2026
+
+The owner rejected the commercial-substance version as oversized and visually empty after supplying complete Zapla and Birdeye screenshots. This supersedes its broad transcript, standalone acknowledgement scene and large pinned calendar/confirmation, not the H1, final CTA, supported capabilities or shared architecture. Code-check success and the previous review do not establish visual approval.
+
+Group the promise/copy/CTA beside a compact website widget and smaller enquiry record. Keep the original request, supplied contact details, chosen stage and configured acknowledgement together. A source library, structured information excerpt and focused answer explain business knowledge. Booking is one normally flowing conversation-to-appointment scene with explicit customer agreement and one result; remove the scroll enhancement entirely. Retain the unique lower photograph with a smaller conditional exchange, actual Guided Launch controls, practical FAQs and the established final CTA/sky. Reduce secondary heading scale and internal padding without making the surrounding body copy smaller.
+
+ADAPT Birdeye's compact interfaces within larger compositions and useful operational detail. REJECT copied claims, reviews, metrics, navigation, imagery and unverified features. Exact rationale, lens judgements, rendered checks and remaining limits belong in AI-CHATBOT-COMPOSITION-20261026.md. GitHub owns source changes; Lovable remains read-only. Shared header/footer, Platform, route/indexing and /booking are preserved. No separate production Publish action.
