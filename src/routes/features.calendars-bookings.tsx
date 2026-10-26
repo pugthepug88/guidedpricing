@@ -8,7 +8,7 @@ export const Route = createFileRoute("/features/calendars-bookings")({
       {
         name: "description",
         content:
-          "Offer 1-on-1, group, collective, round robin and event bookings, set availability, and host native video meetings with Zapla’s Meeting Rooms.",
+          "Offer five booking formats and host native video meetings in Zapla, with saved recordings and transcripts connected to attendees in your CRM.",
       },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Calendars & Bookings | Zapla" },
