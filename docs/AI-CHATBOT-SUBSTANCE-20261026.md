@@ -78,3 +78,10 @@ These are separate review passes by the implementation agent, not independent pe
 This revision improves the commercial argument and example quality; it does not close Birdeye's real customer-evidence advantage. Private account access remains blocked by automatic approval review, so real tenant screenshots, a recorded live journey and live-product reliability tests were not obtained or fabricated. Explicit read-only account authorisation is needed for those assets. There is no independent-agent, physical-device, cross-browser or screen-reader sign-off. Reduced-motion and no-JavaScript fallbacks were inspected in source rather than separate browser modes. The page is ready for owner review; no automatic 9/10 claim is made.
 
 Proof: [qa/ai-chatbot-substance-20261026.png](qa/ai-chatbot-substance-20261026.png).
+
+
+## Main and Lovable delivery verified
+
+PR #189 merged to main as `5504d8287a66b7d9fc1be1bd7dbf51e719b4231e`, preserving the newer Calendar meeting-recording/transcript work in `19c199c01aab8faf187fc41cb44994ee287eef4a`. The integrated production build, TypeScript, targeted lint, SEO policy and whitespace checks passed; the merge's Workers build also succeeded.
+
+Lovable metadata reported the merge ready. The first direct reload was stale; a subsequent reload visibly showed the five-message enquiry, AI-labelled chat header, configured acknowledgement, final handover heading and new knowledge choices. The assessment question updated its source and prepared answer on the actual Lovable route. Following the final CTA reached `/booking`, displaying “Let’s talk about your business.” and the existing email scheduling fallback (“Online scheduling is coming soon.”). No message or booking was submitted. The browser was returned to the revised Chatbot preview and temporary viewport overrides were reset. No Lovable builder prompt or production Publish action was used.
