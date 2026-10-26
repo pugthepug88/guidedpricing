@@ -650,6 +650,16 @@ export function AICreation() {
                         ? "instant"
                         : "smooth",
                     });
+                  } else if (
+                    scene.current &&
+                    scene.current.getBoundingClientRect().height < window.innerHeight - 110
+                  ) {
+                    scene.current.scrollIntoView({
+                      block: "center",
+                      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                        ? "instant"
+                        : "smooth",
+                    });
                   }
                 }}
               >
@@ -724,7 +734,7 @@ export function FunnelBuilder() {
         <div>
           <p className="wff-eyebrow">Funnels &amp; A/B testing</p>
           <h2 id="wff-funnel-title">
-            Give your offer a path.
+            Connect your pages.
             <br />
             Test what works.
           </h2>
