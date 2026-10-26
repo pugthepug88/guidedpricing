@@ -30,3 +30,51 @@ An attempt to open the signed-in NextGen application was rejected by automatic a
 ## Initial verification
 
 Production build, TypeScript, targeted ESLint, SEO policy, formatting and changed-file whitespace checks pass. Dependencies were installed locally without altering the repository manifest or lockfile. The local Vite server runs on 127.0.0.1:4173, but the connected browser reports connection refused; a GitHub draft preview is required for rendered QA. Initial branch publication is to obtain that preview, not a claim of visual completion. Fresh desktop/tablet/phone, interaction, native scroll, overflow and whole-page role assessments are pending below.
+
+## Rendered review completed
+
+Final product source: `bd57323f3d8cb079f930d92a0cd10f1683641818`. Its Workers build succeeded and the version preview was inspected directly at `https://8520eca7-guidedpricing.jinrcao.workers.dev/features/ai-chatbot`. Earlier walkthrough coverage used `d4ff12c9e305cdf3b86ba0d5edeaf5e9b5ae5cb5`; the final version was rechecked for the specific changed headings, header, knowledge density and cost/setup wording. This supersedes the pending rendered-review status above.
+
+Corrections during the browser pass:
+
+- Tightened the source-document spacing to keep useful information and its answer closer together.
+- Replaced the long booking and human headings with two-line phrases that fit the phone layout.
+- Replaced an awkwardly wrapping assessment title with “What we check”.
+- Removed the repeated follow-up paragraph.
+- Identified the illustrated website chat explicitly as AI.
+- Aligned the launch note with Pricing: Guided Launch is required for a new standard setup and priced separately. The cost FAQ explains what must be confirmed before starting without inventing an AI allowance.
+
+### Coverage and observed results
+
+- **1707 × 769 wide desktop:** opening, benefits, configured pipeline/email, each source/answer choice, booking, fresh work photo/handover and launch composition. The height uses normal-flow booking fallback.
+- **1366 × 900 final source:** full opening, keyboard question selection, cost disclosure and final hero capture. Tab moved from the first knowledge choice to the second; Enter changed the source and prepared answer together. The cost FAQ opened by click and closed with Enter.
+- **1101 × 820 final source:** measured calendar scene 614px high. At entry it was enhanced and pending with its top at 445px. After native scrolling it was booked with its top at 110px and the agreement at 549px. On release its top was -189px and the human section began at 495px. Reverse scrolling retained the completed state. The complete calendar scene fits below the fixed header. No wheel interception, snapping or nested transcript scrolling is used.
+- **1366 × 720 final source:** enhancement disabled; the result remains fully visible at opacity 1 in ordinary flow; no horizontal overflow.
+- **834 × 900 final source:** opening/contact, all knowledge controls and updated answer, booking offer/agreement, human section and photograph. The two people remain unobstructed. Main-text/control geometry found no horizontal overflow or clipping. This is key-scene tablet coverage, not every lower-page tablet interaction.
+- **393 × 852 phone:** complete walkthrough from the first question through the provided details/contact, benefits, configured email, knowledge, offered/agreed appointment, calendar/result, human photo/question, launch plan, expanded form FAQ, final CTA and sky. Final-source hero and cost disclosure were rechecked after the compact-copy edits. All main images loaded; main text/control geometry found no clipping or horizontal overflow.
+- **320 × 852 final source:** opening, expanded knowledge state and all main text/control geometry; no clipping or horizontal overflow. The final header subtitle wraps normally. This is targeted narrow-screen review, not a complete interaction matrix.
+
+All three page sales CTAs target /booking. No actual message, contact, AI call or appointment was created. The public-page controls change only the prepared walkthrough. The final call destination is checked after main/Lovable sync below.
+
+### Lens assessments
+
+These are separate review passes by the implementation agent, not independent people or customer research.
+
+| Lens                  | Finding and practical limit                                                                                                                                                                                                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| UI/UX                 | Explicit request for contact details and readable continuous phone order. Controls retain focus, and the inspected responsive layouts have no clipped main text.                                                                                                                                        |
+| Brand / Creative      | The local silver/blue material, recognisable chat header, separate dark contact outcome and unobstructed page-specific work photograph make a clearer product composition. Shared Zapla typography, petal, palette and closing remain. This is still an illustration rather than an exact product skin. |
+| Product Marketing     | Three practical benefits, relevant qualification, original enquiry context, a concrete configured acknowledgement and informative business answers. The unverified generic task example is removed.                                                                                                     |
+| Conversion            | The page explains what chat adds to a form and how chat, CRM and follow-up connect. Setup/cost qualification and the business-question call invitation remain concrete. No conversion uplift is claimed.                                                                                                |
+| Motion                | One measured native booking hold; agreement precedes the animated result; natural release and persistent completion on reverse. Shorter/tablet/phone layouts stay readable without enhancement.                                                                                                         |
+| SME owner / frontline | The owner sees which questions are handled, which details are gathered, what acknowledgement can go out and when the team remains involved. No immediate staff response or guaranteed warm lead is promised.                                                                                            |
+| Copy / awareness      | Busy-team context introduces the problem; qualification and practical answers show the solution; connected contact/pipeline/email explains Zapla's role; setup, usage qualification and final CTA support the next decision. No awareness-labelled sections or generic headcount claims.                |
+| Buyer psychology      | Source material, explicit contact disclosure, booking agreement and a human exception address control. Actual product reliability and customer outcomes remain unproven here.                                                                                                                           |
+| AI-slop critique      | No fake input/send/save controls, invented dashboard figures, badges, arrows, pastel icon tiles or new decorative motion. Every foreground surface represents the chat, contact, configured email, knowledge, booking or team context.                                                                  |
+| Technical             | Production build and final-source deployment, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Browser checks exercise the page, not the underlying CRM.                                                                                                                 |
+
+### Remaining limits
+
+This revision improves the commercial argument and example quality; it does not close Birdeye's real customer-evidence advantage. Private account access remains blocked by automatic approval review, so real tenant screenshots, a recorded live journey and live-product reliability tests were not obtained or fabricated. Explicit read-only account authorisation is needed for those assets. There is no independent-agent, physical-device, cross-browser or screen-reader sign-off. Reduced-motion and no-JavaScript fallbacks were inspected in source rather than separate browser modes. The page is ready for owner review; no automatic 9/10 claim is made.
+
+Proof: [qa/ai-chatbot-substance-20261026.png](qa/ai-chatbot-substance-20261026.png).
