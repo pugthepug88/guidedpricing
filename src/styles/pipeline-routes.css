@@ -214,20 +214,125 @@
 }
 
 .zapla-pipeline .pr-phone {
-  width: min(100%, 320px);
+  position: relative;
+  width: min(calc(100% - 6px), 312px);
   margin-inline: auto;
-  padding: 20px 20px 18px;
-  border: 6px solid #121b17;
-  border-radius: 34px;
-  background: #fff;
+  padding: 5px;
+  border: 1px solid #929b95;
+  border-radius: 43px;
+  background: linear-gradient(135deg, #87918a, #434d46 24%, #151e18 65%, #717d74);
   color: #111318;
   box-shadow:
-    0 0 0 1px #597062,
-    0 14px 28px #09181133;
+    inset 0 0 0 1px #ffffff26,
+    0 0 0 1px #0c1510,
+    0 18px 36px #09181140;
+}
+
+.zapla-pipeline .pr-phone::before,
+.zapla-pipeline .pr-phone::after {
+  position: absolute;
+  width: 3px;
+  border: 1px solid #929c94;
+  border-radius: 2px;
+  background: #647067;
+  content: "";
+}
+
+.zapla-pipeline .pr-phone::before {
+  top: 108px;
+  left: -3px;
+  height: 46px;
+}
+
+.zapla-pipeline .pr-phone::after {
+  top: 130px;
+  right: -3px;
+  height: 35px;
+}
+
+.zapla-pipeline .pr-phone-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+  overflow: hidden;
+  border: 5px solid #101913;
+  border-radius: 37px;
+  background: #fff;
+}
+
+.zapla-pipeline .pr-phone-sensors {
+  display: flex;
+  flex: 0 0 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.zapla-pipeline .pr-phone-sensors::before {
+  width: 34px;
+  height: 3px;
+  border-radius: 2px;
+  background: #26352c;
+  content: "";
+}
+
+.zapla-pipeline .pr-phone-sensors::after {
+  width: 5px;
+  height: 5px;
+  border: 1px solid #5f7164;
+  border-radius: 50%;
+  background: #16251c;
+  content: "";
+}
+
+.zapla-pipeline .pr-phone-app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 18px;
+  background: #1e2b29;
+  color: #f5f8f4;
+}
+
+.zapla-pipeline .pr-phone-app-header img {
+  display: block;
+  width: 67px;
+  height: auto;
+}
+
+.zapla-pipeline .pr-phone-app-header > span {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.zapla-pipeline .pr-phone-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: 19px 18px 16px;
+}
+
+.zapla-pipeline .pr-phone-home {
+  display: flex;
+  flex: 0 0 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.zapla-pipeline .pr-phone-home::before {
+  width: 78px;
+  height: 4px;
+  border-radius: 4px;
+  background: #17251c;
+  content: "";
 }
 
 .zapla-pipeline .pr-maps-handoff {
-  margin-top: 16px;
+  margin-top: auto;
+  padding-top: 16px;
 }
 
 .zapla-pipeline .pr-maps-handoff > strong {
@@ -357,7 +462,12 @@
     margin: 0;
   }
 
-  .zapla-pipeline .pr-phone {
-    padding-inline: 17px;
+  .zapla-pipeline .pr-phone-screen {
+    min-height: 0;
+  }
+
+  .zapla-pipeline .pr-phone-app-header,
+  .zapla-pipeline .pr-phone-content {
+    padding-inline: 14px;
   }
 }

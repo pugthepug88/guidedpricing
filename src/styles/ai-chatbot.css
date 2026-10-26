@@ -132,12 +132,12 @@
 .cb-hero-layout {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
-  gap: 56px;
+  gap: 48px;
   align-items: center;
 }
 .cb-hero-copy h1 {
-  max-width: 480px;
-  font-size: clamp(46px, 4vw, 54px);
+  max-width: 510px;
+  font-size: clamp(44px, 4vw, 52px);
   line-height: 1.02;
   letter-spacing: -0.052em;
 }

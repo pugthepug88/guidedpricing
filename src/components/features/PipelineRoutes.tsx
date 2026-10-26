@@ -105,13 +105,29 @@ export function PipelineRoutes() {
 
             <div className="pr-route-side">
               <div className="pr-phone" id="pipeline-route-phone">
-                <h3>{ROUTE.title}</h3>
-                <PipelineSource />
-                <RouteDetails />
-                <RouteStops />
-                <div className="pr-maps-handoff">
-                  <strong>Directions in Google Maps</strong>
-                  <p>The same stops, on your phone.</p>
+                <div className="pr-phone-screen">
+                  <div className="pr-phone-sensors" aria-hidden="true" />
+                  <div className="pr-phone-app-header">
+                    <img
+                      src="/concept/zapla-logo-white.png"
+                      alt="Zapla"
+                      width="67"
+                      height="21"
+                      loading="lazy"
+                    />
+                    <span>Routes</span>
+                  </div>
+                  <div className="pr-phone-content">
+                    <h3>{ROUTE.title}</h3>
+                    <PipelineSource />
+                    <RouteDetails />
+                    <RouteStops />
+                    <div className="pr-maps-handoff">
+                      <strong>Directions in Google Maps</strong>
+                      <p>The same stops, on your phone.</p>
+                    </div>
+                  </div>
+                  <div className="pr-phone-home" aria-hidden="true" />
                 </div>
               </div>
             </div>
