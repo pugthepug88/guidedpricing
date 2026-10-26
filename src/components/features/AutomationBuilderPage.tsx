@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowDown, ArrowRight, ChevronDown, Clock3, Mail, MessageSquare } from "lucide-react";
 import { siWhatsapp } from "simple-icons";
+import { AutomationAiDemo } from "./AutomationAiDemo";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/automation-builder.css";
@@ -67,7 +68,6 @@ function WorkflowBoard({ phase, introduced }: { phase: number; introduced: boole
       <div className="ab-board-heading">
         <ZaplaPetal size={25} />
         <span>New enquiry nurture</span>
-        <small>Draft</small>
       </div>
       <p className="ab-entry-label">Start with one of these events</p>
       <div className="ab-entry-events" aria-label="Alternative workflow starting events">
@@ -120,9 +120,6 @@ function WorkflowBoard({ phase, introduced }: { phase: number; introduced: boole
           </div>
         ))}
       </div>
-      <p className="ab-draft-note">
-        Review the messages, timing and connections before activation.
-      </p>
     </div>
   );
 }
@@ -133,7 +130,6 @@ function OpeningStory() {
   const [canPin, setCanPin] = useState(false);
   const [phase, setPhase] = useState(0);
   const [introduced, setIntroduced] = useState(false);
-  const [buildVersion, setBuildVersion] = useState(0);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -204,27 +200,14 @@ function OpeningStory() {
             the routine work.
           </h1>
           <p className="ab-hero-description">
-            Describe a routine process and let AI build a workflow draft. Review the messages,
-            timing and customer updates, or build it visually yourself.
+            An enquiry comes in. The next steps are ready. Build workflows that send the messages,
+            update customer details and keep the next steps moving, with timing and channels you
+            choose.
           </p>
-          <div className="ab-ai-request" aria-label="Instructions for the AI Flow Builder">
-            <span>Your request to Zapla</span>
-            <p>
-              Build a nurture for new enquiries. Send a welcome now, useful information after 2
-              days, then an invitation 3 days later.
-            </p>
-          </div>
           <div className="ab-actions">
             <BookingLink />
-            <a
-              className="ab-text-link"
-              href="#automation-workflow"
-              onClick={() => {
-                setIntroduced(true);
-                setBuildVersion((current) => current + 1);
-              }}
-            >
-              See the draft take shape
+            <a className="ab-text-link" href="#automation-workflow">
+              Follow the sequence
               <ArrowDown size={16} aria-hidden="true" />
             </a>
           </div>
@@ -235,36 +218,30 @@ function OpeningStory() {
           aria-label="A configured nurture sequence with alternative starting events and messages on days zero, two and five"
         >
           <div className="ab-scene-stick" ref={boardRef}>
-            <WorkflowBoard key={buildVersion} phase={phase} introduced={introduced} />
+            <WorkflowBoard phase={phase} introduced={introduced} />
           </div>
         </div>
         <div className="ab-story-notes">
           <article className="ab-story-beat" data-beat="1">
-            <p className="ab-eyebrow">AI builds. You review.</p>
-            <h2>A starting point you can make your own.</h2>
+            <p className="ab-eyebrow">Two days later</p>
+            <h2>Give them something useful.</h2>
             <p>
-              AI adds the steps and connections. You can change the copy, adjust a wait or add a
-              condition before the workflow goes live.
+              Send the information that helps someone decide: what’s included, their options or
+              answers to common questions.
             </p>
-            <div
-              className="ab-review-setting"
-              aria-label="Reviewing the second message in the draft"
-            >
-              <span>Review the second message</span>
-              <dl>
-                <div>
-                  <dt>Wait before sending</dt>
-                  <dd>2 days</dd>
-                </div>
-                <div>
-                  <dt>Message</dt>
-                  <dd>{nurtureSteps[1].message}</dd>
-                </div>
-              </dl>
-            </div>
             <p className="ab-beat-detail">
-              Choose email, SMS or WhatsApp for each step. Agree the entry rules, reply handling and
-              where a person gets involved before activation.
+              Choose email, SMS or WhatsApp for each step, or combine channels where it suits the
+              process.
+            </p>
+          </article>
+          <article className="ab-story-beat" data-beat="2">
+            <p className="ab-eyebrow">Three days after that</p>
+            <h2>Make the next step easy.</h2>
+            <p>
+              Invite a question or share your booking link. Agree where your team should take over.
+            </p>
+            <p className="ab-beat-detail">
+              You agree the entry rules, timing and reply handling before the workflow goes live.
             </p>
           </article>
         </div>
@@ -275,68 +252,8 @@ function OpeningStory() {
 
 function EditorialChapter() {
   return (
-    <section className="ab-editorial" aria-labelledby="ab-possibilities-heading">
+    <section className="ab-editorial" aria-labelledby="ab-people-heading">
       <div className="ab-wrap">
-        <div className="ab-range-heading">
-          <div>
-            <p className="ab-eyebrow">Rules around the way you work</p>
-            <h2 id="ab-possibilities-heading">Choose what happens next.</h2>
-          </div>
-          <p>
-            Use customer information to choose a path. Start workflows from the sales, booking and
-            service events that matter to your business.
-          </p>
-        </div>
-        <div className="ab-rule-range">
-          <figure
-            className="ab-condition-scene"
-            aria-label="A configured condition uses a contact preference supplied by an enquiry form: email leads to an email, SMS leads to an SMS."
-          >
-            <figcaption>Your enquiry form supplies a contact preference: Email or SMS.</figcaption>
-            <div className="ab-condition-question">
-              <span>Check the contact preference</span>
-              <h3>Email preferred?</h3>
-            </div>
-            <div className="ab-condition-paths">
-              <div>
-                <span className="ab-path-label">Yes</span>
-                <div>
-                  <Mail size={17} aria-hidden="true" />
-                  <strong>Send email</strong>
-                </div>
-              </div>
-              <div>
-                <span className="ab-path-label">No · SMS selected</span>
-                <div>
-                  <MessageSquare size={17} aria-hidden="true" />
-                  <strong>Send SMS</strong>
-                </div>
-              </div>
-            </div>
-            <p>You set the criteria. Each path has its own next step.</p>
-          </figure>
-          <div className="ab-event-range">
-            <h3>Start from an event. Connect the next action.</h3>
-            <dl>
-              <div>
-                <dt>Quote accepted</dt>
-                <dd>Convert the quote to an invoice</dd>
-              </div>
-              <div>
-                <dt>Appointment booked</dt>
-                <dd>Schedule a reminder before the appointment</dd>
-              </div>
-              <div>
-                <dt>Opportunity changes stage</dt>
-                <dd>Update its details or add team members</dd>
-              </div>
-              <div>
-                <dt>Support ticket stalls</dt>
-                <dd>Add the people who should handle it</dd>
-              </div>
-            </dl>
-          </div>
-        </div>
         <figure className="ab-work-photo">
           <img
             src="/concept/automation/print-studio-v2.webp"
@@ -345,8 +262,10 @@ function EditorialChapter() {
             height={724}
             loading="lazy"
           />
+          <figcaption>
+            <h2 id="ab-people-heading">Keep your team on the work that needs them.</h2>
+          </figcaption>
         </figure>
-        <p className="ab-photo-caption">Keep your team on the work that needs them.</p>
       </div>
     </section>
   );
@@ -460,24 +379,27 @@ export function AutomationBuilderPage() {
   return (
     <main className="zapla-feature zapla-automation">
       <OpeningStory />
+      <AutomationAiDemo />
       <EditorialChapter />
       <WorkflowSetup />
       <section className="ab-faq" aria-labelledby="ab-faq-heading">
-        <div className="ab-wrap ab-faq-grid">
-          <div>
-            <p className="ab-eyebrow">Before you get started</p>
-            <h2 id="ab-faq-heading">A few practical questions.</h2>
-          </div>
-          <div>
-            {faqs.map(([question, answer]) => (
-              <details key={question}>
-                <summary>
-                  {question}
-                  <ChevronDown size={18} aria-hidden="true" />
-                </summary>
-                <p>{answer}</p>
-              </details>
-            ))}
+        <div className="ab-wrap">
+          <div className="ab-faq-panel ab-faq-grid">
+            <div>
+              <p className="ab-eyebrow">Before you get started</p>
+              <h2 id="ab-faq-heading">A few practical questions.</h2>
+            </div>
+            <div>
+              {faqs.map(([question, answer]) => (
+                <details key={question}>
+                  <summary>
+                    {question}
+                    <ChevronDown size={18} aria-hidden="true" />
+                  </summary>
+                  <p>{answer}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </div>
       </section>
