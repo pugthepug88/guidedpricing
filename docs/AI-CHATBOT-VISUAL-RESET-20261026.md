@@ -20,6 +20,8 @@ No real product captures were supplied and no private account inspection is auth
 
 ## Assets
 
+Final project files are saved at `/workspace/scratch/f1a59e780d84/chatbot-reset/public/concept/features/chatbot-clinic-interior-20261026.webp` and `/workspace/scratch/f1a59e780d84/chatbot-reset/public/concept/features/chatbot-clinic-care-20261026.webp`.
+
 Built-in image generation was used for two new page-specific raster assets. The originals remain in generated_images; web assets are encoded as WebP without content alteration. CSS handles responsive framing. No bitmap UI or text is baked into the photographs.
 
 - /concept/features/chatbot-clinic-interior-20261026.webp, 1536 × 1024, 181548 bytes: website context.
@@ -63,5 +65,9 @@ Observed review:
 
 These are the implementation agent's own judgements, not independent director reviews, owner approval or customer research. Limits: Chrome marketing-page checks; no physical-device/cross-browser matrix, screen reader session, live product acceptance, AI answer-quality test, tenant UI fidelity claim or measured conversion result. Reduced-motion/no-JavaScript were reviewed in source without separate browser modes. No signed-in account was inspected.
 
-Actual Lovable sync and final screenshot are recorded after merge. A successful branch build is not by itself proof that Lovable displays the revision.
+PR #199 merged as bb07d63c3ddd8d414e991698429ff9bd835ef7e6 and its Workers build succeeded. Lovable metadata reported ready at that commit. Separately, the actual route was reloaded and visibly showed the new website, 265px widget and loaded clinic photograph. The native booking anchor was followed there; its new clinician image loaded at the final 500px desktop height, beside the agreed appointment. These rendered observations establish sync independently of metadata. No builder prompt or separate Lovable Publish action was used.
+
+Final actual-Lovable proof: [opening](qa/ai-chatbot-visual-reset-20261026.png) and [booking scene](qa/ai-chatbot-visual-reset-booking-20261026.png).
+
+Review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ai-chatbot
 
