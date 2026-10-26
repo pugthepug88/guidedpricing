@@ -465,7 +465,7 @@ The heading **Build the workflow your business needs.** and own-process support 
 
 ### Rendered and interaction evidence
 
-Product-code revision: `c5362e0a9332f9ad25e2fd481c5aab64909e2ea0`. This merge preserves current main, including the Pipeline and Calendar work. TypeScript, targeted ESLint, formatting, SEO policy, whitespace and production build checks passed. Cloudflare Workers and Vercel preview checks passed on this revision.
+Product-code revision: `c5362e0a9332f9ad25e2fd481c5aab64909e2ea0`. This product-code merge preserves the Calendar work. Final integration also preserves main `ffc10f4c2d5575c72922240b8ad971088eac61aa`, including the later Pipeline and Chatbot revisions, without changing Automation source. TypeScript, targeted ESLint, formatting, SEO policy, whitespace and production build checks passed. Cloudflare Workers and Vercel preview checks passed on this revision.
 
 All eight selected requests and graphs were inspected in the initial branch preview. The final playback revision was checked again for ready, typing, building and complete states, the longest nurture graph, the appointment graph, and replacing an unfinished reactivation with the invoice graph. Enter activates choices; focus moves to the persistent Watch control; exactly one choice is pressed. The return link goes back to the ideas. No console warnings/errors were captured in the final interaction check.
 
