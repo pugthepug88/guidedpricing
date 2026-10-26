@@ -21,7 +21,7 @@ const FAQS = [
   {
     question: "What is the difference between a website and a funnel?",
     answer:
-      "A website gives visitors several ways to explore your business, such as services, work and contact pages. A funnel connects pages around a particular action, such as enquiring about an offer and then choosing a consultation. Both can use your forms and booking calendars.",
+      "A website gives visitors several ways to explore your business, such as services, work and contact pages. A funnel connects pages around a particular action, such as enquiring about an offer and then choosing a consultation. Both can use your forms and link to a booking page.",
   },
   {
     question: "Can AI help me build?",
@@ -462,6 +462,9 @@ function LaunchAndQuestions() {
 export function WebsitesFunnelsFormsPage() {
   return (
     <main className="zapla-feature zapla-websites">
+      <noscript>
+        <style>{".wff-editor-fields, .wff-watch { display: none !important; }"}</style>
+      </noscript>
       <section className="wff-hero wff-shell" aria-labelledby="wff-title">
         <div className="wff-hero-copy">
           <p className="wff-eyebrow">Websites, Funnels &amp; Forms</p>

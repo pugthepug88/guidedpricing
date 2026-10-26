@@ -185,7 +185,7 @@
   width: 100%;
   height: 221px;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center 15%;
 }
 .wff-site-content {
   padding: 25px 28px 27px;
@@ -693,7 +693,7 @@
 .wff-publishing {
   display: grid;
   grid-template-columns: 0.85fr 1.15fr;
-  gap: 95px;
+  gap: 26px 95px;
 }
 .wff-publish-intro h2 {
   margin-top: 19px;
@@ -736,7 +736,7 @@
   grid-column: 2;
   color: #687269;
   font-size: 12px;
-  margin-top: -61px !important;
+  margin-top: 0 !important;
 }
 .wff-campaign-link a {
   color: #325875;
@@ -1082,7 +1082,7 @@
     font-size: 27px;
   }
   .wff-campaign-link {
-    margin-top: -10px !important;
+    margin-top: 0 !important;
   }
   .wff-launch-layout {
     grid-template-columns: 1fr;
@@ -1102,6 +1102,9 @@
   }
 }
 @media (max-width: 600px) {
+  .wff-watch {
+    display: none;
+  }
   .wff-shell {
     width: calc(100% - 40px);
   }
