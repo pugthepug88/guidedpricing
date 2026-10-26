@@ -191,7 +191,7 @@ function CalendarOpening({
   const [enhanced, setEnhanced] = useState(false);
   useEffect(() => {
     const media = window.matchMedia(
-      "(min-width: 1100px) and (min-height: 800px) and (prefers-reduced-motion: no-preference)",
+      "(min-width: 1100px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)",
     );
     let frame = 0;
     const update = () => {

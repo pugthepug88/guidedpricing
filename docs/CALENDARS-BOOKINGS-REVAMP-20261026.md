@@ -63,3 +63,9 @@ These are the implementer's role-based judgements after rendered review/correcti
 Started from `a6e5066`, then fast-forwarded to main `29b3e24`, retaining the concurrent neutral Automation correction and its review. Only calendar source/assets and related design/review documents change. Temporary preview-host configuration is restored before the production build; the responsive harness is excluded from Git.
 
 Production build, TypeScript, targeted component ESLint, SEO policy, source/review formatting and whitespace checks passed. Existing dependency/build warnings did not fail the build. Hosted Lovable verification is recorded at handoff separately from local rendered QA. Lovable remains read-only: no builder prompt, AI review, credit-consuming task or production Publish action.
+
+## Hosted short-desktop correction
+
+The first merged version synced to Lovable at `e1f22966`. The actual owner-browser viewport was 1707 × 769 CSS pixels; a viewport override did not change that measured size. The full 753px scene correctly fell back to ordinary flow, but did not fulfil the intended connected opening at this common desktop height. A compact desktop layout now puts confirmation and reminder beside each other within their single dark surface and tightens the calendar spacing. The enhancement threshold is 720px, with the measured fit guard retained. Screens below that height retain ordinary flow. This correction does not alter mobile/tablet layouts or product claims.
+
+The compact layout was rendered at 1320 × 769: scene height 613.1px, no horizontal overflow, enhancement true. During the follow-through explanation its complete frame stayed at y=88–701px. [Compact desktop capture](review-assets/calendars-bookings/compact-hero-20261026.jpg).
