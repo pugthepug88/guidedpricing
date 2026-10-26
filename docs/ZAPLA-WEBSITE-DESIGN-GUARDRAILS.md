@@ -206,3 +206,9 @@ The owner rejected repeated “illustrative”, “example”, “sample”, no-
 - A contact-data scene can show that an email was shared/captured without printing an address. Preserve visible cause and effect: data is supplied before it appears on the resulting record.
 - Retain meaningful field labels, setup/usage pricing terms and required asset attribution. Those serve a real decision or licence obligation rather than annotating a prototype.
 - Do not remove safeguards or introduce fake submissions, live sends, bookings or service calls merely because visible disclaimers are removed. Do not present prepared dialogue as a real testimonial or invented metrics as evidence.
+
+## Pipeline coloured headers and recognisable phone, 26 October 2026
+
+The owner explicitly reopened the earlier neutral first-three-stage treatment. Use distinct coral, gold, teal, steel-blue and green headings across the five rectangular Pipeline columns, with readable contrast and white card bodies. Do not restore arrow caps or expand stage colours into whole-page backgrounds.
+
+For the route handoff, a recognisable phone silhouette and separated app header have a clear explanatory purpose. A restrained physical rim, inset screen, speaker/camera, side keys and home indicator are allowed here; keep them decorative and out of the accessibility tree. Do not invent battery/time/ETA values, live states or fake navigation controls. Preserve native readable content that can grow vertically rather than fitting it into a clipped fixed-height device.

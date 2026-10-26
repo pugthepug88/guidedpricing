@@ -62,3 +62,30 @@ Reduced-motion handling was reviewed in source. Browser tools did not expose OS 
 - [Default phone route view](review-assets/pipeline-management/routes-phone-refined-20261026.svg)
 
 These are actual rendered screenshots. The SVG files embed their original JPEG bytes unchanged for repository delivery, not regenerated visual mockups.
+
+## Superseding phone and colour correction
+
+The owner's next review rejected the first three neutral headers and asked for a phone that reads more clearly as a device, supplying `image(20261026-054723).png` from Birdeye and `image(20261026-054752).png` from the current Pipeline board. Earlier implementation review was not approval of those details.
+
+**ADAPT** the Birdeye reference's tall mobile proportions and clear screen/app header. **REJECT** importing its healthcare dialogue, violet theme or message timestamps into the route example. The buyer question remains: what will the person heading out see on their phone?
+
+The new phone has a 312px maximum-width graphite/metal shell, an inset rounded screen, speaker/camera, side keys and home indicator. A compact Zapla/Routes header distinguishes the app from the device. Native content remains selectable and grows vertically. A 600px minimum screen height gives wider layouts a recognisable phone proportion; at 380px and below, the minimum is removed so the content determines its height. There is no fixed-height clipping or nested scrolling. Decorative hardware is hidden from assistive technology. The four jobs, areas, driver/date, map, attribution and Google Maps copy are unchanged; no clock, battery, ETA or false control is introduced.
+
+All five headers are now coloured. The white cards and neutral boundaries retain the board's overall lightness. Contrast calculations for the actual foreground/background pairs are:
+
+| Stage | Background | Text | Contrast ratio |
+| --- | --- | --- | --- |
+| New enquiry | `#BF7458` coral | `#111318` ink | 5.18:1 |
+| Discussing needs | `#DDA34B` gold | `#111318` ink | 8.33:1 |
+| Preparing quote | `#4F8F91` teal | `#111318` ink | 5.02:1 |
+| Quote sent | `#354A63` steel blue | `#FFFFFF` | 9.09:1 |
+| Accepted | `#2E5947` green | `#FFFFFF` | 7.97:1 |
+
+The colour reviewer recommended teal over lavender to avoid the owner's purple/plum concern and checked the small-text contrast. The independent phone source review found unchanged route facts, no fake live state and no fixed-height text trap. The implementation owner inspected the actual rendered desktop at 1348 × 926, tablet at 834 × 1000 (819px content), phone at 390 × 844 (375px content), and narrow phone at 320 × 844 (305px content). Map and phone stay together on tablet, and the complete phone remains legible on both phone widths. Document width matched content width at 819, 375 and 305px; the inner phone screen also showed no horizontal content overflow. Desktop rendering confirmed all five computed header colours, and the existing demonstration still completed with Mia in Accepted.
+
+The working base was refreshed to GitHub main `7940583`, preserving the newer Automation and Calendar corrections and cross-page copy cleanup. Scoped code changes are limited to the route component and Pipeline styles. The shared header/footer, route, copy, existing controls and sales destinations are unchanged. Production build, TypeScript, targeted ESLint, formatting, SEO policy and whitespace checks passed. Temporary preview configuration and the responsive harness were removed. This is a visual refinement, not a new live-product or physical-phone Google Maps test. No additional motion is introduced, and no automatic numerical score is assigned.
+
+Updated proof:
+
+- [Recognisable phone and route](review-assets/pipeline-management/phone-device-20261026.svg)
+- [All five coloured stage headings](review-assets/pipeline-management/coloured-stages-20261026.svg)
