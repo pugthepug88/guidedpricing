@@ -34,5 +34,34 @@ Built-in image generation was used for two new page-specific raster assets. The 
 
 ## Review status
 
-The first complete source build, TypeScript, targeted component ESLint, SEO, formatting and whitespace checks are being validated. Rendered review must precede completion. All lens judgements will be the implementation agent's own review, not independent director approval, owner acceptance or conversion measurement.
+Build, TypeScript, targeted component ESLint, SEO, formatting and whitespace checks pass. The final product source at 1825dff0c08e9cd7c598ed7706b810b6acbec94b passed Workers Builds and was rendered at https://35ac1ee7-guidedpricing.jinrcao.workers.dev/features/ai-chatbot . Current main's concurrent Websites refinements at efbe1dc8b509af324576152b3234177abdae665f are preserved; no shared shell or unrelated page is changed by this revision.
+
+Observed review:
+
+- Wide desktop 1707 × 769: opening, booking, information/appearance, handover, setup/FAQ and final page rhythm reviewed. Corrections increased the booking photo's desktop height to preserve the hands/ankle and reduced the handover record to its content height. Daniel now uses the established CRM portrait cell 5.
+- Final 1366 × 900: opening and complete booking/photo/result rechecked. The main hero widget is 265px on standard desktop; the website image supplies context without a hero human photograph. The original H1 and final CTA are retained.
+- 834 × 900 tablet: opening and final booking scene reviewed. Clinician/patient faces, agreement, masked contact and appointment remain visible. This is key-scene coverage, not a full lower-tablet pass.
+- Complete 393 × 852 phone walkthrough: website/widget, outcomes, offer/agreement/contact, fresh photograph and single result, controls, original team request/photo, compact setup, FAQ and CTA/sky reviewed. The website's secondary heading is omitted on phones to bring the chat forward. Photo/result overlays move into ordinary flow.
+- Targeted 320 × 852: opening and knowledge/colour preview inspected. Scroll/client width both measured 305px with the scrollbar; no inspected main heading, paragraph, button, summary or link overflowed horizontally. All three main photographs loaded.
+- Green and Charcoal choices work by click and Tab/Enter, updating selected state and the labelled preview. FAQ opens by click and closes with Enter. The native See it in action anchor reaches the booking scene. All three sales CTAs target /booking; the final phone CTA was followed and the existing email arrangement fallback rendered. No message or booking was submitted.
+- No browser error logs were recorded in the final preview session. No pin, fixed Chatbot element, timer, loop, typewriter or nested transcript scrolling exists. The main contact/booking story is complete in server-rendered ordinary flow.
+
+### Lens findings
+
+| Lens | Finding |
+| --- | --- |
+| UI/UX | Business website context precedes a short widget exchange. Offer, agreement and supplied details precede one appointment; mobile removes secondary scene introduction rather than shrinking the conversation. |
+| Brand/creative | Zapla type, petal, portraits and neutral/blue foundations remain. Fresh website and work photography, native controls and a separate trades case vary the composition. No stock pastel feature tiles or decorative tracing. |
+| Product marketing | Answers, capture and suitable booking lead. Knowledge, appearance and human involvement support those outcomes. Pipeline/automation remain a compact configured continuation, without another duplicate feature chapter. |
+| Conversion | A shorter hero paragraph and grouped CTA establish purpose. Existing-website fit is clear. Setup/usage terms and the existing deferred sales scheduler remain factual. No conversion uplift is claimed. |
+| Motion | No motion dependency. Only user-triggered colour and disclosure state changes; reduced-motion CSS suppresses transitions. |
+| SME/frontline | The clinician stays with a current patient while another visitor books. A different industry shows when a person must judge the work. No clinical advice or universal human availability promise. |
+| Buyer psychology | Recognisable business/work contexts carry meaning before reading. Original requests and explicit consent support credibility. Genuine customer outcome evidence remains absent. |
+| Copy/awareness | Short outcome headings and one supporting sentence replace repeated explanations. Problem, solution, mechanism, control and buying/setup questions are covered without awareness-labelled sections. |
+| Technical/accessibility | Real accessible colour buttons, aria-pressed/labelled preview, visible focus, native details and links. Scoped assets/CSS. No live AI/contact/message/calendar APIs or actual personal data. |
+| AI-slop critique | Removed duplicated source prose, large CRM/email opening and four-row setup explanation. No fake metrics, summaries, upload/send controls, arbitrary counters or generated UI text in photographs. |
+
+These are the implementation agent's own judgements, not independent director reviews, owner approval or customer research. Limits: Chrome marketing-page checks; no physical-device/cross-browser matrix, screen reader session, live product acceptance, AI answer-quality test, tenant UI fidelity claim or measured conversion result. Reduced-motion/no-JavaScript were reviewed in source without separate browser modes. No signed-in account was inspected.
+
+Actual Lovable sync and final screenshot are recorded after merge. A successful branch build is not by itself proof that Lovable displays the revision.
 
