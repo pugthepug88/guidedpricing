@@ -1,6 +1,6 @@
 # Automation Builder: evidence and claim boundaries
 
-**Current implementation:** see “Live product audit and AI drafting, 26 October 2026” at the end. This supersedes earlier capability uncertainties where explicitly resolved. Historical sections record previous decisions, not the current design. Draft generation and configuration were inspected in the live product; no workflow activation, message delivery or customer outcome test is claimed.
+**Current implementation:** see “Separate AI construction section, 26 October 2026” at the end. The live-product audit below remains the current capability evidence; historical visual descriptions do not define the latest design. Draft generation and configuration were inspected in the live product; no workflow activation, message delivery or customer outcome test is claimed.
 
 Checked **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -200,3 +200,11 @@ Guided Launch is separately priced initial setup for the agreed process, account
 The supplied roughly 23-second recording was compared against the live Marketing Automation page. Its opening prompt/suggestion animation and later suggested-action animation were embedded videos observed playing on the live page. The branching graphic was a separate static PNG. This resolves the earlier description of the branching image as if it were the same animation.
 
 Adapt the visible request-to-workflow explanation, compact nodes and deliberate pacing. Retain Zapla's own neutral material, petal, typography and page rhythm. Do not copy AC's predictive/recommendation claims, dark-neon presentation or playback controls. Zapla's demonstration is native page motion with a complete static equivalent, rather than an MP4 dependency.
+
+## Separate AI construction section, 26 October 2026
+
+The owner's correction separates AI construction from the original nurture hero. The dedicated illustration types: “Welcome new form enquiries by email. Send useful information after 2 days, then a booking invitation 3 days later.” It then adds Form submitted → Welcome email → Wait 2 days → Useful-information email → Wait 3 days → Booking-invitation email. This is a prepared representation of the simple draft-construction capability observed in the live audit, not a live AI request or a workflow execution. The visitor supplies no information and no external service is called.
+
+The final draft stays visible for owner review of messages, timing and connections. The invitation sends a configured booking link; it does not itself create an appointment. The hero's email/SMS/WhatsApp marks still show configuration choices, while this separate AI example explicitly requests email. The six nodes do not establish automatic reply interruption or correct complex handover logic.
+
+The preference-condition diagram and four operational rows are removed for commercial clarity, not because their underlying palette evidence was disproved. The hero is restored without the earlier unsupported generic task wording. The work photograph remains an editorial illustration, now with its white heading overlaid; no testimonial or performance claim is added. The existing AI test limitations, usage/configuration boundaries and separately priced Guided Launch scope remain.

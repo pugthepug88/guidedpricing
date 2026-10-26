@@ -420,19 +420,6 @@
 .ab-editorial {
   padding: 24px 0 88px;
 }
-.ab-photo-intro {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  align-items: end;
-  gap: 95px;
-  margin-bottom: 35px;
-}
-.ab-photo-intro h2 {
-  max-width: 650px;
-}
-.ab-photo-intro p {
-  max-width: 450px;
-}
 .ab-work-photo {
   position: relative;
   overflow: hidden;
@@ -699,16 +686,6 @@
   .ab-editorial {
     padding: 15px 0 72px;
   }
-  .ab-photo-intro {
-    gap: 35px;
-    align-items: start;
-  }
-  .ab-photo-intro h2 {
-    font-size: 42px;
-  }
-  .ab-photo-intro p {
-    font-size: 15px;
-  }
   .ab-work-photo {
     aspect-ratio: 2.5 / 1;
   }
@@ -864,14 +841,6 @@
   }
   .ab-editorial {
     padding: 10px 0 57px;
-  }
-  .ab-photo-intro {
-    grid-template-columns: 1fr;
-    gap: 22px;
-    margin-bottom: 27px;
-  }
-  .ab-photo-intro h2 {
-    font-size: 37px;
   }
   .ab-work-photo {
     aspect-ratio: 1 / 1;
@@ -1215,11 +1184,6 @@
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 4px;
-}
-.ab-ai-review button:disabled {
-  opacity: 0.45;
-  cursor: default;
-  text-decoration: none;
 }
 .ab-ai-review button:focus-visible {
   outline: 2px solid #fff;

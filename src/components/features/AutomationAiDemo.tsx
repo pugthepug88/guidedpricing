@@ -41,8 +41,10 @@ function useDraftAssembly() {
 
   useEffect(() => {
     const root = rootRef.current;
+    const request = root?.querySelector<HTMLElement>(".ab-ai-prompt");
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!root || preference.matches || typeof IntersectionObserver === "undefined") return;
+    if (!root || !request || preference.matches || typeof IntersectionObserver === "undefined")
+      return;
 
     let timer = 0;
     let characters = 0;
@@ -70,18 +72,36 @@ function useDraftAssembly() {
       }
     };
 
+    const beginWhenReadable = () => {
+      if (!visible || started || complete) return;
+      const bounds = request.getBoundingClientRect();
+      const readableHeight = Math.max(
+        0,
+        Math.min(bounds.bottom, window.innerHeight) - Math.max(bounds.top, 70),
+      );
+      if (bounds.bottom < 70) {
+        // A fast scroll past the request must never leave an empty draft.
+        complete = true;
+        setBuild({ ...finished, phase: "complete" });
+      } else if (readableHeight >= bounds.height * 0.9) {
+        started = true;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(advance, 180);
+      }
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        visible = entry.isIntersecting && (started || entry.intersectionRatio >= 0.35);
+        visible = entry.isIntersecting;
         window.clearTimeout(timer);
-        if (visible && !complete) {
-          started = true;
+        if (visible && started && !complete) {
           timer = window.setTimeout(advance, 180);
-        } else if (!started) {
+        } else if (!started && !complete) {
           setBuild({ phase: "waiting", characters: 0, steps: 0 });
+          beginWhenReadable();
         }
       },
-      { threshold: [0, 0.35] },
+      { threshold: 0 },
     );
 
     const respectPreference = () => {
@@ -93,10 +113,14 @@ function useDraftAssembly() {
     };
 
     observer.observe(root);
+    window.addEventListener("scroll", beginWhenReadable, { passive: true });
+    window.addEventListener("resize", beginWhenReadable);
     preference.addEventListener("change", respectPreference);
     return () => {
       observer.disconnect();
       window.clearTimeout(timer);
+      window.removeEventListener("scroll", beginWhenReadable);
+      window.removeEventListener("resize", beginWhenReadable);
       preference.removeEventListener("change", respectPreference);
     };
   }, [version]);
@@ -132,10 +156,7 @@ export function AutomationAiDemo() {
             </blockquote>
           </figure>
 
-          <figure
-            className="ab-ai-workflow"
-            aria-label="The request becomes a draft: form submitted, welcome email, wait two days, useful information, wait three days, booking invitation."
-          >
+          <figure className="ab-ai-workflow" aria-label="AI-generated workflow draft">
             <figcaption data-visible={draftVisible}>
               <ZaplaPetal size={25} />
               <span>Workflow draft</span>
@@ -164,7 +185,7 @@ export function AutomationAiDemo() {
           <div className="ab-ai-review">
             <p>Review the messages, timing and connections before activation.</p>
             {!staticView ? (
-              <button type="button" onClick={replay} disabled={build.phase !== "complete"}>
+              <button type="button" onClick={replay}>
                 <RotateCcw size={14} aria-hidden="true" />
                 Replay build
               </button>
