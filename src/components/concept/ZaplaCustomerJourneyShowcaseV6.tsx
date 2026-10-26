@@ -279,9 +279,8 @@ function ContactRow({
       <span className="h-[13px] w-[13px] rounded-[3px] border border-slate-300 bg-white" />
       <div className="flex min-w-0 items-center gap-2">
         <img src={face} alt="" className="h-6 w-6 shrink-0 rounded-full object-cover ring-1 ring-slate-100" />
-        <div className="min-w-0">
+        <div className="flex min-h-[32px] min-w-0 items-center">
           <div className="truncate text-[11.5px] font-semibold text-slate-800">{name}</div>
-          <div className="truncate text-[9.5px] text-slate-400">{name.toLowerCase().replace(" ", ".")}@example.com.au</div>
         </div>
       </div>
       <span className="truncate text-[10.5px] text-slate-500">{phone}</span>
@@ -347,7 +346,7 @@ function ContactsJourney({ phase, reduced }: { phase: number; reduced: boolean }
                       <span className="flex h-[13px] w-[13px] items-center justify-center rounded-[3px] border border-zapla-blue bg-zapla-blue text-white">
                         <Check className="h-[9px] w-[9px]" strokeWidth={3.5} />
                       </span>
-                      <SarahIdentity detail="sarah.nguyen@example.com.au" compact />
+                      <SarahIdentity detail="Website enquiry" compact />
                       <span className="truncate text-[10.5px] text-slate-600">0412 620 184</span>
                       <span className="w-fit rounded-full bg-blue-100 px-2 py-[2px] text-[9.5px] font-semibold text-blue-700">New enquiry</span>
                       <span className="font-semibold text-[10.5px] text-blue-700">Just now</span>

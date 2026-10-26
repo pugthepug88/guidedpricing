@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { Check, Globe2, Mail, Phone } from "lucide-react";
+import { Check, Globe2, Phone } from "lucide-react";
 import { SceneContacts } from "@/components/v5/scenes-a";
 import { CONTACT_COLS, EASE, RevenueAvatar, SarahIdentity } from "./shared";
 
@@ -75,7 +75,7 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
       >
         <div className="grid h-full w-full min-w-[868px] items-center gap-2 px-3 py-[9px]" style={{ gridTemplateColumns: CONTACT_COLS }}>
           <span className="flex h-[13px] w-[13px] rounded-[3px] border border-slate-300 bg-white" />
-          <SarahIdentity detail="sarah.nguyen@email.com" />
+          <SarahIdentity detail="Website enquiry" />
           <span className="truncate text-[11px] tabular-nums text-slate-500">0412 481 229</span>
           <div className="flex min-w-0 flex-wrap gap-1">
             <span className="rounded-full bg-slate-100 px-2 py-[2px] text-[10px] font-bold text-slate-600">New enquiry</span>
@@ -121,10 +121,6 @@ export function CaptureScene({ interactive = false }: { interactive?: boolean })
             <RevenueAvatar size={46} />
             <div className="min-w-0 flex-1">
               <div className="text-[12.5px] font-bold tracking-tight text-slate-900">Sarah Nguyen</div>
-              <div className="mt-1.5 flex items-center gap-1.5 text-[9.5px] font-medium text-slate-400">
-                <Mail className="h-3 w-3" />
-                <span className="truncate">sarah.nguyen@email.com</span>
-              </div>
               <div className="mt-1 flex items-center gap-1.5 text-[9.5px] font-medium text-slate-400">
                 <Phone className="h-3 w-3" />
                 <span>0412 481 229</span>

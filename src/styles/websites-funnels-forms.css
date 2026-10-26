@@ -358,24 +358,8 @@
   font-size: 15px;
   line-height: 1.65;
 }
-.wff-mapping-note {
-  margin-top: 20px !important;
-  padding-top: 16px;
-  border-top: 1px solid var(--wff-rule);
-  color: #677362;
-  font-size: 11px;
-  line-height: 1.65;
-}
 .wff-record-content > .wff-text-link {
   margin-top: 10px;
-}
-.wff-demo-note {
-  grid-column: 1 / -1;
-  margin-top: 18px !important;
-  color: #677067;
-  font-size: 11px;
-  line-height: 1.6;
-  text-align: center;
 }
 .wff-roles-section {
   padding-block: 76px;
@@ -1140,10 +1124,6 @@
   }
   .wff-record-content > .wff-text-link {
     font-size: 13px;
-  }
-  .wff-demo-note {
-    padding-inline: 15px;
-    font-size: 10px;
   }
   .wff-roles-heading .wff-eyebrow {
     padding-top: 0;

@@ -87,6 +87,14 @@ The [official Calendar & Bookings feature page](https://thenextgencrm.com/featur
 
 ## Marketing demonstration contract
 
-The demonstration is explicitly labelled, uses real date/time conventions, and only changes local illustration state. It does not accept personal information, create appointments, send messages or provide a fake booking-submission button. Selection changes explain the customer's experience; separate supporting content explains the team's control and management. Staff changes and customer requests remain distinct. All sales CTAs point to `/booking`.
+The prepared marketing demonstration uses real date/time conventions and only changes local state. It does not accept personal information, create appointments, send messages or provide a fake booking-submission button. The owner's later 26 October correction removes repeated public “illustrative/example” captions and placeholder email addresses; provenance and execution limits remain in these internal records. Selection changes explain the customer's experience; supporting content explains booking settings. Staff changes and customer requests remain distinct. All sales CTAs point to `/booking`.
 
 Rendered website QA and build checks are recorded separately from these product evidence limits. Successful marketing-page interactions must not be described as verified live calendar behaviour.
+
+## Clarity and factual recheck, 26 October 2026
+
+The owner rejected the lower “Plans change”/“breathing room” presentation and questioned its factual basis. The live official Calendar Builder, Your Calendar and Bookings articles were reread in the browser. They separately document enabled days and multiple start/end ranges, timezone, service duration and minimum notice, assigned members' booking destinations, Google Calendar/Microsoft 365/Apple iCloud and staff rescheduling/status changes. No live calendar connection or booking was made.
+
+The replacement explains one job: customers can choose available times within the hours the business sets. A working-day view shows two booking windows around a closed hour. The displayed Monday–Friday/Sydney hours are prepared configuration values, not platform defaults or the business's actual availability. The duplicated Emma appointment block is removed; staff changes remain accurately explained in the FAQ. The public configuration caveat is removed under the owner's latest copy direction, rather than converted into a claim that calendar hours override all other availability inputs.
+
+Recorded/saved meetings and CRM transcripts remain owner-confirmed scope from the preceding instruction, not independent live acceptance evidence. No always-on recording default, storage-retention, universal conflict-prevention, customer self-service changes or automatic calendar-to-room creation/linking claim is added.

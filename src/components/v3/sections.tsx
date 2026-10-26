@@ -191,9 +191,6 @@ function CustomerRecordHeader({ stageKey, step, finalStep }: { stageKey: StageKe
             <Phone className="h-3 w-3" />
             +61 4•• ••• •••
           </span>
-          {!pending && (
-            <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</span>
-          )}
           {pending && (
             <span className="hidden sm:inline-flex items-center gap-1 text-slate-400">Awaiting lead form…</span>
           )}
@@ -227,7 +224,6 @@ function EmmaRecordHeader() {
         </div>
         <div className="mt-0.5 flex items-center gap-3 text-[12px] text-slate-500">
           <span className="inline-flex items-center gap-1"><Phone className="h-3 w-3" />+61 4•• ••• •••</span>
-          <span className="hidden sm:inline-flex items-center gap-1"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</span>
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-2 text-[11px] text-slate-500">
@@ -529,7 +525,6 @@ function HeroBody({ kind }: { kind: HeroKind }) {
           <div className="mt-2 space-y-1.5">
             <FormRow k="Name"    v="Emma Wilson" />
             <FormRow k="Phone"   v="+61 4•• ••• •••" />
-            <FormRow k="Email"   v="emma.wilson@northline.com.au" />
             <FormRow k="Service" v={STORY.service} />
           </div>
         </div>
@@ -1377,7 +1372,6 @@ export function JourneyV3() {
                     </div>
                     <div className="mt-3 space-y-1 text-[11px] text-slate-500">
                       <div className="flex items-center gap-1.5"><Phone className="h-3 w-3" />+61 4•• ••• •••</div>
-                      <div className="flex items-center gap-1.5"><Mail className="h-3 w-3" />emma.wilson@northline.com.au</div>
                       <div className="flex items-center gap-1.5"><Wrench className="h-3 w-3" />Annual A/C service</div>
                     </div>
                   </div>

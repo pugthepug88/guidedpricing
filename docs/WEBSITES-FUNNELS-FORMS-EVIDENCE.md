@@ -84,3 +84,10 @@ The page must visibly explain that Zapla website design is a **separately scoped
 - No universal field mapping, contact deduplication or merge rule inferred from the generic contact-creation claim.
 - No claim that a form submission itself confirms an appointment.
 - No live NextGen account end-to-end test is represented by this evidence review. The Zapla page's responsive rendering and local demonstration are verified separately during implementation.
+
+
+## Public-copy correction, 26 October 2026
+
+The owner rejected public prototype captions and placeholder email addresses across the active feature pages. The prepared form now shows that an email address was provided, and the customer record says contact details were captured without printing an invented address. The same name, service and request remain consistent. The prototype no-action caption and repeated mapping note are removed; the main copy still explains configured field mapping. All values remain fixed/local and no endpoint is added.
+
+The newer live Automation audit in `AUTOMATION-BUILDER-EVIDENCE.md` did not expose a dedicated Create Task action. Its current evidence supersedes the older supplier-level task wording in this page. The form-triggered workflow now shows a configured acknowledgement email, supported by the inspected Send Email action and form-submission trigger. The FAQ and supporting copy are updated accordingly. No automatic task, assignee, send guarantee or new integration claim is implied, and no live form or email was sent.

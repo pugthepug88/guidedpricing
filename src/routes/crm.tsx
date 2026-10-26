@@ -252,7 +252,6 @@ function CustomerRecordHero() {
               ["Contact owner", "Ben Walker"],
               ["Department", "Sales"],
               ["Tags", "VIP · Residential"],
-              ["Email", "mia@northside.com"],
               ["Phone", "0412 555 018"],
               ["Language", "English"],
             ].map(([label, value]) => (

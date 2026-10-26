@@ -1,5 +1,6 @@
 .zapla-calendars {
-  --cal-line: #dcded8;
+  --cal-line: #dddfe2;
+  --feature-muted: #626872;
   background: var(--feature-paper);
   color: var(--feature-ink);
   font-family: Manrope, sans-serif;
@@ -51,9 +52,9 @@
   justify-content: center;
   gap: 22px;
   padding: 14px 24px;
-  border: 1px solid var(--feature-green);
+  border: 1px solid #111318;
   border-radius: 100px;
-  background: var(--feature-green);
+  background: #111318;
   color: white;
   font-size: 13px;
   font-weight: 600;
@@ -61,7 +62,7 @@
   transition: background 180ms ease;
 }
 .cal-cta:hover {
-  background: #334642;
+  background: #303238;
 }
 .cal-text-link {
   display: inline-flex;
@@ -96,11 +97,6 @@
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
-}
-.cal-small-note {
-  font-size: 12px !important;
-  line-height: 1.7 !important;
-  color: #65706b;
 }
 
 /* One desk continues through the opening, without a format-selector menu. */
@@ -147,7 +143,7 @@
 }
 .cal-booking-desk {
   position: relative;
-  padding: 22px 22px 0;
+  padding: 22px;
   border: 1px solid #b2aea3;
   border-radius: 24px;
   background: #c9c4b9;
@@ -312,15 +308,10 @@
   font-size: 12px;
   font-weight: 600;
 }
-.cal-customer-details strong > span {
-  color: #67716a;
-  font-size: 11px;
-  font-weight: 400;
-}
 .cal-booking-outcome {
   padding: 20px 26px 22px;
   border-radius: 0 0 14px 14px;
-  background: #1e2b29;
+  background: #202328;
   color: #fff;
 }
 .cal-outcome-content {
@@ -359,13 +350,6 @@
   font-size: 12px;
   line-height: 1.75;
 }
-.cal-demo-note {
-  padding: 13px 0;
-  font-size: 10px;
-  line-height: 1.5;
-  text-align: center;
-  color: #434b44;
-}
 .cal-follow-copy {
   grid-column: 1;
   grid-row: 2;
@@ -380,10 +364,6 @@
   color: var(--feature-muted);
   font-size: 16px;
   line-height: 1.8;
-}
-.cal-follow-copy > .cal-small-note {
-  max-width: 370px;
-  margin-top: 18px;
 }
 
 /* All five formats stay visible. People explain their relationships. */
@@ -514,12 +494,6 @@
   color: #b8c4bc;
   font-size: 11px;
 }
-.cal-formats-note {
-  margin-top: 26px !important;
-  color: #b8c4bc;
-  font-size: 10px;
-  text-align: right;
-}
 
 /* The human meeting and business-side working view form one chapter. */
 .cal-business {
@@ -560,7 +534,7 @@
 }
 .cal-meeting-call {
   padding: 17px 17px 0;
-  background: #172421;
+  background: #202328;
   color: #fcfcfa;
 }
 .cal-meeting-call-heading {
@@ -606,7 +580,7 @@
   bottom: 0;
   left: calc(50% - 2px);
   width: 4px;
-  background: #172421;
+  background: #202328;
 }
 .cal-meeting-names {
   position: absolute;
@@ -658,11 +632,6 @@
   font-size: 28px;
   line-height: 1.15;
 }
-.cal-meeting-contact > span {
-  padding-bottom: 3px;
-  color: #65706b;
-  font-size: 12px;
-}
 .cal-meeting-history {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
@@ -711,80 +680,6 @@
   font-size: 11px;
   font-weight: 600;
 }
-.cal-meeting-demo figcaption {
-  margin-top: 12px;
-  color: #65706b;
-  font-size: 10px;
-  line-height: 1.6;
-}
-.cal-business-sheet {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 38px 60px;
-  padding: 38px 0 0;
-  margin: 38px 0 0;
-  border-top: 1px solid var(--cal-line);
-}
-.cal-appointment-record {
-  min-width: 0;
-}
-.cal-appointment-record h3 {
-  max-width: 460px;
-  font-size: 30px;
-  line-height: 1.15;
-}
-.cal-appointment-record > p {
-  max-width: 400px;
-  margin-top: 13px;
-  color: #65706b;
-  font-size: 13px;
-  line-height: 1.8;
-}
-.cal-appointment-record > .cal-record-time {
-  margin-top: 18px !important;
-  color: var(--feature-ink);
-  font-size: 15px;
-  line-height: 1.6;
-}
-.cal-appointment-record > .cal-text-link {
-  margin-top: 14px;
-}
-.cal-availability h3 {
-  font-size: 30px;
-}
-.cal-availability > p:not(.cal-small-note) {
-  margin-top: 13px;
-  color: #65706b;
-  font-size: 13px;
-  line-height: 1.8;
-}
-.cal-day-ranges {
-  margin-top: 19px;
-}
-.cal-day-ranges > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--cal-line);
-}
-.cal-day-ranges span {
-  font-size: 12px;
-  white-space: nowrap;
-}
-.cal-day-ranges strong {
-  font-size: 11px;
-  font-weight: 500;
-  text-align: right;
-}
-.cal-day-ranges > .cal-day-break {
-  color: #6b746d;
-}
-.cal-availability > .cal-small-note {
-  margin-top: 15px;
-  font-size: 10px !important;
-}
 .cal-calendar-connections {
   grid-column: 1 / -1;
   display: flex;
@@ -798,10 +693,6 @@
   font-size: 15px;
   line-height: 1.65;
 }
-.cal-calendar-connections > p > span {
-  color: #65706b;
-  font-size: 11px;
-}
 .cal-calendar-connections ul {
   display: flex;
   flex-wrap: wrap;
@@ -811,6 +702,101 @@
   padding: 0;
   list-style: none;
   font-size: 13px;
+}
+
+/* Booking settings explain which times a customer can choose. */
+.cal-booking-control {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: start;
+  gap: 34px 70px;
+  padding-top: 42px;
+  margin-top: 56px;
+  border-top: 1px solid var(--cal-line);
+  scroll-margin-top: 90px;
+}
+.cal-booking-rules h3 {
+  max-width: 420px;
+  font-size: 35px;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.cal-booking-rules > p {
+  max-width: 430px;
+  margin-top: 16px;
+  color: var(--feature-muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+.cal-booking-rules dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 24px 0 0;
+}
+.cal-booking-rules dt {
+  font-size: 12px;
+  font-weight: 600;
+}
+.cal-booking-rules dd {
+  margin: 7px 0 0;
+  color: var(--feature-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.cal-availability-window {
+  min-width: 0;
+}
+.cal-hours-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 15px;
+  padding-bottom: 18px;
+}
+.cal-hours-heading h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
+.cal-hours-heading > span {
+  color: var(--feature-muted);
+  font-size: 12px;
+}
+.cal-workday {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(80px, 1fr) minmax(0, 4fr);
+  gap: 8px;
+}
+.cal-workday > div {
+  display: flex;
+  min-height: 100px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 12px;
+  border-radius: 8px;
+  background: #2563ff;
+  color: white;
+}
+.cal-workday > .cal-workday-break {
+  background: #f0f1f3;
+  color: #626872;
+}
+.cal-workday span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.cal-workday strong {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.cal-availability-window > p {
+  margin-top: 16px;
+  color: var(--feature-muted);
+  font-size: 13px;
+  line-height: 1.75;
 }
 
 /* Setup and practical questions share the closing chapter. */
@@ -919,7 +905,7 @@
     font-size: 59px;
   }
   .cal-booking-desk {
-    padding: 17px 17px 0;
+    padding: 17px;
   }
   .cal-booking-paper {
     padding-inline: 20px;
@@ -939,11 +925,6 @@
   }
   .cal-format-relationship {
     gap: 10px;
-  }
-  .cal-business-sheet {
-    gap: 35px;
-    padding: 32px 0 0;
-    margin: 32px 0 0;
   }
   .cal-start-grid {
     gap: 65px;
@@ -1044,18 +1025,6 @@
     margin-top: 18px;
     font-size: 15px;
   }
-  .cal-business-sheet {
-    column-gap: 30px;
-    padding: 30px 0 0;
-    margin-inline: 0;
-  }
-  .cal-day-ranges > div {
-    display: grid;
-    gap: 7px;
-  }
-  .cal-day-ranges strong {
-    text-align: left;
-  }
   .cal-start-grid {
     gap: 45px;
   }
@@ -1102,7 +1071,7 @@
     width: 100%;
   }
   .cal-booking-desk {
-    padding: 14px 14px 0;
+    padding: 14px;
     border-radius: 18px;
   }
   .cal-booking-paper {
@@ -1158,9 +1127,6 @@
   .cal-customer-details strong {
     font-size: 12px;
   }
-  .cal-customer-details strong > span {
-    font-size: 10px;
-  }
   .cal-booking-outcome {
     padding: 24px 20px;
   }
@@ -1177,10 +1143,6 @@
   .cal-reminder p {
     font-size: 13px;
     line-height: 1.8;
-  }
-  .cal-demo-note {
-    padding-block: 12px;
-    font-size: 9px;
   }
   .cal-follow-copy {
     display: block;
@@ -1248,10 +1210,6 @@
     width: 38px;
     height: 38px;
   }
-  .cal-formats-note {
-    margin-top: 5px !important;
-    text-align: left;
-  }
   .cal-business {
     padding: 55px 0 30px;
   }
@@ -1304,11 +1262,6 @@
     max-width: 220px;
     font-size: 11px;
   }
-  .cal-meeting-contact > span {
-    display: block;
-    margin-top: 9px;
-    font-size: 12px;
-  }
   .cal-meeting-history {
     grid-template-columns: 1fr;
     gap: 21px;
@@ -1328,55 +1281,10 @@
   .cal-meeting-transcript strong {
     font-size: 11px;
   }
-  .cal-business-sheet {
-    display: block;
-    margin: 32px 0 0;
-    padding: 29px 0 0;
-    border: 0;
-    border-top: 1px solid var(--cal-line);
-    border-radius: 0;
-    box-shadow: none;
-    background: transparent;
-  }
-  .cal-appointment-record > p:not(.cal-record-time) {
-    font-size: 14px;
-  }
-  .cal-availability {
-    margin-top: 34px;
-    padding-top: 30px;
-    border-top: 1px solid var(--cal-line);
-  }
-  .cal-availability h3 {
-    font-size: 33px;
-  }
-  .cal-availability > p:not(.cal-small-note) {
-    font-size: 14px;
-  }
-  .cal-day-ranges > div {
-    display: flex;
-    padding-block: 16px;
-  }
-  .cal-day-ranges span {
-    font-size: 11px;
-  }
-  .cal-day-ranges strong {
-    max-width: 155px;
-    text-align: right;
-    font-size: 11px;
-    line-height: 1.6;
-  }
-  .cal-availability > .cal-small-note {
-    font-size: 11px !important;
-  }
   .cal-calendar-connections {
     display: block;
     margin-top: 32px;
     padding-top: 27px;
-  }
-  .cal-calendar-connections > p > span {
-    display: inline-block;
-    margin-top: 5px;
-    font-size: 12px;
   }
   .cal-calendar-connections ul {
     justify-content: flex-start;
@@ -1429,7 +1337,7 @@
     font-size: 15px;
   }
   .cal-booking-desk {
-    padding: 10px 10px 0;
+    padding: 10px;
   }
   .cal-booking-paper {
     padding-inline: 13px;
@@ -1445,10 +1353,6 @@
     width: 30px;
     height: 35px;
   }
-  .cal-customer-details strong > span {
-    display: block;
-    margin-top: 5px;
-  }
   .cal-booking-outcome {
     padding-inline: 15px;
   }
@@ -1458,21 +1362,9 @@
   .cal-confirmed-date {
     font-size: 11px;
   }
-  .cal-demo-note {
-    max-width: 220px;
-    margin-inline: auto !important;
-  }
   .cal-follow-copy h2,
   .cal-formats-intro h2 {
     font-size: 38px;
-  }
-  .cal-day-ranges > div {
-    display: grid;
-    gap: 6px;
-  }
-  .cal-day-ranges strong {
-    max-width: none;
-    text-align: left;
   }
   .cal-final h2 {
     font-size: 40px;
@@ -1577,7 +1469,7 @@
     padding-top: 112px;
   }
   .cal-booking-desk {
-    padding: 16px 16px 0;
+    padding: 16px;
   }
   .cal-booking-paper {
     padding: 18px 22px 0;
@@ -1645,7 +1537,43 @@
     font-size: 12px;
     line-height: 1.65;
   }
-  .cal-demo-note {
-    padding-block: 10px;
+}
+
+@media (max-width: 1099px) {
+  .cal-booking-control {
+    gap: 30px;
+  }
+  .cal-booking-rules h3 {
+    font-size: 31px;
+  }
+}
+@media (max-width: 749px) {
+  .cal-booking-control {
+    display: block;
+    margin-top: 38px;
+    padding-top: 30px;
+  }
+  .cal-booking-rules h3 {
+    font-size: 32px;
+  }
+  .cal-booking-rules dl {
+    gap: 20px;
+  }
+  .cal-availability-window {
+    margin-top: 28px;
+  }
+  .cal-workday {
+    grid-template-columns: minmax(0, 3fr) minmax(64px, 1fr) minmax(0, 4fr);
+    gap: 6px;
+  }
+  .cal-workday > div {
+    min-height: 104px;
+    padding: 13px 8px;
+  }
+  .cal-workday span {
+    font-size: 11px;
+  }
+  .cal-workday strong {
+    font-size: 11px;
   }
 }

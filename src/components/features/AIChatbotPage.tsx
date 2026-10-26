@@ -8,7 +8,6 @@ import "@/styles/ai-chatbot.css";
 // controls never call an AI service, create a contact or make a booking.
 const ENQUIRY = {
   name: "Mia Thompson",
-  email: "mia@example.com",
   question: "Do you replace ducted air conditioning in Marrickville?",
   timing: "It’s for my home. Ideally next week.",
 } as const;
@@ -104,7 +103,8 @@ function EnquiryOpening() {
               <Message>{ENQUIRY.timing}</Message>
               <Message ai>What’s your name and email so our team can get in touch?</Message>
               <Message>
-                {ENQUIRY.name}, {ENQUIRY.email}.
+                {ENQUIRY.name}
+                <span className="cb-shared-contact">Email address shared</span>
               </Message>
             </div>
             <aside
@@ -119,7 +119,7 @@ function EnquiryOpening() {
                 <Avatar />
                 <div>
                   <h2>{ENQUIRY.name}</h2>
-                  <p>{ENQUIRY.email}</p>
+                  <p>Name and email captured</p>
                 </div>
               </div>
               <div className="cb-original-request">
@@ -179,7 +179,7 @@ function EnquiryOpening() {
             </dl>
             <div className="cb-acknowledgement">
               <span>Configured acknowledgement email</span>
-              <p className="cb-email-to">To {ENQUIRY.email}</p>
+              <p className="cb-email-to">To {ENQUIRY.name}</p>
               <h3>Thanks for getting in touch, Mia.</h3>
               <p>
                 We’ve received your enquiry. Our team will be in touch to discuss what you need and

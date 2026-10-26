@@ -51,3 +51,8 @@ Booking is now visible. An offered Friday 2 pm assessment precedes Mia's explici
 The owner approved stronger qualification, practical answers and business benefits after a new Birdeye comparison. The fixed enquiry now asks home/business and timing, explicitly asks for name/email and shows Mia supplying them before the contact. A configured acknowledgement email replaces the old review-task example: the newer live Automation audit did not find a dedicated Create Task action. Existing Send Email and owner-confirmed chatbot-to-pipeline evidence support the replacement, not a new live account test.
 
 Prepared knowledge examples cover old-system removal, an assessment and service-area exceptions. They are fictional service-business policies used to explain the already documented knowledge sources, not actual customer instructions or AI-generated results. No real screenshot, recording or testimonial was obtained: automatic approval review rejected read access to the signed-in app as outside website-edit scope. The implementation and review limits are recorded in AI-CHATBOT-SUBSTANCE-20261026.md.
+
+
+## Public-copy correction, 26 October 2026
+
+The owner rejected placeholder email addresses across the active feature pages. The visitor's reply now shows Mia's name and “Email address shared”; the resulting record says “Name and email captured”, and the acknowledgement names Mia as its recipient. The supplied-before-created relationship remains visible without printing a fictitious address. This is a presentation change to the fixed demonstration, not new contact-capture, validation or messaging behaviour.
