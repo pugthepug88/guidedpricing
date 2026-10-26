@@ -2,7 +2,7 @@
 
 **Latest revision:** the nurture revamp dated 25 October 2026 at the end supersedes earlier compact and installation examples. Earlier positive assessments are historical, not owner approval.
 
-**Colour refinement, 26 October 2026:** the owner requested colour within the small workflow containers and asked whether an AC-like neon border would help. See the local colour/rim entry at the end. This reopens the previously neutral illustration treatment, not the page layout or copy.
+**Current correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. All message cards must stay white in every scroll state.
 
 
 **Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the 25 October nurture entry and its verification at the end.
@@ -319,3 +319,11 @@ Text/background contrast calculations for the new opaque channel pairs were Emai
 UI/UX and SME review: entry, send and wait categories are easier to scan without more content. Brand/Creative review: the still coral-to-blue edge is local to the focal board and the paper canvas remains calm; stronger neon was rejected because it would compete with the glass content. Product Marketing and Conversion review: no copy, channel behaviour or business outcome changed. Motion review: no new animation, control or connector treatment; the existing native progression was observed after the size change. Buyer-psychology review: category colour aids orientation without invented urgency/status signals. AI-slop review: no arbitrary colour by day, new decorative icon, bright node outline or pulsing halo. The existing typed workflow and recognised channel symbols carry the meaning.
 
 Remaining limits from the nurture review still apply, including separate reduced-motion/JavaScript-disabled sessions, physical/cross-browser devices, 320px and live product execution. The frame is static, so no additional motion fallback is required. Shared navigation/footer, unrelated pages and the two existing cinematic download files remain untouched. Code was committed through GitHub; Lovable was used read-only with no builder prompt or Publish action.
+
+## Superseding neutral correction, 26 October 2026
+
+The owner rejected the outer coloured rim/neon edge, inconsistent blue-versus-white message cards, pastel email/SMS/WhatsApp highlights and strong beige trigger surfaces. The prior positive colour review did not establish owner approval and its recommendation is withdrawn. The scroll focus had changed the message fill; this created a confusing visual difference between equivalent actions.
+
+The board returns to a neutral slate/white double frame and ordinary shadow. All three message cards use the same solid white fill, including the focused scroll state. Focus keeps a restrained neutral border/shadow instead of changing the fill. Trigger cards use neutral white glass, waits return to neutral grey/white, and the channel labels lose their background fields, padding and chip shape. Only the existing channel symbols retain small colour accents. The texture, workflow logic, copy, motion, photography and page structure remain as before.
+
+This is a CSS-only correction. Formatting and whitespace checks passed; the production build and refreshed rendered verification are recorded below when complete. Earlier colour-rim screenshots are superseded and do not prove this correction.
