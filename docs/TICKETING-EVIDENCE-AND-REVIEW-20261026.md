@@ -96,3 +96,13 @@ These are the implementation agent’s separate role assessments of the inspecte
 ## Validation and remaining limits
 
 Production build, TypeScript, targeted ESLint, SEO checks, formatting and whitespace checks passed before the final commit. No product-service acceptance test, screen reader pass, physical-device matrix, cross-browser matrix or exhaustive lower-page 320px/tablet sign-off is implied. Hosted sync/rendering is verified separately after GitHub merge; the local review does not establish Lovable editor build status.
+
+## Hosted verification after merge
+
+PR #196 merged as `f8cfe940ff28496afd855d01b94e5ee1cfcf3ba1`. The connected GitHub app created the exact same tree as the locally checked source (`741ba7791cd04447e964662cbaca270bbc31ed11`); the CLI lacked write authentication. Vercel status succeeded for both implementation and merge commits. Lovable reported the merge SHA ready. The first direct visit briefly showed the older router’s 404; one refresh after source sync rendered the correct page.
+
+Verified the actual direct preview at 1440 × 900 and its phone rendering, plus high/urgent filtering and table continuity on the hosted route. Both main images loaded after the lazy photo entered view; no browser error logs and no horizontal document overflow appeared in this check. Desktop proof is saved in [ticketing-desktop-20261026.png](proof/ticketing-desktop-20261026.png).
+
+The editor’s automatic page list did not include Ticketing (several other recently built feature routes were absent too). Entering `/features/ticketing` manually selected it and displayed the correct page in the editor. Historical Build unsuccessful / Preview is out of date messages remain; successful source sync and the working route do not establish that those older editor warnings have been resolved. No Lovable builder task, source edit or Publish action was used.
+
+Review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ticketing
