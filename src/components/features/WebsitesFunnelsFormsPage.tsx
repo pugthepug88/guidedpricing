@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { ArrowDown, ArrowRight, Play, Plus, RotateCcw } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
@@ -213,6 +213,11 @@ function PageTypes() {
 }
 function ConnectedEnquiry() {
   const [run, setRun] = useState(0);
+  const proof = useRef<HTMLDivElement>(null);
+  const watchConnection = () => {
+    proof.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+    setRun((value) => value + 1);
+  };
   return (
     <section
       id="connected-enquiry"
@@ -233,13 +238,17 @@ function ConnectedEnquiry() {
             Collect the request and contact details together. Map useful answers to CRM fields, so
             your team can follow up knowing what the person needs.
           </p>
-          <button className="wff-watch" type="button" onClick={() => setRun((value) => value + 1)}>
+          <button className="wff-watch" type="button" onClick={watchConnection}>
             <Play size={15} fill="currentColor" aria-hidden="true" />
             {run ? "Watch the connection again" : "Watch the connection"}
           </button>
         </div>
       </header>
-      <div className={"wff-enquiry-proof" + (run ? " wff-enquiry-proof--play" : "")} key={run}>
+      <div
+        className={"wff-enquiry-proof" + (run ? " wff-enquiry-proof--play" : "")}
+        key={run}
+        ref={proof}
+      >
         <div className="wff-enquiry-paper">
           <p className="wff-form-brand">
             courtyard<span>Project enquiry</span>

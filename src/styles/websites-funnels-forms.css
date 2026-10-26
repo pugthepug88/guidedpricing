@@ -102,7 +102,7 @@
   grid-template-columns: 0.82fr 1.18fr;
   align-items: center;
   gap: 64px;
-  padding-top: 127px;
+  padding-top: 112px;
   padding-bottom: 15px;
 }
 .wff-hero h1 {
@@ -183,22 +183,27 @@
 .wff-site-photo {
   display: block;
   width: 100%;
-  height: 221px;
+  height: 200px;
   object-fit: cover;
   object-position: center 15%;
 }
 .wff-site-content {
-  padding: 25px 28px 27px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px 20px;
+  align-items: center;
+  padding: 23px 26px;
 }
 .wff-site-content h2 {
+  grid-column: 1 / -1;
   max-width: 430px;
-  font-size: 38px;
+  font-size: 35px;
   line-height: 1.05;
   letter-spacing: -0.035em;
   overflow-wrap: anywhere;
 }
 .wff-site-content p {
-  margin-top: 13px;
+  margin-top: 0;
   max-width: 370px;
   color: #62705f;
   font-size: 12px;
@@ -211,7 +216,7 @@
   gap: 18px;
   max-width: 100%;
   min-height: 40px;
-  margin-top: 19px;
+  margin-top: 0;
   padding: 9px 17px;
   border-radius: 4px;
   background: #324737;
@@ -228,7 +233,7 @@
 }
 .wff-editor-fields {
   min-width: 0;
-  margin: 15px 0 0;
+  margin: 12px 0 0;
   padding: 0;
   border: 0;
 }
@@ -255,7 +260,7 @@
   display: block;
   width: 100%;
   min-width: 0;
-  height: 59px;
+  height: 50px;
   margin: 0;
   padding: 10px 11px;
   border: 1px solid rgba(74, 81, 72, 0.27);
@@ -267,7 +272,7 @@
 }
 .wff-editor-inputs textarea {
   resize: vertical;
-  min-height: 59px;
+  min-height: 50px;
   max-height: 160px;
 }
 .wff-reset {
@@ -277,7 +282,7 @@
   justify-content: center;
   gap: 5px;
   min-width: 44px;
-  min-height: 59px;
+  min-height: 50px;
   padding: 5px 0 2px;
   border: 0;
   background: transparent;
@@ -1164,15 +1169,18 @@
     object-position: 56% 40%;
   }
   .wff-site-content {
+    display: block;
     padding: 22px 19px 24px;
   }
   .wff-site-content h2 {
     font-size: 35px;
   }
   .wff-site-content p {
+    margin-top: 13px;
     font-size: 12px;
   }
   .wff-site-content a {
+    margin-top: 19px;
     font-size: 12px;
   }
   .wff-editor-fields legend {
