@@ -1,6 +1,6 @@
 # Automation Builder: evidence and claim boundaries
 
-**Current implementation:** see “Separate AI construction section, 26 October 2026” at the end. The live-product audit below remains the current capability evidence; historical visual descriptions do not define the latest design. Draft generation and configuration were inspected in the live product; no workflow activation, message delivery or customer outcome test is claimed.
+**Current implementation:** see “Click-to-watch examples, 26 October 2026” at the end. The live-product audit below remains the current capability evidence; historical visual descriptions do not define the latest design. Draft generation and configuration were inspected in the live product; no workflow activation, message delivery or customer outcome test is claimed.
 
 Checked **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -208,3 +208,20 @@ The owner's correction separates AI construction from the original nurture hero.
 The final draft stays visible for owner review of messages, timing and connections. The invitation sends a configured booking link; it does not itself create an appointment. The hero's email/SMS/WhatsApp marks still show configuration choices, while this separate AI example explicitly requests email. The six nodes do not establish automatic reply interruption or correct complex handover logic.
 
 The preference-condition diagram and four operational rows are removed for commercial clarity, not because their underlying palette evidence was disproved. The hero is restored without the earlier unsupported generic task wording. The work photograph remains an editorial illustration, now with its white heading overlaid; no testimonial or performance claim is added. The existing AI test limitations, usage/configuration boundaries and separately priced Guided Launch scope remain.
+
+## Click-to-watch examples, 26 October 2026
+
+The owner's requested examples use the current live audit's building blocks, with the following boundaries. These are prepared website configurations and were not individually generated/saved/executed in the live product.
+
+| Idea | Configuration shown | Boundary |
+| --- | --- | --- |
+| Seven-day nurture | Form submitted; emails on days 0, 2, 5 and 7 with waits of 2, 3 and 2 days. | Four touches over seven days, not seven messages or default stop-on-reply. Choose the form, audience and sender. |
+| Inactive customers | List Joined on a named Inactive customers Smart List; check-in email, three-day wait, invitation email. | Business-configured list defines inactivity. No AI prediction or universal inactivity threshold. |
+| Overdue invoices | Inbound Webhook from billing, email using the supplied payment link, Send Slack Message to finance. | No native Invoice Overdue trigger was present among the 42 inspected entries; the Invoice Status Changed choices did not include Overdue. Do not invent a due-date trigger or invoice-status condition. Billing must supply the event, customer and payment link, with Slack connected for the team step. No paid-state cancellation is demonstrated. |
+| New customers | New customer tag added; welcome, two-day wait, getting-started email, five-day wait, check-in. | Tag is applied by the business or an agreed process; every new CRM contact is not automatically a new customer. |
+| Flash sale | Manual start for selected contacts; offer email, twenty-hour wait, final reminder in a twenty-four-hour offer. | Audience, offer/link and coordinated sale timing are supplied. No ad, page, discount-code or tracking-campaign creation is claimed. |
+| VIP offer | Manual start for selected VIP contacts; early-access email, one-day wait, SMS reminder. | Business chooses VIP qualification and offer. No AI value scoring, automatic purchase detection or purchase exit is implied. |
+| AI callback | Callback requested tag added; ten-minute wait; Outbound Call (AI). | Requires the requested callback, configured voice agent, caller ID and destination phone field. No call result, qualification, booking, transcription or human-handover outcome is shown. |
+| Appointment confirmations/reminders | Appointment Booked filtered to the configured Confirmed status; email details, Wait Before Calendar Booking at one day and one hour, SMS reminders. | Uses the selected calendar/status/time; equivalent offsets are 1,440 and 60 minutes. No automatic reschedule update, cancellation or timezone guarantee. |
+
+The headline Build the workflow your business needs. and own-process copy communicate flexibility without a literal infinity or unlimited-usage claim. The page retains Draft and review language. No visitor data is collected and no external AI, communications, billing, Slack or calendar service is invoked by the website controls.

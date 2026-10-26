@@ -37,37 +37,52 @@ function useDraftAssembly() {
       return;
 
     let timer = 0;
-    let characters = 0;
-    let steps = 0;
     let started = false;
     let visible = false;
     let complete = false;
+    let disposed = false;
+    let elapsed = 0;
+    let stamp: number | null = null;
+    const typingEnd = 180 + example.request.length * 20 + 400;
+    const buildEnd = typingEnd + example.steps.length * 350;
 
-    const advance = () => {
-      if (!visible || complete) return;
-      if (characters < example.request.length) {
-        characters += 1;
-        setBuild({ phase: "typing", characters, steps: 0 });
-        timer = window.setTimeout(
-          advance,
-          characters === example.request.length
-            ? 400
-            : example.request[characters - 1] === " "
-              ? 35
-              : 17,
-        );
-      } else if (steps < example.steps.length) {
-        steps += 1;
-        setBuild({ phase: "building", characters, steps });
-        timer = window.setTimeout(advance, 350);
-      } else {
+    const tick = () => {
+      if (disposed || !visible || complete || document.hidden) return;
+      const now = performance.now();
+      if (stamp !== null) elapsed += now - stamp;
+      stamp = now;
+      if (elapsed >= buildEnd) {
         complete = true;
         setBuild(fullDraft(example, "complete"));
+        return;
       }
+      const nextState: BuildState =
+        elapsed < typingEnd
+          ? {
+              phase: "typing",
+              characters: Math.min(
+                example.request.length,
+                Math.max(0, Math.floor((elapsed - 180) / 20)),
+              ),
+              steps: 0,
+            }
+          : {
+              phase: "building",
+              characters: example.request.length,
+              steps: Math.min(example.steps.length, Math.floor((elapsed - typingEnd) / 350) + 1),
+            };
+      setBuild((current) =>
+        current.phase === nextState.phase &&
+        current.characters === nextState.characters &&
+        current.steps === nextState.steps
+          ? current
+          : nextState,
+      );
+      timer = window.setTimeout(tick, 25);
     };
 
     const beginWhenReadable = () => {
-      if (!visible || started || complete) return;
+      if (disposed || !visible || started || complete || document.hidden) return;
       const bounds = request.getBoundingClientRect();
       const readableHeight = Math.max(
         0,
@@ -79,16 +94,20 @@ function useDraftAssembly() {
       } else if (readableHeight >= bounds.height * 0.9) {
         started = true;
         window.clearTimeout(timer);
-        timer = window.setTimeout(advance, 180);
+        stamp = performance.now();
+        timer = window.setTimeout(tick, 25);
       }
     };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (disposed) return;
         visible = entry.isIntersecting;
         window.clearTimeout(timer);
-        if (visible && started && !complete) {
-          timer = window.setTimeout(advance, 180);
+        stamp = null;
+        if (visible && started && !complete && !document.hidden) {
+          stamp = performance.now();
+          timer = window.setTimeout(tick, 25);
         } else if (!started && !complete) {
           beginWhenReadable();
         }
@@ -96,8 +115,19 @@ function useDraftAssembly() {
       { threshold: 0 },
     );
 
+    const respectVisibility = () => {
+      window.clearTimeout(timer);
+      stamp = null;
+      if (!document.hidden && visible && started && !complete) {
+        stamp = performance.now();
+        timer = window.setTimeout(tick, 25);
+      } else if (!document.hidden) {
+        beginWhenReadable();
+      }
+    };
+
     const respectPreference = () => {
-      if (preference.matches) {
+      if (!disposed && preference.matches) {
         complete = true;
         window.clearTimeout(timer);
         setBuild(fullDraft(example, "complete"));
@@ -105,11 +135,14 @@ function useDraftAssembly() {
     };
 
     observer.observe(root);
+    document.addEventListener("visibilitychange", respectVisibility);
     window.addEventListener("scroll", beginWhenReadable, { passive: true });
     window.addEventListener("resize", beginWhenReadable);
     preference.addEventListener("change", respectPreference);
     return () => {
+      disposed = true;
       observer.disconnect();
+      document.removeEventListener("visibilitychange", respectVisibility);
       window.clearTimeout(timer);
       window.removeEventListener("scroll", beginWhenReadable);
       window.removeEventListener("resize", beginWhenReadable);
