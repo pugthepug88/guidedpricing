@@ -134,7 +134,7 @@ function EnquiryOpening() {
           </div>
         </div>
         <div className="cb-enquiry-caption">
-          <p>A useful answer. The relevant details. Someone to follow up with.</p>
+          <p>Choose the questions around need, location, timing and budget where relevant.</p>
           <span>Even outside business hours.</span>
         </div>
         <div className="cb-follow-through">
@@ -145,8 +145,8 @@ function EnquiryOpening() {
               <br />a next step.
             </h2>
             <p>
-              Choose where new enquiries go and which follow-up starts. Ask about need, location,
-              timing and budget where it matters to your business.
+              Choose which pipeline receives new enquiries and which follow-up begins. Your team can
+              pick up Mia’s request with her details already in Zapla.
             </p>
           </div>
           <div
@@ -390,8 +390,10 @@ function BookingProof() {
               <div className="cb-offered-time">
                 <span>2 pm</span>
                 <div>
-                  <strong>Available for an assessment</strong>
-                  <span>Offered in the conversation</span>
+                  <strong>
+                    {progress.booked ? "On-site assessment" : "Available for an assessment"}
+                  </strong>
+                  <span>{progress.booked ? ENQUIRY.name : "Offered in the conversation"}</span>
                 </div>
               </div>
               <div>
@@ -506,7 +508,7 @@ function GuidedLaunch() {
           </p>
         </div>
         <div className="cb-launch-plan">
-          <h3>What we agree with you</h3>
+          <h3>Your launch plan</h3>
           <dl>
             <div>
               <dt>Business information</dt>
