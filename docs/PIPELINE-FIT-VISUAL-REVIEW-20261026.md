@@ -45,3 +45,17 @@ Normal text on the three fills exceeds 4.5:1 after darkening the lavender card's
 ## Checks and delivery boundary
 
 Production build, TypeScript, targeted component ESLint, Prettier, SEO policy and whitespace checks are required for the final source. The temporary responsive review page and preview-only host setting are removed before commit. Fetch main immediately before committing; preserve concurrent work and do not rewrite published history. Source sync is through GitHub, with Lovable read-only. No production Publish action is authorised or performed.
+
+## Delivery recovery and deployed review, 27 October 2026
+
+The earlier coloured-card commit remained local, so the supplied Lovable URL still showed the white cards. Recovered the exact revision on current main, retaining the newer Chatbot changes and both appended brief entries. Production build, TypeScript, scoped ESLint, Prettier, SEO policy and whitespace checks passed. The reviewed source tree is `d3c0fa338efbd99435e1e5ab7ada2b12157cde9a`.
+
+Automatic approval review rejected updating main because it requires explicit user authorisation. A separate review branch and [draft PR #202](https://github.com/pugthepug88/guidedpricing/pull/202) preserve the concrete change without updating main or Lovable. GitHub confirms the PR is mergeable. A later Websites change is separate and remains on main.
+
+The exact branch commit `6b743173462e7c7bf059e11f255538b4efe7dd44` passed Workers Builds. [Open the deployed revision](https://d381cd4a-guidedpricing.jinrcao.workers.dev/features/pipeline-management#pipeline-fit-heading). Inspected the actual branch deployment at the normal desktop viewport, 834 by 900 tablet and 390 by 852 phone. All three fills and complete UI scenes appeared; the tablet headings aligned and the phone cards stacked in normal flow. At 320 by 852, document and content widths both measured 305px, and no checked section heading, paragraph, field, record or tag had horizontal text overflow. Viewport overrides were reset. These are scoped section checks, not a renewed whole-page or live-product acceptance test.
+
+The four director passes remain consistent with the earlier assessments: static motion is appropriate; the native Zapla palette, portraits and white UI provide brand continuity; each card demonstrates its named capability; the supporting row stays below stages and before routes. These are the implementation owner's assessments, not independent reviewers or measured conversion results.
+
+![Deployed coloured Pipeline customisation cards](qa/pipeline-coloured-tools-20261027.png)
+
+Main and the Lovable preview remain unchanged pending explicit approval of that update. No Lovable builder prompt or production Publish action was used.
