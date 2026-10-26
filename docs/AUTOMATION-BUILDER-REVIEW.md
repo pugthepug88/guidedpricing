@@ -4,6 +4,8 @@
 
 **Current correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. All message cards must stay white in every scroll state.
 
+**Subsequent approved scope:** a thin silver frame with faint blue/coral edge reflections, following the owner's “ok go”. The neutral cards and channel treatment stay as corrected. See the final silver-frame entry.
+
 
 **Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the 25 October nurture entry and its verification at the end.
 
@@ -337,3 +339,21 @@ At 1692px desktop width and 769px viewport height, the board measured 693.53 × 
 The 834px tablet iframe (819px main) showed the complete neutral board and all three white cards in normal flow, with no document overflow. The 393px phone iframe (378px main) showed the full 350 × 577.42px board in normal flow. All three message fills were white, every channel background was transparent, message text remained 14px, and no message/heading/paragraph/trigger or document overflow was found. The actual screenshots confirmed the neon edge, beige trigger tint and pastel label fields were absent, rather than relying only on computed styles.
 
 Review finding: UI/UX and SME comprehension improve through consistent treatment of equivalent message actions. Brand/Creative and AI-slop review remove the rejected excess instead of defending the previous recommendation. Product Marketing, Conversion and Buyer Psychology retain the same understandable nurture logic and booking action without adding visual state meanings. Motion review retains the bounded native progression while keeping every fill white. No claim of owner approval, conversion lift or live workflow execution is made. The unchanged lower page retains its earlier scoped verification, and the previously recorded device/preference/product-test limits still apply. No Lovable builder prompt or Publish action was used.
+
+## Silver frame with confined reflections, 26 October 2026
+
+The owner approved the proposed thin silver frame with a faint blue reflection along one edge and warm coral on the opposite edge. This is a local frame refinement after the neutral correction, not approval to restore the rejected halo, blue cards, beige triggers or channel highlights.
+
+The frame uses a static three-pixel masked metallic band. Two subdued colour reflections are clipped inside that band; there is no coloured outer shadow, blur or animation. The ordinary neutral shadow and inner white hairline remain. CSS feature detection retains a simple neutral border when the masking operation is unavailable. The pseudo-element ignores pointer input and inherits the board's responsive corner radius. It does not change the board's footprint, so the existing measured sticky fit and normal-flow fallbacks remain intact.
+
+All message fills stay solid white and channel container backgrounds stay transparent. No source image, copy, product logic, motion, typography, spacing, photo or lower-page composition is changed. Formatting/build and actual desktop/phone checks are being completed before presentation. The earlier neon-rim screenshot remains superseded.
+
+### Silver frame: rendered verification
+
+Implementation `e15718afcd979be91b398b53d97ba3fc19f3e778` passed the production build, formatting and whitespace checks. Vercel succeeded and Lovable reported it ready. The actual direct preview displayed the masked silver band with both subdued reflections confined to the edge. The computed edge shadow was `none`, mask composite was `exclude`, and pointer events were `none`. The final actual opening is [silver-frame-20261026.jpg](review-assets/automation-builder/silver-frame-20261026.jpg).
+
+At 1692px desktop width and 769px viewport height, the board remained 693.53 × 556.73px. It held at y=100px while Day 2 gained focus, and all message fills remained white. All channel backgrounds remained transparent. There was no document overflow. On the 393px phone iframe (378px main), the complete 350 × 577.42px board remained in normal flow. The masked frame inherited the 22px mobile corner radius. Every message fill was white, message text remained 14px and no measured nested-text or document overflow was found. Both compositions were visually inspected; the edge is metallic, without a surrounding coloured halo.
+
+UI/UX and SME review: the edge separates the workflow surface without changing its hierarchy or equivalent white action cards. Brand/Creative review: the silver base and confined reflections follow the approved material direction, while leaving the page's colour coverage intact. Product Marketing, Conversion and Buyer Psychology: no wording, semantics or interaction changes. Motion review: no new motion or layout movement; the native sticky state remains functional. AI-slop review: no pulsing neon, colour-filled labels or extra decoration inside the workflow. These findings are a scoped design review, not final owner acceptance or a conversion claim.
+
+The feature-detection fallback is source-reviewed; no separate browser without mask support was exercised. Earlier lower-page and tablet coverage remains scoped to the dated entries because those layouts were not changed. Existing narrow-device, preference, assistive-technology and live-product testing limits remain. The concurrent Calendars merge and both cinematic download files were preserved. Source went through GitHub; Lovable stayed read-only and no Publish action was used.

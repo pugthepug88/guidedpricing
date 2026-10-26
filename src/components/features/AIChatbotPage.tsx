@@ -4,12 +4,13 @@ import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/ai-chatbot.css";
 
-// Fixed explanatory details. This page never submits a message, creates a
-// contact or books an appointment. No visitor data is requested by the demo.
+// Prepared marketing walkthroughs. No visitor details are collected, and these
+// controls never call an AI service, create a contact or make a booking.
 const ENQUIRY = {
   name: "Mia Thompson",
   email: "mia@example.com",
-  request: "A replacement. We’d like it sorted next week.",
+  question: "Do you replace air conditioning in Marrickville?",
+  timing: "Next week. Can your team get in touch?",
 } as const;
 
 function Avatar({ cell = 9 }: { cell?: number }) {
@@ -24,7 +25,6 @@ function Avatar({ cell = 9 }: { cell?: number }) {
     />
   );
 }
-
 function Cta({ children = "Book a Call" }: { children?: ReactNode }) {
   return (
     <a className="cb-cta" href="/booking">
@@ -32,7 +32,6 @@ function Cta({ children = "Book a Call" }: { children?: ReactNode }) {
     </a>
   );
 }
-
 function Message({
   children,
   ai = false,
@@ -44,9 +43,9 @@ function Message({
 }) {
   return (
     <div className={"cb-message" + (ai ? " cb-message-ai" : "")}>
-      <div className="cb-message-mark" aria-hidden="true">
-        {ai ? <ZaplaPetal size={29} /> : <Avatar />}
-      </div>
+      <span className="cb-message-mark" aria-hidden="true">
+        {ai ? <ZaplaPetal size={28} /> : <Avatar />}
+      </span>
       <div className="cb-message-copy">
         <span className={introduce ? "cb-speaker" : "cb-sr-only"}>
           {ai ? "Zapla · AI Chatbot" : "Mia"}
@@ -57,49 +56,120 @@ function Message({
   );
 }
 
-function WebsiteHero() {
+function EnquiryOpening() {
   return (
     <section className="cb-opening" aria-labelledby="chatbot-title">
       <div className="cb-wrap">
-        <div className="cb-hero-shell">
-          <header className="cb-hero">
+        <div className="cb-opening-heading">
+          <header>
             <p className="cb-eyebrow">AI Chatbot</p>
             <h1 id="chatbot-title">
-              <span>Customer questions</span> <span>shouldn’t have</span> <span>to wait.</span>
+              Answer the question. <br />
+              Capture the enquiry.
             </h1>
-            <p className="cb-hero-description">
-              Answer routine enquiries, collect the details you need and book suitable appointments
-              with Zapla’s AI Chatbot. Bring your team in when the conversation needs a person.
+          </header>
+          <div className="cb-opening-copy">
+            <p>
+              Answer website questions around the clock, ask what matters and collect contact
+              details in the conversation. Give your team an enquiry they can follow up, with the
+              customer’s context already in Zapla.
             </p>
             <div className="cb-actions">
               <Cta />
-              <a className="cb-text-link" href="#chatbot-enquiry">
-                See how it works
+              <a className="cb-text-link" href="#chatbot-proof">
+                See the enquiry take shape
               </a>
             </div>
-          </header>
-          <div
-            className="cb-hero-product"
-            aria-label="A visitor getting an answer from your website chatbot"
-          >
-            <div className="cb-widget">
-              <div className="cb-widget-heading">
+          </div>
+        </div>
+        <div
+          className="cb-enquiry-stage"
+          id="chatbot-proof"
+          aria-label="A website question becoming a contact in Zapla"
+        >
+          <div className="cb-enquiry-window">
+            <div className="cb-website-conversation">
+              <div className="cb-product-heading">
                 <span className="cb-ai-mark">
-                  <ZaplaPetal size={34} />
+                  <ZaplaPetal size={30} />
                 </span>
                 <div>
-                  <strong>Ask us a question</strong>
+                  <strong>On your website</strong>
                   <span>Zapla AI Chatbot</span>
                 </div>
               </div>
-              <Message introduce>Do you install air conditioning in Marrickville?</Message>
+              <Message introduce>{ENQUIRY.question}</Message>
               <Message ai introduce>
-                Yes, we cover Sydney’s Inner West, including Marrickville. Is this a new
-                installation or a replacement?
+                Yes, we cover Marrickville. When are you looking to replace it?
               </Message>
-              <Message introduce>{ENQUIRY.request}</Message>
+              <Message introduce>
+                {ENQUIRY.timing} I’m {ENQUIRY.name}, {ENQUIRY.email}.
+              </Message>
             </div>
-            <p className="cb-hero-note">On your website. Even outside business hours.</p>
+            <aside
+              className="cb-created-contact"
+              aria-label="Contact created from Mia’s supplied details"
+            >
+              <p className="cb-record-label">
+                <ZaplaPetal size={25} />
+                <span>Contact created in Zapla</span>
+              </p>
+              <div className="cb-contact-person">
+                <Avatar />
+                <div>
+                  <h2>{ENQUIRY.name}</h2>
+                  <p>{ENQUIRY.email}</p>
+                </div>
+              </div>
+              <div className="cb-original-request">
+                <span>From the conversation</span>
+                <p>“{ENQUIRY.question}”</p>
+                <p>“{ENQUIRY.timing}”</p>
+              </div>
+              <a className="cb-text-link" href="/crm">
+                Connected to your CRM
+              </a>
+            </aside>
+          </div>
+        </div>
+        <div className="cb-enquiry-caption">
+          <p>Choose the questions around need, location, timing and budget where relevant.</p>
+          <span>Even outside business hours.</span>
+        </div>
+        <div className="cb-follow-through">
+          <div>
+            <p className="cb-eyebrow">After the contact is captured</p>
+            <h2>
+              Give the enquiry
+              <br />a next step.
+            </h2>
+            <p>
+              Choose which pipeline receives new enquiries and which follow-up begins. Your team can
+              pick up Mia’s request with her details already in Zapla.
+            </p>
+          </div>
+          <div
+            className="cb-configured-plan"
+            aria-label="A configured pipeline stage and review task for Mia’s enquiry"
+          >
+            <p className="cb-plan-for">
+              <Avatar />
+              <span>For Mia’s website enquiry</span>
+            </p>
+            <dl>
+              <div>
+                <dt>Pipeline stage</dt>
+                <dd>New enquiry</dd>
+              </div>
+              <div>
+                <dt>Follow-up task</dt>
+                <dd>Review Mia’s enquiry</dd>
+              </div>
+            </dl>
+            <p>You choose the pipeline, stage and automation during setup.</p>
+            <a className="cb-text-link" href="/features/automation-builder">
+              Explore Automation Builder
+            </a>
           </div>
         </div>
       </div>
@@ -107,10 +177,126 @@ function WebsiteHero() {
   );
 }
 
-function ContactCapture() {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState({ enhanced: false, captured: false });
+const KNOWLEDGE = [
+  {
+    question: "How much does a replacement cost?",
+    title: "How we quote",
+    type: "Uploaded document",
+    source:
+      "Assess the home before quoting for a replacement. Final pricing depends on the installation.",
+    answer:
+      "We quote after an assessment so we can check what your home needs. I can help you find an available time.",
+  },
+  {
+    question: "Do you cover Marrickville?",
+    title: "Where we work",
+    type: "Website page",
+    source:
+      "Air conditioning installations and replacements across Sydney’s Inner West, including Marrickville.",
+    answer:
+      "Yes, we cover Marrickville and the surrounding Inner West. Is this a new installation or a replacement?",
+  },
+  {
+    question: "Can you install a unit I bought elsewhere?",
+    title: "When the team needs to confirm",
+    type: "Written instructions",
+    source:
+      "Ask the team to confirm requests to install customer-supplied equipment. Do not promise that the work is accepted.",
+    answer:
+      "I’ll pass your question to our team so they can confirm whether they can help with the unit you’ve bought.",
+  },
+] as const;
 
+function KnowledgeProof() {
+  const [selected, setSelected] = useState(0);
+  const active = KNOWLEDGE[selected];
+  return (
+    <section className="cb-section cb-knowledge" aria-labelledby="chatbot-knowledge-heading">
+      <div className="cb-wrap">
+        <div className="cb-section-heading">
+          <div>
+            <p className="cb-eyebrow">Your information. A more useful answer.</p>
+            <h2 id="chatbot-knowledge-heading">
+              Show it how
+              <br />
+              your business works.
+            </h2>
+          </div>
+          <p>
+            Add website pages, documents and written instructions. Choose the actions it can take,
+            then test the responses before putting it in front of customers.
+          </p>
+        </div>
+        <div className="cb-knowledge-workbench">
+          <div className="cb-question-choices">
+            <p>Choose a customer question</p>
+            {KNOWLEDGE.map((item, index) => (
+              <button
+                key={item.question}
+                type="button"
+                aria-pressed={selected === index}
+                aria-controls="chatbot-knowledge-response"
+                onClick={() => setSelected(index)}
+              >
+                {item.question}
+              </button>
+            ))}
+          </div>
+          <div
+            className="cb-knowledge-proof"
+            id="chatbot-knowledge-response"
+            role="region"
+            aria-label={active.question}
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <article className="cb-source-document" key={active.title}>
+              <div className="cb-document-heading">
+                <span>Business knowledge</span>
+                <span>{active.type}</span>
+              </div>
+              <h3>{active.title}</h3>
+              <p>{active.source}</p>
+              <span className="cb-source-footnote">Information supplied by your business</span>
+            </article>
+            <div className="cb-knowledge-answer" key={active.question}>
+              <div>
+                <ZaplaPetal size={29} />
+                <span>Zapla AI Chatbot</span>
+              </div>
+              <p>{active.answer}</p>
+            </div>
+          </div>
+        </div>
+        <noscript>
+          <style>
+            {".cb-question-choices,.cb-knowledge-foot>p:first-child{display:none!important}"}
+          </style>
+          <div className="cb-static-answers">
+            {KNOWLEDGE.slice(1).map((item) => (
+              <article key={item.question}>
+                <h3>{item.question}</h3>
+                <p>
+                  {item.type}: {item.source}
+                </p>
+                <p>Chatbot response: {item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </noscript>
+        <div className="cb-knowledge-foot">
+          <p>Select a question to see the supplied information and response together.</p>
+          <p>You can limit access to the calendars and other resources it uses.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BookingProof() {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const agreementRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState({ enhanced: false, booked: true });
   useEffect(() => {
     const media = window.matchMedia(
       "(min-width: 1100px) and (min-height: 800px) and (prefers-reduced-motion: no-preference)",
@@ -120,13 +306,14 @@ function ContactCapture() {
     const update = () => {
       frame = 0;
       const scene = sceneRef.current;
-      const height = window.innerHeight;
-      const enhanced = media.matches && !!scene && scene.offsetHeight <= height - 130;
-      completed = completed || (!!scene && scene.getBoundingClientRect().top < height * 0.48);
-      setProgress((previous) =>
-        previous.enhanced === enhanced && previous.captured === completed
-          ? previous
-          : { enhanced, captured: completed },
+      const agreement = agreementRef.current;
+      const enhanced = media.matches && !!scene && scene.offsetHeight <= window.innerHeight - 145;
+      completed =
+        completed ||
+        (!!agreement && agreement.getBoundingClientRect().top < window.innerHeight * 0.7);
+      const booked = !enhanced || completed;
+      setProgress((old) =>
+        old.enhanced === enhanced && old.booked === booked ? old : { enhanced, booked },
       );
     };
     const requestUpdate = () => {
@@ -146,197 +333,91 @@ function ContactCapture() {
       observer.disconnect();
     };
   }, []);
-
   return (
-    <section
-      className="cb-section cb-capture"
-      id="chatbot-enquiry"
-      aria-labelledby="chatbot-capture-heading"
-    >
-      <div className="cb-wrap">
-        <div className="cb-chapter-intro">
-          <div>
-            <p className="cb-eyebrow">Lead qualification &amp; contact capture</p>
-            <h2 id="chatbot-capture-heading">
-              Know what they need
-              <br className="cb-desktop-break" /> before you call.
+    <section className="cb-section cb-booking" aria-labelledby="chatbot-booking-heading">
+      <div
+        className="cb-wrap cb-booking-layout"
+        data-enhanced={progress.enhanced}
+        data-booked={progress.booked}
+      >
+        <div className="cb-booking-explanation">
+          <div className="cb-booking-offer">
+            <p className="cb-eyebrow">When the next step is an appointment</p>
+            <h2 id="chatbot-booking-heading">
+              Offer a time. <br />
+              Book it when they agree.
             </h2>
-          </div>
-          <div>
             <p>
-              Ask about the service, location and timing as part of the conversation. Collect their
-              contact details so your team has someone to follow up with.
+              With calendar access enabled, the chatbot can check availability and offer a suitable
+              appointment. Mia’s enquiry can continue without a separate booking form.
             </p>
-            <p>
-              Choose the questions that matter to your business, including budget where it makes
-              sense.
-            </p>
+            <Message ai introduce>
+              Friday at 2 pm is available for an assessment. Would you like me to book it?
+            </Message>
           </div>
-        </div>
-        <div
-          className="cb-capture-track"
-          data-enhanced={progress.enhanced}
-          data-captured={progress.captured}
-        >
-          <div className="cb-capture-stage" ref={sceneRef}>
-            <div className="cb-intake-conversation">
-              <p className="cb-scene-label">Continuing Mia’s website enquiry</p>
-              <Message ai introduce>
-                We can arrange an assessment. What’s your name and email so our team can follow up?
-              </Message>
-              <Message introduce>
-                {ENQUIRY.name}. {ENQUIRY.email}.
-              </Message>
-            </div>
-            <div className="cb-record-backdrop">
-              <div className="cb-contact-record">
-                <div className="cb-record-label">
-                  <ZaplaPetal size={27} />
-                  <span>Contact created in Zapla</span>
-                </div>
-                <div className="cb-record-person">
-                  <Avatar />
-                  <div>
-                    <h3>{ENQUIRY.name}</h3>
-                    <p>{ENQUIRY.email}</p>
-                  </div>
-                </div>
-                <div className="cb-record-conversation">
-                  <span>From this conversation</span>
-                  <p>“{ENQUIRY.request}”</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="cb-capture-payoff">
-          <h3>A useful enquiry. Already in your CRM.</h3>
-          <a className="cb-text-link" href="/crm">
-            Explore Zapla CRM
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ConnectedNextStep() {
-  return (
-    <section className="cb-section cb-connected" aria-labelledby="chatbot-next-heading">
-      <div className="cb-wrap">
-        <div
-          className="cb-next-scene"
-          aria-label="Mia’s enquiry in a pipeline with a configured review task"
-        >
-          <div className="cb-connected-intro">
-            <div>
-              <p className="cb-eyebrow">Connected to your next step</p>
-              <h2 id="chatbot-next-heading">
-                Give the enquiry
-                <br />
-                somewhere to go.
-              </h2>
-            </div>
+          <div className="cb-booking-agreement" ref={agreementRef}>
+            <Message introduce>Yes, please.</Message>
+            <h3>Mia agrees. Zapla books.</h3>
             <p>
-              Add new enquiries to the right pipeline stage and start the follow-up you’ve agreed.
-              Your team can see what needs attention, with the customer’s details already in Zapla.
+              The booking uses the name Mia already supplied in the conversation. You choose the
+              calendars and booking options the chatbot can use.
             </p>
-            <a className="cb-text-link" href="/features/automation-builder">
-              Explore Automation Builder
+            <a className="cb-text-link" href="/features/calendars-bookings">
+              Explore Calendars &amp; Bookings
             </a>
           </div>
-          <div className="cb-continuation-paper">
-            <div className="cb-opportunity">
-              <p className="cb-next-label">Pipeline · New enquiry</p>
-              <div className="cb-opportunity-person">
-                <Avatar />
-                <span>{ENQUIRY.name}</span>
+        </div>
+        <div
+          className="cb-booking-scene"
+          ref={sceneRef}
+          aria-label="An available assessment time followed by Mia’s agreed booking"
+        >
+          <div className="cb-calendar-surface">
+            <div className="cb-calendar-heading">
+              <div>
+                <span>On-site assessments</span>
+                <h3>Friday</h3>
               </div>
-              <h3>Air conditioning replacement</h3>
-              <p>Marrickville · Website chat</p>
+              <ZaplaPetal size={32} />
             </div>
-            <div className="cb-review-task">
-              <p className="cb-next-label">Your configured follow-up</p>
-              <h3>Review Mia’s enquiry</h3>
-              <p>A task for your team to read the request and agree the next step.</p>
-              <p className="cb-task-email">{ENQUIRY.email}</p>
+            <div className="cb-calendar-hours">
+              <div>
+                <span>1 pm</span>
+                <span />
+              </div>
+              <div className="cb-offered-time">
+                <span>2 pm</span>
+                <div>
+                  <strong>
+                    {progress.booked ? "On-site assessment" : "Available for an assessment"}
+                  </strong>
+                  <span>{progress.booked ? ENQUIRY.name : "Offered in the conversation"}</span>
+                </div>
+              </div>
+              <div>
+                <span>3 pm</span>
+                <span />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="cb-next-caption">
-          <p>You choose the pipeline, stage and follow-up during setup.</p>
-        </div>
-
-        <details className="cb-booking-demo">
-          <summary>
-            <div>
-              <span>Ready for an appointment?</span>
-              <strong>See how the chatbot can book an assessment.</strong>
-            </div>
-            <Plus size={22} aria-hidden="true" />
-          </summary>
-          <div className="cb-booking-demo-content">
-            <div className="cb-booking-transcript">
-              <Message ai introduce>
-                Friday at 2 pm is available for an assessment. Would you like me to book it?
-              </Message>
-              <Message introduce>Yes, please.</Message>
-            </div>
-            <div className="cb-booking-result">
-              <div className="cb-result-head">
-                <span>Booking created</span>
+          <div className="cb-booking-outcome">
+            <p className="cb-booking-pending" aria-hidden="true">
+              A time offered.
+              <br />
+              Waiting for Mia’s agreement.
+            </p>
+            <div className="cb-confirmed-booking">
+              <p className="cb-record-label">
                 <ZaplaPetal size={25} />
-              </div>
+                <span>Booking created</span>
+              </p>
               <h3>On-site assessment</h3>
-              <p className="cb-booking-time">Friday at 2 pm</p>
-              <p>{ENQUIRY.name} · Marrickville</p>
-              <p>Air conditioning replacement</p>
+              <p className="cb-booked-time">Friday at 2 pm</p>
+              <p>
+                <Avatar />
+                {ENQUIRY.name} · Marrickville
+              </p>
             </div>
-            <p className="cb-booking-note">
-              With calendar access enabled, the chatbot can offer an available time and book it once
-              the customer agrees.
-            </p>
-          </div>
-        </details>
-      </div>
-    </section>
-  );
-}
-
-function BusinessAnswers() {
-  return (
-    <section className="cb-section cb-knowledge" aria-labelledby="chatbot-knowledge-heading">
-      <div className="cb-wrap cb-knowledge-layout">
-        <div className="cb-knowledge-intro">
-          <p className="cb-eyebrow">Answers from your business information</p>
-          <h2 id="chatbot-knowledge-heading">
-            Your services.
-            <br />
-            Your way of answering.
-          </h2>
-          <p>
-            Give the chatbot the information behind a helpful answer, from service areas and opening
-            hours to how you quote and book.
-          </p>
-        </div>
-        <div className="cb-knowledge-scene">
-          <div className="cb-source">
-            <span>Information you supply</span>
-            <h3>How we quote</h3>
-            <p>
-              We assess the home before quoting for a replacement. Final pricing depends on the
-              installation.
-            </p>
-            <p className="cb-source-origin">
-              From your website, documents or written instructions.
-            </p>
-          </div>
-          <div className="cb-informed-answer">
-            <Message introduce>How much would a replacement cost?</Message>
-            <Message ai introduce>
-              We quote after an assessment so we can check what your home needs. I can help you find
-              an available time.
-            </Message>
           </div>
         </div>
       </div>
@@ -348,21 +429,21 @@ function HumanHandover() {
   return (
     <section className="cb-section cb-human" aria-labelledby="chatbot-human-heading">
       <div className="cb-wrap">
-        <div className="cb-human-title">
+        <div className="cb-section-heading">
           <div>
-            <p className="cb-eyebrow">Human handover</p>
+            <p className="cb-eyebrow">When a request needs your judgement</p>
             <h2 id="chatbot-human-heading">
-              The conversation
+              Know when to
               <br />
-              can come to you.
+              bring a person in.
             </h2>
           </div>
           <p>
-            Let the chatbot handle the routine first response. Bring in your team when an enquiry
-            needs their judgement.
+            Let the chatbot handle the routine first response. Your team can review the original
+            question and conversation context when a request needs their judgement.
           </p>
         </div>
-        <div className="cb-human-editorial">
+        <div className="cb-human-scene">
           <img
             src="/concept/features/chatbot-team-review-v3.webp"
             alt="A service team reviewing an installation drawing together at a worktable"
@@ -370,34 +451,90 @@ function HumanHandover() {
             height="778"
             loading="lazy"
           />
-        </div>
-        <div className="cb-handover-strip">
-          <div className="cb-handover-conversation">
-            <p className="cb-scene-label">When a different request needs a person</p>
-            <Message introduce>Can you install a unit I bought elsewhere?</Message>
-            <Message ai introduce>
-              I’ll pass your question to our team so they can confirm.
-            </Message>
-          </div>
-          <div className="cb-human-next">
-            <Avatar cell={13} />
-            <div>
-              <span>For your team to review</span>
-              <p>“Can you install a unit I bought elsewhere?”</p>
-              <p className="cb-human-context">
-                The original question and conversation context help your team pick it up.
-              </p>
-              <a className="cb-text-link" href="/features/unified-inbox">
-                Explore Unified Inbox
-              </a>
+          <div className="cb-handover-paper">
+            <div className="cb-human-question">
+              <Avatar />
+              <div>
+                <span>Mia’s question</span>
+                <p>Can you install a unit I bought elsewhere?</p>
+              </div>
+            </div>
+            <div className="cb-human-response">
+              <ZaplaPetal size={27} />
+              <div>
+                <span>Zapla AI Chatbot</span>
+                <p>I’ll pass your question to our team so they can confirm.</p>
+              </div>
             </div>
           </div>
+        </div>
+        <div className="cb-human-caption">
+          <p>
+            A different request, with the original conversation available for your team to review.
+          </p>
+          <a className="cb-text-link" href="/features/unified-inbox">
+            Explore Unified Inbox
+          </a>
         </div>
       </div>
     </section>
   );
 }
 
+function GuidedLaunch() {
+  return (
+    <section className="cb-section cb-setup">
+      <div className="cb-wrap cb-setup-layout">
+        <div>
+          <p className="cb-eyebrow">Guided Launch</p>
+          <h2>
+            Agree the boundaries.
+            <br />
+            Then launch.
+          </h2>
+          <p>
+            We work through the questions your customers ask, the details to collect and the actions
+            to enable. Then we test how the chatbot responds.
+          </p>
+          <p>
+            Starting with a website and separate inboxes? We’ll map a practical first setup. Already
+            using a CRM or booking system? We’ll review where Zapla fits.
+          </p>
+          <Cta>Talk through your setup</Cta>
+          <p className="cb-launch-scope">
+            Guided Launch is scoped and priced separately from your monthly plan.
+          </p>
+        </div>
+        <div className="cb-launch-plan">
+          <h3>Your launch plan</h3>
+          <dl>
+            <div>
+              <dt>Business information</dt>
+              <dd>
+                Website pages, documents and instructions, with a plan for keeping them up to date.
+              </dd>
+            </div>
+            <div>
+              <dt>Permitted next steps</dt>
+              <dd>
+                Contact details, pipeline and follow-up, calendar access and the questions that need
+                your team.
+              </dd>
+            </div>
+            <div>
+              <dt>Your website experience</dt>
+              <dd>A floating widget or inline chat, with your greeting, colours and placement.</dd>
+            </div>
+          </dl>
+          <p>
+            Website chat first. SMS, WhatsApp and email can be configured too, with connections and
+            usage confirmed during setup.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
 const faqs = [
   [
     "Can I put it on my existing website?",
@@ -440,64 +577,11 @@ const faqs = [
 export function AIChatbotPage() {
   return (
     <main className="zapla-feature zapla-chatbot">
-      <WebsiteHero />
-      <ContactCapture />
-      <ConnectedNextStep />
-      <BusinessAnswers />
+      <EnquiryOpening />
+      <KnowledgeProof />
+      <BookingProof />
       <HumanHandover />
-      <section className="cb-section cb-setup">
-        <div className="cb-wrap">
-          <div className="cb-launch-heading">
-            <div>
-              <p className="cb-eyebrow">Guided Launch</p>
-              <h2>
-                Your business.
-                <br />
-                Your answers.
-                <br />
-                Set up with you.
-              </h2>
-            </div>
-            <div className="cb-launch-copy">
-              <p>
-                We work through your business information, the details to collect and the next steps
-                to enable, then test how the chatbot responds before launch.
-              </p>
-              <p>
-                Starting with a website and separate inboxes? We’ll map a practical first setup.
-                Already using a CRM or booking system? We’ll review where Zapla fits.
-              </p>
-              <Cta>Talk through your setup</Cta>
-              <p className="cb-launch-scope">
-                Guided Launch is scoped and priced separately from your monthly plan.
-              </p>
-            </div>
-          </div>
-          <div className="cb-setup-scope">
-            <div>
-              <h3>Your information</h3>
-              <p>
-                Services, opening hours and answers from text, documents or website pages. Keep that
-                information up to date as your business changes.
-              </p>
-            </div>
-            <div>
-              <h3>Its next steps</h3>
-              <p>
-                The questions to ask, customer details to collect and calendars it can use. Agree
-                which pipeline and follow-up steps belong in your setup.
-              </p>
-            </div>
-            <div>
-              <h3>Your team’s involvement</h3>
-              <p>
-                Which requests need a person and how those conversations will be handled. Test
-                everyday enquiries and the questions that need your judgement.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <GuidedLaunch />
       <section className="cb-section cb-faq">
         <div className="cb-wrap cb-faq-grid">
           <div>
