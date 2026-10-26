@@ -1,13 +1,13 @@
 # Automation Builder: implementation and review
 
-**Latest revision:** “AI drafting and operational range, 26 October 2026” at the end supersedes the repeated nurture scroll beats and earlier capability assumptions. The approved silver frame and neutral white nodes remain. Earlier positive assessments are historical, not owner approval.
+**Latest revision:** “Separate typed AI construction, 26 October 2026” at the end restores the nurture hero and moves AI drafting into its own section. It removes the rejected preference diagram, overlays the photo heading and contains the FAQ. The approved silver frame and white nodes remain. Earlier positive assessments are historical, not owner approval.
 
 **Current correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. All message cards must stay white in every scroll state.
 
 **Subsequent approved scope:** a thin silver frame with faint blue/coral edge reflections, following the owner's “ok go”. The neutral cards and channel treatment stay as corrected. See the final silver-frame entry.
 
 
-**Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the final AI-drafting entry.
+**Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the final separate-AI-section entry.
 
 Reviewed **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -401,3 +401,47 @@ The five awareness levels are addressed through the page's progression: repeated
 The final actual opening is [ai-draft-20261026.png](review-assets/automation-builder/ai-draft-20261026.png). This is a browser capture of the final product-code preview, not a generated design mockup. The complete audit and tested AI limitations are recorded in the separate knowledge deliverable and the updated capability evidence.
 
 Remaining limits: no independent conversion study, assistive-technology session, physical-device/cross-browser matrix, full lower-page tablet/320px review or separate reduced-motion/JavaScript-disabled browser session. The full static content and preference fallbacks were source-reviewed. Live-product draft generation/configuration was inspected, but no automation was saved/activated, no customer message was sent and no delivery/outcome was tested. Lovable remained read-only; no builder prompt or separate Publish action was used.
+
+## Separate typed AI construction, 26 October 2026
+
+The owner rejected the AI request/build being placed in the hero and the commercial weakness of the Email preferred? section. The previous positive ratings did not establish that the motion matched the brief, and the preference example's commercial assessment is withdrawn. This revision restores the original nurture opening, with the audited correction that it makes no generic Create Task promise. The H1, final CTA, approved silver frame and white message cards remain.
+
+The dedicated AI Flow Builder section now has one job: show a staff member's written request becoming a connected workflow draft. The request types in first; six native steps then appear in sequence, with quiet connections, a final hold and explicit owner review. No customer execution, delivery, successful booking or autonomous activation is illustrated. The preference diagram and four event/action rows are removed. The work photograph carries its white heading over open space, and the FAQ sits inside a large rounded panel.
+
+Final product-code commit: `353f27ad086bf335d715a7c04536c4821443d447`. Production build, TypeScript, targeted ESLint, formatting and whitespace checks passed; Cloudflare Workers and Vercel deployment checks succeeded. Source was based on current main including the approved Calendar/Meeting Rooms change. A draft branch preview was used for rendered QA because the connected browser cannot reach the container development server. Lovable remained read-only.
+
+### Actual rendered checks
+
+| Surface | Coverage and result |
+| --- | --- |
+| Wide desktop, 1707 × 769 viewport | Restored hero; separate AI scene, request typing, intermediate construction and completed draft; full photo overlay and rounded FAQ composition inspected. No document overflow. |
+| Desktop, 1366 × 768 | AI container measured 1254.67 × 637.17px and fitted at y=101–738px. Completed draft had six visible nodes, each at opacity 1. The restored hero's measured pin guard was enabled. |
+| Short desktop, 1366 × 650 | Hero pinning disabled; AI container remained in ordinary flow. No document overflow. There is no second sticky or nested scroll inside the AI section. |
+| Tablet, 834 × 900 | Complete two-column AI scene measured 754.67 × 592.52px. Request and all six nodes fit together. Hero stayed in normal flow and document width did not overflow. |
+| Phone, 390 × 844 | AI scene, complete request, all six draft nodes, photo crop/white heading and FAQ panel inspected. AI container was 330.67 × 818.56px and remained in normal flow. Both faces stayed clear of the photograph's heading. No measured text or document overflow. |
+| Narrow phone, 320 × 800 | Targeted AI scene, full request, node labels, photo/heading and expanded FAQ inspected. AI container was 270.67 × 850.86px; its last steps remain reachable by native scrolling. No measured heading/paragraph/strong/blockquote/summary or document overflow. |
+
+The first phone check found that a percentage-of-section start could begin typing while too little of the request was visible. The final start checks the request itself. On the final preview the partly visible request at y=761–926px remained in waiting with zero characters; after scrolling it to y=411–576px, typing began and still showed zero workflow nodes. This verifies the intended request-before-construction order rather than merely seeing a finished diagram.
+
+Replay was checked with an actual pointer click in the visible button, avoiding the browser locator's automatic centring. The final code retained a typed request while offscreen: two observations 900ms apart both showed 114 characters and zero nodes. Returning to the scene resumed construction and reached six fully opaque nodes. Intermediate observations showed typing with no nodes, then building with five nodes, then the complete draft. There is no automatic loop reset. Replay remains a real local control and keeps its button mounted/focusable during the sequence.
+
+The photo's desktop heading sits on the darkened left workspace, away from the people. Phone and 320px crops use a bottom scrim and place the white heading below both faces. The FAQ opened by click and closed with Enter at 320px without overflowing its rounded panel. Shared navigation/footer, existing booking destinations, route and noindex/sitemap policy were not changed. The unchanged Guided Launch and final CTA retain their previous evidence rather than a new full-device acceptance claim.
+
+### Review lenses
+
+These are the implementing author's assessments of this revision, not independent reviewers or measured conversion results. They supersede the prior assessment of the rejected preference/hero-AI composition.
+
+| Lens | Score | Current finding |
+| --- | --- | --- |
+| UI/UX | 9/10 | Separate sections explain routine execution and AI construction. The request becomes readable before typing starts; native mobile flow reaches every step. |
+| Brand / Creative | 9/10 | Existing silver material/white hero cards remain. Deep ink gives the dedicated AI scene contrast; the white photo heading uses existing image space, and the FAQ is deliberately contained. |
+| Product Marketing | 9/10 | The scene answers whether a description can create a connected draft. It no longer asks the buyer to find value in an abstract channel-preference condition. |
+| Conversion | 9/10 | A concrete request/result reduces uncertainty about building effort, while owner review and paid setup scope remain explicit. No performance lift is claimed. |
+| Motion | 9/10 | Actual typing precedes construction, intermediate and completed states were observed, offscreen progress pauses, and the final draft holds until replay. |
+| SME buyer | 9/10 | The same familiar enquiry nurture connects the hero's result to the AI request. The buyer can read the complete request and waits without technical branching vocabulary. |
+| Buyer psychology | 9/10 | AI produces something the owner can inspect and edit. The illustration preserves agency rather than promising a perfect autonomous workflow. |
+| AI-slop critique | 9/10 | No generic preference diagram, invented metrics, predictive claims, neon, fake send button or pastel feature cards. Every node corresponds to the visible request. |
+
+Actual final scene: [separate-ai-section-20261026.png](review-assets/automation-builder/separate-ai-section-20261026.png). This is a browser capture of the product-code preview, not a generated mockup. The supplied AC recording informed the typed-request-to-draft sequence; its dark-neon theme, recommendations and other unsupported claims were not copied.
+
+Remaining limits: no separate reduced-motion or JavaScript-disabled browser session, assistive-technology run, physical/cross-browser matrix, full lower-page tablet/320px pass or independent conversion study. Complete static content and reduced-motion behaviour were source-reviewed. The earlier live-product audit remains scoped to configuration and draft generation, with no activation or message delivery. No Lovable builder prompt or separate Publish action was used.
