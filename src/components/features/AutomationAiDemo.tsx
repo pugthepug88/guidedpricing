@@ -8,7 +8,7 @@ import {
 } from "./automationAiExamples";
 
 type BuildState = {
-  phase: "ready" | "waiting" | "typing" | "building" | "complete";
+  phase: "ready" | "waiting" | "typing" | "generating" | "building" | "complete";
   characters: number;
   steps: number;
 };
@@ -59,7 +59,7 @@ function useDraftAssembly() {
       const nextState: BuildState =
         elapsed < typingEnd
           ? {
-              phase: "typing",
+              phase: elapsed < typingEnd - 400 ? "typing" : "generating",
               characters: Math.min(
                 example.request.length,
                 Math.max(0, Math.floor((elapsed - 180) / 20)),
@@ -180,7 +180,7 @@ function StepIcon({ kind }: { kind: AutomationStep["kind"] }) {
 export function AutomationAiDemo() {
   const { rootRef, watchRef, build, example, selected, play } = useDraftAssembly();
   const allVisible = build.phase === "ready" || build.phase === "complete";
-  const draftVisible = allVisible || build.steps > 0;
+  const generating = build.phase === "generating" || build.phase === "building";
 
   return (
     <section className="ab-ai-section" aria-labelledby="ab-ai-heading" id="ai-flow-builder">
@@ -191,113 +191,123 @@ export function AutomationAiDemo() {
             <h2 id="ab-ai-heading">Build the workflow your business needs.</h2>
           </div>
           <p>
-            Choose an idea to watch Zapla AI build it. These are starting points. Describe your own
+            Choose an idea. Watch Zapla AI turn it into a connected workflow. Describe your own
             process inside Zapla.
           </p>
         </header>
 
-        <div
-          className="ab-ai-choices"
-          role="group"
-          aria-label="Choose an automation to watch AI build"
-        >
-          {automationAiExamples.map((item, index) => (
-            <button
-              type="button"
-              key={item.id}
-              aria-pressed={selected === index}
-              aria-controls="ai-construction"
-              onClick={() => play(index)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-
-        <div
-          className="ab-ai-demo"
-          ref={rootRef}
-          id="ai-construction"
-          data-phase={build.phase}
-          data-example={example.id}
-        >
-          <div className="ab-ai-copy">
-            <h3>{example.label}</h3>
-            <p>{example.description}</p>
-          </div>
-          <figure className="ab-ai-prompt">
-            <figcaption>Your request</figcaption>
-            <blockquote>
-              <span className="ab-ai-sr-only">{example.request}</span>
-              <span className="ab-ai-prompt-reserve" aria-hidden="true">
-                {example.request}
-              </span>
-              <span className="ab-ai-prompt-typed" aria-hidden="true">
-                {example.request.slice(0, build.characters)}
-                {build.phase === "typing" || build.phase === "waiting" ? (
-                  <span className="ab-ai-cursor" />
-                ) : null}
-              </span>
-            </blockquote>
-          </figure>
-          <figure className="ab-ai-workflow" aria-label={"Workflow draft: " + example.label}>
-            <figcaption data-visible={draftVisible}>
-              <ZaplaPetal size={25} />
-              <span>Workflow draft</span>
-            </figcaption>
-            <ol>
-              {example.steps.map((step, index) => (
-                <li
-                  key={example.id + index}
-                  className={"ab-ai-step ab-ai-step-" + step.kind}
-                  data-visible={allVisible || build.steps > index}
-                >
-                  {index > 0 ? <span className="ab-ai-connection" aria-hidden="true" /> : null}
-                  <div className="ab-ai-node">
-                    <StepIcon kind={step.kind} />
-                    <div>
-                      <strong>{step.title}</strong>
-                      {step.detail ? <p>{step.detail}</p> : null}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </figure>
-          <div className="ab-ai-controls">
-            <div className="ab-ai-control-row">
-              <button className="ab-ai-watch" type="button" ref={watchRef} onClick={() => play()}>
-                <Play size={15} fill="currentColor" aria-hidden="true" />
-                Watch AI build
-              </button>
-              <a className="ab-ai-other" href="#ai-flow-builder">
-                Choose another idea
-              </a>
+        <div className="ab-ai-workspace">
+          <div
+            className="ab-ai-demo"
+            ref={rootRef}
+            id="ai-construction"
+            data-phase={build.phase}
+            data-example={example.id}
+          >
+            <div className="ab-ai-input">
+              <div className="ab-ai-copy">
+                <h3>{example.label}</h3>
+              </div>
+              <figure className="ab-ai-prompt">
+                <figcaption>
+                  <ZaplaPetal size={22} />
+                  <span>Ask Zapla AI</span>
+                </figcaption>
+                <blockquote>
+                  <span className="ab-ai-sr-only">{example.request}</span>
+                  <span className="ab-ai-prompt-reserve" aria-hidden="true">
+                    {example.request}
+                  </span>
+                  <span className="ab-ai-prompt-typed" aria-hidden="true">
+                    {example.request.slice(0, build.characters)}
+                    {build.phase === "typing" || build.phase === "waiting" ? (
+                      <span className="ab-ai-cursor" />
+                    ) : null}
+                  </span>
+                </blockquote>
+                <div className="ab-ai-toolbar">
+                  <button
+                    className="ab-ai-watch"
+                    type="button"
+                    ref={watchRef}
+                    onClick={() => play()}
+                  >
+                    <Play size={14} fill="currentColor" aria-hidden="true" />
+                    Watch AI build
+                  </button>
+                  <a className="ab-ai-other" href="#automation-ai-ideas">
+                    Choose another idea
+                  </a>
+                </div>
+              </figure>
+              <p className="ab-ai-scope">{example.scope}</p>
+              <p className="ab-ai-review">
+                Review the audience, messages, rules and connections before activation.
+              </p>
             </div>
-            <p className="ab-ai-scope">{example.scope}</p>
+            <figure className="ab-ai-workflow" aria-label={"Workflow draft: " + example.label}>
+              <figcaption aria-live="polite" aria-atomic="true">
+                <span>{generating ? "Building your workflow…" : "Workflow draft"}</span>
+              </figcaption>
+              <ol>
+                {example.steps.map((step, index) => (
+                  <li
+                    key={example.id + index}
+                    className={"ab-ai-step ab-ai-step-" + step.kind}
+                    data-visible={allVisible || build.steps > index}
+                  >
+                    {index > 0 ? <span className="ab-ai-connection" aria-hidden="true" /> : null}
+                    <div className="ab-ai-node">
+                      <StepIcon kind={step.kind} />
+                      <div>
+                        <strong>{step.title}</strong>
+                        {step.detail ? <p>{step.detail}</p> : null}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </figure>
           </div>
-          <p className="ab-ai-review">
-            Review the audience, messages, rules and connections before activation.
-          </p>
-        </div>
+          <div className="ab-ai-ideas" id="automation-ai-ideas">
+            <p className="ab-ai-ideas-label">Try an automation</p>
+            <div
+              className="ab-ai-choices"
+              role="group"
+              aria-label="Choose an automation to watch AI build"
+            >
+              {automationAiExamples.map((item, index) => (
+                <button
+                  type="button"
+                  key={item.id}
+                  aria-pressed={selected === index}
+                  aria-controls="ai-construction"
+                  onClick={() => play(index)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
-        <noscript>
-          <style>{".ab-ai-choices,.ab-ai-watch{display:none!important}"}</style>
-          <div className="ab-ai-static-examples">
-            {automationAiExamples.slice(1).map((item) => (
-              <details key={item.id}>
-                <summary>{item.label}</summary>
-                <p>{item.request}</p>
-                <ol>
-                  {item.steps.map((step, index) => (
-                    <li key={index}>{step.title}</li>
-                  ))}
-                </ol>
-                <p>{item.scope}</p>
-              </details>
-            ))}
-          </div>
-        </noscript>
+          <noscript>
+            <style>{".ab-ai-ideas,.ab-ai-watch,.ab-ai-other{display:none!important}"}</style>
+            <div className="ab-ai-static-examples">
+              {automationAiExamples.slice(1).map((item) => (
+                <details key={item.id}>
+                  <summary>{item.label}</summary>
+                  <p>{item.request}</p>
+                  <ol>
+                    {item.steps.map((step, index) => (
+                      <li key={index}>{step.title}</li>
+                    ))}
+                  </ol>
+                  <p>{item.scope}</p>
+                </details>
+              ))}
+            </div>
+          </noscript>
+        </div>
       </div>
     </section>
   );
