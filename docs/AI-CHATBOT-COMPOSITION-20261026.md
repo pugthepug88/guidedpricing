@@ -59,6 +59,10 @@ Rendered coverage and corrections:
 | Technical/accessibility | Scoped source, real buttons/links, aria-pressed/live response, focus states and native disclosures remain. No service calls. Main story is server rendered; noscript supplies remaining prepared answers. |
 | AI-slop critique | Removed inflated sparse panels and duplicate confirmation. No invented metrics, fake upload/send controls, decorative badges, external avatars or unverified Birdeye features. |
 
-Limits: implementation-agent review in Chrome, not owner approval, independent director review, live product/UI fidelity acceptance, AI quality testing, screen-reader/cross-browser/physical-device testing or conversion measurement. Reduced-motion and no-JavaScript behaviour were checked in source, without separate browser modes. No signed-in product account was inspected. Direct Lovable sync and final proof are recorded after merge; the Workers preview alone does not prove them.
+Limits: implementation-agent review in Chrome, not owner approval, independent director review, live product/UI fidelity acceptance, AI quality testing, screen-reader/cross-browser/physical-device testing or conversion measurement. Reduced-motion and no-JavaScript behaviour were checked in source, without separate browser modes. No signed-in product account was inspected. PR #193 merged as 52e930a0fab825b908867a1bf534f67d76d22a4e, whose Workers build succeeded. The actual Lovable route was then reloaded until it visibly showed the new 340px widget and knowledge heading. The See how it works anchor and assessment question were tested there; the answer updated correctly. The old standalone follow-through section is absent, one booking scene remains and all three sales links still target /booking. This verifies rendered sync, separately from deployment metadata. No Lovable builder prompt or separate Publish action was used.
+
+Final proof: [actual Lovable opening, 1707 × 769](qa/ai-chatbot-composition-20261026.png).
+
+Review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ai-chatbot
 
 All lens judgements in this record are the implementation agent's own review. They are not independent director reviews, research results, owner approval or measured conversion performance.
