@@ -9,8 +9,8 @@ import "@/styles/ai-chatbot.css";
 const ENQUIRY = {
   name: "Mia Thompson",
   email: "mia@example.com",
-  question: "Do you replace air conditioning in Marrickville?",
-  timing: "Next week. Can your team get in touch?",
+  question: "Do you replace ducted air conditioning in Marrickville?",
+  timing: "It’s for my home. Ideally next week.",
 } as const;
 
 function Avatar({ cell = 9 }: { cell?: number }) {
@@ -70,9 +70,8 @@ function EnquiryOpening() {
           </header>
           <div className="cb-opening-copy">
             <p>
-              Answer website questions around the clock, ask what matters and collect contact
-              details in the conversation. Give your team an enquiry they can follow up, with the
-              customer’s context already in Zapla.
+              You’re with a customer. Your next enquiry is on your website. Let Zapla answer, find
+              out what they need and collect their details, even after hours.
             </p>
             <div className="cb-actions">
               <Cta />
@@ -94,16 +93,18 @@ function EnquiryOpening() {
                   <ZaplaPetal size={30} />
                 </span>
                 <div>
-                  <strong>On your website</strong>
-                  <span>Zapla AI Chatbot</span>
+                  <strong>Your website chat</strong>
+                  <span>AI Chatbot · Your business information</span>
                 </div>
               </div>
-              <Message introduce>{ENQUIRY.question}</Message>
-              <Message ai introduce>
-                Yes, we cover Marrickville. When are you looking to replace it?
+              <Message>{ENQUIRY.question}</Message>
+              <Message ai>
+                Yes, we do. Is it for your home or a business, and when do you need it?
               </Message>
-              <Message introduce>
-                {ENQUIRY.timing} I’m {ENQUIRY.name}, {ENQUIRY.email}.
+              <Message>{ENQUIRY.timing}</Message>
+              <Message ai>What’s your name and email so our team can get in touch?</Message>
+              <Message>
+                {ENQUIRY.name}, {ENQUIRY.email}.
               </Message>
             </div>
             <aside
@@ -122,7 +123,7 @@ function EnquiryOpening() {
                 </div>
               </div>
               <div className="cb-original-request">
-                <span>From the conversation</span>
+                <span>Mia’s original enquiry</span>
                 <p>“{ENQUIRY.question}”</p>
                 <p>“{ENQUIRY.timing}”</p>
               </div>
@@ -132,25 +133,39 @@ function EnquiryOpening() {
             </aside>
           </div>
         </div>
-        <div className="cb-enquiry-caption">
-          <p>Choose the questions around need, location, timing and budget where relevant.</p>
-          <span>Even outside business hours.</span>
-        </div>
+        <ul className="cb-business-benefits" aria-label="What changes for your business">
+          <li>
+            <strong>Answer while you’re unavailable.</strong>
+            <p>Handle routine questions without someone staffing live chat.</p>
+          </li>
+          <li>
+            <strong>Know more before you call.</strong>
+            <p>Ask about the need, timing and fit before your team follows up.</p>
+          </li>
+          <li>
+            <strong>Keep the enquiry in Zapla.</strong>
+            <p>Bring contact details and conversation context into your customer workflow.</p>
+          </li>
+        </ul>
         <div className="cb-follow-through">
           <div>
-            <p className="cb-eyebrow">After the contact is captured</p>
+            <p className="cb-eyebrow">Chat, CRM and follow-up together</p>
             <h2>
-              Give the enquiry
-              <br />a next step.
+              Start the follow-up.
+              <br />
+              Keep the context.
             </h2>
             <p>
-              Choose which pipeline receives new enquiries and which follow-up begins. Your team can
-              pick up Mia’s request with her details already in Zapla.
+              Create the contact, put the enquiry in your chosen pipeline and start an agreed
+              automation. An acknowledgement can go out while your team gets on with the day.
             </p>
+            <a className="cb-text-link" href="/features/automation-builder">
+              Explore Automation Builder
+            </a>
           </div>
           <div
             className="cb-configured-plan"
-            aria-label="A configured pipeline stage and review task for Mia’s enquiry"
+            aria-label="A configured pipeline stage and acknowledgement email for Mia’s enquiry"
           >
             <p className="cb-plan-for">
               <Avatar />
@@ -161,15 +176,17 @@ function EnquiryOpening() {
                 <dt>Pipeline stage</dt>
                 <dd>New enquiry</dd>
               </div>
-              <div>
-                <dt>Follow-up task</dt>
-                <dd>Review Mia’s enquiry</dd>
-              </div>
             </dl>
-            <p>You choose the pipeline, stage and automation during setup.</p>
-            <a className="cb-text-link" href="/features/automation-builder">
-              Explore Automation Builder
-            </a>
+            <div className="cb-acknowledgement">
+              <span>Configured acknowledgement email</span>
+              <p className="cb-email-to">To {ENQUIRY.email}</p>
+              <h3>Thanks for getting in touch, Mia.</h3>
+              <p>
+                We’ve received your enquiry. Our team will be in touch to discuss what you need and
+                arrange the next step.
+              </p>
+            </div>
+            <p>You choose the pipeline, stage and follow-up during setup.</p>
           </div>
         </div>
       </div>
@@ -179,31 +196,31 @@ function EnquiryOpening() {
 
 const KNOWLEDGE = [
   {
-    question: "How much does a replacement cost?",
-    title: "How we quote",
+    question: "Will you remove the old system too?",
+    title: "Ducted system replacements",
     type: "Uploaded document",
     source:
-      "Assess the home before quoting for a replacement. Final pricing depends on the installation.",
+      "Ducted replacements include removal of the existing indoor and outdoor units. Check access and installation requirements at the on-site assessment.",
     answer:
-      "We quote after an assessment so we can check what your home needs. I can help you find an available time.",
+      "Yes. We remove the old indoor and outdoor units as part of a ducted replacement. We’ll check access at your assessment. Would you like help finding a time?",
   },
   {
-    question: "Do you cover Marrickville?",
-    title: "Where we work",
+    question: "What happens at the assessment?",
+    title: "What we check",
     type: "Website page",
     source:
-      "Air conditioning installations and replacements across Sydney’s Inner West, including Marrickville.",
+      "The assessment covers the existing system, room layout and access for installation. The team then prepares a quote for the recommended replacement.",
     answer:
-      "Yes, we cover Marrickville and the surrounding Inner West. Is this a new installation or a replacement?",
+      "We’ll look at your existing system, room layout and installation access, then prepare a quote for a suitable replacement. Is this for your home or a business?",
   },
   {
-    question: "Can you install a unit I bought elsewhere?",
-    title: "When the team needs to confirm",
+    question: "Can someone help outside the Inner West?",
+    title: "Enquiries outside our service area",
     type: "Written instructions",
     source:
-      "Ask the team to confirm requests to install customer-supplied equipment. Do not promise that the work is accepted.",
+      "Our service area is Sydney’s Inner West. For other suburbs, collect the location and ask the team to confirm before offering an appointment.",
     answer:
-      "I’ll pass your question to our team so they can confirm whether they can help with the unit you’ve bought.",
+      "We usually work across Sydney’s Inner West. Which suburb are you in? I can ask our team to confirm whether we can help before arranging a visit.",
   },
 ] as const;
 
@@ -215,16 +232,15 @@ function KnowledgeProof() {
       <div className="cb-wrap">
         <div className="cb-section-heading">
           <div>
-            <p className="cb-eyebrow">Your information. A more useful answer.</p>
+            <p className="cb-eyebrow">Your services. Your way of working.</p>
             <h2 id="chatbot-knowledge-heading">
-              Show it how
-              <br />
-              your business works.
+              Give customers
+              <br />a useful answer.
             </h2>
           </div>
           <p>
-            Add website pages, documents and written instructions. Choose the actions it can take,
-            then test the responses before putting it in front of customers.
+            Give it the information your team uses every day. Explain what’s included, how your
+            service works and what to check before a customer takes the next step.
           </p>
         </div>
         <div className="cb-knowledge-workbench">
@@ -252,12 +268,12 @@ function KnowledgeProof() {
           >
             <article className="cb-source-document" key={active.title}>
               <div className="cb-document-heading">
-                <span>Business knowledge</span>
+                <span>Your business information</span>
                 <span>{active.type}</span>
               </div>
               <h3>{active.title}</h3>
               <p>{active.source}</p>
-              <span className="cb-source-footnote">Information supplied by your business</span>
+              <span className="cb-source-footnote">The information behind the answer</span>
             </article>
             <div className="cb-knowledge-answer" key={active.question}>
               <div>
@@ -285,8 +301,10 @@ function KnowledgeProof() {
           </div>
         </noscript>
         <div className="cb-knowledge-foot">
-          <p>Select a question to see the supplied information and response together.</p>
-          <p>You can limit access to the calendars and other resources it uses.</p>
+          <p>Use website pages, uploaded documents and written instructions.</p>
+          <p>
+            Test the answers before launch. Keep your information current as the business changes.
+          </p>
         </div>
       </div>
     </section>
@@ -342,14 +360,15 @@ function BookingProof() {
       >
         <div className="cb-booking-explanation">
           <div className="cb-booking-offer">
-            <p className="cb-eyebrow">When the next step is an appointment</p>
+            <p className="cb-eyebrow">From a question to an appointment</p>
             <h2 id="chatbot-booking-heading">
-              Offer a time. <br />
-              Book it when they agree.
+              Book while
+              <br />
+              they’re interested.
             </h2>
             <p>
-              With calendar access enabled, the chatbot can check availability and offer a suitable
-              appointment. Mia’s enquiry can continue without a separate booking form.
+              When a visitor is ready, check your connected calendar and offer an available time in
+              the conversation. Create the appointment once they agree.
             </p>
             <Message ai introduce>
               Friday at 2 pm is available for an assessment. Would you like me to book it?
@@ -359,8 +378,8 @@ function BookingProof() {
             <Message introduce>Yes, please.</Message>
             <h3>Mia agrees. Zapla books.</h3>
             <p>
-              The booking uses the name Mia already supplied in the conversation. You choose the
-              calendars and booking options the chatbot can use.
+              The enquiry becomes an agreed appointment without another round of messages to arrange
+              a time. You choose which calendars and booking options the chatbot can use.
             </p>
             <a className="cb-text-link" href="/features/calendars-bookings">
               Explore Calendars &amp; Bookings
@@ -431,16 +450,16 @@ function HumanHandover() {
       <div className="cb-wrap">
         <div className="cb-section-heading">
           <div>
-            <p className="cb-eyebrow">When a request needs your judgement</p>
+            <p className="cb-eyebrow">Routine questions handled. Judgement stays with you.</p>
             <h2 id="chatbot-human-heading">
-              Know when to
+              Your team handles
               <br />
-              bring a person in.
+              the exceptions.
             </h2>
           </div>
           <p>
-            Let the chatbot handle the routine first response. Your team can review the original
-            question and conversation context when a request needs their judgement.
+            Unusual requests still need someone who knows the work. Set the chatbot to involve your
+            team, with the original question and conversation context available to review.
           </p>
         </div>
         <div className="cb-human-scene">
@@ -470,7 +489,7 @@ function HumanHandover() {
         </div>
         <div className="cb-human-caption">
           <p>
-            A different request, with the original conversation available for your team to review.
+            Your team can continue with the context, rather than ask the customer to start again.
           </p>
           <a className="cb-text-link" href="/features/unified-inbox">
             Explore Unified Inbox
@@ -488,13 +507,13 @@ function GuidedLaunch() {
         <div>
           <p className="cb-eyebrow">Guided Launch</p>
           <h2>
-            Agree the boundaries.
+            Your website.
             <br />
-            Then launch.
+            Set up with you.
           </h2>
           <p>
-            We work through the questions your customers ask, the details to collect and the actions
-            to enable. Then we test how the chatbot responds.
+            Keep the website you already use. We help add the chatbot, prepare its business
+            information and walk through the enquiries you want it to handle before launch.
           </p>
           <p>
             Starting with a website and separate inboxes? We’ll map a practical first setup. Already
@@ -502,28 +521,40 @@ function GuidedLaunch() {
           </p>
           <Cta>Talk through your setup</Cta>
           <p className="cb-launch-scope">
-            Guided Launch is scoped and priced separately from your monthly plan.
+            Guided Launch is required for a new standard setup and priced separately from your
+            monthly plan.
           </p>
         </div>
         <div className="cb-launch-plan">
-          <h3>Your launch plan</h3>
+          <h3>Built around your business</h3>
           <dl>
             <div>
-              <dt>Business information</dt>
+              <dt>Answers your customers need</dt>
               <dd>
-                Website pages, documents and instructions, with a plan for keeping them up to date.
+                Your services, FAQs and policies from website pages, documents and written
+                instructions.
               </dd>
             </div>
             <div>
-              <dt>Permitted next steps</dt>
+              <dt>The enquiries you want</dt>
               <dd>
-                Contact details, pipeline and follow-up, calendar access and the questions that need
-                your team.
+                Questions around need, location, timing and budget where relevant. Choose contact
+                capture, pipeline follow-up and the calendars it can use.
               </dd>
             </div>
             <div>
-              <dt>Your website experience</dt>
-              <dd>A floating widget or inline chat, with your greeting, colours and placement.</dd>
+              <dt>A widget that fits your website</dt>
+              <dd>
+                Your greeting, colours and placement. Use a floating widget or place the chat within
+                a page.
+              </dd>
+            </div>
+            <div>
+              <dt>Tested before customers use it</dt>
+              <dd>
+                Check common questions, booking requests and situations that should involve your
+                team.
+              </dd>
             </div>
           </dl>
           <p>
@@ -550,7 +581,7 @@ const faqs = [
   ],
   [
     "What happens after the contact is captured?",
-    "The contact can be created in Zapla. You can configure a pipeline stage and follow-up automation for new enquiries, such as a task for your team to review the request. We agree the steps with you during setup.",
+    "The contact can be created in Zapla with the details the visitor provides. You can choose a pipeline stage and configure follow-up such as an acknowledgement email. Your team can continue with the enquiry context available. We agree and test those steps during setup.",
   ],
   [
     "Can it book appointments?",
@@ -567,6 +598,14 @@ const faqs = [
   [
     "What if we already use a CRM or booking system?",
     "We review your current tools and the workflow you want before recommending a setup. The chatbot uses the calendars and booking options you choose in Zapla. We check how your existing systems would fit rather than assume every system connects.",
+  ],
+  [
+    "What does this add to a website contact form?",
+    "A form collects the details someone is ready to submit. The chatbot can answer their questions first, ask what they need and collect their contact details in the conversation. In Zapla, that enquiry can then connect to your customer record, chosen pipeline and configured follow-up.",
+  ],
+  [
+    "What setup and usage costs should I expect?",
+    "Our Pricing page sets out the monthly plans and Guided Launch. Guided Launch is required for a new standard setup and priced separately. Before you start, we confirm chatbot availability in your plan, the AI usage terms and any connected messaging charges for your setup.",
   ],
   [
     "How is this different from the other Zapla AI tools?",

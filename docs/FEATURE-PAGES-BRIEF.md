@@ -362,6 +362,12 @@ Fresh field-team photography and a linked customer detail explain context withou
 
 The route, shared header/footer, Platform structure, draft indexing and /booking sales destination are preserved. The calendar embed stays deferred. GitHub owns source changes and Lovable stays read-only; no production Publish action. Exact capability sources and limits are in PIPELINE-ROUTES-CAPABILITIES-20261026.md. Reference classification, material copy changes, review observations, responsive/interaction checks and proof screenshots are in PIPELINE-MANAGEMENT-REVAMP-20261026.md. The review records implementation evidence, not owner acceptance or measured conversion performance.
 
+## AI Chatbot commercial-substance correction, 26 October 2026
+
+The owner approved strengthening the current enquiry journey following a fresh all-lens Birdeye comparison. Keep the current H1, final CTA, unique lower-page photograph, seven-part structure, route/indexing, shared architecture and /booking destination. Hero support and internal headings are reopened for clearer buyer value. Show explicit qualification and a request for contact details, useful source-based answers, a chosen pipeline and configured acknowledgement email, an agreed booking and conditional human involvement. The generic review-task example is removed because the current Automation audit supersedes the older task claim.
+
+The website remains warm white with a local blue/silver textured scene, readable white chat, separate dark contact outcome and compact open benefits. Appearance and setup are explained with documented controls; prepared illustrations remain distinct from live product evidence. Actual account screenshots and recording were blocked by automatic approval review and were not fabricated. Detailed rationale, current role assessments, rendered checks and remaining limits belong in AI-CHATBOT-SUBSTANCE-20261026.md. GitHub owns all changes; Lovable remains read-only and no production Publish action is used.
+
 ## Meeting visual, recordings and attendee transcripts, 26 October 2026
 
 The owner requested a visual showing Meeting Rooms functions and explicitly confirmed recorded/saved meetings and transcripts saved against attendees in the CRM. This supersedes the earlier omission of recording storage and transcription; exact defaults, retention, exports, capacity, AI summaries and compliance are not established.
