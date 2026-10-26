@@ -125,3 +125,10 @@ These are implementation-owner role assessments, not independent-agent approvals
 Production build, TypeScript, scoped component ESLint, Prettier, SEO policy and whitespace checks pass. Before commit, local desktop rendering showed the complete three-card row at approximately 230px height. An 834px iframe showed all three cards in one row with legible wrapped text and aligned example areas. A 393px iframe (378px document content width with scrollbar) showed the heading and complete first card without horizontal overflow. The local preview subsequently rehydrated an older client bundle, so that partial phone observation is not treated as complete hydrated-page verification. Final live-preview checks are recorded below when complete.
 
 Temporary local preview launch settings and the iframe review fixture are removed from the delivery. No production Publish action is used.
+
+
+### Completed static phone review and delivery boundary
+
+The complete row was visually reviewed in script-blocked 393px and 320px iframes (378px / 305px document widths with scrollbars). All three card headings, full copy, field values, both named quick actions, tags and the following route-planning transition were readable. Neither document had horizontal overflow. These observations establish responsive/static rendering; they do not claim a completed hydrated-browser or live-product acceptance test. The row adds no client state or event handlers.
+
+The change is committed on `codex/pipeline-supporting-features` in [draft PR #197](https://github.com/pugthepug88/guidedpricing/pull/197). Its Vercel preview build reports ready, but opening it redirected this browser to Vercel sign-in; no sign-in was attempted. Automatic approval review rejected the direct main update, stating that the default-branch mutation requires explicit user approval. Main and Lovable remain unchanged. No substitute route around that rejection or production Publish action was used. Temporary review/launch files are removed from the delivery.
