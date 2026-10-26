@@ -67,6 +67,7 @@ function WorkflowBoard({ phase, introduced }: { phase: number; introduced: boole
       <div className="ab-board-heading">
         <ZaplaPetal size={25} />
         <span>New enquiry nurture</span>
+        <small>Draft</small>
       </div>
       <p className="ab-entry-label">Start with one of these events</p>
       <div className="ab-entry-events" aria-label="Alternative workflow starting events">
@@ -119,6 +120,9 @@ function WorkflowBoard({ phase, introduced }: { phase: number; introduced: boole
           </div>
         ))}
       </div>
+      <p className="ab-draft-note">
+        Review the messages, timing and connections before activation.
+      </p>
     </div>
   );
 }
@@ -199,13 +203,20 @@ function OpeningStory() {
             the routine work.
           </h1>
           <p className="ab-hero-description">
-            An enquiry comes in. The next steps are ready. Build workflows that send the messages,
-            update the details and create tasks, with timing and channels you choose.
+            Describe a routine process and let AI build a workflow draft. Review the messages,
+            timing and customer updates, or build it visually yourself.
           </p>
+          <div className="ab-ai-request" aria-label="Instructions for the AI Flow Builder">
+            <span>Your request to Zapla</span>
+            <p>
+              Build a nurture for new enquiries. Send a welcome now, useful information after 2
+              days, then an invitation 3 days later.
+            </p>
+          </div>
           <div className="ab-actions">
             <BookingLink />
             <a className="ab-text-link" href="#automation-workflow">
-              Follow the sequence
+              See the draft take shape
               <ArrowDown size={16} aria-hidden="true" />
             </a>
           </div>
@@ -221,26 +232,31 @@ function OpeningStory() {
         </div>
         <div className="ab-story-notes">
           <article className="ab-story-beat" data-beat="1">
-            <p className="ab-eyebrow">Two days later</p>
-            <h2>Give them something useful.</h2>
+            <p className="ab-eyebrow">AI builds. You review.</p>
+            <h2>A starting point you can make your own.</h2>
             <p>
-              Send the information that helps someone decide: what’s included, their options or
-              answers to common questions.
+              AI adds the steps and connections. You can change the copy, adjust a wait or add a
+              condition before the workflow goes live.
             </p>
+            <div
+              className="ab-review-setting"
+              aria-label="Reviewing the second message in the draft"
+            >
+              <span>Review the second message</span>
+              <dl>
+                <div>
+                  <dt>Wait before sending</dt>
+                  <dd>2 days</dd>
+                </div>
+                <div>
+                  <dt>Message</dt>
+                  <dd>{nurtureSteps[1].message}</dd>
+                </div>
+              </dl>
+            </div>
             <p className="ab-beat-detail">
-              Choose email, SMS or WhatsApp for each step, or combine channels where it suits the
-              process.
-            </p>
-          </article>
-          <article className="ab-story-beat" data-beat="2">
-            <p className="ab-eyebrow">Three days after that</p>
-            <h2>Make the next step easy.</h2>
-            <p>
-              Invite a question, share your booking link or create a task when a person needs to
-              take over.
-            </p>
-            <p className="ab-beat-detail">
-              You agree the entry rules, timing and reply handling before the workflow goes live.
+              Choose email, SMS or WhatsApp for each step. Agree the entry rules, reply handling and
+              where a person gets involved before activation.
             </p>
           </article>
         </div>
@@ -251,14 +267,67 @@ function OpeningStory() {
 
 function EditorialChapter() {
   return (
-    <section className="ab-editorial" aria-labelledby="ab-people-heading">
+    <section className="ab-editorial" aria-labelledby="ab-possibilities-heading">
       <div className="ab-wrap">
-        <div className="ab-photo-intro">
-          <h2 id="ab-people-heading">Keep your team on the work that needs them.</h2>
+        <div className="ab-range-heading">
+          <div>
+            <p className="ab-eyebrow">Rules around the way you work</p>
+            <h2 id="ab-possibilities-heading">Choose what happens next.</h2>
+          </div>
           <p>
-            Use the workflow for routine follow-through. Give your people room for the
-            conversations, decisions and skilled work that need their experience.
+            Use customer information to choose a path. Start workflows from the sales, booking and
+            service events that matter to your business.
           </p>
+        </div>
+        <div className="ab-rule-range">
+          <figure
+            className="ab-condition-scene"
+            aria-label="A configured condition uses a contact preference supplied by an enquiry form: email leads to an email, SMS leads to an SMS."
+          >
+            <figcaption>Your enquiry form supplies a contact preference: Email or SMS.</figcaption>
+            <div className="ab-condition-question">
+              <span>Check the contact preference</span>
+              <h3>Email preferred?</h3>
+            </div>
+            <div className="ab-condition-paths">
+              <div>
+                <span className="ab-path-label">Yes</span>
+                <div>
+                  <Mail size={17} aria-hidden="true" />
+                  <strong>Send email</strong>
+                </div>
+              </div>
+              <div>
+                <span className="ab-path-label">No · SMS selected</span>
+                <div>
+                  <MessageSquare size={17} aria-hidden="true" />
+                  <strong>Send SMS</strong>
+                </div>
+              </div>
+            </div>
+            <p>You set the criteria. Each path has its own next step.</p>
+          </figure>
+          <div className="ab-event-range">
+            <h3>Start from an event. Connect the next action.</h3>
+            <dl>
+              <div>
+                <dt>Quote accepted</dt>
+                <dd>Convert the quote to an invoice</dd>
+              </div>
+              <div>
+                <dt>Appointment booked</dt>
+                <dd>Schedule a reminder before the appointment</dd>
+              </div>
+              <div>
+                <dt>Opportunity changes stage</dt>
+                <dd>Update its details or add team members</dd>
+              </div>
+              <div>
+                <dt>Support ticket stalls</dt>
+                <dd>Add the people who should handle it</dd>
+              </div>
+            </dl>
+          </div>
         </div>
         <figure className="ab-work-photo">
           <img
@@ -269,6 +338,7 @@ function EditorialChapter() {
             loading="lazy"
           />
         </figure>
+        <p className="ab-photo-caption">Keep your team on the work that needs them.</p>
       </div>
     </section>
   );
@@ -286,8 +356,9 @@ function WorkflowSetup() {
             Built with you.
           </h2>
           <p>
-            We agree what starts the sequence, what each message says and when it should go out.
-            Then we set up the connections and walk through the agreed workflow with you.
+            AI can give you a starting point. Guided Launch helps turn your process into a practical
+            setup: the right entry rules, connected channels and customer updates. We walk through
+            the agreed paths with you before activation.
           </p>
           <p>
             Starting with spreadsheets and inboxes, or already using a business system? We work
@@ -303,26 +374,26 @@ function WorkflowSetup() {
           <div className="ab-plan-heading">
             <ZaplaPetal size={29} />
             <div>
-              <span>The plan before the build</span>
-              <h3>New enquiry nurture</h3>
+              <span>Before you activate</span>
+              <h3>Your workflow review</h3>
             </div>
           </div>
           <dl>
             <div>
-              <dt>Entry</dt>
-              <dd>Choose the pipeline, form or tag that starts it.</dd>
+              <dt>Entry rules</dt>
+              <dd>Choose what starts the workflow and which contacts should enter.</dd>
             </div>
             <div>
-              <dt>Messages</dt>
-              <dd>Welcome. Useful information. A clear next step.</dd>
+              <dt>Connections</dt>
+              <dd>Set up the real senders, channels and customer information it needs.</dd>
             </div>
             <div>
-              <dt>Timing &amp; channels</dt>
-              <dd>Agree the waits and choose email, SMS and/or WhatsApp.</dd>
+              <dt>Messages &amp; timing</dt>
+              <dd>Review the wording, waits, conditions and record changes.</dd>
             </div>
             <div>
               <dt>People &amp; replies</dt>
-              <dd>Agree who reviews responses and how the workflow should handle them.</dd>
+              <dd>Agree reply paths, exceptions and who takes over when a person is needed.</dd>
             </div>
           </dl>
           <div className="ab-plan-control">
@@ -340,8 +411,12 @@ function WorkflowSetup() {
 
 const faqs = [
   [
+    "Can AI build the workflow for me?",
+    "Yes. Describe the process in plain English and the AI Flow Builder can create an editable workflow draft, including steps, connections and draft message content. You can ask it to make changes too. Review its business logic, messages, settings and connections before activation. AI output still needs checking.",
+  ],
+  [
     "What can start a workflow?",
-    "Starting events include a new pipeline item, a submitted form, a tag change, a new contact or an incoming message. We choose the event and its conditions for your process during setup.",
+    "Starting events include a submitted form, tag change, new contact, pipeline stage change, appointment booking, accepted quote, invoice payment or support-ticket event. The right trigger and any conditions are chosen for your process; not every event carries the same customer or record information.",
   ],
   [
     "Can I change the messages and timing?",
@@ -353,15 +428,19 @@ const faqs = [
   ],
   [
     "What happens when a customer replies?",
-    "We agree the reply handling alongside the message sequence, including where a person picks up. A received message can start a workflow, and configured SMS or WhatsApp keywords can lead to different paths. We check the particular rules and connections during setup.",
+    "Reply handling needs its own rules. A normal timed wait does not establish that every reply will stop a sequence. Configured SMS or WhatsApp keyword branches and timeouts can lead to different paths. We agree the channels, matching rules and human involvement, then check that particular setup.",
   ],
   [
     "Can I build workflows myself?",
-    "The visual builder lets you add triggers, actions, waits and conditions, configure their settings and connect the steps without writing code. Guided Launch helps map and build the initial agreed workflows around your business.",
+    "Yes. Use the visual builder to add triggers, actions, waits and conditions, or use AI to create a draft and refine it yourself. Guided Launch is a separately priced initial setup for mapping your process, connecting the required accounts and reviewing the agreed workflows.",
   ],
   [
     "Can I see what a workflow did?",
     "Use its run history to inspect the steps taken, timing, results and reported errors. This helps you see where a particular run needs attention.",
+  ],
+  [
+    "Can it connect to another business system?",
+    "Webhook and API tools are available, alongside actions such as exporting to Google Sheets. We check the specific system, available API, permissions and required data before agreeing a connection. Availability, implementation scope and usage costs are confirmed during setup.",
   ],
   [
     "How is this different from Follow-Up or Reactivation?",
