@@ -444,3 +444,10 @@ The earlier draft is superseded by a six-part product story: editable garden-des
 The editor changes local heading/button text only. The optional connection sequence deliberately brings the proof into view, holds the final record and is omitted on phones/reduced motion. Full content stays available without animation or JavaScript. No live collection, send, save, publish or appointment is performed by the prepared scenes.
 
 Actual desktop, phone and key tablet views, keyboard editing/reset, FAQ, native anchor/play progression and sales navigation were reviewed. Sources, role-based judgements, exact coverage, corrections and remaining limits are in `WEBSITES-FUNNELS-FORMS-REVAMP-20261026.md`; capability detail remains in `WEBSITES-FUNNELS-FORMS-EVIDENCE.md`. Code is on GitHub main; Lovable stays read-only. Shared architecture, draft indexing and `/booking` remain unchanged; no production Publish action.
+
+
+## Pipeline supporting customisation cards, 26 October 2026
+
+The owner approved one compact three-card row under the main pipeline explanation, ordered Custom fields, Quick actions, Tags, with the heading “Make the pipeline fit your team.” Replace the previous three-item benefits summary rather than stacking another overview beneath it. Stages, responsibility and alternate views remain explained by the board, Guided Launch and FAQs.
+
+Use restrained white cards with short practical copy and a small, readable UI example. Custom fields shows job type and next action; quick actions shows a selected form and configured workflow; tags categorises the same hot-water opportunity. Current official Pipeline Fields, Pipeline Quick Actions and Pipeline Tags help corroborate these controls. No call, message, booking, autonomous execution or universal shortcut claim is added. The row is static, server-rendered and stacks on phones. Keep the approved stage colours, portraits, once-only board illustration, route phone/map, shared shell and sales destinations. Exact evidence and rendered review are appended to PIPELINE-PRESENTATION-REFINEMENT-20261026.md. GitHub owns changes; Lovable stays read-only, without a production Publish action.

@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { ListChecks, Plus, Workflow } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import { PipelineBoard, PipelinePortrait } from "@/components/features/PipelineBoard";
 import { PipelineRoutes } from "@/components/features/PipelineRoutes";
@@ -10,6 +10,63 @@ function BookCall() {
     <a className="pf-button" href="/booking">
       Book a Call
     </a>
+  );
+}
+
+function PipelineCustomisation() {
+  return (
+    <section className="pf-customise" aria-labelledby="pipeline-customise-heading">
+      <h2 id="pipeline-customise-heading">Make the pipeline fit your team.</h2>
+      <div className="pf-customise-grid">
+        <article aria-labelledby="pipeline-fields-heading">
+          <h3 id="pipeline-fields-heading">Custom fields</h3>
+          <p>
+            Keep the job details your team needs on each opportunity. Choose which fields appear on
+            the card.
+          </p>
+          <dl className="pf-field-example" aria-label="Custom opportunity fields">
+            <div>
+              <dt>Job type</dt>
+              <dd>Replacement</dd>
+            </div>
+            <div>
+              <dt>Next action</dt>
+              <dd>Arrange installation</dd>
+            </div>
+          </dl>
+        </article>
+        <article aria-labelledby="pipeline-shortcuts-heading">
+          <h3 id="pipeline-shortcuts-heading">Quick actions</h3>
+          <p>Put routine work a click away. Add a shortcut to a form or a configured workflow.</p>
+          <div className="pf-shortcut-example" aria-label="Configured quick actions">
+            <div>
+              <ListChecks size={17} aria-hidden="true" />
+              <span>Installation checklist</span>
+              <small>Form</small>
+            </div>
+            <div>
+              <Workflow size={17} aria-hidden="true" />
+              <span>Start follow-up</span>
+              <small>Workflow</small>
+            </div>
+          </div>
+        </article>
+        <article aria-labelledby="pipeline-tags-heading">
+          <h3 id="pipeline-tags-heading">Tags</h3>
+          <p>
+            Group opportunities with your own labels, so your team can spot job types and follow-up
+            work.
+          </p>
+          <div className="pf-tag-example" aria-label="Tags on an opportunity">
+            <strong>Hot water replacement</strong>
+            <div>
+              <span>Installation</span>
+              <span>Follow up</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
   );
 }
 
@@ -203,29 +260,7 @@ export function PipelineManagementPage() {
             </div>
           </header>
           <PipelineBoard />
-          <div className="pf-board-benefits" aria-label="A pipeline built around your business">
-            <div>
-              <h2>Your process, in stages.</h2>
-              <p>
-                Name and order stages around the way your business works. Keep different processes
-                in their own pipelines.
-              </p>
-            </div>
-            <div>
-              <h2>Clear responsibility.</h2>
-              <p>
-                See who’s responsible and when it’s due. Add a next-action field to make the
-                follow-up clear.
-              </p>
-            </div>
-            <div>
-              <h2>The view you need.</h2>
-              <p>
-                Review progress on the board, scan the details in a table, or organise the same work
-                by due date.
-              </p>
-            </div>
-          </div>
+          <PipelineCustomisation />
         </div>
       </section>
       <PipelineRoutes />
