@@ -21,10 +21,13 @@ Primary product evidence: current official [English Help Centre payload](https:/
 | `invoices` | Number/customer/date/due/amount/status; search, selected columns, folders, numbering, editing and manual status changes. Overdue styling is documented. |
 | `p/i/[id]` | Public invoice details/totals; enabled methods; configured deposit or instalment payments; amount paid/balance due; payment confirmation; print/PDF. Deposits/instalments are configured, not an automatic option on every invoice. |
 | `integrations` | Stripe, PayPal and Authorize.Net connections. Invoice payment choices depend on the connected provider and invoice settings. No universal method/country support or fee claim. |
+| `contacts/[id]` | Customer profile gathers messages, notes, invoices, payments and other activity; its tabs include signatures. Quotes separately select the customer. The page's concise document list is an explanatory consolidation, not a claim that the exact drawn list is a native CRM tab. |
 
 ## Conflicts and excluded promises
 
 `quotes/create` describes later quote conversion; `quotes` expressly says there is no conversion option. Do not promise one-click or automatic quote-to-invoice conversion. Quote acceptance is not a signature. A signature does not automatically create an invoice or charge a card. Staff prepare the invoice as a separate step.
+
+The current public application entry explicitly imports `nodes/119.DZnrBvQO.js` and `nodes/120.CZXAIF_g.js`, which import the Quotes list (`chunks/DyII4cM3.js`) and create editor (`chunks/C4_qxEZa.js`). These were read as primary client evidence. The list contains a View Public destination and manual status handlers, and marketing strings mention conversion; that does not establish an executed conversion flow. The bounded claim decision above is retained. No authenticated account was changed or product data submitted.
 
 Do not assert automatic quote delivery/acceptance, quote-view tracking, automatic invoice reminders, recurring billing, Xero/MYOB/QuickBooks sync, bank reconciliation, legal enforceability/certification, tamper evidence, audit certificates, signer order, unlimited signatures/payments, included processor fees or guaranteed payment speed. The current Automation audit also does not establish a native Invoice Overdue trigger. Related follow-up belongs to the existing solution page and configured workflow scope.
 
