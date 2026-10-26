@@ -464,6 +464,7 @@
 /* Source and answer are a working local demonstration, not more chat transcript. */
 .cb-knowledge {
   background: #f2f4f3;
+  padding-block: 72px;
 }
 .cb-section-heading {
   display: grid;
@@ -517,7 +518,7 @@
 }
 .cb-source-document {
   background: #fff;
-  padding: 29px 33px;
+  padding: 26px 30px;
   border: 1px solid #dce2dc;
   border-radius: 20px 20px 3px 3px;
 }
@@ -532,13 +533,13 @@
   padding-bottom: 19px;
 }
 .cb-source-document h3 {
-  font-size: 31px;
+  font-size: 29px;
   line-height: 1.15;
   margin-top: 23px;
   letter-spacing: -0.03em;
 }
 .cb-source-document > p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.65;
   margin-top: 17px;
   color: #344d3e;
@@ -547,7 +548,7 @@
   display: block;
   color: #64756b;
   font-size: 11px;
-  margin-top: 23px;
+  margin-top: 18px;
 }
 .cb-knowledge-answer {
   background: #263d34;

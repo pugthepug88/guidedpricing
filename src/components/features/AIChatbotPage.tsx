@@ -94,7 +94,7 @@ function EnquiryOpening() {
                 </span>
                 <div>
                   <strong>Your website chat</strong>
-                  <span>Answers from your business information</span>
+                  <span>AI Chatbot · Your business information</span>
                 </div>
               </div>
               <Message>{ENQUIRY.question}</Message>
@@ -456,9 +456,9 @@ function HumanHandover() {
           <div>
             <p className="cb-eyebrow">Routine questions handled. Judgement stays with you.</p>
             <h2 id="chatbot-human-heading">
-              Free your team for
+              Your team handles
               <br />
-              the questions that need them.
+              the exceptions.
             </h2>
           </div>
           <p>
@@ -525,7 +525,8 @@ function GuidedLaunch() {
           </p>
           <Cta>Talk through your setup</Cta>
           <p className="cb-launch-scope">
-            Guided Launch is scoped and priced separately from your monthly plan.
+            Guided Launch is required for a new standard setup and priced separately from your
+            monthly plan.
           </p>
         </div>
         <div className="cb-launch-plan">
