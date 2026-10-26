@@ -63,7 +63,13 @@ export function ProductBrand({ name, dark = false }: { name: string; dark?: bool
 }
 function AIMark() {
   return (
-    <img className="wff-ai-mark" src="/concept/zapla-petals-96.png" alt="" width="30" height="30" />
+    <img
+      className="wff-ai-mark"
+      src="/concept/features/websites-zapla-ai-mark.webp"
+      alt=""
+      width="30"
+      height="30"
+    />
   );
 }
 
@@ -95,7 +101,17 @@ export function WebsiteBuilder() {
     const rect = row.current?.getBoundingClientRect();
     if (rect)
       setColumns(
-        Math.round(Math.max(36, Math.min(64, ((event.clientX - rect.left) / rect.width) * 100))),
+        Math.round(
+          Math.max(
+            36,
+            Math.min(
+              64,
+              (imageFirst
+                ? 1 - (event.clientX - rect.left) / rect.width
+                : (event.clientX - rect.left) / rect.width) * 100,
+            ),
+          ),
+        ),
       );
   };
   const field =
@@ -338,7 +354,13 @@ export function WebsiteBuilder() {
                   if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
                     event.preventDefault();
                     setColumns((value) =>
-                      Math.max(36, Math.min(64, value + (event.key === "ArrowRight" ? 2 : -2))),
+                      Math.max(
+                        36,
+                        Math.min(
+                          64,
+                          value + (event.key === "ArrowRight" ? 2 : -2) * (imageFirst ? -1 : 1),
+                        ),
+                      ),
                     );
                   }
                 }}
@@ -516,6 +538,7 @@ export function AICreation() {
   const [run, setRun] = useState(0);
   const [paused, setPaused] = useState(false);
   const scene = useRef<HTMLDivElement>(null);
+  const output = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const element = scene.current;
     if (!element) return;
@@ -567,7 +590,7 @@ export function AICreation() {
               <AIMark />
               <strong>Zapla AI</strong>
             </div>
-            <h3>Where shall we start?</h3>
+
             <div className="wff-ai-modes" role="group" aria-label="AI website starting point">
               <button
                 type="button"
@@ -602,13 +625,24 @@ export function AICreation() {
               <span>{mode === "create" ? "Your brief" : "From your existing page"}</span>
               <p>
                 {mode === "create"
-                  ? "Create a garden design website. Show our services, use a natural feel and add a project enquiry."
+                  ? "Create a garden design website with our services and a project enquiry form."
                   : "Bring across our garden design page with its styles and images, ready to edit in Zapla."}
               </p>
               <button
                 className="wff-ai-watch"
                 type="button"
-                onClick={() => setRun((value) => value + 1)}
+                onClick={() => {
+                  setRun((value) => value + 1);
+                  if (window.matchMedia("(max-width: 600px)").matches) {
+                    output.current?.focus({ preventScroll: true });
+                    output.current?.scrollIntoView({
+                      block: "start",
+                      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                        ? "instant"
+                        : "smooth",
+                    });
+                  }
+                }}
               >
                 <Play size={14} fill="currentColor" />
                 {run
@@ -618,9 +652,14 @@ export function AICreation() {
                     : "Watch AI build the page"}
               </button>
             </div>
-            <p className="wff-ai-review">Review the content. Make it yours. Publish when ready.</p>
+            <p className="wff-ai-review">Review, refine, then publish.</p>
           </div>
-          <div className="wff-ai-output">
+          <div
+            className="wff-ai-output"
+            ref={output}
+            tabIndex={-1}
+            aria-label="Website created from the brief"
+          >
             <div className="wff-output-label">
               <span>{mode === "clone" ? "Your page, ready to edit" : "Your starting design"}</span>
               <Monitor size={15} />
