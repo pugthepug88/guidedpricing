@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { FileText, Globe, Plus } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
@@ -7,12 +7,6 @@ import "@/styles/ai-chatbot.css";
 // Prepared marketing scenes, using documented capabilities. These are not
 // tenant screenshots. No AI service, contact, message or booking API is called.
 // Harbour Physiotherapy, its policies and the masked contact data are fictional.
-const THEMES = [
-  { name: "Blue", colour: "#284e78" },
-  { name: "Green", colour: "#315b50" },
-  { name: "Charcoal", colour: "#3d4147" },
-] as const;
-
 function Avatar({ cell = 9 }: { cell?: number }) {
   return (
     <span
@@ -43,12 +37,12 @@ function Bubble({ children, ai = false }: { children: ReactNode; ai?: boolean })
     </div>
   );
 }
-function ChatHeader({ preview = false }: { preview?: boolean }) {
+function ChatHeader() {
   return (
     <div className="cr-chat-header">
       <ZaplaPetal size={25} />
       <div>
-        <strong>{preview ? "How can we help?" : "Harbour Physiotherapy"}</strong>
+        <strong>Harbour Physiotherapy</strong>
         <span>AI Chatbot</span>
       </div>
     </div>
@@ -188,27 +182,15 @@ function Booking() {
   );
 }
 
-function KnowledgeAndAppearance() {
-  const [theme, setTheme] = useState(0);
+function BusinessAnswers() {
   return (
     <section className="cr-section cr-control" aria-labelledby="chatbot-control-title">
       <div className="cr-wrap cr-control-layout">
         <div className="cr-control-copy">
-          <p className="cr-eyebrow">Built around your business</p>
-          <h2 id="chatbot-control-title">
-            Your information.
-            <br />
-            Your look.
-          </h2>
-          <p>
-            Use your website, documents and instructions. Choose the greeting, colours and actions
-            your chatbot can use.
-          </p>
+          <h2 id="chatbot-control-title">Answers from your business.</h2>
+          <p>Use your website, documents and FAQs to answer questions about your services.</p>
         </div>
-        <div
-          className="cr-control-workspace"
-          style={{ "--cr-chat-colour": THEMES[theme].colour } as CSSProperties}
-        >
+        <div className="cr-control-workspace">
           <div className="cr-knowledge-panel">
             <div className="cr-product-brand">
               <ZaplaPetal size={24} />
@@ -237,31 +219,13 @@ function KnowledgeAndAppearance() {
                 </div>
               </li>
             </ul>
-            <fieldset className="cr-theme-choices">
-              <legend>Widget colour</legend>
-              <div>
-                {THEMES.map((item, index) => (
-                  <button
-                    key={item.name}
-                    type="button"
-                    aria-label={`${item.name} widget colour`}
-                    aria-pressed={theme === index}
-                    aria-controls="chatbot-style-preview"
-                    onClick={() => setTheme(index)}
-                  >
-                    <span style={{ background: item.colour }} />
-                  </button>
-                ))}
-              </div>
-            </fieldset>
           </div>
           <div
-            className="cr-style-preview"
-            id="chatbot-style-preview"
+            className="cr-answer-preview"
             role="region"
-            aria-label={`${THEMES[theme].name} chat widget preview`}
+            aria-label="An answer based on the business information"
           >
-            <ChatHeader preview />
+            <ChatHeader />
             <div className="cr-thread">
               <Bubble>Do you have evening appointments?</Bubble>
               <Bubble ai>
@@ -332,7 +296,7 @@ function TeamContext() {
 const FAQS = [
   [
     "Can I use it on my existing website?",
-    "Yes. Add a floating widget or embed the chat within a page. You can choose its greeting, colours and placement. We check the installation with your existing website during setup.",
+    "Yes. Add a floating widget or embed the chat within a page. We check the installation with your existing website during setup.",
   ],
   [
     "Can it answer outside business hours?",
@@ -401,7 +365,7 @@ export function AIChatbotPage() {
     <main className="zapla-feature zapla-chatbot">
       <Opening />
       <Booking />
-      <KnowledgeAndAppearance />
+      <BusinessAnswers />
       <TeamContext />
       <SetupAndFaq />
       <section className="cr-final">
