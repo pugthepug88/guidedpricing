@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Mic, MonitorUp, Video } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/calendars-bookings.css";
@@ -391,6 +391,80 @@ function BookingFormats() {
   );
 }
 
+function MeetingRoomScene() {
+  return (
+    <figure className="cal-meeting-demo" aria-labelledby="cal-meeting-demo-caption">
+      <div className="cal-meeting-window">
+        <div className="cal-meeting-call">
+          <div className="cal-meeting-call-heading">
+            <span>Project consultation</span>
+            <span className="cal-recording-indicator">Recording</span>
+          </div>
+          <div className="cal-meeting-video">
+            <img
+              src="/concept/calendars/meeting-participants-v1.webp"
+              width="1774"
+              height="887"
+              loading="lazy"
+              alt="Illustrative video meeting with Alex Chen in his studio and Emma Wilson joining from home"
+            />
+            <div className="cal-meeting-names" aria-hidden="true">
+              <span>Alex Chen</span>
+              <span>Emma Wilson</span>
+            </div>
+          </div>
+          <div className="cal-meeting-tools" aria-label="Video, microphone and screen sharing">
+            <span>
+              <Mic size={17} aria-hidden="true" />
+              Microphone
+            </span>
+            <span>
+              <Video size={18} aria-hidden="true" />
+              Camera
+            </span>
+            <span>
+              <MonitorUp size={18} aria-hidden="true" />
+              Share screen
+            </span>
+          </div>
+        </div>
+        <div className="cal-meeting-saved">
+          <div className="cal-meeting-contact">
+            <div>
+              <p>After the meeting · Attendee’s CRM record</p>
+              <h3>Emma Wilson</h3>
+            </div>
+            <span>emma@example.com</span>
+          </div>
+          <div className="cal-meeting-history">
+            <div className="cal-meeting-recording">
+              <span>Recording saved</span>
+              <p>Project consultation</p>
+              <div>
+                <Video size={18} aria-hidden="true" />
+                <span>Meeting recording</span>
+                <Check size={16} aria-hidden="true" />
+              </div>
+            </div>
+            <div className="cal-meeting-transcript">
+              <span>Transcript saved</span>
+              <p>
+                <strong>Emma</strong> Let’s compare the light stone with the timber.
+              </p>
+              <p>
+                <strong>Alex</strong> I’ll send both options for you to review.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption id="cal-meeting-demo-caption">
+        Illustration of a meeting and its saved attendee record.
+      </figcaption>
+    </figure>
+  );
+}
+
 function BusinessDay({
   selectedDay,
   selectedTime,
@@ -399,56 +473,43 @@ function BusinessDay({
   selectedTime: string | null;
 }) {
   return (
-    <section className="cal-business" aria-labelledby="cal-business-title">
+    <section className="cal-business" id="meeting-rooms" aria-labelledby="cal-business-title">
       <div className="cal-wrap">
         <div className="cal-business-meet">
-          <figure className="cal-consultation-photo">
-            <img
-              src="/concept/calendars/consultation-studio-v2.webp"
-              width="1536"
-              height="1024"
-              loading="lazy"
-              alt="A design consultant and a homeowner discussing stone and timber samples over an architectural plan"
-            />
-          </figure>
+          <MeetingRoomScene />
           <div className="cal-meeting-rooms">
             <h2 id="cal-business-title">
-              Meet in person.
-              <br /> Or online in Zapla.
+              Video meetings.
+              <br /> Saved in your CRM.
             </h2>
             <p>
               Use Zapla’s <strong>Meeting Rooms</strong> to host video consultations and team
-              meetings in your browser. Create a room and share its link.
+              meetings in your browser. Share your screen to walk through a plan or proposal
+              together.
             </p>
-            <p>Share your screen to walk through a plan or proposal together.</p>
+            <p className="cal-meeting-payoff">
+              Meetings are recorded and saved, with transcripts saved to attendees’ CRM records.
+              Revisit what was said before the next conversation.
+            </p>
             <p>
-              Keep the room public for anyone with the link, or restrict access to selected contacts
-              and team members.
+              Share a room link. Keep access public, or choose the contacts and team members who can
+              join.
             </p>
           </div>
         </div>
         <div className="cal-business-sheet">
           <div className="cal-appointment-record">
-            <p className="cal-scene-label">Appointment &amp; customer, together</p>
-            <div className="cal-record-person">
-              <Avatar cell={9} />
-              <div>
-                <h3>Emma Wilson</h3>
-                <p>Project consultation · With Alex</p>
-              </div>
-            </div>
+            <h3>Plans change. Your team can handle it.</h3>
+            <p>Emma’s project consultation · With Alex</p>
             <p className="cal-record-time">
               {selectedTime
                 ? `${dateLabel(selectedDay)} · ${selectedTime}`
                 : "Choose an example time above"}
             </p>
-            <div className="cal-record-changes">
-              <h4>Plans change. Your team can handle it.</h4>
-              <p>
-                Customers contact your business to change or cancel. Your team can update the
-                booking time or status.
-              </p>
-            </div>
+            <p>
+              Customers contact your business to change or cancel. Your team can update the booking
+              time or status.
+            </p>
             <a className="cal-text-link" href="/crm">
               Explore the connected CRM <ArrowRight size={16} aria-hidden="true" />
             </a>
@@ -500,6 +561,10 @@ function BusinessDay({
 }
 
 const faqs = [
+  [
+    "Are meetings recorded, and where are transcripts saved?",
+    "Yes. Meetings are recorded and saved, and their transcripts are saved to attendees’ CRM records. Your team can revisit the recording and read what was said with the attendee’s customer history in view.",
+  ],
   [
     "Can I host video meetings inside Zapla?",
     "Yes. Meeting Rooms lets you create native video meeting rooms and share a room’s unique link. Guests join in the browser, with camera and microphone controls and screen sharing. Public rooms allow anyone with the link; restricted rooms let you select up to four contacts, alongside selected team members. The four-contact limit applies to the restricted invitation list.",
