@@ -202,3 +202,59 @@ Role reviews were separate passes by the same agent:
 Production build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Concurrent Automation work was preserved in the branch integration; subsequent unrelated Automation changes remain on main for the ordinary merge. Screenshot: [qa/ai-chatbot-integrated-hero.png](qa/ai-chatbot-integrated-hero.png).
 
 Limits: Chrome review, not a physical-device/cross-browser matrix, screen-reader session or live-product acceptance test. Reduced motion and unavailable-JavaScript baselines were checked in source rather than separate browser sessions. A browser connection timeout interrupted one diagnostic call; the browser was reconnected and the responsive/disclosure checks resumed. No error-log result is claimed for that interrupted call. Lovable remains read-only; no builder prompt or separate production Publish action. Target review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ai-chatbot
+
+## Outcome and product-proof rebuild: initial draft, 26 October 2026
+
+The owner approved the recommendation following the direct live Birdeye Webchat comparison: stronger commercial promise, contact outcome earlier, and specific product proof instead of another cosmetic pass. The incumbent's technical checks did not establish the desired visual standard. Current base: `a6e506674af907d61ba9e17f222ee8ffa1f898ad`.
+
+Reference decisions: ADAPT Birdeye Webchat's outcome-first message, capability-specific demonstrations and evidence density; REJECT its long repetitive text/image alternation, tiny transcript text, unrelated global CTA and any copying of customer stories or capabilities. USE Zapla's legible conversation, explicit identity continuity, type, neutral/blue/green roles, portraits, petal and existing final CTA. The source and rendered Inbox and CRM, incumbent Chatbot, and current Birdeye hero and knowledge section were inspected before implementation. No human photograph is placed in the hero. The existing fresh work photo remains unique to this page.
+
+Alternatives assessed: polishing the incumbent's colour/frame would leave its thin proof unchanged; copying Birdeye's long feature catalogue would add unverified scope and fatigue. Selected approach: a shorter integrated outcome story with distinct contact, knowledge and appointment compositions.
+
+Copy decision: the approved recommendation and “ok go” reopen the H1/hero paragraph for a more commercial opening. The new H1 is “Answer the question. Capture the enquiry.” Supporting paragraph explains around-the-clock website answers, conversational capture and CRM context. The sales destination, final CTA wording, architecture and indexing remain unchanged. Metadata is aligned with enquiry capture.
+
+Story: the three-message opening asks service/location/timing and visibly supplies name/email before the contact. The compact adjacent continuation explicitly labels chosen pipeline/task configuration. The knowledge walkthrough synchronises each question, source and prepared answer. It is product-behaviour illustration, not a live tenant screenshot or AI endpoint. The appointment scene displays availability, explicit agreement and a resulting booking; its measured desktop pin/reveal is the only scroll progression. The human card shows the original question and chatbot handover without assignment, notification, summary or instant-human claims. Setup consolidates knowledge, permitted actions, website appearance and testing, with separately priced Guided Launch and both starting points.
+
+Initial build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. This draft enables the existing repository's public branch preview for rendered desktop/tablet/phone review. It is not a visual-quality sign-off. No Lovable builder prompt or separate Publish action is used.
+
+### Rendered review and corrective work completed
+
+Final source: `c02554e7ac45ecfbc972d400a9d8a2656f15e939`, with a successful Workers deployment. Rendered review used the existing repository branch preview in Chrome; this is not a live Zapla/NextGen account acceptance test or owner approval.
+
+Concrete corrections from review:
+
+- The calendar initially continued to say “available” after the booking appeared. It now changes the slot to Mia’s on-site assessment after agreement, alongside the resulting booking.
+- The 834px layout originally put the contact below the full conversation. It now keeps both panes side by side between 701 and 950px, with readable type and explicit details; phones retain conversation-before-contact order.
+- Removed qualification text from the after-capture paragraph and placed it with the enquiry proof. The continuation now explains only pipeline and configured follow-up.
+- Shortened the redundant appointment subheading to “Mia agrees. Zapla books.” and retained the resource-control explanation. Preserved natural spaces around the hero and booking headline breaks.
+- The prepared answer region has a meaningful accessible name. Native button focus remains on the chosen question. The no-JavaScript content includes the other source/response cases and hides the unavailable question controls/instruction.
+
+Coverage and observed behaviour:
+
+- **1707 × 769 normal wide view:** opening, compact continuation, knowledge, appointment, work photo/handover and setup. This height uses normal-flow booking fallback.
+- **1366 × 900:** complete final hero and contact outcome; source/answer states; booking progression; role/whole-page composition checks. The initial appointment visual measured about 626px. Native scrolling observed the offered/pending state, the agreement entering view and the created record, with the calendar at 110px through successive positions and at -16px after release. Reverse scrolling retained the result at full opacity. The final shortened agreement heading changes the copy height, not the measured-fit or completion logic.
+- **1101 × 820 final source:** scene height 614px, enhancement enabled, full confirmed scene fits beneath the header. It was pending with the agreement at the lower edge, then changed the slot and record when the agreement reached about 553px. Stage anchored at 110px. No horizontal overflow.
+- **1366 × 720:** enhancement disabled, calendar static, result opacity 1, no horizontal overflow.
+- **834 × 900:** corrected two-pane opening/contact, no horizontal overflow. Key tablet review, not a full lower-page tablet interaction matrix.
+- **393 × 852, 378px content:** complete phone walkthrough through enquiry/contact, configured continuation, knowledge source/response, offer/agreement, booked calendar/result, photo/handover, launch plan, FAQ and final CTA/sky. Both people remain visible. Main text/control geometry found no clipping, all main images loaded and the page had no horizontal overflow.
+- **320 × 852, 305px content:** two-line H1, primary/secondary actions, original request, caption and continuation; main-text/control geometry found no clipping or horizontal overflow. The proof link landed at about 85px, clear of the fixed header.
+
+Question selection was tested by click, then Tab and Enter from pricing to service area to the human exception. The source type/title/text and answer changed together; keyboard focus stayed on the selected question. FAQ opened by click and closed with Enter on phone. Every sales CTA targets `/booking`; the final phone CTA was followed and rendered the existing booking route. No message was submitted and no real contact, AI call or appointment was created. Calendar embedding remains deferred.
+
+Role review passes were performed by the implementation agent, with specific evidence rather than automatic numerical ratings:
+
+| Lens | Finding |
+| --- | --- |
+| UI/UX | Two-line commercial promise, complete desktop outcome, readable messages, explicit source/response selection and logical phone reading order. Tablet outcome visibility was corrected. |
+| Brand / Creative | Neutral opening, local blue material, smooth shared enquiry/contact window, open continuation, distinct source/answer composition, real calendar relationship and existing page-specific work photo. No stock icon grid, repeated editorial cast or decorative arrows. |
+| Product Marketing | Contact details visibly supplied; original words quoted; pipeline/task clearly configured; source types and restrictions verified; availability/agreement/booking states distinct; handover conditional. |
+| Conversion | The hero says what the business receives. Booking is visible rather than hidden. Guided Launch gives a specific plan, both starting points and separate-pricing qualification. Customer stories remain excluded without real evidence. |
+| Motion | One measured, bounded native calendar hold with a meaningful slot/record change after agreement. Completed state persists on reverse. No wheel capture, scroll snapping, timers, resetting transcript or floating animation. |
+| SME buyer | The question becomes someone the team can contact; the business can choose the next step, inspect answer sources and retain human judgement. No product architecture or internal tool names are required to follow it. |
+| Buyer psychology | Visible source information, resource limits, explicit booking consent and a human exception address trust. No implied anonymous identification, guaranteed warm lead or fabricated review evidence. |
+| AI-slop critique | Redundant capture and large dark task sections removed. Product surfaces have specific jobs; no fake add/save/send controls, counters, decorative pills, neon or pastel feature highlights. |
+| Technical | Build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks pass. Current-source Workers deployment succeeded. Shared architecture and unrelated sources remain outside this change. |
+
+Proof: [qa/ai-chatbot-outcome-hero.png](qa/ai-chatbot-outcome-hero.png).
+
+Limits: Chrome viewport review, not physical-device/cross-browser or screen-reader certification. Reduced-motion and unavailable-JavaScript behaviour were checked in source; separate browser preference/JavaScript-disabled sessions were not available. Some scroll gestures returned a browser timeout after applying; current DOM/geometry was checked before continuing, and keyboard page navigation completed the phone review. No conversion uplift, real-product reliability guarantee or claim of having matched Birdeye's customer evidence is made. Lovable remains read-only; merge and actual-preview sync are recorded with the PR. No builder prompt or production Publish action.
