@@ -1,12 +1,12 @@
 import { useRef, useState, type ReactNode } from "react";
-import { ArrowDown, ArrowRight, Play, Plus, RotateCcw } from "lucide-react";
+import { ArrowDown, ArrowRight, Play, Plus } from "lucide-react";
+import { AICreation, FunnelBuilder, SiteTracking, WebsiteBuilder } from "./WebsitesProductScenes";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/websites-funnels-forms.css";
 
 // Prepared local illustrations. Editing changes React state only. There are no
 // service calls, submissions, sends or persisted drafts.
-const PAGE = { heading: "A garden that feels like home.", button: "Plan my garden" };
 const ENQUIRY = {
   name: "Mia Thompson",
   project: "Courtyard design",
@@ -26,7 +26,7 @@ const FAQS = [
   {
     question: "Can AI help me build?",
     answer:
-      "Yes. AI assistance and templates can help you start your pages. The form builder can also use a written request to add fields, pages, styling and settings. You can edit the result, check the content and connections, then publish when it is ready. AI usage is separate and confirmed with your setup.",
+      "Yes. Describe a new website for Zapla AI to build, or clone an existing page by URL with its styles and images. You can then refine it in the visual editor. The form builder can also use a written request to add fields, pages, styling and settings. You can edit the result, check the content and connections, then publish when it is ready. AI usage is separate and confirmed with your setup.",
   },
   {
     question: "What happens when someone submits a form?",
@@ -59,157 +59,6 @@ function SalesLink({ children = "Book a Call" }: { children?: ReactNode }) {
 }
 function MiaPortrait() {
   return <span className="wff-portrait" aria-hidden="true" />;
-}
-function PageBuilder() {
-  const [heading, setHeading] = useState(PAGE.heading);
-  const [button, setButton] = useState(PAGE.button);
-  const reset = () => {
-    setHeading(PAGE.heading);
-    setButton(PAGE.button);
-  };
-  return (
-    <div className="wff-builder" aria-label="Website content editor">
-      <div className="wff-builder-bar">
-        <span>
-          <ZaplaPetal size={25} />
-          Website builder
-        </span>
-        <span>Your page content</span>
-      </div>
-      <div className="wff-page-preview" aria-label="Garden design page preview">
-        <div className="wff-site-name">
-          courtyard<span>Garden design · Sydney</span>
-        </div>
-        <img
-          className="wff-site-photo"
-          src="/concept/features/websites-garden-design-20261026.webp"
-          alt="A garden designer and homeowner reviewing a courtyard plan together"
-          width="1536"
-          height="1024"
-          fetchPriority="high"
-        />
-        <div className="wff-site-content">
-          <h2>{heading.trim() || PAGE.heading}</h2>
-          <p>Thoughtful gardens for everyday living. Tell us about your space.</p>
-          <a href="#connected-enquiry">
-            {button.trim() || PAGE.button}
-            <ArrowRight size={16} aria-hidden="true" />
-          </a>
-        </div>
-      </div>
-      <fieldset className="wff-editor-fields">
-        <legend>Edit your page</legend>
-        <div className="wff-editor-inputs">
-          <label htmlFor="wff-page-heading">
-            Heading
-            <textarea
-              id="wff-page-heading"
-              value={heading}
-              maxLength={90}
-              rows={2}
-              spellCheck={false}
-              onChange={(event) => setHeading(event.target.value)}
-            />
-          </label>
-          <label htmlFor="wff-page-button">
-            Button text
-            <input
-              id="wff-page-button"
-              value={button}
-              maxLength={30}
-              spellCheck={false}
-              onChange={(event) => setButton(event.target.value)}
-            />
-          </label>
-          <button
-            type="button"
-            onClick={reset}
-            className="wff-reset"
-            aria-label="Reset page heading and button text"
-          >
-            <RotateCcw size={17} aria-hidden="true" />
-            <span>Reset</span>
-          </button>
-        </div>
-      </fieldset>
-    </div>
-  );
-}
-function PageTypes() {
-  return (
-    <section className="wff-section wff-shell wff-page-types" aria-labelledby="wff-types-title">
-      <header className="wff-section-heading">
-        <div>
-          <p className="wff-eyebrow">Websites and funnels</p>
-          <h2 id="wff-types-title">
-            Your whole business.
-            <br />
-            Or one focused offer.
-          </h2>
-        </div>
-        <p>
-          Give people room to explore your services, or guide them towards a single next step.
-          Choose the structure that fits the job.
-        </p>
-      </header>
-      <div className="wff-types-comparison">
-        <article className="wff-website-type">
-          <h3>A website to explore.</h3>
-          <p>
-            Connect your service, project and enquiry pages so visitors can find what matters to
-            them.
-          </p>
-          <div
-            className="wff-site-map"
-            aria-label="A website homepage connects to services, projects and an enquiry page"
-          >
-            <div className="wff-map-home">Home</div>
-            <div className="wff-map-branches" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </div>
-            <div className="wff-map-pages">
-              <span>Services</span>
-              <span>Our work</span>
-              <span>Enquire</span>
-            </div>
-          </div>
-        </article>
-        <article className="wff-funnel-type">
-          <h3>A funnel to take action.</h3>
-          <p>
-            Connect a focused offer to an enquiry form, then a thank-you page with a booking link.
-          </p>
-          <ol className="wff-funnel-path" aria-label="Garden design funnel">
-            <li>
-              <span>Offer page</span>
-              <strong>Plan your courtyard</strong>
-            </li>
-            <li>
-              <span>Enquiry form</span>
-              <strong>Tell us about your space</strong>
-            </li>
-            <li>
-              <span>Thank-you page</span>
-              <strong>Choose a consultation</strong>
-            </li>
-          </ol>
-        </article>
-      </div>
-      <div className="wff-existing-site">
-        <h3>Already have a website?</h3>
-        <p>
-          Add a Zapla form or share a form link. Keep the site you have and bring the enquiry into
-          your customer workflow.
-        </p>
-        <a className="wff-text-link" href="#connected-enquiry">
-          See how the form connects
-          <ArrowDown size={16} aria-hidden="true" />
-        </a>
-      </div>
-    </section>
-  );
 }
 function ConnectedEnquiry() {
   const [run, setRun] = useState(0);
@@ -331,54 +180,6 @@ function ConnectedEnquiry() {
     </section>
   );
 }
-function Publishing() {
-  return (
-    <section className="wff-section wff-shell wff-publishing" aria-labelledby="wff-publish-title">
-      <div className="wff-publish-intro">
-        <p className="wff-eyebrow">From draft to live page</p>
-        <h2 id="wff-publish-title">
-          Make it yours.
-          <br />
-          Publish when it’s ready.
-        </h2>
-        <p>
-          Start with a template, AI assistance or the visual editor. Change your text, images,
-          buttons and layout around the action you want a visitor to take.
-        </p>
-      </div>
-      <div className="wff-publish-lifecycle" aria-label="Page publishing and tracking capabilities">
-        <article>
-          <span>Before it goes live</span>
-          <h3>Build, save and review.</h3>
-          <p>
-            Arrange blocks visually. Reuse sections across pages and preview your work. Saved edits
-            stay separate from the published page.
-          </p>
-        </article>
-        <article>
-          <span>When you’re ready</span>
-          <h3>Use your own domain.</h3>
-          <p>
-            Connect your web address, verify the domain settings and publish. Keep your business
-            name on the pages visitors see.
-          </p>
-        </article>
-        <article>
-          <span>After visitors arrive</span>
-          <h3>See where they click and scroll.</h3>
-          <p>
-            Choose a page and date range to review views, unique visitors, clicks and scroll depth.
-            Use click and scroll heatmaps to understand how that page is used.
-          </p>
-        </article>
-      </div>
-      <p className="wff-campaign-link">
-        For the audience, outreach and measurement around your campaigns,{" "}
-        <a href="/customer-marketing">explore Customer Marketing.</a>
-      </p>
-    </section>
-  );
-}
 function LaunchAndQuestions() {
   return (
     <section className="wff-launch-section" aria-labelledby="wff-build-title">
@@ -472,38 +273,52 @@ export function WebsitesFunnelsFormsPage() {
   return (
     <main className="zapla-feature zapla-websites">
       <noscript>
-        <style>{".wff-editor-fields, .wff-watch { display: none !important; }"}</style>
+        <style>
+          {
+            ".wff-watch, .wff-ai-watch, .wff-editor-reset, .wff-column-handle { display: none !important; }"
+          }
+        </style>
       </noscript>
       <section className="wff-hero wff-shell" aria-labelledby="wff-title">
-        <div className="wff-hero-copy">
-          <p className="wff-eyebrow">Websites, Funnels &amp; Forms</p>
-          <h1 id="wff-title">
-            Build your page.
-            <br />
-            Connect your enquiries.
-          </h1>
-          <p className="wff-lead">
-            Create a website, a focused offer or a form that brings enquiries into your CRM. Give
-            your team the details and set up what happens next.
-          </p>
-          <div className="wff-hero-actions">
-            <SalesLink />
-            <a className="wff-text-link" href="#connected-enquiry">
-              Follow an enquiry
-              <ArrowDown size={16} aria-hidden="true" />
-            </a>
+        <header className="wff-hero-intro">
+          <div>
+            <p className="wff-eyebrow">Websites, Funnels &amp; Forms</p>
+            <h1 id="wff-title">
+              Build your page.
+              <br />
+              Connect your enquiries.
+            </h1>
           </div>
-          <p className="wff-hero-note">
-            Starting fresh or keeping your website.
-            <br />
-            Connect the enquiry either way.
+          <div className="wff-hero-copy">
+            <p className="wff-lead">
+              Drag, drop and make it yours. Build with Zapla AI or shape every section yourself,
+              then connect your pages and forms to your CRM.
+            </p>
+            <div className="wff-hero-actions">
+              <SalesLink />
+              <a className="wff-text-link" href="#website-builder">
+                Try the builder <ArrowDown size={16} aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </header>
+        <WebsiteBuilder />
+        <div className="wff-builder-benefits">
+          <p>
+            <strong>Move it.</strong> Drag in your elements.
+          </p>
+          <p>
+            <strong>Shape it.</strong> Resize and rearrange columns.
+          </p>
+          <p>
+            <strong>Make it yours.</strong> Edit the content in place.
           </p>
         </div>
-        <PageBuilder />
       </section>
-      <PageTypes />
+      <AICreation />
+      <FunnelBuilder />
       <ConnectedEnquiry />
-      <Publishing />
+      <SiteTracking />
       <LaunchAndQuestions />
       <section className="wff-final wff-shell" aria-labelledby="wff-final-title">
         <div className="wff-final-petal">
