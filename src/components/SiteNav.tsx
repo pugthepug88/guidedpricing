@@ -23,6 +23,7 @@ const NAV_GROUPS = [
       { name: "Websites, Funnels & Forms", href: "/features/websites-funnels-forms" },
       { name: "Automation Builder", href: "/features/automation-builder" },
       { name: "Calendars & Bookings", href: "/features/calendars-bookings" },
+      { name: "Quotes, Invoices & Signatures", href: "/features/quotes-invoices-signatures" },
     ],
   },
   {

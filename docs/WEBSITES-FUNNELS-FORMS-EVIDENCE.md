@@ -1,5 +1,20 @@
 # Websites, Funnels & Forms: evidence ledger
 
+## Current capability recheck, 26 October 2026
+
+The official English help JSON was downloaded again from `https://app.thenextgencrm.com/help-content/en.json` for this revision. Its Website Builder, Funnel Flow Builder, funnel Page Builder, Form Builder, Form Fields Manager, Domains and Site Tracking articles were inspected. Source hashes are retained in the downloaded research copy rather than marketed as a product guarantee. This is current documentation evidence, not a live-account acceptance test.
+
+- Website Builder explicitly supports heading/image/button/form blocks, editing text and styles, adding pages, reusable components, Save and separate confirmed Publish. The page's editable heading/button are simplified local illustrations of content editing, not a reproduction of the application chrome. They do not save or publish anywhere.
+- Funnel Flow Builder documents connected pages, split tests and conditions. The page uses only a simple offer → enquiry → thank-you/booking-link flow. No default conversion values, simulations, revenue, traffic or invented results are shown. Choosing a consultation is a customer action after the form, not an automatic confirmed booking.
+- Form Builder documents multiple pages, required fields, types, styling, AI assistance and post-submission redirects. Form Fields Manager explicitly distinguishes mapped contact fields from unmapped answers. The page shows a configured Project type/Project details mapping and the same supplied name/contact information in the outcome.
+- Domains documents DNS configuration and verification. Site Tracking documents one selected page/date range, views, unique visitors, clicks, average scroll depth and heatmaps. No instant activation, all-site attribution, consent or unrestricted hosting claim is inferred.
+- The existing official Sites & Funnels catalogue was also reopened through web retrieval. Its AI/template support corroborates the brief AI wording. Its broad no-hosting-fee marketing is not adopted; the earlier metered-service evidence and Zapla retail-scope boundaries remain.
+- The newer Automation audit continues to govern the configured acknowledgement email. No generic Create Task action, universal stop-on-reply, auto-assignment or guaranteed send is added.
+
+The revised business illustration is garden design: Mia Thompson asks for courtyard design and provides a request for a leafy courtyard with outdoor dining space. The identical answers carry into the contact record, followed by a configured acknowledgement. Email is described as supplied/captured without printing a fictitious address. The local page-content inputs accept only temporary editing of the prepared page heading/button; no endpoint, form submission, browser storage or analytics listener is introduced.
+
+Fresh editorial asset: `public/concept/features/websites-garden-design-20261026.webp`, generated with the built-in image tool for this page, with its exact prompt in `docs/websites-garden-photo-20261026-prompt.txt`. The source PNG is 1536 × 1024; the project WebP is approximately 265 KB. These people are neither customers nor testimonial evidence. Interface portrait continuity uses the approved existing sheet.
+
 Evidence record: **2026-10-22 (UTC)**. Page: `/features/websites-funnels-forms`.
 
 This ledger separates documented product capabilities from the page's illustrative journey. The visual is an explanatory business example, **not an exact reproduction of the NextGen builder interface**. Official documentation supports the capabilities below; it is not a record of testing a live customer account.

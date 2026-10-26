@@ -1,174 +1,479 @@
-import { useState } from "react";
-import { ArrowDown, ArrowRight, ChevronDown, RotateCcw } from "lucide-react";
+import { useRef, useState, type ReactNode } from "react";
+import { ArrowDown, ArrowRight, Play, Plus, RotateCcw } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/websites-funnels-forms.css";
 
-// This is an explanatory illustration, not a form endpoint or a replica of the
-// builder. All values are fixed and fictional; the demonstration is local state.
+// Prepared local illustrations. Editing changes React state only. There are no
+// service calls, submissions, sends or persisted drafts.
+const PAGE = { heading: "A garden that feels like home.", button: "Plan my garden" };
 const ENQUIRY = {
   name: "Mia Thompson",
-  service: "Air conditioning replacement",
-  details: "We’d like to replace our old unit with a quieter option.",
-} as const;
-
+  project: "Courtyard design",
+  details: "We’d love a leafy courtyard with space to eat outside.",
+};
 const FAQS = [
   {
     question: "Can I keep my existing website?",
     answer:
-      "Yes. You can embed a Zapla form on your existing website or share a standalone form link. It gives you a way to connect new enquiries to Zapla without rebuilding your whole site.",
+      "Yes. Embed a Zapla form on your existing website or share its standalone link. That gives you a way to bring enquiries into Zapla without rebuilding the whole site. We review the connection and field mapping during setup.",
   },
   {
-    question: "Is a custom-designed website included in the subscription?",
+    question: "What is the difference between a website and a funnel?",
     answer:
-      "No. The platform provides self-service website, funnel and form tools. If you want Zapla to design and build a website for you, that is a separate paid service with its own agreed scope and quote.",
+      "A website gives visitors several ways to explore your business, such as services, work and contact pages. A funnel connects pages around a particular action, such as enquiring about an offer and then choosing a consultation. Both can use your forms and link to a booking page.",
+  },
+  {
+    question: "Can AI help me build?",
+    answer:
+      "Yes. AI assistance and templates can help you start your pages. The form builder can also use a written request to add fields, pages, styling and settings. You can edit the result, check the content and connections, then publish when it is ready. AI usage is separate and confirmed with your setup.",
   },
   {
     question: "What happens when someone submits a form?",
     answer:
-      "A form submission can create or update a contact in Zapla. Map custom answers to contact fields to keep the details your team needs on the customer record. You can also set up a workflow triggered by that form submission, such as an acknowledgement email.",
+      "A submission can create or update a contact. You can view the submitted answers alongside the contact and map custom answers to contact fields. A configured Form Submitted workflow can send an acknowledgement email or carry out other agreed follow-up. You choose and activate that workflow during setup.",
   },
   {
-    question: "Can I send someone to a booking page?",
+    question: "Can I use several pages in a form?",
     answer:
-      "Yes. You can configure a form to redirect to a booking page after submission, or include a booking link in a follow-up message. The customer then chooses a time through the booking process; submitting an enquiry does not itself confirm an appointment.",
+      "Yes. Split a form into pages, choose field types such as text, dropdowns and checkboxes, and make key answers required. You can style the form and configure where the customer goes after submitting it, including a booking page. The customer still chooses their appointment through the booking process.",
   },
   {
-    question: "Can I use my own domain?",
+    question: "Can I use my own domain and edit after publishing?",
     answer:
-      "Yes. Connect your domain and verify the required settings before publishing under your business’s address. Custom domains and SSL are supported. Domain registration is separate from creating your pages.",
+      "Yes. Connect your domain, configure the required DNS settings and verify the connection. Custom domains and SSL are supported; domain registration is separate. Saving page changes keeps your work in a draft. Publish after reviewing to update what visitors see.",
   },
   {
-    question: "What can I see about how a page is used?",
+    question: "Is a custom-designed website included?",
     answer:
-      "For a selected page and date range, site tracking shows page views, unique visitors, clicks and average scroll depth. Click and scroll heatmaps help you see how people interact with that page. For campaign audiences, outreach and campaign measurement, explore Customer Marketing.",
+      "The platform provides tools for you to build and manage pages and forms. A website designed and built by Zapla is a separate paid project with an agreed scope. It is not automatically included in the subscription or Guided Launch. Guided Launch covers your agreed initial platform setup and is separately priced.",
   },
 ] as const;
 
-function SalesLink({
-  children = "Book a Call",
-  className = "",
-}: {
-  children?: string;
-  className?: string;
-}) {
+function SalesLink({ children = "Book a Call" }: { children?: ReactNode }) {
   return (
-    <a className={`wff-button ${className}`} href="/booking">
+    <a className="wff-button" href="/booking">
       {children}
-      <ArrowRight size={17} aria-hidden="true" />
     </a>
   );
 }
-
 function MiaPortrait() {
   return <span className="wff-portrait" aria-hidden="true" />;
 }
-
-function EnquiryProof() {
-  const [recordVisible, setRecordVisible] = useState(false);
-
+function PageBuilder() {
+  const [heading, setHeading] = useState(PAGE.heading);
+  const [button, setButton] = useState(PAGE.button);
+  const reset = () => {
+    setHeading(PAGE.heading);
+    setButton(PAGE.button);
+  };
   return (
-    <div className={`wff-proof ${recordVisible ? "wff-proof--connected" : ""}`}>
-      <div className="wff-enquiry">
-        <div className="wff-panel-heading">
-          <span>From your enquiry form</span>
-          <p>Tell us about your home.</p>
+    <div className="wff-builder" aria-label="Website content editor">
+      <div className="wff-builder-bar">
+        <span>
+          <ZaplaPetal size={25} />
+          Website builder
+        </span>
+        <span>Your page content</span>
+      </div>
+      <div className="wff-page-preview" aria-label="Garden design page preview">
+        <div className="wff-site-name">
+          courtyard<span>Garden design · Sydney</span>
         </div>
-        <dl className="wff-form-details">
-          <div>
-            <dt>Name</dt>
-            <dd>{ENQUIRY.name}</dd>
-          </div>
-          <div>
-            <dt>Email</dt>
-            <dd>Email address provided</dd>
-          </div>
-          <div>
-            <dt>What can we help with?</dt>
-            <dd>{ENQUIRY.service}</dd>
-          </div>
-          <div>
-            <dt>A few more details</dt>
-            <dd>{ENQUIRY.details}</dd>
-          </div>
-        </dl>
-        <button
-          type="button"
-          className="wff-demo-button"
-          aria-expanded={recordVisible}
-          aria-controls="wff-customer-record"
-          onClick={() => setRecordVisible(!recordVisible)}
-        >
-          {recordVisible ? (
-            <>
-              Reset the view
-              <RotateCcw size={16} aria-hidden="true" />
-            </>
-          ) : (
-            <>
-              See the customer record
-              <ArrowRight size={17} aria-hidden="true" />
-            </>
-          )}
-        </button>
+        <img
+          className="wff-site-photo"
+          src="/concept/features/websites-garden-design-20261026.webp"
+          alt="A garden designer and homeowner reviewing a courtyard plan together"
+          width="1536"
+          height="1024"
+          fetchPriority="high"
+        />
+        <div className="wff-site-content">
+          <h2>{heading.trim() || PAGE.heading}</h2>
+          <p>Thoughtful gardens for everyday living. Tell us about your space.</p>
+          <a href="#connected-enquiry">
+            {button.trim() || PAGE.button}
+            <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </div>
       </div>
-
-      <div className="wff-proof-connection" aria-hidden="true">
-        <span />
-        <ArrowRight size={22} />
-        <span />
-      </div>
-
-      <div
-        id="wff-customer-record"
-        className="wff-record"
-        role="region"
-        aria-label="Connected customer record"
-      >
-        {recordVisible ? (
-          <div className="wff-record-content">
-            <div className="wff-record-brand">
-              <ZaplaPetal size={25} />
-              <span>In your Zapla CRM</span>
-            </div>
-            <div className="wff-contact">
-              <MiaPortrait />
-              <div>
-                <h3>{ENQUIRY.name}</h3>
-                <p>Contact details captured</p>
-              </div>
-            </div>
-            <dl className="wff-record-details">
-              <div>
-                <dt>Service enquiry</dt>
-                <dd>{ENQUIRY.service}</dd>
-              </div>
-              <div>
-                <dt>Enquiry details</dt>
-                <dd>{ENQUIRY.details}</dd>
-              </div>
-            </dl>
-            <a href="#enquiry-next-step" className="wff-text-link">
-              Then, give it a next step
-              <ArrowDown size={16} aria-hidden="true" />
-            </a>
-          </div>
-        ) : (
-          <div className="wff-record-ready">
-            <ZaplaPetal size={56} />
-            <h3>Where does the enquiry go?</h3>
-            <p>Follow Mia’s details from the form into her customer record.</p>
-            <span>The same person. The same request.</span>
-          </div>
-        )}
-      </div>
+      <fieldset className="wff-editor-fields">
+        <legend>Edit your page</legend>
+        <div className="wff-editor-inputs">
+          <label htmlFor="wff-page-heading">
+            Heading
+            <textarea
+              id="wff-page-heading"
+              value={heading}
+              maxLength={90}
+              rows={2}
+              spellCheck={false}
+              onChange={(event) => setHeading(event.target.value)}
+            />
+          </label>
+          <label htmlFor="wff-page-button">
+            Button text
+            <input
+              id="wff-page-button"
+              value={button}
+              maxLength={30}
+              spellCheck={false}
+              onChange={(event) => setButton(event.target.value)}
+            />
+          </label>
+          <button
+            type="button"
+            onClick={reset}
+            className="wff-reset"
+            aria-label="Reset page heading and button text"
+          >
+            <RotateCcw size={17} aria-hidden="true" />
+            <span>Reset</span>
+          </button>
+        </div>
+      </fieldset>
     </div>
   );
 }
-
+function PageTypes() {
+  return (
+    <section className="wff-section wff-shell wff-page-types" aria-labelledby="wff-types-title">
+      <header className="wff-section-heading">
+        <div>
+          <p className="wff-eyebrow">Websites and funnels</p>
+          <h2 id="wff-types-title">
+            Your whole business.
+            <br />
+            Or one focused offer.
+          </h2>
+        </div>
+        <p>
+          Give people room to explore your services, or guide them towards a single next step.
+          Choose the structure that fits the job.
+        </p>
+      </header>
+      <div className="wff-types-comparison">
+        <article className="wff-website-type">
+          <h3>A website to explore.</h3>
+          <p>
+            Connect your service, project and enquiry pages so visitors can find what matters to
+            them.
+          </p>
+          <div
+            className="wff-site-map"
+            aria-label="A website homepage connects to services, projects and an enquiry page"
+          >
+            <div className="wff-map-home">Home</div>
+            <div className="wff-map-branches" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </div>
+            <div className="wff-map-pages">
+              <span>Services</span>
+              <span>Our work</span>
+              <span>Enquire</span>
+            </div>
+          </div>
+        </article>
+        <article className="wff-funnel-type">
+          <h3>A funnel to take action.</h3>
+          <p>
+            Connect a focused offer to an enquiry form, then a thank-you page with a booking link.
+          </p>
+          <ol className="wff-funnel-path" aria-label="Garden design funnel">
+            <li>
+              <span>Offer page</span>
+              <strong>Plan your courtyard</strong>
+            </li>
+            <li>
+              <span>Enquiry form</span>
+              <strong>Tell us about your space</strong>
+            </li>
+            <li>
+              <span>Thank-you page</span>
+              <strong>Choose a consultation</strong>
+            </li>
+          </ol>
+        </article>
+      </div>
+      <div className="wff-existing-site">
+        <h3>Already have a website?</h3>
+        <p>
+          Add a Zapla form or share a form link. Keep the site you have and bring the enquiry into
+          your customer workflow.
+        </p>
+        <a className="wff-text-link" href="#connected-enquiry">
+          See how the form connects
+          <ArrowDown size={16} aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+  );
+}
+function ConnectedEnquiry() {
+  const [run, setRun] = useState(0);
+  const proof = useRef<HTMLDivElement>(null);
+  const watchConnection = () => {
+    proof.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+    setRun((value) => value + 1);
+  };
+  return (
+    <section
+      id="connected-enquiry"
+      className="wff-connected wff-shell"
+      aria-labelledby="wff-enquiry-title"
+    >
+      <header className="wff-section-heading">
+        <div>
+          <p className="wff-eyebrow">Forms, CRM and follow-up</p>
+          <h2 id="wff-enquiry-title">
+            Ask what you need.
+            <br />
+            Keep it with the customer.
+          </h2>
+        </div>
+        <div>
+          <p>
+            Collect the request and contact details together. Map useful answers to CRM fields, so
+            your team can follow up knowing what the person needs.
+          </p>
+          <button className="wff-watch" type="button" onClick={watchConnection}>
+            <Play size={15} fill="currentColor" aria-hidden="true" />
+            {run ? "Watch the connection again" : "Watch the connection"}
+          </button>
+        </div>
+      </header>
+      <div
+        className={"wff-enquiry-proof" + (run ? " wff-enquiry-proof--play" : "")}
+        key={run}
+        ref={proof}
+      >
+        <div className="wff-enquiry-paper">
+          <p className="wff-form-brand">
+            courtyard<span>Project enquiry</span>
+          </p>
+          <h3>Tell us about your space.</h3>
+          <dl className="wff-form-answers">
+            <div>
+              <dt>What would you like help with?</dt>
+              <dd>{ENQUIRY.project}</dd>
+            </div>
+            <div>
+              <dt>What do you have in mind?</dt>
+              <dd>{ENQUIRY.details}</dd>
+            </div>
+            <div className="wff-form-contact">
+              <div>
+                <dt>Your name</dt>
+                <dd>{ENQUIRY.name}</dd>
+              </div>
+              <div>
+                <dt>Email</dt>
+                <dd>Email address provided</dd>
+              </div>
+            </div>
+          </dl>
+          <p className="wff-form-destination">
+            After submission
+            <ArrowRight size={17} aria-hidden="true" />
+            <span>Connected to Zapla</span>
+          </p>
+        </div>
+        <div className="wff-customer-outcome">
+          <div className="wff-crm-record">
+            <p className="wff-record-brand">
+              <ZaplaPetal size={25} />
+              <span>In your Zapla CRM</span>
+            </p>
+            <div className="wff-contact wff-reveal-person">
+              <MiaPortrait />
+              <div>
+                <h3>{ENQUIRY.name}</h3>
+                <p>Name and email captured</p>
+              </div>
+            </div>
+            <dl className="wff-record-details">
+              <div className="wff-reveal-project">
+                <dt>Project type</dt>
+                <dd>{ENQUIRY.project}</dd>
+              </div>
+              <div className="wff-reveal-details">
+                <dt>Project details</dt>
+                <dd>{ENQUIRY.details}</dd>
+              </div>
+            </dl>
+          </div>
+          <div className="wff-acknowledgement">
+            <p>Configured acknowledgement email</p>
+            <h3>Thanks for getting in touch, Mia.</h3>
+            <p>
+              We’ve received your courtyard enquiry. Our team will be in touch to discuss your space
+              and the next step.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="wff-enquiry-notes">
+        <p>
+          <strong>Your questions, your form.</strong> Use required fields, dropdowns and multiple
+          pages to collect the information your team needs.
+        </p>
+        <p>
+          <strong>Your next step, configured.</strong> Use a form submission to start an agreed
+          workflow, or direct the customer to a booking page.
+        </p>
+        <a className="wff-text-link" href="/features/automation-builder">
+          Explore Automation Builder
+          <ArrowRight size={16} aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+  );
+}
+function Publishing() {
+  return (
+    <section className="wff-section wff-shell wff-publishing" aria-labelledby="wff-publish-title">
+      <div className="wff-publish-intro">
+        <p className="wff-eyebrow">From draft to live page</p>
+        <h2 id="wff-publish-title">
+          Make it yours.
+          <br />
+          Publish when it’s ready.
+        </h2>
+        <p>
+          Start with a template, AI assistance or the visual editor. Change your text, images,
+          buttons and layout around the action you want a visitor to take.
+        </p>
+      </div>
+      <div className="wff-publish-lifecycle" aria-label="Page publishing and tracking capabilities">
+        <article>
+          <span>Before it goes live</span>
+          <h3>Build, save and review.</h3>
+          <p>
+            Arrange blocks visually. Reuse sections across pages and preview your work. Saved edits
+            stay separate from the published page.
+          </p>
+        </article>
+        <article>
+          <span>When you’re ready</span>
+          <h3>Use your own domain.</h3>
+          <p>
+            Connect your web address, verify the domain settings and publish. Keep your business
+            name on the pages visitors see.
+          </p>
+        </article>
+        <article>
+          <span>After visitors arrive</span>
+          <h3>See where they click and scroll.</h3>
+          <p>
+            Choose a page and date range to review views, unique visitors, clicks and scroll depth.
+            Use click and scroll heatmaps to understand how that page is used.
+          </p>
+        </article>
+      </div>
+      <p className="wff-campaign-link">
+        For the audience, outreach and measurement around your campaigns,{" "}
+        <a href="/customer-marketing">explore Customer Marketing.</a>
+      </p>
+    </section>
+  );
+}
+function LaunchAndQuestions() {
+  return (
+    <section className="wff-launch-section" aria-labelledby="wff-build-title">
+      <div className="wff-shell">
+        <div className="wff-launch-layout">
+          <div className="wff-launch-copy">
+            <p className="wff-eyebrow">A practical starting point</p>
+            <h2 id="wff-build-title">
+              Build it yourself.
+              <br />
+              Or have it designed for you.
+            </h2>
+            <div className="wff-service-choice">
+              <h3>The tools to build your own.</h3>
+              <p>
+                Create and manage pages, funnels and forms in your Zapla subscription. You choose
+                the content, questions and customer journey.
+              </p>
+            </div>
+            <div className="wff-service-choice">
+              <h3>A website designed by Zapla.</h3>
+              <p>
+                Want us to handle the design and build? We’ll agree the pages, content and
+                connections, then quote for that scope.
+              </p>
+              <p className="wff-service-scope">
+                Custom website design is a separate paid service, outside your subscription and
+                Guided Launch.
+              </p>
+              <SalesLink>Discuss your website</SalesLink>
+            </div>
+          </div>
+          <aside className="wff-launch-plan" aria-labelledby="wff-launch-title">
+            <ZaplaPetal size={39} />
+            <p className="wff-eyebrow">Guided Launch</p>
+            <h3 id="wff-launch-title">
+              Connect the journey.
+              <br />
+              Check every handoff.
+            </h3>
+            <dl>
+              <div>
+                <dt>Your starting point</dt>
+                <dd>Existing website, new pages or a focused offer.</dd>
+              </div>
+              <div>
+                <dt>Your customer information</dt>
+                <dd>Questions, required answers and contact-field mapping.</dd>
+              </div>
+              <div>
+                <dt>Your follow-up</dt>
+                <dd>Acknowledgement, team process and the next step.</dd>
+              </div>
+              <div>
+                <dt>Your checks</dt>
+                <dd>Form, contact record and agreed workflow tested together.</dd>
+              </div>
+            </dl>
+            <p>
+              Guided Launch is required for new standard accounts and priced separately from your
+              subscription.
+            </p>
+            <a href="/Pricing-v3">
+              See plans and Guided Launch
+              <ArrowRight size={16} aria-hidden="true" />
+            </a>
+          </aside>
+        </div>
+        <div className="wff-faq" aria-labelledby="wff-faq-title">
+          <div>
+            <p className="wff-eyebrow">A few useful answers</p>
+            <h2 id="wff-faq-title">Before you build.</h2>
+          </div>
+          <div className="wff-faq-list">
+            {FAQS.map(({ question, answer }) => (
+              <details key={question}>
+                <summary>
+                  {question}
+                  <Plus size={19} aria-hidden="true" />
+                </summary>
+                <p>{answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 export function WebsitesFunnelsFormsPage() {
   return (
     <main className="zapla-feature zapla-websites">
+      <noscript>
+        <style>{".wff-editor-fields, .wff-watch { display: none !important; }"}</style>
+      </noscript>
       <section className="wff-hero wff-shell" aria-labelledby="wff-title">
         <div className="wff-hero-copy">
           <p className="wff-eyebrow">Websites, Funnels &amp; Forms</p>
@@ -178,8 +483,8 @@ export function WebsitesFunnelsFormsPage() {
             Connect your enquiries.
           </h1>
           <p className="wff-lead">
-            Create a website, a focused landing page or a form. Connect enquiries to your CRM, then
-            set up what happens next.
+            Create a website, a focused offer or a form that brings enquiries into your CRM. Give
+            your team the details and set up what happens next.
           </p>
           <div className="wff-hero-actions">
             <SalesLink />
@@ -188,287 +493,18 @@ export function WebsitesFunnelsFormsPage() {
               <ArrowDown size={16} aria-hidden="true" />
             </a>
           </div>
-        </div>
-
-        <div className="wff-business-stage">
-          <div className="wff-business-page" aria-label="Air conditioning landing page">
-            <div className="wff-business-copy">
-              <p className="wff-business-category">Home cooling &amp; heating</p>
-              <h2>
-                Come home
-                <br className="wff-wide-break" /> to comfort.
-              </h2>
-              <p>Air conditioning for the spaces you live in. Tell us what you need.</p>
-              <a href="#connected-enquiry">
-                Explore the enquiry
-                <ArrowRight size={17} aria-hidden="true" />
-              </a>
-            </div>
-            <img
-              src="/concept/industries/trades-service-visit.webp"
-              alt="A homeowner talking with an air conditioning installer at her home"
-              width="1672"
-              height="941"
-              fetchPriority="high"
-            />
-          </div>
-          <p className="wff-stage-caption">
-            A clear offer. A place to enquire. A connection to the customer.
-          </p>
-        </div>
-      </section>
-
-      <section
-        id="connected-enquiry"
-        className="wff-section wff-shell wff-enquiry-section"
-        aria-labelledby="wff-enquiry-title"
-      >
-        <div className="wff-section-intro">
-          <p className="wff-eyebrow">From the page to the person</p>
-          <h2 id="wff-enquiry-title">
-            The details arrive
-            <br className="wff-wide-break" /> with the customer.
-          </h2>
-          <p>
-            A form submission can create or update a contact in Zapla. Map the answers your team
-            needs, so they can follow up with the request in front of them.
-          </p>
-        </div>
-        <EnquiryProof />
-      </section>
-
-      <section className="wff-roles-section" aria-labelledby="wff-roles-title">
-        <div className="wff-shell">
-          <div className="wff-roles-heading">
-            <p className="wff-eyebrow">One enquiry journey</p>
-            <h2 id="wff-roles-title">Choose the right place to start.</h2>
-          </div>
-          <div className="wff-roles">
-            <article>
-              <h3>Websites</h3>
-              <p className="wff-role-summary">A home for your business.</p>
-              <p>
-                Bring your services, useful information and enquiry forms together across connected
-                pages.
-              </p>
-            </article>
-            <article>
-              <h3>Funnels</h3>
-              <p className="wff-role-summary">A path to one action.</p>
-              <p>
-                Use a landing page or a short sequence of pages for a particular offer, enquiry or
-                booking.
-              </p>
-            </article>
-            <article>
-              <h3>Forms</h3>
-              <p className="wff-role-summary">The questions you need answered.</p>
-              <p>
-                Collect contact details and relevant information on a Zapla page, your existing
-                website or a shareable link.
-              </p>
-            </article>
-          </div>
-          <p className="wff-existing-site">
-            <strong>Already have a website?</strong> Start with a connected form. You don’t need to
-            rebuild your site to bring enquiries into Zapla.
-          </p>
-        </div>
-      </section>
-
-      <section className="wff-section wff-shell wff-publishing" aria-labelledby="wff-publish-title">
-        <div className="wff-publishing-copy">
-          <p className="wff-eyebrow">Create, review, publish</p>
-          <h2 id="wff-publish-title">
-            Make it yours.
+          <p className="wff-hero-note">
+            Starting fresh or keeping your website.
             <br />
-            Publish when
-            <br className="wff-wide-break" /> it’s ready.
-          </h2>
-          <p>
-            Start from a template, use AI assistance or build in the editor. Shape your pages around
-            your business and the action you want a visitor to take.
+            Connect the enquiry either way.
           </p>
         </div>
-        <div className="wff-publishing-details">
-          <article>
-            <h3>Your content, your layout.</h3>
-            <p>
-              Edit text, images, buttons, colours and spacing. Add pages and place your enquiry form
-              where it makes sense.
-            </p>
-          </article>
-          <article>
-            <h3>The right questions.</h3>
-            <p>
-              Choose the fields you need, make key details required and map useful answers to the
-              customer record.
-            </p>
-          </article>
-          <article>
-            <h3>Your own web address.</h3>
-            <p>
-              Save and preview your work. Connect and verify your domain, then publish your pages
-              under your own address.
-            </p>
-          </article>
-        </div>
+        <PageBuilder />
       </section>
-
-      <section id="enquiry-next-step" className="wff-followup" aria-labelledby="wff-followup-title">
-        <div className="wff-shell wff-followup-layout">
-          <div className="wff-followup-copy">
-            <p className="wff-eyebrow">After the enquiry</p>
-            <h2 id="wff-followup-title">
-              Give “thank you”
-              <br />a next step.
-            </h2>
-            <p>
-              Set up a workflow for a submitted form. Send an acknowledgement email so the customer
-              knows their enquiry has arrived.
-            </p>
-            <p className="wff-booking-option">
-              Ready for a booking? Direct the customer to a booking page after submission, or send a
-              booking link in your follow-up.
-            </p>
-          </div>
-          <div
-            className="wff-followup-scene"
-            aria-label="A configured form submission workflow sending an acknowledgement email"
-          >
-            <p className="wff-scene-label">A workflow you configure</p>
-            <div className="wff-trigger">
-              <span>When</span>
-              <p>Your air conditioning enquiry form is submitted</p>
-            </div>
-            <div className="wff-task-connector" aria-hidden="true">
-              <span />
-              <ArrowDown size={19} />
-            </div>
-            <div className="wff-task">
-              <div className="wff-task-heading">
-                <ZaplaPetal size={28} />
-                <span>Send an acknowledgement email</span>
-              </div>
-              <h3>Thanks for getting in touch, Mia.</h3>
-              <div className="wff-task-person">
-                <MiaPortrait />
-                <p>
-                  {ENQUIRY.name}
-                  <span>{ENQUIRY.service}</span>
-                </p>
-              </div>
-              <p className="wff-task-context">
-                We’ve received your replacement enquiry. Our team will be in touch to discuss what
-                you need.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="wff-section wff-shell wff-tracking" aria-labelledby="wff-tracking-title">
-        <div className="wff-tracking-heading">
-          <p className="wff-eyebrow">Understand your page</p>
-          <h2 id="wff-tracking-title">
-            See where visitors
-            <br />
-            click and scroll.
-          </h2>
-        </div>
-        <div className="wff-tracking-body">
-          <p>
-            Choose a page and date range to see page views, unique visitors, clicks and average
-            scroll depth. Click and scroll heatmaps show how visitors interact with that page.
-          </p>
-          <dl className="wff-tracking-questions">
-            <div>
-              <dt>Clicks</dt>
-              <dd>What do visitors click?</dd>
-            </div>
-            <div>
-              <dt>Scroll depth</dt>
-              <dd>How far down the page do visitors explore?</dd>
-            </div>
-          </dl>
-          <p className="wff-tracking-context">
-            Planning the audience, outreach and measurement around a campaign?
-          </p>
-          <a href="/customer-marketing" className="wff-text-link">
-            Explore Customer Marketing
-            <ArrowRight size={16} aria-hidden="true" />
-          </a>
-        </div>
-      </section>
-
-      <section className="wff-build-section" aria-labelledby="wff-build-title">
-        <div className="wff-shell">
-          <div className="wff-build-heading">
-            <p className="wff-eyebrow">Choose your starting point</p>
-            <h2 id="wff-build-title">
-              Build it yourself.
-              <br />
-              Or have it designed for you.
-            </h2>
-          </div>
-          <div className="wff-build-options">
-            <article className="wff-self-service">
-              <p className="wff-option-label">Self-service platform</p>
-              <h3>
-                Build your own
-                <br />
-                pages and forms.
-              </h3>
-              <p>
-                Use the website, funnel and form tools in your Zapla subscription. Create the pages,
-                connect the fields and configure the follow-up that suits your business.
-              </p>
-              <p className="wff-option-scope">You create and manage the content.</p>
-            </article>
-            <article className="wff-design-service">
-              <p className="wff-option-label">Paid website design service</p>
-              <h3>
-                Have Zapla
-                <br />
-                design your website.
-              </h3>
-              <p>
-                Want someone to handle the website design and build? We’ll agree the pages, content
-                and connections you need, then quote for that scope.
-              </p>
-              <p className="wff-option-scope">
-                Custom website design is a separate paid service. It is not included in the software
-                subscription.
-              </p>
-              <SalesLink children="Discuss your website" />
-            </article>
-          </div>
-          <p className="wff-launch-note">
-            Guided Launch covers the agreed initial setup of your forms, contact fields and
-            follow-up. It is required for new standard accounts and priced separately from your
-            subscription. <a href="/Pricing-v3">See plans and Guided Launch.</a>
-          </p>
-        </div>
-      </section>
-
-      <section className="wff-section wff-shell wff-faq" aria-labelledby="wff-faq-title">
-        <div>
-          <p className="wff-eyebrow">A few useful answers</p>
-          <h2 id="wff-faq-title">Before you build.</h2>
-        </div>
-        <div className="wff-faq-list">
-          {FAQS.map(({ question, answer }) => (
-            <details key={question}>
-              <summary>
-                {question}
-                <ChevronDown size={19} aria-hidden="true" />
-              </summary>
-              <p>{answer}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-
+      <PageTypes />
+      <ConnectedEnquiry />
+      <Publishing />
+      <LaunchAndQuestions />
       <section className="wff-final wff-shell" aria-labelledby="wff-final-title">
         <div className="wff-final-petal">
           <ZaplaPetal size={54} />
