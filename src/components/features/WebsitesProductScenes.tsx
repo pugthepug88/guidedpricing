@@ -1,13 +1,26 @@
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type MouseEvent,
+  type PointerEvent,
+} from "react";
 import {
   ArrowDown,
   ArrowRight,
+  ChevronDown,
   Columns2,
+  Copy,
+  FileText,
+  Globe,
   GripVertical,
   Image as ImageIcon,
+  Layers,
+  LayoutGrid,
   LayoutTemplate,
   Monitor,
-  MousePointer2,
+  Palette,
   Play,
   Plus,
   RotateCcw,
@@ -17,10 +30,9 @@ import {
   Type,
   X,
 } from "lucide-react";
-import { ZaplaPetal } from "@/components/ZaplaPetal";
 
-// Prepared, browser-local product scenes. No AI request, site import, analytics,
-// form collection, save or publication is performed by these controls.
+// Prepared marketing scenes. All controls affect local React state only.
+// No site import, AI request, save, publish, submission or external tracking runs.
 const PHOTO = "/concept/features/websites-garden-design-20261026.webp";
 const INITIAL = {
   heading: "A garden that feels like home.",
@@ -35,6 +47,31 @@ const BLOCKS = [
   { id: "form", label: "Form", icon: LayoutTemplate },
 ] as const;
 type Block = (typeof BLOCKS)[number]["id"];
+
+export function ProductBrand({ name, dark = false }: { name: string; dark?: boolean }) {
+  return (
+    <div className="wff-product-brand">
+      <img
+        src={dark ? "/concept/zapla-logo-white.png" : "/concept/zapla-logo-dark.svg"}
+        alt="Zapla"
+        width="93"
+        height="27"
+      />
+      <span>{name}</span>
+    </div>
+  );
+}
+function AIMark() {
+  return (
+    <img
+      className="wff-ai-mark"
+      src="/concept/features/websites-zapla-ai-mark.webp"
+      alt=""
+      width="30"
+      height="30"
+    />
+  );
+}
 
 export function WebsiteBuilder() {
   const [content, setContent] = useState(INITIAL);
@@ -62,22 +99,32 @@ export function WebsiteBuilder() {
   };
   const resize = (event: PointerEvent<HTMLButtonElement>) => {
     const rect = row.current?.getBoundingClientRect();
-    if (!rect) return;
-    setColumns(
-      Math.round(Math.max(36, Math.min(64, ((event.clientX - rect.left) / rect.width) * 100))),
-    );
+    if (rect)
+      setColumns(
+        Math.round(
+          Math.max(
+            36,
+            Math.min(
+              64,
+              (imageFirst
+                ? 1 - (event.clientX - rect.left) / rect.width
+                : (event.clientX - rect.left) / rect.width) * 100,
+            ),
+          ),
+        ),
+      );
   };
   const field =
     selected === "heading" || selected === "text" || selected === "button" ? selected : null;
   return (
-    <div className="wff-builder" id="website-builder" aria-label="Interactive website builder">
-      <div className="wff-builder-toolbar">
-        <div className="wff-builder-name">
-          <ZaplaPetal size={25} />
-          <span>
-            Courtyard website<small>Home page</small>
-          </span>
-        </div>
+    <div
+      className="wff-builder wff-product-window"
+      id="website-builder"
+      aria-label="Interactive website builder"
+    >
+      <div className="wff-product-toolbar">
+        <ProductBrand name="Website Builder" />
+        <span className="wff-document-name">Courtyard / Home</span>
         <div className="wff-devices" role="group" aria-label="Page preview size">
           <button
             type="button"
@@ -85,7 +132,7 @@ export function WebsiteBuilder() {
             aria-pressed={!phone}
             onClick={() => setPhone(false)}
           >
-            <Monitor size={18} />
+            <Monitor size={17} />
           </button>
           <button
             type="button"
@@ -96,15 +143,50 @@ export function WebsiteBuilder() {
             <Smartphone size={17} />
           </button>
         </div>
-        <button className="wff-editor-reset" type="button" onClick={reset}>
-          <RotateCcw size={15} />
+        <button className="wff-reset" type="button" onClick={reset}>
+          <RotateCcw size={14} />
           <span>Reset</span>
         </button>
       </div>
       <div className="wff-builder-workspace">
+        <aside className="wff-tool-rail" aria-label="Website builder tools">
+          {[
+            { label: "Blocks", icon: LayoutGrid },
+            { label: "Components", icon: Copy },
+            { label: "Pages", icon: FileText },
+            { label: "Layers", icon: Layers },
+            { label: "Templates", icon: LayoutTemplate },
+            { label: "Styles", icon: Palette },
+            { label: "Media", icon: ImageIcon },
+          ].map(({ label, icon: Icon }) => (
+            <div className={label === "Blocks" ? "wff-tool-active" : ""} key={label}>
+              <Icon size={18} aria-hidden="true" />
+              <span>{label}</span>
+            </div>
+          ))}
+          <a href="#website-ai" className="wff-rail-ai">
+            <AIMark />
+            <span>Zapla AI</span>
+          </a>
+        </aside>
         <aside className="wff-block-library" aria-label="Page elements">
-          <span className="wff-tool-heading">Elements</span>
-          <p>Choose an element</p>
+          <div className="wff-panel-label">Build your page</div>
+          <p className="wff-ui-caption">Structure</p>
+          <div className="wff-layout-choices" aria-label="Column layouts">
+            <div>
+              <i />
+              <span>Section</span>
+            </div>
+            <div>
+              <i className="wff-layout-two" />
+              <span>2 columns</span>
+            </div>
+            <div>
+              <i className="wff-layout-three" />
+              <span>3 columns</span>
+            </div>
+          </div>
+          <p className="wff-ui-caption">Content</p>
           <div className="wff-block-options">
             {BLOCKS.map(({ id, label, icon: Icon }) => (
               <button
@@ -160,15 +242,25 @@ export function WebsiteBuilder() {
                   if (!dragged.current) addOrSelect(id);
                 }}
               >
-                <Icon size={18} aria-hidden="true" />
+                <Icon size={19} aria-hidden="true" />
                 <span>{label}</span>
-                {id === "form" && <GripVertical size={13} aria-hidden="true" />}
+                {id === "form" && (
+                  <GripVertical size={12} className="wff-drag-grip" aria-hidden="true" />
+                )}
               </button>
             ))}
           </div>
-          <div className="wff-library-layout">
-            <Columns2 size={17} />
-            <span>Flexible columns</span>
+          <div className="wff-page-tree">
+            <p className="wff-ui-caption">On this page</p>
+            <span>
+              <Layers size={14} /> Header
+            </span>
+            <span>
+              <Columns2 size={14} /> Hero section
+            </span>
+            <span>
+              <Plus size={14} /> Enquiry form
+            </span>
           </div>
         </aside>
         <div
@@ -181,8 +273,10 @@ export function WebsiteBuilder() {
         >
           <div className="wff-editor-page">
             <div className="wff-page-nav">
-              <strong>courtyard</strong>
-              <span>Gardens, thoughtfully designed.</span>
+              <strong>
+                courtyard<span>GARDEN DESIGN</span>
+              </strong>
+              <span>Our work &nbsp; About &nbsp; Enquire</span>
             </div>
             <div
               ref={row}
@@ -191,7 +285,7 @@ export function WebsiteBuilder() {
             >
               <span className="wff-row-label">2 columns</span>
               <div className="wff-canvas-copy">
-                <span className="wff-garden-location">GARDEN DESIGN · SYDNEY</span>
+                <span className="wff-garden-location">A LITTLE CLOSER TO NATURE</span>
                 <button
                   type="button"
                   className={
@@ -221,7 +315,7 @@ export function WebsiteBuilder() {
                   aria-label="Select page button"
                 >
                   {content.button || INITIAL.button}
-                  <ArrowRight size={15} />
+                  <ArrowRight size={14} />
                 </button>
               </div>
               <button
@@ -260,7 +354,13 @@ export function WebsiteBuilder() {
                   if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
                     event.preventDefault();
                     setColumns((value) =>
-                      Math.max(36, Math.min(64, value + (event.key === "ArrowRight" ? 2 : -2))),
+                      Math.max(
+                        36,
+                        Math.min(
+                          64,
+                          value + (event.key === "ArrowRight" ? 2 : -2) * (imageFirst ? -1 : 1),
+                        ),
+                      ),
                     );
                   }
                 }}
@@ -286,7 +386,7 @@ export function WebsiteBuilder() {
                 <div className="wff-canvas-form-fields">
                   <span>Your name</span>
                   <span>Email</span>
-                  <span>What do you have in mind?</span>
+                  <span>Project details</span>
                 </div>
                 <span className="wff-form-submit-text">
                   Send my enquiry <ArrowRight size={13} />
@@ -298,25 +398,22 @@ export function WebsiteBuilder() {
                 type="button"
                 onClick={() => addOrSelect("form")}
               >
-                <Plus size={16} /> Add an enquiry form
+                <Plus size={17} /> Drop your form here
               </button>
             )}
           </div>
         </div>
         <aside className="wff-properties" aria-label="Selected element settings">
-          <span className="wff-tool-heading">
-            {selected === "image"
-              ? "Image & layout"
-              : selected === "form"
-                ? "Enquiry form"
-                : "Content & layout"}
-          </span>
+          <div className="wff-panel-label">
+            {selected === "image" ? "Image" : selected === "form" ? "Form" : "Edit content"}
+            <ChevronDown size={14} />
+          </div>
           {field && (
             <label className="wff-property-field" htmlFor="wff-element-content">
               {field === "heading" ? "Heading" : field === "text" ? "Paragraph" : "Button text"}
               <textarea
                 id="wff-element-content"
-                rows={field === "button" ? 2 : 3}
+                rows={3}
                 maxLength={field === "text" ? 150 : 80}
                 value={content[field]}
                 onChange={(event) =>
@@ -336,7 +433,7 @@ export function WebsiteBuilder() {
               <strong>Project enquiry</strong>
               <p>Name, email and project details.</p>
               <a href="#connected-enquiry">
-                See the CRM connection <ArrowDown size={13} />
+                See the connection <ArrowDown size={13} />
               </a>
             </div>
           )}
@@ -359,16 +456,78 @@ export function WebsiteBuilder() {
             type="button"
             onClick={() => setImageFirst((value) => !value)}
           >
-            <Columns2 size={16} /> Swap columns
+            <Columns2 size={15} /> Swap columns
           </button>
-          <p id="wff-resize-help">
-            Drag the divider to change the layout. Or use the width slider.
-          </p>
+          <p id="wff-resize-help">Drag the column divider to reshape your page.</p>
+          <div className="wff-property-summary">
+            <span>Page</span>
+            <strong>Home</strong>
+            <span>Section</span>
+            <strong>Hero</strong>
+          </div>
         </aside>
       </div>
       <div className="wff-builder-status" role="status">
-        {form ? "Enquiry form added to your page" : "Select an element. Make it yours."}
-        <span>Visual website builder</span>
+        <span>{form ? "Enquiry form added" : "Select an element to edit"}</span>
+        <span>Drag. Drop. Make it yours.</span>
+      </div>
+    </div>
+  );
+}
+
+function SitePreview({ clone = false }: { clone?: boolean }) {
+  return (
+    <div className={"wff-site-preview" + (clone ? " wff-site-preview--clone" : "")}>
+      <div className="wff-site-preview-nav">
+        <strong>
+          courtyard<span>GARDEN DESIGN</span>
+        </strong>
+        <span>Our work &nbsp; Services &nbsp; Enquire</span>
+      </div>
+      <div className="wff-site-preview-hero wff-ai-piece">
+        <div>
+          <span>DESIGNED AROUND YOUR LIFE</span>
+          <h3>
+            {clone ? (
+              <>
+                A garden that
+                <br />
+                feels like home.
+              </>
+            ) : (
+              <>
+                Made for life
+                <br />
+                outdoors.
+              </>
+            )}
+          </h3>
+          <p>Thoughtful gardens. Beautiful everyday spaces.</p>
+          <span className="wff-mini-cta">
+            Plan your garden <ArrowRight size={12} />
+          </span>
+        </div>
+        <img
+          src={PHOTO}
+          alt="Garden consultation on the newly built website"
+          width="1536"
+          height="1024"
+          loading="lazy"
+        />
+      </div>
+      <div className="wff-site-preview-services wff-ai-piece">
+        <strong>Good design starts with you.</strong>
+        <div>
+          <span>Courtyard design</span>
+          <span>Planting plans</span>
+          <span>Outdoor living</span>
+        </div>
+      </div>
+      <div className="wff-site-preview-enquiry wff-ai-piece">
+        <strong>Let’s talk about your space.</strong>
+        <span>
+          Project enquiry <ArrowRight size={14} />
+        </span>
       </div>
     </div>
   );
@@ -379,6 +538,7 @@ export function AICreation() {
   const [run, setRun] = useState(0);
   const [paused, setPaused] = useState(false);
   const scene = useRef<HTMLDivElement>(null);
+  const output = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const element = scene.current;
     if (!element) return;
@@ -396,132 +556,153 @@ export function AICreation() {
     };
   }, []);
   return (
-    <section className="wff-ai wff-shell wff-section" aria-labelledby="wff-ai-title">
-      <div className="wff-ai-copy">
-        <p className="wff-eyebrow">Zapla AI</p>
-        <h2 id="wff-ai-title">
-          Your idea.
-          <br />A running start.
-        </h2>
+    <section
+      className="wff-ai wff-shell wff-section"
+      id="website-ai"
+      aria-labelledby="wff-ai-title"
+    >
+      <header className="wff-section-heading">
+        <div>
+          <p className="wff-eyebrow">Build with Zapla AI</p>
+          <h2 id="wff-ai-title">
+            Describe it.
+            <br />
+            Build from there.
+          </h2>
+        </div>
         <p>
-          Describe the website you want and let Zapla AI build a starting point. Or bring in an
-          existing page by URL, with its styles and images.
+          Start with an idea or an existing website. Let Zapla AI put the page together, then refine
+          the design in your visual editor.
         </p>
-        <p>
-          Then take over in the visual editor. Refine the copy, move sections and shape the page
-          around your business.
-        </p>
-        <p className="wff-ai-terms">AI usage is separate and confirmed with your setup.</p>
-      </div>
+      </header>
       <div
-        className="wff-ai-scene"
+        className="wff-ai-workspace wff-product-window"
         ref={scene}
         style={{ "--wff-play-state": paused ? "paused" : "running" } as CSSProperties}
       >
-        <div className="wff-ai-toolbar">
-          <ZaplaPetal size={24} />
-          <strong>Build with Zapla AI</strong>
+        <div className="wff-product-toolbar">
+          <ProductBrand name="Website Builder" />
+          <span className="wff-document-name">Create with AI</span>
         </div>
-        <div className="wff-ai-modes" role="group" aria-label="AI website starting point">
-          <button
-            type="button"
-            aria-pressed={mode === "create"}
-            onClick={() => {
-              setMode("create");
-              setRun(0);
-            }}
-          >
-            Create something new
-          </button>
-          <button
-            type="button"
-            aria-pressed={mode === "clone"}
-            onClick={() => {
-              setMode("clone");
-              setRun(0);
-            }}
-          >
-            Clone an existing site
-          </button>
-        </div>
-        <div className="wff-ai-request">
-          <span>
-            {mode === "create" ? "Describe your page" : "Start with your existing page URL"}
-          </span>
-          <p>
-            {mode === "create"
-              ? "Build a garden design website with a warm, natural feel. Include our services and a project enquiry form."
-              : "Bring across our garden design page, including its styles and images. Then we’ll edit it in Zapla."}
-          </p>
-          <button
-            className="wff-ai-watch"
-            type="button"
-            onClick={() => setRun((value) => value + 1)}
-          >
-            <Play size={13} fill="currentColor" />
-            {run ? "Watch again" : "Watch Zapla AI build"}
-          </button>
-        </div>
-        <div
-          className={"wff-ai-result" + (run ? " wff-ai-result--playing" : "")}
-          key={`${mode}-${run}`}
-        >
-          <div className="wff-ai-result-nav">
-            <strong>courtyard</strong>
-            <span>Home &nbsp; Services &nbsp; Enquire</span>
+        <div className="wff-ai-layout">
+          <div className="wff-ai-composer">
+            <div className="wff-ai-identity">
+              <AIMark />
+              <strong>Zapla AI</strong>
+            </div>
+
+            <div className="wff-ai-modes" role="group" aria-label="AI website starting point">
+              <button
+                type="button"
+                aria-pressed={mode === "create"}
+                onClick={() => {
+                  setMode("create");
+                  setRun(0);
+                }}
+              >
+                <Plus size={17} />
+                <span>
+                  <strong>Create a new website</strong>
+                  <small>Describe what you have in mind.</small>
+                </span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={mode === "clone"}
+                onClick={() => {
+                  setMode("clone");
+                  setRun(0);
+                }}
+              >
+                <Copy size={17} />
+                <span>
+                  <strong>Clone an existing site</strong>
+                  <small>Start from a page URL.</small>
+                </span>
+              </button>
+            </div>
+            <div className="wff-ai-request">
+              <span>{mode === "create" ? "Your brief" : "From your existing page"}</span>
+              <p>
+                {mode === "create"
+                  ? "Create a garden design website with our services and a project enquiry form."
+                  : "Bring across our garden design page with its styles and images, ready to edit in Zapla."}
+              </p>
+              <button
+                className="wff-ai-watch"
+                type="button"
+                onClick={() => {
+                  setRun((value) => value + 1);
+                  if (window.matchMedia("(max-width: 600px)").matches) {
+                    output.current?.focus({ preventScroll: true });
+                    output.current?.scrollIntoView({
+                      block: "start",
+                      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                        ? "instant"
+                        : "smooth",
+                    });
+                  }
+                }}
+              >
+                <Play size={14} fill="currentColor" />
+                {run
+                  ? "Watch again"
+                  : mode === "clone"
+                    ? "Watch the page take shape"
+                    : "Watch AI build the page"}
+              </button>
+            </div>
+            <p className="wff-ai-review">Review, refine, then publish.</p>
           </div>
-          <div className="wff-ai-result-hero">
-            <span>GARDENS FOR EVERYDAY LIVING</span>
-            <h3>
-              A little closer
-              <br />
-              to nature.
-            </h3>
-            <span className="wff-mini-button">
-              Let’s plan your garden <ArrowRight size={12} />
-            </span>
-          </div>
-          <div className="wff-ai-result-services">
-            <strong>Designed for the way you live.</strong>
-            <span>Courtyard design</span>
-            <span>Planting plans</span>
-          </div>
-          <div className="wff-ai-result-form">
-            <strong>Tell us about your space.</strong>
-            <span>Your name</span>
-            <span>Project details</span>
+          <div
+            className="wff-ai-output"
+            ref={output}
+            tabIndex={-1}
+            aria-label="Website created from the brief"
+          >
+            <div className="wff-output-label">
+              <span>{mode === "clone" ? "Your page, ready to edit" : "Your starting design"}</span>
+              <Monitor size={15} />
+            </div>
+            <div key={`${mode}-${run}`} className={run ? "wff-ai-result--playing" : ""}>
+              <SitePreview clone={mode === "clone"} />
+            </div>
           </div>
         </div>
       </div>
+      <p className="wff-usage-note">AI usage is separate and confirmed with your setup.</p>
     </section>
   );
 }
 
 function FunnelPage({ variant }: { variant: "A" | "B" }) {
   return (
-    <div className={`wff-funnel-page wff-funnel-page--${variant.toLowerCase()}`}>
+    <div className={"wff-funnel-page wff-funnel-page--" + variant.toLowerCase()}>
       <div className="wff-funnel-page-label">
         <strong>Page {variant}</strong>
         <span>{variant === "A" ? "Lead with the space" : "Lead with the service"}</span>
       </div>
-      <div className="wff-funnel-page-preview">
-        <span>courtyard</span>
-        <strong>
-          {variant === "A" ? (
-            <>
-              Room to breathe.
-              <br />
-              Space to gather.
-            </>
-          ) : (
-            <>
-              Your courtyard.
-              <br />
-              Thoughtfully designed.
-            </>
-          )}
-        </strong>
-        <span className="wff-funnel-page-button">Plan my garden</span>
+      <div className="wff-funnel-thumbnail">
+        <div>
+          <span>courtyard</span>
+          <strong>
+            {variant === "A" ? (
+              <>
+                Room to breathe.
+                <br />
+                Space to gather.
+              </>
+            ) : (
+              <>
+                Your courtyard.
+                <br />
+                Thoughtfully designed.
+              </>
+            )}
+          </strong>
+          <span className="wff-funnel-mini-cta">Plan my garden</span>
+        </div>
+        <img src={PHOTO} alt="" width="1536" height="1024" loading="lazy" />
       </div>
     </div>
   );
@@ -531,35 +712,36 @@ export function FunnelBuilder() {
     <section className="wff-funnels wff-shell" aria-labelledby="wff-funnel-title">
       <header className="wff-section-heading">
         <div>
-          <p className="wff-eyebrow">Funnels and A/B testing</p>
+          <p className="wff-eyebrow">Funnels &amp; A/B testing</p>
           <h2 id="wff-funnel-title">
-            One offer.
+            Give your offer a path.
             <br />
-            More than one way to test it.
+            Test what works.
           </h2>
         </div>
         <p>
-          Connect the pages around your offer. Add a split test to compare different versions, then
-          guide visitors towards your enquiry form and next step.
+          Connect each page to the next step. Compare two versions of your offer with a split test,
+          then guide visitors to an enquiry and a clear response.
         </p>
       </header>
-      <div
-        className="wff-funnel-board"
-        aria-label="A garden design funnel with an A/B split leading to an enquiry form and thank-you page"
-      >
-        <div className="wff-funnel-board-heading">
-          <strong>Courtyard design enquiry</strong>
-          <span>Funnel builder</span>
+      <div className="wff-funnel-board wff-product-window">
+        <div className="wff-product-toolbar">
+          <ProductBrand name="Funnel Builder" />
+          <span className="wff-document-name">Courtyard design enquiry</span>
         </div>
-        <div className="wff-funnel-flow">
-          <div className="wff-funnel-start">
-            Visitor arrives
-            <ArrowRight size={16} />
+        <div
+          className="wff-funnel-flow"
+          aria-label="Visitors split between page A and page B, both leading to an enquiry form and thank-you page"
+        >
+          <div className="wff-funnel-entry">
+            <Globe size={20} />
+            <strong>Visitor arrives</strong>
+            <span>Your offer</span>
           </div>
           <div className="wff-split-node">
             <span>A/B</span>
             <strong>Split test</strong>
-            <small>Two page versions</small>
+            <small>Compare two pages</small>
           </div>
           <div className="wff-funnel-variants">
             <FunnelPage variant="A" />
@@ -567,15 +749,16 @@ export function FunnelBuilder() {
           </div>
           <div className="wff-funnel-destinations">
             <div className="wff-funnel-enquire">
+              <FileText size={18} />
               <span>Enquiry form</span>
               <strong>Tell us about your space.</strong>
               <div>Your name</div>
               <div>Project details</div>
             </div>
-            <ArrowDown size={19} />
+            <ArrowDown size={18} />
             <div className="wff-funnel-thanks">
               <span>Thank-you page</span>
-              <strong>Let’s talk gardens.</strong>
+              <strong>Thanks for getting in touch.</strong>
               <p>Choose a consultation</p>
             </div>
           </div>
@@ -583,88 +766,273 @@ export function FunnelBuilder() {
       </div>
       <div className="wff-funnel-notes">
         <p>
-          <strong>A website gives people room to explore.</strong> Bring your services, projects and
-          contact pages together.
+          <strong>A website introduces your business.</strong> Services, projects and contact pages,
+          ready to explore.
         </p>
         <p>
-          <strong>A funnel gives an offer a clear path.</strong> Connect each page to the action you
-          want someone to take.
+          <strong>A funnel focuses on one action.</strong> A connected path for a particular offer
+          or campaign.
         </p>
       </div>
     </section>
   );
 }
 
-export function SiteTracking() {
+export function FormConnection() {
   return (
-    <section className="wff-tracking wff-shell wff-section" aria-labelledby="wff-tracking-title">
+    <section
+      className="wff-connected wff-shell wff-section"
+      id="connected-enquiry"
+      aria-labelledby="wff-enquiry-title"
+    >
+      <header className="wff-section-heading">
+        <div>
+          <p className="wff-eyebrow">Forms connected to your CRM</p>
+          <h2 id="wff-enquiry-title">
+            The right questions.
+            <br />A useful enquiry.
+          </h2>
+        </div>
+        <p>
+          Build the form around what your team needs to know. Map the answers to contact fields, so
+          the details arrive with the customer.
+        </p>
+      </header>
+      <div className="wff-form-connection">
+        <div className="wff-form-builder wff-product-window">
+          <div className="wff-product-toolbar">
+            <ProductBrand name="Forms" />
+            <span className="wff-document-name">Project enquiry</span>
+          </div>
+          <div className="wff-form-workspace">
+            <aside className="wff-form-fields">
+              <div className="wff-panel-label">Your fields</div>
+              {[
+                { label: "Your name", type: "Text" },
+                { label: "Email", type: "Email" },
+                { label: "Project type", type: "Dropdown" },
+                { label: "Project details", type: "Long text" },
+              ].map(({ label, type }) => (
+                <div key={label}>
+                  <GripVertical size={13} />
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{type}</small>
+                  </span>
+                </div>
+              ))}
+              <div className="wff-field-mapping">
+                <span>Map to contact</span>
+                <strong>
+                  Project type <ArrowRight size={12} /> Project type
+                </strong>
+              </div>
+            </aside>
+            <div className="wff-enquiry-paper">
+              <p className="wff-form-brand">
+                courtyard<span>GARDEN DESIGN</span>
+              </p>
+              <h3>Tell us about your space.</h3>
+              <dl className="wff-form-answers">
+                <div>
+                  <dt>Project type</dt>
+                  <dd>
+                    Courtyard design <ChevronDown size={13} />
+                  </dd>
+                </div>
+                <div>
+                  <dt>What do you have in mind?</dt>
+                  <dd>We’d love a leafy courtyard with space to eat outside.</dd>
+                </div>
+                <div>
+                  <dt>Your name</dt>
+                  <dd>Mia Thompson</dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd>Email address provided</dd>
+                </div>
+              </dl>
+              <span className="wff-form-submit-text">
+                Send my enquiry <ArrowRight size={14} />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="wff-customer-outcome">
+          <div className="wff-product-toolbar">
+            <ProductBrand name="CRM" />
+          </div>
+          <div className="wff-crm-record">
+            <p className="wff-ui-caption">After submission</p>
+            <div className="wff-contact">
+              <span className="wff-portrait" aria-hidden="true" />
+              <div>
+                <h3>Mia Thompson</h3>
+                <p>Name and email captured</p>
+              </div>
+            </div>
+            <dl className="wff-record-details">
+              <div>
+                <dt>Project type</dt>
+                <dd>Courtyard design</dd>
+              </div>
+              <div>
+                <dt>Project details</dt>
+                <dd>We’d love a leafy courtyard with space to eat outside.</dd>
+              </div>
+            </dl>
+          </div>
+          <div className="wff-acknowledgement">
+            <span className="wff-ui-caption">Configured acknowledgement</span>
+            <h3>Thanks for getting in touch, Mia.</h3>
+            <p>
+              We’ve received your courtyard enquiry. Our team will be in touch to discuss your
+              space.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="wff-enquiry-notes">
+        <p>
+          Use required fields, dropdowns and multiple pages. Embed your form on an existing website
+          or share its own link.
+        </p>
+        <a className="wff-text-link" href="/features/automation-builder">
+          Connect your follow-up <ArrowRight size={16} />
+        </a>
+      </div>
+    </section>
+  );
+}
+
+type ClickPoint = { x: number; y: number };
+export function SiteTracking() {
+  const [points, setPoints] = useState<ClickPoint[]>([]);
+  const [clicks, setClicks] = useState(0);
+  const [viewed, setViewed] = useState(false);
+  const report = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = report.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setViewed(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+  const recordClick = (event: MouseEvent<HTMLDivElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const target =
+      event.target instanceof Element
+        ? event.target.closest("button")?.getBoundingClientRect()
+        : null;
+    const x = event.detail === 0 && target ? target.left + target.width / 2 : event.clientX;
+    const y = event.detail === 0 && target ? target.top + target.height / 2 : event.clientY;
+    setPoints((value) => [
+      ...value.slice(-39),
+      { x: ((x - rect.left) / rect.width) * 100, y: ((y - rect.top) / rect.height) * 100 },
+    ]);
+    setClicks((value) => value + 1);
+  };
+  return (
+    <section className="wff-tracking wff-shell" aria-labelledby="wff-tracking-title">
       <div className="wff-tracking-copy">
-        <p className="wff-eyebrow">Publish and understand</p>
+        <p className="wff-eyebrow">Site tracking</p>
         <h2 id="wff-tracking-title">
-          Your domain.
+          See what gets
           <br />
-          Your page.
-          <br />A clearer picture.
+          their attention.
         </h2>
         <p>
-          Save your work, check the page and publish when you’re ready. Connect your own domain so
-          it feels like your business from the first visit.
+          Choose a page and date range. See views, unique visitors, clicks and average scroll depth,
+          with click and scroll heatmaps to understand how people use the page.
         </p>
-        <p>
-          Then choose a page and date range to see views, unique visitors, clicks and scroll depth.
-          Click and scroll heatmaps show how people use that page.
-        </p>
+        <div className="wff-publishing-note">
+          <h3>Your website. Your domain.</h3>
+          <p>
+            Save your changes as a draft. Review, then publish. Connect your own domain with DNS
+            setup and verification.
+          </p>
+        </div>
         <a className="wff-text-link" href="/customer-marketing">
           Explore Customer Marketing <ArrowRight size={16} />
         </a>
       </div>
-      <div
-        className="wff-tracking-panel"
-        aria-label="Site Tracking for the Courtyard homepage before visitors arrive"
-      >
-        <header>
-          <strong>Site Tracking</strong>
-          <span>Courtyard · Home page</span>
-        </header>
-        <div className="wff-tracking-scope">
-          <span>Home /</span>
-          <span>Last 30 days</span>
+      <div className="wff-tracking-panel wff-product-window" ref={report}>
+        <div className="wff-product-toolbar">
+          <ProductBrand name="Site Tracking" />
         </div>
-        <dl className="wff-tracking-stats">
-          <div>
-            <dt>Page views</dt>
-            <dd>0</dd>
+        <div className="wff-tracking-content">
+          <div className="wff-tracking-scope">
+            <strong>Courtyard / Home</strong>
+            <span>Your preview activity</span>
           </div>
-          <div>
-            <dt>Unique visitors</dt>
-            <dd>0</dd>
+          <dl className="wff-tracking-stats">
+            <div>
+              <dt>Page views</dt>
+              <dd>{viewed ? 1 : 0}</dd>
+            </div>
+            <div>
+              <dt>Unique visitors</dt>
+              <dd>{viewed ? 1 : 0}</dd>
+            </div>
+            <div>
+              <dt>Total clicks</dt>
+              <dd aria-live="polite">{clicks}</dd>
+            </div>
+          </dl>
+          <div className="wff-click-map-heading">
+            <strong>Click map</strong>
+            <button
+              type="button"
+              onClick={() => {
+                setClicks(0);
+                setPoints([]);
+              }}
+            >
+              Clear clicks <RotateCcw size={12} />
+            </button>
           </div>
-          <div>
-            <dt>Total clicks</dt>
-            <dd>0</dd>
+          <div className="wff-tracked-page" onClick={recordClick}>
+            <div className="wff-tracked-nav">
+              <strong>courtyard</strong>
+              <button type="button">Our services</button>
+            </div>
+            <div className="wff-tracked-hero">
+              <div>
+                <span>GARDEN DESIGN</span>
+                <h3>
+                  A garden that
+                  <br />
+                  feels like home.
+                </h3>
+                <button type="button">
+                  Plan my garden <ArrowRight size={13} />
+                </button>
+              </div>
+              <img
+                src={PHOTO}
+                alt="Courtyard homepage in the click map"
+                width="1536"
+                height="1024"
+                loading="lazy"
+              />
+            </div>
+            <div className="wff-tracked-services">
+              <strong>Designed around your everyday.</strong>
+              <span>Courtyards &nbsp; · &nbsp; Planting &nbsp; · &nbsp; Outdoor living</span>
+            </div>
+            <div className="wff-heat-points" aria-hidden="true">
+              {points.map((point, index) => (
+                <i key={index} style={{ left: `${point.x}%`, top: `${point.y}%` }} />
+              ))}
+            </div>
           </div>
-          <div>
-            <dt>Avg. scroll</dt>
-            <dd>0%</dd>
-          </div>
-        </dl>
-        <div className="wff-heatmap">
-          <span>Click & scroll heatmaps</span>
-          <div className="wff-heatmap-page">
-            <span>courtyard</span>
-            <strong>
-              A garden that
-              <br />
-              feels like home.
-            </strong>
-            <i />
-            <i />
-          </div>
-          <div className="wff-heatmap-empty">
-            <MousePointer2 size={22} />
-            <strong>See where visitors click and scroll.</strong>
-            <p>Page activity appears as visitors arrive.</p>
-          </div>
+          <p className="wff-tracking-hint">Click the page to see its click map.</p>
         </div>
       </div>
     </section>

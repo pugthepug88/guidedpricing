@@ -16,4 +16,37 @@ The generating response describes the local illustration's actual construction s
 
 ## Verification
 
-Rendered review is pending on the draft branch. Source checks and exact observed layouts/interactions will be recorded before merge. GitHub owns the source update; Lovable remains read-only and no separate Publish action is used.
+Final interface source: `87e0895ea3fb0e303a88dce668c3082bb610f7b7`. TypeScript, targeted component lint, formatting, SEO policy, production build and whitespace checks passed. Cloudflare Workers and Vercel preview checks succeeded. The final integration preserves the concurrent Websites update on main `ba3d9056846db0df50161d1b6e871dc181cfe378` without changing Automation source.
+
+| Surface | Actual coverage |
+| --- | --- |
+| 1707 × 769 | Final composer, eight-node nurture and all eight choices visible together after Watch. Player starts at y=80px and measures 525px high. No document overflow. |
+| 1366 × 650 | Three-node invoice draft and Watch interaction checked before the final spacing correction. Player remains static in normal page flow; all eight choices remain available below. No document overflow. |
+| 834 × 1000 | Six-node appointment draft, full request, Watch control and eight two-column choices inspected before final spacing correction. No measured card/button or document clipping. |
+| 390 × 844 | Final appointment composer and all six connected steps inspected through native scrolling. Wait labels stay on one line after the final width correction. No measured text/card/button/document overflow. |
+| 320 × 800 | Final complete appointment request and six-node state; narrow title, Watch, context and review copy fit. All eight choices and photo overlay also inspected during the earlier layout pass. No measured nested or document clipping. |
+
+Initial navigation/scroll retains the ready draft and does not start animation. An explicit Watch action was observed typing with two request characters and zero visible nodes, then finishing with eight nurture nodes. An intermediate rendered frame showed the building response and early nodes before completion. The final draft holds; no timer restarts it.
+
+Enter activates a chosen idea. Focus moves to the persistent Watch control, and exactly one choice is pressed. The return link goes to the integrated idea group. Switching during an unfinished AI callback to the invoice idea produces only the invoice request and its three nodes. Phone/desktop interaction checks reported no console warnings/errors. The data module remains byte-identical; this is not eight new backend recipe tests.
+
+The final spacing correction moves click navigation from y=94px to y=80px to avoid leaving a fragment of the preceding heading below the fixed header. Smaller node padding and wider wait strips keep the complete desktop composition compact and phone timing labels readable. Hero/page CSS preceding the AI styles remains byte-identical; the pre-existing photo and FAQ media rules are preserved.
+
+Actual screenshots: [desktop composer, draft and eight ideas](review-assets/automation-builder/ai-interface-desktop-20261027.png), [phone workflow and ideas](review-assets/automation-builder/ai-interface-phone-20261027.png). These are rendered source captures, not generated mockups.
+
+## Director and buyer review
+
+These are the implementing author's assessments, not independent reviewers, owner acceptance or measured conversion outcomes. The earlier green scene's favourable review does not override the owner's rejection.
+
+| Lens | Assessment | Evidence |
+| --- | --- | --- |
+| UI/UX | 9/10 | Prompt, actual play action and resulting draft have distinct roles; ideas share the canvas and have clear selected/focus states. |
+| Brand / Creative | 9/10 | Zapla petal, type and blue sit within cooler ink and fine silver detail; the hero's approved material is preserved. |
+| Product Marketing | 9/10 | A familiar process becomes a connected draft. Eight concrete ideas communicate breadth without claiming unlimited execution. |
+| Conversion | 9/10 | A visible Watch action and concrete draft answer the building-effort question; setup context and review preserve credibility. No uplift is claimed. |
+| Motion | 9/10 | The typed request precedes construction, the building response connects the two, and the finished result holds. No decorative loop or trace. |
+| SME buyer | 9/10 | Familiar example names, action labels and timing remain readable across the inspected sizes. |
+| Buyer psychology | 9/10 | The visitor deliberately chooses, watches and replays; activation remains a separate reviewed step. |
+| AI-slop critic | 9/10 | No fake toolbars, attachments, metrics, particles, neon rim or pasted competitor branding. Highlighting identifies the active request or choice. |
+
+Remaining limits: no physical-device/cross-browser matrix, assistive-technology session, independent conversion study, separate reduced-motion/JavaScript-disabled browser session or fresh full lower-page pass. Reduced-motion/static content and the preserved hidden-tab/offscreen cancellation logic were source-reviewed. All backend audit limitations remain. GitHub owns the source update; Lovable remains read-only and no separate Publish action is used.
