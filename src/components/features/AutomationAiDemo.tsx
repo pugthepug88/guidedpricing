@@ -1,45 +1,35 @@
 import { useEffect, useRef, useState } from "react";
-import { Clock3, Mail, RotateCcw } from "lucide-react";
+import { Clock3, Mail, MessageSquare, PhoneOutgoing, Play, Slack } from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
-
-const REQUEST =
-  "Welcome new form enquiries by email. Send useful information after 2 days, then a booking invitation 3 days later.";
-
-const draftSteps = [
-  { kind: "trigger", title: "New enquiry form submitted", detail: "Start the workflow" },
-  { kind: "email", title: "Send a welcome email", detail: "Thanks for getting in touch." },
-  { kind: "wait", title: "Wait 2 days" },
-  {
-    kind: "email",
-    title: "Send useful information",
-    detail: "What’s included and common questions.",
-  },
-  { kind: "wait", title: "Wait 3 days" },
-  { kind: "email", title: "Send a booking invitation", detail: "Share your booking link." },
-] as const;
+import {
+  automationAiExamples,
+  type AutomationExample,
+  type AutomationStep,
+} from "./automationAiExamples";
 
 type BuildState = {
-  phase: "static" | "waiting" | "typing" | "building" | "complete";
+  phase: "ready" | "waiting" | "typing" | "building" | "complete";
   characters: number;
   steps: number;
 };
 
-const finished: BuildState = {
-  phase: "static",
-  characters: REQUEST.length,
-  steps: draftSteps.length,
-};
+function fullDraft(example: AutomationExample, phase: "ready" | "complete"): BuildState {
+  return { phase, characters: example.request.length, steps: example.steps.length };
+}
 
-/** A prepared illustration of AI construction, never a live AI or send action.
- * The server-rendered and reduced-motion versions contain the complete draft.
- * Play once on entry, pause offscreen, and retain progress until explicit replay.
+/** Prepared local demonstrations. Only an explicit Watch/example click starts
+ * motion. No AI, phone, invoice, email or other live service is invoked.
  */
 function useDraftAssembly() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [build, setBuild] = useState<BuildState>(finished);
+  const watchRef = useRef<HTMLButtonElement>(null);
+  const [selected, setSelected] = useState(0);
+  const [build, setBuild] = useState<BuildState>(() => fullDraft(automationAiExamples[0], "ready"));
   const [version, setVersion] = useState(0);
+  const example = automationAiExamples[selected];
 
   useEffect(() => {
+    if (version === 0) return;
     const root = rootRef.current;
     const request = root?.querySelector<HTMLElement>(".ab-ai-prompt");
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -55,20 +45,24 @@ function useDraftAssembly() {
 
     const advance = () => {
       if (!visible || complete) return;
-      if (characters < REQUEST.length) {
+      if (characters < example.request.length) {
         characters += 1;
         setBuild({ phase: "typing", characters, steps: 0 });
         timer = window.setTimeout(
           advance,
-          characters === REQUEST.length ? 450 : REQUEST[characters - 1] === " " ? 45 : 22,
+          characters === example.request.length
+            ? 400
+            : example.request[characters - 1] === " "
+              ? 35
+              : 17,
         );
-      } else if (steps < draftSteps.length) {
+      } else if (steps < example.steps.length) {
         steps += 1;
         setBuild({ phase: "building", characters, steps });
-        timer = window.setTimeout(advance, 420);
+        timer = window.setTimeout(advance, 350);
       } else {
         complete = true;
-        setBuild({ phase: "complete", characters, steps });
+        setBuild(fullDraft(example, "complete"));
       }
     };
 
@@ -80,9 +74,8 @@ function useDraftAssembly() {
         Math.min(bounds.bottom, window.innerHeight) - Math.max(bounds.top, 70),
       );
       if (bounds.bottom < 70) {
-        // A fast scroll past the request must never leave an empty draft.
         complete = true;
-        setBuild({ ...finished, phase: "complete" });
+        setBuild(fullDraft(example, "complete"));
       } else if (readableHeight >= bounds.height * 0.9) {
         started = true;
         window.clearTimeout(timer);
@@ -97,7 +90,6 @@ function useDraftAssembly() {
         if (visible && started && !complete) {
           timer = window.setTimeout(advance, 180);
         } else if (!started && !complete) {
-          setBuild({ phase: "waiting", characters: 0, steps: 0 });
           beginWhenReadable();
         }
       },
@@ -108,7 +100,7 @@ function useDraftAssembly() {
       if (preference.matches) {
         complete = true;
         window.clearTimeout(timer);
-        setBuild(finished);
+        setBuild(fullDraft(example, "complete"));
       }
     };
 
@@ -123,75 +115,156 @@ function useDraftAssembly() {
       window.removeEventListener("resize", beginWhenReadable);
       preference.removeEventListener("change", respectPreference);
     };
-  }, [version]);
+  }, [example, version]);
 
-  return { rootRef, build, replay: () => setVersion((current) => current + 1) };
+  const play = (index = selected) => {
+    const next = automationAiExamples[index];
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setSelected(index);
+    setBuild(
+      reduce || typeof IntersectionObserver === "undefined"
+        ? fullDraft(next, "complete")
+        : { phase: "waiting", characters: 0, steps: 0 },
+    );
+    setVersion((current) => current + 1);
+    // Navigation follows the visitor's explicit Watch action, never a timer.
+    rootRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    window.requestAnimationFrame(() => watchRef.current?.focus({ preventScroll: true }));
+  };
+
+  return { rootRef, watchRef, build, example, selected, play };
+}
+
+function StepIcon({ kind }: { kind: AutomationStep["kind"] }) {
+  if (kind === "email") return <Mail size={16} aria-hidden="true" />;
+  if (kind === "sms") return <MessageSquare size={16} aria-hidden="true" />;
+  if (kind === "call") return <PhoneOutgoing size={16} aria-hidden="true" />;
+  if (kind === "slack") return <Slack size={16} aria-hidden="true" />;
+  if (kind === "wait") return <Clock3 size={14} aria-hidden="true" />;
+  return null;
 }
 
 export function AutomationAiDemo() {
-  const { rootRef, build, replay } = useDraftAssembly();
-  const staticView = build.phase === "static";
-  const draftVisible = staticView || build.steps > 0;
+  const { rootRef, watchRef, build, example, selected, play } = useDraftAssembly();
+  const allVisible = build.phase === "ready" || build.phase === "complete";
+  const draftVisible = allVisible || build.steps > 0;
 
   return (
     <section className="ab-ai-section" aria-labelledby="ab-ai-heading" id="ai-flow-builder">
       <div className="ab-wrap">
-        <div className="ab-ai-demo" ref={rootRef} data-phase={build.phase}>
-          <div className="ab-ai-copy">
+        <header className="ab-ai-heading">
+          <div>
             <p className="ab-eyebrow">AI Flow Builder</p>
-            <h2 id="ab-ai-heading">Ask AI to build your workflow.</h2>
-            <p>Describe the process. Zapla connects the steps for you to review.</p>
+            <h2 id="ab-ai-heading">Build the workflow your business needs.</h2>
           </div>
+          <p>
+            Choose an idea to watch Zapla AI build it. These are starting points. Describe your own
+            process inside Zapla.
+          </p>
+        </header>
 
+        <div
+          className="ab-ai-choices"
+          role="group"
+          aria-label="Choose an automation to watch AI build"
+        >
+          {automationAiExamples.map((item, index) => (
+            <button
+              type="button"
+              key={item.id}
+              aria-pressed={selected === index}
+              aria-controls="ai-construction"
+              onClick={() => play(index)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        <div
+          className="ab-ai-demo"
+          ref={rootRef}
+          id="ai-construction"
+          data-phase={build.phase}
+          data-example={example.id}
+        >
+          <div className="ab-ai-copy">
+            <h3>{example.label}</h3>
+            <p>{example.description}</p>
+          </div>
           <figure className="ab-ai-prompt">
             <figcaption>Your request</figcaption>
             <blockquote>
-              <span className="ab-ai-sr-only">{REQUEST}</span>
-              <span aria-hidden="true">
-                {REQUEST.slice(0, build.characters)}
+              <span className="ab-ai-sr-only">{example.request}</span>
+              <span className="ab-ai-prompt-reserve" aria-hidden="true">
+                {example.request}
+              </span>
+              <span className="ab-ai-prompt-typed" aria-hidden="true">
+                {example.request.slice(0, build.characters)}
                 {build.phase === "typing" || build.phase === "waiting" ? (
                   <span className="ab-ai-cursor" />
                 ) : null}
               </span>
             </blockquote>
           </figure>
-
-          <figure className="ab-ai-workflow" aria-label="AI-generated workflow draft">
+          <figure className="ab-ai-workflow" aria-label={"Workflow draft: " + example.label}>
             <figcaption data-visible={draftVisible}>
               <ZaplaPetal size={25} />
               <span>Workflow draft</span>
             </figcaption>
             <ol>
-              {draftSteps.map((step, index) => (
+              {example.steps.map((step, index) => (
                 <li
-                  key={step.title}
+                  key={example.id + index}
                   className={"ab-ai-step ab-ai-step-" + step.kind}
-                  data-visible={staticView || build.steps > index}
+                  data-visible={allVisible || build.steps > index}
                 >
                   {index > 0 ? <span className="ab-ai-connection" aria-hidden="true" /> : null}
                   <div className="ab-ai-node">
-                    {step.kind === "email" ? <Mail size={16} aria-hidden="true" /> : null}
-                    {step.kind === "wait" ? <Clock3 size={14} aria-hidden="true" /> : null}
+                    <StepIcon kind={step.kind} />
                     <div>
                       <strong>{step.title}</strong>
-                      {"detail" in step ? <p>{step.detail}</p> : null}
+                      {step.detail ? <p>{step.detail}</p> : null}
                     </div>
                   </div>
                 </li>
               ))}
             </ol>
           </figure>
-
-          <div className="ab-ai-review">
-            <p>Review the messages, timing and connections before activation.</p>
-            {!staticView ? (
-              <button type="button" onClick={replay}>
-                <RotateCcw size={14} aria-hidden="true" />
-                Replay build
+          <div className="ab-ai-controls">
+            <div className="ab-ai-control-row">
+              <button className="ab-ai-watch" type="button" ref={watchRef} onClick={() => play()}>
+                <Play size={15} fill="currentColor" aria-hidden="true" />
+                Watch AI build
               </button>
-            ) : null}
+              <a className="ab-ai-other" href="#ai-flow-builder">
+                Choose another idea
+              </a>
+            </div>
+            <p className="ab-ai-scope">{example.scope}</p>
           </div>
+          <p className="ab-ai-review">
+            Review the audience, messages, rules and connections before activation.
+          </p>
         </div>
+
+        <noscript>
+          <style>{".ab-ai-choices,.ab-ai-watch{display:none!important}"}</style>
+          <div className="ab-ai-static-examples">
+            {automationAiExamples.slice(1).map((item) => (
+              <details key={item.id}>
+                <summary>{item.label}</summary>
+                <p>{item.request}</p>
+                <ol>
+                  {item.steps.map((step, index) => (
+                    <li key={index}>{step.title}</li>
+                  ))}
+                </ol>
+                <p>{item.scope}</p>
+              </details>
+            ))}
+          </div>
+        </noscript>
       </div>
     </section>
   );
