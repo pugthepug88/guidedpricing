@@ -89,3 +89,49 @@ Updated proof:
 
 - [Recognisable phone and route](review-assets/pipeline-management/phone-device-20261026.svg)
 - [All five coloured stage headings](review-assets/pipeline-management/coloured-stages-20261026.svg)
+
+
+## Supporting customisation row, 26 October 2026
+
+Owner request: implement the approved compact Custom fields / Quick actions / Tags cards beneath the pipeline explanation. Base: GitHub main `ad3f4a11fe5ade9160d86c62bfec397a1004bcea`. Read AGENTS, the complete build protocol, design guardrails, appended feature brief, supplied reference-evaluation instruction, Pipeline source, and Inbox/Ticketing component references. The existing live Pipeline and Inbox were visually inspected.
+
+### Evidence and bounded copy
+
+Current official help was read in the browser because the web retrieval service cannot render its hash-routed articles. This is documentation verification, not a live account acceptance test:
+
+- [Pipeline Fields](https://app.thenextgencrm.com/help-centre.html?lang=en#/pipeline-fields): supports custom types including text, dates, addresses and selections; per-pipeline visibility, required fields and optional Show on Card. The example uses Job type = Replacement and Next action = Arrange installation.
+- [Pipeline Quick Actions](https://app.thenextgencrm.com/help-centre.html?lang=en#/pipelines/quick-actions): documents named buttons, icons, colours, roles and type scope. The enumerated action types include Form and Automation, which support the Installation checklist / Start follow-up examples. These are configured shortcuts; no form or workflow executes from this marketing row. No unverified call, message or booking shortcut is depicted.
+- [Pipeline Tags](https://app.thenextgencrm.com/help-centre.html?lang=en#/pipeline-tags): documents named tags, appearance, categorisation and filtering. The small hot-water record uses Installation and Follow up as prepared labels, not customer data or a live priority engine.
+
+### Reference and composition decisions
+
+USE the owner's three-card proposal as parallel supporting information. ADAPT its scale to the current page: three equally weighted white cards, actual field values, meaningful form/workflow icons and tags only within their record. REJECT giant screenshots, pastel card fills, generic circular feature icons, decorative motion and another full-width chapter.
+
+The previous unboxed Your process / Clear responsibility / The view you need summary is replaced. Its verified capabilities remain in the main board, existing setup and FAQs; custom fields makes the next-action configuration concrete. The row stays within the hero chapter, before route planning. No hero, board, routing, photo, CTA, navigation or footer source is changed.
+
+### Scoped role review
+
+These are implementation-owner role assessments, not independent-agent approvals, owner acceptance or measured conversion findings.
+
+- UI/UX Director: the three cards answer distinct practical questions, maintain aligned proof areas and use ordinary heading/definition-list semantics. Phone order matches the desktop order. There are no new controls requiring interaction.
+- Brand / Creative Director: existing Manrope/Inter Tight, paper/ink surfaces, restrained borders/radii and meaningful label colours retain Zapla's language. Colour does not spread into another page-wide theme.
+- Product Marketing / Conversion Director: Custom fields proves fit, Quick actions explains fewer clicks, Tags proves organisation. Their smaller scale keeps stages and responsibility first. Replacing the duplicate summary limits page growth.
+- Motion Director: a static row suits supporting information and the owner's click-less direction. It adds no competing animation or timing dependency; the existing board demonstration remains untouched.
+- Owner/frontline and accuracy: examples describe details and shortcuts a team can use. Workflow configuration is explicit, and tags do not claim autonomous prioritisation.
+- Technical/accessibility: server-rendered content, meaningful headings, hidden decorative icons, no fake form inputs, sends or service calls, no new dependencies.
+
+### Verification
+
+Production build, TypeScript, scoped component ESLint, Prettier, SEO policy and whitespace checks pass. Before commit, local desktop rendering showed the complete three-card row at approximately 230px height. An 834px iframe showed all three cards in one row with legible wrapped text and aligned example areas. A 393px iframe (378px document content width with scrollbar) showed the heading and complete first card without horizontal overflow. The local preview subsequently rehydrated an older client bundle, so that partial phone observation is not treated as complete hydrated-page verification. Final live-preview checks are recorded below when complete.
+
+Temporary local preview launch settings and the iframe review fixture are removed from the delivery. No production Publish action is used.
+
+
+### Completed static phone review and delivery boundary
+
+The complete row was visually reviewed in script-blocked 393px and 320px iframes (378px / 305px document widths with scrollbars). All three card headings, full copy, field values, both named quick actions, tags and the following route-planning transition were readable. Neither document had horizontal overflow. These observations establish responsive/static rendering; they do not claim a completed hydrated-browser or live-product acceptance test. The row adds no client state or event handlers.
+
+The change is committed on `codex/pipeline-supporting-features` in [draft PR #197](https://github.com/pugthepug88/guidedpricing/pull/197). Its Vercel preview build reports ready, but opening it redirected this browser to Vercel sign-in; no sign-in was attempted. Automatic approval review rejected the direct main update, stating that the default-branch mutation requires explicit user approval. Main and Lovable remain unchanged. No substitute route around that rejection or production Publish action was used. Temporary review/launch files are removed from the delivery.
+
+
+Current main advanced to `46d7220731322dcfff19ca973160a7331cb17d89` with Calendar availability/provider-mark refinements. The draft branch incorporates that main, resolves the shared brief conflict by retaining both appendices, and passes the integrated production build, TypeScript and whitespace checks. The change relative to main remains only the Pipeline component, Pipeline stylesheet and two review/brief records.
