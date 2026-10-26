@@ -331,59 +331,61 @@ const formats = [
 function BookingFormats() {
   return (
     <section className="cal-formats" id="calendar-formats" aria-labelledby="cal-formats-title">
-      <div className="cal-wrap">
-        <div className="cal-formats-intro">
-          <h2 id="cal-formats-title">
-            Not every meeting
-            <br />
-            is a one-to-one.
-          </h2>
-          <p>Five calendar formats. Choose the one that fits who needs to be there.</p>
-        </div>
-        <div className="cal-format-list">
-          {formats.map((format) => (
-            <article className="cal-format-row" key={format.name}>
-              <h3>{format.name}</h3>
+      <div className="cal-formats-panel">
+        <div className="cal-wrap">
+          <div className="cal-formats-intro">
+            <h2 id="cal-formats-title">
+              Five ways
+              <br />
+              to meet.
+            </h2>
+            <p>Choose the calendar format that fits who needs to be there.</p>
+          </div>
+          <div className="cal-format-list">
+            {formats.map((format) => (
+              <article className="cal-format-row" key={format.name}>
+                <h3>{format.name}</h3>
+                <div className="cal-format-explanation">
+                  <p>{format.description}</p>
+                  <span>{format.use}</span>
+                </div>
+                <div
+                  className="cal-format-relationship"
+                  aria-label={`${format.hostLabel}, ${format.guestLabel.toLowerCase()}`}
+                >
+                  <People
+                    cells={format.hosts}
+                    label={format.hostLabel}
+                    chooseOne={format.name === "Round robin"}
+                  />
+                  <span className="cal-relationship-symbol" aria-hidden="true">
+                    →
+                  </span>
+                  <People cells={format.guests} label={format.guestLabel} />
+                </div>
+              </article>
+            ))}
+            <article className="cal-format-row cal-format-event">
+              <h3>Event</h3>
               <div className="cal-format-explanation">
-                <p>{format.description}</p>
-                <span>{format.use}</span>
+                <p>A particular date. Its own time slots.</p>
+                <span>Open days, information sessions and special occasions.</span>
               </div>
-              <div
-                className="cal-format-relationship"
-                aria-label={`${format.hostLabel}, ${format.guestLabel.toLowerCase()}`}
-              >
-                <People
-                  cells={format.hosts}
-                  label={format.hostLabel}
-                  chooseOne={format.name === "Round robin"}
-                />
-                <span className="cal-relationship-symbol" aria-hidden="true">
-                  →
-                </span>
-                <People cells={format.guests} label={format.guestLabel} />
+              <div className="cal-event-illustration">
+                <strong>
+                  18 <span>Nov</span>
+                </strong>
+                <div>
+                  <span>Project open day</span>
+                  <p>
+                    10:00 am <span>or</span> 2:00 pm
+                  </p>
+                </div>
               </div>
             </article>
-          ))}
-          <article className="cal-format-row cal-format-event">
-            <h3>Event</h3>
-            <div className="cal-format-explanation">
-              <p>A particular date. Its own time slots.</p>
-              <span>Open days, information sessions and special occasions.</span>
-            </div>
-            <div className="cal-event-illustration">
-              <strong>
-                18 <span>Nov</span>
-              </strong>
-              <div>
-                <span>Project open day</span>
-                <p>
-                  10:00 am <span>or</span> 2:00 pm
-                </p>
-              </div>
-            </div>
-          </article>
+          </div>
+          <p className="cal-formats-note">People and sessions shown are illustrative.</p>
         </div>
-        <p className="cal-formats-note">People and sessions shown are illustrative.</p>
       </div>
     </section>
   );
@@ -399,25 +401,32 @@ function BusinessDay({
   return (
     <section className="cal-business" aria-labelledby="cal-business-title">
       <div className="cal-wrap">
-        <div className="cal-business-intro">
-          <h2 id="cal-business-title">
-            Your calendar.
-            <br /> With room for the work.
-          </h2>
-          <p>
-            Your booking page offers the hours you choose. Your team has the appointment and the
-            customer context together when it is time to meet.
-          </p>
+        <div className="cal-business-meet">
+          <figure className="cal-consultation-photo">
+            <img
+              src="/concept/calendars/consultation-studio-v2.webp"
+              width="1536"
+              height="1024"
+              loading="lazy"
+              alt="A design consultant and a homeowner discussing stone and timber samples over an architectural plan"
+            />
+          </figure>
+          <div className="cal-meeting-rooms">
+            <h2 id="cal-business-title">
+              Meet in person.
+              <br /> Or online in Zapla.
+            </h2>
+            <p>
+              Use Zapla’s <strong>Meeting Rooms</strong> to host video consultations and team
+              meetings in your browser. Create a room and share its link.
+            </p>
+            <p>Share your screen to walk through a plan or proposal together.</p>
+            <p>
+              Keep the room public for anyone with the link, or restrict access to selected contacts
+              and team members.
+            </p>
+          </div>
         </div>
-        <figure className="cal-consultation-photo">
-          <img
-            src="/concept/calendars/consultation-studio-v2.webp"
-            width="1536"
-            height="1024"
-            loading="lazy"
-            alt="A design consultant and a homeowner discussing stone and timber samples over an architectural plan"
-          />
-        </figure>
         <div className="cal-business-sheet">
           <div className="cal-appointment-record">
             <p className="cal-scene-label">Appointment &amp; customer, together</p>
@@ -491,6 +500,10 @@ function BusinessDay({
 }
 
 const faqs = [
+  [
+    "Can I host video meetings inside Zapla?",
+    "Yes. Meeting Rooms lets you create native video meeting rooms and share a room’s unique link. Guests join in the browser, with camera and microphone controls and screen sharing. Public rooms allow anyone with the link; restricted rooms let you select up to four contacts, alongside selected team members. The four-contact limit applies to the restricted invitation list.",
+  ],
   [
     "Can I offer different services and appointment lengths?",
     "Yes. Add booking types with their own names and durations, plus a minimum notice setting. If a calendar offers several services, customers choose one before selecting a date and time.",
