@@ -71,3 +71,15 @@ Final actual-Lovable proof: [opening](qa/ai-chatbot-visual-reset-20261026.png) a
 
 Review URL: https://id-preview--b1bef4bc-7c76-4229-924e-e0e5b64a632b.lovable.app/features/ai-chatbot
 
+
+## Superseding answer value correction, 26 October 2026
+
+The owner rejected the widget colour pitch as an unimportant buying reason. Removed the swatches, local theme state, appearance copy and redundant style selectors. The section now says “Answers from your business” with one sentence about website/document/FAQ knowledge. Business-information sources and a short prepared answer remain; the preview now identifies the same fictional practice as the other scenes. The existing-website FAQ no longer markets colour settings. No product capability, artwork or other page is changed. This supersedes this document’s earlier appearance-demo description and colour-interaction test coverage.
+
+Reference decision: REJECT giving Birdeye’s widget-customisation topic comparable prominence here. ADAPT its knowledge-source proof only where it answers an actual buyer concern. No new reference retrieval or private account access was needed for this scoped correction.
+
+Implementation-agent review: UI/UX has one topic and no incidental interaction; brand/creative preserves the established compact product composition; product marketing and conversion prioritise relevant answers over cosmetic settings; motion is unchanged and the section is static; SME and buyer-psychology readings concern whether it knows the business; copy loses the appearance headline, eyebrow and setup pitch; technical/accessibility loses three unnecessary focus stops and unused state; AI-slop review removes configuration garnish without adding filler. These are the implementer’s judgements, not independent reviews or buyer validation.
+
+Build, TypeScript, targeted component ESLint, SEO, Prettier and whitespace checks passed. The exact branch commit bd1f0a702dae2d9ec622efb1b4e35b7277e9b394 passed Workers Builds at https://689098e3-guidedpricing.jinrcao.workers.dev/features/ai-chatbot. The changed section was visually reviewed on the default desktop viewport, 834 × 900 tablet and 393 × 852 phone. The compact source/answer layout remains legible. A targeted 320 × 852 text-overflow check found none; document scroll/client widths both measured 305px with the scrollbar. No main colour buttons remain. Viewport overrides were reset. PR #200 merged as 6b077371e14a966bed64eda17e7457877060aae2. This is scoped section coverage; unchanged page interactions were not retested. No live AI answer-quality test or actual tenant UI verification is implied.
+
+Lovable metadata reported ready at the merged commit. The actual Chatbot route was then reloaded and visibly showed “Answers from your business”, the concise source/answer scene and no colour controls. Saved proof: [business answers correction](qa/ai-chatbot-business-answers-20261026.png). No builder prompt or separate Publish action was used.
