@@ -59,10 +59,10 @@ function RouteStops() {
 }
 
 /**
- * One fixed, illustrative route, shown in planning and phone contexts.
+ * One fixed route, with its selected pipeline jobs visible on a phone.
  * The source screenshot is unchanged; CSS exposes only its map rectangle.
- * Native disclosure keeps both views available without JavaScript, timers,
- * external map requests, simulated optimisation or forced scrolling.
+ * The complete scene stays in normal flow without JavaScript, external map
+ * requests, simulated optimisation or forced scrolling.
  */
 export function PipelineRoutes() {
   return (
@@ -96,36 +96,23 @@ export function PipelineRoutes() {
                   loading="lazy"
                 />
               </div>
-              <figcaption className="pr-map-caption">
-                <span>Illustrative route</span>
-                <span>© Mapbox · © OpenStreetMap</span>
+              <figcaption className="pr-map-credit">
+                <a href="https://www.mapbox.com/about/maps">© Mapbox</a>
+                <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>
+                <a href="https://apps.mapbox.com/feedback/">Improve this map</a>
               </figcaption>
             </figure>
 
             <div className="pr-route-side">
-              <details className="pr-phone-disclosure">
-                <summary aria-controls="pipeline-route-phone">
-                  <span className="pr-show-phone">See the phone view</span>
-                  <span className="pr-show-planning">Back to route planning</span>
-                </summary>
-                <div className="pr-phone" id="pipeline-route-phone">
-                  <h3>{ROUTE.title}</h3>
-                  <PipelineSource />
-                  <RouteDetails />
-                  <RouteStops />
-                  <div className="pr-maps-handoff">
-                    <strong>Directions in Google Maps</strong>
-                    <p>The same stops, on your phone.</p>
-                  </div>
-                </div>
-              </details>
-
-              <div className="pr-planning-view">
-                <p className="pr-surface-label">Selected pipeline jobs</p>
+              <div className="pr-phone" id="pipeline-route-phone">
                 <h3>{ROUTE.title}</h3>
                 <PipelineSource />
                 <RouteDetails />
                 <RouteStops />
+                <div className="pr-maps-handoff">
+                  <strong>Directions in Google Maps</strong>
+                  <p>The same stops, on your phone.</p>
+                </div>
               </div>
             </div>
           </div>

@@ -123,8 +123,8 @@
   border: 0;
 }
 
-/* Equal stage columns keep the opening proof recognisably a pipeline.
-   Stage colour is confined to the shallow caps and thin lane boundaries. */
+/* Plain columns keep the process readable. Colour focuses on the two stages
+   involved in the demonstration; the remaining stage headings stay neutral. */
 .zapla-pipeline .pf-hero {
   padding: 106px 0 58px;
 }
@@ -164,9 +164,9 @@
 .zapla-pipeline .pf-pipeline-stage {
   position: relative;
   padding: 0 16px;
-  border: 1px solid #d2d9d5;
+  border: 1px solid #d7dbdd;
   border-radius: 22px;
-  background: #f2f4f2;
+  background: #f3f4f4;
   box-shadow:
     0 2px 3px #10231904,
     0 18px 50px -28px #21382a45;
@@ -233,21 +233,43 @@
 .zapla-pipeline .pf-person-filter {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 .zapla-pipeline .pf-person-filter > span {
   color: #637068;
   font-size: 11px;
 }
-.zapla-pipeline .pf-person-filter select {
+.zapla-pipeline .pf-person-options {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.zapla-pipeline .pf-person-options button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   min-height: 44px;
-  max-width: 138px;
-  padding: 8px 28px 8px 12px;
-  border: 1px solid #d3dcd5;
-  border-radius: 9px;
-  background-color: #fff;
+  padding: 5px 9px;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background: transparent;
   color: #26392e;
   font-size: 12px;
+  font-weight: 600;
+}
+.zapla-pipeline .pf-person-options button[aria-pressed="true"] {
+  border-color: #aab8ae;
+  background: #fff;
+}
+.zapla-pipeline .pf-person-options button:hover {
+  background: #fff;
+}
+.zapla-pipeline .pf-person-options .pf-portrait {
+  flex-basis: 30px;
+  width: 30px;
+  height: 30px;
+  border-width: 1px;
 }
 .zapla-pipeline .pf-records-surface {
   min-height: 377px;
@@ -270,29 +292,36 @@
 }
 .zapla-pipeline .pf-lane {
   min-width: 0;
-  border: 1px solid color-mix(in srgb, var(--lane-colour) 55%, white);
-  border-radius: 9px;
+  border: 1px solid #d7dcdd;
+  border-radius: 11px;
   background: #fff;
 }
 .zapla-pipeline .pf-lane-heading {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 43px;
+  min-height: 46px;
   padding: 9px 15px;
-  margin: -1px -1px 0;
-  border-radius: 9px 8px 0 0;
-  background: var(--lane-colour);
-  color: #fff;
+  margin: 0;
+  border-bottom: 1px solid #d7dcdd;
+  border-radius: 10px 10px 0 0;
+  background: #edf0f1;
+  color: #273632;
   font-family: Manrope, sans-serif;
   font-size: 13px;
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
 }
-.zapla-pipeline .pf-lane[data-stage="2"] .pf-lane-heading {
-  color: #251d0d;
+.zapla-pipeline .pf-lane[data-stage="3"] .pf-lane-heading {
+  background: #354a63;
+  border-bottom-color: #354a63;
+  color: #fff;
+}
+.zapla-pipeline .pf-lane[data-stage="4"] .pf-lane-heading {
+  background: #2e5947;
+  border-bottom-color: #2e5947;
+  color: #fff;
 }
 .zapla-pipeline .pf-lane-body {
   display: flex;
@@ -366,58 +395,33 @@
   line-height: 1.7;
   color: #758277;
 }
-.zapla-pipeline .pf-board-decision {
-  display: flex;
-  justify-content: space-between;
+.zapla-pipeline .pf-board-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 25px;
-  min-height: 99px;
-  padding: 19px 7px;
+  gap: 32px;
+  min-height: 104px;
+  padding: 20px 8px;
 }
-.zapla-pipeline .pf-decision-copy {
+.zapla-pipeline .pf-story-person {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-.zapla-pipeline .pf-decision-copy strong {
+.zapla-pipeline .pf-story-person strong {
   display: block;
   color: #233a2c;
   font-size: 13px;
   font-weight: 650;
   line-height: 1.6;
 }
-.zapla-pipeline .pf-decision-copy p {
+.zapla-pipeline .pf-story-person p {
   margin-top: 3px;
   font-size: 12px;
   line-height: 1.65;
 }
-.zapla-pipeline .pf-move-button {
-  min-height: 44px;
-  flex: 0 0 auto;
-  padding: 11px 18px;
-  border: 1px solid #274d3b;
-  border-radius: 999px;
-  background: #244834;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.6;
-}
-.zapla-pipeline .pf-move-button:hover {
-  background: #345b44;
-}
-.zapla-pipeline .pf-static-board-note {
+.zapla-pipeline .pf-pipeline-stage[data-enhanced="false"] .pf-board-controls {
   display: none;
-}
-.zapla-pipeline
-  .pf-pipeline-stage[data-enhanced="false"]
-  :is(.pf-board-controls, .pf-move-button, .pf-decision-copy) {
-  display: none;
-}
-.zapla-pipeline .pf-pipeline-stage[data-enhanced="false"] .pf-static-board-note {
-  display: block;
-  max-width: 780px;
-  font-size: 13px;
 }
 
 /* Alternate views share the same records and retain the owner's filter. */
@@ -850,7 +854,7 @@
   .zapla-pipeline .pf-person-filter > span {
     display: block;
   }
-  .zapla-pipeline .pf-board-decision {
+  .zapla-pipeline .pf-board-story {
     align-items: start;
     gap: 18px;
   }
@@ -938,16 +942,22 @@
     gap: 8px;
   }
   .zapla-pipeline .pf-person-filter {
-    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
     width: 100%;
-    padding-top: 8px;
+    gap: 6px;
+    padding-top: 12px;
     border-top: 1px solid #dce3db;
   }
   .zapla-pipeline .pf-person-filter > span {
     font-size: 12px;
   }
-  .zapla-pipeline .pf-person-filter select {
-    min-width: 142px;
+  .zapla-pipeline .pf-person-options {
+    width: 100%;
+    gap: 4px;
+  }
+  .zapla-pipeline .pf-person-options button {
+    flex: 1;
   }
   .zapla-pipeline .pf-view-switch {
     width: 100%;
@@ -960,23 +970,20 @@
     gap: 16px;
     padding-top: 20px;
   }
-  .zapla-pipeline .pf-board-decision {
-    flex-direction: column;
+  .zapla-pipeline .pf-board-story {
+    grid-template-columns: 1fr;
     padding: 19px 2px;
-    gap: 16px;
+    gap: 18px;
   }
-  .zapla-pipeline .pf-decision-copy {
+  .zapla-pipeline .pf-story-person {
     align-items: start;
     gap: 10px;
   }
-  .zapla-pipeline .pf-decision-copy strong {
+  .zapla-pipeline .pf-story-person strong {
     font-size: 13px;
   }
-  .zapla-pipeline .pf-decision-copy p {
+  .zapla-pipeline .pf-story-person p {
     font-size: 12px;
-  }
-  .zapla-pipeline .pf-move-button {
-    margin-left: 50px;
   }
   .zapla-pipeline .pf-board-benefits {
     grid-template-columns: 1fr;
@@ -1168,9 +1175,6 @@
   .zapla-pipeline .pf-board-title > span {
     padding-left: 13px;
     font-size: 12px;
-  }
-  .zapla-pipeline .pf-move-button {
-    margin-left: 0;
   }
   .zapla-pipeline .pf-context h2 {
     font-size: 34px;

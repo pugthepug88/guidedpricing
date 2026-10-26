@@ -182,3 +182,13 @@ The owner explicitly requested a typed staff request followed by the connected w
 The owner rejected the Pipeline draft because its focal-card composition did not resemble pipeline stages. Keep the work inside continuous stage columns with compact cards and clear boundaries. Do not restore the earlier three-feature-card hero, repeated two-lane explanation or decorative numbered treatments. Stage colour may identify the shallow stage caps; it is not a reason to return to pastel feature tiles.
 
 Route planning belongs visibly to Pipeline: selected pipeline jobs, a planned stop order, a driver/date and the phone directions handoff. Preserve the difference between opportunity responsibility and route driver. The supplied in-app map is Mapbox/OpenStreetMap; Google Maps is the owner-confirmed mobile destination. Preserve attribution when using the actual map and do not invent a fresh optimisation result, automatic dispatch or performance savings. Desktop and tablet can keep map and details together; small screens must keep both legible in normal flow.
+
+## Pipeline presentation refinement, 26 October 2026
+
+This correction supersedes earlier Pipeline stage-name, dropdown, visitor-action and route-toggle treatments, not the product evidence or capability limits.
+
+- Use simple rectangular stage columns without arrow caps: **New enquiry → Discussing needs → Preparing quote → Quote sent → Accepted**. Keep the first three headings neutral, then steel-blue Quote sent and green Accepted.
+- Use portrait/name filters under “Show work for” instead of the assignee dropdown. Preserve visible names, accessible labels and selected states; filtering does not reassign an opportunity.
+- Remove Move/Return controls. The desktop illustration plays once while the card and explanation are visible, names Ben as the person recording Mia's decision and holds the final result. Automatic playback must not imply automatic product stage movement. Keep the owner, due date and recorded next action unchanged.
+- Mobile, short-height, reduced-motion and no-JavaScript presentations must retain the complete result and causal explanation in normal flow. Do not force page or horizontal-board scrolling or add looping resets.
+- Make the route phone view the default, with no PC/planning toggle. Remove “Illustrative route” and the external caption, but retain compact linked Mapbox/OpenStreetMap attribution in the map corner. The required credit is part of using the actual map, not decorative UI.

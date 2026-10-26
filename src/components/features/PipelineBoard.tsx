@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { LayoutGroup, motion } from "motion/react";
 import { Columns3, List, CalendarDays } from "lucide-react";
 
 const STAGES = [
-  { name: "Lead", colour: "#61783e" },
-  { name: "Contacted", colour: "#b96039" },
-  { name: "Proposal", colour: "#c79736" },
-  { name: "Negotiation", colour: "#357985" },
-  { name: "Closed won", colour: "#2d694f" },
+  { name: "New enquiry" },
+  { name: "Discussing needs" },
+  { name: "Preparing quote" },
+  { name: "Quote sent" },
+  { name: "Accepted" },
 ] as const;
 
 type Owner = "Ben Walker" | "Alex Chen";
@@ -31,7 +31,7 @@ const OPPORTUNITIES: Opportunity[] = [
     stage: 0,
     owner: "Alex Chen",
     due: "Today",
-    next: "Discuss the scope",
+    next: "Discuss the fit-out scope",
   },
   {
     id: "tom",
@@ -58,7 +58,7 @@ const OPPORTUNITIES: Opportunity[] = [
     stage: 2,
     owner: "Alex Chen",
     due: "Tomorrow",
-    next: "Discuss the proposal",
+    next: "Finish the installation quote",
   },
   {
     id: "mia",
@@ -76,7 +76,7 @@ const OPPORTUNITIES: Opportunity[] = [
     stage: 4,
     owner: "Alex Chen",
     due: "Friday",
-    next: "Plan the first visit",
+    next: "Arrange the first service",
   },
 ];
 
@@ -104,7 +104,6 @@ function OwnerLabel({ name }: { name: Owner }) {
 }
 
 function OpportunityCard({ item, animate = false }: { item: Opportunity; animate?: boolean }) {
-  const reducedMotion = useReducedMotion();
   const content = (
     <>
       <h3>{item.title}</h3>
@@ -116,19 +115,86 @@ function OpportunityCard({ item, animate = false }: { item: Opportunity; animate
       </footer>
     </>
   );
-  return item.id === "mia" && animate ? (
+  return animate ? (
     <motion.article
-      layoutId={reducedMotion ? undefined : "pipeline-mia-opportunity"}
-      className="pf-job-card pf-job-card-mia"
-      transition={{ layout: { duration: reducedMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] } }}
+      layout="position"
+      layoutId={item.id === "mia" ? "pipeline-mia-opportunity" : undefined}
+      className={"pf-job-card" + (item.id === "mia" ? " pf-job-card-mia" : "")}
+      transition={{ layout: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }}
       aria-label={item.title + " for " + item.customer}
+      data-opportunity={item.id}
     >
       {content}
     </motion.article>
   ) : (
-    <article className={"pf-job-card" + (item.id === "mia" ? " pf-job-card-mia" : "")}>
+    <article
+      className={"pf-job-card" + (item.id === "mia" ? " pf-job-card-mia" : "")}
+      aria-label={item.title + " for " + item.customer}
+      data-opportunity={item.id}
+    >
       {content}
     </article>
+  );
+}
+
+function StageColumns({
+  records,
+  animate = false,
+  filtered = false,
+}: {
+  records: Opportunity[];
+  animate?: boolean;
+  filtered?: boolean;
+}) {
+  return (
+    <div className="pf-kanban">
+      {STAGES.map((stage, index) => (
+        <section className="pf-lane" data-stage={index} key={stage.name} aria-label={stage.name}>
+          <h2 className="pf-lane-heading">{stage.name}</h2>
+          <div className="pf-lane-body">
+            {records
+              .filter((item) => item.stage === index)
+              .map((item) => (
+                <OpportunityCard item={item} key={item.id} animate={animate} />
+              ))}
+            {!records.some((item) => item.stage === index) && (
+              <p className="pf-lane-empty">
+                {filtered ? "No matching opportunities." : "No opportunities in this stage."}
+              </p>
+            )}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+function ProgressStory({ moved, owner }: { moved: boolean; owner: string }) {
+  return owner === "Alex Chen" ? (
+    <div className="pf-story-person">
+      <PipelinePortrait cell={8} />
+      <div>
+        <strong>Alex’s work, across the same stages.</strong>
+        <p>Each opportunity keeps its stage and recorded next action.</p>
+      </div>
+    </div>
+  ) : (
+    <>
+      <div className="pf-story-person">
+        <PipelinePortrait cell={9} />
+        <div>
+          <strong>“I’d like to go ahead.”</strong>
+          <p>Mia accepts her quote.</p>
+        </div>
+      </div>
+      <div className="pf-story-person pf-story-update">
+        <PipelinePortrait cell={13} />
+        <div>
+          <strong>{moved ? "Ben has moved Mia to Accepted." : "Ben records the decision."}</strong>
+          <p>{moved ? "Next: arrange installation time." : "Quote sent → Accepted"}</p>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -137,36 +203,69 @@ export function PipelineBoard() {
   const [owner, setOwner] = useState("everyone");
   const [moved, setMoved] = useState(false);
   const [enhanced, setEnhanced] = useState(false);
-  const boardScroller = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
+  const [motionEnabled, setMotionEnabled] = useState(false);
+  const [interacted, setInteracted] = useState(false);
+  const [demoVisible, setDemoVisible] = useState(false);
+  const scene = useRef<HTMLDivElement>(null);
+  const story = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setEnhanced(true), []);
+  useEffect(() => {
+    // Narrow/short screens and reduced motion get the complete result immediately.
+    // No autoplay changes the board's or page's scroll position.
+    const media = window.matchMedia(
+      "(min-width: 1211px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)",
+    );
+    const syncPresentation = () => {
+      setMotionEnabled(media.matches);
+      if (!media.matches) setMoved(true);
+    };
+    syncPresentation();
+    setEnhanced(true);
+    media.addEventListener("change", syncPresentation);
+    return () => media.removeEventListener("change", syncPresentation);
+  }, []);
+
+  useEffect(() => {
+    if (!enhanced || !motionEnabled || moved || interacted) return;
+    const card = scene.current?.querySelector('[data-opportunity="mia"]');
+    const explanation = story.current;
+    if (!card || !explanation) return;
+    let cardVisible = false;
+    let storyVisible = false;
+    const syncVisibility = () => setDemoVisible(cardVisible && storyVisible && !document.hidden);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.target === card) cardVisible = entry.intersectionRatio >= 0.6;
+          if (entry.target === explanation) storyVisible = entry.intersectionRatio >= 0.6;
+        }
+        syncVisibility();
+      },
+      { threshold: [0, 0.6, 1], rootMargin: "-64px 0px 0px" },
+    );
+    observer.observe(card);
+    observer.observe(explanation);
+    document.addEventListener("visibilitychange", syncVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", syncVisibility);
+    };
+  }, [enhanced, motionEnabled, moved, interacted]);
+
+  useEffect(() => {
+    if (!demoVisible || !motionEnabled || moved || interacted) return;
+    // One readable hold, one stage change, then retain the outcome. No loop/reset.
+    const timer = window.setTimeout(() => setMoved(true), 2600);
+    return () => window.clearTimeout(timer);
+  }, [demoVisible, motionEnabled, moved, interacted]);
 
   const records = OPPORTUNITIES.map((item) =>
     item.id === "mia" ? { ...item, stage: moved ? 4 : 3 } : item,
   ).filter((item) => owner === "everyone" || item.owner === owner);
 
-  function moveOpportunity() {
-    const nextMoved = !moved;
-    setMoved(nextMoved);
-    // Only the board's horizontal position changes after this explicit action.
-    // Native page scrolling, the owner and next-action field are untouched.
-    if (view === "board" && boardScroller.current) {
-      const scroller = boardScroller.current;
-      const lane = scroller.querySelector<HTMLElement>(
-        '[data-stage="' + (nextMoved ? 4 : 3) + '"]',
-      );
-      if (lane && scroller.scrollWidth > scroller.clientWidth) {
-        const left =
-          lane.getBoundingClientRect().left -
-          scroller.getBoundingClientRect().left +
-          scroller.scrollLeft;
-        scroller.scrollTo({
-          left: Math.max(0, left - 12),
-          behavior: reducedMotion ? "auto" : "smooth",
-        });
-      }
-    }
+  function finishDemonstration() {
+    setInteracted(true);
+    setMoved(true);
   }
 
   const views = [
@@ -176,7 +275,13 @@ export function PipelineBoard() {
   ];
 
   return (
-    <div className="pf-pipeline-stage" id="pipeline-board" data-enhanced={enhanced}>
+    <div
+      className="pf-pipeline-stage"
+      id="pipeline-board"
+      ref={scene}
+      data-enhanced={enhanced}
+      data-demo-state={moved ? "complete" : demoVisible ? "playing" : "ready"}
+    >
       <div className="pf-board-toolbar">
         <div className="pf-board-title">
           <img src="/concept/zapla-logo-dark.svg" alt="Zapla" width="82" height="25" />
@@ -190,25 +295,45 @@ export function PipelineBoard() {
                 type="button"
                 aria-pressed={view === key}
                 aria-controls="pipeline-records"
-                onClick={() => setView(key)}
+                onClick={() => {
+                  finishDemonstration();
+                  setView(key);
+                }}
               >
                 <Icon size={16} aria-hidden="true" />
                 {label}
               </button>
             ))}
           </div>
-          <label className="pf-person-filter">
-            <span>Assigned to</span>
-            <select
-              value={owner}
-              onChange={(event) => setOwner(event.target.value)}
-              aria-label="Filter opportunities by assigned person"
-            >
-              <option value="everyone">Everyone</option>
-              <option value="Ben Walker">Ben Walker</option>
-              <option value="Alex Chen">Alex Chen</option>
-            </select>
-          </label>
+          <div className="pf-person-filter" role="group" aria-label="Show work for">
+            <span>Show work for</span>
+            <div className="pf-person-options">
+              {[
+                { value: "everyone", label: "Everyone", cell: null },
+                { value: "Ben Walker", label: "Ben", cell: 13 },
+                { value: "Alex Chen", label: "Alex", cell: 8 },
+              ].map((person) => (
+                <button
+                  type="button"
+                  key={person.value}
+                  aria-label={
+                    person.value === "everyone"
+                      ? "Show everyone’s work"
+                      : "Show " + person.value + "’s work"
+                  }
+                  aria-pressed={owner === person.value}
+                  aria-controls="pipeline-records"
+                  onClick={() => {
+                    finishDemonstration();
+                    setOwner(person.value);
+                  }}
+                >
+                  {person.cell !== null && <PipelinePortrait cell={person.cell} />}
+                  <span>{person.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -218,39 +343,16 @@ export function PipelineBoard() {
             <p className="pf-swipe-note">Scroll across to see every stage.</p>
             <div
               className="pf-board-scroll"
-              ref={boardScroller}
               tabIndex={0}
               role="region"
               aria-label="Sales pipeline stages, scroll horizontally on smaller screens"
             >
               <LayoutGroup id="pipeline-sales-board">
-                <div className="pf-kanban">
-                  {STAGES.map((stage, index) => (
-                    <section
-                      className="pf-lane"
-                      data-stage={index}
-                      key={stage.name}
-                      style={{ "--lane-colour": stage.colour } as CSSProperties}
-                      aria-label={stage.name}
-                    >
-                      <h2 className="pf-lane-heading">{stage.name}</h2>
-                      <div className="pf-lane-body">
-                        {records
-                          .filter((item) => item.stage === index)
-                          .map((item) => (
-                            <OpportunityCard item={item} key={item.id} animate />
-                          ))}
-                        {!records.some((item) => item.stage === index) && (
-                          <p className="pf-lane-empty">
-                            {owner === "everyone"
-                              ? "No opportunities in this stage."
-                              : "No matching opportunities."}
-                          </p>
-                        )}
-                      </div>
-                    </section>
-                  ))}
-                </div>
+                <StageColumns
+                  records={records}
+                  animate={motionEnabled && !interacted}
+                  filtered={owner !== "everyone"}
+                />
               </LayoutGroup>
             </div>
           </>
@@ -340,47 +442,44 @@ export function PipelineBoard() {
         )}
       </div>
 
-      <div className="pf-board-decision">
-        {owner !== "Alex Chen" ? (
-          <>
-            <div className="pf-decision-copy">
-              <PipelinePortrait cell={9} />
-              <div>
-                <strong>
-                  {moved ? "Mia’s opportunity is now Closed won." : "Mia has accepted her quote."}
-                </strong>
-                <p>
-                  {moved
-                    ? "Ben stays responsible. The recorded next action is still to arrange installation."
-                    : "“I’d like to go ahead.” Ben can now record that decision in the pipeline."}
-                </p>
-              </div>
-            </div>
-            <button className="pf-move-button" type="button" onClick={moveOpportunity}>
-              {moved ? "Return to Negotiation" : "Move to Closed won"}
-            </button>
-          </>
-        ) : (
-          <div className="pf-decision-copy">
-            <PipelinePortrait cell={8} />
-            <div>
-              <strong>Alex’s opportunities, across the same stages.</strong>
-              <p>
-                The filter changes which records you see. It does not change who is responsible.
-              </p>
-            </div>
-          </div>
-        )}
-        <p className="pf-static-board-note">
-          When a customer agrees to proceed, your team moves the opportunity to the appropriate
-          stage. The person responsible and recorded next action stay with it.
-        </p>
+      <div className="pf-board-story" ref={story}>
+        <ProgressStory moved={moved} owner={owner} />
       </div>
-      <p className="pf-sr-only" role="status" aria-live="polite" aria-atomic="true">
+      <noscript>
+        <style>{`
+          .zapla-pipeline .pf-records-surface,
+          .zapla-pipeline .pf-board-story:not(.pf-board-story-static),
+          .zapla-pipeline .pf-board-announcement { display: none !important; }
+        `}</style>
+        <p className="pf-swipe-note">Scroll across to see every stage.</p>
+        <div
+          className="pf-board-scroll"
+          tabIndex={0}
+          role="region"
+          aria-label="Sales pipeline stages, scroll horizontally on smaller screens"
+        >
+          <StageColumns
+            records={OPPORTUNITIES.map((item) =>
+              item.id === "mia" ? { ...item, stage: 4 } : item,
+            )}
+          />
+        </div>
+        <div className="pf-board-story pf-board-story-static">
+          <ProgressStory moved owner="everyone" />
+        </div>
+      </noscript>
+      <p
+        className="pf-sr-only pf-board-announcement"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         {owner === "Alex Chen"
           ? "Showing Alex Chen’s opportunities across the same stages. Responsibility has not changed."
           : (owner === "everyone" ? "All team members. " : "Showing Ben Walker’s opportunities. ") +
-            (moved ? "Mia is in Closed won. " : "Mia is in Negotiation. ") +
+            (moved
+              ? "Ben has moved Mia from Quote sent to Accepted. "
+              : "Mia has accepted her quote. Ben can record her decision. ") +
             "Ben remains responsible. Next action: arrange installation time."}
       </p>
     </div>

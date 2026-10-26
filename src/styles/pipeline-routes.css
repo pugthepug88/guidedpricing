@@ -54,6 +54,7 @@
 }
 
 .zapla-pipeline .pr-map-figure {
+  position: relative;
   min-width: 0;
   margin: 0;
 }
@@ -79,15 +80,29 @@
   height: auto;
 }
 
-.zapla-pipeline .pr-map-caption {
+.zapla-pipeline .pr-map-credit {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 5px 16px;
-  margin-top: 12px;
-  color: #c5d0c9;
+  justify-content: flex-end;
+  gap: 2px 8px;
+  width: max-content;
+  max-width: calc(100% - 16px);
+  padding: 3px 6px;
+  border-radius: 3px;
+  background: #fffffff5;
+  color: #3f4944;
   font-size: 11px;
   line-height: 1.5;
+}
+
+.zapla-pipeline .pr-map-credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
 }
 
 .zapla-pipeline .pr-route-side {
@@ -95,75 +110,10 @@
   width: 100%;
 }
 
-.zapla-pipeline .pr-phone-disclosure {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.zapla-pipeline .pr-phone-disclosure > summary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  margin-bottom: 16px;
-  padding: 11px 18px;
-  border: 1px solid #b8c8bd;
-  border-radius: 999px;
-  background: transparent;
-  color: #fcfcfa;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.5;
-  text-align: center;
-  list-style: none;
-  cursor: pointer;
-}
-
-.zapla-pipeline .pr-phone-disclosure > summary::-webkit-details-marker {
-  display: none;
-}
-
-.zapla-pipeline .pr-phone-disclosure > summary:hover {
-  border-color: #fff;
-  background: #ffffff0a;
-}
-
-.zapla-pipeline .pr-phone-disclosure > summary:focus-visible {
-  outline: 3px solid #8fb1ff;
-  outline-offset: 5px;
-}
-
-.zapla-pipeline .pr-show-planning,
-.zapla-pipeline .pr-phone-disclosure[open] .pr-show-phone,
-.zapla-pipeline .pr-phone-disclosure[open] + .pr-planning-view {
-  display: none;
-}
-
-.zapla-pipeline .pr-phone-disclosure[open] .pr-show-planning {
-  display: inline;
-}
-
-.zapla-pipeline .pr-planning-view {
-  padding: 25px 26px 23px;
-  border: 1px solid #e4e8e3;
-  border-radius: 20px;
-  background: #fff;
-  color: #111318;
-}
-
-.zapla-pipeline .pr-surface-label {
-  margin-bottom: 10px;
-  color: #58655f;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.zapla-pipeline .pr-planning-view h3,
 .zapla-pipeline .pr-phone h3 {
   margin: 0;
   color: #17231e;
-  font-size: 25px;
+  font-size: 23px;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.035em;
@@ -185,7 +135,7 @@
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
   gap: 12px;
-  margin: 21px 0 20px;
+  margin: 16px 0 14px;
 }
 
 .zapla-pipeline .pr-route-facts dt {
@@ -231,8 +181,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  min-height: 58px;
-  padding-block: 9px;
+  min-height: 54px;
+  padding-block: 8px;
   border-bottom: 1px solid #e2e7e1;
 }
 
@@ -274,24 +224,6 @@
   box-shadow:
     0 0 0 1px #597062,
     0 14px 28px #09181133;
-}
-
-.zapla-pipeline .pr-phone h3 {
-  font-size: 23px;
-}
-
-.zapla-pipeline .pr-phone .pr-route-facts {
-  margin-top: 16px;
-  margin-bottom: 14px;
-}
-
-.zapla-pipeline .pr-phone .pr-stop-list li {
-  min-height: 54px;
-  padding-block: 8px;
-}
-
-.zapla-pipeline .pr-phone .pr-stop-list strong {
-  font-size: 14px;
 }
 
 .zapla-pipeline .pr-maps-handoff {
@@ -359,10 +291,6 @@
     max-width: 440px;
     margin-inline: auto;
   }
-
-  .zapla-pipeline .pr-planning-view {
-    padding: 27px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -402,20 +330,6 @@
   .zapla-pipeline .pr-map-crop {
     border-radius: 12px;
   }
-
-  .zapla-pipeline .pr-map-caption {
-    flex-direction: column;
-    gap: 4px;
-    font-size: 11px;
-  }
-
-  .zapla-pipeline .pr-planning-view {
-    padding: 22px;
-  }
-
-  .zapla-pipeline .pr-phone-disclosure > summary {
-    min-height: 48px;
-  }
 }
 
 @media (max-width: 380px) {
@@ -425,10 +339,6 @@
 
   .zapla-pipeline .pr-intro h2 {
     font-size: 31px;
-  }
-
-  .zapla-pipeline .pr-planning-view {
-    padding: 20px 18px;
   }
 
   .zapla-pipeline .pr-route-facts {
@@ -449,14 +359,5 @@
 
   .zapla-pipeline .pr-phone {
     padding-inline: 17px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .zapla-pipeline .pr-routes *,
-  .zapla-pipeline .pr-routes *::before,
-  .zapla-pipeline .pr-routes *::after {
-    animation: none !important;
-    transition: none !important;
   }
 }
