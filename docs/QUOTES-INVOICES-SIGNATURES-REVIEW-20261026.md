@@ -18,4 +18,12 @@ Generation prompt:
 
 ## Rendered checks and director lenses
 
-Pending branch preview. This record will be completed with actual observations, fixes and coverage before main is updated. Role reviews are the implementation agent applying separate review lenses, not claims of independent agents, owner acceptance or conversion results.
+Cloudflare's successful branch build exposed `https://8003d239-guidedpricing.jinrcao.workers.dev/features/quotes-invoices-signatures`. Vercel also built successfully, but its preview required a login, so that protected preview was not used or its protection changed. The actual Cloudflare branch preview was used for visual review.
+
+Wide desktop: inspected opening, readable document arithmetic/scope, quote register, complete signing scene and replay, all invoice arrangements, fresh photo/customer document context, setup, FAQ and final CTA/sky. The full/deposit/instalment views keep A$3,300 total; deposit requests A$990 with A$2,310 remaining; instalments show A$1,650 on both 10 and 24 November and the correct remainder. Native radio ArrowUp moves from instalments to deposit and updates the amount. Signature playback was observed entering stage 0 and holding stage 3 after submission. Native FAQ click opens and Enter closes. Console error list was empty.
+
+Phone: initial full-page 393px pass and text geometry showed 378px content width, no document/text overflow and loaded images. Some immediate viewport screenshots after scroll/resize were partially blank despite complete DOM geometry; the later capture and full-page image showed the content. This is recorded as a capture limitation, not accepted as visual proof of an empty panel.
+
+Corrections from that review: fix Priya's mismatched portrait using cell 19 of the existing sheet consistently; remove the three repeated signing benefit lines; show a concise live payment amount beside the mobile arrangement choices instead of requiring the visitor to find the changed figure below. The payment announcement is concise and not the entire invoice. Responsive review of these corrections continues before main is updated.
+
+Role reviews are the implementation agent applying separate review lenses, not claims of independent agents, owner acceptance or conversion results.

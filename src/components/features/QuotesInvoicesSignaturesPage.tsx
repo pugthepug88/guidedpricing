@@ -25,7 +25,7 @@ const JOB = {
 const money = (value: number) =>
   `A$${value.toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-function Portrait({ cell = 3 }: { cell?: number }) {
+function Portrait({ cell = 19 }: { cell?: number }) {
   return (
     <span
       className="qi-portrait"
@@ -362,7 +362,7 @@ function PaymentScene() {
                   value={item.id}
                   checked={plan === item.id}
                   onChange={() => setPlan(item.id)}
-                  aria-controls="qi-invoice-preview"
+                  aria-controls="qi-invoice-preview qi-payment-status"
                 />
                 <span>
                   <strong>{item.name}</strong>
@@ -371,17 +371,21 @@ function PaymentScene() {
               </label>
             ))}
           </fieldset>
+          <p className="qi-sr-only qi-payment-status" id="qi-payment-status" role="status">
+            <span>{selected.name}</span>
+            <strong>{money(selected.due)} to pay</strong>
+            <span>
+              {plan === "full"
+                ? "The full invoice amount."
+                : `${money(JOB.total - selected.due)} remains after this payment.`}
+            </span>
+          </p>
           <p className="qi-provider-note">
             Connect your payment provider, then choose the options for each invoice.
           </p>
         </div>
         <div className="qi-invoice-stage">
-          <article
-            className="qi-invoice"
-            id="qi-invoice-preview"
-            aria-live="polite"
-            aria-atomic="true"
-          >
+          <article className="qi-invoice" id="qi-invoice-preview">
             <header>
               <span>Invoice for {JOB.customer}</span>
               <span>{JOB.invoice}</span>
@@ -537,17 +541,6 @@ export function QuotesInvoicesSignaturesPage() {
             </p>
           </header>
           <SigningScene />
-          <div className="qi-sign-breadth">
-            <p>
-              <strong>Your document.</strong> Start with a PDF or build it from scratch.
-            </p>
-            <p>
-              <strong>The right signers.</strong> Assign signatures, initials and dates.
-            </p>
-            <p>
-              <strong>A visible result.</strong> See who has signed and who is still pending.
-            </p>
-          </div>
         </div>
       </section>
 

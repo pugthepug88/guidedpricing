@@ -123,8 +123,8 @@
   border: 0;
 }
 
-/* Plain columns keep the process readable. Colour focuses on the two stages
-   involved in the demonstration; the remaining stage headings stay neutral. */
+/* Plain columns keep the process readable. Distinct colours identify every
+   stage while card bodies remain white and the lane boundaries stay neutral. */
 .zapla-pipeline .pf-hero {
   padding: 106px 0 58px;
 }
@@ -303,15 +303,23 @@
   min-height: 46px;
   padding: 9px 15px;
   margin: 0;
-  border-bottom: 1px solid #d7dcdd;
+  border-bottom: 1px solid #bf7458;
   border-radius: 10px 10px 0 0;
-  background: #edf0f1;
-  color: #273632;
+  background: #bf7458;
+  color: #111318;
   font-family: Manrope, sans-serif;
   font-size: 13px;
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0;
+}
+.zapla-pipeline .pf-lane[data-stage="1"] .pf-lane-heading {
+  background: #dda34b;
+  border-bottom-color: #dda34b;
+}
+.zapla-pipeline .pf-lane[data-stage="2"] .pf-lane-heading {
+  background: #4f8f91;
+  border-bottom-color: #4f8f91;
 }
 .zapla-pipeline .pf-lane[data-stage="3"] .pf-lane-heading {
   background: #354a63;
