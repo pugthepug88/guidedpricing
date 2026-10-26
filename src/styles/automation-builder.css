@@ -965,24 +965,75 @@
   }
 }
 
-/* Separate AI construction demonstration: request first, then connected draft. */
+/* Selectable AI examples and a visitor-controlled build demonstration. */
 .ab-ai-section {
-  padding: 12px 0 48px;
+  padding: 18px 0 48px;
   scroll-margin-top: 94px;
+}
+.ab-ai-heading {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  align-items: end;
+  gap: 80px;
+  margin-bottom: 31px;
+}
+.ab-ai-heading h2 {
+  max-width: 690px;
+}
+.ab-ai-heading > p {
+  max-width: 390px;
+}
+.ab-ai-choices {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.ab-ai-choices button {
+  min-height: 76px;
+  padding: 17px 20px;
+  border: 1px solid #bfcac7;
+  border-radius: 13px;
+  background: #fff;
+  color: #263d34;
+  text-align: left;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+.ab-ai-choices button:hover {
+  border-color: #344d40;
+  background: #f6f8f6;
+}
+.ab-ai-choices button[aria-pressed="true"] {
+  border-color: #1e2b29;
+  background: #1e2b29;
+  color: #fff;
+}
+.ab-ai-choices button:focus-visible {
+  outline: 3px solid #2563ff;
+  outline-offset: 4px;
 }
 .ab-ai-demo {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: "copy workflow" "prompt workflow" "review workflow";
+  grid-template-areas: "copy workflow" "prompt workflow" "controls workflow" "review workflow";
   align-items: start;
   align-content: center;
-  column-gap: 72px;
-  row-gap: 24px;
-  padding: 54px 64px;
+  column-gap: 64px;
+  row-gap: 20px;
+  min-height: 620px;
+  padding: 42px 56px;
   border: 1px solid #40554a;
   border-radius: 30px;
   background: #1e2b29;
   color: #fff;
+  scroll-margin-top: 94px;
 }
 .ab-ai-demo > * {
   min-width: 0;
@@ -990,25 +1041,24 @@
 .ab-ai-copy {
   grid-area: copy;
 }
-.zapla-automation .ab-ai-copy .ab-eyebrow {
-  margin-bottom: 14px;
-  color: #ddbaa1;
-}
-.ab-ai-copy h2 {
+.ab-ai-copy h3 {
   max-width: 450px;
   color: #fff;
-  font-size: 46px;
-  line-height: 1.04;
+  font-family: "Inter Tight", Outfit, Manrope, sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
 }
-.zapla-automation .ab-ai-copy > p:last-child {
-  margin-top: 19px;
-  max-width: 410px;
+.zapla-automation .ab-ai-copy p {
+  margin-top: 14px;
+  max-width: 430px;
   color: #d6dfda;
   line-height: 1.7;
 }
 .ab-ai-prompt {
   grid-area: prompt;
-  padding: 20px 23px 22px;
+  padding: 18px 22px 20px;
   border: 1px solid #fff;
   border-radius: 15px;
   background: #fff;
@@ -1024,10 +1074,18 @@
 .ab-ai-prompt blockquote {
   position: relative;
   margin: 0;
-  min-height: 112px;
+  min-height: 84px;
   font-size: 17px;
   line-height: 1.65;
   overflow-wrap: anywhere;
+}
+.ab-ai-prompt-reserve {
+  display: block;
+  visibility: hidden;
+}
+.ab-ai-prompt-typed {
+  position: absolute;
+  inset: 0;
 }
 .ab-ai-sr-only {
   position: absolute;
@@ -1066,7 +1124,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 19px;
+  margin-bottom: 17px;
   color: #e8eee9;
   font-size: 13px;
   font-weight: 600;
@@ -1082,24 +1140,27 @@
   margin: 0 auto;
 }
 .ab-ai-step + .ab-ai-step {
-  margin-top: 15px;
+  margin-top: 12px;
 }
 .ab-ai-connection {
   position: absolute;
   left: 50%;
   bottom: 100%;
   width: 1px;
-  height: 15px;
+  height: 12px;
   background: #a5b3ab;
   transform-origin: top;
+  transition:
+    opacity 0.24s ease,
+    transform 0.28s ease;
 }
 .ab-ai-node {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 12px 17px;
+  gap: 10px;
+  padding: 10px 16px;
   border: 1px solid #dce3df;
-  border-radius: 11px;
+  border-radius: 10px;
   background: #fff;
   color: #233930;
 }
@@ -1110,26 +1171,26 @@
   display: block;
   font-size: 14px;
   font-weight: 650;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 .zapla-automation .ab-ai-node p {
-  margin-top: 3px;
+  margin-top: 2px;
   color: #52665c;
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 .ab-ai-step-trigger {
-  max-width: 285px;
+  max-width: 300px;
 }
 .ab-ai-step-trigger .ab-ai-node {
   justify-content: center;
   text-align: center;
 }
 .ab-ai-step-wait {
-  max-width: 155px;
+  max-width: 200px;
 }
 .ab-ai-step-wait .ab-ai-node {
-  padding: 7px 13px;
+  padding: 6px 12px;
   justify-content: center;
   border-radius: 6px;
   background: #edf1ee;
@@ -1146,11 +1207,6 @@
     opacity 0.28s ease,
     transform 0.28s ease;
 }
-.ab-ai-connection {
-  transition:
-    opacity 0.24s ease,
-    transform 0.28s ease;
-}
 .ab-ai-workflow figcaption[data-visible="false"],
 .ab-ai-step[data-visible="false"] .ab-ai-node {
   opacity: 0;
@@ -1160,58 +1216,122 @@
   opacity: 0;
   transform: scaleY(0);
 }
-.ab-ai-review {
-  grid-area: review;
+.ab-ai-controls {
+  grid-area: controls;
 }
-.zapla-automation .ab-ai-review p {
-  max-width: 340px;
-  color: #c5d2ca;
-  font-size: 13px;
-  line-height: 1.7;
+.ab-ai-control-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
 }
-.ab-ai-review button {
+.ab-ai-other {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   min-height: 44px;
-  margin-top: 6px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
+  color: #e3ece6;
+  font-size: 12px;
+  line-height: 1.5;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.ab-ai-review button:focus-visible {
-  outline: 2px solid #fff;
+.ab-ai-watch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 13px 21px;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  background: #fff;
+  color: #1e2b29;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.ab-ai-watch:hover {
+  background: #e9efeb;
+  border-color: #e9efeb;
+}
+.ab-ai-watch:focus-visible {
+  outline: 3px solid #bcd2ff;
   outline-offset: 5px;
 }
+.zapla-automation .ab-ai-scope {
+  margin-top: 17px;
+  max-width: 430px;
+  color: #cedbd2;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.zapla-automation .ab-ai-review {
+  grid-area: review;
+  max-width: 430px;
+  color: #b8cabd;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.ab-ai-static-examples {
+  margin-top: 32px;
+}
+.ab-ai-static-examples details {
+  padding: 20px 0;
+  border-top: 1px solid #ccd6d0;
+}
+.ab-ai-static-examples summary {
+  font-weight: 600;
+}
+.ab-ai-static-examples p {
+  margin-top: 14px;
+}
+.ab-ai-static-examples ol {
+  padding-left: 22px;
+  line-height: 1.8;
+}
 @media (max-width: 1200px) {
+  .ab-ai-heading {
+    gap: 45px;
+  }
   .ab-ai-demo {
-    padding: 42px;
+    padding: 38px 40px;
     column-gap: 42px;
   }
-  .ab-ai-copy h2 {
-    font-size: 42px;
+}
+@media (max-width: 1000px) {
+  .ab-ai-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ab-ai-choices button {
+    min-height: 60px;
   }
 }
 @media (max-width: 900px) {
+  .ab-ai-heading {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .ab-ai-heading > p {
+    max-width: 600px;
+  }
+  .ab-ai-heading h2 {
+    max-width: 650px;
+    font-size: 42px;
+  }
   .ab-ai-demo {
     padding: 34px;
     column-gap: 30px;
   }
-  .ab-ai-copy h2 {
-    font-size: 38px;
+  .ab-ai-copy h3 {
+    font-size: 30px;
   }
   .ab-ai-prompt {
     padding: 17px;
   }
   .ab-ai-prompt blockquote {
     font-size: 16px;
-    min-height: 132px;
+    min-height: 105px;
   }
   .ab-ai-node {
     padding-inline: 13px;
@@ -1225,11 +1345,12 @@
 @media (max-width: 760px) {
   .ab-ai-demo {
     grid-template-columns: 1fr;
-    grid-template-areas: "copy" "prompt" "workflow" "review";
+    grid-template-areas: "copy" "prompt" "controls" "workflow" "review";
     row-gap: 23px;
     padding: 30px;
+    min-height: 0;
   }
-  .ab-ai-copy h2 {
+  .ab-ai-copy h3 {
     max-width: 450px;
   }
   .ab-ai-workflow {
@@ -1238,38 +1359,41 @@
   .ab-ai-prompt blockquote {
     min-height: 80px;
   }
-  .ab-ai-review {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  .ab-ai-review p {
-    max-width: 340px;
-  }
-  .ab-ai-review button {
-    flex-shrink: 0;
-    margin: 0;
-  }
 }
 @media (max-width: 640px) {
   .ab-ai-section {
     padding: 10px 0 32px;
   }
+  .ab-ai-heading {
+    margin-bottom: 24px;
+    gap: 18px;
+  }
+  .ab-ai-heading h2 {
+    font-size: 37px;
+    max-width: 440px;
+  }
+  .ab-ai-choices {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .ab-ai-choices button {
+    padding: 13px 12px;
+    min-height: 80px;
+    font-size: 13px;
+    line-height: 1.45;
+    border-radius: 11px;
+  }
   .ab-ai-demo {
-    padding: 27px 23px;
+    padding: 26px 23px;
     row-gap: 21px;
     border-radius: 24px;
   }
-  .ab-ai-copy h2 {
-    font-size: 34px;
-    max-width: 310px;
+  .ab-ai-copy h3 {
+    font-size: 28px;
+    max-width: 320px;
   }
-  .zapla-automation .ab-ai-copy .ab-eyebrow {
-    margin-bottom: 12px;
-  }
-  .zapla-automation .ab-ai-copy > p:last-child {
-    margin-top: 16px;
+  .zapla-automation .ab-ai-copy p {
+    margin-top: 13px;
     font-size: 14px;
     line-height: 1.65;
   }
@@ -1278,7 +1402,7 @@
     border-radius: 12px;
   }
   .ab-ai-prompt blockquote {
-    min-height: 105px;
+    min-height: 100px;
     font-size: 15px;
     line-height: 1.65;
   }
@@ -1291,7 +1415,7 @@
     font-size: 12px;
   }
   .ab-ai-node {
-    padding: 10px 13px;
+    padding: 9px 13px;
     gap: 9px;
   }
   .ab-ai-node strong {
@@ -1300,25 +1424,18 @@
   .zapla-automation .ab-ai-node p {
     display: none;
   }
-  .ab-ai-step + .ab-ai-step {
-    margin-top: 12px;
-  }
-  .ab-ai-connection {
-    height: 12px;
-  }
   .ab-ai-step-wait .ab-ai-node {
     padding-block: 6px;
   }
-  .ab-ai-review {
-    gap: 12px;
-  }
-  .zapla-automation .ab-ai-review p {
+  .zapla-automation .ab-ai-scope,
+  .zapla-automation .ab-ai-review {
     font-size: 11px;
     line-height: 1.65;
   }
-  .ab-ai-review button {
-    font-size: 11px;
-    gap: 5px;
+  .ab-ai-watch {
+    min-height: 46px;
+    font-size: 13px;
+    padding: 12px 18px;
   }
   .ab-work-photo figcaption {
     left: 23px;
@@ -1330,14 +1447,14 @@
   .ab-ai-demo {
     padding: 24px 18px;
   }
-  .ab-ai-copy h2 {
-    font-size: 31px;
+  .ab-ai-heading h2 {
+    font-size: 34px;
+  }
+  .ab-ai-copy h3 {
+    font-size: 26px;
   }
   .ab-ai-prompt {
     padding-inline: 13px;
-  }
-  .ab-ai-prompt blockquote {
-    min-height: 125px;
   }
   .ab-ai-node {
     padding-inline: 10px;
