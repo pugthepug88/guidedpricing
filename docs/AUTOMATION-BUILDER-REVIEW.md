@@ -1,13 +1,13 @@
 # Automation Builder: implementation and review
 
-**Latest revision:** “Separate typed AI construction, 26 October 2026” at the end restores the nurture hero and moves AI drafting into its own section. It removes the rejected preference diagram, overlays the photo heading and contains the FAQ. The approved silver frame and white nodes remain. Earlier positive assessments are historical, not owner approval.
+**Latest revision:** “Click-to-watch AI ideas, 26 October 2026” at the end adds an explicit Watch AI build control and eight distinct examples to the separate AI section. The restored hero, photo overlay, rounded FAQ, silver frame and white nodes remain. Earlier assessments are historical, not owner approval.
 
 **Current correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. All message cards must stay white in every scroll state.
 
 **Subsequent approved scope:** a thin silver frame with faint blue/coral edge reflections, following the owner's “ok go”. The neutral cards and channel treatment stay as corrected. See the final silver-frame entry.
 
 
-**Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the final separate-AI-section entry.
+**Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the final click-to-watch entry.
 
 Reviewed **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -445,3 +445,57 @@ These are the implementing author's assessments of this revision, not independen
 Actual final scene: [separate-ai-section-20261026.png](review-assets/automation-builder/separate-ai-section-20261026.png). This is a browser capture of the product-code preview, not a generated mockup. The supplied AC recording informed the typed-request-to-draft sequence; its dark-neon theme, recommendations and other unsupported claims were not copied.
 
 Remaining limits: no separate reduced-motion or JavaScript-disabled browser session, assistive-technology run, physical/cross-browser matrix, full lower-page tablet/320px pass or independent conversion study. Complete static content and reduced-motion behaviour were source-reviewed. The earlier live-product audit remains scoped to configuration and draft generation, with no activation or message delivery. No Lovable builder prompt or separate Publish action was used.
+
+## Click-to-watch AI ideas, 26 October 2026
+
+The owner accepted the overall page and requested a discoverable Watch action plus eight commercially recognisable examples. The separate AI section now has eight native choice buttons and one player. Selecting an idea changes the written request, connected draft and relevant setup context; Watch AI build replays it. There is no automatic play on scrolling or automatic reset. The full starting draft remains readable until a visitor explicitly starts the animation.
+
+The heading **Build the workflow your business needs.** and own-process support copy communicate flexibility without a literal infinite/unlimited claim. These are prepared website illustrations of audited building blocks, not eight account templates or eight completed live AI/execution tests. Billing, calling, audience and calendar boundaries are recorded in the capability evidence and stated beside relevant examples.
+
+| Choice | Draft steps | Commercial story |
+| --- | --- | --- |
+| Seven-day nurture | 8 | Four emails across days 0, 2, 5 and 7, with explicit waits. |
+| Inactive customers | 4 | Joining a business-configured Smart List starts a two-message reconnection. |
+| Overdue invoices | 3 | Billing webhook supplies the overdue event/payment link; email the customer and notify finance in Slack. |
+| New customers | 6 | New customer tag starts welcome, getting-started information and a check-in. |
+| Flash sale | 4 | Selected audience receives the offer and a reminder before the agreed offer ends. |
+| VIP offer | 4 | Selected VIP audience receives early access and an SMS reminder. |
+| Requested AI callback | 3 | Callback-request tag, ten-minute wait and the configured AI outbound call action. |
+| Appointments | 6 | Confirmed booking, email details and SMS reminders one day/one hour before its time. |
+
+### Rendered and interaction evidence
+
+Product-code revision: `c5362e0a9332f9ad25e2fd481c5aab64909e2ea0`. This merge preserves current main, including the Pipeline and Calendar work. TypeScript, targeted ESLint, formatting, SEO policy, whitespace and production build checks passed. Cloudflare Workers and Vercel preview checks passed on this revision.
+
+All eight selected requests and graphs were inspected in the initial branch preview. The final playback revision was checked again for ready, typing, building and complete states, the longest nurture graph, the appointment graph, and replacing an unfinished reactivation with the invoice graph. Enter activates choices; focus moves to the persistent Watch control; exactly one choice is pressed. The return link goes back to the ideas. No console warnings/errors were captured in the final interaction check.
+
+| Surface | Observed result |
+| --- | --- |
+| 1707 × 769 | Eight choices in four columns, broad headline/support copy and a complete eight-node nurture player. No document overflow. |
+| 1366 × 768 | Complete eight-node graph, full request and Watch control fit within the 620px player. |
+| 1366 × 650 | Ordinary page scrolling; the 620px player is not pinned. Keyboard switch during an unfinished run finishes with only the invoice request and three invoice nodes. |
+| 834 × 1112 | Choices use two columns; request/player retain two columns with readable text. No choice or document overflow. Final clock reaches eight completed nurture steps. |
+| 390 × 844 | Choice grid and AI-call player inspected before the clock-only correction; no clipped labels or document overflow. Pixel layout was unchanged by that correction. |
+| 320 × 800 | Appointment request, controls, context and all six connected nodes inspected. Final steps and review remain reachable through native scrolling. No measured text/card/document overflow. Photo overlay also remains readable. |
+
+The first timer accumulated per-character delays under browser inspection. The final implementation derives typing and construction from elapsed active time instead. It cancels replaced runs, pauses when the player is outside the viewport or the document is hidden, and retains the result after completion. During the final browser check, typing had zero visible workflow nodes and the complete nurture had eight. Hidden-tab handling is source-reviewed rather than separately emulated.
+
+Actual screenshots: [Eight ideas](review-assets/automation-builder/click-to-watch-ideas-20261026.png) and [completed click-to-watch player](review-assets/automation-builder/click-to-watch-player-20261026.png). These show rendered source, not generated mockups.
+
+### Review lenses
+
+These are separate assessments by the implementing author, not independent reviewers or measured conversion results.
+
+| Lens | Assessment | Finding |
+| --- | --- | --- |
+| UI/UX | 9/10 | Familiar business choices lead to one explicit Watch control; selected state, focus and return path are clear. |
+| Brand / Creative | 9/10 | Established ink/white treatment, typography and rounded container remain; no new ornamental colour system. |
+| Product Marketing | 9/10 | Eight concrete use cases show breadth while the own-process copy explains that the ideas are starting points. |
+| Conversion | 9/10 | Visitors can see a relevant request become a concrete draft before deciding to discuss their process. No conversion lift is claimed. |
+| Motion | 9/10 | Explicit initiation, typing before nodes, sequential connections, cancellation and a stable hold communicate construction. |
+| SME buyer | 9/10 | Names describe familiar work; each draft shows what starts it, timing and next actions. |
+| Buyer psychology | 9/10 | The owner can choose, watch, replay and inspect; review before activation preserves control. |
+| AI-slop critique | 9/10 | No infinity promise, decorative arrow, fabricated metric, fake live send/call, duplicate example sections or pastel feature cards. |
+
+Remaining limits: no separate OS reduced-motion or JavaScript-disabled browser session, assistive-technology session, physical-device/cross-browser matrix, fresh full lower-page review or independent conversion study. Static and reduced-motion fallbacks were source-reviewed. The website invokes no live AI, messages, calls, billing events or Slack actions and collects no visitor input. Lovable stays read-only, with GitHub supplying the source update; no separate Publish action was used.
+
