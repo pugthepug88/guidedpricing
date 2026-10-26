@@ -1,0 +1,48 @@
+PIPELINE FIELD TEAM EDITORIAL PHOTO
+Generated: 26 October 2026
+Project: pugthepug88/guidedpricing
+Page: /features/pipeline-management
+
+SELECTED ASSET
+public/concept/pipeline/field-team-20261026.svg
+1536 x 1024 pixels; 3:2 landscape; RGB; 178,112 bytes.
+SHA-256: 738090dac0327bbdf7e4298089ec20b95d497f54d879b2b564441d41080db715
+
+GENERATION PROVENANCE
+Built-in image_gen tool, photorealistic-natural use case.
+One candidate generated and selected. No reference images, edit targets or pre-existing people's identities were supplied. No fallback CLI or external image provider was used. The tool does not expose a model/version identifier in its result.
+The source is an AI-generated illustrative working scene. The people are fictional; they are not Zapla customers, staff or testimonial subjects. The setting is illustrative and is not represented as a documented customer site.
+Native PNG source retained at:
+/workspace/scratch/31a21d361e63/generated_images/exec-1dfd2006-6b8e-4a21-a682-032afa1f055c.png
+Source dimensions: 1536 x 1024; source bytes: 2,195,704.
+The selected web asset was encoded from the native PNG with Pillow WebP quality=90, method=6. No crop, resampling, compositing or visual retouching was applied.
+
+PURPOSE AND CREATIVE CHECK
+Buyer question: will the person going on site have the job/customer context already discussed?
+The human action is a coordinator and field technician checking a tablet together before travel. The adjacent van makes field work legible without a label.
+This is a supporting editorial photo, not a demonstration of automatic dispatch, automatic assignment, messaging or route generation. Pipeline/customer linkage and route controls must be explained separately in factual website UI.
+A single technician looking at a phone was considered as the alternative. The two-person handover was chosen because shared customer context is clearer, and it does not imply the phone itself proves a Zapla capability.
+The tablet back faces the camera. No software screen, Zapla UI, logo, readable registration or testimonial claim is baked into the image.
+The photograph follows the modernity, observational composition, human/product separation and one-strong-candidate principles in docs/ZAPLA_VIDEO_CREATIVE_SYSTEM.md. It is a still image; no motion was generated.
+
+INSPECTION
+Inspected the generated image and the final WebP at native resolution.
+The two faces are unobstructed and focused on the same tablet. The coordinator's hands support it plausibly; the technician's pointing hand and visible arm join naturally. No obvious duplicated fingers, limbs or face artifacts were observed.
+The van reads as a contemporary plain service vehicle. Slate workwear, pale concrete/stone, dark green architecture and directional daylight fit the requested palette and setting.
+The people and tablet form a central/right cluster. Keep this cluster in view on mobile. The original 3:2 ratio preserves the setting; for a narrower cover crop, begin around object-position: 63% 15% and verify the actual rendered crop. Wider, shallow crops should favour the top so the technician's hair is not cut.
+Suggested alt text: A service coordinator and field technician reviewing job details beside a white van.
+The asset itself is approved for implementation review, not a substitute for rendered page/crop QA. No browser or page integration checks were performed by this image task.
+
+EXACT GENERATION PROMPT
+Use case: photorealistic-natural
+Asset type: a fresh supporting editorial photograph for Zapla's Pipeline Management feature page, showing people sharing job/customer context before travelling to a site. This is an illustrative working scene, not a customer testimonial and not a product screenshot.
+Primary request: create one premium, natural landscape photograph in a 3:2 composition, using entirely new fictional people and no reference-photo identities.
+Scene/backdrop: a contemporary Australian commercial courtyard with tactile pale stone and concrete, restrained dark green architectural detail and a little native planting. A parked modern plain white service van is immediately beside the two people, clearly recognisable as a current service vehicle. No vehicle branding, no readable registration or signage.
+Subjects and action: an East Asian female service-business coordinator in her late thirties or early forties and a white male field technician in his early forties, both wearing contemporary slate workwear. She holds a slim tablet securely; he checks the work with her before leaving for a site. They are focused on the same tablet in a candid practical handover, not looking at the camera, no posed smiles. Faces unobstructed, realistic individual facial features and natural skin texture. The tablet's back and edge face the camera, with no visible product screen. Natural anatomically correct hands, arms and posture, with clear separation of the two people's limbs.
+Composition/framing: editorial landscape, medium-wide view with enough courtyard and van to explain field work. Place both people together in the middle/right, close enough that both faces, hands and tablet survive a mobile portrait crop. Keep comfortable space around both heads. Their focused working interaction is the focal point, the van and setting support it. Use natural depth and a calm environment, without decorative objects.
+Lighting/mood: natural directional daylight, believable shadows, premium observational documentary-commercial photography. Candid, capable and contemporary; understated, not glossy stock posing. Restrained deep green, slate, white and stone palette with natural colour and tactile materials.
+Constraints: one photograph only; no montage, no typography, no logos, no watermark, no testimonial styling, no UI overlays, no charts, no fake software screen, no exaggerated gestures, no artificial bokeh, no face-forward posing, no duplicated limbs or distorted hands. Preserve realistic proportions and a clean, believable modern van.
+
+
+DELIVERY PACKAGING, 26 OCTOBER 2026
+The installed SVG contains the 178,112-byte WebP unchanged in a data image. Dimensions remain 1536 x 1024. SVG wrapping uses the working text-tree GitHub endpoint because the binary-blob endpoint stalled. Original raster bytes were verified by decoding and comparing the wrapper.

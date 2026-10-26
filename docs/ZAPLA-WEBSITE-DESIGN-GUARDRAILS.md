@@ -176,3 +176,9 @@ Owner correction, 23 October 2026:
 ## Separate Automation AI demonstration, 26 October 2026
 
 The owner explicitly requested a typed staff request followed by the connected workflow being assembled, in a separate section below the restored nurture hero. This is a scoped exception to the earlier ban on typewriter effects; it does not reopen conversational typing effects elsewhere. Start when the request itself is readable, build once, hold the final draft, pause offscreen and provide the complete static/reduced-motion equivalent. The previous Email preferred? diagram and its surrounding feature list were rejected for weak commercial value and are removed. Do not reintroduce an abstract condition merely to demonstrate branching. The original work photo now carries a white heading over open space, with faces unobstructed. The FAQ is one large rounded container rather than a full-width background band.
+
+## Recognisable Pipeline stages and route planning, 26 October 2026
+
+The owner rejected the Pipeline draft because its focal-card composition did not resemble pipeline stages. Keep the work inside continuous stage columns with compact cards and clear boundaries. Do not restore the earlier three-feature-card hero, repeated two-lane explanation or decorative numbered treatments. Stage colour may identify the shallow stage caps; it is not a reason to return to pastel feature tiles.
+
+Route planning belongs visibly to Pipeline: selected pipeline jobs, a planned stop order, a driver/date and the phone directions handoff. Preserve the difference between opportunity responsibility and route driver. The supplied in-app map is Mapbox/OpenStreetMap; Google Maps is the owner-confirmed mobile destination. Preserve attribution when using the actual map and do not invent a fresh optimisation result, automatic dispatch or performance savings. Desktop and tablet can keep map and details together; small screens must keep both legible in normal flow.

@@ -4,17 +4,18 @@ import { PipelineManagementPage } from "@/components/features/PipelineManagement
 export const Route = createFileRoute("/features/pipeline-management")({
   head: () => ({
     meta: [
-      { title: "Pipeline Management | Every Opportunity in View | Zapla" },
+      { title: "Pipeline Management & Route Planning | Zapla" },
       {
         name: "description",
         content:
-          "See where every opportunity stands, who owns it and what happens next. Explore pipeline management connected to Zapla CRM.",
+          "Track opportunities through clear stages, keep the next action visible and plan visit routes from pipeline jobs. Explore Zapla Pipeline Management.",
       },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Pipeline Management | Zapla" },
       {
         property: "og:description",
-        content: "Keep opportunities, customer context and follow up connected in Zapla.",
+        content:
+          "Clear stages, shared customer context and route planning from the jobs already in your pipeline.",
       },
     ],
   }),

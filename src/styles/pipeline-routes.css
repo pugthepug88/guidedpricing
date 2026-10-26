@@ -1,0 +1,462 @@
+.zapla-pipeline .pr-routes {
+  padding: 28px 0 92px;
+  background: #fcfcfa;
+  scroll-margin-top: 88px;
+}
+
+.zapla-pipeline .pr-panel {
+  padding: 40px;
+  border-radius: 36px;
+  background: #1e2b29;
+  color: #fcfcfa;
+}
+
+.zapla-pipeline .pr-intro {
+  display: grid;
+  grid-template-columns: 1.2fr 0.85fr;
+  align-items: end;
+  gap: 48px;
+  margin-bottom: 30px;
+}
+
+.zapla-pipeline .pr-intro .pf-eyebrow {
+  margin-bottom: 14px;
+  color: #d3dcd5;
+}
+
+.zapla-pipeline .pr-intro h2 {
+  max-width: 650px;
+  color: #fcfcfa;
+  font-family: "Inter Tight", Outfit, Manrope, sans-serif;
+  font-size: clamp(36px, 3.5vw, 48px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.zapla-pipeline .pr-intro-copy {
+  max-width: 420px;
+  padding-bottom: 3px;
+  color: #d1dad5;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.zapla-pipeline .pr-route-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.85fr) minmax(280px, 1fr);
+  align-items: center;
+  gap: 38px;
+  width: 100%;
+  max-width: 1010px;
+  margin-inline: auto;
+}
+
+.zapla-pipeline .pr-map-figure {
+  min-width: 0;
+  margin: 0;
+}
+
+/* The supplied 1060 × 1173 screenshot is kept intact. Only its complete
+   880 × 792 map rectangle is exposed, including the original attribution. */
+.zapla-pipeline .pr-map-crop {
+  position: relative;
+  aspect-ratio: 880 / 792;
+  overflow: hidden;
+  border: 1px solid #e0e4e1;
+  border-radius: 18px;
+  background: #f3f3f3;
+}
+
+.zapla-pipeline .pr-map-source {
+  position: absolute;
+  top: -23.989899%;
+  left: -15%;
+  display: block;
+  width: 120.454546%;
+  max-width: none;
+  height: auto;
+}
+
+.zapla-pipeline .pr-map-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px 16px;
+  margin-top: 12px;
+  color: #c5d0c9;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.zapla-pipeline .pr-route-side {
+  min-width: 0;
+  width: 100%;
+}
+
+.zapla-pipeline .pr-phone-disclosure {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.zapla-pipeline .pr-phone-disclosure > summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-bottom: 16px;
+  padding: 11px 18px;
+  border: 1px solid #b8c8bd;
+  border-radius: 999px;
+  background: transparent;
+  color: #fcfcfa;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  list-style: none;
+  cursor: pointer;
+}
+
+.zapla-pipeline .pr-phone-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.zapla-pipeline .pr-phone-disclosure > summary:hover {
+  border-color: #fff;
+  background: #ffffff0a;
+}
+
+.zapla-pipeline .pr-phone-disclosure > summary:focus-visible {
+  outline: 3px solid #8fb1ff;
+  outline-offset: 5px;
+}
+
+.zapla-pipeline .pr-show-planning,
+.zapla-pipeline .pr-phone-disclosure[open] .pr-show-phone,
+.zapla-pipeline .pr-phone-disclosure[open] + .pr-planning-view {
+  display: none;
+}
+
+.zapla-pipeline .pr-phone-disclosure[open] .pr-show-planning {
+  display: inline;
+}
+
+.zapla-pipeline .pr-planning-view {
+  padding: 25px 26px 23px;
+  border: 1px solid #e4e8e3;
+  border-radius: 20px;
+  background: #fff;
+  color: #111318;
+}
+
+.zapla-pipeline .pr-surface-label {
+  margin-bottom: 10px;
+  color: #58655f;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.zapla-pipeline .pr-planning-view h3,
+.zapla-pipeline .pr-phone h3 {
+  margin: 0;
+  color: #17231e;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.zapla-pipeline .pr-pipeline-source {
+  margin-top: 8px;
+  color: #58655f;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.zapla-pipeline .pr-pipeline-source strong {
+  color: #26392e;
+  font-weight: 600;
+}
+
+.zapla-pipeline .pr-route-facts {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 12px;
+  margin: 21px 0 20px;
+}
+
+.zapla-pipeline .pr-route-facts dt {
+  margin-bottom: 7px;
+  color: #637068;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.zapla-pipeline .pr-route-facts dd {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+  margin: 0;
+  color: #26392e;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.zapla-pipeline .pr-driver-portrait {
+  display: block;
+  flex: 0 0 27px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-image: url("/concept/revenue/soft-autumn-portraits-v1.webp");
+  background-position: 40% 33.333333%;
+  background-repeat: no-repeat;
+  background-size: 600% 400%;
+}
+
+.zapla-pipeline .pr-stop-list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #e2e7e1;
+  list-style: none;
+}
+
+.zapla-pipeline .pr-stop-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 58px;
+  padding-block: 9px;
+  border-bottom: 1px solid #e2e7e1;
+}
+
+.zapla-pipeline .pr-stop-list strong {
+  display: block;
+  color: #1c2b23;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.zapla-pipeline .pr-stop-job {
+  min-width: 0;
+}
+
+.zapla-pipeline .pr-stop-job > span {
+  display: block;
+  margin-top: 3px;
+  color: #637068;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.zapla-pipeline .pr-stop-position {
+  flex-shrink: 0;
+  color: #637068;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.zapla-pipeline .pr-phone {
+  width: min(100%, 320px);
+  margin-inline: auto;
+  padding: 20px 20px 18px;
+  border: 6px solid #121b17;
+  border-radius: 34px;
+  background: #fff;
+  color: #111318;
+  box-shadow:
+    0 0 0 1px #597062,
+    0 14px 28px #09181133;
+}
+
+.zapla-pipeline .pr-phone h3 {
+  font-size: 23px;
+}
+
+.zapla-pipeline .pr-phone .pr-route-facts {
+  margin-top: 16px;
+  margin-bottom: 14px;
+}
+
+.zapla-pipeline .pr-phone .pr-stop-list li {
+  min-height: 54px;
+  padding-block: 8px;
+}
+
+.zapla-pipeline .pr-phone .pr-stop-list strong {
+  font-size: 14px;
+}
+
+.zapla-pipeline .pr-maps-handoff {
+  margin-top: 16px;
+}
+
+.zapla-pipeline .pr-maps-handoff > strong {
+  display: block;
+  color: #1e2b29;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.zapla-pipeline .pr-maps-handoff > p {
+  margin-top: 7px;
+  color: #58655f;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1100px) {
+  .zapla-pipeline .pr-panel {
+    padding: 36px;
+  }
+
+  .zapla-pipeline .pr-intro {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 30px;
+  }
+
+  .zapla-pipeline .pr-intro h2 {
+    font-size: 40px;
+  }
+
+  .zapla-pipeline .pr-route-layout {
+    gap: 26px;
+  }
+}
+
+@media (max-width: 900px) {
+  .zapla-pipeline .pr-intro {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .zapla-pipeline .pr-intro-copy {
+    max-width: 590px;
+  }
+}
+
+@media (max-width: 750px) {
+  .zapla-pipeline .pr-route-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .zapla-pipeline .pr-map-figure {
+    width: 100%;
+    max-width: 630px;
+    margin-inline: auto;
+  }
+
+  .zapla-pipeline .pr-route-side {
+    max-width: 440px;
+    margin-inline: auto;
+  }
+
+  .zapla-pipeline .pr-planning-view {
+    padding: 27px;
+  }
+}
+
+@media (max-width: 600px) {
+  .zapla-pipeline .pr-routes {
+    padding: 16px 0 64px;
+  }
+
+  .zapla-pipeline .pr-panel {
+    padding: 28px 20px;
+    border-radius: 26px;
+  }
+
+  .zapla-pipeline .pr-intro {
+    gap: 19px;
+    margin-bottom: 27px;
+  }
+
+  .zapla-pipeline .pr-intro .pf-eyebrow {
+    margin-bottom: 13px;
+  }
+
+  .zapla-pipeline .pr-intro h2 {
+    font-size: 35px;
+    line-height: 1.06;
+    text-wrap: initial;
+  }
+
+  .zapla-pipeline .pr-intro-copy {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .zapla-pipeline .pr-route-layout {
+    gap: 24px;
+  }
+
+  .zapla-pipeline .pr-map-crop {
+    border-radius: 12px;
+  }
+
+  .zapla-pipeline .pr-map-caption {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+  }
+
+  .zapla-pipeline .pr-planning-view {
+    padding: 22px;
+  }
+
+  .zapla-pipeline .pr-phone-disclosure > summary {
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 380px) {
+  .zapla-pipeline .pr-panel {
+    padding-inline: 17px;
+  }
+
+  .zapla-pipeline .pr-intro h2 {
+    font-size: 31px;
+  }
+
+  .zapla-pipeline .pr-planning-view {
+    padding: 20px 18px;
+  }
+
+  .zapla-pipeline .pr-route-facts {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .zapla-pipeline .pr-route-facts > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .zapla-pipeline .pr-route-facts dt {
+    margin: 0;
+  }
+
+  .zapla-pipeline .pr-phone {
+    padding-inline: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zapla-pipeline .pr-routes *,
+  .zapla-pipeline .pr-routes *::before,
+  .zapla-pipeline .pr-routes *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
