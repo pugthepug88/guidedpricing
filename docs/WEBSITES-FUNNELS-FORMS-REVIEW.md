@@ -1,5 +1,7 @@
 # Websites, Funnels & Forms: build and review
 
+Historical initial build record. The current composition, acknowledgement-email scope and rendered review supersede this report. See [the 26 October revision](WEBSITES-FUNNELS-FORMS-REVAMP-20261026.md) and the current capability ledger before making further changes.
+
 Date: 2026-10-23 UTC. Route: `/features/websites-funnels-forms`.
 
 ## Direction
