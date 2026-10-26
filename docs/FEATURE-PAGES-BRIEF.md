@@ -333,6 +333,14 @@ Seven connected parts: commercial opening with conversation and resulting contac
 
 Provider help was rechecked on 26 October. Source types, tool/calendar restrictions, testing, appearance and embedding have explicit current documentation. The prepared question controls modify only the local illustration. Native desktop booking anchoring is measured and bounded, with complete normal-flow fallbacks. No live AI, contact or calendar service is invoked, and no customer evidence, reporting or other Birdeye-only claim is invented. Exact evidence, reference decisions, copy changes, rendered checks and limits are in the Chatbot capability/review files. Build, TypeScript, targeted lint, SEO, formatting and whitespace pass, and the final source deployment succeeds. Rendered review covers wide/standard desktop, a minimum fitting scene, short-height fallback, the complete phone walkthrough, key tablet and targeted 320px views. Source/answer keyboard changes, native booking hold/release, consent and booked-slot consistency, photo crop, FAQ, anchor and sales navigation were checked. Exact coverage, corrections and limits are in the review; no real-product or owner approval is implied. Lovable remains read-only; no builder prompt or production Publish action.
 
+## Automation AI section and owner correction, 26 October 2026
+
+The owner rejected placing the AI request/build inside the hero, the Email preferred? diagram and the weak surrounding capability section. The earlier positive implementation review does not establish owner approval. Restore the pre-AI nurture opening and its bounded explanation; retain the approved silver frame and white cards. Keep generic task promises out because the live audit did not establish a dedicated Create Task action.
+
+A separate AI Flow Builder scene types a plain-English request, then assembles the six connected nodes of the same form-enquiry nurture. The request finishes before nodes appear. It plays once when the prompt is readable, holds the editable draft, pauses offscreen and supports explicit replay. Static and reduced-motion versions retain the full request and workflow. The demonstrated benefit is constructing a workflow from a description, not running it or making an autonomous customer decision.
+
+Remove the preference diagram and its four event/action rows rather than adding another weak branching example. Put Keep your team on the work that needs them. in white over the original photograph, clear of faces, and contain the FAQ in a large rounded neutral panel. H1, final CTA, Guided Launch scope, factual FAQs, root navigation/footer, draft indexing and booking destination remain. Exact rendered review and remaining limits belong in AUTOMATION-BUILDER-REVIEW.md. Changes go through GitHub; Lovable stays read-only with no separate Publish action.
+
 
 ## Calendars contained formats and native meetings, 26 October 2026
 

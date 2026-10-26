@@ -172,3 +172,7 @@ Owner correction, 23 October 2026:
 - The hero's horizontal menu of five formats was rejected as cheap. Lead with a useful booking scene and show the five formats clearly without reproducing that menu.
 - Consolidate related booking, confirmation, reminder, availability and customer context when separate sections fragment the story. Fewer purposeful scenes must still explain all five formats accurately.
 - A claimed sticky continuation must visibly hold beside the following explanation and release naturally. Padding outside its actual containing area does not establish a hold; inspect entry, full state and release.
+
+## Separate Automation AI demonstration, 26 October 2026
+
+The owner explicitly requested a typed staff request followed by the connected workflow being assembled, in a separate section below the restored nurture hero. This is a scoped exception to the earlier ban on typewriter effects; it does not reopen conversational typing effects elsewhere. Start when the request itself is readable, build once, hold the final draft, pause offscreen and provide the complete static/reduced-motion equivalent. The previous Email preferred? diagram and its surrounding feature list were rejected for weak commercial value and are removed. Do not reintroduce an abstract condition merely to demonstrate branching. The original work photo now carries a white heading over open space, with faces unobstructed. The FAQ is one large rounded container rather than a full-width background band.

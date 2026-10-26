@@ -117,27 +117,6 @@
   margin-top: 25px !important;
   max-width: 490px;
 }
-.ab-ai-request {
-  margin-top: 20px;
-  padding: 15px 17px;
-  border: 1px solid #c7d0d6;
-  border-radius: 13px;
-  background: #fff;
-  box-shadow: 0 3px 12px #23384c08;
-}
-.ab-ai-request > span {
-  display: block;
-  margin-bottom: 6px;
-  color: #56636b;
-  font-size: 11px;
-  font-weight: 650;
-  line-height: 1.5;
-}
-.zapla-automation .ab-ai-request p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #263944;
-}
 .ab-actions {
   display: flex;
   flex-wrap: wrap;
@@ -217,19 +196,6 @@
 }
 .ab-board-heading svg {
   flex-shrink: 0;
-}
-.ab-board-heading small {
-  color: #233843;
-  font-size: 11px;
-  font-weight: 650;
-}
-.zapla-automation .ab-draft-note {
-  margin-top: 18px;
-  color: #f7f9fb;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.6;
-  text-align: center;
 }
 .zapla-automation .ab-entry-label {
   margin: 14px 0 8px;
@@ -384,8 +350,10 @@
 }
 .ab-story-notes {
   grid-column: 1 / -1;
-  max-width: 760px;
-  padding-top: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 90px;
+  padding-top: 66px;
 }
 .ab-story-beat h2 {
   font-size: 38px;
@@ -416,7 +384,7 @@
   padding: 35px 0 45px;
 }
 .ab-opening[data-pin="true"] .ab-story-beat:last-child {
-  min-height: 470px;
+  min-height: 380px;
 }
 .ab-opening[data-pin="true"] .ab-message-node {
   transition:
@@ -430,247 +398,31 @@
     inset 0 0 0 1px #ffffff;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .ab-flow-board[data-introduced="true"] .ab-entry-events {
-    animation: ab-assemble 0.7s ease-out both;
-  }
-  .ab-flow-board[data-introduced="true"] .ab-entry-merge {
-    animation: ab-connect 0.4s ease-out 0.4s both;
-    transform-origin: top;
-  }
   .ab-flow-board[data-introduced="true"] .ab-message-node {
-    animation: ab-assemble 0.75s ease-out 0.65s both;
+    animation: ab-clarify 0.8s ease-out both;
   }
   .ab-flow-board[data-introduced="true"] .ab-sequence-piece:nth-child(2) .ab-message-node {
-    animation-delay: 1.55s;
+    animation-delay: 0.16s;
   }
   .ab-flow-board[data-introduced="true"] .ab-sequence-piece:nth-child(3) .ab-message-node {
-    animation-delay: 2.45s;
-  }
-  .ab-flow-board[data-introduced="true"] .ab-wait > span {
-    animation: ab-assemble 0.6s ease-out 1.2s both;
-  }
-  .ab-flow-board[data-introduced="true"] .ab-wait::before {
-    animation: ab-connect 0.4s ease-out 1.05s both;
-    transform-origin: top;
-  }
-  .ab-flow-board[data-introduced="true"] .ab-sequence-piece:nth-child(3) .ab-wait > span {
-    animation-delay: 2.1s;
-  }
-  .ab-flow-board[data-introduced="true"] .ab-sequence-piece:nth-child(3) .ab-wait::before {
-    animation-delay: 1.95s;
+    animation-delay: 0.32s;
   }
 }
-@keyframes ab-connect {
+@keyframes ab-clarify {
   from {
-    opacity: 0.18;
-    transform: scaleY(0);
+    opacity: 0.76;
   }
   to {
     opacity: 1;
-    transform: scaleY(1);
   }
 }
-@keyframes ab-assemble {
-  from {
-    opacity: 0.18;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.ab-review-setting {
-  margin-top: 23px;
-  padding: 18px 0;
-  border-top: 1px solid #bfcbd1;
-  border-bottom: 1px solid #bfcbd1;
-}
-.ab-review-setting > span {
-  display: block;
-  color: #263d48;
-  font-size: 13px;
-  font-weight: 650;
-  margin-bottom: 13px;
-}
-.ab-review-setting dl > div {
-  display: grid;
-  grid-template-columns: 132px 1fr;
-  align-items: baseline;
-  gap: 20px;
-  margin-top: 9px;
-}
-.ab-review-setting dt {
-  color: #69757c;
-  font-size: 12px;
-  line-height: 1.65;
-}
-.ab-review-setting dd {
-  margin: 0;
-  color: #263d48;
-  font-size: 14px;
-  line-height: 1.65;
-}
-/* Rules and selected events prove range without a feature-card catalogue. */
+/* The business photograph changes scale without another coloured band. */
 .ab-editorial {
-  padding: 24px 0 78px;
-}
-.ab-range-heading {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  align-items: end;
-  gap: 90px;
-  margin-bottom: 48px;
-}
-.ab-range-heading h2 {
-  max-width: 600px;
-}
-.ab-range-heading > p {
-  max-width: 460px;
-}
-.ab-rule-range {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 85px;
-  align-items: start;
-}
-.ab-condition-scene figcaption {
-  margin: 0 auto 22px;
-  max-width: 330px;
-  color: #53616a;
-  font-size: 14px;
-  line-height: 1.65;
-  text-align: center;
-}
-.ab-condition-question {
-  position: relative;
-  max-width: 280px;
-  margin: 0 auto;
-  padding: 17px 20px;
-  border: 1px solid #bac6cd;
-  border-radius: 13px;
-  background: #fff;
-  text-align: center;
-}
-.ab-condition-question > span {
-  display: block;
-  margin-bottom: 5px;
-  color: #69757c;
-  font-size: 11px;
-  line-height: 1.5;
-}
-.ab-condition-question h3 {
-  color: #22343d;
-  font-size: 21px;
-  font-weight: 600;
-  letter-spacing: -0.025em;
-}
-.ab-condition-question::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -20px;
-  width: 1px;
-  height: 19px;
-  background: #87949c;
-}
-.ab-condition-paths {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 24px;
-  margin-top: 38px;
-}
-.ab-condition-paths::before {
-  content: "";
-  position: absolute;
-  left: calc(25% - 6px);
-  right: calc(25% - 6px);
-  top: -19px;
-  height: 1px;
-  background: #87949c;
-}
-.ab-condition-paths > div {
-  position: relative;
-  text-align: center;
-}
-.ab-condition-paths > div::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: -19px;
-  width: 1px;
-  height: 54px;
-  background: #87949c;
-}
-.ab-path-label {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 13px;
-  padding: 1px 8px;
-  color: #576871;
-  background: var(--feature-paper);
-  font-size: 11px;
-  line-height: 1.6;
-}
-.ab-condition-paths > div > div {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 15px 12px;
-  border: 1px solid #bac6cd;
-  border-radius: 11px;
-  background: #fff;
-  color: #273c47;
-}
-.ab-condition-paths strong {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.5;
-}
-.ab-condition-paths svg {
-  flex-shrink: 0;
-}
-.zapla-automation .ab-condition-scene > p {
-  margin-top: 20px;
-  color: #69757c;
-  font-size: 12px;
-  line-height: 1.65;
-  text-align: center;
-}
-.ab-event-range h3 {
-  margin-bottom: 19px;
-  color: #263944;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
-}
-.ab-event-range dl > div {
-  padding: 15px 0;
-  border-top: 1px solid #ccd4d9;
-}
-.ab-event-range dl > div:last-child {
-  border-bottom: 1px solid #ccd4d9;
-}
-.ab-event-range dt {
-  margin-bottom: 4px;
-  color: #69757c;
-  font-size: 12px;
-  line-height: 1.6;
-}
-.ab-event-range dd {
-  margin: 0;
-  color: #273c47;
-  font-size: 15px;
-  font-weight: 550;
-  line-height: 1.6;
+  padding: 24px 0 88px;
 }
 .ab-work-photo {
+  position: relative;
   overflow: hidden;
-  margin-top: 65px !important;
   border-radius: 27px;
   aspect-ratio: 3 / 1;
   background: #252c2c;
@@ -682,13 +434,26 @@
   object-fit: cover;
   object-position: center;
 }
-.zapla-automation .ab-photo-caption {
-  margin-top: 22px;
-  color: #34443f;
-  font-size: 23px;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.025em;
+.ab-work-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #09120fd9, #09120f35 55%, transparent 73%);
+  pointer-events: none;
+}
+.ab-work-photo figcaption {
+  position: absolute;
+  z-index: 1;
+  left: 44px;
+  bottom: 40px;
+  width: 42%;
+  max-width: 450px;
+}
+.ab-work-photo figcaption h2 {
+  color: #fff;
+  font-size: clamp(36px, 3.5vw, 48px);
+  line-height: 1.06;
+  text-wrap: balance;
 }
 /* Launch and control belong together in one practical working plan. */
 .ab-setup {
@@ -784,8 +549,14 @@
   margin-top: 9px;
 }
 .ab-faq {
-  padding: 90px 0;
-  background: #f2f5f7;
+  padding: 20px 0 58px;
+  background: var(--feature-paper);
+}
+.ab-faq-panel {
+  padding: 62px;
+  border: 1px solid #dce2e5;
+  border-radius: 30px;
+  background: #f0f3f5;
 }
 .ab-faq-grid {
   display: grid;
@@ -863,8 +634,7 @@
   .ab-flow-board {
     padding-inline: 20px;
   }
-  .ab-range-heading,
-  .ab-rule-range,
+  .ab-photo-intro,
   .ab-setup-grid {
     gap: 55px;
   }
@@ -916,16 +686,6 @@
   .ab-editorial {
     padding: 15px 0 72px;
   }
-  .ab-range-heading {
-    gap: 35px;
-    align-items: start;
-  }
-  .ab-rule-range {
-    gap: 40px;
-  }
-  .ab-range-heading h2 {
-    font-size: 42px;
-  }
   .ab-work-photo {
     aspect-ratio: 2.5 / 1;
   }
@@ -949,7 +709,10 @@
     gap: 32px;
   }
   .ab-faq {
-    padding: 75px 0;
+    padding: 20px 0 55px;
+  }
+  .ab-faq-panel {
+    padding: 42px;
   }
   .ab-final h2 {
     font-size: 54px;
@@ -1079,38 +842,22 @@
   .ab-editorial {
     padding: 10px 0 57px;
   }
-  .ab-range-heading {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    margin-bottom: 35px;
-  }
-  .ab-range-heading h2 {
-    font-size: 37px;
-  }
-  .ab-rule-range {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .ab-condition-question {
-    max-width: 250px;
-  }
-  .ab-review-setting dl > div {
-    grid-template-columns: 1fr;
-    gap: 4px;
-    margin-top: 12px;
-  }
-  .ab-ai-request {
-    padding: 14px 15px;
-  }
-  .zapla-automation .ab-ai-request p {
-    font-size: 13px;
-  }
-  .zapla-automation .ab-photo-caption {
-    font-size: 21px;
-  }
   .ab-work-photo {
-    aspect-ratio: 1.18 / 1;
+    aspect-ratio: 1 / 1;
     border-radius: 20px;
+  }
+  .ab-work-photo::after {
+    background: linear-gradient(0deg, #09120fed, #09120f1c 68%, transparent);
+  }
+  .ab-work-photo figcaption {
+    left: 23px;
+    bottom: 24px;
+    width: calc(100% - 46px);
+    max-width: 280px;
+  }
+  .ab-work-photo figcaption h2 {
+    font-size: 32px;
+    max-width: 280px;
   }
   .ab-work-photo img {
     object-position: 78% center;
@@ -1139,7 +886,14 @@
     font-size: 13px;
   }
   .ab-faq {
-    padding: 63px 0;
+    padding: 15px 0 45px;
+  }
+  .ab-faq-panel {
+    padding: 28px 23px;
+    border-radius: 24px;
+  }
+  .ab-faq-panel h2 {
+    font-size: 32px;
   }
   .ab-faq summary {
     padding: 21px 0;
@@ -1166,10 +920,6 @@
 @media (max-width: 360px) {
   .ab-wrap {
     padding-inline: 17px;
-  }
-  .ab-condition-paths > div > div {
-    gap: 7px;
-    padding-inline: 8px;
   }
   .zapla-automation h1 {
     font-size: 39px;
@@ -1212,5 +962,406 @@
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Separate AI construction demonstration: request first, then connected draft. */
+.ab-ai-section {
+  padding: 12px 0 48px;
+  scroll-margin-top: 94px;
+}
+.ab-ai-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "copy workflow" "prompt workflow" "review workflow";
+  align-items: start;
+  align-content: center;
+  column-gap: 72px;
+  row-gap: 24px;
+  padding: 54px 64px;
+  border: 1px solid #40554a;
+  border-radius: 30px;
+  background: #1e2b29;
+  color: #fff;
+}
+.ab-ai-demo > * {
+  min-width: 0;
+}
+.ab-ai-copy {
+  grid-area: copy;
+}
+.zapla-automation .ab-ai-copy .ab-eyebrow {
+  margin-bottom: 14px;
+  color: #ddbaa1;
+}
+.ab-ai-copy h2 {
+  max-width: 450px;
+  color: #fff;
+  font-size: 46px;
+  line-height: 1.04;
+}
+.zapla-automation .ab-ai-copy > p:last-child {
+  margin-top: 19px;
+  max-width: 410px;
+  color: #d6dfda;
+  line-height: 1.7;
+}
+.ab-ai-prompt {
+  grid-area: prompt;
+  padding: 20px 23px 22px;
+  border: 1px solid #fff;
+  border-radius: 15px;
+  background: #fff;
+  color: #213631;
+}
+.ab-ai-prompt figcaption {
+  margin-bottom: 10px;
+  color: #52655e;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.ab-ai-prompt blockquote {
+  position: relative;
+  margin: 0;
+  min-height: 112px;
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.ab-ai-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.ab-ai-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: #213631;
+}
+.ab-ai-demo[data-phase="typing"] .ab-ai-cursor {
+  animation: ab-ai-type-cursor 0.7s step-end infinite;
+}
+@keyframes ab-ai-type-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+.ab-ai-workflow {
+  grid-area: workflow;
+  align-self: center;
+  width: 100%;
+  max-width: 355px;
+  margin-inline: auto !important;
+}
+.ab-ai-workflow figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 19px;
+  color: #e8eee9;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ab-ai-workflow ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ab-ai-step {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+.ab-ai-step + .ab-ai-step {
+  margin-top: 15px;
+}
+.ab-ai-connection {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 1px;
+  height: 15px;
+  background: #a5b3ab;
+  transform-origin: top;
+}
+.ab-ai-node {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 17px;
+  border: 1px solid #dce3df;
+  border-radius: 11px;
+  background: #fff;
+  color: #233930;
+}
+.ab-ai-node svg {
+  flex-shrink: 0;
+}
+.ab-ai-node strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+.zapla-automation .ab-ai-node p {
+  margin-top: 3px;
+  color: #52665c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.ab-ai-step-trigger {
+  max-width: 285px;
+}
+.ab-ai-step-trigger .ab-ai-node {
+  justify-content: center;
+  text-align: center;
+}
+.ab-ai-step-wait {
+  max-width: 155px;
+}
+.ab-ai-step-wait .ab-ai-node {
+  padding: 7px 13px;
+  justify-content: center;
+  border-radius: 6px;
+  background: #edf1ee;
+}
+.ab-ai-step-wait strong {
+  font-size: 12px;
+  font-weight: 550;
+}
+.ab-ai-workflow figcaption,
+.ab-ai-node {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+.ab-ai-connection {
+  transition:
+    opacity 0.24s ease,
+    transform 0.28s ease;
+}
+.ab-ai-workflow figcaption[data-visible="false"],
+.ab-ai-step[data-visible="false"] .ab-ai-node {
+  opacity: 0;
+  transform: translateY(7px);
+}
+.ab-ai-step[data-visible="false"] .ab-ai-connection {
+  opacity: 0;
+  transform: scaleY(0);
+}
+.ab-ai-review {
+  grid-area: review;
+}
+.zapla-automation .ab-ai-review p {
+  max-width: 340px;
+  color: #c5d2ca;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.ab-ai-review button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.ab-ai-review button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 5px;
+}
+@media (max-width: 1200px) {
+  .ab-ai-demo {
+    padding: 42px;
+    column-gap: 42px;
+  }
+  .ab-ai-copy h2 {
+    font-size: 42px;
+  }
+}
+@media (max-width: 900px) {
+  .ab-ai-demo {
+    padding: 34px;
+    column-gap: 30px;
+  }
+  .ab-ai-copy h2 {
+    font-size: 38px;
+  }
+  .ab-ai-prompt {
+    padding: 17px;
+  }
+  .ab-ai-prompt blockquote {
+    font-size: 16px;
+    min-height: 132px;
+  }
+  .ab-ai-node {
+    padding-inline: 13px;
+  }
+  .ab-work-photo figcaption {
+    left: 30px;
+    bottom: 30px;
+    width: 48%;
+  }
+}
+@media (max-width: 760px) {
+  .ab-ai-demo {
+    grid-template-columns: 1fr;
+    grid-template-areas: "copy" "prompt" "workflow" "review";
+    row-gap: 23px;
+    padding: 30px;
+  }
+  .ab-ai-copy h2 {
+    max-width: 450px;
+  }
+  .ab-ai-workflow {
+    max-width: 360px;
+  }
+  .ab-ai-prompt blockquote {
+    min-height: 80px;
+  }
+  .ab-ai-review {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .ab-ai-review p {
+    max-width: 340px;
+  }
+  .ab-ai-review button {
+    flex-shrink: 0;
+    margin: 0;
+  }
+}
+@media (max-width: 640px) {
+  .ab-ai-section {
+    padding: 10px 0 32px;
+  }
+  .ab-ai-demo {
+    padding: 27px 23px;
+    row-gap: 21px;
+    border-radius: 24px;
+  }
+  .ab-ai-copy h2 {
+    font-size: 34px;
+    max-width: 310px;
+  }
+  .zapla-automation .ab-ai-copy .ab-eyebrow {
+    margin-bottom: 12px;
+  }
+  .zapla-automation .ab-ai-copy > p:last-child {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .ab-ai-prompt {
+    padding: 16px 17px 18px;
+    border-radius: 12px;
+  }
+  .ab-ai-prompt blockquote {
+    min-height: 105px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .ab-ai-prompt figcaption {
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+  .ab-ai-workflow figcaption {
+    margin-bottom: 15px;
+    font-size: 12px;
+  }
+  .ab-ai-node {
+    padding: 10px 13px;
+    gap: 9px;
+  }
+  .ab-ai-node strong {
+    font-size: 13px;
+  }
+  .zapla-automation .ab-ai-node p {
+    display: none;
+  }
+  .ab-ai-step + .ab-ai-step {
+    margin-top: 12px;
+  }
+  .ab-ai-connection {
+    height: 12px;
+  }
+  .ab-ai-step-wait .ab-ai-node {
+    padding-block: 6px;
+  }
+  .ab-ai-review {
+    gap: 12px;
+  }
+  .zapla-automation .ab-ai-review p {
+    font-size: 11px;
+    line-height: 1.65;
+  }
+  .ab-ai-review button {
+    font-size: 11px;
+    gap: 5px;
+  }
+  .ab-work-photo figcaption {
+    left: 23px;
+    bottom: 24px;
+    width: calc(100% - 46px);
+  }
+}
+@media (max-width: 360px) {
+  .ab-ai-demo {
+    padding: 24px 18px;
+  }
+  .ab-ai-copy h2 {
+    font-size: 31px;
+  }
+  .ab-ai-prompt {
+    padding-inline: 13px;
+  }
+  .ab-ai-prompt blockquote {
+    min-height: 125px;
+  }
+  .ab-ai-node {
+    padding-inline: 10px;
+    gap: 7px;
+  }
+  .ab-ai-node strong {
+    font-size: 12px;
+  }
+  .ab-ai-node svg {
+    width: 14px;
+  }
+  .ab-work-photo figcaption h2 {
+    font-size: 29px;
+  }
+  .ab-faq-panel {
+    padding-inline: 19px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ab-ai-node,
+  .ab-ai-connection,
+  .ab-ai-workflow figcaption {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
