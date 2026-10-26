@@ -56,3 +56,10 @@ Prepared knowledge examples cover old-system removal, an assessment and service-
 ## Public-copy correction, 26 October 2026
 
 The owner rejected placeholder email addresses across the active feature pages. The visitor's reply now shows Mia's name and “Email address shared”; the resulting record says “Name and email captured”, and the acknowledgement names Mia as its recipient. The supplied-before-created relationship remains visible without printing a fictitious address. This is a presentation change to the fixed demonstration, not new contact-capture, validation or messaging behaviour.
+
+
+## Superseding composition correction, 26 October 2026
+
+The owner rejected the oversized transcript and sparse result panels, then authorised a compact composition rebuild. Keep the current fixed facts, supported source types and capability limits. The source library and factual excerpts are prepared service-business information, not screenshots of actual application controls or tenant data. There are no dummy upload/send controls. Question choices update only local prepared content.
+
+The hero now combines a narrow widget with a smaller record, chosen stage and configured email subject. The standalone email scene is removed. Booking is a single complete offer/agreement/appointment composition in normal document flow. This supersedes every earlier description of pinned Chatbot progression, measured fit gates or scroll-triggered reveals. No JavaScript or motion enhancement is required to see the contact or booking. Native question selection and FAQ disclosure remain. See AI-CHATBOT-COMPOSITION-20261026.md for the rendered review.
