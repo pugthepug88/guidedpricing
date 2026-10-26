@@ -64,8 +64,7 @@ function EnquiryOpening() {
           <header>
             <p className="cb-eyebrow">AI Chatbot</p>
             <h1 id="chatbot-title">
-              Answer the question.
-              <br />
+              Answer the question. <br />
               Capture the enquiry.
             </h1>
           </header>
@@ -345,8 +344,7 @@ function BookingProof() {
           <div className="cb-booking-offer">
             <p className="cb-eyebrow">When the next step is an appointment</p>
             <h2 id="chatbot-booking-heading">
-              Offer a time.
-              <br />
+              Offer a time. <br />
               Book it when they agree.
             </h2>
             <p>
@@ -359,11 +357,7 @@ function BookingProof() {
           </div>
           <div className="cb-booking-agreement" ref={agreementRef}>
             <Message introduce>Yes, please.</Message>
-            <h3>
-              The agreed time,
-              <br />
-              with the right person’s details.
-            </h3>
+            <h3>Mia agrees. Zapla books.</h3>
             <p>
               The booking uses the name Mia already supplied in the conversation. You choose the
               calendars and booking options the chatbot can use.
