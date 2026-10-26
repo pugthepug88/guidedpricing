@@ -307,6 +307,14 @@ Seven substantial parts connect the opening/formats, wide customer booking/confi
 
 Current reference decisions, scoped lens review, exact responsive/state/fallback coverage, screenshots and verification limits are in `CALENDARS-BOOKINGS-SCROLL-REVIEW.md`. Product evidence remains in `CALENDARS-BOOKINGS-EVIDENCE.md`. The PR must be merged before Lovable shows this revision. Source goes through GitHub; Lovable remains read-only, all sales links remain `/booking`, and no production Publish action is authorised.
 
+## Calendars & Bookings revamp, 26 October 2026
+
+The owner rejected the previous pastel confirmation/reminder boxes, hero format menu, bland composition and excessive sectioning. This supersedes the 23 October visual direction. The retained headline now sits beside the actual booking example; date/time, visible customer details, confirmation and reminder share one neutral-paper/deep-ink surface. A measured native sticky hold carries it into its follow-through explanation. Both the containing visual and track include the bounded end allowance. Mobile, short screens, reduced motion and unavailable JavaScript keep the complete static story.
+
+All five types are visible in a compact unboxed comparison. Collective shows several hosts; Round robin highlights one booked host from a team. Event has its own date/slots. No fairness, routing algorithm or conflict guarantee is implied. A fresh consultation photograph leads into one business view combining customer context, staff changes, split hours and Google Calendar / Microsoft 365 / Apple iCloud destinations. Guided Launch and FAQs share a closing chapter. The established final CTA, root navigation/footer and `/booking` remain.
+
+Three substantial product scenes, one combined setup/FAQ chapter and the established final CTA replace the fragmented product chapters and duplicate booking demonstration. Product limits remain in `CALENDARS-BOOKINGS-EVIDENCE.md`; references, role judgements, rendered checks and limitations are in `CALENDARS-BOOKINGS-REVAMP-20261026.md`. No Lovable builder task or production Publish action is authorised.
+
 ## AI Chatbot outcome and product-proof rebuild, 26 October 2026
 
 After a live comparison with Birdeye Webchat, the owner approved rebuilding around a visible contact outcome and more specific demonstrations. This supersedes the integrated hero's H1/supporting-copy lock and the previous eight-part composition. New H1: “Answer the question. Capture the enquiry.” The final CTA, route/indexing, Platform structure, shared navigation/footer and `/booking` are unchanged.

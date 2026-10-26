@@ -2,7 +2,9 @@
 
 **Latest revision:** the nurture revamp dated 25 October 2026 at the end supersedes earlier compact and installation examples. Earlier positive assessments are historical, not owner approval.
 
-**Colour refinement, 26 October 2026:** the owner requested colour within the small workflow containers and asked whether an AC-like neon border would help. See the local colour/rim entry at the end. This reopens the previously neutral illustration treatment, not the page layout or copy.
+**Current correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. All message cards must stay white in every scroll state.
+
+**Subsequent approved scope:** a thin silver frame with faint blue/coral edge reflections, following the owner's “ok go”. The neutral cards and channel treatment stay as corrected. See the final silver-frame entry.
 
 
 **Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the 25 October nurture entry and its verification at the end.
@@ -319,3 +321,29 @@ Text/background contrast calculations for the new opaque channel pairs were Emai
 UI/UX and SME review: entry, send and wait categories are easier to scan without more content. Brand/Creative review: the still coral-to-blue edge is local to the focal board and the paper canvas remains calm; stronger neon was rejected because it would compete with the glass content. Product Marketing and Conversion review: no copy, channel behaviour or business outcome changed. Motion review: no new animation, control or connector treatment; the existing native progression was observed after the size change. Buyer-psychology review: category colour aids orientation without invented urgency/status signals. AI-slop review: no arbitrary colour by day, new decorative icon, bright node outline or pulsing halo. The existing typed workflow and recognised channel symbols carry the meaning.
 
 Remaining limits from the nurture review still apply, including separate reduced-motion/JavaScript-disabled sessions, physical/cross-browser devices, 320px and live product execution. The frame is static, so no additional motion fallback is required. Shared navigation/footer, unrelated pages and the two existing cinematic download files remain untouched. Code was committed through GitHub; Lovable was used read-only with no builder prompt or Publish action.
+
+## Superseding neutral correction, 26 October 2026
+
+The owner rejected the outer coloured rim/neon edge, inconsistent blue-versus-white message cards, pastel email/SMS/WhatsApp highlights and strong beige trigger surfaces. The prior positive colour review did not establish owner approval and its recommendation is withdrawn. The scroll focus had changed the message fill; this created a confusing visual difference between equivalent actions.
+
+The board returns to a neutral slate/white double frame and ordinary shadow. All three message cards use the same solid white fill, including the focused scroll state. Focus keeps a restrained neutral border/shadow instead of changing the fill. Trigger cards use neutral white glass, waits return to neutral grey/white, and the channel labels lose their background fields, padding and chip shape. Only the existing channel symbols retain small colour accents. The texture, workflow logic, copy, motion, photography and page structure remain as before.
+
+This is a CSS-only correction. Formatting and whitespace checks passed; the production build and refreshed rendered verification are recorded below when complete. Earlier colour-rim screenshots are superseded and do not prove this correction.
+
+### Neutral correction: final rendered check
+
+Implementation `855cdc71a35a205d8418c5d5b13d380e9404a353` passed the production build, formatting and whitespace checks. Vercel succeeded and Lovable reported the commit ready. The actual refreshed direct preview displayed the corrected CSS; its board background had the existing texture URL without a gradient rim, and every channel container had a transparent background. The final screenshot is [neutral-correction-20261026.jpg](review-assets/automation-builder/neutral-correction-20261026.jpg).
+
+At 1692px desktop width and 769px viewport height, the board measured 693.53 × 556.73px and still fitted. All three message backgrounds computed to solid `rgb(255, 255, 255)` with no background image at the initial view, Day 2 focus and Day 5 focus. The board held at y=100px during both continuation beats. Message heights remained approximately 74.63 / 96.32 / 96.32px. The stronger shadow/neutral border supplied focus without changing the fill.
+
+The 834px tablet iframe (819px main) showed the complete neutral board and all three white cards in normal flow, with no document overflow. The 393px phone iframe (378px main) showed the full 350 × 577.42px board in normal flow. All three message fills were white, every channel background was transparent, message text remained 14px, and no message/heading/paragraph/trigger or document overflow was found. The actual screenshots confirmed the neon edge, beige trigger tint and pastel label fields were absent, rather than relying only on computed styles.
+
+Review finding: UI/UX and SME comprehension improve through consistent treatment of equivalent message actions. Brand/Creative and AI-slop review remove the rejected excess instead of defending the previous recommendation. Product Marketing, Conversion and Buyer Psychology retain the same understandable nurture logic and booking action without adding visual state meanings. Motion review retains the bounded native progression while keeping every fill white. No claim of owner approval, conversion lift or live workflow execution is made. The unchanged lower page retains its earlier scoped verification, and the previously recorded device/preference/product-test limits still apply. No Lovable builder prompt or Publish action was used.
+
+## Silver frame with confined reflections, 26 October 2026
+
+The owner approved the proposed thin silver frame with a faint blue reflection along one edge and warm coral on the opposite edge. This is a local frame refinement after the neutral correction, not approval to restore the rejected halo, blue cards, beige triggers or channel highlights.
+
+The frame uses a static three-pixel masked metallic band. Two subdued colour reflections are clipped inside that band; there is no coloured outer shadow, blur or animation. The ordinary neutral shadow and inner white hairline remain. CSS feature detection retains a simple neutral border when the masking operation is unavailable. The pseudo-element ignores pointer input and inherits the board's responsive corner radius. It does not change the board's footprint, so the existing measured sticky fit and normal-flow fallbacks remain intact.
+
+All message fills stay solid white and channel container backgrounds stay transparent. No source image, copy, product logic, motion, typography, spacing, photo or lower-page composition is changed. Formatting/build and actual desktop/phone checks are being completed before presentation. The earlier neon-rim screenshot remains superseded.
