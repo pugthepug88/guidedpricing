@@ -498,4 +498,3 @@ These are separate assessments by the implementing author, not independent revie
 | AI-slop critique | 9/10 | No infinity promise, decorative arrow, fabricated metric, fake live send/call, duplicate example sections or pastel feature cards. |
 
 Remaining limits: no separate OS reduced-motion or JavaScript-disabled browser session, assistive-technology session, physical-device/cross-browser matrix, fresh full lower-page review or independent conversion study. Static and reduced-motion fallbacks were source-reviewed. The website invokes no live AI, messages, calls, billing events or Slack actions and collects no visitor input. Lovable stays read-only, with GitHub supplying the source update; no separate Publish action was used.
-
