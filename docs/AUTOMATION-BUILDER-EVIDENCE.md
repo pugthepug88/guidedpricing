@@ -1,6 +1,6 @@
 # Automation Builder: evidence and claim boundaries
 
-**Current implementation:** see “Nurture sequence and channel choices, 25 October 2026” at the end. This supersedes the compact callback/email hero and earlier attempts. Historical sections record previous decisions, not the current design. No live account execution test is claimed.
+**Current implementation:** see “Live product audit and AI drafting, 26 October 2026” at the end. This supersedes earlier capability uncertainties where explicitly resolved. Historical sections record previous decisions, not the current design. Draft generation and configuration were inspected in the live product; no workflow activation, message delivery or customer outcome test is claimed.
 
 Checked **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -160,3 +160,43 @@ The current builder includes `pipeline_item_created`, `tag_changed` with added/r
 The three entry cards show alternatives; they do not assert default deduplication, re-enrolment protection or that all three triggers should be enabled for every business. The tag in the illustration is specifically Nurture. Entry rules, connected accounts, channel choices, reply handling and any required exits are agreed before activation. No universal automatic stop-on-reply, queued-message cancellation, automatic booking, AI-generated message, performance result, usage allowance or channel parity is promised. UI/source evidence remains distinct from live account testing.
 
 The page still owns construction and control. Nurture is one explanation of triggers, waits and actions; Follow-Up and Reactivation retain their business-use-case pages. Draft, validation and run history are consolidated with Guided Launch in one practical plan. The commercial photograph is an original generated print-studio scene, not a customer testimonial; full prompts and exact edit-target provenance are in `automation-nurture-assets-2026-10-25.md`.
+
+## Live product audit and AI drafting, 26 October 2026
+
+The owner authorised a read-through of the signed-in Zapla Automation feature and tests of its AI Flow Builder. The current account exposed **42 Triggers, 8 Logic entries and 69 Actions**. Every entry was selected for inspection. These are palette-entry counts, not independently executed features; Add to Flow appears in both Logic and Actions. Account-specific customer names and identifiers are excluded from this record.
+
+The complete reusable knowledge file is **Zapla-Automation-Knowledge-2026-10-26.md**. It records the catalogue, visible settings, AI construction tests, unknowns, claims to avoid, five awareness stages, page recommendations and a suggested demonstration. It is available in the owner's supplied knowledge deliverables rather than copying account observations into this public repository.
+
+### What the live UI resolves
+
+| Subject | Observed configuration | Public-page use |
+| --- | --- | --- |
+| AI Flow Builder | Conversational construction and edits; a simple six-node nurture generated five connections, real two-day and three-day Waits and draft email content. | Plain-English request → editable connected draft → owner review. |
+| Conditions | Criteria with AND/OR groups, property/operator/value and True/False outputs; contact and custom fields available. | An explicitly supplied Email/SMS contact preference can choose between configured paths. No inference of consent or intent. |
+| Operational events | Quote, invoice/payment, appointment, pipeline/opportunity and support-ticket trigger settings were inspected. | Show a small selection alongside messaging, rather than treating automation as only a nurture tool. |
+| Quote conversion | Convert Quote to Invoice states that it creates a new invoice, marks the quote converted and retains the original quote. | Quote accepted → convert quote to invoice is a configured example, not an executed result. |
+| Appointment timing | Date-based waits and appointment-related configuration are present. | A configured reminder before an appointment; no promise of default timing or delivery. |
+| Opportunity and ticket work | Opportunity update/member actions and support-ticket member actions were inspected. | Update details or add the people who should handle the work. Do not label these objects as tasks. |
+| Reply branches | SMS/WhatsApp keyword branches and timeout settings remain supported by the inspected UI. | Explain explicit reply/exit rules; an ordinary Wait is not evidence of universal stop-on-reply. |
+
+### AI test boundaries
+
+The simple nurture draft correctly represented the requested immediate welcome, two-day wait, useful-information message, three-day wait and invitation. A more complex request involving reply interruption and human handover exposed incorrect node typing and missing or unsuitable connections. A conversational correction was not reliably sufficient. The assistant also incorrectly denied a human-handover capability even though Transfer to Human was visible in the manual palette.
+
+These observations justify showing fast draft construction and human review together. They do not justify “builds every automation perfectly”, autonomous activation, universally correct reply handling or a working handover merely because a node has an appropriate label. No draft was saved or activated, no live customer messages were sent, and no run outcome is claimed.
+
+Some manually selected actions did not expose a distinct configuration surface during inspection, including AI Calendar Booking and Generate PDF. Their existence in the palette is not treated as proof that those actions are ready for a particular implementation. No dedicated Create Task action appeared in the inspected 69-entry Actions palette. This supersedes earlier generic supplier-based task examples for the current page: the public illustration uses concrete opportunity and support-ticket actions instead.
+
+### Current demonstration and commercial boundary
+
+The H1 and final CTA remain approved copy. A written request sits beside the existing Day 0/2/5 nurture. Nodes and their connections assemble once; “See the draft take shape” replays the demonstration. The board is labelled Draft and asks the owner to review messages, timing and connections. Animation illustrates construction, not a customer executing the sequence. All content is available in the server-rendered page; reduced-motion and short/small layouts do not require animation or sticky positioning.
+
+Three entry cards remain alternatives and the channel marks remain configuration choices. The separate Email/SMS branching example assumes the form supplies one of those two preference values. It does not infer consent or claim a universal fallback for missing/other values. The selected operational rows are illustrative configurations requiring the relevant record context, connected accounts and review.
+
+Guided Launch is separately priced initial setup for the agreed process, accounts, messages, rules and review. AI draft generation is a distinct product capability. No unlimited implementation, guaranteed delivery, invented time saving or conversion/revenue result is claimed.
+
+### ActiveCampaign reference verification
+
+The supplied roughly 23-second recording was compared against the live Marketing Automation page. Its opening prompt/suggestion animation and later suggested-action animation were embedded videos observed playing on the live page. The branching graphic was a separate static PNG. This resolves the earlier description of the branching image as if it were the same animation.
+
+Adapt the visible request-to-workflow explanation, compact nodes and deliberate pacing. Retain Zapla's own neutral material, petal, typography and page rhythm. Do not copy AC's predictive/recommendation claims, dark-neon presentation or playback controls. Zapla's demonstration is native page motion with a complete static equivalent, rather than an MP4 dependency.

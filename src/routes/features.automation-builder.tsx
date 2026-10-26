@@ -8,7 +8,7 @@ export const Route = createFileRoute("/features/automation-builder")({
       {
         name: "description",
         content:
-          "Build workflows around your business. Choose triggers, timing and actions, keep people involved, and review what ran with Zapla’s Automation Builder.",
+          "Describe your process and let AI build a workflow draft. Review triggers, timing, messages and conditions with Zapla’s Automation Builder.",
       },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Automation Builder | Zapla" },

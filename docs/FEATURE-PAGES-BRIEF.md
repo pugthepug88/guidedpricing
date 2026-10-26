@@ -284,6 +284,16 @@ ADAPT AC's compact node proportions, legible connectors, framed material depth a
 
 The original domestic assessment photo is replaced with newly generated people working beside a commercial wide-format printer. No editorial cast or photograph from another page is reused. The old full-width Draft/Live band and separate generic launch block are consolidated into a useful workflow plan, with control detail retained at the point of setup. Exact asset prompts, source/edit target, rendered checks and remaining limits are documented separately. No Lovable builder prompt or Publish action is used.
 
+## Automation Builder AI drafting and operational range, 26 October 2026
+
+The owner approved adding a concrete explanation of AI construction after a full live-product audit and comparison with the attached ActiveCampaign recording. Preserve the H1, final CTA, neutral nurture material, original print-studio photograph and shared architecture. The current hero support can change to explain AI drafting and visual building.
+
+A plain-English request now sits beside the existing Day 0/2/5 draft. Its nodes and connections assemble once, with a real replay on the explanatory link and no repeating reset. One review beat replaces the repeated Day 2/Day 5 scroll descriptions. A compact customer-preference branch and four open event/action rows show logic and operational range: quotes, appointments, opportunities and support tickets. The photograph becomes a transition with a short caption. Guided Launch covers actual setup and review, separately from the AI assistant. FAQs explain AI output, self-service construction, trigger breadth, reply rules and connection scope.
+
+The live UI exposes 42 Triggers, 8 Logic entries and 69 Actions; these counts are recorded as audit inventory rather than marketed as fully tested features. Simple AI nurture construction worked; complex reply/handover edits needed correction and did not establish a reliable complete configuration. Avoid universal stop-on-reply, generic task promises and autonomous activation. Updated evidence and boundaries are in `AUTOMATION-BUILDER-EVIDENCE.md`; rendered verification belongs in `AUTOMATION-BUILDER-REVIEW.md`.
+
+The page supports five awareness levels through one coherent story: routine work in the opening; the practical follow-up sequence; triggers, waits and branching; AI drafting plus owner control; then separately priced setup and a concrete booking invitation. Do not add five awareness-labelled sections or a catalogue of all available nodes. Code changes go through GitHub; Lovable remains read-only, with no separate Publish action. Preserve noindex and exclusion from the production sitemap.
+
 
 ## Calendars & Bookings capability and visual revision, 23 October 2026
 

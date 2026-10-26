@@ -1,13 +1,13 @@
 # Automation Builder: implementation and review
 
-**Latest revision:** the nurture revamp dated 25 October 2026 at the end supersedes earlier compact and installation examples. Earlier positive assessments are historical, not owner approval.
+**Latest revision:** “AI drafting and operational range, 26 October 2026” at the end supersedes the repeated nurture scroll beats and earlier capability assumptions. The approved silver frame and neutral white nodes remain. Earlier positive assessments are historical, not owner approval.
 
 **Current correction, 26 October 2026:** the owner rejected the coloured rim/glow, blue message fills, pastel channel highlights and strong beige triggers. The neutral correction at the end supersedes the earlier colour/rim recommendation. All message cards must stay white in every scroll state.
 
 **Subsequent approved scope:** a thin silver frame with faint blue/coral edge reflections, following the owner's “ok go”. The neutral cards and channel treatment stay as corrected. See the final silver-frame entry.
 
 
-**Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the 25 October nurture entry and its verification at the end.
+**Historical record below:** the earlier dated sections describe superseded work. Current implementation and rendered evidence are in the final AI-drafting entry.
 
 Reviewed **23 October 2026 (Australia/Sydney)** for `/features/automation-builder`.
 
@@ -357,3 +357,47 @@ At 1692px desktop width and 769px viewport height, the board remained 693.53 × 
 UI/UX and SME review: the edge separates the workflow surface without changing its hierarchy or equivalent white action cards. Brand/Creative review: the silver base and confined reflections follow the approved material direction, while leaving the page's colour coverage intact. Product Marketing, Conversion and Buyer Psychology: no wording, semantics or interaction changes. Motion review: no new motion or layout movement; the native sticky state remains functional. AI-slop review: no pulsing neon, colour-filled labels or extra decoration inside the workflow. These findings are a scoped design review, not final owner acceptance or a conversion claim.
 
 The feature-detection fallback is source-reviewed; no separate browser without mask support was exercised. Earlier lower-page and tablet coverage remains scoped to the dated entries because those layouts were not changed. Existing narrow-device, preference, assistive-technology and live-product testing limits remain. The concurrent Calendars merge and both cinematic download files were preserved. Source went through GitHub; Lovable stayed read-only and no Publish action was used.
+
+## AI drafting and operational range, 26 October 2026
+
+The owner approved implementing the recommendations after the live-product audit and ActiveCampaign recording comparison. This revision keeps the H1, final CTA, original commercial photograph, white nodes and approved thin silver frame. It adds a written AI request, staged draft construction and an explicit review state. One review beat replaces the repeated Day 2/Day 5 copy. A small contact-preference branch and four unboxed operational event/action examples explain more of the actual feature. Guided Launch describes the agreed setup/review work separately from AI drafting, and the FAQs resolve AI, self-service, triggers, replies and integrations.
+
+Product-code commit: `25f92c39a45599e8c75693feb229988e9e72cf35`. The branch preview was necessary because the connected browser could not reach the local development server. Initial preview commits remained in draft PR #186 while the design was checked. The complete source passed production build, TypeScript, targeted ESLint, SEO policy, formatting and whitespace checks. Cloudflare Workers and Vercel deployment checks succeeded. Current main's Calendar and Chatbot changes, including the approved silver frame, were merged into the branch without rewriting history.
+
+### Rendered coverage and corrections
+
+| Surface | Observed result |
+| --- | --- |
+| Wide desktop, 1707 × 769 viewport | Final 693.53 × 593.93px board begins at y=134px and fits. The request and all three configured messages are visible together. The silver edge uses mask-composite exclude with no pseudo-element shadow. No document overflow. |
+| Standard desktop, 1366 × 768 | Complete 688.10 × 593.93px board fits. Native scrolling holds it at y=100px beside the review beat, focuses Day 2 and then releases before the branching section. All three message fills stay white and all settled opacities equal 1. No document overflow. |
+| Short desktop, 1366 × 650 | Measured-fit guard disables pinning. The complete story remains in normal flow and can be reached by ordinary scrolling. No document overflow. |
+| Tablet, 834 × 900 | Opening and complete 754.67 × 594.93px board inspected. Normal flow, with all entry alternatives and messages available. No document overflow. This is a targeted opening/board review, not a full lower-page tablet pass. |
+| Phone, 390 × 844 | The revision walkthrough covered hero, request, board, review settings, preference branch, operational rows, original print-studio crop, setup introduction, whole review panel, FAQs and final CTA/footer transition. Final AI and reply FAQ wording was rechecked after the source refinements. No document overflow. |
+| Narrow phone, 320 × 800 | Targeted hero, complete 633.81px board, review and preference-branch checks. The last refinement reduced branch padding/gap so both Send email and Send SMS labels stay on one 21px line. Final screenshot confirmed aligned action nodes and readable labels. No measured heading/paragraph/definition/strong-text overflow or document overflow. This is not a full lower-page 320px review. |
+
+The first review found low-contrast Draft/review text and an explanatory anchor that did not replay the illustration. Draft moved beside the title on the lighter material; the lower note became white and slightly larger. Clicking “See the draft take shape” now remounts only the illustration and restarts the staged assembly. Immediate observation showed the three message opacities at 0.18, followed by fully visible settled nodes; the connecting merge and wait lines use the corresponding one-shot assembly animation. There is no repeating loop, execution status or implied delivery. The complete static content remains present.
+
+The initial 320px condition made Send email wrap while Send SMS stayed on one line. The final narrower spacing fixed the inconsistency without shrinking the type. The supplied preference is visible before the question; both configured paths stay readable. A later merged silver-frame refinement was preserved and checked on the final preview rather than overwritten by the earlier neutral-border source.
+
+The AI and reply FAQ disclosures opened by click and closed with Enter. All three local sales links retained `/booking`; Plan your first workflow was followed and the actual booking page rendered. No form or email was submitted. The final CTA and shared footer were visually checked on phone. Route metadata retained `noindex, nofollow`; the SEO policy confirmed draft isolation and sitemap exclusion.
+
+### Structured review
+
+These are the implementing author's role-based assessments, not separate independent reviewers, owner acceptance or measured conversion results.
+
+| Review lens | Score | Finding |
+| --- | --- | --- |
+| UI/UX | 9/10 | The request sits beside its connected draft, one review beat shows an actual setting, and the branch states its input. Fitting desktop anchoring releases naturally; smaller/shorter layouts remain readable. Contrast, replay and narrow label alignment were corrected during review. |
+| Brand / Creative | 9/10 | The existing neutral material, confined silver reflections, white cards, Zapla petal/type and original print-studio image remain. Open operational rows and one deep-green review plan provide deliberate variation without another catalogue of coloured cards. |
+| Product Marketing | 9/10 | Plain-English AI construction is now visible. Timed nurture, branching and selected operational work explain useful breadth. Draft construction is distinct from a live run, and Guided Launch is distinct from the AI assistant. |
+| Conversion | 9/10 | A concrete request reduces the effort needed to understand the product. The owner can see what they review and what setup includes. The separately priced setup disclosure and one-process booking invitation make the next step clear. No conversion-lift claim is made. |
+| Motion | 9/10 | Nodes and connections assemble in their causal order once, then hold. The link provides a purposeful replay. The complete composition remains stable; there is no autoplay reset or scroll capture. AC's explanatory pacing informed the sequence without copying its predictive claims or visual theme. |
+| SME buyer | 9/10 | Welcome now, useful information later and an invitation are familiar. Quotes, appointments, opportunities and service tickets show practical uses without requiring the buyer to understand a 119-entry palette. |
+| Buyer psychology | 9/10 | The example turns a request into something reviewable while retaining owner control. Visible timing, messages and reply planning address uncertainty without invented speed, revenue or reliability figures. |
+| AI-slop critique | 9/10 | No fake metrics, task capability inferred from a different object, neon halo, decorative AI sparkles, predictive next-action claim or disconnected control panel. The content and exact topology are code; generated assets remain material and editorial context. |
+
+The five awareness levels are addressed through the page's progression: repeated routine work; a familiar follow-up problem; a visible sequence with timing and conditions; AI construction plus review and broader uses; then setup scope and a concrete sales invitation. They are not five additional sections.
+
+The final actual opening is [ai-draft-20261026.png](review-assets/automation-builder/ai-draft-20261026.png). This is a browser capture of the final product-code preview, not a generated design mockup. The complete audit and tested AI limitations are recorded in the separate knowledge deliverable and the updated capability evidence.
+
+Remaining limits: no independent conversion study, assistive-technology session, physical-device/cross-browser matrix, full lower-page tablet/320px review or separate reduced-motion/JavaScript-disabled browser session. The full static content and preference fallbacks were source-reviewed. Live-product draft generation/configuration was inspected, but no automation was saved/activated, no customer message was sent and no delivery/outcome was tested. Lovable remained read-only; no builder prompt or separate Publish action was used.
