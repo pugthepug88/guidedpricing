@@ -133,6 +133,7 @@ function OpeningStory() {
   const [canPin, setCanPin] = useState(false);
   const [phase, setPhase] = useState(0);
   const [introduced, setIntroduced] = useState(false);
+  const [buildVersion, setBuildVersion] = useState(0);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -215,7 +216,14 @@ function OpeningStory() {
           </div>
           <div className="ab-actions">
             <BookingLink />
-            <a className="ab-text-link" href="#automation-workflow">
+            <a
+              className="ab-text-link"
+              href="#automation-workflow"
+              onClick={() => {
+                setIntroduced(true);
+                setBuildVersion((current) => current + 1);
+              }}
+            >
               See the draft take shape
               <ArrowDown size={16} aria-hidden="true" />
             </a>
@@ -227,7 +235,7 @@ function OpeningStory() {
           aria-label="A configured nurture sequence with alternative starting events and messages on days zero, two and five"
         >
           <div className="ab-scene-stick" ref={boardRef}>
-            <WorkflowBoard phase={phase} introduced={introduced} />
+            <WorkflowBoard key={buildVersion} phase={phase} introduced={introduced} />
           </div>
         </div>
         <div className="ab-story-notes">
@@ -412,11 +420,11 @@ function WorkflowSetup() {
 const faqs = [
   [
     "Can AI build the workflow for me?",
-    "Yes. Describe the process in plain English and the AI Flow Builder can create an editable workflow draft, including steps, connections and draft message content. You can ask it to make changes too. Review its business logic, messages, settings and connections before activation. AI output still needs checking.",
+    "Yes. Describe the process in plain English and the AI Flow Builder can create an editable workflow draft, including steps, connections and draft message content. You can ask it to make changes too. Review its business logic, messages, settings and connections before activation.",
   ],
   [
     "What can start a workflow?",
-    "Starting events include a submitted form, tag change, new contact, pipeline stage change, appointment booking, accepted quote, invoice payment or support-ticket event. The right trigger and any conditions are chosen for your process; not every event carries the same customer or record information.",
+    "Starting events include a submitted form, tag change, new contact, pipeline stage change, appointment booking, accepted quote, invoice payment or support-ticket event. Choose the event and entry conditions that match your process.",
   ],
   [
     "Can I change the messages and timing?",
@@ -428,7 +436,7 @@ const faqs = [
   ],
   [
     "What happens when a customer replies?",
-    "Reply handling needs its own rules. A normal timed wait does not establish that every reply will stop a sequence. Configured SMS or WhatsApp keyword branches and timeouts can lead to different paths. We agree the channels, matching rules and human involvement, then check that particular setup.",
+    "Set the reply path for your process. Configured SMS or WhatsApp keyword branches can route matching replies, with a timeout path when no keyword matches. Timed follow-ups need explicit reply and exit rules. We agree those rules and where a person gets involved, then check the setup before activation.",
   ],
   [
     "Can I build workflows myself?",

@@ -187,15 +187,15 @@
   flex-shrink: 0;
 }
 .ab-board-heading small {
-  margin-left: auto;
-  color: #34434c;
+  color: #233843;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 650;
 }
 .zapla-automation .ab-draft-note {
   margin-top: 18px;
-  color: #233843;
-  font-size: 11px;
+  color: #f7f9fb;
+  font-size: 12px;
+  font-weight: 500;
   line-height: 1.6;
   text-align: center;
 }
@@ -401,6 +401,10 @@
   .ab-flow-board[data-introduced="true"] .ab-entry-events {
     animation: ab-assemble 0.7s ease-out both;
   }
+  .ab-flow-board[data-introduced="true"] .ab-entry-merge {
+    animation: ab-connect 0.4s ease-out 0.4s both;
+    transform-origin: top;
+  }
   .ab-flow-board[data-introduced="true"] .ab-message-node {
     animation: ab-assemble 0.75s ease-out 0.65s both;
   }
@@ -413,8 +417,25 @@
   .ab-flow-board[data-introduced="true"] .ab-wait > span {
     animation: ab-assemble 0.6s ease-out 1.2s both;
   }
+  .ab-flow-board[data-introduced="true"] .ab-wait::before {
+    animation: ab-connect 0.4s ease-out 1.05s both;
+    transform-origin: top;
+  }
   .ab-flow-board[data-introduced="true"] .ab-sequence-piece:nth-child(3) .ab-wait > span {
     animation-delay: 2.1s;
+  }
+  .ab-flow-board[data-introduced="true"] .ab-sequence-piece:nth-child(3) .ab-wait::before {
+    animation-delay: 1.95s;
+  }
+}
+@keyframes ab-connect {
+  from {
+    opacity: 0.18;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
   }
 }
 @keyframes ab-assemble {
