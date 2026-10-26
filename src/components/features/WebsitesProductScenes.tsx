@@ -45,6 +45,9 @@ export function WebsiteBuilder() {
   const [phone, setPhone] = useState(false);
   const [dragging, setDragging] = useState(false);
   const row = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const dragOrigin = useRef<{ x: number; y: number } | null>(null);
+  const dragged = useRef(false);
   const addOrSelect = (block: Block) => {
     setSelected(block);
     if (block === "form") setForm(true);
@@ -101,28 +104,65 @@ export function WebsiteBuilder() {
       <div className="wff-builder-workspace">
         <aside className="wff-block-library" aria-label="Page elements">
           <span className="wff-tool-heading">Elements</span>
-          <p>Drag onto your page</p>
+          <p>Choose an element</p>
           <div className="wff-block-options">
             {BLOCKS.map(({ id, label, icon: Icon }) => (
               <button
                 type="button"
                 key={id}
-                draggable
                 aria-label={
                   id === "form" ? "Add an enquiry form" : `Edit page ${label.toLowerCase()}`
                 }
                 aria-pressed={selected === id}
-                onDragStart={(event) => {
-                  event.dataTransfer.setData("text/plain", id);
-                  event.dataTransfer.effectAllowed = "copy";
-                  setDragging(true);
+                onPointerDown={(event) => {
+                  dragged.current = false;
+                  if (id !== "form" || event.pointerType === "touch") return;
+                  dragOrigin.current = { x: event.clientX, y: event.clientY };
+                  event.currentTarget.setPointerCapture(event.pointerId);
                 }}
-                onDragEnd={() => setDragging(false)}
-                onClick={() => addOrSelect(id)}
+                onPointerMove={(event) => {
+                  if (id !== "form" || !dragOrigin.current) return;
+                  if (
+                    Math.hypot(
+                      event.clientX - dragOrigin.current.x,
+                      event.clientY - dragOrigin.current.y,
+                    ) > 6
+                  ) {
+                    dragged.current = true;
+                    setDragging(true);
+                  }
+                }}
+                onPointerUp={(event) => {
+                  if (id !== "form" || !dragOrigin.current) return;
+                  const rect = stage.current?.getBoundingClientRect();
+                  if (
+                    dragged.current &&
+                    rect &&
+                    event.clientX >= rect.left &&
+                    event.clientX <= rect.right &&
+                    event.clientY >= rect.top &&
+                    event.clientY <= rect.bottom
+                  )
+                    addOrSelect("form");
+                  dragOrigin.current = null;
+                  setDragging(false);
+                  if (event.currentTarget.hasPointerCapture(event.pointerId))
+                    event.currentTarget.releasePointerCapture(event.pointerId);
+                }}
+                onPointerCancel={() => {
+                  dragOrigin.current = null;
+                  setDragging(false);
+                }}
+                onKeyDown={() => {
+                  dragged.current = false;
+                }}
+                onClick={() => {
+                  if (!dragged.current) addOrSelect(id);
+                }}
               >
                 <Icon size={18} aria-hidden="true" />
                 <span>{label}</span>
-                <GripVertical size={13} aria-hidden="true" />
+                {id === "form" && <GripVertical size={13} aria-hidden="true" />}
               </button>
             ))}
           </div>
@@ -132,21 +172,12 @@ export function WebsiteBuilder() {
           </div>
         </aside>
         <div
+          ref={stage}
           className={
             "wff-editor-stage" +
             (phone ? " wff-editor-stage--phone" : "") +
             (dragging ? " wff-editor-stage--drop" : "")
           }
-          onDragOver={(event) => {
-            event.preventDefault();
-            event.dataTransfer.dropEffect = "copy";
-          }}
-          onDrop={(event) => {
-            event.preventDefault();
-            const id = event.dataTransfer.getData("text/plain");
-            if (BLOCKS.some((block) => block.id === id)) addOrSelect(id as Block);
-            setDragging(false);
-          }}
         >
           <div className="wff-editor-page">
             <div className="wff-page-nav">

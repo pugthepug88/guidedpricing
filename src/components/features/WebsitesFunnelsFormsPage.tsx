@@ -305,13 +305,13 @@ export function WebsitesFunnelsFormsPage() {
         <WebsiteBuilder />
         <div className="wff-builder-benefits">
           <p>
-            <strong>Move it.</strong> Drag in your elements.
+            <strong>Move it.</strong> Drag in an enquiry form.
           </p>
           <p>
             <strong>Shape it.</strong> Resize and rearrange columns.
           </p>
           <p>
-            <strong>Make it yours.</strong> Edit the content in place.
+            <strong>Make it yours.</strong> Edit the words and images.
           </p>
         </div>
       </section>
