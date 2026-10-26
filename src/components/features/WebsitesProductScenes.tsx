@@ -159,12 +159,21 @@ export function WebsiteBuilder() {
             { label: "Styles", icon: Palette },
             { label: "Media", icon: ImageIcon },
           ].map(({ label, icon: Icon }) => (
-            <div className={label === "Blocks" ? "wff-tool-active" : ""} key={label}>
+            <div
+              className={label === "Blocks" ? "wff-tool-active" : ""}
+              key={label}
+              role="img"
+              aria-label={label}
+            >
               <Icon size={18} aria-hidden="true" />
               <span>{label}</span>
             </div>
           ))}
-          <a href="#website-ai" className="wff-rail-ai">
+          <a
+            href="#website-ai"
+            className="wff-rail-ai"
+            aria-label="Explore Zapla AI website creation"
+          >
             <AIMark />
             <span>Zapla AI</span>
           </a>
@@ -658,7 +667,8 @@ export function AICreation() {
             className="wff-ai-output"
             ref={output}
             tabIndex={-1}
-            aria-label="Website created from the brief"
+            role="group"
+            aria-label="Website preview"
           >
             <div className="wff-output-label">
               <span>{mode === "clone" ? "Your page, ready to edit" : "Your starting design"}</span>

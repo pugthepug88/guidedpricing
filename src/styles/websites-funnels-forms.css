@@ -852,6 +852,7 @@
   color: #9eacc1;
 }
 .wff-ai-output {
+  scroll-margin-top: 80px;
   min-width: 0;
   padding: 25px 35px 34px;
   background: #eff2f6;
@@ -2291,7 +2292,9 @@
   }
   .wff-tool-rail > :is(div, a) {
     min-height: 46px;
-    font-size: 5px;
+  }
+  .wff-tool-rail > :is(div, a) > span {
+    display: none;
   }
   .wff-tool-rail > :is(div, a) > svg {
     width: 15px;
@@ -2324,7 +2327,7 @@
     gap: 5px;
     min-height: 49px;
     padding: 5px 2px;
-    font-size: 7px !important;
+    font-size: 8px !important;
   }
   .wff-block-options button > svg {
     width: 15px;
@@ -2563,18 +2566,19 @@
     font-size: 8px;
   }
   .wff-funnel-thumbnail {
-    grid-template-columns: 1.2fr 0.8fr;
-    height: 140px;
+    display: block;
+    height: auto;
   }
   .wff-funnel-thumbnail > div {
-    padding: 16px;
+    min-height: 140px;
+    padding: 18px;
     gap: 10px;
   }
   .wff-funnel-thumbnail strong {
     font-size: 23px;
   }
   .wff-funnel-thumbnail img {
-    height: 140px;
+    display: none;
   }
   .wff-funnel-mini-cta {
     font-size: 7px;
