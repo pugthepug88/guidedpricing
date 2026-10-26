@@ -1074,6 +1074,29 @@
     display: none;
   }
 }
+@media (min-width: 701px) and (max-width: 950px) {
+  .cb-enquiry-window {
+    grid-template-columns: 1.35fr 1fr;
+  }
+  .cb-website-conversation,
+  .cb-created-contact {
+    padding: 24px 21px;
+  }
+  .cb-contact-person {
+    gap: 10px;
+  }
+  .cb-contact-person h2 {
+    font-size: 26px;
+  }
+  .cb-contact-person .cb-avatar {
+    width: 35px;
+    height: 35px;
+    flex-basis: 35px;
+  }
+  .cb-original-request p {
+    font-size: 16px;
+  }
+}
 @media (max-width: 600px) {
   .cb-wrap {
     padding-inline: 22px;

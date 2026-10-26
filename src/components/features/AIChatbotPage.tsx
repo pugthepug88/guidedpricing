@@ -246,6 +246,8 @@ function KnowledgeProof() {
           <div
             className="cb-knowledge-proof"
             id="chatbot-knowledge-response"
+            role="region"
+            aria-label={active.question}
             aria-live="polite"
             aria-atomic="true"
           >
@@ -268,7 +270,9 @@ function KnowledgeProof() {
           </div>
         </div>
         <noscript>
-          <style>{".cb-question-choices{display:none!important}"}</style>
+          <style>
+            {".cb-question-choices,.cb-knowledge-foot>p:first-child{display:none!important}"}
+          </style>
           <div className="cb-static-answers">
             {KNOWLEDGE.slice(1).map((item) => (
               <article key={item.question}>
