@@ -491,37 +491,66 @@ function BusinessDay() {
               </div>
             </dl>
           </div>
-          <div className="cal-availability-window">
-            <div className="cal-hours-heading">
-              <h4>Booking hours</h4>
-              <span>Monday to Friday · Sydney</span>
+          <div className="cal-availability-scene">
+            <div className="cal-availability-window">
+              <div className="cal-hours-heading">
+                <h4>Booking hours</h4>
+                <span>Monday to Friday · Sydney</span>
+              </div>
+              <div
+                className="cal-workday"
+                aria-label="Bookable from 9 am to noon and 1 pm to 5 pm; unavailable from noon to 1 pm"
+              >
+                <div>
+                  <span>9 am – 12 pm</span>
+                  <strong>Bookable</strong>
+                </div>
+                <div className="cal-workday-break">
+                  <span>12 – 1 pm</span>
+                  <strong>Not bookable</strong>
+                </div>
+                <div>
+                  <span>1 – 5 pm</span>
+                  <strong>Bookable</strong>
+                </div>
+              </div>
+              <p>Split your hours to keep breaks outside your booking windows.</p>
             </div>
-            <div
-              className="cal-workday"
-              aria-label="Bookable from 9 am to noon and 1 pm to 5 pm; unavailable from noon to 1 pm"
-            >
-              <div>
-                <span>9 am – 12 pm</span>
-                <strong>Bookable</strong>
-              </div>
-              <div className="cal-workday-break">
-                <span>12 – 1 pm</span>
-                <strong>Not bookable</strong>
-              </div>
-              <div>
-                <span>1 – 5 pm</span>
-                <strong>Bookable</strong>
-              </div>
+            <div className="cal-calendar-connections">
+              <p>Send bookings to the calendars your team uses.</p>
+              <ul aria-label="Supported calendar connections">
+                <li>
+                  <img
+                    src="/concept/calendars/providers/google-calendar.svg"
+                    width="36"
+                    height="36"
+                    alt=""
+                    loading="lazy"
+                  />
+                  <span>Google Calendar</span>
+                </li>
+                <li>
+                  <img
+                    src="/concept/calendars/providers/microsoft-outlook.svg"
+                    width="36"
+                    height="36"
+                    alt=""
+                    loading="lazy"
+                  />
+                  <span>Microsoft 365</span>
+                </li>
+                <li>
+                  <img
+                    src="/concept/calendars/providers/apple-calendar.png"
+                    width="36"
+                    height="36"
+                    alt=""
+                    loading="lazy"
+                  />
+                  <span>Apple iCloud</span>
+                </li>
+              </ul>
             </div>
-            <p>Split your hours to keep breaks outside your booking windows.</p>
-          </div>
-          <div className="cal-calendar-connections">
-            <p>Send bookings to the calendars your team uses.</p>
-            <ul aria-label="Supported calendar connections">
-              <li>Google Calendar</li>
-              <li>Microsoft 365</li>
-              <li>Apple iCloud</li>
-            </ul>
           </div>
         </div>
       </div>
