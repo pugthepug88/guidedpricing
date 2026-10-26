@@ -296,7 +296,7 @@ function TeamContext() {
               <span>Website enquiry</span>
             </div>
             <div className="cr-record-person">
-              <Avatar cell={7} />
+              <Avatar cell={5} />
               <div>
                 <h3>Daniel</h3>
                 <span>New enquiry</span>

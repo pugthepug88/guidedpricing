@@ -356,7 +356,7 @@
 }
 .cr-care-scene {
   position: relative;
-  min-height: 440px;
+  min-height: 500px;
   border-radius: 14px;
   overflow: hidden;
 }
@@ -560,6 +560,7 @@
   background: #f4f4ee;
 }
 .cr-enquiry-record {
+  align-self: center;
   margin: 21px;
   padding: 22px;
   border: 1px solid #e4e5df;
@@ -759,6 +760,7 @@
     grid-template-columns: 0.8fr 1.2fr;
   }
   .cr-enquiry-record {
+    align-self: stretch;
     margin: 17px;
     padding: 18px;
   }
@@ -913,7 +915,7 @@
     display: none;
   }
   .cr-site-intro {
-    padding: 19px 20px;
+    display: none;
   }
   .zapla-chatbot .cr-site-title {
     width: 100%;
@@ -924,7 +926,7 @@
     display: none;
   }
   .cr-site-photo {
-    height: 180px;
+    height: 165px;
     object-position: 45% 60%;
   }
   .cr-hero-widget {
