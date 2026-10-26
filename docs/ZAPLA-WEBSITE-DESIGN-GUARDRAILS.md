@@ -212,3 +212,7 @@ The owner rejected repeated “illustrative”, “example”, “sample”, no-
 The owner explicitly reopened the earlier neutral first-three-stage treatment. Use distinct coral, gold, teal, steel-blue and green headings across the five rectangular Pipeline columns, with readable contrast and white card bodies. Do not restore arrow caps or expand stage colours into whole-page backgrounds.
 
 For the route handoff, a recognisable phone silhouette and separated app header have a clear explanatory purpose. A restrained physical rim, inset screen, speaker/camera, side keys and home indicator are allowed here; keep them decorative and out of the accessibility tree. Do not invent battery/time/ETA values, live states or fake navigation controls. Preserve native readable content that can grow vertically rather than fitting it into a clipped fixed-height device.
+
+## Calendar divider and provider-mark correction, 26 October 2026
+
+The owner rejected stacked full-width rules that made availability and calendar connections feel detached from the page. Prefer grouping, spacing and alignment to repeated section separators. Native provider app marks are useful recognition aids beside visible names; use actual sourced artwork, not generic calendar outline icons or invented brand variants. Functional FAQ boundaries and product-state distinctions remain valid.
