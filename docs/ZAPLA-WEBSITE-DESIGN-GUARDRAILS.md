@@ -165,3 +165,10 @@ Owner correction, 23 October 2026:
 - Test the business logic before styling a decision tree. Each decision must lead to an action justified by the known customer situation. Do not equate urgency with one generic task and absence of urgency with an unrelated information request.
 - A longer example should advance one customer process through meaningful stages. More boxes alone do not demonstrate sophistication. Show the starting fact, the requested response, the alternative outcomes and where a person must act.
 - Do not use bright blue tracing or flashing blue borders on the Automation Builder tree. Keep necessary topology quiet and neutral; animate a meaningful progression without making the connections decorative.
+
+## Calendars composition correction, 26 October 2026
+
+- The owner rejected the Calendar page's pale-sage confirmation and powder-blue reminder boxes. Avoid this pastel highlight treatment even without matching outline icons. Soft Autumn is not permission to give every result a washed-out coloured box.
+- The hero's horizontal menu of five formats was rejected as cheap. Lead with a useful booking scene and show the five formats clearly without reproducing that menu.
+- Consolidate related booking, confirmation, reminder, availability and customer context when separate sections fragment the story. Fewer purposeful scenes must still explain all five formats accurately.
+- A claimed sticky continuation must visibly hold beside the following explanation and release naturally. Padding outside its actual containing area does not establish a hold; inspect entry, full state and release.
