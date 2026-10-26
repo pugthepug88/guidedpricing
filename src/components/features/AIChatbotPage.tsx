@@ -159,10 +159,6 @@ function EnquiryOpening() {
               Create the contact, put the enquiry in your chosen pipeline and start an agreed
               automation. An acknowledgement can go out while your team gets on with the day.
             </p>
-            <p>
-              When you’re ready to respond, the customer’s details and original request are already
-              together.
-            </p>
             <a className="cb-text-link" href="/features/automation-builder">
               Explore Automation Builder
             </a>
@@ -210,7 +206,7 @@ const KNOWLEDGE = [
   },
   {
     question: "What happens at the assessment?",
-    title: "Your on-site assessment",
+    title: "What we check",
     type: "Website page",
     source:
       "The assessment covers the existing system, room layout and access for installation. The team then prepares a quote for the recommended replacement.",
@@ -366,9 +362,9 @@ function BookingProof() {
           <div className="cb-booking-offer">
             <p className="cb-eyebrow">From a question to an appointment</p>
             <h2 id="chatbot-booking-heading">
-              Help them book
+              Book while
               <br />
-              while they’re interested.
+              they’re interested.
             </h2>
             <p>
               When a visitor is ready, check your connected calendar and offer an available time in
@@ -608,8 +604,8 @@ const faqs = [
     "A form collects the details someone is ready to submit. The chatbot can answer their questions first, ask what they need and collect their contact details in the conversation. In Zapla, that enquiry can then connect to your customer record, chosen pipeline and configured follow-up.",
   ],
   [
-    "Is AI usage included in the monthly plan?",
-    "We confirm the chatbot’s plan availability, AI usage and any connected messaging charges before you start. Guided Launch is scoped and priced separately. We’ll walk through the current pricing and expected setup on your call.",
+    "What setup and usage costs should I expect?",
+    "Our Pricing page sets out the monthly plans and Guided Launch. Guided Launch is required for a new standard setup and priced separately. Before you start, we confirm chatbot availability in your plan, the AI usage terms and any connected messaging charges for your setup.",
   ],
   [
     "How is this different from the other Zapla AI tools?",
