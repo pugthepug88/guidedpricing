@@ -14,7 +14,6 @@ export type { SceneProps };
 
 type ContactRow = {
   name: string;
-  email: string;
   phone: string;
   face: string;
   tags: string[];
@@ -27,7 +26,6 @@ type ContactRow = {
 const CONTACTS: ContactRow[] = [
   {
     name: "Maya Chen",
-    email: "maya.chen@northlight.com.au",
     phone: "0412 483 721",
     face: FACE.maya,
     tags: ["VIP", "Big Spender"],
@@ -38,7 +36,6 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Daniel Ross",
-    email: "daniel.ross@rossbuild.com.au",
     phone: "0423 691 284",
     face: FACE.daniel,
     tags: ["VIP", "Upsell Opportunity"],
@@ -49,7 +46,6 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Priya Nair",
-    email: "priya@nairstudio.com.au",
     phone: "0431 572 116",
     face: FACE.priya,
     tags: ["VIP", "Repeat Customer"],
@@ -60,7 +56,6 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Tom Whyte",
-    email: "tom@whytefit.com.au",
     phone: "0408 334 906",
     face: FACE.tom,
     tags: ["VIP", "Repeat Customer"],
@@ -71,7 +66,6 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Sophie Bell",
-    email: "sophie.bell@example.com.au",
     phone: "0417 825 540",
     face: FACE.sophie,
     tags: ["Client"],
@@ -81,7 +75,6 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Leo Marsh",
-    email: "leo@marshjoinery.com.au",
     phone: "0428 614 218",
     face: FACE.leo,
     tags: ["Client"],
@@ -91,7 +84,6 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Ava Dunn",
-    email: "ava.dunn@brightco.com.au",
     phone: "0403 765 461",
     face: FACE.jordan,
     tags: ["Client", "Upsell Opportunity"],
@@ -101,7 +93,6 @@ const CONTACTS: ContactRow[] = [
   },
   {
     name: "Noah Reid",
-    email: "noah.reid@example.com.au",
     phone: "0438 220 733",
     face: FACE.sam,
     tags: ["Big Spender", "Client"],
@@ -495,12 +486,9 @@ export function SceneContacts({ phase, reduced }: SceneProps) {
 
                     <div className="flex min-w-0 items-center gap-2">
                       <Avatar src={c.face} size={26} className="ring-1 ring-slate-100" />
-                      <div className="min-w-0">
+                      <div className="flex min-h-[28px] min-w-0 items-center">
                         <div className="truncate text-[12px] font-semibold leading-tight text-slate-800">
                           {c.name}
-                        </div>
-                        <div className="truncate text-[10.5px] leading-tight text-slate-400">
-                          {c.email}
                         </div>
                       </div>
                     </div>

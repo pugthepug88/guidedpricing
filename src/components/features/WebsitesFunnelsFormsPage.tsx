@@ -8,7 +8,6 @@ import "@/styles/websites-funnels-forms.css";
 // builder. All values are fixed and fictional; the demonstration is local state.
 const ENQUIRY = {
   name: "Mia Thompson",
-  email: "mia@example.com",
   service: "Air conditioning replacement",
   details: "We’d like to replace our old unit with a quieter option.",
 } as const;
@@ -27,7 +26,7 @@ const FAQS = [
   {
     question: "What happens when someone submits a form?",
     answer:
-      "A form submission can create or update a contact in Zapla. Map custom answers to contact fields to keep the details your team needs on the customer record. You can also set up a workflow triggered by that form submission, such as an acknowledgement message or a follow-up task.",
+      "A form submission can create or update a contact in Zapla. Map custom answers to contact fields to keep the details your team needs on the customer record. You can also set up a workflow triggered by that form submission, such as an acknowledgement email.",
   },
   {
     question: "Can I send someone to a booking page?",
@@ -82,7 +81,7 @@ function EnquiryProof() {
           </div>
           <div>
             <dt>Email</dt>
-            <dd>{ENQUIRY.email}</dd>
+            <dd>Email address provided</dd>
           </div>
           <div>
             <dt>What can we help with?</dt>
@@ -136,7 +135,7 @@ function EnquiryProof() {
               <MiaPortrait />
               <div>
                 <h3>{ENQUIRY.name}</h3>
-                <p>{ENQUIRY.email}</p>
+                <p>Contact details captured</p>
               </div>
             </div>
             <dl className="wff-record-details">
@@ -149,9 +148,6 @@ function EnquiryProof() {
                 <dd>{ENQUIRY.details}</dd>
               </div>
             </dl>
-            <p className="wff-mapping-note">
-              The service and enquiry details are mapped to contact fields.
-            </p>
             <a href="#enquiry-next-step" className="wff-text-link">
               Then, give it a next step
               <ArrowDown size={16} aria-hidden="true" />
@@ -166,12 +162,6 @@ function EnquiryProof() {
           </div>
         )}
       </div>
-      <p className="wff-demo-note" aria-live="polite" aria-atomic="true">
-        {recordVisible
-          ? "Mia’s enquiry is shown on her customer record. "
-          : "Illustrative details only. "}
-        Nothing is collected or sent by this demonstration.
-      </p>
     </div>
   );
 }
@@ -201,10 +191,7 @@ export function WebsitesFunnelsFormsPage() {
         </div>
 
         <div className="wff-business-stage">
-          <div
-            className="wff-business-page"
-            aria-label="Illustrative air conditioning landing page"
-          >
+          <div className="wff-business-page" aria-label="Air conditioning landing page">
             <div className="wff-business-copy">
               <p className="wff-business-category">Home cooling &amp; heating</p>
               <h2>
@@ -337,8 +324,8 @@ export function WebsitesFunnelsFormsPage() {
               <br />a next step.
             </h2>
             <p>
-              Set up a workflow for a submitted form. Send an acknowledgement or create a task so
-              your team knows what needs attention.
+              Set up a workflow for a submitted form. Send an acknowledgement email so the customer
+              knows their enquiry has arrived.
             </p>
             <p className="wff-booking-option">
               Ready for a booking? Direct the customer to a booking page after submission, or send a
@@ -347,7 +334,7 @@ export function WebsitesFunnelsFormsPage() {
           </div>
           <div
             className="wff-followup-scene"
-            aria-label="An example of a configured form submission workflow creating a follow-up task"
+            aria-label="A configured form submission workflow sending an acknowledgement email"
           >
             <p className="wff-scene-label">A workflow you configure</p>
             <div className="wff-trigger">
@@ -361,9 +348,9 @@ export function WebsitesFunnelsFormsPage() {
             <div className="wff-task">
               <div className="wff-task-heading">
                 <ZaplaPetal size={28} />
-                <span>Create a follow-up task</span>
+                <span>Send an acknowledgement email</span>
               </div>
-              <h3>Follow up on Mia’s replacement enquiry</h3>
+              <h3>Thanks for getting in touch, Mia.</h3>
               <div className="wff-task-person">
                 <MiaPortrait />
                 <p>
@@ -372,7 +359,8 @@ export function WebsitesFunnelsFormsPage() {
                 </p>
               </div>
               <p className="wff-task-context">
-                The enquiry details are on Mia’s customer record, ready for the conversation.
+                We’ve received your replacement enquiry. Our team will be in touch to discuss what
+                you need.
               </p>
             </div>
           </div>

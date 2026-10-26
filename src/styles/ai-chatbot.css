@@ -161,6 +161,12 @@
   line-height: 1.5;
   margin-bottom: 6px;
 }
+.cb-shared-contact {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}
 .cb-message-ai .cb-message-copy {
   background: var(--cb-blue);
   border-color: var(--cb-blue);

@@ -78,9 +78,7 @@ function BookingScene({
           <div className="cal-month">
             <h3>November 2026</h3>
             <table className="cal-date-grid">
-              <caption className="cal-sr-only">
-                Choose an available example date in November 2026
-              </caption>
+              <caption className="cal-sr-only">Choose a date in November 2026</caption>
               <thead>
                 <tr>
                   {weekdays.map((day) => (
@@ -117,7 +115,7 @@ function BookingScene({
           </div>
           <div className="cal-times" id="cal-time-options">
             <h3>{selectedDay} November</h3>
-            <div role="group" aria-label={`Example times for ${label}`}>
+            <div role="group" aria-label={`Times for ${label}`}>
               {exampleTimes[selectedDay].map((time) => (
                 <button
                   type="button"
@@ -136,9 +134,7 @@ function BookingScene({
         </div>
         <div className="cal-customer-details">
           <span>Then, the customer adds their details</span>
-          <strong>
-            Emma Wilson <span>· emma@example.com</span>
-          </strong>
+          <strong>Emma Wilson</strong>
         </div>
       </div>
       <div
@@ -156,20 +152,15 @@ function BookingScene({
             {selectedTime ? `${label} · ${selectedTime}` : `${label} · Time not selected`}
           </p>
           <div className="cal-reminder">
-            <span>SMS reminder example</span>
+            <span>Appointment reminder</span>
             <p>
               {selectedTime
                 ? `Hi Emma, a reminder of your project consultation on ${label} at ${selectedTime}, Sydney time. We look forward to seeing you.`
-                : "The confirmation and reminder will use the same appointment once you choose a time."}
+                : "Choose a time to see the booking details and reminder."}
             </p>
           </div>
         </div>
       </div>
-      <p className="cal-demo-note">
-        {interactive
-          ? "Try a date and time. This example creates no appointment."
-          : "Illustrative booking. No appointment is created."}
-      </p>
     </div>
   );
 }
@@ -259,10 +250,6 @@ function CalendarOpening({
           <p>
             Send an email or SMS reminder as the appointment approaches. The same visit, kept in
             mind.
-          </p>
-          <p className="cal-small-note">
-            Reminder content and timing are agreed during setup. Message usage is charged
-            separately.
           </p>
         </div>
       </div>
@@ -384,7 +371,6 @@ function BookingFormats() {
               </div>
             </article>
           </div>
-          <p className="cal-formats-note">People and sessions shown are illustrative.</p>
         </div>
       </div>
     </section>
@@ -393,7 +379,7 @@ function BookingFormats() {
 
 function MeetingRoomScene() {
   return (
-    <figure className="cal-meeting-demo" aria-labelledby="cal-meeting-demo-caption">
+    <figure className="cal-meeting-demo" aria-label="Video consultation and saved attendee record">
       <div className="cal-meeting-window">
         <div className="cal-meeting-call">
           <div className="cal-meeting-call-heading">
@@ -406,7 +392,7 @@ function MeetingRoomScene() {
               width="1774"
               height="887"
               loading="lazy"
-              alt="Illustrative video meeting with Alex Chen in his studio and Emma Wilson joining from home"
+              alt="Alex Chen in his studio and Emma Wilson joining the video consultation from home"
             />
             <div className="cal-meeting-names" aria-hidden="true">
               <span>Alex Chen</span>
@@ -434,7 +420,6 @@ function MeetingRoomScene() {
               <p>After the meeting · Attendee’s CRM record</p>
               <h3>Emma Wilson</h3>
             </div>
-            <span>emma@example.com</span>
           </div>
           <div className="cal-meeting-history">
             <div className="cal-meeting-recording">
@@ -458,20 +443,11 @@ function MeetingRoomScene() {
           </div>
         </div>
       </div>
-      <figcaption id="cal-meeting-demo-caption">
-        Illustration of a meeting and its saved attendee record.
-      </figcaption>
     </figure>
   );
 }
 
-function BusinessDay({
-  selectedDay,
-  selectedTime,
-}: {
-  selectedDay: number;
-  selectedTime: string | null;
-}) {
+function BusinessDay() {
   return (
     <section className="cal-business" id="meeting-rooms" aria-labelledby="cal-business-title">
       <div className="cal-wrap">
@@ -497,57 +473,50 @@ function BusinessDay({
             </p>
           </div>
         </div>
-        <div className="cal-business-sheet">
-          <div className="cal-appointment-record">
-            <h3>Plans change. Your team can handle it.</h3>
-            <p>Emma’s project consultation · With Alex</p>
-            <p className="cal-record-time">
-              {selectedTime
-                ? `${dateLabel(selectedDay)} · ${selectedTime}`
-                : "Choose an example time above"}
-            </p>
+        <div className="cal-booking-control" id="booking-availability">
+          <div className="cal-booking-rules">
+            <h3>Set when customers can book.</h3>
             <p>
-              Customers contact your business to change or cancel. Your team can update the booking
-              time or status.
+              Choose your working days, hours and time zone. Customers see available appointment
+              times within the hours you set.
             </p>
-            <a className="cal-text-link" href="/crm">
-              Explore the connected CRM <ArrowRight size={16} aria-hidden="true" />
-            </a>
+            <dl>
+              <div>
+                <dt>Appointment length</dt>
+                <dd>Set a duration for each service.</dd>
+              </div>
+              <div>
+                <dt>Minimum notice</dt>
+                <dd>Choose how far ahead customers must book.</dd>
+              </div>
+            </dl>
           </div>
-          <div className="cal-availability">
-            <h3>A day with breathing room.</h3>
-            <p>
-              Set working days, split hours and a time zone. Choose each appointment’s duration and
-              minimum notice.
-            </p>
+          <div className="cal-availability-window">
+            <div className="cal-hours-heading">
+              <h4>Booking hours</h4>
+              <span>Monday to Friday · Sydney</span>
+            </div>
             <div
-              className="cal-day-ranges"
-              aria-label="Example split availability: nine to noon, then one to five"
+              className="cal-workday"
+              aria-label="Bookable from 9 am to noon and 1 pm to 5 pm; unavailable from noon to 1 pm"
             >
               <div>
-                <span>9:00 am — 12:00 pm</span>
-                <strong>Available for appointments</strong>
+                <span>9 am – 12 pm</span>
+                <strong>Bookable</strong>
               </div>
-              <div className="cal-day-break">
-                <span>12:00 pm — 1:00 pm</span>
-                <strong>Time kept for yourself</strong>
+              <div className="cal-workday-break">
+                <span>12 – 1 pm</span>
+                <strong>Not bookable</strong>
               </div>
               <div>
-                <span>1:00 pm — 5:00 pm</span>
-                <strong>Available for appointments</strong>
+                <span>1 – 5 pm</span>
+                <strong>Bookable</strong>
               </div>
             </div>
-            <p className="cal-small-note">
-              Illustrative hours. Personal availability and booking calendar hours are set
-              separately.
-            </p>
+            <p>Split your hours to keep breaks outside your booking windows.</p>
           </div>
           <div className="cal-calendar-connections">
-            <p>
-              Connect your calendars.
-              <br />
-              <span>Choose where each team member’s bookings go.</span>
-            </p>
+            <p>Send bookings to the calendars your team uses.</p>
             <ul aria-label="Supported calendar connections">
               <li>Google Calendar</li>
               <li>Microsoft 365</li>
@@ -579,7 +548,7 @@ const faqs = [
   ],
   [
     "Can customers book from another time zone?",
-    "Yes. The booking page detects the visitor’s time zone and lets them change it. This page’s example uses fixed Sydney times and creates no appointment.",
+    "Yes. The booking page detects the visitor’s time zone and lets them change it, so they can choose a time in their own time zone.",
   ],
   [
     "Can it send appointment reminders?",
@@ -613,7 +582,7 @@ export function CalendarsBookingsPage() {
         onTimeChange={setSelectedTime}
       />
       <BookingFormats />
-      <BusinessDay selectedDay={selectedDay} selectedTime={selectedTime} />
+      <BusinessDay />
       <section className="cal-start" aria-labelledby="cal-start-title">
         <div className="cal-wrap cal-start-grid">
           <div className="cal-launch">

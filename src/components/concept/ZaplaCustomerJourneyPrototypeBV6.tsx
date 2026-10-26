@@ -140,7 +140,6 @@ function WebsiteEnquiryCard({ reduced }: { reduced: boolean }) {
         </div>
         <div className="mt-3 flex items-center justify-between text-[9px] font-semibold text-slate-400" style={{ fontFamily: MONO }}>
           <span>0412 481 229</span>
-          <span>sarah.nguyen@email.com</span>
         </div>
       </div>
     </motion.div>
@@ -158,7 +157,7 @@ function SarahContactRow({ reduced }: { reduced: boolean }) {
     >
       <div className="grid items-center gap-2 px-3 py-[9px]" style={{ gridTemplateColumns: CONTACT_COLS }}>
         <span className="flex h-[13px] w-[13px] items-center justify-center rounded-[3px] border border-blue-300 bg-white" />
-        <SarahIdentity detail="sarah.nguyen@email.com" />
+        <SarahIdentity detail="Website enquiry" />
         <span className="truncate text-[11px] tabular-nums text-slate-500">0412 481 229</span>
         <div className="flex min-w-0 flex-wrap gap-1">
           <span className="rounded-full bg-blue-100 px-2 py-[2px] text-[10px] font-bold text-blue-700">New enquiry</span>

@@ -196,3 +196,13 @@ This correction supersedes earlier Pipeline stage-name, dropdown, visitor-action
 ## Click-to-watch Automation examples, 26 October 2026
 
 The owner found the scroll-starting AI demonstration easy to miss. AI construction now starts only after an explicit Watch AI build or idea-selection click. Keep one reusable player with eight selectable ideas and distinct requests/drafts, rather than eight separate product sections or static feature tiles. A real play button must be easy to see. Click-driven navigation to the player/idea list is purposeful; never capture scrolling or reset the draft on a timer. Retain complete static/reduced-motion content, visible setup scope, offscreen/tab pause and cancellation of a replaced run. Do not market infinite/unlimited execution or assume a native overdue-invoice trigger, autonomous audience selection or guaranteed outcomes.
+
+## Customer-facing copy cleanup, 26 October 2026
+
+The owner rejected repeated “illustrative”, “example”, “sample”, no-action disclaimers and placeholder email addresses as development commentary in the marketing experience. This supersedes earlier requirements to label every prepared product scene publicly.
+
+- Remove repeated demonstration/provenance captions and fake `@example.com` contact values from customer-facing product visuals. Do not replace them with invented real-looking email addresses.
+- Keep capability sources, fixed-data provenance, test limitations and non-live behaviour in internal evidence/review documents. Keep the website focused on the buyer's question and the supported product behaviour.
+- A contact-data scene can show that an email was shared/captured without printing an address. Preserve visible cause and effect: data is supplied before it appears on the resulting record.
+- Retain meaningful field labels, setup/usage pricing terms and required asset attribution. Those serve a real decision or licence obligation rather than annotating a prototype.
+- Do not remove safeguards or introduce fake submissions, live sends, bookings or service calls merely because visible disclaimers are removed. Do not present prepared dialogue as a real testimonial or invented metrics as evidence.
