@@ -22,6 +22,21 @@ The rendered public Help Centre was reread directly in the browser at the owner�
 
 Reminders remain supported by the provider’s public feature-page evidence recorded in the original matrix. This turn’s search/reader could not retrieve that public page; no new reminder defaults, delivery or timing guarantee was inferred from the help. The website retains the existing bounded email/SMS reminder claim. Real reminder delivery, connected-calendar behaviour and scheduling algorithms remain untested.
 
+## Native Meeting Rooms correction, 26 October 2026
+
+The owner supplied current Meeting Rooms list, creation, guest preview and help screenshots (`image(20261026-013404).png`, `image(20261026-013752).png`, `image(20261026-013814).png`, `image(20261026-014013).png`) and explicitly confirmed native video calls. The rendered official [Meetings](https://app.thenextgencrm.com/help-centre.html?lang=en#/meetings) and [Meeting Room](https://app.thenextgencrm.com/help-centre.html?lang=en#/p/meetings/[id]) articles were read directly in the browser on 26 October. This is documentation and owner-supplied UI evidence; no room was created or joined and no camera or microphone permission was requested.
+
+| Capability | Current evidence | Marketing boundary |
+| --- | --- | --- |
+| Native video | The public room article documents live video, a pre-join preview, camera/microphone toggles and device selection. | Say video meetings in the browser. Do not imply feature parity with Zoom, universal browser support or that a live call was tested. |
+| Screen sharing | The room article explicitly documents starting/stopping screen share and its layout controls. | Show its practical purpose in copy: walking through a plan or proposal together. |
+| Room links | Each room has a unique invitation link. The list supports copying/opening it and copying a merge tag for templates. | Explain creating a room and sharing its link. No evidence establishes automatic room creation or link insertion for every calendar booking. |
+| Access | Public access permits anyone with the link. Restricted rooms select contacts and team members. | Explain public or selected-person access without an unsupported compliance/security guarantee. |
+| Restricted invitations | The Contacts selection permits up to four contacts and errors on a fifth; Team selection is separate, with no limit shown there. | The FAQ identifies four as a restricted contact invitation limit. It is not an established simultaneous-call capacity or proof of unlimited participants. |
+| Room management | Name/edit, active/inactive state, link copying and deletion are documented; inactive rooms cannot be copied or joined. | Supporting context only; no need for another software-management section. |
+
+The help also documents a recording control and REC indicator. It does not establish saved-file storage, retention, downloading, transcription or compliance. Recording is not marketed on this page. The newer guest screenshot shows name plus email/phone fields, while the article gives older name-entry guidance; exact identity-field and no-login promises are omitted.
+
 ## Source hierarchy
 
 Current official product help is the primary capability evidence. The [NextGen Help Centre](https://app.thenextgencrm.com/help-centre.html?lang=en) loads its articles from the public [English help bundle](https://app.thenextgencrm.com/help-content/en.json), version 1. That bundle was retrieved directly because the search reader could not load the help application. The article keys below are exact keys in `pages`; the links open the corresponding help articles.

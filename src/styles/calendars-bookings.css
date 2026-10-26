@@ -388,10 +388,20 @@
 
 /* All five formats stay visible. People explain their relationships. */
 .cal-formats {
-  padding: 78px 0 35px;
-  background: #1e2b29;
+  padding: 12px 0;
   color: #fcfcfa;
   scroll-margin-top: 65px;
+}
+.cal-formats-panel {
+  width: min(1440px, calc(100% - 48px));
+  margin-inline: auto;
+  padding: 72px 48px 32px;
+  border-radius: 40px;
+  background: #1e2b29;
+}
+.cal-formats .cal-wrap {
+  width: 100%;
+  max-width: 1280px;
 }
 .cal-formats-intro {
   display: flex;
@@ -513,48 +523,45 @@
 
 /* The human meeting and business-side working view form one chapter. */
 .cal-business {
-  padding: 100px 0 60px;
+  padding: 80px 0 60px;
 }
-.cal-business-intro {
+.cal-business-meet {
   display: grid;
-  grid-template-columns: 1.35fr 0.65fr;
-  align-items: end;
+  grid-template-columns: 1.2fr 0.8fr;
   gap: 70px;
-  margin-bottom: 40px;
-}
-.cal-business-intro h2 {
-  font-size: clamp(40px, 4.3vw, 60px);
-}
-.cal-business-intro > p {
-  max-width: 365px;
-  padding-bottom: 3px;
-  color: var(--feature-muted);
-  font-size: 16px;
-  line-height: 1.8;
+  align-items: center;
 }
 .cal-consultation-photo {
   overflow: hidden;
-  border-radius: 14px 14px 0 0;
+  border-radius: 16px;
   background: #aea694;
 }
 .cal-consultation-photo img {
   display: block;
   width: 100%;
-  height: 500px;
+  height: auto;
   object-fit: cover;
   object-position: 50% 28%;
+}
+.cal-meeting-rooms h2 {
+  font-size: clamp(40px, 4.3vw, 60px);
+  line-height: 1.08;
+}
+.cal-meeting-rooms p {
+  max-width: 390px;
+  margin-top: 23px;
+  color: var(--feature-muted);
+  font-size: 16px;
+  line-height: 1.8;
 }
 .cal-business-sheet {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 38px 60px;
-  padding: 44px;
-  margin: -30px 30px 0;
-  border: 1px solid #d0d3cc;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 18px 40px #16201909;
+  padding: 38px 0 0;
+  margin: 38px 0 0;
+  border-top: 1px solid var(--cal-line);
 }
 .cal-appointment-record {
   min-width: 0;
@@ -792,13 +799,10 @@
   .cal-format-relationship {
     gap: 10px;
   }
-  .cal-business-intro {
-    gap: 40px;
-  }
   .cal-business-sheet {
     gap: 35px;
-    padding: 32px;
-    margin-inline: 20px;
+    padding: 32px 0 0;
+    margin: 32px 0 0;
   }
   .cal-start-grid {
     gap: 65px;
@@ -881,16 +885,20 @@
   .cal-format-relationship {
     gap: 22px;
   }
-  .cal-business-intro {
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 30px;
+  .cal-business-meet {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
   }
-  .cal-business-intro > p {
+  .cal-meeting-rooms h2 {
+    font-size: 34px;
+  }
+  .cal-meeting-rooms p {
+    margin-top: 18px;
     font-size: 14px;
   }
   .cal-business-sheet {
     column-gap: 30px;
-    padding: 30px;
+    padding: 30px 0 0;
     margin-inline: 0;
   }
   .cal-day-ranges > div {
@@ -1041,14 +1049,19 @@
     margin-top: 17px;
   }
   .cal-formats {
-    padding: 52px 0 30px;
+    padding: 12px 0;
+  }
+  .cal-formats-panel {
+    width: calc(100% - 24px);
+    padding: 38px 22px 26px;
+    border-radius: 24px;
   }
   .cal-formats-intro {
     display: block;
     margin-bottom: 32px;
   }
   .cal-formats-intro h2 {
-    font-size: 43px;
+    font-size: 38px;
   }
   .cal-formats-intro > p {
     max-width: 330px;
@@ -1077,9 +1090,10 @@
     grid-column: 1;
     margin-top: 6px;
     justify-content: flex-start;
-    gap: 25px;
+    gap: 14px;
   }
   .cal-people > span {
+    max-width: 105px;
     font-size: 11px;
   }
   .cal-people .cal-avatar {
@@ -1093,19 +1107,17 @@
   .cal-business {
     padding: 55px 0 30px;
   }
-  .cal-business-intro {
+  .cal-business-meet {
     display: block;
-    margin-bottom: 28px;
   }
-  .cal-business-intro h2 {
-    font-size: 39px;
+  .cal-meeting-rooms {
+    margin-top: 30px;
   }
-  .cal-business-intro h2 br {
-    display: none;
+  .cal-meeting-rooms h2 {
+    font-size: clamp(34px, 9.3vw, 40px);
   }
-  .cal-business-intro > p {
+  .cal-meeting-rooms p {
     max-width: 500px;
-    margin-top: 23px;
     font-size: 15px;
   }
   .cal-consultation-photo {
@@ -1119,9 +1131,10 @@
   }
   .cal-business-sheet {
     display: block;
-    margin: 0;
+    margin: 32px 0 0;
     padding: 29px 0 0;
     border: 0;
+    border-top: 1px solid var(--cal-line);
     border-radius: 0;
     box-shadow: none;
     background: transparent;
@@ -1265,9 +1278,6 @@
   .cal-follow-copy h2,
   .cal-formats-intro h2 {
     font-size: 38px;
-  }
-  .cal-business-intro h2 {
-    font-size: 37px;
   }
   .cal-consultation-photo {
     margin-inline: -16px !important;
