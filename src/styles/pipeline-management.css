@@ -1672,6 +1672,9 @@
   .zapla-pipeline .pf-fit-record {
     padding: 14px;
   }
+  .zapla-pipeline .pf-action-type-picker {
+    padding: 10px 12px;
+  }
   .zapla-pipeline .pf-tags-record {
     right: -14px;
     padding: 0 14px;
