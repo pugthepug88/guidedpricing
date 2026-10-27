@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowRight, Check, ChevronDown, Mic, MonitorUp, Video } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  Mail,
+  MessageSquare,
+  Mic,
+  MonitorUp,
+  Video,
+} from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/calendars-bookings.css";
@@ -133,8 +142,12 @@ function BookingScene({
           </div>
         </div>
         <div className="cal-customer-details">
-          <span>Then, the customer adds their details</span>
+          <span>From Emma’s booking form</span>
           <strong>Emma Wilson</strong>
+          <div className="cal-booking-answer">
+            <span>What would you like to discuss?</span>
+            <p>Kitchen renovation · Benchtop materials</p>
+          </div>
         </div>
       </div>
       <div
@@ -151,14 +164,6 @@ function BookingScene({
           <p className="cal-confirmed-date">
             {selectedTime ? `${label} · ${selectedTime}` : `${label} · Time not selected`}
           </p>
-          <div className="cal-reminder">
-            <span>Appointment reminder</span>
-            <p>
-              {selectedTime
-                ? `Hi Emma, a reminder of your project consultation on ${label} at ${selectedTime}, Sydney time. We look forward to seeing you.`
-                : "Choose a time to see the booking details and reminder."}
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -248,8 +253,8 @@ function CalendarOpening({
             their details and see their booking confirmed on screen.
           </p>
           <p>
-            Send an email or SMS reminder as the appointment approaches. The same visit, kept in
-            mind.
+            Ask for useful details in your booking form. For returning customers, your team can also
+            review their existing CRM history.
           </p>
         </div>
       </div>
@@ -482,10 +487,162 @@ function MeetingRoomScene() {
   );
 }
 
-function BusinessDay() {
+/** A short, once-only emphasis sequence. The complete story is the SSR default;
+ * hidden/offscreen time never advances playback, and small/reduced-motion
+ * layouts retain that complete view. It never calls a booking or messaging API. */
+function BookingAutomations({ day, time }: { day: number; time: string | null }) {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const [phase, setPhase] = useState(3);
+  const [enhanced, setEnhanced] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(
+      "(min-width: 900px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)",
+    );
+    const scene = sceneRef.current;
+    if (!scene || !time) return;
+    let frame = 0;
+    let elapsed = 0;
+    let previous = 0;
+    let visible = false;
+    let complete = false;
+    const stop = () => {
+      window.cancelAnimationFrame(frame);
+      frame = 0;
+      previous = 0;
+    };
+    const tick = (now: number) => {
+      if (previous) elapsed += now - previous;
+      previous = now;
+      setPhase(elapsed < 900 ? 0 : elapsed < 2500 ? 1 : elapsed < 4200 ? 2 : 3);
+      if (elapsed < 4200) frame = window.requestAnimationFrame(tick);
+      else {
+        complete = true;
+        stop();
+      }
+    };
+    const sync = () => {
+      stop();
+      if (!media.matches) {
+        setEnhanced(false);
+        setPhase(3);
+        return;
+      }
+      setEnhanced(true);
+      setPhase(complete ? 3 : elapsed < 900 ? 0 : elapsed < 2500 ? 1 : 2);
+      if (visible && !document.hidden && !complete) frame = window.requestAnimationFrame(tick);
+    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting && entry.intersectionRatio >= 0.65;
+        sync();
+      },
+      { threshold: [0, 0.65] },
+    );
+    sync();
+    observer.observe(scene);
+    media.addEventListener("change", sync);
+    document.addEventListener("visibilitychange", sync);
+    return () => {
+      stop();
+      observer.disconnect();
+      media.removeEventListener("change", sync);
+      document.removeEventListener("visibilitychange", sync);
+    };
+  }, [time]);
+
+  return (
+    <div className="cal-automation" id="booking-automations" aria-labelledby="cal-automation-title">
+      <div className="cal-automation-copy">
+        <h2 id="cal-automation-title">
+          Confirm bookings.
+          <br />
+          Send reminders.
+        </h2>
+        <p>
+          Connect bookings to your automations. Send a confirmation email, then an SMS reminder
+          before the appointment, with the messages and timing you choose.
+        </p>
+        <a className="cal-text-link" href="/features/automation-builder">
+          Explore Automation Builder <ArrowRight size={17} aria-hidden="true" />
+        </a>
+      </div>
+      <div
+        className="cal-message-sequence"
+        ref={sceneRef}
+        data-phase={phase}
+        data-enhanced={enhanced}
+        aria-label={
+          time
+            ? "Emma’s booking triggers a confirmation email, followed by an SMS one day before"
+            : "Choose a time to see the booking automation"
+        }
+      >
+        {time ? (
+          <>
+            <div className="cal-message-booking">
+              <Avatar cell={9} />
+              <div>
+                <strong>Emma Wilson</strong>
+                <p>
+                  Project consultation · {dateLabel(day)} · {time}
+                </p>
+              </div>
+            </div>
+            <ol className="cal-message-timing" aria-label="Configured booking automation">
+              <li>Booking confirmed</li>
+              <li>Confirmation email</li>
+              <li>Reminder SMS</li>
+            </ol>
+            <div className="cal-message-delivery">
+              <article className="cal-message-email">
+                <h3>
+                  <Mail size={16} aria-hidden="true" />
+                  When booked · Email
+                </h3>
+                <div className="cal-message-body">
+                  <strong>Your consultation is booked.</strong>
+                  <p>Hi Emma, your project consultation with Alex is confirmed.</p>
+                  <p className="cal-message-appointment">
+                    {dateLabel(day)}
+                    <br />
+                    {time} · Sydney time
+                  </p>
+                  <p>Need another time? Contact our team to rearrange.</p>
+                </div>
+              </article>
+              <article className="cal-message-sms">
+                <h3>
+                  <MessageSquare size={16} aria-hidden="true" />1 day before · SMS
+                </h3>
+                <div className="cal-message-body">
+                  <div className="cal-message-sender">
+                    <Avatar />
+                    <span>Alex Chen</span>
+                  </div>
+                  <p className="cal-message-bubble">
+                    Hi Emma, a reminder of your project consultation tomorrow at {time}, Sydney
+                    time. See you then.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </>
+        ) : (
+          <p className="cal-message-pending">
+            <a href="#booking-example">Choose a booking time</a> to see Emma’s confirmation and
+            reminder.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function BusinessDay({ day, time }: { day: number; time: string | null }) {
   return (
     <section className="cal-business" id="meeting-rooms" aria-labelledby="cal-business-title">
       <div className="cal-wrap">
+        <BookingAutomations day={day} time={time} key={`${day}-${time}`} />
         <div className="cal-business-meet">
           <MeetingRoomScene />
           <div className="cal-meeting-rooms">
@@ -527,16 +684,16 @@ const faqs = [
     "Yes. Set working days, hours and a time zone, including split time ranges. Give each booking type its own duration and minimum notice. If you offer several services, customers choose one before selecting a date and time.",
   ],
   [
-    "Can the booking page look like my business?",
-    "Yes. Adjust the booking page’s fonts, colours and date styling. Share its link or embed it on your website. You can also link a custom booking form to ask for the details you need before the appointment.",
+    "Can I collect details before the appointment?",
+    "Yes. Link a custom booking form to ask the questions your team needs, and map relevant answers to contact fields. Existing contact profiles also bring together messages, notes, forms and bookings. You can adjust the booking page’s fonts and colours, share its link or embed it on your website.",
   ],
   [
     "Can customers book from another time zone?",
     "Yes. The booking page detects the visitor’s time zone and lets them change it, so they can choose a time in their own time zone.",
   ],
   [
-    "Can it send appointment reminders?",
-    "Yes. Appointment reminders can be sent by email or SMS. We agree the reminders you need during setup. Message usage is charged separately.",
+    "Can bookings trigger confirmations and reminders?",
+    "Yes. Connect a booking event to an automation that sends a confirmation email and reminders before the appointment. Choose the calendar, booking status, messages and timing during setup. Message usage is charged separately.",
   ],
   [
     "How do changes and cancellations work?",
@@ -566,7 +723,7 @@ export function CalendarsBookingsPage() {
         onTimeChange={setSelectedTime}
       />
       <BookingFormats />
-      <BusinessDay />
+      <BusinessDay day={selectedDay} time={selectedTime} />
       <section className="cal-start" aria-labelledby="cal-start-title">
         <div className="cal-wrap cal-start-grid">
           <div className="cal-launch">
@@ -577,8 +734,8 @@ export function CalendarsBookingsPage() {
               you book.
             </h2>
             <p>
-              We work through your services, team calendars and booking form, then walk the customer
-              journey with you before launch.
+              We work through your services, team calendars, booking form and message automations,
+              then test the customer journey, including changes and cancellations, before launch.
             </p>
             <p>
               Guided Launch is the separately priced initial setup. We agree the scope around your
