@@ -2,6 +2,10 @@
 
 Date: 27 October 2026. Scope: human calling. This is documentary and public-client verification, not a completed live telephony acceptance test or a promise of inclusion in every plan.
 
+## Current correction: show the work after the call
+
+The owner rejected the configuration-table demonstration as hard to understand. It is superseded by a completed Mia call and three configurable business choices: Add to pipeline, Start follow-up and Book a visit. The new full action-selector screenshot confirms pipeline/automation/URL types; the deployed phone handler was re-read to preserve manual pipeline saving, explicit workflow triggering and URL opening. No automatic post-call result is depicted. The navigation audit also confirmed the header link and found/fixed the missing global footer link. Exact sources, current design, independent reviews and rendered-verification limits are in BUSINESS-PHONE-AFTER-CALL-20261027.md. Earlier sections describe superseded versions where they conflict.
+
 ## Latest correction: samples are not a fixed quick-action set
 
 The owner clarifies that the configured samples were random and asks for the customisable nature to be explained in the Phone quick actions chapter without adding sample shortcuts to the main calling/dialler scenes. The later website screenshot also rejects the isolated, unlabelled microphone and handset glyphs. These glyphs and both sample shortcut footers are removed. A single chosen name/action/icon/colour configuration now leads to a labelled Open enquiry form shortcut in the supporting chapter. Forms, configured workflows and tags are documented action categories; unrestricted “anything” behaviour is not claimed. This supersedes earlier evidence notes that describe repeated Hot lead/Follow-up buttons. Current review and verification limits are at the top of BUSINESS-PHONE-QUICK-ACTIONS-COLOUR-20261027.md.

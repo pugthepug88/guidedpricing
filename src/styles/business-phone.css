@@ -321,9 +321,6 @@
 .zapla-phone .bp-context-copy > p:not(.bp-eyebrow) {
   margin-top: 23px;
 }
-.zapla-phone .bp-context-copy .bp-text-link {
-  margin-top: 18px;
-}
 .zapla-phone .bp-incoming-section {
   padding-block: 10px 95px;
 }
@@ -374,74 +371,82 @@
   padding-left: 16px;
   border-left: 1px solid var(--bp-line);
 }
-.zapla-phone .bp-shortcut-settings {
+.zapla-phone .bp-quick-layout {
+  display: block;
+}
+.zapla-phone .bp-quick-layout .bp-context-copy {
+  max-width: 780px;
+  margin-bottom: 32px;
+}
+.zapla-phone .bp-after-call {
   overflow: hidden;
   border: 1px solid var(--bp-line);
-  border-radius: 18px;
+  border-radius: 20px;
   background: #fff;
 }
-.zapla-phone .bp-shortcut-settings .bp-product-header {
-  padding-inline: 24px;
-}
-.zapla-phone .bp-shortcut-fields {
-  margin: 0;
-  padding: 6px 24px;
-}
-.zapla-phone .bp-shortcut-fields > div {
-  display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
-  align-items: baseline;
-  gap: 16px;
-  padding-block: 17px;
-}
-.zapla-phone .bp-shortcut-fields > div + div {
-  border-top: 1px solid var(--bp-line);
-}
-.zapla-phone .bp-shortcut-fields dt {
-  color: var(--bp-muted);
-  font-size: 12px;
-  line-height: 1.6;
-}
-.zapla-phone .bp-shortcut-fields dd {
-  margin: 0;
-  color: #262d3b;
-  font-size: 14px;
-  line-height: 1.6;
-  font-weight: 550;
-}
-.zapla-phone .bp-shortcut-appearance {
+.zapla-phone .bp-after-person {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 15px;
+  padding: 28px;
 }
-.zapla-phone .bp-shortcut-appearance svg {
-  color: #2563ff;
-  flex-shrink: 0;
+.zapla-phone .bp-after-person .bp-portrait {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
 }
-.zapla-phone .bp-shortcut-footer {
-  padding: 20px 24px 24px;
-  background: #f4f5f8;
-  border-top: 1px solid var(--bp-line);
+.zapla-phone .bp-after-person h3 {
+  font-size: 24px;
 }
-.zapla-phone .bp-shortcut-footer > p {
+.zapla-phone .bp-after-person > div p {
   font-size: 12px;
-  line-height: 1.6;
-  margin-bottom: 12px;
+  margin-top: 5px;
 }
-.zapla-phone .bp-shortcut-result {
+.zapla-phone .bp-after-person .bp-after-note {
+  margin-left: auto;
+  font-size: 14px;
+}
+.zapla-phone .bp-after-action-area {
+  padding: 22px 28px 27px;
+  border-top: 1px solid var(--bp-line);
+  background: #f4f5f8;
+}
+.zapla-phone .bp-after-action-area > p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #454d5d;
+  margin-bottom: 16px;
+}
+.zapla-phone .bp-after-action-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.zapla-phone .bp-after-action {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 16px;
+  min-height: 54px;
+  padding: 14px 16px;
+  border: 1px solid #cbd3e0;
   border-radius: 11px;
-  background: #2563ff;
-  color: #fff;
+  background: #fff;
+  color: #252e3e;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.55;
 }
-.zapla-phone .bp-shortcut-result svg {
+.zapla-phone .bp-after-action svg {
   flex-shrink: 0;
+  color: #2563ff;
+}
+.zapla-phone .bp-after-action-list li > p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 9px;
 }
 .zapla-phone .bp-market-list {
   display: grid;
@@ -1090,17 +1095,8 @@
   line-height: 1.65;
   margin-top: 7px;
 }
-.zapla-phone .bp-quick-layout {
-  display: grid;
-  grid-template-columns: 1fr 0.8fr;
-  gap: 110px;
-  align-items: center;
-}
 .zapla-phone .bp-context-copy {
   max-width: 530px;
-}
-.zapla-phone .bp-action-proof .bp-text-link {
-  margin-top: 18px;
 }
 @media (max-width: 1100px) {
   .zapla-phone .bp-photo-call {
@@ -1112,9 +1108,6 @@
   .zapla-phone .bp-browser-call {
     margin: 55px 28px;
     width: 292px;
-  }
-  .zapla-phone .bp-quick-layout {
-    gap: 55px;
   }
 }
 @media (max-width: 960px) {
@@ -1169,10 +1162,6 @@
     height: 360px;
     object-position: 65% center;
   }
-  .zapla-phone .bp-quick-layout {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
 }
 @media (max-width: 480px) {
   .zapla-phone h1 {
@@ -1202,9 +1191,20 @@
   }
 }
 
-@media (max-width: 480px) {
-  .zapla-phone .bp-shortcut-fields > div {
-    grid-template-columns: 76px minmax(0, 1fr);
-    gap: 12px;
+@media (max-width: 760px) {
+  .zapla-phone .bp-after-person {
+    flex-wrap: wrap;
+    padding: 23px;
+  }
+  .zapla-phone .bp-after-person .bp-after-note {
+    width: 100%;
+    margin: 4px 0 0;
+  }
+  .zapla-phone .bp-after-action-area {
+    padding: 21px 23px 25px;
+  }
+  .zapla-phone .bp-after-action-list {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 }

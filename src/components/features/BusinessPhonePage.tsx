@@ -1,4 +1,13 @@
-import { ArrowRight, ArrowUpRight, Check, FileText, Mic, Plus } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CalendarDays,
+  Check,
+  Columns3,
+  Mic,
+  Plus,
+  Zap,
+} from "lucide-react";
 import { ZaplaPetal } from "@/components/ZaplaPetal";
 import "@/styles/feature-foundations.css";
 import "@/styles/business-phone.css";
@@ -41,40 +50,53 @@ function BookCall() {
   );
 }
 
-// One prepared configuration, not a fixed list of Zapla's available shortcuts.
-// These values are explanatory text, not editable controls or a live form action.
-function CustomShortcut() {
+// Prepared after-call choices. A person selects a configured action; the call
+// ending does not trigger these. No live lead, workflow or booking is created.
+function AfterCallActions() {
   return (
-    <div className="bp-shortcut-settings" aria-label="Customising a phone shortcut">
+    <article
+      className="bp-after-call"
+      aria-label="Mia’s completed call and your team’s custom quick actions"
+    >
       <header className="bp-product-header">
         <Wordmark />
-        <span>Phone quick actions</span>
+        <span>Business Phone</span>
       </header>
-      <dl className="bp-shortcut-fields">
+      <div className="bp-after-person">
+        <Portrait />
         <div>
-          <dt>Button name</dt>
-          <dd>Open enquiry form</dd>
+          <h3>Mia Thompson</h3>
+          <p>Call completed</p>
         </div>
-        <div>
-          <dt>Action</dt>
-          <dd>Open form</dd>
-        </div>
-        <div>
-          <dt>Icon &amp; colours</dt>
-          <dd className="bp-shortcut-appearance">
-            <FileText size={18} aria-hidden="true" />
-            <span>Document · Blue &amp; white</span>
-          </dd>
-        </div>
-      </dl>
-      <div className="bp-shortcut-footer">
-        <p>At the bottom of the dialler</p>
-        <div className="bp-shortcut-result">
-          <FileText size={19} aria-hidden="true" />
-          <span>Open enquiry form</span>
-        </div>
+        <p className="bp-after-note">Asked for warm-white pendant options.</p>
       </div>
-    </div>
+      <div className="bp-after-action-area">
+        <p>Your custom shortcuts. Choose what happens next.</p>
+        <ul className="bp-after-action-list">
+          <li>
+            <div className="bp-after-action">
+              <Columns3 size={20} aria-hidden="true" />
+              <span>Add to pipeline</span>
+            </div>
+            <p>Review and save the lead.</p>
+          </li>
+          <li>
+            <div className="bp-after-action">
+              <Zap size={20} aria-hidden="true" />
+              <span>Start follow-up</span>
+            </div>
+            <p>Run your chosen workflow.</p>
+          </li>
+          <li>
+            <div className="bp-after-action">
+              <CalendarDays size={20} aria-hidden="true" />
+              <span>Book a visit</span>
+            </div>
+            <p>Open your booking page.</p>
+          </li>
+        </ul>
+      </div>
+    </article>
   );
 }
 
@@ -323,18 +345,13 @@ export function BusinessPhonePage() {
         <div className="bp-wrap bp-quick-layout">
           <div className="bp-context-copy">
             <p className="bp-eyebrow">Phone quick actions</p>
-            <h2 id="bp-context-title">Make the buttons your own.</h2>
+            <h2 id="bp-context-title">Keep the next step on your dialler.</h2>
             <p>
-              Choose each shortcut’s name, icon, colours and action. Open forms, run configured
-              workflows or manage tags from your browser phone or Power Dialler.
+              Choose your own shortcuts for pipeline leads, configured follow-up workflows and
+              booking pages.
             </p>
           </div>
-          <div className="bp-action-proof">
-            <CustomShortcut />
-            <a className="bp-text-link" href="/crm">
-              Explore the customer record
-            </a>
-          </div>
+          <AfterCallActions />
         </div>
       </section>
 
