@@ -251,3 +251,8 @@ The owner found the open, enlarged conversation quotations wordy and visually we
 ## Ticketing hierarchy and selective detail, 27 October 2026
 
 The owner rejected the oversized populated board and specialist coffee-machine fault in the hero. More substance must not default to more interface. For Ticketing, use a compact queue in the opening, one connected customer issue and concise process breadth. Photography supports that lower issue rather than defining the whole feature. Remove redundant app chapters instead of merely shrinking them, and retain readable type when reducing surface size. Basic setup fields and tags belong in supporting detail unless they answer a distinct, commercially useful buyer question.
+
+
+## Ticketing complete visual rejection, 27 October 2026
+
+The owner rejected the entire compact-board composition, including its visual quality. The prior Ticketing hierarchy rule is historical rather than approval of that appearance. Rebuild the visual system and scene roles, not just spacing or card scale. For this revision use one focused request/list, fresh wide staff photography with compact linked context, and a distinct lower custom-stage/detail composition. Keep real product meaning, legible supporting labels and the original shared brand; a successful build is not evidence of visual acceptance.
